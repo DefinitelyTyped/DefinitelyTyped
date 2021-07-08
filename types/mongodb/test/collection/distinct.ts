@@ -9,6 +9,7 @@ async function run() {
         array: string[];
         readonlyArray: ReadonlyArray<string>;
         test: string;
+        optional?: string | undefined;
     }
 
     const client = await connect(connectionString);
@@ -45,4 +46,8 @@ async function run() {
     collection.distinct('readonlyArray'); // $ExpectType Promise<string[]>
     collection.distinct('readonlyArray', { foo: 1 }); // $ExpectType Promise<string[]>
     collection.distinct('readonlyArray', { foo: 1 }, { maxTimeMS: 400 }); // $ExpectType Promise<string[]>
+
+    collection.distinct('optional'); // $ExpectType Promise<string[]>
+    collection.distinct('optional', { foo: 1 }); // $ExpectType Promise<string[]>
+    collection.distinct('optional', { foo: 1 }, { maxTimeMS: 400 }); // $ExpectType Promise<string[]>
 }

@@ -41,103 +41,103 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Activities {
-        etag?: string;
-        items?: AdminReports.Schema.Activity[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: AdminReports.Schema.Activity[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
       interface Activity {
-        actor?: AdminReports.Schema.ActivityActor;
-        etag?: string;
-        events?: AdminReports.Schema.ActivityEvents[];
-        id?: AdminReports.Schema.ActivityId;
-        ipAddress?: string;
-        kind?: string;
-        ownerDomain?: string;
+        actor?: AdminReports.Schema.ActivityActor | undefined;
+        etag?: string | undefined;
+        events?: AdminReports.Schema.ActivityEvents[] | undefined;
+        id?: AdminReports.Schema.ActivityId | undefined;
+        ipAddress?: string | undefined;
+        kind?: string | undefined;
+        ownerDomain?: string | undefined;
       }
       interface ActivityActor {
-        callerType?: string;
-        email?: string;
-        key?: string;
-        profileId?: string;
+        callerType?: string | undefined;
+        email?: string | undefined;
+        key?: string | undefined;
+        profileId?: string | undefined;
       }
       interface ActivityEvents {
-        name?: string;
-        parameters?: AdminReports.Schema.ActivityEventsParameters[];
-        type?: string;
+        name?: string | undefined;
+        parameters?: AdminReports.Schema.ActivityEventsParameters[] | undefined;
+        type?: string | undefined;
       }
       interface ActivityEventsParameters {
-        boolValue?: boolean;
-        intValue?: string;
-        multiIntValue?: string[];
-        multiValue?: string[];
-        name?: string;
-        value?: string;
+        boolValue?: boolean | undefined;
+        intValue?: string | undefined;
+        multiIntValue?: string[] | undefined;
+        multiValue?: string[] | undefined;
+        name?: string | undefined;
+        value?: string | undefined;
       }
       interface ActivityId {
-        applicationName?: string;
-        customerId?: string;
-        time?: string;
-        uniqueQualifier?: string;
+        applicationName?: string | undefined;
+        customerId?: string | undefined;
+        time?: string | undefined;
+        uniqueQualifier?: string | undefined;
       }
       interface Channel {
-        address?: string;
-        expiration?: string;
-        id?: string;
-        kind?: string;
-        params?: object;
-        payload?: boolean;
-        resourceId?: string;
-        resourceUri?: string;
-        token?: string;
-        type?: string;
+        address?: string | undefined;
+        expiration?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        params?: object | undefined;
+        payload?: boolean | undefined;
+        resourceId?: string | undefined;
+        resourceUri?: string | undefined;
+        token?: string | undefined;
+        type?: string | undefined;
       }
       interface UsageReport {
-        date?: string;
-        entity?: AdminReports.Schema.UsageReportEntity;
-        etag?: string;
-        kind?: string;
-        parameters?: AdminReports.Schema.UsageReportParameters[];
+        date?: string | undefined;
+        entity?: AdminReports.Schema.UsageReportEntity | undefined;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        parameters?: AdminReports.Schema.UsageReportParameters[] | undefined;
       }
       interface UsageReportEntity {
-        customerId?: string;
-        entityId?: string;
-        profileId?: string;
-        type?: string;
-        userEmail?: string;
+        customerId?: string | undefined;
+        entityId?: string | undefined;
+        profileId?: string | undefined;
+        type?: string | undefined;
+        userEmail?: string | undefined;
       }
       interface UsageReportParameters {
-        boolValue?: boolean;
-        datetimeValue?: string;
-        intValue?: string;
-        msgValue?: object[];
-        name?: string;
-        stringValue?: string;
+        boolValue?: boolean | undefined;
+        datetimeValue?: string | undefined;
+        intValue?: string | undefined;
+        msgValue?: object[] | undefined;
+        name?: string | undefined;
+        stringValue?: string | undefined;
       }
       interface UsageReports {
-        etag?: string;
-        kind?: string;
-        nextPageToken?: string;
-        usageReports?: AdminReports.Schema.UsageReport[];
-        warnings?: AdminReports.Schema.UsageReportsWarnings[];
+        etag?: string | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        usageReports?: AdminReports.Schema.UsageReport[] | undefined;
+        warnings?: AdminReports.Schema.UsageReportsWarnings[] | undefined;
       }
       interface UsageReportsWarnings {
-        code?: string;
-        data?: AdminReports.Schema.UsageReportsWarningsData[];
-        message?: string;
+        code?: string | undefined;
+        data?: AdminReports.Schema.UsageReportsWarningsData[] | undefined;
+        message?: string | undefined;
       }
       interface UsageReportsWarningsData {
-        key?: string;
-        value?: string;
+        key?: string | undefined;
+        value?: string | undefined;
       }
     }
   }
   interface AdminReports {
-    Activities?: AdminReports.Collection.ActivitiesCollection;
-    Channels?: AdminReports.Collection.ChannelsCollection;
-    CustomerUsageReports?: AdminReports.Collection.CustomerUsageReportsCollection;
-    EntityUsageReports?: AdminReports.Collection.EntityUsageReportsCollection;
-    UserUsageReport?: AdminReports.Collection.UserUsageReportCollection;
+    Activities?: AdminReports.Collection.ActivitiesCollection | undefined;
+    Channels?: AdminReports.Collection.ChannelsCollection | undefined;
+    CustomerUsageReports?: AdminReports.Collection.CustomerUsageReportsCollection | undefined;
+    EntityUsageReports?: AdminReports.Collection.EntityUsageReportsCollection | undefined;
+    UserUsageReport?: AdminReports.Collection.UserUsageReportCollection | undefined;
     // Create a new instance of Channel
     newChannel(): AdminReports.Schema.Channel;
   }

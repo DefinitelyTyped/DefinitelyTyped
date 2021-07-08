@@ -6,10 +6,10 @@
 declare namespace angular.kookies {
 
     type Options = {
-        expires?: number|Date,
-        path?: string,
-        domain?: string,
-        secure?: boolean
+        expires?: number|Date | undefined,
+        path?: string | undefined,
+        domain?: string | undefined,
+        secure?: boolean | undefined
         };
 
     interface IKookiesService {
@@ -22,7 +22,7 @@ declare namespace angular.kookies {
         remove(name: string, options?: Options): boolean;
     }
 
-    type Config = { raw?: boolean, json?: boolean }
+    type Config = { raw?: boolean | undefined, json?: boolean | undefined }
 
     interface IKookiesProvider {
 

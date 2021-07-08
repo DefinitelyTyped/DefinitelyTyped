@@ -8,8 +8,8 @@ import * as passport from 'passport';
 import * as express from 'express';
 
 export interface Profile extends passport.Profile {
-    gender?: string;
-    profileUrl?: string;
+    gender?: string | undefined;
+    profileUrl?: string | undefined;
 
     _raw: string;
     _json: any;
@@ -20,17 +20,17 @@ export interface StrategyOptions {
     clientSecret: string;
     callbackURL: string;
 
-    profileFields?: string[];
-    apiVersion?: string;
+    profileFields?: string[] | undefined;
+    apiVersion?: string | undefined;
 
-    lang?: string;
+    lang?: string | undefined;
 }
 
 export type VerifyCallback = (error: any, user?: any, info?: any) => void;
 
 export interface Params {
     accessToken: string;
-    email?: string;
+    email?: string | undefined;
     expires_in: number;
     user_id: number;
 }

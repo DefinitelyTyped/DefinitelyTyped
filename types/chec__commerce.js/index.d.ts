@@ -1,6 +1,7 @@
-// Type definitions for @chec/commerce.js 2.6
+// Type definitions for @chec/commerce.js 2.7
 // Project: https://github.com/chec/commerce.js#readme
 // Definitions by: Robbie Averill <https://github.com/robbieaverill>
+//                 Guy Marriott <https://github.com/ScopeyNZ>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -31,8 +32,9 @@ declare class Commerce {
 
 declare namespace Commerce {
     interface CommerceConfig {
-        disableStorage?: boolean;
-        timeoutMs?: number;
+        disableStorage?: boolean | undefined;
+        cartLifetime?: number | undefined;
+        timeoutMs?: number | undefined;
         axiosConfig?: any;
     }
 }

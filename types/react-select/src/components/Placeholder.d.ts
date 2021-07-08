@@ -8,7 +8,7 @@ export interface PlaceholderProps<
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > extends CommonProps<OptionType, IsMulti, GroupType> {
-    className?: string;
+    className?: string | undefined;
     /** The children to be rendered. */
     children: ReactNode;
     isDisabled: boolean;

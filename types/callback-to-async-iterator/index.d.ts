@@ -6,9 +6,9 @@
 // Minimum TypeScript Version: 3.6
 
 export interface AsyncifyOptions<T, R> {
-    onClose?: (arg: R) => void | T;
-    onError?: () => Error;
-    buffering?: boolean;
+    onClose?: ((arg: R) => void | T) | undefined;
+    onError?: (() => Error) | undefined;
+    buffering?: boolean | undefined;
 }
 
 export default function callbackToAsyncIterator<T, R = void>(

@@ -68,11 +68,11 @@ declare module 'inspector' {
             /**
              * Object subtype hint. Specified for <code>object</code> type values only.
              */
-            subtype?: string;
+            subtype?: string | undefined;
             /**
              * Object class (constructor) name. Specified for <code>object</code> type values only.
              */
-            className?: string;
+            className?: string | undefined;
             /**
              * Remote object value in case of primitive values or JSON values (if it was requested).
              */
@@ -80,24 +80,24 @@ declare module 'inspector' {
             /**
              * Primitive value which can not be JSON-stringified does not have <code>value</code>, but gets this property.
              */
-            unserializableValue?: UnserializableValue;
+            unserializableValue?: UnserializableValue | undefined;
             /**
              * String representation of the object.
              */
-            description?: string;
+            description?: string | undefined;
             /**
              * Unique object identifier (for non-primitive values).
              */
-            objectId?: RemoteObjectId;
+            objectId?: RemoteObjectId | undefined;
             /**
              * Preview containing abbreviated property values. Specified for <code>object</code> type values only.
              * @experimental
              */
-            preview?: ObjectPreview;
+            preview?: ObjectPreview | undefined;
             /**
              * @experimental
              */
-            customPreview?: CustomPreview;
+            customPreview?: CustomPreview | undefined;
         }
 
         /**
@@ -108,7 +108,7 @@ declare module 'inspector' {
             hasBody: boolean;
             formatterObjectId: RemoteObjectId;
             bindRemoteObjectFunctionId: RemoteObjectId;
-            configObjectId?: RemoteObjectId;
+            configObjectId?: RemoteObjectId | undefined;
         }
 
         /**
@@ -123,11 +123,11 @@ declare module 'inspector' {
             /**
              * Object subtype hint. Specified for <code>object</code> type values only.
              */
-            subtype?: string;
+            subtype?: string | undefined;
             /**
              * String representation of the object.
              */
-            description?: string;
+            description?: string | undefined;
             /**
              * True iff some of the properties or entries of the original object did not fit.
              */
@@ -139,7 +139,7 @@ declare module 'inspector' {
             /**
              * List of the entries. Specified for <code>map</code> and <code>set</code> subtype values only.
              */
-            entries?: EntryPreview[];
+            entries?: EntryPreview[] | undefined;
         }
 
         /**
@@ -157,15 +157,15 @@ declare module 'inspector' {
             /**
              * User-friendly property value string.
              */
-            value?: string;
+            value?: string | undefined;
             /**
              * Nested value preview.
              */
-            valuePreview?: ObjectPreview;
+            valuePreview?: ObjectPreview | undefined;
             /**
              * Object subtype hint. Specified for <code>object</code> type values only.
              */
-            subtype?: string;
+            subtype?: string | undefined;
         }
 
         /**
@@ -175,7 +175,7 @@ declare module 'inspector' {
             /**
              * Preview of the key. Specified for map-like collection entries.
              */
-            key?: ObjectPreview;
+            key?: ObjectPreview | undefined;
             /**
              * Preview of the value.
              */
@@ -193,19 +193,19 @@ declare module 'inspector' {
             /**
              * The value associated with the property.
              */
-            value?: RemoteObject;
+            value?: RemoteObject | undefined;
             /**
              * True if the value associated with the property may be changed (data descriptors only).
              */
-            writable?: boolean;
+            writable?: boolean | undefined;
             /**
              * A function which serves as a getter for the property, or <code>undefined</code> if there is no getter (accessor descriptors only).
              */
-            get?: RemoteObject;
+            get?: RemoteObject | undefined;
             /**
              * A function which serves as a setter for the property, or <code>undefined</code> if there is no setter (accessor descriptors only).
              */
-            set?: RemoteObject;
+            set?: RemoteObject | undefined;
             /**
              * True if the type of this property descriptor may be changed and if the property may be deleted from the corresponding object.
              */
@@ -217,15 +217,15 @@ declare module 'inspector' {
             /**
              * True if the result was thrown during the evaluation.
              */
-            wasThrown?: boolean;
+            wasThrown?: boolean | undefined;
             /**
              * True if the property is owned for the object.
              */
-            isOwn?: boolean;
+            isOwn?: boolean | undefined;
             /**
              * Property symbol object, if the property is of the <code>symbol</code> type.
              */
-            symbol?: RemoteObject;
+            symbol?: RemoteObject | undefined;
         }
 
         /**
@@ -239,7 +239,7 @@ declare module 'inspector' {
             /**
              * The value associated with the property.
              */
-            value?: RemoteObject;
+            value?: RemoteObject | undefined;
         }
 
         /**
@@ -253,11 +253,11 @@ declare module 'inspector' {
             /**
              * Primitive value which can not be JSON-stringified.
              */
-            unserializableValue?: UnserializableValue;
+            unserializableValue?: UnserializableValue | undefined;
             /**
              * Remote object handle.
              */
-            objectId?: RemoteObjectId;
+            objectId?: RemoteObjectId | undefined;
         }
 
         /**
@@ -284,7 +284,7 @@ declare module 'inspector' {
             /**
              * Embedder-specific auxiliary data.
              */
-            auxData?: {};
+            auxData?: {} | undefined;
         }
 
         /**
@@ -310,23 +310,23 @@ declare module 'inspector' {
             /**
              * Script ID of the exception location.
              */
-            scriptId?: ScriptId;
+            scriptId?: ScriptId | undefined;
             /**
              * URL of the exception location, to be used when the script was not reported.
              */
-            url?: string;
+            url?: string | undefined;
             /**
              * JavaScript stack trace if available.
              */
-            stackTrace?: StackTrace;
+            stackTrace?: StackTrace | undefined;
             /**
              * Exception object if available.
              */
-            exception?: RemoteObject;
+            exception?: RemoteObject | undefined;
             /**
              * Identifier of the context where exception happened.
              */
-            executionContextId?: ExecutionContextId;
+            executionContextId?: ExecutionContextId | undefined;
         }
 
         /**
@@ -367,7 +367,7 @@ declare module 'inspector' {
             /**
              * String label of this stack trace. For async traces this may be a name of the function that initiated the async call.
              */
-            description?: string;
+            description?: string | undefined;
             /**
              * JavaScript function name.
              */
@@ -375,12 +375,12 @@ declare module 'inspector' {
             /**
              * Asynchronous JavaScript stack trace that preceded this stack, if available.
              */
-            parent?: StackTrace;
+            parent?: StackTrace | undefined;
             /**
              * Asynchronous JavaScript stack trace that preceded this stack, if available.
              * @experimental
              */
-            parentId?: StackTraceId;
+            parentId?: StackTraceId | undefined;
         }
 
         /**
@@ -395,7 +395,7 @@ declare module 'inspector' {
          */
         interface StackTraceId {
             id: string;
-            debuggerId?: UniqueDebuggerId;
+            debuggerId?: UniqueDebuggerId | undefined;
         }
 
         interface EvaluateParameterType {
@@ -406,36 +406,36 @@ declare module 'inspector' {
             /**
              * Symbolic group name that can be used to release multiple objects.
              */
-            objectGroup?: string;
+            objectGroup?: string | undefined;
             /**
              * Determines whether Command Line API should be available during the evaluation.
              */
-            includeCommandLineAPI?: boolean;
+            includeCommandLineAPI?: boolean | undefined;
             /**
              * In silent mode exceptions thrown during evaluation are not reported and do not pause execution. Overrides <code>setPauseOnException</code> state.
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
             /**
              * Specifies in which execution context to perform evaluation. If the parameter is omitted the evaluation will be performed in the context of the inspected page.
              */
-            contextId?: ExecutionContextId;
+            contextId?: ExecutionContextId | undefined;
             /**
              * Whether the result is expected to be a JSON object that should be sent by value.
              */
-            returnByValue?: boolean;
+            returnByValue?: boolean | undefined;
             /**
              * Whether preview should be generated for the result.
              * @experimental
              */
-            generatePreview?: boolean;
+            generatePreview?: boolean | undefined;
             /**
              * Whether execution should be treated as initiated by user in the UI.
              */
-            userGesture?: boolean;
+            userGesture?: boolean | undefined;
             /**
              * Whether execution should <code>await</code> for resulting value and return once awaited promise is resolved.
              */
-            awaitPromise?: boolean;
+            awaitPromise?: boolean | undefined;
         }
 
         interface AwaitPromiseParameterType {
@@ -446,11 +446,11 @@ declare module 'inspector' {
             /**
              * Whether the result is expected to be a JSON object that should be sent by value.
              */
-            returnByValue?: boolean;
+            returnByValue?: boolean | undefined;
             /**
              * Whether preview should be generated for the result.
              */
-            generatePreview?: boolean;
+            generatePreview?: boolean | undefined;
         }
 
         interface CallFunctionOnParameterType {
@@ -461,40 +461,40 @@ declare module 'inspector' {
             /**
              * Identifier of the object to call function on. Either objectId or executionContextId should be specified.
              */
-            objectId?: RemoteObjectId;
+            objectId?: RemoteObjectId | undefined;
             /**
              * Call arguments. All call arguments must belong to the same JavaScript world as the target object.
              */
-            arguments?: CallArgument[];
+            arguments?: CallArgument[] | undefined;
             /**
              * In silent mode exceptions thrown during evaluation are not reported and do not pause execution. Overrides <code>setPauseOnException</code> state.
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
             /**
              * Whether the result is expected to be a JSON object which should be sent by value.
              */
-            returnByValue?: boolean;
+            returnByValue?: boolean | undefined;
             /**
              * Whether preview should be generated for the result.
              * @experimental
              */
-            generatePreview?: boolean;
+            generatePreview?: boolean | undefined;
             /**
              * Whether execution should be treated as initiated by user in the UI.
              */
-            userGesture?: boolean;
+            userGesture?: boolean | undefined;
             /**
              * Whether execution should <code>await</code> for resulting value and return once awaited promise is resolved.
              */
-            awaitPromise?: boolean;
+            awaitPromise?: boolean | undefined;
             /**
              * Specifies execution context which global object will be used to call function on. Either executionContextId or objectId should be specified.
              */
-            executionContextId?: ExecutionContextId;
+            executionContextId?: ExecutionContextId | undefined;
             /**
              * Symbolic group name that can be used to release multiple objects. If objectGroup is not specified and objectId is, objectGroup will be inherited from object.
              */
-            objectGroup?: string;
+            objectGroup?: string | undefined;
         }
 
         interface GetPropertiesParameterType {
@@ -505,17 +505,17 @@ declare module 'inspector' {
             /**
              * If true, returns properties belonging only to the element itself, not to its prototype chain.
              */
-            ownProperties?: boolean;
+            ownProperties?: boolean | undefined;
             /**
              * If true, returns accessor properties (with getter/setter) only; internal properties are not returned either.
              * @experimental
              */
-            accessorPropertiesOnly?: boolean;
+            accessorPropertiesOnly?: boolean | undefined;
             /**
              * Whether preview should be generated for the results.
              * @experimental
              */
-            generatePreview?: boolean;
+            generatePreview?: boolean | undefined;
         }
 
         interface ReleaseObjectParameterType {
@@ -552,7 +552,7 @@ declare module 'inspector' {
             /**
              * Specifies in which execution context to perform script run. If the parameter is omitted the evaluation will be performed in the context of the inspected page.
              */
-            executionContextId?: ExecutionContextId;
+            executionContextId?: ExecutionContextId | undefined;
         }
 
         interface RunScriptParameterType {
@@ -563,31 +563,31 @@ declare module 'inspector' {
             /**
              * Specifies in which execution context to perform script run. If the parameter is omitted the evaluation will be performed in the context of the inspected page.
              */
-            executionContextId?: ExecutionContextId;
+            executionContextId?: ExecutionContextId | undefined;
             /**
              * Symbolic group name that can be used to release multiple objects.
              */
-            objectGroup?: string;
+            objectGroup?: string | undefined;
             /**
              * In silent mode exceptions thrown during evaluation are not reported and do not pause execution. Overrides <code>setPauseOnException</code> state.
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
             /**
              * Determines whether Command Line API should be available during the evaluation.
              */
-            includeCommandLineAPI?: boolean;
+            includeCommandLineAPI?: boolean | undefined;
             /**
              * Whether the result is expected to be a JSON object which should be sent by value.
              */
-            returnByValue?: boolean;
+            returnByValue?: boolean | undefined;
             /**
              * Whether preview should be generated for the result.
              */
-            generatePreview?: boolean;
+            generatePreview?: boolean | undefined;
             /**
              * Whether execution should <code>await</code> for resulting value and return once awaited promise is resolved.
              */
-            awaitPromise?: boolean;
+            awaitPromise?: boolean | undefined;
         }
 
         interface QueryObjectsParameterType {
@@ -601,7 +601,7 @@ declare module 'inspector' {
             /**
              * Specifies in which execution context to lookup global scope variables.
              */
-            executionContextId?: ExecutionContextId;
+            executionContextId?: ExecutionContextId | undefined;
         }
 
         interface EvaluateReturnType {
@@ -612,7 +612,7 @@ declare module 'inspector' {
             /**
              * Exception details.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: ExceptionDetails | undefined;
         }
 
         interface AwaitPromiseReturnType {
@@ -623,7 +623,7 @@ declare module 'inspector' {
             /**
              * Exception details if stack strace is available.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: ExceptionDetails | undefined;
         }
 
         interface CallFunctionOnReturnType {
@@ -634,7 +634,7 @@ declare module 'inspector' {
             /**
              * Exception details.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: ExceptionDetails | undefined;
         }
 
         interface GetPropertiesReturnType {
@@ -645,22 +645,22 @@ declare module 'inspector' {
             /**
              * Internal object properties (only of the element itself).
              */
-            internalProperties?: InternalPropertyDescriptor[];
+            internalProperties?: InternalPropertyDescriptor[] | undefined;
             /**
              * Exception details.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: ExceptionDetails | undefined;
         }
 
         interface CompileScriptReturnType {
             /**
              * Id of the script.
              */
-            scriptId?: ScriptId;
+            scriptId?: ScriptId | undefined;
             /**
              * Exception details.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: ExceptionDetails | undefined;
         }
 
         interface RunScriptReturnType {
@@ -671,7 +671,7 @@ declare module 'inspector' {
             /**
              * Exception details.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: ExceptionDetails | undefined;
         }
 
         interface QueryObjectsReturnType {
@@ -738,12 +738,12 @@ declare module 'inspector' {
             /**
              * Stack trace captured when the call was made.
              */
-            stackTrace?: StackTrace;
+            stackTrace?: StackTrace | undefined;
             /**
              * Console context descriptor for calls on non-default console context (not console.*): 'anonymous#unique-logger-id' for call on unnamed context, 'name#unique-logger-id' for call on named context.
              * @experimental
              */
-            context?: string;
+            context?: string | undefined;
         }
 
         interface InspectRequestedEventDataType {
@@ -778,7 +778,7 @@ declare module 'inspector' {
             /**
              * Column number in the script (0-based).
              */
-            columnNumber?: number;
+            columnNumber?: number | undefined;
         }
 
         /**
@@ -805,7 +805,7 @@ declare module 'inspector' {
             /**
              * Location in the source code.
              */
-            functionLocation?: Location;
+            functionLocation?: Location | undefined;
             /**
              * Location in the source code.
              */
@@ -825,7 +825,7 @@ declare module 'inspector' {
             /**
              * The value being returned, if the function is at return point.
              */
-            returnValue?: Runtime.RemoteObject;
+            returnValue?: Runtime.RemoteObject | undefined;
         }
 
         /**
@@ -840,15 +840,15 @@ declare module 'inspector' {
              * Object representing the scope. For <code>global</code> and <code>with</code> scopes it represents the actual object; for the rest of the scopes, it is artificial transient object enumerating scope variables as its properties.
              */
             object: Runtime.RemoteObject;
-            name?: string;
+            name?: string | undefined;
             /**
              * Location in the source code where scope starts
              */
-            startLocation?: Location;
+            startLocation?: Location | undefined;
             /**
              * Location in the source code where scope ends
              */
-            endLocation?: Location;
+            endLocation?: Location | undefined;
         }
 
         /**
@@ -877,8 +877,8 @@ declare module 'inspector' {
             /**
              * Column number in the script (0-based).
              */
-            columnNumber?: number;
-            type?: string;
+            columnNumber?: number | undefined;
+            type?: string | undefined;
         }
 
         interface SetBreakpointsActiveParameterType {
@@ -903,23 +903,23 @@ declare module 'inspector' {
             /**
              * URL of the resources to set breakpoint on.
              */
-            url?: string;
+            url?: string | undefined;
             /**
              * Regex pattern for the URLs of the resources to set breakpoints on. Either <code>url</code> or <code>urlRegex</code> must be specified.
              */
-            urlRegex?: string;
+            urlRegex?: string | undefined;
             /**
              * Script hash of the resources to set breakpoint on.
              */
-            scriptHash?: string;
+            scriptHash?: string | undefined;
             /**
              * Offset in the line to set breakpoint at.
              */
-            columnNumber?: number;
+            columnNumber?: number | undefined;
             /**
              * Expression to use as a breakpoint condition. When specified, debugger will only stop on the breakpoint if this expression evaluates to true.
              */
-            condition?: string;
+            condition?: string | undefined;
         }
 
         interface SetBreakpointParameterType {
@@ -930,7 +930,7 @@ declare module 'inspector' {
             /**
              * Expression to use as a breakpoint condition. When specified, debugger will only stop on the breakpoint if this expression evaluates to true.
              */
-            condition?: string;
+            condition?: string | undefined;
         }
 
         interface RemoveBreakpointParameterType {
@@ -945,11 +945,11 @@ declare module 'inspector' {
             /**
              * End of range to search possible breakpoint locations in (excluding). When not specified, end of scripts is used as end of range.
              */
-            end?: Location;
+            end?: Location | undefined;
             /**
              * Only consider locations which are in the same (non-nested) function as start.
              */
-            restrictToFunction?: boolean;
+            restrictToFunction?: boolean | undefined;
         }
 
         interface ContinueToLocationParameterType {
@@ -957,7 +957,7 @@ declare module 'inspector' {
              * Location to continue to.
              */
             location: Location;
-            targetCallFrames?: string;
+            targetCallFrames?: string | undefined;
         }
 
         interface PauseOnAsyncCallParameterType {
@@ -972,7 +972,7 @@ declare module 'inspector' {
              * Debugger will issue additional Debugger.paused notification if any async task is scheduled before next pause.
              * @experimental
              */
-            breakOnAsyncCall?: boolean;
+            breakOnAsyncCall?: boolean | undefined;
         }
 
         interface GetStackTraceParameterType {
@@ -991,11 +991,11 @@ declare module 'inspector' {
             /**
              * If true, search is case sensitive.
              */
-            caseSensitive?: boolean;
+            caseSensitive?: boolean | undefined;
             /**
              * If true, treats string parameter as regex.
              */
-            isRegex?: boolean;
+            isRegex?: boolean | undefined;
         }
 
         interface SetScriptSourceParameterType {
@@ -1010,7 +1010,7 @@ declare module 'inspector' {
             /**
              *  If true the change will not actually be applied. Dry run may be used to get result description without actually modifying the code.
              */
-            dryRun?: boolean;
+            dryRun?: boolean | undefined;
         }
 
         interface RestartFrameParameterType {
@@ -1046,28 +1046,28 @@ declare module 'inspector' {
             /**
              * String object group name to put result into (allows rapid releasing resulting object handles using <code>releaseObjectGroup</code>).
              */
-            objectGroup?: string;
+            objectGroup?: string | undefined;
             /**
              * Specifies whether command line API should be available to the evaluated expression, defaults to false.
              */
-            includeCommandLineAPI?: boolean;
+            includeCommandLineAPI?: boolean | undefined;
             /**
              * In silent mode exceptions thrown during evaluation are not reported and do not pause execution. Overrides <code>setPauseOnException</code> state.
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
             /**
              * Whether the result is expected to be a JSON object that should be sent by value.
              */
-            returnByValue?: boolean;
+            returnByValue?: boolean | undefined;
             /**
              * Whether preview should be generated for the result.
              * @experimental
              */
-            generatePreview?: boolean;
+            generatePreview?: boolean | undefined;
             /**
              * Whether to throw an exception if side effect cannot be ruled out during evaluation.
              */
-            throwOnSideEffect?: boolean;
+            throwOnSideEffect?: boolean | undefined;
         }
 
         interface SetVariableValueParameterType {
@@ -1170,24 +1170,24 @@ declare module 'inspector' {
             /**
              * New stack trace in case editing has happened while VM was stopped.
              */
-            callFrames?: CallFrame[];
+            callFrames?: CallFrame[] | undefined;
             /**
              * Whether current call stack  was modified after applying the changes.
              */
-            stackChanged?: boolean;
+            stackChanged?: boolean | undefined;
             /**
              * Async stack trace, if any.
              */
-            asyncStackTrace?: Runtime.StackTrace;
+            asyncStackTrace?: Runtime.StackTrace | undefined;
             /**
              * Async stack trace, if any.
              * @experimental
              */
-            asyncStackTraceId?: Runtime.StackTraceId;
+            asyncStackTraceId?: Runtime.StackTraceId | undefined;
             /**
              * Exception details if any.
              */
-            exceptionDetails?: Runtime.ExceptionDetails;
+            exceptionDetails?: Runtime.ExceptionDetails | undefined;
         }
 
         interface RestartFrameReturnType {
@@ -1198,12 +1198,12 @@ declare module 'inspector' {
             /**
              * Async stack trace, if any.
              */
-            asyncStackTrace?: Runtime.StackTrace;
+            asyncStackTrace?: Runtime.StackTrace | undefined;
             /**
              * Async stack trace, if any.
              * @experimental
              */
-            asyncStackTraceId?: Runtime.StackTraceId;
+            asyncStackTraceId?: Runtime.StackTraceId | undefined;
         }
 
         interface GetScriptSourceReturnType {
@@ -1221,7 +1221,7 @@ declare module 'inspector' {
             /**
              * Exception details.
              */
-            exceptionDetails?: Runtime.ExceptionDetails;
+            exceptionDetails?: Runtime.ExceptionDetails | undefined;
         }
 
         interface ScriptParsedEventDataType {
@@ -1260,33 +1260,33 @@ declare module 'inspector' {
             /**
              * Embedder-specific auxiliary data.
              */
-            executionContextAuxData?: {};
+            executionContextAuxData?: {} | undefined;
             /**
              * True, if this script is generated as a result of the live edit operation.
              * @experimental
              */
-            isLiveEdit?: boolean;
+            isLiveEdit?: boolean | undefined;
             /**
              * URL of source map associated with script (if any).
              */
-            sourceMapURL?: string;
+            sourceMapURL?: string | undefined;
             /**
              * True, if this script has sourceURL.
              */
-            hasSourceURL?: boolean;
+            hasSourceURL?: boolean | undefined;
             /**
              * True, if this script is ES6 module.
              */
-            isModule?: boolean;
+            isModule?: boolean | undefined;
             /**
              * This script length.
              */
-            length?: number;
+            length?: number | undefined;
             /**
              * JavaScript top stack frame of where the script parsed event was triggered if available.
              * @experimental
              */
-            stackTrace?: Runtime.StackTrace;
+            stackTrace?: Runtime.StackTrace | undefined;
         }
 
         interface ScriptFailedToParseEventDataType {
@@ -1325,28 +1325,28 @@ declare module 'inspector' {
             /**
              * Embedder-specific auxiliary data.
              */
-            executionContextAuxData?: {};
+            executionContextAuxData?: {} | undefined;
             /**
              * URL of source map associated with script (if any).
              */
-            sourceMapURL?: string;
+            sourceMapURL?: string | undefined;
             /**
              * True, if this script has sourceURL.
              */
-            hasSourceURL?: boolean;
+            hasSourceURL?: boolean | undefined;
             /**
              * True, if this script is ES6 module.
              */
-            isModule?: boolean;
+            isModule?: boolean | undefined;
             /**
              * This script length.
              */
-            length?: number;
+            length?: number | undefined;
             /**
              * JavaScript top stack frame of where the script parsed event was triggered if available.
              * @experimental
              */
-            stackTrace?: Runtime.StackTrace;
+            stackTrace?: Runtime.StackTrace | undefined;
         }
 
         interface BreakpointResolvedEventDataType {
@@ -1372,25 +1372,25 @@ declare module 'inspector' {
             /**
              * Object containing break-specific auxiliary properties.
              */
-            data?: {};
+            data?: {} | undefined;
             /**
              * Hit breakpoints IDs
              */
-            hitBreakpoints?: string[];
+            hitBreakpoints?: string[] | undefined;
             /**
              * Async stack trace, if any.
              */
-            asyncStackTrace?: Runtime.StackTrace;
+            asyncStackTrace?: Runtime.StackTrace | undefined;
             /**
              * Async stack trace, if any.
              * @experimental
              */
-            asyncStackTraceId?: Runtime.StackTraceId;
+            asyncStackTraceId?: Runtime.StackTraceId | undefined;
             /**
              * Just scheduled async call will have this stack trace as parent stack during async execution. This field is available only after <code>Debugger.stepInto</code> call with <code>breakOnAsynCall</code> flag.
              * @experimental
              */
-            asyncCallStackTraceId?: Runtime.StackTraceId;
+            asyncCallStackTraceId?: Runtime.StackTraceId | undefined;
         }
     }
 
@@ -1414,15 +1414,15 @@ declare module 'inspector' {
             /**
              * URL of the message origin.
              */
-            url?: string;
+            url?: string | undefined;
             /**
              * Line number in the resource that generated this message (1-based).
              */
-            line?: number;
+            line?: number | undefined;
             /**
              * Column number in the resource that generated this message (1-based).
              */
-            column?: number;
+            column?: number | undefined;
         }
 
         interface MessageAddedEventDataType {
@@ -1449,19 +1449,19 @@ declare module 'inspector' {
             /**
              * Number of samples where this node was on top of the call stack.
              */
-            hitCount?: number;
+            hitCount?: number | undefined;
             /**
              * Child node ids.
              */
-            children?: number[];
+            children?: number[] | undefined;
             /**
              * The reason of being not optimized. The function may be deoptimized or marked as don't optimize.
              */
-            deoptReason?: string;
+            deoptReason?: string | undefined;
             /**
              * An array of source position ticks.
              */
-            positionTicks?: PositionTickInfo[];
+            positionTicks?: PositionTickInfo[] | undefined;
         }
 
         /**
@@ -1483,11 +1483,11 @@ declare module 'inspector' {
             /**
              * Ids of samples top nodes.
              */
-            samples?: number[];
+            samples?: number[] | undefined;
             /**
              * Time intervals between adjacent samples in microseconds. The first delta is relative to the profile startTime.
              */
-            timeDeltas?: number[];
+            timeDeltas?: number[] | undefined;
         }
 
         /**
@@ -1614,11 +1614,11 @@ declare module 'inspector' {
             /**
              * Collect accurate call counts beyond simple 'covered' or 'not covered'.
              */
-            callCount?: boolean;
+            callCount?: boolean | undefined;
             /**
              * Collect block-based coverage.
              */
-            detailed?: boolean;
+            detailed?: boolean | undefined;
         }
 
         interface StopReturnType {
@@ -1658,7 +1658,7 @@ declare module 'inspector' {
             /**
              * Profile title passed as an argument to console.profile().
              */
-            title?: string;
+            title?: string | undefined;
         }
 
         interface ConsoleProfileFinishedEventDataType {
@@ -1671,7 +1671,7 @@ declare module 'inspector' {
             /**
              * Profile title passed as an argument to console.profile().
              */
-            title?: string;
+            title?: string | undefined;
         }
     }
 
@@ -1707,21 +1707,21 @@ declare module 'inspector' {
         }
 
         interface StartTrackingHeapObjectsParameterType {
-            trackAllocations?: boolean;
+            trackAllocations?: boolean | undefined;
         }
 
         interface StopTrackingHeapObjectsParameterType {
             /**
              * If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken when the tracking is stopped.
              */
-            reportProgress?: boolean;
+            reportProgress?: boolean | undefined;
         }
 
         interface TakeHeapSnapshotParameterType {
             /**
              * If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken.
              */
-            reportProgress?: boolean;
+            reportProgress?: boolean | undefined;
         }
 
         interface GetObjectByHeapObjectIdParameterType {
@@ -1729,7 +1729,7 @@ declare module 'inspector' {
             /**
              * Symbolic group name that can be used to release multiple objects.
              */
-            objectGroup?: string;
+            objectGroup?: string | undefined;
         }
 
         interface AddInspectedHeapObjectParameterType {
@@ -1750,7 +1750,7 @@ declare module 'inspector' {
             /**
              * Average sample interval in bytes. Poisson distribution is used for the intervals. The default value is 32768 bytes.
              */
-            samplingInterval?: number;
+            samplingInterval?: number | undefined;
         }
 
         interface GetObjectByHeapObjectIdReturnType {
@@ -1788,7 +1788,7 @@ declare module 'inspector' {
         interface ReportHeapSnapshotProgressEventDataType {
             done: number;
             total: number;
-            finished?: boolean;
+            finished?: boolean | undefined;
         }
 
         interface LastSeenObjectIdEventDataType {
@@ -1801,100 +1801,6 @@ declare module 'inspector' {
              * An array of triplets. Each triplet describes a fragment. The first integer is the fragment index, the second integer is a total count of objects for the fragment, the third integer is a total size of the objects for the fragment.
              */
             statsUpdate: number[];
-        }
-    }
-
-    namespace NodeTracing {
-        interface TraceConfig {
-            /**
-             * Controls how the trace buffer stores data.
-             */
-            recordMode?: string;
-            /**
-             * Included category filters.
-             */
-            includedCategories: string[];
-        }
-
-        interface StartParameterType {
-            traceConfig: TraceConfig;
-        }
-
-        interface GetCategoriesReturnType {
-            /**
-             * A list of supported tracing categories.
-             */
-            categories: string[];
-        }
-
-        interface DataCollectedEventDataType {
-            value: Array<{}>;
-        }
-    }
-
-    namespace NodeWorker {
-        type WorkerID = string;
-
-        /**
-         * Unique identifier of attached debugging session.
-         */
-        type SessionID = string;
-
-        interface WorkerInfo {
-            workerId: WorkerID;
-            type: string;
-            title: string;
-            url: string;
-        }
-
-        interface SendMessageToWorkerParameterType {
-            message: string;
-            /**
-             * Identifier of the session.
-             */
-            sessionId: SessionID;
-        }
-
-        interface EnableParameterType {
-            /**
-             * Whether to new workers should be paused until the frontend sends `Runtime.runIfWaitingForDebugger`
-             * message to run them.
-             */
-            waitForDebuggerOnStart: boolean;
-        }
-
-        interface DetachParameterType {
-            sessionId: SessionID;
-        }
-
-        interface AttachedToWorkerEventDataType {
-            /**
-             * Identifier assigned to the session used to send/receive messages.
-             */
-            sessionId: SessionID;
-            workerInfo: WorkerInfo;
-            waitingForDebugger: boolean;
-        }
-
-        interface DetachedFromWorkerEventDataType {
-            /**
-             * Detached session identifier.
-             */
-            sessionId: SessionID;
-        }
-
-        interface ReceivedMessageFromWorkerEventDataType {
-            /**
-             * Identifier of a session which sends a message.
-             */
-            sessionId: SessionID;
-            message: string;
-        }
-    }
-
-    namespace NodeRuntime {
-        interface NotifyWhenWaitingForDisconnectParameterType {
-            enabled: boolean;
         }
     }
 
@@ -2297,53 +2203,6 @@ declare module 'inspector' {
 
         post(method: "HeapProfiler.getSamplingProfile", callback?: (err: Error | null, params: HeapProfiler.GetSamplingProfileReturnType) => void): void;
 
-        /**
-         * Gets supported tracing categories.
-         */
-        post(method: "NodeTracing.getCategories", callback?: (err: Error | null, params: NodeTracing.GetCategoriesReturnType) => void): void;
-
-        /**
-         * Start trace events collection.
-         */
-        post(method: "NodeTracing.start", params?: NodeTracing.StartParameterType, callback?: (err: Error | null) => void): void;
-        post(method: "NodeTracing.start", callback?: (err: Error | null) => void): void;
-
-        /**
-         * Stop trace events collection. Remaining collected events will be sent as a sequence of
-         * dataCollected events followed by tracingComplete event.
-         */
-        post(method: "NodeTracing.stop", callback?: (err: Error | null) => void): void;
-
-        /**
-         * Sends protocol message over session with given id.
-         */
-        post(method: "NodeWorker.sendMessageToWorker", params?: NodeWorker.SendMessageToWorkerParameterType, callback?: (err: Error | null) => void): void;
-        post(method: "NodeWorker.sendMessageToWorker", callback?: (err: Error | null) => void): void;
-
-        /**
-         * Instructs the inspector to attach to running workers. Will also attach to new workers
-         * as they start
-         */
-        post(method: "NodeWorker.enable", params?: NodeWorker.EnableParameterType, callback?: (err: Error | null) => void): void;
-        post(method: "NodeWorker.enable", callback?: (err: Error | null) => void): void;
-
-        /**
-         * Detaches from all running workers and disables attaching to new workers as they are started.
-         */
-        post(method: "NodeWorker.disable", callback?: (err: Error | null) => void): void;
-
-        /**
-         * Detached from the worker with given sessionId.
-         */
-        post(method: "NodeWorker.detach", params?: NodeWorker.DetachParameterType, callback?: (err: Error | null) => void): void;
-        post(method: "NodeWorker.detach", callback?: (err: Error | null) => void): void;
-
-        /**
-         * Enable the `NodeRuntime.waitingForDisconnect`.
-         */
-        post(method: "NodeRuntime.notifyWhenWaitingForDisconnect", params?: NodeRuntime.NotifyWhenWaitingForDisconnectParameterType, callback?: (err: Error | null) => void): void;
-        post(method: "NodeRuntime.notifyWhenWaitingForDisconnect", callback?: (err: Error | null) => void): void;
-
         // Events
 
         addListener(event: string, listener: (...args: any[]) => void): this;
@@ -2438,41 +2297,6 @@ declare module 'inspector' {
          */
         addListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
 
-        /**
-         * Contains an bucket of collected trace events.
-         */
-        addListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        addListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
-
-        /**
-         * Issued when attached to a worker.
-         */
-        addListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-
-        /**
-         * Issued when detached from the worker.
-         */
-        addListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        addListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-
-        /**
-         * This event is fired instead of `Runtime.executionContextDestroyed` when
-         * enabled.
-         * It is fired when the Node process finished all code execution and is
-         * waiting for all frontends to disconnect.
-         */
-        addListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "inspectorNotification", message: InspectorNotification<{}>): boolean;
         emit(event: "Runtime.executionContextCreated", message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
@@ -2495,12 +2319,6 @@ declare module 'inspector' {
         emit(event: "HeapProfiler.reportHeapSnapshotProgress", message: InspectorNotification<HeapProfiler.ReportHeapSnapshotProgressEventDataType>): boolean;
         emit(event: "HeapProfiler.lastSeenObjectId", message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>): boolean;
         emit(event: "HeapProfiler.heapStatsUpdate", message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>): boolean;
-        emit(event: "NodeTracing.dataCollected", message: InspectorNotification<NodeTracing.DataCollectedEventDataType>): boolean;
-        emit(event: "NodeTracing.tracingComplete"): boolean;
-        emit(event: "NodeWorker.attachedToWorker", message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>): boolean;
-        emit(event: "NodeWorker.detachedFromWorker", message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>): boolean;
-        emit(event: "NodeWorker.receivedMessageFromWorker", message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
-        emit(event: "NodeRuntime.waitingForDisconnect"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
 
@@ -2594,41 +2412,6 @@ declare module 'inspector' {
          */
         on(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
 
-        /**
-         * Contains an bucket of collected trace events.
-         */
-        on(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        on(event: "NodeTracing.tracingComplete", listener: () => void): this;
-
-        /**
-         * Issued when attached to a worker.
-         */
-        on(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-
-        /**
-         * Issued when detached from the worker.
-         */
-        on(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        on(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-
-        /**
-         * This event is fired instead of `Runtime.executionContextDestroyed` when
-         * enabled.
-         * It is fired when the Node process finished all code execution and is
-         * waiting for all frontends to disconnect.
-         */
-        on(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
-
         once(event: string, listener: (...args: any[]) => void): this;
 
         /**
@@ -2720,41 +2503,6 @@ declare module 'inspector' {
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
         once(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
-
-        /**
-         * Contains an bucket of collected trace events.
-         */
-        once(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        once(event: "NodeTracing.tracingComplete", listener: () => void): this;
-
-        /**
-         * Issued when attached to a worker.
-         */
-        once(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-
-        /**
-         * Issued when detached from the worker.
-         */
-        once(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        once(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-
-        /**
-         * This event is fired instead of `Runtime.executionContextDestroyed` when
-         * enabled.
-         * It is fired when the Node process finished all code execution and is
-         * waiting for all frontends to disconnect.
-         */
-        once(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
 
@@ -2848,41 +2596,6 @@ declare module 'inspector' {
          */
         prependListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
 
-        /**
-         * Contains an bucket of collected trace events.
-         */
-        prependListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        prependListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
-
-        /**
-         * Issued when attached to a worker.
-         */
-        prependListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-
-        /**
-         * Issued when detached from the worker.
-         */
-        prependListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        prependListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-
-        /**
-         * This event is fired instead of `Runtime.executionContextDestroyed` when
-         * enabled.
-         * It is fired when the Node process finished all code execution and is
-         * waiting for all frontends to disconnect.
-         */
-        prependListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
-
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
 
         /**
@@ -2974,41 +2687,6 @@ declare module 'inspector' {
          * If heap objects tracking has been started then backend may send update for one or more fragments
          */
         prependOnceListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
-
-        /**
-         * Contains an bucket of collected trace events.
-         */
-        prependOnceListener(event: "NodeTracing.dataCollected", listener: (message: InspectorNotification<NodeTracing.DataCollectedEventDataType>) => void): this;
-
-        /**
-         * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
-         * delivered via dataCollected events.
-         */
-        prependOnceListener(event: "NodeTracing.tracingComplete", listener: () => void): this;
-
-        /**
-         * Issued when attached to a worker.
-         */
-        prependOnceListener(event: "NodeWorker.attachedToWorker", listener: (message: InspectorNotification<NodeWorker.AttachedToWorkerEventDataType>) => void): this;
-
-        /**
-         * Issued when detached from the worker.
-         */
-        prependOnceListener(event: "NodeWorker.detachedFromWorker", listener: (message: InspectorNotification<NodeWorker.DetachedFromWorkerEventDataType>) => void): this;
-
-        /**
-         * Notifies about a new protocol message received from the session
-         * (session ID is provided in attachedToWorker notification).
-         */
-        prependOnceListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
-
-        /**
-         * This event is fired instead of `Runtime.executionContextDestroyed` when
-         * enabled.
-         * It is fired when the Node process finished all code execution and is
-         * waiting for all frontends to disconnect.
-         */
-        prependOnceListener(event: "NodeRuntime.waitingForDisconnect", listener: () => void): this;
     }
 
     // Top Level API
@@ -3038,4 +2716,8 @@ declare module 'inspector' {
      * An exception will be thrown if there is no active inspector.
      */
     function waitForDebugger(): void;
+}
+
+declare module 'node:inspector' {
+    export * from 'inspector';
 }

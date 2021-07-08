@@ -62,6 +62,15 @@ MyTelegramBot.answerCallbackQuery('432832');
 MyTelegramBot.answerCallbackQuery({ callback_query_id: '432832' });
 MyTelegramBot.editMessageText('test-text', { disable_web_page_preview: true });
 MyTelegramBot.editMessageCaption('My Witty Caption', { message_id: 1245 });
+MyTelegramBot.editMessageMedia({
+    media: 'photo/path',
+    type: 'photo',
+    caption: 'this is a test',
+    parse_mode: 'HTML'
+}, {
+    chat_id: 1234,
+    message_id: 9187231
+});
 MyTelegramBot.editMessageReplyMarkup({ inline_keyboard: [[{
     text: 'Foo'
 }]] }, { message_id: 1244 });

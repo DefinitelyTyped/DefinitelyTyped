@@ -10,17 +10,17 @@ declare namespace Normalize {
         /**
          * @default false
          */
-        allowDuplicates?: boolean;
+        allowDuplicates?: boolean | undefined;
 
         /**
          * @default null
          */
-        forceImport?: boolean | string;
+        forceImport?: boolean | string | undefined;
 
         /**
          * @default null
          */
-        browsers?: string;
+        browsers?: string | undefined;
     }
 
     type NormalizePlugin = Plugin<Options>;

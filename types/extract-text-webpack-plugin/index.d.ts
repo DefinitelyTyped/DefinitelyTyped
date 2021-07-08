@@ -34,18 +34,18 @@ declare namespace ExtractTextPlugin {
         /** the filename of the result file. May contain `[name]`, `[id]` and `[contenthash]` */
         filename: string;
         /** extract from all additional chunks too (by default it extracts only from the initial chunk(s)) */
-        allChunks?: boolean;
+        allChunks?: boolean | undefined;
         /** disables the plugin */
-        disable?: boolean;
+        disable?: boolean | undefined;
         /** Unique ident for this plugin instance. (For advanced usage only, by default automatically generated) */
-        id?: string;
+        id?: string | undefined;
     }
     interface LoaderOptions {
         /** the loader(s) that should be used for converting the resource to a css exporting module */
         use: Loader | Loader[];
         /** the loader(s) that should be used when the css is not extracted (i.e. in an additional chunk when `allChunks: false`) */
-        fallback?: Loader | Loader[];
+        fallback?: Loader | Loader[] | undefined;
         /** override the `publicPath` setting for this loader */
-        publicPath?: string;
+        publicPath?: string | undefined;
     }
 }

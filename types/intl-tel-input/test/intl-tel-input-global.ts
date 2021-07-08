@@ -94,3 +94,14 @@ window.intlTelInput(input, {
 
 const iti = window.intlTelInputGlobals.getInstance(input);
 iti.isValidNumber(); // etc
+
+// $ExpectType string
+intlTelInputUtils.formatNumber('07733123456', 'gb', intlTelInputUtils.numberFormat.INTERNATIONAL);
+// $ExpectType string
+intlTelInputUtils.getExampleNumber('gb',  false, intlTelInputUtils.numberType.MOBILE);
+// $ExpectType numberType
+intlTelInputUtils.getNumberType('07733123456',  'gb');
+// $ExpectType string
+intlTelInputUtils.getValidationError('07733123456',  'gb');
+// $ExpectType string
+intlTelInputUtils.isValidNumber('07733123456', 'gb');

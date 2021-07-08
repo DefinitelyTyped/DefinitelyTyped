@@ -23,35 +23,35 @@ declare namespace PiCamera {
 
     interface CameraConfig {
         mode: Mode;
-        output?: string;
-        width?: number;
-        height?: number;
-        quality?: number;
-        latest?: string;
-        timeout?: number;
-        thumb?: string;
-        demo?: number;
-        encoding?: string;
-        timelapse?: number;
-        framerate?: number;
-        rotation?: number;
-        preview?: string;
-        opacity?: number;
-        annotate?: string | number;
-        exif?: string;
-        brightness?: number;
-        contrast?: number;
-        shutter?: number;
-        saturation?: number;
-        raw?: boolean;
-        verbose?: boolean;
-        fullscreen?: boolean;
-        nopreview?: boolean;
-        vstab?: boolean;
-        hflip?: boolean;
-        vflip?: boolean;
-        timestamp?: boolean;
-        datetime?: boolean;
+        output?: string | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        quality?: number | undefined;
+        latest?: string | undefined;
+        timeout?: number | undefined;
+        thumb?: string | undefined;
+        demo?: number | undefined;
+        encoding?: string | undefined;
+        timelapse?: number | undefined;
+        framerate?: number | undefined;
+        rotation?: number | undefined;
+        preview?: string | undefined;
+        opacity?: number | undefined;
+        annotate?: string | number | undefined;
+        exif?: string | undefined;
+        brightness?: number | undefined;
+        contrast?: number | undefined;
+        shutter?: number | undefined;
+        saturation?: number | undefined;
+        raw?: boolean | undefined;
+        verbose?: boolean | undefined;
+        fullscreen?: boolean | undefined;
+        nopreview?: boolean | undefined;
+        vstab?: boolean | undefined;
+        hflip?: boolean | undefined;
+        vflip?: boolean | undefined;
+        timestamp?: boolean | undefined;
+        datetime?: boolean | undefined;
     }
 }
 

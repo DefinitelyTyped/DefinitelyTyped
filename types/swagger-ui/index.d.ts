@@ -14,23 +14,23 @@ declare namespace SwaggerUI {
         /**
          * URL to fetch external configuration document from.
          */
-        configUrl?: string;
+        configUrl?: string | undefined;
         /**
          * REQUIRED if domNode is not provided. The ID of a DOM element inside which SwaggerUI will put its user interface.
          */
-        dom_id?: string;
+        dom_id?: string | undefined;
         /**
          *  REQUIRED if dom_id is not provided. The HTML DOM element inside which SwaggerUI will put its user interface. Overrides dom_id.
          */
-        domNode?: HTMLElement | null;
+        domNode?: HTMLElement | null | undefined;
         /**
          * A JavaScript object describing the OpenAPI definition. When used, the url parameter will not be parsed. This is useful for testing manually-generated definitions without hosting them
          */
-        spec?: { [propName: string]: any };
+        spec?: { [propName: string]: any } | undefined;
         /**
          * The URL pointing to API definition (normally swagger.json or swagger.yaml). Will be ignored if urls or spec is used.
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * An array of API definition objects ([{url: "<url1>", name: "<name1>"},{url: "<url2>", name: "<name2>"}])
          * used by Topbar plugin. When used and Topbar plugin is enabled, the url parameter will not be parsed.
@@ -39,7 +39,7 @@ declare namespace SwaggerUI {
         urls?: Array<{
             url: string;
             name: string;
-        }>;
+        }> | undefined;
 
         // Plugin system
 
@@ -47,16 +47,16 @@ declare namespace SwaggerUI {
          * The name of a component available via the plugin system to use as the top-level layout
          * for Swagger UI.
          */
-        layout?: string;
+        layout?: string | undefined;
         /**
          * An array of plugin functions to use in Swagger UI.
          */
-        plugins?: SwaggerUIPlugin[];
+        plugins?: SwaggerUIPlugin[] | undefined;
         /**
          * An array of presets to use in Swagger UI.
          * Usually, you'll want to include ApisPreset if you use this option.
          */
-        presets?: SwaggerUIPlugin[];
+        presets?: SwaggerUIPlugin[] | undefined;
 
         // Display
 
@@ -64,35 +64,35 @@ declare namespace SwaggerUI {
          * If set to true, enables deep linking for tags and operations.
          * See the Deep Linking documentation for more information.
          */
-        deepLinking?: boolean;
+        deepLinking?: boolean | undefined;
         /**
          * Controls the display of operationId in operations list. The default is false.
          */
-        displayOperationId?: boolean;
+        displayOperationId?: boolean | undefined;
         /**
          * The default expansion depth for models (set to -1 completely hide the models).
          */
-        defaultModelsExpandDepth?: number;
+        defaultModelsExpandDepth?: number | undefined;
         /**
          * The default expansion depth for the model on the model-example section.
          */
-        defaultModelExpandDepth?: number;
+        defaultModelExpandDepth?: number | undefined;
         /**
          * Controls how the model is shown when the API is first rendered.
          * (The user can always switch the rendering for a given model by clicking the
          * 'Model' and 'Example Value' links.)
          */
-        defaultModelRendering?: "example" | "model";
+        defaultModelRendering?: "example" | "model" | undefined;
         /**
          * Controls the display of the request duration (in milliseconds) for "Try it out" requests.
          */
-        displayRequestDuration?: boolean;
+        displayRequestDuration?: boolean | undefined;
         /**
          * Controls the default expansion setting for the operations and tags.
          * It can be 'list' (expands only the tags), 'full' (expands the tags and operations)
          * or 'none' (expands nothing).
          */
-        docExpansion?: "list" | "full" | "none";
+        docExpansion?: "list" | "full" | "none" | undefined;
         /**
          * If set, enables filtering.
          * The top bar will show an edit box that you can use to filter the tagged operations that are shown.
@@ -100,29 +100,29 @@ declare namespace SwaggerUI {
          * using that string as the filter expression.
          * Filtering is case sensitive matching the filter expression anywhere inside the tag.
          */
-        filter?: boolean | string;
+        filter?: boolean | string | undefined;
         /**
          * If set, limits the number of tagged operations displayed to at most this many.
          * The default is to show all operations.
          */
-        maxDisplayedTags?: number;
+        maxDisplayedTags?: number | undefined;
         /**
          * Apply a sort to the operation list of each API.
          * It can be 'alpha' (sort by paths alphanumerically),
          * 'method' (sort by HTTP method) or a function (see Array.prototype.sort() to know how sort function works).
          * Default is the order returned by the server unchanged.
          */
-        operationsSorter?: SorterLike;
+        operationsSorter?: SorterLike | undefined;
         /**
          * Controls the display of vendor extension (x-) fields and values for Operations,
          * Parameters, Responses, and Schema.
          */
-        showExtensions?: boolean;
+        showExtensions?: boolean | undefined;
         /**
          * Controls the display of extensions (pattern, maxLength, minLength, maximum, minimum) fields
          * and values for Parameters.
          */
-        showCommonExtensions?: boolean;
+        showCommonExtensions?: boolean | undefined;
         /**
          * Apply a sort to the tag list of each API.
          * It can be 'alpha' (sort by paths alphanumerically)
@@ -130,18 +130,18 @@ declare namespace SwaggerUI {
          * Two tag name strings are passed to the sorter for each pass.
          * Default is the order determined by Swagger UI.
          */
-        tagsSorter?: SorterLike;
+        tagsSorter?: SorterLike | undefined;
         /**
          * When enabled, sanitizer will leave style, class and data-* attributes untouched
          * on all HTML Elements declared inside markdown strings.
          * This parameter is Deprecated and will be removed in 4.0.0.
          * @deprecated
          */
-        useUnsafeMarkdown?: boolean;
+        useUnsafeMarkdown?: boolean | undefined;
         /**
          * Provides a mechanism to be notified when Swagger UI has finished rendering a newly provided definition.
          */
-        onComplete?: () => any;
+        onComplete?: (() => any) | undefined;
         /**
          * Set to false to deactivate syntax highlighting of payloads and cURL command,
          * can be otherwise an object with the activate and theme properties.
@@ -152,16 +152,16 @@ declare namespace SwaggerUI {
                   /**
                    * Whether syntax highlighting should be activated or not.
                    */
-                  activate?: boolean;
+                  activate?: boolean | undefined;
                   /**
                    * Highlight.js syntax coloring theme to use. (Only these 6 styles are available.)
                    */
-                  theme?: "agate" | "arta" | "monokai" | "nord" | "obsidian" | "tomorrow-night";
-              };
+                  theme?: "agate" | "arta" | "monokai" | "nord" | "obsidian" | "tomorrow-night" | undefined;
+              } | undefined;
         /**
          * Controls whether the "Try it out" section should be enabled by default.
          */
-        tryItOutEnabled?: boolean;
+        tryItOutEnabled?: boolean | undefined;
         /**
          * This is the default configuration section for the the requestSnippets plugin.
          */
@@ -171,53 +171,53 @@ declare namespace SwaggerUI {
                     title: string;
                     syntax: string;
                 };
-            };
-            defaultExpanded?: boolean;
+            } | undefined;
+            defaultExpanded?: boolean | undefined;
             /**
              * e.g. only show curl bash = ["curl_bash"]
              */
-            languagesMask?: string[];
-        };
+            languagesMask?: string[] | undefined;
+        } | undefined;
 
         // Network
 
         /**
          * OAuth redirect URL.
          */
-        oauth2RedirectUrl?: string;
+        oauth2RedirectUrl?: string | undefined;
         /**
          * MUST be a function. Function to intercept remote definition,
          * "Try it out", and OAuth 2.0 requests.
          * Accepts one argument requestInterceptor(request) and must return the modified request,
          * or a Promise that resolves to the modified request.
          */
-        requestInterceptor?: (a: Request) => Request | Promise<Request>;
+        requestInterceptor?: ((a: Request) => Request | Promise<Request>) | undefined;
         /**
          * MUST be a function. Function to intercept remote definition,
          * "Try it out", and OAuth 2.0 responses.
          * Accepts one argument responseInterceptor(response) and must return the modified response,
          * or a Promise that resolves to the modified response.
          */
-        responseInterceptor?: (a: Response) => Response | Promise<Response>;
+        responseInterceptor?: ((a: Response) => Response | Promise<Response>) | undefined;
         /**
          * If set to true, uses the mutated request returned from a requestInterceptor
          * to produce the curl command in the UI, otherwise the request
          * beforethe requestInterceptor was applied is used.
          */
-        showMutatedRequest?: boolean;
+        showMutatedRequest?: boolean | undefined;
         /**
          * List of HTTP methods that have the "Try it out" feature enabled.
          * An empty array disables "Try it out" for all operations.
          * This does not filter the operations from the display.
          */
-        supportedSubmitMethods?: SupportedHTTPMethods[];
+        supportedSubmitMethods?: SupportedHTTPMethods[] | undefined;
         /**
          * By default, Swagger UI attempts to validate specs against swagger.io's online validator.
          * You can use this parameter to set a different validator URL,
          * for example for locally deployed validators (Validator Badge).
          * Setting it to either none, 127.0.0.1 or localhost will disable validation.
          */
-        validatorUrl?: string;
+        validatorUrl?: string | undefined;
         /**
          * If set to true, enables passing credentials, as defined in the Fetch standard,
          * in CORS requests that are sent by the browser.
@@ -225,7 +225,7 @@ declare namespace SwaggerUI {
          * - as a result, you will have to rely on browser-supplied
          * cookies (which this setting enables sending) that Swagger UI cannot control.
          */
-        withCredentials?: boolean;
+        withCredentials?: boolean | undefined;
 
         // Macros
 
@@ -233,20 +233,20 @@ declare namespace SwaggerUI {
          * Function to set default values to each property in model.
          * Accepts one argument modelPropertyMacro(property), property is immutable
          */
-        modelPropertyMacro?: (propName: Readonly<any>) => any;
+        modelPropertyMacro?: ((propName: Readonly<any>) => any) | undefined;
         /**
          * Function to set default value to parameters.
          * Accepts two arguments parameterMacro(operation, parameter).
          * Operation and parameter are objects passed for context, both remain immutable
          */
-        parameterMacro?: (operation: Readonly<any>, parameter: Readonly<any>) => any;
+        parameterMacro?: ((operation: Readonly<any>, parameter: Readonly<any>) => any) | undefined;
 
         // Authorization
 
         /**
          * If set to true, it persists authorization data and it would not be lost on browser close/refresh
          */
-        persistAuthorization?: boolean;
+        persistAuthorization?: boolean | undefined;
     }
 
     type SupportedHTTPMethods = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
@@ -273,18 +273,18 @@ declare namespace SwaggerUI {
         (system: any): {
             statePlugins?: {
                 [stateKey: string]: {
-                    actions?: Indexable;
-                    reducers?: Indexable;
-                    selectors?: Indexable;
-                    wrapActions?: Indexable;
-                    wrapSelectors?: Indexable;
+                    actions?: Indexable | undefined;
+                    reducers?: Indexable | undefined;
+                    selectors?: Indexable | undefined;
+                    wrapActions?: Indexable | undefined;
+                    wrapSelectors?: Indexable | undefined;
                 };
-            };
-            components?: Indexable;
-            wrapComponents?: Indexable;
-            rootInjects?: Indexable;
-            afterLoad?: (system: any) => any;
-            fn?: Indexable;
+            } | undefined;
+            components?: Indexable | undefined;
+            wrapComponents?: Indexable | undefined;
+            rootInjects?: Indexable | undefined;
+            afterLoad?: ((system: any) => any) | undefined;
+            fn?: Indexable | undefined;
         };
     }
 

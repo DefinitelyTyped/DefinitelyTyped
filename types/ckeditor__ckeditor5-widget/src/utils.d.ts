@@ -28,7 +28,7 @@ export function setLabel(element: Element, labelOrCreator: string | (() => strin
 export function toWidget(
     element: Element,
     writer: DowncastWriter,
-    options?: { label?: string | (() => string); hasSelectionHandle?: boolean },
+    options?: { label?: string | (() => string) | undefined; hasSelectionHandle?: boolean | undefined },
 ): Element;
 export function toWidgetEditable(editable: EditableElement, writer: DowncastWriter): EditableElement;
 export function viewToModelPositionOutsideModelElement(

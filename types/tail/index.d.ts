@@ -5,15 +5,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface TailOptions {
-    separator?: string | RegExp | null;
-    fromBeginning?: boolean;
-    fsWatchOptions?: Record<string, any>;
-    follow?: boolean;
+    separator?: string | RegExp | null | undefined;
+    fromBeginning?: boolean | undefined;
+    fsWatchOptions?: Record<string, any> | undefined;
+    follow?: boolean | undefined;
     logger?: any;
-    encoding?: string;
-    useWatchFile?: boolean;
-    flushAtEOF?: boolean;
-    nLines?: number;
+    encoding?: string | undefined;
+    useWatchFile?: boolean | undefined;
+    flushAtEOF?: boolean | undefined;
+    nLines?: number | undefined;
 }
 
 export class Tail {

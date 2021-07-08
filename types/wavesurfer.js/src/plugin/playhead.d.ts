@@ -26,9 +26,9 @@ export default class PlayheadPlugin extends Observer implements WaveSurferPlugin
 
 export interface PlayheadPluginParams extends PluginParams {
     /** Draw the playhead as a triangle/line. */
-    draw?: boolean;
+    draw?: boolean | undefined;
     /** Seeking (via clicking) while playing moves the playhead. */
-    moveOnSeek?: boolean;
+    moveOnSeek?: boolean | undefined;
     /** Pausing the track returns the seek position to the playhead. */
-    returnOnPause?: boolean;
+    returnOnPause?: boolean | undefined;
 }

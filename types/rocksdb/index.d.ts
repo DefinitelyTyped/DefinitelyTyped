@@ -52,23 +52,23 @@ declare namespace RocksDB {
   interface OpenOptions extends AbstractOpenOptions {}
 
   interface GetOptions extends AbstractGetOptions {
-    fillCache?: boolean;
+    fillCache?: boolean | undefined;
   }
 
   interface PutOptions extends AbstractOptions {
-    sync?: boolean;
+    sync?: boolean | undefined;
   }
 
   interface DelOptions extends AbstractOptions {
-    sync?: boolean;
+    sync?: boolean | undefined;
   }
 
   interface BatchOptions extends AbstractOptions {
-    sync?: boolean;
+    sync?: boolean | undefined;
   }
 
   interface IteratorOptions extends AbstractIteratorOptions<Bytes> {
-    fillCache?: boolean;
+    fillCache?: boolean | undefined;
   }
 
   interface Iterator extends AbstractIterator<Bytes, Bytes> {

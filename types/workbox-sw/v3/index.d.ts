@@ -133,7 +133,7 @@ interface ICacheStrategyHandleOptions {
 
 interface ICacheStrategyMakeRequestOptions {
     request: Request|string;
-    event?: FetchEvent;
+    event?: FetchEvent | undefined;
 }
 
 declare class CacheStrategy {
@@ -299,7 +299,7 @@ interface IHandlerContext extends IMatchContext {
     /**
      * Parameters returned by the Route's match callback function. This will be undefined if nothing was returned.
      */
-    params?: {};
+    params?: {} | undefined;
 }
 
 /**
@@ -1297,35 +1297,35 @@ interface WorkboxPlugin {
      * @param {CacheWillUpdatePluginContext} context
      * @returns {Promise<Response>|Response|null}
      */
-    readonly cacheWillUpdate?: (context: CacheWillUpdatePluginContext) => Promise<Response>|Response|null;
+    readonly cacheWillUpdate?: ((context: CacheWillUpdatePluginContext) => Promise<Response>|Response|null) | undefined;
 
     /**
      * Called when a new entry is added to a cache or it’s updated. Useful if you wish to perform an action after a cache update.
      * @param {CacheDidUpdatePluginContext} context
      * @returns {void}
      */
-    readonly cacheDidUpdate?: (context: CacheDidUpdatePluginContext) => void;
+    readonly cacheDidUpdate?: ((context: CacheDidUpdatePluginContext) => void) | undefined;
 
     /**
      * Before a cached Response is used to respond to a fetch event, this callback can be used to allow or block the Response from being used.
      * @param {CacheResponseWillBeUsedPluginContext} context
      * @returns {Promise<Response>|Response|null}
      */
-    readonly cachedResponseWillBeUsed?: (context: CacheResponseWillBeUsedPluginContext) => Promise<Response>|Response|null;
+    readonly cachedResponseWillBeUsed?: ((context: CacheResponseWillBeUsedPluginContext) => Promise<Response>|Response|null) | undefined;
 
     /**
      * This is called whenever a fetch event is about to be made. You can alter the Request in this callback.
      * @param {RequestWillFetchPluginContext} context
      * @returns {Request}
      */
-    readonly requestWillFetch?: (context: RequestWillFetchPluginContext) => Request;
+    readonly requestWillFetch?: ((context: RequestWillFetchPluginContext) => Request) | undefined;
 
     /**
      * Called when a fetch event fails (note this is when the network request can’t be made at all and not when a request is a non-200 request).
      * @param {FetchDidFailPluginContext}
      * @returns {void}
      */
-    readonly fetchDidFail?: (context: FetchDidFailPluginContext) => void;
+    readonly fetchDidFail?: ((context: FetchDidFailPluginContext) => void) | undefined;
 }
 
 interface CacheWillUpdatePluginContext {

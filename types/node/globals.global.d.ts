@@ -1,1 +1,1 @@
-declare var global: NodeJS.Global & typeof globalThis;
+declare var global: typeof globalThis;

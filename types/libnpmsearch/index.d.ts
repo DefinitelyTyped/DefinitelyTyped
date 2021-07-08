@@ -22,10 +22,10 @@ declare namespace search {
     interface Result {
         name: string;
         version: string;
-        description?: string;
-        maintainers?: Maintainer[];
-        keywords?: string[];
-        date?: Date;
+        description?: string | undefined;
+        maintainers?: Maintainer[] | undefined;
+        keywords?: string[] | undefined;
+        date?: Date | undefined;
     }
 
     interface Score {
@@ -49,42 +49,42 @@ declare namespace search {
         /**
          * Number of results to limit the query to. Default: `20`
          */
-        limit?: number;
+        limit?: number | undefined;
         /**
          * Offset number for results. Used with `opts.limit` for pagination.
          * Default: `0`
          */
-        from?: number;
+        from?: number | undefined;
         /**
          * If true, returns an object with `package`, `score`, and `searchScore`
          * fields, with `package` being what would usually be returned, and the
          * other two containing details about how that package scored. Useful
          * for UIs. Default: `false`
          */
-        detailed?: boolean;
+        detailed?: boolean | undefined;
         /**
          * Used as a shorthand to set `opts.quality`, `opts.maintenance`, and
          * `opts.popularity` with values that prioritize each one.
          */
-        sortBy?: 'optimal' | 'quality' | 'maintenance' | 'popularity';
+        sortBy?: 'optimal' | 'quality' | 'maintenance' | 'popularity' | undefined;
         /**
          * Decimal number between `0` and `1` that defines the weight of
          * `maintenance` metrics when scoring and sorting packages.
          * Default: `0.65` (same as `opts.sortBy: 'optimal'`)
          */
-        maintenance?: number;
+        maintenance?: number | undefined;
         /**
          * Decimal number between `0` and `1` that defines the weight of
          * `popularity` metrics when scoring and sorting packages.
          * Default: `0.98` (same as `opts.sortBy: 'optimal'`)
          */
-        popularity?: number;
+        popularity?: number | undefined;
         /**
          * Decimal number between `0` and `1` that defines the weight of
          * `quality` metrics when scoring and sorting packages.
          * Default: `0.5` (same as `opts.sortBy: 'optimal'`)
          */
-        quality?: number;
+        quality?: number | undefined;
     }
 }
 

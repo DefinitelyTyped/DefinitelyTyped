@@ -102,7 +102,7 @@ export interface Pane {
     activateItem(item: object, options?: { pending: boolean }): void;
 
     /** Add the given item to the pane. */
-    addItem(item: object, options?: { index?: number; pending?: boolean }): object;
+    addItem(item: object, options?: { index?: number | undefined; pending?: boolean | undefined }): object;
 
     /** Add the given items to the pane. */
     addItems(items: object[], index?: number): object[];
@@ -167,16 +167,16 @@ export interface Pane {
 
     // Splitting
     /** Create a new pane to the left of this pane. */
-    splitLeft(params?: { items?: object[]; copyActiveItem?: boolean }): Pane;
+    splitLeft(params?: { items?: object[] | undefined; copyActiveItem?: boolean | undefined }): Pane;
 
     /** Create a new pane to the right of this pane. */
-    splitRight(params?: { items?: object[]; copyActiveItem?: boolean }): Pane;
+    splitRight(params?: { items?: object[] | undefined; copyActiveItem?: boolean | undefined }): Pane;
 
     /** Creates a new pane above the receiver. */
-    splitUp(params?: { items?: object[]; copyActiveItem?: boolean }): Pane;
+    splitUp(params?: { items?: object[] | undefined; copyActiveItem?: boolean | undefined }): Pane;
 
     /** Creates a new pane below the receiver. */
-    splitDown(params?: { items?: object[]; copyActiveItem?: boolean }): Pane;
+    splitDown(params?: { items?: object[] | undefined; copyActiveItem?: boolean | undefined }): Pane;
 }
 
 export interface PaneListItemShiftedEvent {

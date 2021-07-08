@@ -28,9 +28,9 @@ export interface BarcodeReader {
 }
 export interface TextResults extends Array<any> {
     [index: number]: TextResult;
-    description?: string;
-    exception?: number;
-    imageid?: number;
+    description?: string | undefined;
+    exception?: number | undefined;
+    imageid?: number | undefined;
 }
 export interface TextResult {
     /**

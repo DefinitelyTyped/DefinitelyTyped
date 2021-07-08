@@ -25,46 +25,46 @@ export interface TestObject {
      * outputFixture and snapshot is not true, then the assertion is that this
      * code is unchanged by the plugin.
      */
-    code?: string;
+    code?: string | undefined;
 
     /**
      * If provided, this will be used instead of the pluginName. If you're using
      * the object API, then the key of this object will be the title (see
      * example below).
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * If this is provided, the result of the plugin will be compared with this
      * output for the assertion. It will have any indentation stripped and will
      * be trimmed as a convenience for template literals.
      */
-    output?: string;
+    output?: string | undefined;
 
     /**
      * If you'd rather put your code in a separate file, you can specify a
      * filename here. If it's an absolute path, that's the file that will be
      * loaded, otherwise, this will be path.joined with the filename path.
      */
-    fixture?: string;
+    fixture?: string | undefined;
 
     /**
      * If you'd rather put your output in a separate file, you can specify this
      * instead (works the same as fixture).
      */
-    outputFixture?: string;
+    outputFixture?: string | undefined;
 
     /**
      * To run only this test. Useful while developing to help focus on a single
      * test. Can be used on multiple tests.
      */
-    only?: boolean;
+    only?: boolean | undefined;
 
     /**
      * To skip running this test. Useful for when you're working on a feature
      * that is not yet supported.
      */
-    skip?: boolean;
+    skip?: boolean | undefined;
 
     /**
      * If you'd prefer to take a snapshot of your output rather than compare it
@@ -72,7 +72,7 @@ export interface TestObject {
      * snapshot with both the source code and the output, making the snapshot
      * easier to understand.
      */
-    snapshot?: boolean;
+    snapshot?: boolean | undefined;
 
     /**
      * If a particular test case should be throwing an error, you can that using
@@ -93,7 +93,7 @@ export interface TestObject {
      * }
      * ```
      */
-    error?: boolean | string | RegExp | Error | ((error: unknown) => boolean);
+    error?: boolean | string | RegExp | Error | ((error: unknown) => boolean) | undefined;
 
     /**
      * If you need something set up before a particular test is run, you can do
@@ -102,11 +102,11 @@ export interface TestObject {
      * also return a promise. If that promise resolves to a function, that will
      * be treated as a teardown function.
      */
-    setup?: () =>
+    setup?: (() =>
         | void
         | NonNullable<TestObject['teardown']>
         | Promise<void>
-        | Promise<NonNullable<TestObject['teardown']>>;
+        | Promise<NonNullable<TestObject['teardown']>>) | undefined;
 
     /**
      * If you set up some state, it's quite possible you want to tear it down.
@@ -114,7 +114,7 @@ export interface TestObject {
      * the setup function. This can likewise return a promise if it's
      * asynchronous.
      */
-    teardown?: () => void | Promise<void>;
+    teardown?: (() => void | Promise<void>) | undefined;
 
     /**
      * This defaults to a function which formats your code output with prettier.
@@ -133,7 +133,7 @@ export interface TestObject {
      * The use case for this originally was for testing codemods and formatting
      * their result with prettier-eslint.
      */
-    formatResult?: (code: string, options: { filename: string }) => string;
+    formatResult?: ((code: string, options: { filename: string }) => string) | undefined;
 
     /**
      * To use `babel.config.js` instead of `.babelrc`, set babelOptions to the
@@ -152,13 +152,13 @@ export interface TestObject {
      * ```
      *
      */
-    babelOptions?: Babel.TransformOptions;
+    babelOptions?: Babel.TransformOptions | undefined;
 
     /**
      * This can be used to pass options into your plugin at transform time.
      *
      */
-    pluginOptions?: Babel.PluginOptions;
+    pluginOptions?: Babel.PluginOptions | undefined;
 }
 
 export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
@@ -192,20 +192,20 @@ export interface PluginTesterOptions extends TestObject, Omit<Babel.TransformOpt
     /**
      * This is used for the describe title as well as the test titles. If it can be inferred from the plugin's name then it will be and you don't need to provide this option.
      */
-    pluginName?: string;
+    pluginName?: string | undefined;
 
     /**
      * This can be used to pass options into your plugin at transform time. This
      * option can be overwritten using the test object.
      *
      */
-    pluginOptions?: Babel.PluginOptions;
+    pluginOptions?: Babel.PluginOptions | undefined;
 
     /**
      * This can be used to specify a title for the describe block (rather than
      * using the pluginName).
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * Relative paths from the other options will be relative to this. Normally
@@ -215,7 +215,7 @@ export interface PluginTesterOptions extends TestObject, Omit<Babel.TransformOpt
      * absolute paths, then they will be path.joined with path.dirname of the
      * filename.
      */
-    filename?: string;
+    filename?: string | undefined;
 
     /**
      * This is used to control which line endings the output from babel should
@@ -228,7 +228,7 @@ export interface PluginTesterOptions extends TestObject, Omit<Babel.TransformOpt
      *
      * @default 'lf'
      */
-    endOfLine?: 'lf' | 'crlf' | 'auto' | 'preserve';
+    endOfLine?: 'lf' | 'crlf' | 'auto' | 'preserve' | undefined;
 
     /**
      * This is a path to a directory with this format:
@@ -260,7 +260,7 @@ export interface PluginTesterOptions extends TestObject, Omit<Babel.TransformOpt
      * Options are inherited, placing a options.json file in __fixtures__ would
      * add those options to all fixtures.
      */
-    fixtures?: string;
+    fixtures?: string | undefined;
 
     /**
      * You provide test objects as the tests option to babel-plugin-tester. You
@@ -275,14 +275,14 @@ export interface PluginTesterOptions extends TestObject, Omit<Babel.TransformOpt
      *
      * Read more about test objects below.
      */
-    tests?: Array<TestObject | string> | Record<string, TestObject | string>;
+    tests?: Array<TestObject | string> | Record<string, TestObject | string> | undefined;
 
     /**
      * Use this to provide your own implementation of babel. This is
      * particularly useful if you want to use a different version of babel than
      * what's included in this package.
      */
-    babel?: BabelType;
+    babel?: BabelType | undefined;
 }
 
 export default function pluginTester(options: PluginTesterOptions): void;
@@ -292,7 +292,7 @@ export default function pluginTester(options: PluginTesterOptions): void;
  */
 export function prettierFormatter(
     code: string,
-    options?: { cwd?: string; filename?: string; config?: Options },
+    options?: { cwd?: string | undefined; filename?: string | undefined; config?: Options | undefined },
 ): string;
 
 export const unstringSnapshotSerializer: {

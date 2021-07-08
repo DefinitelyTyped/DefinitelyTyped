@@ -9,8 +9,8 @@ import DropdownPanelView from "../dropdown/dropdownpanelview";
 
 export default class DropdownView extends View {
     readonly buttonView: ButtonView;
-    class?: string;
-    id?: string;
+    class?: string | undefined;
+    id?: string | undefined;
     isEnabled: boolean;
     isOpen: boolean;
     readonly keystrokes: KeystrokeHandler;

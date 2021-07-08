@@ -14,13 +14,13 @@ import { Size } from './size';
 import ViewHint from './ViewHint';
 
 export interface Animation {
-    sourceCenter?: Coordinate;
-    targetCenter?: Coordinate;
-    sourceResolution?: number;
-    targetResolution?: number;
-    sourceRotation?: number;
-    targetRotation?: number;
-    anchor?: Coordinate;
+    sourceCenter?: Coordinate | undefined;
+    targetCenter?: Coordinate | undefined;
+    sourceResolution?: number | undefined;
+    targetResolution?: number | undefined;
+    sourceRotation?: number | undefined;
+    targetRotation?: number | undefined;
+    anchor?: Coordinate | undefined;
     start: number;
     duration: number;
     complete: boolean;
@@ -28,13 +28,13 @@ export interface Animation {
     callback: (p0: boolean) => void;
 }
 export interface AnimationOptions {
-    center?: Coordinate;
-    zoom?: number;
-    resolution?: number;
-    rotation?: number;
-    anchor?: Coordinate;
-    duration?: number;
-    easing?: (p0: number) => number;
+    center?: Coordinate | undefined;
+    zoom?: number | undefined;
+    resolution?: number | undefined;
+    rotation?: number | undefined;
+    anchor?: Coordinate | undefined;
+    duration?: number | undefined;
+    easing?: ((p0: number) => number) | undefined;
 }
 export interface Constraints {
     center: Type;
@@ -42,15 +42,15 @@ export interface Constraints {
     rotation: Type_2;
 }
 export interface FitOptions {
-    size?: Size;
-    padding?: number[];
-    constrainResolution?: boolean;
-    nearest?: boolean;
-    minResolution?: number;
-    maxZoom?: number;
-    duration?: number;
-    easing?: (p0: number) => number;
-    callback?: (p0: boolean) => void;
+    size?: Size | undefined;
+    padding?: number[] | undefined;
+    constrainResolution?: boolean | undefined;
+    nearest?: boolean | undefined;
+    minResolution?: number | undefined;
+    maxZoom?: number | undefined;
+    duration?: number | undefined;
+    easing?: ((p0: number) => number) | undefined;
+    callback?: ((p0: boolean) => void) | undefined;
 }
 export interface State {
     center: Coordinate;
@@ -60,20 +60,20 @@ export interface State {
     zoom: number;
 }
 export interface ViewOptions {
-    center?: Coordinate;
-    constrainRotation?: boolean | number;
-    enableRotation?: boolean;
-    extent?: Extent;
-    maxResolution?: number;
-    minResolution?: number;
-    maxZoom?: number;
-    minZoom?: number;
-    projection?: ProjectionLike;
-    resolution?: number;
-    resolutions?: number[];
-    rotation?: number;
-    zoom?: number;
-    zoomFactor?: number;
+    center?: Coordinate | undefined;
+    constrainRotation?: boolean | number | undefined;
+    enableRotation?: boolean | undefined;
+    extent?: Extent | undefined;
+    maxResolution?: number | undefined;
+    minResolution?: number | undefined;
+    maxZoom?: number | undefined;
+    minZoom?: number | undefined;
+    projection?: ProjectionLike | undefined;
+    resolution?: number | undefined;
+    resolutions?: number[] | undefined;
+    rotation?: number | undefined;
+    zoom?: number | undefined;
+    zoomFactor?: number | undefined;
 }
 export default class View extends BaseObject {
     constructor(opt_options?: ViewOptions);

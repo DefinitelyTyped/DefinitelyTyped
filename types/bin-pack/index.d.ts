@@ -17,7 +17,7 @@ declare namespace pack {
     /** Packing options. */
     interface Options {
         /** Use inPlace=true to add x,y fields to the bins argument. */
-        inPlace?: boolean;
+        inPlace?: boolean | undefined;
     }
 
     /** Specifies the dimensions of a bin to pack. */

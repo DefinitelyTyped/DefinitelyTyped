@@ -31,32 +31,32 @@ declare namespace Handsontable {
         /**
          * Minimum number of rows. At least that many of rows will be created during initialization.
          */
-        minRows?: number;
+        minRows?: number | undefined;
 
         /**
          * Minimum number of columns. At least that many of columns will be created during initialization.
          */
-        minCols?: number;
+        minCols?: number | undefined;
 
         /**
          * Maximum number of rows.
          */
-        maxRows?: number;
+        maxRows?: number | undefined;
 
         /**
          * Maximum number of columns.
          */
-        maxCols?: number;
+        maxCols?: number | undefined;
 
         /**
          * Initial number of rows. Notice: This option only has effect in Handsontable constructor and only if data option is not provided.
          */
-        startRows?: number;
+        startRows?: number | undefined;
 
         /**
          * Initial number of rows. Notice: This option only has effect in Handsontable constructor and only if data option is not provided.
          */
-        startCols?: number;
+        startCols?: number | undefined;
 
         /**
          * Setting true or false will enable or disable the default row headers (1, 2, 3). You can also define an array ['One', 'Two', 'Three', ...] or a function to define the headers. If a function is set the index of the rowis passed as a parameter.
@@ -78,13 +78,13 @@ declare namespace Handsontable {
          * @see https://github.com/handsontable/jquery-handsontable/wiki/Options below for more detailed explanation.
          * @see http://handsontable.com/demo/datasources.html for examples
          */
-        columns?: any[];
+        columns?: any[] | undefined;
 
         /**
          * Defines the cell properties for given row, col, prop coordinates.
          * See Cells section below for more detailed explanation.
          */
-        cells?: (row: number, col: number, prop: string) => void;
+        cells?: ((row: number, col: number, prop: string) => void) | undefined;
 
         /**
          * Defines the structure of a new row when data source is an object.
@@ -95,17 +95,17 @@ declare namespace Handsontable {
         /**
          * When set to 1 (or more), Handsontable will add a new row at the end of grid if there are no more empty rows.
          */
-        minSpareRows?: number;
+        minSpareRows?: number | undefined;
 
         /**
          * When set to 1 (or more), Handsontable will add a new column at the end of grid if there are no more empty columns.
          */
-        minSpareCols?: number;
+        minSpareCols?: number | undefined;
 
         /**
          * If true, selection of multiple cells using keyboard or mouse is allowed.
          */
-        multiSelect?: boolean;
+        multiSelect?: boolean | undefined;
 
         /**
          * Enables the fill handle (drag-down and copy-down) functionality, which shows the small rectangle in bottom right corner of the selected area, that let's you expand values to the adjacent cells.
@@ -123,17 +123,17 @@ declare namespace Handsontable {
         /**
          * If true, undo/redo functionality is enabled.
          */
-        undo?: boolean;
+        undo?: boolean | undefined;
 
         /**
          * If true, mouse click outside the grid will deselect the current selection.
          */
-        outsideClickDeselects?: boolean;
+        outsideClickDeselects?: boolean | undefined;
 
         /**
          * If true, ENTER begins editing mode (like Google Docs). If false, ENTER moves to next row (like Excel) and adds new row if necessary. TAB adds new column if necessary.
          */
-        enterBeginsEditing?: boolean;
+        enterBeginsEditing?: boolean | undefined;
 
         /**
          * Defines cursor move after ENTER is pressed (SHIFT+ENTER uses negative vector). Can be an object or a function that returns an object. The event argument passed to the function is a jQuery.Event object received after a ENTER key has been pressed. This event object can be used to check whether user pressed ENTER or SHIFT + ENTER.
@@ -148,50 +148,50 @@ declare namespace Handsontable {
         /**
          * If true, pressing TAB or right arrow in the last column will move to first column in next row.
          */
-        autoWrapRow?: boolean;
+        autoWrapRow?: boolean | undefined;
 
         /**
          * If true, pressing ENTER or down arrow in the last row will move to first row in next column.
          */
-        autoWrapCol?: boolean;
+        autoWrapCol?: boolean | undefined;
 
         /**
          * Autocomplete definitions.
          * @see demo/autocomplete.html for examples and definitions.
          */
-        autoComplete?: any[];
+        autoComplete?: any[] | undefined;
 
         /**
          * Maximum number of rows than can be copied to clipboard using CTRL+C.
          */
-        copyRowsLimit?: number;
+        copyRowsLimit?: number | undefined;
 
         /**
          * Maximum number of columns than can be copied to clipboard using CTRL+C.
          */
-        copyColsLimit?: number;
+        copyColsLimit?: number | undefined;
 
         /**
          * Defines paste (CTRL+V) behavior. Default value "overwrite" will paste clipboard value over current selection.
          * When set to "shift_down", clipboard data will be pasted in place of current selection, while all selected cells are moved down.
          * When set to "shift_right", clipboard data will be pasted in place of current selection, while all selected cells are moved right.
          */
-        pasteMode?: string;
+        pasteMode?: string | undefined;
 
         /**
          * Column stretching mode. Possible values: "none", "last", "all".
          */
-        stretchH?: string;
+        stretchH?: string | undefined;
 
         /**
          * Lets you overwrite the default isEmptyRow method.
          */
-        isEmptyRow?: (row: number) => boolean;
+        isEmptyRow?: ((row: number) => boolean) | undefined;
 
         /**
          * Lets you overwrite the default isEmptyCol method.
          */
-        isEmptyCol?: (col: number) => boolean;
+        isEmptyCol?: ((col: number) => boolean) | undefined;
 
         /**
          * Turn on Manual column resize, if set to a boolean or define initial column resized widths, if set to an array of numbers.
@@ -206,47 +206,47 @@ declare namespace Handsontable {
         /**
          * Turn on Column sorting.
          */
-        columnSorting?: boolean;
+        columnSorting?: boolean | undefined;
 
         /**
          * Turn on saving the state of column sorting, columns positions and columns sizes in local storage. For more information see How to save data localy.
          */
-        persistentState?: boolean;
+        persistentState?: boolean | undefined;
 
         /**
          * Class name for all visible rows in current selection.
          */
-        currentRowClassName?: string;
+        currentRowClassName?: string | undefined;
 
         /**
          * Class name for all visible columns in current selection.
          */
-        currentColClassName?: string;
+        currentColClassName?: string | undefined;
 
         /**
          * Allows to specify the number of rows fixed (aka freezed) on the top of the table.
          */
-        fixedRowsTop?: number;
+        fixedRowsTop?: number | undefined;
 
         /**
          * Allows to specify the number of columns fixed (aka freezed) on the left side of the table.
          */
-        fixedColumnsLeft?: number;
+        fixedColumnsLeft?: number | undefined;
 
         /**
          * Setting to true enables selecting just a fragment of the text within a single cell or between adjacent cells.
          */
-        fragmentSelection?: boolean;
+        fragmentSelection?: boolean | undefined;
 
         /**
          * Setting to true word wrapping of the cell text content that does not fit in the fixed column width.
          */
-        wordWrap?: boolean;
+        wordWrap?: boolean | undefined;
 
         /**
          * CSS class name cells configured with wordWrap: false.
          */
-        noWordWrapClassName?: string;
+        noWordWrapClassName?: string | undefined;
 
         /**
          * When set to an non-empty string, displayed as the cell content for empty cells.
@@ -256,57 +256,57 @@ declare namespace Handsontable {
         /**
          * CSS class name for cells that have a placeholder in use.
          */
-        placeholderCellClassName?: string;
+        placeholderCellClassName?: string | undefined;
 
         /**
          * CSS class name for cells that did not pass validation.
          */
-        invalidCellClassName?: string;
+        invalidCellClassName?: string | undefined;
 
         /**
          * CSS class name for read-only cells.
          */
-        readOnlyCellClassName?: string;
+        readOnlyCellClassName?: string | undefined;
 
         /**
          * Setting to true enables the debug mode, currently used to test the correctness of the row and column header fixed positioning on a layer above the master table.
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * When set to true, the table is rerendered when it is detected that it was made visible in DOM.
          */
-        observeDOMVisibility?: boolean;
+        observeDOMVisibility?: boolean | undefined;
 
         /**
          * Setting to true enables the autoColumnSize plugin, which makes sure each column gets enough space to show its content.
          */
-        autoColumnSize?: boolean | Object;
+        autoColumnSize?: boolean | Object | undefined;
 
         /**
          * Setting to true enables the observeChanges plugin, which automatically renders the table when a change in the data source is observed.
          */
-        observeChanges?: boolean;
+        observeChanges?: boolean | undefined;
 
         /**
          * Setting to true enables the manualRowResize plugin, which allows to resize the row height with your mouse.
          */
-        manualRowResize?: boolean;
+        manualRowResize?: boolean | undefined;
 
         /**
          * Turns on Manual row move, if set to a boolean or define initial row order, if set to an array of row indexes.
          */
-        manualRowMove?: boolean;
+        manualRowMove?: boolean | undefined;
 
         /**
          * Setting to true enables the copyPaste plugin, which enables the copying and pasting to the clipboard.
          */
-        copyPaste?: boolean;
+        copyPaste?: boolean | undefined;
 
         /**
          * Setting to true enables the search plugin (see demo).
          */
-        search?: boolean;
+        search?: boolean | undefined;
 
         /**
          * Setting to true or array enables the mergeCells plugin, which enables the merging of the cells. (see demo). You can provide the merged cells on the pageload if you feed the mergeCells option with an array.
@@ -316,19 +316,19 @@ declare namespace Handsontable {
         /**
          * Callback fired before Walkontable instance is initiated.
          */
-        beforeInitWalkontable?: Function;
+        beforeInitWalkontable?: Function | undefined;
 
         /**
          * Callback fired before Handsontable instance is initiated.
          * Note: this can be set only by global PluginHooks instance.
          */
-        beforeInit?: Function;
+        beforeInit?: Function | undefined;
 
         /**
          * Callback fired before Handsontable table is rendered. Parameters:
          *   - isForced is true if rendering was triggered by a change of settings or data; or false if rendering was triggered by scrolling or moving selection.
          */
-        beforeRender?: (isForced: boolean) => void;
+        beforeRender?: ((isForced: boolean) => void) | undefined;
 
         /**
          * Callback fired before one or more cells is changed. Its main purpose is to alter changes silently before input. Parameters:
@@ -338,24 +338,24 @@ declare namespace Handsontable {
          *     - To cancel all edit, return false from the callback or set array length to 0 (changes.length = 0).
          *   - source is the name of a source of changes.
          */
-        beforeChange?: (changes: any[][], source: string) => void;
+        beforeChange?: ((changes: any[][], source: string) => void) | undefined;
 
-        beforeChangeRender?: Function;
+        beforeChangeRender?: Function | undefined;
 
         /**
          * Callback fired before sorting the table. The column argument is a relative (displayed) index of a column that is about to be sorted. To get the absolute column index, just add the current column offset. You can get the offset by using colOffset() method.
          */
-        beforeColumnSort?: (column: number, order: boolean) => void;
+        beforeColumnSort?: ((column: number, order: boolean) => void) | undefined;
 
         /**
          * Callback fired before setting single value from the data source array.
          */
-        beforeSet?: (v: Object) => void;
+        beforeSet?: ((v: Object) => void) | undefined;
 
         /**
          * Callback fired before getting cell settings.
          */
-        beforeGetCellMeta?: (row: number, col: number, cellProperties: Object) => void;
+        beforeGetCellMeta?: ((row: number, col: number, cellProperties: Object) => void) | undefined;
 
         /**
          * Parameters:
@@ -363,33 +363,33 @@ declare namespace Handsontable {
          *   - end is an object containing information about last filled cell: { row : 4, col : 1 }.
          *   - data is an 2D array containing information about fill pattern: [ ["1", "Ted"], ["1", "John"] ].
          */
-        beforeAutofill?: (start: CellPosition, end: CellPosition, data: string[][]) => void;
+        beforeAutofill?: ((start: CellPosition, end: CellPosition, data: string[][]) => void) | undefined;
 
         /**
          * Callback fired before keydown event is handled. It can be used to overwrite default key bindings. Caution - in your beforeKeyDown handler you need to call event.stopImmediatePropagation() to prevent default key behavior.
          */
-        beforeKeyDown?: (event: KeyboardEvent) => void;
+        beforeKeyDown?: ((event: KeyboardEvent) => void) | undefined;
 
         /**
          * A plugin hook executed before validator function, only if validator function is defined. This can be used to manipulate value of changed cell before it is applied to the validator function. NOTICE: this will not affect values of changes. This will change value ONLY for validation!
          */
-        beforeValidate?: (value: any, row: number, prop: string, source: string) => void;
+        beforeValidate?: ((value: any, row: number, prop: string, source: string) => void) | undefined;
 
         /**
          * Callback fired after Handsontable instance is initiated.
          */
-        afterInit?: Function;
+        afterInit?: Function | undefined;
 
         /**
          * Callback fired after new data is loaded (by loadData method) into the data source array.
          */
-        afterLoadData?: Function;
+        afterLoadData?: Function | undefined;
 
         /**
          * Callback fired after Handsontable table is rendered. Parameters:
          *   - isForced is true if rendering was triggered by a change of settings or data; or false if rendering was triggered by scrolling or moving selection.
          */
-        afterRender?: (isForced: boolean) => void;
+        afterRender?: ((isForced: boolean) => void) | undefined;
 
         /**
          * Callback fired after one or more cells is changed. Its main use case is to save the input. Parameters:
@@ -397,12 +397,12 @@ declare namespace Handsontable {
          *   - source is one of the strings: "alter", "empty", "edit", "populateFromArray", "loadData", "autofill", "paste".
          * Note: for performance reasons, the changes array is null for "loadData" source.
          */
-        afterChange?: (changes: any[], source: string) => void;
+        afterChange?: ((changes: any[], source: string) => void) | undefined;
 
         /**
          * Callback fired after sorting the table. The column argument is a relative (displayed) index of a column that is about to be sorted. To get the absolute column index, just add the current column offset. You can get the offset by using colOffset() method.
          */
-        afterColumnSort?: (column: number, order: boolean) => void;
+        afterColumnSort?: ((column: number, order: boolean) => void) | undefined;
 
         /**
          * Callback fired while one or more cells are being selected (on mouse move). Parameters:
@@ -411,12 +411,12 @@ declare namespace Handsontable {
          *   - r2 selection end row
          *   - c2 selection end column
          */
-        afterSelection?: (r: number, c: number, r2: number, c2: number) => void;
+        afterSelection?: ((r: number, c: number, r2: number, c2: number) => void) | undefined;
 
         /**
          * The same as above, but data source object property name is used instead of the column number.
          */
-        afterSelectionByProp?: (r: number, p: string, r2: number, p2: string) => void;
+        afterSelectionByProp?: ((r: number, p: string, r2: number, p2: string) => void) | undefined;
 
         /**
          * Callback fired while one or more cells are being selected (on mouse up). Parameters:
@@ -425,192 +425,192 @@ declare namespace Handsontable {
          *   - r2 selection end row
          *   - c2 selection end column
          */
-        afterSelectionEnd?: (r: number, c: number, r2: number, c2: number) => void;
+        afterSelectionEnd?: ((r: number, c: number, r2: number, c2: number) => void) | undefined;
 
         /**
          * The same as above, but data source object property name is used instead of the column number.
          */
-        afterSelectionEndByProp?: (r: number, p: string, r2: number, p2: string) => void;
+        afterSelectionEndByProp?: ((r: number, p: string, r2: number, p2: string) => void) | undefined;
 
         /**
          * Event called when current cell is deselected.
          */
-        afterDeselect?: Function;
+        afterDeselect?: Function | undefined;
 
         /**
          * Callback fired after getting cell settings.
          */
-        afterGetCellMeta?: (row: number, col: number, cellProperties: Object) => void;
+        afterGetCellMeta?: ((row: number, col: number, cellProperties: Object) => void) | undefined;
 
         /**
          * Callback fired after getting info about column header.
          */
-        afterGetColHeader?: (col: number, TH: HTMLTableHeaderCellElement) => void;
+        afterGetColHeader?: ((col: number, TH: HTMLTableHeaderCellElement) => void) | undefined;
 
         /**
          * Callback fired after calculating column width.
          */
-        afterGetColWidth?: (col: number, response: Object) => void;
+        afterGetColWidth?: ((col: number, response: Object) => void) | undefined;
 
         /**
          * Callback fired after destroing Handsontable instance.
          */
-        afterDestroy?: Function;
+        afterDestroy?: Function | undefined;
 
         /**
          * Callback is fired when a new row is created. Parameters:
          *   - index represents the index of first newly created row in the data source array.
          *   - amount number of newly created rows in the data source array.
          */
-        afterCreateRow?: (index: number, amount: number) => void;
+        afterCreateRow?: ((index: number, amount: number) => void) | undefined;
 
         /**
          * Callback is fired when a new column is created. Parameters:
          *   - index represents the index of first newly created column in the data source array.
          *   - amount number of newly created columns in the data source array.
          */
-        afterCreateCol?: (index: number, amount: number) => void;
+        afterCreateCol?: ((index: number, amount: number) => void) | undefined;
 
         /**
          * Callback is fired when one or more rows are about to be removed. Parameters:
          *   - index is an index of starter row.
          *   - amount is an anount of rows to be removed.
          */
-        beforeRemoveRow?: (index: number, amount: number) => void;
+        beforeRemoveRow?: ((index: number, amount: number) => void) | undefined;
 
         /**
          * Callback is fired when one or more rows are removed. Parameters:
          *   - index is an index of starter row.
          *   - amount is an anount of removed rows.
          */
-        afterRemoveRow?: (index: number, amount: number) => void;
+        afterRemoveRow?: ((index: number, amount: number) => void) | undefined;
 
         /**
          * Callback is fired when one or more columns are about to be removed. Parameters:
          *   - index is an index of starter column.
          *   - amount is an anount of columns to be removed.
          */
-        beforeRemoveCol?: (index: number, amount: number) => void;
+        beforeRemoveCol?: ((index: number, amount: number) => void) | undefined;
 
         /**
          * Callback is fired when one or more columns are removed. Parameters:
          *   - index is an index of starter column.
          *   - amount is an anount of removed columns.
          */
-        afterRemoveCol?: (index: number, amount: number) => void;
+        afterRemoveCol?: ((index: number, amount: number) => void) | undefined;
 
         /**
          * Callback is fired after changing column size.
          */
-        afterColumnResize?: (col: number, size: number) => void;
+        afterColumnResize?: ((col: number, size: number) => void) | undefined;
 
         /**
          * Callback is fired after changing column placement.
          */
-        afterColumnMove?: (oldIndex: number, newIndex: number) => void;
+        afterColumnMove?: ((oldIndex: number, newIndex: number) => void) | undefined;
 
         /**
          * Callback fired if copyRowsLimit or copyColumnsLimit was reached.
          */
-        afterCopyLimit?: (selectedRowsCount: number, selectedColsCount: number, copyRowsLimit: number, copyColsLimit: number) => void;
+        afterCopyLimit?: ((selectedRowsCount: number, selectedColsCount: number, copyRowsLimit: number, copyColsLimit: number) => void) | undefined;
 
         /**
          * A plugin hook executed after validator function, only if validator function is defined. Validation result is the first parameter. This can be used to determinate if validation passed successfully or not. You can cancel current change by returning false.
          */
-        afterValidate?: (isValid: boolean, value: any, row: number, prop: string, source: string) => boolean;
+        afterValidate?: ((isValid: boolean, value: any, row: number, prop: string, source: string) => boolean) | undefined;
 
         /**
          * Callback fired before setting range is ended. Parameters:
          *   - coords is WalkontableCellCoords array
          */
-        beforeSetRangeEnd?: (coords: any[]) => void;
+        beforeSetRangeEnd?: ((coords: any[]) => void) | undefined;
 
-        afterUpdateSettings?: Function;
+        afterUpdateSettings?: Function | undefined;
 
-        afterRenderer?: (TD: HTMLTableDataCellElement, row: number, col: number, prop: string, value: string, cellProperties: Object) => void;
+        afterRenderer?: ((TD: HTMLTableDataCellElement, row: number, col: number, prop: string, value: string, cellProperties: Object) => void) | undefined;
 
         /**
          * Callback fired after clicking on a cell or row/column header.
          * In case the row/column header was clicked, the index is negative. For example clicking on the row header of cell (0, 0) results with afterOnCellMouseDown called with coords {row: 0, col: -1}.
          */
-        afterOnCellMouseDown?: (event: MouseEvent, coords: CellPosition, TD: HTMLTableDataCellElement) => void;
+        afterOnCellMouseDown?: ((event: MouseEvent, coords: CellPosition, TD: HTMLTableDataCellElement) => void) | undefined;
 
         /**
          * Callback fired after hovering a cell or row/column header with the mouse cursor.
          * In case the row/column header was hovered, the index is negative. For example clicking on the row header of cell (0, 0) results with afterOnCellMouseOver called with coords {row: 0, col: -1}.
          */
-        afterOnCellMouseOver?: (event: MouseEvent, coords: CellPosition, TD: HTMLTableDataCellElement) => void;
+        afterOnCellMouseOver?: ((event: MouseEvent, coords: CellPosition, TD: HTMLTableDataCellElement) => void) | undefined;
 
         /**
          * Callback fired after.
          */
-        afterOnCellCornerMouseDown?: (event: MouseEvent) => void;
+        afterOnCellCornerMouseDown?: ((event: MouseEvent) => void) | undefined;
 
-        afterScrollVertically?: Function;
+        afterScrollVertically?: Function | undefined;
 
-        afterScrollHorizontally?: Function;
+        afterScrollHorizontally?: Function | undefined;
 
         /**
          * Callback fired after reset cell's meta.
          */
-        afterCellMetaReset?: Function;
+        afterCellMetaReset?: Function | undefined;
 
         /**
          * Callback fired after modify column's width.
          */
-        modifyColWidth?: (width: number, col: number) => void;
+        modifyColWidth?: ((width: number, col: number) => void) | undefined;
 
         /**
          * Callback fired after modify hight of row.
          */
-        modifyRowHeight?: (height: number, row: number) => void;
+        modifyRowHeight?: ((height: number, row: number) => void) | undefined;
 
         /**
          * Callback fired after row modify.
          */
-        modifyRow?: (row: number) => void;
+        modifyRow?: ((row: number) => void) | undefined;
 
         /**
          * Callback fired after column modify.
          */
-        modifyCol?: (col: number) => void;
+        modifyCol?: ((col: number) => void) | undefined;
 
-        afterSetCellMeta?: Function;
+        afterSetCellMeta?: Function | undefined;
 
         /**
          * Deprecated! Now event is called afterSelection.
          */
-        onSelection?: (r: number, p: number, r2: number, p2: number) => void;
+        onSelection?: ((r: number, p: number, r2: number, p2: number) => void) | undefined;
 
         /**
          * Deprecated! Now event is called afterSelectionByProp.
          */
-        onSelectionByProp?: (r: number, p: number, r2: number, p2: number) => void;
+        onSelectionByProp?: ((r: number, p: number, r2: number, p2: number) => void) | undefined;
 
         /**
          * Deprecated! Now event is called afterSelectionEnd.
          */
-        onSelectionEnd?: (r: number, p: number, r2: number, p2: number) => void;
+        onSelectionEnd?: ((r: number, p: number, r2: number, p2: number) => void) | undefined;
 
         /**
          * Deprecated! Now event is called afterSelectionEndByProp.
          */
-        onSelectionEndByProp?: (r: number, p: number, r2: number, p2: number) => void;
+        onSelectionEndByProp?: ((r: number, p: number, r2: number, p2: number) => void) | undefined;
 
         /**
          * Deprecated! Now event is called beforeChange.
          */
-        onBeforeChange?: (changes: any[], source: string) => void;
+        onBeforeChange?: ((changes: any[], source: string) => void) | undefined;
 
         /**
          * Deprecated! Now event is called afterChange.
          */
-        onChange?: (changes: any[], source: string) => void;
+        onChange?: ((changes: any[], source: string) => void) | undefined;
 
         /**
          * Deprecated! Now event is called afterCopyLimit.
          */
-        onCopyLimit?: (selectedRowsCount: number, selectedColsCount: number, copyRowsLimit: number, copyColsLimit: number) => void;
+        onCopyLimit?: ((selectedRowsCount: number, selectedColsCount: number, copyRowsLimit: number, copyColsLimit: number) => void) | undefined;
     }
 
     interface Context {

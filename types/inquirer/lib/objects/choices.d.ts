@@ -1,4 +1,4 @@
-import inquirer = require("../..");
+import { AllChoiceMap, Answers, KeyUnion, UnionToIntersection } from "../..";
 import Choice = require("./choice");
 import Separator = require("./separator");
 
@@ -8,7 +8,7 @@ import Separator = require("./separator");
  * @template T
  * The type of the answers.
  */
-type DistinctChoice<T> = inquirer.AllChoiceMap<T>[keyof inquirer.AllChoiceMap<T>];
+type DistinctChoice<T> = AllChoiceMap<T>[keyof AllChoiceMap<T>];
 
 /**
  * Represents a valid real choice for the `Choices` class.
@@ -24,7 +24,7 @@ type RealChoice<T> = Exclude<DistinctChoice<T>, { type: Separator["type"] }>;
  * @template T
  * The type of the answers.
  */
-type ChoiceProperty<T> = inquirer.KeyUnion<inquirer.UnionToIntersection<RealChoice<T>>>;
+type ChoiceProperty<T> = KeyUnion<UnionToIntersection<RealChoice<T>>>;
 
 /**
  * A collection of multiple `Choice`-objects.
@@ -32,7 +32,7 @@ type ChoiceProperty<T> = inquirer.KeyUnion<inquirer.UnionToIntersection<RealChoi
  * @template T
  * The type of the answers.
  */
-declare class Choices<T extends inquirer.Answers = inquirer.Answers> {
+declare class Choices<T extends Answers = Answers> {
     /**
      * The number of selectable choices.
      */
