@@ -1,7 +1,8 @@
-// Type definitions for react-plotly.js 2.2
+// Type definitions for react-plotly.js 2.5
 // Project: https://github.com/plotly/react-plotly.js#readme
 // Definitions by: Jon Freedman <https://github.com/jonfreedman>
 //                 Mitchell Grice <https://github.com/gricey432>
+//                 Patrick Huebner <https://github.com/phuebner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -74,6 +75,7 @@ export interface PlotParams {
     onAnimationInterrupted?: (() => void) | undefined;
     onAutoSize?: (() => void) | undefined;
     onBeforeExport?: (() => void) | undefined;
+    onBeforeHover?: ((event: Readonly<Plotly.PlotMouseEvent>) => boolean) | undefined;
     onButtonClicked?: ((event: Readonly<Plotly.ButtonClickEvent>) => void) | undefined;
     onClick?: ((event: Readonly<Plotly.PlotMouseEvent>) => void) | undefined;
     onClickAnnotation?: ((event: Readonly<Plotly.ClickAnnotationEvent>) => void) | undefined;
@@ -96,5 +98,4 @@ export interface PlotParams {
     onUnhover?: ((event: Readonly<Plotly.PlotMouseEvent>) => void) | undefined;
 }
 
-export default class Plot extends React.PureComponent<PlotParams> {
-}
+export default class Plot extends React.PureComponent<PlotParams> {}
