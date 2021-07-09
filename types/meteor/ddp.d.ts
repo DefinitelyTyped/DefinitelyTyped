@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-declare module "meteor/ddp" {
+declare module 'meteor/ddp' {
     module DDP {
         interface DDPStatic {
             subscribe(name: string, ...rest: any[]): Meteor.SubscriptionHandle;
@@ -37,7 +37,7 @@ declare module "meteor/ddp" {
         }
 
         interface MethodInvocation {
-            new(options: MethodInvocationOptions): MethodInvocation;
+            new (options: MethodInvocationOptions): MethodInvocation;
 
             unblock(): void;
 

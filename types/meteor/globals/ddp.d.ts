@@ -35,7 +35,7 @@ declare module DDPCommon {
     }
 
     interface MethodInvocation {
-        new(options: MethodInvocationOptions): MethodInvocation;
+        new (options: MethodInvocationOptions): MethodInvocation;
 
         unblock(): void;
 
