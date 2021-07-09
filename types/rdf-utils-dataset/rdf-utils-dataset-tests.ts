@@ -1,4 +1,4 @@
-import { resource } from 'rdf-utils-dataset';
+import resource = require('rdf-utils-dataset/resource');
 import { DatasetIndexed } from 'rdf-dataset-indexed/dataset';
 import DatasetExt = require('rdf-ext/lib/Dataset');
 import NamedNodeExt = require('rdf-ext/lib/NamedNode');
