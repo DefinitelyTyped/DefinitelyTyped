@@ -1363,8 +1363,6 @@ declare module 'crypto' {
 
     function secureHeapUsed(): SecureHeapUsage;
 
-    // TODO: X509Certificate
-
     interface RandomUUIDOptions {
         /**
          * By default, to improve performance,
@@ -1586,6 +1584,10 @@ declare module 'crypto' {
      * Checks the primality of the candidate.
      */
     function checkPrimeSync(value: LargeNumberLike, options?: CheckPrimeOptions): boolean;
+
+    namespace webcrypto {
+        class CryptoKey {} // placeholder
+    }
 }
 
 declare module 'node:crypto' {
