@@ -42,6 +42,7 @@ export interface ReactDatePickerProps {
     ariaLabelClose?: string;
     ariaLabelledBy?: string;
     ariaRequired?: string;
+    ariaInvalid?: string;
     autoComplete?: string;
     autoFocus?: boolean;
     calendarClassName?: string;

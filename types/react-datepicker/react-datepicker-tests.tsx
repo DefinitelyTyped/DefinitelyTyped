@@ -13,6 +13,7 @@ const defaultLocale = getDefaultLocale();
     ariaLabelledBy=""
     ariaLabelClose=""
     ariaRequired=""
+    ariaInvalid=""
     autoComplete=""
     autoFocus
     calendarClassName=""
