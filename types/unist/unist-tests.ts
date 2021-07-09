@@ -1,6 +1,6 @@
-import { Point, Position, Node, Literal, Parent, NodeData } from 'unist';
+import { Point, Position, Node, Literal, Parent, NodeData, Data } from 'unist';
 
-const data = {
+const data: Data = {
     string: 'string',
     number: 1,
     object: {
@@ -29,7 +29,7 @@ const node: Node = {
     position,
 };
 
-const text: Literal<string> = {
+const text: Literal = {
     type: 'text',
     data,
     position,
@@ -55,11 +55,18 @@ const noChildrenInNode: Node = {
     children: [],
 };
 
+const stringLiteral: Literal<string> = {
+    type: 'text',
+    data,
+    position,
+    value: 'value',
+};
+
 const literalParent: Parent<Literal<string>> = {
     type: 'literalParent',
     data,
     position,
-    children: [text],
+    children: [stringLiteral],
 };
 
 const nodeData: Node<{ key: string }> = {
@@ -75,7 +82,7 @@ const nodeData2: Node<{ key: string }> = {
     data: {},
 };
 
-type DataType = NodeData<Node<string>>; // $ExpectType string
+type DataType = NodeData<Node<string>>; // $ExpectError
 
 const literalData: Literal<string, { key: string }> = {
     type: 'literalData',
@@ -85,9 +92,29 @@ const literalData: Literal<string, { key: string }> = {
     value: 'value',
 };
 
-const literalParentData: Parent<Literal<string>, typeof data> = {
+const literalParentData: Parent<Literal<string>, Data> = {
     type: 'literalParent',
     data,
     position,
-    children: [text],
+    children: [stringLiteral],
+};
+
+const data1 = {
+    key1: 'value1',
+};
+
+const data2 = {
+    key2: 'value2',
+};
+
+const nestedliteralParentData: Parent<Literal<string, typeof data1>, typeof data2> = {
+    type: 'literalParent',
+    data: data2,
+    position,
+    children: [
+        {
+            ...stringLiteral,
+            data: data1,
+        },
+    ],
 };
