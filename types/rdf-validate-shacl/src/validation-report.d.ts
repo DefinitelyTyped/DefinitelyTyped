@@ -1,7 +1,7 @@
-import { BlankNode, DataFactory, DatasetCore, DatasetCoreFactory, NamedNode, Quad, Term } from 'rdf-js';
+import { DataFactory, DatasetCore, DatasetCoreFactory } from 'rdf-js';
 import { GraphPointer } from 'clownface';
 
-type FactoryFor<D> = D extends DatasetCore<infer OutQuad, infer InQuad> ? DataFactory<OutQuad, InQuad> & DatasetCoreFactory<OutQuad, InQuad, D> : never
+type FactoryFor<D> = D extends DatasetCore<infer OutQuad, infer InQuad> ? DataFactory<OutQuad, InQuad> & DatasetCoreFactory<OutQuad, InQuad, D> : never;
 type OutQuadOf<D> = D extends DatasetCore<infer Q, any> ? Q : never;
 type InQuadOf<D> = D extends DatasetCore<any, infer Q> ? Q : never;
 type SubjectOf<D> = OutQuadOf<D>['subject'];
@@ -16,7 +16,7 @@ declare namespace ValidationReport {
         term: SubjectOf<D>;
         dataset: D;
         cf: GraphPointer<SubjectOf<D>, D>;
-        readonly message: ObjectOf<D>[];
+        readonly message: Array<ObjectOf<D>>;
         readonly path: ObjectOf<D> | null;
         readonly focusNode: ObjectOf<D> | null;
         readonly severity: ObjectOf<D> | null;
@@ -26,11 +26,11 @@ declare namespace ValidationReport {
 }
 
 declare class ValidationReport<D extends DatasetCore> {
-    constructor(resultQuads: InQuadOf<D>[], options: ValidationReport.Options<FactoryFor<D>>);
+    constructor(resultQuads: Array<InQuadOf<D>>, options: ValidationReport.Options<FactoryFor<D>>);
     term: SubjectOf<D>;
     dataset: D;
     conforms: boolean;
-    results: ValidationReport.ValidationResult<D>[];
+    results: Array<ValidationReport.ValidationResult<D>>;
 }
 
 export = ValidationReport;

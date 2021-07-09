@@ -3,10 +3,10 @@
 // Definitions by: Tomasz Pluskiewicz <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DataFactory, DatasetCore, DatasetCoreFactory, Quad } from 'rdf-js';
+import { DataFactory, DatasetCore, DatasetCoreFactory } from 'rdf-js';
 import ValidationReport = require('./src/validation-report');
 
-type FactoryFor<D> = D extends DatasetCore<infer OutQuad, infer InQuad> ? DataFactory<OutQuad, InQuad> & DatasetCoreFactory<OutQuad, InQuad, D> : never
+type FactoryFor<D> = D extends DatasetCore<infer OutQuad, infer InQuad> ? DataFactory<OutQuad, InQuad> & DatasetCoreFactory<OutQuad, InQuad, D> : never;
 type OutQuadOf<T> = T extends DatasetCore<infer Q, any> ? Q : never;
 
 declare namespace SHACLValidator {
@@ -16,7 +16,7 @@ declare namespace SHACLValidator {
     }
 }
 
-declare class SHACLValidator<D extends DatasetCore<Quad>, F extends FactoryFor<D>>{
+declare class SHACLValidator<D extends DatasetCore, F extends FactoryFor<D>> {
     constructor(shapes: D, options?: SHACLValidator.Options<F>);
     factory: F;
     depth: number;
