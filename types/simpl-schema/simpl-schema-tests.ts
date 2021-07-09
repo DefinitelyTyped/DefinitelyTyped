@@ -101,6 +101,12 @@ StringSchema.validator({
     removeNullsFromArrays: true
 })
 
+StringSchema.clean({title: ''}, {
+    removeEmptyStrings: true,
+    removeNullsFromArrays: true,
+    isUpsert: false
+});
+
 const StringSchemaWithOptions = new SimpleSchema({
     basicString: {
         type: String

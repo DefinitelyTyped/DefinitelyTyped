@@ -129,6 +129,9 @@ interface CleanOption {
     isModifier?: boolean | undefined;
     extendAutoValueContext?: boolean | undefined;
     removeNullsFromArrays?: boolean | undefined;
+    mutate?: boolean | undefined;
+    isUpsert?: boolean | undefined;
+    mongoObject?: boolean | undefined;
 }
 
 interface SimpleSchemaOptions {
