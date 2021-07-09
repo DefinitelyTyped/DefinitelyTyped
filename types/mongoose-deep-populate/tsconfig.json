@@ -12,11 +12,6 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "mongoose": [
-                "mongoose/v4"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

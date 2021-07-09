@@ -13,15 +13,15 @@ export interface AsyncProps<
      * set to `true`, the results for loadOptions('') will be autoloaded.
      * @default false
      */
-    defaultOptions?: ReadonlyArray<OptionType | GroupType> | boolean;
+    defaultOptions?: ReadonlyArray<OptionType | GroupType> | boolean | undefined;
     /**
      * Function that returns a promise, which is the set of options to be used
      * once the promise resolves.
      */
-    loadOptions?: (
+    loadOptions?: ((
         inputValue: string,
         callback: (options: ReadonlyArray<OptionType | GroupType>) => void,
-    ) => Promise<ReadonlyArray<OptionType | GroupType>> | void;
+    ) => Promise<ReadonlyArray<OptionType | GroupType>> | void) | undefined;
     /**
      * If cacheOptions is truthy, then the loaded data will be cached. The cache
      * will remain until `cacheOptions` changes value.
@@ -39,10 +39,10 @@ export type Props<
 export const defaultProps: Props<any, boolean>;
 
 export interface State<OptionType extends OptionTypeBase> {
-    defaultOptions?: OptionsType<OptionType>;
+    defaultOptions?: OptionsType<OptionType> | undefined;
     inputValue: string;
     isLoading: boolean;
-    loadedInputValue?: string;
+    loadedInputValue?: string | undefined;
     loadedOptions: OptionsType<OptionType>;
     passEmptyOptions: boolean;
 }

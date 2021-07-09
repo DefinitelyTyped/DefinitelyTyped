@@ -275,6 +275,16 @@ describe("Included matchers:", () => {
         await expectAsync(new Promise(() => {})).toBePending();
     });
 
+    it("async matchers - already", async () => {
+        const reason = new Error("badness");
+        await expectAsync(Promise.reject(reason)).already.toBeResolved();
+        await expectAsync(Promise.resolve(true)).already.toBeResolvedTo(false);
+        await expectAsync(Promise.resolve()).already.toBeRejected();
+        await expectAsync(Promise.reject(reason)).already.toBeRejectedWith(reason);
+        await expectAsync(Promise.reject(reason)).already.toBeRejectedWithError(Error, "malady");
+        await expectAsync(Promise.resolve()).already.toBePending();
+    });
+
     it("async matchers - not", async () => {
         const badness = new Error("badness");
         const malady = new Error("malady");
@@ -1138,7 +1148,7 @@ describe("multiple spies, when created with spyOnAllFunctions", () => {
             y: (a: number) => a,
         };
 
-        const spy = spyOnAllFunctions(obj);
+        const spy = spyOnAllFunctions(obj, true);
 
         spy.x.and.returnValue(42);
         spy.y.and.returnValue(24);
@@ -2083,6 +2093,47 @@ const myAsyncReporter: jasmine.CustomReporter = {
 
 jasmine.getEnv().addReporter(myAsyncReporter);
 
+const legacyReporter: jasmine.CustomReporter = {
+    jasmineStarted(suiteInfo: jasmine.SuiteInfo) {
+        console.log(`Running suite with ${suiteInfo.totalSpecsDefined}`);
+    },
+
+    suiteStarted(result: jasmine.CustomReporterResult) {
+        console.log(`Suite started: ${result.description} whose full description is: ${result.fullName}`);
+    },
+
+    specStarted(result: jasmine.CustomReporterResult) {
+        console.log(`Spec started: ${result.description} whose full description is: ${result.fullName}`);
+    },
+
+    specDone(result: jasmine.CustomReporterResult) {
+        console.log(`Spec: ${result.description} was ${result.status}`);
+
+        for (const failedExpectation of result.failedExpectations) {
+            console.log(`Failure: ${failedExpectation.message}`);
+            console.log(failedExpectation.stack);
+        }
+
+        console.log(result.passedExpectations.length);
+    },
+
+    suiteDone(result: jasmine.CustomReporterResult) {
+        console.log(`Suite: ${result.description} was ${result.status}`);
+        for (const failedExpectation of result.failedExpectations) {
+            console.log(`Suite ${failedExpectation.message}`);
+            console.log(failedExpectation.stack);
+        }
+    },
+
+    jasmineDone(result: jasmine.RunDetails) {
+        console.log(`Finished suite: ${result.overallStatus}`);
+        for (const failedExpectation of result.failedExpectations) {
+            console.log(`Global ${failedExpectation.message}`);
+            console.log(failedExpectation.stack);
+        }
+    },
+};
+
 describe("Randomize Tests", () => {
     it("should allow randomization of the order of tests", () => {
         expect(() => {
@@ -2101,6 +2152,9 @@ describe("Randomize Tests", () => {
                 seed: 1234,
             });
         }).not.toThrow();
+        const env = jasmine.getEnv();
+        const seed1 = env.seed(42); // $ExpectType string | number
+        const seed2 = env.seed('42'); // $ExpectType string | number
     });
 });
 

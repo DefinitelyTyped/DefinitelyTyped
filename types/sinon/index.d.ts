@@ -1117,20 +1117,20 @@ declare namespace Sinon {
          */
         calledWith<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
-            ...args: MatchArguments<TArgs>
+            ...args: Partial<MatchArguments<TArgs>>
         ): void;
         /**
          * Passes if spy was always called with the provided arguments.
          * @param spy
          * @param args
          */
-        alwaysCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchArguments<TArgs>): void;
+        alwaysCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: Partial<MatchArguments<TArgs>>): void;
         /**
          * Passes if spy was never called with the provided arguments.
          * @param spy
          * @param args
          */
-        neverCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchArguments<TArgs>): void;
+        neverCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: Partial<MatchArguments<TArgs>>): void;
         /**
          * Passes if spy was called with the provided arguments and no others.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithExactly(spy.getCall(1), arg1, arg2, ...);.

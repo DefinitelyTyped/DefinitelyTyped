@@ -3,7 +3,6 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
 //                 David Pärsson <https://github.com/davidparsson>
-//                 Gabe Moothart <https://github.com/gmoothart>
 //                 Lukas Zech <https://github.com/lukas-zech-software>
 //                 Boris Breuer <https://github.com/Engineer2B>
 //                 Chris Yungmann <https://github.com/cyungmann>
@@ -243,20 +242,20 @@ declare namespace jasmine {
          * @since 3.3.0
          * @default true
          */
-        random?: boolean;
+        random?: boolean | undefined;
         /**
          * Seed to use as the basis of randomization.
          * Null causes the seed to be determined randomly at the start of execution.
          * @since 3.3.0
          * @default null
          */
-        seed?: number | string;
+        seed?: number | string | undefined;
         /**
          * Whether to stop execution of the suite after the first spec failure
          * @since 3.3.0
          * @default false
          */
-        failFast?: boolean;
+        failFast?: boolean | undefined;
         /**
          * Whether to fail the spec if it ran no expectations. By default
          * a spec that ran no expectations is reported as passed. Setting this
@@ -264,26 +263,26 @@ declare namespace jasmine {
          * @since 3.5.0
          * @default false
          */
-        failSpecWithNoExpectations?: boolean;
+        failSpecWithNoExpectations?: boolean | undefined;
         /**
          * Whether to cause specs to only have one expectation failure.
          * @since 3.3.0
          * @default false
          */
-        oneFailurePerSpec?: boolean;
+        oneFailurePerSpec?: boolean | undefined;
         /**
          * Function to use to filter specs
          * @since 3.3.0
          * @default true
          */
-        specFilter?: Function;
+        specFilter?: Function | undefined;
         /**
          * Whether or not reporters should hide disabled specs from their output.
          * Currently only supported by Jasmine's HTMLReporter
          * @since 3.3.0
          * @default false
          */
-        hideDisabled?: boolean;
+        hideDisabled?: boolean | undefined;
         /**
          * Set to provide a custom promise library that Jasmine will use if it needs
          * to create a promise. If not set, it will default to whatever global Promise
@@ -291,7 +290,7 @@ declare namespace jasmine {
          * @since 3.5.0
          * @default undefined
          */
-        Promise?: Function;
+        Promise?: Function | undefined;
     }
 
     function clock(): Clock;
@@ -452,7 +451,7 @@ declare namespace jasmine {
 
     interface CustomMatcherResult {
         pass: boolean;
-        message?: string;
+        message?: string | undefined;
     }
 
     interface DiffBuilder {
@@ -509,7 +508,7 @@ declare namespace jasmine {
         /**
          * @deprecated Use seed option in {@link jasmine.Env.configure} instead.
          */
-        seed(value?: number | string): boolean;
+        seed(value?: number | string): number | string;
         /**
          * Sets a user-defined property that will be provided to reporters as
          * part of the properties field of SpecResult.
@@ -900,6 +899,11 @@ declare namespace jasmine {
         withContext(message: string): AsyncMatchers<T, U>;
 
         /**
+         * Fail as soon as possible if the actual is pending. Otherwise evaluate the matcher.
+         */
+        already: AsyncMatchers<T, U>;
+
+        /**
          * Invert the matcher following this expect.
          */
         not: AsyncMatchers<T, U>;
@@ -990,6 +994,15 @@ declare namespace jasmine {
         failedExpectations: ExpectationResult[];
         deprecationWarnings: ExpectationResult[];
     }
+
+    /** @deprecated use JasmineStartedInfo instead */
+    type SuiteInfo = JasmineStartedInfo;
+
+    /** @deprecated use SuiteResult or SpecResult instead */
+    type CustomReporterResult = SuiteResult & SpecResult;
+
+    /** @deprecated use JasmineDoneInfo instead */
+    type RunDetails = JasmineDoneInfo;
 
     interface CustomReporter {
         jasmineStarted?(suiteInfo: JasmineStartedInfo, done?: () => void): void | Promise<void>;
@@ -1153,7 +1166,7 @@ declare namespace jasmine {
     var MAX_PRETTY_PRINT_ARRAY_LENGTH: number;
 
     /**
-     * Maximum number of charasters to display when pretty printing objects.
+     * Maximum number of characters to display when pretty printing objects.
      * Characters past this number will be ellipised.
      */
     var MAX_PRETTY_PRINT_CHARS: number;

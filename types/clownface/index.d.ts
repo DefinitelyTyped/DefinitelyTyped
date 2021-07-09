@@ -21,9 +21,9 @@ declare namespace clownface {
   type SingleOrArrayOfTermsOrLiterals<X extends Term> = SingleOrArray<TermOrLiteral<X>>;
 
   interface NodeOptions {
-    type?: 'BlankNode' | 'Literal' | 'NamedNode';
-    datatype?: Term | { toString(): string };
-    language?: string;
+    type?: 'BlankNode' | 'Literal' | 'NamedNode' | undefined;
+    datatype?: Term | { toString(): string } | undefined;
+    language?: string | undefined;
   }
 
   type ClownfaceInit<D extends DatasetCore = DatasetCore>
@@ -44,7 +44,7 @@ declare namespace clownface {
       : Iteratee<T, D>;
 
   interface OutOptions {
-    language?: string | string[];
+    language?: string | string[] | undefined;
   }
 
   interface AnyPointer<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore> {
@@ -68,6 +68,7 @@ declare namespace clownface {
 
     node<X extends Term>(value: SingleOrOneElementArray<X> | AnyPointer<X, D>, options?: NodeOptions): AnyPointer<X, D>;
     node<X extends Term>(value: MultiPointer<X, D> | Iterable<X>, options?: NodeOptions): AnyPointer<X[], D>;
+    node<X extends Term>(value: Iterable<GraphPointer<X, D>>, options?: NodeOptions): MultiPointer<X, D>;
     node<X extends Term[]>(values: X, options?: NodeOptions): AnyPointer<X, D>;
 
     node(value: null, options?: NodeOptions): AnyPointer<BlankNode, D>;
@@ -76,13 +77,16 @@ declare namespace clownface {
     node(values: Array<boolean | string | number | Term | null> | Iterable<Term>, options?: NodeOptions): AnyPointer<Term[], D>;
 
     blankNode(value?: SingleOrOneElementArray<string> | AnyPointer<BlankNode, D>): AnyPointer<BlankNode, D>;
-    blankNode(values: string[] | MultiPointer<BlankNode, D> | Iterable<BlankNode>): AnyPointer<BlankNode[], D>;
+    blankNode(values: string[] | MultiPointer<BlankNode, D> | Iterable<BlankNode> | Iterable<GraphPointer<BlankNode, D>>): AnyPointer<BlankNode[], D>;
 
     literal(value: SingleOrOneElementArray<boolean | string | number | Term | null> | AnyPointer<Literal, D>, languageOrDatatype?: string | NamedNode): AnyPointer<Literal, D>;
-    literal(values: Array<boolean | string | number | Term | null> | MultiPointer<Literal, D> | Iterable<Literal>, languageOrDatatype?: string | NamedNode): AnyPointer<Literal[], D>;
+    literal(
+      values: Array<boolean | string | number | null> | MultiPointer<Literal, D> | Iterable<Literal> | Iterable<GraphPointer<Literal, D>>,
+      languageOrDatatype?: string | NamedNode
+    ): AnyPointer<Literal[], D>;
 
     namedNode<Iri extends string = string>(value: SingleOrOneElementArray<string | NamedNode<Iri> | AnyPointer<NamedNode<Iri>, D>>): AnyPointer<NamedNode<Iri>, D>;
-    namedNode(values: Array<string | NamedNode> | MultiPointer<NamedNode, D> | Iterable<NamedNode>): AnyPointer<NamedNode[], D>;
+    namedNode(values: Array<string | NamedNode> | MultiPointer<NamedNode, D> | Iterable<NamedNode> | Iterable<GraphPointer<NamedNode, D>>): AnyPointer<NamedNode[], D>;
 
     in(predicates?: SingleOrArrayOfTerms<Term>): MultiPointer<T extends undefined ? never : NamedNode | BlankNode, D>;
     out(predicates?: SingleOrArrayOfTerms<Term>): MultiPointer<T extends undefined ? never : Term, D>;

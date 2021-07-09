@@ -102,7 +102,7 @@ const paramsAddTemplate: object = {
     'Text-part': 'Hello {{var:name}}',
 };
 const mailJetRequestTemplate: Email.PostResource = connection.post('template');
-const mailJetPostResource: Email.PostResource = mailJetRequestTemplate.id('762957');
+const mailJetPostResource: Email.PostResource = mailJetRequestTemplate.id(762957);
 const mailJetPostActionResource: Email.PostResource = mailJetPostResource.action('detailcontent');
 const mailJetResponseTemplate: Promise<Email.Response> = mailJetPostActionResource.request(paramsAddTemplate);
 mailJetResponseTemplate
@@ -114,7 +114,7 @@ mailJetResponseTemplate
     });
 
 // get all message
-const messageId = '576460753004591401';
+const messageId = 576460753004591401;
 const mailJetRequestMessages: Email.GetResource = connection.get('message');
 const mailJetGetResource: Email.GetResource = mailJetRequestMessages.id(messageId);
 const mailJetResponseMessages: Promise<Email.GetResponse> = mailJetGetResource.request();
@@ -129,6 +129,9 @@ mailJetResponseMessages
         // ignore
     });
 
+// get contact
+connection.get('contact').id('bob@example.com');
+
 // put contact data
 const putParams: object = {
     Data: [
@@ -139,7 +142,7 @@ const putParams: object = {
     ],
 };
 const mailJetRequestPutData: Email.PutResource = connection.put('contactdata');
-const mailJetPutResource: Email.PutResource = mailJetRequestPutData.id('1934644827');
+const mailJetPutResource: Email.PutResource = mailJetRequestPutData.id(1934644827);
 const mailJetPutResponse: Promise<Email.PutResponse> = mailJetPutResource.request(putParams);
 mailJetPutResponse
     .then((res: Email.PutResponse) => {
@@ -258,7 +261,7 @@ smsActionResponsePromise
 const getResourceActionId: SMS.GetResourceActionId = smsConnection
     .get('sms')
     .action('export')
-    .id('160875105');
+    .id(160875105);
 const exportResponseAction: Promise<SMS.ExportResponse> = getResourceActionId.request();
 exportResponseAction
     .then((res: SMS.ExportResponse) => {

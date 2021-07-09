@@ -58,7 +58,7 @@ const editor = new MyEditor();
  */
 
 let view = new View();
-const func: Function = view.t;
+const func: (...args: any[]) => any = view.t;
 const undef: undefined = view.locale as undefined;
 let bool: boolean = view.isRendered;
 let template: Template = view.template;

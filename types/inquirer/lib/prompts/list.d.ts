@@ -1,12 +1,12 @@
 import Prompt = require("./base");
-import inquirer = require("../..");
+import { Answers, ListQuestionOptions } from "../..";
 import Paginator = require("../utils/paginator");
 import { Interface as ReadlineInterface } from "readline";
 
 /**
  * The question-options for the `ListPrompt<T>`.
  */
-type Question = inquirer.ListQuestionOptions<inquirer.Answers>;
+type Question = ListQuestionOptions;
 
 /**
  * Represents a prompt which provides a list to choose an answer from.
@@ -47,7 +47,7 @@ declare class ListPrompt<TQuestion extends Question = Question> extends Prompt<T
      * @param answers
      * The answer-object.
      */
-    constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 
     /**
      * Renders the prompt.

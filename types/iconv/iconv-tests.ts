@@ -1,26 +1,44 @@
-import Iconv = require("iconv");
-import { Writable } from "stream";
+import { Iconv } from 'iconv';
+import { Writable } from 'stream';
 
-const iconv: Iconv.Iconv = new Iconv("utf-8", "cp932");
-const iconvFromFunction: Iconv.Iconv = Iconv("utf-8", "cp932");
+// $ExpectType Iconv
+new Iconv('utf-8', 'cp932');
+// $ExpectType Iconv
+Iconv('utf-8', 'cp932');
 
-iconv.writable = true;
+declare const iconv: Iconv;
 
-let buffer: Buffer;
+// $ExpectType true
+iconv.writable;
 
-buffer = iconv.convert("hoge");
-buffer = iconv.convert("hoge", "utf-8");
-buffer = iconv.convert(new Buffer("hoge"), "utf-8");
+// $ExpectType Buffer
+iconv.convert('hoge');
+// $ExpectType Buffer
+iconv.convert('hoge', 'utf-8');
+// $ExpectType Buffer
+iconv.convert(Buffer.from('hoge'));
+// $ExpectError
+iconv.convert(Buffer.from('hoge'), 'utf-8');
 
-let result: boolean;
+// $ExpectType boolean
+iconv.write('hoge');
+// $ExpectType boolean
+iconv.write('hoge', 'utf-8');
+// $ExpectType boolean
+iconv.write(Buffer.from('hoge'));
+// $ExpectError
+iconv.write(Buffer.from('hoge'), 'utf-8');
 
-result = iconv.write("hoge");
-result = iconv.write("hoge", "utf-8");
-result = iconv.write(new Buffer("hoge"), "utf-8");
-
+// $ExpectType void
 iconv.end();
-iconv.end("hoge");
-iconv.end("hoge", "utf-8");
-iconv.end(new Buffer("hoge"), "utf-8");
+// $ExpectType void
+iconv.end('hoge');
+// $ExpectType void
+iconv.end('hoge', 'utf-8');
+// $ExpectError
+iconv.end(Buffer.from('hoge'), 'utf-8');
+// $ExpectType void
+iconv.end(Buffer.from('hoge'));
 
-const st: Writable = iconv.pipe(new Writable, {end: true});
+// $ExpectType Writable
+iconv.pipe(new Writable(), { end: true });

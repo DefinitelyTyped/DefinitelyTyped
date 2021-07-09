@@ -99,7 +99,7 @@ export function isReusableBlock(blockOrType: Block<any> | BlockInstance): boolea
  */
 export function registerBlockCollection(
     namespace: string,
-    settings: {title: string, icon?: BlockIcon}
+    settings: {title: string, icon?: BlockIcon | undefined}
 ): void;
 
 /**

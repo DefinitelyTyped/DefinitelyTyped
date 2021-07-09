@@ -87,7 +87,7 @@ declare namespace JQueryEasyLoading {
          * jQuery element to be used as overlay
          * If not defined, a default overlay will be created
          */
-        overlay?: JQuery;
+        overlay?: JQuery | undefined;
 
         /**
          * z-index to be used by the default overlay
@@ -95,13 +95,13 @@ declare namespace JQueryEasyLoading {
          * target's z-index
          * Has no effect if a custom overlay is defined
          */
-        zIndex?: number;
+        zIndex?: number | undefined;
 
         /**
          * Message to be rendered on the overlay content
          * Has no effect if a custom overlay is defined
          */
-        message?: string;
+        message?: string | undefined;
 
         /**
          * Theme to be applied on the loading element
@@ -113,28 +113,28 @@ declare namespace JQueryEasyLoading {
          *
          * Has no effect if a custom overlay is defined
          */
-        theme?: string;
+        theme?: string | undefined;
 
         /**
          * Class(es) to be applied to the overlay element when the loading state is started
          */
-        shownClass?: string;
+        shownClass?: string | undefined;
 
         /**
          * Class(es) to be applied to the overlay element when the loading state is stopped
          */
-        hiddenClass?: string;
+        hiddenClass?: string | undefined;
 
         /**
          * Set to true to stop the loading state if the overlay is clicked
          * This options does NOT override the onClick event
          */
-        stoppable?: boolean;
+        stoppable?: boolean | undefined;
 
         /**
          * Set to false to not start the loading state when initialized
          */
-        start?: boolean;
+        start?: boolean | undefined;
 
         /**
          * Function to be executed when the loading state is started
@@ -142,7 +142,7 @@ declare namespace JQueryEasyLoading {
          *
          * The function is attached to the `loading.start` event
          */
-        onStart?: (loading: LoadingObject) => void;
+        onStart?: ((loading: LoadingObject) => void) | undefined;
 
         /**
          * Function to be executed when the loading state is stopped
@@ -150,7 +150,7 @@ declare namespace JQueryEasyLoading {
          *
          * The function is attached to the `loading.stop` event
          */
-        onStop?: (loading: LoadingObject) => void;
+        onStop?: ((loading: LoadingObject) => void) | undefined;
 
         /**
          * Function to be executed when the overlay is clicked
@@ -158,7 +158,7 @@ declare namespace JQueryEasyLoading {
          *
          * The function is attached to the `loading.click` event
          */
-        onClick?: Function;
+        onClick?: Function | undefined;
     }
 
     type Command = "resize" | "start" | "stop" | "toggle";

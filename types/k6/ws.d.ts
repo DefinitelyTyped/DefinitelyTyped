@@ -39,10 +39,10 @@ export function connect(url: string, params: Params | null, callback: Executor):
  */
 export interface Params {
     /** Request headers. */
-    headers?: { [name: string]: string };
+    headers?: { [name: string]: string } | undefined;
 
     /** Response time metric tags. */
-    tags?: { [name: string]: string };
+    tags?: { [name: string]: string } | undefined;
 }
 
 /**
@@ -128,6 +128,25 @@ export abstract class Socket {
     send(data: string): void;
 
     /**
+     * Send data.
+     * @param data - Data to send.
+     * @example
+     * const binFile = open('./file.pdf', 'b');
+     * export default function () {
+     *   ws.connect('http://wshost/', function(socket) {
+     *     socket.on('open', function() {
+     *       socket.sendBinary(binFile);
+     *     });
+     *     socket.on('binaryMessage', function(msg) {
+     *       // msg is an ArrayBuffer, so we can wrap it in a typed array directly.
+     *       new Uint8Array(msg);
+     *     });
+     *   });
+     * }
+     */
+    sendBinary(data: ArrayBuffer): void;
+
+    /**
      * Call a function repeatedly, while the WebSocket connection is open.
      * https://k6.io/docs/javascript-api/k6-ws/socket/socket-setinterval-callback-interval/
      * @param handler - The function to call every `interval` milliseconds.
@@ -157,7 +176,7 @@ export abstract class Socket {
 /**
  * Event type.
  */
-export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong';
+export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong' | 'binaryMessage';
 
 /**
  * Timer handler.
@@ -178,6 +197,8 @@ export type EventHandler<ET extends EventType> = ET extends 'close'
     ? ErrorEventHandler
     : ET extends 'message'
     ? MessageEventHandler
+    : ET extends 'binaryMessage'
+    ? BinaryMessageEventHandler
     : ET extends 'open'
     ? OpenEventHandler
     : ET extends 'ping'
@@ -208,6 +229,14 @@ export interface ErrorEventHandler {
 export interface MessageEventHandler {
     /** @param message - Message. */
     (message: string): void;
+}
+
+/**
+ * BinaryMessage event handler.
+ */
+ export interface BinaryMessageEventHandler {
+    /** @param message - Message. */
+    (message: ArrayBuffer): void;
 }
 
 /**

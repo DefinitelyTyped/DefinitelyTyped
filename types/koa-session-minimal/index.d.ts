@@ -28,12 +28,12 @@ declare function session(opts?: {
     /**
      * session cookie name and store key prefix. Default is 'koa:sess'
      */
-    key?: string;
+    key?: string | undefined;
 
     /**
      * cookie options
      */
-    cookie?:  cookies.IOptions | { (ctx?: Koa.Context): cookies.IOptions };
+    cookie?:  cookies.IOptions | { (ctx?: Koa.Context): cookies.IOptions } | undefined;
 
     /**
      * session store

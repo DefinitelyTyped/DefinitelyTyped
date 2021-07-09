@@ -10,4 +10,4 @@ postcss()
         result.css; // $ExpectType string
     });
 
-safe; // $ExpectType Parser
+safe; // $ExpectType Parser<Root> || PostCssSafeParser

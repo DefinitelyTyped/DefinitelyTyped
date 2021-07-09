@@ -6,12 +6,19 @@ export interface JSONObject {
 }
 export interface JSONArray extends Array<JSONValue> {}
 
+export type IDString = string;
+export type VersionNumber = number;
+export type CollectionName = string;
+export type DocumentID = string;
+export type RequestQuery = any;
+export type BulkRequestData = IDString[] | Record<IDString, any>;
+
 export type Path = ReadonlyArray<string|number>;
 export interface Snapshot<T = any> {
-    id: string;
-    v: number;
+    id: IDString;
+    v: VersionNumber;
     type: string | null;
-    data?: T;
+    data?: T | undefined;
     m: SnapshotMeta | null;
 }
 
@@ -43,10 +50,10 @@ export type Op = AddNumOp | ListInsertOp | ListDeleteOp | ListReplaceOp | ListMo
 export interface RawOp {
     src: string;
     seq: number;
-    v: number;
+    v: VersionNumber;
     m: any;
-    c: string;
-    d: string;
+    c: CollectionName;
+    d: DocumentID;
 }
 
 export type CreateOp = RawOp & { create: { type: string; data: any }; del: undefined; op: undefined; };
@@ -56,8 +63,8 @@ export type EditOp = RawOp & { op: any[]; create: undefined; del: undefined; };
 export type OTType = 'ot-text' | 'ot-json0' | 'ot-json1' | 'ot-text-tp2' | 'rich-text';
 
 export interface Type {
-    name?: string;
-    uri?: string;
+    name?: string | undefined;
+    uri?: string | undefined;
     create(initialData?: any): any;
     apply(snapshot: any, op: any): any;
     transform(op1: any, op2: any, side: 'left' | 'right'): any;
@@ -76,9 +83,9 @@ export interface Types {
 
 export type LoggerFunction = typeof console.log;
 export interface LoggerOverrides {
-    info?: LoggerFunction;
-    warn?: LoggerFunction;
-    error?: LoggerFunction;
+    info?: LoggerFunction | undefined;
+    warn?: LoggerFunction | undefined;
+    error?: LoggerFunction | undefined;
 }
 export class Logger {
     setMethods(overrides: LoggerOverrides): void;
@@ -103,7 +110,7 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
     id: string;
     collection: string;
     data: T;
-    version: number | null;
+    version: VersionNumber | null;
     subscribed: boolean;
     preventCompose: boolean;
     paused: boolean;
@@ -148,7 +155,7 @@ export class Query<T = any> extends TypedEmitter<QueryEventMap<T>> {
     connection: Connection;
     id: string;
     collection: string;
-    query: any;
+    query: RequestQuery;
     ready: boolean;
     sent: boolean;
     results: Array<Doc<T>>;
@@ -207,6 +214,31 @@ export interface ClientRequest {
     a: RequestAction;
 
     [propertyName: string]: any;
+}
+
+export interface AnyDataObject {
+    [key: string]: any;
+}
+
+export interface ServerResponseSuccess {
+    a?: RequestAction | undefined;
+    c?: CollectionName | undefined;
+    d?: DocumentID | undefined;
+    extra?: any;
+    v?: VersionNumber | undefined;
+    id?: number | undefined;
+    protocol?: number | undefined;
+    protocolMinor?: number | undefined;
+    type?: string | undefined;
+    data?: AnyDataObject | AnyDataObject[] | undefined;
+}
+
+export interface ServerResponseError extends ServerResponseSuccess {
+    error: Error;
+    b?: BulkRequestData | undefined;
+    o?: AnyDataObject | undefined;
+    q?: RequestQuery | undefined;
+    r?: Array<[IDString, VersionNumber]> | undefined;
 }
 
 export interface Socket {

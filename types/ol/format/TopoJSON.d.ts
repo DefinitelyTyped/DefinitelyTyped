@@ -17,9 +17,9 @@ import { ReadOptions, WriteOptions } from './Feature';
 import JSONFeature from './JSONFeature';
 
 export interface Options {
-    dataProjection?: ProjectionLike;
-    layerName?: string;
-    layers?: string[];
+    dataProjection?: ProjectionLike | undefined;
+    layerName?: string | undefined;
+    layers?: string[] | undefined;
 }
 export type TopoJSONGeometry = GeometryObject;
 export type TopoJSONGeometryCollection = GeometryCollection;

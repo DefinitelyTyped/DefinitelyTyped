@@ -28,6 +28,9 @@ import EventEmitter = require('events');
     process.once("removeListener", (event: string | symbol, listener: Function) => { });
     process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
     process.on("customEvent", () => { });
+    process.on('worker', w => {
+        w; // $ExpectType Worker
+    });
 
     const listeners = process.listeners('uncaughtException');
     const oldHandler = listeners[listeners.length - 1];
@@ -78,6 +81,7 @@ import EventEmitter = require('events');
     const heapUsed: number = usage.heapUsed;
     const external: number = usage.external;
     const arrayBuffers: number = usage.arrayBuffers;
+    const rssFast: number = process.memoryUsage.rss();
 }
 {
     let strDict: NodeJS.Dict<string>;
@@ -114,3 +118,9 @@ import EventEmitter = require('events');
     // Emits: (node:56338) [MY_WARNING] Warning: Something happened!
     // This is some additional information
 }
+
+const hrtimeBigint: bigint = process.hrtime.bigint();
+
+process.allowedNodeEnvironmentFlags.has('asdf');
+
+process.env.TZ = 'test';

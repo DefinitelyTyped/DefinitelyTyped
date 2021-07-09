@@ -357,6 +357,13 @@ import { promisify } from 'util';
 }
 
 {
+    crypto.randomUUID({});
+    crypto.randomUUID({ disableEntropyCache: true });
+    crypto.randomUUID({ disableEntropyCache: false });
+    crypto.randomUUID();
+}
+
+{
     // scrypt
     const pwd: string | Buffer | Int32Array | DataView = Buffer.alloc(16);
     const salt: string | Buffer | Int32Array | DataView = Buffer.alloc(16);

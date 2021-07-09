@@ -6,3 +6,12 @@ const Foo: FunctionalComponent<any> = props => {
 };
 
 register(Foo, 'my-foo');
+
+class Bar extends Component {
+    static tagName = 'my-bar';
+    static observedAttributes = [];
+    render() {
+        return <div>bar</div>;
+    }
+}
+register(Bar);

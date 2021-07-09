@@ -1,5 +1,6 @@
 declare module 'crypto' {
     import * as stream from 'stream';
+    import { PeerCertificate } from 'tls';
 
     interface Certificate {
         /**
@@ -153,7 +154,7 @@ declare module 'crypto' {
          * For XOF hash functions such as `shake256`, the
          * outputLength option can be used to specify the desired output length in bytes.
          */
-        outputLength?: number;
+        outputLength?: number | undefined;
     }
 
     /** @deprecated since v10.0.0 */
@@ -192,21 +193,71 @@ declare module 'crypto' {
     interface KeyExportOptions<T extends KeyFormat> {
         type: 'pkcs1' | 'spki' | 'pkcs8' | 'sec1';
         format: T;
-        cipher?: string;
-        passphrase?: string | Buffer;
+        cipher?: string | undefined;
+        passphrase?: string | Buffer | undefined;
+    }
+    interface JwkKeyExportOptions {
+        format: 'jwk';
+    }
+    interface JsonWebKey {
+        crv?: string | undefined;
+        d?: string | undefined;
+        dp?: string | undefined;
+        dq?: string | undefined;
+        e?: string | undefined;
+        k?: string | undefined;
+        kty?: string | undefined;
+        n?: string | undefined;
+        p?: string | undefined;
+        q?: string | undefined;
+        qi?: string | undefined;
+        x?: string | undefined;
+        y?: string | undefined;
+        [key: string]: unknown;
+    }
+
+    interface AsymmetricKeyDetails {
+        /**
+         * Key size in bits (RSA, DSA).
+         */
+        modulusLength?: number | undefined;
+        /**
+         * Public exponent (RSA).
+         */
+        publicExponent?: bigint | undefined;
+        /**
+         * Size of q in bits (DSA).
+         */
+        divisorLength?: number | undefined;
+        /**
+         * Name of the curve (EC).
+         */
+        namedCurve?: string | undefined;
+    }
+
+    interface JwkKeyExportOptions {
+        format: 'jwk';
     }
 
     class KeyObject {
         private constructor();
-        asymmetricKeyType?: KeyType;
+        asymmetricKeyType?: KeyType | undefined;
         /**
          * For asymmetric keys, this property represents the size of the embedded key in
          * bytes. This property is `undefined` for symmetric keys.
          */
-        asymmetricKeySize?: number;
+        asymmetricKeySize?: number | undefined;
+        /**
+         * This property exists only on asymmetric keys. Depending on the type of the key,
+         * this object contains information about the key. None of the information obtained
+         * through this property can be used to uniquely identify a key or to compromise the
+         * security of the key.
+         */
+        asymmetricKeyDetails?: AsymmetricKeyDetails | undefined;
         export(options: KeyExportOptions<'pem'>): string | Buffer;
         export(options?: KeyExportOptions<'der'>): Buffer;
-        symmetricKeySize?: number;
+        export(options?: JwkKeyExportOptions): JsonWebKey;
+        symmetricKeySize?: number | undefined;
         type: KeyObjectType;
     }
 
@@ -221,7 +272,7 @@ declare module 'crypto' {
         authTagLength: number;
     }
     interface CipherGCMOptions extends stream.TransformOptions {
-        authTagLength?: number;
+        authTagLength?: number | undefined;
     }
     /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): CipherCCM;
@@ -318,22 +369,29 @@ declare module 'crypto' {
 
     interface PrivateKeyInput {
         key: string | Buffer;
-        format?: KeyFormat;
-        type?: 'pkcs1' | 'pkcs8' | 'sec1';
-        passphrase?: string | Buffer;
+        format?: KeyFormat | undefined;
+        type?: 'pkcs1' | 'pkcs8' | 'sec1' | undefined;
+        passphrase?: string | Buffer | undefined;
     }
 
     interface PublicKeyInput {
         key: string | Buffer;
-        format?: KeyFormat;
-        type?: 'pkcs1' | 'spki';
+        format?: KeyFormat | undefined;
+        type?: 'pkcs1' | 'spki' | undefined;
     }
 
-    function createPrivateKey(key: PrivateKeyInput | string | Buffer): KeyObject;
-    function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject): KeyObject;
+    function generateKey(type: 'hmac' | 'aes', options: {length: number}, callback: (err: Error | null, key: KeyObject) => void): void;
+
+    interface JsonWebKeyInput {
+        key: JsonWebKey;
+        format: 'jwk';
+    }
+
+    function createPrivateKey(key: PrivateKeyInput | string | Buffer | JsonWebKeyInput): KeyObject;
+    function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject | JsonWebKeyInput): KeyObject;
     function createSecretKey(key: NodeJS.ArrayBufferView): KeyObject;
 
-    function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
+    function createSign(algorithm: string, options?: stream.WritableOptions): Sign;
 
     type DSAEncoding = 'der' | 'ieee-p1363';
 
@@ -341,9 +399,9 @@ declare module 'crypto' {
         /**
          * @See crypto.constants.RSA_PKCS1_PADDING
          */
-        padding?: number;
-        saltLength?: number;
-        dsaEncoding?: DSAEncoding;
+        padding?: number | undefined;
+        saltLength?: number | undefined;
+        dsaEncoding?: DSAEncoding | undefined;
     }
 
     interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions { }
@@ -357,11 +415,11 @@ declare module 'crypto' {
 
     type KeyLike = string | Buffer | KeyObject;
 
-    class Signer extends stream.Writable {
+    class Sign extends stream.Writable {
         private constructor();
 
-        update(data: BinaryLike): Signer;
-        update(data: string, input_encoding: Encoding): Signer;
+        update(data: BinaryLike): this;
+        update(data: string, input_encoding: Encoding): this;
         sign(private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput): Buffer;
         sign(
             private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
@@ -434,7 +492,7 @@ declare module 'crypto' {
         iterations: number,
         keylen: number,
         digest: string,
-        callback: (err: Error | null, derivedKey: Buffer) => any,
+        callback: (err: Error | null, derivedKey: Buffer) => void,
     ): void;
     function pbkdf2Sync(
         password: BinaryLike,
@@ -472,13 +530,13 @@ declare module 'crypto' {
     ): void;
 
     interface ScryptOptions {
-        cost?: number;
-        blockSize?: number;
-        parallelization?: number;
-        N?: number;
-        r?: number;
-        p?: number;
-        maxmem?: number;
+        cost?: number | undefined;
+        blockSize?: number | undefined;
+        parallelization?: number | undefined;
+        N?: number | undefined;
+        r?: number | undefined;
+        p?: number | undefined;
+        maxmem?: number | undefined;
     }
     function scrypt(
         password: BinaryLike,
@@ -497,17 +555,17 @@ declare module 'crypto' {
 
     interface RsaPublicKey {
         key: KeyLike;
-        padding?: number;
+        padding?: number | undefined;
     }
     interface RsaPrivateKey {
         key: KeyLike;
-        passphrase?: string;
+        passphrase?: string | undefined;
         /**
          * @default 'sha1'
          */
-        oaepHash?: string;
-        oaepLabel?: NodeJS.TypedArray;
-        padding?: number;
+        oaepHash?: string | undefined;
+        oaepLabel?: NodeJS.TypedArray | undefined;
+        padding?: number | undefined;
     }
     function publicEncrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
     function publicDecrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
@@ -553,8 +611,8 @@ declare module 'crypto' {
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
-        cipher?: string;
-        passphrase?: string;
+        cipher?: string | undefined;
+        passphrase?: string | undefined;
     }
 
     interface KeyPairKeyObjectResult {
@@ -602,7 +660,7 @@ declare module 'crypto' {
         /**
          * @default 0x10001
          */
-        publicExponent?: number;
+        publicExponent?: number | undefined;
     }
 
     interface DSAKeyPairKeyObjectOptions {
@@ -625,7 +683,7 @@ declare module 'crypto' {
         /**
          * @default 0x10001
          */
-        publicExponent?: number;
+        publicExponent?: number | undefined;
 
         publicKeyEncoding: {
             type: 'pkcs1' | 'spki';
@@ -1162,22 +1220,28 @@ declare module 'crypto' {
      * algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is
      * dependent upon the key type (especially Ed25519 and Ed448).
      *
-     * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
-     * passed to [`crypto.createPrivateKey()`][].
+     * If `key` is not a `KeyObject`, this function behaves as if `key` had been
+     * passed to `crypto.createPrivateKey().
      */
     function sign(
         algorithm: string | null | undefined,
         data: NodeJS.ArrayBufferView,
         key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
     ): Buffer;
+    function sign(
+        algorithm: string | null | undefined,
+        data: NodeJS.ArrayBufferView,
+        key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
+        callback: (error: Error | null, data: Buffer) => void
+    ): void;
 
     /**
      * Calculates and returns the signature for `data` using the given private key and
      * algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is
      * dependent upon the key type (especially Ed25519 and Ed448).
      *
-     * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
-     * passed to [`crypto.createPublicKey()`][].
+     * If `key` is not a `KeyObject`, this function behaves as if `key` had been
+     * passed to `crypto.createPublicKey()`.
      */
     function verify(
         algorithm: string | null | undefined,
@@ -1185,6 +1249,13 @@ declare module 'crypto' {
         key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput,
         signature: NodeJS.ArrayBufferView,
     ): boolean;
+    function verify(
+        algorithm: string | null | undefined,
+        data: NodeJS.ArrayBufferView,
+        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput,
+        signature: NodeJS.ArrayBufferView,
+        callback: (error: Error | null, result: boolean) => void
+    ): void;
 
     /**
      * Computes the Diffie-Hellman secret based on a privateKey and a publicKey.
@@ -1199,11 +1270,11 @@ declare module 'crypto' {
         /**
          * A test key length.
          */
-        keyLength?: number;
+        keyLength?: number | undefined;
         /**
          * A test IV length.
          */
-        ivLength?: number;
+        ivLength?: number | undefined;
     }
 
     interface CipherInfo {
@@ -1219,12 +1290,12 @@ declare module 'crypto' {
          * The block size of the cipher in bytes.
          * This property is omitted when mode is 'stream'.
          */
-        blockSize?: number;
+        blockSize?: number | undefined;
         /**
          * The expected or default initialization vector length in bytes.
          * This property is omitted if the cipher does not use an initialization vector.
          */
-        ivLength?: number;
+        ivLength?: number | undefined;
         /**
          * The expected or default key length in bytes.
          */
@@ -1253,18 +1324,272 @@ declare module 'crypto' {
      *
      * The supplied `callback` function is called with two arguments: `err` and `derivedKey`.
      * If an errors occurs while deriving the key, `err` will be set; otherwise `err` will be `null`.
-     * The successfully generated `derivedKey` will be passed to the callback as an [`ArrayBuffer`][].
+     * The successfully generated `derivedKey` will be passed to the callback as an `ArrayBuffer`.
      * An error will be thrown if any of the input aguments specify invalid values or types.
      */
-    function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => any): void;
+    function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => void): void;
 
     /**
      * Provides a synchronous HKDF key derivation function as defined in RFC 5869.
      * The given `key`, `salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
      *
-     * The successfully generated `derivedKey` will be returned as an [`ArrayBuffer`][].
+     * The successfully generated `derivedKey` will be returned as an `ArrayBuffer`.
      * An error will be thrown if any of the input aguments specify invalid values or types,
      * or if the derived key cannot be generated.
      */
     function hkdfSync(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number): ArrayBuffer;
+
+    interface SecureHeapUsage {
+        /**
+         * The total allocated secure heap size as specified using the `--secure-heap=n` command-line flag.
+         */
+        total: number;
+
+        /**
+         * The minimum allocation from the secure heap as specified using the `--secure-heap-min` command-line flag.
+         */
+        min: number;
+
+        /**
+         * The total number of bytes currently allocated from the secure heap.
+         */
+        used: number;
+
+        /**
+         * The calculated ratio of `used` to `total` allocated bytes.
+         */
+        utilization: number;
+    }
+
+    function secureHeapUsed(): SecureHeapUsage;
+
+    interface RandomUUIDOptions {
+        /**
+         * By default, to improve performance,
+         * Node.js will pre-emptively generate and persistently cache enough
+         * random data to generate up to 128 random UUIDs. To generate a UUID
+         * without using the cache, set `disableEntropyCache` to `true`.
+         *
+         * @default `false`
+         */
+        disableEntropyCache?: boolean | undefined;
+    }
+
+    function randomUUID(options?: RandomUUIDOptions): string;
+
+    interface X509CheckOptions {
+        /**
+         * @default 'always'
+         */
+        subject: 'always' | 'never';
+
+        /**
+         * @default true
+         */
+        wildcards: boolean;
+
+        /**
+         * @default true
+         */
+        partialWildcards: boolean;
+
+        /**
+         * @default false
+         */
+        multiLabelWildcards: boolean;
+
+        /**
+         * @default false
+         */
+        singleLabelSubdomains: boolean;
+    }
+
+    class X509Certificate {
+        /**
+         * Will be `true` if this is a Certificate Authority (ca) certificate.
+         */
+        readonly ca: boolean;
+
+        /**
+         * The SHA-1 fingerprint of this certificate.
+         */
+        readonly fingerprint: string;
+
+        /**
+         * The SHA-256 fingerprint of this certificate.
+         */
+        readonly fingerprint256: string;
+
+        /**
+         * The complete subject of this certificate.
+         */
+        readonly subject: string;
+
+        /**
+         * The subject alternative name specified for this certificate.
+         */
+        readonly subjectAltName: string;
+
+        /**
+         * The information access content of this certificate.
+         */
+        readonly infoAccess: string;
+
+        /**
+         * An array detailing the key usages for this certificate.
+         */
+        readonly keyUsage: string[];
+
+        /**
+         * The issuer identification included in this certificate.
+         */
+        readonly issuer: string;
+
+        /**
+         * The issuer certificate or `undefined` if the issuer certificate is not available.
+         */
+        readonly issuerCertificate?: X509Certificate | undefined;
+
+        /**
+         * The public key for this certificate.
+         */
+        readonly publicKey: KeyObject;
+
+        /**
+         * A `Buffer` containing the DER encoding of this certificate.
+         */
+        readonly raw: Buffer;
+
+        /**
+         * The serial number of this certificate.
+         */
+        readonly serialNumber: string;
+
+        /**
+         * Returns the PEM-encoded certificate.
+         */
+        readonly validFrom: string;
+
+        /**
+         * The date/time from which this certificate is considered valid.
+         */
+        readonly validTo: string;
+
+        constructor(buffer: BinaryLike);
+
+        /**
+         * Checks whether the certificate matches the given email address.
+         *
+         * Returns `email` if the certificate matches,`undefined` if it does not.
+         */
+        checkEmail(email: string, options?: X509CheckOptions): string | undefined;
+
+        /**
+         * Checks whether the certificate matches the given host name.
+         *
+         * Returns `name` if the certificate matches, `undefined` if it does not.
+         */
+        checkHost(name: string, options?: X509CheckOptions): string | undefined;
+
+        /**
+         * Checks whether the certificate matches the given IP address (IPv4 or IPv6).
+         *
+         * Returns `ip` if the certificate matches, `undefined` if it does not.
+         */
+        checkIP(ip: string, options?: X509CheckOptions): string | undefined;
+
+        /**
+         * Checks whether this certificate was issued by the given `otherCert`.
+         */
+        checkIssued(otherCert: X509Certificate): boolean;
+
+        /**
+         * Checks whether this certificate was issued by the given `otherCert`.
+         */
+        checkPrivateKey(privateKey: KeyObject): boolean;
+
+        /**
+         * There is no standard JSON encoding for X509 certificates. The
+         * `toJSON()` method returns a string containing the PEM encoded
+         * certificate.
+         */
+        toJSON(): string;
+
+        /**
+         * Returns information about this certificate using the legacy certificate object encoding.
+         */
+        toLegacyObject(): PeerCertificate;
+
+        /**
+         * Returns the PEM-encoded certificate.
+         */
+        toString(): string;
+
+        /**
+         * Verifies that this certificate was signed by the given public key.
+         * Does not perform any other validation checks on the certificate.
+         */
+        verify(publicKey: KeyObject): boolean;
+    }
+
+    type LargeNumberLike = NodeJS.ArrayBufferView | SharedArrayBuffer | ArrayBuffer | bigint;
+
+    interface GeneratePrimeOptions {
+        add?: LargeNumberLike | undefined;
+        rem?: LargeNumberLike | undefined;
+        /**
+         * @default false
+         */
+        safe?: boolean | undefined;
+        bigint?: boolean | undefined;
+    }
+
+    interface GeneratePrimeOptionsBigInt extends GeneratePrimeOptions {
+        bigint: true;
+    }
+
+    interface GeneratePrimeOptionsArrayBuffer extends GeneratePrimeOptions {
+        bigint?: false | undefined;
+    }
+
+    function generatePrime(size: number, callback: (err: Error | null, prime: ArrayBuffer) => void): void;
+    function generatePrime(size: number, options: GeneratePrimeOptionsBigInt, callback: (err: Error | null, prime: bigint) => void): void;
+    function generatePrime(size: number, options: GeneratePrimeOptionsArrayBuffer, callback: (err: Error | null, prime: ArrayBuffer) => void): void;
+    function generatePrime(size: number, options: GeneratePrimeOptions, callback: (err: Error | null, prime: ArrayBuffer | bigint) => void): void;
+
+    function generatePrimeSync(size: number): ArrayBuffer;
+    function generatePrimeSync(size: number, options: GeneratePrimeOptionsBigInt): bigint;
+    function generatePrimeSync(size: number, options: GeneratePrimeOptionsArrayBuffer): ArrayBuffer;
+    function generatePrimeSync(size: number, options: GeneratePrimeOptions): ArrayBuffer | bigint;
+
+    interface CheckPrimeOptions {
+        /**
+         * The number of Miller-Rabin probabilistic primality iterations to perform.
+         * When the value is 0 (zero), a number of checks is used that yields a false positive rate of at most 2-64 for random input.
+         * Care must be used when selecting a number of checks.
+         * Refer to the OpenSSL documentation for the BN_is_prime_ex function nchecks options for more details.
+         *
+         * @default 0
+         */
+        checks?: number | undefined;
+    }
+
+    /**
+     * Checks the primality of the candidate.
+     */
+    function checkPrime(value: LargeNumberLike, callback: (err: Error | null, result: boolean) => void): void;
+    function checkPrime(value: LargeNumberLike, options: CheckPrimeOptions, callback: (err: Error | null, result: boolean) => void): void;
+
+    /**
+     * Checks the primality of the candidate.
+     */
+    function checkPrimeSync(value: LargeNumberLike, options?: CheckPrimeOptions): boolean;
+
+    namespace webcrypto {
+        class CryptoKey {} // placeholder
+    }
+}
+
+declare module 'node:crypto' {
+    export * from 'crypto';
 }

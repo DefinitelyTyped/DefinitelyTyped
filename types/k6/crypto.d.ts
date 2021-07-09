@@ -3,11 +3,13 @@ import { bytes } from '.';
 /**
  * Generate random bytes.
  * @param size - Number of bytes to generate.
- * @returns Random bytes.
+ * @returns An ArrayBuffer with cryptographically random bytes.
  * @example
- * crypto.randomBytes(42)
+ * const bytes = crypto.randomBytes(42);
+ * const view = new Uint8Array(bytes);
+ * console.log(view); // 156,71,245,191,56,...
  */
-export function randomBytes(size: number): bytes;
+export function randomBytes(size: number): ArrayBuffer;
 
 /**
  * Produce HMAC.
@@ -252,11 +254,13 @@ declare namespace crypto {
     /**
      * Generate random bytes.
      * @param size - Number of bytes to generate.
-     * @returns Random bytes.
+     * @returns An ArrayBuffer with cryptographically random bytes.
      * @example
-     * crypto.randomBytes(42)
+     * const bytes = crypto.randomBytes(42);
+     * const view = new Uint8Array(bytes);
+     * console.log(view); // 156,71,245,191,56,...
      */
-    function randomBytes(size: number): bytes;
+    function randomBytes(size: number): ArrayBuffer;
 
     /**
      * Produce HMAC.

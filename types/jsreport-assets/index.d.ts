@@ -7,10 +7,10 @@ import { ExtensionDefinition } from 'jsreport-core';
 
 declare namespace JsReportAssets {
     interface Configuration {
-        allowedFiles?: string;
-        searchOnDiskIfNotFoundInStore?: boolean;
-        rootUrlForLinks?: string;
-        publicAccessEnabled?: boolean;
+        allowedFiles?: string | undefined;
+        searchOnDiskIfNotFoundInStore?: boolean | undefined;
+        rootUrlForLinks?: string | undefined;
+        publicAccessEnabled?: boolean | undefined;
     }
 }
 

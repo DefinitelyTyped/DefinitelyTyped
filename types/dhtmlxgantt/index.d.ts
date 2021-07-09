@@ -393,6 +393,11 @@ interface GanttConfigOptions {
     autosize_min_width: number;
 
     /**
+     * sets the height of task bars in the timeline area
+    */
+    bar_height: number
+
+    /**
      * enables dynamic loading in the Gantt chart
     */
     branch_loading: boolean;
@@ -868,7 +873,7 @@ interface GanttConfigOptions {
     task_date: string;
 
     /**
-     * sets the height of task bars in the timeline area
+     * @deprecated at `v7.1`, Please use `bar_height`
     */
     task_height: number;
 

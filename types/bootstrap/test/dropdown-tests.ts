@@ -6,7 +6,7 @@ const element = new Element();
 new Dropdown(element, { flip: true }); // $ExpectError
 new Dropdown(element, { offset: [0, 2] }); // $ExpectType Dropdown
 
-// $ExpectType Dropdown
+// $ExpectType Dropdown | null
 Dropdown.getInstance(element);
 
 // $ExpectType string

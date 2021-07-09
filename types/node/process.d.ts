@@ -1,5 +1,6 @@
 declare module 'process' {
     import * as tty from 'tty';
+    import { Worker } from 'worker_threads';
 
     global {
         var process: NodeJS.Process;
@@ -10,6 +11,18 @@ declare module 'process' {
             // they can't live in tty.d.ts because we need to disambiguate the imported name.
             interface ReadStream extends tty.ReadStream {}
             interface WriteStream extends tty.WriteStream {}
+
+            interface MemoryUsageFn {
+                /**
+                 * The `process.memoryUsage()` method iterate over each page to gather informations about memory
+                 * usage which can be slow depending on the program memory allocations.
+                 */
+                (): MemoryUsage;
+                /**
+                 * method returns an integer representing the Resident Set Size (RSS) in bytes.
+                 */
+                rss(): number;
+            }
 
             interface MemoryUsage {
                 rss: number;
@@ -26,10 +39,10 @@ declare module 'process' {
 
             interface ProcessRelease {
                 name: string;
-                sourceUrl?: string;
-                headersUrl?: string;
-                libUrl?: string;
-                lts?: string;
+                sourceUrl?: string | undefined;
+                headersUrl?: string | undefined;
+                libUrl?: string | undefined;
+                lts?: string | undefined;
             }
 
             interface ProcessVersions extends Dict<string> {
@@ -47,6 +60,7 @@ declare module 'process' {
                 | 'android'
                 | 'darwin'
                 | 'freebsd'
+                | 'haiku'
                 | 'linux'
                 | 'openbsd'
                 | 'sunos'
@@ -65,22 +79,26 @@ declare module 'process' {
             type BeforeExitListener = (code: number) => void;
             type DisconnectListener = () => void;
             type ExitListener = (code: number) => void;
-            type RejectionHandledListener = (promise: Promise<any>) => void;
+            type RejectionHandledListener = (promise: Promise<unknown>) => void;
             type UncaughtExceptionListener = (error: Error) => void;
-            type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
+            type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<unknown>) => void;
             type WarningListener = (warning: Error) => void;
-            type MessageListener = (message: any, sendHandle: any) => void;
+            type MessageListener = (message: unknown, sendHandle: unknown) => void;
             type SignalsListener = (signal: Signals) => void;
-            type NewListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
-            type RemoveListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
-            type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<any>, value: any) => void;
+            type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<unknown>, value: unknown) => void;
+            type WorkerListener = (worker: Worker) => void;
 
             interface Socket extends ReadWriteStream {
-                isTTY?: true;
+                isTTY?: true | undefined;
             }
 
             // Alias for compatibility
-            interface ProcessEnv extends Dict<string> {}
+            interface ProcessEnv extends Dict<string> {
+                /**
+                 * Can be used to change the default timezone at runtime
+                 */
+                TZ?: string;
+            }
 
             interface HRTime {
                 (time?: [number, number]): [number, number];
@@ -177,24 +195,51 @@ declare module 'process' {
                  *
                  * @default 'Warning'
                  */
-                type?: string;
+                type?: string | undefined;
 
                 /**
                  * A unique identifier for the warning instance being emitted.
                  */
-                code?: string;
+                code?: string | undefined;
 
                 /**
                  * When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace.
                  *
                  * @default process.emitWarning
                  */
-                ctor?: Function;
+                ctor?: Function | undefined;
 
                 /**
                  * Additional text to include with the error.
                  */
-                detail?: string;
+                detail?: string | undefined;
+            }
+
+            interface ProcessConfig {
+                readonly target_defaults: {
+                    readonly cflags: any[];
+                    readonly default_configuration: string;
+                    readonly defines: string[];
+                    readonly include_dirs: string[];
+                    readonly libraries: string[];
+                };
+                readonly variables: {
+                    readonly clang: number;
+                    readonly host_arch: string;
+                    readonly node_install_npm: boolean;
+                    readonly node_install_waf: boolean;
+                    readonly node_prefix: string;
+                    readonly node_shared_openssl: boolean;
+                    readonly node_shared_v8: boolean;
+                    readonly node_shared_zlib: boolean;
+                    readonly node_use_dtrace: boolean;
+                    readonly node_use_etw: boolean;
+                    readonly node_use_openssl: boolean;
+                    readonly target_arch: string;
+                    readonly v8_no_strict_aliasing: number;
+                    readonly v8_use_snapshot: boolean;
+                    readonly visibility: string;
+                };
             }
 
             interface Process extends EventEmitter {
@@ -240,7 +285,7 @@ declare module 'process' {
 
                 env: ProcessEnv;
                 exit(code?: number): never;
-                exitCode?: number;
+                exitCode?: number | undefined;
                 getgid(): number;
                 setgid(id: number | string): void;
                 getuid(): number;
@@ -253,46 +298,21 @@ declare module 'process' {
                 setgroups(groups: ReadonlyArray<string | number>): void;
                 setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
                 hasUncaughtExceptionCaptureCallback(): boolean;
-                version: string;
-                versions: ProcessVersions;
-                config: {
-                    target_defaults: {
-                        cflags: any[];
-                        default_configuration: string;
-                        defines: string[];
-                        include_dirs: string[];
-                        libraries: string[];
-                    };
-                    variables: {
-                        clang: number;
-                        host_arch: string;
-                        node_install_npm: boolean;
-                        node_install_waf: boolean;
-                        node_prefix: string;
-                        node_shared_openssl: boolean;
-                        node_shared_v8: boolean;
-                        node_shared_zlib: boolean;
-                        node_use_dtrace: boolean;
-                        node_use_etw: boolean;
-                        node_use_openssl: boolean;
-                        target_arch: string;
-                        v8_no_strict_aliasing: number;
-                        v8_use_snapshot: boolean;
-                        visibility: string;
-                    };
-                };
+                readonly version: string;
+                readonly versions: ProcessVersions;
+                readonly config: ProcessConfig;
                 kill(pid: number, signal?: string | number): true;
-                pid: number;
-                ppid: number;
+                readonly pid: number;
+                readonly ppid: number;
                 title: string;
-                arch: string;
-                platform: Platform;
+                readonly arch: string;
+                readonly platform: Platform;
                 /** @deprecated since v14.0.0 - use `require.main` instead. */
-                mainModule?: Module;
-                memoryUsage(): MemoryUsage;
+                mainModule?: Module | undefined;
+                memoryUsage: MemoryUsageFn;
                 cpuUsage(previousValue?: CpuUsage): CpuUsage;
                 nextTick(callback: Function, ...args: any[]): void;
-                release: ProcessRelease;
+                readonly release: ProcessRelease;
                 features: {
                     inspector: boolean;
                     debug: boolean;
@@ -315,16 +335,15 @@ declare module 'process' {
                 umask(mask: string | number): number;
                 uptime(): number;
                 hrtime: HRTime;
-                domain: Domain;
 
                 // Worker
-                send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
+                send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean | undefined}, callback?: (error: Error | null) => void): boolean;
                 disconnect(): void;
                 connected: boolean;
 
                 /**
                  * The `process.allowedNodeEnvironmentFlags` property is a special,
-                 * read-only `Set` of flags allowable within the [`NODE_OPTIONS`][]
+                 * read-only `Set` of flags allowable within the `NODE_OPTIONS`
                  * environment variable.
                  */
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;
@@ -332,7 +351,7 @@ declare module 'process' {
                 /**
                  * Only available with `--experimental-report`
                  */
-                report?: ProcessReport;
+                report?: ProcessReport | undefined;
 
                 resourceUsage(): ResourceUsage;
 
@@ -349,23 +368,21 @@ declare module 'process' {
                 addListener(event: "warning", listener: WarningListener): this;
                 addListener(event: "message", listener: MessageListener): this;
                 addListener(event: Signals, listener: SignalsListener): this;
-                addListener(event: "newListener", listener: NewListenerListener): this;
-                addListener(event: "removeListener", listener: RemoveListenerListener): this;
                 addListener(event: "multipleResolves", listener: MultipleResolveListener): this;
+                addListener(event: "worker", listener: WorkerListener): this;
 
                 emit(event: "beforeExit", code: number): boolean;
                 emit(event: "disconnect"): boolean;
                 emit(event: "exit", code: number): boolean;
-                emit(event: "rejectionHandled", promise: Promise<any>): boolean;
+                emit(event: "rejectionHandled", promise: Promise<unknown>): boolean;
                 emit(event: "uncaughtException", error: Error): boolean;
                 emit(event: "uncaughtExceptionMonitor", error: Error): boolean;
-                emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
+                emit(event: "unhandledRejection", reason: unknown, promise: Promise<unknown>): boolean;
                 emit(event: "warning", warning: Error): boolean;
-                emit(event: "message", message: any, sendHandle: any): this;
+                emit(event: "message", message: unknown, sendHandle: unknown): this;
                 emit(event: Signals, signal: Signals): boolean;
-                emit(event: "newListener", eventName: string | symbol, listener: (...args: any[]) => void): this;
-                emit(event: "removeListener", eventName: string, listener: (...args: any[]) => void): this;
-                emit(event: "multipleResolves", listener: MultipleResolveListener): this;
+                emit(event: "multipleResolves", type: MultipleResolveType, promise: Promise<unknown>, value: unknown): this;
+                emit(event: "worker", listener: WorkerListener): this;
 
                 on(event: "beforeExit", listener: BeforeExitListener): this;
                 on(event: "disconnect", listener: DisconnectListener): this;
@@ -377,9 +394,8 @@ declare module 'process' {
                 on(event: "warning", listener: WarningListener): this;
                 on(event: "message", listener: MessageListener): this;
                 on(event: Signals, listener: SignalsListener): this;
-                on(event: "newListener", listener: NewListenerListener): this;
-                on(event: "removeListener", listener: RemoveListenerListener): this;
                 on(event: "multipleResolves", listener: MultipleResolveListener): this;
+                on(event: "worker", listener: WorkerListener): this;
                 on(event: string | symbol, listener: (...args: any[]) => void): this;
 
                 once(event: "beforeExit", listener: BeforeExitListener): this;
@@ -392,9 +408,9 @@ declare module 'process' {
                 once(event: "warning", listener: WarningListener): this;
                 once(event: "message", listener: MessageListener): this;
                 once(event: Signals, listener: SignalsListener): this;
-                once(event: "newListener", listener: NewListenerListener): this;
-                once(event: "removeListener", listener: RemoveListenerListener): this;
                 once(event: "multipleResolves", listener: MultipleResolveListener): this;
+                once(event: "worker", listener: WorkerListener): this;
+                once(event: string | symbol, listener: (...args: any[]) => void): this;
 
                 prependListener(event: "beforeExit", listener: BeforeExitListener): this;
                 prependListener(event: "disconnect", listener: DisconnectListener): this;
@@ -406,9 +422,8 @@ declare module 'process' {
                 prependListener(event: "warning", listener: WarningListener): this;
                 prependListener(event: "message", listener: MessageListener): this;
                 prependListener(event: Signals, listener: SignalsListener): this;
-                prependListener(event: "newListener", listener: NewListenerListener): this;
-                prependListener(event: "removeListener", listener: RemoveListenerListener): this;
                 prependListener(event: "multipleResolves", listener: MultipleResolveListener): this;
+                prependListener(event: "worker", listener: WorkerListener): this;
 
                 prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
                 prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
@@ -420,9 +435,8 @@ declare module 'process' {
                 prependOnceListener(event: "warning", listener: WarningListener): this;
                 prependOnceListener(event: "message", listener: MessageListener): this;
                 prependOnceListener(event: Signals, listener: SignalsListener): this;
-                prependOnceListener(event: "newListener", listener: NewListenerListener): this;
-                prependOnceListener(event: "removeListener", listener: RemoveListenerListener): this;
                 prependOnceListener(event: "multipleResolves", listener: MultipleResolveListener): this;
+                prependOnceListener(event: "worker", listener: WorkerListener): this;
 
                 listeners(event: "beforeExit"): BeforeExitListener[];
                 listeners(event: "disconnect"): DisconnectListener[];
@@ -434,16 +448,16 @@ declare module 'process' {
                 listeners(event: "warning"): WarningListener[];
                 listeners(event: "message"): MessageListener[];
                 listeners(event: Signals): SignalsListener[];
-                listeners(event: "newListener"): NewListenerListener[];
-                listeners(event: "removeListener"): RemoveListenerListener[];
                 listeners(event: "multipleResolves"): MultipleResolveListener[];
-            }
-
-            interface Global {
-                process: Process;
+                listeners(event: "worker"): WorkerListener[];
             }
         }
     }
 
+    export = process;
+}
+
+declare module 'node:process' {
+    import process = require('process');
     export = process;
 }

@@ -6,7 +6,12 @@ class MyEditor extends Editor {}
 
 const bool: boolean = ExportWord.isContextPlugin;
 const plugin = new ExportWord(new MyEditor());
-plugin.destroy?.()?.then(() => {});
+if (plugin.destroy) {
+    const destroyPromise = plugin.destroy();
+    if (destroyPromise instanceof Promise) {
+        destroyPromise.then(() => {});
+    }
+}
 
 let config: ExportWordConfig = {};
 config = {

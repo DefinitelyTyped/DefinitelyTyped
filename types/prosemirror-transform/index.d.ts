@@ -280,7 +280,7 @@ export class Transform<S extends Schema = any> {
      * The wrappers are assumed to be valid in this position, and should
      * probably be computed with [`findWrapping`](#transform.findWrapping).
      */
-    wrap(range: NodeRange<S>, wrappers: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null }>): this;
+    wrap(range: NodeRange<S>, wrappers: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null | undefined }>): this;
     /**
      * Set the type of all textblocks (partly) between `from` and `to` to
      * the given node type with the given attributes.
@@ -301,7 +301,7 @@ export class Transform<S extends Schema = any> {
     split(
         pos: number,
         depth?: number,
-        typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null }>,
+        typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null | undefined }>,
     ): this;
     /**
      * Join the blocks around the given position. If depth is 2, their
@@ -464,11 +464,11 @@ export class StepResult<S extends Schema = any> {
     /**
      * The transformed document.
      */
-    doc?: ProsemirrorNode<S> | null;
+    doc?: ProsemirrorNode<S> | null | undefined;
     /**
      * Text providing information about a failed step.
      */
-    failed?: string | null;
+    failed?: string | null | undefined;
     /**
      * Create a successful step result.
      */
@@ -508,7 +508,7 @@ export function findWrapping<S extends Schema = any>(
     nodeType: NodeType<S>,
     attrs?: { [key: string]: any },
     innerRange?: NodeRange<S>,
-): Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null }> | null | undefined;
+): Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null | undefined }> | null | undefined;
 /**
  * Check whether splitting at the given position is allowed.
  */
@@ -516,7 +516,7 @@ export function canSplit<S extends Schema = any>(
     doc: ProsemirrorNode<S>,
     pos: number,
     depth?: number,
-    typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null } | null | undefined>,
+    typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null | undefined } | null | undefined>,
 ): boolean;
 /**
  * Test whether the blocks before and after a given position can be

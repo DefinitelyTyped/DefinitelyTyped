@@ -14,7 +14,7 @@ export declare class ResizableView {
     renderIntoComponent(opts: {
         componentState?: {
             url: string;
-        };
+        } | undefined;
         container: any;
     }): Promise<void>;
     createOrAttachView(): Promise<void>;

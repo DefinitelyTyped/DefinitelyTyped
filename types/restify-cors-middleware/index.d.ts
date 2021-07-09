@@ -20,9 +20,9 @@ declare namespace corsMiddleware {
     /** user defined headers to expose */
     exposeHeaders: string[];
     /** if true, uses creds */
-    credentials?: boolean;
+    credentials?: boolean | undefined;
     /** ms to cache preflight requests */
-    preflightMaxAge?: number;
+    preflightMaxAge?: number | undefined;
     /** customize preflight request handling */
     preflightStrategy?: any;
   }

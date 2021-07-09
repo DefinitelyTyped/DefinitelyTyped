@@ -3,7 +3,7 @@ declare module 'events' {
         /**
          * Enables automatic capturing of promise rejection.
          */
-        captureRejections?: boolean;
+        captureRejections?: boolean | undefined;
     }
 
     interface NodeEventTarget {
@@ -15,7 +15,7 @@ declare module 'events' {
     }
 
     interface StaticEventEmitterOptions {
-        signal?: AbortSignal;
+        signal?: AbortSignal | undefined;
     }
 
     interface EventEmitter extends NodeJS.EventEmitter {}
@@ -28,6 +28,10 @@ declare module 'events' {
 
         /** @deprecated since v4.0.0 */
         static listenerCount(emitter: NodeJS.EventEmitter, event: string | symbol): number;
+        /**
+         * Returns a list listener for a specific emitter event name.
+         */
+        static getEventListener(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
 
         /**
          * This symbol shall be used to install a listener for only monitoring `'error'`
@@ -53,6 +57,13 @@ declare module 'events' {
     namespace EventEmitter {
         // Should just be `export { EventEmitter }`, but that doesn't work in TypeScript 3.4
         export { internal as EventEmitter };
+
+        export interface Abortable {
+            /**
+             * When provided the corresponding `AbortController` can be used to cancel an asynchronous action.
+             */
+            signal?: AbortSignal | undefined;
+        }
     }
 
     global {
@@ -79,4 +90,9 @@ declare module 'events' {
     }
 
     export = EventEmitter;
+}
+
+declare module 'node:events' {
+    import events = require('events');
+    export = events;
 }

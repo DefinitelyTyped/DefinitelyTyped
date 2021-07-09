@@ -14,7 +14,7 @@ tap.test("all-assertions", t => {
     const fn: (stuff: any) => void = () => { };
     const expectedError: Error = new Error();
     const eventEmitter: EventEmitter = new EventEmitter();
-    const pattern: RegExp | string | { [key: string]: RegExp } = "pattern";
+    const pattern: any = "pattern";
 
     const message = "message";
     const extra = {
@@ -177,7 +177,7 @@ tap.test("all-assertions", t => {
 
 tap.test("async test", async t => {
     const wanted: any = 1;
-    const expectedError: Error = new Error();
+    const expectedError: any = "foo";
 
     const message = "message";
     const extra = {
@@ -287,4 +287,9 @@ tap.test("fixture", t => {
     // much more common, as sugar does not exist
     t.fixture("link", "target");
     t.fixture("symlink", "target");
+});
+
+tap.test("autoend", t => {
+    t.autoend(false);
+    t.end();
 });

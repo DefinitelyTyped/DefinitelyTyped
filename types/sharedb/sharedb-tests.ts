@@ -45,6 +45,7 @@ const backend = new ShareDB({
 });
 console.log(backend.db);
 backend.on('error', (error) => console.error(error));
+backend.on('send', (agent, context) => console.log(agent, context));
 backend.addListener('timing', (type, time, request) => console.log(type, new Date(time), request));
 
 // getOps allows for `from` and `to` to both be `null`:

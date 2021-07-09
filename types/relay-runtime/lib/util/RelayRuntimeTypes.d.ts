@@ -16,7 +16,7 @@ export interface Variables {
 export interface OperationType {
     readonly variables: Variables;
     readonly response: unknown;
-    readonly rawResponse?: unknown;
+    readonly rawResponse?: unknown | undefined;
 }
 
 export type VariablesOf<TQuery extends OperationType> = TQuery['variables'];
@@ -37,11 +37,11 @@ export type DisposeFn = () => void;
  *   a given instance of executing an operation.
  */
 export interface CacheConfig {
-    force?: boolean | null;
-    poll?: number | null;
-    liveConfigId?: string | null;
-    metadata?: { [key: string]: unknown };
-    transactionId?: string | null;
+    force?: boolean | null | undefined;
+    poll?: number | null | undefined;
+    liveConfigId?: string | null | undefined;
+    metadata?: { [key: string]: unknown } | undefined;
+    transactionId?: string | null | undefined;
 }
 
 /**

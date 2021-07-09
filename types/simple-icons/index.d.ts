@@ -1,4 +1,4 @@
-// Type definitions for simple-icons 4.17
+// Type definitions for simple-icons 5.0
 // Project: https://simpleicons.org
 // Definitions by: Eric Cornelissen <https://github.com/ericcornelissen>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -11,15 +11,16 @@ interface SimpleIcon {
     path: string;
     source: string;
     hex: string;
-    guidelines?: string;
+    guidelines?: string | undefined;
     license?: {
         type: string;
         url: string;
-    };
+    } | undefined;
 }
 
 declare const icons: Record<string, SimpleIcon> & {
     get(name: string): SimpleIcon;
+    Get(name: string): SimpleIcon;
 };
 
 declare const icon: SimpleIcon;

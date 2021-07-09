@@ -225,6 +225,7 @@ const provider = new Provider('https://op.example.com', {
         token: '/token',
         userinfo: '/me',
         pushed_authorization_request: '/request',
+        backchannel_authentication: '/backchannel',
     },
     scopes: ['foo', 'bar'],
     subjectTypes: ['public', 'pairwise'],
@@ -241,6 +242,7 @@ const provider = new Provider('https://op.example.com', {
         DeviceCode: 3,
         IdToken: 3,
         RefreshToken: 3,
+        BackchannelAuthenticationRequest: 3,
     },
     extraClientMetadata: {
         properties: ['foo', 'bar'],
@@ -391,7 +393,21 @@ const provider = new Provider('https://op.example.com', {
             mode: 'lax',
         },
         encryption: { enabled: false },
-        fapiRW: { enabled: false, ack: 'id02-rev.3' },
+        fapi: { enabled: false, profile: '1.0 Final' },
+        ciba: {
+            enabled: false,
+            ack: 'foo',
+            deliveryModes: ['ping'],
+            async triggerAuthenticationDevice(ctx, request, account, client) {
+                ctx.oidc.issuer.substring(0);
+                request.jti.substring(0);
+                account.accountId.substring(0);
+                client.backchannelAuthenticationRequestSigningAlg;
+                client.backchannelClientNotificationEndpoint;
+                client.backchannelTokenDeliveryMode;
+                client.backchannelUserCodeParameter;
+            }
+        },
         clientCredentials: { enabled: false },
         backchannelLogout: { enabled: false, ack: 'draft' },
         dPoP: { enabled: false, ack: 'draft', iatTolerance: 120 },
@@ -527,6 +543,11 @@ provider.use(async (ctx, next) => {
     //
 });
 
+provider.backchannelResult('foo', 'bar').then(console.log);
+provider.backchannelResult(new provider.BackchannelAuthenticationRequest({ accountId: 'foo', clientId: 'bar' }), 'bar').then(console.log);
+provider.backchannelResult('foo', new provider.Grant({ clientId: 'foo', accountId: 'bar' })).then(console.log);
+provider.backchannelResult('foo', new errors.AccessDenied()).then(console.log);
+
 const _clientJwtAuthExpectedAudience = provider.OIDCContext.prototype.clientJwtAuthExpectedAudience;
 provider.OIDCContext.prototype.clientJwtAuthExpectedAudience = function clientJwtAuthExpectedAudience() {
     const acceptedAudiences = _clientJwtAuthExpectedAudience.call(this);
@@ -538,6 +559,7 @@ provider.OIDCContext.prototype.clientJwtAuthExpectedAudience = function clientJw
     const client = await provider.Client.find('foo');
     if (client !== undefined) {
         client.clientId.substring(0);
+        client.backchannelPing(new provider.BackchannelAuthenticationRequest({ accountId: 'foo', clientId: 'bar' }));
     }
     const accessToken = await provider.AccessToken.find('foo');
     if (accessToken !== undefined) {
@@ -550,6 +572,7 @@ provider.OIDCContext.prototype.clientJwtAuthExpectedAudience = function clientJw
             provider.AuthorizationCode.revokeByGrantId('grantId'),
             provider.DeviceCode.revokeByGrantId('grantId'),
             provider.RefreshToken.revokeByGrantId('grantId'),
+            provider.BackchannelAuthenticationRequest.revokeByGrantId('grantId'),
         ]);
     } catch (e) {}
 })();

@@ -3,7 +3,7 @@ declare module 'events' {
         /**
          * Enables automatic capturing of promise rejection.
          */
-        captureRejections?: boolean;
+        captureRejections?: boolean | undefined;
     }
 
     interface NodeEventTarget {

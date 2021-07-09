@@ -8,7 +8,7 @@ import { Component, ReactHTML } from 'react';
 
 export class ToastContainer extends Component<{
     toastMessageFactory: any;
-    className?: string;
+    className?: string | undefined;
 }> {
     error: (message: React.ReactNode, title: React.ReactNode, optionsOverride?: {}) => void;
     info: (message: React.ReactNode, title: React.ReactNode, optionsOverride?: {}) => void;

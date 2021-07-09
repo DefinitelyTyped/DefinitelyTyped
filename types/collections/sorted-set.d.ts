@@ -1,6 +1,28 @@
+declare const SortedSet: internal.SortedSetStatic;
+
+declare namespace SortedSet {
+    type Iterator<T> = internal.Iterator<T>;
+    type Node<T> = internal.Node<T>;
+    type SortedSet<T> = internal.SortedSet<T>;
+}
+
 declare namespace internal {
-    // TODO: These methods can be similar in others collection. One's should make some
-    // class model.
+    interface SortedSetStatic {
+        <T>(
+            values?: T[],
+            equals?: (a: T, b: T) => boolean,
+            compare?: (a: T, b: T) => number,
+            getDefault?: any,
+        ): SortedSet<T>;
+        new <T>(
+            values?: T[],
+            equals?: (a: T, b: T) => boolean,
+            compare?: (a: T, b: T) => number,
+            getDefault?: any,
+        ): SortedSet<T>;
+    }
+
+    // TODO: move somewhere else
     abstract class AbstractSet {
         union(...plus: any[]): any;
         intersection(...plus: any[]): any;
@@ -16,7 +38,6 @@ declare namespace internal {
         iterator(...plus: any[]): any;
         forEach(...plus: any[]): any;
         map(...plus: any[]): any;
-
         filter(...plus: any[]): any;
         group(...plus: any[]): any;
         some(...plus: any[]): any;
@@ -56,76 +77,110 @@ declare namespace internal {
         makePropertyObservable(...plus: any[]): any;
     }
 
-    class Node<T> {
-        value: T;
+    class Iterator<T> {
+        constructor(set: SortedSet<T>, start?: T, end?: T);
 
-        reduce(
-            cb: (result?: any, val?: any, key?: any, collection?: any) => any,
-            basis: any,
-            index: number,
-            thisp: any,
-            tree: any,
-            depth: number,
-        ): any;
-        touch(...plus: any[]): void;
-        checkIntegrity(...plus: any[]): number;
-        getNext(...plus: any[]): Node<T> | undefined;
-        getPrevious(...plus: any[]): Node<T> | undefined;
-        summary(...plus: any[]): string;
-        log(charmap: any, logNode: any, log: any, logAbove: any): any;
+        next(): { done: boolean; value: T | undefined };
     }
 
-    class Iterator<T> {
-        next(): { done: true; value: T | null | undefined };
+    class Node<T> {
+        readonly value: T;
+        readonly left: Node<T> | null;
+        readonly right: Node<T> | null;
+        readonly length: number;
+
+        constructor(value: T);
+
+        checkIntegrity(): number;
+        getNext(): Node<T> | undefined;
+        getPrevious(): Node<T> | undefined;
+        log(
+            charmap: {
+                branchUp: string;
+                branchDown: string;
+                fromAbove: string;
+                fromBelow: string;
+                fromBoth: string;
+                intersection: string;
+                strafe: string;
+                through: string;
+            },
+            logNode: (n: Node<T>, innerWrite: (line: string) => void, innerWriteAbove: (line: string) => void) => void,
+            log: (line: string) => void,
+            logAbove: (line: string) => void,
+        ): void;
+        reduce<U>(
+            callback: (accumulator: U, currentValue: T, index: number, set: SortedSet<T>) => U,
+            initialValue: U,
+            index: number,
+            thisArg: any,
+            tree: SortedSet<T>,
+            depth?: number,
+        ): U;
+        reduceRight<U>(
+            callback: (accumulator: U, currentValue: T, index: number, set: SortedSet<T>) => U,
+            initialValue: U,
+            index: number,
+            thisArg: any,
+            tree: SortedSet<T>,
+            depth?: number,
+        ): U;
+        summary(): string;
+        touch(): void;
     }
 
     class SortedSet<T> extends AbstractSet {
-        length: number;
+        readonly length: number;
 
         constructor(values?: T[], equals?: (a: T, b: T) => boolean, compare?: (a: T, b: T) => number, getDefault?: any);
         constructClone(values?: T[]): SortedSet<T>;
 
         add(value: T): boolean;
         clear(): void;
-        ["delete"](value: T): boolean;
+        delete(value: T): boolean;
 
         find(value: T): Node<T> | undefined;
-        findGreatest(n?: Node<T>): Node<T> | undefined;
+        findGreatest(): Node<T> | undefined;
         findGreatestLessThan(value: T): Node<T> | undefined;
         findGreatestLessThanOrEqual(value: T): Node<T> | undefined;
-        findLeast(n?: Node<T>): Node<T> | undefined;
+        findLeast(): Node<T> | undefined;
         findLeastGreaterThan(value: T): Node<T> | undefined;
         findLeastGreaterThanOrEqual(value: T): Node<T> | undefined;
-        max(n?: Node<T>): T | undefined;
-        min(n?: Node<T>): T | undefined;
-        one(): T | undefined;
 
         get(elt: T): T | undefined;
         has(elt: T): boolean;
         indexOf(value: T): number;
 
+        max(): T | undefined;
+        min(): T | undefined;
+        one(): T | undefined;
+
         pop(): T | undefined;
-        push(...rest: T[]): void;
+        push(...values: T[]): void;
 
         shift(): T | undefined;
-        unshift(...rest: T[]): void;
+        unshift(...values: T[]): void;
 
         slice(start?: number, end?: number): T[];
-        splice(start: Node<T>, length: number, ...values: T[]): T[];
-        swap(start: number, length: number, values?: T[]): T[];
+        splice(start: number, length: number, ...values: T[]): T[];
+        swap(start: number, length: number, ...values: T[]): T[];
 
         splay(value: T): void;
         splayIndex(index: number): boolean;
 
-        reduce(callback: (result?: any, val?: any, key?: any, collection?: any) => any, basis?: any, thisp?: any): any;
-        reduceRight(
-            callback: (result?: any, val?: any, key?: any, collection?: any) => any,
-            basis?: any,
-            thisp?: any,
-        ): any;
+        reduce<U>(
+            callback: (accumulator: U, currentValue: T, index: number, set: SortedSet<T>) => U,
+            initialValue?: U,
+            thisArg?: any,
+        ): U;
+        reduceRight<U>(
+            callback: (accumulator: U, currentValue: T, index: number, set: SortedSet<T>) => U,
+            initialValue?: U,
+            thisArg?: any,
+        ): U;
 
-        iterate(start: number, stop: number): Iterator<T>;
+        iterate(): Iterator<T>;
     }
 }
 
-export = internal.SortedSet;
+export = SortedSet;

@@ -96,15 +96,15 @@ declare namespace Lexx {
         /**
          * @default ["script", "style"]
          */
-        blackholes?: string[];
+        blackholes?: string[] | undefined;
         /**
          * @default false
          */
-        jsx?: boolean;
+        jsx?: boolean | undefined;
         /**
          * @default false
          */
-        html?: boolean;
+        html?: boolean | undefined;
     }
 
     /**

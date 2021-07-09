@@ -32,8 +32,8 @@ export abstract class Source {
 }
 
 export interface SourceAndMapMixin {
-    map(options: { columns?: boolean }): RawSourceMap;
-    sourceAndMap(options: { columns?: boolean }): {
+    map(options: { columns?: boolean | undefined }): RawSourceMap;
+    sourceAndMap(options: { columns?: boolean | undefined }): {
         source: string;
         map: RawSourceMap;
     };
@@ -111,7 +111,7 @@ export class OriginalSource extends Source implements SourceAndMapMixin {
 
     node(
         options?: {
-            columns?: boolean;
+            columns?: boolean | undefined;
         }
     ): SourceNode;
 
@@ -202,7 +202,7 @@ export class SourceMapSource extends Source implements SourceAndMapMixin {
 
     listMap(
         options: {
-            module?: boolean;
+            module?: boolean | undefined;
         }
     ): SourceListMap;
 

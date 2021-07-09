@@ -2,6 +2,7 @@ import { BufferAttribute } from './BufferAttribute';
 import { Box3 } from './../math/Box3';
 import { Sphere } from './../math/Sphere';
 import { Matrix4 } from './../math/Matrix4';
+import { Quaternion } from './../math/Quaternion';
 import { Vector2 } from './../math/Vector2';
 import { Vector3 } from './../math/Vector3';
 import { EventDispatcher } from './EventDispatcher';
@@ -66,7 +67,7 @@ export class BufferGeometry extends EventDispatcher {
     /**
      * @default []
      */
-    groups: Array<{ start: number; count: number; materialIndex?: number }>;
+    groups: Array<{ start: number; count: number; materialIndex?: number | undefined }>;
 
     /**
      * @default null
@@ -109,6 +110,7 @@ export class BufferGeometry extends EventDispatcher {
      * Bakes matrix transform directly into vertex coordinates.
      */
     applyMatrix4(matrix: Matrix4): BufferGeometry;
+    applyQuaternion(q: Quaternion): BufferGeometry;
 
     rotateX(angle: number): BufferGeometry;
     rotateY(angle: number): BufferGeometry;

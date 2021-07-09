@@ -47,27 +47,27 @@ declare namespace QRCode {
         /** QR Code content, the only **required** parameter. */
         content: string;
         /** White space padding. `0` for no border. Default is `4`. */
-        padding?: number;
+        padding?: number | undefined;
         /** QR Code width in pixels. Default is `256`. */
-        width?: number;
+        width?: number | undefined;
         /** QR Code height in pixels. Default is `256`. */
-        height?: number;
+        height?: number | undefined;
         /** Color of modules (squares), color name or hex string. Default is `#000000`. */
-        color?: string;
+        color?: string | undefined;
         /** Color of background, color name or hex string. Default is `#fffff`. */
-        background?: string;
+        background?: string | undefined;
         /** Error correction level. Default is `"M"`. */
-        ecl?: 'L' | 'M' | 'H' | 'Q';
+        ecl?: 'L' | 'M' | 'H' | 'Q' | undefined;
         /** Join modules (squares) into one shape, into the SVG path element, **recommended** for web and responsive use. Default is `false`. */
-        join?: boolean;
+        join?: boolean | undefined;
         /** To create a squares as pattern, then populate the canvas. Default is `false`. */
-        predefined?: boolean;
+        predefined?: boolean | undefined;
         /** Apply indents and new lines. Default is `true`. */
-        pretty?: boolean;
+        pretty?: boolean | undefined;
         /** Swap X and Y modules, only if you have issues with some QR readers. Default is `false`. */
-        swap?: boolean;
+        swap?: boolean | undefined;
         /** Prepend XML declaration to the SVG document, i.e. ```<?xml version="1.0" standalone="yes"?>```. Default is `true`. */
-        xmlDeclaration?: boolean;
+        xmlDeclaration?: boolean | undefined;
         /**
          * Wrapping element. Default is `svg`. \
          * `svg`: Populate squares in a SVG document with `width` and `height` attribute.
@@ -78,7 +78,7 @@ declare namespace QRCode {
          * Useful when you need to put multiple QR Codes in a single SVG document \
          * `none`: No wrapper.
          */
-        container?: 'svg' | 'svg-viewbox' | 'g' | 'none';
+        container?: 'svg' | 'svg-viewbox' | 'g' | 'none' | undefined;
     }
 
     interface Model {

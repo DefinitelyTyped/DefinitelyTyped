@@ -5,9 +5,9 @@ import { Subscription } from "./subscription";
 
 export interface ServiceOptions {
     // Idle time in seconds before exiting.
-    readonly idleTimer?: number;
+    readonly idleTimer?: number | undefined;
     // Prevents registering 'info' & 'quit' methods.
-    readonly noBuiltinMethods?: boolean;
+    readonly noBuiltinMethods?: boolean | undefined;
 }
 
 export class Service {
@@ -19,8 +19,6 @@ export class Service {
 
     readonly handlers: Record<string, any>;
 
-    readonly idleTimer: number;
-
     readonly methods: { [category: string]: { [methodName: string]: Method } };
 
     readonly noBuiltinMethods: boolean;
@@ -31,6 +29,8 @@ export class Service {
 
     handle: any;
 
+    idleTimer: number;
+
     hasPublicMethods: boolean;
 
     privateHandle: any;
@@ -40,6 +40,8 @@ export class Service {
     sendingHandle: any;
 
     useACG: boolean;
+
+    private readonly __serviceMainUnified: any;
 
     constructor(busId: string, activityManager?: ActivityManager, options?: ServiceOptions);
 
@@ -70,8 +72,6 @@ export class Service {
     ): Method;
 
     subscribe(uri: string, args: Record<string, any>): Subscription;
-
-    private readonly __serviceMainUnified: any;
 
     private _dispatch(handle: any, ls2Message: any): void;
 
