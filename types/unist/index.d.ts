@@ -13,7 +13,7 @@
 /**
  * Syntactic units in unist syntax trees are called nodes.
  */
-export interface Node<T extends object = Data> {
+export interface Node<NData extends object = Data> {
     /**
      * The variant of a node.
      */
@@ -22,7 +22,7 @@ export interface Node<T extends object = Data> {
     /**
      * Information from the ecosystem.
      */
-    data?: T | undefined;
+    data?: NData | undefined;
 
     /**
      * Location of a node in a source document.
@@ -80,21 +80,22 @@ export interface Point {
     offset?: number | undefined;
 }
 
-export type NodeData<T extends Node<object>> = T extends Node<infer Data> ? Data : never;
+export type NodeData<TNode extends Node<object>> = TNode extends Node<infer NData> ? NData : never;
 
 /**
  * Nodes containing other nodes.
  */
-export interface Parent<T extends Node<object> = Node, NData extends object = NodeData<T>> extends Node<NData> {
+export interface Parent<ChildNode extends Node<object> = Node, NData extends object = NodeData<ChildNode>>
+    extends Node<NData> {
     /**
      * List representing the children of a node.
      */
-    children: T[];
+    children: ChildNode[];
 }
 
 /**
  * Nodes containing a value.
  */
-export interface Literal<T = unknown, NData extends object = Data> extends Node<NData> {
-    value: T;
+export interface Literal<Value = unknown, NData extends object = Data> extends Node<NData> {
+    value: Value;
 }

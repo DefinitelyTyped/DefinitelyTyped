@@ -131,10 +131,10 @@ exampleNodeUtil(inferredNotNode);
 
 function exampleLiteralUtil(node: Literal) {}
 
-const inferredLiertal = { type: 'example', value: 'value' };
+const inferredLiteral = { type: 'example', value: 'value' };
 const inferredNotLiteral = { type: 'example' };
 
-exampleLiteralUtil(inferredLiertal);
+exampleLiteralUtil(inferredLiteral);
 // $ExpectError
 exampleLiteralUtil(inferredNotLiteral);
 
