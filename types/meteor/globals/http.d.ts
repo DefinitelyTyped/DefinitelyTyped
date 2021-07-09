@@ -3,28 +3,16 @@ declare module HTTP {
         content?: string | undefined;
         data?: any;
         query?: string | undefined;
-        params?:
-            | {
-                  [id: string]: string;
-              }
-            | undefined;
+        params?: { [id: string]: string } | undefined;
         auth?: string | undefined;
-        headers?:
-            | {
-                  [id: string]: string;
-              }
-            | undefined;
+        headers?: { [id: string]: string } | undefined;
         timeout?: number | undefined;
         followRedirects?: boolean | undefined;
     }
 
     interface HTTPResponse {
         statusCode?: number | undefined;
-        headers?:
-            | {
-                  [id: string]: string;
-              }
-            | undefined;
+        headers?: { [id: string]: string } | undefined;
         content?: string | undefined;
         data?: any;
     }

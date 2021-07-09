@@ -31,13 +31,7 @@ declare module 'meteor/ejson' {
 
         function clone<T>(val: T): T;
 
-        function equals(
-            a: EJSON,
-            b: EJSON,
-            options?: {
-                keyOrderSensitive?: boolean | undefined;
-            },
-        ): boolean;
+        function equals(a: EJSON, b: EJSON, options?: { keyOrderSensitive?: boolean | undefined }): boolean;
 
         function fromJSONValue(val: JSONable): any;
 

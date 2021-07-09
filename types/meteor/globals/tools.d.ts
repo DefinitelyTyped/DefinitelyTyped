@@ -97,9 +97,7 @@ declare interface PackageAPI {
     addFiles(
         filenames: string | string[],
         architecture?: string | string[],
-        options?: {
-            bare?: boolean | undefined;
-        },
+        options?: { bare?: boolean | undefined },
     ): void;
     export(
         exportedObjects: string | string[],

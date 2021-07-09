@@ -61,9 +61,7 @@ declare module Accounts {
     ): void;
 
     function forgotPassword(
-        options: {
-            email?: string | undefined;
-        },
+        options: { email?: string | undefined },
         callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
 
@@ -131,13 +129,7 @@ declare module Accounts {
 
     function setUsername(userId: string, newUsername: string): void;
 
-    function setPassword(
-        userId: string,
-        newPassword: string,
-        options?: {
-            logout?: Object | undefined;
-        },
-    ): void;
+    function setPassword(userId: string, newPassword: string, options?: { logout?: Object | undefined }): void;
 
     function validateNewUser(func: Function): boolean;
 

@@ -99,9 +99,7 @@ declare module 'meteor/tools' {
         addFiles(
             filenames: string | string[],
             architecture?: string | string[],
-            options?: {
-                bare?: boolean | undefined;
-            },
+            options?: { bare?: boolean | undefined },
         ): void;
         export(
             exportedObjects: string | string[],

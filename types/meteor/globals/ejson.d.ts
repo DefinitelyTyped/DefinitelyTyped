@@ -30,18 +30,12 @@ declare module EJSON {
 
     function clone<T>(val: T): T;
 
-    function equals(
-        a: EJSON,
-        b: EJSON,
-        options?: {
-            keyOrderSensitive?: boolean | undefined;
-        },
-    ): boolean;
+    function equals(a: EJSON, b: EJSON, options?: { keyOrderSensitive?: boolean | undefined }): boolean;
 
     function fromJSONValue(val: JSONable): any;
 
     function isBinary(x: Object): boolean;
-    var newBinary: any;
+    function newBinary(size: number): Uint8Array;
 
     function parse(str: string): EJSON;
 

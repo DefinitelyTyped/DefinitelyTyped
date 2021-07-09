@@ -11,10 +11,12 @@
 
 /*********************************** Begin setup for tests ******************************/
 
-declare namespace Meteor {
-    interface User {
-        // One of the tests assigns a new property to the user so it has to be typed
-        dexterity?: number | undefined;
+declare module 'meteor/meteor' {
+    namespace Meteor {
+        interface User {
+            // One of the tests assigns a new property to the user so it has to be typed
+            dexterity?: number | undefined;
+        }
     }
 }
 
@@ -43,13 +45,25 @@ namespace MeteorTests {
 
     /**
      * From Core, Meteor.startup section
-     * Tests Meteor.isServer, Meteor.startup, Collection.insert(), Collection.find()
+     * Tests Meteor.isServer, Meteor.startup, Collection.insert(), Collection.find(), Collection.rawCollection(), Collection.rawDatabase()
      */
     if (Meteor.isServer) {
         Meteor.startup(function () {
             if (Rooms.find().count() === 0) {
                 Rooms.insert({ name: 'Initial room' });
             }
+
+            Rooms.rawDatabase()
+                .stats()
+                .then(
+                    stats => console.log('stats', stats),
+                    error => console.error('stats', error),
+                );
+
+            Rooms.rawCollection()
+                .aggregate([{ $group: { _id: null, names: { $addToSet: '$name' } } }])
+                .toArray()
+                .then();
         });
     }
 
@@ -403,6 +417,7 @@ namespace MeteorTests {
             console.log("Lost one. We're now down to " + count1 + ' admins.');
         },
     });
+    query.observeChanges({}, { nonMutatingCallbacks: true }); // $ExpectType LiveQueryHandle
 
     let cursor: Mongo.Cursor<Object>;
 
@@ -509,7 +524,6 @@ namespace MeteorTests {
      */
     Meteor.publish('userData', function () {
         if (this.userId === null) return;
-
         return Meteor.users.find({ _id: this.userId }, { fields: { other: 1, things: 1 } });
     });
 
@@ -708,8 +722,9 @@ namespace MeteorTests {
      * From Match patterns section
      */
     var pat = { name: Match.Optional('test') };
-    check({ name: 'something' }, pat); // OK
+    check({ name: 'test' }, pat); // OK
     check({}, pat); // OK
+    check({ name: 'something' }, pat); // Throws an exception
     check({ name: undefined }, pat); // Throws an exception
 
     // Outside an object
@@ -845,9 +860,7 @@ namespace MeteorTests {
     reactiveDict1.destroy();
 
     var reactiveVar1 = new ReactiveVar<string>('test value');
-    var reactiveVar2 = new ReactiveVar<string>('test value', function (oldVal: any) {
-        return true;
-    });
+    var reactiveVar2 = new ReactiveVar<string>('test value', (oldVal, newVal) => oldVal.length === newVal.length);
 
     var varValue: string = reactiveVar1.get();
     reactiveVar1.set('new value');
@@ -999,6 +1012,19 @@ Meteor.absoluteUrl.defaultOptions = {
     secure: false,
 };
 
+Random.choice([1, 2, 3]); // $ExpectType number | undefined
+Random.choice('String'); // $ExpectType string
+
+EJSON.newBinary(5); // $ExpectType Uint8Array
+
+// Connection
+Meteor.onConnection(connection => {
+    connection.id; // $ExpectType string
+    connection.clientAddress; // $ExpectType string
+    connection.onClose(() => {});
+    connection.close();
+});
+
 // EnvironmentVariable
 const scopedCounter = new Meteor.EnvironmentVariable<number>();
 // $ExpectType number | null
@@ -1015,6 +1041,10 @@ if (Meteor.isServer) {
     const stampedToken = Accounts._generateStampedLoginToken(); // $ExpectType StampedLoginToken
     const hashedStampedToken = Accounts._hashStampedToken(stampedToken); // $ExpectType HashedStampedLoginToken
     Accounts._insertHashedLoginToken('testUserId', hashedStampedToken); // $ExpectType void
+    Accounts._insertHashedLoginToken<{ _id: string }>('testUserId', hashedStampedToken, { _id: { $exists: true } }); // $ExpectType void
 
     const hashedToken = Accounts._hashLoginToken(stampedToken.token); // $ExpectType string
 }
+
+// Covers modern-browsers
+setMinimumBrowserVersions({ samsungInternet: [6, 2] }, 'custom-app');
