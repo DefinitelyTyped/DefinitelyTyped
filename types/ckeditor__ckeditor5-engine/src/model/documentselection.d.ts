@@ -23,7 +23,7 @@ export default class DocumentSelection implements Emitter {
     constructor(doc: Document);
     containsEntireContent(element?: Element): boolean;
     destroy(): void;
-    getAttribute(key: string): string | number | boolean | undefined;
+    getAttribute(key: string): string | number | boolean;
     getAttributeKeys(): IterableIterator<string>;
     getAttributes(): IterableIterator<[string, string | number | boolean]>;
     getFirstPosition(): Position | null;
@@ -53,7 +53,7 @@ export default class DocumentSelection implements Emitter {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
+        options?: { priority?: PriorityString | number },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;

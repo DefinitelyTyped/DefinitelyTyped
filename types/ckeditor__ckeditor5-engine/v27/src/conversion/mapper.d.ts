@@ -19,11 +19,11 @@ export default class Mapper implements Emitter {
     getModelLength(viewNode: Element): number;
     markerNameToElements(name: string): Set<Element> | null;
     registerViewToModelLength(viewElementName: string, lengthCallback: (element: Element) => number): void;
-    toModelElement(viewElement: Element): ModelElement | undefined;
+    toModelElement(viewElement: Element): ModelElement;
     toModelPosition(viewPosition: Position): ModelPosition;
     toModelRange(viewRange: Range): ModelRange;
-    toViewElement(modelElement: ModelElement): Element | undefined;
-    toViewPosition(modelPosition: ModelPosition, options?: { isPhantom?: boolean | undefined }): Position;
+    toViewElement(modelElement: ModelElement): Element;
+    toViewPosition(modelPosition: ModelPosition, options?: { isPhantom?: boolean }): Position;
     toViewRange(modelRange: ModelRange): Range;
     unbindElementFromMarkerName(element: Element, name: string): void;
     unbindModelElement(modelElement: ModelElement): void;
@@ -44,7 +44,7 @@ export default class Mapper implements Emitter {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
+        options?: { priority?: PriorityString | number },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;

@@ -19,22 +19,22 @@ export default class DomConverter {
     readonly document: ViewDocument;
     readonly preElements: string[];
 
-    constructor(document: ViewDocument, options?: { blockFillerMode?: BlockFillerMode | undefined });
+    constructor(document: ViewDocument, options?: { blockFillerMode?: BlockFillerMode });
     bindDocumentFragments(domFragment: DocumentFragment, viewFragment: ViewDocumentFragment): void;
     bindElements(domElement: HTMLElement, viewElement: ViewElement): void;
     bindFakeSelection(domElement: HTMLElement, viewDocumentSelection: DocumentSelection): void;
     domChildrenToView(
         domElement: HTMLElement,
-        options?: { bind?: boolean | undefined; withChildren?: boolean | undefined; keepOriginalCase?: boolean | undefined },
+        options?: { bind?: boolean; withChildren?: boolean; keepOriginalCase?: boolean },
     ): Generator<Node>;
     domPositionToView(domParent: Node, domOffset: number): Position;
     domRangeToView(domRange: Range): ViewRange | null;
     domSelectionToView(domSelection: Selection): ViewSelection;
     domToView(
         domNode: Node | DocumentFragment,
-        options?: { bind?: boolean | undefined; withChildren?: boolean | undefined; keepOriginalCase?: boolean | undefined },
+        options?: { bind?: boolean; withChildren?: boolean; keepOriginalCase?: boolean },
     ): ViewNode | ViewDocumentFragment | null;
-    fakeSelectionToView(domElement: HTMLElement): ViewSelection | undefined;
+    fakeSelectionToView(domElement: HTMLElement): ViewSelection;
     findCorrespondingDomText(viewText: ViewText): Text | null;
     findCorrespondingViewText(domText: Text): ViewText | null;
     focus(viewEditable: EditableElement): void;
@@ -47,20 +47,20 @@ export default class DomConverter {
     isElement(node: Node): boolean;
     mapDomToView(
         domElementOrDocumentFragment: DocumentFragment | Element,
-    ): ViewElement | ViewDocumentFragment | undefined;
-    mapViewToDom(viewNode: ViewElement | ViewDocumentFragment): Node | DocumentFragment | undefined;
+    ): ViewElement | ViewDocumentFragment;
+    mapViewToDom(viewNode: ViewElement | ViewDocumentFragment): Node | DocumentFragment;
     registerRawContentMatcher(pattern: MatcherPattern): void;
     unbindDomElement(domElement: HTMLElement): void;
     viewChildrenToDom(
         viewElement: ViewElement | ViewDocumentFragment,
         domDocument: Document,
-        options?: { bind?: boolean | undefined; withChildren?: boolean | undefined },
+        options?: { bind?: boolean; withChildren?: boolean },
     ): Generator<Node>;
     viewPositionToDom(viewPosition: Position): { parent: Node; offset: number } | null;
     viewRangeToDom(viewRange: ViewRange): Range;
     viewToDom(
         viewNode: ViewNode | ViewDocumentFragment,
         domDocument: Document,
-        options?: { bind?: boolean | undefined; withChildren?: boolean | undefined },
+        options?: { bind?: boolean; withChildren?: boolean },
     ): Node | DocumentFragment;
 }

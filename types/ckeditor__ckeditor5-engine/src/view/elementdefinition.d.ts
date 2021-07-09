@@ -1,9 +1,9 @@
 export type ElementDefinition =
     | string
     | {
-          attributes?: Record<string, string> | undefined;
-          classes?: string | string[] | undefined;
+          attributes?: Record<string, string>;
+          classes?: string | string[];
           name: string;
-          priority?: number | undefined;
-          styles?: Record<string, string> | undefined;
+          priority?: number;
+          styles?: Record<string, string>;
       };

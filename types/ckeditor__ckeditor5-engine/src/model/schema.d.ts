@@ -60,7 +60,7 @@ export default class Schema implements Emitter, Observable {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
+        options?: { priority?: PriorityString | number },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
@@ -69,20 +69,20 @@ export default class Schema implements Emitter, Observable {
 }
 
 export interface SchemaItemDefinition {
-    allowAttributes?: string | string[] | undefined;
-    allowAttributesOf?: string | string[] | undefined;
-    allowChildren?: string|string[] | undefined;
-    allowContentOf?: string | string[] | undefined;
-    allowIn?: string | string[] | undefined;
-    allowWhere?: string | string[] | undefined;
-    inheritAllFrom?: string | undefined;
-    inheritTypesFrom?: string | string[] | undefined;
-    isblock?: boolean | undefined;
-    isContent?: boolean | undefined;
-    isInline?: boolean | undefined;
-    isLimit?: boolean | undefined;
-    isObject?: boolean | undefined;
-    isSelectable?: boolean | undefined;
+    allowAttributes?: string | string[];
+    allowAttributesOf?: string | string[];
+    allowChildren?: string|string[];
+    allowContentOf?: string | string[];
+    allowIn?: string | string[];
+    allowWhere?: string | string[];
+    inheritAllFrom?: string;
+    inheritTypesFrom?: string | string[];
+    isblock?: boolean;
+    isContent?: boolean;
+    isInline?: boolean;
+    isLimit?: boolean;
+    isObject?: boolean;
+    isSelectable?: boolean;
 }
 
 export interface SchemaContextItem {
@@ -106,8 +106,8 @@ export interface SchemaCompiledItemDefinition {
 }
 
 export interface AttributeProperties {
-    copyOnEnter?: boolean | undefined;
-    isFormatting?: boolean | undefined;
+    copyOnEnter?: boolean;
+    isFormatting?: boolean;
 }
 
 export class SchemaContext implements Iterable<SchemaContextItem> {

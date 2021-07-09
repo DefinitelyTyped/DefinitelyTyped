@@ -4,8 +4,8 @@ export default class StylesMap {
 
     constructor(styleProcessor: StylesProcessor);
     clear(): void;
-    getAsString(propertyName: string): string | undefined;
-    getNormalized(name: string): Record<string, string> | string | undefined;
+    getAsString(propertyName: string): string;
+    getNormalized(name: string): Record<string, string> | string;
     getStyleNames(): string[];
     has(name: string): boolean;
     remove(name: string): void;

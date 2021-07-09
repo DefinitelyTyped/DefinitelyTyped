@@ -30,7 +30,7 @@ export default class UpcastWriter {
     createSelection(
         selectable?: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean | undefined; fake?: boolean | undefined; label?: string | undefined },
+        options?: { backward?: boolean; fake?: boolean; label?: string },
     ): Selection;
     createText(data: string): Text;
     insertChild(index: number, items: Item | Iterable<Item>, element: Element | DocumentFragment): number;

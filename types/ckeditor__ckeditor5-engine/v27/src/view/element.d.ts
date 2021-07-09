@@ -11,13 +11,13 @@ export default abstract class Element extends Node {
             | string
             | RegExp
             | {
-                  attributes?: Record<string, string | RegExp | boolean> | undefined;
-                  classes?: string | RegExp | Array<string | RegExp> | undefined;
-                  name?: string | RegExp | undefined;
+                  attributes?: Record<string, string | RegExp | boolean>;
+                  classes?: string | RegExp | Array<string | RegExp>;
+                  name?: string | RegExp;
                   styles: Record<string, string>;
               },
     ): Element | null;
-    getAttribute(key: string): string | undefined;
+    getAttribute(key: string): string;
     getAttributeKeys(): Generator<string>;
     getAttributes(): Generator<[string, unknown]>;
     getChild(index: number): Node;
@@ -28,8 +28,8 @@ export default abstract class Element extends Node {
     getCustomProperty(key: string | symbol): any;
     getFillerOffset(): number | null;
     getIdentity(): string;
-    getNormalizedStyle(property: string): Record<string, string> | string | undefined;
-    getStyle(property: string): string | undefined;
+    getNormalizedStyle(property: string): Record<string, string> | string;
+    getStyle(property: string): string;
     getStyleNames(): ReturnType<StylesMap["getStyleNames"]>;
     hasAttribute(key: string): boolean;
     hasClass(className: string): boolean;

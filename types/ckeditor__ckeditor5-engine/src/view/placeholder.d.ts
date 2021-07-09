@@ -7,8 +7,8 @@ export function enablePlaceholder(options?: {
     view: View;
     element: Element;
     text: string;
-    isDirectHost?: boolean | undefined;
-    keepOnFocus?: boolean | undefined;
+    isDirectHost?: boolean;
+    keepOnFocus?: boolean;
 }): void;
 export function hidePlaceholder(writer: DowncastWriter, element: Element): boolean;
 export function needsPlaceholder(element: Element, keepOnFocus: boolean): boolean;

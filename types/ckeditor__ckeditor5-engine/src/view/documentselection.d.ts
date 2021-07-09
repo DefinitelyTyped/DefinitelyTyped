@@ -15,7 +15,7 @@ export default class DocumentSelection {
     constructor(
         selectable?: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean | undefined; fake?: boolean | undefined; label?: string | undefined },
+        options?: { backward?: boolean; fake?: boolean; label?: string },
     );
     getFirstPosition(): Position | null;
     getFirstRange(): Range | null;

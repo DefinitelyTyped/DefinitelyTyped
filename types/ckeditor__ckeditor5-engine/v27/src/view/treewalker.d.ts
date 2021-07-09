@@ -6,7 +6,7 @@ export type TreeWalkerValueType = "elementStart" | "elementEnd" | "text";
 
 export interface TreeWalkerValue {
     item: Item;
-    length: number | undefined;
+    length: number;
     nextPosition: Position;
     previousPosition: Position;
     type: TreeWalkerValueType;
@@ -23,12 +23,12 @@ export default class TreeWalker implements Iterable<TreeWalkerValue> {
     readonly singleCharacters: boolean;
 
     constructor(options?: {
-        boundaries?: Range | undefined;
+        boundaries?: Range;
         startPosition: Position;
-        direction?: TreeWalkerDirection | undefined;
-        singleCharacters?: boolean | undefined;
-        shallow?: boolean | undefined;
-        ignoreElementEnd?: boolean | undefined;
+        direction?: TreeWalkerDirection;
+        singleCharacters?: boolean;
+        shallow?: boolean;
+        ignoreElementEnd?: boolean;
     });
     [Symbol.iterator](): Iterator<TreeWalkerValue>;
     next(): TreeWalkerValue;

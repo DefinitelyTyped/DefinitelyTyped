@@ -23,27 +23,27 @@ export default class Range implements Iterable<TreeWalkerValue> {
     getEnlarged(): Range;
     getIntersection(otherRange: Range): Range | null;
     getItems(options?: {
-        boundaries?: Range | undefined;
+        boundaries?: Range;
         startPosition: Position;
-        direction?: TreeWalkerDirection | undefined;
-        singleCharacters?: boolean | undefined;
-        shallow?: boolean | undefined;
-        ignoreElementEnd?: boolean | undefined;
+        direction?: TreeWalkerDirection;
+        singleCharacters?: boolean;
+        shallow?: boolean;
+        ignoreElementEnd?: boolean;
     }): Iterable<Item>;
     getPositions(options?: {
-        boundaries?: Range | undefined;
+        boundaries?: Range;
         startPosition: Position;
-        direction?: TreeWalkerDirection | undefined;
-        singleCharacters?: boolean | undefined;
-        shallow?: boolean | undefined;
-        ignoreElementEnd?: boolean | undefined;
+        direction?: TreeWalkerDirection;
+        singleCharacters?: boolean;
+        shallow?: boolean;
+        ignoreElementEnd?: boolean;
     }): Iterable<Position>;
     getTrimmed(): Range;
     getWalker(options?: {
-        startPosition?: Position | undefined;
-        singleCharacters?: boolean | undefined;
-        shallow?: boolean | undefined;
-        ignoreElementEnd?: boolean | undefined;
+        startPosition?: Position;
+        singleCharacters?: boolean;
+        shallow?: boolean;
+        ignoreElementEnd?: boolean;
     }): TreeWalker;
     is(type: string): boolean;
     isEqual(otherRange: Range): boolean;

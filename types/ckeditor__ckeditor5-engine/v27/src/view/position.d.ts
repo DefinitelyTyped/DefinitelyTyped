@@ -22,20 +22,20 @@ export default class Position {
     getLastMatchingPosition(
         skip: (value: TreeWalkerValue) => boolean,
         options?: {
-            boundaries?: Range | undefined;
+            boundaries?: Range;
             startPosition: Position;
-            direction?: TreeWalkerDirection | undefined;
-            singleCharacters?: boolean | undefined;
-            shallow?: boolean | undefined;
-            ignoreElementEnd?: boolean | undefined;
+            direction?: TreeWalkerDirection;
+            singleCharacters?: boolean;
+            shallow?: boolean;
+            ignoreElementEnd?: boolean;
         },
     ): Position;
     getShiftedBy(shift: number): Position;
     getWalker(options?: {
-        boundaries?: Range | undefined;
-        singleCharacters?: boolean | undefined;
-        shallow?: boolean | undefined;
-        ignoreElementEnd?: boolean | undefined;
+        boundaries?: Range;
+        singleCharacters?: boolean;
+        shallow?: boolean;
+        ignoreElementEnd?: boolean;
     }): TreeWalker;
     is(type: string): boolean;
     isAfter(otherPosition: Position): boolean;

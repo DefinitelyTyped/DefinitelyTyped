@@ -6,17 +6,17 @@ export default class Matcher {
             | string
             | RegExp
             | {
-                  attributes?: Record<string, string | RegExp | boolean> | undefined;
-                  classes?: string | RegExp | Array<string | RegExp> | undefined;
-                  name?: string | RegExp | undefined;
+                  attributes?: Record<string, string | RegExp | boolean>;
+                  classes?: string | RegExp | Array<string | RegExp>;
+                  name?: string | RegExp;
                   styles: Record<string, string>;
               },
     );
     add(
         ...pattern: Array<{
-            attributes?: Record<string, string | RegExp | boolean> | undefined;
-            classes?: string | RegExp | Array<string | RegExp> | undefined;
-            name?: string | RegExp | undefined;
+            attributes?: Record<string, string | RegExp | boolean>;
+            classes?: string | RegExp | Array<string | RegExp>;
+            name?: string | RegExp;
             styles: Record<string, string>;
         }>
     ): void;
@@ -25,25 +25,25 @@ export default class Matcher {
         element: Element,
     ): {
         element: Element;
-        match: { name?: boolean | undefined; attribute?: string[] | undefined; classes?: string[] | undefined; styles?: Array<[string, string]> | undefined };
+        match: { name?: boolean; attribute?: string[]; classes?: string[]; styles?: Array<[string, string]> };
     } | null;
     matchAll(
         element: Element,
     ): Array<{
         element: Element;
-        match: { name?: boolean | undefined; attribute?: string[] | undefined; classes?: string[] | undefined; styles?: Array<[string, string]> | undefined };
+        match: { name?: boolean; attribute?: string[]; classes?: string[]; styles?: Array<[string, string]> };
     }> | null;
 }
 
 export type MatcherPattern =
     | ((
           element: Element,
-      ) => null | { name?: boolean | undefined; attribute?: string[] | undefined; classes?: string[] | undefined; styles?: Array<[string, string]> | undefined })
+      ) => null | { name?: boolean; attribute?: string[]; classes?: string[]; styles?: Array<[string, string]> })
     | string
     | RegExp
     | {
-          attributes?: Record<string, string | RegExp | boolean> | undefined;
-          classes?: string | RegExp | Array<string | RegExp> | undefined;
-          name?: string | RegExp | undefined;
-          styles?: Record<string, string | RegExp> | undefined;
+          attributes?: Record<string, string | RegExp | boolean>;
+          classes?: string | RegExp | Array<string | RegExp>;
+          name?: string | RegExp;
+          styles?: Record<string, string | RegExp>;
       };

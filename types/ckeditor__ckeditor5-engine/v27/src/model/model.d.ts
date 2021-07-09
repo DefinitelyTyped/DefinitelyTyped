@@ -37,15 +37,15 @@ export default class Model implements Emitter, Observable {
     createSelection(
         selectable?: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean | undefined },
+        options?: { backward?: boolean },
     ): Selection;
     deleteContent(
         selection: Selection | DocumentSelection,
         options?: {
-            leaveUnmerged?: boolean | undefined;
-            doNotResetEntireContent?: boolean | undefined;
-            doNotAutoparagraph?: boolean | undefined;
-            direction?: "forward" | "backward" | undefined;
+            leaveUnmerged?: boolean;
+            doNotResetEntireContent?: boolean;
+            doNotAutoparagraph?: boolean;
+            direction?: "forward" | "backward";
         },
     ): void;
     destroy(): void;
@@ -53,7 +53,7 @@ export default class Model implements Emitter, Observable {
     getSelectedContent(selection: Selection | DocumentSelection): DocumentFragment;
     hasContent(
         rangeOrElement: Range | Element,
-        options?: { ignoreWhitespaces?: boolean | undefined; ignoreMarkers?: boolean | undefined },
+        options?: { ignoreWhitespaces?: boolean; ignoreMarkers?: boolean },
     ): boolean;
     insertContent(
         content: DocumentFragment | Item,
@@ -62,7 +62,7 @@ export default class Model implements Emitter, Observable {
     ): Range;
     modifySelection(
         selection: Selection | DocumentSelection,
-        options?: { direction?: "forward" | "backward" | undefined; unit?: "character" | "codePoint" | "word" | undefined },
+        options?: { direction?: "forward" | "backward"; unit?: "character" | "codePoint" | "word" },
     ): void;
 
     set(option: Record<string, unknown>): void;
@@ -86,7 +86,7 @@ export default class Model implements Emitter, Observable {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
+        options?: { priority?: PriorityString | number },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;

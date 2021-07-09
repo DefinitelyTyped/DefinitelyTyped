@@ -24,30 +24,30 @@ export default class Range implements Iterable<TreeWalkerValue> {
     getDifference(otherRange: Range): Range[];
     getIntersection(otherRange: Range): Range | null;
     getItems(options: {
-        boundaries?: Range | undefined;
-        direction?: TreeWalkerDirection | undefined;
-        ignoreElementEnd?: boolean | undefined;
-        shallow?: boolean | undefined;
-        singleCharacters?: boolean | undefined;
+        boundaries?: Range;
+        direction?: TreeWalkerDirection;
+        ignoreElementEnd?: boolean;
+        shallow?: boolean;
+        singleCharacters?: boolean;
         startPosition: Position;
     }): Generator<Item>;
     getJoined(otherRange: Range, loose?: boolean): Range | null;
     getMinimalFlatRanges(): Range[];
     getPositions(options: {
-        boundaries?: Range | undefined;
-        direction?: TreeWalkerDirection | undefined;
-        ignoreElementEnd?: boolean | undefined;
-        shallow?: boolean | undefined;
-        singleCharacters?: boolean | undefined;
+        boundaries?: Range;
+        direction?: TreeWalkerDirection;
+        ignoreElementEnd?: boolean;
+        shallow?: boolean;
+        singleCharacters?: boolean;
         startPosition: Position;
     }): Generator<Position>;
     getTransformedByOperation(operation: Operation): Range[];
     getTransformedByOperations(operations: Iterable<Operation>): Range[];
     getWalker(options?: {
-        startPosition?: Position | undefined;
-        singleCharacters?: boolean | undefined;
-        shallow?: boolean | undefined;
-        ignoreElementEnd?: boolean | undefined;
+        startPosition?: Position;
+        singleCharacters?: boolean;
+        shallow?: boolean;
+        ignoreElementEnd?: boolean;
     }): TreeWalker;
     is(type: string): boolean;
     isEqual(otherRange: Range): boolean;

@@ -49,7 +49,7 @@ pattern = (element: engine.view.Element) => {
 
 pattern = (element: engine.view.Element) => {
     if (element.name === "p") {
-        const fontSize = element.getStyle("font-size")!;
+        const fontSize = element.getStyle("font-size");
         const size = fontSize.match(/(\d+)/px);
 
         if (size && Number(size[1]) > 26) {
