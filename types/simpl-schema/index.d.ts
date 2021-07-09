@@ -1,4 +1,4 @@
-// Type definitions for simpl-schema 1.10
+// Type definitions for simpl-schema 1.12.0
 // Project: https://github.com/aldeed/simpl-schema
 // Definitions by: Andreas Richter <https://github.com/arichter83>
 //                 Qkramer <https://github.com/Qkramer>
