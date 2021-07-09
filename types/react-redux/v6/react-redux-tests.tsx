@@ -1,3 +1,4 @@
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject, Reducer } from 'redux';
@@ -1184,6 +1185,11 @@ function TestLibraryManagedAttributes() {
         fn: () => void;
     }
 
+    interface ExternalOwnProps {
+        bar?: number | undefined;
+        fn: () => void;
+    }
+
     interface MapStateProps {
         foo: string;
     }
@@ -1207,6 +1213,41 @@ function TestLibraryManagedAttributes() {
     const ConnectedComponent = connect(mapStateToProps)(Component);
     <ConnectedComponent fn={() => {}} />;
 
-    const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
+    const ConnectedComponent2 = connect<MapStateProps, void, ExternalOwnProps>(mapStateToProps)(Component);
     <ConnectedComponent2 fn={() => {}} />;
+}
+
+function TestPropTypes() {
+    interface OwnProps {
+        bar: number;
+        fn: () => void;
+    }
+
+    interface MapStateProps {
+        foo: string;
+    }
+
+    class Component extends React.Component<OwnProps & MapStateProps> {
+        static propTypes = {
+            foo: PropTypes.string.isRequired,
+            bar: PropTypes.number.isRequired,
+            fn: PropTypes.func.isRequired,
+        };
+
+        render() {
+            return <div />;
+        }
+    }
+
+    function mapStateToProps(state: any): MapStateProps {
+        return {
+            foo: 'foo',
+        };
+    }
+
+    const ConnectedComponent = connect(mapStateToProps)(Component);
+    <ConnectedComponent fn={() => { }} bar={0} />;
+
+    const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
+    <ConnectedComponent2 fn={() => { }} bar={0} />;
 }
