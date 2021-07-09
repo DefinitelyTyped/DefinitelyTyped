@@ -36,16 +36,16 @@ interface HighlightDates {
 }
 
 export interface ReactDatePickerProps {
-    adjustDateOnChange?: boolean;
-    allowSameDay?: boolean;
-    ariaDescribedBy?: string;
-    ariaLabelClose?: string;
-    ariaLabelledBy?: string;
-    ariaRequired?: string;
-    ariaInvalid?: string;
-    autoComplete?: string;
-    autoFocus?: boolean;
-    calendarClassName?: string;
+    adjustDateOnChange?: boolean | undefined;
+    allowSameDay?: boolean | undefined;
+    ariaDescribedBy?: string | undefined;
+    ariaLabelClose?: string | undefined;
+    ariaLabelledBy?: string | undefined;
+    ariaRequired?: string | undefined;
+    ariaInvalid?: string | undefined;
+    autoComplete?: string | undefined;
+    autoFocus?: boolean | undefined;
+    calendarClassName?: string | undefined;
     calendarContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
     calendarStartDay?: number;
     children?: React.ReactNode;
