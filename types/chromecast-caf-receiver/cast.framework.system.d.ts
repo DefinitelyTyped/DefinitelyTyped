@@ -92,14 +92,14 @@ export enum SystemState {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.MessageType
  */
 export enum MessageType {
-  /**
-   * Messages are free-form strings. The application is responsible for encoding/decoding the information transmitted.
-   */
-  STRING = 'string',
-  /**
-   * Messages are JSON-encoded. The underlying transport will use a JSON encoded string.
-   */
-  JSON = 'json',
+    /**
+     * Messages are free-form strings. The application is responsible for encoding/decoding the information transmitted.
+     */
+    STRING = 'string',
+    /**
+     * Messages are JSON-encoded. The underlying transport will use a JSON encoded string.
+     */
+    JSON = 'json',
 }
 
 /**
@@ -229,11 +229,11 @@ export enum DeviceCapabilities {
  * It may be UNKNOWN if the cast platform was unable to determine the state yet.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.VisibilityState
  */
- export enum VisibilityState {
+export enum VisibilityState {
     VISIBLE = 'visible',
     NOT_VISIBLE = 'notvisible',
     UNKNOWN = 'unknown',
-  }
+}
 
 /**
  * Event dispatched by {@link framework.CastReceiverContext} when the visibility
@@ -295,8 +295,7 @@ export class StandbyChangedEvent extends Event {
  * Event dispatched by {@link framework.CastReceiverContext} when the application is shutdown.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.ShutdownEvent
  */
-export class ShutdownEvent extends Event {
-}
+export class ShutdownEvent extends Event {}
 
 /**
  * Event dispatched by {@link framework.CastReceiverContext} when a sender is disconnected.
@@ -388,8 +387,7 @@ export class MaxVideoResolutionChangedEvent extends Event {
  * starts to create feedback report.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.FeedbackStartedEvent
  */
-export class FeedbackStartedEvent extends Event {
-}
+export class FeedbackStartedEvent extends Event {}
 
 /**
  * Event dispatched by {@link framework.CastReceiverContext} which contains system information.

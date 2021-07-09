@@ -435,8 +435,7 @@ export enum UserActionContext {
  * Note as of July 2021: Docs don't mention this extending RequestData.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.LoadByEntityRequestData
  */
-export class RefreshCredentialsRequestData extends RequestData {
-}
+export class RefreshCredentialsRequestData extends RequestData {}
 
 /**
  * Media event SET_VOLUME request data.
@@ -1253,7 +1252,8 @@ export class ContainerMetadata {
      * Array of media metadata objects to describe the media content sections.
      * Used to delineate live TV streams into programs and audiobooks into chapters.
      */
-    sections?: MediaMetadata[]
+    sections?:
+        | MediaMetadata[]
         | GenericMediaMetadata[]
         | MovieMediaMetadata[]
         | MusicTrackMediaMetadata[]
@@ -1841,7 +1841,9 @@ export class MediaInformation {
         | MusicTrackMediaMetadata
         | PhotoMediaMetadata
         | TvShowMediaMetadata
-        | AudiobookChapterMediaMetadata | object | undefined;
+        | AudiobookChapterMediaMetadata
+        | object
+        | undefined;
 
     startAbsoluteTime?: number | undefined;
 
@@ -2456,22 +2458,22 @@ export class UserActionState {
  * An audiobook chapter description.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.AudiobookChapterMediaMetadata
  */
- export class AudiobookChapterMediaMetadata {
+export class AudiobookChapterMediaMetadata {
     constructor();
     /**
      * Audiobook title.
      */
-     bookTitle?: string | undefined;
+    bookTitle?: string | undefined;
 
     /**
      * Chapter number, used for display purposes.
      */
-     chapterNumber?: number | undefined;
+    chapterNumber?: number | undefined;
 
     /**
      * Chapter title.
      */
-     chapterTitle?: string | undefined;
+    chapterTitle?: string | undefined;
 
     /**
      * Content rating.
@@ -2499,7 +2501,7 @@ export class UserActionState {
  * An audiobook container description.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.AudiobookContainerMetadata
  */
- export class AudiobookContainerMetadata {
+export class AudiobookContainerMetadata {
     constructor();
     /**
      * Book authors.
@@ -2534,10 +2536,10 @@ export class TracksInfo {
      */
     activeTrackIds?: number[] | undefined;
 
-     /**
-      * Language for the tracks that should be active. The language field will
-      * take precedence over activeTrackIds if both are specified.
-      */
+    /**
+     * Language for the tracks that should be active. The language field will
+     * take precedence over activeTrackIds if both are specified.
+     */
     language?: string | undefined;
 
     /**

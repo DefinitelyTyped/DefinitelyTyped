@@ -510,7 +510,7 @@ export class LiveStatusEvent extends Event {
  * events. This differs from Id3Event in that the metadata is held at the
  * manifest as opposed to segment internals.
  */
- export class TimedMetadataEvent {
+export class TimedMetadataEvent {
     constructor(type: EventType, timedMetadataInfo: TimedMetadata);
 
     /**
@@ -522,5 +522,4 @@ export class LiveStatusEvent extends Event {
 /**
  * Event data for {@link EventType.TRACKS_CHANGED} event.
  */
- export class TracksChangedEvent extends Event {
-}
+export class TracksChangedEvent extends Event {}

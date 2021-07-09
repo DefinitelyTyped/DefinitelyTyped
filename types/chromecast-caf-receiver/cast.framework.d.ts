@@ -645,7 +645,7 @@ export class PlayerManager {
      * Convert absolute time to media time.
      * @returns media time or null if not available.
      */
-     getMediaTimeForAbsoluteTime(absoluteTime: number): number | null;
+    getMediaTimeForAbsoluteTime(absoluteTime: number): number | null;
 
     /**
      * Returns playback configuration.
@@ -677,7 +677,7 @@ export class PlayerManager {
     /**
      * Get the preferred text track style.
      */
-     getPreferredTextStyle(): messages.TextTrackStyle | null;
+    getPreferredTextStyle(): messages.TextTrackStyle | null;
 
     /**
      * Obtain QueueManager API.
@@ -728,7 +728,7 @@ export class PlayerManager {
      * credentials came from the assistant.
      * Note as of July 2021: Docs do not mention this method.
      */
-     refreshCredentials(): Promise<void>;
+    refreshCredentials(): Promise<void>;
 
     /**
      * Removes the event listener added for given player event. If event listener
@@ -1414,7 +1414,7 @@ export class DashTimedMetadata {
  * {@link https://tools.ietf.org/html/draft-pantos-hls-rfc8216bis-06#section-4.4.5.1}
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.HlsTimedMetadata
  */
- export class HlsTimedMetadata {
+export class HlsTimedMetadata {
     constructor();
 
     /**

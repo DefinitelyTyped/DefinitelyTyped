@@ -264,26 +264,30 @@ export class PlayerData {
     /**
      * Media metadata.
      */
-    metadata?: MediaMetadata
+    metadata?:
+        | MediaMetadata
         | GenericMediaMetadata
         | MovieMediaMetadata
         | MusicTrackMediaMetadata
         | PhotoMediaMetadata
         | TvShowMediaMetadata
         | AudiobookChapterMediaMetadata
-        | object | undefined;
+        | object
+        | undefined;
 
     /**
      * Next item metadata.
      */
-    nextMetadata?: MediaMetadata
+    nextMetadata?:
+        | MediaMetadata
         | GenericMediaMetadata
         | MovieMediaMetadata
         | MusicTrackMediaMetadata
         | PhotoMediaMetadata
         | TvShowMediaMetadata
         | AudiobookChapterMediaMetadata
-        | object | undefined;
+        | object
+        | undefined;
 
     /**
      * Next Item subtitle.
