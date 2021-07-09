@@ -7,10 +7,10 @@
 export type CompareFn = (a: string, b: string) => number;
 
 export interface Options {
-    tabWidth?: number;
-    useTabs?: boolean;
-    expandUsers?: boolean;
-    keyOrder?: ReadonlyArray<string> | CompareFn;
+    tabWidth?: number | undefined;
+    useTabs?: boolean | undefined;
+    expandUsers?: boolean | undefined;
+    keyOrder?: ReadonlyArray<string> | CompareFn | undefined;
 }
 
 export function format(json: object, options?: Options): string;

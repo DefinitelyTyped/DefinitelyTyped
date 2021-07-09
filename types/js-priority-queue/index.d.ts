@@ -41,18 +41,18 @@ declare module "js-priority-queue" {
             /**
              * This is the argument we would pass to Array.prototype.sort
              */
-            comparator?: (a: T, b: T) => number;
+            comparator?: ((a: T, b: T) => number) | undefined;
             /**
              * You can also pass initial values, in any order.
              * With lots of values, it's faster to load them all at once than one at a time.
              */
-            initialValues?: T[];
+            initialValues?: T[] | undefined;
             /**
              * According to JsPerf, the fastest strategy for most cases is BinaryHeapStrategy.
              * Only use ArrayStrategy only if you're queuing items in a very particular order.
              * Don't use BHeapStrategy, except as a lesson in how sometimes miracles in one programming language aren't great in other languages.
              */
-            strategy?: typeof AbstractPriorityQueue;
+            strategy?: typeof AbstractPriorityQueue | undefined;
         }
         class ArrayStrategy<T> extends AbstractPriorityQueue<T>{ }
         class BinaryHeapStrategy<T> extends AbstractPriorityQueue<T>{ }

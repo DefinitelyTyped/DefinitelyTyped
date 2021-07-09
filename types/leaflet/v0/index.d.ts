@@ -20,13 +20,13 @@ declare namespace L {
           * The position of the control (one of the map corners). See control positions.
           * Default value: 'bottomright'.
           */
-        position?: PositionString;
+        position?: PositionString | undefined;
 
         /**
           * The HTML text shown before the attributions. Pass false to disable.
           * Default value: 'Powered by Leaflet'.
           */
-        prefix?: string;
+        prefix?: string | undefined;
 
     }
 }
@@ -266,7 +266,7 @@ declare namespace L {
         /**
           * Your class's constructor function, meaning that it gets called when you do 'new MyClass(...)'.
           */
-        initialize?: Function;
+        initialize?: Function | undefined;
 
         /**
           * options is a special property that unlike other objects that you pass
@@ -399,35 +399,35 @@ declare namespace L {
               *
               * Default value: 'topright'.
               */
-            position?: PositionString;
+            position?: PositionString | undefined;
 
             /**
              * The text set on the zoom in button.
              *
              * Default value: '+'
              */
-            zoomInText?: string;
+            zoomInText?: string | undefined;
 
             /**
              * The text set on the zoom out button.
              *
              * Default value: '-'
              */
-            zoomOutText?: string;
+            zoomOutText?: string | undefined;
 
             /**
              * The title set on the zoom in button.
              *
              * Default value: 'Zoom in'
              */
-            zoomInTitle?: string;
+            zoomInTitle?: string | undefined;
 
             /**
              * The title set on the zoom out button.
              *
              * Default value: 'Zoom out'
              */
-            zoomOutTitle?: string;
+            zoomOutTitle?: string | undefined;
         }
 
         export interface AttributionStatic extends ClassStatic {
@@ -549,7 +549,7 @@ declare namespace L {
           * positions.
           * Default value: 'topright'.
           */
-        position?: PositionString;
+        position?: PositionString | undefined;
 
     }
 }
@@ -612,7 +612,7 @@ declare namespace L {
         /**
           * Size of the icon in pixels. Can be also set through CSS.
           */
-        iconSize?: Point|[number, number];
+        iconSize?: Point|[number, number] | undefined;
 
         /**
           * The coordinates of the "tip" of the icon (relative to its top left corner).
@@ -620,27 +620,27 @@ declare namespace L {
           * location. Centered by default if size is specified, also can be set in CSS
           * with negative margins.
           */
-        iconAnchor?: Point|[number, number];
+        iconAnchor?: Point|[number, number] | undefined;
 
         /**
           * A custom class name to assign to the icon.
           *
           * Default value: 'leaflet-div-icon'.
           */
-        className?: string;
+        className?: string | undefined;
 
         /**
           * A custom HTML code to put inside the div element.
           *
           * Default value: ''.
           */
-        html?: string;
+        html?: string | undefined;
 
         /**
           * The coordinates of the point from which popups will "open", relative to the
           * icon anchor.
           */
-        popupAnchor?: Point|[number, number];
+        popupAnchor?: Point|[number, number] | undefined;
 
     }
 }
@@ -999,31 +999,31 @@ declare namespace L {
           * Function that will be used for creating layers for GeoJSON points (if not
           * specified, simple markers will be created).
           */
-        pointToLayer?: (featureData: any, latlng: LatLng) => ILayer;
+        pointToLayer?: ((featureData: any, latlng: LatLng) => ILayer) | undefined;
 
         /**
           * Function that will be used to get style options for vector layers created
           * for GeoJSON features.
           */
-        style?: (featureData: any) => any;
+        style?: ((featureData: any) => any) | undefined;
 
         /**
           * Function that will be called on each created feature layer. Useful for attaching
           * events and popups to features.
           */
-        onEachFeature?: (featureData: any, layer: ILayer) => void;
+        onEachFeature?: ((featureData: any, layer: ILayer) => void) | undefined;
 
         /**
           * Function that will be used to decide whether to show a feature or not.
           */
-        filter?: (featureData: any, layer: ILayer) => boolean;
+        filter?: ((featureData: any, layer: ILayer) => boolean) | undefined;
 
         /**
           * Function that will be used for converting GeoJSON coordinates to LatLng points
           * (if not specified, coords will be assumed to be WGS84 standard[longitude, latitude]
           * values in degrees).
           */
-        coordsToLatLng?: (coords: any[]) => LatLng[];
+        coordsToLatLng?: ((coords: any[]) => LatLng[]) | undefined;
     }
 }
 
@@ -1075,18 +1075,18 @@ declare namespace L {
           * (required) The URL to the icon image (absolute or relative to your script
           * path).
           */
-        iconUrl?: string;
+        iconUrl?: string | undefined;
 
         /**
           * The URL to a retina sized version of the icon image (absolute or relative to
           * your script path). Used for Retina screen devices.
           */
-        iconRetinaUrl?: string;
+        iconRetinaUrl?: string | undefined;
 
         /**
           * Size of the icon image in pixels.
           */
-        iconSize?: Point|[number, number];
+        iconSize?: Point|[number, number] | undefined;
 
         /**
           * The coordinates of the "tip" of the icon (relative to its top left corner).
@@ -1094,41 +1094,41 @@ declare namespace L {
           * location. Centered by default if size is specified, also can be set in CSS
           * with negative margins.
           */
-        iconAnchor?: Point|[number, number];
+        iconAnchor?: Point|[number, number] | undefined;
 
         /**
           * The URL to the icon shadow image. If not specified, no shadow image will be
           * created.
           */
-        shadowUrl?: string;
+        shadowUrl?: string | undefined;
 
         /**
           * The URL to the retina sized version of the icon shadow image. If not specified,
           * no shadow image will be created. Used for Retina screen devices.
           */
-        shadowRetinaUrl?: string;
+        shadowRetinaUrl?: string | undefined;
 
         /**
           * Size of the shadow image in pixels.
           */
-        shadowSize?: Point|[number, number];
+        shadowSize?: Point|[number, number] | undefined;
 
         /**
           * The coordinates of the "tip" of the shadow (relative to its top left corner)
           * (the same as iconAnchor if not specified).
           */
-        shadowAnchor?: Point|[number, number];
+        shadowAnchor?: Point|[number, number] | undefined;
 
         /**
           * The coordinates of the point from which popups will "open", relative to the
           * icon anchor.
           */
-        popupAnchor?: Point|[number, number];
+        popupAnchor?: Point|[number, number] | undefined;
 
         /**
           * A custom class name to assign to both icon and shadow images. Empty by default.
           */
-        className?: string;
+        className?: string | undefined;
     }
 }
 
@@ -1404,7 +1404,7 @@ declare namespace L {
         /**
           * The opacity of the image overlay.
           */
-        opacity?: number;
+        opacity?: number | undefined;
     }
 }
 
@@ -1745,7 +1745,7 @@ declare namespace L {
           *
           * Default value: 'topright'.
           */
-        position?: PositionString;
+        position?: PositionString | undefined;
 
         /**
           * If true, the control will be collapsed into an icon and expanded on mouse hover
@@ -1753,7 +1753,7 @@ declare namespace L {
           *
           * Default value: true.
           */
-        collapsed?: boolean;
+        collapsed?: boolean | undefined;
 
         /**
           * If true, the control will assign zIndexes in increasing order to all of its
@@ -1761,7 +1761,7 @@ declare namespace L {
           *
           * Default value: true.
           */
-        autoZIndex?: boolean;
+        autoZIndex?: boolean | undefined;
 
     }
 }
@@ -2026,7 +2026,7 @@ declare namespace L {
           *
           * Default value: false.
           */
-        watch?: boolean;
+        watch?: boolean | undefined;
 
         /**
           * If true, automatically sets the map view to the user location with respect
@@ -2034,14 +2034,14 @@ declare namespace L {
           *
           * Default value: false.
           */
-        setView?: boolean;
+        setView?: boolean | undefined;
 
         /**
           * The maximum zoom for automatic view setting when using `setView` option.
           *
           * Default value: Infinity.
           */
-        maxZoom?: number;
+        maxZoom?: number | undefined;
 
         /**
           * Number of millisecond to wait for a response from geolocation before firing
@@ -2049,7 +2049,7 @@ declare namespace L {
           *
           * Default value: 10000.
           */
-        timeout?: number;
+        timeout?: number | undefined;
 
         /**
           * Maximum age of detected location. If less than this amount of milliseconds
@@ -2057,14 +2057,14 @@ declare namespace L {
           *
           * Default value: 0.
           */
-        maximumAge?: number;
+        maximumAge?: number | undefined;
 
         /**
           * Enables high accuracy, see description in the W3C spec.
           *
           * Default value: false.
           */
-        enableHighAccuracy?: boolean;
+        enableHighAccuracy?: boolean | undefined;
     }
 }
 
@@ -2473,27 +2473,27 @@ declare namespace L.Map {
         /**
           * Initial geographical center of the map.
           */
-        center?: LatLng;
+        center?: LatLng | undefined;
 
         /**
           * Initial map zoom.
           */
-        zoom?: number;
+        zoom?: number | undefined;
 
         /**
           * Layers that will be added to the map initially.
           */
-        layers?: ILayer[];
+        layers?: ILayer[] | undefined;
 
         /**
           * Minimum zoom level of the map. Overrides any minZoom set on map layers.
           */
-        minZoom?: number;
+        minZoom?: number | undefined;
 
         /**
           * Maximum zoom level of the map. This overrides any maxZoom set on map layers.
           */
-        maxZoom?: number;
+        maxZoom?: number | undefined;
 
         /**
           * When this option is set, the map restricts the view to the given geographical
@@ -2501,7 +2501,7 @@ declare namespace L.Map {
           * not allowing to zoom out to a view that's larger than the given bounds (depending
           * on the map size). To set the restriction dynamically, use setMaxBounds method
           */
-        maxBounds?: LatLngBounds;
+        maxBounds?: LatLngBounds | undefined;
 
         /**
           * Coordinate Reference System to use. Don't change this if you're not sure
@@ -2509,7 +2509,7 @@ declare namespace L.Map {
           *
           * Default value: L.CRS.EPSG3857.
           */
-        crs?: ICRS;
+        crs?: ICRS | undefined;
 
         // Interaction Options
 
@@ -2518,14 +2518,14 @@ declare namespace L.Map {
           *
           * Default value: true.
           */
-        dragging?: boolean;
+        dragging?: boolean | undefined;
 
         /**
           * Whether the map can be zoomed by touch-dragging with two fingers.
           *
           * Default value: true.
           */
-        touchZoom?: boolean;
+        touchZoom?: boolean | undefined;
 
         /**
           * Whether the map can be zoomed by using the mouse wheel.
@@ -2534,7 +2534,7 @@ declare namespace L.Map {
           *
           * Default value: true.
           */
-        scrollWheelZoom?: boolean;
+        scrollWheelZoom?: boolean | undefined;
 
         /**
           * Whether the map can be zoomed in by double clicking on it and zoomed out
@@ -2544,7 +2544,7 @@ declare namespace L.Map {
           *
           * Default value: true.
           */
-        doubleClickZoom?: boolean;
+        doubleClickZoom?: boolean | undefined;
 
         /**
           * Whether the map can be zoomed to a rectangular area specified by dragging
@@ -2552,7 +2552,7 @@ declare namespace L.Map {
           *
           * Default value: true.
           */
-        boxZoom?: boolean;
+        boxZoom?: boolean | undefined;
 
         /**
           * Enables mobile hacks for supporting instant taps (fixing 200ms click delay
@@ -2560,7 +2560,7 @@ declare namespace L.Map {
           *
           * Default value: true.
           */
-        tap?: boolean;
+        tap?: boolean | undefined;
 
         /**
           * The max number of pixels a user can shift their finger during touch for it
@@ -2568,14 +2568,14 @@ declare namespace L.Map {
           *
           * Default value: 15.
           */
-        tapTolerance?: number;
+        tapTolerance?: number | undefined;
 
         /**
           * Whether the map automatically handles browser window resize to update itself.
           *
           * Default value: true.
           */
-        trackResize?: boolean;
+        trackResize?: boolean | undefined;
 
         /**
           * With this option enabled, the map tracks when you pan to another "copy" of
@@ -2584,14 +2584,14 @@ declare namespace L.Map {
           *
           * Default value: false.
           */
-        worldCopyJump?: boolean;
+        worldCopyJump?: boolean | undefined;
 
         /**
           * Set it to false if you don't want popups to close when user clicks the map.
           *
           * Default value: true.
           */
-        closePopupOnClick?: boolean;
+        closePopupOnClick?: boolean | undefined;
 
         // Keyboard Navigation Options
 
@@ -2601,21 +2601,21 @@ declare namespace L.Map {
           *
           * Default value: true.
           */
-        keyboard?: boolean;
+        keyboard?: boolean | undefined;
 
         /**
           * Amount of pixels to pan when pressing an arrow key.
           *
           * Default value: 80.
           */
-        keyboardPanOffset?: number;
+        keyboardPanOffset?: number | undefined;
 
         /**
           * Number of zoom levels to change when pressing + or - key.
           *
           * Default value: 1.
           */
-        keyboardZoomOffset?: number;
+        keyboardZoomOffset?: number | undefined;
 
         // Panning Inertia Options
 
@@ -2626,21 +2626,21 @@ declare namespace L.Map {
           *
           * Default value: true.
           */
-        inertia?: boolean;
+        inertia?: boolean | undefined;
 
         /**
           * The rate with which the inertial movement slows down, in pixels/second2.
           *
           * Default value: 3000.
           */
-        inertiaDeceleration?: number;
+        inertiaDeceleration?: number | undefined;
 
         /**
           * Max speed of the inertial movement, in pixels/second.
           *
           * Default value: 1500.
           */
-        inertiaMaxSpeed?: number;
+        inertiaMaxSpeed?: number | undefined;
 
         /**
           * Amount of milliseconds that should pass between stopping the movement and
@@ -2648,7 +2648,7 @@ declare namespace L.Map {
           *
           * Default value: 32 for touch devices and 14 for the rest.
           */
-        inertiaThreshold?: number;
+        inertiaThreshold?: number | undefined;
 
         // Control options
 
@@ -2657,14 +2657,14 @@ declare namespace L.Map {
           *
           * Default value: true.
           */
-        zoomControl?: boolean;
+        zoomControl?: boolean | undefined;
 
         /**
           * Whether the attribution control is added to the map by default.
           *
           * Default value: true.
           */
-        attributionControl?: boolean;
+        attributionControl?: boolean | undefined;
 
         // Animation options
 
@@ -2672,27 +2672,27 @@ declare namespace L.Map {
           * Whether the tile fade animation is enabled. By default it's enabled in all
           * browsers that support CSS3 Transitions except Android.
           */
-        fadeAnimation?: boolean;
+        fadeAnimation?: boolean | undefined;
 
         /**
           * Whether the tile zoom animation is enabled. By default it's enabled in all
           * browsers that support CSS3 Transitions except Android.
           */
-        zoomAnimation?: boolean;
+        zoomAnimation?: boolean | undefined;
 
         /**
           * Won't animate zoom if the zoom difference exceeds this value.
           *
           * Default value: 4.
           */
-        zoomAnimationThreshold?: number;
+        zoomAnimationThreshold?: number | undefined;
 
         /**
           * Whether markers animate their zoom with the zoom animation, if disabled
           * they will disappear for the length of the animation. By default it's enabled
           * in all browsers that support CSS3 Transitions except Android.
           */
-        markerZoomAnimation?: boolean;
+        markerZoomAnimation?: boolean | undefined;
 
         /**
          * Set it to false if you don't want the map to zoom beyond min/max zoom
@@ -2700,7 +2700,7 @@ declare namespace L.Map {
          *
          * Default value: true.
          */
-        bounceAtZoomLimits?: boolean;
+        bounceAtZoomLimits?: boolean | undefined;
     }
 
     export interface ZoomOptions {
@@ -2709,7 +2709,7 @@ declare namespace L.Map {
           * If true, the map will attempt animating zoom disregarding where zoom origin is.
           * Setting false will make it always reset the view completely without animation.
           */
-        animate?: boolean;
+        animate?: boolean | undefined;
     }
 
     export interface ZoomPanOptions {
@@ -2719,43 +2719,43 @@ declare namespace L.Map {
           *
           * Default value: false.
           */
-        reset?: boolean;
+        reset?: boolean | undefined;
 
         /**
           * Sets the options for the panning (without the zoom change) if it occurs.
           */
-        pan?: PanOptions;
+        pan?: PanOptions | undefined;
 
         /**
           * Sets the options for the zoom change if it occurs.
           */
-        zoom?: ZoomOptions;
+        zoom?: ZoomOptions | undefined;
 
         /**
           * An equivalent of passing animate to both zoom and pan options (see below).
           */
-        animate?: boolean;
+        animate?: boolean | undefined;
 
         /**
          * If true, it will delay moveend event so that it doesn't happen many times in a row.
          */
-        debounceMoveend?: boolean;
+        debounceMoveend?: boolean | undefined;
 
         /**
          * Duration of animated panning, in seconds.
          */
-        duration?: number;
+        duration?: number | undefined;
 
         /**
          * The curvature factor of panning animation easing (third parameter of the Cubic Bezier curve).
          * 1.0 means linear animation, the less the more bowed the curve.
          */
-        easeLinearity?: number;
+        easeLinearity?: number | undefined;
 
         /**
          * If true, panning won't fire movestart event on start (used internally for panning inertia).
          */
-        noMoveStart?: boolean;
+        noMoveStart?: boolean | undefined;
     }
 
     export interface FitBoundsOptions extends ZoomPanOptions {
@@ -2768,28 +2768,28 @@ declare namespace L.Map {
           *
           * Default value: [0, 0].
           */
-        paddingTopLeft?: Point;
+        paddingTopLeft?: Point | undefined;
 
         /**
           * The same for bottom right corner of the map.
           *
           * Default value: [0, 0].
           */
-        paddingBottomRight?: Point;
+        paddingBottomRight?: Point | undefined;
 
         /**
           * Equivalent of setting both top left and bottom right padding to the same value.
           *
           * Default value: [0, 0].
           */
-        padding?: Point;
+        padding?: Point | undefined;
 
         /**
           * The maximum possible zoom to use.
           *
           * Default value: null
           */
-        maxZoom?: number;
+        maxZoom?: number | undefined;
     }
 }
 
@@ -2994,7 +2994,7 @@ declare namespace L {
           *
           * Default value: new L.Icon.Default().
           */
-        icon?: Icon;
+        icon?: Icon | undefined;
 
         /**
           * If false, the marker will not emit mouse events and will act as a part of the
@@ -3002,35 +3002,35 @@ declare namespace L {
           *
           * Default value: true.
           */
-        clickable?: boolean;
+        clickable?: boolean | undefined;
 
         /**
           * Whether the marker is draggable with mouse/touch or not.
           *
           * Default value: false.
           */
-        draggable?: boolean;
+        draggable?: boolean | undefined;
 
         /**
           * Whether the marker can be tabbed to with a keyboard and clicked by pressing enter.
           *
           * Default value: true.
           */
-        keyboard?: boolean;
+        keyboard?: boolean | undefined;
 
         /**
           * Text for the browser tooltip that appear on marker hover (no tooltip by default).
           *
           * Default value: ''.
           */
-        title?: string;
+        title?: string | undefined;
 
         /**
           * Text for the alt attribute of the icon image (useful for accessibility).
           *
           * Default value: ''.
           */
-        alt?: string;
+        alt?: string | undefined;
 
         /**
           * By default, marker images zIndex is set automatically based on its latitude.
@@ -3039,28 +3039,28 @@ declare namespace L {
           *
           * Default value: 0.
           */
-        zIndexOffset?: number;
+        zIndexOffset?: number | undefined;
 
         /**
           * The opacity of the marker.
           *
           * Default value: 1.0.
           */
-        opacity?: number;
+        opacity?: number | undefined;
 
         /**
           * If true, the marker will get on top of others when you hover the mouse over it.
           *
           * Default value: false.
           */
-        riseOnHover?: boolean;
+        riseOnHover?: boolean | undefined;
 
         /**
           * The z-index offset used for the riseOnHover feature.
           *
           * Default value: 250.
           */
-        riseOffset?: number;
+        riseOffset?: number | undefined;
     }
 }
 
@@ -3158,14 +3158,14 @@ declare namespace L {
           * away, or just setting a new offset for the map pane (except for `panBy`
           * which always does the latter).
           */
-        animate?: boolean;
+        animate?: boolean | undefined;
 
         /**
           * Duration of animated panning.
           *
           * Default value: 0.25.
           */
-        duration?: number;
+        duration?: number | undefined;
 
         /**
           * The curvature factor of panning animation easing (third parameter of the Cubic
@@ -3173,14 +3173,14 @@ declare namespace L {
           *
           * Default value: 0.25.
           */
-        easeLinearity?: number;
+        easeLinearity?: number | undefined;
 
         /**
           * If true, panning won't fire movestart event on start (used internally for panning inertia).
           *
           * Default value: false.
           */
-        noMoveStart?: boolean;
+        noMoveStart?: boolean | undefined;
     }
 }
 
@@ -3322,68 +3322,68 @@ declare namespace L {
           *
           * Default value: true.
           */
-        stroke?: boolean;
+        stroke?: boolean | undefined;
 
         /**
           * Stroke color.
           *
           * Default value: '#03f'.
           */
-        color?: string;
+        color?: string | undefined;
 
         /**
           * Stroke width in pixels.
           *
           * Default value: 5.
           */
-        weight?: number;
+        weight?: number | undefined;
 
         /**
           * Stroke opacity.
           *
           * Default value: 0.5.
           */
-        opacity?: number;
+        opacity?: number | undefined;
 
         /**
           * Whether to fill the path with color. Set it to false to disable filling on polygons
           * or circles.
           */
-        fill?: boolean;
+        fill?: boolean | undefined;
 
         /**
           * Fill color.
           *
           * Default value: same as color.
           */
-        fillColor?: string;
+        fillColor?: string | undefined;
 
         /**
           * Fill opacity.
           *
           * Default value: 0.2.
           */
-        fillOpacity?: number;
+        fillOpacity?: number | undefined;
 
         /**
           * A string that defines the stroke dash pattern. Doesn't work on canvas-powered
           * layers (e.g. Android 2).
           */
-        dashArray?: string;
+        dashArray?: string | undefined;
 
         /**
           * A string that defines shape to be used at the end of the stroke.
           *
           * Default: null.
           */
-        lineCap?: string;
+        lineCap?: string | undefined;
 
         /**
           * A string that defines shape to be used at the corners of the stroke.
           *
           * Default: null.
           */
-        lineJoin?: string;
+        lineJoin?: string | undefined;
 
         /**
           * If false, the vector will not emit mouse events and will act as a part of the
@@ -3391,24 +3391,24 @@ declare namespace L {
           *
           * Default value: true.
           */
-        clickable?: boolean;
+        clickable?: boolean | undefined;
 
         /**
           * Sets the pointer-events attribute on the path if SVG backend is used.
           */
-        pointerEvents?: string;
+        pointerEvents?: string | undefined;
 
         /**
           * Custom class name set on an element.
           *
           * Default value: ''.
           */
-        className?: string;
+        className?: string | undefined;
 
     /**
      * Sets the radius of a circle marker.
      */
-    radius?: number;
+    radius?: number | undefined;
 
     }
 }
@@ -3579,14 +3579,14 @@ declare namespace L {
           *
           * Default value: 1.0.
           */
-        smoothFactor?: number;
+        smoothFactor?: number | undefined;
 
         /**
           * Disabled polyline clipping.
           *
           * Default value: false.
           */
-        noClip?: boolean;
+        noClip?: boolean | undefined;
     }
 }
 
@@ -3692,20 +3692,20 @@ declare namespace L {
           *
           * Default value: 300.
           */
-        maxWidth?: number;
+        maxWidth?: number | undefined;
 
         /**
           * Min width of the popup.
           *
           * Default value: 50.
           */
-        minWidth?: number;
+        minWidth?: number | undefined;
 
         /**
           * If set, creates a scrollable container of the given height inside a popup
           * if its content exceeds it.
           */
-        maxHeight?: number;
+        maxHeight?: number | undefined;
 
         /**
           * Set it to false if you don't want the map to do panning animation to fit the opened
@@ -3713,19 +3713,19 @@ declare namespace L {
           *
           * Default value: true.
           */
-        autoPan?: boolean;
+        autoPan?: boolean | undefined;
 
         /**
           * Set it to true if you want to prevent users from panning the popup off of the screen while it is open.
           */
-        keepInView?: boolean;
+        keepInView?: boolean | undefined;
 
         /**
           * Controls the presense of a close button in the popup.
           *
           * Default value: true.
           */
-        closeButton?: boolean;
+        closeButton?: boolean | undefined;
 
         /**
           * The offset of the popup position. Useful to control the anchor of the popup
@@ -3733,7 +3733,7 @@ declare namespace L {
           *
           * Default value: new Point(0, 6).
           */
-        offset?: Point;
+        offset?: Point | undefined;
 
         /**
           * The margin between the popup and the top left corner of the map view after
@@ -3741,7 +3741,7 @@ declare namespace L {
           *
           * Default value: null.
           */
-        autoPanPaddingTopLeft?: Point;
+        autoPanPaddingTopLeft?: Point | undefined;
 
         /**
           * The margin between the popup and the bottom right corner of the map view after
@@ -3749,7 +3749,7 @@ declare namespace L {
           *
           * Default value: null.
           */
-        autoPanPaddingBottomRight?: Point;
+        autoPanPaddingBottomRight?: Point | undefined;
 
         /**
           * The margin between the popup and the edges of the map view after autopanning
@@ -3757,7 +3757,7 @@ declare namespace L {
           *
           * Default value: new Point(5, 5).
           */
-        autoPanPadding?: Point;
+        autoPanPadding?: Point | undefined;
 
         /**
           * Whether to animate the popup on zoom. Disable it if you have problems with
@@ -3765,19 +3765,19 @@ declare namespace L {
           *
           * Default value: true.
           */
-        zoomAnimation?: boolean;
+        zoomAnimation?: boolean | undefined;
 
         /**
           * Set it to false if you want to override the default behavior of the popup
           * closing when user clicks the map (set globally by the Map closePopupOnClick
           * option).
           */
-        closeOnClick?: boolean;
+        closeOnClick?: boolean | undefined;
 
         /**
           * A custom class name to assign to the popup.
           */
-        className?: string;
+        className?: string | undefined;
     }
 }
 
@@ -3880,33 +3880,33 @@ declare namespace L {
           * The position of the control (one of the map corners). See control positions.
           * Default value: 'bottomleft'.
           */
-        position?: PositionString;
+        position?: PositionString | undefined;
 
         /**
           * Maximum width of the control in pixels. The width is set dynamically to show
           * round values (e.g. 100, 200, 500).
           * Default value: 100.
           */
-        maxWidth?: number;
+        maxWidth?: number | undefined;
 
         /**
           * Whether to show the metric scale line (m/km).
           * Default value: true.
           */
-        metric?: boolean;
+        metric?: boolean | undefined;
 
         /**
           * Whether to show the imperial scale line (mi/ft).
           * Default value: true.
           */
-        imperial?: boolean;
+        imperial?: boolean | undefined;
 
         /**
           * If true, the control is updated on moveend, otherwise it's always up-to-date
           * (updated on move).
           * Default value: false.
           */
-        updateWhenIdle?: boolean;
+        updateWhenIdle?: boolean | undefined;
     }
 }
 
@@ -4067,14 +4067,14 @@ declare namespace L {
           *
           * Default value: 0.
           */
-        minZoom?: number;
+        minZoom?: number | undefined;
 
         /**
           * Maximum zoom number.
           *
           * Default value: 18.
           */
-        maxZoom?: number;
+        maxZoom?: number | undefined;
 
         /**
           * Maximum zoom number the tiles source has available. If it is specified,
@@ -4083,14 +4083,14 @@ declare namespace L {
           *
           * Default value: null.
           */
-        maxNativeZoom?: number;
+        maxNativeZoom?: number | undefined;
 
         /**
           * Tile size (width and height in pixels, assuming tiles are square).
           *
           * Default value: 256.
           */
-        tileSize?: number;
+        tileSize?: number | undefined;
 
         /**
           * Subdomains of the tile service. Can be passed in the form of one string (where
@@ -4098,14 +4098,14 @@ declare namespace L {
           *
           * Default value: 'abc'.
           */
-        subdomains?: string|string[];
+        subdomains?: string|string[] | undefined;
 
         /**
           * URL to the tile image to show in place of the tile that failed to load.
           *
           * Default value: ''.
           */
-        errorTileUrl?: string;
+        errorTileUrl?: string | undefined;
 
         /**
           * e.g. "© CloudMade" — the string used by the attribution control, describes
@@ -4113,14 +4113,14 @@ declare namespace L {
           *
           * Default value: ''.
           */
-        attribution?: string;
+        attribution?: string | undefined;
 
         /**
           * If true, inverses Y axis numbering for tiles (turn this on for TMS services).
           *
           * Default value: false.
           */
-        tms?: boolean;
+        tms?: boolean | undefined;
 
         /**
           * If set to true, the tile coordinates won't be wrapped by world width (-180
@@ -4130,7 +4130,7 @@ declare namespace L {
           *
           * Default value: false.
           */
-        continuousWorld?: boolean;
+        continuousWorld?: boolean | undefined;
 
         /**
           * If set to true, the tiles just won't load outside the world width (-180 to 180
@@ -4138,14 +4138,14 @@ declare namespace L {
           *
           * Default value: false.
           */
-        noWrap?: boolean;
+        noWrap?: boolean | undefined;
 
         /**
           * The zoom number used in tile URLs will be offset with this value.
           *
           * Default value: 0.
           */
-        zoomOffset?: number;
+        zoomOffset?: number | undefined;
 
         /**
           * If set to true, the zoom number used in tile URLs will be reversed (maxZoom
@@ -4153,31 +4153,31 @@ declare namespace L {
           *
           * Default value: false.
           */
-        zoomReverse?: boolean;
+        zoomReverse?: boolean | undefined;
 
         /**
           * The opacity of the tile layer.
           *
           * Default value: 1.0.
           */
-        opacity?: number;
+        opacity?: number | undefined;
 
         /**
           * The explicit zIndex of the tile layer. Not set by default.
           */
-        zIndex?: number;
+        zIndex?: number | undefined;
 
         /**
           * If true, all the tiles that are not visible after panning are removed (for
           * better performance). true by default on mobile WebKit, otherwise false.
           */
-        unloadInvisibleTiles?: boolean;
+        unloadInvisibleTiles?: boolean | undefined;
 
         /**
           * If false, new tiles are loaded during panning, otherwise only after it (for
           * better performance). true by default on mobile WebKit, otherwise false.
           */
-        updateWhenIdle?: boolean;
+        updateWhenIdle?: boolean | undefined;
 
         /**
           * If true and user is on a retina display, it will request four tiles of half the
@@ -4185,7 +4185,7 @@ declare namespace L {
           *
           * Default value: false.
           */
-        detectRetina?: boolean;
+        detectRetina?: boolean | undefined;
 
         /**
           * If true, all the tiles that are not visible after panning are placed in a reuse
@@ -4196,12 +4196,12 @@ declare namespace L {
           *
           * Default value: false.
           */
-        reuseTiles?: boolean;
+        reuseTiles?: boolean | undefined;
 
         /**
           * When this option is set, the TileLayer only loads tiles that are in the given geographical bounds.
           */
-        bounds?: LatLngBounds;
+        bounds?: LatLngBounds | undefined;
 
         /**
           * Custom keys may be specified in TileLayerOptions so they can be used in a provided URL template.
@@ -4327,33 +4327,33 @@ declare namespace L {
           *
           * Default value: ''.
           */
-        layers?: string;
+        layers?: string | undefined;
 
         /**
           * Comma-separated list of WMS styles.
           *
           * Default value: 'image/jpeg'.
           */
-        styles?: string;
+        styles?: string | undefined;
 
         /**
           * WMS image format (use 'image/png' for layers with transparency).
           *
           * Default value: false.
           */
-        format?: string;
+        format?: string | undefined;
 
         /**
           * If true, the WMS service will return images with transparency.
           *
           * Default value: '1.1.1'.
           */
-        transparent?: boolean;
+        transparent?: boolean | undefined;
 
         /**
           * Version of the WMS service to use.
           */
-        version?: string;
+        version?: string | undefined;
 
     }
 }

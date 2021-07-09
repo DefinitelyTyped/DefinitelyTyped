@@ -44,7 +44,7 @@ export interface UseFormOptions<
     FieldMetaType extends UseFieldInstanceMeta<ErrorType>,
     FormMetaType extends UseFormInstanceMeta<ErrorType>
 > {
-    defaultValues?: UseFormValues<ValueType>;
+    defaultValues?: UseFormValues<ValueType> | undefined;
 
     onSubmit?(
         values: UseFormValues<ValueType>,
@@ -56,8 +56,8 @@ export interface UseFormOptions<
         instance: UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>,
     ): Promise<ValidateResult> | ValidateResult | void;
 
-    validatePristine?: boolean;
-    debugForm?: boolean;
+    validatePristine?: boolean | undefined;
+    debugForm?: boolean | undefined;
 }
 
 export interface UseFormInstanceMeta<ErrorType> {
@@ -111,10 +111,10 @@ export interface UseFieldOptions<
     FormMetaType extends UseFormInstanceMeta<ErrorType>,
     InputPropsType extends UseFieldInstancePropsType<ValueType>
 > {
-    defaultValue?: ValueType;
-    defaultError?: ErrorType;
-    defaultIsTouched?: boolean;
-    defaultMeta?: FieldMetaType;
+    defaultValue?: ValueType | undefined;
+    defaultError?: ErrorType | undefined;
+    defaultIsTouched?: boolean | undefined;
+    defaultMeta?: FieldMetaType | undefined;
 
     validate?(
         value: ValueType,
@@ -126,7 +126,7 @@ export interface UseFieldOptions<
         instance: UseFieldInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>,
     ): ValueType;
 
-    validatePristine?: boolean;
+    validatePristine?: boolean | undefined;
 }
 
 export interface UseFieldInstanceMeta<ErrorType> {

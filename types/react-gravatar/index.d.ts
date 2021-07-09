@@ -31,14 +31,14 @@ declare namespace Gravatar {
          * If you wish to avoid sending an email address to the client, you can compute the md5 hash on the server and
          * pass the hash to the component using the `md5` prop instead of the `email` prop.
          */
-        email?: string;
+        email?: string | undefined;
 
         /**
          * The md5 hash of the email address used to look up the Gravatar image.
          * If you wish to avoid sending an email address to the client, you can compute the md5 hash on the server and
          * pass the hash to the component using the `md5` prop instead of the `email` prop.
          */
-        md5?: string;
+        md5?: string | undefined;
 
         /**
          * By default, images are presented at 50px by 50px if no size prop is supplied.
@@ -46,7 +46,7 @@ declare namespace Gravatar {
          * @default 50
          * @see https://gravatar.com/site/implement/images/#size
          */
-        size?: number;
+        size?: number | undefined;
 
         /**
          * Gravatar allows users to self-rate their images so that they can indicate if an image is appropriate for a
@@ -56,7 +56,7 @@ declare namespace Gravatar {
          * @default "g"
          * @see https://gravatar.com/site/implement/images/#rating
          */
-        rating?: Rating;
+        rating?: Rating | undefined;
 
         /**
          * Gravatar has a number of built in options which you can use as defaults when an email address has no
@@ -65,7 +65,7 @@ declare namespace Gravatar {
          * @default "retro"
          * @see https://gravatar.com/site/implement/images/#default-image
          */
-        default?: DefaultImage;
+        default?: DefaultImage | undefined;
 
         /**
          * The protocol used to fetch the Gravatar image. Should be one of `http://`, `https://` or `//` (default).
@@ -73,9 +73,9 @@ declare namespace Gravatar {
          * @default "//"
          * @see https://gravatar.com/site/implement/images/#secure-images
          */
-        protocol?: string;
+        protocol?: string | undefined;
 
-        className?: string;
-        style?: React.CSSProperties;
+        className?: string | undefined;
+        style?: React.CSSProperties | undefined;
     }
 }

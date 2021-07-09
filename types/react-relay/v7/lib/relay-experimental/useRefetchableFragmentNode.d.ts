@@ -60,13 +60,13 @@ export interface ReturnTypeNode<TQuery extends OperationType, TKey extends KeyTy
 }
 
 export interface Options {
-    fetchPolicy?: FetchPolicy;
-    onComplete?: (arg: Error | null) => void;
-    UNSTABLE_renderPolicy?: RenderPolicy;
+    fetchPolicy?: FetchPolicy | undefined;
+    onComplete?: ((arg: Error | null) => void) | undefined;
+    UNSTABLE_renderPolicy?: RenderPolicy | undefined;
 }
 
 export interface InternalOptions extends Options {
-    __environment?: IEnvironment;
+    __environment?: IEnvironment | undefined;
 }
 
 export type Action =
@@ -78,20 +78,20 @@ export type Action =
     | {
           type: 'refetch';
           refetchVariables: Variables;
-          fetchPolicy?: FetchPolicy;
-          renderPolicy?: RenderPolicy;
-          onComplete?: (args: Error | null) => void;
-          environment?: IEnvironment | null;
+          fetchPolicy?: FetchPolicy | undefined;
+          renderPolicy?: RenderPolicy | undefined;
+          onComplete?: ((args: Error | null) => void) | undefined;
+          environment?: IEnvironment | null | undefined;
       };
 
 export interface RefetchState {
-    fetchPolicy?: FetchPolicy;
-    renderPolicy?: RenderPolicy;
+    fetchPolicy?: FetchPolicy | undefined;
+    renderPolicy?: RenderPolicy | undefined;
     mirroredEnvironment: IEnvironment;
     mirroredFragmentIdentifier: string;
-    onComplete?: (arg: Error | null) => void;
-    refetchEnvironment?: IEnvironment | null;
-    refetchVariables?: Variables | null;
+    onComplete?: ((arg: Error | null) => void) | undefined;
+    refetchEnvironment?: IEnvironment | null | undefined;
+    refetchVariables?: Variables | null | undefined;
     refetchGeneration: number;
 }
 

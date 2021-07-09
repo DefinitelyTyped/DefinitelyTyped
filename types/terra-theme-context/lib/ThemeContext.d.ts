@@ -10,7 +10,7 @@ declare const ThemeProviderContext: React.Context<{
    * The current application theme className.
    * The default theme is indicated as undefined.
    */
-  className?: string;
+  className?: string | undefined;
 }>;
 
 export default ThemeProviderContext;

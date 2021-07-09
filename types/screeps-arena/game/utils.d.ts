@@ -117,8 +117,8 @@ declare module "game/utils" {
     y: number,
     structureType: _Constructor<BuildableStructure>
   ): {
-    object?: ConstructionSite;
-    error?: ERR_INVALID_ARGS | ERR_INVALID_TARGET | ERR_FULL;
+    object?: ConstructionSite | undefined;
+    error?: ERR_INVALID_ARGS | ERR_INVALID_TARGET | ERR_FULL | undefined;
   };
 
   export interface HeapStatistics {

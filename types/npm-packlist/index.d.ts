@@ -9,7 +9,7 @@ declare function packlist<T>(options: packlist.Options | undefined, callback: (r
 declare namespace packlist {
     interface Options {
         /** Directory to walk recusively. Defaults to `process.cwd()`. */
-        path?: string;
+        path?: string | undefined;
     }
     function sync(options?: Options): string[];
 }

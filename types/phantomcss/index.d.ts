@@ -57,11 +57,11 @@ declare global {
     }
 
     interface PhantomCSSTest {
-      filename?: string;
-      error?: boolean;
-      fail?: boolean;
-      success?: boolean;
-      failFile?: string;
+      filename?: string | undefined;
+      error?: boolean | undefined;
+      fail?: boolean | undefined;
+      success?: boolean | undefined;
+      failFile?: string | undefined;
       mismatch?: any;
     }
 
@@ -75,20 +75,20 @@ declare global {
       /**
         A reference to a particular Casper instance. Required for SlimerJS.
        */
-      casper?: Casper;
+      casper?: Casper | undefined;
       /**
       libraryRoot is relative to this file and must point to your phantomcss folder (not lib or node_modules). If you are using NPM, this will be './node_modules/phantomcss'.
       */
-      libraryRoot?: string;
+      libraryRoot?: string | undefined;
 
-      screenshotRoot?: string;
+      screenshotRoot?: string | undefined;
       /**
       By default, failure images are put in the './failures' folder.
       If failedComparisonsRoot is set to false a separate folder will
       not be created but failure images can still be found alongside
       the original and new images.
       */
-      failedComparisonsRoot?: string;
+      failedComparisonsRoot?: string | undefined;
 
       /**
       You might want to keep master/baseline images in a completely
@@ -96,7 +96,7 @@ declare global {
       with version control systems. By default this resolves to the
       screenshotRoot folder.
       */
-      comparisonResultRoot?: string;
+      comparisonResultRoot?: string | undefined;
 
       /**
       Don't add count number to images. If set to false (default), a filename is
@@ -108,40 +108,40 @@ declare global {
       Remove results directory tree after run.  Use in conjunction
       with failedComparisonsRoot to see failed comparisons.
       */
-      cleanupComparisonImages?: boolean;
+      cleanupComparisonImages?: boolean | undefined;
 
       /**
        * Don't add label to generated failure image
        */
-      addLabelToFailedImage?: boolean;
+      addLabelToFailedImage?: boolean | undefined;
       /**
       * Change the output screenshot filenames for your specific
       * integration
       */
-      fileNameGetter?: (rootPath: string, fileName?: string) => string;
+      fileNameGetter?: ((rootPath: string, fileName?: string) => string) | undefined;
 
       /**
       Mismatch tolerance defaults to  0.05%. Increasing this value
       will decrease test coverage
       */
-      mismatchTolerance?: number;
+      mismatchTolerance?: number | undefined;
 
-      onPass?: (test: PhantomCSSTest) => void;
-      onFail?: (test: PhantomCSSTest) => void;
-      onTimeout?: (test: PhantomCSSTest) => void;
-      onComplete?: (tests: PhantomCSSTest[], noOfFails: number, noOfErrors: number) => void;
+      onPass?: ((test: PhantomCSSTest) => void) | undefined;
+      onFail?: ((test: PhantomCSSTest) => void) | undefined;
+      onTimeout?: ((test: PhantomCSSTest) => void) | undefined;
+      onComplete?: ((tests: PhantomCSSTest[], noOfFails: number, noOfErrors: number) => void) | undefined;
       /**
       Called when creating new baseline images
       */
-      onNewImage?: (test: PhantomCSSTest) => void;
+      onNewImage?: ((test: PhantomCSSTest) => void) | undefined;
 
       /**
      Prefix the screenshot number to the filename, instead of suffixing it
      */
-      prefixCount?: boolean;
+      prefixCount?: boolean | undefined;
 
-      hideElements?: string;
-      outputSettings?: resemble.OutputSettings;
+      hideElements?: string | undefined;
+      outputSettings?: resemble.OutputSettings | undefined;
     }
 
   }

@@ -141,7 +141,7 @@ export class PlayerData {
     /**
      * Application data.
      */
-    applicationData?: ApplicationData;
+    applicationData?: ApplicationData | undefined;
 
     /**
      * Array of breaks positions in percentage.
@@ -168,7 +168,7 @@ export class PlayerData {
      * same UI code to run in a remote control. The state can be set by calling
      * cast.framework.PlayerManager#sendCustomState
      */
-    customState?: object;
+    customState?: object | undefined;
 
     /**
      * Whether the player metadata (ie: title; currentTime) should be displayed.
@@ -223,17 +223,17 @@ export class PlayerData {
     /**
      * Indicate the seekable range of the content if it is a live stream.
      */
-    liveSeekableRange?: LiveSeekableRange;
+    liveSeekableRange?: LiveSeekableRange | undefined;
 
     /**
      * Current media information.
      */
-    media?: MediaInformation;
+    media?: MediaInformation | undefined;
 
     /**
      * The media category (video, audio, or image).
      */
-    mediaCategory?: MediaCategory;
+    mediaCategory?: MediaCategory | undefined;
 
     /**
      * Unique id for media session. It is updated when a new load request is received.
@@ -245,12 +245,12 @@ export class PlayerData {
      * it would be the time the event started, otherwise it will be start of the
      * seekable range when the streaming started.
      */
-    mediaStartAbsoluteTime?: number;
+    mediaStartAbsoluteTime?: number | undefined;
 
     /**
      * Media metadata.
      */
-    metadata?: MediaMetadata | object;
+    metadata?: MediaMetadata | object | undefined;
 
     /**
      * Next Item subtitle.
@@ -285,17 +285,17 @@ export class PlayerData {
     /**
      * Queue data.
      */
-    queueData?: QueueData;
+    queueData?: QueueData | undefined;
 
     /**
      * Indicate the section duration in seconds.
      */
-    sectionDuration?: number;
+    sectionDuration?: number | undefined;
 
     /**
      * Indicate the section start time, in media time in seconds.
      */
-    sectionStartTimeInMedia?: number;
+    sectionStartTimeInMedia?: number | undefined;
 
     /**
      * Current player state.
@@ -315,7 +315,7 @@ export class PlayerData {
     /**
      * Provide the time a break is skipable - relative to current playback time. Undefined if not skippable.
      */
-    whenSkippable?: number;
+    whenSkippable?: number | undefined;
 }
 
 /**
@@ -382,12 +382,12 @@ export class BrowseContent {
      * is too narrow/tall, it will be pillarboxed. If image is too wide/short,
      * it will be letterboxed.
      */
-    targetAspectRation?: BrowseImageAspectRatio;
+    targetAspectRation?: BrowseImageAspectRatio | undefined;
 
     /**
      * Title of the list.
      */
-    title?: string;
+    title?: string | undefined;
 }
 
 export class BrowseItem {
@@ -405,7 +405,7 @@ export class BrowseItem {
      * displayed over media browse item image. For example, if duration = 150,
      * label will be 2:30. If duration is 0, no label will be displayed.
      */
-    duration?: number;
+    duration?: number | undefined;
 
     /**
      * Content entity information.
@@ -418,29 +418,29 @@ export class BrowseItem {
      * is too narrow/tall, it will be pillarboxed. If image is too wide/short,
      * it will be letterboxed.
      */
-    image?: Image;
+    image?: Image | undefined;
 
     /**
      * Type of placeholder that will be used if image is not available for the
      * browse item.
      */
-    imageType?: BrowseImageType;
+    imageType?: BrowseImageType | undefined;
 
     /**
      * Additional badge to be displayed over the browse item image.
      */
-    mediaBadge?: BrowseMediaBadge;
+    mediaBadge?: BrowseMediaBadge | undefined;
 
     /**
      * Secondary text of the element. Both title and subtitle can be provided,
      * but at least one of them is required.
      */
-    subtitle?: string;
+    subtitle?: string | undefined;
 
     /**
      * Main text of the browse item.
      */
-    title?: string;
+    title?: string | undefined;
 }
 
 /**

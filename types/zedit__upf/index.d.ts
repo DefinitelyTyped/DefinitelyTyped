@@ -168,12 +168,12 @@ export type ProcessBlock<S, L> = (
                *
                * @default false
                */
-              overrides?: boolean;
+              overrides?: boolean | undefined;
               /**
                * Filter function. Called for each loaded record.
                * Return false to skip patching a record.
                */
-              filter?: (record: RecordHandle) => boolean;
+              filter?: ((record: RecordHandle) => boolean) | undefined;
           };
       }
     | {
@@ -188,7 +188,7 @@ export type ProcessBlock<S, L> = (
      * Called for each record copied to the patch plugin.
      * This is the step where you set values on the record.
      */
-    patch?: (record: RecordHandle, helpers: Helpers, settings: S, locals: L) => void;
+    patch?: ((record: RecordHandle, helpers: Helpers, settings: S, locals: L) => void) | undefined;
 };
 
 /**
@@ -218,7 +218,7 @@ export interface Patcher<S extends {}, L extends {}> {
          *
          * @default false
          */
-        hide?: boolean;
+        hide?: boolean | undefined;
         /**
          * URL to the HTML template to use for the settings tab.
          * You'll want to use the `patcherUrl` global in this URL.
@@ -233,7 +233,7 @@ export interface Patcher<S extends {}, L extends {}> {
          *
          * @todo what is $scope?
          */
-        controller?: ($scope: unknown) => void;
+        controller?: (($scope: unknown) => void) | undefined;
         /**
          * Default settings for your patcher.
          */
@@ -245,7 +245,7 @@ export interface Patcher<S extends {}, L extends {}> {
              *
              * @default zPatch.esp
              */
-            patchFileName?: string;
+            patchFileName?: string | undefined;
         } & S;
     };
     /**
@@ -254,13 +254,13 @@ export interface Patcher<S extends {}, L extends {}> {
      *
      * @default []
      */
-    requiredFiles?: (() => string[]) | string[];
+    requiredFiles?: (() => string[]) | string[] | undefined;
     /**
      * You can program strict exclusions here.
      * These exclusions cannot be overridden by the user.
      * This function can be removed if you don't want to hard-exclude any files.
      */
-    getFilesToPatch?: (filenames: string[]) => string[];
+    getFilesToPatch?: ((filenames: string[]) => string[]) | undefined;
     /**
      * This function gets called when your patcher is executed.
      *
@@ -304,7 +304,7 @@ export interface Executor<S, L> {
      * This can be used to cache records which don't need to be patched,
      * but need to be referred to later on.  Store values
      */
-    initialize?: (...args: ExectuteCTX<S, L>) => void;
+    initialize?: ((...args: ExectuteCTX<S, L>) => void) | undefined;
     /**
      * Array of process blocks.
      *
@@ -319,7 +319,7 @@ export interface Executor<S, L> {
      * Note that UPF automatically removes ITPO records and unused masters,
      * so you don't need to do that here.
      */
-    finalize?: (...args: ExectuteCTX<S, L>) => void;
+    finalize?: ((...args: ExectuteCTX<S, L>) => void) | undefined;
 }
 
 /**
@@ -360,13 +360,13 @@ export interface ModuleInfo {
      *
      * @default []
      */
-    requires?: string[];
+    requires?: string[] | undefined;
     /**
      * string specifying the module loader your module should be loaded with.
      *
      * @default default
      */
-    moduleLoader?: string;
+    moduleLoader?: string | undefined;
     /**
      * boolean specifying whether or not the module can be hot loaded.
      * Hot loading is when a module is loaded after zEdit has started.
@@ -374,7 +374,7 @@ export interface ModuleInfo {
      *
      * @default false
      */
-    canHotLoad?: boolean;
+    canHotLoad?: boolean | undefined;
 }
 
 /**

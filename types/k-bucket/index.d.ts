@@ -56,11 +56,11 @@ declare class KBucket<T extends Contact = Contact> extends EventEmitter {
      * @param options optional
      */
     constructor(options?: {
-        localNodeId?: Uint8Array;
-        numberOfNodesPerKBucket?: number;
-        numberOfNodesToPing?: number;
-        distance?: Distance;
-        arbiter?: Arbiter<T>;
+        localNodeId?: Uint8Array | undefined;
+        numberOfNodesPerKBucket?: number | undefined;
+        numberOfNodesToPing?: number | undefined;
+        distance?: Distance | undefined;
+        arbiter?: Arbiter<T> | undefined;
         metadata?: any;
     });
     arbiter: Arbiter<T>;

@@ -30,14 +30,14 @@ declare namespace Admin {
   interface CreateAdminProps {
     email: string;
     name: string;
-    phone?: string;
-    isReadOnly?: boolean;
+    phone?: string | undefined;
+    isReadOnly?: boolean | undefined;
   }
 
   interface UpdateAdminProps {
-    email?: string;
-    metadata?: OnfleetMetadata;
-    name?: string;
+    email?: string | undefined;
+    metadata?: OnfleetMetadata | undefined;
+    name?: string | undefined;
   }
 }
 

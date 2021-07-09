@@ -13,10 +13,10 @@ export default class WidgetToolbarRepository extends Plugin {
     register(
         toolbarId: string,
         options?: {
-            ariaLabel?: string;
+            ariaLabel?: string | undefined;
             items: string[];
             getRelatedElement: (el: Selection | DocumentSelection) => EngineView;
-            balloonClassName?: string;
+            balloonClassName?: string | undefined;
         },
     ): void;
 }

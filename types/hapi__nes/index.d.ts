@@ -60,10 +60,10 @@ declare module nes {
     }
 
     interface ServerSubscriptionOptionsAuthOptions {
-        mode?: 'required' | 'optional';
-        scope?: string | string[];
-        entity?: 'user' | 'app' | 'any';
-        index?: boolean;
+        mode?: 'required' | 'optional' | undefined;
+        scope?: string | string[] | undefined;
+        entity?: 'user' | 'app' | 'any' | undefined;
+        index?: boolean | undefined;
     }
 
     export type ServerOnSubscribeWithParams = (socket: Socket, path: string, params: any) => Promise<any>;
@@ -75,10 +75,10 @@ declare module nes {
     export type ServerOnUnSubscribe = ServerOnUnSubscribeWithParams | ServerOnUnSubscribeWithoutParams;
 
     interface ServerSubscriptionOptions {
-        filter?: (path: string, message: any, options: ServerSubscriptionOptionsFilterOptions, next: (isMatch: boolean, override?: any) => void) => void;
-        auth?: boolean | ServerSubscriptionOptionsAuthOptions;
-        onSubscribe?: ServerOnSubscribe;
-        onUnsubscribe?: ServerOnUnSubscribe;
+        filter?: ((path: string, message: any, options: ServerSubscriptionOptionsFilterOptions, next: (isMatch: boolean, override?: any) => void) => void) | undefined;
+        auth?: boolean | ServerSubscriptionOptionsAuthOptions | undefined;
+        onSubscribe?: ServerOnSubscribe | undefined;
+        onUnsubscribe?: ServerOnUnSubscribe | undefined;
     }
 
     interface ServerPublishOptions {
@@ -87,7 +87,7 @@ declare module nes {
     }
 
     interface ServerEachSocketOptions {
-        subscription?: string;
+        subscription?: string | undefined;
         user?: any;
     }
 

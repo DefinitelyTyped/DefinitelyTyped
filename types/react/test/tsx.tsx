@@ -2,7 +2,7 @@ import PropTypes = require("prop-types");
 import React = require("react");
 
 interface SCProps {
-    foo?: number;
+    foo?: number | undefined;
 }
 const FunctionComponent: React.FunctionComponent<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
@@ -248,7 +248,7 @@ const Memoized2 = React.memo(
 );
 <Memoized2 bar='string'/>;
 
-const Memoized3 = React.memo(class Test extends React.Component<{ x?: string }> {});
+const Memoized3 = React.memo(class Test extends React.Component<{ x?: string | undefined }> {});
 <Memoized3 ref={ref => { if (ref) { ref.props.x; } }}/>;
 
 const memoized4Ref = React.createRef<HTMLDivElement>();
@@ -351,7 +351,7 @@ const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewConte
 <ForwardNewContext ref='string'/>; // $ExpectError
 
 const ForwardRef3 = React.forwardRef(
-    (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
+    (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} | undefined }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
         <div {...props} ref={ref}/>
 );
 
@@ -413,12 +413,12 @@ type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
 // $ExpectType false
 type ImgPropsHasRef = 'ref' extends keyof ImgPropsWithoutRef ? true : false;
 
-const HasClassName: React.ReactType<{ className?: string }> = 'a';
+const HasClassName: React.ReactType<{ className?: string | undefined }> = 'a';
 const HasFoo: React.ReactType<{ foo: boolean }> = 'a'; // $ExpectError
 const HasFoo2: React.ReactType<{ foo: boolean }> = (props: { foo: boolean }) => null;
 const HasFoo3: React.ReactType<{ foo: boolean }> = (props: { foo: string }) => null; // $ExpectError
-const HasHref: React.ReactType<{ href?: string }> = 'a';
-const HasHref2: React.ReactType<{ href?: string }> = 'div'; // $ExpectError
+const HasHref: React.ReactType<{ href?: string | undefined }> = 'a';
+const HasHref2: React.ReactType<{ href?: string | undefined }> = 'div'; // $ExpectError
 
 const CustomElement: React.ReactType = 'my-undeclared-element'; // $ExpectError
 
@@ -437,13 +437,13 @@ interface TestPropTypesProps {
     foo: string;
 }
 interface TestPropTypesProps1 {
-    foo?: string;
+    foo?: string | undefined;
 }
 interface TestPropTypesProps2 {
     foo: string | null;
 }
 interface TestPropTypesProps3 {
-    foo?: string | null;
+    foo?: string | null | undefined;
 }
 const testPropTypes = {
     foo: PropTypes.string

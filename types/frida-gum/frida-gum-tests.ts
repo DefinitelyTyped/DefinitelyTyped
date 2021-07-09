@@ -1,5 +1,11 @@
 Frida.version; // $ExpectType string
 
+// $ExpectType (target: any, callback: WeakRefCallback) => number
+Script.bindWeak;
+
+// $ExpectType (id: number) => void
+Script.unbindWeak;
+
 // $ExpectType NativePointer
 const p = ptr(1234);
 

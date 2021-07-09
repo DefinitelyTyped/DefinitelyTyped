@@ -13,6 +13,6 @@ export default class Text extends Node {
 
     static fromJSON(json: {
         data: string;
-        attributes?: Record<string, string | number | boolean> | Array<[string, string | number | boolean]>;
+        attributes?: Record<string, string | number | boolean> | Array<[string, string | number | boolean]> | undefined;
     }): Text;
 }

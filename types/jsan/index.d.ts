@@ -4,17 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
-    date?: boolean;
-    function?: boolean;
-    regex?: boolean;
-    undefined?: boolean;
-    error?: boolean;
-    symbol?: boolean;
-    map?: boolean;
-    set?: boolean;
-    nan?: boolean;
-    infinity?: boolean;
-    refs?: boolean;
+    date?: boolean | undefined;
+    function?: boolean | undefined;
+    regex?: boolean | undefined;
+    undefined?: boolean | undefined;
+    error?: boolean | undefined;
+    symbol?: boolean | undefined;
+    map?: boolean | undefined;
+    set?: boolean | undefined;
+    nan?: boolean | undefined;
+    infinity?: boolean | undefined;
+    refs?: boolean | undefined;
 }
 
 declare function stringify(

@@ -21,11 +21,11 @@ export class Advertisement extends EventEmitter {
 }
 
 export class Options {
-    name?: string;
-    host?: string;
+    name?: string | undefined;
+    host?: string | undefined;
     txt?: any;
-    subtypes?: string[];
-    interface?: string;
+    subtypes?: string[] | undefined;
+    interface?: string | undefined;
 }
 
 /**

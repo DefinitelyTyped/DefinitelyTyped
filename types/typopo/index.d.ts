@@ -18,9 +18,9 @@ export interface Configuration {
     /**
      * keep Markdown code blocks in your Markdown files
      */
-    keepMarkdownCodeBlocks?: boolean;
-    removeLines?: boolean;
-    removeWhitespacesBeforeMarkdownList?: boolean;
+    keepMarkdownCodeBlocks?: boolean | undefined;
+    removeLines?: boolean | undefined;
+    removeWhitespacesBeforeMarkdownList?: boolean | undefined;
 }
 
 export as namespace typopo;

@@ -16,12 +16,12 @@ declare function historyApiFallback(options?: historyApiFallback.Options): core.
 
 declare namespace historyApiFallback {
     interface Options {
-        readonly disableDotRule?: true;
-        readonly htmlAcceptHeaders?: ReadonlyArray<string>;
-        readonly index?: string;
-        readonly logger?: typeof console.log;
-        readonly rewrites?: ReadonlyArray<Rewrite>;
-        readonly verbose?: boolean;
+        readonly disableDotRule?: true | undefined;
+        readonly htmlAcceptHeaders?: ReadonlyArray<string> | undefined;
+        readonly index?: string | undefined;
+        readonly logger?: typeof console.log | undefined;
+        readonly rewrites?: ReadonlyArray<Rewrite> | undefined;
+        readonly verbose?: boolean | undefined;
     }
 
     interface Context {

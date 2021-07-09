@@ -22,21 +22,21 @@ export interface Venmo {
      * });
      */
     create(options: {
-        client?: Client;
-        authorization?: string;
-        allowNewBrowserTab?: boolean;
-        ignoreHistoryChanges?: boolean;
-        profileId?: string;
-        deepLinkReturnUrl?: string;
+        client?: Client | undefined;
+        authorization?: string | undefined;
+        allowNewBrowserTab?: boolean | undefined;
+        ignoreHistoryChanges?: boolean | undefined;
+        profileId?: string | undefined;
+        deepLinkReturnUrl?: string | undefined;
     }): Promise<Venmo>;
     create(
         options: {
-            client?: Client;
-            authorization?: string;
-            allowNewBrowserTab?: boolean;
-            ignoreHistoryChanges?: boolean;
-            profileId?: string;
-            deepLinkReturnUrl?: string;
+            client?: Client | undefined;
+            authorization?: string | undefined;
+            allowNewBrowserTab?: boolean | undefined;
+            ignoreHistoryChanges?: boolean | undefined;
+            profileId?: string | undefined;
+            deepLinkReturnUrl?: string | undefined;
         },
         callback?: callback,
     ): void;
@@ -95,9 +95,9 @@ export interface Venmo {
      *   });
      * });
      */
-    tokenize(options?: { processResultsDelay?: number }): Promise<VenmoTokenizePayload>;
+    tokenize(options?: { processResultsDelay?: number | undefined }): Promise<VenmoTokenizePayload>;
     tokenize(
-        options?: { processResultsDelay?: number },
+        options?: { processResultsDelay?: number | undefined },
         callback?: (error?: BraintreeError, payload?: VenmoTokenizePayload) => void,
     ): void;
 

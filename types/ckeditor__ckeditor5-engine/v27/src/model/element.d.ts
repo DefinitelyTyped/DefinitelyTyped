@@ -10,7 +10,7 @@ export default class Element extends Node {
 
     constructor(name: string, attrs?: Parameters<typeof toMap>[0] | null, children?: Node | Iterable<Node>);
 
-    findAncestor(parentName: string, options?: { includeSelf?: boolean }): Element | null;
+    findAncestor(parentName: string, options?: { includeSelf?: boolean | undefined }): Element | null;
     getChild(index: number): Element | Text;
     getChildIndex(node: Node): number;
     getChildStartOffset(node: Node): number;
@@ -20,7 +20,7 @@ export default class Element extends Node {
     offsetToIndex(offset: number): number;
     toJSON(): ReturnType<Node["toJSON"]> & {
         name: string;
-        children?: Array<ReturnType<Element["toJSON"] | Text["toJSON"]>>;
+        children?: Array<ReturnType<Element["toJSON"] | Text["toJSON"]>> | undefined;
     };
 
     static fromJSON(json: ReturnType<Element["toJSON"]>): Element;

@@ -8,11 +8,11 @@ import * as webpack from 'webpack';
 
 declare namespace WebpackDotenvPlugin {
     interface Options {
-        path?: string;
-        sample?: string;
-        silent?: boolean;
-        encoding?: string;
-        allowEmptyValues?: boolean;
+        path?: string | undefined;
+        sample?: string | undefined;
+        silent?: boolean | undefined;
+        encoding?: string | undefined;
+        allowEmptyValues?: boolean | undefined;
     }
 }
 

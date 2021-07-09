@@ -1,22 +1,22 @@
 import { Editor, Plugin } from '@ckeditor/ckeditor5-core';
-import BE from '@ckeditor/ckeditor5-editor-balloon';
+import { BalloonEditor } from '@ckeditor/ckeditor5-editor-balloon';
 import BalloonEditorUI from '@ckeditor/ckeditor5-editor-balloon/src/ballooneditorui';
 import BalloonEditorUIView from '@ckeditor/ckeditor5-editor-balloon/src/ballooneditoruiview';
 import { HtmlDataProcessor, StylesProcessor } from '@ckeditor/ckeditor5-engine';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
-import { EditorUIView, ToolbarView } from '@ckeditor/ckeditor5-ui';
+import { EditorUIView } from '@ckeditor/ckeditor5-ui';
 import { Locale } from '@ckeditor/ckeditor5-utils';
 
-BE.BalloonEditor.create('', { placeholder: 'foo' }).then(editor => {
+BalloonEditor.create('', { placeholder: 'foo' }).then(editor => {
     editor.commands.get('');
-    BE.BalloonEditor.defaultConfig?.plugins?.map(strOrPlugin => {
+    BalloonEditor.defaultConfig?.plugins?.map(strOrPlugin => {
         if (typeof strOrPlugin !== 'string') {
             new strOrPlugin(editor);
         }
     });
     editor.ui.editor instanceof Editor;
     const classicEditorUI = new BalloonEditorUI(editor, new EditorUIView());
-// $ExpectError
+    // $ExpectError
     classicEditorUI.init(document.createElement('div'));
     classicEditorUI.init();
     new BalloonEditorUIView(new Locale(), new View(new StylesProcessor()), document.createElement('div'));
@@ -24,14 +24,14 @@ BE.BalloonEditor.create('', { placeholder: 'foo' }).then(editor => {
 
 let htmlElement: HTMLElement = document.createElement('div');
 // $ExpectError
-new BE.BalloonEditor();
+new BalloonEditor();
 
 class MyPlugin extends Plugin {}
 
 (async () => {
-    let editor = await BE.BalloonEditor.create('foo');
-    editor = await BE.BalloonEditor.create(htmlElement);
-    editor = await BE.BalloonEditor.create(htmlElement, { plugins: [MyPlugin] });
+    let editor = await BalloonEditor.create('foo');
+    editor = await BalloonEditor.create(htmlElement);
+    editor = await BalloonEditor.create(htmlElement, { plugins: [MyPlugin] });
     // $ExpectError
     editor.create();
     const str: string = editor.getData();
@@ -44,7 +44,7 @@ class MyPlugin extends Plugin {}
     const ui: BalloonEditorUI = editor.ui;
     const uiView: BalloonEditorUIView = editor.ui.view;
 
-    editor = await BE.BalloonEditor.create(htmlElement, {
+    editor = await BalloonEditor.create(htmlElement, {
         toolbar: {
             items: [],
             removeItems: [],

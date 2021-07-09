@@ -23,8 +23,8 @@ declare class SCBroker extends EventEmitter {
     dataExpirer: ExpiryManager;
     subscriptions: Subscriptions;
 
-    constructor(options?: { run?: () => void });
-    static create(options?: { run?: () => void }): SCBroker;
+    constructor(options?: { run?: (() => void) | undefined });
+    static create(options?: { run?: (() => void) | undefined }): SCBroker;
 
     on(event: "subscribe" | "unsubscribe", listener: (channel: string) => void): this;
     on(event: "publish", listener: (channel: string, data: any) => void): this;
@@ -54,18 +54,18 @@ declare namespace SCBroker {
         // hosts - You can access the instanceId from the Broker object
         // (inside brokerController) - If you don't provide an instanceId,
         // SC will generate a random one (UUID v4)
-        instanceId?: string;
+        instanceId?: string | undefined;
 
         // A key which various SC processes will use to interact with
         // scBroker broker processes securely, defaults to a 256 bits
         // cryptographically random hex string
-        secretKey?: string;
+        secretKey?: string | undefined;
 
         // In milliseconds, the timeout for calling res(err, data) when
         // your sendToWorker, sendToBroker or sendToMaster (IPC) call
         // expects an ACK response from the other process
         // (when callback is provided)
-        ipcAckTimeout?: number;
+        ipcAckTimeout?: number | undefined;
 
         [additionalOptions: string]: any;
     }

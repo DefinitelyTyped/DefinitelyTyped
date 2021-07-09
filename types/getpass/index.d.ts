@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    prompt?: string;
+    prompt?: string | undefined;
 }
 
 export interface Callback {

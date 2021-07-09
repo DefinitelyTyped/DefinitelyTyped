@@ -3,12 +3,12 @@ import { TabActionType, TabRouterOptions, TabNavigationState, TabActionHelpers }
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type DrawerActionType = TabActionType | {
     type: 'OPEN_DRAWER' | 'CLOSE_DRAWER' | 'TOGGLE_DRAWER';
-    source?: string;
-    target?: string;
+    source?: string | undefined;
+    target?: string | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type DrawerRouterOptions = TabRouterOptions & {
-    openByDefault?: boolean;
+    openByDefault?: boolean | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type DrawerNavigationState<ParamList extends ParamListBase> = Omit<TabNavigationState<ParamList>, 'type' | 'history'> & {

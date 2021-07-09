@@ -11,8 +11,8 @@ type OutQuadOf<T> = T extends DatasetCore<infer Q, any> ? Q : never;
 
 declare namespace SHACLValidator {
     interface Options<F extends DataFactory & DatasetCoreFactory> {
-        factory?: F;
-        maxErrors?: number;
+        factory?: F | undefined;
+        maxErrors?: number | undefined;
     }
 }
 

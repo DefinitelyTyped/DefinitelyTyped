@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ProxyAgentConfigurationInputType {
-    environmentVariableNamespace?: string;
-    forceGlobalAgent?: boolean;
-    socketConnectionTimeout?: number;
+    environmentVariableNamespace?: string | undefined;
+    forceGlobalAgent?: boolean | undefined;
+    socketConnectionTimeout?: number | undefined;
 }
 
 export interface ProxyAgentConfigurationType {

@@ -17,17 +17,17 @@ export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
 >;
 
 export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequiredURLs {
-    authorizationURL?: string;
-    callbackURL?: string;
+    authorizationURL?: string | undefined;
+    callbackURL?: string | undefined;
     clientID: string;
     clientSecret: string;
-    scope?: string | string[];
-    tokenURL?: string;
-    userProfileURL?: string;
+    scope?: string | string[] | undefined;
+    tokenURL?: string | undefined;
+    userProfileURL?: string | undefined;
 }
 
 export interface StrategyOptions extends _StrategyOptionsBase {
-    passReqToCallback?: false;
+    passReqToCallback?: false | undefined;
 }
 
 export interface StrategyOptionsWithRequest extends _StrategyOptionsBase {
@@ -96,21 +96,21 @@ export class Strategy extends oauth2.Strategy {
 
 // additional Google-specific options
 export interface AuthenticateOptionsGoogle extends passport.AuthenticateOptions {
-    accessType?: 'offline' | 'online';
-    prompt?: string;
-    loginHint?: string;
-    includeGrantedScopes?: boolean;
-    display?: string;
-    hostedDomain?: string;
-    hd?: string;
+    accessType?: 'offline' | 'online' | undefined;
+    prompt?: string | undefined;
+    loginHint?: string | undefined;
+    includeGrantedScopes?: boolean | undefined;
+    display?: string | undefined;
+    hostedDomain?: string | undefined;
+    hd?: string | undefined;
     requestVisibleActions?: any;
     openIDRealm?: any;
 }
 
 export interface GoogleCallbackParameters {
     access_token: string;
-    refresh_token?: string;
-    id_token?: string;
+    refresh_token?: string | undefined;
+    id_token?: string | undefined;
     expires_in: number;
     scope: string;
     token_type: string;

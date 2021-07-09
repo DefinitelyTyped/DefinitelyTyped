@@ -10,9 +10,9 @@ export class Client {
   constructor(params: {
     host: string,
     username: string,
-    port?: number,
-    password?: string,
-    pkey?: string,
+    port?: number | undefined,
+    password?: string | undefined,
+    pkey?: string | undefined,
   })
 
   /**
@@ -38,7 +38,7 @@ export class Client {
   /**
    * Loads configuration data into candidate-config using NETCONF. Default options are equivalent to "load merge" and would expect configuration data in JunOS curly-brace format
    */
-  load(args: string | { config: any, action?: 'merge' | 'replace' | 'override' | 'update' | 'set', format?: 'text' | 'xml' }, callback: (err: any, reply: any) => void): void;
+  load(args: string | { config: any, action?: 'merge' | 'replace' | 'override' | 'update' | 'set' | undefined, format?: 'text' | 'xml' | undefined }, callback: (err: any, reply: any) => void): void;
 
   /**
    * Commits candidate configuration to device

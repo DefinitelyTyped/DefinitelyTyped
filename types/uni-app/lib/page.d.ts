@@ -3,15 +3,15 @@ declare namespace Page {
         /**
          * 转发标题。默认值：当前应用名称
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * 转发路径，必须是以 / 开头的完整路径。默认值：当前页面 path
          */
-        path?: string;
+        path?: string | undefined;
         /**
          * 自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径。支持PNG及JPG。显示图片长宽比是 5:4，默认值：使用默认截图
          */
-        imageUrl?: string;
+        imageUrl?: string | undefined;
     }
 
     interface PageScrollOption {
@@ -36,7 +36,7 @@ declare namespace Page {
         /**
          * 页面中包含 `<web-view>` 组件时，返回当前 `<web-view>` 的url
          */
-        webViewUrl?: string;
+        webViewUrl?: string | undefined;
     }
 
     interface TabItemTapOption {
@@ -80,7 +80,7 @@ declare namespace Page {
         /**
          * 到当前页面的路径，类型为 `String`
          */
-        route?: string;
+        route?: string | undefined;
     }
 
     interface PageInstance<D extends AnyObject = any, T extends AnyObject = any> extends PageInstanceBaseProps<D> {

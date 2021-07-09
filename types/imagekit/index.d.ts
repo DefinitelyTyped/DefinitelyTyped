@@ -53,167 +53,167 @@ declare global {
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#width-w}
              */
-            height?: string;
+            height?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#height-h}
              */
-            width?: string;
+            width?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#aspect-ratio-ar}
              */
-            aspectRatio?: string;
+            aspectRatio?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#quality-q}
              */
-            quality?: string;
+            quality?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#crop-crop-modes-and-focus}
              */
-            crop?: string;
+            crop?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#crop-crop-modes-and-focus}
              */
-            cropMode?: string;
+            cropMode?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#focus-fo}
              */
-            focus?: string;
+            focus?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#examples-focus-using-cropped-image-coordinates}
              */
-            x?: string;
+            x?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#examples-focus-using-cropped-image-coordinates}
              */
-            y?: string;
+            y?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#format-f}
              */
-            format?: string;
+            format?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#radius-r}
              */
-            radius?: string;
+            radius?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#background-color-bg}
              */
-            background?: string;
+            background?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#border-b}
              */
-            border?: string;
+            border?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#rotate-rt}
              */
-            rotation?: number;
+            rotation?: number | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#blur-bl}
              */
-            blur?: string;
+            blur?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#named-transformation-n}
              */
-            named?: string;
+            named?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-image-oi}
              */
-            overlayImage?: string;
+            overlayImage?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-x-position-ox}
              */
-            overlayX?: string;
+            overlayX?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-y-position-oy}
              */
-            overlayY?: string;
+            overlayY?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-focus-ofo}
              */
-            overlayFocus?: string;
+            overlayFocus?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-height-oh}
              */
-            overlayHeight?: string;
+            overlayHeight?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-width-ow}
              */
-            overlayWidth?: string;
+            overlayWidth?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-text-ot}
              */
-            overlayText?: string;
+            overlayText?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-text-size-ots}
              */
-            overlayTextFontSize?: string;
+            overlayTextFontSize?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-text-color-otc}
              */
-            overlayTextColor?: string;
+            overlayTextColor?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-transparency-oa}
              */
-            overlayAlpha?: string;
+            overlayAlpha?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-text-typography-ott}
              */
-            overlayTextTypography?: string;
+            overlayTextTypography?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#overlay-background-obg}
              */
-            overlayBackground?: string;
+            overlayBackground?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/overlay#trimming-of-the-overlay-image}
              */
-            overlayImageTrim?: string;
+            overlayImageTrim?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#progressive-image-pr}
              */
-            progressive?: string;
+            progressive?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#lossless-webp-and-png-lo}
              */
-            lossless?: string;
+            lossless?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#trim-edges-t}
              */
-            trim?: string;
+            trim?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#image-metadata-md}
              */
-            metadata?: string;
+            metadata?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#color-profile-cp}
              */
-            colorProfile?: string;
+            colorProfile?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#default-image-di}
              */
-            defaultImage?: string;
+            defaultImage?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#dpr-dpr}
              */
-            dpr?: string;
+            dpr?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/image-enhancement-and-color-manipulation#sharpen-e-sharpen}
              */
-            effectSharpen?: string;
+            effectSharpen?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/image-enhancement-and-color-manipulation#unsharp-mask-e-usm}
              */
-            effectUSM?: string;
+            effectUSM?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/image-enhancement-and-color-manipulation#contrast-stretch-e-contrast}
              */
-            effectContrast?: string;
+            effectContrast?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#grayscale-e-grayscale}
              */
-            effectGray?: string;
+            effectGray?: string | undefined;
             /**
              * @see {@link https://docs.imagekit.io/features/image-transformations/resize-crop-and-other-transformations#original-image-orig}
              */
-            original?: string;
+            original?: string | undefined;
         }
 
         interface UrlOptionsBase {
@@ -222,35 +222,35 @@ declare global {
              * The transformation name and the value should be specified as a key-value pair in each object.
              * @see {@link https://docs.imagekit.io/features/image-transformations/chained-transformations}
              */
-            transformation?: Transformation[];
+            transformation?: Transformation[] | undefined;
             /**
              * Default value is path that places the transformation string as a path parameter in the URL.
              * Can also be specified as query which adds the transformation string as the query parameter tr in the URL.
              * If you use src parameter to create the URL, then the transformation string is always added as a query parameter.
              */
-            transformationPosition?: TransformationPosition;
+            transformationPosition?: TransformationPosition | undefined;
             /**
              * These are the other query parameters that you want to add to the final URL.
              * These can be any query parameters and not necessarily related to ImageKit.
              * Especially useful, if you want to add some versioning parameter to your URLs.
              */
-            queryParameters?: { [key: string]: string | number };
+            queryParameters?: { [key: string]: string | number } | undefined;
             /**
              * The base URL to be appended before the path of the image.
              * If not specified, the URL Endpoint specified at the time of SDK initialization is used.
              */
-            urlEndpoint?: string;
+            urlEndpoint?: string | undefined;
             /**
              * Default is false. If set to true, the SDK generates a signed image URL adding the image signature to the image URL.
              * If you are creating URL using src parameter instead of path then do correct urlEndpoint for this to work.
              * Otherwise returned URL will have wrong signature.
              */
-            signed?: boolean;
+            signed?: boolean | undefined;
             /**
              * Meant to be used along with the signed parameter to specify the time in seconds from now when the URL should expire.
              * If specified, the URL contains the expiry timestamp in the URL and the image signature is modified accordingly.
              */
-            expireSeconds?: number;
+            expireSeconds?: number | undefined;
         }
 
         interface UrlOptionsSrc extends UrlOptionsBase {
@@ -260,7 +260,7 @@ declare global {
              * Either the path or src parameter need to be specified for URL generation.
              */
             src: string;
-            path?: never;
+            path?: never | undefined;
         }
 
         interface UrlOptionsPath extends UrlOptionsBase {
@@ -269,7 +269,7 @@ declare global {
              * For example, /path/to/image.jpg. Either the path or src parameter need to be specified for URL generation.
              */
             path: string;
-            src?: never;
+            src?: never | undefined;
         }
 
         /**
@@ -309,7 +309,7 @@ declare global {
              * - If set false, then the image is uploaded with the provided filename parameter and any existing file with the same name is replaced.
              * Default value - true
              */
-            useUniqueFileName?: boolean;
+            useUniqueFileName?: boolean | undefined;
             /**
              * Set the tags while uploading the file.
              * - Comma-separated value of tags in format tag1,tag2,tag3. For example - t-shirt,round-neck,men
@@ -317,7 +317,7 @@ declare global {
              * - % is not allowed.
              * - If this field is not specified and the file is overwritten then the tags will be removed.
              */
-            tags?: string;
+            tags?: string | undefined;
             /**
              * The folder path (e.g. /images/folder/) in which the image has to be uploaded. If the folder(s) didn't exist before, a new folder(s) is created.
              * The folder name can contain:
@@ -326,7 +326,7 @@ declare global {
              * - Using multiple / creates a nested folder.
              * Default value - /
              */
-            folder?: string;
+            folder?: string | undefined;
             /**
              * Whether to mark the file as private or not. This is only relevant for image type files.
              * - Accepts true or false.
@@ -334,20 +334,20 @@ declare global {
              *      Without the signed URL, only named transformations work on private images
              * Default value - false
              */
-            isPrivateFile?: boolean;
+            isPrivateFile?: boolean | undefined;
             /**
              * Define an important area in the image. This is only relevant for image type files.
              * To be passed as a string with the x and y coordinates of the top-left corner, and width and height of the area of interest in format x,y,width,height. For example - 10,10,100,100
              * Can be used with fo-customtransformation.
              * If this field is not specified and the file is overwritten, then customCoordinates will be removed.
              */
-            customCoordinates?: string;
+            customCoordinates?: string | undefined;
             /**
              * Comma-separated values of the fields that you want ImageKit.io to return in response.
              *
              * For example, set the value of this field to tags,customCoordinates,isPrivateFile,metadata to get value of tags, customCoordinates, isPrivateFile , and metadata in the response.
              */
-            responseFields?: string;
+            responseFields?: string | undefined;
         }
 
         /**
@@ -395,7 +395,7 @@ declare global {
             /**
              * Array of tags associated with the image.
              */
-            tags?: string[];
+            tags?: string[] | undefined;
             /**
              * Is the file marked as private. It can be either true or false.
              */
@@ -407,7 +407,7 @@ declare global {
             /**
              * The metadata of the upload file. Use responseFields property in request to get the metadata returned in response of upload API.
              */
-            metadata?: string;
+            metadata?: string | undefined;
         }
 
         /**
@@ -419,40 +419,40 @@ declare global {
             /**
              * Folder path if you want to limit the search within a specific folder. For example, /sales-banner/ will only search in folder sales-banner.
              */
-            path?: string;
+            path?: string | undefined;
             /**
              * Type of files to include in result set. Accepts three values:
              * all - include all types of files in result set
              * image - only search in image type files
              * non-image - only search in files which are not image, e.g., JS or CSS or video files.
              */
-            fileType?: FileType;
+            fileType?: FileType | undefined;
             /**
              * Comma-separated list of tags. Files matching any of the tags are included in result response. If no tag is matched, the file is not included in result set.
              */
-            tags?: string;
+            tags?: string | undefined;
             /**
              * Whether to include folders in search results or not. By default only files are searched.
              * Accepts true and false. If this is set to true then tags and fileType parameters are ignored.
              */
-            includeFolder?: boolean;
+            includeFolder?: boolean | undefined;
             /**
              * The name of the file or folder.
              */
-            name?: string;
+            name?: string | undefined;
             /**
              * The maximum number of results to return in response:
              * Minimum value - 1
              * Maximum value - 1000
              * Default value - 1000
              */
-            limit?: number;
+            limit?: number | undefined;
             /**
              * The number of results to skip before returning results.
              * Minimum value - 0
              * Default value - 0
              */
-            skip?: number;
+            skip?: number | undefined;
         }
 
         /**
@@ -654,12 +654,12 @@ declare global {
             /**
              * Array of tags associated with the file.
              */
-            tags?: string[];
+            tags?: string[] | undefined;
             /**
              * Define an important area in the image.
              * Example - 50,50,500,500
              */
-            customCoordinates?: string;
+            customCoordinates?: string | undefined;
         }
 
         /**
@@ -715,7 +715,7 @@ declare global {
             publicKey: string;
             privateKey: string;
             urlEndpoint: string;
-            transformationPosition?: ImageKit.TransformationPosition;
+            transformationPosition?: ImageKit.TransformationPosition | undefined;
         });
 
         /**

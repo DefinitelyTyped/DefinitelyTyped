@@ -38,10 +38,10 @@ const ReactTimeagoDefaultComponentProps: JSX.Element = (
 
 // inspired by react-native
 class Text extends React.Component<{
-    style?: Array<{}>;
-    numberOfLines?: number;
-    ellipsizeMode?: "head" | "middle" | "tail" | "clip";
-    allowFontScaling?: boolean;
+    style?: Array<{}> | undefined;
+    numberOfLines?: number | undefined;
+    ellipsizeMode?: "head" | "middle" | "tail" | "clip" | undefined;
+    allowFontScaling?: boolean | undefined;
 }> {}
 
 const ReactTimeagoCustomComponent: JSX.Element = (

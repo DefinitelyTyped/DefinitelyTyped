@@ -32,12 +32,12 @@ declare namespace MovieDB {
 
     export interface SearchOptions {
         query: string;
-        language?: string;
+        language?: string | undefined;
     }
 
     export interface InfoOptions {
         id: number;
-        language?: string;
+        language?: string | undefined;
     }
 
     export interface SearchResults {

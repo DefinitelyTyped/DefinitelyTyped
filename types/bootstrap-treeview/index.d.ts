@@ -7,50 +7,50 @@
 /// <reference types="jquery"/>
 
 interface BootstrapTreeViewNodeData {
-    text?: string;
-    icon?: string;
-    selectedIcon?: string;
-    color?: string;
-    backColor?: string;
-    href?: string;
-    selectable?: boolean;
-    nodeId?: number;
+    text?: string | undefined;
+    icon?: string | undefined;
+    selectedIcon?: string | undefined;
+    color?: string | undefined;
+    backColor?: string | undefined;
+    href?: string | undefined;
+    selectable?: boolean | undefined;
+    nodeId?: number | undefined;
     state?: {
         checked: boolean;
         disabled: boolean;
         expanded: boolean;
         selected: boolean;
-    };
-    tags?: string[];
-    nodes?: BootstrapTreeViewNodeData[];
+    } | undefined;
+    tags?: string[] | undefined;
+    nodes?: BootstrapTreeViewNodeData[] | undefined;
 }
 
 interface BootstrapTreeViewOptions {
-    data?: BootstrapTreeViewNodeData[];
-    backColor?: string;
-    borderColor?: string;
-    checkedIcon?: string;
-    collapseIcon?: string;
-    color?: string;
-    emptyIcon?: string;
-    enableLinks?: boolean;
-    expandIcon?: string;
-    highlightSearchResults?: boolean;
-    highlightSelected?: boolean;
-    levels?: number;
-    multiSelect?: boolean;
-    nodeIcon?: string;
-    onhoverColor?: string;
-    selectedIcon?: string;
-    searchResultBackColor?: string;
-    searchResultColor?: string;
-    selectedBackColor?: string;
-    selectedColor?: string;
-    showBorder?: boolean;
-    showCheckbox?: boolean;
-    showIcon?: boolean;
-    showTags?: boolean;
-    uncheckedIcon?: boolean;
+    data?: BootstrapTreeViewNodeData[] | undefined;
+    backColor?: string | undefined;
+    borderColor?: string | undefined;
+    checkedIcon?: string | undefined;
+    collapseIcon?: string | undefined;
+    color?: string | undefined;
+    emptyIcon?: string | undefined;
+    enableLinks?: boolean | undefined;
+    expandIcon?: string | undefined;
+    highlightSearchResults?: boolean | undefined;
+    highlightSelected?: boolean | undefined;
+    levels?: number | undefined;
+    multiSelect?: boolean | undefined;
+    nodeIcon?: string | undefined;
+    onhoverColor?: string | undefined;
+    selectedIcon?: string | undefined;
+    searchResultBackColor?: string | undefined;
+    searchResultColor?: string | undefined;
+    selectedBackColor?: string | undefined;
+    selectedColor?: string | undefined;
+    showBorder?: boolean | undefined;
+    showCheckbox?: boolean | undefined;
+    showIcon?: boolean | undefined;
+    showTags?: boolean | undefined;
+    uncheckedIcon?: boolean | undefined;
 
     onNodeSelected?(event: any, node: BootstrapTreeViewNodeData): void;
     onNodeChecked?(event: any, node: BootstrapTreeViewNodeData): void;

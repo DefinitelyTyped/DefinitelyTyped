@@ -5,8 +5,8 @@ type ToLocationFunction = (location: Location) => LocationDescriptor;
 
 export interface IndexLinkProps extends HTMLProps<any> {
     to: LocationDescriptor | ToLocationFunction;
-    activeClassName?: string;
-    activeStyle?: CSSProperties;
+    activeClassName?: string | undefined;
+    activeStyle?: CSSProperties | undefined;
 }
 
 type IndexLink = ComponentClass<IndexLinkProps>;

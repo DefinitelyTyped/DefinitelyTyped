@@ -15,7 +15,7 @@ declare namespace angular.dialogservice {
      *
      * @default false
      */
-    animation?: boolean;
+    animation?: boolean | undefined;
 
     /**
      * controls the presence of a backdrop
@@ -26,35 +26,35 @@ declare namespace angular.dialogservice {
      *
      * @default true
      */
-    backdrop?: boolean | string;
+    backdrop?: boolean | string | undefined;
 
     /**
      * indicates whether the dialog should be closable by hitting the ESC key
      *
      * @default true
      */
-    keyboard?: boolean;
+    keyboard?: boolean | undefined;
 
     /**
      * additional CSS class(es) to be added to a modal backdrop template
      *
      * @default 'dialogs-backdrop-default'
      */
-    backdropClass?: string;
+    backdropClass?: string | undefined;
 
     /**
      * additional CSS class(es) to be added to a modal window template
      *
      * @default 'dialogs-default'
      */
-    windowClass?: string;
+    windowClass?: string | undefined;
 
     /**
      * Optional suffix of modal window class. The value used is appended to the `modal-` class, i.e. a value of `sm` gives `modal-sm`.
      *
      * @default 'lg'
      */
-    size?: string;
+    size?: string | undefined;
   }
 
   interface IDialogService {
