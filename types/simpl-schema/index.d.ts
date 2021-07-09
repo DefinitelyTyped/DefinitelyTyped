@@ -243,7 +243,7 @@ interface ValidationOption {
     modifier?: boolean | undefined;
     upsert?: boolean | undefined;
     extendedCustomContext?: Record<string, any> | undefined;
-    ignore?: string[],
+    ignore?: string[];
     keys?: string[] | undefined;
 }
 

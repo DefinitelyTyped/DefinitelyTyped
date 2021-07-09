@@ -99,7 +99,7 @@ StringSchema.validator({
     clean: true,
     trimStrings: true,
     removeNullsFromArrays: true
-})
+});
 
 StringSchema.clean({title: ''}, {
     removeEmptyStrings: true,
