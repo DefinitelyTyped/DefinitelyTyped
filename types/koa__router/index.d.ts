@@ -7,7 +7,7 @@
 //                 Guillaume Mayer <https://github.com/Guillaume-Mayer>
 //                 Andrea Gueugnaut <https://github.com/falinor>
 //                 Jeremy Forsythe <https://github.com/jdforsythe>
-// Definitions: https://github.com/hellopao/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /* =================== USAGE ===================

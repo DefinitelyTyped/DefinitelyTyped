@@ -2,7 +2,7 @@
 // Project: https://github.com/plaid/link
 // Definitions by: Aaron Holderman <https://github.com/afholderman>
 //                 Hannes Kindströmmer <https://github.com/brolaugh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 declare global {
