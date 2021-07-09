@@ -1,23 +1,55 @@
-import { DatasetCore, DatasetCoreFactory, NamedNode, Term, BlankNode } from "rdf-js";
-import SHACLValidator = require("rdf-validate-shacl");
-import DataFactory = require("rdf-validate-shacl/src/data-factory");
+import { BlankNode, DataFactory, DatasetCore, DatasetCoreFactory, NamedNode, Term } from 'rdf-js';
+import SHACLValidator = require('rdf-validate-shacl');
+import ValidationReport = require('rdf-validate-shacl/src/validation-report');
+import DataFactoryExt = require('rdf-ext/lib/DataFactory')
+import DatasetExt = require('rdf-ext/lib/Dataset')
+import NamedNodeExt = require('rdf-ext/lib/NamedNode')
 
-const shapes: DatasetCore = <any> {};
-const data: DatasetCore = <any> {};
-const factory: DatasetCoreFactory & DataFactory = <any> {};
+const shapes1: DatasetCore = <any>{};
+const data1: DatasetCore = <any>{};
+const factory1: DatasetCoreFactory & DataFactory = <any>{};
+const shapes2: DatasetExt = <any>{};
+const data2: DatasetExt = <any>{};
+const factory2: DataFactoryExt = <any>{};
 
-const validator = new SHACLValidator(shapes, { factory });
-const report = validator.validate(data);
+// $ExpectType SHACLValidator<DatasetCore<Quad, Quad>, DataFactory<Quad, Quad> & DatasetCoreFactory<Quad, Quad>>
+const validator1 = new SHACLValidator(shapes1, { factory: factory1 });
 
-const conform: boolean = report.conforms;
+// $ExpectType ValidationReport<DatasetCore<Quad, Quad>, DataFactory<Quad, Quad> & DatasetCoreFactory<Quad, Quad>>
+const report1 = validator1.validate(data1);
 
-for (const result of report.results) {
-    const message: Term[] = result.message;
-    const path: BlankNode | NamedNode | null = result.path;
-    const focusNode: BlankNode | NamedNode | null = result.focusNode;
-    const severity: NamedNode | null = result.severity;
-    const sourceConstraintComponent: BlankNode | NamedNode | null = result.sourceConstraintComponent;
-    const sourceShape: BlankNode | NamedNode | null = result.sourceShape;
+// $ExpectType boolean
+report1.conforms;
+
+for (const result of report1.results) {
+    result.message // $ExpectType Quad_Object[]
+    result.path // $ExpectType Quad_Object | null
+    result.focusNode // $ExpectType Quad_Object | null
+    result.severity // $ExpectType Quad_Object | null
+    result.sourceConstraintComponent // $ExpectType Quad_Object | null
+    result.sourceShape // $ExpectType Quad_Object | null
 }
 
-const dataset: DatasetCore = report.dataset;
+// $ExpectType DatasetCore<Quad, Quad>
+report1.dataset;
+
+// $ExpectType SHACLValidator<DatasetExt, DatasetFactoryExt>
+const validator2 = new SHACLValidator(shapes2, { factory: factory2 });
+
+// $ExpectType ValidationReport<DatasetExt, DataFactoryExt>
+const report2 = validator2.validate(data2);
+
+// $ExpectType boolean
+report2.conforms;
+
+for (const result of report2.results) {
+    result.message // $ExpectType (NamedNodeExt | BlankNodeExt | VariableExt | LiteralExt)[]
+    result.path // $ExpectType NamedNodeExt | BlankNodeExt | VariableExt | LiteralExt | null
+    result.focusNode // $ExpectType NamedNodeExt | BlankNodeExt | VariableExt | LiteralExt | null
+    result.severity // $ExpectType NamedNodeExt | BlankNodeExt | VariableExt | LiteralExt | null
+    result.sourceConstraintComponent // $ExpectType NamedNodeExt | BlankNodeExt | VariableExt | LiteralExt | null
+    result.sourceShape // $ExpectType NamedNodeExt | BlankNodeExt | VariableExt | LiteralExt | null
+}
+
+// $ExpectType DatasetExt
+report2.dataset;

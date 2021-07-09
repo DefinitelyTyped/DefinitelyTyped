@@ -1,30 +1,36 @@
 import { BlankNode, DataFactory, DatasetCore, DatasetCoreFactory, NamedNode, Quad, Term } from 'rdf-js';
 import { GraphPointer } from 'clownface';
 
+type FactoryFor<D> = D extends DatasetCore<infer OutQuad, infer InQuad> ? DataFactory<OutQuad, InQuad> & DatasetCoreFactory<OutQuad, InQuad, D> : never
+type OutQuadOf<D> = D extends DatasetCore<infer Q, any> ? Q : never;
+type InQuadOf<D> = D extends DatasetCore<any, infer Q> ? Q : never;
+type SubjectOf<D> = OutQuadOf<D>['subject'];
+type ObjectOf<D> = OutQuadOf<D>['object'];
+
 declare namespace ValidationReport {
-    interface Options {
-        factory: DataFactory & DatasetCoreFactory;
+    interface Options<F extends DataFactory & DatasetCoreFactory> {
+        factory: F;
     }
 
-    interface ValidationResult {
-        term: BlankNode | NamedNode;
-        dataset: DatasetCore;
-        cf: GraphPointer;
-        readonly message: Term[];
-        readonly path: BlankNode | NamedNode | null;
-        readonly focusNode: BlankNode | NamedNode | null;
-        readonly severity: NamedNode | null;
-        readonly sourceConstraintComponent: BlankNode | NamedNode | null;
-        readonly sourceShape: BlankNode | NamedNode | null;
+    interface ValidationResult<D extends DatasetCore> {
+        term: SubjectOf<D>;
+        dataset: D;
+        cf: GraphPointer<SubjectOf<D>, D>;
+        readonly message: ObjectOf<D>[];
+        readonly path: ObjectOf<D> | null;
+        readonly focusNode: ObjectOf<D> | null;
+        readonly severity: ObjectOf<D> | null;
+        readonly sourceConstraintComponent: ObjectOf<D> | null;
+        readonly sourceShape: ObjectOf<D> | null;
     }
 }
 
-declare class ValidationReport {
-    constructor(resultQuads: Quad[], options: ValidationReport.Options);
-    term: BlankNode | NamedNode;
-    dataset: DatasetCore;
+declare class ValidationReport<D extends DatasetCore> {
+    constructor(resultQuads: InQuadOf<D>[], options: ValidationReport.Options<FactoryFor<D>>);
+    term: SubjectOf<D>;
+    dataset: D;
     conforms: boolean;
-    results: ValidationReport.ValidationResult[];
+    results: ValidationReport.ValidationResult<D>[];
 }
 
 export = ValidationReport;

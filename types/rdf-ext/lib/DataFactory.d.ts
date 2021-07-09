@@ -1,4 +1,4 @@
-import { DataFactory, NamedNode, Quad, Quad_Subject, Quad_Predicate, Quad_Object, Quad_Graph } from 'rdf-js';
+import { DataFactory, DatasetCoreFactory, NamedNode, Quad, Quad_Subject, Quad_Predicate, Quad_Object, Quad_Graph } from 'rdf-js';
 import BlankNodeExt = require("./BlankNode");
 import LiteralExt = require("./Literal");
 import NamedNodeExt = require("./NamedNode");
@@ -12,7 +12,7 @@ import { PropType } from './_PropType';
 type PrefixesRecord = Record<string, NamedNode | string>;
 type Prefixes = PrefixMap | PrefixesRecord;
 
-interface DataFactoryExt extends DataFactory<QuadExt, Quad> {}
+interface DataFactoryExt extends DataFactory<QuadExt, Quad>, DatasetCoreFactory<QuadExt, Quad, Dataset> {}
 
 // tslint:disable-next-line no-unnecessary-class
 declare class DataFactoryExt  {
