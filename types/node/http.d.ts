@@ -319,6 +319,7 @@ declare module 'http' {
     class IncomingMessage extends stream.Readable {
         constructor(socket: Socket);
 
+        body: NodeJS.Dict<string>;
         aborted: boolean;
         httpVersion: string;
         httpVersionMajor: number;

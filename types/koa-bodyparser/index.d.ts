@@ -22,7 +22,7 @@ import * as Koa from 'koa';
 
 declare module 'koa' {
     interface Request {
-        body: string | Record<string, unknown>;
+        body?: any;
         rawBody: string;
     }
 }
