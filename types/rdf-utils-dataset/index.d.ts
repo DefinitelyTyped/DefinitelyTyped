@@ -10,4 +10,4 @@ type OutQuad<T> = T extends DatasetCore<infer Q, any> ? Q : never;
 
 export function resource<D extends DatasetIndexed<BaseQuad>>(input: D, subject: OutQuad<D>['subject']): D;
 
-export {}
+export {};
