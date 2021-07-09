@@ -2561,6 +2561,10 @@
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
         },
+        "maplibre-gl": {
+            "libraryName": "maplibre-gl",
+            "asOfVersion": "1.14.0"
+        },
         "maquette": {
             "libraryName": "maquette",
             "asOfVersion": "2.1.6"
