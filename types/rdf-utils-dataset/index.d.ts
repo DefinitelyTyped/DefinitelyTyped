@@ -4,10 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { DatasetIndexed } from 'rdf-dataset-indexed/dataset';
-import { BaseQuad, DatasetCore } from 'rdf-js';
+import { BaseQuad, Term } from 'rdf-js';
 
-type OutQuad<T> = T extends DatasetCore<infer Q, any> ? Q : never;
-
-declare function resource<D extends DatasetIndexed<BaseQuad>>(input: D, subject: OutQuad<D>['subject']): D;
+declare function resource<D extends DatasetIndexed<BaseQuad>>(input: D, subject: Term): D;
 
 export { resource };
