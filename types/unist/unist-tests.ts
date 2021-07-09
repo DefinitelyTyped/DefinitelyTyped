@@ -1,4 +1,4 @@
-import { Point, Position, Node, Literal, Parent, NodeData, Data } from 'unist';
+import { Data, Point, Position, Node, Literal, Parent, NodeData } from 'unist';
 
 const data: Data = {
     string: 'string',
@@ -82,7 +82,8 @@ const nodeData2: Node<{ key: string }> = {
     data: {},
 };
 
-type DataType = NodeData<Node<string>>; // $ExpectError
+// $ExpectError
+type DataType = NodeData<Node<string>>;
 
 const literalData: Literal<string, { key: string }> = {
     type: 'literalData',
@@ -118,3 +119,30 @@ const nestedliteralParentData: Parent<Literal<string, typeof data1>, typeof data
         },
     ],
 };
+
+function exampleNodeUtil(node: Node) {}
+
+const inferredNode = { type: 'example' };
+const inferredNotNode = { notType: 'whoops' };
+
+exampleNodeUtil(inferredNode);
+// $ExpectError
+exampleNodeUtil(inferredNotNode);
+
+function exampleLiteralUtil(node: Literal) {}
+
+const inferredLiertal = { type: 'example', value: 'value' };
+const inferredNotLiteral = { type: 'example' };
+
+exampleLiteralUtil(inferredLiertal);
+// $ExpectError
+exampleLiteralUtil(inferredNotLiteral);
+
+function exampleParentUtil(node: Parent) {}
+
+const inferredParent = { type: 'example', children: [inferredNode] };
+const inferredNotParent = { type: 'example', children1: [] };
+
+exampleParentUtil(inferredParent);
+// $ExpectError
+exampleParentUtil(inferredNotParent);
