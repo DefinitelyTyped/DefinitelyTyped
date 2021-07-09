@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.9
 
-export type DurationUnitFormatStyle = 'custom' | 'timer' | 'long' | 'short' | 'narrow';
+export type DurationUnitFormatStyle = typeof DurationUnitFormat.styles[keyof typeof DurationUnitFormat.styles];
 
-export type DurationUnitFormatUnit = 'day' | 'hour' | 'minute' | 'second';
+export type DurationUnitFormatUnit = typeof DurationUnitFormat.units[keyof typeof DurationUnitFormat.units];
 
 export type DurationUnitFormatPartType = DurationUnitFormatUnit | 'literal' | 'group' | 'unit';
 
