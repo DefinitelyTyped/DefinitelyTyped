@@ -6,6 +6,7 @@
 //                 Titus Wormer <https://github.com/wooorm>
 //                 Junyoung Choi <https://github.com/rokt33r>
 //                 Ben Moon <https://github.com/GuiltyDolphin>
+//                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -82,16 +83,16 @@ export interface Point {
 /**
  * Nodes containing other nodes.
  */
-export interface Parent extends Node {
+export interface Parent<T extends Node = Node> extends Node {
     /**
      * List representing the children of a node.
      */
-    children: Node[];
+    children: T[];
 }
 
 /**
  * Nodes containing a value.
  */
-export interface Literal extends Node {
-    value: unknown;
+export interface Literal<T = unknown> extends Node {
+    value: T;
 }

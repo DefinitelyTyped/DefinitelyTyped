@@ -29,7 +29,7 @@ const node: Node = {
     position
 };
 
-const text: Literal = {
+const text: Literal<string> = {
     type: 'text',
     data,
     position,
@@ -54,3 +54,10 @@ const noChildrenInNode: Node = {
     // $ExpectError
     children: []
 };
+
+const literalParent: Parent<Literal<string>> = {
+    type: 'literalParent',
+    data,
+    position,
+    children: [text]
+}
