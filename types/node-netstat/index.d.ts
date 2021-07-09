@@ -47,12 +47,12 @@ declare namespace nodeNetstat {
     };
 
     interface Options {
-        sync?: boolean;
-        done?: (error?: string) => void;
-        platform?: string;
-        limit?: number;
-        filter?: Filter;
-        watch?: boolean;
+        sync?: boolean | undefined;
+        done?: ((error?: string) => void) | undefined;
+        platform?: string | undefined;
+        limit?: number | undefined;
+        filter?: Filter | undefined;
+        watch?: boolean | undefined;
     }
 
     type SyncResult = any;
@@ -67,7 +67,7 @@ declare namespace nodeNetstat {
         remote: Address;
         state: State;
         pid: number;
-        processName?: string;
+        processName?: string | undefined;
     }
 
     interface RawItem {
@@ -76,13 +76,13 @@ declare namespace nodeNetstat {
         remote: string;
         state: string;
         pid: string;
-        processName?: string;
+        processName?: string | undefined;
     }
 
     type Filter = RecursivePartial<ParsedItem>;
 
     interface ParserFactoryOptions {
-        parseName?: boolean;
+        parseName?: boolean | undefined;
     }
     type ParserFactory = (options?: ParserFactoryOptions) => Parser;
 

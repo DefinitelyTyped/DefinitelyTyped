@@ -29,21 +29,21 @@ export interface PromisePollerOptions<T> {
    * Time to wait ms until taskFn runs again.
    * @default 1000
    */
-  interval?: number;
+  interval?: number | undefined;
   /**
    * For each poll attempt, reject after this timeout has passed
    */
-  timeout?: number;
+  timeout?: number | undefined;
   /**
    * Timeout in ms to reject taskFn's promise regardless of retries -- A
    * timeout for the entire master polling operation.
    */
-  masterTimeout?: number;
+  masterTimeout?: number | undefined;
   /**
    * Number of times to attempt taskFn.
    * @default 5
    */
-  retries?: number;
+  retries?: number | undefined;
   /**
    * If the poll attempt failed, and you want to abort further polling, return
    * `false` from this function. On the other hand, if your poll resolved to a
@@ -90,30 +90,30 @@ export interface PromisePollerOptions<T> {
    *
    * @default 'fixed-interval'
    */
-  strategy?: 'fixed-interval' | 'linear-backoff' | 'exponential-backoff';
+  strategy?: 'fixed-interval' | 'linear-backoff' | 'exponential-backoff' | undefined;
   /**
    * `strategy: 'linear-backoff'` --
    * The starting value to use for the polling interval
    * @default 1000
    */
-  start?: number;
+  start?: number | undefined;
   /**
    * `strategy: 'linear-backoff'` --
    * The amount to increase the interval by on each poll attempt.
    */
-  increment?: number;
+  increment?: number | undefined;
   /**
    * `strategy: 'exponential-backoff'` --
    * The minimum interval amount to use
    * @default 1000
    */
-  min?: number;
+  min?: number | undefined;
   /**
    * `strategy: 'exponential-backoff'` --
    * The maximum interval amount to use
    * @default 30000
    */
-  max?: number;
+  max?: number | undefined;
   /**
    * ## Progress notification
    * You can also specify a progress callback function. Each time the task
@@ -141,5 +141,5 @@ export interface PromisePollerOptions<T> {
    * ```
    * @example 'App Server Poller'
    */
-  name?: string;
+  name?: string | undefined;
 }

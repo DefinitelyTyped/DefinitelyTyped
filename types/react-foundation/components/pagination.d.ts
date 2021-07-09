@@ -10,7 +10,7 @@ import { FlexboxPropTypes } from '../utils';
  */
 export declare const Pagination: React.StatelessComponent<PaginationProps>;
 export interface PaginationProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLUListElement> {
-    isCentered?: boolean;
+    isCentered?: boolean | undefined;
 }
 /**
  * Pagination item component.
@@ -20,8 +20,8 @@ export interface PaginationProps extends FlexboxPropTypes, React.HTMLAttributes<
  */
 export declare const PaginationItem: React.StatelessComponent<PaginationItemProps>;
 export interface PaginationItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLLIElement> {
-    isCurrent?: boolean;
-    isDisabled?: boolean;
+    isCurrent?: boolean | undefined;
+    isDisabled?: boolean | undefined;
 }
 /**
  * Pagination previous wrapper-component.

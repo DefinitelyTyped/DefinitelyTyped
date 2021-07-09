@@ -6,14 +6,14 @@ import MenuRadioGroup from "./MenuRadioGroup";
 import MenuSelectableItem from "./MenuSelectableItem";
 
 export interface MenuProps {
-    autoclose?: boolean;
-    children?: React.ReactNode;
-    level?: number;
+    autoclose?: boolean | undefined;
+    children?: React.ReactNode | undefined;
+    level?: number | undefined;
     onClose?(): void;
     onKeyDown?(evt: React.KeyboardEvent<HTMLUListElement>): void;
-    open?: boolean;
-    x?: number | readonly number[];
-    y?: number | readonly number[];
+    open?: boolean | undefined;
+    x?: number | readonly number[] | undefined;
+    y?: number | readonly number[] | undefined;
 }
 
 export interface MenuComponent extends React.FC<MenuProps> {

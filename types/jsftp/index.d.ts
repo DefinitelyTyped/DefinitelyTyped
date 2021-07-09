@@ -9,12 +9,12 @@ import { Socket } from 'net';
 import { EventEmitter } from 'events';
 
 export interface JsftpOpts {
-    host?: string;
-    port?: number;
-    user?: string;
-    pass?: string;
-    createSocket?: ({ port, host }: { port: number, host: string }, firstAction: () => {}) => Socket;
-    useList?: boolean;
+    host?: string | undefined;
+    port?: number | undefined;
+    user?: string | undefined;
+    pass?: string | undefined;
+    createSocket?: (({ port, host }: { port: number, host: string }, firstAction: () => {}) => Socket) | undefined;
+    useList?: boolean | undefined;
 }
 
 export type ErrorCallback = (err: Error) => void;

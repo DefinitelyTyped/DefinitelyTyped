@@ -36,31 +36,31 @@ declare namespace flowjs {
     }
 
     interface FlowOptions {
-        target?: string;
-        singleFile?: boolean;
-        chunkSize?: number;
-        forceChunkSize?: boolean;
-        simultaneousUploads?: number;
-        fileParameterName?: string;
-        query?: object;
-        headers?: object;
-        withCredentials?: boolean;
-        method?: string;
-        testMethod?: string;
-        uploadMethod?: string;
-        allowDuplicateUploads?: boolean;
-        prioritizeFirstAndLastChunk?: boolean;
-        testChunks?: boolean;
-        preprocess?: (chunk: FlowChunk) => void;
-        initFileFn?: (file: FlowFile, chunk: FlowChunk) => void;
-        readFileFn?: (file: FlowFile, startByte: number, endByte: number, fileType: string, chunk: FlowChunk) => void;
-        generateUniqueIdentifier?: (file: FlowFile) => any;
-        maxChunkRetries?: number;
-        chunkRetryInterval?: number;
-        progressCallbacksInterval?: number;
-        speedSmoothingFactor?: number;
-        successStatuses?: number[];
-        permanentErrors?: number[];
+        target?: string | undefined;
+        singleFile?: boolean | undefined;
+        chunkSize?: number | undefined;
+        forceChunkSize?: boolean | undefined;
+        simultaneousUploads?: number | undefined;
+        fileParameterName?: string | undefined;
+        query?: object | undefined;
+        headers?: object | undefined;
+        withCredentials?: boolean | undefined;
+        method?: string | undefined;
+        testMethod?: string | undefined;
+        uploadMethod?: string | undefined;
+        allowDuplicateUploads?: boolean | undefined;
+        prioritizeFirstAndLastChunk?: boolean | undefined;
+        testChunks?: boolean | undefined;
+        preprocess?: ((chunk: FlowChunk) => void) | undefined;
+        initFileFn?: ((file: FlowFile, chunk: FlowChunk) => void) | undefined;
+        readFileFn?: ((file: FlowFile, startByte: number, endByte: number, fileType: string, chunk: FlowChunk) => void) | undefined;
+        generateUniqueIdentifier?: ((file: FlowFile) => any) | undefined;
+        maxChunkRetries?: number | undefined;
+        chunkRetryInterval?: number | undefined;
+        progressCallbacksInterval?: number | undefined;
+        speedSmoothingFactor?: number | undefined;
+        successStatuses?: number[] | undefined;
+        permanentErrors?: number[] | undefined;
     }
 
     interface FlowFile {

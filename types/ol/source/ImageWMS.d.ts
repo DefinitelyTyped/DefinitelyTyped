@@ -11,16 +11,16 @@ import { AttributionLike } from './Source';
 import WMSServerType from './WMSServerType';
 
 export interface Options {
-    attributions?: AttributionLike;
-    crossOrigin?: null | string;
-    hidpi?: boolean;
-    serverType?: WMSServerType | string;
-    imageLoadFunction?: LoadFunction;
-    imageSmoothing?: boolean;
+    attributions?: AttributionLike | undefined;
+    crossOrigin?: null | string | undefined;
+    hidpi?: boolean | undefined;
+    serverType?: WMSServerType | string | undefined;
+    imageLoadFunction?: LoadFunction | undefined;
+    imageSmoothing?: boolean | undefined;
     params: { [key: string]: any };
-    projection?: ProjectionLike;
-    ratio?: number;
-    resolutions?: number[];
+    projection?: ProjectionLike | undefined;
+    ratio?: number | undefined;
+    resolutions?: number[] | undefined;
     url: string;
 }
 export default class ImageWMS extends ImageSource {

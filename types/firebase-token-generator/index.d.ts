@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface TokenOptions {
-  expires?: number;
-  notBefore?: number;
-  admin?: boolean;
-  debug?: boolean;
-  simulate?: boolean;
-  iat?: number;
+  expires?: number | undefined;
+  notBefore?: number | undefined;
+  admin?: boolean | undefined;
+  debug?: boolean | undefined;
+  simulate?: boolean | undefined;
+  iat?: number | undefined;
 }
 
 declare class FirebaseTokenGenerator {

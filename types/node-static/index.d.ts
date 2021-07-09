@@ -15,12 +15,12 @@ export type Finish = (status: number, headers?: Headers) => void;
 export type Callback = (e: Error) => void;
 
 export interface Options {
-    headers?: Headers;
-    indexFile?: string;
-    cache?: number | boolean;
-    serverInfo?: Buffer;
-    server?: string;
-    "cache-control"?: string;
+    headers?: Headers | undefined;
+    indexFile?: string | undefined;
+    cache?: number | boolean | undefined;
+    serverInfo?: Buffer | undefined;
+    server?: string | undefined;
+    "cache-control"?: string | undefined;
 }
 
 export interface ByteRange {

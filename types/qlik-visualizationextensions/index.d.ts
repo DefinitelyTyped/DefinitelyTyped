@@ -89,13 +89,13 @@ declare namespace BackendAPI {
          * Some text.
          * This parameter is optional.
          */
-        qText?: string;
+        qText?: string | undefined;
 
         /**
          * A value.
          * This parameter is optional.
          */
-        qNum?: number;
+        qNum?: number | undefined;
 
         /**
          * Rank number of the value, starting from 0.
@@ -885,7 +885,7 @@ declare namespace RootAPI {
         /**
          * Optional Qlik host.
          */
-        host?: string;
+        host?: string | undefined;
 
         /**
          * Port number.
@@ -895,22 +895,22 @@ declare namespace RootAPI {
         /**
          * Optional. Qlik virtual proxy. "/" if no proxy.
          */
-        prefix?: string;
+        prefix?: string | undefined;
 
         /**
          * Optional. Use SSL.
          */
-        isSecure?: boolean;
+        isSecure?: boolean | undefined;
 
         /**
          * Optional. Open app without loading data. Introduced in version 1.1.
          */
-        openWithoutData?: boolean;
+        openWithoutData?: boolean | undefined;
 
         /**
          * Optional. Unique identity for the session. If omitted, the session will be shared.
          */
-        identity?: string;
+        identity?: string | undefined;
     }
 
     interface IGlobalConfig {
@@ -944,7 +944,7 @@ declare namespace RootAPI {
         /**
          * Optional Qlik host.
          */
-        host?: string;
+        host?: string | undefined;
 
         /**
          * Port number.
@@ -1633,12 +1633,12 @@ declare namespace FieldAPI {
         /**
          * Optional. Cell numeric value, if cell is numeric.
          */
-        qNum?: number;
+        qNum?: number | undefined;
 
         /**
          * Optional. Frequency, if calculated by the Qlik engine.
          */
-        qFrequency?: string;
+        qFrequency?: string | undefined;
 
         /**
          * Selects a field value.
@@ -2038,7 +2038,7 @@ declare namespace TableAPI {
         /**
          * Optional. Number of different values. Only used for dimensions.
          */
-        qCardinal?: number;
+        qCardinal?: number | undefined;
 
         /**
          * Optional. Object with number of values in different states.
@@ -2055,18 +2055,18 @@ declare namespace TableAPI {
         /**
          * Optional. Minimum value. Only used for measures.
          */
-        qMin?: number;
+        qMin?: number | undefined;
 
         /**
          * Optional. Maximum value. Only used for measures.
          */
-        qMax?: number;
+        qMax?: number | undefined;
 
         /**
          * Optional. Error code for this column.
          * Only if column has an error. Introduced in version 2.2.
          */
-        errorCode?: number;
+        errorCode?: number | undefined;
 
         /**
          * Error message for this column.
@@ -2138,7 +2138,7 @@ declare namespace TableAPI {
         /**
          * Optional. Cell numeric value, if cell is numeric.
          */
-        qNum?: number;
+        qNum?: number | undefined;
 
         /**
          * Gets the value of this cell as a percentage of the total.
@@ -2326,31 +2326,31 @@ declare namespace ExtensionAPI {
     interface IInitialProperties {
         qHyperCubeDef?: any; // IHyperCubeDef;
         qListObjectDef?: any; // IListObjectDef;
-        fixed?: boolean;
-        width?: number;
-        percent?: boolean;
-        selectionMode?: SelectionModeType;
+        fixed?: boolean | undefined;
+        width?: number | undefined;
+        percent?: boolean | undefined;
+        selectionMode?: SelectionModeType | undefined;
     }
 
     interface ISupport {
-        snapshot?: boolean;
-        export?: boolean;
-        exportData?: boolean;
+        snapshot?: boolean | undefined;
+        export?: boolean | undefined;
+        exportData?: boolean | undefined;
     }
 
     interface IExtension {
-        definition?: IDefinition;
+        definition?: IDefinition | undefined;
         paint?($element: HTMLElement, layout?: any): void;
-        initialProperties?: IInitialProperties;
-        template?: string;
+        initialProperties?: IInitialProperties | undefined;
+        template?: string | undefined;
         controller?: any;
-        support?: ISupport;
+        support?: ISupport | undefined;
     }
 
     interface ISupport {
-        snapshot?: boolean; // | () => boolean;
-        export?: boolean; // | () => boolean;
-        canTakeSnapshot?: boolean;
+        snapshot?: boolean | undefined; // | () => boolean;
+        export?: boolean | undefined; // | () => boolean;
+        canTakeSnapshot?: boolean | undefined;
     }
 
     interface IInitialProperties {
@@ -2492,11 +2492,11 @@ declare namespace ExtensionAPI {
     }
 
     interface IItems {
-        dimentions?: IDimensions;
-        measures?: IMeasures;
-        appearance?: IAppearance;
-        sorting?: ISorting;
-        AddOns?: IAddOns;
+        dimentions?: IDimensions | undefined;
+        measures?: IMeasures | undefined;
+        appearance?: IAppearance | undefined;
+        sorting?: ISorting | undefined;
+        AddOns?: IAddOns | undefined;
         [other: string]: any;
     }
 
@@ -2510,28 +2510,28 @@ declare namespace ExtensionAPI {
 
     interface IDimensions {
         uses: "dimensions";
-        min?: number;
-        max?: number;
+        min?: number | undefined;
+        max?: number | undefined;
     }
 
     interface IAppearance {
         uses: "settings";
-        min?: number;
-        max?: number;
+        min?: number | undefined;
+        max?: number | undefined;
         items: any;
     }
 
     // ?Das selbe wie Appearance?
     interface ISettings {
         uses: "settings";
-        min?: number;
-        max?: number;
+        min?: number | undefined;
+        max?: number | undefined;
     }
 
     interface IMeasures {
         uses: "measures";
-        min?: number;
-        max?: number;
+        min?: number | undefined;
+        max?: number | undefined;
     }
 
     //#endregion

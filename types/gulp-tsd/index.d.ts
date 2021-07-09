@@ -8,10 +8,10 @@
 import gulp = require('gulp');
 
 interface IOptions {
-    command?: string;
-    latest?: boolean;
-    config?: string;
-    opts?: Object;
+    command?: string | undefined;
+    latest?: boolean | undefined;
+    config?: string | undefined;
+    opts?: Object | undefined;
 }
 
 declare function tsd(opts?: IOptions, callback?: gulp.TaskCallback): NodeJS.ReadWriteStream;

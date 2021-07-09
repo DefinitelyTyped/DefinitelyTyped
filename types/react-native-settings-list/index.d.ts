@@ -11,134 +11,134 @@ interface SettingsListProps {
     /**
      * default: white
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
     /**
      * default: black
      */
-    borderColor?: string;
+    borderColor?: string | undefined;
     /**
      * default: 50
      */
-    defaultItemSize?: number;
+    defaultItemSize?: number | undefined;
     /**
      * default: transparent
      */
-    underlayColor?: string;
+    underlayColor?: string | undefined;
     /**
      * default: {fontSize: 16}
      */
-    defaultTitleStyle?: StyleProp<TextStyle>;
-    defaultTitleInfoPosition?: string;
-    scrollViewProps?: object;
+    defaultTitleStyle?: StyleProp<TextStyle> | undefined;
+    defaultTitleInfoPosition?: string | undefined;
+    scrollViewProps?: object | undefined;
 }
 declare class SettingsList extends Component<SettingsListProps> {}
 
 interface HeaderProps {
-    headerText?: string;
-    headerStyle?: StyleProp<TextStyle>;
-    headerRef?: () => void;
+    headerText?: string | undefined;
+    headerStyle?: StyleProp<TextStyle> | undefined;
+    headerRef?: (() => void) | undefined;
     /**
      * default: 1
      */
-    headerNumberOfLines?: number;
+    headerNumberOfLines?: number | undefined;
 }
 
 interface ItemProps {
     /**
      * Title being displayed
      */
-    title?: string;
-    titleStyle?: StyleProp<TextStyle>;
+    title?: string | undefined;
+    titleStyle?: StyleProp<TextStyle> | undefined;
     /**
      * Icon displayed on the left of the settings item
      */
-    icon?: ReactNode;
+    icon?: ReactNode | undefined;
 
     /**
      * Item Box Style
      */
-    itemBoxStyle?: StyleProp<ViewStyle>;
+    itemBoxStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * Title Box Style
      */
-    titleBoxStyle?: StyleProp<ViewStyle>;
+    titleBoxStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * Right Side Style
      */
-    rightSideStyle?: StyleProp<ViewStyle>;
+    rightSideStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * Editable Right Side Style
      */
-    editableTextStyle?: StyleProp<TextStyle>;
+    editableTextStyle?: StyleProp<TextStyle> | undefined;
 
     /**
      * Individual item width.  Can be globally set in the parent.  Will become deprecated
      */
-    itemWidth?: number;
+    itemWidth?: number | undefined;
     /**
      * Allows for the item to become an auth item
      */
-    isAuth?: boolean;
-    authPropsUser?: object;
-    authPropsPW?: object;
+    isAuth?: boolean | undefined;
+    authPropsUser?: object | undefined;
+    authPropsPW?: object | undefined;
     /**
      * Individual background color. Can be globally set in the parent. Will become Deprecated
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
 
     /**
      * Individual underlay click color.  Can be globally set in the parent.
      */
-    underlayColor?: string;
+    underlayColor?: string | undefined;
     /**
      * Item on press callback.
      */
-    onPress?: () => void;
+    onPress?: (() => void) | undefined;
     /**
      * Item on long press callback.
      */
-    onLongPress?: () => void;
+    onLongPress?: (() => void) | undefined;
     /**
      * Enable or disable the > arrow at the end of the setting item.
      * Default: true
      */
-    hasNavArrow?: boolean;
-    arrowIcon?: ReactNode;
+    hasNavArrow?: boolean | undefined;
+    arrowIcon?: ReactNode | undefined;
 
-    arrowStyle?: StyleProp<ImageStyle>;
+    arrowStyle?: StyleProp<ImageStyle> | undefined;
     /**
      * Enable or disable a Switch component
      */
-    hasSwitch?: boolean;
+    hasSwitch?: boolean | undefined;
     /**
      * Switch state
      */
-    switchState?: boolean;
+    switchState?: boolean | undefined;
     /**
      * Switch props
      */
-    switchProps?: object;
+    switchProps?: object | undefined;
     /**
      * On value change callback
      */
-    switchOnValueChange?: () => void;
+    switchOnValueChange?: (() => void) | undefined;
     /**
      * Right side information on the setting item
      */
-    titleInfo?: string;
-    titleInfoStyle?: StyleProp<TextStyle>;
+    titleInfo?: string | undefined;
+    titleInfoStyle?: StyleProp<TextStyle> | undefined;
     /**
      * If 'Bottom'; info is placed beneath the title
      */
-    titleInfoPosition?: string;
+    titleInfoPosition?: string | undefined;
     /**
      * Right side content
      */
-    rightSideContent?: ReactNode;
+    rightSideContent?: ReactNode | undefined;
     /* Gives opens to hide specific borders */
-    borderHide?: "Top" | "Bottom" | "Both";
+    borderHide?: "Top" | "Bottom" | "Both" | undefined;
 
-    itemRef?: () => void;
+    itemRef?: (() => void) | undefined;
 }
 
 declare namespace SettingsList {

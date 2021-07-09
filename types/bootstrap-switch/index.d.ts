@@ -20,23 +20,23 @@ declare namespace BootstrapSwitch {
     interface BootstrapSwitchEventObject extends JQueryEventObject { }
 
     interface BootstrapSwitchOptions {
-        state?: boolean;
-        size?: string;
-        animate?: boolean;
-        disabled?: boolean;
-        readonly?: boolean;
-        indeterminate?: boolean;
-        invers?: boolean;
-        radioAllOff?: boolean;
-        onColor?: string;
-        offColor?: string;
-        onText?: string;
-        offText?: string;
-        labelText?: string;
-        handleWidth?: string;
-        labelWidth?: string;
-        baseClass?: string;
-        wrapperClass?: string;
+        state?: boolean | undefined;
+        size?: string | undefined;
+        animate?: boolean | undefined;
+        disabled?: boolean | undefined;
+        readonly?: boolean | undefined;
+        indeterminate?: boolean | undefined;
+        invers?: boolean | undefined;
+        radioAllOff?: boolean | undefined;
+        onColor?: string | undefined;
+        offColor?: string | undefined;
+        onText?: string | undefined;
+        offText?: string | undefined;
+        labelText?: string | undefined;
+        handleWidth?: string | undefined;
+        labelWidth?: string | undefined;
+        baseClass?: string | undefined;
+        wrapperClass?: string | undefined;
         onInit?: any;
         onSwitchChange?: any;
     }

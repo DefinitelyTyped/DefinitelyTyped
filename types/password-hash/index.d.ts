@@ -9,7 +9,7 @@ export declare function verify(password: string, hashedPassword: string): boolea
 export declare function isHashed(password: string): boolean;
 
 export interface Options {
-    algorithm?: string;
-    saltLength?: number;
-    iterations?: number;
+    algorithm?: string | undefined;
+    saltLength?: number | undefined;
+    iterations?: number | undefined;
 }

@@ -443,16 +443,16 @@ import { Hits } from 'react-instantsearch-dom';
 () => {
   type Props = SearchBoxProvided &
     TranslatableProvided & {
-      className?: string;
-      showLoadingIndicator?: boolean;
+      className?: string | undefined;
+      showLoadingIndicator?: boolean | undefined;
 
-      submit?: JSX.Element;
-      reset?: JSX.Element;
-      loadingIndicator?: JSX.Element;
+      submit?: JSX.Element | undefined;
+      reset?: JSX.Element | undefined;
+      loadingIndicator?: JSX.Element | undefined;
 
-      onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-      onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-      onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
+      onSubmit?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+      onReset?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+      onChange?: ((event: React.SyntheticEvent<HTMLInputElement>) => any) | undefined;
     };
   interface State {
     query: string | null;

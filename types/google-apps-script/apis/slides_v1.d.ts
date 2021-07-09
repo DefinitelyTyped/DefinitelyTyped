@@ -23,7 +23,7 @@ declare namespace GoogleAppsScript {
         }
       }
       interface PresentationsCollection {
-        Pages?: Slides.Collection.Presentations.PagesCollection;
+        Pages?: Slides.Collection.Presentations.PagesCollection | undefined;
         // Applies one or more updates to the presentation.
         // Each request is validated before
         // being applied. If any request is not valid, then the entire request will
@@ -54,723 +54,723 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface AffineTransform {
-        scaleX?: number;
-        scaleY?: number;
-        shearX?: number;
-        shearY?: number;
-        translateX?: number;
-        translateY?: number;
-        unit?: string;
+        scaleX?: number | undefined;
+        scaleY?: number | undefined;
+        shearX?: number | undefined;
+        shearY?: number | undefined;
+        translateX?: number | undefined;
+        translateY?: number | undefined;
+        unit?: string | undefined;
       }
       interface AutoText {
-        content?: string;
-        style?: Slides.Schema.TextStyle;
-        type?: string;
+        content?: string | undefined;
+        style?: Slides.Schema.TextStyle | undefined;
+        type?: string | undefined;
       }
       interface BatchUpdatePresentationRequest {
-        requests?: Slides.Schema.Request[];
-        writeControl?: Slides.Schema.WriteControl;
+        requests?: Slides.Schema.Request[] | undefined;
+        writeControl?: Slides.Schema.WriteControl | undefined;
       }
       interface BatchUpdatePresentationResponse {
-        presentationId?: string;
-        replies?: Slides.Schema.Response[];
-        writeControl?: Slides.Schema.WriteControl;
+        presentationId?: string | undefined;
+        replies?: Slides.Schema.Response[] | undefined;
+        writeControl?: Slides.Schema.WriteControl | undefined;
       }
       interface Bullet {
-        bulletStyle?: Slides.Schema.TextStyle;
-        glyph?: string;
-        listId?: string;
-        nestingLevel?: number;
+        bulletStyle?: Slides.Schema.TextStyle | undefined;
+        glyph?: string | undefined;
+        listId?: string | undefined;
+        nestingLevel?: number | undefined;
       }
       interface ColorScheme {
-        colors?: Slides.Schema.ThemeColorPair[];
+        colors?: Slides.Schema.ThemeColorPair[] | undefined;
       }
       interface ColorStop {
-        alpha?: number;
-        color?: Slides.Schema.OpaqueColor;
-        position?: number;
+        alpha?: number | undefined;
+        color?: Slides.Schema.OpaqueColor | undefined;
+        position?: number | undefined;
       }
       interface CreateImageRequest {
-        elementProperties?: Slides.Schema.PageElementProperties;
-        objectId?: string;
-        url?: string;
+        elementProperties?: Slides.Schema.PageElementProperties | undefined;
+        objectId?: string | undefined;
+        url?: string | undefined;
       }
       interface CreateImageResponse {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface CreateLineRequest {
-        category?: string;
-        elementProperties?: Slides.Schema.PageElementProperties;
-        lineCategory?: string;
-        objectId?: string;
+        category?: string | undefined;
+        elementProperties?: Slides.Schema.PageElementProperties | undefined;
+        lineCategory?: string | undefined;
+        objectId?: string | undefined;
       }
       interface CreateLineResponse {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface CreateParagraphBulletsRequest {
-        bulletPreset?: string;
-        cellLocation?: Slides.Schema.TableCellLocation;
-        objectId?: string;
-        textRange?: Slides.Schema.Range;
+        bulletPreset?: string | undefined;
+        cellLocation?: Slides.Schema.TableCellLocation | undefined;
+        objectId?: string | undefined;
+        textRange?: Slides.Schema.Range | undefined;
       }
       interface CreateShapeRequest {
-        elementProperties?: Slides.Schema.PageElementProperties;
-        objectId?: string;
-        shapeType?: string;
+        elementProperties?: Slides.Schema.PageElementProperties | undefined;
+        objectId?: string | undefined;
+        shapeType?: string | undefined;
       }
       interface CreateShapeResponse {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface CreateSheetsChartRequest {
-        chartId?: number;
-        elementProperties?: Slides.Schema.PageElementProperties;
-        linkingMode?: string;
-        objectId?: string;
-        spreadsheetId?: string;
+        chartId?: number | undefined;
+        elementProperties?: Slides.Schema.PageElementProperties | undefined;
+        linkingMode?: string | undefined;
+        objectId?: string | undefined;
+        spreadsheetId?: string | undefined;
       }
       interface CreateSheetsChartResponse {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface CreateSlideRequest {
-        insertionIndex?: number;
-        objectId?: string;
-        placeholderIdMappings?: Slides.Schema.LayoutPlaceholderIdMapping[];
-        slideLayoutReference?: Slides.Schema.LayoutReference;
+        insertionIndex?: number | undefined;
+        objectId?: string | undefined;
+        placeholderIdMappings?: Slides.Schema.LayoutPlaceholderIdMapping[] | undefined;
+        slideLayoutReference?: Slides.Schema.LayoutReference | undefined;
       }
       interface CreateSlideResponse {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface CreateTableRequest {
-        columns?: number;
-        elementProperties?: Slides.Schema.PageElementProperties;
-        objectId?: string;
-        rows?: number;
+        columns?: number | undefined;
+        elementProperties?: Slides.Schema.PageElementProperties | undefined;
+        objectId?: string | undefined;
+        rows?: number | undefined;
       }
       interface CreateTableResponse {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface CreateVideoRequest {
-        elementProperties?: Slides.Schema.PageElementProperties;
-        id?: string;
-        objectId?: string;
-        source?: string;
+        elementProperties?: Slides.Schema.PageElementProperties | undefined;
+        id?: string | undefined;
+        objectId?: string | undefined;
+        source?: string | undefined;
       }
       interface CreateVideoResponse {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface CropProperties {
-        angle?: number;
-        bottomOffset?: number;
-        leftOffset?: number;
-        rightOffset?: number;
-        topOffset?: number;
+        angle?: number | undefined;
+        bottomOffset?: number | undefined;
+        leftOffset?: number | undefined;
+        rightOffset?: number | undefined;
+        topOffset?: number | undefined;
       }
       interface DeleteObjectRequest {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface DeleteParagraphBulletsRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        objectId?: string;
-        textRange?: Slides.Schema.Range;
+        cellLocation?: Slides.Schema.TableCellLocation | undefined;
+        objectId?: string | undefined;
+        textRange?: Slides.Schema.Range | undefined;
       }
       interface DeleteTableColumnRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        tableObjectId?: string;
+        cellLocation?: Slides.Schema.TableCellLocation | undefined;
+        tableObjectId?: string | undefined;
       }
       interface DeleteTableRowRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        tableObjectId?: string;
+        cellLocation?: Slides.Schema.TableCellLocation | undefined;
+        tableObjectId?: string | undefined;
       }
       interface DeleteTextRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        objectId?: string;
-        textRange?: Slides.Schema.Range;
+        cellLocation?: Slides.Schema.TableCellLocation | undefined;
+        objectId?: string | undefined;
+        textRange?: Slides.Schema.Range | undefined;
       }
       interface Dimension {
-        magnitude?: number;
-        unit?: string;
+        magnitude?: number | undefined;
+        unit?: string | undefined;
       }
       interface DuplicateObjectRequest {
-        objectId?: string;
-        objectIds?: object;
+        objectId?: string | undefined;
+        objectIds?: object | undefined;
       }
       interface DuplicateObjectResponse {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface Group {
-        children?: Slides.Schema.PageElement[];
+        children?: Slides.Schema.PageElement[] | undefined;
       }
       interface GroupObjectsRequest {
-        childrenObjectIds?: string[];
-        groupObjectId?: string;
+        childrenObjectIds?: string[] | undefined;
+        groupObjectId?: string | undefined;
       }
       interface GroupObjectsResponse {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface Image {
-        contentUrl?: string;
-        imageProperties?: Slides.Schema.ImageProperties;
-        sourceUrl?: string;
+        contentUrl?: string | undefined;
+        imageProperties?: Slides.Schema.ImageProperties | undefined;
+        sourceUrl?: string | undefined;
       }
       interface ImageProperties {
-        brightness?: number;
-        contrast?: number;
-        cropProperties?: Slides.Schema.CropProperties;
-        link?: Slides.Schema.Link;
-        outline?: Slides.Schema.Outline;
-        recolor?: Slides.Schema.Recolor;
-        shadow?: Slides.Schema.Shadow;
-        transparency?: number;
+        brightness?: number | undefined;
+        contrast?: number | undefined;
+        cropProperties?: Slides.Schema.CropProperties | undefined;
+        link?: Slides.Schema.Link | undefined;
+        outline?: Slides.Schema.Outline | undefined;
+        recolor?: Slides.Schema.Recolor | undefined;
+        shadow?: Slides.Schema.Shadow | undefined;
+        transparency?: number | undefined;
       }
       interface InsertTableColumnsRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        insertRight?: boolean;
-        number?: number;
-        tableObjectId?: string;
+        cellLocation?: Slides.Schema.TableCellLocation | undefined;
+        insertRight?: boolean | undefined;
+        number?: number | undefined;
+        tableObjectId?: string | undefined;
       }
       interface InsertTableRowsRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        insertBelow?: boolean;
-        number?: number;
-        tableObjectId?: string;
+        cellLocation?: Slides.Schema.TableCellLocation | undefined;
+        insertBelow?: boolean | undefined;
+        number?: number | undefined;
+        tableObjectId?: string | undefined;
       }
       interface InsertTextRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        insertionIndex?: number;
-        objectId?: string;
-        text?: string;
+        cellLocation?: Slides.Schema.TableCellLocation | undefined;
+        insertionIndex?: number | undefined;
+        objectId?: string | undefined;
+        text?: string | undefined;
       }
       interface LayoutPlaceholderIdMapping {
-        layoutPlaceholder?: Slides.Schema.Placeholder;
-        layoutPlaceholderObjectId?: string;
-        objectId?: string;
+        layoutPlaceholder?: Slides.Schema.Placeholder | undefined;
+        layoutPlaceholderObjectId?: string | undefined;
+        objectId?: string | undefined;
       }
       interface LayoutProperties {
-        displayName?: string;
-        masterObjectId?: string;
-        name?: string;
+        displayName?: string | undefined;
+        masterObjectId?: string | undefined;
+        name?: string | undefined;
       }
       interface LayoutReference {
-        layoutId?: string;
-        predefinedLayout?: string;
+        layoutId?: string | undefined;
+        predefinedLayout?: string | undefined;
       }
       interface Line {
-        lineCategory?: string;
-        lineProperties?: Slides.Schema.LineProperties;
-        lineType?: string;
+        lineCategory?: string | undefined;
+        lineProperties?: Slides.Schema.LineProperties | undefined;
+        lineType?: string | undefined;
       }
       interface LineConnection {
-        connectedObjectId?: string;
-        connectionSiteIndex?: number;
+        connectedObjectId?: string | undefined;
+        connectionSiteIndex?: number | undefined;
       }
       interface LineFill {
-        solidFill?: Slides.Schema.SolidFill;
+        solidFill?: Slides.Schema.SolidFill | undefined;
       }
       interface LineProperties {
-        dashStyle?: string;
-        endArrow?: string;
-        endConnection?: Slides.Schema.LineConnection;
-        lineFill?: Slides.Schema.LineFill;
-        link?: Slides.Schema.Link;
-        startArrow?: string;
-        startConnection?: Slides.Schema.LineConnection;
-        weight?: Slides.Schema.Dimension;
+        dashStyle?: string | undefined;
+        endArrow?: string | undefined;
+        endConnection?: Slides.Schema.LineConnection | undefined;
+        lineFill?: Slides.Schema.LineFill | undefined;
+        link?: Slides.Schema.Link | undefined;
+        startArrow?: string | undefined;
+        startConnection?: Slides.Schema.LineConnection | undefined;
+        weight?: Slides.Schema.Dimension | undefined;
       }
       interface Link {
-        pageObjectId?: string;
-        relativeLink?: string;
-        slideIndex?: number;
-        url?: string;
+        pageObjectId?: string | undefined;
+        relativeLink?: string | undefined;
+        slideIndex?: number | undefined;
+        url?: string | undefined;
       }
       interface List {
-        listId?: string;
-        nestingLevel?: object;
+        listId?: string | undefined;
+        nestingLevel?: object | undefined;
       }
       interface MasterProperties {
-        displayName?: string;
+        displayName?: string | undefined;
       }
       interface MergeTableCellsRequest {
-        objectId?: string;
-        tableRange?: Slides.Schema.TableRange;
+        objectId?: string | undefined;
+        tableRange?: Slides.Schema.TableRange | undefined;
       }
       interface NestingLevel {
-        bulletStyle?: Slides.Schema.TextStyle;
+        bulletStyle?: Slides.Schema.TextStyle | undefined;
       }
       interface NotesProperties {
-        speakerNotesObjectId?: string;
+        speakerNotesObjectId?: string | undefined;
       }
       interface OpaqueColor {
-        rgbColor?: Slides.Schema.RgbColor;
-        themeColor?: string;
+        rgbColor?: Slides.Schema.RgbColor | undefined;
+        themeColor?: string | undefined;
       }
       interface OptionalColor {
-        opaqueColor?: Slides.Schema.OpaqueColor;
+        opaqueColor?: Slides.Schema.OpaqueColor | undefined;
       }
       interface Outline {
-        dashStyle?: string;
-        outlineFill?: Slides.Schema.OutlineFill;
-        propertyState?: string;
-        weight?: Slides.Schema.Dimension;
+        dashStyle?: string | undefined;
+        outlineFill?: Slides.Schema.OutlineFill | undefined;
+        propertyState?: string | undefined;
+        weight?: Slides.Schema.Dimension | undefined;
       }
       interface OutlineFill {
-        solidFill?: Slides.Schema.SolidFill;
+        solidFill?: Slides.Schema.SolidFill | undefined;
       }
       interface Page {
-        layoutProperties?: Slides.Schema.LayoutProperties;
-        masterProperties?: Slides.Schema.MasterProperties;
-        notesProperties?: Slides.Schema.NotesProperties;
-        objectId?: string;
-        pageElements?: Slides.Schema.PageElement[];
-        pageProperties?: Slides.Schema.PageProperties;
-        pageType?: string;
-        revisionId?: string;
-        slideProperties?: Slides.Schema.SlideProperties;
+        layoutProperties?: Slides.Schema.LayoutProperties | undefined;
+        masterProperties?: Slides.Schema.MasterProperties | undefined;
+        notesProperties?: Slides.Schema.NotesProperties | undefined;
+        objectId?: string | undefined;
+        pageElements?: Slides.Schema.PageElement[] | undefined;
+        pageProperties?: Slides.Schema.PageProperties | undefined;
+        pageType?: string | undefined;
+        revisionId?: string | undefined;
+        slideProperties?: Slides.Schema.SlideProperties | undefined;
       }
       interface PageBackgroundFill {
-        propertyState?: string;
-        solidFill?: Slides.Schema.SolidFill;
-        stretchedPictureFill?: Slides.Schema.StretchedPictureFill;
+        propertyState?: string | undefined;
+        solidFill?: Slides.Schema.SolidFill | undefined;
+        stretchedPictureFill?: Slides.Schema.StretchedPictureFill | undefined;
       }
       interface PageElement {
-        description?: string;
-        elementGroup?: Slides.Schema.Group;
-        image?: Slides.Schema.Image;
-        line?: Slides.Schema.Line;
-        objectId?: string;
-        shape?: Slides.Schema.Shape;
-        sheetsChart?: Slides.Schema.SheetsChart;
-        size?: Slides.Schema.Size;
-        table?: Slides.Schema.Table;
-        title?: string;
-        transform?: Slides.Schema.AffineTransform;
-        video?: Slides.Schema.Video;
-        wordArt?: Slides.Schema.WordArt;
+        description?: string | undefined;
+        elementGroup?: Slides.Schema.Group | undefined;
+        image?: Slides.Schema.Image | undefined;
+        line?: Slides.Schema.Line | undefined;
+        objectId?: string | undefined;
+        shape?: Slides.Schema.Shape | undefined;
+        sheetsChart?: Slides.Schema.SheetsChart | undefined;
+        size?: Slides.Schema.Size | undefined;
+        table?: Slides.Schema.Table | undefined;
+        title?: string | undefined;
+        transform?: Slides.Schema.AffineTransform | undefined;
+        video?: Slides.Schema.Video | undefined;
+        wordArt?: Slides.Schema.WordArt | undefined;
       }
       interface PageElementProperties {
-        pageObjectId?: string;
-        size?: Slides.Schema.Size;
-        transform?: Slides.Schema.AffineTransform;
+        pageObjectId?: string | undefined;
+        size?: Slides.Schema.Size | undefined;
+        transform?: Slides.Schema.AffineTransform | undefined;
       }
       interface PageProperties {
-        colorScheme?: Slides.Schema.ColorScheme;
-        pageBackgroundFill?: Slides.Schema.PageBackgroundFill;
+        colorScheme?: Slides.Schema.ColorScheme | undefined;
+        pageBackgroundFill?: Slides.Schema.PageBackgroundFill | undefined;
       }
       interface ParagraphMarker {
-        bullet?: Slides.Schema.Bullet;
-        style?: Slides.Schema.ParagraphStyle;
+        bullet?: Slides.Schema.Bullet | undefined;
+        style?: Slides.Schema.ParagraphStyle | undefined;
       }
       interface ParagraphStyle {
-        alignment?: string;
-        direction?: string;
-        indentEnd?: Slides.Schema.Dimension;
-        indentFirstLine?: Slides.Schema.Dimension;
-        indentStart?: Slides.Schema.Dimension;
-        lineSpacing?: number;
-        spaceAbove?: Slides.Schema.Dimension;
-        spaceBelow?: Slides.Schema.Dimension;
-        spacingMode?: string;
+        alignment?: string | undefined;
+        direction?: string | undefined;
+        indentEnd?: Slides.Schema.Dimension | undefined;
+        indentFirstLine?: Slides.Schema.Dimension | undefined;
+        indentStart?: Slides.Schema.Dimension | undefined;
+        lineSpacing?: number | undefined;
+        spaceAbove?: Slides.Schema.Dimension | undefined;
+        spaceBelow?: Slides.Schema.Dimension | undefined;
+        spacingMode?: string | undefined;
       }
       interface Placeholder {
-        index?: number;
-        parentObjectId?: string;
-        type?: string;
+        index?: number | undefined;
+        parentObjectId?: string | undefined;
+        type?: string | undefined;
       }
       interface Presentation {
-        layouts?: Slides.Schema.Page[];
-        locale?: string;
-        masters?: Slides.Schema.Page[];
-        notesMaster?: Slides.Schema.Page;
-        pageSize?: Slides.Schema.Size;
-        presentationId?: string;
-        revisionId?: string;
-        slides?: Slides.Schema.Page[];
-        title?: string;
+        layouts?: Slides.Schema.Page[] | undefined;
+        locale?: string | undefined;
+        masters?: Slides.Schema.Page[] | undefined;
+        notesMaster?: Slides.Schema.Page | undefined;
+        pageSize?: Slides.Schema.Size | undefined;
+        presentationId?: string | undefined;
+        revisionId?: string | undefined;
+        slides?: Slides.Schema.Page[] | undefined;
+        title?: string | undefined;
       }
       interface Range {
-        endIndex?: number;
-        startIndex?: number;
-        type?: string;
+        endIndex?: number | undefined;
+        startIndex?: number | undefined;
+        type?: string | undefined;
       }
       interface Recolor {
-        name?: string;
-        recolorStops?: Slides.Schema.ColorStop[];
+        name?: string | undefined;
+        recolorStops?: Slides.Schema.ColorStop[] | undefined;
       }
       interface RefreshSheetsChartRequest {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface ReplaceAllShapesWithImageRequest {
-        containsText?: Slides.Schema.SubstringMatchCriteria;
-        imageReplaceMethod?: string;
-        imageUrl?: string;
-        pageObjectIds?: string[];
-        replaceMethod?: string;
+        containsText?: Slides.Schema.SubstringMatchCriteria | undefined;
+        imageReplaceMethod?: string | undefined;
+        imageUrl?: string | undefined;
+        pageObjectIds?: string[] | undefined;
+        replaceMethod?: string | undefined;
       }
       interface ReplaceAllShapesWithImageResponse {
-        occurrencesChanged?: number;
+        occurrencesChanged?: number | undefined;
       }
       interface ReplaceAllShapesWithSheetsChartRequest {
-        chartId?: number;
-        containsText?: Slides.Schema.SubstringMatchCriteria;
-        linkingMode?: string;
-        pageObjectIds?: string[];
-        spreadsheetId?: string;
+        chartId?: number | undefined;
+        containsText?: Slides.Schema.SubstringMatchCriteria | undefined;
+        linkingMode?: string | undefined;
+        pageObjectIds?: string[] | undefined;
+        spreadsheetId?: string | undefined;
       }
       interface ReplaceAllShapesWithSheetsChartResponse {
-        occurrencesChanged?: number;
+        occurrencesChanged?: number | undefined;
       }
       interface ReplaceAllTextRequest {
-        containsText?: Slides.Schema.SubstringMatchCriteria;
-        pageObjectIds?: string[];
-        replaceText?: string;
+        containsText?: Slides.Schema.SubstringMatchCriteria | undefined;
+        pageObjectIds?: string[] | undefined;
+        replaceText?: string | undefined;
       }
       interface ReplaceAllTextResponse {
-        occurrencesChanged?: number;
+        occurrencesChanged?: number | undefined;
       }
       interface ReplaceImageRequest {
-        imageObjectId?: string;
-        imageReplaceMethod?: string;
-        url?: string;
+        imageObjectId?: string | undefined;
+        imageReplaceMethod?: string | undefined;
+        url?: string | undefined;
       }
       interface Request {
-        createImage?: Slides.Schema.CreateImageRequest;
-        createLine?: Slides.Schema.CreateLineRequest;
-        createParagraphBullets?: Slides.Schema.CreateParagraphBulletsRequest;
-        createShape?: Slides.Schema.CreateShapeRequest;
-        createSheetsChart?: Slides.Schema.CreateSheetsChartRequest;
-        createSlide?: Slides.Schema.CreateSlideRequest;
-        createTable?: Slides.Schema.CreateTableRequest;
-        createVideo?: Slides.Schema.CreateVideoRequest;
-        deleteObject?: Slides.Schema.DeleteObjectRequest;
-        deleteParagraphBullets?: Slides.Schema.DeleteParagraphBulletsRequest;
-        deleteTableColumn?: Slides.Schema.DeleteTableColumnRequest;
-        deleteTableRow?: Slides.Schema.DeleteTableRowRequest;
-        deleteText?: Slides.Schema.DeleteTextRequest;
-        duplicateObject?: Slides.Schema.DuplicateObjectRequest;
-        groupObjects?: Slides.Schema.GroupObjectsRequest;
-        insertTableColumns?: Slides.Schema.InsertTableColumnsRequest;
-        insertTableRows?: Slides.Schema.InsertTableRowsRequest;
-        insertText?: Slides.Schema.InsertTextRequest;
-        mergeTableCells?: Slides.Schema.MergeTableCellsRequest;
-        refreshSheetsChart?: Slides.Schema.RefreshSheetsChartRequest;
-        replaceAllShapesWithImage?: Slides.Schema.ReplaceAllShapesWithImageRequest;
-        replaceAllShapesWithSheetsChart?: Slides.Schema.ReplaceAllShapesWithSheetsChartRequest;
-        replaceAllText?: Slides.Schema.ReplaceAllTextRequest;
-        replaceImage?: Slides.Schema.ReplaceImageRequest;
-        rerouteLine?: Slides.Schema.RerouteLineRequest;
-        ungroupObjects?: Slides.Schema.UngroupObjectsRequest;
-        unmergeTableCells?: Slides.Schema.UnmergeTableCellsRequest;
-        updateImageProperties?: Slides.Schema.UpdateImagePropertiesRequest;
-        updateLineCategory?: Slides.Schema.UpdateLineCategoryRequest;
-        updateLineProperties?: Slides.Schema.UpdateLinePropertiesRequest;
-        updatePageElementAltText?: Slides.Schema.UpdatePageElementAltTextRequest;
-        updatePageElementTransform?: Slides.Schema.UpdatePageElementTransformRequest;
-        updatePageElementsZOrder?: Slides.Schema.UpdatePageElementsZOrderRequest;
-        updatePageProperties?: Slides.Schema.UpdatePagePropertiesRequest;
-        updateParagraphStyle?: Slides.Schema.UpdateParagraphStyleRequest;
-        updateShapeProperties?: Slides.Schema.UpdateShapePropertiesRequest;
-        updateSlidesPosition?: Slides.Schema.UpdateSlidesPositionRequest;
-        updateTableBorderProperties?: Slides.Schema.UpdateTableBorderPropertiesRequest;
-        updateTableCellProperties?: Slides.Schema.UpdateTableCellPropertiesRequest;
-        updateTableColumnProperties?: Slides.Schema.UpdateTableColumnPropertiesRequest;
-        updateTableRowProperties?: Slides.Schema.UpdateTableRowPropertiesRequest;
-        updateTextStyle?: Slides.Schema.UpdateTextStyleRequest;
-        updateVideoProperties?: Slides.Schema.UpdateVideoPropertiesRequest;
+        createImage?: Slides.Schema.CreateImageRequest | undefined;
+        createLine?: Slides.Schema.CreateLineRequest | undefined;
+        createParagraphBullets?: Slides.Schema.CreateParagraphBulletsRequest | undefined;
+        createShape?: Slides.Schema.CreateShapeRequest | undefined;
+        createSheetsChart?: Slides.Schema.CreateSheetsChartRequest | undefined;
+        createSlide?: Slides.Schema.CreateSlideRequest | undefined;
+        createTable?: Slides.Schema.CreateTableRequest | undefined;
+        createVideo?: Slides.Schema.CreateVideoRequest | undefined;
+        deleteObject?: Slides.Schema.DeleteObjectRequest | undefined;
+        deleteParagraphBullets?: Slides.Schema.DeleteParagraphBulletsRequest | undefined;
+        deleteTableColumn?: Slides.Schema.DeleteTableColumnRequest | undefined;
+        deleteTableRow?: Slides.Schema.DeleteTableRowRequest | undefined;
+        deleteText?: Slides.Schema.DeleteTextRequest | undefined;
+        duplicateObject?: Slides.Schema.DuplicateObjectRequest | undefined;
+        groupObjects?: Slides.Schema.GroupObjectsRequest | undefined;
+        insertTableColumns?: Slides.Schema.InsertTableColumnsRequest | undefined;
+        insertTableRows?: Slides.Schema.InsertTableRowsRequest | undefined;
+        insertText?: Slides.Schema.InsertTextRequest | undefined;
+        mergeTableCells?: Slides.Schema.MergeTableCellsRequest | undefined;
+        refreshSheetsChart?: Slides.Schema.RefreshSheetsChartRequest | undefined;
+        replaceAllShapesWithImage?: Slides.Schema.ReplaceAllShapesWithImageRequest | undefined;
+        replaceAllShapesWithSheetsChart?: Slides.Schema.ReplaceAllShapesWithSheetsChartRequest | undefined;
+        replaceAllText?: Slides.Schema.ReplaceAllTextRequest | undefined;
+        replaceImage?: Slides.Schema.ReplaceImageRequest | undefined;
+        rerouteLine?: Slides.Schema.RerouteLineRequest | undefined;
+        ungroupObjects?: Slides.Schema.UngroupObjectsRequest | undefined;
+        unmergeTableCells?: Slides.Schema.UnmergeTableCellsRequest | undefined;
+        updateImageProperties?: Slides.Schema.UpdateImagePropertiesRequest | undefined;
+        updateLineCategory?: Slides.Schema.UpdateLineCategoryRequest | undefined;
+        updateLineProperties?: Slides.Schema.UpdateLinePropertiesRequest | undefined;
+        updatePageElementAltText?: Slides.Schema.UpdatePageElementAltTextRequest | undefined;
+        updatePageElementTransform?: Slides.Schema.UpdatePageElementTransformRequest | undefined;
+        updatePageElementsZOrder?: Slides.Schema.UpdatePageElementsZOrderRequest | undefined;
+        updatePageProperties?: Slides.Schema.UpdatePagePropertiesRequest | undefined;
+        updateParagraphStyle?: Slides.Schema.UpdateParagraphStyleRequest | undefined;
+        updateShapeProperties?: Slides.Schema.UpdateShapePropertiesRequest | undefined;
+        updateSlidesPosition?: Slides.Schema.UpdateSlidesPositionRequest | undefined;
+        updateTableBorderProperties?: Slides.Schema.UpdateTableBorderPropertiesRequest | undefined;
+        updateTableCellProperties?: Slides.Schema.UpdateTableCellPropertiesRequest | undefined;
+        updateTableColumnProperties?: Slides.Schema.UpdateTableColumnPropertiesRequest | undefined;
+        updateTableRowProperties?: Slides.Schema.UpdateTableRowPropertiesRequest | undefined;
+        updateTextStyle?: Slides.Schema.UpdateTextStyleRequest | undefined;
+        updateVideoProperties?: Slides.Schema.UpdateVideoPropertiesRequest | undefined;
       }
       interface RerouteLineRequest {
-        objectId?: string;
+        objectId?: string | undefined;
       }
       interface Response {
-        createImage?: Slides.Schema.CreateImageResponse;
-        createLine?: Slides.Schema.CreateLineResponse;
-        createShape?: Slides.Schema.CreateShapeResponse;
-        createSheetsChart?: Slides.Schema.CreateSheetsChartResponse;
-        createSlide?: Slides.Schema.CreateSlideResponse;
-        createTable?: Slides.Schema.CreateTableResponse;
-        createVideo?: Slides.Schema.CreateVideoResponse;
-        duplicateObject?: Slides.Schema.DuplicateObjectResponse;
-        groupObjects?: Slides.Schema.GroupObjectsResponse;
-        replaceAllShapesWithImage?: Slides.Schema.ReplaceAllShapesWithImageResponse;
-        replaceAllShapesWithSheetsChart?: Slides.Schema.ReplaceAllShapesWithSheetsChartResponse;
-        replaceAllText?: Slides.Schema.ReplaceAllTextResponse;
+        createImage?: Slides.Schema.CreateImageResponse | undefined;
+        createLine?: Slides.Schema.CreateLineResponse | undefined;
+        createShape?: Slides.Schema.CreateShapeResponse | undefined;
+        createSheetsChart?: Slides.Schema.CreateSheetsChartResponse | undefined;
+        createSlide?: Slides.Schema.CreateSlideResponse | undefined;
+        createTable?: Slides.Schema.CreateTableResponse | undefined;
+        createVideo?: Slides.Schema.CreateVideoResponse | undefined;
+        duplicateObject?: Slides.Schema.DuplicateObjectResponse | undefined;
+        groupObjects?: Slides.Schema.GroupObjectsResponse | undefined;
+        replaceAllShapesWithImage?: Slides.Schema.ReplaceAllShapesWithImageResponse | undefined;
+        replaceAllShapesWithSheetsChart?: Slides.Schema.ReplaceAllShapesWithSheetsChartResponse | undefined;
+        replaceAllText?: Slides.Schema.ReplaceAllTextResponse | undefined;
       }
       interface RgbColor {
-        blue?: number;
-        green?: number;
-        red?: number;
+        blue?: number | undefined;
+        green?: number | undefined;
+        red?: number | undefined;
       }
       interface Shadow {
-        alignment?: string;
-        alpha?: number;
-        blurRadius?: Slides.Schema.Dimension;
-        color?: Slides.Schema.OpaqueColor;
-        propertyState?: string;
-        rotateWithShape?: boolean;
-        transform?: Slides.Schema.AffineTransform;
-        type?: string;
+        alignment?: string | undefined;
+        alpha?: number | undefined;
+        blurRadius?: Slides.Schema.Dimension | undefined;
+        color?: Slides.Schema.OpaqueColor | undefined;
+        propertyState?: string | undefined;
+        rotateWithShape?: boolean | undefined;
+        transform?: Slides.Schema.AffineTransform | undefined;
+        type?: string | undefined;
       }
       interface Shape {
-        placeholder?: Slides.Schema.Placeholder;
-        shapeProperties?: Slides.Schema.ShapeProperties;
-        shapeType?: string;
-        text?: Slides.Schema.TextContent;
+        placeholder?: Slides.Schema.Placeholder | undefined;
+        shapeProperties?: Slides.Schema.ShapeProperties | undefined;
+        shapeType?: string | undefined;
+        text?: Slides.Schema.TextContent | undefined;
       }
       interface ShapeBackgroundFill {
-        propertyState?: string;
-        solidFill?: Slides.Schema.SolidFill;
+        propertyState?: string | undefined;
+        solidFill?: Slides.Schema.SolidFill | undefined;
       }
       interface ShapeProperties {
-        contentAlignment?: string;
-        link?: Slides.Schema.Link;
-        outline?: Slides.Schema.Outline;
-        shadow?: Slides.Schema.Shadow;
-        shapeBackgroundFill?: Slides.Schema.ShapeBackgroundFill;
+        contentAlignment?: string | undefined;
+        link?: Slides.Schema.Link | undefined;
+        outline?: Slides.Schema.Outline | undefined;
+        shadow?: Slides.Schema.Shadow | undefined;
+        shapeBackgroundFill?: Slides.Schema.ShapeBackgroundFill | undefined;
       }
       interface SheetsChart {
-        chartId?: number;
-        contentUrl?: string;
-        sheetsChartProperties?: Slides.Schema.SheetsChartProperties;
-        spreadsheetId?: string;
+        chartId?: number | undefined;
+        contentUrl?: string | undefined;
+        sheetsChartProperties?: Slides.Schema.SheetsChartProperties | undefined;
+        spreadsheetId?: string | undefined;
       }
       interface SheetsChartProperties {
-        chartImageProperties?: Slides.Schema.ImageProperties;
+        chartImageProperties?: Slides.Schema.ImageProperties | undefined;
       }
       interface Size {
-        height?: Slides.Schema.Dimension;
-        width?: Slides.Schema.Dimension;
+        height?: Slides.Schema.Dimension | undefined;
+        width?: Slides.Schema.Dimension | undefined;
       }
       interface SlideProperties {
-        layoutObjectId?: string;
-        masterObjectId?: string;
-        notesPage?: Slides.Schema.Page;
+        layoutObjectId?: string | undefined;
+        masterObjectId?: string | undefined;
+        notesPage?: Slides.Schema.Page | undefined;
       }
       interface SolidFill {
-        alpha?: number;
-        color?: Slides.Schema.OpaqueColor;
+        alpha?: number | undefined;
+        color?: Slides.Schema.OpaqueColor | undefined;
       }
       interface StretchedPictureFill {
-        contentUrl?: string;
-        size?: Slides.Schema.Size;
+        contentUrl?: string | undefined;
+        size?: Slides.Schema.Size | undefined;
       }
       interface SubstringMatchCriteria {
-        matchCase?: boolean;
-        text?: string;
+        matchCase?: boolean | undefined;
+        text?: string | undefined;
       }
       interface Table {
-        columns?: number;
-        horizontalBorderRows?: Slides.Schema.TableBorderRow[];
-        rows?: number;
-        tableColumns?: Slides.Schema.TableColumnProperties[];
-        tableRows?: Slides.Schema.TableRow[];
-        verticalBorderRows?: Slides.Schema.TableBorderRow[];
+        columns?: number | undefined;
+        horizontalBorderRows?: Slides.Schema.TableBorderRow[] | undefined;
+        rows?: number | undefined;
+        tableColumns?: Slides.Schema.TableColumnProperties[] | undefined;
+        tableRows?: Slides.Schema.TableRow[] | undefined;
+        verticalBorderRows?: Slides.Schema.TableBorderRow[] | undefined;
       }
       interface TableBorderCell {
-        location?: Slides.Schema.TableCellLocation;
-        tableBorderProperties?: Slides.Schema.TableBorderProperties;
+        location?: Slides.Schema.TableCellLocation | undefined;
+        tableBorderProperties?: Slides.Schema.TableBorderProperties | undefined;
       }
       interface TableBorderFill {
-        solidFill?: Slides.Schema.SolidFill;
+        solidFill?: Slides.Schema.SolidFill | undefined;
       }
       interface TableBorderProperties {
-        dashStyle?: string;
-        tableBorderFill?: Slides.Schema.TableBorderFill;
-        weight?: Slides.Schema.Dimension;
+        dashStyle?: string | undefined;
+        tableBorderFill?: Slides.Schema.TableBorderFill | undefined;
+        weight?: Slides.Schema.Dimension | undefined;
       }
       interface TableBorderRow {
-        tableBorderCells?: Slides.Schema.TableBorderCell[];
+        tableBorderCells?: Slides.Schema.TableBorderCell[] | undefined;
       }
       interface TableCell {
-        columnSpan?: number;
-        location?: Slides.Schema.TableCellLocation;
-        rowSpan?: number;
-        tableCellProperties?: Slides.Schema.TableCellProperties;
-        text?: Slides.Schema.TextContent;
+        columnSpan?: number | undefined;
+        location?: Slides.Schema.TableCellLocation | undefined;
+        rowSpan?: number | undefined;
+        tableCellProperties?: Slides.Schema.TableCellProperties | undefined;
+        text?: Slides.Schema.TextContent | undefined;
       }
       interface TableCellBackgroundFill {
-        propertyState?: string;
-        solidFill?: Slides.Schema.SolidFill;
+        propertyState?: string | undefined;
+        solidFill?: Slides.Schema.SolidFill | undefined;
       }
       interface TableCellLocation {
-        columnIndex?: number;
-        rowIndex?: number;
+        columnIndex?: number | undefined;
+        rowIndex?: number | undefined;
       }
       interface TableCellProperties {
-        contentAlignment?: string;
-        tableCellBackgroundFill?: Slides.Schema.TableCellBackgroundFill;
+        contentAlignment?: string | undefined;
+        tableCellBackgroundFill?: Slides.Schema.TableCellBackgroundFill | undefined;
       }
       interface TableColumnProperties {
-        columnWidth?: Slides.Schema.Dimension;
+        columnWidth?: Slides.Schema.Dimension | undefined;
       }
       interface TableRange {
-        columnSpan?: number;
-        location?: Slides.Schema.TableCellLocation;
-        rowSpan?: number;
+        columnSpan?: number | undefined;
+        location?: Slides.Schema.TableCellLocation | undefined;
+        rowSpan?: number | undefined;
       }
       interface TableRow {
-        rowHeight?: Slides.Schema.Dimension;
-        tableCells?: Slides.Schema.TableCell[];
-        tableRowProperties?: Slides.Schema.TableRowProperties;
+        rowHeight?: Slides.Schema.Dimension | undefined;
+        tableCells?: Slides.Schema.TableCell[] | undefined;
+        tableRowProperties?: Slides.Schema.TableRowProperties | undefined;
       }
       interface TableRowProperties {
-        minRowHeight?: Slides.Schema.Dimension;
+        minRowHeight?: Slides.Schema.Dimension | undefined;
       }
       interface TextContent {
-        lists?: object;
-        textElements?: Slides.Schema.TextElement[];
+        lists?: object | undefined;
+        textElements?: Slides.Schema.TextElement[] | undefined;
       }
       interface TextElement {
-        autoText?: Slides.Schema.AutoText;
-        endIndex?: number;
-        paragraphMarker?: Slides.Schema.ParagraphMarker;
-        startIndex?: number;
-        textRun?: Slides.Schema.TextRun;
+        autoText?: Slides.Schema.AutoText | undefined;
+        endIndex?: number | undefined;
+        paragraphMarker?: Slides.Schema.ParagraphMarker | undefined;
+        startIndex?: number | undefined;
+        textRun?: Slides.Schema.TextRun | undefined;
       }
       interface TextRun {
-        content?: string;
-        style?: Slides.Schema.TextStyle;
+        content?: string | undefined;
+        style?: Slides.Schema.TextStyle | undefined;
       }
       interface TextStyle {
-        backgroundColor?: Slides.Schema.OptionalColor;
-        baselineOffset?: string;
-        bold?: boolean;
-        fontFamily?: string;
-        fontSize?: Slides.Schema.Dimension;
-        foregroundColor?: Slides.Schema.OptionalColor;
-        italic?: boolean;
-        link?: Slides.Schema.Link;
-        smallCaps?: boolean;
-        strikethrough?: boolean;
-        underline?: boolean;
-        weightedFontFamily?: Slides.Schema.WeightedFontFamily;
+        backgroundColor?: Slides.Schema.OptionalColor | undefined;
+        baselineOffset?: string | undefined;
+        bold?: boolean | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: Slides.Schema.Dimension | undefined;
+        foregroundColor?: Slides.Schema.OptionalColor | undefined;
+        italic?: boolean | undefined;
+        link?: Slides.Schema.Link | undefined;
+        smallCaps?: boolean | undefined;
+        strikethrough?: boolean | undefined;
+        underline?: boolean | undefined;
+        weightedFontFamily?: Slides.Schema.WeightedFontFamily | undefined;
       }
       interface ThemeColorPair {
-        color?: Slides.Schema.RgbColor;
-        type?: string;
+        color?: Slides.Schema.RgbColor | undefined;
+        type?: string | undefined;
       }
       interface Thumbnail {
-        contentUrl?: string;
-        height?: number;
-        width?: number;
+        contentUrl?: string | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
       }
       interface UngroupObjectsRequest {
-        objectIds?: string[];
+        objectIds?: string[] | undefined;
       }
       interface UnmergeTableCellsRequest {
-        objectId?: string;
-        tableRange?: Slides.Schema.TableRange;
+        objectId?: string | undefined;
+        tableRange?: Slides.Schema.TableRange | undefined;
       }
       interface UpdateImagePropertiesRequest {
-        fields?: string;
-        imageProperties?: Slides.Schema.ImageProperties;
-        objectId?: string;
+        fields?: string | undefined;
+        imageProperties?: Slides.Schema.ImageProperties | undefined;
+        objectId?: string | undefined;
       }
       interface UpdateLineCategoryRequest {
-        lineCategory?: string;
-        objectId?: string;
+        lineCategory?: string | undefined;
+        objectId?: string | undefined;
       }
       interface UpdateLinePropertiesRequest {
-        fields?: string;
-        lineProperties?: Slides.Schema.LineProperties;
-        objectId?: string;
+        fields?: string | undefined;
+        lineProperties?: Slides.Schema.LineProperties | undefined;
+        objectId?: string | undefined;
       }
       interface UpdatePageElementAltTextRequest {
-        description?: string;
-        objectId?: string;
-        title?: string;
+        description?: string | undefined;
+        objectId?: string | undefined;
+        title?: string | undefined;
       }
       interface UpdatePageElementTransformRequest {
-        applyMode?: string;
-        objectId?: string;
-        transform?: Slides.Schema.AffineTransform;
+        applyMode?: string | undefined;
+        objectId?: string | undefined;
+        transform?: Slides.Schema.AffineTransform | undefined;
       }
       interface UpdatePageElementsZOrderRequest {
-        operation?: string;
-        pageElementObjectIds?: string[];
+        operation?: string | undefined;
+        pageElementObjectIds?: string[] | undefined;
       }
       interface UpdatePagePropertiesRequest {
-        fields?: string;
-        objectId?: string;
-        pageProperties?: Slides.Schema.PageProperties;
+        fields?: string | undefined;
+        objectId?: string | undefined;
+        pageProperties?: Slides.Schema.PageProperties | undefined;
       }
       interface UpdateParagraphStyleRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        fields?: string;
-        objectId?: string;
-        style?: Slides.Schema.ParagraphStyle;
-        textRange?: Slides.Schema.Range;
+        cellLocation?: Slides.Schema.TableCellLocation | undefined;
+        fields?: string | undefined;
+        objectId?: string | undefined;
+        style?: Slides.Schema.ParagraphStyle | undefined;
+        textRange?: Slides.Schema.Range | undefined;
       }
       interface UpdateShapePropertiesRequest {
-        fields?: string;
-        objectId?: string;
-        shapeProperties?: Slides.Schema.ShapeProperties;
+        fields?: string | undefined;
+        objectId?: string | undefined;
+        shapeProperties?: Slides.Schema.ShapeProperties | undefined;
       }
       interface UpdateSlidesPositionRequest {
-        insertionIndex?: number;
-        slideObjectIds?: string[];
+        insertionIndex?: number | undefined;
+        slideObjectIds?: string[] | undefined;
       }
       interface UpdateTableBorderPropertiesRequest {
-        borderPosition?: string;
-        fields?: string;
-        objectId?: string;
-        tableBorderProperties?: Slides.Schema.TableBorderProperties;
-        tableRange?: Slides.Schema.TableRange;
+        borderPosition?: string | undefined;
+        fields?: string | undefined;
+        objectId?: string | undefined;
+        tableBorderProperties?: Slides.Schema.TableBorderProperties | undefined;
+        tableRange?: Slides.Schema.TableRange | undefined;
       }
       interface UpdateTableCellPropertiesRequest {
-        fields?: string;
-        objectId?: string;
-        tableCellProperties?: Slides.Schema.TableCellProperties;
-        tableRange?: Slides.Schema.TableRange;
+        fields?: string | undefined;
+        objectId?: string | undefined;
+        tableCellProperties?: Slides.Schema.TableCellProperties | undefined;
+        tableRange?: Slides.Schema.TableRange | undefined;
       }
       interface UpdateTableColumnPropertiesRequest {
-        columnIndices?: number[];
-        fields?: string;
-        objectId?: string;
-        tableColumnProperties?: Slides.Schema.TableColumnProperties;
+        columnIndices?: number[] | undefined;
+        fields?: string | undefined;
+        objectId?: string | undefined;
+        tableColumnProperties?: Slides.Schema.TableColumnProperties | undefined;
       }
       interface UpdateTableRowPropertiesRequest {
-        fields?: string;
-        objectId?: string;
-        rowIndices?: number[];
-        tableRowProperties?: Slides.Schema.TableRowProperties;
+        fields?: string | undefined;
+        objectId?: string | undefined;
+        rowIndices?: number[] | undefined;
+        tableRowProperties?: Slides.Schema.TableRowProperties | undefined;
       }
       interface UpdateTextStyleRequest {
-        cellLocation?: Slides.Schema.TableCellLocation;
-        fields?: string;
-        objectId?: string;
-        style?: Slides.Schema.TextStyle;
-        textRange?: Slides.Schema.Range;
+        cellLocation?: Slides.Schema.TableCellLocation | undefined;
+        fields?: string | undefined;
+        objectId?: string | undefined;
+        style?: Slides.Schema.TextStyle | undefined;
+        textRange?: Slides.Schema.Range | undefined;
       }
       interface UpdateVideoPropertiesRequest {
-        fields?: string;
-        objectId?: string;
-        videoProperties?: Slides.Schema.VideoProperties;
+        fields?: string | undefined;
+        objectId?: string | undefined;
+        videoProperties?: Slides.Schema.VideoProperties | undefined;
       }
       interface Video {
-        id?: string;
-        source?: string;
-        url?: string;
-        videoProperties?: Slides.Schema.VideoProperties;
+        id?: string | undefined;
+        source?: string | undefined;
+        url?: string | undefined;
+        videoProperties?: Slides.Schema.VideoProperties | undefined;
       }
       interface VideoProperties {
-        autoPlay?: boolean;
-        end?: number;
-        mute?: boolean;
-        outline?: Slides.Schema.Outline;
-        start?: number;
+        autoPlay?: boolean | undefined;
+        end?: number | undefined;
+        mute?: boolean | undefined;
+        outline?: Slides.Schema.Outline | undefined;
+        start?: number | undefined;
       }
       interface WeightedFontFamily {
-        fontFamily?: string;
-        weight?: number;
+        fontFamily?: string | undefined;
+        weight?: number | undefined;
       }
       interface WordArt {
-        renderedText?: string;
+        renderedText?: string | undefined;
       }
       interface WriteControl {
-        requiredRevisionId?: string;
+        requiredRevisionId?: string | undefined;
       }
     }
   }
   interface Slides {
-    Presentations?: Slides.Collection.PresentationsCollection;
+    Presentations?: Slides.Collection.PresentationsCollection | undefined;
     // Create a new instance of AffineTransform
     newAffineTransform(): Slides.Schema.AffineTransform;
     // Create a new instance of AutoText

@@ -1,10 +1,10 @@
 import * as angular from 'angular';
 
 interface ITodo {
-    _id?: string;
+    _id?: string | undefined;
     name: string;
-    public?: boolean;
-    sticky?: boolean;
+    public?: boolean | undefined;
+    sticky?: boolean | undefined;
 }
 
 interface TodoAngularMeteorObject extends ITodo, angular.meteor.AngularMeteorObject<ITodo> {}

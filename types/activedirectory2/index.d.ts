@@ -11,8 +11,8 @@ interface ADProperties {
     baseDN: string;
     username: string;
     password: string;
-    pageSize?: 1000;
-    entryParser?: (entry: object, raw: string, cb: (entry: object) => void) => void;
+    pageSize?: 1000 | undefined;
+    entryParser?: ((entry: object, raw: string, cb: (entry: object) => void) => void) | undefined;
     referrals?: {
         enabled: false,
         exclude: [
@@ -20,7 +20,7 @@ interface ADProperties {
             'ldaps?://DomainDnsZones\\..*/.*',
             'ldaps?://.*/CN=Configuration,.*'
         ]
-    };
+    } | undefined;
     attributes?: {
         user: [
             'dn', 'distinguishedName',
@@ -32,33 +32,33 @@ interface ADProperties {
         group: [
             'dn', 'cn', 'description', 'distinguishedName', 'objectCategory'
         ]
-    };
+    } | undefined;
 }
 
 interface LDAPjsReqProps {
     url: string;
     tlsOptions: {
-        host?: string;
-        key?: string;
-        cert?: string;
-        ca?: string;
+        host?: string | undefined;
+        key?: string | undefined;
+        cert?: string | undefined;
+        ca?: string | undefined;
         rejectUnauthorized: boolean;
     };
-    socketPath?: string;
+    socketPath?: string | undefined;
     log?: any;
-    timeout?: number;
-    idleTimeout?: number;
-    connectionTimeout?: number;
-    strictDN?: boolean;
+    timeout?: number | undefined;
+    idleTimeout?: number | undefined;
+    connectionTimeout?: number | undefined;
+    strictDN?: boolean | undefined;
 }
 
 type MembershipType = 'all'|'user'|'group';
 
 interface ReqProps extends LDAPjsReqProps {
-    baseDN?: string;
-    bindDN?: string;
-    bindCredentials?: string;
-    scope?: 'base' | 'one' | 'sub';
+    baseDN?: string | undefined;
+    bindDN?: string | undefined;
+    bindCredentials?: string | undefined;
+    scope?: 'base' | 'one' | 'sub' | undefined;
     filter: string | Filter;
     attributes: AttributeSpec;
     sizeLimit: 0;

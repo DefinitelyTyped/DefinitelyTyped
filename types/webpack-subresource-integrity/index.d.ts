@@ -1,7 +1,7 @@
 // Type definitions for webpack-subresource-integrity 1.2
 // Project: https://github.com/waysact/webpack-subresource-integrity
 // Definitions by: Jeow Li Huan <https://github.com/huan086>
-// Definitions: https://github.com/huan086/webpack-subresource-integrity-typings
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
 import { Plugin } from 'webpack';

@@ -18,15 +18,15 @@ declare namespace Scrollbar {
          * Keep scrollbar tracks visible whether it's scrolling or not
          * @default false
          */
-        alwaysShowTracks?: boolean;
+        alwaysShowTracks?: boolean | undefined;
         /**
          * Optional class name
          */
-        className?: string;
+        className?: string | undefined;
         /**
          * Optional style
          */
-        style?: React.CSSProperties;
+        style?: React.CSSProperties | undefined;
     }
 }
 

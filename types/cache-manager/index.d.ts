@@ -3,7 +3,7 @@
 // Definitions by: Dominik Einkemmer <https://github.com/dominikeinkemmer>
 //                 Eduard Marbach <https://github.com/BlackDark>
 //                 Bryan Donovan <https://github.com/BryanDonovan>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 export interface CachingConfig {

@@ -487,7 +487,7 @@ declare namespace GoogleAppsScript {
     }
     interface ScriptParams {
       /** If true, the getData() request is for automatic semantic type detection. */
-      sampleExtraction?: boolean;
+      sampleExtraction?: boolean | undefined;
       /** A timestamp that marks the most recent request for a refresh of data. */
       lastRefresh: string;
     }

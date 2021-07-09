@@ -31,21 +31,21 @@ export interface Events {
 }
 
 export interface Props extends Events {
-  algorithm?: Algorithm;
-  autoAdjustVerticalPosition?: boolean;
-  background?: React.ReactType;
-  className?: string;
-  disabled?: boolean;
-  handle?: React.ReactType;
-  max?: number;
-  min?: number;
-  orientation?: Orientation;
-  pitComponent?: React.ReactType;
-  pitPoints?: number[];
-  progressBar?: React.ReactType;
-  snap?: boolean;
-  snapPoints?: number[];
-  values?: number[];
+  algorithm?: Algorithm | undefined;
+  autoAdjustVerticalPosition?: boolean | undefined;
+  background?: React.ReactType | undefined;
+  className?: string | undefined;
+  disabled?: boolean | undefined;
+  handle?: React.ReactType | undefined;
+  max?: number | undefined;
+  min?: number | undefined;
+  orientation?: Orientation | undefined;
+  pitComponent?: React.ReactType | undefined;
+  pitPoints?: number[] | undefined;
+  progressBar?: React.ReactType | undefined;
+  snap?: boolean | undefined;
+  snapPoints?: number[] | undefined;
+  values?: number[] | undefined;
 }
 
 export default class Rheostat extends React.Component<Props, never> {}

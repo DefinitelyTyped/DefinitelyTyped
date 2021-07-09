@@ -26,29 +26,29 @@ export interface _model {
 }
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   to: H.LocationDescriptor;
-  replace?: boolean;
+  replace?: boolean | undefined;
 }
 export interface NavLinkProps extends LinkProps {
-  activeClassName?: string;
-  activeStyle?: React.CSSProperties;
-  exact?: boolean;
-  strict?: boolean;
+  activeClassName?: string | undefined;
+  activeStyle?: React.CSSProperties | undefined;
+  exact?: boolean | undefined;
+  strict?: boolean | undefined;
   isActive?(match: match<any>, location: H.Location): boolean;
-  location?: H.Location;
+  location?: H.Location | undefined;
 }
 
 export interface SwitchProps {
-  children?: React.ReactNode;
-  location?: H.Location;
+  children?: React.ReactNode | undefined;
+  location?: H.Location | undefined;
 }
 
 export interface RedirectProps {
   to: H.LocationDescriptor;
-  push?: boolean;
-  from?: string;
-  path?: string;
-  exact?: boolean;
-  strict?: boolean;
+  push?: boolean | undefined;
+  from?: string | undefined;
+  path?: string | undefined;
+  exact?: boolean | undefined;
+  strict?: boolean | undefined;
 }
 
 export interface RouteComponentProps<Params extends { [K in keyof Params]?: string }> {
@@ -59,23 +59,23 @@ export interface RouteComponentProps<Params extends { [K in keyof Params]?: stri
 }
 
 export interface RouteProps {
-  location?: H.Location;
-  component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
-  render?: ((props: RouteComponentProps<any>) => React.ReactNode);
-  children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
-  path?: string;
-  exact?: boolean;
-  strict?: boolean;
+  location?: H.Location | undefined;
+  component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any> | undefined;
+  render?: ((props: RouteComponentProps<any>) => React.ReactNode) | undefined;
+  children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode | undefined;
+  path?: string | undefined;
+  exact?: boolean | undefined;
+  strict?: boolean | undefined;
 }
 
 export interface PromptProps {
   message: string | ((location: H.Location) => string | boolean);
-  when?: boolean;
+  when?: boolean | undefined;
 }
 
 export interface LocationActionPayload {
   method: string;
-  args?: any[];
+  args?: any[] | undefined;
 }
 
 export interface RouterAction {
@@ -93,7 +93,7 @@ export interface routeActions {
 
 export interface ConnectedRouterProps<State> {
   store?: any;
-  history?: H.History;
+  history?: H.History | undefined;
 }
 
 export interface Actions {
@@ -102,8 +102,8 @@ export interface Actions {
 }
 
 export interface defaultOptions {
-  initialState?: {};
-  historyMode?: string;
+  initialState?: {} | undefined;
+  historyMode?: string | undefined;
   middlewares: any[];
   reducers: {};
   addEffect(name: string, handler: () => any): any;

@@ -1,18 +1,18 @@
 import * as React from "react";
 
 export interface StepInputProps {
-    className?: string;
-    disabled?: boolean;
-    disableStyles?: boolean;
+    className?: string | undefined;
+    disabled?: boolean | undefined;
+    disableStyles?: boolean | undefined;
     localizedText?: any;
-    onChange?: (stepValue: number) => void;
-    placeholder?: string;
-    readOnly?: boolean;
+    onChange?: ((stepValue: number) => void) | undefined;
+    placeholder?: string | undefined;
+    readOnly?: boolean | undefined;
     validationState?: {
-        state?: 'error' | 'warning' | 'information' | 'success';
-        text?: string;
-    };
-    value?: number;
+        state?: 'error' | 'warning' | 'information' | 'success' | undefined;
+        text?: string | undefined;
+    } | undefined;
+    value?: number | undefined;
 }
 
 declare const StepInput: React.FunctionComponent<StepInputProps> & {
