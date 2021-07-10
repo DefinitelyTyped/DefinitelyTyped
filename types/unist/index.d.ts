@@ -13,7 +13,7 @@
 /**
  * Syntactic units in unist syntax trees are called nodes.
  *
- * @typeParam TData Information from the ecosystem. Useful for more specific `Node#data`.
+ * @typeParam TData Information from the ecosystem. Useful for more specific {@link Node.data}.
  */
 export interface Node<TData extends object = Data> {
     /**
@@ -83,9 +83,9 @@ export interface Point {
 }
 
 /**
- * Util for extracting type of `Node#data`
+ * Util for extracting type of {@link Node.data}
  *
- * @typeParam TNode Specific node type such as Node with Data, Literal, etc
+ * @typeParam TNode Specific node type such as {@link Node} with {@link Data}, {@link Literal}, etc.
  *
  * @example `NodeData<Node<{ key: string }>>` -> `{ key: string }`
  */
@@ -94,7 +94,7 @@ export type NodeData<TNode extends Node<object>> = TNode extends Node<infer TDat
 /**
  * Nodes containing other nodes.
  *
- * @typeParam ChildNode Node item of `Parent#children`
+ * @typeParam ChildNode Node item of {@link Parent.children}
  */
 export interface Parent<ChildNode extends Node<object> = Node, TData extends object = NodeData<ChildNode>>
     extends Node<TData> {
@@ -107,7 +107,7 @@ export interface Parent<ChildNode extends Node<object> = Node, TData extends obj
 /**
  * Nodes containing a value.
  *
- * @typeParam Value Specific value type of `Literal#value` such as string for Text node
+ * @typeParam Value Specific value type of {@link Literal.value} such as `string` for `Text` node
  */
 export interface Literal<Value = unknown, TData extends object = Data> extends Node<TData> {
     value: Value;
