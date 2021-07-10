@@ -7,11 +7,11 @@
 //                 Alex Seidmann <https://github.com/aseidma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Timezone } from 'tz-offset';
-
 export function schedule(cronExpression: string, func: () => void, options?: ScheduleOptions): ScheduledTask;
 
 export function validate(cronExpression: string): boolean;
+
+export function getTasks(): ScheduledTask[];
 
 export interface ScheduledTask {
     start: () => this;
@@ -28,5 +28,5 @@ export interface ScheduleOptions {
     /**
      * The timezone that is used for job scheduling
      */
-    timezone?: Timezone;
+    timezone?: string;
 }
