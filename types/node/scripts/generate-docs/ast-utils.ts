@@ -4,6 +4,9 @@ import {
 } from "typescript";
 
 export function getNodeName(node: Node): string {
+    if (isSourceFile(node)) {
+        return node.fileName;
+    }
     const name = (node as NamedDeclaration).name;
     if (name && (isStringLiteral(name) || isIdentifier(name))) {
         return name.text;
@@ -83,5 +86,5 @@ export function nodeInfo(node: Node, text: string): void {
 }
 
 export function isNamedModuleDeclaration(node: Node): node is ModuleDeclaration {
-    return isModuleDeclaration(node) && !(node.flags & NodeFlags.Namespace);
+    return isModuleDeclaration(node) && !(node.flags & NodeFlags.Namespace) && !(node.flags & NodeFlags.GlobalAugmentation);
 }
