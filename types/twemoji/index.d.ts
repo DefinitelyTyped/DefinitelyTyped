@@ -2,6 +2,7 @@
 // Project: https://github.com/twitter/twemoji
 // Definitions by: Markus Tacker <https://github.com/coderbyheart>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 David Wheatley <https://github.com/davwheat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
