@@ -60,13 +60,6 @@ declare module Mongo {
             ? Query<T>
             :
                   | FieldExpression<T>
-                  | undefined
-                  | undefined
-                  | undefined
-                  | undefined
-                  | undefined
-                  | undefined
-                  | undefined
                   | undefined;
         $size?: number | undefined;
         $bitsAllClear?: any;

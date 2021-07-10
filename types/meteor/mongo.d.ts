@@ -64,13 +64,6 @@ declare module 'meteor/mongo' {
                 ? Query<T>
                 :
                       | FieldExpression<T>
-                      | undefined
-                      | undefined
-                      | undefined
-                      | undefined
-                      | undefined
-                      | undefined
-                      | undefined
                       | undefined;
             $size?: number | undefined;
             $bitsAllClear?: any;
