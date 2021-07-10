@@ -1,5 +1,30 @@
 import * as Mdast from 'mdast';
 
+// Augmentations
+
+declare module 'mdast' {
+    interface BlockContentMap {
+        toml: TOML;
+    }
+
+    interface StaticPhrasingContentMap {
+        mdxJsxTextElement: MDXJSXTextElement;
+    }
+}
+
+interface TOML extends Mdast.Literal {
+    type: 'toml';
+}
+
+interface MDXJSXTextElement extends Mdast.Literal {
+    type: 'mdxJsxTextElement';
+}
+
+// Tests
+
+declare var toml: TOML;
+declare var mdxJsxTextElement: MDXJSXTextElement;
+
 const text: Mdast.Text = {
     type: 'text',
     value: 'text',
@@ -35,7 +60,7 @@ const code: Mdast.Code = {
 
 const paragraph: Mdast.Paragraph = {
     type: 'paragraph',
-    children: [text],
+    children: [text, mdxJsxTextElement],
 };
 
 const item: Mdast.ListItem = {
@@ -62,5 +87,5 @@ const image: Mdast.Image = {
 
 const root: Mdast.Root = {
     type: 'root',
-    children: [header, table, code, image],
+    children: [header, table, code, image, toml],
 };
