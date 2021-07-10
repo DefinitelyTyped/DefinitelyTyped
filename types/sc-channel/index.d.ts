@@ -2,6 +2,7 @@
 // Project: https://github.com/SocketCluster/sc-channel
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 import AsyncIterableStream = require('async-iterable-stream');
 import StreamDemux = require('stream-demux');

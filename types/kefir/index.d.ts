@@ -15,16 +15,16 @@ export interface Subscription {
 }
 
 export interface Observer<T, S> {
-    value?: (value: T) => void;
-    error?: (error: S) => void;
-    end?: () => void;
+    value?: ((value: T) => void) | undefined;
+    error?: ((error: S) => void) | undefined;
+    end?: (() => void) | undefined;
 }
 
 interface ESObserver<T, S> {
-  start?: Function,
-  next?: (value: T) => any,
-  error?: (error: S) => any,
-  complete?: () => any,
+  start?: Function | undefined,
+  next?: ((value: T) => any) | undefined,
+  error?: ((error: S) => any) | undefined,
+  complete?: (() => any) | undefined,
 }
 
 interface ESObservable<T, S> {
@@ -80,7 +80,7 @@ export class Observable<T, S> {
     scan<W>(fn: (prev: T | W, next: T) => W): Observable<W, S>;
     scan<W>(fn: (prev: W, next: T) => W, seed: W): Observable<W, S>;
     delay(wait: number): Observable<T, S>;
-    throttle(wait: number, options?: { leading?: boolean, trailing?: boolean }): Observable<T, S>;
+    throttle(wait: number, options?: { leading?: boolean | undefined, trailing?: boolean | undefined }): Observable<T, S>;
     debounce(wait: number, options?: { immediate: boolean }): Observable<T, S>;
     valuesToErrors(): Observable<never, S | T>;
     valuesToErrors<U>(handler: (value: T) => { convert: boolean, error: U }): Observable<never, S | U>;
@@ -121,7 +121,7 @@ export class Observable<T, S> {
     skipUntilBy<U, V>(otherObs: Observable<U, V>): Observable<U, V>;
     takeUntilBy<U, V>(otherObs: Observable<U, V>): Observable<T, S>;
     bufferBy<U, V>(otherObs: Observable<U, V>, options?: { flushOnEnd: boolean }): Observable<T[], S>;
-    bufferWhileBy<U>(otherObs: Observable<boolean, U>, options?: { flushOnEnd?: boolean, flushOnChange?: boolean }): Observable<T[], S>;
+    bufferWhileBy<U>(otherObs: Observable<boolean, U>, options?: { flushOnEnd?: boolean | undefined, flushOnChange?: boolean | undefined }): Observable<T[], S>;
     awaiting<U, V>(otherObs: Observable<U, V>): Observable<boolean, S>;
 }
 

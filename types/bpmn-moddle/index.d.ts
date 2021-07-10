@@ -36,17 +36,17 @@ declare namespace BPMNModdle {
         /**
          * Documentation for the element
          */
-        documentation?: Documentation[];
+        documentation?: Documentation[] | undefined;
 
         /**
          * Reference to the extension definitions for this element
          */
-        extensionDefinitions?: ExtensionDefinition[];
+        extensionDefinitions?: ExtensionDefinition[] | undefined;
 
         /**
          * Extension Elements
          */
-        extensionElements?: ExtensionElements;
+        extensionElements?: ExtensionElements | undefined;
 
         /**
          * Attributes that aren't defined by the BPMN Spec such
@@ -54,7 +54,7 @@ declare namespace BPMNModdle {
          */
         $attrs?: {
             [key: string]: any;
-        };
+        } | undefined;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -442,7 +442,7 @@ declare namespace BPMNModdle {
         import: Import;
     }
     interface FlowElement extends RootElement {
-        name?: string;
+        name?: string | undefined;
         auditing: Auditing;
         monitoring: Monitoring;
         categoryValueRef: CategoryValue[];

@@ -1,7 +1,7 @@
 // Type definitions for asn1js 2.0
 // Project: https://github.com/PeculiarVentures/ASN1.js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Asn1js;
 

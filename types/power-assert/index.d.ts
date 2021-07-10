@@ -23,7 +23,7 @@ declare namespace assert {
         operator: string;
         generatedMessage: boolean;
 
-        constructor(options?: { message?: string; actual?: any; expected?: any; operator?: string; stackStartFunction?: Function });
+        constructor(options?: { message?: string | undefined; actual?: any; expected?: any; operator?: string | undefined; stackStartFunction?: Function | undefined });
     }
 
     export function fail(actual?: any, expected?: any, message?: string, operator?: string): never;
@@ -53,8 +53,8 @@ declare namespace assert {
     export const strict: typeof assert;
 
     export interface Options {
-        assertion?: empower.Options;
-        output?: powerAssertFormatter.Options;
+        assertion?: empower.Options | undefined;
+        output?: powerAssertFormatter.Options | undefined;
     }
 
     export function customize(options: Options): typeof assert;

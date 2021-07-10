@@ -7,15 +7,15 @@ import ImageSource, { ImageSourceEvent } from './Image';
 import { AttributionLike } from './Source';
 
 export interface Options {
-    attributions?: AttributionLike;
-    crossOrigin?: string;
-    hidpi?: boolean;
-    imageLoadFunction?: LoadFunction;
-    params?: { [key: string]: any };
-    projection?: ProjectionLike;
-    ratio?: number;
-    resolutions?: number[];
-    url?: string;
+    attributions?: AttributionLike | undefined;
+    crossOrigin?: string | undefined;
+    hidpi?: boolean | undefined;
+    imageLoadFunction?: LoadFunction | undefined;
+    params?: { [key: string]: any } | undefined;
+    projection?: ProjectionLike | undefined;
+    ratio?: number | undefined;
+    resolutions?: number[] | undefined;
+    url?: string | undefined;
 }
 export default class ImageArcGISRest extends ImageSource {
     constructor(opt_options?: Options);

@@ -5975,9 +5975,9 @@ namespace TestDebounce {
     }
 
     interface Options {
-        leading?: boolean;
-        maxWait?: number;
-        trailing?: boolean;
+        leading?: boolean | undefined;
+        maxWait?: number | undefined;
+        trailing?: boolean | undefined;
     }
 
     interface ResultFunc {
@@ -6389,8 +6389,8 @@ namespace TestThrottle {
     }
 
     interface Options {
-        leading?: boolean;
-        trailing?: boolean;
+        leading?: boolean | undefined;
+        trailing?: boolean | undefined;
     }
 
     interface ResultFunc {
@@ -9699,12 +9699,12 @@ namespace TestTemplate {
     }
 
     let options: {
-        escape?: RegExp;
-        evaluate?: RegExp;
-        imports?: _.Dictionary<any>;
-        interpolate?: RegExp;
-        sourceURL?: string;
-        variable?: string;
+        escape?: RegExp | undefined;
+        evaluate?: RegExp | undefined;
+        imports?: _.Dictionary<any> | undefined;
+        interpolate?: RegExp | undefined;
+        sourceURL?: string | undefined;
+        variable?: string | undefined;
     };
 
     {
@@ -10313,7 +10313,7 @@ namespace TestMethodOf {
 // _.mixin
 namespace TestMixin {
     let source: _.Dictionary<Function>;
-    let options: {chain?: boolean};
+    let options: {chain?: boolean | undefined};
 
     {
         let result: TResult;

@@ -21,56 +21,56 @@ export const Timing: {
 export type MatchBy<T = string, R = T> = (input: T, req: Request) => R;
 export type Headers = Record<string, string | string[]>;
 export interface PollyConfig {
-    mode?: MODE;
+    mode?: MODE | undefined;
 
-    adapters?: Array<string | typeof Adapter>;
+    adapters?: Array<string | typeof Adapter> | undefined;
     adapterOptions?: {
-        fetch?: { context?: any };
-        puppeteer?: { page?: any; requestResourceTypes?: string[] };
-        xhr?: { context?: any };
+        fetch?: { context?: any } | undefined;
+        puppeteer?: { page?: any; requestResourceTypes?: string[] | undefined } | undefined;
+        xhr?: { context?: any } | undefined;
         [key: string]: any;
-    };
+    } | undefined;
 
-    persister?: string | typeof Persister;
+    persister?: string | typeof Persister | undefined;
     persisterOptions?: {
-        keepUnusedRequests?: boolean;
-        disableSortingHarEntries?: boolean;
-        fs?: { recordingsDir?: string };
-        'local-storage'?: { context?: any; key?: string };
-        rest?: { host?: string; apiNamespace?: string };
+        keepUnusedRequests?: boolean | undefined;
+        disableSortingHarEntries?: boolean | undefined;
+        fs?: { recordingsDir?: string | undefined } | undefined;
+        'local-storage'?: { context?: any; key?: string | undefined } | undefined;
+        rest?: { host?: string | undefined; apiNamespace?: string | undefined } | undefined;
         [key: string]: any;
-    };
+    } | undefined;
 
-    logging?: boolean;
-    flushRequestsOnStop?: boolean;
+    logging?: boolean | undefined;
+    flushRequestsOnStop?: boolean | undefined;
 
-    recordIfMissing?: boolean;
-    recordFailedRequests?: boolean;
-    expiryStrategy?: EXPIRY_STRATEGY;
+    recordIfMissing?: boolean | undefined;
+    recordFailedRequests?: boolean | undefined;
+    expiryStrategy?: EXPIRY_STRATEGY | undefined;
 
-    expiresIn?: string | null;
-    timing?: ((ms: number) => Promise<void>) | (() => Promise<void>);
+    expiresIn?: string | null | undefined;
+    timing?: ((ms: number) => Promise<void>) | (() => Promise<void>) | undefined;
 
     matchRequestsBy?: {
-        method?: boolean | MatchBy;
-        headers?: boolean | { exclude: string[] } | MatchBy<Headers>;
-        body?: boolean | MatchBy<any>;
-        order?: boolean;
+        method?: boolean | MatchBy | undefined;
+        headers?: boolean | { exclude: string[] } | MatchBy<Headers> | undefined;
+        body?: boolean | MatchBy<any> | undefined;
+        order?: boolean | undefined;
 
         url?:
             | boolean
             | MatchBy
             | {
-                  protocol?: boolean | MatchBy;
-                  username?: boolean | MatchBy;
-                  password?: boolean | MatchBy;
-                  hostname?: boolean | MatchBy;
-                  port?: boolean | MatchBy<number>;
-                  pathname?: boolean | MatchBy;
-                  query?: boolean | MatchBy<{ [key: string]: any }>;
-                  hash?: boolean | MatchBy;
-              };
-    };
+                  protocol?: boolean | MatchBy | undefined;
+                  username?: boolean | MatchBy | undefined;
+                  password?: boolean | MatchBy | undefined;
+                  hostname?: boolean | MatchBy | undefined;
+                  port?: boolean | MatchBy<number> | undefined;
+                  pathname?: boolean | MatchBy | undefined;
+                  query?: boolean | MatchBy<{ [key: string]: any }> | undefined;
+                  hash?: boolean | MatchBy | undefined;
+              } | undefined;
+    } | undefined;
 }
 export interface HTTPBase {
     headers: Headers;
@@ -100,11 +100,11 @@ export interface Request extends HTTPBase {
     query: { [key: string]: string | string[] };
     readonly params: { [key: string]: string };
     recordingName: string;
-    responseTime?: number;
-    timestamp?: string;
+    responseTime?: number | undefined;
+    timestamp?: string | undefined;
     didRespond: boolean;
-    id?: string;
-    order?: number;
+    id?: string | undefined;
+    order?: number | undefined;
     action: ACTION | null;
 }
 export interface Response extends HTTPBase {

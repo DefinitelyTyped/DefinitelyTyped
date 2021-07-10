@@ -14,10 +14,10 @@ export declare const NotificationActionButton: React.FC<NotificationActionButton
 // NotificationButton
 
 export interface NotificationButtonProps extends Omit<ReactButtonAttr, "title"> {
-    ariaLabel?: string,
-    iconDescription?: string,
-    name?: string,
-    notificationType?: NotificationType,
+    ariaLabel?: string | undefined,
+    iconDescription?: string | undefined,
+    name?: string | undefined,
+    notificationType?: NotificationType | undefined,
     renderIcon?: any,
 }
 
@@ -28,9 +28,9 @@ export declare const NotificationButton: React.FC<NotificationButtonProps>;
 type ExcludedDetailDivAttributes = "className" | "title";
 
 export interface NotificationTextDetailsProps extends Omit<ReactDivAttr, ExcludedDetailDivAttributes> {
-    caption?: React.ReactNode,
-    subtitle?: React.ReactNode,
-    title?: React.ReactNode,
+    caption?: React.ReactNode | undefined,
+    subtitle?: React.ReactNode | undefined,
+    title?: React.ReactNode | undefined,
 }
 
 export declare const NotificationTextDetails: React.FC<NotificationTextDetailsProps>;
@@ -38,18 +38,18 @@ export declare const NotificationTextDetails: React.FC<NotificationTextDetailsPr
 // ToastNotification
 
 export interface ToastNotificationProps extends Omit<ReactDivAttr, "title"> {
-    caption?: React.ReactNode,
-    closeOnEscape?: boolean; // v11 only
-    hideCloseButton?: boolean,
-    iconDescription?: string,
-    kind?: NotificationKind; // required but has default value
-    lowContrast?: boolean,
-    notificationType?: NotificationType,
+    caption?: React.ReactNode | undefined,
+    closeOnEscape?: boolean | undefined; // v11 only
+    hideCloseButton?: boolean | undefined,
+    iconDescription?: string | undefined,
+    kind?: NotificationKind | undefined; // required but has default value
+    lowContrast?: boolean | undefined,
+    notificationType?: NotificationType | undefined,
     onClose?(evt: React.MouseEvent<HTMLButtonElement>): boolean;
     onCloseButtonClick?(evt: React.MouseEvent<HTMLButtonElement>): void,
-    statusIconDescription?: string,
-    subtitle?: React.ReactNode,
-    timeout?: number;
+    statusIconDescription?: string | undefined,
+    subtitle?: React.ReactNode | undefined,
+    timeout?: number | undefined;
     title: NonNullable<React.ReactNode>,
 }
 
@@ -58,18 +58,18 @@ export declare const ToastNotification: React.FC<ToastNotificationProps>;
 // Inline Notification
 
 export interface InlineNotificationProps extends Omit<ReactDivAttr, "title"> {
-    actions?: React.ReactNode;
-    closeOnEscape?: boolean; // v11 only
-    hasFocus?: boolean; // v11 only
-    hideCloseButton?: boolean;
-    iconDescription?: string;
+    actions?: React.ReactNode | undefined;
+    closeOnEscape?: boolean | undefined; // v11 only
+    hasFocus?: boolean | undefined; // v11 only
+    hideCloseButton?: boolean | undefined;
+    iconDescription?: string | undefined;
     kind: NotificationKind;
-    lowContrast?: boolean,
-    notificationType?: NotificationType,
+    lowContrast?: boolean | undefined,
+    notificationType?: NotificationType | undefined,
     onClose?(evt: React.MouseEvent<HTMLButtonElement>): boolean;
     onCloseButtonClick?(e: React.MouseEvent<HTMLButtonElement>): void,
-    statusIconDescription?: string,
-    subtitle?: React.ReactNode,
+    statusIconDescription?: string | undefined,
+    subtitle?: React.ReactNode | undefined,
     title: NonNullable<React.ReactNode>,
 }
 

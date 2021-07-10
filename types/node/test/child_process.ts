@@ -23,8 +23,22 @@ import { Writable, Readable, Pipe } from 'stream';
 }
 
 {
-    childProcess.execSync("echo test", { encoding: 'utf-8' });
-    childProcess.execSync("echo test", { encoding: 'buffer' });
+    childProcess.execSync("echo test", { encoding: 'utf-8' }); // $ExpectType string
+    childProcess.execSync("echo test", { encoding: 'buffer' }); // $ExpectType Buffer
+    childProcess.execSync("git status", { // $ExpectType string
+        cwd: 'test',
+        input: 'test',
+        stdio: 'pipe',
+        env: {},
+        shell: 'hurr',
+        uid: 1,
+        gid: 1,
+        timeout: 123,
+        killSignal: 1,
+        maxBuffer: 123,
+        encoding: "utf8",
+        windowsHide: true
+    });
 }
 
 {

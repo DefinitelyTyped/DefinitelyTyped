@@ -283,8 +283,8 @@ declare namespace marked {
         interface Code {
             type: "code";
             raw: string;
-            codeBlockStyle?: "indented";
-            lang?: string;
+            codeBlockStyle?: "indented" | undefined;
+            lang?: string | undefined;
             text: string;
         }
 
@@ -345,7 +345,7 @@ declare namespace marked {
         interface Paragraph {
             type: "paragraph";
             raw: string;
-            pre?: boolean;
+            pre?: boolean | undefined;
             text: string;
         }
 
@@ -389,7 +389,7 @@ declare namespace marked {
             href: string;
             title: string;
             text: string;
-            tokens?: Text[];
+            tokens?: Text[] | undefined;
         }
 
         interface Image {
@@ -434,27 +434,27 @@ declare namespace marked {
         /**
          * A prefix URL for any relative link.
          */
-        baseUrl?: string;
+        baseUrl?: string | undefined;
 
         /**
          * Enable GFM line breaks. This option requires the gfm option to be true.
          */
-        breaks?: boolean;
+        breaks?: boolean | undefined;
 
         /**
          * Enable GitHub flavored markdown.
          */
-        gfm?: boolean;
+        gfm?: boolean | undefined;
 
         /**
          * Include an id attribute when emitting headings.
          */
-        headerIds?: boolean;
+        headerIds?: boolean | undefined;
 
         /**
          * Set the prefix for header tag ids.
          */
-        headerPrefix?: string;
+        headerPrefix?: string | undefined;
 
         /**
          * A function to highlight code blocks. The function can either be
@@ -471,29 +471,29 @@ declare namespace marked {
         /**
          * Set the prefix for code block classes.
          */
-        langPrefix?: string;
+        langPrefix?: string | undefined;
 
         /**
          * Mangle autolinks (<email@domain.com>).
          */
-        mangle?: boolean;
+        mangle?: boolean | undefined;
 
         /**
          * Conform to obscure parts of markdown.pl as much as possible. Don't fix any of the original markdown bugs or poor behavior.
          */
-        pedantic?: boolean;
+        pedantic?: boolean | undefined;
 
         /**
          * Type: object Default: new Renderer()
          *
          * An object containing functions to render tokens to HTML.
          */
-        renderer?: Renderer | RendererObject;
+        renderer?: Renderer | RendererObject | undefined;
 
         /**
          * Sanitize the output. Ignore any HTML that has been input.
          */
-        sanitize?: boolean;
+        sanitize?: boolean | undefined;
 
         /**
          * Optionally sanitize found HTML with a sanitizer function.
@@ -503,22 +503,22 @@ declare namespace marked {
         /**
          * Shows an HTML error message when rendering fails.
          */
-        silent?: boolean;
+        silent?: boolean | undefined;
 
         /**
          * Use smarter list behavior than the original markdown. May eventually be default with the old behavior moved into pedantic.
          */
-        smartLists?: boolean;
+        smartLists?: boolean | undefined;
 
         /**
          * Use "smart" typograhic punctuation for things like quotes and dashes.
          */
-        smartypants?: boolean;
+        smartypants?: boolean | undefined;
 
         /**
          * The tokenizer defines how to turn markdown text into tokens.
          */
-        tokenizer?: Tokenizer | TokenizerObject;
+        tokenizer?: Tokenizer | TokenizerObject | undefined;
 
         /**
          * The walkTokens function gets called with every token.
@@ -526,11 +526,11 @@ declare namespace marked {
          * Each token is passed by reference so updates are persisted when passed to the parser.
          * The return value of the function is ignored.
          */
-        walkTokens?: (token: Token) => void;
+        walkTokens?: ((token: Token) => void) | undefined;
         /**
          * Generate closing slash for self-closing tags (<br/> instead of <br>)
          */
-        xhtml?: boolean;
+        xhtml?: boolean | undefined;
     }
 
     interface MarkedOptions extends MarkedExtension {
@@ -539,11 +539,11 @@ declare namespace marked {
          *
          * An object containing functions to render tokens to HTML.
          */
-        renderer?: Renderer;
+        renderer?: Renderer | undefined;
 
         /**
          * The tokenizer defines how to turn markdown text into tokens.
          */
-        tokenizer?: Tokenizer;
+        tokenizer?: Tokenizer | undefined;
     }
 }

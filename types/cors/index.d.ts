@@ -7,7 +7,7 @@
 
 import { IncomingHttpHeaders } from 'http';
 
-type StaticOrigin = boolean | string | RegExp | (string | RegExp)[];
+type StaticOrigin = boolean | string | RegExp | (boolean | string | RegExp)[];
 
 type CustomOrigin = (requestOrigin: string | undefined, callback: (err: Error | null, origin?: StaticOrigin) => void) => void;
 

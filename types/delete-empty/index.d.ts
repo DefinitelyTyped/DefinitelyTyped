@@ -20,9 +20,9 @@ declare namespace deleteEmpty {
          * Do a dry run without deleting any files
          * @default false
          */
-        dryRun?: boolean;
-        filter?: FilterFunction;
-        junkRegex?: RegExp;
+        dryRun?: boolean | undefined;
+        filter?: FilterFunction | undefined;
+        junkRegex?: RegExp | undefined;
     }
 
     interface FilterFunction {

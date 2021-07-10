@@ -2,6 +2,7 @@
 // Project: https://github.com/SocketCluster/scc-broker-client
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 import AGSimpleBroker = require('ag-simple-broker');
 import ConsumableStream = require('consumable-stream');

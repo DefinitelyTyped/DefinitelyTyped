@@ -233,7 +233,3 @@ import * as net from 'net';
 {
     const maxHeaderSize = http.maxHeaderSize;
 }
-
-{
-    const opts: http.RequestOptions = http.urlToHttpOptions(new url.URL('test.com'));
-}

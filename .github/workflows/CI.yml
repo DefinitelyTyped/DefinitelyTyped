@@ -11,6 +11,14 @@ jobs:
         with:
           node-version: "12"
 
+      # forbid symlinks
+      - name: "Pre-run validation"
+        run: |
+          symlinks="$(find . -type l)"
+          if [[ -n "$symlinks" ]]; then
+            printf "Aborting: symlinks found:\n%s" "$symlinks"; exit 1
+          fi
+
       # Get local dependencies
       - run: npm install
 

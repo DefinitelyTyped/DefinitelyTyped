@@ -5,9 +5,9 @@ import { ObjectEvent } from '../Object';
 import Control from './Control';
 
 export interface Options {
-    className?: string;
-    duration?: number;
-    render?: (p0: MapEvent) => void;
+    className?: string | undefined;
+    duration?: number | undefined;
+    render?: ((p0: MapEvent) => void) | undefined;
 }
 export default class ZoomSlider extends Control {
     constructor(opt_options?: Options);

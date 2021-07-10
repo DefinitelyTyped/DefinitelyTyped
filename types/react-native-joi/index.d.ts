@@ -11,85 +11,85 @@ export type LanguageOptions = string | boolean | null | {
 };
 
 export type LanguageRootOptions = {
-    root?: string;
-    key?: string;
-    messages?: { wrapArrays?: boolean; };
+    root?: string | undefined;
+    key?: string | undefined;
+    messages?: { wrapArrays?: boolean | undefined; } | undefined;
 } & Partial<Record<Types, LanguageOptions>> & { [key: string]: LanguageOptions; };
 
 export interface ValidationOptions {
     /**
      * when true, stops validation on the first error, otherwise returns all the errors found. Defaults to true.
      */
-    abortEarly?: boolean;
+    abortEarly?: boolean | undefined;
     /**
      * when true, attempts to cast values to the required types (e.g. a string to a number). Defaults to true.
      */
-    convert?: boolean;
+    convert?: boolean | undefined;
     /**
      * when true, allows object to contain unknown keys which are ignored. Defaults to false.
      */
-    allowUnknown?: boolean;
+    allowUnknown?: boolean | undefined;
     /**
      * when true, ignores unknown keys with a function value. Defaults to false.
      */
-    skipFunctions?: boolean;
+    skipFunctions?: boolean | undefined;
     /**
      * remove unknown elements from objects and arrays. Defaults to false
      * - when true, all unknown elements will be removed
      * - when an object:
      *      - objects - set to true to remove unknown keys from objects
      */
-    stripUnknown?: boolean | { arrays?: boolean; objects?: boolean };
+    stripUnknown?: boolean | { arrays?: boolean | undefined; objects?: boolean | undefined } | undefined;
     /**
      * overrides individual error messages. Defaults to no override ({}).
      */
-    language?: LanguageRootOptions;
+    language?: LanguageRootOptions | undefined;
     /**
      * sets the default presence requirements. Supported modes: 'optional', 'required', and 'forbidden'. Defaults to 'optional'.
      */
-    presence?: 'optional' | 'required' | 'forbidden';
+    presence?: 'optional' | 'required' | 'forbidden' | undefined;
     /**
      * provides an external data set to be used in references
      */
-    context?: Context;
+    context?: Context | undefined;
     /**
      * when true, do not apply default values. Defaults to false.
      */
-    noDefaults?: boolean;
+    noDefaults?: boolean | undefined;
 }
 
 export interface RenameOptions {
     /**
      * if true, does not delete the old key name, keeping both the new and old keys in place. Defaults to false.
      */
-    alias?: boolean;
+    alias?: boolean | undefined;
     /**
      * if true, allows renaming multiple keys to the same destination where the last rename wins. Defaults to false.
      */
-    multiple?: boolean;
+    multiple?: boolean | undefined;
     /**
      * if true, allows renaming a key over an existing key. Defaults to false.
      */
-    override?: boolean;
+    override?: boolean | undefined;
     /**
      * if true, skip renaming of a key if it's undefined. Defaults to false.
      */
-    ignoreUndefined?: boolean;
+    ignoreUndefined?: boolean | undefined;
 }
 
 export interface EmailOptions {
     /**
      * Numerical threshold at which an email address is considered invalid
      */
-    errorLevel?: number | boolean;
+    errorLevel?: number | boolean | undefined;
     /**
      * Specifies a list of acceptable TLDs.
      */
-    tldWhitelist?: string[] | object;
+    tldWhitelist?: string[] | object | undefined;
     /**
      * Number of atoms required for the domain. Be careful since some domains, such as io, directly allow email.
      */
-    minDomainAtoms?: number;
+    minDomainAtoms?: number | undefined;
 }
 
 export interface HexOptions {
@@ -97,18 +97,18 @@ export interface HexOptions {
      * hex decoded representation must be byte aligned.
      * @default false
      */
-    byteAligned?: boolean;
+    byteAligned?: boolean | undefined;
 }
 
 export interface IpOptions {
     /**
      * One or more IP address versions to validate against. Valid values: ipv4, ipv6, ipvfuture
      */
-    version?: string | string[];
+    version?: string | string[] | undefined;
     /**
      * Used to determine if a CIDR is allowed or not. Valid values: optional, required, forbidden
      */
-    cidr?: string;
+    cidr?: string | undefined;
 }
 
 export type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5';
@@ -122,29 +122,29 @@ export interface UriOptions {
      * Specifies one or more acceptable Schemes, should only include the scheme name.
      * Can be an Array or String (strings are automatically escaped for use in a Regular Expression).
      */
-    scheme?: string | RegExp | Array<string | RegExp>;
+    scheme?: string | RegExp | Array<string | RegExp> | undefined;
     /**
      * Allow relative URIs. Defaults to `false`.
      */
-    allowRelative?: boolean;
+    allowRelative?: boolean | undefined;
     /**
      * Restrict only relative URIs. Defaults to `false`.
      */
-    relativeOnly?: boolean;
+    relativeOnly?: boolean | undefined;
 }
 
 export interface DataUriOptions {
     /**
      * optional parameter defaulting to true which will require = padding if true or make padding optional if false
      */
-    paddingRequired?: boolean;
+    paddingRequired?: boolean | undefined;
 }
 
 export interface Base64Options {
     /**
      * optional parameter defaulting to true which will require = padding if true or make padding optional if false
      */
-    paddingRequired?: boolean;
+    paddingRequired?: boolean | undefined;
 }
 
 export interface WhenOptions {
@@ -155,45 +155,45 @@ export interface WhenOptions {
     /**
      * the alternative schema type if the condition is true. Required if otherwise is missing.
      */
-    then?: SchemaLike;
+    then?: SchemaLike | undefined;
     /**
      * the alternative schema type if the condition is false. Required if then is missing
      */
-    otherwise?: SchemaLike;
+    otherwise?: SchemaLike | undefined;
 }
 
 export interface WhenSchemaOptions {
     /**
      * the alternative schema type if the condition is true. Required if otherwise is missing.
      */
-    then?: SchemaLike;
+    then?: SchemaLike | undefined;
     /**
      * the alternative schema type if the condition is false. Required if then is missing
      */
-    otherwise?: SchemaLike;
+    otherwise?: SchemaLike | undefined;
 }
 
 export interface ReferenceOptions {
-    separator?: string;
-    contextPrefix?: string;
+    separator?: string | undefined;
+    contextPrefix?: string | undefined;
     default?: any;
-    strict?: boolean;
-    functions?: boolean;
+    strict?: boolean | undefined;
+    functions?: boolean | undefined;
 }
 
 // tslint:disable-next-line:interface-name
 export interface IPOptions {
-    version?: string[];
-    cidr?: string;
+    version?: string[] | undefined;
+    cidr?: string | undefined;
 }
 
 export interface StringRegexOptions {
-    name?: string;
-    invert?: boolean;
+    name?: string | undefined;
+    invert?: boolean | undefined;
 }
 
 export interface ArrayUniqueOptions {
-    ignoreUndefined?: boolean;
+    ignoreUndefined?: boolean | undefined;
 }
 
 export interface JoiObject {
@@ -207,7 +207,7 @@ export interface ErrorOptions {
      * This concept only makes sense for `array` or `object` schemas as other values don't have children.
      * @default false
      */
-    self?: boolean;
+    self?: boolean | undefined;
 }
 
 export interface ValidationError extends Error, JoiObject {
@@ -220,8 +220,8 @@ export interface ValidationErrorItem {
     message: string;
     type: string;
     path: string[];
-    options?: ValidationOptions;
-    context?: Context;
+    options?: ValidationOptions | undefined;
+    context?: Context | undefined;
 }
 
 export type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | ValidationErrorItem[] | Error;
@@ -250,7 +250,7 @@ export type Schema = AnySchema
     | LazySchema;
 
 export interface AnySchema extends JoiObject {
-    schemaType?: Types | string;
+    schemaType?: Types | string | undefined;
 
     /**
      * Validates a value using the schema and options.
@@ -428,30 +428,30 @@ export interface AnySchema extends JoiObject {
 }
 
 export interface Description {
-    type?: Types | string;
-    label?: string;
-    description?: string;
-    flags?: object;
-    notes?: string[];
-    tags?: string[];
-    meta?: any[];
-    example?: any[];
-    valids?: any[];
-    invalids?: any[];
-    unit?: string;
-    options?: ValidationOptions;
+    type?: Types | string | undefined;
+    label?: string | undefined;
+    description?: string | undefined;
+    flags?: object | undefined;
+    notes?: string[] | undefined;
+    tags?: string[] | undefined;
+    meta?: any[] | undefined;
+    example?: any[] | undefined;
+    valids?: any[] | undefined;
+    invalids?: any[] | undefined;
+    unit?: string | undefined;
+    options?: ValidationOptions | undefined;
     [key: string]: any;
 }
 
 export interface Context {
     [key: string]: any;
-    key?: string;
-    label?: string;
+    key?: string | undefined;
+    label?: string | undefined;
 }
 
 export interface State {
-    key?: string;
-    path?: string;
+    key?: string | undefined;
+    path?: string | undefined;
     parent?: any;
     reference?: any;
 }
@@ -1029,20 +1029,20 @@ export type ExtensionBoundSchema = Schema & {
 
 export interface Rules<P extends object = any> {
     name: string;
-    params?: ObjectSchema | {[key in keyof P]: SchemaLike; };
+    params?: ObjectSchema | {[key in keyof P]: SchemaLike; } | undefined;
     setup?(this: ExtensionBoundSchema, params: P): Schema | void;
     validate?(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): any;
-    description?: string | ((params: P) => string);
+    description?: string | ((params: P) => string) | undefined;
 }
 
 export interface Extension {
     name: string;
-    base?: Schema;
-    language?: LanguageOptions;
+    base?: Schema | undefined;
+    language?: LanguageOptions | undefined;
     coerce?(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): any;
     pre?(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): any;
     describe?(this: Schema, description: Description): Description;
-    rules?: Rules[];
+    rules?: Rules[] | undefined;
 }
 
 export interface Err extends JoiObject {
@@ -1053,7 +1053,7 @@ export interface LazyOptions {
     /**
      * If true the schema generator will only be called once and the result will be cached.
      */
-    once?: boolean;
+    once?: boolean | undefined;
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

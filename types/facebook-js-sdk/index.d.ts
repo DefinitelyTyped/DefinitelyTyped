@@ -101,43 +101,43 @@ declare namespace facebook {
             params: { fields: TParam[] },
             callback: (response: {
                 id: number;
-                about?: TParam extends 'about' ? string : never | undefined;
-                age_range?: TParam extends 'age_range' ? AgeRange : never | undefined;
-                birthday?: TParam extends 'birthday' ? string : never | undefined;
-                education?: TParam extends 'education' ? EducationExperience[] : never | undefined;
-                email?: TParam extends 'email' ? string : never | undefined;
-                favorite_athletes?: TParam extends 'favorite_athletes' ? Experience[] : never | undefined;
-                favorite_teams?: TParam extends 'favorite_teams' ? Experience[] : never | undefined;
-                first_name?: TParam extends 'first_name' ? string : never | undefined;
-                gender?: TParam extends 'gender' ? string : never | undefined;
-                hometown?: TParam extends 'hometown' ? Page : never | undefined;
-                inspirational_people?: TParam extends 'inspirational_people' ? Experience[] : never | undefined;
-                install_type?: TParam extends 'install_type' ? any : never | undefined;
-                is_guest_user?: TParam extends 'is_guest_user' ? boolean : never | undefined;
-                languages?: TParam extends 'languages' ? Experience[] : never | undefined;
-                last_name?: TParam extends 'last_name' ? string : never | undefined;
-                link?: TParam extends 'link' ? string : never | undefined;
-                location?: TParam extends 'location' ? Page : never | undefined;
-                meeting_for?: TParam extends 'meeting_for' ? string[] : never | undefined;
-                middle_name?: TParam extends 'middle_name' ? string : never | undefined;
-                name?: TParam extends 'name' ? string : never | undefined;
-                name_format?: TParam extends 'name_format' ? string : never | undefined;
-                payment_pricepoints?: TParam extends 'payment_pricepoints' ? PaymentPricepoints : never | undefined;
-                name_political?: TParam extends 'political' ? string : never | undefined;
-                profile_pic?: TParam extends 'profile_pic' ? string : never | undefined;
-                quotes?: TParam extends 'quotes' ? string : never | undefined;
-                relationship_status?: TParam extends 'relationship_status' ? string : never | undefined;
-                religion?: TParam extends 'religion' ? string : never | undefined;
-                shared_login_upgrade_required_by?: TParam extends 'shared_login_upgrade_required_by' ? any : never | undefined;
-                short_name?: TParam extends 'short_name' ? any : never | undefined;
-                significant_other?: TParam extends 'significant_other' ? User : never | undefined;
-                sports?: TParam extends 'sports' ? Experience[] : never | undefined;
+                about?: TParam extends 'about' ? string : never | undefined | undefined;
+                age_range?: TParam extends 'age_range' ? AgeRange : never | undefined | undefined;
+                birthday?: TParam extends 'birthday' ? string : never | undefined | undefined;
+                education?: TParam extends 'education' ? EducationExperience[] : never | undefined | undefined;
+                email?: TParam extends 'email' ? string : never | undefined | undefined;
+                favorite_athletes?: TParam extends 'favorite_athletes' ? Experience[] : never | undefined | undefined;
+                favorite_teams?: TParam extends 'favorite_teams' ? Experience[] : never | undefined | undefined;
+                first_name?: TParam extends 'first_name' ? string : never | undefined | undefined;
+                gender?: TParam extends 'gender' ? string : never | undefined | undefined;
+                hometown?: TParam extends 'hometown' ? Page : never | undefined | undefined;
+                inspirational_people?: TParam extends 'inspirational_people' ? Experience[] : never | undefined | undefined;
+                install_type?: TParam extends 'install_type' ? any : never | undefined | undefined;
+                is_guest_user?: TParam extends 'is_guest_user' ? boolean : never | undefined | undefined;
+                languages?: TParam extends 'languages' ? Experience[] : never | undefined | undefined;
+                last_name?: TParam extends 'last_name' ? string : never | undefined | undefined;
+                link?: TParam extends 'link' ? string : never | undefined | undefined;
+                location?: TParam extends 'location' ? Page : never | undefined | undefined;
+                meeting_for?: TParam extends 'meeting_for' ? string[] : never | undefined | undefined;
+                middle_name?: TParam extends 'middle_name' ? string : never | undefined | undefined;
+                name?: TParam extends 'name' ? string : never | undefined | undefined;
+                name_format?: TParam extends 'name_format' ? string : never | undefined | undefined;
+                payment_pricepoints?: TParam extends 'payment_pricepoints' ? PaymentPricepoints : never | undefined | undefined;
+                name_political?: TParam extends 'political' ? string : never | undefined | undefined;
+                profile_pic?: TParam extends 'profile_pic' ? string : never | undefined | undefined;
+                quotes?: TParam extends 'quotes' ? string : never | undefined | undefined;
+                relationship_status?: TParam extends 'relationship_status' ? string : never | undefined | undefined;
+                religion?: TParam extends 'religion' ? string : never | undefined | undefined;
+                shared_login_upgrade_required_by?: TParam extends 'shared_login_upgrade_required_by' ? any : never | undefined | undefined;
+                short_name?: TParam extends 'short_name' ? any : never | undefined | undefined;
+                significant_other?: TParam extends 'significant_other' ? User : never | undefined | undefined;
+                sports?: TParam extends 'sports' ? Experience[] : never | undefined | undefined;
                 supports_donate_button_in_live_video?: TParam extends 'supports_donate_button_in_live_video'
                     ? boolean
-                    : never | undefined;
-                token_for_business?: TParam extends 'token_for_business' ? VideoUploadLimits : never | undefined;
-                video_upload_limits?: TParam extends 'video_upload_limits' ? string : never | undefined;
-                website?: TParam extends 'website' ? string : never | undefined;
+                    : never | undefined | undefined;
+                token_for_business?: TParam extends 'token_for_business' ? VideoUploadLimits : never | undefined | undefined;
+                video_upload_limits?: TParam extends 'video_upload_limits' ? string : never | undefined | undefined;
+                website?: TParam extends 'website' ? string : never | undefined | undefined;
             }) => void,
         ): void;
         api<TParams extends object, TResponse>(

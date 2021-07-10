@@ -9,6 +9,6 @@ export default class TextPartLanguage extends Plugin {
 
 export interface TextPartLanguageOption {
     languageCode: string;
-    textDirection?: 'ltr' | 'rtl';
+    textDirection?: 'ltr' | 'rtl' | undefined;
     title: string;
 }

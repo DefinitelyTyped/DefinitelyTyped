@@ -6,22 +6,22 @@ export default class ExportPdf extends Plugin implements Emitter, Observable {}
 
 export interface ExportPdfConfig {
     converterOptions?: {
-        margin_top?: 0 | string;
-        margin_bottom?: 0 | string;
-        margin_right?: 0 | string;
-        margin_left?: 0 | string;
-        format?: "A0" | "A1" | "A2" | "A3" | "A4" | "A5" | "A6" | "Letter";
-        page_orientation?: "portrait" | "landscape";
-        header_and_footer_css?: string;
-        footer_html?: string;
-        header_html?: string;
-        wait_for_selector?: string;
-        wait_for_network?: boolean;
-        wait_time?: number;
-    };
-    converterUrl?: string;
+        margin_top?: 0 | string | undefined;
+        margin_bottom?: 0 | string | undefined;
+        margin_right?: 0 | string | undefined;
+        margin_left?: 0 | string | undefined;
+        format?: "A0" | "A1" | "A2" | "A3" | "A4" | "A5" | "A6" | "Letter" | undefined;
+        page_orientation?: "portrait" | "landscape" | undefined;
+        header_and_footer_css?: string | undefined;
+        footer_html?: string | undefined;
+        header_html?: string | undefined;
+        wait_for_selector?: string | undefined;
+        wait_for_network?: boolean | undefined;
+        wait_time?: number | undefined;
+    } | undefined;
+    converterUrl?: string | undefined;
     dataCallback?(editor: Editor): string;
-    fileName?: string;
-    stylesheets?: string[];
-    tokenUrl?: boolean | string | (() => Promise<string>);
+    fileName?: string | undefined;
+    stylesheets?: string[] | undefined;
+    tokenUrl?: boolean | string | (() => Promise<string>) | undefined;
 }

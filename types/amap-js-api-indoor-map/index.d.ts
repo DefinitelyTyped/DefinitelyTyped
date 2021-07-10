@@ -38,32 +38,32 @@ declare namespace AMap {
             /**
              * 图层叠加的顺序值
              */
-            zIndex?: number;
+            zIndex?: number | undefined;
             /**
              * 图层的透明度
              */
-            opacity?: number;
+            opacity?: number | undefined;
             /**
              * 鼠标悬停到店铺面时的鼠标样式
              */
-            cursor?: string;
+            cursor?: string | undefined;
             /**
              * 是否隐藏楼层切换控件
              */
-            hideFloorBar?: boolean;
+            hideFloorBar?: boolean | undefined;
             /**
              * 是否持续显示
              */
-            alaysShow?: boolean;
+            alaysShow?: boolean | undefined;
 
             // internal
-            visible?: boolean;
-            featurezIndex?: number;
-            zooms?: [number, number];
-            disableIconRender?: boolean;
-            disableLabelRender?: boolean;
-            disableHoverMarker?: boolean;
-            autoLoadBuildingsInTile?: boolean;
+            visible?: boolean | undefined;
+            featurezIndex?: number | undefined;
+            zooms?: [number, number] | undefined;
+            disableIconRender?: boolean | undefined;
+            disableLabelRender?: boolean | undefined;
+            disableHoverMarker?: boolean | undefined;
+            autoLoadBuildingsInTile?: boolean | undefined;
         }
         interface FloorDetails {
             /**

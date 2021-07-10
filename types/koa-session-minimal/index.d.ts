@@ -1,7 +1,7 @@
 // Type definitions for koa-session-minimal v3.x
 // Project: https://github.com/longztian/koa-session-minimal
 // Definitions by: Longzhang Tian <https://github.com/longztian>
-// Definitions: https://github.com/hellopao/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /* =================== USAGE ===================
@@ -28,12 +28,12 @@ declare function session(opts?: {
     /**
      * session cookie name and store key prefix. Default is 'koa:sess'
      */
-    key?: string;
+    key?: string | undefined;
 
     /**
      * cookie options
      */
-    cookie?:  cookies.IOptions | { (ctx?: Koa.Context): cookies.IOptions };
+    cookie?:  cookies.IOptions | { (ctx?: Koa.Context): cookies.IOptions } | undefined;
 
     /**
      * session store

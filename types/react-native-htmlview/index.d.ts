@@ -15,9 +15,9 @@ import {
 } from 'react-native';
 
 export interface HTMLViewNode {
-    data?: string;
-    type?: string;
-    name?: string;
+    data?: string | undefined;
+    type?: string | undefined;
+    name?: string | undefined;
     attribs: { [key: string]: string };
 }
 export interface HTMLViewProps {
@@ -28,7 +28,7 @@ export interface HTMLViewProps {
 
     stylesheet?: {
         [key: string]: StyleProp<ViewStyle | TextStyle | ImageStyle>;
-    };
+    } | undefined;
 
     onLinkPress?(url: string): void;
 
@@ -60,52 +60,52 @@ export interface HTMLViewProps {
     /**
      * Text which is rendered before every li inside a ul
      */
-    bullet?: string;
+    bullet?: string | undefined;
 
     /**
      * Text which appears after every p element
      */
-    paragraphBreak?: string;
+    paragraphBreak?: string | undefined;
 
     /**
      * Text which appears after text elements which create a new line (br, headings)
      */
-    lineBreak?: string;
+    lineBreak?: string | undefined;
 
     /**
      *  When explicitly false, effectively sets paragraphBreak and lineBreak to null
      */
-    addLineBreaks?: boolean;
+    addLineBreaks?: boolean | undefined;
 
     /*
      * The root wrapper component
      */
-    RootComponent?: ComponentType;
+    RootComponent?: ComponentType | undefined;
 
     /*
      * Properties for the RootComponent, can be used independently from RootComponent
      */
-    rootComponentProps?: ViewProperties;
+    rootComponentProps?: ViewProperties | undefined;
 
     /*
      * The component used for rendering HTML element nodes
      */
-    NodeComponent?: ComponentType;
+    NodeComponent?: ComponentType | undefined;
 
     /*
      * Properties for the NodeComponent, can be used independently from NodeComponent
      */
-    nodeComponentProps?: TextProperties;
+    nodeComponentProps?: TextProperties | undefined;
 
     /*
      * The component used for rendering text element nodes
      */
-    TextComponent?: ComponentType;
+    TextComponent?: ComponentType | undefined;
 
     /*
      * Properties for the TextComponent, can be used independently from TextComponent
      */
-    textComponentProps?: TextProperties;
+    textComponentProps?: TextProperties | undefined;
 }
 
 export default class HTMLView extends Component<HTMLViewProps> {}

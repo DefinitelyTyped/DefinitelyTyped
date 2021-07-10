@@ -126,15 +126,15 @@ export type FunctionOnTimeout  = (this: Casper, timeout: number, details: any) =
 
 export interface ImgOptions {
     // format to set the image format manually, avoiding relying on the filename
-    format?: string;
+    format?: string | undefined;
     // quality to set the image quality, from 1 to 100
-    quality?: number;
+    quality?: number | undefined;
 }
 
 export interface FindByUrlNameTitle {
-    url?: string;
-    title?: string;
-    windowName?: string;
+    url?: string | undefined;
+    title?: string | undefined;
+    windowName?: string | undefined;
 }
 
 export interface Header {
@@ -143,14 +143,14 @@ export interface Header {
 }
 
 export interface CasperSelector {
-    type?: 'xpath' | 'css';
+    type?: 'xpath' | 'css' | undefined;
     path: string;
 }
 
 export interface KeyOptions {
-    reset?: boolean;
-    keepFocus?: boolean;
-    modifiers?: string; // combinaison of 'ctrl+alt+shift+meta+keypad'
+    reset?: boolean | undefined;
+    keepFocus?: boolean | undefined;
+    modifiers?: string | undefined; // combinaison of 'ctrl+alt+shift+meta+keypad'
 }
 
 export interface HttpResponse {
@@ -193,32 +193,32 @@ export interface ElementInfo {
 }
 
 export interface CasperOptions {
-    clientScripts?: any[];
-    exitOnError?: boolean;
+    clientScripts?: any[] | undefined;
+    exitOnError?: boolean | undefined;
     httpStatusHandlers?: any;
-    logLevel?: string;
-    onAlert?: Function;
-    onDie?: Function;
-    onError?: Function;
-    onLoadError?: Function;
-    onPageInitialized?: Function;
-    onResourceReceived?: Function;
-    onResourceRequested?: Function;
-    onStepComplete?: Function;
-    onStepTimeout?: Function;
-    onTimeout?: Function;
-    onWaitTimeout?: Function;
-    page?: WebPage;
+    logLevel?: string | undefined;
+    onAlert?: Function | undefined;
+    onDie?: Function | undefined;
+    onError?: Function | undefined;
+    onLoadError?: Function | undefined;
+    onPageInitialized?: Function | undefined;
+    onResourceReceived?: Function | undefined;
+    onResourceRequested?: Function | undefined;
+    onStepComplete?: Function | undefined;
+    onStepTimeout?: Function | undefined;
+    onTimeout?: Function | undefined;
+    onWaitTimeout?: Function | undefined;
+    page?: WebPage | undefined;
     pageSettings?: any;
-    remoteScripts?: any[];
-    safeLogs?: boolean;
-    silentErrors?: boolean;
-    stepTimeout?: number;
-    timeout?: number;
-    verbose?: boolean;
+    remoteScripts?: any[] | undefined;
+    safeLogs?: boolean | undefined;
+    silentErrors?: boolean | undefined;
+    stepTimeout?: number | undefined;
+    timeout?: number | undefined;
+    verbose?: boolean | undefined;
     viewportSize?: any;
-    retryTimeout?: number;
-    waitTimeout?: number;
+    retryTimeout?: number | undefined;
+    waitTimeout?: number | undefined;
 }
 
 export interface ClientUtils {

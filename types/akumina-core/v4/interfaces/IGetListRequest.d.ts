@@ -11,7 +11,7 @@ export default interface IGetListRequest {
     viewXml: string;
     rowLimit: number;
     isPagedResult: boolean;
-    language?: ILanguageRequest;
+    language?: ILanguageRequest | undefined;
     queryFilter?: any;
     orderBy?: any;
     PageManager?: any;

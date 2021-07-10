@@ -8,9 +8,9 @@
 /// <reference types="node" />
 
 interface Config {
-    name?: string;
-    only?: boolean;
-    skip?: boolean;
+    name?: string | undefined;
+    only?: boolean | undefined;
+    skip?: boolean | undefined;
     [key: string]: any;
 }
 

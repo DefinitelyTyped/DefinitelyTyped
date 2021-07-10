@@ -107,11 +107,11 @@ export interface Options {
      * When set, the algorithm will chose position which fits the most in the
      * limiter's bounding rect.
      */
-    limiter?: HTMLElement | Range | ClientRect | Rect | (() => HTMLElement);
+    limiter?: HTMLElement | Range | ClientRect | Rect | (() => HTMLElement) | undefined;
 
     /**
      * When set, the algorithm will chose such a position which fits `element`
      * the most inside visible viewport.
      */
-    fitInViewport?: boolean;
+    fitInViewport?: boolean | undefined;
 }

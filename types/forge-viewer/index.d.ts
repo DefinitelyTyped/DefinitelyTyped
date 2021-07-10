@@ -197,34 +197,34 @@ declare namespace Autodesk {
         interface Viewer3DConfig {
           [key: string]: any;
 
-          addFooter?: boolean;
-          extensions?: string[];
-          heightAdjustment?: number;
-          left?: boolean;
-          localizeTitle?: boolean;
-          marginTop?: number;
-          startOnInitialize?: boolean;
-          theme?: 'dark-theme'|'light-theme'|string;
+          addFooter?: boolean | undefined;
+          extensions?: string[] | undefined;
+          heightAdjustment?: number | undefined;
+          left?: boolean | undefined;
+          localizeTitle?: boolean | undefined;
+          marginTop?: number | undefined;
+          startOnInitialize?: boolean | undefined;
+          theme?: 'dark-theme'|'light-theme'|string | undefined;
         }
 
         interface ViewerConfig {
-          disableBrowserContextMenu?: boolean;
+          disableBrowserContextMenu?: boolean | undefined;
           disabledExtensions?: {
-            bimwalk?: boolean;
-            hyperlink?: boolean;
-            measure?: boolean;
-            scalarisSimulation?: boolean;
-            section?: boolean;
-          };
-          extensions?: string[];
-          useConsolidation?: boolean;
-          consolidationMemoryLimit?: number;
-          sharedPropertyDbPath?: string;
-          bubbleNode?: BubbleNode;
+            bimwalk?: boolean | undefined;
+            hyperlink?: boolean | undefined;
+            measure?: boolean | undefined;
+            scalarisSimulation?: boolean | undefined;
+            section?: boolean | undefined;
+          } | undefined;
+          extensions?: string[] | undefined;
+          useConsolidation?: boolean | undefined;
+          consolidationMemoryLimit?: number | undefined;
+          sharedPropertyDbPath?: string | undefined;
+          bubbleNode?: BubbleNode | undefined;
           canvasConfig?: any;
-          startOnInitialize?: boolean;
-          experimental?: any[];
-          theme?: 'dark-theme'|'light-theme'|string;
+          startOnInitialize?: boolean | undefined;
+          experimental?: any[] | undefined;
+          theme?: 'dark-theme'|'light-theme'|string | undefined;
           [key: string]: any;
         }
 
@@ -253,32 +253,32 @@ declare namespace Autodesk {
         }
 
         interface FileLoaderOptions {
-          ids?: string;
-          sharedPropertyDbPath?: string;
+          ids?: string | undefined;
+          sharedPropertyDbPath?: string | undefined;
           [key: string]: any;
         }
 
         interface LoadModelOptions {
-          fileLoader?: FileLoader;
-          loadOptions?: object;
-          sharedPropertyDbPath?: string;
-          ids?: string;
+          fileLoader?: FileLoader | undefined;
+          loadOptions?: object | undefined;
+          sharedPropertyDbPath?: string | undefined;
+          ids?: string | undefined;
           [key: string]: any;
         }
 
         interface PropertyOptions {
-          propFilter?: string[];
-          ignoreHidden?: boolean;
+          propFilter?: string[] | undefined;
+          ignoreHidden?: boolean | undefined;
           [key: string]: any;
         }
 
         interface ResizePanelOptions {
-          dockingPanels?: UI.DockingPanel[];
-          viewer?: Viewer3D;
+          dockingPanels?: UI.DockingPanel[] | undefined;
+          viewer?: Viewer3D | undefined;
           dimensions?: {
             width: number;
             height: number;
-          };
+          } | undefined;
         }
 
         class FileLoader {
@@ -289,7 +289,7 @@ declare namespace Autodesk {
         }
 
         interface ViewerItem {
-          children?: ViewerItem[];
+          children?: ViewerItem[] | undefined;
           guid: string;
           hasThumbnail: boolean;
           name: string;
@@ -386,32 +386,32 @@ declare namespace Autodesk {
         }
 
         interface ViewerEventArgs {
-          target?: Viewer3D;
-          model?: ViewerItem;
+          target?: Viewer3D | undefined;
+          model?: ViewerItem | undefined;
           type: string;
           [key: string]: any;
         }
 
         interface BubbleNodeSearchProps {
-          role?: '3d'|'2d'|string;
-          type?: 'view'|'geometry'|string;
-          mime?: string;
+          role?: '3d'|'2d'|string | undefined;
+          type?: 'view'|'geometry'|string | undefined;
+          mime?: string | undefined;
         }
 
         interface AggregatedViewInitOptions {
-          cameraValidator?: boolean;
+          cameraValidator?: boolean | undefined;
           clusterfck?: any;
           createModelAlignmentService?: any;
-          disableBookmarks?: boolean;
+          disableBookmarks?: boolean | undefined;
           getCustomLoadOptions?: any;
-          ignoreGlobalOffset?: boolean;
+          ignoreGlobalOffset?: boolean | undefined;
           multiViewerFactory?: any;
-          propagateInputEventTypes?: string[];
-          unloadUnfinishedModels?: boolean;
-          useDynamicGlobalOffset?: boolean;
+          propagateInputEventTypes?: string[] | undefined;
+          unloadUnfinishedModels?: boolean | undefined;
+          useDynamicGlobalOffset?: boolean | undefined;
           viewerConfig?: any;
           viewerStartOptions?: any;
-          viewerUnits?: string;
+          viewerUnits?: string | undefined;
         }
 
         class AggregatedView {
@@ -527,15 +527,15 @@ declare namespace Autodesk {
         let i18n: any;
 
         interface InitializerOptions {
-            api?: string;
-            env?: string;
-            webGLHelpLink?: string;
+            api?: string | undefined;
+            env?: string | undefined;
+            webGLHelpLink?: string | undefined;
             getAccessToken?(callback?: (accessToken: string, expires: number) => void): void;
             refreshToken?(callback?: (accessToken: string, expires: number) => void): void;
-            language?: string;
-            accessToken?: string;
-            useADP?: boolean;
-            useConsolidation?: boolean;
+            language?: string | undefined;
+            accessToken?: string | undefined;
+            useADP?: boolean | undefined;
+            useConsolidation?: boolean | undefined;
             [key: string]: any;
         }
 
@@ -684,18 +684,18 @@ declare namespace Autodesk {
             fetchTopology(maxSizeMB: number): Promise<object>;
             getBoundingBox(): THREE.Box3;
             getBulkProperties(dbIds: number[], options?: {
-              propFilter?: string[];
-              ignoreHidden?: boolean;
+              propFilter?: string[] | undefined;
+              ignoreHidden?: boolean | undefined;
              }, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
             getBulkProperties2(dbIds: number[], options?: {
-              propFilter?: string[];
-              categoryFilter?: string[];
-              ignoreHidden?: boolean;
-              needExternalId?: boolean;
+              propFilter?: string[] | undefined;
+              categoryFilter?: string[] | undefined;
+              ignoreHidden?: boolean | undefined;
+              needExternalId?: boolean | undefined;
             }, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (s: any, m: any, d: any) => void): void;
             getData(): any;
             getFragmentList(): Private.FragmentList;
-            getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
+            getFuzzyBox(options: { allowList?: number[] | undefined, center?: number | undefined, ignoreTransform?: boolean | undefined, quantil?: number | undefined }): THREE.Box3;
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
             getInverseModelToViewerTransform(): THREE.Matrix4;
@@ -708,8 +708,8 @@ declare namespace Autodesk {
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             getProperties2(dbIds: number[], successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void, options?: { needExternalId: boolean }): void;
             getPropertyDb(): PropDbLoader;
-            getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): void;
-            getPropertySetAsync(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
+            getPropertySet(dbIds: number[], options: { propFilter?: string[] | undefined; ignoreHidden?: boolean | undefined; needsExternalId?: boolean | undefined; }): void;
+            getPropertySetAsync(dbIds: number[], options: { propFilter?: string[] | undefined; ignoreHidden?: boolean | undefined; needsExternalId?: boolean | undefined; }): Promise<PropertySet>;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
@@ -823,8 +823,8 @@ declare namespace Autodesk {
 
         interface PropertyResult {
             dbId: number;
-            externalId?: string;
-            name?: string;
+            externalId?: string | undefined;
+            name?: string | undefined;
             properties: Property[];
         }
 
@@ -977,7 +977,7 @@ declare namespace Autodesk {
         }
 
         class ContextMenu {
-          constructor(viewer: GuiViewer3D, options?: { onHide?: boolean; });
+          constructor(viewer: GuiViewer3D, options?: { onHide?: boolean | undefined; });
 
           addCallbackToMenuItem(menuItem: ContextMenuItem, target: () => void): void;
           addSubmenuCallbackToMenuItem(menuItem: ContextMenuItem, menu: any, x: number, y: number, shiftLeft: boolean): void;
@@ -1192,10 +1192,10 @@ declare namespace Autodesk {
             isHighlightPaused(): boolean;
             isHighlightActive(): boolean;
             isLoadDone(include?: {
-              geometry?: boolean,
-              onlyModels?: boolean,
-              propDb?: boolean,
-              textures?: boolean
+              geometry?: boolean | undefined,
+              onlyModels?: boolean | undefined,
+              propDb?: boolean | undefined,
+              textures?: boolean | undefined
             }): boolean;
             isSelectionDisabled(): boolean;
             loadExtension(extensionId: string, options?: object): Promise<Extension>;
@@ -1218,10 +1218,10 @@ declare namespace Autodesk {
             removeEventListener(type: string, callback: (event: any) => void): any;
             dispatchEvent(event: object): void;
             waitForLoadDone(include?: {
-              geometry?: boolean,
-              onlyModels?: boolean,
-              propDb?: boolean,
-              textures?: boolean
+              geometry?: boolean | undefined,
+              onlyModels?: boolean | undefined,
+              propDb?: boolean | undefined,
+              textures?: boolean | undefined
             }): Promise<void>;
         }
 
@@ -1297,11 +1297,11 @@ declare namespace Autodesk {
           namespace PDF {
             class PDFExtension extends Extension {
               constructor(viewer: Viewer3D, options?: {
-                enableBrowserNavigation?: boolean;
-                enableHyperlinks?: boolean;
-                enableMSDFText?: boolean;
-                enableTextSearch?: boolean;
-                useTextLayer?: boolean;
+                enableBrowserNavigation?: boolean | undefined;
+                enableHyperlinks?: boolean | undefined;
+                enableMSDFText?: boolean | undefined;
+                enableTextSearch?: boolean | undefined;
+                useTextLayer?: boolean | undefined;
               });
             }
 
@@ -1316,12 +1316,12 @@ declare namespace Autodesk {
           namespace Snapping {
             class Snapper {
               constructor(viewer: Viewer3D, options?: {
-                forceSnapEdges?: boolean;
-                forceSnapVertices?: boolean;
-                markupMode?: boolean;
-                renderSnappedGeometry?: boolean;
-                renderSnappedTopology?: boolean;
-                toolName?: string;
+                forceSnapEdges?: boolean | undefined;
+                forceSnapVertices?: boolean | undefined;
+                markupMode?: boolean | undefined;
+                renderSnappedGeometry?: boolean | undefined;
+                renderSnappedTopology?: boolean | undefined;
+                toolName?: string | undefined;
               });
 
               indicator: SnapperIndicator;
@@ -1364,8 +1364,8 @@ declare namespace Autodesk {
 
         class SceneBuilder extends Extension {
           addNewModel(options: {
-            conserveMemory?: boolean,
-            createWireFrame?: boolean
+            conserveMemory?: boolean | undefined,
+            createWireFrame?: boolean | undefined
           }): Promise<ModelBuilder>;
         }
 
@@ -1375,7 +1375,7 @@ declare namespace Autodesk {
           instanceTree: any;
           model: Model;
 
-          constructor(model: Model, options?: { conserveMemory?: boolean, createWireframe?: boolean });
+          constructor(model: Model, options?: { conserveMemory?: boolean | undefined, createWireframe?: boolean | undefined });
           addFragment(geometry: number|THREE.BufferGeometry, material: string|THREE.Material, transform?: THREE.Matrix4|number[], bbox?: THREE.Box3|number[]): number;
           addGeometry(geometry: THREE.BufferGeometry, numFragments?: number): number;
           addMaterial(name: string, material: THREE.Material): boolean;
@@ -1488,7 +1488,7 @@ declare namespace Autodesk {
             function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
             function fadeValue(startValue: number, endValue: number, duration: number, setParam: (value: number) => void, onFinished?: () => void): any;
             function formatValueWithUnits(value: number, units: string, type: number, precision: number,
-              options?: { noMixedArea?: boolean; noMixedVolume?: boolean, preferLetters?: boolean; }): string;
+              options?: { noMixedArea?: boolean | undefined; noMixedVolume?: boolean | undefined, preferLetters?: boolean | undefined; }): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
             function lerp(x: number, y: number, t: number): number;
 
@@ -1579,8 +1579,8 @@ declare namespace Autodesk {
             }
 
             interface PreferencesOptions {
-              localStorage?: boolean;
-              prefix?: string;
+              localStorage?: boolean | undefined;
+              prefix?: string | undefined;
             }
 
             class Preferences {
@@ -1667,12 +1667,12 @@ declare namespace Autodesk {
             namespace HudMessage {
                function displayMessage(container: Element, messageSpec: {
                     msgTitleKey: string,
-                    msgTitleDefault?: string,
+                    msgTitleDefault?: string | undefined,
                     messageKey: string,
-                    messageDefaultValue?: string,
-                    buttonText?: string,
-                    checkboxChecked?: boolean,
-                    position?: string
+                    messageDefaultValue?: string | undefined,
+                    buttonText?: string | undefined,
+                    checkboxChecked?: boolean | undefined,
+                    position?: string | undefined
                 }, closeCallback?: (event: any) => void, buttonCallback?: (event: any) => void, checkboxCallback?: (event: any) => void): void;
 
                 function dismiss(): boolean;
@@ -1757,14 +1757,14 @@ declare namespace Autodesk {
 
         namespace UI {
           interface DockingPanelOptions {
-            localizeTitle?: boolean;
+            localizeTitle?: boolean | undefined;
             [key: string]: any;
           }
 
           interface ScrollContainerOptions {
-            left?: boolean;
-            heightAdjustment?: number;
-            marginTop?: number;
+            left?: boolean | undefined;
+            heightAdjustment?: number | undefined;
+            marginTop?: number | undefined;
             [key: string]: any;
           }
 
@@ -1785,17 +1785,17 @@ declare namespace Autodesk {
           }
 
           interface ControlOptions {
-            collapsible?: boolean;
+            collapsible?: boolean | undefined;
             [key: string]: any;
           }
 
           interface AddControlOptions {
-            index?: number;
+            index?: number | undefined;
             [key: string]: any;
           }
 
           interface DisplayCategoryOptions {
-            localize?: boolean;
+            localize?: boolean | undefined;
             [key: string]: any;
           }
 
@@ -2097,7 +2097,7 @@ declare namespace Autodesk {
         aecModelData: any;
         floorSelector: FloorSelector;
 
-        constructor(viewer: Viewing.GuiViewer3D, options?: { autoDetectAecModelData?: boolean; ifcLevelsEnabled?: boolean; });
+        constructor(viewer: Viewing.GuiViewer3D, options?: { autoDetectAecModelData?: boolean | undefined; ifcLevelsEnabled?: boolean | undefined; });
 
         getCurrentLevel(): object;
         getZRange(index: number): { zMin: number; zMax: number; };
@@ -2182,9 +2182,9 @@ declare namespace Autodesk {
             sensorValueCallback: (device: SurfaceShadingPoint, sensorType: string) => number,
             confidenceSize?: number): void;
           updateShading(sensorValueCallback: (device: SurfaceShadingPoint, sensorType: string) => number, heatmapConfig: {
-            confidence?: number;
-            powerParameter?: number;
-            alpha?: number;
+            confidence?: number | undefined;
+            powerParameter?: number | undefined;
+            alpha?: number | undefined;
           }): void;
         }
 
@@ -2644,8 +2644,8 @@ declare namespace Autodesk {
       namespace PixelCompare {
         class PixelCompare extends Viewing.Extension {
           constructor(viewer: Viewing.GuiViewer3D, options?: {
-            diffMode?: Viewing.PixelCompare.DIFF_MODES;
-            restoreModelVisibilityOnExit?: boolean;
+            diffMode?: Viewing.PixelCompare.DIFF_MODES | undefined;
+            restoreModelVisibilityOnExit?: boolean | undefined;
           });
 
           changeColorIntensity(value: number): void;
@@ -2671,10 +2671,10 @@ declare namespace Autodesk {
 
         constructor(viewer: Viewing.Viewer3D, options?: {
           type: string;
-          width?: number;
-          slicingPosition?: number;
-          placementPosition?: number;
-          minOpacity?: number;
+          width?: number | undefined;
+          slicingPosition?: number | undefined;
+          placementPosition?: number | undefined;
+          minOpacity?: number | undefined;
         });
 
         addViewables(data: DataVisualization.Core.ViewableData): void;
@@ -2684,11 +2684,11 @@ declare namespace Autodesk {
         highlightViewables(dbIds: number|number[]): void;
         invalidateViewables(dbIds: number|number[],
           callback: (viewable: DataVisualization.Core.SpriteViewable) => {
-            color?: THREE.Color,
-            highlighted?: boolean,
-            position?: THREE.Vector3,
-            scale?: number,
-            url?: string
+            color?: THREE.Color | undefined,
+            highlighted?: boolean | undefined,
+            position?: THREE.Vector3 | undefined,
+            scale?: number | undefined,
+            url?: string | undefined
           }): void;
         registerSurfaceShadingColors(sensorType: string, colors: number[], alpha?: number): void;
         removeAllViewables(): void;
@@ -2697,27 +2697,27 @@ declare namespace Autodesk {
           sensorType: string,
           valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number,
           heatmapConfig?: {
-            confidence?: number;
-            powerParameter?: number;
-            alpha?: number;
+            confidence?: number | undefined;
+            powerParameter?: number | undefined;
+            alpha?: number | undefined;
           }): void;
         setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.Core.SurfaceShadingData,
           options?: {
             type: 'PlanarHeatmap',
-            placePosition?: 'min'|'max',
-            position?: 'min'|'middle'|'max',
-            slicingEnabled?: boolean,
-            height?: number,
-            width?: number
+            placePosition?: 'min'|'max' | undefined,
+            position?: 'min'|'middle'|'max' | undefined,
+            slicingEnabled?: boolean | undefined,
+            height?: number | undefined,
+            width?: number | undefined
           }): Promise<void>;
         showHideViewables(visible: boolean, occlusion: boolean): void;
         showTextures(): void;
         updateSurfaceShading(valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint,
           sensorType: string) => number,
           heatmapConfig?: {
-            confidence?: number;
-            powerParameter?: number;
-            alpha?: number;
+            confidence?: number | undefined;
+            powerParameter?: number | undefined;
+            alpha?: number | undefined;
           }): void;
       }
 

@@ -37,12 +37,12 @@ declare global {
     type KnockoutMappingOptions<T> = KnockoutMappingSpecificOptions<T> | KnockoutMappingStandardOptions;
 
     interface KnockoutMappingStandardOptions {
-        ignore?: string[];
-        include?: string[];
-        copy?: string[];
-        observe?: string[];
-        mappedProperties?: string[]; // Undocumented
-        deferEvaluation?: boolean; // Undocumented
+        ignore?: string[] | undefined;
+        include?: string[] | undefined;
+        copy?: string[] | undefined;
+        observe?: string[] | undefined;
+        mappedProperties?: string[] | undefined; // Undocumented
+        deferEvaluation?: boolean | undefined; // Undocumented
     }
 
     type KnockoutMappingSpecificOptions<T> = {
@@ -50,9 +50,9 @@ declare global {
     }
 
     interface KnockoutPropertyMappingCallBack {
-        create?: (options: KnockoutMappingCreateOptions) => void;
-        update?: (options: KnockoutMappingUpdateOptions) => void;
-        key?: (data: any) => any;
+        create?: ((options: KnockoutMappingCreateOptions) => void) | undefined;
+        update?: ((options: KnockoutMappingUpdateOptions) => void) | undefined;
+        key?: ((data: any) => any) | undefined;
     }
 
     interface KnockoutMappingCreateOptions {
@@ -64,7 +64,7 @@ declare global {
         data: any;
         parent: any;
         target: any;
-        observable?: KnockoutObservable<any>;
+        observable?: KnockoutObservable<any> | undefined;
     }
 
     interface KnockoutMapping {
@@ -160,7 +160,11 @@ declare global {
         /**
          * Undocumented.
          */
-        visitModel(rootObject: any, callback: Function, options?: { visitedObjects?: any; parentName?: string; ignore?: string[]; copy?: string[]; include?: string[]; }): any;
+        visitModel(
+            rootObject: any,
+            callback: Function,
+            options?: { visitedObjects?: any; parentName?: string | undefined; ignore?: string[] | undefined; copy?: string[] | undefined; include?: string[] | undefined; }
+        ): any;
     }
 
     interface KnockoutObservableArrayFunctions<T> {

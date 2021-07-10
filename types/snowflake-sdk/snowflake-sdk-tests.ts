@@ -48,3 +48,23 @@ connection.connect((err, conn) => {
         },
     });
 });
+
+//  Key pair connections
+
+snowflake.createConnection({
+    account: '',
+    username: '',
+    authenticator: '',
+    privateKey: '',
+    privateKeyPass: '',
+    privateKeyPath: '',
+});
+
+//  Oauth connections
+
+snowflake.createConnection({
+    account: '',
+    username: '',
+    authenticator: '',
+    token: '',
+});

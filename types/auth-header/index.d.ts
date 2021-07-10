@@ -11,8 +11,8 @@ export { Params };
 
 export interface TokenOptions {
     scheme: string;
-    token?: string;
-    params?: Params;
+    token?: string | undefined;
+    params?: Params | undefined;
 }
 
 export interface Token {

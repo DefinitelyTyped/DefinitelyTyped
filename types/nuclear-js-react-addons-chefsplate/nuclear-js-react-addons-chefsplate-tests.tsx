@@ -29,7 +29,7 @@ const ConnectedFCWithoutProps = connect(() => ({ extra: null }))(FCWithProp);
 <ConnectedFCWithoutProps extra="" />;
 
 // Check optional props.
-const FCWithOptionalProp = (props: { optional?: string }) => <p />;
+const FCWithOptionalProp = (props: { optional?: string | undefined }) => <p />;
 const ConnectedFCWithOptionalProp = connect(() => ({}))(FCWithOptionalProp);
 <ConnectedFCWithOptionalProp />;
 <ConnectedFCWithOptionalProp optional="" />;
@@ -80,7 +80,7 @@ const ConnectedCCWithoutProps = connect(() => ({ extra: null }))(CCWithProp);
 <ConnectedCCWithoutProps extra="" />;
 
 // Check optional props.
-class CCWithOptionalProp extends React.Component<{ optional?: string }> {}
+class CCWithOptionalProp extends React.Component<{ optional?: string | undefined }> {}
 const ConnectedCCWithOptionalProp = connect(() => ({}))(CCWithOptionalProp);
 <ConnectedCCWithOptionalProp />;
 <ConnectedCCWithOptionalProp optional="" />;

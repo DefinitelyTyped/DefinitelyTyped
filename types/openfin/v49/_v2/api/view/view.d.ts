@@ -161,27 +161,27 @@ export interface AutoResizeOptions {
      * If true, the view's width will grow and shrink together with the window. false
      * by default.
      */
-    width?: boolean;
+    width?: boolean | undefined;
     /**
      * If true, the view's height will grow and shrink together with the window. false
      * by default.
      */
-    height?: boolean;
+    height?: boolean | undefined;
     /**
      * If true, the view's x position and width will grow and shrink proportionally with
      * the window. false by default.
      */
-    horizontal?: boolean;
+    horizontal?: boolean | undefined;
     /**
      * If true, the view's y position and height will grow and shrink proportionally with
      * the window. false by default.
      */
-    vertical?: boolean;
+    vertical?: boolean | undefined;
 }
 export interface ViewOptions {
-    autoResize?: AutoResizeOptions;
-    contextMenuSettings?: ContextMenuSettings;
-    backgroundColor?: string;
+    autoResize?: AutoResizeOptions | undefined;
+    contextMenuSettings?: ContextMenuSettings | undefined;
+    backgroundColor?: string | undefined;
     customData?: any;
     customContext?: any;
 }
@@ -189,7 +189,7 @@ export interface ViewCreationOptions extends ViewOptions {
     name: string;
     url: string;
     target: Identity;
-    customRequestHeaders?: CustomRequestHeaders[];
-    bounds?: ViewBounds;
-    processAffinity?: string;
+    customRequestHeaders?: CustomRequestHeaders[] | undefined;
+    bounds?: ViewBounds | undefined;
+    processAffinity?: string | undefined;
 }
