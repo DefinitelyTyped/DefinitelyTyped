@@ -225,4 +225,4 @@ export interface ParseObject {
  * });
  *  // I <img class="emoji" draggable="false" alt="❤️" src="/assets/72x72/2764.png"/> emoji!
  */
-export function parse(what: string | HTMLElement, how?: Partial<ParseObject> | ParseCallback): string;
+export function parse<T extends string | HTMLElement>(what: T, how?: Partial<ParseObject> | ParseCallback): T;
