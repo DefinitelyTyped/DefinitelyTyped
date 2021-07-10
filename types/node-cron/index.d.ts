@@ -16,7 +16,6 @@ export function validate(cronExpression: string): boolean;
 export interface ScheduledTask {
     start: () => this;
     stop: () => this;
-    getStatus: () => string;
 }
 
 export interface ScheduleOptions {
