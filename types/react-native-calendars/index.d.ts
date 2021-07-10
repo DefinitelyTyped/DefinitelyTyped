@@ -34,6 +34,7 @@ export interface CalendarThemeIdStyle {
 
 export interface CalendarTheme {
     arrowColor?: string | undefined;
+    disabledArrowColor?: string | undefined;
     backgroundColor?: string | undefined;
     calendarBackground?: string | undefined;
     dayTextColor?: string | undefined;
@@ -53,6 +54,7 @@ export interface CalendarTheme {
     textMonthFontWeight?: string | undefined;
     textMonthFontSize?: number | undefined;
     textSectionTitleColor?: string | undefined;
+    textSectionTitleDisabledColor?: string | undefined;
     todayTextColor?: string | undefined;
     indicatorColor?: string | undefined;
     textDayStyle?: TextStyle | undefined;
