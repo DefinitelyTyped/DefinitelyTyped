@@ -33,6 +33,7 @@ export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputEleme
     types?: QueryType[] | undefined;
     fixtures?: Fixture[] | undefined;
     maxFixtures?: number | undefined;
+    placeDetailFields?: string[] | undefined;
     googleMaps?: typeof google.maps | undefined;
     ignoreEnter?: boolean | undefined;
     ignoreTab?: boolean | undefined;
