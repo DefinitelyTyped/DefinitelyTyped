@@ -10,27 +10,11 @@ export type AlignType = 'left' | 'right' | 'center' | null;
 
 export type ReferenceType = 'shortcut' | 'collapsed' | 'full';
 
-export type Content =
-    | TopLevelContent
-    | ListContent
-    | TableContent
-    | RowContent
-    | PhrasingContent;
+export type Content = TopLevelContent | ListContent | TableContent | RowContent | PhrasingContent;
 
-export type TopLevelContent =
-    | BlockContent
-    | FrontmatterContent
-    | DefinitionContent;
+export type TopLevelContent = BlockContent | FrontmatterContent | DefinitionContent;
 
-export type BlockContent =
-    | Paragraph
-    | Heading
-    | ThematicBreak
-    | Blockquote
-    | List
-    | Table
-    | HTML
-    | Code;
+export type BlockContent = Paragraph | Heading | ThematicBreak | Blockquote | List | Table | HTML | Code;
 
 export type FrontmatterContent = YAML;
 
@@ -91,22 +75,22 @@ export interface Blockquote extends Parent {
 
 export interface List extends Parent {
     type: 'list';
-    ordered?: boolean | undefined;
-    start?: number | undefined;
-    spread?: boolean | undefined;
+    ordered?: boolean;
+    start?: number;
+    spread?: boolean;
     children: ListContent[];
 }
 
 export interface ListItem extends Parent {
     type: 'listItem';
-    checked?: boolean | undefined;
-    spread?: boolean | undefined;
+    checked?: boolean;
+    spread?: boolean;
     children: BlockContent[];
 }
 
 export interface Table extends Parent {
     type: 'table';
-    align?: AlignType[] | undefined;
+    align?: AlignType[];
     children: TableContent[];
 }
 
@@ -126,8 +110,8 @@ export interface HTML extends Literal {
 
 export interface Code extends Literal {
     type: 'code';
-    lang?: string | undefined;
-    meta?: string | undefined;
+    lang?: string;
+    meta?: string;
 }
 
 export interface YAML extends Literal {
@@ -200,12 +184,12 @@ export interface FootnoteReference extends Node, Association {
 // Mixin
 export interface Resource {
     url: string;
-    title?: string | undefined;
+    title?: string;
 }
 
 export interface Association {
     identifier: string;
-    label?: string | undefined;
+    label?: string;
 }
 
 export interface Reference extends Association {
@@ -213,5 +197,5 @@ export interface Reference extends Association {
 }
 
 export interface Alternative {
-    alt?: string | undefined;
+    alt?: string;
 }
