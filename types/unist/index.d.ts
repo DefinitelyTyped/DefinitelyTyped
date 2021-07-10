@@ -12,8 +12,10 @@
 
 /**
  * Syntactic units in unist syntax trees are called nodes.
+ *
+ * @typeParam TData Information from the ecosystem. Useful for more specific `Node#data`.
  */
-export interface Node<NData extends object = Data> {
+export interface Node<TData extends object = Data> {
     /**
      * The variant of a node.
      */
@@ -22,7 +24,7 @@ export interface Node<NData extends object = Data> {
     /**
      * Information from the ecosystem.
      */
-    data?: NData | undefined;
+    data?: TData | undefined;
 
     /**
      * Location of a node in a source document.
@@ -80,13 +82,22 @@ export interface Point {
     offset?: number | undefined;
 }
 
-export type NodeData<TNode extends Node<object>> = TNode extends Node<infer NData> ? NData : never;
+/**
+ * Util for extracting type of `Node#data`
+ *
+ * @typeParam TNode Specific node type such as Node with Data, Literal, etc
+ *
+ * @example `NodeData<Node<{ key: string }>>` -> `{ key: string }`
+ */
+export type NodeData<TNode extends Node<object>> = TNode extends Node<infer TData> ? TData : never;
 
 /**
  * Nodes containing other nodes.
+ *
+ * @typeParam ChildNode Node item of `Parent#children`
  */
-export interface Parent<ChildNode extends Node<object> = Node, NData extends object = NodeData<ChildNode>>
-    extends Node<NData> {
+export interface Parent<ChildNode extends Node<object> = Node, TData extends object = NodeData<ChildNode>>
+    extends Node<TData> {
     /**
      * List representing the children of a node.
      */
@@ -95,7 +106,9 @@ export interface Parent<ChildNode extends Node<object> = Node, NData extends obj
 
 /**
  * Nodes containing a value.
+ *
+ * @typeParam Value Specific value type of `Literal#value` such as string for Text node
  */
-export interface Literal<Value = unknown, NData extends object = Data> extends Node<NData> {
+export interface Literal<Value = unknown, TData extends object = Data> extends Node<TData> {
     value: Value;
 }
