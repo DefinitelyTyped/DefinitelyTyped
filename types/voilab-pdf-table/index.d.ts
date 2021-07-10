@@ -183,7 +183,7 @@ declare namespace VoilabPdfTable {
         borderOpacity?: number;
         width?: number;
         height?: number;
-        valign?: number;
+        valign?: 'top' | 'center' | 'bottom';
         align?: 'left' | 'center' | 'right';
         fill?: boolean;
         cache?: boolean;
