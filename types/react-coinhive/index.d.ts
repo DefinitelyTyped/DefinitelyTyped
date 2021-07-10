@@ -7,25 +7,25 @@
 import * as React from 'react';
 
 export interface CoinHiveProps {
-    autoThreads?: boolean;
+    autoThreads?: boolean | undefined;
 
-    run?: boolean;
+    run?: boolean | undefined;
 
     siteKey: string;
 
-    src?: string;
+    src?: string | undefined;
 
-    threads?: number;
+    threads?: number | undefined;
 
-    throttle?: number;
+    throttle?: number | undefined;
 
-    userName?: string;
+    userName?: string | undefined;
 
-    onInit?: (callback: any) => void;
+    onInit?: ((callback: any) => void) | undefined;
 
-    onStart?: (callback: any) => void;
+    onStart?: ((callback: any) => void) | undefined;
 
-    onStop?: (callback: any) => void;
+    onStop?: ((callback: any) => void) | undefined;
 }
 
 export default class CoinHive extends React.Component<CoinHiveProps, any> {

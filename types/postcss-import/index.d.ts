@@ -35,33 +35,33 @@ declare namespace atImport {
          *
          * Default: `process.cwd()` or dirname of [the postcss from](https://github.com/postcss/postcss#node-source)
          */
-        root?: string;
+        root?: string | undefined;
 
         /**
          * A string or an array of paths in where to look for files.
          */
-        path?: string | string[];
+        path?: string | string[] | undefined;
 
         /**
          * An array of plugins to be applied on each imported files.
          */
-        plugins?: AcceptedPlugin[];
+        plugins?: AcceptedPlugin[] | undefined;
 
         /**
          * You can provide a custom path resolver with this option. This function gets `(id, basedir, importOptions)` arguments and should return a path, an array of paths or a promise resolving to
          * the path(s). If you do not return an absolute path, your path will be resolved to an absolute path using the default resolver. You can use
          * [resolve](https://github.com/substack/node-resolve) for this.
          */
-        resolve?: (
+        resolve?: ((
             id: string,
             basedir: string,
             importOptions: AtImportOptions,
-        ) => string | string[] | PromiseLike<string | string[]>;
+        ) => string | string[] | PromiseLike<string | string[]>) | undefined;
 
         /**
          * You can overwrite the default loading way by setting this option. This function gets `(filename, importOptions)` arguments and returns content or promised content.
          */
-        load?: (filename: string, importOptions: AtImportOptions) => string | Promise<string>;
+        load?: ((filename: string, importOptions: AtImportOptions) => string | Promise<string>) | undefined;
 
         /**
          * By default, similar files (based on the same content) are being skipped. It's to optimize output and skip similar files like `normalize.css` for example. If this behavior is not what you
@@ -69,13 +69,13 @@ declare namespace atImport {
          *
          * @default true
          */
-        skipDuplicates?: boolean;
+        skipDuplicates?: boolean | undefined;
 
         /**
          * An array of folder names to add to Node's resolver. Values will be appended to the default resolve directories: `["node_modules", "web_modules"]`.
          *
          * This option is only for adding additional directories to default resolver. If you provide your own resolver via the `resolve` configuration option above, then this value will be ignored.
          */
-        addModulesDirectories?: string[];
+        addModulesDirectories?: string[] | undefined;
     }
 }

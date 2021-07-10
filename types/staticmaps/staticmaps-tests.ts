@@ -1,4 +1,4 @@
-import StaticMaps from 'staticmaps';
+import StaticMaps = require('staticmaps');
 
 // Initialization
 const map = new StaticMaps({

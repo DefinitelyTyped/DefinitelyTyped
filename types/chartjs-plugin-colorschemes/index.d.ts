@@ -8,16 +8,16 @@ import * as Chart from 'chart.js';
 
 declare module 'chart.js' {
     interface ChartPluginsOptions {
-        colorschemes?: ColorSchemesOptions;
+        colorschemes?: ColorSchemesOptions | undefined;
     }
 }
 
 export interface ColorSchemesOptions {
     scheme: string | string[];
-    fillAlpha?: number;
-    reverse?: boolean;
-    override?: boolean;
-    custom?: (schemeColors: string[]) => string[] | void;
+    fillAlpha?: number | undefined;
+    reverse?: boolean | undefined;
+    override?: boolean | undefined;
+    custom?: ((schemeColors: string[]) => string[] | void) | undefined;
 }
 
 declare const ColorSchemesPlugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions;

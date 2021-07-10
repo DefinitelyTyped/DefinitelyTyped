@@ -19,7 +19,7 @@ declare namespace remoteOriginUrl {
     function sync(options?: string | Options): string | undefined;
 
     interface Options {
-        path?: string;
+        path?: string | undefined;
     }
 
     type Callback = (error: Error | null, url?: string) => void;

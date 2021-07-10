@@ -184,10 +184,10 @@ declare namespace NestDb {
     }
 
     interface DataStoreOptions {
-        filename?: string; // Optional, datastore will be in-memory only if not provided
-        inMemoryOnly?: boolean; // Optional, default to false
-        nodeWebkitAppName?: boolean; // Optional, specify the name of your NW app if you want options.filename to be relative to the directory where
-        autoload?: boolean; // Optional, defaults to false
+        filename?: string | undefined; // Optional, datastore will be in-memory only if not provided
+        inMemoryOnly?: boolean | undefined; // Optional, default to false
+        nodeWebkitAppName?: boolean | undefined; // Optional, specify the name of your NW app if you want options.filename to be relative to the directory where
+        autoload?: boolean | undefined; // Optional, defaults to false
         // Optional, if autoload is used this will be called after the load database with the error object as parameter. If you don't pass it the error will be thrown
         onload?(error: Error): any;
         // (optional): hook you can use to transform data after it was serialized and before it is written to disk.
@@ -204,10 +204,10 @@ declare namespace NestDb {
         beforeDeserialization?(line: string): string;
         // (optional): between 0 and 1, defaults to 10%. NestDb will refuse to start if more than this percentage of the datafile is corrupt.
         // 0 means you don't tolerate any corruption, 1 means you don't care
-        corruptAlertThreshold?: number;
+        corruptAlertThreshold?: number | undefined;
         // (optional, defaults to false)
         // timestamp the insertion and last update of all documents, with the fields createdAt and updatedAt. User-specified values override automatic generation, usually useful for testing.
-        timestampData?: boolean;
+        timestampData?: boolean | undefined;
     }
 
     /**
@@ -215,23 +215,23 @@ declare namespace NestDb {
      * upsert (defaults to false) if you want to insert a new document corresponding to the update rules if your query doesn't match anything
      */
     interface UpdateOptions {
-        multi?: boolean;
-        upsert?: boolean;
-        returnUpdatedDocs?: boolean;
+        multi?: boolean | undefined;
+        upsert?: boolean | undefined;
+        returnUpdatedDocs?: boolean | undefined;
     }
 
     /**
      * options only one option for now: multi which allows the removal of multiple documents if set to true. Default is false
      */
     interface RemoveOptions {
-        multi?: boolean;
+        multi?: boolean | undefined;
     }
 
     interface EnsureIndexOptions {
         fieldName: string;
-        unique?: boolean;
-        sparse?: boolean;
-        expireAfterSeconds?: number;
+        unique?: boolean | undefined;
+        sparse?: boolean | undefined;
+        expireAfterSeconds?: number | undefined;
     }
 
     interface Persistence {

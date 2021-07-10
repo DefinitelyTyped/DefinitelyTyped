@@ -5,9 +5,9 @@
 
 interface Options {
     offset: number;
-    align?: 'top' | 'middle' | 'bottom';
-    ease?: string;
-    duration?: number;
+    align?: 'top' | 'middle' | 'bottom' | undefined;
+    ease?: string | undefined;
+    duration?: number | undefined;
 }
 
 declare function scrollToElement(selector: string | HTMLElement | Element, options?: Options): void;

@@ -19,11 +19,11 @@ declare module 'leaflet' {
 
     interface GroupedLayersOptions extends ControlOptions {
         /** Default: true */
-        collapsed?: boolean;
+        collapsed?: boolean | undefined;
         /** Default: true */
-        autoZIndex?: boolean;
-        exclusiveGroups?: string[];
+        autoZIndex?: boolean | undefined;
+        exclusiveGroups?: string[] | undefined;
         /** Default: false */
-        groupCheckboxes?: boolean;
+        groupCheckboxes?: boolean | undefined;
     }
 }

@@ -29,8 +29,8 @@ export interface RunLoaderOption {
 }
 
 export interface RunLoaderResult {
-    result?: (Buffer | null)[];
-    resourceBuffer?: Buffer | null;
+    result?: (Buffer | null)[] | undefined;
+    resourceBuffer?: Buffer | null | undefined;
     cacheable: boolean;
     fileDependencies: string[];
     contextDependencies: string[];

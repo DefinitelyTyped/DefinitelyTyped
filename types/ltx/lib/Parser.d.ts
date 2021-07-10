@@ -10,6 +10,6 @@ export class Parser extends EventEmitter {
 }
 
 export interface ParserOptions {
-    Parser?: typeof Parser;
-    Element?: typeof Element;
+    Parser?: typeof Parser | undefined;
+    Element?: typeof Element | undefined;
 }

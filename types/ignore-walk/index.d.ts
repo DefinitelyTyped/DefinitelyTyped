@@ -13,11 +13,11 @@ declare namespace walk {
     function sync(options?: WalkerOptions): string[];
 
     interface WalkerOptions {
-        path?: string;
-        ignoreFiles?: string[];
-        parent?: Walker | WalkerSync | null;
-        includeEmpty?: boolean;
-        follow?: boolean;
+        path?: string | undefined;
+        ignoreFiles?: string[] | undefined;
+        parent?: Walker | WalkerSync | null | undefined;
+        includeEmpty?: boolean | undefined;
+        follow?: boolean | undefined;
     }
 
     class Walker extends EventEmitter {

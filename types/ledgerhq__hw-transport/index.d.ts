@@ -42,7 +42,7 @@ export type Descriptor = string; // ?
 export interface DescriptorEvent<Descriptor> {
     type: 'add' | 'remove';
     descriptor: Descriptor;
-    device?: Device;
+    device?: Device | undefined;
 }
 export interface Observer<Ev> {
     readonly next: (event: Ev) => any;

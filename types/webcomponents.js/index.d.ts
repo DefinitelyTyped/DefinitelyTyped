@@ -2,11 +2,11 @@
 // Project: https://github.com/webcomponents/webcomponentsjs, http://webcomponents.org
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 4.4
 
 export interface CustomElementInit {
     prototype: HTMLElement;
-    extends?: string;
+    extends?: string | undefined;
 }
 
 export interface CustomElementConstructor {
@@ -37,7 +37,7 @@ export interface Polyfill {
 declare global {
     // This contains duplicates of some types in lib.dom.d.ts in order to support typescript 2.0
     interface ElementDefinitionOptions {
-        extends?: string;
+        extends?: string | undefined;
     }
 
     interface ShadowRoot extends DocumentFragment {
@@ -65,6 +65,6 @@ declare global {
         HTMLImports: HTMLImportsPolyfill;
         WebComponents: Polyfill;
 
-        customElements: CustomElementRegistry;
+        readonly customElements: CustomElementRegistry;
     }
 }

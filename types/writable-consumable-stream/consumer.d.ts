@@ -30,7 +30,7 @@ declare namespace Consumer {
     interface ConsumerStats {
         id: number;
         backpressure: number;
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     interface Node<T> {

@@ -60,7 +60,7 @@ export default class Route<Model = unknown> extends EmberObject.extend(ActionHan
     /**
      * Disconnects a view that has been rendered into an outlet.
      */
-    disconnectOutlet(options: string | { outlet?: string; parentView?: string }): void;
+    disconnectOutlet(options: string | { outlet?: string | undefined; parentView?: string | undefined }): void;
 
     /**
      * A hook you can implement to convert the URL into the model for

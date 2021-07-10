@@ -19,15 +19,15 @@ declare global {
         /**
          * optional 2 or 3 character short name
          */
-        short?: string;
+        short?: string | undefined;
         /**
          * optional array of additional names and abbreviations
          */
-        alt?: string[];
+        alt?: string[] | undefined;
         /**
          * optional region of a country (for example: "Wales")
          */
-        region?: string;
+        region?: string | undefined;
     }
 }
 

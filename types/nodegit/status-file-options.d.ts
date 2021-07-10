@@ -1,8 +1,8 @@
 import { StatusEntry } from './status-entry';
 
 export interface StatusFileOptions {
-    path?: string;
-    status?: number;
-    entry?: StatusEntry;
+    path?: string | undefined;
+    status?: number | undefined;
+    entry?: StatusEntry | undefined;
     [key: string]: any;
 }

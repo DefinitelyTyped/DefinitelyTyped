@@ -8,7 +8,7 @@ import { AxiosStatic } from "axios";
 
 declare module 'axios' {
     interface AxiosRequestConfig {
-        requestId?: string;
+        requestId?: string | undefined;
     }
     interface AxiosStatic {
         cancel: (requestId: string) => void;

@@ -51,37 +51,37 @@ interface MessageOptions {
     /**
      * Hide the message after the provided number of seconds.
      */
-    hideAfter?: number;
+    hideAfter?: number | undefined;
 
     /**
      * Hide the message if Backbone client-side navigation occurs.
      */
-    hideOnNavigate?: boolean;
+    hideOnNavigate?: boolean | undefined;
 
     /**
      * A unique id. If supplied, only one message with that ID will be shown at a time.
      */
-    id?: string;
+    id?: string | undefined;
 
     /**
      * Should a close button be added to the message?
      */
-    showCloseButton?: boolean;
+    showCloseButton?: boolean | undefined;
 
     /**
      * Hide the newer message if there is an id collision, as opposed to the older message.
      */
-    singleton?: boolean;
+    singleton?: boolean | undefined;
 
     /**
      * What theme class should be applied to the message? Defaults to the theme set for Messenger in general.
      */
-    theme?: string;
+    theme?: string | undefined;
 
     /**
      * "info", "error" or "success" are understood by the provided themes. You can also pass your own string, and that class will be added.
      */
-    type?: string;
+    type?: string | undefined;
 }
 
 interface MessengerOptions {
@@ -89,17 +89,17 @@ interface MessengerOptions {
     /**
      * Extra classes to be appended to the container.
      */
-    extraClasses?: string;
+    extraClasses?: string | undefined;
 
     /**
      * The maximum number of messages to show at once.
      */
-    maxMessages?: number;
+    maxMessages?: number | undefined;
 
     /**
      * Default options for created messages.
      */
-    messageDefaults?: MessageOptions;
+    messageDefaults?: MessageOptions | undefined;
 
     /**
      * Which locations should be tried when inserting the message container into the page.
@@ -108,12 +108,12 @@ interface MessengerOptions {
      * not need to be changed unless you are inserting the messages into the flow of the
      * document, rather than using messenger-fixed.
      */
-    parentLocations?: string[];
+    parentLocations?: string[] | undefined;
 
     /**
      * What theme are you using? Some themes have associated javascript, specifing this allows that js to run.
      */
-    theme?: string;
+    theme?: string | undefined;
 }
 
 declare var Messenger: IMessenger;

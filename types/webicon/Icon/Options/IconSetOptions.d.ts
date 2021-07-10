@@ -10,5 +10,5 @@ export interface IconSetOptions extends IconOptions, SvgIcon, SizeableOptions, D
     /**
      * A value indicating whether the icons are loaded separately.
      */
-    cumulative?: boolean;
+    cumulative?: boolean | undefined;
 }

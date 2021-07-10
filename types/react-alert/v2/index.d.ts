@@ -50,19 +50,19 @@ export interface AlertShowOptions {
      * The time in milliseconds the alert is displayed. After this
      * time ellapses, the alert will close itself. Use 0 to prevent self-closure.
      */
-    time?: number;
+    time?: number | undefined;
 
     /**
      * The icon to show in the alert.
      *
      * Default: the icon which matches the type of alert to be shown.
      */
-    icon?: React.ReactNode;
+    icon?: React.ReactNode | undefined;
 
     /**
      * A callback function that will be called when the alert is closed.
      */
-    onClose?: () => void;
+    onClose?: (() => void) | undefined;
 
     /**
      * The type of alert to show. This will only be used when calling show().
@@ -70,7 +70,7 @@ export interface AlertShowOptions {
      *
      * Default: 'info'
      */
-    type?: string;
+    type?: string | undefined;
 }
 
 export default class AlertContainer extends React.Component<AlertContainerProps> {

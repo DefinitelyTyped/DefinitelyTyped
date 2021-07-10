@@ -5,7 +5,7 @@ declare module 'hapi' {
     interface HandlerDecorations {
         test?: {
             test: number;
-        };
+        } | undefined;
     }
 }
 

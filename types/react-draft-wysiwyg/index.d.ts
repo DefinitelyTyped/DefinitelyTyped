@@ -21,49 +21,49 @@ export class ContentBlock extends Draft.ContentBlock {}
 export class SelectionState extends Draft.SelectionState {}
 
 export interface EditorProps {
-    webDriverTestID?: string;
+    webDriverTestID?: string | undefined;
     onChange?(contentState: RawDraftContentState): void;
     onEditorStateChange?(editorState: EditorState): void;
     onContentStateChange?(contentState: RawDraftContentState): void;
-    initialContentState?: RawDraftContentState;
-    defaultContentState?: RawDraftContentState;
-    contentState?: RawDraftContentState;
-    editorState?: EditorState;
-    defaultEditorState?: EditorState;
-    toolbarOnFocus?: boolean;
-    spellCheck?: boolean;
-    stripPastedStyles?: boolean;
-    toolbar?: object;
-    toolbarCustomButtons?: Array<React.ReactElement<HTMLElement>>;
-    toolbarClassName?: string;
-    toolbarHidden?: boolean;
-    locale?: string;
-    localization?: object;
-    editorClassName?: string;
-    wrapperClassName?: string;
-    toolbarStyle?: object;
-    editorStyle?: React.CSSProperties;
-    wrapperStyle?: React.CSSProperties;
+    initialContentState?: RawDraftContentState | undefined;
+    defaultContentState?: RawDraftContentState | undefined;
+    contentState?: RawDraftContentState | undefined;
+    editorState?: EditorState | undefined;
+    defaultEditorState?: EditorState | undefined;
+    toolbarOnFocus?: boolean | undefined;
+    spellCheck?: boolean | undefined;
+    stripPastedStyles?: boolean | undefined;
+    toolbar?: object | undefined;
+    toolbarCustomButtons?: Array<React.ReactElement<HTMLElement>> | undefined;
+    toolbarClassName?: string | undefined;
+    toolbarHidden?: boolean | undefined;
+    locale?: string | undefined;
+    localization?: object | undefined;
+    editorClassName?: string | undefined;
+    wrapperClassName?: string | undefined;
+    toolbarStyle?: object | undefined;
+    editorStyle?: React.CSSProperties | undefined;
+    wrapperStyle?: React.CSSProperties | undefined;
     uploadCallback?(file: object): Promise<object>;
     onFocus?(event: SyntheticEvent): void;
     onBlur?(event: SyntheticEvent): void;
     onTab?(event: SyntheticKeyboardEvent): void;
-    mention?: object;
-    hashtag?: object;
-    textAlignment?: string;
-    readOnly?: boolean;
-    tabIndex?: number;
-    placeholder?: string;
-    ariaLabel?: string;
-    ariaOwneeID?: string;
-    ariaActiveDescendantID?: string;
-    ariaAutoComplete?: string;
-    ariaDescribedBy?: string;
-    ariaExpanded?: string;
-    ariaHasPopup?: string;
+    mention?: object | undefined;
+    hashtag?: object | undefined;
+    textAlignment?: string | undefined;
+    readOnly?: boolean | undefined;
+    tabIndex?: number | undefined;
+    placeholder?: string | undefined;
+    ariaLabel?: string | undefined;
+    ariaOwneeID?: string | undefined;
+    ariaActiveDescendantID?: string | undefined;
+    ariaAutoComplete?: string | undefined;
+    ariaDescribedBy?: string | undefined;
+    ariaExpanded?: string | undefined;
+    ariaHasPopup?: string | undefined;
     customBlockRenderFunc?(block: ContentBlock): any;
-    wrapperId?: number;
-    customDecorators?: object[];
+    wrapperId?: number | undefined;
+    customDecorators?: object[] | undefined;
     editorRef?(ref: object): void;
     handleKeyCommand?(
         command: Draft.DraftEditorCommand,
@@ -76,7 +76,7 @@ export interface EditorProps {
         editorState: EditorState,
         onChange: (editorState: EditorState) => void,
     ): boolean;
-    customStyleMap?: object;
+    customStyleMap?: object | undefined;
 }
 
 export class Editor extends React.Component<EditorProps> {

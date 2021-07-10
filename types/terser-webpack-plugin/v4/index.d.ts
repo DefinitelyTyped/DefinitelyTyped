@@ -26,8 +26,8 @@ declare namespace TerserPlugin {
 
     interface ExtractCommentOptions {
         condition: string | RegExp | ExtractCommentFn;
-        filename?: string | FilenameFn;
-        banner?: boolean | string | FormatFn;
+        filename?: string | FilenameFn | undefined;
+        banner?: boolean | string | FormatFn | undefined;
     }
 
     type ExtractCommentFn = (astNode: any, comment: any) => boolean | object;
@@ -41,19 +41,19 @@ declare namespace TerserPlugin {
          * Test to match files against.
          * @default /\.m?js(\?.*)?$/i
          */
-        test?: string | RegExp | Array<string | RegExp>;
+        test?: string | RegExp | Array<string | RegExp> | undefined;
 
         /**
          * Files to include.
          * @default undefined
          */
-        include?: string | RegExp | Array<string | RegExp>;
+        include?: string | RegExp | Array<string | RegExp> | undefined;
 
         /**
          * Files to exclude.
          * @default undefined
          */
-        exclude?: string | RegExp | Array<string | RegExp>;
+        exclude?: string | RegExp | Array<string | RegExp> | undefined;
 
         /**
          * ⚠ Ignored in webpack 5! Please use {@link webpack.js.org/configuration/other-options/#cache.}
@@ -61,39 +61,39 @@ declare namespace TerserPlugin {
          * Default path to cache directory: `node_modules/.cache/terser-webpack-plugin`.
          * @default true
          */
-        cache?: boolean | string;
+        cache?: boolean | string | undefined;
 
         /**
          * ⚠ Ignored in webpack 5! Please use {@link webpack.js.org/configuration/other-options/#cache}.
          * Allows you to override default cache keys.
          */
-        cacheKeys?: (defaultCacheKeys: any, file: any) => object;
+        cacheKeys?: ((defaultCacheKeys: any, file: any) => object) | undefined;
 
         /**
          * Enable/disable multi-process parallel running.
          * Use multi-process parallel running to improve the build speed. Default number of concurrent runs: os.cpus().length - 1.
          * @default true
          */
-        parallel?: boolean | number;
+        parallel?: boolean | number | undefined;
 
         /**
          * Use source maps to map error message locations to modules (this slows down the compilation).
          * If you use your own minify function please read the minify section for handling source maps correctly.
          * @default false
          */
-        sourceMap?: boolean;
+        sourceMap?: boolean | undefined;
 
         /**
          * Allows you to override default minify function.
          * By default plugin uses terser package. Useful for using and testing unpublished versions or forks
          * @default undefined
          */
-        minify?: (file: any, sourceMap: any, minimizerOptions?: MinifyOptions) => MinifyResult;
+        minify?: ((file: any, sourceMap: any, minimizerOptions?: MinifyOptions) => MinifyResult) | undefined;
 
         /**
          * Terser minify {@link https://github.com/terser/terser#minify-options|options}.
          */
-        terserOptions?: MinifyOptions;
+        terserOptions?: MinifyOptions | undefined;
 
         /**
          * Whether comments shall be extracted to a separate file, (see details).
@@ -103,7 +103,7 @@ declare namespace TerserPlugin {
          * i.e. it is possible to preserve some comments (e.g. annotations) while extracting others or even preserving comments that have been extracted
          * @default true
          */
-        extractComments?: boolean | string | RegExp | ExtractCommentFn | ExtractCommentOptions;
+        extractComments?: boolean | string | RegExp | ExtractCommentFn | ExtractCommentOptions | undefined;
     }
 }
 

@@ -97,32 +97,32 @@ interface KikUser {
 interface KikMessage {
     title: string;
     text: string;
-    pic?: string;
-    big?: boolean;
-    noForward?: boolean;
+    pic?: string | undefined;
+    big?: boolean | undefined;
+    noForward?: boolean | undefined;
     data?: any;
 }
 
 interface KikPickUsersOptions {
-    minResults?: number;
-    maxResults?: number;
-    preselected?: { username: string }[];
-    filtered?: string[];
-    filterSelf?: boolean;
+    minResults?: number | undefined;
+    maxResults?: number | undefined;
+    preselected?: { username: string }[] | undefined;
+    filtered?: string[] | undefined;
+    filterSelf?: boolean | undefined;
 }
 
 interface KikGetOptions {
-    quality?: number;
-    minResults?: number;
-    maxResults?: number;
-    maxHeight?: number;
-    maxWidth?: number;
+    quality?: number | undefined;
+    minResults?: number | undefined;
+    maxResults?: number | undefined;
+    maxHeight?: number | undefined;
+    maxWidth?: number | undefined;
 }
 
 interface KikGetFromCameraOptions {
-    quality?: number;
-    maxHeight?: number;
-    maxWidth?: number;
+    quality?: number | undefined;
+    maxHeight?: number | undefined;
+    maxWidth?: number | undefined;
 }
 
 interface KikGetFromCameraCallbacks {

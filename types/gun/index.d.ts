@@ -393,9 +393,9 @@ declare namespace Gun {
         /** @see https://gun.eco/docs/SEA */
         SEA: {
             /** If you want SEA to throw while in development, turn SEA.throw = true on, but please do not use this in production. */
-            throw?: boolean;
+            throw?: boolean | undefined;
             /** Last known error */
-            err?: Error;
+            err?: Error | undefined;
             /**
              * This gives you a Proof of Work (POW) / Hashing of Data
              * @param data The data to be hashed, work to be performed on.

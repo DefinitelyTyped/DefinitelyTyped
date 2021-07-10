@@ -153,17 +153,17 @@ export interface EBMLTagSchemaBase {
     level: number;
     type: TagType;
     description: string;
-    cppname?: string;
-    multiple?: boolean;
-    mandatory?: boolean;
-    minver?: number;
-    webm?: boolean;
-    divx?: boolean;
-    del?: ['1 - bzlib,', '2 - lzo1x'] | '1 - bzlib,' | '2 - lzo1x';
-    strong?: 'informational' | 'Informational';
-    recursive?: boolean;
-    maxver?: string;
-    i?: string;
+    cppname?: string | undefined;
+    multiple?: boolean | undefined;
+    mandatory?: boolean | undefined;
+    minver?: number | undefined;
+    webm?: boolean | undefined;
+    divx?: boolean | undefined;
+    del?: ['1 - bzlib,', '2 - lzo1x'] | '1 - bzlib,' | '2 - lzo1x' | undefined;
+    strong?: 'informational' | 'Informational' | undefined;
+    recursive?: boolean | undefined;
+    maxver?: string | undefined;
+    i?: string | undefined;
 }
 export interface EBMLDefaultableTagSchema extends EBMLTagSchemaBase {
     default?: any;
@@ -171,13 +171,13 @@ export interface EBMLDefaultableTagSchema extends EBMLTagSchemaBase {
 export interface EBMLNumericTagSchema extends EBMLDefaultableTagSchema {
     type: 'u' | 'i' | 'f';
     range: string;
-    br?: string | [string, string] | [string, string, string] | [string, string, string, string];
+    br?: string | [string, string] | [string, string, string] | [string, string, string, string] | undefined;
 }
 export interface EBMLStringValueTagSchema extends EBMLDefaultableTagSchema {
     type: 's';
 }
 export interface EBMLBinaryTagSchema extends EBMLTagSchemaBase {
-    bytesize?: number;
+    bytesize?: number | undefined;
 }
 
 /** Type of `Decoder`'s output and `Encoder`'s input */

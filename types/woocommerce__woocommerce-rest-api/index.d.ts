@@ -14,17 +14,17 @@ export interface WooCommerceRestApiOptions {
     /* Your API consumer secret */
     consumerSecret: string;
     /* Custom WP REST API URL prefix, used to support custom prefixes created with the `rest_url_prefix filter` */
-    wpAPIPrefix?: string;
+    wpAPIPrefix?: string | undefined;
     /* API version, default is `v3` */
-    version?: WooCommerceRestApiVersion;
+    version?: WooCommerceRestApiVersion | undefined;
     /* Encoding, default is 'utf-8' */
-    encoding?: WooCommerceRestApiEncoding;
+    encoding?: WooCommerceRestApiEncoding | undefined;
     /* When `true` and using under HTTPS force Basic Authentication as query string, default is `false` */
-    queryStringAuth?: boolean;
+    queryStringAuth?: boolean | undefined;
     /* Provide support for URLs with ports, eg: `8080` */
-    port?: number;
+    port?: number | undefined;
     /* Define the request timeout */
-    timeout?: number;
+    timeout?: number | undefined;
     /* Define the custom Axios config, also override this library options */
     axiosConfig?: any;
 }

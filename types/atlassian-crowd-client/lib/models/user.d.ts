@@ -5,7 +5,7 @@ declare class User {
     readonly displayname: string;
     readonly email: string;
     readonly username: string;
-    readonly password?: string;
+    readonly password?: string | undefined;
     readonly active: boolean;
     readonly attributes: {[key: string]: any};
 
@@ -21,5 +21,5 @@ interface UserObj {
     readonly "display-name": string;
     readonly "email": string;
     readonly "active": boolean;
-    readonly "password"?: { value: string };
+    readonly "password"?: { value: string } | undefined;
 }

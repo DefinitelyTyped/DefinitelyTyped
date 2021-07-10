@@ -8,11 +8,11 @@
 export function keygen(options: KeyGenOptions): Promise<KeyGenResult>;
 
 interface KeyGenOptions {
-    key?: string;
-    cert?: string;
-    commonName?: string;
-    subjectAltName?: string[];
-    entrust?: boolean;
+    key?: string | undefined;
+    cert?: string | undefined;
+    commonName?: string | undefined;
+    subjectAltName?: string[] | undefined;
+    entrust?: boolean | undefined;
 }
 
 interface KeyGenResult {

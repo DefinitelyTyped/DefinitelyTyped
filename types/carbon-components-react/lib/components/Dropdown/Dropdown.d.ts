@@ -4,39 +4,39 @@ import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 
 export interface OnChangeData<ItemType = string> {
-    selectedItem?: ItemType | null;
+    selectedItem?: ItemType | null | undefined;
 }
 
 export interface DropdownProps<ItemType = string> extends
     Omit<ReactDivAttr, "id" | "onChange">,
     InternationalProps<ListBoxMenuIconTranslationKey>
 {
-    ariaLabel?: string,
-    direction?: "bottom" | "top",
-    disabled?: boolean,
+    ariaLabel?: string | undefined,
+    direction?: "bottom" | "top" | undefined,
+    disabled?: boolean | undefined,
     downshiftProps?: any; // TODO
     id: string,
-    initialSelectedItem?: ItemType,
+    initialSelectedItem?: ItemType | undefined,
     /**
      * @deprecated
      */
-    inline?: boolean,
-    invalid?: boolean;
-    invalidText?: React.ReactNode;
-    hideLabel?: boolean;
-    helperText?: React.ReactNode,
+    inline?: boolean | undefined,
+    invalid?: boolean | undefined;
+    invalidText?: React.ReactNode | undefined;
+    hideLabel?: boolean | undefined;
+    helperText?: React.ReactNode | undefined,
     items: readonly ItemType[],
-    itemToElement?: ItemType extends object ? React.ComponentType<ItemType> : never,
+    itemToElement?: ItemType extends object ? React.ComponentType<ItemType> : never | undefined,
     itemToString?(item: ItemType): string
     label: NonNullable<React.ReactNode>,
-    light?: boolean,
+    light?: boolean | undefined,
     onChange?(data: OnChangeData<ItemType>): void,
-    selectedItem?: ItemType | null,
-    size?: ListBoxProps["size"],
+    selectedItem?: ItemType | null | undefined,
+    size?: ListBoxProps["size"] | undefined,
     titleText: NonNullable<React.ReactNode>,
-    type?: ListBoxProps["type"],
-    warn?: boolean,
-    warnText?: React.ReactNode,
+    type?: ListBoxProps["type"] | undefined,
+    warn?: boolean | undefined,
+    warnText?: React.ReactNode | undefined,
 }
 
 declare function Dropdown<ItemType = string>(props: ForwardRefProps<HTMLButtonElement, DropdownProps<ItemType>>): FCReturn;

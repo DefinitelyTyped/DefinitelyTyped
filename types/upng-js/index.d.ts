@@ -27,17 +27,17 @@ export interface ImageTabText {
 }
 
 export interface ImageTabs {
-    acTL?: ImageTabACTL;
-    pHYs?: number[];
-    cHRM?: number[];
-    tEXt?: ImageTabText;
-    iTXt?: ImageTabText;
-    PLTE?: number[];
-    hIST?: number[];
-    tRNS?: (number | number[]); // Depends on ctype
-    gAMA?: number;
-    sRGB?: number;
-    bKGD?: (number | number[]); // Depends on ctype
+    acTL?: ImageTabACTL | undefined;
+    pHYs?: number[] | undefined;
+    cHRM?: number[] | undefined;
+    tEXt?: ImageTabText | undefined;
+    iTXt?: ImageTabText | undefined;
+    PLTE?: number[] | undefined;
+    hIST?: number[] | undefined;
+    tRNS?: (number | number[]) | undefined; // Depends on ctype
+    gAMA?: number | undefined;
+    sRGB?: number | undefined;
+    bKGD?: (number | number[]) | undefined; // Depends on ctype
 }
 
 export interface Image {

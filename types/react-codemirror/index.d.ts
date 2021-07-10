@@ -11,33 +11,33 @@
 declare namespace ReactCodeMirror {
     interface ReactCodeMirrorProps extends React.Props<ReactCodeMirror> {
         /** Automatically focuses the editor when it is mounted (default false) */
-        autoFocus?: boolean;
+        autoFocus?: boolean | undefined;
         /** Automatically persist changes to underlying textarea (default false) */
-        autoSave?: boolean;
+        autoSave?: boolean | undefined;
         /** Adds a custom CSS class to the editor */
-        className?: string;
+        className?: string | undefined;
         /** Provides a specific CodeMirror instance (defaults to `require('codemirror')`) */
-        codeMirrorInstance?: (host: any, options?: CodeMirror.EditorConfiguration) => CodeMirror.Editor;
+        codeMirrorInstance?: ((host: any, options?: CodeMirror.EditorConfiguration) => CodeMirror.Editor) | undefined;
         /** Provides the default (not changed tracked) value to the editor */
-        defaultValue?: string;
+        defaultValue?: string | undefined;
         /** Set the name of the editor input field */
-        name?: string;
+        name?: string | undefined;
         /** Called when a change is made */
-        onChange?: (newValue: string, change: CodeMirror.EditorChange) => any;
+        onChange?: ((newValue: string, change: CodeMirror.EditorChange) => any) | undefined;
         /** Called when the cursor is moved */
-        onCursorActivity?: (codemirror: CodeMirror.Editor) => any;
+        onCursorActivity?: ((codemirror: CodeMirror.Editor) => any) | undefined;
         /** Called when the editor is focused or loses focus */
-        onFocusChange?: (focused: boolean) => any;
+        onFocusChange?: ((focused: boolean) => any) | undefined;
         /** Called when the editor is scrolled */
-        onScroll?: (scrollInfo: CodeMirror.ScrollInfo) => any;
+        onScroll?: ((scrollInfo: CodeMirror.ScrollInfo) => any) | undefined;
         /** Options passed to the CodeMirror instance */
-        options?: CodeMirror.EditorConfiguration;
+        options?: CodeMirror.EditorConfiguration | undefined;
         /** (DEPRECATED), use `name` */
-        path?: string;
+        path?: string | undefined;
         /** Preserve previous scroll position after updating value */
-        preserveScrollPosition?: boolean
+        preserveScrollPosition?: boolean | undefined
         /** The editor value */
-        value?: string;
+        value?: string | undefined;
     }
 
     interface ReactCodeMirror extends React.Component<ReactCodeMirrorProps> {

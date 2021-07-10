@@ -6,9 +6,9 @@
 import { EventEmitter } from 'events';
 
 interface CacheOptions {
-    timeout?: number;
-    doesNotRenewTimeout?: boolean;
-    timeoutDisabled?: boolean;
+    timeout?: number | undefined;
+    doesNotRenewTimeout?: boolean | undefined;
+    timeoutDisabled?: boolean | undefined;
 }
 
 declare class Cache extends EventEmitter {

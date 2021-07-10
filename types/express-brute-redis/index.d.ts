@@ -16,10 +16,10 @@ declare class RedisStore {
      */
     constructor(
         options?: ClientOpts & {
-            client?: RedisClient;
-            prefix?: string;
-            host?: string;
-            port?: number | string;
+            client?: RedisClient | undefined;
+            prefix?: string | undefined;
+            host?: string | undefined;
+            port?: number | string | undefined;
         },
         ...args: any[]
     );

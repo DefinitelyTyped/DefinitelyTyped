@@ -7,11 +7,11 @@ import { NetworkNack } from "./network-nack";
 import { Transport, TransportConnectionInfo } from "./transport";
 
 export interface FaceCtorOptions {
-    getTransport?: () => Transport;
-    getConnectionInfo?: () => TransportConnectionInfo;
-    connectionInfo?: TransportConnectionInfo|null;
-    host?: string|null;
-    port?: number|null;
+    getTransport?: (() => Transport) | undefined;
+    getConnectionInfo?: (() => TransportConnectionInfo) | undefined;
+    connectionInfo?: TransportConnectionInfo|null | undefined;
+    host?: string|null | undefined;
+    port?: number|null | undefined;
 }
 
 export type OnInterestCallback = (prefix: Name, interest: Interest, face: Face, filterId: number, filter: InterestFilter) => any;

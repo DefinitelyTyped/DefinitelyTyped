@@ -30,7 +30,7 @@ declare namespace registry {
     }
     interface NodeSetting<T> {
         value: T;
-        exportable?: boolean;
+        exportable?: boolean | undefined;
     }
     type NodeSettings<TSets> = {
         [K in keyof TSets]: NodeSetting<TSets[K]>;
@@ -55,8 +55,8 @@ declare namespace registry {
             type: string,
             constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // tslint:disable-line:no-unnecessary-generics
             opts?: {
-                credentials?: NodeCredentials<TCreds>;
-                settings?: NodeSettings<TSets>; // tslint:disable-line:no-unnecessary-generics
+                credentials?: NodeCredentials<TCreds> | undefined;
+                settings?: NodeSettings<TSets> | undefined; // tslint:disable-line:no-unnecessary-generics
             },
         ): void;
 
@@ -151,9 +151,9 @@ declare namespace registry {
     }
 
     interface NodeMessage {
-        payload?: unknown;
-        topic?: string;
-        _msgid?: string;
+        payload?: unknown | undefined;
+        topic?: string | undefined;
+        _msgid?: string | undefined;
     }
 
     interface NodeMessageParts {
@@ -162,7 +162,7 @@ declare namespace registry {
         /** the message's position within the sequence */
         index: number;
         /** if known, the total number of messages in the sequence */
-        count?: number;
+        count?: number | undefined;
     }
 
     interface NodeMessageInFlow extends NodeMessage {
@@ -171,14 +171,14 @@ declare namespace registry {
          * If there is a message sequence, then each message in a sequence has the ```parts``` property.
          * More info: https://nodered.org/docs/user-guide/messages#understanding-msgparts
          */
-        parts?: NodeMessageParts;
+        parts?: NodeMessageParts | undefined;
     }
 
     interface Node<TCreds extends {} = {}> extends EventEmitter {
         id: string;
         type: string;
         z: string;
-        name?: string;
+        name?: string | undefined;
         credentials: TCreds;
         /**
          * Update the wiring configuration for this node.
@@ -283,9 +283,9 @@ declare namespace registry {
     type NodeStatusShape = 'ring' | 'dot';
 
     interface NodeStatus {
-        fill?: NodeStatusFill;
-        shape?: NodeStatusShape;
-        text?: string;
+        fill?: NodeStatusFill | undefined;
+        shape?: NodeStatusShape | undefined;
+        text?: string | undefined;
     }
 
     /**

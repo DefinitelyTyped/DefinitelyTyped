@@ -61,20 +61,20 @@ declare namespace Redlock {
          *
          * Default is 0.01
          */
-        driftFactor?: number;
+        driftFactor?: number | undefined;
         /**
          * The max number of times Redlock will attempt
          * to lock a resource before erroring.
          *
          * Default is 10
          */
-        retryCount?: number;
+        retryCount?: number | undefined;
         /**
          * The time in milliseconds between attempts.
          *
          * Default is 200
          */
-        retryDelay?: number;
+        retryDelay?: number | undefined;
         /**
          * The max time in ms randomly added to retries
          * to improve performance under high contention
@@ -82,7 +82,7 @@ declare namespace Redlock {
          *
          * Default is 100
          */
-        retryJitter?: number;
+        retryJitter?: number | undefined;
         /**
          * LUA script to run on the Redis server to lock a resource.
          * https://redis.io/commands/eval
@@ -90,7 +90,7 @@ declare namespace Redlock {
          * Redlock has a default script.
          * Only override if you know it's necessary to do so.
          */
-        lockScript?: LockScriptFunction | string;
+        lockScript?: LockScriptFunction | string | undefined;
         /**
          * LUA script to run on the Redis server to unlock a resource.
          * https://redis.io/commands/eval
@@ -98,7 +98,7 @@ declare namespace Redlock {
          * Redlock has a default script.
          * Only override if you know it's necessary to do so.
          */
-        unlockScript?: UnlockScriptFunction | string;
+        unlockScript?: UnlockScriptFunction | string | undefined;
         /**
          * LUA script to run on the Redis server to extend a lock's ttl.
          * https://redis.io/commands/eval
@@ -106,7 +106,7 @@ declare namespace Redlock {
          * Redlock has a default script.
          * Only override if you know it's necessary to do so.
          */
-        extendScript?: ExtendScriptFunction | string;
+        extendScript?: ExtendScriptFunction | string | undefined;
     }
 
     /**

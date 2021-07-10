@@ -115,130 +115,130 @@ export interface ClientBase {
 }
 
 export interface Badges {
-    admin?: string;
-    bits?: string;
-    broadcaster?: string;
-    partner?: string;
-    global_mod?: string;
-    moderator?: string;
-    vip?: string;
-    subscriber?: string;
-    staff?: string;
-    turbo?: string;
-    premium?: string;
-    founder?: string;
-    ['bits-leader']?: string;
-    ['sub-gifter']?: string;
+    admin?: string | undefined;
+    bits?: string | undefined;
+    broadcaster?: string | undefined;
+    partner?: string | undefined;
+    global_mod?: string | undefined;
+    moderator?: string | undefined;
+    vip?: string | undefined;
+    subscriber?: string | undefined;
+    staff?: string | undefined;
+    turbo?: string | undefined;
+    premium?: string | undefined;
+    founder?: string | undefined;
+    ['bits-leader']?: string | undefined;
+    ['sub-gifter']?: string | undefined;
     [other: string]: string | undefined;
 }
 
 export interface BadgeInfo {
-    subscriber?: string;
+    subscriber?: string | undefined;
     [other: string]: string | undefined;
 }
 
 export interface SubMethods {
-    prime?: boolean;
-    plan?: SubMethod;
-    planName?: string;
+    prime?: boolean | undefined;
+    plan?: SubMethod | undefined;
+    planName?: string | undefined;
 }
 
 export interface DeleteUserstate {
-    login?: string;
-    message?: string;
-    "target-msg-id"?: string;
+    login?: string | undefined;
+    message?: string | undefined;
+    "target-msg-id"?: string | undefined;
 }
 
 export interface CommonUserstate {
-    badges?: Badges;
-    'badge-info'?: BadgeInfo;
-    color?: string;
-    "display-name"?: string;
-    emotes?: { [emoteid: string]: string[] };
-    id?: string;
-    mod?: boolean;
-    turbo?: boolean;
-    'emotes-raw'?: string;
-    'badges-raw'?: string;
-    'badge-info-raw'?: string;
-    "room-id"?: string;
-    subscriber?: boolean;
-    'user-type'?: "" | "mod" | "global_mod" | "admin" | "staff";
-    "user-id"?: string;
-    "tmi-sent-ts"?: string;
-    flags?: string;
+    badges?: Badges | undefined;
+    'badge-info'?: BadgeInfo | undefined;
+    color?: string | undefined;
+    "display-name"?: string | undefined;
+    emotes?: { [emoteid: string]: string[] } | undefined;
+    id?: string | undefined;
+    mod?: boolean | undefined;
+    turbo?: boolean | undefined;
+    'emotes-raw'?: string | undefined;
+    'badges-raw'?: string | undefined;
+    'badge-info-raw'?: string | undefined;
+    "room-id"?: string | undefined;
+    subscriber?: boolean | undefined;
+    'user-type'?: "" | "mod" | "global_mod" | "admin" | "staff" | undefined;
+    "user-id"?: string | undefined;
+    "tmi-sent-ts"?: string | undefined;
+    flags?: string | undefined;
     [paramater: string]: any;
 }
 
 export interface UserNoticeState extends CommonUserstate {
-    login?: string;
-    message?: string;
-    "system-msg"?: string;
+    login?: string | undefined;
+    message?: string | undefined;
+    "system-msg"?: string | undefined;
 }
 
 export interface CommonSubUserstate extends UserNoticeState {
-    "msg-param-sub-plan"?: SubMethod;
-    "msg-param-sub-plan-name"?: string;
+    "msg-param-sub-plan"?: SubMethod | undefined;
+    "msg-param-sub-plan-name"?: string | undefined;
 }
 
 export interface CommonGiftSubUserstate extends CommonSubUserstate {
-    "msg-param-recipient-display-name"?: string;
-    "msg-param-recipient-id"?: string;
-    "msg-param-recipient-user-name"?: string;
-    "msg-param-months"?: boolean | string;
+    "msg-param-recipient-display-name"?: string | undefined;
+    "msg-param-recipient-id"?: string | undefined;
+    "msg-param-recipient-user-name"?: string | undefined;
+    "msg-param-months"?: boolean | string | undefined;
 }
 
 export interface ChatUserstate extends CommonUserstate {
-    'message-type'?: "chat" | "action" | "whisper";
-    username?: string;
-    bits?: string;
+    'message-type'?: "chat" | "action" | "whisper" | undefined;
+    username?: string | undefined;
+    bits?: string | undefined;
 }
 
 export interface SubUserstate extends CommonSubUserstate {
-    'message-type'?: "sub" | "resub";
-    "msg-param-cumulative-months"?: string | boolean;
-    "msg-param-should-share-streak"?: boolean;
-    "msg-param-streak-months"?: string | boolean;
+    'message-type'?: "sub" | "resub" | undefined;
+    "msg-param-cumulative-months"?: string | boolean | undefined;
+    "msg-param-should-share-streak"?: boolean | undefined;
+    "msg-param-streak-months"?: string | boolean | undefined;
 }
 
 export interface SubMysteryGiftUserstate extends CommonSubUserstate {
-    'message-type'?: "submysterygift";
-    "msg-param-sender-count"?: string | boolean;
+    'message-type'?: "submysterygift" | undefined;
+    "msg-param-sender-count"?: string | boolean | undefined;
 }
 
 export interface SubGiftUserstate extends CommonGiftSubUserstate {
-    'message-type'?: "subgift";
-    "msg-param-sender-count"?: string | boolean;
+    'message-type'?: "subgift" | undefined;
+    "msg-param-sender-count"?: string | boolean | undefined;
 }
 
 export interface AnonSubGiftUserstate extends CommonGiftSubUserstate {
-    "message-type"?: "anonsubgift";
+    "message-type"?: "anonsubgift" | undefined;
 }
 
 export interface SubGiftUpgradeUserstate extends CommonSubUserstate {
-    "message-type"?: "giftpaidupgrade";
-    "msg-param-sender-name"?: string;
-    "msg-param-sender-login"?: string;
+    "message-type"?: "giftpaidupgrade" | undefined;
+    "msg-param-sender-name"?: string | undefined;
+    "msg-param-sender-login"?: string | undefined;
 }
 
 export interface AnonSubGiftUpgradeUserstate extends CommonSubUserstate {
-    "message-type"?: "anongiftpaidupgrade";
+    "message-type"?: "anongiftpaidupgrade" | undefined;
 }
 
 export interface PrimeUpgradeUserstate extends CommonSubUserstate {
-    "message-type"?: "primepaidupgrade";
+    "message-type"?: "primepaidupgrade" | undefined;
 }
 
 export interface RaidUserstate extends UserNoticeState {
-    "message-type"?: "raid";
-    "msg-param-displayName"?: string;
-    "msg-param-login"?: string;
-    "msg-param-viewerCount"?: string;
+    "message-type"?: "raid" | undefined;
+    "msg-param-displayName"?: string | undefined;
+    "msg-param-login"?: string | undefined;
+    "msg-param-viewerCount"?: string | undefined;
 }
 
 export interface RitualUserstate extends UserNoticeState {
-    "message-type"?: "ritual";
-    "msg-param-ritual-name"?: "new_chatter";
+    "message-type"?: "ritual" | undefined;
+    "msg-param-ritual-name"?: "new_chatter" | undefined;
 }
 
 export type Userstate = ChatUserstate |
@@ -334,48 +334,48 @@ export type MsgID = "already_banned" |
 export type SubMethod = "Prime" | "1000" | "2000" | "3000";
 
 export interface RoomState {
-    "broadcaster-lang"?: string;
-    "emote-only"?: boolean;
-    "followers-only"?: string | boolean;
-    "r9k"?: boolean;
-    "rituals"?: boolean;
-    "room-id"?: string;
-    "slow"?: string | boolean;
-    "subs-only"?: boolean;
-    "channel"?: string;
+    "broadcaster-lang"?: string | undefined;
+    "emote-only"?: boolean | undefined;
+    "followers-only"?: string | boolean | undefined;
+    "r9k"?: boolean | undefined;
+    "rituals"?: boolean | undefined;
+    "room-id"?: string | undefined;
+    "slow"?: string | boolean | undefined;
+    "subs-only"?: boolean | undefined;
+    "channel"?: string | undefined;
 }
 
 export type Client = StrictEventEmitter<ClientBase, Events> & Actions;
 
 export interface Options {
     options?: {
-        clientId?: string;
-        debug?: boolean;
-        joinInterval?: number;
-        globalDefaultChannel?: string;
-        messagesLogLevel?: string;
-    };
+        clientId?: string | undefined;
+        debug?: boolean | undefined;
+        joinInterval?: number | undefined;
+        globalDefaultChannel?: string | undefined;
+        messagesLogLevel?: string | undefined;
+    } | undefined;
     connection?: {
-        server?: string;
-        port?: number;
-        reconnect?: boolean;
-        maxReconnectAttempts?: number;
-        maxReconnectInverval?: number;
-        reconnectDecay?: number;
-        reconnectInterval?: number;
-        secure?: boolean;
-        timeout?: number;
-    };
+        server?: string | undefined;
+        port?: number | undefined;
+        reconnect?: boolean | undefined;
+        maxReconnectAttempts?: number | undefined;
+        maxReconnectInverval?: number | undefined;
+        reconnectDecay?: number | undefined;
+        reconnectInterval?: number | undefined;
+        secure?: boolean | undefined;
+        timeout?: number | undefined;
+    } | undefined;
     identity?: {
-        username?: string;
-        password?: string | (() => string | Promise<string>);
-    };
-    channels?: string[];
+        username?: string | undefined;
+        password?: string | (() => string | Promise<string>) | undefined;
+    } | undefined;
+    channels?: string[] | undefined;
     logger?: {
         info: (message: string) => any;
         warn: (message: string) => any;
         error: (message: string) => any;
-    };
+    } | undefined;
 }
 
 export interface ClientConstructor {

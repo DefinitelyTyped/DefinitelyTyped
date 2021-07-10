@@ -15,7 +15,7 @@ declare namespace hbs {
     type ExphbsOptions = Parameters<typeof create>[0];
 
     interface TemplateOptions {
-        template?: string;
+        template?: string | undefined;
         context?: any;
     }
 
@@ -30,7 +30,7 @@ declare namespace hbs {
     interface NodemailerExpressHandlebarsOptions {
         viewEngine: Exphbs | ExphbsOptions;
         viewPath: string;
-        extName?: string;
+        extName?: string | undefined;
     }
 
     export { TemplateOptions, HbsTransporter, NodemailerExpressHandlebarsOptions };

@@ -110,13 +110,13 @@ export declare module parser {
 }
 
 export interface SwigOptions {
-    autoescape?: boolean;
+    autoescape?: boolean | undefined;
     cache?: any;
-    cmtControls?: string[];
-    loader?: TemplateLoader;
+    cmtControls?: string[] | undefined;
+    loader?: TemplateLoader | undefined;
     locals?: any;
-    tagControls?: string[];
-    varControls?: string[];
+    tagControls?: string[] | undefined;
+    varControls?: string[] | undefined;
 }
 
 export interface TemplateLoader {

@@ -5,9 +5,9 @@ import BaseObject, { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
 
 export interface Options {
-    element?: HTMLElement;
-    render?: (p0: MapEvent) => void;
-    target?: HTMLElement | string;
+    element?: HTMLElement | undefined;
+    render?: ((p0: MapEvent) => void) | undefined;
+    target?: HTMLElement | string | undefined;
 }
 export default class Control extends BaseObject {
     constructor(options: Options);

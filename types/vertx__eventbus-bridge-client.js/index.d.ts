@@ -8,7 +8,7 @@ declare namespace EventBus {
 
     interface EventBus {
         url: string;
-        options?: EventBusOptions;
+        options?: EventBusOptions | undefined;
         onopen(): void;
         onerror(error: EventBusError): void;
         onclose(): void;

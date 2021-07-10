@@ -10,25 +10,25 @@ import { Keys, Key } from 'expirymanager';
 import { SCBrokerOptions } from './scbroker';
 
 export interface SCBrokerServerOptions {
-    id?: string;
-    instanceId?: string;
-    debug?: boolean;
-    inspect?: boolean;
-    socketPath?: string;
-    port?: number;
-    expiryAccuracy?: number;
-    downgradeToUser?: number | string;
-    brokerControllerPath?: string;
-    processTermTimeout?: number;
-    ipcAckTimeout?: number;
-    secretKey?: string;
-    brokerOptions?: SCBrokerOptions;
+    id?: string | undefined;
+    instanceId?: string | undefined;
+    debug?: boolean | undefined;
+    inspect?: boolean | undefined;
+    socketPath?: string | undefined;
+    port?: number | undefined;
+    expiryAccuracy?: number | undefined;
+    downgradeToUser?: number | string | undefined;
+    brokerControllerPath?: string | undefined;
+    processTermTimeout?: number | undefined;
+    ipcAckTimeout?: number | undefined;
+    secretKey?: string | undefined;
+    brokerOptions?: SCBrokerOptions | undefined;
 }
 
 export interface SCBrokerServer extends EventEmitter {
     options: SCBrokerServerOptions;
-    socketPath?: string;
-    port?: number;
+    socketPath?: string | undefined;
+    port?: number | undefined;
     ipcAckTimeout: number;
 
     on(event: 'error', listener: (err?: Error) => void): this;
@@ -72,36 +72,36 @@ export interface ExitData {
 }
 
 export interface AutoReconnectOptions {
-    initialDelay?: number;
-    randomness?: number;
-    multiplier?: number;
-    maxDelay?: number;
+    initialDelay?: number | undefined;
+    randomness?: number | undefined;
+    multiplier?: number | undefined;
+    maxDelay?: number | undefined;
 }
 
 export interface SCBrokerClientOptions {
-    secretKey?: string;
-    timeout?: number;
-    socketPath?: string;
-    port?: number;
-    host?: string;
-    autoReconnect?: boolean;
-    autoReconnectOptions?: AutoReconnectOptions;
-    connectRetryErrorThreshold?: number;
-    pubSubBatchDuration?: number;
+    secretKey?: string | undefined;
+    timeout?: number | undefined;
+    socketPath?: string | undefined;
+    port?: number | undefined;
+    host?: string | undefined;
+    autoReconnect?: boolean | undefined;
+    autoReconnectOptions?: AutoReconnectOptions | undefined;
+    connectRetryErrorThreshold?: number | undefined;
+    pubSubBatchDuration?: number | undefined;
 }
 
 export interface QueryOptions {
-    baseKey?: KeyChain;
-    noAck?: boolean;
+    baseKey?: KeyChain | undefined;
+    noAck?: boolean | undefined;
     data?: any;
 }
 
 export interface SpliceOptions {
-    index?: number;
-    count?: number;
-    items?: any[];
-    getValue?: boolean;
-    noAck?: boolean;
+    index?: number | undefined;
+    count?: number | undefined;
+    items?: any[] | undefined;
+    getValue?: boolean | undefined;
+    noAck?: boolean | undefined;
 }
 
 export interface SCBrokerClient extends EventEmitter {
@@ -109,11 +109,11 @@ export interface SCBrokerClient extends EventEmitter {
     readonly CONNECTING: 'connecting';
     readonly DISCONNECTED: 'disconnected';
 
-    socketPath?: string;
-    port?: number;
-    host?: string;
+    socketPath?: string | undefined;
+    port?: number | undefined;
+    host?: string | undefined;
     autoReconnect: boolean;
-    autoReconnectOptions?: AutoReconnectOptions;
+    autoReconnectOptions?: AutoReconnectOptions | undefined;
     connectRetryErrorThreshold: number;
     state: 'connected' | 'connecting' | 'disconnected';
     connectAttempts: number;

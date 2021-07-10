@@ -126,18 +126,18 @@ export function tokenize(
 ): Array<string | Token>;
 
 export interface Environment extends Record<string, any> {
-    selector?: string;
-    element?: Element;
-    language?: string;
-    grammar?: Grammar;
-    code?: string;
-    highlightedCode?: string;
-    type?: string;
-    content?: string;
-    tag?: string;
-    classes?: string[];
-    attributes?: Record<string, string>;
-    parent?: Array<string | Token>;
+    selector?: string | undefined;
+    element?: Element | undefined;
+    language?: string | undefined;
+    grammar?: Grammar | undefined;
+    code?: string | undefined;
+    highlightedCode?: string | undefined;
+    type?: string | undefined;
+    content?: string | undefined;
+    tag?: string | undefined;
+    classes?: string[] | undefined;
+    attributes?: Record<string, string> | undefined;
+    parent?: Array<string | Token> | undefined;
 }
 
 export namespace util {
@@ -171,26 +171,26 @@ export namespace util {
 export type GrammarValue = RegExp | TokenObject | Array<RegExp | TokenObject>;
 export type Grammar = GrammarRest & Record<string, GrammarValue>;
 export interface GrammarRest {
-    keyword?: GrammarValue;
-    number?: GrammarValue;
-    function?: GrammarValue;
-    string?: GrammarValue;
-    boolean?: GrammarValue;
-    operator?: GrammarValue;
-    punctuation?: GrammarValue;
-    atrule?: GrammarValue;
-    url?: GrammarValue;
-    selector?: GrammarValue;
-    property?: GrammarValue;
-    important?: GrammarValue;
-    style?: GrammarValue;
-    comment?: GrammarValue;
-    "class-name"?: GrammarValue;
+    keyword?: GrammarValue | undefined;
+    number?: GrammarValue | undefined;
+    function?: GrammarValue | undefined;
+    string?: GrammarValue | undefined;
+    boolean?: GrammarValue | undefined;
+    operator?: GrammarValue | undefined;
+    punctuation?: GrammarValue | undefined;
+    atrule?: GrammarValue | undefined;
+    url?: GrammarValue | undefined;
+    selector?: GrammarValue | undefined;
+    property?: GrammarValue | undefined;
+    important?: GrammarValue | undefined;
+    style?: GrammarValue | undefined;
+    comment?: GrammarValue | undefined;
+    "class-name"?: GrammarValue | undefined;
 
     /**
      * An optional grammar object that will appended to this grammar.
      */
-    rest?: Grammar;
+    rest?: Grammar | undefined;
 }
 
 /**
@@ -206,19 +206,19 @@ export interface TokenObject {
      * If `true`, then the first capturing group of `pattern` will (effectively) behave as a lookbehind
      * group meaning that the captured text will not be part of the matched text of the new token.
      */
-    lookbehind?: boolean;
+    lookbehind?: boolean | undefined;
 
     /**
      * Whether the token is greedy.
      *
      * @default false
      */
-    greedy?: boolean;
+    greedy?: boolean | undefined;
 
     /**
      * An optional alias or list of aliases.
      */
-    alias?: string | string[];
+    alias?: string | string[] | undefined;
 
     /**
      * The nested tokens of this token.
@@ -227,7 +227,7 @@ export interface TokenObject {
      *
      * Note that this can cause infinite recursion.
      */
-    inside?: Grammar;
+    inside?: Grammar | undefined;
 }
 export type Languages = LanguageMapProtocol & LanguageMap;
 export interface LanguageMap {

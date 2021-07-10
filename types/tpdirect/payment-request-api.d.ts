@@ -4,11 +4,11 @@ interface DeferredPaymentRequest {
     /**
      * default is false
      */
-    isAmountPending?: boolean;
+    isAmountPending?: boolean | undefined;
     /**
      * default is true
      */
-    isShowTotalAmount?: boolean;
+    isShowTotalAmount?: boolean | undefined;
 }
 
 interface PaymentRequestData {
@@ -20,11 +20,11 @@ interface PaymentRequestData {
         requestPayerPhone: boolean;
         requestShipping: boolean;
         shippingType: 'shipping' | 'delivery' | 'pickup';
-    };
+    } | undefined;
     shippingOptions?: Array<PaymentRequestAmount & {
         id: string;
         detail: string;
-    }>;
+    }> | undefined;
     displayItems: PaymentRequestAmount[];
     total: PaymentRequestAmount & DeferredPaymentRequest;
 }

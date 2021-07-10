@@ -12,14 +12,14 @@ declare namespace DataTables {
         /**
          * Enable and configure the RowReorder extension for DataTables
          */
-        rowReorder?: RowReorderSettings;
+        rowReorder?: RowReorderSettings | undefined;
     }
 
     interface RowReorderSettings {
         /**
          * Configure the data point that will be used for the reordering data
          */
-        dataSrc?: string;
+        dataSrc?: string | undefined;
         /**
          * Attach an Editor instance for database updating
          */
@@ -27,7 +27,7 @@ declare namespace DataTables {
         /**
          * Enable / disable RowReorder's user interaction
          */
-        enable?: boolean;
+        enable?: boolean | undefined;
         /**
          * Set the options for the Editor form when submitting data
          */
@@ -35,14 +35,14 @@ declare namespace DataTables {
         /**
          * Define the selector used to pick the elements that will start a drag
          */
-        selector?: string;
+        selector?: string | undefined;
         /**
          * Horizontal position control of the row being dragged
          */
-        snapX?: number | boolean;
+        snapX?: number | boolean | undefined;
         /**
          * Control automatic of data when a row is dropped
          */
-        update?: boolean;
+        update?: boolean | undefined;
     }
 }

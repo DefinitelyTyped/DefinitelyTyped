@@ -105,7 +105,7 @@ export interface ShortMove {
     /**
      * If this move results in a promotion, this will have the unit promotion.
      */
-    promotion?: Exclude<PieceType, "p" | "k">;
+    promotion?: Exclude<PieceType, "p" | "k"> | undefined;
 }
 
 /**
@@ -133,7 +133,7 @@ export interface Move extends ShortMove {
     /**
      * If an enemy piece was captured this is their type
      */
-    captured?: Exclude<PieceType, "k">;
+    captured?: Exclude<PieceType, "k"> | undefined;
 }
 
 export interface Piece {
@@ -295,7 +295,7 @@ export interface ChessInstance {
          * The string to test if it is a valid move, if it is not then an
          * empty array is returned
          */
-        square?: string;
+        square?: string | undefined;
     }): Move[];
 
     /**
@@ -309,12 +309,12 @@ export interface ChessInstance {
      */
     moves(options?: {
         /** Set to true to return verbose move objects instead of strings */
-        verbose?: false;
+        verbose?: false | undefined;
         /**
          * The string to test if it is a valid move, if it is not then an
          * empty array is returned
          */
-        square?: string;
+        square?: string | undefined;
     }): string[];
 
     /**
@@ -328,12 +328,12 @@ export interface ChessInstance {
      */
     moves(options?: {
         /** Set to true to return verbose move objects instead of strings */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
         /**
          * The string to test if it is a valid move, if it is not then an
          * empty array is returned
          */
-        square?: string;
+        square?: string | undefined;
     }): string[] | Move[];
 
     /**
@@ -425,9 +425,9 @@ export interface ChessInstance {
      */
     pgn(options?: {
         /** the maximum width of a line */
-        max_width?: number;
+        max_width?: number | undefined;
         /** Specific newline character */
-        newline_char?: string;
+        newline_char?: string | undefined;
     }): string;
 
     /**
@@ -452,7 +452,7 @@ export interface ChessInstance {
              * Avoid using a newline_char that may occur elsewhere in a PGN,
              * such as . or x, as this will result in unexpected behavior.
              */
-            newline_char?: string;
+            newline_char?: string | undefined;
 
             /**
              * The sloppy flag is a boolean that permits chess.js to parse moves in
@@ -460,7 +460,7 @@ export interface ChessInstance {
              * See .move documentation for more information about non-SAN
              * notations.
              */
-            sloppy?: boolean;
+            sloppy?: boolean | undefined;
         },
     ): boolean;
 
@@ -508,7 +508,7 @@ export interface ChessInstance {
              * An optional sloppy flag can be used to parse a variety of
              * non-standard move notations.
              */
-            sloppy?: boolean;
+            sloppy?: boolean | undefined;
         },
     ): Move | null;
 
@@ -585,7 +585,7 @@ export interface ChessInstance {
          * Pass true if you want this function to output verbose objects
          * instead of strings.
          */
-        verbose?: false;
+        verbose?: false | undefined;
     }): string[];
 
     /**
@@ -617,7 +617,7 @@ export interface ChessInstance {
          * Pass true if you want this function to output verbose objects
          * instead of strings.
          */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
     }): string[] | Move[];
 
     board(): Array<Array<{ type: PieceType; color: "w" | "b" } | null>>;

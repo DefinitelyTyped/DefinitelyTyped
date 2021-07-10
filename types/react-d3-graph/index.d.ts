@@ -112,7 +112,7 @@ export interface GraphConfiguration<N extends GraphNode, L extends GraphLink> {
          * @see https://github.com/d3/d3-force#simulation_alphaTarget
          * @default 0.05
          */
-        alphaTarget?: number;
+        alphaTarget?: number | undefined;
         /**
          * this will define how close nodes are to each other.
          * - If value is positive, nodes will attract each other.
@@ -121,32 +121,32 @@ export interface GraphConfiguration<N extends GraphNode, L extends GraphLink> {
          * @see https://github.com/d3/d3-force#forces
          * @default -100
          */
-        gravity?: number;
+        gravity?: number | undefined;
         /**
          * the length of each link from the center of the nodes it joins.
          *
          * @default 100
          */
-        linkLength?: number;
+        linkLength?: number | undefined;
         /**
          * @see https://github.com/d3/d3-force#link_strength
          * @default 1
          */
-        linkStrength?: number;
+        linkStrength?: number | undefined;
         /**
          * Completely disables d3 force link and simulation to re-trigger so that one can obtain precise render of node positions
          *
          * @see https://github.com/danielcaldas/react-d3-graph/pull/278
          * @default false
          */
-        disableLinkForce?: boolean;
+        disableLinkForce?: boolean | undefined;
     };
 }
 
 export interface GraphData<N extends GraphNode, L extends GraphLink> {
     nodes: N[];
     links: L[];
-    focusedNodeId?: string;
+    focusedNodeId?: string | undefined;
 }
 
 export interface GraphEventCallbacks {
@@ -166,8 +166,8 @@ export interface GraphEventCallbacks {
 
 export interface GraphProps<N extends GraphNode, L extends GraphLink> extends Partial<GraphEventCallbacks> {
     id: string;
-    data?: GraphData<N, L>;
-    config?: Partial<GraphConfiguration<N, L>>;
+    data?: GraphData<N, L> | undefined;
+    config?: Partial<GraphConfiguration<N, L>> | undefined;
 }
 
 export class Graph<N extends GraphNode, L extends GraphLink> extends Component<GraphProps<N, L>, any> {

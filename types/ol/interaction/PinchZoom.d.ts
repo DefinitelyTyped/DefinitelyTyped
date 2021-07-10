@@ -5,7 +5,7 @@ import { ObjectEvent } from '../Object';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    duration?: number;
+    duration?: number | undefined;
 }
 export default class PinchZoom extends PointerInteraction {
     constructor(opt_options?: Options);

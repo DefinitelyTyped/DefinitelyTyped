@@ -15,8 +15,8 @@ type BrotliMode = "BrotliCompress" | "BrotliDecompress";
 type ZlibMode = "Gzip" | "Gunzip" | "Deflate" | "Inflate" | "DeflateRaw" | "InflateRaw" | "Unzip";
 
 interface ZlibBaseOptions extends MiniPass.Options {
-    flush?: number;
-    finishFlush?: number;
+    flush?: number | undefined;
+    finishFlush?: number | undefined;
 }
 
 declare class ZlibBase extends MiniPass {
@@ -36,8 +36,8 @@ declare class ZlibBase extends MiniPass {
 }
 
 interface ZlibOptions extends ZlibBaseOptions {
-    level?: number;
-    strategy?: number;
+    level?: number | undefined;
+    strategy?: number | undefined;
 }
 
 declare class Zlib extends ZlibBase {

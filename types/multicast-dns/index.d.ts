@@ -44,64 +44,64 @@ declare namespace mDNS {
          *
          * @default 5353
          */
-        port?: number;
+        port?: number | undefined;
 
         /**
          * Set the socket type.
          *
          * @default 'udp4'
          */
-        type?: SocketType;
+        type?: SocketType | undefined;
 
         /**
          * Set the UDP ip.
          */
-        ip?: string;
+        ip?: string | undefined;
 
         /**
          * Explicitly specify a network interface. Will use all interfaces when not specified.
          */
-        interface?: string;
+        interface?: string | undefined;
 
         /**
          * Explicitly pass a constructed socket to use.
          */
-        socket?: Socket;
+        socket?: Socket | undefined;
 
         /**
          * Set the `reuseAddr` option when creating the socket.
          *
          * @default true
          */
-        reuseAddr?: boolean;
+        reuseAddr?: boolean | undefined;
 
         /**
          * The interface to bind to or `false` to prevent binding.
          *
          * @default Options.interface
          */
-        bind?: false | string;
+        bind?: false | string | undefined;
 
         /**
          * Use UDP multicasting.
          *
          * @default true
          */
-        multicast?: boolean;
+        multicast?: boolean | undefined;
 
         /**
          * Set the multicast ttl.
          *
          * @default 255
          */
-        ttl?: number;
+        ttl?: number | undefined;
 
         /**
          * Receive your own packets.
          *
          * @default true
          */
-        loopback?: boolean;
+        loopback?: boolean | undefined;
     }
 
     type FullPacket = Required<Packet>;
@@ -124,7 +124,7 @@ declare namespace mDNS {
 
     interface RemoteInfoOutgoing {
         port: number;
-        address?: string;
+        address?: string | undefined;
     }
 
     interface MulticastDNS extends EventEmitter {

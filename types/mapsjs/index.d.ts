@@ -17,11 +17,11 @@
 export function clusterPoints(options: {
     data: {}[];
     pointKey: string;
-    valueFunction?: (row: any) => number;
+    valueFunction?: ((row: any) => number) | undefined;
     radiusFunction: (row: any) => number;
-    aggregateFunction?: (srcRow: any, cmpRow: any, aggRow: any) => void;
+    aggregateFunction?: ((srcRow: any, cmpRow: any, aggRow: any) => void) | undefined;
     mapUnitsPerPixel: number;
-    marginPixels?: number;
+    marginPixels?: number | undefined;
 }): {}[];
 
 /**
@@ -1349,21 +1349,21 @@ export module tile {
      */
     export class layerOptions {
         constructor(id: string, options: {
-            useBackdrop?: boolean;
-            maxConcurrentRequests?: number;
-            requestor?: tile.requestor;
+            useBackdrop?: boolean | undefined;
+            maxConcurrentRequests?: number | undefined;
+            requestor?: tile.requestor | undefined;
             descriptor?: any;
-            renderer?: tile.renderer;
+            renderer?: tile.renderer | undefined;
             requestProcessor?: any;
-            visible?: boolean;
-            opacity?: number;
-            minZoomLevel?: number;
-            maxZoomLevel?: number;
-            tileBleedPix?: number;
-            retainInterlevelContent?: boolean;
-            enableTileFadeIn?: boolean;
-            notifyErrorAction?: (msg?: string) => void;
-            notifyLoadingQueueHasEmptiedAction?: () => void;
+            visible?: boolean | undefined;
+            opacity?: number | undefined;
+            minZoomLevel?: number | undefined;
+            maxZoomLevel?: number | undefined;
+            tileBleedPix?: number | undefined;
+            retainInterlevelContent?: boolean | undefined;
+            enableTileFadeIn?: boolean | undefined;
+            notifyErrorAction?: ((msg?: string) => void) | undefined;
+            notifyLoadingQueueHasEmptiedAction?: (() => void) | undefined;
         });
         
         /**
@@ -1466,9 +1466,9 @@ export module tile {
      */
     export class renderer {
         constructor(options? : {
-            renderPoint?: (pt: point, context: CanvasRenderingContext2D) => void;
-            renderGeometry?: (shape: geometry, context: CanvasRenderingContext2D) => void;
-            renderBitmap?: (img: HTMLElement, context: CanvasRenderingContext2D, contextSize: number, bleed: number) => void;
+            renderPoint?: ((pt: point, context: CanvasRenderingContext2D) => void) | undefined;
+            renderGeometry?: ((shape: geometry, context: CanvasRenderingContext2D) => void) | undefined;
+            renderBitmap?: ((img: HTMLElement, context: CanvasRenderingContext2D, contextSize: number, bleed: number) => void) | undefined;
         });
         
         /**
@@ -1707,9 +1707,9 @@ export module tile {
     export class requestorBing extends requestor {
         
         constructor(options?: {
-            dataFormat?: string;
-            timeoutMs?: number;
-            maxAvailableZoomLevel?: number;
+            dataFormat?: string | undefined;
+            timeoutMs?: number | undefined;
+            maxAvailableZoomLevel?: number | undefined;
         });
         
         /**
@@ -1777,9 +1777,9 @@ export module tile {
      */
     export class requestorMDNRest extends requestor {
         constructor(endpoint: string, options?: {
-            dataFormat?: string;
-            timeoutMs?: number;
-            maxAvailableZoomLevel?: number;
+            dataFormat?: string | undefined;
+            timeoutMs?: number | undefined;
+            maxAvailableZoomLevel?: number | undefined;
         });
         
         /**
@@ -1796,18 +1796,18 @@ export module tile {
      */
     export class descriptorMDNRestMap {
         constructor(mapId: string, options?: {
-            version?: string;
-            imageType?: string;
-            bleedRatio?: number;
-            mapCacheOption?: string;
-            mapCacheName?: string;
-            useQuadKeyForMapCacheName?: boolean;
-            backgroundColorStr?: string;
-            layerVisibility?: {};
-            layerOutline?: {};
-            layerFill?: {};
-            layerWhere?: {};
-            tag?: string;
+            version?: string | undefined;
+            imageType?: string | undefined;
+            bleedRatio?: number | undefined;
+            mapCacheOption?: string | undefined;
+            mapCacheName?: string | undefined;
+            useQuadKeyForMapCacheName?: boolean | undefined;
+            backgroundColorStr?: string | undefined;
+            layerVisibility?: {} | undefined;
+            layerOutline?: {} | undefined;
+            layerFill?: {} | undefined;
+            layerWhere?: {} | undefined;
+            tag?: string | undefined;
         });
 
         /**
@@ -2045,11 +2045,11 @@ export module tile {
      */
     export class descriptorMDNRestFeature {
         constructor(mapId: string, layerId: string, options?: {
-            version?: string;
-            bleedRatio?: number;
-            fieldNames?: string[];
-            clipToRenderBounds?: boolean;
-            simplifyEnabled?: boolean;
+            version?: string | undefined;
+            bleedRatio?: number | undefined;
+            fieldNames?: string[] | undefined;
+            clipToRenderBounds?: boolean | undefined;
+            simplifyEnabled?: boolean | undefined;
         });
         
         /**
@@ -2150,9 +2150,9 @@ export module tile {
      */
     export class requestorOpen extends requestor {
         constructor(endpoint: string, subdomains: string[], options?: {
-            dataFormat?: string;
-            timeoutMs?: number;
-            maxAvailableZoomLevel?: number;
+            dataFormat?: string | undefined;
+            timeoutMs?: number | undefined;
+            maxAvailableZoomLevel?: number | undefined;
         });
     }
 
@@ -2164,9 +2164,9 @@ export module tile {
      */
     export class requestorLocal extends requestor {
         constructor(options?: {
-            dataFormat?: string;
-            timeoutMs?: number;
-            maxAvailableZoomLevel?: number;
+            dataFormat?: string | undefined;
+            timeoutMs?: number | undefined;
+            maxAvailableZoomLevel?: number | undefined;
             data: {}[];
         });
         
@@ -2207,7 +2207,7 @@ export module tile {
         constructor(options: {
             valueFieldNames: string[];
             geometryFieldName: string;
-            bleedRatio?: number;
+            bleedRatio?: number | undefined;
         });
     }
 }
@@ -2262,27 +2262,27 @@ interface repositionStatsObj {
 }
 
 interface beginDigitizeOptions {
-    key?: string;
+    key?: string | undefined;
     shapeType: string;
-    geometryStyle?: geometryStyle;
-    styledGeometry?: styledGeometry;
-    nodeTapAndHoldAction?: (setIdx: number, idx: number) => boolean;
-    nodeMoveAction?: (x: number, y: number, actionType: string) => any;
-    shapeChangeAction?: () => void;
-    envelopeEndAction?: (env: envelope) => void;
-    circleEndAction?: (circle: geometry.polygon) => void;
-    suppressNodeAdd?: boolean;
-    leavePath?: boolean;
+    geometryStyle?: geometryStyle | undefined;
+    styledGeometry?: styledGeometry | undefined;
+    nodeTapAndHoldAction?: ((setIdx: number, idx: number) => boolean) | undefined;
+    nodeMoveAction?: ((x: number, y: number, actionType: string) => any) | undefined;
+    shapeChangeAction?: (() => void) | undefined;
+    envelopeEndAction?: ((env: envelope) => void) | undefined;
+    circleEndAction?: ((circle: geometry.polygon) => void) | undefined;
+    suppressNodeAdd?: boolean | undefined;
+    leavePath?: boolean | undefined;
 }
 
 
 interface styleObj {
-    fillColor?: string;
-    fillOpacity?: number;
-    outlineColor?: string;
-    outlineOpacity?: number;
-    outlineThicknessPix?: number
-    dashArray?: string;
+    fillColor?: string | undefined;
+    fillOpacity?: number | undefined;
+    outlineColor?: string | undefined;
+    outlineOpacity?: number | undefined;
+    outlineThicknessPix?: number | undefined
+    dashArray?: string | undefined;
 }
 
 interface mapsjsWidget {
@@ -2546,10 +2546,10 @@ interface mapsjsWidget {
         dragOptions?: {
             dragEnabled: boolean;
             useElementInsteadOfNewGestureOverlay: boolean;
-            downAction?: (downPoint: point) => any;
-            moveAction?: (movePoint: point) => void;
-            upAction?: (upPoint: point) => void;
-            wheelAction?: (delta: number) => void;
+            downAction?: ((downPoint: point) => any) | undefined;
+            moveAction?: ((movePoint: point) => void) | undefined;
+            upAction?: ((upPoint: point) => void) | undefined;
+            wheelAction?: ((delta: number) => void) | undefined;
         }
     ): void;
     

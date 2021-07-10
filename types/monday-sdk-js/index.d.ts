@@ -10,12 +10,12 @@ interface APIOptions {
      * Access token for the API
      * If not set, will use the credentials of the current user (client only)
      */
-    token?: string;
+    token?: string | undefined;
 
     /**
      * An object containing GraphQL query variables
      */
-    variables?: object;
+    variables?: object | undefined;
 }
 
 type SubscribableEvents = 'context' | 'settings' | 'itemIds' | 'events';
@@ -25,12 +25,12 @@ interface OAuthOptions {
      * The OAuth client ID of the requesting application
      * Defaults to your client ID
      */
-    clientId?: string;
+    clientId?: string | undefined;
 
     /**
      * The URL of the monday OAuth endpoint
      */
-    mondayOauthUrl?: string;
+    mondayOauthUrl?: string | undefined;
 }
 
 interface GetResponse {
@@ -40,7 +40,7 @@ interface GetResponse {
 
 interface SetResponse {
     success: boolean;
-    reason?: string;
+    reason?: string | undefined;
 }
 
 interface MondayClientSdk {
@@ -101,7 +101,7 @@ interface MondayClientSdk {
              * Can be "updates" / "columns"
              * Defaults to "columns"
              */
-            kind?: 'updates' | 'columns';
+            kind?: 'updates' | 'columns' | undefined;
         },
     ): Promise<any>;
     /**
@@ -121,19 +121,19 @@ interface MondayClientSdk {
              * The text for the confirmation button
              * Defaults to "OK"
              */
-            confirmButton?: string;
+            confirmButton?: string | undefined;
 
             /**
              * The text for the cancel button
              * Defaults to "Cancel"
              */
-            cancelButton?: string;
+            cancelButton?: string | undefined;
 
             /**
              * Either to exclude the cancel button
              * Defaults to `false`
              */
-            excludeCancelButton?: boolean;
+            excludeCancelButton?: boolean | undefined;
         },
     ): Promise<any>;
     /**
@@ -153,13 +153,13 @@ interface MondayClientSdk {
              * The type of message to display. Can be "success" (green), "error" (red) or "info" (blue)
              * Defaults to "info"
              */
-            type?: 'success' | 'error' | 'info';
+            type?: 'success' | 'error' | 'info' | undefined;
 
             /**
              * The number of milliseconds to show the message until it closes
              * Defaults to 5000
              */
-            timeout?: number;
+            timeout?: number | undefined;
         },
     ): Promise<any>;
 

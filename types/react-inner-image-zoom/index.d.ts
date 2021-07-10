@@ -6,27 +6,27 @@
 import * as React from 'react';
 
 export interface InnerImageZoomProps {
-    moveType?: 'pan' | 'drag';
-    zoomType?: 'click' | 'hover';
+    moveType?: 'pan' | 'drag' | undefined;
+    zoomType?: 'click' | 'hover' | undefined;
     src: string;
-    srcSet?: string;
-    sizes?: string;
-    sources?: Array<{ srcSet?: string, media?: string }>;
-    width?: number;
-    height?: number;
-    hasSpacer?: boolean;
-    zoomSrc?: string;
-    zoomScale?: number;
-    zoomPreload?: boolean;
-    alt?: string;
-    fadeDuration?: number;
-    fullscreenOnMobile?: boolean;
-    mobileBreakpoint?: number;
-    hideCloseButton?: boolean;
-    hideHint?: boolean;
-    className?: string;
-    afterZoomIn?: () => void;
-    afterZoomOut?: () => void;
+    srcSet?: string | undefined;
+    sizes?: string | undefined;
+    sources?: Array<{ srcSet?: string | undefined, media?: string | undefined }> | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    hasSpacer?: boolean | undefined;
+    zoomSrc?: string | undefined;
+    zoomScale?: number | undefined;
+    zoomPreload?: boolean | undefined;
+    alt?: string | undefined;
+    fadeDuration?: number | undefined;
+    fullscreenOnMobile?: boolean | undefined;
+    mobileBreakpoint?: number | undefined;
+    hideCloseButton?: boolean | undefined;
+    hideHint?: boolean | undefined;
+    className?: string | undefined;
+    afterZoomIn?: (() => void) | undefined;
+    afterZoomOut?: (() => void) | undefined;
 }
 
 export class InnerImageZoom extends React.Component<InnerImageZoomProps> {}

@@ -14,9 +14,9 @@ interface Color {
     string(places?: number): string;
     percentString(places?: number): string;
     array(): number[];
-    object(): { alpha?: number } & { [key: string]: number };
+    object(): { alpha?: number | undefined } & { [key: string]: number };
     unitArray(): number[];
-    unitObject(): { r: number, g: number, b: number, alpha?: number };
+    unitObject(): { r: number, g: number, b: number, alpha?: number | undefined };
     round(places?: number): Color;
     alpha(): number;
     alpha(val: number): Color;

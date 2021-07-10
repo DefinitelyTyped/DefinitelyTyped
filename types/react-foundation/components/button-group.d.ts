@@ -11,9 +11,9 @@ import { FlexboxPropTypes } from '../utils';
  */
 export declare const ButtonGroup: React.StatelessComponent<ButtonGroupProps>;
 export interface ButtonGroupProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    color?: ButtonGroupColors;
-    size?: ButtonGroupSizes;
-    stackFor?: Breakpoints;
-    isExpanded?: boolean;
-    isStacked?: boolean;
+    color?: ButtonGroupColors | undefined;
+    size?: ButtonGroupSizes | undefined;
+    stackFor?: Breakpoints | undefined;
+    isExpanded?: boolean | undefined;
+    isStacked?: boolean | undefined;
 }

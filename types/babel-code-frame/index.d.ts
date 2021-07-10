@@ -5,17 +5,17 @@
 
 interface BabelCodeFrameOptions {
     /** Syntax highlight the code as JavaScript for terminals. default: false */
-    highlightCode?: boolean;
+    highlightCode?: boolean | undefined;
     /**  The number of lines to show above the error. default: 2 */
-    linesBelow?: number;
+    linesBelow?: number | undefined;
     /**  The number of lines to show below the error. default: 3 */
-    linesAbove?: number;
+    linesAbove?: number | undefined;
     /**
      * Forcibly syntax highlight the code as JavaScript (for non-terminals);
      * overrides highlightCode.
      * default: false
      */
-    forceColor?: boolean;
+    forceColor?: boolean | undefined;
 }
 
 /**

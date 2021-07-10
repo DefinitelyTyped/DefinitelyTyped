@@ -130,21 +130,21 @@ declare namespace AutocompletePrompt {
         /**
          * The number of elements to show on each page.
          */
-        pageSize?: number;
+        pageSize?: number | undefined;
 
         /**
          * default false. Setting it to true turns the input into a normal text input.
          */
-        suggestOnly?: boolean;
+        suggestOnly?: boolean | undefined;
 
         /**
          * Is the text shown when searching. Defaults: Searching...
          */
-        searchText?: boolean;
+        searchText?: boolean | undefined;
 
         /**
          *  Is the text shown if the search returns no results. Defaults: No results...
          */
-        emptyText?: boolean;
+        emptyText?: boolean | undefined;
     }
 }

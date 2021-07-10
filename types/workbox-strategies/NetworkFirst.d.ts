@@ -13,9 +13,9 @@ export class NetworkFirst implements RouteHandlerObject {
 }
 
 export interface NetworkFirstOptions {
-    cacheName?: string;
-    fetchOptions?: RequestInit;
-    matchOptions?: CacheQueryOptions;
-    networkTimeoutSeconds?: number;
-    plugins?: WorkboxPlugin[];
+    cacheName?: string | undefined;
+    fetchOptions?: RequestInit | undefined;
+    matchOptions?: CacheQueryOptions | undefined;
+    networkTimeoutSeconds?: number | undefined;
+    plugins?: WorkboxPlugin[] | undefined;
 }

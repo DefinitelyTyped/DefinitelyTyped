@@ -1,15 +1,15 @@
 export interface ProcessInfo {
-    cpuUsage?: number;
-    name?: string;
-    nonPagedPoolUsage?: number;
-    pageFaultCount?: number;
-    pagedPoolUsage?: number;
-    pagefileUsage?: number;
-    peakNonPagedPoolUsage?: number;
-    peakPagedPoolUsage?: number;
-    peakPagefileUsage?: number;
-    peakWorkingSetSize?: number;
-    processId?: number;
-    uuid?: string;
-    workingSetSize?: number;
+    cpuUsage?: number | undefined;
+    name?: string | undefined;
+    nonPagedPoolUsage?: number | undefined;
+    pageFaultCount?: number | undefined;
+    pagedPoolUsage?: number | undefined;
+    pagefileUsage?: number | undefined;
+    peakNonPagedPoolUsage?: number | undefined;
+    peakPagedPoolUsage?: number | undefined;
+    peakPagefileUsage?: number | undefined;
+    peakWorkingSetSize?: number | undefined;
+    processId?: number | undefined;
+    uuid?: string | undefined;
+    workingSetSize?: number | undefined;
 }

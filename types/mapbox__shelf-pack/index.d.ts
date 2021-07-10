@@ -35,7 +35,7 @@ declare module "@mapbox/shelf-pack" {
 
         type ID = number | string;
         interface Request {
-            id?: ID;
+            id?: ID | undefined;
         }
         interface RequestShort extends Request {
             w: number;
@@ -48,12 +48,12 @@ declare module "@mapbox/shelf-pack" {
 
         interface PackOption {
             /// If true , the supplied bin objects will be updated inplace with x and y properties
-            inPlace?: boolean;
+            inPlace?: boolean | undefined;
         }
 
         interface CreateOption {
             /// If true , the sprite will automatically grow
-            autoResize?: boolean;
+            autoResize?: boolean | undefined;
         }
     }
 }

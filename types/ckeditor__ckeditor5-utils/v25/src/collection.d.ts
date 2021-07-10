@@ -52,7 +52,7 @@ export default class Collection<T> implements Iterable<T>, Emitter {
      * the options object.
      * Items that do not have such a property will be assigned one when added to the collection.
      */
-    constructor(options?: { idProperty?: keyof T });
+    constructor(options?: { idProperty?: keyof T | undefined });
     /**
      * The number of items available in the collection.
      *
@@ -232,7 +232,7 @@ export default class Collection<T> implements Iterable<T>, Emitter {
         emitter: Emitter,
         event: string,
         callback: Function,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     off(event: string, callback?: Function): void;
     on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;

@@ -6,13 +6,13 @@ import { ObjectEvent } from '../Object';
 import BaseLayer from './Base';
 
 export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    layers?: BaseLayer[] | Collection<BaseLayer>;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    layers?: BaseLayer[] | Collection<BaseLayer> | undefined;
 }
 export default class LayerGroup extends BaseLayer {
     constructor(opt_options?: Options);

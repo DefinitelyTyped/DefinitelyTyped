@@ -10,7 +10,7 @@ declare class ExpressHandlebars {
     getTemplate(
         filePath: string,
         options?: PartialTemplateOptions & {
-            precompiled?: false;
+            precompiled?: false | undefined;
         },
     ): Promise<() => string>;
     getTemplates(dirPath: string, options?: PartialTemplateOptions): Promise<object>;

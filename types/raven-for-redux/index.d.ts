@@ -13,17 +13,17 @@ declare function createRavenMiddleware(raven: Raven.RavenStatic, options?: creat
 
 declare namespace createRavenMiddleware {
     interface RavenUserContext {
-        id?: string;
-        username?: string;
-        email?: string;
+        id?: string | undefined;
+        username?: string | undefined;
+        email?: string | undefined;
     }
 
     interface RavenMiddlewareOptions<T> {
-        breadcrumbDataFromAction?: (action: Action) => any;
-        actionTransformer?: (action: Action) => Action;
-        stateTransformer?: (state: T) => T;
-        breadcrumbCategory?: string;
-        filterBreadcrumbActions?: (action: Action) => boolean;
-        getUserContext?: (state: T) => RavenUserContext;
+        breadcrumbDataFromAction?: ((action: Action) => any) | undefined;
+        actionTransformer?: ((action: Action) => Action) | undefined;
+        stateTransformer?: ((state: T) => T) | undefined;
+        breadcrumbCategory?: string | undefined;
+        filterBreadcrumbActions?: ((action: Action) => boolean) | undefined;
+        getUserContext?: ((state: T) => RavenUserContext) | undefined;
     }
 }

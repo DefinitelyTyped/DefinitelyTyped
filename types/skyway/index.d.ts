@@ -7,52 +7,52 @@
 
 interface Options {
     key: string;
-    debug?: number;
-    turn?: boolean;
-    credential?: Credential;
-    config?: RTCConfiguration;
+    debug?: number | undefined;
+    turn?: boolean | undefined;
+    credential?: Credential | undefined;
+    config?: RTCConfiguration | undefined;
 }
 
 interface Credential {
-    timestamp?: number;
-    ttl?: number;
-    authToken?: string;
+    timestamp?: number | undefined;
+    ttl?: number | undefined;
+    authToken?: string | undefined;
 }
 
 interface CallOptions {
     metadata?: any;
-    videoBandWidth?: number;
-    audioBandwidth?: number;
-    videoCodec?: string;
-    audioCodec?: string;
-    videoReceiveEnabled?: boolean;
-    audioReceiveEnabled?: boolean;
-    label?: string;
+    videoBandWidth?: number | undefined;
+    audioBandwidth?: number | undefined;
+    videoCodec?: string | undefined;
+    audioCodec?: string | undefined;
+    videoReceiveEnabled?: boolean | undefined;
+    audioReceiveEnabled?: boolean | undefined;
+    label?: string | undefined;
 }
 
 interface ConnectOptions {
     metadata?: any;
-    serialization?: string;
-    dcInit?: RTCDataChannelInit;
-    label?: string;
+    serialization?: string | undefined;
+    dcInit?: RTCDataChannelInit | undefined;
+    label?: string | undefined;
 }
 
 interface RoomOptions {
-    mode?: string;
-    stream?: MediaStream;
-    videoBandwidth?: number;
-    audioBandwidth?: number;
-    videoCodec?: string;
-    audioCodec?: string;
-    videoReceiveEnabled?: boolean;
-    audioReceiveEnabled?: boolean;
+    mode?: string | undefined;
+    stream?: MediaStream | undefined;
+    videoBandwidth?: number | undefined;
+    audioBandwidth?: number | undefined;
+    videoCodec?: string | undefined;
+    audioCodec?: string | undefined;
+    videoReceiveEnabled?: boolean | undefined;
+    audioReceiveEnabled?: boolean | undefined;
 }
 
 interface AnswerOptions {
-    videoBandwidth?: number;
-    audioBandwidth?: number;
-    videoCodec?: string;
-    audioCodec?: string;
+    videoBandwidth?: number | undefined;
+    audioBandwidth?: number | undefined;
+    videoCodec?: string | undefined;
+    audioCodec?: string | undefined;
 }
 
 declare class Peer {

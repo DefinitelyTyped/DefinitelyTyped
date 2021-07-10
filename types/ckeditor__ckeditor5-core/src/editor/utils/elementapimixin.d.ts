@@ -1,5 +1,5 @@
 export interface ElementApi {
-    readonly sourceElement?: HTMLElement;
+    readonly sourceElement?: HTMLElement | undefined;
     updateSourceElement(): void;
 }
 

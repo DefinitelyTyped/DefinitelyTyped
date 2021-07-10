@@ -12,7 +12,7 @@ export type GetCallback = (err: Error | null, actual: string) => void;
 
 export interface ShaOptions {
     /** defaults to `sha1` and can be any of the algorithms supported by `crypto.createHash` */
-    algorithm?: string;
+    algorithm?: string | undefined;
 }
 
 /**

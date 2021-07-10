@@ -4,7 +4,7 @@ import { Identity } from '../identity';
 import { EmitterAccessor } from './events/emitterMap';
 import { BaseEventMap } from './events/base';
 export interface SubOptions {
-    timestamp?: number;
+    timestamp?: number | undefined;
 }
 export declare class Base {
     wire: Transport;
@@ -42,5 +42,5 @@ export declare class Reply<TOPIC extends string, TYPE extends string | void> imp
     topic: TOPIC;
     type: TYPE;
     uuid: string;
-    name?: string;
+    name?: string | undefined;
 }

@@ -19,31 +19,31 @@ export class PDFDocument {
 }
 
 export interface SetMediaBoxOptions {
-    x?: number;
-    y?: number;
+    x?: number | undefined;
+    y?: number | undefined;
 }
 
 export interface TextDrawingOptions {
-    x?: number;
-    y?: number;
-    color?: string;
-    fontName?: string;
-    fontSize?: number;
+    x?: number | undefined;
+    y?: number | undefined;
+    color?: string | undefined;
+    fontName?: string | undefined;
+    fontSize?: number | undefined;
 }
 
 export interface RectangleDrawingOptions {
-    x?: number;
-    y?: number;
-    width?: number;
-    height?: number;
-    color?: string;
+    x?: number | undefined;
+    y?: number | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    color?: string | undefined;
 }
 
 export interface ImageDrawingOptions {
-    x?: number;
-    y?: number;
-    width?: number;
-    height?: number;
+    x?: number | undefined;
+    y?: number | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
 }
 
 export class PDFPage {

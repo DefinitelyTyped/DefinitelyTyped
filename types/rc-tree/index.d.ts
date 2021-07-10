@@ -24,27 +24,27 @@ export interface TreeNodeProps {
     /**
      * additional css class for treeNode
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * whether treeNode is disabled
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * whether treeNode's checkbox is disabled
      */
-    disableCheckbox?: boolean;
+    disableCheckbox?: boolean | undefined;
     /**
      * tree / subTree's title
      */
-    title?: string | JSX.Element;
+    title?: string | JSX.Element | undefined;
     /**
      * whether it is a leaf node
      */
-    isLeaf?: boolean;
+    isLeaf?: boolean | undefined;
     /**
      * customize icon. When you pass component, whose render will receive full TreeNode props as component props
      */
-    icon?: JSX.Element | ((props: InternalTreeNodeProps) => JSX.Element);
+    icon?: JSX.Element | ((props: InternalTreeNodeProps) => JSX.Element) | undefined;
 }
 
 export class TreeNode extends Component<TreeNodeProps> { }
@@ -111,7 +111,7 @@ export interface OnDropData {
     dragNode: InternalTreeNode;
     dragNodesKeys: string[];
     dropPosition: number;
-    dropToGap?: boolean;
+    dropToGap?: boolean | undefined;
 }
 
 export interface OnDragEndData {
@@ -123,81 +123,81 @@ export interface TreeProps {
     /**
      * additional css class of root dom node
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * prefix class
      */
-    prefixCls?: string;
+    prefixCls?: string | undefined;
     /**
      * whether disabled the tree
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * whether show line
      */
-    showLine?: boolean;
+    showLine?: boolean | undefined;
     /**
      * whether show icon
      */
-    showIcon?: boolean;
+    showIcon?: boolean | undefined;
     /**
      * whether can be selected
      */
-    selectable?: boolean;
+    selectable?: boolean | undefined;
     /**
      * whether multiple select
      */
-    multiple?: boolean;
+    multiple?: boolean | undefined;
     /**
      * whether support checked
      */
-    checkable?: boolean | JSX.Element;
+    checkable?: boolean | JSX.Element | undefined;
     /**
      * default expand all treeNodes
      */
-    defaultExpandAll?: boolean;
+    defaultExpandAll?: boolean | undefined;
     /**
      * default expand specific treeNodes
      */
-    defaultExpandedKeys?: string[];
+    defaultExpandedKeys?: string[] | undefined;
     /**
      * control expanding of specific treeNodes
      */
-    expandedKeys?: string[];
+    expandedKeys?: string[] | undefined;
     /**
      * auto expand parent treeNodes when init
      */
-    defaultExpandParent?: boolean;
+    defaultExpandParent?: boolean | undefined;
     /**
      * whether auto expand parent treeNodes
      */
-    autoExpandParent?: boolean;
+    autoExpandParent?: boolean | undefined;
     /**
      * default checked treeNodes
      */
-    defaultCheckedKeys?: string[];
+    defaultCheckedKeys?: string[] | undefined;
     /**
      * Controlled checked treeNodes (After setting, defaultCheckedKeys will not work).
      * Note: parent and children nodes are associated, if the parent node's key exists, it all children node will be checked, and vice versa.
      * When set checkable and checkStrictly, it should be an object, which contains checked array and halfChecked array.
      */
-    checkedKeys?: string[] | { checked: string[]; halfChecked: string[] };
+    checkedKeys?: string[] | { checked: string[]; halfChecked: string[] } | undefined;
     /**
      * check node precisely, parent and children nodes are not associated
      */
-    checkStrictly?: boolean;
+    checkStrictly?: boolean | undefined;
     /**
      * default selected treeNodes
      */
-    defaultSelectedKeys?: string[];
+    defaultSelectedKeys?: string[] | undefined;
     /**
      * customize icon. When you pass component, whose render will receive full TreeNode props as component props
      */
-    icon?: JSX.Element | ((props: InternalTreeNodeProps) => JSX.Element);
+    icon?: JSX.Element | ((props: InternalTreeNodeProps) => JSX.Element) | undefined;
     /**
      * Controlled selected treeNodes(After setting, defaultSelectedKeys will not work)
      */
-    selectedKeys?: string[];
+    selectedKeys?: string[] | undefined;
     /**
      * fire on treeNode expand or not
      */
@@ -221,43 +221,43 @@ export interface TreeProps {
     /**
      * select current treeNode and show customized contextmenu
      */
-    onRightClick?: (props: OnRightClickData) => void;
+    onRightClick?: ((props: OnRightClickData) => void) | undefined;
     /**
      * call when mouse enter a treeNode
      */
-    onMouseEnter?: (props: OnMouseEnterData) => void;
+    onMouseEnter?: ((props: OnMouseEnterData) => void) | undefined;
     /**
      * call when mouse leave a treeNode
      */
-    onMouseLeave?: (props: OnMouseLeaveData) => void;
+    onMouseLeave?: ((props: OnMouseLeaveData) => void) | undefined;
     /**
      * whether can drag treeNode.
      */
-    draggable?: boolean;
+    draggable?: boolean | undefined;
     /**
      * event on drag start
      */
-    onDragStart?: (props: OnDragStartData) => void;
+    onDragStart?: ((props: OnDragStartData) => void) | undefined;
     /**
      * event on drag enter
      */
-    onDragEnter?: (props: OnDragEnterData) => void;
+    onDragEnter?: ((props: OnDragEnterData) => void) | undefined;
     /**
      * it execs when fire the tree's dragover event
      */
-    onDragOver?: (props: OnDragOverData) => void;
+    onDragOver?: ((props: OnDragOverData) => void) | undefined;
     /**
      * it execs when fire the tree's dragleave event
      */
-    onDragLeave?: (props: OnDragLeaveData) => void;
+    onDragLeave?: ((props: OnDragLeaveData) => void) | undefined;
     /**
      * event on drag drop
      */
-    onDrop?: (props: OnDropData) => void;
+    onDrop?: ((props: OnDropData) => void) | undefined;
     /**
      * it execs when fire the tree's dragend event
      */
-    onDragEnd?: (props: OnDragEndData) => void;
+    onDragEnd?: ((props: OnDragEndData) => void) | undefined;
 }
 
 export default class Tree extends Component<TreeProps> { }

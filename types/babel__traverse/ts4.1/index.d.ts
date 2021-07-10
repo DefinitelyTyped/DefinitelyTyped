@@ -224,7 +224,7 @@ export class NodePath<T = Node> {
     state: any;
     opts: object;
     skipKeys: object;
-    parentPath: NodePath;
+    parentPath: T extends t.Program ? null : NodePath;
     context: TraversalContext;
     container: object | object[];
     listKey: string;
@@ -526,6 +526,8 @@ export class NodePath<T = Node> {
     getCompletionRecords(): NodePath[];
 
     getSibling(key: string | number): NodePath;
+    getPrevSibling(): NodePath;
+    getNextSibling(): NodePath;
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 

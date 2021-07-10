@@ -1,36 +1,36 @@
 // Type definitions for X-Editable v1.5.1
 // Project: http://vitalets.github.io/x-editable/index.html
 // Definitions by: Chris Kirby <https://github.com/sirkirby>
-// Definitions: https://github.com/sirkirby/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
 interface XEditableOptions {
   ajaxOptions?: any;
-  anim?: string;
-  autotext?: string;
+  anim?: string | undefined;
+  autotext?: string | undefined;
   defaultValue?: any;
-  disabled?: boolean;
+  disabled?: boolean | undefined;
   display?: any;
-  emptyclass?: string;
-  emptytext?: string;
+  emptyclass?: string | undefined;
+  emptytext?: string | undefined;
   error?: any;
   highlight?: any;
-  mode?: string;
-  name?: string;
-  onblur?: string;
+  mode?: string | undefined;
+  name?: string | undefined;
+  onblur?: string | undefined;
   params?: any;
   pk?: any;
-  placement?: string;
-  savenochange?: boolean;
-  selector?: string;
-  send?: string;
+  placement?: string | undefined;
+  savenochange?: boolean | undefined;
+  selector?: string | undefined;
+  send?: string | undefined;
   showbuttons?: any;
   success?: any;
-  toggle?: string;
-  type?: string;
-  unsavedclass?: string;
+  toggle?: string | undefined;
+  type?: string | undefined;
+  unsavedclass?: string | undefined;
   url?: any;
   validate?: any;
   value?: any;

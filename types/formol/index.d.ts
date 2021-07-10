@@ -17,19 +17,19 @@ export const FormolContext: {
 };
 
 interface FormolProps<V = any> {
-    item?: V;
-    types?: ReadonlyArray<string>;
+    item?: V | undefined;
+    types?: ReadonlyArray<string> | undefined;
     i18n?: any;
-    className?: string;
-    readOnly?: boolean;
+    className?: string | undefined;
+    readOnly?: boolean | undefined;
     submitText?: any;
     cancelText?: any;
     noCancel?: any;
     allowUnmodifiedSubmit?: any;
-    extra?: React.ReactNode;
+    extra?: React.ReactNode | undefined;
     classes?: any;
-    onSubmit?: (e: Event) => void;
-    validator?: (v: V) => {[K in keyof V]?: string | null};
+    onSubmit?: ((e: Event) => void) | undefined;
+    validator?: ((v: V) => {[K in keyof V]?: string | null}) | undefined;
 }
 
 declare const Formol: React.ComponentType<FormolProps>;
@@ -38,32 +38,32 @@ export default Formol;
 export const Inliner: React.ComponentType;
 
 interface FieldSetProps<V = any> {
-    type?: string;
-    isChecked?: boolean;
-    value?: V;
-    choices?: ReadonlyArray<any>;
-    elementRef?: React.Ref<any>;
-    dangerousRawHTMLLabels?: boolean;
-    onChange?: () => void;
+    type?: string | undefined;
+    isChecked?: boolean | undefined;
+    value?: V | undefined;
+    choices?: ReadonlyArray<any> | undefined;
+    elementRef?: React.Ref<any> | undefined;
+    dangerousRawHTMLLabels?: boolean | undefined;
+    onChange?: (() => void) | undefined;
 }
 
 export const FieldSet: React.ComponentType<FieldSetProps>;
 
 interface SwitchButtonProps {
-    type?: string;
-    i18n?: { yes: React.ReactNode, no: React.ReactNode } & { [k: string]: any };
-    leftLabel?: React.ReactNode;
-    rightLabel?: React.ReactNode;
-    className?: string;
+    type?: string | undefined;
+    i18n?: { yes: React.ReactNode, no: React.ReactNode } & { [k: string]: any } | undefined;
+    leftLabel?: React.ReactNode | undefined;
+    rightLabel?: React.ReactNode | undefined;
+    className?: string | undefined;
 }
 
 export const SwitchButton: React.ComponentType<SwitchButtonProps>;
 
 interface ConditionalProps<V = any> {
-    show?: ((val: V) => boolean) | boolean;
-    readOnly?: ((val: V) => boolean) | boolean;
+    show?: ((val: V) => boolean) | boolean | undefined;
+    readOnly?: ((val: V) => boolean) | boolean | undefined;
     context?: any;
-    value?: (v: V) => any;
+    value?: ((v: V) => any) | undefined;
 }
 
 export const Conditional: React.ComponentType<ConditionalProps>;
@@ -71,36 +71,36 @@ export const Conditional: React.ComponentType<ConditionalProps>;
 export function ConditionalContextWrapper(e: React.Component<any>): React.Component<any>;
 
 interface FieldProps<V = any> {
-    register?: (name: string, element: React.Ref<any>, validator: any, validityErrors: any) => void;
-    unregister?: (name: string) => void;
-    name?: string;
-    validator?: (v: V) => string;
+    register?: ((name: string, element: React.Ref<any>, validator: any, validityErrors: any) => void) | undefined;
+    unregister?: ((name: string) => void) | undefined;
+    name?: string | undefined;
+    validator?: ((v: V) => string) | undefined;
     validityErrors?: any;
-    value?: V;
-    normalizer?: (v: V) => V;
-    handleChange?: (name: string, v: V) => void;
-    handleEntered?: (name: string, v: V) => void;
-    dangerousRawHTMLLabels?: boolean;
-    type?: string;
-    title?: string;
-    modified?: boolean;
-    className?: string;
-    readOnly?: boolean;
-    disabled?: boolean;
-    unit?: React.ReactNode;
-    extras?: React.ReactNode;
-    formatter?: (v: V) => V;
-    unformatter?: (v: V) => V;
+    value?: V | undefined;
+    normalizer?: ((v: V) => V) | undefined;
+    handleChange?: ((name: string, v: V) => void) | undefined;
+    handleEntered?: ((name: string, v: V) => void) | undefined;
+    dangerousRawHTMLLabels?: boolean | undefined;
+    type?: string | undefined;
+    title?: string | undefined;
+    modified?: boolean | undefined;
+    className?: string | undefined;
+    readOnly?: boolean | undefined;
+    disabled?: boolean | undefined;
+    unit?: React.ReactNode | undefined;
+    extras?: React.ReactNode | undefined;
+    formatter?: ((v: V) => V) | undefined;
+    unformatter?: ((v: V) => V) | undefined;
     children?: any;
     classNameModifiers?: any;
-    TypeField?: React.ComponentType;
+    TypeField?: React.ComponentType | undefined;
     i18n?: any;
-    error?: React.ReactNode;
-    choices?: ReadonlyArray<any>;
-    size?: number;
-    max?: number;
-    required?: boolean;
-    minLength?: number;
+    error?: React.ReactNode | undefined;
+    choices?: ReadonlyArray<any> | undefined;
+    size?: number | undefined;
+    max?: number | undefined;
+    required?: boolean | undefined;
+    minLength?: number | undefined;
 }
 
 export const Field: React.ComponentType<FieldProps>;

@@ -14,6 +14,6 @@ declare module 'react' {
          * `babel-plugin-styled-components` into a styled component
          * with the given css as its styles.
          */
-        css?: CSSProp;
+        css?: CSSProp | undefined;
     }
 }

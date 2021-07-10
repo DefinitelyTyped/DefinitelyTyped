@@ -5,7 +5,7 @@ export interface OrderTax {
     amount: Price;
     included_in_price: boolean;
     provider: string;
-    provider_type?: string;
+    provider_type?: string | undefined;
     breakdown: OrderTaxLine[];
     zone: {
         country: string;

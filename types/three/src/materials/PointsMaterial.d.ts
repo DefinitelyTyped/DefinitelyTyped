@@ -3,12 +3,12 @@ import { Color } from './../math/Color';
 import { Texture } from './../textures/Texture';
 
 export interface PointsMaterialParameters extends MaterialParameters {
-    color?: Color | string | number;
-    map?: Texture | null;
-    alphaMap?: Texture | null;
-    size?: number;
-    sizeAttenuation?: boolean;
-    morphTargets?: boolean;
+    color?: Color | string | number | undefined;
+    map?: Texture | null | undefined;
+    alphaMap?: Texture | null | undefined;
+    size?: number | undefined;
+    sizeAttenuation?: boolean | undefined;
+    morphTargets?: boolean | undefined;
 }
 
 export class PointsMaterial extends Material {

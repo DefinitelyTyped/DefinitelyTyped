@@ -2,9 +2,9 @@ export interface AppAssetInfo {
     src: string;
     alias: string;
     version: string;
-    target?: string;
-    args?: string;
-    mandatory?: boolean;
+    target?: string | undefined;
+    args?: string | undefined;
+    mandatory?: boolean | undefined;
 }
 export interface RuntimeDownloadOptions {
     version: string;

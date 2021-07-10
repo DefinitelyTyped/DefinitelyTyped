@@ -23,7 +23,7 @@ declare class Agent {
          * `true` if this is agent is handling a ShareDB client in the same
          * Node process.
          */
-        isServer?: boolean;
+        isServer?: boolean | undefined;
     };
     /**
      * Object for custom use in middleware to store app-specific state for a

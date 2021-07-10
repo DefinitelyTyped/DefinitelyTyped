@@ -1,6 +1,6 @@
 // Type definitions for relay-config 6.0
 // Project: https://facebook.github.io/relay/
-// Definitions by: Eloy Durán <https://github.com/DefinitelyTyped>
+// Definitions by: Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 

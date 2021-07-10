@@ -16,7 +16,7 @@ export const Generator: {
 };
 
 export interface GeneratorOptions {
-    allPrefixes?: boolean;
+    allPrefixes?: boolean | undefined;
 }
 
 export interface SparqlParser {
@@ -33,26 +33,26 @@ export type Query = SelectQuery | ConstructQuery | AskQuery | DescribeQuery;
 
 export interface BaseQuery {
     type: 'query';
-    base?: string;
+    base?: string | undefined;
     prefixes: { [prefix: string]: string; };
-    where?: Pattern[];
-    values?: ValuePatternRow[];
+    where?: Pattern[] | undefined;
+    values?: ValuePatternRow[] | undefined;
 }
 
 export interface SelectQuery extends BaseQuery {
     queryType: 'SELECT';
     variables: Variable[] | ['*'];
-    distinct?: boolean;
+    distinct?: boolean | undefined;
     from?: {
         default: string[];
         named: string[];
-    };
-    reduced?: boolean;
-    group?: Grouping[];
-    having?: Expression[];
-    order?: Ordering[];
-    limit?: number;
-    offset?: number;
+    } | undefined;
+    reduced?: boolean | undefined;
+    group?: Grouping[] | undefined;
+    having?: Expression[] | undefined;
+    order?: Ordering[] | undefined;
+    limit?: number | undefined;
+    offset?: number | undefined;
 }
 
 export interface Grouping {
@@ -61,12 +61,12 @@ export interface Grouping {
 
 export interface Ordering {
     expression: Expression;
-    descending?: boolean;
+    descending?: boolean | undefined;
 }
 
 export interface ConstructQuery extends BaseQuery {
     queryType: 'CONSTRUCT';
-    template?: Triple[];
+    template?: Triple[] | undefined;
 }
 
 export interface AskQuery extends BaseQuery {
@@ -88,10 +88,10 @@ export type UpdateOperation = InsertDeleteOperation | ManagementOperation;
 
 export interface InsertDeleteOperation {
     updateType: 'insert' | 'delete' | 'deletewhere' | 'insertdelete';
-    graph?: string;
-    insert?: Quads[];
-    delete?: Quads[];
-    where?: Pattern[];
+    graph?: string | undefined;
+    insert?: Quads[] | undefined;
+    delete?: Quads[] | undefined;
+    where?: Pattern[] | undefined;
 }
 
 export type Quads = BgpPattern | GraphQuads;
@@ -130,13 +130,13 @@ export interface ClearDropOperation {
 
 export interface GraphOrDefault {
     type: 'graph';
-    name?: string;
-    default?: boolean;
+    name?: string | undefined;
+    default?: boolean | undefined;
 }
 
 export interface GraphReference extends GraphOrDefault {
-    named?: boolean;
-    all?: boolean;
+    named?: boolean | undefined;
+    all?: boolean | undefined;
 }
 
 /**
@@ -248,7 +248,7 @@ export interface Tuple extends Array<Expression> {}
 
 export interface BaseExpression {
     type: string;
-    distinct?: boolean;
+    distinct?: boolean | undefined;
 }
 
 export interface OperationExpression extends BaseExpression {
@@ -267,5 +267,5 @@ export interface AggregateExpression extends BaseExpression {
     type: 'aggregate';
     expression: Expression;
     aggregation: string;
-    separator?: string;
+    separator?: string | undefined;
 }

@@ -3,22 +3,22 @@ declare namespace Seatsio {
 
     interface BaseObject {
         accessible: boolean;
-        category?: Category;
-        center?: { x: number, y: number };
+        category?: Category | undefined;
+        center?: { x: number, y: number } | undefined;
         label: string;
         labels: {
             own: string
-            parent?: string
-            section?: string
+            parent?: string | undefined
+            section?: string | undefined
         };
-        pricing?: Pricing[] | Pricing;
+        pricing?: Pricing[] | Pricing | undefined;
         status: string;
         extraData: any;
         dataPerEvent: { [eventKey: string]: DataPerEvent };
         forSale: boolean;
         selectable: boolean;
         selected: boolean;
-        selectedTicketType?: string;
+        selectedTicketType?: string | undefined;
         inSelectableChannel: boolean;
         objectType: string;
 
@@ -26,7 +26,7 @@ declare namespace Seatsio {
         deselect(ticketType?: string): void;
         pulse(): void;
         unpulse(): void;
-        displayObjectType?: string;
+        displayObjectType?: string | undefined;
     }
 
     interface Category {
@@ -39,7 +39,7 @@ declare namespace Seatsio {
 
     interface Seat extends BaseObject {
         parent: { type: 'row' | 'table' };
-        viewFromSeatUrl?: string;
+        viewFromSeatUrl?: string | undefined;
         companionSeat: boolean;
         restrictedView: boolean;
         disabledBySocialDistancingRules: boolean;
@@ -65,7 +65,7 @@ declare namespace Seatsio {
     interface Pricing {
         price: number;
         formattedPrice: string;
-        ticketType?: string;
+        ticketType?: string | undefined;
     }
 
     interface DataPerEvent {
@@ -86,19 +86,19 @@ declare namespace Seatsio {
     type ColorScheme = 'light' | 'dark';
 
     interface Colors {
-        colorSelected?: string;
-        cursorTooltipBackgroundColor?: string;
-        colorTitle?: string;
+        colorSelected?: string | undefined;
+        cursorTooltipBackgroundColor?: string | undefined;
+        colorTitle?: string | undefined;
     }
 
     type StylePreset = 'balance' | 'bubblegum' | 'flathead' | 'bezels' | 'leaf';
 
     interface Style {
-        font?: 'Roboto' | 'Montserrat' | 'WorkSans' | 'NotoSansHK' | 'Lato';
-        fontWeight?: 'bolder' | 'minMax';
-        borderRadius?: 'none' | 'max' | 'asymmetrical';
-        border?: 'thick' | '3d';
-        padding?: 'spacious';
-        buttonFace?: 'fillEnabled' | 'fillHighlightedOption';
+        font?: 'Roboto' | 'Montserrat' | 'WorkSans' | 'NotoSansHK' | 'Lato' | undefined;
+        fontWeight?: 'bolder' | 'minMax' | undefined;
+        borderRadius?: 'none' | 'max' | 'asymmetrical' | undefined;
+        border?: 'thick' | '3d' | undefined;
+        padding?: 'spacious' | undefined;
+        buttonFace?: 'fillEnabled' | 'fillHighlightedOption' | undefined;
     }
 }

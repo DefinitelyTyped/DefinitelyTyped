@@ -8,5 +8,5 @@
 export default function feathersPrimusClient(socket: any, options?: FeathersPrimusClientOptions): () => void;
 
 export interface FeathersPrimusClientOptions {
-    timeout?: number;
+    timeout?: number | undefined;
 }

@@ -9,42 +9,43 @@ shipit.initConfig({
         rsync: ["--del"],
         keepReleases: 2,
         key: "/path/to/key",
-        shallowClone: true
+        shallowClone: true,
     },
     staging: {
-        servers: "user@myserver.com"
-    }
+        servers: "user@myserver.com",
+    },
 });
 
 shipit.task("build", () => {
-  shipit.emit("built");
+    shipit.emit("built");
 });
 
 shipit.on("built", () => {
-  shipit.start("start-server");
+    shipit.start("start-server");
 });
 
 shipit.task("pwd", () => {
-  return shipit.remote("pwd");
+    return shipit.remote("pwd");
 });
 
 shipit.blTask("pwd", () => {
-  return shipit.remote("pwd");
+    return shipit.remote("pwd");
 });
 
 shipit.start("task");
 shipit.start("task1", "task2");
 shipit.start(["task1", "task2"]);
 
-shipit.local("ls -lah", {cwd: "/tmp/deploy/workspace"}).then((res: any) => {
-  console.log(res.stdout);
-  console.log(res.stderr);
+shipit.local("ls -lah", { cwd: "/tmp/deploy/workspace" }).then((res: any) => {
+    console.log(res.stdout);
+    console.log(res.stderr);
 });
 
 shipit.remote("ls -lah").then((res: any) => {
-  console.log(res[0].stdout);
-  console.log(res[0].stderr);
+    console.log(res[0].stdout);
+    console.log(res[0].stderr);
 });
 
-shipit.remoteCopy("/tmp/workspace", "/opt/web/myapp").then(() => {});
+shipit.copyToRemote("/tmp/workspace", "/opt/web/myapp").then(() => {});
+shipit.copyFromRemote("/opt/web/myapp", "/tmp/workspace").then(() => {});
 shipit.log("hello %s", "world");

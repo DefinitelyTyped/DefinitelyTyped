@@ -7,8 +7,8 @@ import { BaseTriggerEvent, StringMap } from './_common';
 export interface PreAuthenticationTriggerEvent extends BaseTriggerEvent<'PreAuthentication_Authentication'> {
   request: {
       userAttributes: StringMap;
-      userNotFound?: boolean;
-      validationData?: StringMap;
+      userNotFound?: boolean | undefined;
+      validationData?: StringMap | undefined;
   };
 }
 

@@ -5,8 +5,8 @@ export default class component {
     $prefix: string;
     data: { [name: string]: any };
 
-    computed?: { [name: string]: (self?: component) => any };
-    methods?: { [name: string]: (evt?: event) => any };
+    computed?: { [name: string]: (self?: component) => any } | undefined;
+    methods?: { [name: string]: (evt?: event) => any } | undefined;
 
     $init($wxpage: any, $root: any, $parent: any): void;
     $initMixins(): void;

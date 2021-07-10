@@ -204,7 +204,7 @@ declare namespace ApplePayJS {
         /**
          * The name of the field that contains the error.
          */
-        contactField?: ApplePayErrorContactField;
+        contactField?: ApplePayErrorContactField | undefined;
 
         /**
          * A localized, user-facing string that describes the error.
@@ -271,7 +271,7 @@ declare namespace ApplePayJS {
         /**
          * A value that indicates if the line item is final or pending.
          */
-        type?: ApplePayLineItemType;
+        type?: ApplePayLineItemType | undefined;
     }
 
     /**
@@ -324,12 +324,12 @@ declare namespace ApplePayJS {
         /**
          * The billing contact selected by the user for this transaction.
          */
-        billingContact?: ApplePayPaymentContact;
+        billingContact?: ApplePayPaymentContact | undefined;
 
         /**
          * The shipping contact selected by the user for this transaction.
          */
-        shippingContact?: ApplePayPaymentContact;
+        shippingContact?: ApplePayPaymentContact | undefined;
     }
 
     /**
@@ -354,7 +354,7 @@ declare namespace ApplePayJS {
         /**
          * A list of custom errors to display on the payment sheet.
          */
-        errors?: ApplePayError[];
+        errors?: ApplePayError[] | undefined;
     }
 
     /**
@@ -364,72 +364,72 @@ declare namespace ApplePayJS {
         /**
          * An email address for the contact.
          */
-        emailAddress?: string;
+        emailAddress?: string | undefined;
 
         /**
          * The contact's family name.
          */
-        familyName?: string;
+        familyName?: string | undefined;
 
         /**
          * The contact's given name.
          */
-        givenName?: string;
+        givenName?: string | undefined;
 
         /**
          * A phone number for the contact.
          */
-        phoneNumber?: string;
+        phoneNumber?: string | undefined;
 
         /**
          * The phonetic spelling of the contact's family name.
          */
-        phoneticFamilyName?: string;
+        phoneticFamilyName?: string | undefined;
 
         /**
          * The phonetic spelling of the contact's given name.
          */
-        phoneticGivenName?: string;
+        phoneticGivenName?: string | undefined;
 
         /**
          * The street portion of the address for the contact.
          */
-        addressLines?: string[];
+        addressLines?: string[] | undefined;
 
         /**
          * The city for the contact.
          */
-        locality?: string;
+        locality?: string | undefined;
 
         /**
          * Additional information associated with the location, typically defined at the city or town level (such as district or neighborhood), in a postal address.
          */
-        subLocality?: string;
+        subLocality?: string | undefined;
 
         /**
          * The state for the contact.
          */
-        administrativeArea?: string;
+        administrativeArea?: string | undefined;
 
         /**
          * The subadministrative area (such as a county or other region) in a postal address.
          */
-        subAdministrativeArea?: string;
+        subAdministrativeArea?: string | undefined;
 
         /**
          * The zip code or postal code, where applicable, for the contact.
          */
-        postalCode?: string;
+        postalCode?: string | undefined;
 
         /**
          * The name of the country for the contact.
          */
-        country?: string;
+        country?: string | undefined;
 
         /**
          * The contact’s two-letter ISO 3166 country code.
          */
-        countryCode?: string;
+        countryCode?: string | undefined;
     }
 
     /**
@@ -483,7 +483,7 @@ declare namespace ApplePayJS {
         /**
          * An optional list of line items.
          */
-        newLineItems?: ApplePayLineItem[];
+        newLineItems?: ApplePayLineItem[] | undefined;
 
         /**
          * The new total resulting from a change in the payment method.
@@ -508,12 +508,12 @@ declare namespace ApplePayJS {
         /**
          * The unique identifier for the device-specific account number.
          */
-        deviceAccountIdentifier?: string;
+        deviceAccountIdentifier?: string | undefined;
 
         /**
          * A version of the device account number suitable for display in your UI.
          */
-        deviceAccountNumberSuffix?: string;
+        deviceAccountNumberSuffix?: string | undefined;
 
         /**
          * The activation state of the pass.
@@ -567,7 +567,7 @@ declare namespace ApplePayJS {
         /**
          * A set of line items that explain recurring payments and/or additional charges.
          */
-        lineItems?: ApplePayLineItem[];
+        lineItems?: ApplePayLineItem[] | undefined;
 
         /**
          * The payment capabilities supported by the merchant.
@@ -588,42 +588,42 @@ declare namespace ApplePayJS {
         /**
          * Billing contact information for the user.
          */
-        billingContact?: ApplePayPaymentContact;
+        billingContact?: ApplePayPaymentContact | undefined;
 
         /**
          * The billing information that you require from the user in order to process the transaction.
          */
-        requiredBillingContactFields?: ApplePayContactField[];
+        requiredBillingContactFields?: ApplePayContactField[] | undefined;
 
         /**
          * The shipping information that you require from the user in order to fulfill the order.
          */
-        requiredShippingContactFields?: ApplePayContactField[];
+        requiredShippingContactFields?: ApplePayContactField[] | undefined;
 
         /**
          * Shipping contact information for the user.
          */
-        shippingContact?: ApplePayPaymentContact;
+        shippingContact?: ApplePayPaymentContact | undefined;
 
         /**
          * A set of shipping method objects that describe the available shipping methods.
          */
-        shippingMethods?: ApplePayShippingMethod[];
+        shippingMethods?: ApplePayShippingMethod[] | undefined;
 
         /**
          * How the items are to be shipped.
          */
-        shippingType?: ApplePayShippingType;
+        shippingType?: ApplePayShippingType | undefined;
 
         /**
          * A list of ISO 3166 country codes for limiting payments to cards from specific countries.
          */
-        supportedCountries?: string[];
+        supportedCountries?: string[] | undefined;
 
         /**
          * Optional user-defined data.
          */
-        applicationData?: string;
+        applicationData?: string | undefined;
     }
 
     /**
@@ -663,17 +663,17 @@ declare namespace ApplePayJS {
         /**
          * List of custom errors to display on the payment sheet.
          */
-        errors?: ApplePayError[];
+        errors?: ApplePayError[] | undefined;
 
         /**
          * An optional list of updated line items.
          */
-        newLineItems?: ApplePayLineItem[];
+        newLineItems?: ApplePayLineItem[] | undefined;
 
         /**
          * A list of shipping methods that are available to the updated shipping contact.
          */
-        newShippingMethods?: ApplePayShippingMethod[];
+        newShippingMethods?: ApplePayShippingMethod[] | undefined;
 
         /**
          * The new total resulting from a change in the shipping contact.
@@ -723,7 +723,7 @@ declare namespace ApplePayJS {
         /**
          * An optional list of updated line items.
          */
-        newLineItems?: ApplePayLineItem[];
+        newLineItems?: ApplePayLineItem[] | undefined;
 
         /**
          * The new total resulting from a change in the shipping method.

@@ -7,46 +7,46 @@ declare type ResetState = PartialState<NavigationState> | NavigationState | (Omi
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type Action = {
     type: 'GO_BACK';
-    source?: string;
-    target?: string;
+    source?: string | undefined;
+    target?: string | undefined;
 } | {
     type: 'NAVIGATE';
     payload: {
         key: string;
         name?: undefined;
-        params?: object;
-        merge?: boolean;
+        params?: object | undefined;
+        merge?: boolean | undefined;
     } | {
         name: string;
-        key?: string;
-        params?: object;
-        merge?: boolean;
+        key?: string | undefined;
+        params?: object | undefined;
+        merge?: boolean | undefined;
     };
-    source?: string;
-    target?: string;
+    source?: string | undefined;
+    target?: string | undefined;
 } | {
     type: 'RESET';
     payload: ResetState | undefined;
-    source?: string;
-    target?: string;
+    source?: string | undefined;
+    target?: string | undefined;
 } | {
     type: 'SET_PARAMS';
     payload: {
-        params?: object;
+        params?: object | undefined;
     };
-    source?: string;
-    target?: string;
+    source?: string | undefined;
+    target?: string | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare function goBack(): Action;
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare function navigate(route: {
     key: string;
-    params?: object;
+    params?: object | undefined;
 } | {
     name: string;
-    key?: string;
-    params?: object;
+    key?: string | undefined;
+    params?: object | undefined;
 }): Action;
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare function navigate(name: string, params?: object): Action;

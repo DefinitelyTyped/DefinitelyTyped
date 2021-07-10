@@ -293,10 +293,40 @@ function test_doc_utility() {
 }
 
 function test_parser_options() {
-    const parser = new N3.Parser({
+    const parser1 = new N3.Parser({
         baseIRI: 'http://example.org/',
         factory: N3.DataFactory,
         format: 'N-Triples',
+        blankNodePrefix: '',
+    });
+    const parser2 = new N3.Parser({
+        baseIRI: 'http://example.org/',
+        factory: N3.DataFactory,
+        format: 'n3',
+        blankNodePrefix: '',
+    });
+    const parser3 = new N3.Parser({
+        baseIRI: 'http://example.org/',
+        factory: N3.DataFactory,
+        format: 'turtle*',
+        blankNodePrefix: '',
+    });
+    const parser4 = new N3.Parser({
+        baseIRI: 'http://example.org/',
+        factory: N3.DataFactory,
+        format: 'application/turtle*',
+        blankNodePrefix: '',
+    });
+    const parser5 = new N3.Parser({
+        baseIRI: 'http://example.org/',
+        factory: N3.DataFactory,
+        format: 'notation3',
+        blankNodePrefix: '',
+    });
+    const parser6 = new N3.Parser({
+        baseIRI: 'http://example.org/',
+        factory: N3.DataFactory,
+        format: 'text/Turtle*',
         blankNodePrefix: '',
     });
 }

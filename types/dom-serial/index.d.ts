@@ -17,7 +17,7 @@ interface SerialPortInfoBase {
 
 interface SerialPortFilter {
     usbVendorId: number;
-    usbProductId?: number;
+    usbProductId?: number | undefined;
 }
 
 interface SerialPortInfo extends SerialPortInfoBase, SerialPortFilter {} // mix spec and Chromium implementation
@@ -28,11 +28,11 @@ type FlowControlType = 'none' | 'hardware';
 
 interface SerialOptions {
     baudRate: number;
-    dataBits?: number;
-    stopBits?: number;
-    parity?: ParityType;
-    bufferSize?: number;
-    flowControl?: FlowControlType;
+    dataBits?: number | undefined;
+    stopBits?: number | undefined;
+    parity?: ParityType | undefined;
+    bufferSize?: number | undefined;
+    flowControl?: FlowControlType | undefined;
 }
 
 interface SerialPort {

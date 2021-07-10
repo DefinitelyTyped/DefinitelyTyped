@@ -42,19 +42,19 @@ declare class Keyv<TValue = any> extends EventEmitter {
 declare namespace Keyv {
     interface Options<TValue> {
         /** Namespace for the current instance. */
-        namespace?: string;
+        namespace?: string | undefined;
         /** A custom serialization function. */
-        serialize?: (data: TValue) => string;
+        serialize?: ((data: TValue) => string) | undefined;
         /** A custom deserialization function. */
-        deserialize?: (data: string) => TValue;
+        deserialize?: ((data: string) => TValue) | undefined;
         /** The connection string URI. */
-        uri?: string;
+        uri?: string | undefined;
         /** The storage adapter instance to be used by Keyv. */
-        store?: Store<TValue>;
+        store?: Store<TValue> | undefined;
         /** Default TTL. Can be overridden by specififying a TTL on `.set()`. */
-        ttl?: number;
+        ttl?: number | undefined;
         /** Specify an adapter to use. e.g `'redis'` or `'mongodb'`. */
-        adapter?: 'redis' | 'mongodb' | 'mongo' | 'sqlite' | 'postgresql' | 'postgres' | 'mysql';
+        adapter?: 'redis' | 'mongodb' | 'mongo' | 'sqlite' | 'postgresql' | 'postgres' | 'mysql' | undefined;
 
         [key: string]: any;
     }

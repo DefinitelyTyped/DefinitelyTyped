@@ -1,25 +1,25 @@
 declare module HTTP {
     interface HTTPRequest {
-        content?: string;
+        content?: string | undefined;
         data?: any;
-        query?: string;
+        query?: string | undefined;
         params?: {
             [id: string]: string
-        };
-        auth?: string;
+        } | undefined;
+        auth?: string | undefined;
         headers?: {
             [id: string]: string
-        };
-        timeout?: number;
-        followRedirects?: boolean;
+        } | undefined;
+        timeout?: number | undefined;
+        followRedirects?: boolean | undefined;
     }
 
     interface HTTPResponse {
-        statusCode?: number;
+        statusCode?: number | undefined;
         headers?: {
             [id: string]: string
-        };
-        content?: string;
+        } | undefined;
+        content?: string | undefined;
         data?: any;
     }
 
@@ -36,15 +36,15 @@ declare module HTTP {
     function put(url: string, callOptions?: HTTP.HTTPRequest, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
 
     function call(method: string, url: string, options?: {
-        content?: string;
-        data?: Object;
-        query?: string;
-        params?: Object;
-        auth?: string;
-        headers?: Object;
-        timeout?: number;
-        followRedirects?: boolean;
-        npmRequestOptions?: Object;
-        beforeSend?: Function;
+        content?: string | undefined;
+        data?: Object | undefined;
+        query?: string | undefined;
+        params?: Object | undefined;
+        auth?: string | undefined;
+        headers?: Object | undefined;
+        timeout?: number | undefined;
+        followRedirects?: boolean | undefined;
+        npmRequestOptions?: Object | undefined;
+        beforeSend?: Function | undefined;
     }, asyncCallback?: AsyncCallback): HTTP.HTTPResponse;
 }

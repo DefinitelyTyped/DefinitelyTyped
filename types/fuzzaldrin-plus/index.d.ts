@@ -13,19 +13,19 @@ export class Query {
 }
 
 export interface IOptions {
-    allowErrors?: boolean
-    usePathScoring?: boolean
-    useExtensionBonus?: boolean
-    pathSeparator?: '/' | '\\' | string
-    optCharRegEx?: RegExp
-    wrap?: { tagOpen?: string; tagClass?: string; tagClose?: string }
-    preparedQuery?: Query
+    allowErrors?: boolean | undefined
+    usePathScoring?: boolean | undefined
+    useExtensionBonus?: boolean | undefined
+    pathSeparator?: '/' | '\\' | string | undefined
+    optCharRegEx?: RegExp | undefined
+    wrap?: { tagOpen?: string | undefined; tagClass?: string | undefined; tagClose?: string | undefined } | undefined
+    preparedQuery?: Query | undefined
 }
 
 export type IFilterOptions<T> = IOptions & {
-    key?: T extends string ? never : keyof T
-    maxResults?: number
-    maxInners?: number
+    key?: T extends string ? never : keyof T | undefined
+    maxResults?: number | undefined
+    maxInners?: number | undefined
 }
 
 export function filter<T>(

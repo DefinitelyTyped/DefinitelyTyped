@@ -44,15 +44,15 @@ export function reset(): void;
 
 export interface Config {
   /* Configurations for Amazon Store */
-  amazonAPIVersion?: number;
-  secret?: string;
+  amazonAPIVersion?: number | undefined;
+  secret?: string | undefined;
 
   /* Configurations for Apple */
 
   // if you want to exclude old transaction, set this to true. Default is false
-  appleExcludeOldTransactions?: boolean;
+  appleExcludeOldTransactions?: boolean | undefined;
   // this comes from iTunes Connect (You need this to valiate subscriptions)
-  applePassword?: string;
+  applePassword?: string | undefined;
 
   // Configurations for Google Service Account validation: You can validate with just packageName, productId, and purchaseToken
   googleServiceAccount?: {
@@ -60,39 +60,39 @@ export interface Config {
     clientEmail: string,
     // private key string from Google API service account JSON key file
     privateKey: string
-  };
+  } | undefined;
 
   /* Configurations for Google Play */
   // this is the path to the directory containing iap-sanbox/iap-live files
-  googlePublicKeyPath?: string;
+  googlePublicKeyPath?: string | undefined;
   // this is the google iap-sandbox public key string
-  googlePublicKeyStrSandBox?: string;
+  googlePublicKeyStrSandBox?: string | undefined;
   // this is the google iap-live public key string
-  googlePublicKeyStrLive?: string;
+  googlePublicKeyStrLive?: string | undefined;
   // optional, for Google Play subscriptions
-  googleAccToken?: string;
+  googleAccToken?: string | undefined;
   // optional, for Google Play subscritions
-  googleRefToken?: string;
+  googleRefToken?: string | undefined;
   // optional, for Google Play subscriptions
-  googleClientID?: string;
+  googleClientID?: string | undefined;
   // optional, for Google Play subscriptions
-  googleClientSecret?: string;
+  googleClientSecret?: string | undefined;
   // optional, for Google Play subscriptions
-  googleRefreshToken?: string;
+  googleRefreshToken?: string | undefined;
 
   /* Configurations for Roku */
   // this comes from Roku Developer Dashboard
-  rokuApiKey?: string;
+  rokuApiKey?: string | undefined;
 
   /* Configurations for Facebook (Payments Lite) */
-  facebookAppId?: string;
-  facebookAppSecret?: string;
+  facebookAppId?: string | undefined;
+  facebookAppSecret?: string | undefined;
 
   /* Configurations all platforms */
   // For Apple and Googl Play to force Sandbox validation only
-  test?: boolean;
+  test?: boolean | undefined;
   // Output debug logs to stdout stream
-  verbose?: boolean;
+  verbose?: boolean | undefined;
 }
 
 export type Service = typeof UNITY | typeof APPLE | typeof GOOGLE | typeof WINDOWS | typeof AMAZON | typeof FACEBOOK | typeof ROKU;
@@ -117,19 +117,19 @@ export interface ValidationResponse {
 }
 
 export interface PurchasedItem {
-  bundleId?: string;  // only Apple
-  appItemId?: string;
-  orderId?: string; // only Google
-  originalTransactionId?: string; // only Apple
+  bundleId?: string | undefined;  // only Apple
+  appItemId?: string | undefined;
+  orderId?: string | undefined; // only Google
+  originalTransactionId?: string | undefined; // only Apple
   transactionId: string;
   productId: string;
-  originalPurchaseDate?: string; // only Apple
+  originalPurchaseDate?: string | undefined; // only Apple
   purchaseDate: number | string;
-  isTrial?: boolean; // only Apple
-  cancellationDate?: number; // only Apple/Google
+  isTrial?: boolean | undefined; // only Apple
+  cancellationDate?: number | undefined; // only Apple/Google
   // iTunes, windows and amazon subscription only
   // Google subscriptions only with google play store api info
-  expirationDate?: number | string;
+  expirationDate?: number | string | undefined;
   quantity: number;
   // this was created based on the source code of in-app-purchase
   // eventually there are more fields

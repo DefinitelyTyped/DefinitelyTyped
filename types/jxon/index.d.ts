@@ -9,14 +9,14 @@ export type FunctionType = (arg: unknown) => void;
 export type VerbosityType = 0 | 1 | 2 | 3;
 
 export interface ConfigOptions {
-    attrKey?: string;
-    attrPrefix?: string;
-    autoDate?: boolean;
-    ignorePrefixedNodes?: boolean;
-    lowerCaseTags?: boolean;
-    parseValues?: boolean;
-    trueIsEmpty?: boolean;
-    valueKey?: string;
+    attrKey?: string | undefined;
+    attrPrefix?: string | undefined;
+    autoDate?: boolean | undefined;
+    ignorePrefixedNodes?: boolean | undefined;
+    lowerCaseTags?: boolean | undefined;
+    parseValues?: boolean | undefined;
+    trueIsEmpty?: boolean | undefined;
+    valueKey?: string | undefined;
 }
 
 export function config(cfg: ConfigOptions): void;

@@ -11,7 +11,7 @@ declare namespace payu {
     }
 
     interface PayuOptions {
-        dev?: boolean;
+        dev?: boolean | undefined;
     }
 
     type tokenType = 'SINGLE' | 'SINGLE_LONGTERM' | 'MULTI';
@@ -28,11 +28,11 @@ declare namespace payu {
     }
 
     interface SecureFormOptions {
-        style?: StyleOptions;
-        placeholder?: PlaceHolderOptions;
-        lang?: 'pl' | 'en' | 'cs' | 'sk';
-        disabled?: boolean;
-        cardIcon?: boolean;
+        style?: StyleOptions | undefined;
+        placeholder?: PlaceHolderOptions | undefined;
+        lang?: 'pl' | 'en' | 'cs' | 'sk' | undefined;
+        disabled?: boolean | undefined;
+        cardIcon?: boolean | undefined;
     }
 
     type fontWeight = number
@@ -45,34 +45,34 @@ declare namespace payu {
         | 'unset';
     interface StyleOptions {
         basic?: {
-            fontColor?: string;
-            fontSize?: string;
-            fontFamily?: string;
-            fontWeight?: fontWeight
-            letterSpacing?: string
-        };
+            fontColor?: string | undefined;
+            fontSize?: string | undefined;
+            fontFamily?: string | undefined;
+            fontWeight?: fontWeight | undefined
+            letterSpacing?: string | undefined
+        } | undefined;
         invalid?: {
-            fontColor?: string;
-            fontWeight?: fontWeight
-        };
+            fontColor?: string | undefined;
+            fontWeight?: fontWeight | undefined
+        } | undefined;
         focus?: {
-            fontColor?: string;
-            fontWeight?: fontWeight
-        };
+            fontColor?: string | undefined;
+            fontWeight?: fontWeight | undefined
+        } | undefined;
         placeholder?: {
-            fontColor?: string;
-            fontWeight?: fontWeight
-        };
+            fontColor?: string | undefined;
+            fontWeight?: fontWeight | undefined
+        } | undefined;
         disabled?: {
-            fontColor?: string;
-            fontWeight?: fontWeight
-        };
+            fontColor?: string | undefined;
+            fontWeight?: fontWeight | undefined
+        } | undefined;
     }
 
     interface PlaceHolderOptions {
-        number?: string;
-        date?: string;
-        cvv?: string;
+        number?: string | undefined;
+        date?: string | undefined;
+        cvv?: string | undefined;
     }
 
     type eventTypes = 'ready' | 'focus' | 'blur';
@@ -105,14 +105,14 @@ declare namespace payu {
         message: string;
         parameters?: {
             error: string
-        };
-        source?: secureFormType;
+        } | undefined;
+        source?: secureFormType | undefined;
     }
 
     interface SecureFormChangeResponse {
         empty: boolean;
         error: false | SecureFormErrorMessage[];
-        brand?: 'visa' | 'mastercard' | 'maestro';
+        brand?: 'visa' | 'mastercard' | 'maestro' | undefined;
     }
 
     interface TokenizeResultSuccess {
@@ -128,7 +128,7 @@ declare namespace payu {
         error: {
             messages: SecureFormErrorMessage[]
         };
-        correlationId?: string;
+        correlationId?: string | undefined;
     }
 
     interface SendCvvResultSuccess {
@@ -140,6 +140,6 @@ declare namespace payu {
         error: {
             messages: SecureFormErrorMessage[]
         };
-        correlationId?: string;
+        correlationId?: string | undefined;
     }
 }

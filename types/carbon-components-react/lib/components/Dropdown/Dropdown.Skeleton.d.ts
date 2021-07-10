@@ -6,8 +6,8 @@ export interface DropdownSkeletonProps extends ReactDivAttr {
     /**
      * @deprecated
      */
-    inline?: boolean,
-    size?: ListBoxSize;
+    inline?: boolean | undefined,
+    size?: ListBoxSize | undefined;
 }
 
 declare const DropdownSkeleton: React.FC<DropdownSkeletonProps>;

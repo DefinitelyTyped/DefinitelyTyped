@@ -17,11 +17,11 @@ declare namespace BnetStrategy {
         clientID: string;
         clientSecret: string;
 
-        region?: string;
+        region?: string | undefined;
     }
 
     interface StrategyOptions extends _BaseBnetOptions {
-        passReqToCallback?: false;
+        passReqToCallback?: false | undefined;
     }
 
     interface StrategyOptionsWithRequest extends _BaseBnetOptions {

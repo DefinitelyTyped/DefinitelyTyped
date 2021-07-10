@@ -10,7 +10,7 @@ export interface DotenvParseOptions {
     /**
      * You may turn on logging to help debug why certain keys or values are not being set as you expect.
      */
-    debug?: boolean;
+    debug?: boolean | undefined;
 }
 
 export interface DotenvParseOutput {
@@ -33,22 +33,22 @@ export interface DotenvConfigOptions {
     /**
      * Node environment (development/test/production/etc,.).
      */
-    node_env?: string;
+    node_env?: string | undefined;
 
     /**
      * Default node environment to use if `process.env.NODE_ENV` is not present.
      */
-    default_node_env?: string;
+    default_node_env?: string | undefined;
 
     /**
      * Path to `.env*` files directory.
      */
-    path?: string;
+    path?: string | undefined;
 
     /**
      * Encoding for reading the `.env*` files.
      */
-    encoding?: string;
+    encoding?: string | undefined;
 
     /**
      * In some cases the original "dotenv" library can be used by one of the dependent npm modules.
@@ -58,12 +58,12 @@ export interface DotenvConfigOptions {
      *
      * Setting the `purge_dotenv` option to `true` can gracefully fix this issue.
      */
-    purge_dotenv?: boolean;
+    purge_dotenv?: boolean | undefined;
 }
 
 export interface DotenvConfigOutput {
-    error?: Error;
-    parsed?: DotenvParseOutput;
+    error?: Error | undefined;
+    parsed?: DotenvParseOutput | undefined;
 }
 
 /**

@@ -670,9 +670,9 @@ interface CsvUpload extends BulkUpload<CsvUpload> {
 }
 
 interface FileUploadArguments {
-    fileLocale?: string;
-    moneyInMicros?: boolean;
-    timeZone?: string;
+    fileLocale?: string | undefined;
+    moneyInMicros?: boolean | undefined;
+    timeZone?: string | undefined;
 }
 
 // Campaign
@@ -1256,16 +1256,16 @@ interface ExtensionSchedule {
 }
 
 interface ExtensionScheduleInput {
-    dayOfWeek?: DayOfWeekString;
-    startHour?: number;
-    startMinute?: number;
-    endHour?: number;
-    endMinute?: number;
+    dayOfWeek?: DayOfWeekString | undefined;
+    startHour?: number | undefined;
+    startMinute?: number | undefined;
+    endHour?: number | undefined;
+    endMinute?: number | undefined;
 }
 
 interface LocationObject {
     id: number;
-    bidModifier?: number;
+    bidModifier?: number | undefined;
 }
 
 interface ProximityObject {
@@ -1273,8 +1273,8 @@ interface ProximityObject {
     longitude: number;
     radius: number;
     radiusUnits: RadiusUnits;
-    bidModifier?: number;
-    address?: AddressObject;
+    bidModifier?: number | undefined;
+    address?: AddressObject | undefined;
 }
 
 interface AddressObject {
@@ -1288,10 +1288,10 @@ interface AddressObject {
 }
 
 interface ReportOptionArguments {
-    includeZeroImpressions?: boolean;
-    returnMoneyInMicros?: boolean;
-    apiVersion?: string;
-    resolveGeoNames?: boolean;
+    includeZeroImpressions?: boolean | undefined;
+    returnMoneyInMicros?: boolean | undefined;
+    apiVersion?: string | undefined;
+    resolveGeoNames?: boolean | undefined;
 }
 
 // Extendables

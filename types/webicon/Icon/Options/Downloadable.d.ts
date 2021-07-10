@@ -8,10 +8,10 @@ export interface Downloadable<TUriParam = never> extends IconOptions {
     /**
      * The url to load the source from.
      */
-    url?: UrlConfig<TUriParam>;
+    url?: UrlConfig<TUriParam> | undefined;
 
     /**
      * An alias of the `url`-property.
      */
-    uri?: this["url"];
+    uri?: this["url"] | undefined;
 }

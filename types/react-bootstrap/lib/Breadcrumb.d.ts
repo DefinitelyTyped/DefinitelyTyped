@@ -3,7 +3,7 @@ import * as BreadcrumbItem from './BreadcrumbItem';
 
 declare namespace Breadcrumb {
     interface BreadcrumbProps extends React.HTMLProps<Breadcrumb> {
-        bsClass?: string;
+        bsClass?: string | undefined;
     }
 }
 declare class Breadcrumb extends React.Component<Breadcrumb.BreadcrumbProps> {

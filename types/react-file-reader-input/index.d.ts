@@ -22,7 +22,7 @@ declare namespace FileInput {
          *
          * Defaults to `'url'`.
          */
-        as?: Format;
+        as?: Format | undefined;
 
         /**
          * Callback function called when the files are chosen by the user.

@@ -7,5 +7,5 @@ export interface SvgIconSet extends SvgIcon {
     /**
      * A value indicating whether the icons are loaded separately.
      */
-    cumulative?: false;
+    cumulative?: false | undefined;
 }

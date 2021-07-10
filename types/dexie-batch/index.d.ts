@@ -8,7 +8,7 @@ import { Dexie } from 'dexie';
 declare namespace DexieBatch {
     interface Options {
         batchSize: number;
-        limit?: number;
+        limit?: number | undefined;
     }
     type Callback<T> = (item: T, index: number) => void;
 }

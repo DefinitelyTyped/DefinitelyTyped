@@ -6,18 +6,18 @@ import { Single } from 'rsocket-flowable';
 import { Leases } from './RSocketLease';
 
 export interface ClientConfig<D, M> {
-    serializers?: PayloadSerializers<D, M>;
+    serializers?: PayloadSerializers<D, M> | undefined;
     setup: {
-        payload?: Payload<D, M>,
+        payload?: Payload<D, M> | undefined,
         dataMimeType: string;
         keepAlive: number;
         lifetime: number;
         metadataMimeType: string;
     };
     transport: DuplexConnection;
-    responder?: Partial<Responder<D, M>>;
-    errorHandler?: (error: Error) => void;
-    leases?: () => Leases<any>;
+    responder?: Partial<Responder<D, M>> | undefined;
+    errorHandler?: ((error: Error) => void) | undefined;
+    leases?: (() => Leases<any>) | undefined;
 }
 
 /**

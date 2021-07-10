@@ -1,12 +1,12 @@
 export declare type AnchorType = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 export interface TransitionOptions {
     interrupt: boolean;
-    tween?: string;
+    tween?: string | undefined;
 }
 export interface Transition {
-    opacity?: Opacity;
-    position?: Position;
-    size?: Size;
+    opacity?: Opacity | undefined;
+    position?: Position | undefined;
+    size?: Size | undefined;
 }
 export interface Size extends TransitionBase {
     width: number;
@@ -17,7 +17,7 @@ export interface Opacity extends TransitionBase {
 }
 export interface TransitionBase {
     duration: number;
-    relative?: boolean;
+    relative?: boolean | undefined;
 }
 export interface Position extends TransitionBase {
     left: number;
@@ -28,8 +28,8 @@ export interface Bounds {
     width: number;
     top: number;
     left: number;
-    right?: number;
-    bottom?: number;
+    right?: number | undefined;
+    bottom?: number | undefined;
 }
 export declare type ViewBounds = Pick<Bounds, Exclude<keyof Bounds, 'right' | 'bottom'>>;
 export interface RGB {
@@ -39,12 +39,12 @@ export interface RGB {
 }
 export interface ContextMenuSettings {
     enable: boolean;
-    devtools?: boolean;
-    reload?: boolean;
+    devtools?: boolean | undefined;
+    reload?: boolean | undefined;
 }
 export interface Hotkey {
     keys: string;
-    preventDefault?: boolean;
+    preventDefault?: boolean | undefined;
 }
 export interface ShortcutOverride extends Hotkey {
     command: string;

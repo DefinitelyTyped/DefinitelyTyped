@@ -71,14 +71,14 @@ declare namespace parse {
     function resolveConfigPath(options: string | ResolveConfigOptions): string | null;
 
     interface ResolveConfigOptions {
-        type?: 'global';
-        cwd?: string;
-        path?: string;
+        type?: 'global' | undefined;
+        cwd?: string | undefined;
+        path?: string | undefined;
     }
 
     interface Options extends ResolveConfigOptions {
-        include?: boolean;
-        expandKeys?: boolean;
+        include?: boolean | undefined;
+        expandKeys?: boolean | undefined;
     }
 
     type ParseCallback = ((err: Error | null, config: Config) => void);

@@ -12,90 +12,90 @@ interface OnVolumeChangeParam {
 }
 
 interface Props {
-    type?: "youtube" | "vimeo" | "video" | "audio";
-    className?: string;
-    videoId?: string;
-    url?: string;
+    type?: "youtube" | "vimeo" | "video" | "audio" | undefined;
+    className?: string | undefined;
+    videoId?: string | undefined;
+    url?: string | undefined;
 
-    onReady?: (player?: any) => void;
-    onPlay?: () => void;
-    onPause?: () => void;
-    onEnd?: () => void;
-    onLoadedData?: () => void;
-    onSeeked?: (time?: number) => void;
-    onTimeUpdate?: (time?: number) => void;
-    onEnterFullscreen?: () => void;
-    onExitFullscreen?: () => void;
-    onVolumeChange?: (params: OnVolumeChangeParam) => void;
-    onCaptionsEnabled?: () => void;
-    onCaptionsDisabled?: () => void;
+    onReady?: ((player?: any) => void) | undefined;
+    onPlay?: (() => void) | undefined;
+    onPause?: (() => void) | undefined;
+    onEnd?: (() => void) | undefined;
+    onLoadedData?: (() => void) | undefined;
+    onSeeked?: ((time?: number) => void) | undefined;
+    onTimeUpdate?: ((time?: number) => void) | undefined;
+    onEnterFullscreen?: (() => void) | undefined;
+    onExitFullscreen?: (() => void) | undefined;
+    onVolumeChange?: ((params: OnVolumeChangeParam) => void) | undefined;
+    onCaptionsEnabled?: (() => void) | undefined;
+    onCaptionsDisabled?: (() => void) | undefined;
 
-    enabled?: boolean;
-    title?: string;
-    debug?: boolean;
-    autoplay?: boolean;
-    autopause?: boolean;
-    seekTime?: number;
-    volume?: number;
-    muted?: boolean;
-    duration?: number;
-    displayDuration?: boolean;
-    invertTime?: boolean;
-    toggleInvert?: boolean;
-    ratio?: string;
-    clickToPlay?: boolean;
-    hideControls?: boolean;
-    resetOnEnd?: boolean;
-    disableContextMenu?: boolean;
-    loadSprite?: boolean;
-    iconPrefix?: string;
-    iconUrl?: string;
-    blankVideo?: string;
+    enabled?: boolean | undefined;
+    title?: string | undefined;
+    debug?: boolean | undefined;
+    autoplay?: boolean | undefined;
+    autopause?: boolean | undefined;
+    seekTime?: number | undefined;
+    volume?: number | undefined;
+    muted?: boolean | undefined;
+    duration?: number | undefined;
+    displayDuration?: boolean | undefined;
+    invertTime?: boolean | undefined;
+    toggleInvert?: boolean | undefined;
+    ratio?: string | undefined;
+    clickToPlay?: boolean | undefined;
+    hideControls?: boolean | undefined;
+    resetOnEnd?: boolean | undefined;
+    disableContextMenu?: boolean | undefined;
+    loadSprite?: boolean | undefined;
+    iconPrefix?: string | undefined;
+    iconUrl?: string | undefined;
+    blankVideo?: string | undefined;
     quality?: {
-        default?: string | number;
-        option?: string[] | number[];
-    };
+        default?: string | number | undefined;
+        option?: string[] | number[] | undefined;
+    } | undefined;
     loop?: {
-        active?: boolean
-    };
+        active?: boolean | undefined
+    } | undefined;
     speed?: {
-        selected?: number;
-        options?: number[]
-    };
+        selected?: number | undefined;
+        options?: number[] | undefined
+    } | undefined;
     keyboard?: {
-        focused?: boolean;
-        global?: boolean
-    };
+        focused?: boolean | undefined;
+        global?: boolean | undefined
+    } | undefined;
     tooltips?: {
-        controls?: boolean;
-        seek?: boolean
-    };
+        controls?: boolean | undefined;
+        seek?: boolean | undefined
+    } | undefined;
     fullscreen?: {
-        enabled?: boolean;
-        fallback?: boolean;
-        iosNative?: boolean
-    };
+        enabled?: boolean | undefined;
+        fallback?: boolean | undefined;
+        iosNative?: boolean | undefined
+    } | undefined;
     storage?: {
-        enabled?: boolean;
-        key?: string
-    };
-    controls?: string[];
-    settings?: string[];
+        enabled?: boolean | undefined;
+        key?: string | undefined
+    } | undefined;
+    controls?: string[] | undefined;
+    settings?: string[] | undefined;
 
-    poster?: string;
+    poster?: string | undefined;
     sources?: Array<{
         src: string;
         type: string;
-        size?: string;
-    }>;
+        size?: string | undefined;
+    }> | undefined;
     captions?: Array<{
-        kind?: string;
-        label?: string;
+        kind?: string | undefined;
+        label?: string | undefined;
         src: string;
-        srclang?: string;
-        default?: boolean;
+        srclang?: string | undefined;
+        default?: boolean | undefined;
         key?: any;
-    }>;
+    }> | undefined;
 }
 
 declare class Plyr extends Component<Props> {

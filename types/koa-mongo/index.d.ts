@@ -16,12 +16,12 @@ declare module "koa" {
 
 declare namespace mongo {
   interface ConnectionOptions extends Options {
-    host?: string;
-    port?: number;
-    db?: string;
-    authSource?: string;
-    uri?: string;
-    url?: string;
+    host?: string | undefined;
+    port?: number | undefined;
+    db?: string | undefined;
+    authSource?: string | undefined;
+    uri?: string | undefined;
+    url?: string | undefined;
   }
 }
 

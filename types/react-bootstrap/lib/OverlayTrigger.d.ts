@@ -8,20 +8,20 @@ declare namespace OverlayTrigger {
         // Optional
         animation?: any; // TODO: Add more specific type
         container?: any; // TODO: Add more specific type
-        containerPadding?: number;
-        defaultOverlayShown?: boolean;
-        delay?: number;
-        delayHide?: number;
-        delayShow?: number;
-        onEnter?: Function;
-        onEntered?: Function;
-        onEntering?: Function;
-        onExit?: Function;
-        onExited?: Function;
-        onExiting?: Function;
-        placement?: string;
-        rootClose?: boolean;
-        trigger?: string | string[];
+        containerPadding?: number | undefined;
+        defaultOverlayShown?: boolean | undefined;
+        delay?: number | undefined;
+        delayHide?: number | undefined;
+        delayShow?: number | undefined;
+        onEnter?: Function | undefined;
+        onEntered?: Function | undefined;
+        onEntering?: Function | undefined;
+        onExit?: Function | undefined;
+        onExited?: Function | undefined;
+        onExiting?: Function | undefined;
+        placement?: string | undefined;
+        rootClose?: boolean | undefined;
+        trigger?: string | string[] | undefined;
     }
 }
 declare class OverlayTrigger extends React.Component<OverlayTrigger.OverlayTriggerProps> { }

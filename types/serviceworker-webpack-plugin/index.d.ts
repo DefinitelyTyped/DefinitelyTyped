@@ -14,7 +14,7 @@ declare namespace ServiceWorkerWebpackPlugin {
     interface ServiceWorkerOption {
         assets: string[];
 
-        jsonStats?: Stats.ToJsonOutput;
+        jsonStats?: Stats.ToJsonOutput | undefined;
     }
 
     interface ServiceWorkerDefaultOption {
@@ -32,45 +32,45 @@ declare namespace ServiceWorkerWebpackPlugin {
          *
          * @default 'sw.js'
          */
-        filename?: string;
+        filename?: string | undefined;
 
         /**
          * Exclude matched assets from being added to the `serviceWorkerOption.assets` variable. (Blacklist)
          *
          * @default ['**\/.*', '**\/*.map']
          */
-        excludes?: string[];
+        excludes?: string[] | undefined;
 
         /**
          * Include matched assets added to the `serviceWorkerOption.assets` variable. (Whitelist)
          *
          * @default ['**\/*']
          */
-        includes?: string[];
+        includes?: string[] | undefined;
 
         /**
          * Specifies the public URL address of the output files when referenced in a browser. We use this value to load the service worker over the network.
          *
          * @default '/'
          */
-        publicPath?: string;
+        publicPath?: string | undefined;
 
         /**
          * This callback function can be used to inject statically generated service worker.
          */
-        template?: (serviceWorkerOption: T) => Promise<void>;
+        template?: ((serviceWorkerOption: T) => Promise<void>) | undefined;
 
         /**
          * This callback function receives a raw `serviceWorkerOption` argument. The `jsonStats` key contains all the webpack build information.
          */
-        transformOptions?: (serviceWorkerOption: ServiceWorkerOption) => T;
+        transformOptions?: ((serviceWorkerOption: ServiceWorkerOption) => T) | undefined;
 
         /**
          * Whether to minimize output.
          *
          * @default process.env.NODE_ENV === 'production'
          */
-        minimize?: boolean;
+        minimize?: boolean | undefined;
     }
 }
 

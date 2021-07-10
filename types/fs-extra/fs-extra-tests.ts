@@ -322,5 +322,5 @@ async function rmDirTest() {
     // $ExpectType void
     await fs.rmdir('dir');
     // $ExpectType void
-    await fs.rmdir('dir', { maxRetries: 1, recursive: true, retryDelay: 200 });
+    await fs.rmdir('dir', { maxRetries: 1, retryDelay: 200 });
 }

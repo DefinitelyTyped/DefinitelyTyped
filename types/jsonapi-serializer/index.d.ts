@@ -9,29 +9,29 @@ export type RefFunction = (current: any, item: any) => string;
 
 export interface Relation {
     ref: string | RefFunction;
-    attributes?: string[];
-    included?: boolean;
+    attributes?: string[] | undefined;
+    included?: boolean | undefined;
 }
 
 export type LinkFunction = (...records: any[]) => any;
 
 export interface SerializerOptions {
-    ref?: (() => void) | boolean | string;
-    included?: boolean;
-    id?: string;
-    attributes?: string[];
-    topLevelLinks?: { [key: string]: string | LinkFunction };
-    dataLinks?: { [key: string]: string | LinkFunction };
-    dataMeta?: (() => void) | object;
-    relationshipLinks?: { [key: string]: string | LinkFunction };
-    relationshipMeta?: object;
-    ignoreRelationshipData?: boolean;
-    keyForAttribute?: string | KeyForAttribute;
-    nullIfMissing?: boolean;
-    pluralizeType?: boolean;
-    typeForAttribute?: TypeForAttribute;
-    meta?: object;
-    transform?: Transform;
+    ref?: (() => void) | boolean | string | undefined;
+    included?: boolean | undefined;
+    id?: string | undefined;
+    attributes?: string[] | undefined;
+    topLevelLinks?: { [key: string]: string | LinkFunction } | undefined;
+    dataLinks?: { [key: string]: string | LinkFunction } | undefined;
+    dataMeta?: (() => void) | object | undefined;
+    relationshipLinks?: { [key: string]: string | LinkFunction } | undefined;
+    relationshipMeta?: object | undefined;
+    ignoreRelationshipData?: boolean | undefined;
+    keyForAttribute?: string | KeyForAttribute | undefined;
+    nullIfMissing?: boolean | undefined;
+    pluralizeType?: boolean | undefined;
+    typeForAttribute?: TypeForAttribute | undefined;
+    meta?: object | undefined;
+    transform?: Transform | undefined;
 }
 
 export interface KeyForAttribute {
@@ -47,7 +47,7 @@ export interface Transform {
 }
 
 export interface DeserializerOptions {
-    id?: string;
+    id?: string | undefined;
     keyForAttribute?:
         | "dash-case"
         | "lisp-case"
@@ -57,10 +57,10 @@ export interface DeserializerOptions {
         | "snake_case"
         | "camelCase"
         | "CamelCase"
-        | KeyForAttribute;
-    pluralizeType?: boolean;
-    typeAsAttribute?: boolean;
-    transform?: Transform;
+        | KeyForAttribute | undefined;
+    pluralizeType?: boolean | undefined;
+    typeAsAttribute?: boolean | undefined;
+    transform?: Transform | undefined;
 }
 
 export interface DeserializerConstructor {
@@ -80,18 +80,18 @@ export interface JSONAPIError {
 }
 
 export interface JSONAPIErrorOptions {
-    id?: string;
-    status?: string;
-    code?: string;
-    title?: string;
-    detail?: string;
+    id?: string | undefined;
+    status?: string | undefined;
+    code?: string | undefined;
+    title?: string | undefined;
+    detail?: string | undefined;
     source?: {
-        pointer?: string;
-        parameter?: string;
-    };
+        pointer?: string | undefined;
+        parameter?: string | undefined;
+    } | undefined;
     links?: {
-        about?: string;
-    };
+        about?: string | undefined;
+    } | undefined;
     meta?: any;
 }
 

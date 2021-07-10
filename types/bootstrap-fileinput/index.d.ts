@@ -114,30 +114,30 @@ declare namespace BootstrapFileInput {
          * You can have multiple language widgets on the same page.
          * The locale JS file for the language code must be defined as mentioned in the translations section: http://plugins.krajee.com/file-input#translations
          */
-        language?: string;
+        language?: string | undefined;
 
         /**
          * Theming
          */
-        theme?: string;
+        theme?: string | undefined;
         /**
          * Whether file selection is mandatory before upload (for ajax) or submit of the form (for non-ajax). When set to true, and if files are not
          * selected before upload, this will show the error message as set in msgFilerequired.
          * @default false
          */
-        required?: boolean;
+        required?: boolean | undefined;
         /**
          * Whether to orient the widget in Right-To-Left (RTL) mode. To view RTL orientation you must set this to true and also must load the
          * css/fileinput-rtl.css file after the css/fileinput.css on your page for RTL styling.
          * @default false
          */
-        rtl?: boolean;
+        rtl?: boolean | undefined;
         /**
          * Whether to hide the preview content (image, pdf content, text content, etc.) within the thumbnail.
          * When set to true, only the file name and file size as defined in the thumbnail footer layout template will be displayed.
          * @default false
          */
-        hideThumbnailContent?: boolean;
+        hideThumbnailContent?: boolean | undefined;
         /**
          * Whether to encode all the URLs before triggering the ajax calls.
          * The following URLs are currently set and used within the plugin:
@@ -149,74 +149,74 @@ declare namespace BootstrapFileInput {
          *     * testUrl within resumableUploadOptions
          * @default true
          */
-        encodeUrl?: boolean;
+        encodeUrl?: boolean | undefined;
         /**
          * Whether to focus the file caption after browsing and selecting a file.
          * @default true
          */
-        focusCaptionOnBrowse?: boolean;
+        focusCaptionOnBrowse?: boolean | undefined;
         /**
          * Whether to focus the file caption after clearing / removing the files (using the remove button for example).
          * @default true
          */
-        focusCaptionOnClear?: boolean;
+        focusCaptionOnClear?: boolean | undefined;
         /**
          * Whether to display the file caption.
          * @default true
          */
-        showCaption?: boolean;
+        showCaption?: boolean | undefined;
         /**
          * Whether to display the file preview.
          * @default true
          */
-        showPreview?: boolean;
+        showPreview?: boolean | undefined;
         /**
          * Whether to display the file remove/clear button.
          * @default true
          */
-        showRemove?: boolean;
+        showRemove?: boolean | undefined;
         /**
          * Whether to display the file upload button.
          * @default true
          * This will default to a form submit button, unless the uploadUrl is specified.
          */
-        showUpload?: boolean;
+        showUpload?: boolean | undefined;
         /**
          * Whether to display the file upload cancel button.
          * @default true
          * This will be only enabled and displayed when an AJAX upload is in process.
          */
-        showCancel?: boolean;
+        showCancel?: boolean | undefined;
         /**
          * Whether to display the close icon in the preview.
          * @default true
          * This will be only parsed when showPreview is true or when you are using the {close} tag in your preview templates.
          */
-        showClose?: boolean;
+        showClose?: boolean | undefined;
         /**
          * Whether to persist display of the uploaded file thumbnails in the preview window (for ajax uploads) until the remove/clear button is pressed.
          * @default true
          * When set to false, a next batch of files selected for upload will clear these thumbnails from preview.
          */
-        showUploadedThumbs?: boolean;
+        showUploadedThumbs?: boolean | undefined;
         /**
          * Whether to automatically replace the files in the preview after the maxFileCount limit is reached and a new set of file(s) is/are selected.
          * This will only work if a valid maxFileCount is set.
          * @default false
          */
-        autoReplace?: boolean;
+        autoReplace?: boolean | undefined;
         /**
          * Any additional CSS class to append to the caption container.
          */
-        captionClass?: string;
+        captionClass?: string | undefined;
         /**
          * Any additional CSS class to append to the preview container.
          */
-        previewClass?: string;
+        previewClass?: string | undefined;
         /**
          * Any additional CSS class to append to the main plugin container.
          */
-        mainClass?: string;
+        mainClass?: string | undefined;
         /**
          * The initial preview content to be displayed.
          * You can pass the minimal HTML markup for displaying your image, text, or file.
@@ -228,38 +228,38 @@ declare namespace BootstrapFileInput {
          * text files: Include CSS class file-preview-text
          * other files: Include CSS class file-preview-other
          */
-        initialPreview?: string | any[];
+        initialPreview?: string | any[] | undefined;
         /**
          * the count of initial preview items that will be added to the count of files selected in preview.
          * This is applicable when displaying the right caption, when overwriteInitial is set to false.
          */
-        initialPreviewCount?: number;
+        initialPreviewCount?: number | undefined;
         /**
          * the delimiter to be used for splitting the initial preview content as individual file thumbnails (applicable only if initialPreview is passed as a string instead of array).
          * Defaults to *$$*.
          */
-        initialPreviewDelimiter?: string;
+        initialPreviewDelimiter?: string | undefined;
         /**
          * the configuration for setting up important properties for each initialPreview item (that is setup as part of initialPreview).
          */
-        initialPreviewConfig?: PreviewConfig[];
+        initialPreviewConfig?: PreviewConfig[] | undefined;
         /**
          * whether the delete button will be displayed for each thumbnail that has been created with initialPreview.
          */
-        initialPreviewShowDelete?: boolean;
+        initialPreviewShowDelete?: boolean | undefined;
         /**
          * whether the file thumbnail should be removed from preview on error. Defaults to false.
          */
-        removeFromPreviewOnError?: boolean;
+        removeFromPreviewOnError?: boolean | undefined;
         /**
          * this will be a list of tags used in thumbnail templates that will be replaced dynamically within the thumbnail markup, when the thumbnail is rendered.
          */
-        previewThumbTags?: { [key: string]: string };
+        previewThumbTags?: { [key: string]: string } | undefined;
         /**
          * this is an extension of previewThumbTags specifically for initial preview content - but will be configured as an array of objects corresponding to each initial preview thumbnail.
          * The initial preview thumbnails set via initialPreview will read this configuration for replacing tags.
          */
-        initialPreviewThumbTags?: { [key: string]: string };
+        initialPreviewThumbTags?: { [key: string]: string } | undefined;
         /**
          * the extra data that will be passed as data to the initial preview delete url/AJAX server call via POST.
          * This will be overridden by the initialPreviewConfig['extra'] property.
@@ -270,7 +270,7 @@ declare namespace BootstrapFileInput {
          *     key: the key setting as setup in initialPreviewConfig['key']
          *     any other extra data passed as key: value pairs either via initialPreviewConfig['extra'] OR deleteExtraData if former is not set.
          */
-        deleteExtraData?: {} | { (): {} };
+        deleteExtraData?: {} | { (): {} } | undefined;
         /**
          * the URL for deleting the image/content in the initial preview via AJAX post response. This will be overridden by the initialPreviewConfig['url'] property.
          * Note
@@ -280,27 +280,27 @@ declare namespace BootstrapFileInput {
          * You can also set deleteUrl as a function callback which will return a string. In that case, the function will get executed every time at runtime.
          * This will enable you to set a dynamically changing url based on runtime conditions.
          */
-        deleteUrl?: string | (() => string);
+        deleteUrl?: string | (() => string) | undefined;
         /**
          * the initial preview caption text to be displayed.
          * If you do not set a value here and initialPreview is set to true this will default to "{preview-file-count} files selected",
          * where {preview-file-count} is the count of the files passed in initialPreview.
          */
-        initialCaption?: string;
+        initialCaption?: string | undefined;
         /**
          * whether you wish to overwrite the initial preview content and caption setup.
          * This defaults to true, whereby, any initialPreview content set will be overwritten, when new file is uploaded or when files are cleared.
          * Setting it to false will help displaying a saved image or file from database always - useful especially when using the multiple file upload feature.
          */
-        overwriteInitial?: boolean;
+        overwriteInitial?: boolean | undefined;
         /**
          * the templates configuration for rendering each part of the layout.
          */
-        layoutTemplates?: LayoutTemplates;
+        layoutTemplates?: LayoutTemplates | undefined;
         /**
          * the templates configuration for rendering each preview file type.
          */
-        previewTemplates?: PreviewTemplates;
+        previewTemplates?: PreviewTemplates | undefined;
         /**
          * the list of allowed file types for upload.
          * This by default is set to null which means the plugin supports all file types for upload.
@@ -309,7 +309,7 @@ declare namespace BootstrapFileInput {
          * You need to be careful in case you are setting both allowedFileTypes and allowedFileExtensions.
          * In this case, the allowedFileTypes property is validated first and generally precedes the allowedFileExtensions setting (and the latter validation maybe skipped).
          */
-        allowedFileTypes?: Array<'image' | 'html' | 'text' | 'video' | 'audio' | 'flash' | 'object'>;
+        allowedFileTypes?: Array<'image' | 'html' | 'text' | 'video' | 'audio' | 'flash' | 'object'> | undefined;
         /**
          * the list of allowed file extensions for upload.
          * This by default is set to null which means the plugin supports all file extensions for upload.
@@ -318,7 +318,7 @@ declare namespace BootstrapFileInput {
          * You need to be careful in case you are setting both allowedFileTypes and allowedFileExtensions.
          * In this case, the allowedFileTypes property is validated first and generally precedes the allowedFileExtensions setting (and the latter validation maybe skipped).
          */
-        allowedFileExtensions?: string[];
+        allowedFileExtensions?: string[] | undefined;
         /**
          * the list of allowed preview types for your widget.
          * This by default supports all file types for preview.
@@ -326,13 +326,13 @@ declare namespace BootstrapFileInput {
          * To disable this behavior, you can remove object from the list of allowedPreviewTypes OR fine tune it through allowedPreviewMimeTypes.
          * To disable content preview for all file-types and show the previewIcon instead as a thumbnail, set this to null, empty, or false.
          */
-        allowedPreviewTypes?: Array<'image' | 'html' | 'text' | 'video' | 'audio' | 'flash' | 'object'>;
+        allowedPreviewTypes?: Array<'image' | 'html' | 'text' | 'video' | 'audio' | 'flash' | 'object'> | undefined;
         /**
          * the list of allowed mime types for preview.
          * This is set to null by default which means all possible mime types are allowed.
          * This setting works in combination with allowedPreviewTypes to filter only the needed file types allowed for preview.
          */
-        allowedPreviewMimeTypes?: string[];
+        allowedPreviewMimeTypes?: string[] | undefined;
         /**
          * the default content / markup to show by default in the preview window whenever the files are cleared or the input is cleared.
          * This can be useful for use cases like showing the default user profile picture or profile image before upload to overwrite.
@@ -341,39 +341,39 @@ declare namespace BootstrapFileInput {
          * At other times when files have been selected this will be overwritten temporarily until file(s) selected is/are cleared.
          * This property can be useful to display for example a default user profile picture (or saved picture) in the preview window unless the user selects a picture.
          */
-        defaultPreviewContent?: string;
+        defaultPreviewContent?: string | undefined;
         /**
          * the list of additional custom tags that will be replaced in the layout templates.
          */
-        customLayoutTags?: {};
+        customLayoutTags?: {} | undefined;
         /**
          * the list of additional custom tags that will be replaced in the preview templates.
          */
-        customPreviewTags?: {};
+        customPreviewTags?: {} | undefined;
         /**
          * the format settings (width and height) for rendering each preview file type.
          */
-        previewSettings?: PreviewSettings;
+        previewSettings?: PreviewSettings | undefined;
         /**
          * the settings to validate and identify each file type when a file is selected for upload.
          * This is a list of callbacks, which accepts the file mime type and file name as a parameter.
          */
-        fileTypeSettings?: FileTypeSettings;
+        fileTypeSettings?: FileTypeSettings | undefined;
         /**
          * the icon to be shown in each preview file thumbnail when an unreadable file type for preview is detected. Defaults to <i class="glyphicon glyphicon-file"></i> &nbsp;.
          */
-        previewFileIcon?: string;
+        previewFileIcon?: string | undefined;
         /**
          * the CSS class to be applied to the preview file icon container. Defaults to file-icon-4x.
          */
-        previewFileIconClass?: string;
+        previewFileIconClass?: string | undefined;
         /**
          * the preview icon markup settings for each file extension (type).
          * You need to set this as key: value pairs, where the key corresponds to a file extension (e.g. doc, docx, xls etc.), and the value corresponds to the markup of the icon to be rendered.
          * If this is not set OR a file extension is not set here, the preview will default to previewFileIcon.
          * Note that displaying the icons instead of file content is controlled via allowedPreviewTypes and allowedPreviewMimeTypes
          */
-        previewFileIconSettings?: PreviewFileIconSettings;
+        previewFileIconSettings?: PreviewFileIconSettings | undefined;
         /**
          * the extensions to be auto derived for each file extension (type).
          * This is useful if you want to set the same icon for multiple file extension types.
@@ -382,57 +382,57 @@ declare namespace BootstrapFileInput {
          *     ext: string, the file extension (without the . [dot]) of the file currently selected in the preview.
          * You can configure the callback to match the set of file extensions (via regex or similar) for each `key` and return a boolean output if the file extension matches.
          */
-        previewFileExtSettings?: PreviewFileExtSettings;
+        previewFileExtSettings?: PreviewFileExtSettings | undefined;
         /**
          * the CSS class for the each of the button labels for browse, remove, upload, and cancel.
          * Defaults to hidden-xs, which automatically hides the button labels for small screen devices and renders as smaller iconic buttons to fit to the screen.
          */
-        buttonLabelClass?: string;
+        buttonLabelClass?: string | undefined;
         /**
          * the label to display for the file picker/browse button. Defaults to Browse ….
          */
-        browseLabel?: string;
+        browseLabel?: string | undefined;
         /**
          * the icon to display before the label for the file picker/browse button. Defaults to <i class="glyphicon glyphicon-folder-open"></i>&nbsp;.
          */
-        browseIcon?: string;
+        browseIcon?: string | undefined;
         /**
          * the CSS class for the file picker/browse button. Defaults to btn btn-primary.
          */
-        browseClass?: string;
+        browseClass?: string | undefined;
         /**
          * the label to display for the file remove button. Defaults to Remove.
          */
-        removeLabel?: string;
+        removeLabel?: string | undefined;
         /**
          * the icon to display before the label for the file picker/remove button. Defaults to <i class="glyphicon glyphicon-trash"></i> &nbsp;.
          */
-        removeIcon?: string;
+        removeIcon?: string | undefined;
         /**
          * the CSS class for the file remove button. Defaults to btn btn-default.
          */
-        removeClass?: string;
+        removeClass?: string | undefined;
         /**
          * the title to display on hover for the file remove button. Defaults to Clear selected files.
          */
-        removeTitle?: string;
+        removeTitle?: string | undefined;
         /**
          * the label to display for the file upload button. Defaults to Upload.
          */
-        uploadLabel?: string;
+        uploadLabel?: string | undefined;
         /**
          * the icon to display before the label for the file upload button. Defaults to <i class="glyphicon glyphicon-upload"></i> &nbsp;.
          */
-        uploadIcon?: string;
+        uploadIcon?: string | undefined;
         /**
          * the CSS class for the file upload button. Defaults to btn btn-default.
          */
-        uploadClass?: string;
+        uploadClass?: string | undefined;
         /**
          * the title to display on hover for the file remove button.
          * Defaults to Upload selected files.
          */
-        uploadTitle?: string;
+        uploadTitle?: string | undefined;
         /**
          * the URL for the upload processing action (typically for ajax based processing).
          * Defaults to null.
@@ -444,7 +444,7 @@ declare namespace BootstrapFileInput {
          * You can also set uploadUrl as a function callback which will return a string. In that case, the function will get executed at runtime
          * just before every ajax call. This will enable you to set a dynamic upload url based on runtime / dynamic conditions.
          */
-        uploadUrl?: string | (() => string);
+        uploadUrl?: string | (() => string) | undefined;
         /**
          * the URL for the ajax upload processing action applicable when each individual file thumbnail is separately uploaded. Defaults to null.
          * If this is not set, this will default to the uploadUrl setting. This property is useful for synchronous uploads when uploadAsync is
@@ -453,12 +453,12 @@ declare namespace BootstrapFileInput {
          * You can also set uploadThumbUrl as a function callback which will return a string. In that case, the function will get executed at
          * runtime just before every ajax call. This will enable you to set a dynamic upload thumbnail url based on runtime / dynamic conditions.
          */
-        uploadUrlThumb?: string | (() => string);
+        uploadUrlThumb?: string | (() => string) | undefined;
         /**
          * whether the batch upload of multiple files will be asynchronous/in parallel.
          * @default true
          */
-        uploadAsync?: boolean;
+        uploadAsync?: boolean | undefined;
         /**
          * the extra data that will be passed as data to the url/AJAX server call via POST.
          * This property is only applicable for ajax uploads and when you have set a value for uploadUrl.
@@ -469,24 +469,24 @@ declare namespace BootstrapFileInput {
          *     previewId: the identifier for the preview file container (only available when uploading each thumbnail file)
          *     index: the zero-based sequential index of the loaded file in the preview list (only available when uploading each thumbnail file)
          */
-        uploadExtraData?: {} | ((previewId?: string, index?: number) => {});
+        uploadExtraData?: {} | ((previewId?: string, index?: number) => {}) | undefined;
         /**
          * the minimum allowed image height in px if you are uploading image files.
          * Defaults to null which means no limit on image height.
          */
-        minImageHeight?: number;
+        minImageHeight?: number | undefined;
         /**
          * the maximum allowed image width in px if you are uploading image files.
          * Defaults to null which means no limit on image width.
          * Note that if you set resizeImage property to true, then the entire image will be resized within this width (depending on resizePreference).
          */
-        maxImageWidth?: number;
+        maxImageWidth?: number | undefined;
         /**
          * the maximum allowed image height in px if you are uploading image files.
          * Defaults to null which means no limit on image height.
          * Note that if you set resizeImage property to true, then the entire image will be resized within this height (depending on resizePreference).
          */
-        maxImageHeight?: number;
+        maxImageHeight?: number | undefined;
         /**
          * whether to add ability to resize uploaded images. Defaults to false.
          * Note that resizing images requires HTML5 canvas support which is supported on most modern browsers.
@@ -495,7 +495,7 @@ declare namespace BootstrapFileInput {
          * The JavaScript-Canvas-to-Blob source files are available in js/plugins folder of bootstrap-fileinput project page.
          * The canvas-to-blob.js plugin is a polyfill for canvas.toBlob method and is needed for allowing the resized image files via HTML5 canvas to be returned as a blob
          */
-        resizeImage?: boolean;
+        resizeImage?: boolean | undefined;
         /**
          * preference to resize the image based on width or height.
          * Defaults to width.
@@ -506,62 +506,62 @@ declare namespace BootstrapFileInput {
          * This will behave conversely, when resizePreference is set to height - the maxImageHeight will be first tested against image height
          * and then the rest of steps will be similarly parsed with preference given to height instead of width as before.
          */
-        resizePreference?: 'width' | 'height';
+        resizePreference?: 'width' | 'height' | undefined;
         /**
          * the quality of the resized image. This must be a decimal number between 0.00 to 1.00.
          * Defaults to 0.92.
          */
-        resizeImageQuality?: number;
+        resizeImageQuality?: number | undefined;
         /**
          * the default image mime type of the converted image after resize.
          * Defaults to image/jpeg.
          */
-        resizeDefaultImageType?: string;
+        resizeDefaultImageType?: string | undefined;
         /**
          * the maximum file size for upload in KB.
          * If set to 0, it means size allowed is unlimited.
          * Defaults to 0.
          */
-        maxFileSize?: number;
+        maxFileSize?: number | undefined;
         /**
          * the minimum number of files allowed for each multiple upload.
          * If set to 0, it means number of files are optional.
          * Defaults to 0.
          */
-        minFileCount?: number;
+        minFileCount?: number | undefined;
         /**
          * the maximum number of files allowed for each multiple upload.
          * If set to 0, it means number of files allowed is unlimited.
          * Defaults to 0.
          */
-        maxFileCount?: number;
+        maxFileCount?: number | undefined;
         /**
          * whether to include initial preview file count (server uploaded files) in validating minFileCount and maxFileCount.
          * @default false
          */
-        validateInitialCount?: boolean;
+        validateInitialCount?: boolean | undefined;
         /**
          * the message that will be displayed when ZERO files are found.
          * Defaults to No.
          */
-        msgNo?: string;
+        msgNo?: string | undefined;
         /**
          * the message that will be displayed within the progress bar when file upload is aborted or cancelled.
          * Defaults to Cancelled.
          */
-        msgCancelled?: string;
+        msgCancelled?: string | undefined;
         /**
          * the title displayed (before the file name) on hover of the zoom button for zooming the file content in a modal window.
          * This is currently applicable only for text file previews.
          * Defaults to View details.
          */
-        msgZoomTitle?: string;
+        msgZoomTitle?: string | undefined;
         /**
          * the heading of the modal dialog that displays the zoomed file content.
          * This is currently applicable only for text file previews.
          * Defaults to Detailed Preview.
          */
-        msgZoomModalHeading?: string;
+        msgZoomModalHeading?: string | undefined;
         /**
          * the message to be displayed when the file size exceeds maximum size.
          * Defaults to:
@@ -571,7 +571,7 @@ declare namespace BootstrapFileInput {
          *     {size}: will be replaced by the uploaded file size
          *     {maxSize}: will be replaced by the maxFileSize parameter.
          */
-        msgSizeTooLarge?: string;
+        msgSizeTooLarge?: string | undefined;
         /**
          * message to be displayed when the file count is less than the minimum count as set in minFileCount.
          * Defaults to:
@@ -580,7 +580,7 @@ declare namespace BootstrapFileInput {
          *     {n}: will be replaced by the allowed minimum files as set in minFileCount.
          *     {files}: will be replaced with fileSingle or filePlural properties in locale file depending on the minFileCount.
          */
-        msgFilesTooLess?: string;
+        msgFilesTooLess?: string | undefined;
         /**
          * the message to be displayed when the file count exceeds maximum count as set in maxFileCount.
          * Defaults to:
@@ -589,7 +589,7 @@ declare namespace BootstrapFileInput {
          *     {n}: will be replaced by number of files selected for upload
          *     {m}: will be replaced by the allowed maximum files as set in maxFileCount
          */
-        msgFilesTooMany?: string;
+        msgFilesTooMany?: string | undefined;
         /**
          * the exception message to be displayed when the file selected is not found by the FileReader.
          * Defaults to:
@@ -597,7 +597,7 @@ declare namespace BootstrapFileInput {
          * where:
          *     {name}: will be replaced by the file name being uploaded
          */
-        msgFileNotFound?: string;
+        msgFileNotFound?: string | undefined;
         /**
          * the exception message to be displayed when the file selected is not allowed to be accessed due to a security exception.
          * Defaults to:
@@ -605,7 +605,7 @@ declare namespace BootstrapFileInput {
          * where:
          *     {name}: will be replaced by the file name being uploaded
          */
-        msgFileSecured?: string;
+        msgFileSecured?: string | undefined;
         /**
          * the exception message to be displayed when the file selected is not readable by the FileReader API.
          * Defaults to:
@@ -613,7 +613,7 @@ declare namespace BootstrapFileInput {
          * where:
          *     {name}: will be replaced by the file name being uploaded
          */
-        msgFileNotReadable?: string;
+        msgFileNotReadable?: string | undefined;
         /**
          * the exception message to be displayed when the file preview upload is aborted.
          * Defaults to:
@@ -621,7 +621,7 @@ declare namespace BootstrapFileInput {
          * where:
          *     {name}: will be replaced by the file name being uploaded
          */
-        msgFilePreviewAborted?: string;
+        msgFilePreviewAborted?: string | undefined;
         /**
          * the exception message to be displayed for any other error when previewing the file.
          * Defaults to:
@@ -629,7 +629,7 @@ declare namespace BootstrapFileInput {
          * where:
          *     {name}: will be replaced by the file name being uploaded
          */
-        msgFilePreviewError?: string;
+        msgFilePreviewError?: string | undefined;
         /**
          * the message to be displayed when the file type is not in one of the file types set in allowedFileTypes.
          * Defaults to:
@@ -638,7 +638,7 @@ declare namespace BootstrapFileInput {
          *     {name}: will be replaced by the file name being uploaded
          *     {types}: will be replaced by the comma separated list of types defined in allowedFileTypes.
          */
-        msgInvalidFileType?: string;
+        msgInvalidFileType?: string | undefined;
         /**
          * the message to be displayed when the file type is not in one of the file extensions set in allowedFileExtensions.
          * Defaults to:
@@ -647,33 +647,33 @@ declare namespace BootstrapFileInput {
          *     {name}: will be replaced by the file name being uploaded
          *     {extensions}: will be replaced by the comma separated list of extensions defined in allowedFileExtensions.
          */
-        msgInvalidFileExtension?: string;
+        msgInvalidFileExtension?: string | undefined;
         /**
          * the message to be displayed when an ongoing ajax file upload is aborted by pressing the Cancel button.
          * Defaults to The file upload was aborted.
          * If this is set to null or empty, the internal ajax error message will be displayed - Defaults to File Upload Error.
          */
-        msgUploadAborted?: string;
+        msgUploadAborted?: string | undefined;
         /**
          * the exception message to be displayed within the caption container (instead of msgFilesSelected), when a validation error is encountered.
          * Defaults to File Upload Error.
          */
-        msgValidationError?: string;
+        msgValidationError?: string | undefined;
         /**
          * the css class for the validation error message displayed in the caption container.
          * Defaults to text-danger.
          */
-        msgValidationErrorClass?: string;
+        msgValidationErrorClass?: string | undefined;
         /**
          * the icon to be displayed before the validation error in the caption container.
          * Defaults to <i class="glyphicon glyphicon-exclamation-sign"></i>
          */
-        msgValidationErrorIcon?: string;
+        msgValidationErrorIcon?: string | undefined;
         /**
          * the css class for the error message to be displayed in the preview window when the file size exceeds maxSize.
          * Defaults to file-error-message.
          */
-        msgErrorClass?: string;
+        msgErrorClass?: string | undefined;
         /**
          * the message displayed when the files are getting read and loaded for preview.
          * Defaults to
@@ -682,7 +682,7 @@ declare namespace BootstrapFileInput {
          *     {index}: the sequence number of the current file being loaded.
          *     {files}: the total number of files selected for upload.
          */
-        msgLoading?: string;
+        msgLoading?: string | undefined;
         /**
          * the progress message displayed as each file is loaded for preview.
          * Defaults to:
@@ -693,7 +693,7 @@ declare namespace BootstrapFileInput {
          *     {percent}: the percentage of file read and loaded.
          *     {name}: the name of the current file being loaded.
          */
-        msgProgress?: string;
+        msgProgress?: string | undefined;
         /**
          * the progress message displayed in caption window when multiple (more than one) files are selected.
          * Defaults to:
@@ -701,7 +701,7 @@ declare namespace BootstrapFileInput {
          * The following variables will be replaced:
          *     {n}: the number of files selected.
          */
-        msgSelected?: string;
+        msgSelected?: string | undefined;
         /**
          * the message displayed when a folder has been dragged to the drop zone.
          * Defaults to:
@@ -709,7 +709,7 @@ declare namespace BootstrapFileInput {
          * The following variables will be replaced:
          *     {n}: the number of folders dropped.
          */
-        msgFoldersNotAllowed?: string;
+        msgFoldersNotAllowed?: string | undefined;
         /**
          * the exception message to be displayed when the file selected for preview is an image and its width is less than the minImageWidth setting.
          * Defaults to:
@@ -718,7 +718,7 @@ declare namespace BootstrapFileInput {
          *     {name}: will be replaced by the file name being uploaded.
          *     {size}: will be replaced by the minImageWidth setting.
          */
-        msgImageWidthSmall?: string;
+        msgImageWidthSmall?: string | undefined;
         /**
          * the exception message to be displayed when the file selected for preview is an image and its height is less than the minImageHeight setting.
          * Defaults to:
@@ -727,7 +727,7 @@ declare namespace BootstrapFileInput {
          *     {name}: will be replaced by the file name being uploaded.
          *     {size}: will be replaced by the minImageHeight setting.
          */
-        msgImageHeightSmall?: string;
+        msgImageHeightSmall?: string | undefined;
         /**
          * the exception message to be displayed when the file selected for preview is an image and its width exceeds the maxImageWidth setting.
          * Defaults to:
@@ -736,7 +736,7 @@ declare namespace BootstrapFileInput {
          *     {name}: will be replaced by the file name being uploaded.
          *     {size}: will be replaced by the maxImageWidth setting.
          */
-        msgImageWidthLarge?: string;
+        msgImageWidthLarge?: string | undefined;
         /**
          * the exception message to be displayed when the file selected for preview is an image and its height exceeds the maxImageHeight setting.
          * Defaults to:
@@ -745,22 +745,22 @@ declare namespace BootstrapFileInput {
          *     {name}: will be replaced by the file name being uploaded.
          *     {size}: will be replaced by the maxImageHeight setting.
          */
-        msgImageHeightLarge?: string;
+        msgImageHeightLarge?: string | undefined;
         /**
          * the upload progress bar CSS class to be applied when AJAX upload is in process (applicable only for ajax uploads).
          * Defaults to progress-bar progress-bar-success progress-bar-striped active.
          */
-        progressClass?: string;
+        progressClass?: string | undefined;
         /**
          * the upload progress bar CSS class to be applied when AJAX upload is in process (applicable only for ajax uploads).
          * Defaults to progress-bar progress-bar-success progress-bar-striped active.
          */
-        progressCompleteClass?: string;
+        progressCompleteClass?: string | undefined;
         /**
          * the upload progress bar CSS class to be applied when AJAX upload is cancelled or aborted.
          * Defaults to progress-bar progress-bar-danger.
          */
-        progressErrorClass?: string;
+        progressErrorClass?: string | undefined;
         /**
          * the type of files that are to be displayed in the preview window.
          * Defaults to image.
@@ -770,103 +770,103 @@ declare namespace BootstrapFileInput {
          *     any: Both image and text files content will be shown in preview.
          * Files other than image or text will be displayed as a thumbnail with the filename in the preview window.
          */
-        previewFileType?: 'image' | 'text' | 'any';
+        previewFileType?: 'image' | 'text' | 'any' | undefined;
         /**
          * the icon for zooming the file content in a new modal dialog.
          * This is currently applicable only for text file previews.
          * Defaults to <i class="glyphicon glyphicon-zoom-in"></i>
          */
-        zoomIndicator?: string;
+        zoomIndicator?: string | undefined;
         /**
          * the identifier for the container element displaying the error (e.g. '#id').
          * If not set, will default to the container with CSS class kv-fileinput-error inside the preview container (identified by elPreviewContainer).
          * The msgErrorClass will be automatically appended to this container before displaying the error.
          */
-        elErrorContainer?: string;
+        elErrorContainer?: string | undefined;
         /**
          * the identifier for the container element containing the caption (e.g. '#id').
          * If not set, will default to the container with CSS class file-caption inside the main plugin container.
          */
-        elCaptionContainer?: string;
+        elCaptionContainer?: string | undefined;
         /**
          * the identifier for the container element containing the caption text (e.g. '#id').
          * If not set, will default to the container with CSS class file-caption-name inside the main plugin container.
          */
-        elCaptionText?: string;
+        elCaptionText?: string | undefined;
         /**
          * the identifier for the container element containing the preview (e.g. '#id').
          * If not set, will default to the container with CSS class file-preview inside the main plugin container.
          */
-        elPreviewContainer?: string;
+        elPreviewContainer?: string | undefined;
         /**
          * the identifier for the element containing the preview image thumbnails (e.g. '#id').
          * If not set, will default to the container with CSS class file-preview-thumbnails inside the main plugin container.
          */
-        elPreviewImage?: string;
+        elPreviewImage?: string | undefined;
         /**
          * the identifier for the element containing the preview progress status (e.g. '#id').
          * If not set, will default to the container with CSS class file-preview-status inside the main plugin container.
          */
-        elPreviewStatus?: string;
+        elPreviewStatus?: string | undefined;
         /**
          * a callback to convert the filename as a slug string eliminating special characters.
          * If not set, it will use the plugin's own internal slugDefault method.
          * This callback function includes the filename as parameter and must return a converted filename string.
          */
-        slugCallback?: (filename: string) => string;
+        slugCallback?: ((filename: string) => string) | undefined;
         /**
          * whether to enable a drag and drop zone for dragging and dropping files to.
          * This is available only for ajax based uploads.
          * @default true
          */
-        dropZoneEnabled?: boolean;
+        dropZoneEnabled?: boolean | undefined;
         /**
          * title to be displayed in the drag and drop zone.
          * This is available only for ajax based uploads.
          * Defaults to:
          *     Drag & drop files here ….
          */
-        dropZoneTitle?: string;
+        dropZoneTitle?: string | undefined;
         /**
          * CSS class for the drag & drop zone title.
          * Defaults to file-drop-zone-title.
          */
-        dropZoneTitleClass?: string;
+        dropZoneTitleClass?: string | undefined;
         /**
          * configuration for setting up file actions for newly selected file thumbnails in the preview window.
          */
-        fileActionSettings?: FileActionSettings;
+        fileActionSettings?: FileActionSettings | undefined;
         /**
          * markup for additional action buttons to display within the initial preview thumbnails (for example displaying an image edit button).
          * The following tag can be used in the markup and will be automatically replaced:
          *     {dataKey}: Will be replaced with the key set within initialPreviewConfig.
          */
-        otherActionButtons?: string;
+        otherActionButtons?: string | undefined;
         /**
          * the encoding to be used while reading a text file.
          * Applicable only for previewing text files.
          * Defaults to UTF-8.
          */
-        textEncoding?: string;
+        textEncoding?: string | undefined;
         /**
          * additional ajax settings to pass to the plugin before submitting the ajax request for upload.
          * Applicable only for ajax uploads.
          * This can be useful to pass additional tokens to headers or one can use it for setting other ajax options for advanced cases.
          * Refer the jQuery ajax documentation for the various settings you can configure.
          */
-        ajaxSettings?: JQueryAjaxSettings;
+        ajaxSettings?: JQueryAjaxSettings | undefined;
         /**
          * additional ajax settings to pass to the plugin before submitting the delete ajax request in each initial preview thumbnail.
          * Applicable only for ajax uploads.
          * This can be useful to pass additional tokens to headers or one can use it for setting other ajax options for advanced cases.
          * Refer the jQuery ajax documentation for the various settings you can configure.
          */
-        ajaxDeleteSettings?: JQueryAjaxSettings;
+        ajaxDeleteSettings?: JQueryAjaxSettings | undefined;
         /**
          * whether to show details of the error stack from the server log when an error is encountered via ajax response.
          * @default true
          */
-        showAjaxErrorDetails?: boolean;
+        showAjaxErrorDetails?: boolean | undefined;
     }
 
     interface PreviewConfig {
@@ -920,7 +920,7 @@ declare namespace BootstrapFileInput {
          *     {cancel}: the file upload cancel button that will be displayed when AJAX upload is in process to abort the AJAX upload.
          *     {browse}: the main file browse button to select your files for input.
          */
-        main1?: string;
+        main1?: string | undefined;
         /**
          * the template for rendering the widget without caption.
          * The following tags will be parsed and replaced automatically:
@@ -933,48 +933,48 @@ declare namespace BootstrapFileInput {
          *     {cancel}: the file upload cancel button that will be displayed when AJAX upload is in process to abort the AJAX upload.
          *     {browse}: the main file browse button to select your files for input.
          */
-        main2?: string;
+        main2?: string | undefined;
         /**
          * the template for rendering the preview.
          * The following tags will be parsed and replaced automatically:
          *     {class}: the CSS class as set in the previewClass property.
          */
-        preview?: string;
+        preview?: string | undefined;
         /**
          * the icon to render before the caption text.
          */
-        icon?: string;
+        icon?: string | undefined;
         /**
          * the template for rendering the caption.
          * The following tags will be parsed and replaced automatically:
          *     {class}: the CSS class as set in the captionClass property.
          */
-        caption?: string;
+        caption?: string | undefined;
         /**
          * the template for rendering the modal (for text file preview zooming).
          */
-        modal?: string;
+        modal?: string | undefined;
         /**
          * the template for the progress bar when upload is in progress (for batch/mass uploads and within each preview thumbnail for async/single uploads).
          * The upload progress bar when displayed within each thumbnail will be wrapped inside a container having a CSS class of `file-thumb-progress`.
          * The following tags will be parsed and replaced automatically:
          *     {percent}: will be replaced with the upload progress percentage.
          */
-        progress?: string;
+        progress?: string | undefined;
         /**
          * the template for the footer section of each file preview thumbnail.
          * The following tags will be parsed and replaced automatically:
          *     {actions}: will be replaced with the output of the actions template.
          *     {class}: the CSS class as set in the progressClass or progressCompleteClass property (depending on the progress percentage).
          */
-        footer?: string;
+        footer?: string | undefined;
         /**
          * the template for the file action buttons to be displayed within the thumbnail footer.
          * The following tags will be parsed and replaced automatically:
          *     {upload}: will be replaced with the output of the actionUpload template.
          *     {delete}: will be replaced with the output of the actionDelete template.
          */
-        actions?: string;
+        actions?: string | undefined;
         /**
          * the template for the file delete action button within the thumbnail footer.
          * The following tags will be parsed and replaced automatically:
@@ -984,7 +984,7 @@ declare namespace BootstrapFileInput {
          *     {dataUrl}: the URL for deleting the file thumbnail for initialPreview content only. Will be replaced with the url set within initialPreviewConfig.
          *     {dataKey}: the key (additional data) that will be passed to the URL above via POST to the AJAX call. Will be replaced with the key set within initialPreviewConfig.
          */
-        actionDelete?: string;
+        actionDelete?: string | undefined;
         /**
          * the template for the file upload action button within the thumbnail footer.
          * The following tags will be parsed and replaced automatically:
@@ -992,7 +992,7 @@ declare namespace BootstrapFileInput {
          *     {uploadIcon}: the icon for the upload button. Will be replaced with the uploadIcon set within fileActionSettings.
          *     {uploadTitle}: the title to display on hover for the upload button. Will be replaced with the uploadTitle set within fileActionSettings.
          */
-        actionUpload?: string;
+        actionUpload?: string | undefined;
         /**
          * The template for upload, remove, and cancel buttons.
          * The following tags will be parsed and replaced automatically:
@@ -1003,7 +1003,7 @@ declare namespace BootstrapFileInput {
          *     {icon}: the button icon as identified by uploadIcon or removeIcon or cancelIcon.
          *     {label}: the button label as identified by uploadLabel or removeLabel or cancelLabel.
          */
-        btnDefault?: string;
+        btnDefault?: string | undefined;
         /**
          * The template for upload button when used with ajax (i.e. when uploadUrl is set).
          * The following tags will be parsed and replaced automatically:
@@ -1015,7 +1015,7 @@ declare namespace BootstrapFileInput {
          *     {label}: the button label as identified by uploadLabel.
          *     {href}: applicable only for Upload button for ajax uploads and will be replaced with the uploadUrl property.
          */
-        btnLink?: string;
+        btnLink?: string | undefined;
         /**
          * The template for the browse button.
          *     {type}: the HTML button type, defaults to button for most buttons and submit for form based uploads.
@@ -1025,7 +1025,7 @@ declare namespace BootstrapFileInput {
          *     {icon}: the button icon as identified by browseIcon.
          *     {label}: the button label as identified by browseLabel.
          */
-        btnBrowse?: string;
+        btnBrowse?: string | undefined;
     }
 
     interface PreviewTemplates {
@@ -1039,7 +1039,7 @@ declare namespace BootstrapFileInput {
          *     {caption}: will be replaced with the file name.
          *     {type}: will be replaced with the file type.
          */
-        image?: string;
+        image?: string | undefined;
         /**
          * the preview template for text files.
          * The following tags will be parsed and replaced automatically:
@@ -1054,7 +1054,7 @@ declare namespace BootstrapFileInput {
          *     {zoomInd}: This will be replaced with the zoomIndicator property. This is the title that is displayed on hover of the zoom button (which on clicking will display the text file).
          *     {heading}: This represents the modal dialog heading title. This will be replaced with the msgZoomModalHeading property.
          */
-        text?: string;
+        text?: string | undefined;
         /**
          * the preview template for html files.
          * The following tags will be parsed and replaced automatically:
@@ -1065,7 +1065,7 @@ declare namespace BootstrapFileInput {
          *     {caption}: will be replaced with the file name.
          *     {type}: will be replaced with the file type.
          */
-        html?: string;
+        html?: string | undefined;
         /**
          * the preview template for video files (supported by HTML 5 video tag).
          * The following tags will be parsed and replaced automatically:
@@ -1076,7 +1076,7 @@ declare namespace BootstrapFileInput {
          *     {caption}: will be replaced with the file name.
          *     {type}: will be replaced with the file type.
          */
-        video?: string;
+        video?: string | undefined;
         /**
          * the preview template for audio files (supported by HTML 5 audio tag).
          * The following tags will be parsed and replaced automatically:
@@ -1087,7 +1087,7 @@ declare namespace BootstrapFileInput {
          *     {caption}: will be replaced with the file name.
          *     {type}: will be replaced with the file type.
          */
-        audio?: string;
+        audio?: string | undefined;
         /**
          * the preview template for flash files (supported currently on webkit browsers).
          * The following tags will be parsed and replaced automatically:
@@ -1098,7 +1098,7 @@ declare namespace BootstrapFileInput {
          *     {caption}: will be replaced with the file name.
          *     {type}: will be replaced with the file type.
          */
-        flash?: string;
+        flash?: string | undefined;
         /**
          * the preview template for all other files - by default treated as object. To disable this behavior, configure the allowedPreviewTypes property.
          * The following tags will be parsed and replaced automatically:
@@ -1109,24 +1109,24 @@ declare namespace BootstrapFileInput {
          *     {caption}: will be replaced with the file name.
          *     {type}: will be replaced with the file type.
          */
-        object?: string;
+        object?: string | undefined;
         /**
          * this template is used ONLY for rendering the initialPreview markup content passed directly as a raw format.
          * The following tags will be parsed and replaced automatically:
          *     {content}: will be replaced with the raw HTML markup as set in initialPreview..
          */
-        generic?: string;
+        generic?: string | undefined;
     }
 
     interface PreviewSettings {
-        image?: { width?: string; height?: string };
-        html?: { width?: string; height?: string };
-        text?: { width?: string; height?: string };
-        video?: { width?: string; height?: string };
-        audio?: { width?: string; height?: string };
-        flash?: { width?: string; height?: string };
-        object?: { width?: string; height?: string };
-        other?: { width?: string; height?: string };
+        image?: { width?: string | undefined; height?: string | undefined } | undefined;
+        html?: { width?: string | undefined; height?: string | undefined } | undefined;
+        text?: { width?: string | undefined; height?: string | undefined } | undefined;
+        video?: { width?: string | undefined; height?: string | undefined } | undefined;
+        audio?: { width?: string | undefined; height?: string | undefined } | undefined;
+        flash?: { width?: string | undefined; height?: string | undefined } | undefined;
+        object?: { width?: string | undefined; height?: string | undefined } | undefined;
+        other?: { width?: string | undefined; height?: string | undefined } | undefined;
     }
 
     interface FileTypeSettings {
@@ -1152,137 +1152,137 @@ declare namespace BootstrapFileInput {
         /**
          * icon for remove button to be displayed in each file thumbnail.
          */
-        removeIcon?: string;
+        removeIcon?: string | undefined;
         /**
          * CSS class for the remove button in each file thumbnail.
          */
-        removeClass?: string;
+        removeClass?: string | undefined;
         /**
          * title for remove button in each file thumbnail.
          */
-        removeTitle?: string;
+        removeTitle?: string | undefined;
         /**
          * whether to show the upload button in the thumbnail.
          * @default true // will be always false for resumable uploads
          */
-        showUpload?: boolean | (() => boolean);
+        showUpload?: boolean | (() => boolean) | undefined;
         /**
          * whether to show the download button in the thumbnail.
          * @default true
          */
-        showDownload?: boolean | (() => boolean);
+        showDownload?: boolean | (() => boolean) | undefined;
         /**
          * whether to show the remove button in the thumbnail.
          * @default true
          */
-        showRemove?: boolean | (() => boolean);
+        showRemove?: boolean | (() => boolean) | undefined;
         /**
          * whether to show the zoom button in the thumbnail.
          * @default true
          */
-        showZoom?: boolean | (() => boolean);
+        showZoom?: boolean | (() => boolean) | undefined;
         /**
          * whether to show the drag button in the thumbnail (applicable only for initial preview content)
          * @default true
          */
-        showDrag?: boolean | (() => boolean);
+        showDrag?: boolean | (() => boolean) | undefined;
         /**
          * icon for upload button to be displayed in each file thumbnail.
          */
-        uploadIcon?: string;
+        uploadIcon?: string | undefined;
         /**
          * CSS class for the remove button in each file thumbnail.
          */
-        uploadClass?: string;
+        uploadClass?: string | undefined;
         /**
          * title for remove button in each file thumbnail.
          */
-        uploadTitle?: string;
+        uploadTitle?: string | undefined;
         /**
          * title to be displayed for upload button after an upload error is encountered from the server to allow retry of the upload.
          * This will be rendered in such a case for the errored file thumbnail when retryErrorUploads is set to true.
          */
-        uploadRetryIcon?: string;
+        uploadRetryIcon?: string | undefined;
         /**
          * icon for download button to be displayed in each file thumbnail.
          */
-        downloadIcon?: string;
+        downloadIcon?: string | undefined;
         /**
          * CSS class for the download button in each file thumbnail.
          */
-        downloadClass?: string;
+        downloadClass?: string | undefined;
         /**
          * title for download button in each file thumbnail.
          */
-        downloadTitle?: string;
+        downloadTitle?: string | undefined;
         /**
          * icon for zoom button to be displayed in each file thumbnail (to zoom thumbnail content to a detailed modal preview).
          */
-        zoomIcon?: string;
+        zoomIcon?: string | undefined;
         /**
          * CSS class for the zoom button in each file thumbnail (to zoom thumbnail content to a detailed modal preview).
          */
-        zoomClass?: string;
+        zoomClass?: string | undefined;
         /**
          * title for zoom button in each file thumbnail (to zoom thumbnail content to a detailed modal preview).
          */
-        zoomTitle?: string;
+        zoomTitle?: string | undefined;
         /**
          * icon for drag button to be displayed in each file thumbnail (to sort / rearrange items in initial preview).
          */
-        dragIcon?: string;
+        dragIcon?: string | undefined;
         /**
          * CSS class for the drag button in each file thumbnail (to sort / rearrange items in initial preview).
          */
-        dragClass?: string;
+        dragClass?: string | undefined;
         /**
          * title for drag button in each file thumbnail (to sort / rearrange items in initial preview).
          */
-        dragTitle?: string;
+        dragTitle?: string | undefined;
         /**
          * the configuration for the Sortable plugin that will allow you to control the drag settings.
          */
-        dragSettings?: object;
+        dragSettings?: object | undefined;
         /**
          * an indicator (HTML markup) for new pending upload displayed in each file thumbnail.
          */
-        indicatorNew?: string;
+        indicatorNew?: string | undefined;
         /**
          * an indicator (HTML markup) for successful upload displayed in each file thumbnail.
          */
-        indicatorSuccess?: string;
+        indicatorSuccess?: string | undefined;
         /**
          * an indicator (HTML markup) for error in upload displayed in each file thumbnail.
          */
-        indicatorError?: string;
+        indicatorError?: string | undefined;
         /**
          * an indicator (HTML markup) for ongoing upload displayed in each file thumbnail.
          */
-        indicatorLoading?: string;
+        indicatorLoading?: string | undefined;
         /**
          * an indicator (HTML markup) for paused upload displayed in each file thumbnail (applicable for resumable uploads when enableResumableUpload property to true).
          */
-        indicatorPaused?: string;
+        indicatorPaused?: string | undefined;
         /**
          * title to display on hover of indicator for new pending upload in each file thumbnail.
          */
-        indicatorNewTitle?: string;
+        indicatorNewTitle?: string | undefined;
         /**
          * title to display on hover of indicator for successful in each file thumbnail.
          */
-        indicatorSuccessTitle?: string;
+        indicatorSuccessTitle?: string | undefined;
         /**
          * title to display on hover of indicator for error in upload in each file thumbnail.
          */
-        indicatorErrorTitle?: string;
+        indicatorErrorTitle?: string | undefined;
         /**
          * title to display on hover of indicator for ongoing upload in each file thumbnail.
          */
-        indicatorLoadingTitle?: string;
+        indicatorLoadingTitle?: string | undefined;
         /**
          * title to display on hover of indicator for paused upload in each file thumbnail (applicable for resumable uploads when enableResumableUpload property to true).
          */
-        indicatorPausedTitle?: string;
+        indicatorPausedTitle?: string | undefined;
     }
 
     interface FileStack {

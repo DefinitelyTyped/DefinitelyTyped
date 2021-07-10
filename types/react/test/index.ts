@@ -24,13 +24,13 @@ interface Console {
 
 interface Props {
     hello: string;
-    world?: string | null;
+    world?: string | null | undefined;
     foo: number;
 }
 
 interface State {
-    inputValue?: string | null;
-    seconds?: number;
+    inputValue?: string | null | undefined;
+    seconds?: number | undefined;
 }
 
 interface Snapshot {
@@ -38,7 +38,7 @@ interface Snapshot {
 }
 
 interface Context {
-    someValue?: string | null;
+    someValue?: string | null | undefined;
 }
 
 interface ChildContext {
@@ -202,7 +202,7 @@ class ModernComponentNoState extends React.Component<Props> { }
 class ModernComponentNoPropsAndState extends React.Component { }
 
 interface SCProps {
-    foo?: number;
+    foo?: number | undefined;
 }
 
 function FunctionComponent(props: SCProps) {
@@ -403,7 +403,7 @@ DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
 
 interface ForwardingRefComponentProps {
     hello: string;
-    world?: string | null;
+    world?: string | null | undefined;
     foo: number;
 }
 
@@ -422,12 +422,12 @@ ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
 // render function tests
 // need the explicit type declaration for typescript < 3.1
-const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} } = () => null;
+const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
 // $ExpectError
 React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
 
-const ForwardRefRenderFunctionWithDefaultProps: { (): null, defaultProps?: {} } = () => null;
+const ForwardRefRenderFunctionWithDefaultProps: { (): null, defaultProps?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
 // $ExpectError
 React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);
@@ -831,7 +831,7 @@ const formEvent: InputFormEvent = changeEvent;
     interface ComponentProps {
         prop1: string;
         prop2: string;
-        prop3?: string;
+        prop3?: string | undefined;
     }
     class ComponentWithDefaultProps extends React.Component<ComponentProps> {
         static defaultProps = {

@@ -16,7 +16,7 @@ export class Tag {
         tagger: Signature,
         message: string | undefined | null,
         force: number,
-        signingCallback: (data: string) => Promise<{code: Error.CODE, field?: string, signedData: string}> | {code: Error.CODE, field?: string, signedData: string}
+        signingCallback: (data: string) => Promise<{code: Error.CODE, field?: string | undefined, signedData: string}> | {code: Error.CODE, field?: string | undefined, signedData: string}
     ): Promise<Oid>;
     static delete(repo: Repository, tagName: string): Promise<number>;
     static list(repo: Repository): Promise<any[]>;

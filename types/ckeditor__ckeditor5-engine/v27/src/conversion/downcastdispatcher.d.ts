@@ -17,7 +17,7 @@ export interface DowncastConversionApi<T = any> {
     consumable: ModelConsumable;
     dispatcher: DowncastDispatcher;
     mapper: Mapper;
-    options?: T;
+    options?: T | undefined;
     schema: Schema;
     writer: DowncastWriter;
 }
@@ -49,7 +49,7 @@ export default class DowncastDispatcher<T = {}> implements Emitter {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;

@@ -11,7 +11,7 @@ interface Props {
     bool: boolean;
     element: ReactElement;
     func(foo: string): void;
-    node?: ReactNode;
+    node?: ReactNode | undefined;
     requiredNode: NonNullable<ReactNode>;
     number: number;
     object: object;
@@ -20,22 +20,22 @@ interface Props {
     instanceOf: TestClass;
     oneOf: 'a' | 'b' | 'c';
     oneOfType: string | boolean | {
-        foo?: string | null;
+        foo?: string | null | undefined;
         bar: number;
     };
     numberOrFalse: false | number;
-    nodeOrRenderFn?: ReactNode | (() => ReactNode);
+    nodeOrRenderFn?: ReactNode | (() => ReactNode) | undefined;
     arrayOf: boolean[];
     objectOf: { [K: string]: number };
     shape: {
         foo: string;
-        bar?: boolean | null;
+        bar?: boolean | null | undefined;
         baz?: any;
     };
-    optionalNumber?: number | null;
+    optionalNumber?: number | null | undefined;
     nullableNumber: number | null;
-    undefinableNumber?: number;
-    customProp?: typeof uniqueType;
+    undefinableNumber?: number | undefined;
+    customProp?: typeof uniqueType | undefined;
     component: PropTypes.ReactComponentLike;
 }
 
@@ -192,16 +192,16 @@ type UndefaultizedProps = Undefaultize<PropTypes.InferProps<typeof componentProp
 
 // $ExpectType true
 type DefaultizedPropsTest = {
-    fi?: (...args: any[]) => any;
-    foo?: string | null;
+    fi?: ((...args: any[]) => any) | undefined;
+    foo?: string | null | undefined;
     bar: number;
-    baz?: boolean | null;
-    bat?: ReactNode;
+    baz?: boolean | null | undefined;
+    bat?: ReactNode | undefined;
 } extends DefaultizedProps ? true : false;
 // $ExpectType true
 type UndefaultizedPropsTest = {
     fi: (...args: any[]) => any;
-    foo?: string | null;
+    foo?: string | null | undefined;
     bar: number;
     baz: boolean;
     bat: Exclude<ReactNode, undefined>;

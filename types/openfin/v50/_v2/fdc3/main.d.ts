@@ -64,7 +64,7 @@ export interface IntentResolution {
      * If the target application registered multiple listeners, this will be the first non-`undefined` value returned
      * by a listener.
      */
-    data?: unknown;
+    data?: unknown | undefined;
     /**
      * For future use. Right now always the string `'1.0.0'`.
      */

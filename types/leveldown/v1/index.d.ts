@@ -35,30 +35,30 @@ interface DelBatch {
 type Batch = PutBatch | DelBatch;
 
 interface OpenOptions {
-    createIfMissing?: boolean;
-    errorIfExists?: boolean;
-    compression?: boolean;
-    cacheSize?: number;
+    createIfMissing?: boolean | undefined;
+    errorIfExists?: boolean | undefined;
+    compression?: boolean | undefined;
+    cacheSize?: number | undefined;
 }
 
 interface OpenAdvancedOptions extends OpenOptions {
-    writeBufferSize?: number;
-    blockSize?: number;
-    maxOpenFiles?: number;
-    blockRestartInterval?: number;
-    maxFileSize?: number;
+    writeBufferSize?: number | undefined;
+    blockSize?: number | undefined;
+    maxOpenFiles?: number | undefined;
+    blockRestartInterval?: number | undefined;
+    maxFileSize?: number | undefined;
 }
 
 interface WriteOptions {
-    sync?: boolean;
+    sync?: boolean | undefined;
 }
 
 interface ReadOptions {
-    fillCache?: boolean;
+    fillCache?: boolean | undefined;
 }
 
 interface BufferReadOptions extends ReadOptions {
-    asBuffer?: true;
+    asBuffer?: true | undefined;
 }
 
 interface StringReadOptions extends ReadOptions {
@@ -66,24 +66,24 @@ interface StringReadOptions extends ReadOptions {
 }
 
 interface IteratorOptions {
-    gt?: Bytes;
-    lt?: Bytes;
-    gte?: Bytes;
-    lte?: Bytes;
-    reverse?: boolean;
-    keys?: boolean;
-    values?: boolean;
-    limit?: number;
-    fillCache?: boolean;
+    gt?: Bytes | undefined;
+    lt?: Bytes | undefined;
+    gte?: Bytes | undefined;
+    lte?: Bytes | undefined;
+    reverse?: boolean | undefined;
+    keys?: boolean | undefined;
+    values?: boolean | undefined;
+    limit?: number | undefined;
+    fillCache?: boolean | undefined;
 }
 
 interface KeyAsStringIteratorOptions extends IteratorOptions {
     keyAsBuffer: false;
-    valueAsBuffer?: true;
+    valueAsBuffer?: true | undefined;
 }
 
 interface ValueAsStringIteratorOptions extends IteratorOptions {
-    keyAsBuffer?: true;
+    keyAsBuffer?: true | undefined;
     valueAsBuffer: false;
 }
 
@@ -93,8 +93,8 @@ interface KeyAndValueAsStringIteratorOptions extends IteratorOptions {
 }
 
 interface KeyAndValueAsBufferIteratorOptions extends IteratorOptions {
-    keyAsBuffer?: true;
-    valueAsBuffer?: true;
+    keyAsBuffer?: true | undefined;
+    valueAsBuffer?: true | undefined;
 }
 
 interface Iterator {

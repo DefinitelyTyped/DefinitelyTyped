@@ -1,6 +1,8 @@
 import isObject = require('is-object');
 
-isObject({});
+const obj = {};
+if (isObject(obj)) isObject(obj['attr']);
+
 isObject(null);
 isObject(undefined);
 isObject(9);

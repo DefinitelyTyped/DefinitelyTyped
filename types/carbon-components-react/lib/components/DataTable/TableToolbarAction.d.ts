@@ -6,14 +6,14 @@ export interface TableToolbarActionAnchorProps extends
     Omit<OverflowMenuItemAnchorProps, "children" | "itemText">,
     RequiresChildrenProps
 {
-    itemText?: React.ReactNode,
+    itemText?: React.ReactNode | undefined,
 }
 
 export interface TableToolbarActionButtonProps extends
     Omit<OverflowMenuItemButtonProps, "children" | "itemText">,
     RequiresChildrenProps
 {
-    itemText?: React.ReactNode,
+    itemText?: React.ReactNode | undefined,
 }
 
 export type AllTableToolbarActionProps = TableToolbarActionAnchorProps | TableToolbarActionButtonProps;

@@ -37,7 +37,7 @@ declare namespace i18nextNodeFsBackEnd {
          * @summary custom parser
          * @type {function}
          */
-        parse?: (data: any) => any;
+        parse?: ((data: any) => any) | undefined;
     }
 
     /**
@@ -45,7 +45,7 @@ declare namespace i18nextNodeFsBackEnd {
      * @interface
      */
     interface I18nextOptions {
-        backend?: i18nextNodeFsBackEndOptions;
+        backend?: i18nextNodeFsBackEndOptions | undefined;
     }
 }
 

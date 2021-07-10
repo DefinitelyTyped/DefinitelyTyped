@@ -9,23 +9,23 @@ import { TextFieldProps } from "@material-ui/core";
 
 export interface MaterialUiPhoneNumberProps extends Omit<TextFieldProps, "onChange"> {
     ref?: any;
-    autoFormat?: boolean;
-    classes?: Record<string, any>;
-    countryCodeEditable?: boolean;
-    defaultCountry?: string;
-    disableAreaCodes?: boolean;
-    disableCountryCode?: boolean;
-    disableDropdown?: boolean;
-    dropdownClass?: string;
-    enableLongNumbers?: boolean;
-    excludeCountries?: string[];
-    inputClass?: string;
+    autoFormat?: boolean | undefined;
+    classes?: Record<string, any> | undefined;
+    countryCodeEditable?: boolean | undefined;
+    defaultCountry?: string | undefined;
+    disableAreaCodes?: boolean | undefined;
+    disableCountryCode?: boolean | undefined;
+    disableDropdown?: boolean | undefined;
+    dropdownClass?: string | undefined;
+    enableLongNumbers?: boolean | undefined;
+    excludeCountries?: string[] | undefined;
+    inputClass?: string | undefined;
     /**
      * @param value - Holds current value of `MuiPhoneInput`.
      */
-    onChange?: (value: any) => void;
-    onlyCountries?: string[];
-    preferredCountries?: string[];
+    onChange?: ((value: any) => void) | undefined;
+    onlyCountries?: string[] | undefined;
+    preferredCountries?: string[] | undefined;
 }
 
 declare class MaterialUiPhoneNumber extends React.Component<MaterialUiPhoneNumberProps> {}

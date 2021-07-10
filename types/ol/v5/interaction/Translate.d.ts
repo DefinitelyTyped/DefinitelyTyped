@@ -8,9 +8,9 @@ import { ObjectEvent } from '../Object';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    features?: Collection<Feature>;
-    layers?: Layer[] | ((p0: Layer) => boolean);
-    hitTolerance?: number;
+    features?: Collection<Feature> | undefined;
+    layers?: Layer[] | ((p0: Layer) => boolean) | undefined;
+    hitTolerance?: number | undefined;
 }
 export default class Translate extends PointerInteraction {
     constructor(opt_options?: Options);

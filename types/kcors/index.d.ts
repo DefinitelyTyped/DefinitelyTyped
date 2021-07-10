@@ -11,12 +11,12 @@ export = cors;
 
 declare namespace cors {
     interface Options {
-        origin?: ((ctx: Koa.Context) => string) | string;
-        allowMethods?: string[] | string;
-        exposeHeaders?: string[] | string;
-        allowHeaders?: string[] | string;
-        maxAge?: number | string;
-        credentials?: boolean;
-        keepHeadersOnError?: boolean;
+        origin?: ((ctx: Koa.Context) => string) | string | undefined;
+        allowMethods?: string[] | string | undefined;
+        exposeHeaders?: string[] | string | undefined;
+        allowHeaders?: string[] | string | undefined;
+        maxAge?: number | string | undefined;
+        credentials?: boolean | undefined;
+        keepHeadersOnError?: boolean | undefined;
     }
 }

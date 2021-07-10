@@ -15,24 +15,24 @@ import MiniPass = require('minipass');
 
 export interface HeaderProperties {
     path: string;
-    mode?: number;
-    noProprietary?: boolean;
-    uid?: number;
-    gid?: number;
-    size?: number;
-    mtime?: number;
-    type?: string;
-    uname?: string;
-    gname?: string;
-    devmaj?: number;
-    devmin?: number;
+    mode?: number | undefined;
+    noProprietary?: boolean | undefined;
+    uid?: number | undefined;
+    gid?: number | undefined;
+    size?: number | undefined;
+    mtime?: number | undefined;
+    type?: string | undefined;
+    uname?: string | undefined;
+    gname?: string | undefined;
+    devmaj?: number | undefined;
+    devmin?: number | undefined;
 }
 
 export interface ExtractOptions {
-    type?: string;
-    Directory?: boolean;
-    path?: string;
-    strip?: number;
+    type?: string | undefined;
+    Directory?: boolean | undefined;
+    path?: string | undefined;
+    strip?: number | undefined;
 }
 
 export interface ParseStream extends NodeJS.ReadWriteStream {
@@ -264,28 +264,28 @@ export interface CreateOptions {
     /**
      * Treat warnings as crash-worthy errors. Default false.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 
     /**
      * The current working directory for creating the archive. Defaults to process.cwd().
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Alias for cwd.
      */
-    C?: string;
+    C?: string | undefined;
 
     /**
      * Set to any truthy value to create a gzipped archive,
      * or an object with settings for zlib.Gzip()
      */
-    gzip?: boolean | zlib.ZlibOptions;
+    gzip?: boolean | zlib.ZlibOptions | undefined;
 
     /**
      * Alias for gzip.
      */
-    z?: boolean | zlib.ZlibOptions;
+    z?: boolean | zlib.ZlibOptions | undefined;
 
     /**
      * A function that gets called with (path, stat) for each entry being
@@ -298,55 +298,55 @@ export interface CreateOptions {
      * gname, dev, ino, and nlink. Note that mtime is still included,
      * because this is necessary other time-based operations.
      */
-    portable?: boolean;
+    portable?: boolean | undefined;
 
     /**
      * Allow absolute paths. By default, / is stripped from absolute paths.
      */
-    preservePaths?: boolean;
+    preservePaths?: boolean | undefined;
 
     /**
      * Alias for presevePaths.
      */
-    P?: boolean;
+    P?: boolean | undefined;
 
     /**
      * The mode to set on the created file archive.
      */
-    mode?: number;
+    mode?: number | undefined;
 
     /**
      * Do not recursively archive the contents of directories.
      */
-    noDirRecurse?: boolean;
+    noDirRecurse?: boolean | undefined;
 
     /**
      * Set to true to pack the targets of symbolic links. Without this
      * option, symbolic links are archived as such.
      */
-    follow?: boolean;
+    follow?: boolean | undefined;
 
     /**
      * Alias for follow.
      */
-    L?: boolean;
+    L?: boolean | undefined;
 
     /**
      * Alias for follow.
      */
-    h?: boolean;
+    h?: boolean | undefined;
 
     /**
      * Suppress pax extended headers. Note that this means that long paths and
      * linkpaths will be truncated, and large or negative numeric values
      * may be interpreted incorrectly.
      */
-    noPax?: boolean;
+    noPax?: boolean | undefined;
 
     /**
      * A path portion to prefix onto the entries in the archive.
      */
-    prefix?: string;
+    prefix?: string | undefined;
 }
 
 export interface ExtractOptions {
@@ -359,18 +359,18 @@ export interface ExtractOptions {
     /**
      * Treat warnings as crash-worthy errors. Default false.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 
     /**
      * Extract files relative to the specified directory. Defaults to
      * process.cwd(). If provided, this must exist and must be a directory.
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Alias for cwd.
      */
-    C?: string;
+    C?: string | undefined;
 
     /**
      * A function that gets called with (path, stat) for each entry being
@@ -382,33 +382,33 @@ export interface ExtractOptions {
      * Set to true to keep the existing file on disk if it's newer than
      * the file in the archive.
      */
-    newer?: boolean;
+    newer?: boolean | undefined;
 
     /**
      * Alias for newer.
      */
-    'keep-newer'?: boolean;
+    'keep-newer'?: boolean | undefined;
 
     /**
      * Alias for newer.
      */
-    'keep-newer-files'?: boolean;
+    'keep-newer-files'?: boolean | undefined;
 
     /**
      * Do not overwrite existing files. In particular, if a file appears more
      * than once in an archive, later copies will not overwrite earlier copies
      */
-    keep?: boolean;
+    keep?: boolean | undefined;
 
     /**
      * Alias for keep.
      */
-    k?: boolean;
+    k?: boolean | undefined;
 
     /**
      * Alias for keep.
      */
-    'keep-existing'?: boolean;
+    'keep-existing'?: boolean | undefined;
 
     /**
      * Unlink files before creating them. Without this option, tar overwrites
@@ -416,24 +416,24 @@ export interface ExtractOptions {
      * existing hardlinks will be broken, as will any symlink that would
      * affect the location of an extracted file.
      */
-    unlink?: boolean;
+    unlink?: boolean | undefined;
 
     /**
      * Remove the specified number of leading path elements. Pathnames with
      * fewer elements will be silently skipped. Note that the pathname
      * is edited after applying the filter, but before security checks.
      */
-    strip?: number;
+    strip?: number | undefined;
 
     /**
      * Alias for strip.
      */
-    'strip-components'?: number;
+    'strip-components'?: number | undefined;
 
     /**
      * Alias for strip.
      */
-    stripComponents?: number;
+    stripComponents?: number | undefined;
 
     /**
      * If true, tar will set the uid and gid of extracted entries to the uid
@@ -444,12 +444,12 @@ export interface ExtractOptions {
      * never unpacked in this implementation, and modes
      * are set by default already.
      */
-    preserveOwner?: boolean;
+    preserveOwner?: boolean | undefined;
 
     /**
      * Alias for preserveOwner.
      */
-    p?: boolean;
+    p?: boolean | undefined;
 
     /**
      * Set to a number to force ownership of all extracted files and folders,
@@ -457,7 +457,7 @@ export interface ExtractOptions {
      * user id, regardless of the uid field in the archive. Cannot be used
      * along with preserveOwner. Requires also setting a gid option.
      */
-    uid?: number;
+    uid?: number | undefined;
 
     /**
      * Set to a number to force ownership of all extracted files and folders,
@@ -465,15 +465,15 @@ export interface ExtractOptions {
      * group id, regardless of the gid field in the archive. Cannot be used
      * along with preserveOwner. Requires also setting a uid option
      */
-    gid?: number;
+    gid?: number | undefined;
 
     /**
      * Set to true to omit writing mtime value for extracted entries.
      * [Alias: m, no-mtime]
      */
-    noMtime?: boolean;
-    m?: boolean;
-    'no-mtime'?: boolean;
+    noMtime?: boolean | undefined;
+    m?: boolean | undefined;
+    'no-mtime'?: boolean | undefined;
 
     /**
      * Provide a function that takes an entry object, and returns a stream,
@@ -496,30 +496,30 @@ export interface ExtractOptions {
     /**
      * The maximum buffer size for fs.read() operations (in bytes). Defaults to 16 MB.
      */
-    maxReadSize?: number;
+    maxReadSize?: number | undefined;
 
     /**
      * The maximum size of meta entries that is supported. Defaults to 1 MB.
      */
-    maxMetaEntrySize?: number;
+    maxMetaEntrySize?: number | undefined;
 }
 
 export interface ListOptions {
     /**
      * Treat warnings as crash-worthy errors. Default false.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 
     /**
      * Extract files relative to the specified directory. Defaults to
      * process.cwd(). If provided, this must exist and must be a directory.
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Alias for cwd.
      */
-    C?: string;
+    C?: string | undefined;
 
     /**
      * A function that gets called with (path, stat) for each entry being
@@ -537,7 +537,7 @@ export interface ListOptions {
     /**
      * The maximum buffer size for fs.read() operations. Defaults to 16 MB.
      */
-    maxReadSize?: number;
+    maxReadSize?: number | undefined;
 
     /**
      * By default, entry streams are resumed immediately after the call to
@@ -545,7 +545,7 @@ export interface ListOptions {
      * opting into this, the stream will never complete until the entry
      * data is consumed.
      */
-    noResume?: boolean;
+    noResume?: boolean | undefined;
 }
 
 export interface ReplaceOptions {
@@ -558,7 +558,7 @@ export interface ReplaceOptions {
      * Act synchronously. If this is set, then any provided file will be
      * fully written after the call to tar.c.
      */
-    sync?: boolean;
+    sync?: boolean | undefined;
 
     /**
      * A function that will get called with (message, data)
@@ -569,29 +569,29 @@ export interface ReplaceOptions {
     /**
      * Treat warnings as crash-worthy errors. Default false.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 
     /**
      * Extract files relative to the specified directory. Defaults to
      * process.cwd(). If provided, this must exist and must be a directory.
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Alias for cwd.
      */
-    C?: string;
+    C?: string | undefined;
 
     /**
      * A path portion to prefix onto the entries in the archive.
      */
-    prefix?: string;
+    prefix?: string | undefined;
 
     /**
      * Set to any truthy value to create a gzipped archive,
      * or an object with settings for zlib.Gzip()
      */
-    gzip?: boolean | zlib.ZlibOptions;
+    gzip?: boolean | zlib.ZlibOptions | undefined;
 
     /**
      * A function that gets called with (path, stat) for each entry being
@@ -602,52 +602,52 @@ export interface ReplaceOptions {
     /**
      * Allow absolute paths. By default, / is stripped from absolute paths.
      */
-    preservePaths?: boolean;
+    preservePaths?: boolean | undefined;
 
     /**
      * The maximum buffer size for fs.read() operations. Defaults to 16 MB.
      */
-    maxReadSize?: number;
+    maxReadSize?: number | undefined;
 
     /**
      * Do not recursively archive the contents of directories.
      */
-    noDirRecurse?: boolean;
+    noDirRecurse?: boolean | undefined;
 
     /**
      * Set to true to pack the targets of symbolic links. Without this
      * option, symbolic links are archived as such.
      */
-    follow?: boolean;
+    follow?: boolean | undefined;
 
     /**
      * Alias for follow.
      */
-    L?: boolean;
+    L?: boolean | undefined;
 
     /**
      * Alias for follow.
      */
-    h?: boolean;
+    h?: boolean | undefined;
 
     /**
      * uppress pax extended headers. Note that this means that long paths and
      * linkpaths will be truncated, and large or negative numeric values
      * may be interpreted incorrectly.
      */
-    noPax?: boolean;
+    noPax?: boolean | undefined;
 }
 
 export interface FileOptions {
     /**
      * Uses the given file as the input or output of this function.
      */
-    file?: string;
+    file?: string | undefined;
 
     /**
      * Alias for file.
      */
-    f?: string;
+    f?: string | undefined;
 }
 
 /**

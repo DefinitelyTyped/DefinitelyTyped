@@ -5,10 +5,10 @@
 
 declare interface TrayballoonOptions {
     text:string
-    title?:string
-    icon?:string
-    timeout?:number
-    wait?:boolean
+    title?:string | undefined
+    icon?:string | undefined
+    timeout?:number | undefined
+    wait?:boolean | undefined
 }
 
 declare function trayballoonFn( opts:TrayballoonOptions, fn:Function ): void;

@@ -14,10 +14,10 @@ interface LockManagerSnapshot {
 }
 
 interface LockManagerRequestOptions {
-  mode?: 'exclusive' | 'shared';
-  ifAvailable?: boolean;
-  steal?: boolean;
-  signal?: AbortSignal;
+  mode?: 'exclusive' | 'shared' | undefined;
+  ifAvailable?: boolean | undefined;
+  steal?: boolean | undefined;
+  signal?: AbortSignal | undefined;
 }
 
 interface LockManager {

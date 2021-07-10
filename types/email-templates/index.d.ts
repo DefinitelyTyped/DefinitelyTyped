@@ -45,7 +45,7 @@ declare namespace Email {
         /**
          * a path to a directory for saving the generated email previews (defaults to os.tmpdir()
          */
-        dir?: string;
+        dir?: string | undefined;
 
         /**
          * https://github.com/sindresorhus/open
@@ -55,19 +55,19 @@ declare namespace Email {
         /**
          * a unique ID for the file name created for the preview in dir (defaults to uuid.v4() from uuid)
          */
-        id?: string;
+        id?: string | undefined;
 
         /**
          * a file path to a pug template file (defaults to preview-email's template.pug by default)
          */
-        template?: string;
+        template?: string | undefined;
     }
 
      interface ViewOptions {
         /**
          *  View extension. defaults to 'pug', and is the default file extension for templates
          */
-        extension?: string;
+        extension?: string | undefined;
 
         /**
          * a template file extension mapping, defaults to { hbs: 'handlebars', njk: 'nunjucks' }
@@ -85,9 +85,9 @@ declare namespace Email {
         /**
          * View root. Defaults to the current working directory's "emails" folder via path.resolve('emails')
          */
-        root?: string;
+        root?: string | undefined;
 
-        options?: ViewOptions;
+        options?: ViewOptions | undefined;
 
         /**
          * Default locals to pass to templates for rendering
@@ -97,38 +97,38 @@ declare namespace Email {
              * Whether or not to cache templates.
              * Defaults to false for development and test environments, and true for all others (via process.env.NODE_ENV)
              */
-            cache?: boolean;
+            cache?: boolean | undefined;
             /**
              * @deprecated
              * Adds whitespace to the resulting HTML to make it easier for a human to read using '  ' as indentation.
              * Defaults to true, but is automatically set to false for subject templates and text-based emails
              */
-            pretty?: boolean;
+            pretty?: boolean | undefined;
             [key: string]: any;
-        };
+        } | undefined;
     }
 
      interface EmailConfig<T = any> {
          /**
           * The message <Nodemailer.com/message/>
           */
-         message?: Mail.Options;
+         message?: Mail.Options | undefined;
          /**
           * The nodemailer Transport created via nodemailer.createTransport
           */
-         transport?: NodeMailerTransportOptions;
+         transport?: NodeMailerTransportOptions | undefined;
          /**
           * The email template directory and engine information
           */
-         views?: View;
+         views?: View | undefined;
          /**
           * Do you really want to send, false for test or development
           */
-         send?: boolean;
+         send?: boolean | undefined;
          /**
           * Preview the email
           */
-         preview?: boolean | PreviewEmailOpts;
+         preview?: boolean | PreviewEmailOpts | undefined;
          /**
           * Set to object to configure and Enable <https://github.com/ladjs/il8n>
           */
@@ -138,40 +138,40 @@ declare namespace Email {
           * and in that case it will be automatically set to true.
           * @default false
           */
-         customRender?: boolean;
+         customRender?: boolean | undefined;
          /**
           * Pass a custom render function if necessary
           */
-         render?: (view: string, locals?: T) => Promise<any>;
+         render?: ((view: string, locals?: T) => Promise<any>) | undefined;
          /**
           * force text-only rendering of template (disregards template folder)
           */
-         textOnly?: boolean;
+         textOnly?: boolean | undefined;
          /**
           * <Https://github.com/werk85/node-html-to-text>
           *
           * configuration object for html-to-text
           */
-         htmlToText?: HtmlToTextOptions | false;
+         htmlToText?: HtmlToTextOptions | false | undefined;
          /**
           * You can pass an option to prefix subject lines with a string
           * env === 'production' ? false : `[${env.toUpperCase()}] `; // <--- HERE
           */
-         subjectPrefix?: string | false;
+         subjectPrefix?: string | false | undefined;
          /**
           * <https://github.com/Automattic/juice>
           */
-         juice?: boolean;
-         juiceSettings?: JuiceGlobalConfig;
+         juice?: boolean | undefined;
+         juiceSettings?: JuiceGlobalConfig | undefined;
          /**
           * <https://github.com/Automattic/juice>
           */
-         juiceResources?: juice.Options;
+         juiceResources?: juice.Options | undefined;
          /**
           * a function that returns the path to a template file
           * @default (path: string, template: string) => string
           */
-         getPath?: (path: string, template: string, locals: any) => string;
+         getPath?: ((path: string, template: string, locals: any) => string) | undefined;
      }
 
      type JuiceGlobalConfig = Partial<{
@@ -189,17 +189,17 @@ declare namespace Email {
         /**
          * The template name
          */
-        template?: string;
+        template?: string | undefined;
         /**
          * Nodemailer Message <Nodemailer.com/message/>
          *
          * Overrides what is given for constructor
          */
-        message?: Mail.Options;
+        message?: Mail.Options | undefined;
         /**
          * The Template Variables
          */
-        locals?: T;
+        locals?: T | undefined;
     }
 
      interface EmailMessage {

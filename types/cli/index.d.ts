@@ -24,7 +24,7 @@ interface CLI {
     disable(...plugins: string[]): CLI;
     setArgv(argv: string | Array<any>, keepArg0?: boolean): void;
     next(): string;
-    parse(opts?: { [long: string]: { 0: string | boolean, 1: string, 2?: string, 3?: any } },
+    parse(opts?: { [long: string]: { 0: string | boolean, 1: string, 2?: string | undefined, 3?: any } },
         commands?: { [name: string]: string } | string[]): any;
     autocompleteCommand(command: string): string;
     info(msg: string): void;

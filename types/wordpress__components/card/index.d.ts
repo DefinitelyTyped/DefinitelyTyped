@@ -4,29 +4,29 @@ declare namespace Card {
         /**
          * `className` of the container.
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Renders a borderless card.
          */
-        isBorderless?: boolean;
+        isBorderless?: boolean | undefined;
 
         /**
          * Renders an elevated card.
          */
-        isElevated?: boolean;
+        isElevated?: boolean | undefined;
 
         /**
          * Determines the amount of padding within the card.
          *
          * @defaultValue "medium"
          */
-        size?: CardSize;
+        size?: CardSize | undefined;
 
         /**
          * Render as a different element type
          */
-        as?: T;
+        as?: T | undefined;
     } & JSX.IntrinsicElements[T];
 }
 

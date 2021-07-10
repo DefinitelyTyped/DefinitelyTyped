@@ -1,8 +1,8 @@
 import { CreateHistory, History } from "history";
 
 export interface MemoryHistoryOptions {
-    entries?: string | [string];
-    current?: string;
+    entries?: string | [string] | undefined;
+    current?: string | undefined;
 }
 
 export interface MemoryHistory {

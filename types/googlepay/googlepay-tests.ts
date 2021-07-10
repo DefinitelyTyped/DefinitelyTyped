@@ -104,9 +104,16 @@ function addGooglePayButton() {
 
     // $ExpectError
     buttonOptions.buttonType = 'xyz';
-    buttonOptions.buttonType = 'plain';
-    buttonOptions.buttonType = 'donate';
+    buttonOptions.buttonType = 'book';
     buttonOptions.buttonType = 'buy';
+    buttonOptions.buttonType = 'checkout';
+    buttonOptions.buttonType = 'donate';
+    buttonOptions.buttonType = 'order';
+    buttonOptions.buttonType = 'pay';
+    buttonOptions.buttonType = 'plain';
+    buttonOptions.buttonType = 'subscribe';
+    buttonOptions.buttonType = 'long';
+    buttonOptions.buttonType = 'short';
 
     buttonOptions.buttonSizeMode = undefined;
     buttonOptions.buttonSizeMode = 'fill';

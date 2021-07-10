@@ -7,13 +7,13 @@
 import * as React from 'react';
 
 export interface ScrollRotateProps {
-  target?: string;
-  throttle?: number;
-  from?: number;
-  to?: number;
-  method?: 'px' | 'prec';
-  loops?: number;
-  animationDuration?: number;
+  target?: string | undefined;
+  throttle?: number | undefined;
+  from?: number | undefined;
+  to?: number | undefined;
+  method?: 'px' | 'prec' | undefined;
+  loops?: number | undefined;
+  animationDuration?: number | undefined;
   children: React.ReactNode;
 }
 

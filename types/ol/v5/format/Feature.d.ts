@@ -6,15 +6,15 @@ import Projection from '../proj/Projection';
 import FormatType from './FormatType';
 
 export interface ReadOptions {
-    dataProjection?: ProjectionLike;
-    extent?: Extent;
-    featureProjection?: ProjectionLike;
+    dataProjection?: ProjectionLike | undefined;
+    extent?: Extent | undefined;
+    featureProjection?: ProjectionLike | undefined;
 }
 export interface WriteOptions {
-    dataProjection?: ProjectionLike;
-    featureProjection?: ProjectionLike;
-    rightHanded?: boolean;
-    decimals?: number;
+    dataProjection?: ProjectionLike | undefined;
+    featureProjection?: ProjectionLike | undefined;
+    rightHanded?: boolean | undefined;
+    decimals?: number | undefined;
 }
 export default class FeatureFormat {
     constructor();

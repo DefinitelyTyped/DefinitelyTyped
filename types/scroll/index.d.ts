@@ -10,12 +10,12 @@ interface ScrollOptions {
      * Ease function
      * @default easeInOut
      */
-    ease?: (time: number) => number;
+    ease?: ((time: number) => number) | undefined;
     /**
      * Animation duration
      * @default 350
      */
-    duration?: number;
+    duration?: number | undefined;
 }
 
 interface ScrollCallback {

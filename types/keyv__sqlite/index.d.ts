@@ -13,7 +13,7 @@ export = KeyvSqlite;
 
 declare class KeyvSqlite extends EventEmitter implements Store<string | undefined> {
     readonly ttlSupport: false;
-    namespace?: string;
+    namespace?: string | undefined;
 
     constructor(options?: KeyvSqlite.Options);
 
@@ -25,9 +25,9 @@ declare class KeyvSqlite extends EventEmitter implements Store<string | undefine
 
 declare namespace KeyvSqlite {
     interface Options {
-        uri?: string;
-        busyTimeout?: number;
-        table?: string;
-        keySize?: number;
+        uri?: string | undefined;
+        busyTimeout?: number | undefined;
+        table?: string | undefined;
+        keySize?: number | undefined;
     }
 }

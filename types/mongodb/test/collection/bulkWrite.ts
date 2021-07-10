@@ -18,10 +18,10 @@ async function run() {
         _id: ObjectID;
         stringField: string;
         numberField: number;
-        optionalNumberField?: number;
+        optionalNumberField?: number | undefined;
         dateField: Date;
         fruitTags: string[];
-        maybeFruitTags?: FruitTypes[];
+        maybeFruitTags?: FruitTypes[] | undefined;
         readonlyFruitTags: ReadonlyArray<string>;
         subInterfaceField: SubTestSchema;
         subInterfaceArray: SubTestSchema[];

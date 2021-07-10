@@ -16,14 +16,14 @@ declare namespace babelPluginMacros {
     }
 
     interface Options {
-        configName?: string;
+        configName?: string | undefined;
     }
 
     interface MacroParams {
         references: { default: Babel.NodePath[] } & References;
         state: Babel.PluginPass;
         babel: typeof Babel;
-        config?: { [key: string]: any };
+        config?: { [key: string]: any } | undefined;
     }
 
     type MacroHandler = (params: MacroParams) => void;

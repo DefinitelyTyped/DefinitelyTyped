@@ -10,19 +10,19 @@ declare module 'gulp-load-plugins' {
 
     interface IOptions {
         /** the glob(s) to search for, default ['gulp-*', 'gulp.*'] */
-        pattern?: string[];
+        pattern?: string[] | undefined;
         /** where to find the plugins, searched up from process.cwd(), default 'package.json' */
-        config?: string;
+        config?: string | undefined;
         /** which keys in the config to look within, default ['dependencies', 'devDependencies', 'peerDependencies'] */
-        scope?: string[];
+        scope?: string[] | undefined;
         /** what to remove from the name of the module when adding it to the context, default /^gulp(-|\.)/ */
-        replaceString?: RegExp;
+        replaceString?: RegExp | undefined;
         /** if true, transforms hyphenated plugin names to camel case, default true */
-        camelize?: boolean;
+        camelize?: boolean | undefined;
         /** whether the plugins should be lazy loaded on demand, default true */
-        lazy?: boolean;
+        lazy?: boolean | undefined;
         /** a mapping of plugins to rename, the key being the NPM name of the package, and the value being an alias you define */
-        rename?: IPluginNameMappings;
+        rename?: IPluginNameMappings | undefined;
     }
 
     interface IPluginNameMappings {

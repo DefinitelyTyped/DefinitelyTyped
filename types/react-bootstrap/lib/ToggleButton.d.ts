@@ -3,8 +3,8 @@ import { Button } from 'react-bootstrap';
 
 declare namespace ToggleButton {
     export interface ToggleButtonProps extends React.HTMLProps<ToggleButton> {
-        checked?: boolean;
-        name?: string;
+        checked?: boolean | undefined;
+        name?: string | undefined;
         value: number | string;
     }
 }

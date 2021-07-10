@@ -13,7 +13,7 @@ declare class CSSStyleValue {
 declare class CSSVariableReferenceValue {
     constructor(variable: string, fallback?: CSSUnparsedValue)
     variable: string;
-    readonly fallback?: CSSUnparsedValue;
+    readonly fallback?: CSSUnparsedValue | undefined;
 }
 
 type CSSUnparsedSegment = string | CSSVariableReferenceValue;

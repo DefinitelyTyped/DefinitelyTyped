@@ -8,7 +8,7 @@ import MediaFileReader from './MediaFileReader';
 
 export default class MediaTagReader {
     _mediaFileReader: MediaFileReader;
-    _tags?: string[];
+    _tags?: string[] | undefined;
 
     constructor(mediaFileReader: MediaFileReader);
 

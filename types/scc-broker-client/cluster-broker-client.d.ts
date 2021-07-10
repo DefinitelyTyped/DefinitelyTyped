@@ -10,7 +10,7 @@ declare class ClusterBrokerClient extends AsyncStreamEmitter<any> {
     broker: Broker;
     sccBrokerClientPools: ClientPool[];
     sccBrokerURIList: string[];
-    authKey?: Secret;
+    authKey?: Secret | undefined;
     mappingEngine: 'skeletonRendezvous' | 'simple' | MappingEngine;
     clientPoolSize: number;
     mapper: MappingEngine;

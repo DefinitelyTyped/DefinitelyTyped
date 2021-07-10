@@ -3,7 +3,7 @@
 // Definitions by: Hamed Fathi <https://github.com/HamedFathi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var zenScroll: ZenScroll.zenscroll;
+declare const zenScroll: ZenScroll.zenscroll;
 export = zenScroll;
 export as namespace zenScroll;
 
@@ -24,5 +24,11 @@ declare namespace ZenScroll {
         getY(): number;
         getTopOf(elem: HTMLElement): number;
         createScroller(scrollContainer: HTMLElement, defaultDuration?: number, edgeOffset?: number): zenscroll;
+    }
+}
+
+declare  global {
+    interface Window {
+        noZensmooth: boolean;
     }
 }

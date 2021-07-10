@@ -594,7 +594,7 @@ export interface Environment {
      */
     execute(config: {
         operation: OperationDescriptor;
-        updater?: SelectorStoreUpdater | null;
+        updater?: SelectorStoreUpdater | null | undefined;
     }): RelayObservable<GraphQLResponse>;
 
     /**
@@ -615,10 +615,10 @@ export interface Environment {
         uploadables,
     }: {
         operation: OperationDescriptor;
-        optimisticUpdater?: SelectorStoreUpdater | null;
-        optimisticResponse?: { [key: string]: any } | null;
-        updater?: SelectorStoreUpdater | null;
-        uploadables?: UploadableMap | null;
+        optimisticUpdater?: SelectorStoreUpdater | null | undefined;
+        optimisticResponse?: { [key: string]: any } | null | undefined;
+        updater?: SelectorStoreUpdater | null | undefined;
+        uploadables?: UploadableMap | null | undefined;
     }): RelayObservable<GraphQLResponse>;
 
     /**
@@ -687,7 +687,7 @@ export interface ModuleImportPointer {
 export type AsyncLoadCallback = (loadingState: LoadingState) => void;
 export interface LoadingState {
     status: 'aborted' | 'complete' | 'error' | 'missing';
-    error?: Error;
+    error?: Error | undefined;
 }
 
 /**

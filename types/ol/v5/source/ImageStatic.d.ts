@@ -9,12 +9,12 @@ import ImageSource from './Image';
 import { AttributionLike } from './Source';
 
 export interface Options {
-    attributions?: AttributionLike;
-    crossOrigin?: string;
-    imageExtent?: Extent;
-    imageLoadFunction?: LoadFunction;
-    projection?: ProjectionLike;
-    imageSize?: Size;
+    attributions?: AttributionLike | undefined;
+    crossOrigin?: string | undefined;
+    imageExtent?: Extent | undefined;
+    imageLoadFunction?: LoadFunction | undefined;
+    projection?: ProjectionLike | undefined;
+    imageSize?: Size | undefined;
     url: string;
 }
 export default class Static extends ImageSource {

@@ -12,7 +12,7 @@ declare function isTrademarked(
 
 declare namespace isTrademarked {
     interface Options {
-        token?: string;
+        token?: string | undefined;
     }
 
     interface TrademarkedData {

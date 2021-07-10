@@ -7,6 +7,7 @@
 //                 Christopher Quadflieg <https://github.com/Shinigami92>
 //                 Kevin Deisz <https://github.com/kddeisz>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
+//                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -17,7 +18,7 @@
 //
 // It comes from this issue: microsoft/TypeScript#29729:
 //   https://github.com/microsoft/TypeScript/issues/29729#issuecomment-700527227
-export type LiteralUnion<T extends U, U = string> = T | (Pick<U, never> & { _?: never });
+export type LiteralUnion<T extends U, U = string> = T | (Pick<U, never> & { _?: never | undefined });
 
 export type AST = any;
 export type Doc = doc.builders.Doc;
@@ -182,64 +183,64 @@ export interface ParserOptions<T = any> extends RequiredOptions {
 }
 
 export interface Plugin<T = any> {
-    languages?: SupportLanguage[];
-    parsers?: { [parserName: string]: Parser<T> };
-    printers?: { [astFormat: string]: Printer<T> };
-    options?: SupportOptions;
-    defaultOptions?: Partial<RequiredOptions>;
+    languages?: SupportLanguage[] | undefined;
+    parsers?: { [parserName: string]: Parser<T> } | undefined;
+    printers?: { [astFormat: string]: Printer<T> } | undefined;
+    options?: SupportOptions | undefined;
+    defaultOptions?: Partial<RequiredOptions> | undefined;
 }
 
 export interface Parser<T = any> {
     parse: (text: string, parsers: { [parserName: string]: Parser }, options: ParserOptions<T>) => T;
     astFormat: string;
-    hasPragma?: (text: string) => boolean;
+    hasPragma?: ((text: string) => boolean) | undefined;
     locStart: (node: T) => number;
     locEnd: (node: T) => number;
-    preprocess?: (text: string, options: ParserOptions<T>) => string;
+    preprocess?: ((text: string, options: ParserOptions<T>) => string) | undefined;
 }
 
 export interface Printer<T = any> {
     print(path: AstPath<T>, options: ParserOptions<T>, print: (path: AstPath<T>) => Doc): Doc;
-    embed?: (
+    embed?: ((
         path: AstPath<T>,
         print: (path: AstPath<T>) => Doc,
         textToDoc: (text: string, options: Options) => Doc,
         options: ParserOptions<T>,
-    ) => Doc | null;
-    insertPragma?: (text: string) => string;
+    ) => Doc | null) | undefined;
+    insertPragma?: ((text: string) => string) | undefined;
     /**
      * @returns `null` if you want to remove this node
      * @returns `void` if you want to use modified newNode
      * @returns anything if you want to replace the node with it
      */
-    massageAstNode?: (node: any, newNode: any, parent: any) => any;
-    hasPrettierIgnore?: (path: AstPath<T>) => boolean;
-    canAttachComment?: (node: T) => boolean;
-    willPrintOwnComments?: (path: AstPath<T>) => boolean;
-    printComment?: (commentPath: AstPath<T>, options: ParserOptions<T>) => Doc;
+    massageAstNode?: ((node: any, newNode: any, parent: any) => any) | undefined;
+    hasPrettierIgnore?: ((path: AstPath<T>) => boolean) | undefined;
+    canAttachComment?: ((node: T) => boolean) | undefined;
+    willPrintOwnComments?: ((path: AstPath<T>) => boolean) | undefined;
+    printComment?: ((commentPath: AstPath<T>, options: ParserOptions<T>) => Doc) | undefined;
     handleComments?: {
-        ownLine?: (
+        ownLine?: ((
             commentNode: any,
             text: string,
             options: ParserOptions<T>,
             ast: T,
             isLastComment: boolean,
-        ) => boolean;
-        endOfLine?: (
+        ) => boolean) | undefined;
+        endOfLine?: ((
             commentNode: any,
             text: string,
             options: ParserOptions<T>,
             ast: T,
             isLastComment: boolean,
-        ) => boolean;
-        remaining?: (
+        ) => boolean) | undefined;
+        remaining?: ((
             commentNode: any,
             text: string,
             options: ParserOptions<T>,
             ast: T,
             isLastComment: boolean,
-        ) => boolean;
-    };
+        ) => boolean) | undefined;
+    } | undefined;
 }
 
 export interface CursorOptions extends Options {
@@ -247,8 +248,8 @@ export interface CursorOptions extends Options {
      * Specify where the cursor is.
      */
     cursorOffset: number;
-    rangeStart?: never;
-    rangeEnd?: never;
+    rangeStart?: never | undefined;
+    rangeEnd?: never | undefined;
 }
 
 export interface CursorResult {
@@ -279,11 +280,11 @@ export interface ResolveConfigOptions {
     /**
      * If set to `false`, all caching will be bypassed.
      */
-    useCache?: boolean;
+    useCache?: boolean | undefined;
     /**
      * Pass directly the path of the config file if you don't wish to search for it.
      */
-    config?: string;
+    config?: string | undefined;
     /**
      * If set to `true` and an `.editorconfig` file is in your project,
      * Prettier will parse it and convert its properties to the corresponding prettier configuration.
@@ -293,7 +294,7 @@ export interface ResolveConfigOptions {
      * - indent_size/tab_width
      * - max_line_length
      */
-    editorconfig?: boolean;
+    editorconfig?: boolean | undefined;
 }
 
 /**
@@ -338,18 +339,18 @@ export function clearConfigCache(): void;
 
 export interface SupportLanguage {
     name: string;
-    since?: string;
+    since?: string | undefined;
     parsers: BuiltInParserName[] | string[];
-    group?: string;
-    tmScope?: string;
-    aceMode?: string;
-    codemirrorMode?: string;
-    codemirrorMimeType?: string;
-    aliases?: string[];
-    extensions?: string[];
-    filenames?: string[];
-    linguistLanguageId?: number;
-    vscodeLanguageIds?: string[];
+    group?: string | undefined;
+    tmScope?: string | undefined;
+    aceMode?: string | undefined;
+    codemirrorMode?: string | undefined;
+    codemirrorMimeType?: string | undefined;
+    aliases?: string[] | undefined;
+    extensions?: string[] | undefined;
+    filenames?: string[] | undefined;
+    linguistLanguageId?: number | undefined;
+    vscodeLanguageIds?: string[] | undefined;
 }
 
 export interface SupportOptionRange {
@@ -360,9 +361,14 @@ export interface SupportOptionRange {
 
 export type SupportOptionType = 'int' | 'boolean' | 'choice' | 'path';
 
+export type CoreCategoryType = 'Config' | 'Editor' | 'Format' | 'Other' | 'Output' | 'Global' | 'Special';
+
 export interface BaseSupportOption<Type extends SupportOptionType> {
-    readonly name?: string;
+    readonly name?: string | undefined;
     since: string;
+    /**
+     * Usually you can use {@link CoreCategoryType}
+     */
     category: string;
     /**
      * The type of the option.
@@ -378,54 +384,54 @@ export interface BaseSupportOption<Type extends SupportOptionType> {
      * Use a string to add an extra message to --help for the option,
      * for example to suggest a replacement option.
      */
-    deprecated?: true | string;
+    deprecated?: true | string | undefined;
     /**
      * Description to be displayed in --help. If omitted, the option won't be
      * shown at all in --help.
      */
-    description?: string;
+    description?: string | undefined;
 }
 
 export interface IntSupportOption extends BaseSupportOption<'int'> {
-    default: number;
-    array?: false;
-    range?: SupportOptionRange;
+    default?: number | undefined;
+    array?: false | undefined;
+    range?: SupportOptionRange | undefined;
 }
 
 export interface IntArraySupportOption extends BaseSupportOption<'int'> {
-    default: Array<{ value: number[] }>;
+    default?: Array<{ value: number[] }> | undefined;
     array: true;
 }
 
 export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
-    default: boolean;
-    array?: false;
+    default?: boolean | undefined;
+    array?: false | undefined;
     description: string;
-    oppositeDescription?: string;
+    oppositeDescription?: string | undefined;
 }
 
 export interface BooleanArraySupportOption extends BaseSupportOption<'boolean'> {
-    default: Array<{ value: boolean[] }>;
+    default?: Array<{ value: boolean[] }> | undefined;
     array: true;
 }
 
 export interface ChoiceSupportOption<Value = any> extends BaseSupportOption<'choice'> {
-    default: Value | Array<{ since: string; value: Value }>;
+    default?: Value | Array<{ since: string; value: Value }> | undefined;
     description: string;
     choices: Array<{
-        since?: string;
+        since?: string | undefined;
         value: Value;
         description: string;
     }>;
 }
 
 export interface PathSupportOption extends BaseSupportOption<'path'> {
-    default: string;
-    array?: false;
+    default?: string | undefined;
+    array?: false | undefined;
 }
 
 export interface PathArraySupportOption extends BaseSupportOption<'path'> {
-    default: Array<{ value: string[] }>;
+    default?: Array<{ value: string[] }> | undefined;
     array: true;
 }
 
@@ -446,10 +452,10 @@ export interface SupportInfo {
 }
 
 export interface FileInfoOptions {
-    ignorePath?: string;
-    withNodeModules?: boolean;
-    plugins?: string[];
-    resolveConfig?: boolean;
+    ignorePath?: string | undefined;
+    withNodeModules?: boolean | undefined;
+    plugins?: string[] | undefined;
+    resolveConfig?: boolean | undefined;
 }
 
 export interface FileInfoResult {
@@ -476,7 +482,7 @@ export const version: string;
 // https://github.com/prettier/prettier/blob/main/src/common/util-shared.js
 export namespace util {
     interface SkipOptions {
-        backwards?: boolean;
+        backwards?: boolean | undefined;
     }
 
     type Quote = "'" | '"';
@@ -587,9 +593,9 @@ export namespace doc {
 
         interface Line {
             type: 'line';
-            soft?: boolean;
-            hard?: boolean;
-            literal?: boolean;
+            soft?: boolean | undefined;
+            hard?: boolean | undefined;
+            literal?: boolean | undefined;
         }
 
         interface LineSuffix {
@@ -615,8 +621,8 @@ export namespace doc {
         }
 
         interface GroupOptions {
-            shouldBreak?: boolean;
-            id?: symbol;
+            shouldBreak?: boolean | undefined;
+            id?: symbol | undefined;
         }
 
         function addAlignmentToDoc(doc: Doc, size: number, tabWidth: number): Doc;
@@ -644,11 +650,11 @@ export namespace doc {
         /** @see [hardlineWithoutBreakParent](https://github.com/prettier/prettier/blob/main/commands.md#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) */
         const hardlineWithoutBreakParent: HardlineWithoutBreakParent;
         /** @see [ifBreak](https://github.com/prettier/prettier/blob/main/commands.md#ifbreak) */
-        function ifBreak(ifBreak: Doc, noBreak?: Doc, options?: { groupId?: symbol }): IfBreak;
+        function ifBreak(ifBreak: Doc, noBreak?: Doc, options?: { groupId?: symbol | undefined }): IfBreak;
         /** @see [indent](https://github.com/prettier/prettier/blob/main/commands.md#indent) */
         function indent(doc: Doc): Indent;
         /** @see [indentIfBreak](https://github.com/prettier/prettier/blob/main/commands.md#indentifbreak) */
-        function indentIfBreak(doc: Doc, opts: { groupId: symbol; negate?: boolean }): IndentIfBreak;
+        function indentIfBreak(doc: Doc, opts: { groupId: symbol; negate?: boolean | undefined }): IndentIfBreak;
         /** @see [join](https://github.com/prettier/prettier/blob/main/commands.md#join) */
         function join(sep: Doc, docs: Doc[]): Concat;
         /** @see [label](https://github.com/prettier/prettier/blob/main/commands.md#label) */
@@ -681,8 +687,8 @@ export namespace doc {
             options: Options,
         ): {
             formatted: string;
-            cursorNodeStart?: number;
-            cursorNodeText?: string;
+            cursorNodeStart?: number | undefined;
+            cursorNodeText?: string | undefined;
         };
         interface Options {
             /**
@@ -700,8 +706,8 @@ export namespace doc {
              * @default false
              */
             useTabs: boolean;
-            parentParser?: string;
-            __embeddedInHtml?: boolean;
+            parentParser?: string | undefined;
+            __embeddedInHtml?: boolean | undefined;
         }
     }
     namespace utils {

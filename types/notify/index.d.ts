@@ -1,7 +1,7 @@
 // Type definitions for Notify.js
 // Project: https://github.com/jpillora/notifyjs
 // Definitions by: Xiaohan Zhang <https://github.com/hellochar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery" />
@@ -11,44 +11,44 @@ declare namespace Notify {
         /**
          * Whether to hide the notification on click. Default is true.
          */
-        clickToHide?: boolean;
+        clickToHide?: boolean | undefined;
 
         /**
          * Whether to auto-hide the notification (after autoHideDelay milliseconds). Default is true.
          */
-        autoHide?: boolean;
+        autoHide?: boolean | undefined;
 
         /**
          * If autoHide, hide after milliseconds. Default is 5000.
          */
-        autoHideDelay?: number;
+        autoHideDelay?: number | undefined;
 
         /**
          * Show the arrow pointing at the element. Default is true.
          */
-        arrowShow?: boolean;
+        arrowShow?: boolean | undefined;
 
         /**
          * Arrow size in pixels. Default is 5.
          */
-        arrowSize?: number;
+        arrowSize?: number | undefined;
 
         /**
          * Position of the notification when created relative to an element. Default is 'bottom left'.
          */
-        elementPosition?: string;
+        elementPosition?: string | undefined;
 
         /**
          * Position of the notification when created globally. Default is 'top right'.
          */
-        globalPosition?: string;
+        globalPosition?: string | undefined;
 
         /**
          * Style of the notification. Default is 'bootstrap'.
          *
          * For more information on styles, refer to Notify.StyleDefinition.
          */
-        style?: string;
+        style?: string | undefined;
 
         /**
          * Class of the notification (string or [string]). Default is 'error'.
@@ -57,32 +57,32 @@ declare namespace Notify {
          * attributes of that style. Additionally, a CSS class of "notifyjs-<style name>-<class name>"
          * will be applied.
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Animation when notification is shown. Default is 'slideDown'.
          */
-        showAnimation?: string;
+        showAnimation?: string | undefined;
 
         /**
          * Duration show animation, in milliseconds. Default is 400.
          */
-        showDuration?: number;
+        showDuration?: number | undefined;
 
         /**
          * Animation when notification is hidden. Default is 'slideUp'.
          */
-        hideAnimation?: string;
+        hideAnimation?: string | undefined;
 
         /**
          * Duration for hide animation, in milliseconds. Default is 200.
          */
-        hideDuration?: number;
+        hideDuration?: number | undefined;
 
         /**
          * Padding in px between element and notification. Deafult is 2.
          */
-        gap?: number;
+        gap?: number | undefined;
     }
 
     /**
@@ -116,13 +116,13 @@ declare namespace Notify {
          */
         classes?: {
                      [className: string]: ClassCSS;
-                     base?: ClassCSS;
-                 };
+                     base?: ClassCSS | undefined;
+                 } | undefined;
 
         /**
          * All notifications will have this CSS applied to it.
          */
-        css?: string;
+        css?: string | undefined;
     }
 
     interface JQueryStatic {

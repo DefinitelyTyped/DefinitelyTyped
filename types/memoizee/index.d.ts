@@ -7,16 +7,16 @@
 
 declare namespace memoizee {
   interface Options<F extends (...args: any[]) => any> {
-    length?: number | false;
-    maxAge?: number;
-    max?: number;
-    preFetch?: number | true;
-    promise?: boolean;
+    length?: number | false | undefined;
+    maxAge?: number | undefined;
+    max?: number | undefined;
+    preFetch?: number | true | undefined;
+    promise?: boolean | undefined;
     dispose?(value: any): void;
-    async?: boolean;
-    primitive?: boolean;
+    async?: boolean | undefined;
+    primitive?: boolean | undefined;
     normalizer?(args: Parameters<F>): string;
-    resolvers?: Array<(arg: any) => any>;
+    resolvers?: Array<(arg: any) => any> | undefined;
   }
 
   interface Memoized<F> {

@@ -60,7 +60,7 @@ export interface DownloadOption {
     id: string;
     url: string;
     destination: string;
-    headers?: DownloadHeaders;
+    headers?: DownloadHeaders | undefined;
 }
 
 export type Download = (options: DownloadOption) => DownloadTask;

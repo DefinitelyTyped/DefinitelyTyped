@@ -11,71 +11,71 @@ interface Options {
     /**
      * Monitor input files and rebuild on changes
      */
-    watch?: boolean;
+    watch?: boolean | undefined;
     /**
      * The datasets directory
      */
-    datasets?: string;
+    datasets?: string | undefined;
     /**
      * Whether to minify output build
      */
-    minify?: boolean;
+    minify?: boolean | undefined;
     /**
      *
      * Pre-render HTML as part of the build
      */
-    ssr?: boolean;
+    ssr?: boolean | undefined;
     /**
      * The components directory
      */
-    components?: boolean;
+    components?: boolean | undefined;
     /**
      * The default component directory
      * This corresponds to where the idyll-components package stays
      */
-    defaultComponents?: boolean;
+    defaultComponents?: boolean | undefined;
     /**
      * The layout defined in idyll-layouts package
      */
-    layout?: string;
+    layout?: string | undefined;
     /**
      * The theme defined in idyll-theme package
      */
-    theme?: string;
+    theme?: string | undefined;
     /**
      * The output directory for compiled documents
      */
-    output?: string;
+    output?: string | undefined;
     /**
      * Custom port to bind the local server to.
      */
-    port?: number;
+    port?: number | undefined;
     /**
      * Temporary directory used by idyll
      */
-    temp?: string;
+    temp?: string | undefined;
     /**
      * path to HTML template
      *
      */
-    template?: string;
+    template?: string | undefined;
 
     /**
      * Custom CSS file to include in output
      */
-    css?: string;
+    css?: string | undefined;
     /**
      * Custom browserify transforms to apply.
      */
-    transform?: string[];
+    transform?: string[] | undefined;
     /**
      * Compiler options
      */
-    compiler?: CompilerOptions;
+    compiler?: CompilerOptions | undefined;
     /**
      * the idyll file to be compiled into
      */
-    inputFile?: string;
+    inputFile?: string | undefined;
 
     /**
      * used internally by IdyllInstance
@@ -84,7 +84,7 @@ interface Options {
         components: any;
         transform: any[];
         compiler: CompilerOptions;
-    };
+    } | undefined;
 }
 
 type PredefinedFile =

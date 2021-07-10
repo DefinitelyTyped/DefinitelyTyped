@@ -9,7 +9,7 @@ export interface ApiGatewayEvent {
               mehtod: HttpMethod;
               authorizer?: any;
               cors?: any;
-              integration?: string;
+              integration?: string | undefined;
           };
 }
 

@@ -192,8 +192,8 @@ export namespace Layer {
 
     interface Options {
         label?: any;
-        squash?: Neuron.SquashingFunction;
-        bias?: number;
+        squash?: Neuron.SquashingFunction | undefined;
+        bias?: number | undefined;
     }
 }
 
@@ -492,37 +492,37 @@ export namespace Trainer {
         /**
          * Learning rate to train the network. It can be a static rate (just a number), dynamic (an array of numbers, which will transition from one to the next one according to the number of iterations) or a callback function: (iterations, error) => rate.
          */
-        rate?: number | number[] | ((iterations: number, error: number) => number);
+        rate?: number | number[] | ((iterations: number, error: number) => number) | undefined;
 
         /**
          * Maximum number of iterations.
          */
-        iterations?: number;
+        iterations?: number | undefined;
 
         /**
          * Minimum error.
          */
-        error?: number;
+        error?: number | undefined;
 
         /**
          * If true, the training set is shuffled after every iteration, this is useful for training data sequences which order is not meaningful to networks with context memory, like LSTM's.
          */
-        shuffle?: boolean;
+        shuffle?: boolean | undefined;
 
         /**
          * You can set what cost function to use for the training, there are three built-in cost functions (Trainer.cost.CROSS_ENTROPY, Trainer.cost.MSE and Trainer.cost.BINARY) to choose from cross-entropy or mean squared error. You can also use you own cost function(targetValues, outputValues).
          */
-        cost?: CostFunction;
+        cost?: CostFunction | undefined;
 
         /**
          * This commands the trainer to console.log the error and iterations every X number of iterations.
          */
-        log?: number;
+        log?: number | undefined;
 
         /**
          * You can create custom scheduled tasks that will be executed every X number of iterations. It can be used to create custom logs, or to compute analytics based on the data passed to the task (data object includes error, iterations and the current learning rate). If the returned value of the task is true, the training will be aborted. This can be used to create special conditions to stop the training (i.e. if the error starts to increase).
          */
-        schedule?: TrainingScheduleOptions;
+        schedule?: TrainingScheduleOptions | undefined;
     }
 
     interface TrainingScheduleDoData {
@@ -556,23 +556,23 @@ export namespace Trainer {
     }
 
     interface XOROptions {
-        iterations?: number;
-        log?: number;
-        shuffle?: boolean;
-        cost?: CostFunction;
+        iterations?: number | undefined;
+        log?: number | undefined;
+        shuffle?: boolean | undefined;
+        cost?: CostFunction | undefined;
     }
 
     interface DSROptions {
-        targets?: number[];
-        distractors?: number[];
-        prompts?: number[];
-        length?: number;
-        success?: number;
-        iterations?: number;
-        rate?: number;
-        log?: number;
-        schedule?: TrainingScheduleOptions;
-        cost?: CostFunction;
+        targets?: number[] | undefined;
+        distractors?: number[] | undefined;
+        prompts?: number[] | undefined;
+        length?: number | undefined;
+        success?: number | undefined;
+        iterations?: number | undefined;
+        rate?: number | undefined;
+        log?: number | undefined;
+        schedule?: TrainingScheduleOptions | undefined;
+        cost?: CostFunction | undefined;
     }
 
     interface DSRTrainingResult {
@@ -583,11 +583,11 @@ export namespace Trainer {
     }
 
     interface ERGOptions {
-        iterations?: number;
-        error?: number;
-        rate?: number;
-        log?: number;
-        cost?: CostFunction;
+        iterations?: number | undefined;
+        error?: number | undefined;
+        rate?: number | undefined;
+        log?: number | undefined;
+        cost?: CostFunction | undefined;
     }
 
     interface ERGTrainingResult {

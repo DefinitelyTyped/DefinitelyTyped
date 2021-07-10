@@ -7,18 +7,18 @@
 /// <reference types="jquery"/>
 type RateItMode = "bg" | "font";
 interface RateItOptions {
- value? : number;
- min?: number;
- max?: number;
- step?:number;
- backingfld?:string;
- readonly?:boolean;
- ispreset? : boolean;
- resetable? : boolean;
- starwidth?: number;
- starheight?: number;
- mode?: RateItMode;
- icon?: string;
+ value? : number | undefined;
+ min?: number | undefined;
+ max?: number | undefined;
+ step?:number | undefined;
+ backingfld?:string | undefined;
+ readonly?:boolean | undefined;
+ ispreset? : boolean | undefined;
+ resetable? : boolean | undefined;
+ starwidth?: number | undefined;
+ starheight?: number | undefined;
+ mode?: RateItMode | undefined;
+ icon?: string | undefined;
 }
 
 interface JQuery {

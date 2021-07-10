@@ -15,15 +15,15 @@ declare namespace AMap {
             /**
              * 公交出行策略,可选为：地铁：SUBWAY， 公交：BUS，多策略使用逗号分隔
              */
-            policy?: string; // 'BUS' | 'SUBWAY' | 'BUS,SUBWAY' | 'SUBWAY,BUS';
+            policy?: string | undefined; // 'BUS' | 'SUBWAY' | 'BUS,SUBWAY' | 'SUBWAY,BUS';
             /**
              * 结果返回样式：polygon：返回多边形边界值，coverage：判断设定的终点坐标是否在到达圈范围内
              */
-            resultType?: 'polygon' | 'coverage'; // useless
+            resultType?: 'polygon' | 'coverage' | undefined; // useless
             /**
              * 选择一个想到达的目的地坐标，最多支持5个目的地坐标
              */
-            destination?: LocationValue | LocationValue[];
+            destination?: LocationValue | LocationValue[] | undefined;
         }
         interface SearchResult {
             /**
@@ -37,7 +37,7 @@ declare namespace AMap {
             /**
              * 提供的终点坐标是否在到达圈内
              */
-            inRange?: boolean[];
+            inRange?: boolean[] | undefined;
 
             // internal
             infocode: string;

@@ -38,29 +38,29 @@ export type ConvertOptions =
 
 export interface ConvertStringOptions {
     to: Encoding;
-    from?: Encoding;
+    from?: Encoding | undefined;
     type: 'string';
-    bom?: boolean | string;
+    bom?: boolean | string | undefined;
 }
 
 export interface ConvertArrayBufferOptions {
     to: Encoding;
-    from?: Encoding;
+    from?: Encoding | undefined;
     type: 'arraybuffer';
-    bom?: boolean | string;
+    bom?: boolean | string | undefined;
 }
 
 export interface ConvertArrayOptions {
     to: Encoding;
-    from?: Encoding;
+    from?: Encoding | undefined;
     type: 'array';
-    bom?: boolean | string;
+    bom?: boolean | string | undefined;
 }
 
 export interface ConvertUnknownOptions {
     to: Encoding;
-    from?: Encoding;
-    bom?: boolean | string;
+    from?: Encoding | undefined;
+    bom?: boolean | string | undefined;
 }
 
 export function detect(data: RawType | string, encodings?: Encoding | Encoding[]): EncodingDetection;

@@ -17,14 +17,14 @@ export const fullSymbols: string;
 
 export interface RandomPasswordCharactersSet {
     characters: string;
-    exactly?: number;
+    exactly?: number | undefined;
 }
 
 export interface RandomPasswordOptions {
-    avoidAmbiguous?: boolean;
-    characters?: string | RandomPasswordCharactersSet | Array<(RandomPasswordCharactersSet | string)>;
-    length?: number;
-    predicate?: (result: string) => boolean;
+    avoidAmbiguous?: boolean | undefined;
+    characters?: string | RandomPasswordCharactersSet | Array<(RandomPasswordCharactersSet | string)> | undefined;
+    length?: number | undefined;
+    predicate?: ((result: string) => boolean) | undefined;
 }
 
 export function randomPassword(options?: RandomPasswordOptions): string;

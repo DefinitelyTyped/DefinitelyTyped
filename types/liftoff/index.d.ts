@@ -84,24 +84,24 @@ declare namespace Liftoff {
          * Sugar for setting processTitle, moduleName, configName automatically.
          * @default null
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * Sets which module your application expects to find locally when being run.
          * @default null
          */
-        moduleName?: string;
+        moduleName?: string | undefined;
         /**
          * Sets the name of the configuration file Liftoff will attempt to find. Case-insensitive.
          * @default null
          */
-        configName?: string;
+        configName?: string | undefined;
         /**
          * Set extensions to include when searching for a configuration file.
          * If an external module is needed to load a given extension (e.g. .coffee),
          * the module name should be specified as the value for the key.
          * @default {".js":null,".json":null}
          */
-        extensions?: Extensions;
+        extensions?: Extensions | undefined;
         /**
          * Any flag specified here will be applied to node, not your program.
          * Useful for supporting invocations like myapp --harmony command,
@@ -110,17 +110,17 @@ declare namespace Liftoff {
          * To support all v8flags, see `v8flags`.
          * @default null
          */
-        v8flags?: string[] | ((cb: (err: any, flags: string[]) => void) => void);
+        v8flags?: string[] | ((cb: (err: any, flags: string[]) => void) => void) | undefined;
         /**
          * Sets what the process title will be.
          * @default null
          */
-        processTitle?: string;
+        processTitle?: string | undefined;
         /**
          * A method to handle bash/zsh/whatever completions.
          * @default null
          */
-        completions?: (completion: string) => any;
+        completions?: ((completion: string) => any) | undefined;
         /**
          * An object of configuration files to find. Each property is keyed by the
          * default basename of the file being found, and the value is an object
@@ -129,7 +129,7 @@ declare namespace Liftoff {
          */
         configFiles?: {
             [extension: string]: { [locationName: string]: string | PathSpec };
-        };
+        } | undefined;
     }
 
     interface LaunchOptions {
@@ -137,7 +137,7 @@ declare namespace Liftoff {
          * Change the current working directory for this launch. Relative paths are calculated against `process.cwd()`.
          * @default process.cwd()
          */
-        cwd?: string;
+        cwd?: string | undefined;
 
         /**
          * Don't search for a config, use the one provided.
@@ -145,14 +145,14 @@ declare namespace Liftoff {
          * unless an alternate location is explicitly specified using `cwd`.
          * @default null
          */
-        configPath?: string;
+        configPath?: string | undefined;
 
         /**
          * A string or array of modules to attempt requiring from the local
          * working directory before invoking the launch callback.
          * @default null
          */
-        require?: string | any[];
+        require?: string | any[] | undefined;
 
         /**
          * Allows you to force node or V8 flags during the launch.
@@ -161,9 +161,9 @@ declare namespace Liftoff {
          * (as these flags aren't validated against opts.v8flags).
          * @default null
          */
-        forcedFlags?: string | string[] | ((env: LiftoffEnv) => string | string[]);
+        forcedFlags?: string | string[] | ((env: LiftoffEnv) => string | string[]) | undefined;
 
-        completion?: string;
+        completion?: string | undefined;
     }
 
     interface LiftoffEnv {

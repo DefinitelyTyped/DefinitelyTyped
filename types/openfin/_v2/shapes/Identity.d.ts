@@ -1,20 +1,20 @@
 import { EntityType } from './EntityType';
 export interface Identity {
     uuid: string;
-    name?: string;
-    runtimeUuid?: string;
-    entityType?: EntityType;
-    parentFrame?: string;
+    name?: string | undefined;
+    runtimeUuid?: string | undefined;
+    entityType?: EntityType | undefined;
+    parentFrame?: string | undefined;
 }
 export interface ProviderIdentity extends Identity {
-    channelId?: string;
-    channelName?: string;
-    isExternal?: boolean;
-    runtimeUuid?: string;
+    channelId?: string | undefined;
+    channelName?: string | undefined;
+    isExternal?: boolean | undefined;
+    runtimeUuid?: string | undefined;
 }
 export interface ClientIdentity extends Identity {
-    endpointId?: string;
+    endpointId?: string | undefined;
 }
 export interface ResourceFetchIdentity extends Identity {
-    resourceFetch?: boolean;
+    resourceFetch?: boolean | undefined;
 }

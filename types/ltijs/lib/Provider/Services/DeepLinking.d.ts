@@ -1,16 +1,16 @@
 import { IdToken } from '../../IdToken';
 
 export interface DeepLinkingMessageOptions {
-    message?: string;
-    errmessage?: string;
-    log?: string;
-    errlog?: string;
+    message?: string | undefined;
+    errmessage?: string | undefined;
+    log?: string | undefined;
+    errlog?: string | undefined;
 }
 
 export interface ContentItem {
     type: string;
     title: string;
-    url?: string;
+    url?: string | undefined;
     custom?: any;
 }
 

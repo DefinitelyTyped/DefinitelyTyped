@@ -4,10 +4,10 @@ import { ReactButtonAttr } from "../../../typings/shared";
 type ExcludedAttributes = "title" | "type";
 
 export interface HeaderMenuButtonProps extends Omit<ReactButtonAttr, ExcludedAttributes> {
-    isActive?: boolean,
-    isCollapsible?: boolean,
-    renderCloseIcon?: React.ReactNode;
-    renderMenuIcon?: React.ReactNode;
+    isActive?: boolean | undefined,
+    isCollapsible?: boolean | undefined,
+    renderCloseIcon?: React.ReactNode | undefined;
+    renderMenuIcon?: React.ReactNode | undefined;
 }
 
 declare const HeaderMenuButton: React.FC<HeaderMenuButtonProps>;

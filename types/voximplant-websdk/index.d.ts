@@ -89,19 +89,19 @@ declare namespace VoxImplant {
             /**
             *    Auth error code, possible values are: 301 - code for 'code' auth type was sent, 302 - key for 'onetimekey' auth type received, 401 - invalid password, 404 - invalid username, 403 - user account is frozen, 500 - internal error
             */
-            code? : number;
+            code? : number | undefined;
             /**
             *    Authorized user's display name
             */
-            displayName?: string;
+            displayName?: string | undefined;
             /**
             *    This parameter is used to calculate hash parameter for loginWithOneTimeKey method. AuthResult with the key dispatched after requestOneTimeLoginKey method was called
             */
-            key?: string;
+            key?: string | undefined;
             /**
             *    Application options
             */
-            options?: Object;
+            options?: Object | undefined;
             /**
             *    True in case of successful authorization, false - otherwise
             */
@@ -139,7 +139,7 @@ declare namespace VoxImplant {
             /**
             *    Optional SIP headers received with the message
             */
-            headers?: Object;
+            headers?: Object | undefined;
         }
 
         /**
@@ -197,7 +197,7 @@ declare namespace VoxImplant {
             /**
             *    Optional SIP headers received with the message
             */
-            headers?: Object;
+            headers?: Object | undefined;
         }
 
         /**
@@ -211,7 +211,7 @@ declare namespace VoxImplant {
             /**
             *    Optional SIP headers received with the message
             */
-            headers?: Object;
+            headers?: Object | undefined;
         }
 
         /**
@@ -229,7 +229,7 @@ declare namespace VoxImplant {
             /**
             *    Optional SIP headers received with the message
             */
-            headers?: Object;
+            headers?: Object | undefined;
             /**
             *    Status message of call failure (i.e. Busy Here)
             */
@@ -261,7 +261,7 @@ declare namespace VoxImplant {
             /**
             *    Optional SIP headers received with the message
             */
-            headers?: Object;
+            headers?: Object | undefined;
             /**
             *    MIME type of INFO message
             */
@@ -744,7 +744,7 @@ declare namespace VoxImplant {
             /**
             *    Resource name
             */
-            resource?: string;
+            resource?: string | undefined;
             /**
             *    Current chat session state. See VoxImplant.ChatStateType enum
             */
@@ -810,7 +810,7 @@ declare namespace VoxImplant {
             /**
             *    Resource name
             */
-            resource?: string;
+            resource?: string | undefined;
             /**
             *    User id (of the user to whom the message was sent)
             */
@@ -850,7 +850,7 @@ declare namespace VoxImplant {
             /**
             *    Resource name
             */
-            resource?: string;
+            resource?: string | undefined;
             /**
             *    Message event type. See VoxImplant.MessageEventType enum
             */
@@ -876,7 +876,7 @@ declare namespace VoxImplant {
             /**
             *    Resource name
             */
-            resource?: string;
+            resource?: string | undefined;
         }
 
         /**
@@ -898,7 +898,7 @@ declare namespace VoxImplant {
             /**
             *    Resource name
             */
-            resource?: string;
+            resource?: string | undefined;
             /**
             *    Roster item event type. See VoxImplant.RosterItemEvent enum
             */
@@ -916,7 +916,7 @@ declare namespace VoxImplant {
             /**
             *    Status message
             */
-            message?: string;
+            message?: string | undefined;
             /**
             *    Current presence status
             */
@@ -924,7 +924,7 @@ declare namespace VoxImplant {
             /**
             *    Resource name
             */
-            resource?: string;
+            resource?: string | undefined;
         }
 
         /**
@@ -952,11 +952,11 @@ declare namespace VoxImplant {
             /**
             *    Optional message
             */
-            message?: string;
+            message?: string | undefined;
             /**
             *    Resource name
             */
-            resource?: string;
+            resource?: string | undefined;
             /**
             *    Message event type. See VoxImplant.SubscriptionRequestType enum
             */
@@ -1018,47 +1018,47 @@ declare namespace VoxImplant {
         /**
         *    XSS protection for inbound instant messages that can contain HTML content
         */
-        imXSSprotection?: boolean;
+        imXSSprotection?: boolean | undefined;
         /**
         *    If set to true microphone access dialog will be shown and all functions will become available only after user allowed access
         */
-        micRequired?: boolean;
+        micRequired?: boolean | undefined;
         /**
         *    Automatically plays progress tone by means of SDK according to specified progressToneCountry
         */
-        progressTone?: boolean;
+        progressTone?: boolean | undefined;
         /**
         *    Country code for progress tone generated automatically if progressTone set to true
         */
-        progressToneCountry?: string;
+        progressToneCountry?: string | undefined;
         /**
         *    Show debug info in console
         */
-        showDebugInfo?: boolean;
+        showDebugInfo?: boolean | undefined;
         /**
         *    Show Flash Settings panel instead of standard Allow/Deny dialog (in Flash mode)
         */
-        showFlashSettings?: boolean;
+        showFlashSettings?: boolean | undefined;
         /**
         *    Id of HTMLElement that will be used as container for Flash component of SDK (Mic/cam access dialog will appear in the container). If micRequired set to true element should have size not less than 215x138 (px) for access dialog to be shown
         */
-        swfContainer?: string;
+        swfContainer?: string | undefined;
         /**
         *    Force VoxImplant to use Flash (WebRTC is used if available by default)
         */
-        useFlashOnly?: boolean;
+        useFlashOnly?: boolean | undefined;
         /**
         *    Force VoxImplant to use WebRTC (WebRTC is used if available by default). Error will be thrown if WebRTC in unavailable
         */
-        useRTCOnly?: boolean;
+        useRTCOnly?: boolean | undefined;
         /**
         *    Default constraints that will be applied while the next attachRecordingDevice function call or if micRequired set to true
         */
-        videoConstraints?: VideoSettings | boolean;
+        videoConstraints?: VideoSettings | boolean | undefined;
         /**
         *    Video support
         */
-        videoSupport?: boolean;
+        videoSupport?: boolean | undefined;
     }
 
     /**
@@ -1068,11 +1068,11 @@ declare namespace VoxImplant {
         /**
         *    If set to false Web SDK can be used only for ACD status management
         */
-        receiveCalls?: boolean;
+        receiveCalls?: boolean | undefined;
         /**
         *    If set to true user presence will be changed automatically while a call
         */
-        serverPresenceControl?: boolean;
+        serverPresenceControl?: boolean | undefined;
     }
 
     /**
@@ -1310,7 +1310,7 @@ declare namespace VoxImplant {
         /**
         * True if the user is owner/admin of the room
         */
-        owner?: boolean;
+        owner?: boolean | undefined;
     }
 
     /**
@@ -1915,39 +1915,39 @@ declare namespace VoxImplant {
         /**
         * The width or width range, in pixels
         */
-        width?: number | any;
+        width?: number | any | undefined;
         /**
         * The height or height range, in pixels
         */
-        height?: number | any;
+        height?: number | any | undefined;
         /**
         * The exact aspect ratio (width in pixels divided by height in pixels, represented as a double rounded to the tenth decimal place) or aspect ratio range
         */
-        aspectRatio?: number | any;
+        aspectRatio?: number | any | undefined;
         /**
         * The exact frame rate (frames per second) or frame rate range
         */
-        frameRate?: number | any;
+        frameRate?: number | any | undefined;
         /**
         * This string (or each string, when a list) should be one of the members of VideoFacingModeEnum
         */
-        facingMode?: string | any;
+        facingMode?: string | any | undefined;
         /**
         * The origin-unique identifier for the source of the MediaStreamTrack
         */
-        deviceId?: string;
+        deviceId?: string | undefined;
         /**
         * The origin-unique group identifier for the source of the MediaStreamTrack. Two devices have the same group identifier if they belong to the same physical device
         */
-        groupId?: string;
+        groupId?: string | undefined;
         /**
         *    Mandatory constraints object
         */
-        mandatory?: Object;
+        mandatory?: Object | undefined;
         /**
         *    Optional constraints object
         */
-        optional?: Object;
+        optional?: Object | undefined;
     }
 
     /**
@@ -1957,35 +1957,35 @@ declare namespace VoxImplant {
         /**
         *    The maximum amount of bandwidth the current outgoing video feed can use, in bytes
         */
-        bandwidth?: number;
+        bandwidth?: number | undefined;
         /**
         *    The maximum rate at which the camera can capture data, in frames per second
         */
-        fps?: number;
+        fps?: number | undefined;
         /**
         *    Height in pixels (should be set together with width)
         */
-        height?: number;
+        height?: number | undefined;
         /**
         *    Width in pixels (should be set together with height)
         */
-        width?: number;
+        width?: number | undefined;
         /**
         *    Keyframe interval (seconds)
         */
-        keyframeInterval?: number;
+        keyframeInterval?: number | undefined;
         /**
         *    H.264 video codec level
         */
-        level?: string;
+        level?: string | undefined;
         /**
         *    H.264 video codec profile
         */
-        profile?: string;
+        profile?: string | undefined;
         /**
         *    The required level of picture quality, as determined by the amount of compression being applied to each video frame. Acceptable quality values range from 1 (lowest quality, maximum compression) to 100 (highest quality, no compression). The default value is 0, which means that picture quality can vary as needed to avoid exceeding available bandwidth
         */
-        quality?: number;
+        quality?: number | undefined;
     }
 
     /**

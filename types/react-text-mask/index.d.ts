@@ -12,22 +12,22 @@ export type maskArray = Array<string | RegExp> | boolean;
 
 export interface MaskedInputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
-    mask?: maskArray | ((value: string) => maskArray);
+    mask?: maskArray | ((value: string) => maskArray) | undefined;
 
-    guide?: boolean;
+    guide?: boolean | undefined;
 
-    placeholderChar?: string;
+    placeholderChar?: string | undefined;
 
-    keepCharPositions?: boolean;
+    keepCharPositions?: boolean | undefined;
 
-    pipe?: (
+    pipe?: ((
         conformedValue: string,
         config: any
-    ) => false | string | { value: string; indexesOfPipedChars: number[] };
+    ) => false | string | { value: string; indexesOfPipedChars: number[] }) | undefined;
 
-    showMask?: boolean;
+    showMask?: boolean | undefined;
 
-    render?: (ref: (inputElement: HTMLElement) => void, props: any) => any;
+    render?: ((ref: (inputElement: HTMLElement) => void, props: any) => any) | undefined;
 }
 
 export interface conformToMaskResult {

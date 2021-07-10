@@ -27,21 +27,21 @@ const position: Position = {
 const literal: Literal = {
     type: 'text',
     data,
-    point,
+    position,
     value: 'value',
 };
 
 const comment: Comment = {
     type: 'comment',
     data,
-    point,
+    position,
     value: 'value',
 };
 
 const text: Text = {
     type: 'text',
     data,
-    point,
+    position,
     value: 'value',
 };
 

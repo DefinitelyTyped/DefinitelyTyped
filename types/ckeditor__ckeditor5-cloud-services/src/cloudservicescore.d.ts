@@ -6,7 +6,7 @@ export default class CloudServicesCore extends ContextPlugin {
     static pluginName: "CloudServicesCore";
     createToken(
         tokenUrlOrRefreshToken: string | (() => string),
-        options?: { initValue?: string; autoRefresh?: boolean },
+        options?: { initValue?: string | undefined; autoRefresh?: boolean | undefined },
     ): Token;
     createUploadGateway(token: Token, apiAddress: string): UploadGateway;
 }

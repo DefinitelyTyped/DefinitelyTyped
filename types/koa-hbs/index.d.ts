@@ -31,15 +31,15 @@ import * as Handlebars from "handlebars";
 declare namespace Hbs {
     export interface Middleware {
         viewPath: Array<string> | string,
-        handlebars?: Function,
-        templateOptions?: {},
-        extname?: string,
-        partialsPath?: Array<string> | string,
-        defaultLayout?: string,
-        layoutsPath?: string,
-        contentHelperName?: string,
-        blockHelperName?: string,
-        disableCache?: boolean
+        handlebars?: Function | undefined,
+        templateOptions?: {} | undefined,
+        extname?: string | undefined,
+        partialsPath?: Array<string> | string | undefined,
+        defaultLayout?: string | undefined,
+        layoutsPath?: string | undefined,
+        contentHelperName?: string | undefined,
+        blockHelperName?: string | undefined,
+        disableCache?: boolean | undefined
     }
 }
 

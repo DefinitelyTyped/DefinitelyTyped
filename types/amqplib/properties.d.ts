@@ -27,115 +27,115 @@ export namespace Options {
          *
          * Default value: 'amqp'
          */
-        protocol?: string;
+        protocol?: string | undefined;
         /**
          * Hostname used for connecting to the server.
          *
          * Default value: 'localhost'
          */
-        hostname?: string;
+        hostname?: string | undefined;
         /**
          * Port used for connecting to the server.
          *
          * Default value: 5672
          */
-        port?: number;
+        port?: number | undefined;
         /**
          * Username used for authenticating against the server.
          *
          * Default value: 'guest'
          */
-        username?: string;
+        username?: string | undefined;
         /**
          * Password used for authenticating against the server.
          *
          * Default value: 'guest'
          */
-        password?: string;
+        password?: string | undefined;
         /**
          * The desired locale for error messages. RabbitMQ only ever uses en_US
          *
          * Default value: 'en_US'
          */
-        locale?: string;
+        locale?: string | undefined;
         /**
          * The size in bytes of the maximum frame allowed over the connection. 0 means
          * no limit (but since frames have a size field which is an unsigned 32 bit integer, it’s perforce 2^32 - 1).
          *
          * Default value: 0x1000 (4kb) - That's the allowed minimum, it will fit many purposes
          */
-        frameMax?: number;
+        frameMax?: number | undefined;
         /**
          * The period of the connection heartbeat in seconds.
          *
          * Default value: 0
          */
-        heartbeat?: number;
+        heartbeat?: number | undefined;
         /**
          * What VHost shall be used.
          *
          * Default value: '/'
          */
-        vhost?: string;
+        vhost?: string | undefined;
     }
 
     interface AssertQueue {
-        exclusive?: boolean;
-        durable?: boolean;
-        autoDelete?: boolean;
+        exclusive?: boolean | undefined;
+        durable?: boolean | undefined;
+        autoDelete?: boolean | undefined;
         arguments?: any;
-        messageTtl?: number;
-        expires?: number;
-        deadLetterExchange?: string;
-        deadLetterRoutingKey?: string;
-        maxLength?: number;
-        maxPriority?: number;
+        messageTtl?: number | undefined;
+        expires?: number | undefined;
+        deadLetterExchange?: string | undefined;
+        deadLetterRoutingKey?: string | undefined;
+        maxLength?: number | undefined;
+        maxPriority?: number | undefined;
     }
     interface DeleteQueue {
-        ifUnused?: boolean;
-        ifEmpty?: boolean;
+        ifUnused?: boolean | undefined;
+        ifEmpty?: boolean | undefined;
     }
     interface AssertExchange {
-        durable?: boolean;
-        internal?: boolean;
-        autoDelete?: boolean;
-        alternateExchange?: string;
+        durable?: boolean | undefined;
+        internal?: boolean | undefined;
+        autoDelete?: boolean | undefined;
+        alternateExchange?: string | undefined;
         arguments?: any;
     }
     interface DeleteExchange {
-        ifUnused?: boolean;
+        ifUnused?: boolean | undefined;
     }
     interface Publish {
-        expiration?: string | number;
-        userId?: string;
-        CC?: string | string[];
+        expiration?: string | number | undefined;
+        userId?: string | undefined;
+        CC?: string | string[] | undefined;
 
-        mandatory?: boolean;
-        persistent?: boolean;
-        deliveryMode?: boolean | number;
-        BCC?: string | string[];
+        mandatory?: boolean | undefined;
+        persistent?: boolean | undefined;
+        deliveryMode?: boolean | number | undefined;
+        BCC?: string | string[] | undefined;
 
-        contentType?: string;
-        contentEncoding?: string;
+        contentType?: string | undefined;
+        contentEncoding?: string | undefined;
         headers?: any;
-        priority?: number;
-        correlationId?: string;
-        replyTo?: string;
-        messageId?: string;
-        timestamp?: number;
-        type?: string;
-        appId?: string;
+        priority?: number | undefined;
+        correlationId?: string | undefined;
+        replyTo?: string | undefined;
+        messageId?: string | undefined;
+        timestamp?: number | undefined;
+        type?: string | undefined;
+        appId?: string | undefined;
     }
     interface Consume {
-        consumerTag?: string;
-        noLocal?: boolean;
-        noAck?: boolean;
-        exclusive?: boolean;
-        priority?: number;
+        consumerTag?: string | undefined;
+        noLocal?: boolean | undefined;
+        noAck?: boolean | undefined;
+        exclusive?: boolean | undefined;
+        priority?: number | undefined;
         arguments?: any;
     }
     interface Get {
-        noAck?: boolean;
+        noAck?: boolean | undefined;
     }
 }
 
@@ -161,8 +161,8 @@ export interface CommonMessageFields {
 }
 
 export interface MessageFields extends CommonMessageFields {
-    messageCount?: number;
-    consumerTag?: string;
+    messageCount?: number | undefined;
+    consumerTag?: string | undefined;
 }
 
 export interface GetMessageFields extends CommonMessageFields {
@@ -191,10 +191,10 @@ export interface MessageProperties {
 }
 
 export interface MessagePropertyHeaders {
-    "x-first-death-exchange"?: string;
-    "x-first-death-queue"?: string;
-    "x-first-death-reason"?: string;
-    "x-death"?: XDeath[];
+    "x-first-death-exchange"?: string | undefined;
+    "x-first-death-queue"?: string | undefined;
+    "x-first-death-reason"?: string | undefined;
+    "x-death"?: XDeath[] | undefined;
     [key: string]: any;
 }
 
@@ -216,7 +216,7 @@ export interface ServerProperties {
     product: string;
     version: string;
     platform: string;
-    copyright?: string;
+    copyright?: string | undefined;
     information: string;
     [key: string]: string | undefined;
 }

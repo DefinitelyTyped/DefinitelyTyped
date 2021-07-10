@@ -7,8 +7,8 @@ declare namespace Snackbar {
         /**
          * An array of `Notice.Action` objects.
          */
-        actions?: readonly Notice.Action[];
-        className?: string;
+        actions?: readonly Notice.Action[] | undefined;
+        className?: string | undefined;
         /**
          * Callback to be called when the snackbar is to be removed.
          */

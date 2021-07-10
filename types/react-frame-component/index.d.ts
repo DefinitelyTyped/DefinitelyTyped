@@ -7,11 +7,11 @@
 import * as React from 'react';
 
 export interface FrameComponentProps extends React.IframeHTMLAttributes<HTMLIFrameElement> {
-    head?: React.ReactNode;
-    mountTarget?: string;
-    initialContent?: string;
-    contentDidMount?: () => void;
-    contentDidUpdate?: () => void;
+    head?: React.ReactNode | undefined;
+    mountTarget?: string | undefined;
+    initialContent?: string | undefined;
+    contentDidMount?: (() => void) | undefined;
+    contentDidUpdate?: (() => void) | undefined;
     children: React.ReactNode;
 }
 

@@ -2,18 +2,18 @@ import { CalendarSystem, NumberingSystem, StringUnitLength, UnitLength } from '.
 import { Zone } from './zone';
 
 export interface InfoOptions {
-    locale?: string;
+    locale?: string | undefined;
 }
 
 export interface InfoUnitOptions extends InfoOptions {
-    numberingSystem?: NumberingSystem;
+    numberingSystem?: NumberingSystem | undefined;
 }
 
 /** @deprecated */
 export type UnitOptions = InfoUnitOptions;
 
 export interface InfoCalendarOptions extends InfoUnitOptions {
-    outputCalendar?: CalendarSystem;
+    outputCalendar?: CalendarSystem | undefined;
 }
 
 export interface Features {

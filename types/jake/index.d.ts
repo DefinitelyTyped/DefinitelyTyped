@@ -87,7 +87,7 @@ namespace jake{
     ////////////////////////////////////////////////////////////////////////////////////
 
     interface UtilOptions{
-        silent?: boolean;
+        silent?: boolean | undefined;
     }
 
     /**
@@ -126,21 +126,21 @@ namespace jake{
          * print to stdout, default false
          */
 
-        printStdout?:boolean;
+        printStdout?:boolean | undefined;
         /**
          * print to stderr, default false
          */
-        printStderr?:boolean;
+        printStderr?:boolean | undefined;
 
         /**
          * stop execution on error, default true
          */
-        breakOnError?:boolean;
+        breakOnError?:boolean | undefined;
 
         /**
         *
         */
-        windowsVerbatimArguments?: boolean
+        windowsVerbatimArguments?: boolean | undefined
     }
     export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions):void;
 
@@ -198,12 +198,12 @@ namespace jake{
          * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
          * @default false
          */
-        async?: boolean;
+        async?: boolean | undefined;
 
         /**
          * number of parllel async tasks
         */
-        parallelLimit?: number;
+        parallelLimit?: number | undefined;
     }
 
     /**
@@ -243,12 +243,12 @@ namespace jake{
         complete(value?: any): void;
         value: any;
 
-        name?: string;
-        prereqs?: string[];
-        action?: (...params: any[]) => any;
-        taskStatus?: string;
-        async?: boolean;
-        description?: string;
+        name?: string | undefined;
+        prereqs?: string[] | undefined;
+        action?: ((...params: any[]) => any) | undefined;
+        taskStatus?: string | undefined;
+        async?: boolean | undefined;
+        description?: string | undefined;
         fullName: string;
     }
 
@@ -264,7 +264,7 @@ namespace jake{
          * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
          * @default false
          */
-        async?: boolean;
+        async?: boolean | undefined;
     }
 
     export class FileTask extends Task{

@@ -18,7 +18,7 @@ declare namespace createHttpError {
         expose: boolean;
         headers?: {
             [key: string]: string;
-        };
+        } | undefined;
         [key: string]: any;
     }
 

@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/compose 3.4
+// Type definitions for @wordpress/compose 4.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/compose/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -40,7 +40,7 @@ export type TextFilterProps<T extends object = any> = TableColumnFilterProps<Tab
         /**
          * on filter element click event
          */
-        onClick?: (e: SyntheticEvent) => void;
+        onClick?: ((e: SyntheticEvent) => void) | undefined;
     }>;
 /**
  * text column filter
@@ -55,11 +55,11 @@ export type SelectFilterOptions = { [index: string]: string } | Array<{ value: n
 
 export type SelectFilterProps<T extends object = any> = TableColumnFilterProps<string, T> & {
     options: SelectFilterOptions | ((column: ColumnDescription<T>) => SelectFilterOptions);
-    comparator?: Comparator;
+    comparator?: Comparator | undefined;
     /**
      * When the default unset selection is hidden from dropdown
      */
-    withoutEmptyOption?: boolean;
+    withoutEmptyOption?: boolean | undefined;
 };
 
 /**
@@ -79,11 +79,11 @@ export interface MultiSelectFilterOptions {
  */
 export type MultiSelectFilterProps<T extends object = any> = TableColumnFilterProps<string, T> & {
     options: MultiSelectFilterOptions | (() => MultiSelectFilterOptions);
-    comparator?: Comparator;
+    comparator?: Comparator | undefined;
     /**
      * When set the default selection is hidden from dropdown
      */
-    withoutEmptyOption?: boolean;
+    withoutEmptyOption?: boolean | undefined;
 };
 
 /**
@@ -96,18 +96,18 @@ export function multiSelectFilter(props: Partial<MultiSelectFilterProps>): Table
  * Number filter configuration options
  */
 export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<TableColumnFilterProps, T> & {
-    options?: number[];
-    comparators?: Comparator[];
+    options?: number[] | undefined;
+    comparators?: Comparator[] | undefined;
     /**
      * When set to true comparator dropdown does not show a "no selection" option
      */
-    withoutEmptyComparatorOption?: boolean;
-    withoutEmptyNumberOption?: boolean;
-    comparatorClassName?: string;
-    numberClassName?: string;
-    comparatorStyle?: CSSProperties;
-    numberStyle?: CSSProperties;
-    defaultValue?: { number: number; comparator: Comparator };
+    withoutEmptyComparatorOption?: boolean | undefined;
+    withoutEmptyNumberOption?: boolean | undefined;
+    comparatorClassName?: string | undefined;
+    numberClassName?: string | undefined;
+    comparatorStyle?: CSSProperties | undefined;
+    numberStyle?: CSSProperties | undefined;
+    defaultValue?: { number: number; comparator: Comparator } | undefined;
 };
 
 export function numberFilter(props: Partial<NumberFilterProps>): TableColumnFilterProps;
@@ -116,16 +116,16 @@ export function numberFilter(props: Partial<NumberFilterProps>): TableColumnFilt
  * Date filter options
  */
 export interface DateFilter<T extends object = any> extends TableColumnFilterProps<TableColumnFilterProps, T> {
-    withoutEmptyComparatorOption?: boolean;
+    withoutEmptyComparatorOption?: boolean | undefined;
     defaultValue?: {
         date: Date;
         comparator: Comparator;
-    };
-    comparators?: Comparator[];
-    comparatorClassName?: string;
-    dateClassName?: string;
-    comparatorStyle?: CSSProperties;
-    dateStyle?: CSSProperties;
+    } | undefined;
+    comparators?: Comparator[] | undefined;
+    comparatorClassName?: string | undefined;
+    dateClassName?: string | undefined;
+    comparatorStyle?: CSSProperties | undefined;
+    dateStyle?: CSSProperties | undefined;
 }
 
 export function dateFilter(props: DateFilter): TableColumnFilterProps;
@@ -134,9 +134,9 @@ export function dateFilter(props: DateFilter): TableColumnFilterProps;
  * Custom filter
  */
 export interface CustomFilterProps {
-    type?: string | FILTER_TYPES;
-    comparator?: Comparator;
-    caseSensitive?: boolean;
+    type?: string | FILTER_TYPES | undefined;
+    comparator?: Comparator | undefined;
+    caseSensitive?: boolean | undefined;
 }
 
 export function customFilter(props: CustomFilterProps): TableColumnFilterProps;
@@ -146,7 +146,7 @@ export function customFilter(props: CustomFilterProps): TableColumnFilterProps;
  */
 export interface FilterFactoryProps<T extends object = any> {
     // TODO newFilters is not tested not its type is validated since the author of this commit has no experience with this field
-    afterFilter?: (newResult: T[], newFilters?: unknown[]) => void;
+    afterFilter?: ((newResult: T[], newFilters?: unknown[]) => void) | undefined;
 }
 
 declare function filterFactory(props?: FilterFactoryProps): unknown;

@@ -94,30 +94,30 @@ export class Reader extends events.EventEmitter {
 }
 
 export interface ConnectionConfigOptions {
-    authSecret?: string;
-    clientId?: string;
-    deflate?: boolean;
-    deflateLevel?: number;
-    heartbeatInterval?: number;
-    maxInFlight?: number;
-    messageTimeout?: number;
-    outputBufferSize?: number;
-    outputBufferTimeout?: number;
-    requeueDelay?: number;
-    sampleRate?: number;
-    snappy?: boolean;
-    tls?: boolean;
-    tlsVerification?: boolean;
-    idleTimeout?: number;
+    authSecret?: string | undefined;
+    clientId?: string | undefined;
+    deflate?: boolean | undefined;
+    deflateLevel?: number | undefined;
+    heartbeatInterval?: number | undefined;
+    maxInFlight?: number | undefined;
+    messageTimeout?: number | undefined;
+    outputBufferSize?: number | undefined;
+    outputBufferTimeout?: number | undefined;
+    requeueDelay?: number | undefined;
+    sampleRate?: number | undefined;
+    snappy?: boolean | undefined;
+    tls?: boolean | undefined;
+    tlsVerification?: boolean | undefined;
+    idleTimeout?: number | undefined;
 }
 
 export interface ReaderConnectionConfigOptions extends ConnectionConfigOptions {
-    lookupdHTTPAddresses?: string | string[];
-    lookupdPollInterval?: number;
-    lookupdPollJitter?: number;
-    lowRdyTimeout?: number;
-    name?: string;
-    nsqdTCPAddresses?: string | string[];
-    maxAttempts?: number;
-    maxBackoffDuration?: number;
+    lookupdHTTPAddresses?: string | string[] | undefined;
+    lookupdPollInterval?: number | undefined;
+    lookupdPollJitter?: number | undefined;
+    lowRdyTimeout?: number | undefined;
+    name?: string | undefined;
+    nsqdTCPAddresses?: string | string[] | undefined;
+    maxAttempts?: number | undefined;
+    maxBackoffDuration?: number | undefined;
 }

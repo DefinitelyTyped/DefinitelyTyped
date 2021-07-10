@@ -4,8 +4,7 @@ import JasmineClass from "jasmine";
 
 (async () => {
     const jasmineClass = new JasmineClass({
-        random: true,
-        seed: 1234,
+        projectBaseDir: "/",
     });
 
     jasmineClass.addSpecFiles(["file"]);
@@ -13,6 +12,15 @@ import JasmineClass from "jasmine";
 
     jasmineClass.env.configure({
         random: true,
+    });
+
+    jasmineClass.loadConfig({
+        jsLoader: "import",
+    });
+
+    jasmineClass.loadConfig({
+        // $ExpectError
+        jsLoader: "other string",
     });
 
     const suite: jasmine.Suite = jasmineClass.env.topSuite();
@@ -32,7 +40,9 @@ import JasmineClass from "jasmine";
     jasmineClass.addReporter(jasmineClass.completionReporter);
 
     jasmineClass.configureDefaultReporter({
-        print: true,
+        print: (...args) => {
+            console.log(...args);
+        },
         showColors: true,
     });
 
@@ -263,6 +273,16 @@ describe("Included matchers:", () => {
         await expectAsync(Promise.reject(badness)).toBeRejectedWithError(/badness/);
         await expectAsync(Promise.resolve()).withContext("additional info").toBeResolved();
         await expectAsync(new Promise(() => {})).toBePending();
+    });
+
+    it("async matchers - already", async () => {
+        const reason = new Error("badness");
+        await expectAsync(Promise.reject(reason)).already.toBeResolved();
+        await expectAsync(Promise.resolve(true)).already.toBeResolvedTo(false);
+        await expectAsync(Promise.resolve()).already.toBeRejected();
+        await expectAsync(Promise.reject(reason)).already.toBeRejectedWith(reason);
+        await expectAsync(Promise.reject(reason)).already.toBeRejectedWithError(Error, "malady");
+        await expectAsync(Promise.resolve()).already.toBePending();
     });
 
     it("async matchers - not", async () => {
@@ -985,39 +1005,51 @@ describe("a spy on a typed method", () => {
 
         it("should match only call arguments with the correct type", () => {
             const spy = spyOn(t, "method");
-            t.method({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+            t.method({ prop1: "prop1", prop2: { prop1: "deep-prop1", prop2: 10 } });
 
-            expect(t.method).toHaveBeenCalledWith({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+            expect(t.method).toHaveBeenCalledWith({ prop1: "prop1", prop2: { prop1: "deep-prop1", prop2: 10 } });
             expect(t.method).toHaveBeenCalledWith("1"); // $ExpectError
             expect(t.method).not.toHaveBeenCalledWith("1"); // $ExpectError
 
-            expect(spy).toHaveBeenCalledWith({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+            expect(spy).toHaveBeenCalledWith({ prop1: "prop1", prop2: { prop1: "deep-prop1", prop2: 10 } });
             expect(spy).toHaveBeenCalledWith("1"); // $ExpectError
             expect(spy).not.toHaveBeenCalledWith("1"); // $ExpectError
 
-            expect(t.method).toHaveBeenCalledOnceWith({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+            expect(t.method).toHaveBeenCalledOnceWith({ prop1: "prop1", prop2: { prop1: "deep-prop1", prop2: 10 } });
             expect(t.method).toHaveBeenCalledOnceWith("1"); // $ExpectError
             expect(t.method).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
 
-            expect(spy).toHaveBeenCalledOnceWith({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+            expect(spy).toHaveBeenCalledOnceWith({ prop1: "prop1", prop2: { prop1: "deep-prop1", prop2: 10 } });
             expect(spy).toHaveBeenCalledOnceWith("1"); // $ExpectError
             expect(spy).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
         });
 
         it("should match arguments using jasmine matchers", () => {
             const spy = spyOn(t, "method");
-            t.method({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+            t.method({ prop1: "prop1", prop2: { prop1: "deep-prop1", prop2: 10 } });
 
-            expect(t.method).toHaveBeenCalledWith({ prop1: jasmine.any(String), prop2: { prop1: 'deep-prop1', prop2: jasmine.any(Number) }});
+            expect(t.method).toHaveBeenCalledWith({
+                prop1: jasmine.any(String),
+                prop2: { prop1: "deep-prop1", prop2: jasmine.any(Number) },
+            });
             expect(t.method).toHaveBeenCalledWith(jasmine.any(Object));
 
-            expect(spy).toHaveBeenCalledWith({ prop1: jasmine.any(String), prop2: { prop1: 'deep-prop1', prop2: jasmine.any(Number) }});
+            expect(spy).toHaveBeenCalledWith({
+                prop1: jasmine.any(String),
+                prop2: { prop1: "deep-prop1", prop2: jasmine.any(Number) },
+            });
             expect(spy).toHaveBeenCalledWith(jasmine.any(Object));
 
-            expect(t.method).toHaveBeenCalledOnceWith({ prop1: jasmine.any(String), prop2: { prop1: 'deep-prop1', prop2: jasmine.any(Number) }});
+            expect(t.method).toHaveBeenCalledOnceWith({
+                prop1: jasmine.any(String),
+                prop2: { prop1: "deep-prop1", prop2: jasmine.any(Number) },
+            });
             expect(t.method).toHaveBeenCalledOnceWith(jasmine.any(Object));
 
-            expect(spy).toHaveBeenCalledOnceWith({ prop1: jasmine.any(String), prop2: { prop1: 'deep-prop1', prop2: jasmine.any(Number) }});
+            expect(spy).toHaveBeenCalledOnceWith({
+                prop1: jasmine.any(String),
+                prop2: { prop1: "deep-prop1", prop2: jasmine.any(Number) },
+            });
             expect(spy).toHaveBeenCalledOnceWith(jasmine.any(Object));
         });
     });
@@ -1116,7 +1148,7 @@ describe("multiple spies, when created with spyOnAllFunctions", () => {
             y: (a: number) => a,
         };
 
-        const spy = spyOnAllFunctions(obj);
+        const spy = spyOnAllFunctions(obj, true);
 
         spy.x.and.returnValue(42);
         spy.y.and.returnValue(24);

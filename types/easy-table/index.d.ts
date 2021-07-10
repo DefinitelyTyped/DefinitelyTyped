@@ -167,11 +167,11 @@ interface PrintColumnOptions<T> {
     /**
      * Column separation string
      */
-    separator?: string;
+    separator?: string | undefined;
     /**
      * Printer to format column names
      */
-    namePrinter?: CellPrinter<T>;
+    namePrinter?: CellPrinter<T> | undefined;
 }
 
 interface Aggregators {
@@ -198,15 +198,15 @@ interface TotalOptions<T> {
     /**
      * reduce(acc, val, idx, length) function to compute the total value
      */
-    reduce?: ReduceFunction<T>;
+    reduce?: ReduceFunction<T> | undefined;
     /**
      * Printer to format the total cell
      */
-    printer?: CellPrinter<T>;
+    printer?: CellPrinter<T> | undefined;
     /**
      * Initial value for reduction
      */
-    init?: T;
+    init?: T | undefined;
 }
 
 interface FormatObject {
@@ -214,8 +214,8 @@ interface FormatObject {
 }
 
 interface ColumnFormat<T> {
-    name?: string;
-    printer?: CellPrinter<T>
+    name?: string | undefined;
+    printer?: CellPrinter<T> | undefined
 }
 
 export = EasyTable;

@@ -7,13 +7,13 @@ declare namespace PanelBody {
         /**
          * Title of the `PanelBody`. This shows even when it is closed.
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * If opened is true then the `Panel` will remain open regardless of
          * the `initialOpen` prop and the panel will be prevented from being
          * closed.
          */
-        opened?: boolean;
+        opened?: boolean | undefined;
         /**
          * The class that will be added with `components-panel__body`, if the
          * panel is currently open, the `is-opened` class will also be passed
@@ -24,7 +24,7 @@ declare namespace PanelBody {
         /**
          * An icon to be shown next to the `PanelBody` title.
          */
-        icon?: Icon.IconType<{}>;
+        icon?: Icon.IconType<{}> | undefined;
         /**
          * A function that is called when the user clicks on the `PanelBody`
          * title after the open state is changed.
@@ -34,7 +34,7 @@ declare namespace PanelBody {
          * Whether or not the panel will start open.
          * @defaultValue true
          */
-        initialOpen?: boolean;
+        initialOpen?: boolean | undefined;
         children: ReactNode;
     }
 }

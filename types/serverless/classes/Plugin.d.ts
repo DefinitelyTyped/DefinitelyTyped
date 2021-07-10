@@ -7,16 +7,16 @@ declare namespace Plugin {
 
     interface Commands {
         [command: string]: {
-            usage?: string;
-            lifecycleEvents?: string[];
-            commands?: { [command: string]: {} };
+            usage?: string | undefined;
+            lifecycleEvents?: string[] | undefined;
+            commands?: { [command: string]: {} } | undefined;
             options?: {
                 [option: string]: {
-                    usage?: string;
-                    required?: boolean;
-                    shortcut?: string;
+                    usage?: string | undefined;
+                    required?: boolean | undefined;
+                    shortcut?: string | undefined;
                 };
-            };
+            } | undefined;
         };
     }
 
@@ -25,8 +25,8 @@ declare namespace Plugin {
     interface VariableResolvers {
         [variablePrefix: string]: VariableResolver | {
             resolver: VariableResolver,
-            isDisabledAtPrepopulation?: boolean,
-            serviceName?: string
+            isDisabledAtPrepopulation?: boolean | undefined,
+            serviceName?: string | undefined
         };
     }
 
@@ -37,8 +37,8 @@ declare namespace Plugin {
 
 interface Plugin {
     hooks: Plugin.Hooks;
-    commands?: Plugin.Commands;
-    variableResolvers?: Plugin.VariableResolvers;
+    commands?: Plugin.Commands | undefined;
+    variableResolvers?: Plugin.VariableResolvers | undefined;
 }
 
 export = Plugin;

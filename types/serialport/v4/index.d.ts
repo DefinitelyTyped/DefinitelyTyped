@@ -40,15 +40,15 @@ declare namespace SerialPort {
     }
 
     interface SetOptions {
-        brk?: boolean;
-        cts?: boolean;
-        dsr?: boolean;
-        dtr?: boolean;
-        rts?: boolean;
+        brk?: boolean | undefined;
+        cts?: boolean | undefined;
+        dsr?: boolean | undefined;
+        dtr?: boolean | undefined;
+        rts?: boolean | undefined;
     }
 
     interface UpdateOptions {
-        baudRate?: number;
+        baudRate?: number | undefined;
     }
 
     type serialParser = (emitter: NodeJS.EventEmitter, buffer: Buffer|string) => void;
@@ -70,20 +70,20 @@ declare namespace SerialPort {
 
     // https://github.com/EmergingTechnologyAdvisors/node-serialport/blob/4.0.7/README.md#user-content-serialport-path-options-opencallback
     interface Options {
-        autoOpen?: boolean;
-        lock?: boolean;
-        baudRate?: 115200|57600|38400|19200|9600|4800|2400|1800|1200|600|300|200|150|134|110|75|50|number;
-        dataBits?: 8|7|6|5;
-        stopBits?: 1|2;
-        parity?: 'none'|'even'|'mark'|'odd'|'space';
-        rtscts?: boolean;
-        xon?: boolean;
-        xoff?: boolean;
-        bufferSize?: number;
-        parser?: serialParser;
+        autoOpen?: boolean | undefined;
+        lock?: boolean | undefined;
+        baudRate?: 115200|57600|38400|19200|9600|4800|2400|1800|1200|600|300|200|150|134|110|75|50|number | undefined;
+        dataBits?: 8|7|6|5 | undefined;
+        stopBits?: 1|2 | undefined;
+        parity?: 'none'|'even'|'mark'|'odd'|'space' | undefined;
+        rtscts?: boolean | undefined;
+        xon?: boolean | undefined;
+        xoff?: boolean | undefined;
+        bufferSize?: number | undefined;
+        parser?: serialParser | undefined;
         platformOptions?: {
-            vmin?: number;
-            vtime?: number;
-        };
+            vmin?: number | undefined;
+            vtime?: number | undefined;
+        } | undefined;
     }
 }

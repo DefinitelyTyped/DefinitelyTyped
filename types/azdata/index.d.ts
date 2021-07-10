@@ -122,7 +122,7 @@ declare module 'azdata' {
             groupFullName: string;
             groupId: string;
             saveProfile: boolean;
-            azureTenantId?: string;
+            azureTenantId?: string | undefined;
             options: { [name: string]: any };
 
             static createFrom(options: { [key: string]: any }): ConnectionProfile;
@@ -337,9 +337,9 @@ declare module 'azdata' {
     // Object Explorer interfaces  -----------------------------------------------------------------------
     export interface ObjectExplorerSession {
         success: boolean;
-        sessionId?: string;
+        sessionId?: string | undefined;
         rootNode: NodeInfo;
-        errorMessage?: string;
+        errorMessage?: string | undefined;
     }
 
     /**
@@ -349,23 +349,23 @@ declare module 'azdata' {
     export interface NodeInfo {
         nodePath: string;
         nodeType: string;
-        nodeSubType?: string;
-        nodeStatus?: string;
+        nodeSubType?: string | undefined;
+        nodeStatus?: string | undefined;
         label: string;
         isLeaf: boolean;
-        metadata?: ObjectMetadata;
-        errorMessage?: string;
+        metadata?: ObjectMetadata | undefined;
+        errorMessage?: string | undefined;
         /**
          * Optional iconType for the object in the tree. Currently this only supports
          * an icon name or SqlThemeIcon name, rather than a path to an icon.
          * If not defined, the nodeType + nodeStatus / nodeSubType values
          * will be used instead.
          */
-        iconType?: string | SqlThemeIcon;
+        iconType?: string | SqlThemeIcon | undefined;
         /**
          * Informs who provides the children to a node, used by data explorer tree view api
          */
-        childProvider?: string;
+        childProvider?: string | undefined;
         /**
          * Holds the connection profile for nodes, used by data explorer tree view api
          */
@@ -373,19 +373,19 @@ declare module 'azdata' {
     }
 
     export interface IConnectionProfile extends ConnectionInfo {
-        connectionName?: string;
+        connectionName?: string | undefined;
         serverName: string;
-        databaseName?: string;
+        databaseName?: string | undefined;
         userName: string;
         password: string;
         authenticationType: string;
         savePassword: boolean;
-        groupFullName?: string;
-        groupId?: string;
+        groupFullName?: string | undefined;
+        groupId?: string | undefined;
         providerName: string;
         saveProfile: boolean;
         id: string;
-        azureTenantId?: string;
+        azureTenantId?: string | undefined;
     }
 
     /**
@@ -403,21 +403,21 @@ declare module 'azdata' {
          * If undefined / false, dashboard won't be opened after connection completes.
          * Default is false.
          */
-        showDashboard?: boolean;
+        showDashboard?: boolean | undefined;
 
         /**
          * If undefined / true, open the connection dialog if connection fails.
          * If false, connection dialog won't be opened even if connection fails.
          * Default is true.
          */
-        showConnectionDialogOnError?: boolean;
+        showConnectionDialogOnError?: boolean | undefined;
 
         /**
          * If undefined / true, open the connection firewall rule dialog if connection fails.
          * If false, connection firewall rule dialog won't be opened even if connection fails.
          * Default is true.
          */
-        showFirewallRuleOnError?: boolean;
+        showFirewallRuleOnError?: boolean | undefined;
     }
 
     export interface ConnectionInfoSummary {
@@ -466,7 +466,7 @@ declare module 'azdata' {
         /**
          * database name
          */
-        databaseName?: string;
+        databaseName?: string | undefined;
         /**
          * user name
          */
@@ -480,11 +480,11 @@ declare module 'azdata' {
         /**
          * The major version of the instance.
          */
-        serverMajorVersion?: number;
+        serverMajorVersion?: number | undefined;
         /**
          * The minor version of the instance.
          */
-        serverMinorVersion?: number;
+        serverMinorVersion?: number | undefined;
         /**
          * The build of the instance.
          */
@@ -540,7 +540,7 @@ declare module 'azdata' {
     }
 
     export interface DataProvider {
-        handle?: number;
+        handle?: number | undefined;
         readonly providerId: string;
     }
 
@@ -652,7 +652,7 @@ declare module 'azdata' {
     // List Databases Request ----------------------------------------------------------------------
     export interface ListDatabasesResult {
         databaseNames: Array<string>;
-        databases?: Array<DatabaseInfo>;
+        databases?: Array<DatabaseInfo> | undefined;
     }
 
     /**
@@ -802,7 +802,7 @@ declare module 'azdata' {
     }
 
     export interface ScriptingParamDetails {
-        filePath?: string;
+        filePath?: string | undefined;
         scriptCompatibilityOption: string;
         targetDatabaseEngineEdition: string;
         targetDatabaseEngineType: string;
@@ -899,33 +899,33 @@ declare module 'azdata' {
     }
 
     export interface IDbColumn {
-        allowDBNull?: boolean;
+        allowDBNull?: boolean | undefined;
         baseCatalogName: string;
         baseColumnName: string;
         baseSchemaName: string;
         baseServerName: string;
         baseTableName: string;
         columnName: string;
-        columnOrdinal?: number;
-        columnSize?: number;
-        isAliased?: boolean;
-        isAutoIncrement?: boolean;
-        isExpression?: boolean;
-        isHidden?: boolean;
-        isIdentity?: boolean;
-        isKey?: boolean;
-        isBytes?: boolean;
-        isChars?: boolean;
-        isSqlVariant?: boolean;
-        isUdt?: boolean;
+        columnOrdinal?: number | undefined;
+        columnSize?: number | undefined;
+        isAliased?: boolean | undefined;
+        isAutoIncrement?: boolean | undefined;
+        isExpression?: boolean | undefined;
+        isHidden?: boolean | undefined;
+        isIdentity?: boolean | undefined;
+        isKey?: boolean | undefined;
+        isBytes?: boolean | undefined;
+        isChars?: boolean | undefined;
+        isSqlVariant?: boolean | undefined;
+        isUdt?: boolean | undefined;
         dataType: string;
-        isXml?: boolean;
-        isJson?: boolean;
-        isLong?: boolean;
-        isReadOnly?: boolean;
-        isUnique?: boolean;
-        numericPrecision?: number;
-        numericScale?: number;
+        isXml?: boolean | undefined;
+        isJson?: boolean | undefined;
+        isLong?: boolean | undefined;
+        isReadOnly?: boolean | undefined;
+        isUnique?: boolean | undefined;
+        numericPrecision?: number | undefined;
+        numericScale?: number | undefined;
         udtAssemblyQualifiedName: string;
         dataTypeName: string;
     }
@@ -937,9 +937,9 @@ declare module 'azdata' {
     }
 
     export interface IResultMessage {
-        batchId?: number;
+        batchId?: number | undefined;
         isError: boolean;
-        time?: string;
+        time?: string | undefined;
         message: string;
     }
 
@@ -992,8 +992,8 @@ declare module 'azdata' {
     }
 
     export interface ExecutionPlanOptions {
-        displayEstimatedQueryPlan?: boolean;
-        displayActualQueryPlan?: boolean;
+        displayEstimatedQueryPlan?: boolean | undefined;
+        displayActualQueryPlan?: boolean | undefined;
     }
 
     export interface SimpleExecuteParams {
@@ -1075,12 +1075,12 @@ declare module 'azdata' {
         rowEndIndex: number;
         columnStartIndex: number;
         columnEndIndex: number;
-        includeHeaders?: boolean;
-        delimiter?: string;
-        lineSeperator?: string;
-        textIdentifier?: string;
-        encoding?: string;
-        formatted?: boolean;
+        includeHeaders?: boolean | undefined;
+        delimiter?: string | undefined;
+        lineSeperator?: string | undefined;
+        textIdentifier?: string | undefined;
+        encoding?: string | undefined;
+        formatted?: boolean | undefined;
     }
 
     export interface SaveResultRequestResult {
@@ -1123,7 +1123,7 @@ declare module 'azdata' {
 
     // edit/initialize ----------------------------------------------------------------------------
     export interface EditInitializeFiltering {
-        LimitResults?: number;
+        LimitResults?: number | undefined;
     }
 
     export interface EditInitializeParams extends IEditSessionOperationParams {
@@ -1281,10 +1281,10 @@ declare module 'azdata' {
     }
 
     export interface ObjectExplorerExpandInfo {
-        sessionId?: string;
+        sessionId?: string | undefined;
         nodePath: string;
         nodes: NodeInfo[];
-        errorMessage?: string;
+        errorMessage?: string | undefined;
     }
 
     export interface ExpandNodeInfo {
@@ -1302,7 +1302,7 @@ declare module 'azdata' {
     }
 
     export interface ObjectExplorerCloseSessionInfo {
-        sessionId?: string;
+        sessionId?: string | undefined;
     }
 
     export interface ObjectExplorerCloseSessionResponse {
@@ -1344,7 +1344,7 @@ declare module 'azdata' {
          * Optional group name used to sort nodes in the tree. If not defined, the node order will be added in order based on provider ID, with
          * nodes from the main ObjectExplorerProvider for this provider type added first
          */
-        readonly group?: string;
+        readonly group?: string | undefined;
 
         handleSessionOpen(session: ObjectExplorerSession): Thenable<boolean>;
 
@@ -1890,7 +1890,7 @@ declare module 'azdata' {
     }
 
     export interface TaskInfo {
-        connection?: connection.Connection;
+        connection?: connection.Connection | undefined;
         taskId: string;
         status: TaskStatus;
         taskExecutionMode: TaskExecutionMode;
@@ -1914,7 +1914,7 @@ declare module 'azdata' {
         taskId: string;
         status: TaskStatus;
         message: string;
-        script?: string;
+        script?: string | undefined;
     }
 
     export interface TaskServicesProvider extends DataProvider {
@@ -1957,7 +1957,7 @@ declare module 'azdata' {
 
     export interface RestoreInfo {
         options: { [key: string]: any };
-        taskExecutionMode?: TaskExecutionMode;
+        taskExecutionMode?: TaskExecutionMode | undefined;
     }
 
     export interface RestoreDatabaseFileInfo {
@@ -1995,7 +1995,7 @@ declare module 'azdata' {
         sessionId: string;
         backupSetsToRestore: DatabaseFileInfo[];
         canRestore: boolean;
-        errorMessage?: string;
+        errorMessage?: string | undefined;
         dbFiles: RestoreDatabaseFileInfo[];
         databaseNamesFromBackupSets: string[];
         planDetails: { [key: string]: RestorePlanDetailInfo };
@@ -2196,7 +2196,7 @@ declare module 'azdata' {
          * @param resource Type of resource to get the security token for (defaults to
          * AzureResource.ResourceManagement if not given)
          */
-        export function getAccountSecurityToken(account: Account, tenantId: string, resource: AzureResource): Thenable<{ token: string, tokenType?: string } | undefined>;
+        export function getAccountSecurityToken(account: Account, tenantId: string, resource: AzureResource): Thenable<{ token: string, tokenType?: string | undefined } | undefined>;
 
         /**
          * An [event](#Event) which fires when the accounts have changed.
@@ -2349,7 +2349,7 @@ declare module 'azdata' {
         /**
          * Optional settings that identify an instantiation of a provider
          */
-        settings?: {};
+        settings?: {} | undefined;
     }
 
     /**
@@ -2425,7 +2425,7 @@ declare module 'azdata' {
         /**
          * Optional settings that identify an instantiation of a provider
          */
-        settings?: {};
+        settings?: {} | undefined;
     }
 
     export namespace resources {
@@ -2444,8 +2444,8 @@ declare module 'azdata' {
     }
 
     export interface FirewallRuleInfo {
-        startIpAddress?: string;
-        endIpAddress?: string;
+        startIpAddress?: string | undefined;
+        endIpAddress?: string | undefined;
         serverName: string;
         securityTokenMappings: {};
     }
@@ -2602,9 +2602,9 @@ declare module 'azdata' {
     }
 
     export class TreeItem extends vscode.TreeItem {
-        payload?: IConnectionProfile;
-        childProvider?: string;
-        type?: ExtensionNodeType;
+        payload?: IConnectionProfile | undefined;
+        childProvider?: string | undefined;
+        type?: ExtensionNodeType | undefined;
     }
 
     export namespace tasks {
@@ -2687,8 +2687,8 @@ declare module 'azdata' {
     }
 
     export class TreeComponentItem extends vscode.TreeItem {
-        checked?: boolean;
-        enabled?: boolean;
+        checked?: boolean | undefined;
+        enabled?: boolean | undefined;
     }
 
     export interface ComponentBuilder<TComponent extends Component, TPropertyBag extends ComponentProperties> {
@@ -2822,9 +2822,9 @@ declare module 'azdata' {
 
     export interface FormComponent<T extends Component = Component> {
         component: T;
-        title?: string;
-        actions?: Component[];
-        required?: boolean;
+        title?: string | undefined;
+        actions?: Component[] | undefined;
+        required?: boolean | undefined;
     }
 
     /**
@@ -2834,7 +2834,7 @@ declare module 'azdata' {
         /**
          * The form components to display in the group along with optional layouts for each item
          */
-        components: (FormComponent & { layout?: FormItemLayout })[];
+        components: (FormComponent & { layout?: FormItemLayout | undefined })[];
 
         /**
          * The title of the group, displayed above its components
@@ -2844,8 +2844,8 @@ declare module 'azdata' {
 
     export interface ToolbarComponent {
         component: Component;
-        title?: string;
-        toolbarSeparatorAfter?: boolean;
+        title?: string | undefined;
+        toolbarSeparatorAfter?: boolean | undefined;
     }
 
     /**
@@ -2990,37 +2990,37 @@ declare module 'azdata' {
          * To layout as a vertical view use "column", and for horizontal
          * use "row".
          */
-        flexFlow?: string;
+        flexFlow?: string | undefined;
         /**
          * Matches the justify-content CSS property.
          */
-        justifyContent?: JustifyContentType;
+        justifyContent?: JustifyContentType | undefined;
         /**
          * Matches the align-items CSS property.
          */
-        alignItems?: AlignItemsType;
+        alignItems?: AlignItemsType | undefined;
         /**
          * Matches the align-content CSS property.
          */
-        alignContent?: AlignContentType;
+        alignContent?: AlignContentType | undefined;
         /**
          *  Matches the flex-wrap CSS property.
          */
-        flexWrap?: FlexWrapType;
+        flexWrap?: FlexWrapType | undefined;
         /**
          * Container Height
          */
-        height?: number | string;
+        height?: number | string | undefined;
 
         /**
          * Container Width
          */
-        width?: number | string;
+        width?: number | string | undefined;
 
         /**
          * Matches the text-align CSS property.
          */
-        textAlign?: TextAlignType;
+        textAlign?: TextAlignType | undefined;
 
         /**
          * The position CSS property. Empty by default.
@@ -3029,7 +3029,7 @@ declare module 'azdata' {
          * set to 'absolute', with the parent FlexContainer having 'relative' position.
          * Without this the component will fail to correctly size itself.
          */
-        position?: PositionType;
+        position?: PositionType | undefined;
     }
 
     export interface SplitViewLayout extends FlexLayout {
@@ -3048,37 +3048,37 @@ declare module 'azdata' {
         /**
          * Matches the order CSS property and its available values.
          */
-        order?: number;
+        order?: number | undefined;
         /**
          * Matches the flex CSS property and its available values.
          * Default is "1 1 auto".
          */
-        flex?: string;
+        flex?: string | undefined;
         /**
          * Matches the CSS style key and its available values.
          */
-        CSSStyles?: CssStyles;
+        CSSStyles?: CssStyles | undefined;
     }
 
     export interface FormItemLayout {
-        horizontal?: boolean;
-        componentWidth?: number | string;
-        componentHeight?: number | string;
-        titleFontSize?: number | string;
-        info?: string;
+        horizontal?: boolean | undefined;
+        componentWidth?: number | string | undefined;
+        componentHeight?: number | string | undefined;
+        titleFontSize?: number | string | undefined;
+        info?: string | undefined;
     }
 
     export interface FormLayout {
-        width?: number | string;
-        height?: number | string;
-        padding?: string;
+        width?: number | string | undefined;
+        height?: number | string | undefined;
+        padding?: string | undefined;
     }
 
     export interface GroupLayout {
-        width?: number | string;
-        header?: string;
-        collapsible?: boolean;
-        collapsed?: boolean;
+        width?: number | string | undefined;
+        header?: string | undefined;
+        collapsible?: boolean | undefined;
+        collapsed?: boolean | undefined;
     }
 
     export interface GroupItemLayout {
@@ -3088,24 +3088,24 @@ declare module 'azdata' {
         /**
          * Container Height
          */
-        height?: number | string;
+        height?: number | string | undefined;
 
         /**
          * Container Width
          */
-        width?: number | string;
+        width?: number | string | undefined;
     }
 
     export interface DivItemLayout {
         /**
          * Matches the order CSS property and its available values.
          */
-        order?: number;
+        order?: number | undefined;
 
         /**
          * Matches the CSS style key and its available values.
          */
-        CSSStyles?: CssStyles;
+        CSSStyles?: CssStyles | undefined;
     }
 
     export interface DivContainer extends Container<DivLayout, DivItemLayout>, DivContainerProperties {
@@ -3150,7 +3150,7 @@ declare module 'azdata' {
         /**
          * Name of the clickable action. If not defined then no action will be shown
          */
-        actionTitle?: string;
+        actionTitle?: string | undefined;
         /**
          * Data sent on callback being run.
          */
@@ -3180,34 +3180,34 @@ declare module 'azdata' {
      */
     export interface CardProperties extends ComponentProperties, ComponentWithIcon {
         label: string;
-        value?: string;
-        actions?: ActionDescriptor[];
-        descriptions?: CardDescriptionItem[];
-        status?: StatusIndicator;
+        value?: string | undefined;
+        actions?: ActionDescriptor[] | undefined;
+        descriptions?: CardDescriptionItem[] | undefined;
+        status?: StatusIndicator | undefined;
 
         /**
          * Returns true if the card is selected
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
 
         /**
          * Card Type, default: Details
          */
-        cardType?: CardType;
+        cardType?: CardType | undefined;
     }
 
     export interface CardDescriptionItem {
         label: string;
-        value?: string;
-        tooltip?: string;
-        fontWeight?: 'normal' | 'bold';
+        value?: string | undefined;
+        tooltip?: string | undefined;
+        fontWeight?: 'normal' | 'bold' | undefined;
     }
 
     export type InputBoxInputType = 'color' | 'date' | 'datetime-local' | 'email' | 'month' | 'number' | 'password' | 'range' | 'search' | 'text' | 'time' | 'url' | 'week';
 
     export interface ComponentProperties {
-        height?: number | string;
-        width?: number | string;
+        height?: number | string | undefined;
+        width?: number | string | undefined;
         /**
          * The position CSS property. Empty by default.
          * This is particularly useful if laying out components inside a FlexContainer and
@@ -3215,35 +3215,35 @@ declare module 'azdata' {
          * set to 'absolute', with the parent FlexContainer having 'relative' position.
          * Without this the component will fail to correctly size itself
          */
-        position?: PositionType;
+        position?: PositionType | undefined;
         /**
          * Whether the component is enabled in the DOM
          */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
         /**
          * Corresponds to the display CSS property for the element
          */
-        display?: DisplayType;
+        display?: DisplayType | undefined;
         /**
          * Corresponds to the aria-label accessibility attribute for this component
          */
-        ariaLabel?: string;
+        ariaLabel?: string | undefined;
         /**
          * Corresponds to the role accessibility attribute for this component
          */
-        ariaRole?: string;
+        ariaRole?: string | undefined;
         /**
          * Corresponds to the aria-selected accessibility attribute for this component
          */
-        ariaSelected?: boolean;
+        ariaSelected?: boolean | undefined;
         /**
          * Corresponds to the aria-hidden accessibility attribute for this component
          */
-        ariaHidden?: boolean;
+        ariaHidden?: boolean | undefined;
         /**
          * Matches the CSS style key and its available values.
          */
-        CSSStyles?: CssStyles;
+        CSSStyles?: CssStyles | undefined;
     }
 
     export type ThemedIconPath = { light: string | vscode.Uri; dark: string | vscode.Uri };
@@ -3255,70 +3255,70 @@ declare module 'azdata' {
         /**
          * The path for the icon with optional dark-theme away alternative
          */
-        iconPath?: IconPath;
+        iconPath?: IconPath | undefined;
         /**
          * The height of the icon
          */
-        iconHeight?: number | string;
+        iconHeight?: number | string | undefined;
         /**
          * The width of the icon
          */
-        iconWidth?: number | string;
+        iconWidth?: number | string | undefined;
         /**
          * The title for the icon. This title will show when hovered over
          */
-        title?: string;
+        title?: string | undefined;
     }
 
     export interface InputBoxProperties extends ComponentProperties {
-        value?: string;
-        ariaLive?: string;
-        placeHolder?: string;
-        inputType?: InputBoxInputType;
-        required?: boolean;
-        multiline?: boolean;
-        rows?: number;
-        columns?: number;
+        value?: string | undefined;
+        ariaLive?: string | undefined;
+        placeHolder?: string | undefined;
+        inputType?: InputBoxInputType | undefined;
+        required?: boolean | undefined;
+        multiline?: boolean | undefined;
+        rows?: number | undefined;
+        columns?: number | undefined;
         /**
          * The minimum value allowed for the input. Only valid for number inputs.
          */
-        min?: number;
+        min?: number | undefined;
         /**
          * The maximum value allowed for the input. Only valid for number inputs.
          */
-        max?: number;
+        max?: number | undefined;
         /**
          * Whether to stop key event propagation when enter is pressed in the input box. Leaving this as false
          * means the event will propagate up to any parents that have handlers (such as validate on Dialogs)
          */
-        stopEnterPropagation?: boolean;
+        stopEnterPropagation?: boolean | undefined;
         /**
          * The error message to show when custom validation fails. Note that built-in validations
          * (such as min/max values) will use the default error messages for those validations
          * as appropriate.
          */
-        validationErrorMessage?: string;
+        validationErrorMessage?: string | undefined;
         /**
          * Whether the input box is marked with the 'readonly' attribute
          */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
         /**
          * This title will show when hovered over
          */
-        title?: string;
+        title?: string | undefined;
     }
 
     export interface TableColumn {
         value: string;
-        width?: number;
-        cssClass?: string;
-        headerCssClass?: string;
-        toolTip?: string;
-        type?: ColumnType;
+        width?: number | undefined;
+        cssClass?: string | undefined;
+        headerCssClass?: string | undefined;
+        toolTip?: string | undefined;
+        type?: ColumnType | undefined;
         /**
          * @deprecated options property is deprecated, use specific column types to access the options directly
          */
-        options?: CheckboxColumnOption | TextColumnOption;
+        options?: CheckboxColumnOption | TextColumnOption | undefined;
     }
 
     export enum ColumnType {
@@ -3348,14 +3348,14 @@ declare module 'azdata' {
     export interface TableComponentProperties extends ComponentProperties {
         data: any[][];
         columns: string[] | TableColumn[];
-        fontSize?: number | string;
-        selectedRows?: number[];
-        forceFitColumns?: ColumnSizingMode;
-        title?: string;
-        ariaRowCount?: number;
-        ariaColumnCount?: number;
-        updateCells?: TableCell[];
-        moveFocusOutWithTab?: boolean; // accessibility requirement for tables with no actionable cells
+        fontSize?: number | string | undefined;
+        selectedRows?: number[] | undefined;
+        forceFitColumns?: ColumnSizingMode | undefined;
+        title?: string | undefined;
+        ariaRowCount?: number | undefined;
+        ariaColumnCount?: number | undefined;
+        updateCells?: TableCell[] | undefined;
+        moveFocusOutWithTab?: boolean | undefined; // accessibility requirement for tables with no actionable cells
     }
 
     export interface CheckBoxCell extends TableCell {
@@ -3371,20 +3371,20 @@ declare module 'azdata' {
         /**
          * Whether the checkbox is checked.
          */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /**
          * The label to display next to the checkbox.
          */
-        label?: string;
+        label?: string | undefined;
         /**
          * Whether the component is marked with the 'required' property - making
          * it required to be checked for component validation.
          */
-        required?: boolean;
+        required?: boolean | undefined;
     }
 
     export interface TreeProperties extends ComponentProperties {
-        withCheckbox?: boolean;
+        withCheckbox?: boolean | undefined;
     }
 
     export enum DeclarativeDataType {
@@ -3395,17 +3395,17 @@ declare module 'azdata' {
     }
 
     export interface RadioButtonProperties extends ComponentProperties {
-        name?: string;
-        label?: string;
-        value?: string;
-        checked?: boolean;
+        name?: string | undefined;
+        label?: string | undefined;
+        value?: string | undefined;
+        checked?: boolean | undefined;
     }
 
     export interface TextComponentProperties extends ComponentProperties, TitledComponentProperties {
-        value?: string;
-        links?: LinkArea[];
-        description?: string;
-        requiredIndicator?: boolean;
+        value?: string | undefined;
+        links?: LinkArea[] | undefined;
+        description?: string | undefined;
+        requiredIndicator?: boolean | undefined;
     }
 
     export interface ImageComponentProperties extends ComponentProperties, ComponentWithIcon {
@@ -3426,7 +3426,7 @@ declare module 'azdata' {
         /**
          * Whether to show the 'external link' icon next to the hyperlink
          */
-        showLinkIcon?: boolean;
+        showLinkIcon?: boolean | undefined;
     }
 
     export interface ImageComponent extends ComponentWithIcon { }
@@ -3434,11 +3434,11 @@ declare module 'azdata' {
     export interface ImageComponentProperties extends ComponentWithIconProperties { }
 
     export interface DropDownProperties extends LoadingComponentProperties {
-        value?: string | CategoryValue;
-        values?: string[] | CategoryValue[];
-        editable?: boolean;
-        fireOnTextChange?: boolean;
-        required?: boolean;
+        value?: string | CategoryValue | undefined;
+        values?: string[] | CategoryValue[] | undefined;
+        editable?: boolean | undefined;
+        fireOnTextChange?: boolean | undefined;
+        required?: boolean | undefined;
     }
 
     export interface DeclarativeTableColumn {
@@ -3446,20 +3446,20 @@ declare module 'azdata' {
         valueType: DeclarativeDataType;
         isReadOnly: boolean;
         width: number | string;
-        categoryValues?: CategoryValue[];
+        categoryValues?: CategoryValue[] | undefined;
     }
 
     export interface DeclarativeTableProperties extends ComponentProperties {
         /**
          * @deprecated Use dataValues instead.
          */
-        data?: any[][];
+        data?: any[][] | undefined;
         columns: DeclarativeTableColumn[];
     }
 
     export interface ListBoxProperties extends ComponentProperties {
-        selectedRow?: number;
-        values?: string[];
+        selectedRow?: number | undefined;
+        values?: string[] | undefined;
     }
 
     export interface WebViewProperties extends ComponentProperties {
@@ -3470,11 +3470,11 @@ declare module 'azdata' {
          *
          * Should be a complete html document.
          */
-        html?: string;
+        html?: string | undefined;
         /**
          * Content settings for the webview.
          */
-        options?: vscode.WebviewOptions;
+        options?: vscode.WebviewOptions | undefined;
     }
 
     /**
@@ -3484,15 +3484,15 @@ declare module 'azdata' {
         /**
          * The content inside the text editor
          */
-        content?: string;
+        content?: string | undefined;
         /**
          * The language mode for this text editor. The language mode is SQL by default.
          */
-        languageMode?: string;
+        languageMode?: string | undefined;
         /**
          * Minimum height for editor component
          */
-        minimumHeight?: number;
+        minimumHeight?: number | undefined;
 
         /**
          * The editor Uri which will be used as a reference for VSCode Language Service.
@@ -3511,66 +3511,66 @@ declare module 'azdata' {
         /**
          * The label for the button
          */
-        label?: string;
+        label?: string | undefined;
         /**
          * Whether the button opens the file browser dialog
          */
-        isFile?: boolean;
+        isFile?: boolean | undefined;
         /**
          * The content of the currently selected file
          */
-        fileContent?: string;
+        fileContent?: string | undefined;
         /**
          * @deprecated This will be moved to `ComponentWithIconProperties`
          *
          * The title for the button. This title will show when hovered over
          */
-        title?: string;
+        title?: string | undefined;
     }
 
     export interface LoadingComponentProperties extends ComponentProperties {
         /**
          * Whether to show the loading spinner instead of the contained component. True by default
          */
-        loading?: boolean;
+        loading?: boolean | undefined;
         /**
          * Whether to show the loading text next to the spinner
          */
-        showText?: boolean;
+        showText?: boolean | undefined;
         /**
          * The text to display while loading is set to true
          */
-        loadingText?: string;
+        loadingText?: string | undefined;
         /**
          * The text to display while loading is set to false. Will also be announced through screen readers
          * once loading is completed.
          */
-        loadingCompletedText?: string;
+        loadingCompletedText?: string | undefined;
     }
 
     export interface DivContainerProperties extends ComponentProperties {
         /**
          * Matches the overflow-y CSS property and its available values.
          */
-        overflowY?: string;
+        overflowY?: string | undefined;
 
         /**
          * Setting the scroll based on the y offset
          * This is used when its child component is webview
          */
-        yOffsetChange?: number;
+        yOffsetChange?: number | undefined;
 
         /**
          * Indicates whether the element is clickable
          */
-        clickable?: boolean;
+        clickable?: boolean | undefined;
     }
 
     export interface TitledComponentProperties extends ComponentProperties {
         /**
          * The title for the component. This title will show when hovered over
          */
-        title?: string;
+        title?: string | undefined;
     }
 
     export interface CardComponent extends Component, CardProperties {
@@ -3641,7 +3641,7 @@ declare module 'azdata' {
 
     export interface TableComponent extends Component, TableComponentProperties {
         onRowSelected: vscode.Event<any>;
-        onCellAction?: vscode.Event<ICellActionEventArgs>;
+        onCellAction?: vscode.Event<ICellActionEventArgs> | undefined;
     }
 
     export interface FileBrowserTreeComponent extends Component, FileBrowserTreeProperties {
@@ -3787,7 +3787,7 @@ declare module 'azdata' {
         /**
          * Controls whether the text should be announced by the screen reader. Default value is false.
          */
-        announceText?: boolean;
+        announceText?: boolean | undefined;
     }
 
     /**
@@ -3816,7 +3816,7 @@ declare module 'azdata' {
         /**
          * The properties to display
          */
-        propertyItems?: PropertiesContainerItem[];
+        propertyItems?: PropertiesContainerItem[] | undefined;
     }
 
     /**
@@ -3945,8 +3945,8 @@ declare module 'azdata' {
          */
         export type DialogMessage = {
             readonly text: string,
-            readonly description?: string,
-            readonly level?: MessageLevel
+            readonly description?: string | undefined,
+            readonly level?: MessageLevel | undefined
         };
 
         export interface ModelViewPanel {
@@ -4015,7 +4015,7 @@ declare module 'azdata' {
              * Set the dialog name when opening
              * the dialog for telemetry
              */
-            dialogName?: string;
+            dialogName?: string | undefined;
 
             /**
              * Register a callback that will be called when the user tries to click done. Only
@@ -4064,7 +4064,7 @@ declare module 'azdata' {
             /**
              * Whether the button is focused
              */
-            focused?: boolean;
+            focused?: boolean | undefined;
 
             /**
              * Raised when the button is clicked
@@ -4074,7 +4074,7 @@ declare module 'azdata' {
             /**
              * Position of the button on the dialog footer
              */
-            position?: DialogButtonPosition;
+            position?: DialogButtonPosition | undefined;
         }
 
         export type DialogButtonPosition = 'left' | 'right';
@@ -4128,7 +4128,7 @@ declare module 'azdata' {
             /**
              * The name used to identify the wizard in telemetry
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * The wizard's pages. Pages can be added/removed while the dialog is open by using
@@ -4309,19 +4309,19 @@ declare module 'azdata' {
         /**
          * Should the model view editor's context be kept around even when the editor is no longer visible? It is false by default
          */
-        readonly retainContextWhenHidden?: boolean;
+        readonly retainContextWhenHidden?: boolean | undefined;
 
         /**
          * Does this model view editor support save?
          */
-        readonly supportsSave?: boolean;
+        readonly supportsSave?: boolean | undefined;
 
         /**
          * Resource name for this editor
          * File icons might depend on file extension, language id or resource name
          * Resource name field needs to be set explicitly if file icon for a particular Model View Editor depends on editor resource name
          */
-        readonly resourceName?: string;
+        readonly resourceName?: string | undefined;
     }
 
     export enum DataProviderType {
@@ -4357,7 +4357,7 @@ declare module 'azdata' {
          * Note that the connection is not guaranteed to be in a connected
          * state on click.
          */
-        connectionProfile?: IConnectionProfile;
+        connectionProfile?: IConnectionProfile | undefined;
     }
 
     /**
@@ -4376,7 +4376,7 @@ declare module 'azdata' {
          * Node info for objects below a specific connection. This
          * may be null for a Connection-level object
          */
-        nodeInfo?: NodeInfo;
+        nodeInfo?: NodeInfo | undefined;
     }
 
     /**
@@ -4408,11 +4408,11 @@ declare module 'azdata' {
         /**
          * The operation id. A unique id will be assigned to it If not specified a
          */
-        operationId?: string;
+        operationId?: string | undefined;
         /**
          * Connection information
          */
-        connection?: connection.Connection;
+        connection?: connection.Connection | undefined;
 
         /**
          * Operation Display Name
@@ -4602,7 +4602,7 @@ declare module 'azdata' {
              * isn't one of the main editors, e.g an embedded editor, or when the editor
              * column is larger than three.
              */
-            viewColumn?: vscode.ViewColumn;
+            viewColumn?: vscode.ViewColumn | undefined;
 
             /**
              * Perform an edit on the document associated with this notebook editor.
@@ -4650,7 +4650,7 @@ declare module 'azdata' {
 
         export interface NotebookCell {
             contents: ICellContents;
-            uri?: vscode.Uri;
+            uri?: vscode.Uri | undefined;
         }
 
         export interface NotebookShowOptions {
@@ -4661,43 +4661,43 @@ declare module 'azdata' {
              * not adjusted. Use [`ViewColumn.Beside`](#ViewColumn.Beside) to open the
              * editor to the side of the currently active one.
              */
-            viewColumn?: vscode.ViewColumn;
+            viewColumn?: vscode.ViewColumn | undefined;
 
             /**
              * An optional flag that when `true` will stop the [editor](#NotebookEditor) from taking focus.
              */
-            preserveFocus?: boolean;
+            preserveFocus?: boolean | undefined;
 
             /**
              * An optional flag that controls if an [editor](#NotebookEditor)-tab will be replaced
              * with the next editor or if it will be kept.
              */
-            preview?: boolean;
+            preview?: boolean | undefined;
 
             /**
              * An optional string indicating which notebook provider to initially use
              */
-            providerId?: string;
+            providerId?: string | undefined;
 
             /**
              * Optional profile indicating the initial connection to use for this editor
              */
-            connectionProfile?: IConnectionProfile;
+            connectionProfile?: IConnectionProfile | undefined;
 
             /**
              * Default kernel for notebook
              */
-            defaultKernel?: IKernelSpec;
+            defaultKernel?: IKernelSpec | undefined;
 
             /**
              * Optional content used to give an initial notebook state
              */
-            initialContent?: INotebookContents | string;
+            initialContent?: INotebookContents | string | undefined;
 
             /**
              * A optional boolean value indicating the dirty state after the initial content is loaded, default value is true
              */
-            initialDirtyState?: boolean;
+            initialDirtyState?: boolean | undefined;
         }
 
         /**
@@ -4716,7 +4716,7 @@ declare module 'azdata' {
              * The [change kind](#NotebookChangeKind) which has triggered this
              * event. Can be `undefined`.
              */
-            kind?: NotebookChangeKind;
+            kind?: NotebookChangeKind | undefined;
         }
 
         export enum NotebookChangeKind {
@@ -4811,7 +4811,7 @@ declare module 'azdata' {
              * (Optional) ServerManager to handle server lifetime management operations.
              * Depending on the implementation this may not be needed.
              */
-            readonly serverManager?: ServerManager;
+            readonly serverManager?: ServerManager | undefined;
         }
 
         /**
@@ -4878,9 +4878,9 @@ declare module 'azdata' {
         }
 
         export interface INotebookMetadata {
-            kernelspec?: IKernelInfo | IKernelSpec;
-            language_info?: ILanguageInfo;
-            tags?: string[];
+            kernelspec?: IKernelInfo | IKernelSpec | undefined;
+            language_info?: ILanguageInfo | undefined;
+            tags?: string[] | undefined;
         }
 
         /**
@@ -4888,15 +4888,15 @@ declare module 'azdata' {
          */
         export interface IKernelInfo {
             name: string;
-            language?: string;
-            display_name?: string;
+            language?: string | undefined;
+            display_name?: string | undefined;
         }
 
         export interface ILanguageInfo {
             name: string;
-            version?: string;
-            mimetype?: string;
-            codemirror_mode?: string | ICodeMirrorMode;
+            version?: string | undefined;
+            mimetype?: string | undefined;
+            codemirror_mode?: string | ICodeMirrorMode | undefined;
         }
 
         export interface ICodeMirrorMode {
@@ -4913,22 +4913,22 @@ declare module 'azdata' {
         export interface ICellContents {
             cell_type: CellType;
             source: string | string[];
-            metadata?: ICellMetadata;
-            execution_count?: number;
-            outputs?: ICellOutput[];
+            metadata?: ICellMetadata | undefined;
+            execution_count?: number | undefined;
+            outputs?: ICellOutput[] | undefined;
         }
 
         export type CellType = 'code' | 'markdown' | 'raw';
 
         export interface ICellMetadata {
-            language?: string;
-            tags?: string[];
-            azdata_cell_guid?: string;
+            language?: string | undefined;
+            tags?: string[] | undefined;
+            azdata_cell_guid?: string | undefined;
         }
 
         export interface ICellOutput {
             output_type: OutputTypeName;
-            metadata?: ICellOutputMetadata;
+            metadata?: ICellOutputMetadata | undefined;
         }
 
         export interface ICellOutputMetadata {
@@ -4995,7 +4995,7 @@ declare module 'azdata' {
             /**
              * Stacktrace equivalent
              */
-            traceback?: string[];
+            traceback?: string[] | undefined;
         }
 
         export type OutputTypeName =
@@ -5070,7 +5070,7 @@ declare module 'azdata' {
              * Tracks whether the default kernel failed to load
              * This could be for a reason such as the kernel name not being recognized as a valid kernel;
              */
-            defaultKernelLoaded?: boolean;
+            defaultKernelLoaded?: boolean | undefined;
 
             changeKernel(kernelInfo: IKernelSpec): Thenable<IKernel>;
 
@@ -5087,26 +5087,26 @@ declare module 'azdata' {
             /**
              * The name of the session.
              */
-            name?: string;
+            name?: string | undefined;
             /**
              * The type of the session.
              */
-            type?: string;
+            type?: string | undefined;
             /**
              * The type of kernel (e.g. python3).
              */
-            kernelName?: string;
+            kernelName?: string | undefined;
             /**
              * The id of an existing kernel.
              */
-            kernelId?: string;
+            kernelId?: string | undefined;
         }
 
         export interface IKernel {
             readonly id: string;
             readonly name: string;
             readonly supportsIntellisense: boolean;
-            readonly requiresConnection?: boolean;
+            readonly requiresConnection?: boolean | undefined;
             /**
              * Test whether the kernel is ready.
              */
@@ -5212,32 +5212,32 @@ declare module 'azdata' {
              * Whether to execute the code as quietly as possible.
              * The default is `false`.
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
 
             /**
              * Whether to store history of the execution.
              * The default `true` if silent is False.
              * It is forced to  `false ` if silent is `true`.
              */
-            store_history?: boolean;
+            store_history?: boolean | undefined;
 
             /**
              * A mapping of names to expressions to be evaluated in the
              * kernel's interactive namespace.
              */
-            user_expressions?: {};
+            user_expressions?: {} | undefined;
 
             /**
              * Whether to allow stdin requests.
              * The default is `true`.
              */
-            allow_stdin?: boolean;
+            allow_stdin?: boolean | undefined;
 
             /**
              * Whether to the abort execution queue on an error.
              * The default is `false`.
              */
-            stop_on_error?: boolean;
+            stop_on_error?: boolean | undefined;
         }
 
         /**
@@ -5298,8 +5298,8 @@ declare module 'azdata' {
         }
         export interface IKernelSpec {
             name: string;
-            language?: string;
-            display_name?: string;
+            language?: string | undefined;
+            display_name?: string | undefined;
         }
 
         export interface MessageHandler<T extends IMessage> {
@@ -5428,10 +5428,10 @@ declare module 'azdata' {
          */
         export interface IHeader {
             msg_type: string;
-            username?: string;
-            version?: string;
-            session?: string;
-            msg_id?: string;
+            username?: string | undefined;
+            version?: string | undefined;
+            session?: string | undefined;
+            msg_id?: string | undefined;
         }
 
         /**
@@ -5440,9 +5440,9 @@ declare module 'azdata' {
         export interface IMessage {
             type: Channel;
             content: any;
-            header?: IHeader;
-            parent_header?: IHeader | {};
-            metadata?: {};
+            header?: IHeader | undefined;
+            parent_header?: IHeader | {} | undefined;
+            metadata?: {} | undefined;
         }
 
         /**
@@ -5486,8 +5486,8 @@ declare module 'azdata' {
 
         export interface NavigationResult {
             hasNavigation: boolean;
-            previous?: vscode.Uri;
-            next?: vscode.Uri;
+            previous?: vscode.Uri | undefined;
+            next?: vscode.Uri | undefined;
         }
 
         //#endregion

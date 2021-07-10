@@ -13,53 +13,53 @@ declare namespace textFit {
          *  if true, textFit will align vertically using css tables
          *  @default false
          */
-        alignVert?: boolean;
+        alignVert?: boolean | undefined;
 
         /**
          *  if true, textFit will set text-align: center
          *  @default false
          */
-        alignHoriz?: boolean;
+        alignHoriz?: boolean | undefined;
 
         /**
          *  if true, textFit will not set white-space: no-wrap
          *  @default false
          */
-        multiLine?: boolean;
+        multiLine?: boolean | undefined;
 
         /**
          *  disable to turn off automatic multi-line sensing
          *  @default true
          */
-        detectMultiLine?: boolean;
+        detectMultiLine?: boolean | undefined;
 
         /**
          *  @default 6
          */
-        minFontSize?: number;
+        minFontSize?: number | undefined;
 
         /**
          *  @default 80
          */
-        maxFontSize?: number;
+        maxFontSize?: number | undefined;
 
         /**
          *  if true, textFit will re-process already-fit nodes. Set to 'false' for better performance
          *  @default true
          */
-        reProcess?: boolean;
+        reProcess?: boolean | undefined;
 
         /**
          *  if true, textFit will fit text to element width, regardless of text height
          *  @default false
          */
-        widthOnly?: boolean;
+        widthOnly?: boolean | undefined;
 
         /**
          *  if true, textFit will use flexbox for vertical alignment
          *  @default false
          */
-        alignVertWithFlexbox?: boolean;
+        alignVertWithFlexbox?: boolean | undefined;
     }
 }
 

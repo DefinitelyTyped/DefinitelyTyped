@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Track, track, TrackingProp, useTracking } from "react-tracking";
 
-function customEventReporter(data: { page?: string }) {}
+function customEventReporter(data: { page?: string | undefined }) {}
 
 @track(
     { page: "ClassPage" },

@@ -1,7 +1,7 @@
 // Type definitions for ngCordova network plugin
 // Project: https://github.com/driftyco/ng-cordova
 // Definitions by: Kapil Sachdeva <https://github.com/ksachdeva>
-// Definitions: https://github.com/ksachdeva/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
 

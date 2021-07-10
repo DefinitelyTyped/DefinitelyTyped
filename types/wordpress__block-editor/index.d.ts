@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/block-editor 2.2
+// Type definitions for @wordpress/block-editor 6.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
@@ -27,8 +27,8 @@ export interface EditorBaseSetting {
 }
 
 export interface EditorBlockListSettings {
-    allowedBlocks?: string[];
-    templateLock?: EditorTemplateLock;
+    allowedBlocks?: string[] | undefined;
+    templateLock?: EditorTemplateLock | undefined;
 }
 
 export interface EditorColor extends EditorBaseSetting {
@@ -89,20 +89,20 @@ export interface EditorSelection {
     /**
      * The selected block client ID.
      */
-    clientId?: string;
+    clientId?: string | undefined;
     /**
      * The selected block attribute key.
      */
-    attributeKey?: string;
+    attributeKey?: string | undefined;
     /**
      * The selected block attribute offset.
      */
-    offset?: number;
+    offset?: number | undefined;
 }
 
 export interface EditorStyle {
     css: string;
-    baseURL?: string;
+    baseURL?: string | undefined;
 }
 
 export interface EditorSettings {

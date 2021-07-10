@@ -129,18 +129,18 @@ declare class Single {
 
 interface Config {
     apiKey?: any;
-    opts?: ConfigOptions;
-    timeout?: number;
+    opts?: ConfigOptions | undefined;
+    timeout?: number | undefined;
 }
 
 interface ConfigOptions {
-    acceptedType?: string;
+    acceptedType?: string | undefined;
     headers?: {
-        "Content-Type"?: string;
-        "User-Agent"?: string;
-    };
-    host?: string;
-    port?: number;
+        "Content-Type"?: string | undefined;
+        "User-Agent"?: string | undefined;
+    } | undefined;
+    host?: string | undefined;
+    port?: number | undefined;
 }
 
 type Response = object;

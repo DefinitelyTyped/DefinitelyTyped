@@ -21,11 +21,11 @@ declare function sanitize(dirty: string, options?: sanitize.IOptions): string;
 declare namespace sanitize {
   interface Attributes { [attr: string]: string; }
 
-  interface Tag { tagName: string; attribs: Attributes; text?: string; }
+  interface Tag { tagName: string; attribs: Attributes; text?: string | undefined; }
 
   type Transformer = (tagName: string, attribs: Attributes) => Tag;
 
-  type AllowedAttribute = string | { name: string; multiple?: boolean; values: string[] };
+  type AllowedAttribute = string | { name: string; multiple?: boolean | undefined; values: string[] };
 
   type DisallowedTagsModes = 'discard' | 'escape' | 'recursiveEscape';
 
@@ -52,33 +52,33 @@ declare namespace sanitize {
 
   // tslint:disable-next-line:interface-name
   interface IOptions {
-    allowedAttributes?: Record<string, AllowedAttribute[]> | false;
-    allowedStyles?: { [index: string]: { [index: string]: RegExp[] } };
-    allowedClasses?: { [index: string]: string[] | boolean };
-    allowedIframeDomains?: string[];
-    allowedIframeHostnames?: string[];
-    allowIframeRelativeUrls?: boolean;
-    allowedSchemes?: string[] | boolean;
-    allowedSchemesByTag?: { [index: string]: string[] } | boolean;
-    allowedSchemesAppliedToAttributes?: string[];
-    allowProtocolRelative?: boolean;
-    allowedTags?: string[] | false;
-    allowVulnerableTags?: boolean;
-    textFilter?: (text: string, tagName: string) => string;
-    exclusiveFilter?: (frame: IFrame) => boolean;
-    nestingLimit?: number;
-    nonTextTags?: string[];
-    selfClosing?: string[];
-    transformTags?: { [tagName: string]: string | Transformer };
-    parser?: ParserOptions;
-    disallowedTagsMode?: DisallowedTagsModes;
+    allowedAttributes?: Record<string, AllowedAttribute[]> | false | undefined;
+    allowedStyles?: { [index: string]: { [index: string]: RegExp[] } } | undefined;
+    allowedClasses?: { [index: string]: string[] | boolean } | undefined;
+    allowedIframeDomains?: string[] | undefined;
+    allowedIframeHostnames?: string[] | undefined;
+    allowIframeRelativeUrls?: boolean | undefined;
+    allowedSchemes?: string[] | boolean | undefined;
+    allowedSchemesByTag?: { [index: string]: string[] } | boolean | undefined;
+    allowedSchemesAppliedToAttributes?: string[] | undefined;
+    allowProtocolRelative?: boolean | undefined;
+    allowedTags?: string[] | false | undefined;
+    allowVulnerableTags?: boolean | undefined;
+    textFilter?: ((text: string, tagName: string) => string) | undefined;
+    exclusiveFilter?: ((frame: IFrame) => boolean) | undefined;
+    nestingLimit?: number | undefined;
+    nonTextTags?: string[] | undefined;
+    selfClosing?: string[] | undefined;
+    transformTags?: { [tagName: string]: string | Transformer } | undefined;
+    parser?: ParserOptions | undefined;
+    disallowedTagsMode?: DisallowedTagsModes | undefined;
     /**
      * Setting this option to true will instruct sanitize-html to discard all characters outside of html tag boundaries
      * -- before `<html>` and after `</html>` tags
      * @see {@link https://github.com/apostrophecms/sanitize-html/#discarding-text-outside-of-htmlhtml-tags}
      * @default true
      */
-    enforceHtmlBoundary?: boolean;
+    enforceHtmlBoundary?: boolean | undefined;
   }
 
   const defaults: IDefaults;

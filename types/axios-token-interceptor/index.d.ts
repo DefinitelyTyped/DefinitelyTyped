@@ -14,17 +14,17 @@ declare namespace AxiosTokenProvider {
 
     // Interfaces
     interface InterceptorOptions {
-        token?: string;
-        getToken?: () => string | Promise<string>;
-        header?: string;
-        headerFormatter?: (token: string) => string;
+        token?: string | undefined;
+        getToken?: (() => string | Promise<string>) | undefined;
+        header?: string | undefined;
+        headerFormatter?: ((token: string) => string) | undefined;
     }
 
     type TokenProvider = (config: AxiosRequestConfig) => Promise<AxiosRequestConfig>;
 
     interface TokenCacheOptions {
-        getMaxAge?: () => number;
-        maxAge?: number;
+        getMaxAge?: (() => number) | undefined;
+        maxAge?: number | undefined;
     }
 
     interface TokenCache {

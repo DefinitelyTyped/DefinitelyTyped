@@ -9,12 +9,12 @@ import Projection from '../proj/Projection';
 import Control from './Control';
 
 export interface Options {
-    className?: string;
-    coordinateFormat?: CoordinateFormat;
-    projection?: ProjectionLike;
-    render?: (p0: MapEvent) => void;
-    target?: HTMLElement | string;
-    undefinedHTML?: string;
+    className?: string | undefined;
+    coordinateFormat?: CoordinateFormat | undefined;
+    projection?: ProjectionLike | undefined;
+    render?: ((p0: MapEvent) => void) | undefined;
+    target?: HTMLElement | string | undefined;
+    undefinedHTML?: string | undefined;
 }
 export default class MousePosition extends Control {
     constructor(opt_options?: Options);

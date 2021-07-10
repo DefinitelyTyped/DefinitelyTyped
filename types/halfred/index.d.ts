@@ -170,7 +170,7 @@ export interface Link {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.2
      */
-    templated?: boolean;
+    templated?: boolean | undefined;
 
     /**
      * The "type" property is OPTIONAL.
@@ -180,7 +180,7 @@ export interface Link {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.3
      */
-    type?: string;
+    type?: string | undefined;
 
     /**
      * The "deprecation" property is OPTIONAL.
@@ -197,7 +197,7 @@ export interface Link {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.4
      */
-    deprecation?: string;
+    deprecation?: string | undefined;
 
     /**
      * The "name" property is OPTIONAL.
@@ -207,7 +207,7 @@ export interface Link {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.5
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * The "profile" property is OPTIONAL.
@@ -217,7 +217,7 @@ export interface Link {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.6
      */
-    profile?: string;
+    profile?: string | undefined;
 
     /**
      * The "title" property is OPTIONAL.
@@ -227,7 +227,7 @@ export interface Link {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.7
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * The "hreflang" property is OPTIONAL.
@@ -237,5 +237,5 @@ export interface Link {
      *
      * @see https://tools.ietf.org/html/draft-kelly-json-hal-08#section-5.8
      */
-    hreflang?: string;
+    hreflang?: string | undefined;
 }

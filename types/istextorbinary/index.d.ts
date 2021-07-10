@@ -88,6 +88,6 @@ export function getEncoding(
 ): void;
 
 export interface Options {
-    chunkLength?: number;
-    chunkBegin?: number;
+    chunkLength?: number | undefined;
+    chunkBegin?: number | undefined;
 }

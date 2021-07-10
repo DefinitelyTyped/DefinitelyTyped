@@ -12,8 +12,8 @@ export = createCert;
 
 declare namespace createCert {
     interface Options extends CertificateCreationOptions {
-        days?: number;
-        commonName?: string;
+        days?: number | undefined;
+        commonName?: string | undefined;
     }
 
     interface CertificateData {

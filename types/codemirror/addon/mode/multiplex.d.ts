@@ -4,9 +4,9 @@ export interface MultiplexedInnerMode {
     open: string;
     close: string;
     mode: CodeMirror.Mode<any>;
-    parseDelimiters?: boolean;
-    delimStyle?: string;
-    innerStyle?: string;
+    parseDelimiters?: boolean | undefined;
+    delimStyle?: string | undefined;
+    innerStyle?: string | undefined;
 }
 
 declare module '../../' {

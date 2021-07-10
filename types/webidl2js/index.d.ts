@@ -56,7 +56,7 @@ declare namespace Transformer {
          *
          * @default ""
          */
-        implSuffix?: string;
+        implSuffix?: string | undefined;
 
         /**
          * The function used to modify attributes and operations
@@ -64,7 +64,7 @@ declare namespace Transformer {
          *
          * The default value is the identity function.
          */
-        processCEReactions?: CodeProcessor;
+        processCEReactions?: CodeProcessor | undefined;
 
         /**
          * The function used to modify attributes and operations
@@ -72,7 +72,7 @@ declare namespace Transformer {
          *
          * The default value is the identity function.
          */
-        processHTMLConstructor?: CodeProcessor;
+        processHTMLConstructor?: CodeProcessor | undefined;
 
         /**
          * The function used to generate attributes and operations
@@ -80,14 +80,14 @@ declare namespace Transformer {
          *
          * @default null
          */
-        processReflect?: AttributeProcessor | null;
+        processReflect?: AttributeProcessor | null | undefined;
 
         /**
          * Whether non-fatal errors should be ignored.
          *
          * @default false
          */
-        suppressErrors?: boolean;
+        suppressErrors?: boolean | undefined;
     }
 }
 

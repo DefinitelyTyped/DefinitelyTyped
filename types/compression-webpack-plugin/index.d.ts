@@ -50,39 +50,39 @@ declare namespace CompressionPlugin {
          * ⚠ Ignored in webpack 5! Please use webpack.js.org/configuration/other-options/#cache.
          * @default true
          */
-        cache?: boolean | string;
+        cache?: boolean | string | undefined;
         /**
          * Whether to delete the original assets or not
          * @default false
          */
-        deleteOriginalAssets?: boolean | 'keep-source-map';
+        deleteOriginalAssets?: boolean | 'keep-source-map' | undefined;
         /**
          * Exclude all assets matching any of these conditions
          */
-        exclude?: Rules;
+        exclude?: Rules | undefined;
         /**
          * The target asset filename.
          * @default '[path][base].gz'
          */
-        filename?: string | FilenameFunction;
+        filename?: string | FilenameFunction | undefined;
         /**
          * Include all assets matching any of these conditions
          */
-        include?: Rules;
+        include?: Rules | undefined;
         /**
          * Only assets that compress better than this ratio are processed (minRatio = Compressed Size / Original Size)
          * @default 0.8
          */
-        minRatio?: number;
+        minRatio?: number | undefined;
         /**
          * Include all assets that pass test assertion
          */
-        test?: Rules;
+        test?: Rules | undefined;
         /**
          * Only assets bigger than this size are processed (in bytes)
          * @default 0
          */
-        threshold?: number;
+        threshold?: number | undefined;
     }
 
     interface ZlibOptions extends BaseOptions {
@@ -90,17 +90,17 @@ declare namespace CompressionPlugin {
          * The compression algorithm/function
          * @default 'gzip'
          */
-        algorithm?: ZlibAlgorithm;
+        algorithm?: ZlibAlgorithm | undefined;
         /**
          * Compression options for algorithm
          * @default { level: 9 }
          */
-        compressionOptions?: ZlibCompressionOptions;
+        compressionOptions?: ZlibCompressionOptions | undefined;
     }
 
     interface CustomOptions<O> extends BaseOptions {
         algorithm: Algorithm<O>;
-        compressionOptions?: O;
+        compressionOptions?: O | undefined;
     }
 
     type Options<O> = ZlibOptions | CustomOptions<O>;

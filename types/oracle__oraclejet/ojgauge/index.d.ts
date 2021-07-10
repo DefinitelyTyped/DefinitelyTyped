@@ -3,23 +3,23 @@ import { dvtBaseComponent, dvtBaseComponentEventMap, dvtBaseComponentSettablePro
 import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
 export interface dvtBaseGauge<SP extends dvtBaseGaugeSettableProperties = dvtBaseGaugeSettableProperties> extends dvtBaseComponent<SP> {
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
     addEventListener<T extends keyof dvtBaseGaugeEventMap<SP>>(type: T, listener: (this: HTMLElement, ev: dvtBaseGaugeEventMap<SP>[T]) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -33,23 +33,23 @@ export interface dvtBaseGaugeEventMap<SP extends dvtBaseGaugeSettableProperties 
 }
 export interface dvtBaseGaugeSettableProperties extends dvtBaseComponentSettableProperties {
     translations: {
-        componentName?: string;
-        labelAndValue?: string;
-        labelClearSelection?: string;
-        labelCountWithTotal?: string;
-        labelDataVisualization?: string;
-        labelInvalidData?: string;
-        labelNoData?: string;
-        stateCollapsed?: string;
-        stateDrillable?: string;
-        stateExpanded?: string;
-        stateHidden?: string;
-        stateIsolated?: string;
-        stateMaximized?: string;
-        stateMinimized?: string;
-        stateSelected?: string;
-        stateUnselected?: string;
-        stateVisible?: string;
+        componentName?: string | undefined;
+        labelAndValue?: string | undefined;
+        labelClearSelection?: string | undefined;
+        labelCountWithTotal?: string | undefined;
+        labelDataVisualization?: string | undefined;
+        labelInvalidData?: string | undefined;
+        labelNoData?: string | undefined;
+        stateCollapsed?: string | undefined;
+        stateDrillable?: string | undefined;
+        stateExpanded?: string | undefined;
+        stateHidden?: string | undefined;
+        stateIsolated?: string | undefined;
+        stateMaximized?: string | undefined;
+        stateMinimized?: string | undefined;
+        stateSelected?: string | undefined;
+        stateUnselected?: string | undefined;
+        stateVisible?: string | undefined;
     };
 }
 export interface dvtBaseGaugeSettablePropertiesLenient extends Partial<dvtBaseGaugeSettableProperties> {
@@ -59,17 +59,17 @@ export interface ojLedGauge extends dvtBaseGauge<ojLedGaugeSettableProperties> {
     borderColor: string;
     color: string;
     label: {
-        style?: object;
-        text?: string;
+        style?: object | undefined;
+        text?: string | undefined;
     };
     max: number;
     metricLabel: {
-        converter?: Converter<string>;
-        rendered?: 'on' | 'off';
-        scaling?: 'none' | 'thousand' | 'million' | 'billion' | 'trillion' | 'quadrillion' | 'auto';
-        style?: object;
-        text?: string;
-        textType?: 'percent' | 'number';
+        converter?: Converter<string> | undefined;
+        rendered?: 'on' | 'off' | undefined;
+        scaling?: 'none' | 'thousand' | 'million' | 'billion' | 'trillion' | 'quadrillion' | 'auto' | undefined;
+        style?: object | undefined;
+        text?: string | undefined;
+        textType?: 'percent' | 'number' | undefined;
     };
     min: number;
     rotation: 90 | 180 | 270 | 0;
@@ -132,17 +132,17 @@ export interface ojLedGaugeSettableProperties extends dvtBaseGaugeSettableProper
     borderColor: string;
     color: string;
     label: {
-        style?: object;
-        text?: string;
+        style?: object | undefined;
+        text?: string | undefined;
     };
     max: number;
     metricLabel: {
-        converter?: Converter<string>;
-        rendered?: 'on' | 'off';
-        scaling?: 'none' | 'thousand' | 'million' | 'billion' | 'trillion' | 'quadrillion' | 'auto';
-        style?: object;
-        text?: string;
-        textType?: 'percent' | 'number';
+        converter?: Converter<string> | undefined;
+        rendered?: 'on' | 'off' | undefined;
+        scaling?: 'none' | 'thousand' | 'million' | 'billion' | 'trillion' | 'quadrillion' | 'auto' | undefined;
+        style?: object | undefined;
+        text?: string | undefined;
+        textType?: 'percent' | 'number' | undefined;
     };
     min: number;
     rotation: 90 | 180 | 270 | 0;
@@ -167,10 +167,10 @@ export interface ojLedGaugeSettablePropertiesLenient extends Partial<ojLedGaugeS
 export namespace ojLedGauge {
     // tslint:disable-next-line interface-over-type-literal
     type Threshold = {
-        borderColor?: string;
-        color?: string;
-        max?: number;
-        shortDesc?: string;
+        borderColor?: string | undefined;
+        color?: string | undefined;
+        max?: number | undefined;
+        shortDesc?: string | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type TooltipContext = {
@@ -183,20 +183,20 @@ export namespace ojLedGauge {
 export interface ojRatingGauge extends dvtBaseGauge<ojRatingGaugeSettableProperties> {
     changed: boolean;
     changedState: {
-        borderColor?: string;
-        color?: string;
-        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string;
-        source?: string;
-        svgClassName?: string;
-        svgStyle?: object;
+        borderColor?: string | undefined;
+        color?: string | undefined;
+        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string | undefined;
+        source?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     hoverState: {
-        borderColor?: string;
-        color?: string;
-        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string;
-        source?: string;
-        svgClassName?: string;
-        svgStyle?: object;
+        borderColor?: string | undefined;
+        color?: string | undefined;
+        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string | undefined;
+        source?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     max: number;
     min: number;
@@ -204,12 +204,12 @@ export interface ojRatingGauge extends dvtBaseGauge<ojRatingGaugeSettablePropert
     preserveAspectRatio: 'none' | 'meet';
     readonly: boolean;
     selectedState: {
-        borderColor?: string;
-        color?: string;
-        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string;
-        source?: string;
-        svgClassName?: string;
-        svgStyle?: object;
+        borderColor?: string | undefined;
+        color?: string | undefined;
+        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string | undefined;
+        source?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     step: 0.5 | 1;
     thresholds: ojRatingGauge.Threshold[];
@@ -222,12 +222,12 @@ export interface ojRatingGauge extends dvtBaseGauge<ojRatingGaugeSettablePropert
     };
     readonly transientValue: number | null;
     unselectedState: {
-        borderColor?: string;
-        color?: string;
-        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string;
-        source?: string;
-        svgClassName?: string;
-        svgStyle?: object;
+        borderColor?: string | undefined;
+        color?: string | undefined;
+        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string | undefined;
+        source?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     value: number | null;
     visualEffects: 'none' | 'auto';
@@ -276,20 +276,20 @@ export interface ojRatingGaugeEventMap extends dvtBaseGaugeEventMap<ojRatingGaug
 export interface ojRatingGaugeSettableProperties extends dvtBaseGaugeSettableProperties {
     changed: boolean;
     changedState: {
-        borderColor?: string;
-        color?: string;
-        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string;
-        source?: string;
-        svgClassName?: string;
-        svgStyle?: object;
+        borderColor?: string | undefined;
+        color?: string | undefined;
+        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string | undefined;
+        source?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     hoverState: {
-        borderColor?: string;
-        color?: string;
-        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string;
-        source?: string;
-        svgClassName?: string;
-        svgStyle?: object;
+        borderColor?: string | undefined;
+        color?: string | undefined;
+        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string | undefined;
+        source?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     max: number;
     min: number;
@@ -297,12 +297,12 @@ export interface ojRatingGaugeSettableProperties extends dvtBaseGaugeSettablePro
     preserveAspectRatio: 'none' | 'meet';
     readonly: boolean;
     selectedState: {
-        borderColor?: string;
-        color?: string;
-        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string;
-        source?: string;
-        svgClassName?: string;
-        svgStyle?: object;
+        borderColor?: string | undefined;
+        color?: string | undefined;
+        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string | undefined;
+        source?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     step: 0.5 | 1;
     thresholds: ojRatingGauge.Threshold[];
@@ -315,12 +315,12 @@ export interface ojRatingGaugeSettableProperties extends dvtBaseGaugeSettablePro
     };
     readonly transientValue: number | null;
     unselectedState: {
-        borderColor?: string;
-        color?: string;
-        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string;
-        source?: string;
-        svgClassName?: string;
-        svgStyle?: object;
+        borderColor?: string | undefined;
+        color?: string | undefined;
+        shape?: 'circle' | 'diamond' | 'human' | 'square' | 'star' | 'triangle' | string | undefined;
+        source?: string | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     value: number | null;
     visualEffects: 'none' | 'auto';
@@ -331,10 +331,10 @@ export interface ojRatingGaugeSettablePropertiesLenient extends Partial<ojRating
 export namespace ojRatingGauge {
     // tslint:disable-next-line interface-over-type-literal
     type Threshold = {
-        borderColor?: string;
-        color?: string;
-        max?: number;
-        shortDesc?: string;
+        borderColor?: string | undefined;
+        color?: string | undefined;
+        max?: number | undefined;
+        shortDesc?: string | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type TooltipContext = {
@@ -346,7 +346,7 @@ export namespace ojRatingGauge {
 }
 export interface ojStatusMeterGauge extends dvtBaseGauge<ojStatusMeterGaugeSettableProperties> {
     angleExtent: number;
-    animationDuration?: number;
+    animationDuration?: number | undefined;
     animationOnDataChange: 'auto' | 'none';
     animationOnDisplay: 'auto' | 'none';
     borderColor: string;
@@ -362,29 +362,29 @@ export interface ojStatusMeterGauge extends dvtBaseGauge<ojStatusMeterGaugeSetta
     indicatorSize: number;
     innerRadius: number;
     label: {
-        position?: 'center' | 'start' | 'auto';
-        style?: object;
-        text?: string;
+        position?: 'center' | 'start' | 'auto' | undefined;
+        style?: object | undefined;
+        text?: string | undefined;
     };
     max: number;
     metricLabel: {
-        converter?: Converter<string>;
-        position?: 'center' | 'insideIndicatorEdge' | 'outsideIndicatorEdge' | 'outsidePlotArea' | 'withLabel' | 'auto';
-        rendered?: 'on' | 'off' | 'auto';
-        scaling?: 'none' | 'thousand' | 'million' | 'billion' | 'trillion' | 'quadrillion' | 'auto';
-        style?: object;
-        text?: string;
-        textType?: 'percent' | 'number';
+        converter?: Converter<string> | undefined;
+        position?: 'center' | 'insideIndicatorEdge' | 'outsideIndicatorEdge' | 'outsidePlotArea' | 'withLabel' | 'auto' | undefined;
+        rendered?: 'on' | 'off' | 'auto' | undefined;
+        scaling?: 'none' | 'thousand' | 'million' | 'billion' | 'trillion' | 'quadrillion' | 'auto' | undefined;
+        style?: object | undefined;
+        text?: string | undefined;
+        textType?: 'percent' | 'number' | undefined;
     };
     min: number;
     orientation: 'circular' | 'vertical' | 'horizontal';
     plotArea: {
-        borderColor?: string;
-        borderRadius?: string;
-        color?: string;
-        rendered?: 'on' | 'off' | 'auto';
-        svgClassName?: string;
-        svgStyle?: object;
+        borderColor?: string | undefined;
+        borderRadius?: string | undefined;
+        color?: string | undefined;
+        rendered?: 'on' | 'off' | 'auto' | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     readonly: boolean;
     referenceLines: ojStatusMeterGauge.ReferenceLine[];
@@ -473,7 +473,7 @@ export interface ojStatusMeterGaugeEventMap extends dvtBaseGaugeEventMap<ojStatu
 }
 export interface ojStatusMeterGaugeSettableProperties extends dvtBaseGaugeSettableProperties {
     angleExtent: number;
-    animationDuration?: number;
+    animationDuration?: number | undefined;
     animationOnDataChange: 'auto' | 'none';
     animationOnDisplay: 'auto' | 'none';
     borderColor: string;
@@ -489,29 +489,29 @@ export interface ojStatusMeterGaugeSettableProperties extends dvtBaseGaugeSettab
     indicatorSize: number;
     innerRadius: number;
     label: {
-        position?: 'center' | 'start' | 'auto';
-        style?: object;
-        text?: string;
+        position?: 'center' | 'start' | 'auto' | undefined;
+        style?: object | undefined;
+        text?: string | undefined;
     };
     max: number;
     metricLabel: {
-        converter?: Converter<string>;
-        position?: 'center' | 'insideIndicatorEdge' | 'outsideIndicatorEdge' | 'outsidePlotArea' | 'withLabel' | 'auto';
-        rendered?: 'on' | 'off' | 'auto';
-        scaling?: 'none' | 'thousand' | 'million' | 'billion' | 'trillion' | 'quadrillion' | 'auto';
-        style?: object;
-        text?: string;
-        textType?: 'percent' | 'number';
+        converter?: Converter<string> | undefined;
+        position?: 'center' | 'insideIndicatorEdge' | 'outsideIndicatorEdge' | 'outsidePlotArea' | 'withLabel' | 'auto' | undefined;
+        rendered?: 'on' | 'off' | 'auto' | undefined;
+        scaling?: 'none' | 'thousand' | 'million' | 'billion' | 'trillion' | 'quadrillion' | 'auto' | undefined;
+        style?: object | undefined;
+        text?: string | undefined;
+        textType?: 'percent' | 'number' | undefined;
     };
     min: number;
     orientation: 'circular' | 'vertical' | 'horizontal';
     plotArea: {
-        borderColor?: string;
-        borderRadius?: string;
-        color?: string;
-        rendered?: 'on' | 'off' | 'auto';
-        svgClassName?: string;
-        svgStyle?: object;
+        borderColor?: string | undefined;
+        borderRadius?: string | undefined;
+        color?: string | undefined;
+        rendered?: 'on' | 'off' | 'auto' | undefined;
+        svgClassName?: string | undefined;
+        svgStyle?: object | undefined;
     };
     readonly: boolean;
     referenceLines: ojStatusMeterGauge.ReferenceLine[];
@@ -552,15 +552,15 @@ export namespace ojStatusMeterGauge {
     };
     // tslint:disable-next-line interface-over-type-literal
     type ReferenceLine = {
-        color?: string;
-        value?: number;
+        color?: string | undefined;
+        value?: number | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type Threshold = {
-        borderColor?: string;
-        color?: string;
-        max?: number;
-        shortDesc?: string;
+        borderColor?: string | undefined;
+        color?: string | undefined;
+        max?: number | undefined;
+        shortDesc?: string | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type TooltipContext = {

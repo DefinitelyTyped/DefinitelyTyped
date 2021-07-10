@@ -8,19 +8,19 @@ import { ExtensionDefinition, Template } from 'jsreport-core';
 declare namespace JsReportPdfUtils {
     interface PdfOperation {
         type: "merge" | "append" | "prepend";
-        mergeWholeDocument?: boolean;
-        renderForEveryPage?: boolean;
-        templateShortid?: string;
-        template?: Template;
+        mergeWholeDocument?: boolean | undefined;
+        renderForEveryPage?: boolean | undefined;
+        templateShortid?: string | undefined;
+        template?: Template | undefined;
     }
 
     interface PdfMeta {
-        title?: string;
-        author?: string;
-        subject?: string;
-        keywords?: string;
-        creator?: string;
-        producer?: string;
+        title?: string | undefined;
+        author?: string | undefined;
+        subject?: string | undefined;
+        keywords?: string | undefined;
+        creator?: string | undefined;
+        producer?: string | undefined;
     }
 
     interface PdfSign {
@@ -44,10 +44,10 @@ declare namespace JsReportPdfUtils {
     }
 
     interface PdfTemplate extends Template {
-        pdfOperations?: PdfOperation[];
-        pdfMeta?: PdfMeta;
-        pdfSign?: PdfSign;
-        pdfPassword?: PdfPassword;
+        pdfOperations?: PdfOperation[] | undefined;
+        pdfMeta?: PdfMeta | undefined;
+        pdfSign?: PdfSign | undefined;
+        pdfPassword?: PdfPassword | undefined;
     }
 }
 

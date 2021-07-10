@@ -11,9 +11,9 @@ import * as ScrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 export interface ReactScrollIntoViewIfNeededProps
     extends React.HTMLProps<HTMLElement> {
-    options?: ScrollIntoViewIfNeeded.Options;
-    active?: boolean;
-    elementType?: keyof JSX.IntrinsicElements;
+    options?: ScrollIntoViewIfNeeded.Options | undefined;
+    active?: boolean | undefined;
+    elementType?: keyof JSX.IntrinsicElements | undefined;
 }
 
 export default class ReactScrollIntoViewIfNeeded extends React.Component<

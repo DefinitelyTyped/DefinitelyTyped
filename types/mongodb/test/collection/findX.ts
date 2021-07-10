@@ -15,7 +15,7 @@ async function run() {
     // test with collection type
     interface TestModel {
         stringField: string;
-        numberField?: number;
+        numberField?: number | undefined;
         fruitTags: string[];
         readonlyFruitTags: ReadonlyArray<string>;
     }

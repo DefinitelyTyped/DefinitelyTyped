@@ -1,39 +1,39 @@
 import { CardElementOptions, IndividualElementOptions } from './elements';
 
 export type RecurlyOptions = {
-  cors?: boolean;
+  cors?: boolean | undefined;
   publicKey: string;
-  currency?: string;
-  required?: string[];
-  timeout?: number;
+  currency?: string | undefined;
+  required?: string[] | undefined;
+  timeout?: number | undefined;
   fraud?: {
     kount?: {
-      dataCollector?: boolean;
-    };
+      dataCollector?: boolean | undefined;
+    } | undefined;
     braintree?: {
-      deviceData?: string;
-    };
+      deviceData?: string | undefined;
+    } | undefined;
     litle?: {
-      sessionId?: string;
-    };
-  };
+      sessionId?: string | undefined;
+    } | undefined;
+  } | undefined;
   risk?: {
     threeDSecure?: {
-      preflightDeviceDataCollector?: boolean;
-    }
-  };
+      preflightDeviceDataCollector?: boolean | undefined;
+    } | undefined
+  } | undefined;
 
   /**
    * @deprecated Use {@link https://developers.recurly.com/reference/recurly-js/index.html#elements|Elements} instead.
    */
   fields?: {
-    all?: IndividualElementOptions;
-    number?: IndividualElementOptions & { selector?: string };
-    month?: IndividualElementOptions & { selector?: string };
-    year?: IndividualElementOptions & { selector?: string };
-    cvv?: IndividualElementOptions & { selector?: string };
-    card?: CardElementOptions & { selector?: string }
-  };
+    all?: IndividualElementOptions | undefined;
+    number?: IndividualElementOptions & { selector?: string | undefined } | undefined;
+    month?: IndividualElementOptions & { selector?: string | undefined } | undefined;
+    year?: IndividualElementOptions & { selector?: string | undefined } | undefined;
+    cvv?: IndividualElementOptions & { selector?: string | undefined } | undefined;
+    card?: CardElementOptions & { selector?: string | undefined } | undefined
+  } | undefined;
 };
 
 export type Configure = (recurlyConfig: RecurlyOptions | string) => void;

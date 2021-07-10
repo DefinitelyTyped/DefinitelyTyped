@@ -8,8 +8,8 @@ declare namespace AMap {
         }
     }
     interface Map {
-        AmbientLight?: Lights.AmbientLight;
-        DirectionLight?: Lights.DirectionLight;
+        AmbientLight?: Lights.AmbientLight | undefined;
+        DirectionLight?: Lights.DirectionLight | undefined;
         getObject3DByContainerPos(pixel: Pixel, layers?: Layer[], all?: boolean): Map.Object3DResult | null;
     }
 }

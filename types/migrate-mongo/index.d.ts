@@ -50,7 +50,7 @@ export namespace config {
         /**
          * The migrations dir, can be an relative or absolute path.
          */
-        migrationsDir?: string;
+        migrationsDir?: string | undefined;
         /**
          * The MongoDB collection where the applied changes are stored.
          */

@@ -3,7 +3,7 @@ import amqp_rpc = require('amqp-rpc');
 var rpc = amqp_rpc.factory();
 
 interface Name {
-  name?: string;
+  name?: string | undefined;
 }
 
 rpc.on<number>('inc', function (param, cb) {

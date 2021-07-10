@@ -15,8 +15,8 @@ interface Level extends AbstractLevelDOWN {
 }
 
 interface LevelOptions {
-  readonly prefix?: string;
-  readonly version?: string | number;
+  readonly prefix?: string | undefined;
+  readonly version?: string | number | undefined;
 }
 
 interface LevelConstructor {

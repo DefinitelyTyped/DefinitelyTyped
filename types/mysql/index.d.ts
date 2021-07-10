@@ -228,12 +228,12 @@ export interface Query {
     /**
      * Values for template query
      */
-    values?: string[];
+    values?: string[] | undefined;
 
     /**
      * Default true
      */
-    typeCast?: TypeCast;
+    typeCast?: TypeCast | undefined;
 
     /**
      * Default false
@@ -327,7 +327,7 @@ export interface QueryOptions {
      * operations through the client. This means that when a timeout is reached, the connection it occurred on will be
      * destroyed and no further operations can be performed.
      */
-    timeout?: number;
+    timeout?: number | undefined;
 
     /**
      * Either a boolean or string. If true, tables will be nested objects. If string (e.g. '_'), tables will be
@@ -355,78 +355,78 @@ export interface QueryOptions {
      *
      * You can find which field function you need to use by looking at: RowDataPacket.prototype._typeCast
      */
-    typeCast?: TypeCast;
+    typeCast?: TypeCast | undefined;
 }
 
 export interface ConnectionOptions {
     /**
      * The MySQL user to authenticate as
      */
-    user?: string;
+    user?: string | undefined;
 
     /**
      * The password of that MySQL user
      */
-    password?: string;
+    password?: string | undefined;
 
     /**
      * Name of the database to use for this connection
      */
-    database?: string;
+    database?: string | undefined;
 
     /**
      * The charset for the connection. This is called "collation" in the SQL-level of MySQL (like utf8_general_ci).
      * If a SQL-level charset is specified (like utf8mb4) then the default collation for that charset is used.
      * (Default: 'UTF8_GENERAL_CI')
      */
-    charset?: string;
+    charset?: string | undefined;
 
     /**
      * Number of milliseconds
      */
-    timeout?: number;
+    timeout?: number | undefined;
 }
 
 export interface ConnectionConfig extends ConnectionOptions {
     /**
      * The hostname of the database you are connecting to. (Default: localhost)
      */
-    host?: string;
+    host?: string | undefined;
 
     /**
      * The port number to connect to. (Default: 3306)
      */
-    port?: number;
+    port?: number | undefined;
 
     /**
      * The source IP address to use for TCP connection
      */
-    localAddress?: string;
+    localAddress?: string | undefined;
 
     /**
      * The path to a unix domain socket to connect to. When used host and port are ignored
      */
-    socketPath?: string;
+    socketPath?: string | undefined;
 
     /**
      * The timezone used to store local dates. (Default: 'local')
      */
-    timezone?: string;
+    timezone?: string | undefined;
 
     /**
      * The milliseconds before a timeout occurs during the initial connection to the MySQL server. (Default: 10 seconds)
      */
-    connectTimeout?: number;
+    connectTimeout?: number | undefined;
 
     /**
      * Stringify objects instead of converting to values. (Default: 'false')
      */
-    stringifyObjects?: boolean;
+    stringifyObjects?: boolean | undefined;
 
     /**
      * Allow connecting to MySQL instances that ask for the old (insecure) authentication method. (Default: false)
      */
-    insecureAuth?: boolean;
+    insecureAuth?: boolean | undefined;
 
     /**
      * Determines if column values should be converted to native JavaScript types. It is not recommended (and may go away / change in the future)
@@ -448,7 +448,7 @@ export interface ConnectionConfig extends ConnectionOptions {
      *
      * You can find which field function you need to use by looking at: RowDataPacket.prototype._typeCast
      */
-    typeCast?: TypeCast;
+    typeCast?: TypeCast | undefined;
 
     /**
      * A custom query format function
@@ -459,7 +459,7 @@ export interface ConnectionConfig extends ConnectionOptions {
      * When dealing with big numbers (BIGINT and DECIMAL columns) in the database, you should enable this option
      * (Default: false)
      */
-    supportBigNumbers?: boolean;
+    supportBigNumbers?: boolean | undefined;
 
     /**
      * Enabling both supportBigNumbers and bigNumberStrings forces big numbers (BIGINT and DECIMAL columns) to be
@@ -469,13 +469,13 @@ export interface ConnectionConfig extends ConnectionOptions {
      * (which happens when they exceed the [-2^53, +2^53] range), otherwise they will be returned as Number objects.
      * This option is ignored if supportBigNumbers is disabled.
      */
-    bigNumberStrings?: boolean;
+    bigNumberStrings?: boolean | undefined;
 
     /**
      * Force date types (TIMESTAMP, DATETIME, DATE) to be returned as strings rather then inflated into JavaScript
      * Date objects. Can be true/false or an array of type names to keep as strings. (Default: false)
      */
-    dateStrings?: boolean | Array<'TIMESTAMP' | 'DATETIME' | 'DATE'>;
+    dateStrings?: boolean | Array<'TIMESTAMP' | 'DATETIME' | 'DATE'> | undefined;
 
     /**
      * This will print all incoming and outgoing packets on stdout.
@@ -483,28 +483,28 @@ export interface ConnectionConfig extends ConnectionOptions {
      *
      * (Default: false)
      */
-    debug?: boolean | string[] | Types[];
+    debug?: boolean | string[] | Types[] | undefined;
 
     /**
      * Generates stack traces on errors to include call site of library entrance ("long stack traces"). Slight
      * performance penalty for most calls. (Default: true)
      */
-    trace?: boolean;
+    trace?: boolean | undefined;
 
     /**
      * Allow multiple mysql statements per query. Be careful with this, it exposes you to SQL injection attacks. (Default: false)
      */
-    multipleStatements?: boolean;
+    multipleStatements?: boolean | undefined;
 
     /**
      * List of connection flags to use other than the default ones. It is also possible to blacklist default ones
      */
-    flags?: string | string[];
+    flags?: string | string[] | undefined;
 
     /**
      * object with ssl parameters or a string containing name of ssl profile
      */
-    ssl?: string | (tls.SecureContextOptions & { rejectUnauthorized?: boolean });
+    ssl?: string | (tls.SecureContextOptions & { rejectUnauthorized?: boolean | undefined }) | undefined;
 }
 
 export interface PoolSpecificConfig {
@@ -512,25 +512,25 @@ export interface PoolSpecificConfig {
      * The milliseconds before a timeout occurs during the connection acquisition. This is slightly different from connectTimeout,
      * because acquiring a pool connection does not always involve making a connection. (Default: 10 seconds)
      */
-    acquireTimeout?: number;
+    acquireTimeout?: number | undefined;
 
     /**
      * Determines the pool's action when no connections are available and the limit has been reached. If true, the pool will queue
      * the connection request and call it when one becomes available. If false, the pool will immediately call back with an error.
      * (Default: true)
      */
-    waitForConnections?: boolean;
+    waitForConnections?: boolean | undefined;
 
     /**
      * The maximum number of connections to create at once. (Default: 10)
      */
-    connectionLimit?: number;
+    connectionLimit?: number | undefined;
 
     /**
      * The maximum number of connection requests the pool will queue before returning an error from getConnection. If set to 0, there
      * is no limit to the number of queued connection requests. (Default: 0)
      */
-    queueLimit?: number;
+    queueLimit?: number | undefined;
 }
 
 export interface PoolConfig extends PoolSpecificConfig, ConnectionConfig {
@@ -544,19 +544,19 @@ export interface PoolClusterConfig {
     /**
      * If true, PoolCluster will attempt to reconnect when connection fails. (Default: true)
      */
-    canRetry?: boolean;
+    canRetry?: boolean | undefined;
 
     /**
      * If connection fails, node's errorCount increases. When errorCount is greater than removeNodeErrorCount,
      * remove a node in the PoolCluster. (Default: 5)
      */
-    removeNodeErrorCount?: number;
+    removeNodeErrorCount?: number | undefined;
 
     /**
      * If connection fails, specifies the number of milliseconds before another connection attempt will be made.
      * If set to 0, then node will be removed instead and never re-used. (Default: 0)
      */
-    restoreNodeTimeout?: number;
+    restoreNodeTimeout?: number | undefined;
 
     /**
      * The default selector. (Default: RR)
@@ -564,7 +564,7 @@ export interface PoolClusterConfig {
      * RANDOM: Select the node by random function.
      * ORDER: Select the first node available unconditionally.
      */
-    defaultSelector?: string;
+    defaultSelector?: string | undefined;
 }
 
 export interface MysqlError extends Error {
@@ -583,22 +583,22 @@ export interface MysqlError extends Error {
     /**
      * The sql state marker
      */
-    sqlStateMarker?: string;
+    sqlStateMarker?: string | undefined;
 
     /**
      * The sql state
      */
-    sqlState?: string;
+    sqlState?: string | undefined;
 
     /**
      * The field count
      */
-    fieldCount?: number;
+    fieldCount?: number | undefined;
 
     /**
      * The stack trace for the error
      */
-    stack?: string;
+    stack?: string | undefined;
 
     /**
      * Boolean, indicating if this error is terminal to the connection object.
@@ -608,12 +608,12 @@ export interface MysqlError extends Error {
     /**
      * SQL of failed query
      */
-    sql?: string;
+    sql?: string | undefined;
 
     /**
      * Error message from MySQL
      */
-    sqlMessage?: string;
+    sqlMessage?: string | undefined;
 }
 
 // Result from an insert, update, or delete statement.
@@ -627,8 +627,8 @@ export interface OkPacket {
      * The insert id after inserting a row into a table with an auto increment primary key.
      */
     insertId: number;
-    serverStatus?: number;
-    warningCount?: number;
+    serverStatus?: number | undefined;
+    warningCount?: number | undefined;
     /**
      * The server result message from an insert, update, or delete statement.
      */
@@ -685,7 +685,7 @@ export interface UntypedFieldInfo {
     length: number;
     flags: number;
     decimals: number;
-    default?: string;
+    default?: string | undefined;
     zeroFill: boolean;
     protocol41: boolean;
 }

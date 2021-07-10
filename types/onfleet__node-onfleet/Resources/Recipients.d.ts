@@ -24,10 +24,10 @@ declare namespace Recipient {
   interface CreateRecipientProps {
     name: string;
     phone: string;
-    metadata?: OnfleetMetadata[];
-    notes?: string;
-    skipSMSNotifications?: boolean;
-    skipPhoneNumberValidation?: boolean;
+    metadata?: OnfleetMetadata[] | undefined;
+    notes?: string | undefined;
+    skipSMSNotifications?: boolean | undefined;
+    skipPhoneNumberValidation?: boolean | undefined;
   }
 }
 export = Recipient;

@@ -75,9 +75,9 @@ declare namespace mongoose_delete {
     }
     interface SoftDeleteInterface {
         /** Soft deleted ? */
-        deleted?: boolean;
-        deleteAt?: Date;
-        deletedBy?: mongoose.Types.ObjectId | string | mongoose.Document;
+        deleted?: boolean | undefined;
+        deleteAt?: Date | undefined;
+        deletedBy?: mongoose.Types.ObjectId | string | mongoose.Document | undefined;
     }
 }
 interface Options {

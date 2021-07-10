@@ -10,15 +10,15 @@ export interface NetlifyFormState {
     loading: boolean;
     error: boolean;
     success: boolean;
-    recaptchaError?: boolean;
-    recaptcha?: Recaptcha;
+    recaptchaError?: boolean | undefined;
+    recaptcha?: Recaptcha | undefined;
 }
 
 export interface NetlifyFormProps {
     name: string;
-    action?: string;
-    honeypotName?: string;
-    recaptcha?: ReCAPTCHAProps;
+    action?: string | undefined;
+    honeypotName?: string | undefined;
+    recaptcha?: ReCAPTCHAProps | undefined;
     children: (state: NetlifyFormState) => React.ReactElement;
 }
 

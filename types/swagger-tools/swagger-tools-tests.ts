@@ -329,7 +329,7 @@ swaggerTools.initializeMiddleware(apiDoc12, apiDeclarations, middleware => {
 // Testing that handler functions can type the incoming request
 type TypedRequest = swaggerTools.Swagger20Request<{
     foo: swaggerTools.SwaggerRequestParameter<number>;
-    bar?: swaggerTools.SwaggerRequestParameter<string>;
+    bar?: swaggerTools.SwaggerRequestParameter<string> | undefined;
 }>;
 
 swaggerTools.initializeMiddleware(swaggerDoc20, middleware => {

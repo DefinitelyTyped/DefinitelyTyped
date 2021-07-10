@@ -10,11 +10,11 @@
 type AsyncLockDoneCallback<T> = (err?: Error, ret?: T) => void;
 
 interface AsyncLockOptions {
-    timeout?: number;
-    maxPending?: number;
-    domainReentrant?: boolean;
+    timeout?: number | undefined;
+    maxPending?: number | undefined;
+    domainReentrant?: boolean | undefined;
     Promise?: any;
-    skipQueue?: boolean;
+    skipQueue?: boolean | undefined;
 }
 
 declare class AsyncLock {

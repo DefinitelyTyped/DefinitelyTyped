@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-interpolate module 2.0
+// Type definitions for D3JS d3-interpolate module 3.0
 // Project: https://github.com/d3/d3-interpolate/, https://d3js.org/d3-interpolate
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,9 +6,8 @@
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.1
+// Last module patch version validated against: 3.0.1
 
 import { ColorCommonInstance } from 'd3-color';
 
@@ -77,10 +76,6 @@ export function interpolate(a: any, b: null): ((t: number) => null);
  */
 export function interpolate(a: any, b: boolean): ((t: number) => boolean);
 /**
- * Returns a `interpolateNumber` interpolator.
- */
-export function interpolate(a: number | { valueOf(): number }, b: number): ((t: number) => number);
-/**
  * Returns a `interpolateRgb` interpolator.
  */
 export function interpolate(a: string | ColorCommonInstance, b: ColorCommonInstance): ((t: number) => string);
@@ -88,6 +83,10 @@ export function interpolate(a: string | ColorCommonInstance, b: ColorCommonInsta
  * Returns a `interpolateDate` interpolator.
  */
 export function interpolate(a: Date, b: Date): ((t: number) => Date);
+/**
+ * Returns a `interpolateNumber` interpolator.
+ */
+export function interpolate(a: number | { valueOf(): number }, b: number | { valueOf(): number }): ((t: number) => number);
 /**
  * Returns a `interpolateNumberArray` interpolator.
  */
@@ -100,10 +99,6 @@ export function interpolate(a: string | { toString(): string }, b: string): ((t:
  * Returns a `interpolateArray` interpolator.
  */
 export function interpolate<U extends any[]>(a: any[], b: U): ((t: number) => U);
-/**
- * Returns a `interpolateNumber` interpolator.
- */
-export function interpolate(a: number | { valueOf(): number }, b: { valueOf(): number }): ((t: number) => number);
 /**
  * Returns a `interpolateObject` interpolator.
  */
@@ -364,11 +359,11 @@ export function piecewise<A extends any[]>(interpolate: (a: any[], b: A) => Arra
  *
  * interpolate defaults to d3.interpolate.
  */
-export function piecewise<TData>(values: TData[]): (t: number) => any;
+export function piecewise(values: unknown[]): (t: number) => any;
 /**
  * Returns a piecewise interpolator, composing interpolators for each adjacent pair of values.
  * The returned interpolator maps `t` in `[0, 1 / (n - 1)]` to `interpolate(values[0], values[1])`, `t` in `[1 / (n - 1), 2 / (n - 1)]` to `interpolate(values[1], values[2])`,
  * and so on, where `n = values.length`. In effect, this is a lightweight linear scale.
  * For example, to blend through red, green and blue: `d3.piecewise(d3.interpolateRgb.gamma(2.2), ["red", "green", "blue"])`.
  */
-export function piecewise<TData, Interpolator>(interpolate: (a: TData, b: TData) => Interpolator, values: TData[]): (t: number) => any;
+export function piecewise<TData>(interpolate: (a: TData, b: TData) => unknown, values: TData[]): (t: number) => any;

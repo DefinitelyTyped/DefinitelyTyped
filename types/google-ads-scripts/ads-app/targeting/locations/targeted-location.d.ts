@@ -50,7 +50,7 @@ declare namespace GoogleAdsScripts {
         /** A plain JavaScript object describing a location. */
         interface TargetedLocationObject {
             id: number;
-            bidModifier?: number;
+            bidModifier?: number | undefined;
         }
 
         /** An operation representing creation of a new targeted location. */

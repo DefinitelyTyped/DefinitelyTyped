@@ -7,15 +7,15 @@
 declare function readSqlFiles(
     dir: string,
     options?: {
-        pg?: boolean;
-        type?: 'pg' | 'mysql';
+        pg?: boolean | undefined;
+        type?: 'pg' | 'mysql' | undefined;
     },
 ): string;
 
 declare namespace readSqlFiles {
     type AnyParams = Record<string, any>;
     interface Options {
-        useNullForMissing?: boolean;
+        useNullForMissing?: boolean | undefined;
     }
     function pg<TParams extends object = AnyParams>(
         query: string,

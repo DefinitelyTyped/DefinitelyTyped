@@ -13,13 +13,13 @@ declare function sane(dir: string, options?: sane.Options): sane.Watcher;
 
 declare namespace sane {
     interface Options {
-        glob?: string | string[];
-        poll?: boolean;
-        watchman?: boolean;
-        fsevents?: boolean;
-        watcher?: string;
-        dot?: boolean;
-        ignored?: AnymatchMatcher | AnymatchMatcher[];
+        glob?: string | string[] | undefined;
+        poll?: boolean | undefined;
+        watchman?: boolean | undefined;
+        fsevents?: boolean | undefined;
+        watcher?: string | undefined;
+        dot?: boolean | undefined;
+        ignored?: AnymatchMatcher | AnymatchMatcher[] | undefined;
     }
 
     const FSEventsWatcher: typeof SaneWatcher;

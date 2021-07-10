@@ -5,6 +5,7 @@
 //                 Hernan Rajchert <https://github.com/hrajchert>
 //                 Titus Wormer <https://github.com/wooorm>
 //                 Junyoung Choi <https://github.com/rokt33r>
+//                 Ben Moon <https://github.com/GuiltyDolphin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -20,15 +21,13 @@ export interface Node {
     /**
      * Information from the ecosystem.
      */
-    data?: Data;
+    data?: Data | undefined;
 
     /**
      * Location of a node in a source document.
      * Must not be present if a node is generated.
      */
-    position?: Position;
-
-    [key: string]: unknown;
+    position?: Position | undefined;
 }
 
 /**
@@ -58,7 +57,7 @@ export interface Position {
      * Start column at each index (plus start line) in the source region,
      * for elements that span multiple lines.
      */
-    indent?: number[];
+    indent?: number[] | undefined;
 }
 
 /**
@@ -77,7 +76,7 @@ export interface Point {
     /**
      * Character in a source file (0-indexed integer).
      */
-    offset?: number;
+    offset?: number | undefined;
 }
 
 /**

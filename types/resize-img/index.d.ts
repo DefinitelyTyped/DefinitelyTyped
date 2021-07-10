@@ -9,9 +9,9 @@ declare function ResizeImg(input: Buffer, options?: ResizeImg.ResizeImgOptions):
 
 declare namespace ResizeImg {
     interface ResizeImgOptions {
-        width?: number;
-        height?: number;
-        format?: Formats;
+        width?: number | undefined;
+        height?: number | undefined;
+        format?: Formats | undefined;
     }
 
     type Formats = "bmp" | "jpg" | "png";

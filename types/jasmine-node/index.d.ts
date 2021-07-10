@@ -16,20 +16,20 @@ declare global {
 
         interface ExecuteSpecsOptions {
             specFolders: string[];
-            onComplete?: (runner: Runner) => void;
-            isVerbose?: boolean;
-            showColors?: boolean;
-            teamcity?: string | boolean;
-            useRequireJs?: boolean;
+            onComplete?: ((runner: Runner) => void) | undefined;
+            isVerbose?: boolean | undefined;
+            showColors?: boolean | undefined;
+            teamcity?: string | boolean | undefined;
+            useRequireJs?: boolean | undefined;
             regExpSpec: RegExp;
             junitreport?: {
                 report: boolean;
                 savePath: string;
                 useDotNotation: boolean;
                 consolidate: boolean;
-            };
-            includeStackTrace?: boolean;
-            growl?: boolean;
+            } | undefined;
+            includeStackTrace?: boolean | undefined;
+            growl?: boolean | undefined;
         }
 
         interface JasmineNode {

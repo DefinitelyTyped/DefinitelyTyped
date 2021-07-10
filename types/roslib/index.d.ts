@@ -18,15 +18,15 @@ export as namespace ROSLIB;
 
 declare namespace ROSLIB {
     interface Vector3Like {
-        x?: number | null;
-        y?: number | null;
-        z?: number | null;
+        x?: number | null | undefined;
+        y?: number | null | undefined;
+        z?: number | null | undefined;
     }
     interface QuaternionLike {
-        x?: number | null;
-        y?: number | null;
-        z?: number | null;
-        w?: number | null;
+        x?: number | null | undefined;
+        y?: number | null | undefined;
+        z?: number | null | undefined;
+        w?: number | null | undefined;
     }
     export class Ros {
         /**
@@ -47,10 +47,10 @@ declare namespace ROSLIB {
          *   * transportOptions (optional) - the options to use use when creating a connection. Currently only used if `transportLibrary` is RTCPeerConnection.
          */
         constructor(options: {
-            url?: string;
-            groovyCompatibility?: boolean;
-            transportLibrary?: 'websocket' | 'socket.io' | RTCPeerConnection;
-            transportOptions?: RTCDataChannelInit;
+            url?: string | undefined;
+            groovyCompatibility?: boolean | undefined;
+            transportLibrary?: 'websocket' | 'socket.io' | RTCPeerConnection | undefined;
+            transportOptions?: RTCDataChannelInit | undefined;
         });
 
         on(eventName: string, callback: (event: any) => void): void;
@@ -372,11 +372,11 @@ declare namespace ROSLIB {
             ros: Ros;
             name: string;
             messageType: string;
-            compression?: string;
-            throttle_rate?: number;
-            queue_size?: number;
-            latch?: boolean;
-            queue_length?: number;
+            compression?: string | undefined;
+            throttle_rate?: number | undefined;
+            queue_size?: number | undefined;
+            latch?: boolean | undefined;
+            queue_length?: number | undefined;
         });
 
         // getter
@@ -440,14 +440,14 @@ declare namespace ROSLIB {
          */
         constructor(options: {
             ros: Ros;
-            fixedFrame?: string;
-            angularThres?: number;
-            transThres?: number;
-            rate?: number;
-            updateDelay?: number;
-            topicTimeout?: number;
-            serverName?: string;
-            repubServiceName?: string;
+            fixedFrame?: string | undefined;
+            angularThres?: number | undefined;
+            transThres?: number | undefined;
+            rate?: number | undefined;
+            updateDelay?: number | undefined;
+            topicTimeout?: number | undefined;
+            serverName?: string | undefined;
+            repubServiceName?: string | undefined;
         });
 
         /**
@@ -499,7 +499,7 @@ declare namespace ROSLIB {
          *   * translation - the Vector3 describing the translation
          *   * rotation - the ROSLIB.Quaternion describing the rotation
          */
-        constructor(options?: { translation?: Vector3Like | null; rotation?: QuaternionLike | null });
+        constructor(options?: { translation?: Vector3Like | null | undefined; rotation?: QuaternionLike | null | undefined });
 
         // getters
         public translation: Vector3;
@@ -521,7 +521,7 @@ declare namespace ROSLIB {
          *   * y - the y value
          *   * z - the z value
          */
-        constructor(options?: { x?: number | null; y?: number | null; z?: number | null } | null);
+        constructor(options?: { x?: number | null | undefined; y?: number | null | undefined; z?: number | null | undefined } | null);
 
         // getters
         public x: number;
@@ -565,7 +565,7 @@ declare namespace ROSLIB {
          *   * z - the z value
          *   * w - the w value
          */
-        constructor(options?: { x?: number | null; y?: number | null; z?: number | null; w?: number | null } | null);
+        constructor(options?: { x?: number | null | undefined; y?: number | null | undefined; z?: number | null | undefined; w?: number | null | undefined } | null);
 
         // getters
         public x: number;
@@ -619,8 +619,8 @@ declare namespace ROSLIB {
          */
         constructor(
             options?: {
-                position?: Vector3Like | null;
-                orientation?: QuaternionLike | null;
+                position?: Vector3Like | null | undefined;
+                orientation?: QuaternionLike | null | undefined;
             } | null,
         );
 
@@ -856,6 +856,6 @@ declare namespace ROSLIB {
          *  * xml - the XML element to parse
          *  * string - the XML element to parse as a string
          */
-        constructor(options: { xml: Node; string?: string | null } | { string: string });
+        constructor(options: { xml: Node; string?: string | null | undefined } | { string: string });
     }
 }

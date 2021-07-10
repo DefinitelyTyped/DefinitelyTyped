@@ -59,7 +59,7 @@ declare module 'angular' {
              * @see https://code.angularjs.org/1.7.0/docs/api/ngSanitize/provider/$sanitizeProvider#addValidElements
              * @param elements A list of valid HTML elements or an object with one or more of the following properties: htmlElements, htmlVoidElements, svgElements
              */
-            addValidElements(elements: string[] | { htmlElements?: string[]; htmlVoidElements?: string[]; svgElements?: string[] }): ISanitizeProvider;
+            addValidElements(elements: string[] | { htmlElements?: string[] | undefined; htmlVoidElements?: string[] | undefined; svgElements?: string[] | undefined }): ISanitizeProvider;
 
             /**
              * Extends the built-in list of valid attributes, i.e. attributes that are considered safe and are not stripped off during sanitization.

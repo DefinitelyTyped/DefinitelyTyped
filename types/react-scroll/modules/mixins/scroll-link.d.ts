@@ -4,7 +4,7 @@ import { Scroller } from './scroller';
 
 export type ScrollLinkProps<P> = ReactScrollLinkProps &
     P & {
-        container?: HTMLElement;
+        container?: HTMLElement | undefined;
     };
 
 export default function ScrollLink<P>(

@@ -32,7 +32,7 @@ declare namespace gapi {
             /**
              * The HTTP request method to use. Default is GET
              */
-            method?: string;
+            method?: string | undefined;
             /**
              * URL params in key-value pair form
              */
@@ -68,13 +68,13 @@ declare namespace gapi {
             body: string;
 
             // The map of HTTP response headers.
-            headers?: { [headerName: string]: string };
+            headers?: { [headerName: string]: string } | undefined;
 
             // HTTP status
-            status?: number;
+            status?: number | undefined;
 
             // HTTP status text
-            statusText?: string;
+            statusText?: string | undefined;
         }
 
         /**
@@ -179,19 +179,19 @@ declare namespace gapi {
                 /**
                  * The application's client ID. Visit the Google Developers Console to get an OAuth 2.0 client ID.
                  */
-                client_id?: string;
+                client_id?: string | undefined;
                 /**
                  * If true, then login uses "immediate mode", which means that the token is refreshed behind the scenes, and no UI is shown to the user.
                  */
-                immediate?: boolean;
+                immediate?: boolean | undefined;
                 /**
                  * The OAuth 2.0 response type property. Default: token
                  */
-                response_type?: string;
+                response_type?: string | undefined;
                 /**
                  * The auth scope or scopes to authorize. Auth scopes for individual APIs can be found in their documentation.
                  */
-                scope?: string | string[];
+                scope?: string | string[] | undefined;
             },
             callback: (authResult: GoogleApiOAuth2TokenObject) => void): void;
 

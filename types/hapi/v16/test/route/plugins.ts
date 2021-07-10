@@ -7,7 +7,7 @@ declare module 'hapi' {
     interface PluginSpecificConfiguration {
         coolPlugin: {
             optionA: string;
-            optionB?: boolean;
+            optionB?: boolean | undefined;
         }
     }
 }

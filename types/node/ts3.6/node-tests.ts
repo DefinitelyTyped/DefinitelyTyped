@@ -3,13 +3,13 @@ import '../test/async_hooks';
 import '../test/child_process';
 import '../test/cluster';
 import '../test/constants';
+import '../test/console';
 import '../test/crypto';
 import '../test/dgram';
 import '../test/diagnostic_channel';
 import '../test/dns';
 import '../test/events';
 import '../test/fs';
-import '../test/global';
 import '../test/globals';
 import '../test/http';
 import '../test/http2';
@@ -35,12 +35,10 @@ import '../test/wasi';
 import '../test/worker_threads';
 import '../test/zlib';
 
-import * as fs from 'fs';
 import * as url from 'url';
 import * as http from 'http';
 import * as https from 'https';
 import * as net from 'net';
-import * as console2 from 'console';
 import * as inspector from 'inspector';
 import * as trace_events from 'trace_events';
 
@@ -169,7 +167,7 @@ const importObject = { wasi_unstable: wasi.wasiImport };
     }
     {
         const frame: NodeJS.CallSite = null!;
-        const frameThis: any = frame.getThis();
+        const frameThis: unknown = frame.getThis();
         const typeName: string | null  = frame.getTypeName();
         const func: Function | undefined  = frame.getFunction();
         const funcName: string | null = frame.getFunctionName();
@@ -188,86 +186,6 @@ const importObject = { wasi_unstable: wasi.wasiImport };
 ///////////////////////////////////////////////////////////
 /// Console Tests : https://nodejs.org/api/console.html ///
 ///////////////////////////////////////////////////////////
-
-{
-    {
-        let _c: Console = console;
-        _c = console2;
-    }
-    {
-        const writeStream = fs.createWriteStream('./index.d.ts');
-        let consoleInstance: Console = new console.Console(writeStream);
-
-        consoleInstance = new console.Console(writeStream, writeStream);
-        consoleInstance = new console.Console(writeStream, writeStream, true);
-        consoleInstance = new console.Console({
-            stdout: writeStream,
-            stderr: writeStream,
-            colorMode: 'auto',
-            ignoreErrors: true
-        });
-        consoleInstance = new console.Console({
-            stdout: writeStream,
-            colorMode: false
-        });
-        consoleInstance = new console.Console({
-            stdout: writeStream
-        });
-    }
-    {
-        console.assert('value');
-        console.assert('value', 'message');
-        console.assert('value', 'message', 'foo', 'bar');
-        console.clear();
-        console.count();
-        console.count('label');
-        console.countReset();
-        console.countReset('label');
-        console.debug();
-        console.debug('message');
-        console.debug('message', 'foo', 'bar');
-        console.dir('obj');
-        console.dir('obj', { depth: 1 });
-        console.error();
-        console.error('message');
-        console.error('message', 'foo', 'bar');
-        console.group();
-        console.group('label');
-        console.group('label1', 'label2');
-        console.groupCollapsed();
-        console.groupEnd();
-        console.info();
-        console.info('message');
-        console.info('message', 'foo', 'bar');
-        console.log();
-        console.log('message');
-        console.log('message', 'foo', 'bar');
-        console.table({ foo: 'bar' });
-        console.table([{ foo: 'bar' }]);
-        console.table([{ foo: 'bar' }], ['foo'] as ReadonlyArray<string>);
-        console.time();
-        console.time('label');
-        console.timeEnd();
-        console.timeEnd('label');
-        console.timeLog();
-        console.timeLog('label');
-        console.timeLog('label', 'foo', 'bar');
-        console.trace();
-        console.trace('message');
-        console.trace('message', 'foo', 'bar');
-        console.warn();
-        console.warn('message');
-        console.warn('message', 'foo', 'bar');
-
-        // --- Inspector mode only ---
-        console.profile();
-        console.profile('label');
-        console.profileEnd();
-        console.profileEnd('label');
-        console.timeStamp();
-        console.timeStamp('label');
-    }
-}
 
 /*****************************************************************************
  *                                                                           *
@@ -318,10 +236,6 @@ const importObject = { wasi_unstable: wasi.wasiImport };
             const pauseReason: string = message.params.reason;
         });
         session.on('Debugger.resumed', () => {});
-        // Node Inspector events
-        session.on('NodeTracing.dataCollected', (message: inspector.InspectorNotification<inspector.NodeTracing.DataCollectedEventDataType>) => {
-          const value: Array<{}> = message.params.value;
-        });
     }
 }
 

@@ -49,7 +49,7 @@ declare namespace procfs {
     }
 
     interface FileDescriptor {
-        fd?: string;
+        fd?: string | undefined;
         path: string;
         info: FileDescriptorInfo;
         stat: FileDescriptorStat | boolean;

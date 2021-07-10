@@ -22,7 +22,7 @@ export interface Parameters {
     options?: any;
     data?: any;
     async?: any;
-    load?: (template: Template) => void;
+    load?: ((template: Template) => void) | undefined;
 }
 
 export interface Template {
@@ -46,11 +46,11 @@ export interface CompileOptions {
 }
 
 export interface RenderOptions {
-    allowAsync?: boolean;
+    allowAsync?: boolean | undefined;
     settings?: {
         views: any;
         'twig options': any;
-    };
+    } | undefined;
 }
 
 export function twig(params: Parameters): Template;

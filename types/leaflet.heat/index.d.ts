@@ -14,12 +14,12 @@ declare module 'leaflet' {
     }
 
     interface HeatMapOptions {
-        minOpacity?: number;
-        maxZoom?: number;
-        max?: number;
-        radius?: number;
-        blur?: number;
-        gradient?: ColorGradientConfig;
+        minOpacity?: number | undefined;
+        maxZoom?: number | undefined;
+        max?: number | undefined;
+        radius?: number | undefined;
+        blur?: number | undefined;
+        gradient?: ColorGradientConfig | undefined;
     }
 
     interface HeatLayer extends TileLayer {

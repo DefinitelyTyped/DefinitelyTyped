@@ -15,7 +15,7 @@ declare namespace title {
         /**
          * @default undefined
          */
-        special?: string[];
+        special?: string[] | undefined;
     }
 }
 

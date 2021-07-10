@@ -10,5 +10,5 @@ import { FlexboxPropTypes } from '../utils';
 export declare const Icon: React.StatelessComponent<IconProps>;
 export interface IconProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLElement> {
     name: string;
-    prefix?: string;
+    prefix?: string | undefined;
 }

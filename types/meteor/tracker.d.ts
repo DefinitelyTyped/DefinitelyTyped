@@ -27,7 +27,7 @@ declare module "meteor/tracker" {
         function afterFlush(callback: Function): void;
 
         function autorun(runFunc: (computation: Computation) => void, options?: {
-            onError?: Function;
+            onError?: Function | undefined;
         }): Computation;
 
         function flush(): void;

@@ -5,7 +5,7 @@
 
 declare namespace prometheusGcStats {
     interface Config {
-        prefix?: string;
+        prefix?: string | undefined;
     }
 }
 

@@ -8,21 +8,21 @@
 import { Component, ReactNode, CSSProperties } from 'react';
 
 export interface LazyLoadProps {
-    once?: boolean;
-    height?: number | string;
-    offset?: number | number[];
-    overflow?: boolean;
-    resize?: boolean;
-    scroll?: boolean;
-    children?: ReactNode;
-    throttle?: number | boolean;
-    debounce?: number | boolean;
-    placeholder?: ReactNode;
-    scrollContainer?: string | Element;
-    unmountIfInvisible?: boolean;
-    preventLoading?: boolean;
-    classNamePrefix?: string;
-    style?: CSSProperties;
+    once?: boolean | undefined;
+    height?: number | string | undefined;
+    offset?: number | number[] | undefined;
+    overflow?: boolean | undefined;
+    resize?: boolean | undefined;
+    scroll?: boolean | undefined;
+    children?: ReactNode | undefined;
+    throttle?: number | boolean | undefined;
+    debounce?: number | boolean | undefined;
+    placeholder?: ReactNode | undefined;
+    scrollContainer?: string | Element | undefined;
+    unmountIfInvisible?: boolean | undefined;
+    preventLoading?: boolean | undefined;
+    classNamePrefix?: string | undefined;
+    style?: CSSProperties | undefined;
 }
 
 export default class LazyLoad extends Component<LazyLoadProps> {

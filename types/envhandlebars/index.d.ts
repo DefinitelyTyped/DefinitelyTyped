@@ -14,24 +14,24 @@ declare function envhandlebars(cb?: envhandlebars.EnvHandlebarsCallback): void;
 declare namespace envhandlebars {
     interface Options {
         /** @default process.env */
-        env?: typeof process.env;
+        env?: typeof process.env | undefined;
         /** @default process.exit */
-        exit?: typeof process.exit;
+        exit?: typeof process.exit | undefined;
         /** @default process.stdin */
-        stdin?: typeof process.stdin;
+        stdin?: typeof process.stdin | undefined;
         /** @default process.stdout */
-        stout?: typeof process.stdout;
+        stout?: typeof process.stdout | undefined;
         /** @default process.stderr */
-        stderr?: typeof process.stderr;
+        stderr?: typeof process.stderr | undefined;
         /** @default true */
-        arrayEnabled?: boolean;
+        arrayEnabled?: boolean | undefined;
         /** @default false */
-        arrayVarPrefix?: boolean;
+        arrayVarPrefix?: boolean | undefined;
         /**
          * Custom Mustache helpers and partials can be implemented by extending the envhandlebars module
          * with your own Node.js wrapper script
          */
-        extendHandlebars?: ExtendHandlebarsFunc;
+        extendHandlebars?: ExtendHandlebarsFunc | undefined;
     }
 
     type ExtendHandlebarsFunc = (Handlebars: typeof H) => void;

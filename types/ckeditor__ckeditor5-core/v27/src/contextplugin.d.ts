@@ -7,8 +7,8 @@ export default class ContextPlugin implements Observable {
     readonly context: Context | Editor;
 
     static readonly isContextPlugin: boolean;
-    static readonly pluginName?: string;
-    static readonly requires?: Array<typeof Plugin>;
+    static readonly pluginName?: string | undefined;
+    static readonly requires?: Array<typeof Plugin> | undefined;
 
     constructor(context: Context | Editor);
     afterInit?(): Promise<void> | void;

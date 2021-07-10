@@ -64,7 +64,7 @@ declare namespace Tagger {
         tag: Tag;
         normal: string;
         pos: PosTag;
-        lemma?: string;
+        lemma?: string | undefined;
     }
 }
 

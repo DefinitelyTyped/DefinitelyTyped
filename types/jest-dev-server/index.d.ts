@@ -31,7 +31,7 @@ export interface JestDevServerOptions {
      * }
      * ```
      */
-    debug?: boolean;
+    debug?: boolean | undefined;
 
     /**
      * How many milliseconds to wait for the spawned server to be available before giving up. Defaults to wait-port's default.
@@ -43,7 +43,7 @@ export interface JestDevServerOptions {
      * }
      * ```
      */
-    launchTimeout?: number;
+    launchTimeout?: number | undefined;
 
     /**
      * Host to wait for activity on before considering the server running. Must be used in conjunction with port.
@@ -57,7 +57,7 @@ export interface JestDevServerOptions {
      * }
      * ```
      */
-    host?: string;
+    host?: string | undefined;
 
     /**
      * To wait for an HTTP or TCP endpoint before considering the server running, include http or tcp as a protocol. Must be used in conjunction with port.
@@ -70,7 +70,7 @@ export interface JestDevServerOptions {
      * }
      * ```
      */
-    protocol?: 'https' | 'http' | 'tcp' | 'socket';
+    protocol?: 'https' | 'http' | 'tcp' | 'socket' | undefined;
 
     /**
      * Port to wait for activity on before considering the server running. If not provided, the server is assumed to immediately be running.
@@ -83,7 +83,7 @@ export interface JestDevServerOptions {
      * }
      * ```
      */
-    port?: number;
+    port?: number | undefined;
 
     /**
      * It defines the action to take if port is already used:
@@ -101,7 +101,7 @@ export interface JestDevServerOptions {
      *   usedPortAction: 'kill',
      * }
      */
-    usedPortAction?: 'ask' | 'error' | 'ignore' | 'kill';
+    usedPortAction?: 'ask' | 'error' | 'ignore' | 'kill' | undefined;
 
     /**
      * jest-dev-server uses the wait-on npm package to wait for resources to become available before calling callback.
@@ -117,7 +117,7 @@ export interface JestDevServerOptions {
      *   },
      * }
      */
-    waitOnScheme?: Partial<WaitOnOptions>;
+    waitOnScheme?: Partial<WaitOnOptions> | undefined;
 }
 
 export const ERROR_TIMEOUT: 'ERROR_TIMEOUT';

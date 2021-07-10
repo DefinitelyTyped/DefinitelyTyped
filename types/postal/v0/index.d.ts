@@ -30,9 +30,9 @@ interface IEnvelope{
     data?: any;
 
     /*Uses DEFAULT_CHANNEL if no channel is provided*/
-    channel?: string;
+    channel?: string | undefined;
 
-    timeStamp?: string;
+    timeStamp?: string | undefined;
 }
 
 

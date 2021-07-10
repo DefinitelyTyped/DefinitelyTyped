@@ -23,8 +23,8 @@ declare namespace vk {
 
         interface InitParams {
             apiId: number;
-            status?: boolean;
-            onlyWidgets?: boolean;
+            status?: boolean | undefined;
+            onlyWidgets?: boolean | undefined;
         }
 
         namespace Auth {
@@ -116,49 +116,49 @@ declare namespace vk {
             }
 
             interface ContactUsOptions {
-                text?: string;
-                height?: 18 | 20 | 22 | 24 | 30;
+                text?: string | undefined;
+                height?: 18 | 20 | 22 | 24 | 30 | undefined;
             }
 
             interface CommentsOptions {
-                width?: number;
-                height?: number;
-                limit?: number;
-                attach?: string;
-                autoPublish?: NumericBoolean;
-                norealtime?: NumericBoolean;
-                pageUrl?: string;
+                width?: number | undefined;
+                height?: number | undefined;
+                limit?: number | undefined;
+                attach?: string | undefined;
+                autoPublish?: NumericBoolean | undefined;
+                norealtime?: NumericBoolean | undefined;
+                pageUrl?: string | undefined;
             }
 
             interface PostOptions {
-                width?: number;
+                width?: number | undefined;
             }
 
             interface GroupOptions {
-                width?: number | 'auto';
-                height?: number;
-                mode?: 1 | 3 | 4;
-                no_cover?: NumericBoolean;
-                wide?: NumericBoolean;
-                color1?: string;
-                color2?: string;
-                color3?: string;
+                width?: number | 'auto' | undefined;
+                height?: number | undefined;
+                mode?: 1 | 3 | 4 | undefined;
+                no_cover?: NumericBoolean | undefined;
+                wide?: NumericBoolean | undefined;
+                color1?: string | undefined;
+                color2?: string | undefined;
+                color3?: string | undefined;
             }
 
             interface LikeOptions {
-                width?: number;
-                height?: 18 | 20 | 22 | 24 | 30;
-                type?: 'button' | 'mini' | 'vertical' | 'full';
-                verb?: NumericBoolean;
-                pageTitle?: string;
-                pageUrl?: string;
-                pageImage?: string;
+                width?: number | undefined;
+                height?: 18 | 20 | 22 | 24 | 30 | undefined;
+                type?: 'button' | 'mini' | 'vertical' | 'full' | undefined;
+                verb?: NumericBoolean | undefined;
+                pageTitle?: string | undefined;
+                pageUrl?: string | undefined;
+                pageImage?: string | undefined;
             }
 
             interface RecommendedOptions {
-                limit?: number;
-                max?: number;
-                period?: 'day' | 'week' | 'month';
+                limit?: number | undefined;
+                max?: number | undefined;
+                period?: 'day' | 'week' | 'month' | undefined;
             }
 
             type RecommendedSort = 'friend_likes' | 'likes';
@@ -166,14 +166,14 @@ declare namespace vk {
             type RecommendedTarget = 'blank' | 'top' | 'parent';
 
             interface PollOptions {
-                width?: number;
-                pageUrl?: string;
+                width?: number | undefined;
+                pageUrl?: string | undefined;
             }
 
             interface AuthOptions {
-                width?: number;
+                width?: number | undefined;
                 onAuth?(user: AuthUserData): void;
-                authUrl?: string;
+                authUrl?: string | undefined;
             }
 
             interface AuthUserData {
@@ -186,22 +186,22 @@ declare namespace vk {
             }
 
             interface SubscribeOptions {
-                mode?: NumericBoolean;
-                soft?: NumericBoolean;
+                mode?: NumericBoolean | undefined;
+                soft?: NumericBoolean | undefined;
             }
 
             interface CommunityMessagesOptions {
                 onCanNotWrite?(reason: OnCanNotWriteReason): void;
-                welcomeScreen?: NumericBoolean;
-                expandTimeout?: number;
-                expanded?: 1;
-                widgetPosition?: string;
-                buttonType?: string;
-                disableButtonTooltip?: 1;
-                tooltipButtonText?: string;
-                disableNewMessagesSound?: 1;
-                disableExpandChatSound?: 1;
-                disableTitleChange?: 1;
+                welcomeScreen?: NumericBoolean | undefined;
+                expandTimeout?: number | undefined;
+                expanded?: 1 | undefined;
+                widgetPosition?: string | undefined;
+                buttonType?: string | undefined;
+                disableButtonTooltip?: 1 | undefined;
+                tooltipButtonText?: string | undefined;
+                disableNewMessagesSound?: 1 | undefined;
+                disableExpandChatSound?: 1 | undefined;
+                disableTitleChange?: 1 | undefined;
             }
 
             type OnCanNotWriteReason = 'offline' | 'no_access' | 'disabled_messages' | 'cant_write';
@@ -214,21 +214,21 @@ declare namespace vk {
             }
 
             interface PlaylistOptions {
-                width?: number;
+                width?: number | undefined;
             }
 
             interface AllowMessagesFromCommunityOptions {
-                height?: 22 | 24 | 30;
+                height?: 22 | 24 | 30 | undefined;
             }
 
             interface AppOptions {
-                mode?: 1 | 2 | 3;
-                height?: number;
+                mode?: 1 | 2 | 3 | undefined;
+                height?: number | undefined;
             }
 
             interface BookmarksOptions {
-                url?: string;
-                height?: 18 | 20 | 22 | 24 | 30;
+                url?: string | undefined;
+                height?: 18 | 20 | 22 | 24 | 30 | undefined;
             }
         }
 
@@ -293,22 +293,22 @@ declare namespace vk {
                 | 'purchase';
 
             interface ProductEventParams {
-                products?: Product[];
-                products_recommended_ids?: string;
-                category_ids?: string;
-                business_value?: number;
-                currency_code?: string;
-                total_price?: number;
-                search_string?: string;
+                products?: Product[] | undefined;
+                products_recommended_ids?: string | undefined;
+                category_ids?: string | undefined;
+                business_value?: number | undefined;
+                currency_code?: string | undefined;
+                total_price?: number | undefined;
+                search_string?: string | undefined;
             }
 
             interface Product {
                 id: string;
-                group_id?: string;
-                recommended_ids?: string;
-                price?: number;
-                price_old?: number;
-                price_from?: NumericBoolean;
+                group_id?: string | undefined;
+                recommended_ids?: string | undefined;
+                price?: number | undefined;
+                price_old?: number | undefined;
+                price_from?: NumericBoolean | undefined;
             }
         }
 
@@ -339,7 +339,7 @@ declare namespace vk {
                 | 'conversion';
 
             interface GoalParams {
-                value?: number;
+                value?: number | undefined;
             }
         }
     }

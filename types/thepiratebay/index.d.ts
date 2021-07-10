@@ -13,11 +13,11 @@ export function getTvShow(id: string | number): Promise<TVSeason[]>;
 export function getCategories(): Promise<CategoryGroup[]>;
 
 export interface SearchOptions {
-    category?: string | number;
-    filter?: { verified?: boolean };
-    page?: number;
-    orderBy?: string;
-    sortBy?: string;
+    category?: string | number | undefined;
+    filter?: { verified?: boolean | undefined } | undefined;
+    page?: number | undefined;
+    orderBy?: string | undefined;
+    sortBy?: string | undefined;
 }
 
 export interface Category {

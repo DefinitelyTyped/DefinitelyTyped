@@ -16,24 +16,24 @@ https://github.com/pinterest/gestalt/blob/master/packages/gestalt-datepicker/src
 export interface DatePickerProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: Date }) => void;
-    disabled?: boolean;
-    errorMessage?: string;
-    excludeDates?: ReadonlyArray<Date>;
-    helperText?: string;
-    idealDirection?: 'up' | 'right' | 'down' | 'left';
-    includeDates?: ReadonlyArray<Date>;
-    label?: string;
-    localeData?: Locale;
-    maxDate?: Date;
-    minDate?: Date;
-    nextRef?: React.Ref<any>;
+    disabled?: boolean | undefined;
+    errorMessage?: string | undefined;
+    excludeDates?: ReadonlyArray<Date> | undefined;
+    helperText?: string | undefined;
+    idealDirection?: 'up' | 'right' | 'down' | 'left' | undefined;
+    includeDates?: ReadonlyArray<Date> | undefined;
+    label?: string | undefined;
+    localeData?: Locale | undefined;
+    maxDate?: Date | undefined;
+    minDate?: Date | undefined;
+    nextRef?: React.Ref<any> | undefined;
 
-    placeholder?: string;
-    rangeEndDate?: Date;
-    rangeSelector?: 'start' | 'end';
-    rangeStartDate?: Date;
-    ref?: React.Ref<any>;
-    value?: Date;
+    placeholder?: string | undefined;
+    rangeEndDate?: Date | undefined;
+    rangeSelector?: 'start' | 'end' | undefined;
+    rangeStartDate?: Date | undefined;
+    ref?: React.Ref<any> | undefined;
+    value?: Date | undefined;
 }
 
 export default class DatePicker extends React.Component<DatePickerProps, any> {}

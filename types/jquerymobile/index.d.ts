@@ -10,213 +10,213 @@
 interface JQueryMobileEvent { (event: Event, ui: any): void; }
 
 interface DialogOptions {
-    closeBtn?: string;
-    closeBtnText?: string;
-    corners?: boolean;
-    initSelector?: string;
-    overlayTheme?: string;
+    closeBtn?: string | undefined;
+    closeBtnText?: string | undefined;
+    corners?: boolean | undefined;
+    initSelector?: string | undefined;
+    overlayTheme?: string | undefined;
 }
 
 interface DialogEvents {
-    create?: JQueryMobileEvent;
+    create?: JQueryMobileEvent | undefined;
 }
 
 interface PopupOptions {
-    corners?: boolean;
-    history?: boolean;
-    initSelector?: string;
-    overlayTheme?: string;
-    positionTo?: string;
-    shadow?: boolean;
-    theme?: string;
-    tolerance?: string;
-    transition?: string;
+    corners?: boolean | undefined;
+    history?: boolean | undefined;
+    initSelector?: string | undefined;
+    overlayTheme?: string | undefined;
+    positionTo?: string | undefined;
+    shadow?: boolean | undefined;
+    theme?: string | undefined;
+    tolerance?: string | undefined;
+    transition?: string | undefined;
 }
 
 interface PopupEvents {
-    popupbeforeposition?: JQueryMobileEvent;
-    popupafteropen?: JQueryMobileEvent;
-    popupafterclose?: JQueryMobileEvent;
+    popupbeforeposition?: JQueryMobileEvent | undefined;
+    popupafteropen?: JQueryMobileEvent | undefined;
+    popupafterclose?: JQueryMobileEvent | undefined;
 }
 
 interface FixedToolbarOptions {
-    visibleOnPageShow?: boolean;
-    disablePageZoom?: boolean;
-    transition?: string;
-    fullscreen?: boolean;
-    tapToggle?: boolean;
-    tapToggleBlacklist?: string;
-    hideDuringFocus?: string;
-    updatePagePadding?: boolean;
-    supportBlacklist?: Function;
-    initSelector?: string;
+    visibleOnPageShow?: boolean | undefined;
+    disablePageZoom?: boolean | undefined;
+    transition?: string | undefined;
+    fullscreen?: boolean | undefined;
+    tapToggle?: boolean | undefined;
+    tapToggleBlacklist?: string | undefined;
+    hideDuringFocus?: string | undefined;
+    updatePagePadding?: boolean | undefined;
+    supportBlacklist?: Function | undefined;
+    initSelector?: string | undefined;
 }
 
 interface FixedToolbarEvents {
-    create?: JQueryMobileEvent;
+    create?: JQueryMobileEvent | undefined;
 }
 
 interface ButtonOptions {
-    corners?: boolean;
-    icon?: string;
-    iconpos?: string;
-    iconshadow?: boolean;
-    inline?: boolean;
-    mini?: boolean;
-    shadow?: boolean;
-    theme?: string;
-    initSelector?: string;
+    corners?: boolean | undefined;
+    icon?: string | undefined;
+    iconpos?: string | undefined;
+    iconshadow?: boolean | undefined;
+    inline?: boolean | undefined;
+    mini?: boolean | undefined;
+    shadow?: boolean | undefined;
+    theme?: string | undefined;
+    initSelector?: string | undefined;
 }
 
 interface ButtonEvents {
-    create?: JQueryMobileEvent;
+    create?: JQueryMobileEvent | undefined;
 }
 
 interface CollapsibleOptions {
-    collapsed?: boolean;
-    collapseCueText?: string;
-    collapsedIcon?: string;
-    contentTheme?: string;
-    expandCueText?: string;
-    expandedIcon?: string;
-    heading?: string;
-    iconpos?: string;
-    initSelector?: string;
-    inset?: boolean;
-    mini?: boolean;
-    theme?: string;
+    collapsed?: boolean | undefined;
+    collapseCueText?: string | undefined;
+    collapsedIcon?: string | undefined;
+    contentTheme?: string | undefined;
+    expandCueText?: string | undefined;
+    expandedIcon?: string | undefined;
+    heading?: string | undefined;
+    iconpos?: string | undefined;
+    initSelector?: string | undefined;
+    inset?: boolean | undefined;
+    mini?: boolean | undefined;
+    theme?: string | undefined;
 }
 
 interface CollapsibleEvents {
-    create?: JQueryMobileEvent;
-    collapse?: JQueryMobileEvent;
-    expand?: JQueryMobileEvent;
+    create?: JQueryMobileEvent | undefined;
+    collapse?: JQueryMobileEvent | undefined;
+    expand?: JQueryMobileEvent | undefined;
 }
 
 interface CollapsibleSetOptions {
-    collapsedIcon?: string;
-    expandedIcon?: string;
-    iconpos?: string;
-    initSelector?: string;
-    inset?: boolean;
-    mini?: boolean;
-    theme?: string;
+    collapsedIcon?: string | undefined;
+    expandedIcon?: string | undefined;
+    iconpos?: string | undefined;
+    initSelector?: string | undefined;
+    inset?: boolean | undefined;
+    mini?: boolean | undefined;
+    theme?: string | undefined;
 }
 
 interface CollapsibleSetEvents {
-    create?: JQueryMobileEvent;
+    create?: JQueryMobileEvent | undefined;
 }
 
 interface TextInputOptions {
-    clearBtn?: boolean;
-    clearBtnText?: string;
-    disabled?: boolean;
-    initSelector?: string;
-    mini?: boolean;
-    preventFocusZoom?: boolean;
-    theme?: string;
+    clearBtn?: boolean | undefined;
+    clearBtnText?: string | undefined;
+    disabled?: boolean | undefined;
+    initSelector?: string | undefined;
+    mini?: boolean | undefined;
+    preventFocusZoom?: boolean | undefined;
+    theme?: string | undefined;
 }
 
 interface TextInputEvents {
-    create?: JQueryMobileEvent;
+    create?: JQueryMobileEvent | undefined;
 }
 
 interface SearchInputOptions {
-    clearSearchButtonText?: string;
-    disabled?: boolean;
-    initSelector?: string;
-    mini?: boolean;
-    theme?: string;
+    clearSearchButtonText?: string | undefined;
+    disabled?: boolean | undefined;
+    initSelector?: string | undefined;
+    mini?: boolean | undefined;
+    theme?: string | undefined;
 }
 
 interface SliderOptions {
-    disabled?: boolean;
-    highlight?: boolean;
-    initSelector?: string;
-    mini?: boolean;
-    theme?: string;
-    trackTheme?: string;
+    disabled?: boolean | undefined;
+    highlight?: boolean | undefined;
+    initSelector?: string | undefined;
+    mini?: boolean | undefined;
+    theme?: string | undefined;
+    trackTheme?: string | undefined;
 }
 
 interface SliderEvents {
-    create?: JQueryMobileEvent;
-    slidestart?: JQueryMobileEvent;
-    slidestop?: JQueryMobileEvent;
+    create?: JQueryMobileEvent | undefined;
+    slidestart?: JQueryMobileEvent | undefined;
+    slidestop?: JQueryMobileEvent | undefined;
 }
 
 interface FlipswitchOptions {
-    corners?: boolean;
-    defaults?: boolean;
-    disabled?: boolean;
-    enhanced?: boolean;
-    mini?: boolean;
-    offText?: string;
-    onText?: string;
-    theme?: string;
-    wrapperClass?: string;
+    corners?: boolean | undefined;
+    defaults?: boolean | undefined;
+    disabled?: boolean | undefined;
+    enhanced?: boolean | undefined;
+    mini?: boolean | undefined;
+    offText?: string | undefined;
+    onText?: string | undefined;
+    theme?: string | undefined;
+    wrapperClass?: string | undefined;
 }
 
 interface CheckboxRadioOptions {
-    mini?: boolean;
-    theme?: string;
+    mini?: boolean | undefined;
+    theme?: string | undefined;
 }
 
 interface CheckboxRadioEvents {
-    create?: JQueryMobileEvent;
+    create?: JQueryMobileEvent | undefined;
 }
 
 interface SelectMenuOptions {
-    corners?: boolean;
-    icon?: string;
-    iconpos?: string;
-    iconshadow?: boolean;
-    initSelector?: string;
-    inline?: boolean;
+    corners?: boolean | undefined;
+    icon?: string | undefined;
+    iconpos?: string | undefined;
+    iconshadow?: boolean | undefined;
+    initSelector?: string | undefined;
+    inline?: boolean | undefined;
     hidePlaceholderMenuItems: boolean;
-    mini?: boolean;
-    nativeMenu?: boolean;
-    overlayTheme?: string;
-    preventFocusZoom?: boolean;
-    shadow?: boolean;
-    theme?: string;
+    mini?: boolean | undefined;
+    nativeMenu?: boolean | undefined;
+    overlayTheme?: string | undefined;
+    preventFocusZoom?: boolean | undefined;
+    shadow?: boolean | undefined;
+    theme?: string | undefined;
 }
 
 interface SelectMenuEvents {
-    create?: JQueryMobileEvent;
+    create?: JQueryMobileEvent | undefined;
 }
 
 interface ListViewOptions {
-    autodividers?: boolean;
-    autodividersSelector?: (jq?: JQuery) => string;
-    countTheme?: string;
-    defaults?: boolean;
-    disabled?: boolean;
-    dividerTheme?: string;
-    filter?: boolean;
-    filterCallback?: Function;
-    filterPlaceholder?: string;
-    filterTheme?: string;
-    headerTheme?: string;
-    initSelector?: string;
-    inset?: boolean;
-    splitIcon?: string;
-    splitTheme?: string;
-    theme?: string;
+    autodividers?: boolean | undefined;
+    autodividersSelector?: ((jq?: JQuery) => string) | undefined;
+    countTheme?: string | undefined;
+    defaults?: boolean | undefined;
+    disabled?: boolean | undefined;
+    dividerTheme?: string | undefined;
+    filter?: boolean | undefined;
+    filterCallback?: Function | undefined;
+    filterPlaceholder?: string | undefined;
+    filterTheme?: string | undefined;
+    headerTheme?: string | undefined;
+    initSelector?: string | undefined;
+    inset?: boolean | undefined;
+    splitIcon?: string | undefined;
+    splitTheme?: string | undefined;
+    theme?: string | undefined;
 }
 
 interface ListViewEvents {
-    create?: JQueryMobileEvent;
+    create?: JQueryMobileEvent | undefined;
 }
 
 interface FilterableOptions {
     children?: any;
-    defaults?: boolean;
-    disabled?: boolean;
-    enhanced?: boolean;
-    filterCallback?: {(index: number, searchValue?: string): boolean; };
-    filterPlaceholder?: string;
-    filterReveal?: boolean;
-    filterTheme?: string;
+    defaults?: boolean | undefined;
+    disabled?: boolean | undefined;
+    enhanced?: boolean | undefined;
+    filterCallback?: {(index: number, searchValue?: string): boolean; } | undefined;
+    filterPlaceholder?: string | undefined;
+    filterReveal?: boolean | undefined;
+    filterTheme?: string | undefined;
     input: any;
 }
 
@@ -225,38 +225,38 @@ interface NavbarOptions {
 }
 
 interface ControlgroupOptions {
-    corners?: boolean;
-    excludeInvisible?: boolean;
-    mini?: boolean;
-    shadow?: boolean;
-    type?: string;
+    corners?: boolean | undefined;
+    excludeInvisible?: boolean | undefined;
+    mini?: boolean | undefined;
+    shadow?: boolean | undefined;
+    type?: string | undefined;
 }
 
 interface JQueryMobileOptions {
-    activeBtnClass?: string;
-    activePageClass?: string;
-    ajaxEnabled?: boolean;
-    allowCrossDomainPages?: boolean;
-    autoInitializePage?: boolean;
+    activeBtnClass?: string | undefined;
+    activePageClass?: string | undefined;
+    ajaxEnabled?: boolean | undefined;
+    allowCrossDomainPages?: boolean | undefined;
+    autoInitializePage?: boolean | undefined;
     buttonMarkup: any;
-    defaultDialogTransition?: string;
-    defaultPageTransition?: string;
-    getMaxScrollForTransition?: number;
-    gradeA?: Function;
-    hashListeningEnabled?: boolean;
-    ignoreContentEnabled?: boolean;
-    linkBindingEnabled?: boolean;
-    loadingMessageTextVisible?: boolean;
-    loadingMessageTheme?: string;
-    maxTransitionWidth?: number;
-    minScrollBack?: number;
-    ns?: number;
-    pageLoadErrorMessage?: string;
-    pageLoadErrorMessageTheme?: string;
-    phonegapNavigationEnabled?: boolean;
-    pushStateEnabled?: boolean;
-    subPageUrlKey?: string;
-    touchOverflowEnabled?: boolean;
+    defaultDialogTransition?: string | undefined;
+    defaultPageTransition?: string | undefined;
+    getMaxScrollForTransition?: number | undefined;
+    gradeA?: Function | undefined;
+    hashListeningEnabled?: boolean | undefined;
+    ignoreContentEnabled?: boolean | undefined;
+    linkBindingEnabled?: boolean | undefined;
+    loadingMessageTextVisible?: boolean | undefined;
+    loadingMessageTheme?: string | undefined;
+    maxTransitionWidth?: number | undefined;
+    minScrollBack?: number | undefined;
+    ns?: number | undefined;
+    pageLoadErrorMessage?: string | undefined;
+    pageLoadErrorMessageTheme?: string | undefined;
+    phonegapNavigationEnabled?: boolean | undefined;
+    pushStateEnabled?: boolean | undefined;
+    subPageUrlKey?: string | undefined;
+    touchOverflowEnabled?: boolean | undefined;
     transitionFallbacks: any;
 }
 
@@ -297,35 +297,35 @@ interface JQueryMobileEvents {
 }
 
 interface ChangePageOptions {
-    allowSamePageTransition?: boolean;
-    changeHash?: boolean;
+    allowSamePageTransition?: boolean | undefined;
+    changeHash?: boolean | undefined;
     data?: any;
-    dataUrl?: string;
-    pageContainer?: JQuery;
-    reloadPage?: boolean;
-    reverse?: boolean;
-    role?: string;
-    showLoadMsg?: boolean;
-    transition?: string;
-    type?: string;
+    dataUrl?: string | undefined;
+    pageContainer?: JQuery | undefined;
+    reloadPage?: boolean | undefined;
+    reverse?: boolean | undefined;
+    role?: string | undefined;
+    showLoadMsg?: boolean | undefined;
+    transition?: string | undefined;
+    type?: string | undefined;
 }
 
 interface LoadPageOptions {
     data?: any;
-    loadMsgDelay?: number;
-    pageContainer?: JQuery;
-    reloadPage?: boolean;
-    role?: string;
-    showLoadMsg?: boolean;
-    type?: string;
+    loadMsgDelay?: number | undefined;
+    pageContainer?: JQuery | undefined;
+    reloadPage?: boolean | undefined;
+    role?: string | undefined;
+    showLoadMsg?: boolean | undefined;
+    type?: string | undefined;
 }
 
 interface LoaderOptions {
-    theme?: string;
-    textVisible?: boolean;
-    html?: string;
-    text?: string;
-    textonly?: boolean;
+    theme?: string | undefined;
+    textVisible?: boolean | undefined;
+    html?: string | undefined;
+    text?: string | undefined;
+    textonly?: boolean | undefined;
 }
 
 interface JQueryMobilePath {

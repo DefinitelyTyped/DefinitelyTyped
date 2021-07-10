@@ -93,7 +93,7 @@ interface GetVoIPSignSuccess {
 // 数据库 API
 declare function database(options?: DatabaseOptions): Database;
 interface DatabaseOptions {
-    env?: string;
+    env?: string | undefined;
 }
 interface Database {
     command: Command;
@@ -196,8 +196,8 @@ interface CrosFieldCommand {
 }
 interface GeoNearOptions {
     geometry: Point; // 点的地理位置
-    maxDistance?: number; // 选填，最大距离，单位为米
-    minDistance?: number; // 选填，最小距离，单位为米
+    maxDistance?: number | undefined; // 选填，最大距离，单位为米
+    minDistance?: number | undefined; // 选填，最小距离，单位为米
 }
 interface GeoWithinOptions {
     geometry: Polygon | MultiPolygon;
@@ -277,26 +277,26 @@ interface Aggregate {
         groupBy: any;
         boundaries: any[];
         default?: any;
-        output?: object;
+        output?: object | undefined;
     }): Aggregate;
     bucketAuto(bucketObj: {
         groupBy: any;
         buckets: number;
         granularity?: any;
-        output?: object;
+        output?: object | undefined;
     }): Aggregate;
     count(expr: string): any;
     geoNear(geoNearObj: {
         near: Point;
         spherical: true;
-        limit?: number;
-        maxDistance?: number;
-        minDistance?: number;
-        query?: object;
-        distanceMultiplier?: number;
+        limit?: number | undefined;
+        maxDistance?: number | undefined;
+        minDistance?: number | undefined;
+        query?: object | undefined;
+        distanceMultiplier?: number | undefined;
         distanceField: string;
-        includeLocs?: string;
-        key?: string;
+        includeLocs?: string | undefined;
+        key?: string | undefined;
     }): Aggregate;
     group(groupObj: { _id: any; [fieldName: string]: any }): Aggregate;
     limit(limitRecords: number): any;
@@ -309,8 +309,8 @@ interface Aggregate {
     sortByCount(fieldName: string): Aggregate;
     unwind(unwindObj: {
         path: string;
-        includeArrayIndex?: string;
-        preserveNullAndEmptyArrays?: boolean;
+        includeArrayIndex?: string | undefined;
+        preserveNullAndEmptyArrays?: boolean | undefined;
     }): Aggregate;
     end(): void;
 }

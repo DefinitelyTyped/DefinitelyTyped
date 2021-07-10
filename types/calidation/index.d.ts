@@ -25,7 +25,7 @@ export interface ValidatorContext<T extends object> {
 
 export interface SimpleValidatorConfig<T extends object> {
     message: string;
-    validateIf?: ((context: ValidatorContext<T>) => boolean) | boolean;
+    validateIf?: ((context: ValidatorContext<T>) => boolean) | boolean | undefined;
 }
 
 export type SimpleValidator<T extends object> =
@@ -82,18 +82,18 @@ export type Validator<T extends object> =
     | LengthValidator<T>;
 
 export interface FieldConfig<T extends object> {
-    isBlacklisted?: BlacklistValidator<T>;
-    isEmail?: SimpleValidator<T>;
-    isEqual?: ValueValidator<any, T>;
-    isGreaterThan?: ValueValidator<number, T>;
-    isLessThan?: ValueValidator<number, T>;
-    isRequired?: SimpleValidator<T>;
-    isNumber?: SimpleValidator<T>;
-    isRegexMatch?: RegexValidator<T>;
-    isWhitelisted?: WhitelistValidator<T>;
-    isMinLength?: LengthValidator<T>;
-    isMaxLength?: LengthValidator<T>;
-    isExactLength?: LengthValidator<T>;
+    isBlacklisted?: BlacklistValidator<T> | undefined;
+    isEmail?: SimpleValidator<T> | undefined;
+    isEqual?: ValueValidator<any, T> | undefined;
+    isGreaterThan?: ValueValidator<number, T> | undefined;
+    isLessThan?: ValueValidator<number, T> | undefined;
+    isRequired?: SimpleValidator<T> | undefined;
+    isNumber?: SimpleValidator<T> | undefined;
+    isRegexMatch?: RegexValidator<T> | undefined;
+    isWhitelisted?: WhitelistValidator<T> | undefined;
+    isMinLength?: LengthValidator<T> | undefined;
+    isMaxLength?: LengthValidator<T> | undefined;
+    isExactLength?: LengthValidator<T> | undefined;
 }
 
 export type FieldsConfig<T extends object> = Record<
@@ -117,10 +117,10 @@ export interface FormContext<T extends object> {
 
 export interface FormProps<T extends object>
     extends Omit<React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>, 'onSubmit'> {
-    onChange?: (event: React.ChangeEvent<HTMLFormElement>) => void;
-    onReset?: () => void;
-    onSubmit?: (context: FormContext<T>) => void;
-    onUpdate?: (context: FormContext<T>) => void;
+    onChange?: ((event: React.ChangeEvent<HTMLFormElement>) => void) | undefined;
+    onReset?: (() => void) | undefined;
+    onSubmit?: ((context: FormContext<T>) => void) | undefined;
+    onUpdate?: ((context: FormContext<T>) => void) | undefined;
 }
 
 export class Form<T extends object> extends React.Component<FormProps<T>> {}
@@ -130,8 +130,8 @@ export type ValidationContext<T extends object> = Omit<FormContext<T>, 'register
 export interface ValidationProps<T extends object> {
     children: (context: ValidationContext<T>) => React.ReactNode;
     config: FieldsConfig<T>;
-    initialValues?: T;
-    transforms?: Transforms<T>;
+    initialValues?: T | undefined;
+    transforms?: Transforms<T> | undefined;
 }
 
 export class Validation<T extends object> extends React.Component<ValidationProps<T>> {}

@@ -60,7 +60,7 @@ export class TextBuffer {
     /** Create a new buffer with the given params. */
     constructor(params?: {
         /** The initial string text of the buffer. */
-        text?: string;
+        text?: string | undefined;
         /**
          *  A function that returns a Boolean indicating whether the buffer should
          *  be destroyed if its file is deleted.
@@ -69,7 +69,7 @@ export class TextBuffer {
     });
 
     /** Returns a plain javascript object representation of the TextBuffer. */
-    serialize(options?: { markerLayers?: boolean; history?: boolean }): object;
+    serialize(options?: { markerLayers?: boolean | undefined; history?: boolean | undefined }): object;
 
     /** Returns the unique identifier for this buffer. */
     getId(): string;
@@ -284,7 +284,7 @@ export class TextBuffer {
 
     // Markers
     /** Create a layer to contain a set of related markers. */
-    addMarkerLayer(options?: { maintainHistory?: boolean; persistent?: boolean; role?: string }): MarkerLayer;
+    addMarkerLayer(options?: { maintainHistory?: boolean | undefined; persistent?: boolean | undefined; role?: string | undefined }): MarkerLayer;
 
     /**
      *  Get a MarkerLayer by id.
@@ -299,9 +299,9 @@ export class TextBuffer {
     markRange(
         range: RangeCompatible,
         properties?: {
-            reversed?: boolean;
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
-            exclusive?: boolean;
+            reversed?: boolean | undefined;
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            exclusive?: boolean | undefined;
         },
     ): Marker;
 
@@ -309,8 +309,8 @@ export class TextBuffer {
     markPosition(
         position: PointCompatible,
         options?: {
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
-            exclusive?: boolean;
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            exclusive?: boolean | undefined;
         },
     ): Marker;
 
@@ -341,7 +341,7 @@ export class TextBuffer {
 
     /** Batch multiple operations as a single undo/redo step. */
     transact<T>(
-        optionsOrInterval: number | ({ groupingInterval?: number } & HistoryTransactionOptions),
+        optionsOrInterval: number | ({ groupingInterval?: number | undefined } & HistoryTransactionOptions),
         fn: () => T,
     ): T;
     /** Batch multiple operations as a single undo/redo step. */
@@ -636,7 +636,7 @@ export interface BufferStoppedChangingEvent {
 
 export interface BufferLoadOptions {
     /** The file's encoding. */
-    encoding?: string;
+    encoding?: string | undefined;
 
     /**
      *  A function that returns a boolean indicating whether the buffer should
@@ -663,8 +663,8 @@ export interface ContextualBufferScanResult extends BufferScanResult {
 
 export interface ScanContextOptions {
     /** The number of lines before the matched line to include in the results object. */
-    leadingContextLineCount?: number;
+    leadingContextLineCount?: number | undefined;
 
     /** The number of lines after the matched line to include in the results object. */
-    trailingContextLineCount?: number;
+    trailingContextLineCount?: number | undefined;
 }

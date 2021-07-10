@@ -16,10 +16,10 @@ export type HttpMethods = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
 export interface Request {
     url: string;
-    method?: HttpMethods;
-    body?: string;
-    headers?: Header;
-    credential?: Credentials;
+    method?: HttpMethods | undefined;
+    body?: string | undefined;
+    headers?: Header | undefined;
+    credential?: Credentials | undefined;
 }
 
 export function sign(request: Request, credential?: Credentials): Header;

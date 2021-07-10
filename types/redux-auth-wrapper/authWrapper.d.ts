@@ -7,7 +7,7 @@ export interface InjectedAuthProps {
 }
 
 export interface AuthWrapperConfig extends AuthConfig {
-    FailureComponent?: ReactType;
+    FailureComponent?: ReactType | undefined;
 }
 
 export default function authWrapper<OwnProps = {}>(

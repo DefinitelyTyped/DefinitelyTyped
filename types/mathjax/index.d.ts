@@ -192,29 +192,29 @@ declare namespace MathJax {
         /*This holds the configuration parameters for MathJax. Set these values using MathJax.Hub.Config() described
         * below. The options and their default values are given in the Core Options reference page.
         */
-        config?: Config;
+        config?: Config | undefined;
         /*The pause (in milliseconds) between input and output phases of MathJax’s processing. Set this to 0 to avoid
         * jitter when updating output frequently (e.g., in a live preview environment).
         */
-        processSectionDelay?: number;
+        processSectionDelay?: number | undefined;
         /*The minimum time (in milliseconds) between updates of the “Processing Math” message. After this amount of time
         * has passed, and after the next equation has finished being processed, MathJax will stop processing momentarily
         * so that the update message can be displayed, and so that the browser can handle user interaction.
         */
-        processUpdateTime?: number;
+        processUpdateTime?: number | undefined;
         /*The amount of time (in milliseconds) that MathJax pauses after issuing its processing message before starting
         * the processing again (to give browsers time to handle user interaction).
         */
-        processUpdateDelay?: number;
+        processUpdateDelay?: number | undefined;
         /*The hub processing signal (tied to the MathJax.Hub.Register.MessageHook() method).*/
-        signal?: Signal;
+        signal?: Signal | undefined;
         /*MathJax’s main processing queue. Use MathJax.Hub.Queue() to push callbacks onto this queue.*/
         queue?: any;
         /*The name of the browser as determined by MathJax. It will be one of Firefox, Safari, Chrome, Opera, MSIE,
         * Konqueror, or unkown. This is actually an object with additional properties and methods concerning the
         * browser
         */
-        Browser?: BrowserInfo;
+        Browser?: BrowserInfo | undefined;
         /*An object storing the MIME types associated with the various registered input jax (these are the types of the
         * <script> tags that store the math to be processed by each input jax).
         */
@@ -223,7 +223,7 @@ declare namespace MathJax {
         * jax.
         */
         outputJax?: any;
-        Register?: Register;
+        Register?: Register | undefined;
         /*Sets the configuration options (stored in MathJax.Hub.config) to the values stored in the options object.*/
         Config(config: Config): void;
         /*When delayStartupUntil is specified in the configuration file or in the script that loads MathJax.js,
@@ -346,19 +346,19 @@ declare namespace MathJax {
         /*These are boolean values that indicate whether the browser is running on a Macintosh computer or a Windows
         * computer. They will both be false for a Linux computer.
         */
-        isMac?: boolean;
-        isPC?: boolean;
+        isMac?: boolean | undefined;
+        isPC?: boolean | undefined;
 
         /*This is true when MathJax is running a mobile version of a WebKit or Gecko-based browser.*/
-        isMobile?: boolean;
+        isMobile?: boolean | undefined;
 
         /*These are true when the browser is the indicated one, and false otherwise.*/
-        isFirefox?: boolean;
-        isSafari?: boolean;
-        isChrome?: boolean;
-        isOpera?: boolean;
-        isMSIE?: boolean;
-        isKonqueror?: boolean;
+        isFirefox?: boolean | undefined;
+        isSafari?: boolean | undefined;
+        isChrome?: boolean | undefined;
+        isOpera?: boolean | undefined;
+        isMSIE?: boolean | undefined;
+        isKonqueror?: boolean | undefined;
 
         /*This tests whether the browser version is at least that given in the version string. Note that you can not
         * simply do a numeric comparison, as version 4.10 should be considered later than 4.9, for example. Similarly,
@@ -381,7 +381,7 @@ declare namespace MathJax {
 
     export interface Ajax {
         /*Number of milliseconds to wait for a file to load before it is considered to have failed to load.*/
-        timeout?: number;
+        timeout?: number | undefined;
         STATUS: STATUS;
         /*An object containing the names of the files that have been loaded (or requested) so far.
         * MathJax.Ajax.loaded["file"] will be non-null when the file has been loaded, with the value being the
@@ -483,7 +483,7 @@ declare namespace MathJax {
     }
 
     export interface HTML {
-        Cookie?: Cookie;
+        Cookie?: Cookie | undefined;
         /*Creates a DOM element of the given type. If attributes is non-null, it is an object that contains key:value
         * pairs of attributes to set for the newly created element. If contents is non-null, it is an HTML snippet that
         * describes the contents to create for the element.
@@ -506,8 +506,8 @@ declare namespace MathJax {
     }
 
     export interface Cookie {
-        prefix?: string;
-        expires?: number;
+        prefix?: string | undefined;
+        expires?: number | undefined;
         /*Creates a MathJax cookie using the MathJax.HTML.Cookie.prefix and the name as the cookie name, and the
         * key:value pairs in the data object as the data for the cookie.
         */
@@ -523,37 +523,37 @@ declare namespace MathJax {
         /*This indicates when typeset mathematics should be zoomed. It can be set to "None", "Hover", "Click", or
         * "Double-Click" to set the zoom trigger.
         */
-        zoom?: string;
+        zoom?: string | undefined;
         /*These values indicate which keys must be pressed in order for math zoom to be triggered. For example, if CTRL
         * is set to true and zoom is "Click", then math will be zoomed only when the user control-clicks on mathematics
         * (i.e., clicks while holding down the CTRL key). If more than one is true, then all the indicated keys must be
         * pressed for the zoom to occur.
         */
-        CTRL?: boolean;
-        ALT?: boolean;
-        CMD?: boolean;
-        Shift?: boolean;
+        CTRL?: boolean | undefined;
+        ALT?: boolean | undefined;
+        CMD?: boolean | undefined;
+        Shift?: boolean | undefined;
         /*This is the zoom scaling factor, and it can be set to any of the values available in the Zoom Factor menu of
         * the Settings submenu of the contextual menu.
         */
-        zscale?: string;
+        zscale?: string | undefined;
         /*This controls what contextual menu will be presented when a right click (on a PC) or CTRL-click (on the Mac)
         * occurs over a typeset equation. When set to "MathJax", the MathJax contextual menu will appear; when set to
         * "Browser", the browser’s contextual menu will be used. For example, in Internet Explorer with the MathPlayer
         * plugin, if this is set to "Browser", you will get the MathPlayer contextual menu rather than the MathJax menu.
         */
-        context?: string;
+        context?: string | undefined;
         /*This controls whether the “Show Source” menu item includes special class names that help MathJax to typeset
         * the mathematics that was produced by the TeX input jax. If these are included, then you can take the output
         * from “Show Source” and put it into a page that uses MathJax’s MathML input jax and expect to get the same
         * results as the original TeX. (Without this, there may be some spacing differences.)
         */
-        texHints?: boolean;
+        texHints?: boolean | undefined;
 
-        mpContext?: boolean;
-        mpMouse?: boolean;
+        mpContext?: boolean | undefined;
+        mpMouse?: boolean | undefined;
 
-        readonly renderer?: "HTML-CSS" | "CommonHTML" | "PreviewHTML" | "NativeMML" | "SVG" | "PlainSource";
+        readonly renderer?: "HTML-CSS" | "CommonHTML" | "PreviewHTML" | "NativeMML" | "SVG" | "PlainSource" | undefined;
     }
 
     export interface ErrorSettings {
@@ -561,7 +561,7 @@ declare namespace MathJax {
         * MathJax to produce an internal error (i.e., an error in the MathJax code itself). See the description of HTML
         * snippets for details on how to represent HTML code in this way.
         */
-        message?: string[];
+        message?: string[] | undefined;
         /*This is the CSS style description to use for the error messages produced by internal MathJax errors. See the
         * section on CSS style objects for details on how these are specified in JavaScript.
         */
@@ -569,45 +569,45 @@ declare namespace MathJax {
     }
 
     export interface Config {
-        MathZoom?: MathZoom;
-        MathMenu?: MathMenu;
-        MathEvents?: MathEvents;
-        FontWarnings?: FontWarnings;
-        Safe?: Safe;
-        MatchWebFonts?: MatchWebFonts;
-        SVG?: SVGOutputProcessor;
-        MMLorHTML?: MMLorHTMLConfiguration;
-        NativeMML?: NativeMMLOutputProcessor;
-        "HTML-CSS"?: HTMLCSSOutputProcessor;
-        CommonHTML?: CommonHTMLOutputProcessor;
-        AsciiMath?: AsciiMathInputProcessor;
-        MathML?: MathMLInputProcessor;
-        TeX?: TeXInputProcessor;
-        jsMath2jax?: JSMath2jaxPreprocessor;
-        asciimath2jax?: Asciimath2jaxPreprocessor;
-        mml2jax?: MML2jaxPreprocessor;
-        tex2jax?: TEX2jaxPreprocessor;
+        MathZoom?: MathZoom | undefined;
+        MathMenu?: MathMenu | undefined;
+        MathEvents?: MathEvents | undefined;
+        FontWarnings?: FontWarnings | undefined;
+        Safe?: Safe | undefined;
+        MatchWebFonts?: MatchWebFonts | undefined;
+        SVG?: SVGOutputProcessor | undefined;
+        MMLorHTML?: MMLorHTMLConfiguration | undefined;
+        NativeMML?: NativeMMLOutputProcessor | undefined;
+        "HTML-CSS"?: HTMLCSSOutputProcessor | undefined;
+        CommonHTML?: CommonHTMLOutputProcessor | undefined;
+        AsciiMath?: AsciiMathInputProcessor | undefined;
+        MathML?: MathMLInputProcessor | undefined;
+        TeX?: TeXInputProcessor | undefined;
+        jsMath2jax?: JSMath2jaxPreprocessor | undefined;
+        asciimath2jax?: Asciimath2jaxPreprocessor | undefined;
+        mml2jax?: MML2jaxPreprocessor | undefined;
+        tex2jax?: TEX2jaxPreprocessor | undefined;
         /*A list of input and output jax to initialize at startup. Their main code is loaded only when
          * they are actually used, so it is not inefficient to include jax that may not actually be used on the page.
          * These are found in the MathJax/jax directory.
          */
-        jax?: string[];
+        jax?: string[] | undefined;
         /*A list of extensions to load at startup. The default directory is MathJax/extensions. The
          * tex2jax and mml2jax preprocessors can be listed here, as well as a FontWarnings extension that you can use to
          * inform your user that mathematics fonts are available that they can download to improve their experience of
          * your site.
          */
-        extensions?: string[];
+        extensions?: string[] | undefined;
         /*A list of configuration files to load when MathJax starts up, e.g., to define local macros,
          * etc., and there is a sample config file named config/local/local.js. The default directory is the
          * MathJax/config directory. The MMLorHTML.js configuration is one such configuration file, and there are a
          * number of other pre-defined configurations (see Using a configuration file for more details).
          */
-        config?: string[];
+        config?: string[] | undefined;
         /*A list of CSS stylesheet files to be loaded when MathJax starts up. The default directory is
          * the MathJax/config directory.
          */
-        styleSheets?: string[];
+        styleSheets?: string[] | undefined;
         /*CSS styles to be defined dynamically at startup time. These are in the form selector:rules (see CSS Style
          * Objects for complete details).
          */
@@ -647,46 +647,46 @@ declare namespace MathJax {
          * <span class="MathJax_Preview">[math]</span><script  type="math/tex">...</script>
          * would display “[math]” in place of the math until MathJax is able to typeset it.
          */
-        preRemoveClass?: string;
+        preRemoveClass?: string | undefined;
         /*This value controls whether the Processing Math: nn% messages are displayed in the lower left-hand corner.
          * Set to false to prevent those messages (though file loading and other messages will still be shown).
          */
-        showProcessingMessages?: boolean;
+        showProcessingMessages?: boolean | undefined;
         /*This value controls the verbosity of the messages in the lower left-hand corner. Set it to "none" to eliminate
          * all messages, or set it to "simple" to show “Loading...” and “Processing...” rather than showing the full file
          * name or the percentage of the mathematics processed.
          */
-        messageStyle?: string;
+        messageStyle?: string | undefined;
         /*These two parameters control the alignment and shifting of displayed equations. The first can be "left",
          * "center", or "right", and determines the alignment of displayed equations. When the alignment is not "center",
          * the second determines an indentation from the left or right side for the displayed equations.*/
-        displayAlign?: string;
-        displayIndent?: string;
+        displayAlign?: string | undefined;
+        displayIndent?: string | undefined;
         /*Normally MathJax will perform its startup commands (loading of configuration, styles, jax, and so on) as soon
          * as it can. If you expect to be doing additional configuration on the page, however, you may want to have it
          * wait until the page’s onload handler is called. If so, set this to "onload". You can also set this to
          * "configured", in which case, MathJax will delay its startup until you explicitly call
          * MathJax.Hub.Configured(). See Configuring MathJax after it is loaded for more details.
          */
-        delayStartupUntil?: string;
+        delayStartupUntil?: string | undefined;
         /*Normally MathJax will typeset the mathematics on the page as soon as the page is loaded. If you want to delay
          * that process, in which case you will need to call MathJax.Hub.Typeset() yourself by hand, set this value to
          * true.
          */
-        skipStartupTypeset?: boolean;
+        skipStartupTypeset?: boolean | undefined;
         /*This is a list of DOM element ID’s that are the ones to process for mathematics when any of the Hub typesetting
          * calls (Typeset(), Process(), Update(), etc.) are called with no element specified, and during MathJax’s initial
          * typesetting run when it starts up. This lets you restrict the processing to particular containers rather than
          * scanning the entire document for mathematics. If none are supplied, the complete document is processed.
          */
-        elements?: string[];
+        elements?: string[] | undefined;
         /*ince typesetting usually changes the vertical dimensions of the page, if the URL contains an anchor position,
          * then after the page is typeset, you may no longer be positioned at the correct position on the page. MathJax
          * can reposition to that location after it completes its initial typesetting of the page. This value controls
          * whether MathJax will reposition the browser to the #hash location from the page URL after typesetting for
          * the page.
          */
-        positionToHash?: boolean;
+        positionToHash?: boolean | undefined;
         /*These control whether to attach the MathJax contextual menu to the expressions typeset by MathJax. Since the
          * code for handling MathPlayer in Internet Explorer is somewhat delicate, it is controlled separately via
          * showMathMenuMSIE, but the latter is now deprecated in favor of the MathJax contextual menu settings for
@@ -704,19 +704,19 @@ declare namespace MathJax {
          * since they are shared by all output jax. MathJax will still honor their values from their original positions,
          * if they are set there.
          */
-        showMathMenu?: boolean;
-        showMathMenuMSIE?: boolean;
+        showMathMenu?: boolean | undefined;
+        showMathMenuMSIE?: boolean | undefined;
         /*This block contains settings for the mathematics contextual menu that act as the defaults for the user’s
          * settings in that menu.
          * There are also settings for format, renderer, font, mpContext, and mpMouse, but these are maintained by
          * MathJax and should not be set by the page author.
          */
-        menuSettings?: MenuSettings;
+        menuSettings?: MenuSettings | undefined;
         /*This block contains settings that control how MathJax responds to unexpected errors while processing
          * mathematical equations. Rather than simply crash, MathJax can report an error and go on.
          */
-        errorSettings?: ErrorSettings;
-        "v1.0-compatible"?: boolean;
+        errorSettings?: ErrorSettings | undefined;
+        "v1.0-compatible"?: boolean | undefined;
     }
 
     export interface MathZoom {
@@ -732,42 +732,42 @@ declare namespace MathJax {
         * is over a submenu label for this long, the menu will appear. (The submenu also will appear if you click on its
         * label.)
         */
-        delay?: number;
+        delay?: number | undefined;
         /*This is the URL for the MathJax Help menu item. When the user selects that item, the browser opens a new window
         * with this URL.
         */
-        helpURL?: string;
+        helpURL?: string | undefined;
         /*This controls whether the “Math Renderer” item will be displayed in the “Math Settings” submenu of the MathJax
         * contextual menu. It allows the user to change between the HTML-CSS, NativeMML, and SVG output processors for
         * the mathematics on the page. Set to false to prevent this menu item from showing.
         */
-        showRenderer?: boolean;
+        showRenderer?: boolean | undefined;
         /*This controls whether the “Font Preference” item will be displayed in the “Math Settings” submenu of the MathJax
          * contextual menu. This submenu lets the user select what font to use in the mathematics produced by the HTML-CSS
          * output processor. Note that changing the selection in the font menu will cause the page to reload. Set to false
          * to prevent this menu item from showing.
          * */
-        showFontMenu?: boolean;
+        showFontMenu?: boolean | undefined;
         /*This controls whether the “Language” item will be displayed in the MathJax contextual menu. This submenu allows
         * the user to select the language to use for the MathJax user interface, including the contextual menu, the about
         * and help dialogs, the message box at the lower left, and any warning messages produced by MathJax. Set this to
         * false to prevent this menu item from showing. This will force the user to use the language you have set for
         * MathJax.
         */
-        showLocale?: boolean;
+        showLocale?: boolean | undefined;
         /*This controls whether the “MathPlayer” item will be displayed in the “Math Settings” submenu of the MathJax
         * contextual menu. This submenu lets the user select what events should be passed on to the MathPlayer plugin,
         * when it is present. Mouse events can be passed on (so that clicks will be processed by MathPlayer rather than
         * MathJax), and menu events can be passed on (to allow the user access to the MathPlayer menu). Set to false to
         * prevent this menu item from showing.
         * */
-        showMathPlayer?: boolean;
+        showMathPlayer?: boolean | undefined;
         /*This controls whether the “Contextual Menu” item will be displayed in the “Math Settings” submenu of the MathJax
         * contextual menu. It allows the user to decide whether the MathJax menu or the browser’s default contextual menu
         * will be shown when the context menu click occurs over mathematics typeset by MathJax. Set to false to prevent
         * this menu item from showing.
         */
-        showContext?: boolean;
+        showContext?: boolean | undefined;
         /*These are the settings for the Annotation submenu of the “Show Math As” menu. If the <math> root element has a
         * <semantics> child that contains one of the following annotation formats, the source will be available via the
         * “Show Math As” menu. Each format has a list of possible encodings. For example, "TeX": ["TeX", "LaTeX",
@@ -790,7 +790,7 @@ declare namespace MathJax {
         /*This value is the time (in milliseconds) that a user must hold the mouse still over a math element before it
         * is considered to be hovering over the math.
         */
-        hover?: number;
+        hover?: number | undefined;
         /*This is a list of CSS declarations for styling the zoomed mathematics. See the definitions in
         * extensions/MathEvents.js for details of what are defined by default. See CSS Style Objects for details on how
         * to specify CSS style in a JavaScript object.
@@ -812,56 +812,56 @@ declare namespace MathJax {
         * below in the HTML block, and are referenced using ["name"] within the snippet, where name is the name of one
         * of the snippets defined in the HTML configuration block
         */
-        Message?: HTMLMessages;
+        Message?: HTMLMessages | undefined;
         /*This object defines HTML snippets that are common to more than one message in the Message section above. They
         * can be included in other HTML snippets by by using ["name"] in an HTML snippet, where name refers to the name
         * of the snippet in the HTML block.
         * You can add your own pre-defined HTML snippets to this object, or override the ones that are there with your
         * own text.
         */
-        HTML?: HTMLSnippets;
+        HTML?: HTMLSnippets | undefined;
         /*This is the amount of time to show the FontWarning message, in milliseconds. The default is 12 seconds.
         * Setting this value to zero means that the message will not fade out (the user must close it manually).
         */
-        removeAfter?: number;
+        removeAfter?: number | undefined;
         /*This is the number of steps to take while fading out the FontWarning message. More steps make for a smoother
         * fade-out. Set to zero to cause the message to be removed without fading.
         */
-        fadeoutSteps?: number;
+        fadeoutSteps?: number | undefined;
         /*This is the time used to perform the fade-out, in milliseconds. The default is 1.5 seconds.*/
-        fadeoutTime?: number;
+        fadeoutTime?: number | undefined;
     }
 
     export interface HTMLMessages {
         /*The message used for when MathJax uses web-based fonts (rather than local fonts installed on the user’s
         * system).
         */
-        webFont?: any[];
+        webFont?: any[] | undefined;
         /*The message used for when MathJax must use image fonts rather than local or web-based fonts (for those
         * browsers that don’t handle the @font-face CSS directive).
         */
-        imageFonts?: any[];
+        imageFonts?: any[] | undefined;
         /*The message used when MathJax is unable to find any font to use (i.e., neither local nor web-based nor
         * image-based fonts are available).
         */
-        noFonts?: any[];
+        noFonts?: any[] | undefined;
     }
 
     export interface HTMLSnippets {
         /*The HTML for the close box in the FontWarning message.*/
-        closeBox?: string;
+        closeBox?: string | undefined;
         /*The HTML for a paragraph suggesting an upgrade to a more modern browser that supports web fonts.*/
-        webfonts?: string;
+        webfonts?: string | undefined;
         /*HTML that includes links to the MathJax and STIX font download pages.*/
-        fonts?: string;
+        fonts?: string | undefined;
         /*HTML that gives the download link for the STIX fonts only. (Used in place of fonts when the HTML-CSS option
         * for availableFonts only includes the STIX fonts.)
         */
-        STIXfonts?: string;
+        STIXfonts?: string | undefined;
         /*HTML that gives the download link for the MathJax TeX fonts only. (Used in place of fonts when the HTML-CSS
         * option for availableFonts only includes the TeX fonts.)
         */
-        TeXfonts?: string;
+        TeXfonts?: string | undefined;
     }
 
     export interface Safe {
@@ -870,34 +870,34 @@ declare namespace MathJax {
         * gives MathJax’s default behavior). When set to "none", these values are always filtered out. When set to
         * "safe", then only some values are allowed.
         */
-        allow?: SafeAllow;
+        allow?: SafeAllow | undefined;
         /*This is the minimum font size (in em’s) that the TeX input jax will allow when fontsize is set to "safe" above.
         * The default is the size of \scriptsize. Values less than this are set to this value.
         */
-        sizeMin?: number;
+        sizeMin?: number | undefined;
         /*This is the maximum font size (in em’s) that the TeX input jax will allow when fontsize is set to "safe" above.
         * The default is the size of \large. Values larger than this are set to this value.
         */
-        sizeMax?: number;
+        sizeMax?: number | undefined;
         /*This is an object that lists the protocols that can be used in href attributes and the \href macro when URLs
         * is set to "safe" above.
         * Note that if a protocol doesn’t appear in the list, it is assumed to be false, so technically, javascript need
         * not have been listed, but it is given to make it explicit that it should not be allowed.
         */
-        safeProtocols?: SafeProtocols;
+        safeProtocols?: SafeProtocols | undefined;
         /*This is an object that lists the style properties that can be used in MathML style attributes and the \style
         * and \bbox macros when styles is set to "safe" in the allowed property above.
         * Any style property that doesn’t appear on this list is not allowed to be entered and will be removed (silently)
         * from the style definition.
         */
-        safeStyles?: SafeStyles;
+        safeStyles?: SafeStyles | undefined;
         /*This is an object that lists the TeX extensions that can be loaded via the \require{} macro when require is
         * set to "safe" in the allowed property above.
         * These configuration options give you a lot of control over what actions MathJax is allowed to take. It is also
         * possible override the individual filtering functions in order to customize the filtering even further, should
         * that be needed. See the code for the details of the function names and their definitions.
         */
-        safeRequire?: SafeRequire;
+        safeRequire?: SafeRequire | undefined;
     }
 
     export interface SafeAllow {
@@ -905,23 +905,23 @@ declare namespace MathJax {
         * allowed as targets of href attributes or the \href macro. By default, these are http://, https://, and
         * file:// URL’s.
         */
-        URLs?: string;
+        URLs?: string | undefined;
         /*When set to "safe", only class names that begin with MJX- and contain only letters, numbers, or the
         * characters -, _, or . are allowed.
         */
-        classes?: string;
+        classes?: string | undefined;
         /*When set to "safe", only ID’s that begin with MJX- and contain only letters, numbers, or the characters -, _,
         * or . are allowed.
         */
-        cssIDs?: string;
+        cssIDs?: string | undefined;
         /*When set to "safe", only styles taken from a predefined set of styles are allowed to be given. These are
         * listed in the safeStyles property (see below).
         */
-        styles?: string;
+        styles?: string | undefined;
         /*When set to "safe", only the extensions listed in the safeRequire property (see below) are allowed to be
         * loaded by the \require{} macro.
         */
-        require?: string;
+        require?: string | undefined;
         /*When set to "safe", MathJax will try to limit the font size to sizes between those given by the sizeMin and
         * sizeMax properties. These are .7 and 1.44 by default, which means sizes between \scriptsize and \large are
         * allowed. This also filters MathML fontsize, mathsize, and scriptminsize attributes, but here, "safe" acts as
@@ -930,72 +930,72 @@ declare namespace MathJax {
         * non-negative values (so scripts can’t be made larger), and the scriptsizemultiplier is restricted to being
         * no larger than 1, and no less than .6.
         */
-        fontsize?: string;
+        fontsize?: string | undefined;
     }
 
     export interface SafeProtocols {
-        http?: boolean;
-        https?: boolean;
-        file?: boolean;
-        javascript?: boolean;
+        http?: boolean | undefined;
+        https?: boolean | undefined;
+        file?: boolean | undefined;
+        javascript?: boolean | undefined;
     }
 
     export interface SafeStyles {
-        color?: boolean;
-        backgroundColor?: boolean;
-        border?: boolean;
-        cursor?: boolean;
-        margin?: boolean;
-        padding?: boolean;
-        textShadow?: boolean;
-        fontFamily?: boolean;
-        fontSize?: boolean;
-        fontStyle?: boolean;
-        fontWeight?: boolean;
-        opacity?: boolean;
-        outline?: boolean;
+        color?: boolean | undefined;
+        backgroundColor?: boolean | undefined;
+        border?: boolean | undefined;
+        cursor?: boolean | undefined;
+        margin?: boolean | undefined;
+        padding?: boolean | undefined;
+        textShadow?: boolean | undefined;
+        fontFamily?: boolean | undefined;
+        fontSize?: boolean | undefined;
+        fontStyle?: boolean | undefined;
+        fontWeight?: boolean | undefined;
+        opacity?: boolean | undefined;
+        outline?: boolean | undefined;
     }
 
     export interface SafeRequire {
-        action?: boolean;
-        amscd?: boolean;
-        amsmath?: boolean;
-        amssymbols?: boolean;
-        autobold?: boolean;
-        "autoload-all"?: boolean;
-        bbox?: boolean;
-        begingroup?: boolean;
-        boldsymbol?: boolean;
-        cancel?: boolean;
-        color?: boolean;
-        enclose?: boolean;
-        extpfeil?: boolean;
-        HTML?: boolean;
-        mathchoice?: boolean;
-        mhchem?: boolean;
-        newcommand?: boolean;
-        noErrors?: boolean;
-        noUndefined?: boolean;
-        unicode?: boolean;
-        verb?: boolean;
+        action?: boolean | undefined;
+        amscd?: boolean | undefined;
+        amsmath?: boolean | undefined;
+        amssymbols?: boolean | undefined;
+        autobold?: boolean | undefined;
+        "autoload-all"?: boolean | undefined;
+        bbox?: boolean | undefined;
+        begingroup?: boolean | undefined;
+        boldsymbol?: boolean | undefined;
+        cancel?: boolean | undefined;
+        color?: boolean | undefined;
+        enclose?: boolean | undefined;
+        extpfeil?: boolean | undefined;
+        HTML?: boolean | undefined;
+        mathchoice?: boolean | undefined;
+        mhchem?: boolean | undefined;
+        newcommand?: boolean | undefined;
+        noErrors?: boolean | undefined;
+        noUndefined?: boolean | undefined;
+        unicode?: boolean | undefined;
+        verb?: boolean | undefined;
     }
 
     export interface MatchWebFonts {
         /*This block controls whether to apply font size matching for each output mode.*/
-        matchFor?: MatchFor;
+        matchFor?: MatchFor | undefined;
         /*Initial delay before the first check for web fonts (in milliseconds).*/
-        fontCheckDelay?: number;
+        fontCheckDelay?: number | undefined;
         /*How long to keep looking for fonts (in milliseconds).*/
-        fontCheckTimeout?: number;
+        fontCheckTimeout?: number | undefined;
     }
 
     export interface MatchFor {
         /*Whether to match the font size for the HTML-CSS output.*/
-        "HTML-CSS"?: boolean;
+        "HTML-CSS"?: boolean | undefined;
         /*Whether to match the font size for the NativeMML output.*/
-        NativeMML?: boolean;
+        NativeMML?: boolean | undefined;
         /*Whether to match the font size for the SVG output.*/
-        SVG?: boolean;
+        SVG?: boolean | undefined;
     }
 
     export interface SVGOutputProcessor {
@@ -1004,70 +1004,70 @@ declare namespace MathJax {
         * adjust the results using this scaling factor. The user can also adjust this value using the contextual menu
         * item associated with the typeset mathematics.
         */
-        scale?: number;
+        scale?: number | undefined;
         /*This gives a minimum scale (as a percent) for the scaling used by MathJax to match the equation to the
         * surrounding text. This will prevent MathJax from making the mathematics too small.
         */
-        minScaleAdjust?: number;
+        minScaleAdjust?: number | undefined;
         /*This is the font to use for rendering the mathematics. The possible values are TeX, STIX-Web, Asana-Math,
         * Neo-Euler, Gyre-Pagella, Gyre-Termes and Latin-Modern. Note that not all mathematical characters are available
         * in all fonts (e.g., Neo-Euler does not include italic characters), so some mathematics may work better in some
         * fonts than in others. The STIX-Web font is the most complete.
         */
-        font?: string;
+        font?: string | undefined;
         /*This is the stroke width to use for all character paths (1em = 1000 units). This is a cheap way of getting
         * slightly lighter or darker characters, but remember that not all displays will act the same, so a value that
         * is good for you may not be good for everyone.
         */
-        blacker?: number;
+        blacker?: number | undefined;
         /*This is the font-family CSS value used for characters that are not in the selected font (e.g., this is where
         * to look for characters not included in the MathJax TeX fonts). IE will stop looking after the first font that
         * exists on the system (even if it doesn’t contain the needed character), so order these carefully.
         */
-        undefinedFamily?: string;
+        undefinedFamily?: string | undefined;
         /*This setting controls whether <mtext> elements will be typeset using the math fonts or the font of the
         * surrounding text. When false, the font for mathvariant="normal" will be used; when true, the font will be
         * inherited from the surrounding paragraph.
         */
-        mtextFontInherit?: boolean;
+        mtextFontInherit?: boolean | undefined;
         /*This controls whether the MathML structure is retained and CSS classes are added to mark the original MathML
         * elements (as in the output from the HTML-CSS output jax). By default, the SVG output jax removes unneeded
         * nesting in order to produce a more efficient markup, but if you want to use CSS to style the elements as if
         * they were MathML, you might need to set this to true.
         */
-        addMMLclasses?: boolean;
+        addMMLclasses?: boolean | undefined;
         /*This controls whether the SVG output uses <use> elements to re-use font paths rather than repeat paths every
         * time. If useGlobalCache (see below) is set to false, this will still reduce duplication of paths while keeping
         * each SVG self-contained.
         */
-        useFontCache?: boolean;
+        useFontCache?: boolean | undefined;
         /*When set to true the SVG Output stores paths (corresponding to “fonts” in the SVG output) in a global SVG
         * object using <defs> elements so that it can re-use them in all equations via <use> elements (much like a font
         * file allows re-use of characters across the document). While set to true by default, it will have no effect if
         * useFontCache is set to false.
         */
-        useGlobalCache?: boolean;
+        useGlobalCache?: boolean | undefined;
         /*EqnChunk is the number of equations that will be typeset before they appear on screen. Larger values make for
         * less visual flicker as the equations are drawn, but also mean longer delays before the reader sees anything.
         */
-        EqnChunk?: number;
+        EqnChunk?: number | undefined;
         /*EqChunkFactor is the factor by which the EqnChunk will grow after each chunk is displayed.*/
-        EqnChunkFactor?: number;
+        EqnChunkFactor?: number | undefined;
         /*EqChunkDelay is the time (in milliseconds) to delay between chunks (to allow the browser to respond to other
         * user interaction).
         * Set EqnChunk to 1, EqnChunkFactor to 1, and EqnChunkDelay to 10 to get the behavior from MathJax v1.1 and
         * below.
         */
-        EqnChunkDelay?: number;
+        EqnChunkDelay?: number | undefined;
         /*This option indicates whether MathJax should try to adjust the x-height of equations to match the x-height of
         * the surrounding text. See the MatchWebFonts options for finer control, especially if you are using Web fonts.
         */
-        matchFontHeight?: boolean;
+        matchFontHeight?: boolean | undefined;
         /*This is an object that configures automatic linebreaking in the SVG output. In order to be backward compatible
         * with earlier versions of MathJax, only explicit line breaks are performed by default, so you must enable line
         * breaks if you want automatic ones.
         */
-        linebreaks?: LineBreaks;
+        linebreaks?: LineBreaks | undefined;
         /*This is a list of CSS declarations for styling the SVG output. See the definitions in jax/output/SVG/config.js
          * for some examples of what are defined by default. See CSS Style Objects for details on how to specify CSS
          * style in a JavaScript object.
@@ -1077,21 +1077,21 @@ declare namespace MathJax {
         * #MathJax_Tooltip style setting in jax/output/SVG/config.js, which can be overridden using the styles option
         * above.)
         */
-        tooltip?: ToolTip;
+        tooltip?: ToolTip | undefined;
     }
 
     export interface LineBreaks {
         /*This controls the automatic breaking of expressions: when false, only linebreak="newline" is processed; when
         * true, line breaks are inserted automatically in long expressions.
         */
-        automatic?: boolean;
+        automatic?: boolean | undefined;
         /*This controls how wide the lines of mathematics can be.
         * Use an explicit width like "30em" for a fixed width. Use "container" to compute the size from the containing
         * element. Use "nn% container" for a portion of the container. Use "nn%" for a portion of the window size.
         * The container-based widths may be slower, and may not produce the expected results if the layout width changes
         * due to the removal of previews or inclusion of mathematics during typesetting.
         */
-        width?: string;
+        width?: string | undefined;
     }
 
     export interface ToolTip {
@@ -1116,16 +1116,16 @@ declare namespace MathJax {
          * Note that users can still use the MathJax contextual menu to select a different renderer after the default
          * one has been chosen by MMLorHTML.js.
          */
-        prefer?: BrowserPreference;
+        prefer?: BrowserPreference | undefined;
     }
 
     export interface BrowserPreference {
-        MSIE?: string;
-        Firefox?: string;
-        Safari?: string;
-        Chrome?: string;
-        Opera?: string;
-        other?: string;
+        MSIE?: string | undefined;
+        Firefox?: string | undefined;
+        Safari?: string | undefined;
+        Chrome?: string | undefined;
+        Opera?: string | undefined;
+        other?: string | undefined;
     }
 
     export interface NativeMMLOutputProcessor {
@@ -1134,15 +1134,15 @@ declare namespace MathJax {
         * want to adjust the results using this scaling factor. The user can also adjust this value using the contextual
         * menu item associated with the typeset mathematics.
         */
-        scale?: number;
+        scale?: number | undefined;
         /*This gives a minimum scale (as a percent) for the scaling used by MathJax to match the equation to the
         * surrounding text. This will prevent MathJax from making the mathematics too small.
         */
-        minScaleAdjust?: number;
+        minScaleAdjust?: number | undefined;
         /*This option indicates whether MathJax should try to adjust the x-height of equations to match the x-height of
         * the surrounding text. See the MatchWebFonts options for finer control, especially if you are using Web fonts.
         */
-        matchFontHeight?: boolean;
+        matchFontHeight?: boolean | undefined;
         /*This is a list of CSS declarations for styling the NativeMML output. See the definitions in
         * jax/output/NativeMML/config.js for some examples of what are defined by default. See CSS Style Objects for
         * details on how to specify CSS style in a JavaScript object.
@@ -1156,22 +1156,22 @@ declare namespace MathJax {
         * want to adjust the results using this scaling factor. The user can also adjust this value using the contextual
         * menu item associated with the typeset mathematics.
         */
-        scale?: number;
+        scale?: number | undefined;
         /*This gives a minimum scale (as a percent) for the scaling used by MathJax to match the equation to the
         * surrounding text. This will prevent MathJax from making the mathematics too small.
         */
-        minScaleAdjust?: number;
+        minScaleAdjust?: number | undefined;
         /*This is a list of the fonts to look for on a user’s computer in preference to using MathJax’s web-based fonts.
         * These must correspond to directories available in the jax/output/HTML-CSS/fonts directory, where MathJax
         * stores data about the characters available in the fonts. Set this to ["TeX"], for example, to prevent the use
         * of the STIX fonts, or set it to an empty list, [], if you want to force MathJax to use web-based or image
         * fonts.
         */
-        availableFonts?: string[];
+        availableFonts?: string[] | undefined;
         /*Which font to prefer out of the availableFonts list, when more than one is available on the user’s computer.
         * Set it to null if you want MathJax to use web-based or image fonts.
         */
-        preferredFont?: string;
+        preferredFont?: string | undefined;
         /*This is the web-based font to use when none of the fonts listed above are available on the user’s computer. The
         * possible values are TeX, STIX-Web, Asana-Math, Neo-Euler, Gyre-Pagella, Gyre-Termes and Latin-Modern. Note
         * that not all mathematical characters are available in all fonts (e.g., Neo-Euler does not include italic
@@ -1181,7 +1181,7 @@ declare namespace MathJax {
         * These fonts are stored in the fonts/HTML-CSS folder in the MathJax directory. Set this to null to disable web
         * fonts.
         */
-        webFont?: string;
+        webFont?: string | undefined;
         /* This is the font to use for image fallback mode (when none of the fonts listed above are available and the
         * browser doesn’t support web-fonts via the @font-face CSS directive). Note that currently only the TeX font is
         * available as an image font (they are stored in the fonts/HTML-CSS directory).
@@ -1192,39 +1192,39 @@ declare namespace MathJax {
         * fonts include: IE6 and later, Chrome, Safari3.1 and above, Firefox3.5 and later, and Opera10 and later. Note
         * that Firefox3.0 is not on this list.
         */
-        imageFont?: string;
+        imageFont?: string | undefined;
         /*This is the font-family CSS value used for characters that are not in the selected font (e.g., for web-based
         * fonts, this is where to look for characters not included in the MathJax web fonts). IE will stop looking after
         * the first font that exists on the system (even if it doesn’t contain the needed character), so order these
         * carefully.
         */
-        undefinedFamily?: string[];
+        undefinedFamily?: string[] | undefined;
         /*This setting controls whether <mtext> elements will be typeset using the math fonts or the font of the
         * surrounding text. When false, the font for mathvariant="normal" will be used; when true, the font will be
         * inherited from the surrounding paragraph.
         */
-        mtextFontInherit?: boolean;
+        mtextFontInherit?: boolean | undefined;
         /*EqnChunk is the number of equations that will be typeset before they appear on screen. Larger values make for
          * less visual flicker as the equations are drawn, but also mean longer delays before the reader sees anything.
          */
-        EqnChunk?: number;
+        EqnChunk?: number | undefined;
         /*EqChunkFactor is the factor by which the EqnChunk will grow after each chunk is displayed.*/
-        EqnChunkFactor?: number;
+        EqnChunkFactor?: number | undefined;
         /*EqChunkDelay is the time (in milliseconds) to delay between chunks (to allow the browser to respond to other
          * user interaction).
          * Set EqnChunk to 1, EqnChunkFactor to 1, and EqnChunkDelay to 10 to get the behavior from MathJax v1.1 and
          * below.
          */
-        EqnChunkDelay?: number;
+        EqnChunkDelay?: number | undefined;
         /*This option indicates whether MathJax should try to adjust the x-height of equations to match the x-height of
         * the surrounding text. See the MatchWebFonts options for finer control, especially if you are using Web fonts.
         */
-        matchFontHeight?: boolean;
+        matchFontHeight?: boolean | undefined;
         /*This is an object that configures automatic linebreaking in the SVG output. In order to be backward compatible
          * with earlier versions of MathJax, only explicit line breaks are performed by default, so you must enable line
          * breaks if you want automatic ones.
          */
-        linebreaks?: LineBreaks;
+        linebreaks?: LineBreaks | undefined;
         /*This is a list of CSS declarations for styling the SVG output. See the definitions in jax/output/SVG/config.js
          * for some examples of what are defined by default. See CSS Style Objects for details on how to specify CSS
          * style in a JavaScript object.
@@ -1233,12 +1233,12 @@ declare namespace MathJax {
         /*This value has been moved to the core configuration block, since it applies to all output jax, but it will
         * still be honored (for now) if it is set here. See the Core configuration options for more details.
         */
-        showMathMenu?: boolean;
+        showMathMenu?: boolean | undefined;
         /*This sets the configuration options for <maction> elements with actiontype="tooltip". (See also the
          * #MathJax_Tooltip style setting in jax/output/SVG/config.js, which can be overridden using the styles option
          * above.)
          */
-        tooltip?: ToolTip;
+        tooltip?: ToolTip | undefined;
     }
 
     export interface CommonHTMLOutputProcessor {
@@ -1247,21 +1247,21 @@ declare namespace MathJax {
          * want to adjust the results using this scaling factor. The user can also adjust this value using the contextual
          * menu item associated with the typeset mathematics.
          */
-        scale?: number;
+        scale?: number | undefined;
         /*This gives a minimum scale (as a percent) for the scaling used by MathJax to match the equation to the
          * surrounding text. This will prevent MathJax from making the mathematics too small.
          */
-        minScaleAdjust?: number;
+        minScaleAdjust?: number | undefined;
         /*This setting controls whether <mtext> elements will be typeset using the math fonts or the font of the
          * surrounding text. When false, the font for mathvariant="normal" will be used; when true, the font will be
          * inherited from the surrounding paragraph.
          */
-        mtextFontInherit?: boolean;
+        mtextFontInherit?: boolean | undefined;
         /*This is an object that configures automatic linebreaking in the CommonHTML output. In order to be backward
          * compatible with earlier versions of MathJax, only explicit line breaks are performed by default, so you must
          * enable line breaks if you want automatic ones.
          */
-        linebreaks?: LineBreaks;
+        linebreaks?: LineBreaks | undefined;
     }
 
     export interface AsciiMathInputProcessor {
@@ -1270,32 +1270,32 @@ declare namespace MathJax {
         * their own lines, while the latter is better suited to in-line equations so that they don’t interfere with the
         * line spacing so much.
         */
-        displaystyle?: boolean;
+        displaystyle?: boolean | undefined;
         /*This is the character to be used for decimal points in numbers. if you change this to ",", then you need to be
          * careful about entering points or intervals. E.g., use (1, 2) rather than (1,2) in that case.
          */
-        decimal?: string;
+        decimal?: string | undefined;
     }
 
     export interface MathMLInputProcessor {
         /*Specifies whether to use TeX spacing or MathML spacing when the HTML-CSS output jax is used.*/
-        useMathMLspacing?: boolean;
+        useMathMLspacing?: boolean | undefined;
     }
 
     export interface TeXInputProcessor {
         /*This specifies the side on which \tag{} macros will place the tags. Set it to "left" to place the tags on the
         * left-hand side.
         */
-        TagSide?: string;
+        TagSide?: string | undefined;
         /*This is the amount of indentation (from the right or left) for the tags produced by the \tag{} macro.*/
-        TagIndent?: string;
+        TagIndent?: string | undefined;
         /*The width to use for the multline environment that is part of the AMSmath extension. This width gives room for
         * tags at either side of the equation, but if you are displaying mathematics in a small area or a thin column of
         * text, you might need to change the value to leave sufficient margin for tags.
         */
-        MultLineWidth?: string;
+        MultLineWidth?: string | undefined;
         /*This object controls the automatic equation numbering and the equation referencing.*/
-        equationNumbers?: EquationNumbers;
+        equationNumbers?: EquationNumbers | undefined;
         /*This lists macros to define before the TeX input processor begins. These are name:value pairs where the name
         * gives the name of the TeX macro to be defined, and value gives the replacement text for the macro. The value
         * can be an array of the form [value,n], where value is the replacement text and n is the number of parameters
@@ -1306,19 +1306,19 @@ declare namespace MathJax {
         /*Because a definition of the form \def\x{\x} \x would cause MathJax to loop infinitely, the MAXMACROS constant
         * will limit the number of macro substitutions allowed in any expression processed by MathJax.
         */
-        MAXMACROS?: number;
+        MAXMACROS?: number | undefined;
         /*Because a definition of the form \def\x{\x aaa} \x would loop infinitely, and at the same time stack up lots
         * of a’s in MathJax’s equation buffer, the MAXBUFFER constant is used to limit the size of the string being
         * processed by MathJax. It is set to 5KB, which should be sufficient for any reasonable equation.
         */
-        MAXBUFFER?: number;
+        MAXBUFFER?: number | undefined;
 
         /*A comma-separated list of extensions to load at startup. The default directory is MathJax/extensions. The
          * tex2jax and mml2jax preprocessors can be listed here, as well as a FontWarnings extension that you can use to
          * inform your user that mathematics fonts are available that they can download to improve their experience of
          * your site.
          */
-        extensions?: string[];
+        extensions?: string[] | undefined;
     }
 
     export interface EquationNumbers {
@@ -1327,24 +1327,24 @@ declare namespace MathJax {
         * appearance). You can change this to "AMS" for equations numbered as the AMSmath package would do, or "all" to
         * get an equation number for every displayed equation.
         */
-        autoNumber?: string;
+        autoNumber?: string | undefined;
         /*A function that tells MathJax what tag to use for equation number n. This could be used to have the equations
         * labeled by a sequence of symbols rather than numbers, or to use section and subsection numbers instead.
         */
-        formatNumber?: (n: number) => string;
+        formatNumber?: ((n: number) => string) | undefined;
         /*A function that tells MathJax how to format an equation number for displaying as a tag for an equation. This
         * is what appears in the margin of a tagged or numbered equation.*/
-        formatTag?: (n: number) => string;
+        formatTag?: ((n: number) => string) | undefined;
         /*A function that tells MathJax what ID to use as an anchor for the equation (so that it can be used in URL
         * references).
         */
-        formatID?: () => string;
+        formatID?: (() => string) | undefined;
         /*A function that takes an equation ID and returns the URL to link to it.*/
-        formatURL?: (id: string) => string;
+        formatURL?: ((id: string) => string) | undefined;
         /*This controls whether element ID’s use the \label name or the equation number. When true, use the label, when
         * false, use the equation number.
         */
-        useLabelIds?: boolean;
+        useLabelIds?: boolean | undefined;
     }
 
     export interface JSMath2jaxPreprocessor {
@@ -1388,7 +1388,7 @@ declare namespace MathJax {
         * look for ignore/process classes as listed below). You can add to (or remove from) this list to prevent MathJax
         * from processing mathematics in specific contexts.
         */
-        skipTags?: string[];
+        skipTags?: string[] | undefined;
         /*This is the class name used to mark elements whose contents should not be processed by asciimath2jax (other
         * than to look for the processClass pattern below). Note that this is a regular expression, and so you need to
         * be sure to quote any regexp special characters. The pattern is inserted into one that requires your pattern to
@@ -1397,7 +1397,7 @@ declare namespace MathJax {
         * vertical line character (|). For instance, with ignoreClass: "class1|class2" any element assigned a class of
         * either class1 or class2 will be skipped.
         */
-        ignoreClass?: string;
+        ignoreClass?: string | undefined;
         /*This is the class name used to mark elements whose contents should be processed by asciimath2jax. This is used
         * to restart processing within tags that have been marked as ignored via the ignoreClass or to cause a tag that
         * appears in the skipTags list to be processed rather than skipped. Note that this is a regular expression, and
@@ -1407,7 +1407,7 @@ declare namespace MathJax {
         * separating them by the vertical line character (|). For instance, with processClass: "class1|class2" any
         * element assigned a class of either class1 or class2 will have its contents processed.
         */
-        processClass?: string;
+        processClass?: string | undefined;
     }
 
     export interface MML2jaxPreprocessor {
@@ -1460,18 +1460,18 @@ declare namespace MathJax {
         * will be properly handled as a single expression. When false, it would be interpreted as two searpate
         * expressions, each with improperly balanced braces.
         */
-        balanceBraces?: boolean;
+        balanceBraces?: boolean | undefined;
         /*When set to true, you may use \$ to represent a literal dollar sign, rather than using it as a math delimiter.
         * When false, \$ will not be altered, and the dollar sign may be considered part of a math delimiter. Typically
         * this is set to true if you enable the $ ... $ in-line delimiters, so you can type \$ and tex2jax will convert
         * it to a regular dollar sign in the rendered document.
         */
-        processEscapes?: boolean;
+        processEscapes?: boolean | undefined;
         /*When true, tex2jax looks not only for the in-line and display math delimiters, but also for LaTeX environments
         * (\begin{something}...\end{something}) and marks them for processing by MathJax. When false, LaTeX environments
         * will not be processed outside of math mode.
         */
-        processEnvironments?: boolean;
+        processEnvironments?: boolean | undefined;
         /*This controls whether tex2jax inserts MathJax_Preview spans to make a preview available, and what preview to
         * use, when it locates in-line or display mathematics in the page. The default is "TeX", which means use the TeX
         * code as the preview (which will be visible until it is processed by MathJax). Set to "none" to prevent
@@ -1488,7 +1488,7 @@ declare namespace MathJax {
         * for ignore/process classes as listed below). You can add to (or remove from) this list to prevent MathJax from
         * processing mathematics in specific contexts.
         */
-        skipTags?: string[];
+        skipTags?: string[] | undefined;
         /*This is the class name used to mark elements whose contents should not be processed by tex2jax (other than to
         * look for the processClass pattern below). Note that this is a regular expression, and so you need to be sure
         * to quote any regexp special characters. The pattern is inserted into one that requires your pattern to match
@@ -1497,7 +1497,7 @@ declare namespace MathJax {
         * line character (|). For instance, with ignoreClass: "class1|class2" any element assigned a class of either
         * class1 or class2 will be skipped.
         */
-        ignoreClass?: string;
+        ignoreClass?: string | undefined;
         /*This is the class name used to mark elements whose contents should be processed by tex2jax. This is used to
         * restart processing within tags that have been marked as ignored via the ignoreClass or to cause a tag that
         * appears in the skipTags list to be processed rather than skipped. Note that this is a regular expression, and
@@ -1506,7 +1506,7 @@ declare namespace MathJax {
         * with class="class1 class2 class3" but not class="myclass2". Note that you can assign several classes by
         * separating them by the vertical line character (|). For instance, with processClass: "class1|class2" any
         * element assigned a class of either class1 or class2 will have its contents processed.*/
-        processClass?: string;
+        processClass?: string | undefined;
     }
 
     export interface Localization {

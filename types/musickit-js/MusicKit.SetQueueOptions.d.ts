@@ -6,34 +6,34 @@ declare namespace MusicKit {
         /**
          * The catalog album used to set a music player's playback queue.
          */
-        album?: string;
+        album?: string | undefined;
         /**
          * The media items used to set a music player's playback queue.
          */
-        items?: Descriptor[];
+        items?: Descriptor[] | undefined;
         /**
          * The parameters used to set a music player's playback queue.
          */
-        parameters?: QueryParameters;
+        parameters?: QueryParameters | undefined;
         /**
          * The playlist used to set a music player's playback queue.
          */
-        playlist?: string;
+        playlist?: string | undefined;
         /**
          * The song used to set a music player's playback queue.
          */
-        song?: string;
+        song?: string | undefined;
         /**
          * The songs used to set a music player's playback queue.
          */
-        songs?: string[];
+        songs?: string[] | undefined;
         /**
          * The start position for a set playback queue.
          */
-        startPosition?: number;
+        startPosition?: number | undefined;
         /**
          * A content URL used to set a music player's playback queue.
          */
-        url?: string;
+        url?: string | undefined;
     }
 }

@@ -30,14 +30,14 @@ interface StaticZoneOptions {
 }
 
 export interface GaugeOptions extends BaseOptions {
-    percentColors?: Array<[number, string]>;
+    percentColors?: Array<[number, string]> | undefined;
     staticLabels?: {
         font: string;
         labels: number[];
-        color?: string;
-        fractionDigits?: number;
-    };
-    staticZones?: StaticZoneOptions[] | Array<StaticZoneOptions & { height: number; }>;
+        color?: string | undefined;
+        fractionDigits?: number | undefined;
+    } | undefined;
+    staticZones?: StaticZoneOptions[] | Array<StaticZoneOptions & { height: number; }> | undefined;
     renderTicks?: {
         divisions: number;
         divWidth: number;
@@ -47,11 +47,11 @@ export interface GaugeOptions extends BaseOptions {
         subWidth: number;
         subLength: number;
         subColor: string;
-    };
+    } | undefined;
     pointer: PointerOptions & {
-        iconPath?: string;
-        iconScale?: number;
-        iconAngle?: number;
+        iconPath?: string | undefined;
+        iconScale?: number | undefined;
+        iconAngle?: number | undefined;
     };
 }
 

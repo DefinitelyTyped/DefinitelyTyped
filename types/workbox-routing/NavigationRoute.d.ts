@@ -8,6 +8,6 @@ export class NavigationRoute extends Route<boolean> {
 }
 
 export interface NavigationRouteOptions {
-    whitelist?: RegExp[];
-    blacklist?: RegExp[];
+    whitelist?: RegExp[] | undefined;
+    blacklist?: RegExp[] | undefined;
 }

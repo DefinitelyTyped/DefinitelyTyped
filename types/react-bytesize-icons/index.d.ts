@@ -10,16 +10,16 @@ import * as React from 'react';
 export type StrokeLinejoin = 'round' | 'bevel' | 'miter' | 'inherit';
 export type StrokeLinecap = 'round' | 'butt' | 'square' | 'inherit';
 interface BytesizeBaseIconsProps extends React.Props<any> {
-    width?: number;
-    height?: number;
-    color?: string;
-    className?: string;
-    id?: string;
+    width?: number | undefined;
+    height?: number | undefined;
+    color?: string | undefined;
+    className?: string | undefined;
+    id?: string | undefined;
 }
 interface BytesizeIconsProps extends BytesizeBaseIconsProps {
-    strokeWidth?: string;
-    strokeLinejoin?: StrokeLinejoin;
-    strokeLinecap?: StrokeLinecap;
+    strokeWidth?: string | undefined;
+    strokeLinejoin?: StrokeLinejoin | undefined;
+    strokeLinecap?: StrokeLinecap | undefined;
 }
 export class BytesizeBaseIconComponent extends React.Component<BytesizeBaseIconsProps> {}
 export class BytesizeIconComponent extends React.Component<BytesizeIconsProps> {}

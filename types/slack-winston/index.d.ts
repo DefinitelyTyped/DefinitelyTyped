@@ -10,16 +10,16 @@ export interface SlackTransportOptions {
   webhook_url: string;
   channel: string;
 
-  username?: string;
-  icon_emoji?: string;
-  message?: string;
-  queueDelay?: number;
+  username?: string | undefined;
+  icon_emoji?: string | undefined;
+  message?: string | undefined;
+  queueDelay?: number | undefined;
 
   // from winston-transport TransportStreamOptions
-  format?: Format;
-  level?: string;
-  silent?: boolean;
-  handleExceptions?: boolean;
+  format?: Format | undefined;
+  level?: string | undefined;
+  silent?: boolean | undefined;
+  handleExceptions?: boolean | undefined;
 
   log?(info: any, next: () => void): any;
   logv?(info: any, next: () => void): any;
@@ -28,10 +28,10 @@ export interface SlackTransportOptions {
 
 export class Slack {
   constructor(options?: SlackTransportOptions);
-  format?: Format;
-  level?: string;
-  silent?: boolean;
-  handleExceptions?: boolean;
+  format?: Format | undefined;
+  level?: string | undefined;
+  silent?: boolean | undefined;
+  handleExceptions?: boolean | undefined;
 
   log?(info: any, next: () => void): any;
   logv?(info: any, next: () => void): any;
@@ -41,7 +41,7 @@ export class Slack {
 export class Format {
   constructor(opts?: object);
 
-  options?: object;
+  options?: object | undefined;
   transform: (info: TransformableInfo, opts?: any) => TransformableInfo | boolean;
 }
 

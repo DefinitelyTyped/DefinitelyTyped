@@ -145,7 +145,7 @@ declare namespace DeezerSdk {
     interface InitOptions {
         readonly appId: string;
         readonly channelUrl: string;
-        readonly player?: PlayerOptions;
+        readonly player?: PlayerOptions | undefined;
     }
 
     /**
@@ -164,7 +164,7 @@ declare namespace DeezerSdk {
          *
          * See: {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}
          */
-        readonly container?: string;
+        readonly container?: string | undefined;
 
         /**
          * Whether to display the playlist from the player
@@ -173,7 +173,7 @@ declare namespace DeezerSdk {
          *
          * See: {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}
          */
-        readonly playlist?: boolean;
+        readonly playlist?: boolean | undefined;
 
         /**
          * The layout format of the widget
@@ -184,7 +184,7 @@ declare namespace DeezerSdk {
          * {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}\
          * {@link https://developers.deezer.com/musicplugins/player | Widget player}
          */
-        readonly format?: WidgetFormat;
+        readonly format?: WidgetFormat | undefined;
 
         /**
          * The general layout of the widget
@@ -195,7 +195,7 @@ declare namespace DeezerSdk {
          * {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}\
          * {@link https://developers.deezer.com/musicplugins/player | Widget player}
          */
-        readonly layout?: WidgetLayout;
+        readonly layout?: WidgetLayout | undefined;
 
         /**
          * The general color of the widget. Has to be a hexadecimal value without the #.
@@ -206,7 +206,7 @@ declare namespace DeezerSdk {
          * {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}\
          * {@link https://developers.deezer.com/musicplugins/player | Widget player}
          */
-        readonly color?: string;
+        readonly color?: string | undefined;
 
         /**
          * The width of the player in pixels
@@ -215,7 +215,7 @@ declare namespace DeezerSdk {
          *
          * See: {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}
          */
-        readonly width?: number;
+        readonly width?: number | undefined;
 
         /**
          * The height of the player in pixels
@@ -224,7 +224,7 @@ declare namespace DeezerSdk {
          *
          * See: {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}
          */
-        readonly height?: number;
+        readonly height?: number | undefined;
 
         /**
          * The layout size of the widget
@@ -233,14 +233,14 @@ declare namespace DeezerSdk {
          *
          * See: {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}
          */
-        readonly size?: WidgetSize;
+        readonly size?: WidgetSize | undefined;
 
         /**
          * The callback function executed after the player has loaded.
          *
          * See: {@link https://developers.deezer.com/sdk/javascript/player#options | Player options}
          */
-        onload?: (state: PlayerState) => void;
+        onload?: ((state: PlayerState) => void) | undefined;
     }
 
     /**

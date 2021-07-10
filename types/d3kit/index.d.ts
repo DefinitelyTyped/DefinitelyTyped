@@ -78,35 +78,35 @@ export class AbstractChart extends Base {
 }
 
 export interface ChartMargin {
-    top?: number;
-    right?: number;
-    bottom?: number;
-    left?: number;
+    top?: number | undefined;
+    right?: number | undefined;
+    bottom?: number | undefined;
+    left?: number | undefined;
 }
 
 export interface ChartOptions {
-    initialWidth?: number;
-    initialHeight?: number;
-    margin?: ChartMargin;
-    offset?: [number, number];
-    pixelRatio?: number;
+    initialWidth?: number | undefined;
+    initialHeight?: number | undefined;
+    margin?: ChartMargin | undefined;
+    offset?: [number, number] | undefined;
+    pixelRatio?: number | undefined;
 }
 
 // from https://github.com/kristw/slimfit
 export interface FitOptions {
-    mode?: string;
-    width?: string|number;
-    height?: string|number;
-    ratio?: number;
-    maxWidth?: string|number;
-    maxHeight?: string|number;
+    mode?: string | undefined;
+    width?: string|number | undefined;
+    height?: string|number | undefined;
+    ratio?: number | undefined;
+    maxWidth?: string|number | undefined;
+    maxHeight?: string|number | undefined;
 }
 
 // from https://github.com/kristw/slimfit
 export interface WatchOptions {
-    mode?: string;
-    target?: Element|[number, number]|{width: number, height: number}|null;
-    interval?: number;
+    mode?: string | undefined;
+    target?: Element|[number, number]|{width: number, height: number}|null | undefined;
+    interval?: number | undefined;
 }
 
 export class SvgChart extends AbstractChart {

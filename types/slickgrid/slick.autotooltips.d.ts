@@ -11,19 +11,19 @@ declare namespace Slick {
          * Enable tooltip for grid cells
          * @default true
          */
-        enableForCells?: boolean;
+        enableForCells?: boolean | undefined;
 
         /**
          * Enable tooltip for header cells
          * @default false
          */
-        enableForHeaderCells?: boolean;
+        enableForHeaderCells?: boolean | undefined;
 
         /**
          * The maximum length for a tooltip
          * @default null
          */
-        maxToolTipLength?: number;
+        maxToolTipLength?: number | undefined;
     }
 
     /**

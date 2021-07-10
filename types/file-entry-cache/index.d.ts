@@ -73,11 +73,11 @@ export interface AnalyzedFilesInfo {
 export interface FileDescriptor {
     readonly key: string;
     readonly notFound: boolean;
-    readonly err?: Error;
-    readonly changed?: boolean;
+    readonly err?: Error | undefined;
+    readonly changed?: boolean | undefined;
     readonly meta?: {
-        readonly size?: number;
-        readonly mtime?: number;
-        readonly hash?: string;
-    };
+        readonly size?: number | undefined;
+        readonly mtime?: number | undefined;
+        readonly hash?: string | undefined;
+    } | undefined;
 }

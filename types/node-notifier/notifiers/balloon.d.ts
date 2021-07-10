@@ -7,15 +7,15 @@ declare class WindowsBalloon {
 
 declare namespace WindowsBalloon {
     interface Notification {
-        title?: string;
-        message?: string;
-        sound?: boolean;
+        title?: string | undefined;
+        message?: string | undefined;
+        sound?: boolean | undefined;
         /** How long to show balloons in ms */
-        time?: number;
+        time?: number | undefined;
         /** Wait with callback until user action is taken on notification */
-        wait?: boolean;
+        wait?: boolean | undefined;
         /** The notification type */
-        type?: 'info' | 'warn' | 'error';
+        type?: 'info' | 'warn' | 'error' | undefined;
     }
 }
 

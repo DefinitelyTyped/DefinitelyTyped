@@ -11,17 +11,17 @@ import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: string;
-    params?: { [key: string]: any };
-    tileGrid?: TileGrid;
-    projection?: ProjectionLike;
-    reprojectionErrorThreshold?: number;
-    tileLoadFunction?: LoadFunction;
-    url?: string;
-    wrapX?: boolean;
-    transition?: number;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: string | undefined;
+    params?: { [key: string]: any } | undefined;
+    tileGrid?: TileGrid | undefined;
+    projection?: ProjectionLike | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    url?: string | undefined;
+    wrapX?: boolean | undefined;
+    transition?: number | undefined;
     urls: string[];
 }
 export default class TileArcGISRest extends TileImage {

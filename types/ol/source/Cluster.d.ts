@@ -10,11 +10,11 @@ import { AttributionLike } from './Source';
 import VectorSource, { VectorSourceEvent } from './Vector';
 
 export interface Options {
-    attributions?: AttributionLike;
-    distance?: number;
-    geometryFunction?: (p0: Feature<Geometry>) => Point;
-    source?: VectorSource<Geometry>;
-    wrapX?: boolean;
+    attributions?: AttributionLike | undefined;
+    distance?: number | undefined;
+    geometryFunction?: ((p0: Feature<Geometry>) => Point) | undefined;
+    source?: VectorSource<Geometry> | undefined;
+    wrapX?: boolean | undefined;
 }
 export default class Cluster extends VectorSource {
     constructor(options: Options);

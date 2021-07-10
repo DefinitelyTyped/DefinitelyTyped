@@ -8,7 +8,7 @@ export default class DecoupledEditor extends Editor implements DataApi, EditorWi
     protected constructor(sourceElementOrData: HTMLElement | string, config: EditorConfig);
     ui: DecoupledEditorUI;
     setData(data: string): void;
-    getData(options?: { rootName?: string; trim?: 'empty' | 'none' }): string;
+    getData(options?: { rootName?: string | undefined; trim?: 'empty' | 'none' | undefined }): string;
     destroy(): Promise<void>;
     static create(sourceElementOrData: HTMLElement | string, config?: EditorConfig): Promise<DecoupledEditor>;
 }

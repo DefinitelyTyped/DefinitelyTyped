@@ -64,25 +64,25 @@ declare class Benchmark {
 
 declare namespace Benchmark {
     export interface Options {
-        async?: boolean;
-        defer?: boolean;
-        delay?: number;
-        id?: string;
-        initCount?: number;
-        maxTime?: number;
-        minSamples?: number;
-        minTime?: number;
-        name?: string;
-        onAbort?: Function;
-        onComplete?: Function;
-        onCycle?: Function;
-        onError?: Function;
-        onReset?: Function;
-        onStart?: Function;
-        setup?: Function | string;
-        teardown?: Function | string;
-        fn?: Function | string;
-        queued?: boolean;
+        async?: boolean | undefined;
+        defer?: boolean | undefined;
+        delay?: number | undefined;
+        id?: string | undefined;
+        initCount?: number | undefined;
+        maxTime?: number | undefined;
+        minSamples?: number | undefined;
+        minTime?: number | undefined;
+        name?: string | undefined;
+        onAbort?: Function | undefined;
+        onComplete?: Function | undefined;
+        onCycle?: Function | undefined;
+        onError?: Function | undefined;
+        onReset?: Function | undefined;
+        onStart?: Function | undefined;
+        setup?: Function | string | undefined;
+        teardown?: Function | string | undefined;
+        fn?: Function | string | undefined;
+        queued?: boolean | undefined;
     }
 
     export interface Platform {
@@ -133,23 +133,23 @@ declare namespace Benchmark {
 
     export interface Target {
         options: Options;
-        async?: boolean;
-        defer?: boolean;
-        delay?: number;
-        initCount?: number;
-        maxTime?: number;
-        minSamples?: number;
-        minTime?: number;
-        name?: string;
-        fn?: Function;
+        async?: boolean | undefined;
+        defer?: boolean | undefined;
+        delay?: number | undefined;
+        initCount?: number | undefined;
+        maxTime?: number | undefined;
+        minSamples?: number | undefined;
+        minTime?: number | undefined;
+        name?: string | undefined;
+        fn?: Function | undefined;
         id: number;
-        stats?: Stats;
-        times?: Times;
+        stats?: Stats | undefined;
+        times?: Times | undefined;
         running: boolean;
-        count?: number;
-        compiled?: Function;
-        cycles?: number;
-        hz?: number;
+        count?: number | undefined;
+        compiled?: Function | undefined;
+        cycles?: number | undefined;
+        hz?: number | undefined;
     }
 
     export class Event {

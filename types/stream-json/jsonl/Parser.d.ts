@@ -9,7 +9,7 @@ declare class JsonlParser extends Utf8Stream {
 
 declare namespace JsonlParser {
     interface JsonlParserOptions extends TransformOptions {
-        reviver?: (this: any, key: string, value: any) => any;
+        reviver?: ((this: any, key: string, value: any) => any) | undefined;
     }
 
     function make(options?: JsonlParserOptions): JsonlParser;

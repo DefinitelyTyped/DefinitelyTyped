@@ -91,10 +91,10 @@ declare module "console" {
     namespace Titanium {
       interface ConsoleConstructorOptions {
         stdout: object;
-        stderr?: object;
-        ignoreErrors?: boolean;
-        colorMode?: boolean | 'auto';
-        inspectOptions?: object;
+        stderr?: object | undefined;
+        ignoreErrors?: boolean | undefined;
+        colorMode?: boolean | 'auto' | undefined;
+        inspectOptions?: object | undefined;
       }
 
       interface ConsoleConstructor {

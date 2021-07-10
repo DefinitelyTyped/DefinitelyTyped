@@ -63,79 +63,79 @@ declare namespace MediumEditor {
     }
 
     export interface CoreOptions {
-        activeButtonClass?: string;
-        allowMultiParagraphSelection?: boolean;
-        buttonLabels?: string | boolean;
-        contentWindow?: Window;
-        delay?: number;
-        disableReturn?: boolean;
-        disableDoubleReturn?: boolean;
-        disableExtraSpaces?: boolean;
-        disableEditing?: boolean;
-        elementsContainer?: HTMLElement;
+        activeButtonClass?: string | undefined;
+        allowMultiParagraphSelection?: boolean | undefined;
+        buttonLabels?: string | boolean | undefined;
+        contentWindow?: Window | undefined;
+        delay?: number | undefined;
+        disableReturn?: boolean | undefined;
+        disableDoubleReturn?: boolean | undefined;
+        disableExtraSpaces?: boolean | undefined;
+        disableEditing?: boolean | undefined;
+        elementsContainer?: HTMLElement | undefined;
         extensions?: any;
-        ownerDocument?: Document;
-        spellcheck?: boolean;
-        targetBlank?: boolean;
-        toolbar?: ToolbarOptions | boolean;
-        anchorPreview?: AnchorPreviewOptions | boolean;
-        placeholder?: PlaceholderOptions | boolean;
-        anchor?: AnchorFormOptions;
-        paste?: PasteOptions;
-        keyboardCommands?: KeyboardCommandsOptions | boolean;
-        autoLink?: boolean;
-        imageDragging?: boolean;
+        ownerDocument?: Document | undefined;
+        spellcheck?: boolean | undefined;
+        targetBlank?: boolean | undefined;
+        toolbar?: ToolbarOptions | boolean | undefined;
+        anchorPreview?: AnchorPreviewOptions | boolean | undefined;
+        placeholder?: PlaceholderOptions | boolean | undefined;
+        anchor?: AnchorFormOptions | undefined;
+        paste?: PasteOptions | undefined;
+        keyboardCommands?: KeyboardCommandsOptions | boolean | undefined;
+        autoLink?: boolean | undefined;
+        imageDragging?: boolean | undefined;
     }
 
     export interface ToolbarOptions {
-        align?: string;
-        allowMultiParagraphSelection?: boolean;
-        buttons?: Button[];
-        diffLeft?: number;
-        diffTop?: number;
-        firstButtonClass?: string;
-        lastButtonClass?: string;
-        standardizeSelectionStart?: boolean;
-        static?: boolean;
-        sticky?: boolean;
-        stickyTopOffset?: number;
-        updateOnEmptySelection?: boolean;
-        relativeContainer?: Node;
+        align?: string | undefined;
+        allowMultiParagraphSelection?: boolean | undefined;
+        buttons?: Button[] | undefined;
+        diffLeft?: number | undefined;
+        diffTop?: number | undefined;
+        firstButtonClass?: string | undefined;
+        lastButtonClass?: string | undefined;
+        standardizeSelectionStart?: boolean | undefined;
+        static?: boolean | undefined;
+        sticky?: boolean | undefined;
+        stickyTopOffset?: number | undefined;
+        updateOnEmptySelection?: boolean | undefined;
+        relativeContainer?: Node | undefined;
     }
 
     export interface AnchorPreviewOptions {
-        hideDelay?: number;
-        previewValueSelector?: string;
-        showWhenToolbarIsVisible?: boolean;
-        showOnEmptyLinks?: boolean;
+        hideDelay?: number | undefined;
+        previewValueSelector?: string | undefined;
+        showWhenToolbarIsVisible?: boolean | undefined;
+        showOnEmptyLinks?: boolean | undefined;
     }
 
     export interface PlaceholderOptions {
-        text?: string;
-        hideOnClick?: boolean;
+        text?: string | undefined;
+        hideOnClick?: boolean | undefined;
     }
 
     export interface AnchorFormOptions {
-        customClassOption?: string;
-        customClassOptionText?: string;
-        linkValidation?: boolean;
-        placeholderText?: string;
-        targetCheckbox?: boolean;
-        targetCheckboxText?: string;
+        customClassOption?: string | undefined;
+        customClassOptionText?: string | undefined;
+        linkValidation?: boolean | undefined;
+        placeholderText?: string | undefined;
+        targetCheckbox?: boolean | undefined;
+        targetCheckboxText?: string | undefined;
     }
 
     export interface PasteOptions {
-        forcePlainText?: boolean;
-        cleanPastedHTML?: boolean;
-        preCleanReplacements?: any[];
-        cleanReplacements?: any[];
-        cleanAttrs?: string[];
-        cleanTags?: string[];
-        unwrapTags?: string[];
+        forcePlainText?: boolean | undefined;
+        cleanPastedHTML?: boolean | undefined;
+        preCleanReplacements?: any[] | undefined;
+        cleanReplacements?: any[] | undefined;
+        cleanAttrs?: string[] | undefined;
+        cleanTags?: string[] | undefined;
+        unwrapTags?: string[] | undefined;
     }
 
     export interface KeyboardCommandsOptions {
-        commands?: KeyboardCommandOptions[];
+        commands?: KeyboardCommandOptions[] | undefined;
     }
 
     export interface KeyboardCommandOptions {
@@ -148,27 +148,27 @@ declare namespace MediumEditor {
 
     export interface CreateLinkOptions {
         value: string;
-        target?: string;
-        buttonClass?: string;
+        target?: string | undefined;
+        buttonClass?: string | undefined;
     }
 
     export interface PasteHTMLOptions {
-        cleanAttrs?: string[];
-        cleanTags?: string[];
-        unwrapTags?: string[];
+        cleanAttrs?: string[] | undefined;
+        cleanTags?: string[] | undefined;
+        unwrapTags?: string[] | undefined;
     }
 
     export interface ButtonOptions {
-        name?: string;
-        action?: string;
-        aria?: string;
-        tagNames?: string[];
-        style?: { prop: string, value: string };
-        useQueryState?: boolean;
-        contentDefault?: string;
-        contentFA?: string;
-        classList?: string[];
-        attrs?: { [key: string]: string };
+        name?: string | undefined;
+        action?: string | undefined;
+        aria?: string | undefined;
+        tagNames?: string[] | undefined;
+        style?: { prop: string, value: string } | undefined;
+        useQueryState?: boolean | undefined;
+        contentDefault?: string | undefined;
+        contentFA?: string | undefined;
+        classList?: string[] | undefined;
+        attrs?: { [key: string]: string } | undefined;
     }
 
     export type Button = string | ButtonOptions;

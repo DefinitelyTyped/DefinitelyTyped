@@ -12,10 +12,10 @@ export = Tracer;
 
 interface TracerOptions {
     service: string;
-    hostname?: string;
-    port?: number;
-    protocol?: string;
-    endpoint?: string;
+    hostname?: string | undefined;
+    port?: number | undefined;
+    protocol?: string | undefined;
+    endpoint?: string | undefined;
 }
 
 declare class Tracer extends opentracing.Tracer {

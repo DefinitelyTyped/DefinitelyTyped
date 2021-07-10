@@ -39,22 +39,22 @@ export function setup(
 ): Promise<unknown>;
 
 export interface RoxSetupOptions {
-    version?: string;
+    version?: string | undefined;
     // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/react-native-api#_configurationfetchedhandler
     configurationFetchedHandler?(fetcherResult: RoxFetcherResult): void;
-    debugLevel?: 'verbose';
+    debugLevel?: 'verbose' | undefined;
     // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/react-native-api#_using_the_impressionhandler_option
     impressionHandler?(reporting: RoxReporting, context: unknown): void;
-    platform?: string;
-    freeze?: FreezeOptions;
-    disableNetworkFetch?: boolean;
-    devModeSecret?: string;
+    platform?: string | undefined;
+    freeze?: FreezeOptions | undefined;
+    disableNetworkFetch?: boolean | undefined;
+    devModeSecret?: string | undefined;
     /**
      * Set Roxy's URL for automated tests or local development.
      *
      * https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/debugging/microservices-automated-testing-and-local-development
      */
-    roxy?: string;
+    roxy?: string | undefined;
     // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/react-native-api#_asyncstorage
     AsyncStorage?: any; // AsyncStorage from 'react-native' package
     // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/react-native-api#_asyncstorage
@@ -79,7 +79,7 @@ export interface RoxFetcherResult {
     fetcherStatus: RoxFetcherStatus;
     creationDate: Date;
     hasChanges: boolean;
-    errorDetails?: string;
+    errorDetails?: string | undefined;
 }
 
 export interface RoxReporting {
@@ -138,7 +138,7 @@ export enum FreezeOptions {
 }
 
 export interface RoxFlagOptions {
-    freeze?: FreezeOptions;
+    freeze?: FreezeOptions | undefined;
 }
 
 /**

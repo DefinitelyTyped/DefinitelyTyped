@@ -8,7 +8,7 @@ declare namespace AMap {
             /**
              * 矩形的范围
              */
-            bounds?: Bounds;
+            bounds?: Bounds | undefined;
         }
         type GetOptionsResult<ExtraData = any> = Merge<Polygon.GetOptionsResult<ExtraData>, {
             /**

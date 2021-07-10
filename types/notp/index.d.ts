@@ -13,7 +13,7 @@ export interface HOTPGenOpt {
      * Counter value used in generating the token. This should be stored by the
      * application, must be user specific, and be incremented for each request.
      */
-    counter?: number;
+    counter?: number | undefined;
 }
 
 /**
@@ -33,7 +33,7 @@ export interface HOTPVerifyOpt extends HOTPGenOpt {
      *
      * Default - 50
      */
-    window?: number;
+    window?: number | undefined;
 }
 
 /**
@@ -44,7 +44,7 @@ export interface TOTPGenOpt {
     /**
      * UNIX Epoch time (overwrite time in test environment, NODE_ENV=test)
      */
-    _t?: number;
+    _t?: number | undefined;
 
     /**
      * The time step of the counter. This must be the same for every request and is
@@ -52,7 +52,7 @@ export interface TOTPGenOpt {
      *
      * Default - 30
      */
-    time?: number;
+    time?: number | undefined;
 }
 
 /**
@@ -73,7 +73,7 @@ export interface TOTPVerifyOpt extends TOTPGenOpt {
      *
      * Default - 50
      */
-    window?: number;
+    window?: number | undefined;
 }
 
 /**

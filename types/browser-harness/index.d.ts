@@ -31,12 +31,12 @@ interface DriverEvents extends _events.EventEmitter {
 }
 
 export interface Driver {
-    exec(args: { func: Function; args?: any[] }, callback?: Function): any;
+    exec(args: { func: Function; args?: any[] | undefined }, callback?: Function): any;
     exec(func: Function, callback?: Function): any;
 
     setUrl(url: string, callback?: Function);
 
-    waitFor(args: { condition: Function; exec?: Function; timeoutMS?: number }, callback?: Function);
+    waitFor(args: { condition: Function; exec?: Function | undefined; timeoutMS?: number | undefined }, callback?: Function);
     waitFor(condition: Function, callback?: Function);
 
     findElement(selector: string, callback?: (err: Error, element: ElementProxy) => void): ElementProxy;
@@ -118,7 +118,7 @@ export interface ElementProxy {
 
 export declare class Browser {
     //constructor(args: { type: string; location?: string; args?: string[] });
-    constructor(args: { type: string; location?: string; args?: any; });
+    constructor(args: { type: string; location?: string | undefined; args?: any; });
 
     open(harnessUrl: string, serverUrl?: string);
     close();

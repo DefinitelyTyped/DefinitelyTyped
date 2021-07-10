@@ -59,7 +59,7 @@ export interface AttemptTimeoutOptions {
     /**
      * A timeout in milliseconds.
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * Callback to execute when the operation takes longer than the timeout.
      */
@@ -85,17 +85,17 @@ export interface OperationOptions extends TimeoutsOptions {
      * Whether to retry forever.
      * @default false
      */
-    forever?: boolean;
+    forever?: boolean | undefined;
     /**
      * Whether to [unref](https://nodejs.org/api/timers.html#timers_unref) the setTimeout's.
      * @default false
      */
-    unref?: boolean;
+    unref?: boolean | undefined;
     /**
      * The maximum time (in milliseconds) that the retried operation is allowed to run.
      * @default Infinity
      */
-    maxRetryTime?: number;
+    maxRetryTime?: number | undefined;
 }
 
 /** Get an array with timeouts and their return values in milliseconds. */
@@ -106,7 +106,7 @@ export interface TimeoutsOptions extends CreateTimeoutOptions {
      * The maximum amount of times to retry the operation.
      * @default 10
      */
-    retries?: number;
+    retries?: number | undefined;
 }
 
 /**
@@ -122,22 +122,22 @@ export interface CreateTimeoutOptions {
      * The exponential factor to use.
      * @default 2
      */
-    factor?: number;
+    factor?: number | undefined;
     /**
      * The number of milliseconds before starting the first retry.
      * @default 1000
      */
-    minTimeout?: number;
+    minTimeout?: number | undefined;
     /**
      * The maximum number of milliseconds between two retries.
      * @default Infinity
      */
-    maxTimeout?: number;
+    maxTimeout?: number | undefined;
     /**
      * Randomizes the timeouts by multiplying a factor between 1-2.
      * @default false
      */
-    randomize?: boolean;
+    randomize?: boolean | undefined;
 }
 
 /**

@@ -4,10 +4,10 @@ declare namespace AMap {
             /**
              * 右键菜单内容
              */
-            content?: string | HTMLElement;
+            content?: string | HTMLElement | undefined;
 
             // internal
-            visible?: boolean;
+            visible?: boolean | undefined;
         }
 
         interface EventMap<I> {

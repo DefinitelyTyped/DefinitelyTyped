@@ -16,28 +16,28 @@ declare namespace ngCordova {
     }
 
     export interface DatePickerOptions {
-        mode?: string;
-        date?: Date | string | number;
-        minDate?: Date | string | number;
-        maxDate?: Date | string | number;
-        titleText?: string;
-        okText?: string;
-        cancelText?: string;
-        todayText?: string;
-        nowText?: string;
-        is24Hour?: boolean;
-        androidTheme?: AndroidTheme;
-        allowOldDates?: boolean;
-        allowFutureDates?: boolean;
-        doneButtonLabel?: string;
-        doneButtonColor?: string;
-        cancelButtonLabel?: string;
-        cancelButtonColor?: string;
-        x?: number;
-        y?: number;
-        minuteInterval?: number;
-        popoverArrowDirection?: string;
-        locale?: string;
+        mode?: string | undefined;
+        date?: Date | string | number | undefined;
+        minDate?: Date | string | number | undefined;
+        maxDate?: Date | string | number | undefined;
+        titleText?: string | undefined;
+        okText?: string | undefined;
+        cancelText?: string | undefined;
+        todayText?: string | undefined;
+        nowText?: string | undefined;
+        is24Hour?: boolean | undefined;
+        androidTheme?: AndroidTheme | undefined;
+        allowOldDates?: boolean | undefined;
+        allowFutureDates?: boolean | undefined;
+        doneButtonLabel?: string | undefined;
+        doneButtonColor?: string | undefined;
+        cancelButtonLabel?: string | undefined;
+        cancelButtonColor?: string | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
+        minuteInterval?: number | undefined;
+        popoverArrowDirection?: string | undefined;
+        locale?: string | undefined;
     }
 
     export interface IDatePickerService {

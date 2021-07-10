@@ -26,7 +26,7 @@ export interface SDKError {
     httpStatusCode: number;
     message: string;
     response: PayPalError;
-    response_stringified?: string;
+    response_stringified?: string | undefined;
     stack: string;
 }
 export interface ErrorDetails {
@@ -36,15 +36,15 @@ export interface ErrorDetails {
 
 export interface Address {
     line1: string;
-    line2?: string;
+    line2?: string | undefined;
     city: string;
     country_code: string;
     postal_code: string;
     state: string;
-    phone?: string;
-    readonly normalization_status?: string;
-    type?: string;
-    recipient_name?: string;
+    phone?: string | undefined;
+    readonly normalization_status?: string | undefined;
+    type?: string | undefined;
+    recipient_name?: string | undefined;
 }
 
 export interface Phone {
@@ -56,14 +56,14 @@ export interface ConfigureOptions {
     client_id: string;
     client_secret: string;
     mode: string;
-    schema?: string;
-    host?: string;
-    port?: string;
-    openid_connect_schema?: string;
-    openid_connect_host?: string;
-    openid_connect_port?: string;
-    authorize_url?: string;
-    logout_url?: string;
+    schema?: string | undefined;
+    host?: string | undefined;
+    port?: string | undefined;
+    openid_connect_schema?: string | undefined;
+    openid_connect_host?: string | undefined;
+    openid_connect_port?: string | undefined;
+    authorize_url?: string | undefined;
+    logout_url?: string | undefined;
     headers?: any;
 }
 
@@ -76,9 +76,9 @@ export interface FraudManagementFiltersDetails {
 
 export interface Response {
     readonly httpStatusCode: number;
-    readonly create_time?: string;
-    readonly count?: number;
-    readonly total_count?: number;
+    readonly create_time?: string | undefined;
+    readonly count?: number | undefined;
+    readonly total_count?: number | undefined;
 }
 
 export interface FilterOptions {
@@ -97,14 +97,14 @@ export interface Amount {
     currency: string;
     total: string;
     details?: {
-        subtotal?: string;
-        shipping?: string;
-        tax?: string;
-        handling_fee?: string;
-        shipping_discout?: string;
-        insurance?: string;
-        gift_wrap?: string;
-    };
+        subtotal?: string | undefined;
+        shipping?: string | undefined;
+        tax?: string | undefined;
+        handling_fee?: string | undefined;
+        shipping_discout?: string | undefined;
+        insurance?: string | undefined;
+        gift_wrap?: string | undefined;
+    } | undefined;
 }
 export interface ErrorDetails {
     readonly field: string;
@@ -117,22 +117,22 @@ export interface Currency {
 }
 
 export interface QueryParameters {
-    count?: number;
-    start_id?: string;
-    start_index?: number;
-    start_time?: string;
-    end_time?: string;
-    payee_id?: string;
-    sort_by?: string;
-    sort_order?: string;
-    anchor_type?: string;
-    page_size?: number;
-    transaction_id?: string;
-    event_type?: string;
-    webhook_id?: string;
-    page?: number;
-    total_count_required?: boolean;
-    status?: string[];
+    count?: number | undefined;
+    start_id?: string | undefined;
+    start_index?: number | undefined;
+    start_time?: string | undefined;
+    end_time?: string | undefined;
+    payee_id?: string | undefined;
+    sort_by?: string | undefined;
+    sort_order?: string | undefined;
+    anchor_type?: string | undefined;
+    page_size?: number | undefined;
+    transaction_id?: string | undefined;
+    event_type?: string | undefined;
+    webhook_id?: string | undefined;
+    page?: number | undefined;
+    total_count_required?: boolean | undefined;
+    status?: string[] | undefined;
 }
 
 export interface Link {
@@ -142,57 +142,57 @@ export interface Link {
 }
 
 export interface Transaction {
-    reference_id?: string;
+    reference_id?: string | undefined;
     amount: Amount;
-    description?: string;
+    description?: string | undefined;
     item_list?: {
         items: Item[];
-        shipping_address?: Address;
-        shipping_method?: string;
-        shipping_phone_number?: string;
-    };
-    payee?: Payee;
-    note_to_payee?: string;
-    custom?: string;
-    invoice_number?: string;
-    purchase_order?: string;
-    soft_descriptor?: string;
+        shipping_address?: Address | undefined;
+        shipping_method?: string | undefined;
+        shipping_phone_number?: string | undefined;
+    } | undefined;
+    payee?: Payee | undefined;
+    note_to_payee?: string | undefined;
+    custom?: string | undefined;
+    invoice_number?: string | undefined;
+    purchase_order?: string | undefined;
+    soft_descriptor?: string | undefined;
     payment_options?: {
         allowed_payment_method: string;
-    };
-    notify_url?: string;
-    order_url?: string;
-    readonly related_resources?: RelatedResources[];
+    } | undefined;
+    notify_url?: string | undefined;
+    order_url?: string | undefined;
+    readonly related_resources?: RelatedResources[] | undefined;
 }
 
 export interface Payee {
     email: string;
     merchant_id: string;
     payee_display_metadata?: {
-        email?: string;
-        display_phone?: Phone;
-        brand_name?: string;
-    };
+        email?: string | undefined;
+        display_phone?: Phone | undefined;
+        brand_name?: string | undefined;
+    } | undefined;
 }
 
 export interface Payment {
-    readonly id?: string;
+    readonly id?: string | undefined;
     intent: string;
     payer: {
         payment_method: string;
     };
     transactions: Transaction[];
-    readonly state?: string;
-    experience_profile_id?: string;
-    note_to_payer?: string;
+    readonly state?: string | undefined;
+    experience_profile_id?: string | undefined;
+    note_to_payer?: string | undefined;
     redirect_urls?: {
-        return_url?: string;
-        cancel_url?: string;
-    };
-    readonly failure_reason?: string;
-    readonly create_time?: string;
-    readonly update_time?: string;
-    readonly links?: Link[];
+        return_url?: string | undefined;
+        cancel_url?: string | undefined;
+    } | undefined;
+    readonly failure_reason?: string | undefined;
+    readonly create_time?: string | undefined;
+    readonly update_time?: string | undefined;
+    readonly links?: Link[] | undefined;
 }
 
 export interface PaymentResponse extends Payment, Response {}
@@ -200,51 +200,51 @@ export interface PaymentResponse extends Payment, Response {}
 export interface Resource {
     readonly id: string;
     amount: Amount;
-    readonly payment_mode?: string;
-    readonly state?: string;
-    readonly reason_code?: string;
-    readonly protection_eligibility?: string;
-    readonly protection_eligibility_type?: string;
-    readonly fmf_details?: FraudManagementFiltersDetails;
-    readonly receipt_id?: string;
-    readonly parent_payment?: string;
+    readonly payment_mode?: string | undefined;
+    readonly state?: string | undefined;
+    readonly reason_code?: string | undefined;
+    readonly protection_eligibility?: string | undefined;
+    readonly protection_eligibility_type?: string | undefined;
+    readonly fmf_details?: FraudManagementFiltersDetails | undefined;
+    readonly receipt_id?: string | undefined;
+    readonly parent_payment?: string | undefined;
     readonly processor_response?: any;
-    readonly create_time?: string;
-    readonly update_time?: string;
-    readonly links?: Link[];
+    readonly create_time?: string | undefined;
+    readonly update_time?: string | undefined;
+    readonly links?: Link[] | undefined;
 }
 
 export interface SaleResource extends Resource {
-    readonly purchase_unit_reference_id?: string;
-    readonly clearing_time?: string;
-    readonly payment_hold_status?: string;
-    readonly payment_hold_reasons?: string[];
-    readonly transaction_fee?: Currency;
-    readonly exchange_rate?: string;
-    readonly billing_agreement_id?: string;
+    readonly purchase_unit_reference_id?: string | undefined;
+    readonly clearing_time?: string | undefined;
+    readonly payment_hold_status?: string | undefined;
+    readonly payment_hold_reasons?: string[] | undefined;
+    readonly transaction_fee?: Currency | undefined;
+    readonly exchange_rate?: string | undefined;
+    readonly billing_agreement_id?: string | undefined;
 }
 
 export interface AuthorizationResource extends Resource {
     readonly valid_until: string;
     readonly update_time: string;
-    readonly reference_id?: string;
+    readonly reference_id?: string | undefined;
 }
 
 export interface CaptureResource extends Resource {
-    is_final_capture?: boolean;
-    invoice_number?: string;
-    transaction_fee?: Currency;
+    is_final_capture?: boolean | undefined;
+    invoice_number?: string | undefined;
+    transaction_fee?: Currency | undefined;
 }
 
 export interface RefundResource extends Resource {
-    reason?: string;
-    invoice_number?: string;
-    readonly sale_id?: string;
-    readonly capture_id?: string;
-    description?: string;
-    readonly reason_code?: string;
-    readonly refund_reason_code?: string;
-    readonly refund_funding_type?: string;
+    reason?: string | undefined;
+    invoice_number?: string | undefined;
+    readonly sale_id?: string | undefined;
+    readonly capture_id?: string | undefined;
+    description?: string | undefined;
+    readonly reason_code?: string | undefined;
+    readonly refund_reason_code?: string | undefined;
+    readonly refund_funding_type?: string | undefined;
 }
 
 export interface Item {
@@ -252,46 +252,46 @@ export interface Item {
     name: string;
     price: string;
     quantity: number;
-    sku?: string;
-    description?: string;
-    tax?: string;
-    url?: string;
+    sku?: string | undefined;
+    description?: string | undefined;
+    tax?: string | undefined;
+    url?: string | undefined;
 }
 
 export interface PayerInfo {
-  email?: string;
-  readonly salutation?: string;
-  readonly first_name?: string;
-  readonly middle_name?: string;
-  readonly last_name?: string;
-  readonly suffix?: string;
-  readonly payer_id?: string;
-  birth_date?: string;
-  tax_id?: string;
-  tax_id_type?: string;
-  country_code?: string;
-  billing_address?: Address;
-  readonly shipping_address?: Address;
+  email?: string | undefined;
+  readonly salutation?: string | undefined;
+  readonly first_name?: string | undefined;
+  readonly middle_name?: string | undefined;
+  readonly last_name?: string | undefined;
+  readonly suffix?: string | undefined;
+  readonly payer_id?: string | undefined;
+  birth_date?: string | undefined;
+  tax_id?: string | undefined;
+  tax_id_type?: string | undefined;
+  country_code?: string | undefined;
+  billing_address?: Address | undefined;
+  readonly shipping_address?: Address | undefined;
 }
 
 export interface RefundRequest {
-    amount?: Amount;
-    description?: string;
-    refund_source?: string;
-    reason?: string;
-    invoice_number?: string;
-    refund_advice?: boolean;
-    items?: Item[];
-    payer_info?: PayerInfo;
-    supplementary_data?: any[];
+    amount?: Amount | undefined;
+    description?: string | undefined;
+    refund_source?: string | undefined;
+    reason?: string | undefined;
+    invoice_number?: string | undefined;
+    refund_advice?: boolean | undefined;
+    items?: Item[] | undefined;
+    payer_info?: PayerInfo | undefined;
+    supplementary_data?: any[] | undefined;
 }
 
 export interface RelatedResources {
-    sale?: SaleResource;
-    authorization?: AuthorizationResource;
+    sale?: SaleResource | undefined;
+    authorization?: AuthorizationResource | undefined;
     order?: any;
-    capture?: CaptureResource;
-    refund?: RefundResource;
+    capture?: CaptureResource | undefined;
+    refund?: RefundResource | undefined;
 }
 
 export namespace payment {
@@ -332,9 +332,9 @@ export namespace payment {
 }
 export namespace notification {
     interface NotificationEventType {
-        readonly description?: string;
+        readonly description?: string | undefined;
         name: string;
-        status?: string;
+        status?: string | undefined;
     }
     interface EventTypesResponse extends Response {
         readonly event_types: NotificationEventType[];
@@ -342,8 +342,8 @@ export namespace notification {
     namespace webhook {
         interface Webhook {
             event_types: NotificationEventType[];
-            readonly id?: string;
-            readonly links?: Link[];
+            readonly id?: string | undefined;
+            readonly links?: Link[] | undefined;
             url: string;
         }
         interface WebhookListResponse extends Response {
@@ -377,12 +377,12 @@ export namespace notification {
     }
     namespace webhookEvent {
         interface WebhookEvent {
-            readonly id?: string;
-            readonly create_time?: string;
-            readonly resource_type?: string;
-            readonly event_version?: string;
-            readonly event_type?: string;
-            readonly summary?: string;
+            readonly id?: string | undefined;
+            readonly create_time?: string | undefined;
+            readonly resource_type?: string | undefined;
+            readonly event_version?: string | undefined;
+            readonly event_type?: string | undefined;
+            readonly summary?: string | undefined;
             readonly resource?: any;
         }
         interface WebhookEventListResponse extends Response {
@@ -422,9 +422,9 @@ export namespace notification {
 
 export namespace authorization {
     interface CaptureRequest {
-        amount?: Amount;
-        is_final_capture?: boolean;
-        invoice_number?: string;
+        amount?: Amount | undefined;
+        is_final_capture?: boolean | undefined;
+        invoice_number?: string | undefined;
     }
     function get(
         id: string,
@@ -455,73 +455,73 @@ export namespace capture {
 }
 export namespace invoice {
     interface EmailRequest {
-        subject?: string;
-        note?: string;
-        send_to_merchant?: boolean;
-        send_to_payer?: boolean;
-        cc_emails?: string[];
+        subject?: string | undefined;
+        note?: string | undefined;
+        send_to_merchant?: boolean | undefined;
+        send_to_payer?: boolean | undefined;
+        cc_emails?: string[] | undefined;
     }
     interface Invoice {
-        allow_tip?: boolean;
-        billing_info?: [BillingInfo];
-        discount?: Cost;
-        shipping_cost?: ShippingCost;
-        readonly id?: string;
-        invoice_date?: string;
-        items?: InvoiceItem[];
-        merchant_info?: Merchant;
+        allow_tip?: boolean | undefined;
+        billing_info?: [BillingInfo] | undefined;
+        discount?: Cost | undefined;
+        shipping_cost?: ShippingCost | undefined;
+        readonly id?: string | undefined;
+        invoice_date?: string | undefined;
+        items?: InvoiceItem[] | undefined;
+        merchant_info?: Merchant | undefined;
         readonly metadata?: {
-            created_date?: string;
-            created_by?: string;
-            cancelled_date?: string;
-            cancelled_by?: string;
-            last_updated_date?: string;
-            last_updated_by?: string;
-            first_sent_date?: string;
-            last_sent_date?: string;
-            last_sent_by?: string;
-            payer_view_url?: string;
-        };
-        note?: string;
-        number?: string;
-        payment_term?: PaymentTerm;
-        reference?: string;
+            created_date?: string | undefined;
+            created_by?: string | undefined;
+            cancelled_date?: string | undefined;
+            cancelled_by?: string | undefined;
+            last_updated_date?: string | undefined;
+            last_updated_by?: string | undefined;
+            first_sent_date?: string | undefined;
+            last_sent_date?: string | undefined;
+            last_sent_by?: string | undefined;
+            payer_view_url?: string | undefined;
+        } | undefined;
+        note?: string | undefined;
+        number?: string | undefined;
+        payment_term?: PaymentTerm | undefined;
+        reference?: string | undefined;
         shipping_info?: {
             address: Address;
-            business_name?: string;
+            business_name?: string | undefined;
             first_name: string;
             last_name: string;
-        };
-        phone?: Phone;
-        readonly status?: string;
-        tax_calculated_after_discount?: boolean;
-        tax_inclusive?: boolean;
-        template_id?: string;
-        readonly total_amount?: Currency;
-        readonly uri?: string;
-        cc_info?: Participant[];
-        custom?: CustomAmount;
-        allow_partial_payment?: boolean;
-        minimum_amount_due?: Currency;
-        terms?: string;
-        merchant_memo?: string;
-        logo_url?: string;
-        readonly payments?: PaymentDetail[];
-        readonly refunds?: Detail[];
+        } | undefined;
+        phone?: Phone | undefined;
+        readonly status?: string | undefined;
+        tax_calculated_after_discount?: boolean | undefined;
+        tax_inclusive?: boolean | undefined;
+        template_id?: string | undefined;
+        readonly total_amount?: Currency | undefined;
+        readonly uri?: string | undefined;
+        cc_info?: Participant[] | undefined;
+        custom?: CustomAmount | undefined;
+        allow_partial_payment?: boolean | undefined;
+        minimum_amount_due?: Currency | undefined;
+        terms?: string | undefined;
+        merchant_memo?: string | undefined;
+        logo_url?: string | undefined;
+        readonly payments?: PaymentDetail[] | undefined;
+        readonly refunds?: Detail[] | undefined;
         readonly payment_summary?: {
             paypal: Currency;
             other: Currency;
-        };
+        } | undefined;
         readonly refunded_amount?: {
             paypal: Currency;
             other: Currency;
-        };
+        } | undefined;
         readonly paid_amount?: {
             paypal: Currency;
             other: Currency;
-        };
-        attachments?: FileAttachment[];
-        readonly links?: Link[];
+        } | undefined;
+        attachments?: FileAttachment[] | undefined;
+        readonly links?: Link[] | undefined;
     }
     interface InvoiceResponse extends Invoice, Response {}
     interface FileAttachment {
@@ -529,66 +529,66 @@ export namespace invoice {
         url: string;
     }
     interface BillingInfo extends Person {
-        email?: string;
-        language?: string;
-        notification_channel?: string;
-        additional_info?: string;
+        email?: string | undefined;
+        language?: string | undefined;
+        notification_channel?: string | undefined;
+        additional_info?: string | undefined;
     }
     interface InvoiceItem {
         name: string;
-        description?: string;
+        description?: string | undefined;
         quantity: number;
         unit_price: Currency;
-        tax?: Tax;
-        date?: string;
-        discount?: Cost;
-        unit_of_measure?: string;
+        tax?: Tax | undefined;
+        date?: string | undefined;
+        discount?: Cost | undefined;
+        unit_of_measure?: string | undefined;
     }
     interface CustomAmount {
         label: string;
         amount: Currency;
     }
     interface ShippingCost {
-        amount?: Currency;
-        tax?: Tax;
+        amount?: Currency | undefined;
+        tax?: Tax | undefined;
     }
     interface Tax extends Cost {
-        id?: string;
-        name?: string;
+        id?: string | undefined;
+        name?: string | undefined;
     }
     interface Cost {
-        percent?: number;
-        amount?: Currency;
+        percent?: number | undefined;
+        amount?: Currency | undefined;
     }
     interface PaymentTerm {
-        term_type?: string;
-        due_date?: string;
+        term_type?: string | undefined;
+        due_date?: string | undefined;
     }
     interface Person {
-        email?: string;
-        first_name?: string;
-        last_name?: string;
-        business_name?: string;
-        phone?: Phone;
-        website?: string;
-        address?: Address;
+        email?: string | undefined;
+        first_name?: string | undefined;
+        last_name?: string | undefined;
+        business_name?: string | undefined;
+        phone?: Phone | undefined;
+        website?: string | undefined;
+        address?: Address | undefined;
     }
     interface Merchant extends Person {
-        tax_id?: string;
-        fax?: Phone;
-        additional_info_label?: string;
-        additional_info?: string;
+        tax_id?: string | undefined;
+        fax?: Phone | undefined;
+        additional_info_label?: string | undefined;
+        additional_info?: string | undefined;
     }
     interface Participant extends Person {
         email: string;
-        fax?: Phone;
-        additional_info?: string;
+        fax?: Phone | undefined;
+        additional_info?: string | undefined;
     }
     interface Detail {
         type: string;
         transaction_id: string;
         date: string;
-        note?: string;
+        note?: string | undefined;
         amount: Currency;
     }
     interface PaymentDetail extends Detail {
@@ -607,35 +607,35 @@ export namespace invoice {
     interface PayRequest {
         date: string;
         method: string;
-        note?: string;
+        note?: string | undefined;
         amount: Currency;
     }
     interface RefundRequest {
         date: string;
-        note?: string;
+        note?: string | undefined;
         amount: Currency;
     }
     interface SearchRequest {
-        email?: string;
-        recipient_first_name?: string;
-        recipient_last_name?: string;
-        recipient_business_name?: string;
-        number?: string;
-        status?: string;
-        lower_total_amount?: Currency;
-        upper_total_amount?: Currency;
-        start_invoice_date?: string;
-        end_invoice_date?: string;
-        start_due_date?: string;
-        end_due_date?: string;
-        start_payment_date?: string;
-        end_payment_date?: string;
-        start_creation_date?: string;
-        end_creation_date?: string;
-        page?: number;
-        page_size?: number;
-        total_count_required?: boolean;
-        archived?: boolean;
+        email?: string | undefined;
+        recipient_first_name?: string | undefined;
+        recipient_last_name?: string | undefined;
+        recipient_business_name?: string | undefined;
+        number?: string | undefined;
+        status?: string | undefined;
+        lower_total_amount?: Currency | undefined;
+        upper_total_amount?: Currency | undefined;
+        start_invoice_date?: string | undefined;
+        end_invoice_date?: string | undefined;
+        start_due_date?: string | undefined;
+        end_due_date?: string | undefined;
+        start_payment_date?: string | undefined;
+        end_payment_date?: string | undefined;
+        start_creation_date?: string | undefined;
+        end_creation_date?: string | undefined;
+        page?: number | undefined;
+        page_size?: number | undefined;
+        total_count_required?: boolean | undefined;
+        archived?: boolean | undefined;
     }
     function cancel(
         id: string,

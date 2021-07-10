@@ -192,7 +192,7 @@ declare namespace Q {
 
     interface PromiseState<T> {
         state: "fulfilled" | "rejected" | "pending";
-        value?: T;
+        value?: T | undefined;
         reason?: any;
     }
 

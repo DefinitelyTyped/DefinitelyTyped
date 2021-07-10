@@ -10,8 +10,8 @@ import { Plugin } from 'rollup';
 
 declare namespace builtins {
     interface Options {
-        crypto?: boolean;
-        fs?: boolean;
+        crypto?: boolean | undefined;
+        fs?: boolean | undefined;
     }
 }
 

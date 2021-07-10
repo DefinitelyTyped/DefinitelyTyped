@@ -19,7 +19,7 @@ declare function Blocked(callback: (ms: number) => void, options?: Blocked.Optio
 
 declare namespace Blocked {
   interface Options {
-    threshold?: number;  // in milliseconds
-    interval?: number; // in milliseconds
+    threshold?: number | undefined;  // in milliseconds
+    interval?: number | undefined; // in milliseconds
   }
 }

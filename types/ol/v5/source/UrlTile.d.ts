@@ -9,21 +9,21 @@ import State from './State';
 import TileSource, { TileSourceEvent } from './Tile';
 
 export interface Options {
-    attributions?: AttributionLike;
-    attributionsCollapsible?: boolean;
-    cacheSize?: number;
-    opaque?: boolean;
-    projection?: ProjectionLike;
-    state?: State;
-    tileGrid?: TileGrid;
+    attributions?: AttributionLike | undefined;
+    attributionsCollapsible?: boolean | undefined;
+    cacheSize?: number | undefined;
+    opaque?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    state?: State | undefined;
+    tileGrid?: TileGrid | undefined;
     tileLoadFunction: LoadFunction;
-    tilePixelRatio?: number;
-    tileUrlFunction?: UrlFunction;
-    url?: string;
-    urls?: string[];
-    wrapX?: boolean;
-    transition?: number;
-    key?: string;
+    tilePixelRatio?: number | undefined;
+    tileUrlFunction?: UrlFunction | undefined;
+    url?: string | undefined;
+    urls?: string[] | undefined;
+    wrapX?: boolean | undefined;
+    transition?: number | undefined;
+    key?: string | undefined;
 }
 export default class UrlTile extends TileSource {
     constructor(options: Options);

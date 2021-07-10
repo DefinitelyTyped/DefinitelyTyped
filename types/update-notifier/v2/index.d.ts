@@ -16,34 +16,34 @@ declare namespace UpdateNotifier {
     class UpdateNotifier {
         constructor(settings?: Settings);
 
-        update?: UpdateInfo;
+        update?: UpdateInfo | undefined;
         check(): void;
         checkNpm(): void;
         notify(customMessage?: NotifyOptions): void;
     }
 
     interface Settings {
-        pkg?: Package;
+        pkg?: Package | undefined;
         callback?(error: Error | null, update?: UpdateInfo): any;
-        packageName?: string;
-        packageVersion?: string;
-        updateCheckInterval?: number; // in milliseconds, default 1000 * 60 * 60 * 24 (1 day)
-        shouldNotifyInNpmScript?: boolean;
+        packageName?: string | undefined;
+        packageVersion?: string | undefined;
+        updateCheckInterval?: number | undefined; // in milliseconds, default 1000 * 60 * 60 * 24 (1 day)
+        shouldNotifyInNpmScript?: boolean | undefined;
     }
 
     interface BoxenOptions {
-        padding?: number;
-        margin?: number;
-        align?: string;
-        borderColor?: string;
-        borderStyle?: string;
+        padding?: number | undefined;
+        margin?: number | undefined;
+        align?: string | undefined;
+        borderColor?: string | undefined;
+        borderStyle?: string | undefined;
     }
 
     interface NotifyOptions {
-        message?: string;
-        defer?: boolean;
-        isGlobal?: boolean;
-        boxenOpts?: BoxenOptions;
+        message?: string | undefined;
+        defer?: boolean | undefined;
+        isGlobal?: boolean | undefined;
+        boxenOpts?: BoxenOptions | undefined;
     }
 
     interface Package {

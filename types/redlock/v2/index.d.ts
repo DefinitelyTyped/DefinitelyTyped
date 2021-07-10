@@ -23,9 +23,9 @@ declare namespace Redlock {
     }
 
     interface Options {
-        driftFactor?: number;
-        retryCount?: number;
-        retryDelay?: number;
+        driftFactor?: number | undefined;
+        retryCount?: number | undefined;
+        retryDelay?: number | undefined;
     }
 
     class LockError extends Error {

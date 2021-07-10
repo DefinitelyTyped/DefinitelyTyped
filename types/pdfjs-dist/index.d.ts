@@ -65,9 +65,9 @@ declare class PDFDataRangeTransport {
 }
 
 interface PDFWorkerParameters {
-    name?: string;
+    name?: string | undefined;
     port?: any;
-    verbosity?: VerbosityLevel;
+    verbosity?: VerbosityLevel | undefined;
 }
 
 declare class PDFWorker {
@@ -97,62 +97,62 @@ interface CMapReader {
 }
 interface PDFSource {
     /** The URL of the PDF. */
-    url?: string;
+    url?: string | undefined;
     /**
      * Binary PDF data. Use typed arrays
      * (Uint8Array) to improve the memory usage. If PDF data is BASE64-encoded,
      * use atob() to convert it to a binary string first.
      */
-    data?: Uint8Array | BufferSource | string;
+    data?: Uint8Array | BufferSource | string | undefined;
     /**
      * Basic authentication headers.
      */
     httpHeaders?: {
         [key: string]: string;
-    };
+    } | undefined;
     /**
      * For decrypting password-protected PDFs.
      */
-    password?: string;
+    password?: string | undefined;
     /**
      * Indicates whether or not cross-site
      * Access-Control requests should be made using credentials such as cookies
      * or authorization headers. The default is false.
      */
-    withCredentials?: boolean;
+    withCredentials?: boolean | undefined;
     /*
      * A typed array with the first portion or
      * all of the pdf data. Used by the extension since some data is already
      * loaded before the switch to range requests.  */
-    initialData?: Uint8Array | BufferSource;
+    initialData?: Uint8Array | BufferSource | undefined;
     /*
      * The PDF file length. It's used for progress
      * reports and range requests operations.
      */
-    length?: number;
+    length?: number | undefined;
     /** range */
-    range?: PDFDataRangeTransport;
+    range?: PDFDataRangeTransport | undefined;
     /**
      * Optional parameter to specify
      * maximum number of bytes fetched per range request. The default value is
      * 2^16 = 65536. */
-    rangeChunkSize?: number;
+    rangeChunkSize?: number | undefined;
     /**
      * The worker that will be used for
      * the loading and parsing of the PDF data.
      */
-    worker?: PDFWorker;
+    worker?: PDFWorker | undefined;
     /**
      * Controls the logging level; the
      * constants from {VerbosityLevel} should be used.
      */
-    verbosity?: number;
+    verbosity?: number | undefined;
     /**
      * The base URL of the document,
      * used when attempting to recover valid absolute URLs for annotations, and
      * outline items, that (incorrectly) only specify relative URLs.
      */
-    docBaseUrl?: string;
+    docBaseUrl?: string | undefined;
     /**
      * Strategy for
      * decoding certain (simple) JPEG images in the browser. This is useful for
@@ -163,15 +163,15 @@ interface PDFSource {
      * and 'none' where JPEG images will be decoded entirely by PDF.js.
      * The default value is 'decode'.
      */
-    nativeImageDecoderSupport?: 'decode' | 'display' | 'none';
+    nativeImageDecoderSupport?: 'decode' | 'display' | 'none' | undefined;
     /**
      * The URL where the predefined
      * Adobe CMaps are located. Include trailing slash. */
-    cMapUrl?: string;
+    cMapUrl?: string | undefined;
     /**
      * Specifies if the Adobe CMaps are
      * binary packed. */
-    cMapPacked?: boolean;
+    cMapPacked?: boolean | undefined;
     /**
      * The factory that will be
      * used when reading built-in CMap files. Providing a custom factory is useful
@@ -185,39 +185,39 @@ interface PDFSource {
      * PDF data cannot be successfully parsed, instead of attempting to recover
      * whatever possible of the data. The default value is `false`.
      */
-    stopAtErrors?: boolean;
+    stopAtErrors?: boolean | undefined;
     /**
      * The maximum allowed image size
      * in total pixels, i.e. width * height. Images above this value will not be
      * rendered. Use -1 for no limit, which is also the default value.
      */
-    maxImageSize?: number;
+    maxImageSize?: number | undefined;
     /**
      * Determines if we can eval
      * strings as JS. Primarily used to improve performance of font rendering,
      * and when parsing PDF functions. The default value is `true`.
      */
-    isEvalSupported?: boolean;
+    isEvalSupported?: boolean | undefined;
     /**
      * By default fonts are
      *   converted to OpenType fonts and loaded via font face rules. If disabled,
      *   fonts will be rendered using a built-in font renderer that constructs the
      *   glyphs with primitive path commands. The default value is `false`.
      */
-    disableFontFace?: boolean;
+    disableFontFace?: boolean | undefined;
     /**
      * Disable range request loading
      *   of PDF files. When enabled, and if the server supports partial content
      *   requests, then the PDF will be fetched in chunks.
      *   The default value is `false`.
      */
-    disableRange?: boolean;
+    disableRange?: boolean | undefined;
     /**
      * Disable streaming of PDF file
      *   data. By default PDF.js attempts to load PDFs in chunks.
      *   The default value is `false`.
      */
-    disableStream?: boolean;
+    disableStream?: boolean | undefined;
     /**
      * Disable pre-fetching of PDF
      *   file data. When range requests are enabled PDF.js will automatically keep
@@ -226,18 +226,18 @@ interface PDFSource {
      *   NOTE: It is also necessary to disable streaming, see above,
      *         in order for disabling of pre-fetching to work correctly.
      */
-    disableAutoFetch?: boolean;
+    disableAutoFetch?: boolean | undefined;
     /**
      * Disable the use of
      *   `URL.createObjectURL`, for compatibility with older browsers.
      *   The default value is `false`.
      */
-    disableCreateObjectURL?: boolean;
+    disableCreateObjectURL?: boolean | undefined;
     /**
      * Enables special hooks for debugging
      * PDF.js (see `web/debugger.js`). The default value is `false`.
      */
-    pdfBug?: boolean;
+    pdfBug?: boolean | undefined;
 }
 
 interface PDFProgressData {
@@ -343,10 +343,10 @@ interface PDFPageViewport {
 
 interface ViewportParameters {
     scale: number; // The desired scale of the viewport.
-    rotation?: number; // (optional) The desired rotation, in degrees, of the viewport. If omitted it defaults to the page rotation.
-    offsetX?: number; // (optional) The horizontal, i.e. x-axis, offset. The default value is `0`.
-    offsetY?: number; // (optional) The vertical, i.e. y-axis, offset. The default value is `0`.
-    dontFlip?: boolean; // (optional) If true, the y-axis will not be flipped. The default value is `false`.
+    rotation?: number | undefined; // (optional) The desired rotation, in degrees, of the viewport. If omitted it defaults to the page rotation.
+    offsetX?: number | undefined; // (optional) The horizontal, i.e. x-axis, offset. The default value is `0`.
+    offsetY?: number | undefined; // (optional) The vertical, i.e. y-axis, offset. The default value is `0`.
+    dontFlip?: boolean | undefined; // (optional) If true, the y-axis will not be flipped. The default value is `false`.
 }
 interface PDFAnnotationData {
     subtype: string;
@@ -382,22 +382,22 @@ interface PDFRenderImageLayer {
 
 interface PDFRenderParams {
     canvasContext: CanvasRenderingContext2D;
-    viewport?: PDFPageViewport;
-    textLayer?: PDFRenderTextLayer;
-    imageLayer?: PDFRenderImageLayer;
-    renderInteractiveForms?: boolean;
-    continueCallback?: (_continue: () => void) => void;
+    viewport?: PDFPageViewport | undefined;
+    textLayer?: PDFRenderTextLayer | undefined;
+    imageLayer?: PDFRenderImageLayer | undefined;
+    renderInteractiveForms?: boolean | undefined;
+    continueCallback?: ((_continue: () => void) => void) | undefined;
 }
 
 interface PDFViewerParams {
     container: HTMLElement;
-    viewer?: HTMLElement;
+    viewer?: HTMLElement | undefined;
 }
 
 interface GetTextContentParams {
-    normalizeWhitespace?: boolean;
-    disableCombineTextItems?: boolean;
-    includeMarkedContent?: boolean;
+    normalizeWhitespace?: boolean | undefined;
+    disableCombineTextItems?: boolean | undefined;
+    includeMarkedContent?: boolean | undefined;
 }
 
 /**

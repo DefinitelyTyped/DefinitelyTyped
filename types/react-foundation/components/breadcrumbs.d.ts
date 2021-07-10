@@ -19,5 +19,5 @@ export interface BreadcrumbsProps extends GeneralPropTypes, React.HTMLAttributes
  */
 export declare const BreadcrumbItem: React.StatelessComponent<BreadcrumbItemProps>;
 export interface BreadcrumbItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLLIElement> {
-    isDisabled?: boolean;
+    isDisabled?: boolean | undefined;
 }

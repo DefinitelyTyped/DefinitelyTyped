@@ -29,6 +29,6 @@ export interface MediaMetadata {
 
 export interface MediaImage {
     src: string;
-    sizes?: string;
-    type?: string;
+    sizes?: string | undefined;
+    type?: string | undefined;
 }

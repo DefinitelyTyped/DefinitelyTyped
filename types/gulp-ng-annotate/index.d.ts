@@ -17,35 +17,35 @@ declare namespace ngAnnotate {
         /**
          * Add annotations where non-existing
          */
-        add?: boolean;
+        add?: boolean | undefined;
         /**
          * Remove all existing annotations
          */
-        remove?: boolean;
+        remove?: boolean | undefined;
         /**
          * List optional matchers
          */
-        list?: boolean;
+        list?: boolean | undefined;
         /**
          * Restrict matching further or to expand matching
          */
-        regexp?: string;
+        regexp?: string | undefined;
         /**
          * Enable optional matcher
          */
-        enable?: boolean;
+        enable?: boolean | undefined;
         /**
          * Output '$scope' instead of "$scope".
          */
-        single_quotes?: boolean;
+        single_quotes?: boolean | undefined;
         /**
          * Rename providers (services, factories, controllers, etc.) with a new name when declared and referenced through annotation
          */
-        rename?: RenameOption[];
+        rename?: RenameOption[] | undefined;
         /**
          * Load a user plugin with the provided path
          */
-        plugin?: any[];
+        plugin?: any[] | undefined;
     }
 
     interface RenameOption {

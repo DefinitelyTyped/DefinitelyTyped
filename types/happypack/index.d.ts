@@ -10,8 +10,8 @@ export = happypack;
 
 declare namespace happypack {
     interface PluginOptions {
-        id?: string;
-        threads?: number;
+        id?: string | undefined;
+        threads?: number | undefined;
         loaders: any;
     }
 }

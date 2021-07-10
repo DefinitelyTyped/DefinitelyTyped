@@ -1,10 +1,10 @@
 declare module DDPRateLimiter {
     interface Matcher {
-        type?: string | ((type: string) => boolean);
-        name?: string | ((name: string) => boolean);
-        userId?: string | ((userId: string) => boolean);
-        connectionId?: string | ((connectionId: string) => boolean);
-        clientAddress?: string | ((clientAddress: string) => boolean);
+        type?: string | ((type: string) => boolean) | undefined;
+        name?: string | ((name: string) => boolean) | undefined;
+        userId?: string | ((userId: string) => boolean) | undefined;
+        connectionId?: string | ((connectionId: string) => boolean) | undefined;
+        clientAddress?: string | ((clientAddress: string) => boolean) | undefined;
     }
 
     function addRule(matcher: Matcher, numRequests: number, timeInterval: number): string;

@@ -12,14 +12,14 @@ import { EventEmitter } from 'events';
 export interface Device {
     vendorId: number;
     productId: number;
-    path?: string;
-    serialNumber?: string;
-    manufacturer?: string;
-    product?: string;
+    path?: string | undefined;
+    serialNumber?: string | undefined;
+    manufacturer?: string | undefined;
+    product?: string | undefined;
     release: number;
     interface: number;
-    usagePage?: number;
-    usage?: number;
+    usagePage?: number | undefined;
+    usage?: number | undefined;
 }
 
 export class HID extends EventEmitter {

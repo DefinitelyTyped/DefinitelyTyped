@@ -25,11 +25,11 @@ declare namespace Bricks {
         container: Node | string;
         packed: string;
         sizes: SizeDetail[];
-        position?: boolean;
+        position?: boolean | undefined;
     }
 
     interface SizeDetail {
-        mq?: string;
+        mq?: string | undefined;
         columns: number;
         gutter: number;
     }

@@ -6,10 +6,10 @@
 
 interface RequestParameters {
     url: string;
-    headers?: { [key: string]: string; };
-    body?: string | FormData;
-    method?: string;
-    cors?: boolean;
+    headers?: { [key: string]: string; } | undefined;
+    body?: string | FormData | undefined;
+    method?: string | undefined;
+    cors?: boolean | undefined;
 }
 
 interface Callback {

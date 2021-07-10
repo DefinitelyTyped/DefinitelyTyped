@@ -7,13 +7,13 @@ declare namespace jsontoxml {
     function escape(str: string): string;
     function cdata(str: string): string;
     interface JsonToXmlOptions {
-        escape?: boolean;
-        xmlHeader?: boolean | {standalone?: boolean};
-        docType?: string;
-        prettyPrint?: boolean;
-        indent?: string;
-        removeIllegalNameCharacters?: boolean;
-        html?: boolean;
+        escape?: boolean | undefined;
+        xmlHeader?: boolean | {standalone?: boolean | undefined} | undefined;
+        docType?: string | undefined;
+        prettyPrint?: boolean | undefined;
+        indent?: string | undefined;
+        removeIllegalNameCharacters?: boolean | undefined;
+        html?: boolean | undefined;
     }
 }
 

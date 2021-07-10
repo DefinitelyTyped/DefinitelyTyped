@@ -25,7 +25,7 @@ declare class Tag {
   openTagOnly: any;
   body: any;
   type: any;
-  targetProperty?: string;
+  targetProperty?: string | undefined;
 
   constructor(filePath?: string);
 

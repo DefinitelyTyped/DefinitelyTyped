@@ -11,72 +11,72 @@ declare namespace jQueryTagsInput {
         /**
          * Url for autocomplete
          */
-         autocomplete_url?: string;
+         autocomplete_url?: string | undefined;
 
         /**
          * Autocomplete options
          */
-         autocomplete?: object;
+         autocomplete?: object | undefined;
 
         /**
          * Height of tag
          */
-         height?: string;
+         height?: string | undefined;
 
         /**
          * Width of tag
          */
-         width?: string;
+         width?: string | undefined;
 
         /**
          * Interactive tags
          */
-         interactive?: boolean;
+         interactive?: boolean | undefined;
 
         /**
          * Placeholder of field when tags is empty
          */
-         defaultText?: string;
+         defaultText?: string | undefined;
 
         /**
          * Callback function on add tag
          */
-         onAddTag?: (addedValue: string) => void;
+         onAddTag?: ((addedValue: string) => void) | undefined;
 
         /**
          * Callback function on remove tag
          */
-         onRemoveTag?: (removedValue: string) => void;
+         onRemoveTag?: ((removedValue: string) => void) | undefined;
 
         /**
          * Callback function on change list of tags
          */
-         onChange?: (element: JQuery, changedValue: string) => void;
+         onChange?: ((element: JQuery, changedValue: string) => void) | undefined;
 
         /**
          * Delimiters on tags creation
          */
-         delimiter?: string[]|string;
+         delimiter?: string[]|string | undefined;
 
         /**
          * Remove with tag backspace
          */
-         removeWithBackspace ?: boolean;
+         removeWithBackspace ?: boolean | undefined;
 
         /**
          * Minimun char length for tag
          */
-         minChars?: number;
+         minChars?: number | undefined;
 
         /**
          * Max char length for tag
          */
-         maxChars?: number;
+         maxChars?: number | undefined;
 
         /**
          * Placeholder color of tags
          */
-         placeholderColor?: string;
+         placeholderColor?: string | undefined;
      }
  }
  interface JQuery {

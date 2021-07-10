@@ -116,14 +116,14 @@ export declare class Db {
     public _callHandler(id: any, document: any, err: any): any;
     public _hasHandler(id: any): any;
     public _removeHandler(id: any): any;
-    public _findHandler(id: any): { id: string; callback?: Function };
+    public _findHandler(id: any): { id: string; callback?: Function | undefined };
     public __executeQueryCommand(self: any, db_command: any, options: any, callback?: any): void;
 
     public DEFAULT_URL: string;
 
     public connect(
         url: string,
-        options: { uri_decode_auth?: boolean },
+        options: { uri_decode_auth?: boolean | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
 
@@ -183,20 +183,20 @@ export declare class Binary {
 
 export interface SocketOptions {
     //= set seconds before connection times out default:0
-    timeout?: number;
+    timeout?: number | undefined;
     //= Disables the Nagle algorithm default:true
-    noDelay?: boolean;
+    noDelay?: boolean | undefined;
     //= Set if keepAlive is used default:0 , which means no keepAlive, set higher than 0 for keepAlive
-    keepAlive?: number;
+    keepAlive?: number | undefined;
     //= ‘ascii’|’utf8’|’base64’ default:null
-    encoding?: string;
+    encoding?: string | undefined;
 }
 
 export interface ServerOptions {
     // - to reconnect automatically, default:false
-    auto_reconnect?: boolean;
+    auto_reconnect?: boolean | undefined;
     // - specify the number of connections in the pool default:1
-    poolSize?: number;
+    poolSize?: number | undefined;
     // - a collection of pr socket settings
     socketOptions?: any;
 }
@@ -213,49 +213,49 @@ export interface DbCreateOptions {
     w?: any;
 
     // set the timeout for waiting for write concern to finish (combines with w option).
-    wtimeout?: number;
+    wtimeout?: number | undefined;
 
     //  write waits for fsync before returning. default:false.
-    fsync?: boolean;
+    fsync?: boolean | undefined;
 
     // write waits for journal sync before returning. default:false.
-    journal?: boolean;
+    journal?: boolean | undefined;
 
     // the prefered read preference. use 'ReadPreference' class.
-    readPreference?: string;
+    readPreference?: string | undefined;
 
     // use c++ bson parser. default:false.
-    native_parser?: boolean;
+    native_parser?: boolean | undefined;
 
     // force server to create _id fields instead of client. default:false.
-    forceServerObjectId?: boolean;
+    forceServerObjectId?: boolean | undefined;
 
     // custom primary key factory to generate _id values (see Custom primary keys).
-    pkFactory?: PKFactory;
+    pkFactory?: PKFactory | undefined;
 
     // serialize functions. default:false.
-    serializeFunctions?: boolean;
+    serializeFunctions?: boolean | undefined;
 
     // peform operations using raw bson buffers. default:false.
-    raw?: boolean;
+    raw?: boolean | undefined;
 
     // record query statistics during execution. default:false.
-    recordQueryStats?: boolean;
+    recordQueryStats?: boolean | undefined;
 
     // number of miliseconds between retries. default:5000.
-    retryMiliSeconds?: number;
+    retryMiliSeconds?: number | undefined;
 
     // number of retries off connection. default:5.
-    numberOfRetries?: number;
+    numberOfRetries?: number | undefined;
 
     // an object representing a logger that you want to use, needs to support functions debug, log, error. default:null.
-    logger?: Object;
+    logger?: Object | undefined;
 
     // force setting of SlaveOk flag on queries (only use when explicitly connecting to a secondary server). default:null.
-    slaveOk?: number;
+    slaveOk?: number | undefined;
 
     // when deserializing a Long will fit it into a Number if it’s smaller than 53 bits. default:true.
-    promoteLongs?: boolean;
+    promoteLongs?: boolean | undefined;
 }
 
 export declare class ReadPreference {
@@ -270,19 +270,19 @@ export declare class ReadPreference {
 // Current definition by documentation version 1.3.13 (28.08.2013)
 export interface CollectionCreateOptions {
     // the prefered read preference. use 'ReadPreference' class.
-    readPreference?: string;
+    readPreference?: string | undefined;
 
     // Allow reads from secondaries. default:false.
-    slaveOk?: boolean;
+    slaveOk?: boolean | undefined;
 
     // serialize functions on the document. default:false.
-    serializeFunctions?: boolean;
+    serializeFunctions?: boolean | undefined;
 
     // perform all operations using raw bson objects. default:false.
-    raw?: boolean;
+    raw?: boolean | undefined;
 
     // object overriding the basic ObjectID primary key generation.
-    pkFactory?: PKFactory;
+    pkFactory?: PKFactory | undefined;
 }
 
 // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
@@ -335,7 +335,7 @@ export interface Collection {
     insert(query: any, callback?: (err: Error, result: any) => void): void;
     insert(
         query: any,
-        options: { safe?: any; continueOnError?: boolean; keepGoing?: boolean; serializeFunctions?: boolean },
+        options: { safe?: any; continueOnError?: boolean | undefined; keepGoing?: boolean | undefined; serializeFunctions?: boolean | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
 
@@ -345,10 +345,10 @@ export interface Collection {
         doc: any,
         options: {
             w?: any;
-            wtimeout?: number;
-            j?: boolean;
-            serializeFunctions?: boolean;
-            forceServerObjectId?: boolean;
+            wtimeout?: number | undefined;
+            j?: boolean | undefined;
+            serializeFunctions?: boolean | undefined;
+            forceServerObjectId?: boolean | undefined;
         },
         callback?: (err: Error, result: any) => void,
     ): void;
@@ -359,10 +359,10 @@ export interface Collection {
         docs: any,
         options: {
             w?: any;
-            wtimeout?: number;
-            j?: boolean;
-            serializeFunctions?: boolean;
-            forceServerObjectId?: boolean;
+            wtimeout?: number | undefined;
+            j?: boolean | undefined;
+            serializeFunctions?: boolean | undefined;
+            forceServerObjectId?: boolean | undefined;
         },
         callback?: (err: Error, result: any) => void,
     ): void;
@@ -373,7 +373,7 @@ export interface Collection {
     remove(selector: Object, callback?: (err: Error, result: any) => void): void;
     remove(
         selector: Object,
-        options: { safe?: any; single?: boolean },
+        options: { safe?: any; single?: boolean | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
 
@@ -381,7 +381,7 @@ export interface Collection {
     deleteOne(filter: any, callback?: (err: Error, result: any) => void): void;
     deleteOne(
         filter: any,
-        options: { w?: any; wtimeout?: number; j?: boolean },
+        options: { w?: any; wtimeout?: number | undefined; j?: boolean | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
 
@@ -389,7 +389,7 @@ export interface Collection {
     deleteMany(filter: any, callback?: (err: Error, result: any) => void): void;
     deleteMany(
         filter: any,
-        options: { w?: any; wtimeout?: number; j?: boolean },
+        options: { w?: any; wtimeout?: number | undefined; j?: boolean | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
 
@@ -398,7 +398,7 @@ export interface Collection {
     save(doc: any, callback: (err: Error, result: any) => void): void;
     save(
         doc: any,
-        options: { w?: any; wtimeout?: number; j?: boolean },
+        options: { w?: any; wtimeout?: number | undefined; j?: boolean | undefined },
         callback: (err: Error, result: any) => void,
     ): void;
     /**
@@ -409,7 +409,7 @@ export interface Collection {
     update(
         selector: Object,
         document: any,
-        options: { safe?: boolean; upsert?: any; multi?: boolean; serializeFunctions?: boolean },
+        options: { safe?: boolean | undefined; upsert?: any; multi?: boolean | undefined; serializeFunctions?: boolean | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
 
@@ -418,7 +418,7 @@ export interface Collection {
     updateOne(
         filter: Object,
         update: any,
-        options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean },
+        options: { upsert?: boolean | undefined; w?: any; wtimeout?: number | undefined; j?: boolean | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
 
@@ -427,7 +427,7 @@ export interface Collection {
     updateMany(
         filter: Object,
         update: any,
-        options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean },
+        options: { upsert?: boolean | undefined; w?: any; wtimeout?: number | undefined; j?: boolean | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
 
@@ -453,7 +453,7 @@ export interface Collection {
         query: Object,
         sort: any[],
         doc: Object,
-        options: { safe?: any; remove?: boolean; upsert?: boolean; new?: boolean },
+        options: { safe?: any; remove?: boolean | undefined; upsert?: boolean | undefined; new?: boolean | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
     /**
@@ -472,7 +472,7 @@ export interface Collection {
     findOneAndDelete(filter: any, callback?: (err: Error, result: any) => void): void;
     findOneAndDelete(
         filter: any,
-        options: { projection?: any; sort?: any; maxTimeMS?: number },
+        options: { projection?: any; sort?: any; maxTimeMS?: number | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
 
@@ -481,7 +481,7 @@ export interface Collection {
     findOneAndReplace(
         filter: any,
         replacement: any,
-        options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean },
+        options: { projection?: any; sort?: any; maxTimeMS?: number | undefined; upsert?: boolean | undefined; returnOriginal?: boolean | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
 
@@ -490,7 +490,7 @@ export interface Collection {
     findOneAndUpdate(
         filter: any,
         update: any,
-        options: { projection?: any; sort?: any; maxTimeMS?: number; upsert?: boolean; returnOriginal?: boolean },
+        options: { projection?: any; sort?: any; maxTimeMS?: number | undefined; upsert?: boolean | undefined; returnOriginal?: boolean | undefined },
         callback?: (err: Error, result: any) => void,
     ): void;
 
@@ -593,32 +593,32 @@ export interface Collection {
 }
 
 export interface MapReduceOptions {
-    out?: Object;
-    query?: Object;
-    sort?: Object;
-    limit?: number;
-    keeptemp?: boolean;
+    out?: Object | undefined;
+    query?: Object | undefined;
+    sort?: Object | undefined;
+    limit?: number | undefined;
+    keeptemp?: boolean | undefined;
     finalize?: any;
-    scope?: Object;
-    jsMode?: boolean;
-    verbose?: boolean;
-    readPreference?: string;
+    scope?: Object | undefined;
+    jsMode?: boolean | undefined;
+    verbose?: boolean | undefined;
+    readPreference?: string | undefined;
 }
 
 export interface IndexOptions {
     w?: any;
-    wtimeout?: number;
-    fsync?: boolean;
-    journal?: boolean;
-    unique?: boolean;
-    sparse?: boolean;
-    background?: boolean;
-    dropDups?: boolean;
-    min?: number;
-    max?: number;
-    v?: number;
-    expireAfterSeconds?: number;
-    name?: string;
+    wtimeout?: number | undefined;
+    fsync?: boolean | undefined;
+    journal?: boolean | undefined;
+    unique?: boolean | undefined;
+    sparse?: boolean | undefined;
+    background?: boolean | undefined;
+    dropDups?: boolean | undefined;
+    min?: number | undefined;
+    max?: number | undefined;
+    v?: number | undefined;
+    expireAfterSeconds?: number | undefined;
+    name?: string | undefined;
 }
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/cursor.html
@@ -667,37 +667,37 @@ export declare class CursorStream {
 }
 
 export interface CollectionFindOptions {
-    limit?: number;
+    limit?: number | undefined;
     sort?: any;
-    fields?: Object;
-    skip?: number;
-    hint?: Object;
-    explain?: boolean;
-    snapshot?: boolean;
-    timeout?: boolean;
-    tailtable?: boolean;
-    tailableRetryInterval?: number;
-    numberOfRetries?: number;
-    awaitdata?: boolean;
-    oplogReplay?: boolean;
-    exhaust?: boolean;
-    batchSize?: number;
-    returnKey?: boolean;
-    maxScan?: number;
-    min?: number;
-    max?: number;
-    showDiskLoc?: boolean;
-    comment?: String;
-    raw?: boolean;
-    readPreference?: String;
-    partial?: boolean;
+    fields?: Object | undefined;
+    skip?: number | undefined;
+    hint?: Object | undefined;
+    explain?: boolean | undefined;
+    snapshot?: boolean | undefined;
+    timeout?: boolean | undefined;
+    tailtable?: boolean | undefined;
+    tailableRetryInterval?: number | undefined;
+    numberOfRetries?: number | undefined;
+    awaitdata?: boolean | undefined;
+    oplogReplay?: boolean | undefined;
+    exhaust?: boolean | undefined;
+    batchSize?: number | undefined;
+    returnKey?: boolean | undefined;
+    maxScan?: number | undefined;
+    min?: number | undefined;
+    max?: number | undefined;
+    showDiskLoc?: boolean | undefined;
+    comment?: String | undefined;
+    raw?: boolean | undefined;
+    readPreference?: String | undefined;
+    partial?: boolean | undefined;
 }
 
 export interface MongoCollectionOptions {
     safe?: any;
     serializeFunctions?: any;
-    strict?: boolean;
-    raw?: boolean;
+    strict?: boolean | undefined;
+    raw?: boolean | undefined;
     pkFactory?: any;
-    readPreference?: string;
+    readPreference?: string | undefined;
 }

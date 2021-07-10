@@ -186,18 +186,18 @@ declare namespace FHIR {
             /**
              * The resource in which the reference will be resolved if the reference is a contained one.
              */
-            resource?: Resource;
+            resource?: Resource | undefined;
             /**
              * The Bundle resource in which the reference will be resolved if the reference is a contained one within the bundle.
              */
-            bundle?: Resource;
+            bundle?: Resource | undefined;
         }
 
         interface CommonQueryFilters {
             /**
              * Number of return records requested. The server is not bound to return the number requested, but cannot return more
              */
-            count?: number;
+            count?: number | undefined;
 
             /**
              * Only include resource versions that were created at or after the given instant in time
@@ -207,7 +207,7 @@ declare namespace FHIR {
              * use date and dateTime. instant is a more constrained dateTime xs:dateTime A JSON string - an xs:dateTime
              * Note: This type is for system times, not human times (see date and dateTime below).
              */
-            since?: string;
+            since?: string | undefined;
 
             /**
              * Addition filters to be applied on the history query. The object will be converted into query string parameters.
@@ -221,28 +221,28 @@ declare namespace FHIR {
                  * to mean the JSON format, and the codes ttl and text/turtle SHALL be interpreted to mean the Turtle RDF format.
                  * In addition, the values html and text/html are allowed.
                  */
-                _format?: string;
+                _format?: string | undefined;
                 /**
                  * Type: dateTime    Only include resource versions that were current at some point during the time period specified
                  * in the date time value (may be more than one)
                  */
-                _at?: string;
+                _at?: string | undefined;
                 /**
                  * Making this interface extendable so that we can add more custom filter parameters
                  */
                 [propName: string]: any;
-            };
+            } | undefined;
         }
 
         interface HistoryParams extends CommonQueryFilters {
             /**
              * Resource ID,  if the history to be fetched is resource specific.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * Type of the resource,  if the history to be fetched is resource specific.
              */
-            type?: string;
+            type?: string | undefined;
         }
 
         /**
@@ -283,7 +283,7 @@ declare namespace FHIR {
             /**
              * The patient id. If provided, will make the search query patient specific by adding the patien query parameter
              */
-            patient?: string;
+            patient?: string | undefined;
         }
 
         /**
@@ -300,11 +300,11 @@ declare namespace FHIR {
             /**
              * Version Stamp of resource
              */
-            versionId?: string;
+            versionId?: string | undefined;
             /**
              * FHIR Resource type name
              */
-            type?: string;
+            type?: string | undefined;
             /**
              * FHIR Resource
              */
@@ -420,15 +420,15 @@ declare namespace FHIR {
             /**
              * Username if the type of authorization in 'basic'
              */
-            username?: string;
+            username?: string | undefined;
             /**
              * Password if the type of authorization in 'basic'
              */
-            password?: string;
+            password?: string | undefined;
             /**
              * Access token to be set if the type of authorization is 'bearer'
              */
-            token?: string;
+            token?: string | undefined;
         }
 
         /**
@@ -442,15 +442,15 @@ declare namespace FHIR {
             /**
              * Authorization context
              */
-            auth?: AuthContext;
+            auth?: AuthContext | undefined;
             /**
              * Patient in context
              */
-            patientId?: string;
+            patientId?: string | undefined;
             /**
              * User in context
              */
-            userId?: string;
+            userId?: string | undefined;
         }
 
         /**
@@ -465,7 +465,7 @@ declare namespace FHIR {
             /**
              * Resource ID
              */
-            id?: string;
+            id?: string | undefined;
         }
 
         /**
@@ -528,12 +528,12 @@ declare namespace FHIR {
             /**
              * Patient in context and interface to perform FHIR API calls within its context
              */
-            patient?: Patient;
+            patient?: Patient | undefined;
 
             /**
              * Id of the user in context
              */
-            userId?: string;
+            userId?: string | undefined;
 
             /**
              * User in context and exposes a method 'read' to get information.
@@ -612,19 +612,19 @@ declare namespace FHIR {
             /**
              * URI to which the code is sent via query string during the OAuth2 authorization workflow. Defaults to the applications base url.
              */
-            redirect_uri?: string;
+            redirect_uri?: string | undefined;
             /**
              * Scopes based on the access required by the application
              */
-            scope?: string;
+            scope?: string | undefined;
             /**
              * If the application registered is a confidential application, the client_secret needs to be provided during the Token workflow. (Not recommended for public applications)
              */
-            secret?: string;
+            secret?: string | undefined;
             /**
              * Override the state parameter set by the SMART JS Client library. The library generates a random string as state.
              */
-            state?: string;
+            state?: string | undefined;
         }
 
         /**
@@ -634,15 +634,15 @@ declare namespace FHIR {
             /**
              * OAuth2 Registration URI
              */
-            registration_uri?: string;
+            registration_uri?: string | undefined;
             /**
              * OAuth2 Authorize URI
              */
-            authorize_uri?: string;
+            authorize_uri?: string | undefined;
             /**
              * OAuth2 Token URI
              */
-            token_uri?: string;
+            token_uri?: string | undefined;
         }
 
         /**
@@ -656,15 +656,15 @@ declare namespace FHIR {
             /**
              * Unique name for the provider
              */
-            name?: string;
+            name?: string | undefined;
             /**
              * Description about the provider
              */
-            description?: string;
+            description?: string | undefined;
             /**
              * The OAuth2 endpoints (Registration URI, Authorize URI, Token URI)
              */
-            oauth2?: OAuth2Endpoints;
+            oauth2?: OAuth2Endpoints | undefined;
         }
 
         /**
@@ -674,15 +674,15 @@ declare namespace FHIR {
             /**
              * Set the response type based on the Authorization Grant eg. code(Authorization Code Grant), token(Implicit Grant)
              */
-            response_type?: string;
+            response_type?: string | undefined;
             /**
              * Client or application specific settings provided on the FHIR server during the client/application registration.
              */
-            client?: OAuth2ClientSettings;
+            client?: OAuth2ClientSettings | undefined;
             /**
              * FHIR Service URL
              */
-            server?: string;
+            server?: string | undefined;
             /**
              * Fake Access Token Response. Should contain the patient property to set the patient context.
              */
@@ -690,7 +690,7 @@ declare namespace FHIR {
             /**
              * OAuth2 Provider information. If provided during the Authorize call, the library skips the conformance statement introspection
              */
-            provider?: OAuth2Provider;
+            provider?: OAuth2Provider | undefined;
         }
 
         /**

@@ -1,11 +1,11 @@
 declare module 'querystring' {
     interface StringifyOptions {
-        encodeURIComponent?: (str: string) => string;
+        encodeURIComponent?: ((str: string) => string) | undefined;
     }
 
     interface ParseOptions {
-        maxKeys?: number;
-        decodeURIComponent?: (str: string) => string;
+        maxKeys?: number | undefined;
+        decodeURIComponent?: ((str: string) => string) | undefined;
     }
 
     interface ParsedUrlQuery extends NodeJS.Dict<string | string[]> { }
@@ -25,4 +25,8 @@ declare module 'querystring' {
     const decode: typeof parse;
     function escape(str: string): string;
     function unescape(str: string): string;
+}
+
+declare module 'node:querystring' {
+    export * from 'querystring';
 }

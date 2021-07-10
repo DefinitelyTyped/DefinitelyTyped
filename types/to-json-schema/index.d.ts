@@ -22,65 +22,65 @@ declare function toJsonSchema(
 
 declare namespace toJsonSchema {
     interface JSONSchema3or4 {
-        id?: JSONSchema4['id'];
-        $ref?: JSONSchema4['$ref'];
-        $schema?: JSONSchema4['$schema'];
-        title?: JSONSchema4['title'];
-        description?: JSONSchema4['description'];
+        id?: JSONSchema4['id'] | undefined;
+        $ref?: JSONSchema4['$ref'] | undefined;
+        $schema?: JSONSchema4['$schema'] | undefined;
+        title?: JSONSchema4['title'] | undefined;
+        description?: JSONSchema4['description'] | undefined;
 
-        default?: JSONSchema4['default'];
-        multipleOf?: JSONSchema4['multipleOf'];
+        default?: JSONSchema4['default'] | undefined;
+        multipleOf?: JSONSchema4['multipleOf'] | undefined;
         /** JSON Schema 3 uses `divisibleBy` instead of `multipleOf`. */
-        divisibleBy?: JSONSchema4['multipleOf'];
-        maximum?: JSONSchema4['maximum'];
-        exclusiveMaximum?: JSONSchema4['exclusiveMaximum'];
-        minimum?: JSONSchema4['minimum'];
-        exclusiveMinimum?: JSONSchema4['exclusiveMinimum'];
-        maxLength?: JSONSchema4['maxLength'];
-        minLength?: JSONSchema4['minLength'];
-        pattern?: JSONSchema4['pattern'];
+        divisibleBy?: JSONSchema4['multipleOf'] | undefined;
+        maximum?: JSONSchema4['maximum'] | undefined;
+        exclusiveMaximum?: JSONSchema4['exclusiveMaximum'] | undefined;
+        minimum?: JSONSchema4['minimum'] | undefined;
+        exclusiveMinimum?: JSONSchema4['exclusiveMinimum'] | undefined;
+        maxLength?: JSONSchema4['maxLength'] | undefined;
+        minLength?: JSONSchema4['minLength'] | undefined;
+        pattern?: JSONSchema4['pattern'] | undefined;
 
-        additionalItems?: boolean | JSONSchema3or4;
-        items?: JSONSchema3or4 | JSONSchema3or4[];
+        additionalItems?: boolean | JSONSchema3or4 | undefined;
+        items?: JSONSchema3or4 | JSONSchema3or4[] | undefined;
 
-        maxItems?: JSONSchema4['maxItems'];
-        minItems?: JSONSchema4['minItems'];
-        uniqueItems?: JSONSchema4['uniqueItems'];
-        maxProperties?: JSONSchema4['maxProperties'];
-        minProperties?: JSONSchema4['minProperties'];
+        maxItems?: JSONSchema4['maxItems'] | undefined;
+        minItems?: JSONSchema4['minItems'] | undefined;
+        uniqueItems?: JSONSchema4['uniqueItems'] | undefined;
+        maxProperties?: JSONSchema4['maxProperties'] | undefined;
+        minProperties?: JSONSchema4['minProperties'] | undefined;
 
-        required?: boolean | JSONSchema4['required'];
-        additionalProperties?: boolean | JSONSchema3or4;
+        required?: boolean | JSONSchema4['required'] | undefined;
+        additionalProperties?: boolean | JSONSchema3or4 | undefined;
 
-        definitions?: JSONSchema4['definitions'];
+        definitions?: JSONSchema4['definitions'] | undefined;
 
         properties?: {
             [k: string]: JSONSchema3or4
-        };
+        } | undefined;
 
         patternProperties?: {
             [k: string]: JSONSchema3or4
-        };
+        } | undefined;
         dependencies?: {
             [k: string]: JSONSchema3or4 | string | string[]
-        };
+        } | undefined;
 
-        enum?: JSONSchema4['enum'];
-        type?: JSONSchema4['type'];
+        enum?: JSONSchema4['enum'] | undefined;
+        type?: JSONSchema4['type'] | undefined;
 
-        allOf?: JSONSchema4['allOf'];
-        anyOf?: JSONSchema4['anyOf'];
-        oneOf?: JSONSchema4['oneOf'];
-        not?: JSONSchema4['not'];
+        allOf?: JSONSchema4['allOf'] | undefined;
+        anyOf?: JSONSchema4['anyOf'] | undefined;
+        oneOf?: JSONSchema4['oneOf'] | undefined;
+        not?: JSONSchema4['not'] | undefined;
 
         /** JSON Schema 3 only */
-        disallow?: string | Array<string | JSONSchema3or4>;
+        disallow?: string | Array<string | JSONSchema3or4> | undefined;
 
-        extends?: JSONSchema3or4 | JSONSchema3or4[];
+        extends?: JSONSchema3or4 | JSONSchema3or4[] | undefined;
 
         [k: string]: any;
 
-        format?: string;
+        format?: string | undefined;
     }
 
     interface Options {
@@ -94,7 +94,7 @@ declare namespace toJsonSchema {
          * const schema = toJsonSchema(33, {required: true});
          * // { type: "integer", "required": true }
          */
-        required?: boolean;
+        required?: boolean | undefined;
         /**
          * By providing `postProcessFnc`, you can modify or replace generated
          * schema. This function will be called recursively for all the properties
@@ -137,8 +137,8 @@ declare namespace toJsonSchema {
              *
              * @default 'all'
              */
-            mode?: 'all' | 'first' | 'uniform' | 'tuple';
-        };
+            mode?: 'all' | 'first' | 'uniform' | 'tuple' | undefined;
+        } | undefined;
         objects?: {
             /**
              * By providing custom function you will be able to modify any object
@@ -179,8 +179,8 @@ declare namespace toJsonSchema {
              *
              * @default true
              */
-            additionalProperties?: boolean;
-        };
+            additionalProperties?: boolean | undefined;
+        } | undefined;
         strings?: {
             /**
              * By providing custom function you will be able to modify any string
@@ -217,7 +217,7 @@ declare namespace toJsonSchema {
              *
              * @default true
              */
-            detectFormat?: boolean;
-        };
+            detectFormat?: boolean | undefined;
+        } | undefined;
     }
 }

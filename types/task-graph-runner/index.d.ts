@@ -12,7 +12,7 @@ declare namespace taskGraphRunner {
     interface Opts<Item, Result> {
         graph: Map<Item, Item[]>;
         task: (item: Item) => Result;
-        force?: boolean;
+        force?: boolean | undefined;
     }
 
     interface Results<Item, Result> {

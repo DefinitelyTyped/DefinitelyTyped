@@ -198,7 +198,7 @@ export interface ApplePay {
      * });
      */
     performValidation(
-        options: { validationURL: string; displayName?: string; merchantIdentifier?: string },
+        options: { validationURL: string; displayName?: string | undefined; merchantIdentifier?: string | undefined },
         callback: callback,
     ): void;
 

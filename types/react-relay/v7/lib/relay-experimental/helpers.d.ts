@@ -6,7 +6,7 @@ import { FragmentReference } from 'relay-runtime';
 import { EntryPoint } from './EntryPointTypes';
 
 export type KeyType<TData = unknown> = Readonly<{
-    ' $data'?: TData;
+    ' $data'?: TData | undefined;
     ' $fragmentRefs': FragmentReference;
 }>;
 

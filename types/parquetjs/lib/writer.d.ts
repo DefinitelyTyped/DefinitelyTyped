@@ -6,16 +6,16 @@ import { RowBufferInterface } from './rowBuffer.interface';
 import { RowInterface } from './row.interface';
 
 export interface ParquetWriterOpts {
-    autoClose?: boolean;
-    bitWidth?: number;
-    disableEnvelope?: boolean;
-    encoding?: string;
-    fd?: number;
-    flags?: string;
-    mode?: number;
-    rowGroupSize?: number;
-    start?: number;
-    useDataPageV2?: boolean;
+    autoClose?: boolean | undefined;
+    bitWidth?: number | undefined;
+    disableEnvelope?: boolean | undefined;
+    encoding?: string | undefined;
+    fd?: number | undefined;
+    flags?: string | undefined;
+    mode?: number | undefined;
+    rowGroupSize?: number | undefined;
+    start?: number | undefined;
+    useDataPageV2?: boolean | undefined;
 }
 
 export class ParquetWriter {

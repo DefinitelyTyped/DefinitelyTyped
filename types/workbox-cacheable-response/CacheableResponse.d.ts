@@ -4,6 +4,6 @@ export class CacheableResponse {
 }
 
 export interface CacheableResponseConfig {
-    headers?: Record<string, string>;
-    statuses?: number[];
+    headers?: Record<string, string> | undefined;
+    statuses?: number[] | undefined;
 }

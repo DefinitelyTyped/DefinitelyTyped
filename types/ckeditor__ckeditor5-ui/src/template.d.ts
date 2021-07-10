@@ -36,7 +36,7 @@ export default class Template implements Emitter {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
@@ -69,11 +69,11 @@ interface RenderData {
 }
 
 export interface TemplateDefinition {
-    attributes?: Record<string, TemplateValueSchema>;
-    children?: Array<string | View | Node | TemplateDefinition>;
-    on?: Record<string, TemplateListenerSchema>;
-    tag?: string;
-    text?: string | TemplateValueSchema | Array<string | TemplateValueSchema>;
+    attributes?: Record<string, TemplateValueSchema> | undefined;
+    children?: Array<string | View | Node | TemplateDefinition> | undefined;
+    on?: Record<string, TemplateListenerSchema> | undefined;
+    tag?: string | undefined;
+    text?: string | TemplateValueSchema | Array<string | TemplateValueSchema> | undefined;
 }
 
 export type TemplateListenerSchema = TemplateBinding | TemplateBinding[];
@@ -82,7 +82,7 @@ export type TemplateValueSchema =
     | string
     | TemplateBinding
     | Array<string | TemplateBinding>
-    | { ns?: string; value: string | TemplateBinding | Array<string | TemplateBinding> }
+    | { ns?: string | undefined; value: string | TemplateBinding | Array<string | TemplateBinding> }
     | Record<string, TemplateBinding>;
 
 export class TemplateToBinding {

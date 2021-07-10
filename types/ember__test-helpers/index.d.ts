@@ -107,10 +107,10 @@ declare module '@ember/test-helpers/dom/trigger-key-event' {
     export type KeyEvent = 'keydown' | 'keyup' | 'keypress';
 
     export interface KeyModifiers {
-        ctrlKey?: boolean;
-        altKey?: boolean;
-        shiftKey?: boolean;
-        metaKey?: boolean;
+        ctrlKey?: boolean | undefined;
+        altKey?: boolean | undefined;
+        shiftKey?: boolean | undefined;
+        metaKey?: boolean | undefined;
     }
 
     export default function(target: Target, eventType: KeyEvent, key: number | string, modifiers?: KeyModifiers): Promise<void>;
@@ -169,9 +169,9 @@ declare module '@ember/test-helpers/setup-rendering-context' {
 
 declare module '@ember/test-helpers/dom/wait-for' {
     export interface Options {
-        timeout?: number;
-        count?: number;
-        timeoutMessage?: string;
+        timeout?: number | undefined;
+        count?: number | undefined;
+        timeoutMessage?: string | undefined;
     }
 
     export default function(selector: string, options?: Options): Promise<Element | Element[]>;
@@ -179,8 +179,8 @@ declare module '@ember/test-helpers/dom/wait-for' {
 
 declare module '@ember/test-helpers/wait-until' {
     export interface Options {
-        timeout?: number;
-        timeoutMessage?: string;
+        timeout?: number | undefined;
+        timeoutMessage?: string | undefined;
     }
 
     export default function<T>(callback: () => T, options?: Options): Promise<T>;
@@ -204,7 +204,7 @@ declare module '@ember/test-helpers/settled' {
 declare module '@ember/test-helpers/setup-context' {
     import Resolver from '@ember/application/resolver';
 
-    export default function<C extends object>(context: C, options?: { resolver?: Resolver }): Promise<C>;
+    export default function<C extends object>(context: C, options?: { resolver?: Resolver | undefined }): Promise<C>;
     export function getContext(): object;
     export function setContext(context: object): void;
     export function unsetContext(): void;

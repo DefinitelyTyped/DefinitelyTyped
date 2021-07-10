@@ -44,13 +44,13 @@ declare namespace mkdirp {
     }
 
     interface Options {
-        mode?: Mode;
-        fs?: FsImplementation;
+        mode?: Mode | undefined;
+        fs?: FsImplementation | undefined;
     }
 
     interface OptionsSync {
-        mode?: Mode;
-        fs?: FsImplementationSync;
+        mode?: Mode | undefined;
+        fs?: FsImplementationSync | undefined;
     }
 
     /**

@@ -102,7 +102,7 @@ declare namespace AMap {
              */
             tel: string;
             shopinfo: string;
-            children?: any[]; // TODO Array<{location: LngLat | null}>
+            children?: any[] | undefined; // TODO Array<{location: LngLat | null}>
         }
         interface Groupbuy {
             /**
@@ -486,11 +486,11 @@ declare namespace AMap {
             /**
              * @deprecated 团购信息
              */
-            groupbuys?: Groupbuy[];
+            groupbuys?: Groupbuy[] | undefined;
             /**
              * @deprecated 优惠信息
              */
-            discounts?: Discount[];
+            discounts?: Discount[] | undefined;
         } & ({
             deep_type: 'CINEMA';
             /**
@@ -520,61 +520,61 @@ declare namespace AMap {
             /**
              * 兴趣点城市
              */
-            city?: string;
+            city?: string | undefined;
             /**
              * 是否强制限制在设置的城市内搜索
              */
-            citylimit?: boolean;
+            citylimit?: boolean | undefined;
             /**
              * 是否按照层级展示子POI数据
              * children=1，展示子节点POI数据，children=0，不展示子节点数据
              */
-            children?: number;
+            children?: number | undefined;
             /**
              * 兴趣点类别，多个类别用“|”分割
              */
-            type?: string;
+            type?: string | undefined;
             /**
              * 检索语言类型
              */
-            lang?: Lang;
+            lang?: Lang | undefined;
             /**
              * 单页显示结果条数
              */
-            pageSize?: number;
+            pageSize?: number | undefined;
             /**
              * 页码
              */
-            pageIndex?: number;
+            pageIndex?: number | undefined;
             /**
              * 是否返回详细信息
              * base返回基本地址信息；all返回基本+详细信息
              */
-            extensions?: 'base' | 'all';
+            extensions?: 'base' | 'all' | undefined;
             /**
              * Map对象
              */
-            map?: Map;
+            map?: Map | undefined;
             /**
              * 结果列表的HTML容器id或容器元素
              */
-            panel?: string | HTMLElement;
+            panel?: string | HTMLElement | undefined;
             /**
              * 是否在地图上显示周边搜索的圆或者范围搜索的多边形
              */
-            showCover?: boolean;
+            showCover?: boolean | undefined;
             /**
              * 绘制的UI风格
              */
-            renderStyle?: 'newpc' | 'default';
+            renderStyle?: 'newpc' | 'default' | undefined;
             /**
              * 是否自动调整地图视野使绘制的Marker点都处于视口的可见范围
              */
-            autoFitView?: boolean;
+            autoFitView?: boolean | undefined;
 
             // internal
-            renderEngine?: string;
-            rankBy?: string;
+            renderEngine?: string | undefined;
+            rankBy?: string | undefined;
         }
         interface PoiList {
             /**
@@ -624,11 +624,11 @@ declare namespace AMap {
             /**
              * 建议关键字列表
              */
-            keywordList?: string[];
+            keywordList?: string[] | undefined;
             /**
              * 城市建议列表
              */
-            cityList?: CityInfo[];
+            cityList?: CityInfo[] | undefined;
         }
         type Poi = PoiBase | PoiExt;
         type SearchStatus = 'complete' | 'error' | 'no_data';
@@ -723,12 +723,12 @@ declare namespace AMap {
          * 唤起高德地图客户端marker页
          * @param obj 唤起参数
          */
-        poiOnAMAP(obj: { location?: LocationValue; id: string; name?: string; }): void;
+        poiOnAMAP(obj: { location?: LocationValue | undefined; id: string; name?: string | undefined; }): void;
         /**
          * 唤起高德地图客户端POI详情页
          * @param obj 唤起参数
          */
-        detailOnAMAP(obj: { location?: LocationValue; id: string; name?: string; }): void;
+        detailOnAMAP(obj: { location?: LocationValue | undefined; id: string; name?: string | undefined; }): void;
 
         // internal
         open(): void;

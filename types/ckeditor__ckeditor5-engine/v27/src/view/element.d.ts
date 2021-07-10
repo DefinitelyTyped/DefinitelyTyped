@@ -11,9 +11,9 @@ export default abstract class Element extends Node {
             | string
             | RegExp
             | {
-                  attributes?: Record<string, string | RegExp | boolean>;
-                  classes?: string | RegExp | Array<string | RegExp>;
-                  name?: string | RegExp;
+                  attributes?: Record<string, string | RegExp | boolean> | undefined;
+                  classes?: string | RegExp | Array<string | RegExp> | undefined;
+                  name?: string | RegExp | undefined;
                   styles: Record<string, string>;
               },
     ): Element | null;

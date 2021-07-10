@@ -36,15 +36,15 @@ export type RouteThunk<TState = any> = (
 ) => any | Promise<any>;
 
 export type RouteObject<TKeys = {}, TState = any> = TKeys & {
-    capitalizedWords?: boolean;
-    navKey?: string;
-    path?: string;
-    thunk?: RouteThunk<TState>;
+    capitalizedWords?: boolean | undefined;
+    navKey?: string | undefined;
+    path?: string | undefined;
+    thunk?: RouteThunk<TState> | undefined;
     fromPath?(path: string, key?: string): string;
     toPath?(param: string, key?: string): string;
-    coerceNumbers?: boolean;
-    confirmLeave?: ConfirmLeave;
-    meta?: Meta;
+    coerceNumbers?: boolean | undefined;
+    confirmLeave?: ConfirmLeave | undefined;
+    meta?: Meta | undefined;
 };
 
 export type Route<TKeys = {}, TState = any> = RouteString | RouteObject<TKeys, TState>;
@@ -56,21 +56,21 @@ export interface RoutesMap<TKeys = {}, TState = any> {
 export interface ReceivedAction {
     type: string;
     payload: Payload;
-    meta?: object;
-    query?: Query;
-    search?: string;
-    navKey?: Nullable<string>;
+    meta?: object | undefined;
+    query?: Query | undefined;
+    search?: string | undefined;
+    navKey?: Nullable<string> | undefined;
 }
 
 export interface ReceivedActionMeta {
     type: string;
     payload: Payload;
-    query?: Query;
-    navKey?: Nullable<string>;
+    query?: Query | undefined;
+    navKey?: Nullable<string> | undefined;
     meta: {
-        notFoundPath?: string;
-        query?: Query;
-        search?: string;
+        notFoundPath?: string | undefined;
+        query?: Query | undefined;
+        search?: string | undefined;
     };
 }
 
@@ -86,21 +86,21 @@ export interface Location {
     pathname: string;
     type: string;
     payload: Payload;
-    query?: Query;
-    search?: string;
+    query?: Query | undefined;
+    search?: string | undefined;
 }
 
 export interface LocationState<TKeys = {}, TState = any> {
     pathname: string;
     type: string;
     payload: Payload;
-    query?: Query;
-    search?: string;
+    query?: Query | undefined;
+    search?: string | undefined;
     prev: Location;
     kind: Nullable<string>;
     history: Nullable<HistoryData>;
     routesMap: RoutesMap<TKeys, TState>;
-    hasSSR?: boolean;
+    hasSSR?: boolean | undefined;
 }
 
 export interface ActionMetaLocation {
@@ -112,34 +112,34 @@ export interface ActionMetaLocation {
 
 export interface NavigationAction {
     type: string;
-    key?: Nullable<string>;
-    navKey?: Nullable<string>;
-    routeName?: string;
-    actions?: NavigationAction[];
-    action?: NavigationAction;
-    params?: Params;
-    meta?: object;
+    key?: Nullable<string> | undefined;
+    navKey?: Nullable<string> | undefined;
+    routeName?: string | undefined;
+    actions?: NavigationAction[] | undefined;
+    action?: NavigationAction | undefined;
+    params?: Params | undefined;
+    meta?: object | undefined;
 }
 
 export interface Meta {
     location: ActionMetaLocation;
-    notFoundPath?: string;
-    navigation?: NavigationAction;
-    query?: Query;
-    search?: string;
+    notFoundPath?: string | undefined;
+    navigation?: NavigationAction | undefined;
+    query?: Query | undefined;
+    search?: string | undefined;
 }
 
 export interface Action {
     type: string;
-    payload?: Payload;
-    meta?: Meta;
-    query?: Query;
-    navKey?: Nullable<string>;
+    payload?: Payload | undefined;
+    meta?: Meta | undefined;
+    query?: Query | undefined;
+    navKey?: Nullable<string> | undefined;
 }
 
 export interface HistoryLocation {
     pathname: string;
-    search?: string;
+    search?: string | undefined;
 }
 
 export type HistoryAction = string;
@@ -213,45 +213,45 @@ export interface Options<TKeys = {}, TState = any> {
      * A prefix that will be prepended to the URL. For example, using a basename of '/playground',
      * a route with the path '/home' would correspond to the URL path '/playground/home'.
      */
-    basename?: string;
+    basename?: string | undefined;
     /**
      *  Whether or not a trailing delimiter is allowed when matching path.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
     /**
      * The name of the state key or a selector function to specify where in your Redux state tree
      * Redux First Router should expect your page location reducer to be attached to.
      */
-    location?: string | SelectLocationState<TKeys, TState>;
+    location?: string | SelectLocationState<TKeys, TState> | undefined;
     /**
      * The name of the state key or a selector function to specify where in your Redux state tree
      * Redux First Router should expect your page title reducer to be attached to.
      * This can be omitted if you attach the reducer at state.title.
      */
-    title?: string | SelectTitleState<TState>;
+    title?: string | SelectTitleState<TState> | undefined;
     /**
      * Can be set to false to bypass the initial dispatch, so you can do it manually, perhaps after running sagas.
      */
-    initialDispatch?: boolean;
+    initialDispatch?: boolean | undefined;
     /**
      * An array of entries to initialise history object. Useful for server side rendering and tests.
      */
-    initialEntries?: HistoryEntries;
+    initialEntries?: HistoryEntries | undefined;
     /**
      * An object with parse and stringify methods, such as the `query-string` or `qs` libraries (or anything handmade).
      * This will be used to handle querystrings. Without this option, query strings are ignored silently.
      */
-    querySerializer?: QuerySerializer;
+    querySerializer?: QuerySerializer | undefined;
     /**
      * The path where users may be redirected in 2 situations: when you dispatch an action with no matching path,
      *  or if you manually call dispatch(redirect({ type: NOT_FOUND })), where NOT_FOUND is an export from this package.
      *  The type in actions and state will be NOT_FOUND, which you can use to show a 404 page.
      */
-    notFoundPath?: string;
+    notFoundPath?: string | undefined;
     /**
      * Whether or not window.scrollTo(0, 0) should be run on route changes so the user starts each page at the top.
      */
-    scrollTop?: boolean;
+    scrollTop?: boolean | undefined;
     /**
      * A function to update window/elements scroll position.
      */
@@ -280,7 +280,7 @@ export interface Options<TKeys = {}, TState = any> {
      * The message is the return value from `confirmLeave`.
      * The callback can be called with `true` to unblock the navigation, or with `false` to cancel the navigation.
      */
-    displayConfirmLeave?: DisplayConfirmLeave;
+    displayConfirmLeave?: DisplayConfirmLeave | undefined;
     /**
      * A function returning a history object compatible with the popular `history` package.
      */
@@ -288,7 +288,7 @@ export interface Options<TKeys = {}, TState = any> {
     /**
      * A map of of your Redux state keys to _React Navigation_ navigators.
      */
-    navigators?: NavigatorsConfig<TKeys, TState>;
+    navigators?: NavigatorsConfig<TKeys, TState> | undefined;
     /**
      * An optional value that will be passed as part of the third `bag` argument to all options callbacks and routes thunk.
      * It works much like the `withExtraArgument` feature of `redux-thunk` or the `context` argument of GraphQL resolvers.
@@ -308,7 +308,7 @@ export interface Params {
 }
 
 export interface Payload {
-    query?: Query;
+    query?: Query | undefined;
     [key: string]: any;
 }
 

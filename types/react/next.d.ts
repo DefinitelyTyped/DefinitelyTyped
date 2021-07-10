@@ -39,7 +39,7 @@ declare module '.' {
          * In other words, the tree is CPU bound and not I/O bound (e.g. due to fetching data).
          * @see {@link https://github.com/facebook/react/pull/19936}
          */
-        unstable_expectedLoadTime?: number;
+        unstable_expectedLoadTime?: number | undefined;
     }
 
     export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
@@ -68,18 +68,18 @@ declare module '.' {
          * - `collapsed` shows only the next fallback in the list.
          * - `hidden` doesn’t show any unloaded items.
          */
-        tail?: SuspenseListTailMode;
+        tail?: SuspenseListTailMode | undefined;
     }
 
     interface NonDirectionalSuspenseListProps extends SuspenseListCommonProps {
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps['revealOrder']>;
+        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps['revealOrder']> | undefined;
         /**
          * The tail property is invalid when not using the `forwards` or `backwards` reveal orders.
          */
-        tail?: never;
+        tail?: never | undefined;
     }
 
     export type SuspenseListProps = DirectionalSuspenseListProps | NonDirectionalSuspenseListProps;

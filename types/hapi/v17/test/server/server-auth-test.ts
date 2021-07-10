@@ -5,7 +5,7 @@ import * as Boom from "boom";
 
 declare module 'hapi' {
     interface AuthCredentials {
-        name?: string;
+        name?: string | undefined;
     }
 }
 

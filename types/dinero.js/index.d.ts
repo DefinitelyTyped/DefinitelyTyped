@@ -25,9 +25,9 @@ declare namespace DineroFactory {
     function maximum(objects: ReadonlyArray<Dinero>): Dinero;
 
     interface Options {
-        amount?: number;
-        currency?: Currency;
-        precision?: number;
+        amount?: number | undefined;
+        currency?: Currency | undefined;
+        precision?: number | undefined;
     }
 
     interface Dinero {
@@ -77,9 +77,9 @@ declare namespace DineroFactory {
 
     interface ExchangeRatesApiOptions {
         endpoint: string | Promise<{[key: string]: any}>;
-        propertyPath?: string;
-        headers?: { [header: string]: string };
-        roundingMode?: RoundingMode;
+        propertyPath?: string | undefined;
+        headers?: { [header: string]: string } | undefined;
+        roundingMode?: RoundingMode | undefined;
     }
 
     interface DineroObject {

@@ -727,12 +727,12 @@ declare module "strophe.js" {
 
 
       interface OccupantInfo {
-        nick?:        string;
-        affiliation?: string;
-        role?:        string;
-        jid?:         string;
-        status?:      string;
-        show?:        string;
+        nick?:        string | undefined;
+        affiliation?: string | undefined;
+        role?:        string | undefined;
+        jid?:         string | undefined;
+        status?:      string | undefined;
+        show?:        string | undefined;
       }
 
 

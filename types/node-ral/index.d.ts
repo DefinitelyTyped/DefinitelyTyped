@@ -87,29 +87,29 @@ export abstract class RalModule {
 }
 
 export interface Server {
-    idc?: string;
+    idc?: string | undefined;
     host: string;
     port: string | number;
 }
 
 export type buildInConverter = 'form' | 'formData' | 'json' | 'protobuf' | 'querystring' | 'raw' | 'redis' | 'stream' | 'string';
 export interface Service {
-    method?: 'GET' | 'POST';
+    method?: 'GET' | 'POST' | undefined;
     server: Server[];
-    hybird?: boolean;
-    timeout?: number;
-    retry?: number;
+    hybird?: boolean | undefined;
+    timeout?: number | undefined;
+    retry?: number | undefined;
     unpack: buildInConverter;
     pack: buildInConverter;
-    encoding?: 'utf-8' | 'GBK';
+    encoding?: 'utf-8' | 'GBK' | undefined;
     balance: 'random' | 'roundrobin' | 'hashring';
     protocol: 'http' | 'https' | 'soap' | 'redis';
     headers?: {
         [key: string]: string | number
-    };
+    } | undefined;
     query?: any;
     data?: any;
-    path?: string;
+    path?: string | undefined;
 }
 
 export type BalanceContextConstructor = new (serviceID: string, service: Service) => Balance.BalanceContextClass;

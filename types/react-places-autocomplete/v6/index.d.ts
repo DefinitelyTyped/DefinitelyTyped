@@ -29,39 +29,39 @@ export interface InputProps extends Pick<
 
 export interface PropTypes {
     inputProps: InputProps;
-    onError?: (status: string, clearSuggestion: () => void) => void;
-    onSelect?: (address: string, placeID: string) => void;
-    renderSuggestion?: (obj: {
+    onError?: ((status: string, clearSuggestion: () => void) => void) | undefined;
+    onSelect?: ((address: string, placeID: string) => void) | undefined;
+    renderSuggestion?: ((obj: {
       suggestion: string;
       formattedSuggestion: formattedSuggestionType;
-    }) => React.ReactNode;
+    }) => React.ReactNode) | undefined;
     classNames?: {
-        root?: string;
-        input?: string;
-        autocompleteContainer?: string;
-        autocompleteItem?: string;
-        autocompleteItemActive?: string;
-    };
+        root?: string | undefined;
+        input?: string | undefined;
+        autocompleteContainer?: string | undefined;
+        autocompleteItem?: string | undefined;
+        autocompleteItemActive?: string | undefined;
+    } | undefined;
     styles?: {
-        root?: React.CSSProperties;
-        input?: React.CSSProperties;
-        autocompleteContainer?: React.CSSProperties;
-        autocompleteItem?: React.CSSProperties;
-        autocompleteItemActive?: React.CSSProperties;
-    };
+        root?: React.CSSProperties | undefined;
+        input?: React.CSSProperties | undefined;
+        autocompleteContainer?: React.CSSProperties | undefined;
+        autocompleteItem?: React.CSSProperties | undefined;
+        autocompleteItemActive?: React.CSSProperties | undefined;
+    } | undefined;
     options?: {
-        bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
-        componentRestrictions?: google.maps.GeocoderComponentRestrictions;
-        location?: google.maps.LatLng | google.maps.LatLngLiteral;
-        offset?: number | string;
-        radius?: number | string;
-        types?: string[];
-    };
+        bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined;
+        componentRestrictions?: google.maps.GeocoderComponentRestrictions | undefined;
+        location?: google.maps.LatLng | google.maps.LatLngLiteral | undefined;
+        offset?: number | string | undefined;
+        radius?: number | string | undefined;
+        types?: string[] | undefined;
+    } | undefined;
 
-    debounce?: number;
-    highlightFirstSuggestion?: boolean;
-    renderFooter?: () => React.ReactNode;
-    shouldFetchSuggestions?: (value: string) => boolean;
+    debounce?: number | undefined;
+    highlightFirstSuggestion?: boolean | undefined;
+    renderFooter?: (() => React.ReactNode) | undefined;
+    shouldFetchSuggestions?: ((value: string) => boolean) | undefined;
 }
 
 export function geocodeByAddress(address: string, callback: (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => void): void;

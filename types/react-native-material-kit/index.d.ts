@@ -19,134 +19,134 @@ import {
 ///////////////////////////////
 
 export interface ProgressStyle {
-    backgroundColor?: string;
-    progressColor?: string;
-    bufferColor?: string;
+    backgroundColor?: string | undefined;
+    progressColor?: string | undefined;
+    bufferColor?: string | undefined;
 }
 
 export interface TextFieldStyle {
-    tintColor?: string;
-    highlightColor?: string;
+    tintColor?: string | undefined;
+    highlightColor?: string | undefined;
     textInputStyle?: {
-        color?: string;
-        fontSize?: number;
-        paddingLeft?: number;
-        paddingRight?: number;
-    };
+        color?: string | undefined;
+        fontSize?: number | undefined;
+        paddingLeft?: number | undefined;
+        paddingRight?: number | undefined;
+    } | undefined;
 }
 
 export interface SpinnerStyle {
-    strokeColor?: string[];
+    strokeColor?: string[] | undefined;
 }
 
 export interface SliderStyle {
-    lowerTrackColor?: string;
-    upperTrackColor?: string;
+    lowerTrackColor?: string | undefined;
+    upperTrackColor?: string | undefined;
 }
 
 export interface IconToggleStyle {
-    onColor?: string;
-    offColor?: string;
-    rippleColor?: string;
+    onColor?: string | undefined;
+    offColor?: string | undefined;
+    rippleColor?: string | undefined;
 }
 
 export interface SwitchStyle {
-    onColor?: string;
-    offColor?: string;
-    thumbOnColor?: string;
-    thumbOffColor?: string;
-    rippleColor?: string;
+    onColor?: string | undefined;
+    offColor?: string | undefined;
+    thumbOnColor?: string | undefined;
+    thumbOffColor?: string | undefined;
+    rippleColor?: string | undefined;
 }
 
 export interface RadioStyle {
-    borderOnColor?: string;
-    borderOffColor?: string;
-    fillColor?: string;
-    rippleColor?: string;
-    extraRippleRadius?: number;
+    borderOnColor?: string | undefined;
+    borderOffColor?: string | undefined;
+    fillColor?: string | undefined;
+    rippleColor?: string | undefined;
+    extraRippleRadius?: number | undefined;
 }
 
 export interface CheckboxStyle {
-    borderOnColor?: string;
-    borderOffColor?: string;
-    fillColor?: string;
-    rippleColor?: string;
-    inset?: number;
+    borderOnColor?: string | undefined;
+    borderOffColor?: string | undefined;
+    fillColor?: string | undefined;
+    rippleColor?: string | undefined;
+    inset?: number | undefined;
 }
 
 export interface CardStyle {
-    backgroundColor?: string;
-    borderRadius?: number;
-    borderColor?: string;
-    borderWidth?: number;
-    shadowColor?: string;
-    shadowOpacity?: number;
-    shadowRadius?: number;
+    backgroundColor?: string | undefined;
+    borderRadius?: number | undefined;
+    borderColor?: string | undefined;
+    borderWidth?: number | undefined;
+    shadowColor?: string | undefined;
+    shadowOpacity?: number | undefined;
+    shadowRadius?: number | undefined;
     shadowOffset?: {
         height: number;
         width: number;
-    };
+    } | undefined;
 }
 
 export interface CardImageStyle {
-    height?: number;
-    resizeMode?: string;
+    height?: number | undefined;
+    resizeMode?: string | undefined;
 }
 
 export interface CardTitleStyle {
-    position?: 'absolute' | 'relative';
-    top?: number;
-    left?: number;
-    backgroundColor?: string;
-    padding?: number;
-    fontSize?: number;
-    color?: string;
-    fontWeight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
+    position?: 'absolute' | 'relative' | undefined;
+    top?: number | undefined;
+    left?: number | undefined;
+    backgroundColor?: string | undefined;
+    padding?: number | undefined;
+    fontSize?: number | undefined;
+    color?: string | undefined;
+    fontWeight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | undefined;
 }
 
 export interface CardContentStyle {
-    padding?: number;
-    color?: string;
+    padding?: number | undefined;
+    color?: string | undefined;
 }
 
 export interface CardActionStyle {
-    borderStyle?: 'solid' | 'dotted' | 'dashed';
-    borderTopColor?: string;
-    borderTopWidth?: number;
-    padding?: number;
+    borderStyle?: 'solid' | 'dotted' | 'dashed' | undefined;
+    borderTopColor?: string | undefined;
+    borderTopWidth?: number | undefined;
+    padding?: number | undefined;
 }
 
 export interface CardMenuStyle {
-    position?: 'absolute' | 'relative';
-    top?: number;
-    right?: number;
-    backgroundColor?: string;
+    position?: 'absolute' | 'relative' | undefined;
+    top?: number | undefined;
+    right?: number | undefined;
+    backgroundColor?: string | undefined;
 }
 
 export interface ThemeStatic {
-    primaryColor?: string;
-    primaryColorRGB?: string;
-    accentColor?: string;
-    accentColorRGB?: string;
-    bgPlain?: string;
-    bgDisabled?: string;
-    fontColor?: string;
-    fontSize?: number;
-    rippleColor?: string;
-    textfieldStyle?: TextFieldStyle;
-    progressStyle?: ProgressStyle;
-    spinnerStyle?: SpinnerStyle;
-    sliderStyle?: SliderStyle;
-    iconToggleStyle?: IconToggleStyle;
-    switchStyle?: SwitchStyle;
-    radioStyle?: RadioStyle;
-    checkboxStyle?: CheckboxStyle;
-    cardStyle?: CardStyle;
-    cardImageStyle?: CardImageStyle;
-    cardTitleStyle?: CardTitleStyle;
-    cardContentStyle?: CardContentStyle;
-    cardActionStyle?: CardActionStyle;
-    cardMenuStyle?: CardMenuStyle;
+    primaryColor?: string | undefined;
+    primaryColorRGB?: string | undefined;
+    accentColor?: string | undefined;
+    accentColorRGB?: string | undefined;
+    bgPlain?: string | undefined;
+    bgDisabled?: string | undefined;
+    fontColor?: string | undefined;
+    fontSize?: number | undefined;
+    rippleColor?: string | undefined;
+    textfieldStyle?: TextFieldStyle | undefined;
+    progressStyle?: ProgressStyle | undefined;
+    spinnerStyle?: SpinnerStyle | undefined;
+    sliderStyle?: SliderStyle | undefined;
+    iconToggleStyle?: IconToggleStyle | undefined;
+    switchStyle?: SwitchStyle | undefined;
+    radioStyle?: RadioStyle | undefined;
+    checkboxStyle?: CheckboxStyle | undefined;
+    cardStyle?: CardStyle | undefined;
+    cardImageStyle?: CardImageStyle | undefined;
+    cardTitleStyle?: CardTitleStyle | undefined;
+    cardContentStyle?: CardContentStyle | undefined;
+    cardActionStyle?: CardActionStyle | undefined;
+    cardMenuStyle?: CardMenuStyle | undefined;
 }
 
 ///////////////////////////////
@@ -154,33 +154,33 @@ export interface ThemeStatic {
 ///////////////////////////////
 
 export interface FloatingLabelProperties {
-    floatingLabelEnabled?: boolean;
-    floatingLabelAniDuration?: number;
-    floatingLabelBottomMargin?: number;
-    floatingLabelFont?: MKPropTypes.font;
-    allowFontScaling?: boolean;
+    floatingLabelEnabled?: boolean | undefined;
+    floatingLabelAniDuration?: number | undefined;
+    floatingLabelBottomMargin?: number | undefined;
+    floatingLabelFont?: MKPropTypes.font | undefined;
+    allowFontScaling?: boolean | undefined;
 }
 
 export namespace MKPropTypes {
     interface dimen {
-        width?: number;
-        height?: number;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     interface font {
-        color?: string;
-        fontSize?: number;
-        fontWeight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
-        fontStyle?: 'normal' | 'italic';
-        fontFamily?: string;
+        color?: string | undefined;
+        fontSize?: number | undefined;
+        fontWeight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | undefined;
+        fontStyle?: 'normal' | 'italic' | undefined;
+        fontFamily?: string | undefined;
     }
 
     type rippleLocation = 'tapLocation' | 'center';
 }
 
 export interface TickProperties extends ViewProps {
-    fillColor?: string;
-    inset?: number;
+    fillColor?: string | undefined;
+    inset?: number | undefined;
 }
 
 ///////////////////////////////
@@ -252,79 +252,79 @@ export interface MKColorStatic {
 
 export interface MKButtonProperties extends
     TouchableWithoutFeedbackProps, MKRippleProperties {
-        fab?: boolean;
-        enabled?: boolean;
+        fab?: boolean | undefined;
+        enabled?: boolean | undefined;
 }
 
 export interface MKTextFieldProperties extends TextInputProps, FloatingLabelProperties {
-    text?: string;
-    password?: boolean;
-    underlineEnabled?: boolean;
-    underlineSize?: number;
-    highlightColor?: string;
-    tintColor?: string;
-    textInputStyle?: TextStyle;
-    allowFontScaling?: boolean;
-    additionalInputProps?: TextInputProps;
+    text?: string | undefined;
+    password?: boolean | undefined;
+    underlineEnabled?: boolean | undefined;
+    underlineSize?: number | undefined;
+    highlightColor?: string | undefined;
+    tintColor?: string | undefined;
+    textInputStyle?: TextStyle | undefined;
+    allowFontScaling?: boolean | undefined;
+    additionalInputProps?: TextInputProps | undefined;
     onTextChange?(val: string): void;
 }
 
 export interface MKSwitchProperties extends TouchableWithoutFeedbackProps {
-    checked?: boolean;
-    onColor?: string;
-    offColor?: string;
-    trackSize?: number;
-    trackLength?: number;
-    thumbRadius?: number;
-    thumbOnColor?: string;
-    thumbOffColor?: string;
-    thumbAniDuration?: number;
-    rippleColor?: string;
-    rippleAniDuration?: number;
+    checked?: boolean | undefined;
+    onColor?: string | undefined;
+    offColor?: string | undefined;
+    trackSize?: number | undefined;
+    trackLength?: number | undefined;
+    thumbRadius?: number | undefined;
+    thumbOnColor?: string | undefined;
+    thumbOffColor?: string | undefined;
+    thumbAniDuration?: number | undefined;
+    rippleColor?: string | undefined;
+    rippleAniDuration?: number | undefined;
     onCheckedChange?(opts: { checked: boolean }): void;
 }
 
 export interface MKIconToggleProperties extends MKRippleProperties, TouchableWithoutFeedbackProps {
-    checked?: boolean;
+    checked?: boolean | undefined;
     onCheckedChange?(checked: boolean): void;
 }
 
 export interface MKRippleProperties extends ViewProps {
-    rippleColor?: string;
-    rippleDuration?: number;
-    rippleLocation?: MKPropTypes.rippleLocation;
-    maskEnabled?: boolean;
-    maskColor?: string;
-    maskBorderRadius?: number;
-    maskBorderRadiusInPercent?: number;
-    maskDuration?: number;
-    shadowAniEnabled?: boolean;
+    rippleColor?: string | undefined;
+    rippleDuration?: number | undefined;
+    rippleLocation?: MKPropTypes.rippleLocation | undefined;
+    maskEnabled?: boolean | undefined;
+    maskColor?: string | undefined;
+    maskBorderRadius?: number | undefined;
+    maskBorderRadiusInPercent?: number | undefined;
+    maskDuration?: number | undefined;
+    shadowAniEnabled?: boolean | undefined;
 }
 
 export interface MKProgressProperties extends ViewProps {
-    progress?: number;
-    buffer?: number;
-    progressColor?: string;
-    bufferColor?: string;
-    progressAniDuration?: number;
-    bufferAniDuration?: number;
+    progress?: number | undefined;
+    buffer?: number | undefined;
+    progressColor?: string | undefined;
+    bufferColor?: string | undefined;
+    progressAniDuration?: number | undefined;
+    bufferAniDuration?: number | undefined;
 }
 
 export interface IndeterminateProgressProperties extends ViewProps {
-    progressColor?: string;
-    progressAniDuration?: number;
+    progressColor?: string | undefined;
+    progressAniDuration?: number | undefined;
 }
 
 export interface BaseSlider extends ViewProps {
-    min?: number;
-    max?: number;
-    value?: number;
-    trackSize?: number;
-    thumbRadius?: number;
-    thumbPadding?: number;
-    lowerTrackColor?: string;
-    upperTrackColor?: string;
-    step?: number;
+    min?: number | undefined;
+    max?: number | undefined;
+    value?: number | undefined;
+    trackSize?: number | undefined;
+    thumbRadius?: number | undefined;
+    thumbPadding?: number | undefined;
+    lowerTrackColor?: string | undefined;
+    upperTrackColor?: string | undefined;
+    step?: number | undefined;
 }
 
 export interface MKSliderProperties extends BaseSlider {
@@ -333,36 +333,36 @@ export interface MKSliderProperties extends BaseSlider {
 }
 
 export interface MKRangeSliderProperties extends BaseSlider {
-    minValue?: number;
-    maxValue?: number;
+    minValue?: number | undefined;
+    maxValue?: number | undefined;
     onStart?(): void;
     onConfirm?(curValue: { min: number, max: number }): void;
     onChange?(curValue: { min: number, max: number }): void;
 }
 
 export interface MKSpinnerProperties extends ViewProps {
-    strokeColor?: string;
-    strokeWidth?: number;
-    spinnerAniDuration?: number;
+    strokeColor?: string | undefined;
+    strokeWidth?: number | undefined;
+    spinnerAniDuration?: number | undefined;
 }
 
 export interface MKRadioButtonProperties extends MKRippleProperties, TouchableWithoutFeedbackProps {
-    borderOnColor?: string;
-    borderOffColor?: string;
-    fillColor?: string;
-    checked?: boolean;
-    group?: MKRadioButtonGroup;
-    extraRippleRadius?: number;
+    borderOnColor?: string | undefined;
+    borderOffColor?: string | undefined;
+    fillColor?: string | undefined;
+    checked?: boolean | undefined;
+    group?: MKRadioButtonGroup | undefined;
+    extraRippleRadius?: number | undefined;
     onCheckedChange?(opts: { checked: boolean }): void;
 }
 
 export interface MKCheckboxProperties extends MKRippleProperties, TickProperties, TouchableWithoutFeedbackProps {
-    borderOnColor?: string;
-    borderOffColor?: string;
-    fillColor?: string;
-    checked?: boolean;
-    editable?: boolean;
-    extraRippleRadius?: number;
+    borderOnColor?: string | undefined;
+    borderOffColor?: string | undefined;
+    fillColor?: string | undefined;
+    checked?: boolean | undefined;
+    editable?: boolean | undefined;
+    extraRippleRadius?: number | undefined;
     onCheckedChange?(opts: { checked: boolean }): void;
 }
 

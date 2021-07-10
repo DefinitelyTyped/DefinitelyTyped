@@ -10,8 +10,8 @@ export default abstract class Node {
     readonly previousSibling: Node | null;
     readonly root: Node | DocumentFragment;
 
-    getAncestors(options?: { includeSelf?: boolean; parentFirst?: boolean }): Array<Element | DocumentFragment>;
-    getCommonAncestor(node: Node, options?: { includeSelf?: boolean }): Element | DocumentFragment | null;
+    getAncestors(options?: { includeSelf?: boolean | undefined; parentFirst?: boolean | undefined }): Array<Element | DocumentFragment>;
+    getCommonAncestor(node: Node, options?: { includeSelf?: boolean | undefined }): Element | DocumentFragment | null;
     getPath(): number[];
     is(type: string): boolean;
     isAfter(node: Node): boolean;
@@ -19,7 +19,7 @@ export default abstract class Node {
     isBefore(node: Node): boolean;
     isSimilar(otherElement: Node): boolean;
     toJSON(): {
-        _textData?: string;
+        _textData?: string | undefined;
         document: string;
     };
 }

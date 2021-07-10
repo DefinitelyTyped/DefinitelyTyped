@@ -17,7 +17,7 @@ interface ssn {
         type: string;
         sex: string;
         ssn: string;
-    };
+    } | undefined;
 }
 
 declare let validate: {

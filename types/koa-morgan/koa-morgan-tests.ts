@@ -54,7 +54,7 @@ interface FormatFnIndexer {
 }
 
 interface ExtendedFormatFn extends morgan.FormatFn {
-    memoizer?: FormatFnIndexer;
+    memoizer?: FormatFnIndexer | undefined;
 }
 
 const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: IncomingMessage, res: ServerResponse): string => {

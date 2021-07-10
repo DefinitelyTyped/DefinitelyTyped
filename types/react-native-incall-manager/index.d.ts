@@ -5,13 +5,13 @@
 // TypeScript Version: 2.8
 
 export interface StartSetup {
-    media?: string;
-    auto?: boolean;
-    ringback?: string;
+    media?: string | undefined;
+    auto?: boolean | undefined;
+    ringback?: string | undefined;
 }
 
 export interface StopSetup {
-    busytone?: string;
+    busytone?: string | undefined;
 }
 
 declare class InCallManager {

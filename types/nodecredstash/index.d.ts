@@ -7,11 +7,11 @@
 import * as AWS from 'aws-sdk';
 
 interface CredstashConfig {
-    table?: string;
-    awsOpts?: AWS.KMS.ClientConfiguration;
-    dynamoOpts?: AWS.DynamoDB.ClientConfiguration;
-    kmsKey?: string;
-    kmsOpts?: AWS.KMS.ClientConfiguration;
+    table?: string | undefined;
+    awsOpts?: AWS.KMS.ClientConfiguration | undefined;
+    dynamoOpts?: AWS.DynamoDB.ClientConfiguration | undefined;
+    kmsKey?: string | undefined;
+    kmsOpts?: AWS.KMS.ClientConfiguration | undefined;
 }
 
 interface CredstashContext {
@@ -22,8 +22,8 @@ interface PutSecretOptions {
     name: string;
     secret: string;
     context: CredstashContext;
-    digest?: string;
-    version?: number;
+    digest?: string | undefined;
+    version?: number | undefined;
 }
 
 interface Credstash {
@@ -31,12 +31,12 @@ interface Credstash {
     incrementVersion: (options: { name: string }) => Promise<string>;
     putSecret: (options: PutSecretOptions) => Promise<AWS.DynamoDB.DocumentClient.PutItemOutput>;
     decryptStash: (stash: { key: string; }, context?: CredstashContext) => Promise<AWS.KMS.DecryptResponse>;
-    getAllVersions: (options: { name: string, context?: CredstashContext, limit?: number }) => Promise<Array<{ version: string; secret: string }>>;
-    getSecret: (options: { name: string, context?: CredstashContext, version?: number }) => Promise<string>;
+    getAllVersions: (options: { name: string, context?: CredstashContext | undefined, limit?: number | undefined }) => Promise<Array<{ version: string; secret: string }>>;
+    getSecret: (options: { name: string, context?: CredstashContext | undefined, version?: number | undefined }) => Promise<string>;
     deleteSecrets: (options: { name: string }) => Promise<AWS.DynamoDB.DocumentClient.DeleteItemOutput[]>;
     deleteSecret: (options: { name: string, version: number }) => Promise<AWS.DynamoDB.DocumentClient.DeleteItemOutput>;
     listSecrets: () => Promise<string[]>;
-    getAllSecrets: (options: { version?: number, context?: CredstashContext, startsWith?: string }) => Promise<{ [key: string]: string }>;
+    getAllSecrets: (options: { version?: number | undefined, context?: CredstashContext | undefined, startsWith?: string | undefined }) => Promise<{ [key: string]: string }>;
     createDdbTable: () => Promise<void>;
 }
 

@@ -1,4 +1,5 @@
 import assert = require('assert');
+import { RequestOptions } from 'http';
 import * as url from 'url';
 
 {
@@ -148,4 +149,8 @@ import * as url from 'url';
 
 {
     const path: url.URL = url.pathToFileURL('file://test');
+}
+
+{
+    const opts: RequestOptions = url.urlToHttpOptions(new url.URL('test.com'));
 }

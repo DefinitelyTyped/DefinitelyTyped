@@ -7,23 +7,23 @@
 /// <reference types="jquery" />
 
 interface ClockPickerOptions {
-  default?: string;
-  placement?: string;
-  align?: string;
-  donetext?: string;
-  autoclose?: boolean;
-  twelvehour?: boolean;
-  vibrate?: boolean;
-  fromnow?: number;
-  init?: () => void;
-  beforeShow?: () => void;
-  afterShow?: () => void;
-  beforeHide?: () => void;
-  afterHide?: () => void;
-  beforeHourSelect?: () => void;
-  afterHourSelect?: () => void;
-  beforeDone?: () => void;
-  afterDone?: () => void;
+  default?: string | undefined;
+  placement?: string | undefined;
+  align?: string | undefined;
+  donetext?: string | undefined;
+  autoclose?: boolean | undefined;
+  twelvehour?: boolean | undefined;
+  vibrate?: boolean | undefined;
+  fromnow?: number | undefined;
+  init?: (() => void) | undefined;
+  beforeShow?: (() => void) | undefined;
+  afterShow?: (() => void) | undefined;
+  beforeHide?: (() => void) | undefined;
+  afterHide?: (() => void) | undefined;
+  beforeHourSelect?: (() => void) | undefined;
+  afterHourSelect?: (() => void) | undefined;
+  beforeDone?: (() => void) | undefined;
+  afterDone?: (() => void) | undefined;
 }
 
 interface ClockPicker {

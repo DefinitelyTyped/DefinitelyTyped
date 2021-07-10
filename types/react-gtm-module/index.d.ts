@@ -17,26 +17,26 @@ export interface TagManagerArgs extends DataLayerArgs {
     /**
      * Additional events such as 'gtm.start': new Date().getTime(),event:'gtm.js'.
      */
-    events?: object;
+    events?: object | undefined;
     /**
      * Used to set environments.
      */
-    auth?: string;
+    auth?: string | undefined;
     /**
      * Used to set environments, something like env-00.
      */
-    preview?: string;
+    preview?: string | undefined;
 }
 
 export interface DataLayerArgs {
     /**
      * Object that contains all of the information that you want to pass to Google Tag Manager.
      */
-    dataLayer?: object;
+    dataLayer?: object | undefined;
     /**
      * Custom name for dataLayer object.
      */
-    dataLayerName?: string;
+    dataLayerName?: string | undefined;
 }
 
 export default TagManager;

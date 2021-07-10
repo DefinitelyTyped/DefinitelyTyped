@@ -1,6 +1,6 @@
 // Type definitions for posterus 0.4
 // Project: https://github.com/Mitranim/posterus#readme
-// Definitions by: David Govea <https://github.com/DefinitelyTyped>
+// Definitions by: David Govea <https://github.com/davidgovea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

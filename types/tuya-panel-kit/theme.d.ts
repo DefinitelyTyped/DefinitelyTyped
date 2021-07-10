@@ -14,7 +14,7 @@ export interface LinearGradientBackground {
      * @description The x-axis coordinate of the starting point
      * @defaultValue '0%'
      */
-    x1?: string;
+    x1?: string | undefined;
     /**
      * @language zh-CN
      * @description 终点的x轴坐标
@@ -25,7 +25,7 @@ export interface LinearGradientBackground {
      * @description The x-axis coordinate of the ending point
      * @defaultValue '0%'
      */
-    x2?: string;
+    x2?: string | undefined;
     /**
      * @language zh-CN
      * @description 起始点的y轴坐标
@@ -36,7 +36,7 @@ export interface LinearGradientBackground {
      * @description The y-axis coordinate of the starting point
      * @defaultValue '0%'
      */
-    y1?: string;
+    y1?: string | undefined;
     /**
      * @language zh-CN
      * @description 终点的y轴坐标
@@ -47,7 +47,7 @@ export interface LinearGradientBackground {
      * @description The y-axis coordinate of the ending point
      * @defaultValue '0%'
      */
-    y2?: string;
+    y2?: string | undefined;
     /**
      * @language zh-CN
      * @description 渐变梯度停点
@@ -58,7 +58,7 @@ export interface LinearGradientBackground {
      * @description The stop point of gradient
      * @defaultValue { '0%': 'rgb(255, 255, 255)', '100%': 'rgb(0, 0, 0)' }
      */
-    stops?: Record<string, string>;
+    stops?: Record<string, string> | undefined;
 }
 
 export interface RadialGradientBackground {
@@ -72,7 +72,7 @@ export interface RadialGradientBackground {
      * @description The x-axis coordinate point of the outermost circle
      * @defaultValue '50%'
      */
-    cx?: string;
+    cx?: string | undefined;
     /**
      * @language zh-CN
      * @description 最外侧圆的y轴坐标点
@@ -83,7 +83,7 @@ export interface RadialGradientBackground {
      * @description The y-axis coordinate point of the outermost circle
      * @defaultValue '50%'
      */
-    cy?: string;
+    cy?: string | undefined;
     /**
      * @language zh-CN
      * @description 最内侧圆的x轴坐标点(渐变中心点)
@@ -94,7 +94,7 @@ export interface RadialGradientBackground {
      * @description The x-axis coordinate point of the innermost circle (gradient center point)
      * @defaultValue '50%'
      */
-    fx?: string;
+    fx?: string | undefined;
     /**
      * @language zh-CN
      * @description 最内侧圆的y轴坐标点(渐变中心点)
@@ -105,7 +105,7 @@ export interface RadialGradientBackground {
      * @description The y-axis coordinate point of the innermost circle (gradient center point)
      * @defaultValue '50%'
      */
-    fy?: string;
+    fy?: string | undefined;
     /**
      * @language zh-CN
      * @description 最内侧圆水平方向的半径(渐变长度)
@@ -116,7 +116,7 @@ export interface RadialGradientBackground {
      * @description The horizontal radius of the innermost circle (gradient length)
      * @defaultValue '50%'
      */
-    rx?: string;
+    rx?: string | undefined;
     /**
      * @language zh-CN
      * @description 最内侧圆垂直方向的半径(渐变高度)
@@ -127,7 +127,7 @@ export interface RadialGradientBackground {
      * @description The vertical radius of the innermost circle (gradient height)
      * @defaultValue '50%'
      */
-    ry?: string;
+    ry?: string | undefined;
     /**
      * @language zh-CN
      * @description 渐变梯度停点
@@ -138,7 +138,7 @@ export interface RadialGradientBackground {
      * @description The stop point of gradient
      * @defaultValue [{ offset: '0%', stopColor: '#ff0', stopOpacity: '1' }, { offset: '100%', stopColor: '#00f', stopOpacity: '1' }]
      */
-    stops?: StopsProps[];
+    stops?: StopsProps[] | undefined;
 }
 
 // Button

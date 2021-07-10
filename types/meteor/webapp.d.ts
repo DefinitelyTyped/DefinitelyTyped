@@ -5,11 +5,11 @@ declare module "meteor/webapp" {
     import * as connect from "connect";
     interface StaticFiles {
         [key: string]: {
-            content?: string,
+            content?: string | undefined,
             absolutePath: string,
             cacheable: boolean,
             hash: string,
-            sourceMapUrl?: string,
+            sourceMapUrl?: string | undefined,
             type: string
         }
     }

@@ -260,3 +260,5 @@ $("#diaporama").on('beforeChange', function(event, slick: JQuerySlick, currentSl
    slick.swiping; // $ExpectedType boolean
    slick.initials.swiping; // $ExpectedType boolean
 });
+
+$("#diaporama").slick("slickGoTo", 0, true);

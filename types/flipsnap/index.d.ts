@@ -53,23 +53,23 @@ interface FlipsnapOptions {
     /**
      * Stop point count. default is auto calculate from element item count.
      */
-    maxPoint?: number;
+    maxPoint?: number | undefined;
     /**
      * Move distance. default is auto calculate from element width and maxPont.
      */
-    distance?: number;
+    distance?: number | undefined;
     /**
      * Transition duration (millisecond). default is 350.
      */
-    transitionDuration?: number;
+    transitionDuration?: number | undefined;
     /**
      * When set true, touch event is disabled. Only handling button or etc interface. default is false.
      */
-    disableTouch?: boolean;
+    disableTouch?: boolean | undefined;
     /**
      * When support 3D transform browser and this option set true, it is not used 3D transform and use 2D transform. You should set true, when it is a device which has a bug in 3D transform(old Android or BlackBerry etc). default is false.
      */
-    disable3d?: boolean;
+    disable3d?: boolean | undefined;
 }
 
 interface HTMLElement {

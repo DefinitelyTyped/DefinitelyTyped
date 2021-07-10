@@ -2,7 +2,7 @@
 // Project: http://www.espruino.com/, https://github.com/espruino/espruinotools
 // Definitions by: Stanislav Berkov <https://github.com/stasberkov>
 //                 Jurand Niemczycki <https://github.com/createdbyjurand>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare interface Object {
     removeListener(event: string, listener: any): any;
@@ -1418,7 +1418,7 @@ declare var SPI3: SPI;
 declare interface I2CSetupOptions {
     scl: Pin;
     sda: Pin;
-    bitrate?: number;
+    bitrate?: number | undefined;
 }
 
 /**

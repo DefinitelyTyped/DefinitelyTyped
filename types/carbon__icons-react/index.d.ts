@@ -8,16 +8,16 @@
 
 export interface CarbonIconProps
     extends Omit<React.SVGProps<React.ReactSVGElement>, "ref" | "tabIndex" | "aria-hidden"> {
-    "aria-hidden"?: string;
-    "aria-label"?: string;
-    "aria-labelledby"?: string;
-    height?: number;
-    preserveAspectRatio?: string;
-    tabIndex?: string;
-    title?: string;
-    viewBox?: string;
-    width?: number;
-    xmlns?: string;
+    "aria-hidden"?: string | undefined;
+    "aria-label"?: string | undefined;
+    "aria-labelledby"?: string | undefined;
+    height?: number | undefined;
+    preserveAspectRatio?: string | undefined;
+    tabIndex?: string | undefined;
+    title?: string | undefined;
+    viewBox?: string | undefined;
+    width?: number | undefined;
+    xmlns?: string | undefined;
 }
 
 export type CarbonIconType = React.ForwardRefExoticComponent<CarbonIconProps & React.RefAttributes<SVGSVGElement>>;
@@ -25,26 +25,26 @@ export type CarbonIconType = React.ForwardRefExoticComponent<CarbonIconProps & R
 export interface CarbonIconNextProps
     extends Omit<React.SVGProps<React.ReactSVGElement>, "ref" | "tabIndex" | "aria-hidden"> {
     /** @default "http://www.w3.org/2000/svg" */
-    xmlns?: string;
+    xmlns?: string | undefined;
 
     /** @default "xMidYMid meet" */
-    preserveAspectRatio?: string;
+    preserveAspectRatio?: string | undefined;
 
     /**
      * @default 32
      * size is set to `16` if value is `glyph` or `glyphpx`
      */
 
-    size?: 16 | 20 | 24 | 32 | "16" | "20" | "24" | "32" | "glyph" | "glyphpx";
+    size?: 16 | 20 | 24 | 32 | "16" | "20" | "24" | "32" | "glyph" | "glyphpx" | undefined;
 
-    width?: number | string;
-    height?: number | string;
-    "aria-hidden"?: string;
-    "aria-label"?: string;
-    "aria-labelledby"?: string;
-    tabIndex?: string;
-    title?: string;
-    viewBox?: string;
+    width?: number | string | undefined;
+    height?: number | string | undefined;
+    "aria-hidden"?: string | undefined;
+    "aria-label"?: string | undefined;
+    "aria-labelledby"?: string | undefined;
+    tabIndex?: string | undefined;
+    title?: string | undefined;
+    viewBox?: string | undefined;
 }
 
 export type CarbonIconNextType = React.ForwardRefExoticComponent<

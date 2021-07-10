@@ -13,7 +13,7 @@ declare const HtmlWebpackTemplate: string;
 declare namespace HtmlWebpackTemplate {
     interface GoogleAnalyticsOptions {
         /** Log a pageview event after the analytics code loads. */
-        pageViewOnLoad?: boolean;
+        pageViewOnLoad?: boolean | undefined;
         trackingId: string;
     }
 
@@ -37,37 +37,37 @@ declare namespace HtmlWebpackTemplate {
 
     interface Options extends HtmlWebpackPluginOptions {
         /** The <div> element id on which you plan to mount a JavaScript app. */
-        appMountId?: string;
+        appMountId?: string | undefined;
         /** An array of application element ids. */
-        appMountIds?: string[];
+        appMountIds?: string[] | undefined;
         /**
          * Adjust the URL for relative URLs in the document (MDN).
          * https://developer.mozilla.org/en/docs/Web/HTML/Element/base
          */
-        baseHref?: string;
+        baseHref?: string | undefined;
         /** Insert the webpack-dev-server hot reload script at this host:port/path; e.g., http://localhost:3000. */
-        devServer?: string;
+        devServer?: string | undefined;
         /** Track usage of your site via Google Analytics. */
-        googleAnalytics?: GoogleAnalyticsOptions;
+        googleAnalytics?: GoogleAnalyticsOptions | undefined;
         /** Set to false. Controls asset addition to the template. This template takes care of that. */
         inject: false;
         /**
          * For use with inline-manifest-webpack-plugin.
          * https://github.com/szrenwei/inline-manifest-webpack-plugin
          */
-        inlineManifestWebpackName?: string;
+        inlineManifestWebpackName?: string | undefined;
         /** Array of <link> elements. */
-        links?: Link[];
+        links?: Link[] | undefined;
         /** Array of objects containing key value pairs to be included as meta tags. */
-        meta?: Attributes[];
+        meta?: Attributes[] | undefined;
         /** Sets appropriate meta tag for page scaling. */
-        mobile?: boolean;
+        mobile?: boolean | undefined;
         /** Array of external script imports to include on page. */
-        scripts?: Script[];
+        scripts?: Script[] | undefined;
         /** Specify this module's index.ejs file. */
         template: string;
         /** Object that defines data you need to bootstrap a JavaScript app. */
-        window?: {};
+        window?: {} | undefined;
     }
 
     /** @deprecated use GoogleAnalyticsOptions */

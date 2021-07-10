@@ -37,10 +37,6 @@ declare module 'module' {
         static runMain(): void;
         static wrap(code: string): string;
 
-        /**
-         * @deprecated Deprecated since: v12.2.0. Please use createRequire() instead.
-         */
-        static createRequireFromPath(path: string): NodeRequire;
         static createRequire(path: string | URL): NodeRequire;
         static builtinModules: string[];
 
@@ -48,5 +44,30 @@ declare module 'module' {
 
         constructor(id: string, parent?: Module);
     }
+
+    global {
+        interface ImportMeta {
+            url: string;
+            /**
+             * @experimental
+             * This feature is only available with the `--experimental-import-meta-resolve`
+             * command flag enabled.
+             *
+             * Provides a module-relative resolution function scoped to each module, returning
+             * the URL string.
+             *
+             * @param specified The module specifier to resolve relative to `parent`.
+             * @param parent The absolute parent module URL to resolve from. If none
+             * is specified, the value of `import.meta.url` is used as the default.
+             */
+            resolve?(specified: string, parent?: string | URL): Promise<string>;
+        }
+    }
+
     export = Module;
+}
+
+declare module 'node:module' {
+    import module = require('module');
+    export = module;
 }

@@ -10,10 +10,10 @@ import { NoParamCallback } from 'fs';
 declare namespace editJsonFile {
     /** JSON file editor options. */
     interface Options {
-        stringify_width?: number;
-        stringify_fn?: (data: object) => string;
-        stringify_eol?: boolean;
-        autosave?: boolean;
+        stringify_width?: number | undefined;
+        stringify_fn?: ((data: object) => string) | undefined;
+        stringify_eol?: boolean | undefined;
+        autosave?: boolean | undefined;
     }
 
     /** JSON file editor. */

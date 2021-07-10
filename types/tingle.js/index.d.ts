@@ -5,15 +5,15 @@
 // TypeScript Version: 2.1
 
 export interface Options {
-    onOpen?: (this: modal) => void;
-    onClose?: (this: modal) => void;
-    beforeOpen?: () => void;
-    beforeClose?: (this: modal) => boolean | undefined;
-    stickyFooter?: boolean;
-    footer?: boolean;
-    cssClass?: string[];
-    closeLabel?: string;
-    closeMethods?: string[];
+    onOpen?: ((this: modal) => void) | undefined;
+    onClose?: ((this: modal) => void) | undefined;
+    beforeOpen?: (() => void) | undefined;
+    beforeClose?: ((this: modal) => boolean | undefined) | undefined;
+    stickyFooter?: boolean | undefined;
+    footer?: boolean | undefined;
+    cssClass?: string[] | undefined;
+    closeLabel?: string | undefined;
+    closeMethods?: string[] | undefined;
 }
 export class modal {
     constructor(options?: Options);

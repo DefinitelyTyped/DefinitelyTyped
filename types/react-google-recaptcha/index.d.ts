@@ -63,65 +63,70 @@ export interface ReCAPTCHAProps {
      * or the compact captcha. It will also be called with null, when captcha expires.
      * @param token string or null
      */
-    onChange?: (token: string | null) => void;
+    onChange?: ((token: string | null) => void) | undefined;
 
     /**
      *  If you are using the barebone component you need to provide access to the
      *  google grecaptcha object.
      */
-    grecaptcha?: object;
+    grecaptcha?: object | undefined;
 
     /**
      * The theme of the widget.
      * @default "light"
      */
-    theme?: Theme;
+    theme?: Theme | undefined;
 
     /**
      * The type of initial captcha.
      * @default "image"
      */
-    type?: Type;
+    type?: Type | undefined;
 
     /**
      * The tabindex of the element.
      * @default 0
      */
-    tabindex?: number;
+    tabindex?: number | undefined;
 
     /**
      * Callback called when a challenge expires and has to be redone by the user.
      */
-    onExpired?: () => void;
+    onExpired?: (() => void) | undefined;
+
+    /**
+     * Callback called when google script is loaded
+     */
+    asyncScriptOnLoad?: (() => void) | undefined;
 
     /**
      *  Optional callback, called when reCAPTCHA encounters an error (usually network connectivity)
      *  and cannot continue until connectivity is restored. If you specify a function here, you are
      *  responsible for informing the user that they should retry.
      */
-    onErrored?: () => void;
+    onErrored?: (() => void) | undefined;
 
     /**
      * Set the stoken parameter, which allows the captcha to be used from different domains.
      * @see reCAPTCHA secure-token
      */
-    stoken?: string;
+    stoken?: string | undefined;
 
     /**
      *  Forces the widget to render in a specific language.
      *  Auto-detects the user's language if unspecified.
      */
-    hl?: string;
+    hl?: string | undefined;
 
     /**
      * This allows you to change the size or do an invisible captcha.
      * @default "normal"
      */
-    size?: Size;
+    size?: Size | undefined;
 
     /**
      * The badge location for g-recaptcha with size of "invisible".
      * @default "bottomright"
      */
-    badge?: Badge;
+    badge?: Badge | undefined;
 }

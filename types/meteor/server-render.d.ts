@@ -1,12 +1,12 @@
 import * as http from "http";
 declare module "meteor/server-render" {
     interface Sink {
-        request?: http.IncomingMessage;
-        arch?: string;
-        head?: string;
-        body?: string;
-        htmlById?: { [key: string]: string };
-        maybeMadeChanges?: boolean;
+        request?: http.IncomingMessage | undefined;
+        arch?: string | undefined;
+        head?: string | undefined;
+        body?: string | undefined;
+        htmlById?: { [key: string]: string } | undefined;
+        maybeMadeChanges?: boolean | undefined;
         appendToHead?(html: string): void;
         appendToBody?(html: string): void;
         appendToElementById?(id: string, html: string): void;

@@ -26,59 +26,59 @@ declare global {
     // see https://jqueryui.com/dialog/
     interface DialogOptions {
         /** If set only one dialog can be open */
-        id?: string;
+        id?: string | undefined;
 
         /** Dialog title */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * Dialog contents - converted by convertTextToTableMagic
          * \n will be line breaks \t will be table fields
          */
-        text?: string;
+        text?: string | undefined;
 
         /** Dialog contents (if no text) */
-        html?: string | HTMLElement | JQuery;
+        html?: string | HTMLElement | JQuery | undefined;
 
-        dialogClass?: string;
+        dialogClass?: string | undefined;
         classes?: any;
 
         /**
          * single dialog
          * default: false
          */
-        modal?: boolean;
+        modal?: boolean | undefined;
 
         /**
          * moveable dialog
          * default: true
          */
-        draggable?: boolean;
+        draggable?: boolean | undefined;
 
         /**
          * resizeable dialog (won't work in iitc out-of-the-box)
          * default: false
          */
-        resizable?: boolean;
+        resizable?: boolean | undefined;
 
         /** position, see: https://api.jqueryui.com/position/ */
         position?: any;
 
         /** size */
-        height?: string | number;
-        width?: string | number;
-        maxHeight?: string;
-        maxWidth?: string;
-        minHeight?: string;
-        minWidth?: string;
+        height?: string | number | undefined;
+        width?: string | number | undefined;
+        maxHeight?: string | undefined;
+        maxWidth?: string | undefined;
+        minHeight?: string | undefined;
+        minWidth?: string | undefined;
 
-        autoOpen?: boolean;
-        closeOnEscape?: boolean;
+        autoOpen?: boolean | undefined;
+        closeOnEscape?: boolean | undefined;
         hide?: any;
         appendTo?: any;
 
         /** Specifies the text for the close button */
-        closeText?: string;
+        closeText?: string | undefined;
 
         closeCallback?: any;
         collapseCallback?: any;
@@ -87,7 +87,7 @@ declare global {
         focusCallback?: any;
         blurCallback?: any;
 
-        buttons?: JQueryUI.ButtonOptions[] | { [key: string]: () => void };
+        buttons?: JQueryUI.ButtonOptions[] | { [key: string]: () => void } | undefined;
     }
 
     /** custom alert box */

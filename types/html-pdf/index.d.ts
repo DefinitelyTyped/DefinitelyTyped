@@ -12,77 +12,77 @@ declare module 'html-pdf' {
   export interface CreateOptions {
 
     // Export options
-    directory?: string;
+    directory?: string | undefined;
 
     // Papersize Options: http://phantomjs.org/api/webpage/property/paper-size.html
-    height?: string;
-    width?: string;
-    format?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid';
-    orientation?: 'portrait' | 'landscape';
+    height?: string | undefined;
+    width?: string | undefined;
+    format?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid' | undefined;
+    orientation?: 'portrait' | 'landscape' | undefined;
 
     // Page options
     border?: string | {
-      top?: string;
-      right?: string;
-      bottom?: string;
-      left?: string;
-    };
+      top?: string | undefined;
+      right?: string | undefined;
+      bottom?: string | undefined;
+      left?: string | undefined;
+    } | undefined;
 
-    paginationOffset?: number;
+    paginationOffset?: number | undefined;
 
     header?: {
-      height?: string;
-      contents?: string;
-    };
+      height?: string | undefined;
+      contents?: string | undefined;
+    } | undefined;
     footer?: {
-      height?: string;
+      height?: string | undefined;
       contents?: {
-        first?: string;
+        first?: string | undefined;
         [page: number]: string;
-        default?: string;
-        last?: string;
-      };
-    };
+        default?: string | undefined;
+        last?: string | undefined;
+      } | undefined;
+    } | undefined;
 
     // Rendering options
-    base?: string;
+    base?: string | undefined;
 
     // Zooming option, can be used to scale images if `options.type` is not pdf
-    zoomFactor?: string;
+    zoomFactor?: string | undefined;
 
     // File options
-    type?: 'png' | 'jpeg' | 'pdf';
-    quality?: string;
+    type?: 'png' | 'jpeg' | 'pdf' | undefined;
+    quality?: string | undefined;
 
     // Script options
-    phantomPath?: string;
-    phantomArgs?: string[];
-    script?: string;
-    timeout?: number;
+    phantomPath?: string | undefined;
+    phantomArgs?: string[] | undefined;
+    script?: string | undefined;
+    timeout?: number | undefined;
 
     // Time we should wait after window load
-    renderDelay?: 'manual' | number;
+    renderDelay?: 'manual' | number | undefined;
 
     // HTTP Headers that are used for requests
     httpHeaders?: {
       [header: string]: string;
-    };
+    } | undefined;
 
     // To run Node application as Windows service
     childProcessOptions?: {
-      detached?: boolean;
-    };
+      detached?: boolean | undefined;
+    } | undefined;
 
     // HTTP Cookies that are used for requests
     httpCookies?: Array<{
       name: string;
       value: string;
-      domain?: string;
+      domain?: string | undefined;
       path: string;
-      httponly?: boolean;
-      secure?: boolean;
-      expires?: number;
-    }>;
+      httponly?: boolean | undefined;
+      secure?: boolean | undefined;
+      expires?: number | undefined;
+    }> | undefined;
   }
 
   export interface FileInfo {

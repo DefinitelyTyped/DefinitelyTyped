@@ -8,7 +8,7 @@
 import { Plugin } from 'rollup';
 
 export interface PluginProgressOptions {
-    clearLine?: boolean;
+    clearLine?: boolean | undefined;
 }
 
 declare function progress(options?: PluginProgressOptions): Plugin;

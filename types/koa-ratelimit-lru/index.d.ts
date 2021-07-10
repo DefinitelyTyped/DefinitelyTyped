@@ -8,18 +8,18 @@ import { Middleware } from 'koa';
 
 declare namespace rateLimit {
     interface Options {
-      readonly duration?: number;
-      readonly max?: number;
-      readonly prefix?: string;
+      readonly duration?: number | undefined;
+      readonly max?: number | undefined;
+      readonly prefix?: string | undefined;
       readonly store?: any; // lru-cache ?
-      readonly rate?: number;
-      readonly id?: string;
+      readonly rate?: number | undefined;
+      readonly id?: string | undefined;
       readonly headers?: {
-        readonly remaining?: string;
-        readonly reset?: string;
-        readonly total?: string;
-      };
-      readonly errorMessage?: string;
+        readonly remaining?: string | undefined;
+        readonly reset?: string | undefined;
+        readonly total?: string | undefined;
+      } | undefined;
+      readonly errorMessage?: string | undefined;
     }
   }
 

@@ -17,8 +17,8 @@ export {};
  * @see https://www.w3.org/TR/json-ld11/#json-ld-grammar
  */
 export type JsonLdDocument = NodeObject | NodeObject[] | {
-    '@context'?: Keyword['@context'];
-    '@graph'?: Keyword['@graph'];
+    '@context'?: Keyword['@context'] | undefined;
+    '@graph'?: Keyword['@graph'] | undefined;
 };
 
 /**
@@ -27,14 +27,14 @@ export type JsonLdDocument = NodeObject | NodeObject[] | {
  * @see https://www.w3.org/TR/json-ld11/#node-objects
  */
 export interface NodeObject {
-    '@context'?: Keyword['@context'];
-    '@id'?: Keyword['@id'];
-    '@included'?: Keyword['@included'];
-    '@graph'?: OrArray<NodeObject>;
-    '@nest'?: OrArray<JsonObject>;
-    '@type'?: OrArray<Keyword['@type']>;
-    '@reverse'?: {[key: string]: Keyword['@reverse']};
-    '@index'?: Keyword['@index'];
+    '@context'?: Keyword['@context'] | undefined;
+    '@id'?: Keyword['@id'] | undefined;
+    '@included'?: Keyword['@included'] | undefined;
+    '@graph'?: OrArray<NodeObject> | undefined;
+    '@nest'?: OrArray<JsonObject> | undefined;
+    '@type'?: OrArray<Keyword['@type']> | undefined;
+    '@reverse'?: {[key: string]: Keyword['@reverse']} | undefined;
+    '@index'?: Keyword['@index'] | undefined;
     [key: string]:
         | OrArray<
             | null
@@ -61,9 +61,9 @@ export interface NodeObject {
  */
 export interface GraphObject {
     '@graph': OrArray<NodeObject>;
-    '@index'?: Keyword['@index'];
-    '@id'?: Keyword['@id'];
-    '@context'?: Keyword['@context'];
+    '@index'?: Keyword['@index'] | undefined;
+    '@id'?: Keyword['@id'] | undefined;
+    '@context'?: Keyword['@context'] | undefined;
 }
 
 /**
@@ -72,12 +72,12 @@ export interface GraphObject {
  * @see https://www.w3.org/TR/json-ld11/#value-objects
  */
 export type ValueObject = {
-    '@index'?: Keyword['@index'];
-    '@context'?: Keyword['@context'];
+    '@index'?: Keyword['@index'] | undefined;
+    '@context'?: Keyword['@context'] | undefined;
 } & ({
     '@value': Keyword['@value'];
-    '@language'?: Keyword['@language'];
-    '@direction'?: Keyword['@direction'];
+    '@language'?: Keyword['@language'] | undefined;
+    '@direction'?: Keyword['@direction'] | undefined;
 } | {
     '@value': Keyword['@value'];
     '@type': Keyword['@type'];
@@ -92,7 +92,7 @@ export type ValueObject = {
  */
 export interface ListObject {
     '@list': Keyword['@list'];
-    '@index'?: Keyword['@index'];
+    '@index'?: Keyword['@index'] | undefined;
 }
 
 /**
@@ -101,7 +101,7 @@ export interface ListObject {
  */
 export interface SetObject {
     '@set': Keyword['@set'];
-    '@index'?: Keyword['@index'];
+    '@index'?: Keyword['@index'] | undefined;
 }
 
 /**
@@ -157,18 +157,18 @@ export type IncludedBlock = OrArray<NodeObject>;
  * @see https://www.w3.org/TR/json-ld11/#context-definitions
  */
 export interface ContextDefinition {
-    '@base'?: Keyword['@base'];
-    '@direction'?: Keyword['@direction'];
-    '@import'?: Keyword['@import'];
-    '@language'?: Keyword['@language'];
-    '@propagate'?: Keyword['@propagate'];
-    '@protected'?: Keyword['@protected'];
+    '@base'?: Keyword['@base'] | undefined;
+    '@direction'?: Keyword['@direction'] | undefined;
+    '@import'?: Keyword['@import'] | undefined;
+    '@language'?: Keyword['@language'] | undefined;
+    '@propagate'?: Keyword['@propagate'] | undefined;
+    '@protected'?: Keyword['@protected'] | undefined;
     '@type'?: {
         '@container': '@set';
-        '@protected'?: Keyword['@protected'];
-    };
-    '@version'?: Keyword['@version'];
-    '@vocab'?: Keyword['@vocab'];
+        '@protected'?: Keyword['@protected'] | undefined;
+    } | undefined;
+    '@version'?: Keyword['@version'] | undefined;
+    '@vocab'?: Keyword['@vocab'] | undefined;
     [key: string]:
         | null
         | string
@@ -183,20 +183,20 @@ export interface ContextDefinition {
  * @see https://www.w3.org/TR/json-ld11/#expanded-term-definition
  */
 export type ExpandedTermDefinition = {
-    '@type'?: '@id' | '@json' | '@none' | '@vocab' | string;
-    '@language'?: Keyword['@language'];
-    '@index'?: Keyword['@index'];
-    '@context'?: ContextDefinition;
-    '@prefix'?: Keyword['@prefix'];
-    '@propagate'?: Keyword['@propagate'];
-    '@protected'?: Keyword['@protected'];
+    '@type'?: '@id' | '@json' | '@none' | '@vocab' | string | undefined;
+    '@language'?: Keyword['@language'] | undefined;
+    '@index'?: Keyword['@index'] | undefined;
+    '@context'?: ContextDefinition | undefined;
+    '@prefix'?: Keyword['@prefix'] | undefined;
+    '@propagate'?: Keyword['@propagate'] | undefined;
+    '@protected'?: Keyword['@protected'] | undefined;
 } & ({
-    '@id'?: Keyword['@id'] | null;
-    '@nest'?: '@nest' | string;
-    '@container'?: Keyword['@container'];
+    '@id'?: Keyword['@id'] | null | undefined;
+    '@nest'?: '@nest' | string | undefined;
+    '@container'?: Keyword['@container'] | undefined;
 } | {
     '@reverse': Keyword['@reverse'];
-    '@container'?: '@set' | '@index' | null;
+    '@container'?: '@set' | '@index' | null | undefined;
 });
 
 /**

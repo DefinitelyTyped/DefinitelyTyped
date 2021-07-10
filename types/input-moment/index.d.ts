@@ -12,12 +12,12 @@ export type OnSaveListener = () => void;
 
 export interface InputMomentProps {
     moment: moment.Moment;
-    onChange?: OnChangeListener;
-    onSave?: OnSaveListener;
-    minStep?: number;
-    hourStep?: number;
-    prevMonthIcon?: string;
-    nextMonthIcon?: string;
+    onChange?: OnChangeListener | undefined;
+    onSave?: OnSaveListener | undefined;
+    minStep?: number | undefined;
+    hourStep?: number | undefined;
+    prevMonthIcon?: string | undefined;
+    nextMonthIcon?: string | undefined;
 }
 
 export default class InputMoment extends React.Component<InputMomentProps> {

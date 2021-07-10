@@ -16,28 +16,28 @@ declare namespace gc {
         /**
          * The cache instance to use for caching.
          */
-        fileCache?: IGulpCache;
+        fileCache?: IGulpCache | undefined;
 
         /**
          * The name of the bucket which stores the cached objects.
          * Default value = 'default'
          */
-        name?: string,
+        name?: string | undefined,
 
         /**
          * The hash generator to use.
          */
-        key?: (file: File, callback?: (err: any, result: string) => void) => string | Promise<string>;
+        key?: ((file: File, callback?: (err: any, result: string) => void) => string | Promise<string>) | undefined;
 
         /**
          * Value representing the success of a task.
          */
-        success?: boolean | Predicate<any>;
+        success?: boolean | Predicate<any> | undefined;
 
         /**
          * Content that is to be cached.
          */
-        value?: (result: any) => Object | Promise<Object> | string;
+        value?: ((result: any) => Object | Promise<Object> | string) | undefined;
     }
 
     interface ICacheOptions {

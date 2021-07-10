@@ -10,12 +10,12 @@ export default class MediaEmbed extends Plugin {
 }
 
 export interface MediaEmbedConfig {
-    elementName?: string;
-    extraProviders?: MediaEmbedProvider[];
-    previewsInData?: boolean;
-    providers?: MediaEmbedProvider[];
-    removeProviders?: string[];
-    toolbar?: string[];
+    elementName?: string | undefined;
+    extraProviders?: MediaEmbedProvider[] | undefined;
+    previewsInData?: boolean | undefined;
+    providers?: MediaEmbedProvider[] | undefined;
+    removeProviders?: string[] | undefined;
+    toolbar?: string[] | undefined;
 }
 
 export interface MediaEmbedProvider {

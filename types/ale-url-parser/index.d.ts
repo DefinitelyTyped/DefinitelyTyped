@@ -12,20 +12,20 @@ export interface UrlObject {
     /**
      * @default 'http'
      */
-    protocol?: string;
+    protocol?: string | undefined;
     /**
      * @default '''
      */
-    host?: string;
+    host?: string | undefined;
     /**
      * @default []
      */
-    path?: string[];
+    path?: string[] | undefined;
     /**
      * @default {}
      */
-    query?: QueryParams;
-    hash?: string;
+    query?: QueryParams | undefined;
+    hash?: string | undefined;
 }
 
 export interface Options {
@@ -33,7 +33,7 @@ export interface Options {
      * Sorting query params is disabled by default.
      * You can define your own sorting method
      */
-    compareFunction?: (a: string, b: string) => number;
+    compareFunction?: ((a: string, b: string) => number) | undefined;
 }
 
 /**

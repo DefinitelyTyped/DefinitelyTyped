@@ -38,7 +38,7 @@ interface FormatOptions {
      * Existing form data which values will be appended to  (default: `new FormData()`).
      * This can be used to support environments that do not have a global FormData object.
      */
-    initialFormData?: InitialFormData;
+    initialFormData?: InitialFormData | undefined;
     /**
      * Include index values in arrays (default: `true`).
      *
@@ -59,7 +59,7 @@ interface FormatOptions {
      *     // }
      *
      */
-    showLeafArrayIndexes?: boolean;
+    showLeafArrayIndexes?: boolean | undefined;
     /**
      * Include null values in output (default: `false`).
      *
@@ -77,7 +77,7 @@ interface FormatOptions {
      *     // }
      *
      */
-    includeNullValues?: boolean;
+    includeNullValues?: boolean | undefined;
     /**
      * Modify outmost leaf values before calling formData.append. Default behaviour
      * is to output boolean values as '1'/'0' (true/false) and all other values
@@ -99,7 +99,7 @@ interface FormatOptions {
      *     // }
      *
      */
-    mapping?: (value: ValidJSONValue) => string | Blob;
+    mapping?: ((value: ValidJSONValue) => string | Blob) | undefined;
 }
 
 /**

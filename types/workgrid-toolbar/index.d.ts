@@ -11,16 +11,16 @@ export interface WorkgridToolbarOptions {
     tenantId: string;
     authorizerUrl: string;
     // Optional
-    confirmUser?: boolean;
-    debug?: boolean;
-    deferDisplay?: boolean;
-    htmlDisplay?: string | null;
-    listener?: (event: string) => void | null;
-    preventPageHide?: boolean;
-    toolbarId?: string | null;
-    version?: string | null;
-    cssRules?: string[];
-    msIdToken?: string | null;
+    confirmUser?: boolean | undefined;
+    debug?: boolean | undefined;
+    deferDisplay?: boolean | undefined;
+    htmlDisplay?: string | null | undefined;
+    listener?: ((event: string) => void | null) | undefined;
+    preventPageHide?: boolean | undefined;
+    toolbarId?: string | null | undefined;
+    version?: string | null | undefined;
+    cssRules?: string[] | undefined;
+    msIdToken?: string | null | undefined;
 }
 
 export function showWorkgridToolbar(options: WorkgridToolbarOptions): void;

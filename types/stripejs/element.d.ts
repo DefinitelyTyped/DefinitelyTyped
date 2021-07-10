@@ -41,7 +41,7 @@ export interface ElementCreatorOptions {
      * Fonts that should be used for styling the element
      * @see https://stripe.com/docs/stripe-js/reference#stripe-elements
      */
-    fonts?: FontCSSElement[] | FontConfigElement[];
+    fonts?: FontCSSElement[] | FontConfigElement[] | undefined;
 
     /**
      * The translation that should be used for the element text
@@ -49,7 +49,7 @@ export interface ElementCreatorOptions {
      *
      * @default 'auto'
      */
-    locale?: 'auto' | 'da' | 'de' | 'en' | 'es' | 'fi' | 'fr' | 'it' | 'ja' | 'no' | 'nl' | 'sv' | 'zh' | string;
+    locale?: 'auto' | 'da' | 'de' | 'en' | 'es' | 'fi' | 'fr' | 'it' | 'ja' | 'no' | 'nl' | 'sv' | 'zh' | string | undefined;
 }
 
 export interface FontCSSElement {
@@ -65,7 +65,7 @@ export interface FontConfigElement {
      * The name of the font family
      * @example 'Times New Roman'
      */
-    family?: string;
+    family?: string | undefined;
 
     /**
      * A src value pointing to your custom font file.
@@ -73,25 +73,25 @@ export interface FontConfigElement {
      * 'url(https://somewebsite.com/path/to/font.woff)'
      * 'url(path/to/font.woff)'
      */
-    src?: string;
+    src?: string | undefined;
 
     /**
      * The style of the text
      * @default 'normal'
      */
-    style?: 'normal' | 'italic' | 'oblique';
+    style?: 'normal' | 'italic' | 'oblique' | undefined;
 
     /**
      * A unicode range for the font that should be used
      * @see https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range
      */
-    unicodeRange?: string;
+    unicodeRange?: string | undefined;
 
     /**
      * The weight of the font
      * NOTE: This cannot be a number!
      */
-    weight?: 'initial' | 'inherit' | 'bold' | 'bolder' | 'lighter' | 'normal' | 'revert' | 'unset';
+    weight?: 'initial' | 'inherit' | 'bold' | 'bolder' | 'lighter' | 'normal' | 'revert' | 'unset' | undefined;
 }
 
 // --- ELEMENT --- //
@@ -205,13 +205,13 @@ export interface OnChange {
      * @example 'visa'
      * NOTE: This is only available when the element is of Card or Cardnumber type
      */
-    brand?: string;
+    brand?: string | undefined;
 
     /**
      * The country code of the entered IBAN
      * NOTE: This is only available when the element is of IBAN type
      */
-    country?: string;
+    country?: string | undefined;
 
     /**
      * The financial institution that services the account whose IBAN was entered into the Element.
@@ -236,18 +236,18 @@ export interface CardElementOptions extends BaseOptions {
      * NOTE: If you are already collecting a full billing address or postal code elsewhere, set this to `true`
      * @default false
      */
-    hidePostalCode?: boolean;
+    hidePostalCode?: boolean | undefined;
 
     /**
      * Appearance of the icon in the Element
      */
-    iconStyle?: 'solid' | 'default';
+    iconStyle?: 'solid' | 'default' | undefined;
 
     /**
      * A placeholder text
      * NOTE: This is only available for `cardNumber`, `cardExpiry` & `cardCvc` elements
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
 }
 
 // --- IBAN ELEMENT --- //
@@ -255,18 +255,18 @@ export interface IBANElementOptions extends BaseOptions {
     /**
      * Specify the list of countries or country-groups whose IBANs you want to allow
      */
-    supportedCountries?: string[];
+    supportedCountries?: string[] | undefined;
 
     /**
      * Customize the country and format of the placeholder IBAN
      * @default 'DE"
      */
-    placeholderCountry?: string;
+    placeholderCountry?: string | undefined;
 
     /**
      * Appearance of the icon in the Element
      */
-    iconStyle?: 'solid' | 'default';
+    iconStyle?: 'solid' | 'default' | undefined;
 }
 
 // --- IDEAL ELEMENT --- //
@@ -277,7 +277,7 @@ export interface IdealBankOptions extends BaseOptions {
      *
      * @example 'abn_amro'
      */
-    value?: string;
+    value?: string | undefined;
 }
 
 // --- PAYMENT BUTTON ELEMENT --- //
@@ -289,19 +289,19 @@ export interface PaymentButtonOptions {
      * particular state.
      */
     classes?: {
-        base?: string; /** @default StripeElement */
-        complete?: string; /** @default StripeElement--complete */
+        base?: string | undefined; /** @default StripeElement */
+        complete?: string | undefined; /** @default StripeElement--complete */
         focus: string; /** @default StripeElement--focus */
         invalid: string; /** @default StripeElement--invalid */
-    };
+    } | undefined;
 
     style?: {
-        base?: PaymentRequestButtonStyle;
-        complete?: PaymentRequestButtonStyle;
-        empty?: PaymentRequestButtonStyle;
-        invalid?: PaymentRequestButtonStyle;
-        paymentRequestButton?: PaymentRequestButtonStyle;
-    };
+        base?: PaymentRequestButtonStyle | undefined;
+        complete?: PaymentRequestButtonStyle | undefined;
+        empty?: PaymentRequestButtonStyle | undefined;
+        invalid?: PaymentRequestButtonStyle | undefined;
+        paymentRequestButton?: PaymentRequestButtonStyle | undefined;
+    } | undefined;
 }
 
 export interface PaymentRequestButtonStyle {
@@ -309,19 +309,19 @@ export interface PaymentRequestButtonStyle {
      * The type of button that should be shown
      * @default 'default'
      */
-    type?: 'default' | 'donate' | 'buy';
+    type?: 'default' | 'donate' | 'buy' | undefined;
 
     /**
      * The theme of the button that should be used
      * @default 'dark'
      */
-    theme?: 'dark' | 'light' | 'light-outline';
+    theme?: 'dark' | 'light' | 'light-outline' | undefined;
 
     /**
      * The height of the button
      * @example '25px'
      */
-    height?: string;
+    height?: string | undefined;
 }
 
 // --- BASE OPTIONS FOR ELEMENTS --- //
@@ -334,75 +334,75 @@ export interface BaseOptions {
      * particular state.
      */
     classes?: {
-        base?: string; /** @default StripeElement */
-        complete?: string; /** @default StripeElement--complete */
-        empty?: string; /** @default StripeElement--empty */
-        focus?: string; /** @default StripeElement--focus */
-        invalid?: string; /** @default StripeElement--invalid */
-        webkitAutofill?: string; /** @default StripeElement--webkit-autofill */
-    };
+        base?: string | undefined; /** @default StripeElement */
+        complete?: string | undefined; /** @default StripeElement--complete */
+        empty?: string | undefined; /** @default StripeElement--empty */
+        focus?: string | undefined; /** @default StripeElement--focus */
+        invalid?: string | undefined; /** @default StripeElement--invalid */
+        webkitAutofill?: string | undefined; /** @default StripeElement--webkit-autofill */
+    } | undefined;
 
     /**
      * Customize appearance using CSS properties
      */
     style?: {
-        base?: StyleAttributes;
-        complete?: StyleAttributes;
-        empty?: StyleAttributes;
-        invalid?: StyleAttributes;
-    };
+        base?: StyleAttributes | undefined;
+        complete?: StyleAttributes | undefined;
+        empty?: StyleAttributes | undefined;
+        invalid?: StyleAttributes | undefined;
+    } | undefined;
 
     /**
      * Whether or not the icon should be hidden
      * @default false
      */
-    hideIcon?: boolean;
+    hideIcon?: boolean | undefined;
 
     /**
      * Whether or not the input is disabled
      * @default false
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
 }
 
 /**
  * Styling settings for a Stripe Element
  */
 export interface StyleAttributes {
-    color?: string;
-    fontFamily?: string;
-    fontSize?: string;
-    fontSmoothing?: string;
-    fontStyle?: string;
+    color?: string | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: string | undefined;
+    fontSmoothing?: string | undefined;
+    fontStyle?: string | undefined;
     fontVariant?: any;
-    iconColor?: string;
-    lineHeight?: string;
-    letterSpacing?: string;
+    iconColor?: string | undefined;
+    lineHeight?: string | undefined;
+    letterSpacing?: string | undefined;
 
     /**
      * Align text inside the element
      * NOTE: Only available for the `cardNumber`, `cardExpiry`, and `cardCvc` Elements
      */
-    textAlign?: string;
-    '::-ms-clear'?: MSClearAttributes;
+    textAlign?: string | undefined;
+    '::-ms-clear'?: MSClearAttributes | undefined;
 
     /**
      * Add padding to the element
      * NOTE: Only available for the `idealBank` Element
      */
-    padding?: string;
+    padding?: string | undefined;
 
-    textDecoration?: string;
-    textShadow?: string;
-    textTransform?: string;
-    ':hover'?: StyleAttributes;
-    ':focus'?: StyleAttributes;
-    '::placeholder'?: StyleAttributes;
-    '::selection'?: StyleAttributes;
-    ':-webkit-autofill'?: StyleAttributes;
-    ':disabled'?: StyleAttributes;
+    textDecoration?: string | undefined;
+    textShadow?: string | undefined;
+    textTransform?: string | undefined;
+    ':hover'?: StyleAttributes | undefined;
+    ':focus'?: StyleAttributes | undefined;
+    '::placeholder'?: StyleAttributes | undefined;
+    '::selection'?: StyleAttributes | undefined;
+    ':-webkit-autofill'?: StyleAttributes | undefined;
+    ':disabled'?: StyleAttributes | undefined;
 }
 
 export interface MSClearAttributes extends StyleAttributes {
-    display?: string;
+    display?: string | undefined;
 }

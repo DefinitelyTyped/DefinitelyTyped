@@ -8,7 +8,7 @@ interface Options {
     /**
      * If set to true, defers execution of the setup function until the first time the media query is matched
      */
-    deferSetup?: boolean;
+    deferSetup?: boolean | undefined;
     /**
      * If supplied, triggered when a media query matches.
      */

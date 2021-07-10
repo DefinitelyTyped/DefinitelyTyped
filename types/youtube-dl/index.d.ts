@@ -28,10 +28,10 @@ declare namespace youtubedl {
     }
 
     interface Options {
-        auto?: boolean;
-        all?: boolean;
-        lang?: string;
-        cwd?: string;
+        auto?: boolean | undefined;
+        all?: boolean | undefined;
+        lang?: string | undefined;
+        cwd?: string | undefined;
     }
 
     /**

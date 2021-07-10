@@ -10,14 +10,14 @@ interface GIOObjectVariables {
 
 interface GIOInitOptions {
     /** 配置imp类型的数据关闭发送 */
-    imp?: boolean;
+    imp?: boolean | undefined;
 }
 
 interface GIOConfigOptions {
     /** 是否采集数据 */
-    dataCollect?: 'true' | 'false' | boolean;
+    dataCollect?: 'true' | 'false' | boolean | undefined;
     /** 是否检测hash变化 */
-    hashtag?: 'true' | 'false' | boolean;
+    hashtag?: 'true' | 'false' | boolean | undefined;
 }
 
 interface GrowingIO {

@@ -6,18 +6,18 @@
 
 declare namespace Expander {
     interface Options {
-        autoCollapse?: boolean;
-        collapseOnClickOut?: boolean;
-        collapseOnFocusOut?: boolean;
-        collapseOnMouseOut?: boolean;
-        contentSelector?: string;
-        expandOnClick?: boolean;
-        expandOnFocus?: boolean;
-        expandOnHover?: boolean;
-        focusManagement?: string | null;
-        hostSelector?: string;
-        expandedClass?: string;
-        simulateSpacebarClick?: boolean;
+        autoCollapse?: boolean | undefined;
+        collapseOnClickOut?: boolean | undefined;
+        collapseOnFocusOut?: boolean | undefined;
+        collapseOnMouseOut?: boolean | undefined;
+        contentSelector?: string | undefined;
+        expandOnClick?: boolean | undefined;
+        expandOnFocus?: boolean | undefined;
+        expandOnHover?: boolean | undefined;
+        focusManagement?: string | null | undefined;
+        hostSelector?: string | undefined;
+        expandedClass?: string | undefined;
+        simulateSpacebarClick?: boolean | undefined;
     }
 }
 

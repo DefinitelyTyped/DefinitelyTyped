@@ -11,22 +11,22 @@ export = Recaptcha;
 
 declare namespace Recaptcha {
     interface RecaptchaProps {
-        className?: string;
-        elementID?: string;
+        className?: string | undefined;
+        elementID?: string | undefined;
         expiredCallback?(): any;
-        expiredCallbackName?: string;
+        expiredCallbackName?: string | undefined;
         onloadCallback?(): any;
-        onloadCallbackName?: string;
-        render?: "onload" | "explicit";
-        size?: "normal" | "compact" | "invisible";
-        tabindex?: number | string;
-        theme?: "dark" | "light";
-        type?: "audio" | "image";
+        onloadCallbackName?: string | undefined;
+        render?: "onload" | "explicit" | undefined;
+        size?: "normal" | "compact" | "invisible" | undefined;
+        tabindex?: number | string | undefined;
+        theme?: "dark" | "light" | undefined;
+        type?: "audio" | "image" | undefined;
         verifyCallback?(response: string): any;
-        verifyCallbackName?: string;
-        sitekey?: string;
-        badge?: "bottomright" | "bottomleft" | "inline";
-        hl?: string; // https://developers.google.com/recaptcha/docs/language
+        verifyCallbackName?: string | undefined;
+        sitekey?: string | undefined;
+        badge?: "bottomright" | "bottomleft" | "inline" | undefined;
+        hl?: string | undefined; // https://developers.google.com/recaptcha/docs/language
     }
 }
 

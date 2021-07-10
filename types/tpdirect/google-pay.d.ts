@@ -10,16 +10,16 @@ interface GooglePay {
         billingAddressFormat: "FULL" | "MIN";
         allowPrepaidCards: boolean;
         allowedCountryCodes: string[]
-        emailRequired?: boolean;
-        shippingAddressRequired?: boolean;
-        billingAddressRequired?: boolean;
-        phoneNumberRequired?: boolean;
+        emailRequired?: boolean | undefined;
+        shippingAddressRequired?: boolean | undefined;
+        billingAddressRequired?: boolean | undefined;
+        phoneNumberRequired?: boolean | undefined;
     }): void;
 
     setupPaymentRequest(paymentReqeuestData: {
         allowedNetworks: AllowedNetworks[];
-        price?: string;
-        currency?: string;
+        price?: string | undefined;
+        currency?: string | undefined;
     }): void;
 
     setupGooglePayButton(setting: {
@@ -29,7 +29,7 @@ interface GooglePay {
         /**
          * @description Use either TPDirect.googlePay.getPrime(callback) or TPDirect.googlePay.setupGooglePayButton({getPrimeCallback})
          */
-        getPrimeCallback?: (
+        getPrimeCallback?: ((
             err: {
                 status: number;
                 msg: string;
@@ -39,7 +39,7 @@ interface GooglePay {
             result: Pick<BaseResult, "client_ip"> & MerchantReferenceInfo & {
                 card_info: CardInfoV1;
             }
-        ) => void;
+        ) => void) | undefined;
     }): void;
 
     setupTransactionPrice(transactionPrice: {

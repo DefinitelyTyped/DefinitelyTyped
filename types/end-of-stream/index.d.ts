@@ -5,9 +5,9 @@
 /// <reference types="node"/>
 
 interface Options {
-  readable?: boolean;
-  writable?: boolean;
-  error?: boolean;
+  readable?: boolean | undefined;
+  writable?: boolean | undefined;
+  error?: boolean | undefined;
 }
 type Stream = NodeJS.ReadableStream | NodeJS.WritableStream;
 type Callback = (error?: Error | null) => void;

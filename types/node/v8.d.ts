@@ -196,3 +196,7 @@ declare module 'v8' {
      */
     function stopCoverage(): void;
 }
+
+declare module 'node:v8' {
+    export * from 'v8';
+}

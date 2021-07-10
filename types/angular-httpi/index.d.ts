@@ -8,11 +8,11 @@
 
 declare namespace Httpi {
     export interface HttpiPayload extends ng.IRequestShortcutConfig {
-        method?: string;
-        url?: string;
-        params?: {};
-        data?: {};
-        keepTrailingSlash?: boolean;
+        method?: string | undefined;
+        url?: string | undefined;
+        params?: {} | undefined;
+        data?: {} | undefined;
+        keepTrailingSlash?: boolean | undefined;
     }
 
     export interface HttpiFactory {

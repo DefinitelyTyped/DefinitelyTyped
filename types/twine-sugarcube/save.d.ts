@@ -4,7 +4,7 @@ export interface SavedMoment {
     /** The current variable store object, which contains sigil - less name ⇒ value pairs(e.g.$foo exists as foo). */
     variables: {[x: string]: any};
     /** The current pull count of SugarCube's seedable PRNG, exists only if enabled. */
-    pull?: number;
+    pull?: number | undefined;
 }
 
 export interface SavedState {
@@ -13,9 +13,9 @@ export interface SavedState {
     /** The index of the active moment. */
     index: number;
     /** The array of expired moment passage titles, exists only if any moments have expired. */
-    expired?: string[];
+    expired?: string[] | undefined;
     /** The seed of SugarCube's seedable PRNG, exists only if enabled. */
-    seed?: string;
+    seed?: string | undefined;
 }
 
 export interface SaveObject {

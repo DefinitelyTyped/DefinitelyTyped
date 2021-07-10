@@ -8,37 +8,37 @@
 export as namespace mParticle;
 export {};
 export interface MPConfiguration {
-    isDevelopmentMode?: boolean;
-    identifyRequest?: IdentifyRequest;
-    identityCallback?: IdentityCallback;
-    dataPlan?: DataPlanConfig;
-    appVersion?: string;
-    appName?: string;
-    logLevel?: 'verbose' | 'warning' | 'none';
-    logger?: Logger;
-    sessionTimeout?: number;
-    useCookieStorage?: boolean;
-    maxCookieSize?: number;
-    cookieDomain?: string;
-    customFlags?: SDKEventCustomFlags;
+    isDevelopmentMode?: boolean | undefined;
+    identifyRequest?: IdentifyRequest | undefined;
+    identityCallback?: IdentityCallback | undefined;
+    dataPlan?: DataPlanConfig | undefined;
+    appVersion?: string | undefined;
+    appName?: string | undefined;
+    logLevel?: 'verbose' | 'warning' | 'none' | undefined;
+    logger?: Logger | undefined;
+    sessionTimeout?: number | undefined;
+    useCookieStorage?: boolean | undefined;
+    maxCookieSize?: number | undefined;
+    cookieDomain?: string | undefined;
+    customFlags?: SDKEventCustomFlags | undefined;
     /**
      * @warning only change workspaceToken if you are absolutely sure you know what you are doing
      */
-    workspaceToken?: string;
+    workspaceToken?: string | undefined;
     /**
      * @warning only change requiredWebviewBridgeName if you are absolutely sure you know what you are doing
      */
-    requiredWebviewBridgeName?: string;
+    requiredWebviewBridgeName?: string | undefined;
     /**
      * @warning only change minWebviewBridgeVersion if you are absolutely sure you know what you are doing
      */
-    minWebviewBridgeVersion?: 1 | 2;
+    minWebviewBridgeVersion?: 1 | 2 | undefined;
 }
 
 export interface Logger {
-    error?: (error: string) => void;
-    warning?: (error: string) => void;
-    verbose?: (error: string) => void;
+    error?: ((error: string) => void) | undefined;
+    warning?: ((error: string) => void) | undefined;
+    verbose?: ((error: string) => void) | undefined;
 }
 export interface SDKEventCustomFlags {
     [key: string]:
@@ -50,7 +50,7 @@ export interface SDKEventCustomFlags {
 }
 export interface DataPlanConfig {
     planId: string;
-    planVersion?: number;
+    planVersion?: number | undefined;
 }
 
 interface EndSession {
@@ -519,27 +519,27 @@ export type AllUserAttributes = Record<
     UserAttributesValue | UserAttributesValue[]
 >;
 export interface UserIdentities {
-    customerid?: string;
-    email?: string;
-    other?: string;
-    other2?: string;
-    other3?: string;
-    other4?: string;
-    other5?: string;
-    other6?: string;
-    other7?: string;
-    other8?: string;
-    other9?: string;
-    other10?: string;
-    mobile_number?: string;
-    phone_number_2?: string;
-    phone_number_3?: string;
-    facebook?: string;
-    facebookcustomaudienceid?: string;
-    google?: string;
-    twitter?: string;
-    microsoft?: string;
-    yahoo?: string;
+    customerid?: string | undefined;
+    email?: string | undefined;
+    other?: string | undefined;
+    other2?: string | undefined;
+    other3?: string | undefined;
+    other4?: string | undefined;
+    other5?: string | undefined;
+    other6?: string | undefined;
+    other7?: string | undefined;
+    other8?: string | undefined;
+    other9?: string | undefined;
+    other10?: string | undefined;
+    mobile_number?: string | undefined;
+    phone_number_2?: string | undefined;
+    phone_number_3?: string | undefined;
+    facebook?: string | undefined;
+    facebookcustomaudienceid?: string | undefined;
+    google?: string | undefined;
+    twitter?: string | undefined;
+    microsoft?: string | undefined;
+    yahoo?: string | undefined;
 }
 
 interface Cart {
@@ -564,22 +564,22 @@ export interface Product {
     name: string;
     sku: string;
     price: number;
-    quantity?: number;
-    variant?: string;
-    category?: string;
-    brand?: string;
-    position?: number;
-    coupon?: string;
-    attributes?: Record<string, unknown>;
+    quantity?: number | undefined;
+    variant?: string | undefined;
+    category?: string | undefined;
+    brand?: string | undefined;
+    position?: number | undefined;
+    coupon?: string | undefined;
+    attributes?: Record<string, unknown> | undefined;
 }
 
 export interface TransactionAttributes {
     Id: string | number;
-    Affiliation?: string;
-    CouponCode?: string;
-    Revenue?: number;
-    Shipping?: string;
-    Tax?: number;
+    Affiliation?: string | undefined;
+    CouponCode?: string | undefined;
+    Revenue?: number | undefined;
+    Shipping?: string | undefined;
+    Tax?: number | undefined;
 }
 
 export interface Impression {
@@ -589,9 +589,9 @@ export interface Impression {
 
 export interface Promotion {
     id: string;
-    creative?: string;
-    name?: string;
-    position?: number;
+    creative?: string | undefined;
+    name?: string | undefined;
+    position?: number | undefined;
 }
 
 export interface IdentityApiData {
@@ -619,7 +619,7 @@ export interface BaseEvent {
     name: string;
     eventType: number;
     messageType: number;
-    toEventAPIObject?: () => unknown;
+    toEventAPIObject?: (() => unknown) | undefined;
 }
 export interface SDKEventAttrs {
     [key: string]: SDKEventAttrTypes;

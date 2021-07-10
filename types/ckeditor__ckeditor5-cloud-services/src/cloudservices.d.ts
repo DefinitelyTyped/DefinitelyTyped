@@ -8,7 +8,7 @@ import Token from "./token/token";
 
 export default class CloudServices extends ContextPlugin implements Emitter, Observable {
     token: Token | null;
-    tokenUrl?: string | (() => string);
+    tokenUrl?: string | (() => string) | undefined;
     uploadUrl: string;
 
     getTokenFor(tokenUrl: string): Token;
@@ -29,7 +29,7 @@ export default class CloudServices extends ContextPlugin implements Emitter, Obs
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
@@ -38,8 +38,8 @@ export default class CloudServices extends ContextPlugin implements Emitter, Obs
 }
 
 export interface CloudServicesConfig {
-    bundleVersion?: string;
+    bundleVersion?: string | undefined;
     tokenUrl: string | (() => string);
     uploadUrl: string;
-    webSocketUrl?: string;
+    webSocketUrl?: string | undefined;
 }

@@ -20,38 +20,38 @@ declare module "needle" {
         type NeedleCallback = (error: Error, response: NeedleResponse, body: any) => void;
 
         interface RequestOptions {
-            timeout?: number;
-            follow?: number;
-            follow_max?: number;
-            multipart?: boolean;
-            proxy?: string;
-            agent?: string;
-            headers?: {};
-            auth?: string; // auto | digest | basic (default)
-            json?: boolean;
+            timeout?: number | undefined;
+            follow?: number | undefined;
+            follow_max?: number | undefined;
+            multipart?: boolean | undefined;
+            proxy?: string | undefined;
+            agent?: string | undefined;
+            headers?: {} | undefined;
+            auth?: string | undefined; // auto | digest | basic (default)
+            json?: boolean | undefined;
 
             // These properties are overwritten by those in the 'headers' field
-            compressed?: boolean;
-            cookies?: { [name: string]: any; };
+            compressed?: boolean | undefined;
+            cookies?: { [name: string]: any; } | undefined;
             // Overwritten if present in the URI
-            username?: string;
-            password?: string;
+            username?: string | undefined;
+            password?: string | undefined;
         }
 
         interface ResponseOptions {
-            decode?: boolean;
-            parse?: boolean;
+            decode?: boolean | undefined;
+            parse?: boolean | undefined;
             output?: any;
         }
 
         interface TLSOptions {
             pfx?: any;
             key?: any;
-            passphrase?: string;
+            passphrase?: string | undefined;
             cert?: any;
             ca?: any;
             ciphers?: any;
-            rejectUnauthorized?: boolean;
+            rejectUnauthorized?: boolean | undefined;
             secureProtocol?: any;
         }
 

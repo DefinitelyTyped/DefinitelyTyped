@@ -13,9 +13,9 @@ declare module 'leaflet' {
     class CRS implements CRS {
       projection: Projection;
       transformation: Transformation;
-      code?: string;
-      wrapLng?: [number, number];
-      wrapLat?: [number, number];
+      code?: string | undefined;
+      wrapLng?: [number, number] | undefined;
+      wrapLat?: [number, number] | undefined;
       infinite: boolean;
 
       constructor(projection: proj4.InterfaceProjection, options?: ProjCRSOptions);
@@ -49,14 +49,14 @@ declare module 'leaflet' {
     const imageOverlay: (imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions) => ImageOverlay;
 
     interface ProjCRSOptions {
-      bounds?: Bounds;
-      origin?: [number, number];
-      scales?: number[];
-      resolutions?: number[];
-      transformation?: Transformation;
+      bounds?: Bounds | undefined;
+      origin?: [number, number] | undefined;
+      scales?: number[] | undefined;
+      resolutions?: number[] | undefined;
+      transformation?: Transformation | undefined;
     }
   }
 }
 export type Proj4GeoJSONFeature = geojson.Feature<geojson.GeometryObject> & {
-  crs?: { type: string; properties: { name: string } }
+  crs?: { type: string; properties: { name: string } } | undefined
 };

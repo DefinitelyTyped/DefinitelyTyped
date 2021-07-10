@@ -4,13 +4,13 @@ import RegularShape from './RegularShape';
 import Stroke from './Stroke';
 
 export interface Options {
-    fill?: Fill;
+    fill?: Fill | undefined;
     radius: number;
-    stroke?: Stroke;
-    displacement?: number[];
-    scale?: number | Size;
-    rotation?: number;
-    rotateWithView?: boolean;
+    stroke?: Stroke | undefined;
+    displacement?: number[] | undefined;
+    scale?: number | Size | undefined;
+    rotation?: number | undefined;
+    rotateWithView?: boolean | undefined;
 }
 export default class CircleStyle extends RegularShape {
     constructor(opt_options?: Options);

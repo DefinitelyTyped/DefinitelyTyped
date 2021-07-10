@@ -46,14 +46,14 @@ interface BigTextProps {
         | '3d'
         | 'simple3d'
         | 'chrome'
-        | 'huge';
-    align?: 'left' | 'center' | 'right';
-    colors?: string[];
-    backgroundColor?: 'transparent' | 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white';
-    letterSpacing?: number;
-    lineHeight?: number;
-    space?: boolean;
-    maxLength?: number;
+        | 'huge' | undefined;
+    align?: 'left' | 'center' | 'right' | undefined;
+    colors?: string[] | undefined;
+    backgroundColor?: 'transparent' | 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white' | undefined;
+    letterSpacing?: number | undefined;
+    lineHeight?: number | undefined;
+    space?: boolean | undefined;
+    maxLength?: number | undefined;
 }
 
 declare const BigText: React.FC<BigTextProps>;

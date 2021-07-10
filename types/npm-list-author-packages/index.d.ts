@@ -6,11 +6,11 @@
 declare namespace list {
     interface Options {
         /** registry port. Default: 443 (HTTPS) or 80 (HTTP). */
-        port?: 443 | 80;
+        port?: 443 | 80 | undefined;
         /** registry protocol. Default: 'https'. */
-        protocol?: 'http' | 'https';
+        protocol?: 'http' | 'https' | undefined;
         /** registry. Default: 'registry.npmjs.org'. */
-        registry?: string;
+        registry?: string | undefined;
         /** author username (required). */
         username: string;
     }

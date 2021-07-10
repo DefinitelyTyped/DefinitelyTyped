@@ -50,11 +50,7 @@ const spectro2 = new Spectrogram(canvas2, {
 });
 
 const audioContext2 = new AudioContext();
-navigator.getUserMedia(
-    {
-        video: false,
-        audio: true
-    },
+navigator.mediaDevices.getUserMedia({ video: false, audio: true }).then(
     (stream) => {
         const input = audioContext2.createMediaStreamSource(stream);
         const analyser = audioContext2.createAnalyser();

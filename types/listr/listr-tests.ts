@@ -3,7 +3,7 @@ import * as fs from "fs";
 
 interface Context {
     foo: string;
-    yarn?: boolean;
+    yarn?: boolean | undefined;
 }
 
 const tasks = new Listr<Context>([

@@ -18,9 +18,9 @@ interface IOptions {
      * 0 if file1 is equivalent to file2, and
      * 1 if file1 should be after file2
      */
-    comparator?: IComparatorFunction;
+    comparator?: IComparatorFunction | undefined;
     /** Whether to sort in ascending order, default is true */
-    asc?: boolean;
+    asc?: boolean | undefined;
 }
 
 interface IComparatorFunction {

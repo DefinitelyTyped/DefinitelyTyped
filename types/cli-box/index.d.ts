@@ -21,21 +21,21 @@ type MarksKeys = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'b';
 type Marks = Record<MarksKeys, string>;
 
 interface Options {
-    w?: number;
-    width?: number;
-    h?: number;
-    height?: number;
-    fullscreen?: boolean;
-    stringify?: boolean;
-    marks?: Partial<Marks>;
+    w?: number | undefined;
+    width?: number | undefined;
+    h?: number | undefined;
+    height?: number | undefined;
+    fullscreen?: boolean | undefined;
+    stringify?: boolean | undefined;
+    marks?: Partial<Marks> | undefined;
 }
 
 interface Text {
-    text?: string;
-    stretch?: boolean;
-    autoEOL?: boolean;
-    hAlign?: 'left' | 'middle' | 'right';
-    vAlign?: 'top' | 'center' | 'bottom';
+    text?: string | undefined;
+    stretch?: boolean | undefined;
+    autoEOL?: boolean | undefined;
+    hAlign?: 'left' | 'middle' | 'right' | undefined;
+    vAlign?: 'top' | 'center' | 'bottom' | undefined;
 }
 
 interface Box {

@@ -19,58 +19,58 @@ declare namespace autocannon {
          * A path to a Unix Domain Socket or a Windows Named Pipe.
          * A `url` is still required in order to send the correct Host header and path.
          */
-        socketPath?: string;
+        socketPath?: string | undefined;
 
         /**
          * The number of concurrent connections.
          * @default 10
          */
-        connections?: number;
+        connections?: number | undefined;
 
         /**
          * The number of seconds to run the autocannon.
          * Can be a [timestring](https://www.npmjs.com/package/timestring).
          * @default 10
          */
-        duration?: number | string;
+        duration?: number | string | undefined;
 
         /**
          * A `Number` stating the amount of requests to make before ending the test.
          * This overrides duration and takes precedence, so the test won't end
          * until the amount of requests needed to be completed are completed.
          */
-        amount?: number;
+        amount?: number | undefined;
 
         /**
          * The number of seconds to wait for a response before timeout.
          * @default 10
          */
-        timeout?: number;
+        timeout?: number | undefined;
 
         /**
          *  The number of [pipelined requests](https://en.wikipedia.org/wiki/HTTP_pipelining) for each connection.
          * Will cause the `Client` API to throw when greater than 1
          * @default 1
          */
-        pipelining?: number;
+        pipelining?: number | undefined;
 
         /**
          * The threshold of the number of errors when making the requests to the server before this instance bail's out.
          * This instance will take all existing results so far and aggregate them into the results.
          * If none passed here, the instance will ignore errors and never bail out.
          */
-        bailout?: number;
+        bailout?: number | undefined;
 
         /**
          * The http method to use.
          * @default 'GET'
          */
-        method?: Request['method'];
+        method?: Request['method'] | undefined;
 
         /**
          * A `String` to be added to the results for identification.
          */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * A `String` or a `Buffer` containing the body of the request.
@@ -82,13 +82,13 @@ declare namespace autocannon {
          *
          * Leave undefined for an empty body.
          */
-        body?: Request['body'];
+        body?: Request['body'] | undefined;
 
         /**
          * An `Object` containing the headers of the request.
          * @default {}
          */
-        headers?: Request['headers'];
+        headers?: Request['headers'] | undefined;
 
         /**
          * A `Function` which will be passed the Client object for each connection to be made.
@@ -98,38 +98,38 @@ declare namespace autocannon {
          *
          * @default noop(){}
          */
-        setupClient?: (client: Client) => void;
+        setupClient?: ((client: Client) => void) | undefined;
 
         /**
          * A `Number` stating the max requests to make per connection.
          * `amount` takes precedence if both are set.
          */
-        maxConnectionRequests?: number;
+        maxConnectionRequests?: number | undefined;
 
         /**
          * A `Number` stating the max requests to make overall.
          * Can't be less than `connections`.
          */
-        maxOverallRequests?: number;
+        maxOverallRequests?: number | undefined;
 
         /**
          * A `Number` stating the rate of requests to make per second from each individual connection.
          * No rate limiting by default.
          */
-        connectionRate?: number;
+        connectionRate?: number | undefined;
 
         /**
          * A `Number` stating the rate of requests to make per second from all connections.
          * `connectionRate` takes precedence if both are set.
          * No rate limiting by default.
          */
-        overallRate?: number;
+        overallRate?: number | undefined;
 
         /**
          * A `Number` which makes the individual connections disconnect and reconnect to the server
          * whenever it has sent that number of requests.
          */
-        reconnectRate?: number;
+        reconnectRate?: number | undefined;
 
         /**
          * An `Array` of `Objects` which represents the sequence of requests to make while benchmarking.
@@ -138,37 +138,37 @@ declare namespace autocannon {
          * The `Objects` in this array can have `body`, `headers`, `method`, or `path` attributes, which overwrite those that are passed in this `opts` object.
          * Therefore, the ones in this (`opts`) object take precedence and should be viewed as defaults.
          */
-        requests?: Request[];
+        requests?: Request[] | undefined;
 
         /**
          * A `Boolean` which enables the replacement of `[<id>]` tags within the request body with a randomly generated ID,
          * allowing for unique fields to be sent with requests.
          * @default false
          */
-        idReplacement?: boolean;
+        idReplacement?: boolean | undefined;
 
         /**
          * A `Boolean` which allows you to setup an instance of autocannon that restarts indefinitely after emiting results with the `done` event.
          * Useful for efficiently restarting your instance. To stop running forever, you must cause a `SIGINT` or call the `.stop()` function on your instance.
          * @default false
          */
-        forever?: boolean;
+        forever?: boolean | undefined;
 
         /**
          * A `String` identifying the server name for the SNI (Server Name Indication) TLS extension.
          */
-        servername?: string;
+        servername?: string | undefined;
 
         /**
          * A `Boolean` which allows you to disable tracking non 2xx code responses in latency and bytes per second calculations.
          * @default false
          */
-        excludeErrorStats?: boolean;
+        excludeErrorStats?: boolean | undefined;
     }
 
     interface Request {
-        body?: string | Buffer;
-        headers?: IncomingHttpHeaders;
+        body?: string | Buffer | undefined;
+        headers?: IncomingHttpHeaders | undefined;
         method?:
             | 'ACL'
             | 'BIND'
@@ -203,8 +203,8 @@ declare namespace autocannon {
             | 'UNBIND'
             | 'UNLINK'
             | 'UNLOCK'
-            | 'UNSUBSCRIBE';
-        path?: string;
+            | 'UNSUBSCRIBE' | undefined;
+        path?: string | undefined;
     }
 
     /**
@@ -434,31 +434,31 @@ declare namespace autocannon {
          * The stream to output to.
          * @default process.stderr
          */
-        outputStream?: NodeJS.WritableStream;
+        outputStream?: NodeJS.WritableStream | undefined;
 
         /**
          * A truthy value to enable the rendering of the progress bar.
          * @default true
          */
-        renderProgressBar?: boolean;
+        renderProgressBar?: boolean | undefined;
 
         /**
          * A truthy value to enable the rendering of the results table.
          * @default true
          */
-        renderResultsTable?: boolean;
+        renderResultsTable?: boolean | undefined;
 
         /**
          * A truthy value to enable the rendering of the advanced latency table.
          * @default false
          */
-        renderLatencyTable?: boolean;
+        renderLatencyTable?: boolean | undefined;
 
         /**
          * A `String` defining the format of the progress display output. Must be valid input for the [progress bar module](https://www.npmjs.com/package/progress).
          * @default 'running [:bar] :percent'
          */
-        progressBarString?: string;
+        progressBarString?: string | undefined;
     }
 
     /**

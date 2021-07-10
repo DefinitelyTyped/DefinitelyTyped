@@ -8,12 +8,12 @@ declare namespace PluginBlockSettingsMenuItem {
          * it'll be rendered for any block. If multiple blocks are selected, it'll be shown if and only if
          * all of them are in the whitelist.
          */
-        allowedBlocks?: string[];
+        allowedBlocks?: string[] | undefined;
         /**
          * A dashicon slug, or a custom JSX element.
          * @defaultValue `"admin-plugins"`
          */
-        icon?: JSX.Element | Dashicon.Icon;
+        icon?: JSX.Element | Dashicon.Icon | undefined;
         /**
          * The menu item text.
          */
@@ -25,7 +25,7 @@ declare namespace PluginBlockSettingsMenuItem {
         /**
          * If it should be rendered smaller. (This is undocumented).
          */
-        small?: boolean;
+        small?: boolean | undefined;
     }
 }
 

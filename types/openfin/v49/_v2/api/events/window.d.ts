@@ -22,7 +22,7 @@ export interface WindowEndLoadEvent<Topic, Type> extends WindowEvent<Topic, Type
     isMain: boolean;
 }
 export interface WindowNavigationRejectedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
-    sourceName?: string;
+    sourceName?: string | undefined;
     url: string;
 }
 export interface WindowReloadedEvent<Topic, Type> extends WindowEvent<Topic, Type> {

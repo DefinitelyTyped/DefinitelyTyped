@@ -4,16 +4,16 @@ export declare type TabActionType = {
     type: 'JUMP_TO';
     payload: {
         name: string;
-        params?: object;
+        params?: object | undefined;
     };
-    source?: string;
-    target?: string;
+    source?: string | undefined;
+    target?: string | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type BackBehavior = 'initialRoute' | 'order' | 'history' | 'none';
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type TabRouterOptions = DefaultRouterOptions & {
-    backBehavior?: BackBehavior;
+    backBehavior?: BackBehavior | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type TabNavigationState<ParamList extends ParamListBase> = Omit<NavigationState<ParamList>, 'history'> & {

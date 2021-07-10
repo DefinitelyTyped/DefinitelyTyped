@@ -4,14 +4,14 @@ declare namespace echarts {
          * Line style
          */
         interface LineStyle {
-            color?: EChartOption.Color;
-            width?: number;
-            type?: 'solid' | 'dashed' | 'dotted';
-            shadowBlur?: number;
-            shadowColor?: EChartOption.Color;
-            shadowOffsetX?: number;
-            shadowOffsetY?: number;
-            opacity?: number;
+            color?: EChartOption.Color | undefined;
+            width?: number | undefined;
+            type?: 'solid' | 'dashed' | 'dotted' | undefined;
+            shadowBlur?: number | undefined;
+            shadowColor?: EChartOption.Color | undefined;
+            shadowOffsetX?: number | undefined;
+            shadowOffsetY?: number | undefined;
+            opacity?: number | undefined;
         }
     }
 }

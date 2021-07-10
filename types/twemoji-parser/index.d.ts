@@ -27,11 +27,11 @@ export interface EmojiEntity {
 }
 
 export interface ParsingOptions {
-    buildUrl?: (codepoints: string, assetType: AssetType) => string;
+    buildUrl?: ((codepoints: string, assetType: AssetType) => string) | undefined;
     /**
      * @default 'svg'
      */
-    assetType?: AssetType;
+    assetType?: AssetType | undefined;
 }
 
 export type AssetType = 'png' | 'svg';

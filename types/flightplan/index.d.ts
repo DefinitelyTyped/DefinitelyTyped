@@ -7,17 +7,17 @@ declare var flightplan: FlightplanInterfaces.Flightplan;
 
 declare namespace FlightplanInterfaces {
   interface CommandOptions {
-    silent?: boolean;
-    failsafe?: boolean;
+    silent?: boolean | undefined;
+    failsafe?: boolean | undefined;
   }
 
   interface SudoOptions extends CommandOptions {
-    user?: string;
+    user?: string | undefined;
   }
 
   interface PromptOptions {
-    hidden?: boolean;
-    required?: boolean;
+    hidden?: boolean | undefined;
+    required?: boolean | undefined;
   }
 
   interface CommandResult {
@@ -162,7 +162,7 @@ declare namespace FlightplanInterfaces {
       host: string;
       username: string;
       agent: string;
-      failsafe?: boolean;
+      failsafe?: boolean | undefined;
   }
 
   interface Runtime {

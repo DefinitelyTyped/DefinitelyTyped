@@ -6,13 +6,13 @@
 import { BasicOptions } from 'readline-sync';
 
 export interface ChoiceOptions {
-    allowNoAnswer?: boolean;
-    returnNumeric?: boolean;
+    allowNoAnswer?: boolean | undefined;
+    returnNumeric?: boolean | undefined;
 }
 
 export interface NumberOptions {
-    allowNoAnswer?: boolean;
-    requireInteger?: boolean;
+    allowNoAnswer?: boolean | undefined;
+    requireInteger?: boolean | undefined;
 }
 
 export function getChar(promptText: string, allowedCharsAsString: string, flagAllowNoAnswer?: boolean): string;

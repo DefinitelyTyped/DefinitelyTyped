@@ -64,7 +64,7 @@ declare namespace GoogleAdsScripts {
             startMinute: number;
             endHour: number;
             endMinute: number;
-            bidModifier?: number;
+            bidModifier?: number | undefined;
         }
 
         /** An operation representing creation of a new ad schedule. */

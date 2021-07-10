@@ -20,9 +20,9 @@ export default class Selection {
     constructor(
         selectable?: Item,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean; fake?: boolean; label?: boolean },
+        options?: { backward?: boolean | undefined; fake?: boolean | undefined; label?: boolean | undefined },
     );
-    constructor(selectable?: Selectable, options?: { backward?: boolean; fake?: boolean; label?: boolean });
+    constructor(selectable?: Selectable, options?: { backward?: boolean | undefined; fake?: boolean | undefined; label?: boolean | undefined });
     getFirstPosition(): Position | null;
     getFirstRange(): Range | null;
     getLastPosition(): Position | null;
@@ -37,6 +37,6 @@ export default class Selection {
     setTo(
         selectable: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean; fake?: boolean; label?: boolean },
+        options?: { backward?: boolean | undefined; fake?: boolean | undefined; label?: boolean | undefined },
     ): void;
 }

@@ -15,11 +15,11 @@ import PointerInteraction from './Pointer';
  */
 export type EndCondition = (this: any, p0: MapBrowserEvent<UIEvent>, p1: Pixel, p2: Pixel) => boolean;
 export interface Options {
-    className?: string;
-    condition?: Condition;
-    minArea?: number;
-    boxEndCondition?: EndCondition;
-    onBoxEnd?: (this: DragBox, p0: MapBrowserEvent<UIEvent>) => void;
+    className?: string | undefined;
+    condition?: Condition | undefined;
+    minArea?: number | undefined;
+    boxEndCondition?: EndCondition | undefined;
+    onBoxEnd?: ((this: DragBox, p0: MapBrowserEvent<UIEvent>) => void) | undefined;
 }
 export default class DragBox extends PointerInteraction {
     constructor(opt_options?: Options);

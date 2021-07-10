@@ -97,7 +97,7 @@ export function lint(options?: Partial<LinterOptions>): Promise<LinterResult>;
 export type ValidateOptionsAssertion = {
     actual: any;
     possible?: any;
-    optional?: false;
+    optional?: false | undefined;
 } | {
     actual?: any;
     possible: any;
@@ -112,9 +112,9 @@ export namespace utils {
         result: postcss.Result;
         message: string;
         node: postcss.Node;
-        index?: number;
-        word?: string;
-        line?: number;
+        index?: number | undefined;
+        word?: string | undefined;
+        line?: number | undefined;
     }): void;
 
     function ruleMessages<T extends {[key: string]: RuleMessageValue}>(
@@ -147,29 +147,29 @@ export interface RuleTesterResult {
 
 export interface RuleTesterTest {
     code: string;
-    description?: string;
+    description?: string | undefined;
 }
 
 export interface RuleTesterTestRejected extends RuleTesterTest {
-    line?: number;
-    column?: number;
-    only?: boolean;
-    message?: string;
+    line?: number | undefined;
+    column?: number | undefined;
+    only?: boolean | undefined;
+    message?: string | undefined;
 }
 
 export interface RuleTesterSchema {
     ruleName: string;
-    syntax?: SyntaxType;
+    syntax?: SyntaxType | undefined;
     config?: any;
-    accept?: RuleTesterTest[];
-    reject?: RuleTesterTestRejected[];
+    accept?: RuleTesterTest[] | undefined;
+    reject?: RuleTesterTestRejected[] | undefined;
 }
 
 export interface RuleTesterContext {
     comparisonCount: number;
     completeAssertionDescription: string;
     caseDescription: string;
-    only?: boolean;
+    only?: boolean | undefined;
 }
 
 export function createRuleTester(

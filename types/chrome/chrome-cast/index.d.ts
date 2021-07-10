@@ -921,7 +921,7 @@ declare namespace chrome.cast.media {
         customData: Object;
         idleReason: chrome.cast.media.IdleReason | null;
         items: Array<chrome.cast.media.QueueItem>;
-        liveSeekableRange?: chrome.cast.media.LiveSeekableRange;
+        liveSeekableRange?: chrome.cast.media.LiveSeekableRange | undefined;
         loadingItemId: number;
         media: chrome.cast.media.MediaInfo;
         mediaSessionId: number;
@@ -1185,10 +1185,10 @@ declare namespace chrome.cast.media {
          */
         constructor(start?: number, end?: number, isMovingWindow?: boolean, isLiveDone?: boolean);
 
-        start?: number;
-        end?: number;
-        isMovingWindow?: boolean;
-        isLiveDone?: boolean;
+        start?: number | undefined;
+        end?: number | undefined;
+        isMovingWindow?: boolean | undefined;
+        isLiveDone?: boolean | undefined;
     }
 }
 

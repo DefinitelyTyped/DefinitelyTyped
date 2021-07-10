@@ -18,11 +18,11 @@ export interface SketchPickerStylesProps {
 
 type PresetColor = { color: string; title: string } | string;
 export interface SketchPickerProps extends RenderersProps, CustomPickerProps {
-    disableAlpha?: boolean;
-    presetColors?: PresetColor[];
-    width?: string;
-    styles?: Partial<Classes<SketchPickerStylesProps>>;
-    onSwatchHover?: (color: ColorState, event: MouseEvent) => void;
+    disableAlpha?: boolean | undefined;
+    presetColors?: PresetColor[] | undefined;
+    width?: string | undefined;
+    styles?: Partial<Classes<SketchPickerStylesProps>> | undefined;
+    onSwatchHover?: ((color: ColorState, event: MouseEvent) => void) | undefined;
 }
 
 export default class SketchPicker extends Component<SketchPickerProps> { }

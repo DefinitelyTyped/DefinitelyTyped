@@ -54,8 +54,8 @@ export type FormatResultFn = (result: ImmutableStyleMap) => string;
 
 export interface StyleMap {
     aliases: Aliases;
-    global?: Props;
-    imports?: string[];
+    global?: Props | undefined;
+    imports?: string[] | undefined;
     props: Props;
     meta: Meta;
     options: object;
@@ -69,22 +69,22 @@ export interface ImmutableStyleMap extends Map<string, any> {
 export interface ConvertOptions {
     transform: TransformOptions;
     format: FormatOptions;
-    resolveAliases?: boolean;
-    resolveMetaAliases?: boolean;
+    resolveAliases?: boolean | undefined;
+    resolveMetaAliases?: boolean | undefined;
 }
 
 export interface TransformOptions<T extends string = never> {
-    type?: Transform | T;
+    type?: Transform | T | undefined;
     file: string;
-    data?: string;
+    data?: string | undefined;
 }
 
 export interface FormatOptions {
     type: Format;
-    options?: (
+    options?: ((
         options: object,
         transformPropName?: (name: string) => string
-    ) => void;
+    ) => void) | undefined;
 }
 
 export function convert(options: ConvertOptions): Promise<string>;

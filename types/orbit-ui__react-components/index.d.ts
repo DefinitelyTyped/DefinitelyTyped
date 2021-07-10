@@ -61,53 +61,53 @@ export interface StrictButtonProps extends Omit<SemanticButtonProps, Unsupported
     /**
      * A ghost button doesn't have a background color until it's hovered.
      */
-    ghost?: boolean;
+    ghost?: boolean | undefined;
     /**
      * A button can look like a link.
      */
-    link?: boolean;
+    link?: boolean | undefined;
     /**
      * A button can contain an icon.
      */
-    icon?: ReactElement;
+    icon?: ReactElement | undefined;
     /**
      * An icon can appear on the left or right.
      */
-    iconPosition?: 'left' | 'right';
+    iconPosition?: 'left' | 'right' | undefined;
     /**
      * A button can contain a label.
      */
-    label?: ReactElement | object;
+    label?: ReactElement | object | undefined;
     /**
      * A button can contain a tag.
      */
-    tag?: ReactElement | object;
+    tag?: ReactElement | object | undefined;
     /**
      * A button can be colorless. Use this variant if you need to customize the button.
      */
-    naked?: boolean;
+    naked?: boolean | undefined;
     /**
      * An input can vary in sizes.
      */
-    size?: 'tiny' | 'small' | 'medium' | 'large';
+    size?: 'tiny' | 'small' | 'medium' | 'large' | undefined;
     /**
      * The HTML button type.
      */
-    type?: 'button' | 'submit' | 'reset';
+    type?: 'button' | 'submit' | 'reset' | undefined;
     /**
      * @ignore
      */
-    loading?: boolean;
+    loading?: boolean | undefined;
     /**
      * @ignore
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * @ignore
      */
-    className?: string;
+    className?: string | undefined;
 
-    onClick?: (event: MouseEvent<HTMLButtonElement>, data: ButtonProps) => void;
+    onClick?: ((event: MouseEvent<HTMLButtonElement>, data: ButtonProps) => void) | undefined;
 }
 
 export interface ButtonProps extends StrictButtonProps {
@@ -130,59 +130,59 @@ export interface StrictCheckboxProps
     /**
      * Whether or not the checkbox should autofocus on render.
      */
-    autofocus?: boolean;
+    autofocus?: boolean | undefined;
     /**
      * Delay before trying to autofocus.
      */
-    autofocusDelay?: number;
+    autofocusDelay?: number | undefined;
     /**
      * The text associated to the checkbox.
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * A checkbox can display icons.
      */
-    icons?: ReactElement | ReactElement[];
+    icons?: ReactElement | ReactElement[] | undefined;
     /**
      * A label displayed after the checkbox text.
      */
-    label?: ReactElement | object;
+    label?: ReactElement | object | undefined;
     /**
      * A count displayed after the checkbox text.
      */
-    count?: ReactElement | object;
+    count?: ReactElement | object | undefined;
     /**
      * An input can vary in sizes.
      */
-    size?: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large' | undefined;
     /**
      * @ignore
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * @ignore
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * Called when the user attempts to change the checked state.
      */
-    onChange?: (event: FormEvent<HTMLInputElement>, data: CheckboxProps) => void;
+    onChange?: ((event: FormEvent<HTMLInputElement>, data: CheckboxProps) => void) | undefined;
 
     /**
      * Called when the checkbox or label is clicked.
      */
-    onClick?: (event: MouseEvent<HTMLInputElement>, data: CheckboxProps) => void;
+    onClick?: ((event: MouseEvent<HTMLInputElement>, data: CheckboxProps) => void) | undefined;
 
     /**
      * Called when the user presses down on the mouse.
      */
-    onMouseDown?: (event: MouseEvent<HTMLInputElement>, data: CheckboxProps) => void;
+    onMouseDown?: ((event: MouseEvent<HTMLInputElement>, data: CheckboxProps) => void) | undefined;
 
     /**
      * Called when the user releases the mouse.
      */
-    onMouseUp?: (event: MouseEvent<HTMLInputElement>, data: CheckboxProps) => void;
+    onMouseUp?: ((event: MouseEvent<HTMLInputElement>, data: CheckboxProps) => void) | undefined;
 }
 
 export interface CheckboxProps extends StrictCheckboxProps {
@@ -201,7 +201,7 @@ export interface CountProps {
     /**
      * Delay before trying to autofocus.
      */
-    className?: string;
+    className?: string | undefined;
 }
 
 export const Count: ComponentType<CountProps>;
@@ -209,7 +209,7 @@ export const Count: ComponentType<CountProps>;
 export interface DatePreset {
     startDate: Moment;
     endDate: Moment;
-    text?: string;
+    text?: string | undefined;
 }
 
 export function preset(text: string, startDate: Moment, endDate: Moment): DatePreset;
@@ -225,22 +225,22 @@ export interface DateRangePickerProps {
     /**
      * A controlled start date value.
      */
-    startDate?: Moment | null;
+    startDate?: Moment | null | undefined;
 
     /**
      * A controlled end date value.
      */
-    endDate?: Moment | null;
+    endDate?: Moment | null | undefined;
 
     /**
      * The initial value of start date.
      */
-    defaultStartDate?: Moment;
+    defaultStartDate?: Moment | undefined;
 
     /**
      * The initial value of end date.
      */
-    defaultEndDate?: Moment;
+    defaultEndDate?: Moment | undefined;
 
     /**
      * Called when the date(s) are / is applied.
@@ -256,61 +256,61 @@ export interface DateRangePickerProps {
     /**
      * Called when the calendar open / close.
      */
-    onVisibilityChange?: (event: SyntheticEvent, isVisible: boolean, props: DateRangePickerProps) => void;
+    onVisibilityChange?: ((event: SyntheticEvent, isVisible: boolean, props: DateRangePickerProps) => void) | undefined;
 
     /**
      * Whether or not the calendar enforce the selection of of a range of dates.
      */
-    allowSingleDateSelection?: boolean;
+    allowSingleDateSelection?: boolean | undefined;
     /**
      * Whether or not the calendar selected date(s) can be cleared.
      */
-    allowClear?: boolean;
+    allowClear?: boolean | undefined;
 
     /**
      * The minimum (inclusive) date available for selection.
      */
-    minDate?: Moment;
+    minDate?: Moment | undefined;
 
     /**
      * The maximum (inclusive) date available for selection.
      */
-    maxDate?: Moment;
+    maxDate?: Moment | undefined;
 
     /**
      * An initial visible month displayed when the calendar open.
      */
-    initialVisibleMonth?: Moment | (() => Moment);
+    initialVisibleMonth?: Moment | (() => Moment) | undefined;
 
     /**
      * The number of months displayed simultaneously in the calendar.
      */
-    numberOfMonths?: number;
+    numberOfMonths?: number | undefined;
 
     /**
      * A React component that display the currently applied date(s) and open the calendar.
      */
-    input?: ReactNode;
+    input?: ReactNode | undefined;
 
     /**
      * The placeholder text.
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
 
     /**
      * A format to display the currently applied date(s).
      */
-    rangeFormat?: string;
+    rangeFormat?: string | undefined;
 
     /**
      * A format to display a date.
      */
-    dateFormat?: string;
+    dateFormat?: string | undefined;
 
     /**
      * Whether or not the calendar will open upward.
      */
-    upward?: boolean;
+    upward?: boolean | undefined;
 
     /**
      * A calendar can open to the left or to the right.
@@ -321,77 +321,77 @@ export interface DateRangePickerProps {
      * An array containing an horizontal and vertical offsets for the calendar position.
      * Ex: `["10px", "-10px"]`
      */
-    offsets?: string[];
+    offsets?: string[] | undefined;
 
     /**
      * z-index of the calendar.
      */
-    zIndex?: string;
+    zIndex?: string | undefined;
 
     /**
      *
      * A React component to select a date.
      */
-    calendar?: ReactNode;
+    calendar?: ReactNode | undefined;
 
     /**
      * A React component to list and select a preset.
      */
-    presetsComponent?: ReactNode;
+    presetsComponent?: ReactNode | undefined;
 
     /**
      * Array of pre-determined dates range displayed to the left of the calendar.
      */
-    presets?: DatePreset[];
+    presets?: DatePreset[] | undefined;
 
     /**
      * A React component displayed under the calendar to `clear` and `apply` the date(s).
      */
-    buttons?: ReactNode;
+    buttons?: ReactNode | undefined;
 
     /**
      * A controlled open value that determined whether or not the calendar is displayed.
      */
-    open?: boolean;
+    open?: boolean | undefined;
 
     /**
      * The initial value of open.
      */
-    defaultOpen?: boolean;
+    defaultOpen?: boolean | undefined;
 
     /**
      * A disabled date picker does not allow user interaction.
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * Whether or not the date picker take up the width of its container.
      */
-    fluid?: boolean;
+    fluid?: boolean | undefined;
 
     /**
      * Whether or not the calendar should close when the date picker loose focus.
      */
-    closeOnBlur?: boolean;
+    closeOnBlur?: boolean | undefined;
 
     /**
      * Whether or not the calendar should close when a click happens outside the date picker.
      * Requires `closeOnBlur` to be false.
      */
-    closeOnOutsideClick?: boolean;
+    closeOnOutsideClick?: boolean | undefined;
 
     /**
      * A date picker can vary in sizes.
      */
-    size?: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large' | undefined;
 
     /**
      * Additional classes.
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Custom inline style.
      */
-    style?: CSSProperties;
+    style?: CSSProperties | undefined;
 }
 
 export const DateRangePicker: ComponentType<DateRangePickerProps>;
@@ -409,64 +409,64 @@ export type DropdownPropsToOverwrite =
 
 export interface StrictDropdownProps extends Omit<SemanticDropdownProps, DropdownPropsToOverwrite> {
     /** Array of Dropdown.Item props e.g. `{ text: '', value: '' }` */
-    options?: DropdownItemProps[];
+    options?: DropdownItemProps[] | undefined;
 
     /**
      * A dropdown menu can display an icon before it's content.
      */
-    icon?: ReactElement;
+    icon?: ReactElement | undefined;
     /**
      * A dropdown menu can vary in sizes.
      */
-    size?: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large' | undefined;
     /**
      * Whether or not the dropdown menu should autofocus on render.
      */
-    autofocus?: boolean;
+    autofocus?: boolean | undefined;
     /**
      * Delay before trying to autofocus.
      */
-    autofocusDelay?: number;
+    autofocusDelay?: number | undefined;
 
     /**
      * Called when a user adds a new item. Use this to update the options list.
      */
-    onAddItem?: (event: KeyboardEvent<HTMLElement>, data: DropdownProps) => void;
+    onAddItem?: ((event: KeyboardEvent<HTMLElement>, data: DropdownProps) => void) | undefined;
 
     /**
      * Called on blur.
      */
-    onBlur?: (event: KeyboardEvent<HTMLElement>, data: DropdownProps) => void;
+    onBlur?: ((event: KeyboardEvent<HTMLElement>, data: DropdownProps) => void) | undefined;
 
     /**
      * Called when the user attempts to change the value.
      */
-    onChange?: (event: SyntheticEvent<HTMLElement>, data: DropdownProps) => void;
+    onChange?: ((event: SyntheticEvent<HTMLElement>, data: DropdownProps) => void) | undefined;
 
     /**
      * Called on click.
      */
-    onClick?: (event: KeyboardEvent<HTMLElement>, data: DropdownProps) => void;
+    onClick?: ((event: KeyboardEvent<HTMLElement>, data: DropdownProps) => void) | undefined;
 
     /**
      * Called when a close event happens.
      */
-    onClose?: (event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void;
+    onClose?: ((event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void) | undefined;
 
     /**
      * Called on focus.
      */
-    onFocus?: (event: SyntheticEvent<HTMLElement>, data: DropdownProps) => void;
+    onFocus?: ((event: SyntheticEvent<HTMLElement>, data: DropdownProps) => void) | undefined;
 
     /**
      * Called on mousedown.
      */
-    onMouseDown?: (event: MouseEvent<HTMLElement>, data: DropdownProps) => void;
+    onMouseDown?: ((event: MouseEvent<HTMLElement>, data: DropdownProps) => void) | undefined;
 
     /**
      * Called when an open event happens.
      */
-    onOpen?: (event: SyntheticEvent<HTMLElement>, data: DropdownProps) => void;
+    onOpen?: ((event: SyntheticEvent<HTMLElement>, data: DropdownProps) => void) | undefined;
 }
 
 export interface DropdownProps extends StrictDropdownProps {
@@ -476,10 +476,10 @@ export interface DropdownProps extends StrictDropdownProps {
 export type DropdownItemPropsToOverwrite = 'onClick';
 
 export interface StrictDropdownItemProps extends Omit<SemanticDropdownItemProps, DropdownItemPropsToOverwrite> {
-    tooltip?: string;
-    tooltipPosition?: string;
-    icon?: ReactElement;
-    onClick?: (event: MouseEvent<HTMLDivElement>, data: DropdownItemProps) => void;
+    tooltip?: string | undefined;
+    tooltipPosition?: string | undefined;
+    icon?: ReactElement | undefined;
+    onClick?: ((event: MouseEvent<HTMLDivElement>, data: DropdownItemProps) => void) | undefined;
 }
 
 export interface DropdownItemProps extends StrictDropdownItemProps {
@@ -497,19 +497,19 @@ export class Dropdown extends Component<DropdownProps> {
 }
 
 export interface IconProps {
-    className?: string;
+    className?: string | undefined;
     /**
      * An icon can vary in size.
      */
-    size?: 'tiny' | 'small' | 'medium' | 'large' | 'big' | 'huge' | 'massive';
+    size?: 'tiny' | 'small' | 'medium' | 'large' | 'big' | 'huge' | 'massive' | undefined;
 }
 
 export interface MultiVariantIconProps {
-    className?: string;
+    className?: string | undefined;
     /**
      * An icon can vary in size.
      */
-    size?: 'tiny' | 'small' | 'medium' | 'large' | 'big' | 'huge' | 'massive';
+    size?: 'tiny' | 'small' | 'medium' | 'large' | 'big' | 'huge' | 'massive' | undefined;
 }
 
 // tslint:disable-next-line no-unnecessary-class
@@ -671,41 +671,41 @@ export interface StrictLabelProps extends Omit<SemanticLabelProps, UnsupportedLa
     /**
      * A label can be colorless. Use this variant if you need to customize the label.
      */
-    naked?: boolean;
+    naked?: boolean | undefined;
     /**
      * A label can contain a button.
      */
-    button?: ReactElement | object;
+    button?: ReactElement | object | undefined;
     /**
      * A label can contain an icon.
      */
-    icon?: ReactElement;
+    icon?: ReactElement | undefined;
     /**
      * An icon can appear on the left or right.
      */
-    iconPosition?: 'left' | 'right';
+    iconPosition?: 'left' | 'right' | undefined;
     /**
      * A label can contain a tag.
      */
-    tag?: ReactElement | object;
+    tag?: ReactElement | object | undefined;
     /**
      * Whether to add emphasis on the label text or not.
      */
-    highlight?: boolean;
+    highlight?: boolean | undefined;
     /**
      * @ignore
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * Called on click.
      */
-    onClick?: (event: React.MouseEvent<HTMLElement>, data: LabelProps) => void;
+    onClick?: ((event: React.MouseEvent<HTMLElement>, data: LabelProps) => void) | undefined;
 
     /**
      * Adds an "x" icon, called when "x" is clicked.
      */
-    onRemove?: (event: React.MouseEvent<HTMLElement>, data: LabelProps) => void;
+    onRemove?: ((event: React.MouseEvent<HTMLElement>, data: LabelProps) => void) | undefined;
 }
 
 export interface LabelProps extends StrictLabelProps {
@@ -750,52 +750,52 @@ export interface StrictNumberInputProps
     /**
      * Whether or not the input should autofocus on render.
      */
-    autofocus?: boolean;
+    autofocus?: boolean | undefined;
     /**
      * Delay before trying to autofocus.
      */
-    autofocusDelay?: number;
+    autofocusDelay?: number | undefined;
     /**
      * A React component displayed before or after the prompt based on "iconPosition".
      */
-    icon?: ReactElement;
+    icon?: ReactElement | undefined;
     /**
      * An input can vary in sizes.
      */
-    size?: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large' | undefined;
     /**
      * @ignore
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * @ignore
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * The value of the input.
      */
-    value?: number;
+    value?: number | undefined;
     /**
      * The default value of the input.
      */
-    defaultValue?: number;
+    defaultValue?: number | undefined;
     /**
      * The minimum value of the input.
      */
-    min?: number;
+    min?: number | undefined;
     /**
      * The maximum value of the input.
      */
-    max?: number;
+    max?: number | undefined;
     /**
      * The increment step of the input value.
      */
-    step?: number;
+    step?: number | undefined;
 
     /**
      * Called on change.
      */
-    onChange?: (event: ChangeEvent<HTMLInputElement>, data: NumericInputOnChangeData) => void;
+    onChange?: ((event: ChangeEvent<HTMLInputElement>, data: NumericInputOnChangeData) => void) | undefined;
 }
 
 export interface NumberInputProps extends StrictNumberInputProps {
@@ -803,7 +803,7 @@ export interface NumberInputProps extends StrictNumberInputProps {
 }
 
 export interface NumericInputOnChangeData extends NumberInputProps {
-    value?: number;
+    value?: number | undefined;
 }
 
 export const NumberInput: ComponentType<NumberInputProps>;
@@ -829,51 +829,51 @@ export interface PopperOptions {
     placement: PopperPlacement;
     modifiers: any[];
     strategy: 'fixed' | 'absolute';
-    onFirstUpdate?: (arg0: any) => void;
+    onFirstUpdate?: ((arg0: any) => void) | undefined;
 }
 
 export interface PopperProps {
     /**
      * A controlled show value that determined whether or not the popper is displayed.
      */
-    show?: boolean;
+    show?: boolean | undefined;
     /**
      * Position of the popper element.
      */
-    position?: PopperPlacement;
+    position?: PopperPlacement | undefined;
     /**
      * When true, disables automatic repositioning of the component, it will always be placed according to the position value.
      */
-    pinned?: boolean;
+    pinned?: boolean | undefined;
     /**
      * Whether or not to render the popper element in an additional element that will handles [Popper.js](https://popper.js.org) references, attributes and styles.
      */
-    noWrap?: boolean;
+    noWrap?: boolean | undefined;
     /**
      * Allow to displace the popper element from its trigger element.
      * Ex: `[10, -10]`
      */
-    offset?: number[];
+    offset?: number[] | undefined;
     /**
      * An array of modifiers passed directly to [Popper.js](https://popper.js.org) modifiers. For more info, view [Popper.js modifiers documentation](https://popper.js.org/docs/v2/modifiers).
      */
-    popperModifiers?: any[];
+    popperModifiers?: any[] | undefined;
     /**
      * A set of options passed directly to [Popper.js](https://popper.js.org). For more info, view [Popper.js options documentation](https://popper.js.org/docs/v2/constructors/#options).
      */
-    popperOptions?: PopperOptions;
+    popperOptions?: PopperOptions | undefined;
     /**
      * A DOM element in which the popper element will appended via a React portal.
      */
-    portalContainerElement?: HTMLElement;
+    portalContainerElement?: HTMLElement | undefined;
     /**
      * Whether or not to render the popper element with React portal. The popper element will be rendered within it's parent DOM hierarchy.
      */
-    noPortal?: boolean;
+    noPortal?: boolean | undefined;
     /**
      * Whether or not to animate the popper element when opening / closing.
      */
-    animate?: boolean;
+    animate?: boolean | undefined;
 
     children: ReactNode;
 }
@@ -882,7 +882,7 @@ export interface AutoControlledPopperProps extends PopperProps {
     /**
      * The initial value of show.
      */
-    defaultShow?: boolean;
+    defaultShow?: boolean | undefined;
     /**
      * The popper trigger.
      */
@@ -895,60 +895,60 @@ export interface AutoControlledPopperProps extends PopperProps {
     /**
      * Called when the popup open / close.
      */
-    onVisibilityChange?: (event: SyntheticEvent, isVisible: boolean) => void;
+    onVisibilityChange?: ((event: SyntheticEvent, isVisible: boolean) => void) | undefined;
     /**
      * Whether or not the trigger will be rendered as fluid.
      */
-    fluid?: boolean;
+    fluid?: boolean | undefined;
     /**
      * z-index of the popper element.
      */
-    zIndex?: number;
+    zIndex?: number | undefined;
     /**
      * Whether or not to focus the trigger when the popper is made visible. When `true`, the trigger must expose a `focus` function in order to work.
      */
-    focusTriggerOnShow?: boolean;
+    focusTriggerOnShow?: boolean | undefined;
     /**
      * Whether or not to focus the trigger on escape keydown. When `true`, the trigger must expose a `focus` function in order to work.
      */
-    focusTriggerOnEscape?: boolean;
+    focusTriggerOnEscape?: boolean | undefined;
     /**
      * Whether or not to focus the first element of the popper when the popper is shown.
      */
-    focusFirstElementOnShow?: boolean;
+    focusFirstElementOnShow?: boolean | undefined;
     /**
      * Whether or not to focus the first element of the popper when the popper is shown on keydown.
      */
-    focusFirstElementOnKeyboardShow?: boolean;
+    focusFirstElementOnKeyboardShow?: boolean | undefined;
     /**
      * Additional [keys](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode) to show the popper on keydown.
      * Ex. `[13]` for Enter
      */
-    showOnKeys?: number[];
+    showOnKeys?: number[] | undefined;
     /**
      * Whether or not to toggle the popper on spacebar keydown.
      */
-    toggleOnSpacebar?: boolean;
+    toggleOnSpacebar?: boolean | undefined;
     /**
      * Whether or not to toggle the popper on enter keydown.
      */
-    toggleOnEnter?: boolean;
+    toggleOnEnter?: boolean | undefined;
     /**
      * Whether or not the popper should hide on escape keydown.
      */
-    hideOnEscape?: boolean;
+    hideOnEscape?: boolean | undefined;
     /**
      * Whether or not the popper should hide when it loose focus.
      */
-    hideOnBlur?: boolean;
+    hideOnBlur?: boolean | undefined;
     /**
      * Whether or not the popper should hide when a click happens outside.
      */
-    hideOnOutsideClick?: boolean;
+    hideOnOutsideClick?: boolean | undefined;
     /**
      * [Shorthand](/?path=/docs/getting-started-shorthand-props--page) for the popper.
      */
-    popper?: ReactElement | object;
+    popper?: ReactElement | object | undefined;
 }
 
 export interface ButtonPopperProps extends Omit<AutoControlledPopperProps, 'trigger' | 'toggleHandler'> {
@@ -971,55 +971,55 @@ export interface StrictRadioProps extends Omit<SemanticRadioProps, UnsupportedRa
     /**
      * Whether or not the radio should autofocus on render.
      */
-    autofocus?: boolean;
+    autofocus?: boolean | undefined;
     /**
      * Delay before trying to autofocus.
      */
-    autofocusDelay?: number;
+    autofocusDelay?: number | undefined;
     /**
      * The text associated to the radio.
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * A checkbox can display icons.
      */
-    icons?: ReactElement | ReactElement[];
+    icons?: ReactElement | ReactElement[] | undefined;
     /**
      * A label displayed after the radio text.
      */
-    label?: ReactElement | object;
+    label?: ReactElement | object | undefined;
     /**
      * An input can vary in sizes.
      */
-    size?: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large' | undefined;
     /**
      * @ignore
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * @ignore
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * Called when the user attempts to change the checked state.
      */
-    onChange?: (event: FormEvent<HTMLInputElement>, data: RadioProps) => void;
+    onChange?: ((event: FormEvent<HTMLInputElement>, data: RadioProps) => void) | undefined;
 
     /**
      * Called when the checkbox or label is clicked.
      */
-    onClick?: (event: MouseEvent<HTMLInputElement>, data: RadioProps) => void;
+    onClick?: ((event: MouseEvent<HTMLInputElement>, data: RadioProps) => void) | undefined;
 
     /**
      * Called when the user presses down on the mouse.
      */
-    onMouseDown?: (event: MouseEvent<HTMLInputElement>, data: RadioProps) => void;
+    onMouseDown?: ((event: MouseEvent<HTMLInputElement>, data: RadioProps) => void) | undefined;
 
     /**
      * Called when the user releases the mouse.
      */
-    onMouseUp?: (event: MouseEvent<HTMLInputElement>, data: RadioProps) => void;
+    onMouseUp?: ((event: MouseEvent<HTMLInputElement>, data: RadioProps) => void) | undefined;
 }
 
 export interface RadioProps extends StrictRadioProps {
@@ -1037,11 +1037,11 @@ export interface RemoteSearchInputProps<T> {
     /**
      * A controlled value property.
      */
-    value?: string;
+    value?: string | undefined;
     /**
      * Initial value.
      */
-    defaultValue?: string;
+    defaultValue?: string | undefined;
     /**
      * Called when the value change.
      */
@@ -1053,92 +1053,92 @@ export interface RemoteSearchInputProps<T> {
     /**
      * Called after a fetch.
      */
-    onResults?: (results: { content: T[] }, query: string, props: RemoteSearchInputProps<T>) => ResultShape[];
+    onResults?: ((results: { content: T[] }, query: string, props: RemoteSearchInputProps<T>) => ResultShape[]) | undefined;
     /**
      * Called when a clear event happens.
      */
-    onClear?: (event: SyntheticEvent, props: RemoteSearchInputProps<T>) => void;
+    onClear?: ((event: SyntheticEvent, props: RemoteSearchInputProps<T>) => void) | undefined;
     /**
      * Called on blur.
      */
-    onBlur?: (event: SyntheticEvent, props: RemoteSearchInputProps<T>) => void;
+    onBlur?: ((event: SyntheticEvent, props: RemoteSearchInputProps<T>) => void) | undefined;
     /**
      * Called when a click happens outside the search input.
      */
-    onOutsideClick?: (event: SyntheticEvent, props: RemoteSearchInputProps<T>) => void;
+    onOutsideClick?: ((event: SyntheticEvent, props: RemoteSearchInputProps<T>) => void) | undefined;
     /**
      * Called on keydown.
      */
-    onKeyDown?: (event: SyntheticEvent, props: RemoteSearchInputProps<T>) => void;
+    onKeyDown?: ((event: SyntheticEvent, props: RemoteSearchInputProps<T>) => void) | undefined;
     /**
      * Called when the search results open / close.
      */
-    onVisibilityChange?: (event: SyntheticEvent, isVisible: boolean, props: RemoteSearchInputProps<T>) => void;
+    onVisibilityChange?: ((event: SyntheticEvent, isVisible: boolean, props: RemoteSearchInputProps<T>) => void) | undefined;
     /**
      * Render a result.
      */
-    resultRenderer?: (result: T & ResultShape, props: RemoteSearchInputProps<T>) => ReactElement;
+    resultRenderer?: ((result: T & ResultShape, props: RemoteSearchInputProps<T>) => ReactElement) | undefined;
     /**
      * Whether or not the query should be cleared when a result is selected.
      */
-    clearOnSelect?: boolean;
+    clearOnSelect?: boolean | undefined;
     /**
      * Message to display when there are no results matching the query.
      */
-    noResultsMessage?: string;
+    noResultsMessage?: string | undefined;
     /**
      * Delay before initiating a search when the query change.
      */
-    debounceDelay?: number;
+    debounceDelay?: number | undefined;
     /**
      * Delay before displaying the loading indicator.
      */
-    loadingDelay?: number;
+    loadingDelay?: number | undefined;
     /**
      * Minimum characters to query for results.
      */
-    minCharacters?: number;
+    minCharacters?: number | undefined;
     /**
      * The search input placeholder text.
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
     /**
      * A controlled open value that determined whether or not the search results are displayed.
      */
-    open?: boolean;
+    open?: boolean | undefined;
     /**
      * The initial value of open.
      */
-    defaultOpen?: boolean;
+    defaultOpen?: boolean | undefined;
     /**
      * A disabled search input does not allow user interaction.
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * Whether or not the search input should focus on render.
      */
-    autofocus?: boolean;
+    autofocus?: boolean | undefined;
     /**
      * Delay before trying to autofocus.
      */
-    autofocusDelay?: number;
+    autofocusDelay?: number | undefined;
     /**
      * Whether or not the search results should close when the search input loose focus.
      */
-    closeOnBlur?: boolean;
+    closeOnBlur?: boolean | undefined;
     /**
      * Whether or not the search results should close when a click happens outside the search input.
      * Requires `closeOnBlur` to be `false`.
      */
-    closeOnOutsideClick?: boolean;
+    closeOnOutsideClick?: boolean | undefined;
     /**
      * A remote search input can take the width of its container.
      */
-    fluid?: boolean;
+    fluid?: boolean | undefined;
     /**
      * Additional classes.
      */
-    className?: string;
+    className?: string | undefined;
 }
 
 export interface SearchInputProps<T> {
@@ -1149,11 +1149,11 @@ export interface SearchInputProps<T> {
     /**
      * A controlled value property.
      */
-    value?: string;
+    value?: string | undefined;
     /**
      * Initial value.
      */
-    defaultValue?: string;
+    defaultValue?: string | undefined;
     /**
      *  Called when the value change.
      */
@@ -1161,92 +1161,92 @@ export interface SearchInputProps<T> {
     /**
      * Called when the search results open / close.
      */
-    onVisibilityChange?: (event: SyntheticEvent, isVisible: boolean, props: SearchInputProps<T>) => void;
+    onVisibilityChange?: ((event: SyntheticEvent, isVisible: boolean, props: SearchInputProps<T>) => void) | undefined;
     /**
      * Called when a search event happens.
      */
-    onSearch?: (
+    onSearch?: ((
         event: SyntheticEvent,
         results: ResultShape[],
         query: string,
         props: SearchInputProps<T>,
-    ) => ResultShape[];
+    ) => ResultShape[]) | undefined;
     /**
      * Called when a clear event happens.
      */
-    onClear?: (event: SyntheticEvent, props: SearchInputProps<T>) => void;
+    onClear?: ((event: SyntheticEvent, props: SearchInputProps<T>) => void) | undefined;
     /**
      * Called on blur.
      */
-    onBlur?: (event: SyntheticEvent, props: SearchInputProps<T>) => void;
+    onBlur?: ((event: SyntheticEvent, props: SearchInputProps<T>) => void) | undefined;
     /**
      * Called when a click happens outside the search input.
      */
-    onOutsideClick?: (event: SyntheticEvent, props: SearchInputProps<T>) => void;
+    onOutsideClick?: ((event: SyntheticEvent, props: SearchInputProps<T>) => void) | undefined;
     /**
      * Render a result.
      */
-    resultRenderer?: (result: ResultShape, props: SearchInputProps<T>) => ReactElement;
+    resultRenderer?: ((result: ResultShape, props: SearchInputProps<T>) => ReactElement) | undefined;
     /**
      * Whether or not the query should be cleared when a result is selected.
      */
-    clearOnSelect?: boolean;
+    clearOnSelect?: boolean | undefined;
     /**
      * Message to display when there are no results matching the query.
      */
-    noResultsMessage?: string;
+    noResultsMessage?: string | undefined;
     /**
      * Delay before initiating a search when the query change.
      */
-    debounceDelay?: number;
+    debounceDelay?: number | undefined;
     /**
      * Minimum characters to query for results.
      */
-    minCharacters?: number;
+    minCharacters?: number | undefined;
     /**
      * The search input placeholder text.
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
     /**
      * A controlled open value that determined whether or not the search results are displayed.
      */
-    open?: boolean;
+    open?: boolean | undefined;
     /**
      * The initial value of open.
      */
-    defaultOpen?: boolean;
+    defaultOpen?: boolean | undefined;
     /**
      * A disabled search input does not allow user interaction.
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * Whether or not the search input should focus on render.
      */
-    autofocus?: boolean;
+    autofocus?: boolean | undefined;
     /**
      * Delay before trying to autofocus.
      */
-    autofocusDelay?: number;
+    autofocusDelay?: number | undefined;
     /**
      * Whether or not the search results should close when the search input loose focus.
      */
-    closeOnBlur?: boolean;
+    closeOnBlur?: boolean | undefined;
     /**
      * Whether or not the search results should close when a click happens outside the search input.
      * Requires `closeOnBlur` to be `false`.
      */
-    closeOnOutsideClick?: boolean;
+    closeOnOutsideClick?: boolean | undefined;
     /**
      * Additional classes.
      */
-    className?: string;
+    className?: string | undefined;
 }
 
 export interface SearchInputControllerProps {
-    open?: boolean;
+    open?: boolean | undefined;
     results: ResultShape[];
-    value?: string;
-    defaultValue?: string;
+    value?: string | undefined;
+    defaultValue?: string | undefined;
     onValueChange: (event: SyntheticEvent, value: string, props: SearchInputControllerProps) => void;
     onSearch: (
         event: SyntheticEvent,
@@ -1254,23 +1254,23 @@ export interface SearchInputControllerProps {
         query: string,
         props: SearchInputControllerProps,
     ) => ResultShape[];
-    onClear?: (event: SyntheticEvent, props: SearchInputControllerProps) => void;
-    onFocus?: (event: SyntheticEvent, props: SearchInputControllerProps) => void;
-    onBlur?: (event: SyntheticEvent, props: SearchInputControllerProps) => void;
-    onKeyDown?: (event: SyntheticEvent, props: SearchInputControllerProps) => void;
-    onOutsideClick?: (event: SyntheticEvent, props: SearchInputControllerProps) => void;
-    resultRenderer?: (result: ResultShape, props: SearchInputControllerProps) => ReactElement;
-    clearOnSelect?: boolean;
-    noResultsMessage?: string;
-    minCharacters?: number;
-    placeholder?: string;
-    debounceDelay?: number;
-    loading?: boolean;
-    clearIcon?: ReactNode;
-    disabled?: boolean;
-    autofocus?: boolean;
-    autofocusDelay?: number;
-    className?: string;
+    onClear?: ((event: SyntheticEvent, props: SearchInputControllerProps) => void) | undefined;
+    onFocus?: ((event: SyntheticEvent, props: SearchInputControllerProps) => void) | undefined;
+    onBlur?: ((event: SyntheticEvent, props: SearchInputControllerProps) => void) | undefined;
+    onKeyDown?: ((event: SyntheticEvent, props: SearchInputControllerProps) => void) | undefined;
+    onOutsideClick?: ((event: SyntheticEvent, props: SearchInputControllerProps) => void) | undefined;
+    resultRenderer?: ((result: ResultShape, props: SearchInputControllerProps) => ReactElement) | undefined;
+    clearOnSelect?: boolean | undefined;
+    noResultsMessage?: string | undefined;
+    minCharacters?: number | undefined;
+    placeholder?: string | undefined;
+    debounceDelay?: number | undefined;
+    loading?: boolean | undefined;
+    clearIcon?: ReactNode | undefined;
+    disabled?: boolean | undefined;
+    autofocus?: boolean | undefined;
+    autofocusDelay?: number | undefined;
+    className?: string | undefined;
 }
 
 export class SearchInput<T> extends Component<SearchInputProps<T>> { }
@@ -1314,55 +1314,55 @@ export type SelectItemProps = DropdownItemProps;
 
 export interface StrictSelectProps extends Omit<StrictDropdownProps, UnsupportedSelectProps | SelectPropsToOverwrite> {
     /** Array of Dropdown.Item props e.g. `{ text: '', value: '' }` */
-    options?: SelectItemProps[];
+    options?: SelectItemProps[] | undefined;
     /**
      * @ignore
      */
-    inline?: boolean;
+    inline?: boolean | undefined;
     /**
      * @ignore
      */
-    multiple?: boolean;
+    multiple?: boolean | undefined;
 
     /**
      * Called when a user adds a new item. Use this to update the options list.
      */
-    onAddItem?: (event: React.KeyboardEvent<HTMLElement>, data: SelectProps) => void;
+    onAddItem?: ((event: React.KeyboardEvent<HTMLElement>, data: SelectProps) => void) | undefined;
 
     /**
      * Called on blur.
      */
-    onBlur?: (event: React.KeyboardEvent<HTMLElement>, data: SelectProps) => void;
+    onBlur?: ((event: React.KeyboardEvent<HTMLElement>, data: SelectProps) => void) | undefined;
 
     /**
      * Called when the user attempts to change the value.
      */
-    onChange?: (event: React.SyntheticEvent<HTMLElement>, data: SelectProps) => void;
+    onChange?: ((event: React.SyntheticEvent<HTMLElement>, data: SelectProps) => void) | undefined;
 
     /**
      * Called on click.
      */
-    onClick?: (event: React.KeyboardEvent<HTMLElement>, data: SelectProps) => void;
+    onClick?: ((event: React.KeyboardEvent<HTMLElement>, data: SelectProps) => void) | undefined;
 
     /**
      * Called when a close event happens.
      */
-    onClose?: (event: React.SyntheticEvent<HTMLElement>, data: SelectProps) => void;
+    onClose?: ((event: React.SyntheticEvent<HTMLElement>, data: SelectProps) => void) | undefined;
 
     /**
      * Called on focus.
      */
-    onFocus?: (event: React.SyntheticEvent<HTMLElement>, data: SelectProps) => void;
+    onFocus?: ((event: React.SyntheticEvent<HTMLElement>, data: SelectProps) => void) | undefined;
 
     /**
      * Called on mousedown.
      */
-    onMouseDown?: (event: React.MouseEvent<HTMLElement>, data: SelectProps) => void;
+    onMouseDown?: ((event: React.MouseEvent<HTMLElement>, data: SelectProps) => void) | undefined;
 
     /**
      * Called when an open event happens.
      */
-    onOpen?: (event: React.SyntheticEvent<HTMLElement>, data: SelectProps) => void;
+    onOpen?: ((event: React.SyntheticEvent<HTMLElement>, data: SelectProps) => void) | undefined;
 }
 
 export interface SelectProps extends StrictSelectProps {
@@ -1390,12 +1390,12 @@ export interface TagsPickerProps {
     /**
      * A controlled array of selected values.
      */
-    values?: string[];
+    values?: string[] | undefined;
 
     /**
      * The initial selected values.
      */
-    defaultValues?: string[];
+    defaultValues?: string[] | undefined;
 
     /**
      * Called when a value is selected / removed.
@@ -1405,93 +1405,93 @@ export interface TagsPickerProps {
     /**
      * Called when a search for an item happens.
      */
-    onSearch?: (event: SyntheticEvent, items: ITEM_SHAPE[], query: string, props: TagsPickerProps) => ITEM_SHAPE[];
+    onSearch?: ((event: SyntheticEvent, items: ITEM_SHAPE[], query: string, props: TagsPickerProps) => ITEM_SHAPE[]) | undefined;
 
     /**
      * Called when the dropdown open / close.
      */
-    onVisibilityChange?: (event: SyntheticEvent, isVisible: boolean, props: TagsPickerProps) => void;
+    onVisibilityChange?: ((event: SyntheticEvent, isVisible: boolean, props: TagsPickerProps) => void) | undefined;
 
     /**
      * A custom React component to select an item.
      */
-    dropdown?: ReactElement;
+    dropdown?: ReactElement | undefined;
 
     /**
      * Whether or not the dropdown should close when an item is selected.
      */
-    closeOnSelect?: boolean;
+    closeOnSelect?: boolean | undefined;
 
     /**
      * The text of the trigger button to open the dropdown.
      */
-    addText?: string;
+    addText?: string | undefined;
 
     /**
      * Message to display when there are no items matching the search input.
      */
-    noResultsMessage?: string;
+    noResultsMessage?: string | undefined;
 
     /**
      * The search input placeholder text.
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
 
     /**
      * A custom React component to display the selected values.
      */
-    selectedItemsComponent?: ReactElement;
+    selectedItemsComponent?: ReactElement | undefined;
 
     /**
      * A custom React component to clear the selected values.
      */
-    clearButton?: ReactElement;
+    clearButton?: ReactElement | undefined;
 
     /**
      * A controlled open value that determined whether or not the dropdown is displayed.
      */
-    open?: boolean;
+    open?: boolean | undefined;
 
     /**
      * The initial value of open.
      */
-    defaultOpen?: boolean;
+    defaultOpen?: boolean | undefined;
 
     /**
      * A disabled multi-select does not allow user interaction.
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
 
     /**
      * Whether or not the dropdown should close when the multi-select loose focus.
      */
-    closeOnBlur?: boolean;
+    closeOnBlur?: boolean | undefined;
 
     /**
      * Whether or not the dropdown should close when a click happens outside the multi-select.
      * Requires `closeOnBlur` to be `false`.
      */
-    closeOnOutsideClick?: boolean;
+    closeOnOutsideClick?: boolean | undefined;
 
     /**
      * Additional classes.
      */
-    className?: string;
+    className?: string | undefined;
 }
 
 export interface TagsPickerSelectedItemsProps {
-    items?: ITEM_SHAPE[];
-    itemRenderer?: (item: ITEM_SHAPE, options: SELECTED_ITEMS_OPTIONS) => ReactElement;
-    onRemoveSelectedItem?: (event: SyntheticEvent, item: ITEM_SHAPE, props: TagsPickerSelectedItemsProps) => void;
-    disabled?: boolean;
-    className?: string;
+    items?: ITEM_SHAPE[] | undefined;
+    itemRenderer?: ((item: ITEM_SHAPE, options: SELECTED_ITEMS_OPTIONS) => ReactElement) | undefined;
+    onRemoveSelectedItem?: ((event: SyntheticEvent, item: ITEM_SHAPE, props: TagsPickerSelectedItemsProps) => void) | undefined;
+    disabled?: boolean | undefined;
+    className?: string | undefined;
 }
 
 // tslint:disable-next-line:interface-name
 export interface ITEM_SHAPE {
     text: string;
     value: string;
-    category?: string;
+    category?: string | undefined;
 }
 
 export interface SELECTED_ITEMS_OPTIONS {
@@ -1518,53 +1518,53 @@ export interface StrictTextAreaProps extends Omit<SemanticTextAreaProps, TextAre
     /**
      * Whether or not the textarea should autofocus on render.
      */
-    autofocus?: boolean;
+    autofocus?: boolean | undefined;
     /**
      * Delay before trying to autofocus.
      */
-    autofocusDelay?: number;
+    autofocusDelay?: number | undefined;
     /**
      * A textarea can have different sizes.
      */
-    size?: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large' | undefined;
     /**
      * Whether or not the textarea take up the width of its container
      */
-    fluid?: boolean;
+    fluid?: boolean | undefined;
     /**
      * A textarea can show that the data contains errors.
      */
-    error?: boolean;
+    error?: boolean | undefined;
     /**
      * Whether or not a user is currently interacting with the textarea.
      */
-    focused?: boolean;
+    focused?: boolean | undefined;
     /**
      * Whether or not the textarea is transparent.
      */
-    transparent?: boolean;
+    transparent?: boolean | undefined;
     /**
      * Whether or not the textarea is resizable.
      */
-    resizable?: boolean;
+    resizable?: boolean | undefined;
     /**
      * @ignore
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * @ignore
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * Called on change.
      */
-    onChange?: (event: ChangeEvent<HTMLTextAreaElement>, data: TextAreaProps) => void;
+    onChange?: ((event: ChangeEvent<HTMLTextAreaElement>, data: TextAreaProps) => void) | undefined;
 
     /**
      * Called on input.
      */
-    onInput?: (event: FormEvent<HTMLTextAreaElement>, data: TextAreaProps) => void;
+    onInput?: ((event: FormEvent<HTMLTextAreaElement>, data: TextAreaProps) => void) | undefined;
 }
 
 export interface TextAreaProps extends StrictTextAreaProps {
@@ -1581,51 +1581,51 @@ export interface StrictTextInputProps
     /**
      * Whether or not the input should autofocus on render.
      */
-    autofocus?: boolean;
+    autofocus?: boolean | undefined;
     /**
      * Delay before trying to autofocus.
      */
-    autofocusDelay?: number;
+    autofocusDelay?: number | undefined;
     /**
      * A React component displayed before or after the prompt based on "iconPosition".
      */
-    icon?: ReactElement;
+    icon?: ReactElement | undefined;
     /**
      * An icon can appear on the left or right.
      */
-    iconPosition?: 'left';
+    iconPosition?: 'left' | undefined;
     /**
      * An input can contain a button.
      */
-    button?: ReactElement | object;
+    button?: ReactElement | object | undefined;
     /**
      * An input can vary in sizes.
      */
-    size?: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large' | undefined;
     /**
      * @ignore
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * @ignore
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * The value of the input.
      */
-    value?: string;
+    value?: string | undefined;
     /**
      * The default value of the input.
      */
-    defaultValue?: string;
+    defaultValue?: string | undefined;
     /**
      * The [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) of the input.
      */
-    type?: 'text' | 'password' | 'email';
+    type?: 'text' | 'password' | 'email' | undefined;
     /**
      * Called on change.
      */
-    onChange?: (event: ChangeEvent<HTMLInputElement>, data: TextInputOnChangeData) => void;
+    onChange?: ((event: ChangeEvent<HTMLInputElement>, data: TextInputOnChangeData) => void) | undefined;
 }
 
 export interface TextInputOnChangeData extends TextInputProps {
@@ -1641,7 +1641,7 @@ export const TextInput: ComponentType<TextInputProps>;
 export type TooltipPropsToOverwrite = 'onClose' | 'onMount' | 'onOpen' | 'onUnmount';
 
 export interface StrictTooltipProps extends Omit<SemanticPopupProps, TooltipPropsToOverwrite> {
-    flush?: boolean;
+    flush?: boolean | undefined;
     /**
      * @ignore
      */
@@ -1649,27 +1649,27 @@ export interface StrictTooltipProps extends Omit<SemanticPopupProps, TooltipProp
     /**
      * @ignore
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * Called when a close event happens.
      */
-    onClose?: (event: MouseEvent<HTMLElement>, data: TooltipProps) => void;
+    onClose?: ((event: MouseEvent<HTMLElement>, data: TooltipProps) => void) | undefined;
 
     /**
      * Called when the portal is mounted on the DOM.
      */
-    onMount?: (nothing: null, data: TooltipProps) => void;
+    onMount?: ((nothing: null, data: TooltipProps) => void) | undefined;
 
     /**
      * Called when an open event happens.
      */
-    onOpen?: (event: MouseEvent<HTMLElement>, data: TooltipProps) => void;
+    onOpen?: ((event: MouseEvent<HTMLElement>, data: TooltipProps) => void) | undefined;
 
     /**
      * Called when the portal is unmounted from the DOM.
      */
-    onUnmount?: (nothing: null, data: TooltipProps) => void;
+    onUnmount?: ((nothing: null, data: TooltipProps) => void) | undefined;
 }
 
 export interface TooltipProps extends StrictTooltipProps {

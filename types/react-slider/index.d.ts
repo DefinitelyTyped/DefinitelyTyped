@@ -15,7 +15,7 @@ interface HTMLPropsWithRefCallback<T> extends HTMLProps<T> {
 
 export interface ReactSliderProps<T extends number | ReadonlyArray<number> = number> {
     // Disallow children
-    children?: never;
+    children?: never | undefined;
 
     /**
      * `aria-label` for screen-readers to apply to the thumb(s).
@@ -23,7 +23,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      * Use an array for more than one thumb.
      * The length of the array must match the number of thumbs in the `value` array.
      */
-    ariaLabel?: T extends number ? string : ReadonlyArray<string>;
+    ariaLabel?: T extends number ? string : ReadonlyArray<string> | undefined;
 
     /**
      * aria-labelledby for screen-readers to apply to the thumbs.
@@ -31,7 +31,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      * Use an array for more than one thumb.
      * The length of the array must match the number of thumbs in the value array.
      */
-    ariaLabelledby?: T extends number ? string : ReadonlyArray<string>;
+    ariaLabelledby?: T extends number ? string : ReadonlyArray<string> | undefined;
 
     /**
      * `aria-valuetext` for screen-readers.
@@ -46,14 +46,14 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      * - `state.value` - the current value state
      * - `state.valueNow` - the value of the thumb (i.e. aria-valuenow)
      */
-    ariaValuetext?: string | ((value: { index: number; value: T; valueNow: number }) => string);
+    ariaValuetext?: string | ((value: { index: number; value: T; valueNow: number }) => string) | undefined;
 
     /**
      * The css class set on the slider node.
      *
      * @default "slider"
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * Determines the initial position(s) of the thumb(s) and the number of thumbs.
@@ -67,28 +67,28 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default 0
      */
-    defaultValue?: this["value"] extends T ? never : T;
+    defaultValue?: (this["value"] extends T ? never : T) | undefined;
 
     /**
      * If `true` the thumbs can't be moved.
      *
      * @default false
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
 
     /**
      * Inverts the slider.
      *
      * @default false
      */
-    invert?: boolean;
+    invert?: boolean | undefined;
 
     /**
      * The CSS class set on the marks.
      *
      * @default "mark"
      */
-    markClassName?: string;
+    markClassName?: string | undefined;
 
     /**
      * Shows passed marks on the track, if `true` it shows all the marks;
@@ -98,21 +98,21 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default []
      */
-    marks?: boolean | number | ReadonlyArray<number>;
+    marks?: boolean | number | ReadonlyArray<number> | undefined;
 
     /**
      * The maximum value of the slider.
      *
      * @default 100
      */
-    max?: number;
+    max?: number | undefined;
 
     /**
      * The minimum value of the slider.
      *
      * @default 0
      */
-    min?: number;
+    min?: number | undefined;
 
     /**
      * The minimal distance between any pair of thumbs.
@@ -120,7 +120,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default 0
      */
-    minDistance?: number;
+    minDistance?: number | undefined;
 
     /**
      * Callback called only after moving a thumb has ended. The callback
@@ -128,7 +128,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * - `value` - the result value, or values if the slider has multiple thumbs and the thumb index
      */
-    onAfterChange?: (value: T, index: number) => void;
+    onAfterChange?: ((value: T, index: number) => void) | undefined;
 
     /**
      * Callback called before starting to move a thumb. The callback will
@@ -136,21 +136,21 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * - `value` - the initial value, or values if the slider has multiple thumbs and the thumb index
      */
-    onBeforeChange?: (value: T, index: number) => void;
+    onBeforeChange?: ((value: T, index: number) => void) | undefined;
 
     /**
      * Callback called on every value change.
      *
      * - `value` - the new value, or values if the slider has multiple thumbs and the thumb index
      */
-    onChange?: (value: T, index: number) => void;
+    onChange?: ((value: T, index: number) => void) | undefined;
 
     /**
      * Callback called when the the slider is clicked (thumb or tracks).
      *
      * - `value` - the value at the clicked position
      */
-    onSliderClick?: (value: number) => void;
+    onSliderClick?: ((value: number) => void) | undefined;
 
     /**
      * Determines whether the slider moves horizontally (from left to right)
@@ -158,7 +158,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default "horizontal"
      */
-    orientation?: "horizontal" | "vertical";
+    orientation?: "horizontal" | "vertical" | undefined;
 
     /**
      * The result of the function is the value to be added or subtracted
@@ -168,7 +168,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default step => step * 10
      */
-    pageFn?: (step: number) => number;
+    pageFn?: ((step: number) => number) | undefined;
 
     /**
      * If `true` the active thumb will push other thumbs within the constraints
@@ -176,7 +176,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default false
      */
-    pearling?: boolean;
+    pearling?: boolean | undefined;
 
     /**
      * Provide a custom render function for the mark node.
@@ -188,7 +188,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default props => <div {...props} />
      */
-    renderMark?: (props: HTMLPropsWithRefCallback<HTMLSpanElement>) => JSX.Element | null;
+    renderMark?: ((props: HTMLPropsWithRefCallback<HTMLSpanElement>) => JSX.Element | null) | undefined;
 
     /**
      * Provide a custom render function for dynamic thumb content.
@@ -203,10 +203,10 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default props => <div {...props} />
      */
-    renderThumb?: (
+    renderThumb?: ((
         props: HTMLPropsWithRefCallback<HTMLDivElement>,
         state: { index: number; value: T; valueNow: number },
-    ) => JSX.Element | null;
+    ) => JSX.Element | null) | undefined;
 
     /**
      * Provide a custom render function for the track node.
@@ -220,17 +220,17 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default props => <div {...props} />
      */
-    renderTrack?: (
+    renderTrack?: ((
         props: HTMLPropsWithRefCallback<HTMLDivElement>,
         state: { index: number; value: T },
-    ) => JSX.Element | null;
+    ) => JSX.Element | null) | undefined;
 
     /**
      * Disables thumb move when clicking the slider track
      *
      * @default false
      */
-    snapDragDisabled?: boolean;
+    snapDragDisabled?: boolean | undefined;
 
     /**
      * Value to be added or subtracted on each step the slider makes.
@@ -239,13 +239,13 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default 1
      */
-    step?: number;
+    step?: number | undefined;
 
     /**
      * The css class set on the thumb that is currently being moved.
      * @default "active"
      */
-    thumbActiveClassName?: string;
+    thumbActiveClassName?: string | undefined;
 
     /**
      * The css class set on each thumb node.
@@ -254,7 +254,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      * `${thumbClassName}-${i}`, e.g. `thumb-0`, `thumb-1`, ...
      * @default "thumb"
      */
-    thumbClassName?: string;
+    thumbClassName?: string | undefined;
 
     /**
      * The css class set on the tracks between the thumbs.
@@ -263,19 +263,19 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      * `${trackClassName}-${i}`, e.g. `track-0`, `track-1`, ...
      * @default "track"
      */
-    trackClassName?: string;
+    trackClassName?: string | undefined;
 
     /**
      * Like `defaultValue` but for
      * [controlled components](http://facebook.github.io/react/docs/forms.html#controlled-components).
      */
-    value?: T;
+    value?: T | undefined;
 
     /**
      * If `true` tracks between the thumbs will be rendered.
      * @default true
      */
-    withTracks?: boolean;
+    withTracks?: boolean | undefined;
 }
 
 declare class ReactSlider<T extends number | ReadonlyArray<number> = number> extends Component<ReactSliderProps<T>> {

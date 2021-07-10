@@ -26,27 +26,27 @@ declare namespace locale {
          * the key to save locale to on the request
          * @default 'locale'
          */
-        key?: string;
+        key?: string | undefined;
         /**
          * available locales for the app
          * @default []
          */
-        supportedLocales?: string[];
+        supportedLocales?: string[] | undefined;
         /**
          * locale to fallback to
          * @default 'en'
          */
-        defaultLocale?: string;
+        defaultLocale?: string | undefined;
         /**
          * cookie to try getting the locale from
          * @default 'locale'
          */
-        cookieName?: string;
+        cookieName?: string | undefined;
         /**
          * the query parameter(s) to look the locale from
          * @default ['locale']
          */
-        queryParams?: string | string[];
+        queryParams?: string | string[] | undefined;
     }
 
     /** The short-locale of a user */

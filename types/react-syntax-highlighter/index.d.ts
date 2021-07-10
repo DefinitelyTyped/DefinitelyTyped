@@ -11,14 +11,14 @@ type lineTagPropsFunction = (lineNumber: number) => React.HTMLProps<HTMLElement>
 
 declare module 'react-syntax-highlighter' {
     export interface SyntaxHighlighterProps {
-        language?: string;
+        language?: string | undefined;
         style?: any;
         customStyle?: any;
-        lineProps?: lineTagPropsFunction | React.HTMLProps<HTMLElement>;
-        codeTagProps?: React.HTMLProps<HTMLElement>;
-        useInlineStyles?: boolean;
-        showLineNumbers?: boolean;
-        startingLineNumber?: number;
+        lineProps?: lineTagPropsFunction | React.HTMLProps<HTMLElement> | undefined;
+        codeTagProps?: React.HTMLProps<HTMLElement> | undefined;
+        useInlineStyles?: boolean | undefined;
+        showLineNumbers?: boolean | undefined;
+        startingLineNumber?: number | undefined;
         lineNumberStyle?: any;
         [spread: string]: any;
     }

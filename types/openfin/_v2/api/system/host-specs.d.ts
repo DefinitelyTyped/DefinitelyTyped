@@ -14,11 +14,11 @@ export interface GpuInfo {
     name: string;
 }
 export interface HostSpecs {
-    aeroGlassEnabled?: boolean;
+    aeroGlassEnabled?: boolean | undefined;
     arch: string;
     cpus: CpuInfo[];
     gpu: GpuInfo;
     memory: number;
     name: string;
-    screenSaver?: boolean;
+    screenSaver?: boolean | undefined;
 }

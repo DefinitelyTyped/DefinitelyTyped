@@ -64,42 +64,42 @@ declare namespace prompts {
     interface Choice {
         title: string;
         value?: any;
-        disabled?: boolean;
-        selected?: boolean;
-        description?: string;
+        disabled?: boolean | undefined;
+        selected?: boolean | undefined;
+        description?: string | undefined;
     }
 
     interface Options {
-        onSubmit?: (prompt: PromptObject, answer: any, answers: any[]) => void;
-        onCancel?: (prompt: PromptObject, answers: any) => void;
+        onSubmit?: ((prompt: PromptObject, answer: any, answers: any[]) => void) | undefined;
+        onCancel?: ((prompt: PromptObject, answers: any) => void) | undefined;
     }
 
     interface PromptObject<T extends string = string> {
         type: PromptType | Falsy | PrevCaller<T, PromptType | Falsy>;
         name: ValueOrFunc<T>;
-        message?: ValueOrFunc<string>;
-        initial?: InitialReturnValue | PrevCaller<T, InitialReturnValue | Promise<InitialReturnValue>>;
-        style?: string | PrevCaller<T, string | Falsy>;
-        format?: PrevCaller<T, void>;
-        validate?: PrevCaller<T, boolean | string | Promise<boolean | string>>;
-        onState?: PrevCaller<T, void>;
-        min?: number | PrevCaller<T, number | Falsy>;
-        max?: number | PrevCaller<T, number | Falsy>;
-        float?: boolean | PrevCaller<T, boolean | Falsy>;
-        round?: number | PrevCaller<T, number | Falsy>;
-        instructions?: string | boolean;
-        increment?: number | PrevCaller<T, number | Falsy>;
-        separator?: string | PrevCaller<T, string | Falsy>;
-        active?: string | PrevCaller<T, string | Falsy>;
-        inactive?: string | PrevCaller<T, string | Falsy>;
-        choices?: Choice[] | PrevCaller<T, Choice[] | Falsy>;
-        hint?: string | PrevCaller<T, string | Falsy>;
-        warn?: string | PrevCaller<T, string | Falsy>;
-        suggest?: ((input: any, choices: Choice[]) => Promise<any>);
-        limit?: number | PrevCaller<T, number | Falsy>;
-        mask?: string | PrevCaller<T, string | Falsy>;
-        stdout?: Writable;
-        stdin?: Readable;
+        message?: ValueOrFunc<string> | undefined;
+        initial?: InitialReturnValue | PrevCaller<T, InitialReturnValue | Promise<InitialReturnValue>> | undefined;
+        style?: string | PrevCaller<T, string | Falsy> | undefined;
+        format?: PrevCaller<T, void> | undefined;
+        validate?: PrevCaller<T, boolean | string | Promise<boolean | string>> | undefined;
+        onState?: PrevCaller<T, void> | undefined;
+        min?: number | PrevCaller<T, number | Falsy> | undefined;
+        max?: number | PrevCaller<T, number | Falsy> | undefined;
+        float?: boolean | PrevCaller<T, boolean | Falsy> | undefined;
+        round?: number | PrevCaller<T, number | Falsy> | undefined;
+        instructions?: string | boolean | undefined;
+        increment?: number | PrevCaller<T, number | Falsy> | undefined;
+        separator?: string | PrevCaller<T, string | Falsy> | undefined;
+        active?: string | PrevCaller<T, string | Falsy> | undefined;
+        inactive?: string | PrevCaller<T, string | Falsy> | undefined;
+        choices?: Choice[] | PrevCaller<T, Choice[] | Falsy> | undefined;
+        hint?: string | PrevCaller<T, string | Falsy> | undefined;
+        warn?: string | PrevCaller<T, string | Falsy> | undefined;
+        suggest?: ((input: any, choices: Choice[]) => Promise<any>) | undefined;
+        limit?: number | PrevCaller<T, number | Falsy> | undefined;
+        mask?: string | PrevCaller<T, string | Falsy> | undefined;
+        stdout?: Writable | undefined;
+        stdin?: Readable | undefined;
     }
 
     type Answers<T extends string> = { [id in T]: any };

@@ -8,16 +8,16 @@
 /// <reference types="jquery"/>
 
 interface JNotifyInitOptions {
-    oneAtTime?: boolean;
-    appendType?: string;
+    oneAtTime?: boolean | undefined;
+    appendType?: string | undefined;
 }
 
 interface JNotifyOptions {
-    text?: string;
-    type?: string;
-    showIcon?: boolean;
-    permanent?: boolean;
-    disappearTime?: number;
+    text?: string | undefined;
+    type?: string | undefined;
+    showIcon?: boolean | undefined;
+    permanent?: boolean | undefined;
+    disappearTime?: number | undefined;
 }
 
 interface JQuery {

@@ -19,7 +19,7 @@ const CustomLinkExample = () => (
 );
 
 interface OldSchoolMenuLinkProps extends LinkProps {
-  activeOnlyWhenExact?: boolean;
+  activeOnlyWhenExact?: boolean | undefined;
   label: string;
 }
 

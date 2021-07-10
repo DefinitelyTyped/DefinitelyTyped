@@ -12,24 +12,24 @@ declare namespace CountrySelectJs {
      * Set the default country by it's country code. Otherwise it will just be
      * the first country in the list.
      */
-    defaultCountry?: string;
+    defaultCountry?: string | undefined;
 
     /**
      * Display only the countries you specify. Takes an array of country codes.
      */
-    onlyCountries?: string[];
+    onlyCountries?: string[] | undefined;
 
     /**
      * Specify the countries to appear at the top of the list. Defaults to
      * ["us", "gb"]
      */
-    preferredCountries?: string[];
+    preferredCountries?: string[] | undefined;
 
     /**
      * Set the dropdown's width to be the same as the input. This is
      * automatically enabled for small screens.
      */
-    responsiveDropdown?: boolean;
+    responsiveDropdown?: boolean | undefined;
   }
 
   interface CountryData {

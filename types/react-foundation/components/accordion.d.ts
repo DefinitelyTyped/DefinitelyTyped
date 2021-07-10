@@ -13,19 +13,19 @@ export interface AccordianProps extends FlexboxPropTypes, React.HTMLAttributes<H
  */
 export declare const AccordionItem: React.StatelessComponent<AccordianItemProps>;
 export interface AccordianItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLLIElement> {
-    isActive?: boolean;
+    isActive?: boolean | undefined;
 }
 /**
  * Accordion panel container component.
  */
 export declare const AccordionContent: React.StatelessComponent<AccordianContentProps>;
 export interface AccordianContentProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    isActive?: boolean;
+    isActive?: boolean | undefined;
 }
 /**
  * Accordion panel title component.
  */
 export declare const AccordionTitle: React.StatelessComponent<AccordionTitleProps>;
 export interface AccordionTitleProps extends FlexboxPropTypes, React.AnchorHTMLAttributes<HTMLAnchorElement> {
-    isActive?: boolean;
+    isActive?: boolean | undefined;
 }

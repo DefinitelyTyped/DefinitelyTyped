@@ -4,8 +4,8 @@ import { Collection } from '@ckeditor/ckeditor5-utils';
 export interface UserData {
     id: string;
     color: Record<string, unknown>;
-    name?: string;
-    avatar?: string;
+    name?: string | undefined;
+    avatar?: string | undefined;
 }
 
 export class User {

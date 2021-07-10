@@ -7,9 +7,9 @@
 ///<reference types="jquery" />
 
 interface JQueryLeanModalOption {
-    top? : number;
-    overlay? : number;
-    closeButton? : String;
+    top? : number | undefined;
+    overlay? : number | undefined;
+    closeButton? : String | undefined;
 }
 
 interface JQueryStatic {

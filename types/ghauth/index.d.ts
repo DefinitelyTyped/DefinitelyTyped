@@ -12,32 +12,32 @@ declare namespace ghauth {
         /**
          * @default false
          */
-        noSave?: boolean;
+        noSave?: boolean | undefined;
 
         /**
          * @default "https://api.github.com/authorizations"
          */
-        authUrl?: string;
+        authUrl?: string | undefined;
 
         /**
          * @default "GitHub"
          */
-        promptName?: string;
+        promptName?: string | undefined;
 
         /**
          * @default []
          */
-        scopes?: ReadonlyArray<string>;
+        scopes?: ReadonlyArray<string> | undefined;
 
         /**
          * @default "Node.js command-line app with ghauth"
          */
-        note?: string;
+        note?: string | undefined;
 
         /**
          * @default "Magic Node.js application that does magic things with ghauth"
          */
-        userAgent?: string;
+        userAgent?: string | undefined;
     }
 
     interface TokenData {

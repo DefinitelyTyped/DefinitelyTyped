@@ -120,46 +120,46 @@ declare namespace PhonegapFacebookPlugin {
          * The ID of the person posting the message. If this is unspecified, it defaults to the current person.
          * If specified, it must be the ID of the person or of a page that the person administers.
          */
-        from?: string;
+        from?: string | undefined;
 
         /**
          * The ID of the profile that this story will be published to. If this is unspecified, it defaults to
          * the value of from. The ID must be a friend who also uses your app.
          */
-        to?: string;
+        to?: string | undefined;
 
         /**
          * The link attached to this post.
          */
-        link?: string;
+        link?: string | undefined;
 
         /**
          * The URL of a picture attached to this post. The picture must be at least 200px by 200px.
          */
-        picture?: string;
+        picture?: string | undefined;
 
         /**
          * The URL of a media file (either SWF or MP3) attached to this post. If SWF, you must also specify
          * 'picture' to provide a thumbnail for the video.
          */
-        source?: string;
+        source?: string | undefined;
 
         /**
          * The name of the link attachment.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * The caption of the link (appears beneath the link name). If not specified, this field is automatically
          * populated with the URL of the link.
          */
-        caption?: string;
+        caption?: string | undefined;
 
         /**
          * The description of the link (appears beneath the link caption). If not specified, this field is
          * automatically populated by information scraped from the link, typically the title of the page.
          */
-        description?: string;
+        description?: string | undefined;
 
         /**
          * This argument is a comma-separated list, consisting of at most 5 distinct items, each of length at
@@ -168,7 +168,7 @@ declare namespace PhonegapFacebookPlugin {
          * Each category is used in Facebook Insights to help you measure the performance of different types
          * of post.
          */
-        ref?: string;
+        ref?: string | undefined;
     }
 
     /**

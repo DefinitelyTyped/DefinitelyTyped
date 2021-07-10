@@ -11,7 +11,7 @@ export interface SwitchTransitionProps {
    * `out-in`: Current element transitions out first, then when complete, the new element transitions in.
    * `in-out`: New element transitions in first, then when complete, the current element transitions out.
    */
-  mode?: 'out-in' | 'in-out';
+  mode?: 'out-in' | 'in-out' | undefined;
 
   /**
    * Any `Transition` or `CSSTransition` component

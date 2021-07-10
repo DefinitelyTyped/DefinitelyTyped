@@ -19,17 +19,17 @@ declare namespace BrowserSyncPlugin {
          * chunks are all CSS files.
          * @defaultValue false
          */
-        injectCss?: boolean;
+        injectCss?: boolean | undefined;
         /**
          * BrowserSync instance name.
          * @defaultValue 'bs-webpack-plugin'
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * Should BrowserSync handle reloads?
          * @defaultValue true
          */
-        reload?: boolean;
+        reload?: boolean | undefined;
     }
 }
 declare class BrowserSyncPlugin extends Plugin {

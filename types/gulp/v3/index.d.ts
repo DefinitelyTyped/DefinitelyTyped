@@ -130,7 +130,7 @@ declare namespace gulp {
          * and not read the file at all.
          * Default: <code>true</code>.
          */
-        read?: boolean;
+        read?: boolean | undefined;
 
         /**
          * Setting this to false will return <code>file.contents</code> as a stream and not buffer files.
@@ -138,117 +138,117 @@ declare namespace gulp {
          * Note: Plugins might not implement support for streams.
          * Default: <code>true</code>.
          */
-        buffer?: boolean;
+        buffer?: boolean | undefined;
 
         /**
          * The base path of a glob.
          *
          * Default is everything before a glob starts.
          */
-        base?: string;
+        base?: string | undefined;
 
         /**
          * The current working directory in which to search.
          * Defaults to process.cwd().
          */
-        cwd?: string;
+        cwd?: string | undefined;
 
         /**
          * The place where patterns starting with / will be mounted onto.
          * Defaults to path.resolve(options.cwd, "/") (/ on Unix systems, and C:\ or some such on Windows.)
          */
-        root?: string;
+        root?: string | undefined;
 
         /**
          * Include .dot files in normal matches and globstar matches.
          * Note that an explicit dot in a portion of the pattern will always match dot files.
          */
-        dot?: boolean;
+        dot?: boolean | undefined;
 
         /**
          * Set to match only fles, not directories. Set this flag to prevent copying empty directories
          */
-        nodir?: boolean;
+        nodir?: boolean | undefined;
 
         /**
          * By default, a pattern starting with a forward-slash will be "mounted" onto the root setting, so that a valid
          * filesystem path is returned. Set this flag to disable that behavior.
          */
-        nomount?: boolean;
+        nomount?: boolean | undefined;
 
         /**
          * Add a / character to directory matches. Note that this requires additional stat calls.
          */
-        mark?: boolean;
+        mark?: boolean | undefined;
 
         /**
          * Don't sort the results.
          */
-        nosort?: boolean;
+        nosort?: boolean | undefined;
 
         /**
          * Set to true to stat all results. This reduces performance somewhat, and is completely unnecessary, unless
          * readdir is presumed to be an untrustworthy indicator of file existence. It will cause ELOOP to be triggered one
          * level sooner in the case of cyclical symbolic links.
          */
-        stat?: boolean;
+        stat?: boolean | undefined;
 
         /**
          * When an unusual error is encountered when attempting to read a directory, a warning will be printed to stderr.
          * Set the silent option to true to suppress these warnings.
          */
-        silent?: boolean;
+        silent?: boolean | undefined;
 
         /**
          * When an unusual error is encountered when attempting to read a directory, the process will just continue on in
          * search of other matches. Set the strict option to raise an error in these cases.
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
 
         /**
          * See cache property above. Pass in a previously generated cache object to save some fs calls.
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
 
         /**
          * A cache of results of filesystem information, to prevent unnecessary stat calls.
          * While it should not normally be necessary to set this, you may pass the statCache from one glob() call to the
          * options object of another, if you know that the filesystem will not change between calls.
          */
-        statCache?: boolean;
+        statCache?: boolean | undefined;
 
         /**
          * Perform a synchronous glob search.
          */
-        sync?: boolean;
+        sync?: boolean | undefined;
 
         /**
          * In some cases, brace-expanded patterns can result in the same file showing up multiple times in the result set.
          * By default, this implementation prevents duplicates in the result set. Set this flag to disable that behavior.
          */
-        nounique?: boolean;
+        nounique?: boolean | undefined;
 
         /**
          * Set to never return an empty set, instead returning a set containing the pattern itself.
          * This is the default in glob(3).
          */
-        nonull?: boolean;
+        nonull?: boolean | undefined;
 
         /**
          * Perform a case-insensitive match. Note that case-insensitive filesystems will sometimes result in glob returning
          * results that are case-insensitively matched anyway, since readdir and stat will not raise an error.
          */
-        nocase?: boolean;
+        nocase?: boolean | undefined;
 
         /**
          * Set to enable debug logging in minimatch and glob.
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * Set to enable debug logging in glob, but not minimatch.
          */
-        globDebug?: boolean;
+        globDebug?: boolean | undefined;
     }
 
     interface DestOptions {
@@ -256,13 +256,13 @@ declare namespace gulp {
          * The output folder. Only has an effect if provided output folder is relative.
          * Default: process.cwd()
          */
-        cwd?: string;
+        cwd?: string | undefined;
 
         /**
          * Octal permission string specifying mode for any folders that need to be created for output folder.
          * Default: 0777.
          */
-        mode?: string;
+        mode?: string | undefined;
     }
 
     /**
@@ -271,13 +271,13 @@ declare namespace gulp {
      */
     interface WatchOptions {
         /** Interval to pass to fs.watchFile. */
-        interval?: number;
+        interval?: number | undefined;
         /** Delay for events called in succession for the same file/event. */
-        debounceDelay?: number;
+        debounceDelay?: number | undefined;
         /** Force the watch mode. Either 'auto' (default), 'watch' (force native events), or 'poll' (force stat polling). */
-        mode?: string;
+        mode?: string | undefined;
         /** The current working directory to base file patterns from. Default is process.cwd().. */
-        cwd?: string;
+        cwd?: string | undefined;
     }
 
     interface WatchEvent {

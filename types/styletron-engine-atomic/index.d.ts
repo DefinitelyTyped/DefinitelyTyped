@@ -50,13 +50,13 @@ export interface Sheet {
 }
 
 export interface ClientOptions {
-  hydrate?: hydrateType;
-  container?: Element;
-  prefix?: string;
+  hydrate?: hydrateType | undefined;
+  container?: Element | undefined;
+  prefix?: string | undefined;
 }
 
 export interface ServerOptions {
-  prefix?: string;
+  prefix?: string | undefined;
 }
 
 export class Client implements StandardEngine {

@@ -10,12 +10,12 @@ declare namespace gulpCleanDest {
         /**
          * The working directory the folder is relative to.
          */
-        cwd?: string;
+        cwd?: string | undefined;
 
         /**
          * Extension of the destination files. Useful if it differs from the original.
          */
-        extension?: string;
+        extension?: string | undefined;
     }
 }
 

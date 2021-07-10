@@ -15,15 +15,15 @@ export interface ActionButtonProps {
         icon: string | JSX.Element
         label: string
         name: string
-    }>;
-    hidden?: boolean;
-    icon?: string;
+    }> | undefined;
+    hidden?: boolean | undefined;
+    icon?: string | undefined;
     style?: {
-        container?: ViewStyle
-        icon?: TextStyle
-        positionContainer?: ViewStyle
-    };
-    transition?: 'toolbar' | 'speedDial';
+        container?: ViewStyle | undefined
+        icon?: TextStyle | undefined
+        positionContainer?: ViewStyle | undefined
+    } | undefined;
+    transition?: 'toolbar' | 'speedDial' | undefined;
     onPress?(): void;
     onLongPress?(): void;
 }
@@ -34,16 +34,16 @@ export interface ActionButtonProps {
 export class ActionButton extends Component<ActionButtonProps, any> {}
 
 export interface AvatarProps {
-    image?: Image;
-    icon?: string;
-    iconColor?: string;
-    iconSize?: number;
-    text?: string;
-    size?: number;
+    image?: Image | undefined;
+    icon?: string | undefined;
+    iconColor?: string | undefined;
+    iconSize?: number | undefined;
+    text?: string | undefined;
+    size?: number | undefined;
     style?: {
-        container?: ViewStyle
-        content?: ViewStyle
-    };
+        container?: ViewStyle | undefined
+        content?: ViewStyle | undefined
+    } | undefined;
 }
 
 /**
@@ -52,17 +52,17 @@ export interface AvatarProps {
 export class Avatar extends Component<AvatarProps, any> {}
 
 export interface BadgeProps {
-    children?: JSX.Element;
-    text?: string;
-    icon?: string | { name: string, color: string, size: number };
-    size?: number;
-    stroke?: number;
-    accent?: boolean;
+    children?: JSX.Element | undefined;
+    text?: string | undefined;
+    icon?: string | { name: string, color: string, size: number } | undefined;
+    size?: number | undefined;
+    stroke?: number | undefined;
+    accent?: boolean | undefined;
     style?: {
-        container?: ViewStyle
-        content?: ViewStyle
-        strokeContainer?: ViewStyle
-    };
+        container?: ViewStyle | undefined
+        content?: ViewStyle | undefined
+        strokeContainer?: ViewStyle | undefined
+    } | undefined;
 }
 
 /**
@@ -71,12 +71,12 @@ export interface BadgeProps {
 export class Badge extends Component<BadgeProps, any> {}
 
 export interface BottomNavigationProps {
-    active?: string;
+    active?: string | undefined;
     children: JSX.Element | JSX.Element[];
-    hidden?: boolean;
+    hidden?: boolean | undefined;
     style?: {
-        container?: ViewStyle
-    };
+        container?: ViewStyle | undefined
+    } | undefined;
 }
 
 /**
@@ -85,17 +85,17 @@ export interface BottomNavigationProps {
 export class BottomNavigation extends Component<BottomNavigationProps, any> {}
 
 export interface BottomNavigationAction {
-    testID?: string;
+    testID?: string | undefined;
     icon: JSX.Element | string;
-    label?: string;
-    key?: string;
+    label?: string | undefined;
+    key?: string | undefined;
     active: boolean;
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     style?: {
-        container?: ViewStyle
-        active?: TextStyle
-        disabled?: TextStyle
-    };
+        container?: ViewStyle | undefined
+        active?: TextStyle | undefined
+        disabled?: TextStyle | undefined
+    } | undefined;
     onPress?(): void;
 }
 
@@ -104,18 +104,18 @@ export namespace BottomNavigation {
 }
 
 export interface ButtonProps {
-    testID?: string;
+    testID?: string | undefined;
     text: string;
-    primary?: boolean;
-    accent?: boolean;
-    disabled?: boolean;
-    raised?: boolean;
-    upperCase?: boolean;
-    icon?: string | JSX.Element;
+    primary?: boolean | undefined;
+    accent?: boolean | undefined;
+    disabled?: boolean | undefined;
+    raised?: boolean | undefined;
+    upperCase?: boolean | undefined;
+    icon?: string | JSX.Element | undefined;
     style?: {
-        container?: ViewStyle
-        text?: TextStyle
-    };
+        container?: ViewStyle | undefined
+        text?: TextStyle | undefined
+    } | undefined;
     onPress?(): void;
     onLongPress?(): void;
 }
@@ -126,10 +126,10 @@ export interface ButtonProps {
 export class Button extends Component<ButtonProps, any> {}
 
 export interface CardProps {
-    children?: JSX.Element;
+    children?: JSX.Element | undefined;
     style?: {
-        container?: ViewStyle
-    };
+        container?: ViewStyle | undefined
+    } | undefined;
     onPress?(): void;
 }
 
@@ -141,15 +141,15 @@ export class Card extends Component<CardProps, any> {}
 export interface CheckBoxProps {
     label: string;
     value: string | number;
-    checked?: boolean;
-    disabled?: boolean;
-    uncheckedIcon?: string;
-    checkedIcon?: string;
+    checked?: boolean | undefined;
+    disabled?: boolean | undefined;
+    uncheckedIcon?: string | undefined;
+    checkedIcon?: string | undefined;
     style?: {
-        icon?: TextStyle
-        container?: ViewStyle
-        label?: TextStyle
-    };
+        icon?: TextStyle | undefined
+        container?: ViewStyle | undefined
+        label?: TextStyle | undefined
+    } | undefined;
     onCheck(checked: boolean): void;
 }
 
@@ -161,8 +161,8 @@ export class Checkbox extends Component<CheckBoxProps> {}
 export interface DialogProps {
     children: JSX.Element | JSX.Element[];
     style?: {
-        container?: ViewStyle
-    };
+        container?: ViewStyle | undefined
+    } | undefined;
     onPress?(): void;
 }
 
@@ -175,23 +175,23 @@ export class Dialog extends Component<DialogProps, any> {}
 export interface DialogTitleProps {
     children: JSX.Element;
     style?: {
-        titleContainer?: ViewStyle
-        titleText?: TextStyle
-    };
+        titleContainer?: ViewStyle | undefined
+        titleText?: TextStyle | undefined
+    } | undefined;
 }
 
 export interface DialogContentProps {
     children: JSX.Element;
     style?: {
-        contentContainer?: ViewStyle
-    };
+        contentContainer?: ViewStyle | undefined
+    } | undefined;
 }
 
 export interface DialogActionsProps {
     children: JSX.Element;
     style?: {
-        actionsContainer?: ViewStyle
-    };
+        actionsContainer?: ViewStyle | undefined
+    } | undefined;
 }
 
 export namespace Dialog {
@@ -203,8 +203,8 @@ export namespace Dialog {
 export interface DialogDefaultActionsProps {
     actions: string[];
     style?: {
-        defaultActionsContainer?: ViewStyle
-    };
+        defaultActionsContainer?: ViewStyle | undefined
+    } | undefined;
     onActionPress(action: string): void;
 }
 
@@ -216,8 +216,8 @@ export class DialogDefaultActions extends Component<DialogDefaultActionsProps, a
 export interface DialogStackedActionsProps {
     actions: string[];
     style?: {
-        stackedActionsContainer?: ViewStyle
-    };
+        stackedActionsContainer?: ViewStyle | undefined
+    } | undefined;
     onActionPress(action: string): void;
 }
 
@@ -227,10 +227,10 @@ export interface DialogStackedActionsProps {
 export class DialogStackedActions extends Component<DialogStackedActionsProps, any> {}
 
 export interface DividerProps {
-    inset?: boolean;
+    inset?: boolean | undefined;
     style?: {
-        container?: ViewStyle
-    };
+        container?: ViewStyle | undefined
+    } | undefined;
 }
 
 /**
@@ -241,59 +241,59 @@ export class Divider extends Component<DividerProps, any> {}
 export interface DrawerProps {
     children: JSX.Element;
     style?: {
-        container?: ViewStyle
-    };
+        container?: ViewStyle | undefined
+    } | undefined;
 }
 
 export interface DrawerHeaderProps {
-    image?: Image[];
-    backgroundColor?: string;
-    children?: JSX.Element;
+    image?: Image[] | undefined;
+    backgroundColor?: string | undefined;
+    children?: JSX.Element | undefined;
     style?: {
-        container?: ViewStyle
-        contentContainer?: ViewStyle
-    };
+        container?: ViewStyle | undefined
+        contentContainer?: ViewStyle | undefined
+    } | undefined;
 }
 
 export interface DrawerSectionItem {
-    icon?: string;
-    value?: string | JSX.Element;
-    label?: string;
-    active?: boolean;
-    disabled?: boolean;
+    icon?: string | undefined;
+    value?: string | JSX.Element | undefined;
+    label?: string | undefined;
+    active?: boolean | undefined;
+    disabled?: boolean | undefined;
     onPress?(): void;
     onLongPress?(): void;
 }
 
 export interface DrawerSectionProps {
-    title?: string;
+    title?: string | undefined;
     items: DrawerSectionItem[];
-    divider?: boolean;
+    divider?: boolean | undefined;
     style?: {
-        container?: ViewStyle
-        item?: ViewStyle
-        subheader?: TextStyle
-        icon?: ViewStyle
-        value?: TextStyle
-        label?: TextStyle
-    };
+        container?: ViewStyle | undefined
+        item?: ViewStyle | undefined
+        subheader?: TextStyle | undefined
+        icon?: ViewStyle | undefined
+        value?: TextStyle | undefined
+        label?: TextStyle | undefined
+    } | undefined;
 }
 
 export interface DrawerHeaderAccountProps {
-    avatar?: JSX.Element;
+    avatar?: JSX.Element | undefined;
     accounts?: Array<{
-        avatar?: JSX.Element
+        avatar?: JSX.Element | undefined
         onPress?(): void
-    }>;
-    footer?: {};
+    }> | undefined;
+    footer?: {} | undefined;
     style?: {
-        container?: ViewStyle
-        accountContainer?: ViewStyle
-        topContainer?: ViewStyle
-        avatarsContainer?: ViewStyle
-        activeAvatarContainer?: ViewStyle
-        inactiveAvatarContainer?: ViewStyle
-    };
+        container?: ViewStyle | undefined
+        accountContainer?: ViewStyle | undefined
+        topContainer?: ViewStyle | undefined
+        avatarsContainer?: ViewStyle | undefined
+        activeAvatarContainer?: ViewStyle | undefined
+        inactiveAvatarContainer?: ViewStyle | undefined
+    } | undefined;
 }
 
 /**
@@ -310,9 +310,9 @@ export namespace Drawer {
 
 export interface IconProps {
     name: string;
-    style?: ViewStyle | ViewStyle[];
-    size?: number;
-    color?: string;
+    style?: ViewStyle | ViewStyle[] | undefined;
+    size?: number | undefined;
+    color?: string | undefined;
 }
 
 /**
@@ -322,19 +322,19 @@ export interface IconProps {
 export class Icon extends Component<IconProps, any> {}
 
 export interface IconToggleProps {
-    testID?: string;
-    color?: string;
-    underlayColor?: string;
-    maxOpacity?: number;
-    percent?: number;
-    disabled?: boolean;
-    size?: number;
+    testID?: string | undefined;
+    color?: string | undefined;
+    underlayColor?: string | undefined;
+    maxOpacity?: number | undefined;
+    percent?: number | undefined;
+    disabled?: boolean | undefined;
+    size?: number | undefined;
     name: string;
-    children?: JSX.Element;
+    children?: JSX.Element | undefined;
     style?: {
-        container?: ViewStyle
-        icon?: ViewStyle
-    };
+        container?: ViewStyle | undefined
+        icon?: ViewStyle | undefined
+    } | undefined;
     onPress?(): void;
 }
 
@@ -345,36 +345,36 @@ export class IconToggle extends Component<IconToggleProps, any> {}
 
 export interface ListItemCenterElement {
     primaryText: string | JSX.Element;
-    secondaryText?: string;
-    tertiaryText?: string;
+    secondaryText?: string | undefined;
+    tertiaryText?: string | undefined;
 }
 
 export interface ListItemStyle {
-    container?: ViewStyle;
-    content?: ViewStyle;
-    contentViewContainer?: ViewStyle;
-    leftElementContainer?: ViewStyle;
-    centerElementContainer?: ViewStyle;
-    textViewContainer?: ViewStyle;
-    primaryText?: TextStyle;
-    firstLine?: TextStyle;
-    primaryTextContainer?: ViewStyle;
-    secondaryText?: TextStyle;
-    tertiaryText?: TextStyle;
-    rightElementContainer?: ViewStyle;
-    rightElement?: TextStyle;
-    LeftElement?: TextStyle;
+    container?: ViewStyle | undefined;
+    content?: ViewStyle | undefined;
+    contentViewContainer?: ViewStyle | undefined;
+    leftElementContainer?: ViewStyle | undefined;
+    centerElementContainer?: ViewStyle | undefined;
+    textViewContainer?: ViewStyle | undefined;
+    primaryText?: TextStyle | undefined;
+    firstLine?: TextStyle | undefined;
+    primaryTextContainer?: ViewStyle | undefined;
+    secondaryText?: TextStyle | undefined;
+    tertiaryText?: TextStyle | undefined;
+    rightElementContainer?: ViewStyle | undefined;
+    rightElement?: TextStyle | undefined;
+    LeftElement?: TextStyle | undefined;
 }
 
 export interface ListItemProps {
-    testID?: string;
-    numberOfLines?: 1 | 2 | 3 | 'dynamic';
-    leftElement?: JSX.Element | string;
-    rightElement?: JSX.Element | string;
+    testID?: string | undefined;
+    numberOfLines?: 1 | 2 | 3 | 'dynamic' | undefined;
+    leftElement?: JSX.Element | string | undefined;
+    rightElement?: JSX.Element | string | undefined;
     centerElement: JSX.Element | string | ListItemCenterElement;
-    style?: ListItemStyle;
-    dense?: boolean;
-    divider?: boolean;
+    style?: ListItemStyle | undefined;
+    dense?: boolean | undefined;
+    divider?: boolean | undefined;
     onPressValue?: any;
     onPress?(): void;
     onRightElementPress?(): void;
@@ -388,9 +388,9 @@ export class ListItem extends Component<ListItemProps, any> {}
 export interface RadioButtonProps {
     label: string;
     value: string | number;
-    checked?: boolean;
-    disabled?: boolean;
-    theme?: string;
+    checked?: boolean | undefined;
+    disabled?: boolean | undefined;
+    theme?: string | undefined;
     onSelect(value: string): void;
 }
 
@@ -401,12 +401,12 @@ export class RadioButton extends Component<RadioButtonProps, any> {}
 
 export interface SubheaderProps {
     text: string;
-    inset?: boolean;
-    lines?: number;
+    inset?: boolean | undefined;
+    lines?: number | undefined;
     style?: {
-        container?: ViewStyle
-        text?: TextStyle
-    };
+        container?: ViewStyle | undefined
+        text?: TextStyle | undefined
+    } | undefined;
 }
 
 /**
@@ -415,20 +415,20 @@ export interface SubheaderProps {
 export class Subheader extends Component<SubheaderProps, any> {}
 
 export interface ToolbarStyle {
-    container?: ViewStyle;
-    leftElementContainer?: ViewStyle;
-    leftElement?: TextStyle;
-    centerElementContainer?: ViewStyle;
-    titleText?: TextStyle;
-    rightElementContainer?: ViewStyle;
-    rightElement?: TextStyle;
+    container?: ViewStyle | undefined;
+    leftElementContainer?: ViewStyle | undefined;
+    leftElement?: TextStyle | undefined;
+    centerElementContainer?: ViewStyle | undefined;
+    titleText?: TextStyle | undefined;
+    rightElementContainer?: ViewStyle | undefined;
+    rightElement?: TextStyle | undefined;
 }
 
 export interface Searchable {
-    placeholder?: string;
-    autoFocus?: boolean;
-    autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
-    autoCorrect?: boolean;
+    placeholder?: string | undefined;
+    autoFocus?: boolean | undefined;
+    autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
+    autoCorrect?: boolean | undefined;
     onChangeText?(text: string): void;
     onSearchClosed?(): void;
     onSearchPressed?(): void;
@@ -437,8 +437,8 @@ export interface Searchable {
 }
 
 export interface ToolBarRightElement {
-    actions?: Array<JSX.Element | string>;
-    menu?: {icon: string, labels: string[]};
+    actions?: Array<JSX.Element | string> | undefined;
+    menu?: {icon: string, labels: string[]} | undefined;
 }
 
 export interface RightElementPressEvent {
@@ -448,14 +448,14 @@ export interface RightElementPressEvent {
 }
 
 export interface ToolbarProps {
-    isSearchActive?: boolean;
-    size?: number;
-    hidden?: boolean;
-    leftElement?: JSX.Element | string;
-    rightElement?: JSX.Element | string | string[] | ToolBarRightElement;
-    centerElement?: JSX.Element | string;
-    style?: ToolbarStyle;
-    searchable?: Searchable;
+    isSearchActive?: boolean | undefined;
+    size?: number | undefined;
+    hidden?: boolean | undefined;
+    leftElement?: JSX.Element | string | undefined;
+    rightElement?: JSX.Element | string | string[] | ToolBarRightElement | undefined;
+    centerElement?: JSX.Element | string | undefined;
+    style?: ToolbarStyle | undefined;
+    searchable?: Searchable | undefined;
     onPress?(): void;
     onLeftElementPress?(): void;
     onRightElementPress?(e: RightElementPressEvent): void;
@@ -471,12 +471,12 @@ export interface SnackbarProps {
     visible: boolean;
     timeout: number;
     bottomNavigation: boolean;
-    actionText?: string;
-    button?: ButtonProps;
+    actionText?: string | undefined;
+    button?: ButtonProps | undefined;
     style?: {
-        container?: ViewStyle
-        message?: ViewStyle
-    };
+        container?: ViewStyle | undefined
+        message?: ViewStyle | undefined
+    } | undefined;
     onRequestClose(): void;
     onActionPress?(): void;
 }
@@ -487,8 +487,8 @@ export interface SnackbarProps {
 export class Snackbar extends Component<SnackbarProps, any> {}
 
 export interface RippleFeedbackProps {
-    color?: string;
-    borderless?: boolean;
+    color?: string | undefined;
+    borderless?: boolean | undefined;
     children: JSX.Element;
 }
 

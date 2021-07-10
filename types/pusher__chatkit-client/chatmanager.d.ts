@@ -31,8 +31,8 @@ interface ChatManagerConstructorArgs {
     instanceLocator: string;
     userId: string;
     tokenProvider: {};
-    logger?: Logger;
-    connectionTimeout?: number;
+    logger?: Logger | undefined;
+    connectionTimeout?: number | undefined;
 }
 
 interface ChatManagerConstructor {
@@ -52,7 +52,7 @@ interface TokenProviderConstructorArgs {
     url: string;
     queryParams?: any;
     headers?: any;
-    withCredentials?: boolean;
+    withCredentials?: boolean | undefined;
 }
 
 interface TokenProviderConstructor {

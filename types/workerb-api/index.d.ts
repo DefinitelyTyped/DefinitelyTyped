@@ -21,11 +21,11 @@ declare interface QueryOptions {
     /**
      *  A number which specifies after how many milliseconds the runtime will try to find the target element. The default value is 200.
      */
-    retryDuration?: number;
+    retryDuration?: number | undefined;
     /**
      *  A number number which specifies how many times the script runner will try to find the target element. The default value is 10.
      */
-    numberOfTries?: number;
+    numberOfTries?: number | undefined;
 }
 
 declare interface ClickQueryOptions extends QueryOptions {
@@ -39,13 +39,13 @@ declare interface ClickQueryOptions extends QueryOptions {
      * * by_query_selector - finds the target element using a query selector
      *
      */
-    method?: clickQueryMethods;
+    method?: clickQueryMethods | undefined;
 
     /**
      *  A boolean to indicate if script runner should expect the page to reload.
      *  If set to true, the script execution will pause after executing the click. It will resume after the page reloads. The default value is false.
      */
-    expectReload?: boolean;
+    expectReload?: boolean | undefined;
 }
 
 declare interface GetAttributeQueryOptions extends QueryOptions {
@@ -59,7 +59,7 @@ declare interface GetAttributeQueryOptions extends QueryOptions {
      * * by_query_selector - finds the target element using a query selector
      * * by_query_selector_all - finds all the elements using a query selector
      */
-    method?: getAttributeQueryMethods;
+    method?: getAttributeQueryMethods | undefined;
 }
 
 declare interface SelectQueryOptions extends QueryOptions {
@@ -72,7 +72,7 @@ declare interface SelectQueryOptions extends QueryOptions {
      * * by_xpath - finds the target element by an [xpath](https://developer.mozilla.org/en-US/docs/Web/XPath) query
      * * by_query_selector finds - the target element using a query selector
      */
-    method?: clickQueryMethods;
+    method?: clickQueryMethods | undefined;
 
     /**
      * Specify if the provided value is a label or value of the option needs to be selected. The default value is label.
@@ -92,7 +92,7 @@ declare interface TypeQueryInterface extends QueryOptions {
      * * by_label - finds the target input using a label.
      * * by_placeholder - finds the target input using a placeholder.
      */
-    method?: typeQueryMethods;
+    method?: typeQueryMethods | undefined;
 }
 
 declare interface APIResponse {
@@ -123,7 +123,7 @@ declare interface EventConfig {
     /**
      * An object used to specify the event properties. For key related event types, KeyboardEvent is supported. For mouse related event types, MouseEvent is supported.
      */
-    eventProps?: object;
+    eventProps?: object | undefined;
 }
 
 // global variables

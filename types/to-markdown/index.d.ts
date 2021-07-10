@@ -14,8 +14,8 @@ declare namespace toMarkdown {
   type Filter = string | string[] | ((node: HTMLElement) => boolean);
 
   interface Options {
-    converters?: Converter[];
-    gfm?: boolean;
+    converters?: Converter[] | undefined;
+    gfm?: boolean | undefined;
   }
 
   interface Converter {

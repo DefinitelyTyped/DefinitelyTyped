@@ -53,7 +53,7 @@ export default abstract class Emitter {
         emitter: Emitter,
         event: string,
         callback: Function,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     /**
      * Stops listening for events. It can be used at different levels:

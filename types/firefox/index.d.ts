@@ -22,7 +22,7 @@ interface DOMRequest<T> {
     onerror: Function;
     readyState:string; // "done" or "pending"
     result:T;
-    error:DOMError;
+    error:Error;
 }
 
 interface App {

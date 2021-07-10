@@ -111,10 +111,10 @@ declare module 'console' {
         namespace NodeJS {
             interface ConsoleConstructorOptions {
                 stdout: WritableStream;
-                stderr?: WritableStream;
-                ignoreErrors?: boolean;
-                colorMode?: boolean | 'auto';
-                inspectOptions?: InspectOptions;
+                stderr?: WritableStream | undefined;
+                ignoreErrors?: boolean | undefined;
+                colorMode?: boolean | 'auto' | undefined;
+                inspectOptions?: InspectOptions | undefined;
             }
 
             interface ConsoleConstructor {

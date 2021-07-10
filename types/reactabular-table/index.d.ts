@@ -7,34 +7,34 @@
 import * as React from "react";
 
 export interface Column {
-    property?: string;
+    property?: string | undefined;
     header?: {
         label: string | JSX.Element;
-        transforms?: ColumnTransform[];
-        formatters?: ColumnFormatter[];
-        draggable?: boolean;
-        sortable?: boolean;
-        resizable?: boolean;
-    };
+        transforms?: ColumnTransform[] | undefined;
+        formatters?: ColumnFormatter[] | undefined;
+        draggable?: boolean | undefined;
+        sortable?: boolean | undefined;
+        resizable?: boolean | undefined;
+    } | undefined;
     cell?: {
-        transforms?: CellTransform[];
-        formatters?: CellFormatter[];
-    };
-    children?: Column[];
+        transforms?: CellTransform[] | undefined;
+        formatters?: CellFormatter[] | undefined;
+    } | undefined;
+    children?: Column[] | undefined;
 }
 
 export interface Renderers {
-    table?: string | (() => JSX.Element);
+    table?: string | (() => JSX.Element) | undefined;
     header?: {
-        wrapper?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance);
-        row?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance);
-        cell?: string | ((props: any, column: Column) => JSX.Element) | ((props: any) => React.ReactInstance);
-    };
+        wrapper?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+        row?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+        cell?: string | ((props: any, column: Column) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+    } | undefined;
     body?: {
-        wrapper?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance);
-        row?: string | ((props: any, rowData: any) => JSX.Element) | ((props: any) => React.ReactInstance);
-        cell?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance);
-    };
+        wrapper?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+        row?: string | ((props: any, rowData: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+        cell?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+    } | undefined;
 }
 
 export type ColumnTransform = (label: string | JSX.Element | React.ReactInstance, props: {
@@ -66,18 +66,18 @@ export type CellFormatter = (value: any, props: {
 
 export interface ProviderProps {
     columns: Column[];
-    className?: string;
-    renderers?: Renderers;
-    style?: Partial<CSSStyleDeclaration>;
+    className?: string | undefined;
+    renderers?: Renderers | undefined;
+    style?: Partial<CSSStyleDeclaration> | undefined;
 }
 
 export class Provider extends React.Component<ProviderProps> {
 }
 
 export interface HeaderProps {
-    style?: Partial<CSSStyleDeclaration>;
-    className?: string;
-    headerRows?: Column[];
+    style?: Partial<CSSStyleDeclaration> | undefined;
+    className?: string | undefined;
+    headerRows?: Column[] | undefined;
 }
 
 export class Header extends React.Component<HeaderProps> {
@@ -86,9 +86,9 @@ export class Header extends React.Component<HeaderProps> {
 export interface BodyProps {
     rows: any[];
     rowKey: string;
-    onRow?: (row: any, props: { rowIndex: number }) => any;
-    style?: Partial<CSSStyleDeclaration>;
-    className?: string;
+    onRow?: ((row: any, props: { rowIndex: number }) => any) | undefined;
+    style?: Partial<CSSStyleDeclaration> | undefined;
+    className?: string | undefined;
 }
 
 export class Body extends React.Component<BodyProps> {

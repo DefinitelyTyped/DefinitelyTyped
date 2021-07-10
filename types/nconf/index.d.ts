@@ -61,17 +61,17 @@ export interface IOptions {
 
 export interface ISecureFileOptions {
     secret: string;
-    alg?: string;
+    alg?: string | undefined;
 }
 
 export interface IFileOptions {
-    type?: string;
-    file?: string;
-    dir?: string;
-    search?: boolean;
-    format?: IFormat;
-    json_spacing?: number;
-    secure?: ISecureFileOptions;
+    type?: string | undefined;
+    file?: string | undefined;
+    dir?: string | undefined;
+    search?: boolean | undefined;
+    format?: IFormat | undefined;
+    json_spacing?: number | undefined;
+    secure?: ISecureFileOptions | undefined;
 }
 
 export interface ICallbackFunction {

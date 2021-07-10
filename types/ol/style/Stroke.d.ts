@@ -2,13 +2,13 @@ import { Color } from '../color';
 import { ColorLike } from '../colorlike';
 
 export interface Options {
-    color?: Color | ColorLike;
-    lineCap?: CanvasLineCap;
-    lineJoin?: CanvasLineJoin;
-    lineDash?: number[];
-    lineDashOffset?: number;
-    miterLimit?: number;
-    width?: number;
+    color?: Color | ColorLike | undefined;
+    lineCap?: CanvasLineCap | undefined;
+    lineJoin?: CanvasLineJoin | undefined;
+    lineDash?: number[] | undefined;
+    lineDashOffset?: number | undefined;
+    miterLimit?: number | undefined;
+    width?: number | undefined;
 }
 export default class Stroke {
     constructor(opt_options?: Options);

@@ -15,9 +15,7 @@ const audioFrame = new AudioFrame({
     buffer: audioBuffer,
 });
 
-const offscreenCanvas = new OffscreenCanvas(1, 1);
-
-const imageBitmap = offscreenCanvas.transferToImageBitmap();
+declare const imageBitmap: ImageBitmap;
 
 function genericCodec(codec: AudioDecoder | AudioEncoder | VideoDecoder | VideoEncoder) {
     const state: CodecState = codec.state;
@@ -271,6 +269,7 @@ new ImageDecoder({ type: "image/jpeg" });
 
 const imageDecoder = new ImageDecoder(imageDecoderInit);
 
+declare const context2d: OffscreenCanvasRenderingContext2D;
 imageDecoder.decode().then((result: ImageDecodeResult) => {
     const imageDecodeImage: VideoFrame = result.image;
     // $ExpectType number
@@ -280,8 +279,6 @@ imageDecoder.decode().then((result: ImageDecodeResult) => {
     // $ExpectType string | null
     imageDecodeImage.format;
 
-    const context2d = offscreenCanvas.getContext("2d");
-    if (!context2d) throw new Error("missing context");
     context2d.drawImage(imageDecodeImage, 0, 0);
 });
 
@@ -636,8 +633,6 @@ new VideoFrame(videoFrame, { duration: 1234 });
 
 new VideoFrame(videoFrame, { timestamp: 1234, duration: 1234 });
 
-new VideoFrame(offscreenCanvas);
-
 new VideoFrame(videoFrame, { alpha: "keep" });
 
 //////////////////////////////////////////////////
@@ -666,7 +661,7 @@ videoEncoder.encode(videoFrame, { keyFrame: true });
 //////////////////////////////////////////////////
 // videoFrame-texImage.any.js
 
-const gl = offscreenCanvas.getContext("webgl");
+declare const gl: WebGL2RenderingContext;
 if (!gl) throw new Error("missing context");
 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, videoFrame);
 gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, videoFrame);

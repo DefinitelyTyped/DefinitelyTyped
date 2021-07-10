@@ -29,8 +29,8 @@ export = Channel;
 
 declare namespace Channel {
     interface ChannelOptions {
-        alwaysConnected?: boolean;
-        recoverAfterApplicationError?: boolean;
+        alwaysConnected?: boolean | undefined;
+        recoverAfterApplicationError?: boolean | undefined;
     }
 
     type Body = string | Buffer | (() => Readable);

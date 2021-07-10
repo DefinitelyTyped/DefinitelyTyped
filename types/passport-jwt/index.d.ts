@@ -20,15 +20,15 @@ export declare class Strategy extends PassportStrategy {
 }
 
 export interface StrategyOptions {
-    secretOrKey?: string | Buffer;
-    secretOrKeyProvider?: SecretOrKeyProvider;
+    secretOrKey?: string | Buffer | undefined;
+    secretOrKeyProvider?: SecretOrKeyProvider | undefined;
     jwtFromRequest: JwtFromRequestFunction;
-    issuer?: string;
-    audience?: string;
-    algorithms?: string[];
-    ignoreExpiration?: boolean;
-    passReqToCallback?: boolean;
-    jsonWebTokenOptions?: VerifyOptions;
+    issuer?: string | undefined;
+    audience?: string | undefined;
+    algorithms?: string[] | undefined;
+    ignoreExpiration?: boolean | undefined;
+    passReqToCallback?: boolean | undefined;
+    jsonWebTokenOptions?: VerifyOptions | undefined;
 }
 
 export interface VerifyCallback {

@@ -21,10 +21,10 @@ export interface RowProps {
 
 export interface ColumnReorderEndEvent {
     /** the column before the new location of this one */
-    columnBefore?: string;
+    columnBefore?: string | undefined;
 
     /** the column after the new location of this one */
-    columnAfter?: string;
+    columnAfter?: string | undefined;
 
     /** the column key that was just reordered */
     reorderColumn: string;
@@ -93,12 +93,12 @@ export interface TableProps extends React.ClassAttributes<Table> {
      *
      * Either `height` or `maxHeight` must be specified.
      */
-    height?: number;
+    height?: number | undefined;
 
     /**
      * Class name to be passed into parent container
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * Maximum pixel height of table. If all rows do not fit,
@@ -106,7 +106,7 @@ export interface TableProps extends React.ClassAttributes<Table> {
      *
      * Either `height` or `maxHeight` must be specified.
      */
-    maxHeight?: number;
+    maxHeight?: number | undefined;
 
     /**
      * Pixel height of table's owner, this is used in a managed scrolling
@@ -121,40 +121,40 @@ export interface TableProps extends React.ClassAttributes<Table> {
      *
      * This is used if `ownerHeight < height` (or `maxHeight`).
      */
-    ownerHeight?: number;
+    ownerHeight?: number | undefined;
 
-    overflowX?: 'hidden' | 'auto';
-    overflowY?: 'hidden' | 'auto';
+    overflowX?: 'hidden' | 'auto' | undefined;
+    overflowY?: 'hidden' | 'auto' | undefined;
 
     /**
      * Boolean flag indicating of touch scrolling should be enabled
      * This feature is current in beta and may have bugs
      */
-    touchScrollEnabled?: boolean;
+    touchScrollEnabled?: boolean | undefined;
 
     /** Boolean flags to control if scrolling with keys is enabled */
-    keyboardScrollEnabled?: boolean;
+    keyboardScrollEnabled?: boolean | undefined;
     /** Boolean flags to control if scrolling with keys is enabled */
-    keyboardPageEnabled?: boolean;
+    keyboardPageEnabled?: boolean | undefined;
 
     /** Hide the scrollbar but still enable scroll functionality */
-    showScrollbarX?: boolean;
+    showScrollbarX?: boolean | undefined;
     /** Hide the scrollbar but still enable scroll functionality */
-    showScrollbarY?: boolean;
+    showScrollbarY?: boolean | undefined;
 
     /**
      * Callback when horizontally scrolling the grid.
      *
      * Return false to stop propagation.
      */
-    onHorizontalScroll?: (scrollPos: number) => boolean;
+    onHorizontalScroll?: ((scrollPos: number) => boolean) | undefined;
 
     /**
      * Callback when vertically scrolling the grid.
      *
      * Return false to stop propagation.
      */
-    onVerticalScroll?: (scrollPos: number) => boolean;
+    onVerticalScroll?: ((scrollPos: number) => boolean) | undefined;
 
     /**
      * Number of rows in the table.
@@ -171,19 +171,19 @@ export interface TableProps extends React.ClassAttributes<Table> {
      * If specified, `rowHeightGetter(index)` is called for each row and the
      * returned value overrides `rowHeight` for particular row.
      */
-    rowHeightGetter?: (index: number) => number;
+    rowHeightGetter?: ((index: number) => number) | undefined;
 
     /**
      * Pixel height of sub-row unless `subRowHeightGetter` is specified and returns
      * different value.  Defaults to 0 and no sub-row being displayed.
      */
-    subRowHeight?: number;
+    subRowHeight?: number | undefined;
 
     /**
      * If specified, `subRowHeightGetter(index)` is called for each row and the
      * returned value overrides `subRowHeight` for particular row.
      */
-    subRowHeightGetter?: (index: number) => number;
+    subRowHeightGetter?: ((index: number) => number) | undefined;
 
     /**
      * The row expanded for table row.
@@ -205,24 +205,24 @@ export interface TableProps extends React.ClassAttributes<Table> {
      * If you pass in a function, you will receive the same props object as the
      * first argument.
      */
-    rowExpanded?: ElementOrFunc<RowProps>;
+    rowExpanded?: ElementOrFunc<RowProps> | undefined;
 
     /**
      * To get any additional CSS classes that should be added to a row,
      * `rowClassNameGetter(index)` is called.
      */
-    rowClassNameGetter?: (index: number) => string;
+    rowClassNameGetter?: ((index: number) => string) | undefined;
 
     /**
      * If specified, `rowKeyGetter(index)` is called for each row and the
      * returned value overrides `key` for the particular row.
      */
-    rowKeyGetter?: (index: number) => string;
+    rowKeyGetter?: ((index: number) => string) | undefined;
 
     /**
      * Pixel height of the column group header.
      */
-    groupHeaderHeight?: number;
+    groupHeaderHeight?: number | undefined;
 
     /**
      * Pixel height of header.
@@ -247,101 +247,101 @@ export interface TableProps extends React.ClassAttributes<Table> {
      *  - CellLayout/main needs overflow-y: visible
      *  - cellGroup needs overflow: visible
      */
-    cellGroupWrapperHeight?: number;
+    cellGroupWrapperHeight?: number | undefined;
 
     /**
      * Pixel height of footer.
      */
-    footerHeight?: number;
+    footerHeight?: number | undefined;
 
     /**
      * Value of horizontal scroll.
      */
-    scrollLeft?: number;
+    scrollLeft?: number | undefined;
 
     /**
      * Index of column to scroll to.
      */
-    scrollToColumn?: number;
+    scrollToColumn?: number | undefined;
 
     /**
      * Value of vertical scroll.
      */
-    scrollTop?: number;
+    scrollTop?: number | undefined;
 
     /**
      * Index of row to scroll to.
      */
-    scrollToRow?: number;
+    scrollToRow?: number | undefined;
 
     /**
      * Callback that is called when scrolling starts with current horizontal
      * and vertical scroll values.
      */
-    onScrollStart?: (x: number, y: number) => void;
+    onScrollStart?: ((x: number, y: number) => void) | undefined;
 
     /**
      * Callback that is called when scrolling ends or stops with new horizontal
      * and vertical scroll values.
      */
-    onScrollEnd?: (x: number, y: number) => void;
+    onScrollEnd?: ((x: number, y: number) => void) | undefined;
 
     /**
      * If enabled scroll events will not be propagated outside of the table.
      */
-    stopScrollPropagation?: boolean;
+    stopScrollPropagation?: boolean | undefined;
 
     /**
      * Callback that is called when `rowHeightGetter` returns a different height
      * for a row than the `rowHeight` prop. This is necessary because initially
      * table estimates heights of some parts of the content.
      */
-    onContentHeightChange?: (newHeight: number) => void;
+    onContentHeightChange?: ((newHeight: number) => void) | undefined;
 
     /**
      * Callback that is called when a row is clicked.
      */
-    onRowClick?: TableRowEventHandler;
+    onRowClick?: TableRowEventHandler | undefined;
 
     /**
      * Callback that is called when a row is double clicked.
      */
-    onRowDoubleClick?: TableRowEventHandler;
+    onRowDoubleClick?: TableRowEventHandler | undefined;
 
     /**
      * Callback that is called when a mouse-down event happens on a row.
      */
-    onRowMouseDown?: TableRowEventHandler;
+    onRowMouseDown?: TableRowEventHandler | undefined;
 
     /**
      * Callback that is called when a mouse-up event happens on a row.
      */
-    onRowMouseUp?: TableRowEventHandler;
+    onRowMouseUp?: TableRowEventHandler | undefined;
 
     /**
      * Callback that is called when a mouse-enter event happens on a row.
      */
-    onRowMouseEnter?: TableRowEventHandler;
+    onRowMouseEnter?: TableRowEventHandler | undefined;
 
     /**
      * Callback that is called when a mouse-leave event happens on a row.
      */
-    onRowMouseLeave?: TableRowEventHandler;
+    onRowMouseLeave?: TableRowEventHandler | undefined;
 
     /**
      * Callback that is called when a touch-start event happens on a row.
      */
-    onRowTouchStart?: TableRowEventHandler;
+    onRowTouchStart?: TableRowEventHandler | undefined;
 
     /**
      * Callback that is called when a touch-end event happens on a row.
      */
-    onRowTouchEnd?: TableRowEventHandler;
+    onRowTouchEnd?: TableRowEventHandler | undefined;
 
     /**
      * Callback that is called when a touch-move event happens on a row.
      */
-    onRowTouchMove?: TableRowEventHandler;
+    onRowTouchMove?: TableRowEventHandler | undefined;
 
     /**
      * Callback that is called when resizer has been released
@@ -356,7 +356,7 @@ export interface TableProps extends React.ClassAttributes<Table> {
      * )
      * ```
      */
-    onColumnResizeEndCallback?: (newColumnWidth: number, columnKey: string) => void;
+    onColumnResizeEndCallback?: ((newColumnWidth: number, columnKey: string) => void) | undefined;
 
     /**
      * Callback that is called when reordering has been completed
@@ -372,30 +372,30 @@ export interface TableProps extends React.ClassAttributes<Table> {
      * )
      * ```
      */
-    onColumnReorderEndCallback?: (event: ColumnReorderEndEvent) => void;
+    onColumnReorderEndCallback?: ((event: ColumnReorderEndEvent) => void) | undefined;
 
     /**
      * Whether a column is currently being resized.
      */
-    isColumnResizing?: boolean;
+    isColumnResizing?: boolean | undefined;
 
     /**
      * Whether columns are currently being reordered.
      */
-    isColumnReordering?: boolean;
+    isColumnReordering?: boolean | undefined;
 
     /**
      * The number of rows outside the viewport to prerender. Defaults to roughly
      * half of the number of visible rows.
      */
-    bufferRowCount?: number;
+    bufferRowCount?: number | undefined;
 }
 
 export class Table extends React.Component<TableProps> {
 }
 
 export interface ColumnHeaderProps {
-    columnKey?: string;
+    columnKey?: string | undefined;
 
     /** supplied from the Table or rowHeightGetter */
     height: number;
@@ -416,14 +416,14 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
     /**
      * The horizontal alignment of the table cell content.
      */
-    align?: 'left' | 'center' | 'right';
+    align?: 'left' | 'center' | 'right' | undefined;
 
     /**
      * Controls if the column is fixed when scrolling in the X axis.
      *
      * defaultValue: false
      */
-    fixed?: boolean;
+    fixed?: boolean | undefined;
 
     /**
      * Controls if the column is fixed to the right side of the table
@@ -431,7 +431,7 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
      *
      * defaultValue: false
      */
-    fixedRight?: boolean;
+    fixedRight?: boolean | undefined;
 
     /**
      * The header cell for this column.
@@ -454,7 +454,7 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
      * If you pass in a function, you will receive the same props object as the
      * first argument.
      */
-    header?: ElementOrFunc<ColumnHeaderProps>;
+    header?: ElementOrFunc<ColumnHeaderProps> | undefined;
 
     /**
      * This is the body cell that will be cloned for this column.
@@ -478,7 +478,7 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
      * If you pass in a function, you will receive the same props object as the
      * first argument.
      */
-    cell?: ElementOrFunc<ColumnCellProps>;
+    cell?: ElementOrFunc<ColumnCellProps> | undefined;
 
     /**
      * This is the footer cell for this column.
@@ -501,14 +501,14 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
      * If you pass in a function, you will receive the same props object as the
      * first argument.
      */
-    footer?: ElementOrFunc<ColumnHeaderProps>;
+    footer?: ElementOrFunc<ColumnHeaderProps> | undefined;
 
     /**
      * This is used to uniquely identify the column, and is not required unless
      * you a resizing columns. This will be the key given in the
      * `onColumnResizeEndCallback` on the Table.
      */
-    columnKey?: string | number;
+    columnKey?: string | number | undefined;
 
     /**
      * The pixel width of the column.
@@ -518,12 +518,12 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
     /**
      * If this is a resizable column this is its minimum pixel width.
      */
-    minWidth?: number;
+    minWidth?: number | undefined;
 
     /**
      * If this is a resizable column this is its maximum pixel width.
      */
-    maxWidth?: number;
+    maxWidth?: number | undefined;
 
     /**
      * The grow factor relative to other columns. Same as the flex-grow API
@@ -531,7 +531,7 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
      * extra width and distribute it proportionally according to all columns'
      * flexGrow values. Defaults to zero (no-flexing).
      */
-    flexGrow?: number;
+    flexGrow?: number | undefined;
 
     /**
      * Whether the column can be resized with the
@@ -542,12 +542,12 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
      * is set to true, you will need to set the onColumnResizeEndCallback table
      * property and render your columns appropriately.
      */
-    isResizable?: boolean;
+    isResizable?: boolean | undefined;
 
     /**
      * Whether the column can be dragged to reorder.
      */
-    isReorderable?: boolean;
+    isReorderable?: boolean | undefined;
 
     /**
      * Whether cells in this column can be removed from document when outside
@@ -561,18 +561,18 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
      *
      * defaultValue: false
      */
-    allowCellsRecycling?: boolean;
+    allowCellsRecycling?: boolean | undefined;
 
     /**
      * Flag to enable performance check when rendering. Stops the component from
      * rendering if none of it's passed in props have changed
      */
-    pureRendering?: boolean;
+    pureRendering?: boolean | undefined;
 
     /**
      * Extra class for cells in column
      */
-    cellClassName?: string;
+    cellClassName?: string | undefined;
 }
 
 export class Column extends React.Component<ColumnProps> {
@@ -593,14 +593,14 @@ export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
     /**
      * The horizontal alignment of the table cell content.
      */
-    align?: 'left' | 'center' | 'right';
+    align?: 'left' | 'center' | 'right' | undefined;
 
     /**
      * Controls if the column group is fixed when scrolling in the X axis.
      *
      * defaultValue: false
      */
-    fixed?: boolean;
+    fixed?: boolean | undefined;
 
     /**
      * This is the header cell for this column group.
@@ -621,12 +621,12 @@ export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
      * You can also pass in a function that returns a react elemnt, with the
      * props object above passed in as the first parameter.
      */
-    header?: string | React.ReactElement | ((props: ColumnGroupHeaderProps) => (string | React.ReactElement));
+    header?: string | React.ReactElement | ((props: ColumnGroupHeaderProps) => (string | React.ReactElement)) | undefined;
 
     /**
      * Extra class for cells in column
      */
-    cellClassName?: string;
+    cellClassName?: string | undefined;
 }
 
 export class ColumnGroup extends React.Component<ColumnGroupProps> {
@@ -659,18 +659,18 @@ export interface CellProps extends React.HTMLAttributes<Cell> {
     /**
      * Outer height of the cell.
      */
-    height?: number;
+    height?: number | undefined;
 
     /**
      * Outer width of the cell.
      */
-    width?: number;
+    width?: number | undefined;
 
     /**
      * Optional prop that if specified on the `Column` will be passed to the
      * cell. It can be used to uniquely identify which column is the cell is in.
      */
-    columnKey?: string | number;
+    columnKey?: string | number | undefined;
 
     /**
      * Optional prop that represents the rows index in the table.
@@ -680,7 +680,7 @@ export interface CellProps extends React.HTMLAttributes<Cell> {
      * Below that entry point the user is welcome to consume or
      * pass the prop through at their discretion.
      */
-    rowIndex?: number;
+    rowIndex?: number | undefined;
 }
 
 export class Cell extends React.Component<CellProps> {

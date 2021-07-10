@@ -63,17 +63,17 @@ declare namespace pinyin {
          * @see {@link STYLE_INITIALS}
          * @see {@link STYLE_FIRST_LETTER}
          */
-        style?: number;
+        style?: number | undefined;
         /**
          * 是否启用分词模式，默认关闭。
          * 中文分词有助于极大的降低多音字问题。但性能会极大的下降，内存也会使用更多。
          */
-        segment?: boolean;
+        segment?: boolean | undefined;
         /**
          * 是否启用多音字模式，默认关闭。
          * 关闭多音字模式时，返回每个汉字第一个匹配的拼音。
          * 启用多音字模式时，返回多音字的所有拼音列表。
          */
-        heteronym?: boolean;
+        heteronym?: boolean | undefined;
     }
 }

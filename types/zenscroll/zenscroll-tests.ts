@@ -55,3 +55,5 @@ const bodyY = zenscroll.getY();
 const myDivY = myScroller.getY();
 const myElemY = zenscroll.getTopOf(about);
 const relativeTopOfElem = myScroller.getTopOf(about);
+
+window.noZensmooth = true;

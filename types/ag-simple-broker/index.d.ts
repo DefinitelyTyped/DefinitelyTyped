@@ -2,6 +2,7 @@
 // Project: https://github.com/SocketCluster/ag-simple-broker
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 import AsyncStreamEmitter = require('async-stream-emitter');
 import AGServer = require('socketcluster-server/server');

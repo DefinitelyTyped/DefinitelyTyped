@@ -5,7 +5,7 @@
 
 interface ExtrasObject {
     action: string;
-    extras?: object;
+    extras?: object | undefined;
 }
 
 interface FilterObject {

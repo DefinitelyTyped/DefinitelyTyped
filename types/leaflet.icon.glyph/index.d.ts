@@ -15,25 +15,25 @@ declare module 'leaflet' {
         }
 
         interface GlyphOptions extends BaseIconOptions {
-            className?: string;
-            bgPos?: PointExpression;
-            bgSize?: PointExpression;
-            prefix?: string;
-            glyph?: string;
-            glyphColor?: string;
-            glyphSize?: string;
-            glyphAnchor?: PointExpression;
+            className?: string | undefined;
+            bgPos?: PointExpression | undefined;
+            bgSize?: PointExpression | undefined;
+            prefix?: string | undefined;
+            glyph?: string | undefined;
+            glyphColor?: string | undefined;
+            glyphSize?: string | undefined;
+            glyphAnchor?: PointExpression | undefined;
         }
 
         interface GlyphIconOptions extends IconOptions {
-            className?: string;
-            bgPos?: PointExpression;
-            bgSize?: PointExpression;
-            prefix?: string;
-            glyph?: string;
-            glyphColor?: string;
-            glyphSize?: string;
-            glyphAnchor?: PointExpression;
+            className?: string | undefined;
+            bgPos?: PointExpression | undefined;
+            bgSize?: PointExpression | undefined;
+            prefix?: string | undefined;
+            glyph?: string | undefined;
+            glyphColor?: string | undefined;
+            glyphSize?: string | undefined;
+            glyphAnchor?: PointExpression | undefined;
         }
     }
 

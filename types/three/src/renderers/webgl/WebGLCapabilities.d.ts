@@ -1,6 +1,6 @@
 export interface WebGLCapabilitiesParameters {
-    precision?: string;
-    logarithmicDepthBuffer?: boolean;
+    precision?: string | undefined;
+    logarithmicDepthBuffer?: boolean | undefined;
 }
 
 export class WebGLCapabilities {

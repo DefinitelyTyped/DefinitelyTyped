@@ -17,7 +17,7 @@ export interface URLRecord {
     path: string[];
     query: string | null;
     fragment: string | null;
-    cannotBeABaseURL?: boolean;
+    cannotBeABaseURL?: boolean | undefined;
 }
 
 /** https://url.spec.whatwg.org/#concept-ipv6 */
@@ -99,17 +99,17 @@ export class URLSearchParams {
 /** https://url.spec.whatwg.org/#concept-url-parser */
 export function parseURL(
     input: string,
-    options?: { readonly baseURL?: string; readonly encodingOverride?: string },
+    options?: { readonly baseURL?: string | undefined; readonly encodingOverride?: string | undefined },
 ): URLRecord | null;
 
 /** https://url.spec.whatwg.org/#concept-basic-url-parser */
 export function basicURLParse(
     input: string,
     options?: {
-        baseURL?: string;
-        encodingOverride?: string;
-        url?: URLRecord;
-        stateOverride?: StateOverride;
+        baseURL?: string | undefined;
+        encodingOverride?: string | undefined;
+        url?: URLRecord | undefined;
+        stateOverride?: StateOverride | undefined;
     },
 ): URLRecord | null;
 

@@ -21,7 +21,7 @@ export default class Selection implements Emitter {
     constructor(
         selectable: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean },
+        options?: { backward?: boolean | undefined },
     );
     containsEntireContent(element: Element): boolean;
     getAttribute(key: string): string | boolean | number | undefined;
@@ -44,7 +44,7 @@ export default class Selection implements Emitter {
     setTo(
         selectable: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean },
+        options?: { backward?: boolean | undefined },
     ): void;
 
     on: (
@@ -62,7 +62,7 @@ export default class Selection implements Emitter {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;

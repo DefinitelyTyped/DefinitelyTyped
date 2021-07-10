@@ -84,58 +84,58 @@ declare class WebpackAssetsManifest {
 declare namespace WebpackAssetsManifest {
     interface Options {
         /** https://github.com/webdeveric/webpack-assets-manifest#assets */
-        assets?: object;
+        assets?: object | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#output */
-        output?: string;
+        output?: string | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#replacer */
-        replacer?: null | ReadonlyArray<string> | ((key: string, value: string) => number | string | boolean | null | object | undefined);
+        replacer?: null | ReadonlyArray<string> | ((key: string, value: string) => number | string | boolean | null | object | undefined) | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#space */
-        space?: number;
+        space?: number | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#writetodisk */
-        writeToDisk?: boolean;
+        writeToDisk?: boolean | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#fileextregex */
-        fileExtRegex?: RegExp | null | false;
+        fileExtRegex?: RegExp | null | false | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#sortmanifest */
-        sortManifest?: boolean | ((this: WebpackAssetsManifest, a: string, b: string) => number);
+        sortManifest?: boolean | ((this: WebpackAssetsManifest, a: string, b: string) => number) | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#merge */
-        merge?: boolean | "customize";
+        merge?: boolean | "customize" | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#publicpath */
-        publicPath?: string | boolean | null | (((filename: string, manifest: WebpackAssetsManifest) => string));
+        publicPath?: string | boolean | null | (((filename: string, manifest: WebpackAssetsManifest) => string)) | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#apply */
-        apply?: ((manifest: WebpackAssetsManifest) => void) | null;
+        apply?: ((manifest: WebpackAssetsManifest) => void) | null | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#customize */
-        customize?: ((entry: Entry, original: AnyObject, manifest: WebpackAssetsManifest, asset: AnyObject) => Entry | false) | null;
+        customize?: ((entry: Entry, original: AnyObject, manifest: WebpackAssetsManifest, asset: AnyObject) => Entry | false) | null | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#transform */
-        transform?: ((assets: AnyObject, manifest: WebpackAssetsManifest) => any) | null;
+        transform?: ((assets: AnyObject, manifest: WebpackAssetsManifest) => any) | null | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#done */
-        done?: ((manifest: WebpackAssetsManifest, stats: AnyObject) => void) | null;
+        done?: ((manifest: WebpackAssetsManifest, stats: AnyObject) => void) | null | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#entrypoints */
-        entrypoints?: boolean;
+        entrypoints?: boolean | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#entrypointskey */
-        entrypointsKey?: string | false;
+        entrypointsKey?: string | false | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integrity */
-        integrity?: boolean;
+        integrity?: boolean | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integrityhashes */
-        integrityHashes?: ReadonlyArray<string>;
+        integrityHashes?: ReadonlyArray<string> | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integritypropertyname */
-        integrityPropertyName?: string;
+        integrityPropertyName?: string | undefined;
     }
 
     interface Entry {

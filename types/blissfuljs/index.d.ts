@@ -21,7 +21,6 @@ declare namespace BlissNS {
         classProps: Object;
 
         create(tag: "a"): HTMLAnchorElement;
-        create(tag: "applet"): HTMLAppletElement;
         create(tag: "area"):HTMLAreaElement;
         create(tag: "audio"): HTMLAudioElement;
         create(tag: "base"): HTMLBaseElement;
@@ -74,7 +73,6 @@ declare namespace BlissNS {
         create<T>(options: Object): BlissDecoratedElement<T>;
 
         create(tag: "a", options: Object): HTMLAnchorElement;
-        create(tag: "applet", options: Object): HTMLAppletElement;
         create(tag: "area", options: Object): HTMLAreaElement;
         create(tag: "audio", options: Object): HTMLAudioElement;
         create(tag: "base", options: Object): HTMLBaseElement;
@@ -162,22 +160,22 @@ declare namespace BlissNS {
         all<T>(array: Array<T>, method: string, ...args: Array<any>): Array<T>;
 
         Class<T>(options: {
-            constructor?: Function;
-            extends?: Function;
-            abstract?: boolean;
-            lazy?: Object;
-            live?: Object;
-            static?: Object;
+            constructor?: Function | undefined;
+            extends?: Function | undefined;
+            abstract?: boolean | undefined;
+            lazy?: Object | undefined;
+            live?: Object | undefined;
+            static?: Object | undefined;
             [propertyName: string]:any;
         }): T;
 
         Class(options: {
-            constructor?: Function;
-            extends?: Function;
-            abstract?: boolean;
-            lazy?: Object;
-            live?: Object;
-            static?: Object;
+            constructor?: Function | undefined;
+            extends?: Function | undefined;
+            abstract?: boolean | undefined;
+            lazy?: Object | undefined;
+            live?: Object | undefined;
+            static?: Object | undefined;
             [propertyName: string]:any;
         }): Object;
 
@@ -208,22 +206,22 @@ declare namespace BlissNS {
         value<T>(property: string , ...properties: string[]): T;
 
         fetch(url: string, options?: {
-            method?: string;
-            data?: string;
-            headers?:{[key:string]:string};
+            method?: string | undefined;
+            data?: string | undefined;
+            headers?:{[key:string]:string} | undefined;
 
-            onreadystatechange?: (ev: ProgressEvent) => any;
-            readyState?: number;
+            onreadystatechange?: ((ev: ProgressEvent) => any) | undefined;
+            readyState?: number | undefined;
             response?: any;
             responseBody?: any;
-            responseText?: string;
-            responseType?: string;
+            responseText?: string | undefined;
+            responseType?: string | undefined;
             responseXML?: any;
-            status?: number;
-            statusText?: string;
-            timeout?: number;
-            upload?: XMLHttpRequestUpload;
-            withCredentials?: boolean;
+            status?: number | undefined;
+            statusText?: string | undefined;
+            timeout?: number | undefined;
+            upload?: XMLHttpRequestUpload | undefined;
+            withCredentials?: boolean | undefined;
 
             [propertyName: string]: any;
         }): Promise<XMLHttpRequest>;
@@ -270,7 +268,6 @@ declare namespace BlissNS {
         insertAdjacentElement(position: string, insertedElement: Element): Element;
         insertAdjacentHTML(where: string, html: string): T;
         insertAdjacentText(where: string, text: string): T;
-        msGetInputContext(): MSInputMethodContext;
         scrollIntoView(top?: boolean): T;
         setActive(): T;
         addEventListener(type: "MSContentZoom", listener: (ev: UIEvent) => any, useCapture?: boolean): T;
@@ -363,12 +360,10 @@ declare namespace BlissNS {
         getAttributeNode(name: string): Attr;
         getAttributeNodeNS(namespaceURI: string, localName: string): Attr;
         getBoundingClientRect(): ClientRect;
-        getClientRects(): ClientRectList;
         getElementsByTagName(name: "a"): NodeListOf<HTMLAnchorElement>;
         getElementsByTagName(name: "abbr"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "acronym"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "address"): NodeListOf<HTMLElement>;
-        getElementsByTagName(name: "applet"): NodeListOf<HTMLAppletElement>;
         getElementsByTagName(name: "area"): NodeListOf<HTMLAreaElement>;
         getElementsByTagName(name: "article"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "aside"): NodeListOf<HTMLElement>;

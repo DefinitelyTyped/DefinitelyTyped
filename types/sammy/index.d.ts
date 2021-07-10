@@ -238,9 +238,9 @@ declare namespace Sammy {
     }
 
     export interface StoreOptions {
-        name?: string;
-        element?: string;
-        type?: string;
+        name?: string | undefined;
+        element?: string | undefined;
+        type?: string | undefined;
         memory?: any;
         data?: any;
         cookie?: any;

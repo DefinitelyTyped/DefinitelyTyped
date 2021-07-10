@@ -9,55 +9,55 @@
 interface IOwlCarouselOptions {
 
     // options
-    items?: number;
-    itemsDesktop?: number[];
-    itemsDesktopSmall?: number[];
-    itemsTablet?: number[];
+    items?: number | undefined;
+    itemsDesktop?: number[] | undefined;
+    itemsDesktopSmall?: number[] | undefined;
+    itemsTablet?: number[] | undefined;
     itemsTabletSmall?: any;
-    itemsMobile?: number[];
+    itemsMobile?: number[] | undefined;
     itemsCustom?: any;
-    singleItem?: boolean;
-    itemsScaleUp?: boolean;
-    slideSpeed?: number;
-    paginationSpeed?: number;
-    rewindSpeed?: number;
+    singleItem?: boolean | undefined;
+    itemsScaleUp?: boolean | undefined;
+    slideSpeed?: number | undefined;
+    paginationSpeed?: number | undefined;
+    rewindSpeed?: number | undefined;
     autoPlay?: any;
-    stopOnHover?: boolean;
-    navigation?: boolean;
+    stopOnHover?: boolean | undefined;
+    navigation?: boolean | undefined;
     navigationText?: any;
-    rewindNav?: boolean;
-    scrollPerPage?: boolean;
-    pagination?: boolean;
-    paginationNumbers?: boolean;
-    responsive?: boolean;
-    responsiveRefreshRate?: number;
-    responsiveBaseWidth?: JQuery | string;
-    baseClass?: string;
-    theme?: string;
-    lazyLoad?: boolean;
-    lazyFollow?: boolean;
+    rewindNav?: boolean | undefined;
+    scrollPerPage?: boolean | undefined;
+    pagination?: boolean | undefined;
+    paginationNumbers?: boolean | undefined;
+    responsive?: boolean | undefined;
+    responsiveRefreshRate?: number | undefined;
+    responsiveBaseWidth?: JQuery | string | undefined;
+    baseClass?: string | undefined;
+    theme?: string | undefined;
+    lazyLoad?: boolean | undefined;
+    lazyFollow?: boolean | undefined;
     lazyEffect?: any;
-    autoHeight?: boolean;
+    autoHeight?: boolean | undefined;
     jsonPath?: any;
-    jsonSuccess?: (data: any) => void;
-    dragBeforeAnimFinish?: boolean;
-    mouseDrag?: boolean;
-    touchDrag?: boolean;
-    addClassActive?: boolean;
-    loop?: boolean;
-    nav?: boolean;
+    jsonSuccess?: ((data: any) => void) | undefined;
+    dragBeforeAnimFinish?: boolean | undefined;
+    mouseDrag?: boolean | undefined;
+    touchDrag?: boolean | undefined;
+    addClassActive?: boolean | undefined;
+    loop?: boolean | undefined;
+    nav?: boolean | undefined;
     transitionStyle?: any;
 
     // callbacks
-    beforeUpdate?: (params?: any) => void;
-    afterUpdate?: (params?: any) => void;
-    beforeInit?: (params?: any) => void;
-    afterInit?: (params?: any) => void;
-    beforeMove?: (params?: any) => void;
-    afterMove?: (params?: any) => void;
-    afterAction?: (params?: any) => void;
-    startDragging?: (params?: any) => void;
-    afterLazyLoad?: (params?: any) => void;
+    beforeUpdate?: ((params?: any) => void) | undefined;
+    afterUpdate?: ((params?: any) => void) | undefined;
+    beforeInit?: ((params?: any) => void) | undefined;
+    afterInit?: ((params?: any) => void) | undefined;
+    beforeMove?: ((params?: any) => void) | undefined;
+    afterMove?: ((params?: any) => void) | undefined;
+    afterAction?: ((params?: any) => void) | undefined;
+    startDragging?: ((params?: any) => void) | undefined;
+    afterLazyLoad?: ((params?: any) => void) | undefined;
 }
 
 interface JQuery {

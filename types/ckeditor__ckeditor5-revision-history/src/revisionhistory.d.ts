@@ -14,18 +14,18 @@ export interface RevisionHistoryAdapter {
         createdAt: Date;
         attributes: Record<string, unknown>;
     }): Promise<void>;
-    getRevision(data?: { revisionId?: string }): Promise<Revision>;
-    getRevisions(data?: { channelId?: string }): Promise<Revision[]>;
+    getRevision(data?: { revisionId?: string | undefined }): Promise<Revision>;
+    getRevisions(data?: { channelId?: string | undefined }): Promise<Revision[]>;
     updateRevision(data?: {
         revisionId: string;
-        name?: string;
-        attributes?: Record<string, unknown>;
+        name?: string | undefined;
+        attributes?: Record<string, unknown> | undefined;
     }): Promise<unknown>;
 }
 
 export interface RevisionHistoryConfig {
-    editorContainer?: HTMLElement;
-    viewerContainer?: HTMLElement;
-    viewerEditorElement?: HTMLElement;
-    viewerSidebarContainer?: HTMLElement;
+    editorContainer?: HTMLElement | undefined;
+    viewerContainer?: HTMLElement | undefined;
+    viewerEditorElement?: HTMLElement | undefined;
+    viewerSidebarContainer?: HTMLElement | undefined;
 }

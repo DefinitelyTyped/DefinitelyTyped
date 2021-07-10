@@ -10,9 +10,9 @@ d3.layout.cloud();
 interface ICompTextSize {
     text: string;
     size: number;
-    x?: number;
-    y?: number;
-    rotate?: number;
+    x?: number | undefined;
+    y?: number | undefined;
+    rotate?: number | undefined;
 }
 
 function archimedeanSpiral(size: [number, number]): (t: number) => [number, number] {

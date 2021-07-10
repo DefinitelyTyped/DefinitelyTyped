@@ -31,14 +31,14 @@ declare namespace audioPlay {
      * @param rate (not implemented) Playback rate, in percent, of the audio. (Default: 1)
      */
     interface Options {
-        start?: number;
-        end?: number;
-        autoplay?: boolean;
-        loop?: boolean;
-        rate?: number;
-        detune?: number;
-        volume?: number;
-        context?: AudioContext;
+        start?: number | undefined;
+        end?: number | undefined;
+        autoplay?: boolean | undefined;
+        loop?: boolean | undefined;
+        rate?: number | undefined;
+        detune?: number | undefined;
+        volume?: number | undefined;
+        context?: AudioContext | undefined;
     }
 }
 export = audioPlay;

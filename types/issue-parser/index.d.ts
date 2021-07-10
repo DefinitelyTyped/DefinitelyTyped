@@ -14,13 +14,13 @@ declare namespace issueParser {
     interface Overrides {
         actions?: {
             [type: string]: ReadonlyArray<string>;
-        };
-        delimiters?: string | ReadonlyArray<string>;
-        mentionsPrefixes?: string | ReadonlyArray<string>;
-        issuePrefixes?: string | ReadonlyArray<string>;
-        hosts?: string | ReadonlyArray<string>;
-        issueURLSegments?: string | ReadonlyArray<string>;
-        overrides?: string | ReadonlyArray<string>;
+        } | undefined;
+        delimiters?: string | ReadonlyArray<string> | undefined;
+        mentionsPrefixes?: string | ReadonlyArray<string> | undefined;
+        issuePrefixes?: string | ReadonlyArray<string> | undefined;
+        hosts?: string | ReadonlyArray<string> | undefined;
+        issueURLSegments?: string | ReadonlyArray<string> | undefined;
+        overrides?: string | ReadonlyArray<string> | undefined;
     }
     type Options = "github" | "gitlab" | "bitbucket" | "waffle" | Overrides;
     interface Reference {

@@ -22,30 +22,30 @@ export interface SelectTableAdditionalProps {
     /**
      * Default: _id
      */
-    keyField?: string;
+    keyField?: string | undefined;
 
-    isSelected?: (key: string) => boolean;
+    isSelected?: ((key: string) => boolean) | undefined;
 
-    selectAll?: boolean;
+    selectAll?: boolean | undefined;
 
-    toggleAll?: SelectAllInputComponentProps['onClick'];
+    toggleAll?: SelectAllInputComponentProps['onClick'] | undefined;
 
-    toggleSelection?: SelectInputComponentProps['onClick'];
+    toggleSelection?: SelectInputComponentProps['onClick'] | undefined;
 
     /**
      * Default: checkbox
      */
-    selectType?: SelectType;
-    selectWidth?: number;
-    SelectInputComponent?: ComponentType<SelectInputComponentProps>;
-    SelectAllInputComponent?: ComponentType<SelectAllInputComponentProps>;
+    selectType?: SelectType | undefined;
+    selectWidth?: number | undefined;
+    SelectInputComponent?: ComponentType<SelectInputComponentProps> | undefined;
+    SelectAllInputComponent?: ComponentType<SelectAllInputComponentProps> | undefined;
 }
 
 export interface SelectTableHOCOptions {
     /**
      * Default: false
      */
-    floatingLeft?: boolean;
+    floatingLeft?: boolean | undefined;
 }
 
 declare function selectTableHOC<Props extends Partial<TableProps>>(

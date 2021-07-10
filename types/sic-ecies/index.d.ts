@@ -8,8 +8,8 @@
 import { PrivateKey, PublicKey } from 'bitcore-lib';
 
 export interface ECIESOptions {
-  shortTag?: boolean;
-  noKey?: boolean;
+  shortTag?: boolean | undefined;
+  noKey?: boolean | undefined;
 }
 
 export interface ECIES {

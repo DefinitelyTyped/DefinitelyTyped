@@ -15,12 +15,12 @@ declare namespace k {
     }
 
     interface Options {
-        protocols?: object;
-        basedir?: string;
-        configdir?: string;
-        mountpath?: string;
-        inheritViews?: boolean;
-        startupHeaders?: { [key: string]: string; };
+        protocols?: object | undefined;
+        basedir?: string | undefined;
+        configdir?: string | undefined;
+        mountpath?: string | undefined;
+        inheritViews?: boolean | undefined;
+        startupHeaders?: { [key: string]: string; } | undefined;
         onconfig?(config: Map<string, any>, next: (err: Error | null, config?: object) => any): any;
         uncaughtException?(err: Error): any;
     }

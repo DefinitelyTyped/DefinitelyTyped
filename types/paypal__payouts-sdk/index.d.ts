@@ -14,19 +14,19 @@ interface Currency {
 interface LinkDescription {
     href: string;
     rel: string;
-    method?: 'CONNECT' | 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT';
+    method?: 'CONNECT' | 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT' | undefined;
 }
 interface PayoutBatchHeader extends PayoutHeader {
-    time_completed?: string;
-    time_closed?: string;
-    funding_source?: 'BALANCE';
-    amount?: Currency;
-    fees?: Currency;
+    time_completed?: string | undefined;
+    time_closed?: string | undefined;
+    funding_source?: 'BALANCE' | undefined;
+    amount?: Currency | undefined;
+    fees?: Currency | undefined;
 }
 interface PayoutBatchItems {
     payout_item_id: string;
-    transaction_id?: string;
-    activity_id?: string;
+    transaction_id?: string | undefined;
+    activity_id?: string | undefined;
     transaction_status?:
         | 'BLOCKED'
         | 'FAILED'
@@ -36,64 +36,64 @@ interface PayoutBatchItems {
         | 'RETURNED'
         | 'REVERSED'
         | 'SUCCESS'
-        | 'UNCLAIMED';
-    payout_item_fee?: Currency;
+        | 'UNCLAIMED' | undefined;
+    payout_item_fee?: Currency | undefined;
     payout_batch_id: string;
     payout_item: PayoutItemDetail;
-    currency_conversion?: PayoutCurrencyConversion;
-    time_processed?: string;
+    currency_conversion?: PayoutCurrencyConversion | undefined;
+    time_processed?: string | undefined;
     errors?: any;
-    links?: LinkDescription[];
+    links?: LinkDescription[] | undefined;
 }
 interface PayoutCurrencyConversion {
-    from_amount?: Currency;
-    to_amount?: Currency;
-    exchange_rate?: string;
+    from_amount?: Currency | undefined;
+    to_amount?: Currency | undefined;
+    exchange_rate?: string | undefined;
 }
 interface PayoutHeader {
     payout_batch_id: string;
     batch_status: 'CANCELED' | 'DENIED' | 'PENDING' | 'PROCESSING' | 'SUCCESS';
-    time_created?: string;
+    time_created?: string | undefined;
     sender_batch_header: PayoutSenderBatchHeader;
     errors?: any;
 }
 interface PayoutItem {
-    recipient_type?: RecipientType;
+    recipient_type?: RecipientType | undefined;
     amount: { currency: string; value: string };
-    note?: string;
+    note?: string | undefined;
     receiver: string;
-    sender_item_id?: string;
-    recipient_wallet?: RecipientWallet;
+    sender_item_id?: string | undefined;
+    recipient_wallet?: RecipientWallet | undefined;
     alternate_notification_method?: {
-        phone?: { country_code: string; national_number: string; extension_number?: string };
-    };
-    notification_language?: string;
+        phone?: { country_code: string; national_number: string; extension_number?: string | undefined } | undefined;
+    } | undefined;
+    notification_language?: string | undefined;
 }
 interface PayoutItemDetail {
-    recipient_type?: RecipientType;
+    recipient_type?: RecipientType | undefined;
     amount: Currency;
-    note?: string;
+    note?: string | undefined;
     receiver: string;
-    sender_item_id?: string;
+    sender_item_id?: string | undefined;
     recipient_name?: {
-        prefix?: string;
-        given_name?: string;
-        surname?: string;
-        middle_name?: string;
-        suffix?: string;
-        alternate_full_name?: string;
-        full_name?: string;
-    };
-    recipient_wallet?: RecipientWallet;
+        prefix?: string | undefined;
+        given_name?: string | undefined;
+        surname?: string | undefined;
+        middle_name?: string | undefined;
+        suffix?: string | undefined;
+        alternate_full_name?: string | undefined;
+        full_name?: string | undefined;
+    } | undefined;
+    recipient_wallet?: RecipientWallet | undefined;
 }
 interface PayoutSenderBatchHeader {
-    sender_batch_id?: string;
-    recipient_type?: RecipientType;
-    email_subject?: string;
-    email_message?: string;
+    sender_batch_id?: string | undefined;
+    recipient_type?: RecipientType | undefined;
+    email_subject?: string | undefined;
+    email_message?: string | undefined;
 }
 interface SenderBatchHeader extends PayoutSenderBatchHeader {
-    note?: string;
+    note?: string | undefined;
 }
 
 interface PaypalHeader {
@@ -104,31 +104,31 @@ interface CreatePayoutRequestBody {
     items: PayoutItem[];
 }
 interface CreateBatchPayoutResponse {
-    batch_header?: PayoutHeader;
-    links?: LinkDescription[];
+    batch_header?: PayoutHeader | undefined;
+    links?: LinkDescription[] | undefined;
 }
 interface GetBatchPayoutResponse {
-    total_items?: number;
-    total_pages?: number;
-    batch_header?: PayoutBatchHeader;
-    items?: PayoutBatchItems[];
+    total_items?: number | undefined;
+    total_pages?: number | undefined;
+    batch_header?: PayoutBatchHeader | undefined;
+    items?: PayoutBatchItems[] | undefined;
     errors?: any;
-    links?: LinkDescription[];
+    links?: LinkDescription[] | undefined;
 }
 interface GetPayoutsItemResponse extends PayoutBatchItems {
-    sender_batch_id?: string;
+    sender_batch_id?: string | undefined;
 }
 
 interface HttpRequest {
     headers: PaypalHeader;
-    body?: { [key: string]: string };
+    body?: { [key: string]: string } | undefined;
 }
 
 interface HttpResponse<R> {
     statusCode: number;
     headers: { [key: string]: string };
-    message?: string;
-    result?: R;
+    message?: string | undefined;
+    result?: R | undefined;
 }
 
 declare namespace core {

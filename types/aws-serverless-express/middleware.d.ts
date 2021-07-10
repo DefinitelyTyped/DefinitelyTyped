@@ -10,13 +10,13 @@ declare module 'http' {
     apiGateway?: {
       event: Omit<APIGatewayProxyEvent, 'body'>;
       context: NonFunctionProperties<Context>;
-    };
+    } | undefined;
   }
 }
 
 export interface Options {
-    reqPropKey?: string;
-    deleteHeaders?: boolean;
+    reqPropKey?: string | undefined;
+    deleteHeaders?: boolean | undefined;
 }
 
 export function eventContext(options?: Options): RequestHandler;

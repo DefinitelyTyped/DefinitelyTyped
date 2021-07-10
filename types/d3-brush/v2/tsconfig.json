@@ -16,6 +16,12 @@
         "paths": {
             "d3-brush": [
                 "d3-brush/v2"
+            ],
+            "d3-selection": [
+                "d3-selection/v2"
+            ],
+            "d3-transition": [
+                "d3-transition/v2"
             ]
         },
         "types": [],

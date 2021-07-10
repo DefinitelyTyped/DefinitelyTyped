@@ -251,16 +251,16 @@ export type ConvertOptionKey =
 export type ConvertOptions = { [key in ConvertOptionKey]?: string };
 
 export interface Options {
-    pdfFileBaseName?: string;
-    convertOptions?: ConvertOptions;
-    convertExtension?: string;
-    graphicsMagick?: boolean;
-    outputDirectory?: string;
+    pdfFileBaseName?: string | undefined;
+    convertOptions?: ConvertOptions | undefined;
+    convertExtension?: string | undefined;
+    graphicsMagick?: boolean | undefined;
+    outputDirectory?: string | undefined;
 }
 
 export type OptionalSpread<CombinedImage extends boolean> = CombinedImage extends true
     ? [Options & { combinedImage: CombinedImage }]
-    : [] | [Options & { combinedImage?: CombinedImage }];
+    : [] | [Options & { combinedImage?: CombinedImage | undefined }];
 
 export interface PDFInfo {
     Creator: string;

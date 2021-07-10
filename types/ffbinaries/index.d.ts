@@ -23,31 +23,31 @@ export interface DownloadOptions {
     /**
      * The path where the binaries will be downloaded to. If not provided it will default to `.`.
      */
-    destination?: string;
+    destination?: string | undefined;
     /**
      * Defaults to detecting the current platform.
      */
-    platform?: Platform;
+    platform?: Platform | undefined;
     /**
      * Version of ffmpeg to download.
      */
-    version?: string;
+    version?: string | undefined;
     /**
      * Ignore check for existing binaries in the destination and overwrite them if necessary.
      */
-    force?: boolean;
+    force?: boolean | undefined;
     /**
      * Suppress verbose logs.
      */
-    quiet?: boolean;
+    quiet?: boolean | undefined;
     /**
      * A progress-update function, triggered with percentage as argument at an interval until download is completed.
      */
-    tickerFn?: (tickData: { filename: string; progress: number }) => void;
+    tickerFn?: ((tickData: { filename: string; progress: number }) => void) | undefined;
     /**
      * Frequency at which the ticker progress updates are issued (in ms; defaults to `1000`).
      */
-    tickerInterval?: number;
+    tickerInterval?: number | undefined;
 }
 
 export interface DownloadResultFileExists {
@@ -81,17 +81,17 @@ export interface VersionData {
         [K in Platform]: {
             ffmpeg: string;
             ffprobe: string;
-            ffplay?: string;
-            ffserver?: string;
+            ffplay?: string | undefined;
+            ffserver?: string | undefined;
         };
     };
 }
 
 export interface LocateBinariesOptions {
     /** Locations to check first */
-    paths?: string[];
+    paths?: string[] | undefined;
     /** Set executable flag on the file if it's missing */
-    ensureExecutable?: boolean;
+    ensureExecutable?: boolean | undefined;
 }
 
 /**

@@ -25,7 +25,7 @@ interface IChain {
 }
 
 interface ISpawnOptions {
-    cwd?: string;
+    cwd?: string | undefined;
     env?: any;
     ignoreCase?: any;
     stripColors?: any;

@@ -11,8 +11,8 @@ declare namespace PebbleKit {
 
     interface Event {
         type: string;
-        payload?: Object;
-        response?: string;
+        payload?: Object | undefined;
+        response?: string | undefined;
     }
 
     interface Layout {
@@ -24,7 +24,7 @@ declare namespace PebbleKit {
      * The structure of an app glance.
      */
     interface AppGlanceSlice {
-        expirationTime?: string;
+        expirationTime?: string | undefined;
         layout: Layout;
     }
 
@@ -34,7 +34,7 @@ declare namespace PebbleKit {
 
     interface AppMessageEvent {
         data: AppMessageData;
-        error?: Error;
+        error?: Error | undefined;
     }
 
     /**

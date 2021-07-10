@@ -26,7 +26,7 @@ import { Step } from 'prosemirror-transform';
  *     This client's ID, used to distinguish its changes from those of
  *     other clients. Defaults to a random 32-bit number.
  */
-export function collab(config?: { version?: number | null; clientID?: number | string | null }): Plugin;
+export function collab(config?: { version?: number | null | undefined; clientID?: number | string | null | undefined }): Plugin;
 
 /**
  * Create a transaction that represents a set of new steps received from
@@ -47,7 +47,7 @@ export function receiveTransaction<S extends Schema = any>(
     state: EditorState<S>,
     steps: Array<Step<S>>,
     clientIDs: Array<number | string>,
-    options?: { mapSelectionBackward?: boolean },
+    options?: { mapSelectionBackward?: boolean | undefined },
 ): Transaction<S>;
 
 /**

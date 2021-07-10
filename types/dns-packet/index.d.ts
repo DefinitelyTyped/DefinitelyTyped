@@ -53,16 +53,19 @@ export type RecordType =
     | "TXT"
     | "URI";
 
+export type RecordClass = "IN" | "CS" | "CH" | "HS" | "ANY";
+
 export interface Question {
     type: RecordType;
     name: string;
+    class?: RecordClass | undefined;
 }
 
 export interface SrvData {
     port: number;
     target: string;
-    priority?: number;
-    weight?: number;
+    priority?: number | undefined;
+    weight?: number | undefined;
 }
 
 export interface HInfoData {
@@ -70,17 +73,42 @@ export interface HInfoData {
     os: string;
 }
 
+export interface SoaData {
+    mname: string;
+    rname: string;
+    serial?: number | undefined;
+    refresh?: number | undefined;
+    retry?: number | undefined;
+    expire?: number | undefined;
+    minimum?: number | undefined;
+}
+
+export type TxtData = string | Buffer | Array<string | Buffer>;
+
+export interface CaaData {
+    issuerCritical?: boolean | undefined;
+    flags?: number | undefined;
+    tag: string;
+    value: string;
+}
+
+export interface MxData {
+    preference?: number | undefined;
+    exchange: string;
+}
+
 export interface BaseAnswer<T, D> {
     type: T;
     name: string;
-    ttl?: number;
+    ttl?: number | undefined;
+    class?: RecordClass | undefined;
     data: D;
 }
 
 /**
  * Record types for which the library will provide a string in the data field.
  */
-export type StringRecordType = "A" | "AAAA" | "CNAME" | "DNAME" | "PTR";
+export type StringRecordType = "A" | "AAAA" | "CNAME" | "DNAME" | "NS" | "PTR";
 
 /**
  * Record types for which the library does not attempt to process the data
@@ -90,7 +118,6 @@ export type OtherRecordType =
     | "AFSDB"
     | "APL"
     | "AXFR"
-    | "CAA"
     | "CDNSKEY"
     | "CDS"
     | "CERT"
@@ -104,9 +131,7 @@ export type OtherRecordType =
     | "KEY"
     | "KX"
     | "LOC"
-    | "MX"
     | "NAPTR"
-    | "NS"
     | "NSEC"
     | "NSEC3"
     | "NSEC3PARAM"
@@ -115,21 +140,31 @@ export type OtherRecordType =
     | "RRSIG"
     | "RP"
     | "SIG"
-    | "SOA"
     | "SSHFP"
     | "TA"
     | "TKEY"
     | "TLSA"
     | "TSIG"
-    | "TXT"
     | "URI";
 
 export type StringAnswer = BaseAnswer<StringRecordType, string>;
 export type SrvAnswer = BaseAnswer<"SRV", SrvData>;
 export type HInfoAnswer = BaseAnswer<"HINFO", HInfoData>;
+export type SoaAnswer = BaseAnswer<"SOA", SoaData>;
+export type TxtAnswer = BaseAnswer<"TXT", TxtData>;
+export type CaaAnswer = BaseAnswer<"CAA", CaaData>;
+export type MxAnswer = BaseAnswer<"MX", MxData>;
 export type BufferAnswer = BaseAnswer<OtherRecordType, Buffer>;
 
-export type Answer = StringAnswer | SrvAnswer | HInfoAnswer | BufferAnswer;
+export type Answer =
+    | StringAnswer
+    | SrvAnswer
+    | HInfoAnswer
+    | SoaAnswer
+    | TxtAnswer
+    | CaaAnswer
+    | MxAnswer
+    | BufferAnswer;
 
 export interface Packet {
     /**
@@ -137,9 +172,9 @@ export interface Packet {
      * omitted if it is clear from the context of usage what type of packet
      * it is.
      */
-    type?: "query" | "response";
+    type?: "query" | "response" | undefined;
 
-    id?: number;
+    id?: number | undefined;
 
     /**
      * A bit-mask combination of zero or more of:
@@ -150,11 +185,11 @@ export interface Packet {
      * {@link AUTHENTIC_DATA},
      * {@link CHECKING_DISABLED}.
      */
-    flags?: number;
-    questions?: Question[];
-    answers?: Answer[];
-    additionals?: Answer[];
-    authorities?: Answer[];
+    flags?: number | undefined;
+    questions?: Question[] | undefined;
+    answers?: Answer[] | undefined;
+    additionals?: Answer[] | undefined;
+    authorities?: Answer[] | undefined;
 }
 
 export const AUTHORITATIVE_ANSWER: number;

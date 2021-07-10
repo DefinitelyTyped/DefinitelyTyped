@@ -100,15 +100,15 @@ export interface ProjectionOptions {
      * Latitude of the central meridian
      * @default 0
      */
-    meridian?: number;
+    meridian?: number | undefined;
     /**
      * maximum latitude in degrees < 90
      * @default 85
      */
-    latLimit?: number;
+    latLimit?: number | undefined;
     /**
      * longitude of the standard parallel(s)
      * @default 0
      */
-    standardParallel?: number;
+    standardParallel?: number | undefined;
 }

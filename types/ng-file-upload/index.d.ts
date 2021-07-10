@@ -23,79 +23,79 @@ declare module 'angular' {
              * Standard HTML accept attr, browser specific select popup window
              * @type {string}
              */
-            ngfAccept?: string;
+            ngfAccept?: string | undefined;
             /**
              * Default true, allow dropping files only for Chrome webkit browser
              * @type {boolean}
              */
-            ngfAllowDir?: boolean;
+            ngfAllowDir?: boolean | undefined;
             /**
              * Default false, enable firefox image paste by making element contenteditable
              * @type {boolean}
              */
-            ngfEnableFirefoxPaste?: boolean;
+            ngfEnableFirefoxPaste?: boolean | undefined;
             /**
              * Default false, hides element if file drag&drop is not
              * @type {boolean}
              */
-            ngfHideOnDropNotAvailable?: boolean;
+            ngfHideOnDropNotAvailable?: boolean | undefined;
             /**
              * Validate error name: minDuration
              * @type {(number|string)}
              */
-            ngfMinDuration?: number | string;
+            ngfMinDuration?: number | string | undefined;
             /**
              * Validate error name: minSize
              * @type {(number|string)}
              */
-            ngfMinSize?: number | string;
+            ngfMinSize?: number | string | undefined;
             /**
              * Validate error name: minRatio
              * @type {(number|string)}
              */
-            ngfMinRatio?: number | string;
+            ngfMinRatio?: number | string | undefined;
             /**
              * Validate error name: maxDuration
              * @type {(number|string)}
              */
-            ngfMaxDuration?: number | string;
+            ngfMaxDuration?: number | string | undefined;
             /**
              * Maximum number of files allowed to be selected or dropped, validate error name: maxFiles
              * @type {number}
              */
-            ngfMaxFiles?: number;
+            ngfMaxFiles?: number | undefined;
             /**
              * Validate error name: maxSize
              * @type {(number|string)}
              */
-            ngfMaxSize?: number | string;
+            ngfMaxSize?: number | string | undefined;
             /**
              * Validate error name: maxTotalSize
              * @type {(number|string)}
              */
-            ngfMaxTotalSize?: number | string;
+            ngfMaxTotalSize?: number | string | undefined;
             /**
              * Allows selecting multiple files
              * @type {boolean}
              */
-            ngfMultiple?: boolean;
+            ngfMultiple?: boolean | undefined;
             /**
              * List of comma separated valid aspect ratio of images in float or 2:3 format
              * @type {string}
              */
-            ngfRatio?: string;
+            ngfRatio?: string | undefined;
             /**
              * Default false, whether to propagate drag/drop events.
              * @type {boolean}
              */
-            ngfStopPropagation?: boolean;
+            ngfStopPropagation?: boolean | undefined;
             /**
              * Default false, if true file.$error will be set if the dimension or duration
              * values for validations cannot be calculated for example image load error or unsupported video by the browser.
              * By default it would assume the file is valid if the duration or dimension cannot be calculated by the browser.
              * @type {boolean}
              */
-            ngfValidateForce?: boolean;
+            ngfValidateForce?: boolean | undefined;
         }
         
         interface ResizeIfFunction {
@@ -103,15 +103,15 @@ declare module 'angular' {
         }
 
         interface FileResizeOptions {
-            centerCrop?: boolean;
-            height?: number;
-            pattern?: string;
-            ratio?: number | string;
-            resizeIf?: ResizeIfFunction;
-            restoreExif?: boolean;
-            quality?: number;
-            type?: string;
-            width?: number;
+            centerCrop?: boolean | undefined;
+            height?: number | undefined;
+            pattern?: string | undefined;
+            ratio?: number | string | undefined;
+            resizeIf?: ResizeIfFunction | undefined;
+            restoreExif?: boolean | undefined;
+            quality?: number | undefined;
+            type?: string | undefined;
+            width?: number | undefined;
         }
 
         interface IUploadService {
@@ -263,7 +263,7 @@ declare module 'angular' {
              * data: {rec: {name: 'N', pic: file}, objectKey: '.k'} sent as: rec.name -> N, rec.pic -> file
              * @type {string}
              */
-            objectKey?: string;
+            objectKey?: string | undefined;
             /**
              * This is to accommodate server implementations expecting array data object keys in '[i]' or '[]' or
              * ''(multiple entries with same key) format.
@@ -271,32 +271,32 @@ declare module 'angular' {
              * data: {rec: {rec: [f[0], f[1], ...], arrayKey: '[]'} sent as: rec[] -> f[0], rec[] -> f[1],...
              * @type {string}
              */
-            arrayKey?: string;
+            arrayKey?: string | undefined;
             /**
              * Uploaded file size so far on the server
              * @type {string}
              */
-            resumeSizeUrl?: string;
+            resumeSizeUrl?: string | undefined;
             /**
              * Reads the uploaded file size from resumeSizeUrl GET response
              * @type {Function}
              */
-            resumeSizeResponseReader?: Function;
+            resumeSizeResponseReader?: Function | undefined;
             /**
              * Function that returns a prommise which will be resolved to the upload file size on the server.
              * @type {[type]}
              */
-            resumeSize?: Function;
+            resumeSize?: Function | undefined;
             /**
              * Upload in chunks of specified size
              * @type {(number|string)}
              */
-            resumeChunkSize?: number | string;
+            resumeChunkSize?: number | string | undefined;
             /**
              * Default false, experimental as hotfix for potential library conflicts with other plugins
              * @type {boolean}
              */
-            disableProgress?: boolean;
+            disableProgress?: boolean | undefined;
         }
 
         interface IFileProgressEvent extends ProgressEvent {

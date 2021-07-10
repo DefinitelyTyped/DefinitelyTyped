@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface BodyScrollOptions {
-    reserveScrollBarGap?: boolean;
-    allowTouchMove?: (el: HTMLElement | Element) => void;
+    reserveScrollBarGap?: boolean | undefined;
+    allowTouchMove?: ((el: HTMLElement | Element) => void) | undefined;
 }
 
 export function disableBodyScroll(targetElement: HTMLElement | Element, options?: BodyScrollOptions): void;

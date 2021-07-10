@@ -15,9 +15,9 @@ declare function uslug(value: string, options?: uslug.UslugOptions): string;
 
 declare namespace uslug {
   interface UslugOptions {
-    allowedChars?: string;
-    lower?: boolean;
-    spaces?: boolean;
+    allowedChars?: string | undefined;
+    lower?: boolean | undefined;
+    spaces?: boolean | undefined;
   }
 }
 

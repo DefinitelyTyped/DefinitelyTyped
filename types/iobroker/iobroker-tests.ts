@@ -629,13 +629,13 @@ adapter.FORBIDDEN_CHARS = /_/;
 {
     interface PCF8574Config {
         pollingInterval: number;
-        interrupt?: string;
+        interrupt?: string | undefined;
         pins: PinConfig[];
     }
 
     interface PinConfig {
         dir: 'in' | 'out';
-        inv?: boolean;
+        inv?: boolean | undefined;
     }
 
     const config: PCF8574Config = undefined as any;

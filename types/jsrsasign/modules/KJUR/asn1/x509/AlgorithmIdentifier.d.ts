@@ -26,8 +26,8 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
     class AlgorithmIdentifier extends ASN1Object {
       constructor(params?: {
         name: string;
-        asn1params?: ASN1Object;
-        paramempty?: boolean;
+        asn1params?: ASN1Object | undefined;
+        paramempty?: boolean | undefined;
       });
       getEncodedHex(): string;
     }

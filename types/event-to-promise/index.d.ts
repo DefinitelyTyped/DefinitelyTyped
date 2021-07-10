@@ -11,11 +11,11 @@ type EventSource = EventEmitter | EventTarget
 
 interface EventToPromiseOptions {
     /**  If true, all parameters of the emitted events are put in an array which is used to resolve/reject the promise. (default: `false`) */
-    array?: boolean,
+    array?: boolean | undefined,
     /** The name of the event which rejects the promise. (default: `'error'`) */
-    error?: string,
+    error?: string | undefined,
     /** Whether the error event should be ignored and not reject the promise. (default: `false`) */
-    ignoreErrors?: boolean,
+    ignoreErrors?: boolean | undefined,
 }
 
 /**

@@ -15,26 +15,26 @@ declare namespace JsDiff {
     }
 
     interface ILinesOptions extends IOptions {
-        ignoreWhitespace?: boolean;
-        newlineIsToken?: boolean;
+        ignoreWhitespace?: boolean | undefined;
+        newlineIsToken?: boolean | undefined;
     }
 
     interface IArrayOptions {
-        comparator?: (left: any, right: any) => boolean;
+        comparator?: ((left: any, right: any) => boolean) | undefined;
     }
 
     interface IDiffResult {
         value: string;
-        count?: number;
-        added?: boolean;
-        removed?: boolean;
+        count?: number | undefined;
+        added?: boolean | undefined;
+        removed?: boolean | undefined;
     }
 
     interface IDiffArraysResult<T> {
         value: T[];
-        count?: number;
-        added?: boolean;
-        removed?: boolean;
+        count?: number | undefined;
+        added?: boolean | undefined;
+        removed?: boolean | undefined;
     }
 
     interface IBestPath {

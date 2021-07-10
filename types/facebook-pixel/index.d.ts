@@ -43,80 +43,80 @@ declare module facebook.Pixel {
 
 
     interface ViewContentParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        content_type?:string;
-        content_ids?:string[];
-        content_category?:string;
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        content_type?:string | undefined;
+        content_ids?:string[] | undefined;
+        content_category?:string | undefined;
         contents?:Array<{
             id:string;
             quantity:number;
-        }>;
+        }> | undefined;
     }
 
     interface SearchParameters {
-        value?:number;
-        currency?:string;
-        content_category?:string;
-        content_ids?:string[];
-        search_string?:string;
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_category?:string | undefined;
+        content_ids?:string[] | undefined;
+        search_string?:string | undefined;
     }
 
     interface AddToCartParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        content_type?:string;
-        content_ids?:string[];
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        content_type?:string | undefined;
+        content_ids?:string[] | undefined;
     }
 
     interface AddToWishlistParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        content_category?:string;
-        content_ids?:string[];
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        content_category?:string | undefined;
+        content_ids?:string[] | undefined;
     }
 
     interface InitiateCheckoutParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        content_category?:string;
-        content_ids?:string[];
-        num_items?:number;
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        content_category?:string | undefined;
+        content_ids?:string[] | undefined;
+        num_items?:number | undefined;
     }
 
     interface AddPaymentInfoParameters {
-        value?:number;
-        currency?:string;
-        content_category?:string;
-        content_ids?:string[];
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_category?:string | undefined;
+        content_ids?:string[] | undefined;
     }
 
     interface PurchaseParameters {
         value:number;
         currency:string;
-        content_name?:string;
-        content_type?:string;
-        content_ids?:string[];
-        num_items?:number;
-        order_id?:string;
+        content_name?:string | undefined;
+        content_type?:string | undefined;
+        content_ids?:string[] | undefined;
+        num_items?:number | undefined;
+        order_id?:string | undefined;
     }
 
     interface LeadParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        content_category?:string;
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        content_category?:string | undefined;
     }
 
     interface CompleteRegistrationParameters {
-        value?:number;
-        currency?:string;
-        content_name?:string;
-        status?:boolean;
+        value?:number | undefined;
+        currency?:string | undefined;
+        content_name?:string | undefined;
+        status?:boolean | undefined;
     }
 
     type CustomParameters = Record<string,any>;

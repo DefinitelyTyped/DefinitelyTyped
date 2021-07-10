@@ -7,27 +7,27 @@
 declare namespace copyfiles {
     interface Options {
         /** include files & directories beginning with a dot (.) */
-        all?: boolean;
+        all?: boolean | undefined;
         /** throw error if nothing is copied */
-        error?: boolean;
+        error?: boolean | undefined;
         /** pattern or glob to exclude */
-        exclude?: string | ReadonlyArray<string>;
+        exclude?: string | ReadonlyArray<string> | undefined;
         /** flatten the output */
-        flat?: boolean;
+        flat?: boolean | undefined;
         /**
          * follow symbolink links
          * @default false
          */
-        follow?: boolean;
+        follow?: boolean | undefined;
         /** do not overwrite destination files if they exist */
-        soft?: boolean;
+        soft?: boolean | undefined;
         /**
          * slice a path off the bottom of the paths
          * @default 0
          */
-        up?: number | true;
+        up?: number | true | undefined;
         /** print more information to console */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
     }
 
     type Callback = (error?: Error) => void;

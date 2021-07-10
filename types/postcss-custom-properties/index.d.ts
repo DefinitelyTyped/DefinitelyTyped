@@ -29,10 +29,10 @@ declare namespace postcssCustomProperties {
     interface CustomPropertiesObject {
         customProperties?: {
             [name: string]: string;
-        };
+        } | undefined;
         ['custom-properties']?: {
             [name: string]: string;
-        };
+        } | undefined;
     }
 
     interface Options {
@@ -42,7 +42,7 @@ declare namespace postcssCustomProperties {
          * By default, both of these are preserved
          * @see {@link https://github.com/postcss/postcss-custom-properties#preserve}
          */
-        preserve?: boolean;
+        preserve?: boolean | undefined;
         /**
          * The importFrom option specifies sources where Custom Properties can be imported from,
          * which might be CSS, JS, and JSON files, functions, and directly passed objects.
@@ -50,7 +50,7 @@ declare namespace postcssCustomProperties {
          * JavaScript files, JSON files, functions, and objects will need to namespace Custom Properties using the customProperties or custom-properties key.
          * @see {@link https://github.com/postcss/postcss-custom-properties#importfrom}
          */
-        importFrom?: ImportSources | ImportSources[];
+        importFrom?: ImportSources | ImportSources[] | undefined;
         /**
          * The exportTo option specifies destinations where Custom Properties can be exported to,
          * which might be CSS, JS, and JSON files, functions, and directly passed objects.
@@ -58,7 +58,7 @@ declare namespace postcssCustomProperties {
          * JavaScript files, JSON files, and objects will need to namespace Custom Properties using the customProperties or custom-properties key.
          * @see {@link https://github.com/postcss/postcss-custom-properties#exportto}
          */
-        exportTo?: ExportSources | ExportSources[];
+        exportTo?: ExportSources | ExportSources[] | undefined;
     }
 
     type CustomPropertiesPlugin = Plugin<Options> & {

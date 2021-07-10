@@ -139,7 +139,7 @@ interface WebPage {
     reload(): void;
     // render(filename: string): Promise<void>;
     render(filename: string): void;
-    render(filename: string, options?: { format?: string; quality?: string; ratio?: number; onlyViewport?: boolean }): Promise<void>;
+    render(filename: string, options?: { format?: string | undefined; quality?: string | undefined; ratio?: number | undefined; onlyViewport?: boolean | undefined }): Promise<void>;
     renderBase64(type: string): Promise<string>;
     renderBase64(format: string): string;
     sendEvent(mouseEventType: string, mouseX?: number, mouseY?: number, button?: string): Promise<void>;
@@ -209,8 +209,8 @@ interface ResourceResponse {
     time: Date;
     headers: { [name: string]: string; };
     bodySize: number;
-    contentType?: string;
-    redirectURL?: string;
+    contentType?: string | undefined;
+    redirectURL?: string | undefined;
     stage: string;
     status: number;
     statusText: string;
@@ -236,11 +236,11 @@ interface NetworkRequest {
 }
 
 interface PaperSize {
-    width?: string;
-    height?: string;
+    width?: string | undefined;
+    height?: string | undefined;
     border: string;
-    format?: string;
-    orientation?: string;
+    format?: string | undefined;
+    orientation?: string | undefined;
     margin?: any; // string | { top?: string; left?: string; bottom?: string; right?: string;  }
 }
 
@@ -287,7 +287,7 @@ interface FileSystem {
     // File Functions
     // open(path: string, mode: string): IStream;
     // open(path: string, options: { mode: string; charset?: string; }): IStream;
-    open(path: string, mode: string | { mode: string; charset?: string; }): Stream;
+    open(path: string, mode: string | { mode: string; charset?: string | undefined; }): Stream;
     read(path: string): string;
     write(path: string, content: string, mode: string): void;
     size(path: string): number;
@@ -359,11 +359,11 @@ interface ClipRect extends TopLeft, Size {
 interface Cookie {
     name: string;
     value: string;
-    domain?: string;
+    domain?: string | undefined;
     path: string;
-    httponly?: boolean;
-    secure?: boolean;
-    expires?: string;
+    httponly?: boolean | undefined;
+    secure?: boolean | undefined;
+    expires?: string | undefined;
     expiry: number;
 }
 

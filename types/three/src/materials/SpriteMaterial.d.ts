@@ -3,11 +3,11 @@ import { Texture } from './../textures/Texture';
 import { MaterialParameters, Material } from './Material';
 
 export interface SpriteMaterialParameters extends MaterialParameters {
-    color?: Color | string | number;
-    map?: Texture | null;
-    alphaMap?: Texture | null;
-    rotation?: number;
-    sizeAttenuation?: boolean;
+    color?: Color | string | number | undefined;
+    map?: Texture | null | undefined;
+    alphaMap?: Texture | null | undefined;
+    rotation?: number | undefined;
+    sizeAttenuation?: boolean | undefined;
 }
 
 export class SpriteMaterial extends Material {

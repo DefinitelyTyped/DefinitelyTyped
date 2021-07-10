@@ -19,9 +19,9 @@ export interface Jwk {
 
 export interface GenerateOptions {
     format: string;
-    encoding?: string;
-    modulusLength?: number;
-    publicExponent?: number;
+    encoding?: string | undefined;
+    modulusLength?: number | undefined;
+    publicExponent?: number | undefined;
 }
 
 export interface ImportOptions {

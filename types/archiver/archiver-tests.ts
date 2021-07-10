@@ -14,6 +14,7 @@ const options: Archiver.ArchiverOptions = {
     comment: 'test',
     forceLocalTime: true,
     forceZip64: true,
+    namePrependSlash: true,
     store: true,
     zlib: {},
     gzip: true,

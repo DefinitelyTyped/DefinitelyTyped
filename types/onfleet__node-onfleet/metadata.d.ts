@@ -5,7 +5,7 @@ export type MetadataSubType = 'boolean' | 'number' | 'string' | 'object';
 export interface OnfleetMetadata {
   name: string;
   type: MetadataType;
-  subtype?: MetadataSubType;
-  visibility?: MetadataVisibility[];
+  subtype?: MetadataSubType | undefined;
+  visibility?: MetadataVisibility[] | undefined;
   value: any;
 }

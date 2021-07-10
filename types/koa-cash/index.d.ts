@@ -29,26 +29,26 @@ declare namespace koaCash {
         /**
          * Default max age (in milliseconds) for the cache if not set via `await ctx.cashed(maxAge)`.
          */
-        maxAge?: number;
+        maxAge?: number | undefined;
 
         /**
          * Minimum byte size to compress response bodies. Default 1kb.
          * @default 1000
          */
-        threshold?: number;
+        threshold?: number | undefined;
 
         /**
          * If a truthy value is passed, then compression will be enabled.
          * @default false
          */
-        compression?: boolean;
+        compression?: boolean | undefined;
 
         /**
          * If a truthy value is passed, then X-Cached-Response header will be set as HIT when response
          * is served from the cache.
          * @default false
          */
-        setCachedHeader?: boolean;
+        setCachedHeader?: boolean | undefined;
 
         /**
          * A hashing function. By default, it caches based on the URL.

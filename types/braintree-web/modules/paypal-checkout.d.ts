@@ -5,27 +5,27 @@ import { Client } from './client';
 
 export interface PayPalCheckoutCreatePaymentOptions {
     flow: paypal.FlowType;
-    intent?: paypal.Intent;
-    offerCredit?: boolean;
-    amount?: string | number;
-    currency?: string;
-    displayName?: string;
-    locale?: string;
-    vaultInitiatedCheckoutPaymentMethodToken?: string;
-    shippingOptions?: paypal.ShippingOption[];
-    enableShippingAddress?: boolean;
-    shippingAddressOverride?: paypal.Address;
-    shippingAddressEditable?: boolean;
-    billingAgreementDescription?: string;
-    landingPageType?: string;
-    lineItems?: paypal.LineItem[];
+    intent?: paypal.Intent | undefined;
+    offerCredit?: boolean | undefined;
+    amount?: string | number | undefined;
+    currency?: string | undefined;
+    displayName?: string | undefined;
+    locale?: string | undefined;
+    vaultInitiatedCheckoutPaymentMethodToken?: string | undefined;
+    shippingOptions?: paypal.ShippingOption[] | undefined;
+    enableShippingAddress?: boolean | undefined;
+    shippingAddressOverride?: paypal.Address | undefined;
+    shippingAddressEditable?: boolean | undefined;
+    billingAgreementDescription?: string | undefined;
+    landingPageType?: string | undefined;
+    lineItems?: paypal.LineItem[] | undefined;
 }
 
 export interface PayPalCheckoutTokenizationOptions {
     payerId: string;
-    paymentId?: string;
-    billingToken?: string;
-    vault?: boolean;
+    paymentId?: string | undefined;
+    billingToken?: string | undefined;
+    vault?: boolean | undefined;
 }
 
 export interface PayPalCheckoutLoadPayPalSDKOptions {
@@ -34,7 +34,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      * Braintree component. When used in conjunction with passing authorization when creating the
      * PayPal Checkout component, you can speed up the loading of the PayPal SDK.
      */
-    'client-id'?: string;
+    'client-id'?: string | undefined;
 
     /**
      * By default, the PayPal SDK defaults to an intent of capture. Since the default intent when
@@ -45,19 +45,19 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      *
      * @default 'authorize'
      */
-    intent?: 'authorize' | 'capture' | 'sale' | 'tokenize';
+    intent?: 'authorize' | 'capture' | 'sale' | 'tokenize' | undefined;
 
     /**
      * If a currency is passed in createPayment, it must match the currency passed here.
      *
      * @default 'USD'
      */
-    currency?: string;
+    currency?: string | undefined;
 
     /**
      * Must be true when using flow: vault in createPayment.
      */
-    vault?: boolean;
+    vault?: boolean | undefined;
 
     /**
      * By default, the Braintree SDK will only load the PayPal smart buttons component. If you would
@@ -66,7 +66,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      *
      * @default 'buttons'
      */
-    components?: 'buttons' | 'messages' | 'buttons,messages';
+    components?: 'buttons' | 'messages' | 'buttons,messages' | undefined;
 
     /**
      * The data attributes to apply to the script. Any data attribute can be passed. A subset of the
@@ -76,28 +76,28 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
         /**
          * CSP nonce used for rendering the button.
          */
-        'csp-nonce'?: string;
+        'csp-nonce'?: string | undefined;
 
         /**
          * Client token used for identifying your buyers.
          */
-        'data-client-token'?: string;
+        'data-client-token'?: string | undefined;
 
         /**
          * Order ID used for optimizing the funding that displays.
          */
-        'data-order-id'?: string;
+        'data-order-id'?: string | undefined;
 
         /**
          * Log page type and interactions for the JavaScript SDK.
          */
-        'data-page-type'?: string;
+        'data-page-type'?: string | undefined;
 
         /**
          * Partner attribution ID used for revenue attribution.
          */
-        'data-partner-attribution-id'?: string;
-    };
+        'data-partner-attribution-id'?: string | undefined;
+    } | undefined;
 }
 
 export interface PayPalCheckout {
@@ -117,8 +117,8 @@ export interface PayPalCheckout {
      *   console.error('Error!', err);
      * });
      */
-    create(options: { client?: Client; authorization?: string; merchantAccountId?: string }): Promise<PayPalCheckout>;
-    create(options: { client?: Client; authorization?: string; merchantAccountId?: string }, callback?: callback): void;
+    create(options: { client?: Client | undefined; authorization?: string | undefined; merchantAccountId?: string | undefined }): Promise<PayPalCheckout>;
+    create(options: { client?: Client | undefined; authorization?: string | undefined; merchantAccountId?: string | undefined }, callback?: callback): void;
 
     /**
      * Resolves when the PayPal SDK has been succesfully loaded onto the page.

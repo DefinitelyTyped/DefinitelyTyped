@@ -15,12 +15,12 @@ declare namespace requireFromString {
          * List of `paths`, that will be appended to module `paths`.
          * Useful when you want to be able require modules from these paths.
          */
-        appendPaths?: string[];
+        appendPaths?: string[] | undefined;
         /**
          * List of `paths`, that will be preppended to module `paths`.
          * Useful when you want to be able require modules from these paths.
          */
-        prependPaths?: string[];
+        prependPaths?: string[] | undefined;
     }
 }
 

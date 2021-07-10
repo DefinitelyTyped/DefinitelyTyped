@@ -12,13 +12,13 @@ export = BackBlazeB2;
 interface B2InitOptions {
     applicationKeyId: string;
     applicationKey: string;
-    axios?: Record<string, any>;
-    retry?: Record<string, any>;
+    axios?: Record<string, any> | undefined;
+    retry?: Record<string, any> | undefined;
 }
 
 interface CommonArgs {
-    axios?: Record<string, any>;
-    axiosOverride?: Record<string, any>;
+    axios?: Record<string, any> | undefined;
+    axiosOverride?: Record<string, any> | undefined;
 }
 
 interface StandardApiResponse {
@@ -37,7 +37,7 @@ interface CreateBucketOpts extends CommonArgs {
 }
 interface GetBucketOpts extends CommonArgs {
     bucketName: string;
-    bucketId?: string;
+    bucketId?: string | undefined;
 }
 interface UpdateBucketOpts extends CommonArgs {
     bucketId: string;
@@ -56,25 +56,25 @@ interface UploadFileOpts extends CommonArgs {
      * data length
      * @default  data.byteLength or data.length
      */
-    contentLength?: number;
+    contentLength?: number | undefined;
     /**
      * mime type
      * @default 'b2/x-auto'
      */
-    mime?: string;
+    mime?: string | undefined;
     /**
      * data hash
      * @default sha1(data)
      */
-    hash?: string;
+    hash?: string | undefined;
     /**
      * info headers, prepended with X-Bz-Info- when sent,
      * throws error if more than 10 keys set.
      * valid characters should be a-z, A-Z and '-',
      * all other characters will cause an error to be thrown
      */
-    info?: Record<string, string>;
-    onUploadProgress?: UploadProgressFn | null;
+    info?: Record<string, string> | undefined;
+    onUploadProgress?: UploadProgressFn | null | undefined;
 }
 
 interface ListFileNamesOpts extends CommonArgs {
@@ -94,12 +94,12 @@ interface ListFileVersionsOpts extends CommonArgs {
 
 interface ListPartsOpts extends CommonArgs {
     fileId: string;
-    startPartNumber?: number;
+    startPartNumber?: number | undefined;
     /**
      * maximum part count
      * max value 100
      */
-    maxPartCount?: number;
+    maxPartCount?: number | undefined;
 }
 
 interface GetDownloadAuthorizationOpts extends CommonArgs {
@@ -114,7 +114,7 @@ interface GetDownloadAuthorizationOpts extends CommonArgs {
 
 interface DownloadFileOpts extends CommonArgs {
     responseType: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | 'stream';
-    onDownloadProgress?: UploadProgressFn | null;
+    onDownloadProgress?: UploadProgressFn | null | undefined;
 }
 
 interface DownlaodFileByNameOpts extends DownloadFileOpts {
@@ -130,17 +130,17 @@ interface UploadPartOpts extends CommonArgs {
     uploadUrl: string;
     uploadAuthToken: string;
     data: Buffer;
-    hash?: string;
-    onUploadProgress?: UploadProgressFn | null;
-    contentLength?: number;
+    hash?: string | undefined;
+    onUploadProgress?: UploadProgressFn | null | undefined;
+    contentLength?: number | undefined;
 }
 
 interface CreateKeyOpts extends CommonArgs {
     capabilities: string[];
     keyName: string;
-    validDurationInSeconds?: number;
-    bucketId?: string;
-    namePrefix?: string;
+    validDurationInSeconds?: number | undefined;
+    bucketId?: string | undefined;
+    namePrefix?: string | undefined;
 }
 
 declare class BackBlazeB2 {

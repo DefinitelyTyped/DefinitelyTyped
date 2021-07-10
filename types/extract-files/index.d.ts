@@ -6,14 +6,14 @@
 
 export interface ReactNativeFileOptions {
     uri: string;
-    type?: string;
-    name?: string;
+    type?: string | undefined;
+    name?: string | undefined;
 }
 
 export class ReactNativeFile {
     uri: string;
-    type?: string;
-    name?: string;
+    type?: string | undefined;
+    name?: string | undefined;
 
     constructor(options: ReactNativeFileOptions);
 }

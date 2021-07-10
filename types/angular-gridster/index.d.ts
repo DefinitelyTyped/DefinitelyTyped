@@ -13,81 +13,81 @@ declare module "angular" {
     namespace gridster {
         interface GridsterConfig {
             // number of columns in the grid
-            columns?: number;
+            columns?: number | undefined;
             // whether to push other items out of the way
 
             // whether to push other items out of the way
-            pushing?: boolean;
+            pushing?: boolean | undefined;
 
             // whether to automatically float items up so they stack
-            floating?: boolean;
+            floating?: boolean | undefined;
 
             // whether or not to have items switch places instead of push down if they are the same size
-            swapping?: boolean;
+            swapping?: boolean | undefined;
 
             // width of the grid. "auto" will expand the grid to its parent container
-            width?: string;
+            width?: string | undefined;
 
             // width of grid columns. "auto" will divide the width of the grid evenly among the columns
-            colWidth?: string;
+            colWidth?: string | undefined;
 
             // height of grid rows. 'match' will make it the same as the column width, a numeric value will be interpreted as pixels,
             // '/2' is half the column width, '*5' is five times the column width, etc.
-            rowHeight?: string;
+            rowHeight?: string | undefined;
 
             // margins in between grid items
-            margins?: number[];
+            margins?: number[] | undefined;
 
             // whether to set the outer margin
-            outerMargin?: boolean;
+            outerMargin?: boolean | undefined;
 
             // toggle mobile view
-            isMobile?: boolean;
+            isMobile?: boolean | undefined;
 
             // width threshold to toggle mobile mode
-            mobileBreakPoint?: number;
+            mobileBreakPoint?: number | undefined;
 
             // whether or not to toggle mobile mode when screen width is less than mobileBreakPoint
-            mobileModeEnabled?: boolean;
+            mobileModeEnabled?: boolean | undefined;
 
             // minimum amount of columns the grid can scale down to
-            minColumns?: number;
+            minColumns?: number | undefined;
 
             // minimum amount of rows to show if the grid is empty
-            minRows?: number;
+            minRows?: number | undefined;
 
             // maximum amount of rows in the grid
-            maxRows?: number;
+            maxRows?: number | undefined;
 
             // default width of an item in columns
-            defaultSizeX?: number;
+            defaultSizeX?: number | undefined;
 
             // default height of an item in rows
-            defaultSizeY?: number;
+            defaultSizeY?: number | undefined;
 
             // minimum column width of an item
-            minSizeX?: number;
+            minSizeX?: number | undefined;
 
             // maximum column width of an item
-            maxSizeX?: number;
+            maxSizeX?: number | undefined;
 
             // minumum row height of an item
-            minSizeY?: number;
+            minSizeY?: number | undefined;
 
             // maximum row height of an item
-            maxSizeY?: number;
+            maxSizeY?: number | undefined;
 
-            saveGridItemCalculatedHeightInMobile?: boolean;
+            saveGridItemCalculatedHeightInMobile?: boolean | undefined;
             // grid item height in mobile display. true- to use the calculated height by sizeY given
 
             // options to pass to resizable handler
             resizable?: {
                 // whether the items are resizable
-                enabled?: boolean;
+                enabled?: boolean | undefined;
 
                 // location of the resize handles
                 // e.g // ['s', 'e', 'n', 'w', 'se', 'ne', 'sw', 'nw']
-                handles?: string[];
+                handles?: string[] | undefined;
 
                 // optional callback fired when drag is started
                 start?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
@@ -97,21 +97,21 @@ declare module "angular" {
 
                 // optional callback fired when item is finished dragging
                 stop?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
-            };
+            } | undefined;
 
             // options to pass to draggable handler
             draggable?: {
                 // whether the items are resizable
-                enabled?: boolean;
+                enabled?: boolean | undefined;
 
                 // Distance in pixels from the edge of the viewport after which the viewport should scroll, relative to pointer
-                scrollSensitivity?: number;
+                scrollSensitivity?: number | undefined;
 
                 // Speed at which the window should scroll once the mouse pointer gets within scrollSensitivity distance
-                scrollSpeed?: number;
+                scrollSpeed?: number | undefined;
 
                 // optional selector for drag handle
-                handle?: string;
+                handle?: string | undefined;
 
                 // optional callback fired when drag is started
                 start?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
@@ -121,7 +121,7 @@ declare module "angular" {
 
                 // optional callback fired when item is finished dragging
                 stop?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
-            };
+            } | undefined;
         }
 
         interface StandardGridsterItem {

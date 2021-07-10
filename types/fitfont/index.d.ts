@@ -28,15 +28,15 @@ export interface Options {
     /**
      * Horizontal alignment
      */
-    halign?: HorizontalAlign;
+    halign?: HorizontalAlign | undefined;
     /**
      * Vertical alignment
      */
-    valign?: VerticalAlign;
+    valign?: VerticalAlign | undefined;
     /**
      * Letter spacing
      */
-    letterspacing?: number;
+    letterspacing?: number | undefined;
 }
 
 /**

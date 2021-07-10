@@ -17,7 +17,7 @@ declare namespace gitDiff {
          * Add color to the git diff returned?
          * @default false
          */
-        color?: boolean;
+        color?: boolean | undefined;
         /**
          * A space separated string of git diff flags.
          *
@@ -25,27 +25,27 @@ declare namespace gitDiff {
          * @default null
          * @see @link https://git-scm.com/docs/git-diff#_options
          */
-        flags?: string | null;
+        flags?: string | null | undefined;
         /**
          * Do not try and get a real git diff, just get me a fake? Faster but may not be 100% accurate
          * @default false
          */
-        forceFake?: boolean;
+        forceFake?: boolean | undefined;
         /**
          * Remove the ugly @@ -1,3 +1,3 @@ header?
          * @default false
          */
-        noHeaders?: boolean;
+        noHeaders?: boolean | undefined;
         /**
          * Remember the options for next time?
          * @default false
          */
-        save?: boolean;
+        save?: boolean | undefined;
         /**
          * Get a word diff instead of a line diff?
          * @default false
          */
-        wordDiff?: boolean;
+        wordDiff?: boolean | undefined;
     }
 }
 

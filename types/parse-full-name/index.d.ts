@@ -15,13 +15,13 @@ export type partToReturn =
     | 'all';
 
 export interface Name {
-    title?: string;
-    first?: string;
-    middle?: string;
-    last?: string;
-    nick?: string;
-    suffix?: string;
-    error?: [];
+    title?: string | undefined;
+    first?: string | undefined;
+    middle?: string | undefined;
+    last?: string | undefined;
+    nick?: string | undefined;
+    suffix?: string | undefined;
+    error?: [] | undefined;
 }
 
 /**

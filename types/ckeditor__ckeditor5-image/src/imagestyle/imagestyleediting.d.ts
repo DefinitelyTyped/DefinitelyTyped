@@ -8,7 +8,7 @@ export default class ImageStyleEditing extends Plugin {
 export interface ImageStyleFormat {
     className: string;
     icon: string;
-    isDefault?: boolean;
+    isDefault?: boolean | undefined;
     name: string;
     title: string;
 }

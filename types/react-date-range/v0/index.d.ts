@@ -28,51 +28,51 @@ export interface DateContainerType {
 }
 
 export interface CalendarTheme {
-    DateRange?: React.CSSProperties;
-    Calendar?: React.CSSProperties;
-    Day?: React.CSSProperties;
-    DayPassive?: React.CSSProperties;
-    DayHover?: React.CSSProperties;
-    DayToday?: React.CSSProperties;
-    DaySunday?: React.CSSProperties;
-    DaySpecialDay?: React.CSSProperties;
-    DayActive?: React.CSSProperties;
-    DaySelected?: React.CSSProperties;
-    DayStartEdge?: React.CSSProperties;
-    DayEndEdge?: React.CSSProperties;
-    DayInRange?: React.CSSProperties;
-    Weekday?: React.CSSProperties;
-    MonthAndYear?: React.CSSProperties;
-    MonthButton?: React.CSSProperties;
-    MonthArrow?: React.CSSProperties;
-    MonthArrowPrev?: React.CSSProperties;
-    MonthArrowNext?: React.CSSProperties;
-    PredefinedRanges?: React.CSSProperties;
-    PredefinedRangesItem?: React.CSSProperties;
-    PredefinedRangesItemActive?: React.CSSProperties;
+    DateRange?: React.CSSProperties | undefined;
+    Calendar?: React.CSSProperties | undefined;
+    Day?: React.CSSProperties | undefined;
+    DayPassive?: React.CSSProperties | undefined;
+    DayHover?: React.CSSProperties | undefined;
+    DayToday?: React.CSSProperties | undefined;
+    DaySunday?: React.CSSProperties | undefined;
+    DaySpecialDay?: React.CSSProperties | undefined;
+    DayActive?: React.CSSProperties | undefined;
+    DaySelected?: React.CSSProperties | undefined;
+    DayStartEdge?: React.CSSProperties | undefined;
+    DayEndEdge?: React.CSSProperties | undefined;
+    DayInRange?: React.CSSProperties | undefined;
+    Weekday?: React.CSSProperties | undefined;
+    MonthAndYear?: React.CSSProperties | undefined;
+    MonthButton?: React.CSSProperties | undefined;
+    MonthArrow?: React.CSSProperties | undefined;
+    MonthArrowPrev?: React.CSSProperties | undefined;
+    MonthArrowNext?: React.CSSProperties | undefined;
+    PredefinedRanges?: React.CSSProperties | undefined;
+    PredefinedRangesItem?: React.CSSProperties | undefined;
+    PredefinedRangesItemActive?: React.CSSProperties | undefined;
 }
 
 export interface Range {
     /** default: today */
-    startDate?: moment.Moment;
+    startDate?: moment.Moment | undefined;
     /** default: today */
-    endDate?: moment.Moment;
+    endDate?: moment.Moment | undefined;
 }
 
 export interface CommonCalendarProps {
     /** default: DD/MM/YYY */
-    format?: string;
+    format?: string | undefined;
     /** default: moment.localeData().firstDayOfWeek() */
-    firstDayOfWeek?: number;
-    theme?: CalendarTheme;
+    firstDayOfWeek?: number | undefined;
+    theme?: CalendarTheme | undefined;
     /** default: none */
-    onInit?: (range: Range) => void;
+    onInit?: ((range: Range) => void) | undefined;
     /** default: none */
-    onChange?: (range: Range) => void;
+    onChange?: ((range: Range) => void) | undefined;
     /** default: none */
-    minDate?: DateInputType;
+    minDate?: DateInputType | undefined;
     /** default: none */
-    maxDate?: DateInputType;
+    maxDate?: DateInputType | undefined;
     /**
      * Calendar languages.
      * ('cn' - Chinese, 'jp' - Japanese,
@@ -81,7 +81,7 @@ export interface CommonCalendarProps {
      * 'es' - Spanish, 'ru' - Russian,
      * 'tr' - Turkish) default: none
      */
-    lang?: LanguageType;
+    lang?: LanguageType | undefined;
 }
 
 export interface CalendarProps extends CommonCalendarProps {
@@ -93,55 +93,57 @@ export class Calendar extends React.Component<CalendarProps> { }
 
 export interface DateRangeProps extends Range, CommonCalendarProps {
     /** default: enUs from locale. Complete list here https://github.com/Adphorus/react-date-range/blob/next/src/locale/index.js */
-    locale?: object;
+    locale?: object | undefined;
     /** default: false */
-    linkedCalendars?: boolean;
+    linkedCalendars?: boolean | undefined;
     /** default: 2 */
-    calendars?: number;
+    calendars?: number | undefined;
     /** default: none */
-    ranges?: object;
+    ranges?: object | undefined;
     /** default: { enabled: false } */
-    scroll?: object;
+    scroll?: object | undefined;
     /** default: false */
-    showSelectionPreview?: boolean;
+    showSelectionPreview?: boolean | undefined;
     /** default: false */
-    twoStepChange?: boolean;
+    twoStepChange?: boolean | undefined;
     /** default: true */
-    showMonthArrow?: boolean;
+    showMonthArrow?: boolean | undefined;
     /** default: false */
-    rangedCalendars?: boolean;
+    rangedCalendars?: boolean | undefined;
     /** default: none */
-    specialDays?: DateContainerType[];
+    specialDays?: DateContainerType[] | undefined;
     /** default: 1 */
-    months?: number;
+    months?: number | undefined;
     /** default: */
-    weekStartsOn?: number;
+    weekStartsOn?: number | undefined;
     /** default: true */
-    showMonthAndYearPickers?: boolean;
+    showMonthAndYearPickers?: boolean | undefined;
     /** default: [] */
-    rangeColors?: string[];
+    rangeColors?: string[] | undefined;
     /** default: */
-    shownDate?: Date;
+    shownDate?: Date | undefined;
     /** default: */
-    disabledDates?: Date[];
+    disabledDates?: Date[] | undefined;
     /** default: Early */
-    startDatePlaceholder?: string;
+    startDatePlaceholder?: string | undefined;
     /** default: */
-    className?: string;
+    className?: string | undefined;
     /** default: Continuous */
-    endDatePlaceholder?: string;
+    endDatePlaceholder?: string | undefined;
     /** default: MMM d, yyyy */
-    dateDisplayFormat?: string;
+    dateDisplayFormat?: string | undefined;
     /** default: d */
-    dayDisplayFormat?: string;
+    dayDisplayFormat?: string | undefined;
     /** default: E */
-    weekdayDisplayFormat?: string;
+    weekdayDisplayFormat?: string | undefined;
     /** default: MMM yyyy */
-    monthDisplayFormat?: string;
+    monthDisplayFormat?: string | undefined;
     /** default: vertical */
-    direction?: string;
+    direction?: string | undefined;
     /** default: false */
-    moveRangeOnFirstSelection?: boolean;
+    moveRangeOnFirstSelection?: boolean | undefined;
+    /** default: false */
+    retainEndDateOnFirstSelection?: boolean;
     /** default: false */
     editableDateInputs?: boolean;
 }

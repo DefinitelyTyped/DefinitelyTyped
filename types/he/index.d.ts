@@ -17,7 +17,7 @@ export interface EncodeOptions {
     * (e.g. &copy;) in the output — hexadecimal escapes (e.g. &#xA9;) will
     * be used instead. Set it to true to enable the use of named references.
     */
-    useNamedReferences?: boolean;
+    useNamedReferences?: boolean | undefined;
 
     /**
      * The default value for the decimal option is false. If the option is
@@ -29,7 +29,7 @@ export interface EncodeOptions {
      * decimal escapes. HTML entities without a named reference are encoded
      * using decimal escapes.
      */
-    decimal?: boolean;
+    decimal?: boolean | undefined;
 
     /**
     * The default value for the encodeEverything option is false. This means
@@ -39,7 +39,7 @@ export interface EncodeOptions {
     * allowUnsafeSymbols (i.e. setting the latter to true in such a case has
       * no effect).
     */
-    encodeEverything?: boolean;
+    encodeEverything?: boolean | undefined;
 
     /**
      * The default value for the strict option is false. This means that
@@ -48,7 +48,7 @@ export interface EncodeOptions {
      * invalid HTML is encountered, set the strict option to true. This option
      * makes it possible to use he as part of HTML parsers and HTML validators.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 
     /**
     * The default value for the allowUnsafeSymbols option is false. This means
@@ -57,7 +57,7 @@ export interface EncodeOptions {
     * be encoded. If the encodeEverything option is set to true, this option
     * will be ignored.
     */
-    allowUnsafeSymbols?: boolean;
+    allowUnsafeSymbols?: boolean | undefined;
 }
 
 export interface Encode {
@@ -87,7 +87,7 @@ export interface DecodeOptions {
      * character references in attribute values — set this option to true to
      * treat the input string as if it were used as an attribute value.
      */
-    isAttributeValue?: boolean;
+    isAttributeValue?: boolean | undefined;
 
     /**
      * The default value for the strict option is false. This means that
@@ -97,7 +97,7 @@ export interface DecodeOptions {
      * option makes it possible to use he as part of HTML parsers and HTML
      * validators.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 }
 
 export interface Decode {

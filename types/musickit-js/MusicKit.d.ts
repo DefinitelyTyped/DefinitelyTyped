@@ -13,19 +13,19 @@ declare namespace MusicKit {
         /**
          * The build number of your app.
          */
-        build?: string;
+        build?: string | undefined;
         /**
          * A URL for your app icon.
          */
-        icon?: string;
+        icon?: string | undefined;
         /**
          * The name of your app.
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * The version of your app.
          */
-        version?: string;
+        version?: string | undefined;
     }
 
     interface FormattedPlaybackDuration {
@@ -49,25 +49,25 @@ declare namespace MusicKit {
         /**
          * The version of your app.
          */
-        app?: AppConfiguration;
+        app?: AppConfiguration | undefined;
         /**
          * This property indicates whether you have explicitly enabled or disabled
          * declarative markup.
          */
-        declarativeMarkup?: boolean;
+        declarativeMarkup?: boolean | undefined;
         /**
          * The developer token to identify yourself as a trusted developer and
          * member of the Apple Developer Program.
          */
-        developerToken?: string;
+        developerToken?: string | undefined;
         /**
          * The current storefront for this MusicKit configuration.
          */
-        storefrontId?: string;
+        storefrontId?: string | undefined;
         /**
          * The playback bit rate of the music player.
          */
-        bitrate?: PlaybackBitrate;
+        bitrate?: PlaybackBitrate | undefined;
     }
     /**
      * Configure a MusicKit instance.

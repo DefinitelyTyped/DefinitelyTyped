@@ -38,11 +38,11 @@ declare namespace EventSource {
   enum ReadyState { CONNECTING = 0, OPEN = 1, CLOSED = 2 }
 
   interface EventSourceInitDict {
-    withCredentials?: boolean;
-    headers?: object;
-    proxy?: string;
-    https?: object;
-    rejectUnauthorized?: boolean;
+    withCredentials?: boolean | undefined;
+    headers?: object | undefined;
+    proxy?: string | undefined;
+    https?: object | undefined;
+    rejectUnauthorized?: boolean | undefined;
   }
 }
 

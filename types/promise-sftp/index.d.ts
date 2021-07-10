@@ -63,7 +63,7 @@ declare namespace PromiseSftp {
          * handle password change requests. If this option isn't set, and the
          * server requests a password change, I haven't tested what will happen.
          */
-        changePassword?: (message: string, language: string) => Promise<string>;
+        changePassword?: ((message: string, language: string) => Promise<string>) | undefined;
 
         /**
          * Whether to attempt to automatically reconnect using the existing
@@ -71,14 +71,14 @@ declare namespace PromiseSftp {
          * lazy, and so will wait until a command needs to be issued before
          * attempting to reconnect.
          */
-        autoReconnect?: boolean;
+        autoReconnect?: boolean | undefined;
 
         /**
          * Path and name of a file containing a private key as would be passed
          * to the privateKey option. If privateKey is also set, priority is
          * given to the privateKey option.
          */
-        privateKeyFile?: string;
+        privateKeyFile?: string | undefined;
 
         /**
          * Set this option to a function to try keyboard-interactive user
@@ -88,7 +88,7 @@ declare namespace PromiseSftp {
          * @param name - is generally what you'd use as a header or GUI window
          * title to describe the purpose of the `prompts`
          */
-        tryKeyboard?: (
+        tryKeyboard?: ((
             name: string,
             instructions: string,
             instructionsLang: string,
@@ -98,19 +98,19 @@ declare namespace PromiseSftp {
                 /** Whether the user's input should be displayed on-screen */
                 echo: boolean;
             }>
-        ) => Array<string | Promise<string>> | Promise<string[]>;
+        ) => Array<string | Promise<string>> | Promise<string[]>) | undefined;
 
         /** Alias for `username` */
-        user?: string;
+        user?: string | undefined;
 
         /** Alias for `readyTimeout` */
-        connTimeout?: number;
+        connTimeout?: number | undefined;
 
         /** Alias for `readyTimeout` */
-        pasvTimeout?: number;
+        pasvTimeout?: number | undefined;
 
         /** Alias for `keepaliveInterval` */
-        keepalive?: number;
+        keepalive?: number | undefined;
     };
 
     /** Output of `PromiseSftp#list()` */
@@ -129,19 +129,19 @@ declare namespace PromiseSftp {
             user: string;
             group: string;
             other: string;
-        };
+        } | undefined;
 
         /** The user name or ID that this entry belongs to. *NIX only */
-        owner?: string;
+        owner?: string | undefined;
 
         /** The group name or ID that this entry belongs to. *NIX only */
-        group?: string;
+        group?: string | undefined;
 
         /** For symlink entries, this is the symlink's target. *NIX only */
-        target?: string;
+        target?: string | undefined;
 
         /** True if the sticky bit is set for this entry */
-        sticky?: boolean;
+        sticky?: boolean | undefined;
     }
 
     /** Options for `PromiseSftp#fast{Get,Put}` */
@@ -150,7 +150,7 @@ declare namespace PromiseSftp {
          * Number of concurrent reads
          * @default 25
          */
-        concurrency?: number;
+        concurrency?: number | undefined;
 
         /**
          * Size of each read in bytes
@@ -159,7 +159,7 @@ declare namespace PromiseSftp {
         chunkSize: number;
 
         /** Called every time a part of a file is transferred */
-        step?: (totalTransferred: number, chunk: number, total: number) => void;
+        step?: ((totalTransferred: number, chunk: number, total: number) => void) | undefined;
     }
 
     /** From the [statvfs struct](http://linux.die.net/man/2/statvfs). */
@@ -339,14 +339,14 @@ declare class PromiseSftp {
         options?:
             | string
             | {
-                  flags?: string;
-                  encoding?: string;
-                  fd?: number;
-                  mode?: number;
-                  autoClose?: boolean;
-                  start?: number;
-                  end?: number;
-                  highWaterMark?: number;
+                  flags?: string | undefined;
+                  encoding?: string | undefined;
+                  fd?: number | undefined;
+                  mode?: number | undefined;
+                  autoClose?: boolean | undefined;
+                  start?: number | undefined;
+                  end?: number | undefined;
+                  highWaterMark?: number | undefined;
               }
     ): Promise<NodeJS.ReadableStream>;
 
@@ -360,14 +360,14 @@ declare class PromiseSftp {
         options?:
             | string
             | {
-                  flags?: string;
-                  encoding?: string;
-                  fd?: number;
-                  mode?: number;
-                  autoClose?: boolean;
-                  start?: number;
-                  end?: number;
-                  highWaterMark?: number;
+                  flags?: string | undefined;
+                  encoding?: string | undefined;
+                  fd?: number | undefined;
+                  mode?: number | undefined;
+                  autoClose?: boolean | undefined;
+                  start?: number | undefined;
+                  end?: number | undefined;
+                  highWaterMark?: number | undefined;
               }
     ): Promise<NodeJS.WritableStream>;
 

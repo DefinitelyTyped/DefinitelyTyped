@@ -1,7 +1,7 @@
 import { LocationDescriptorObject } from "history";
 
 export interface LocationHelperConfig<Props> {
-    redirectQueryParamName?: string;
+    redirectQueryParamName?: string | undefined;
     locationSelector?(props: Props): LocationDescriptorObject;
 }
 

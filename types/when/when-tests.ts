@@ -199,7 +199,7 @@ when.unfold(function (x) {
 }, function (x) {
     return x < 10;
 }, function (y) {
-    delete (y as { foo?: string }).foo;
+    delete (y as { foo?: string | undefined }).foo;
 }, 0);
 
 /* when.promise(resolver) */
@@ -332,7 +332,7 @@ promise = when(1).timeout(1000, new Error('Too SLOW!'));
 
 var status: {
     state: string;
-    value?: number;
+    value?: number | undefined;
     reason?: any;
 };
 

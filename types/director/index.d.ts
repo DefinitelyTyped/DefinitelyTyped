@@ -38,34 +38,34 @@ export interface RoutingOptions<ThisType> {
      * Controls route recursion.
      * Default is `false` client-side, and `"backward"` server-side.
      */
-    recurse?: "forward" | "backward" | false;
+    recurse?: "forward" | "backward" | false | undefined;
     /**
      * If set to `false`, then trailing slashes (or other delimiters) are
      * allowed in routes. Default is `true`.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
     /**
      * Controls async routing. Default is `false`.
      */
-    async?: boolean;
+    async?: boolean | undefined;
     /**
      * Character separator between route fragments. Default is `/`.
      */
-    delimiter?: string;
+    delimiter?: string | undefined;
     /**
      * Function to call if no route is found on a call to `router.dispatch()`.
      */
-    notfound?: Handler<{ method: string; path: string }>;
+    notfound?: Handler<{ method: string; path: string }> | undefined;
     /**
      * A function (or list of functions) to call on every call to
      * `router.dispatch()` when a route is found.
      */
-    on?: RouteEntry<ThisType>;
+    on?: RouteEntry<ThisType> | undefined;
     /**
      *  A function (or list of functions) to call before every call to
      * `router.dispatch()` when a route is found.
      */
-    before?: RouteEntry<ThisType>;
+    before?: RouteEntry<ThisType> | undefined;
 
     // Client-only options
 
@@ -77,19 +77,19 @@ export interface RoutingOptions<ThisType> {
      */
     resource?: {
         [handlerName: string]: Handler<ThisType>;
-    };
+    } | undefined;
     /**
      * (_Client Only_)
      * A function (or list of functions) to call when a given route is no longer
      * the active route.
      */
-    after?: RouteEntry<ThisType>;
+    after?: RouteEntry<ThisType> | undefined;
     /**
      * (_Client Only_)
      * If set to `true` and client supports `pushState()`, then uses HTML5
      * History API instead of hash fragments.
      */
-    html5history?: boolean;
+    html5history?: boolean | undefined;
     /**
      * (_Client Only_)
      * If `html5history` is enabled, the route handler by default is executed
@@ -97,7 +97,7 @@ export interface RoutingOptions<ThisType> {
      * should call a route handler or not. Setting this to `false` disables the
      * route handler initial execution.
      */
-    run_handler_in_init?: boolean;
+    run_handler_in_init?: boolean | undefined;
     /**
      * (_Client Only_)
      * If `html5history` is enabled, the `window.location` hash by default is
@@ -106,7 +106,7 @@ export interface RoutingOptions<ThisType> {
      * Setting this to `false` disables the hash conversion on router
      * initialisation.
      */
-    convert_hash_in_init?: boolean;
+    convert_hash_in_init?: boolean | undefined;
 }
 
 // `director.Router` and `director.http.Router` have several methods with
@@ -219,20 +219,20 @@ export namespace http {
          * request body.
          * This can be used when you want to manually buffer the request.
          */
-        stream?: boolean;
+        stream?: boolean | undefined;
     }
 
     interface HttpRouteHandlerOptions {
         /**
          * Patterns to test against the `content-type` of the incoming request.
          */
-        accept?: BaseOrArray<string | RegExp>;
+        accept?: BaseOrArray<string | RegExp> | undefined;
         /**
          * If set to `true`, the router will not buffer the request for this
          * route.
          * This can be used when you want to manually buffer the request.
          */
-        stream?: boolean;
+        stream?: boolean | undefined;
     }
 
     /**

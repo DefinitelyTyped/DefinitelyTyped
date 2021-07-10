@@ -5,8 +5,8 @@
 // TypeScript Version: 3.5
 
 interface Options {
-    fixed?: number;
-    spacer?: string;
+    fixed?: number | undefined;
+    spacer?: string | undefined;
 }
 
 type Spec = "si" | "iec" | "jedec";

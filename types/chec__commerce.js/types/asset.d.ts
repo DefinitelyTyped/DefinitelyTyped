@@ -9,7 +9,7 @@ export interface Asset {
         width: number;
         height: number;
     };
-    file_size?: number;
+    file_size?: number | undefined;
     meta: any;
     created_at: number;
     updated_at: number;

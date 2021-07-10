@@ -10,7 +10,7 @@
 
 export interface AuthorizerConfiguration {
     jwkKeyListUrl: string;
-    authorizerContextResolver?: string;
+    authorizerContextResolver?: string | undefined;
 }
 
 export interface AuthorizerPolicy {
@@ -33,7 +33,7 @@ export interface PlatformClientConfiguration {
 
 /* tslint:disable:no-unnecessary-generics */
 export interface PlatformClientResponse<T> {
-    data?: T;
+    data?: T | undefined;
     status: number;
     statusText: string;
     headers: any;
@@ -58,9 +58,9 @@ export class PlatformClient {
  */
 
 export interface RequestLoggerConfiguration {
-    logFunction?: (msg: any) => void;
-    extendErrorObjects?: boolean;
-    jsonSpace?: number;
+    logFunction?: ((msg: any) => void) | undefined;
+    extendErrorObjects?: boolean | undefined;
+    jsonSpace?: number | undefined;
 }
 
 export class RequestLogger {

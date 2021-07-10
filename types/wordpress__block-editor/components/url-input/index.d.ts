@@ -11,12 +11,12 @@ declare namespace URLInput {
          * If you are not conditionally rendering this component set this property to `false`.
          * @defaultValue true
          */
-        autoFocus?: boolean;
-        children?: never;
+        autoFocus?: boolean | undefined;
+        children?: never | undefined;
         /**
          * Adds and optional class to the parent `div` that wraps the URLInput field and popover.
          */
-        className?: string;
+        className?: string | undefined;
         /**
          * Provides additional control over whether suggestions are disabled.
          *
@@ -31,10 +31,10 @@ declare namespace URLInput {
          * to fall back to the default behaviour of showing suggestions when matching autocompletion
          * items are found.
          */
-        disableSuggestions?: boolean;
-        hasBorder?: boolean;
-        id?: string;
-        isFullWidth?: boolean;
+        disableSuggestions?: boolean | undefined;
+        hasBorder?: boolean | undefined;
+        id?: string | undefined;
+        isFullWidth?: boolean | undefined;
         /**
          * Called when the value changes. The second parameter is `null` unless the user selects a
          * post from the suggestions dropdown.

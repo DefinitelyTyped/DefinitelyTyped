@@ -15,7 +15,7 @@ export interface IconProps extends TextProps {
    *
    * @default 12
    */
-  size?: number;
+  size?: number | undefined;
 
   /**
    * Name of the icon to show
@@ -29,7 +29,7 @@ export interface IconProps extends TextProps {
    * Color of the icon
    *
    */
-  color?: string;
+  color?: string | undefined;
 }
 
 export interface IconButtonProps extends IconProps, TouchableHighlightProps, TouchableNativeFeedbackProps {
@@ -39,7 +39,7 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProps, Tou
    *
    * @default 'white'
    */
-  color?: string;
+  color?: string | undefined;
 
   /**
    * Border radius of the button
@@ -47,7 +47,7 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProps, Tou
    *
    * @default 5
    */
-  borderRadius?: number;
+  borderRadius?: number | undefined;
 
   /**
    * Styles applied to the icon only
@@ -55,21 +55,21 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProps, Tou
    *
    * @default {marginRight: 10}
    */
-  iconStyle?: TextStyle;
+  iconStyle?: TextStyle | undefined;
 
   /**
    * Style prop inherited from TextProps and TouchableWithoutFeedbackProperties
    * Only exist here so we can have ViewStyle or TextStyle
    *
    */
-  style?: ViewStyle | TextStyle;
+  style?: ViewStyle | TextStyle | undefined;
 
   /**
    * Background color of the button
    *
    * @default '#007AFF'
    */
-  backgroundColor?: string;
+  backgroundColor?: string | undefined;
 }
 
 export type ImageSource = any;
@@ -124,20 +124,20 @@ export interface TabBarItemIOSProps extends TabBarIOSItemProps {
    * Defaults to iconName
    *
    */
-  selectedIconName?: string;
+  selectedIconName?: string | undefined;
 
   /**
    * Size of the icon
    *
    * @default 30
    */
-  iconSize?: number;
+  iconSize?: number | undefined;
 
   /**
    * Color of the icon
    *
    */
-  iconColor?: string;
+  iconColor?: string | undefined;
 
   /**
    * Color of the selected icon.
@@ -145,7 +145,7 @@ export interface TabBarItemIOSProps extends TabBarIOSItemProps {
    * Defaults to iconColor
    *
    */
-  selectedIconColor?: string;
+  selectedIconColor?: string | undefined;
 }
 
 export class Icon extends React.Component<IconProps, any> {

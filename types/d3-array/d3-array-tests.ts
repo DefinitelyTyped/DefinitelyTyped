@@ -824,7 +824,7 @@ const keysComparator: string[] = d3Array.groupSort(barley, (a, b) => d3Array.asc
 let count: number;
 
 count = d3Array.count([1, 2, NaN]); // 2
-count = d3Array.count<{ n: string, age?: number; }>([{ n: "Alice", age: NaN }, { n: "Bob", age: 18 }, { n: "Other" }], d => d.age); // 1
+count = d3Array.count<{ n: string, age?: number | undefined; }>([{ n: "Alice", age: NaN }, { n: "Bob", age: 18 }, { n: "Other" }], d => d.age); // 1
 
 // cross() ---------------------------------------------------------------------
 

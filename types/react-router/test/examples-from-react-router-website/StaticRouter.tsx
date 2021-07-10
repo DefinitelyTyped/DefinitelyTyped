@@ -10,7 +10,7 @@ interface RouteStatusProps {
 
 const RouteStatus: React.SFC<RouteStatusProps> = (props) => (
     <Route
-        render={({ staticContext }: {staticContext?: StaticContext}) => {
+        render={({ staticContext }: {staticContext?: StaticContext | undefined}) => {
             if (staticContext) {
                 staticContext.statusCode = props.statusCode;
             }

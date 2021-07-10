@@ -14,12 +14,12 @@ declare namespace sassVars {
          *
          * If enabled, the leading `$` will be removed and variable-names will be camelized (e.g. $foo-bar will become fooBar).
          */
-        camelize?: boolean;
+        camelize?: boolean | undefined;
 
         /**
          * The options to pass to `sass`.
          */
-        sassOptions?: Options;
+        sassOptions?: Options | undefined;
     }
 }
 

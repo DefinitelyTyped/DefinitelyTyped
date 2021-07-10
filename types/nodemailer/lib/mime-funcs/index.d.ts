@@ -1,6 +1,6 @@
 export interface HeaderValue {
     value: string;
-    params?: { [key: string]: string };
+    params?: { [key: string]: string } | undefined;
 }
 
 export interface ParsedHeaderValue extends HeaderValue {

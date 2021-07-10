@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
-    emptyList?: boolean;
-    exclude?: string[];
-    list?: string[];
-    placeHolder?: string;
-    regex?: RegExp;
-    replaceRegex?: RegExp;
-    splitRegex?: RegExp;
+    emptyList?: boolean | undefined;
+    exclude?: string[] | undefined;
+    list?: string[] | undefined;
+    placeHolder?: string | undefined;
+    regex?: RegExp | undefined;
+    replaceRegex?: RegExp | undefined;
+    splitRegex?: RegExp | undefined;
 }
 
 declare class BadWordsFilter {

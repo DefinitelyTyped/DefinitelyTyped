@@ -7,7 +7,7 @@ declare function T(el: Element | Document, options?: T.Options): HTMLElement[];
 
 declare namespace T {
     interface Options {
-        includeContainer?: boolean;
+        includeContainer?: boolean | undefined;
     }
 
     function isTabbable(el: HTMLElement): boolean;

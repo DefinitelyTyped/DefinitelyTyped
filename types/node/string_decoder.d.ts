@@ -5,3 +5,7 @@ declare module 'string_decoder' {
         end(buffer?: Buffer): string;
     }
 }
+
+declare module 'node:string_decoder' {
+    export * from 'string_decoder';
+}

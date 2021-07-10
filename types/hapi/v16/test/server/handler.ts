@@ -22,7 +22,7 @@ interface TestPluginConfig {
 
 declare module 'hapi' {
     interface RouteHandlerPlugins {
-        test?: TestPluginConfig;
+        test?: TestPluginConfig | undefined;
     }
 }
 

@@ -1,7 +1,7 @@
 import { Transform, Options, Parser } from './core';
 
 export interface TestOptions {
-  parser?: Parser | string;
+  parser?: Parser | string | undefined;
 }
 
 export function defineTest(

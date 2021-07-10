@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 interface GulpJsonValidatorOptions {
-    allowDuplicatedKeys?: boolean;
+    allowDuplicatedKeys?: boolean | undefined;
 }
 
 declare function gulpJsonValidator(option?: GulpJsonValidatorOptions): NodeJS.ReadWriteStream;

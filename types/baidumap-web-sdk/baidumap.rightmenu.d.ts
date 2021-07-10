@@ -33,9 +33,9 @@ SOFTWARE.
 declare namespace BMap {
     type ContextMenuIcon = string;
     interface MenuItemOptions {
-        width?: number;
-        id?: string;
-        iconUrl?: string;
+        width?: number | undefined;
+        id?: string | undefined;
+        iconUrl?: string | undefined;
     }
     class MenuItem {
         constructor(text: string, callback: (point: Point) => void, opts?: MenuItemOptions);

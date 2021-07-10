@@ -13,18 +13,18 @@ declare namespace echarts {
              *
              * @default 'plain'
              */
-            type?: 'plain' | 'scroll';
+            type?: 'plain' | 'scroll' | undefined;
 
             /**
              * Component ID, not specified by default.
              * If specified, it can be used to refer the component in option or API.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * Whether to show the legend component.
              * @default true
              */
-            show?: boolean;
+            show?: boolean | undefined;
             /**
              * zlevel value of all graphical elements in.
              * zlevel is used to make layers with Canvas.
@@ -37,7 +37,7 @@ declare namespace echarts {
              *
              * @default 0
              */
-            zlevel?: number;
+            zlevel?: number | undefined;
             /**
              * z value of all graphical elements in, which controls order of drawing graphical components.
              * Components with smaller z values may be overwritten by those with larger z values.
@@ -45,7 +45,7 @@ declare namespace echarts {
              *
              * @deafult 2
              */
-            z?: number;
+            z?: number | undefined;
             /**
              * Distance between legend component and the left side of the container.
              * left value can be instant pixel value like 20;
@@ -56,7 +56,7 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            left?: string | number;
+            left?: string | number | undefined;
             /**
              * Distance between legend component and the top side of the container.
              * top value can be instant pixel value like 20;
@@ -67,7 +67,7 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            top?: string | number;
+            top?: string | number | undefined;
             /**
              * Distance between legend component and the right side of the container.
              * right value can be instant pixel value like 20;
@@ -76,7 +76,7 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            right?: string | number;
+            right?: string | number | undefined;
             /**
              * Distance between legend component and the bottom side of the container.
              * bottom value can be instant pixel value like 20;
@@ -85,25 +85,25 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            bottom?: string | number;
+            bottom?: string | number | undefined;
             /**
              * Width of legend component. Adaptive by default.
              *
              * @default 'auto'
              */
-            width?: number;
+            width?: number | undefined;
             /**
              * Height of legend component. Adaptive by default.
              *
              * @default 'auto'
              */
-            height?: number;
+            height?: number | undefined;
             /**
              * The layout orientation of legend.
              *
              * @default 'horizontal'
              */
-            orient?: 'horizontal' | 'vertical';
+            orient?: 'horizontal' | 'vertical' | undefined;
             /**
              * Legend mrker and text aligning. By default,
              * it automatically calculates from component location and orient.
@@ -113,7 +113,7 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            align?: 'auto' | 'left' | 'right';
+            align?: 'auto' | 'left' | 'right' | undefined;
             /**
              * Legend space around content.
              * The unit is px. Default values for each position are 5.
@@ -134,39 +134,39 @@ declare namespace echarts {
              * ]
              * ```
              */
-            padding?: number | number[];
+            padding?: number | number[] | undefined;
             /**
              * The distance between each legend, horizontal distance in horizontal layout,
              * and vertical distance in vertical layout.
              *
              * @default 10
              */
-            itemGap?: number;
+            itemGap?: number | undefined;
             /**
              * Image width of legend symbol.
              *
              * @default 25
              */
-            itemWidth?: number;
+            itemWidth?: number | undefined;
             /**
              * Image height of legend symbol.
              *
              * @default 14
              */
-            itemHeight?: number;
+            itemHeight?: number | undefined;
             /**
              * Whether to keep aspect for icons
              * (from series.symbol or user-defined legend.data.icon) in the form of path://.
              *
              * @default true
              */
-            symbolKeepAspect?: boolean;
+            symbolKeepAspect?: boolean | undefined;
             /**
              * Formatter is used to format label of legend, which supports string template and callback function.
              *
              * @default null
              */
-            formatter?: string | Legend.Formatter;
+            formatter?: string | Legend.Formatter | undefined;
             /**
              * Selected mode of legend, which controls whether series can be toggled displaying by clicking legends.
              * It is enabled by default, and you may set it to be false to disabled it.
@@ -174,13 +174,13 @@ declare namespace echarts {
              *
              * @default true
              */
-            selectedMode?: boolean | 'single' | 'multiple';
+            selectedMode?: boolean | 'single' | 'multiple' | undefined;
             /**
              * Legend color when not selected.
              *
              * @default '#ccc'
              */
-            inactiveColor?: string;
+            inactiveColor?: string | undefined;
             /**
              * State table of selected legend.
              *
@@ -194,17 +194,17 @@ declare namespace echarts {
              * }
              * ```
              */
-            selected?: object;
+            selected?: object | undefined;
             /**
              * Legend text style.
              */
-            textStyle?: TextStyleWithRich;
+            textStyle?: TextStyleWithRich | undefined;
             /**
              * Tooltip configuration for legend tooltip, which is similar to tooltip.
              *
              * @see https://echarts.apache.org/en/option.html#legend.tooltip
              */
-            tooltip?: Tooltip;
+            tooltip?: Tooltip | undefined;
             /**
              * Icon of the legend items.
              * Icon types provided by ECharts includes 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
@@ -216,7 +216,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#legend.icon
              */
-            icon?: string;
+            icon?: string | undefined;
             /**
              * Data array of legend. An array item is usually a name representing string.
              * (If it is a pie chart, it could also be the name of a single data in the pie chart) of a series.
@@ -230,7 +230,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#legend.data
              */
-            data?: string[] | Legend.LegendDataObject[];
+            data?: string[] | Legend.LegendDataObject[] | undefined;
             /**
              * Background color of legend, which is transparent by default.
              * Color can be represented in RGB, for example 'rgb(128, 128, 128)'.
@@ -239,19 +239,19 @@ declare namespace echarts {
              *
              * @default 'transparent'
              */
-            backgroundColor?: string;
+            backgroundColor?: string | undefined;
             /**
              * Border color of legend. Support the same color format as backgroundColor.
              *
              * @default '#ccc'
              */
-            borderColor?: string;
+            borderColor?: string | undefined;
             /**
              * Border width of legend.
              *
              * @default 1
              */
-            borderWidth?: number;
+            borderWidth?: number | undefined;
             /**
              * The radius of rounded corner. Its unit is px.
              * And it supports use array to respectively specify the 4 corner radiuses.
@@ -265,33 +265,33 @@ declare namespace echarts {
              * borderRadius: [5, 5, 0, 0] // (clockwise upper left, upper right, bottom right and bottom left)
              * ```
              */
-            borderRadius?: number | number[];
+            borderRadius?: number | number[] | undefined;
             /**
              * Size of shadow blur. This attribute should be used along with shadowColor,
              * shadowOffsetX, shadowOffsetY to set shadow to component.
              * Attention:
              * This property works only if show: true is configured and backgroundColor is defined other than transparent.
              */
-            shadowBlur?: number;
+            shadowBlur?: number | undefined;
             /**
              * Shadow color. Support same format as color.
              * Attention: This property works only if show: true configured.
              */
-            shadowColor?: string;
+            shadowColor?: string | undefined;
             /**
              * Offset distance on the horizontal direction of shadow.
              * Attention: This property works only if show: true configured.
              *
              * @default 0
              */
-            shadowOffsetX?: number;
+            shadowOffsetX?: number | undefined;
             /**
              * Offset distance on the vertical direction of shadow.
              * Attention: This property works only if show: true configured.
              *
              * @default 0
              */
-            shadowOffsetY?: number;
+            shadowOffsetY?: number | undefined;
             /**
              * It works when legend.type is 'scroll'.
              * dataIndex of the left top most displayed item.
@@ -302,21 +302,21 @@ declare namespace echarts {
              * @default 0
              * @see https://echarts.apache.org/en/option.html#legend.scrollDataIndex
              */
-            scrollDataIndex?: number;
+            scrollDataIndex?: number | undefined;
             /**
              * It works when legend.type is 'scroll'.
              * The gap between page buttons and page info text.
              *
              * @default 5
              */
-            pageButtonItemGap?: number;
+            pageButtonItemGap?: number | undefined;
             /**
              * It works when legend.type is 'scroll'.
              * The gap between page buttons and legend items.
              *
              * @default null
              */
-            pageButtonGap?: number;
+            pageButtonGap?: number | undefined;
             /**
              * It works when legend.type is 'scroll'.
              * The position of page buttons and page info. Optional values:
@@ -325,7 +325,7 @@ declare namespace echarts {
              *
              * @default 'end'
              */
-            pageButtonPosition?: 'start' | 'end';
+            pageButtonPosition?: 'start' | 'end' | undefined;
             /**
              * It works when legend.type is 'scroll'.
              * Page info formatter. It is '{current}/{total}' by default,
@@ -333,57 +333,57 @@ declare namespace echarts {
              *
              * @default '{current}/{total}'
              */
-            pageFormatter?: string | Legend.PageFormatter;
+            pageFormatter?: string | Legend.PageFormatter | undefined;
             /**
              * @see https://echarts.apache.org/en/option.html#legend.pageIcons
              */
-            pageIcons?: Legend.PageIcons;
+            pageIcons?: Legend.PageIcons | undefined;
             /**
              * It works when legend.type is 'scroll'.
              * The color of page buttons.
              *
              * @default '#2f4554'
              */
-            pageIconColor?: string;
+            pageIconColor?: string | undefined;
             /**
              * It works when legend.type is 'scroll'.
              * The color of page buttons when they are inactive.
              *
              * @default '#aaa'
              */
-            pageIconInactiveColor?: string;
+            pageIconInactiveColor?: string | undefined;
             /**
              * It works when legend.type is 'scroll'.
              * The size of page buttons. It can be a number, or an array, like [10, 3], represents [width, height].
              *
              * @default 15
              */
-            pageIconSize?: number | number[];
+            pageIconSize?: number | number[] | undefined;
             /**
              * It works when legend.type is 'scroll'.
              * The text style of page info.
              */
-            pageTextStyle?: TextStyle;
+            pageTextStyle?: TextStyle | undefined;
             /**
              * Whether to use animation when page scrolll.
              */
-            animation?: boolean;
+            animation?: boolean | undefined;
             /**
              * Duration of the page scroll animation.
              *
              * @default 800
              */
-            animationDurationUpdate?: number;
+            animationDurationUpdate?: number | undefined;
             /**
              * The selector button in the legend component.
              * Currently includes both a full selection and an inverse selection.
              * The selector button doesn't display by default, the user can manually configure it.
              */
-            selector?: boolean | string[] | { type: string; title: string }[];
+            selector?: boolean | string[] | { type: string; title: string }[] | undefined;
             /**
              * The text label style of the selector button, which is displayed by default.
              */
-            selectorLabel?: Legend.SelectorLabel;
+            selectorLabel?: Legend.SelectorLabel | undefined;
             /**
              * The position of the selector button, which can be placed at the end or start of the legend component,
              * the corresponding values are 'end' and 'start'.
@@ -392,19 +392,19 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            selectorPosition?: string;
+            selectorPosition?: string | undefined;
             /**
              * The gap between the selector button.
              *
              * @default 7
              */
-            selectorItemGap?: number;
+            selectorItemGap?: number | undefined;
             /**
              * The gap between selector button and legend component.
              *
              * @default 10
              */
-            selectorButtonGap?: number;
+            selectorButtonGap?: number | undefined;
         }
 
         namespace Legend {
@@ -416,7 +416,7 @@ declare namespace echarts {
                  * Name of legend, which should be the name value of a certain series.
                  * If it is a pie chart, legend name can also be the name of a single data item.
                  */
-                name?: string;
+                name?: string | undefined;
                 /**
                  * Icon of the legend items.
                  * Icon types provided by ECharts includes 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
@@ -428,11 +428,11 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#legend.data.icon
                  */
-                icon?: string;
+                icon?: string | undefined;
                 /**
                  * Text style of legend.
                  */
-                textStyle?: TextStyle;
+                textStyle?: TextStyle | undefined;
             }
             interface PageFormatter {
                 (current: number, total: number): string;
@@ -444,14 +444,14 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#legend.pageIcons.horizontal
                  */
-                horizontal?: string[];
+                horizontal?: string[] | undefined;
                 /**
                  * The icons of page buttons when legend.orient is 'vertical'.
                  * It should be an array, [previous page button, next page button], ['M0,0L20,0L10,-20z', 'M0,0L20,0L10,20z'] by default.
                  *
                  * @see https://echarts.apache.org/en/option.html#legend.pageIcons.vertical
                  */
-                vertical?: string[];
+                vertical?: string[] | undefined;
             }
             interface SelectorLabel {
                 /**
@@ -459,7 +459,7 @@ declare namespace echarts {
                  *
                  * @default false
                  */
-                show?: boolean;
+                show?: boolean | undefined;
                 /**
                  * Distance to the host graphic element. Works when position is string value (like 'top'、'insideRight').
                  *
@@ -467,27 +467,27 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/examples/zh/editor.html?c=doc-example/label-position
                  */
-                distance?: number;
+                distance?: number | undefined;
                 /**
                  * Rotate label, from -90 degree to 90, positive value represents rotate anti-clockwise.
                  *
                  * @see https://echarts.apache.org/examples/zh/editor.html?c=bar-label-rotation
                  */
-                rotate?: number;
+                rotate?: number | undefined;
                 /**
                  * text color.
                  * If set as 'auto', the color will assigned as visual color, such as series color.
                  *
                  * @default '#fff'
                  */
-                color?: Color;
+                color?: Color | undefined;
                 /**
                  * font style.
                  * Options are:'normal','italic','oblique'
                  *
                  * @default 'normal'
                  */
-                fontStyle?: 'normal' | 'italic' | 'oblique';
+                fontStyle?: 'normal' | 'italic' | 'oblique' | undefined;
                 /**
                  * font thick weight.
                  *
@@ -506,31 +506,31 @@ declare namespace echarts {
                     | 600
                     | 700
                     | 800
-                    | 900;
+                    | 900 | undefined;
                 /**
                  * font family.
                  *
                  * @default 'sans-serif'
                  */
-                fontFamily?: string;
+                fontFamily?: string | undefined;
                 /**
                  * font size
                  *
                  * @default 12
                  */
-                fontSize?: number;
+                fontSize?: number | undefined;
                 /**
                  * Horizontal alignment of text, automatic by default.
                  */
-                align?: 'left' | 'center' | 'right';
+                align?: 'left' | 'center' | 'right' | undefined;
                 /**
                  * Vertical alignment of text, automatic by default.
                  */
-                verticalAlign?: 'top' | 'middle' | 'bottom';
+                verticalAlign?: 'top' | 'middle' | 'bottom' | undefined;
                 /**
                  * Line height of the text fragment.
                  */
-                lineHeight?: number;
+                lineHeight?: number | undefined;
                 /**
                  * Background color of the text fragment.
                  * Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'.
@@ -551,21 +551,21 @@ declare namespace echarts {
                  *
                  * @default 'transparent'
                  */
-                backgroundColor?: string | object;
+                backgroundColor?: string | object | undefined;
                 /**
                  * Border color of the text fragment.
                  * If set as 'auto', the color will assigned as visual color, such as series color.
                  * @default 'transparent'
                  */
-                borderColor?: Color;
+                borderColor?: Color | undefined;
                 /**
                  * Border width of the text fragment.
                  */
-                borderWidth?: number;
+                borderWidth?: number | undefined;
                 /**
                  * Border radius of the text fragment.
                  */
-                borderRadius?: number;
+                borderRadius?: number | undefined;
                 /**
                  * Padding of the text fragment, for example:
                  * padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].
@@ -573,73 +573,73 @@ declare namespace echarts {
                  * padding: [3, 4]: represents padding: [3, 4, 3, 4].
                  * Notice, width and height specifies the width and height of the content, without padding
                  */
-                padding?: number | number[];
+                padding?: number | number[] | undefined;
                 /**
                  * Shadow color of the text block.
                  *
                  * @default 'transparent'
                  */
-                shadowColor?: Color;
+                shadowColor?: Color | undefined;
                 /**
                  * Show blur of the text block.
                  */
-                shadowBlur?: number;
+                shadowBlur?: number | undefined;
                 /**
                  * Shadow X offset of the text block.
                  */
-                shadowOffsetX?: number;
+                shadowOffsetX?: number | undefined;
                 /**
                  * Shadow Y offset of the text block.
                  */
-                shadowOffsetY?: number;
+                shadowOffsetY?: number | undefined;
                 /**
                  * Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see backgroundColor).
                  * Notice, width and height specifies the width and height of the content, without padding. width can also be percent string, like '100%', which represents the percent of contentWidth (that is, the width without padding) of its container box. It is based on contentWidth because that each text fragment is layout based on the content box, where it makes no sense that calculating width based on outerWith in prectice.
                  * Notice, width and height only work when rich specified.
                  */
-                width?: number | string;
+                width?: number | string | undefined;
                 /**
                  * Height of the text block. It is the width of the text by default.
                  * You may want to use it in some cases like using background image (see backgroundColor).
                  * Notice, width and height specifies the width and height of the content, without padding.
                  * Notice, width and height only work when rich specified.
                  */
-                height?: number | string;
+                height?: number | string | undefined;
                 /**
                  * Storke color of the text.
                  * If set as 'auto', the color will assigned as visual color, such as series color.
                  *
                  * @default 'transparent'
                  */
-                textBorderColor?: Color;
+                textBorderColor?: Color | undefined;
                 /**
                  * Storke line width of the text.
                  */
-                textBorderWidth?: number;
+                textBorderWidth?: number | undefined;
                 /**
                  * Shadow color of the text itself.
                  *
                  * @default 'transparent'
                  */
-                textShadowColor?: Color;
+                textShadowColor?: Color | undefined;
                 /**
                  * Shadow blue of the text itself.
                  */
-                textShadowBlur?: number;
+                textShadowBlur?: number | undefined;
                 /**
                  * Shadow X offset of the text itself.
                  */
-                textShadowOffsetX?: number;
+                textShadowOffsetX?: number | undefined;
                 /**
                  * Shadow Y offset of the text itself.
                  */
-                textShadowOffsetY?: number;
+                textShadowOffsetY?: number | undefined;
                 /**
                  * "Rich text styles" can be defined in this rich property
                  *
                  * @see https://echarts.apache.org/en/tutorial.html#Rich%20Text
                  */
-                rich?: RichStyle;
+                rich?: RichStyle | undefined;
             }
         }
     }

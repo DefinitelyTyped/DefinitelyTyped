@@ -1,7 +1,7 @@
 // Type definitions for pino 3.0
 // Project: https://github.com/mcollina/pino.git
 // Definitions by: Peter Snider <https://github.com/psnider>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 
@@ -12,8 +12,8 @@ declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Du
 
 declare namespace P {
     function pretty(opts?: {
-        timeTransOnly?: boolean;
-        levelFirst?: boolean;
+        timeTransOnly?: boolean | undefined;
+        levelFirst?: boolean | undefined;
         formatter?(log: IPinoLog): string;
     }): stream.Transform;
 
@@ -48,23 +48,23 @@ declare namespace P {
 
     interface LoggerOptions {
         // avoid error causes by circular references in the object tree, default true
-        safe?: boolean;
+        safe?: boolean | undefined;
         // the name of the logger, default undefined
-        name?: string;
+        name?: string | undefined;
         // an object containing functions for custom serialization of objects.
         // These functions should return an JSONifiable object and they should never throw
-        serializers?: Serializers;
+        serializers?: Serializers | undefined;
         // Outputs ISO time stamps ('2016-03-09T15:18:53.889Z') instead of Epoch time stamps (1457536759176).
         // WARNING: This option carries a 25% performance drop, we recommend using default Epoch timestamps and transforming logs after if required.
         // The pino -t command will do this for you (see CLI). default false.
-        slowtime?: boolean;
+        slowtime?: boolean | undefined;
         // Enables extreme mode, yields an additional 60% performance (from 250ms down to 100ms per 10000 ops).
         // There are trade-off's should be understood before usage. See Extreme mode explained. default false
-        extreme?: boolean;
+        extreme?: boolean | undefined;
         // enables logging, defaults to true.
-        enabled?: boolean;
-        level?: Level | string;
-        levelVal?: number;
+        enabled?: boolean | undefined;
+        level?: Level | string | undefined;
+        levelVal?: number | undefined;
     }
 
     interface Pino {

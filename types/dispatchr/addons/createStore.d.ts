@@ -5,8 +5,8 @@ type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: n
 interface StoreOptions {
     storeName: string;
     handlers: { [event: string]: string };
-    statics?: { [prop: string]: any };
-    mixins?: object[];
+    statics?: { [prop: string]: any } | undefined;
+    mixins?: object[] | undefined;
     initialize?(): void;
     dehydrate?(): any;
     rehydrate?(state: any): void;

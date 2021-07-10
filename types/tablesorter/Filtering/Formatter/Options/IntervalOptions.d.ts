@@ -7,5 +7,5 @@ export interface IntervalOptions extends NumericOptions {
     /**
      * The interval of the control.
      */
-    step?: number;
+    step?: number | undefined;
 }

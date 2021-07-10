@@ -13,32 +13,32 @@ import { TileSourceEvent } from './Tile';
 import UrlTile from './UrlTile';
 
 export interface Options {
-    attributions?: AttributionLike;
-    attributionsCollapsible?: boolean;
-    cacheSize?: number;
-    crossOrigin?: string;
-    imageSmoothing?: boolean;
-    opaque?: boolean;
-    projection?: ProjectionLike;
-    reprojectionErrorThreshold?: number;
-    state?: State;
-    tileClass?: ImageTile;
-    tileGrid?: TileGrid;
-    tileLoadFunction?: LoadFunction;
-    tilePixelRatio?: number;
-    tileUrlFunction?: UrlFunction;
-    url?: string;
-    urls?: string[];
-    wrapX?: boolean;
-    transition?: number;
-    key?: string;
-    zDirection?: number;
+    attributions?: AttributionLike | undefined;
+    attributionsCollapsible?: boolean | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    imageSmoothing?: boolean | undefined;
+    opaque?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    state?: State | undefined;
+    tileClass?: typeof ImageTile | undefined;
+    tileGrid?: TileGrid | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    tilePixelRatio?: number | undefined;
+    tileUrlFunction?: UrlFunction | undefined;
+    url?: string | undefined;
+    urls?: string[] | undefined;
+    wrapX?: boolean | undefined;
+    transition?: number | undefined;
+    key?: string | undefined;
+    zDirection?: number | undefined;
 }
 export default class TileImage extends UrlTile {
     constructor(options: Options);
     protected crossOrigin: string;
     protected tileCacheForProjection: { [key: string]: TileCache };
-    protected tileClass: ImageTile;
+    protected tileClass: typeof ImageTile;
     protected tileGridForProjection: { [key: string]: TileGrid };
     /**
      * Return the key to be used for all tiles in the source.

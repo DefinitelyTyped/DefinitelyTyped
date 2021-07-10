@@ -5,25 +5,25 @@ declare namespace SandBox {
         /**
          * HTML for the document `<body>` of the sandbox.
          */
-        html?: string;
+        html?: string | undefined;
         /**
          * Text for the document `<title>` of the sandbox.
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * Inline JS to apply to the sandboxed document.
          */
-        scripts?: readonly string[];
+        scripts?: readonly string[] | undefined;
         /**
          * Inline CSS to apply to the sandboxed document.
          */
-        styles?: readonly string[];
+        styles?: readonly string[] | undefined;
         /**
          * `className` that is applied to both the sandbox `<html>` element and
          * `<body>` element.
          */
-        type?: string;
-        onFocus?: FocusEventHandler;
+        type?: string | undefined;
+        onFocus?: FocusEventHandler | undefined;
     }
 }
 declare const SandBox: ComponentType<SandBox.Props>;

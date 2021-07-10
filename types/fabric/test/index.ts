@@ -262,10 +262,10 @@ function sample4() {
 }
 
 interface CircleWithLineInfos extends fabric.Circle {
-  line1?: fabric.Line;
-  line2?: fabric.Line;
-  line3?: fabric.Line;
-  line4?: fabric.Line;
+  line1?: fabric.Line | undefined;
+  line2?: fabric.Line | undefined;
+  line3?: fabric.Line | undefined;
+  line4?: fabric.Line | undefined;
 }
 
 function sample5() {

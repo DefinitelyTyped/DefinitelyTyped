@@ -113,7 +113,7 @@ export interface Address {
     /**
      * Extended address.
      */
-    line2?: string;
+    line2?: string | undefined;
 
     /**
      * City or locality.
@@ -138,12 +138,12 @@ export interface Address {
     /**
      * Phone number.
      */
-    phone?: string;
+    phone?: string | undefined;
 
     /**
      * Recipient of postage.
      */
-    recipientName?: string;
+    recipientName?: string | undefined;
 }
 
 export interface CreditFinancingOptions {
@@ -183,23 +183,23 @@ export interface AuthorizationResponseDetails {
     payerId: string;
     firstName: string;
     lastName: string;
-    countryCode?: string;
-    phone?: string;
+    countryCode?: string | undefined;
+    phone?: string | undefined;
 
     /**
      * User's shipping address details, only available if shipping address is enabled.
      */
-    shippingAddress?: Address;
+    shippingAddress?: Address | undefined;
 
     /**
      * User's billing address details.
      */
-    billingAddress?: Address;
+    billingAddress?: Address | undefined;
 
     /**
      * This property will only be present when the customer pays with PayPal Credit.
      */
-    creditFinancingOffered?: CreditFinancingOptions;
+    creditFinancingOffered?: CreditFinancingOptions | undefined;
 }
 
 export interface AuthorizationResponse {
@@ -253,9 +253,9 @@ export enum Intent {
 
 export interface AuthorizationData {
     payerId: string;
-    paymentId?: string;
-    billingToken?: string;
-    vault?: boolean;
+    paymentId?: string | undefined;
+    billingToken?: string | undefined;
+    vault?: boolean | undefined;
 }
 
 export interface CancellationData {

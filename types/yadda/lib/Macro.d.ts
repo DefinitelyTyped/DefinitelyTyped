@@ -1,3 +1,3 @@
 export interface Options {
-    mode?: "promise" | "sync";
+    mode?: "promise" | "sync" | undefined;
 }

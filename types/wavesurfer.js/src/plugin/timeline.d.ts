@@ -51,32 +51,32 @@ export interface TimelinePluginParams extends PluginParams {
     /** CSS selector or HTML element where the timeline should be drawn. This is the only required parameter. */
     container: string | HTMLElement;
     /** Height of notches in percent (default: 90). */
-    notchPercentHeight?: number;
+    notchPercentHeight?: number | undefined;
     /** The colour of the notches that do not have labels (default: '#c0c0c0'). */
-    unlabeledNotchColor?: string;
+    unlabeledNotchColor?: string | undefined;
     /** The colour of the main notches (default: '#000'). */
-    primaryColor?: string;
+    primaryColor?: string | undefined;
     /** The colour of the secondary notches (default: '#c0c0c0'). */
-    secondaryColor?: string;
+    secondaryColor?: string | undefined;
     /** The colour of the labels next to the main notches (default: '#000'). */
-    primaryFontColor?: string;
+    primaryFontColor?: string | undefined;
     /** The colour of the labels next to the secondary notches (default: '#000'). */
-    secondaryFontColor?: string;
+    secondaryFontColor?: string | undefined;
     /** The padding between the label and the notch (default: 5). */
-    labelPadding?: number;
+    labelPadding?: number | undefined;
     /** A debounce timeout to increase rendering performance for large files. */
-    zoomDebounce?: number | false;
-    fontFamily?: string;
+    zoomDebounce?: number | false | undefined;
+    fontFamily?: string | undefined;
     /** Font size of labels in pixels (default: 10). */
-    fontSize?: number;
+    fontSize?: number | undefined;
     /** Length of the track in seconds. Overrides getDuration() for setting length of timeline. */
-    duration?: number | null;
-    formatTimecallback?: (sec: number, pxPerSec: number) => string;
-    timeInterval?: (pxPerSec: number) => number;
+    duration?: number | null | undefined;
+    formatTimecallback?: ((sec: number, pxPerSec: number) => string) | undefined;
+    timeInterval?: ((pxPerSec: number) => number) | undefined;
     /** Cadence between labels in primary color. */
-    primaryLabelInterval?: (pxPerSec: number) => number;
+    primaryLabelInterval?: ((pxPerSec: number) => number) | undefined;
     /** Cadence between labels in secondary color. */
-    secondaryLabelInterval?: (pxPerSec: number) => number;
+    secondaryLabelInterval?: ((pxPerSec: number) => number) | undefined;
     /** Offset for the timeline start in seconds. May also be negative. */
-    offset?: number;
+    offset?: number | undefined;
 }

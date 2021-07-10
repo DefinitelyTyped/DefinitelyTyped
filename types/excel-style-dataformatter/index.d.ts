@@ -45,11 +45,11 @@ declare namespace DataFormatter {
         };
     }
     interface FormatterOptions {
-        debug?: boolean;
-        UTCOffset?: number | null;
-        locale?: string;
-        transformCode?: (code: any) => any;
-        locales?: LocalesOptions[];
+        debug?: boolean | undefined;
+        UTCOffset?: number | null | undefined;
+        locale?: string | undefined;
+        transformCode?: ((code: any) => any) | undefined;
+        locales?: LocalesOptions[] | undefined;
     }
 
     interface FormatResult {

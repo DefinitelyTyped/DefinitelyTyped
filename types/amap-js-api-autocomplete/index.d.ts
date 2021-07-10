@@ -19,35 +19,35 @@ declare namespace AMap {
             /**
              * 输入提示时限定POI类型，多个类型用“|”分隔
              */
-            type?: string;
+            type?: string | undefined;
             /**
              * 输入提示时限定城市
              */
-            city?: string;
+            city?: string | undefined;
             /**
              * 返回的数据类型
              */
-            datatype?: DataType;
+            datatype?: DataType | undefined;
             /**
              * 是否强制限制在设置的城市内搜索
              */
-            citylimit?: boolean;
+            citylimit?: boolean | undefined;
             /**
              * 指定输入框
              */
-            input?: string | HTMLInputElement;
+            input?: string | HTMLInputElement | undefined;
             /**
              * 指定输出面板
              */
-            output?: string | HTMLDivElement;
+            output?: string | HTMLDivElement | undefined;
             /**
              * 是否在input位于页面较下方的时候自动将输入面板显示在input上方以避免被遮挡
              */
-            outPutDirAuto?: boolean;
+            outPutDirAuto?: boolean | undefined;
 
             // internal
-            closeResultOnScroll?: boolean;
-            lang?: Lang;
+            closeResultOnScroll?: boolean | undefined;
+            lang?: Lang | undefined;
         }
         interface Tip {
             /**

@@ -12,7 +12,7 @@ declare module '../../' {
         /**
          * Highlight both matching tags.
          */
-        bothTags?: boolean;
+        bothTags?: boolean | undefined;
     }
 
     interface EditorConfiguration {
@@ -20,6 +20,6 @@ declare module '../../' {
          * When enabled will cause the tags around the cursor to be highlighted (using the CodeMirror-matchingtag class).
          * Depends on the addon/fold/xml-fold.js addon.
          */
-        matchTags?: MatchTags | boolean;
+        matchTags?: MatchTags | boolean | undefined;
     }
 }

@@ -81,7 +81,7 @@ declare namespace jest {
     function useRealTimers(): typeof jest;
 
     interface MockOptions {
-        virtual?: boolean;
+        virtual?: boolean | undefined;
     }
 
     interface EmptyFunction {

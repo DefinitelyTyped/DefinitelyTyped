@@ -58,18 +58,18 @@ export interface itemProps {
  */
 
 export interface MapPropsTypes {
-    onMapClick?: (item: itemProps) => void;
-    randomSectorColor?: boolean;
-    sectorClassName?: string;
-    containerClassName?: string;
-    color?: string;
-    hoverColor?: string;
-    stroke?: string;
-    strokeWidth?: number;
+    onMapClick?: ((item: itemProps) => void) | undefined;
+    randomSectorColor?: boolean | undefined;
+    sectorClassName?: string | undefined;
+    containerClassName?: string | undefined;
+    color?: string | undefined;
+    hoverColor?: string | undefined;
+    stroke?: string | undefined;
+    strokeWidth?: number | undefined;
 }
 
 export interface ProvinceMapPropsTypes extends MapPropsTypes {
-    provinceColor?: string[];
+    provinceColor?: string[] | undefined;
 }
 
 // Components

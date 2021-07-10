@@ -11,6 +11,8 @@ export class DodecahedronGeometry extends PolyhedronGeometry {
      * @default 'DodecahedronGeometry'
      */
     type: string;
+
+    static fromJSON(data: any): DodecahedronGeometry;
 }
 
 export { DodecahedronGeometry as DodecahedronBufferGeometry };

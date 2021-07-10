@@ -20,13 +20,13 @@ export interface LinkDecoratorAutomaticDefinition extends LinkDecoratorDefinitio
 
 export interface LinkDecoratorManualDefinition extends LinkDecoratorDefinition {
     attributes: Record<string, string>;
-    defaultValue?: boolean;
+    defaultValue?: boolean | undefined;
     label: string;
     mode: 'manual';
 }
 
 export interface LinkConfig {
-    addTargetToExternalLinks?: boolean;
-    decorators?: Record<string, LinkDecoratorDefinition>;
-    defaultProtocol?: string;
+    addTargetToExternalLinks?: boolean | undefined;
+    decorators?: Record<string, LinkDecoratorDefinition> | undefined;
+    defaultProtocol?: string | undefined;
 }

@@ -13,15 +13,15 @@ import { ReadOptions } from './Feature';
 import XMLFeature from './XMLFeature';
 
 export interface Options {
-    featureNS?: { [key: string]: string } | string;
-    featureType?: string[] | string;
+    featureNS?: { [key: string]: string } | string | undefined;
+    featureType?: string[] | string | undefined;
     srsName: string;
-    surface?: boolean;
-    curve?: boolean;
-    multiCurve?: boolean;
-    multiSurface?: boolean;
-    schemaLocation?: string;
-    hasZ?: boolean;
+    surface?: boolean | undefined;
+    curve?: boolean | undefined;
+    multiCurve?: boolean | undefined;
+    multiSurface?: boolean | undefined;
+    schemaLocation?: string | undefined;
+    hasZ?: boolean | undefined;
 }
 export const GMLNS: string;
 export default abstract class GMLBase extends XMLFeature {

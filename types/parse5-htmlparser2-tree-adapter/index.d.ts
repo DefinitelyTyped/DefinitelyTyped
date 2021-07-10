@@ -154,7 +154,7 @@ declare namespace treeAdapter {
         /**
          * Element source code location info. Available if location info is enabled via ParserOptions.
          */
-        sourceCodeLocation?: parse5.ElementLocation;
+        sourceCodeLocation?: parse5.ElementLocation | undefined;
     }
 
     /**
@@ -176,7 +176,7 @@ declare namespace treeAdapter {
         /**
          * Comment source code location info. Available if location info is enabled via ParserOptions.
          */
-        sourceCodeLocation?: parse5.Location;
+        sourceCodeLocation?: parse5.Location | undefined;
     }
 
     /**
@@ -198,7 +198,7 @@ declare namespace treeAdapter {
         /**
          * Comment source code location info. Available if location info is enabled via ParserOptions.
          */
-        sourceCodeLocation?: parse5.Location;
+        sourceCodeLocation?: parse5.Location | undefined;
     }
 
     /**

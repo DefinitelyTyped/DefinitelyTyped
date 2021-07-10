@@ -6,9 +6,6 @@ let configuration: webpack.Configuration;
 const loaderOptions: MiniCssExtractPlugin.LoaderOptions = {
     publicPath: "/",
     esModule: true,
-    modules: {
-        namedExport: true,
-    },
     emit: false,
     layer: "layer",
 };

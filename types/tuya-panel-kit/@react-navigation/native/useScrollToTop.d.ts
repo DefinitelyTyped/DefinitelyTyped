@@ -1,8 +1,8 @@
 import * as React from 'react';
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 declare type ScrollOptions = {
-    y?: number;
-    animated?: boolean;
+    y?: number | undefined;
+    animated?: boolean | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 declare type ScrollableView = {
@@ -11,8 +11,8 @@ declare type ScrollableView = {
     scrollTo(options: ScrollOptions): void;
 } | {
     scrollToOffset(options: {
-        offset?: number;
-        animated?: boolean;
+        offset?: number | undefined;
+        animated?: boolean | undefined;
     }): void;
 } | {
     scrollResponderScrollTo(options: ScrollOptions): void;

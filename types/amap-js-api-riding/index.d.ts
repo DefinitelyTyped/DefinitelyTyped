@@ -23,34 +23,34 @@ declare namespace AMap {
              * AMap.Map对象, 展现结果的地图实例。
              * 当指定此参数后，搜索结果的标注、线路等均会自动添加到此地图上
              */
-            map?: Map;
+            map?: Map | undefined;
             /**
              * 骑行路线规划策略
              */
-            policy?: RidingPolicy;
+            policy?: RidingPolicy | undefined;
             /**
              * 结果列表的HTML容器id或容器元素，提供此参数后，结果列表将在此容器中进行展示
              */
-            panel?: string | HTMLElement;
+            panel?: string | HTMLElement | undefined;
             /**
              * 设置隐藏路径规划的起始点图标，设置为true：隐藏图标；设置false：显示图标 默认值为：false
              */
-            hideMarkers?: boolean;
+            hideMarkers?: boolean | undefined;
             /**
              * 使用map属性时，绘制的规划线路是否显示描边，默认为true
              */
-            isOutline?: boolean;
+            isOutline?: boolean | undefined;
             /**
              * 使用map属性时，绘制的规划线路是否显示描边，默认为"white"
              */
-            outlineColor?: string;
+            outlineColor?: string | undefined;
             /**
              * 用于控制在路径规划结束后，是否自动调整地图视野使绘制的路线处于视口的可见范围
              */
-            autoFitView?: boolean;
+            autoFitView?: boolean | undefined;
             // internal
 
-            showDir?: boolean;
+            showDir?: boolean | undefined;
         }
         interface SearchPoint {
             // 地点名称
@@ -98,7 +98,7 @@ declare namespace AMap {
              * 本骑行子路段完成后辅助动作，一般为到达某个目的地时返回
              * 文档中有此字段但是实际代码中并没有返回
              */
-            assist_action?: string;
+            assist_action?: string | undefined;
         }
         interface RideRoute {
             /**
@@ -154,11 +154,11 @@ declare namespace AMap {
             /**
              * 骑行导航起点
              */
-            start?: Poi;
+            start?: Poi | undefined;
             /**
              * 骑行导航终点
              */
-            end?: Poi;
+            end?: Poi | undefined;
         }
         interface SearchResultExt extends SearchResultCommon {
             /**

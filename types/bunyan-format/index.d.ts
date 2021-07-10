@@ -15,11 +15,11 @@ declare namespace BunyanFormatWritable {
     }
 
     interface Options {
-        outputMode?: 'short' | 'long' | 'simple' | 'json' | 'bunyan';
-        color?: boolean;
-        colorFromLevel?: ColorFromLevel;
-        levelInString?: boolean;
-        jsonIndent?: string | number;
+        outputMode?: 'short' | 'long' | 'simple' | 'json' | 'bunyan' | undefined;
+        color?: boolean | undefined;
+        colorFromLevel?: ColorFromLevel | undefined;
+        levelInString?: boolean | undefined;
+        jsonIndent?: string | number | undefined;
     }
 }
 

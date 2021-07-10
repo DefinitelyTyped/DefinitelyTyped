@@ -7,7 +7,7 @@ export default class IndentBlock extends Plugin {
 }
 
 export interface IndentBlockConfig {
-    classes?: string[];
-    offset?: number;
-    unit?: string;
+    classes?: string[] | undefined;
+    offset?: number | undefined;
+    unit?: string | undefined;
 }

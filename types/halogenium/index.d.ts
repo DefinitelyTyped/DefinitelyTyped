@@ -20,26 +20,26 @@ export type VerticalAlign =
   | 'inherit';
 
 export interface HalogenCommonProps {
-  loading?: boolean;
-  color?: string;
-  id?: string;
-  className?: string;
-  verticalAlign?: VerticalAlign;
+  loading?: boolean | undefined;
+  color?: string | undefined;
+  id?: string | undefined;
+  className?: string | undefined;
+  verticalAlign?: VerticalAlign | undefined;
 }
 
 export interface SizeLoaderProps extends HalogenCommonProps {
-  size?: number | string;
+  size?: number | string | undefined;
 }
 
 export interface MarginLoaderProps extends HalogenCommonProps {
-  margin?: number | string;
-  size?: number | string;
+  margin?: number | string | undefined;
+  size?: number | string | undefined;
 }
 
 export interface RadiusLoaderProps extends MarginLoaderProps {
-  height?: number | string;
-  width?: number | string;
-  radius?: number | string;
+  height?: number | string | undefined;
+  width?: number | string | undefined;
+  radius?: number | string | undefined;
 }
 
 /**

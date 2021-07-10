@@ -23,19 +23,19 @@ export interface DotenvSafeOptions extends dotenv.DotenvConfigOptions {
      * Path to example environment file. (Option 1)
      * @default ".env.example"
      */
-    example?: string;
+    example?: string | undefined;
 
     /**
      * Path to example environment file. (Option 2 -- example takes precedence)
      * @default ".env.example"
      */
-    sample?: string;
+    sample?: string | undefined;
 
     /**
      * Enabling this option will not throw an error after loading.
      * @default false
      */
-    allowEmptyValues?: boolean;
+    allowEmptyValues?: boolean | undefined;
 }
 
 export interface DotenvSafeConfigOutput extends dotenv.DotenvConfigOutput {

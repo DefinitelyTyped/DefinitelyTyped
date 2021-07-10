@@ -68,7 +68,7 @@ export interface Roles {
 
 export interface RoleActions {
     actions: Action[];
-    getAcl?: GetAcl;
+    getAcl?: GetAcl | undefined;
 }
 
 export interface Action {

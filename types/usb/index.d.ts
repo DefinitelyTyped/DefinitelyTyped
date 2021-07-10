@@ -2,7 +2,7 @@
 // Project: https://github.com/tessel/node-usb
 // Definitions by: Eric Brody <https://github.com/underscorebrody>
 //                 Rob Moran <https://github.com/thegecko>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 

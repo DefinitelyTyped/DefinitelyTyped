@@ -7,16 +7,16 @@
 /// <reference types="node" />
 
 export interface GifOptions {
-    background?: number;
-    loop?: number;
-    palette?: number[];
+    background?: number | undefined;
+    loop?: number | undefined;
+    palette?: number[] | undefined;
 }
 
 export interface FrameOptions {
-    delay?: number;
-    disposal?: number;
-    palette?: number[] | null;
-    transparent?: number;
+    delay?: number | undefined;
+    disposal?: number | undefined;
+    palette?: number[] | null | undefined;
+    transparent?: number | undefined;
 }
 
 export interface Frame {

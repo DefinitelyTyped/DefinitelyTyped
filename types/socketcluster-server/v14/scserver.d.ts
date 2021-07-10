@@ -85,30 +85,30 @@ declare namespace SCServer {
 
     interface SCServerOptions {
         // The port on which to listen for outside connections/requests
-        port?: number;
+        port?: number | undefined;
 
         // Number of worker processes
-        workers?: number;
+        workers?: number | undefined;
 
         // Number of broker processes
-        brokers?: number;
+        brokers?: number | undefined;
 
         // Should be either 'dev' or 'prod' - This affects the shutdown procedure
         // when a 'SIGUSR2' signal is received by master. In 'dev', a SIGUSR2 will
         // trigger an immediate shutdown of workers. In 'prod' workers will
         // be terminated progressively in accordance with processTermTimeout.
-        environment?: string;
+        environment?: string | undefined;
 
         // Setting this to true will cause the master process to shut down when
         // it receives a SIGUSR2 signal (instead of just the workers).
         // If you're using nodemon, set this to true.
-        killMasterOnSignal?: boolean;
+        killMasterOnSignal?: boolean | undefined;
 
         // A unique name for your app (this is used internally for
         // various things such as the directory name in which to store socket
         // file descriptors) - If you don't provide an appName, SC will
         // generate a random one (UUID v4)
-        appName?: string;
+        appName?: string | undefined;
 
         // This can be the name of an npm module or a path to a Node.js module
         // to use as the WebSocket server engine.
@@ -120,173 +120,173 @@ declare namespace SCServer {
         // hosts - You can access the instanceId from the Broker object
         // (inside brokerController) - If you don't provide an instanceId,
         // SC will generate a random one (UUID v4)
-        instanceId?: string;
+        instanceId?: string | undefined;
 
         // A key which various SC processes will use to interact with
         // scBroker broker processes securely, defaults to a 256 bits
         // cryptographically random hex string
-        secretKey?: string;
+        secretKey?: string | undefined;
 
         // The key which SC will use to encrypt/decrypt authTokens, defaults
         // to a 256 bits cryptographically random hex string
         // The default JWT algorithm used is 'HS256'.
         // If you want to use RSA or ECDSA, you should provide a authPrivateKey
         // and authPublicKey instead of authKey.
-        authKey?: Secret;
+        authKey?: Secret | undefined;
 
         // perMessageDeflate compression. Note that this option is passed directly to the wsEngine's
         // Server object. So if you're using 'ws' as the engine, you can pass an object instead of
         // a boolean. Search for perMessageDeflate here:
         // https://github.com/websockets/ws/blob/master/doc/ws.md#new-websocketserveroptions-callback
         // Note that by default, per-message deflate only kicks in for messages > 1024 bytes.
-        perMessageDeflate?: boolean;
+        perMessageDeflate?: boolean | undefined;
 
         // If using an RSA or ECDSA algorithm to sign the authToken, you will need
         // to provide an authPrivateKey and authPublicKey in PEM format (string or Buffer).
-        authPrivateKey?: Secret;
-        authPublicKey?: Secret;
+        authPrivateKey?: Secret | undefined;
+        authPublicKey?: Secret | undefined;
 
         // The default expiry for auth tokens in seconds
-        authDefaultExpiry?: number;
+        authDefaultExpiry?: number | undefined;
 
         // The algorithm to use to sign and verify JWT tokens.
-        authAlgorithm?: string;
+        authAlgorithm?: string | undefined;
 
         // Crash workers when an error happens - This is the most sensible default
-        crashWorkerOnError?: boolean;
+        crashWorkerOnError?: boolean | undefined;
 
         // Reboot workers when they crash - This is a necessity
         // in production but can be turned off for debugging
-        rebootWorkerOnCrash?: boolean;
+        rebootWorkerOnCrash?: boolean | undefined;
 
         // Kill/respawn a worker process if its memory consumption exceeds this
         // threshold (in bytes) - If this is null (default), this behavior
         // will be switched off
-        killWorkerMemoryThreshold?: number;
+        killWorkerMemoryThreshold?: number | undefined;
 
         // Can be 'http' or 'https'
-        protocol?: "http" | "https";
+        protocol?: "http" | "https" | undefined;
 
         // This is the same as the object provided to Node.js's https server
-        protocolOptions?: ServerOptions;
+        protocolOptions?: ServerOptions | undefined;
 
         // A log level of 3 will log everything, 2 will show notices and errors,
         // 1 will only log errors, 0 will log nothing
-        logLevel?: 0 | 1 | 2 | 3;
+        logLevel?: 0 | 1 | 2 | 3 | undefined;
 
         // In milliseconds, how long a client has to connect to SC before timing out
-        connectTimeout?: number;
+        connectTimeout?: number | undefined;
 
         // In milliseconds - If the socket handshake hasn't been completed before
         // this timeout is reached, the new connection attempt will be terminated.
-        handshakeTimeout?: number;
+        handshakeTimeout?: number | undefined;
 
         // In milliseconds, the timeout for calling res(err, data) when
         // your emit() call expects an ACK response from the other side
         // (when callback is provided to emit)
-        ackTimeout?: number;
+        ackTimeout?: number | undefined;
 
         // In milliseconds, the timeout for calling res(err, data) when
         // your sendToWorker, sendToBroker or sendToMaster (IPC) call
         // expects an ACK response from the other process
         // (when callback is provided)
-        ipcAckTimeout?: number;
+        ipcAckTimeout?: number | undefined;
 
         // In milliseconds - If the socket cannot upgrade transport
         // within this period, it will stop trying
-        socketUpgradeTimeout?: number;
+        socketUpgradeTimeout?: number | undefined;
 
         // Origins which are allowed to connect to the real-time scServer
-        origins?: string;
+        origins?: string | undefined;
 
         // The maximum number of unique channels which a single
         // socket can subscribe to
-        socketChannelLimit?: number;
+        socketChannelLimit?: number | undefined;
 
         // The interval in milliseconds on which to
         // send a ping to the client to check that
         // it is still alive
-        pingInterval?: number;
+        pingInterval?: number | undefined;
 
         // How many milliseconds to wait without receiving a ping
         // before closing the socket
-        pingTimeout?: number;
+        pingTimeout?: number | undefined;
 
         // Maximum amount of milliseconds to wait before force-killing
         // a process after it was passed a 'SIGTERM' or 'SIGUSR2' signal
-        processTermTimeout?: number;
+        processTermTimeout?: number | undefined;
 
         // Whether or not errors from child processes (workers and brokers)
         // should be passed to the current master process
-        propagateErrors?: boolean;
+        propagateErrors?: boolean | undefined;
 
         // Whether or not warnings from child processes (workers and brokers)
         // should be passed to the current master process
-        propagateWarnings?: number;
+        propagateWarnings?: number | undefined;
 
         // Whether or not a 'warning' event should be emitted (and logged to console)
         // whenever an action is blocked by a middleware function
-        middlewareEmitWarnings?: number;
+        middlewareEmitWarnings?: number | undefined;
 
         // Lets you specify a host name to bind to - Defaults to
         // 127.0.0.1 (localhost)
-        host?: string;
+        host?: string | undefined;
 
         // The path to a file used to bootstrap worker processes
-        workerController?: string;
+        workerController?: string | undefined;
 
         // The path to a file used to bootstrap broker processes
-        brokerController?: string;
+        brokerController?: string | undefined;
 
         // The path to a file used to bootstrap the workerCluster process
-        workerClusterController?: string;
+        workerClusterController?: string | undefined;
 
         // By default, SC will reboot all workers when it receives a 'SIGUSR2' signal -
         // This can be used for updating workers with fresh source code in production
-        rebootOnSignal?: boolean;
+        rebootOnSignal?: boolean | undefined;
 
         // If you run your master process (server.js) as super user, this option
         // lets you downgrade worker and broker processes to run under
         // the specified user (with fewer permissions than master) - You can provide
         // a Linux UID or username
-        downgradeToUser?: number | string;
+        downgradeToUser?: number | string | undefined;
 
         // The URL path reserved by SocketCluster clients to interact with the server
-        path?: string;
+        path?: string | undefined;
 
         // The root directory in which to store your socket files in Linux.
-        socketRoot?: string;
+        socketRoot?: string | undefined;
 
         // Defaults to "rr", but can be set to "none"
-        schedulingPolicy?: "rr" | "none";
+        schedulingPolicy?: "rr" | "none" | undefined;
 
         // Whether or not clients are allowed to publish messages to channels
-        allowClientPublish?: boolean;
+        allowClientPublish?: boolean | undefined;
 
         // This option is passed to the Node.js HTTP server if provided
-        tcpSynBacklog?: number;
+        tcpSynBacklog?: number | undefined;
 
         // SC keeps track of request per minutes internally - This allows you to change
         // how often this gets updated
-        workerStatusInterval?: number;
+        workerStatusInterval?: number | undefined;
 
         // This allows you to batch multiple messages together when passing them across
         // message brokers. This may improve the efficiency of your pub/sub operations.
         // This value is in milliseconds. 5 is generally a safe value to set this to.
-        pubSubBatchDuration?: number;
+        pubSubBatchDuration?: number | undefined;
 
         // The default clustering/brokering engine (Node.js module name) which provides the
         // SCWorker.exchange object and manages brokers behind the scenes.
         // You shouldn't need to change this unless you want to build your own
         // process clustering engine (which is difficult to do).
-        brokerEngine?: string;
+        brokerEngine?: string | undefined;
 
-        wsEngineServerOptions?: WebSocket.ClientOptions;
-        maxPayload?: number;
-        pingTimeoutDisabled?: boolean;
-        authSignAsync?: boolean;
-        authVerifyAsync?: boolean;
-        httpServer?: Server;
+        wsEngineServerOptions?: WebSocket.ClientOptions | undefined;
+        maxPayload?: number | undefined;
+        pingTimeoutDisabled?: boolean | undefined;
+        authSignAsync?: boolean | undefined;
+        authVerifyAsync?: boolean | undefined;
+        httpServer?: Server | undefined;
 
         [additionalOptions: string]: any;
     }
@@ -307,30 +307,30 @@ declare namespace SCServer {
 
     interface SubscribeRequest {
         socket: SCServerSocket;
-        authTokenExpiredError?: Error;
-        channel?: string;
-        waitForAuth?: boolean;
+        authTokenExpiredError?: Error | undefined;
+        channel?: string | undefined;
+        waitForAuth?: boolean | undefined;
         data?: any;
     }
 
     interface PublishInRequest {
         socket: SCServerSocket;
-        authTokenExpiredError?: Error;
-        channel?: string;
+        authTokenExpiredError?: Error | undefined;
+        channel?: string | undefined;
         data?: any;
         ackData?: any;
     }
 
     interface PublishOutRequest {
         socket: SCServerSocket;
-        channel?: string;
+        channel?: string | undefined;
         data?: any;
-        useCache?: boolean;
+        useCache?: boolean | undefined;
     }
 
     interface EmitRequest {
         socket: SCServerSocket;
-        authTokenExpiredError?: Error;
+        authTokenExpiredError?: Error | undefined;
         event: string;
         data?: any;
     }
@@ -357,7 +357,7 @@ declare namespace SCServer {
 
     interface VerifyHandshakeInfo {
         req: IncomingMessage;
-        origin?: string;
+        origin?: string | undefined;
     }
 
     type verifyHandshakeFunction = (success: boolean, errorCode?: number, errorMessage?: string) => void;

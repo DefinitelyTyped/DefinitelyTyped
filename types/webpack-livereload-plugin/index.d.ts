@@ -27,38 +27,38 @@ declare namespace LiveReloadPlugin {
          * protocol for livereload `<script>` src attribute value
          * @default protocol of the page, either `http` or `https`
          */
-        protocol?: string;
+        protocol?: string | undefined;
         /**
          * The desired port for the livereload server.
          * If you define port 0, an available port will be searched for, starting from 35729.
          * @default 35729
          */
-        port?: number;
+        port?: number | undefined;
         /**
          * he desired hostname for the appended `<script>` (if present) to point to
          * @default hostname of the page, like `localhost` or 10.0.2.2
          */
-        hostname?: string;
+        hostname?: string | undefined;
         /**
          * livereload `<script>` automatically to `<head>`.
          * @default false
          */
-        appendScriptTag?: boolean;
+        appendScriptTag?: boolean | undefined;
         /**
          * RegExp of files to ignore. Null value means ignore nothing.
          * It is also possible to define an array and use multiple anymatch patterns
          */
-        ignore?: RegExp | RegExp[] | null;
+        ignore?: RegExp | RegExp[] | null | undefined;
         /**
          * amount of milliseconds by which to delay the live reload (in case build takes longer)
          * @default 0
          */
-        delay?: number;
+        delay?: number | undefined;
         /**
          * create hash for each file source and only notify livereload if hash has changed
          * @default false
          */
-        useSourceHash?: boolean;
+        useSourceHash?: boolean | undefined;
     }
 }
 

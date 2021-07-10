@@ -11,7 +11,7 @@ declare namespace MusicKit {
         /**
          * A description of the error that occurred.
          */
-        description?: string;
+        description?: string | undefined;
         /**
          * Error code indicating that you don't have permission to access the
          * endpoint, media item, or content.

@@ -70,7 +70,7 @@ declare namespace System {
 
   type DeclareFn = (_export: ExportFn, _context: Context) => Declare;
   interface Declare {
-    setters?: SetterFn[];
+    setters?: SetterFn[] | undefined;
     execute?(): any;
   }
   type SetterFn = (moduleValue: Module) => any;

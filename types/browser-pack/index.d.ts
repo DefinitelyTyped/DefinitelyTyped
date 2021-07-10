@@ -14,55 +14,55 @@ declare namespace browserPack {
          * Whether the bundle should include require= (or the opts.externalRequireName) so that
          * require() is available outside the bundle
          */
-        hasExports?: boolean;
+        hasExports?: boolean | undefined;
 
         /**
          * A string to use in place of 'require' if opts.hasExports is specified, default is 'require'
          */
-        externalRequireName?: string;
+        externalRequireName?: string | undefined;
 
         /**
          * Specify a custom prelude, but know what you're doing first. See the prelude.js file in
          * this repo for the default prelude. If you specify a custom prelude, you must also specify
          * a valid opts.preludePath to the prelude source file for sourcemaps to work
          */
-        prelude?: string;
+        prelude?: string | undefined;
 
         /**
          * prelude.js path if a custom opts.prelude is specified
          */
-        preludePath?: string;
+        preludePath?: string | undefined;
 
         /**
          * Used if opts.preludePath is undefined, this is used to resolve the prelude.js file location, default: 'process.cwd()'
          */
-        basedir?: string;
+        basedir?: string | undefined;
 
         /**
          * If given, the writable end of the stream will expect objects to be written to
          * it instead of expecting a stream of json text it will need to parse, default false
          */
-        raw?: boolean;
+        raw?: boolean | undefined;
 
         /**
          * External string name to use for UMD, if not provided, UMD declaration is not wrapped around output
          */
-        standalone?: string;
+        standalone?: string | undefined;
 
         /**
          * Sets the internal module name to export for standalone
          */
-        standaloneModule?: string;
+        standaloneModule?: string | undefined;
 
         /**
          * If given and source maps are computed, the opts.sourceMapPrefix string will be used instead of default: '//#'
          */
-        sourceMapPrefix?: string;
+        sourceMapPrefix?: string | undefined;
 
         /**
          * If given and source maps are computed, the root for the output source map will be defined. (default is no root)
          */
-        sourceRoot?: string;
+        sourceRoot?: string | undefined;
     }
 }
 

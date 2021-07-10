@@ -11,8 +11,8 @@ export interface Annotation {
 
 export interface AnnotateScrollbarOptions {
     className: string;
-    scrollButtonHeight?: number;
-    listenForChanges?: boolean;
+    scrollButtonHeight?: number | undefined;
+    listenForChanges?: boolean | undefined;
 }
 
 declare module '../../' {
@@ -21,6 +21,6 @@ declare module '../../' {
     }
 
     interface EditorConfiguration {
-        scrollButtonHeight?: number;
+        scrollButtonHeight?: number | undefined;
     }
 }

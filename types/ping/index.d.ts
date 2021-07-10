@@ -8,27 +8,27 @@ export interface PingConfig {
     /**
      * Map IP address to hostname or not. Default `true`
      */
-    numeric?: boolean;
+    numeric?: boolean | undefined;
     /**
      * Time duration, in seconds, for ping command to exit. Default `2` on Mac/Linux, `5` on Windows.
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      *  Exit after sending number of `ECHO_REQUEST`. Default `1`
      */
-    min_reply?: number;
+    min_reply?: number | undefined;
     /**
      * Ping via ipv6 or not. Default `false`
      */
-    v6?: boolean;
+    v6?: boolean | undefined;
     /**
      * Source address for sending the ping.
      */
-    sourceAddr?: string;
+    sourceAddr?: string | undefined;
     /**
      * Additional arguments. Default `[]`
      */
-    extra?: string[];
+    extra?: string[] | undefined;
   }
 
   export interface PingResponse {
@@ -39,7 +39,7 @@ export interface PingConfig {
     /**
      * Numeric target IP address
      */
-    numeric_host?: string;
+    numeric_host?: string | undefined;
     /**
      * `true` for existing host
      */

@@ -31,12 +31,12 @@ declare namespace CacheManagerIORedis {
 
     type RedisStoreSingleNodeConfig = (CachingConfig & IORedis.RedisOptions & {
         store: RedisStoreConstructor;
-        max?: number;
+        max?: number | undefined;
     } & CacheOptions);
 
     type RedisStoreClusterConfig = (CachingConfig & {
         store: RedisStoreConstructor;
-        max?: number;
+        max?: number | undefined;
         clusterConfig: ClusterOptions;
     } & CacheOptions);
 

@@ -32,27 +32,27 @@ export interface ReactPaginateProps {
     /**
      * Label for the `previous` button.
      */
-    previousLabel?: React.ReactNode;
+    previousLabel?: React.ReactNode | undefined;
 
     /**
      * Label for the `next` button.
      */
-    nextLabel?: React.ReactNode;
+    nextLabel?: React.ReactNode | undefined;
 
     /**
      * Label for ellipsis.
      */
-    breakLabel?: string | React.ReactNode;
+    breakLabel?: string | React.ReactNode | undefined;
 
     /**
      * The classname on tag `li` of the ellipsis element.
      */
-    breakClassName?: string;
+    breakClassName?: string | undefined;
 
     /**
      * The classname on tag `a` of the ellipsis element.
      */
-    breakLinkClassName?: string;
+    breakLinkClassName?: string | undefined;
 
     /**
      * The method to call when a page is clicked. Exposes the current page object as an argument.
@@ -67,72 +67,72 @@ export interface ReactPaginateProps {
     /**
      * The initial page selected.
      */
-    initialPage?: number;
+    initialPage?: number | undefined;
 
     /**
      * To override selected page with parent prop.
      */
-    forcePage?: number;
+    forcePage?: number | undefined;
 
     /**
      * Disable onPageChange callback with initial page. Default: false
      */
-    disableInitialCallback?: boolean;
+    disableInitialCallback?: boolean | undefined;
 
     /**
      * The classname of the pagination container.
      */
-    containerClassName?: string;
+    containerClassName?: string | undefined;
 
     /**
      * The classname on tag `li` of each page element.
      */
-    pageClassName?: string;
+    pageClassName?: string | undefined;
 
     /**
      * The classname on tag `a` of each page element.
      */
-    pageLinkClassName?: string;
+    pageLinkClassName?: string | undefined;
 
     /**
      * Function to set the text on page links. Defaults to `(page) => page`
      */
-    pageLabelBuilder?: (page: number) => string;
+    pageLabelBuilder?: ((page: number) => string) | undefined;
 
     /**
      * The classname for the active page.
      */
-    activeClassName?: string;
+    activeClassName?: string | undefined;
 
     /**
      * The classname for the active link.
      */
-    activeLinkClassName?: string;
+    activeLinkClassName?: string | undefined;
 
     /**
      * The classname on tag `li` of the `previous` button.
      */
-    previousClassName?: string;
+    previousClassName?: string | undefined;
 
     /**
      * The classname on tag `li` of the `next` button.
      */
-    nextClassName?: string;
+    nextClassName?: string | undefined;
 
     /**
      * The classname on tag `a` of the `previous` button.
      */
-    previousLinkClassName?: string;
+    previousLinkClassName?: string | undefined;
 
     /**
      * The classname on tag `a` of the `next` button.
      */
-    nextLinkClassName?: string;
+    nextLinkClassName?: string | undefined;
 
     /**
      * The classname for disabled `previous` and `next` buttons.
      */
-    disabledClassName?: string;
+    disabledClassName?: string | undefined;
 
     /**
      * The method is called to generate the href attribute value on tag a of each page element.
@@ -143,17 +143,17 @@ export interface ReactPaginateProps {
      * @deprecated The extraAriaContext prop is deprecated. You should now use the ariaLabelBuilder instead.
      * Extra context to add to the aria-label HTML attribute.
      */
-    extraAriaContext?: string;
+    extraAriaContext?: string | undefined;
 
     /**
      * The method is called to generate the `aria-label` attribute value on each page link
      */
-    ariaLabelBuilder?: (pageIndex: number, selected: boolean) => string;
+    ariaLabelBuilder?: ((pageIndex: number, selected: boolean) => string) | undefined;
 
     /**
      * The event to listen onto before changing the selected page. Default is: "onClick".
      */
-    eventListener?: string;
+    eventListener?: string | undefined;
 }
 
 declare const ReactPaginate: React.ComponentClass<ReactPaginateProps>;

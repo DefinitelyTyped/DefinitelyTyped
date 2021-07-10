@@ -40,19 +40,19 @@ interface Data {
     /**
      *  The value of navigator.connection
      */
-    connection?: Connection;
+    connection?: Connection | undefined;
     /**
      *  The value of navigator.cpuClass
      */
-    cpuClass?: string;
+    cpuClass?: string | undefined;
     /**
      * One of desktop, mobile, or tablet depending on the type of device
      */
-    deviceCategory?: string;
+    deviceCategory?: string | undefined;
     /**
      *  The value of navigator.oscpu
      */
-    oscpu?: string;
+    oscpu?: string | undefined;
     /**
      * The value of navigator.platform
      */
@@ -88,11 +88,11 @@ interface Data {
 }
 
 interface Connection {
-    downlink?: number;
+    downlink?: number | undefined;
     downlinkMax?: any;
-    effectiveType?: string;
-    rtt?: number;
-    type?: string;
+    effectiveType?: string | undefined;
+    rtt?: number | undefined;
+    type?: string | undefined;
 }
 
 export = UserAgent;

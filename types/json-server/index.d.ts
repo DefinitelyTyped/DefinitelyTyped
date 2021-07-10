@@ -51,35 +51,35 @@ export interface MiddlewaresOptions {
      * Path to static files
      * @default "public" (if folder exists)
      */
-    static?: string;
+    static?: string | undefined;
 
     /**
      * Enable logger middleware
      * @default true
      */
-    logger?: boolean;
+    logger?: boolean | undefined;
 
     /**
      * Enable body-parser middleware
      * @default true
      */
-    bodyParser?: boolean;
+    bodyParser?: boolean | undefined;
 
     /**
      * Disable compression
      * @default false
      */
-    noGzip?: boolean;
+    noGzip?: boolean | undefined;
 
     /**
      * Disable CORS
      * @default false
      */
-    noCors?: boolean;
+    noCors?: boolean | undefined;
 
     /**
      * Accept only GET requests
      * @default false
      */
-    readOnly?: boolean;
+    readOnly?: boolean | undefined;
 }

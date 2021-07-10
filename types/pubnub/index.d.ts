@@ -22,9 +22,9 @@ interface ObjectsResponse<DataType> {
     data: DataType;
 }
 interface PagedObjectsResponse<DataType> extends ObjectsResponse<DataType[]> {
-    prev?: string;
-    next?: string;
-    totalCount?: number;
+    prev?: string | undefined;
+    next?: string | undefined;
+    totalCount?: number | undefined;
 }
 // partial but everything can be null (even with strictNullChecks)
 type Nullable<T> = {
@@ -504,29 +504,29 @@ declare class Pubnub {
 declare namespace Pubnub {
     interface PubnubConfig {
         subscribeKey: string;
-        publishKey?: string;
-        cipherKey?: string;
-        authKey?: string;
-        logVerbosity?: boolean;
-        uuid?: string;
-        ssl?: boolean;
-        origin?: string;
-        presenceTimeout?: number;
-        heartbeatInterval?: number;
-        restore?: boolean;
-        keepAlive?: boolean;
+        publishKey?: string | undefined;
+        cipherKey?: string | undefined;
+        authKey?: string | undefined;
+        logVerbosity?: boolean | undefined;
+        uuid?: string | undefined;
+        ssl?: boolean | undefined;
+        origin?: string | undefined;
+        presenceTimeout?: number | undefined;
+        heartbeatInterval?: number | undefined;
+        restore?: boolean | undefined;
+        keepAlive?: boolean | undefined;
         keepAliveSettings?: {
-            keepAliveMsecs?: number;
-            freeSocketKeepAliveTimeout?: number;
-            timeout?: number;
-            maxSockets?: number;
-            maxFreeSockets?: number;
-        };
-        suppressLeaveEvents?: boolean;
-        secretKey?: string;
-        requestMessageCountThreshold?: number;
-        autoNetworkDetection?: boolean;
-        listenToBrowserNetworkEvents?: boolean;
+            keepAliveMsecs?: number | undefined;
+            freeSocketKeepAliveTimeout?: number | undefined;
+            timeout?: number | undefined;
+            maxSockets?: number | undefined;
+            maxFreeSockets?: number | undefined;
+        } | undefined;
+        suppressLeaveEvents?: boolean | undefined;
+        secretKey?: string | undefined;
+        requestMessageCountThreshold?: number | undefined;
+        autoNetworkDetection?: boolean | undefined;
+        listenToBrowserNetworkEvents?: boolean | undefined;
     }
 
     interface MessageEvent {
@@ -624,7 +624,7 @@ declare namespace Pubnub {
         eTag: string;
         created: string;
         updated: string;
-        custom?: object | null;
+        custom?: object | null | undefined;
     }
 
     /**
@@ -645,7 +645,7 @@ declare namespace Pubnub {
     interface MessageActionEvent {
         channel: string;
         publisher: string;
-        subscription?: string;
+        subscription?: string | undefined;
         timetoken: string;
         event: string;
         data: MessageAction;
@@ -672,7 +672,7 @@ declare namespace Pubnub {
             data: object;
         };
         subscription: string | null;
-        publisher?: string;
+        publisher?: string | undefined;
         timetoken: number;
     }
 
@@ -757,10 +757,10 @@ declare namespace Pubnub {
     interface PublishParameters {
         message: any;
         channel: string;
-        storeInHistory?: boolean;
-        sendByPost?: boolean;
+        storeInHistory?: boolean | undefined;
+        sendByPost?: boolean | undefined;
         meta?: any;
-        ttl?: number;
+        ttl?: number | undefined;
     }
 
     interface PublishResponse {
@@ -781,37 +781,37 @@ declare namespace Pubnub {
     interface HistoryParameters {
         channel: string;
         count: number;
-        stringifiedTimeToken?: boolean;
-        includeTimetoken?: boolean;
-        reverse?: boolean;
-        start?: string | number; // timetoken
-        end?: string | number; // timetoken
-        includeMeta?: boolean;
+        stringifiedTimeToken?: boolean | undefined;
+        includeTimetoken?: boolean | undefined;
+        reverse?: boolean | undefined;
+        start?: string | number | undefined; // timetoken
+        end?: string | number | undefined; // timetoken
+        includeMeta?: boolean | undefined;
     }
 
     interface HistoryMessage {
         entry: any;
-        timetoken?: string | number;
-        meta?: object;
+        timetoken?: string | number | undefined;
+        meta?: object | undefined;
     }
 
     interface HistoryResponse {
-        endTimeToken?: string | number;
-        startTimeToken?: string | number;
+        endTimeToken?: string | number | undefined;
+        startTimeToken?: string | number | undefined;
         messages: HistoryMessage[];
     }
 
     interface FetchMessagesParameters {
         channels: string[];
-        count?: number;
-        stringifiedTimeToken?: boolean;
-        start?: string | number; // timetoken
-        end?: string | number; // timetoken
-        withMessageActions?: boolean;
-        includeMessageType?: boolean;
-        includeUUID?: boolean;
-        includeMeta?: boolean;
-        includeMessageActions?: boolean;
+        count?: number | undefined;
+        stringifiedTimeToken?: boolean | undefined;
+        start?: string | number | undefined; // timetoken
+        end?: string | number | undefined; // timetoken
+        withMessageActions?: boolean | undefined;
+        includeMessageType?: boolean | undefined;
+        includeUUID?: boolean | undefined;
+        includeMeta?: boolean | undefined;
+        includeMessageActions?: boolean | undefined;
     }
 
     interface FetchMessagesResponse {
@@ -820,11 +820,11 @@ declare namespace Pubnub {
                 channel: string;
                 message: any;
                 timetoken: string | number;
-                messageType?: string | number;
-                uuid?: string;
+                messageType?: string | number | undefined;
+                uuid?: string | undefined;
                 meta?: {
                     [key: string]: any;
-                };
+                } | undefined;
                 actions: {
                     [type: string]: {
                         [value: string]: Array<{
@@ -839,8 +839,8 @@ declare namespace Pubnub {
 
     interface DeleteMessagesParameters {
         channel: string;
-        start?: string | number; // timetoken
-        end?: string | number; // timetoken
+        start?: string | number | undefined; // timetoken
+        end?: string | number | undefined; // timetoken
     }
 
     interface MessageCountsParameters {
@@ -889,32 +889,32 @@ declare namespace Pubnub {
 
     interface PubnubStatus {
         error: boolean;
-        category?: string; // see Pubnub.Categories
+        category?: string | undefined; // see Pubnub.Categories
         operation: string; // see Pubnub.Operations
         statusCode: number;
-        errorData?: Error;
+        errorData?: Error | undefined;
     }
 
     // fire
     interface FireParameters {
         message: any;
         channel: string;
-        sendByPost?: boolean;
+        sendByPost?: boolean | undefined;
         meta?: any;
     }
 
     // subscribe
     interface SubscribeParameters {
-        channels?: string[];
-        channelGroups?: string[];
-        withPresence?: boolean;
-        timetoken?: number;
+        channels?: string[] | undefined;
+        channelGroups?: string[] | undefined;
+        withPresence?: boolean | undefined;
+        timetoken?: number | undefined;
     }
 
     // unsubscribe
     interface UnsubscribeParameters {
-        channels?: string[];
-        channelGroups?: string[];
+        channels?: string[] | undefined;
+        channelGroups?: string[] | undefined;
     }
 
     // channelGroups
@@ -1000,10 +1000,10 @@ declare namespace Pubnub {
 
     // hereNow
     interface HereNowParameters {
-        channels?: string[];
-        channelGroups?: string[];
-        includeUUIDs?: boolean;
-        includeState?: boolean;
+        channels?: string[] | undefined;
+        channelGroups?: string[] | undefined;
+        includeUUIDs?: boolean | undefined;
+        includeState?: boolean | undefined;
     }
 
     interface HereNowResponse {
@@ -1023,7 +1023,7 @@ declare namespace Pubnub {
 
     // whereNow
     interface WhereNowParameters {
-        uuid?: string;
+        uuid?: string | undefined;
     }
 
     interface WhereNowResponse {
@@ -1032,8 +1032,8 @@ declare namespace Pubnub {
 
     // setState
     interface SetStateParameters {
-        channels?: string[];
-        channelGroups?: string[];
+        channels?: string[] | undefined;
+        channelGroups?: string[] | undefined;
         state?: any;
     }
 
@@ -1043,9 +1043,9 @@ declare namespace Pubnub {
 
     // getState
     interface GetStateParameters {
-        uuid?: string;
-        channels?: string[];
-        channelGroups?: string[];
+        uuid?: string | undefined;
+        channels?: string[] | undefined;
+        channelGroups?: string[] | undefined;
     }
 
     interface GetStateResponse {
@@ -1056,18 +1056,18 @@ declare namespace Pubnub {
 
     // grant
     interface GrantParameters {
-        channels?: string[];
-        channelGroups?: string[];
-        uuids?: string[];
-        authKeys?: string[];
-        ttl?: number;
-        read?: boolean;
-        write?: boolean;
-        manage?: boolean;
-        delete?: boolean;
-        get?: boolean;
-        join?: boolean;
-        update?: boolean;
+        channels?: string[] | undefined;
+        channelGroups?: string[] | undefined;
+        uuids?: string[] | undefined;
+        authKeys?: string[] | undefined;
+        ttl?: number | undefined;
+        read?: boolean | undefined;
+        write?: boolean | undefined;
+        manage?: boolean | undefined;
+        delete?: boolean | undefined;
+        get?: boolean | undefined;
+        join?: boolean | undefined;
+        update?: boolean | undefined;
     }
 
     // Objects v1
@@ -1080,18 +1080,18 @@ declare namespace Pubnub {
         updated: string;
         custom?: {
             [key: string]: string;
-        } | null;
+        } | null | undefined;
     }
 
     interface GetObjectsParameters {
-        limit?: number;
+        limit?: number | undefined;
         page?: {
-            next?: string;
-            prev?: string;
-        };
+            next?: string | undefined;
+            prev?: string | undefined;
+        } | undefined;
         include?: {
-            customFields?: boolean;
-        };
+            customFields?: boolean | undefined;
+        } | undefined;
     }
 
     type DeleteObjectResponse = ObjectsResponse<null>;
@@ -1099,21 +1099,21 @@ declare namespace Pubnub {
     // User
     interface UserData extends ObjectData {
         name: string;
-        externalId?: string | null;
-        profileUrl?: string | null;
-        email?: string | null;
+        externalId?: string | null | undefined;
+        profileUrl?: string | null | undefined;
+        email?: string | null | undefined;
     }
 
     interface UserInputParameters {
         id: string;
         name: string;
-        externalId?: string | null;
-        profileUrl?: string | null;
-        email?: string | null;
-        custom?: object | null;
+        externalId?: string | null | undefined;
+        profileUrl?: string | null | undefined;
+        email?: string | null | undefined;
+        custom?: object | null | undefined;
         include?: {
-            customFields?: boolean;
-        };
+            customFields?: boolean | undefined;
+        } | undefined;
     }
 
     type GetUsersResponse = ObjectsResponse<UserData[]>;
@@ -1123,8 +1123,8 @@ declare namespace Pubnub {
     interface GetUserParameters {
         userId: string;
         include?: {
-            customFields?: boolean;
-        };
+            customFields?: boolean | undefined;
+        } | undefined;
     }
 
     type GetUserResponse = ObjectsResponse<UserData>;
@@ -1133,17 +1133,17 @@ declare namespace Pubnub {
     interface SpaceData extends ObjectData {
         id: string;
         name: string;
-        description?: string | null;
+        description?: string | null | undefined;
     }
 
     interface SpaceInputParameters {
         id: string;
         name: string;
-        description?: string | null;
-        custom?: object | null;
+        description?: string | null | undefined;
+        custom?: object | null | undefined;
         include?: {
-            customFields?: boolean;
-        };
+            customFields?: boolean | undefined;
+        } | undefined;
     }
 
     type DeleteSpaceResponse = ObjectsResponse<null>;
@@ -1153,8 +1153,8 @@ declare namespace Pubnub {
     interface GetSpaceParameters {
         spaceId: string;
         include?: {
-            customFields?: boolean;
-        };
+            customFields?: boolean | undefined;
+        } | undefined;
     }
 
     type GetSpaceResponse = ObjectsResponse<SpaceData>;
@@ -1170,7 +1170,7 @@ declare namespace Pubnub {
         userId: string;
         spaces: Array<{
             id: string;
-            custom?: object | null;
+            custom?: object | null | undefined;
         }>;
     }
 
@@ -1190,7 +1190,7 @@ declare namespace Pubnub {
         spaceId: string;
         users: Array<{
             id: string;
-            custom?: object | null;
+            custom?: object | null | undefined;
         }>;
     }
 
@@ -1224,55 +1224,55 @@ declare namespace Pubnub {
 
     interface GetMessageActionsParameters {
         channel: string;
-        start?: string;
-        end?: string;
-        limit?: number;
+        start?: string | undefined;
+        end?: string | undefined;
+        limit?: number | undefined;
     }
 
     interface GetMessageActionsResponse {
         data: MessageAction[];
-        start?: string;
-        end?: string;
+        start?: string | undefined;
+        end?: string | undefined;
     }
     // files
     interface ListFilesParameters {
         channel: string;
-        limit?: number;
-        next?: string;
+        limit?: number | undefined;
+        next?: string | undefined;
     }
     interface SendFileParameters {
         channel: string;
         file: StreamFileInput | BufferFileInput | UriFileInput;
         message?: any;
-        cipherKey?: string;
-        storeInHistory?: boolean;
-        ttl?: number;
+        cipherKey?: string | undefined;
+        storeInHistory?: boolean | undefined;
+        ttl?: number | undefined;
         meta?: any;
     }
 
     interface StreamFileInput {
         stream: any;
         name: string;
-        mimeType?: string;
+        mimeType?: string | undefined;
     }
 
     interface BufferFileInput {
         data: any;
         name: string;
-        mimeType?: string;
+        mimeType?: string | undefined;
     }
 
     interface UriFileInput {
         uri: string;
         name: string;
-        mimeType?: string;
+        mimeType?: string | undefined;
     }
 
     interface DownloadFileParameters {
         channel: string;
         id: string;
         name: string;
-        cipherKey?: string;
+        cipherKey?: string | undefined;
     }
 
     interface FileInputParameters {
@@ -1286,8 +1286,8 @@ declare namespace Pubnub {
         message?: any;
         fileId: string;
         fileName: string;
-        storeInHistory?: boolean;
-        ttl?: number;
+        storeInHistory?: boolean | undefined;
+        ttl?: number | undefined;
         meta?: any;
     }
 
@@ -1328,11 +1328,11 @@ declare namespace Pubnub {
         id: string;
         eTag: string;
         updated: string;
-        custom?: Custom | null;
+        custom?: Custom | null | undefined;
     }
 
     interface v2ObjectParam<Custom extends ObjectCustom> {
-        custom?: Custom;
+        custom?: Custom | undefined;
     }
 
     // UUID metadata
@@ -1348,42 +1348,42 @@ declare namespace Pubnub {
     interface UUIDMetadataObject<Custom extends ObjectCustom> extends v2ObjectData<Custom>, Nullable<UUIDMetadataFields> { }
 
     interface SetUUIDMetadataParameters<Custom extends ObjectCustom> {
-        uuid?: string;
+        uuid?: string | undefined;
         data: UUIDMetadata<Custom>;
         include?: {
-            customFields?: boolean;
-        };
+            customFields?: boolean | undefined;
+        } | undefined;
     }
 
     type SetUUIDMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<UUIDMetadataObject<Custom>>;
 
     interface RemoveUUIDMetadataParameters {
-        uuid?: string;
+        uuid?: string | undefined;
     }
 
     type RemoveUUIDMetadataResponse = ObjectsResponse<{}>;
 
     interface GetAllMetadataParameters {
         include?: {
-            totalCount?: boolean;
-            customFields?: boolean;
-        };
-        filter?: string;
-        sort?: object;
-        limit?: number;
+            totalCount?: boolean | undefined;
+            customFields?: boolean | undefined;
+        } | undefined;
+        filter?: string | undefined;
+        sort?: object | undefined;
+        limit?: number | undefined;
         page?: {
-            next?: string;
-            prev?: string;
-        };
+            next?: string | undefined;
+            prev?: string | undefined;
+        } | undefined;
     }
 
     type GetAllUUIDMetadataResponse<Custom extends ObjectCustom> = PagedObjectsResponse<UUIDMetadataObject<Custom>>;
 
     interface GetUUIDMetadataParameters {
-        uuid?: string;
+        uuid?: string | undefined;
         include?: {
-            customFields?: boolean;
-        };
+            customFields?: boolean | undefined;
+        } | undefined;
     }
 
     type GetUUIDMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<UUIDMetadataObject<Custom>>;
@@ -1403,8 +1403,8 @@ declare namespace Pubnub {
         channel: string;
         data: ChannelMetadata<Custom>;
         include?: {
-            customFields?: boolean;
-        };
+            customFields?: boolean | undefined;
+        } | undefined;
     }
 
     type SetChannelMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<ChannelMetadataObject<Custom>>;
@@ -1423,7 +1423,7 @@ declare namespace Pubnub {
         channel: string;
         include?: {
             customFields: boolean;
-        };
+        } | undefined;
     }
 
     type GetChannelMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<ChannelMetadataObject<Custom>>;
@@ -1440,34 +1440,34 @@ declare namespace Pubnub {
 
     interface UUIDMembersParameters {
         include?: {
-            totalCount?: boolean;
-            customFields?: boolean;
-            UUIDFields?: boolean;
-            customUUIDFields?: boolean;
-        };
-        filter?: string;
-        sort?: object;
-        limit?: number;
+            totalCount?: boolean | undefined;
+            customFields?: boolean | undefined;
+            UUIDFields?: boolean | undefined;
+            customUUIDFields?: boolean | undefined;
+        } | undefined;
+        filter?: string | undefined;
+        sort?: object | undefined;
+        limit?: number | undefined;
         page?: {
-            next?: string;
-            prev?: string;
-        };
+            next?: string | undefined;
+            prev?: string | undefined;
+        } | undefined;
     }
 
     interface ChannelMembersParameters {
         include?: {
-            totalCount?: boolean;
-            customFields?: boolean;
-            channelFields?: boolean;
-            customChannelFields?: boolean;
-        };
-        filter?: string;
-        sort?: object;
-        limit?: number;
+            totalCount?: boolean | undefined;
+            customFields?: boolean | undefined;
+            channelFields?: boolean | undefined;
+            customChannelFields?: boolean | undefined;
+        } | undefined;
+        filter?: string | undefined;
+        sort?: object | undefined;
+        limit?: number | undefined;
         page?: {
-            next?: string;
-            prev?: string;
-        };
+            next?: string | undefined;
+            prev?: string | undefined;
+        } | undefined;
     }
 
     interface GetChannelMembersParameters extends UUIDMembersParameters {
@@ -1484,21 +1484,21 @@ declare namespace Pubnub {
         > = PagedObjectsResponse<ChannelMembershipObject<MembershipCustom, ChannelCustom>>;
 
     interface GetMembershipsParametersv2 extends ChannelMembersParameters {
-        uuid?: string;
+        uuid?: string | undefined;
     }
 
     interface SetCustom<Custom extends ObjectCustom> {
         id: string;
-        custom?: Custom;
+        custom?: Custom | undefined;
     }
 
     interface SetMembershipsParameters<Custom extends ObjectCustom> extends ChannelMembersParameters {
-        uuid?: string;
-        channels?: Array<string | SetCustom<Custom>>;
+        uuid?: string | undefined;
+        channels?: Array<string | SetCustom<Custom>> | undefined;
     }
 
     interface RemoveMembershipsParameters extends ChannelMembersParameters {
-        uuid?: string;
+        uuid?: string | undefined;
         channels: string[];
     }
 
@@ -1514,10 +1514,10 @@ declare namespace Pubnub {
 
     // encrypt & decrypt
     interface CryptoParameters {
-        encryptKey?: boolean;
-        keyEncoding?: string;
-        keyLength?: number;
-        mode?: string;
+        encryptKey?: boolean | undefined;
+        keyEncoding?: string | undefined;
+        keyLength?: number | undefined;
+        mode?: string | undefined;
     }
 
     // fetch time
@@ -1527,54 +1527,54 @@ declare namespace Pubnub {
 
     // APNS2
     interface APNS2Configuration {
-        collapseId?: string;
-        expirationDate?: Date;
+        collapseId?: string | undefined;
+        expirationDate?: Date | undefined;
         targets: APNS2Target[];
     }
 
     interface APNS2Target {
         topic: string;
-        environment?: 'development' | 'production';
-        excludedDevices?: string[];
+        environment?: 'development' | 'production' | undefined;
+        excludedDevices?: string[] | undefined;
     }
     // NotificationPayloads
 
     interface BaseNotificationPayload {
-        subtitle?: string;
+        subtitle?: string | undefined;
         payload: object;
-        badge?: number;
-        sound?: string;
-        title?: string;
-        body?: string;
+        badge?: number | undefined;
+        sound?: string | undefined;
+        title?: string | undefined;
+        body?: string | undefined;
     }
 
     interface APNSNotificationPayload extends BaseNotificationPayload {
         configurations: APNS2Configuration[];
-        apnsPushType?: string;
+        apnsPushType?: string | undefined;
         isSilent: boolean;
     }
 
     interface MPNSNotificationPayload extends BaseNotificationPayload {
-        backContent?: string;
-        backTitle?: string;
-        count?: number;
-        type?: string;
+        backContent?: string | undefined;
+        backTitle?: string | undefined;
+        count?: number | undefined;
+        type?: string | undefined;
     }
 
     interface FCMNotificationPayload extends BaseNotificationPayload {
         isSilent: boolean;
-        icon?: string;
-        tag?: string;
+        icon?: string | undefined;
+        tag?: string | undefined;
     }
 
     interface NotificationsPayload {
         payload: { apns: object; mpns: object; fcm: object };
         debugging: boolean;
-        subtitle?: string;
-        badge?: number;
-        sound?: string;
-        title?: string;
-        body?: string;
+        subtitle?: string | undefined;
+        badge?: number | undefined;
+        sound?: string | undefined;
+        title?: string | undefined;
+        body?: string | undefined;
         apns: APNSNotificationPayload;
         mpns: MPNSNotificationPayload;
         fcm: FCMNotificationPayload;

@@ -9,8 +9,8 @@ import ValidationReport = require('./src/validation-report');
 
 declare namespace SHACLValidator {
     interface Options {
-        factory?: RDF.DataFactory & RDF.DatasetCoreFactory;
-        maxErrors?: number;
+        factory?: RDF.DataFactory & RDF.DatasetCoreFactory | undefined;
+        maxErrors?: number | undefined;
     }
 }
 

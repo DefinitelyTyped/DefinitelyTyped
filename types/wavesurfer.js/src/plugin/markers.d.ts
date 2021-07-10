@@ -34,22 +34,24 @@ export default class MarkersPlugin extends Observer implements WaveSurferPlugin 
 
 export interface Marker {
     time: number;
-    label?: string;
+    label?: string | undefined;
     color: string;
     position: "top" | "bottom";
 }
 
 export interface MarkersPluginParams {
     /** Initial set of markers. */
-    markers?: MarkerParams[];
+    markers?: MarkerParams[] | undefined;
 }
 
 export interface MarkerParams {
     /** The time to set the marker at. */
     time: number;
     /** An optional marker label. */
-    label?: string;
+    label?: string | undefined;
     /** Background color for marker. */
-    color?: string;
-    position?: "top" | "bottom";
+    color?: string | undefined;
+    position?: "top" | "bottom" | undefined;
+    /** An HTML element to display instead of the default marker image. */
+    markerElement?: HTMLElement | undefined;
 }

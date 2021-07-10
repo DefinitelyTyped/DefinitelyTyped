@@ -31,15 +31,15 @@ declare module 'react-user-tour' {
         /**
         Optional properties horizontalOffset and verticalOffset values allow to move tooltip around pointed element.
         */
-        horizontalOffset?: number;
+        horizontalOffset?: number | undefined;
         /**
         Optional properties horizontalOffset and verticalOffset values allow to move tooltip around pointed element.
         */
-        verticalOffset?: number;
+        verticalOffset?: number | undefined;
         /**
         Each step can also take an optional argument, position which will override the position of the tour component in relation to the selector that is determined by the application.
         */
-        position?: 'left' | 'right' | 'top' | 'topLeft' | 'bottom' | 'bottomLeft';
+        position?: 'left' | 'right' | 'top' | 'topLeft' | 'bottom' | 'bottomLeft' | undefined;
     }
 
     interface TourProps extends HTMLAttributes<any> {
@@ -90,43 +90,43 @@ declare module 'react-user-tour' {
         /**
         If you choose to use the provided arrow, you can set the pixel size here with an integer value.
         */
-        arrowSize?: number;
+        arrowSize?: number | undefined;
         /**
         If you choose to use the provided arrow, you can set the color here by passing in a hex value.
         */
-        arrowColor?: string;
+        arrowColor?: string | undefined;
         /**
         Text that will appear on the button that moves the tour forward.
         Defaults to Next
         */
-        nextButtonText?: string;
+        nextButtonText?: string | undefined;
         /**
         Text that will appear on the button that moves the tour backwards.
          Defaults to Back
         */
-        backButtonText?: string;
+        backButtonText?: string | undefined;
         /**
         Text that will appear on the button that finishes the tour.
         Defaults to Done
         */
-        doneButtonText?: string;
+        doneButtonText?: string | undefined;
         /**
         Text that will appear on the button that closes the tour.
         Defaults to Close
         */
-        closeButtonText?: string;
+        closeButtonText?: string | undefined;
         /**
         Boolean to disable the showing of next/back/done buttons.
         Set this to true if you want to insert your own buttons in the body.
         */
-        hideButtons?: boolean;
+        hideButtons?: boolean | undefined;
         /**
         Boolean to disable the showing of the close text in the upper left of
         the component. Set this to true if you want to insert your own close
         functionality or if you would like to disable the ability for the user
         to prematurely exit the tour.
         */
-        hideClose?: boolean;
+        hideClose?: boolean | undefined;
     }
 
     var ReactUserTour: ComponentClass<TourProps>;

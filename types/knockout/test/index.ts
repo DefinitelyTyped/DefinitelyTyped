@@ -698,19 +698,19 @@ function observableArrayEventsTests() {
 }
 
 interface MySubscribable extends KnockoutSubscribable<any> {
-    isBeautiful?: boolean;
+    isBeautiful?: boolean | undefined;
 }
 
 interface MyObservable extends KnockoutObservable<any> {
-    isBeautiful?: boolean;
+    isBeautiful?: boolean | undefined;
 }
 
 interface MyObservableArray extends KnockoutObservableArray<any> {
-    isBeautiful?: boolean;
+    isBeautiful?: boolean | undefined;
 }
 
 interface MyComputed extends KnockoutComputed<any> {
-    isBeautiful?: boolean;
+    isBeautiful?: boolean | undefined;
 }
 
 function observableAny() {

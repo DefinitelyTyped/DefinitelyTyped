@@ -26,7 +26,7 @@ export default class Suggestion {
         options?: {
             id: string;
             type: string;
-            subType?: string;
+            subType?: string | undefined;
             attributes: Record<string, unknown>;
             author: User;
             onAccept: (...args: any[]) => any;

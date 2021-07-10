@@ -14,7 +14,7 @@ export interface ClientOptions {
    * If not provided, the Client locates the binary using the PATH specified
    * by the node child_process's default env.
    */
-  watchmanBinaryPath?: string;
+  watchmanBinaryPath?: string | undefined;
 }
 
 export interface Capabilities {

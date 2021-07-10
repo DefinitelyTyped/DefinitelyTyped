@@ -28,16 +28,16 @@ export class Notification {
 
 export interface NotificationOptions {
     buttons?: Array<{
-        className?: string;
+        className?: string | undefined;
         onDidClick?(event: MouseEvent): void;
-        text?: string;
-    }>;
-    description?: string;
-    detail?: string;
-    dismissable?: boolean;
-    icon?: string;
+        text?: string | undefined;
+    }> | undefined;
+    description?: string | undefined;
+    detail?: string | undefined;
+    dismissable?: boolean | undefined;
+    icon?: string | undefined;
 }
 
 export interface ErrorNotificationOptions extends NotificationOptions {
-    stack?: string;
+    stack?: string | undefined;
 }

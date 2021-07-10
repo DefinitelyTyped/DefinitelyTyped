@@ -26,36 +26,36 @@ declare module Mongo {
         127 | "maxKey" | "number"
 
     type FieldExpression<T> = {
-        $eq?: T,
-        $gt?: T,
-        $gte?: T,
-        $lt?: T,
-        $lte?: T,
-        $in?: T[],
-        $nin?: T[],
-        $ne?: T,
-        $exists?: boolean,
-        $type?: BsonType[] | BsonType,
-        $not?: FieldExpression<T>,
-        $expr?: FieldExpression<T>,
+        $eq?: T | undefined,
+        $gt?: T | undefined,
+        $gte?: T | undefined,
+        $lt?: T | undefined,
+        $lte?: T | undefined,
+        $in?: T[] | undefined,
+        $nin?: T[] | undefined,
+        $ne?: T | undefined,
+        $exists?: boolean | undefined,
+        $type?: BsonType[] | BsonType | undefined,
+        $not?: FieldExpression<T> | undefined,
+        $expr?: FieldExpression<T> | undefined,
         $jsonSchema?: any,
-        $mod?: number[],
-        $regex?: RegExp | string,
-        $options?: string,
-        $text?: { $search: string, $language?: string, $caseSensitive?: boolean, $diacriticSensitive?: boolean },
-        $where?: string | Function,
+        $mod?: number[] | undefined,
+        $regex?: RegExp | string | undefined,
+        $options?: string | undefined,
+        $text?: { $search: string, $language?: string | undefined, $caseSensitive?: boolean | undefined, $diacriticSensitive?: boolean | undefined } | undefined,
+        $where?: string | Function | undefined,
         $geoIntersects?: any,
         $geoWithin?: any,
         $near?: any,
         $nearSphere?: any,
-        $all?: T[],
-        $elemMatch?: T extends {} ? Query<T> : FieldExpression<T>,
-        $size?: number,
+        $all?: T[] | undefined,
+        $elemMatch?: T extends {} ? Query<T> : FieldExpression<T> | undefined | undefined | undefined | undefined | undefined | undefined | undefined,
+        $size?: number | undefined,
         $bitsAllClear?: any,
         $bitsAllSet?: any,
         $bitsAnyClear?: any,
         $bitsAnySet?: any,
-        $comment?: string
+        $comment?: string | undefined
     }
 
     type Flatten<T> = T extends any[] ? T[0] : T
@@ -63,14 +63,14 @@ declare module Mongo {
     type Query<T> = {
         [P in keyof T]?: Flatten<T[P]> | RegExp | FieldExpression<Flatten<T[P]>>
     } & {
-        $or?: Query<T>[],
-        $and?: Query<T>[],
-        $nor?: Query<T>[]
+        $or?: Query<T>[] | undefined,
+        $and?: Query<T>[] | undefined,
+        $nor?: Query<T>[] | undefined
     } & Dictionary<any>
 
     type QueryWithModifiers<T> = {
         $query: Query<T>,
-        $comment?: string,
+        $comment?: string | undefined,
         $explain?: any,
         $hint?: any,
         $maxScan?: any,
@@ -95,27 +95,27 @@ declare module Mongo {
     type PushModifier<T> = {
         [P in keyof T]?:
         OnlyElementsOfArrays<T[P]> |
-        { $each?: T[P], $position?: number, $slice?: number, $sort?: 1 | -1 | Dictionary<number> }
+        { $each?: T[P] | undefined, $position?: number | undefined, $slice?: number | undefined, $sort?: 1 | -1 | Dictionary<number> | undefined }
     }
     type ArraysOrEach<T> = {
         [P in keyof T]?: OnlyElementsOfArrays<T[P]> | { $each: T[P] }
     }
     type CurrentDateModifier = { $type: "timestamp" | "date" } | true
     type Modifier<T> = T | {
-        $currentDate?: Partial<Record<keyof T, CurrentDateModifier>> & Dictionary<CurrentDateModifier>,
-        $inc?: PartialMapTo<T, number> & Dictionary<number>,
-        $min?: PartialMapTo<T, Date | number> & Dictionary<Date | number>,
-        $max?: PartialMapTo<T, Date | number> & Dictionary<Date | number>,
-        $mul?: PartialMapTo<T, number> & Dictionary<number>,
-        $rename?: PartialMapTo<T, string> & Dictionary<string>,
-        $set?: Partial<T> & Dictionary<any>,
-        $setOnInsert?: Partial<T> & Dictionary<any>,
-        $unset?: PartialMapTo<T, string | boolean | 1 | 0> & Dictionary<any>,
-        $addToSet?: ArraysOrEach<T> & Dictionary<any>,
-        $push?: PushModifier<T> & Dictionary<any>,
-        $pull?: ElementsOf<T> & Dictionary<any>,
-        $pullAll?: Partial<T> & Dictionary<any>,
-        $pop?: PartialMapTo<T, 1 | -1> & Dictionary<1 | -1>,
+        $currentDate?: Partial<Record<keyof T, CurrentDateModifier>> & Dictionary<CurrentDateModifier> | undefined,
+        $inc?: PartialMapTo<T, number> & Dictionary<number> | undefined,
+        $min?: PartialMapTo<T, Date | number> & Dictionary<Date | number> | undefined,
+        $max?: PartialMapTo<T, Date | number> & Dictionary<Date | number> | undefined,
+        $mul?: PartialMapTo<T, number> & Dictionary<number> | undefined,
+        $rename?: PartialMapTo<T, string> & Dictionary<string> | undefined,
+        $set?: Partial<T> & Dictionary<any> | undefined,
+        $setOnInsert?: Partial<T> & Dictionary<any> | undefined,
+        $unset?: PartialMapTo<T, string | boolean | 1 | 0> & Dictionary<any> | undefined,
+        $addToSet?: ArraysOrEach<T> & Dictionary<any> | undefined,
+        $push?: PushModifier<T> & Dictionary<any> | undefined,
+        $pull?: ElementsOf<T> & Dictionary<any> | undefined,
+        $pullAll?: Partial<T> & Dictionary<any> | undefined,
+        $pop?: PartialMapTo<T, 1 | -1> & Dictionary<1 | -1> | undefined,
     }
 
     type OptionalId<TSchema> = UnionOmit<TSchema, '_id'> & { _id?: any };
@@ -128,12 +128,12 @@ declare module Mongo {
     type Transform<T> = ((doc: T) => any) | null | undefined;
 
     type Options<T> = {
-        sort?: SortSpecifier;
-        skip?: number;
-        limit?: number;
-        fields?: FieldSpecifier;
-        reactive?: boolean;
-        transform?: Transform<T>;
+        sort?: SortSpecifier | undefined;
+        skip?: number | undefined;
+        limit?: number | undefined;
+        fields?: FieldSpecifier | undefined;
+        reactive?: boolean | undefined;
+        transform?: Transform<T> | undefined;
     }
 
     type DispatchTransform<Transform, T, U> = Transform extends (...args: any) => any ? ReturnType<Transform> : Transform extends null ? T : U;
@@ -141,25 +141,25 @@ declare module Mongo {
     var Collection: CollectionStatic;
     interface CollectionStatic {
         new <T, U = T>(name: string | null, options?: {
-            connection?: Object | null;
-            idGeneration?: string;
-            transform?: (doc: T) => U;
+            connection?: Object | null | undefined;
+            idGeneration?: string | undefined;
+            transform?: ((doc: T) => U) | undefined;
         }): Collection<T, U>;
     }
     interface Collection<T, U = T> {
         allow<Fn extends Transform<T> = undefined>(options: {
-            insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
-            update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
-            remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
-            fetch?: string[];
-            transform?: Fn;
+            insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
+            update?: ((userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean) | undefined;
+            remove?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
+            fetch?: string[] | undefined;
+            transform?: Fn | undefined;
         }): boolean;
         deny<Fn extends Transform<T> = undefined>(options: {
-            insert?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
-            update?: (userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean;
-            remove?: (userId: string, doc: DispatchTransform<Fn, T, U>) => boolean;
-            fetch?: string[];
-            transform?: Fn;
+            insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
+            update?: ((userId: string, doc: DispatchTransform<Fn, T, U>, fieldNames: string[], modifier: any) => boolean) | undefined;
+            remove?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
+            fetch?: string[] | undefined;
+            transform?: Fn | undefined;
         }): boolean;
         find(selector?: Selector<T> | ObjectID | string): Cursor<T, U>;
         find<O extends Options<T>>(selector?: Selector<T> | ObjectID | string, options?: O): Cursor<T, DispatchTransform<O['transform'], T, U>>;
@@ -170,14 +170,14 @@ declare module Mongo {
         rawDatabase(): any;
         remove(selector: Selector<T> | ObjectID | string, callback?: Function): number;
         update(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
-            multi?: boolean;
-            upsert?: boolean;
-            arrayFilters? : { [identifier: string]: any }[];
+            multi?: boolean | undefined;
+            upsert?: boolean | undefined;
+            arrayFilters? : { [identifier: string]: any }[] | undefined;
         }, callback?: Function): number;
         upsert(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
-            multi?: boolean;
+            multi?: boolean | undefined;
         }, callback?: Function): {
-            numberAffected?: number; insertedId?: string;
+            numberAffected?: number | undefined; insertedId?: string | undefined;
         };
         _ensureIndex(keys: {
             [key: string]: number | string
@@ -232,10 +232,10 @@ declare module Mongo {
 
 declare module Mongo {
     interface AllowDenyOptions {
-        insert?: (userId: string, doc: any) => boolean;
-        update?: (userId: string, doc: any, fieldNames: string[], modifier: any) => boolean;
-        remove?: (userId: string, doc: any) => boolean;
-        fetch?: string[];
-        transform?: Function | null;
+        insert?: ((userId: string, doc: any) => boolean) | undefined;
+        update?: ((userId: string, doc: any, fieldNames: string[], modifier: any) => boolean) | undefined;
+        remove?: ((userId: string, doc: any) => boolean) | undefined;
+        fetch?: string[] | undefined;
+        transform?: Function | null | undefined;
     }
 }

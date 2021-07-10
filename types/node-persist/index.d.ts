@@ -13,26 +13,26 @@ declare namespace NodePersist {
     type FilterFunction<T> = (value: T, index: number, array: T[]) => boolean;
 
     interface InitOptions {
-        dir?: string;
-        stringify?: (data: any) => string;
-        parse?: (str: string) => any;
-        encoding?: BufferEncoding;
-        logging?: ((...args: any[]) => void) | boolean;
-        expiredInterval?: Milliseconds;
-        forgiveParseErrors?: boolean;
-        ttl?: Milliseconds;
+        dir?: string | undefined;
+        stringify?: ((data: any) => string) | undefined;
+        parse?: ((str: string) => any) | undefined;
+        encoding?: BufferEncoding | undefined;
+        logging?: ((...args: any[]) => void) | boolean | undefined;
+        expiredInterval?: Milliseconds | undefined;
+        forgiveParseErrors?: boolean | undefined;
+        ttl?: Milliseconds | undefined;
     }
 
     interface DatumOptions {
-        raw?: boolean;
-        ttl?: Milliseconds;
+        raw?: boolean | undefined;
+        ttl?: Milliseconds | undefined;
     }
 
     interface Datum {
         key: string;
         value: any;
 
-        ttl?: Milliseconds;
+        ttl?: Milliseconds | undefined;
     }
 
     interface EnsureDirectoryResult {

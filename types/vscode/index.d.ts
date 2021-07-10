@@ -1,4 +1,4 @@
-// Type definitions for Visual Studio Code 1.57
+// Type definitions for Visual Studio Code 1.58
 // Project: https://github.com/microsoft/vscode
 // Definitions by: Visual Studio Code Team, Microsoft <https://github.com/microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.57 Extension API
+ * Type Definition for Visual Studio Code 1.58 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -1066,7 +1066,7 @@ declare module 'vscode' {
         /**
          * A message that should be rendered when hovering over the decoration.
          */
-        hoverMessage?: MarkedString | MarkedString[];
+        hoverMessage?: MarkdownString | MarkedString | Array<MarkdownString | MarkedString>;
 
         /**
          * Render options applied to the current decoration. For performance reasons, keep the
@@ -1711,6 +1711,7 @@ declare module 'vscode' {
 
         /**
          * Set to `true` to keep the picker open when focus moves to another part of the editor or to another window.
+         * This setting is ignored on iPad and is always false.
          */
         ignoreFocusOut?: boolean;
 
@@ -1737,6 +1738,7 @@ declare module 'vscode' {
 
         /**
          * Set to `true` to keep the picker open when focus moves to another part of the editor or to another window.
+         * This setting is ignored on iPad and is always false.
          */
         ignoreFocusOut?: boolean;
     }
@@ -1869,6 +1871,12 @@ declare module 'vscode' {
          * Indicates that this message should be modal.
          */
         modal?: boolean;
+
+        /**
+         * Human-readable detail message that is rendered less prominent. _Note_ that detail
+         * is only shown for {@link MessageOptions.modal modal} messages.
+         */
+        detail?: string;
     }
 
     /**
@@ -1911,6 +1919,7 @@ declare module 'vscode' {
 
         /**
          * Set to `true` to keep the input box open when focus moves to another part of the editor or to another window.
+         * This setting is ignored on iPad and is always false.
          */
         ignoreFocusOut?: boolean;
 
@@ -2000,7 +2009,7 @@ declare module 'vscode' {
      * { language: 'typescript', scheme: 'file' }
      *
      * @example <caption>A language filter that applies to all package.json paths</caption>
-     * { language: 'json', scheme: 'untitled', pattern: '**​/package.json' }
+     * { language: 'json', pattern: '**​/package.json' }
      */
     export interface DocumentFilter {
 
@@ -2571,8 +2580,8 @@ declare module 'vscode' {
      * The MarkdownString represents human-readable text that supports formatting via the
      * markdown syntax. Standard markdown is supported, also tables, but no embedded html.
      *
-     * When created with `supportThemeIcons` then rendering of {@link ThemeIcon theme icons} via
-     * the `$(<name>)`-syntax is supported.
+     * Rendering of {@link ThemeIcon theme icons} via the `$(<name>)`-syntax is supported
+     * when the {@link MarkdownString.supportThemeIcons `supportThemeIcons`} is set to `true`.
      */
     export class MarkdownString {
 
@@ -2590,7 +2599,7 @@ declare module 'vscode' {
         /**
          * Indicates that this markdown string can contain {@link ThemeIcon ThemeIcons}, e.g. `$(zap)`.
          */
-        readonly supportThemeIcons?: boolean;
+        supportThemeIcons?: boolean;
 
         /**
          * Creates a new markdown string with the given value.
@@ -2627,7 +2636,7 @@ declare module 'vscode' {
      *
      * @deprecated This type is deprecated, please use {@link MarkdownString `MarkdownString`} instead.
      */
-    export type MarkedString = MarkdownString | string | { language: string; value: string };
+    export type MarkedString = string | { language: string; value: string };
 
     /**
      * A hover represents additional information for a symbol or word. Hovers are
@@ -2638,7 +2647,7 @@ declare module 'vscode' {
         /**
          * The contents of this hover.
          */
-        contents: MarkedString[];
+        contents: Array<MarkdownString | MarkedString>;
 
         /**
          * The range to which this hover applies. When missing, the
@@ -2653,7 +2662,7 @@ declare module 'vscode' {
          * @param contents The contents of the hover.
          * @param range The range to which the hover applies.
          */
-        constructor(contents: MarkedString | MarkedString[], range?: Range);
+        constructor(contents: MarkdownString | MarkedString | Array<MarkdownString | MarkedString>, range?: Range);
     }
 
     /**
@@ -2826,9 +2835,9 @@ declare module 'vscode' {
     }
 
     /**
-     * The inline values provider interface defines the contract between extensions and the VS Code debugger inline values feature.
+     * The inline values provider interface defines the contract between extensions and the editor's debugger inline values feature.
      * In this contract the provider returns inline value information for a given document range
-     * and VS Code shows this information in the editor at the end of lines.
+     * and the editor shows this information in the editor at the end of lines.
      */
     export interface InlineValuesProvider {
 
@@ -2840,7 +2849,7 @@ declare module 'vscode' {
 
         /**
          * Provide "inline value" information for a given document and range.
-         * VS Code calls this method whenever debugging stops in the given document.
+         * The editor calls this method whenever debugging stops in the given document.
          * The returned inline values information is rendered in the editor at the end of lines.
          *
          * @param document The document for which the inline values information is needed.
@@ -3657,7 +3666,7 @@ declare module 'vscode' {
          * ```
          *
          * @see {@link SemanticTokensBuilder} for a helper to encode tokens as integers.
-         * *NOTE*: When doing edits, it is possible that multiple edits occur until VS Code decides to invoke the semantic tokens provider.
+         * *NOTE*: When doing edits, it is possible that multiple edits occur until the editor decides to invoke the semantic tokens provider.
          * *NOTE*: If the provider cannot temporarily compute semantic tokens, it can indicate this by throwing an error with the message 'Busy'.
          */
         provideDocumentSemanticTokens(document: TextDocument, token: CancellationToken): ProviderResult<SemanticTokens>;
@@ -3978,6 +3987,31 @@ declare module 'vscode' {
     }
 
     /**
+     * A structured label for a {@link CompletionItem completion item}.
+     */
+    export interface CompletionItemLabel {
+
+        /**
+         * The label of this completion item.
+         *
+         * By default this is also the text that is inserted when this completion is selected.
+         */
+        label: string;
+
+        /**
+         * An optional string which is rendered less prominently directly after {@link CompletionItemLabel.label label},
+         * without any spacing. Should be used for function signatures or type annotations.
+         */
+        detail?: string;
+
+        /**
+         * An optional string which is rendered less prominently after {@link CompletionItemLabel.detail}. Should be used
+         * for fully qualified names or file path.
+         */
+        description?: string;
+    }
+
+    /**
      * Completion item kinds.
      */
     export enum CompletionItemKind {
@@ -4043,7 +4077,7 @@ declare module 'vscode' {
          * this is also the text that is inserted when selecting
          * this completion.
          */
-        label: string;
+        label: string | CompletionItemLabel;
 
         /**
          * The kind of this completion item. Based on the kind
@@ -4167,7 +4201,7 @@ declare module 'vscode' {
          * @param label The label of the completion.
          * @param kind The {@link CompletionItemKind kind} of the completion.
          */
-        constructor(label: string, kind?: CompletionItemKind);
+        constructor(label: string | CompletionItemLabel, kind?: CompletionItemKind);
     }
 
     /**
@@ -5138,7 +5172,7 @@ declare module 'vscode' {
          *    - configuration to workspace folder when there is no workspace folder settings.
          *    - configuration to workspace folder when {@link WorkspaceConfiguration} is not scoped to a resource.
          */
-        update(section: string, value: any, configurationTarget?: ConfigurationTarget | boolean, overrideInLanguage?: boolean): Thenable<void>;
+        update(section: string, value: any, configurationTarget?: ConfigurationTarget | boolean | null, overrideInLanguage?: boolean): Thenable<void>;
 
         /**
          * Readable dictionary that backs this configuration.
@@ -5567,7 +5601,7 @@ declare module 'vscode' {
         /**
          * Role of the widget which defines how a screen reader interacts with it.
          * The role should be set in special cases when for example a tree-like element behaves like a checkbox.
-         * If role is not specified VS Code will pick the appropriate role automatically.
+         * If role is not specified the editor will pick the appropriate role automatically.
          * More about aria roles can be found here https://w3c.github.io/aria/#widget_roles
          */
         role?: string;
@@ -5659,7 +5693,7 @@ declare module 'vscode' {
          * The command must be {@link commands.getCommands known}.
          *
          * Note that if this is a {@link Command `Command`} object, only the {@link Command.command `command`} and {@link Command.arguments `arguments`}
-         * are used by VS Code.
+         * are used by the editor.
          */
         command: string | Command | undefined;
 
@@ -5803,7 +5837,7 @@ declare module 'vscode' {
     /**
      * A link on a terminal line.
      */
-    export interface TerminalLink {
+    export class TerminalLink {
         /**
          * The start index of the link on {@link TerminalLinkContext.line}.
          */
@@ -5822,6 +5856,47 @@ declare module 'vscode' {
          * depending on OS, user settings, and localization.
          */
         tooltip?: string;
+
+        /**
+         * Creates a new terminal link.
+         * @param startIndex The start index of the link on {@link TerminalLinkContext.line}.
+         * @param length The length of the link on {@link TerminalLinkContext.line}.
+         * @param tooltip The tooltip text when you hover over this link.
+         *
+         * If a tooltip is provided, is will be displayed in a string that includes instructions on
+         * how to trigger the link, such as `{0} (ctrl + click)`. The specific instructions vary
+         * depending on OS, user settings, and localization.
+         */
+        constructor(startIndex: number, length: number, tooltip?: string);
+    }
+
+    /**
+     * Provides a terminal profile for the contributed terminal profile when launched via the UI or
+     * command.
+     */
+    export interface TerminalProfileProvider {
+        /**
+         * Provide the terminal profile.
+         * @param token A cancellation token that indicates the result is no longer needed.
+         * @returns The terminal profile.
+         */
+        provideTerminalProfile(token: CancellationToken): ProviderResult<TerminalProfile>;
+    }
+
+    /**
+     * A terminal profile defines how a terminal will be launched.
+     */
+    export class TerminalProfile {
+        /**
+         * The options that the terminal will launch with.
+         */
+        options: TerminalOptions | ExtensionTerminalOptions;
+
+        /**
+         * Creates a new terminal profile.
+         * @param options The options that the terminal will launch with.
+         */
+        constructor(options: TerminalOptions | ExtensionTerminalOptions);
     }
 
     /**
@@ -5970,13 +6045,13 @@ declare module 'vscode' {
     export enum ExtensionMode {
         /**
          * The extension is installed normally (for example, from the marketplace
-         * or VSIX) in VS Code.
+         * or VSIX) in the editor.
          */
         Production = 1,
 
         /**
          * The extension is running from an `--extensionDevelopmentPath` provided
-         * when launching VS Code.
+         * when launching the editor.
          */
         Development = 2,
 
@@ -6149,6 +6224,13 @@ declare module 'vscode' {
      * values.
      */
     export interface Memento {
+
+        /**
+         * Returns the stored keys.
+         *
+         * @return The stored keys.
+         */
+        keys(): readonly string[];
 
         /**
          * Return a value.
@@ -6560,7 +6642,7 @@ declare module 'vscode' {
         constructor(commandLine: string, options?: ShellExecutionOptions);
 
         /**
-         * Creates a shell execution with a command and arguments. For the real execution VS Code will
+         * Creates a shell execution with a command and arguments. For the real execution the editor will
          * construct a command line from the command and the arguments. This is subject to interpretation
          * especially when it comes to quoting. If full control over the command line is needed please
          * use the constructor that creates a `ShellExecution` with the full command line.
@@ -6876,7 +6958,7 @@ declare module 'vscode' {
         export function fetchTasks(filter?: TaskFilter): Thenable<Task[]>;
 
         /**
-         * Executes a task that is managed by VS Code. The returned
+         * Executes a task that is managed by the editor. The returned
          * task execution can be used to terminate the task.
          *
          * @throws When running a ShellExecution or a ProcessExecution
@@ -7292,7 +7374,7 @@ declare module 'vscode' {
          * @param scheme The scheme of the filesystem, for example `file` or `git`.
          *
          * @return `true` if the file system supports writing, `false` if it does not
-         * support writing (i.e. it is readonly), and `undefined` if VS Code does not
+         * support writing (i.e. it is readonly), and `undefined` if the editor does not
          * know about the filesystem.
          */
         isWritableFileSystem(scheme: string): boolean | undefined;
@@ -7373,7 +7455,7 @@ declare module 'vscode' {
          * Webviews are sandboxed from normal extension process, so all communication with the webview must use
          * message passing. To send a message from the extension to the webview, use {@link Webview.postMessage `postMessage`}.
          * To send message from the webview back to an extension, use the `acquireVsCodeApi` function inside the webview
-         * to get a handle to VS Code's api and then call `.postMessage()`:
+         * to get a handle to the editor's api and then call `.postMessage()`:
          *
          * ```html
          * <script>
@@ -7395,7 +7477,7 @@ declare module 'vscode' {
         /**
          * Fired when the webview content posts a message.
          *
-         * Webview content can post strings or json serializable objects back to a VS Code extension. They cannot
+         * Webview content can post strings or json serializable objects back to an extension. They cannot
          * post `Blob`, `File`, `ImageData` and other DOM specific objects since the extension that receives the
          * message does not run in a browser environment.
          */
@@ -7463,7 +7545,7 @@ declare module 'vscode' {
          *
          * Normally the webview panel's html context is created when the panel becomes visible
          * and destroyed when it is hidden. Extensions that have complex state
-         * or UI can set the `retainContextWhenHidden` to make VS Code keep the webview
+         * or UI can set the `retainContextWhenHidden` to make the editor keep the webview
          * context around, even when the webview moves to a background tab. When a webview using
          * `retainContextWhenHidden` becomes hidden, its scripts and other dynamic content are suspended.
          * When the panel becomes visible again, the context is automatically restored
@@ -7573,7 +7655,7 @@ declare module 'vscode' {
      * There are two types of webview persistence:
      *
      * - Persistence within a session.
-     * - Persistence across sessions (across restarts of VS Code).
+     * - Persistence across sessions (across restarts of the editor).
      *
      * A `WebviewPanelSerializer` is only required for the second case: persisting a webview across sessions.
      *
@@ -7593,8 +7675,8 @@ declare module 'vscode' {
      * setState({ value: oldState.value + 1 })
      * ```
      *
-     * A `WebviewPanelSerializer` extends this persistence across restarts of VS Code. When the editor is shutdown,
-     * VS Code will save off the state from `setState` of all webviews that have a serializer. When the
+     * A `WebviewPanelSerializer` extends this persistence across restarts of the editor. When the editor is shutdown,
+     * it will save off the state from `setState` of all webviews that have a serializer. When the
      * webview first becomes visible after the restart, this state is passed to `deserializeWebviewPanel`.
      * The extension can then restore the old `WebviewPanel` from this state.
      *
@@ -7616,8 +7698,8 @@ declare module 'vscode' {
     }
 
     /**
- * A webview based view.
- */
+     * A webview based view.
+     */
     export interface WebviewView {
         /**
          * Identifies the type of the webview view, such as `'hexEditor.dataView'`.
@@ -7689,7 +7771,7 @@ declare module 'vscode' {
         /**
          * Persisted state from the webview content.
          *
-         * To save resources, VS Code normally deallocates webview documents (the iframe content) that are not visible.
+         * To save resources, the editor normally deallocates webview documents (the iframe content) that are not visible.
          * For example, when the user collapse a view or switches to another top level activity in the sidebar, the
          * `WebviewView` itself is kept alive but the webview's underlying document is deallocated. It is recreated when
          * the view becomes visible again.
@@ -7712,7 +7794,7 @@ declare module 'vscode' {
          * setState({ value: oldState.value + 1 })
          * ```
          *
-         * VS Code ensures that the persisted state is saved correctly when a webview is hidden and across
+         * The editor ensures that the persisted state is saved correctly when a webview is hidden and across
          * editor restarts.
          */
         readonly state: T | undefined;
@@ -7742,7 +7824,7 @@ declare module 'vscode' {
      * Provider for text based custom editors.
      *
      * Text based custom editors use a {@link TextDocument `TextDocument`} as their data model. This considerably simplifies
-     * implementing a custom editor as it allows VS Code to handle many common operations such as
+     * implementing a custom editor as it allows the editor to handle many common operations such as
      * undo and backup. The provider is responsible for synchronizing text changes between the webview and the `TextDocument`.
      */
     export interface CustomTextEditorProvider {
@@ -7773,7 +7855,7 @@ declare module 'vscode' {
      * Represents a custom document used by a {@link CustomEditorProvider `CustomEditorProvider`}.
      *
      * Custom documents are only used within a given `CustomEditorProvider`. The lifecycle of a `CustomDocument` is
-     * managed by VS Code. When no more references remain to a `CustomDocument`, it is disposed of.
+     * managed by the editor. When no more references remain to a `CustomDocument`, it is disposed of.
      */
     interface CustomDocument {
         /**
@@ -7784,14 +7866,14 @@ declare module 'vscode' {
         /**
          * Dispose of the custom document.
          *
-         * This is invoked by VS Code when there are no more references to a given `CustomDocument` (for example when
+         * This is invoked by the editor when there are no more references to a given `CustomDocument` (for example when
          * all editors associated with the document have been closed.)
          */
         dispose(): void;
     }
 
     /**
-     * Event triggered by extensions to signal to VS Code that an edit has occurred on an {@link CustomDocument `CustomDocument`}.
+     * Event triggered by extensions to signal to the editor that an edit has occurred on an {@link CustomDocument `CustomDocument`}.
      *
      * @see {@link CustomEditorProvider.onDidChangeCustomDocument `CustomEditorProvider.onDidChangeCustomDocument`}.
      */
@@ -7805,18 +7887,18 @@ declare module 'vscode' {
         /**
          * Undo the edit operation.
          *
-         * This is invoked by VS Code when the user undoes this edit. To implement `undo`, your
+         * This is invoked by the editor when the user undoes this edit. To implement `undo`, your
          * extension should restore the document and editor to the state they were in just before this
-         * edit was added to VS Code's internal edit stack by `onDidChangeCustomDocument`.
+         * edit was added to the editor's internal edit stack by `onDidChangeCustomDocument`.
          */
         undo(): Thenable<void> | void;
 
         /**
          * Redo the edit operation.
          *
-         * This is invoked by VS Code when the user redoes this edit. To implement `redo`, your
+         * This is invoked by the editor when the user redoes this edit. To implement `redo`, your
          * extension should restore the document and editor to the state they were in just after this
-         * edit was added to VS Code's internal edit stack by `onDidChangeCustomDocument`.
+         * edit was added to the editor's internal edit stack by `onDidChangeCustomDocument`.
          */
         redo(): Thenable<void> | void;
 
@@ -7829,7 +7911,7 @@ declare module 'vscode' {
     }
 
     /**
-     * Event triggered by extensions to signal to VS Code that the content of a {@link CustomDocument `CustomDocument`}
+     * Event triggered by extensions to signal to the editor that the content of a {@link CustomDocument `CustomDocument`}
      * has changed.
      *
      * @see {@link CustomEditorProvider.onDidChangeCustomDocument `CustomEditorProvider.onDidChangeCustomDocument`}.
@@ -7855,7 +7937,7 @@ declare module 'vscode' {
         /**
          * Delete the current backup.
          *
-         * This is called by VS Code when it is clear the current backup is no longer needed, such as when a new backup
+         * This is called by the editor when it is clear the current backup is no longer needed, such as when a new backup
          * is made or when the file is saved.
          */
         delete(): void;
@@ -7966,14 +8048,14 @@ declare module 'vscode' {
          * anything from changing some text, to cropping an image, to reordering a list. Your extension is free to
          * define what an edit is and what data is stored on each edit.
          *
-         * Firing `onDidChange` causes VS Code to mark the editors as being dirty. This is cleared when the user either
+         * Firing `onDidChange` causes the editors to be marked as being dirty. This is cleared when the user either
          * saves or reverts the file.
          *
          * Editors that support undo/redo must fire a `CustomDocumentEditEvent` whenever an edit happens. This allows
-         * users to undo and redo the edit using VS Code's standard VS Code keyboard shortcuts. VS Code will also mark
+         * users to undo and redo the edit using the editor's standard keyboard shortcuts. The editor will also mark
          * the editor as no longer being dirty if the user undoes all edits to the last saved state.
          *
-         * Editors that support editing but cannot use VS Code's standard undo/redo mechanism must fire a `CustomDocumentContentChangeEvent`.
+         * Editors that support editing but cannot use the editor's standard undo/redo mechanism must fire a `CustomDocumentContentChangeEvent`.
          * The only way for a user to clear the dirty state of an editor that does not support undo/redo is to either
          * `save` or `revert` the file.
          *
@@ -7984,7 +8066,7 @@ declare module 'vscode' {
         /**
          * Save a custom document.
          *
-         * This method is invoked by VS Code when the user saves a custom editor. This can happen when the user
+         * This method is invoked by the editor when the user saves a custom editor. This can happen when the user
          * triggers save while the custom editor is active, by commands such as `save all`, or by auto save if enabled.
          *
          * To implement `save`, the implementer must persist the custom editor. This usually means writing the
@@ -8001,7 +8083,7 @@ declare module 'vscode' {
         /**
          * Save a custom document to a different location.
          *
-         * This method is invoked by VS Code when the user triggers 'save as' on a custom editor. The implementer must
+         * This method is invoked by the editor when the user triggers 'save as' on a custom editor. The implementer must
          * persist the custom editor to `destination`.
          *
          * When the user accepts save as, the current editor is be replaced by an non-dirty editor for the newly saved file.
@@ -8017,8 +8099,8 @@ declare module 'vscode' {
         /**
          * Revert a custom document to its last saved state.
          *
-         * This method is invoked by VS Code when the user triggers `File: Revert File` in a custom editor. (Note that
-         * this is only used using VS Code's `File: Revert File` command and not on a `git revert` of the file).
+         * This method is invoked by the editor when the user triggers `File: Revert File` in a custom editor. (Note that
+         * this is only used using the editor's `File: Revert File` command and not on a `git revert` of the file).
          *
          * To implement `revert`, the implementer must make sure all editor instances (webviews) for `document`
          * are displaying the document in the same state is saved in. This usually means reloading the file from the
@@ -8036,7 +8118,7 @@ declare module 'vscode' {
          *
          * Backups are used for hot exit and to prevent data loss. Your `backup` method should persist the resource in
          * its current state, i.e. with the edits applied. Most commonly this means saving the resource to disk in
-         * the `ExtensionContext.storagePath`. When VS Code reloads and your custom editor is opened for a resource,
+         * the `ExtensionContext.storagePath`. When the editor reloads and your custom editor is opened for a resource,
          * your extension should first check to see if any backups exist for the resource. If there is a backup, your
          * extension should load the file contents from there instead of from the resource in the workspace.
          *
@@ -8050,7 +8132,7 @@ declare module 'vscode' {
          * @param cancellation Token that signals the current backup since a new backup is coming in. It is up to your
          * extension to decided how to respond to cancellation. If for example your extension is backing up a large file
          * in an operation that takes time to complete, your extension may decide to finish the ongoing backup rather
-         * than cancelling it to ensure that VS Code has some valid backup.
+         * than cancelling it to ensure that the editor has some valid backup.
          */
         backupCustomDocument(document: T, context: CustomDocumentBackupContext, cancellation: CancellationToken): Thenable<CustomDocumentBackup>;
     }
@@ -8192,8 +8274,7 @@ declare module 'vscode' {
         export function openExternal(target: Uri): Thenable<boolean>;
 
         /**
-         * Resolves a uri to form that is accessible externally. Currently only supports `https:`, `http:` and
-         * `vscode.env.uriScheme` uris.
+         * Resolves a uri to a form that is accessible externally.
          *
          * #### `http:` or `https:` scheme
          *
@@ -8204,7 +8285,7 @@ declare module 'vscode' {
          *
          * If the extension is running remotely, this function automatically establishes a port forwarding tunnel
          * from the local machine to `target` on the remote and returns a local uri to the tunnel. The lifetime of
-         * the port forwarding tunnel is managed by VS Code and the tunnel can be closed by the user.
+         * the port forwarding tunnel is managed by the editor and the tunnel can be closed by the user.
          *
          * *Note* that uris passed through `openExternal` are automatically resolved and you should not call `asExternalUri` on them.
          *
@@ -8213,7 +8294,7 @@ declare module 'vscode' {
          * Creates a uri that - if opened in a browser (e.g. via `openExternal`) - will result in a registered {@link UriHandler}
          * to trigger.
          *
-         * Extensions should not make any assumptions about the resulting uri and should not alter it in anyway.
+         * Extensions should not make any assumptions about the resulting uri and should not alter it in any way.
          * Rather, extensions can e.g. use this uri in an authentication flow, by adding the uri as callback query
          * argument to the server to authenticate to.
          *
@@ -8237,6 +8318,11 @@ declare module 'vscode' {
          * *Note* that extensions should not cache the result of `asExternalUri` as the resolved uri may become invalid due to
          * a system or user action — for example, in remote cases, a user may close a port forwarding tunnel that was opened by
          * `asExternalUri`.
+         *
+         * #### Any other scheme
+         *
+         * Any other scheme will be handled as if the provided URI is a workspace URI. In that case, the method will return
+         * a URI which, when handled, will make the editor open the workspace.
          *
          * @return A uri that can be used on the client machine.
          */
@@ -9006,6 +9092,12 @@ declare module 'vscode' {
         export function registerTerminalLinkProvider(provider: TerminalLinkProvider): Disposable;
 
         /**
+         * Registers a provider for a contributed terminal profile.
+         * @param id The ID of the contributed terminal profile.
+         * @param provider The terminal profile provider.
+         */
+        export function registerTerminalProfileProvider(id: string, provider: TerminalProfileProvider): Disposable;
+        /**
          * Register a file decoration provider.
          *
          * @param provider A {@link FileDecorationProvider}.
@@ -9167,7 +9259,7 @@ declare module 'vscode' {
          * Get {@link TreeItem} representation of the `element`
          *
          * @param element The element for which {@link TreeItem} representation is asked for.
-         * @return the {@link TreeItem} representation of the element
+         * @return TreeItem representation of the element
          */
         getTreeItem(element: T): TreeItem | Thenable<TreeItem>;
 
@@ -9368,7 +9460,7 @@ declare module 'vscode' {
         cwd?: string | Uri;
 
         /**
-         * Object with environment variables that will be added to the VS Code process.
+         * Object with environment variables that will be added to the editor process.
          */
         env?: { [key: string]: string | null | undefined };
 
@@ -9396,6 +9488,11 @@ declare module 'vscode' {
          * a setting text style.
          */
         message?: string;
+
+        /**
+         * The icon path or {@link ThemeIcon} for the terminal.
+         */
+        iconPath?: Uri | { light: Uri; dark: Uri } | ThemeIcon;
     }
 
     /**
@@ -9412,6 +9509,11 @@ declare module 'vscode' {
          * control a terminal.
          */
         pty: Pseudoterminal;
+
+        /**
+         * The icon path or {@link ThemeIcon} for the terminal.
+         */
+        iconPath?: Uri | { light: Uri; dark: Uri } | ThemeIcon;
     }
 
     /**
@@ -9499,6 +9601,24 @@ declare module 'vscode' {
          * ```
          */
         onDidClose?: Event<void | number>;
+
+        /**
+         * An event that when fired allows changing the name of the terminal.
+         *
+         * **Example:** Change the terminal name to "My new terminal".
+         * ```typescript
+         * const writeEmitter = new vscode.EventEmitter<string>();
+         * const changeNameEmitter = new vscode.EventEmitter<string>();
+         * const pty: vscode.Pseudoterminal = {
+         *   onDidWrite: writeEmitter.event,
+         *   onDidChangeName: changeNameEmitter.event,
+         *   open: () => changeNameEmitter.fire('My new terminal'),
+         *   close: () => {}
+         * };
+         * vscode.window.createTerminal({ name: 'My terminal', pty });
+         * ```
+         */
+        onDidChangeName?: Event<string>;
 
         /**
          * Implement to handle when the pty is open and ready to start firing events.
@@ -9791,6 +9911,7 @@ declare module 'vscode' {
 
         /**
          * If the UI should stay open even when loosing UI focus. Defaults to false.
+         * This setting is ignored on iPad and is always false.
          */
         ignoreFocusOut: boolean;
 
@@ -9895,7 +10016,7 @@ declare module 'vscode' {
         /**
          * An event signaling when the active items have changed.
          */
-        readonly onDidChangeActive: Event<T[]>;
+        readonly onDidChangeActive: Event<readonly T[]>;
 
         /**
          * Selected items. This can be read and updated by the extension.
@@ -9905,7 +10026,7 @@ declare module 'vscode' {
         /**
          * An event signaling when the selected items have changed.
          */
-        readonly onDidChangeSelection: Event<T[]>;
+        readonly onDidChangeSelection: Event<readonly T[]>;
     }
 
     /**
@@ -10020,6 +10141,14 @@ declare module 'vscode' {
         readonly text: string;
     }
 
+    export enum TextDocumentChangeReason {
+        /** The text change is caused by an undo operation. */
+        Undo = 1,
+
+        /** The text change is caused by an redo operation. */
+        Redo = 2,
+    }
+
     /**
      * An event describing a transactional {@link TextDocument document} change.
      */
@@ -10034,6 +10163,12 @@ declare module 'vscode' {
          * An array of content changes.
          */
         readonly contentChanges: readonly TextDocumentContentChangeEvent[];
+
+        /**
+         * The reason why the document was changed.
+         * Is undefined if the reason is not known.
+        */
+        readonly reason?: TextDocumentChangeReason;
     }
 
     /**
@@ -10317,15 +10452,15 @@ declare module 'vscode' {
 
     /**
      * Namespace for dealing with the current workspace. A workspace is the collection of one
-     * or more folders that are opened in a VS Code window (instance).
+     * or more folders that are opened in an editor window (instance).
      *
-     * It is also possible to open VS Code without a workspace. For example, when you open a
-     * new VS Code window by selecting a file from your platform's File menu, you will not be
-     * inside a workspace. In this mode, some of VS Code's capabilities are reduced but you can
+     * It is also possible to open an editor without a workspace. For example, when you open a
+     * new editor window by selecting a file from your platform's File menu, you will not be
+     * inside a workspace. In this mode, some of the editor's capabilities are reduced but you can
      * still open text files and edit them.
      *
      * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information on
-     * the concept of workspaces in VS Code.
+     * the concept of workspaces.
      *
      * The workspace offers support for {@link workspace.createFileSystemWatcher listening} to fs
      * events and for {@link workspace.findFiles finding} files. Both perform well and run _outside_
@@ -10342,22 +10477,22 @@ declare module 'vscode' {
         export const fs: FileSystem;
 
         /**
-         * The workspace folder that is open in VS Code. `undefined` when no workspace
+         * The workspace folder that is open in the editor. `undefined` when no workspace
          * has been opened.
          *
          * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information
-         * on workspaces in VS Code.
+         * on workspaces.
          *
          * @deprecated Use {@link workspace.workspaceFolders `workspaceFolders`} instead.
          */
         export const rootPath: string | undefined;
 
         /**
-         * List of workspace folders that are open in VS Code. `undefined` when no workspace
+         * List of workspace folders that are open in the editor. `undefined` when no workspace
          * has been opened.
          *
          * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information
-         * on workspaces in VS Code.
+         * on workspaces.
          *
          * *Note* that the first entry corresponds to the value of `rootPath`.
          */
@@ -10368,7 +10503,7 @@ declare module 'vscode' {
          * has been opened.
          *
          * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information on
-         * the concept of workspaces in VS Code.
+         * the concept of workspaces.
          */
         export const name: string | undefined;
 
@@ -10397,7 +10532,7 @@ declare module 'vscode' {
          * ```
          *
          * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information on
-         * the concept of workspaces in VS Code.
+         * the concept of workspaces.
          *
          * **Note:** it is not advised to use `workspace.workspaceFile` to write
          * configuration data into the file. You can use `workspace.getConfiguration().update()`
@@ -11090,7 +11225,7 @@ declare module 'vscode' {
 
         /**
          * Register a provider that locates evaluatable expressions in text documents.
-         * VS Code will evaluate the expression in the active debug session and will show the result in the debug hover.
+         * The editor will evaluate the expression in the active debug session and will show the result in the debug hover.
          *
          * If multiple providers are registered for a language an arbitrary provider will be used.
          *
@@ -11102,7 +11237,7 @@ declare module 'vscode' {
 
         /**
          * Register a provider that returns data for the debugger's 'inline value' feature.
-         * Whenever the generic VS Code debugger has stopped in a source file, providers registered for the language of the file
+         * Whenever the generic debugger has stopped in a source file, providers registered for the language of the file
          * are called to return textual data that will be shown in the editor at the end of lines.
          *
          * Multiple providers can be registered for a language. In that case providers are asked in
@@ -11420,7 +11555,7 @@ declare module 'vscode' {
         readonly outputs: readonly NotebookCellOutput[];
 
         /**
-         * The most recent {@link NotebookCellExecutionSummary excution summary} for this cell.
+         * The most recent {@link NotebookCellExecutionSummary execution summary} for this cell.
          */
         readonly executionSummary?: NotebookCellExecutionSummary;
     }
@@ -11488,7 +11623,7 @@ declare module 'vscode' {
 
         /**
          * Get the cells of this notebook. A subset can be retrieved by providing
-         * a range. The range will be adjuset to the notebook.
+         * a range. The range will be adjusted to the notebook.
          *
          * @param range A notebook range.
          * @returns The cells contained by the range or all cells.
@@ -11526,7 +11661,7 @@ declare module 'vscode' {
     }
 
     /**
-     * A notebook range represents an ordered pair of two cell indicies.
+     * A notebook range represents an ordered pair of two cell indices.
      * It is guaranteed that start is less than or equal to end.
      */
     export class NotebookRange {
@@ -11637,7 +11772,7 @@ declare module 'vscode' {
         data: Uint8Array;
 
         /**
-         * Create a new notbook cell output item.
+         * Create a new notebook cell output item.
          *
          * @param data The value of the output item.
          * @param mime The mime type of the output item.
@@ -11729,9 +11864,9 @@ declare module 'vscode' {
     }
 
     /**
-     * NotebookData is the raw representation of notebooks.
+     * Raw representation of a notebook.
      *
-     * Extensions are responsible to create {@link NotebookData `NotebookData`} so that the editor
+     * Extensions are responsible for creating {@link NotebookData `NotebookData`} so that the editor
      * can create a {@link NotebookDocument `NotebookDocument`}.
      *
      * @see {@link NotebookSerializer}
@@ -12085,7 +12220,7 @@ declare module 'vscode' {
          * The command must be {@link commands.getCommands known}.
          *
          * Note that if this is a {@link Command `Command`} object, only the {@link Command.command `command`} and {@link Command.arguments `arguments`}
-         * are used by VS Code.
+         * are used by the editor.
          */
         command?: string | Command;
 
@@ -12133,7 +12268,7 @@ declare module 'vscode' {
     /**
      * Namespace for notebooks.
      *
-     * The notebooks functionality is composed of three loosly coupled components:
+     * The notebooks functionality is composed of three loosely coupled components:
      *
      * 1. {@link NotebookSerializer} enable the editor to open, show, and save notebooks
      * 2. {@link NotebookController} own the execution of notebooks, e.g they create output from code cells.
@@ -12507,10 +12642,10 @@ declare module 'vscode' {
         customRequest(command: string, args?: any): Thenable<any>;
 
         /**
-         * Maps a VS Code breakpoint to the corresponding Debug Adapter Protocol (DAP) breakpoint that is managed by the debug adapter of the debug session.
-         * If no DAP breakpoint exists (either because the VS Code breakpoint was not yet registered or because the debug adapter is not interested in the breakpoint), the value `undefined` is returned.
+         * Maps a breakpoint in the editor to the corresponding Debug Adapter Protocol (DAP) breakpoint that is managed by the debug adapter of the debug session.
+         * If no DAP breakpoint exists (either because the editor breakpoint was not yet registered or because the debug adapter is not interested in the breakpoint), the value `undefined` is returned.
          *
-         * @param breakpoint A VS Code {@link Breakpoint}.
+         * @param breakpoint A {@link Breakpoint} in the editor.
          * @return A promise that resolves to the Debug Adapter Protocol breakpoint or `undefined`.
          */
         getDebugProtocolBreakpoint(breakpoint: Breakpoint): Thenable<DebugProtocolBreakpoint | undefined>;
@@ -12599,7 +12734,7 @@ declare module 'vscode' {
         /**
          * The command or path of the debug adapter executable.
          * A command must be either an absolute path of an executable or the name of an command to be looked up via the PATH environment variable.
-         * The special value 'node' will be mapped to VS Code's built-in Node.js runtime.
+         * The special value 'node' will be mapped to the editor's built-in Node.js runtime.
          */
         readonly command: string;
 
@@ -12670,12 +12805,12 @@ declare module 'vscode' {
     }
 
     /**
-     * A debug adapter that implements the Debug Adapter Protocol can be registered with VS Code if it implements the DebugAdapter interface.
+     * A debug adapter that implements the Debug Adapter Protocol can be registered with the editor if it implements the DebugAdapter interface.
      */
     export interface DebugAdapter extends Disposable {
 
         /**
-         * An event which fires after the debug adapter has sent a Debug Adapter Protocol message to VS Code.
+         * An event which fires after the debug adapter has sent a Debug Adapter Protocol message to the editor.
          * Messages can be requests, responses, or events.
          */
         readonly onDidSendMessage: Event<DebugProtocolMessage>;
@@ -12724,7 +12859,7 @@ declare module 'vscode' {
     }
 
     /**
-     * A Debug Adapter Tracker is a means to track the communication between VS Code and a Debug Adapter.
+     * A Debug Adapter Tracker is a means to track the communication between the editor and a Debug Adapter.
      */
     export interface DebugAdapterTracker {
         /**
@@ -12732,11 +12867,11 @@ declare module 'vscode' {
          */
         onWillStartSession?(): void;
         /**
-         * The debug adapter is about to receive a Debug Adapter Protocol message from VS Code.
+         * The debug adapter is about to receive a Debug Adapter Protocol message from the editor.
          */
         onWillReceiveMessage?(message: any): void;
         /**
-         * The debug adapter has sent a Debug Adapter Protocol message to VS Code.
+         * The debug adapter has sent a Debug Adapter Protocol message to the editor.
          */
         onDidSendMessage?(message: any): void;
         /**
@@ -12756,7 +12891,7 @@ declare module 'vscode' {
     export interface DebugAdapterTrackerFactory {
         /**
          * The method 'createDebugAdapterTracker' is called at the start of a debug session in order
-         * to return a "tracker" object that provides read-access to the communication between VS Code and a debug adapter.
+         * to return a "tracker" object that provides read-access to the communication between the editor and a debug adapter.
          *
          * @param session The {@link DebugSession debug session} for which the debug adapter tracker will be used.
          * @return A {@link DebugAdapterTracker debug adapter tracker} or undefined.
@@ -13047,7 +13182,7 @@ declare module 'vscode' {
         /**
          * Converts a "Source" descriptor object received via the Debug Adapter Protocol into a Uri that can be used to load its contents.
          * If the source descriptor is based on a path, a file Uri is returned.
-         * If the source descriptor uses a reference number, a specific debug Uri (scheme 'debug') is constructed that requires a corresponding VS Code ContentProvider and a running debug session
+         * If the source descriptor uses a reference number, a specific debug Uri (scheme 'debug') is constructed that requires a corresponding ContentProvider and a running debug session
          *
          * If the "Source" descriptor has insufficient information for creating the Uri, an error is thrown.
          *
@@ -13523,17 +13658,17 @@ declare module 'vscode' {
     */
     export interface AuthenticationProviderAuthenticationSessionsChangeEvent {
         /**
-         * The {@link AuthenticationSession}s of the {@link AuthentiationProvider AuthenticationProvider} that have been added.
+         * The {@link AuthenticationSession}s of the {@link AuthenticationProvider} that have been added.
         */
         readonly added?: readonly AuthenticationSession[];
 
         /**
-         * The {@link AuthenticationSession}s of the {@link AuthentiationProvider AuthenticationProvider} that have been removed.
+         * The {@link AuthenticationSession}s of the {@link AuthenticationProvider} that have been removed.
          */
         readonly removed?: readonly AuthenticationSession[];
 
         /**
-         * The {@link AuthenticationSession}s of the {@link AuthentiationProvider AuthenticationProvider} that have been changed.
+         * The {@link AuthenticationSession}s of the {@link AuthenticationProvider} that have been changed.
          * A session changes when its data excluding the id are updated. An example of this is a session refresh that results in a new
          * access token being set for the session.
          */
@@ -13596,7 +13731,7 @@ declare module 'vscode' {
          * quickpick to select which account they would like to use.
          *
          * Currently, there are only two authentication providers that are contributed from built in extensions
-         * to VS Code that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+         * to the editor that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
          * @param providerId The id of the provider to use
          * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
          * @param options The {@link GetSessionOptions} to use
@@ -13611,7 +13746,7 @@ declare module 'vscode' {
          * quickpick to select which account they would like to use.
          *
          * Currently, there are only two authentication providers that are contributed from built in extensions
-         * to VS Code that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+         * to the editor that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
          * @param providerId The id of the provider to use
          * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
          * @param options The {@link GetSessionOptions} to use

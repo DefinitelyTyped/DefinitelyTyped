@@ -8,12 +8,12 @@ export default self;
 
 declare namespace self {
     interface IndexRouteProps extends React.Props<IndexRoute> {
-        component?: Router.RouteComponent;
-        components?: Router.RouteComponents;
-        getComponent?: (location: H.Location, cb: (error: any, component?: Router.RouteComponent) => void) => void;
-        getComponents?: (location: H.Location, cb: (error: any, components?: Router.RouteComponents) => void) => void;
-        onEnter?: Router.EnterHook;
-        onLeave?: Router.LeaveHook;
+        component?: Router.RouteComponent | undefined;
+        components?: Router.RouteComponents | undefined;
+        getComponent?: ((location: H.Location, cb: (error: any, component?: Router.RouteComponent) => void) => void) | undefined;
+        getComponents?: ((location: H.Location, cb: (error: any, components?: Router.RouteComponents) => void) => void) | undefined;
+        onEnter?: Router.EnterHook | undefined;
+        onLeave?: Router.LeaveHook | undefined;
     }
     interface IndexRoute extends React.ComponentClass<IndexRouteProps> { }
     interface IndexRouteElement extends React.ReactElement<IndexRouteProps> { }

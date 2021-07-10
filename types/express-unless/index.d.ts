@@ -12,17 +12,17 @@ declare function unless(options: unless.Options): express.RequestHandler;
 declare function unless(options: unless.Options["custom"]): express.RequestHandler;
 
 declare namespace unless {
-    type pathFilter = string | RegExp | { url: string | RegExp, methods?: string[], method?: string | string[] };
+    type pathFilter = string | RegExp | { url: string | RegExp, methods?: string[] | undefined, method?: string | string[] | undefined };
 
     export interface Options {
-        custom?: (req: express.Request) => boolean;
-        path?: pathFilter | pathFilter[];
-        ext?: string | string[];
-        method?: string | string[];
-        useOriginalUrl?: boolean;
+        custom?: ((req: express.Request) => boolean) | undefined;
+        path?: pathFilter | pathFilter[] | undefined;
+        ext?: string | string[] | undefined;
+        method?: string | string[] | undefined;
+        useOriginalUrl?: boolean | undefined;
     }
     export interface RequestHandler extends express.RequestHandler {
-        unless?: typeof unless;
+        unless?: typeof unless | undefined;
     }
 }
 

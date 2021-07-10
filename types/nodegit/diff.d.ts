@@ -11,13 +11,13 @@ import { ConvenientPatch } from './convenient-patch';
 import { DiffStats } from './diff-stats';
 
 export interface DiffFindOptions {
-    version?: number;
-    flags?: number;
-    renameThreshold?: number;
-    renameFromRewriteThreshold?: number;
-    copyThreshold?: number;
-    breakRewriteThreshold?: number;
-    renameLimit?: number;
+    version?: number | undefined;
+    flags?: number | undefined;
+    renameThreshold?: number | undefined;
+    renameFromRewriteThreshold?: number | undefined;
+    copyThreshold?: number | undefined;
+    breakRewriteThreshold?: number | undefined;
+    renameLimit?: number | undefined;
 }
 
 export namespace Diff {

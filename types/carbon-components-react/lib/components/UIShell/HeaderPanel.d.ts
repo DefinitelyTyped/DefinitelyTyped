@@ -1,7 +1,7 @@
 import { ReactDivAttr, ForwardRefReturn } from "../../../typings/shared";
 
 export interface HeaderPanelProps extends ReactDivAttr {
-    expanded?: boolean,
+    expanded?: boolean | undefined,
 }
 
 declare const HeaderPanel: ForwardRefReturn<HTMLDivElement, HeaderPanelProps>;

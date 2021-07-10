@@ -17,21 +17,21 @@ declare namespace NodeSpriteGenerator {
     type BuiltinCompositors = "canvas" | "gm" | "jimp";
 
     interface StylesheetOption {
-        prefix?: string;
+        prefix?: string | undefined;
         nameMapping?(): string;
-        spritePath?: string;
-        pixelRatio?: number;
+        spritePath?: string | undefined;
+        pixelRatio?: number | undefined;
     }
 
     interface LayoutOption {
-        padding?: number;
-        scaling?: number;
+        padding?: number | undefined;
+        scaling?: number | undefined;
     }
 
     type CompositorFilters = "all" | "none" | "sub" | "up" | "average" | "paeth";
     interface CompositorOption {
-        compressionLevel?: number;
-        filter?: CompositorFilters;
+        compressionLevel?: number | undefined;
+        filter?: CompositorFilters | undefined;
     }
 
     interface Image {
@@ -56,15 +56,15 @@ declare namespace NodeSpriteGenerator {
     type StylesheetFunc = (layout: Layout, stylesheetPath: string, spritePath: string, options: StylesheetOption, callback: (error: Error) => void) => void;
 
     interface Option {
-        src?: string[];
-        spritePath?: string;
-        stylesheetPath?: string;
-        stylesheet?: BuiltinStylesheetFormats | StylesheetFunc | string;
-        stylesheetOptions?: StylesheetOption;
-        layout?: BuiltinLayouts | LayoutFunc;
-        layoutOptions?: LayoutOption;
-        compositor?: BuiltinCompositors | Compositor;
-        compositorOptions?: CompositorOption;
+        src?: string[] | undefined;
+        spritePath?: string | undefined;
+        stylesheetPath?: string | undefined;
+        stylesheet?: BuiltinStylesheetFormats | StylesheetFunc | string | undefined;
+        stylesheetOptions?: StylesheetOption | undefined;
+        layout?: BuiltinLayouts | LayoutFunc | undefined;
+        layoutOptions?: LayoutOption | undefined;
+        compositor?: BuiltinCompositors | Compositor | undefined;
+        compositorOptions?: CompositorOption | undefined;
     }
 
     function middleware(option: Option): e.RequestHandler;

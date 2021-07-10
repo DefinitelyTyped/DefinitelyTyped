@@ -23,8 +23,8 @@ declare namespace probe {
         wUnits: string;
         hUnits: string;
         url: string;
-        orientation?: Orientation;
-        variants?: Variant[];
+        orientation?: Orientation | undefined;
+        variants?: Variant[] | undefined;
     }
 
     type Orientation = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -35,13 +35,13 @@ declare namespace probe {
     }
 
     interface ProbeOptions {
-        retries?: number;
-        timeout?: number;
+        retries?: number | undefined;
+        timeout?: number | undefined;
     }
 
     interface ProbeError extends Error {
-        code?: "ECONTENT";
-        status?: number;
+        code?: "ECONTENT" | undefined;
+        status?: number | undefined;
     }
 
     type ProbeCallback = (err: ProbeError | null, result: ProbeResult) => void;

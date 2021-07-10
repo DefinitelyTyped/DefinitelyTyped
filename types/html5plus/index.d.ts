@@ -276,14 +276,14 @@ interface PlusAccelerometer {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/accelerometer.html](http://www.html5plus.org/doc/zh_cn/accelerometer.html)
      */
-    Acceleration?: PlusAccelerometerAcceleration;
+    Acceleration?: PlusAccelerometerAcceleration | undefined;
     /**
      * 监听设备加速度感应器参数
      * JSON对象，用于设置获取设备加速度信息的参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/accelerometer.html](http://www.html5plus.org/doc/zh_cn/accelerometer.html)
      */
-    AccelerometerOption?: PlusAccelerometerAccelerometerOption;
+    AccelerometerOption?: PlusAccelerometerAccelerometerOption | undefined;
     /**
      * 获取当前设备的加速度信息
      * 加速度是设备在当前方向上所做相对运动变化（增、减量）的运动传感器。加速度信息包括x、y、z三个方向的信息。
@@ -323,21 +323,21 @@ interface PlusAccelerometerAcceleration {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/accelerometer.html](http://www.html5plus.org/doc/zh_cn/accelerometer.html)
      */
-    xAxis?: number;
+    xAxis?: number | undefined;
     /**
      * y轴方向的加速度
      * 获取当前设备y轴方向的加速度，浮点型数据，与物理学中的加速度值一致。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/accelerometer.html](http://www.html5plus.org/doc/zh_cn/accelerometer.html)
      */
-    yAxis?: number;
+    yAxis?: number | undefined;
     /**
      * z轴方向的加速度
      * 获取当前设备z轴方向的加速度，浮点型数据，与物理学中的加速度值一致。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/accelerometer.html](http://www.html5plus.org/doc/zh_cn/accelerometer.html)
      */
-    zAxis?: number;
+    zAxis?: number | undefined;
 }
 
 /**
@@ -353,7 +353,7 @@ interface PlusAccelerometerAccelerometerOption {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/accelerometer.html](http://www.html5plus.org/doc/zh_cn/accelerometer.html)
      */
-    frequency?: number;
+    frequency?: number | undefined;
 }
 
 /**
@@ -369,7 +369,7 @@ interface PlusAndroid {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/android.html](http://www.html5plus.org/doc/zh_cn/android.html)
      */
-    ClassObject?: PlusAndroidClassObject;
+    ClassObject?: PlusAndroidClassObject | undefined;
     /**
      * Java实例对象
      * Java实例对象，可通过其方法来操作实例的变量和方法。
@@ -377,7 +377,7 @@ interface PlusAndroid {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/android.html](http://www.html5plus.org/doc/zh_cn/android.html)
      */
-    InstanceObject?: PlusAndroidInstanceObject;
+    InstanceObject?: PlusAndroidInstanceObject | undefined;
     /**
      * 导入Java类对象
      * 导入类对象后，就可以通过.操作符直接调用对象（类对象/实例对象）的方法。
@@ -487,34 +487,34 @@ interface PlusAudio {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    AudioRecorder?: PlusAudioAudioRecorder;
+    AudioRecorder?: PlusAudioAudioRecorder | undefined;
     /**
      * 音频播放对象
      * 音频播放对象，用于音频文件的播放。不能通过new方法直接创建，只能通过audio.createPlayer方法创建。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    AudioPlayer?: PlusAudioAudioPlayer;
+    AudioPlayer?: PlusAudioAudioPlayer | undefined;
     /**
      * JSON对象，调用麦克风设备进行录音的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    RecordOptions?: PlusAudioRecordOptions;
+    RecordOptions?: PlusAudioRecordOptions | undefined;
     /**
      * 设备的扬声器音频输出线路
      * 音频输出线路常量，值为0。音频播放时在设备的扬声器输出。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    ROUTE_SPEAKER?: number;
+    ROUTE_SPEAKER?: number | undefined;
     /**
      * 设备听筒音频输出线路
      * 音频输出线路常量，值为1。音频播放时在设备的听筒输出。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    ROUTE_EARPIECE?: number;
+    ROUTE_EARPIECE?: number | undefined;
     /**
      * 获取当前设备的录音对象
      * 获取当前设备的录音对象，进行录音操作，录音对象是设备的独占资源，在同一时间仅可执行一个录音操作，否则可能会导致操作失败。
@@ -544,14 +544,14 @@ interface PlusAudioAudioRecorder {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    supportedSamplerates?: string;
+    supportedSamplerates?: string | undefined;
     /**
      * 数组，设备录音支持的文件格式
      * 属性类型为Array(String)，若不支持此属性则返回空数组对象。支持的录音文件的格式，字符串格式为文件格式后缀名，如"mp3"、"aac"、"wav"等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    supportedFormats?: string;
+    supportedFormats?: string | undefined;
     /**
      * 调用设备麦克风进行录音操作
      * 调用设备麦克风开始录音操作，录音完成需调用stop方法停止。录音完成后将通过successCB回调返回录音后的文件数据。
@@ -650,7 +650,7 @@ interface PlusAudioRecordOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    channels?: 'mono' | 'stereo';
+    channels?: 'mono' | 'stereo' | undefined;
     /**
      * 保存录音文件的路径
      * 可设置具体文件名，也可只设置路径，如果以“/”结尾则表明是路径，文件名由录音程序自动生成。
@@ -662,21 +662,21 @@ interface PlusAudioRecordOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    filename?: '_www/' | '_doc/' | '_documents/' | '_downloads/';
+    filename?: '_www/' | '_doc/' | '_documents/' | '_downloads/' | undefined;
     /**
      * 录音文件的采样率
      * 需通过supportedSamplerates属性获取设备支持的采样率，若设置无效的值，则使用系统默认的采样率。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    samplerate?: string;
+    samplerate?: string | undefined;
     /**
      * 录音文件的格式
      * 需通过supportedFormats属性获取设备支持的录音格式，若设置无效的值，则使用系统默认的录音格式。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    format?: string;
+    format?: string | undefined;
 }
 
 /**
@@ -690,25 +690,25 @@ interface PlusBluetooth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    BluetoothDeviceInfo?: PlusBluetoothBluetoothDeviceInfo;
+    BluetoothDeviceInfo?: PlusBluetoothBluetoothDeviceInfo | undefined;
     /**
      * 蓝牙设备服务信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    BluetoothService?: PlusBluetoothBluetoothService;
+    BluetoothService?: PlusBluetoothBluetoothService | undefined;
     /**
      * 蓝牙设备特征值
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    Bluetoothcharacteristic?: PlusBluetoothBluetoothcharacteristic;
+    Bluetoothcharacteristic?: PlusBluetoothBluetoothcharacteristic | undefined;
     /**
      * 蓝牙设备特征值支持的操作类型
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    BluetoothcharacteristicProperties?: PlusBluetoothBluetoothcharacteristicProperties;
+    BluetoothcharacteristicProperties?: PlusBluetoothBluetoothcharacteristicProperties | undefined;
     /**
      * 关闭蓝牙模块
      * 断开所有已经建立的连接，释放系统资源，要求在蓝牙功能使用完成后调用（于openBluetoothAdapter成对使用）。
@@ -852,37 +852,37 @@ interface PlusBluetoothBluetoothDeviceInfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 蓝牙设备的id
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    deviceId?: string;
+    deviceId?: string | undefined;
     /**
      * 蓝牙设备的信号强度
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    RSSI?: string;
+    RSSI?: string | undefined;
     /**
      * 蓝牙设备的广播数据段中的ManufacturerData数据段
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    advertisData?: ArrayBuffer;
+    advertisData?: ArrayBuffer | undefined;
     /**
      * 蓝牙设备的广播数据段中的ServiceUUIDs数据段
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    advertisServiceUUIDs?: any [];
+    advertisServiceUUIDs?: any [] | undefined;
     /**
      * 蓝牙设备的广播数据段中的LocalName数据段
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    localName?: string;
+    localName?: string | undefined;
     /**
      * 蓝牙设备的广播数据段中的ServiceData数据段
      * 
@@ -902,13 +902,13 @@ interface PlusBluetoothBluetoothService {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    uuid?: string;
+    uuid?: string | undefined;
     /**
      * 是否为设备的主服务
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    isPrimary?: boolean;
+    isPrimary?: boolean | undefined;
 }
 
 /**
@@ -922,13 +922,13 @@ interface PlusBluetoothBluetoothcharacteristic {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    uuid?: string;
+    uuid?: string | undefined;
     /**
      * 设备特征值支持的操作类型
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    properties?: PlusBluetoothBluetoothcharacteristicProperties;
+    properties?: PlusBluetoothBluetoothcharacteristicProperties | undefined;
 }
 
 /**
@@ -942,25 +942,25 @@ interface PlusBluetoothBluetoothcharacteristicProperties {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    read?: boolean;
+    read?: boolean | undefined;
     /**
      * 特征值是否支持write操作
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    write?: boolean;
+    write?: boolean | undefined;
     /**
      * 特征值是否支持notify操作
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    notify?: boolean;
+    notify?: boolean | undefined;
     /**
      * 特征值是否支持indicate操作
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    indicate?: boolean;
+    indicate?: boolean | undefined;
 }
 
 /**
@@ -974,19 +974,19 @@ interface PlusCamera {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    Camera?: PlusCameraCamera;
+    Camera?: PlusCameraCamera | undefined;
     /**
      * JSON对象，调用摄像头的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    CameraOptions?: PlusCameraCameraOptions;
+    CameraOptions?: PlusCameraCameraOptions | undefined;
     /**
      * JSON对象，弹出拍照或摄像界面指示位置
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    PopPosition?: PlusCameraPopPosition;
+    PopPosition?: PlusCameraPopPosition | undefined;
     /**
      * 获取摄像头管理对象
      * 获取需要操作的摄像头对象，如果要进行拍照或摄像操作，需先通过此方法获取摄像头对象。
@@ -1009,7 +1009,7 @@ interface PlusCameraCamera {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    supportedImageResolutions?: any [];
+    supportedImageResolutions?: any [] | undefined;
     /**
      * 字符串数组，摄像头支持的摄像分辨率
      * 属性类型为String[]，若不支持此属性则返回空数组对象。
@@ -1017,7 +1017,7 @@ interface PlusCameraCamera {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    supportedVideoResolutions?: any [];
+    supportedVideoResolutions?: any [] | undefined;
     /**
      * 字符串数组，摄像头支持的拍照文件格式
      * 属性类型为String[]，若不支持此属性则返回空数组对象。
@@ -1025,7 +1025,7 @@ interface PlusCameraCamera {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    supportedImageFormats?: any [];
+    supportedImageFormats?: any [] | undefined;
     /**
      * 字符串数组，摄像头支持的摄像文件格式
      * 属性类型为String[]，若不支持此属性则返回空数组对象。
@@ -1033,7 +1033,7 @@ interface PlusCameraCamera {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    supportedVideoFormats?: any [];
+    supportedVideoFormats?: any [] | undefined;
     /**
      * 进行拍照操作
      * 摄像头资源为独占资源，如果其它程序或页面已经占用摄像头，再次操作则失败。
@@ -1079,14 +1079,14 @@ interface PlusCameraCameraOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    filename?: '_doc/' | '_documents/' | '_downloads/';
+    filename?: '_doc/' | '_documents/' | '_downloads/' | undefined;
     /**
      * 拍照或摄像的文件格式
      * 可通过Camera对象的supportedImageFormats或supportedVideoFormats获取，如果设置的参数无效则使用系统默认值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    format?: string;
+    format?: string | undefined;
     /**
      * 拍照或摄像默认使用的摄像头
      * 拍照或摄像界面默认使用的摄像头编号，1表示主摄像头，2表示辅摄像头。
@@ -1095,7 +1095,7 @@ interface PlusCameraCameraOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    index?: '1' | '2';
+    index?: '1' | '2' | undefined;
     /**
      * 视频长度
      * 单位为秒（s），小于等于0表示不限定视频长度。
@@ -1104,7 +1104,7 @@ interface PlusCameraCameraOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    videoMaximumDuration?: number;
+    videoMaximumDuration?: number | undefined;
     /**
      * 是否优化图片
      * 自动调整图片的方向，在部分设备上可能出现图片方向不正确的问题，此参数将配置是否自动调整图片方向。
@@ -1116,21 +1116,21 @@ interface PlusCameraCameraOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    optimize?: boolean;
+    optimize?: boolean | undefined;
     /**
      * 拍照或摄像使用的分辨率
      * 可通过Camera对象的supportedImageResolutions或supportedVideoResolutions获取，如果设置的参数无效则使用系统默认值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    resolution?: string;
+    resolution?: string | undefined;
     /**
      * 拍照或摄像界面弹出指示区域
      * 对于大屏幕设备如iPad，拍照或摄像界面为弹出窗口，此时可通过此参数设置弹出窗口位置，其为JSON对象，格式如{top:"10px",left:"10px",width:"200px",height:"200px"}，默认弹出位置为屏幕居中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    popover?: PlusCameraPopPosition;
+    popover?: PlusCameraPopPosition | undefined;
 }
 
 /**
@@ -1145,28 +1145,28 @@ interface PlusCameraPopPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * 指示区域距离容器左侧的距离
      * 弹出拍照或摄像窗口指示区域距离容器左侧的距离，支持像素值（如"100px"）和百分比（如"50%"）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * 指示区域的宽度
      * 弹出拍照或摄像窗口指示区域的宽度，支持像素值（如"100px"）和百分比（如"50%"）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * 指示区域的高度
      * 弹出拍照或摄像窗口指示区域的高度，支持像素值（如"100px"）和百分比（如"50%"）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    height?: string;
+    height?: string | undefined;
 }
 
 /**
@@ -1181,67 +1181,67 @@ interface PlusContacts {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    AddressBook?: PlusContactsAddressBook;
+    AddressBook?: PlusContactsAddressBook | undefined;
     /**
      * 联系人对象
      * 联系人对象，包括联系人的各种信息，如名称、电话号码、地址等。也包括新增、删除联系人的操作方法。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    Contact?: PlusContactsContact;
+    Contact?: PlusContactsContact | undefined;
     /**
      * JSON对象，联系人域数据对象
      * 联系人域数据对象，保存联系人特定域信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    ContactField?: PlusContactsContactField;
+    ContactField?: PlusContactsContactField | undefined;
     /**
      * JSON对象，联系人名称对象
      * 联系人名称对象，保存联系人名称信息，如姓、名等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    ContactName?: PlusContactsContactName;
+    ContactName?: PlusContactsContactName | undefined;
     /**
      * JSON对象，联系人地址对象
      * 联系人地址对象，保存联系人地址信息，如国家、省份、城市等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    ContactAddress?: PlusContactsContactAddress;
+    ContactAddress?: PlusContactsContactAddress | undefined;
     /**
      * JSON对象，联系人所属组织信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    ContactOrganization?: PlusContactsContactOrganization;
+    ContactOrganization?: PlusContactsContactOrganization | undefined;
     /**
      * JSON对象，查找联系人参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    ContactFindOption?: PlusContactsContactFindOption;
+    ContactFindOption?: PlusContactsContactFindOption | undefined;
     /**
      * JSON对象，联系人查找过滤器
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    ContactFindFilter?: PlusContactsContactFindFilter;
+    ContactFindFilter?: PlusContactsContactFindFilter | undefined;
     /**
      * 手机通讯录
      * 通讯录类型常量，数值类型，固定值为0，用于获取系统的联系人信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    ADDRESSBOOK_PHONE?: number;
+    ADDRESSBOOK_PHONE?: number | undefined;
     /**
      * SIM卡通讯录
      * 通讯录类型常量，数值类型，固定值为1，用于获取SIM卡上的联系人信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    ADDRESSBOOK_SIM?: number;
+    ADDRESSBOOK_SIM?: number | undefined;
     /**
      * 获取通讯录对象
      * 根据指定通讯录类型获取通讯录对象，获取通讯录对象后可对其进行增、删、改操作。
@@ -1288,73 +1288,73 @@ interface PlusContactsContact {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 联系人显示的名字
      * 联系人显示的名字通常由其姓和名组合而成。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    displayName?: string;
+    displayName?: string | undefined;
     /**
      * 联系人的名称
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    name?: PlusContactsContactName;
+    name?: PlusContactsContactName | undefined;
     /**
      * 联系人的昵称
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    nickname?: string;
+    nickname?: string | undefined;
     /**
      * 数组，联系人的电话
      * 如果联系人中未保存电话信息，则返回空数组。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    phoneNumbers?: PlusContactsContactField;
+    phoneNumbers?: PlusContactsContactField | undefined;
     /**
      * 数组，联系人的邮箱
      * 如果联系人中未保存邮箱信息，则返回空数组。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    emails?: PlusContactsContactField;
+    emails?: PlusContactsContactField | undefined;
     /**
      * 数组，联系人的地址
      * 如果联系人中未保存地址信息，则返回空数组。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    addresses?: PlusContactsContactAddress;
+    addresses?: PlusContactsContactAddress | undefined;
     /**
      * 数组，联系人的即时通讯地址
      * 如果联系人中未保存即时通讯地址信息，则返回空数组。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    ims?: PlusContactsContactField;
+    ims?: PlusContactsContactField | undefined;
     /**
      * 数组，联系人所属组织信息
      * 如果联系人中未保存所属组织信息，则返回空数组。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    organizations?: PlusContactsContactOrganization;
+    organizations?: PlusContactsContactOrganization | undefined;
     /**
      * 联系人的生日
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    birthday?: Date;
+    birthday?: Date | undefined;
     /**
      * 联系人的备注
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    note?: string;
+    note?: string | undefined;
     /**
      * 数组，联系人的头像
      * 其值为头像图片url地址或图片数据：
@@ -1363,21 +1363,21 @@ interface PlusContactsContact {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    photos?: PlusContactsContactField;
+    photos?: PlusContactsContactField | undefined;
     /**
      * 数组，联系人的组名
      * 如果联系人中未保存组名信息，则返回空数组。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    categories?: PlusContactsContactField;
+    categories?: PlusContactsContactField | undefined;
     /**
      * 数组，联系人的网址
      * 如果联系人中未保存网址信息，则返回空数组。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    urls?: PlusContactsContactField;
+    urls?: PlusContactsContactField | undefined;
     /**
      * 克隆联系人
      * 克隆联系人，创建出一个新的联系人对象。
@@ -1412,19 +1412,19 @@ interface PlusContactsContactField {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * 联系人域值
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    value?: string;
+    value?: string | undefined;
     /**
      * 是否为首选项
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    preferred?: boolean;
+    preferred?: boolean | undefined;
 }
 
 /**
@@ -1439,37 +1439,37 @@ interface PlusContactsContactName {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    formatted?: string;
+    formatted?: string | undefined;
     /**
      * 联系人的姓
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    familyName?: string;
+    familyName?: string | undefined;
     /**
      * 联系人的名
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    givenName?: string;
+    givenName?: string | undefined;
     /**
      * 联系人的中间名
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    middleName?: string;
+    middleName?: string | undefined;
     /**
      * 联系人的前缀（如Mr.或Dr.）
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    honorificPrefix?: string;
+    honorificPrefix?: string | undefined;
     /**
      * 联系人的后缀
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    honorificSuffix?: string;
+    honorificSuffix?: string | undefined;
 }
 
 /**
@@ -1484,49 +1484,49 @@ interface PlusContactsContactAddress {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * 完整地址，由其它字段组合而成
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    formatted?: string;
+    formatted?: string | undefined;
     /**
      * 完整的街道地址
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    streetAddress?: string;
+    streetAddress?: string | undefined;
     /**
      * 城市或地区
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    locality?: string;
+    locality?: string | undefined;
     /**
      * 省或地区
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    region?: string;
+    region?: string | undefined;
     /**
      * 国家
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    country?: string;
+    country?: string | undefined;
     /**
      * 邮政编码
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    postalCode?: string;
+    postalCode?: string | undefined;
     /**
      * 是否为首选项
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    preferred?: boolean;
+    preferred?: boolean | undefined;
 }
 
 /**
@@ -1540,31 +1540,31 @@ interface PlusContactsContactOrganization {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * 联系人所属组织名称
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 联系人所属组织部门
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    department?: string;
+    department?: string | undefined;
     /**
      * 联系人在组织中的职位
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 是否为首选项
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    preferred?: boolean;
+    preferred?: boolean | undefined;
 }
 
 /**
@@ -1579,13 +1579,13 @@ interface PlusContactsContactFindOption {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    filter?: PlusContactsContactFindFilter;
+    filter?: PlusContactsContactFindFilter | undefined;
     /**
      * 是否查找多个联系人，默认值为true
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    multiple?: boolean;
+    multiple?: boolean | undefined;
 }
 
 /**
@@ -1600,19 +1600,19 @@ interface PlusContactsContactFindFilter {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    logic?: string;
+    logic?: string | undefined;
     /**
      * 区配的联系人域，可取联系人的属性名称
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    field?: string;
+    field?: string | undefined;
     /**
      * 区配的联系人值，可使用区配符号“?”和“*”
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    value?: string;
+    value?: string | undefined;
 }
 
 /**
@@ -1629,7 +1629,7 @@ interface PlusDevice {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    imei?: string;
+    imei?: string | undefined;
     /**
      * 设备的国际移动用户识别码
      * 字符串数组类型，获取设备上插入SIM的国际移动设备身份码。
@@ -1638,7 +1638,7 @@ interface PlusDevice {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    imsi?: any [];
+    imsi?: any [] | undefined;
     /**
      * 设备的型号
      * 调用此属性获取设备的型号信息。
@@ -1646,7 +1646,7 @@ interface PlusDevice {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    model?: string;
+    model?: string | undefined;
     /**
      * 设备的生产厂商
      * 调用此属性获取设备的生产厂商信息。
@@ -1654,14 +1654,14 @@ interface PlusDevice {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    vendor?: string;
+    vendor?: string | undefined;
     /**
      * 设备的唯一标识
      * 调用此属性获取设备的唯一标识号。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    uuid?: string;
+    uuid?: string | undefined;
     /**
      * 拨打电话
      * 调用系统程序拨打电话。
@@ -1726,7 +1726,7 @@ interface PlusScreen {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    resolutionHeight?: number;
+    resolutionHeight?: number | undefined;
     /**
      * 设备屏幕宽度分辨率
      * 设备屏幕区域包括系统状态栏显示区域和应用显示区域，screen获取的是设备屏幕总区域的分辨率，单位为px。
@@ -1734,28 +1734,28 @@ interface PlusScreen {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    resolutionWidth?: number;
+    resolutionWidth?: number | undefined;
     /**
      * 逻辑分辨率与实际分辨率的比例
      * 屏幕分辨率分逻辑分辨率率和实际分辨率，在html页面中使用的像素值都是相对于逻辑分辨率，此值就是逻辑分辨率和实际分辨率的比例，实际分辨率=逻辑分辨率*比例。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    scale?: number;
+    scale?: number | undefined;
     /**
      * 设备屏幕水平方向的密度
      * 设备屏幕的密度为每英寸所显示的像素点数，密度越高显示清晰度越高，单位为dpi。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    dpiX?: number;
+    dpiX?: number | undefined;
     /**
      * 设备屏幕垂直方向的密度
      * 设备屏幕的密度为每英寸所显示的像素点数，密度越高显示清晰度越高，单位为dpi。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    dpiY?: number;
+    dpiY?: number | undefined;
     /**
      * 设置屏幕亮度
      * 调用此方法调节设备屏幕亮度。
@@ -1800,7 +1800,7 @@ interface PlusDisplay {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    resolutionHeight?: number;
+    resolutionHeight?: number | undefined;
     /**
      * 应用可使用的屏幕宽度逻辑分辨率
      * 设备屏幕区域包括系统状态栏显示区域和应用显示区域，display获取的是应用显示区域的逻辑分辨率，单位为px。
@@ -1808,7 +1808,7 @@ interface PlusDisplay {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    resolutionWidth?: number;
+    resolutionWidth?: number | undefined;
 }
 
 /**
@@ -1823,49 +1823,49 @@ interface PlusNetworkinfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    CONNECTION_UNKNOW?: number;
+    CONNECTION_UNKNOW?: number | undefined;
     /**
      * 未连接网络
      * 网络状态常量，当前设备网络未连接网络，固定值为1。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    CONNECTION_NONE?: number;
+    CONNECTION_NONE?: number | undefined;
     /**
      * 有线网络
      * 网络状态常量，当前设备连接到有线网络，固定值为2。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    CONNECTION_ETHERNET?: number;
+    CONNECTION_ETHERNET?: number | undefined;
     /**
      * 无线WIFI网络
      * 网络状态常量，当前设备连接到无线WIFI网络，固定值为3。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    CONNECTION_WIFI?: number;
+    CONNECTION_WIFI?: number | undefined;
     /**
      * 蜂窝移动2G网络
      * 网络状态常量，当前设备连接到蜂窝移动2G网络，固定值为4。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    CONNECTION_CELL2G?: number;
+    CONNECTION_CELL2G?: number | undefined;
     /**
      * 蜂窝移动3G网络
      * 网络状态常量，当前设备连接到蜂窝移动3G网络，固定值为5。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    CONNECTION_CELL3G?: number;
+    CONNECTION_CELL3G?: number | undefined;
     /**
      * 蜂窝移动4G网络
      * 网络状态常量，当前设备连接到蜂窝移动4G网络，固定值为6。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    CONNECTION_CELL4G?: number;
+    CONNECTION_CELL4G?: number | undefined;
     /**
      * 获取设备当前连接的网络类型
      * 获取当前设备连接的网络类型，返回值为网络类型常量，可取值CONNECTION_*常量。
@@ -1887,14 +1887,14 @@ interface PlusOs {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    language?: string;
+    language?: string | undefined;
     /**
      * 系统版本信息
      * 获取当前操作系统的版本信息，字符串类型数据。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    version?: string;
+    version?: string | undefined;
     /**
      * 系统的名称
      * 获取当前操作系统的名称，字符串类型数据。
@@ -1907,7 +1907,7 @@ interface PlusOs {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    name?: 'iOS' | 'Android';
+    name?: 'iOS' | 'Android' | undefined;
     /**
      * 系统的供应商信息
      * 获取当前操作系统的供应商名称，字符串类型数据。
@@ -1920,7 +1920,7 @@ interface PlusOs {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/device.html](http://www.html5plus.org/doc/zh_cn/device.html)
      */
-    vendor?: 'Apple' | 'Google';
+    vendor?: 'Apple' | 'Google' | undefined;
 }
 
 /**
@@ -1934,26 +1934,26 @@ interface PlusDownloader {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    Download?: PlusDownloaderDownload;
+    Download?: PlusDownloaderDownload | undefined;
     /**
      * 下载任务事件类型
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    DownloadEvent?: PlusDownloaderDownloadEvent;
+    DownloadEvent?: PlusDownloaderDownloadEvent | undefined;
     /**
      * 下载任务状态
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    DownloadState?: PlusDownloaderDownloadState;
+    DownloadState?: PlusDownloaderDownloadState | undefined;
     /**
      * 下载任务参数
      * 在创建下载任务时设置的参数，如设置下载任务使用的HTTP协议类型、优先级等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    DownloadOptions?: PlusDownloaderDownloadOptions;
+    DownloadOptions?: PlusDownloaderDownloadOptions | undefined;
     /**
      * 新建下载任务
      * 请求下载管理创建新的下载任务，创建成功则返回Download对象，用于管理下载任务。
@@ -1997,42 +1997,42 @@ interface PlusDownloaderDownload {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 下载文件的地址
      * 调用plus.donwloader.createDownload()方法创建下载任务时设置的值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * 任务的状态
      * 表示当前下载任务的状态，可通过addEventListener()方法监听statechanged事件监听任务状态的变化。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    state?: PlusDownloaderDownloadState;
+    state?: PlusDownloaderDownloadState | undefined;
     /**
      * 下载任务的参数
      * 调用plus.donwloader.createDownload()方法创建下载任务时设置的参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    options?: PlusDownloaderDownloadOptions;
+    options?: PlusDownloaderDownloadOptions | undefined;
     /**
      * 下载的文件名称
      * 下载任务在本地保存的文件路径，下载任务完成时更新，可通过此值访问下载的文件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    filename?: string;
+    filename?: string | undefined;
     /**
      * 已完成下载文件的大小
      * 整数类型，单位为字节（byte），下载任务开始传输数据时，每次触发statechanged事件或下载任务完成时更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    downloadedSize?: number;
+    downloadedSize?: number | undefined;
     /**
      * 下载任务文件的总大小
      * 整数类型，单位为字节（byte），下载任务开始传输数据时更新，在此之前其值为0。
@@ -2040,7 +2040,7 @@ interface PlusDownloaderDownload {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    totalSize?: number;
+    totalSize?: number | undefined;
     /**
      * 取消下载任务
      * 如果任务未完成，则终止下载，并从任务列表中删除。
@@ -2116,7 +2116,7 @@ interface PlusDownloaderDownloadEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    statechanged?: string;
+    statechanged?: string | undefined;
 }
 
 /**
@@ -2141,14 +2141,14 @@ interface PlusDownloaderDownloadOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    method?: 'GET' | 'POST';
+    method?: 'GET' | 'POST' | undefined;
     /**
      * POST请求时提交的数据
      * 仅在网络请求类型method设置为"POST"时有效，"GET"请求时忽略此数据。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    data?: string;
+    data?: string | undefined;
     /**
      * 下载文件保存的路径
      * 保存文件路径仅支持以"_downloads/"、"_doc/"、"_documents/"开头的字符串。
@@ -2161,14 +2161,14 @@ interface PlusDownloaderDownloadOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    filename?: '_doc/' | '_documents/' | '_downloads/';
+    filename?: '_doc/' | '_documents/' | '_downloads/' | undefined;
     /**
      * 下载任务的优先级
      * 数值类型，数值越大优先级越高，默认优先级值为0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    priority?: number;
+    priority?: number | undefined;
     /**
      * 下载任务超时时间
      * 数值类型，单位为s(秒)，默认值为120s。
@@ -2176,21 +2176,21 @@ interface PlusDownloaderDownloadOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * 下载任务重试次数
      * 数值类型，默认为重试3次。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    retry?: number;
+    retry?: number | undefined;
     /**
      * 下载任务重试间隔时间
      * 数值类型，单位为s(秒)，默认值为30s。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    retryInterval?: number;
+    retryInterval?: number | undefined;
 }
 
 /**
@@ -2205,13 +2205,13 @@ interface PlusFingerprint {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    AuthenticateOptions?: PlusFingerprintAuthenticateOptions;
+    AuthenticateOptions?: PlusFingerprintAuthenticateOptions | undefined;
     /**
      * JSON对象，指纹识别错误信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    FingerprintError?: PlusFingerprintFingerprintError;
+    FingerprintError?: PlusFingerprintFingerprintError | undefined;
     /**
      * 当前设备环境是否支持指纹识别
      * 目前还有很多设备没有指纹识别模块，需要调用此方法判断是否可使用指纹识别功能。
@@ -2265,7 +2265,7 @@ interface PlusFingerprintAuthenticateOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    message?: string;
+    message?: string | undefined;
 }
 
 /**
@@ -2280,21 +2280,21 @@ interface PlusFingerprintFingerprintError {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    UNSUPPORT?: number;
+    UNSUPPORT?: number | undefined;
     /**
      * 设备未设置密码锁屏
      * 当前设备为设置密码锁屏导致无法使用指纹识别功能时返回此错误，错误代码常量值为2。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    KEYGUARD_INSECURE?: number;
+    KEYGUARD_INSECURE?: number | undefined;
     /**
      * 未录入指纹识别
      * 当前设备未录入指纹导致无法使用指纹识别功能时返回此错误，错误代码常量值为3。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    FINGERPRINT_UNENROLLED?: number;
+    FINGERPRINT_UNENROLLED?: number | undefined;
     /**
      * 指纹识别不匹配
      * 用户指纹识别认证不通过时返回此错误，错误代码常量值为4。
@@ -2302,7 +2302,7 @@ interface PlusFingerprintFingerprintError {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    AUTHENTICATE_MISMATCH?: number;
+    AUTHENTICATE_MISMATCH?: number | undefined;
     /**
      * 指纹识别次数超过限制
      * 用户多次指纹识别认证不通过时返回此错误，错误代码常量值为5。
@@ -2310,35 +2310,35 @@ interface PlusFingerprintFingerprintError {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    AUTHENTICATE_OVERLIMIT?: number;
+    AUTHENTICATE_OVERLIMIT?: number | undefined;
     /**
      * 取消指纹识别
      * 用户取消指纹识别认证时返回此错误，错误代码常量值为6。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    CANCEL?: number;
+    CANCEL?: number | undefined;
     /**
      * 未知错误
      * 其它未知错误，错误代码常量值为7。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    UNKNOWN_ERROR?: number;
+    UNKNOWN_ERROR?: number | undefined;
     /**
      * 错误代码
      * 取值范围为FingerprintError对象的错误常量值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    code?: number;
+    code?: number | undefined;
     /**
      * 错误描述信息
      * 详细错误描述信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    message?: string;
+    message?: string | undefined;
 }
 
 /**
@@ -2352,25 +2352,25 @@ interface PlusGallery {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    GalleryOptions?: PlusGalleryGalleryOptions;
+    GalleryOptions?: PlusGalleryGalleryOptions | undefined;
     /**
      * 相册选择文件过滤类型
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    GalleryFilter?: PlusGalleryGalleryFilter;
+    GalleryFilter?: PlusGalleryGalleryFilter | undefined;
     /**
      * 保存图片到相册成功事件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    GallerySaveEvent?: PlusGalleryGallerySaveEvent;
+    GallerySaveEvent?: PlusGalleryGallerySaveEvent | undefined;
     /**
      * JSON对象，弹出拍照或摄像界面指示位置
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    PopPosition?: PlusGalleryPopPosition;
+    PopPosition?: PlusGalleryPopPosition | undefined;
     /**
      * 从系统相册选择文件（图片或视频）
      * 从系统相册中选择图片或视频文件。每次仅能选择一个文件，选择后将返回选择的文件路径。
@@ -2401,7 +2401,7 @@ interface PlusGalleryGalleryOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    animation?: boolean;
+    animation?: boolean | undefined;
     /**
      * 选择文件保存的路径
      * 某些系统不能直接使用系统相册的路径，这时需要将选择的文件保存到应用可访问的目录中，可通过此参数设置保存文件的路径。
@@ -2409,7 +2409,7 @@ interface PlusGalleryGalleryOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    filename?: string;
+    filename?: string | undefined;
     /**
      * 相册中选择文件类型过滤器
      * 系统相册选择器中可选择的文件类型，可设置为仅选择图片文件（“image”）、视频文件（“video”）或所有文件（“none”），默认值为“image”。
@@ -2419,7 +2419,7 @@ interface PlusGalleryGalleryOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    filter?: 'image' | 'video' | 'none';
+    filter?: 'image' | 'video' | 'none' | undefined;
     /**
      * 最多选择的图片数量
      * 仅在支持多选时有效，取值范围为1到Infinity，默认值为Infinity，即不限制选择的图片数。
@@ -2427,21 +2427,21 @@ interface PlusGalleryGalleryOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    maximum?: number;
+    maximum?: number | undefined;
     /**
      * 是否支持多选图片
      * 可从系统相册中选择多张图片，选择图片后通过GalleryMultiplePickSuccessCallback回调返回选择的图片。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    multiple?: boolean;
+    multiple?: boolean | undefined;
     /**
      * 超过最多选择图片数量事件
      * 使用相册多选图片时，可通过maximum属性设置最多选择的图片数量，当用户操作选择的数量大于此时触发此事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    onmaxed?: () => void;
+    onmaxed?: (() => void) | undefined;
     /**
      * 相册选择界面弹出指示区域
      * 对于大屏幕设备如iPad，相册选择界面为弹出窗口，此时可通过此参数设置弹出窗口位置。
@@ -2449,7 +2449,7 @@ interface PlusGalleryGalleryOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    popover?: PlusGalleryPopPosition;
+    popover?: PlusGalleryPopPosition | undefined;
     /**
      * 已选择的图片路径列表
      * 仅在多图片选择时生效，相册选择界面将选中指定的图片路径列表。
@@ -2457,7 +2457,7 @@ interface PlusGalleryGalleryOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    selected?: any [];
+    selected?: any [] | undefined;
     /**
      * 是否使用系统相册文件选择界面
      * multiple属性设置为true时，如果系统自带相册选择控件时则优先使用，否则使用5+统一相册选择控件；设置为false则不使用系统自带相册选择控件，直接使用5+统一相册选择界面。
@@ -2465,7 +2465,7 @@ interface PlusGalleryGalleryOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    system?: boolean;
+    system?: boolean | undefined;
 }
 
 /**
@@ -2479,19 +2479,19 @@ interface PlusGalleryGalleryFilter {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    image?: string;
+    image?: string | undefined;
     /**
      * 仅可选择视频文件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    video?: string;
+    video?: string | undefined;
     /**
      * 不过滤，可选择图片或视频文件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    none?: string;
+    none?: string | undefined;
 }
 
 /**
@@ -2505,7 +2505,7 @@ interface PlusGalleryGallerySaveEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    path?: string;
+    path?: string | undefined;
 }
 
 /**
@@ -2520,28 +2520,28 @@ interface PlusGalleryPopPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * 指示区域距离容器左侧的距离
      * 弹出拍照或摄像窗口指示区域距离容器左侧的距离，单位支持像素值（如"100px"）和百分比（如"50%"），如不写单位则为像素值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * 指示区域的宽度
      * 弹出拍照或摄像窗口指示区域的宽度，单位支持像素值（如"100px"）和百分比（如"50%"），如不写单位则为像素值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * 指示区域的高度
      * 弹出拍照或摄像窗口指示区域的高度，单位支持像素值（如"100px"）和百分比（如"50%"），如不写单位则为像素值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    height?: string;
+    height?: string | undefined;
 }
 
 /**
@@ -2555,31 +2555,31 @@ interface PlusGeolocation {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    Position?: PlusGeolocationPosition;
+    Position?: PlusGeolocationPosition | undefined;
     /**
      * JSON对象，地址信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    Address?: PlusGeolocationAddress;
+    Address?: PlusGeolocationAddress | undefined;
     /**
      * JSON对象，地理坐标信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    Coordinates?: PlusGeolocationCoordinates;
+    Coordinates?: PlusGeolocationCoordinates | undefined;
     /**
      * JSON对象，监听设备位置信息参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    PositionOptions?: PlusGeolocationPositionOptions;
+    PositionOptions?: PlusGeolocationPositionOptions | undefined;
     /**
      * JSON对象，定位错误信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    GeolocationError?: PlusGeolocationGeolocationError;
+    GeolocationError?: PlusGeolocationGeolocationError | undefined;
     /**
      * 获取当前设备位置信息
      * 位置信息将通过手机GPS设备或其它信息如IP地址、移动网络信号获取，由于获取位置信息可能需要较长的时间，当成功获取位置信息后将通过successCB回调函数返回。
@@ -2615,7 +2615,7 @@ interface PlusGeolocationPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    coords?: PlusGeolocationCoordinates;
+    coords?: PlusGeolocationCoordinates | undefined;
     /**
      * 获取到地理坐标信息的坐标系类型
      * 可取以下坐标系类型：
@@ -2626,14 +2626,14 @@ interface PlusGeolocationPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    coordsType?: string;
+    coordsType?: string | undefined;
     /**
      * 获取到地理坐标的时间戳信息
      * 时间戳值为从1970年1月1日至今的毫秒数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    timestamp?: number;
+    timestamp?: number | undefined;
     /**
      * 获取到地理位置对应的地址信息
      * 获取地址信息需要连接到服务器进行解析，所以会消耗更多的资源，如果不需要获取地址信息可通过设置PositionOptions参数的geocode属性值为false避免获取地址信息。
@@ -2641,14 +2641,14 @@ interface PlusGeolocationPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    address?: PlusGeolocationAddress;
+    address?: PlusGeolocationAddress | undefined;
     /**
      * 获取完整地址描述信息
      * 如果没有获取到地址信息则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    addresses?: string;
+    addresses?: string | undefined;
 }
 
 /**
@@ -2663,63 +2663,63 @@ interface PlusGeolocationAddress {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    country?: string;
+    country?: string | undefined;
     /**
      * 省份名称
      * 如“北京市”，如果无法获取此信息则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    province?: string;
+    province?: string | undefined;
     /**
      * 城市名称
      * 如“北京市”，如果无法获取此信息则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    city?: string;
+    city?: string | undefined;
     /**
      * 区（县）名称
      * 如“朝阳区”，如果无法获取此信息则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    district?: string;
+    district?: string | undefined;
     /**
      * 街道信息
      * 如“酒仙桥路”，如果无法获取此信息则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    street?: string;
+    street?: string | undefined;
     /**
      * 获取街道门牌号信息
      * 如“3号”，如果无法获取此信息则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    streetNum?: string;
+    streetNum?: string | undefined;
     /**
      * POI信息
      * 如“电子城．国际电子总部”，如果无法获取此信息则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    poiName?: string;
+    poiName?: string | undefined;
     /**
      * 邮政编码
      * 如“100016”，如果无法获取此信息则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    postalCode?: string;
+    postalCode?: string | undefined;
     /**
      * 城市代码
      * 如“010”，如果无法获取此信息则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    cityCode?: string;
+    cityCode?: string | undefined;
 }
 
 /**
@@ -2734,49 +2734,49 @@ interface PlusGeolocationCoordinates {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    latitude?: number;
+    latitude?: number | undefined;
     /**
      * 坐标经度值
      * 数据类型对象，地理坐标中的经度值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    longitude?: number;
+    longitude?: number | undefined;
     /**
      * 海拔信息
      * 数据类型对象，如果无法获取此信息，则此值为空（null）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    altitude?: number;
+    altitude?: number | undefined;
     /**
      * 地理坐标信息的精确度信息
      * 数据类型对象，单位为米，其有效值必须大于0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    accuracy?: number;
+    accuracy?: number | undefined;
     /**
      * 海拔的精确度信息
      * 数据类型对象，单位为米，其有效值必须大于0。如果无法获取海拔信息，则此值为空（null）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    altitudeAccuracy?: number;
+    altitudeAccuracy?: number | undefined;
     /**
      * 表示设备移动的方向
      * 数据类型对象，范围为0到360，表示相对于正北方向的角度。如果无法获取此信息，则此值为空（null）。如果设备没有移动则此值为NaN。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    heading?: number;
+    heading?: number | undefined;
     /**
      * 表示设备移动的速度
      * 数据类型对象，单位为米每秒（m/s），其有效值必须大于0。如果无法获取速度信息，则此值为空（null）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    speed?: number;
+    speed?: number | undefined;
 }
 
 /**
@@ -2791,14 +2791,14 @@ interface PlusGeolocationPositionOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    enableHighAccuracy?: boolean;
+    enableHighAccuracy?: boolean | undefined;
     /**
      * 获取位置信息的超时时间
      * 单位为毫秒（ms），默认值为不超时。如果在指定的时间内没有获取到位置信息则触发错误回调函数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * 获取位置信息的间隔时间
      * 单位为毫秒（ms），默认值为5000（即5秒）。调用plus.geolocation.watchPosition时为更新位置信息的间隔时间。
@@ -2806,7 +2806,7 @@ interface PlusGeolocationPositionOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    maximumAge?: number;
+    maximumAge?: number | undefined;
     /**
      * 优先使用的定位模块
      * 可取以下供应者：
@@ -2821,7 +2821,7 @@ interface PlusGeolocationPositionOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    provider?: 'system' | 'baidu' | 'amap';
+    provider?: 'system' | 'baidu' | 'amap' | undefined;
     /**
      * 指定获取的定位数据坐标系类型
      * 可取以下坐标系类型：
@@ -2834,7 +2834,7 @@ interface PlusGeolocationPositionOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    coordsType?: string;
+    coordsType?: string | undefined;
     /**
      * 是否解析地址信息
      * 解析的地址信息保存到Position对象的address、addresses属性中，true表示解析地址信息，false表示不解析地址信息，返回的Position对象的address、addresses属性值为undefined，默认值为true。
@@ -2842,7 +2842,7 @@ interface PlusGeolocationPositionOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    geocode?: boolean;
+    geocode?: boolean | undefined;
 }
 
 /**
@@ -2857,42 +2857,42 @@ interface PlusGeolocationGeolocationError {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    PERMISSION_DENIED?: number;
+    PERMISSION_DENIED?: number | undefined;
     /**
      * 位置信息不可用
      * 无法获取有效的位置信息，错误代码常量值为2。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    POSITION_UNAVAILABLE?: number;
+    POSITION_UNAVAILABLE?: number | undefined;
     /**
      * 获取位置信息超时
      * 无法在指定的时间内获取位置信息，错误代码常量值为3。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    TIMEOUT?: number;
+    TIMEOUT?: number | undefined;
     /**
      * 未知错误
      * 其它未知错误导致无法获取位置信息，错误代码常量值为4。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    UNKNOWN_ERROR?: number;
+    UNKNOWN_ERROR?: number | undefined;
     /**
      * 错误代码
      * 取值范围为GeolocationError对象的常量值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    code?: number;
+    code?: number | undefined;
     /**
      * 错误描述信息
      * 详细错误描述信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    message?: string;
+    message?: string | undefined;
 }
 
 /**
@@ -2906,7 +2906,7 @@ interface PlusIbeacon {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    IBeaconInfo?: PlusIbeaconIBeaconInfo;
+    IBeaconInfo?: PlusIbeaconIBeaconInfo | undefined;
     /**
      * 开始搜索附近的iBeacon设备
      * 搜索成功后触发successCB回调，失败触发errorCB回调。
@@ -2955,37 +2955,37 @@ interface PlusIbeaconIBeaconInfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    uuid?: string;
+    uuid?: string | undefined;
     /**
      * iBeacon设备的主id
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    major?: string;
+    major?: string | undefined;
     /**
      * iBeacon设备的次id
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    minor?: string;
+    minor?: string | undefined;
     /**
      * iBeacon设备的距离
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    proximity?: number;
+    proximity?: number | undefined;
     /**
      * iBeacon设备的距离精度信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    accuracy?: number;
+    accuracy?: number | undefined;
     /**
      * iBeacon设备的信号强度
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    rssi?: string;
+    rssi?: string | undefined;
 }
 
 /**
@@ -2999,25 +2999,25 @@ interface PlusIo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    DirectoryEntry?: PlusIoDirectoryEntry;
+    DirectoryEntry?: PlusIoDirectoryEntry | undefined;
     /**
      * 读取目录信息对象，用于获取目录中包含的文件及子目录
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    DirectoryReader?: PlusIoDirectoryReader;
+    DirectoryReader?: PlusIoDirectoryReader | undefined;
     /**
      * 文件系统中的文件数据对象，用于获取文件的数据
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    File?: PlusIoFile;
+    File?: PlusIoFile | undefined;
     /**
      * 文件系统中的文件对象，用于管理特定的本地文件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    FileEntry?: PlusIoFileEntry;
+    FileEntry?: PlusIoFileEntry | undefined;
     /**
      * 文件系统中的读取文件对象，用于获取文件的内容
      * FileReader对象是从设备文件系统读取文件FileReader对象是从设备文件系统读取文件的一种方式，文件以文本或者Base64编码的字符串形式读出来。
@@ -3025,7 +3025,7 @@ interface PlusIo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    FileReader?: PlusIoFileReader;
+    FileReader?: PlusIoFileReader | undefined;
     /**
      * 文件系统中的写文件对象，用于写入文件内容
      * FileWriter对象是从设备文件系统写入文件FileWriter对象是从设备文件系统写入文件的一种方式，用户注册自己的事件监听器来接收writestart、progress、write、writeend、error和abort事件。
@@ -3034,27 +3034,27 @@ interface PlusIo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    FileWriter?: PlusIoFileWriter;
+    FileWriter?: PlusIoFileWriter | undefined;
     /**
      * 文件系统对象，用于管理特定本地文件目录
      * 文件系统对象表示一个应用可访问的根目录。name属性用于标识此根目录的名称，与LocalFileSystem中的文件系统类型一一对应。root属性为文件目录对象，用于实际操作文件系统，参考DirectoryEntry。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    FileSystem?: PlusIoFileSystem;
+    FileSystem?: PlusIoFileSystem | undefined;
     /**
      * JSON对象，获取文件操作的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    Flags?: PlusIoFlags;
+    Flags?: PlusIoFlags | undefined;
     /**
      * JSON对象，保存文件或目录的状态信息对象
      * 可通过DirectoryEntry或FileEntry对象的getMetaData方法获取
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    Metadata?: PlusIoMetadata;
+    Metadata?: PlusIoMetadata | undefined;
     /**
      * 文件或目录操作事件对象
      * 所有文件或目录操作事件回调函数中都创建该对象的实例。
@@ -3062,21 +3062,21 @@ interface PlusIo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    FileEvent?: PlusIoFileEvent;
+    FileEvent?: PlusIoFileEvent | undefined;
     /**
      * 文件路径类型
      * 在文件系统中的文件路径需转换成URL格式，已方便runtime快速加载。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    URLType?: PlusIoURLType;
+    URLType?: PlusIoURLType | undefined;
     /**
      * 相对路径URL
      * 只能在扩展API中使用，相对于基座提供的特定目录，以“_”开头。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    RelativeURL?: PlusIoRelativeURL;
+    RelativeURL?: PlusIoRelativeURL | undefined;
     /**
      * 本地路径URL
      * 可在html页面中直接访问本地资源，以“file:///”开头，后面跟随系统的绝对路径。
@@ -3084,7 +3084,7 @@ interface PlusIo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    LocalURL?: PlusIoLocalURL;
+    LocalURL?: PlusIoLocalURL | undefined;
     /**
      * 网络路径URL
      * 可在html页面中以网络资源模式访问本地资源，以“http://”开头，后面跟随相对路径。
@@ -3092,7 +3092,7 @@ interface PlusIo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    RemoteURL?: PlusIoRemoteURL;
+    RemoteURL?: PlusIoRemoteURL | undefined;
     /**
      * 应用运行资源目录常量
      * 本地文件系统常量，Number类型，固定值1。应用运行资源目录，仅本应用可访问。
@@ -3100,28 +3100,28 @@ interface PlusIo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    PRIVATE_WWW?: number;
+    PRIVATE_WWW?: number | undefined;
     /**
      * 应用私有文档目录常量
      * 本地文件系统常量，Number类型，固定值2。应用私有文档目录，仅本应用可读写。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    PRIVATE_DOC?: number;
+    PRIVATE_DOC?: number | undefined;
     /**
      * 程序公用文档目录常量
      * 本地文件系统常量，Number类型，固定值3。程序公用文档目录，所有应用可读写。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    PUBLIC_DOCUMENTS?: number;
+    PUBLIC_DOCUMENTS?: number | undefined;
     /**
      * 程序公用下载目录常量
      * 本地文件系统常量，Number类型，固定值4。程序公用下载目录，所有应用可读写。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    PUBLIC_DOWNLOADS?: number;
+    PUBLIC_DOWNLOADS?: number | undefined;
     /**
      * 请求本地文件系统对象
      * 获取指定的文件系统，可通过type指定获取文件系统的类型。
@@ -3167,31 +3167,31 @@ interface PlusIoDirectoryEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    isFile?: boolean;
+    isFile?: boolean | undefined;
     /**
      * 操作对象是否为目录，DirectoryEntry对象固定其值为true
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    isDirectory?: boolean;
+    isDirectory?: boolean | undefined;
     /**
      * 目录操作对象的名称，不包括路径
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 目录操作对象的完整路径，文件系统的绝对路径
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    fullPath?: string;
+    fullPath?: string | undefined;
     /**
      * 文件操作对象所属的文件系统对象，参考FileSystem
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    fileSystem?: PlusIoFileSystem;
+    fileSystem?: PlusIoFileSystem | undefined;
     /**
      * 获取目录的属性
      * 用于获取文件或目录的属性信息。
@@ -3320,25 +3320,25 @@ interface PlusIoFile {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    size?: number;
+    size?: number | undefined;
     /**
      * 文件数据对象MIME类型
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * 文件数据对象的名称，不包括路径
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 文件对象的最后修改时间
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    lastModifiedDate?: Date;
+    lastModifiedDate?: Date | undefined;
     /**
      * 获取文件指定的数据内容
      * 获取文件指定的数据内容，其中end必须大于start。
@@ -3366,31 +3366,31 @@ interface PlusIoFileEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    isFile?: boolean;
+    isFile?: boolean | undefined;
     /**
      * 文件操作对象是否为目录，FileEntry对象固定其值为false
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    isDirectory?: boolean;
+    isDirectory?: boolean | undefined;
     /**
      * 文件操作对象的名称，不包括路径
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 文件操作对象的完整路径，文件系统的绝对路径
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    fullPath?: string;
+    fullPath?: string | undefined;
     /**
      * 文件操作对象所属的文件系统对象，参考FileSystem
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    fileSystem?: PlusIoFileSystem;
+    fileSystem?: PlusIoFileSystem | undefined;
     /**
      * 获取文件的属性信息
      * 用于获取文件的属性信息。
@@ -3481,76 +3481,76 @@ interface PlusIoFileReader {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    EMPTY?: number;
+    EMPTY?: number | undefined;
     /**
      * 值为1，正在读取文件状态
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    LOADING?: number;
+    LOADING?: number | undefined;
     /**
      * 值为2，读文件操作完成状态
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    DONE?: number;
+    DONE?: number | undefined;
     /**
      * 当前读取文件所处的状态
      * 可取上面定义的常量值，EMPTY（0）、LOADING（1）、DONE（2）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    readyState?: number;
+    readyState?: number | undefined;
     /**
      * 已读取文件的内容
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    result?: string;
+    result?: string | undefined;
     /**
      * 文件操作错误代码
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    error?: number;
+    error?: number | undefined;
     /**
      * 读取文件开始时的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onloadstart?: (result: PlusIoFileEvent) => void;
+    onloadstart?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 读取文件过程中的回调函数
      * 用于获取文件读取进度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onprogress?: (result: PlusIoFileEvent) => void;
+    onprogress?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 读取文件成功完成的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onload?: (result: PlusIoFileEvent) => void;
+    onload?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 取消读取文件时的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onabort?: (result: PlusIoFileEvent) => void;
+    onabort?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 文件读取操作失败时调用的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onerror?: (result: PlusIoFileEvent) => void;
+    onerror?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 文件读取操作完成时的回调函数
      * 不管成功或失败都会触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onloadend?: (result: PlusIoFileEvent) => void;
+    onloadend?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 终止文件读取操作
      * 读取文件操作开始后，可通过此方法取消读取文件。
@@ -3589,82 +3589,82 @@ interface PlusIoFileWriter {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    INIT?: number;
+    INIT?: number | undefined;
     /**
      * 值为1，正在写入文件状态
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    WRITING?: number;
+    WRITING?: number | undefined;
     /**
      * 值为2，写文件操作完成状态
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    DONE?: number;
+    DONE?: number | undefined;
     /**
      * 当前写入文件所处的状态
      * 可取上面定义的常量值，INIT(0)、WRITING（1）、DONE（2）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    readyState?: number;
+    readyState?: number | undefined;
     /**
      * 文件当前的长度，单位为字节
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    length?: number;
+    length?: number | undefined;
     /**
      * 文件当前操作的指针位置
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    position?: number;
+    position?: number | undefined;
     /**
      * 文件写入操作错误代码
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    error?: number;
+    error?: number | undefined;
     /**
      * 写入文件开始时的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onwritestart?: (result: PlusIoFileEvent) => void;
+    onwritestart?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 写入文件过程中的回调函数
      * 用于获取文件读取进度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onprogress?: (result: PlusIoFileEvent) => void;
+    onprogress?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 写入文件成功完成的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onwrite?: (result: PlusIoFileEvent) => void;
+    onwrite?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 取消写入文件时的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onabort?: (result: PlusIoFileEvent) => void;
+    onabort?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 文件写入操作失败时调用的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onerror?: (result: PlusIoFileEvent) => void;
+    onerror?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 文件写入操作完成时的回调函数
      * 不管成功或失败都会触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onwriteend?: (result: PlusIoFileEvent) => void;
+    onwriteend?: ((result: PlusIoFileEvent) => void) | undefined;
     /**
      * 终止文件写入操作
      * 写入文件数据操作开始后，可通过此方法取消写入文件数据操作。
@@ -3711,13 +3711,13 @@ interface PlusIoFileSystem {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 文件系统的根目录
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    root?: PlusIoDirectoryEntry;
+    root?: PlusIoDirectoryEntry | undefined;
 }
 
 /**
@@ -3732,14 +3732,14 @@ interface PlusIoFlags {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    create?: boolean;
+    create?: boolean | undefined;
     /**
      * 反向操作标记
      * 其本身没有任何效果，需与create属性值设置为true时一起使用，如果目标文件或目录已经存在则会导致文件或目录打开失败，默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    exclusive?: boolean;
+    exclusive?: boolean | undefined;
 }
 
 /**
@@ -3754,28 +3754,28 @@ interface PlusIoMetadata {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    modificationTime?: Date;
+    modificationTime?: Date | undefined;
     /**
      * 文件的大小
      * 若获取的是目录对象的属性则值为0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    size?: number;
+    size?: number | undefined;
     /**
      * 包含的子目录数
      * 若自身是文件则其值为0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    directoryCount?: number;
+    directoryCount?: number | undefined;
     /**
      * 目录的文件数
      * 若自身是文件则其值为0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    fileCount?: number;
+    fileCount?: number | undefined;
 }
 
 /**
@@ -3792,7 +3792,7 @@ interface PlusIoFileEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    target?: PlusIoDirectoryEntry;
+    target?: PlusIoDirectoryEntry | undefined;
 }
 
 /**
@@ -3808,21 +3808,21 @@ interface PlusIoURLType {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    RelativeURL?: PlusIoRelativeURL;
+    RelativeURL?: PlusIoRelativeURL | undefined;
     /**
      * 本地路径URL
      * 可在html页面中直接访问本地资源，以“file:///”开头，后面跟随系统的绝对路径。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    LocalURL?: PlusIoLocalURL;
+    LocalURL?: PlusIoLocalURL | undefined;
     /**
      * 网络路径URL
      * 可在html页面中以网络资源模式访问本地资源，以“http://”开头，后面跟随相对路径。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    RomoteURL?: string;
+    RomoteURL?: string | undefined;
 }
 
 /**
@@ -3839,28 +3839,28 @@ interface PlusIoRelativeURL {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    _www?: string;
+    _www?: string | undefined;
     /**
      * 应用私有文档目录
      * 用于保存应用运行期业务逻辑数据，与文件系统中根目录PRIVATE_DOCUMENTS，如“_doc/userdata.xml”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    _doc?: string;
+    _doc?: string | undefined;
     /**
      * 程序公用文档目录
      * 用于保存程序中各应用间可共享文件的目录，与文件系统中根目录PUBLIC_DOCUMENTS，如“_document/share.doc”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    _documents?: string;
+    _documents?: string | undefined;
     /**
      * 程序公用下载目录
      * 用于保存程序下载文件的目录，与文件系统中根目录PUBLIC_DOWNLOADS，如“_download/mydoc.doc”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    _downloads?: string;
+    _downloads?: string | undefined;
 }
 
 /**
@@ -3893,7 +3893,7 @@ interface PlusIos {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ios.html](http://www.html5plus.org/doc/zh_cn/ios.html)
      */
-    ClassObject?: PlusIosClassObject;
+    ClassObject?: PlusIosClassObject | undefined;
     /**
      * Objective-C实例对象
      * Objective-C实例对象，可通过其方法来操作示例的变量和方法。
@@ -3901,7 +3901,7 @@ interface PlusIos {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ios.html](http://www.html5plus.org/doc/zh_cn/ios.html)
      */
-    InstanceObject?: PlusIosInstanceObject;
+    InstanceObject?: PlusIosInstanceObject | undefined;
     /**
      * 导入Objective-C类对象
      * 导入类对象后，就可以通过.操作符直接调用对象（类对象/实例对象）的方法。
@@ -3986,13 +3986,13 @@ interface PlusKey {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    KeyType?: PlusKeyKeyType;
+    KeyType?: PlusKeyKeyType | undefined;
     /**
      * 按键事件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    KeyEvent?: PlusKeyKeyEvent;
+    KeyEvent?: PlusKeyKeyEvent | undefined;
     /**
      * 添加按键事件监听器
      * 添加按键事件监听器，当指定的按键事件发生时，回调函数将触发。
@@ -4046,7 +4046,7 @@ interface PlusKeyKeyType {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    backbutton?: string;
+    backbutton?: string | undefined;
     /**
      * 键按下事件
      * 如果需要改变默认键按下的处理逻辑，则可通过plus.key.addEventListener来注册监听"keydown"事件。
@@ -4054,7 +4054,7 @@ interface PlusKeyKeyType {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    keydown?: string;
+    keydown?: string | undefined;
     /**
      * 键松开事件
      * 如果需要改变默认键松开的处理逻辑，则可通过plus.key.addEventListener来注册监听"keyup"事件。
@@ -4062,7 +4062,7 @@ interface PlusKeyKeyType {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    keyup?: string;
+    keyup?: string | undefined;
     /**
      * 长按键事件
      * 如果需要改变默认长按键的处理逻辑，则可通过plus.key.addEventListener来注册监听"longpressed"事件。
@@ -4070,35 +4070,35 @@ interface PlusKeyKeyType {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    longpressed?: string;
+    longpressed?: string | undefined;
     /**
      * 设备“菜单”按钮按键事件
      * 如果需要改变默认“菜单”按钮的处理逻辑，则可通过plus.key.addEventListener来注册监听"menubutton"事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    menubutton?: string;
+    menubutton?: string | undefined;
     /**
      * 设备“搜索”按钮按键事件
      * 如果需要改变默认“搜索”按钮的处理逻辑，则可通过plus.key.addEventListener来注册监听"searchbutton"事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    searchbutton?: string;
+    searchbutton?: string | undefined;
     /**
      * 设备“音量+”按钮按键事件
      * 如果需要改变默认“音量+”按钮的处理逻辑，则可通过plus.key.addEventListener来注册监听"volumeupbutton"事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    volumeupbutton?: string;
+    volumeupbutton?: string | undefined;
     /**
      * 设备“音量-”按钮按键事件
      * 如果需要改变默认“音量-”按钮的处理逻辑，则可通过plus.key.addEventListener来注册监听"volumedownbutton"事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    volumedownbutton?: string;
+    volumedownbutton?: string | undefined;
 }
 
 /**
@@ -4113,14 +4113,14 @@ interface PlusKeyKeyEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    keyCode?: number;
+    keyCode?: number | undefined;
     /**
      * 按键事件类型
      * 用于表明触发此按键事件的类型，值为KeyType中定义的值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    keyType?: PlusKeyKeyType;
+    keyType?: PlusKeyKeyType | undefined;
 }
 
 /**
@@ -4134,35 +4134,35 @@ interface PlusMessaging {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    Message?: PlusMessagingMessage;
+    Message?: PlusMessagingMessage | undefined;
     /**
      * 消息体内容类型
      * 用于设定消息的消息体内容。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    BodyType?: PlusMessagingBodyType;
+    BodyType?: PlusMessagingBodyType | undefined;
     /**
      * 简单短信类型常量
      * 消息类型常量，Number类型，固定值为1，用于创建并发送短信。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    TYPE_SMS?: number;
+    TYPE_SMS?: number | undefined;
     /**
      * 彩信类型常量
      * 消息类型常量，Number类型，固定值为2，用于创建并发送多媒体短信（彩信）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    TYPE_MMS?: number;
+    TYPE_MMS?: number | undefined;
     /**
      * 邮件类型常量
      * 消息类型常量，Number类型，固定值为3，用于创建并发送邮件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    TYPE_EMAIL?: number;
+    TYPE_EMAIL?: number | undefined;
     /**
      * 创建消息对象
      * 创建指定类型的消息，消息类型可取plus.messaging.TYPE_SMS、plus.messaging.TYPE_MMS、plus.messaging.TYPE_EMAIL。
@@ -4191,42 +4191,42 @@ interface PlusMessagingMessage {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    to?: any [];
+    to?: any [] | undefined;
     /**
      * 抄送人信息
      * 字符串数组类型，仅发送邮件时有效，输入的地址收件人信息必须符合消息类型格式。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    cc?: any [];
+    cc?: any [] | undefined;
     /**
      * 暗送人信息
      * 字符串数组类型，仅发送邮件时有效，输入的地址收件人信息必须符合消息类型格式。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    bcc?: any [];
+    bcc?: any [] | undefined;
     /**
      * 发件人信息
      * 仅在监听接收到的信息时有效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    from?: string;
+    from?: string | undefined;
     /**
      * 发送消息主题
      * 字符串类型，仅发送邮件时有效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    subject?: string;
+    subject?: string | undefined;
     /**
      * 发送消息内容
      * 字符串类型，要发送的消息体内容，其格式必须与bodyType指定的一致。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    body?: string;
+    body?: string | undefined;
     /**
      * 发送消息内容类型
      * 要发送消息体内容的类型，可取值"text"表示文本内容，"html"表示为html页面，默认值为"text"。
@@ -4235,14 +4235,14 @@ interface PlusMessagingMessage {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    bodyType?: 'text/plain' | 'text/html';
+    bodyType?: 'text/plain' | 'text/html' | undefined;
     /**
      * 是否采用静默方式发送消息
      * 布尔类型，可取值为true或false，true表示静默方式发送，不弹出界面；false表示非静默方式发送。默认采用非静默方式。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    silent?: boolean;
+    silent?: boolean | undefined;
     /**
      * 添加附件
      * 向消息中添加附件，仅邮件类型消息支持，其它类型消息不支持。
@@ -4265,14 +4265,14 @@ interface PlusMessagingBodyType {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    'text/plain'?: string;
+    'text/plain'?: string | undefined;
     /**
      * Html类型
      * 网页数据类型消息体内容，可用于发送邮件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    'text/html'?: string;
+    'text/html'?: string | undefined;
 }
 
 /**
@@ -4287,48 +4287,48 @@ interface PlusNativeObj {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    AnimationOptions?: PlusNativeObjAnimationOptions;
+    AnimationOptions?: PlusNativeObjAnimationOptions | undefined;
     /**
      * 原生动画窗口样式
      * 指定动画窗口的样式，如背景图片，绘制的文字等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    AnimationViewStyles?: PlusNativeObjAnimationViewStyles;
+    AnimationViewStyles?: PlusNativeObjAnimationViewStyles | undefined;
     /**
      * 原生图片对象
      * 原生图片对象会占用较大的内存资源，在使用时需谨慎管理，当图片不再使用时应该及时调用clear方法进行销毁。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    Bitmap?: PlusNativeObjBitmap;
+    Bitmap?: PlusNativeObjBitmap | undefined;
     /**
      * JSON对象，保存图片的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    BitmapSaveOptions?: PlusNativeObjBitmapSaveOptions;
+    BitmapSaveOptions?: PlusNativeObjBitmapSaveOptions | undefined;
     /**
      * 原生图片轮播控件对象
      * 原生图片轮播控件对象从原生View控件（plus.nativeObj.View）继承而来，用于绘制图片轮播内容。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    ImageSlider?: PlusNativeObjImageSlider;
+    ImageSlider?: PlusNativeObjImageSlider | undefined;
     /**
      * 图片轮播控件样式
      * 从ViewStyles继承而来，扩展支持轮播图片等配置。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    ImageSliderStyles?: PlusNativeObjImageSliderStyles;
+    ImageSliderStyles?: PlusNativeObjImageSliderStyles | undefined;
     /**
      * 图片轮播控件中图片项配置参数
      * 用于指定图片地址等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    ImageSliderImageStyles?: PlusNativeObjImageSliderImageStyles;
+    ImageSliderImageStyles?: PlusNativeObjImageSliderImageStyles | undefined;
     /**
      * 输入框样式
      * 用于定义输入框的显示样式，如字体大小，提示内容等信息。
@@ -4336,83 +4336,83 @@ interface PlusNativeObj {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    InputStyles?: PlusNativeObjInputStyles;
+    InputStyles?: PlusNativeObjInputStyles | undefined;
     /**
      * 区域信息对象
      * 包括位置、大小等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    Rect?: PlusNativeObjRect;
+    Rect?: PlusNativeObjRect | undefined;
     /**
      * 绘制区域样式对象
      * 用于定义矩形区域的显示样式，如空心/实心样式、圆角等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    RectStyles?: PlusNativeObjRectStyles;
+    RectStyles?: PlusNativeObjRectStyles | undefined;
     /**
      * 富文本样式
      * 用于定义富文本使用的默认使用的字体名称、字体文件路径等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    RichTextStyles?: PlusNativeObjRichTextStyles;
+    RichTextStyles?: PlusNativeObjRichTextStyles | undefined;
     /**
      * 区域信息对象
      * 包括位置、大小等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    Position?: PlusNativeObjPosition;
+    Position?: PlusNativeObjPosition | undefined;
     /**
      * 绘制文本样式对象
      * 用于定义文本的显示样式，如字体大小、字体颜色、字体粗细、字体样式、字体名称等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    TextStyles?: PlusNativeObjTextStyles;
+    TextStyles?: PlusNativeObjTextStyles | undefined;
     /**
      * 原生控件对象
      * 原生控件对象可用于在屏幕上绘制图片或文本内容，当控件不再使用时需要调用close方法销毁控件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    View?: PlusNativeObjView;
+    View?: PlusNativeObjView | undefined;
     /**
      * View控件动画参数
      * 指定动画的类型、持续时间等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    ViewAnimationOptions?: PlusNativeObjViewAnimationOptions;
+    ViewAnimationOptions?: PlusNativeObjViewAnimationOptions | undefined;
     /**
      * View控件绘制元素参数
      * 指定绘制图片、矩形区域、文本内容等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    ViewDrawTagStyles?: PlusNativeObjViewDrawTagStyles;
+    ViewDrawTagStyles?: PlusNativeObjViewDrawTagStyles | undefined;
     /**
      * View控件事件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    ViewEvents?: PlusNativeObjViewEvents;
+    ViewEvents?: PlusNativeObjViewEvents | undefined;
     /**
      * JSON对象，View控件的系统状态栏区域样式
      * 仅在应用设置为沉浸式状态栏样式下有效，非沉浸式状态栏样式下忽略此属性。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    ViewStatusbarStyles?: PlusNativeObjViewStatusbarStyles;
+    ViewStatusbarStyles?: PlusNativeObjViewStatusbarStyles | undefined;
     /**
      * View控件样式
      * 包括位置、大小等信息等，其中位置信息相对于父容器控件进行计算。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    ViewStyles?: PlusNativeObjViewStyles;
+    ViewStyles?: PlusNativeObjViewStyles | undefined;
 }
 
 /**
@@ -4444,14 +4444,14 @@ interface PlusNativeObjAnimationOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    type?: 'pop-in' | 'pop-out' | 'slide-in-right' | 'slide-out-right';
+    type?: 'pop-in' | 'pop-out' | 'slide-in-right' | 'slide-out-right' | undefined;
     /**
      * 动画持续时间
      * 单位为毫秒，默认值为200ms。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    duration?: number;
+    duration?: number | undefined;
 }
 
 /**
@@ -4467,26 +4467,26 @@ interface PlusNativeObjAnimationViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    bitmap?: PlusNativeObjBitmap;
+    bitmap?: PlusNativeObjBitmap | undefined;
     /**
      * 动画窗口上绘制的文本内容
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * 动画窗口上绘制的文本样式
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    textStyles?: PlusNativeObjTextStyles;
+    textStyles?: PlusNativeObjTextStyles | undefined;
     /**
      * 动画窗口上绘制的文本区域
      * 默认值为{top:'0px',left:'0px',width:'100%',height:'44px'}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    textRect?: PlusNativeObjRect;
+    textRect?: PlusNativeObjRect | undefined;
 }
 
 /**
@@ -4502,7 +4502,7 @@ interface PlusNativeObjBitmap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 静态方法，获取所有Bitmap图片对象
      * 获取应用运行期创建的所有Bitmap图片对象，包含所有空Bitmap对象，不包含已经销毁的Bitmap对象。返回的Bitmap对象在数组中按创建的属性排列，及数组中第一个是最先创建的Bitmap对象。
@@ -4580,7 +4580,7 @@ interface PlusNativeObjBitmapSaveOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    overwrite?: boolean;
+    overwrite?: boolean | undefined;
     /**
      * 保存图片的格式
      * 支持"jpg"、"png"，如果未指定则默认使用指定的保存路径后缀对应的文件格式，如果后缀文件格式无效则使用jpg格式。
@@ -4589,7 +4589,7 @@ interface PlusNativeObjBitmapSaveOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    format?: 'jpg' | 'png';
+    format?: 'jpg' | 'png' | undefined;
     /**
      * 保存图片的质量
      * 取值范围为1-100，1表示使用最低的图片质量（保存后的图片文件最小）、100表示使用最高的图片质量（保存后的图片文件最大）；
@@ -4597,14 +4597,14 @@ interface PlusNativeObjBitmapSaveOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    quality?: number;
+    quality?: number | undefined;
     /**
      * 指定裁剪区域保存图片
      * 相对于图片的区域信息，默认值为{top:'0px',left:'0px',width:'100%',height:'100%'}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    clip?: PlusNativeObjRect;
+    clip?: PlusNativeObjRect | undefined;
 }
 
 /**
@@ -4653,7 +4653,7 @@ interface PlusNativeObjImageSliderStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    autoplay?: boolean;
+    autoplay?: boolean | undefined;
     /**
      * 是否可全屏显示
      * 可取值：
@@ -4663,7 +4663,7 @@ interface PlusNativeObjImageSliderStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    fullscreen?: boolean;
+    fullscreen?: boolean | undefined;
     /**
      * 是否可循环轮播
      * 可取值：
@@ -4673,21 +4673,21 @@ interface PlusNativeObjImageSliderStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    loop?: boolean;
+    loop?: boolean | undefined;
     /**
      * 轮播的图片
      * 至少必须设置一张图片的地址信息，否则可能导致图片轮播控件显示不正常。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    images?: PlusNativeObj [];
+    images?: PlusNativeObj [] | undefined;
     /**
      * 自动播放切换时间
      * 当autoplay属性值为true时生效，单位为毫秒。默认值为3000（3秒）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    interval?: number;
+    interval?: number | undefined;
 }
 
 /**
@@ -4704,7 +4704,7 @@ interface PlusNativeObjImageSliderImageStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    src?: string;
+    src?: string | undefined;
     /**
      * 图片水平对齐方式
      * 仅在图片显示的宽度与图片轮播控件宽度不一致时有效，可取值：
@@ -4718,7 +4718,7 @@ interface PlusNativeObjImageSliderImageStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    align?: 'left' | 'center' | 'right';
+    align?: 'left' | 'center' | 'right' | undefined;
     /**
      * 图片显示的高度
      * 可取值：
@@ -4728,7 +4728,7 @@ interface PlusNativeObjImageSliderImageStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * 图片显示的宽度
      * 可取值：
@@ -4739,7 +4739,7 @@ interface PlusNativeObjImageSliderImageStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * 图片垂直对齐方式
      * 仅在图片显示的高度与图片轮播控件宽度不一致时有效，可取值：
@@ -4753,7 +4753,7 @@ interface PlusNativeObjImageSliderImageStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    verticalAlign?: 'top' | 'middle' | 'bottom';
+    verticalAlign?: 'top' | 'middle' | 'bottom' | undefined;
 }
 
 /**
@@ -4783,14 +4783,14 @@ interface PlusNativeObjInputStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    type?: 'email' | 'number' | 'search' | 'tel' | 'text' | 'url';
+    type?: 'email' | 'number' | 'search' | 'tel' | 'text' | 'url' | undefined;
     /**
      * 输入框的提示文本
      * 当用户未输入内容时显示在编辑框中（灰色文字）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
     /**
      * 输入框的字体大小
      * 可取值：字体高度像素值，数字加"px"格式字符串，如"12px"。 
@@ -4798,14 +4798,14 @@ interface PlusNativeObjInputStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    fontSize?: string;
+    fontSize?: string | undefined;
     /**
      * 输入框的边框颜色
      * 可取值： "#RRGGBB"格式字符串，如"#FF0000"表示红色边框。默认值为"#000000"（黑色）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    borderColor?: string;
+    borderColor?: string | undefined;
     /**
      * 输入框边框圆角半径
      * 可取值：圆角半径像素值，数字加"px"格式字符串，如"6px"。
@@ -4813,35 +4813,35 @@ interface PlusNativeObjInputStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    borderRadius?: string;
+    borderRadius?: string | undefined;
     /**
      * 输入框的边框宽度
      * 可取值：像素值，数字加"px"格式字符串，如"2px"。 默认值为"1px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    borderWidth?: string;
+    borderWidth?: string | undefined;
     /**
      * 输入框完成输入事件
      * 弹出软键盘完成输入后，点击软键盘上的“完成”、“前往”按钮时触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    onComplete?: (result: any) => void;
+    onComplete?: ((result: any) => void) | undefined;
     /**
      * 输入框获取焦点事件
      * 当编辑框获取焦点时触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    onFocus?: (result: any) => void;
+    onFocus?: ((result: any) => void) | undefined;
     /**
      * 输入框失去焦点事件
      * 当编辑框失去焦点时触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    onBlur?: (result: any) => void;
+    onBlur?: ((result: any) => void) | undefined;
 }
 
 /**
@@ -4860,7 +4860,7 @@ interface PlusNativeObjRect {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * 区域左上角的水平偏移量
      * 可取值：
@@ -4870,7 +4870,7 @@ interface PlusNativeObjRect {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * 区域的宽度
      * 可取值：
@@ -4879,7 +4879,7 @@ interface PlusNativeObjRect {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * 区域的高度
      * 可取值：
@@ -4889,7 +4889,7 @@ interface PlusNativeObjRect {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    height?: string;
+    height?: string | undefined;
 }
 
 /**
@@ -4908,7 +4908,7 @@ interface PlusNativeObjRectStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * 矩形区域的圆角半径
      * 可取值：圆角半径像素值，数字加"px"格式字符串，如"6px"。
@@ -4916,7 +4916,7 @@ interface PlusNativeObjRectStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    radius?: string;
+    radius?: string | undefined;
     /**
      * 矩形边框颜色
      * 绘制矩形边框的颜色，可取值：
@@ -4926,7 +4926,7 @@ interface PlusNativeObjRectStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    borderColor?: string;
+    borderColor?: string | undefined;
     /**
      * 矩形边框宽度
      * 可取值：像素值，数字加"px"格式字符串，如"2px"。
@@ -4934,7 +4934,7 @@ interface PlusNativeObjRectStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    borderWidth?: string;
+    borderWidth?: string | undefined;
 }
 
 /**
@@ -4958,21 +4958,21 @@ interface PlusNativeObjRichTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    align?: 'left' | 'center' | 'right';
+    align?: 'left' | 'center' | 'right' | undefined;
     /**
      * 富文本默认使用的字体名称
      * 例如"Times New Roman"，    如果指定名称的字体不存在，则使用系统默认字体。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    family?: string;
+    family?: string | undefined;
     /**
      * 富文本默认使用的字体文件路径
      * 加载字体文件路径，必须为本地路径，如果指定的文件路径无效，则使用系统默认字体。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    fontSrc?: string;
+    fontSrc?: string | undefined;
     /**
      * 点击事件回调函数
      * 如果设置此属性，则表示拦截所有RichText上的点击事件（不透传事件）。
@@ -4980,7 +4980,7 @@ interface PlusNativeObjRichTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    onClick?: (result: any) => void;
+    onClick?: ((result: any) => void) | undefined;
 }
 
 /**
@@ -4997,7 +4997,7 @@ interface PlusNativeObjPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * 区域左侧相对于作用对象（或容器）向右的偏移量
      * 可取值：像素值，如"100px"；百分比，如"10%"，相对于作用对象（或容器）的宽度；
@@ -5005,21 +5005,21 @@ interface PlusNativeObjPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * 区域的宽度
      * 可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象（或容器）的宽度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * 区域的高度
      * 可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象（或容器）的高度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * 区域底部相对于作用对象（或容器）向上的偏移量
      * 可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象（或容器）的高度。
@@ -5029,7 +5029,7 @@ interface PlusNativeObjPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    bottom?: string;
+    bottom?: string | undefined;
     /**
      * 区域右侧相对于作用对象（或容器）向左的偏移量
      * 可取值：像素值，如"100px";百分比，如"10%"，相对于作用对象（或容器）的宽度。
@@ -5039,7 +5039,7 @@ interface PlusNativeObjPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    right?: string;
+    right?: string | undefined;
 }
 
 /**
@@ -5062,7 +5062,7 @@ interface PlusNativeObjTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    align?: 'left' | 'center' | 'right';
+    align?: 'left' | 'center' | 'right' | undefined;
     /**
      * 字体颜色
      * 可取值：
@@ -5072,7 +5072,7 @@ interface PlusNativeObjTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * 文本装饰
      * 可取值：
@@ -5092,21 +5092,21 @@ interface PlusNativeObjTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    decoration?: 'none' | 'underline' | 'line-through';
+    decoration?: 'none' | 'underline' | 'line-through' | undefined;
     /**
      * 字体名称
      * 例如"Times New Roman"，    如果指定名称的字体不存在，则使用默认字体。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    family?: string;
+    family?: string | undefined;
     /**
      * 字体文件路径
      * 加载字体文件路径。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    fontSrc?: string;
+    fontSrc?: string | undefined;
     /**
      * 文本的行间距
      * 可取值：
@@ -5115,7 +5115,7 @@ interface PlusNativeObjTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    lineSpacing?: string;
+    lineSpacing?: string | undefined;
     /**
      * 字体的边距
      * 用于设置字体在绘制目标区域四个方向（top/right/bottom/left）的边距，可取值：像素值，如"10px"；百分比，相对于绘制目标区域，如"5%"；
@@ -5123,7 +5123,7 @@ interface PlusNativeObjTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    margin?: string;
+    margin?: string | undefined;
     /**
      * 文本内容超出显示区域时处理方式
      * 可取值：
@@ -5136,7 +5136,7 @@ interface PlusNativeObjTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    overflow?: 'clip';
+    overflow?: 'clip' | undefined;
     /**
      * 字体大小
      * 可取值：字体高度像素值，数字加"px"格式字符串，如"12px"。
@@ -5144,7 +5144,7 @@ interface PlusNativeObjTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    size?: string;
+    size?: string | undefined;
     /**
      * 字体样式
      * 可取值："normal" - 正常字体样式；"italic" - 斜体样式。默认值为"normal"。
@@ -5153,7 +5153,7 @@ interface PlusNativeObjTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    style?: 'normal' | 'italic';
+    style?: 'normal' | 'italic' | undefined;
     /**
      * 垂直对齐方式
      * 文本内容在指定绘制区域中的垂直对齐方式，可取值：
@@ -5164,7 +5164,7 @@ interface PlusNativeObjTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    verticalAlign?: string;
+    verticalAlign?: string | undefined;
     /**
      * 字体粗细
      * 可取值："normal" - 普通字体；"bold" - 粗字体。默认值为"normal"。
@@ -5173,7 +5173,7 @@ interface PlusNativeObjTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    weight?: 'normal' | 'bold';
+    weight?: 'normal' | 'bold' | undefined;
     /**
      * 文本换行模式
      * 可取值：
@@ -5189,7 +5189,7 @@ interface PlusNativeObjTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    whiteSpace?: 'nowrap' | 'normal';
+    whiteSpace?: 'nowrap' | 'normal' | undefined;
 }
 
 /**
@@ -5205,7 +5205,7 @@ interface PlusNativeObjView {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 静态方法，开始原生动画
      * 
@@ -5402,21 +5402,21 @@ interface PlusNativeObjViewAnimationOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    type?: 'shrink';
+    type?: 'shrink' | undefined;
     /**
      * 动画持续时间
      * 单位为毫秒，默认值为200ms。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 动画帧数
      * 必须为大于0的整数，默认值为12。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    frames?: number;
+    frames?: number | undefined;
     /**
      * 动画作用区域
      * 支持以下属性：
@@ -5428,7 +5428,7 @@ interface PlusNativeObjViewAnimationOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    region?: PlusNativeObjRect;
+    region?: PlusNativeObjRect | undefined;
 }
 
 /**
@@ -5444,7 +5444,7 @@ interface PlusNativeObjViewDrawTagStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 绘制操作类型
      * 可取值：
@@ -5461,7 +5461,7 @@ interface PlusNativeObjViewDrawTagStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    tag?: 'img' | 'rect' | 'font' | 'richtext' | 'input';
+    tag?: 'img' | 'rect' | 'font' | 'richtext' | 'input' | undefined;
     /**
      * 矩形区域颜色
      * 不推荐使用（推荐使用rectStyles），可取值：
@@ -5471,14 +5471,14 @@ interface PlusNativeObjViewDrawTagStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * 绘制输入框的样式
      * 当tag属性值为"input"时有效，用于指定绘制输入框的样式、大小位置等信息。，
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    inputStyles?: PlusNativeObjInputStyles;
+    inputStyles?: PlusNativeObjInputStyles | undefined;
     /**
      * 绘制内容区域
      * 当tag属性值为"img"时，用于指定绘制图片的目标区域；
@@ -5488,14 +5488,14 @@ interface PlusNativeObjViewDrawTagStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    position?: PlusNativeObjPosition;
+    position?: PlusNativeObjPosition | undefined;
     /**
      * 绘制区域的样式
      * 当tag属性值为"rect"时有效，用于指定绘制区域的样式、填充颜色、圆角大小等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    rectStyles?: PlusNativeObjRectStyles;
+    rectStyles?: PlusNativeObjRectStyles | undefined;
     /**
      * 绘制的图片资源
      * 当tag属性值为"img"时有效，可以是图片资源路径（字符串类型）或者图片对象（plus.nativeObj.Bitmap对象）。
@@ -5503,35 +5503,35 @@ interface PlusNativeObjViewDrawTagStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    src?: string;
+    src?: string | undefined;
     /**
      * 图片源的绘制区域
      * 当tag属性值为"img"时有效，用于指定图片源的绘制区域，相对于图片的区域信息，默认值为{top:'0px',left:'0px',width:'100%',height:'100%'}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    sprite?: PlusNativeObjPosition;
+    sprite?: PlusNativeObjPosition | undefined;
     /**
      * 绘制的文本内容
      * 当tag属性值为"font"时有效，用于保存绘制的文本内容。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * 绘制文本的样式
      * 当tag属性值为"font"时有效，用于指定绘制文本内容的字体大小、字体颜色、字体类型等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    textStyles?: PlusNativeObjTextStyles;
+    textStyles?: PlusNativeObjTextStyles | undefined;
     /**
      * 绘制富文本的样式
      * 当tag属性值为"richtext"时有效，用于指定绘制富文本内容的默认字体颜色、字体类型等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    richTextStyles?: PlusNativeObjRichTextStyles;
+    richTextStyles?: PlusNativeObjRichTextStyles | undefined;
 }
 
 /**
@@ -5547,7 +5547,7 @@ interface PlusNativeObjViewEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    doubleclick?: string;
+    doubleclick?: string | undefined;
     /**
      * 点击事件
      * 当手指点击屏幕时触发。
@@ -5555,7 +5555,7 @@ interface PlusNativeObjViewEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    click?: string;
+    click?: string | undefined;
     /**
      * 开始触屏事件
      * 当手指触摸屏幕时候触发。
@@ -5563,7 +5563,7 @@ interface PlusNativeObjViewEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    touchstart?: string;
+    touchstart?: string | undefined;
     /**
      * 触摸滑屏事件
      * 当手指在屏幕上滑动的时候连续地触发。
@@ -5571,7 +5571,7 @@ interface PlusNativeObjViewEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    touchmove?: string;
+    touchmove?: string | undefined;
     /**
      * 结束触屏事件
      * 当手指从屏幕上离开的时候触发。
@@ -5579,7 +5579,7 @@ interface PlusNativeObjViewEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    touchend?: string;
+    touchend?: string | undefined;
 }
 
 /**
@@ -5595,7 +5595,7 @@ interface PlusNativeObjViewStatusbarStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    background?: string;
+    background?: string | undefined;
 }
 
 /**
@@ -5613,7 +5613,7 @@ interface PlusNativeObjViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
     /**
      * View控件垂直向上的偏移量
      * 现对于父容器底部的距离，可取值：
@@ -5624,7 +5624,7 @@ interface PlusNativeObjViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    bottom?: string;
+    bottom?: string | undefined;
     /**
      * View控件的停靠方式
      * 仅当View控件添加到Webview窗口对象中并且position属性值设置为"dock"时才生效，此时View控件挤压Webview窗口的大小。
@@ -5637,7 +5637,7 @@ interface PlusNativeObjViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    dock?: string;
+    dock?: string | undefined;
     /**
      * 区域的高度
      * 可取值：
@@ -5648,7 +5648,7 @@ interface PlusNativeObjViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * 区域左上角的水平偏移量
      * 可取值：
@@ -5659,14 +5659,14 @@ interface PlusNativeObjViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * View控件的不透明度
      * 取值范围为0-1，0为全透明，1为不透明，默认值为1，即不透明。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    opacity?: number;
+    opacity?: number | undefined;
     /**
      * View控件的排版方式
      * 仅当View控件添加到Webview窗口对象中时才生效。
@@ -5678,28 +5678,28 @@ interface PlusNativeObjViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    position?: string;
+    position?: string | undefined;
     /**
      * View控件的状态栏样式
      * 仅在应用设置为沉浸式状态栏样式下有效，设置此属性后将自动保留系统状态栏区域不被View控件占用（即View控件非沉浸式样式显示）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    statusbar?: PlusNativeObjViewStatusbarStyles;
+    statusbar?: PlusNativeObjViewStatusbarStyles | undefined;
     /**
      * View控件左上角的垂直偏移量
      * 可取值：像素值，如"100px"；百分比，如"10%"，相对于父控件的高度；自动计算，如"auto",根据height值自动计算，相对于父控件垂直居中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * 区域的宽度
      * 可取值：像素值，如"100px";百分比，如"10%"，相对于父控件的宽度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    width?: string;
+    width?: string | undefined;
 }
 
 /**
@@ -5713,43 +5713,43 @@ interface PlusNativeUI {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    ActionButtonStyles?: PlusNativeUIActionButtonStyles;
+    ActionButtonStyles?: PlusNativeUIActionButtonStyles | undefined;
     /**
      * JSON对象，原生选择按钮框的样式参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    ActionSheetStyles?: PlusNativeUIActionSheetStyles;
+    ActionSheetStyles?: PlusNativeUIActionSheetStyles | undefined;
     /**
      * 确认对话框的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    ConfirmOptions?: PlusNativeUIConfirmOptions;
+    ConfirmOptions?: PlusNativeUIConfirmOptions | undefined;
     /**
      * JSON对象，图片预览的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    PreviewImageOptions?: PlusNativeUIPreviewImageOptions;
+    PreviewImageOptions?: PlusNativeUIPreviewImageOptions | undefined;
     /**
      * 日期选择对话框的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    PickDateOption?: PlusNativeUIPickDateOption;
+    PickDateOption?: PlusNativeUIPickDateOption | undefined;
     /**
      * JSON对象，时间选择对话框的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    PickTimeOption?: PlusNativeUIPickTimeOption;
+    PickTimeOption?: PlusNativeUIPickTimeOption | undefined;
     /**
      * 系统原生界面基类对象
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    NativeUIObj?: PlusNativeUINativeUIObj;
+    NativeUIObj?: PlusNativeUINativeUIObj | undefined;
     /**
      * 系统等待对话框对象
      * 从NativeUIObj对象继承而来，通过plus.nativeUI.showWaiting方法创建时返回。
@@ -5757,25 +5757,25 @@ interface PlusNativeUI {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    WaitingObj?: PlusNativeUIWaitingObj;
+    WaitingObj?: PlusNativeUIWaitingObj | undefined;
     /**
      * JSON对象，原生等待对话框的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    WaitingOptions?: PlusNativeUIWaitingOptions;
+    WaitingOptions?: PlusNativeUIWaitingOptions | undefined;
     /**
      * JSON对象，原生等待对话框上loading图标自定义样式
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    WaitingLoadingOptions?: PlusNativeUIWaitingLoadingOptions;
+    WaitingLoadingOptions?: PlusNativeUIWaitingLoadingOptions | undefined;
     /**
      * JSON对象，系统提示消息框要设置的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    ToastOptions?: PlusNativeUIToastOptions;
+    ToastOptions?: PlusNativeUIToastOptions | undefined;
     /**
      * 弹出系统选择按钮框
      * 从底部动画弹出系统样式选择按钮框，可设置选择框的标题、按钮文字等。
@@ -5876,13 +5876,13 @@ interface PlusNativeUIActionButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * 按钮上显示的文字内容
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 按钮的样式
      * 可取值：
@@ -5898,7 +5898,7 @@ interface PlusNativeUIActionButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    style?: 'destructive' | 'default';
+    style?: 'destructive' | 'default' | undefined;
 }
 
 /**
@@ -5912,20 +5912,20 @@ interface PlusNativeUIActionSheetStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 取消按钮上显示的文字内容
      * 不设置此属性，则不显示取消按钮。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    cancel?: string;
+    cancel?: string | undefined;
     /**
      * 选择框上的按钮，ActionButtonStyles对象数组
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    buttons?: PlusNativeUI [];
+    buttons?: PlusNativeUI [] | undefined;
 }
 
 /**
@@ -5940,14 +5940,14 @@ interface PlusNativeUIConfirmOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 确认对话框上显示的按钮
      * 字符串数组，每项对应在确认对话框上显示一个按钮，用户点击后通过confirmCB返回用户点击按钮的在数组中的索引值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    buttons?: any [];
+    buttons?: any [] | undefined;
     /**
      * 对话框在屏幕中的垂直分享对齐方式
      * 可取值：
@@ -5958,7 +5958,7 @@ interface PlusNativeUIConfirmOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    verticalAlign?: string;
+    verticalAlign?: string | undefined;
 }
 
 /**
@@ -5974,14 +5974,14 @@ interface PlusNativeUIPreviewImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    background?: string;
+    background?: string | undefined;
     /**
      * 默认显示图片的索引值
      * 索引值从0开始，默认值为0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    current?: number;
+    current?: number | undefined;
     /**
      * 图片指示器样式
      * 可取值：
@@ -5992,7 +5992,7 @@ interface PlusNativeUIPreviewImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    indicator?: string;
+    indicator?: string | undefined;
     /**
      * 是否可循环预览
      * 可取值：
@@ -6002,7 +6002,7 @@ interface PlusNativeUIPreviewImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    loop?: boolean;
+    loop?: boolean | undefined;
 }
 
 /**
@@ -6017,21 +6017,21 @@ interface PlusNativeUIPickDateOption {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 日期选择对话框默认显示的日期
      * 如果未设置默认显示的日期，则显示当前的日期。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    date?: Date;
+    date?: Date | undefined;
     /**
      * 日期选择对话框可选择的最小日期
      * Date类型对象，如果未设置可选择的最小日期，则使用系统默认可选择的最小日期值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    minDate?: Date;
+    minDate?: Date | undefined;
     /**
      * 日期选择对话框可选择的最大日期
      * Date类型对象，如果未设置可选择的最大日期，则使用系统默认可选择的最大日期值。
@@ -6039,7 +6039,7 @@ interface PlusNativeUIPickDateOption {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    maxDate?: Date;
+    maxDate?: Date | undefined;
     /**
      * 时间选择对话框弹出指示区域
      * JSON类型对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，其值为相对于容器Webview的位置。
@@ -6062,21 +6062,21 @@ interface PlusNativeUIPickTimeOption {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    time?: Date;
+    time?: Date | undefined;
     /**
      * 时间选择对话框显示的标题
      * 如果未设置标题，则默认显示标题为当前选择的时间。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 是否24小时制模式
      * true表示使用24小时制模式显示，fale表示使用12小时制模式显示，默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    is24Hour?: boolean;
+    is24Hour?: boolean | undefined;
     /**
      * 日期选择对话框弹出指示区域
      * JSON类型对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，其值相对于容器webview的位置。
@@ -6118,7 +6118,7 @@ interface PlusNativeUIWaitingObj {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    onclose?: () => void;
+    onclose?: (() => void) | undefined;
     /**
      * 设置等待对话框上显示的文字内容
      * 
@@ -6147,49 +6147,49 @@ interface PlusNativeUIWaitingOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * 等待框背景区域的高度
      * 值支持像素绝对值（"500px"）或百分比（"50%"），如果不设置则根据内容自动计算合适的高度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * 等待框中文字的颜色
      * 颜色值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为白色。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * 等待框中文字的字体大小
      * 如"14px"表示使用14像素高的文字，未设置则使用系统默认字体大小。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    size?: string;
+    size?: string | undefined;
     /**
      * 等待对话框中标题文字的水平对齐方式
      * 对齐方式可选值包括："left"：水平居左对齐显示，"center"：水平居中对齐显示，"right"：水平居右对齐显示。默认值为水平居中对齐显示，即"center"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    textalign?: string;
+    textalign?: string | undefined;
     /**
      * 等待对话框的内边距
      * 值支持像素值（"10px"）和百分比（"5%"），百分比相对于屏幕的宽计算，默认值为"3%"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    padding?: string;
+    padding?: string | undefined;
     /**
      * 等待对话框显示区域的背景色
      * 背景色的值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为rgba(0,0,0,0.8)。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    background?: string;
+    background?: string | undefined;
     /**
      * 等待对话框样式
      * 可取值"black"、"white"，black表示等待框为黑色雪花样式，通常在背景主色为浅色时使用；white表示等待框为白色雪花样式，通常在背景主色为深色时使用。
@@ -6199,28 +6199,28 @@ interface PlusNativeUIWaitingOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    style?: 'black' | 'white';
+    style?: 'black' | 'white' | undefined;
     /**
      * 等待框是否模态显示
      * 模态显示时用户不可操作直到等待对话框关闭，否则用户在等待对话框显示时也可操作下面的内容，未设置时默认为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    modal?: boolean;
+    modal?: boolean | undefined;
     /**
      * 等待框显示区域的圆角
      * 值支持像素值（"10px"），未设置时使用默认值"10px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    round?: number;
+    round?: number | undefined;
     /**
      * 点击等待显示区域是否自动关闭
      * true表示点击等待对话框显示区域时自动关闭，false则不关闭，未设置时默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    padlock?: boolean;
+    padlock?: boolean | undefined;
     /**
      * 返回键处理方式
      * 可取值"none"表示截获处理返回键，但不做任何响应；"close"表示截获处理返回键并关闭等待框；"transmit"表示不截获返回键，向后传递给Webview窗口继续处理（与未显示等待框的情况一致）。
@@ -6230,13 +6230,13 @@ interface PlusNativeUIWaitingOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    back?: 'none' | 'close' | 'transmit';
+    back?: 'none' | 'close' | 'transmit' | undefined;
     /**
      * 自定义等待框上loading图标样式
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    loading?: PlusNativeUIWaitingLoadingOptions;
+    loading?: PlusNativeUIWaitingLoadingOptions | undefined;
 }
 
 /**
@@ -6263,14 +6263,14 @@ interface PlusNativeUIWaitingLoadingOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    display?: 'block' | 'inline' | 'none';
+    display?: 'block' | 'inline' | 'none' | undefined;
     /**
      * loading图标高度
      * 设置loading图标的高度（宽度等比率缩放），取值类型：像素值，如"14px"表示14像素高。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * loading图标路径
      * 自定义loading图标的路径，png格式，并且必须是本地资源地址；
@@ -6278,14 +6278,14 @@ interface PlusNativeUIWaitingLoadingOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    icon?: string;
+    icon?: string | undefined;
     /**
      * loading图每帧刷新间隔
      * 单位为ms（毫秒），默认值为100ms。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    interval?: number;
+    interval?: number | undefined;
 }
 
 /**
@@ -6303,7 +6303,7 @@ interface PlusNativeUIToastOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    align?: 'left' | 'center' | 'right';
+    align?: 'left' | 'center' | 'right' | undefined;
     /**
      * 提示消息框显示的时间
      * 可选值为"long"、"short"，值为"long"时显示时间约为3.5s，值为"short"时显示时间约为2s，未设置时默认值为"short"。
@@ -6312,28 +6312,28 @@ interface PlusNativeUIToastOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    duration?: 'long' | 'short';
+    duration?: 'long' | 'short' | undefined;
     /**
      * 提示消息框上显示的图标
      * 仅支持本地图片路径。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    icon?: string;
+    icon?: string | undefined;
     /**
      * 图标的宽度
      * 单位为px（逻辑像素值），默认值为图片的宽度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    iconWidth?: string;
+    iconWidth?: string | undefined;
     /**
      * 图标的高度
      * 单位为px（逻辑像素值），默认值为图片的高度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    iconHeight?: string;
+    iconHeight?: string | undefined;
     /**
      * 提示消息框上显示的样式
      * 可取值：
@@ -6343,7 +6343,7 @@ interface PlusNativeUIToastOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    style?: string;
+    style?: string | undefined;
     /**
      * 提示消息框上显示的文本类型
      * 可取值：
@@ -6361,14 +6361,14 @@ interface PlusNativeUIToastOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    type?: 'text' | 'richtext';
+    type?: 'text' | 'richtext' | undefined;
     /**
      * 富文本样式
      * 当type属性值为"richtext"时有效，用于定义富文本的样式，如其文本对齐方式、使用的字体等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    richTextStyle?: PlusNativeObjRichTextStyles;
+    richTextStyle?: PlusNativeObjRichTextStyles | undefined;
     /**
      * 提示消息在屏幕中的垂直位置
      * 可选值为"top"、"center"、"bottom"，分别为垂直居顶、居中、居底，未设置时默认值为"bottom"。
@@ -6378,7 +6378,7 @@ interface PlusNativeUIToastOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    verticalAlign?: 'top' | 'center' | 'bottom';
+    verticalAlign?: 'top' | 'center' | 'bottom' | undefined;
 }
 
 /**
@@ -6392,19 +6392,19 @@ interface PlusNavigator {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    ShortcutOptions?: PlusNavigatorShortcutOptions;
+    ShortcutOptions?: PlusNavigatorShortcutOptions | undefined;
     /**
      * 更新应用启动界面要设置的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    SplashscreenOptions?: PlusNavigatorSplashscreenOptions;
+    SplashscreenOptions?: PlusNavigatorSplashscreenOptions | undefined;
     /**
      * 运行环境权限类型
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    PermissionNames?: PlusNavigatorPermissionNames;
+    PermissionNames?: PlusNavigatorPermissionNames | undefined;
     /**
      * 检查运行环境的权限
      * 向系统检查当前程序的权限状态，不触发权限相对应的功能API的调用。
@@ -6598,21 +6598,21 @@ interface PlusNavigatorShortcutOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 快捷方式的图标
      * 如果未设置则优先使用应用中指定的图标（manifest.json中icon节点下对应分辨率的图标），如未区配则使用应用的图标（仅在独立打包时），否则使用runtime提供的默认图标。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    icon?: string;
+    icon?: string | undefined;
     /**
      * 创建快捷方式后的提示信息
      * 快捷方式创建成功后显示，默认提示内容为“"XXXX"已创建桌面快捷方式”，其中"XXXX"为程序的名称，如果不需要提示则设置此值为空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    toast?: string;
+    toast?: string | undefined;
     /**
      * 快捷方式的扩展参数
      * 其中key和value值都必须是字符串类型。
@@ -6626,7 +6626,7 @@ interface PlusNavigatorShortcutOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    classname?: string;
+    classname?: string | undefined;
     /**
      * 是否需要强制创建快捷方式
      * true表示强制创建，false表示不强制创建，默认值为true。
@@ -6634,7 +6634,7 @@ interface PlusNavigatorShortcutOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    force?: boolean;
+    force?: boolean | undefined;
 }
 
 /**
@@ -6649,14 +6649,14 @@ interface PlusNavigatorSplashscreenOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    image?: string;
+    image?: string | undefined;
     /**
      * 是否自动关闭启动界面
      * true表示应用启动后自动关闭启动界面，false表示应用启动后不自动关闭启动界面，需要在应用调用plus.navigator.closeSplashscreen()方法关闭。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    autoclose?: boolean;
+    autoclose?: boolean | undefined;
     /**
      * 是否自动关闭启动界面（WAP2APP应用）
      * 与autoclose属性值作用一致，仅在WAP2APP应用中有效。
@@ -6664,14 +6664,14 @@ interface PlusNavigatorSplashscreenOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    autoclose_w2a?: boolean;
+    autoclose_w2a?: boolean | undefined;
     /**
      * 启动界面延时关闭时间
      * 仅在设置为自动关闭启动界面时有效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    delay?: number;
+    delay?: number | undefined;
     /**
      * 启动界面延时关闭时间（WAP2APP应用）
      * 与delay属性值作用一致，仅在WAP2APP应用中有效。
@@ -6679,7 +6679,7 @@ interface PlusNavigatorSplashscreenOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    delay_w2a?: number;
+    delay_w2a?: number | undefined;
 }
 
 /**
@@ -6694,49 +6694,49 @@ interface PlusNavigatorPermissionNames {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    CAMERA?: string;
+    CAMERA?: string | undefined;
     /**
      * 访问系统联系人权限
      * 用于访问（读、写）系统通讯录（plus.gallery.*）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    CONTACTS?: string;
+    CONTACTS?: string | undefined;
     /**
      * 访问系统相册权限
      * 用于访问（读、写）系统相册（plus.gallery.*）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    GALLERY?: string;
+    GALLERY?: string | undefined;
     /**
      * 定位权限
      * 用于获取当前用户位置信息（plus.geolocation.*）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    LOCATION?: string;
+    LOCATION?: string | undefined;
     /**
      * 消息通知权限
      * 用于接收系统消息通知（plus.push.*）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    NOTIFITION?: string;
+    NOTIFITION?: string | undefined;
     /**
      * 录音权限
      * 用于进行本地录音操作（plus.audio.AudioRecorder）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    RECORD?: string;
+    RECORD?: string | undefined;
     /**
      * 创建桌面快捷方式权限
      * 用于在系统桌面创建快捷方式图标（plus.navigator.createShortcut）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    SHORTCUT?: string;
+    SHORTCUT?: string | undefined;
 }
 
 /**
@@ -6750,13 +6750,13 @@ interface PlusOrientation {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/orientation.html](http://www.html5plus.org/doc/zh_cn/orientation.html)
      */
-    OrientationOption?: PlusOrientationOrientationOption;
+    OrientationOption?: PlusOrientationOrientationOption | undefined;
     /**
      * JSON对象，设备方向信息数据
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/orientation.html](http://www.html5plus.org/doc/zh_cn/orientation.html)
      */
-    Rotation?: PlusOrientationRotation;
+    Rotation?: PlusOrientationRotation | undefined;
     /**
      * 获取当前设备的方向信息，包括alpha、beta、gamma三个方向信息
      * 方向信息是设备相对于水平初始方向分别以z、x、y轴为轴心旋转的角度，对应值为alpha、beta、gamma三个方向的信息。 方向信息可通过successCB回调函数返回。方向信息获取失败则调用回调函数errorCB
@@ -6791,7 +6791,7 @@ interface PlusOrientationOrientationOption {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/orientation.html](http://www.html5plus.org/doc/zh_cn/orientation.html)
      */
-    frequency?: number;
+    frequency?: number | undefined;
 }
 
 /**
@@ -6806,42 +6806,42 @@ interface PlusOrientationRotation {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/orientation.html](http://www.html5plus.org/doc/zh_cn/orientation.html)
      */
-    alpha?: number;
+    alpha?: number | undefined;
     /**
      * 以x方向为轴心的旋转角度
      * 浮点数类型，只读属性，取值范围为-180到180（不等于180）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/orientation.html](http://www.html5plus.org/doc/zh_cn/orientation.html)
      */
-    beta?: number;
+    beta?: number | undefined;
     /**
      * 以y方向为轴心的旋转角度
      * 浮点数类型，只读属性，取值范围为-180到180（不等于180）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/orientation.html](http://www.html5plus.org/doc/zh_cn/orientation.html)
      */
-    gamma?: number;
+    gamma?: number | undefined;
     /**
      * 设备方向与地球磁场北极方向的角度
      * 浮点数类型，只读属性，取值范围为0到360（不等于360）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/orientation.html](http://www.html5plus.org/doc/zh_cn/orientation.html)
      */
-    magneticHeading?: number;
+    magneticHeading?: number | undefined;
     /**
      * 设备方向与地球真实北极方向的角度
      * 浮点数类型，只读属性，取值范围为0到360（不等于360）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/orientation.html](http://www.html5plus.org/doc/zh_cn/orientation.html)
      */
-    trueHeading?: number;
+    trueHeading?: number | undefined;
     /**
      * 设备方向值的误差值
      * 浮点数类型，只读属性，取值范围为0到360（不等于360）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/orientation.html](http://www.html5plus.org/doc/zh_cn/orientation.html)
      */
-    headingAccuracy?: number;
+    headingAccuracy?: number | undefined;
 }
 
 /**
@@ -6883,39 +6883,39 @@ interface PlusRuntime {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    ApplicationInf?: PlusRuntimeApplicationInf;
+    ApplicationInf?: PlusRuntimeApplicationInf | undefined;
     /**
      * JSON对象，应用角标显示需要的通知栏消息的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    BadgeOptions?: PlusRuntimeBadgeOptions;
+    BadgeOptions?: PlusRuntimeBadgeOptions | undefined;
     /**
      * JSON对象，打开文件参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    OpenFileOptions?: PlusRuntimeOpenFileOptions;
+    OpenFileOptions?: PlusRuntimeOpenFileOptions | undefined;
     /**
      * JSON对象，应用信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    WidgetInfo?: PlusRuntimeWidgetInfo;
+    WidgetInfo?: PlusRuntimeWidgetInfo | undefined;
     /**
      * JSON对象，应用安装参数
      * 可通过对象设置安装的应用是否进行appid校验、版本号校验等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    WidgetOptions?: PlusRuntimeWidgetOptions;
+    WidgetOptions?: PlusRuntimeWidgetOptions | undefined;
     /**
      * 当前应用的APPID
      * 当前应用的APPID，字符串类型。注意，如果是在HBuilder真机运行获取的是固定值"HBuilder"，需要提交App云端打包后运行才能获取真实的APPID值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    appid?: string;
+    appid?: string | undefined;
     /**
      * 第三方程序调用时传递给程序的参数
      * 第三方程序传递过来的参数，字符串格式类型数据。
@@ -6923,7 +6923,7 @@ interface PlusRuntime {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    arguments?: string;
+    arguments?: string | undefined;
     /**
      * 应用的市场推广渠道标识
      * "qihoo:browser"标识360浏览器流应用，"qihoo:appstore "表示360手机助手流应用，"dcloud:streamapps"表示DCloud流应用基座。
@@ -6931,7 +6931,7 @@ interface PlusRuntime {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    channel?: string;
+    channel?: string | undefined;
     /**
      * 应用启动来源
      * 5+ APP启动类型，可取以下值：
@@ -6969,7 +6969,7 @@ interface PlusRuntime {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    launcher?: 'default' | 'scheme' | 'push' | 'stream' | 'shortcut' | 'barcode';
+    launcher?: 'default' | 'scheme' | 'push' | 'stream' | 'shortcut' | 'barcode' | undefined;
     /**
      * 应用安装来源
      * 5+应用安装来源，可取以下值：
@@ -7002,21 +7002,21 @@ interface PlusRuntime {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    origin?: 'default' | 'stream' | 'push' | 'scheme' | 'barcode' | 'silent';
+    origin?: 'default' | 'stream' | 'push' | 'scheme' | 'barcode' | 'silent' | undefined;
     /**
      * 客户端的版本号
      * 字符串类型，在编译环境中设置的apk/ipa版本号。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    version?: string;
+    version?: string | undefined;
     /**
      * 客户端5+运行环境的版本号
      * 5+运行环境版本号，格式为：[主版本号].[次版本号].[修订版本号].[编译代号]。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    innerVersion?: string;
+    innerVersion?: string | undefined;
     /**
      * 获取当前应用首页加载的时间
      * 应用加载首页面的总时间，从开始加载首页面到首页面加载完成，单位为ms。
@@ -7024,21 +7024,21 @@ interface PlusRuntime {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    launchLoadedTime?: number;
+    launchLoadedTime?: number | undefined;
     /**
      * 获取当前应用的进程标识
      * 当前应用所属系统进程标识。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    processId?: string;
+    processId?: string | undefined;
     /**
      * 获取当前应用的启动时间
      * 应用启动时间戳，距1970年1月1日之间的毫秒数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    startupTime?: number;
+    startupTime?: number | undefined;
     /**
      * 获取指定APPID对应的应用信息
      * 
@@ -7138,14 +7138,14 @@ interface PlusRuntimeApplicationInf {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    pname?: string;
+    pname?: string | undefined;
     /**
      * 程序的操作行为
      * Android平台上与系统的action值一致；iOS平台为要调用程序的URLScheme格式字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    action?: string;
+    action?: string | undefined;
     /**
      * 新任务模式标记
      * 可取值：
@@ -7156,7 +7156,7 @@ interface PlusRuntimeApplicationInf {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    newTask?: boolean;
+    newTask?: boolean | undefined;
     /**
      * 调用程序的参数
      * 仅Android平台支持，为JSON格式，用于传递给要调用程序的参数，如extra:{url:"http://www.html5plus.org"}。
@@ -7178,14 +7178,14 @@ interface PlusRuntimeBadgeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 消息的内容
      * 默认值为“您有x条未读消息"”，其中x未设置的角标数字值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    content?: string;
+    content?: string | undefined;
 }
 
 /**
@@ -7201,7 +7201,7 @@ interface PlusRuntimeOpenFileOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    pname?: string;
+    pname?: string | undefined;
     /**
      * 弹出系统选择程序界面指示区域
      * JSON对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，左上坐标相对于容器webview的位置。仅在iPad设备平台有效。
@@ -7222,55 +7222,55 @@ interface PlusRuntimeWidgetInfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    appid?: string;
+    appid?: string | undefined;
     /**
      * 应用的版本号
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    version?: string;
+    version?: string | undefined;
     /**
      * 应用的名称
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 应用描述信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * 应用描述信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    author?: string;
+    author?: string | undefined;
     /**
      * 开发者邮箱地址
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    email?: string;
+    email?: string | undefined;
     /**
      * 应用授权描述信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    license?: string;
+    license?: string | undefined;
     /**
      * 应用授权说明链接地址
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    licensehref?: string;
+    licensehref?: string | undefined;
     /**
      * 应用许可特性列表
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    features?: string [];
+    features?: string [] | undefined;
 }
 
 /**
@@ -7287,7 +7287,7 @@ interface PlusRuntimeWidgetOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    force?: boolean;
+    force?: boolean | undefined;
 }
 
 /**
@@ -7348,41 +7348,41 @@ interface PlusStream {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    StreamOptions?: PlusStreamStreamOptions;
+    StreamOptions?: PlusStreamStreamOptions | undefined;
     /**
      * JSON对象，流应用恢复运行的参数
      * 设置流应用恢复运行时的参数、splash、首页等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    StreamRestoreOptions?: PlusStreamStreamRestoreOptions;
+    StreamRestoreOptions?: PlusStreamStreamRestoreOptions | undefined;
     /**
      * 流应用恢复运行时启动界面配置参数
      * 设置流应用恢复运行时启动界面，如是否自动关闭、延时关闭时间、超时时间等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    StreamRestoreSplashscreenOptions?: PlusStreamStreamRestoreSplashscreenOptions;
+    StreamRestoreSplashscreenOptions?: PlusStreamStreamRestoreSplashscreenOptions | undefined;
     /**
      * JSON对象，启动流应用的首页窗口属性
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    LaunchWebviewStyles?: PlusStreamLaunchWebviewStyles;
+    LaunchWebviewStyles?: PlusStreamLaunchWebviewStyles | undefined;
     /**
      * JSON对象，流应用信息
      * 流应用标识、图标、是否下载完成等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    StreamInfo?: PlusStreamStreamInfo;
+    StreamInfo?: PlusStreamStreamInfo | undefined;
     /**
      * JSON对象，免流量操作参数
      * 包含电话号码、验证码等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    FreetrafficOptions?: PlusStreamFreetrafficOptions;
+    FreetrafficOptions?: PlusStreamFreetrafficOptions | undefined;
     /**
      * 免流量状态变化事件
      * 
@@ -7481,21 +7481,21 @@ interface PlusStreamStreamOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    appmode?: string;
+    appmode?: string | undefined;
     /**
      * 流应用标识
      * 流应用唯一字符串标识。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    appid?: string;
+    appid?: string | undefined;
     /**
      * 启动流应用的直达页面链接地址
      * 可在应用中通过plus.runtime.processDirectPage()方法获取。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    direct_page?: string;
+    direct_page?: string | undefined;
     /**
      * 流应用运行参数
      * 启动流应用的扩展参数，可在流应用中通过plus.runtime.arguments获取。
@@ -7509,14 +7509,14 @@ interface PlusStreamStreamOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    icon?: string;
+    icon?: string | undefined;
     /**
      * 流应用启动类型
      * 流应用的启动类型，可在流应用中通过plus.runtime.launcher获取，默认值为“stream”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    launcher?: string;
+    launcher?: string | undefined;
     /**
      * 应用启动界面样式
      * 可取值：
@@ -7526,21 +7526,21 @@ interface PlusStreamStreamOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    splash?: string;
+    splash?: string | undefined;
     /**
      * 流应用首页窗口对象样式
      * 如果流应用已经运行，从后台激活到前台时忽略此属性。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    styles?: PlusStreamLaunchWebviewStyles;
+    styles?: PlusStreamLaunchWebviewStyles | undefined;
     /**
      * 流应用名称
      * 流应用显示的标题，在启动提示界面中显示。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 启动流应用的快捷方式逻辑
      * 可取值：
@@ -7553,7 +7553,7 @@ interface PlusStreamStreamOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    shortcut?: string;
+    shortcut?: string | undefined;
     /**
      * 退出流应用的快捷方式逻辑
      * 可取值：
@@ -7564,7 +7564,7 @@ interface PlusStreamStreamOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    shortcutQuit?: string;
+    shortcutQuit?: string | undefined;
 }
 
 /**
@@ -7590,20 +7590,20 @@ interface PlusStreamStreamRestoreOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    splash?: string;
+    splash?: string | undefined;
     /**
      * 流应用首页窗口对象样式
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    styles?: PlusStreamLaunchWebviewStyles;
+    styles?: PlusStreamLaunchWebviewStyles | undefined;
     /**
      * 流应用恢复运行时启动界面配置参数
      * 用于流应用自动关闭后恢复运行时调整启动界面配置参数，如将自动关闭splash调整为手动关闭，以便恢复上次运行状态后再进入应用。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    splashscreen?: PlusStreamStreamRestoreSplashscreenOptions;
+    splashscreen?: PlusStreamStreamRestoreSplashscreenOptions | undefined;
 }
 
 /**
@@ -7619,7 +7619,7 @@ interface PlusStreamStreamRestoreSplashscreenOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    autoclose?: boolean;
+    autoclose?: boolean | undefined;
     /**
      * 启动界面超时时间
      * 单位为毫秒（ms），当启动界面超过此时间仍然未关闭时（不管autoclose值设置true还是false），应用将自动关闭启动界面。
@@ -7627,7 +7627,7 @@ interface PlusStreamStreamRestoreSplashscreenOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    timeout?: number;
+    timeout?: number | undefined;
 }
 
 /**
@@ -7643,7 +7643,7 @@ interface PlusStreamLaunchWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    blockNetworkImage?: boolean;
+    blockNetworkImage?: boolean | undefined;
     /**
      * 指定流应用首页地址
      * 可使用网络地址（http://或https://开头），也可使用本地地址（相对应用资源路径）。
@@ -7652,14 +7652,14 @@ interface PlusStreamLaunchWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    launch_path?: string;
+    launch_path?: string | undefined;
     /**
      * 指定首页Webview的id
      * 如果未指定id，则使用应用的appid作为首页Webview的id。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 流应用首页是否显示
      * true表示显示，false表示不显示。默认值为true。
@@ -7667,7 +7667,7 @@ interface PlusStreamLaunchWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -7683,14 +7683,14 @@ interface PlusStreamStreamInfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 流应用的图标
      * 流应用下载的图标路径（本地路径），如果未下载完成则返回空。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    icon?: string;
+    icon?: string | undefined;
     /**
      * 流应用是否下载完成
      * true表示流应用下载完成，false表示流应用未下载完成。
@@ -7698,7 +7698,7 @@ interface PlusStreamStreamInfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    complete?: boolean;
+    complete?: boolean | undefined;
 }
 
 /**
@@ -7714,14 +7714,14 @@ interface PlusStreamFreetrafficOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    phone?: string;
+    phone?: string | undefined;
     /**
      * 验证码
      * 免流量绑定设备使用的验证码。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    code?: string;
+    code?: string | undefined;
 }
 
 /**
@@ -7735,31 +7735,31 @@ interface PlusUploader {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    Upload?: PlusUploaderUpload;
+    Upload?: PlusUploaderUpload | undefined;
     /**
      * 上传任务事件类型
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    UploadEvent?: PlusUploaderUploadEvent;
+    UploadEvent?: PlusUploaderUploadEvent | undefined;
     /**
      * 上传任务的状态，Number类型
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    UploadState?: PlusUploaderUploadState;
+    UploadState?: PlusUploaderUploadState | undefined;
     /**
      * JSON对象，创建上传任务的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    UploadOptions?: PlusUploaderUploadOptions;
+    UploadOptions?: PlusUploaderUploadOptions | undefined;
     /**
      * JSON对象，添加上传文件的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    UploadFileOptions?: PlusUploaderUploadFileOptions;
+    UploadFileOptions?: PlusUploaderUploadFileOptions | undefined;
     /**
      * 新建上传任务
      * 请求上传管理创建新的上传任务，创建成功则返回Upload对象，用于管理上传任务。
@@ -7803,49 +7803,49 @@ interface PlusUploaderUpload {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 上传文件的服务器地址
      * 调用plus.uploader.createUpload()方法创建上传任务时设置的值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * 任务的状态
      * 上传任务的状态，参考UploadState，在UploadCompleteCallback事件和UploadStateChangedCallback事件触发时更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    state?: number;
+    state?: number | undefined;
     /**
      * 上传任务的参数
      * 上传任务配置的参数，参考UploadOptions。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    options?: PlusUploaderUploadOptions;
+    options?: PlusUploaderUploadOptions | undefined;
     /**
      * 上传任务完成后服务器返回的数据
      * 表示当前上传任务的状态，可通过addEventListener()方法监听statechanged事件监听任务状态的变化。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    responseText?: string;
+    responseText?: string | undefined;
     /**
      * 已完成上传数据的大小）
      * 整数类型，单位为字节（byte），上传任务开始传输数据时，每次触发statechanged事件或上传任务完成更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    uploadedSize?: number;
+    uploadedSize?: number | undefined;
     /**
      * 上传数据的总大小
      * 整数类型，单位为字节（byte），上传任务开始传输数据时更新。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    totalSize?: number;
+    totalSize?: number | undefined;
     /**
      * 添加上传文件
      * 向上传任务中添加文件，必须在任务开始上传前调用。
@@ -7940,7 +7940,7 @@ interface PlusUploaderUploadEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    statechanged?: string;
+    statechanged?: string | undefined;
 }
 
 /**
@@ -7962,21 +7962,21 @@ interface PlusUploaderUploadOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    method?: string;
+    method?: string | undefined;
     /**
      * 上传任务每次上传的文件块大小（仅在支持断点续传的服务有效）
      * 数值类型，单位为Byte（字节），默认值为102400，若设置值小于等于0则表示不分块上传。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    blocksize?: number;
+    blocksize?: number | undefined;
     /**
      * 上传任务的优先级
      * 数值类型，数值越大优先级越高，默认优先级值为0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    priority?: number;
+    priority?: number | undefined;
     /**
      * 上传任务超时时间
      * 数值类型，单位为s(秒)，默认值为120s。
@@ -7984,21 +7984,21 @@ interface PlusUploaderUploadOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * 上传任务重试次数
      * 数值类型，默认为重试3次。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    retry?: number;
+    retry?: number | undefined;
     /**
      * 上传任务重试间隔时间
      * 数值类型，单位为s(秒)，默认值为30s。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    retryInterval?: number;
+    retryInterval?: number | undefined;
 }
 
 /**
@@ -8014,21 +8014,21 @@ interface PlusUploaderUploadFileOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    key?: string;
+    key?: string | undefined;
     /**
      * 文件名称
      * 上传文件的名称，默认值为上传文件路径中的名称。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 文件类型
      * 上传文件的类型（如图片文件为“image/jpeg”），默认值自动根据文件后缀名称生成。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    mime?: string;
+    mime?: string | undefined;
 }
 
 /**
@@ -8043,38 +8043,38 @@ interface PlusVideo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    VideoPlayer?: PlusVideoVideoPlayer;
+    VideoPlayer?: PlusVideoVideoPlayer | undefined;
     /**
      * 视频播放控件参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    VideoPlayerStyles?: PlusVideoVideoPlayerStyles;
+    VideoPlayerStyles?: PlusVideoVideoPlayerStyles | undefined;
     /**
      * 视频播放控件事件类型
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    VideoPlayerEvents?: PlusVideoVideoPlayerEvents;
+    VideoPlayerEvents?: PlusVideoVideoPlayerEvents | undefined;
     /**
      * 直播推流控件对象
      * LivePusher对象表示直播推流控件对象，在窗口中显示捕获视频，实时推送到流媒体（RTMP）服务器。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    LivePusher?: PlusVideoLivePusher;
+    LivePusher?: PlusVideoLivePusher | undefined;
     /**
      * 直播推流控件配置选项
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    LivePusherStyles?: PlusVideoLivePusherStyles;
+    LivePusherStyles?: PlusVideoLivePusherStyles | undefined;
     /**
      * 直播推流控件事件类型
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    LivePusherEvents?: PlusVideoLivePusherEvents;
+    LivePusherEvents?: PlusVideoLivePusherEvents | undefined;
     /**
      * 创建VideoPlayer对象
      * 调用此方法创建后并不会显示，需要调用Webview窗口的append方法将其添加到Webview窗口后才能显示。
@@ -8228,7 +8228,7 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    src?: string;
+    src?: string | undefined;
     /**
      * 视频初始播放位置
      * 单位为秒（s）。
@@ -8236,7 +8236,7 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    'initial-time'?: number;
+    'initial-time'?: number | undefined;
     /**
      * 视频长度
      * 单位为秒（s）。
@@ -8244,7 +8244,7 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 是否显示默认播放控件
      * 默认值为true。
@@ -8252,14 +8252,14 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    controls?: boolean;
+    controls?: boolean | undefined;
     /**
      * 弹幕列表
      * 弹幕JSON对象包括属性：text（String类型，弹幕文本类容），color（String类型，弹幕颜色，格式为#RRGGBB），time（Number类型，弹幕出现的时间，单位为秒）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    'danmu-list'?: any [];
+    'danmu-list'?: any [] | undefined;
     /**
      * 是否显示弹幕按钮
      * 默认值为false。
@@ -8267,7 +8267,7 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    'danmu-btn'?: boolean;
+    'danmu-btn'?: boolean | undefined;
     /**
      * 是否展示弹幕
      * 默认值为false。
@@ -8275,28 +8275,28 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    'enable-danmu'?: boolean;
+    'enable-danmu'?: boolean | undefined;
     /**
      * 是否自动播放
      * 默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    autoplay?: boolean;
+    autoplay?: boolean | undefined;
     /**
      * 是否循环播放
      * 默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    loop?: boolean;
+    loop?: boolean | undefined;
     /**
      * 是否静音播放
      * 默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    muted?: boolean;
+    muted?: boolean | undefined;
     /**
      * 设置全屏时视频的方向
      * 不指定则根据宽高比自动判断。
@@ -8305,42 +8305,42 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    direction?: number;
+    direction?: number | undefined;
     /**
      * 是否显示播放进度
      * 默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    'show-progress'?: boolean;
+    'show-progress'?: boolean | undefined;
     /**
      * 是否显示全屏按钮
      * 默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    'show-fullscreen-btn'?: boolean;
+    'show-fullscreen-btn'?: boolean | undefined;
     /**
      * 是否显示视频底部控制栏的播放按钮
      * 默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    'show-play-btn'?: boolean;
+    'show-play-btn'?: boolean | undefined;
     /**
      * 是否显示视频中间的播放按钮
      * 默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    'show-center-play-btn'?: boolean;
+    'show-center-play-btn'?: boolean | undefined;
     /**
      * 是否开启控制进度的手势
      * 默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    'enable-progress-gesture'?: boolean;
+    'enable-progress-gesture'?: boolean | undefined;
     /**
      * 当视频大小与 video 容器大小不一致时，视频的表现形式
      * 有效值为：contain（包含），fill（填充），cover（覆盖）。
@@ -8349,14 +8349,14 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    objectFit?: string;
+    objectFit?: string | undefined;
     /**
      * 视频封面的图片网络资源地址
      * 如果 controls 属性值为 false 则设置 poster 无效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    poster?: string;
+    poster?: string | undefined;
     /**
      * VideoPlayer控件左上角的垂直偏移量
      * 可取值：
@@ -8366,7 +8366,7 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * VideoPlayer控件左上角的水平偏移量
      * 可取值：
@@ -8377,7 +8377,7 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * VideoPlayer控件的宽度
      * 可取值：
@@ -8387,7 +8387,7 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * VideoPlayer控件的高度
      * 可取值：
@@ -8397,7 +8397,7 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * VideoPlayer控件在Webview窗口的布局模式
      * 可取值：
@@ -8407,7 +8407,7 @@ interface PlusVideoVideoPlayerStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    position?: string;
+    position?: string | undefined;
 }
 
 /**
@@ -8423,7 +8423,7 @@ interface PlusVideoVideoPlayerEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    play?: string;
+    play?: string | undefined;
     /**
      * 视频暂停事件
      * 当视频暂停播放时触发。
@@ -8431,7 +8431,7 @@ interface PlusVideoVideoPlayerEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    pause?: string;
+    pause?: string | undefined;
     /**
      * 视频结束事件
      * 当视频播放到末尾时触发。
@@ -8439,7 +8439,7 @@ interface PlusVideoVideoPlayerEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    ended?: string;
+    ended?: string | undefined;
     /**
      * 视频播放进度更新事件
      * 当视频播放进度变化时触发，触发频率250ms一次。
@@ -8447,7 +8447,7 @@ interface PlusVideoVideoPlayerEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    timeupdate?: string;
+    timeupdate?: string | undefined;
     /**
      * 视频播放全屏播放状态变化事件
      * 当视频播放进入或退出全屏时触发。
@@ -8455,7 +8455,7 @@ interface PlusVideoVideoPlayerEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    fullscreenchange?: string;
+    fullscreenchange?: string | undefined;
     /**
      * 视频缓冲事件
      * 当视频播放出现缓冲时触发。
@@ -8463,7 +8463,7 @@ interface PlusVideoVideoPlayerEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    waiting?: string;
+    waiting?: string | undefined;
     /**
      * 视频错误事件
      * 当视频播放出错时触发。
@@ -8471,7 +8471,7 @@ interface PlusVideoVideoPlayerEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    error?: string;
+    error?: string | undefined;
 }
 
 /**
@@ -8574,35 +8574,35 @@ interface PlusVideoLivePusherStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    url?: string;
+    url?: string | undefined;
     /**
      * 推流视频模式
      * 可取值：SD（标清）, HD（高清）, FHD（超清）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    mode?: string;
+    mode?: string | undefined;
     /**
      * 是否静音
      * 默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    muted?: boolean;
+    muted?: boolean | undefined;
     /**
      * 开启摄像头
      * 默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    'enable-camera'?: boolean;
+    'enable-camera'?: boolean | undefined;
     /**
      * 自动聚集
      * 默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    'auto-focus'?: boolean;
+    'auto-focus'?: boolean | undefined;
     /**
      * 是否美颜
      * 可取值0、1，其中0表示不使用美颜，1表示不使用美颜。
@@ -8610,7 +8610,7 @@ interface PlusVideoLivePusherStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    beauty?: number;
+    beauty?: number | undefined;
     /**
      * 是否美白
      * 可取值0、1、2、3、4、5，其中0表示不使用美白，其余值分别表示美白的程度，值越大美白程度越大。
@@ -8618,14 +8618,14 @@ interface PlusVideoLivePusherStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    whiteness?: number;
+    whiteness?: number | undefined;
     /**
      * 宽高比
      * 可取值：3:4, 9:16。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    aspect?: string;
+    aspect?: string | undefined;
     /**
      * LivePusher控件左上角的垂直偏移量
      * 可取值：
@@ -8635,7 +8635,7 @@ interface PlusVideoLivePusherStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * LivePusher控件左上角的水平偏移量
      * 可取值：
@@ -8646,7 +8646,7 @@ interface PlusVideoLivePusherStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * LivePusher控件的宽度
      * 可取值：
@@ -8656,7 +8656,7 @@ interface PlusVideoLivePusherStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * LivePusher控件的高度
      * 可取值：
@@ -8666,7 +8666,7 @@ interface PlusVideoLivePusherStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * LivePusher控件在Webview窗口的布局模式
      * 可取值：
@@ -8676,7 +8676,7 @@ interface PlusVideoLivePusherStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    position?: string;
+    position?: string | undefined;
 }
 
 /**
@@ -8724,7 +8724,7 @@ interface PlusVideoLivePusherEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    statechange?: string;
+    statechange?: string | undefined;
     /**
      * 网络状态通知事件
      * 当推流的网络状态发生变化时触发。
@@ -8732,7 +8732,7 @@ interface PlusVideoLivePusherEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    netstatus?: string;
+    netstatus?: string | undefined;
     /**
      * 渲染错误事件
      * 当推流发生错误是触发。
@@ -8743,7 +8743,7 @@ interface PlusVideoLivePusherEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    error?: string;
+    error?: string | undefined;
 }
 
 /**
@@ -8757,103 +8757,103 @@ interface PlusWebview {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    AnimationTypeShow?: PlusWebviewAnimationTypeShow;
+    AnimationTypeShow?: PlusWebviewAnimationTypeShow | undefined;
     /**
      * 一组用于定义页面或控件关闭的动画效果
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    AnimationTypeClose?: PlusWebviewAnimationTypeClose;
+    AnimationTypeClose?: PlusWebviewAnimationTypeClose | undefined;
     /**
      * Webview窗口对象，用于操作加载HTML页面的窗口
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewObject?: PlusWebviewWebviewObject;
+    WebviewObject?: PlusWebviewWebviewObject | undefined;
     /**
      * Webview窗口动画参数
      * 用于指定动画目标窗口，起始位置、目标位置等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewAnimationOptions?: PlusWebviewWebviewAnimationOptions;
+    WebviewAnimationOptions?: PlusWebviewWebviewAnimationOptions | undefined;
     /**
      * Webview窗口动画样式
      * 用于指定动画窗口的起始位置、目标位置等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewAnimationStyles?: PlusWebviewWebviewAnimationStyles;
+    WebviewAnimationStyles?: PlusWebviewWebviewAnimationStyles | undefined;
     /**
      * Webview窗口回弹样式
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewBounceStyle?: PlusWebviewWebviewBounceStyle;
+    WebviewBounceStyle?: PlusWebviewWebviewBounceStyle | undefined;
     /**
      * Webview窗口内容动画参数
      * 指定动画的类型、持续时间等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewContentAnimationOptions?: PlusWebviewWebviewContentAnimationOptions;
+    WebviewContentAnimationOptions?: PlusWebviewWebviewContentAnimationOptions | undefined;
     /**
      * 原生控件在窗口中停靠的方式
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewDock?: PlusWebviewWebviewDock;
+    WebviewDock?: PlusWebviewWebviewDock | undefined;
     /**
      * Webview窗口滑动事件数据
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewDragEvent?: PlusWebviewWebviewDragEvent;
+    WebviewDragEvent?: PlusWebviewWebviewDragEvent | undefined;
     /**
      * 窗口手势操作参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewDragOptions?: PlusWebviewWebviewDragOptions;
+    WebviewDragOptions?: PlusWebviewWebviewDragOptions | undefined;
     /**
      * 手势操作关联对象参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewDragOtherViewOptions?: PlusWebviewWebviewDragOtherViewOptions;
+    WebviewDragOtherViewOptions?: PlusWebviewWebviewDragOtherViewOptions | undefined;
     /**
      * 截屏绘制操作参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewDrawOptions?: PlusWebviewWebviewDrawOptions;
+    WebviewDrawOptions?: PlusWebviewWebviewDrawOptions | undefined;
     /**
      * 窗口收藏参数
      * 在流应用环境中调用收藏功能时使用的参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewFavoriteOptions?: PlusWebviewWebviewFavoriteOptions;
+    WebviewFavoriteOptions?: PlusWebviewWebviewFavoriteOptions | undefined;
     /**
      * 创建加载HTML数据参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewLoadDataOptions?: PlusWebviewWebviewLoadDataOptions;
+    WebviewLoadDataOptions?: PlusWebviewWebviewLoadDataOptions | undefined;
     /**
      * 窗口的分享参数
      * 在流应用环境中调用分享功能时使用的参数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewShareOptions?: PlusWebviewWebviewShareOptions;
+    WebviewShareOptions?: PlusWebviewWebviewShareOptions | undefined;
     /**
      * 窗口原生子View控件样式
      * 可设置原生控件的标识、大小、位置以及绘制的内容等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewSubNViewStyles?: PlusWebviewWebviewSubNViewStyles;
+    WebviewSubNViewStyles?: PlusWebviewWebviewSubNViewStyles | undefined;
     /**
      * 窗口标题栏控件样式
      * 标题栏控件固定高度为44px,可通过Webview窗口对象的getTitleNView方法获取标题栏原生控件对象动态绘制内容。
@@ -8861,107 +8861,107 @@ interface PlusWebview {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewTitleNViewStyles?: PlusWebviewWebviewTitleNViewStyles;
+    WebviewTitleNViewStyles?: PlusWebviewWebviewTitleNViewStyles | undefined;
     /**
      * 窗口标题栏自定义按钮样式
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewTitleNViewButtonStyles?: PlusWebviewWebviewTitleNViewButtonStyles;
+    WebviewTitleNViewButtonStyles?: PlusWebviewWebviewTitleNViewButtonStyles | undefined;
     /**
      * 标题栏控件的进度条样式
      * 显示在标题栏控件底部。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewProgressStyles?: PlusWebviewWebviewProgressStyles;
+    WebviewProgressStyles?: PlusWebviewWebviewProgressStyles | undefined;
     /**
      * 窗口标题栏控件的分割线样式
      * 显示在标题栏控件底部。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewSplitLineStyles?: PlusWebviewWebviewSplitLineStyles;
+    WebviewSplitLineStyles?: PlusWebviewWebviewSplitLineStyles | undefined;
     /**
      * Webview窗口事件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewEvent?: PlusWebviewWebviewEvent;
+    WebviewEvent?: PlusWebviewWebviewEvent | undefined;
     /**
      * JSON对象，原生窗口扩展参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewExtraOptions?: PlusWebviewWebviewExtraOptions;
+    WebviewExtraOptions?: PlusWebviewWebviewExtraOptions | undefined;
     /**
      * 原生控件在窗口中显示的位置
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewPosition?: PlusWebviewWebviewPosition;
+    WebviewPosition?: PlusWebviewWebviewPosition | undefined;
     /**
      * Webview窗口下拉刷新样式
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewPullToRefreshStyles?: PlusWebviewWebviewPullToRefreshStyles;
+    WebviewPullToRefreshStyles?: PlusWebviewWebviewPullToRefreshStyles | undefined;
     /**
      * Webview窗口rendered事件参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewRenderedEventOptions?: PlusWebviewWebviewRenderedEventOptions;
+    WebviewRenderedEventOptions?: PlusWebviewWebviewRenderedEventOptions | undefined;
     /**
      * 替换H5标准API配置信息
      * 目前仅支持替换H5标准定位接口
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewReplaceWebApiOptions?: PlusWebviewWebviewReplaceWebApiOptions;
+    WebviewReplaceWebApiOptions?: PlusWebviewWebviewReplaceWebApiOptions | undefined;
     /**
      * JSON对象，Webview窗口的系统状态栏区域样式
      * 仅在应用设置为沉浸式状态栏样式下有效，非沉浸式状态栏样式下忽略此属性。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewStatusbarStyles?: PlusWebviewWebviewStatusbarStyles;
+    WebviewStatusbarStyles?: PlusWebviewWebviewStatusbarStyles | undefined;
     /**
      * JSON对象，Webview窗口对象的样式
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewStyles?: PlusWebviewWebviewStyles;
+    WebviewStyles?: PlusWebviewWebviewStyles | undefined;
     /**
      * 一组用于定义页面或控件变形的属性
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewTransform?: PlusWebviewWebviewTransform;
+    WebviewTransform?: PlusWebviewWebviewTransform | undefined;
     /**
      * 一组用于定义页面或控件转换效果的属性
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewTransition?: PlusWebviewWebviewTransition;
+    WebviewTransition?: PlusWebviewWebviewTransition | undefined;
     /**
      * 拦截Webview窗口资源请求的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewOverrideResourceOptions?: PlusWebviewWebviewOverrideResourceOptions;
+    WebviewOverrideResourceOptions?: PlusWebviewWebviewOverrideResourceOptions | undefined;
     /**
      * 拦截Webview窗口URL请求的属性
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewOverrideUrlOptions?: PlusWebviewWebviewOverrideUrlOptions;
+    WebviewOverrideUrlOptions?: PlusWebviewWebviewOverrideUrlOptions | undefined;
     /**
      * 监听Webview窗口资源加载的属性
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    WebviewListenResourceOptions?: PlusWebviewWebviewListenResourceOptions;
+    WebviewListenResourceOptions?: PlusWebviewWebviewListenResourceOptions | undefined;
     /**
      * 获取所有Webview窗口
      * 获取应用中已创建的所有Webview窗口，包括所有未显示的Webview窗口。
@@ -9095,7 +9095,7 @@ interface PlusWebviewAnimationTypeShow {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    auto?: string;
+    auto?: string | undefined;
     /**
      * 无动画效果
      * 立即显示页面，无任何动画效果，页面显示默认的动画效果。
@@ -9104,7 +9104,7 @@ interface PlusWebviewAnimationTypeShow {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    none?: string;
+    none?: string | undefined;
     /**
      * 从右侧横向滑动效果
      * 页面从屏幕右侧外向内横向滑动显示。
@@ -9112,7 +9112,7 @@ interface PlusWebviewAnimationTypeShow {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'slide-in-right'?: string;
+    'slide-in-right'?: string | undefined;
     /**
      * 从左侧横向滑动效果
      * 页面从屏幕左侧向右横向滑动显示。
@@ -9120,7 +9120,7 @@ interface PlusWebviewAnimationTypeShow {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'slide-in-left'?: string;
+    'slide-in-left'?: string | undefined;
     /**
      * 从上侧竖向滑动效果
      * 页面从屏幕上侧向下竖向滑动显示。
@@ -9128,7 +9128,7 @@ interface PlusWebviewAnimationTypeShow {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'slide-in-top'?: string;
+    'slide-in-top'?: string | undefined;
     /**
      * 从下侧竖向滑动效果
      * 页面从屏幕下侧向上竖向滑动显示。
@@ -9136,7 +9136,7 @@ interface PlusWebviewAnimationTypeShow {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'slide-in-bottom'?: string;
+    'slide-in-bottom'?: string | undefined;
     /**
      * 从透明到不透明逐渐显示效果
      * 页面从完全透明到不透明逐渐显示。
@@ -9144,7 +9144,7 @@ interface PlusWebviewAnimationTypeShow {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'fade-in'?: string;
+    'fade-in'?: string | undefined;
     /**
      * 从小到大逐渐放大显示效果
      * 页面在屏幕中间从小到大逐渐放大显示。
@@ -9152,7 +9152,7 @@ interface PlusWebviewAnimationTypeShow {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'zoom-out'?: string;
+    'zoom-out'?: string | undefined;
     /**
      * 从小到大逐渐放大并且从透明到不透明逐渐显示效果
      * 页面在屏幕中间从小到大逐渐放大并且从透明到不透明逐渐显示。
@@ -9160,7 +9160,7 @@ interface PlusWebviewAnimationTypeShow {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'zoom-fade-out'?: string;
+    'zoom-fade-out'?: string | undefined;
     /**
      * 从右侧平移入栈动画效果
      * 页面从屏幕右侧滑入显示，同时上一个页面带阴影效果从屏幕左侧滑出隐藏。
@@ -9168,7 +9168,7 @@ interface PlusWebviewAnimationTypeShow {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'pop-in'?: string;
+    'pop-in'?: string | undefined;
 }
 
 /**
@@ -9183,7 +9183,7 @@ interface PlusWebviewAnimationTypeClose {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    auto?: string;
+    auto?: string | undefined;
     /**
      * 无动画
      * 立即关闭页面，无任何动画效果。
@@ -9191,63 +9191,63 @@ interface PlusWebviewAnimationTypeClose {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    none?: string;
+    none?: string | undefined;
     /**
      * 横向向右侧滑出屏幕动画
      * 页面从屏幕中横向向右侧滑动到屏幕外关闭。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'slide-out-right'?: string;
+    'slide-out-right'?: string | undefined;
     /**
      * 横向向左侧滑出屏幕动画
      * 页面从屏幕中横向向左侧滑动到屏幕外关闭。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'slide-out-left'?: string;
+    'slide-out-left'?: string | undefined;
     /**
      * 竖向向上侧滑出屏幕动画
      * 页面从屏幕中竖向向上侧滑动到屏幕外关闭。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'slide-out-top'?: string;
+    'slide-out-top'?: string | undefined;
     /**
      * 竖向向下侧滑出屏幕动画
      * 页面从屏幕中竖向向下侧滑动到屏幕外关闭。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'slide-out-bottom'?: string;
+    'slide-out-bottom'?: string | undefined;
     /**
      * 从不透明到透明逐渐隐藏动画
      * 页面从不透明到透明逐渐隐藏关闭。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'fade-out'?: string;
+    'fade-out'?: string | undefined;
     /**
      * 从大逐渐缩小关闭动画
      * 页面逐渐向页面中心缩小关闭。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'zoom-in'?: string;
+    'zoom-in'?: string | undefined;
     /**
      * 从大逐渐缩小并且从不透明到透明逐渐隐藏关闭动画
      * 页面逐渐向页面中心缩小并且从不透明到透明逐渐隐藏关闭。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'zoom-fade-in'?: string;
+    'zoom-fade-in'?: string | undefined;
     /**
      * 从右侧平移出栈动画效果
      * 页面从屏幕右侧滑出消失，同时上一个页面带阴影效果从屏幕左侧滑入显示。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'pop-out'?: string;
+    'pop-out'?: string | undefined;
 }
 
 /**
@@ -9262,35 +9262,35 @@ interface PlusWebviewWebviewObject {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * Webview窗口关闭事件
      * 当Webview窗口关闭时触发此事件，类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    onclose?: (result: any) => void;
+    onclose?: ((result: any) => void) | undefined;
     /**
      * Webview窗口错误事件
      * 当Webview窗口加载错误时触发此事件，类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    onerror?: PlusWebviewWebviewEvent;
+    onerror?: PlusWebviewWebviewEvent | undefined;
     /**
      * Webview窗口页面加载完成事件
      * 当Webview窗口页面加载完成时触发此事件，类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    onloaded?: PlusWebviewWebviewEvent;
+    onloaded?: PlusWebviewWebviewEvent | undefined;
     /**
      * Webview窗口页面开始加载事件
      * 当Webview窗口开始加载新页面时触发此事件，类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    onloading?: PlusWebviewWebviewEvent;
+    onloading?: PlusWebviewWebviewEvent | undefined;
     /**
      * 添加事件监听器
      * 向Webview窗口添加事件监听器，当指定的事件发生时，将触发listener函数的执行。
@@ -9784,14 +9784,14 @@ interface PlusWebviewWebviewAnimationOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    view?: PlusWebviewWebviewObject;
+    view?: PlusWebviewWebviewObject | undefined;
     /**
      * 动画样式
      * 用于指定动画窗口的起始位置，目标位置等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    styles?: PlusWebviewWebviewAnimationStyles;
+    styles?: PlusWebviewWebviewAnimationStyles | undefined;
     /**
      * 窗口动画完成后的行为
      * 可取值：
@@ -9805,7 +9805,7 @@ interface PlusWebviewWebviewAnimationOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    action?: 'none' | 'hide' | 'close';
+    action?: 'none' | 'hide' | 'close' | undefined;
 }
 
 /**
@@ -9821,7 +9821,7 @@ interface PlusWebviewWebviewAnimationStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    fromLeft?: string;
+    fromLeft?: string | undefined;
     /**
      * 画窗口的目标左侧位置
      * 持百分比、像素值。
@@ -9829,7 +9829,7 @@ interface PlusWebviewWebviewAnimationStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    toLeft?: string;
+    toLeft?: string | undefined;
 }
 
 /**
@@ -9892,7 +9892,7 @@ interface PlusWebviewWebviewBounceStyle {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    preventTouchEvent?: boolean;
+    preventTouchEvent?: boolean | undefined;
 }
 
 /**
@@ -9909,21 +9909,21 @@ interface PlusWebviewWebviewContentAnimationOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    type?: 'shrink';
+    type?: 'shrink' | undefined;
     /**
      * 动画持续时间
      * 单位为毫秒，默认值为200ms。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * 动画帧数
      * 必须为大于0的整数，默认值为12。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    frames?: number;
+    frames?: number | undefined;
     /**
      * 动画作用区域
      * 支持以下属性：
@@ -9949,25 +9949,25 @@ interface PlusWebviewWebviewDock {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * 控件停靠在页面底部
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    bottom?: string;
+    bottom?: string | undefined;
     /**
      * 控件停靠在页面右侧
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    right?: string;
+    right?: string | undefined;
     /**
      * 控件停靠在页面左侧
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    left?: string;
+    left?: string | undefined;
 }
 
 /**
@@ -9986,7 +9986,7 @@ interface PlusWebviewWebviewDragEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    direction?: string;
+    direction?: string | undefined;
     /**
      * 窗口滑动类型
      * 可取值：
@@ -9996,7 +9996,7 @@ interface PlusWebviewWebviewDragEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * 窗口滑动结果
      * 可取值：
@@ -10006,7 +10006,7 @@ interface PlusWebviewWebviewDragEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    result?: string;
+    result?: string | undefined;
     /**
      * 当前操作窗口标识
      * 当type值为"start"/"move"时，保存当前操作窗口（或View控件）的标识；
@@ -10014,21 +10014,21 @@ interface PlusWebviewWebviewDragEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 关联窗口标识
      * 滑动操作关联窗口（或View控件）的标识。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    otherId?: string;
+    otherId?: string | undefined;
     /**
      * 主窗口标识
      * 滑动操作主窗口（或View控件）的标识。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    targetId?: string;
+    targetId?: string | undefined;
     /**
      * 滑动进度
      * 滑动进度位置信息，取值范围为0-100，如20表示滑动了总距离的20%：
@@ -10038,7 +10038,7 @@ interface PlusWebviewWebviewDragEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    progress?: number;
+    progress?: number | undefined;
 }
 
 /**
@@ -10055,7 +10055,7 @@ interface PlusWebviewWebviewDragOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    callbackStep?: number;
+    callbackStep?: number | undefined;
     /**
      * 设置的手势类型
      * 可取值：
@@ -10071,7 +10071,7 @@ interface PlusWebviewWebviewDragOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    direction?: 'rtl' | 'left' | 'ltr' | 'right';
+    direction?: 'rtl' | 'left' | 'ltr' | 'right' | undefined;
     /**
      * 滑动手势模式
      * 可取值：
@@ -10084,7 +10084,7 @@ interface PlusWebviewWebviewDragOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    moveMode?: 'followFinger' | 'silent' | 'bounce';
+    moveMode?: 'followFinger' | 'silent' | 'bounce' | undefined;
 }
 
 /**
@@ -10099,7 +10099,7 @@ interface PlusWebviewWebviewDragOtherViewOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    view?: string;
+    view?: string | undefined;
     /**
      * 滑动模式
      * 可取值：
@@ -10110,7 +10110,7 @@ interface PlusWebviewWebviewDragOtherViewOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    moveMode?: 'follow' | 'silent';
+    moveMode?: 'follow' | 'silent' | undefined;
 }
 
 /**
@@ -10133,7 +10133,7 @@ interface PlusWebviewWebviewDrawOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    bit?: 'RGB565' | 'ARGB';
+    bit?: 'RGB565' | 'ARGB' | undefined;
     /**
      * 是否检测截屏图片是否为空白
      * 可取值：
@@ -10143,14 +10143,14 @@ interface PlusWebviewWebviewDrawOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    check?: boolean;
+    check?: boolean | undefined;
     /**
      * 设置截屏区域
      * 相对于Webview窗口的区域信息，默认值为{top:'0px',left:'0px',width:'100%',height:'100%'}。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    clip?: PlusNativeObj;
+    clip?: PlusNativeObj | undefined;
     /**
      * 是否检测当前是否弹出软键盘
      * 可取值：
@@ -10160,7 +10160,7 @@ interface PlusWebviewWebviewDrawOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    checkKeyboard?: boolean;
+    checkKeyboard?: boolean | undefined;
 }
 
 /**
@@ -10176,21 +10176,21 @@ interface PlusWebviewWebviewFavoriteOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    icon?: string;
+    icon?: string | undefined;
     /**
      * 收藏时显示的标题
      * 在收藏列表中显示的标题字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 收藏的页面地址
      * 必须是网络地址。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    href?: string;
+    href?: string | undefined;
 }
 
 /**
@@ -10204,21 +10204,21 @@ interface PlusWebviewWebviewLoadDataOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    baseURL?: string;
+    baseURL?: string | undefined;
     /**
      * HTML数据的数据类型
      * 默认值为"text/html"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    mimeType?: string;
+    mimeType?: string | undefined;
     /**
      * HTML数据的编码类型
      * 默认值为"utf-8"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    encoding?: string;
+    encoding?: string | undefined;
 }
 
 /**
@@ -10234,20 +10234,20 @@ interface PlusWebviewWebviewShareOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    icon?: string;
+    icon?: string | undefined;
     /**
      * 分享时使用的标题
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 分享时使用的链接地址
      * 必须是网络地址。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    href?: string;
+    href?: string | undefined;
 }
 
 /**
@@ -10263,7 +10263,7 @@ interface PlusWebviewWebviewSubNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 原生子View控件类型
      * 可取值：
@@ -10279,21 +10279,21 @@ interface PlusWebviewWebviewSubNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    type?: 'NView' | 'ImageSlider';
+    type?: 'NView' | 'ImageSlider' | undefined;
     /**
      * 原生子View控件的样式
      * 可设置原生控件的位置、大小等信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    styles?: PlusNativeObjViewStyles;
+    styles?: PlusNativeObjViewStyles | undefined;
     /**
      * 原生子View控件初始绘制内容
      * 可设置绘制图片、矩形区域、文本等内容。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    tags?: any [];
+    tags?: any [] | undefined;
 }
 
 /**
@@ -10315,14 +10315,14 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    autoBackButton?: boolean;
+    autoBackButton?: boolean | undefined;
     /**
      * 标题栏控件的背景颜色
      * 颜色值格式为"#RRGGBB"，如"#FF0000"表示为红色背景，默认值为"#F7F7F7"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
     /**
      * 标题栏上的自定义按钮
      * 创建的自定义按钮数目不限制，实际应用中建议最多设置4个按钮（包括左侧返回按钮）。
@@ -10330,7 +10330,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    buttons?: PlusWebview [];
+    buttons?: PlusWebview [] | undefined;
     /**
      * 标题栏控件变化作用范围
      * 仅在type值为transparent时有效，页面滚动时标题栏背景透明度将发生变化。
@@ -10339,7 +10339,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    coverage?: string;
+    coverage?: string | undefined;
     /**
      * 标题栏控件是否显示Home按钮
      * 可取值：
@@ -10351,7 +10351,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    homeButton?: boolean;
+    homeButton?: boolean | undefined;
     /**
      * 内边距
      * 标题栏左右的内边距，单位为px（逻辑像素值），如"10px"表示10逻辑像素值。
@@ -10359,7 +10359,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    padding?: string;
+    padding?: string | undefined;
     /**
      * 右内边距
      * 标题栏右侧内边距，单位为px（逻辑像素值），如"10px"表示10逻辑像素值。
@@ -10367,7 +10367,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'padding-right'?: string;
+    'padding-right'?: string | undefined;
     /**
      * 左内边距
      * 标题栏左侧内边距，单位为px（逻辑像素值），如"10px"表示10逻辑像素值。
@@ -10375,7 +10375,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    'padding-left'?: string;
+    'padding-left'?: string | undefined;
     /**
      * 标题栏控件的进度条样式
      * 设置此属性则在标题栏控件的底部显示进度条，可配置进度条颜色值即高度。
@@ -10385,7 +10385,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    progress?: PlusWebviewWebviewProgressStyles;
+    progress?: PlusWebviewWebviewProgressStyles | undefined;
     /**
      * 标题栏控件的底部分割线
      * 设置此属性则在标题栏控件的底部显示分割线，可配置颜色值及高度。
@@ -10394,7 +10394,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    splitLine?: PlusWebviewWebviewSplitLineStyles;
+    splitLine?: PlusWebviewWebviewSplitLineStyles | undefined;
     /**
      * 标题栏上初始自定义绘制内容
      * 可用于设置自定义绘制图片、矩形区域、文本等内容。
@@ -10402,14 +10402,14 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    tags?: any [];
+    tags?: any [] | undefined;
     /**
      * 标题栏控件的标题文字颜色
      * 颜色值格式为"#RRGGBB"，如"#FF0000"表示标题文字颜色为红色，默认值为"#000000"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    titleColor?: string;
+    titleColor?: string | undefined;
     /**
      * 标题栏控件的标题文字超出显示区域时处理方式
      * 可取值：
@@ -10419,7 +10419,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    titleOverflow?: string;
+    titleOverflow?: string | undefined;
     /**
      * 标题栏控件的标题文字内容
      * 在标题栏控件居中（水平和垂直）显示，左右边距为88px，如果文本过长则尾部裁剪（加三个点"..."）显示。
@@ -10427,14 +10427,14 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    titleText?: string;
+    titleText?: string | undefined;
     /**
      * 标题栏控件的标题文字字体大小
      * 字体大小单位为像素，如"20px"表示字体大小为20像素，默认值为17像素。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    titleSize?: string;
+    titleSize?: string | undefined;
     /**
      * 标题栏控件样式
      * 可取值：
@@ -10451,7 +10451,7 @@ interface PlusWebviewWebviewTitleNViewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    type?: 'default' | 'transparent';
+    type?: 'default' | 'transparent' | undefined;
 }
 
 /**
@@ -10483,7 +10483,7 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    type?: 'forward' | 'back' | 'share' | 'favorite' | 'home' | 'menu' | 'close';
+    type?: 'forward' | 'back' | 'share' | 'favorite' | 'home' | 'menu' | 'close' | undefined;
     /**
      * 按钮的背景颜色
      * 仅在标题栏type=transparent时生效，当标题栏透明时按钮显示的背景颜色。
@@ -10491,14 +10491,14 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    background?: string;
+    background?: string | undefined;
     /**
      * 按钮上显示的角标文本
      * 最多显示3个字符，超过则显示为...。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    badgeText?: string;
+    badgeText?: string | undefined;
     /**
      * 按钮上文字颜色
      * 可取值： "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色返回键；
@@ -10507,7 +10507,7 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * 按下状态按钮文字颜色
      * 可取值： "#RRGGBB"格式字符串，如"#FF0000"表示绘制红色返回键；
@@ -10516,7 +10516,7 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    colorPressed?: string;
+    colorPressed?: string | undefined;
     /**
      * 按钮在标题栏上的显示位置
      * 可取值：
@@ -10532,7 +10532,7 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    float?: 'right' | 'left';
+    float?: 'right' | 'left' | undefined;
     /**
      * 按钮上文字的粗细
      * 可取值：
@@ -10548,7 +10548,7 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    fontWeight?: 'normal' | 'bold';
+    fontWeight?: 'normal' | 'bold' | undefined;
     /**
      * 按钮上文字大小
      * 可取值：字体高度像素值，数字加"px"格式字符串，如"22px"。 
@@ -10557,7 +10557,7 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    fontSize?: string;
+    fontSize?: string | undefined;
     /**
      * 按钮上文字使用的字体文件路径
      * 字体文件路径支持以下类型：
@@ -10568,14 +10568,14 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    fontSrc?: string;
+    fontSrc?: string | undefined;
     /**
      * 按钮点击后触发的回调函数
      * 回调函数中将返回此JSON对象。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    onclick?: (result: any) => void;
+    onclick?: ((result: any) => void) | undefined;
     /**
      * 按钮上是否显示红点
      * 设置为true则显示红点，false则不显示红点。默认值为false。
@@ -10583,7 +10583,7 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    redDot?: boolean;
+    redDot?: boolean | undefined;
     /**
      * 是否显示选择指示图标
      * 设置为true则显示选择指示图标（向下箭头），颜色与文字颜色一致；
@@ -10591,14 +10591,14 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    select?: boolean;
+    select?: boolean | undefined;
     /**
      * 按钮上显示的文字
      * 推荐使用一个字符，超过一个字符可能无法正常显示，使用字体图标时unicode字符表示必须'\u'开头，如"\ue123"（注意不能写成"\e123"）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * 按钮的宽度
      * 可取值：
@@ -10608,7 +10608,7 @@ interface PlusWebviewWebviewTitleNViewButtonStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    width?: string;
+    width?: string | undefined;
 }
 
 /**
@@ -10626,7 +10626,7 @@ interface PlusWebviewWebviewProgressStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * 进度条高度
      * 可取值：像素值（逻辑像素），支持小数点，如"1px"表示1像素高；百分比，如"1%"，相对于标题栏控件的高度。
@@ -10634,7 +10634,7 @@ interface PlusWebviewWebviewProgressStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    height?: string;
+    height?: string | undefined;
 }
 
 /**
@@ -10652,7 +10652,7 @@ interface PlusWebviewWebviewSplitLineStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * 底部分割线高度
      * 可取值：像素值（逻辑像素），支持小数点，如"1px"表示1像素高；百分比，如"1%"，相对于标题栏控件的高度。
@@ -10660,7 +10660,7 @@ interface PlusWebviewWebviewSplitLineStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    height?: string;
+    height?: string | undefined;
 }
 
 /**
@@ -10675,77 +10675,77 @@ interface PlusWebviewWebviewEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    close?: string;
+    close?: string | undefined;
     /**
      * Webview窗口回弹事件
      * 通过WebviewObject对象的setBounce方法开启回弹效果设置顶部下拉回弹changeoffset属性后，当用户向下拖拽窗口时触发发此事件，回调函数类型为BounceEventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    dragBounce?: string;
+    dragBounce?: string | undefined;
     /**
      * Webview窗口回弹事件
      * 通过WebviewObject对象的setBounce方法开启回弹效果设置左右侧侧滑slideoffset属性后，当用户向左右侧拖拽窗口侧滑时触发发此事件，回调函数类型为BounceEventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    slideBounce?: string;
+    slideBounce?: string | undefined;
     /**
      * Webview窗口加载错误事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口加载错误时触发此事件，回调函数类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    error?: string;
+    error?: string | undefined;
     /**
      * Webview窗口隐藏事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口隐藏（窗口动画完成后）时触发此事件，回调函数类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    hide?: string;
+    hide?: string | undefined;
     /**
      * Webview窗口页面开始加载事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口开始加载新页面时触发此事件，回调函数类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    loading?: string;
+    loading?: string | undefined;
     /**
      * Webview窗口页面加载完成事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口页面加载完成时触发此事件，回调函数类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    loaded?: string;
+    loaded?: string | undefined;
     /**
      * Webview窗口显示遮罩层时点击事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口通过mask属性设置显示遮罩层并且点击时触发此事件，回调函数类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    maskClick?: string;
+    maskClick?: string | undefined;
     /**
      * Webview窗口开始渲染事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口开始渲染内容时触发此事件，回调函数类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    rendering?: string;
+    rendering?: string | undefined;
     /**
      * Webview窗口渲染完成事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口渲染完成时触发此事件，回调函数类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    rendered?: string;
+    rendered?: string | undefined;
     /**
      * Webview窗口显示事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口显示（窗口动画完成后）时触发此事件，回调函数类型为EventCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    show?: string;
+    show?: string | undefined;
     /**
      * Webview加载页面标题更新事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口加载新页面更新标题时触发此事件，回调函数类型为SuccessCallback。
@@ -10753,7 +10753,7 @@ interface PlusWebviewWebviewEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    titleUpdate?: string;
+    titleUpdate?: string | undefined;
     /**
      * Webview窗口接收到触屏事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当用户操作按下到Webview窗口时触发此事件，回调函数类型为SuccessCallback。
@@ -10761,14 +10761,14 @@ interface PlusWebviewWebviewEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    touchstart?: string;
+    touchstart?: string | undefined;
     /**
      * Webview窗口侧滑返回事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口侧滑返回时触发此事件，回调函数类型为PopGestureCallback。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    popGesture?: string;
+    popGesture?: string | undefined;
     /**
      * Webview窗口加载进度变化事件
      * 通过WebviewObject对象的addEventListener方法添加事件监听函数，当Webview窗口加载页面进度变化时触发此事件。
@@ -10776,7 +10776,7 @@ interface PlusWebviewWebviewEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    progressChanged?: string;
+    progressChanged?: string | undefined;
     /**
      * Webview窗口下拉刷新事件
      * Webview窗口打开下拉刷新功能后，用户操作下拉刷新时或调用beginPullToRefresh方法时触发，用于通知业务逻辑可以开始执行刷新操作。
@@ -10784,7 +10784,7 @@ interface PlusWebviewWebviewEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    pullToRefresh?: string;
+    pullToRefresh?: string | undefined;
 }
 
 /**
@@ -10805,7 +10805,7 @@ interface PlusWebviewWebviewExtraOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    acceleration?: 'auto';
+    acceleration?: 'auto' | undefined;
     /**
      * 窗口动画加速时使用的图片
      * 当使用截屏方式加速窗口动画时，可设置已经创建好的截屏图片，此时不会进行实时截屏操作，加速窗口动画响应时间，提升用户体验。
@@ -10814,7 +10814,7 @@ interface PlusWebviewWebviewExtraOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    capture?: PlusNativeObjBitmap;
+    capture?: PlusNativeObjBitmap | undefined;
     /**
      * 关联窗口动画使用的图片
      * 当使用截屏方式加速窗口动画时，可设置已经创建好的截屏图片，此时不会进行实时截屏操作，加速关联窗口动画响应时间，提升用户体验。
@@ -10823,7 +10823,7 @@ interface PlusWebviewWebviewExtraOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    otherCapture?: PlusNativeObjBitmap;
+    otherCapture?: PlusNativeObjBitmap | undefined;
 }
 
 /**
@@ -10837,19 +10837,19 @@ interface PlusWebviewWebviewPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    static?: string;
+    static?: string | undefined;
     /**
      * 控件在页面中绝对定位，如果页面存在滚动条不随窗口内容滚动
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    absolute?: string;
+    absolute?: string | undefined;
     /**
      * 控件在页面中停靠，停靠的位置通过dock属性进行定义
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    dock?: string;
+    dock?: string | undefined;
 }
 
 /**
@@ -10865,14 +10865,14 @@ interface PlusWebviewWebviewPullToRefreshStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    support?: boolean;
+    support?: boolean | undefined;
     /**
      * 下拉刷新控件颜色
      * 颜色值格式为"#RRGGBB"，如"#FF0000"为设置下拉属性控件为红色，默认值为"#2BD009"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * 下拉刷新样式
      * 用于定义下拉刷新风格样式，可取值：
@@ -10882,21 +10882,21 @@ interface PlusWebviewWebviewPullToRefreshStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    style?: string;
+    style?: string | undefined;
     /**
      * 窗口的下拉刷新控件进入刷新状态的拉拽高度
      * 支持百分比，如"10%"；像素值，如"50px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * 窗口可下拉拖拽的范围
      * 支持百分比，如"10%"；像素值，如"50px"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    range?: string;
+    range?: string | undefined;
     /**
      * 下拉刷新控件的起始位置
      * 仅对"circle"样式下拉刷新控件有效，用于定义刷新控件下拉时的起始位置。
@@ -10905,7 +10905,7 @@ interface PlusWebviewWebviewPullToRefreshStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    offset?: string;
+    offset?: string | undefined;
     /**
      * 在下拉可刷新状态时显示的内容
      * 支持以下属性：
@@ -10949,14 +10949,14 @@ interface PlusWebviewWebviewRenderedEventOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * 判断窗口渲染完成间隔时间
      * 单位为ms（毫秒），默认值为150ms。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    interval?: number;
+    interval?: number | undefined;
 }
 
 /**
@@ -10986,7 +10986,7 @@ interface PlusWebviewWebviewReplaceWebApiOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    geolocation?: 'alldevice' | 'auto' | 'none';
+    geolocation?: 'alldevice' | 'auto' | 'none' | undefined;
 }
 
 /**
@@ -11003,7 +11003,7 @@ interface PlusWebviewWebviewStatusbarStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    background?: string;
+    background?: string | undefined;
 }
 
 /**
@@ -11030,7 +11030,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    animationOptimization?: string;
+    animationOptimization?: string | undefined;
     /**
      * 窗口的缓存模式
      * 可取值：
@@ -11054,7 +11054,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    cachemode?: 'default' | 'cacheElseNetwork' | 'noCache' | 'cacheOnly';
+    cachemode?: 'default' | 'cacheElseNetwork' | 'noCache' | 'cacheOnly' | undefined;
     /**
      * Webview窗口自动处理返回键逻辑
      * 当Webview窗口在显示栈顶，并且Webview窗口中没有调用JS监听返回键（plus.key.addEventListener('backbutton',...)）时按下返回键响应行为。
@@ -11075,7 +11075,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    backButtonAutoControl?: 'hide' | 'close' | 'none';
+    backButtonAutoControl?: 'hide' | 'close' | 'none' | undefined;
     /**
      * 窗口的背景颜色
      * 窗口空白区域的背景模式，设置background为颜色值(参考CSS Color Names，可取值/十六进制值/rgb值/rgba值)，窗口为独占模式显示（占整个屏幕区域）；
@@ -11083,7 +11083,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    background?: string;
+    background?: string | undefined;
     /**
      * 窗口顶部背景颜色值
      * 窗口内容滚动到顶部下拉时可见。
@@ -11094,7 +11094,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    backgroundColorTop?: string;
+    backgroundColorTop?: string | undefined;
     /**
      * 窗口底部背景颜色
      * 窗口内容滚动到底部上拉时可见。
@@ -11105,7 +11105,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    backgroundColorBottom?: string;
+    backgroundColorBottom?: string | undefined;
     /**
      * 是否阻塞网络图片的加载
      * 布尔类型，true表示阻塞，false表示不阻塞，默认值为false。
@@ -11113,7 +11113,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    blockNetworkImage?: boolean;
+    blockNetworkImage?: boolean | undefined;
     /**
      * 窗口垂直向上的偏移量
      * 支持百分比、像素值，默认值无值（根据top和height属性值来自动计算）。
@@ -11122,7 +11122,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    bottom?: string;
+    bottom?: string | undefined;
     /**
      * 窗口遇到边框是否有反弹效果
      * 可取值：
@@ -11138,7 +11138,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    bounce?: 'none' | 'vertical' | 'horizontal' | 'all';
+    bounce?: 'none' | 'vertical' | 'horizontal' | 'all' | undefined;
     /**
      * 窗口回弹效果区域的背景
      * 窗口回弹效果区域背景可支持颜色值或图片：
@@ -11147,7 +11147,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    bounceBackground?: string;
+    bounceBackground?: string | undefined;
     /**
      * 窗口内容停止滑动的减速度
      * 当Webview加载的内容超过其高度时，可以拖拽滑动内容，decelerationRate属性控制手指松开后页面滑动的速度。
@@ -11155,7 +11155,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    decelerationRate?: number;
+    decelerationRate?: number | undefined;
     /**
      * 窗口的停靠方式
      * 当Webview窗口添加到另外一个窗口中时，停靠方式才会生效，采用停靠方式添加会导致原Webview窗口自动调整其大小避免其内容被子窗口盖住。
@@ -11168,7 +11168,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    dock?: 'top' | 'bottom' | 'right' | 'left';
+    dock?: 'top' | 'bottom' | 'right' | 'left' | undefined;
     /**
      * 窗口加载错误时跳转的页面地址
      * 当Webview窗口无法加载指定的url地址时（如本地页面不存在，或者无法访问的网络地址），此时会自动跳转到指定的错误页面地址（仅支持本地页面地址）。
@@ -11177,14 +11177,14 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    errorPage?: 'none';
+    errorPage?: 'none' | undefined;
     /**
      * 替换H5标准API
      * 用于解决在部分设备上调用H5标准定位接口可能无法获取定位数据的问题。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    replacewebapi?: PlusWebviewWebviewReplaceWebApiOptions;
+    replacewebapi?: PlusWebviewWebviewReplaceWebApiOptions | undefined;
     /**
      * 窗口是否开启硬件加速
      * 布尔类型，true表示开启硬件加速，false表示不开启硬件加速，默认情况5+ Runtime会根据设备实际支持情况自动选择是否开启硬件加速，可以通过plus.webview.defaultHardwareAccelerated()方法获取默认Webview是否开启硬件加速。
@@ -11192,7 +11192,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    hardwareAccelerated?: boolean;
+    hardwareAccelerated?: boolean | undefined;
     /**
      * 窗口的高度
      * 支持百分比、像素值，默认为100%。
@@ -11200,7 +11200,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * 窗口使用的内核
      * 可取值：
@@ -11226,7 +11226,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    kernel?: 'WKWebview' | 'UIWebview';
+    kernel?: 'WKWebview' | 'UIWebview' | undefined;
     /**
      * 窗口水平向右的偏移量
      * 支持百分比、像素值，默认值为0px。
@@ -11234,14 +11234,14 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * 窗口的边距
      * 用于定位窗口的位置，支持auto，auto表示居中。若设置了left、right、top、bottom则对应的边距值失效。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    margin?: string;
+    margin?: string | undefined;
     /**
      * 窗口的遮罩
      * 用于设置Webview窗口的遮罩层样式，遮罩层会覆盖Webview中所有内容，包括子webview，并且截获webview的所有触屏事件，此时Webview窗口的点击操作会触发maskClick事件。
@@ -11252,14 +11252,14 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    mask?: string;
+    mask?: string | undefined;
     /**
      * 窗口的不透明度
      * 0为全透明，1为不透明，默认值为1，即不透明。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    opacity?: number;
+    opacity?: number | undefined;
     /**
      * 控制Webview注入5+ API时机
      * 可取值：
@@ -11271,7 +11271,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    plusrequire?: string;
+    plusrequire?: string | undefined;
     /**
      * 窗口的进度条样式
      * 设置此属性则在Webview窗口的顶部显示进度条，可配置进度条颜色及高度。
@@ -11280,7 +11280,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    progress?: PlusWebviewWebviewProgressStyles;
+    progress?: PlusWebviewWebviewProgressStyles | undefined;
     /**
      * 窗口的侧滑返回功能
      * 可取值：
@@ -11293,7 +11293,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    popGesture?: 'none' | 'close' | 'hide';
+    popGesture?: 'none' | 'close' | 'hide' | undefined;
     /**
      * 窗口下拉刷新配置
      * 设置窗口是否开启下拉刷新功能及样式。
@@ -11301,7 +11301,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    pullToRefresh?: PlusWebviewWebviewPullToRefreshStyles;
+    pullToRefresh?: PlusWebviewWebviewPullToRefreshStyles | undefined;
     /**
      * 窗口渲染模式
      * 支持以下属性值：
@@ -11314,7 +11314,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    render?: 'onscreen' | 'always';
+    render?: 'onscreen' | 'always' | undefined;
     /**
      * 窗口水平向左的偏移量
      * 支持百分比、像素值，默认无值（根据left和width属性值来自动计算）。
@@ -11323,7 +11323,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    right?: string;
+    right?: string | undefined;
     /**
      * 窗口是否可缩放
      * 窗口设置为可缩放（scalable:true）时，用户可通过双指操作放大或缩小页面，此时html页面可通过meta节点设置“name="viewport" content="user-scalable=no"”来限制页面不可缩放。
@@ -11332,7 +11332,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    scalable?: boolean;
+    scalable?: boolean | undefined;
     /**
      * 窗口是否显示滚动条
      * 用于控制窗口滚动条样式，可取值：
@@ -11349,7 +11349,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    scrollIndicator?: 'all' | 'vertical' | 'horizontal' | 'none';
+    scrollIndicator?: 'all' | 'vertical' | 'horizontal' | 'none' | undefined;
     /**
      * 点击设备的状态栏时是否滚动返回至顶部
      * true表示点击设备的状态栏可以滚动返回至顶部，false表示点击设备的状态栏不可以，默认值为true。
@@ -11357,7 +11357,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    scrollsToTop?: boolean;
+    scrollsToTop?: boolean | undefined;
     /**
      * 是否可分享窗口加载的链接地址
      * 在流应用环境（流应用/5+浏览器）中可通过分享按钮分享页面链接地址，
@@ -11368,7 +11368,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    shareable?: boolean;
+    shareable?: boolean | undefined;
     /**
      * 弹出系统软键盘模式
      * 可选值：“adjustPan”- 弹出软键盘时Webview窗口自动上移，以保证当前输入框可见；“adjustResize”- 自动调整Webview窗口大小（屏幕区域减去软键盘区域），同时自动滚动Webview保证输入框可见。
@@ -11378,14 +11378,14 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    softinputMode?: 'adjustPan' | 'adjustResize';
+    softinputMode?: 'adjustPan' | 'adjustResize' | undefined;
     /**
      * 窗口状态栏样式
      * 仅在应用设置为沉浸式状态栏样式下有效，设置此属性后将自动保留系统状态栏区域不被Webview窗口占用（即Webview窗口非沉浸式样式显示）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    statusbar?: PlusWebviewWebviewStatusbarStyles;
+    statusbar?: PlusWebviewWebviewStatusbarStyles | undefined;
     /**
      * 定义窗口的原生子View控件
      * 数组类型，可通过配置项设置原生子View控件，每个配置项对应添加一个原生子View控件。
@@ -11393,7 +11393,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    subNViews?: PlusWebview [];
+    subNViews?: PlusWebview [] | undefined;
     /**
      * 定义窗口的标题栏控件样式
      * 设置此属性值则表明创建Webview窗口的标题栏控件，并可通过其属性值设置背景颜色、文本内容、文本颜色等。
@@ -11401,7 +11401,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    titleNView?: PlusWebviewWebviewTitleNViewStyles;
+    titleNView?: PlusWebviewWebviewTitleNViewStyles | undefined;
     /**
      * 窗口垂直向下的偏移量
      * 支持百分比、像素值，默认值为0px。
@@ -11409,19 +11409,19 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * 窗口定义窗口变换的动画效果
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    transition?: PlusWebviewWebviewTransition;
+    transition?: PlusWebviewWebviewTransition | undefined;
     /**
      * 窗口定义窗口变形效果
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    transform?: PlusWebviewWebviewTransform;
+    transform?: PlusWebviewWebviewTransform | undefined;
     /**
      * Webview窗口的排版位置
      * 当Webview窗口添加到另外一个窗口中时，排版位置才会生效，排版位置决定子窗口在父窗口中的定位方式。
@@ -11433,7 +11433,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    position?: 'static' | 'absolute' | 'dock';
+    position?: 'static' | 'absolute' | 'dock' | undefined;
     /**
      * 用户是否可选择内容
      * 可取值：
@@ -11444,7 +11444,7 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    userSelect?: boolean;
+    userSelect?: boolean | undefined;
     /**
      * 视频全屏播放时的显示方向
      * 可取值：
@@ -11458,21 +11458,21 @@ interface PlusWebviewWebviewStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    videoFullscreen?: string;
+    videoFullscreen?: string | undefined;
     /**
      * 窗口的宽度
      * 支持百分比、像素值，默认为100%。未设置width属性值时，可同时设置left和right属性值改变窗口的默认宽度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * 窗口的堆叠顺序值
      * 拥有更高堆叠顺序的窗口总是会处于堆叠顺序较低的窗口的前面，拥有相同堆叠顺序的窗口后调用show方法则在前面。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    zindex?: number;
+    zindex?: number | undefined;
 }
 
 /**
@@ -11486,31 +11486,31 @@ interface PlusWebviewWebviewTransform {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    rotate?: string;
+    rotate?: string | undefined;
     /**
      * 暂不支持
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    translate?: string;
+    translate?: string | undefined;
     /**
      * 暂不支持
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    scale?: string;
+    scale?: string | undefined;
     /**
      * 暂不支持
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    skew?: string;
+    skew?: string | undefined;
     /**
      * 暂不支持
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    matrix?: string;
+    matrix?: string | undefined;
 }
 
 /**
@@ -11525,14 +11525,14 @@ interface PlusWebviewWebviewTransition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    property?: string;
+    property?: string | undefined;
     /**
      * 变换持续的时间
      * 默认值为0，即无动画效果。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    duration?: string;
+    duration?: string | undefined;
     /**
      * 窗口变换效果
      * 可取值：
@@ -11544,7 +11544,7 @@ interface PlusWebviewWebviewTransition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    timingfunction?: string;
+    timingfunction?: string | undefined;
 }
 
 /**
@@ -11559,14 +11559,14 @@ interface PlusWebviewWebviewOverrideResourceOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    match?: string;
+    match?: string | undefined;
     /**
      * 拦截重定向的资源地址
      * 仅支持本地资源地址，如"_www"、"_doc"、"_downloads"、"_documents"等开头的路径。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    redirect?: string;
+    redirect?: string | undefined;
     /**
      * 重定向的资源数据类型
      * RFC2045/RFC2046/RFC2047/RFC2048/RFC2049规范中定义的数据类型。
@@ -11575,14 +11575,14 @@ interface PlusWebviewWebviewOverrideResourceOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    mime?: string;
+    mime?: string | undefined;
     /**
      * 重定向的资源数据编码
      * 如未设置，则使用默认值"UTF-8"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    encoding?: string;
+    encoding?: string | undefined;
     /**
      * 设置重定向资源数据的http头数据
      * 可设置标注http头数据（如Content-type）,也可设置自定义数据。
@@ -11614,7 +11614,7 @@ interface PlusWebviewWebviewOverrideUrlOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    effect?: 'instant' | '';
+    effect?: 'instant' | '' | undefined;
     /**
      * 拦截模式
      * 可取值：
@@ -11630,7 +11630,7 @@ interface PlusWebviewWebviewOverrideUrlOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    mode?: 'allow' | 'reject';
+    mode?: 'allow' | 'reject' | undefined;
     /**
      * 区配是否需要处理的URL请求
      * 支持正则表达式，默认值为对所有URL地址生效（相当于正则表达式“.*”）。
@@ -11638,7 +11638,7 @@ interface PlusWebviewWebviewOverrideUrlOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    match?: string;
+    match?: string | undefined;
     /**
      * 排除拦截处理请求类型
      * 不拦截处理指定类型的URL请求，直接使用系统默认处理逻辑。
@@ -11655,7 +11655,7 @@ interface PlusWebviewWebviewOverrideUrlOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    exclude?: 'none' | 'redirect';
+    exclude?: 'none' | 'redirect' | undefined;
 }
 
 /**
@@ -11671,7 +11671,7 @@ interface PlusWebviewWebviewListenResourceOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    match?: string;
+    match?: string | undefined;
 }
 
 /**
@@ -11685,13 +11685,13 @@ interface PlusNet {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    XMLHttpRequest?: PlusNetXMLHttpRequest;
+    XMLHttpRequest?: PlusNetXMLHttpRequest | undefined;
     /**
      * HTTP请求进度事件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    ProgressEvent?: PlusNetProgressEvent;
+    ProgressEvent?: PlusNetProgressEvent | undefined;
 }
 
 /**
@@ -11712,7 +11712,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    readyState?: number;
+    readyState?: number | undefined;
     /**
      * 请求从服务器接收到的响应数据
      * 如果没有从服务器接收到数据，则为null；
@@ -11724,7 +11724,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    response?: string;
+    response?: string | undefined;
     /**
      * 请求从服务器接收到的响应数据（字符串数据）
      * 如果还没有接收到数据的话，此属性值为空字符串；
@@ -11735,7 +11735,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    responseText?: string;
+    responseText?: string | undefined;
     /**
      * 请求响应数据response的类型
      * 默认值为空字符串，即reponse为String，类型可设置："document"表示Document对象，"json"表示JSON对象，"text"表示字符串。
@@ -11743,7 +11743,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    responseType?: string;
+    responseType?: string | undefined;
     /**
      * 请求响应的Document对象
      * 对请求的响应，解析为 XML 并作为 Document 对象返回。
@@ -11751,7 +11751,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    responseXML?: string;
+    responseXML?: string | undefined;
     /**
      * 服务器返回的HTTP状态代码
      * 服务器返回的HTTP状态代码，如200表示成功，而404表示"Not Found"错误；
@@ -11759,7 +11759,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    status?: number;
+    status?: number | undefined;
     /**
      * 服务器返回的HTTP状态描述
      * 此属性值用名称而不是数字指定了请求的HTTP的状态代码。
@@ -11768,7 +11768,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    statusText?: string;
+    statusText?: string | undefined;
     /**
      * 请求服务器的超时时间，单位为毫秒（ms）
      * 数值类型，单位为ms，其默认值为120秒。
@@ -11777,35 +11777,35 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * 是否支持跨域请求
      * 此对象创建的HTTP请求都支持跨域，所以永远返回true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    withCredentials?: boolean;
+    withCredentials?: boolean | undefined;
     /**
      * 网络请求状态发生变化事件
      * 网络请求状态发生变化时触发，通常在函数中判断对象的state属性值来获取当前请求的状态。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onreadystatechange?: () => void;
+    onreadystatechange?: (() => void) | undefined;
     /**
      * 网络请求开始事件
      * 通常在调用send方法开始发起HTTP请求时触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onloadstart?: (result: PlusNetProgressEvent) => void;
+    onloadstart?: ((result: PlusNetProgressEvent) => void) | undefined;
     /**
      * 网络请求传输数据事件
      * 通常在HTTP请求链接已经建立，开始传输数据时触发，在数据传输的过程中可能多次触发，此事件与onreadystatechange事件触发状态3类似。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onprogress?: (result: PlusNetProgressEvent) => void;
+    onprogress?: ((result: PlusNetProgressEvent) => void) | undefined;
     /**
      * 网络请求取消事件
      * 通常在调用abort方法取消HTTP请求时触发。
@@ -11813,7 +11813,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onabort?: (result: PlusNetProgressEvent) => void;
+    onabort?: ((result: PlusNetProgressEvent) => void) | undefined;
     /**
      * 网络请求错误事件
      * 通常在HTTP请求发生错误时触发，如无法连接到服务器等各种错误都触发此事件。
@@ -11821,7 +11821,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onerror?: (result: PlusNetProgressEvent) => void;
+    onerror?: ((result: PlusNetProgressEvent) => void) | undefined;
     /**
      * 网络请求成功事件
      * 通常在HTTP请求成功完成时触发，如果HTTP请求发生错误则不触发此事件。
@@ -11829,7 +11829,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onload?: (result: PlusNetProgressEvent) => void;
+    onload?: ((result: PlusNetProgressEvent) => void) | undefined;
     /**
      * 网络请求超时事件
      * 通常在HTTP请求超时时触发，此时不会触发onerror事件。
@@ -11837,7 +11837,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    ontimeout?: (result: PlusNetProgressEvent) => void;
+    ontimeout?: ((result: PlusNetProgressEvent) => void) | undefined;
     /**
      * 网络请求结束事件
      * 通常在HTTP请求结束时触发，不管是HTTP请求失败、成功、或超时之后都会触发此事件。
@@ -11845,7 +11845,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onloadend?: (result: PlusNetProgressEvent) => void;
+    onloadend?: ((result: PlusNetProgressEvent) => void) | undefined;
     /**
      * 取消当前响应，关闭连接并且结束任何未决的网络活动
      * 此方法把XMLHttpRequest对象重置为readyState为0的状态，并且取消所有未决的网络活动。
@@ -11931,21 +11931,21 @@ interface PlusNetProgressEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    target?: PlusNetXMLHttpRequest;
+    target?: PlusNetXMLHttpRequest | undefined;
     /**
      * 进度信息是否可计算
      * HTTP请求进度信息是否有效，如果HTTP请求头中包含Content-Length头信息则为true，否则为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    lengthComputable?: number;
+    lengthComputable?: number | undefined;
     /**
      * 当前已经接收到的数据长度
      * HTTP请求接收到的数据长度，单位为字节。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    loaded?: number;
+    loaded?: number | undefined;
     /**
      * 总数据长度
      * HTTP请求返回的总数据长度，单位为字节。
@@ -11953,7 +11953,7 @@ interface PlusNetProgressEvent {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    total?: number;
+    total?: number | undefined;
 }
 
 /**
@@ -11971,13 +11971,13 @@ interface PlusZip {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    CompressImageOptions?: PlusZipCompressImageOptions;
+    CompressImageOptions?: PlusZipCompressImageOptions | undefined;
     /**
      * JSON对象，图片裁剪区域的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    ClipImageOptions?: PlusZipClipImageOptions;
+    ClipImageOptions?: PlusZipClipImageOptions | undefined;
     /**
      * 压缩生成Zip文件
      * 
@@ -12023,7 +12023,7 @@ interface PlusZipCompressImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    src?: '_www/' | '_doc/' | '_documents/' | '_downloads/';
+    src?: '_www/' | '_doc/' | '_documents/' | '_downloads/' | undefined;
     /**
      * 压缩转换目标图片的路径
      * 支持以下图片路径：
@@ -12037,7 +12037,7 @@ interface PlusZipCompressImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    dst?: '_doc/' | '_documents/' | '_downloads/';
+    dst?: '_doc/' | '_documents/' | '_downloads/' | undefined;
     /**
      * 覆盖生成新文件
      * 仅在dst制定的路径文件存在时有效：
@@ -12047,7 +12047,7 @@ interface PlusZipCompressImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    overwrite?: boolean;
+    overwrite?: boolean | undefined;
     /**
      * 压缩转换后的图片格式
      * 支持"jpg"、"png",如果未指定则使用源图片的格式。
@@ -12056,7 +12056,7 @@ interface PlusZipCompressImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    format?: 'jpg' | 'png';
+    format?: 'jpg' | 'png' | undefined;
     /**
      * 压缩图片的质量
      * 取值范围为1-100，1表示使用最低的图片质量（转换后的图片文件最小）、100表示使用最高的图片质量（转换后的图片文件最大）；
@@ -12064,7 +12064,7 @@ interface PlusZipCompressImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    quality?: number;
+    quality?: number | undefined;
     /**
      * 缩放图片的宽度
      * 支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即根据height与源图高的缩放比例计算，若未设置height则使用源图高度）；
@@ -12073,7 +12073,7 @@ interface PlusZipCompressImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * 缩放图片的高度
      * 支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即根据width与源图宽的缩放比例计算，若未设置width则使用源图高度）；
@@ -12082,7 +12082,7 @@ interface PlusZipCompressImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * 旋转图片的角度
      * 支持值：90-表示旋转90度；180-表示旋转180度；270-表示旋转270度。
@@ -12093,14 +12093,14 @@ interface PlusZipCompressImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    rotate?: '90' | '180' | '270';
+    rotate?: '90' | '180' | '270' | undefined;
     /**
      * 裁剪图片的区域
      * 值参考ClipImageOptions定义，若设置clip属性值不合法，则不对图片进行裁剪操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    clip?: PlusZipClipImageOptions;
+    clip?: PlusZipClipImageOptions | undefined;
 }
 
 /**
@@ -12116,7 +12116,7 @@ interface PlusZipClipImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * 图片裁剪区域与原图片左边界的偏移距离
      * 支持像素值（如"10px"）、百分比（如"10%"）；默认值为"0px"。
@@ -12124,7 +12124,7 @@ interface PlusZipClipImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * 图片裁剪区域的宽度
      * 支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即从left位置到图片右边界的宽度）；默认值为"auto"。
@@ -12132,7 +12132,7 @@ interface PlusZipClipImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * 图片裁剪区域的高度
      * 支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即从top位置到图片下边界的高度）；默认值为"auto"。
@@ -12140,7 +12140,7 @@ interface PlusZipClipImageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    height?: string;
+    height?: string | undefined;
 }
 
 /**
@@ -12155,21 +12155,21 @@ interface PlusBarcode {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    Barcode?: PlusBarcodeBarcode;
+    Barcode?: PlusBarcodeBarcode | undefined;
     /**
      * Barcode扫码控件样式
      * 设置Barcode扫码控件的样式，如扫码框、扫码条的颜色等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    BarcodeStyles?: PlusBarcodeBarcodeStyles;
+    BarcodeStyles?: PlusBarcodeBarcodeStyles | undefined;
     /**
      * 条码识别控件扫描参数
      * 设置Barcode扫码控件的扫码识别参数，如是否保存扫码功时的截图等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    BarcodeOptions?: PlusBarcodeBarcodeOptions;
+    BarcodeOptions?: PlusBarcodeBarcodeOptions | undefined;
     /**
      * QR二维码，数值为0
      * 1994年由日本Denso-Wave公司发明，QR来自英文Quick Response的缩写，即快速反应的意思，源自发明者希望QR码可让其内容快速被解码。
@@ -12177,7 +12177,7 @@ interface PlusBarcode {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    QR?: number;
+    QR?: number | undefined;
     /**
      * EAN条形码标准版，数值为1
      * 国际物品编码协会在全球推广应用的商品条码，是由13位数字组成。
@@ -12185,105 +12185,105 @@ interface PlusBarcode {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    EAN13?: number;
+    EAN13?: number | undefined;
     /**
      * ENA条形码简版，数值为2
      * 国际物品编码协会在全球推广应用的商品条码，是由8位数字组成。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    EAN8?: number;
+    EAN8?: number | undefined;
     /**
      * Aztec二维码，数值为3
      * Andrew Longacre发明于1995年，该代码是用于国际出版。最小的Aztec码符号编码13个数字或12个英文字母。最大的Aztec码符号编码3832数字或3067英文字母或1914字节的数据。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    AZTEC?: number;
+    AZTEC?: number | undefined;
     /**
      * Data Matrix二维码，数值为4
      * Data Matrix原名Data code，由美国国际资料公司(International Data Matrix, 简称IDMatrix)于1989年发明。可编码字元集包括全部的ASCII字元及扩充ASCII字元，容量可包含2235个英文数字资料、1556个8位元资料，3116个数字资料。由于Data Matrix二维条码只需要读取资料的20%即可精确辨读，因此很适合应用在条码容易受损的场所。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    DATAMATRIX?: number;
+    DATAMATRIX?: number | undefined;
     /**
      * UPC条形码标准版，数值为5
      * UPC码是美国统一代码委员会制定的一种商品用条码，主要用于美国和加拿大地区，常在美国进口的商品上可以看到。UPC码标准版由12位数字构成，故其字码集为数字0~9。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    UPCA?: number;
+    UPCA?: number | undefined;
     /**
      * UPC条形码缩短版，数值为6
      * UPC码是美国统一代码委员会制定的一种商品用条码，主要用于美国和加拿大地区，常在美国进口的商品上可以看到。UPC码缩短版由8位数字构成，故其字码集为数字0~9。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    UPCE?: number;
+    UPCE?: number | undefined;
     /**
      * Codabar条形码，数值为7
      * Codabar码最初是为零售价格标签系统而研制开发的。1975年，National Retail Merchants Association（NRMA）选择了其它符号类型作为标准后，Codabar开始在多个方面用于非零售应用领域，如图书馆、货运和医药业。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    CODABAR?: number;
+    CODABAR?: number | undefined;
     /**
      * Code39条形码，数值为8
      * Code 39码是Intermec公司于1975年推出的一维条码， 39码是一种可供使用者双向扫瞄的分散式条码，也就是说相临两资料码之间，39码必须包含一个不具任何意义的空白(或细白，其逻辑值为0)，且 39码具有支援文数字的能力，编码规则简单、误码率低、所能表示字符个数多等特点，39码在各个领域有着极为广泛的应用。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    CODE39?: number;
+    CODE39?: number | undefined;
     /**
      * Code93条形码，数值为9
      * Code 93码的条码符号是由Intermec公司于1982年设计的 提供更高的密度和数据安全增强code39 。它是一个字母，长度可变符号。代码93主要用于由加拿大邮政编码补充提供的资料。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    CODE93?: number;
+    CODE93?: number | undefined;
     /**
      * Code128条形码，数值为10
      * CODE128码是1981年引入的一种高密度条码，CODE128 码可表示从 ASCII 0 到ASCII 127 共128个字符，故称128码。CODE128码是广泛应用在企业内部管理、生产流程、物流控制系统方面的条码码制，由于其优良的特性在管理信息系统的设计中被广泛使用。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    CODE128?: number;
+    CODE128?: number | undefined;
     /**
      * ITF条形码，数值为11
      * ITF条码，又称交叉二五条码，由14位数字字符代表组成。主要用于运输包装，是印刷条件较差，不允许印刷EAN-13和UPC-A条码时应选用的一种条码。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    ITF?: number;
+    ITF?: number | undefined;
     /**
      * MaxiCode二维码，数值为12
      * 1996年时，美国自动辨识协会（AIMUSA）制定统一的符号规格，称为Maxicode二维条码，也有人称USS-Maxicode二维条码（Uniform Symbology Specification-Maxicode）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    MAXICODE?: number;
+    MAXICODE?: number | undefined;
     /**
      * PDF 417二维条码，数值为13
      * PDF417条码是由美国SYMBOL公司发明的，PDF（Portable Data File）意思是“便携数据文件”。组成条码的每一个条码字符由4个条和4个空共17个模块构成，故称为PDF417条码。PDF417条码最大的优势在于其庞大的数据容量和极强的纠错能力。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    PDF417?: number;
+    PDF417?: number | undefined;
     /**
      * RSS 14条形组合码，数值为14
      * RSS条码是有国际物品编码协会EAN和美国统一代码委员会UCC开发的RSS（Reduced Space Symbology）条码符号。它是一种一维码和二维码的组合码。和其它线性条码相比，RSS系列码制具有更高的密度，因为它可以表示更多的字符。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    RSS14?: number;
+    RSS14?: number | undefined;
     /**
      * 扩展式RSS条形组合码，数值为15
      * RSS条码是有国际物品编码协会EAN和美国统一代码委员会UCC开发的RSS（Reduced Space Symbology）条码符号。它是一种一维码和二维码的组合码。和其它线性条码相比，RSS系列码制具有更高的密度，因为它可以表示更多的字符。扩展式RSS码是长度可以变化的线性码制，能够对74个数字字符或41个字母字符的AI单元数据传数据进行编码。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    RSSEXPANDED?: number;
+    RSSEXPANDED?: number | undefined;
     /**
      * 通过图片扫码识别
      * 直接输入图片扫码识别，成功扫描到条码数据后通过successCallback回调返回，失败则通过errorCallback回调返回。
@@ -12321,14 +12321,14 @@ interface PlusBarcodeBarcode {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    onmarked?: (result0: number, result1: string, result2: string) => void;
+    onmarked?: ((result0: number, result1: string, result2: string) => void) | undefined;
     /**
      * 条码识别错误事件
      * 描控件识别过程中发生错误时触发的失败事件，并返回错误信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    onerror?: (result: any) => void;
+    onerror?: ((result: any) => void) | undefined;
     /**
      * 开始条码识别
      * 开始调用系统摄像头获取图片数据进行扫码识别，当识别出条码数据时通过onmarked回调函数返回。
@@ -12380,21 +12380,21 @@ interface PlusBarcodeBarcodeStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    background?: string;
+    background?: string | undefined;
     /**
      * 扫码框颜色
      * 颜色值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为红色。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    frameColor?: string;
+    frameColor?: string | undefined;
     /**
      * 扫码条颜色
      * 颜色值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为红色。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    scanbarColor?: string;
+    scanbarColor?: string | undefined;
     /**
      * Barcode扫码控件左上角的垂直偏移量
      * 可取值：
@@ -12404,7 +12404,7 @@ interface PlusBarcodeBarcodeStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * Barcode扫码控件左上角的水平偏移量
      * 可取值：
@@ -12415,7 +12415,7 @@ interface PlusBarcodeBarcodeStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * Barcode扫码控件的宽度
      * 可取值：
@@ -12425,7 +12425,7 @@ interface PlusBarcodeBarcodeStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * Barcode扫码控件的高度
      * 可取值：
@@ -12435,7 +12435,7 @@ interface PlusBarcodeBarcodeStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * Barcode扫码控件在Webview窗口的布局模式
      * 可取值：
@@ -12445,7 +12445,7 @@ interface PlusBarcodeBarcodeStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    position?: string;
+    position?: string | undefined;
 }
 
 /**
@@ -12462,14 +12462,14 @@ interface PlusBarcodeBarcodeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    conserve?: boolean;
+    conserve?: boolean | undefined;
     /**
      * 保存扫码成功时图片保存路径
      * 可通过此参数设置保存截图的路径和名称，如果设置图片文件名称则必须指定文件的后缀名（必须是.png），否则认为是指定目录，文件名称则自动生成。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    filename?: string;
+    filename?: string | undefined;
     /**
      * 扫码成功时是否需要震动提醒
      * 如果设置为true则在扫码成功时震动设备，false则不震动。
@@ -12477,7 +12477,7 @@ interface PlusBarcodeBarcodeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    vibrate?: boolean;
+    vibrate?: boolean | undefined;
     /**
      * 扫码成功时播放的提示音
      * 可取值：
@@ -12489,7 +12489,7 @@ interface PlusBarcodeBarcodeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    sound?: 'none' | 'default';
+    sound?: 'none' | 'default' | undefined;
 }
 
 /**
@@ -12503,128 +12503,128 @@ interface PlusMaps {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Map?: PlusMapsMap;
+    Map?: PlusMapsMap | undefined;
     /**
      * 地图控件对象的参数
      * 设置地图对象显示时使用的参数，如地图的中心位置、缩放级别等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    MapStyles?: PlusMapsMapStyles;
+    MapStyles?: PlusMapsMapStyles | undefined;
     /**
      * 地理编码转换的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    GeocodeOptions?: PlusMapsGeocodeOptions;
+    GeocodeOptions?: PlusMapsGeocodeOptions | undefined;
     /**
      * 地图坐标转换的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    CoordinateConvertOptions?: PlusMapsCoordinateConvertOptions;
+    CoordinateConvertOptions?: PlusMapsCoordinateConvertOptions | undefined;
     /**
      * Point对象用于表示地图元素的坐标
      * 常用语对地图上元素进行定位时使用。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Point?: PlusMapsPoint;
+    Point?: PlusMapsPoint | undefined;
     /**
      * 地理区域
      * 有西南及东北坐标点数据组成的矩形区域。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Bounds?: PlusMapsBounds;
+    Bounds?: PlusMapsBounds | undefined;
     /**
      * 地图视图类型
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    MapType?: PlusMapsMapType;
+    MapType?: PlusMapsMapType | undefined;
     /**
      * 地图覆盖物基类对象
      * Overlay是地图上显示元素的基类，用于抽象地图元素，不用于实例化。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Overlay?: PlusMapsOverlay;
+    Overlay?: PlusMapsOverlay | undefined;
     /**
      * 地图上显示的标点对象
      * 从Overlay对象继承而来，可通过Map对象的addOverlay()方法将对象添加地图中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Marker?: PlusMapsMarker;
+    Marker?: PlusMapsMarker | undefined;
     /**
      * 地图上显示的气泡对象
      * 此对象不能直接添加到地图上显示，只可关联到地图标点覆盖物上，用户点击标点时弹出显示。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Bubble?: PlusMapsBubble;
+    Bubble?: PlusMapsBubble | undefined;
     /**
      * 地图上显示的圆圈对象
      * 从Overlay对象继承而来，可通过Map对象的addOverlay()方法将对象添加地图中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Circle?: PlusMapsCircle;
+    Circle?: PlusMapsCircle | undefined;
     /**
      * 地图上显示的折线对象
      * 从Overlay对象继承而来，可通过Map对象的addOverlay()方法将对象添加地图中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Polyline?: PlusMapsPolyline;
+    Polyline?: PlusMapsPolyline | undefined;
     /**
      * 地图上显示的多边形对象
      * 从Overlay对象继承而来，可通过Map对象的addOverlay()方法将对象添加地图中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Polygon?: PlusMapsPolygon;
+    Polygon?: PlusMapsPolygon | undefined;
     /**
      * 地图检索对象
      * Search对象用于管理地图上的检索功能，包括位置检索、周边检索和范围检索。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Search?: PlusMapsSearch;
+    Search?: PlusMapsSearch | undefined;
     /**
      * 检索策略类型
      * 在线路检索时设置检索策略时使用。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    SearchPolicy?: PlusMapsSearchPolicy;
+    SearchPolicy?: PlusMapsSearchPolicy | undefined;
     /**
      * 保存位置检索、周边检索和范围检索返回的结果
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    SearchPoiResult?: PlusMapsSearchPoiResult;
+    SearchPoiResult?: PlusMapsSearchPoiResult | undefined;
     /**
      * 保存位置检索、周边检索和范围检索返回的结果
      * 不可通过new操作符创建SearchRouteResult对象，在触发onRouteSearchComplete()时自动创建。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    SearchRouteResult?: PlusMapsSearchRouteResult;
+    SearchRouteResult?: PlusMapsSearchRouteResult | undefined;
     /**
      * 检索结果的位置点
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Position?: PlusMapsPosition;
+    Position?: PlusMapsPosition | undefined;
     /**
      * 地图中的路线对象
      * 从Overlay对象继承而来，可通过Map对象的addOverlay()方法将对象添加地图中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    Route?: PlusMapsRoute;
+    Route?: PlusMapsRoute | undefined;
     /**
      * 调用系统第三方程序进行导航
      * 
@@ -12659,14 +12659,14 @@ interface PlusMapsMap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onclick?: (result: PlusMapsPoint) => void;
+    onclick?: ((result: PlusMapsPoint) => void) | undefined;
     /**
      * 地图状态改变事件
      * 用户拖动、缩放地图等操作完成后触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onstatuschanged?: (result: any) => void;
+    onstatuschanged?: ((result: any) => void) | undefined;
     /**
      * 静态方法，计算面积
      * 计算指定地理区域的面积，单位为平方米。
@@ -12912,35 +12912,35 @@ interface PlusMapsMapStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    center?: PlusMapsPoint;
+    center?: PlusMapsPoint | undefined;
     /**
      * 地图的缩放级别
      * 有效范围为1-22，默认值为12，设置无效的值则使用默认值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    zoom?: number;
+    zoom?: number | undefined;
     /**
      * 地图的视图类型
      * 可设置普通街道视图、卫星视图，默认值为普通街道视图。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    type?: PlusMapsMapType;
+    type?: PlusMapsMapType | undefined;
     /**
      * 地图的是否显示交通信息
      * true表示显示地图的交通信息图层，false则不显示，默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    traffic?: boolean;
+    traffic?: boolean | undefined;
     /**
      * 是否显示地图的内置缩放控件
      * true表示显示地图的内置缩放控件，false则不显示，默认值为false。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    zoomControls?: boolean;
+    zoomControls?: boolean | undefined;
     /**
      * 地图控件左上角的垂直偏移量
      * 可取值：
@@ -12950,7 +12950,7 @@ interface PlusMapsMapStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    top?: string;
+    top?: string | undefined;
     /**
      * 地图控件左上角的水平偏移量
      * 可取值：
@@ -12961,7 +12961,7 @@ interface PlusMapsMapStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    left?: string;
+    left?: string | undefined;
     /**
      * 地图控件的宽度
      * 可取值：
@@ -12971,7 +12971,7 @@ interface PlusMapsMapStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * 地图控件的高度
      * 可取值：
@@ -12981,7 +12981,7 @@ interface PlusMapsMapStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * 地图控件在Webview窗口的布局模式
      * 可取值：
@@ -12991,7 +12991,7 @@ interface PlusMapsMapStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    position?: string;
+    position?: string | undefined;
 }
 
 /**
@@ -13012,14 +13012,14 @@ interface PlusMapsGeocodeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    coordType?: 'wgs84' | 'gcj02' | 'bd09' | 'bd09ll';
+    coordType?: 'wgs84' | 'gcj02' | 'bd09' | 'bd09ll' | undefined;
     /**
      * 源地址所属的城市
      * 仅在地理编码转换时生效，如果不指定则在全国范围内区配转换。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    city?: string;
+    city?: string | undefined;
 }
 
 /**
@@ -13039,7 +13039,7 @@ interface PlusMapsCoordinateConvertOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    coordType?: 'wgs84' | 'gcj02' | 'bd09' | 'bd09ll';
+    coordType?: 'wgs84' | 'gcj02' | 'bd09' | 'bd09ll' | undefined;
 }
 
 /**
@@ -13144,14 +13144,14 @@ interface PlusMapsMapType {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    MAPTYPE_NORMAL?: number;
+    MAPTYPE_NORMAL?: number | undefined;
     /**
      * 卫星视图
      * 地图视图类型常量，卫星视图。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    MAPTYPE_SATELLITE?: number;
+    MAPTYPE_SATELLITE?: number | undefined;
 }
 
 /**
@@ -13200,14 +13200,14 @@ interface PlusMapsMarker {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onclick?: (result: PlusMapsOverlay) => void;
+    onclick?: ((result: PlusMapsOverlay) => void) | undefined;
     /**
      * 用户拖拽标点事件
      * 可调用标点对象的markObj.setDraggable(true)方法设置标点允许拖拽，当用户拖拽标点对象时触发此事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onDrag?: (result: any) => void;
+    onDrag?: ((result: any) => void) | undefined;
     /**
      * 覆盖物显示到最上层
      * 常用于覆盖物相互覆盖时调整覆盖物的显示顺序。
@@ -13309,7 +13309,7 @@ interface PlusMapsBubble {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onclick?: (result: PlusMapsOverlay) => void;
+    onclick?: ((result: PlusMapsOverlay) => void) | undefined;
     /**
      * 设置气泡上显示的图标
      * 若为设置则无默认图标，已添加的显示的气泡在设置新值后将在地图上立即更新内容。
@@ -13623,13 +13623,13 @@ interface PlusMapsSearch {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onPoiSearchComplete?: (result0: number, result1: PlusMapsSearchPoiResult) => void;
+    onPoiSearchComplete?: ((result0: number, result1: PlusMapsSearchPoiResult) => void) | undefined;
     /**
      * 线路检索完成事件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onRouteSearchComplete?: (result0: number, result1: PlusMapsSearchRouteResult) => void;
+    onRouteSearchComplete?: ((result0: number, result1: PlusMapsSearchRouteResult) => void) | undefined;
     /**
      * 设置检索返回结果每页的信息数目
      * 地图检索结果是按页返回的，默认检索每页返回10条信息。
@@ -13723,49 +13723,49 @@ interface PlusMapsSearchPolicy {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    TRANSIT_TIME_FIRST?: number;
+    TRANSIT_TIME_FIRST?: number | undefined;
     /**
      * 最少换乘优先
      * 检索策略类型常量，用于公交检索策略
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    TRANSIT_TRANSFER_FIRST?: number;
+    TRANSIT_TRANSFER_FIRST?: number | undefined;
     /**
      * 最少步行距离优先
      * 检索策略类型常量，用于公交检索策略
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    TRANSIT_WALK_FIRST?: number;
+    TRANSIT_WALK_FIRST?: number | undefined;
     /**
      * 选择车票花销最少优先
      * 检索策略类型常量，用于公交检索策略
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    TRANSIT_FEE_FIRST?: number;
+    TRANSIT_FEE_FIRST?: number | undefined;
     /**
      * 最短距离优先
      * 检索策略类型常量，用于驾车检索策略
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    DRIVING_DIS_FIRST?: number;
+    DRIVING_DIS_FIRST?: number | undefined;
     /**
      * 无高速公路线路
      * 检索策略类型常量，用于驾车检索策略
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    DRIVING_NO_EXPRESSWAY?: number;
+    DRIVING_NO_EXPRESSWAY?: number | undefined;
     /**
      * 最少费用优先
      * 检索策略类型常量，用于驾车检索策略
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    DRIVING_FEE_FIRST?: number;
+    DRIVING_FEE_FIRST?: number | undefined;
 }
 
 /**
@@ -13780,35 +13780,35 @@ interface PlusMapsSearchPoiResult {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    totalNumber?: number;
+    totalNumber?: number | undefined;
     /**
      * 当前页的POI检索结果数
      * 当前页POI检索结果数，若没有检索到则返回0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    currentNumber?: number;
+    currentNumber?: number | undefined;
     /**
      * 本次POI检索的总页数
      * 本次POI检索的总页数，若没有检索到则返回0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    pageNumber?: number;
+    pageNumber?: number | undefined;
     /**
      * 获取当前页的索引
      * 当前页的索引值，从0开始，即0表示第一页。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    pageIndex?: number;
+    pageIndex?: number | undefined;
     /**
      * 本次POI检索结果数组
      * POI检索结果数组，Array数组对象，数组内容为Position对象。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    poiList?: any [];
+    poiList?: any [] | undefined;
     /**
      * 获取指定索引的检索结果
      * 如果index值超出范围则返回null对象。
@@ -13831,28 +13831,28 @@ interface PlusMapsSearchRouteResult {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    startPosition?: PlusMapsPosition;
+    startPosition?: PlusMapsPosition | undefined;
     /**
      * 线路的终点位置
      * 线路检索结果的终点位置点对象。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    endPosition?: PlusMapsPosition;
+    endPosition?: PlusMapsPosition | undefined;
     /**
      * 本次线路检索的总方案数
      * 线路检索结果的方案数目，若未检索到有效结果则返回0。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    routeNumber?: number;
+    routeNumber?: number | undefined;
     /**
      * 线路检索结果数组
      * 线路检索结果数组，Array数组对象，数组内容为Route对象。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    routeList?: any [];
+    routeList?: any [] | undefined;
     /**
      * 获取指定索引的线路方案
      * 如果index值超出范围则返回null对象。
@@ -13874,42 +13874,42 @@ interface PlusMapsPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    point?: PlusMapsPoint;
+    point?: PlusMapsPoint | undefined;
     /**
      * 位置点的地址信息
      * 如果没有位置点的地址信息则返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    address?: string;
+    address?: string | undefined;
     /**
      * 位置点的所属城市信息
      * 如果没有位置点的所属城市信息则返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    city?: string;
+    city?: string | undefined;
     /**
      * 位置点的名称
      * 如果没有位置点的名称则返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * 位置点的电话信息
      * 如果没有位置点的电话信息则返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    phone?: string;
+    phone?: string | undefined;
     /**
      * 位置点的邮编信息
      * 如果没有位置点的邮编信息则返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    postcode?: string;
+    postcode?: string | undefined;
 }
 
 /**
@@ -13924,40 +13924,40 @@ interface PlusMapsRoute {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    startPoint?: PlusMapsPoint;
+    startPoint?: PlusMapsPoint | undefined;
     /**
      * 路线终点地理坐标点
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    endPoint?: PlusMapsPoint;
+    endPoint?: PlusMapsPoint | undefined;
     /**
      * 路线坐标点段数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    pointCount?: PlusMapsPoint;
+    pointCount?: PlusMapsPoint | undefined;
     /**
      * 路线的地理坐标点数组
      * 路线的地理坐标点数组，数组中保存Point对象。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    pointList?: any [];
+    pointList?: any [] | undefined;
     /**
      * 路线总距离
      * 路线从起始点到终点的距离，单位为米。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    distance?: number;
+    distance?: number | undefined;
     /**
      * 线路的提示信息
      * 线路提示信息，没有提示信息则返回空字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    routeTip?: string;
+    routeTip?: string | undefined;
 }
 
 /**
@@ -13972,7 +13972,7 @@ interface PlusOauth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    AuthService?: PlusOauthAuthService;
+    AuthService?: PlusOauthAuthService | undefined;
     /**
      * JSON对象，授权认证参数选项
      * 此对象支持的属性值由登录授权认证服务定义。
@@ -13982,7 +13982,7 @@ interface PlusOauth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    AuthOptions?: PlusOauthAuthOptions;
+    AuthOptions?: PlusOauthAuthOptions | undefined;
     /**
      * 登录授权认证信息
      * 此对象仅定义标准属性，登录授权认证服务可扩展自定义数据。
@@ -13991,7 +13991,7 @@ interface PlusOauth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    AuthInfo?: PlusOauthAuthInfo;
+    AuthInfo?: PlusOauthAuthInfo | undefined;
     /**
      * 登录授权用户信息
      * 用于保存登录授权用户的信息。
@@ -14002,7 +14002,7 @@ interface PlusOauth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    UserInfo?: PlusOauthUserInfo;
+    UserInfo?: PlusOauthUserInfo | undefined;
     /**
      * 获取登录授权认证服务列表
      * 获取终端支持的权登录认证服务列表，可用于提示用户进行登录平台的选择。获取登录授权认证服务成功后通过successCB回调返回支持的所有服务列表，获取服务失败则通过errorCB回调返回失败信息。
@@ -14029,7 +14029,7 @@ interface PlusOauthAuthService {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 登录授权认证服务描述
      * 用于描述登录授权认证服务的信息：
@@ -14040,21 +14040,21 @@ interface PlusOauthAuthService {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * 授权认证结果数据
      * 用于保存登录授权认证获取的认证信息，如果值为"undefined"则表示未进行授权认证或者是授权认证失败。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    authResult?: PlusOauthAuthInfo;
+    authResult?: PlusOauthAuthInfo | undefined;
     /**
      * 登录授权认证用户信息
      * 用于保存登录授权认证获取的用户信息，如果值为"undefined"则表示未获取过用户信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    userInfo?: PlusOauthUserInfo;
+    userInfo?: PlusOauthUserInfo | undefined;
     /**
      * 登录授权认证扩展信息
      * 用于保存登录授权认证服务返回的扩展信息，具体内容由各登录平台决定，如果没有扩展信息则为undefined。
@@ -14122,13 +14122,13 @@ interface PlusOauthAuthOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    scope?: string;
+    scope?: string | undefined;
     /**
      * 客户端的当前状态，可以指定任意值，登录认证后原封不动的返回保存到AuthService对象的extra中
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    state?: string;
+    state?: string | undefined;
     /**
      * 登录授权认证服务平台申请的appid
      * 动态设置登录授权服务中需要使用的appid，仅需要此参数的登录授权服务（如“微信登录”、“QQ登录”）支持。
@@ -14136,7 +14136,7 @@ interface PlusOauthAuthOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    appid?: string;
+    appid?: string | undefined;
     /**
      * 登录授权认证服务平台申请的appkey
      * 动态设置登录授权服务中需要使用的appkey，仅需要此参数的登录授权服务（如“新浪微博登录”、“360登录”）支持。
@@ -14144,7 +14144,7 @@ interface PlusOauthAuthOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    appkey?: string;
+    appkey?: string | undefined;
     /**
      * 登录授权认证服务平台申请的appsecret
      * 动态设置登录授权服务中需要使用的appsecret，仅需要此参数的登录授权服务（如“微信登录”、“新浪微博登录”）支持。
@@ -14152,7 +14152,7 @@ interface PlusOauthAuthOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    appsecret?: string;
+    appsecret?: string | undefined;
     /**
      * 登录授权认证服务平台申请的redirect_url
      * 动态设置登录授权服务中需要使用的redirect_url，仅需要此参数的登录授权服务（如“新浪微博登录”）支持。
@@ -14160,7 +14160,7 @@ interface PlusOauthAuthOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    redirect_url?: string;
+    redirect_url?: string | undefined;
 }
 
 /**
@@ -14178,35 +14178,35 @@ interface PlusOauthAuthInfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    access_token?: string;
+    access_token?: string | undefined;
     /**
      * 登录授权用户的唯一标识
      * 如果登录授权服务不支持此属性，则返回"undefined"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    openid?: string;
+    openid?: string | undefined;
     /**
      * 登录授权访问令牌过期时间
      * 单位为秒，如果登录授权服务不支持此属性，则返回"undefined"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    expires_in?: string;
+    expires_in?: string | undefined;
     /**
      * 登录授权的更新令牌
      * 用来获取下一次的访问令牌，如果登录授权服务不支持此属性，则返回"undefined"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    refresh_token?: string;
+    refresh_token?: string | undefined;
     /**
      * 登录授权的权限范围
      * 如果存在多个权限，则以","符号分割。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    scope?: string;
+    scope?: string | undefined;
 }
 
 /**
@@ -14226,35 +14226,35 @@ interface PlusOauthUserInfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    openid?: string;
+    openid?: string | undefined;
     /**
      * 登录授权用户的头像图片地址
      * 要求为"http://"或"https://"开头的地址，如果登录授权服务不支持此属性，则返回"undefined"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    headimgurl?: string;
+    headimgurl?: string | undefined;
     /**
      * 登录授权用户的昵称
      * 如果登录授权服务不支持此属性，则返回"undefined"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    nickname?: string;
+    nickname?: string | undefined;
     /**
      * 登录授权用户的邮箱地址
      * 如果登录授权服务不支持此属性，则返回"undefined"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    email?: string;
+    email?: string | undefined;
     /**
      * 登录授权用户的电话号码
      * 如果登录授权服务不支持此属性，则返回"undefined"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    phonenumber?: string;
+    phonenumber?: string | undefined;
     /**
      * 登录授权用户的性别
      * 1为男性，2为女性。
@@ -14262,28 +14262,28 @@ interface PlusOauthUserInfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    sex?: string;
+    sex?: string | undefined;
     /**
      * 登录授权用户注册的省份信息
      * 如果登录授权服务不支持此属性，则返回"undefined"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    province?: string;
+    province?: string | undefined;
     /**
      * 登录授权用户注册的城市信息
      * 如果登录授权服务不支持此属性，则返回"undefined"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    city?: string;
+    city?: string | undefined;
     /**
      * 登录授权用户注册的国家信息
      * 如果登录授权服务不支持此属性，则返回"undefined"。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    country?: string;
+    country?: string | undefined;
 }
 
 /**
@@ -14298,42 +14298,42 @@ interface PlusPayment {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    PaymentChannel?: PlusPaymentPaymentChannel;
+    PaymentChannel?: PlusPaymentPaymentChannel | undefined;
     /**
      * IAP订单数据对象
      * 描述IAP商品订单信息，如标识、数量等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    OrderStatementIAP?: PlusPaymentOrderStatementIAP;
+    OrderStatementIAP?: PlusPaymentOrderStatementIAP | undefined;
     /**
      * 支付操作结果对象
      * PaymentResult对象表示支付操作返回结果，用于确认支付操作成功。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    PaymentResult?: PlusPaymentPaymentResult;
+    PaymentResult?: PlusPaymentPaymentResult | undefined;
     /**
      * IAP商品对象
      * 描述IAP商品详细信息，如标识、价格、标题、描述信息等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    IAPProduct?: PlusPaymentIAPProduct;
+    IAPProduct?: PlusPaymentIAPProduct | undefined;
     /**
      * 购买IAP商品对象
      * 描述购买的IAP商品详细信息，如标识、数量等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    IAPProductInfo?: PlusPaymentIAPProductInfo;
+    IAPProductInfo?: PlusPaymentIAPProductInfo | undefined;
     /**
      * 购买IAP商品交易信息对象
      * 描述购买的IAP商品交易详细信息，如购买商品信息、交易日期、订单标识等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    IAPTransaction?: PlusPaymentIAPTransaction;
+    IAPTransaction?: PlusPaymentIAPTransaction | undefined;
     /**
      * 获取支付通道
      * 在进行支付操作前需获取终端支持的支付通道列表，用于提示用户进行选择。
@@ -14369,14 +14369,14 @@ interface PlusPaymentPaymentChannel {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 支付通道描述
      * 支付通道的描述信息，如“支付宝”、“微信”、“In-App Purchase”。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * 支付通道服务是否安装
      * 通常特定的支付通道依赖系统安装相关的服务，此属性用于标识其服务是否安装，如果没有安装则为false，否则为true。
@@ -14386,7 +14386,7 @@ interface PlusPaymentPaymentChannel {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    serviceReady?: boolean;
+    serviceReady?: boolean | undefined;
     /**
      * 安装支付通道依赖的服务
      * 对于某些支付通道，通常特定的支付通道依赖系统安装相关的服务，调用此方法将安装其依赖的支付服务。
@@ -14423,19 +14423,19 @@ interface PlusPaymentOrderStatementIAP {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    productid?: string;
+    productid?: string | undefined;
     /**
      * 购买用户名称
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    username?: string;
+    username?: string | undefined;
     /**
      * 商品数量
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    quantity?: string;
+    quantity?: string | undefined;
 }
 
 /**
@@ -14451,42 +14451,42 @@ interface PlusPaymentPaymentResult {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    channel?: PlusPaymentPaymentChannel;
+    channel?: PlusPaymentPaymentChannel | undefined;
     /**
      * 交易编号信息
      * 如果支付平台不支持此数据则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    tradeno?: string;
+    tradeno?: string | undefined;
     /**
      * 交易描述信息
      * 如果支付平台不支持此数据则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    description?: boolean;
+    description?: boolean | undefined;
     /**
      * 查找支付交易信息地址
      * 用于向支付平台查询交易信息，如果支付平台不支持此数据则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    url?: boolean;
+    url?: boolean | undefined;
     /**
      * 支付操作指纹信息
      * 用于向支付平台查询支付订单信息，如果支付平台不支持此数据则返回undefined。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    signature?: string;
+    signature?: string | undefined;
     /**
      * 支付平台返回的原始数据
      * 如果支付平台返回key-value类型字符串，则组合成符合JSON格式的字符串。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    rawdata?: string;
+    rawdata?: string | undefined;
 }
 
 /**
@@ -14501,25 +14501,25 @@ interface PlusPaymentIAPProduct {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    productid?: string;
+    productid?: string | undefined;
     /**
      * 商品的价格
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    price?: string;
+    price?: string | undefined;
     /**
      * 商品标题
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 商品的描述信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    description?: string;
+    description?: string | undefined;
 }
 
 /**
@@ -14534,13 +14534,13 @@ interface PlusPaymentIAPProductInfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    productIdentifier?: string;
+    productIdentifier?: string | undefined;
     /**
      * 商品的数量
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    quantity?: string;
+    quantity?: string | undefined;
 }
 
 /**
@@ -14555,33 +14555,33 @@ interface PlusPaymentIAPTransaction {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    payment?: string;
+    payment?: string | undefined;
     /**
      * 购买商品的交易日期
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    transactionDate?: string;
+    transactionDate?: string | undefined;
     /**
      * 购买商品的交易订单标识
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    transactionIdentifier?: string;
+    transactionIdentifier?: string | undefined;
     /**
      * 购买商品的交易收据
      * base64编码格式字符串数据。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    transactionReceipt?: string;
+    transactionReceipt?: string | undefined;
     /**
      * 购买商品的交易状态
      * 可取值："1"为支付成功；"2"为支付失败；"3"为支付已恢复。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    transactionState?: string;
+    transactionState?: string | undefined;
 }
 
 /**
@@ -14595,19 +14595,19 @@ interface PlusPush {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    ClientInfo?: PlusPushClientInfo;
+    ClientInfo?: PlusPushClientInfo | undefined;
     /**
      * JSON对象，推送消息对象
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    PushMessage?: PlusPushPushMessage;
+    PushMessage?: PlusPushPushMessage | undefined;
     /**
      * JSON对象，获客户端创建本地消息的参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    MessageOptions?: PlusPushMessageOptions;
+    MessageOptions?: PlusPushMessageOptions | undefined;
     /**
      * 添加推送消息事件监听器
      * 添加推送消息事件监听器，当指定推送事件发出时触发。
@@ -14672,7 +14672,7 @@ interface PlusPushClientInfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    token?: string;
+    token?: string | undefined;
     /**
      * 推送服务令牌（设备唯一标识），用于标识推送信息接收者身份
      * 第三方推送服务器管理的设备唯一标识，在iOS平台此值通常与token不同；在其它平台此值通常与token值一致。
@@ -14680,21 +14680,21 @@ interface PlusPushClientInfo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    clientid?: string;
+    clientid?: string | undefined;
     /**
      * 第三方推送服务的应用标识
      * 第三方推送服务器管理的应用标识，通常需要在第三方推送服务器平台进行注册获取。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    appid?: string;
+    appid?: string | undefined;
     /**
      * 第三方推送服务器的应用键值
      * 第三方推送服务器管理的应用键值，通常需要在第三方推送服务器平台进行注册获取。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    appkey?: string;
+    appkey?: string | undefined;
 }
 
 /**
@@ -14708,13 +14708,13 @@ interface PlusPushPushMessage {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 推送消息显示的内容
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    content?: string;
+    content?: string | undefined;
     /**
      * 推送消息承载的数据
      * 如果推送消息中传输的数据不符合JSON格式，则作为String类型数据保存。
@@ -14742,28 +14742,28 @@ interface PlusPushMessageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    appid?: string;
+    appid?: string | undefined;
     /**
      * 是否覆盖上一次提示的消息
      * 可取值true或false，true为覆盖，false不覆盖，默认为permission中设置的cover值。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    cover?: boolean;
+    cover?: boolean | undefined;
     /**
      * 提示消息延迟显示的时间
      * 当设备接收到推送消息后，可不立即显示，而是延迟一段时间显示，延迟时间单位为s，默认为0s，立即显示。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    delay?: number;
+    delay?: number | undefined;
     /**
      * 推送消息的图标
      * 本地图片地址，相对路径 - 相对于当前页面的host位置，如"a.jpg"，注意当前页面为网络地址则不支持； 绝对路径 - 系统绝对路径，如Android平台"/sdcard/logo.png"，此类路径通常通过其它5+ API获取的； 扩展相对路径URL(RelativeURL) - 以"_"开头的相对路径，如"_www/a.jpg"； 本地路径URL - 以“file://”开头，后面跟随系统绝对路径。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    icon?: string;
+    icon?: string | undefined;
     /**
      * 推送消息的提示音
      * 显示消息时的播放的提示音，可取值：
@@ -14775,21 +14775,21 @@ interface PlusPushMessageOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    sound?: 'system' | 'none';
+    sound?: 'system' | 'none' | undefined;
     /**
      * 推送消息的标题
      * 在系统消息中心显示的通知消息标题，默认值为程序的名称。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 消息上显示的提示时间
      * 默认为当前时间，如果延迟显示则使用延时后显示消息的时间。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    when?: Date;
+    when?: Date | undefined;
 }
 
 /**
@@ -14804,48 +14804,48 @@ interface PlusShare {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    AuthOptions?: PlusShareAuthOptions;
+    AuthOptions?: PlusShareAuthOptions | undefined;
     /**
      * 分享授权控件对象
      * Authorize对象表示分享控件对象，用于在窗口中显示分享控件，使用此对象可自定义分享授权界面。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    Authorize?: PlusShareAuthorize;
+    Authorize?: PlusShareAuthorize | undefined;
     /**
      * JSON对象，用户位置信息
      * GeoPosition对象用于表示用户分享消息时的位置信息。用于标识分享操作时用户的位置信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    GeoPosition?: PlusShareGeoPosition;
+    GeoPosition?: PlusShareGeoPosition | undefined;
     /**
      * 分享服务对象
      * ShareService对象用于表示分享服务，在JS中为对象，用于向系统请求分享操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    ShareService?: PlusShareShareService;
+    ShareService?: PlusShareShareService | undefined;
     /**
      * 分享服务标识
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    ShareServerIdentity?: PlusShareShareServerIdentity;
+    ShareServerIdentity?: PlusShareShareServerIdentity | undefined;
     /**
      * JSON对象，分享消息对象
      * ShareMessage对象用于表示分享消息内容，在JS中为JSON对象，用于向系统发送分享信息操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    ShareMessage?: PlusShareShareMessage;
+    ShareMessage?: PlusShareShareMessage | undefined;
     /**
      * JSON对象，保存分享消息扩展信息
      * ShareMessageExtra对象用于保存各分享平台扩展的参数，用于自定义分享功能。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    ShareMessageExtra?: PlusShareShareMessageExtra;
+    ShareMessageExtra?: PlusShareShareMessageExtra | undefined;
     /**
      * JSON对象，微信小程序信息
      * 用于配置分享小程序的参数，如小程序标识、页面路径等。
@@ -14853,7 +14853,7 @@ interface PlusShare {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    WeixinMiniProgramOptions?: PlusShareWeixinMiniProgramOptions;
+    WeixinMiniProgramOptions?: PlusShareWeixinMiniProgramOptions | undefined;
     /**
      * 获取分享服务
      * 获取终端支持的分享通道列表，可用于提示用户进行分享服务器的选择。获取分享服务成功后通过successCB回调返回支持的所有服务列表，获取服务失败则通过errorCB回调返回。
@@ -14885,7 +14885,7 @@ interface PlusShareAuthOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    appid?: string;
+    appid?: string | undefined;
     /**
      * 分享服务平台申请的appkey
      * 动态设置分享服务授权认证时需要使用的appkey，仅需要此参数的分享服务（如“新浪微博”）支持。
@@ -14893,7 +14893,7 @@ interface PlusShareAuthOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    appkey?: string;
+    appkey?: string | undefined;
     /**
      * 分享服务平台申请的appsecret
      * 动态设置分享服务中需要使用的appsecret，仅需要此参数的分享服务（如“微信”、“新浪微博”）支持。
@@ -14901,7 +14901,7 @@ interface PlusShareAuthOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    appsecret?: string;
+    appsecret?: string | undefined;
     /**
      * 分享服务平台申请的redirect_url
      * 动态设置分享服务中需要使用的redirect_url，仅需要此参数的登录授权服务（如“新浪微博登录”）支持。
@@ -14909,7 +14909,7 @@ interface PlusShareAuthOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    redirect_url?: string;
+    redirect_url?: string | undefined;
 }
 
 /**
@@ -14925,21 +14925,21 @@ interface PlusShareAuthorize {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    onloaded?: (result: any) => void;
+    onloaded?: ((result: any) => void) | undefined;
     /**
      * 分享授权认证成功事件
      * 用户在分享授权控件上输入操作授权成功时触发，事件方法格式参考ShareSuccessCallback回调函数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    onauthenticated?: () => void;
+    onauthenticated?: (() => void) | undefined;
     /**
      * 分享授权认证失败事件
      * 用户在分享授权控件上输入操作授权认证错误时触发，事件方法格式参考ShareErrorCallback回调函数。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    onerror?: (result: any) => void;
+    onerror?: ((result: any) => void) | undefined;
     /**
      * 加载分享授权页面
      * 创建分享授权页面后，需要调用此方法指定分享服务标识来加载授权页面数据，此标识可使用ShareService对象的id属性。
@@ -14968,13 +14968,13 @@ interface PlusShareGeoPosition {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    latitude?: number;
+    latitude?: number | undefined;
     /**
      * 用户位置的经度坐标信息
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    longitude?: number;
+    longitude?: number | undefined;
 }
 
 /**
@@ -14994,7 +14994,7 @@ interface PlusShareShareService {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    id?: PlusShareShareServerIdentity;
+    id?: PlusShareShareServerIdentity | undefined;
     /**
      * 分享服务描述
      * 用于描述分享服务的信息：
@@ -15002,28 +15002,28 @@ interface PlusShareShareService {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * 是否授权认证
      * 用于标识此分享是否已经授权认证过，true表示已完成授权认证；false表示未完成授权认证。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    authenticated?: boolean;
+    authenticated?: boolean | undefined;
     /**
      * 授权认证信息
      * 仅在authenticated为true时有效，标识客户认证标识信息，用于发送分享信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    accessToken?: string;
+    accessToken?: string | undefined;
     /**
      * 是否存在对应的分享客户端
      * 对于某些分享服务，可直接调用本地客户端程序进行授权认证，此属性即可提供此相关信息，若没有安装本地客户端则可能调用其它方式进行分享操作，如WAP方式等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    nativeClient?: boolean;
+    nativeClient?: boolean | undefined;
     /**
      * 授权认证操作
      * 对指定的分享服务进行授权认证操作，在授权前可通过ShareService.authenticated属性判断是否已经授权过，通常只需要对没有进行过授权认证的服务进行授权认证操作。
@@ -15067,19 +15067,19 @@ interface PlusShareShareServerIdentity {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    sinaweibo?: string;
+    sinaweibo?: string | undefined;
     /**
      * 腾讯微博
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    tencentweibo?: string;
+    tencentweibo?: string | undefined;
     /**
      * 微信
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    weixin?: string;
+    weixin?: string | undefined;
 }
 
 /**
@@ -15095,13 +15095,13 @@ interface PlusShareShareMessage {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * 分享消息的文字内容
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    content?: string;
+    content?: string | undefined;
     /**
      * 分享消息的图片
      * 分享消息中包含的图片路径，仅支持本地路径。
@@ -15110,7 +15110,7 @@ interface PlusShareShareMessage {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    pictures?: any [];
+    pictures?: any [] | undefined;
     /**
      * 分享消息的缩略图
      * 分享消息中包含的缩略图路径，支持本地路径及网络路径。
@@ -15120,7 +15120,7 @@ interface PlusShareShareMessage {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    thumbs?: any [];
+    thumbs?: any [] | undefined;
     /**
      * 分享的多媒体资源
      * 分享的多媒体资源地址，当type值为"music"、"video"时有效。
@@ -15131,7 +15131,7 @@ interface PlusShareShareMessage {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    media?: string;
+    media?: string | undefined;
     /**
      * 分享独立的链接
      * 分享资源地址，仅支持网络地址（以http://或https://开头）。
@@ -15139,33 +15139,33 @@ interface PlusShareShareMessage {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    href?: string;
+    href?: string | undefined;
     /**
      * 分享消息的标题
      * 仅微信分享网页、音频、视频、小程序类型时支持。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * 分享消息中包含的用户地理信息数据
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    geo?: PlusShareGeoPosition;
+    geo?: PlusShareGeoPosition | undefined;
     /**
      * 分享消息扩展参数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    extra?: PlusShareShareMessageExtra;
+    extra?: PlusShareShareMessageExtra | undefined;
     /**
      * 分享微信小程序参数
      * 仅微信分享小程序类型时支持。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    miniProgram?: PlusShareWeixinMiniProgramOptions;
+    miniProgram?: PlusShareWeixinMiniProgramOptions | undefined;
     /**
      * 分享消息的模式
      * 可取值：
@@ -15186,7 +15186,7 @@ interface PlusShareShareMessage {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    interface?: 'auto' | 'slient' | 'editable';
+    interface?: 'auto' | 'slient' | 'editable' | undefined;
 }
 
 /**
@@ -15206,7 +15206,7 @@ interface PlusShareShareMessageExtra {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    scene?: string;
+    scene?: string | undefined;
 }
 
 /**
@@ -15223,13 +15223,13 @@ interface PlusShareWeixinMiniProgramOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * 微信小程序打开的页面路径
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * 微信小程序版本类型
      * 可取值：
@@ -15240,13 +15240,13 @@ interface PlusShareWeixinMiniProgramOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    type?: number;
+    type?: number | undefined;
     /**
      * 兼容低版本的网页链接
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    webUrl?: string;
+    webUrl?: string | undefined;
 }
 
 /**
@@ -15261,14 +15261,14 @@ interface PlusSpeech {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    SpeechRecognizeOptions?: PlusSpeechSpeechRecognizeOptions;
+    SpeechRecognizeOptions?: PlusSpeechSpeechRecognizeOptions | undefined;
     /**
      * 语音识别事件类型
      * 描述语音过程的触发事件列表，可以通过调用plus.sppech.addEventListener方法进行注册监听。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    SpeechRecoginzeEvents?: PlusSpeechSpeechRecoginzeEvents;
+    SpeechRecoginzeEvents?: PlusSpeechSpeechRecoginzeEvents | undefined;
     /**
      * 启动语音识别
      * 启动语音识别时调用，当语音识别成功后通过successCallback回调返回识别出文本内容，调用语音识别失败则通过errorCallback回调返回。
@@ -15306,7 +15306,7 @@ interface PlusSpeechSpeechRecognizeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    continue?: boolean;
+    continue?: boolean | undefined;
     /**
      * 语音识别引擎标识
      * 用于兼容多语音识别引擎的浏览器，使用语音识别厂商的产品名称，如未设置或设置不正确则使用运行环境默认的语音识别引擎。
@@ -15316,7 +15316,7 @@ interface PlusSpeechSpeechRecognizeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    engine?: string;
+    engine?: string | undefined;
     /**
      * 语音识别引擎的语言
      * 用于定义语音识别引擎的语言，其取值需符合W3C的Language codes规范。
@@ -15329,14 +15329,14 @@ interface PlusSpeechSpeechRecognizeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    lang?: string;
+    lang?: string | undefined;
     /**
      * 指定识别结果识别包括多候选结果
      * 用于指定识别结果识别包括多候选结果。如nbest:3，识别返回3个候选结果，默认值为1。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    nbest?: number;
+    nbest?: number | undefined;
     /**
      * 识别结果中是否包含标点符号
      * true表示识别结果文本中包含标点符号，false表示识别结果文本中不包含标点符号。
@@ -15344,7 +15344,7 @@ interface PlusSpeechSpeechRecognizeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    punctuation?: boolean;
+    punctuation?: boolean | undefined;
     /**
      * 语音识别超时时间
      * 语音识别超时的时间，单位为ms，默认值为1000（即10秒）。
@@ -15352,14 +15352,14 @@ interface PlusSpeechSpeechRecognizeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * 识别时是否显示用户界面
      * 用于指定识别时是否显示用户界面，设置为true表示显示浏览器内置语音识别界面；设置为false表示不显示浏览器内置语音识别界面。默认值为true。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    userInterface?: boolean;
+    userInterface?: boolean | undefined;
     /**
      * 语音识别开始事件（已废弃，使用start事件）
      * 事件函数，语音识别开始启动，在调用startRecognize方法后触发，与onend事件成对触发。
@@ -15367,7 +15367,7 @@ interface PlusSpeechSpeechRecognizeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    onstart?: (result: any) => void;
+    onstart?: ((result: any) => void) | undefined;
     /**
      * 语音识别结束事件（已废弃，使用end事件）
      * 事件函数，语音识别结束，在调用stopRecognize方法后触发，或者在引擎内部自动完成语音识别后触发，与onstart事件成对触发。
@@ -15375,7 +15375,7 @@ interface PlusSpeechSpeechRecognizeOptions {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    onend?: (result: any) => void;
+    onend?: ((result: any) => void) | undefined;
 }
 
 /**
@@ -15392,7 +15392,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    start?: string;
+    start?: string | undefined;
     /**
      * 音量变化
      * 开始语音识别后，麦克风录制到的语音音量变化时触发。
@@ -15400,7 +15400,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    volumeChange?: string;
+    volumeChange?: string | undefined;
     /**
      * 临时语音识别结果
      * 返回临时语音识别结果时触发。
@@ -15408,7 +15408,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    recognizing?: string;
+    recognizing?: string | undefined;
     /**
      * 最终语音识别
      * 返回最终语音识别结果。
@@ -15416,7 +15416,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    recognition?: string;
+    recognition?: string | undefined;
     /**
      * 结束语音识别
      * 调用plus.speech.stopRecognize方法结束语音识别或语音识别完成后自动结束时触发。
@@ -15424,7 +15424,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    end?: string;
+    end?: string | undefined;
     /**
      * 语音识别错误
      * 语音识别发生错误时触发。
@@ -15432,7 +15432,7 @@ interface PlusSpeechSpeechRecoginzeEvents {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    error?: string;
+    error?: string | undefined;
 }
 
 /**

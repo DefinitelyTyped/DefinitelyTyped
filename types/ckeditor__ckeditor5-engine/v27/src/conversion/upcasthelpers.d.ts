@@ -11,29 +11,29 @@ export default class UpcastHelpers extends ConversionHelpers {
             | string
             | {
                   key: string;
-                  name?: string;
-                  value?: RegExp | string | ((value: any) => boolean) | { styles: Record<string, string | RegExp> };
+                  name?: string | undefined;
+                  value?: RegExp | string | ((value: any) => boolean) | { styles: Record<string, string | RegExp> } | undefined;
               };
 
         model: string | { key: string; value: string | ((el: Element, api: UpcastConversionApi) => string) };
 
-        converterPriority?: PriorityString;
+        converterPriority?: PriorityString | undefined;
     }): UpcastHelpers;
     dataToMarker(config?: {
         view: string;
-        model?: (name: string, api: UpcastConversionApi) => string;
-        converterPriority?: PriorityString;
+        model?: ((name: string, api: UpcastConversionApi) => string) | undefined;
+        converterPriority?: PriorityString | undefined;
     }): UpcastHelpers;
     elementToAttribute(config?: {
         view: MatcherPattern;
         model:
             | string
             | { key: string; value: string | ((viewElement: Element, api: UpcastConversionApi) => string | null) };
-        converterPriority?: PriorityString;
+        converterPriority?: PriorityString | undefined;
     }): UpcastHelpers;
     elementToElement(config?: {
-        view?: MatcherPattern;
+        view?: MatcherPattern | undefined;
         model: string | ModelElement | ((el: Element, api: UpcastConversionApi) => ModelElement);
-        converterPriority?: PriorityString;
+        converterPriority?: PriorityString | undefined;
     }): UpcastHelpers;
 }

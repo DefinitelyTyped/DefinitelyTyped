@@ -20,8 +20,8 @@ interface MyComponentProps {
 }
 
 interface AnotherComponentProps {
-    anotherStringProp?: string;
-    anotherNumberProp?: number;
+    anotherStringProp?: string | undefined;
+    anotherNumberProp?: number | undefined;
 }
 
 interface StatelessProps {
@@ -79,7 +79,7 @@ interface OptionalFunctionProp {
     singleArg(arg: any): void;
     multipleArg(arg1: number, arg2: string, arg3: boolean): void;
     multipleReturn(): void | number | boolean | undefined | null | string;
-    nonFun?: number;
+    nonFun?: number | undefined;
 }
 
 class MyRenderPropComponent extends Component<MyRenderPropProps> {}

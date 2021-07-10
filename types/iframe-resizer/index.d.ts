@@ -29,91 +29,91 @@ declare namespace iframeResizer {
      * When enabled changes to the Window size or the DOM will cause the iFrame to resize to the new content size.
      * Disable if using size method with custom dimensions.
      */
-    autoResize?: boolean;
+    autoResize?: boolean | undefined;
     /**
      * Override the body background style in the iFrame.
      */
-    bodyBackground?: string;
+    bodyBackground?: string | undefined;
     /**
      * Override the default body margin style in the iFrame. A string can be any valid value for the
      * CSS margin attribute, for example '8px 3em'. A number value is converted into px.
      */
-    bodyMargin?: number | string;
+    bodyMargin?: number | string | undefined;
     /**
      * Override the default body padding style in the iFrame. A string can be any valid value for the
      * CSS margin attribute, for example '8px 3em'. A number value is converted into px.
      */
-    bodyPadding?: number | string;
+    bodyPadding?: number | string | undefined;
     /**
      * When set to true, only allow incoming messages from the domain listed in the src property of the iFrame tag.
      * If your iFrame navigates between different domains, ports or protocols; then you will need to
      * provide an array of URLs or disable this option.
      */
-    checkOrigin?: boolean | string[];
+    checkOrigin?: boolean | string[] | undefined;
     /**
      * When enabled in page linking inside the iFrame and from the iFrame to the parent page will be enabled.
      */
-    inPageLinks?: boolean;
+    inPageLinks?: boolean | undefined;
     /**
      * Height calculation method.
      */
-    heightCalculationMethod?: HeightCalculationMethod;
+    heightCalculationMethod?: HeightCalculationMethod | undefined;
     /**
      * Set iFrame Id
      */
-    id?: string;
+    id?: string | undefined;
     /**
      * In browsers that don't support mutationObserver, such as IE10, the library falls back to using
      * setInterval, to check for changes to the page size.
      */
-    interval?: number;
+    interval?: number | undefined;
     /**
      * Setting the log option to true will make the scripts in both the host page and the iFrame output
      * everything they do to the JavaScript console so you can see the communication between the two scripts.
      */
-    log?: boolean;
+    log?: boolean | undefined;
     /**
      * Set maximum height of iFrame.
      */
-    maxHeight?: number;
+    maxHeight?: number | undefined;
     /**
      * Set maximum width of iFrame.
      */
-    maxWidth?: number;
+    maxWidth?: number | undefined;
     /**
      * Set minimum height of iFrame.
      */
-    minHeight?: number;
+    minHeight?: number | undefined;
     /**
      * Set minimum width of iFrame.
      */
-    minWidth?: number;
+    minWidth?: number | undefined;
     /**
      * Listen for resize events from the parent page, or the iFrame. Select the 'child' value if the iFrame
      * can be resized independently of the browser window. Selecting this value can cause issues with some
      * height calculation methods on mobile devices.
      */
-    resizeFrom?: 'parent' | 'child';
+    resizeFrom?: 'parent' | 'child' | undefined;
     /**
      * Enable scroll bars in iFrame.
      */
-    scrolling?: boolean | 'auto';
+    scrolling?: boolean | 'auto' | undefined;
     /**
      * Resize iFrame to content height.
      */
-    sizeHeight?: boolean;
+    sizeHeight?: boolean | undefined;
     /**
      * Resize iFrame to content width.
      */
-    sizeWidth?: boolean;
+    sizeWidth?: boolean | undefined;
     /**
      * Set the number of pixels the iFrame content size has to change by, before triggering a resize of the iFrame.
      */
-    tolerance?: number;
+    tolerance?: number | undefined;
     /**
      * Width calculation method.
      */
-    widthCalculationMethod?: WidthCalculationMethod;
+    widthCalculationMethod?: WidthCalculationMethod | undefined;
 
     /**
      * Called when iFrame is closed via parentIFrame.close() or iframe.iframeResizer.close() methods.
@@ -151,7 +151,7 @@ declare namespace iframeResizer {
      * This option allows you to restrict the domain of the parent page,
      * to prevent other sites mimicking your parent page.
      */
-    targetOrigin?: string;
+    targetOrigin?: string | undefined;
 
     /**
      * Receive message posted from the parent page with the iframe.iFrameResizer.sendMessage() method.
@@ -166,11 +166,11 @@ declare namespace iframeResizer {
     /**
      * These option can be used to override the option set in the parent page
      */
-    heightCalculationMethod?: HeightCalculationMethod | (() => number);
+    heightCalculationMethod?: HeightCalculationMethod | (() => number) | undefined;
     /**
      * These option can be used to override the option set in the parent page
      */
-    widthCalculationMethod?: WidthCalculationMethod | (() => number);
+    widthCalculationMethod?: WidthCalculationMethod | (() => number) | undefined;
   }
 
   type HeightCalculationMethod = 'bodyOffset' | 'bodyScroll' | 'documentElementOffset' | 'documentElementScroll' |

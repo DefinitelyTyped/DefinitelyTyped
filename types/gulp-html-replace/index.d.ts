@@ -17,9 +17,9 @@ interface Tasks {
 }
 
 interface Options {
-    keepUnassigned?: boolean;
-    keepBlockTags?: boolean;
-    resolvePaths?: boolean;
+    keepUnassigned?: boolean | undefined;
+    keepBlockTags?: boolean | undefined;
+    resolvePaths?: boolean | undefined;
 }
 
 interface HtmlReplace {

@@ -91,8 +91,8 @@ export class MediaStream {
 }
 
 export interface ConfigurationParam {
-    username?: string;
-    credential?: string;
+    username?: string | undefined;
+    credential?: string | undefined;
 }
 
 export interface ConfigurationParamWithUrls extends ConfigurationParam {
@@ -105,10 +105,10 @@ export interface ConfigurationParamWithUrl extends ConfigurationParam {
 
 export interface RTCPeerConnectionConfiguration {
     iceServers: ConfigurationParamWithUrls[] | ConfigurationParamWithUrl[];
-    iceTransportPolicy?: "all" | "relay" | "nohost" | "none";
-    bundlePolicy?: "balanced" | "max-compat" | "max-bundle";
-    rtcpMuxPolicy?: "negotiate" | "require";
-    iceCandidatePoolSize?: number;
+    iceTransportPolicy?: "all" | "relay" | "nohost" | "none" | undefined;
+    bundlePolicy?: "balanced" | "max-compat" | "max-bundle" | undefined;
+    rtcpMuxPolicy?: "negotiate" | "require" | undefined;
+    iceCandidatePoolSize?: number | undefined;
 }
 
 export interface EventOnCandidate {
@@ -226,8 +226,8 @@ export interface MediaTrackConstraints {
 }
 
 export interface MediaStreamConstraints {
-    video?: boolean | MediaTrackConstraints;
-    audio?: boolean;
+    video?: boolean | MediaTrackConstraints | undefined;
+    audio?: boolean | undefined;
 }
 
 export class mediaDevices {
@@ -242,21 +242,21 @@ export function registerGlobals(): void;
 
 export interface RTCViewProps {
     streamURL: string;
-    mirror?: boolean;
-    zOrder?: number;
-    objectFit?: "contain" | "cover";
-    style?: ViewStyle;
+    mirror?: boolean | undefined;
+    zOrder?: number | undefined;
+    objectFit?: "contain" | "cover" | undefined;
+    style?: ViewStyle | undefined;
 }
 
 export class RTCView extends Component<RTCViewProps, any> {}
 
 export interface RTCOfferOptions {
-    iceRestart?: boolean;
-    offerToReceiveAudio?: boolean;
-    offerToReceiveVideo?: boolean;
-    voiceActivityDetection?: boolean;
+    iceRestart?: boolean | undefined;
+    offerToReceiveAudio?: boolean | undefined;
+    offerToReceiveVideo?: boolean | undefined;
+    voiceActivityDetection?: boolean | undefined;
 }
 
 export interface RTCAnswerOptions {
-    voiceActivityDetection?: boolean;
+    voiceActivityDetection?: boolean | undefined;
 }

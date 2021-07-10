@@ -10,8 +10,8 @@ import session = require('express-session');
 
 declare module "socket.io" {
     interface Handshake {
-        session?: session.Session & Partial<session.SessionData>;
-        sessionID?: string;
+        session?: session.Session & Partial<session.SessionData> | undefined;
+        sessionID?: string | undefined;
     }
 }
 
@@ -26,8 +26,8 @@ declare function sharedsession(
 
 declare namespace sharedsession {
     interface SharedSessionOptions {
-        autoSave?: boolean;
-        saveUninitialized?: boolean;
+        autoSave?: boolean | undefined;
+        saveUninitialized?: boolean | undefined;
     }
 
     type SocketIoSharedSessionMiddleware = (socket: socketio.Socket, next: (err?: any) => void) => void;

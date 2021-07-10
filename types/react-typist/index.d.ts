@@ -8,11 +8,11 @@ import * as React from 'react';
 
 export namespace Typist {
     interface CursorProps {
-        show?: boolean;
-        blink?: boolean;
-        element?: string;
-        hideWhenDone?: boolean;
-        hideWhenDoneDelay?: number;
+        show?: boolean | undefined;
+        blink?: boolean | undefined;
+        element?: string | undefined;
+        hideWhenDone?: boolean | undefined;
+        hideWhenDoneDelay?: number | undefined;
     }
 
     interface CurrentTextProps {
@@ -29,22 +29,22 @@ export namespace Typist {
     class Delay extends React.Component<DelayProps> {}
 
     interface BackSpaceProps {
-        count?: number;
-        delay?: number;
+        count?: number | undefined;
+        delay?: number | undefined;
     }
     class Backspace extends React.Component<BackSpaceProps> {}
 }
 
 export interface TypistProps {
-    className?: string;
-    avgTypingDelay?: number;
-    stdTypingDelay?: number;
-    startDelay?: number;
-    cursor?: Typist.CursorProps;
-    onCharacterTyped?: (char: string, charIndex: number) => void;
-    onLineTyped?: (line: string, lineIndex: number) => void;
-    onTypingDone?: () => void;
-    delayGenerator?: (mean: number, std: number, current: Typist.CurrentTextProps) => number;
+    className?: string | undefined;
+    avgTypingDelay?: number | undefined;
+    stdTypingDelay?: number | undefined;
+    startDelay?: number | undefined;
+    cursor?: Typist.CursorProps | undefined;
+    onCharacterTyped?: ((char: string, charIndex: number) => void) | undefined;
+    onLineTyped?: ((line: string, lineIndex: number) => void) | undefined;
+    onTypingDone?: (() => void) | undefined;
+    delayGenerator?: ((mean: number, std: number, current: Typist.CurrentTextProps) => number) | undefined;
 }
 
 export class Typist extends React.Component<TypistProps> {}

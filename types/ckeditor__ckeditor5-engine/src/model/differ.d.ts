@@ -11,7 +11,7 @@ export default class Differ {
     bufferMarkerChange(markerName: string, oldRange: Range | null, newRange: Range | null, affectsData: boolean): void;
     bufferOperation(operation: Operation): void;
     getChangedMarkers(): Marker[];
-    getChanges(options?: { includeChangesInGraveyard?: boolean }): DiffItem[];
+    getChanges(options?: { includeChangesInGraveyard?: boolean | undefined }): DiffItem[];
     getMarkersToAdd(): Marker[];
     getMarkersToRemove(): Marker[];
     hasDataChanges(): boolean;

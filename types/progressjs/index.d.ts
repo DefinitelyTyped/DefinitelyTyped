@@ -89,15 +89,15 @@ interface ProgressJsOptions {
   /**
    * progress bar theme
    */
-  theme?: string;
+  theme?: string | undefined;
   /**
    * overlay mode makes an overlay layer in the target element
    */
-  overlayMode?: boolean;
+  overlayMode?: boolean | undefined;
   /**
    * to consider CSS3 transitions in events
    */
-  considerTransition?: boolean;
+  considerTransition?: boolean | undefined;
 }
 
 declare var progressJs: ProgressJsStatic

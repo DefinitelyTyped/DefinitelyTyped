@@ -1101,15 +1101,15 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     warnings?: boolean | {
       /** Enables all warnings except forgotten return statements. */
       wForgottenReturn: boolean;
-    };
+    } | undefined;
     /** Enable long stack traces */
-    longStackTraces?: boolean;
+    longStackTraces?: boolean | undefined;
     /** Enable cancellation */
-    cancellation?: boolean;
+    cancellation?: boolean | undefined;
     /** Enable monitoring */
-    monitoring?: boolean;
+    monitoring?: boolean | undefined;
     /** Enable async hooks */
-    asyncHooks?: boolean;
+    asyncHooks?: boolean | undefined;
   }): void;
 
   /**
@@ -1132,14 +1132,14 @@ declare namespace Bluebird {
     spread: boolean;
   }
   interface FromNodeOptions {
-    multiArgs?: boolean;
+    multiArgs?: boolean | undefined;
   }
   interface PromisifyOptions {
     context?: any;
-    multiArgs?: boolean;
+    multiArgs?: boolean | undefined;
   }
   interface PromisifyAllOptions<T> extends PromisifyOptions {
-    suffix?: string;
+    suffix?: string | undefined;
     filter?(name: string, func: (...args: any[]) => any, target?: any, passesDefaultFilter?: boolean): boolean;
     // The promisifier gets a reference to the original method and should return a function which returns a promise
     promisifier?(this: T, originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>): () => PromiseLike<any>;

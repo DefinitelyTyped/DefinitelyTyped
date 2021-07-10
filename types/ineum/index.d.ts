@@ -39,24 +39,24 @@ declare function ineum(
     command: 'reportError',
     error: Error | string,
     opts?: {
-        componentStack?: string;
+        componentStack?: string | undefined;
         meta?: {
             [key: string]: string | number | boolean;
-        };
+        } | undefined;
     },
 ): void;
 declare function ineum(
     command: 'reportEvent',
     name: string,
     opts?: {
-        duration?: number;
-        timestamp?: number;
-        backendTraceId?: string;
-        error?: Error;
-        componentStack?: string;
+        duration?: number | undefined;
+        timestamp?: number | undefined;
+        backendTraceId?: string | undefined;
+        error?: Error | undefined;
+        componentStack?: string | undefined;
         meta?: {
             [key: string]: string | number | boolean;
-        };
+        } | undefined;
     },
 ): void;
 

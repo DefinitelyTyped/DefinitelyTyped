@@ -73,9 +73,9 @@ declare namespace Link {
 
     interface LinkData {
         /** @default 'utf-8' */
-        encoding?: string;
+        encoding?: string | undefined;
         /** @default 'en' */
-        language?: string;
+        language?: string | undefined;
         value: string | Buffer;
     }
 }

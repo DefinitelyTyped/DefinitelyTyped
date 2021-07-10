@@ -10,7 +10,7 @@ interface Options {
      * HTTP request method
      * @default 'POST'
      */
-    method?: string;
+    method?: string | undefined;
 
     /**
      * endpoint URL
@@ -20,7 +20,7 @@ interface Options {
     /**
      * HTTP headers, can be string or object
      */
-    headers?: object | string;
+    headers?: object | string | undefined;
 
     /**
      *  SOAP envelope, can be read from file or passed as string
@@ -31,29 +31,29 @@ interface Options {
      * Milliseconds before timing out request
      * @default 10000
      */
-    timeout?: number;
+    timeout?: number | undefined;
 
     /**
      * Object with proxy configuration
      */
-    proxy?: AxiosProxyConfig;
+    proxy?: AxiosProxyConfig | undefined;
 
     /**
      * Limit body size being sent(bytes)
      * @default Infinity
      */
-    maxBodyLength?: number;
+    maxBodyLength?: number | undefined;
 
     /**
      * Limit content size being sent(bytes)
      * @default Infinity
      */
-    maxContentLength?: number;
+    maxContentLength?: number | undefined;
 
     /**
      * Object of additional axios parameters.
      */
-    extraOpts?: AxiosRequestConfig;
+    extraOpts?: AxiosRequestConfig | undefined;
 }
 
 interface Response {

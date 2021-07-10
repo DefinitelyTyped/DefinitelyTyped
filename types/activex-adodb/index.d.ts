@@ -888,7 +888,7 @@ declare namespace ADODB {
         _xSave(FileName?: string, PersistFormat?: PersistFormatEnum): void;
         AbsolutePage: PositionEnum;
         AbsolutePosition: PositionEnum;
-        readonly ActiveCommand?: Command;
+        readonly ActiveCommand?: Command | undefined;
 
         /**
          * Sets or returns a String value that contains a definition for a connection if the connection is closed, or a Variant containing the current Connection object if the connection is open. Default is a null object reference.

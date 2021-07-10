@@ -7,7 +7,7 @@ declare function autoBind(
 
 declare namespace autoBind {
     interface Options {
-        overwriteDefinition?: boolean;
-        resolveContext?: (context: any) => any;
+        overwriteDefinition?: boolean | undefined;
+        resolveContext?: ((context: any) => any) | undefined;
     }
 }

@@ -17,37 +17,37 @@ declare namespace JQueryDotDotDot {
         /**    The text to add as ellipsis.
           * Default: '... '
           */
-        ellipsis?: string;
+        ellipsis?: string | undefined;
 
         /** How to cut off the text/html: 'word'/'letter'/'children'
           * Default: 'word'
           */
-        wrap?: string;
+        wrap?: string | undefined;
 
         /** Wrap-option fallback to 'letter' for long words
           * Default: true
           */
-        fallbackToLetter?: boolean;
+        fallbackToLetter?: boolean | undefined;
 
         /** jQuery-selector for the element to keep and put after the ellipsis.
           * Default: null
           */
-        after?: string | JQuery;
+        after?: string | JQuery | undefined;
 
         /** Whether to update the ellipsis: true/'window'
           * Default: false
           */
-        watch?: boolean | "window";
+        watch?: boolean | "window" | undefined;
 
         /** Optionally set a max-height, if null, the height will be measured.
           * Default: null
           */
-        height?: number;
+        height?: number | undefined;
 
         /** Deviation for the height-option.
           * Default: 0
           */
-        tolerance?: number; //
+        tolerance?: number | undefined; //
 
         /** Callback function that is fired after the ellipsis is added,
           * receives two parameters:
@@ -60,18 +60,18 @@ declare namespace JQueryDotDotDot {
           */
         callback? (isTruncated: boolean, orgContent: any): void;
 
-        lastCharacter?: IDotDotDotOptionsLastCharacter;
+        lastCharacter?: IDotDotDotOptionsLastCharacter | undefined;
     }
 
     interface IDotDotDotOptionsLastCharacter {
         /** Remove these characters from the end of the truncated text.
           * Default: [' ', ',', ';', '.', '!', '?']
           */
-        remove?: string[];
+        remove?: string[] | undefined;
         /** Don't add an ellipsis if this array contains
           * the last character of the truncated text.
           * Default:  []
           */
-        noEllipsis?: string[];
+        noEllipsis?: string[] | undefined;
     }
 }

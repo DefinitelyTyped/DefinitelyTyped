@@ -77,7 +77,7 @@ export interface CompletionItem {
     /**
      * The optional description of the completion.
      */
-    description?: string;
+    description?: string | undefined;
 }
 
 // Legacy aliases:

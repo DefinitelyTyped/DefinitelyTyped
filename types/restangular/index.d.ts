@@ -127,8 +127,8 @@ declare namespace restangular {
     save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
     getRequestedUrl(): string;
-    route?: string;
-    id?: number | string;
+    route?: string | undefined;
+    id?: number | string | undefined;
     reqParams?: any;
   }
 

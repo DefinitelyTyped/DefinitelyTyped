@@ -22,13 +22,13 @@ export interface ClientOptions {
     endPoint: string;
     accessKey: string;
     secretKey: string;
-    useSSL?: boolean;
-    port?: number;
-    region?: Region;
+    useSSL?: boolean | undefined;
+    port?: number | undefined;
+    region?: Region | undefined;
     transport?: any;
-    sessionToken?: string;
-    partSize?: number;
-    pathStyle?: boolean;
+    sessionToken?: string | undefined;
+    partSize?: number | undefined;
+    pathStyle?: boolean | undefined;
 }
 
 export interface BucketItemFromList {

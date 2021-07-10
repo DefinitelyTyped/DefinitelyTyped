@@ -19,11 +19,11 @@ export interface MockStore<State extends object, Actions extends Action> extends
 }
 
 export interface CreateMockStoreOptions<State extends object, Dependency extends object> {
-    initialState?: State;
-    reducer?: Reducer;
-    logic?: Array<Logic<State, Dependency>>;
-    injectedDeps?: Dependency;
-    middleware?: Middleware[];
+    initialState?: State | undefined;
+    reducer?: Reducer | undefined;
+    logic?: Array<Logic<State, Dependency>> | undefined;
+    injectedDeps?: Dependency | undefined;
+    middleware?: Middleware[] | undefined;
 }
 
 export interface CreateMockStore {

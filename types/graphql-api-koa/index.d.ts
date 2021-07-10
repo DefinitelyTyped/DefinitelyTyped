@@ -8,7 +8,7 @@ import { GraphQLSchema } from "graphql";
 import { Middleware, ParameterizedContext } from "koa";
 
 export interface ExecuteOptions {
-  schema?: GraphQLSchema;
+  schema?: GraphQLSchema | undefined;
   rootValue?: any;
   contextValue?: any;
   fieldResolver?: any;
@@ -18,6 +18,6 @@ export function errorHandler(): Middleware;
 
 export function execute<StateT = any, CustomT = {}>(
   options: ExecuteOptions & {
-    override?: (ctx: ParameterizedContext<StateT, CustomT>) => ExecuteOptions;
+    override?: ((ctx: ParameterizedContext<StateT, CustomT>) => ExecuteOptions) | undefined;
   }
 ): Middleware<StateT, CustomT>;

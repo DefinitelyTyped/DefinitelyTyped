@@ -2,18 +2,18 @@ import * as React from "react";
 
 export type ActionBarProps = {
     title: string,
-    actionClassName?: string,
+    actionClassName?: string | undefined,
     actionProps?: any,
-    actions?: React.ReactNode,
-    buttonContainerClassName?: string,
+    actions?: React.ReactNode | undefined,
+    buttonContainerClassName?: string | undefined,
     buttonProps?: any,
-    className?: string,
-    description?: string,
+    className?: string | undefined,
+    description?: string | undefined,
     descriptionProps?: any,
-    disableStyles?: boolean,
+    disableStyles?: boolean | undefined,
     headingLevel?: any,
     titleProps?: any,
-    onBackClick?: (...args: any[]) => any
+    onBackClick?: ((...args: any[]) => any) | undefined
   } & Pick<React.HTMLAttributes<HTMLDivElement>, Exclude<keyof React.HTMLAttributes<HTMLDivElement>, 'children'>>;
 
 export const ActionBar: React.FunctionComponent<ActionBarProps> & {

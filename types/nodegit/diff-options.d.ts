@@ -1,17 +1,17 @@
 import { Strarray } from './str-array';
 
 export interface DiffOptions {
-    version?: number;
-    flags?: number;
-    ignoreSubmodules?: number;
-    pathspec?: Strarray | string | string[];
-    notifyCb?: Function;
-    contextLines?: number;
-    interhunkLines?: number;
-    idAbbrev?: number;
-    maxSize?: number;
-    oldPrefix?: string;
-    newPrefix?: string;
+    version?: number | undefined;
+    flags?: number | undefined;
+    ignoreSubmodules?: number | undefined;
+    pathspec?: Strarray | string | string[] | undefined;
+    notifyCb?: Function | undefined;
+    contextLines?: number | undefined;
+    interhunkLines?: number | undefined;
+    idAbbrev?: number | undefined;
+    maxSize?: number | undefined;
+    oldPrefix?: string | undefined;
+    newPrefix?: string | undefined;
     payload?: any;
     progressCb?: any;
     [key: string]: any;

@@ -81,19 +81,19 @@ export interface ParsingConfiguration {
     /**
      * The argv to parse. Defaults to `process.argv`.
      */
-    argv?: string[];
+    argv?: string[] | undefined;
 
     /**
      * The index into argv at which options/args begin.  Default is 2, as appropriate for `process.argv`.
      */
-    slice?: number;
+    slice?: number | undefined;
 
     /**
      * The env to use for 'env' entries in the option specs. Defaults to `process.env`.
      */
     env?: any; // NodeJS.ProcessEnv;
 
-    options?: Array<Option | Group>;
+    options?: Array<Option | Group> | undefined;
 }
 
 export interface ParserConfiguration {
@@ -107,7 +107,7 @@ export interface ParserConfiguration {
      * If false, then unknown args are included in the _args array.
      * Default: false
      */
-    allowUnknown?: boolean;
+    allowUnknown?: boolean | undefined;
 
     /**
      * Whether to allow interspersed arguments (non-options) and options.
@@ -122,7 +122,7 @@ export interface ParserConfiguration {
      *
      * Default: true
      */
-    interspersed?: boolean;
+    interspersed?: boolean | undefined;
 }
 
 export interface OptionWithoutAliases extends OptionBase {
@@ -158,38 +158,38 @@ export interface OptionBase {
      * This is for custom completions for a given tool.
      * Typically these custom functions are provided in the specExtra argument to dashdash.bashCompletionFromOptions().
      */
-    completionType?: string;
+    completionType?: string | undefined;
 
     /**
      * An environment variable name (or names) that can be used as a fallback for this option.
      * An environment variable is only used as a fallback, i.e. it is ignored if the associated option is given in `argv`.
      */
-    env?: string | string[];
+    env?: string | string[] | undefined;
 
     /**
      * Used for parser.help() output.
      */
-    help?: string;
+    help?: string | undefined;
 
     /**
      * Used in help output as the placeholder for the option argument.
      */
-    helpArg?: string;
+    helpArg?: string | undefined;
 
     /**
      * Set this to false to have that option's help not be text wrapped in <parser>.help() output.
      */
-    helpWrap?: boolean;
+    helpWrap?: boolean | undefined;
 
     /**
      * A default value used for this option, if the option isn't specified in argv.
      */
-    default?: string;
+    default?: string | undefined;
 
     /**
      * If true, help output will not include this option.
      */
-    hidden?: boolean;
+    hidden?: boolean | undefined;
 }
 
 export interface Group {
@@ -207,7 +207,7 @@ export interface OptionType {
     /**
      * Required iff `takesArg === true`. The string to show in generated help for options of this type.
      */
-    helpArg?: string;
+    helpArg?: string | undefined;
     /**
      * parser that takes a string argument and returns an instance of the
      * appropriate type, or throws an error if the arg is invalid.
@@ -217,8 +217,8 @@ export interface OptionType {
      * Set to true if this is an 'arrayOf' type
      * that collects multiple usages of the option in process.argv and puts results in an array.
      */
-    array?: boolean;
-    arrayFlatten?: boolean;
+    array?: boolean | undefined;
+    arrayFlatten?: boolean | undefined;
     /**
      * Default value for options of this type, if no default is specified in the option type usage.
      */
@@ -235,20 +235,20 @@ export interface BashCompletionConfiguration {
     /**
      * The array of dashdash option specs.
      */
-    options?: Array<Option | Group>;
+    options?: Array<Option | Group> | undefined;
 
     /**
      * Extra Bash code content to add
      * to the end of the "spec". Typically this is used to append Bash
      * "complete_TYPE" functions for custom option types.
      */
-    specExtra?: string;
+    specExtra?: string | undefined;
 
     /**
      * Array of completion types for positional args (i.e. non-options).
      * If not given, positional args will use Bash's 'default' completion.
      */
-    argtypes?: string[];
+    argtypes?: string[] | undefined;
 }
 
 export interface BashCompletionSpecConfiguration {
@@ -262,7 +262,7 @@ export interface BashCompletionSpecConfiguration {
      * vars in the spec. By default it is the empty string. When used to
      * scope for completion on a *sub-command*.
      */
-    context?: string;
+    context?: string | undefined;
 
     /**
      * By default
@@ -271,13 +271,13 @@ export interface BashCompletionSpecConfiguration {
      * will be completed. "Hidden" options and subcmds are ones with the
      * `hidden: true` attribute to exclude them from default help output.
      */
-    includeHidden?: boolean;
+    includeHidden?: boolean | undefined;
 
     /**
      * Array of completion types for positional args (i.e. non-options).
      * If not given, positional args will use Bash's 'default' completion.
      */
-    argtypes?: string[];
+    argtypes?: string[] | undefined;
 }
 
 export interface HelpConfiguration {
@@ -285,58 +285,58 @@ export interface HelpConfiguration {
      * Set to a number (for that many spaces) or a string for the literal indent.
      * Default: 4
      */
-    indent?: number | string;
+    indent?: number | string | undefined;
 
     /**
      * Set to a number (for that many spaces) or a string for the literal indent.
      * This indent applies to group heading lines, between normal option lines.
      * Default: half length of `indent`
      */
-    headingIndent?: number | string;
+    headingIndent?: number | string | undefined;
 
     /**
      * By default the names are sorted to put the short opts first (i.e. '-h, --help' preferred to '--help, -h').
      * Set to 'none' to not do this sorting.
      * Default: 'length'
      */
-    nameSort?: string;
+    nameSort?: string | undefined;
 
     /**
      * Note that reflow is just done on whitespace so a long token in the option help can overflow maxCol.
      * Default: 80
      */
-    maxCol?: number;
+    maxCol?: number | undefined;
 
     /**
      * If not set a reasonable value will be determined between minHelpCol and maxHelpCol.
      */
-    helpCol?: number;
+    helpCol?: number | undefined;
 
     /**
      * Default: 20
      */
-    minHelpCol?: number;
+    minHelpCol?: number | undefined;
 
     /**
      * Default: 40
      */
-    maxHelpCol?: number;
+    maxHelpCol?: number | undefined;
 
     /**
      * Set to `false` to have option `help` strings not be textwrapped to the helpCol..maxCol range.
      * Default: true
      */
-    helpWrap?: boolean;
+    helpWrap?: boolean | undefined;
 
     /**
      * If the option has associated environment variables (via the env option spec attribute), then append mentioned of those envvars to the help string.
      * Default: false
      */
-    includeEnv?: boolean;
+    includeEnv?: boolean | undefined;
 
     /**
      * If the option has a default value (via the default option spec attribute, or a default on the option's type), then a "Default: VALUE" string will be appended to the help string.
      * Default: false
      */
-    includeDefault?: boolean;
+    includeDefault?: boolean | undefined;
 }

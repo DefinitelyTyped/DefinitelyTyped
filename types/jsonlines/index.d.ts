@@ -13,7 +13,7 @@ export interface Line {
 }
 
 export interface Options {
-    emitInvalidLines?: boolean;
+    emitInvalidLines?: boolean | undefined;
 }
 
 /** A transform stream that turns newline separated json into a stream of javascript values. */

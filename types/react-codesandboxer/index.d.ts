@@ -8,7 +8,7 @@ import * as React from 'react';
 export interface GitInfo {
     account: string;
     repository: string;
-    branch?: string;
+    branch?: string | undefined;
     host: 'bitbucket' | 'github';
 }
 
@@ -34,49 +34,49 @@ export type ImportReplacement = [string, string];
 
 export interface Error {
     name: string;
-    description?: string;
-    content?: string;
+    description?: string | undefined;
+    content?: string | undefined;
 }
 
 export interface State {
     parameters: string;
     isLoading: boolean;
     isDeploying: boolean;
-    sandboxId?: string;
-    sandboxUrl?: string;
-    deployPromise?: Promise<any>;
-    files?: Files;
-    error?: Error;
+    sandboxId?: string | undefined;
+    sandboxUrl?: string | undefined;
+    deployPromise?: Promise<any> | undefined;
+    files?: Files | undefined;
+    error?: Error | undefined;
     fileName: string;
 }
 
 export interface Props {
     examplePath: string;
-    name?: string;
+    name?: string | undefined;
     gitInfo: GitInfo;
-    example?: string | Promise<string>;
-    pkgJSON?: Package | string | Promise<Package | string>;
-    importReplacements?: ImportReplacement[];
-    dependencies?: { [key: string]: string };
-    skipRedirect?: boolean;
-    ignoreInternalImports?: boolean;
-    preload?: boolean;
-    autoDeploy?: boolean;
-    onLoadComplete?: (
+    example?: string | Promise<string> | undefined;
+    pkgJSON?: Package | string | Promise<Package | string> | undefined;
+    importReplacements?: ImportReplacement[] | undefined;
+    dependencies?: { [key: string]: string } | undefined;
+    skipRedirect?: boolean | undefined;
+    ignoreInternalImports?: boolean | undefined;
+    preload?: boolean | undefined;
+    autoDeploy?: boolean | undefined;
+    onLoadComplete?: ((
         arg: { parameters: string; files: Files } | { error: any }
-    ) => unknown;
-    afterDeploy?: (sandboxUrl: string, sandboxId: string) => unknown;
-    afterDeployError?: (error: Error) => unknown;
-    providedFiles?: Files;
+    ) => unknown) | undefined;
+    afterDeploy?: ((sandboxUrl: string, sandboxId: string) => unknown) | undefined;
+    afterDeployError?: ((error: Error) => unknown) | undefined;
+    providedFiles?: Files | undefined;
     children: (obj: {
         isLoading: boolean;
-        files?: Files;
-        sandboxId?: string;
-        sandboxUrl?: string;
+        files?: Files | undefined;
+        sandboxId?: string | undefined;
+        sandboxUrl?: string | undefined;
     }) => React.ReactNode;
-    style?: object;
-    extensions?: string[];
-    template?: 'create-react-app' | 'create-react-app-typescript' | 'vue-cli';
+    style?: object | undefined;
+    extensions?: string[] | undefined;
+    template?: 'create-react-app' | 'create-react-app-typescript' | 'vue-cli' | undefined;
 }
 
 export default class CodeSandboxDeployer extends React.Component<Props, State> {}

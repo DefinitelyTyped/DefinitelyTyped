@@ -6,7 +6,7 @@ interface A {
 
 interface B {
   foo: string;
-  bar?: string;
+  bar?: string | undefined;
 }
 
 const a: A = { foo: 'bar' };

@@ -5,10 +5,10 @@
 // TypeScript Version: 2.8
 
 export interface Options {
-    host?: string;
-    port?: number;
-    resolveReference?: boolean;
-    timeout?: number;
+    host?: string | undefined;
+    port?: number | undefined;
+    resolveReference?: boolean | undefined;
+    timeout?: number | undefined;
 }
 
 export interface TimeOptions {

@@ -15,7 +15,7 @@ declare namespace GM {
         includes: string[];
         matches: string[];
         name: string;
-        namespace?: string;
+        namespace?: string | undefined;
         /**
          * An object keyed by resource name.
          * Each value is an object with keys `name` and `mimetype` and `url`
@@ -40,7 +40,7 @@ declare namespace GM {
         readonly responseHeaders: string;
         readonly finalUrl: string;
         /** The same object passed into the original request */
-        readonly context?: TContext;
+        readonly context?: TContext | undefined;
 
         readonly readyState: 1 | 2 | 3 | 4;
         readonly response: any;
@@ -79,44 +79,44 @@ declare namespace GM {
          * When true, the data is sent as a Blob
          * @default false
          */
-        binary?: boolean;
+        binary?: boolean | undefined;
         /**
          * Any object (Compatibility: 1.10+). This object will also be the
          * context property of the Response Object.
          */
-        context?: TContext;
+        context?: TContext | undefined;
         /**
          * Data to send in the request body. Usually for POST method requests.
          * If the data field contains form-encoded data, you usually must also
          * set the header `'Content-Type': 'application/x-www-form-urlencoded'`
          * in the `headers` field.
          */
-        data?: string;
+        data?: string | undefined;
         /** A set of headers to include in the request */
         headers?: {
             [header: string]: string
-        };
+        } | undefined;
         /**
          * A MIME type to specify with the request (e.g.
          * "text/html; charset=ISO-8859-1")
          */
-        overrideMimeType?: string;
+        overrideMimeType?: string | undefined;
         /** User name to use for authentication purposes. */
-        user?: string;
+        user?: string | undefined;
         /** Password to use for authentication purposes */
-        password?: string;
+        password?: string | undefined;
         /**
          * When `true`, this is a synchronous request.
          * Be careful: The entire Firefox UI will be locked and frozen until the
          * request completes.In this mode, more data will be available in the
          * return value.
          */
-        synchronous?: boolean;
+        synchronous?: boolean | undefined;
         /**
          * The number of milliseconds to wait before terminating the call. Zero
          * (the default) means wait forever.
          */
-        timeout?: number;
+        timeout?: number | undefined;
         /**
          * Object containing optional function callbacks to monitor the upload
          * of data.
@@ -126,7 +126,7 @@ declare namespace GM {
             onerror?(response: Response<TContext>): void
             onload?(response: Response<TContext>): void
             onprogress?(response: ProgressResponse<TContext>): void
-        };
+        } | undefined;
 
         // Event handlers
 

@@ -163,8 +163,8 @@ interface ResourceResponse {
     time: Date;
     headers: { [name: string]: string; };
     bodySize: number;
-    contentType?: string;
-    redirectURL?: string;
+    contentType?: string | undefined;
+    redirectURL?: string | undefined;
     stage: string;
     status: number;
     statusText: string;
@@ -185,11 +185,11 @@ interface NetworkRequest {
 }
 
 interface PaperSize {
-    width?: string;
-    height?: string;
+    width?: string | undefined;
+    height?: string | undefined;
     border: string;
-    format?: string;
-    orientation?: string;
+    format?: string | undefined;
+    orientation?: string | undefined;
 }
 
 interface WebPageSettings {
@@ -235,7 +235,7 @@ interface FileSystem {
 
     // File Functions
     open(path: string, mode: string): Stream;
-    open(path: string, options: { mode: string; charset?: string; }): Stream;
+    open(path: string, options: { mode: string; charset?: string | undefined; }): Stream;
     read(path: string): string;
     write(path: string, content: string, mode: string): void;
     size(path: string): number;
@@ -300,7 +300,7 @@ interface ClipRect extends TopLeft, Size {
 interface Cookie {
     name: string;
     value: string;
-    domain?: string;
+    domain?: string | undefined;
 }
 
 declare module "webpage" {

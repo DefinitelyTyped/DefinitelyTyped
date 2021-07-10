@@ -20,11 +20,11 @@ export interface BreakpointProviderProps {
 }
 
 export interface BreakpointOptions {
-    queries?: QueriesObject;
+    queries?: QueriesObject | undefined;
 }
 export interface BreakpointConfig {
     resolve: 'gatsby-plugin-breakpoints';
-    options?: BreakpointOptions;
+    options?: BreakpointOptions | undefined;
 }
 
 export function useBreakpoint(): BreakpointsObject;

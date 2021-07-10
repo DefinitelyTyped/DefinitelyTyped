@@ -25,16 +25,16 @@ import TableToolbarSearch from "./TableToolbarSearch";
 // region Row Types
 
 export interface DataTableRow<ID extends string = string> {
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     id: ID;
-    isExpanded?: boolean;
-    isSelected?: boolean;
+    isExpanded?: boolean | undefined;
+    isSelected?: boolean | undefined;
 }
 
 export interface SortRowData {
     compare(a: any, b: any, locale?: string): number,
     key: string,
-    locale?: string,
+    locale?: string | undefined,
     sortDirection: DataTableSortState,
     sortStates: DataTableSortStates,
 }
@@ -64,18 +64,18 @@ export interface DataTableCustomRowProps<R extends DataTableRow = DataTableRow> 
 
 export interface DataTableCustomSelectionData<R extends DataTableRow = DataTableRow> {
     onClick?(event: React.MouseEvent<HTMLElement>): void,
-    row?: R,
+    row?: R | undefined,
 }
 
 export interface DataTableCustomSelectionProps<R extends DataTableRow = DataTableRow> {
-    ariaLabel?: string,
+    ariaLabel?: string | undefined,
     checked: R extends never ? boolean : NonNullable<R["isSelected"]>,
     disabled: R extends never ? never : R["disabled"],
     id: string,
     indeterminate: R extends never ? boolean : never,
     name: string,
     onSelect(event: React.MouseEvent<HTMLElement>): void,
-    radio?: R extends never ? never : (Extract<DataTableProps["radio"], boolean>),
+    radio?: R extends never ? never : (Extract<DataTableProps["radio"], boolean>) | undefined,
 }
 
 // endregion Row Types
@@ -89,12 +89,12 @@ export interface DataTableHeader<K extends string = string> {
 
 export interface DataTableCustomHeaderData<H extends DataTableHeader = DataTableHeader> {
     header: H,
-    isSortable?: boolean,
+    isSortable?: boolean | undefined,
     onClick?(event: React.MouseEvent<HTMLElement>): void,
 }
 
 export interface DataTableCustomHeaderProps<H extends { key: string } = DataTableHeader> {
-    isSortable?: boolean;
+    isSortable?: boolean | undefined;
     isSortHeader: boolean;
     key: H['key'];
     onClick(event: React.MouseEvent<HTMLElement>): void;
@@ -106,7 +106,7 @@ export interface DataTableCustomHeaderProps<H extends { key: string } = DataTabl
 // region Cell Types
 
 export interface DataTableCell<V = any, H extends DataTableHeader = DataTableHeader> {
-    errors?: any[] | null;
+    errors?: any[] | null | undefined;
     id: string;
     info: {
         header: H['key'];
@@ -114,7 +114,7 @@ export interface DataTableCell<V = any, H extends DataTableHeader = DataTableHea
     isEditable: boolean;
     isEditing: boolean;
     isValid: boolean;
-    value?: V;
+    value?: V | undefined;
 }
 
 // endregion CellTypes
@@ -125,7 +125,7 @@ export interface DataTableCustomBatchActionsData { }
 
 export interface DataTableCustomBatchActionsProps {
     onCancel(): void,
-    shouldShowBatchActions?: boolean,
+    shouldShowBatchActions?: boolean | undefined,
     totalSelected: number,
 }
 
@@ -158,7 +158,7 @@ export interface DataTableCustomRenderProps<
     getToolbarProps(props?: TableToolbarProps): TableToolbarProps;
     headers: DataTableProps<R, H>['headers'];
     onInputChange(event: React.SyntheticEvent<HTMLInputElement>): void;
-    radio?: DataTableProps<R, H>['radio'];
+    radio?: DataTableProps<R, H>['radio'] | undefined;
     rows: ReadonlyArray<DenormalizedRow>;
     selectAll(): void;
     selectedRows: ReadonlyArray<DenormalizedRow>;
@@ -182,12 +182,12 @@ export interface DataTableProps<
 > extends InternationalProps<DataTableTranslationKey>, TableCarbonProps {
     filterRows?(data: FilterRowsData<R, H>): Array<R['id']>;
     headers: H[];
-    locale?: string;
-    radio?: boolean;
+    locale?: string | undefined;
+    radio?: boolean | undefined;
     render?(props: DataTableCustomRenderProps<R, H>): React.ReactNode;
     rows: R[];
     sortRow?(cellA: any, cellB: any, data: SortRowData): number;
-    stickyHeader?: boolean;
+    stickyHeader?: boolean | undefined;
 }
 
 declare class DataTable<

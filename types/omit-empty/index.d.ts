@@ -5,7 +5,7 @@
 // TypeScript Version: 2.2
 
 interface OmitOptions {
-    omitZero?: boolean;
+    omitZero?: boolean | undefined;
 }
 
 declare function omitEmpty(obj: object, options?: OmitOptions): object;

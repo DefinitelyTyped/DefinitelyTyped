@@ -10,11 +10,11 @@ import Source, { AttributionLike } from './Source';
 import State from './State';
 
 export interface Options {
-    attributions?: AttributionLike;
-    imageSmoothing?: boolean;
-    projection?: ProjectionLike;
-    resolutions?: number[];
-    state?: State;
+    attributions?: AttributionLike | undefined;
+    imageSmoothing?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    resolutions?: number[] | undefined;
+    state?: State | undefined;
 }
 export enum ImageSourceEventType {
     IMAGELOADSTART = 'imageloadstart',

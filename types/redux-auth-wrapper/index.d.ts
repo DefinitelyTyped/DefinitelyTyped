@@ -11,11 +11,11 @@ export type StateSelector<State, OwnProps, R> = (state: State, props: OwnProps) 
 export type AuthWrapperDecorator<Props> = (component: ComponentType<Props>) => ComponentClass<Props>;
 
 export interface AuthConfig {
-    AuthenticatingComponent?: ReactType;
-    wrapperDisplayName?: string;
+    AuthenticatingComponent?: ReactType | undefined;
+    wrapperDisplayName?: string | undefined;
 }
 
 export interface AuthBaseConfig<OwnProps = {}, State = {}> extends AuthConfig {
     authenticatedSelector: StateSelector<State, OwnProps, boolean>;
-    authenticatingSelector?: StateSelector<State, OwnProps, boolean>;
+    authenticatingSelector?: StateSelector<State, OwnProps, boolean> | undefined;
 }

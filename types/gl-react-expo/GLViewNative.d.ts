@@ -3,13 +3,13 @@ import * as React from 'react';
 // import { GLView as EXGLView } from 'expo';
 
 export interface GLViewNativeProps {
-  onContextCreate?: (gl: WebGLRenderingContext) => void;
+  onContextCreate?: ((gl: WebGLRenderingContext) => void) | undefined;
   style?: any;
   children?: any;
 }
 
 export class GLViewNative extends React.Component<GLViewNativeProps> {
-  afterDraw?: () => void;
+  afterDraw?: (() => void) | undefined;
   ref?: any;
   onRef: (ref: any) => void;
   onContextCreate: (gl: WebGLRenderingContext) => void;

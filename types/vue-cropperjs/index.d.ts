@@ -13,39 +13,39 @@ export interface CroppedCanvasOptions {
   /**
    * the destination width of the output canvas.
    */
-  width?: number;
+  width?: number | undefined;
   /**
    *  the destination height of the output canvas.
    */
-  height?: number;
+  height?: number | undefined;
   /**
    * the minimum destination width of the output canvas, the default value is 0.
    */
-  minWidth?: number;
+  minWidth?: number | undefined;
   /**
    * the minimum destination height of the output canvas, the default value is 0.
    */
-  minHeight?: number;
+  minHeight?: number | undefined;
   /**
    * the maximum destination width of the output canvas, the default value is Infinity.
    */
-  maxWidth?: number;
+  maxWidth?: number | undefined;
   /**
    * the maximum destination height of the output canvas, the default value is Infinity.
    */
-  maxHeight?: number;
+  maxHeight?: number | undefined;
   /**
    * a color to fill any alpha values in the output canvas, the default value is transparent.
    */
-  fillColor?: string;
+  fillColor?: string | undefined;
   /**
    * set to change if images are smoothed (true, default) or not (false).
    */
-  imageSmoothingEnabled?: boolean;
+  imageSmoothingEnabled?: boolean | undefined;
   /**
    * set the quality of image smoothing, one of "low" (default), "medium", or "high".
    */
-  imageSmoothingQuality?: 'low' | 'medium' | 'high';
+  imageSmoothingQuality?: 'low' | 'medium' | 'high' | undefined;
 }
 
 export interface CropBoxData {

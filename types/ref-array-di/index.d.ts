@@ -46,7 +46,7 @@ declare namespace array {
 
     interface ArrayType<T> extends ref.Type<TypedArray<T>> {
         BYTES_PER_ELEMENT: number;
-        fixedLength?: number;
+        fixedLength?: number | undefined;
 
         /** The reference to the base type. */
         type: ref.Type<T>;

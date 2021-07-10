@@ -3,7 +3,7 @@
 // Definitions by: Artifact Health <https://github.com/meirgottlieb>
 //                 Jan Huenges <https://github.com/jhuenges>
 //                 Brian Kaney <https://github.com/bkaney>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTypes
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Generated from https://github.com/microsoft/fhir-codegen, packaged
 // with https://github.com/vermonster/fhir-dt-generator.

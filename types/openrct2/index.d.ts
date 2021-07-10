@@ -113,7 +113,7 @@ declare global {
         authors: string | string[];
         type: PluginType;
         licence: string;
-        minApiVersion?: number;
+        minApiVersion?: number | undefined;
         main: () => void;
     }
 
@@ -282,25 +282,25 @@ declare global {
          * A relative filename from the screenshot directory to save the capture as.
          * By default, the filename will be automatically generated using the system date and time.
          */
-        filename?: string;
+        filename?: string | undefined;
 
         /**
          * Width of the capture in pixels.
          * Do not set if you would like a giant screenshot.
          */
-        width?: number;
+        width?: number | undefined;
 
         /**
          * Height of the capture in pixels.
          * Do not set if you would like a giant screenshot.
          */
-        height?: number;
+        height?: number | undefined;
 
         /**
          * Map position to centre the view on in map units.
          * Do not set if you would like a giant screenshot.
          */
-        position?: CoordsXY;
+        position?: CoordsXY | undefined;
 
         /**
          * The zoom level, 0 is 1:1, 1 is 2:1, 2 is 4:1 etc.
@@ -315,7 +315,7 @@ declare global {
         /**
          * Whether to enable transparency in the screenshot.
          */
-        transparent?: boolean;
+        transparent?: boolean | undefined;
     }
 
     type ObjectType =
@@ -444,12 +444,12 @@ declare global {
     }
 
     interface GameActionResult {
-        error?: number;
-        errorTitle?: string;
-        errorMessage?: string;
-        position?: CoordsXYZ;
-        cost?: number;
-        expenditureType?: ExpenditureType;
+        error?: number | undefined;
+        errorTitle?: string | undefined;
+        errorMessage?: string | undefined;
+        position?: CoordsXYZ | undefined;
+        cost?: number | undefined;
+        expenditureType?: ExpenditureType | undefined;
     }
 
     interface RideCreateGameActionResult extends GameActionResult {
@@ -1521,7 +1521,7 @@ declare global {
          * Entity ID for peep_on_attraction or peep.
          * Researched item for research.
          */
-        subject?: number;
+        subject?: number | undefined;
 
         /**
          * Removes the message.
@@ -1532,7 +1532,7 @@ declare global {
     interface ParkMessageDesc {
         type: ParkMessageType;
         text: string;
-        subject?: number;
+        subject?: number | undefined;
     }
 
     type ParkFlags =
@@ -1714,7 +1714,7 @@ declare global {
         /**
          * The company value when the scenario was completed.
          */
-        completedCompanyValue?: number;
+        completedCompanyValue?: number | undefined;
 
         /**
          * The current status of the scenario.
@@ -1826,12 +1826,12 @@ declare global {
         /**
          * The current value of the text box.
          */
-        initialValue?: string;
+        initialValue?: string | undefined;
 
         /**
          * The maximum length the value can be.
          */
-        maxLength?: number;
+        maxLength?: number | undefined;
 
         /**
          * The function to call when the user has entered a new value and pressed OK.
@@ -1857,7 +1857,7 @@ declare global {
         /**
          * The pre-selected file to load by default if the user clicks OK.
          */
-        defaultPath?: string;
+        defaultPath?: string | undefined;
 
         /**
          * The function to call when the user has selected a file.
@@ -1907,9 +1907,9 @@ declare global {
     interface ToolEventArgs {
         readonly isDown: boolean;
         readonly screenCoords: ScreenCoordsXY;
-        readonly mapCoords?: CoordsXYZ;
-        readonly tileElementIndex?: number;
-        readonly entityId?: number;
+        readonly mapCoords?: CoordsXYZ | undefined;
+        readonly tileElementIndex?: number | undefined;
+        readonly entityId?: number | undefined;
     }
 
     /**
@@ -1917,19 +1917,19 @@ declare global {
      */
     interface ToolDesc {
         id: string;
-        cursor?: CursorType;
+        cursor?: CursorType | undefined;
 
         /**
          * What types of object in the game can be selected with the tool.
          * E.g. only specify terrain if you only want a tile selection.
          */
-        filter?: ToolFilter[];
+        filter?: ToolFilter[] | undefined;
 
-        onStart?: () => void;
-        onDown?: (e: ToolEventArgs) => void;
-        onMove?: (e: ToolEventArgs) => void;
-        onUp?: (e: ToolEventArgs) => void;
-        onFinish?: () => void;
+        onStart?: (() => void) | undefined;
+        onDown?: ((e: ToolEventArgs) => void) | undefined;
+        onMove?: ((e: ToolEventArgs) => void) | undefined;
+        onUp?: ((e: ToolEventArgs) => void) | undefined;
+        onFinish?: (() => void) | undefined;
     }
 
     type CursorType =
@@ -1992,7 +1992,7 @@ declare global {
          * Default bindings for the shortcut.
          * E.g. `["CTRL+SHIFT+L", "MOUSE 3"]`
          */
-        bindings?: string[];
+        bindings?: string[] | undefined;
 
         /**
          * Function to call when the shortcut is invoked.
@@ -2012,15 +2012,15 @@ declare global {
         LabelWidget | ListView | SpinnerWidget | TextBoxWidget | ViewportWidget;
 
     interface WidgetBase {
-        readonly window?: Window;
+        readonly window?: Window | undefined;
         x: number;
         y: number;
         width: number;
         height: number;
-        name?: string;
-        tooltip?: string;
-        isDisabled?: boolean;
-        isVisible?: boolean;
+        name?: string | undefined;
+        tooltip?: string | undefined;
+        isDisabled?: boolean | undefined;
+        isVisible?: boolean | undefined;
     }
 
     interface ButtonWidget extends WidgetBase {
@@ -2029,36 +2029,36 @@ declare global {
          * Whether the button has a 3D border.
          * By default, text buttons have borders and image buttons do not but it can be overridden.
          */
-        border?: boolean;
-        image?: number;
-        isPressed?: boolean;
-        text?: string;
-        onClick?: () => void;
+        border?: boolean | undefined;
+        image?: number | undefined;
+        isPressed?: boolean | undefined;
+        text?: string | undefined;
+        onClick?: (() => void) | undefined;
     }
 
     interface CheckboxWidget extends WidgetBase {
         type: 'checkbox';
-        text?: string;
-        isChecked?: boolean;
-        onChange?: (isChecked: boolean) => void;
+        text?: string | undefined;
+        isChecked?: boolean | undefined;
+        onChange?: ((isChecked: boolean) => void) | undefined;
     }
 
     interface ColourPickerWidget extends WidgetBase {
         type: 'colourpicker';
-        colour?: number;
-        onChange?: (colour: number) => void;
+        colour?: number | undefined;
+        onChange?: ((colour: number) => void) | undefined;
     }
 
     interface CustomWidget extends WidgetBase {
         type: 'custom';
-        onDraw?: (this: CustomWidget, g: GraphicsContext) => void;
+        onDraw?: ((this: CustomWidget, g: GraphicsContext) => void) | undefined;
     }
 
     interface DropdownWidget extends WidgetBase {
         type: 'dropdown';
-        items?: string[];
-        selectedIndex?: number;
-        onChange?: (index: number) => void;
+        items?: string[] | undefined;
+        selectedIndex?: number | undefined;
+        onChange?: ((index: number) => void) | undefined;
     }
 
     interface GroupBoxWidget extends WidgetBase {
@@ -2067,9 +2067,9 @@ declare global {
 
     interface LabelWidget extends WidgetBase {
         type: 'label';
-        text?: string;
-        textAlign?: TextAlignment;
-        onChange?: (index: number) => void;
+        text?: string | undefined;
+        textAlign?: TextAlignment | undefined;
+        onChange?: ((index: number) => void) | undefined;
     }
 
     type TextAlignment = "left" | "centred";
@@ -2079,19 +2079,19 @@ declare global {
     type ScrollbarType = "none" | "horizontal" | "vertical" | "both";
 
     interface ListViewColumn {
-        canSort?: boolean;
-        sortOrder?: SortOrder;
-        header?: string;
-        headerTooltip?: string;
-        width?: number;
-        ratioWidth?: number;
-        minWidth?: number;
-        maxWidth?: number;
+        canSort?: boolean | undefined;
+        sortOrder?: SortOrder | undefined;
+        header?: string | undefined;
+        headerTooltip?: string | undefined;
+        width?: number | undefined;
+        ratioWidth?: number | undefined;
+        minWidth?: number | undefined;
+        maxWidth?: number | undefined;
     }
 
     interface ListViewItemSeperator {
         type: 'seperator';
-        text?: string;
+        text?: string | undefined;
     }
 
     type ListViewItem = ListViewItemSeperator | string[];
@@ -2103,38 +2103,38 @@ declare global {
 
     interface ListView extends WidgetBase {
         type: 'listview';
-        scrollbars?: ScrollbarType;
-        isStriped?: boolean;
-        showColumnHeaders?: boolean;
-        columns?: ListViewColumn[];
-        items?: string[] | ListViewItem[];
-        selectedCell?: RowColumn;
-        readonly highlightedCell?: RowColumn;
-        canSelect?: boolean;
+        scrollbars?: ScrollbarType | undefined;
+        isStriped?: boolean | undefined;
+        showColumnHeaders?: boolean | undefined;
+        columns?: ListViewColumn[] | undefined;
+        items?: string[] | ListViewItem[] | undefined;
+        selectedCell?: RowColumn | undefined;
+        readonly highlightedCell?: RowColumn | undefined;
+        canSelect?: boolean | undefined;
 
-        onHighlight?: (item: number, column: number) => void;
-        onClick?: (item: number, column: number) => void;
+        onHighlight?: ((item: number, column: number) => void) | undefined;
+        onClick?: ((item: number, column: number) => void) | undefined;
     }
 
     interface SpinnerWidget extends WidgetBase {
         type: 'spinner';
-        text?: string;
+        text?: string | undefined;
 
-        onDecrement?: () => void;
-        onIncrement?: () => void;
-        onClick?: () => void;
+        onDecrement?: (() => void) | undefined;
+        onIncrement?: (() => void) | undefined;
+        onClick?: (() => void) | undefined;
     }
 
     interface TextBoxWidget extends WidgetBase {
         type: 'textbox';
-        text?: string;
-        maxLength?: number;
-        onChange?: (text: string) => void;
+        text?: string | undefined;
+        maxLength?: number | undefined;
+        onChange?: ((text: string) => void) | undefined;
     }
 
     interface ViewportWidget extends WidgetBase {
         type: 'viewport';
-        viewport?: Viewport;
+        viewport?: Viewport | undefined;
     }
 
     interface Window {
@@ -2161,36 +2161,36 @@ declare global {
 
     interface WindowDesc {
         classification: string;
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
         width: number;
         height: number;
         title: string;
-        id?: number;
-        minWidth?: number;
-        minHeight?: number;
-        maxWidth?: number;
-        maxHeight?: number;
-        widgets?: Widget[];
-        colours?: number[];
-        tabs?: WindowTabDesc[];
-        tabIndex?: number;
+        id?: number | undefined;
+        minWidth?: number | undefined;
+        minHeight?: number | undefined;
+        maxWidth?: number | undefined;
+        maxHeight?: number | undefined;
+        widgets?: Widget[] | undefined;
+        colours?: number[] | undefined;
+        tabs?: WindowTabDesc[] | undefined;
+        tabIndex?: number | undefined;
 
-        onClose?: () => void;
-        onUpdate?: () => void;
-        onTabChange?: () => void;
+        onClose?: (() => void) | undefined;
+        onUpdate?: (() => void) | undefined;
+        onTabChange?: (() => void) | undefined;
     }
 
     interface ImageAnimation {
         frameBase: number;
-        frameCount?: number;
-        frameDuration?: number;
-        offset?: ScreenCoordsXY;
+        frameCount?: number | undefined;
+        frameDuration?: number | undefined;
+        offset?: ScreenCoordsXY | undefined;
     }
 
     interface WindowTabDesc {
         image: number | ImageAnimation;
-        widgets?: Widget[];
+        widgets?: Widget[] | undefined;
     }
 
     interface Viewport {

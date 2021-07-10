@@ -15,19 +15,19 @@ declare namespace xmltojson {
     function stringToXml(xmlString: string): Document;
 
     interface Options {
-        mergeCDATA?: boolean,
-        grokAttr?: boolean,
-        grokText?: boolean,
-        normalize?: boolean,
-        xmlns?: boolean,
-        namespaceKey?: string,
-        textKey?: string,
-        valueKey?: string,
-        attrKey?: string,
-        cdataKey?: string,
-        attrsAsObject?: boolean,
-        stripAttrPrefix?: boolean,
-        stripElemPrefix?: boolean,
-        childrenAsArray?: boolean
+        mergeCDATA?: boolean | undefined,
+        grokAttr?: boolean | undefined,
+        grokText?: boolean | undefined,
+        normalize?: boolean | undefined,
+        xmlns?: boolean | undefined,
+        namespaceKey?: string | undefined,
+        textKey?: string | undefined,
+        valueKey?: string | undefined,
+        attrKey?: string | undefined,
+        cdataKey?: string | undefined,
+        attrsAsObject?: boolean | undefined,
+        stripAttrPrefix?: boolean | undefined,
+        stripElemPrefix?: boolean | undefined,
+        childrenAsArray?: boolean | undefined
     }
 }

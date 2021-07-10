@@ -31,18 +31,18 @@ export type callback = (payloadValue: any, type: 'value' | 'property', fullPaylo
 export type otherCallback = (value: any, path: string, parent: object, parentPropertyName: any) => boolean;
 
 export interface options {
-    path?: pathType;
-    json?: jsonType;
-    autostart?: boolean;
-    flatten?: boolean;
-    resultType?: resultType;
-    sandbox?: sandboxType;
-    wrap?: boolean;
-    preventEval?: boolean;
-    parent?: object;
-    parentProperty?: object;
-    callback?: callback;
-    otherTypeCallback?: otherCallback;
+    path?: pathType | undefined;
+    json?: jsonType | undefined;
+    autostart?: boolean | undefined;
+    flatten?: boolean | undefined;
+    resultType?: resultType | undefined;
+    sandbox?: sandboxType | undefined;
+    wrap?: boolean | undefined;
+    preventEval?: boolean | undefined;
+    parent?: object | undefined;
+    parentProperty?: object | undefined;
+    callback?: callback | undefined;
+    otherTypeCallback?: otherCallback | undefined;
 }
 
 export function JSONPath(

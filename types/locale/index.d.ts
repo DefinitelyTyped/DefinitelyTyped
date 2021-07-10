@@ -45,7 +45,7 @@ declare namespace locale {
          * returns the second 2 letters of the code if present, uppercased.
          * Returns `undefined` otherwise
          */
-        country?: string;
+        country?: string | undefined;
         /**
          * returns the language, followed by a `_` and the country, if the
          * country is present

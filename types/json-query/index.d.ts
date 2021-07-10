@@ -38,15 +38,15 @@ declare namespace JsonQuery {
     }
 
     interface Options {
-        data?: Context;
-        rootContext?: Context;
-        source?: Context;
-        context?: Context;
-        parent?: Context;
-        locals?: Locals;
-        globals?: boolean;
-        force?: boolean;
-        allowRegexp?: boolean;
+        data?: Context | undefined;
+        rootContext?: Context | undefined;
+        source?: Context | undefined;
+        context?: Context | undefined;
+        parent?: Context | undefined;
+        locals?: Locals | undefined;
+        globals?: boolean | undefined;
+        force?: boolean | undefined;
+        allowRegexp?: boolean | undefined;
     }
 
     interface Result {

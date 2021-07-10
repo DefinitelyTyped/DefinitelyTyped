@@ -14,42 +14,42 @@ declare namespace mermaidAPI {
          * **diagramPadding** - amount of padding around the diagram as a whole
          * default: 8
          */
-        diagramPadding?: number;
+        diagramPadding?: number | undefined;
 
         /**
          * **htmlLabels** - Flag for setting whether or not a html tag should be used for rendering labels
          * on the edges
          * default: true
          */
-        htmlLabels?: boolean;
+        htmlLabels?: boolean | undefined;
 
         /**
          * **nodeSpacing** - Defines the spacing between nodes on the same level
          * default: 50
          */
-        nodeSpacing?: number;
+        nodeSpacing?: number | undefined;
 
         /**
          * **rankSpacing** - Defines the spacing between nodes on different levels
          * default: 50
          */
-        rankSpacing?: number;
+        rankSpacing?: number | undefined;
 
         /**
          * default: 'monotoneX'
          */
-        curve?: string;
+        curve?: string | undefined;
 
         /**
          * **rankSpacing** - Only used in new experimental rendering, represents the padding between the labels and the shape
          * default: 15
          */
-        padding?: number;
+        padding?: number | undefined;
 
         /**
          * default: true
          */
-        useMaxWidth?: boolean;
+        useMaxWidth?: boolean | undefined;
     }
 
     interface SequenceDiagramConfig {
@@ -57,81 +57,81 @@ declare namespace mermaidAPI {
          * **diagramMarginX** - margin to the right and left of the sequence diagram
          * default: 50
          */
-        diagramMarginX?: number;
+        diagramMarginX?: number | undefined;
 
         /**
          * **diagramMarginY** - margin to the over and under the sequence diagram
          * default: 10
          */
-        diagramMarginY?: number;
+        diagramMarginY?: number | undefined;
 
         /**
          * **actorMargin** - Margin between actors
          * default: 10
          */
-        actorMargin?: number;
+        actorMargin?: number | undefined;
 
         /**
          * **width** - Width of actor boxes
          * default: 150
          */
-        width?: number;
+        width?: number | undefined;
 
         /**
          * **height** - Height of actor boxes
          * default: 65
          */
-        height?: number;
+        height?: number | undefined;
 
         /**
          * **boxMargin** - Margin around loop boxes
          * default: 10
          */
-        boxMargin?: number;
+        boxMargin?: number | undefined;
 
         /**
          * **boxTextMargin** - margin around the text in loop/alt/opt boxes
          * default: 5
          */
-        boxTextMargin?: number;
+        boxTextMargin?: number | undefined;
 
         /**
          * **noteMargin** - margin around notes
          * default: 10
          */
-        noteMargin?: number;
+        noteMargin?: number | undefined;
 
         /**
          * **messageMargin** - Space between messages
          * default: 35
          */
-        messageMargin?: number;
+        messageMargin?: number | undefined;
 
         /**
          * **mirrorActors** - mirror actors under diagram
          * default: true
          */
-        mirrorActors?: boolean;
+        mirrorActors?: boolean | undefined;
 
         /**
          * **bottomMarginAdj** - Depending on css styling this might need adjustment.
          * Prolongs the edge of the diagram downwards
          * default: 1
          */
-        bottomMarginAdj?: number;
+        bottomMarginAdj?: number | undefined;
 
         /**
          * **useMaxWidth** - when this flag is set the height and width is set to 100% and is then scaling with the
          * available space if not the absolute space required is used
          * default: true
          */
-        useMaxWidth?: boolean;
+        useMaxWidth?: boolean | undefined;
 
         /**
          * This will display arrows that start and begin at the same node as right angles, rather than a curve
          * Default value: false
          */
-        rightAngles?: boolean;
+        rightAngles?: boolean | undefined;
     }
 
     interface GanttConfig {
@@ -139,61 +139,61 @@ declare namespace mermaidAPI {
          * **titleTopMargin** - margin top for the text over the gantt diagram
          * default: 25
          */
-        titleTopMargin?: number;
+        titleTopMargin?: number | undefined;
 
         /**
          * **barHeight** - the height of the bars in the graph
          * default: 20
          */
-        barHeight?: number;
+        barHeight?: number | undefined;
 
         /**
          * **barGap** - the margin between the different activities in the gantt diagram
          * default: 4
          */
-        barGap?: number;
+        barGap?: number | undefined;
 
         /**
          *  **topPadding** - margin between title and gantt diagram and between axis and gantt diagram.
          * default: 50
          */
-        topPadding?: number;
+        topPadding?: number | undefined;
 
         /**
          *  **leftPadding** - the space allocated for the section name to the left of the activities.
          * default: 75
          */
-        leftPadding?: number;
+        leftPadding?: number | undefined;
 
         /**
          *  **gridLineStartPadding** - Vertical starting position of the grid lines
          * default: 35
          */
-        gridLineStartPadding?: number;
+        gridLineStartPadding?: number | undefined;
 
         /**
          *  **fontSize** - font size ...
          * default: 11
          */
-        fontSize?: number;
+        fontSize?: number | undefined;
 
         /**
          * **fontFamily** - font family ...
          * default:  '"Open-Sans", "sans-serif"'
          */
-        fontFamily?: string;
+        fontFamily?: string | undefined;
 
         /**
          * **numberSectionStyles** - the number of alternating section styles
          * default: 4
          */
-        numberSectionStyles?: number;
+        numberSectionStyles?: number | undefined;
 
         /**
          * **axisFormat** - datetime format of the axis, this might need adjustment to match your locale and preferences
          * default: '%Y-%m-%d'
          */
-        axisFormat?: string;
+        axisFormat?: string | undefined;
     }
 
     interface Config {
@@ -205,56 +205,56 @@ declare namespace mermaidAPI {
          *   Up through version mermaid@8.2.3, if any text value is present in a config but is not "strict", the behavior is "loose".
          *   This should be fixed after that version, i.e. any value other "loose" should be treated as "strict".
          */
-        securityLevel?: string;
+        securityLevel?: string | undefined;
 
-        theme?: Theme;
+        theme?: Theme | undefined;
 
-        maxTextSize?: number;
+        maxTextSize?: number | undefined;
 
-        fontFamily?: string;
+        fontFamily?: string | undefined;
 
         /**
          * logLevel , decides the amount of logging to be used.
          * default: LogLevel.Fatal
          */
-        logLevel?: LogLevel;
+        logLevel?: LogLevel | undefined;
 
         /**
          * **startOnLoad** - This options controls whether or mermaid starts when the page loads
          * default: true
          */
-        startOnLoad?: boolean;
+        startOnLoad?: boolean | undefined;
 
         /**
          * **arrowMarkerAbsolute** - This options controls whether or arrow markers in html code will be absolute paths or
          * an anchor, #. This matters if you are using base tag settings.
          * default: false
          */
-        arrowMarkerAbsolute?: boolean;
+        arrowMarkerAbsolute?: boolean | undefined;
 
-        secure?: Array<keyof Config>;
+        secure?: Array<keyof Config> | undefined;
 
-        deterministicIds?: boolean;
+        deterministicIds?: boolean | undefined;
 
-        deterministicIDSeed?: string;
+        deterministicIDSeed?: string | undefined;
 
         /**
          * ### flowchart
          * *The object containing configurations specific for flowcharts*
          */
-        flowchart?: FlowChartConfig;
+        flowchart?: FlowChartConfig | undefined;
 
         /**
          * ###  sequenceDiagram
          * The object containing configurations specific for sequence diagrams
          */
-        sequence?: SequenceDiagramConfig;
+        sequence?: SequenceDiagramConfig | undefined;
 
         /**
          * ### gantt
          * The object containing configurations specific for gantt diagrams*
          */
-        gantt?: GanttConfig;
+        gantt?: GanttConfig | undefined;
 
         class?: any;
         git?: any;

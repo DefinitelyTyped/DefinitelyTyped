@@ -11,7 +11,7 @@ declare module 'karma' {
         /**
          * See {@link https://github.com/localvoid/karma-snapshot#config}
          */
-        snapshot?: SnapshotOptions;
+        snapshot?: SnapshotOptions | undefined;
     }
 
     /**
@@ -24,32 +24,32 @@ declare module 'karma' {
          * Run snapshot tests in UPDATE mode
          * @default false
          */
-        update?: boolean;
+        update?: boolean | undefined;
         /**
          * Prune unused snapshots
          * @default false
          */
-        prune?: boolean;
+        prune?: boolean | undefined;
         /**
          * Snapshot format
          * @default 'md'
          */
-        format?: string | SnapshotSerializer;
+        format?: string | SnapshotSerializer | undefined;
         /**
          * Checks existince of the source file associated with tests
          * @default false
          */
-        checkSourceFile?: boolean;
+        checkSourceFile?: boolean | undefined;
         /**
          * Custom path resolver
          */
-        pathResolver?: SnapshotPathResolver;
+        pathResolver?: SnapshotPathResolver | undefined;
         /**
          * Limit number of unused snapshots reported in the warning.
          * `-1` means unlimited.
          * @default -1
          */
-        limitUnusedSnapshotsInWarning?: number;
+        limitUnusedSnapshotsInWarning?: number | undefined;
     }
 
     /**
@@ -70,8 +70,8 @@ declare module 'karma' {
         children: { [key: string]: SnapshotSuite };
         /** snapshot lists for tests in the current snapshot */
         snapshots: { [key: string]: Snapshot[] };
-        visited?: boolean;
-        dirty?: boolean;
+        visited?: boolean | undefined;
+        dirty?: boolean | undefined;
     }
 
     /**
@@ -81,7 +81,7 @@ declare module 'karma' {
         /**
          * which language should be used in a markdown format to improve readability
          */
-        lang?: string;
+        lang?: string | undefined;
         /**
          * snapshot value that will be checked by an assertion plugin
          */
@@ -90,10 +90,10 @@ declare module 'karma' {
          * Flag that should be marked by an assertion plugin when it visits suites and snapshots.
          * Visited flags are used to automatically prune removed snapshots
          */
-        visited?: boolean;
+        visited?: boolean | undefined;
         /**
          * Flag that should be marked by an assertion plugin when it updates or adds a new snapshot
          */
-        dirty?: boolean;
+        dirty?: boolean | undefined;
     }
 }

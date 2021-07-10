@@ -23,8 +23,8 @@ declare namespace koaJoiRouterDocs {
     }
 
     interface SpecOptions {
-        warnFunc?: () => void;
-        defaultResponses?: object;
+        warnFunc?: (() => void) | undefined;
+        defaultResponses?: object | undefined;
     }
 
     type RouterOptions = object | string;

@@ -30,9 +30,9 @@ interface IHashtable<TKey, TValue>
 }
 
 interface IHashtableOptions<TKey> {
-    hashCode?: (key: TKey) => any;
-    equals?: (key1: TKey, key2: TKey) => boolean;
-    replaceDuplicateKey?: boolean;
+    hashCode?: ((key: TKey) => any) | undefined;
+    equals?: ((key1: TKey, key2: TKey) => boolean) | undefined;
+    replaceDuplicateKey?: boolean | undefined;
 }
 
 interface IHashtableStatic {

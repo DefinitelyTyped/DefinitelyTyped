@@ -26,23 +26,23 @@ declare class ProgressBar {
 }
 
 interface ProgressBarOptions {
-    abortOnError?: boolean;
-    indeterminate?: boolean;
-    initialValue?: number;
-    maxValue?: number;
-    closeOnComplete?: boolean;
-    title?: string;
-    text?: string;
-    detail?: string;
-    style?: StyleOptions;
-    browserWindow?: BrowserWindowConstructorOptions;
+    abortOnError?: boolean | undefined;
+    indeterminate?: boolean | undefined;
+    initialValue?: number | undefined;
+    maxValue?: number | undefined;
+    closeOnComplete?: boolean | undefined;
+    title?: string | undefined;
+    text?: string | undefined;
+    detail?: string | undefined;
+    style?: StyleOptions | undefined;
+    browserWindow?: BrowserWindowConstructorOptions | undefined;
 }
 
 interface StyleOptions {
-    text?: object;
-    detail?: object;
-    bar?: object;
-    value?: object;
+    text?: object | undefined;
+    detail?: object | undefined;
+    bar?: object | undefined;
+    value?: object | undefined;
 }
 
 export = ProgressBar;

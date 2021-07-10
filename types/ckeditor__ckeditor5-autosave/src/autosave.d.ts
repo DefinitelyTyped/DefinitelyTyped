@@ -17,6 +17,6 @@ export interface AutosaveAdapter {
 }
 
 export interface AutosaveConfig {
-    waitingTime?: number;
+    waitingTime?: number | undefined;
     save?(editor: Editor): Promise<any>;
 }

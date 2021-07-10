@@ -12,7 +12,7 @@ declare namespace gitconfig {
     type callback = (error: Error | false, config: GitConfig) => void;
 
     interface Options {
-        gitDir?: string;
+        gitDir?: string | undefined;
     }
 }
 

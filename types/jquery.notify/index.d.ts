@@ -7,14 +7,14 @@
 /// <reference types="jquery"/>
 
 interface JQueryNotifyOptions {
-    close?: () => void;
-    open?: () => void;
-    custom?: boolean;
-    disabled?: boolean;
-    expires?: number;
-    queue?: boolean;
-    speed?: number;
-    stack?: "below" | "above";
+    close?: (() => void) | undefined;
+    open?: (() => void) | undefined;
+    custom?: boolean | undefined;
+    disabled?: boolean | undefined;
+    expires?: number | undefined;
+    queue?: boolean | undefined;
+    speed?: number | undefined;
+    stack?: "below" | "above" | undefined;
 }
 interface JQuery {
     notify(options?: JQueryNotifyOptions): JQueryNotifyWidget;

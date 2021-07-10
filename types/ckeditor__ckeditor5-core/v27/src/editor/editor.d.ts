@@ -26,7 +26,7 @@ export default abstract class Editor implements Emitter, Observable {
     readonly state: "initializing" | "ready" | "destroyed";
 
     static builtinPlugins: Array<typeof Plugin|typeof ContextPlugin|string>;
-    static defaultConfig?: EditorConfig;
+    static defaultConfig?: EditorConfig | undefined;
 
     constructor(config?: EditorConfig);
     destroy(): Promise<void>;
@@ -50,7 +50,7 @@ export default abstract class Editor implements Emitter, Observable {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: engine.DomEventData) => void,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     stopListening(
         emitter?: Emitter,

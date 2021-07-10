@@ -15,21 +15,21 @@ export interface Face {
 
 export interface Intersection {
     distance: number;
-    distanceToRay?: number;
+    distanceToRay?: number | undefined;
     point: Vector3;
-    index?: number;
-    face?: Face | null;
-    faceIndex?: number;
+    index?: number | undefined;
+    face?: Face | null | undefined;
+    faceIndex?: number | undefined;
     object: Object3D;
-    uv?: Vector2;
-    instanceId?: number;
+    uv?: Vector2 | undefined;
+    instanceId?: number | undefined;
 }
 
 export interface RaycasterParameters {
     Mesh?: any;
-    Line?: { threshold: number };
+    Line?: { threshold: number } | undefined;
     LOD?: any;
-    Points?: { threshold: number };
+    Points?: { threshold: number } | undefined;
     Sprite?: any;
 }
 

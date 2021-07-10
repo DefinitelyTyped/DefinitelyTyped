@@ -7,16 +7,16 @@ export interface HeadingClickData {
 }
 
 export interface AccordionItemProps extends Omit<ReactLIAttr, "title"> {
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * @deprecated
      */
-    iconDescription?: string;
+    iconDescription?: string | undefined;
     onHeadingClick?(data: HeadingClickData): void,
-    open?: boolean,
-    renderExpando?: React.ReactNode,
+    open?: boolean | undefined,
+    renderExpando?: React.ReactNode | undefined,
     /** The accordion title. */
-    title?: React.ReactNode;
+    title?: React.ReactNode | undefined;
 }
 
 declare class AccordionItem extends React.Component<AccordionItemProps> { }

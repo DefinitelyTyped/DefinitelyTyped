@@ -17,16 +17,16 @@ export interface LogglyOptions extends TransportStream.TransportStreamOptions {
     auth?: {
         username: string;
         password: string;
-    } | null;
-    bufferOptions?: BufferOptions;
-    isBulk?: boolean;
-    json?: boolean;
-    networkErrorOnConsole?: boolean;
-    proxy?: null | string | Url;
-    stripColors?: boolean;
+    } | null | undefined;
+    bufferOptions?: BufferOptions | undefined;
+    isBulk?: boolean | undefined;
+    json?: boolean | undefined;
+    networkErrorOnConsole?: boolean | undefined;
+    proxy?: null | string | Url | undefined;
+    stripColors?: boolean | undefined;
     subdomain: string;
-    tags?: string[];
-    timestamp?: boolean;
+    tags?: string[] | undefined;
+    timestamp?: boolean | undefined;
     token: string;
 }
 

@@ -41,17 +41,17 @@ export interface MapProps {
     /** Default: map */
     mapId: string;
 
-    addressLine1?: string;
+    addressLine1?: string | undefined;
 
-    city?: string;
+    city?: string | undefined;
 
-    state?: string;
+    state?: string | undefined;
 
-    country?: string;
+    country?: string | undefined;
 
-    longitude?: number;
+    longitude?: number | undefined;
 
-    latitude?: number;
+    latitude?: number | undefined;
 
     /** Default: 270 */
     height: number;

@@ -16,17 +16,17 @@ declare namespace phonegapBarcode {
     }
 
     interface BarcodeScanOptions {
-        preferFrontCamera?: boolean;
-        showFlipCameraButton?: boolean;
-        showTorchButton?: boolean;
-        torchOn?: boolean;
-        saveHistory?: boolean;
-        resultDisplayDuration? :number;
+        preferFrontCamera?: boolean | undefined;
+        showFlipCameraButton?: boolean | undefined;
+        showTorchButton?: boolean | undefined;
+        torchOn?: boolean | undefined;
+        saveHistory?: boolean | undefined;
+        resultDisplayDuration? :number | undefined;
         disableAnimations: boolean;
-        prompt?: string;
-        formats?: string;
-        orientation?: "landscape" | "portrait";
-        disableSuccessBeep?: boolean;
+        prompt?: string | undefined;
+        formats?: string | undefined;
+        orientation?: "landscape" | "portrait" | undefined;
+        disableSuccessBeep?: boolean | undefined;
     }
 
     interface EncodingType {

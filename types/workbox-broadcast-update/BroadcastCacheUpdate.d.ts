@@ -7,14 +7,14 @@ export namespace BroadcastCacheUpdate {
     interface NotifyIfUpdatedOptions {
         cacheName: string;
         newResponse: Response;
-        oldResponse?: Response;
+        oldResponse?: Response | undefined;
         url: string;
-        event?: Event;
+        event?: Event | undefined;
     }
 }
 
 export interface BroadcastCacheUpdateOptions {
-    channelName?: string;
-    deferNoticationTimeout?: number;
-    headersToCheck?: string[];
+    channelName?: string | undefined;
+    deferNoticationTimeout?: number | undefined;
+    headersToCheck?: string[] | undefined;
 }

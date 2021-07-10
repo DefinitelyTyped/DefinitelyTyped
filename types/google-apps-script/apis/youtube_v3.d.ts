@@ -335,1315 +335,1315 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface AccessPolicy {
-        allowed?: boolean;
-        exception?: string[];
+        allowed?: boolean | undefined;
+        exception?: string[] | undefined;
       }
       interface Activity {
-        contentDetails?: YouTube.Schema.ActivityContentDetails;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.ActivitySnippet;
+        contentDetails?: YouTube.Schema.ActivityContentDetails | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.ActivitySnippet | undefined;
       }
       interface ActivityContentDetails {
-        bulletin?: YouTube.Schema.ActivityContentDetailsBulletin;
-        channelItem?: YouTube.Schema.ActivityContentDetailsChannelItem;
-        comment?: YouTube.Schema.ActivityContentDetailsComment;
-        favorite?: YouTube.Schema.ActivityContentDetailsFavorite;
-        like?: YouTube.Schema.ActivityContentDetailsLike;
-        playlistItem?: YouTube.Schema.ActivityContentDetailsPlaylistItem;
-        promotedItem?: YouTube.Schema.ActivityContentDetailsPromotedItem;
-        recommendation?: YouTube.Schema.ActivityContentDetailsRecommendation;
-        social?: YouTube.Schema.ActivityContentDetailsSocial;
-        subscription?: YouTube.Schema.ActivityContentDetailsSubscription;
-        upload?: YouTube.Schema.ActivityContentDetailsUpload;
+        bulletin?: YouTube.Schema.ActivityContentDetailsBulletin | undefined;
+        channelItem?: YouTube.Schema.ActivityContentDetailsChannelItem | undefined;
+        comment?: YouTube.Schema.ActivityContentDetailsComment | undefined;
+        favorite?: YouTube.Schema.ActivityContentDetailsFavorite | undefined;
+        like?: YouTube.Schema.ActivityContentDetailsLike | undefined;
+        playlistItem?: YouTube.Schema.ActivityContentDetailsPlaylistItem | undefined;
+        promotedItem?: YouTube.Schema.ActivityContentDetailsPromotedItem | undefined;
+        recommendation?: YouTube.Schema.ActivityContentDetailsRecommendation | undefined;
+        social?: YouTube.Schema.ActivityContentDetailsSocial | undefined;
+        subscription?: YouTube.Schema.ActivityContentDetailsSubscription | undefined;
+        upload?: YouTube.Schema.ActivityContentDetailsUpload | undefined;
       }
       interface ActivityContentDetailsBulletin {
-        resourceId?: YouTube.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId | undefined;
       }
       interface ActivityContentDetailsChannelItem {
-        resourceId?: YouTube.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId | undefined;
       }
       interface ActivityContentDetailsComment {
-        resourceId?: YouTube.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId | undefined;
       }
       interface ActivityContentDetailsFavorite {
-        resourceId?: YouTube.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId | undefined;
       }
       interface ActivityContentDetailsLike {
-        resourceId?: YouTube.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId | undefined;
       }
       interface ActivityContentDetailsPlaylistItem {
-        playlistId?: string;
-        playlistItemId?: string;
-        resourceId?: YouTube.Schema.ResourceId;
+        playlistId?: string | undefined;
+        playlistItemId?: string | undefined;
+        resourceId?: YouTube.Schema.ResourceId | undefined;
       }
       interface ActivityContentDetailsPromotedItem {
-        adTag?: string;
-        clickTrackingUrl?: string;
-        creativeViewUrl?: string;
-        ctaType?: string;
-        customCtaButtonText?: string;
-        descriptionText?: string;
-        destinationUrl?: string;
-        forecastingUrl?: string[];
-        impressionUrl?: string[];
-        videoId?: string;
+        adTag?: string | undefined;
+        clickTrackingUrl?: string | undefined;
+        creativeViewUrl?: string | undefined;
+        ctaType?: string | undefined;
+        customCtaButtonText?: string | undefined;
+        descriptionText?: string | undefined;
+        destinationUrl?: string | undefined;
+        forecastingUrl?: string[] | undefined;
+        impressionUrl?: string[] | undefined;
+        videoId?: string | undefined;
       }
       interface ActivityContentDetailsRecommendation {
-        reason?: string;
-        resourceId?: YouTube.Schema.ResourceId;
-        seedResourceId?: YouTube.Schema.ResourceId;
+        reason?: string | undefined;
+        resourceId?: YouTube.Schema.ResourceId | undefined;
+        seedResourceId?: YouTube.Schema.ResourceId | undefined;
       }
       interface ActivityContentDetailsSocial {
-        author?: string;
-        imageUrl?: string;
-        referenceUrl?: string;
-        resourceId?: YouTube.Schema.ResourceId;
-        type?: string;
+        author?: string | undefined;
+        imageUrl?: string | undefined;
+        referenceUrl?: string | undefined;
+        resourceId?: YouTube.Schema.ResourceId | undefined;
+        type?: string | undefined;
       }
       interface ActivityContentDetailsSubscription {
-        resourceId?: YouTube.Schema.ResourceId;
+        resourceId?: YouTube.Schema.ResourceId | undefined;
       }
       interface ActivityContentDetailsUpload {
-        videoId?: string;
+        videoId?: string | undefined;
       }
       interface ActivityListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.Activity[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.Activity[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface ActivitySnippet {
-        channelId?: string;
-        channelTitle?: string;
-        description?: string;
-        groupId?: string;
-        publishedAt?: string;
-        thumbnails?: YouTube.Schema.ThumbnailDetails;
-        title?: string;
-        type?: string;
+        channelId?: string | undefined;
+        channelTitle?: string | undefined;
+        description?: string | undefined;
+        groupId?: string | undefined;
+        publishedAt?: string | undefined;
+        thumbnails?: YouTube.Schema.ThumbnailDetails | undefined;
+        title?: string | undefined;
+        type?: string | undefined;
       }
       interface Caption {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.CaptionSnippet;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.CaptionSnippet | undefined;
       }
       interface CaptionListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.Caption[];
-        kind?: string;
-        visitorId?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.Caption[] | undefined;
+        kind?: string | undefined;
+        visitorId?: string | undefined;
       }
       interface CaptionSnippet {
-        audioTrackType?: string;
-        failureReason?: string;
-        isAutoSynced?: boolean;
-        isCC?: boolean;
-        isDraft?: boolean;
-        isEasyReader?: boolean;
-        isLarge?: boolean;
-        language?: string;
-        lastUpdated?: string;
-        name?: string;
-        status?: string;
-        trackKind?: string;
-        videoId?: string;
+        audioTrackType?: string | undefined;
+        failureReason?: string | undefined;
+        isAutoSynced?: boolean | undefined;
+        isCC?: boolean | undefined;
+        isDraft?: boolean | undefined;
+        isEasyReader?: boolean | undefined;
+        isLarge?: boolean | undefined;
+        language?: string | undefined;
+        lastUpdated?: string | undefined;
+        name?: string | undefined;
+        status?: string | undefined;
+        trackKind?: string | undefined;
+        videoId?: string | undefined;
       }
       interface CdnSettings {
-        format?: string;
-        frameRate?: string;
-        ingestionInfo?: YouTube.Schema.IngestionInfo;
-        ingestionType?: string;
-        resolution?: string;
+        format?: string | undefined;
+        frameRate?: string | undefined;
+        ingestionInfo?: YouTube.Schema.IngestionInfo | undefined;
+        ingestionType?: string | undefined;
+        resolution?: string | undefined;
       }
       interface Channel {
-        auditDetails?: YouTube.Schema.ChannelAuditDetails;
-        brandingSettings?: YouTube.Schema.ChannelBrandingSettings;
-        contentDetails?: YouTube.Schema.ChannelContentDetails;
-        contentOwnerDetails?: YouTube.Schema.ChannelContentOwnerDetails;
-        conversionPings?: YouTube.Schema.ChannelConversionPings;
-        etag?: string;
-        id?: string;
-        invideoPromotion?: YouTube.Schema.InvideoPromotion;
-        kind?: string;
-        localizations?: object;
-        snippet?: YouTube.Schema.ChannelSnippet;
-        statistics?: YouTube.Schema.ChannelStatistics;
-        status?: YouTube.Schema.ChannelStatus;
-        topicDetails?: YouTube.Schema.ChannelTopicDetails;
+        auditDetails?: YouTube.Schema.ChannelAuditDetails | undefined;
+        brandingSettings?: YouTube.Schema.ChannelBrandingSettings | undefined;
+        contentDetails?: YouTube.Schema.ChannelContentDetails | undefined;
+        contentOwnerDetails?: YouTube.Schema.ChannelContentOwnerDetails | undefined;
+        conversionPings?: YouTube.Schema.ChannelConversionPings | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        invideoPromotion?: YouTube.Schema.InvideoPromotion | undefined;
+        kind?: string | undefined;
+        localizations?: object | undefined;
+        snippet?: YouTube.Schema.ChannelSnippet | undefined;
+        statistics?: YouTube.Schema.ChannelStatistics | undefined;
+        status?: YouTube.Schema.ChannelStatus | undefined;
+        topicDetails?: YouTube.Schema.ChannelTopicDetails | undefined;
       }
       interface ChannelAuditDetails {
-        communityGuidelinesGoodStanding?: boolean;
-        contentIdClaimsGoodStanding?: boolean;
-        copyrightStrikesGoodStanding?: boolean;
+        communityGuidelinesGoodStanding?: boolean | undefined;
+        contentIdClaimsGoodStanding?: boolean | undefined;
+        copyrightStrikesGoodStanding?: boolean | undefined;
       }
       interface ChannelBannerResource {
-        etag?: string;
-        kind?: string;
-        url?: string;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        url?: string | undefined;
       }
       interface ChannelBrandingSettings {
-        channel?: YouTube.Schema.ChannelSettings;
-        hints?: YouTube.Schema.PropertyValue[];
-        image?: YouTube.Schema.ImageSettings;
-        watch?: YouTube.Schema.WatchSettings;
+        channel?: YouTube.Schema.ChannelSettings | undefined;
+        hints?: YouTube.Schema.PropertyValue[] | undefined;
+        image?: YouTube.Schema.ImageSettings | undefined;
+        watch?: YouTube.Schema.WatchSettings | undefined;
       }
       interface ChannelContentDetails {
-        relatedPlaylists?: YouTube.Schema.ChannelContentDetailsRelatedPlaylists;
+        relatedPlaylists?: YouTube.Schema.ChannelContentDetailsRelatedPlaylists | undefined;
       }
       interface ChannelContentDetailsRelatedPlaylists {
-        favorites?: string;
-        likes?: string;
-        uploads?: string;
-        watchHistory?: string;
-        watchLater?: string;
+        favorites?: string | undefined;
+        likes?: string | undefined;
+        uploads?: string | undefined;
+        watchHistory?: string | undefined;
+        watchLater?: string | undefined;
       }
       interface ChannelContentOwnerDetails {
-        contentOwner?: string;
-        timeLinked?: string;
+        contentOwner?: string | undefined;
+        timeLinked?: string | undefined;
       }
       interface ChannelConversionPing {
-        context?: string;
-        conversionUrl?: string;
+        context?: string | undefined;
+        conversionUrl?: string | undefined;
       }
       interface ChannelConversionPings {
-        pings?: YouTube.Schema.ChannelConversionPing[];
+        pings?: YouTube.Schema.ChannelConversionPing[] | undefined;
       }
       interface ChannelListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.Channel[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.Channel[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface ChannelLocalization {
-        description?: string;
-        title?: string;
+        description?: string | undefined;
+        title?: string | undefined;
       }
       interface ChannelProfileDetails {
-        channelId?: string;
-        channelUrl?: string;
-        displayName?: string;
-        profileImageUrl?: string;
+        channelId?: string | undefined;
+        channelUrl?: string | undefined;
+        displayName?: string | undefined;
+        profileImageUrl?: string | undefined;
       }
       interface ChannelSection {
-        contentDetails?: YouTube.Schema.ChannelSectionContentDetails;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        localizations?: object;
-        snippet?: YouTube.Schema.ChannelSectionSnippet;
-        targeting?: YouTube.Schema.ChannelSectionTargeting;
+        contentDetails?: YouTube.Schema.ChannelSectionContentDetails | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        localizations?: object | undefined;
+        snippet?: YouTube.Schema.ChannelSectionSnippet | undefined;
+        targeting?: YouTube.Schema.ChannelSectionTargeting | undefined;
       }
       interface ChannelSectionContentDetails {
-        channels?: string[];
-        playlists?: string[];
+        channels?: string[] | undefined;
+        playlists?: string[] | undefined;
       }
       interface ChannelSectionListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.ChannelSection[];
-        kind?: string;
-        visitorId?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.ChannelSection[] | undefined;
+        kind?: string | undefined;
+        visitorId?: string | undefined;
       }
       interface ChannelSectionLocalization {
-        title?: string;
+        title?: string | undefined;
       }
       interface ChannelSectionSnippet {
-        channelId?: string;
-        defaultLanguage?: string;
-        localized?: YouTube.Schema.ChannelSectionLocalization;
-        position?: number;
-        style?: string;
-        title?: string;
-        type?: string;
+        channelId?: string | undefined;
+        defaultLanguage?: string | undefined;
+        localized?: YouTube.Schema.ChannelSectionLocalization | undefined;
+        position?: number | undefined;
+        style?: string | undefined;
+        title?: string | undefined;
+        type?: string | undefined;
       }
       interface ChannelSectionTargeting {
-        countries?: string[];
-        languages?: string[];
-        regions?: string[];
+        countries?: string[] | undefined;
+        languages?: string[] | undefined;
+        regions?: string[] | undefined;
       }
       interface ChannelSettings {
-        country?: string;
-        defaultLanguage?: string;
-        defaultTab?: string;
-        description?: string;
-        featuredChannelsTitle?: string;
-        featuredChannelsUrls?: string[];
-        keywords?: string;
-        moderateComments?: boolean;
-        profileColor?: string;
-        showBrowseView?: boolean;
-        showRelatedChannels?: boolean;
-        title?: string;
-        trackingAnalyticsAccountId?: string;
-        unsubscribedTrailer?: string;
+        country?: string | undefined;
+        defaultLanguage?: string | undefined;
+        defaultTab?: string | undefined;
+        description?: string | undefined;
+        featuredChannelsTitle?: string | undefined;
+        featuredChannelsUrls?: string[] | undefined;
+        keywords?: string | undefined;
+        moderateComments?: boolean | undefined;
+        profileColor?: string | undefined;
+        showBrowseView?: boolean | undefined;
+        showRelatedChannels?: boolean | undefined;
+        title?: string | undefined;
+        trackingAnalyticsAccountId?: string | undefined;
+        unsubscribedTrailer?: string | undefined;
       }
       interface ChannelSnippet {
-        country?: string;
-        customUrl?: string;
-        defaultLanguage?: string;
-        description?: string;
-        localized?: YouTube.Schema.ChannelLocalization;
-        publishedAt?: string;
-        thumbnails?: YouTube.Schema.ThumbnailDetails;
-        title?: string;
+        country?: string | undefined;
+        customUrl?: string | undefined;
+        defaultLanguage?: string | undefined;
+        description?: string | undefined;
+        localized?: YouTube.Schema.ChannelLocalization | undefined;
+        publishedAt?: string | undefined;
+        thumbnails?: YouTube.Schema.ThumbnailDetails | undefined;
+        title?: string | undefined;
       }
       interface ChannelStatistics {
-        commentCount?: string;
-        hiddenSubscriberCount?: boolean;
-        subscriberCount?: string;
-        videoCount?: string;
-        viewCount?: string;
+        commentCount?: string | undefined;
+        hiddenSubscriberCount?: boolean | undefined;
+        subscriberCount?: string | undefined;
+        videoCount?: string | undefined;
+        viewCount?: string | undefined;
       }
       interface ChannelStatus {
-        isLinked?: boolean;
-        longUploadsStatus?: string;
-        privacyStatus?: string;
+        isLinked?: boolean | undefined;
+        longUploadsStatus?: string | undefined;
+        privacyStatus?: string | undefined;
       }
       interface ChannelTopicDetails {
-        topicCategories?: string[];
-        topicIds?: string[];
+        topicCategories?: string[] | undefined;
+        topicIds?: string[] | undefined;
       }
       interface Comment {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.CommentSnippet;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.CommentSnippet | undefined;
       }
       interface CommentListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.Comment[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.Comment[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface CommentSnippet {
-        authorChannelId?: object;
-        authorChannelUrl?: string;
-        authorDisplayName?: string;
-        authorProfileImageUrl?: string;
-        canRate?: boolean;
-        channelId?: string;
-        likeCount?: number;
-        moderationStatus?: string;
-        parentId?: string;
-        publishedAt?: string;
-        textDisplay?: string;
-        textOriginal?: string;
-        updatedAt?: string;
-        videoId?: string;
-        viewerRating?: string;
+        authorChannelId?: object | undefined;
+        authorChannelUrl?: string | undefined;
+        authorDisplayName?: string | undefined;
+        authorProfileImageUrl?: string | undefined;
+        canRate?: boolean | undefined;
+        channelId?: string | undefined;
+        likeCount?: number | undefined;
+        moderationStatus?: string | undefined;
+        parentId?: string | undefined;
+        publishedAt?: string | undefined;
+        textDisplay?: string | undefined;
+        textOriginal?: string | undefined;
+        updatedAt?: string | undefined;
+        videoId?: string | undefined;
+        viewerRating?: string | undefined;
       }
       interface CommentThread {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        replies?: YouTube.Schema.CommentThreadReplies;
-        snippet?: YouTube.Schema.CommentThreadSnippet;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        replies?: YouTube.Schema.CommentThreadReplies | undefined;
+        snippet?: YouTube.Schema.CommentThreadSnippet | undefined;
       }
       interface CommentThreadListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.CommentThread[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.CommentThread[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface CommentThreadReplies {
-        comments?: YouTube.Schema.Comment[];
+        comments?: YouTube.Schema.Comment[] | undefined;
       }
       interface CommentThreadSnippet {
-        canReply?: boolean;
-        channelId?: string;
-        isPublic?: boolean;
-        topLevelComment?: YouTube.Schema.Comment;
-        totalReplyCount?: number;
-        videoId?: string;
+        canReply?: boolean | undefined;
+        channelId?: string | undefined;
+        isPublic?: boolean | undefined;
+        topLevelComment?: YouTube.Schema.Comment | undefined;
+        totalReplyCount?: number | undefined;
+        videoId?: string | undefined;
       }
       interface ContentRating {
-        acbRating?: string;
-        agcomRating?: string;
-        anatelRating?: string;
-        bbfcRating?: string;
-        bfvcRating?: string;
-        bmukkRating?: string;
-        catvRating?: string;
-        catvfrRating?: string;
-        cbfcRating?: string;
-        cccRating?: string;
-        cceRating?: string;
-        chfilmRating?: string;
-        chvrsRating?: string;
-        cicfRating?: string;
-        cnaRating?: string;
-        cncRating?: string;
-        csaRating?: string;
-        cscfRating?: string;
-        czfilmRating?: string;
-        djctqRating?: string;
-        djctqRatingReasons?: string[];
-        ecbmctRating?: string;
-        eefilmRating?: string;
-        egfilmRating?: string;
-        eirinRating?: string;
-        fcbmRating?: string;
-        fcoRating?: string;
-        fmocRating?: string;
-        fpbRating?: string;
-        fpbRatingReasons?: string[];
-        fskRating?: string;
-        grfilmRating?: string;
-        icaaRating?: string;
-        ifcoRating?: string;
-        ilfilmRating?: string;
-        incaaRating?: string;
-        kfcbRating?: string;
-        kijkwijzerRating?: string;
-        kmrbRating?: string;
-        lsfRating?: string;
-        mccaaRating?: string;
-        mccypRating?: string;
-        mcstRating?: string;
-        mdaRating?: string;
-        medietilsynetRating?: string;
-        mekuRating?: string;
-        menaMpaaRating?: string;
-        mibacRating?: string;
-        mocRating?: string;
-        moctwRating?: string;
-        mpaaRating?: string;
-        mpaatRating?: string;
-        mtrcbRating?: string;
-        nbcRating?: string;
-        nbcplRating?: string;
-        nfrcRating?: string;
-        nfvcbRating?: string;
-        nkclvRating?: string;
-        oflcRating?: string;
-        pefilmRating?: string;
-        rcnofRating?: string;
-        resorteviolenciaRating?: string;
-        rtcRating?: string;
-        rteRating?: string;
-        russiaRating?: string;
-        skfilmRating?: string;
-        smaisRating?: string;
-        smsaRating?: string;
-        tvpgRating?: string;
-        ytRating?: string;
+        acbRating?: string | undefined;
+        agcomRating?: string | undefined;
+        anatelRating?: string | undefined;
+        bbfcRating?: string | undefined;
+        bfvcRating?: string | undefined;
+        bmukkRating?: string | undefined;
+        catvRating?: string | undefined;
+        catvfrRating?: string | undefined;
+        cbfcRating?: string | undefined;
+        cccRating?: string | undefined;
+        cceRating?: string | undefined;
+        chfilmRating?: string | undefined;
+        chvrsRating?: string | undefined;
+        cicfRating?: string | undefined;
+        cnaRating?: string | undefined;
+        cncRating?: string | undefined;
+        csaRating?: string | undefined;
+        cscfRating?: string | undefined;
+        czfilmRating?: string | undefined;
+        djctqRating?: string | undefined;
+        djctqRatingReasons?: string[] | undefined;
+        ecbmctRating?: string | undefined;
+        eefilmRating?: string | undefined;
+        egfilmRating?: string | undefined;
+        eirinRating?: string | undefined;
+        fcbmRating?: string | undefined;
+        fcoRating?: string | undefined;
+        fmocRating?: string | undefined;
+        fpbRating?: string | undefined;
+        fpbRatingReasons?: string[] | undefined;
+        fskRating?: string | undefined;
+        grfilmRating?: string | undefined;
+        icaaRating?: string | undefined;
+        ifcoRating?: string | undefined;
+        ilfilmRating?: string | undefined;
+        incaaRating?: string | undefined;
+        kfcbRating?: string | undefined;
+        kijkwijzerRating?: string | undefined;
+        kmrbRating?: string | undefined;
+        lsfRating?: string | undefined;
+        mccaaRating?: string | undefined;
+        mccypRating?: string | undefined;
+        mcstRating?: string | undefined;
+        mdaRating?: string | undefined;
+        medietilsynetRating?: string | undefined;
+        mekuRating?: string | undefined;
+        menaMpaaRating?: string | undefined;
+        mibacRating?: string | undefined;
+        mocRating?: string | undefined;
+        moctwRating?: string | undefined;
+        mpaaRating?: string | undefined;
+        mpaatRating?: string | undefined;
+        mtrcbRating?: string | undefined;
+        nbcRating?: string | undefined;
+        nbcplRating?: string | undefined;
+        nfrcRating?: string | undefined;
+        nfvcbRating?: string | undefined;
+        nkclvRating?: string | undefined;
+        oflcRating?: string | undefined;
+        pefilmRating?: string | undefined;
+        rcnofRating?: string | undefined;
+        resorteviolenciaRating?: string | undefined;
+        rtcRating?: string | undefined;
+        rteRating?: string | undefined;
+        russiaRating?: string | undefined;
+        skfilmRating?: string | undefined;
+        smaisRating?: string | undefined;
+        smsaRating?: string | undefined;
+        tvpgRating?: string | undefined;
+        ytRating?: string | undefined;
       }
       interface GeoPoint {
-        altitude?: number;
-        latitude?: number;
-        longitude?: number;
+        altitude?: number | undefined;
+        latitude?: number | undefined;
+        longitude?: number | undefined;
       }
       interface GuideCategory {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.GuideCategorySnippet;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.GuideCategorySnippet | undefined;
       }
       interface GuideCategoryListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.GuideCategory[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.GuideCategory[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface GuideCategorySnippet {
-        channelId?: string;
-        title?: string;
+        channelId?: string | undefined;
+        title?: string | undefined;
       }
       interface I18nLanguage {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.I18nLanguageSnippet;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.I18nLanguageSnippet | undefined;
       }
       interface I18nLanguageListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.I18nLanguage[];
-        kind?: string;
-        visitorId?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.I18nLanguage[] | undefined;
+        kind?: string | undefined;
+        visitorId?: string | undefined;
       }
       interface I18nLanguageSnippet {
-        hl?: string;
-        name?: string;
+        hl?: string | undefined;
+        name?: string | undefined;
       }
       interface I18nRegion {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.I18nRegionSnippet;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.I18nRegionSnippet | undefined;
       }
       interface I18nRegionListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.I18nRegion[];
-        kind?: string;
-        visitorId?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.I18nRegion[] | undefined;
+        kind?: string | undefined;
+        visitorId?: string | undefined;
       }
       interface I18nRegionSnippet {
-        gl?: string;
-        name?: string;
+        gl?: string | undefined;
+        name?: string | undefined;
       }
       interface ImageSettings {
-        backgroundImageUrl?: YouTube.Schema.LocalizedProperty;
-        bannerExternalUrl?: string;
-        bannerImageUrl?: string;
-        bannerMobileExtraHdImageUrl?: string;
-        bannerMobileHdImageUrl?: string;
-        bannerMobileImageUrl?: string;
-        bannerMobileLowImageUrl?: string;
-        bannerMobileMediumHdImageUrl?: string;
-        bannerTabletExtraHdImageUrl?: string;
-        bannerTabletHdImageUrl?: string;
-        bannerTabletImageUrl?: string;
-        bannerTabletLowImageUrl?: string;
-        bannerTvHighImageUrl?: string;
-        bannerTvImageUrl?: string;
-        bannerTvLowImageUrl?: string;
-        bannerTvMediumImageUrl?: string;
-        largeBrandedBannerImageImapScript?: YouTube.Schema.LocalizedProperty;
-        largeBrandedBannerImageUrl?: YouTube.Schema.LocalizedProperty;
-        smallBrandedBannerImageImapScript?: YouTube.Schema.LocalizedProperty;
-        smallBrandedBannerImageUrl?: YouTube.Schema.LocalizedProperty;
-        trackingImageUrl?: string;
-        watchIconImageUrl?: string;
+        backgroundImageUrl?: YouTube.Schema.LocalizedProperty | undefined;
+        bannerExternalUrl?: string | undefined;
+        bannerImageUrl?: string | undefined;
+        bannerMobileExtraHdImageUrl?: string | undefined;
+        bannerMobileHdImageUrl?: string | undefined;
+        bannerMobileImageUrl?: string | undefined;
+        bannerMobileLowImageUrl?: string | undefined;
+        bannerMobileMediumHdImageUrl?: string | undefined;
+        bannerTabletExtraHdImageUrl?: string | undefined;
+        bannerTabletHdImageUrl?: string | undefined;
+        bannerTabletImageUrl?: string | undefined;
+        bannerTabletLowImageUrl?: string | undefined;
+        bannerTvHighImageUrl?: string | undefined;
+        bannerTvImageUrl?: string | undefined;
+        bannerTvLowImageUrl?: string | undefined;
+        bannerTvMediumImageUrl?: string | undefined;
+        largeBrandedBannerImageImapScript?: YouTube.Schema.LocalizedProperty | undefined;
+        largeBrandedBannerImageUrl?: YouTube.Schema.LocalizedProperty | undefined;
+        smallBrandedBannerImageImapScript?: YouTube.Schema.LocalizedProperty | undefined;
+        smallBrandedBannerImageUrl?: YouTube.Schema.LocalizedProperty | undefined;
+        trackingImageUrl?: string | undefined;
+        watchIconImageUrl?: string | undefined;
       }
       interface IngestionInfo {
-        backupIngestionAddress?: string;
-        ingestionAddress?: string;
-        streamName?: string;
+        backupIngestionAddress?: string | undefined;
+        ingestionAddress?: string | undefined;
+        streamName?: string | undefined;
       }
       interface InvideoBranding {
-        imageBytes?: string;
-        imageUrl?: string;
-        position?: YouTube.Schema.InvideoPosition;
-        targetChannelId?: string;
-        timing?: YouTube.Schema.InvideoTiming;
+        imageBytes?: string | undefined;
+        imageUrl?: string | undefined;
+        position?: YouTube.Schema.InvideoPosition | undefined;
+        targetChannelId?: string | undefined;
+        timing?: YouTube.Schema.InvideoTiming | undefined;
       }
       interface InvideoPosition {
-        cornerPosition?: string;
-        type?: string;
+        cornerPosition?: string | undefined;
+        type?: string | undefined;
       }
       interface InvideoPromotion {
-        defaultTiming?: YouTube.Schema.InvideoTiming;
-        items?: YouTube.Schema.PromotedItem[];
-        position?: YouTube.Schema.InvideoPosition;
-        useSmartTiming?: boolean;
+        defaultTiming?: YouTube.Schema.InvideoTiming | undefined;
+        items?: YouTube.Schema.PromotedItem[] | undefined;
+        position?: YouTube.Schema.InvideoPosition | undefined;
+        useSmartTiming?: boolean | undefined;
       }
       interface InvideoTiming {
-        durationMs?: string;
-        offsetMs?: string;
-        type?: string;
+        durationMs?: string | undefined;
+        offsetMs?: string | undefined;
+        type?: string | undefined;
       }
       interface LanguageTag {
-        value?: string;
+        value?: string | undefined;
       }
       interface LiveBroadcast {
-        contentDetails?: YouTube.Schema.LiveBroadcastContentDetails;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.LiveBroadcastSnippet;
-        statistics?: YouTube.Schema.LiveBroadcastStatistics;
-        status?: YouTube.Schema.LiveBroadcastStatus;
+        contentDetails?: YouTube.Schema.LiveBroadcastContentDetails | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.LiveBroadcastSnippet | undefined;
+        statistics?: YouTube.Schema.LiveBroadcastStatistics | undefined;
+        status?: YouTube.Schema.LiveBroadcastStatus | undefined;
       }
       interface LiveBroadcastContentDetails {
-        boundStreamId?: string;
-        boundStreamLastUpdateTimeMs?: string;
-        closedCaptionsType?: string;
-        enableAutoStart?: boolean;
-        enableClosedCaptions?: boolean;
-        enableContentEncryption?: boolean;
-        enableDvr?: boolean;
-        enableEmbed?: boolean;
-        enableLowLatency?: boolean;
-        latencyPreference?: string;
-        mesh?: string;
-        monitorStream?: YouTube.Schema.MonitorStreamInfo;
-        projection?: string;
-        recordFromStart?: boolean;
-        startWithSlate?: boolean;
-        stereoLayout?: string;
+        boundStreamId?: string | undefined;
+        boundStreamLastUpdateTimeMs?: string | undefined;
+        closedCaptionsType?: string | undefined;
+        enableAutoStart?: boolean | undefined;
+        enableClosedCaptions?: boolean | undefined;
+        enableContentEncryption?: boolean | undefined;
+        enableDvr?: boolean | undefined;
+        enableEmbed?: boolean | undefined;
+        enableLowLatency?: boolean | undefined;
+        latencyPreference?: string | undefined;
+        mesh?: string | undefined;
+        monitorStream?: YouTube.Schema.MonitorStreamInfo | undefined;
+        projection?: string | undefined;
+        recordFromStart?: boolean | undefined;
+        startWithSlate?: boolean | undefined;
+        stereoLayout?: string | undefined;
       }
       interface LiveBroadcastListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.LiveBroadcast[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.LiveBroadcast[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface LiveBroadcastSnippet {
-        actualEndTime?: string;
-        actualStartTime?: string;
-        channelId?: string;
-        description?: string;
-        isDefaultBroadcast?: boolean;
-        liveChatId?: string;
-        publishedAt?: string;
-        scheduledEndTime?: string;
-        scheduledStartTime?: string;
-        thumbnails?: YouTube.Schema.ThumbnailDetails;
-        title?: string;
+        actualEndTime?: string | undefined;
+        actualStartTime?: string | undefined;
+        channelId?: string | undefined;
+        description?: string | undefined;
+        isDefaultBroadcast?: boolean | undefined;
+        liveChatId?: string | undefined;
+        publishedAt?: string | undefined;
+        scheduledEndTime?: string | undefined;
+        scheduledStartTime?: string | undefined;
+        thumbnails?: YouTube.Schema.ThumbnailDetails | undefined;
+        title?: string | undefined;
       }
       interface LiveBroadcastStatistics {
-        concurrentViewers?: string;
-        totalChatCount?: string;
+        concurrentViewers?: string | undefined;
+        totalChatCount?: string | undefined;
       }
       interface LiveBroadcastStatus {
-        lifeCycleStatus?: string;
-        liveBroadcastPriority?: string;
-        privacyStatus?: string;
-        recordingStatus?: string;
+        lifeCycleStatus?: string | undefined;
+        liveBroadcastPriority?: string | undefined;
+        privacyStatus?: string | undefined;
+        recordingStatus?: string | undefined;
       }
       interface LiveChatBan {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.LiveChatBanSnippet;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.LiveChatBanSnippet | undefined;
       }
       interface LiveChatBanSnippet {
-        banDurationSeconds?: string;
-        bannedUserDetails?: YouTube.Schema.ChannelProfileDetails;
-        liveChatId?: string;
-        type?: string;
+        banDurationSeconds?: string | undefined;
+        bannedUserDetails?: YouTube.Schema.ChannelProfileDetails | undefined;
+        liveChatId?: string | undefined;
+        type?: string | undefined;
       }
       interface LiveChatFanFundingEventDetails {
-        amountDisplayString?: string;
-        amountMicros?: string;
-        currency?: string;
-        userComment?: string;
+        amountDisplayString?: string | undefined;
+        amountMicros?: string | undefined;
+        currency?: string | undefined;
+        userComment?: string | undefined;
       }
       interface LiveChatMessage {
-        authorDetails?: YouTube.Schema.LiveChatMessageAuthorDetails;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.LiveChatMessageSnippet;
+        authorDetails?: YouTube.Schema.LiveChatMessageAuthorDetails | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.LiveChatMessageSnippet | undefined;
       }
       interface LiveChatMessageAuthorDetails {
-        channelId?: string;
-        channelUrl?: string;
-        displayName?: string;
-        isChatModerator?: boolean;
-        isChatOwner?: boolean;
-        isChatSponsor?: boolean;
-        isVerified?: boolean;
-        profileImageUrl?: string;
+        channelId?: string | undefined;
+        channelUrl?: string | undefined;
+        displayName?: string | undefined;
+        isChatModerator?: boolean | undefined;
+        isChatOwner?: boolean | undefined;
+        isChatSponsor?: boolean | undefined;
+        isVerified?: boolean | undefined;
+        profileImageUrl?: string | undefined;
       }
       interface LiveChatMessageDeletedDetails {
-        deletedMessageId?: string;
+        deletedMessageId?: string | undefined;
       }
       interface LiveChatMessageListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.LiveChatMessage[];
-        kind?: string;
-        nextPageToken?: string;
-        offlineAt?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        pollingIntervalMillis?: number;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.LiveChatMessage[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        offlineAt?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        pollingIntervalMillis?: number | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface LiveChatMessageRetractedDetails {
-        retractedMessageId?: string;
+        retractedMessageId?: string | undefined;
       }
       interface LiveChatMessageSnippet {
-        authorChannelId?: string;
-        displayMessage?: string;
-        fanFundingEventDetails?: YouTube.Schema.LiveChatFanFundingEventDetails;
-        hasDisplayContent?: boolean;
-        liveChatId?: string;
-        messageDeletedDetails?: YouTube.Schema.LiveChatMessageDeletedDetails;
-        messageRetractedDetails?: YouTube.Schema.LiveChatMessageRetractedDetails;
-        pollClosedDetails?: YouTube.Schema.LiveChatPollClosedDetails;
-        pollEditedDetails?: YouTube.Schema.LiveChatPollEditedDetails;
-        pollOpenedDetails?: YouTube.Schema.LiveChatPollOpenedDetails;
-        pollVotedDetails?: YouTube.Schema.LiveChatPollVotedDetails;
-        publishedAt?: string;
-        superChatDetails?: YouTube.Schema.LiveChatSuperChatDetails;
-        superStickerDetails?: YouTube.Schema.LiveChatSuperStickerDetails;
-        textMessageDetails?: YouTube.Schema.LiveChatTextMessageDetails;
-        type?: string;
-        userBannedDetails?: YouTube.Schema.LiveChatUserBannedMessageDetails;
+        authorChannelId?: string | undefined;
+        displayMessage?: string | undefined;
+        fanFundingEventDetails?: YouTube.Schema.LiveChatFanFundingEventDetails | undefined;
+        hasDisplayContent?: boolean | undefined;
+        liveChatId?: string | undefined;
+        messageDeletedDetails?: YouTube.Schema.LiveChatMessageDeletedDetails | undefined;
+        messageRetractedDetails?: YouTube.Schema.LiveChatMessageRetractedDetails | undefined;
+        pollClosedDetails?: YouTube.Schema.LiveChatPollClosedDetails | undefined;
+        pollEditedDetails?: YouTube.Schema.LiveChatPollEditedDetails | undefined;
+        pollOpenedDetails?: YouTube.Schema.LiveChatPollOpenedDetails | undefined;
+        pollVotedDetails?: YouTube.Schema.LiveChatPollVotedDetails | undefined;
+        publishedAt?: string | undefined;
+        superChatDetails?: YouTube.Schema.LiveChatSuperChatDetails | undefined;
+        superStickerDetails?: YouTube.Schema.LiveChatSuperStickerDetails | undefined;
+        textMessageDetails?: YouTube.Schema.LiveChatTextMessageDetails | undefined;
+        type?: string | undefined;
+        userBannedDetails?: YouTube.Schema.LiveChatUserBannedMessageDetails | undefined;
       }
       interface LiveChatModerator {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.LiveChatModeratorSnippet;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.LiveChatModeratorSnippet | undefined;
       }
       interface LiveChatModeratorListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.LiveChatModerator[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.LiveChatModerator[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface LiveChatModeratorSnippet {
-        liveChatId?: string;
-        moderatorDetails?: YouTube.Schema.ChannelProfileDetails;
+        liveChatId?: string | undefined;
+        moderatorDetails?: YouTube.Schema.ChannelProfileDetails | undefined;
       }
       interface LiveChatPollClosedDetails {
-        pollId?: string;
+        pollId?: string | undefined;
       }
       interface LiveChatPollEditedDetails {
-        id?: string;
-        items?: YouTube.Schema.LiveChatPollItem[];
-        prompt?: string;
+        id?: string | undefined;
+        items?: YouTube.Schema.LiveChatPollItem[] | undefined;
+        prompt?: string | undefined;
       }
       interface LiveChatPollItem {
-        description?: string;
-        itemId?: string;
+        description?: string | undefined;
+        itemId?: string | undefined;
       }
       interface LiveChatPollOpenedDetails {
-        id?: string;
-        items?: YouTube.Schema.LiveChatPollItem[];
-        prompt?: string;
+        id?: string | undefined;
+        items?: YouTube.Schema.LiveChatPollItem[] | undefined;
+        prompt?: string | undefined;
       }
       interface LiveChatPollVotedDetails {
-        itemId?: string;
-        pollId?: string;
+        itemId?: string | undefined;
+        pollId?: string | undefined;
       }
       interface LiveChatSuperChatDetails {
-        amountDisplayString?: string;
-        amountMicros?: string;
-        currency?: string;
-        tier?: number;
-        userComment?: string;
+        amountDisplayString?: string | undefined;
+        amountMicros?: string | undefined;
+        currency?: string | undefined;
+        tier?: number | undefined;
+        userComment?: string | undefined;
       }
       interface LiveChatSuperStickerDetails {
-        amountDisplayString?: string;
-        amountMicros?: string;
-        currency?: string;
-        superStickerMetadata?: YouTube.Schema.SuperStickerMetadata;
-        tier?: number;
+        amountDisplayString?: string | undefined;
+        amountMicros?: string | undefined;
+        currency?: string | undefined;
+        superStickerMetadata?: YouTube.Schema.SuperStickerMetadata | undefined;
+        tier?: number | undefined;
       }
       interface LiveChatTextMessageDetails {
-        messageText?: string;
+        messageText?: string | undefined;
       }
       interface LiveChatUserBannedMessageDetails {
-        banDurationSeconds?: string;
-        banType?: string;
-        bannedUserDetails?: YouTube.Schema.ChannelProfileDetails;
+        banDurationSeconds?: string | undefined;
+        banType?: string | undefined;
+        bannedUserDetails?: YouTube.Schema.ChannelProfileDetails | undefined;
       }
       interface LiveStream {
-        cdn?: YouTube.Schema.CdnSettings;
-        contentDetails?: YouTube.Schema.LiveStreamContentDetails;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.LiveStreamSnippet;
-        status?: YouTube.Schema.LiveStreamStatus;
+        cdn?: YouTube.Schema.CdnSettings | undefined;
+        contentDetails?: YouTube.Schema.LiveStreamContentDetails | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.LiveStreamSnippet | undefined;
+        status?: YouTube.Schema.LiveStreamStatus | undefined;
       }
       interface LiveStreamConfigurationIssue {
-        description?: string;
-        reason?: string;
-        severity?: string;
-        type?: string;
+        description?: string | undefined;
+        reason?: string | undefined;
+        severity?: string | undefined;
+        type?: string | undefined;
       }
       interface LiveStreamContentDetails {
-        closedCaptionsIngestionUrl?: string;
-        isReusable?: boolean;
+        closedCaptionsIngestionUrl?: string | undefined;
+        isReusable?: boolean | undefined;
       }
       interface LiveStreamHealthStatus {
-        configurationIssues?: YouTube.Schema.LiveStreamConfigurationIssue[];
-        lastUpdateTimeSeconds?: string;
-        status?: string;
+        configurationIssues?: YouTube.Schema.LiveStreamConfigurationIssue[] | undefined;
+        lastUpdateTimeSeconds?: string | undefined;
+        status?: string | undefined;
       }
       interface LiveStreamListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.LiveStream[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.LiveStream[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface LiveStreamSnippet {
-        channelId?: string;
-        description?: string;
-        isDefaultStream?: boolean;
-        publishedAt?: string;
-        title?: string;
+        channelId?: string | undefined;
+        description?: string | undefined;
+        isDefaultStream?: boolean | undefined;
+        publishedAt?: string | undefined;
+        title?: string | undefined;
       }
       interface LiveStreamStatus {
-        healthStatus?: YouTube.Schema.LiveStreamHealthStatus;
-        streamStatus?: string;
+        healthStatus?: YouTube.Schema.LiveStreamHealthStatus | undefined;
+        streamStatus?: string | undefined;
       }
       interface LocalizedProperty {
-        default?: string;
-        defaultLanguage?: YouTube.Schema.LanguageTag;
-        localized?: YouTube.Schema.LocalizedString[];
+        default?: string | undefined;
+        defaultLanguage?: YouTube.Schema.LanguageTag | undefined;
+        localized?: YouTube.Schema.LocalizedString[] | undefined;
       }
       interface LocalizedString {
-        language?: string;
-        value?: string;
+        language?: string | undefined;
+        value?: string | undefined;
       }
       interface MonitorStreamInfo {
-        broadcastStreamDelayMs?: number;
-        embedHtml?: string;
-        enableMonitorStream?: boolean;
+        broadcastStreamDelayMs?: number | undefined;
+        embedHtml?: string | undefined;
+        enableMonitorStream?: boolean | undefined;
       }
       interface Nonprofit {
-        nonprofitId?: YouTube.Schema.NonprofitId;
-        nonprofitLegalName?: string;
+        nonprofitId?: YouTube.Schema.NonprofitId | undefined;
+        nonprofitLegalName?: string | undefined;
       }
       interface NonprofitId {
-        value?: string;
+        value?: string | undefined;
       }
       interface PageInfo {
-        resultsPerPage?: number;
-        totalResults?: number;
+        resultsPerPage?: number | undefined;
+        totalResults?: number | undefined;
       }
       interface Playlist {
-        contentDetails?: YouTube.Schema.PlaylistContentDetails;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        localizations?: object;
-        player?: YouTube.Schema.PlaylistPlayer;
-        snippet?: YouTube.Schema.PlaylistSnippet;
-        status?: YouTube.Schema.PlaylistStatus;
+        contentDetails?: YouTube.Schema.PlaylistContentDetails | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        localizations?: object | undefined;
+        player?: YouTube.Schema.PlaylistPlayer | undefined;
+        snippet?: YouTube.Schema.PlaylistSnippet | undefined;
+        status?: YouTube.Schema.PlaylistStatus | undefined;
       }
       interface PlaylistContentDetails {
-        itemCount?: number;
+        itemCount?: number | undefined;
       }
       interface PlaylistItem {
-        contentDetails?: YouTube.Schema.PlaylistItemContentDetails;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.PlaylistItemSnippet;
-        status?: YouTube.Schema.PlaylistItemStatus;
+        contentDetails?: YouTube.Schema.PlaylistItemContentDetails | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.PlaylistItemSnippet | undefined;
+        status?: YouTube.Schema.PlaylistItemStatus | undefined;
       }
       interface PlaylistItemContentDetails {
-        endAt?: string;
-        note?: string;
-        startAt?: string;
-        videoId?: string;
-        videoPublishedAt?: string;
+        endAt?: string | undefined;
+        note?: string | undefined;
+        startAt?: string | undefined;
+        videoId?: string | undefined;
+        videoPublishedAt?: string | undefined;
       }
       interface PlaylistItemListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.PlaylistItem[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.PlaylistItem[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface PlaylistItemSnippet {
-        channelId?: string;
-        channelTitle?: string;
-        description?: string;
-        playlistId?: string;
-        position?: number;
-        publishedAt?: string;
-        resourceId?: YouTube.Schema.ResourceId;
-        thumbnails?: YouTube.Schema.ThumbnailDetails;
-        title?: string;
+        channelId?: string | undefined;
+        channelTitle?: string | undefined;
+        description?: string | undefined;
+        playlistId?: string | undefined;
+        position?: number | undefined;
+        publishedAt?: string | undefined;
+        resourceId?: YouTube.Schema.ResourceId | undefined;
+        thumbnails?: YouTube.Schema.ThumbnailDetails | undefined;
+        title?: string | undefined;
       }
       interface PlaylistItemStatus {
-        privacyStatus?: string;
+        privacyStatus?: string | undefined;
       }
       interface PlaylistListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.Playlist[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.Playlist[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface PlaylistLocalization {
-        description?: string;
-        title?: string;
+        description?: string | undefined;
+        title?: string | undefined;
       }
       interface PlaylistPlayer {
-        embedHtml?: string;
+        embedHtml?: string | undefined;
       }
       interface PlaylistSnippet {
-        channelId?: string;
-        channelTitle?: string;
-        defaultLanguage?: string;
-        description?: string;
-        localized?: YouTube.Schema.PlaylistLocalization;
-        publishedAt?: string;
-        tags?: string[];
-        thumbnails?: YouTube.Schema.ThumbnailDetails;
-        title?: string;
+        channelId?: string | undefined;
+        channelTitle?: string | undefined;
+        defaultLanguage?: string | undefined;
+        description?: string | undefined;
+        localized?: YouTube.Schema.PlaylistLocalization | undefined;
+        publishedAt?: string | undefined;
+        tags?: string[] | undefined;
+        thumbnails?: YouTube.Schema.ThumbnailDetails | undefined;
+        title?: string | undefined;
       }
       interface PlaylistStatus {
-        privacyStatus?: string;
+        privacyStatus?: string | undefined;
       }
       interface PromotedItem {
-        customMessage?: string;
-        id?: YouTube.Schema.PromotedItemId;
-        promotedByContentOwner?: boolean;
-        timing?: YouTube.Schema.InvideoTiming;
+        customMessage?: string | undefined;
+        id?: YouTube.Schema.PromotedItemId | undefined;
+        promotedByContentOwner?: boolean | undefined;
+        timing?: YouTube.Schema.InvideoTiming | undefined;
       }
       interface PromotedItemId {
-        recentlyUploadedBy?: string;
-        type?: string;
-        videoId?: string;
-        websiteUrl?: string;
+        recentlyUploadedBy?: string | undefined;
+        type?: string | undefined;
+        videoId?: string | undefined;
+        websiteUrl?: string | undefined;
       }
       interface PropertyValue {
-        property?: string;
-        value?: string;
+        property?: string | undefined;
+        value?: string | undefined;
       }
       interface ResourceId {
-        channelId?: string;
-        kind?: string;
-        playlistId?: string;
-        videoId?: string;
+        channelId?: string | undefined;
+        kind?: string | undefined;
+        playlistId?: string | undefined;
+        videoId?: string | undefined;
       }
       interface SearchListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.SearchResult[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
-        regionCode?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.SearchResult[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
+        regionCode?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface SearchResult {
-        etag?: string;
-        id?: YouTube.Schema.ResourceId;
-        kind?: string;
-        snippet?: YouTube.Schema.SearchResultSnippet;
+        etag?: string | undefined;
+        id?: YouTube.Schema.ResourceId | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.SearchResultSnippet | undefined;
       }
       interface SearchResultSnippet {
-        channelId?: string;
-        channelTitle?: string;
-        description?: string;
-        liveBroadcastContent?: string;
-        publishedAt?: string;
-        thumbnails?: YouTube.Schema.ThumbnailDetails;
-        title?: string;
+        channelId?: string | undefined;
+        channelTitle?: string | undefined;
+        description?: string | undefined;
+        liveBroadcastContent?: string | undefined;
+        publishedAt?: string | undefined;
+        thumbnails?: YouTube.Schema.ThumbnailDetails | undefined;
+        title?: string | undefined;
       }
       interface Sponsor {
-        etag?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.SponsorSnippet;
+        etag?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.SponsorSnippet | undefined;
       }
       interface SponsorListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.Sponsor[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.Sponsor[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface SponsorSnippet {
-        channelId?: string;
-        cumulativeDurationMonths?: number;
-        sponsorDetails?: YouTube.Schema.ChannelProfileDetails;
-        sponsorSince?: string;
+        channelId?: string | undefined;
+        cumulativeDurationMonths?: number | undefined;
+        sponsorDetails?: YouTube.Schema.ChannelProfileDetails | undefined;
+        sponsorSince?: string | undefined;
       }
       interface Subscription {
-        contentDetails?: YouTube.Schema.SubscriptionContentDetails;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.SubscriptionSnippet;
-        subscriberSnippet?: YouTube.Schema.SubscriptionSubscriberSnippet;
+        contentDetails?: YouTube.Schema.SubscriptionContentDetails | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.SubscriptionSnippet | undefined;
+        subscriberSnippet?: YouTube.Schema.SubscriptionSubscriberSnippet | undefined;
       }
       interface SubscriptionContentDetails {
-        activityType?: string;
-        newItemCount?: number;
-        totalItemCount?: number;
+        activityType?: string | undefined;
+        newItemCount?: number | undefined;
+        totalItemCount?: number | undefined;
       }
       interface SubscriptionListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.Subscription[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.Subscription[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface SubscriptionSnippet {
-        channelId?: string;
-        channelTitle?: string;
-        description?: string;
-        publishedAt?: string;
-        resourceId?: YouTube.Schema.ResourceId;
-        thumbnails?: YouTube.Schema.ThumbnailDetails;
-        title?: string;
+        channelId?: string | undefined;
+        channelTitle?: string | undefined;
+        description?: string | undefined;
+        publishedAt?: string | undefined;
+        resourceId?: YouTube.Schema.ResourceId | undefined;
+        thumbnails?: YouTube.Schema.ThumbnailDetails | undefined;
+        title?: string | undefined;
       }
       interface SubscriptionSubscriberSnippet {
-        channelId?: string;
-        description?: string;
-        thumbnails?: YouTube.Schema.ThumbnailDetails;
-        title?: string;
+        channelId?: string | undefined;
+        description?: string | undefined;
+        thumbnails?: YouTube.Schema.ThumbnailDetails | undefined;
+        title?: string | undefined;
       }
       interface SuperChatEvent {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.SuperChatEventSnippet;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.SuperChatEventSnippet | undefined;
       }
       interface SuperChatEventListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.SuperChatEvent[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.SuperChatEvent[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface SuperChatEventSnippet {
-        amountMicros?: string;
-        channelId?: string;
-        commentText?: string;
-        createdAt?: string;
-        currency?: string;
-        displayString?: string;
-        isSuperChatForGood?: boolean;
-        isSuperStickerEvent?: boolean;
-        messageType?: number;
-        nonprofit?: YouTube.Schema.Nonprofit;
-        superStickerMetadata?: YouTube.Schema.SuperStickerMetadata;
-        supporterDetails?: YouTube.Schema.ChannelProfileDetails;
+        amountMicros?: string | undefined;
+        channelId?: string | undefined;
+        commentText?: string | undefined;
+        createdAt?: string | undefined;
+        currency?: string | undefined;
+        displayString?: string | undefined;
+        isSuperChatForGood?: boolean | undefined;
+        isSuperStickerEvent?: boolean | undefined;
+        messageType?: number | undefined;
+        nonprofit?: YouTube.Schema.Nonprofit | undefined;
+        superStickerMetadata?: YouTube.Schema.SuperStickerMetadata | undefined;
+        supporterDetails?: YouTube.Schema.ChannelProfileDetails | undefined;
       }
       interface SuperStickerMetadata {
-        altText?: string;
-        altTextLanguage?: string;
-        stickerId?: string;
+        altText?: string | undefined;
+        altTextLanguage?: string | undefined;
+        stickerId?: string | undefined;
       }
       interface Thumbnail {
-        height?: number;
-        url?: string;
-        width?: number;
+        height?: number | undefined;
+        url?: string | undefined;
+        width?: number | undefined;
       }
       interface ThumbnailDetails {
-        default?: YouTube.Schema.Thumbnail;
-        high?: YouTube.Schema.Thumbnail;
-        maxres?: YouTube.Schema.Thumbnail;
-        medium?: YouTube.Schema.Thumbnail;
-        standard?: YouTube.Schema.Thumbnail;
+        default?: YouTube.Schema.Thumbnail | undefined;
+        high?: YouTube.Schema.Thumbnail | undefined;
+        maxres?: YouTube.Schema.Thumbnail | undefined;
+        medium?: YouTube.Schema.Thumbnail | undefined;
+        standard?: YouTube.Schema.Thumbnail | undefined;
       }
       interface ThumbnailSetResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.ThumbnailDetails[];
-        kind?: string;
-        visitorId?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.ThumbnailDetails[] | undefined;
+        kind?: string | undefined;
+        visitorId?: string | undefined;
       }
       interface Video {
-        ageGating?: YouTube.Schema.VideoAgeGating;
-        contentDetails?: YouTube.Schema.VideoContentDetails;
-        etag?: string;
-        fileDetails?: YouTube.Schema.VideoFileDetails;
-        id?: string;
-        kind?: string;
-        liveStreamingDetails?: YouTube.Schema.VideoLiveStreamingDetails;
-        localizations?: object;
-        monetizationDetails?: YouTube.Schema.VideoMonetizationDetails;
-        player?: YouTube.Schema.VideoPlayer;
-        processingDetails?: YouTube.Schema.VideoProcessingDetails;
-        projectDetails?: YouTube.Schema.VideoProjectDetails;
-        recordingDetails?: YouTube.Schema.VideoRecordingDetails;
-        snippet?: YouTube.Schema.VideoSnippet;
-        statistics?: YouTube.Schema.VideoStatistics;
-        status?: YouTube.Schema.VideoStatus;
-        suggestions?: YouTube.Schema.VideoSuggestions;
-        topicDetails?: YouTube.Schema.VideoTopicDetails;
+        ageGating?: YouTube.Schema.VideoAgeGating | undefined;
+        contentDetails?: YouTube.Schema.VideoContentDetails | undefined;
+        etag?: string | undefined;
+        fileDetails?: YouTube.Schema.VideoFileDetails | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        liveStreamingDetails?: YouTube.Schema.VideoLiveStreamingDetails | undefined;
+        localizations?: object | undefined;
+        monetizationDetails?: YouTube.Schema.VideoMonetizationDetails | undefined;
+        player?: YouTube.Schema.VideoPlayer | undefined;
+        processingDetails?: YouTube.Schema.VideoProcessingDetails | undefined;
+        projectDetails?: YouTube.Schema.VideoProjectDetails | undefined;
+        recordingDetails?: YouTube.Schema.VideoRecordingDetails | undefined;
+        snippet?: YouTube.Schema.VideoSnippet | undefined;
+        statistics?: YouTube.Schema.VideoStatistics | undefined;
+        status?: YouTube.Schema.VideoStatus | undefined;
+        suggestions?: YouTube.Schema.VideoSuggestions | undefined;
+        topicDetails?: YouTube.Schema.VideoTopicDetails | undefined;
       }
       interface VideoAbuseReport {
-        comments?: string;
-        language?: string;
-        reasonId?: string;
-        secondaryReasonId?: string;
-        videoId?: string;
+        comments?: string | undefined;
+        language?: string | undefined;
+        reasonId?: string | undefined;
+        secondaryReasonId?: string | undefined;
+        videoId?: string | undefined;
       }
       interface VideoAbuseReportReason {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.VideoAbuseReportReasonSnippet;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.VideoAbuseReportReasonSnippet | undefined;
       }
       interface VideoAbuseReportReasonListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.VideoAbuseReportReason[];
-        kind?: string;
-        visitorId?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.VideoAbuseReportReason[] | undefined;
+        kind?: string | undefined;
+        visitorId?: string | undefined;
       }
       interface VideoAbuseReportReasonSnippet {
-        label?: string;
-        secondaryReasons?: YouTube.Schema.VideoAbuseReportSecondaryReason[];
+        label?: string | undefined;
+        secondaryReasons?: YouTube.Schema.VideoAbuseReportSecondaryReason[] | undefined;
       }
       interface VideoAbuseReportSecondaryReason {
-        id?: string;
-        label?: string;
+        id?: string | undefined;
+        label?: string | undefined;
       }
       interface VideoAgeGating {
-        alcoholContent?: boolean;
-        restricted?: boolean;
-        videoGameRating?: string;
+        alcoholContent?: boolean | undefined;
+        restricted?: boolean | undefined;
+        videoGameRating?: string | undefined;
       }
       interface VideoCategory {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        snippet?: YouTube.Schema.VideoCategorySnippet;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        snippet?: YouTube.Schema.VideoCategorySnippet | undefined;
       }
       interface VideoCategoryListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.VideoCategory[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.VideoCategory[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface VideoCategorySnippet {
-        assignable?: boolean;
-        channelId?: string;
-        title?: string;
+        assignable?: boolean | undefined;
+        channelId?: string | undefined;
+        title?: string | undefined;
       }
       interface VideoContentDetails {
-        caption?: string;
-        contentRating?: YouTube.Schema.ContentRating;
-        countryRestriction?: YouTube.Schema.AccessPolicy;
-        definition?: string;
-        dimension?: string;
-        duration?: string;
-        hasCustomThumbnail?: boolean;
-        licensedContent?: boolean;
-        projection?: string;
-        regionRestriction?: YouTube.Schema.VideoContentDetailsRegionRestriction;
+        caption?: string | undefined;
+        contentRating?: YouTube.Schema.ContentRating | undefined;
+        countryRestriction?: YouTube.Schema.AccessPolicy | undefined;
+        definition?: string | undefined;
+        dimension?: string | undefined;
+        duration?: string | undefined;
+        hasCustomThumbnail?: boolean | undefined;
+        licensedContent?: boolean | undefined;
+        projection?: string | undefined;
+        regionRestriction?: YouTube.Schema.VideoContentDetailsRegionRestriction | undefined;
       }
       interface VideoContentDetailsRegionRestriction {
-        allowed?: string[];
-        blocked?: string[];
+        allowed?: string[] | undefined;
+        blocked?: string[] | undefined;
       }
       interface VideoFileDetails {
-        audioStreams?: YouTube.Schema.VideoFileDetailsAudioStream[];
-        bitrateBps?: string;
-        container?: string;
-        creationTime?: string;
-        durationMs?: string;
-        fileName?: string;
-        fileSize?: string;
-        fileType?: string;
-        videoStreams?: YouTube.Schema.VideoFileDetailsVideoStream[];
+        audioStreams?: YouTube.Schema.VideoFileDetailsAudioStream[] | undefined;
+        bitrateBps?: string | undefined;
+        container?: string | undefined;
+        creationTime?: string | undefined;
+        durationMs?: string | undefined;
+        fileName?: string | undefined;
+        fileSize?: string | undefined;
+        fileType?: string | undefined;
+        videoStreams?: YouTube.Schema.VideoFileDetailsVideoStream[] | undefined;
       }
       interface VideoFileDetailsAudioStream {
-        bitrateBps?: string;
-        channelCount?: number;
-        codec?: string;
-        vendor?: string;
+        bitrateBps?: string | undefined;
+        channelCount?: number | undefined;
+        codec?: string | undefined;
+        vendor?: string | undefined;
       }
       interface VideoFileDetailsVideoStream {
-        aspectRatio?: number;
-        bitrateBps?: string;
-        codec?: string;
-        frameRateFps?: number;
-        heightPixels?: number;
-        rotation?: string;
-        vendor?: string;
-        widthPixels?: number;
+        aspectRatio?: number | undefined;
+        bitrateBps?: string | undefined;
+        codec?: string | undefined;
+        frameRateFps?: number | undefined;
+        heightPixels?: number | undefined;
+        rotation?: string | undefined;
+        vendor?: string | undefined;
+        widthPixels?: number | undefined;
       }
       interface VideoGetRatingResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.VideoRating[];
-        kind?: string;
-        visitorId?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.VideoRating[] | undefined;
+        kind?: string | undefined;
+        visitorId?: string | undefined;
       }
       interface VideoListResponse {
-        etag?: string;
-        eventId?: string;
-        items?: YouTube.Schema.Video[];
-        kind?: string;
-        nextPageToken?: string;
-        pageInfo?: YouTube.Schema.PageInfo;
-        prevPageToken?: string;
+        etag?: string | undefined;
+        eventId?: string | undefined;
+        items?: YouTube.Schema.Video[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        pageInfo?: YouTube.Schema.PageInfo | undefined;
+        prevPageToken?: string | undefined;
         tokenPagination?: any; // Schema.TokenPagination
-        visitorId?: string;
+        visitorId?: string | undefined;
       }
       interface VideoLiveStreamingDetails {
-        activeLiveChatId?: string;
-        actualEndTime?: string;
-        actualStartTime?: string;
-        concurrentViewers?: string;
-        scheduledEndTime?: string;
-        scheduledStartTime?: string;
+        activeLiveChatId?: string | undefined;
+        actualEndTime?: string | undefined;
+        actualStartTime?: string | undefined;
+        concurrentViewers?: string | undefined;
+        scheduledEndTime?: string | undefined;
+        scheduledStartTime?: string | undefined;
       }
       interface VideoLocalization {
-        description?: string;
-        title?: string;
+        description?: string | undefined;
+        title?: string | undefined;
       }
       interface VideoMonetizationDetails {
-        access?: YouTube.Schema.AccessPolicy;
+        access?: YouTube.Schema.AccessPolicy | undefined;
       }
       interface VideoPlayer {
-        embedHeight?: string;
-        embedHtml?: string;
-        embedWidth?: string;
+        embedHeight?: string | undefined;
+        embedHtml?: string | undefined;
+        embedWidth?: string | undefined;
       }
       interface VideoProcessingDetails {
-        editorSuggestionsAvailability?: string;
-        fileDetailsAvailability?: string;
-        processingFailureReason?: string;
-        processingIssuesAvailability?: string;
-        processingProgress?: YouTube.Schema.VideoProcessingDetailsProcessingProgress;
-        processingStatus?: string;
-        tagSuggestionsAvailability?: string;
-        thumbnailsAvailability?: string;
+        editorSuggestionsAvailability?: string | undefined;
+        fileDetailsAvailability?: string | undefined;
+        processingFailureReason?: string | undefined;
+        processingIssuesAvailability?: string | undefined;
+        processingProgress?: YouTube.Schema.VideoProcessingDetailsProcessingProgress | undefined;
+        processingStatus?: string | undefined;
+        tagSuggestionsAvailability?: string | undefined;
+        thumbnailsAvailability?: string | undefined;
       }
       interface VideoProcessingDetailsProcessingProgress {
-        partsProcessed?: string;
-        partsTotal?: string;
-        timeLeftMs?: string;
+        partsProcessed?: string | undefined;
+        partsTotal?: string | undefined;
+        timeLeftMs?: string | undefined;
       }
       interface VideoProjectDetails {
-        tags?: string[];
+        tags?: string[] | undefined;
       }
       interface VideoRating {
-        rating?: string;
-        videoId?: string;
+        rating?: string | undefined;
+        videoId?: string | undefined;
       }
       interface VideoRecordingDetails {
-        location?: YouTube.Schema.GeoPoint;
-        locationDescription?: string;
-        recordingDate?: string;
+        location?: YouTube.Schema.GeoPoint | undefined;
+        locationDescription?: string | undefined;
+        recordingDate?: string | undefined;
       }
       interface VideoSnippet {
-        categoryId?: string;
-        channelId?: string;
-        channelTitle?: string;
-        defaultAudioLanguage?: string;
-        defaultLanguage?: string;
-        description?: string;
-        liveBroadcastContent?: string;
-        localized?: YouTube.Schema.VideoLocalization;
-        publishedAt?: string;
-        tags?: string[];
-        thumbnails?: YouTube.Schema.ThumbnailDetails;
-        title?: string;
+        categoryId?: string | undefined;
+        channelId?: string | undefined;
+        channelTitle?: string | undefined;
+        defaultAudioLanguage?: string | undefined;
+        defaultLanguage?: string | undefined;
+        description?: string | undefined;
+        liveBroadcastContent?: string | undefined;
+        localized?: YouTube.Schema.VideoLocalization | undefined;
+        publishedAt?: string | undefined;
+        tags?: string[] | undefined;
+        thumbnails?: YouTube.Schema.ThumbnailDetails | undefined;
+        title?: string | undefined;
       }
       interface VideoStatistics {
-        commentCount?: string;
-        dislikeCount?: string;
-        favoriteCount?: string;
-        likeCount?: string;
-        viewCount?: string;
+        commentCount?: string | undefined;
+        dislikeCount?: string | undefined;
+        favoriteCount?: string | undefined;
+        likeCount?: string | undefined;
+        viewCount?: string | undefined;
       }
       interface VideoStatus {
-        embeddable?: boolean;
-        failureReason?: string;
-        license?: string;
-        privacyStatus?: string;
-        publicStatsViewable?: boolean;
-        publishAt?: string;
-        rejectionReason?: string;
-        uploadStatus?: string;
+        embeddable?: boolean | undefined;
+        failureReason?: string | undefined;
+        license?: string | undefined;
+        privacyStatus?: string | undefined;
+        publicStatsViewable?: boolean | undefined;
+        publishAt?: string | undefined;
+        rejectionReason?: string | undefined;
+        uploadStatus?: string | undefined;
       }
       interface VideoSuggestions {
-        editorSuggestions?: string[];
-        processingErrors?: string[];
-        processingHints?: string[];
-        processingWarnings?: string[];
-        tagSuggestions?: YouTube.Schema.VideoSuggestionsTagSuggestion[];
+        editorSuggestions?: string[] | undefined;
+        processingErrors?: string[] | undefined;
+        processingHints?: string[] | undefined;
+        processingWarnings?: string[] | undefined;
+        tagSuggestions?: YouTube.Schema.VideoSuggestionsTagSuggestion[] | undefined;
       }
       interface VideoSuggestionsTagSuggestion {
-        categoryRestricts?: string[];
-        tag?: string;
+        categoryRestricts?: string[] | undefined;
+        tag?: string | undefined;
       }
       interface VideoTopicDetails {
-        relevantTopicIds?: string[];
-        topicCategories?: string[];
-        topicIds?: string[];
+        relevantTopicIds?: string[] | undefined;
+        topicCategories?: string[] | undefined;
+        topicIds?: string[] | undefined;
       }
       interface WatchSettings {
-        backgroundColor?: string;
-        featuredPlaylistId?: string;
-        textColor?: string;
+        backgroundColor?: string | undefined;
+        featuredPlaylistId?: string | undefined;
+        textColor?: string | undefined;
       }
     }
   }
   interface YouTube {
-    Activities?: YouTube.Collection.ActivitiesCollection;
-    Captions?: YouTube.Collection.CaptionsCollection;
-    ChannelBanners?: YouTube.Collection.ChannelBannersCollection;
-    ChannelSections?: YouTube.Collection.ChannelSectionsCollection;
-    Channels?: YouTube.Collection.ChannelsCollection;
-    CommentThreads?: YouTube.Collection.CommentThreadsCollection;
-    Comments?: YouTube.Collection.CommentsCollection;
-    GuideCategories?: YouTube.Collection.GuideCategoriesCollection;
-    I18nLanguages?: YouTube.Collection.I18nLanguagesCollection;
-    I18nRegions?: YouTube.Collection.I18nRegionsCollection;
-    LiveBroadcasts?: YouTube.Collection.LiveBroadcastsCollection;
-    LiveChatBans?: YouTube.Collection.LiveChatBansCollection;
-    LiveChatMessages?: YouTube.Collection.LiveChatMessagesCollection;
-    LiveChatModerators?: YouTube.Collection.LiveChatModeratorsCollection;
-    LiveStreams?: YouTube.Collection.LiveStreamsCollection;
-    PlaylistItems?: YouTube.Collection.PlaylistItemsCollection;
-    Playlists?: YouTube.Collection.PlaylistsCollection;
-    Search?: YouTube.Collection.SearchCollection;
-    Sponsors?: YouTube.Collection.SponsorsCollection;
-    Subscriptions?: YouTube.Collection.SubscriptionsCollection;
-    SuperChatEvents?: YouTube.Collection.SuperChatEventsCollection;
-    Thumbnails?: YouTube.Collection.ThumbnailsCollection;
-    VideoAbuseReportReasons?: YouTube.Collection.VideoAbuseReportReasonsCollection;
-    VideoCategories?: YouTube.Collection.VideoCategoriesCollection;
-    Videos?: YouTube.Collection.VideosCollection;
-    Watermarks?: YouTube.Collection.WatermarksCollection;
+    Activities?: YouTube.Collection.ActivitiesCollection | undefined;
+    Captions?: YouTube.Collection.CaptionsCollection | undefined;
+    ChannelBanners?: YouTube.Collection.ChannelBannersCollection | undefined;
+    ChannelSections?: YouTube.Collection.ChannelSectionsCollection | undefined;
+    Channels?: YouTube.Collection.ChannelsCollection | undefined;
+    CommentThreads?: YouTube.Collection.CommentThreadsCollection | undefined;
+    Comments?: YouTube.Collection.CommentsCollection | undefined;
+    GuideCategories?: YouTube.Collection.GuideCategoriesCollection | undefined;
+    I18nLanguages?: YouTube.Collection.I18nLanguagesCollection | undefined;
+    I18nRegions?: YouTube.Collection.I18nRegionsCollection | undefined;
+    LiveBroadcasts?: YouTube.Collection.LiveBroadcastsCollection | undefined;
+    LiveChatBans?: YouTube.Collection.LiveChatBansCollection | undefined;
+    LiveChatMessages?: YouTube.Collection.LiveChatMessagesCollection | undefined;
+    LiveChatModerators?: YouTube.Collection.LiveChatModeratorsCollection | undefined;
+    LiveStreams?: YouTube.Collection.LiveStreamsCollection | undefined;
+    PlaylistItems?: YouTube.Collection.PlaylistItemsCollection | undefined;
+    Playlists?: YouTube.Collection.PlaylistsCollection | undefined;
+    Search?: YouTube.Collection.SearchCollection | undefined;
+    Sponsors?: YouTube.Collection.SponsorsCollection | undefined;
+    Subscriptions?: YouTube.Collection.SubscriptionsCollection | undefined;
+    SuperChatEvents?: YouTube.Collection.SuperChatEventsCollection | undefined;
+    Thumbnails?: YouTube.Collection.ThumbnailsCollection | undefined;
+    VideoAbuseReportReasons?: YouTube.Collection.VideoAbuseReportReasonsCollection | undefined;
+    VideoCategories?: YouTube.Collection.VideoCategoriesCollection | undefined;
+    Videos?: YouTube.Collection.VideosCollection | undefined;
+    Watermarks?: YouTube.Collection.WatermarksCollection | undefined;
     // Create a new instance of AccessPolicy
     newAccessPolicy(): YouTube.Schema.AccessPolicy;
     // Create a new instance of Activity

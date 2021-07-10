@@ -66,18 +66,18 @@ export interface Model<T> {
     log: bunyan;
     after: any;
     before: any;
-    config(config: { dynamodb?: DynamoDB; tableName?: string }): any;
+    config(config: { dynamodb?: DynamoDB | undefined; tableName?: string | undefined }): any;
 }
 
 export interface Page<T> {
     Items: Array<Model<T>>;
     Count: number;
-    ScannedCount?: number;
+    ScannedCount?: number | undefined;
     LastEvaluatedKey?: any;
     ConsumedCapacity?: {
         CapacityUnits: number;
         TableName: string;
-    };
+    } | undefined;
 }
 
 export namespace Model {
@@ -87,7 +87,7 @@ export namespace Model {
         ExpressionAttributeValues?: any;
         ExpressionAttributeNames?: any;
         expected?: any;
-        overwrite?: boolean;
-        ReturnValues?: string | boolean;
+        overwrite?: boolean | undefined;
+        ReturnValues?: string | boolean | undefined;
     }
 }

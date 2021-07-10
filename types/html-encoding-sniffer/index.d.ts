@@ -20,7 +20,7 @@ declare namespace sniffHTMLEncoding {
          * (probably an HTTP `Content-Type` header), which overrides
          * everything but a BOM.
          */
-        transportLayerEncodingLabel?: string;
+        transportLayerEncodingLabel?: string | undefined;
 
         /**
          * The ultimate fallback encoding used if no valid encoding is supplied
@@ -34,7 +34,7 @@ declare namespace sniffHTMLEncoding {
          * Which is recommended by the algorithm's table of suggested
          * defaults for "All other locales" (including the `en` locale).
          */
-        defaultEncoding?: string;
+        defaultEncoding?: string | undefined;
     }
 }
 

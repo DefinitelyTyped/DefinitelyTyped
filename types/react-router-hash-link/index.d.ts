@@ -10,10 +10,10 @@ import * as React from 'react';
 import { LinkProps, NavLinkProps } from 'react-router-dom';
 
 export interface HashLinkProps extends LinkProps {
-  elementId?: string;
-  smooth?: boolean;
-  scroll?: (element: HTMLElement) => void;
-  timeout?: number;
+  elementId?: string | undefined;
+  smooth?: boolean | undefined;
+  scroll?: ((element: HTMLElement) => void) | undefined;
+  timeout?: number | undefined;
 }
 
 export interface NavHashLinkProps extends NavLinkProps, HashLinkProps { }

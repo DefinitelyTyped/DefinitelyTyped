@@ -1,7 +1,7 @@
 // Type definitions for ngCordova geolocation plugin
 // Project: https://github.com/driftyco/ng-cordova
 // Definitions by: Kapil Sachdeva <https://github.com/ksachdeva>
-// Definitions: https://github.com/ksachdeva/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
 
@@ -13,13 +13,13 @@ declare namespace ngCordova {
     }
 
     export interface IGeoCoordinates {
-      latitude?:number;
-      longitude?:number;
-      accuracy?:number;
-      altitude?:number;
-      heading?:number;
-      speed?:number;
-      altitudeAccuracy?:number;
+      latitude?:number | undefined;
+      longitude?:number | undefined;
+      accuracy?:number | undefined;
+      altitude?:number | undefined;
+      heading?:number | undefined;
+      speed?:number | undefined;
+      altitudeAccuracy?:number | undefined;
     }
 
     export interface IGeoPosition {
@@ -28,9 +28,9 @@ declare namespace ngCordova {
     }
 
     export interface IGeolocationOptions {
-        timeout?: number;
-        maximumAge?: number;
-        enableHighAccuracy?: boolean;
+        timeout?: number | undefined;
+        maximumAge?: number | undefined;
+        enableHighAccuracy?: boolean | undefined;
     }
 
     export interface IGeolocationService {

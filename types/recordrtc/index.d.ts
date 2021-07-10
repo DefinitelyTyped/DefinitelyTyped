@@ -8,9 +8,9 @@ declare namespace RecordRTC {
     type State = 'inactive' | 'recording' | 'stopped' | 'paused' | 'destroyed';
 
     interface Disk {
-        audio?: Blob;
-        video?: Blob;
-        gif?: Blob;
+        audio?: Blob | undefined;
+        video?: Blob | undefined;
+        gif?: Blob | undefined;
     }
 
     type MediaStreamKind = 'videoinput' | 'audioinput' | 'audiooutput';
@@ -128,7 +128,7 @@ declare namespace RecordRTC {
     }
 
     interface Options {
-        type?: 'video' | 'audio' | 'canvas' | 'gif';
+        type?: 'video' | 'audio' | 'canvas' | 'gif' | undefined;
 
         recorderType?:
             | MediaStreamRecorder
@@ -136,7 +136,7 @@ declare namespace RecordRTC {
             | WebAssemblyRecorder
             | CanvasRecorder
             | GifRecorder
-            | WhammyRecorder;
+            | WhammyRecorder | undefined;
 
         mimeType?:
             | 'audio/webm'
@@ -149,66 +149,66 @@ declare namespace RecordRTC {
             | 'video/x-matroska;codecs=avc1'
             | 'video/mpeg'
             | 'audio/wav'
-            | 'audio/ogg';
+            | 'audio/ogg' | undefined;
 
-        disableLogs?: boolean;
+        disableLogs?: boolean | undefined;
 
         /** get intervals based blobs value in milliseconds */
-        timeSlice?: number;
+        timeSlice?: number | undefined;
 
         /** requires `timeSlice` to be set */
-        ondataavailable?: (blob: Blob) => void;
+        ondataavailable?: ((blob: Blob) => void) | undefined;
 
         /** auto stop recording if camera stops */
-        checkForInactiveTracks?: boolean;
+        checkForInactiveTracks?: boolean | undefined;
 
         /** requires timeSlice above */
-        onTimeStamp?: (timestamp: number, timestamps: number[]) => void;
+        onTimeStamp?: ((timestamp: number, timestamps: number[]) => void) | undefined;
 
         /** both for audio and video tracks */
-        bitsPerSecond?: number;
+        bitsPerSecond?: number | undefined;
 
         /** only for audio track */
-        audioBitsPerSecond?: number;
+        audioBitsPerSecond?: number | undefined;
 
         /** only for video track */
-        videoBitsPerSecond?: number;
+        videoBitsPerSecond?: number | undefined;
 
         /** used by CanvasRecorder and WhammyRecorder, it is kind of a "frameRate" */
-        frameInterval?: number;
+        frameInterval?: number | undefined;
 
         /** if you are recording multiple streams into single file, this helps you see what is being recorded */
-        previewStream?: (stream: MediaStream) => void;
+        previewStream?: ((stream: MediaStream) => void) | undefined;
 
         /** used by CanvasRecorder and WhammyRecorder */
-        video?: HTMLVideoElement;
+        video?: HTMLVideoElement | undefined;
 
         /** used by CanvasRecorder and WhammyRecorder */
         canvas?: {
             width: number;
             height: number;
-        };
+        } | undefined;
 
         /** used by StereoAudioRecorder, the range is 22050 to 96000 (kHz). */
-        sampleRate?: number;
+        sampleRate?: number | undefined;
 
         /** used by StereoAudioRecorder. the range is 22050 to 96000 (kHz). */
-        desiredSampRate?: number;
+        desiredSampRate?: number | undefined;
 
         /** used by StereoAudioRecorder */
-        bufferSize?: 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384;
+        bufferSize?: 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384 | undefined;
 
         /** used by StereoAudioRecorder */
-        numberOfAudioChannels?: 1 | 2;
+        numberOfAudioChannels?: 1 | 2 | undefined;
 
         /** used by WebAssemblyRecorder */
-        frameRate?: number;
+        frameRate?: number | undefined;
 
         /** used by WebAssemblyRecorder */
-        bitrate?: number;
+        bitrate?: number | undefined;
 
         /** used by MultiStreamRecorder - to access HTMLCanvasElement */
-        elementClass?: string;
+        elementClass?: string | undefined;
     }
 }
 

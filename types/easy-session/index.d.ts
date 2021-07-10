@@ -24,10 +24,10 @@ declare module 'express-session' {
 }
 
 export interface SessionOptions {
-    ipCheck?: boolean;
-    uaCheck?: boolean;
-    freshTimeout?: number;
-    maxFreshTimeout?: number;
+    ipCheck?: boolean | undefined;
+    uaCheck?: boolean | undefined;
+    freshTimeout?: number | undefined;
+    maxFreshTimeout?: number | undefined;
 }
 
 export function main(session: typeof expressSession, options?: SessionOptions): express.RequestHandler;

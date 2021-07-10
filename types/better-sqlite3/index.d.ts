@@ -50,6 +50,14 @@ declare namespace BetterSqlite3 {
         exclusive(...params: ArgumentTypes<F>): ReturnType<F>;
     }
 
+    interface VirtualTableOptions {
+        rows: () => Generator;
+        columns: string[];
+        parameters?: string[] | undefined;
+        safeIntegers?: boolean | undefined;
+        directOnly?: boolean | undefined;
+    }
+
     interface Database {
         memory: boolean;
         readonly: boolean;
@@ -71,6 +79,7 @@ declare namespace BetterSqlite3 {
         close(): this;
         defaultSafeIntegers(toggleState?: boolean): this;
         backup(destinationFile: string, options?: Database.BackupOptions): Promise<Database.BackupMetadata>;
+        table(name: string, options: VirtualTableOptions): this;
     }
 
     interface DatabaseConstructor {
@@ -97,28 +106,28 @@ declare namespace Database {
     }
 
     interface Options {
-        memory?: boolean;
-        readonly?: boolean;
-        fileMustExist?: boolean;
-        timeout?: number;
-        verbose?: (message?: any, ...additionalArgs: any[]) => void;
+        memory?: boolean | undefined;
+        readonly?: boolean | undefined;
+        fileMustExist?: boolean | undefined;
+        timeout?: number | undefined;
+        verbose?: ((message?: any, ...additionalArgs: any[]) => void) | undefined;
     }
 
     interface PragmaOptions {
-        simple?: boolean;
+        simple?: boolean | undefined;
     }
 
     interface RegistrationOptions {
-        varargs?: boolean;
-        deterministic?: boolean;
-        safeIntegers?: boolean;
+        varargs?: boolean | undefined;
+        deterministic?: boolean | undefined;
+        safeIntegers?: boolean | undefined;
     }
 
     interface AggregateOptions extends RegistrationOptions {
         start?: any;
         step: (total: any, next: any) => any;
-        inverse?: (total: any, dropped: any) => any;
-        result?: (total: any) => any;
+        inverse?: ((total: any, dropped: any) => any) | undefined;
+        result?: ((total: any) => any) | undefined;
     }
 
     interface BackupMetadata {

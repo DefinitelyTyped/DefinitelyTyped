@@ -845,19 +845,19 @@ declare var console: {
 
 declare namespace Contact {
     interface EmailAddresses {
-        identifier?: string;
-        label?: string;
-        localizedLabel?: string;
+        identifier?: string | undefined;
+        label?: string | undefined;
+        localizedLabel?: string | undefined;
         value: string;
     }
     interface PhoneNumbers {
-        identifier?: string;
-        label?: string;
-        localizedLabel?: string;
+        identifier?: string | undefined;
+        label?: string | undefined;
+        localizedLabel?: string | undefined;
         value: string;
     }
     interface PostalAddresses {
-        identifier?: string;
+        identifier?: string | undefined;
         label: string;
         localizedLabel: string;
         street: string;
@@ -867,7 +867,7 @@ declare namespace Contact {
         country: string;
     }
     interface SocialProfiles {
-        identifier?: string;
+        identifier?: string | undefined;
         label: string;
         localizedLabel: string;
         service: string;

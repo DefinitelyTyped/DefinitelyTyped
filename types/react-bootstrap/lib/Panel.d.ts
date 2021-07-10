@@ -9,13 +9,13 @@ import PanelFooter = require('./PanelFooter');
 
 declare namespace Panel {
     export interface PanelProps extends TransitionCallbacks, React.HTMLProps<Panel> {
-        bsClass?: string;
-        bsStyle?: string;
-        defaultExpanded?: boolean;
+        bsClass?: string | undefined;
+        bsStyle?: string | undefined;
+        defaultExpanded?: boolean | undefined;
         eventKey?: any;
-        expanded?: boolean;
-        onSelect?: SelectCallback;
-        onToggle?: SelectCallback;
+        expanded?: boolean | undefined;
+        onSelect?: SelectCallback | undefined;
+        onToggle?: SelectCallback | undefined;
     }
 }
 declare class Panel extends React.Component<Panel.PanelProps> {

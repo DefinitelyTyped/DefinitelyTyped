@@ -18,27 +18,27 @@ declare namespace actuator {
         /**
          * @summary BasePath of Actuator.
          */
-        basePath?: string;
+        basePath?: string | undefined;
 
         /**
          * @summary infoGitMode.
          */
-        infoGitMode?: InfoGitMode;
+        infoGitMode?: InfoGitMode | undefined;
 
         /**
          * @summary DateFormat for info git.time output.
          */
-        infoDateFormat?: string;
+        infoDateFormat?: string | undefined;
 
         /**
          * @summary Extra Options to pass to info build output.
          */
-        infoBuildOptions?: Record<string, any>;
+        infoBuildOptions?: Record<string, any> | undefined;
 
         /**
          * @summary Custom endpoints
          */
-        customEndpoints?: CustomEndpoint[];
+        customEndpoints?: CustomEndpoint[] | undefined;
     }
 
     interface CustomEndpoint {

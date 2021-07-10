@@ -22,17 +22,17 @@ export interface TrackChangesAdapter {
         id: string;
         type: string;
         hasComments: boolean;
-        data?: Record<string, unknown> | null;
-        attributes?: Record<string, unknown>;
-        originalSuggestionId?: string | null;
+        data?: Record<string, unknown> | null | undefined;
+        attributes?: Record<string, unknown> | undefined;
+        originalSuggestionId?: string | null | undefined;
     }): Promise<unknown>;
     getSuggestion(id: string): Promise<SuggestionData>;
     updateSuggestion(
         id: string,
         suggestionData?: {
-            hasComments?: boolean;
-            state?: 'open' | 'accepted' | 'rejected';
-            attributes?: Record<string, unknown>;
+            hasComments?: boolean | undefined;
+            state?: 'open' | 'accepted' | 'rejected' | undefined;
+            attributes?: Record<string, unknown> | undefined;
         },
     ): Promise<unknown>;
 }
@@ -42,5 +42,5 @@ export default class TrackChanges extends Plugin {
 
     addSuggestion(suggestionData: SuggestionData): Suggestion;
     getSuggestion(id: string): Suggestion;
-    getSuggestions(options?: { skipNotAttached?: boolean; toJSON?: boolean }): Suggestion[];
+    getSuggestions(options?: { skipNotAttached?: boolean | undefined; toJSON?: boolean | undefined }): Suggestion[];
 }

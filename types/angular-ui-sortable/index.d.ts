@@ -16,7 +16,7 @@ declare module 'angular' {
     export namespace ui {
 
         interface UISortableOptions<T> extends SortableOptions<T> {
-            'ui-floating'?: 'auto' | boolean;
+            'ui-floating'?: 'auto' | boolean | undefined;
         }
 
         interface UISortableProperties<T> {
@@ -49,7 +49,7 @@ declare module 'angular' {
              * Holds the model of the dragged item only when a sorting happens between two connected ui-sortable elements.
              * In other words: `'moved' in ui.item.sortable` will return false only when a sorting is withing the same ui-sortable element ([`source`](#source) equals to the [`droptarget`](#droptarget)).
              */
-            moved?: T;
+            moved?: T | undefined;
 
             /**
              * When sorting between two connected sortables, it will be set to true inside the `update` callback of the [`droptarget`](#droptarget).
@@ -94,10 +94,10 @@ declare module 'angular' {
         // Base Sortable //////////////////////////////////////////////////
 
         interface SortableCursorAtOptions {
-            top?: number;
-            left?: number;
-            right?: number;
-            bottom?: number;
+            top?: number | undefined;
+            left?: number | undefined;
+            right?: number | undefined;
+            bottom?: number | undefined;
         }
 
         interface SortableHelperFunctionOption {
@@ -114,39 +114,39 @@ declare module 'angular' {
              * "X", "Y" or false
              * Default: false
              */
-            axis?: string | boolean;
+            axis?: string | boolean | undefined;
             /**
              * Selector
              * Default: "input,textarea,button,select,option"
              */
-            cancel?: string;
+            cancel?: string | undefined;
             /**
              * Selector or false
              * Default: false
              */
-            connectWith?: string | boolean;
+            connectWith?: string | boolean | undefined;
             /**
              * Element, Selector, string or false
              * Default: false
              */
             containment?: any;
-            cursor?: string;
+            cursor?: string | undefined;
             /**
              * Moves the sorting element or helper so the cursor always appears to drag from the same position. Coordinates can be given as a hash using a combination of one or two keys SortableCursorAtOptions: { top, left, right, bottom }
              * Default: false
              */
-            cursorAt?: SortableCursorAtOptions | boolean;
-            delay?: number;
-            disabled?: boolean;
-            distance?: number;
-            dropOnEmpty?: boolean;
-            forceHelperSize?: boolean;
-            forcePlaceholderSize?: boolean;
+            cursorAt?: SortableCursorAtOptions | boolean | undefined;
+            delay?: number | undefined;
+            disabled?: boolean | undefined;
+            distance?: number | undefined;
+            dropOnEmpty?: boolean | undefined;
+            forceHelperSize?: boolean | undefined;
+            forcePlaceholderSize?: boolean | undefined;
             /**
              * Array of numbers or false
              * Default: false
              */
-            grid?: number[] | boolean;
+            grid?: number[] | boolean | undefined;
             /**
              * Selector or Element
              */
@@ -155,35 +155,35 @@ declare module 'angular' {
              * "original", "clone" or Function()
              * Default: "original"
              */
-            helper?: string | SortableHelperFunctionOption;
+            helper?: string | SortableHelperFunctionOption | undefined;
             /**
              * Selector
              */
-            items?: string;
+            items?: string | undefined;
             /**
              * Number or false
              * Default: false
              */
-            opacity?: number | boolean;
+            opacity?: number | boolean | undefined;
             /**
              * string or false
              * Default: false
              */
-            placeholder?: string | boolean;
+            placeholder?: string | boolean | undefined;
             /**
              * boolean or number
              * Default: false
              */
-            revert?: number | boolean;
-            scroll?: boolean;
-            scrollSensitivity?: number;
-            scrollSpeed?: number;
+            revert?: number | boolean | undefined;
+            scroll?: boolean | undefined;
+            scrollSensitivity?: number | undefined;
+            scrollSpeed?: number | undefined;
             /**
              * "intersect" or "pointer"
              * Default: "intersect"
              */
-            tolerance?: string;
-            zIndex?: number;
+            tolerance?: string | undefined;
+            zIndex?: number | undefined;
         }
 
         interface SortableUIParams {
@@ -201,18 +201,18 @@ declare module 'angular' {
         }
 
         interface SortableEvents<T> {
-            activate?: SortableEvent<T>;
-            beforeStop?: SortableEvent<T>;
-            change?: SortableEvent<T>;
-            deactivate?: SortableEvent<T>;
-            out?: SortableEvent<T>;
-            over?: SortableEvent<T>;
-            receive?: SortableEvent<T>;
-            remove?: SortableEvent<T>;
-            sort?: SortableEvent<T>;
-            start?: SortableEvent<T>;
-            stop?: SortableEvent<T>;
-            update?: SortableEvent<T>;
+            activate?: SortableEvent<T> | undefined;
+            beforeStop?: SortableEvent<T> | undefined;
+            change?: SortableEvent<T> | undefined;
+            deactivate?: SortableEvent<T> | undefined;
+            out?: SortableEvent<T> | undefined;
+            over?: SortableEvent<T> | undefined;
+            receive?: SortableEvent<T> | undefined;
+            remove?: SortableEvent<T> | undefined;
+            sort?: SortableEvent<T> | undefined;
+            start?: SortableEvent<T> | undefined;
+            stop?: SortableEvent<T> | undefined;
+            update?: SortableEvent<T> | undefined;
         }
     }
 }

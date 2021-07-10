@@ -31,9 +31,9 @@ declare namespace slashes {
      * @see https://github.com/avinoamr/connect-slashes#additional-settings
      */
     interface Options {
-        base?: string;
-        code?: number;
-        headers?: { [field: string]: string };
+        base?: string | undefined;
+        code?: number | undefined;
+        headers?: { [field: string]: string } | undefined;
     }
 }
 

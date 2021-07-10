@@ -12,10 +12,10 @@ export interface BlockPickerStylesProps {
 }
 
 export interface BlockPickerProps extends ColorPickerProps<BlockPicker> {
-    colors?: string[];
-    width?: string;
-    triangle?: 'hide' | 'top';
-    styles?: Partial<Classes<BlockPickerStylesProps>>;
+    colors?: string[] | undefined;
+    width?: string | undefined;
+    triangle?: 'hide' | 'top' | undefined;
+    styles?: Partial<Classes<BlockPickerStylesProps>> | undefined;
     onSwatchHover?(color: ColorResult, event: MouseEvent): void;
 }
 

@@ -11,7 +11,7 @@ export interface AppProps {
     /**
      * Called when the quit menu item is called, right before the entire app quits.
      */
-    onShouldQuit?: () => void;
+    onShouldQuit?: (() => void) | undefined;
 }
 
 /**
@@ -23,37 +23,37 @@ export interface AreaBaseProps extends GridChildrenProps, Label, Stretchy {
     /**
      * The fill color for the component.
      */
-    fill?: string;
+    fill?: string | undefined;
     /**
      * The opacity of the fill (between 0 and 1). Gets multiplied with the fill colors alpha value.
      */
-    fillOpacity?: number;
+    fillOpacity?: number | undefined;
     /**
      * The stroke (line) color for the component.
      */
-    stroke?: string;
+    stroke?: string | undefined;
 
-    strokeLinecap?: 'flat' | 'round' | 'bevel';
+    strokeLinecap?: 'flat' | 'round' | 'bevel' | undefined;
 
-    strokeLinejoin?: 'miter' | 'round' | 'bevel';
+    strokeLinejoin?: 'miter' | 'round' | 'bevel' | undefined;
     /**
      * How far to extend the stroke at a sharp corner when using `strokeLinejoin='miter'`
      * @see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-miterlimit
      * for a more detailed explanation.
      */
-    strokeMiterlimit?: number;
+    strokeMiterlimit?: number | undefined;
     /**
      * The opacity of the stroke (between 0 and 1). Gets multiplied with the stroke colors alpha value.
      */
-    strokeOpacity?: number;
+    strokeOpacity?: number | undefined;
 
-    strokeWidth?: number;
+    strokeWidth?: number | undefined;
     /**
      * List of transformations to apply to the component (are quite similar to SVG transformations). Example for multiple transformations: `transform="translate(100, 100) rotate(90)"`.
      *
      * All x and y coordinates specified in a transformation are relative _to the component itself_, meaning that `translate(-50%, 0)` will translate the component by 50% of it's own width to left.
      */
-    transform?: string;
+    transform?: string | undefined;
 }
 
 export interface AreaRectangleProps extends AreaBaseProps {
@@ -178,11 +178,11 @@ export interface AreaGroupProps extends AreaBaseProps {
     /**
      * Specify `width` and `height` to be able to use percentage values in transforms.
      */
-    width?: number | string;
+    width?: number | string | undefined;
     /**
      * Specify `width` and `height` to be able to use percentage values in transforms.
      */
-    height?: number | string;
+    height?: number | string | undefined;
 }
 
 export class AreaGroup extends React.Component<AreaGroupProps> { }
@@ -206,43 +206,43 @@ export interface AreaProps extends AreaBaseProps {
     /**
      * Called when releasing a key. Return `true` to signal that this event got handled (always returning true will disable any menu accelerators).
      */
-    onKeyDown?: (event: KeyboardEvent) => boolean;
+    onKeyDown?: ((event: KeyboardEvent) => boolean) | undefined;
     /**
      * Called when pressing a key. Return `true` to signal that this event got handled (always returning true will disable any menu accelerators).
      */
-    onKeyUp?: (event: KeyboardEvent) => boolean;
+    onKeyUp?: ((event: KeyboardEvent) => boolean) | undefined;
     /**
      * Whether the area can be seen.
      */
-    onMouseDown?: (event: MouseEvent) => void;
+    onMouseDown?: ((event: MouseEvent) => void) | undefined;
     /**
      * Called when the mouse enters the area.
      */
-    onMouseEnter?: () => void;
+    onMouseEnter?: (() => void) | undefined;
     /**
      * Called when the mouse leaves the area.
      */
-    onMouseLeave?: () => void;
+    onMouseLeave?: (() => void) | undefined;
     /**
      * Called when the mouse is moved over the area
      */
-    onMouseMove?: (event: {
+    onMouseMove?: ((event: {
         buttons: ReadonlyArray<string>;
         height: number;
         width: number;
         x: number;
         y: number;
-    }) => void;
+    }) => void) | undefined;
     /**
      * **Not working at the moment.**
      *
      * Called when releasing a mouse button over the area.
      */
-    onMouseUp?: (event: MouseEvent) => void;
+    onMouseUp?: ((event: MouseEvent) => void) | undefined;
     /**
      * Whether the area can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -290,19 +290,19 @@ export interface BoxProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the Box is enabled.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Whether there is extra space between the children in the Box.
      */
-    padded?: boolean;
+    padded?: boolean | undefined;
     /**
      * Whether the Box arranges its children vertically or horizontally.
      */
-    vertical?: boolean;
+    vertical?: boolean | undefined;
     /**
      * Whether the Box and its children can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 export class Box extends React.Component<BoxProps> { }
@@ -311,19 +311,19 @@ export interface ButtonProps extends GridChildrenProps, Label, Stretchy {
     /**
      * The text to display in the button.
      */
-    children?: string;
+    children?: string | undefined;
     /**
      * Whether the button can be clicked.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Called when the button is clicked.
      */
-    onClick?: () => void;
+    onClick?: (() => void) | undefined;
     /**
      * Whether the button can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -335,23 +335,23 @@ export interface CheckboxProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the checkbox is checked or not.
      */
-    checked?: boolean;
+    checked?: boolean | undefined;
     /**
      * The text to display next to the check box.
      */
-    children?: string;
+    children?: string | undefined;
     /**
      * Whether the checkbox can be used.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Called when the checkbox is clicked. The current checkbox state is passed as an argument.
      */
-    onToggle?: (checked: boolean) => void;
+    onToggle?: ((checked: boolean) => void) | undefined;
     /**
      * Whether the checkbox can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 export class Checkbox extends React.Component<CheckboxProps> { }
@@ -360,16 +360,16 @@ export interface ColorButtonProps extends GridChildrenProps, Label, Stretchy {
     /**
      * The initial color for the ColorButton. Can be passed as standard color seen in CSS (a color name, hex, rgb, rgba, hsl, hsla).
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * Called when the color is changed for the ColorButton. The current color is passed as an object of RGBA.
      */
-    onChange?: (color: {
+    onChange?: ((color: {
         r: number,
         g: number,
         b: number,
         a: number
-    }) => void;
+    }) => void) | undefined;
 }
 
 /**
@@ -381,15 +381,15 @@ export interface FormProps extends GridChildrenProps, Stretchy {
     /**
      * Whether the Form is enabled.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Whether there is padding between the components
      */
-    padded?: boolean;
+    padded?: boolean | undefined;
     /**
      * Whether the Form can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -406,44 +406,44 @@ export interface GridChildrenProps {
     align?: {
         h: boolean;
         v: boolean;
-    };
+    } | undefined;
     /**
      * What column the component resides in.
      */
-    column?: number;
+    column?: number | undefined;
     /**
      * Whether the component can expand in the direction.
      */
     expand?: {
         h: boolean;
         v: boolean;
-    };
+    } | undefined;
     /**
      * What row the component resides in.
      */
-    row?: number;
+    row?: number | undefined;
     /**
      * How many rows/columns the component takes off.
      */
     span?: {
         x: number;
         y: number;
-  };
+  } | undefined;
 }
 
 export interface GridProps {
     /**
      * Whether the Grid is enabled.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Whether there is padding between the components
      */
-    padded?: boolean;
+    padded?: boolean | undefined;
     /**
      * Whether the Grid can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -455,23 +455,23 @@ export interface GroupProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Group can only have one child. To have more than one child, use boxes.
      */
-    children?: JSX.Element;
+    children?: JSX.Element | undefined;
     /**
      * Whether the Group is enabled.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Whether there is a margin inside the group.
      */
-    margined?: boolean;
+    margined?: boolean | undefined;
     /**
      * The name of the group.
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * Whether the Grid can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -485,25 +485,25 @@ export interface Label {
     /**
      * Label for Form and Tab children
      */
-    label?: string;
+    label?: string | undefined;
 }
 
 export interface MenuProps {
     /**
      * The name of the menu.
      */
-    label?: string;
+    label?: string | undefined;
 }
 
 export interface MenuItemProps {
     /**
      * The text to display for the menu item.
      */
-    children?: string;
+    children?: string | undefined;
     /**
      * If the type is `Check`, then set whether it is checked or not.
      */
-    checked?: boolean;
+    checked?: boolean | undefined;
     /**
      * How the menu item is displayed.
      *
@@ -514,11 +514,11 @@ export interface MenuItemProps {
      * - `Separator` - a Separator between menu items. This accepts no text.
      * - `Item` - a normal menu button. This is the default.
      */
-    type?: 'Check' | 'Quit' | 'About' | 'Preferences' | 'Separator' | 'Item';
+    type?: 'Check' | 'Quit' | 'About' | 'Preferences' | 'Separator' | 'Item' | undefined;
     /**
      * Called when the menu item is clicked. If the type is `Check`, then it passes whether it is checked as an argument.
      */
-    onClick?: (checked: boolean) => void;
+    onClick?: ((checked: boolean) => void) | undefined;
 }
 
 /**
@@ -542,31 +542,31 @@ export interface PickerProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the user can enter their own custom text in addition to the drop down menu.
      */
-    editable?: boolean;
+    editable?: boolean | undefined;
     /**
      * Whether the Picker is enabled.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * When an *editable* Picker is changed. The current text is passed as an argument.
      */
-    onChange?: (text: string) => void;
+    onChange?: ((text: string) => void) | undefined;
     /**
      * When a *non-editable* Picker is changed. The current selection is passed as an argument.
      */
-    onSelect?: (selection: number) => void;
+    onSelect?: ((selection: number) => void) | undefined;
     /**
      * What element is selected if the picker *is not* editable.
      */
-    selected?: number;
+    selected?: number | undefined;
     /**
      * What text is selected/typed if the picker *is* editable.
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * Whether the Picker can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 export interface PickerItemProps {
@@ -586,15 +586,15 @@ export interface ProgressBarProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the ProgressBar is enabled.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * The current value of the ProgressBar (0-100). A value of -1 indicates an indeterminate progressbar.
      */
-    value?: number;
+    value?: number | undefined;
     /**
      * Whether the ProgressBar can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -612,19 +612,19 @@ export interface RadioButtonsProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the RadioButtons can be used.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Called when a RadioButton is selected. The number selected is passed as an argument.
      */
-    onSelect?: (selected: number) => void;
+    onSelect?: ((selected: number) => void) | undefined;
     /**
      * What RadioButton is selected, zero-indexed. -1 means nothing is selected.
      */
-    selected?: number;
+    selected?: number | undefined;
     /**
      * Whether the RadioButtons can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -640,15 +640,15 @@ export interface SeparatorProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the Separator is enabled.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Whether the line is vertical or horizontal.
      */
-    vertical?: boolean;
+    vertical?: boolean | undefined;
     /**
      * Whether the Separator can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -660,27 +660,27 @@ export interface SliderProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the Slider is enabled.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * The minimum value for the slider.
      */
-    min?: number;
+    min?: number | undefined;
     /**
      * The maximum value for the slider.
      */
-    max?: number;
+    max?: number | undefined;
     /**
      * Called when the value of the slider is changed. The current value is passed as an argument.
      */
-    onChange?: (value: number) => void;
+    onChange?: ((value: number) => void) | undefined;
     /**
      * The current value of the Slider (0-100).
      */
-    value?: number;
+    value?: number | undefined;
     /**
      * Whether the Slider can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -692,19 +692,19 @@ export interface SpinBoxProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Whether the Spinbox is enabled.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * When the Spinbox value is changed. The current value is passed as a parameter.
      */
-    onChange?: (value: number) => void;
+    onChange?: ((value: number) => void) | undefined;
     /**
      * What the value of the Spinbox is set to.
      */
-    value?: number;
+    value?: number | undefined;
     /**
      * Whether the Spinbox can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -722,7 +722,7 @@ export interface Stretchy {
      * - Combobox/RadioButton Items
      * - MenuBar
      */
-    stretchy?: boolean;
+    stretchy?: boolean | undefined;
 }
 
 export interface StyledTextProps {
@@ -730,56 +730,56 @@ export interface StyledTextProps {
         /**
          * The background color, specified as a CSS color string.
          */
-        backgroundColor?: string;
+        backgroundColor?: string | undefined;
         /**
          * The text color, specified as a CSS color string.
          */
-        color?: string;
+        color?: string | undefined;
         /**
          * The font family (only if available on the system).
          */
-        fontFamily?: string;
+        fontFamily?: string | undefined;
         /**
          * The font size (in pt).
          */
-        fontSize?: number;
+        fontSize?: number | undefined;
         /**
          * Whether an italic font should be used.
          */
-        fontStyle?: 'normal' | 'oblique' | 'italic';
+        fontStyle?: 'normal' | 'oblique' | 'italic' | undefined;
         /**
          * Whether a bold font should be used (and the amount).
          */
-        fontWeight?: 'minimum' | 'thin' | 'ultraLight' | 'light' | 'book' | 'normal' | 'medium' | 'semiBold' | 'bold' | 'ultraBold' | 'heavy' | 'ultraHeavy' | 'maximum' | number;
+        fontWeight?: 'minimum' | 'thin' | 'ultraLight' | 'light' | 'book' | 'normal' | 'medium' | 'semiBold' | 'bold' | 'ultraBold' | 'heavy' | 'ultraHeavy' | 'maximum' | number | undefined;
         /**
          * Wheter the text should be aligned to the left, center or right.
          *
          * **Works only on a top level text component, not it's children!**
          */
-        textAlign?: 'left' | 'center' | 'right';
+        textAlign?: 'left' | 'center' | 'right' | undefined;
         /**
          * How wide or narrow the characters should be.
          */
-        textStretch?: 'ultraCondensed' | 'extraCondensed' | 'condensed' | 'semiCondensed' | 'normal' | 'semiExpanded' | 'expanded' | 'extraExpanded' | 'ultraExpanded';
+        textStretch?: 'ultraCondensed' | 'extraCondensed' | 'condensed' | 'semiCondensed' | 'normal' | 'semiExpanded' | 'expanded' | 'extraExpanded' | 'ultraExpanded' | undefined;
         /**
          * The text underline style.
          */
-        textUnderline?: 'none' | 'single' | 'double' | 'suggestion';
+        textUnderline?: 'none' | 'single' | 'double' | 'suggestion' | undefined;
         /**
          * The text underline color.
          *
          * A color string | 'spelling' | 'grammar' | 'auxiliary'
          */
-        textUnderlineColor?: 'spelling' | 'grammar' | 'auxiliary' | string;
-    };
+        textUnderlineColor?: 'spelling' | 'grammar' | 'auxiliary' | string | undefined;
+    } | undefined;
     /**
      * The x coordinate of the text's top left corner. (Only in a top level text component.)
      */
-    x?: number | string;
+    x?: number | string | undefined;
     /**
      * The y coordinate of the text's top left corner. (Only in a top level text component.)
      */
-    y?: number | string;
+    y?: number | string | undefined;
 }
 
 export class StyledText extends React.Component<StyledTextProps> { }
@@ -788,11 +788,11 @@ export interface TabProps extends GridChildrenProps {
     /**
      * Whether the Tab is enabled.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Whether the Tab can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -806,7 +806,7 @@ export interface TextProps extends GridChildrenProps, Label, Stretchy {
     /**
      * The text to display.
      */
-    children?: string;
+    children?: string | undefined;
 }
 
 /**
@@ -818,31 +818,31 @@ export interface TextInputProps extends GridChildrenProps, Label, Stretchy {
     /**
      * The default text in the TextInput.
      */
-    children?: string;
+    children?: string | undefined;
     /**
      * Whether the TextInput can be used.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * Whether multiple lines can be inputted into the TextInput.
      */
-    multiline?: boolean;
+    multiline?: boolean | undefined;
     /**
      * Called when the TextInput text is changed. The new text is passed as an argument.
      */
-    onChange?: (text: string) => void;
+    onChange?: ((text: string) => void) | undefined;
     /**
      * Whether the TextInput can be written to by the user.
      */
-    readOnly?: boolean;
+    readOnly?: boolean | undefined;
     /**
      * Whether characters are hidden in the TextInput. Commonly used for passwords.
      */
-    secure?: boolean;
+    secure?: boolean | undefined;
     /**
      * Whether the TextInput can be seen.
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 }
 
 /**
@@ -854,53 +854,53 @@ export interface WindowProps {
     /**
      * Whether the window will have a border on the inside.
      */
-    borderless?: boolean;
+    borderless?: boolean | undefined;
     /**
      * Window can only have one child. To have more than one child, use boxes.
      */
-    children?: JSX.Element;
+    children?: JSX.Element | undefined;
     /**
      * Whether the window is closed. If set to closed, then the window will be closed.
      */
-    closed?: boolean;
+    closed?: boolean | undefined;
     /**
      * Whether the window will be fullscreen on start.
      */
-    fullscreen?: boolean;
+    fullscreen?: boolean | undefined;
     /**
      * Whether the window is the last window. If set to `true`, then the program will quit once the window is closed.
      */
-    lastWindow?: boolean;
+    lastWindow?: boolean | undefined;
     /**
      * Whether all children will have a margin around them and the outer edge of the window.
      */
-    margined?: boolean;
+    margined?: boolean | undefined;
     /**
      * Whether a menubar will be shown on the top of the window.
      */
-    menuBar?: boolean;
+    menuBar?: boolean | undefined;
     /**
      * Called when the window is closed.
      */
-    onClose?: () => void;
+    onClose?: (() => void) | undefined;
     /**
      * Called when the window size is changed by the user. The new size is passed as an argument, in an object.
      */
-    onContentSizeChange?: (size: {
+    onContentSizeChange?: ((size: {
         h: number,
         y: number
-    }) => void;
+    }) => void) | undefined;
     /**
      * How big the window is when the application is first started.
      */
     size?: {
         h: number,
         w: number
-    };
+    } | undefined;
     /**
      * The title of the window. Will be shown at the top left ribbon.
      */
-    title?: string;
+    title?: string | undefined;
 }
 
 /**
@@ -928,9 +928,9 @@ export function Dialog(
     type: 'Message' | 'Error',
     options?: {
         title: string,
-        description?: string
+        description?: string | undefined
     } | {
-        title?: string,
+        title?: string | undefined,
         description: string
     }
 ): void;

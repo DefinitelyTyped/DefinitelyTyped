@@ -15,7 +15,7 @@ interface Hook {
 }
 
 interface Batch extends levelup.Batch {
-    prefix?: Sublevel;
+    prefix?: Sublevel | undefined;
 }
 
 interface Sublevel extends levelup.LevelUpBase<Batch> {

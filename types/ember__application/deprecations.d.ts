@@ -2,7 +2,7 @@
 interface DeprecationOptions {
   id: string;
   until: string;
-  url?: string;
+  url?: string | undefined;
 }
 
 /**

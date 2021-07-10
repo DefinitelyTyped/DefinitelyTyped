@@ -14,7 +14,7 @@ declare module 'dotenv' {
         /**
          * @default '.env.defaults'
          */
-        defaults?: string;
+        defaults?: string | undefined;
     }
 }
 

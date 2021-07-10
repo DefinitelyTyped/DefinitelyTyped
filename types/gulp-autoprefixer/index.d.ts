@@ -9,16 +9,16 @@
 
 declare namespace autoPrefixer {
     interface Options {
-        env?: string;
-        cascade?: boolean;
-        add?: boolean;
-        remove?: boolean;
-        supports?: boolean;
-        flexbox?: boolean|"no-2009";
-        grid?: false|"autoplace"|"no-autoplace";
-        stats?: object;
-        browsers?: string[];
-        ignoreUnknownVersions?: boolean;
+        env?: string | undefined;
+        cascade?: boolean | undefined;
+        add?: boolean | undefined;
+        remove?: boolean | undefined;
+        supports?: boolean | undefined;
+        flexbox?: boolean|"no-2009" | undefined;
+        grid?: false|"autoplace"|"no-autoplace" | undefined;
+        stats?: object | undefined;
+        browsers?: string[] | undefined;
+        ignoreUnknownVersions?: boolean | undefined;
     }
 }
 

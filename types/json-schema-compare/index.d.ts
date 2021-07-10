@@ -17,7 +17,7 @@ type KnownKeys<T> = {
  * [Microsoft/TypeScript#29729](https://github.com/Microsoft/TypeScript/issues/29729).
  * It will be removed as soon as it's not needed anymore.
  */
-type JSONSchemaKeys = KnownKeys<JSONSchema4> | keyof JSONSchema6 | keyof JSONSchema7 | string & {''?: never};
+type JSONSchemaKeys = KnownKeys<JSONSchema4> | keyof JSONSchema6 | keyof JSONSchema7 | string & {''?: never | undefined};
 interface Options {
     /**
      * Ignores certain keywords, useful to exclude meta keywords like title,
@@ -26,7 +26,7 @@ interface Options {
      *
      * @default []
      */
-    ignore?: JSONSchemaKeys[];
+    ignore?: JSONSchemaKeys[] | undefined;
 }
 
 /**

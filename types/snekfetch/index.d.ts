@@ -13,12 +13,12 @@ import { Readable } from 'stream';
 
 declare namespace Snekfetch {
     interface SnekfetchOptions {
-        headers?: { [key: string]: any };
-        data?: object | string | Buffer;
-        agent?: Agent | boolean;
-        qs?: object;
-        query?: object | string;
-        redirect?: boolean;
+        headers?: { [key: string]: any } | undefined;
+        data?: object | string | Buffer | undefined;
+        agent?: Agent | boolean | undefined;
+        qs?: object | undefined;
+        query?: object | string | undefined;
+        redirect?: boolean | undefined;
     }
 
     interface SnekfetchResponse {

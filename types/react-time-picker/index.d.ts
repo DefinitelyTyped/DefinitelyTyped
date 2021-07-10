@@ -13,129 +13,129 @@ export interface TimePickerProps<T = TimePickerValue> extends TimePickerClockPro
     /**
      * aria-label for the AM/PM select input.
      */
-    amPmAriaLabel?: string;
+    amPmAriaLabel?: string | undefined;
     /**
      * Automatically focuses the input on mount.
      */
-    autoFocus?: boolean;
+    autoFocus?: boolean | undefined;
     /**
      * Class name(s) that will be added along with "react-time-picker" to the main React-Time-Picker <div> element.
      */
-    className?: string | string[];
+    className?: string | string[] | undefined;
     /**
      * aria-label for the clear button.
      */
-    clearAriaLabel?: string;
+    clearAriaLabel?: string | undefined;
     /**
      * Content of the clear button. Setting the value explicitly to null will hide the icon.
      */
-    clearIcon?: string | JSX.Element | null;
+    clearIcon?: string | JSX.Element | null | undefined;
     /**
      * aria-label for the clock button.
      */
-    clockAriaLabel?: string;
+    clockAriaLabel?: string | undefined;
     /**
      * Class name(s) that will be added along with "react-clock" to the main React-Clock <time> element.
      */
-    clockClassName?: string | string[];
+    clockClassName?: string | string[] | undefined;
     /**
      * Content of the clock button. Setting the value explicitly to null will hide the icon.
      */
-    clockIcon?: string | JSX.Element | null;
+    clockIcon?: string | JSX.Element | null | undefined;
     /**
      * Whether to close the clock on value selection.
      * @default true
      */
-    closeClock?: boolean;
+    closeClock?: boolean | undefined;
     /**
      * Whether the time picker should be disabled.
      * @default false
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * When set to true, will remove the clock and the button toggling its visibility.
      * @default false
      */
-    disableClock?: boolean;
+    disableClock?: boolean | undefined;
     /**
      * Input format based on Unicode Technical Standard #35.
      * Supported values are: H, HH, h, hh, m, mm, s, ss, a.
      */
-    format?: string;
+    format?: string | undefined;
     /**
      * aria-label for the hour input.
      */
-    hourAriaLabel?: string;
+    hourAriaLabel?: string | undefined;
     /**
      * placeholder for the hour input.
      * @default "--"
      */
-    hourPlaceholder?: string;
+    hourPlaceholder?: string | undefined;
     /**
      * Whether the clock should be opened.
      * @default false
      */
-    isOpen?: boolean;
+    isOpen?: boolean | undefined;
     /**
      * Locale that should be used by the time picker and the clock. Can be any IETF language tag.
      */
-    locale?: string;
+    locale?: string | undefined;
     /**
      * How detailed time picking shall be. Can be "hour", "minute" or "second".
      * @default "minute"
      */
-    maxDetail?: 'hour' | 'minute' | 'second';
+    maxDetail?: 'hour' | 'minute' | 'second' | undefined;
     /**
      * Maximum time that the user can select.
      */
-    maxTime?: T;
+    maxTime?: T | undefined;
     /**
      * Minimum date that the user can select.
      */
-    minTime?: T;
+    minTime?: T | undefined;
     /**
      * aria-label for the minute input.
      */
-    minuteAriaLabel?: string;
+    minuteAriaLabel?: string | undefined;
     /**
      * placeholder for the minute input.
      * @default "--"
      */
-    minutePlaceholder?: string;
+    minutePlaceholder?: string | undefined;
     /**
      * Input name.
      * @default "time"
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * aria-label for the native time input.
      */
-    nativeInputAriaLabel?: string;
+    nativeInputAriaLabel?: string | undefined;
     /**
      * Function called when the user picks a valid time.
      */
-    onChange?: (value: T) => void;
+    onChange?: ((value: T) => void) | undefined;
     /**
      * Function called when the clock closes.
      */
-    onClockClose?: () => void;
+    onClockClose?: (() => void) | undefined;
     /**
      * Function called when the clock opens.
      */
-    onClockOpen?: () => void;
+    onClockOpen?: (() => void) | undefined;
     /**
      * Whether date input should be required.
      */
-    required?: boolean;
+    required?: boolean | undefined;
     /**
      * aria-label for the second input.
      */
-    secondAriaLabel?: string;
+    secondAriaLabel?: string | undefined;
     /**
      * placeholder for the second input.
      * @default "--"
      */
-    secondPlaceholder?: string;
+    secondPlaceholder?: string | undefined;
     /**
      * Input value.
      */

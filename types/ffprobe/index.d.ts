@@ -16,60 +16,60 @@ declare namespace getInfo {
      */
     interface FFProbeStream {
         index: number;
-        codec_name?: string;
-        codec_long_name?: string;
-        profile?: string;
-        codec_type?: 'video' | 'audio' | 'images';
+        codec_name?: string | undefined;
+        codec_long_name?: string | undefined;
+        profile?: string | undefined;
+        codec_type?: 'video' | 'audio' | 'images' | undefined;
         codec_time_base: string;
         codec_tag_string: string;
         codec_tag: string;
-        extradata?: string;
+        extradata?: string | undefined;
 
         // Video attributes
-        width?: number;
-        height?: number;
-        coded_width?: number;
-        coded_height?: number;
-        closed_captions?: FFProbeBoolean;
-        has_b_frames?: number;
-        sample_aspect_ratio?: string;
-        display_aspect_ratio?: string;
-        pix_fmt?: string;
-        level?: number;
-        color_range?: string;
-        color_space?: string;
-        color_transfer?: string;
-        color_primaries?: string;
-        chroma_location?: string;
-        field_order?: string;
-        timecode?: string;
-        refs?: number;
+        width?: number | undefined;
+        height?: number | undefined;
+        coded_width?: number | undefined;
+        coded_height?: number | undefined;
+        closed_captions?: FFProbeBoolean | undefined;
+        has_b_frames?: number | undefined;
+        sample_aspect_ratio?: string | undefined;
+        display_aspect_ratio?: string | undefined;
+        pix_fmt?: string | undefined;
+        level?: number | undefined;
+        color_range?: string | undefined;
+        color_space?: string | undefined;
+        color_transfer?: string | undefined;
+        color_primaries?: string | undefined;
+        chroma_location?: string | undefined;
+        field_order?: string | undefined;
+        timecode?: string | undefined;
+        refs?: number | undefined;
 
         // Audio attributes
-        sample_fmt?: string;
-        sample_rate?: number;
-        channels?: number;
-        channel_layout?: string;
-        bits_per_sample?: number;
+        sample_fmt?: string | undefined;
+        sample_rate?: number | undefined;
+        channels?: number | undefined;
+        channel_layout?: string | undefined;
+        bits_per_sample?: number | undefined;
 
         id: string;
         r_frame_rate: string;
         avg_frame_rate: string;
         time_base: string;
-        start_pts?: number;
-        start_time?: number;
-        duration_ts?: string;
-        duration?: number;
-        bit_rate?: number;
-        max_bit_rate?: number;
-        bits_per_raw_sample?: number;
-        nb_frames?: number;
-        nb_read_frames?: number;
-        nb_read_packets?: number;
+        start_pts?: number | undefined;
+        start_time?: number | undefined;
+        duration_ts?: string | undefined;
+        duration?: number | undefined;
+        bit_rate?: number | undefined;
+        max_bit_rate?: number | undefined;
+        bits_per_raw_sample?: number | undefined;
+        nb_frames?: number | undefined;
+        nb_read_frames?: number | undefined;
+        nb_read_packets?: number | undefined;
 
         // Not in XML file, but is still in the output of ffprobe MKV files.
-        is_avc?: number;
-        nal_length_size?: number;
+        is_avc?: number | undefined;
+        nal_length_size?: number | undefined;
 
         disposition: {
             default: number;
@@ -83,12 +83,12 @@ declare namespace getInfo {
             visual_impaired: number;
             clean_effects: number;
             attached_pic: number;
-            timed_thumbnails?: number;
+            timed_thumbnails?: number | undefined;
         };
         tags: {
-            language?: string;
-            handler_name?: string;
-            creation_time?: string;
+            language?: string | undefined;
+            handler_name?: string | undefined;
+            creation_time?: string | undefined;
             [tag: string]: string | undefined;
         };
     }

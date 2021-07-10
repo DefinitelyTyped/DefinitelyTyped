@@ -7,16 +7,16 @@ import $ = require('jquery');
 
 declare global {
     interface Loop {
-        begin?: number;
-        end?: number;
-        step?: number;
+        begin?: number | undefined;
+        end?: number | undefined;
+        step?: number | undefined;
     }
 
     interface ConnectOption {
         target: any;
-        args?: any[];
-        ok?: number;
-        ng?: number;
+        args?: any[] | undefined;
+        ok?: number | undefined;
+        ng?: number | undefined;
     }
 
     interface RetryOption {

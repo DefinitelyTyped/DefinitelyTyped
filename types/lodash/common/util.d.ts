@@ -602,7 +602,7 @@ declare module "../index" {
         /**
          * @see _.chain
          */
-        chain?: boolean;
+        chain?: boolean | undefined;
     }
     interface LoDashStatic {
         /**

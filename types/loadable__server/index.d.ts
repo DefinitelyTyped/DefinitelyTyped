@@ -12,23 +12,23 @@ export type ChunkExtractorOptions = {
     /**
      * Webpack entrypoints to load (default to `["main"]`)
      */
-    entrypoints?: string | string[];
+    entrypoints?: string | string[] | undefined;
     /**
      * Optional output path (only for `requireEntrypoint`)
      */
-    outputPath?: string;
+    outputPath?: string | undefined;
     /**
      * Optional public path to override stats.publicPath at runtime
      */
-    publicPath?: string;
+    publicPath?: string | undefined;
     /**
      * Optional namespace in case of multiple apps on same page
      */
-    namespace?: string;
+    namespace?: string | undefined;
     /**
      * File system used to read files (default to fs)
      */
-    inputFileSystem?: object;
+    inputFileSystem?: object | undefined;
 } & ({
     /**
      * Stats file path generated using `@loadable/webpack-plugin`

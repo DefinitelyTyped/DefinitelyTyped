@@ -185,7 +185,7 @@ export interface Page {
 }
 
 export interface ManifestData {
-  version?: number;
+  version?: number | undefined;
   pgs: Page[];
   max_zoom: number;
   dims: {

@@ -20,25 +20,26 @@ export default class Geosuggest extends Component<GeosuggestProps> {
 export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'style'> {
-    placeholder?: string;
-    initialValue?: string;
-    className?: string;
-    style?: Styles;
-    inputClassName?: string;
-    disabled?: boolean;
-    location?: google.maps.LatLng;
-    radius?: number;
-    bounds?: google.maps.LatLngBounds;
-    country?: string | string[];
-    types?: QueryType[];
-    fixtures?: Fixture[];
-    maxFixtures?: number;
-    googleMaps?: typeof google.maps;
-    ignoreEnter?: boolean;
-    ignoreTab?: boolean;
-    queryDelay?: number;
-    minLength?: number;
-    highlightMatch?: boolean;
+    placeholder?: string | undefined;
+    initialValue?: string | undefined;
+    className?: string | undefined;
+    style?: Styles | undefined;
+    inputClassName?: string | undefined;
+    disabled?: boolean | undefined;
+    location?: google.maps.LatLng | undefined;
+    radius?: number | undefined;
+    bounds?: google.maps.LatLngBounds | undefined;
+    country?: string | string[] | undefined;
+    types?: QueryType[] | undefined;
+    fixtures?: Fixture[] | undefined;
+    maxFixtures?: number | undefined;
+    placeDetailFields?: string[] | undefined;
+    googleMaps?: typeof google.maps | undefined;
+    ignoreEnter?: boolean | undefined;
+    ignoreTab?: boolean | undefined;
+    queryDelay?: number | undefined;
+    minLength?: number | undefined;
+    highlightMatch?: boolean | undefined;
     onFocus?(value: any): void;
     onBlur?(value: any): void;
     onChange?(value: any): void;
@@ -51,19 +52,19 @@ export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputEleme
     getSuggestLabel?(googleSuggest: google.maps.places.AutocompletePrediction): string;
     renderSuggestItem?(googleSuggest: google.maps.places.AutocompletePrediction): any;
     skipSuggest?(googleSuggest: google.maps.places.AutocompletePrediction): boolean;
-    autoActivateFirstSuggest?: boolean;
-    label?: string;
-    suggestsClassName?: string;
-    suggestsHiddenClassName?: string;
-    suggestItemClassName?: string;
-    suggestItemActiveClassName?: string;
-    autoComplete?: string;
+    autoActivateFirstSuggest?: boolean | undefined;
+    label?: string | undefined;
+    suggestsClassName?: string | undefined;
+    suggestsHiddenClassName?: string | undefined;
+    suggestItemClassName?: string | undefined;
+    suggestItemActiveClassName?: string | undefined;
+    autoComplete?: string | undefined;
 }
 
 export interface Styles {
-    input?: Record<string, any>;
-    suggestItem?: Record<string, any>;
-    suggests?: Record<string, any>;
+    input?: Record<string, any> | undefined;
+    suggestItem?: Record<string, any> | undefined;
+    suggests?: Record<string, any> | undefined;
 }
 
 export type QueryType
@@ -74,13 +75,13 @@ export type QueryType
     | '(regions)';
 
 export interface Fixture {
-    className?: string;
+    className?: string | undefined;
     label: string;
-    location?: google.maps.LatLng;
+    location?: google.maps.LatLng | undefined;
 }
 
 export interface Suggest {
-    gmaps?: google.maps.GeocoderResult;
+    gmaps?: google.maps.GeocoderResult | undefined;
     label: string;
     location: {lat: number, lng: number};
     placeId: string;

@@ -3,7 +3,7 @@ interface Bounds {
     width: number;
     top: number;
     left: number;
-    right?: number;
-    bottom?: number;
+    right?: number | undefined;
+    bottom?: number | undefined;
 }
 export default Bounds;

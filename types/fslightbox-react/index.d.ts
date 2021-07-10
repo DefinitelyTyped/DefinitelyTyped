@@ -16,35 +16,35 @@ export interface VideoDimensions {
 
 export interface FsLightboxProps {
     toggler: boolean;
-    sources?: string[];
+    sources?: string[] | undefined;
 
     // custom sources
-    customSources?: JSX.Element[];
+    customSources?: JSX.Element[] | undefined;
 
     // slide number controlling
-    slide?: number;
-    source?: string;
-    sourceIndex?: number;
+    slide?: number | undefined;
+    source?: string | undefined;
+    sourceIndex?: number | undefined;
 
     // events
-    onOpen?: () => void;
-    onClose?: () => void;
-    onInit?: () => void;
-    onShow?: () => void;
+    onOpen?: (() => void) | undefined;
+    onClose?: (() => void) | undefined;
+    onInit?: (() => void) | undefined;
+    onShow?: (() => void) | undefined;
 
     // types
-    disableLocalStorage?: boolean;
-    types?: SourceType[];
-    type?: SourceType;
+    disableLocalStorage?: boolean | undefined;
+    types?: SourceType[] | undefined;
+    type?: SourceType | undefined;
 
     // sources
-    videosPosters?: VideoPoster[];
-    maxYoutubeVideoDimensions?: VideoDimensions;
+    videosPosters?: VideoPoster[] | undefined;
+    maxYoutubeVideoDimensions?: VideoDimensions | undefined;
 
     // preferences
-    loadOnlyCurrentSource?: boolean;
-    slideDistance?: number;
-    openOnMount?: boolean;
+    loadOnlyCurrentSource?: boolean | undefined;
+    slideDistance?: number | undefined;
+    openOnMount?: boolean | undefined;
 }
 
 declare class FsLightbox extends React.Component<FsLightboxProps> {}

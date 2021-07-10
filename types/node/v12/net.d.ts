@@ -16,10 +16,10 @@ declare module 'net' {
     }
 
     interface SocketConstructorOpts {
-        fd?: number;
-        allowHalfOpen?: boolean;
-        readable?: boolean;
-        writable?: boolean;
+        fd?: number | undefined;
+        allowHalfOpen?: boolean | undefined;
+        readable?: boolean | undefined;
+        writable?: boolean | undefined;
     }
 
     interface OnReadOpts {
@@ -38,17 +38,17 @@ declare module 'net' {
          * Note: this will cause the streaming functionality to not provide any data, however events like 'error', 'end', and 'close' will
          * still be emitted as normal and methods like pause() and resume() will also behave as expected.
          */
-        onread?: OnReadOpts;
+        onread?: OnReadOpts | undefined;
     }
 
     interface TcpSocketConnectOpts extends ConnectOpts {
         port: number;
-        host?: string;
-        localAddress?: string;
-        localPort?: number;
-        hints?: number;
-        family?: number;
-        lookup?: LookupFunction;
+        host?: string | undefined;
+        localAddress?: string | undefined;
+        localPort?: number | undefined;
+        hints?: number | undefined;
+        family?: number | undefined;
+        lookup?: LookupFunction | undefined;
     }
 
     interface IpcSocketConnectOpts extends ConnectOpts {
@@ -86,9 +86,9 @@ declare module 'net' {
         readonly destroyed: boolean;
         readonly localAddress: string;
         readonly localPort: number;
-        readonly remoteAddress?: string;
-        readonly remoteFamily?: string;
-        readonly remotePort?: number;
+        readonly remoteAddress?: string | undefined;
+        readonly remoteFamily?: string | undefined;
+        readonly remotePort?: number | undefined;
 
         // Extended base methods
         end(cb?: () => void): void;
@@ -168,23 +168,23 @@ declare module 'net' {
     }
 
     interface ListenOptions {
-        port?: number;
-        host?: string;
-        backlog?: number;
-        path?: string;
-        exclusive?: boolean;
-        readableAll?: boolean;
-        writableAll?: boolean;
+        port?: number | undefined;
+        host?: string | undefined;
+        backlog?: number | undefined;
+        path?: string | undefined;
+        exclusive?: boolean | undefined;
+        readableAll?: boolean | undefined;
+        writableAll?: boolean | undefined;
         /**
          * @default false
          */
-        ipv6Only?: boolean;
+        ipv6Only?: boolean | undefined;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js
     class Server extends EventEmitter {
         constructor(connectionListener?: (socket: Socket) => void);
-        constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
+        constructor(options?: { allowHalfOpen?: boolean | undefined, pauseOnConnect?: boolean | undefined }, connectionListener?: (socket: Socket) => void);
 
         listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): this;
         listen(port?: number, hostname?: string, listeningListener?: () => void): this;
@@ -249,17 +249,17 @@ declare module 'net' {
     }
 
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
 
     function createServer(connectionListener?: (socket: Socket) => void): Server;
-    function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
+    function createServer(options?: { allowHalfOpen?: boolean | undefined, pauseOnConnect?: boolean | undefined }, connectionListener?: (socket: Socket) => void): Server;
     function connect(options: NetConnectOpts, connectionListener?: () => void): Socket;
     function connect(port: number, host?: string, connectionListener?: () => void): Socket;
     function connect(path: string, connectionListener?: () => void): Socket;

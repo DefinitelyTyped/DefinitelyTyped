@@ -11,8 +11,8 @@ export interface DispatcherState {
 }
 
 export interface DispatcherOption {
-    stores?: StoreClass[];
-    errorHandler?: (e: DispatcherError, context: DispatcherContext) => void;
+    stores?: StoreClass[] | undefined;
+    errorHandler?: ((e: DispatcherError, context: DispatcherContext) => void) | undefined;
 }
 
 export interface StoreClass {
@@ -57,7 +57,7 @@ export interface DispatcherError {
     message: string;
     type: string;
     meta: {
-        actionName?: string,
+        actionName?: string | undefined,
         payload?: any,
         error: Error
     };

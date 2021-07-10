@@ -175,7 +175,7 @@ interface GithubRepositories {
         avatar_url: string
         gravatar_id: string
     };
-    description?: string;
+    description?: string | undefined;
     stargazers_count: number;
     watchers_count: number;
     forks_count: number;

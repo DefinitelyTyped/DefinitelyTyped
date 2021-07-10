@@ -54,64 +54,64 @@ declare namespace runtime {
         /**
          * Retry time in milliseconds for MQTT connections
          */
-        mqttReconnectTime?: number;
+        mqttReconnectTime?: number | undefined;
 
         /**
          * Retry time in milliseconds for Serial port connections
          */
-        serialReconnectTime?: number;
+        serialReconnectTime?: number | undefined;
 
         /**
          * Retry time in milliseconds for TCP socket connections
          */
-        socketReconnectTime?: number;
+        socketReconnectTime?: number | undefined;
 
         /**
          * Timeout in milliseconds for TCP server socket connections
          */
-        socketTimeout?: number;
+        socketTimeout?: number | undefined;
 
         /**
          * Maximum number of messages to wait in queue while attempting to connect to TCP socket
          */
-        tcpMsgQueueSize?: number;
+        tcpMsgQueueSize?: number | undefined;
 
         /**
          * Timeout in milliseconds for HTTP request connections
          */
-        httpRequestTimeout?: number;
+        httpRequestTimeout?: number | undefined;
 
         /**
          * The maximum length, in characters, of any message sent to the debug sidebar tab
          */
-        debugMaxLength?: number;
+        debugMaxLength?: number | undefined;
 
         /**
          * The maximum number of messages nodes will buffer internally as part of their
          * operation. This applies across a range of nodes that operate on message sequences.
          */
-        nodeMessageBufferMaxLength?: number;
+        nodeMessageBufferMaxLength?: number | undefined;
 
         /**
          * To disable the option for using local files for storing keys and certificates in the TLS configuration
          * node, set this to true
          */
-        tlsConfigDisableLocalFiles?: boolean;
+        tlsConfigDisableLocalFiles?: boolean | undefined;
 
         /**
          * Colourise the console output of the debug node
          */
-        debugUseColors?: boolean;
+        debugUseColors?: boolean | undefined;
 
         /**
          * The file containing the flows. If not set, it defaults to flows_<hostname>.json
          */
-        flowFile?: string;
+        flowFile?: string | undefined;
 
         /**
          * To enabled pretty-printing of the flow within the flow file, set the property to true
          */
-        flowFilePretty?: boolean;
+        flowFilePretty?: boolean | undefined;
 
         /**
          * By default, credentials are encrypted in storage using a generated key. To
@@ -121,27 +121,27 @@ declare namespace runtime {
          * node-red from being able to decrypt your existing credentials and they will be
          * lost.
          */
-        credentialSecret?: string | false;
+        credentialSecret?: string | false | undefined;
 
         /**
          * By default, all user data is stored in a directory called `.node-red` under
          * the user's home directory. To use a different location, the following
          * property can be used
          */
-        userDir?: string;
+        userDir?: string | undefined;
 
         /**
          * Node-RED scans the `nodes` directory in the userDir to find local node files.
          * The following property can be used to specify an additional directory to scan.
          */
-        nodesDir?: string;
+        nodesDir?: string | undefined;
 
         /**
          * By default, the Node-RED UI is available at http://localhost:1880/
          * The following property can be used to specify a different root path.
          * If set to false, this is disabled.
          */
-        httpAdminRoot?: string | false;
+        httpAdminRoot?: string | false | undefined;
 
         /**
          * Some nodes, such as HTTP In, can be used to listen for incoming http requests.
@@ -149,31 +149,31 @@ declare namespace runtime {
          * can be used to specifiy a different root path. If set to false, this is
          * disabled.
          */
-        httpNodeRoot?: string | false;
+        httpNodeRoot?: string | false | undefined;
 
         /**
          * The following property can be used in place of 'httpAdminRoot' and 'httpNodeRoot',
          * to apply the same root to both parts.
          */
-        httpRoot?: string | false;
+        httpRoot?: string | false | undefined;
 
         /**
          * When httpAdminRoot is used to move the UI to a different root path, the
          * following property is used to identify a directory of static content
          * that should be served at http://localhost:1880/.
          */
-        httpStatic?: string;
+        httpStatic?: string | undefined;
 
         /**
          * The maximum size of HTTP request that will be accepted by the runtime api.
          */
-        apiMaxLength?: string;
+        apiMaxLength?: string | undefined;
 
         /**
          * If you installed the optional node-red-dashboard, the property contains its
          * path relative to httpRoot
          */
-        ui?: { path: string };
+        ui?: { path: string } | undefined;
 
         /**
          * For password protected Node-RED editor and admin API, the property
@@ -191,7 +191,7 @@ declare namespace runtime {
                   }>;
                   default?: {
                       permissions: Permission | Permission[];
-                  };
+                  } | undefined;
               }
             | {
                   type: 'credentials';
@@ -209,7 +209,7 @@ declare namespace runtime {
                       options: object;
                   };
                   users: UsernamePermissions[];
-              };
+              } | undefined;
 
         /**
          * For password protected node-defined HTTP endpoints (httpNodeRoot),
@@ -218,44 +218,44 @@ declare namespace runtime {
          * The pass field is a bcrypt hash of the password.
          * See http://nodered.org/docs/security.html#generating-the-password-hash
          */
-        httpNodeAuth?: { user: string; pass: string };
+        httpNodeAuth?: { user: string; pass: string } | undefined;
         /**
          * For password protected static content (httpStatic), contains the auth data.
          *
          * The pass field is a bcrypt hash of the password.
          * See http://nodered.org/docs/security.html#generating-the-password-hash
          */
-        httpStaticAuth?: { user: string; pass: string };
+        httpStaticAuth?: { user: string; pass: string } | undefined;
 
         /**
          * HTTPS options
          */
-        https?: ServerOptions;
+        https?: ServerOptions | undefined;
 
         /**
          * Editor disabled.
          */
-        disableEditor?: boolean;
+        disableEditor?: boolean | undefined;
 
         /**
          * The following property can be used to configure cross-origin resource sharing
          * in the HTTP nodes.
          */
-        httpNodeCors?: CorsOptions;
+        httpNodeCors?: CorsOptions | undefined;
 
         /**
          * The following property can be used to add a custom middleware function
          * in front of all http in nodes. This allows custom authentication to be
          * applied to all http in nodes, or any other sort of common request processing.
          */
-        httpNodeMiddleware?: (req: Request, res: Response, next: NextFunction) => void;
+        httpNodeMiddleware?: ((req: Request, res: Response, next: NextFunction) => void) | undefined;
 
         /**
          * The following property can be used to pass custom options to the Express.js
          * server used by Node-RED. For a full list of available options, refer
          * to http://expressjs.com/en/api.html#app.settings.table
          */
-        httpServerOptions?: object;
+        httpServerOptions?: object | undefined;
 
         /**
          * The following property can be used to verify websocket connection attempts.
@@ -271,7 +271,7 @@ declare namespace runtime {
                       secure: boolean;
                   },
                   callback: (result: boolean, code?: string, reason?: string) => void,
-              ) => void);
+              ) => void) | undefined;
 
         /**
          * The following property can be used to seed Global Context with predefined
@@ -282,7 +282,7 @@ declare namespace runtime {
          * can be accessed in a function block as:
          *    global.get("os")
          */
-        functionGlobalContext?: object;
+        functionGlobalContext?: object | undefined;
 
         /**
          * `global.keys()` returns a list of all properties set in global context.
@@ -293,7 +293,7 @@ declare namespace runtime {
          * By default, the property is set to false to avoid accidental exposure of
          * their values. Setting this to true will cause the keys to be listed.
          */
-        exportGlobalContextKeys?: boolean;
+        exportGlobalContextKeys?: boolean | undefined;
 
         /**
          * Context Storage
@@ -307,7 +307,7 @@ declare namespace runtime {
                 | {
                       module: string;
                   };
-        };
+        } | undefined;
 
         /**
          * The following property can be used to order the categories in the editor
@@ -316,7 +316,7 @@ declare namespace runtime {
          * If not set, the following default order is used:
          * paletteCategories: ['subflows','flow','input','output','function','parser','social','mobile','storage','analysis','advanced'],
          */
-        paletteCategories?: string[];
+        paletteCategories?: string[] | undefined;
 
         /**
          * Configure the logging output
@@ -347,8 +347,8 @@ declare namespace runtime {
                  * Whether or not to include audit events in the log output
                  */
                 audit: boolean;
-            };
-        };
+            } | undefined;
+        } | undefined;
 
         /**
          * Customising the editor
@@ -358,34 +358,34 @@ declare namespace runtime {
                 /**
                  * Page title
                  */
-                title?: string;
+                title?: string | undefined;
                 /**
                  * Absolute path to theme icon
                  */
-                favicon?: string;
+                favicon?: string | undefined;
                 /**
                  * Absolute path to custom css file
                  */
-                css?: string;
+                css?: string | undefined;
                 /**
                  * Absolute paths to custom script files
                  */
-                scripts?: string[];
-            };
+                scripts?: string[] | undefined;
+            } | undefined;
             header?: {
                 /**
                  * Header title
                  */
-                title?: string;
+                title?: string | undefined;
                 /**
                  * Absolute path to header image, or `null` to remove image
                  */
-                image?: string | null;
+                image?: string | null | undefined;
                 /**
                  * Url to make the header text/image a link to this url
                  */
-                url?: string;
-            };
+                url?: string | undefined;
+            } | undefined;
             deployButton?: {
                 type: 'simple';
                 /**
@@ -396,37 +396,37 @@ declare namespace runtime {
                  * Absolute path to deploy button image or `null` to remove image
                  */
                 icon: string;
-            };
+            } | undefined;
             /**
              * Hide unwanted menu items by id
              */
             menu?: {
-                'menu-item-import-library'?: boolean;
-                'menu-item-export-library'?: boolean;
-                'menu-item-keyboard-shortcuts'?: boolean;
+                'menu-item-import-library'?: boolean | undefined;
+                'menu-item-export-library'?: boolean | undefined;
+                'menu-item-keyboard-shortcuts'?: boolean | undefined;
                 'menu-item-help'?: {
                     /** Help Link Text */
                     label: string;
                     /** Help Link URL */
                     url: string;
-                };
-            };
+                } | undefined;
+            } | undefined;
             /**
              * Hide the user-menu even if adminAuth is enabled
              */
-            userMenu?: boolean;
+            userMenu?: boolean | undefined;
             login?: {
-                image?: string;
-            };
+                image?: string | undefined;
+            } | undefined;
             palette?: {
                 /**
                  * Enable/disable the Palette Manager
                  */
-                editable?: boolean;
+                editable?: boolean | undefined;
                 /**
                  * Alternative palette manager catalogues
                  */
-                catalogues?: string[];
+                catalogues?: string[] | undefined;
                 /**
                  * Override node colours - rules test against category/type by RegExp.
                  */
@@ -434,18 +434,18 @@ declare namespace runtime {
                     category: string;
                     type: string;
                     color: string;
-                }>;
-            };
+                }> | undefined;
+            } | undefined;
             projects?: {
                 /**
                  * To enable the Projects feature, set this value to true
                  */
                 enabled: boolean;
-            };
-        };
+            } | undefined;
+        } | undefined;
 
-        verbose?: boolean;
-        safeMode?: boolean;
+        verbose?: boolean | undefined;
+        safeMode?: boolean | undefined;
     }
 
     interface PersistentSettings {
@@ -514,7 +514,7 @@ declare namespace runtime {
          * @param opts.key - the context key
          * @param opts.req - the request to log (optional)
          */
-        getValue: (opts: { scope: string; id: string; store: string; key: string; req?: object }) => Promise<object>;
+        getValue: (opts: { scope: string; id: string; store: string; key: string; req?: object | undefined }) => Promise<object>;
 
         /**
          * Gets the info of an individual node set
@@ -525,7 +525,7 @@ declare namespace runtime {
          * @param opts.key - the context key
          * @param opts.req - the request to log (optional)
          */
-        delete: (opts: { scope: string; id: string; store: string; key: string; req?: object }) => Promise<void>;
+        delete: (opts: { scope: string; id: string; store: string; key: string; req?: object | undefined }) => Promise<void>;
     }
 
     interface Flows {
@@ -550,7 +550,7 @@ declare namespace runtime {
          * @param opts
          * @param opts.req - the request to log (optional)
          */
-        getFlows: (opts: { req?: object }) => Promise<Flows>;
+        getFlows: (opts: { req?: object | undefined }) => Promise<Flows>;
 
         /**
          * Sets the current flow configuration
@@ -559,7 +559,7 @@ declare namespace runtime {
          * @param opts.deploymentType - the type of deployment - "full", "nodes", "flows", "reload"
          * @param opts.req - the request to log (optional)
          */
-        setFlows: (opts: { flows: { flows: object[]; credentials: object; req?: object } }) => Promise<{ rev: string }>;
+        setFlows: (opts: { flows: { flows: object[]; credentials: object; req?: object | undefined } }) => Promise<{ rev: string }>;
 
         /**
          * Adds a flow configuration
@@ -568,7 +568,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the id of the added flow
          */
-        addFlow: (opts: { flow: object; req?: object }) => Promise<string>;
+        addFlow: (opts: { flow: object; req?: object | undefined }) => Promise<string>;
 
         /**
          * Gets an individual flow configuration
@@ -576,7 +576,7 @@ declare namespace runtime {
          * @param opts.id - the id of the flow to retrieve
          * @param opts.req - the request to log (optional)
          */
-        getFlow: (opts: { id: string; req?: object }) => Promise<Flow>;
+        getFlow: (opts: { id: string; req?: object | undefined }) => Promise<Flow>;
 
         /**
          * Updates an existing flow configuration
@@ -586,7 +586,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the id of the updated flow
          */
-        updateFlow: (opts: { id: string; flow: object; req?: object }) => Promise<string>;
+        updateFlow: (opts: { id: string; flow: object; req?: object | undefined }) => Promise<string>;
 
         /**
          * Deletes a flow
@@ -594,7 +594,7 @@ declare namespace runtime {
          * @param opts.id - the id of the flow to delete
          * @param opts.req - the request to log (optional)
          */
-        deleteFlow: (opts: { id: string; req?: object }) => Promise<void>;
+        deleteFlow: (opts: { id: string; req?: object | undefined }) => Promise<void>;
 
         /**
          * Gets the safe credentials for a node
@@ -604,7 +604,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the safe credentials
          */
-        getNodeCredentials: (opts: { type: string; id: string; req?: object }) => Promise<object>;
+        getNodeCredentials: (opts: { type: string; id: string; req?: object | undefined }) => Promise<object>;
     }
     interface LibraryModule {
         /**
@@ -615,7 +615,7 @@ declare namespace runtime {
          * @param opts.path - the path of the entry
          * @param opts.req - the request to log (optional)
          */
-        getEntry: (opts: { library: string; type: string; path: string; req?: object }) => Promise<string | object>;
+        getEntry: (opts: { library: string; type: string; path: string; req?: object | undefined }) => Promise<string | object>;
 
         /**
          * Saves an entry to the library
@@ -633,7 +633,7 @@ declare namespace runtime {
             path: string;
             meta: object;
             body: string;
-            req?: object;
+            req?: object | undefined;
         }) => Promise<void>;
     }
     interface NodesModule {
@@ -644,7 +644,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the node information
          */
-        getNodeInfo: (opts: { id: string; req?: object }) => Promise<object>;
+        getNodeInfo: (opts: { id: string; req?: object | undefined }) => Promise<object>;
 
         /**
          * Gets the list of node modules installed in the runtime
@@ -652,7 +652,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the list of node modules
          */
-        getNodeList: (opts: { req?: object }) => Promise<object[]>;
+        getNodeList: (opts: { req?: object | undefined }) => Promise<object[]>;
 
         /**
          * Gets an individual node's html content
@@ -662,7 +662,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns - the node html content
          */
-        getNodeConfig: (opts: { id: string; lang: string; req?: object }) => Promise<string>;
+        getNodeConfig: (opts: { id: string; lang: string; req?: object | undefined }) => Promise<string>;
 
         /**
          * Gets all node html content
@@ -671,7 +671,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the node html content
          */
-        getNodeConfigs: (opts: { lang: string; req?: object }) => Promise<string>;
+        getNodeConfigs: (opts: { lang: string; req?: object | undefined }) => Promise<string>;
 
         /**
          * Gets the info of a node module
@@ -680,7 +680,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the node module info
          */
-        getModuleInfo: (opts: { module: string; req?: object }) => Promise<object>;
+        getModuleInfo: (opts: { module: string; req?: object | undefined }) => Promise<object>;
 
         /**
          * Install a new module into the runtime
@@ -691,7 +691,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the node module info
          */
-        addModule: (opts: { module: string; version?: string; url?: string; req?: object }) => Promise<object>;
+        addModule: (opts: { module: string; version?: string | undefined; url?: string | undefined; req?: object | undefined }) => Promise<object>;
 
         /**
          * Removes a module from the runtime
@@ -700,7 +700,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        removeModule: (opts: { module: string; req?: object }) => Promise<void>;
+        removeModule: (opts: { module: string; req?: object | undefined }) => Promise<void>;
 
         /**
          * Enables or disables a module in the runtime
@@ -710,7 +710,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the module info object
          */
-        setModuleState: (opts: { module: string; enabled: boolean; req?: object }) => Promise<object>;
+        setModuleState: (opts: { module: string; enabled: boolean; req?: object | undefined }) => Promise<object>;
 
         /**
          * Enables or disables a n individual node-set in the runtime
@@ -720,7 +720,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the module info object
          */
-        setNodeSetState: (opts: { id: string; enabled: boolean; req?: object }) => Promise<object>;
+        setNodeSetState: (opts: { id: string; enabled: boolean; req?: object | undefined }) => Promise<object>;
 
         /**
          * Gets all registered module message catalogs
@@ -729,7 +729,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the message catalogs
          */
-        getModuleCatalogs: (opts: { lang: string; req?: object }) => Promise<object>;
+        getModuleCatalogs: (opts: { lang: string; req?: object | undefined }) => Promise<object>;
 
         /**
          * Gets a modules message catalog
@@ -739,7 +739,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the message catalog
          */
-        getModuleCatalog: (opts: { module: string; lang: string; req?: object }) => Promise<object>;
+        getModuleCatalog: (opts: { module: string; lang: string; req?: object | undefined }) => Promise<object>;
 
         /**
          * Gets the list of all icons available in the modules installed within the runtime
@@ -747,7 +747,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the list of all icons
          */
-        getIconList: (opts: { req?: object }) => Promise<object>;
+        getIconList: (opts: { req?: object | undefined }) => Promise<object>;
 
         /**
          * Gets a node icon
@@ -757,7 +757,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the icon file as a Buffer or null if no icon available
          */
-        getIcon: (opts: { module: string; icon: string; req?: object }) => Promise<Buffer>;
+        getIcon: (opts: { module: string; icon: string; req?: object | undefined }) => Promise<Buffer>;
     }
 
     interface ProjectUser {
@@ -774,7 +774,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        listProjects: (opts: { user?: ProjectUser; req?: object }) => Promise<void>;
+        listProjects: (opts: { user?: ProjectUser | undefined; req?: object | undefined }) => Promise<void>;
 
         /**
          * Create a new project
@@ -784,7 +784,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        createProject: (opts: { user?: ProjectUser; project: object; req?: object }) => Promise<object>;
+        createProject: (opts: { user?: ProjectUser | undefined; project: object; req?: object | undefined }) => Promise<object>;
         /**
          * Initialises an empty project
          * @param opts
@@ -794,7 +794,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        initialiseProject: (opts: { user?: ProjectUser; id: string; project: object; req?: object }) => Promise<object>;
+        initialiseProject: (opts: { user?: ProjectUser | undefined; id: string; project: object; req?: object | undefined }) => Promise<object>;
         /**
          * Gets the active project
          * @param opts
@@ -802,7 +802,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the active project
          */
-        getActiveProject: (opts: { user?: ProjectUser; req?: object }) => Promise<object>;
+        getActiveProject: (opts: { user?: ProjectUser | undefined; req?: object | undefined }) => Promise<object>;
         /**
          *
          * @param opts
@@ -811,7 +811,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        setActiveProject: (opts: { user?: ProjectUser; id: string; req?: object }) => Promise<object>;
+        setActiveProject: (opts: { user?: ProjectUser | undefined; id: string; req?: object | undefined }) => Promise<object>;
         /**
          * Gets a projects metadata
          * @param opts
@@ -820,7 +820,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the project metadata
          */
-        getProject: (opts: { user?: ProjectUser; id: string; req?: object }) => Promise<object>;
+        getProject: (opts: { user?: ProjectUser | undefined; id: string; req?: object | undefined }) => Promise<object>;
         /**
          * Updates the metadata of an existing project
          * @param opts
@@ -830,7 +830,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        updateProject: (opts: { user?: ProjectUser; id: string; project: object; req?: object }) => Promise<object>;
+        updateProject: (opts: { user?: ProjectUser | undefined; id: string; project: object; req?: object | undefined }) => Promise<object>;
         /**
          * Deletes a project
          * @param opts
@@ -839,7 +839,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        deleteProject: (opts: { user?: ProjectUser; id: string; req?: object }) => Promise<object>;
+        deleteProject: (opts: { user?: ProjectUser | undefined; id: string; req?: object | undefined }) => Promise<object>;
         /**
          * Gets current git status of a project
          * @param opts
@@ -849,7 +849,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the project status
          */
-        getStatus: (opts: { user?: ProjectUser; id: string; remote: boolean; req?: object }) => Promise<object>;
+        getStatus: (opts: { user?: ProjectUser | undefined; id: string; remote: boolean; req?: object | undefined }) => Promise<object>;
         /**
          * Get a list of local branches
          * @param opts
@@ -859,7 +859,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns a list of the local branches
          */
-        getBranches: (opts: { user?: ProjectUser; id: string; remote: boolean; req?: object }) => Promise<object>;
+        getBranches: (opts: { user?: ProjectUser | undefined; id: string; remote: boolean; req?: object | undefined }) => Promise<object>;
         /**
          * Gets the status of a branch
          * @param opts
@@ -869,7 +869,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the status of the branch
          */
-        getBranchStatus: (opts: { user?: ProjectUser; id: string; branch: string; req?: object }) => Promise<object>;
+        getBranchStatus: (opts: { user?: ProjectUser | undefined; id: string; branch: string; req?: object | undefined }) => Promise<object>;
         /**
          * Sets the current local branch
          * @param opts
@@ -881,11 +881,11 @@ declare namespace runtime {
          * @returns resolves when complete
          */
         setBranch: (opts: {
-            user?: ProjectUser;
+            user?: ProjectUser | undefined;
             id: string;
             branch: string;
             create: boolean;
-            req?: object;
+            req?: object | undefined;
         }) => Promise<object>;
         /**
          * Deletes a branch
@@ -898,11 +898,11 @@ declare namespace runtime {
          * @returns resolves when complete
          */
         deleteBranch: (opts: {
-            user?: ProjectUser;
+            user?: ProjectUser | undefined;
             id: string;
             branch: string;
             force: boolean;
-            req?: object;
+            req?: object | undefined;
         }) => Promise<object>;
         /**
          * Commits the current staged files
@@ -913,7 +913,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        commit: (opts: { user?: ProjectUser; id: string; message: string; req?: object }) => Promise<object>;
+        commit: (opts: { user?: ProjectUser | undefined; id: string; message: string; req?: object | undefined }) => Promise<object>;
         /**
          * Gets the details of a single commit
          * @param opts
@@ -923,7 +923,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the commit details
          */
-        getCommit: (opts: { user?: ProjectUser; id: string; sha: string; req?: object }) => Promise<object>;
+        getCommit: (opts: { user?: ProjectUser | undefined; id: string; sha: string; req?: object | undefined }) => Promise<object>;
         /**
          * Gets the commit history of the project
          * @param opts
@@ -935,11 +935,11 @@ declare namespace runtime {
          * @returns an array of commits
          */
         getCommits: (opts: {
-            user?: ProjectUser;
+            user?: ProjectUser | undefined;
             id: string;
             limit: string;
             before: string;
-            req?: object;
+            req?: object | undefined;
         }) => Promise<object[]>;
         /**
          * Abort an in-progress merge
@@ -949,7 +949,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        abortMerge: (opts: { user?: ProjectUser; id: string; req?: object }) => Promise<object>;
+        abortMerge: (opts: { user?: ProjectUser | undefined; id: string; req?: object | undefined }) => Promise<object>;
         /**
          * Resolves a merge conflict
          * @param opts
@@ -961,11 +961,11 @@ declare namespace runtime {
          * @returns resolves when complete
          */
         resolveMerge: (opts: {
-            user?: ProjectUser;
+            user?: ProjectUser | undefined;
             id: string;
             path: string;
             resolutions: string;
-            req?: object;
+            req?: object | undefined;
         }) => Promise<object>;
         /**
          * Gets a listing of the files in the project
@@ -975,7 +975,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the file listing
          */
-        getFiles: (opts: { user?: ProjectUser; id: string; req?: object }) => Promise<object>;
+        getFiles: (opts: { user?: ProjectUser | undefined; id: string; req?: object | undefined }) => Promise<object>;
         /**
          * Gets the contents of a file
          * @param opts
@@ -987,11 +987,11 @@ declare namespace runtime {
          * @returns the content of the file
          */
         getFile: (opts: {
-            user?: ProjectUser;
+            user?: ProjectUser | undefined;
             id: string;
             path: string;
             tree: string;
-            req?: object;
+            req?: object | undefined;
         }) => Promise<string>;
         /**
          *
@@ -1002,7 +1002,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        stageFile: (opts: { user?: ProjectUser; id: string; path: string | string[]; req?: object }) => Promise<object>;
+        stageFile: (opts: { user?: ProjectUser | undefined; id: string; path: string | string[]; req?: object | undefined }) => Promise<object>;
         /**
          *
          * @param opts
@@ -1012,7 +1012,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        unstageFile: (opts: { user?: ProjectUser; id: string; path: string; req?: object }) => Promise<object>;
+        unstageFile: (opts: { user?: ProjectUser | undefined; id: string; path: string; req?: object | undefined }) => Promise<object>;
         /**
          * Reverts changes to a file back to its commited version
          * @param opts
@@ -1022,7 +1022,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        revertFile: (opts: { user?: ProjectUser; id: string; path: string; req?: object }) => Promise<object>;
+        revertFile: (opts: { user?: ProjectUser | undefined; id: string; path: string; req?: object | undefined }) => Promise<object>;
         /**
          * Get the diff of a file
          * @param opts
@@ -1034,11 +1034,11 @@ declare namespace runtime {
          * @returns the requested diff
          */
         getFileDiff: (opts: {
-            user?: ProjectUser;
+            user?: ProjectUser | undefined;
             id: string;
             path: string;
             type: string;
-            req?: object;
+            req?: object | undefined;
         }) => Promise<object>;
         /**
          * Gets a list of the project remotes
@@ -1048,7 +1048,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns a list of project remotes
          */
-        getRemotes: (opts: { user?: ProjectUser; id: string; req?: object }) => Promise<object>;
+        getRemotes: (opts: { user?: ProjectUser | undefined; id: string; req?: object | undefined }) => Promise<object>;
         /**
          *
          * @param opts
@@ -1061,10 +1061,10 @@ declare namespace runtime {
          * @returns resolves when complete
          */
         addRemote: (opts: {
-            user?: ProjectUser;
+            user?: ProjectUser | undefined;
             id: string;
             remote: { name: string; url: string };
-            req?: object;
+            req?: object | undefined;
         }) => Promise<object>;
         /**
          * Remove a project remote
@@ -1075,7 +1075,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        removeRemote: (opts: { user?: ProjectUser; id: string; remote: string; req?: object }) => Promise<object>;
+        removeRemote: (opts: { user?: ProjectUser | undefined; id: string; remote: string; req?: object | undefined }) => Promise<object>;
         /**
          *
          * @param opts
@@ -1087,10 +1087,10 @@ declare namespace runtime {
          * @returns resolves when complete
          */
         updateRemote: (opts: {
-            user?: ProjectUser;
+            user?: ProjectUser | undefined;
             id: string;
             remote: { name: string };
-            req?: object;
+            req?: object | undefined;
         }) => Promise<object>;
         /**
          * Pull changes from the remote
@@ -1103,11 +1103,11 @@ declare namespace runtime {
          * @returns resolves when complete
          */
         pull: (opts: {
-            user?: ProjectUser;
+            user?: ProjectUser | undefined;
             remote: string;
-            track?: boolean;
-            allowUnrelatedHistories?: boolean;
-            req?: object;
+            track?: boolean | undefined;
+            allowUnrelatedHistories?: boolean | undefined;
+            req?: object | undefined;
         }) => Promise<object>;
         /**
          * Push changes to a remote
@@ -1120,11 +1120,11 @@ declare namespace runtime {
          * @returns resolves when complete
          */
         push: (opts: {
-            user?: ProjectUser;
+            user?: ProjectUser | undefined;
             id: string;
             remote: string;
-            track?: boolean;
-            req?: object;
+            track?: boolean | undefined;
+            req?: object | undefined;
         }) => Promise<object>;
     }
 
@@ -1136,7 +1136,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the runtime settings
          */
-        getRuntimeSettings: (opts: { user?: User; req?: object }) => Promise<object>;
+        getRuntimeSettings: (opts: { user?: User | undefined; req?: object | undefined }) => Promise<object>;
         /**
          * Gets an individual user's settings object
          * @param opts
@@ -1144,7 +1144,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the user settings
          */
-        getUserSettings: (opts: { user?: User; req?: object }) => Promise<object>;
+        getUserSettings: (opts: { user?: User | undefined; req?: object | undefined }) => Promise<object>;
         /**
          * Updates an individual user's settings object.
          * @param opts
@@ -1153,7 +1153,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the user settings
          */
-        updateUserSettings: (opts: { user?: User; settings: object; req?: object }) => Promise<object>;
+        updateUserSettings: (opts: { user?: User | undefined; settings: object; req?: object | undefined }) => Promise<object>;
         /**
          * Gets a list of a user's ssh keys
          * @param opts
@@ -1161,7 +1161,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the user's ssh keys
          */
-        getUserKeys: (opts: { user?: User; req?: object }) => Promise<object>;
+        getUserKeys: (opts: { user?: User | undefined; req?: object | undefined }) => Promise<object>;
         /**
          * Gets a user's ssh public key
          * @param opts
@@ -1170,7 +1170,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the user's ssh public key
          */
-        getUserKey: (opts: { user?: User; id: string; req?: object }) => Promise<string>;
+        getUserKey: (opts: { user?: User | undefined; id: string; req?: object | undefined }) => Promise<string>;
         /**
          * Generates a new ssh key pair
          * @param opts
@@ -1183,12 +1183,12 @@ declare namespace runtime {
          * @returns the id of the generated key
          */
         generateUserKey: (opts: {
-            user?: User;
+            user?: User | undefined;
             name: string;
-            password?: string;
-            comment?: string;
-            size?: number;
-            req?: object;
+            password?: string | undefined;
+            comment?: string | undefined;
+            size?: number | undefined;
+            req?: object | undefined;
         }) => Promise<string>;
         /**
          * Deletes a user's ssh key pair
@@ -1198,7 +1198,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when deleted
          */
-        removeUserKey: (opts: { user?: User; id: string; req?: object }) => Promise<void>;
+        removeUserKey: (opts: { user?: User | undefined; id: string; req?: object | undefined }) => Promise<void>;
     }
 
     interface StorageModule {
@@ -1208,7 +1208,7 @@ declare namespace runtime {
             credentials: object;
             rev: string;
         }>;
-        saveFlows(config: { flows: object[]; credentials: object; credentialsDirty?: boolean }): Promise<void>;
+        saveFlows(config: { flows: object[]; credentials: object; credentialsDirty?: boolean | undefined }): Promise<void>;
         saveCredentials(credentials: object): Promise<void>;
         getSettings(): Promise<object | null>;
         saveSettings(settings: object): Promise<void>;

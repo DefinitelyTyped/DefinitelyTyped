@@ -14,15 +14,15 @@ export namespace fractal {
     namespace core {
         interface StatusInfo {
             label: string;
-            description?: string;
-            color?: string;
+            description?: string | undefined;
+            color?: string | undefined;
         }
         namespace entities {
             abstract class Entity extends mixins.Entity {
-                readonly isComponent?: true;
-                readonly isCollection?: true;
-                readonly isDoc?: true;
-                readonly isVariant?: true;
+                readonly isComponent?: true | undefined;
+                readonly isCollection?: true | undefined;
+                readonly isDoc?: true | undefined;
+                readonly isVariant?: true | undefined;
                 readonly status: StatusInfo;
                 getResolvedContext(): any;
                 hasContext(): Promise<boolean>;
@@ -212,31 +212,31 @@ export namespace fractal {
             }
             type Collator = (markup: string, item: { handle: string; }) => string;
             interface ComponentDefaultConfig {
-                collated?: boolean;
-                collator?: Collator;
+                collated?: boolean | undefined;
+                collator?: Collator | undefined;
                 context?: any;
                 display?: any;
-                prefix?: string;
-                preview?: string;
-                status?: string;
+                prefix?: string | undefined;
+                preview?: string | undefined;
+                status?: string | undefined;
             }
             interface ComponentConfig {
-                path?: string;
-                ext?: string;
-                default?: ComponentDefaultConfig;
-                label?: string;
+                path?: string | undefined;
+                ext?: string | undefined;
+                default?: ComponentDefaultConfig | undefined;
+                label?: string | undefined;
                 statuses?: {
                     [status: string]: core.StatusInfo;
-                };
-                title?: string;
-                yield?: string;
-                'default.collated'?: boolean;
-                'default.collator'?: Collator;
+                } | undefined;
+                title?: string | undefined;
+                yield?: string | undefined;
+                'default.collated'?: boolean | undefined;
+                'default.collator'?: Collator | undefined;
                 'default.context'?: any;
                 'default.display'?: any;
-                'default.prefix'?: string;
-                'default.preview'?: string;
-                'default.status'?: string;
+                'default.prefix'?: string | undefined;
+                'default.preview'?: string | undefined;
+                'default.status'?: string | undefined;
             }
             interface ComponentSource extends core.entities.EntitySource<Component, ComponentConfig> {
                 resources(): files.FileCollection;
@@ -272,39 +272,39 @@ export namespace fractal {
             }
             interface DocDefaultConfig {
                 context?: any;
-                prefix?: string;
-                status?: string;
+                prefix?: string | undefined;
+                status?: string | undefined;
             }
             interface DocMarkdownConfig {
-                gfm?: boolean;
-                tables?: boolean;
-                breaks?: boolean;
-                pedantic?: boolean;
-                sanitize?: boolean;
-                smartLists?: boolean;
-                smartypants?: boolean;
+                gfm?: boolean | undefined;
+                tables?: boolean | undefined;
+                breaks?: boolean | undefined;
+                pedantic?: boolean | undefined;
+                sanitize?: boolean | undefined;
+                smartLists?: boolean | undefined;
+                smartypants?: boolean | undefined;
             }
             interface DocConfig {
-                default?: DocDefaultConfig;
-                ext?: string;
-                indexLabel?: string;
-                label?: string;
-                markdown?: boolean | DocMarkdownConfig;
-                path?: string;
+                default?: DocDefaultConfig | undefined;
+                ext?: string | undefined;
+                indexLabel?: string | undefined;
+                label?: string | undefined;
+                markdown?: boolean | DocMarkdownConfig | undefined;
+                path?: string | undefined;
                 statuses?: {
                     [status: string]: core.StatusInfo;
-                };
-                title?: string;
+                } | undefined;
+                title?: string | undefined;
                 'default.context'?: any;
-                'default.prefix'?: string;
-                'default.status'?: string;
-                'markdown.gfm'?: boolean;
-                'markdown.tables'?: boolean;
-                'markdown.breaks'?: boolean;
-                'markdown.pedantic'?: boolean;
-                'markdown.sanitize'?: boolean;
-                'markdown.smartLists'?: boolean;
-                'markdown.smartypants'?: boolean;
+                'default.prefix'?: string | undefined;
+                'default.status'?: string | undefined;
+                'markdown.gfm'?: boolean | undefined;
+                'markdown.tables'?: boolean | undefined;
+                'markdown.breaks'?: boolean | undefined;
+                'markdown.pedantic'?: boolean | undefined;
+                'markdown.sanitize'?: boolean | undefined;
+                'markdown.smartLists'?: boolean | undefined;
+                'markdown.smartypants'?: boolean | undefined;
             }
             interface DocSource extends core.entities.EntitySource<Doc, DocConfig> {
                 pages(): this;
@@ -416,8 +416,8 @@ export namespace fractal {
             command(
                 commandString: string,
                 callback: (this: Cli & { fractal: Fractal }, args: any, done: () => void) => void, opts?: string | {
-                    description?: string;
-                    options?: string[][];
+                    description?: string | undefined;
+                    options?: string[][] | undefined;
                 }): void;
             exec(command: string): void;
             log(message: string): void;
@@ -469,70 +469,70 @@ export namespace fractal {
         }
         class Server extends EventEmitter {
             readonly isSynced: boolean;
-            readonly port?: number;
+            readonly port?: number | undefined;
             readonly ports: {
-                sync?: number;
-                server?: number;
+                sync?: number | undefined;
+                server?: number | undefined;
             };
-            readonly url?: string;
+            readonly url?: string | undefined;
             readonly urls: {
                 sync?: {
-                    local?: string;
-                    external?: string;
-                    ui?: string;
-                };
-                server?: string;
+                    local?: string | undefined;
+                    external?: string | undefined;
+                    ui?: string | undefined;
+                } | undefined;
+                server?: string | undefined;
             };
             start(sync?: boolean): Promise<HttpServer>;
             stop(): void;
             use(mount: string, middleware: any): void;
         }
         interface WebServerSyncOptions {
-            open?: boolean;
-            browser?: string[];
-            notify?: boolean;
+            open?: boolean | undefined;
+            browser?: string[] | undefined;
+            notify?: boolean | undefined;
         }
         interface WebServerConfig {
-            sync?: boolean;
-            syncOptions?: WebServerSyncOptions;
-            port?: number;
-            watch?: boolean;
-            theme?: WebTheme | string;
+            sync?: boolean | undefined;
+            syncOptions?: WebServerSyncOptions | undefined;
+            port?: number | undefined;
+            watch?: boolean | undefined;
+            theme?: WebTheme | string | undefined;
         }
         interface WebBuilderUrls {
-            ext?: string;
+            ext?: string | undefined;
         }
         interface WebBuilderConfig {
-            concurrency?: number;
-            dest?: string;
-            ext?: string;
-            urls?: WebBuilderUrls;
-            theme?: WebTheme | string;
+            concurrency?: number | undefined;
+            dest?: string | undefined;
+            ext?: string | undefined;
+            urls?: WebBuilderUrls | undefined;
+            theme?: WebTheme | string | undefined;
         }
         interface WebStaticConfig {
-            path?: string;
-            mount?: string;
+            path?: string | undefined;
+            mount?: string | undefined;
         }
         interface WebConfig {
-            builder?: WebBuilderConfig;
-            server?: WebServerConfig;
-            static?: WebStaticConfig;
-            'builder.concurrency'?: number;
-            'builder.dest'?: string;
-            'builder.ext'?: string;
-            'builder.urls'?: WebBuilderUrls;
-            'builder.urls.ext'?: string;
-            'builder.theme'?: WebTheme | string;
-            'server.sync'?: boolean;
-            'server.syncOptions'?: WebServerSyncOptions;
-            'server.syncOptions.open'?: boolean;
-            'server.syncOptions.browser'?: string[];
-            'server.syncOptions.notify'?: boolean;
-            'server.port'?: number;
-            'server.watch'?: boolean;
-            'server.theme'?: WebTheme | string;
-            'static.path'?: string;
-            'static.mount'?: string;
+            builder?: WebBuilderConfig | undefined;
+            server?: WebServerConfig | undefined;
+            static?: WebStaticConfig | undefined;
+            'builder.concurrency'?: number | undefined;
+            'builder.dest'?: string | undefined;
+            'builder.ext'?: string | undefined;
+            'builder.urls'?: WebBuilderUrls | undefined;
+            'builder.urls.ext'?: string | undefined;
+            'builder.theme'?: WebTheme | string | undefined;
+            'server.sync'?: boolean | undefined;
+            'server.syncOptions'?: WebServerSyncOptions | undefined;
+            'server.syncOptions.open'?: boolean | undefined;
+            'server.syncOptions.browser'?: string[] | undefined;
+            'server.syncOptions.notify'?: boolean | undefined;
+            'server.port'?: number | undefined;
+            'server.watch'?: boolean | undefined;
+            'server.theme'?: WebTheme | string | undefined;
+            'static.path'?: string | undefined;
+            'static.mount'?: string | undefined;
         }
         class Web extends core.mixins.ConfigurableEmitter<WebConfig> {
             server(config?: WebServerConfig): Server;
@@ -550,13 +550,13 @@ export namespace fractal {
 
 export interface FractalConfig {
     project?: {
-        title?: string;
-        version?: string;
-        author?: string;
-    };
-    'project.title'?: string;
-    'project.version'?: string;
-    'project.author'?: string;
+        title?: string | undefined;
+        version?: string | undefined;
+        author?: string | undefined;
+    } | undefined;
+    'project.title'?: string | undefined;
+    'project.version'?: string | undefined;
+    'project.author'?: string | undefined;
 }
 
 export function create(config?: FractalConfig): Fractal;
@@ -581,14 +581,14 @@ export class Fractal extends fractal.core.mixins.ConfigurableEmitter<FractalConf
 
 export interface CliThemeConfig {
     delimiter?: {
-        text?: string;
-        format?: (str: string) => string;
-    };
+        text?: string | undefined;
+        format?: ((str: string) => string) | undefined;
+    } | undefined;
     styles?: {
         [key: string]: any;
-    };
-    'delimiter.text'?: string;
-    'delimiter.format'?: (str: string) => string;
+    } | undefined;
+    'delimiter.text'?: string | undefined;
+    'delimiter.format'?: ((str: string) => string) | undefined;
 }
 export class CliTheme extends fractal.core.mixins.ConfigurableEmitter<CliThemeConfig> {
     constructor(config?: CliThemeConfig);
@@ -600,19 +600,19 @@ export class CliTheme extends fractal.core.mixins.ConfigurableEmitter<CliThemeCo
 }
 
 export interface WebThemeOptions {
-    skin?: string;
-    panels?: string[];
+    skin?: string | undefined;
+    panels?: string[] | undefined;
     rtl: boolean;
-    lang?: string;
-    styles?: string[];
-    scripts?: string[];
-    format?: string;
+    lang?: string | undefined;
+    styles?: string[] | undefined;
+    scripts?: string[] | undefined;
+    format?: string | undefined;
     static?: {
-        mount?: string;
-    };
-    version?: string;
-    favicon?: string;
-    nav?: string[];
+        mount?: string | undefined;
+    } | undefined;
+    version?: string | undefined;
+    favicon?: string | undefined;
+    nav?: string[] | undefined;
     'static.mount': string;
 }
 export class WebTheme extends fractal.core.mixins.ConfigurableEmitter<WebThemeOptions> {
@@ -630,7 +630,7 @@ export class WebTheme extends fractal.core.mixins.ConfigurableEmitter<WebThemeOp
     addStatic(path: string, mount: string): void;
     static(): Array<{ path: string; mount: string; }>;
     addRoute(path: string, opts: {
-        handle?: string;
+        handle?: string | undefined;
     }, resolver?: any): this;
     addResolver(handle: string, resolvers: any): this;
     routes(): any[];

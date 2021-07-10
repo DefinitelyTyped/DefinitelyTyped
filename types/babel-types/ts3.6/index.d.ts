@@ -27,9 +27,9 @@ export interface SourceLocation {
 
 export interface Node {
     type: string;
-    leadingComments?: Comment[];
-    innerComments?: Comment[];
-    trailingComments?: Comment[];
+    leadingComments?: Comment[] | undefined;
+    innerComments?: Comment[] | undefined;
+    trailingComments?: Comment[] | undefined;
     start: number;
     end: number;
     loc: SourceLocation;
@@ -66,7 +66,7 @@ export interface DirectiveLiteral extends Node {
 
 export interface BlockStatement extends Node {
     type: "BlockStatement";
-    directives?: Directive[];
+    directives?: Directive[] | undefined;
     body: Statement[];
 }
 
@@ -147,8 +147,8 @@ export interface FunctionDeclaration extends Node {
     body: BlockStatement;
     generator: boolean;
     async: boolean;
-    returnType?: TypeAnnotation;
-    typeParameters?: TypeParameterDeclaration;
+    returnType?: TypeAnnotation | undefined;
+    typeParameters?: TypeParameterDeclaration | undefined;
 }
 
 export interface FunctionExpression extends Node {
@@ -158,14 +158,14 @@ export interface FunctionExpression extends Node {
     body: BlockStatement;
     generator: boolean;
     async: boolean;
-    returnType?: TypeAnnotation;
-    typeParameters?: TypeParameterDeclaration;
+    returnType?: TypeAnnotation | undefined;
+    typeParameters?: TypeParameterDeclaration | undefined;
 }
 
 export interface Identifier extends Node {
     type: "Identifier";
     name: string;
-    typeAnnotation?: TypeAnnotation;
+    typeAnnotation?: TypeAnnotation | undefined;
 }
 
 export interface IfStatement extends Node {
@@ -203,7 +203,7 @@ export interface BooleanLiteral extends Node {
 export interface RegExpLiteral extends Node {
     type: "RegExpLiteral";
     pattern: string;
-    flags?: string;
+    flags?: string | undefined;
 }
 
 export interface LogicalExpression extends Node {
@@ -229,7 +229,7 @@ export interface NewExpression extends Node {
 export interface Program extends Node {
     type: "Program";
     sourceType: "script" | "module";
-    directives?: Directive[];
+    directives?: Directive[] | undefined;
     body: Array<Statement | ModuleDeclaration>;
 }
 
@@ -245,14 +245,14 @@ export interface ObjectMethod extends Node {
     shorthand: boolean;
     computed: boolean;
     value: Expression;
-    decorators?: Decorator[];
+    decorators?: Decorator[] | undefined;
     id: Identifier;
     params: LVal[];
     body: BlockStatement;
     generator: boolean;
     async: boolean;
-    returnType?: TypeAnnotation;
-    typeParameters?: TypeParameterDeclaration;
+    returnType?: TypeAnnotation | undefined;
+    typeParameters?: TypeParameterDeclaration | undefined;
 }
 
 export interface ObjectProperty extends Node {
@@ -260,14 +260,14 @@ export interface ObjectProperty extends Node {
     key: Expression;
     computed: boolean;
     value: Expression;
-    decorators?: Decorator[];
+    decorators?: Decorator[] | undefined;
     shorthand: boolean;
 }
 
 export interface RestElement extends Node {
     type: "RestElement";
     argument: LVal;
-    typeAnnotation?: TypeAnnotation;
+    typeAnnotation?: TypeAnnotation | undefined;
 }
 
 export interface ReturnStatement extends Node {
@@ -355,7 +355,7 @@ export interface AssignmentPattern extends Node {
 export interface ArrayPattern extends Node {
     type: "ArrayPattern";
     elements: Expression[];
-    typeAnnotation?: TypeAnnotation;
+    typeAnnotation?: TypeAnnotation | undefined;
 }
 
 export interface ArrowFunctionExpression extends Node {
@@ -366,8 +366,8 @@ export interface ArrowFunctionExpression extends Node {
     generator: boolean;
     async: boolean;
     expression: boolean;
-    returnType?: TypeAnnotation;
-    typeParameters?: TypeParameterDeclaration;
+    returnType?: TypeAnnotation | undefined;
+    typeParameters?: TypeParameterDeclaration | undefined;
 }
 
 export interface ClassBody extends Node {
@@ -380,11 +380,11 @@ export interface ClassDeclaration extends Node {
     id: Identifier;
     superClass: Expression;
     body: ClassBody;
-    decorators?: Decorator[];
-    implements?: ClassImplements[];
-    mixins?: any[];
-    typeParameters?: TypeParameterDeclaration;
-    superTypeParameters?: TypeParameterInstantiation;
+    decorators?: Decorator[] | undefined;
+    implements?: ClassImplements[] | undefined;
+    mixins?: any[] | undefined;
+    typeParameters?: TypeParameterDeclaration | undefined;
+    superTypeParameters?: TypeParameterInstantiation | undefined;
 }
 
 export interface ClassExpression extends Node {
@@ -392,11 +392,11 @@ export interface ClassExpression extends Node {
     id: Identifier;
     superClass: Expression;
     body: ClassBody;
-    decorators?: Decorator[];
-    implements?: ClassImplements[];
-    mixins?: any[];
-    typeParameters?: TypeParameterDeclaration;
-    superTypeParameters?: TypeParameterInstantiation;
+    decorators?: Decorator[] | undefined;
+    implements?: ClassImplements[] | undefined;
+    mixins?: any[] | undefined;
+    typeParameters?: TypeParameterDeclaration | undefined;
+    superTypeParameters?: TypeParameterInstantiation | undefined;
 }
 
 export interface ExportAllDeclaration extends Node {
@@ -461,19 +461,19 @@ export interface MetaProperty extends Node {
 export interface ClassMethod extends Node {
     type: "ClassMethod";
     key: Expression;
-    value?: FunctionExpression;
+    value?: FunctionExpression | undefined;
     kind: "constructor" | "method" | "get" | "set";
     computed: boolean;
     static: boolean;
-    decorators?: Decorator[];
+    decorators?: Decorator[] | undefined;
     id: Identifier;
     params: LVal[];
     body: BlockStatement;
     generator: boolean;
     async: boolean;
     expression: boolean;
-    returnType?: TypeAnnotation;
-    typeParameters?: TypeParameterDeclaration;
+    returnType?: TypeAnnotation | undefined;
+    typeParameters?: TypeParameterDeclaration | undefined;
 }
 
 // See: https://github.com/babel/babel/blob/master/doc/ast/spec.md#objectpattern
@@ -482,14 +482,14 @@ export interface AssignmentProperty extends Node {
     key: Expression;
     computed: boolean;
     value: Pattern;
-    decorators?: Decorator[];
+    decorators?: Decorator[] | undefined;
     shorthand: boolean;
 }
 
 export interface ObjectPattern extends Node {
     type: "ObjectPattern";
     properties: Array<AssignmentProperty | RestProperty>;
-    typeAnnotation?: TypeAnnotation;
+    typeAnnotation?: TypeAnnotation | undefined;
 }
 
 export interface SpreadElement extends Node {
@@ -559,8 +559,8 @@ export interface ClassProperty extends Node {
     type: "ClassProperty";
     key: Identifier;
     value: Expression;
-    decorators?: Decorator[];
-    typeAnnotation?: TypeAnnotation;
+    decorators?: Decorator[] | undefined;
+    typeAnnotation?: TypeAnnotation | undefined;
 }
 
 export interface DeclareClass extends Node {
@@ -637,7 +637,7 @@ export interface InterfaceDeclaration extends Node {
     id: Identifier;
     typeParameters: TypeParameterDeclaration;
     extends: InterfaceExtends[];
-    mixins?: any[];
+    mixins?: any[] | undefined;
     body: ObjectTypeAnnotation;
 }
 
@@ -776,7 +776,7 @@ export interface JSXElement extends Node {
     openingElement: JSXOpeningElement;
     closingElement: JSXClosingElement;
     children: Array<JSXElement | JSXExpressionContainer | JSXText>;
-    selfClosing?: boolean;
+    selfClosing?: boolean | undefined;
 }
 
 export interface JSXEmptyExpression extends Node {
@@ -1370,7 +1370,7 @@ export function classMethod(kind?: "constructor" | "method" | "get" | "set", key
 export function objectPattern(properties?: Array<AssignmentProperty | RestProperty>, typeAnnotation?: TypeAnnotation): ObjectPattern;
 export function spreadElement(argument?: Expression): SpreadElement;
 export function taggedTemplateExpression(tag?: Expression, quasi?: TemplateLiteral): TaggedTemplateExpression;
-export function templateElement(value?: { cooked?: string; raw?: string; }, tail?: boolean): TemplateElement;
+export function templateElement(value?: { cooked?: string | undefined; raw?: string | undefined; }, tail?: boolean): TemplateElement;
 export function templateLiteral(quasis?: TemplateElement[], expressions?: Expression[]): TemplateLiteral;
 export function yieldExpression(argument?: Expression, delegate?: boolean): YieldExpression;
 export function anyTypeAnnotation(): AnyTypeAnnotation;

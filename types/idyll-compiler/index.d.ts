@@ -20,22 +20,22 @@ declare namespace compiler {
         | ((ast: AST, callback: (err: any, value: AST) => void) => void);
 
     interface Options {
-        spellcheck?: boolean;
+        spellcheck?: boolean | undefined;
 
-        smartquotes?: boolean;
+        smartquotes?: boolean | undefined;
 
         /**
          * If false and there is no postprocessors, compiler returns the AST synchronously
          * Otherwise, a promise is returned
          *
          */
-        async?: boolean;
+        async?: boolean | undefined;
 
         /**
          * compiler plugins
          * If provided, compiler always compiles asynchronously
          */
-        postProcessors?: PostProcessor[];
+        postProcessors?: PostProcessor[] | undefined;
     }
 }
 

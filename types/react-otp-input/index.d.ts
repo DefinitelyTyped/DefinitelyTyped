@@ -8,16 +8,16 @@ export interface OTPInputProps {
     value: number | string;
     onChange: any;
     numInputs: number;
-    separator?: JSX.Element;
-    isDisabled?: boolean;
-    shouldAutoFocus?: boolean;
-    hasErrored?: boolean;
-    isInputNum?: boolean;
-    containerStyle?: string | React.CSSProperties;
-    inputStyle?: string | React.CSSProperties;
-    focusStyle?: string | React.CSSProperties;
-    disabledStyle?: string | React.CSSProperties;
-    errorStyle?: string | React.CSSProperties;
+    separator?: JSX.Element | undefined;
+    isDisabled?: boolean | undefined;
+    shouldAutoFocus?: boolean | undefined;
+    hasErrored?: boolean | undefined;
+    isInputNum?: boolean | undefined;
+    containerStyle?: string | React.CSSProperties | undefined;
+    inputStyle?: string | React.CSSProperties | undefined;
+    focusStyle?: string | React.CSSProperties | undefined;
+    disabledStyle?: string | React.CSSProperties | undefined;
+    errorStyle?: string | React.CSSProperties | undefined;
 }
 
 export default class extends React.Component<OTPInputProps> { }

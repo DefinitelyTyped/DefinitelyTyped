@@ -11,18 +11,18 @@ declare class PurifyPlugin extends webpack.Plugin {
 }
 
 interface PurifyOptions {
-    styleExtensions?: string[];
-    moduleExtensions?: string[];
-    minimize?: boolean;
-    paths?: object | string[];
+    styleExtensions?: string[] | undefined;
+    moduleExtensions?: string[] | undefined;
+    minimize?: boolean | undefined;
+    paths?: object | string[] | undefined;
     purifyOptions?: {
-        minify?: boolean,
-        output?: string | boolean,
-        info?: boolean,
-        rejected?: boolean,
-        whitelist?: string[]
-    };
-    verbose?: boolean;
+        minify?: boolean | undefined,
+        output?: string | boolean | undefined,
+        info?: boolean | undefined,
+        rejected?: boolean | undefined,
+        whitelist?: string[] | undefined
+    } | undefined;
+    verbose?: boolean | undefined;
 }
 
 export = PurifyPlugin;

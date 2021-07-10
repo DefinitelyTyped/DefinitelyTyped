@@ -23,95 +23,95 @@ declare namespace JQueryQRCode {
          * Render method: 'canvas', 'image' or 'div'
          * @default 'canvas'
          */
-        render?: string,
+        render?: string | undefined,
 
         /**
          * Start of version range, somewhere in 1 .. 40
          * @default 1
          */
-        minVersion?: number,
+        minVersion?: number | undefined,
         /**
          * End of version range, somewhere in 1 .. 40
          * @default 40
          */
-        maxVersion?: number,
+        maxVersion?: number | undefined,
 
         /**
          * Error correction level: 'L', 'M', 'Q' or 'H'
          * @default 'L'
          */
-        ecLevel?: string,
+        ecLevel?: string | undefined,
 
         /**
          * Left offset in pixels, if drawn onto existing canvas
          * @default 0
          */
-        left?: number,
+        left?: number | undefined,
         /**
          * Top offset in pixels, if drawn onto existing canvas
          * @default 0
          */
-        top?: number,
+        top?: number | undefined,
 
         /**
          * Size in pixel
          * @default 200
          */
-        size?: number,
+        size?: number | undefined,
 
         /**
          * Code color or image element
          * @default '#000'
          */
-        fill?: string,
+        fill?: string | undefined,
 
         /**
          * Background color or image element, null for transparent background
          * @default null
          */
-        background?: string,
+        background?: string | undefined,
 
         /**
          * The text content of the QR code.
          * @default 'no text'
          */
-        text?: string,
+        text?: string | undefined,
 
         /**
          * Corner radius relative to module width: 0.0 .. 0.5
          * @default 0
          */
-        radius?: number,
+        radius?: number | undefined,
 
         /**
          * Quiet zone in modules
          * @default 0
          */
-        quiet?: number,
+        quiet?: number | undefined,
 
         /**
          * Mode
          * @default Mode.NORMAL
          */
-        mode?: Mode,
+        mode?: Mode | undefined,
 
 
         /** @default 0.1 */
-        mSize?: number,
+        mSize?: number | undefined,
         /** @default 0.5 */
-        mPosX?: number,
+        mPosX?: number | undefined,
         /** @default 0.5 */
-        mPosY?: number,
+        mPosY?: number | undefined,
 
         /** @default 'no label' */
-        label?: string,
+        label?: string | undefined,
         /** @default 'sans' */
-        fontname?: string,
+        fontname?: string | undefined,
         /** @default '#000' */
-        fontcolor?: string,
+        fontcolor?: string | undefined,
 
         /** @default null */
-        image?: string
+        image?: string | undefined
     }
 
 

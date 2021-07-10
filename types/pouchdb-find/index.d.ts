@@ -29,19 +29,19 @@ declare namespace PouchDB {
             $ne?: any;
 
             /** True if the field should exist, false otherwise. */
-            $exists?: boolean;
+            $exists?: boolean | undefined;
 
             /** One of: "null", "boolean", "number", "string", "array", or "object". */
-            $type?: "null" | "boolean" | "number" | "string" | "array" | "object";
+            $type?: "null" | "boolean" | "number" | "string" | "array" | "object" | undefined;
 
             /** The document field must exist in the list provided. */
-            $in?: any[];
+            $in?: any[] | undefined;
 
             /** The document field must not exist in the list provided. */
-            $nin?: any[];
+            $nin?: any[] | undefined;
 
             /** Special condition to match the length of an array field in a document. Non-array fields cannot match this condition. */
-            $size?: number;
+            $size?: number | undefined;
 
             /**
              * Divisor and Remainder are both positive or negative integers.
@@ -49,35 +49,35 @@ declare namespace PouchDB {
              * Matches documents where (field % Divisor == Remainder) is true, and only when the document field is an integer.
              * [divisor, remainder]
              */
-            $mod?: [number, number];
+            $mod?: [number, number] | undefined;
 
             /** A regular expression pattern to match against the document field. Only matches when the field is a string value and matches the supplied regular expression. */
-            $regex?: string;
+            $regex?: string | undefined;
 
             /** Matches an array value if it contains all the elements of the argument array. */
-            $all?: any[];
+            $all?: any[] | undefined;
 
-            $elemMatch?: ConditionOperators;
+            $elemMatch?: ConditionOperators | undefined;
         }
 
         interface CombinationOperators {
             /** Matches if all the selectors in the array match. */
-            $and?: Selector[];
+            $and?: Selector[] | undefined;
 
             /** Matches if any of the selectors in the array match. All selectors must use the same index. */
-            $or?: Selector[];
+            $or?: Selector[] | undefined;
 
             /** Matches if the given selector does not match. */
-            $not?: Selector;
+            $not?: Selector | undefined;
 
             /** Matches if none of the selectors in the array match. */
-            $nor?: Selector[];
+            $nor?: Selector[] | undefined;
         }
 
         interface Selector extends CombinationOperators {
             [field: string]: Selector | Selector[] | ConditionOperators | any;
 
-            _id?: string | ConditionOperators;
+            _id?: string | ConditionOperators | undefined;
         }
 
         interface FindRequest<Content extends {}> {
@@ -85,24 +85,24 @@ declare namespace PouchDB {
             selector: Selector;
 
             /** Defines a list of fields that you want to receive. If omitted, you get the full documents. */
-            fields?: string[];
+            fields?: string[] | undefined;
 
             /** Defines a list of fields defining how you want to sort. Note that sorted fields also have to be selected in the selector. */
-            sort?: Array<string|{[propName: string]: 'asc' | 'desc'}>;
+            sort?: Array<string|{[propName: string]: 'asc' | 'desc'}> | undefined;
 
             /** Maximum number of documents to return. */
-            limit?: number;
+            limit?: number | undefined;
 
             /** Number of docs to skip before returning. */
-            skip?: number;
+            skip?: number | undefined;
 
             /** Set which index to use for the query. It can be “design-doc-name” or “[‘design-doc-name’, ‘name’]”. */
-            use_index?: string | [string, string];
+            use_index?: string | [string, string] | undefined;
         }
 
         interface FindResponse<Content extends {}> {
             docs: Array<Core.ExistingDocument<Content>>;
-            warning?: string;
+            warning?: string | undefined;
         }
 
         interface CreateIndexOptions {
@@ -111,13 +111,13 @@ declare namespace PouchDB {
                 fields: string[];
 
                 /** Name of the index, auto-generated if you don't include it */
-                name?: string;
+                name?: string | undefined;
 
                 /** Design document name (i.e. the part after '_design/', auto-generated if you don't include it */
-                ddoc?: string;
+                ddoc?: string | undefined;
 
                 /** Only supports 'json', and it's also the default */
-                type?: string;
+                type?: string | undefined;
             };
         }
 
@@ -154,7 +154,7 @@ declare namespace PouchDB {
             ddoc: string;
 
             /** Default 'json' */
-            type?: string;
+            type?: string | undefined;
         }
 
         interface DeleteIndexResponse<Content extends {}> {

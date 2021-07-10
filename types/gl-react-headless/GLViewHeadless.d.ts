@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 export interface GLViewHeadlessProps {
-  onContextCreate?: (gl: WebGLRenderingContext) => void;
-  onContextFailure?: (e: Error) => void;
-  onContextLost?: () => void;
-  onContextRestored?: (gl: WebGLRenderingContext) => void;
-  webglContextAttributes?: WebGLContextAttributes;
-  pixelRatio?: number;
+  onContextCreate?: ((gl: WebGLRenderingContext) => void) | undefined;
+  onContextFailure?: ((e: Error) => void) | undefined;
+  onContextLost?: (() => void) | undefined;
+  onContextRestored?: ((gl: WebGLRenderingContext) => void) | undefined;
+  webglContextAttributes?: WebGLContextAttributes | undefined;
+  pixelRatio?: number | undefined;
   width: number;
   height: number;
 }
@@ -18,6 +18,6 @@ export class GLViewHeadless extends React.Component<GLViewHeadlessProps> {
   simulateContextLost(): void;
   simulateContextRestored(): void;
   webglContextAttributes: WebGLContextAttributes;
-  canvas?: HTMLCanvasElement;
-  gl?: WebGLRenderingContext;
+  canvas?: HTMLCanvasElement | undefined;
+  gl?: WebGLRenderingContext | undefined;
 }

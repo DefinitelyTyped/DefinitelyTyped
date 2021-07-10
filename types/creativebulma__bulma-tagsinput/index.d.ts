@@ -14,35 +14,35 @@ export interface BulmaTagsInputOptions {
      *
      * @default false
      */
-    allowDuplicates?: boolean;
+    allowDuplicates?: boolean | undefined;
 
     /**
      * When true, duplicate tags value check is case sensitive.
      *
      * @default true
      */
-    caseSensitive?: boolean;
+    caseSensitive?: boolean | undefined;
 
     /**
      * When true, tags will be unselected when new tag is entered.
      *
      * @default false
      */
-    clearSelectionOnTyping?: boolean;
+    clearSelectionOnTyping?: boolean | undefined;
 
     /**
      * When true, datalist will close automatically after an item have been selected.
      *
      * @default true
      */
-    closeDropdownOnItemSelect?: boolean;
+    closeDropdownOnItemSelect?: boolean | undefined;
 
     /**
      * Multiple tags can be added at once. Delimiter is used to separate all tags.
      *
      * @default ",",
      */
-    delimiter?: string;
+    delimiter?: string | undefined;
 
     /**
      * When true, tags can be entered manually. This option is useful with select Tags inputs. Set
@@ -50,7 +50,7 @@ export interface BulmaTagsInputOptions {
      *
      * @default true
      */
-    freeInput?: boolean;
+    freeInput?: boolean | undefined;
 
     /**
      * When true, if `allowDuplicates` option if false then the already existing tag will be
@@ -58,57 +58,57 @@ export interface BulmaTagsInputOptions {
      *
      * @default true
      */
-    highlightDuplicate?: boolean;
+    highlightDuplicate?: boolean | undefined;
 
     /**
      * When true, identified matches strings when searching is highlighted.
      *
      * @default true
      */
-    highlightMatchesString?: boolean;
+    highlightMatchesString?: boolean | undefined;
 
     /**
      * When adding objects as tags, you can set itemText to the name of the property of item to use
      * for a its tag's text. When this options is not set, the value of _itemValue_ will be used.
      */
-    itemText?: string;
+    itemText?: string | undefined;
 
     /**
      * When adding objects as tags, itemValue must be set to the name of the property containing the
      * item's value.
      */
-    itemValue?: string;
+    itemValue?: string | undefined;
 
     /**
      * When set, no more than the given number of tags are allowed to add.
      */
-    maxTags?: number;
+    maxTags?: number | undefined;
 
     /**
      * Defines the maximum length of a single tag.
      */
-    maxChars?: number;
+    maxChars?: number | undefined;
 
     /**
      * Defines the minimum length of a single tag.
      *
      * @default 1
      */
-    minChars?: number;
+    minChars?: number | undefined;
 
     /**
      * Empty dropdown label.
      *
      * @default "No results found"
      */
-    noResultsLabel?: string;
+    noResultsLabel?: string | undefined;
 
     /**
      * TagsInput placeholder text if original input doesn't have one.
      *
      * @default undefined
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
 
     /**
      * When true, tags are removable either using the associted delete button or _backspace_ and
@@ -116,28 +116,28 @@ export interface BulmaTagsInputOptions {
      *
      * @default true
      */
-    removable?: boolean;
+    removable?: boolean | undefined;
 
     /**
      * Defines the minimum length of input value before loading auto-complete.
      *
      * @default 1
      */
-    searchMinChars?: number;
+    searchMinChars?: number | undefined;
 
     /**
      * Defines on what dropdown item data do we search the entered value.
      *
      * @default "text"
      */
-    searchOn?: 'value' | 'text';
+    searchOn?: 'value' | 'text' | undefined;
 
     /**
      * When true, tags can be selected either by mouse click or using _left_ or _right_ arrow keys.
      *
      * @default true
      */
-    selectable?: boolean;
+    selectable?: boolean | undefined;
 
     /**
      * Source of data proposed in dropdown (used for auto-complete).
@@ -147,21 +147,21 @@ export interface BulmaTagsInputOptions {
     source?:
         | Array<string | BulmaTagsInputItem>
         | (() => Array<string | BulmaTagsInputItem>)
-        | Promise<Array<string | BulmaTagsInputItem>>;
+        | Promise<Array<string | BulmaTagsInputItem>> | undefined;
 
     /**
      * Classname applied to each tag.
      *
      * @default "is-rounded"
      */
-    tagClass?: string;
+    tagClass?: string | undefined;
 
     /**
      * When true, automatically removes all whitespace around tags.
      *
      * @default true
      */
-    trim?: boolean;
+    trim?: boolean | undefined;
 }
 
 export interface BulmaTagsInputEventMap {

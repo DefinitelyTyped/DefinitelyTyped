@@ -19,7 +19,7 @@ export interface NormalizationLinkedField {
     readonly kind: string; // 'LinkedField';
     readonly alias: string | null | undefined;
     readonly name: string;
-    readonly storageKey?: string | null;
+    readonly storageKey?: string | null | undefined;
     readonly args: ReadonlyArray<NormalizationArgument>;
     readonly concreteType: string | null | undefined;
     readonly plural: boolean;
@@ -84,14 +84,14 @@ export interface NormalizationStream {
 export interface NormalizationLiteral {
     readonly kind: string; // 'Literal';
     readonly name: string;
-    readonly type?: string | null;
-    readonly value?: unknown;
+    readonly type?: string | null | undefined;
+    readonly value?: unknown | undefined;
 }
 
 export interface NormalizationVariable {
     readonly kind: string; // 'Variable';
     readonly name: string;
-    readonly type?: string | null;
+    readonly type?: string | null | undefined;
     readonly variableName: string;
 }
 

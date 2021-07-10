@@ -13,12 +13,12 @@ declare namespace GoogleImages {
     type SearchSafe = "high" | "medium" | "off";
 
     interface SearchOptions {
-        page?: number;
-        size?: SearchImageSize;
-        type?: SearchImageType;
-        dominantColor?: SearchDominantColor;
-        colorType?: SearchColorType;
-        safe?: SearchSafe;
+        page?: number | undefined;
+        size?: SearchImageSize | undefined;
+        type?: SearchImageType | undefined;
+        dominantColor?: SearchDominantColor | undefined;
+        colorType?: SearchColorType | undefined;
+        safe?: SearchSafe | undefined;
     }
 
     interface Image {

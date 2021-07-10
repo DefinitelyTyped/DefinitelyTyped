@@ -7,5 +7,5 @@
 import * as React from 'react';
 
 export default class NoSSR extends React.Component<{
-    onSSR?: React.ReactChild;
+    onSSR?: React.ReactChild | undefined;
 }> {}

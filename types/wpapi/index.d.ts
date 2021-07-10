@@ -431,13 +431,13 @@ declare namespace WPAPI {
          * the instance will be initialized with default routes only if this
          * property is omitted
          */
-        routes?: Routes;
+        routes?: Routes | undefined;
         /**
          * An optional dictionary of HTTP transport methods (.get, .post, .put,
          * .delete, .head) to use instead of the defaults, e.g. to use a
          * different HTTP library than superagent
          */
-        transport?: Transport;
+        transport?: Transport | undefined;
     }
 
     interface WPRequestOptions extends Credentials {
@@ -448,7 +448,7 @@ declare namespace WPAPI {
          * .delete, .head) to use instead of the defaults, e.g. to use a
          * different HTTP library than superagent
          */
-        transport?: Transport;
+        transport?: Transport | undefined;
     }
 
     type WPRequestFactory = () => WPRequest;
@@ -458,19 +458,19 @@ declare namespace WPAPI {
     /** Authentication credentials */
     interface Credentials {
         /** A WP-API Basic HTTP Authentication username */
-        username?: string;
+        username?: string | undefined;
         /** A WP-API Basic HTTP Authentication password */
-        password?: string;
+        password?: string | undefined;
         /** A WP nonce for use with cookie authentication */
-        nonce?: string;
+        nonce?: string | undefined;
     }
 
     interface Transport {
-        get?: TransportFunction;
-        post?: TransportFunction;
-        put?: TransportFunction;
-        delete?: TransportFunction;
-        head?: TransportFunction;
+        get?: TransportFunction | undefined;
+        post?: TransportFunction | undefined;
+        put?: TransportFunction | undefined;
+        delete?: TransportFunction | undefined;
+        head?: TransportFunction | undefined;
     }
 
     type TransportFunction = (
@@ -488,7 +488,7 @@ declare namespace WPAPI {
         endpoints: HTTPEndpoint[];
         _links?: {
             self: string;
-        };
+        } | undefined;
     }
 
     type HTTPMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -502,13 +502,13 @@ declare namespace WPAPI {
 
     interface HTTPArgument {
         required: boolean;
-        default?: string | number;
-        enum?: string[];
-        description?: string;
-        type?: HTTPArgumentType;
+        default?: string | number | undefined;
+        enum?: string[] | undefined;
+        description?: string | undefined;
+        type?: HTTPArgumentType | undefined;
         items?: {
             type: HTTPArgumentType;
-        };
+        } | undefined;
     }
 
     type HTTPArgumentType =
@@ -524,10 +524,10 @@ declare namespace WPAPI {
     }
 
     interface RegisterRouteOptions {
-        params?: string[];
-        methods?: HTTPMethod[];
+        params?: string[] | undefined;
+        methods?: HTTPMethod[] | undefined;
         mixins?: {
             [key: string]: (val: any) => any;
-        };
+        } | undefined;
     }
 }

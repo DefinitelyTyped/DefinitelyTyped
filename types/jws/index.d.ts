@@ -137,16 +137,16 @@ export interface SignOptions {
      */
     privateKey?: any;
 
-    encoding?: string|Buffer|stream.Readable;
+    encoding?: string|Buffer|stream.Readable | undefined;
 }
 
 export interface VerifyOptions {
-    signature?: string|Buffer|stream.Readable;
-    algorithm?: Algorithm|Buffer|stream.Readable;
-    key?: string|stream.Readable|Buffer;
-    secret?: string|stream.Readable|Buffer;
-    publicKey?: string|stream.Readable|Buffer;
-    encoding?: string|Buffer|stream.Readable;
+    signature?: string|Buffer|stream.Readable | undefined;
+    algorithm?: Algorithm|Buffer|stream.Readable | undefined;
+    key?: string|stream.Readable|Buffer | undefined;
+    secret?: string|stream.Readable|Buffer | undefined;
+    publicKey?: string|stream.Readable|Buffer | undefined;
+    encoding?: string|Buffer|stream.Readable | undefined;
 }
 
 export const ALGORITHMS: [
@@ -160,25 +160,25 @@ export type Algorithm = typeof ALGORITHMS[number] | 'none';
 
 export interface Header extends CertificateProperties {
     alg: Algorithm;
-    jwk?: JWK;
-    typ?: string;
-    cty?: string;
-    crit?: ReadonlyArray<string>;
+    jwk?: JWK | undefined;
+    typ?: string | undefined;
+    cty?: string | undefined;
+    crit?: ReadonlyArray<string> | undefined;
 }
 
 export interface JWK extends CertificateProperties {
-    alg?: Algorithm;
+    alg?: Algorithm | undefined;
     kty: string;
-    use?: string;
-    key_ops?: ReadonlyArray<string>;
+    use?: string | undefined;
+    key_ops?: ReadonlyArray<string> | undefined;
 }
 
 export interface CertificateProperties extends PrivateProperties {
-    kid?: string;
-    x5u?: string;
-    x5c?: ReadonlyArray<string>;
-    x5t?: string;
-    'x5t#S256'?: string;
+    kid?: string | undefined;
+    x5u?: string | undefined;
+    x5c?: ReadonlyArray<string> | undefined;
+    x5t?: string | undefined;
+    'x5t#S256'?: string | undefined;
 }
 
 export interface PrivateProperties {

@@ -13,19 +13,19 @@ import { Utils } from './Utils';
 import { Values } from './Values';
 
 export interface DirtyValuesOptions {
-    unsaved?: boolean;
+    unsaved?: boolean | undefined;
 }
 
 export interface RequestChangesetUpdateOptions {
-    autosave?: boolean;
-    force?: boolean;
-    title?: string;
-    date?: string;
+    autosave?: boolean | undefined;
+    force?: boolean | undefined;
+    title?: string | undefined;
+    date?: string | undefined;
 }
 
 export interface HandleSettingValiditiesArgs {
     settingValidities: Record<string, any>; // TODO
-    focusInvalidControl?: boolean;
+    focusInvalidControl?: boolean | undefined;
 }
 
 export interface Customize extends Values<Setting<any>> {

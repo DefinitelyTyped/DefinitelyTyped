@@ -6,7 +6,7 @@ declare module "../globalize" {
         /**
          * decimal (default), or percent.
          */
-        style?: "decimal" | "percent";
+        style?: "decimal" | "percent" | undefined;
     }
     type NumberFormatPartTypes = "decimal" | "fraction" | "group" | "infinity" | "integer" | "literal" | "minusSign" | "nan" | "plusSign" | "percentSign" | "compact";
     interface NumberFormatPart {

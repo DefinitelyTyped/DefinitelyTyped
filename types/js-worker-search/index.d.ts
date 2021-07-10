@@ -11,10 +11,10 @@ export enum INDEX_MODES {
 
 export default class SearchApi {
     constructor(someParam?: {
-        indexMode?: INDEX_MODES;
-        tokenizePattern?: RegExp;
-        caseSensitive?: boolean;
-        matchAnyToken?: boolean;
+        indexMode?: INDEX_MODES | undefined;
+        tokenizePattern?: RegExp | undefined;
+        caseSensitive?: boolean | undefined;
+        matchAnyToken?: boolean | undefined;
     });
     indexDocument(uid: string, text: string): void;
     search(query: string): Promise<string[]>;

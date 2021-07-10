@@ -4,10 +4,10 @@ import { Gender } from './Gender';
 
 export interface LemmaOptions {
     text: string;
-    gender?: Gender[keyof Gender];
-    indeclinable?: boolean;
-    pluraleTantum?: boolean;
-    animate?: boolean;
+    gender?: Gender[keyof Gender] | undefined;
+    indeclinable?: boolean | undefined;
+    pluraleTantum?: boolean | undefined;
+    animate?: boolean | undefined;
 }
 
 export class Lemma {

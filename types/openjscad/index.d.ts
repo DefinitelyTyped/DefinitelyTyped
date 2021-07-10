@@ -20,8 +20,8 @@ declare module "three" {
     function SpriteCanvasMaterial(parameters?: any): void;
     */
     interface ICanvasRendererOptions {
-        canvas?: HTMLCanvasElement;
-        alpha?: boolean;
+        canvas?: HTMLCanvasElement | undefined;
+        alpha?: boolean | undefined;
     }
     /*
     class CanvasRenderer implements Renderer {
@@ -153,21 +153,21 @@ declare module "three" {
 declare namespace OpenJsCad {
     interface ILog {
         (x: string): void;
-        prevLogTime?: number;
+        prevLogTime?: number | undefined;
     }
     var log: ILog;
     interface IViewerOptions {
-        drawLines?: boolean;
-        drawFaces?: boolean;
-        color?: number[];
-        bgColor?: number;
-        noWebGL?: boolean;
+        drawLines?: boolean | undefined;
+        drawFaces?: boolean | undefined;
+        color?: number[] | undefined;
+        bgColor?: number | undefined;
+        noWebGL?: boolean | undefined;
     }
     interface ProcessorOptions extends IViewerOptions {
-        verbose?: boolean;
-        viewerwidth?: number;
-        viewerheight?: number;
-        viewerheightratio?: number;
+        verbose?: boolean | undefined;
+        viewerwidth?: number | undefined;
+        viewerheight?: number | undefined;
+        viewerheightratio?: number | undefined;
     }
     class Viewer {
         private perspective;
@@ -779,33 +779,33 @@ declare namespace CSG {
         verify(): void;
     }
     interface IRadiusOptions {
-        radius?: number;
-        resolution?: number;
+        radius?: number | undefined;
+        resolution?: number | undefined;
     }
     interface ICircleOptions extends IRadiusOptions {
-        center?: Vector2D | number[];
+        center?: Vector2D | number[] | undefined;
     }
     interface IArcOptions extends ICircleOptions {
-        startangle?: number;
-        endangle?: number;
-        maketangent?: boolean;
+        startangle?: number | undefined;
+        endangle?: number | undefined;
+        maketangent?: boolean | undefined;
     }
     interface IEllpiticalArcOptions extends IRadiusOptions {
-        clockwise?: boolean;
-        large?: boolean;
-        xaxisrotation?: number;
-        xradius?: number;
-        yradius?: number;
+        clockwise?: boolean | undefined;
+        large?: boolean | undefined;
+        xaxisrotation?: number | undefined;
+        xradius?: number | undefined;
+        yradius?: number | undefined;
     }
     interface IRectangleOptions {
-        center?: Vector2D;
-        corner1?: Vector2D;
-        corner2?: Vector2D;
-        radius?: Vector2D;
+        center?: Vector2D | undefined;
+        corner1?: Vector2D | undefined;
+        corner2?: Vector2D | undefined;
+        radius?: Vector2D | undefined;
     }
     interface IRoundRectangleOptions {
         roundradius: number;
-        resolution?: number;
+        resolution?: number | undefined;
     }
     class Path2D extends CxG {
         closed: boolean;
@@ -907,9 +907,9 @@ declare namespace CAG {
     }
 }
 interface CAG_extrude_options {
-    offset?: number[];
-    twistangle?: number;
-    twiststeps?: number;
+    offset?: number[] | undefined;
+    twistangle?: number | undefined;
+    twiststeps?: number | undefined;
 }
 declare namespace CSG {
     class Polygon2D extends CAG {

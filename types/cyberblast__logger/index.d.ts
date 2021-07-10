@@ -7,7 +7,7 @@ export interface LogData {
     severity: Severity;
     category: string;
     message: string;
-    time?: Date;
+    time?: Date | undefined;
     data?: any;
 }
 

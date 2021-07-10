@@ -58,11 +58,11 @@ export type SocialIcon =
 
 export interface Props {
     icon: SocialIcon;
-    size?: number;
+    size?: number | undefined;
 
     onClick?(): void;
 
-    className?: string;
+    className?: string | undefined;
 }
 
 export default class SocialLogo extends React.Component<Props> {}

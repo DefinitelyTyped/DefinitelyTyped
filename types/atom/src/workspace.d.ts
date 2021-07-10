@@ -214,37 +214,37 @@ export interface Workspace {
     getBottomPanels(): Panel[];
 
     /** Adds a panel item to the bottom of the editor window. */
-    addBottomPanel<T>(options: { item: T; visible?: boolean; priority?: number }): Panel<T>;
+    addBottomPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
 
     /** Get an Array of all the panel items to the left of the editor window. */
     getLeftPanels(): Panel[];
 
     /** Adds a panel item to the left of the editor window. */
-    addLeftPanel<T>(options: { item: T; visible?: boolean; priority?: number }): Panel<T>;
+    addLeftPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
 
     /** Get an Array of all the panel items to the right of the editor window. */
     getRightPanels(): Panel[];
 
     /** Adds a panel item to the right of the editor window. */
-    addRightPanel<T>(options: { item: T; visible?: boolean; priority?: number }): Panel<T>;
+    addRightPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
 
     /** Get an Array of all the panel items at the top of the editor window. */
     getTopPanels(): Panel[];
 
     /** Adds a panel item to the top of the editor window above the tabs. */
-    addTopPanel<T>(options: { item: T; visible?: boolean; priority?: number }): Panel<T>;
+    addTopPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
 
     /** Get an Array of all the panel items in the header. */
     getHeaderPanels(): Panel[];
 
     /** Adds a panel item to the header. */
-    addHeaderPanel<T>(options: { item: T; visible?: boolean; priority?: number }): Panel<T>;
+    addHeaderPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
 
     /** Get an Array of all the panel items in the footer. */
     getFooterPanels(): Panel[];
 
     /** Adds a panel item to the footer. */
-    addFooterPanel<T>(options: { item: T; visible?: boolean; priority?: number }): Panel<T>;
+    addFooterPanel<T>(options: { item: T; visible?: boolean | undefined; priority?: number | undefined }): Panel<T>;
 
     /** Get an Array of all the modal panel items. */
     getModalPanels(): Panel[];
@@ -252,9 +252,9 @@ export interface Workspace {
     /** Adds a panel item as a modal dialog. */
     addModalPanel<T>(options: {
         item: T;
-        visible?: boolean;
-        priority?: number;
-        autoFocus?: boolean | FocusableHTMLElement;
+        visible?: boolean | undefined;
+        priority?: number | undefined;
+        autoFocus?: boolean | FocusableHTMLElement | undefined;
     }): Panel<T>;
 
     /**
@@ -284,10 +284,10 @@ export interface Workspace {
 
 export interface WorkspaceOpenOptions {
     /** A number indicating which row to move the cursor to initially. Defaults to 0. */
-    initialLine?: number;
+    initialLine?: number | undefined;
 
     /** A number indicating which column to move the cursor to initially. Defaults to 0. */
-    initialColumn?: number;
+    initialColumn?: number | undefined;
 
     /**
      *  Either 'left', 'right', 'up' or 'down'. If 'left', the item will be opened in
@@ -298,33 +298,33 @@ export interface WorkspaceOpenOptions {
      *  opened in the bottommost pane of the current active pane's column. If only one pane
      *  exists in the column, a new pane will be created.
      */
-    split?: 'left' | 'right' | 'up' | 'down';
+    split?: 'left' | 'right' | 'up' | 'down' | undefined;
 
     /**
      *  A boolean indicating whether to call Pane::activate on containing pane.
      *  Defaults to true.
      */
-    activatePane?: boolean;
+    activatePane?: boolean | undefined;
 
     /**
      *  A boolean indicating whether to call Pane::activateItem on containing pane.
      *  Defaults to true.
      */
-    activateItem?: boolean;
+    activateItem?: boolean | undefined;
 
     /**
      *  A Boolean indicating whether or not the item should be opened in a pending state.
      *  Existing pending items in a pane are replaced with new pending items when they
      *  are opened.
      */
-    pending?: boolean;
+    pending?: boolean | undefined;
 
     /**
      *  A boolean. If true, the workspace will attempt to activate an existing item for
      *  the given URI on any pane. If false, only the active pane will be searched for
      *  an existing item for the same URI. Defaults to false.
      */
-    searchAllPanes?: boolean;
+    searchAllPanes?: boolean | undefined;
 
     /**
      *  A String containing the name of the location in which this item should be opened.
@@ -333,21 +333,21 @@ export interface WorkspaceOpenOptions {
      *  by the item.
      *  NOTE: This option should almost always be omitted to honor user preference.
      */
-    location?: 'left' | 'right' | 'bottom' | 'center';
+    location?: 'left' | 'right' | 'bottom' | 'center' | undefined;
 }
 
 export interface WorkspaceScanOptions {
     /** An array of glob patterns to search within. */
-    paths?: ReadonlyArray<string>;
+    paths?: ReadonlyArray<string> | undefined;
 
     /** A function to be periodically called with the number of paths searched. */
     onPathsSearched?(pathsSearched: number): void;
 
     /** The number of lines before the matched line to include in the results object. */
-    leadingContextLineCount?: number;
+    leadingContextLineCount?: number | undefined;
 
     /** The number of lines after the matched line to include in the results object. */
-    trailingContextLineCount?: number;
+    trailingContextLineCount?: number | undefined;
 }
 
 export interface ScandalResult {

@@ -14,12 +14,12 @@ export default class ContextualBalloon extends Plugin {
     visibleView: View | null;
 
     add(data: {
-        stackId?: string;
-        view?: View;
-        position?: Options;
-        balloonClassName?: string;
-        withArrow?: boolean;
-        singleViewMode?: boolean;
+        stackId?: string | undefined;
+        view?: View | undefined;
+        position?: Options | undefined;
+        balloonClassName?: string | undefined;
+        withArrow?: boolean | undefined;
+        singleViewMode?: boolean | undefined;
     }): void;
     hasView(view: View): boolean;
     remove(view: View): void;

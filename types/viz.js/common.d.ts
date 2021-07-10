@@ -1,9 +1,9 @@
 interface Options {
-  format?: string;
-  engine?: string;
-  files?: string[];
-  images?: string[];
-  yInvert?: boolean;
+  format?: string | undefined;
+  engine?: string | undefined;
+  files?: string[] | undefined;
+  images?: string[] | undefined;
+  yInvert?: boolean | undefined;
 }
 
 /**

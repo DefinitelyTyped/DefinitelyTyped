@@ -12,22 +12,22 @@ declare namespace PouchDB {
             /**
              * Location of database e.g. 'Default'.
              */
-            location?: string;
+            location?: string | undefined;
 
             /**
              * Location of database e.g. 'Default'. Only use 'location' or 'iosDatabaseLocation' not both.
              */
-            iosDatabaseLocation?: string;
+            iosDatabaseLocation?: string | undefined;
 
             /**
              * Version of android database to use.
              */
-            androidDatabaseImplementation?: number;
+            androidDatabaseImplementation?: number | undefined;
 
             /**
              * Enable autocompation of database.
              */
-            auto_compaction?: boolean;
+            auto_compaction?: boolean | undefined;
 
             adapter: 'cordova-sqlite';
         }

@@ -7,12 +7,10 @@
 /// <reference types="jest" />
 /// <reference types="node" />
 
-declare const global: NodeJS.Global;
-
 interface Config {
-    name?: string;
-    only?: boolean;
-    skip?: boolean;
+    name?: string | undefined;
+    only?: boolean | undefined;
+    skip?: boolean | undefined;
     [key: string]: any;
 }
 

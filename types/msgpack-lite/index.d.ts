@@ -115,48 +115,48 @@ export interface CodecOptions {
    * @see https://github.com/kawanet/msgpack-lite#extension-types
    * @default false
    */
-  preset?: boolean;
+  preset?: boolean | undefined;
   /**
    * It runs a validation of the value before writing it into buffer.
    * This is the default behavior for some old browsers which do not support ArrayBuffer object.
    * @default varies
    */
-  safe?: boolean;
+  safe?: boolean | undefined;
   /**
    * It uses raw formats instead of bin and str.
    * Set true for compatibility with msgpack's old spec.
    * @see https://github.com/kawanet/msgpack-lite#compatibility-mode
    * @default false
    */
-  useraw?: boolean;
+  useraw?: boolean | undefined;
   /**
    * It decodes msgpack's int64/uint64 formats with int64-buffer object.
    * int64-buffer is a cutom integer type with 64 bits of precision instead
    * of the built-in IEEE-754 53 bits. See https://github.com/kawanet/int64-buffer
    * @default false
    */
-  int64?: boolean;
+  int64?: boolean | undefined;
   /**
    * It ties msgpack's bin format with ArrayBuffer object, instead of Buffer object.
    * @default false
    */
-  binarraybuffer?: boolean;
+  binarraybuffer?: boolean | undefined;
   /**
    * It returns Uint8Array object when encoding, instead of Buffer object.
    * @default false
    */
-  uint8array?: boolean;
+  uint8array?: boolean | undefined;
   /**
    * It uses the global JavaScript Map type, if available, to unpack MessagePack map elements.
    * @default false
    */
-  usemap?: boolean;
+  usemap?: boolean | undefined;
 }
 
 export interface EncoderOptions {
-  codec?: Codec;
+  codec?: Codec | undefined;
 }
 
 export interface DecoderOptions {
-  codec?: Codec;
+  codec?: Codec | undefined;
 }

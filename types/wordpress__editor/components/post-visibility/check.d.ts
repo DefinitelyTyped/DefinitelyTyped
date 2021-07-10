@@ -5,7 +5,7 @@ declare namespace PostVisibilityCheck {
         canEdit: boolean;
     }
     interface Props {
-        children?: never;
+        children?: never | undefined;
         render(props: RenderProps): JSX.Element;
     }
 }

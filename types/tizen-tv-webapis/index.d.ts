@@ -1575,7 +1575,7 @@ export interface AVPlayManager {
      *
      * @since 2.3
      */
-    getCurrentStreamInfo: () => AVPlayStreamInfo;
+    getCurrentStreamInfo: () => AVPlayStreamInfo[];
 
     /**
      * Retrieves the currently-playing stream information.
@@ -1604,7 +1604,7 @@ export interface AVPlayManager {
      *
      * @since 2.3
      */
-    getTotalTrackInfo: () => AVPlayStreamInfo;
+    getTotalTrackInfo: () => AVPlayStreamInfo[];
 
     /**
      * Sets specific feature values for HTTP, MMS, or specific streaming engine (Smooth Streaming, HLS, DASH, DivX Plus Streaming, or Widevine). The available streaming properties depend on the streaming protocol or engine.

@@ -11,9 +11,9 @@ declare namespace yargsUnparser {
     }
 
     interface UnparserOptions {
-        alias?: Record<string, string[]>;
-        default?: Record<string, string>;
-        command?: string;
+        alias?: Record<string, string[]> | undefined;
+        default?: Record<string, string> | undefined;
+        command?: string | undefined;
     }
 
     interface Unparser {

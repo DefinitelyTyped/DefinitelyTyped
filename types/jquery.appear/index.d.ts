@@ -10,22 +10,22 @@ export interface Options<T> {
     /**
      * Data to pass into callback
      */
-    data?: T;
+    data?: T | undefined;
 
     /**
      * Callback is called only in first appear
      */
-    one?: boolean;
+    one?: boolean | undefined;
 
     /**
      * X accuracy
      */
-    accX?: number;
+    accX?: number | undefined;
 
     /**
      * Y accuracy
      */
-    accY?: number;
+    accY?: number | undefined;
 }
 declare global {
     interface JQuery {

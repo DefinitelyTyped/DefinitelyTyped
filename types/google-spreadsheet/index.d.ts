@@ -73,13 +73,13 @@ export interface WorksheetGridRange {
 }
 
 export interface WorksheetGridProperties {
-    rowCount?: number;
-    columnCount?: number;
-    frozenRowCount?: number;
-    frozenColumnCount?: number;
-    hideGridlines?: boolean;
-    rowGroupControlAfter?: boolean;
-    columnGroupControlAfter?: boolean;
+    rowCount?: number | undefined;
+    columnCount?: number | undefined;
+    frozenRowCount?: number | undefined;
+    frozenColumnCount?: number | undefined;
+    hideGridlines?: boolean | undefined;
+    rowGroupControlAfter?: boolean | undefined;
+    columnGroupControlAfter?: boolean | undefined;
 }
 
 export interface DimensionRange {
@@ -133,14 +133,14 @@ export interface ColorStyle {
 }
 
 export interface TextFormat {
-    foregroundColor?: Color;
-    foregroundColorStyle?: ColorStyle;
-    fontFamily?: string;
-    fontSize?: number;
-    bold?: boolean;
-    italic?: boolean;
-    strikethrough?: boolean;
-    underline?: boolean;
+    foregroundColor?: Color | undefined;
+    foregroundColorStyle?: ColorStyle | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: number | undefined;
+    bold?: boolean | undefined;
+    italic?: boolean | undefined;
+    strikethrough?: boolean | undefined;
+    underline?: boolean | undefined;
 }
 
 export interface NumberFormat {
@@ -553,43 +553,43 @@ export interface WorksheetBasicProperties {
      * - used in row-based interactions
      * - defines the dynamic properties of the Worksheet's GoogleSpreadsheetRows
      */
-    headerValues?: string[];
+    headerValues?: string[] | undefined;
 
     /**
      * @description
      * name of the worksheet tab
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * @description
      * tab index in the worksheet doc (based on rightToLeft property)
      */
-    index?: number;
+    index?: number | undefined;
 
     /**
      * @description
      * additional properties of the worksheet if this sheet is a grid
      */
-    gridProperties?: WorksheetGridProperties;
+    gridProperties?: WorksheetGridProperties | undefined;
 
     /**
      * @description
      * true if the worksheet is hidden in the UI, false if it's visible
      */
-    hidden?: boolean;
+    hidden?: boolean | undefined;
 
     /**
      * @description
      * the color of the worksheet tab
      */
-    tabColor?: Color;
+    tabColor?: Color | undefined;
 
     /**
      * @description
      * true if the worksheet is an RTL sheet instead of an LTR sheet
      */
-    rightToLeft?: boolean;
+    rightToLeft?: boolean | undefined;
 
     // #endregion
 }
@@ -888,7 +888,7 @@ export interface SpreadsheetBasicProperties {
      * @description
      * document title
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * @description
@@ -896,7 +896,7 @@ export interface SpreadsheetBasicProperties {
      * - ISO code format
      * - ex: "en", "en_US"
      */
-    locale?: string;
+    locale?: string | undefined;
 
     /**
      * @description
@@ -904,31 +904,31 @@ export interface SpreadsheetBasicProperties {
      * - CLDR format
      * - ex: "America/New_York", "GMT-07:00"
      */
-    timeZone?: string;
+    timeZone?: string | undefined;
 
     /**
      * @description
      * when volatile functions should be recalculated
      */
-    autoRecalc?: RecalculationInterval;
+    autoRecalc?: RecalculationInterval | undefined;
 
     /**
      * @description
      * default format for all cells in all worksheets of the document
      */
-    defaultFormat?: CellFormat;
+    defaultFormat?: CellFormat | undefined;
 
     /**
      * @description
      * theme applied to all worksheets of the document
      */
-    spreadsheetTheme?: SpreadsheetTheme;
+    spreadsheetTheme?: SpreadsheetTheme | undefined;
 
     /**
      * @description
      * how circular dependencies are resolved with iterative calculations
      */
-    iterativeCalculationSettings?: IterativeCalculationSetting;
+    iterativeCalculationSettings?: IterativeCalculationSetting | undefined;
 
     // #endregion
 }

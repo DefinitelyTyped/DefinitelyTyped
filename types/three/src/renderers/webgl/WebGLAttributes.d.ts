@@ -5,9 +5,7 @@ import { InterleavedBufferAttribute } from '../../core/InterleavedBufferAttribut
 export class WebGLAttributes {
     constructor(gl: WebGLRenderingContext | WebGL2RenderingContext, capabilities: WebGLCapabilities);
 
-    get(
-        attribute: BufferAttribute | InterleavedBufferAttribute,
-    ): {
+    get(attribute: BufferAttribute | InterleavedBufferAttribute): {
         buffer: WebGLBuffer;
         type: number;
         bytesPerElement: number;

@@ -20,8 +20,8 @@ export interface State {
     rotation: number;
 }
 export interface ToContextOptions {
-    size?: Size;
-    pixelRatio?: number;
+    size?: Size | undefined;
+    pixelRatio?: number | undefined;
 }
 /**
  * Gets the pixel of the event's canvas context from the map viewport's CSS pixel.

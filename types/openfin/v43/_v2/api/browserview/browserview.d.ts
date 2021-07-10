@@ -16,7 +16,7 @@ interface AutoResizeOptions {
     height: boolean;
 }
 export interface BrowserViewOptions {
-    autoResize?: AutoResizeOptions;
+    autoResize?: AutoResizeOptions | undefined;
 }
 export interface BrowserViewCreationOptions extends BrowserViewOptions {
     name: string;
@@ -27,7 +27,7 @@ export interface BrowserViewCreationOptions extends BrowserViewOptions {
         y: number;
         width: number;
         height: number;
-    };
+    } | undefined;
 }
 export declare class BrowserViewModule extends Base {
     create(options: BrowserViewCreationOptions): Promise<BrowserView>;

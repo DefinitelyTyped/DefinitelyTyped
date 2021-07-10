@@ -19,14 +19,14 @@ declare namespace JsReport {
 
     interface TemplateBase {
         /** template for the engine */
-        content?: string;
+        content?: string | undefined;
         /** templating engine used to assemble document */
         engine: Engine | string;
         /** javascript helper functions used by templating engines */
-        helpers?: Helpers;
+        helpers?: Helpers | undefined;
         /** recipe used for printing previously assembled document */
         recipe: Recipe | string;
-        pathToEngine?: string;
+        pathToEngine?: string | undefined;
     }
 
     interface Template extends TemplateBase {
@@ -41,34 +41,34 @@ declare namespace JsReport {
     type TemplateLike = TemplateRegistry[keyof TemplateRegistry]; // Template | NamedTemplate
 
     interface RequestOptions {
-        preview?: boolean;
+        preview?: boolean | undefined;
         /** sets the request timeout in milliseconds */
-        timeout?: number;
+        timeout?: number | undefined;
         /** defines the name of the report being to be generated */
-        reportName?: string;
+        reportName?: string | undefined;
     }
 
     interface Request {
         /** @default true */
-        value?: boolean;
+        value?: boolean | undefined;
         /** @default false */
-        writable?: boolean;
+        writable?: boolean | undefined;
         /** @default false */
-        configurable?: boolean;
+        configurable?: boolean | undefined;
         /** @default false */
-        enumerable?: boolean;
+        enumerable?: boolean | undefined;
         /** defines the template of used for report generation */
         template: TemplateLike;
         /** defines options such as report name and request timeout */
-        options?: Partial<RequestOptions>;
-        context?: Context;
+        options?: Partial<RequestOptions> | undefined;
+        context?: Context | undefined;
         data?: any;
     }
 
     interface Context {
         shared?: any;
-        originalInputDataIsEmpty?: boolean;
-        isChildRequest?: boolean;
+        originalInputDataIsEmpty?: boolean | undefined;
+        isChildRequest?: boolean | undefined;
         logs: any;
         timeoutLimit: number;
     }
@@ -108,8 +108,8 @@ declare namespace JsReport {
     }
 
     interface ReporterInstance {
-        defaults?: Defaults;
-        options?: Configuration;
+        defaults?: Defaults | undefined;
+        options?: Configuration | undefined;
         afterRenderListeners: ListenerCollection;
         afterTemplatingEnginesExecutedListeners: ListenerCollection;
         beforeRenderListeners: ListenerCollection;
@@ -122,7 +122,7 @@ declare namespace JsReport {
         // however adding import winston = require('winston') breaks exported enums
         logger?: any;
         validateRenderListeners: ListenerCollection;
-        version?: string;
+        version?: string | undefined;
         settings: Settings;
         optionsValidator: SchemaValidator;
         entityTypeValidator: SchemaValidator;
@@ -154,8 +154,8 @@ declare namespace JsReport {
     }
 
     interface Defaults {
-        loadConfig?: boolean;
-        rootDirectory?: string;
+        loadConfig?: boolean | undefined;
+        rootDirectory?: string | undefined;
     }
 
     type ReporterOptionsStoreProvider = 'memory';
@@ -165,78 +165,78 @@ declare namespace JsReport {
     interface Configuration {
         mode?: any;
         /** specifies where is the application root and where jsreport searches for extensions */
-        rootDirectory?: string;
+        rootDirectory?: string | undefined;
         /** specifies directory of the script that was used to start node.js, this value is mostly metadata that is useful for your own code inside jsreport scripts */
-        appDirectory?: string;
+        appDirectory?: string | undefined;
         /**
          * specifies where jsreport stores temporary files used by the conversion pipelineDef
          * @default getDefaultTempDirectory()
          */
-        tempDirectory?: string;
+        tempDirectory?: string | undefined;
         /**
          * specifies if jsreport should load configuration values from external sources (cli args, env vars, configuration files) or not
          * @default getDefaultLoadConfig()
          */
-        loadConfig?: boolean;
+        loadConfig?: boolean | undefined;
         /** specifies if after some interval jsreport should automatically clean up temporary files generated while rendering reports */
-        autoTempCleanup?: boolean;
+        autoTempCleanup?: boolean | undefined;
         /** specifies if jsreport should discover/search installed extensions in project and use them automatically */
-        discover?: boolean;
+        discover?: boolean | undefined;
         /**
          * wheter if jsreport should read list of extensions from a previous generated cache or if it should crawl and try to search extensions again, set it to false when you want to always
          * force crawling node_modules when searching for extensions while starting jsreport
          * @default true
          */
-        useExtensionsLocationCache?: boolean;
+        useExtensionsLocationCache?: boolean | undefined;
         logger?: {
-            silent?: boolean;
-        };
+            silent?: boolean | undefined;
+        } | undefined;
         /** global single timeout that controls how much a report generation should wait before it times out */
-        reportTimeout?: number;
+        reportTimeout?: number | undefined;
         /**
          * option that enables passing a custom report timeout per request using req.options.timeout. this enables that the caller of the report generation control the report timeout so enable it
          * only when you trust the caller
          * @default false
          */
-        enableRequestReportTimeout?: boolean;
+        enableRequestReportTimeout?: boolean | undefined;
         /** @default false */
-        allowLocalFilesAccess?: boolean;
+        allowLocalFilesAccess?: boolean | undefined;
         encryption?: {
             /** lenght must be 16 characters */
             secretKey: string;
             /** @default true */
-            enabled?: boolean;
-        };
+            enabled?: boolean | undefined;
+        } | undefined;
         templatingEngines?: {
             /** @default 'dedicated-process' */
-            strategy?: EngineStrategy;
+            strategy?: EngineStrategy | undefined;
             /**
              * defines the number of worker processes used for generating reports
              * @default 1
              */
-            numberOfWorkers?: number;
+            numberOfWorkers?: number | undefined;
             forkOptions?: {
-                execArgv?: string | string[];
-            };
-            allowedModules?: string | string[];
+                execArgv?: string | string[] | undefined;
+            } | undefined;
+            allowedModules?: string | string[] | undefined;
             /** sets the reporter timeout in milliseconds */
-            timeout?: number;
+            timeout?: number | undefined;
             templateCache?: {
                 max: number;
                 enabled: boolean;
-            };
-        };
+            } | undefined;
+        } | undefined;
         store?: {
-            provider?: ReporterOptionsStoreProvider;
-        };
+            provider?: ReporterOptionsStoreProvider | undefined;
+        } | undefined;
         blobStorge?: {
-            provider?: ReporterOptionsBlobStorageProvider;
-        };
+            provider?: ReporterOptionsBlobStorageProvider | undefined;
+        } | undefined;
         extensions?: any;
-        extensionsList?: string[];
+        extensionsList?: string[] | undefined;
         /** @default true */
-        migrateEntitySetsToFolders?: boolean;
-        connectionString?: string;
+        migrateEntitySetsToFolders?: boolean | undefined;
+        connectionString?: string | undefined;
     }
 
     interface Settings {

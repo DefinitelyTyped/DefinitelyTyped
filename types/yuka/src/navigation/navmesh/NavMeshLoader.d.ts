@@ -4,12 +4,12 @@ export interface NavMeshLoaderOptions {
     /**
      * The tolerance value for the coplanar test.
      */
-    epsilonCoplanarTest?: number;
+    epsilonCoplanarTest?: number | undefined;
 
     /**
      * The tolerance value for the containment test.
      */
-    epsilonContainsTest?: number;
+    epsilonContainsTest?: number | undefined;
 }
 
 /**

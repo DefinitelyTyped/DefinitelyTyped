@@ -40,9 +40,7 @@ export class InterleavedBufferAttribute {
     setXY(index: number, x: number, y: number): this;
     setXYZ(index: number, x: number, y: number, z: number): this;
     setXYZW(index: number, x: number, y: number, z: number, w: number): this;
-    toJSON(
-        data?: object,
-    ): {
+    toJSON(data?: object): {
         isInterleavedBufferAttribute: true;
         itemSize: number;
         data: string;

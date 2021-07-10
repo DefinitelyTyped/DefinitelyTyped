@@ -18,13 +18,13 @@ interface Alertable {
 }
 
 interface AlertableOptions {
-    container?: string;
-    html?: boolean;
-    cancelButton?: string;
-    okButton?: string;
-    overlay?: string;
-    prompt?: string;
-    modal?: string;
-    hide?: Function;
-    show?: Function;
+    container?: string | undefined;
+    html?: boolean | undefined;
+    cancelButton?: string | undefined;
+    okButton?: string | undefined;
+    overlay?: string | undefined;
+    prompt?: string | undefined;
+    modal?: string | undefined;
+    hide?: Function | undefined;
+    show?: Function | undefined;
 }

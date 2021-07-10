@@ -21,21 +21,21 @@ export interface SQSEvent {
 }
 
 export interface SQSRecordAttributes {
-    AWSTraceHeader?: string;
+    AWSTraceHeader?: string | undefined;
     ApproximateReceiveCount: string;
     SentTimestamp: string;
     SenderId: string;
     ApproximateFirstReceiveTimestamp: string;
-    SequenceNumber?: string;
-    MessageGroupId?: string;
-    MessageDeduplicationId?: string;
+    SequenceNumber?: string | undefined;
+    MessageGroupId?: string | undefined;
+    MessageDeduplicationId?: string | undefined;
 }
 
 export type SQSMessageAttributeDataType = 'String' | 'Number' | 'Binary' | string;
 
 export interface SQSMessageAttribute {
-    stringValue?: string;
-    binaryValue?: string;
+    stringValue?: string | undefined;
+    binaryValue?: string | undefined;
     stringListValues: never[]; // Not implemented. Reserved for future use.
     binaryListValues: never[]; // Not implemented. Reserved for future use.
     dataType: SQSMessageAttributeDataType;

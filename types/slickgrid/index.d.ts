@@ -402,7 +402,7 @@ declare namespace Slick {
         * @param colDef
         * @return
         **/
-        asyncPostRender?: (cellNode:any, row:any, dataContext:any, colDef:any) => void;
+        asyncPostRender?: ((cellNode:any, row:any, dataContext:any, colDef:any) => void) | undefined;
 
         /**
         * Used by the the slick.rowMoveManager.js plugin for moving rows. Has no effect without the plugin installed.
@@ -412,17 +412,17 @@ declare namespace Slick {
         /**
         * In the "Add New" row, determines whether clicking cells in this column can trigger row addition. If true, clicking on the cell in this column in the "Add New" row will not trigger row addition.
         **/
-        cannotTriggerInsert?: boolean;
+        cannotTriggerInsert?: boolean | undefined;
 
         /**
         * Accepts a string as a class name, applies that class to every row cell in the column.
         **/
-        cssClass?: string;
+        cssClass?: string | undefined;
 
         /**
         * When set to true, the first user click on the header will do a descending sort. When set to false, the first user click on the header will do an ascending sort.
         **/
-        defaultSortAsc?: boolean;
+        defaultSortAsc?: boolean | undefined;
 
         /**
         * The editor for cell edits {TextEditor, IntegerEditor, DateEditor...} See slick.editors.js
@@ -432,12 +432,12 @@ declare namespace Slick {
         /**
         * The property name in the data object to pull content from. (This is assumed to be on the root of the data object.)
         **/
-        field?: string;
+        field?: string | undefined;
 
         /**
         * When set to false, clicking on a cell in this column will not select the row for that cell. The cells in this column will also be skipped during tab navigation.
         **/
-        focusable?: boolean;
+        focusable?: boolean | undefined;
 
         /**
         * This accepts a function of the form function(row, cell, value, columnDef, dataContext) and returns a formatted version of the data in each cell of this column. For example, setting formatter to function(r, c, v, cd, dc) { return "Hello!"; } would overwrite every value in the column with "Hello!" See defaultFormatter in slick.grid.js for an example formatter.
@@ -448,62 +448,62 @@ declare namespace Slick {
         * @param dataContext
         * @return
         **/
-        formatter?: Formatter<T>;
+        formatter?: Formatter<T> | undefined;
 
         /**
         * Accepts a string as a class name, applies that class to the cell for the column header.
         **/
-        headerCssClass?: string;
+        headerCssClass?: string | undefined;
 
         /**
         * A unique identifier for the column within the grid.
         **/
-        id?: string;
+        id?: string | undefined;
 
         /**
         * Set the maximum allowable width of this column, in pixels.
         **/
-        maxWidth?: number;
+        maxWidth?: number | undefined;
 
         /**
         *  Set the minimum allowable width of this column, in pixels.
         **/
-        minWidth?: number;
+        minWidth?: number | undefined;
 
         /**
         * The text to display on the column heading.
         **/
-        name?: string;
+        name?: string | undefined;
 
         /**
         * If set to true, whenever this column is resized, the entire table view will rerender.
         **/
-        rerenderOnResize?: boolean;
+        rerenderOnResize?: boolean | undefined;
 
         /**
         * If false, column can no longer be resized.
         **/
-        resizable?: boolean;
+        resizable?: boolean | undefined;
 
         /**
         * If false, when a row is selected, the CSS class for selected cells ("selected" by default) is not applied to the cell in this column.
         **/
-        selectable?: boolean;
+        selectable?: boolean | undefined;
 
         /**
         * If true, the column will be sortable by clicking on the header.
         **/
-        sortable?: boolean;
+        sortable?: boolean | undefined;
 
         /**
         * If set to a non-empty string, a tooltip will appear on hover containing the string.
         **/
-        toolTip?: string;
+        toolTip?: string | undefined;
 
         /**
         * Width of the column in pixels. (May often be overridden by things like minWidth, maxWidth, forceFitColumns, etc.)
         **/
-        width?: number;
+        width?: number | undefined;
     }
 
     export interface EditorFactory {
@@ -519,57 +519,57 @@ declare namespace Slick {
         /**
         * Makes cell editors load asynchronously after a small delay. This greatly increases keyboard navigation speed.
         **/
-        asyncEditorLoading?: boolean;
+        asyncEditorLoading?: boolean | undefined;
 
         /**
         * Delay after which cell editor is loaded. Ignored unless asyncEditorLoading is true.
         **/
-        asyncEditorLoadDelay?: number;
+        asyncEditorLoadDelay?: number | undefined;
 
         /**
         *
         **/
-        asyncPostRenderDelay?: number;
+        asyncPostRenderDelay?: number | undefined;
 
         /**
         * Cell will not automatically go into edit mode when selected.
         **/
-        autoEdit?: boolean;
+        autoEdit?: boolean | undefined;
 
         /**
         *
         **/
-        autoHeight?: boolean;
+        autoHeight?: boolean | undefined;
 
         /**
         * A CSS class to apply to flashing cells via flashCell().
         **/
-        cellFlashingCssClass?: string;
+        cellFlashingCssClass?: string | undefined;
 
         /**
         * A CSS class to apply to cells highlighted via setHighlightedCells().
         **/
-        cellHighlightCssClass?: string;
+        cellHighlightCssClass?: string | undefined;
 
         /**
         *
         **/
-        dataItemColumnValueExtractor?: (item: any, columnDef: any) => any;
+        dataItemColumnValueExtractor?: ((item: any, columnDef: any) => any) | undefined;
 
         /**
         *
         **/
-        defaultColumnWidth?: number;
+        defaultColumnWidth?: number | undefined;
 
         /**
         *
         **/
-        defaultFormatter?: Formatter<T>;
+        defaultFormatter?: Formatter<T> | undefined;
 
         /**
         *
         **/
-        editable?: boolean;
+        editable?: boolean | undefined;
 
         /**
         * Not listed as a default under options in slick.grid.js
@@ -579,22 +579,22 @@ declare namespace Slick {
         /**
         * A factory object responsible to creating an editor for a given cell. Must implement getEditor(column).
         **/
-        editorFactory?: EditorFactory;
+        editorFactory?: EditorFactory | undefined;
 
         /**
         * A Slick.EditorLock instance to use for controlling concurrent data edits.
         **/
-        editorLock?: EditorLock<T>;
+        editorLock?: EditorLock<T> | undefined;
 
         /**
         * If true, a blank row will be displayed at the bottom - typing values in that row will add a new one. Must subscribe to onAddNewRow to save values.
         **/
-        enableAddRow?: boolean;
+        enableAddRow?: boolean | undefined;
 
         /**
         * If true, async post rendering will occur and asyncPostRender delegates on columns will be called.
         **/
-        enableAsyncPostRender?: boolean;
+        enableAsyncPostRender?: boolean | undefined;
 
         /**
         * *WARNING*: Not contained in SlickGrid 2.1, may be deprecated
@@ -604,12 +604,12 @@ declare namespace Slick {
         /**
         * Appears to enable cell virtualisation for optimised speed with large datasets
         **/
-        enableCellNavigation?: boolean;
+        enableCellNavigation?: boolean | undefined;
 
         /**
         *
         **/
-        enableColumnReorder?: boolean;
+        enableColumnReorder?: boolean | undefined;
 
         /**
         * *WARNING*: Not contained in SlickGrid 2.1, may be deprecated
@@ -619,105 +619,105 @@ declare namespace Slick {
         /**
         *
         **/
-        enableTextSelectionOnCells?: boolean;
+        enableTextSelectionOnCells?: boolean | undefined;
 
         /**
         * @see Example: Explicit Initialization
         **/
-        explicitInitialization?: boolean;
+        explicitInitialization?: boolean | undefined;
 
         /**
         * Force column sizes to fit into the container (preventing horizontal scrolling). Effectively sets column width to be 1/Number of Columns which on small containers may not be desirable
         **/
-        forceFitColumns?: boolean;
+        forceFitColumns?: boolean | undefined;
 
         /**
         *
         **/
-        forceSyncScrolling?: boolean;
+        forceSyncScrolling?: boolean | undefined;
 
         /**
         * A factory object responsible to creating a formatter for a given cell. Must implement getFormatter(column).
         **/
-        formatterFactory?: FormatterFactory<T>;
+        formatterFactory?: FormatterFactory<T> | undefined;
 
         /**
         * Will expand the table row divs to the full width of the container, table cell divs will remain aligned to the left
         **/
-        fullWidthRows?: boolean;
+        fullWidthRows?: boolean | undefined;
 
         /**
         *
         **/
-        headerRowHeight?: number;
+        headerRowHeight?: number | undefined;
 
         /**
         *
         **/
-        leaveSpaceForNewRows?: boolean;
+        leaveSpaceForNewRows?: boolean | undefined;
 
         /**
         * @see Example: Multi-Column Sort
         **/
-        multiColumnSort?: boolean;
+        multiColumnSort?: boolean | undefined;
 
         /**
         *
         **/
-        multiSelect?: boolean;
+        multiSelect?: boolean | undefined;
 
         /**
         *
         **/
-        rowHeight?: number;
+        rowHeight?: number | undefined;
 
         /**
         *
         **/
-        selectedCellCssClass?: string;
+        selectedCellCssClass?: string | undefined;
 
         /**
         *
         **/
-        showHeaderRow?: boolean;
+        showHeaderRow?: boolean | undefined;
 
         /**
         * If true, the column being resized will change its width as the mouse is dragging the resize handle. If false, the column will resize after mouse drag ends.
         **/
-        syncColumnCellResize?: boolean;
+        syncColumnCellResize?: boolean | undefined;
 
         /**
         *
         **/
-        topPanelHeight?: number;
+        topPanelHeight?: number | undefined;
 
 
-        addNewRowCssClass?: string;
-        alwaysAllowHorizontalScroll?: boolean;
-        alwaysShowVerticalScroll?: boolean;
-        asyncPostRenderCleanupDelay?: number;
-        createFooterRow?: boolean;
-        createPreHeaderPanel?: boolean;
-        doPaging?: boolean;
-        editorCellNavOnLRKeys?: boolean;
-        emulatePagingWhenScrolling?: boolean;
-        enableAsyncPostRenderCleanup?: boolean;
-        footerRowHeight?: number;
-        frozenBottom?: boolean;
-        frozenColumn?: number;
-        frozenRow?: number;
-        minRowBuffer?: number;
-        numberedMultiColumnSort?: boolean;
-        preHeaderPanelHeight?: number;
-        preserveCopiedSelectionOnPaste?: boolean;
-        showCellSelection?: boolean;
-        showFooterRow?: boolean;
-        showPreHeaderPanel?: boolean;
-        showTopPanel?: boolean;
-        sortColNumberInSeparateSpan?: boolean;
-        suppressActiveCellChangeOnEdit?: boolean;
-        tristateMultiColumnSort?: boolean;
-        viewportClass?: string;
+        addNewRowCssClass?: string | undefined;
+        alwaysAllowHorizontalScroll?: boolean | undefined;
+        alwaysShowVerticalScroll?: boolean | undefined;
+        asyncPostRenderCleanupDelay?: number | undefined;
+        createFooterRow?: boolean | undefined;
+        createPreHeaderPanel?: boolean | undefined;
+        doPaging?: boolean | undefined;
+        editorCellNavOnLRKeys?: boolean | undefined;
+        emulatePagingWhenScrolling?: boolean | undefined;
+        enableAsyncPostRenderCleanup?: boolean | undefined;
+        footerRowHeight?: number | undefined;
+        frozenBottom?: boolean | undefined;
+        frozenColumn?: number | undefined;
+        frozenRow?: number | undefined;
+        minRowBuffer?: number | undefined;
+        numberedMultiColumnSort?: boolean | undefined;
+        preHeaderPanelHeight?: number | undefined;
+        preserveCopiedSelectionOnPaste?: boolean | undefined;
+        showCellSelection?: boolean | undefined;
+        showFooterRow?: boolean | undefined;
+        showPreHeaderPanel?: boolean | undefined;
+        showTopPanel?: boolean | undefined;
+        sortColNumberInSeparateSpan?: boolean | undefined;
+        suppressActiveCellChangeOnEdit?: boolean | undefined;
+        tristateMultiColumnSort?: boolean | undefined;
+        viewportClass?: string | undefined;
     }
 
     export interface DataProvider<T extends SlickData> {
@@ -747,17 +747,17 @@ declare namespace Slick {
         /**
          * One or more (space-separated) CSS classes to be added to the entire row.
          */
-        cssClasses?: string;
+        cssClasses?: string | undefined;
 
         /**
          * Whether or not any cells in the row can be set as "active".
          */
-        focusable?: boolean;
+        focusable?: boolean | undefined;
 
         /**
          * Whether or not a row or any cells in it can be selected.
          */
-        selectable?: boolean;
+        selectable?: boolean | undefined;
 
         /**
          * Metadata related to individual columns
@@ -771,24 +771,24 @@ declare namespace Slick {
              * Metadata indexed by column index
              */
             [index: number]: ColumnMetadata<T>;
-        };
+        } | undefined;
     }
 
     export interface ColumnMetadata<T extends SlickData> {
         /**
          * Whether or not a cell can be set as "active".
          */
-        focusable?: boolean;
+        focusable?: boolean | undefined;
 
         /**
          * Whether or not a cell can be selected.
          */
-        selectable?: boolean;
+        selectable?: boolean | undefined;
 
         /**
          * A custom cell formatter.
          */
-        formatter?: Formatter<T>;
+        formatter?: Formatter<T> | undefined;
 
         /**
          * A custom cell editor.
@@ -798,7 +798,7 @@ declare namespace Slick {
         /**
          * Number of columns this cell will span. Can also contain "*" to indicate that the cell should span the rest of the row.
          */
-        colspan?: number|string;
+        colspan?: number|string | undefined;
     }
 
     /**
@@ -1433,11 +1433,11 @@ declare namespace Slick {
         multiColumnSort: boolean;
 
         // Single column returned
-        sortCol?: Column<T>;
+        sortCol?: Column<T> | undefined;
         sortAsc: boolean;
 
         // Multiple columns returned
-        sortCols?: SortColumn<T>[];
+        sortCols?: SortColumn<T>[] | undefined;
     }
 
     export interface OnScrollEventArgs<T extends SlickData> extends GridEventArgs<T> {
@@ -1497,11 +1497,11 @@ declare namespace Slick {
             container: HTMLElement;
             grid: Grid<T>;
 
-            item?: T;
-            commitChanges?: () => void;
-            cancelChanges?: () => void;
-            gridPosition?: CellPosition;
-            position?: CellPosition;
+            item?: T | undefined;
+            commitChanges?: (() => void) | undefined;
+            cancelChanges?: (() => void) | undefined;
+            gridPosition?: CellPosition | undefined;
+            position?: CellPosition | undefined;
 
         }
 
@@ -1585,8 +1585,8 @@ declare namespace Slick {
     export module Data {
 
         export interface DataViewOptions<T extends Slick.SlickData> {
-            groupItemMetadataProvider?: GroupItemMetadataProvider<T>;
-            inlineFilters?: boolean;
+            groupItemMetadataProvider?: GroupItemMetadataProvider<T> | undefined;
+            inlineFilters?: boolean | undefined;
         }
 
         /**
@@ -1672,31 +1672,31 @@ declare namespace Slick {
         }
 
         export interface GroupingOptions<T> {
-            getter?: ((item?: T) => any) | string;
-            formatter?: (item?: T) => string;
-            comparer?: (a: Group<T>, b: Group<T>) => number;
-            predefinedValues?: any[];    // todo
-            aggregators?: Aggregators.Aggregator<T>[];
-            aggregateEmpty?: boolean;
-            aggregateCollapsed?: boolean;
-            aggregateChildGroups?: boolean;
-            collapsed?: boolean;
-            displayTotalsRow?: boolean;
+            getter?: ((item?: T) => any) | string | undefined;
+            formatter?: ((item?: T) => string) | undefined;
+            comparer?: ((a: Group<T>, b: Group<T>) => number) | undefined;
+            predefinedValues?: any[] | undefined;    // todo
+            aggregators?: Aggregators.Aggregator<T>[] | undefined;
+            aggregateEmpty?: boolean | undefined;
+            aggregateCollapsed?: boolean | undefined;
+            aggregateChildGroups?: boolean | undefined;
+            collapsed?: boolean | undefined;
+            displayTotalsRow?: boolean | undefined;
         }
 
         export interface PagingOptions {
-            pageSize?: number;
-            pageNum?: number;
-            totalRows?: number;
-            totalPages?: number;
+            pageSize?: number | undefined;
+            pageNum?: number | undefined;
+            totalRows?: number | undefined;
+            totalPages?: number | undefined;
         }
 
         export interface RefreshHints {
-            isFilterNarrowing?: boolean;
-            isFilterExpanding?: boolean;
-            isFilterUnchanged?: boolean;
-            ignoreDiffsBefore?: boolean;
-            ignoreDiffsAfter?: boolean;
+            isFilterNarrowing?: boolean | undefined;
+            isFilterExpanding?: boolean | undefined;
+            isFilterUnchanged?: boolean | undefined;
+            ignoreDiffsBefore?: boolean | undefined;
+            ignoreDiffsAfter?: boolean | undefined;
         }
 
         export interface OnRowCountChangedEventData {
@@ -1756,15 +1756,15 @@ declare namespace Slick {
         }
 
         export interface GroupItemMetadataProviderOptions {
-            groupCssClass?: string;
-            groupTitleCssClass?: string;
-            totalsCssClass?: string;
-            groupFocusable?: boolean;
-            totalsFocusable?: boolean;
-            toggleCssClass?: string;
-            toggleExpandedCssCass?: string;
-            toggleCollapsedCssClass?: string;
-            enableExpandCollapse?: boolean;
+            groupCssClass?: string | undefined;
+            groupTitleCssClass?: string | undefined;
+            totalsCssClass?: string | undefined;
+            groupFocusable?: boolean | undefined;
+            totalsFocusable?: boolean | undefined;
+            toggleCssClass?: string | undefined;
+            toggleExpandedCssCass?: string | undefined;
+            toggleCollapsedCssClass?: string | undefined;
+            enableExpandCollapse?: boolean | undefined;
         }
 
         //export class RemoteModel {

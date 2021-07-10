@@ -9,8 +9,8 @@ declare function imageminJpegtran(options?: imageminJpegtran.Options): Plugin;
 
 declare namespace imageminJpegtran {
     interface Options {
-        arithmetic?: boolean;
-        progressive?: boolean;
+        arithmetic?: boolean | undefined;
+        progressive?: boolean | undefined;
     }
 }
 

@@ -26,59 +26,59 @@ declare namespace koaHelmet {
     type KoaHelmetFeaturePolicyDirectiveValue = string;
 
     interface KoaHelmetContentSecurityPolicyDirectives {
-        baseUri?: KoaHelmetCspDirectiveValue[];
-        childSrc?: KoaHelmetCspDirectiveValue[];
-        connectSrc?: KoaHelmetCspDirectiveValue[];
-        defaultSrc?: KoaHelmetCspDirectiveValue[];
-        fontSrc?: KoaHelmetCspDirectiveValue[];
-        formAction?: KoaHelmetCspDirectiveValue[];
-        frameAncestors?: KoaHelmetCspDirectiveValue[];
-        frameSrc?: KoaHelmetCspDirectiveValue[];
-        imgSrc?: KoaHelmetCspDirectiveValue[];
-        mediaSrc?: KoaHelmetCspDirectiveValue[];
-        objectSrc?: KoaHelmetCspDirectiveValue[];
-        pluginTypes?: KoaHelmetCspDirectiveValue[];
-        reportUri?: string;
-        sandbox?: KoaHelmetCspDirectiveValue[];
-        scriptSrc?: KoaHelmetCspDirectiveValue[];
-        styleSrc?: KoaHelmetCspDirectiveValue[];
+        baseUri?: KoaHelmetCspDirectiveValue[] | undefined;
+        childSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        connectSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        defaultSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        fontSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        formAction?: KoaHelmetCspDirectiveValue[] | undefined;
+        frameAncestors?: KoaHelmetCspDirectiveValue[] | undefined;
+        frameSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        imgSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        mediaSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        objectSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        pluginTypes?: KoaHelmetCspDirectiveValue[] | undefined;
+        reportUri?: string | undefined;
+        sandbox?: KoaHelmetCspDirectiveValue[] | undefined;
+        scriptSrc?: KoaHelmetCspDirectiveValue[] | undefined;
+        styleSrc?: KoaHelmetCspDirectiveValue[] | undefined;
     }
 
     interface KoaHelmetFeaturePolicyDirectives {
-        accelerometer?: KoaHelmetFeaturePolicyDirectiveValue[];
-        ambientLightSensor?: KoaHelmetFeaturePolicyDirectiveValue[];
-        autoplay?: KoaHelmetFeaturePolicyDirectiveValue[];
-        camera?: KoaHelmetFeaturePolicyDirectiveValue[];
-        documentDomain?: KoaHelmetFeaturePolicyDirectiveValue[];
-        documentWrite?: KoaHelmetFeaturePolicyDirectiveValue[];
-        encryptedMedia?: KoaHelmetFeaturePolicyDirectiveValue[];
-        fontDisplayLateSwap?: KoaHelmetFeaturePolicyDirectiveValue[];
-        fullscreen?: KoaHelmetFeaturePolicyDirectiveValue[];
-        geolocation?: KoaHelmetFeaturePolicyDirectiveValue[];
-        gyroscope?: KoaHelmetFeaturePolicyDirectiveValue[];
-        layoutAnimations?: KoaHelmetFeaturePolicyDirectiveValue[];
-        legacyImageFormats?: KoaHelmetFeaturePolicyDirectiveValue[];
-        loadingFrameDefaultEager?: KoaHelmetFeaturePolicyDirectiveValue[];
-        magnetometer?: KoaHelmetFeaturePolicyDirectiveValue[];
-        microphone?: KoaHelmetFeaturePolicyDirectiveValue[];
-        midi?: KoaHelmetFeaturePolicyDirectiveValue[];
-        oversizedImages?: KoaHelmetFeaturePolicyDirectiveValue[];
-        payment?: KoaHelmetFeaturePolicyDirectiveValue[];
-        pictureInPicture?: KoaHelmetFeaturePolicyDirectiveValue[];
-        serial?: KoaHelmetFeaturePolicyDirectiveValue[];
-        speaker?: KoaHelmetFeaturePolicyDirectiveValue[];
-        syncScript?: KoaHelmetFeaturePolicyDirectiveValue[];
-        syncXhr?: KoaHelmetFeaturePolicyDirectiveValue[];
-        unoptimizedImages?: KoaHelmetFeaturePolicyDirectiveValue[];
-        unoptimizedLosslessImages?: KoaHelmetFeaturePolicyDirectiveValue[];
-        unoptimizedLossyImages?: KoaHelmetFeaturePolicyDirectiveValue[];
-        unsizedMedia?: KoaHelmetFeaturePolicyDirectiveValue[];
-        usb?: KoaHelmetFeaturePolicyDirectiveValue[];
-        verticalScroll?: KoaHelmetFeaturePolicyDirectiveValue[];
-        vibrate?: KoaHelmetFeaturePolicyDirectiveValue[];
-        vr?: KoaHelmetFeaturePolicyDirectiveValue[];
-        wakeLock?: KoaHelmetFeaturePolicyDirectiveValue[];
-        xr?: KoaHelmetFeaturePolicyDirectiveValue[];
+        accelerometer?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        ambientLightSensor?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        autoplay?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        camera?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        documentDomain?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        documentWrite?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        encryptedMedia?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        fontDisplayLateSwap?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        fullscreen?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        geolocation?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        gyroscope?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        layoutAnimations?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        legacyImageFormats?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        loadingFrameDefaultEager?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        magnetometer?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        microphone?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        midi?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        oversizedImages?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        payment?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        pictureInPicture?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        serial?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        speaker?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        syncScript?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        syncXhr?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        unoptimizedImages?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        unoptimizedLosslessImages?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        unoptimizedLossyImages?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        unsizedMedia?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        usb?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        verticalScroll?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        vibrate?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        vr?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        wakeLock?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
+        xr?: KoaHelmetFeaturePolicyDirectiveValue[] | undefined;
     }
 
     interface KoaHelmetFeaturePolicyConfiguration {
@@ -86,11 +86,11 @@ declare namespace koaHelmet {
     }
 
     interface KoaHelmetContentSecurityPolicyConfiguration {
-        reportOnly?: boolean;
-        setAllHeaders?: boolean;
-        disableAndroid?: boolean;
-        browserSniff?: boolean;
-        directives?: KoaHelmetContentSecurityPolicyDirectives;
+        reportOnly?: boolean | undefined;
+        setAllHeaders?: boolean | undefined;
+        disableAndroid?: boolean | undefined;
+        browserSniff?: boolean | undefined;
+        directives?: KoaHelmetContentSecurityPolicyDirectives | undefined;
     }
 
     interface KoaHelmet {

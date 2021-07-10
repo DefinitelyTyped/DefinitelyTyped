@@ -11,24 +11,24 @@ declare const _: typeof ExpressHandlebars;
 
 declare namespace exphbs {
     interface PartialTemplateOptions {
-        cache?: boolean;
-        encoding?: string;
-        precompiled?: boolean;
+        cache?: boolean | undefined;
+        encoding?: string | undefined;
+        precompiled?: boolean | undefined;
     }
 
     interface RenderOptions {
-        cache?: boolean;
-        data?: object;
+        cache?: boolean | undefined;
+        data?: object | undefined;
         helpers?: any;
         partials?: any;
     }
 
     interface ExphbsOptions {
         handlebars?: any;
-        extname?: string;
-        layoutsDir?: string;
+        extname?: string | undefined;
+        layoutsDir?: string | undefined;
         partialsDir?: any;
-        defaultLayout?: string;
+        defaultLayout?: string | undefined;
         helpers?: any;
         compilerOptions?: any;
     }

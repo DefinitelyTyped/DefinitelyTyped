@@ -8,5 +8,5 @@ import { FlexboxPropTypes } from '../utils';
  */
 export declare const Badge: React.StatelessComponent<BadgeProps>;
 export interface BadgeProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLSpanElement> {
-    color?: BadgeColors;
+    color?: BadgeColors | undefined;
 }

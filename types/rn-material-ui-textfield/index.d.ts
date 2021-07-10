@@ -17,68 +17,68 @@ import {
 } from 'react-native';
 
 export interface ContentInset {
-    top?: number;
-    left?: number;
-    right?: number;
-    label?: number;
-    input?: number;
+    top?: number | undefined;
+    left?: number | undefined;
+    right?: number | undefined;
+    label?: number | undefined;
+    input?: number | undefined;
 }
 
 export interface LabelOffset {
     /**
      * Horizontal offset for inactive state
      */
-    x0?: number;
+    x0?: number | undefined;
     /**
      * Vertical offset for inactive state
      */
-    y0?: number;
+    y0?: number | undefined;
     /**
      * Horizontal offset for active state
      */
-    x1?: number;
+    x1?: number | undefined;
     /**
      * Vertical offset for active state
      */
-    y1?: number;
+    y1?: number | undefined;
 }
 
 export interface TextFieldProps extends TextInputProps {
-    textColor?:	ColorValue;
-    fontSize?: number;
-    labelFontSize?: number;
-    lineWidth?: number;
-    activeLineWidth?: number;
-    disabledLineWidth?: number;
-    tintColor?: ColorValue;
-    baseColor?: ColorValue;
-    label?: string;
-    title?: string;
-    prefix?: string;
-    suffix?: string;
-    error?: string;
-    errorColor?: ColorValue;
-    lineType?: 'solid' | 'dotted' | 'dashed' | 'none';
-    disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none';
-    animationDuration?: number;
-    characterRestriction?: number;
-    disabled?: boolean;
-    editable?: boolean;
-    multiline?: boolean;
-    contentInset?: ContentInset;
-    labelOffset?: LabelOffset;
-    containerStyle?: StyleProp<ViewStyle>;
-    inputContainerStyle?: StyleProp<ViewStyle>;
-    labelTextStyle?: StyleProp<TextStyle>;
-    titleTextStyle?: StyleProp<TextStyle>;
-    affixTextStyle?: StyleProp<TextStyle>;
+    textColor?:	ColorValue | undefined;
+    fontSize?: number | undefined;
+    labelFontSize?: number | undefined;
+    lineWidth?: number | undefined;
+    activeLineWidth?: number | undefined;
+    disabledLineWidth?: number | undefined;
+    tintColor?: ColorValue | undefined;
+    baseColor?: ColorValue | undefined;
+    label?: string | undefined;
+    title?: string | undefined;
+    prefix?: string | undefined;
+    suffix?: string | undefined;
+    error?: string | undefined;
+    errorColor?: ColorValue | undefined;
+    lineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
+    disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
+    animationDuration?: number | undefined;
+    characterRestriction?: number | undefined;
+    disabled?: boolean | undefined;
+    editable?: boolean | undefined;
+    multiline?: boolean | undefined;
+    contentInset?: ContentInset | undefined;
+    labelOffset?: LabelOffset | undefined;
+    containerStyle?: StyleProp<ViewStyle> | undefined;
+    inputContainerStyle?: StyleProp<ViewStyle> | undefined;
+    labelTextStyle?: StyleProp<TextStyle> | undefined;
+    titleTextStyle?: StyleProp<TextStyle> | undefined;
+    affixTextStyle?: StyleProp<TextStyle> | undefined;
     formatText?(text: string): string;
     renderLeftAccessory?(): JSX.Element;
     renderRightAccessory?(): JSX.Element;
     onChangeText?(text: string): void;
     onFocus?(event: NativeSyntheticEvent<TextInputFocusEventData>): void;
     onBlur?(event: NativeSyntheticEvent<TextInputChangeEventData>): void;
-    inputRef?: React.RefObject<any>;
+    inputRef?: React.RefObject<any> | undefined;
 }
 
 /**

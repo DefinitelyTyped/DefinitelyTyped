@@ -18,8 +18,8 @@ declare namespace loader {
     interface ReplaceEntry {
         search: string | RegExp;
         replace: string | ReplaceCallback;
-        flags?: string;
-        strict?: boolean;
+        flags?: string | undefined;
+        strict?: boolean | undefined;
     }
 
     interface ReplaceCallback {

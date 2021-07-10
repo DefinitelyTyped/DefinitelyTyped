@@ -8,29 +8,29 @@
 
 interface JQueryContextMenuOptions {
     selector: string;
-    appendTo?: string;
-    trigger?: string;
-    autoHide?: boolean;
-    delay?: number;
-    determinePosition?: (menu: JQuery) => void;
-    position?: (opt: JQuery, x: number, y: number) => void;
-    positionSubmenu?: (menu: JQuery) => void;
-    zIndex?: number;
+    appendTo?: string | undefined;
+    trigger?: string | undefined;
+    autoHide?: boolean | undefined;
+    delay?: number | undefined;
+    determinePosition?: ((menu: JQuery) => void) | undefined;
+    position?: ((opt: JQuery, x: number, y: number) => void) | undefined;
+    positionSubmenu?: ((menu: JQuery) => void) | undefined;
+    zIndex?: number | undefined;
     animation?: {
-        duration?: number;
-        show?: string;
-        hide?: string;
-    };
+        duration?: number | undefined;
+        show?: string | undefined;
+        hide?: string | undefined;
+    } | undefined;
     events?: {
-        show?: (options: any) => boolean;
-        hide?: (options: any) => boolean;
-    };
-    callback?: (key: any, options: any) => any;
+        show?: ((options: any) => boolean) | undefined;
+        hide?: ((options: any) => boolean) | undefined;
+    } | undefined;
+    callback?: ((key: any, options: any) => any) | undefined;
     items?: any;
-    build?: (triggerElement: JQuery, e: Event) => any;
-    reposition?: boolean;
-    className?: string;
-    itemClickEvent?: string;
+    build?: ((triggerElement: JQuery, e: Event) => any) | undefined;
+    reposition?: boolean | undefined;
+    className?: string | undefined;
+    itemClickEvent?: string | undefined;
 }
 
 interface JQueryStatic {

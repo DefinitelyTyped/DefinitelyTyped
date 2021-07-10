@@ -20,9 +20,9 @@ declare function imageFunction(
 
 declare namespace imageFunction {
     interface Options {
-        percentage?: number;
-        width?: number;
-        height?: number;
-        responseType?: string;
+        percentage?: number | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        responseType?: string | undefined;
     }
 }

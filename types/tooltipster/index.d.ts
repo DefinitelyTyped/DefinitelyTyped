@@ -23,20 +23,20 @@ declare namespace JQueryTooltipster {
          * default to a JavaScript generated, fade animation. 
          * @default 'fade'
          */
-        animation?: 'fade' | 'grow' | 'swing' | 'slide' | 'fall';
+        animation?: 'fade' | 'grow' | 'swing' | 'slide' | 'fall' | undefined;
 
         /**
          * Sets the duration of the animation, in milliseconds. If you wish to provide different durations 
          * for the opening and closing animations, provide an array of two different values. 
          * @default 350
          */
-        animationDuration?: number | number[];
+        animationDuration?: number | number[] | undefined;
 
         /**
          * Add a "speech bubble" arrow to the tooltip. 
          * @default true
          */
-        arrow?: boolean;
+        arrow?: boolean | undefined;
 
         /**
          * If set, this will override the content of the tooltip. If you provide something else than a string 
@@ -44,28 +44,28 @@ declare namespace JQueryTooltipster {
          * content for display. 
          * @default null
          */
-        content?: string | JQuery | any;
+        content?: string | JQuery | any | undefined;
 
         /**
          * If the content of the tooltip is provided as a string, it is displayed as plain text by default. 
          * If this content should actually be interpreted as HTML, set this option to true. 
          * @default false
          */
-        contentAsHTML?: boolean;
+        contentAsHTML?: boolean | undefined;
 
         /**
          * If you provide a jQuery object to the 'content' option, this sets if it is a clone of this object 
          * that should actually be used. 
          * @default false
          */
-        contentCloning?: boolean;
+        contentCloning?: boolean | undefined;
 
         /**
          * Tooltipster logs hints and notices into the console when you're doing something you ideally shouldn't 
          * be doing. Set to false to disable logging. 
          * @default true
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * Upon mouse interaction, this is the delay before the tooltip starts its opening and closing animations 
@@ -73,7 +73,7 @@ declare namespace JQueryTooltipster {
          * you may provide an array of two different values. 
          * @default 300
          */
-        delay?: number | number[];
+        delay?: number | number[] | undefined;
 
         /**
          * Upon touch interaction, this is the delay before the tooltip starts its opening and closing animations 
@@ -81,39 +81,39 @@ declare namespace JQueryTooltipster {
          * you may provide an array of two different values. 
          * @default [300, 500]
          */
-        delayTouch?: number | number[];
+        delayTouch?: number | number[] | undefined;
 
         /**
          * The distance between the origin and the tooltip, in pixels. The value may be an integer or an array of 
          * integers (in the usual CSS syntax) if you wish to specify a different distance for each side. 
          * @default 6
          */
-        distance?: number | number[];
+        distance?: number | number[] | undefined;
 
         /**
          * A custom function to be fired only once at instantiation. 
          * @default null
          */
-        functionInit?: TooltipsterStandardCallbackFunction;
+        functionInit?: TooltipsterStandardCallbackFunction | undefined;
 
         /**
          * A custom function to be fired before the tooltip is opened. This function may prevent the opening if it 
          * returns false. 
          * @default null
          */
-        functionBefore?: TooltipsterStandardCallbackFunction;
+        functionBefore?: TooltipsterStandardCallbackFunction | undefined;
 
         /**
          * A custom function to be fired when the tooltip and its contents have been added to the DOM. 
          * @default null
          */
-        functionReady?: TooltipsterStandardCallbackFunction;
+        functionReady?: TooltipsterStandardCallbackFunction | undefined;
 
         /**
          * A custom function to be fired once the tooltip has been closed and removed from the DOM. 
          * @default null
          */
-        functionAfter?: TooltipsterStandardCallbackFunction;
+        functionAfter?: TooltipsterStandardCallbackFunction | undefined;
 
         /**
          * A custom function that does not modify the content but that can format it for display. It gets the two 
@@ -121,7 +121,7 @@ declare namespace JQueryTooltipster {
          * displayed in the tooltip, either a string or a jQuery-wrapped HTML element (see the formatting section). 
          * @default null
          */
-        functionFormat?: (instance: ITooltipsterInstance, helper: ITooltipsterHelper, content: any) => string | JQuery;
+        functionFormat?: ((instance: ITooltipsterInstance, helper: ITooltipsterHelper, content: any) => string | JQuery) | undefined;
 
         /**
          * A custom function fired when the tooltip is repositioned. It gives you the ability to slightly or 
@@ -130,13 +130,13 @@ declare namespace JQueryTooltipster {
          * you may have edited (see the positioning section). 
          * @default null
          */
-        functionPosition?: (instance: ITooltipsterInstance, helper: ITooltipsterHelper, position: ITooltipPosition) => ITooltipPosition;
+        functionPosition?: ((instance: ITooltipsterInstance, helper: ITooltipsterHelper, position: ITooltipPosition) => ITooltipPosition) | undefined;
 
         /**
          * The minimum version of Internet Explorer to run on. 
          * @default 6
          */
-        IEmin?: number;
+        IEmin?: number | undefined;
 
         /**
          * Give users the possibility to interact with the content of the tooltip. If you want them to be able to 
@@ -145,38 +145,38 @@ declare namespace JQueryTooltipster {
          * starts closing (this lapse of time has its duration set by the 'delay' option). 
          * @default false
          */
-        interactive?: boolean;
+        interactive?: boolean | undefined;
 
         /**
          * Set a maximum width for the tooltip. 
          * @default null (no max width)
          */
-        maxWidth?: number;
+        maxWidth?: number | undefined;
 
         /**
          * Corresponds to the minimum distance to enforce between the center of the arrow and the edges of the 
          * tooltip. Mainly used to create an arrow bigger than those of the default themes. 
          * @default 16
          */
-        minIntersection?: number;
+        minIntersection?: number | undefined;
 
         /**
          * Set a minimum width for the tooltip. 
          * @default 0 (auto width)
          */
-        minWidth?: number;
+        minWidth?: number | undefined;
 
         /**
          * Allows you to put several tooltips on a single element (see the multiple section). 
          * @default false
          */
-        multiple?: boolean;
+        multiple?: boolean | undefined;
 
         /**
          * The names of plugins to be used by Tooltipster. 
          * @default ['sideTip']
          */
-        plugins?: string[];
+        plugins?: string[] | undefined;
 
         /**
          * Several plugins may have options of the same name. To resolve the conflict, wrap the options of plugins 
@@ -189,7 +189,7 @@ declare namespace JQueryTooltipster {
          * keep it visible as long as possible. 
          * @default false
          */
-        repositionOnScroll?: boolean;
+        repositionOnScroll?: boolean | undefined;
 
         /**
          * Specifies if a TITLE attribute should be restored on the HTML element after a call to the 'destroy' 
@@ -199,14 +199,14 @@ declare namespace JQueryTooltipster {
          * 
          * @default 'none'
          */
-        restoration?: 'none' | 'previous' | 'current';
+        restoration?: 'none' | 'previous' | 'current' | undefined;
 
         /**
          * Sets if the tooltip should self-destruct after a few seconds when its origin is removed from the DOM. 
          * This prevents memory leaks. 
          * @default true
          */
-        selfDestruction?: boolean;
+        selfDestruction?: boolean | undefined;
 
         /**
          * Sets the side of the tooltip. The value may one of the following: 'top', 'bottom', 'left', 'right'. 
@@ -214,20 +214,20 @@ declare namespace JQueryTooltipster {
          * values is taken into account as order of fallbacks and the absence of a side disables it (see the 
          * sides section). Default: ['top', 'bottom', 'right', 'left']
          */
-        side?: TooltipPositioningSide | TooltipPositioningSide[];
+        side?: TooltipPositioningSide | TooltipPositioningSide[] | undefined;
 
         /**
          * How long (in ms) the tooltip should live before closing. 
          * @default 0 (disabled)
          */
-        timer?: number;
+        timer?: number | undefined;
 
         /**
          * Set a theme that will override the default tooltip appearance. You may provide an array of strings 
          * to apply several themes at once (see the themes section). 
          * @default: []
          */
-        theme?: string | string[];
+        theme?: string | string[] | undefined;
 
         /**
          * Sets how often the tracker should run (see trackOrigin and trackTooltip), in milliseconds. The tracker 
@@ -235,17 +235,17 @@ declare namespace JQueryTooltipster {
          * the tooltip was open, so you shouldn't set too high or too low values unless you need to. 
          * @default 500
          */
-        trackerInterval?: number;
+        trackerInterval?: number | undefined;
 
-        trackOrigin?: boolean;
+        trackOrigin?: boolean | undefined;
 
-        trackTooltip?: boolean;
+        trackTooltip?: boolean | undefined;
 
         /**
          * Set how tooltips should be activated and closed.
          * Possible values: hover, click or custom.
          */
-        trigger?: string;
+        trigger?: string | undefined;
 
         /**
          * When 'trigger' is set to 'custom', all built-in close triggers are disabled by default. This option 
@@ -257,31 +257,31 @@ declare namespace JQueryTooltipster {
              * When a mouse click happens anywhere in the page. However, if the interactive option is set to true, 
              * a click happening inside the tooltip will not close it.
              */
-            click?: boolean;
+            click?: boolean | undefined;
             /**
              * When the mouse goes away from the origin. The delay option is taken into account as the delay before 
              * closing.
              */
-            mouseleave?: boolean;
+            mouseleave?: boolean | undefined;
             /**
              * When the origin is clicked by a mouse. This mimics a behavior that browsers usually have and is meant 
              * to be used with the mouseenter open trigger.
              */
-            originClick?: boolean;
+            originClick?: boolean | undefined;
             /**
              * When scrolling happens in the window or in a scrollable area which is a parent of the origin.
              */
-            scroll?: boolean;
+            scroll?: boolean | undefined;
             /**
              * When the finger taps (ie presses and releases) anywhere in the touch screen.
              */
-            tap?: boolean;
+            tap?: boolean | undefined;
             /**
              * When the finger is removed from the touch screen or if the interaction was stopped by the device. The 
              * delayTouch option is taken into account as the delay before closing.
              */
-            touchleave?: boolean;
-        };
+            touchleave?: boolean | undefined;
+        } | undefined;
 
         /**
          * When 'trigger' is set to 'custom', all built-in open triggers are disabled by default. This option 
@@ -292,29 +292,29 @@ declare namespace JQueryTooltipster {
             /**
              * When the origin is clicked by a mouse.
              */
-            click?: boolean;
+            click?: boolean | undefined;
             /**
              * When a mouse comes over the origin. The delay option is taken into account as the delay before 
              * opening.
              */
-            mouseenter?: boolean;
+            mouseenter?: boolean | undefined;
             /**
              * When the origin is pressed on a touch screen. The delayTouch option is taken into account as the 
              * delay before opening.
              */
-            touchstart?: boolean;
+            touchstart?: boolean | undefined;
             /**
              * When the origin is tapped (ie pressed and then released) on a touch screen.
              */
-            tap?: boolean;
-        };
+            tap?: boolean | undefined;
+        } | undefined;
 
         /**
          * Plays a subtle animation when the content of the tooltip is updated (if the tooltip is open). You 
          * may create custom animations in your CSS files. Set to null to disable the animation. 
          * @default 'rotate'
          */
-        updateAnimation?: 'fade' | 'rotate' | 'scale' | null;
+        updateAnimation?: 'fade' | 'rotate' | 'scale' | null | undefined;
 
         /**
          * Tries to place the tooltip in such a way that it will be entirely visible on screen when it's opened.
@@ -322,13 +322,13 @@ declare namespace JQueryTooltipster {
          * set this option to false. 
          * @default true
          */
-        viewportAware?: boolean;
+        viewportAware?: boolean | undefined;
 
         /**
          * Set the z-index of the tooltip. 
          * @default 9999999
          */
-        zIndex?: number;
+        zIndex?: number | undefined;
     }
 
     type TooltipsterStandardCallbackFunction = (instance: ITooltipsterInstance, helper: ITooltipsterHelper) => void;
@@ -343,11 +343,11 @@ declare namespace JQueryTooltipster {
         event?: MouseEvent | TouchEvent | null | undefined;
 
         /** provided on position callback */
-        mode?: 'natural' | 'constrained';
+        mode?: 'natural' | 'constrained' | undefined;
         /** provided on position callback */
-        tooltipClone?: HTMLElement;
+        tooltipClone?: HTMLElement | undefined;
         /** provided on position callback */
-        geo?: ITooltipsterGeoHelper;
+        geo?: ITooltipsterGeoHelper | undefined;
     }
 
     interface ITooltipsterGeoHelper {

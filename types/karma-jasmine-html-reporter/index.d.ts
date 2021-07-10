@@ -13,14 +13,14 @@ declare module 'karma' {
          * because it's already handled by another reporter
          * See {@link https://github.com/dfederm/karma-jasmine-html-reporter#with-options}
          */
-        jasmineHtmlReporter?: JasmineHtmlReporterOptions;
+        jasmineHtmlReporter?: JasmineHtmlReporterOptions | undefined;
     }
     interface JasmineHtmlReporterOptions {
         /**
          * Suppress all messages (overrides other suppress settings)
          */
-        suppressAll?: boolean;
+        suppressAll?: boolean | undefined;
         /** Suppress failed messages */
-        suppressFailed?: boolean;
+        suppressFailed?: boolean | undefined;
     }
 }

@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 
 declare namespace TextEditorGlobalKeyboardShortcuts {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const TextEditorGlobalKeyboardShortcuts: ComponentType<TextEditorGlobalKeyboardShortcuts.Props>;

@@ -52,7 +52,7 @@ interface TestFormData {
 /* Some tests only make sense with multiple values */
 interface MultivalueFormData {
     foo: string;
-    bar?: string;
+    bar?: string | undefined;
     fizz: string;
 }
 

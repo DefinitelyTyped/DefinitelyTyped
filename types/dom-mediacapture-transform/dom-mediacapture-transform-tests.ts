@@ -1,4 +1,5 @@
 // Allow await in the code below.
+declare const imageBitmap: ImageBitmap;
 async function topLevel() {
     ////////////////////////////////////////////////////////////////////////////////
     // Based on the example from the spec: https://w3c.github.io/mediacapture-transform/#examples
@@ -92,8 +93,6 @@ async function topLevel() {
 
     // MediaStreamTrackGenerator-video.https.html
 
-    const offscreenCanvas = new OffscreenCanvas(1, 1);
-    const imageBitmap = offscreenCanvas.transferToImageBitmap();
     const videoFrame = new VideoFrame(imageBitmap, { timestamp: 1 });
 
     const videoCaptureStream = await navigator.mediaDevices.getUserMedia({ video: true });

@@ -47,7 +47,7 @@ export interface Options<T> {
      * returned from this function call will be merged with the context data and then dispatched. A use case for this
      * would be that you want to provide extra tracking data without adding it to the context.
      */
-    dispatchOnMount?: boolean | ((contextData: T) => T);
+    dispatchOnMount?: boolean | ((contextData: T) => T) | undefined;
 
     /**
      * When there's a need to implicitly dispatch an event with some data for every component, you can define an
@@ -69,7 +69,7 @@ export interface DecoratorOptions<T> extends Options<T> {
      *
      * Default is `false`.
      */
-    forwardRef?: boolean;
+    forwardRef?: boolean | undefined;
 }
 
 export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any], [value, err]: [any, any]) => T | Falsy);
@@ -88,7 +88,7 @@ export type Decorator = ClassDecorator & MethodDecorator;
  * A React context used to support passing and dispatching tracking data throughout a tree of components.
  */
 export type TrackingContext<T = any> = React.Context<{
-    tracking: Options<T> & { data?: {} };
+    tracking: Options<T> & { data?: {} | undefined };
 }>;
 export const ReactTrackingContext: TrackingContext;
 

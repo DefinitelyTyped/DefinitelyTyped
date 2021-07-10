@@ -8,16 +8,16 @@ declare namespace BezierJs {
     interface Point {
         x: number;
         y: number;
-        z?: number;
+        z?: number | undefined;
     }
     interface Projection extends Point {
-        t?: number;
-        d?: number;
+        t?: number | undefined;
+        d?: number | undefined;
     }
     interface Inflection {
         x: number[];
         y: number[];
-        z?: number[];
+        z?: number[] | undefined;
         values: number[];
     }
     interface Offset extends Point {
@@ -30,19 +30,19 @@ declare namespace BezierJs {
     }
     interface Split extends Pair {
         span: Point[];
-        _t1?: number;
-        _t2?: number;
+        _t1?: number | undefined;
+        _t2?: number | undefined;
     }
     interface MinMax {
         min: number;
-        mid?: number;
+        mid?: number | undefined;
         max: number;
-        size?: number;
+        size?: number | undefined;
     }
     interface BBox {
         x: MinMax;
         y: MinMax;
-        z?: MinMax;
+        z?: MinMax | undefined;
     }
     interface Line {
         p1: Point;

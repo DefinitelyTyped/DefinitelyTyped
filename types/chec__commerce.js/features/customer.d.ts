@@ -5,12 +5,12 @@ import { PaginationMeta } from '../types/pagination';
 import { RequestMethod } from './cart';
 
 export interface CustomerUpdate {
-    email?: string;
-    phone?: string;
-    firstname?: string;
-    lastname?: string;
-    external_id?: string;
-    meta?: object;
+    email?: string | undefined;
+    phone?: string | undefined;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    external_id?: string | undefined;
+    meta?: object | undefined;
 }
 
 export interface CustomerOrdersCollection {

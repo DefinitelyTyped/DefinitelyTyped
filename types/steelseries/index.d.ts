@@ -304,68 +304,68 @@ export function drawForeground(
 
 // Frame, Background and Foreground
 interface FrameStruct {
-    frameDesign?: FrameDesign;
-    frameVisible?: boolean;
-    backgroundColor?: BackgroundColor; // Omit<> in Horizon
-    backgroundVisible?: boolean; 			 // Omit<> in Horizon
-    foregroundType?: ForegroundType; // Omit<> in Linear*
-    foregroundVisible?: boolean;
+    frameDesign?: FrameDesign | undefined;
+    frameVisible?: boolean | undefined;
+    backgroundColor?: BackgroundColor | undefined; // Omit<> in Horizon
+    backgroundVisible?: boolean | undefined; 			 // Omit<> in Horizon
+    foregroundType?: ForegroundType | undefined; // Omit<> in Linear*
+    foregroundVisible?: boolean | undefined;
 }
 
 // Pointer & Knob
 interface PointKnob {
-    knobType?: KnobType; // Omit<> in Clock
-    knobStyle?: KnobStyle; // Omit<> in Clock
-    pointerType?: PointerType; // Omit<> in Altimeter, WindDir
-    pointerColor?: ColorDef; // Omit<> in Altimeter
+    knobType?: KnobType | undefined; // Omit<> in Clock
+    knobStyle?: KnobStyle | undefined; // Omit<> in Clock
+    pointerType?: PointerType | undefined; // Omit<> in Altimeter, WindDir
+    pointerColor?: ColorDef | undefined; // Omit<> in Altimeter
 }
 
 // Lcd
 interface Lcd {
-    lcdColor?: LcdColor;
-    digitalFont?: boolean;
-    lcdVisible?: boolean; // Omit<> in DisplayMulti, DisplaySingle
-    lcdDecimals?: number; // Omit<> in Altimeter, WindDir
+    lcdColor?: LcdColor | undefined;
+    digitalFont?: boolean | undefined;
+    lcdVisible?: boolean | undefined; // Omit<> in DisplayMulti, DisplaySingle
+    lcdDecimals?: number | undefined; // Omit<> in Altimeter, WindDir
 }
 
 // All Linear and Radial common parameters
 interface LinearRadialCommon {
-    minValue?: number;
-    maxValue?: number;
-    minMeasuredValueVisible?: boolean; // Omit<> in RadialBargraph
-    maxMeasuredValueVisible?: boolean; // Omit<> in RadialBargraph
-    niceScale?: boolean;
-    labelNumberFormat?: LabelNumberFormat;
-    threshold?: number;
-    thresholdRising?: boolean;
-    thresholdVisible?: boolean;
-    fullScaleDeflectionTime?: number; // & WindDir
-    playAlarm?: boolean;
-    alarmSound?: string;
+    minValue?: number | undefined;
+    maxValue?: number | undefined;
+    minMeasuredValueVisible?: boolean | undefined; // Omit<> in RadialBargraph
+    maxMeasuredValueVisible?: boolean | undefined; // Omit<> in RadialBargraph
+    niceScale?: boolean | undefined;
+    labelNumberFormat?: LabelNumberFormat | undefined;
+    threshold?: number | undefined;
+    thresholdRising?: boolean | undefined;
+    thresholdVisible?: boolean | undefined;
+    fullScaleDeflectionTime?: number | undefined; // & WindDir
+    playAlarm?: boolean | undefined;
+    alarmSound?: string | undefined;
 
-    titleString?: string;
-    unitString?: string;
+    titleString?: string | undefined;
+    unitString?: string | undefined;
 
-    ledColor?: LedColor;
-    ledVisible?: boolean;
+    ledColor?: LedColor | undefined;
+    ledVisible?: boolean | undefined;
 }
 
 /* Gauges */
 
 export interface RadialParams extends FrameStruct, PointKnob, Lcd, LinearRadialCommon {
-    size?: number;
-    gaugeType?: GaugeType;
-    fractionalScaleDecimals?: number;
-    tickLabelOrientation?: TickLabelOrientation;
-    trendVisible?: boolean;
-    trendColors?: [LedColor, LedColor, LedColor];
-    userLedColor?: LedColor;
-    userLedVisible?: boolean;
-    section?: Section[];
-    area?: Section[];
-    useOdometer?: boolean;
-    odometerParams?: OdometerParams;
-    odometerUseValue?: boolean;
+    size?: number | undefined;
+    gaugeType?: GaugeType | undefined;
+    fractionalScaleDecimals?: number | undefined;
+    tickLabelOrientation?: TickLabelOrientation | undefined;
+    trendVisible?: boolean | undefined;
+    trendColors?: [LedColor, LedColor, LedColor] | undefined;
+    userLedColor?: LedColor | undefined;
+    userLedVisible?: boolean | undefined;
+    section?: Section[] | undefined;
+    area?: Section[] | undefined;
+    useOdometer?: boolean | undefined;
+    odometerParams?: OdometerParams | undefined;
+    odometerUseValue?: boolean | undefined;
 
     customLayer?: any;
 }
@@ -416,19 +416,19 @@ export class Radial {
 }
 
 export interface  RadialBargraphParams extends FrameStruct, Lcd, Omit<LinearRadialCommon, "minMeasuredValueVisible"|"maxMeasuredValueVisible"|"thresholdVisible"> {
-    size?: number;
-    gaugeType?: GaugeType;
-    fractionalScaleDecimals?: number;
-    tickLabelOrientation?: TickLabelOrientation;
-    trendVisible?: boolean;
-    trendColors?: [LedColor, LedColor, LedColor];
-    userLedColor?: LedColor;
-    userLedVisible?: boolean;
-    valueColor?: ColorDef;
-    section?: Section[];
-    useSectionColors?: boolean;
-    valueGradient?: gradientWrapper | null;
-    useValueGradient?: boolean;
+    size?: number | undefined;
+    gaugeType?: GaugeType | undefined;
+    fractionalScaleDecimals?: number | undefined;
+    tickLabelOrientation?: TickLabelOrientation | undefined;
+    trendVisible?: boolean | undefined;
+    trendColors?: [LedColor, LedColor, LedColor] | undefined;
+    userLedColor?: LedColor | undefined;
+    userLedVisible?: boolean | undefined;
+    valueColor?: ColorDef | undefined;
+    section?: Section[] | undefined;
+    useSectionColors?: boolean | undefined;
+    valueGradient?: gradientWrapper | null | undefined;
+    useValueGradient?: boolean | undefined;
 
     customLayer?: any;
 }
@@ -470,10 +470,10 @@ export class RadialBargraph {
 }
 
 export interface RadialVerticalParams extends FrameStruct, PointKnob, LinearRadialCommon {
-    size?: number;
-    orientation?: Orientation;
-    section?: Section[];
-    area?: Section[];
+    size?: number | undefined;
+    orientation?: Orientation | undefined;
+    section?: Section[] | undefined;
+    area?: Section[] | undefined;
 }
 export class RadialVertical {
     constructor(canvas: HTMLCanvasElement|string, parameters?: RadialVerticalParams)
@@ -504,10 +504,10 @@ export class RadialVertical {
 }
 
 export interface LinearParams extends Omit<FrameStruct, "foregroundType">, Lcd, LinearRadialCommon {
-    width?: number;
-    height?: number;
-    gaugeType?: GaugeType;
-    valueColor?: ColorDef;
+    width?: number | undefined;
+    height?: number | undefined;
+    gaugeType?: GaugeType | undefined;
+    valueColor?: ColorDef | undefined;
 }
 export class Linear {
     constructor(canvas: HTMLCanvasElement|string, parameters?: LinearParams)
@@ -541,12 +541,12 @@ export class Linear {
 }
 
 export interface LinearBargraphParams extends Omit<FrameStruct, "foregroundType">, Lcd, LinearRadialCommon {
-    width?: number;
-    height?: number;
-    section?: Section[];
-    valueColor?: ColorDef;
-    valueGradient?: gradientWrapper | null;
-    useValueGradient?: boolean;
+    width?: number | undefined;
+    height?: number | undefined;
+    section?: Section[] | undefined;
+    valueColor?: ColorDef | undefined;
+    valueGradient?: gradientWrapper | null | undefined;
+    useValueGradient?: boolean | undefined;
 }
 export class LinearBargraph {
     constructor(canvas: HTMLCanvasElement|string, parameters?: LinearBargraphParams)
@@ -584,17 +584,17 @@ export class LinearBargraph {
 }
 
 export interface DisplaySingleParams extends Omit<Lcd, "lcdVisible"> {
-    width?: number;
-    height?: number;
-    section?: Section[];
-    unitString?: string;
-    unitStringVisible?: boolean;
-    headerString?: string;
-    headerStringVisible?: boolean;
-    valuesNumeric?: boolean;
-    value?: string | number;
-    alwaysScroll?: boolean;
-    autoScroll?: boolean;
+    width?: number | undefined;
+    height?: number | undefined;
+    section?: Section[] | undefined;
+    unitString?: string | undefined;
+    unitStringVisible?: boolean | undefined;
+    headerString?: string | undefined;
+    headerStringVisible?: boolean | undefined;
+    valuesNumeric?: boolean | undefined;
+    value?: string | number | undefined;
+    alwaysScroll?: boolean | undefined;
+    autoScroll?: boolean | undefined;
 }
 export class DisplaySingle {
     constructor(canvas: HTMLCanvasElement | string, parameters?: DisplaySingleParams)
@@ -606,18 +606,18 @@ export class DisplaySingle {
 }
 
 export interface DisplayMultiParams extends Omit<Lcd, "lcdVisible"> {
-    width?: number;
-    height?: number;
-    headerString?: string;
-    headerStringVisible?: boolean;
-    detailString?: string;
-    detailStringVisible?: boolean;
-    linkAltValue?: boolean;
-    unitString?: string;
-    unitStringVisible?: boolean;
-    valuesNumeric?: boolean;
-    value?: string | number;
-    altValue?: string | number;
+    width?: number | undefined;
+    height?: number | undefined;
+    headerString?: string | undefined;
+    headerStringVisible?: boolean | undefined;
+    detailString?: string | undefined;
+    detailStringVisible?: boolean | undefined;
+    linkAltValue?: boolean | undefined;
+    unitString?: string | undefined;
+    unitStringVisible?: boolean | undefined;
+    valuesNumeric?: boolean | undefined;
+    value?: string | number | undefined;
+    altValue?: string | number | undefined;
 }
 export class DisplayMulti {
     constructor(canvas: HTMLCanvasElement|string, parameters?: DisplayMultiParams)
@@ -628,11 +628,11 @@ export class DisplayMulti {
 }
 
 export interface LevelParams extends FrameStruct {
-    size?: number;
-    decimalsVisible?: boolean;
-    textOrientationFixed?: boolean;
-    pointerColor?: ColorDef;
-    rotateFace?: boolean;
+    size?: number | undefined;
+    decimalsVisible?: boolean | undefined;
+    textOrientationFixed?: boolean | undefined;
+    pointerColor?: ColorDef | undefined;
+    rotateFace?: boolean | undefined;
 }
 export class Level {
     constructor(canvas: HTMLCanvasElement|string, parameters?: LevelParams)
@@ -647,12 +647,12 @@ export class Level {
 }
 
 export interface CompassParams extends FrameStruct, PointKnob {
-    size?: number;
-    pointSymbols?: string[];
-    pointSymbolsVisible?: boolean;
-    degreeScale?: boolean;
-    roseVisible?: boolean;
-    rotateFace?: boolean;
+    size?: number | undefined;
+    pointSymbols?: string[] | undefined;
+    pointSymbolsVisible?: boolean | undefined;
+    degreeScale?: boolean | undefined;
+    roseVisible?: boolean | undefined;
+    rotateFace?: boolean | undefined;
 
     customLayer?: any;
 }
@@ -671,21 +671,21 @@ export class Compass {
 }
 
 export interface WindDirectionParams extends FrameStruct, Omit<PointKnob, "pointerType">, Omit<Lcd, "lcdDecimals"> {
-    size?: number;
-    section?: Section[];
-    area?: Section[];
-    fullScaleDeflectionTime?: number;
-    pointerTypeLatest?: PointerType;
-    pointerTypeAverage?: PointerType;
-    pointerColorAverage?: ColorDef;
-    pointSymbols?: string[];
-    pointSymbolsVisible?: boolean;
-    degreeScale?: boolean;
-    degreeScaleHalf?: boolean;
-    roseVisible?: boolean;
-    lcdTitleStrings?: string[];
-    titleString?: string;
-    useColorLabels?: boolean;
+    size?: number | undefined;
+    section?: Section[] | undefined;
+    area?: Section[] | undefined;
+    fullScaleDeflectionTime?: number | undefined;
+    pointerTypeLatest?: PointerType | undefined;
+    pointerTypeAverage?: PointerType | undefined;
+    pointerColorAverage?: ColorDef | undefined;
+    pointSymbols?: string[] | undefined;
+    pointSymbolsVisible?: boolean | undefined;
+    degreeScale?: boolean | undefined;
+    degreeScaleHalf?: boolean | undefined;
+    roseVisible?: boolean | undefined;
+    lcdTitleStrings?: string[] | undefined;
+    titleString?: string | undefined;
+    useColorLabels?: boolean | undefined;
 
     customLayer?: any;
 }
@@ -713,8 +713,8 @@ export class WindDirection {
 }
 
 export interface HorizonParams extends Omit<FrameStruct, "backgroundColor"|"backgroundVisible"> {
-    size?: number;
-    pointerColor?: ColorDef;
+    size?: number | undefined;
+    pointerColor?: ColorDef | undefined;
 }
 export class Horizon {
     constructor(canvas: HTMLCanvasElement|string, parameters?: HorizonParams)
@@ -731,8 +731,8 @@ export class Horizon {
 }
 
 export interface LedParams {
-    size?: number;
-    ledColor?: LedColor;
+    size?: number | undefined;
+    ledColor?: LedColor | undefined;
 }
 export class Led {
     constructor(canvas: HTMLCanvasElement|string, parameters?: LedParams)
@@ -782,8 +782,8 @@ export class Clock {
 }
 
 export interface BatteryParams {
-    size?: number;
-    value?: number;
+    size?: number | undefined;
+    value?: number | undefined;
 }
 export class Battery {
     constructor(canvas: HTMLCanvasElement|string, parameters?: BatteryParams)
@@ -793,8 +793,8 @@ export class Battery {
 }
 
 export interface StopwatchParams extends FrameStruct {
-    size?: number;
-    pointerColor?: ColorDef;
+    size?: number | undefined;
+    pointerColor?: ColorDef | undefined;
     customLayer?: any;
 }
 export class Stopwatch {
@@ -813,8 +813,8 @@ export class Stopwatch {
 }
 
 export interface AltimeterParams extends FrameStruct, Omit<PointKnob, "pointerType"|"pointerColor">, Omit<Lcd, "lcdDecimals"> {
-    size?: number;
-    unitAltPos?: boolean;
+    size?: number | undefined;
+    unitAltPos?: boolean | undefined;
 
     customLayer?: any;
 }
@@ -833,8 +833,8 @@ export class Altimeter {
 }
 
 export interface TrafficlightParams {
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
 }
 export class Trafficlight {
     constructor(canvas: HTMLCanvasElement|string, parameters?: TrafficlightParams)
@@ -864,17 +864,17 @@ export class Lightbulb {
 }
 
 export interface OdometerParams {
-    _context?: RenderingContext;
-    height?: number;
-    digits?: number;
-    decimals?: number;
-    decimalBackColor?: string;
-    decimalForeColor?: string;
-    font?: string;
-    value?: number;
-    valueBackColor?: string;
-    valueForeColor?: string;
-    wobbleFactor?: number;
+    _context?: RenderingContext | undefined;
+    height?: number | undefined;
+    digits?: number | undefined;
+    decimals?: number | undefined;
+    decimalBackColor?: string | undefined;
+    decimalForeColor?: string | undefined;
+    font?: string | undefined;
+    value?: number | undefined;
+    valueBackColor?: string | undefined;
+    valueForeColor?: string | undefined;
+    wobbleFactor?: number | undefined;
 }
 export class Odometer {
     constructor(canvas: HTMLCanvasElement|string, parameters?: OdometerParams)

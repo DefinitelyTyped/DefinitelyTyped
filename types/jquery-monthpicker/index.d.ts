@@ -8,43 +8,43 @@
 /// <reference types="jqueryui"/>
 
 interface JQueryMonthPickerOptions {
-    AltField?: string|JQuery|Element;
-    AltFormat?: string;
-    Animation?: string;
-    Button?: string|JQuery|Element;
-    ButtonIcon?: string;
-    Disabled?: boolean;
-    Duration?: number|string;
-    HideAnim?: 'fadeOut'|'slideUp'|'none';
-    IsRTL?: boolean;
-    MaxMonth?: Date|number|string;
-    MinMonth?: Date|number|string;
-    MonthFormat?: string;
+    AltField?: string|JQuery|Element | undefined;
+    AltFormat?: string | undefined;
+    Animation?: string | undefined;
+    Button?: string|JQuery|Element | undefined;
+    ButtonIcon?: string | undefined;
+    Disabled?: boolean | undefined;
+    Duration?: number|string | undefined;
+    HideAnim?: 'fadeOut'|'slideUp'|'none' | undefined;
+    IsRTL?: boolean | undefined;
+    MaxMonth?: Date|number|string | undefined;
+    MinMonth?: Date|number|string | undefined;
+    MonthFormat?: string | undefined;
     Position?: any;
-    SelectedMonth?: Date|number|string;
-    ShowAnim?: string;
-    ShowIcon?: boolean;
-    ShowOn?: string;
-    StartYear?: number|null;
-    UseInputMask?: boolean;
-    ValidationErrorMessage?: string|null;
+    SelectedMonth?: Date|number|string | undefined;
+    ShowAnim?: string | undefined;
+    ShowIcon?: boolean | undefined;
+    ShowOn?: string | undefined;
+    StartYear?: number|null | undefined;
+    UseInputMask?: boolean | undefined;
+    ValidationErrorMessage?: string|null | undefined;
     i18n?: {
-        year?: string;
-        prevYear?: string;
-        nextYear?: string;
-        next12Years?: string;
-        prev12Years?: string;
-        nextLabel?: string;
-        prevLabel?: string;
-        buttonText?: string;
-        jumpYears?: string;
-        backTo?: string;
-        months?: string[];
-    };
-    OnBeforeMenuClose?: () => void;
-    OnBeforeMenuOpen?: () => void;
-    OnAfterMenuClose?: () => void;
-    OnAfterMenuOpen?: () => void;
+        year?: string | undefined;
+        prevYear?: string | undefined;
+        nextYear?: string | undefined;
+        next12Years?: string | undefined;
+        prev12Years?: string | undefined;
+        nextLabel?: string | undefined;
+        prevLabel?: string | undefined;
+        buttonText?: string | undefined;
+        jumpYears?: string | undefined;
+        backTo?: string | undefined;
+        months?: string[] | undefined;
+    } | undefined;
+    OnBeforeMenuClose?: (() => void) | undefined;
+    OnBeforeMenuOpen?: (() => void) | undefined;
+    OnAfterMenuClose?: (() => void) | undefined;
+    OnAfterMenuOpen?: (() => void) | undefined;
 }
 
 interface JQuery {

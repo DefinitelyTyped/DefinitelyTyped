@@ -13,11 +13,11 @@ export interface HighlightProps {
     /**
      * Language name to use as a class to signal type to highlight.js.
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Set innerHTML=true to highlight multiple code snippets at a time.
      */
-    innerHTML?: boolean;
+    innerHTML?: boolean | undefined;
 }
 
 /**

@@ -75,6 +75,6 @@ export declare class InterAppPayload {
     sourceUuid: string;
     sourceWindowName: string;
     topic: string;
-    destinationUuid?: string;
+    destinationUuid?: string | undefined;
     message?: any;
 }

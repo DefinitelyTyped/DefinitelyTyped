@@ -10,13 +10,13 @@ import express = require('express');
 export interface Profile extends passport.Profile {
     id: string;
     displayName: string;
-    gender?: string;
+    gender?: string | undefined;
     ageRange?: {
         min: number;
-        max?: number;
-    };
-    profileUrl?: string;
-    username?: string;
+        max?: number | undefined;
+    } | undefined;
+    profileUrl?: string | undefined;
+    username?: string | undefined;
     birthday: string;
 
     _raw: string;
@@ -24,7 +24,7 @@ export interface Profile extends passport.Profile {
 }
 
 export interface AuthenticateOptions extends passport.AuthenticateOptions {
-    authType?: string;
+    authType?: string | undefined;
 }
 
 export interface StrategyOption {
@@ -32,19 +32,19 @@ export interface StrategyOption {
     clientSecret: string;
     callbackURL: string;
 
-    scopeSeparator?: string;
-    enableProof?: boolean;
-    profileFields?: string[];
+    scopeSeparator?: string | undefined;
+    enableProof?: boolean | undefined;
+    profileFields?: string[] | undefined;
 
-    authorizationURL?: string;
-    tokenURL?: string;
-    profileURL?: string;
-    graphAPIVersion?: string;
+    authorizationURL?: string | undefined;
+    tokenURL?: string | undefined;
+    profileURL?: string | undefined;
+    graphAPIVersion?: string | undefined;
 
-    display?: 'page' | 'popup' | 'touch';
+    display?: 'page' | 'popup' | 'touch' | undefined;
 
-    authType?: 'reauthenticate';
-    authNonce?: string;
+    authType?: 'reauthenticate' | undefined;
+    authNonce?: string | undefined;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {

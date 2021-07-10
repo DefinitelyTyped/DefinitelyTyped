@@ -8,11 +8,13 @@ export type PluralForm = (n: number) => number;
 
 export type GettextStatic = (options?: GettextOptions) => Gettext;
 
+export type Optionull<T> = T | null | undefined;
+
 export interface GettextOptions {
-  domain?: string;
-  locale?: string;
-  plural_func?: PluralForm;
-  ctxt_delimiter?: string;
+  domain?: string | undefined;
+  locale?: string | undefined;
+  plural_func?: PluralForm | undefined;
+  ctxt_delimiter?: string | undefined;
 }
 
 export interface JsonDataHeader {
@@ -34,13 +36,17 @@ export interface Gettext {
   setLocale(locale: string): Gettext;
   getLocale(): string;
   textdomain(domain?: string): Gettext | string;
+
   gettext(msgid: string, ...args: any[]): string;
   ngettext(msgid: string, msgid_plural: string, n: number, ...args: any[]): string;
   pgettext(msgctxt: string, msgid: string, ...args: any[]): string;
-  dcnpgettext(domain: string, msgctxt: string, msgid: string, msgid_plural: string, n: number, ...args: any[]): string;
+  dcnpgettext(domain: Optionull<string>, msgctxt: Optionull<string>, msgid: string, msgid_plural: Optionull<string>, n: Optionull<number>, ...args: any[]): string;
   __(msgid: string, ...args: any[]): string;
   _n(msgid: string, msgid_plural: string, n: number, ...args: any[]): string;
   _p(msgctxt: string, msgid: string, ...args: any[]): string;
+
+  strfmt(fmt: string, ...args: any[]): string;
+  expand_locale(locale: string): string[];
 }
 
 export const i18n: GettextStatic;

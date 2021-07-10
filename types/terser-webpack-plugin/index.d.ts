@@ -27,8 +27,8 @@ declare namespace TerserPlugin {
 
     interface ExtractCommentOptions {
         condition: string | RegExp | ExtractCommentFn;
-        filename?: string | FilenameFn;
-        banner?: boolean | string | FormatFn;
+        filename?: string | FilenameFn | undefined;
+        banner?: boolean | string | FormatFn | undefined;
     }
 
     type ExtractCommentFn = (astNode: any, comment: any) => boolean | object;
@@ -42,38 +42,38 @@ declare namespace TerserPlugin {
          * Test to match files against.
          * @default /\.m?js(\?.*)?$/i
          */
-        test?: string | RegExp | Array<string | RegExp>;
+        test?: string | RegExp | Array<string | RegExp> | undefined;
 
         /**
          * Files to include.
          * @default undefined
          */
-        include?: string | RegExp | Array<string | RegExp>;
+        include?: string | RegExp | Array<string | RegExp> | undefined;
 
         /**
          * Files to exclude.
          * @default undefined
          */
-        exclude?: string | RegExp | Array<string | RegExp>;
+        exclude?: string | RegExp | Array<string | RegExp> | undefined;
 
         /**
          * Enable/disable multi-process parallel running.
          * Use multi-process parallel running to improve the build speed. Default number of concurrent runs: os.cpus().length - 1.
          * @default true
          */
-        parallel?: boolean | number;
+        parallel?: boolean | number | undefined;
 
         /**
          * Allows you to override default minify function.
          * By default plugin uses terser package. Useful for using and testing unpublished versions or forks
          * @default undefined
          */
-        minify?: (file: any, sourceMap: any, minimizerOptions?: MinifyOptions) => MinifyResult;
+        minify?: ((file: any, sourceMap: any, minimizerOptions?: MinifyOptions) => MinifyResult) | undefined;
 
         /**
          * Terser minify {@link https://github.com/terser/terser#minify-options|options}.
          */
-        terserOptions?: MinifyOptions;
+        terserOptions?: MinifyOptions | undefined;
 
         /**
          * Whether comments shall be extracted to a separate file, (see details).
@@ -83,7 +83,7 @@ declare namespace TerserPlugin {
          * i.e. it is possible to preserve some comments (e.g. annotations) while extracting others or even preserving comments that have been extracted
          * @default true
          */
-        extractComments?: boolean | string | RegExp | ExtractCommentFn | ExtractCommentOptions;
+        extractComments?: boolean | string | RegExp | ExtractCommentFn | ExtractCommentOptions | undefined;
     }
 }
 

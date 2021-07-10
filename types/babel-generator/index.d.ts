@@ -20,12 +20,12 @@ export interface GeneratorOptions {
     /**
      * Optional string to add as a block comment at the start of the output file.
      */
-    auxiliaryCommentBefore?: string;
+    auxiliaryCommentBefore?: string | undefined;
 
     /**
      * Optional string to add as a block comment at the end of the output file.
      */
-    auxiliaryCommentAfter?: string;
+    auxiliaryCommentAfter?: string | undefined;
 
     /**
      * Function that takes a comment (as a string) and returns true if the comment should be included in the output.
@@ -38,63 +38,63 @@ export interface GeneratorOptions {
      * Attempt to use the same line numbers in the output code as in the source code (helps preserve stack traces).
      * Defaults to `false`.
      */
-    retainLines?: boolean;
+    retainLines?: boolean | undefined;
 
     /**
      * Should comments be included in output? Defaults to `true`.
      */
-    comments?: boolean;
+    comments?: boolean | undefined;
 
     /**
      * Set to true to avoid adding whitespace for formatting. Defaults to the value of `opts.minified`.
      */
-    compact?: boolean | 'auto';
+    compact?: boolean | 'auto' | undefined;
 
     /**
      * Should the output be minified. Defaults to `false`.
      */
-    minified?: boolean;
+    minified?: boolean | undefined;
 
     /**
      * Set to true to reduce whitespace (but not as much as opts.compact). Defaults to `false`.
      */
-    concise?: boolean;
+    concise?: boolean | undefined;
 
     /**
      * The type of quote to use in the output. If omitted, autodetects based on `ast.tokens`.
      */
-    quotes?: 'single' | 'double';
+    quotes?: 'single' | 'double' | undefined;
 
     /**
      * Used in warning messages
      */
-    filename?: string;
+    filename?: string | undefined;
 
     /**
      * Enable generating source maps. Defaults to `false`.
      */
-    sourceMaps?: boolean;
+    sourceMaps?: boolean | undefined;
 
     /**
      * The filename of the generated code that the source map will be associated with.
      */
-    sourceMapTarget?: string;
+    sourceMapTarget?: string | undefined;
 
     /**
      * A root for all relative URLs in the source map.
      */
-    sourceRoot?: string;
+    sourceRoot?: string | undefined;
 
     /**
      * The filename for the source code (i.e. the code in the `code` argument).
      * This will only be used if `code` is a string.
      */
-    sourceFileName?: string;
+    sourceFileName?: string | undefined;
 
     /**
      * Set to true to run jsesc with "json": true to print "\u00A9" vs. "©";
      */
-    jsonCompatibleStrings?: boolean;
+    jsonCompatibleStrings?: boolean | undefined;
 }
 
 export interface GeneratorResult {

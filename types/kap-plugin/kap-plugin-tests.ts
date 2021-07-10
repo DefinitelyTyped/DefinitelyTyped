@@ -3,7 +3,7 @@ import { KapShareService } from 'kap-plugin';
 interface Config {
     name: string;
     greeting: string;
-    accessToken?: string;
+    accessToken?: string | undefined;
 }
 
 const service: KapShareService<Config> = {

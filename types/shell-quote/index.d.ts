@@ -18,7 +18,7 @@ export interface ParseOptions {
     /**
      * Custom escape character, default value is `\`
      */
-    escape?: string;
+    escape?: string | undefined;
 }
 
 /**

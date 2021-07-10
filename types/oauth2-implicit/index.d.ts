@@ -14,7 +14,7 @@ export interface AuthParams {
     client_id: string;
     state: AuthState;
     redirect_uri: string;
-    scope?: string[];
+    scope?: string[] | undefined;
 }
 
 export interface AuthResult {

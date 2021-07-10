@@ -45,7 +45,7 @@ export interface Client<Buckets = {}> extends CustomEventEmitter<ClientEvent> {
 export interface BucketObject<T> {
     id: EntityId;
     data: T;
-    isIndexing?: boolean;
+    isIndexing?: boolean | undefined;
 }
 
 export type EntityCallback<T, E = Error | null> = (
@@ -101,8 +101,8 @@ interface ModificationChange<T> {
     id: string;
     ccid: string;
     v: JSONDiff<T>;
-    sv?: number;
-    d?: T;
+    sv?: number | undefined;
+    d?: T | undefined;
 }
 
 interface RemovalChange {
@@ -220,8 +220,8 @@ export function Auth(
     appId: string,
     apiKey: string,
 ): {
-    authorize(username: string, password: string): Promise<{ access_token?: string }>;
-    create(username: string, password: string): Promise<{ access_token?: string }>;
+    authorize(username: string, password: string): Promise<{ access_token?: string | undefined }>;
+    create(username: string, password: string): Promise<{ access_token?: string | undefined }>;
 };
 
 export default createClient;

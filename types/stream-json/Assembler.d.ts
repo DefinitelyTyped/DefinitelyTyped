@@ -5,7 +5,7 @@ export = Assembler;
 
 interface Token {
     name: string;
-    value?: string;
+    value?: string | undefined;
 }
 
 declare class Assembler extends EventEmitter {
@@ -34,7 +34,7 @@ declare class Assembler extends EventEmitter {
 
 declare namespace Assembler {
     interface AssemblerOptions {
-        reviver?: (key: string, value: any) => any;
+        reviver?: ((key: string, value: any) => any) | undefined;
     }
 
     function connectTo(stream: Readable): Assembler;

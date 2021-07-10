@@ -15,71 +15,71 @@ export interface DropDownProps extends TouchableWithoutFeedbackProps {
   /** Dropdown data items */
   data: DropDownData[];
   /** Component disabled or not. (default: false) */
-  disabled?: boolean;
+  disabled?: boolean | undefined;
   /** Selected value */
-  value?: string | number;
+  value?: string | number | undefined;
   /** Label to be shown for dropdown */
-  label?: string;
+  label?: string | undefined;
   /** Enable RTL layout */
-  absoluteRTLLayout?: boolean;
+  absoluteRTLLayout?: boolean | undefined;
   /** Provide Dropdown top-left position */
-  dropdownOffset?: DropDownOffset;
+  dropdownOffset?: DropDownOffset | undefined;
   /** Provide Dropdown margins */
-  dropdownMargins?: DropDownMargins;
+  dropdownMargins?: DropDownMargins | undefined;
   /** Provide dropdown position (dynamic if undefined) */
-  dropdownPosition?: number;
+  dropdownPosition?: number | undefined;
   /** Provide Ripple color */
-  rippleColor?: string;
+  rippleColor?: string | undefined;
   /** Whether ripple be centered or not (default: false) */
-  rippleCentered?: boolean;
+  rippleCentered?: boolean | undefined;
   /** Whether ripple rendered in sequential order (default: false)  */
-  rippleSequential?: boolean;
+  rippleSequential?: boolean | undefined;
   /** Ripple insets  */
-  rippleInsets?: DropDownInsets;
+  rippleInsets?: DropDownInsets | undefined;
   /** Ripple opacity (default: 0.54) */
-  rippleOpacity?: number;
+  rippleOpacity?: number | undefined;
   /** Shade opacity (default: 0.12) */
-  shadeOpacity?: number;
+  shadeOpacity?: number | undefined;
   /** Ripple duration (defailt: 400) */
-  rippleDuration?: number;
+  rippleDuration?: number | undefined;
   /** Animation duration (default: 225) */
-  animationDuration?: number;
+  animationDuration?: number | undefined;
   /** Set font size of dropdown items (default: 16) */
-  fontSize?: number;
+  fontSize?: number | undefined;
   /** Set font size of label (default: 12) */
-  labelFontSize?: number;
+  labelFontSize?: number | undefined;
   /** Set Text color (default: rgba(0, 0, 0, .87)) */
-  textColor?: string;
+  textColor?: string | undefined;
   /** Set Item color (default: rgba(0, 0, 0, .54)) */
-  itemColor?: string;
+  itemColor?: string | undefined;
   /** Set selected item color */
-  selectedItemColor?: string;
+  selectedItemColor?: string | undefined;
   /** Set disabled item color */
-  disabledItemColor?: string;
+  disabledItemColor?: string | undefined;
   /** Set base color (default: rgba(0, 0, 0, .38)) */
-  baseColor?: string;
+  baseColor?: string | undefined;
   /** Set Item text style. */
-  itemTextStyle?: StyleProp<TextStyle>;
+  itemTextStyle?: StyleProp<TextStyle> | undefined;
   /** Set Item count (default: 4) */
-  itemCount?: number;
+  itemCount?: number | undefined;
   /** Set Item padding (default: 8) */
-  itemPadding?: number;
+  itemPadding?: number | undefined;
   /** Set container styles */
-  containerStyle?: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<ViewStyle> | undefined;
   /** Set input container styles */
-  inputContainerStyle?: StyleProp<ViewStyle>;
+  inputContainerStyle?: StyleProp<ViewStyle> | undefined;
   /** Set the label styles */
-  labelTextStyle?: StyleProp<TextStyle>;
+  labelTextStyle?: StyleProp<TextStyle> | undefined;
   /** Set overlay styles */
-  overlayStyle?: StyleProp<ViewStyle>;
+  overlayStyle?: StyleProp<ViewStyle> | undefined;
   /** Set picker styles */
-  pickerStyle?: StyleProp<ViewStyle>;
+  pickerStyle?: StyleProp<ViewStyle> | undefined;
   /** Specify which orientations are supported. (default: ['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right']) */
-  supportedOrientations?: string[];
+  supportedOrientations?: string[] | undefined;
   /** Use native driver (default: false) */
-  useNativeDriver?: boolean;
+  useNativeDriver?: boolean | undefined;
   /** Hitslop insets (default: { top: 6, right: 4, bottom: 6, left: 4 }) */
-  hitSlop?: DropDownInsets;
+  hitSlop?: DropDownInsets | undefined;
 
   /** Value extractor function. Extract value from item. */
   valueExtractor?(item: DropDownData, index: number): string;
@@ -110,9 +110,9 @@ export interface DropDownData {
   /** Value of item */
   value: string;
   /** Label to be shown */
-  label?: string;
+  label?: string | undefined;
   /** Props for this item */
-  props?: Partial<DropDownProps>;
+  props?: Partial<DropDownProps> | undefined;
 }
 
 /**

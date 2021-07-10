@@ -25,27 +25,27 @@ declare namespace Backbone {
     type _StringKey<T> = keyof T & string;
 
     interface AddOptions extends Silenceable {
-        at?: number;
-        merge?: boolean;
-        sort?: boolean;
+        at?: number | undefined;
+        merge?: boolean | undefined;
+        sort?: boolean | undefined;
     }
 
     interface CollectionSetOptions extends Parseable, Silenceable {
-        add?: boolean;
-        remove?: boolean;
-        merge?: boolean;
-        at?: number;
-        sort?: boolean;
+        add?: boolean | undefined;
+        remove?: boolean | undefined;
+        merge?: boolean | undefined;
+        at?: number | undefined;
+        sort?: boolean | undefined;
     }
 
     interface HistoryOptions extends Silenceable {
-        pushState?: boolean;
-        root?: string;
+        pushState?: boolean | undefined;
+        root?: string | undefined;
     }
 
     interface NavigateOptions {
-        trigger?: boolean;
-        replace?: boolean;
+        trigger?: boolean | undefined;
+        replace?: boolean | undefined;
     }
 
     interface RouterOptions {
@@ -53,31 +53,31 @@ declare namespace Backbone {
     }
 
     interface Silenceable {
-        silent?: boolean;
+        silent?: boolean | undefined;
     }
 
     interface Validable {
-        validate?: boolean;
+        validate?: boolean | undefined;
     }
 
     interface Waitable {
-        wait?: boolean;
+        wait?: boolean | undefined;
     }
 
     interface Parseable {
-        parse?: boolean;
+        parse?: boolean | undefined;
     }
 
     interface PersistenceOptions extends Partial<_Omit<JQueryAjaxSettings, 'success' | 'error'>> {
         // TODO: Generalize modelOrCollection
-        success?: (modelOrCollection: any, response: any, options: any) => void;
-        error?: (modelOrCollection: any, response: any, options: any) => void;
-        emulateJSON?: boolean;
-        emulateHTTP?: boolean;
+        success?: ((modelOrCollection: any, response: any, options: any) => void) | undefined;
+        error?: ((modelOrCollection: any, response: any, options: any) => void) | undefined;
+        emulateJSON?: boolean | undefined;
+        emulateHTTP?: boolean | undefined;
     }
 
     interface ModelConstructorOptions<TModel extends Model = Model> extends ModelSetOptions, Parseable {
-        collection?: Collection<TModel>;
+        collection?: Collection<TModel> | undefined;
     }
 
     type CombinedModelConstructorOptions<E, M extends Model<any, any, E> = Model> = ModelConstructorOptions<M> & E;
@@ -87,13 +87,13 @@ declare namespace Backbone {
     interface ModelFetchOptions extends PersistenceOptions, ModelSetOptions, Parseable {}
 
     interface ModelSaveOptions extends Silenceable, Waitable, Validable, Parseable, PersistenceOptions {
-        patch?: boolean;
+        patch?: boolean | undefined;
     }
 
     interface ModelDestroyOptions extends Waitable, PersistenceOptions {}
 
     interface CollectionFetchOptions extends PersistenceOptions, Parseable, CollectionSetOptions {
-        reset?: boolean;
+        reset?: boolean | undefined;
     }
 
     type ObjectHash = Record<string, any>;
@@ -532,15 +532,15 @@ declare namespace Backbone {
     }
 
     interface ViewOptions<TModel extends Model = Model> {
-        model?: TModel;
+        model?: TModel | undefined;
         // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
-        collection?: Collection<any>; // was: Collection<TModel>;
-        el?: HTMLElement | JQuery | string;
-        id?: string;
-        attributes?: Record<string, any>;
-        className?: string;
-        tagName?: string;
-        events?: _Result<EventsHash>;
+        collection?: Collection<any> | undefined; // was: Collection<TModel>;
+        el?: HTMLElement | JQuery | string | undefined;
+        id?: string | undefined;
+        attributes?: Record<string, any> | undefined;
+        className?: string | undefined;
+        tagName?: string | undefined;
+        events?: _Result<EventsHash> | undefined;
     }
 
     type ViewEventListener = (event: JQuery.Event) => void;
@@ -572,9 +572,9 @@ declare namespace Backbone {
         model: TModel;
         collection: Collection<TModel>;
         setElement(element: HTMLElement | JQuery): this;
-        id?: string;
+        id?: string | undefined;
         cid: string;
-        className?: string;
+        className?: string | undefined;
         tagName: string;
 
         el: HTMLElement;

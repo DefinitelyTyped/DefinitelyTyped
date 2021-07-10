@@ -273,7 +273,7 @@ export interface Events {
      * subscriptions. Default is false.
      */
     eventWebsocket(
-        params: { app: string | string[]; subscribeAll?: boolean },
+        params: { app: string | string[]; subscribeAll?: boolean | undefined },
         callback: (err: Error, message: Message) => void,
     ): void;
 
@@ -284,7 +284,7 @@ export interface Events {
      * @param [params.subscribeAll] - Subscribe to all Asterisk events. If provided, the applications listed will be subscribed to all events, effectively disabling the application specific
      * subscriptions. Default is false.
      */
-    eventWebsocket(params: { app: string | string[]; subscribeAll?: boolean }): Promise<Message>;
+    eventWebsocket(params: { app: string | string[]; subscribeAll?: boolean | undefined }): Promise<Message>;
 
     /**
      * Generate a user event.
@@ -295,7 +295,7 @@ export interface Events {
      * @param [params.variables] - The "variables" key in the body object holds custom key/value pairs to add to the user event. Ex. { "variables": { "key": "value" } }.
      */
     userEvent(
-        params: { eventName: string; application: string; source?: string | string[]; variables?: Containers },
+        params: { eventName: string; application: string; source?: string | string[] | undefined; variables?: Containers | undefined },
         callback: (err: Error) => void,
     ): void;
 
@@ -310,8 +310,8 @@ export interface Events {
     userEvent(params: {
         eventName: string;
         application: string;
-        source?: string | string[];
-        variables?: Containers;
+        source?: string | string[] | undefined;
+        variables?: Containers | undefined;
     }): Promise<void>;
 }
 export interface Message {
@@ -323,7 +323,7 @@ export interface Message {
     /**
      * The unique ID for the Asterisk instance that raised this event.
      */
-    asterisk_id?: string;
+    asterisk_id?: string | undefined;
 }
 export interface MissingParams extends Message {
     /**
@@ -361,7 +361,7 @@ export interface ContactInfo {
     /**
      * Current round trip time, in microseconds, for the contact.
      */
-    roundtrip_usec?: string;
+    roundtrip_usec?: string | undefined;
 }
 export interface Peer {
     /**
@@ -372,22 +372,22 @@ export interface Peer {
     /**
      * An optional reason associated with the change in peer_status.
      */
-    cause?: string;
+    cause?: string | undefined;
 
     /**
      * The IP address of the peer.
      */
-    address?: string;
+    address?: string | undefined;
 
     /**
      * The port of the peer.
      */
-    port?: string;
+    port?: string | undefined;
 
     /**
      * The last known time the peer was contacted.
      */
-    time?: string;
+    time?: string | undefined;
 }
 export interface DeviceStateChanged extends Event {
     /**
@@ -479,7 +479,7 @@ export interface BridgeVideoSourceChanged extends Event {
     /**
      * Old_video_source_id.
      */
-    old_video_source_id?: string;
+    old_video_source_id?: string | undefined;
 }
 export interface BridgeBlindTransfer extends Event {
     /**
@@ -490,12 +490,12 @@ export interface BridgeBlindTransfer extends Event {
     /**
      * The channel that is replacing transferer when the transferee(s) can not be transferred directly.
      */
-    replace_channel?: Channel;
+    replace_channel?: Channel | undefined;
 
     /**
      * The channel that is being transferred.
      */
-    transferee?: Channel;
+    transferee?: Channel | undefined;
 
     /**
      * The extension transferred to.
@@ -536,17 +536,17 @@ export interface BridgeAttendedTransfer extends Event {
     /**
      * The channel that is replacing transferer_first_leg in the swap.
      */
-    replace_channel?: Channel;
+    replace_channel?: Channel | undefined;
 
     /**
      * The channel that is being transferred.
      */
-    transferee?: Channel;
+    transferee?: Channel | undefined;
 
     /**
      * The channel that is being transferred to.
      */
-    transfer_target?: Channel;
+    transfer_target?: Channel | undefined;
 
     /**
      * The result of the transfer attempt.
@@ -710,17 +710,17 @@ export interface ChannelUserevent extends Event {
     /**
      * A channel that is signaled with the user event.
      */
-    channel?: Channel;
+    channel?: Channel | undefined;
 
     /**
      * A bridge that is signaled with the user event.
      */
-    bridge?: Bridge;
+    bridge?: Bridge | undefined;
 
     /**
      * A endpoint that is signaled with the user event.
      */
-    endpoint?: Endpoint;
+    endpoint?: Endpoint | undefined;
 
     /**
      * Custom Userevent data.
@@ -757,7 +757,7 @@ export interface ChannelVarset extends Event {
     /**
      * The channel on which the variable was set. If missing, the variable is a global variable.
      */
-    channel?: Channel;
+    channel?: Channel | undefined;
 }
 export interface ChannelHold extends Event {
     /**
@@ -768,7 +768,7 @@ export interface ChannelHold extends Event {
     /**
      * The music on hold class that the initiator requested.
      */
-    musicclass?: string;
+    musicclass?: string | undefined;
 }
 export interface ChannelUnhold extends Event {
     /**
@@ -825,7 +825,7 @@ export interface Dial extends Event {
     /**
      * The calling channel.
      */
-    caller?: Channel;
+    caller?: Channel | undefined;
 
     /**
      * The dialed channel.
@@ -835,17 +835,17 @@ export interface Dial extends Event {
     /**
      * Forwarding target requested by the original dialed channel.
      */
-    forward?: string;
+    forward?: string | undefined;
 
     /**
      * Channel that the caller has been forwarded to.
      */
-    forwarded?: Channel;
+    forwarded?: Channel | undefined;
 
     /**
      * The dial string for calling the peer channel.
      */
-    dialstring?: string;
+    dialstring?: string | undefined;
 
     /**
      * Current status of the dialing attempt to the peer.
@@ -872,7 +872,7 @@ export interface StasisStart extends Event {
     /**
      * Replace_channel.
      */
-    replace_channel?: Channel;
+    replace_channel?: Channel | undefined;
 }
 export interface TextMessageReceived extends Event {
     /**
@@ -883,7 +883,7 @@ export interface TextMessageReceived extends Event {
     /**
      * Endpoint.
      */
-    endpoint?: Endpoint;
+    endpoint?: Endpoint | undefined;
 }
 export interface ChannelConnectedLine extends Event {
     /**
@@ -1777,7 +1777,7 @@ export interface Applications {
      * @param [params.filter] - Specify which event types to allow/disallow.
      */
     filter(
-        params: { applicationName: string; filter?: IndexableObject },
+        params: { applicationName: string; filter?: IndexableObject | undefined },
         callback: (err: Error, application: Application) => void,
     ): void;
 
@@ -1796,7 +1796,7 @@ export interface Applications {
      * @param params.applicationName - Applications name.
      * @param [params.filter] - Specify which event types to allow/disallow.
      */
-    filter(params: { applicationName: string; filter?: IndexableObject }): Promise<Application>;
+    filter(params: { applicationName: string; filter?: IndexableObject | undefined }): Promise<Application>;
 }
 export interface Application extends Resource {
     /**
@@ -1906,7 +1906,7 @@ export interface Application extends Resource {
      *
      * @param [params.filter] - Specify which event types to allow/disallow.
      */
-    filter(params: { filter?: IndexableObject }, callback: (err: Error, application: Application) => void): void;
+    filter(params: { filter?: IndexableObject | undefined }, callback: (err: Error, application: Application) => void): void;
 
     /**
      * Filter application events types.
@@ -1936,7 +1936,7 @@ export interface Application extends Resource {
      *
      * @param [params.filter] - Specify which event types to allow/disallow.
      */
-    filter(params?: { filter?: IndexableObject }): Promise<Application>;
+    filter(params?: { filter?: IndexableObject | undefined }): Promise<Application>;
 }
 export interface Asterisk {
     /**
@@ -1969,7 +1969,7 @@ export interface Asterisk {
      * @param [params.fields] - The body object should have a value that is a list of ConfigTuples, which provide the fields to update. Ex. [ { "attribute": "directmedia", "value": "false" } ].
      */
     updateObject(
-        params: { configClass: string; objectType: string; id: string; fields?: Containers },
+        params: { configClass: string; objectType: string; id: string; fields?: Containers | undefined },
         callback: (err: Error, configtuples: ConfigTuple[]) => void,
     ): void;
 
@@ -1985,7 +1985,7 @@ export interface Asterisk {
         configClass: string;
         objectType: string;
         id: string;
-        fields?: Containers;
+        fields?: Containers | undefined;
     }): Promise<ConfigTuple[]>;
 
     /**
@@ -2011,7 +2011,7 @@ export interface Asterisk {
      *
      * @param [params.only] - Filter information returned.
      */
-    getInfo(params: { only?: string | string[] }, callback: (err: Error, asteriskinfo: AsteriskInfo) => void): void;
+    getInfo(params: { only?: string | string[] | undefined }, callback: (err: Error, asteriskinfo: AsteriskInfo) => void): void;
 
     /**
      * Gets Asterisk system information.
@@ -2023,7 +2023,7 @@ export interface Asterisk {
      *
      * @param [params.only] - Filter information returned.
      */
-    getInfo(params?: { only?: string | string[] }): Promise<AsteriskInfo>;
+    getInfo(params?: { only?: string | string[] | undefined }): Promise<AsteriskInfo>;
 
     /**
      * Response pong message.
@@ -2175,7 +2175,7 @@ export interface Asterisk {
      * @param params.variable - The variable to set.
      * @param [params.value] - The value to set the variable to.
      */
-    setGlobalVar(params: { variable: string; value?: string }, callback: (err: Error) => void): void;
+    setGlobalVar(params: { variable: string; value?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Set the value of a global variable.
@@ -2183,7 +2183,7 @@ export interface Asterisk {
      * @param params.variable - The variable to set.
      * @param [params.value] - The value to set the variable to.
      */
-    setGlobalVar(params: { variable: string; value?: string }): Promise<void>;
+    setGlobalVar(params: { variable: string; value?: string | undefined }): Promise<void>;
 }
 export interface BuildInfo {
     /**
@@ -2252,17 +2252,17 @@ export interface ConfigInfo {
     /**
      * Maximum number of simultaneous channels.
      */
-    max_channels?: number;
+    max_channels?: number | undefined;
 
     /**
      * Maximum number of open file handles (files, sockets).
      */
-    max_open_files?: number;
+    max_open_files?: number | undefined;
 
     /**
      * Maximum load avg on system.
      */
-    max_load?: number;
+    max_load?: number | undefined;
 
     /**
      * Effective user/group id for running Asterisk.
@@ -2284,22 +2284,22 @@ export interface AsteriskInfo {
     /**
      * Info about how Asterisk was built.
      */
-    build?: BuildInfo;
+    build?: BuildInfo | undefined;
 
     /**
      * Info about the system running Asterisk.
      */
-    system?: SystemInfo;
+    system?: SystemInfo | undefined;
 
     /**
      * Info about Asterisk configuration.
      */
-    config?: ConfigInfo;
+    config?: ConfigInfo | undefined;
 
     /**
      * Info about Asterisk status.
      */
-    status?: StatusInfo;
+    status?: StatusInfo | undefined;
 }
 export interface AsteriskPing {
     /**
@@ -2401,7 +2401,7 @@ export interface Bridges {
      * @param [params.name] - Name to give to the bridge being created.
      */
     create(
-        params: { type?: string; bridgeId?: string; name?: string },
+        params: { type?: string | undefined; bridgeId?: string | undefined; name?: string | undefined },
         callback: (err: Error, bridge: Bridge) => void,
     ): void;
 
@@ -2419,7 +2419,7 @@ export interface Bridges {
      * @param [params.bridgeId] - Unique ID to give to the bridge being created.
      * @param [params.name] - Name to give to the bridge being created.
      */
-    create(params?: { type?: string; bridgeId?: string; name?: string }): Promise<Bridge>;
+    create(params?: { type?: string | undefined; bridgeId?: string | undefined; name?: string | undefined }): Promise<Bridge>;
 
     /**
      * Create a new bridge or updates an existing one.
@@ -2430,7 +2430,7 @@ export interface Bridges {
      * @param [params.name] - Set the name of the bridge.
      */
     createWithId(
-        params: { type?: string; bridgeId: string; name?: string },
+        params: { type?: string | undefined; bridgeId: string; name?: string | undefined },
         callback: (err: Error, bridge: Bridge) => void,
     ): void;
 
@@ -2442,7 +2442,7 @@ export interface Bridges {
      * @param params.bridgeId - Unique ID to give to the bridge being created.
      * @param [params.name] - Set the name of the bridge.
      */
-    createWithId(params: { type?: string; bridgeId: string; name?: string }): Promise<Bridge>;
+    createWithId(params: { type?: string | undefined; bridgeId: string; name?: string | undefined }): Promise<Bridge>;
 
     /**
      * Get bridge details.
@@ -2484,7 +2484,7 @@ export interface Bridges {
      * @param [params.mute] - Mute audio from this channel, preventing it to pass through to the bridge.
      */
     addChannel(
-        params: { bridgeId: string; channel: string | string[]; role?: string; absorbDTMF?: boolean; mute?: boolean },
+        params: { bridgeId: string; channel: string | string[]; role?: string | undefined; absorbDTMF?: boolean | undefined; mute?: boolean | undefined },
         callback: (err: Error) => void,
     ): void;
 
@@ -2500,9 +2500,9 @@ export interface Bridges {
     addChannel(params: {
         bridgeId: string;
         channel: string | string[];
-        role?: string;
-        absorbDTMF?: boolean;
-        mute?: boolean;
+        role?: string | undefined;
+        absorbDTMF?: boolean | undefined;
+        mute?: boolean | undefined;
     }): Promise<void>;
 
     /**
@@ -2559,7 +2559,7 @@ export interface Bridges {
      * @param params.bridgeId - Bridges id.
      * @param [params.mohClass] - Channels id.
      */
-    startMoh(params: { bridgeId: string; mohClass?: string }, callback: (err: Error) => void): void;
+    startMoh(params: { bridgeId: string; mohClass?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a bridge or change the MOH class that is playing.
@@ -2567,7 +2567,7 @@ export interface Bridges {
      * @param params.bridgeId - Bridges id.
      * @param [params.mohClass] - Channels id.
      */
-    startMoh(params: { bridgeId: string; mohClass?: string }): Promise<void>;
+    startMoh(params: { bridgeId: string; mohClass?: string | undefined }): Promise<void>;
 
     /**
      * Stop playing music on hold to a bridge.
@@ -2601,10 +2601,10 @@ export interface Bridges {
         params: {
             bridgeId: string;
             media: string | string[];
-            lang?: string;
-            offsetms?: number;
-            skipms?: number;
-            playbackId?: string;
+            lang?: string | undefined;
+            offsetms?: number | undefined;
+            skipms?: number | undefined;
+            playbackId?: string | undefined;
         },
         callback: (err: Error, playback: Playback) => void,
     ): void;
@@ -2624,10 +2624,10 @@ export interface Bridges {
     play(params: {
         bridgeId: string;
         media: string | string[];
-        lang?: string;
-        offsetms?: number;
-        skipms?: number;
-        playbackId?: string;
+        lang?: string | undefined;
+        offsetms?: number | undefined;
+        skipms?: number | undefined;
+        playbackId?: string | undefined;
     }): Promise<Playback>;
 
     /**
@@ -2647,9 +2647,9 @@ export interface Bridges {
             bridgeId: string;
             playbackId: string;
             media: string | string[];
-            lang?: string;
-            offsetms?: number;
-            skipms?: number;
+            lang?: string | undefined;
+            offsetms?: number | undefined;
+            skipms?: number | undefined;
         },
         callback: (err: Error, playback: Playback) => void,
     ): void;
@@ -2670,9 +2670,9 @@ export interface Bridges {
         bridgeId: string;
         playbackId: string;
         media: string | string[];
-        lang?: string;
-        offsetms?: number;
-        skipms?: number;
+        lang?: string | undefined;
+        offsetms?: number | undefined;
+        skipms?: number | undefined;
     }): Promise<Playback>;
 
     /**
@@ -2693,11 +2693,11 @@ export interface Bridges {
             bridgeId: string;
             name: string;
             format: string;
-            maxDurationSeconds?: number;
-            maxSilenceSeconds?: number;
-            ifExists?: string;
-            beep?: boolean;
-            terminateOn?: string;
+            maxDurationSeconds?: number | undefined;
+            maxSilenceSeconds?: number | undefined;
+            ifExists?: string | undefined;
+            beep?: boolean | undefined;
+            terminateOn?: string | undefined;
         },
         callback: (err: Error, liverecording: LiveRecording) => void,
     ): void;
@@ -2719,11 +2719,11 @@ export interface Bridges {
         bridgeId: string;
         name: string;
         format: string;
-        maxDurationSeconds?: number;
-        maxSilenceSeconds?: number;
-        ifExists?: string;
-        beep?: boolean;
-        terminateOn?: string;
+        maxDurationSeconds?: number | undefined;
+        maxSilenceSeconds?: number | undefined;
+        ifExists?: string | undefined;
+        beep?: boolean | undefined;
+        terminateOn?: string | undefined;
     }): Promise<LiveRecording>;
 }
 export interface Bridge extends Resource {
@@ -2765,12 +2765,12 @@ export interface Bridge extends Resource {
     /**
      * The video mode the bridge is using. One of none, talker, or single.
      */
-    video_mode?: string;
+    video_mode?: string | undefined;
 
     /**
      * The ID of the channel that is the source of video in this bridge, if one exists.
      */
-    video_source_id?: string;
+    video_source_id?: string | undefined;
 
     /**
      * Timestamp when bridge was created.
@@ -2794,7 +2794,7 @@ export interface Bridge extends Resource {
      * @param [params.type] - Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu).
      * @param [params.name] - Name to give to the bridge being created.
      */
-    create(params: { type?: string; name?: string }, callback: (err: Error, bridge: Bridge) => void): void;
+    create(params: { type?: string | undefined; name?: string | undefined }, callback: (err: Error, bridge: Bridge) => void): void;
 
     /**
      * Create a new bridge.
@@ -2809,7 +2809,7 @@ export interface Bridge extends Resource {
      * @param [params.type] - Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu).
      * @param [params.name] - Name to give to the bridge being created.
      */
-    create(params?: { type?: string; name?: string }): Promise<Bridge>;
+    create(params?: { type?: string | undefined; name?: string | undefined }): Promise<Bridge>;
 
     /**
      * Create a new bridge or updates an existing one.
@@ -2818,7 +2818,7 @@ export interface Bridge extends Resource {
      * @param [params.type] - Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu) to set.
      * @param [params.name] - Set the name of the bridge.
      */
-    createWithId(params: { type?: string; name?: string }, callback: (err: Error, bridge: Bridge) => void): void;
+    createWithId(params: { type?: string | undefined; name?: string | undefined }, callback: (err: Error, bridge: Bridge) => void): void;
 
     /**
      * Create a new bridge or updates an existing one.
@@ -2833,7 +2833,7 @@ export interface Bridge extends Resource {
      * @param [params.type] - Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media, video_sfu) to set.
      * @param [params.name] - Set the name of the bridge.
      */
-    createWithId(params?: { type?: string; name?: string }): Promise<Bridge>;
+    createWithId(params?: { type?: string | undefined; name?: string | undefined }): Promise<Bridge>;
 
     /**
      * Get bridge details.
@@ -2866,7 +2866,7 @@ export interface Bridge extends Resource {
      * @param [params.mute] - Mute audio from this channel, preventing it to pass through to the bridge.
      */
     addChannel(
-        params: { channel: string | string[]; role?: string; absorbDTMF?: boolean; mute?: boolean },
+        params: { channel: string | string[]; role?: string | undefined; absorbDTMF?: boolean | undefined; mute?: boolean | undefined },
         callback: (err: Error) => void,
     ): void;
 
@@ -2880,9 +2880,9 @@ export interface Bridge extends Resource {
      */
     addChannel(params: {
         channel: string | string[];
-        role?: string;
-        absorbDTMF?: boolean;
-        mute?: boolean;
+        role?: string | undefined;
+        absorbDTMF?: boolean | undefined;
+        mute?: boolean | undefined;
     }): Promise<void>;
 
     /**
@@ -2930,7 +2930,7 @@ export interface Bridge extends Resource {
      *
      * @param [params.mohClass] - Channels id.
      */
-    startMoh(params: { mohClass?: string }, callback: (err: Error) => void): void;
+    startMoh(params: { mohClass?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a bridge or change the MOH class that is playing.
@@ -2942,7 +2942,7 @@ export interface Bridge extends Resource {
      *
      * @param [params.mohClass] - Channels id.
      */
-    startMoh(params?: { mohClass?: string }): Promise<void>;
+    startMoh(params?: { mohClass?: string | undefined }): Promise<void>;
 
     /**
      * Stop playing music on hold to a bridge.
@@ -2968,7 +2968,7 @@ export interface Bridge extends Resource {
      * @param [params.playbackId] - Playback Id.
      */
     play(
-        params: { media: string | string[]; lang?: string; offsetms?: number; skipms?: number; playbackId?: string },
+        params: { media: string | string[]; lang?: string | undefined; offsetms?: number | undefined; skipms?: number | undefined; playbackId?: string | undefined },
         callback: (err: Error, playback: Playback) => void,
     ): void;
 
@@ -2985,10 +2985,10 @@ export interface Bridge extends Resource {
      */
     play(params: {
         media: string | string[];
-        lang?: string;
-        offsetms?: number;
-        skipms?: number;
-        playbackId?: string;
+        lang?: string | undefined;
+        offsetms?: number | undefined;
+        skipms?: number | undefined;
+        playbackId?: string | undefined;
     }): Promise<Playback>;
 
     /**
@@ -3003,7 +3003,7 @@ export interface Bridge extends Resource {
      * @param [params.skipms] - Number of milliseconds to skip for forward/reverse operations.
      */
     playWithId(
-        params: { playbackId: string; media: string | string[]; lang?: string; offsetms?: number; skipms?: number },
+        params: { playbackId: string; media: string | string[]; lang?: string | undefined; offsetms?: number | undefined; skipms?: number | undefined },
         callback: (err: Error, playback: Playback) => void,
     ): void;
 
@@ -3021,9 +3021,9 @@ export interface Bridge extends Resource {
     playWithId(params: {
         playbackId: string;
         media: string | string[];
-        lang?: string;
-        offsetms?: number;
-        skipms?: number;
+        lang?: string | undefined;
+        offsetms?: number | undefined;
+        skipms?: number | undefined;
     }): Promise<Playback>;
 
     /**
@@ -3042,11 +3042,11 @@ export interface Bridge extends Resource {
         params: {
             name: string;
             format: string;
-            maxDurationSeconds?: number;
-            maxSilenceSeconds?: number;
-            ifExists?: string;
-            beep?: boolean;
-            terminateOn?: string;
+            maxDurationSeconds?: number | undefined;
+            maxSilenceSeconds?: number | undefined;
+            ifExists?: string | undefined;
+            beep?: boolean | undefined;
+            terminateOn?: string | undefined;
         },
         recording: LiveRecording,
         callback: (err: Error, liverecording: LiveRecording) => void,
@@ -3068,11 +3068,11 @@ export interface Bridge extends Resource {
         params: {
             name: string;
             format: string;
-            maxDurationSeconds?: number;
-            maxSilenceSeconds?: number;
-            ifExists?: string;
-            beep?: boolean;
-            terminateOn?: string;
+            maxDurationSeconds?: number | undefined;
+            maxSilenceSeconds?: number | undefined;
+            ifExists?: string | undefined;
+            beep?: boolean | undefined;
+            terminateOn?: string | undefined;
         },
         recording: LiveRecording,
     ): Promise<LiveRecording>;
@@ -3113,19 +3113,19 @@ export interface Channels {
     originate(
         params: {
             endpoint: string;
-            extension?: string;
-            context?: string;
-            priority?: number;
-            label?: string;
-            app?: string;
-            appArgs?: string;
-            callerId?: string;
-            timeout?: number;
-            variables?: Containers;
-            channelId?: string;
-            otherChannelId?: string;
-            originator?: string;
-            formats?: string;
+            extension?: string | undefined;
+            context?: string | undefined;
+            priority?: number | undefined;
+            label?: string | undefined;
+            app?: string | undefined;
+            appArgs?: string | undefined;
+            callerId?: string | undefined;
+            timeout?: number | undefined;
+            variables?: Containers | undefined;
+            channelId?: string | undefined;
+            otherChannelId?: string | undefined;
+            originator?: string | undefined;
+            formats?: string | undefined;
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
@@ -3154,19 +3154,19 @@ export interface Channels {
      */
     originate(params: {
         endpoint: string;
-        extension?: string;
-        context?: string;
-        priority?: number;
-        label?: string;
-        app?: string;
-        appArgs?: string;
-        callerId?: string;
-        timeout?: number;
-        variables?: Containers;
-        channelId?: string;
-        otherChannelId?: string;
-        originator?: string;
-        formats?: string;
+        extension?: string | undefined;
+        context?: string | undefined;
+        priority?: number | undefined;
+        label?: string | undefined;
+        app?: string | undefined;
+        appArgs?: string | undefined;
+        callerId?: string | undefined;
+        timeout?: number | undefined;
+        variables?: Containers | undefined;
+        channelId?: string | undefined;
+        otherChannelId?: string | undefined;
+        originator?: string | undefined;
+        formats?: string | undefined;
     }): Promise<Channel>;
 
     /**
@@ -3184,11 +3184,11 @@ export interface Channels {
         params: {
             endpoint: string;
             app: string;
-            appArgs?: string;
-            channelId?: string;
-            otherChannelId?: string;
-            originator?: string;
-            formats?: string;
+            appArgs?: string | undefined;
+            channelId?: string | undefined;
+            otherChannelId?: string | undefined;
+            originator?: string | undefined;
+            formats?: string | undefined;
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
@@ -3207,11 +3207,11 @@ export interface Channels {
     create(params: {
         endpoint: string;
         app: string;
-        appArgs?: string;
-        channelId?: string;
-        otherChannelId?: string;
-        originator?: string;
-        formats?: string;
+        appArgs?: string | undefined;
+        channelId?: string | undefined;
+        otherChannelId?: string | undefined;
+        originator?: string | undefined;
+        formats?: string | undefined;
     }): Promise<Channel>;
 
     /**
@@ -3254,18 +3254,18 @@ export interface Channels {
         params: {
             channelId: string;
             endpoint: string;
-            extension?: string;
-            context?: string;
-            priority?: number;
-            label?: string;
-            app?: string;
-            appArgs?: string;
-            callerId?: string;
-            timeout?: number;
-            variables?: Containers;
-            otherChannelId?: string;
-            originator?: string;
-            formats?: string;
+            extension?: string | undefined;
+            context?: string | undefined;
+            priority?: number | undefined;
+            label?: string | undefined;
+            app?: string | undefined;
+            appArgs?: string | undefined;
+            callerId?: string | undefined;
+            timeout?: number | undefined;
+            variables?: Containers | undefined;
+            otherChannelId?: string | undefined;
+            originator?: string | undefined;
+            formats?: string | undefined;
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
@@ -3295,18 +3295,18 @@ export interface Channels {
     originateWithId(params: {
         channelId: string;
         endpoint: string;
-        extension?: string;
-        context?: string;
-        priority?: number;
-        label?: string;
-        app?: string;
-        appArgs?: string;
-        callerId?: string;
-        timeout?: number;
-        variables?: Containers;
-        otherChannelId?: string;
-        originator?: string;
-        formats?: string;
+        extension?: string | undefined;
+        context?: string | undefined;
+        priority?: number | undefined;
+        label?: string | undefined;
+        app?: string | undefined;
+        appArgs?: string | undefined;
+        callerId?: string | undefined;
+        timeout?: number | undefined;
+        variables?: Containers | undefined;
+        otherChannelId?: string | undefined;
+        originator?: string | undefined;
+        formats?: string | undefined;
     }): Promise<Channel>;
 
     /**
@@ -3315,7 +3315,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.reason] - Reason for hanging up the channel.
      */
-    hangup(params: { channelId: string; reason?: string }, callback: (err: Error) => void): void;
+    hangup(params: { channelId: string; reason?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Delete (i.e. hangup) a channel.
@@ -3323,7 +3323,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.reason] - Reason for hanging up the channel.
      */
-    hangup(params: { channelId: string; reason?: string }): Promise<void>;
+    hangup(params: { channelId: string; reason?: string | undefined }): Promise<void>;
 
     /**
      * Exit application; continue execution in the dialplan.
@@ -3335,7 +3335,7 @@ export interface Channels {
      * @param [params.label] - The label to continue to - will supersede priority if both are provided.
      */
     continueInDialplan(
-        params: { channelId: string; context?: string; extension?: string; priority?: number; label?: string },
+        params: { channelId: string; context?: string | undefined; extension?: string | undefined; priority?: number | undefined; label?: string | undefined },
         callback: (err: Error) => void,
     ): void;
 
@@ -3350,10 +3350,10 @@ export interface Channels {
      */
     continueInDialplan(params: {
         channelId: string;
-        context?: string;
-        extension?: string;
-        priority?: number;
-        label?: string;
+        context?: string | undefined;
+        extension?: string | undefined;
+        priority?: number | undefined;
+        label?: string | undefined;
     }): Promise<void>;
 
     /**
@@ -3363,7 +3363,7 @@ export interface Channels {
      * @param params.app - The channel will be passed to this Stasis application.
      * @param [params.appArgs] - The application arguments to pass to the Stasis application provided by app.
      */
-    move(params: { channelId: string; app: string; appArgs?: string }, callback: (err: Error) => void): void;
+    move(params: { channelId: string; app: string; appArgs?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Move the channel from one Stasis application to another.
@@ -3372,7 +3372,7 @@ export interface Channels {
      * @param params.app - The channel will be passed to this Stasis application.
      * @param [params.appArgs] - The application arguments to pass to the Stasis application provided by app.
      */
-    move(params: { channelId: string; app: string; appArgs?: string }): Promise<void>;
+    move(params: { channelId: string; app: string; appArgs?: string | undefined }): Promise<void>;
 
     /**
      * Redirect the channel to a different location.
@@ -3445,11 +3445,11 @@ export interface Channels {
     sendDTMF(
         params: {
             channelId: string;
-            dtmf?: string;
-            before?: number;
-            between?: number;
-            duration?: number;
-            after?: number;
+            dtmf?: string | undefined;
+            before?: number | undefined;
+            between?: number | undefined;
+            duration?: number | undefined;
+            after?: number | undefined;
         },
         callback: (err: Error) => void,
     ): void;
@@ -3466,11 +3466,11 @@ export interface Channels {
      */
     sendDTMF(params: {
         channelId: string;
-        dtmf?: string;
-        before?: number;
-        between?: number;
-        duration?: number;
-        after?: number;
+        dtmf?: string | undefined;
+        before?: number | undefined;
+        between?: number | undefined;
+        duration?: number | undefined;
+        after?: number | undefined;
     }): Promise<void>;
 
     /**
@@ -3479,7 +3479,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.direction] - Direction in which to mute audio.
      */
-    mute(params: { channelId: string; direction?: string }, callback: (err: Error) => void): void;
+    mute(params: { channelId: string; direction?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Mute a channel.
@@ -3487,7 +3487,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.direction] - Direction in which to mute audio.
      */
-    mute(params: { channelId: string; direction?: string }): Promise<void>;
+    mute(params: { channelId: string; direction?: string | undefined }): Promise<void>;
 
     /**
      * Unmute a channel.
@@ -3495,7 +3495,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.direction] - Direction in which to unmute audio.
      */
-    unmute(params: { channelId: string; direction?: string }, callback: (err: Error) => void): void;
+    unmute(params: { channelId: string; direction?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Unmute a channel.
@@ -3503,7 +3503,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.direction] - Direction in which to unmute audio.
      */
-    unmute(params: { channelId: string; direction?: string }): Promise<void>;
+    unmute(params: { channelId: string; direction?: string | undefined }): Promise<void>;
 
     /**
      * Hold a channel.
@@ -3541,7 +3541,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.mohClass] - Music on hold class to use.
      */
-    startMoh(params: { channelId: string; mohClass?: string }, callback: (err: Error) => void): void;
+    startMoh(params: { channelId: string; mohClass?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a channel.
@@ -3551,7 +3551,7 @@ export interface Channels {
      * @param params.channelId - Channels id.
      * @param [params.mohClass] - Music on hold class to use.
      */
-    startMoh(params: { channelId: string; mohClass?: string }): Promise<void>;
+    startMoh(params: { channelId: string; mohClass?: string | undefined }): Promise<void>;
 
     /**
      * Stop playing music on hold to a channel.
@@ -3613,10 +3613,10 @@ export interface Channels {
         params: {
             channelId: string;
             media: string | string[];
-            lang?: string;
-            offsetms?: number;
-            skipms?: number;
-            playbackId?: string;
+            lang?: string | undefined;
+            offsetms?: number | undefined;
+            skipms?: number | undefined;
+            playbackId?: string | undefined;
         },
         callback: (err: Error, playback: Playback) => void,
     ): void;
@@ -3636,10 +3636,10 @@ export interface Channels {
     play(params: {
         channelId: string;
         media: string | string[];
-        lang?: string;
-        offsetms?: number;
-        skipms?: number;
-        playbackId?: string;
+        lang?: string | undefined;
+        offsetms?: number | undefined;
+        skipms?: number | undefined;
+        playbackId?: string | undefined;
     }): Promise<Playback>;
 
     /**
@@ -3659,9 +3659,9 @@ export interface Channels {
             channelId: string;
             playbackId: string;
             media: string | string[];
-            lang?: string;
-            offsetms?: number;
-            skipms?: number;
+            lang?: string | undefined;
+            offsetms?: number | undefined;
+            skipms?: number | undefined;
         },
         callback: (err: Error, playback: Playback) => void,
     ): void;
@@ -3682,9 +3682,9 @@ export interface Channels {
         channelId: string;
         playbackId: string;
         media: string | string[];
-        lang?: string;
-        offsetms?: number;
-        skipms?: number;
+        lang?: string | undefined;
+        offsetms?: number | undefined;
+        skipms?: number | undefined;
     }): Promise<Playback>;
 
     /**
@@ -3705,11 +3705,11 @@ export interface Channels {
             channelId: string;
             name: string;
             format: string;
-            maxDurationSeconds?: number;
-            maxSilenceSeconds?: number;
-            ifExists?: string;
-            beep?: boolean;
-            terminateOn?: string;
+            maxDurationSeconds?: number | undefined;
+            maxSilenceSeconds?: number | undefined;
+            ifExists?: string | undefined;
+            beep?: boolean | undefined;
+            terminateOn?: string | undefined;
         },
         callback: (err: Error, liverecording: LiveRecording) => void,
     ): void;
@@ -3731,11 +3731,11 @@ export interface Channels {
         channelId: string;
         name: string;
         format: string;
-        maxDurationSeconds?: number;
-        maxSilenceSeconds?: number;
-        ifExists?: string;
-        beep?: boolean;
-        terminateOn?: string;
+        maxDurationSeconds?: number | undefined;
+        maxSilenceSeconds?: number | undefined;
+        ifExists?: string | undefined;
+        beep?: boolean | undefined;
+        terminateOn?: string | undefined;
     }): Promise<LiveRecording>;
 
     /**
@@ -3765,7 +3765,7 @@ export interface Channels {
      * @param [params.value] - The value to set the variable to.
      */
     setChannelVar(
-        params: { channelId: string; variable: string; value?: string },
+        params: { channelId: string; variable: string; value?: string | undefined },
         callback: (err: Error) => void,
     ): void;
 
@@ -3776,7 +3776,7 @@ export interface Channels {
      * @param params.variable - The channel variable or function to set.
      * @param [params.value] - The value to set the variable to.
      */
-    setChannelVar(params: { channelId: string; variable: string; value?: string }): Promise<void>;
+    setChannelVar(params: { channelId: string; variable: string; value?: string | undefined }): Promise<void>;
 
     /**
      * Start snooping.
@@ -3790,7 +3790,7 @@ export interface Channels {
      * @param [params.snoopId] - Unique ID to assign to snooping channel.
      */
     snoopChannel(
-        params: { channelId: string; spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
+        params: { channelId: string; spy?: string | undefined; whisper?: string | undefined; app: string; appArgs?: string | undefined; snoopId?: string | undefined },
         callback: (err: Error, channel: Channel) => void,
     ): void;
 
@@ -3807,11 +3807,11 @@ export interface Channels {
      */
     snoopChannel(params: {
         channelId: string;
-        spy?: string;
-        whisper?: string;
+        spy?: string | undefined;
+        whisper?: string | undefined;
         app: string;
-        appArgs?: string;
-        snoopId?: string;
+        appArgs?: string | undefined;
+        snoopId?: string | undefined;
     }): Promise<Channel>;
 
     /**
@@ -3826,7 +3826,7 @@ export interface Channels {
      * @param [params.appArgs] - The application arguments to pass to the Stasis application.
      */
     snoopChannelWithId(
-        params: { channelId: string; snoopId: string; spy?: string; whisper?: string; app: string; appArgs?: string },
+        params: { channelId: string; snoopId: string; spy?: string | undefined; whisper?: string | undefined; app: string; appArgs?: string | undefined },
         callback: (err: Error, channel: Channel) => void,
     ): void;
 
@@ -3844,10 +3844,10 @@ export interface Channels {
     snoopChannelWithId(params: {
         channelId: string;
         snoopId: string;
-        spy?: string;
-        whisper?: string;
+        spy?: string | undefined;
+        whisper?: string | undefined;
         app: string;
-        appArgs?: string;
+        appArgs?: string | undefined;
     }): Promise<Channel>;
 
     /**
@@ -3857,7 +3857,7 @@ export interface Channels {
      * @param [params.caller] - Channel ID of caller.
      * @param [params.timeout] - Dial timeout.
      */
-    dial(params: { channelId: string; caller?: string; timeout?: number }, callback: (err: Error) => void): void;
+    dial(params: { channelId: string; caller?: string | undefined; timeout?: number | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Dial a created channel.
@@ -3866,7 +3866,7 @@ export interface Channels {
      * @param [params.caller] - Channel ID of caller.
      * @param [params.timeout] - Dial timeout.
      */
-    dial(params: { channelId: string; caller?: string; timeout?: number }): Promise<void>;
+    dial(params: { channelId: string; caller?: string | undefined; timeout?: number | undefined }): Promise<void>;
 
     /**
      * RTP stats on a channel.
@@ -3899,15 +3899,15 @@ export interface Channels {
      */
     externalMedia(
         params: {
-            channelId?: string;
+            channelId?: string | undefined;
             app: string;
-            variables?: Containers;
+            variables?: Containers | undefined;
             external_host: string;
-            encapsulation?: string;
-            transport?: string;
-            connection_type?: string;
+            encapsulation?: string | undefined;
+            transport?: string | undefined;
+            connection_type?: string | undefined;
             format: string;
-            direction?: string;
+            direction?: string | undefined;
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
@@ -3928,15 +3928,15 @@ export interface Channels {
      * @param [params.direction] - External media direction.
      */
     externalMedia(params: {
-        channelId?: string;
+        channelId?: string | undefined;
         app: string;
-        variables?: Containers;
+        variables?: Containers | undefined;
         external_host: string;
-        encapsulation?: string;
-        transport?: string;
-        connection_type?: string;
+        encapsulation?: string | undefined;
+        transport?: string | undefined;
+        connection_type?: string | undefined;
         format: string;
-        direction?: string;
+        direction?: string | undefined;
     }): Promise<Channel>;
 }
 export interface DialplanCEP {
@@ -3990,52 +3990,52 @@ export interface RTPstat {
     /**
      * Jitter on transmitted packets.
      */
-    txjitter?: number;
+    txjitter?: number | undefined;
 
     /**
      * Jitter on received packets.
      */
-    rxjitter?: number;
+    rxjitter?: number | undefined;
 
     /**
      * Maximum jitter on remote side.
      */
-    remote_maxjitter?: number;
+    remote_maxjitter?: number | undefined;
 
     /**
      * Minimum jitter on remote side.
      */
-    remote_minjitter?: number;
+    remote_minjitter?: number | undefined;
 
     /**
      * Average jitter on remote side.
      */
-    remote_normdevjitter?: number;
+    remote_normdevjitter?: number | undefined;
 
     /**
      * Standard deviation jitter on remote side.
      */
-    remote_stdevjitter?: number;
+    remote_stdevjitter?: number | undefined;
 
     /**
      * Maximum jitter on local side.
      */
-    local_maxjitter?: number;
+    local_maxjitter?: number | undefined;
 
     /**
      * Minimum jitter on local side.
      */
-    local_minjitter?: number;
+    local_minjitter?: number | undefined;
 
     /**
      * Average jitter on local side.
      */
-    local_normdevjitter?: number;
+    local_normdevjitter?: number | undefined;
 
     /**
      * Standard deviation jitter on local side.
      */
-    local_stdevjitter?: number;
+    local_stdevjitter?: number | undefined;
 
     /**
      * Number of transmitted packets lost.
@@ -4050,67 +4050,67 @@ export interface RTPstat {
     /**
      * Maximum number of packets lost on remote side.
      */
-    remote_maxrxploss?: number;
+    remote_maxrxploss?: number | undefined;
 
     /**
      * Minimum number of packets lost on remote side.
      */
-    remote_minrxploss?: number;
+    remote_minrxploss?: number | undefined;
 
     /**
      * Average number of packets lost on remote side.
      */
-    remote_normdevrxploss?: number;
+    remote_normdevrxploss?: number | undefined;
 
     /**
      * Standard deviation packets lost on remote side.
      */
-    remote_stdevrxploss?: number;
+    remote_stdevrxploss?: number | undefined;
 
     /**
      * Maximum number of packets lost on local side.
      */
-    local_maxrxploss?: number;
+    local_maxrxploss?: number | undefined;
 
     /**
      * Minimum number of packets lost on local side.
      */
-    local_minrxploss?: number;
+    local_minrxploss?: number | undefined;
 
     /**
      * Average number of packets lost on local side.
      */
-    local_normdevrxploss?: number;
+    local_normdevrxploss?: number | undefined;
 
     /**
      * Standard deviation packets lost on local side.
      */
-    local_stdevrxploss?: number;
+    local_stdevrxploss?: number | undefined;
 
     /**
      * Total round trip time.
      */
-    rtt?: number;
+    rtt?: number | undefined;
 
     /**
      * Maximum round trip time.
      */
-    maxrtt?: number;
+    maxrtt?: number | undefined;
 
     /**
      * Minimum round trip time.
      */
-    minrtt?: number;
+    minrtt?: number | undefined;
 
     /**
      * Average round trip time.
      */
-    normdevrtt?: number;
+    normdevrtt?: number | undefined;
 
     /**
      * Standard deviation round trip time.
      */
-    stdevrtt?: number;
+    stdevrtt?: number | undefined;
 
     /**
      * Our SSRC.
@@ -4186,7 +4186,7 @@ export interface Channel extends Resource {
     /**
      * Channel variables.
      */
-    channelvars?: IndexableObject;
+    channelvars?: IndexableObject | undefined;
 
     /**
      * List all active channels in Asterisk.
@@ -4222,18 +4222,18 @@ export interface Channel extends Resource {
     originate(
         params: {
             endpoint: string;
-            extension?: string;
-            context?: string;
-            priority?: number;
-            label?: string;
-            app?: string;
-            appArgs?: string;
-            callerId?: string;
-            timeout?: number;
-            variables?: Containers;
-            otherChannelId?: string;
-            originator?: string;
-            formats?: string;
+            extension?: string | undefined;
+            context?: string | undefined;
+            priority?: number | undefined;
+            label?: string | undefined;
+            app?: string | undefined;
+            appArgs?: string | undefined;
+            callerId?: string | undefined;
+            timeout?: number | undefined;
+            variables?: Containers | undefined;
+            otherChannelId?: string | undefined;
+            originator?: string | undefined;
+            formats?: string | undefined;
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
@@ -4261,18 +4261,18 @@ export interface Channel extends Resource {
      */
     originate(params: {
         endpoint: string;
-        extension?: string;
-        context?: string;
-        priority?: number;
-        label?: string;
-        app?: string;
-        appArgs?: string;
-        callerId?: string;
-        timeout?: number;
-        variables?: Containers;
-        otherChannelId?: string;
-        originator?: string;
-        formats?: string;
+        extension?: string | undefined;
+        context?: string | undefined;
+        priority?: number | undefined;
+        label?: string | undefined;
+        app?: string | undefined;
+        appArgs?: string | undefined;
+        callerId?: string | undefined;
+        timeout?: number | undefined;
+        variables?: Containers | undefined;
+        otherChannelId?: string | undefined;
+        originator?: string | undefined;
+        formats?: string | undefined;
     }): Promise<Channel>;
 
     /**
@@ -4289,10 +4289,10 @@ export interface Channel extends Resource {
         params: {
             endpoint: string;
             app: string;
-            appArgs?: string;
-            otherChannelId?: string;
-            originator?: string;
-            formats?: string;
+            appArgs?: string | undefined;
+            otherChannelId?: string | undefined;
+            originator?: string | undefined;
+            formats?: string | undefined;
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
@@ -4310,10 +4310,10 @@ export interface Channel extends Resource {
     create(params: {
         endpoint: string;
         app: string;
-        appArgs?: string;
-        otherChannelId?: string;
-        originator?: string;
-        formats?: string;
+        appArgs?: string | undefined;
+        otherChannelId?: string | undefined;
+        originator?: string | undefined;
+        formats?: string | undefined;
     }): Promise<Channel>;
 
     /**
@@ -4350,18 +4350,18 @@ export interface Channel extends Resource {
     originateWithId(
         params: {
             endpoint: string;
-            extension?: string;
-            context?: string;
-            priority?: number;
-            label?: string;
-            app?: string;
-            appArgs?: string;
-            callerId?: string;
-            timeout?: number;
-            variables?: Containers;
-            otherChannelId?: string;
-            originator?: string;
-            formats?: string;
+            extension?: string | undefined;
+            context?: string | undefined;
+            priority?: number | undefined;
+            label?: string | undefined;
+            app?: string | undefined;
+            appArgs?: string | undefined;
+            callerId?: string | undefined;
+            timeout?: number | undefined;
+            variables?: Containers | undefined;
+            otherChannelId?: string | undefined;
+            originator?: string | undefined;
+            formats?: string | undefined;
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
@@ -4389,18 +4389,18 @@ export interface Channel extends Resource {
      */
     originateWithId(params: {
         endpoint: string;
-        extension?: string;
-        context?: string;
-        priority?: number;
-        label?: string;
-        app?: string;
-        appArgs?: string;
-        callerId?: string;
-        timeout?: number;
-        variables?: Containers;
-        otherChannelId?: string;
-        originator?: string;
-        formats?: string;
+        extension?: string | undefined;
+        context?: string | undefined;
+        priority?: number | undefined;
+        label?: string | undefined;
+        app?: string | undefined;
+        appArgs?: string | undefined;
+        callerId?: string | undefined;
+        timeout?: number | undefined;
+        variables?: Containers | undefined;
+        otherChannelId?: string | undefined;
+        originator?: string | undefined;
+        formats?: string | undefined;
     }): Promise<Channel>;
 
     /**
@@ -4408,7 +4408,7 @@ export interface Channel extends Resource {
      *
      * @param [params.reason] - Reason for hanging up the channel.
      */
-    hangup(params: { reason?: string }, callback: (err: Error) => void): void;
+    hangup(params: { reason?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Delete (i.e. hangup) a channel.
@@ -4420,7 +4420,7 @@ export interface Channel extends Resource {
      *
      * @param [params.reason] - Reason for hanging up the channel.
      */
-    hangup(params?: { reason?: string }): Promise<void>;
+    hangup(params?: { reason?: string | undefined }): Promise<void>;
 
     /**
      * Exit application; continue execution in the dialplan.
@@ -4431,7 +4431,7 @@ export interface Channel extends Resource {
      * @param [params.label] - The label to continue to - will supersede priority if both are provided.
      */
     continueInDialplan(
-        params: { context?: string; extension?: string; priority?: number; label?: string },
+        params: { context?: string | undefined; extension?: string | undefined; priority?: number | undefined; label?: string | undefined },
         callback: (err: Error) => void,
     ): void;
 
@@ -4449,10 +4449,10 @@ export interface Channel extends Resource {
      * @param [params.label] - The label to continue to - will supersede priority if both are provided.
      */
     continueInDialplan(params?: {
-        context?: string;
-        extension?: string;
-        priority?: number;
-        label?: string;
+        context?: string | undefined;
+        extension?: string | undefined;
+        priority?: number | undefined;
+        label?: string | undefined;
     }): Promise<void>;
 
     /**
@@ -4461,7 +4461,7 @@ export interface Channel extends Resource {
      * @param params.app - The channel will be passed to this Stasis application.
      * @param [params.appArgs] - The application arguments to pass to the Stasis application provided by app.
      */
-    move(params: { app: string; appArgs?: string }, callback: (err: Error) => void): void;
+    move(params: { app: string; appArgs?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Move the channel from one Stasis application to another.
@@ -4469,7 +4469,7 @@ export interface Channel extends Resource {
      * @param params.app - The channel will be passed to this Stasis application.
      * @param [params.appArgs] - The application arguments to pass to the Stasis application provided by app.
      */
-    move(params: { app: string; appArgs?: string }): Promise<void>;
+    move(params: { app: string; appArgs?: string | undefined }): Promise<void>;
 
     /**
      * Redirect the channel to a different location.
@@ -4525,7 +4525,7 @@ export interface Channel extends Resource {
      * @param [params.after] - Amount of time to wait after DTMF digits (specified in milliseconds) end.
      */
     sendDTMF(
-        params: { dtmf?: string; before?: number; between?: number; duration?: number; after?: number },
+        params: { dtmf?: string | undefined; before?: number | undefined; between?: number | undefined; duration?: number | undefined; after?: number | undefined },
         callback: (err: Error) => void,
     ): void;
 
@@ -4544,11 +4544,11 @@ export interface Channel extends Resource {
      * @param [params.after] - Amount of time to wait after DTMF digits (specified in milliseconds) end.
      */
     sendDTMF(params?: {
-        dtmf?: string;
-        before?: number;
-        between?: number;
-        duration?: number;
-        after?: number;
+        dtmf?: string | undefined;
+        before?: number | undefined;
+        between?: number | undefined;
+        duration?: number | undefined;
+        after?: number | undefined;
     }): Promise<void>;
 
     /**
@@ -4556,7 +4556,7 @@ export interface Channel extends Resource {
      *
      * @param [params.direction] - Direction in which to mute audio.
      */
-    mute(params: { direction?: string }, callback: (err: Error) => void): void;
+    mute(params: { direction?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Mute a channel.
@@ -4568,14 +4568,14 @@ export interface Channel extends Resource {
      *
      * @param [params.direction] - Direction in which to mute audio.
      */
-    mute(params?: { direction?: string }): Promise<void>;
+    mute(params?: { direction?: string | undefined }): Promise<void>;
 
     /**
      * Unmute a channel.
      *
      * @param [params.direction] - Direction in which to unmute audio.
      */
-    unmute(params: { direction?: string }, callback: (err: Error) => void): void;
+    unmute(params: { direction?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Unmute a channel.
@@ -4587,7 +4587,7 @@ export interface Channel extends Resource {
      *
      * @param [params.direction] - Direction in which to unmute audio.
      */
-    unmute(params?: { direction?: string }): Promise<void>;
+    unmute(params?: { direction?: string | undefined }): Promise<void>;
 
     /**
      * Hold a channel.
@@ -4616,7 +4616,7 @@ export interface Channel extends Resource {
      *
      * @param [params.mohClass] - Music on hold class to use.
      */
-    startMoh(params: { mohClass?: string }, callback: (err: Error) => void): void;
+    startMoh(params: { mohClass?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Play music on hold to a channel.
@@ -4632,7 +4632,7 @@ export interface Channel extends Resource {
      *
      * @param [params.mohClass] - Music on hold class to use.
      */
-    startMoh(params?: { mohClass?: string }): Promise<void>;
+    startMoh(params?: { mohClass?: string | undefined }): Promise<void>;
 
     /**
      * Stop playing music on hold to a channel.
@@ -4678,7 +4678,7 @@ export interface Channel extends Resource {
      * @param [params.playbackId] - Playback ID.
      */
     play(
-        params: { media: string | string[]; lang?: string; offsetms?: number; skipms?: number; playbackId?: string },
+        params: { media: string | string[]; lang?: string | undefined; offsetms?: number | undefined; skipms?: number | undefined; playbackId?: string | undefined },
         playback: Playback,
         callback: (err: Error, playback: Playback) => void,
     ): void;
@@ -4695,7 +4695,7 @@ export interface Channel extends Resource {
      * @param [params.playbackId] - Playback ID.
      */
     play(
-        params: { media: string | string[]; lang?: string; offsetms?: number; skipms?: number; playbackId?: string },
+        params: { media: string | string[]; lang?: string | undefined; offsetms?: number | undefined; skipms?: number | undefined; playbackId?: string | undefined },
         playback: Playback,
     ): Promise<Playback>;
 
@@ -4711,7 +4711,7 @@ export interface Channel extends Resource {
      * @param [params.skipms] - Number of milliseconds to skip for forward/reverse operations.
      */
     playWithId(
-        params: { playbackId: string; media: string | string[]; lang?: string; offsetms?: number; skipms?: number },
+        params: { playbackId: string; media: string | string[]; lang?: string | undefined; offsetms?: number | undefined; skipms?: number | undefined },
         callback: (err: Error, playback: Playback) => void,
     ): void;
 
@@ -4729,9 +4729,9 @@ export interface Channel extends Resource {
     playWithId(params: {
         playbackId: string;
         media: string | string[];
-        lang?: string;
-        offsetms?: number;
-        skipms?: number;
+        lang?: string | undefined;
+        offsetms?: number | undefined;
+        skipms?: number | undefined;
     }): Promise<Playback>;
 
     /**
@@ -4750,11 +4750,11 @@ export interface Channel extends Resource {
         params: {
             name: string;
             format: string;
-            maxDurationSeconds?: number;
-            maxSilenceSeconds?: number;
-            ifExists?: string;
-            beep?: boolean;
-            terminateOn?: string;
+            maxDurationSeconds?: number | undefined;
+            maxSilenceSeconds?: number | undefined;
+            ifExists?: string | undefined;
+            beep?: boolean | undefined;
+            terminateOn?: string | undefined;
         },
         recording: LiveRecording,
         callback: (err: Error, liverecording: LiveRecording) => void,
@@ -4776,11 +4776,11 @@ export interface Channel extends Resource {
         params: {
             name: string;
             format: string;
-            maxDurationSeconds?: number;
-            maxSilenceSeconds?: number;
-            ifExists?: string;
-            beep?: boolean;
-            terminateOn?: string;
+            maxDurationSeconds?: number | undefined;
+            maxSilenceSeconds?: number | undefined;
+            ifExists?: string | undefined;
+            beep?: boolean | undefined;
+            terminateOn?: string | undefined;
         },
         recording: LiveRecording,
     ): Promise<LiveRecording>;
@@ -4805,7 +4805,7 @@ export interface Channel extends Resource {
      * @param params.variable - The channel variable or function to set.
      * @param [params.value] - The value to set the variable to.
      */
-    setChannelVar(params: { variable: string; value?: string }, callback: (err: Error) => void): void;
+    setChannelVar(params: { variable: string; value?: string | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Set the value of a channel variable or function.
@@ -4813,7 +4813,7 @@ export interface Channel extends Resource {
      * @param params.variable - The channel variable or function to set.
      * @param [params.value] - The value to set the variable to.
      */
-    setChannelVar(params: { variable: string; value?: string }): Promise<void>;
+    setChannelVar(params: { variable: string; value?: string | undefined }): Promise<void>;
 
     /**
      * Start snooping.
@@ -4826,7 +4826,7 @@ export interface Channel extends Resource {
      * @param [params.snoopId] - Unique ID to assign to snooping channel.
      */
     snoopChannel(
-        params: { spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
+        params: { spy?: string | undefined; whisper?: string | undefined; app: string; appArgs?: string | undefined; snoopId?: string | undefined },
         snoopChannel: Channel,
         callback: (err: Error, channel: Channel) => void,
     ): void;
@@ -4842,7 +4842,7 @@ export interface Channel extends Resource {
      * @param [params.snoopId] - Unique ID to assign to snooping channel.
      */
     snoopChannel(
-        params: { spy?: string; whisper?: string; app: string; appArgs?: string; snoopId?: string },
+        params: { spy?: string | undefined; whisper?: string | undefined; app: string; appArgs?: string | undefined; snoopId?: string | undefined },
         snoopChannel: Channel,
     ): Promise<Channel>;
 
@@ -4857,7 +4857,7 @@ export interface Channel extends Resource {
      * @param [params.appArgs] - The application arguments to pass to the Stasis application.
      */
     snoopChannelWithId(
-        params: { snoopId: string; spy?: string; whisper?: string; app: string; appArgs?: string },
+        params: { snoopId: string; spy?: string | undefined; whisper?: string | undefined; app: string; appArgs?: string | undefined },
         callback: (err: Error, channel: Channel) => void,
     ): void;
 
@@ -4873,10 +4873,10 @@ export interface Channel extends Resource {
      */
     snoopChannelWithId(params: {
         snoopId: string;
-        spy?: string;
-        whisper?: string;
+        spy?: string | undefined;
+        whisper?: string | undefined;
         app: string;
-        appArgs?: string;
+        appArgs?: string | undefined;
     }): Promise<Channel>;
 
     /**
@@ -4885,7 +4885,7 @@ export interface Channel extends Resource {
      * @param [params.caller] - Channel ID of caller.
      * @param [params.timeout] - Dial timeout.
      */
-    dial(params: { caller?: string; timeout?: number }, callback: (err: Error) => void): void;
+    dial(params: { caller?: string | undefined; timeout?: number | undefined }, callback: (err: Error) => void): void;
 
     /**
      * Dial a created channel.
@@ -4898,7 +4898,7 @@ export interface Channel extends Resource {
      * @param [params.caller] - Channel ID of caller.
      * @param [params.timeout] - Dial timeout.
      */
-    dial(params?: { caller?: string; timeout?: number }): Promise<void>;
+    dial(params?: { caller?: string | undefined; timeout?: number | undefined }): Promise<void>;
 
     /**
      * RTP stats on a channel.
@@ -4927,13 +4927,13 @@ export interface Channel extends Resource {
     externalMedia(
         params: {
             app: string;
-            variables?: Containers;
+            variables?: Containers | undefined;
             external_host: string;
-            encapsulation?: string;
-            transport?: string;
-            connection_type?: string;
+            encapsulation?: string | undefined;
+            transport?: string | undefined;
+            connection_type?: string | undefined;
             format: string;
-            direction?: string;
+            direction?: string | undefined;
         },
         callback: (err: Error, channel: Channel) => void,
     ): void;
@@ -4954,13 +4954,13 @@ export interface Channel extends Resource {
      */
     externalMedia(params: {
         app: string;
-        variables?: Containers;
+        variables?: Containers | undefined;
         external_host: string;
-        encapsulation?: string;
-        transport?: string;
-        connection_type?: string;
+        encapsulation?: string | undefined;
+        transport?: string | undefined;
+        connection_type?: string | undefined;
         format: string;
-        direction?: string;
+        direction?: string | undefined;
     }): Promise<Channel>;
 }
 export interface DeviceStates {
@@ -5094,7 +5094,7 @@ export interface Endpoints {
      * resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessage(
-        params: { to: string; from: string; body?: string; variables?: Containers },
+        params: { to: string; from: string; body?: string | undefined; variables?: Containers | undefined },
         callback: (err: Error) => void,
     ): void;
 
@@ -5107,7 +5107,7 @@ export interface Endpoints {
      * @param [params.variables] - The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used by the various
      * resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
-    sendMessage(params: { to: string; from: string; body?: string; variables?: Containers }): Promise<void>;
+    sendMessage(params: { to: string; from: string; body?: string | undefined; variables?: Containers | undefined }): Promise<void>;
 
     /**
      * List available endoints for a given endpoint technology.
@@ -5160,7 +5160,7 @@ export interface Endpoints {
      * resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessageToEndpoint(
-        params: { tech: string; resource: string; from: string; body?: string; variables?: Containers },
+        params: { tech: string; resource: string; from: string; body?: string | undefined; variables?: Containers | undefined },
         callback: (err: Error) => void,
     ): void;
 
@@ -5178,8 +5178,8 @@ export interface Endpoints {
         tech: string;
         resource: string;
         from: string;
-        body?: string;
-        variables?: Containers;
+        body?: string | undefined;
+        variables?: Containers | undefined;
     }): Promise<void>;
 }
 export interface Endpoint extends Resource {
@@ -5196,7 +5196,7 @@ export interface Endpoint extends Resource {
     /**
      * Endpoints state.
      */
-    state?: string;
+    state?: string | undefined;
 
     /**
      * Ids of channels associated with this endpoint.
@@ -5223,7 +5223,7 @@ export interface Endpoint extends Resource {
      * resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessage(
-        params: { to: string; from: string; body?: string; variables?: Containers },
+        params: { to: string; from: string; body?: string | undefined; variables?: Containers | undefined },
         callback: (err: Error) => void,
     ): void;
 
@@ -5236,7 +5236,7 @@ export interface Endpoint extends Resource {
      * @param [params.variables] - The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used by the various
      * resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
-    sendMessage(params: { to: string; from: string; body?: string; variables?: Containers }): Promise<void>;
+    sendMessage(params: { to: string; from: string; body?: string | undefined; variables?: Containers | undefined }): Promise<void>;
 
     /**
      * List available endoints for a given endpoint technology.
@@ -5267,7 +5267,7 @@ export interface Endpoint extends Resource {
      * resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
     sendMessageToEndpoint(
-        params: { from: string; body?: string; variables?: Containers },
+        params: { from: string; body?: string | undefined; variables?: Containers | undefined },
         callback: (err: Error) => void,
     ): void;
 
@@ -5279,7 +5279,7 @@ export interface Endpoint extends Resource {
      * @param [params.variables] - The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used by the various
      * resource types; for example, pjsip and sip resource types will add the key/value pairs as SIP headers.
      */
-    sendMessageToEndpoint(params: { from: string; body?: string; variables?: Containers }): Promise<void>;
+    sendMessageToEndpoint(params: { from: string; body?: string | undefined; variables?: Containers | undefined }): Promise<void>;
 }
 export interface TextMessage {
     /**
@@ -5301,7 +5301,7 @@ export interface TextMessage {
     /**
      * Technology specific key/value pairs (JSON object) associated with the message.
      */
-    variables?: IndexableObject;
+    variables?: IndexableObject | undefined;
 }
 export interface Mailboxes {
     /**
@@ -5484,7 +5484,7 @@ export interface Playback extends Resource {
     /**
      * If a list of URIs is being played, the next media URI to be played back.
      */
-    next_media_uri?: string;
+    next_media_uri?: string | undefined;
 
     /**
      * URI for the channel or bridge to play the media on.
@@ -5878,22 +5878,22 @@ export interface LiveRecording extends Resource {
     /**
      * Duration in seconds of the recording.
      */
-    duration?: number;
+    duration?: number | undefined;
 
     /**
      * Duration of talking, in seconds, detected in the recording. This is only available if the recording was initiated with a non-zero maxSilenceSeconds.
      */
-    talking_duration?: number;
+    talking_duration?: number | undefined;
 
     /**
      * Duration of silence, in seconds, detected in the recording. This is only available if the recording was initiated with a non-zero maxSilenceSeconds.
      */
-    silence_duration?: number;
+    silence_duration?: number | undefined;
 
     /**
      * Cause for recording failure if failed.
      */
-    cause?: string;
+    cause?: string | undefined;
 
     /**
      * List recordings that are complete.
@@ -6033,7 +6033,7 @@ export interface Sounds {
      * @param [params.lang] - Lookup sound for a specific language.
      * @param [params.format] - Lookup sound in a specific format.
      */
-    list(params: { lang?: string; format?: string }, callback: (err: Error, sounds: Sound[]) => void): void;
+    list(params: { lang?: string | undefined; format?: string | undefined }, callback: (err: Error, sounds: Sound[]) => void): void;
 
     /**
      * List all sounds.
@@ -6046,7 +6046,7 @@ export interface Sounds {
      * @param [params.lang] - Lookup sound for a specific language.
      * @param [params.format] - Lookup sound in a specific format.
      */
-    list(params?: { lang?: string; format?: string }): Promise<Sound[]>;
+    list(params?: { lang?: string | undefined; format?: string | undefined }): Promise<Sound[]>;
 
     /**
      * Get a sounds details.
@@ -6082,7 +6082,7 @@ export interface Sound extends Resource {
     /**
      * Text description of the sound, usually the words spoken.
      */
-    text?: string;
+    text?: string | undefined;
 
     /**
      * The formats and languages in which this sound is available.
@@ -6095,7 +6095,7 @@ export interface Sound extends Resource {
      * @param [params.lang] - Lookup sound for a specific language.
      * @param [params.format] - Lookup sound in a specific format.
      */
-    list(params: { lang?: string; format?: string }, callback: (err: Error, sounds: Sound[]) => void): void;
+    list(params: { lang?: string | undefined; format?: string | undefined }, callback: (err: Error, sounds: Sound[]) => void): void;
 
     /**
      * List all sounds.
@@ -6108,7 +6108,7 @@ export interface Sound extends Resource {
      * @param [params.lang] - Lookup sound for a specific language.
      * @param [params.format] - Lookup sound in a specific format.
      */
-    list(params?: { lang?: string; format?: string }): Promise<Sound[]>;
+    list(params?: { lang?: string | undefined; format?: string | undefined }): Promise<Sound[]>;
 
     /**
      * Get a sounds details.

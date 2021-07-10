@@ -28,7 +28,7 @@ interface SortableGridItemProps {
      * Flag to mark a child node as being inactive. If set, no touch events
      * will be fired when users interact with the node.
      */
-    inactive?: boolean;
+    inactive?: boolean | undefined;
 }
 
 type SortableGridItem = React.ReactElement<SortableGridItemProps>;
@@ -47,41 +47,41 @@ interface SortableGridProps {
     /**
      * Custom styles to override or complement the sortableGrid native style.
      */
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle> | undefined;
 
     /**
      * How long should the transition of a passive block take when the active
      * block takes its place (milliseconds)
      */
-    blockTransitionDuration?: number;
+    blockTransitionDuration?: number | undefined;
 
     /**
      * How long should it take for the block that is being dragged to seek its
      * place after it's released (milliseconds)
      */
-    activeBlockCenteringDuration?: number;
+    activeBlockCenteringDuration?: number | undefined;
 
     /**
      * How many items should be placed on one row
      */
-    itemsPerRow?: number;
+    itemsPerRow?: number | undefined;
 
     /**
      * If set, itemsPerRow will be calculated to fit items of this size
      */
-    itemWidth?: number;
+    itemWidth?: number | undefined;
 
     /**
      * When used together with itemsPerRow, sets the size of a block to
      * something other than the default square
      */
-    itemHeight?: number;
+    itemHeight?: number | undefined;
 
     /**
      * How long must the user hold the press on the block until it becomes
      * active and can be dragged (milliseconds)
      */
-    dragActivationThreshold?: number;
+    dragActivationThreshold?: number | undefined;
 
     /**
      * How long will the execution wait for the second tap before deciding it
@@ -89,7 +89,7 @@ interface SortableGridProps {
      * onDoubleTap-property is given to the item being tapped - In which case
      * single-tap callback will be executed instantly
      */
-    doubleTapTreshold?: number;
+    doubleTapTreshold?: number | undefined;
 
     /**
      * Function that is called when the dragging starts. This can be used to
@@ -116,12 +116,12 @@ interface SortableGridProps {
      */
     dragStartAnimation?: {
         transform: ReadonlyArray<{ [type: string]: Animated.AnimatedInterpolation }>;
-    };
+    } | undefined;
 
     /**
      * Items to be rendered in the SortableGrid
      */
-    children?: ReadonlyArray<SortableGridItem>;
+    children?: ReadonlyArray<SortableGridItem> | undefined;
 }
 
 interface SortableGridStatic extends React.ClassicComponentClass<SortableGridProps> {

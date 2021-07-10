@@ -130,9 +130,9 @@ declare namespace _Readable {
 
     // ==== _stream_duplex ====
     type DuplexOptions = ReadableOptions & WritableOptions & {
-        allowHalfOpen?: boolean;
-        readable?: boolean;
-        writable?: boolean;
+        allowHalfOpen?: boolean | undefined;
+        readable?: boolean | undefined;
+        writable?: boolean | undefined;
         read?(this: Duplex, size: number): void;
         write?(this: Duplex, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
         writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
@@ -171,7 +171,7 @@ declare namespace _Readable {
         push(chunk: any, encoding?: BufferEncoding): boolean;
         _destroy(err: Error | null, callback: (error: Error | null) => void): void;
         destroy(err?: Error, callback?: (error: Error | null) => void): this;
-        pipe<S extends Writable>(dest: S, pipeOpts?: { end?: boolean }): S;
+        pipe<S extends Writable>(dest: S, pipeOpts?: { end?: boolean | undefined }): S;
         addListener(ev: string | symbol, fn: (...args: any[]) => void): this;
         on(ev: string | symbol, fn: (...args: any[]) => void): this;
 
@@ -191,12 +191,12 @@ declare namespace _Readable {
 
     // ==== _stream_readable ====
     interface ReadableStateOptions {
-        defaultEncoding?: BufferEncoding;
-        encoding?: BufferEncoding;
-        highWaterMark?: number;
-        objectMode?: boolean;
-        readableObjectMode?: boolean;
-        readableHighWaterMark?: number;
+        defaultEncoding?: BufferEncoding | undefined;
+        encoding?: BufferEncoding | undefined;
+        highWaterMark?: number | undefined;
+        objectMode?: boolean | undefined;
+        readableObjectMode?: boolean | undefined;
+        readableHighWaterMark?: number | undefined;
     }
 
     interface ReadableState {
@@ -277,12 +277,12 @@ declare namespace _Readable {
     }
 
     interface WritableStateOptions {
-        decodeStrings?: boolean;
-        defaultEncoding?: BufferEncoding;
-        highWaterMark?: number;
-        objectMode?: boolean;
-        writableObjectMode?: boolean;
-        writableHighWaterMark?: number;
+        decodeStrings?: boolean | undefined;
+        defaultEncoding?: BufferEncoding | undefined;
+        highWaterMark?: number | undefined;
+        objectMode?: boolean | undefined;
+        writableObjectMode?: boolean | undefined;
+        writableHighWaterMark?: number | undefined;
     }
 
     interface WritableState {
@@ -420,7 +420,7 @@ declare namespace _Readable {
 
     class Stream extends _Readable {
         constructor(options?: ReadableOptions);
-        pipe<T extends Writable>(destination: T, options?: { end?: boolean; }): T;
+        pipe<T extends Writable>(destination: T, options?: { end?: boolean | undefined; }): T;
     }
 }
 

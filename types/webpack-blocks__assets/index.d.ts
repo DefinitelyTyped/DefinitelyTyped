@@ -19,43 +19,43 @@ export namespace css {
     }
 
     interface ModuleOptions {
-        mode?: string;
-        localIdentName?: string;
-        context?: string;
-        hashPrefix?: string;
-        getLocalIdent?: GetLocalIdent;
-        localIdentRegExp?: string | RegExp;
+        mode?: string | undefined;
+        localIdentName?: string | undefined;
+        context?: string | undefined;
+        hashPrefix?: string | undefined;
+        getLocalIdent?: GetLocalIdent | undefined;
+        localIdentRegExp?: string | RegExp | undefined;
         /**
          * 0 => no loaders (default);
          * 1 => postcss-loader;
          * 2 => postcss-loader, sass-loader
          */
-        importLoaders?: 0 | 1 | 2;
-        localsConvention?: 'asIs'  | 'camelCase' | 'camelCaseOnly' | 'dashes' | 'dashesOnly';
-        onlyLocals?: boolean;
+        importLoaders?: 0 | 1 | 2 | undefined;
+        localsConvention?: 'asIs'  | 'camelCase' | 'camelCaseOnly' | 'dashes' | 'dashesOnly' | undefined;
+        onlyLocals?: boolean | undefined;
     }
 
     interface CssOptions {
-        url?: boolean | UrlFilter;
-        import?: boolean | ImportFilter;
-        modules?: boolean | string | ModuleOptions;
-        sourceMap?: boolean;
+        url?: boolean | UrlFilter | undefined;
+        import?: boolean | ImportFilter | undefined;
+        modules?: boolean | string | ModuleOptions | undefined;
+        sourceMap?: boolean | undefined;
     }
 
     interface FileOptions {
-        name?: string | NameFunction;
-        outputPath?: string | PathFunction;
-        publicPath?: string | PathFunction;
-        postTransformPublicPath?: (p: string) => string;
-        context?: string;
-        emitFile?: boolean;
-        regExp?: RegExp;
+        name?: string | NameFunction | undefined;
+        outputPath?: string | PathFunction | undefined;
+        publicPath?: string | PathFunction | undefined;
+        postTransformPublicPath?: ((p: string) => string) | undefined;
+        context?: string | undefined;
+        emitFile?: boolean | undefined;
+        regExp?: RegExp | undefined;
     }
 
     interface UrlOptions {
-        fallback?: string;
-        limit?: number | boolean | string;
-        mimetype?: string;
+        fallback?: string | undefined;
+        limit?: number | boolean | string | undefined;
+        mimetype?: string | undefined;
     }
 
     function modules(options?: ModuleOptions): any;

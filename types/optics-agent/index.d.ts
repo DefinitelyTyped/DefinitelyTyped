@@ -15,7 +15,7 @@ export interface Options {
    *
    * This defaults to the OPTICS_API_KEY environment variable, but can be overridden here.
    */
-  apiKey?: string;
+  apiKey?: string | undefined;
 
   /**
    * Called to determine the query shape for for a GraphQL query.
@@ -29,41 +29,41 @@ export interface Options {
    *
    * You shouldn't need to set this unless you are debugging.
    */
-  endpointUrl?: string;
+  endpointUrl?: string | undefined;
 
   /**
    * HTTP proxy to use when sending reports. Default to no proxying, or the HTTPS_PROXY environment variable if it is set.
    *
    * You should only set this when your servers cannot connect directly to the Optics service.
    */
-  proxyUrl?: string;
+  proxyUrl?: string | undefined;
 
   /**
    * How often to send reports in milliseconds. Defaults to 1 minute. Minimum 10 seconds.
    *
    * You shouldn't need to set this unless you are debugging.
    */
-  reportIntervalMs?: number;
+  reportIntervalMs?: number | undefined;
 
   /**
    * Print a JSON version of reports as they are sent. This may be useful for debugging. Defaults to false.
    */
-  printReports?: boolean;
+  printReports?: boolean | undefined;
 
   /**
    * Send detailed traces along with usage reports. Defaults to true.
    */
-  reportTraces?: boolean;
+  reportTraces?: boolean | undefined;
 
   /**
    * Send the query variables along with traces. Defaults to true.
    */
-  reportVariables?: boolean;
+  reportVariables?: boolean | undefined;
 
   /**
    * Send statistics when the process exits. Defaults to true.
    */
-  shutdownGracefully?: boolean;
+  shutdownGracefully?: boolean | undefined;
 }
 
 export class Agent {

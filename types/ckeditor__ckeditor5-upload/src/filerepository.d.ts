@@ -20,7 +20,7 @@ export default class FileRepository extends Plugin {
 }
 
 export class FileLoader {
-    data?: File;
+    data?: File | undefined;
     file: Promise<File | null>;
     readonly id: number;
     status: "idle" | "reading" | "uploading" | "aborted" | "error";

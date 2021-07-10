@@ -20,25 +20,25 @@ declare namespace WebpackEntryManifestPlugin {
          * Assets manifest filename
          * @default 'manifest.json'
          */
-        filename?: string;
+        filename?: string | undefined;
 
         /**
          * Assets path map function
          * @default path => path
          */
-        map?: (path: string, chunk: string) => string;
+        map?: ((path: string, chunk: string) => string) | undefined;
 
         /**
          * Assets path filter function
          * @default () => true
          */
-        filter?: (path: string, chunk: string) => boolean;
+        filter?: ((path: string, chunk: string) => boolean) | undefined;
 
         /**
          * Assets manifest serialize function
          * @default manifest => JSON.stringify(manifest)
          */
-        serialize?: (manifest: any) => string;
+        serialize?: ((manifest: any) => string) | undefined;
     }
 }
 

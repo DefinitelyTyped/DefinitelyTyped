@@ -54,24 +54,24 @@ interface NativeKeyboardUpdateOptions {
     /**
      * Replace the messenger's text by this. The current text remains if omitted.
      */
-    text?: string;
+    text?: string | undefined;
 
     /**
      * Position the cursor anywhere in the text range. Defaults to the end of the text.
      */
-    caretIndex?: number;
+    caretIndex?: number | undefined;
 
     /**
      * If false or omitted no changes to the keyboard state are made.
      */
-    showKeyboard?: boolean;
+    showKeyboard?: boolean | undefined;
 }
 
 interface NativeKeyboardHideOptions {
     /**
      * A boolean flag inidicating if the keyboard should be shown/hidden with an animation
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 }
 
 interface NativeKeyboardShowOptions {
@@ -115,7 +115,7 @@ interface NativeKeyboardShowOptions {
      * Boolean value indicating if the content should be scrolled to the end after the messenger is
      * shown
      */
-    scrollToBottomAfterMessengerShows?: boolean;
+    scrollToBottomAfterMessengerShows?: boolean | undefined;
 
     /**
      * Boolean value indicating if the keyboard should be kept open after submitting the entered
@@ -123,53 +123,53 @@ interface NativeKeyboardShowOptions {
      *
      * Default: false
      */
-    keepOpenAfterSubmit?: boolean;
+    keepOpenAfterSubmit?: boolean | undefined;
 
     /**
      * Makes the messenger bar slide in from the bottom.
      *
      * Default: false
      */
-    animated?: boolean;
+    animated?: boolean | undefined;
 
     /**
      * Open the keyboard when showing the messenger.
      *
      * Default: false
      */
-    showKeyboard?: boolean;
+    showKeyboard?: boolean | undefined;
 
     /**
      * A text which will be in the messenger bar, when opening
      */
-    text?: string;
+    text?: string | undefined;
 
     /**
      * The color of the typed text in HEX.
      *
      * Default: #444
      */
-    textColor?: string;
+    textColor?: string | undefined;
 
     /**
      * A placeholder which will be in the messenger bar, when opening and the input field is
      * empty
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
 
     /**
      * The color of the placeholder.
      *
      * Default: #ccc
      */
-    placeholderColor?: string;
+    placeholderColor?: string | undefined;
 
     /**
      * The background color of the messenger bar.
      *
      * Default: #F6F6F6
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
 
     /**
      * The background color of the textview. Looks nicest on Android
@@ -177,19 +177,19 @@ interface NativeKeyboardShowOptions {
      *
      * Default: #F6F6F6
      */
-    textViewBackgroundColor?: string;
+    textViewBackgroundColor?: string | undefined;
 
     /**
      * The border color of the textview.
      *
      * Default: #666666
      */
-    textViewBorderColor?: string;
+    textViewBorderColor?: string | undefined;
 
     /**
      * Maximum amount of chars that can be entered
      */
-    maxChars?: number;
+    maxChars?: number | undefined;
 
     /**
      * Options are: "none", "split", "countdown", "countdownreversed".
@@ -197,7 +197,7 @@ interface NativeKeyboardShowOptions {
      *
      * Default: "none"
      */
-    counterStyle?: string;
+    counterStyle?: string | undefined;
 
     /**
      * Options are: "default", "decimalpad", "phonepad", "numberpad", "namephonepad",
@@ -205,31 +205,31 @@ interface NativeKeyboardShowOptions {
      *
      * Default: "default"
      */
-    type?: string;
+    type?: string | undefined;
 
     /**
      * Options are: "light", "dark".
      *
      * Default: "default"
      */
-    appearance?: string;
+    appearance?: string | undefined;
 
     /**
      * Disables things like the Emoji keyboard and the Predicive text entry bar
      *
      * Default: false
      */
-    secure?: boolean;
+    secure?: boolean | undefined;
 
     /**
      * The left button of the messenger bar
      */
-    leftButton?: LeftButtonOptions;
+    leftButton?: LeftButtonOptions | undefined;
 
     /**
      * The right button of the messenger bar
      */
-    rightButton?: ButtonOptions;
+    rightButton?: ButtonOptions | undefined;
 }
 
 interface ButtonOptions {
@@ -239,7 +239,7 @@ interface ButtonOptions {
      *
      * Default: "text"
      */
-    type?: string;
+    type?: string | undefined;
 
     /**
      * The value of the button. On "text" the string is used as label
@@ -247,14 +247,14 @@ interface ButtonOptions {
      *
      * Default: "Send"
      */
-    value?: string;
+    value?: string | undefined;
 
     /**
      * If type is "text" you can set this to either "normal", "bold" or "italic".
      *
      * Default: "normal"
      */
-    textStyle?: string;
+    textStyle?: string | undefined;
 
     /**
      * The color of the button in HEX
@@ -275,7 +275,7 @@ interface LeftButtonOptions extends ButtonOptions {
      *
      * Default: false
      */
-    disabledWhenTextEntered?: boolean;
+    disabledWhenTextEntered?: boolean | undefined;
 }
 
 /** NativeKeyboard instance */

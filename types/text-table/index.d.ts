@@ -17,10 +17,10 @@ declare function table(
 declare namespace table {
     interface Options {
         /** Separator to use between columns, (default: ' '). */
-        hsep?: string;
+        hsep?: string | undefined;
 
         /** An array of alignment types for each column, default ['l','l',...]. */
-        align?: Array<'l' | 'r' | 'c' | '.' | null | undefined>;
+        align?: Array<'l' | 'r' | 'c' | '.' | null | undefined> | undefined;
 
         /** A callback function to use when calculating the string length. */
         stringLength?(str: string): number;

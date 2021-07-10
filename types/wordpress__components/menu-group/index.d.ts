@@ -2,8 +2,8 @@ import { ComponentType, ReactNode } from 'react';
 
 declare namespace MenuGroup {
     interface Props {
-        className?: string;
-        label?: ReactNode;
+        className?: string | undefined;
+        label?: ReactNode | undefined;
         children: ReactNode;
     }
 }

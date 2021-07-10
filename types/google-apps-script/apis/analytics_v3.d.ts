@@ -291,34 +291,34 @@ declare namespace GoogleAppsScript {
         }
       }
       interface DataCollection {
-        Ga?: Analytics.Collection.Data.GaCollection;
-        Mcf?: Analytics.Collection.Data.McfCollection;
-        Realtime?: Analytics.Collection.Data.RealtimeCollection;
+        Ga?: Analytics.Collection.Data.GaCollection | undefined;
+        Mcf?: Analytics.Collection.Data.McfCollection | undefined;
+        Realtime?: Analytics.Collection.Data.RealtimeCollection | undefined;
       }
       interface ManagementCollection {
-        AccountSummaries?: Analytics.Collection.Management.AccountSummariesCollection;
-        AccountUserLinks?: Analytics.Collection.Management.AccountUserLinksCollection;
-        Accounts?: Analytics.Collection.Management.AccountsCollection;
-        ClientId?: Analytics.Collection.Management.ClientIdCollection;
-        CustomDataSources?: Analytics.Collection.Management.CustomDataSourcesCollection;
-        CustomDimensions?: Analytics.Collection.Management.CustomDimensionsCollection;
-        CustomMetrics?: Analytics.Collection.Management.CustomMetricsCollection;
-        Experiments?: Analytics.Collection.Management.ExperimentsCollection;
-        Filters?: Analytics.Collection.Management.FiltersCollection;
-        Goals?: Analytics.Collection.Management.GoalsCollection;
-        ProfileFilterLinks?: Analytics.Collection.Management.ProfileFilterLinksCollection;
-        ProfileUserLinks?: Analytics.Collection.Management.ProfileUserLinksCollection;
-        Profiles?: Analytics.Collection.Management.ProfilesCollection;
-        RemarketingAudience?: Analytics.Collection.Management.RemarketingAudienceCollection;
-        Segments?: Analytics.Collection.Management.SegmentsCollection;
-        UnsampledReports?: Analytics.Collection.Management.UnsampledReportsCollection;
-        Uploads?: Analytics.Collection.Management.UploadsCollection;
-        WebPropertyAdWordsLinks?: Analytics.Collection.Management.WebPropertyAdWordsLinksCollection;
-        Webproperties?: Analytics.Collection.Management.WebpropertiesCollection;
-        WebpropertyUserLinks?: Analytics.Collection.Management.WebpropertyUserLinksCollection;
+        AccountSummaries?: Analytics.Collection.Management.AccountSummariesCollection | undefined;
+        AccountUserLinks?: Analytics.Collection.Management.AccountUserLinksCollection | undefined;
+        Accounts?: Analytics.Collection.Management.AccountsCollection | undefined;
+        ClientId?: Analytics.Collection.Management.ClientIdCollection | undefined;
+        CustomDataSources?: Analytics.Collection.Management.CustomDataSourcesCollection | undefined;
+        CustomDimensions?: Analytics.Collection.Management.CustomDimensionsCollection | undefined;
+        CustomMetrics?: Analytics.Collection.Management.CustomMetricsCollection | undefined;
+        Experiments?: Analytics.Collection.Management.ExperimentsCollection | undefined;
+        Filters?: Analytics.Collection.Management.FiltersCollection | undefined;
+        Goals?: Analytics.Collection.Management.GoalsCollection | undefined;
+        ProfileFilterLinks?: Analytics.Collection.Management.ProfileFilterLinksCollection | undefined;
+        ProfileUserLinks?: Analytics.Collection.Management.ProfileUserLinksCollection | undefined;
+        Profiles?: Analytics.Collection.Management.ProfilesCollection | undefined;
+        RemarketingAudience?: Analytics.Collection.Management.RemarketingAudienceCollection | undefined;
+        Segments?: Analytics.Collection.Management.SegmentsCollection | undefined;
+        UnsampledReports?: Analytics.Collection.Management.UnsampledReportsCollection | undefined;
+        Uploads?: Analytics.Collection.Management.UploadsCollection | undefined;
+        WebPropertyAdWordsLinks?: Analytics.Collection.Management.WebPropertyAdWordsLinksCollection | undefined;
+        Webproperties?: Analytics.Collection.Management.WebpropertiesCollection | undefined;
+        WebpropertyUserLinks?: Analytics.Collection.Management.WebpropertyUserLinksCollection | undefined;
       }
       interface MetadataCollection {
-        Columns?: Analytics.Collection.Metadata.ColumnsCollection;
+        Columns?: Analytics.Collection.Metadata.ColumnsCollection | undefined;
       }
       interface ProvisioningCollection {
         // Creates an account ticket.
@@ -327,891 +327,891 @@ declare namespace GoogleAppsScript {
         createAccountTree(resource: Schema.AccountTreeRequest): Analytics.Schema.AccountTreeResponse;
       }
       interface UserDeletionCollection {
-        UserDeletionRequest?: Analytics.Collection.UserDeletion.UserDeletionRequestCollection;
+        UserDeletionRequest?: Analytics.Collection.UserDeletion.UserDeletionRequestCollection | undefined;
       }
     }
     namespace Schema {
       interface Account {
-        childLink?: Analytics.Schema.AccountChildLink;
-        created?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
-        permissions?: Analytics.Schema.AccountPermissions;
-        selfLink?: string;
-        starred?: boolean;
-        updated?: string;
+        childLink?: Analytics.Schema.AccountChildLink | undefined;
+        created?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        permissions?: Analytics.Schema.AccountPermissions | undefined;
+        selfLink?: string | undefined;
+        starred?: boolean | undefined;
+        updated?: string | undefined;
       }
       interface AccountChildLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface AccountPermissions {
-        effective?: string[];
+        effective?: string[] | undefined;
       }
       interface AccountRef {
-        href?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
+        href?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface AccountSummaries {
-        items?: Analytics.Schema.AccountSummary[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: Analytics.Schema.AccountSummary[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface AccountSummary {
-        id?: string;
-        kind?: string;
-        name?: string;
-        starred?: boolean;
-        webProperties?: Analytics.Schema.WebPropertySummary[];
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        starred?: boolean | undefined;
+        webProperties?: Analytics.Schema.WebPropertySummary[] | undefined;
       }
       interface AccountTicket {
-        account?: Analytics.Schema.Account;
-        id?: string;
-        kind?: string;
-        profile?: Analytics.Schema.Profile;
-        redirectUri?: string;
-        webproperty?: Analytics.Schema.Webproperty;
+        account?: Analytics.Schema.Account | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        profile?: Analytics.Schema.Profile | undefined;
+        redirectUri?: string | undefined;
+        webproperty?: Analytics.Schema.Webproperty | undefined;
       }
       interface AccountTreeRequest {
-        accountName?: string;
-        kind?: string;
-        profileName?: string;
-        timezone?: string;
-        webpropertyName?: string;
-        websiteUrl?: string;
+        accountName?: string | undefined;
+        kind?: string | undefined;
+        profileName?: string | undefined;
+        timezone?: string | undefined;
+        webpropertyName?: string | undefined;
+        websiteUrl?: string | undefined;
       }
       interface AccountTreeResponse {
-        account?: Analytics.Schema.Account;
-        kind?: string;
-        profile?: Analytics.Schema.Profile;
-        webproperty?: Analytics.Schema.Webproperty;
+        account?: Analytics.Schema.Account | undefined;
+        kind?: string | undefined;
+        profile?: Analytics.Schema.Profile | undefined;
+        webproperty?: Analytics.Schema.Webproperty | undefined;
       }
       interface Accounts {
-        items?: Analytics.Schema.Account[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: Analytics.Schema.Account[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface AdWordsAccount {
-        autoTaggingEnabled?: boolean;
-        customerId?: string;
-        kind?: string;
+        autoTaggingEnabled?: boolean | undefined;
+        customerId?: string | undefined;
+        kind?: string | undefined;
       }
       interface AnalyticsDataimportDeleteUploadDataRequest {
-        customDataImportUids?: string[];
+        customDataImportUids?: string[] | undefined;
       }
       interface Column {
-        attributes?: object;
-        id?: string;
-        kind?: string;
+        attributes?: object | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
       }
       interface Columns {
-        attributeNames?: string[];
-        etag?: string;
-        items?: Analytics.Schema.Column[];
-        kind?: string;
-        totalResults?: number;
+        attributeNames?: string[] | undefined;
+        etag?: string | undefined;
+        items?: Analytics.Schema.Column[] | undefined;
+        kind?: string | undefined;
+        totalResults?: number | undefined;
       }
       interface CustomDataSource {
-        accountId?: string;
-        childLink?: Analytics.Schema.CustomDataSourceChildLink;
-        created?: string;
-        description?: string;
-        id?: string;
-        importBehavior?: string;
-        kind?: string;
-        name?: string;
-        parentLink?: Analytics.Schema.CustomDataSourceParentLink;
-        profilesLinked?: string[];
-        schema?: string[];
-        selfLink?: string;
-        type?: string;
-        updated?: string;
-        uploadType?: string;
-        webPropertyId?: string;
+        accountId?: string | undefined;
+        childLink?: Analytics.Schema.CustomDataSourceChildLink | undefined;
+        created?: string | undefined;
+        description?: string | undefined;
+        id?: string | undefined;
+        importBehavior?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        parentLink?: Analytics.Schema.CustomDataSourceParentLink | undefined;
+        profilesLinked?: string[] | undefined;
+        schema?: string[] | undefined;
+        selfLink?: string | undefined;
+        type?: string | undefined;
+        updated?: string | undefined;
+        uploadType?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface CustomDataSourceChildLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface CustomDataSourceParentLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface CustomDataSources {
-        items?: Analytics.Schema.CustomDataSource[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: Analytics.Schema.CustomDataSource[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface CustomDimension {
-        accountId?: string;
-        active?: boolean;
-        created?: string;
-        id?: string;
-        index?: number;
-        kind?: string;
-        name?: string;
-        parentLink?: Analytics.Schema.CustomDimensionParentLink;
-        scope?: string;
-        selfLink?: string;
-        updated?: string;
-        webPropertyId?: string;
+        accountId?: string | undefined;
+        active?: boolean | undefined;
+        created?: string | undefined;
+        id?: string | undefined;
+        index?: number | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        parentLink?: Analytics.Schema.CustomDimensionParentLink | undefined;
+        scope?: string | undefined;
+        selfLink?: string | undefined;
+        updated?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface CustomDimensionParentLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface CustomDimensions {
-        items?: Analytics.Schema.CustomDimension[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: Analytics.Schema.CustomDimension[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface CustomMetric {
-        accountId?: string;
-        active?: boolean;
-        created?: string;
-        id?: string;
-        index?: number;
-        kind?: string;
-        max_value?: string;
-        min_value?: string;
-        name?: string;
-        parentLink?: Analytics.Schema.CustomMetricParentLink;
-        scope?: string;
-        selfLink?: string;
-        type?: string;
-        updated?: string;
-        webPropertyId?: string;
+        accountId?: string | undefined;
+        active?: boolean | undefined;
+        created?: string | undefined;
+        id?: string | undefined;
+        index?: number | undefined;
+        kind?: string | undefined;
+        max_value?: string | undefined;
+        min_value?: string | undefined;
+        name?: string | undefined;
+        parentLink?: Analytics.Schema.CustomMetricParentLink | undefined;
+        scope?: string | undefined;
+        selfLink?: string | undefined;
+        type?: string | undefined;
+        updated?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface CustomMetricParentLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface CustomMetrics {
-        items?: Analytics.Schema.CustomMetric[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: Analytics.Schema.CustomMetric[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface EntityAdWordsLink {
-        adWordsAccounts?: Analytics.Schema.AdWordsAccount[];
-        entity?: Analytics.Schema.EntityAdWordsLinkEntity;
-        id?: string;
-        kind?: string;
-        name?: string;
-        profileIds?: string[];
-        selfLink?: string;
+        adWordsAccounts?: Analytics.Schema.AdWordsAccount[] | undefined;
+        entity?: Analytics.Schema.EntityAdWordsLinkEntity | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        profileIds?: string[] | undefined;
+        selfLink?: string | undefined;
       }
       interface EntityAdWordsLinkEntity {
-        webPropertyRef?: Analytics.Schema.WebPropertyRef;
+        webPropertyRef?: Analytics.Schema.WebPropertyRef | undefined;
       }
       interface EntityAdWordsLinks {
-        items?: Analytics.Schema.EntityAdWordsLink[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
+        items?: Analytics.Schema.EntityAdWordsLink[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
       }
       interface EntityUserLink {
-        entity?: Analytics.Schema.EntityUserLinkEntity;
-        id?: string;
-        kind?: string;
-        permissions?: Analytics.Schema.EntityUserLinkPermissions;
-        selfLink?: string;
-        userRef?: Analytics.Schema.UserRef;
+        entity?: Analytics.Schema.EntityUserLinkEntity | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        permissions?: Analytics.Schema.EntityUserLinkPermissions | undefined;
+        selfLink?: string | undefined;
+        userRef?: Analytics.Schema.UserRef | undefined;
       }
       interface EntityUserLinkEntity {
-        accountRef?: Analytics.Schema.AccountRef;
-        profileRef?: Analytics.Schema.ProfileRef;
-        webPropertyRef?: Analytics.Schema.WebPropertyRef;
+        accountRef?: Analytics.Schema.AccountRef | undefined;
+        profileRef?: Analytics.Schema.ProfileRef | undefined;
+        webPropertyRef?: Analytics.Schema.WebPropertyRef | undefined;
       }
       interface EntityUserLinkPermissions {
-        effective?: string[];
-        local?: string[];
+        effective?: string[] | undefined;
+        local?: string[] | undefined;
       }
       interface EntityUserLinks {
-        items?: Analytics.Schema.EntityUserLink[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
+        items?: Analytics.Schema.EntityUserLink[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
       }
       interface Experiment {
-        accountId?: string;
-        created?: string;
-        description?: string;
-        editableInGaUi?: boolean;
-        endTime?: string;
-        equalWeighting?: boolean;
-        id?: string;
-        internalWebPropertyId?: string;
-        kind?: string;
-        minimumExperimentLengthInDays?: number;
-        name?: string;
-        objectiveMetric?: string;
-        optimizationType?: string;
-        parentLink?: Analytics.Schema.ExperimentParentLink;
-        profileId?: string;
-        reasonExperimentEnded?: string;
-        rewriteVariationUrlsAsOriginal?: boolean;
-        selfLink?: string;
-        servingFramework?: string;
-        snippet?: string;
-        startTime?: string;
-        status?: string;
-        trafficCoverage?: number;
-        updated?: string;
-        variations?: Analytics.Schema.ExperimentVariations[];
-        webPropertyId?: string;
-        winnerConfidenceLevel?: number;
-        winnerFound?: boolean;
+        accountId?: string | undefined;
+        created?: string | undefined;
+        description?: string | undefined;
+        editableInGaUi?: boolean | undefined;
+        endTime?: string | undefined;
+        equalWeighting?: boolean | undefined;
+        id?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        kind?: string | undefined;
+        minimumExperimentLengthInDays?: number | undefined;
+        name?: string | undefined;
+        objectiveMetric?: string | undefined;
+        optimizationType?: string | undefined;
+        parentLink?: Analytics.Schema.ExperimentParentLink | undefined;
+        profileId?: string | undefined;
+        reasonExperimentEnded?: string | undefined;
+        rewriteVariationUrlsAsOriginal?: boolean | undefined;
+        selfLink?: string | undefined;
+        servingFramework?: string | undefined;
+        snippet?: string | undefined;
+        startTime?: string | undefined;
+        status?: string | undefined;
+        trafficCoverage?: number | undefined;
+        updated?: string | undefined;
+        variations?: Analytics.Schema.ExperimentVariations[] | undefined;
+        webPropertyId?: string | undefined;
+        winnerConfidenceLevel?: number | undefined;
+        winnerFound?: boolean | undefined;
       }
       interface ExperimentParentLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface ExperimentVariations {
-        name?: string;
-        status?: string;
-        url?: string;
-        weight?: number;
-        won?: boolean;
+        name?: string | undefined;
+        status?: string | undefined;
+        url?: string | undefined;
+        weight?: number | undefined;
+        won?: boolean | undefined;
       }
       interface Experiments {
-        items?: Analytics.Schema.Experiment[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: Analytics.Schema.Experiment[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface Filter {
-        accountId?: string;
-        advancedDetails?: Analytics.Schema.FilterAdvancedDetails;
-        created?: string;
-        excludeDetails?: Analytics.Schema.FilterExpression;
-        id?: string;
-        includeDetails?: Analytics.Schema.FilterExpression;
-        kind?: string;
-        lowercaseDetails?: Analytics.Schema.FilterLowercaseDetails;
-        name?: string;
-        parentLink?: Analytics.Schema.FilterParentLink;
-        searchAndReplaceDetails?: Analytics.Schema.FilterSearchAndReplaceDetails;
-        selfLink?: string;
-        type?: string;
-        updated?: string;
-        uppercaseDetails?: Analytics.Schema.FilterUppercaseDetails;
+        accountId?: string | undefined;
+        advancedDetails?: Analytics.Schema.FilterAdvancedDetails | undefined;
+        created?: string | undefined;
+        excludeDetails?: Analytics.Schema.FilterExpression | undefined;
+        id?: string | undefined;
+        includeDetails?: Analytics.Schema.FilterExpression | undefined;
+        kind?: string | undefined;
+        lowercaseDetails?: Analytics.Schema.FilterLowercaseDetails | undefined;
+        name?: string | undefined;
+        parentLink?: Analytics.Schema.FilterParentLink | undefined;
+        searchAndReplaceDetails?: Analytics.Schema.FilterSearchAndReplaceDetails | undefined;
+        selfLink?: string | undefined;
+        type?: string | undefined;
+        updated?: string | undefined;
+        uppercaseDetails?: Analytics.Schema.FilterUppercaseDetails | undefined;
       }
       interface FilterAdvancedDetails {
-        caseSensitive?: boolean;
-        extractA?: string;
-        extractB?: string;
-        fieldA?: string;
-        fieldAIndex?: number;
-        fieldARequired?: boolean;
-        fieldB?: string;
-        fieldBIndex?: number;
-        fieldBRequired?: boolean;
-        outputConstructor?: string;
-        outputToField?: string;
-        outputToFieldIndex?: number;
-        overrideOutputField?: boolean;
+        caseSensitive?: boolean | undefined;
+        extractA?: string | undefined;
+        extractB?: string | undefined;
+        fieldA?: string | undefined;
+        fieldAIndex?: number | undefined;
+        fieldARequired?: boolean | undefined;
+        fieldB?: string | undefined;
+        fieldBIndex?: number | undefined;
+        fieldBRequired?: boolean | undefined;
+        outputConstructor?: string | undefined;
+        outputToField?: string | undefined;
+        outputToFieldIndex?: number | undefined;
+        overrideOutputField?: boolean | undefined;
       }
       interface FilterExpression {
-        caseSensitive?: boolean;
-        expressionValue?: string;
-        field?: string;
-        fieldIndex?: number;
-        kind?: string;
-        matchType?: string;
+        caseSensitive?: boolean | undefined;
+        expressionValue?: string | undefined;
+        field?: string | undefined;
+        fieldIndex?: number | undefined;
+        kind?: string | undefined;
+        matchType?: string | undefined;
       }
       interface FilterLowercaseDetails {
-        field?: string;
-        fieldIndex?: number;
+        field?: string | undefined;
+        fieldIndex?: number | undefined;
       }
       interface FilterParentLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface FilterRef {
-        accountId?: string;
-        href?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
+        accountId?: string | undefined;
+        href?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface FilterSearchAndReplaceDetails {
-        caseSensitive?: boolean;
-        field?: string;
-        fieldIndex?: number;
-        replaceString?: string;
-        searchString?: string;
+        caseSensitive?: boolean | undefined;
+        field?: string | undefined;
+        fieldIndex?: number | undefined;
+        replaceString?: string | undefined;
+        searchString?: string | undefined;
       }
       interface FilterUppercaseDetails {
-        field?: string;
-        fieldIndex?: number;
+        field?: string | undefined;
+        fieldIndex?: number | undefined;
       }
       interface Filters {
-        items?: Analytics.Schema.Filter[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: Analytics.Schema.Filter[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface GaData {
-        columnHeaders?: Analytics.Schema.GaDataColumnHeaders[];
-        containsSampledData?: boolean;
-        dataLastRefreshed?: string;
-        dataTable?: Analytics.Schema.GaDataDataTable;
-        id?: string;
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        profileInfo?: Analytics.Schema.GaDataProfileInfo;
-        query?: Analytics.Schema.GaDataQuery;
-        rows?: string[][];
-        sampleSize?: string;
-        sampleSpace?: string;
-        selfLink?: string;
-        totalResults?: number;
-        totalsForAllResults?: object;
+        columnHeaders?: Analytics.Schema.GaDataColumnHeaders[] | undefined;
+        containsSampledData?: boolean | undefined;
+        dataLastRefreshed?: string | undefined;
+        dataTable?: Analytics.Schema.GaDataDataTable | undefined;
+        id?: string | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        profileInfo?: Analytics.Schema.GaDataProfileInfo | undefined;
+        query?: Analytics.Schema.GaDataQuery | undefined;
+        rows?: string[][] | undefined;
+        sampleSize?: string | undefined;
+        sampleSpace?: string | undefined;
+        selfLink?: string | undefined;
+        totalResults?: number | undefined;
+        totalsForAllResults?: object | undefined;
       }
       interface GaDataColumnHeaders {
-        columnType?: string;
-        dataType?: string;
-        name?: string;
+        columnType?: string | undefined;
+        dataType?: string | undefined;
+        name?: string | undefined;
       }
       interface GaDataDataTable {
-        cols?: Analytics.Schema.GaDataDataTableCols[];
-        rows?: Analytics.Schema.GaDataDataTableRows[];
+        cols?: Analytics.Schema.GaDataDataTableCols[] | undefined;
+        rows?: Analytics.Schema.GaDataDataTableRows[] | undefined;
       }
       interface GaDataDataTableCols {
-        id?: string;
-        label?: string;
-        type?: string;
+        id?: string | undefined;
+        label?: string | undefined;
+        type?: string | undefined;
       }
       interface GaDataDataTableRows {
-        c?: Analytics.Schema.GaDataDataTableRowsC[];
+        c?: Analytics.Schema.GaDataDataTableRowsC[] | undefined;
       }
       interface GaDataDataTableRowsC {
-        v?: string;
+        v?: string | undefined;
       }
       interface GaDataProfileInfo {
-        accountId?: string;
-        internalWebPropertyId?: string;
-        profileId?: string;
-        profileName?: string;
-        tableId?: string;
-        webPropertyId?: string;
+        accountId?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        profileId?: string | undefined;
+        profileName?: string | undefined;
+        tableId?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface GaDataQuery {
-        dimensions?: string;
-        end_date?: string;
-        filters?: string;
-        ids?: string;
-        max_results?: number;
-        metrics?: string[];
-        samplingLevel?: string;
-        segment?: string;
-        sort?: string[];
-        start_date?: string;
-        start_index?: number;
+        dimensions?: string | undefined;
+        end_date?: string | undefined;
+        filters?: string | undefined;
+        ids?: string | undefined;
+        max_results?: number | undefined;
+        metrics?: string[] | undefined;
+        samplingLevel?: string | undefined;
+        segment?: string | undefined;
+        sort?: string[] | undefined;
+        start_date?: string | undefined;
+        start_index?: number | undefined;
       }
       interface Goal {
-        accountId?: string;
-        active?: boolean;
-        created?: string;
-        eventDetails?: Analytics.Schema.GoalEventDetails;
-        id?: string;
-        internalWebPropertyId?: string;
-        kind?: string;
-        name?: string;
-        parentLink?: Analytics.Schema.GoalParentLink;
-        profileId?: string;
-        selfLink?: string;
-        type?: string;
-        updated?: string;
-        urlDestinationDetails?: Analytics.Schema.GoalUrlDestinationDetails;
-        value?: number;
-        visitNumPagesDetails?: Analytics.Schema.GoalVisitNumPagesDetails;
-        visitTimeOnSiteDetails?: Analytics.Schema.GoalVisitTimeOnSiteDetails;
-        webPropertyId?: string;
+        accountId?: string | undefined;
+        active?: boolean | undefined;
+        created?: string | undefined;
+        eventDetails?: Analytics.Schema.GoalEventDetails | undefined;
+        id?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        parentLink?: Analytics.Schema.GoalParentLink | undefined;
+        profileId?: string | undefined;
+        selfLink?: string | undefined;
+        type?: string | undefined;
+        updated?: string | undefined;
+        urlDestinationDetails?: Analytics.Schema.GoalUrlDestinationDetails | undefined;
+        value?: number | undefined;
+        visitNumPagesDetails?: Analytics.Schema.GoalVisitNumPagesDetails | undefined;
+        visitTimeOnSiteDetails?: Analytics.Schema.GoalVisitTimeOnSiteDetails | undefined;
+        webPropertyId?: string | undefined;
       }
       interface GoalEventDetails {
-        eventConditions?: GoalEventDetailsEventConditions[];
-        useEventValue?: boolean;
+        eventConditions?: GoalEventDetailsEventConditions[] | undefined;
+        useEventValue?: boolean | undefined;
       }
       interface GoalEventDetailsEventConditions {
-        comparisonType?: string;
-        comparisonValue?: string;
-        expression?: string;
-        matchType?: string;
-        type?: string;
+        comparisonType?: string | undefined;
+        comparisonValue?: string | undefined;
+        expression?: string | undefined;
+        matchType?: string | undefined;
+        type?: string | undefined;
       }
       interface GoalParentLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface GoalUrlDestinationDetails {
-        caseSensitive?: boolean;
-        firstStepRequired?: boolean;
-        matchType?: string;
-        steps?: GoalUrlDestinationDetailsSteps[];
-        url?: string;
+        caseSensitive?: boolean | undefined;
+        firstStepRequired?: boolean | undefined;
+        matchType?: string | undefined;
+        steps?: GoalUrlDestinationDetailsSteps[] | undefined;
+        url?: string | undefined;
       }
       interface GoalUrlDestinationDetailsSteps {
-        name?: string;
-        number?: number;
-        url?: string;
+        name?: string | undefined;
+        number?: number | undefined;
+        url?: string | undefined;
       }
       interface GoalVisitNumPagesDetails {
-        comparisonType?: string;
-        comparisonValue?: string;
+        comparisonType?: string | undefined;
+        comparisonValue?: string | undefined;
       }
       interface GoalVisitTimeOnSiteDetails {
-        comparisonType?: string;
-        comparisonValue?: string;
+        comparisonType?: string | undefined;
+        comparisonValue?: string | undefined;
       }
       interface Goals {
-        items?: Goal[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: Goal[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface HashClientIdRequest {
-        clientId?: string;
-        kind?: string;
-        webPropertyId?: string;
+        clientId?: string | undefined;
+        kind?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface HashClientIdResponse {
-        clientId?: string;
-        hashedClientId?: string;
-        kind?: string;
-        webPropertyId?: string;
+        clientId?: string | undefined;
+        hashedClientId?: string | undefined;
+        kind?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface IncludeConditions {
-        daysToLookBack?: number;
-        isSmartList?: boolean;
-        kind?: string;
-        membershipDurationDays?: number;
-        segment?: string;
+        daysToLookBack?: number | undefined;
+        isSmartList?: boolean | undefined;
+        kind?: string | undefined;
+        membershipDurationDays?: number | undefined;
+        segment?: string | undefined;
       }
       interface LinkedForeignAccount {
-        accountId?: string;
-        eligibleForSearch?: boolean;
-        id?: string;
-        internalWebPropertyId?: string;
-        kind?: string;
-        linkedAccountId?: string;
-        remarketingAudienceId?: string;
-        status?: string;
-        type?: string;
-        webPropertyId?: string;
+        accountId?: string | undefined;
+        eligibleForSearch?: boolean | undefined;
+        id?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        kind?: string | undefined;
+        linkedAccountId?: string | undefined;
+        remarketingAudienceId?: string | undefined;
+        status?: string | undefined;
+        type?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface McfData {
-        columnHeaders?: McfDataColumnHeaders[];
-        containsSampledData?: boolean;
-        id?: string;
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        profileInfo?: McfDataProfileInfo;
-        query?: McfDataQuery;
-        rows?: McfDataRows[][];
-        sampleSize?: string;
-        sampleSpace?: string;
-        selfLink?: string;
-        totalResults?: number;
-        totalsForAllResults?: object;
+        columnHeaders?: McfDataColumnHeaders[] | undefined;
+        containsSampledData?: boolean | undefined;
+        id?: string | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        profileInfo?: McfDataProfileInfo | undefined;
+        query?: McfDataQuery | undefined;
+        rows?: McfDataRows[][] | undefined;
+        sampleSize?: string | undefined;
+        sampleSpace?: string | undefined;
+        selfLink?: string | undefined;
+        totalResults?: number | undefined;
+        totalsForAllResults?: object | undefined;
       }
       interface McfDataColumnHeaders {
-        columnType?: string;
-        dataType?: string;
-        name?: string;
+        columnType?: string | undefined;
+        dataType?: string | undefined;
+        name?: string | undefined;
       }
       interface McfDataProfileInfo {
-        accountId?: string;
-        internalWebPropertyId?: string;
-        profileId?: string;
-        profileName?: string;
-        tableId?: string;
-        webPropertyId?: string;
+        accountId?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        profileId?: string | undefined;
+        profileName?: string | undefined;
+        tableId?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface McfDataQuery {
-        dimensions?: string;
-        end_date?: string;
-        filters?: string;
-        ids?: string;
-        max_results?: number;
-        metrics?: string[];
-        samplingLevel?: string;
-        segment?: string;
-        sort?: string[];
-        start_date?: string;
-        start_index?: number;
+        dimensions?: string | undefined;
+        end_date?: string | undefined;
+        filters?: string | undefined;
+        ids?: string | undefined;
+        max_results?: number | undefined;
+        metrics?: string[] | undefined;
+        samplingLevel?: string | undefined;
+        segment?: string | undefined;
+        sort?: string[] | undefined;
+        start_date?: string | undefined;
+        start_index?: number | undefined;
       }
       interface McfDataRows {
-        conversionPathValue?: McfDataRowsConversionPathValue[];
-        primitiveValue?: string;
+        conversionPathValue?: McfDataRowsConversionPathValue[] | undefined;
+        primitiveValue?: string | undefined;
       }
       interface McfDataRowsConversionPathValue {
-        interactionType?: string;
-        nodeValue?: string;
+        interactionType?: string | undefined;
+        nodeValue?: string | undefined;
       }
       interface Profile {
-        accountId?: string;
-        botFilteringEnabled?: boolean;
-        childLink?: ProfileChildLink;
-        created?: string;
-        currency?: string;
-        defaultPage?: string;
-        eCommerceTracking?: boolean;
-        enhancedECommerceTracking?: boolean;
-        excludeQueryParameters?: string;
-        id?: string;
-        internalWebPropertyId?: string;
-        kind?: string;
-        name?: string;
-        parentLink?: ProfileParentLink;
-        permissions?: ProfilePermissions;
-        selfLink?: string;
-        siteSearchCategoryParameters?: string;
-        siteSearchQueryParameters?: string;
-        starred?: boolean;
-        stripSiteSearchCategoryParameters?: boolean;
-        stripSiteSearchQueryParameters?: boolean;
-        timezone?: string;
-        type?: string;
-        updated?: string;
-        webPropertyId?: string;
-        websiteUrl?: string;
+        accountId?: string | undefined;
+        botFilteringEnabled?: boolean | undefined;
+        childLink?: ProfileChildLink | undefined;
+        created?: string | undefined;
+        currency?: string | undefined;
+        defaultPage?: string | undefined;
+        eCommerceTracking?: boolean | undefined;
+        enhancedECommerceTracking?: boolean | undefined;
+        excludeQueryParameters?: string | undefined;
+        id?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        parentLink?: ProfileParentLink | undefined;
+        permissions?: ProfilePermissions | undefined;
+        selfLink?: string | undefined;
+        siteSearchCategoryParameters?: string | undefined;
+        siteSearchQueryParameters?: string | undefined;
+        starred?: boolean | undefined;
+        stripSiteSearchCategoryParameters?: boolean | undefined;
+        stripSiteSearchQueryParameters?: boolean | undefined;
+        timezone?: string | undefined;
+        type?: string | undefined;
+        updated?: string | undefined;
+        webPropertyId?: string | undefined;
+        websiteUrl?: string | undefined;
       }
       interface ProfileChildLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface ProfileFilterLink {
-        filterRef?: Analytics.Schema.FilterRef;
-        id?: string;
-        kind?: string;
-        profileRef?: ProfileRef;
-        rank?: number;
-        selfLink?: string;
+        filterRef?: Analytics.Schema.FilterRef | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        profileRef?: ProfileRef | undefined;
+        rank?: number | undefined;
+        selfLink?: string | undefined;
       }
       interface ProfileFilterLinks {
-        items?: ProfileFilterLink[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: ProfileFilterLink[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface ProfileParentLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface ProfilePermissions {
-        effective?: string[];
+        effective?: string[] | undefined;
       }
       interface ProfileRef {
-        accountId?: string;
-        href?: string;
-        id?: string;
-        internalWebPropertyId?: string;
-        kind?: string;
-        name?: string;
-        webPropertyId?: string;
+        accountId?: string | undefined;
+        href?: string | undefined;
+        id?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface ProfileSummary {
-        id?: string;
-        kind?: string;
-        name?: string;
-        starred?: boolean;
-        type?: string;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        starred?: boolean | undefined;
+        type?: string | undefined;
       }
       interface Profiles {
-        items?: Profile[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: Profile[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface RealtimeData {
-        columnHeaders?: RealtimeDataColumnHeaders[];
-        id?: string;
-        kind?: string;
-        profileInfo?: RealtimeDataProfileInfo;
-        query?: RealtimeDataQuery;
-        rows?: string[][];
-        selfLink?: string;
-        totalResults?: number;
-        totalsForAllResults?: object;
+        columnHeaders?: RealtimeDataColumnHeaders[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        profileInfo?: RealtimeDataProfileInfo | undefined;
+        query?: RealtimeDataQuery | undefined;
+        rows?: string[][] | undefined;
+        selfLink?: string | undefined;
+        totalResults?: number | undefined;
+        totalsForAllResults?: object | undefined;
       }
       interface RealtimeDataColumnHeaders {
-        columnType?: string;
-        dataType?: string;
-        name?: string;
+        columnType?: string | undefined;
+        dataType?: string | undefined;
+        name?: string | undefined;
       }
       interface RealtimeDataProfileInfo {
-        accountId?: string;
-        internalWebPropertyId?: string;
-        profileId?: string;
-        profileName?: string;
-        tableId?: string;
-        webPropertyId?: string;
+        accountId?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        profileId?: string | undefined;
+        profileName?: string | undefined;
+        tableId?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface RealtimeDataQuery {
-        dimensions?: string;
-        filters?: string;
-        ids?: string;
-        max_results?: number;
-        metrics?: string[];
-        sort?: string[];
+        dimensions?: string | undefined;
+        filters?: string | undefined;
+        ids?: string | undefined;
+        max_results?: number | undefined;
+        metrics?: string[] | undefined;
+        sort?: string[] | undefined;
       }
       interface RemarketingAudience {
-        accountId?: string;
-        audienceDefinition?: RemarketingAudienceAudienceDefinition;
-        audienceType?: string;
-        created?: string;
-        description?: string;
-        id?: string;
-        internalWebPropertyId?: string;
-        kind?: string;
-        linkedAdAccounts?: LinkedForeignAccount[];
-        linkedViews?: string[];
-        name?: string;
-        stateBasedAudienceDefinition?: RemarketingAudienceStateBasedAudienceDefinition;
-        updated?: string;
-        webPropertyId?: string;
+        accountId?: string | undefined;
+        audienceDefinition?: RemarketingAudienceAudienceDefinition | undefined;
+        audienceType?: string | undefined;
+        created?: string | undefined;
+        description?: string | undefined;
+        id?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        kind?: string | undefined;
+        linkedAdAccounts?: LinkedForeignAccount[] | undefined;
+        linkedViews?: string[] | undefined;
+        name?: string | undefined;
+        stateBasedAudienceDefinition?: RemarketingAudienceStateBasedAudienceDefinition | undefined;
+        updated?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface RemarketingAudienceAudienceDefinition {
-        includeConditions?: IncludeConditions;
+        includeConditions?: IncludeConditions | undefined;
       }
       interface RemarketingAudienceStateBasedAudienceDefinition {
-        excludeConditions?: RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions;
-        includeConditions?: IncludeConditions;
+        excludeConditions?: RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions | undefined;
+        includeConditions?: IncludeConditions | undefined;
       }
       interface RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions {
-        exclusionDuration?: string;
-        segment?: string;
+        exclusionDuration?: string | undefined;
+        segment?: string | undefined;
       }
       interface RemarketingAudiences {
-        items?: RemarketingAudience[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: RemarketingAudience[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface Segment {
-        created?: string;
-        definition?: string;
-        id?: string;
-        kind?: string;
-        name?: string;
-        segmentId?: string;
-        selfLink?: string;
-        type?: string;
-        updated?: string;
+        created?: string | undefined;
+        definition?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
+        segmentId?: string | undefined;
+        selfLink?: string | undefined;
+        type?: string | undefined;
+        updated?: string | undefined;
       }
       interface Segments {
-        items?: Segment[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: Segment[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface UnsampledReport {
-        accountId?: string;
-        cloudStorageDownloadDetails?: UnsampledReportCloudStorageDownloadDetails;
-        created?: string;
-        dimensions?: string;
-        downloadType?: string;
-        driveDownloadDetails?: UnsampledReportDriveDownloadDetails;
-        end_date?: string;
-        filters?: string;
-        id?: string;
-        kind?: string;
-        metrics?: string;
-        profileId?: string;
-        segment?: string;
-        selfLink?: string;
-        start_date?: string;
-        status?: string;
-        title?: string;
-        updated?: string;
-        webPropertyId?: string;
+        accountId?: string | undefined;
+        cloudStorageDownloadDetails?: UnsampledReportCloudStorageDownloadDetails | undefined;
+        created?: string | undefined;
+        dimensions?: string | undefined;
+        downloadType?: string | undefined;
+        driveDownloadDetails?: UnsampledReportDriveDownloadDetails | undefined;
+        end_date?: string | undefined;
+        filters?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        metrics?: string | undefined;
+        profileId?: string | undefined;
+        segment?: string | undefined;
+        selfLink?: string | undefined;
+        start_date?: string | undefined;
+        status?: string | undefined;
+        title?: string | undefined;
+        updated?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface UnsampledReportCloudStorageDownloadDetails {
-        bucketId?: string;
-        objectId?: string;
+        bucketId?: string | undefined;
+        objectId?: string | undefined;
       }
       interface UnsampledReportDriveDownloadDetails {
-        documentId?: string;
+        documentId?: string | undefined;
       }
       interface UnsampledReports {
-        items?: UnsampledReport[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: UnsampledReport[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface Upload {
-        accountId?: string;
-        customDataSourceId?: string;
-        errors?: string[];
-        id?: string;
-        kind?: string;
-        status?: string;
-        uploadTime?: string;
+        accountId?: string | undefined;
+        customDataSourceId?: string | undefined;
+        errors?: string[] | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        status?: string | undefined;
+        uploadTime?: string | undefined;
       }
       interface Uploads {
-        items?: Upload[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
+        items?: Upload[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
       }
       interface UserDeletionRequest {
-        deletionRequestTime?: string;
-        firebaseProjectId?: string;
-        id?: UserDeletionRequestId;
-        kind?: string;
-        webPropertyId?: string;
+        deletionRequestTime?: string | undefined;
+        firebaseProjectId?: string | undefined;
+        id?: UserDeletionRequestId | undefined;
+        kind?: string | undefined;
+        webPropertyId?: string | undefined;
       }
       interface UserDeletionRequestId {
-        type?: string;
-        userId?: string;
+        type?: string | undefined;
+        userId?: string | undefined;
       }
       interface UserRef {
-        email?: string;
-        id?: string;
-        kind?: string;
+        email?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
       }
       interface WebPropertyRef {
-        accountId?: string;
-        href?: string;
-        id?: string;
-        internalWebPropertyId?: string;
-        kind?: string;
-        name?: string;
+        accountId?: string | undefined;
+        href?: string | undefined;
+        id?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        kind?: string | undefined;
+        name?: string | undefined;
       }
       interface WebPropertySummary {
-        id?: string;
-        internalWebPropertyId?: string;
-        kind?: string;
-        level?: string;
-        name?: string;
-        profiles?: ProfileSummary[];
-        starred?: boolean;
-        websiteUrl?: string;
+        id?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        kind?: string | undefined;
+        level?: string | undefined;
+        name?: string | undefined;
+        profiles?: ProfileSummary[] | undefined;
+        starred?: boolean | undefined;
+        websiteUrl?: string | undefined;
       }
       interface Webproperties {
-        items?: Webproperty[];
-        itemsPerPage?: number;
-        kind?: string;
-        nextLink?: string;
-        previousLink?: string;
-        startIndex?: number;
-        totalResults?: number;
-        username?: string;
+        items?: Webproperty[] | undefined;
+        itemsPerPage?: number | undefined;
+        kind?: string | undefined;
+        nextLink?: string | undefined;
+        previousLink?: string | undefined;
+        startIndex?: number | undefined;
+        totalResults?: number | undefined;
+        username?: string | undefined;
       }
       interface Webproperty {
-        accountId?: string;
-        childLink?: WebpropertyChildLink;
-        created?: string;
-        dataRetentionResetOnNewActivity?: boolean;
-        dataRetentionTtl?: string;
-        defaultProfileId?: string;
-        id?: string;
-        industryVertical?: string;
-        internalWebPropertyId?: string;
-        kind?: string;
-        level?: string;
-        name?: string;
-        parentLink?: WebpropertyParentLink;
-        permissions?: WebpropertyPermissions;
-        profileCount?: number;
-        selfLink?: string;
-        starred?: boolean;
-        updated?: string;
-        websiteUrl?: string;
+        accountId?: string | undefined;
+        childLink?: WebpropertyChildLink | undefined;
+        created?: string | undefined;
+        dataRetentionResetOnNewActivity?: boolean | undefined;
+        dataRetentionTtl?: string | undefined;
+        defaultProfileId?: string | undefined;
+        id?: string | undefined;
+        industryVertical?: string | undefined;
+        internalWebPropertyId?: string | undefined;
+        kind?: string | undefined;
+        level?: string | undefined;
+        name?: string | undefined;
+        parentLink?: WebpropertyParentLink | undefined;
+        permissions?: WebpropertyPermissions | undefined;
+        profileCount?: number | undefined;
+        selfLink?: string | undefined;
+        starred?: boolean | undefined;
+        updated?: string | undefined;
+        websiteUrl?: string | undefined;
       }
       interface WebpropertyChildLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface WebpropertyParentLink {
-        href?: string;
-        type?: string;
+        href?: string | undefined;
+        type?: string | undefined;
       }
       interface WebpropertyPermissions {
-        effective?: string[];
+        effective?: string[] | undefined;
       }
     }
   }
   interface Analytics {
-    Data?: Analytics.Collection.DataCollection;
-    Management?: Analytics.Collection.ManagementCollection;
-    Metadata?: Analytics.Collection.MetadataCollection;
-    Provisioning?: Analytics.Collection.ProvisioningCollection;
-    UserDeletion?: Analytics.Collection.UserDeletionCollection;
+    Data?: Analytics.Collection.DataCollection | undefined;
+    Management?: Analytics.Collection.ManagementCollection | undefined;
+    Metadata?: Analytics.Collection.MetadataCollection | undefined;
+    Provisioning?: Analytics.Collection.ProvisioningCollection | undefined;
+    UserDeletion?: Analytics.Collection.UserDeletionCollection | undefined;
     // Create a new instance of Account
     newAccount(): Analytics.Schema.Account;
     // Create a new instance of AccountChildLink

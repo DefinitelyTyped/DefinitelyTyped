@@ -22,13 +22,13 @@ export const components: Components;
 export type Kind = any;
 
 export interface CommonProps {
-    defaultValue?: string;
-    description?: string;
+    defaultValue?: string | undefined;
+    description?: string | undefined;
     required: boolean;
     name: string;
     typeValue: Kind;
     type: string;
-    shouldCollapse?: boolean;
+    shouldCollapse?: boolean | undefined;
     components: Components;
 }
 
@@ -54,14 +54,14 @@ export interface Inter {
 }
 
 export interface DynamicPropsProps {
-    components?: Partial<Components>;
-    heading?: string;
-    shouldCollapseProps?: boolean;
+    components?: Partial<Components> | undefined;
+    heading?: string | undefined;
+    shouldCollapseProps?: boolean | undefined;
     overrides?: {
         [key: string]: React.ComponentType<CommonProps>;
-    };
+    } | undefined;
     props: {
-        component?: Obj | Inter;
+        component?: Obj | Inter | undefined;
     };
 }
 

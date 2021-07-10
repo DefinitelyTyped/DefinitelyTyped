@@ -21,11 +21,11 @@ declare namespace gulp_diff {
     /**
      * do not show diff information, defaults to `false`
      */
-    quiet?: boolean;
+    quiet?: boolean | undefined;
     /**
      * emit an error on finding diffs, defaults to `false`
      */
-    fail?: boolean;
+    fail?: boolean | undefined;
   }
 }
 

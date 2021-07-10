@@ -1,4 +1,4 @@
-declare function parse(input: string, options: { maxLength?: number }): parse.ParseState;
+declare function parse(input: string, options: { maxLength?: number | undefined }): parse.ParseState;
 
 declare namespace parse {
     interface Token {
@@ -17,7 +17,7 @@ declare namespace parse {
         prefix: string;
         backtrack: boolean;
         negated: boolean;
-        negatedExtglob?: boolean;
+        negatedExtglob?: boolean | undefined;
         brackets: number;
         braces: number;
         parens: number;

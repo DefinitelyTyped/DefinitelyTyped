@@ -42,13 +42,13 @@ declare namespace Autocomplete {
         /**
          * A class name to apply to the autocompletion popup menu.
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Whether to apply debouncing for the autocompleter. Set to `true` to
          * enable debouncing.
          */
-        isDebounced?: boolean;
+        isDebounced?: boolean | undefined;
 
         /**
          * A function that takes a string before and a string after the
@@ -114,8 +114,8 @@ declare namespace Autocomplete {
         completers: ReadonlyArray<Completer<T>>;
         onChange?(value: Value): void;
         onReplace?(value: Value): void;
-        record?: Value;
-        isSelected?: boolean;
+        record?: Value | undefined;
+        isSelected?: boolean | undefined;
     }
 }
 

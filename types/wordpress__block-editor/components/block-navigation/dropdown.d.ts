@@ -2,8 +2,8 @@ import { ComponentType } from 'react';
 
 declare namespace BlockNavigationDropdown {
     interface Props {
-        children?: never;
-        isDisabled?: boolean;
+        children?: never | undefined;
+        isDisabled?: boolean | undefined;
     }
 }
 declare const BlockNavigationDropdown: ComponentType<BlockNavigationDropdown.Props>;

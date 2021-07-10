@@ -5,9 +5,9 @@ declare class Router {
     readonly currentValue: (() => string | undefined);
     defaultStateId: string | undefined;
     static defaults: {
-        urlAdapter?: Router.urlPathAdapter | Router.urlParamAdapter;
-        baseUrl?: string;
-        rootInstanceName?: string;
+        urlAdapter?: Router.urlPathAdapter | Router.urlParamAdapter | undefined;
+        baseUrl?: string | undefined;
+        rootInstanceName?: string | undefined;
     };
     readonly direction: string | undefined;
     readonly moduleConfig: {
@@ -90,13 +90,13 @@ declare namespace Router {
     namespace RouterState {
         // tslint:disable-next-line interface-over-type-literal
         type ConfigOptions = {
-            label?: string;
+            label?: string | undefined;
             value?: any;
-            isDefault?: boolean;
-            canEnter?: (() => boolean) | (() => Promise<boolean>);
-            enter?: (() => void) | (() => Promise<void>);
-            canExit?: (() => boolean) | (() => Promise<boolean>);
-            exit?: (() => void) | (() => Promise<void>);
+            isDefault?: boolean | undefined;
+            canEnter?: (() => boolean) | (() => Promise<boolean>) | undefined;
+            enter?: (() => void) | (() => Promise<void>) | undefined;
+            canExit?: (() => boolean) | (() => Promise<boolean>) | undefined;
+            exit?: (() => void) | (() => Promise<void>) | undefined;
         };
     }
 }
@@ -120,12 +120,12 @@ declare class RouterState {
 declare namespace RouterState {
     // tslint:disable-next-line interface-over-type-literal
     type ConfigOptions = {
-        label?: string;
+        label?: string | undefined;
         value?: any;
-        isDefault?: boolean;
-        canEnter?: (() => boolean) | (() => Promise<boolean>);
-        enter?: (() => void) | (() => Promise<void>);
-        canExit?: (() => boolean) | (() => Promise<boolean>);
-        exit?: (() => void) | (() => Promise<void>);
+        isDefault?: boolean | undefined;
+        canEnter?: (() => boolean) | (() => Promise<boolean>) | undefined;
+        enter?: (() => void) | (() => Promise<void>) | undefined;
+        canExit?: (() => boolean) | (() => Promise<boolean>) | undefined;
+        exit?: (() => void) | (() => Promise<void>) | undefined;
     };
 }

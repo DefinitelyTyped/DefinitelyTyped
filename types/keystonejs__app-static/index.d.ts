@@ -12,15 +12,15 @@ declare module '@keystonejs/app-static' {
     import { BaseApp } from '@keystonejs/keystone';
 
     interface StaticOptions {
-        path?: string;
-        src?: string;
-        fallback?: string;
+        path?: string | undefined;
+        src?: string | undefined;
+        fallback?: string | undefined;
     }
 
     class StaticApp extends BaseApp {
         constructor(options?: StaticOptions);
 
-        prepareMiddleware({ dev }: { dev?: boolean }): Promise<void>;
+        prepareMiddleware({ dev }: { dev?: boolean | undefined }): Promise<void>;
         build(): Promise<void>;
     }
 }

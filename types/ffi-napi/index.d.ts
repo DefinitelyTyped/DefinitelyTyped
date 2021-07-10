@@ -15,9 +15,9 @@ import StructType = ref_struct.StructType;
 export type ArgTypesInferenceMarker = ["void"];
 
 export interface LibraryFunctionOptions {
-    abi?: number;
-    async?: boolean;
-    varargs?: boolean;
+    abi?: number | undefined;
+    async?: boolean | undefined;
+    varargs?: boolean | undefined;
 }
 
 /**
@@ -445,7 +445,7 @@ declare module "ref-napi" {
         /**
          * Determines the FFI_TYPE set for a type.
          */
-        ffi_type?: PFFI_TYPE;
+        ffi_type?: PFFI_TYPE | undefined;
     }
 }
 

@@ -26,7 +26,7 @@ class FormApiMethods extends React.Component {
     state = {};
 
     render() {
-        const FormContent = (props: { formApi?: FormApi }) => (
+        const FormContent = (props: { formApi?: FormApi | undefined }) => (
             <form onSubmit={props.formApi ? props.formApi.submitForm : () => {}}>
                 <Text field="hello" id="hello" />
                 <button type="submit">Submit</button>

@@ -9,16 +9,16 @@
 declare namespace svgInline {
     interface SVGInlineProps {
         svg: string;
-        className?: string;
-        classSuffix?: string;
-        component?: React.ReactNode;
-        fill?: string;
-        cleanup?: boolean | Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup">;
-        cleanupExceptions?: Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup">;
-        width?: string;
-        height?: string;
-        accessibilityLabel?: string;
-        accessibilityDesc?: string;
+        className?: string | undefined;
+        classSuffix?: string | undefined;
+        component?: React.ReactNode | undefined;
+        fill?: string | undefined;
+        cleanup?: boolean | Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup"> | undefined;
+        cleanupExceptions?: Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup"> | undefined;
+        width?: string | undefined;
+        height?: string | undefined;
+        accessibilityLabel?: string | undefined;
+        accessibilityDesc?: string | undefined;
     }
     type SVGInline = React.ComponentClass<SVGInlineProps>;
 }

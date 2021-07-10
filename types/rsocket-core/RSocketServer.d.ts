@@ -11,10 +11,10 @@ export interface TransportServer {
 
 export interface ServerConfig<D, M> {
     getRequestHandler: (socket: ReactiveSocket<D, M>, payload: Payload<D, M>) => Partial<Responder<D, M>>;
-    serializers?: PayloadSerializers<D, M>;
+    serializers?: PayloadSerializers<D, M> | undefined;
     transport: TransportServer;
-    errorHandler?: (e: Error) => void;
-    leases?: () => Leases<any>;
+    errorHandler?: ((e: Error) => void) | undefined;
+    leases?: (() => Leases<any>) | undefined;
 }
 
 /**

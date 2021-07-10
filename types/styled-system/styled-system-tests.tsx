@@ -59,7 +59,7 @@ interface BoxProps
         TypographyProps,
         ColorStyleProps,
         ColorProps {
-    boxStyle?: string;
+    boxStyle?: string | undefined;
 }
 
 const boxStyles = compose(

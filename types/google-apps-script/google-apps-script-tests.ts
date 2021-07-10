@@ -142,6 +142,35 @@ const request: GoogleAppsScript.Data_Studio.Request<any> = {
     ],
 };
 
+// Spreadsheet Rich Text Value & Builder
+// starting with sample code from
+// https://developers.google.com/apps-script/reference/spreadsheet/rich-text-value-builder
+const richTextStyle = SpreadsheetApp.newTextStyle()
+    .setUnderline(false)
+    .build();
+const richTextValue = SpreadsheetApp.newRichTextValue()
+    .setText("foo no baz")
+    .setLinkUrl(0, 3, "https://bar.foo")
+    .setLinkUrl(7, 10, "https://abc.xyz")
+    .setTextStyle(7, 10, richTextStyle)
+    .build();
+for (let richTextRun of richTextValue.getRuns()) {
+    let start = richTextRun.getStartIndex();
+    let end = richTextRun.getEndIndex();
+    let newValueBuilder = SpreadsheetApp.newRichTextValue();
+    if (richTextRun.getTextStyle() === richTextValue.getTextStyle(start, end)) {
+        newValueBuilder = richTextRun.copy();
+    }
+    if (richTextRun.getLinkUrl() === richTextValue.getLinkUrl(start, end)) {
+        newValueBuilder.setLinkUrl(richTextRun.getLinkUrl());
+    }
+    if (richTextRun.getTextStyle() === richTextValue.getTextStyle(start, end)) {
+        newValueBuilder.setTextStyle(richTextRun.getTextStyle());
+    }
+    // $ExpectType string
+    newValueBuilder.build().getText();
+}
+
 const tableCell = DocumentApp.create("").getCursor().getElement().asTableCell();
 tableCell.getParentRow().getChildIndex(tableCell);
 

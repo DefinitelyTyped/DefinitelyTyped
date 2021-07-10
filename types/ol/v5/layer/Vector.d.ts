@@ -14,21 +14,21 @@ import Layer from './Layer';
 import VectorRenderType from './VectorRenderType';
 
 export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    renderOrder?: OrderFunction;
-    renderBuffer?: number;
-    renderMode?: VectorRenderType | string;
-    source?: VectorSource;
-    map?: PluggableMap;
-    declutter?: boolean;
-    style?: StyleLike;
-    updateWhileAnimating?: boolean;
-    updateWhileInteracting?: boolean;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    renderOrder?: OrderFunction | undefined;
+    renderBuffer?: number | undefined;
+    renderMode?: VectorRenderType | string | undefined;
+    source?: VectorSource | undefined;
+    map?: PluggableMap | undefined;
+    declutter?: boolean | undefined;
+    style?: StyleLike | undefined;
+    updateWhileAnimating?: boolean | undefined;
+    updateWhileInteracting?: boolean | undefined;
 }
 export default class VectorLayer extends Layer {
     constructor(opt_options?: Options);

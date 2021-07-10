@@ -13,7 +13,7 @@ export type IFieldResolver<TSource, TContext, TArgs = Record<string, any>, TRetu
   source: TSource,
   args: TArgs,
   context: TContext,
-  info: GraphQLResolveInfo & { mergeInfo?: MergeInfo },
+  info: GraphQLResolveInfo & { mergeInfo?: MergeInfo | undefined },
 ) => TReturn;
 
 export const skip: undefined;

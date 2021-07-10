@@ -5,9 +5,9 @@
 
 declare namespace emailCheck {
     interface EmailCheckOptions {
-        from?: string;
-        host?: string;
-        timeout?: number;
+        from?: string | undefined;
+        host?: string | undefined;
+        timeout?: number | undefined;
     }
 }
 

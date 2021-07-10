@@ -29,12 +29,12 @@ declare namespace serveIndex {
     type TemplateCallback = (error: Error | null, htmlString?: string) => void;
 
     interface Options {
-        filter?: (filename: string, index: number, files: File[], dir: string) => boolean;
-        hidden?: boolean;
-        icons?: boolean;
-        stylesheet?: string;
-        template?: string | ((locals: Locals, callback: TemplateCallback) => void);
-        view?: string;
+        filter?: ((filename: string, index: number, files: File[], dir: string) => boolean) | undefined;
+        hidden?: boolean | undefined;
+        icons?: boolean | undefined;
+        stylesheet?: string | undefined;
+        template?: string | ((locals: Locals, callback: TemplateCallback) => void) | undefined;
+        view?: string | undefined;
     }
 }
 

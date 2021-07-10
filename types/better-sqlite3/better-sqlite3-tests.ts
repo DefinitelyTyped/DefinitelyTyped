@@ -17,6 +17,12 @@ db.exec('INSERT INTO test(name) VALUES("name");');
 db.pragma('data_version', { simple: true });
 db.checkpoint();
 db.checkpoint('main');
+db.table('vtable', {
+    columns: ['name'],
+    *rows() {
+        yield 'testName';
+    }
+});
 db.function('noop', () => { });
 db.function('noop', { deterministic: true, varargs: true }, () => { });
 db.aggregate('add', {
@@ -40,6 +46,9 @@ db.aggregate('addAll', {
 });
 db.defaultSafeIntegers();
 db.defaultSafeIntegers(true);
+
+const vtable: Sqlite.Statement = db.prepare('SELECT * FROM vtable');
+vtable.all();
 
 const stmt: Sqlite.Statement = db.prepare('SELECT * FROM test WHERE name == ?;');
 stmt.get(['name']);

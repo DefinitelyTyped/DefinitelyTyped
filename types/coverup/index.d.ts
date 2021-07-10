@@ -11,10 +11,10 @@ declare function coverup(value: string, options?: coverup.Options): string;
 
 declare namespace coverup {
     interface Options {
-        char?: string;
-        keepLeft?: number;
-        keepRight?: number;
-        compactTo?: number;
-        keepSymbols?: boolean;
+        char?: string | undefined;
+        keepLeft?: number | undefined;
+        keepRight?: number | undefined;
+        compactTo?: number | undefined;
+        keepSymbols?: boolean | undefined;
     }
 }

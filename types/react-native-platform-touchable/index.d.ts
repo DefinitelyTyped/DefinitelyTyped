@@ -10,14 +10,14 @@ import { BackgroundPropType, RippleBackgroundPropType, ThemeAttributeBackgroundP
 
 export interface PlatformTouchableProps extends TouchableWithoutFeedbackProps {
     // TouchableOpacity (default iOS)
-    activeOpacity?: number;
+    activeOpacity?: number | undefined;
     // TouchableNativeFeedback (default Android)
-    background?: BackgroundPropType;
-    foreground?: BackgroundPropType;
+    background?: BackgroundPropType | undefined;
+    foreground?: BackgroundPropType | undefined;
     // TouchableHighlight
-    underlayColor?: string;
-    onHideUnderlay?: () => void;
-    onShowUnderlay?: () => void;
+    underlayColor?: string | undefined;
+    onHideUnderlay?: (() => void) | undefined;
+    onShowUnderlay?: (() => void) | undefined;
 }
 
 export class Touchable extends React.Component<PlatformTouchableProps> {

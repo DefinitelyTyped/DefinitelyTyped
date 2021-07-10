@@ -9,52 +9,52 @@ interface iScrollEvent {
 }
 
 interface iScrollOptions {
-    hScroll?: boolean;
-    vScroll?: boolean;
-    x?: number;
-    y?: number;
-    bounce?: boolean;
-    bounceLock?: boolean;
-    momentum?: boolean;
-    lockDirection?: boolean;
-    useTransform?: boolean;
-    useTransition?: boolean;
-    topOffset?: number;
-    checkDOMChanges?: boolean;
-    handleClick?: boolean;
+    hScroll?: boolean | undefined;
+    vScroll?: boolean | undefined;
+    x?: number | undefined;
+    y?: number | undefined;
+    bounce?: boolean | undefined;
+    bounceLock?: boolean | undefined;
+    momentum?: boolean | undefined;
+    lockDirection?: boolean | undefined;
+    useTransform?: boolean | undefined;
+    useTransition?: boolean | undefined;
+    topOffset?: number | undefined;
+    checkDOMChanges?: boolean | undefined;
+    handleClick?: boolean | undefined;
 
     // Scrollbar
-    hScrollbar?: boolean;
-    vScrollbar?: boolean;
-    fixedScrollbar?: boolean;
-    hideScrollbar?: boolean;
-    fadeScrollbar?: boolean;
-    scrollbarClass?: string;
+    hScrollbar?: boolean | undefined;
+    vScrollbar?: boolean | undefined;
+    fixedScrollbar?: boolean | undefined;
+    hideScrollbar?: boolean | undefined;
+    fadeScrollbar?: boolean | undefined;
+    scrollbarClass?: string | undefined;
 
     // Zoom
-    zoom?: boolean;
-    zoomMin?: number;
-    zoomMax?: number;
-    doubleTapZoom?: number;
-    wheelAction?: string;
+    zoom?: boolean | undefined;
+    zoomMin?: number | undefined;
+    zoomMax?: number | undefined;
+    doubleTapZoom?: number | undefined;
+    wheelAction?: string | undefined;
 
     // Snap
     snap?: any;
-    snapThreshold?: number;
+    snapThreshold?: number | undefined;
 
     // Events
-    onRefresh?: iScrollEvent;
-    onBeforeScrollStart?: iScrollEvent;
-    onScrollStart?: iScrollEvent;
-    onBeforeScrollMove?: iScrollEvent;
-    onScrollMove?: iScrollEvent;
-    onBeforeScrollEnd?: iScrollEvent;
-    onScrollEnd?: iScrollEvent;
-    onTouchEnd?: iScrollEvent;
-    onDestroy?: iScrollEvent;
-    onZoomStart?: iScrollEvent;
-    onZoom?: iScrollEvent;
-    onZoomEnd?: iScrollEvent;
+    onRefresh?: iScrollEvent | undefined;
+    onBeforeScrollStart?: iScrollEvent | undefined;
+    onScrollStart?: iScrollEvent | undefined;
+    onBeforeScrollMove?: iScrollEvent | undefined;
+    onScrollMove?: iScrollEvent | undefined;
+    onBeforeScrollEnd?: iScrollEvent | undefined;
+    onScrollEnd?: iScrollEvent | undefined;
+    onTouchEnd?: iScrollEvent | undefined;
+    onDestroy?: iScrollEvent | undefined;
+    onZoomStart?: iScrollEvent | undefined;
+    onZoom?: iScrollEvent | undefined;
+    onZoomEnd?: iScrollEvent | undefined;
 }
 
 declare class iScroll {

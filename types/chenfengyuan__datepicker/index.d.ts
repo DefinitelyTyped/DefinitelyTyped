@@ -21,21 +21,21 @@ export interface DatepickerOptions {
      *
      * Default: `false`
      */
-    autoShow?: boolean;
+    autoShow?: boolean | undefined;
 
     /**
      * Hide the datepicker automatically when picked.
      *
      * Default: `false`
      */
-    autoHide?: boolean;
+    autoHide?: boolean | undefined;
 
     /**
      * Pick the initial date automatically when initialized.
      *
      * Default: `false`
      */
-    autoPick?: boolean;
+    autoPick?: boolean | undefined;
 
     /**
      * Enable inline mode.
@@ -43,7 +43,7 @@ export interface DatepickerOptions {
      * If the element is not an input element, will append the datepicker to the element.
      * If the `container` option is set, will append the datepicker to the container.
      */
-    inline?: boolean;
+    inline?: boolean | undefined;
 
     /**
      * A element for putting the datepicker. If not set, the datepicker will be appended to
@@ -51,17 +51,17 @@ export interface DatepickerOptions {
      *
      * > Only works when the `inline` option set to `true`.
      */
-    container?: Element | JQuery | string | null;
+    container?: Element | JQuery | string | null | undefined;
 
     /**
      * A element for triggering the datepicker.
      */
-    trigger?: Element | JQuery | string | null;
+    trigger?: Element | JQuery | string | null | undefined;
 
     /**
      * The ISO language code. If not set, will use the built-in language (`en-US`) by default.
      */
-    language?: string;
+    language?: string | undefined;
 
     /**
      * The date string format.
@@ -73,22 +73,22 @@ export interface DatepickerOptions {
      * * Month: `mm`, `m`
      * * Day: `dd`, `d`
      */
-    format?: string;
+    format?: string | undefined;
 
     /**
      * The initial date. If not set, will use the current date by default.
      */
-    date?: Date | string;
+    date?: Date | string | undefined;
 
     /**
      * The start view date. All the dates before this date will be disabled.
      */
-    startDate?: Date | string;
+    startDate?: Date | string | undefined;
 
     /**
      * The end view date. All the dates after this date will be disabled.
      */
-    endDate?: Date | string;
+    endDate?: Date | string | undefined;
 
     /**
      * The start view when initialized.
@@ -100,7 +100,7 @@ export interface DatepickerOptions {
      * * `1`: months
      * * `2`: years
      */
-    startView?: 0 | 1 | 2;
+    startView?: 0 | 1 | 2 | undefined;
 
     /**
      * The start day of the week.
@@ -115,82 +115,82 @@ export interface DatepickerOptions {
      * * `5`: Friday
      * * `6`: Saturday
      */
-    weekStart?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+    weekStart?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
 
     /**
      * Show year before month on the datepicker header.
      *
      * Default: `false`
      */
-    yearFirst?: boolean;
+    yearFirst?: boolean | undefined;
 
     /**
      * A string suffix to the year number.
      */
-    yearSuffix?: string;
+    yearSuffix?: string | undefined;
 
     /**
      * Days' name of the week.
      *
      * Default: `['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']`
      */
-    days?: string[];
+    days?: string[] | undefined;
 
     /**
      * Shorter days' name.
      *
      * Default: `['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']`
      */
-    daysShort?: string[];
+    daysShort?: string[] | undefined;
 
     /**
      * Shortest days' name.
      *
      * Default: `['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']`
      */
-    daysMin?: string[];
+    daysMin?: string[] | undefined;
 
     /**
      * Months' name.
      *
      * Default: `['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']`
      */
-    months?: string[];
+    months?: string[] | undefined;
 
     /**
      * Shorter months' name.
      *
      * Default: `['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']`
      */
-    monthsShort?: string[];
+    monthsShort?: string[] | undefined;
 
     /**
      * A element tag for each item of years, months and days.
      *
      * Default: `li`
      */
-    itemTag?: string;
+    itemTag?: string | undefined;
 
     /**
      * CSS class for a muted item.
      *
      * Default: `picked`
      */
-    pickedClass?: string;
+    pickedClass?: string | undefined;
 
     /**
      * CSS class for a disabled item.
      *
      * Default: `disabled`
      */
-    disabledClass?: string;
+    disabledClass?: string | undefined;
 
     /**
      * CSS class for highlight date item.
      *
      * Default: `highlighted`
      */
-    highlightedClass?: string;
+    highlightedClass?: string | undefined;
 
     /**
      * The template of the datepicker.
@@ -228,41 +228,41 @@ export interface DatepickerOptions {
      *
      * **Note**: All the data-view attributes must be set when you customize it.
      */
-    template?: string;
+    template?: string | undefined;
 
     /**
      * The offset top or bottom of the datepicker from the element.
      *
      * Default: `10`
      */
-    offset?: number;
+    offset?: number | undefined;
 
     /**
      * The CSS `z-index` style for the datepicker.
      *
      * Default: `1`
      */
-    zIndex?: number;
+    zIndex?: number | undefined;
 
     /**
      * Filter each date item. If it returns `false`, the related date will be disabled.
      */
-    filter?: (date: Date, view: 'day' | 'month' | 'year') => boolean | undefined;
+    filter?: ((date: Date, view: 'day' | 'month' | 'year') => boolean | undefined) | undefined;
 
     /**
      * A shortcut of the "show.datepicker" event.
      */
-    show?: (event: DatePickerEvent) => void;
+    show?: ((event: DatePickerEvent) => void) | undefined;
 
     /**
      * A shortcut of the "hide.datepicker" event.
      */
-    hide?: (event: DatePickerEvent) => void;
+    hide?: ((event: DatePickerEvent) => void) | undefined;
 
     /**
      * A shortcut of the "pick.datepicker" event.
      */
-    pick?: (event: DatePickerEvent) => void;
+    pick?: ((event: DatePickerEvent) => void) | undefined;
 }
 
 export type DatePickerMethod = 'show' | 'hide' | 'update' | 'pick' | 'reset' |

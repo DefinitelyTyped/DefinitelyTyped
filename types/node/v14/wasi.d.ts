@@ -5,13 +5,13 @@ declare module 'wasi' {
          * see as command line arguments. The first argument is the virtual path to the
          * WASI command itself.
          */
-        args?: string[];
+        args?: string[] | undefined;
 
         /**
          * An object similar to `process.env` that the WebAssembly
          * application will see as its environment.
          */
-        env?: object;
+        env?: object | undefined;
 
         /**
          * This object represents the WebAssembly application's
@@ -19,7 +19,7 @@ declare module 'wasi' {
          * directories within the sandbox. The corresponding values in `preopens` are
          * the real paths to those directories on the host machine.
          */
-        preopens?: NodeJS.Dict<string>;
+        preopens?: NodeJS.Dict<string> | undefined;
 
         /**
          * By default, WASI applications terminate the Node.js
@@ -28,25 +28,25 @@ declare module 'wasi' {
          * process.
          * @default false
          */
-        returnOnExit?: boolean;
+        returnOnExit?: boolean | undefined;
 
         /**
          * The file descriptor used as standard input in the WebAssembly application.
          * @default 0
          */
-        stdin?: number;
+        stdin?: number | undefined;
 
         /**
          * The file descriptor used as standard output in the WebAssembly application.
          * @default 1
          */
-        stdout?: number;
+        stdout?: number | undefined;
 
         /**
          * The file descriptor used as standard error in the WebAssembly application.
          * @default 2
          */
-        stderr?: number;
+        stderr?: number | undefined;
     }
 
     class WASI {

@@ -8,28 +8,28 @@ import * as React from "react";
 type Alignment = "right" | "center" | "left";
 
 type Spacing = number | {
-    top?: number;
-    right?: number;
-    bottom?: number;
-    left?: number;
+    top?: number | undefined;
+    right?: number | undefined;
+    bottom?: number | undefined;
+    left?: number | undefined;
 };
 
 interface BoxProps {
-    borderColor?: string;
+    borderColor?: string | undefined;
     borderStyle?: ("single" | "double" | "round" | "singleDouble" | "doubleSingle" | "classic") | {
-        topLeft?: string;
-        topRight?: string;
-        bottomLeft?: string;
-        bottomRight?: string;
-        horizontal?: string;
-        vertical?: string;
-    };
-    dimBorder?: boolean;
-    padding?: Spacing;
-    margin?: Spacing;
-    float?: Alignment;
-    backgroundColor?: string;
-    align?: Alignment;
+        topLeft?: string | undefined;
+        topRight?: string | undefined;
+        bottomLeft?: string | undefined;
+        bottomRight?: string | undefined;
+        horizontal?: string | undefined;
+        vertical?: string | undefined;
+    } | undefined;
+    dimBorder?: boolean | undefined;
+    padding?: Spacing | undefined;
+    margin?: Spacing | undefined;
+    float?: Alignment | undefined;
+    backgroundColor?: string | undefined;
+    align?: Alignment | undefined;
 }
 declare const Box: React.FC<BoxProps>;
 export = Box;

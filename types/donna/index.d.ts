@@ -23,10 +23,10 @@ declare namespace DonnaTypes {
         type: string;
         name: string;
         bindingType: string;
-        paramNames?: string[];
-        classProperties?: any[];
-        prototypeProperties?: number[][];
-        doc?: string;
+        paramNames?: string[] | undefined;
+        classProperties?: any[] | undefined;
+        prototypeProperties?: number[][] | undefined;
+        doc?: string | undefined;
         range: number[][];
 
     }

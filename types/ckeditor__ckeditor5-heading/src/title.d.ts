@@ -6,9 +6,9 @@ export default class Title extends Plugin {
     static readonly requires: [typeof Paragraph];
     init(): void;
     getTitle(): string;
-    getBody(options?: { rootName?: string; trim?: 'empty' | 'none' }): string;
+    getBody(options?: { rootName?: string | undefined; trim?: 'empty' | 'none' | undefined }): string;
 }
 
 export interface TitleConfig {
-    placeholder?: string;
+    placeholder?: string | undefined;
 }

@@ -12,8 +12,8 @@ export interface ApplySnapshotOptions {
     closeExistingWindows: boolean;
 }
 export interface PlatformOptions extends ApplicationOption {
-    defaultWindowOptions?: WindowOption;
-    defaultViewOptions?: ViewCreationOptions;
+    defaultWindowOptions?: WindowOption | undefined;
+    defaultViewOptions?: ViewCreationOptions | undefined;
 }
 /**
  * @lends Platform

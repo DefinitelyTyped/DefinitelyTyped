@@ -11,23 +11,23 @@ declare namespace JQueryTinyScrollbar {
         /**
         * Enable mobile invert style scrolling. (default: false)
         */
-        invertscroll?: boolean;
+        invertscroll?: boolean | undefined;
         /**
         * Vertical or horizontal scroller? 'x' or 'y'. (default: 'x')
         */
-        axis?: string;
+        axis?: string | undefined;
         /**
         * How many pixels must the mouswheel scrolls at a time. (default: 40)
         */
-        wheel?: number;
+        wheel?: number | undefined;
         /**
         * Enable or disable the mousewheel. (default: true)
         */
-        scroll?: boolean;
+        scroll?: boolean | undefined;
         /**
         * Return scrollwheel event to browser if there is no more content. (default: true)
         */
-        lockscroll?: boolean;
+        lockscroll?: boolean | undefined;
         /**
         * Set the size of the scrollbar to auto or a fixed number. (default: 'auto')
         */

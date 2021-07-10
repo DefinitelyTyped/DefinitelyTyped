@@ -68,10 +68,10 @@ export interface ClientOptions {
     username: string;
     token: string;
     remoteUri: string;
-    oauth?: boolean;
-    debug?: boolean;
-    disableGlobalState?: boolean;
-    asUser?: string;
+    oauth?: boolean | undefined;
+    debug?: boolean | undefined;
+    disableGlobalState?: boolean | undefined;
+    asUser?: string | undefined;
 }
 
 export function createClient(config: ClientOptions): Client;
@@ -88,7 +88,7 @@ export namespace Attachments {
             file: PathLike,
             fileOptions: {
                 filename: string;
-                token?: string;
+                token?: string | undefined;
             },
             cb: ZendeskCallback<unknown, UploadResponseModel>,
         ): void;
@@ -96,7 +96,7 @@ export namespace Attachments {
             file: PathLike,
             fileOptions: {
                 filename: string;
-                token?: string;
+                token?: string | undefined;
             },
         ): Promise<UploadResponseModel>;
     }
@@ -105,18 +105,18 @@ export namespace Attachments {
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/attachments#json-format}
      */
     interface Attachment extends PersistableModel {
-        readonly content_type?: string;
-        readonly content_url?: string;
-        readonly deleted?: boolean;
-        readonly file_name?: string;
-        readonly inline?: boolean;
-        readonly mapped_content_url?: string;
-        readonly size?: number;
-        readonly url?: string;
+        readonly content_type?: string | undefined;
+        readonly content_url?: string | undefined;
+        readonly deleted?: boolean | undefined;
+        readonly file_name?: string | undefined;
+        readonly inline?: boolean | undefined;
+        readonly mapped_content_url?: string | undefined;
+        readonly size?: number | undefined;
+        readonly url?: string | undefined;
     }
 
     interface Model extends Attachment {
-        thumbnails?: ReadonlyArray<Attachment>;
+        thumbnails?: ReadonlyArray<Attachment> | undefined;
     }
 
     interface ShowResponseModel {
@@ -125,8 +125,8 @@ export namespace Attachments {
 
     interface UploadResponseModel {
         upload: {
-            attachment?: Attachment;
-            attachments?: Attachment[];
+            attachment?: Attachment | undefined;
+            attachments?: Attachment[] | undefined;
             token: string;
         };
     }
@@ -157,12 +157,12 @@ export namespace JobStatuses {
     }
 
     interface ResponseModel extends PersistableModel {
-        readonly url?: string | null;
-        readonly total?: number;
-        readonly progress?: number;
-        readonly status?: Status;
-        readonly message?: string | null;
-        readonly results?: ReadonlyArray<Result>;
+        readonly url?: string | null | undefined;
+        readonly total?: number | undefined;
+        readonly progress?: number | undefined;
+        readonly status?: Status | undefined;
+        readonly message?: string | null | undefined;
+        readonly results?: ReadonlyArray<Result> | undefined;
     }
 
     interface ResponsePayload {
@@ -189,8 +189,8 @@ export namespace Macros {
             comment: {
                 body: string;
                 html_body: string;
-                scoped_body?: unknown;
-                public?: boolean;
+                scoped_body?: unknown | undefined;
+                public?: boolean | undefined;
             };
         };
     }
@@ -201,17 +201,17 @@ export namespace Macros {
  */
 export namespace Organizations {
     interface Model extends AuditableModel {
-        readonly url?: string;
-        external_id?: string | null;
+        readonly url?: string | undefined;
+        external_id?: string | null | undefined;
         name: string;
-        domain_names?: ReadonlyArray<string>;
-        details?: string | null;
-        notes?: string | null;
-        group_id?: number | null;
-        shared_tickets?: boolean;
-        shared_comments?: boolean;
-        tags?: ReadonlyArray<string>;
-        organization_fields?: object | null;
+        domain_names?: ReadonlyArray<string> | undefined;
+        details?: string | null | undefined;
+        notes?: string | null | undefined;
+        group_id?: number | null | undefined;
+        shared_tickets?: boolean | undefined;
+        shared_comments?: boolean | undefined;
+        tags?: ReadonlyArray<string> | undefined;
+        organization_fields?: object | null | undefined;
     }
 }
 
@@ -267,26 +267,26 @@ export namespace Requests {
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/requests#create-request|Zendesk Requests Create}
      */
     interface CreateModel {
-        requester?: RequesterAnonymous; // Required for anonymous requests
+        requester?: RequesterAnonymous | undefined; // Required for anonymous requests
         subject: string;
         comment: Comments.CreateModel;
-        priority?: Tickets.Priority | null; // Anonymous requests can set priority, Authenticated requests cannot
-        type?: Tickets.TicketType | null; // Anonymous requests can set type, Authenticated requests cannot
-        custom_fields?: Tickets.Field[] | null;
-        fields?: Tickets.Field[] | null;
-        due_at?: string | null; // Anonymous requests can set due date as long as type == task. Authenticated requests cannot
-        ticket_form_id?: number | null;
-        recipient?: string | null;
-        collaborators?: ZendeskID[] | string[] | Collaborator[];
+        priority?: Tickets.Priority | null | undefined; // Anonymous requests can set priority, Authenticated requests cannot
+        type?: Tickets.TicketType | null | undefined; // Anonymous requests can set type, Authenticated requests cannot
+        custom_fields?: Tickets.Field[] | null | undefined;
+        fields?: Tickets.Field[] | null | undefined;
+        due_at?: string | null | undefined; // Anonymous requests can set due date as long as type == task. Authenticated requests cannot
+        ticket_form_id?: number | null | undefined;
+        recipient?: string | null | undefined;
+        collaborators?: ZendeskID[] | string[] | Collaborator[] | undefined;
     }
 
     /**
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/requests#update-request|Zendesk Requests Update}
      */
     interface UpdateModel {
-        comment?: Comments.CreateModel;
-        solved?: boolean;
-        additional_collaborators?: ZendeskID[] | string[] | Collaborator[];
+        comment?: Comments.CreateModel | undefined;
+        solved?: boolean | undefined;
+        additional_collaborators?: ZendeskID[] | string[] | Collaborator[] | undefined;
     }
 
     /**
@@ -304,27 +304,27 @@ export namespace Requests {
         readonly organization_id: ZendeskID | null;
         readonly requester_id: ZendeskID;
         readonly assignee_id: ZendeskID | null;
-        readonly group_id?: ZendeskID | null;
+        readonly group_id?: ZendeskID | null | undefined;
         readonly collaborator_ids: ZendeskID[];
         readonly email_cc_ids: ZendeskID[];
         readonly via: Tickets.Via;
         readonly is_public: boolean;
         readonly due_at: string | null;
-        readonly can_be_solved_by_me?: boolean;
-        readonly solved?: boolean;
-        readonly ticket_form_id?: number | null;
+        readonly can_be_solved_by_me?: boolean | undefined;
+        readonly solved?: boolean | undefined;
+        readonly ticket_form_id?: number | null | undefined;
         readonly recipient: string | null;
         readonly followup_source_id: string | null;
     }
 
     interface RequesterAnonymous {
         name: string;
-        email?: string;
-        locale_id?: ZendeskID;
+        email?: string | undefined;
+        locale_id?: ZendeskID | undefined;
     }
 
     interface Collaborator {
-        name?: string;
+        name?: string | undefined;
         email: string;
     }
 
@@ -346,13 +346,13 @@ export namespace Requests {
 
     namespace Comments {
         interface CreateModel {
-            url?: string;
-            request_id?: number;
-            body?: string;
-            html_body?: string;
-            public?: boolean;
-            author_id?: ZendeskID;
-            uploads?: ReadonlyArray<string>;
+            url?: string | undefined;
+            request_id?: number | undefined;
+            body?: string | undefined;
+            html_body?: string | undefined;
+            public?: boolean | undefined;
+            author_id?: ZendeskID | undefined;
+            uploads?: ReadonlyArray<string> | undefined;
         }
 
         interface ResponseModel extends TemporalModel {
@@ -365,8 +365,8 @@ export namespace Requests {
             readonly public: boolean;
             readonly author_id: ZendeskID;
             readonly attachments: ReadonlyArray<Attachments.Model>;
-            readonly via?: Tickets.Via;
-            readonly metadata?: Tickets.Comments.Metadata;
+            readonly via?: Tickets.Via | undefined;
+            readonly metadata?: Tickets.Comments.Metadata | undefined;
         }
 
         type RequestType = "Comment" | "VoiceComment";
@@ -480,62 +480,62 @@ export namespace Tickets {
      */
     interface CreateModel {
         comment: Requests.Comments.CreateModel;
-        external_id?: string | null;
-        type?: TicketType | null;
-        subject?: string | null;
-        raw_subject?: string | null;
-        priority?: Priority | null;
-        status?: Status | null;
-        recipient?: string | null;
-        requester_id?: ZendeskID;
-        submitter_id?: ZendeskID | null;
-        assignee_id?: ZendeskID | null;
-        organization_id?: number | null;
-        group_id?: number | null;
-        collaborator_ids?: ReadonlyArray<number> | null;
-        collaborators?: ReadonlyArray<any> | null;
-        follower_ids?: ReadonlyArray<number> | null;
-        email_cc_ids?: ReadonlyArray<number> | null;
-        forum_topic_id?: number | null;
-        problem_id?: number | null;
-        due_at?: string | null;
-        tags?: ReadonlyArray<string> | null;
-        custom_fields?: Field[] | null;
-        fields?: Field[] | null;
-        via_followup_source_id?: number | null;
-        macro_ids?: ReadonlyArray<number> | null;
-        ticket_form_id?: number | null;
-        brand_id?: number | null;
+        external_id?: string | null | undefined;
+        type?: TicketType | null | undefined;
+        subject?: string | null | undefined;
+        raw_subject?: string | null | undefined;
+        priority?: Priority | null | undefined;
+        status?: Status | null | undefined;
+        recipient?: string | null | undefined;
+        requester_id?: ZendeskID | undefined;
+        submitter_id?: ZendeskID | null | undefined;
+        assignee_id?: ZendeskID | null | undefined;
+        organization_id?: number | null | undefined;
+        group_id?: number | null | undefined;
+        collaborator_ids?: ReadonlyArray<number> | null | undefined;
+        collaborators?: ReadonlyArray<any> | null | undefined;
+        follower_ids?: ReadonlyArray<number> | null | undefined;
+        email_cc_ids?: ReadonlyArray<number> | null | undefined;
+        forum_topic_id?: number | null | undefined;
+        problem_id?: number | null | undefined;
+        due_at?: string | null | undefined;
+        tags?: ReadonlyArray<string> | null | undefined;
+        custom_fields?: Field[] | null | undefined;
+        fields?: Field[] | null | undefined;
+        via_followup_source_id?: number | null | undefined;
+        macro_ids?: ReadonlyArray<number> | null | undefined;
+        ticket_form_id?: number | null | undefined;
+        brand_id?: number | null | undefined;
     }
 
     /**
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/tickets#update-ticket|Zendesk Tickets Update}
      */
     interface UpdateModel {
-        subject?: string | null;
-        comment?: Requests.Comments.CreateModel;
-        requester_id?: ZendeskID;
-        assignee_id?: ZendeskID | null;
-        assignee_email?: string | null;
-        group_id?: number | null;
-        organization_id?: number | null;
-        collaborator_ids?: ReadonlyArray<number> | null;
-        additional_collaborators?: ReadonlyArray<any> | null;
-        followers?: ReadonlyArray<Follower> | null;
-        email_ccs?: ReadonlyArray<EmailCC> | null;
-        type?: TicketType | null;
-        priority?: Priority | null;
-        status?: Status | null;
-        tags?: ReadonlyArray<string> | null;
-        external_id?: string | null;
-        problem_id?: number | null;
-        due_at?: string | null;
-        custom_fields?: Field[] | null;
-        updated_stamp?: string | null;
-        safe_update?: boolean;
-        sharing_agreement_ids?: ReadonlyArray<number> | null;
-        macro_ids?: ReadonlyArray<number> | null;
-        attribute_value_ids?: ReadonlyArray<number> | null;
+        subject?: string | null | undefined;
+        comment?: Requests.Comments.CreateModel | undefined;
+        requester_id?: ZendeskID | undefined;
+        assignee_id?: ZendeskID | null | undefined;
+        assignee_email?: string | null | undefined;
+        group_id?: number | null | undefined;
+        organization_id?: number | null | undefined;
+        collaborator_ids?: ReadonlyArray<number> | null | undefined;
+        additional_collaborators?: ReadonlyArray<any> | null | undefined;
+        followers?: ReadonlyArray<Follower> | null | undefined;
+        email_ccs?: ReadonlyArray<EmailCC> | null | undefined;
+        type?: TicketType | null | undefined;
+        priority?: Priority | null | undefined;
+        status?: Status | null | undefined;
+        tags?: ReadonlyArray<string> | null | undefined;
+        external_id?: string | null | undefined;
+        problem_id?: number | null | undefined;
+        due_at?: string | null | undefined;
+        custom_fields?: Field[] | null | undefined;
+        updated_stamp?: string | null | undefined;
+        safe_update?: boolean | undefined;
+        sharing_agreement_ids?: ReadonlyArray<number> | null | undefined;
+        macro_ids?: ReadonlyArray<number> | null | undefined;
+        attribute_value_ids?: ReadonlyArray<number> | null | undefined;
     }
 
     /**
@@ -570,12 +570,12 @@ export namespace Tickets {
         readonly satisfaction_rating: object | string | null;
         readonly sharing_agreement_ids: ReadonlyArray<number>;
         readonly followup_ids: ReadonlyArray<number>;
-        readonly ticket_form_id?: number | null; // Enterprise version only
-        readonly brand_id?: number | null; // Enterprise version only
+        readonly ticket_form_id?: number | null | undefined; // Enterprise version only
+        readonly brand_id?: number | null | undefined; // Enterprise version only
         readonly allow_channelback: boolean;
         readonly allow_attachments: boolean;
         readonly is_public: boolean;
-        readonly comment_count?: number;
+        readonly comment_count?: number | undefined;
     }
 
     interface Audit {
@@ -589,8 +589,8 @@ export namespace Tickets {
     }
 
     interface EmailCC {
-        user_id?: ZendeskID;
-        user_email?: string;
+        user_id?: ZendeskID | undefined;
+        user_email?: string | undefined;
         action: string;
     }
 
@@ -600,8 +600,8 @@ export namespace Tickets {
     }
 
     interface Follower {
-        user_id?: ZendeskID;
-        user_email?: string;
+        user_id?: ZendeskID | undefined;
+        user_email?: string | undefined;
         action: string;
     }
 
@@ -642,8 +642,8 @@ export namespace Tickets {
 
     interface MergePayload {
         readonly ids: ReadonlyArray<ZendeskID>;
-        readonly target_comment?: string | null;
-        readonly source_comment?: string | null;
+        readonly target_comment?: string | null | undefined;
+        readonly source_comment?: string | null | undefined;
     }
 
     interface AuditsListPayload extends PaginablePayload {
@@ -665,12 +665,12 @@ export namespace Tickets {
 
     namespace Comments {
         interface ResponseModel extends Requests.Comments.ResponseModel {
-            readonly via?: Via;
-            readonly metadata?: Metadata;
+            readonly via?: Via | undefined;
+            readonly metadata?: Metadata | undefined;
         }
 
         interface Metadata {
-            flags?: ReadonlyArray<number>;
+            flags?: ReadonlyArray<number> | undefined;
             flag_options: unknown;
         }
 
@@ -698,23 +698,23 @@ export namespace Tickets {
         }
 
         interface ResponseModel extends AuditableModel {
-            readonly ticket_id?: ZendeskID;
-            readonly url?: string;
-            readonly group_stations?: number;
-            readonly assignee_stations?: number;
-            readonly reopens?: number;
-            readonly replies?: number;
-            readonly assignee_updated_at?: string | null;
-            readonly requester_updated_at?: string | null;
-            readonly initially_assigned_at?: string | null;
-            readonly assigned_at?: string | null;
-            readonly solved_at?: string | null;
-            readonly latest_comment_added_at?: string | null;
-            readonly first_resolution_time_in_minutes?: MinutesObject;
-            readonly reply_time_in_minutes?: MinutesObject;
-            readonly full_resolution_time_in_minutes?: MinutesObject;
-            readonly agent_wait_time_in_minutes?: MinutesObject;
-            readonly requester_wait_time_in_minutes?: MinutesObject;
+            readonly ticket_id?: ZendeskID | undefined;
+            readonly url?: string | undefined;
+            readonly group_stations?: number | undefined;
+            readonly assignee_stations?: number | undefined;
+            readonly reopens?: number | undefined;
+            readonly replies?: number | undefined;
+            readonly assignee_updated_at?: string | null | undefined;
+            readonly requester_updated_at?: string | null | undefined;
+            readonly initially_assigned_at?: string | null | undefined;
+            readonly assigned_at?: string | null | undefined;
+            readonly solved_at?: string | null | undefined;
+            readonly latest_comment_added_at?: string | null | undefined;
+            readonly first_resolution_time_in_minutes?: MinutesObject | undefined;
+            readonly reply_time_in_minutes?: MinutesObject | undefined;
+            readonly full_resolution_time_in_minutes?: MinutesObject | undefined;
+            readonly agent_wait_time_in_minutes?: MinutesObject | undefined;
+            readonly requester_wait_time_in_minutes?: MinutesObject | undefined;
         }
 
         interface ResponsePayload {
@@ -814,28 +814,28 @@ export namespace Users {
     }
 
     interface BaseModel {
-        email?: string | null;
-        alias?: string | null;
-        custom_role_id?: number | null;
-        details?: string | null;
-        external_id?: string | null;
-        locale_id?: number | null;
-        moderator?: boolean | null;
-        notes?: string | null;
-        only_private_comments?: boolean | null;
-        organization_id?: number | null;
-        default_group_id?: number | null;
-        phone?: string | null;
-        photo?: Attachments.Model | null;
-        restricted_agent?: boolean | null;
-        role?: Role | null;
-        signature?: string | null;
-        suspended?: boolean | null;
-        tags?: ReadonlyArray<unknown> | null;
-        ticket_restriction?: TicketRestriction | null;
-        time_zone?: string | null;
-        user_fields?: object | null;
-        verified?: boolean | null;
+        email?: string | null | undefined;
+        alias?: string | null | undefined;
+        custom_role_id?: number | null | undefined;
+        details?: string | null | undefined;
+        external_id?: string | null | undefined;
+        locale_id?: number | null | undefined;
+        moderator?: boolean | null | undefined;
+        notes?: string | null | undefined;
+        only_private_comments?: boolean | null | undefined;
+        organization_id?: number | null | undefined;
+        default_group_id?: number | null | undefined;
+        phone?: string | null | undefined;
+        photo?: Attachments.Model | null | undefined;
+        restricted_agent?: boolean | null | undefined;
+        role?: Role | null | undefined;
+        signature?: string | null | undefined;
+        suspended?: boolean | null | undefined;
+        tags?: ReadonlyArray<unknown> | null | undefined;
+        ticket_restriction?: TicketRestriction | null | undefined;
+        time_zone?: string | null | undefined;
+        user_fields?: object | null | undefined;
+        verified?: boolean | null | undefined;
     }
 
     /**
@@ -849,7 +849,7 @@ export namespace Users {
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/users#update-user|Zendesk Users Update}
      */
     interface UpdateModel extends BaseModel {
-        name?: string;
+        name?: string | undefined;
     }
 
     /**
@@ -882,12 +882,12 @@ export namespace Users {
         readonly shared_agent: boolean;
         readonly signature: string | null;
         readonly suspended: boolean;
-        readonly tags?: ReadonlyArray<unknown> | null;
+        readonly tags?: ReadonlyArray<unknown> | null | undefined;
         readonly ticket_restriction: TicketRestriction | null;
         readonly time_zone: string | null;
         readonly two_factor_auth_enabled: boolean;
         readonly url: string;
-        readonly user_fields?: object | null;
+        readonly user_fields?: object | null | undefined;
         readonly verified: boolean;
         readonly report_csv: boolean;
     }
@@ -978,13 +978,13 @@ export namespace Users {
         interface CreateModel {
             type: IdentityType;
             value: string;
-            verified?: boolean;
-            primary?: boolean;
+            verified?: boolean | undefined;
+            primary?: boolean | undefined;
         }
 
         interface UpdateModel {
-            value?: string;
-            verified?: boolean;
+            value?: string | undefined;
+            verified?: boolean | undefined;
         }
 
         interface ResponseModel extends AuditableModel {
@@ -1043,22 +1043,22 @@ export namespace Users {
          * Represents 'user_field'
          */
         interface UserField {
-            readonly id?: number;
-            readonly url?: string;
-            readonly type?: UserFieldType;
-            key?: string;
+            readonly id?: number | undefined;
+            readonly url?: string | undefined;
+            readonly type?: UserFieldType | undefined;
+            key?: string | undefined;
             title: string;
-            raw_title?: string;
-            description?: string;
-            raw_description?: string;
-            position?: number;
-            active?: boolean;
-            readonly system?: boolean;
-            regexp_for_validation?: string;
-            created_at?: Date;
-            updated_at?: Date;
-            tag?: string;
-            custom_field_options?: CustomFieldOptions[];
+            raw_title?: string | undefined;
+            description?: string | undefined;
+            raw_description?: string | undefined;
+            position?: number | undefined;
+            active?: boolean | undefined;
+            readonly system?: boolean | undefined;
+            regexp_for_validation?: string | undefined;
+            created_at?: Date | undefined;
+            updated_at?: Date | undefined;
+            tag?: string | undefined;
+            custom_field_options?: CustomFieldOptions[] | undefined;
         }
         interface CreateUserField extends UserField {
             key: string;

@@ -62,9 +62,9 @@ export interface Proxy {
 }
 
 export interface Options {
-    qs?: string;
-    logging?: boolean;
-    useDefaultPath?: boolean;
+    qs?: string | undefined;
+    logging?: boolean | undefined;
+    useDefaultPath?: boolean | undefined;
 }
 
 export type SupportsKeepAliveHandler = () => boolean;

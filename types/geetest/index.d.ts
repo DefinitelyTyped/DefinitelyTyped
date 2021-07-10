@@ -6,8 +6,8 @@
 interface Options {
     geetest_id: string;
     geetest_key: string;
-    protocol?: string;
-    api_server?: string;
+    protocol?: string | undefined;
+    api_server?: string | undefined;
 }
 
 type Success = 0 | 1;

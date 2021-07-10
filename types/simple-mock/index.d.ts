@@ -57,7 +57,7 @@ declare namespace Simple {
     mock(): Stub<any>;
     mock<T>(): Stub<T>;
 
-    Promise?: PromiseConstructorLike;
+    Promise?: PromiseConstructorLike | undefined;
   }
 
   interface Calls<T> {

@@ -18,8 +18,8 @@ declare class TreebankWordTokenizer implements Tokenizer {
     tokenize(text: string): string[];
 }
 interface RegexTokenizerOptions {
-    pattern?: RegExp;
-    discardEmpty?: boolean;
+    pattern?: RegExp | undefined;
+    discardEmpty?: boolean | undefined;
 }
 declare class RegexpTokenizer implements Tokenizer {
     constructor(options: RegexTokenizerOptions);
@@ -85,17 +85,17 @@ declare function JaroWinklerDistance(s1: string, s2: string, dt?: number): numbe
 declare function LevenshteinDistance(source: string, target: string, options?: any): number;
 export interface DamerauLevenshteinDistanceOptions {
     /** @default 1 */
-    insertion_cost?: number;
+    insertion_cost?: number | undefined;
     /** @default 1 */
-    deletion_cost?: number;
+    deletion_cost?: number | undefined;
     /** @default 1 */
-    substitution_cost?: number;
+    substitution_cost?: number | undefined;
     /** @default 1 */
-    transposition_cost?: number;
+    transposition_cost?: number | undefined;
     /** @default false */
-    search?: boolean;
+    search?: boolean | undefined;
     /** @default false */
-    restricted?: boolean;
+    restricted?: boolean | undefined;
 }
 interface SubstringDistanceResult {
     substring: string;
@@ -117,7 +117,7 @@ export function DamerauLevenshteinDistance(
 export function DamerauLevenshteinDistance(
     source: string,
     target: string,
-    options?: DamerauLevenshteinDistanceOptions & { search?: false },
+    options?: DamerauLevenshteinDistanceOptions & { search?: false | undefined },
 ): number;
 export function DamerauLevenshteinDistance(
     source: string,
@@ -304,8 +304,8 @@ declare class Predicate {
     constructor(name: string, parameter1: string, parameter2?: string);
     name: string;
     parameter1: string;
-    parameter2?: string;
-    function?: (tagged_sentence: string[][], i: number, parameter: string) => boolean;
+    parameter2?: string | undefined;
+    function?: ((tagged_sentence: string[][], i: number, parameter: string) => boolean) | undefined;
     evaluate(tagged_sentence: string[][], position: number): boolean;
 }
 

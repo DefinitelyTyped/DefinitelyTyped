@@ -27,15 +27,15 @@ export namespace sm2 {
     function doEncrypt(msg: string, publicKey: string, cipherMode?: CipherMode): string;
     function doDecrypt(encryptData: string, privateKey: string, cipherMode?: CipherMode): string;
     function doSignature(msg: string, privateKey: string, options?: {
-        pointPool?: KeyPairPoint[]
-        der?: boolean
-        hash?: boolean
-        publicKey?: string
+        pointPool?: KeyPairPoint[] | undefined
+        der?: boolean | undefined
+        hash?: boolean | undefined
+        publicKey?: string | undefined
     }): string;
     function doVerifySignature(msg: string, signHex: string, publicKey: string, options?: {
-        der?: boolean
-        hash?: boolean
-        publicKey?: string
+        der?: boolean | undefined
+        hash?: boolean | undefined
+        publicKey?: string | undefined
     }): boolean;
     function getPoint(): KeyPairPoint;
 }

@@ -70,40 +70,40 @@ declare namespace google.maps.infobubble {
         /**
           * Percentage from the bottom left corner of the infobubble
           */
-        arrowPosition?: number;
+        arrowPosition?: number | undefined;
 
-        arrowSize?: number;
+        arrowSize?: number | undefined;
 
         /**
           * 0: Middle, 1: Left, 2: Right
           */
-        arrowStyle?: number;
+        arrowStyle?: number | undefined;
 
-        backgroundColor?: string;
+        backgroundColor?: string | undefined;
 
-        borderColor?: string;
+        borderColor?: string | undefined;
 
-        borderRadius?: number;
+        borderRadius?: number | undefined;
 
-        borderWidth?: number;
+        borderWidth?: number | undefined;
 
-        disableAnimation?: boolean;
+        disableAnimation?: boolean | undefined;
 
-        disableAutoPan?: boolean;
+        disableAutoPan?: boolean | undefined;
 
-        maxHeight?: number;
+        maxHeight?: number | undefined;
 
-        maxWidth?: number;
+        maxWidth?: number | undefined;
 
-        minHeight?: number;
+        minHeight?: number | undefined;
 
-        minWidth?: number;
+        minWidth?: number | undefined;
 
-        padding?: number;
+        padding?: number | undefined;
 
         /**
           * 0: None, 1: Right, 2: Under
           */
-        shadowStyle?: number;
+        shadowStyle?: number | undefined;
     }
 }

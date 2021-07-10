@@ -21,7 +21,7 @@ declare namespace gapi.client.language {
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            fields?: string;
+            fields?: string | undefined;
         }): HttpRequest<GoogleApiTranslateDetectionListResponse>;
     }
 
@@ -35,11 +35,11 @@ declare namespace gapi.client.language {
             /**
              * the language and collation in which the localized results should be returned
              */
-            target?: string;
+            target?: string | undefined;
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            fields?: string;
+            fields?: string | undefined;
         }): HttpRequest<GoogleApiTranslateLanguageListResponse>
 
     }
@@ -61,23 +61,23 @@ declare namespace gapi.client.language {
             /**
              * The customization id for translate
              */
-            cid?: string[];
+            cid?: string[] | undefined;
             /**
              * This optional parameter allows you to indicate that the text to be translated is either plain-text or HTML. A value of html indicates HTML and a value of text indicates plain-text
              */
-            format?: string;
+            format?: string | undefined;
             /**
              * The source language of the text
              */
-            source?: string;
+            source?: string | undefined;
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            fields?: string;
+            fields?: string | undefined;
             /**
              * If prettyprint=true, the results returned by the server will be human readable (pretty printed).
              */
-            prettyprint?: string;
+            prettyprint?: string | undefined;
         }): HttpRequest<GoogleApiTranslateTranslationListResponse>;
 
     }

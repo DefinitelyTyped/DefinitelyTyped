@@ -748,6 +748,12 @@ function Argv$getCompletion() {
         .argv;
 }
 
+function Argv$getHelp() {
+	const ya = yargs.getHelp().then((help: string) => {
+            console.log(help);
+		});
+}
+
 function Argv$parserConfiguration() {
     const argv1 = yargs.parserConfiguration({
         'boolean-negation': false,

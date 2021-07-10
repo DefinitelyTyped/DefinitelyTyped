@@ -38,14 +38,14 @@ declare namespace jackrabbit {
 
     type PublishOptions = Options.Publish & {
         key: string;
-        reply?: AckCallback;
+        reply?: AckCallback | undefined;
     };
 
     type QueueOptions = Options.AssertQueue & {
-        name?: string;
-        key?: string;
-        keys?: ReadonlyArray<string>;
-        prefetch?: number;
+        name?: string | undefined;
+        key?: string | undefined;
+        keys?: ReadonlyArray<string> | undefined;
+        prefetch?: number | undefined;
     };
 
     type AckCallback = (data?: any) => void;

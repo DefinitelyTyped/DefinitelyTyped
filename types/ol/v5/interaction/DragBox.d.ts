@@ -10,10 +10,10 @@ import PointerInteraction from './Pointer';
 
 export type EndCondition = (this: any, p0: MapBrowserEvent, p1: Pixel, p2: Pixel) => boolean;
 export interface Options {
-    className?: string;
-    condition?: Condition;
-    minArea?: number;
-    boxEndCondition?: EndCondition;
+    className?: string | undefined;
+    condition?: Condition | undefined;
+    minArea?: number | undefined;
+    boxEndCondition?: EndCondition | undefined;
     onBoxEnd: (this: DragBox, p0: MapBrowserEvent) => void;
 }
 export enum DragBoxEventType {

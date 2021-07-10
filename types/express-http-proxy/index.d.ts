@@ -19,44 +19,44 @@ declare namespace proxy {
          * format supported by `bytes`, for example `1000`, `'500kb'` or `'3mb'`.
          * See https://github.com/stream-utils/raw-body/blob/master/index.d.ts
          */
-        limit?: number | string;
-        proxyErrorHandler?: (
+        limit?: number | string | undefined;
+        proxyErrorHandler?: ((
             err: any,
             res: Response,
             next: NextFunction
-        ) => any;
-        proxyReqPathResolver?: (req: Request) => string | Promise<string>;
-        proxyReqOptDecorator?: (
+        ) => any) | undefined;
+        proxyReqPathResolver?: ((req: Request) => string | Promise<string>) | undefined;
+        proxyReqOptDecorator?: ((
             proxyReqOpts: RequestOptions,
             srcReq: Request
-        ) => RequestOptions | Promise<RequestOptions>;
-        userResHeaderDecorator?: (
+        ) => RequestOptions | Promise<RequestOptions>) | undefined;
+        userResHeaderDecorator?: ((
             headers: IncomingHttpHeaders,
             userReq: Request,
             userRes: Response,
             proxyReq: Request,
             proxyRes: Response
-        ) => OutgoingHttpHeaders;
-        userResDecorator?: (
+        ) => OutgoingHttpHeaders) | undefined;
+        userResDecorator?: ((
             proxyRes: Response,
             proxyResData: any,
             userReq: Request,
             userRes: Response
-        ) => Buffer | string | Promise<Buffer | string>;
+        ) => Buffer | string | Promise<Buffer | string>) | undefined;
         /**
          * The filter option can be used to limit what requests are proxied.
          * Return true to continue to execute proxy; return false-y to skip proxy for this request.
          */
-        filter?: (req: Request, res: Response) => boolean | Promise<boolean>;
-        skipToNextHandlerFilter?: (proxyRes: Response) => boolean;
-        proxyReqBodyDecorator?: (bodyContent: any, srcReq: Request) => any;
-        preserveHostHdr?: boolean;
-        parseReqBody?: boolean;
-        memoizeHost?: boolean;
-        https?: boolean;
-        reqAsBuffer?: boolean;
-        reqBodyEncoding?: string | null;
-        timeout?: number;
+        filter?: ((req: Request, res: Response) => boolean | Promise<boolean>) | undefined;
+        skipToNextHandlerFilter?: ((proxyRes: Response) => boolean) | undefined;
+        proxyReqBodyDecorator?: ((bodyContent: any, srcReq: Request) => any) | undefined;
+        preserveHostHdr?: boolean | undefined;
+        parseReqBody?: boolean | undefined;
+        memoizeHost?: boolean | undefined;
+        https?: boolean | undefined;
+        reqAsBuffer?: boolean | undefined;
+        reqBodyEncoding?: string | null | undefined;
+        timeout?: number | undefined;
     }
 }
 

@@ -18,68 +18,68 @@ export interface HowlListeners {
     /**
      * Fires when the sound has been stopped. The first parameter is the ID of the sound.
      */
-    onstop?: HowlCallback;
+    onstop?: HowlCallback | undefined;
 
     /**
      * Fires when the sound has been paused. The first parameter is the ID of the sound.
      */
-    onpause?: HowlCallback;
+    onpause?: HowlCallback | undefined;
 
     /**
      * Fires when the sound is loaded.
      */
-    onload?: HowlCallback;
+    onload?: HowlCallback | undefined;
 
     /**
      * Fires when the sound has been muted/unmuted. The first parameter is the ID of the sound.
      */
-    onmute?: HowlCallback;
+    onmute?: HowlCallback | undefined;
 
     /**
      * Fires when the sound's volume has changed. The first parameter is the ID of the sound.
      */
-    onvolume?: HowlCallback;
+    onvolume?: HowlCallback | undefined;
 
     /**
      * Fires when the sound's playback rate has changed. The first parameter is the ID of the sound.
      */
-    onrate?: HowlCallback;
+    onrate?: HowlCallback | undefined;
 
     /**
      * Fires when the sound has been seeked. The first parameter is the ID of the sound.
      */
-    onseek?: HowlCallback;
+    onseek?: HowlCallback | undefined;
 
     /**
      * Fires when the current sound finishes fading in/out. The first parameter is the ID of the sound.
      */
-    onfade?: HowlCallback;
+    onfade?: HowlCallback | undefined;
 
     /**
      * Fires when audio has been automatically unlocked through a touch/click event.
      */
-    onunlock?: HowlCallback;
+    onunlock?: HowlCallback | undefined;
 
     /**
      * Fires when the sound finishes playing (if it is looping, it'll fire at the end of each loop).
      * The first parameter is the ID of the sound.
      */
-    onend?: HowlCallback;
+    onend?: HowlCallback | undefined;
 
     /**
      * Fires when the sound begins playing. The first parameter is the ID of the sound.
      */
-    onplay?: HowlCallback;
+    onplay?: HowlCallback | undefined;
 
     /**
      * Fires when the sound is unable to load. The first parameter is the ID of the sound (if it exists) and the second is the error message/code.
      */
-    onloaderror?: HowlErrorCallback;
+    onloaderror?: HowlErrorCallback | undefined;
 
     /**
      * Fires when the sound is unable to play. The first parameter is the ID of the sound and the second is the error message/code.
      */
-    onplayerror?: HowlErrorCallback;
+    onplayerror?: HowlErrorCallback | undefined;
 }
 
 export interface HowlOptions extends HowlListeners {
@@ -91,14 +91,14 @@ export interface HowlOptions extends HowlListeners {
      *
      * @default `[]`
      */
-    src?: string | string[];
+    src?: string | string[] | undefined;
 
     /**
      * The volume of the specific track, from 0.0 to 1.0.
      *
      * @default `1.0`
      */
-    volume?: number;
+    volume?: number | undefined;
 
     /**
      * Set to true to force HTML5 Audio. This should be used for large audio files so that you don't
@@ -106,14 +106,14 @@ export interface HowlOptions extends HowlListeners {
      *
      * @default `false`
      */
-    html5?: boolean;
+    html5?: boolean | undefined;
 
     /**
      * Set to true to automatically loop the sound forever.
      *
      * @default `false`
      */
-    loop?: boolean;
+    loop?: boolean | undefined;
 
     /**
      * Automatically begin downloading the audio file when the Howl is defined. If using HTML5 Audio,
@@ -122,21 +122,21 @@ export interface HowlOptions extends HowlListeners {
      *
      * @default `true`
      */
-    preload?: boolean | 'metadata';
+    preload?: boolean | 'metadata' | undefined;
 
     /**
      * Set to true to automatically start playback when sound is loaded.
      *
      * @default `false`
      */
-    autoplay?: boolean;
+    autoplay?: boolean | undefined;
 
     /**
      * Set to true to load the audio muted.
      *
      * @default `false`
      */
-    mute?: boolean;
+    mute?: boolean | undefined;
 
     /**
      * Define a sound sprite for the sound. The offset and duration are defined in milliseconds. A
@@ -147,14 +147,14 @@ export interface HowlOptions extends HowlListeners {
      */
     sprite?: {
         [name: string]: [number, number] | [number, number, boolean];
-    };
+    } | undefined;
 
     /**
      * The rate of playback. 0.5 to 4.0, with 1.0 being normal speed.
      *
      * @default `1.0`
      */
-    rate?: number;
+    rate?: number | undefined;
 
     /**
      * The size of the inactive sounds pool. Once sounds are stopped or finish playing, they are marked
@@ -165,7 +165,7 @@ export interface HowlOptions extends HowlListeners {
      *
      * @default `5`
      */
-    pool?: number;
+    pool?: number | undefined;
 
     /**
      * howler.js automatically detects your file format from the extension, but you may also specify a
@@ -173,7 +173,7 @@ export interface HowlOptions extends HowlListeners {
      *
      * @default `[]`
      */
-    format?: string[];
+    format?: string[] | undefined;
 
     /**
      * When using Web Audio, howler.js uses an XHR request to load the audio files. If you need to send
@@ -182,10 +182,10 @@ export interface HowlOptions extends HowlListeners {
      * withCredentials defaults to false).
      */
     xhr?: {
-        method?: string;
-        headers?: Record<string, string>;
-        withCredentials?: true;
-    };
+        method?: string | undefined;
+        headers?: Record<string, string> | undefined;
+        withCredentials?: true | undefined;
+    } | undefined;
 }
 
 export class Howl {
@@ -251,9 +251,9 @@ export class Howl {
     orientation(x: number, y: number, z: number, xUp: number, yUp: number, zUp: number): this | void;
     pannerAttr(
         o: {
-            coneInnerAngle?: number;
-            coneOuterAngle?: number;
-            coneOuterGain?: number;
+            coneInnerAngle?: number | undefined;
+            coneOuterAngle?: number | undefined;
+            coneOuterGain?: number | undefined;
             distanceModel: 'inverse' | 'linear';
             maxDistance: number;
             panningModel: 'HRTF' | 'equalpower';

@@ -8,11 +8,11 @@ import * as L from 'leaflet';
 
 declare module 'leaflet' {
     interface GPXOptions {
-        async?: boolean;
-        max_point_interval?: number;
-        marker_options?: MarkerOptions;
-        polyline_options?: PolylineOptions;
-        gpx_options?: { parseElements: ['track', 'route', 'waypoint'] };
+        async?: boolean | undefined;
+        max_point_interval?: number | undefined;
+        marker_options?: MarkerOptions | undefined;
+        polyline_options?: PolylineOptions | undefined;
+        gpx_options?: { parseElements: ['track', 'route', 'waypoint'] } | undefined;
     }
 
     class GPX extends FeatureGroup {

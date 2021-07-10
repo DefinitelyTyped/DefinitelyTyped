@@ -10,8 +10,8 @@ declare function gitUsername(options?: string | gitUsername.BaseOptions): string
 
 declare namespace gitUsername {
     interface BaseOptions {
-        cwd?: string;
-        strict?: boolean;
+        cwd?: string | undefined;
+        strict?: boolean | undefined;
     }
 
     interface StrictOptions extends BaseOptions {

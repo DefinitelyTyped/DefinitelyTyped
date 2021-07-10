@@ -409,7 +409,7 @@ export interface RNFetchBlobWriteStream {
 export interface RNFetchBlobReadStream {
     path: string;
     encoding: Encoding;
-    bufferSize?: number;
+    bufferSize?: number | undefined;
     closed: boolean;
     tick: number;
 
@@ -470,7 +470,7 @@ export interface StatefulPromise<T> extends Promise<T> {
     /**
      * Add an event listener with custom configuration
      */
-    progress(config: { count?: number, interval?: number }, callback: (received: number, total: number) => void): StatefulPromise<FetchBlobResponse>;
+    progress(config: { count?: number | undefined, interval?: number | undefined }, callback: (received: number, total: number) => void): StatefulPromise<FetchBlobResponse>;
 
     /**
      * Add an event listener with custom configuration.
@@ -480,7 +480,7 @@ export interface StatefulPromise<T> extends Promise<T> {
     /**
      * Add an event listener with custom configuration
      */
-    uploadProgress(config: { count?: number, interval?: number }, callback: (sent: number, total: number) => void): StatefulPromise<FetchBlobResponse>;
+    uploadProgress(config: { count?: number | undefined, interval?: number | undefined }, callback: (sent: number, total: number) => void): StatefulPromise<FetchBlobResponse>;
 
     /**
      * An IOS only API, when IOS app turns into background network tasks will be terminated after ~180 seconds,
@@ -517,81 +517,81 @@ export interface RNFetchBlobConfig {
     /**
      * When this property is true, the downloaded data will overwrite the existing file. (true by default)
      */
-    overwrite?: boolean;
+    overwrite?: boolean | undefined;
 
     /**
      * Set timeout of the request (in milliseconds).
      */
-    timeout?: number;
+    timeout?: number | undefined;
 
     /**
      * Set this property to true to display a network indicator on status bar, this feature is only supported on IOS.
      */
-    indicator?: boolean;
+    indicator?: boolean | undefined;
 
     /**
      * Set this property to true will allow the request create connection with server have self-signed SSL
      * certification. This is not recommended to use in production.
      */
-    trusty?: boolean;
+    trusty?: boolean | undefined;
 
     /**
      * Set this property to true will makes response data of the fetch stored in a temp file, by default the temp
      * file will stored in App's own root folder with file name template RNFetchBlob_tmp${timestamp}.
      */
-    fileCache?: boolean;
+    fileCache?: boolean | undefined;
 
     /**
      * Set this property to change temp file extension that created by fetch response data.
      */
-    appendExt?: string;
+    appendExt?: string | undefined;
 
     /**
      * When this property has value, fetch API will try to store response data in the path ignoring fileCache and
      * appendExt property.
      */
-    path?: string;
+    path?: string | undefined;
 
-    session?: string;
+    session?: string | undefined;
 
-    addAndroidDownloads?: AddAndroidDownloads;
+    addAndroidDownloads?: AddAndroidDownloads | undefined;
 
     /**
      * Fix IOS request timeout issue #368 by change default request setting to defaultSessionConfiguration, and make backgroundSessionConfigurationWithIdentifier optional
      */
-    IOSBackgroundTask?: boolean;
+    IOSBackgroundTask?: boolean | undefined;
 }
 
 export interface AddAndroidDownloads {
     /**
      * download file using Android download manager or not.
      */
-    useDownloadManager?: boolean;
+    useDownloadManager?: boolean | undefined;
     /**
      * title of the file
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * File description of the file.
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * The destination which the file will be downloaded, it SHOULD be a location on external storage (DCIMDir).
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * MIME type of the file. By default is text/plain
      */
-    mime?: string;
+    mime?: string | undefined;
     /**
      * A boolean value, see Officail Document
      * (https://developer.android.com/reference/android/app/DownloadManager.html#addCompletedDownload(java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String, long, boolean))
      */
-    mediaScannable?: boolean;
+    mediaScannable?: boolean | undefined;
     /**
      * A boolean value decide whether show a notification when download complete.
      */
-    notification?: boolean;
+    notification?: boolean | undefined;
 }
 
 export interface RNFetchBlobResponseInfo {

@@ -5,16 +5,16 @@ import { MediaEmbedConfig, MediaEmbedProvider } from './mediaembed';
 
 export default class MediaRegistry {
     readonly locale: Locale;
-    readonly providerDefinitions?: MediaEmbedProvider[];
+    readonly providerDefinitions?: MediaEmbedProvider[] | undefined;
     constructor(locale: Locale, config: MediaEmbedConfig);
     hasMedia(url: string): boolean;
     getMediaViewElement(
         writer: DowncastWriter,
         url: string,
         options?: {
-            elementName?: string;
-            renderMediaPreview?: boolean;
-            renderForEditingView?: boolean;
+            elementName?: string | undefined;
+            renderMediaPreview?: boolean | undefined;
+            renderForEditingView?: boolean | undefined;
         },
     ): Element;
 }

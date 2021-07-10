@@ -31,7 +31,7 @@ declare namespace amplifier {
 
     interface AjaxSettings extends JQueryAjaxSettings {
         cache?: any;
-        dataMap?: {} | ((data: any) => {});
+        dataMap?: {} | ((data: any) => {}) | undefined;
         decoder?: any /* string or amplifierDecoder */;
     }
 

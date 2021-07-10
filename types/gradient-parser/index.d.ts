@@ -5,25 +5,25 @@
 
 export interface LinearGradientNode {
     type: 'linear-gradient';
-    orientation?: DirectionalNode | AngularNode;
+    orientation?: DirectionalNode | AngularNode | undefined;
     colorStops: ColorStop[];
 }
 
 export interface RepeatingLinearGradientNode {
     type: 'repeating-linear-gradient';
-    orientation?: DirectionalNode | AngularNode;
+    orientation?: DirectionalNode | AngularNode | undefined;
     colorStops: ColorStop[];
 }
 
 export interface RadialGradientNode {
     type: 'radial-gradient';
-    orientation?: Array<ShapeNode | DefaultRadialNode | ExtentKeywordNode>;
+    orientation?: Array<ShapeNode | DefaultRadialNode | ExtentKeywordNode> | undefined;
     colorStops: ColorStop[];
 }
 
 export interface RepeatingRadialGradientNode {
     type: 'repeating-radial-gradient';
-    orientation?: Array<ShapeNode | DefaultRadialNode | ExtentKeywordNode>;
+    orientation?: Array<ShapeNode | DefaultRadialNode | ExtentKeywordNode> | undefined;
     colorStops: ColorStop[];
 }
 
@@ -52,32 +52,32 @@ export interface AngularNode {
 export interface LiteralNode {
     type: 'literal';
     value: string;
-    length?: PxNode | EmNode | PercentNode;
+    length?: PxNode | EmNode | PercentNode | undefined;
 }
 
 export interface HexNode {
     type: 'hex';
     value: string;
-    length?: PxNode | EmNode | PercentNode;
+    length?: PxNode | EmNode | PercentNode | undefined;
 }
 
 export interface RgbNode {
     type: 'rgb';
     value: [string, string, string];
-    length?: PxNode | EmNode | PercentNode;
+    length?: PxNode | EmNode | PercentNode | undefined;
 }
 
 export interface RgbaNode {
     type: 'rgba';
     value: [string, string, string, string?];
-    length?: PxNode | EmNode | PercentNode;
+    length?: PxNode | EmNode | PercentNode | undefined;
 }
 
 export interface ShapeNode {
     type: 'shape';
-    style?: ExtentKeywordNode | PxNode | EmNode | PercentNode | PositionKeywordNode;
+    style?: ExtentKeywordNode | PxNode | EmNode | PercentNode | PositionKeywordNode | undefined;
     value: 'ellipse' | 'circle';
-    at?: PositionNode;
+    at?: PositionNode | undefined;
 }
 
 export interface DefaultRadialNode {
@@ -101,7 +101,7 @@ export interface PositionNode {
 export interface ExtentKeywordNode {
     type: 'extent-keyword';
     value: 'closest-side' | 'closest-corner' | 'farthest-side' | 'farthest-corner' | 'contain' | 'cover';
-    at?: PositionNode;
+    at?: PositionNode | undefined;
 }
 
 export interface PxNode {

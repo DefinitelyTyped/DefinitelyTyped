@@ -15,7 +15,7 @@ export class Parser {
     grammar: Grammar;
     options: ParserOptions;
     lexer: Lexer;
-    lexerState?: LexerState;
+    lexerState?: LexerState | undefined;
     current: number;
     /**
      * An array of possible parsings. Each element is the thing returned by your grammar.
@@ -43,8 +43,8 @@ export class Parser {
 }
 
 export interface ParserOptions {
-    keepHistory?: boolean;
-    lexer?: Lexer;
+    keepHistory?: boolean | undefined;
+    lexer?: Lexer | undefined;
 }
 
 export class Rule {
@@ -53,7 +53,7 @@ export class Rule {
     id: number;
     name: string;
     symbols: any[];
-    postprocess?: Postprocessor;
+    postprocess?: Postprocessor | undefined;
 
     constructor(name: string, symbols: any[], postprocess?: Postprocessor);
 
@@ -66,13 +66,13 @@ export class Grammar {
     rules: Rule[];
     start: string;
     byName: {[ruleName: string]: Rule[]};
-    lexer?: Lexer;
+    lexer?: Lexer | undefined;
 
     constructor(rules: Rule[]);
 }
 
 export interface CompiledRules {
-    Lexer?: Lexer;
+    Lexer?: Lexer | undefined;
     ParserStart: string;
     ParserRules: ParserRule[];
 }
@@ -80,7 +80,7 @@ export interface CompiledRules {
 export interface ParserRule {
     name: string;
     symbols: any[];
-    postprocess?: Postprocessor;
+    postprocess?: Postprocessor | undefined;
 }
 
 export type Postprocessor = (data: any[], reference?: number, wantedBy?: {}) => void;

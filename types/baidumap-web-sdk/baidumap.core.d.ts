@@ -141,25 +141,25 @@ declare namespace BMap {
         removeEventListener(event: string, handler: Callback): void;
     }
     interface PanOptions {
-        noAnimation?: boolean;
+        noAnimation?: boolean | undefined;
     }
     interface MapOptions {
-        minZoom?: number;
-        maxZoom?: number;
-        mapType?: MapType;
-        enableHighResolution?: boolean;
-        enableAutoResize?: boolean;
-        enableMapClick?: boolean;
+        minZoom?: number | undefined;
+        maxZoom?: number | undefined;
+        mapType?: MapType | undefined;
+        enableHighResolution?: boolean | undefined;
+        enableAutoResize?: boolean | undefined;
+        enableMapClick?: boolean | undefined;
     }
     interface Viewport {
         center: Point;
         zoom: number;
     }
     interface ViewportOptions {
-        enableAnimation?: boolean;
-        margins?: number[];
-        zoomFactor?: number;
-        delay?: number;
+        enableAnimation?: boolean | undefined;
+        margins?: number[] | undefined;
+        zoomFactor?: number | undefined;
+        delay?: number | undefined;
     }
     type APIVersion = number;
     interface MapStyle {
@@ -167,19 +167,19 @@ declare namespace BMap {
         style: string;
     }
     interface MapStyleItem {
-        featureType?: string;
-        elementType?: string;
+        featureType?: string | undefined;
+        elementType?: string | undefined;
         stylers: MapStyleItemStylers;
     }
     interface MapStyleItemStylers {
         [k: string]: string | undefined;
-        color?: string;
-        visibility?: string;
-        level?: string;
-        curZoomRegionId?: string;
-        curZoomRegion?: string;
-        fontsize?: string;
-        weight?: string;
+        color?: string | undefined;
+        visibility?: string | undefined;
+        level?: string | undefined;
+        curZoomRegionId?: string | undefined;
+        curZoomRegion?: string | undefined;
+        fontsize?: string | undefined;
+        weight?: string | undefined;
     }
     type MapStyleV2 = { styleJson: MapStyleItem[] } | { styleId: string };
 }

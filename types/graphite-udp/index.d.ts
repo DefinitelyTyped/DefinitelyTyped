@@ -8,49 +8,49 @@ export interface ClientOptions {
      * graphite server host or ip
      * Defaults to 127.0.0.1
      */
-    host?: string;
+    host?: string | undefined;
 
     /**
      * graphite server udp port
      * Defaults to 2003
      */
-    port?: number;
+    port?: number | undefined;
 
     /**
      * udp type (udp4 or udp6)
      * Defaults to udp4
      */
-    type?: 'udp4' | 'udp6';
+    type?: 'udp4' | 'udp6' | undefined;
 
     /**
      * split into smaller UDP packets
      * Defaults to 4096
      */
-    maxPacketSize?: number;
+    maxPacketSize?: number | undefined;
 
     /**
      * Prefix for each metric name
      * Defaults to ''
      */
-    prefix?: string;
+    prefix?: string | undefined;
 
     /**
      * Suffix for each metrtic name
      * Defaults to ''
      */
-    suffix?: string;
+    suffix?: string | undefined;
 
     /**
      * Interval to group metrics by in milliseconds
      * Defaults to 5000 (5s)
      */
-    interval?: number;
+    interval?: number | undefined;
 
     /**
      * log messages to console
      * Defaults to false
      */
-    verbose?: boolean;
+    verbose?: boolean | undefined;
 
     /**
      * called when metrics are sent

@@ -716,24 +716,24 @@ declare namespace Twitter.Typeahead {
           * If true, when suggestions are rendered, pattern matches for the current query in text nodes will be wrapped in a strong element with its class set to {{classNames.highlight}}.
           * Defaults to false.
           */
-        highlight?: boolean;
+        highlight?: boolean | undefined;
 
         /**
           * If false, the typeahead will not show a hint.
           * Defaults to true.
           */
-        hint?: boolean;
+        hint?: boolean | undefined;
 
         /**
           * The minimum character length needed before suggestions start getting rendered.
           * Defaults to 1.
           */
-        minLength?: number;
+        minLength?: number | undefined;
 
         /**
          * Used for overriding the default class names.
          */
-        classNames?: ClassNames;
+        classNames?: ClassNames | undefined;
     }
 
     /**
@@ -764,7 +764,7 @@ declare namespace Twitter.Typeahead {
          * source i.e. if the source function expects 3 arguments, async will
          * be set to true.
          */
-        async?: boolean;
+        async?: boolean | undefined;
 
         /**
           * The name of the dataset.
@@ -772,12 +772,12 @@ declare namespace Twitter.Typeahead {
           * Must only consist of underscores, dashes, letters (a-z), and numbers.
           * Defaults to a random number.
           */
-        name?: string;
+        name?: string | undefined;
 
         /**
           * The max number of suggestions to be displayed. Defaults to 5.
           */
-        limit?: number;
+        limit?: number | undefined;
 
         /**
          * For a given suggestion, determines the string representation of it.
@@ -786,14 +786,14 @@ declare namespace Twitter.Typeahead {
          * that transforms a suggestion object into a string.
          * Defaults to stringifying the suggestion.
          */
-        display?: string | ((obj: T) => string);
+        display?: string | ((obj: T) => string) | undefined;
 
         /**
          * A hash of templates to be used when rendering the dataset. Note a
          * precompiled template is a function that takes a JavaScript object as
          * its first argument and returns a HTML string.
          */
-        templates?: Templates<T>;
+        templates?: Templates<T> | undefined;
     }
 
     /**
@@ -807,35 +807,35 @@ declare namespace Twitter.Typeahead {
          * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query.
          */
-        notFound?: string | ((query: string) => string);
+        notFound?: string | ((query: string) => string) | undefined;
 
         /**
          * Rendered when 0 synchronous suggestions are available but asynchronous suggestions are expected.
          * Can be either a HTML string or a precompiled template.
          * If it's a precompiled template, the passed in context will contain query.
          */
-        pending?: string | ((query: string) => string);
+        pending?: string | ((query: string) => string) | undefined;
 
         /**
          * Rendered at the top of the dataset when suggestions are present. Can be either a HTML string or
          * a precompiled template. If it's a precompiled template, the passed in context will contain
          * query and suggestions.
          */
-        header?: string | ((query: string, suggestions: T[]) => string);
+        header?: string | ((query: string, suggestions: T[]) => string) | undefined;
 
         /**
          * Rendered at the bottom of the dataset when suggestions are present. Can be either a HTML string or
          * a precompiled template. If it's a precompiled template, the passed in context will contain
          * query and suggestions.
          */
-        footer?: string | ((query: string, suggestions: T[]) => string);
+        footer?: string | ((query: string, suggestions: T[]) => string) | undefined;
 
         /**
          * Used to render a single suggestion. If set, this has to be a precompiled template.
          * The associated suggestion object will serve as the context.
          * Defaults to the value of display wrapped in a div tag i.e. <div>{{value}}</div>.
           */
-        suggestion?: (suggestion: T) => string;
+        suggestion?: ((suggestion: T) => string) | undefined;
     }
 
     /**
@@ -845,46 +845,46 @@ declare namespace Twitter.Typeahead {
         /**
          * Added to input that's initialized into a typeahead. Defaults to tt-input.
          */
-        input?: string;
+        input?: string | undefined;
 
         /**
          * Added to hint input.Defaults to tt- hint.
          */
-        hint?: string;
+        hint?: string | undefined;
 
         /**
          * Added to menu element.Defaults to tt- menu.
          */
-        menu?: string;
+        menu?: string | undefined;
 
         /**
          * Added to dataset elements.to Defaults to tt- dataset.
          */
-        dataset?: string;
+        dataset?: string | undefined;
         /**
          * Added to suggestion elements.Defaults to tt- suggestion.
          */
-        suggestion?: string;
+        suggestion?: string | undefined;
 
         /**
          * Added to menu element when it contains no content.Defaults to tt- empty.
          */
-        empty?: string;
+        empty?: string | undefined;
 
         /**
          * Added to menu element when it is opened.Defaults to tt- open.
          */
-        open?: string;
+        open?: string | undefined;
 
         /**
          * Added to suggestion element when menu cursor moves to said suggestion.Defaults to tt- cursor.
          */
-        cursor?: string;
+        cursor?: string | undefined;
 
         /**
          * Added to the element that wraps highlighted text.Defaults to tt- highlight.
          */
-        highlight?: string;
+        highlight?: string | undefined;
     }
 }
 
@@ -910,7 +910,7 @@ declare namespace Bloodhound {
          * If set to false, the Bloodhound instance will not be implicitly
          * initialized by the constructor function. Defaults to true.
          */
-        initialize?: boolean;
+        initialize?: boolean | undefined;
 
         /**
          * Given a datum, returns a unique id for it.
@@ -920,14 +920,14 @@ declare namespace Bloodhound {
          * @param datum Suggestion.
          * @returns Unique id for the suggestion.
          */
-        identify?: (datum: T) => number;
+        identify?: ((datum: T) => number) | undefined;
 
         /**
          * If the number of datums provided from the internal search index is
          * less than sufficient, remote will be used to backfill search
          * requests triggered by calling #search. Defaults to 5.
          */
-        sufficient?: number;
+        sufficient?: number | undefined;
 
         /**
          * A compare function used to sort data returned from the internal search index.
@@ -936,26 +936,26 @@ declare namespace Bloodhound {
          * @param b Second suggestion.
          * @returns Comparison result.
          */
-        sorter?: (a: T, b: T) => number;
+        sorter?: ((a: T, b: T) => number) | undefined;
 
         /**
          * An array of data or a function that returns an array of data.
          * The data will be added to the internal search index when #initialize is called.
          */
-        local?: T[] | (() => T[]);
+        local?: T[] | (() => T[]) | undefined;
 
         /**
          * Can be a URL to a JSON file containing an array of data or,
          * if more configurability is needed, a prefetch options hash.
          */
-        prefetch?: string | PrefetchOptions<T>;
+        prefetch?: string | PrefetchOptions<T> | undefined;
 
         /**
          * Can be a URL to fetch data from when the data provided by the internal
          * search index is insufficient or, if more configurability is needed,
          * a remote options hash.
          */
-        remote?: string | RemoteOptions<T>;
+        remote?: string | RemoteOptions<T> | undefined;
     }
 
     /**
@@ -978,25 +978,25 @@ declare namespace Bloodhound {
          * If false, will not attempt to read or write to local storage and
          * will always load prefetch data from url on initialization. Defaults to true.
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
 
         /**
          * The time (in milliseconds) the prefetched data should be cached in
          * local storage. Defaults to 86400000 (1 day).
          */
-        ttl?: number;
+        ttl?: number | undefined;
 
         /**
          * The key that data will be stored in local storage under.
          * Defaults to value of url.
          */
-        cacheKey?: string;
+        cacheKey?: string | undefined;
 
         /**
          * A string used for thumbprinting prefetched data. If this doesn't
          * match what's stored in local storage, the data will be refetched.
          */
-        thumbprint?: string;
+        thumbprint?: string | undefined;
 
         /**
          * A function that provides a hook to allow you to prepare the settings
@@ -1006,7 +1006,7 @@ declare namespace Bloodhound {
          * @param settings The default settings object created internally by the Bloodhound instance.
          * @returns A settings object.
          */
-        prepare?: (settings: JQueryAjaxSettings) => JQueryAjaxSettings;
+        prepare?: ((settings: JQueryAjaxSettings) => JQueryAjaxSettings) | undefined;
 
         /**
          * A function with the signature transform(response) that allows you to
@@ -1016,7 +1016,7 @@ declare namespace Bloodhound {
          * @param response Prefetch response.
          * @returns Transform response.
          */
-        transform?: (response: T) => T;
+        transform?: ((response: T) => T) | undefined;
     }
 
     /**
@@ -1042,25 +1042,25 @@ declare namespace Bloodhound {
          * @param settings The default settings object created internally by Bloodhound.
          * @returns A JqueryAjaxSettings object.
          */
-        prepare?: (query: string, settings: JQueryAjaxSettings) => JQueryAjaxSettings;
+        prepare?: ((query: string, settings: JQueryAjaxSettings) => JQueryAjaxSettings) | undefined;
 
         /**
          * A convenience option for prepare. If set, prepare will be a function
          * that replaces the value of this option in url with the URI encoded query.
          */
-        wildcard?: string;
+        wildcard?: string | undefined;
 
         /**
          * The method used to rate-limit network requests.
          * Can be either debounce or throttle. Defaults to debounce.
          */
-        rateLimitby?: string;
+        rateLimitby?: string | undefined;
 
         /**
          * The time interval in milliseconds that will be used by rateLimitBy.
          * Defaults to 300.
          */
-        rateLimitWait?: number;
+        rateLimitWait?: number | undefined;
 
         /**
          * A function with the signature transform(response) that allows you to
@@ -1070,12 +1070,12 @@ declare namespace Bloodhound {
          * @param response Prefetch response.
          * @returns Transform response.
          */
-        transform?: (response: T) => T;
+        transform?: ((response: T) => T) | undefined;
 
         /**
          * DEPRECATED: transform the remote response before the Bloodhound instance operates on it.
          * */
-        filter?: (response: T) => T;
+        filter?: ((response: T) => T) | undefined;
 
     }
 

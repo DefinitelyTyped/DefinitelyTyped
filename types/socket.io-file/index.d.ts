@@ -15,13 +15,13 @@ declare class SocketIOFile {
 
 interface Options {
     uploadDir: string | { [dirId: string]: string };
-    maxFileSize?: number;
-    accepts?: string[];
-    chunkSize?: number;
-    transmissionDelay?: number;
-    overwrite?: boolean;
-    rename?: (fileName: string, fileInfo: FileInfo) => string | string;
-    resume?: boolean;
+    maxFileSize?: number | undefined;
+    accepts?: string[] | undefined;
+    chunkSize?: number | undefined;
+    transmissionDelay?: number | undefined;
+    overwrite?: boolean | undefined;
+    rename?: ((fileName: string, fileInfo: FileInfo) => string | string) | undefined;
+    resume?: boolean | undefined;
 }
 
 interface FileInfo {

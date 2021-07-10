@@ -7,16 +7,16 @@ declare namespace FontSizePicker {
          * user will be forced to pick one of the pre-defined sizes passed in
          * fontSizes.
          */
-        disableCustomFontSizes?: boolean;
+        disableCustomFontSizes?: boolean | undefined;
         /**
          * If no value exists, this prop defines the starting position for the
          * font size picker slider. Only relevant if `withSlider` is `true`.
          */
-        fallbackFontSize?: number;
+        fallbackFontSize?: number | undefined;
         /**
          * An array of font size objects.
          */
-        fontSizes?: FontSize[];
+        fontSizes?: FontSize[] | undefined;
         /**
          * A function that receives the new font size value. If `size` is
          * undefined, it should reset the value, attending to what reset means
@@ -27,12 +27,12 @@ declare namespace FontSizePicker {
         /**
          * The current font size value.
          */
-        value?: number;
+        value?: number | undefined;
         /**
          * If `true`, the UI will contain a slider, instead of a numeric text
          * input field.
          */
-        withSlider?: boolean;
+        withSlider?: boolean | undefined;
     }
     interface FontSize {
         /**

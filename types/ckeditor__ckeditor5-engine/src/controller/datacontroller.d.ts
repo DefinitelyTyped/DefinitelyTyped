@@ -33,7 +33,7 @@ export default class DataController implements Emitter, Observable {
         callback: (stylesProcessor: StylesProcessor) => Record<string, Record<string, string> | string>,
     ): void;
     destroy(): void;
-    get(options?: { rootName?: string; trim?: "empty" | "none" }): string;
+    get(options?: { rootName?: string | undefined; trim?: "empty" | "none" | undefined }): string;
     init(data: string | Record<string, string>): Promise<void>;
     parse(data: string, context?: SchemaContextDefinition): DocumentFragment;
     registerRawContentMatcher(pattern: MatcherPattern): void;
@@ -65,7 +65,7 @@ export default class DataController implements Emitter, Observable {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;

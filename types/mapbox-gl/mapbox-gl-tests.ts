@@ -665,7 +665,7 @@ map = new mapboxgl.Map({
 });
 
 const syncOnce: mapboxgl.Map = map.once('load', () => {});
-const asyncOnce: Promise<mapboxgl.Map> = map.once('load');
+const asyncOnce: Promise<mapboxgl.MapboxEvent> = map.once('load');
 
 /**
  * Marker

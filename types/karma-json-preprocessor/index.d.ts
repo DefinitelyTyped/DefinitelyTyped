@@ -11,7 +11,7 @@ declare module 'karma' {
         /**
          * see {@link https://github.com/mjeanroy/karma-json-preprocessor#configuration-1}
          */
-        jsonPreprocessor?: JsonPreprocessorOptions;
+        jsonPreprocessor?: JsonPreprocessorOptions | undefined;
     }
 
     /**
@@ -22,10 +22,10 @@ declare module 'karma' {
         /**
          * @default '__json__'
          */
-        varName?: string;
+        varName?: string | undefined;
         /**
          * @default ''
          */
-        stripPrefix?: string;
+        stripPrefix?: string | undefined;
     }
 }

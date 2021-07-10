@@ -116,37 +116,37 @@ declare namespace toasty {
         /**
          * The toast's message.
          */
-        msg?: string;
+        msg?: string | undefined;
 
         /**
          * Whether to show the 'X' icon to close the toast.
          */
-        showClose?: boolean;
+        showClose?: boolean | undefined;
 
         /**
          * Whether clicking the toast closes it.
          */
-        clickToClose?: boolean;
+        clickToClose?: boolean | undefined;
 
         /**
          * How long (in milliseconds) the toast shows before it's removed. Set to false to disable.
          */
-        timeout?: number;
+        timeout?: number | undefined;
 
         /**
          * Whether to play a sound when a toast is added.
          */
-        sound?: boolean;
+        sound?: boolean | undefined;
 
         /**
          * Whether HTML is allowed in toasts.
          */
-        html?: boolean;
+        html?: boolean | undefined;
 
         /**
          * Whether to shake the toasts.
          */
-        shake?: boolean;
+        shake?: boolean | undefined;
 
         /**
          * What theme to use.
@@ -154,7 +154,7 @@ declare namespace toasty {
          * - 'material'
          * - 'bootstrap'
          */
-        theme?: string;
+        theme?: string | undefined;
 
         /**
          * The toast's type:
@@ -165,22 +165,22 @@ declare namespace toasty {
          * - 'error'
          * - 'warning'
          */
-        type?: string;
+        type?: string | undefined;
 
         /**
          * Add event handler.
          */
-        onAdd?: Function;
+        onAdd?: Function | undefined;
 
         /**
          * Remove event handler.
          */
-        onRemove?: Function;
+        onRemove?: Function | undefined;
 
         /**
          * Click event handler.
          */
-        onClick?: Function;
+        onClick?: Function | undefined;
     }
 
     interface IGlobalConfig {
@@ -188,53 +188,53 @@ declare namespace toasty {
         /**
          * Maximum number of toasts to show at once.
          */
-        limit?: number;
+        limit?: number | undefined;
 
         /**
          * The toast's title.
          */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * The toast's message.
          */
-        msg?: string;
+        msg?: string | undefined;
 
         /**
          * Whether to show the 'X' icon to close the toast.
          */
-        showClose?: boolean;
+        showClose?: boolean | undefined;
 
         /**
          * Whether clicking the toast closes it.
          */
-        clickToClose?: boolean;
+        clickToClose?: boolean | undefined;
 
         /**
          * The window position where the toast pops up.
          *
          */
-        position?: string;
+        position?: string | undefined;
 
         /**
          * How long (in miliseconds) the toast shows before it's removed. Set to false to disable.
          */
-        timeout?: number|boolean;
+        timeout?: number|boolean | undefined;
 
         /**
          * Whether to play a sound when a toast is added.
          */
-        sound?: boolean;
+        sound?: boolean | undefined;
 
         /**
          * Whether HTML is allowed in toast.
          */
-        html?: boolean;
+        html?: boolean | undefined;
 
         /**
          * Whether to shake the toast.
          */
-        shake?: boolean;
+        shake?: boolean | undefined;
 
         /**
          * What theme to use.
@@ -242,7 +242,7 @@ declare namespace toasty {
          * - 'material'
          * - 'bootstrap'
          */
-        theme?: string;
+        theme?: string | undefined;
     }
 
     interface IToastyConfigProvider {

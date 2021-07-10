@@ -2,25 +2,25 @@ import * as React from "react";
 import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../../../typings/shared";
 
 export interface ColumnSpanDetailed {
-    offset?: number;
-    span?: number;
+    offset?: number | undefined;
+    span?: number | undefined;
 }
 
 export type ColumnSpan = boolean | number | ColumnSpanDetailed;
 
 interface ColumnBaseIsolatedProps {
-    lg?: ColumnSpan;
-    max?: ColumnSpan;
-    md?: ColumnSpan;
-    sm?: ColumnSpan;
-    xlg?: ColumnSpan;
+    lg?: ColumnSpan | undefined;
+    max?: ColumnSpan | undefined;
+    md?: ColumnSpan | undefined;
+    sm?: ColumnSpan | undefined;
+    xlg?: ColumnSpan | undefined;
 }
 
 type SafeProps<P> = Omit<P, 'as' | keyof ColumnBaseIsolatedProps>;
 
 interface ColumnBaseProps extends ColumnBaseIsolatedProps {
-    children?: React.ReactNode;
-    className?: ReactAttr['className'];
+    children?: React.ReactNode | undefined;
+    className?: ReactAttr['className'] | undefined;
 }
 
 export type ColumnDefaultProps = ColumnBaseProps &

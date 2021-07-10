@@ -8,15 +8,15 @@
 import { IncomingMessage, ServerResponse } from "http";
 
 export interface PermitOptions {
-    scheme?: string;
-    proxy?: string;
-    realm?: string;
+    scheme?: string | undefined;
+    proxy?: string | undefined;
+    realm?: string | undefined;
 }
 
 export interface BearerOptions extends PermitOptions {
-    basic?: string;
-    header?: string;
-    query?: string;
+    basic?: string | undefined;
+    header?: string | undefined;
+    query?: string | undefined;
 }
 
 export class Permit {

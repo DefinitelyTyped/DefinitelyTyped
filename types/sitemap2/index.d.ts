@@ -22,28 +22,28 @@ interface Sitemap {
 }
 
 interface SitemapConfig {
-    hostName?: string;
-    fileName?: string;
-    limit?: number;
-    cacheTime?: number;
-    xslUrl?: string;
-    urls?: string[];
-    childrens?: Sitemap[];
+    hostName?: string | undefined;
+    fileName?: string | undefined;
+    limit?: number | undefined;
+    cacheTime?: number | undefined;
+    xslUrl?: string | undefined;
+    urls?: string[] | undefined;
+    childrens?: Sitemap[] | undefined;
 }
 
 interface UrlData {
     url: string;
-    chengefreq?: string;
-    priority?: number | string;
-    lastmod?: Date;
-    lastmodWithTime?: boolean;
-    lastmodInISO?: boolean;
+    chengefreq?: string | undefined;
+    priority?: number | string | undefined;
+    lastmod?: Date | undefined;
+    lastmodWithTime?: boolean | undefined;
+    lastmodInISO?: boolean | undefined;
     video?: {
         title: string;
         description: string;
         thumbnail_loc: string;
         content_loc: string;
-    };
+    } | undefined;
 }
 
 interface SitemapXml {

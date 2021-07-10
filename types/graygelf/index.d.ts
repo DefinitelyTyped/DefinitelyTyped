@@ -13,60 +13,60 @@ type setup = string | {
      *
      * @default "localhost"
      */
-    host?: string;
+    host?: string | undefined;
     /**
      * graylog port
      *
      * @default 12201
      */
-    port?: number;
+    port?: number | undefined;
     /**
      * size of chunked messages in bytes
      *
      * @default 1240
      */
-    chunkSize?: number;
+    chunkSize?: number | undefined;
     /**
      * compression 'gzip' or 'deflate'
      *
      * @default "deflate"
      */
-    compressType?: 'gzip' | 'deflate';
+    compressType?: 'gzip' | 'deflate' | undefined;
     /**
      * whether to always compress or go by chunkSize
      *
      * @default false
      */
-    alwaysCompress?: boolean;
+    alwaysCompress?: boolean | undefined;
     /**
      * don't send messages to GrayLog2
      *
      * @default false
      */
-    mock?: boolean;
+    mock?: boolean | undefined;
 };
 
 interface GelfMessage {
     /**
      * app version
      */
-    version?: string | number;
+    version?: string | number | undefined;
     /**
      * app host
      */
-    host?: string | number;
+    host?: string | number | undefined;
     /**
      * log short message
      */
-    short_message?: string | number;
+    short_message?: string | number | undefined;
     /**
      * log full message
      */
-    full_message?: string | number;
+    full_message?: string | number | undefined;
     /**
      * log timestamp
      */
-    timestamp?: string | number;
+    timestamp?: string | number | undefined;
     /**
      * GELF level
      *
@@ -79,7 +79,7 @@ interface GelfMessage {
      *  info: 6;
      *  debug: 7.
      */
-    level?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7';
+    level?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | undefined;
     /**
      * any other personal property
      */
@@ -157,7 +157,7 @@ type Instance = {
             /**
              * Suggested property - facility can be the app name.
              */
-            facility?: string;
+            facility?: string | undefined;
             /**
              * any other
              */
@@ -196,7 +196,7 @@ type Instance = {
         /**
          * udp socket (not setted if mock is true)
          */
-        _udp?: Socket,
+        _udp?: Socket | undefined,
     };
 
 /**
@@ -231,14 +231,14 @@ declare class graygelf implements Instance {
         /**
          * Suggested property - facility can be the app name.
          */
-        facility?: string;
+        facility?: string | undefined;
     };
     graylogHost: string;
     graylogPort: string;
     compressType: "deflate" | "gzip";
     chunkSize: number;
     alwaysCompress: boolean;
-    _udp?: Socket;
+    _udp?: Socket | undefined;
     /**
      * Chunk size for wide network
      */

@@ -17,27 +17,27 @@ declare namespace Listr {
     type ListrTaskResult<Ctx> = string | Promise<any> | Listr<Ctx> | stream.Readable | Observable<any>;
 
     interface ListrOptions<Ctx = ListrContext> {
-        concurrent?: boolean | number;
-        exitOnError?: boolean;
-        renderer?: ListrRendererValue<Ctx>;
-        nonTTYRenderer?: ListrRendererValue<Ctx>;
+        concurrent?: boolean | number | undefined;
+        exitOnError?: boolean | undefined;
+        renderer?: ListrRendererValue<Ctx> | undefined;
+        nonTTYRenderer?: ListrRendererValue<Ctx> | undefined;
     }
 
     interface ListrEvent {
         type: string;
-        data?: string | boolean;
+        data?: string | boolean | undefined;
     }
 
     interface ListrTask<Ctx = ListrContext> {
         title: string;
         task: (ctx: Ctx, task: ListrTaskWrapper<Ctx>) => void | ListrTaskResult<Ctx>;
-        skip?: (ctx: Ctx) => void | boolean | string | Promise<undefined | boolean | string>;
-        enabled?: (ctx: Ctx) => boolean | Promise<boolean> | Observable<boolean>;
+        skip?: ((ctx: Ctx) => void | boolean | string | Promise<undefined | boolean | string>) | undefined;
+        enabled?: ((ctx: Ctx) => boolean | Promise<boolean> | Observable<boolean>) | undefined;
     }
 
     interface ListrTaskObject<Ctx> extends Observable<ListrEvent> {
         title: string;
-        output?: string;
+        output?: string | undefined;
         task: (ctx: Ctx, task: ListrTaskWrapper<Ctx>) => void | ListrTaskResult<Ctx>;
         skip: (ctx: Ctx) => void | boolean | string | Promise<undefined | boolean | string>;
         subtasks: ReadonlyArray<ListrTaskWrapper<Ctx>>;

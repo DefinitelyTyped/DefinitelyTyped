@@ -6,48 +6,48 @@
 
 interface AsyncCallbackFailObject {
     error: number;
-    errorMessage?: string;
+    errorMessage?: string | undefined;
     [key: string]: any;
 }
 
 interface AsyncCallback<T> {
-    success?: (res: T) => void;
-    fail?: (err: AsyncCallbackFailObject) => void;
-    complete?: () => void;
+    success?: ((res: T) => void) | undefined;
+    fail?: ((err: AsyncCallbackFailObject) => void) | undefined;
+    complete?: (() => void) | undefined;
 }
 
 interface SetNavigationBarArgs extends AsyncCallback<void> {
     /**
      * Navigation bar title.
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * Picture link address, must be https. Use 3x high-definition pictures. If the image is set, the title parameter is inactive.
      */
-    image?: string;
+    image?: string | undefined;
 
     /**
      * Navigation bar background color, supporting hex color value.
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
 
     /**
      * Navigation bar bottom border color, supporting hex color value If the backgroundColor is set, the borderBottomColor does not take effect. The backgroundColor is used by default.
      */
-    borderBottomColor?: string;
+    borderBottomColor?: string | undefined;
 
     /**
      * If the navigation bar is reset to the default color scheme of Alipay, false by default.
      */
-    reset?: boolean;
+    reset?: boolean | undefined;
 }
 
 interface HideTabBarArgs extends AsyncCallback<void> {
     /**
      * Need animation effect or not, none by default.
      */
-    animation?: boolean;
+    animation?: boolean | undefined;
 }
 
 interface SwitchTabArgs extends AsyncCallback<void> {
@@ -76,7 +76,7 @@ interface NavigateBackArgs extends AsyncCallback<void> {
      * Number of pages to return. If delta is greater than the number
      * of open pages, it returns to the home page. Default value is 1
      */
-    delta?: number;
+    delta?: number | undefined;
 }
 
 interface RedirectToArgs extends AsyncCallback<void> {
@@ -106,43 +106,43 @@ interface AlertArgs extends AsyncCallback<void> {
     /**
      * Title of the alert box.
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * Contents of the alert box.
      */
-    content?: string;
+    content?: string | undefined;
 
     /**
      * Button text, which is OK by default.
      */
-    buttonText?: string;
+    buttonText?: string | undefined;
 }
 
 interface ConfirmArgs extends AsyncCallback<void> {
     /**
      * Title of the confirm box.
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * Content of the confirm box.
      */
-    content?: string;
+    content?: string | undefined;
     /**
      * OK button text, which is “OK” by default.
      */
-    confirmButtonText?: string;
+    confirmButtonText?: string | undefined;
     /**
      * OK button text, which is “Cancel” by default.
      */
-    cancelButtonText?: string;
+    cancelButtonText?: string | undefined;
 }
 
 interface PromptArgs extends AsyncCallback<void> {
     /**
      * Title of prompt box.
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * Text of prompt box, which is “Enter contents here” by default.
@@ -152,35 +152,35 @@ interface PromptArgs extends AsyncCallback<void> {
     /**
      * Prompt text for the entry box.
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
 
     /**
      * Message alignment, supporting enumeration left/center/right, iOS center, android left.
      */
-    align?: string;
+    align?: string | undefined;
 
     /**
      * OK button text, which is “OK” by default.
      */
-    okButtonText?: string;
+    okButtonText?: string | undefined;
 
     /**
      * OK button text, which is “Cancel” by default.
      */
-    cancelButtonText?: string;
+    cancelButtonText?: string | undefined;
 }
 
 interface ShowLoadingArgs extends AsyncCallback<void> {
     /**
      * Text contents of loading.
      */
-    content?: string;
+    content?: string | undefined;
 
     /**
      * Displaying delay, in ms, 0 by default If my.hideLoading was
      * called before this time, it is not displayed.
      */
-    delay?: number;
+    delay?: number | undefined;
 }
 
 interface HideLoadingArgs {
@@ -195,17 +195,17 @@ interface ShowToastArgs extends AsyncCallback<void> {
     /**
      * Text content.
      */
-    content?: string;
+    content?: string | undefined;
     /**
      * toast type, showing the related icon, none by default,
      * supporting success/fail/exception/none Here. If it is exception, content is mandatory.
      */
-    type?: string;
+    type?: string | undefined;
 
     /**
      * Displaying duration, in ms, 2000 by default.
      */
-    duration?: number;
+    duration?: number | undefined;
 }
 
 type ChoosePhoneContactArgs = AsyncCallback<{
@@ -217,24 +217,24 @@ interface CreateAnimationArgs {
     /**
      * Animation duration, in ms, 400 by default.
      */
-    duration?: number;
+    duration?: number | undefined;
 
     /**
      * Define animation effect, linear by default, effective
      *  values including linear, ease, ease-in, ease-in-out,
      * ease-out, step-start and step-end .
      */
-    timeFunction?: string;
+    timeFunction?: string | undefined;
 
     /**
      * Animation delay, in ms, 0 by default.
      */
-    delay?: number;
+    delay?: number | undefined;
 
     /**
      * Set transform-origin, 50% 50% 0 by default.
      */
-    transformOrigin?: string;
+    transformOrigin?: string | undefined;
 }
 
 interface Animation {
@@ -532,7 +532,7 @@ interface CanvasContext {
         } & AsyncCallback<{
             width: number;
             height: number;
-            data?: Uint8ClampedArray;
+            data?: Uint8ClampedArray | undefined;
         }>,
     ) => void;
 
@@ -745,14 +745,14 @@ interface CanvasContext {
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_canvas_canvas-context_canvascontext-todataurl)
      */
     toDataURL: (args?: {
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
-        destWidth?: number;
-        destHeight?: number;
-        fileType?: string;
-        quality?: number;
+        x?: number | undefined;
+        y?: number | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        destWidth?: number | undefined;
+        destHeight?: number | undefined;
+        fileType?: string | undefined;
+        quality?: number | undefined;
     }) => Promise<string>;
 
     /**
@@ -762,14 +762,14 @@ interface CanvasContext {
      */
     toTempFilePath: (
         args: {
-            x?: number;
-            y?: number;
-            width?: number;
-            height?: number;
-            destWidth?: number;
-            destHeight?: number;
-            fileType?: string;
-            quality?: number;
+            x?: number | undefined;
+            y?: number | undefined;
+            width?: number | undefined;
+            height?: number | undefined;
+            destWidth?: number | undefined;
+            destHeight?: number | undefined;
+            fileType?: string | undefined;
+            quality?: number | undefined;
         } & AsyncCallback<{
             filePath: string;
         }>,
@@ -801,9 +801,9 @@ interface CanvasContext {
 }
 
 interface PageScrollToArgs extends AsyncCallback<void> {
-    scrollTo?: number;
-    duration?: number;
-    selector?: string;
+    scrollTo?: number | undefined;
+    duration?: number | undefined;
+    selector?: string | undefined;
 }
 
 interface SelectorQueryExecCallback {
@@ -867,10 +867,10 @@ interface MultiLevelSelectArgs
         success: boolean;
         result: any[];
     }> {
-    title?: string;
+    title?: string | undefined;
     list: any[];
     name: string;
-    subList?: any[];
+    subList?: any[] | undefined;
 }
 
 interface SetBackgroundColorArgs extends AsyncCallback<void> {
@@ -894,19 +894,19 @@ interface ChooseImageArgs
     extends AsyncCallback<{
         apFilePaths: string[];
     }> {
-    count?: number;
-    sizeType?: string[];
-    sourceType?: string[];
+    count?: number | undefined;
+    sizeType?: string[] | undefined;
+    sourceType?: string[] | undefined;
 }
 
 interface PreviewImageArgs extends AsyncCallback<void> {
     urls: string[];
-    current?: number;
+    current?: number | undefined;
 }
 
 interface SaveImageArgs extends AsyncCallback<void> {
     url: string;
-    showActionSheet?: boolean;
+    showActionSheet?: boolean | undefined;
 }
 
 interface GetImageInfo
@@ -942,7 +942,7 @@ interface GetFileArgs extends AsyncCallback<{ size: number; digest: string }> {
     /**
      * Digest algorithm, supporting md5 and sha1, md5 by default.
      */
-    digestAlgorithm?: string;
+    digestAlgorithm?: string | undefined;
 }
 
 interface GetSavedFileInfo extends AsyncCallback<{ size: number; createTime: number }> {
@@ -974,11 +974,11 @@ interface GetLocationArgs
      * longitude and latitude location cache expiry time in seconds.
      * Default is 30s. Use of cache can speed up location process. Re-location is done upon cache expiry.
      */
-    catchTimeout?: number;
+    catchTimeout?: number | undefined;
     /**
      * 0: default, get the longitude and latitude.
      */
-    type?: number;
+    type?: number | undefined;
 }
 
 interface RequestArgs
@@ -993,14 +993,14 @@ interface RequestArgs
      */
     headers?: {
         [key: string]: string;
-    };
-    method?: 'GET' | 'POST';
+    } | undefined;
+    method?: 'GET' | 'POST' | undefined;
     data?: any;
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * Expected return data format, default json, supporting json, text and base64.
      */
-    dataType?: string;
+    dataType?: string | undefined;
 }
 
 interface UploadFileArgs
@@ -1148,22 +1148,22 @@ interface ShowAuthGuideArgs
 interface ScanArgs
     extends AsyncCallback<{
         code: string;
-        qrCode?: string;
-        barCode?: string;
+        qrCode?: string | undefined;
+        barCode?: string | undefined;
     }> {
     /**
      * Type for scanning (qr by default):
      * 1. qr: two-dimensional QR scanning frame.
      * 2. bar: Linear barcode scanning frame.
      */
-    type?: 'qr' | 'bar';
+    type?: 'qr' | 'bar' | undefined;
 
     /**
      * Hide album entry or not. If it is false, there will be an entry
      * for user to select a picture from the album as the scanned picture.
      * Otherwise, user will use camera to scan the content directly. By default, its value is false.
      */
-    hideAlbum?: boolean;
+    hideAlbum?: boolean | undefined;
 }
 
 interface WebViewContext {
@@ -1176,7 +1176,7 @@ interface WebViewContext {
 
 interface NavigateToMiniProgramArgs extends AsyncCallback<void> {
     appId: string;
-    path?: string;
+    path?: string | undefined;
     /**
      * The extra data that needs to be passed to the target Mini Program,
      * and the target Mini Program can get it in `App.onLaunch()` or `App.onShow()`.
@@ -1219,9 +1219,9 @@ type GetOpenUserInfoArgs = AsyncCallback<{
 }>;
 
 interface TradePayArgs extends AsyncCallback<string> {
-    tradeNO?: string;
-    orderStr?: string;
-    paymentUrl?: string;
+    tradeNO?: string | undefined;
+    orderStr?: string | undefined;
+    paymentUrl?: string | undefined;
 }
 
 interface SignContract
@@ -1834,29 +1834,29 @@ interface LaunchQuery {
         appId: string;
         sourceServiceId: string;
         extraData: any;
-    };
+    } | undefined;
 }
 
 declare function App(obj: {
     /**
      * On completion of Mini Program initialization, invoked only once
      */
-    onLaunch?: (options?: LaunchQuery) => void;
+    onLaunch?: ((options?: LaunchQuery) => void) | undefined;
 
     /**
      * On startup of Mini Program or swithing to foreground from background
      */
-    onShow?: (options?: LaunchQuery) => void;
+    onShow?: ((options?: LaunchQuery) => void) | undefined;
 
     /**
      * On switching Mini Program from foreground to background
      */
-    onHide?: () => void;
+    onHide?: (() => void) | undefined;
 
     /**
      * On js error of the Mini Program
      */
-    onError?: (error: string) => void;
+    onError?: ((error: string) => void) | undefined;
 
     /**
      * Global data can be configured in `App()`. Other pages can get and modify the global data directly.
@@ -1886,40 +1886,40 @@ declare function Page(
         /**
          * Page loading
          */
-        onLoad?: (query?: any) => void;
-        onShow?: EmptyFn;
+        onLoad?: ((query?: any) => void) | undefined;
+        onShow?: EmptyFn | undefined;
         /**
          * Page loading complete
          */
-        onReady?: EmptyFn;
-        onHide?: EmptyFn;
-        onUnload?: EmptyFn;
-        onTitleClick?: EmptyFn;
-        onPullDownRefresh?: OnPullDownRefresh;
-        onPullIntercept?: EmptyFn;
-        onReachBottom?: EmptyFn;
-        onShareAppMessage?: (opts: any) => void;
-        onOptionMenuClick?: EmptyFn;
-        onPopMenuClick?: EmptyFn;
-        onTabItemTap?: OnTabItemTap;
-        onPageScroll?: (opts: { scrollTop: number }) => void;
+        onReady?: EmptyFn | undefined;
+        onHide?: EmptyFn | undefined;
+        onUnload?: EmptyFn | undefined;
+        onTitleClick?: EmptyFn | undefined;
+        onPullDownRefresh?: OnPullDownRefresh | undefined;
+        onPullIntercept?: EmptyFn | undefined;
+        onReachBottom?: EmptyFn | undefined;
+        onShareAppMessage?: ((opts: any) => void) | undefined;
+        onOptionMenuClick?: EmptyFn | undefined;
+        onPopMenuClick?: EmptyFn | undefined;
+        onTabItemTap?: OnTabItemTap | undefined;
+        onPageScroll?: ((opts: { scrollTop: number }) => void) | undefined;
         events?: {
-            onBack?: EmptyFn;
-            onKeyboardHeight?: EmptyFn;
-            onOptionMenuClick?: EmptyFn;
-            onPopMenuClick?: EmptyFn;
-            onPullIntercept?: EmptyFn;
-            onPullDownRefresh?: OnPullDownRefresh;
-            onTitleClick?: EmptyFn;
-            onTabItemTap?: OnTabItemTap;
-            beforeTabItemTap?: EmptyFn;
-            onResize?: (opts: {
+            onBack?: EmptyFn | undefined;
+            onKeyboardHeight?: EmptyFn | undefined;
+            onOptionMenuClick?: EmptyFn | undefined;
+            onPopMenuClick?: EmptyFn | undefined;
+            onPullIntercept?: EmptyFn | undefined;
+            onPullDownRefresh?: OnPullDownRefresh | undefined;
+            onTitleClick?: EmptyFn | undefined;
+            onTabItemTap?: OnTabItemTap | undefined;
+            beforeTabItemTap?: EmptyFn | undefined;
+            onResize?: ((opts: {
                 size: {
                     windowWidth: number;
                     windowHeight: number;
                 };
-            }) => void;
-        };
+            }) => void) | undefined;
+        } | undefined;
 
         [key: string]: any;
     } & ThisType<{

@@ -11,22 +11,22 @@ import { Fields, Files } from "formidable";
 declare global {
   namespace Express {
     interface Request {
-      fields?: Fields;
-      files?: Files;
+      fields?: Fields | undefined;
+      files?: Files | undefined;
     }
   }
 }
 
 interface ExpressFormidableOptions {
-    encoding?: string;
-    uploadDir?: string;
-    keepExtensions?: boolean;
-    type?: "multipart" | "urlencoded";
-    maxFileSize?: number;
-    maxFieldsSize?: number;
-    maxFields?: number;
-    hash?: boolean | "sha1" | "md5";
-    multiples?: boolean;
+    encoding?: string | undefined;
+    uploadDir?: string | undefined;
+    keepExtensions?: boolean | undefined;
+    type?: "multipart" | "urlencoded" | undefined;
+    maxFileSize?: number | undefined;
+    maxFieldsSize?: number | undefined;
+    maxFields?: number | undefined;
+    hash?: boolean | "sha1" | "md5" | undefined;
+    multiples?: boolean | undefined;
 }
 
 declare function ExpressFormidable(options?: ExpressFormidableOptions): express.RequestHandler;

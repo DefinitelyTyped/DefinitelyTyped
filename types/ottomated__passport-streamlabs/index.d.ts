@@ -29,21 +29,21 @@ declare namespace Strategy {
     export import Strategy = streamlabs;
 
     interface _StrategyOptionsBase {
-        authorizationURL?: string;
-        tokenURL?: string;
+        authorizationURL?: string | undefined;
+        tokenURL?: string | undefined;
         clientID: string;
         clientSecret: string;
-        callbackURL?: string;
-        customHeaders?: OutgoingHttpHeaders;
-        scope?: string | string[];
-        scopeSeparator?: string;
-        sessionKey?: string;
-        store?: oauth2.StateStore;
+        callbackURL?: string | undefined;
+        customHeaders?: OutgoingHttpHeaders | undefined;
+        scope?: string | string[] | undefined;
+        scopeSeparator?: string | undefined;
+        sessionKey?: string | undefined;
+        store?: oauth2.StateStore | undefined;
         state?: any;
     }
 
     interface StrategyOptions extends _StrategyOptionsBase {
-        passReqToCallback?: false;
+        passReqToCallback?: false | undefined;
     }
 
     interface StrategyOptionsWithRequest extends _StrategyOptionsBase {

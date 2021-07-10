@@ -38,6 +38,6 @@ declare namespace nsApi {
     interface Configuration {
         username: string;
         password: string;
-        timeout?: number;
+        timeout?: number | undefined;
     }
 }

@@ -199,8 +199,8 @@ declare namespace NodeIPC {
         broadcast(event: string, value?: any): Client;
     }
     interface SocketConfig {
-        address?: string;
-        port?: number;
+        address?: string | undefined;
+        port?: number | undefined;
     }
     interface Config {
         /**
@@ -312,28 +312,28 @@ declare namespace NodeIPC {
             /**
              * Default: false
              */
-            localAddress?: boolean;
+            localAddress?: boolean | undefined;
             /**
              * Default: false
              */
-            localPort?: boolean;
+            localPort?: boolean | undefined;
             /**
              * Default: false
              */
-            family?: boolean;
+            family?: boolean | undefined;
             /**
              * Default: false
              */
-            hints?: boolean;
+            hints?: boolean | undefined;
             /**
              * Default: false
              */
-            lookup?: boolean;
+            lookup?: boolean | undefined;
         };
         tls: {
-            rejectUnauthorized?: boolean;
-            public?: string;
-            private?: string;
+            rejectUnauthorized?: boolean | undefined;
+            public?: string | undefined;
+            private?: string | undefined;
         };
     }
 }

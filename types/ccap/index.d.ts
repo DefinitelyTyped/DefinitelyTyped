@@ -10,11 +10,11 @@ interface Captcha {
 }
 
 interface Options {
-    width?: number;    // set width,default is 256
-    height?: number;    // set height,default is 60
-    offset?: number;    // set text spacing,default is 40
-    quality?: number;    // set pic quality,default is 50
-    fontsize?: number;    // set font size,default is 57
+    width?: number | undefined;    // set width,default is 256
+    height?: number | undefined;    // set height,default is 60
+    offset?: number | undefined;    // set text spacing,default is 40
+    quality?: number | undefined;    // set pic quality,default is 50
+    fontsize?: number | undefined;    // set font size,default is 57
     // Custom the function to generate captcha text
     generate?(): string;
 }

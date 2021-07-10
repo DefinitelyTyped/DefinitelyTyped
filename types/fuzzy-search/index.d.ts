@@ -18,8 +18,8 @@ declare class FuzzySearch<T extends object | string> {
 
 declare namespace FuzzySearch {
     interface Options {
-        caseSensitive?: boolean;
-        sort?: boolean;
+        caseSensitive?: boolean | undefined;
+        sort?: boolean | undefined;
     }
 }
 

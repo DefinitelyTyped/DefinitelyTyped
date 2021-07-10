@@ -17,36 +17,36 @@ declare namespace Connection {
         /** Password for plain-text authentication. */
         password: string;
         /** Base64-encoded OAuth token for OAuth authentication for servers that support it (See Andris Reinman's xoauth.js module to help generate this string). */
-        xoauth?: string;
+        xoauth?: string | undefined;
         /** Base64-encoded OAuth2 token for The SASL XOAUTH2 Mechanism for servers that support it (See Andris Reinman's xoauth2 module to help generate this string). */
-        xoauth2?: string;
+        xoauth2?: string | undefined;
         /** Hostname or IP address of the IMAP server. Default: "localhost" */
-        host?: string;
+        host?: string | undefined;
         /** Port number of the IMAP server. Default: 143 */
-        port?: number;
+        port?: number | undefined;
         /** Perform implicit TLS connection? Default: false */
-        tls?: boolean;
+        tls?: boolean | undefined;
         /** Options object to pass to tls.connect() Default: (none) */
-        tlsOptions?: ConnectionOptions;
+        tlsOptions?: ConnectionOptions | undefined;
         /** Set to 'always' to always attempt connection upgrades via STARTTLS, 'required' only if upgrading is required, or 'never' to never attempt upgrading. Default: 'never' */
-        autotls?: string;
+        autotls?: string | undefined;
         /** Number of milliseconds to wait for a connection to be established. Default: 10000 */
-        connTimeout?: number;
+        connTimeout?: number | undefined;
         /** Number of milliseconds to wait to be authenticated after a connection has been established. Default: 5000 */
-        authTimeout?: number;
+        authTimeout?: number | undefined;
         /** Configures the keepalive mechanism. Set to true to enable keepalive with defaults or set to object to enable and configure keepalive behavior: Default: true */
         keepalive?: any;  /* boolean|KeepAlive */
         /** If set, the function will be called with one argument, a string containing some debug info Default: (no debug output) */
-        debug?: Function;
+        debug?: Function | undefined;
     }
 
     export interface KeepAlive {
         /** This is the interval (in milliseconds) at which NOOPs are sent and the interval at which idleInterval is checked. Default: 10000 */
-        interval?: number;
+        interval?: number | undefined;
         /** This is the interval (in milliseconds) at which an IDLE command (for servers that support IDLE) is re-sent. Default: 300000 (5 mins) */
-        idleInterval?: number;
+        idleInterval?: number | undefined;
         /** Set to true to force use of NOOP keepalive on servers also support IDLE. Default: false */
-        forceNoop?: boolean;
+        forceNoop?: boolean | undefined;
     }
 
     // One of:
@@ -61,7 +61,7 @@ declare namespace Connection {
         /** The name of this mailbox. */
         name: string;
         /** True if this mailbox was opened in read-only mode. (Only available with openBox() calls) */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
         /** True if new keywords can be added to messages in this mailbox. */
         newKeywords: boolean;
         /** A 32-bit number that can be used to determine if UIDs in this mailbox have changed since the last time this mailbox was opened. */
@@ -100,9 +100,9 @@ declare namespace Connection {
         /** The internal server date for the message. */
         date: Date;
         /** The message's body structure (only set if requested with fetch()). */
-        struct?: any[];
+        struct?: any[] | undefined;
         /** The RFC822 message size (only set if requested with fetch()). */
-        size?: number;
+        size?: number | undefined;
     }
 
     /** Given in a 'message' event from ImapFetch */
@@ -115,17 +115,17 @@ declare namespace Connection {
 
     export interface FetchOptions {
         /** Mark message(s) as read when fetched. Default: false */
-        markSeen?: boolean;
+        markSeen?: boolean | undefined;
         /** Fetch the message structure. Default: false */
-        struct?: boolean;
+        struct?: boolean | undefined;
         /** Fetch the message envelope. Default: false */
-        envelope?: boolean;
+        envelope?: boolean | undefined;
         /** Fetch the RFC822 size. Default: false */
-        size?: boolean;
+        size?: boolean | undefined;
         /** Fetch modifiers defined by IMAP extensions. Default: (none) */
-        modifiers?: Object;
+        modifiers?: Object | undefined;
         /** A string or Array of strings containing the body part section to fetch. Default: (none) Example sections: */
-        bodies?: string | string[];
+        bodies?: string | string[] | undefined;
     }
 
 
@@ -158,11 +158,11 @@ declare namespace Connection {
 
     export interface AppendOptions {
         /** The name of the mailbox to append the message to. Default: the currently open mailbox */
-        mailbox?: string;
+        mailbox?: string | undefined;
         /** A single flag (e.g. 'Seen') or an array of flags (e.g. ['Seen', 'Flagged']) to append to the message. Default: (no flags) */
         flags?: any;  /* string|string[] */
         /** What to use for message arrival date/time. Default: (current date/time) */
-        date?: Date;
+        date?: Date | undefined;
     }
 
     export type SortCriteria = 'ARRIVAL' | '-ARRIVAL' | 'CC' | '-CC' | 'DATE' | '-DATE' | 'FROM' | '-FROM' | 'SIZE' | '-SIZE' | 'SUBJECT' | '-SUBJECT' | 'TO' | '-TO';

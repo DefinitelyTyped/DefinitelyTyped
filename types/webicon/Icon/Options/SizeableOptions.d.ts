@@ -7,10 +7,10 @@ export interface SizeableOptions extends Sizeable {
     /**
      * An alias of the `iconSize`-property.
      */
-    size?: this["iconSize"];
+    size?: this["iconSize"] | undefined;
 
     /**
      * An alias of the `iconSize`-property.
      */
-    svgIconSize?: this["iconSize"];
+    svgIconSize?: this["iconSize"] | undefined;
 }

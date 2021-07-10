@@ -7,25 +7,25 @@
 /// <reference types="react" />
 
 interface ScrollAreaProps extends React.Props<ScrollArea> {
-    className?: string,
-    style?: React.CSSProperties,
-    speed?: number,
-    contentClassName?: string,
-    contentStyle?: React.CSSProperties,
-    vertical?: boolean,
-    verticalContainerStyle?: React.CSSProperties,
-    verticalScrollbarStyle?: React.CSSProperties,
-    horizontal?: boolean,
-    horizontalContainerStyle?: React.CSSProperties,
-    horizontalScrollbarStyle?: React.CSSProperties,
-    onScroll?: (value: {leftPosition: number, topPosition: number, containerHeight: number, containerWidth: number, realHeight: number, realWidth: number}) => void,
+    className?: string | undefined,
+    style?: React.CSSProperties | undefined,
+    speed?: number | undefined,
+    contentClassName?: string | undefined,
+    contentStyle?: React.CSSProperties | undefined,
+    vertical?: boolean | undefined,
+    verticalContainerStyle?: React.CSSProperties | undefined,
+    verticalScrollbarStyle?: React.CSSProperties | undefined,
+    horizontal?: boolean | undefined,
+    horizontalContainerStyle?: React.CSSProperties | undefined,
+    horizontalScrollbarStyle?: React.CSSProperties | undefined,
+    onScroll?: ((value: {leftPosition: number, topPosition: number, containerHeight: number, containerWidth: number, realHeight: number, realWidth: number}) => void) | undefined,
     contentWindow?: any,
     ownerDocument?: any,
-    smoothScrolling?: boolean
-    minScrollSize?: number,
-    swapWheelAxes?: boolean
-    stopScrollPropagation?: boolean,
-    focusableTabIndex?: number
+    smoothScrolling?: boolean | undefined
+    minScrollSize?: number | undefined,
+    swapWheelAxes?: boolean | undefined
+    stopScrollPropagation?: boolean | undefined,
+    focusableTabIndex?: number | undefined
 }
 
 declare class ScrollArea extends React.Component<ScrollAreaProps> {

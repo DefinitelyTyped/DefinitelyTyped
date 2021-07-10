@@ -18,7 +18,7 @@ export type nodeBack = (error: Error, data: any) => any;
 export interface optionsType {
     authToken: string;
     vehicleID: string;
-    carIndex?: number;
+    carIndex?: number | undefined;
 }
 export interface Result {
     reason: string;

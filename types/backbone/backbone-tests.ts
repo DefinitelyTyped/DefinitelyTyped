@@ -101,7 +101,7 @@ class FullyTyped extends Backbone.Model<{ iLikeBacon: boolean; iLikeToast: boole
         return this.set('iLikeBacon', value);
     }
 
-    setAll(values: { iLikeBacon: boolean; iLikeToast?: boolean }) {
+    setAll(values: { iLikeBacon: boolean; iLikeToast?: boolean | undefined }) {
         return this.set(values);
     }
 
@@ -119,7 +119,7 @@ class FullyTypedDefault extends Backbone.Model {
         return this.set('iLikeBacon', value);
     }
 
-    setAll(values: { iLikeBacon: boolean; iLikeToast?: boolean }) {
+    setAll(values: { iLikeBacon: boolean; iLikeToast?: boolean | undefined }) {
         return this.set(values);
     }
 
@@ -547,11 +547,11 @@ class BookView extends Backbone.View<Book> {
 }
 
 interface ModellessViewOptions extends Backbone.ViewOptions {
-    color?: string;
+    color?: string | undefined;
 }
 
 class ModellessView extends Backbone.View {
-    color?: string;
+    color?: string | undefined;
     constructor(options: ModellessViewOptions) {
         super(options);
         this.color = options.color;

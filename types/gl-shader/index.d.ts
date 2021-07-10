@@ -44,8 +44,8 @@ declare function createShader(
     options: {
         vertex: string,
         fragment: string,
-        uniforms?: Parameter[],
-        attributes?: Parameter[],
+        uniforms?: Parameter[] | undefined,
+        attributes?: Parameter[] | undefined,
     }): Shader;
 
 export = createShader;

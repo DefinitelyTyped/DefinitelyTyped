@@ -9,20 +9,20 @@ import { ReactNode, ComponentType } from 'react';
 export type AriaCurrent = 'page' | 'step' | 'location' | 'date' | 'time' | 'true';
 
 export interface NavTabProps extends NavLinkProps {
-    style?: React.CSSProperties;
-    disabled?: boolean;
-    allowClickOnActive?: boolean;
-    'aria-current'?: AriaCurrent;
+    style?: React.CSSProperties | undefined;
+    disabled?: boolean | undefined;
+    allowClickOnActive?: boolean | undefined;
+    'aria-current'?: AriaCurrent | undefined;
 }
 export interface RoutedTabsProps {
-    startPathWith?: string;
-    className?: string;
-    style?: object;
-    tabClassName?: string;
-    activeTabClassName?: string;
-    tabStyle?: object;
-    activeTabStyle?: object;
-    children?: ReactNode;
+    startPathWith?: string | undefined;
+    className?: string | undefined;
+    style?: object | undefined;
+    tabClassName?: string | undefined;
+    activeTabClassName?: string | undefined;
+    tabStyle?: object | undefined;
+    activeTabStyle?: object | undefined;
+    children?: ReactNode | undefined;
 }
 
 export const NavTab: ComponentType<NavTabProps>;

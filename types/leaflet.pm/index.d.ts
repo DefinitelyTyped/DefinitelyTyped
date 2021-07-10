@@ -45,24 +45,24 @@ declare module 'leaflet' {
         }
 
         interface ToolbarOptions {
-            position?: string; // topleft | topright | bottomleft | bottomright
-            drawMarker?: boolean;
-            drawPolygon?: boolean;
-            drawPolyline?: boolean;
-            editPolygon?: boolean;
-            deleteLayer?: boolean;
+            position?: string | undefined; // topleft | topright | bottomleft | bottomright
+            drawMarker?: boolean | undefined;
+            drawPolygon?: boolean | undefined;
+            drawPolyline?: boolean | undefined;
+            editPolygon?: boolean | undefined;
+            deleteLayer?: boolean | undefined;
         }
 
         interface DrawOptions {
-            templineStyle?: PathOptions;
-            hintlineStyle?: PathOptions;
-            pathOptions?: PathOptions;
+            templineStyle?: PathOptions | undefined;
+            hintlineStyle?: PathOptions | undefined;
+            pathOptions?: PathOptions | undefined;
         }
 
         interface EditOptions {
-            draggable?: boolean;
-            snappable?: boolean;
-            snapDistance?: number;
+            draggable?: boolean | undefined;
+            snappable?: boolean | undefined;
+            snapDistance?: number | undefined;
         }
 
         namespace Edit {

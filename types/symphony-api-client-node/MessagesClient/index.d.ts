@@ -21,10 +21,10 @@ export interface Message {
     stream: Stream;
     originalFormat: string;
     sid: string;
-    attachments?: Attachment[];
-    data?: string;
-    userAgent?: string;
-    sharedMessage?: Message;
+    attachments?: Attachment[] | undefined;
+    data?: string | undefined;
+    userAgent?: string | undefined;
+    sharedMessage?: Message | undefined;
 }
 
 export interface Stream {

@@ -21,12 +21,12 @@ export function exec(
 ): ChildProcess;
 export function exec(
     command: string,
-    options: ({ encoding?: BufferEncoding } & ExecOptions) | null | undefined,
+    options: ({ encoding?: BufferEncoding | undefined } & ExecOptions) | null | undefined,
     callback: (error: ExecException | null, stdout: string, stderr: string) => void
 ): ChildProcess;
 export function exec(
     command: string,
-    options: ({ encoding?: string | null } & ExecOptions) | null | undefined,
+    options: ({ encoding?: string | null | undefined } & ExecOptions) | null | undefined,
     callback: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void
 ): ChildProcess;
 
@@ -36,11 +36,11 @@ export function exec(
 ): Promise<[Buffer, Buffer]>;
 export function exec(
     command: string,
-    options?: ({ encoding?: BufferEncoding } & ExecOptions) | null
+    options?: ({ encoding?: BufferEncoding | undefined } & ExecOptions) | null
 ): Promise<[string, string]>;
 export function exec(
     command: string,
-    options?: ({ encoding?: string | null } & ExecOptions) | null
+    options?: ({ encoding?: string | null | undefined } & ExecOptions) | null
 ): Promise<[string | Buffer, string | Buffer]>;
 
 interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
@@ -48,7 +48,7 @@ interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
 }
 
 interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
-    encoding?: string | null;
+    encoding?: string | null | undefined;
 }
 
 // no `options` definitely means stdout/stderr are `string`.

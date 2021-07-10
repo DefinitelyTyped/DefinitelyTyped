@@ -21,63 +21,71 @@ interface FlexmonsterConstructor {
 declare namespace Flexmonster {
     interface Params {
         // params
-        toolbar?: boolean;
-        licenseKey?: string;
-        width?: string | number;
-        height?: string | number;
-        componentFolder?: string;
-        report?: Report | string;
-        global?: Report;
-        customizeCell?: (cell: CellBuilder, data: CellData) => void;
-        customizeContextMenu?: (items: ContextMenuItem[], data: CellData | ChartData, viewType: string) => ContextMenuItem[];
+        toolbar?: boolean | undefined;
+        licenseKey?: string | undefined;
+        width?: string | number | undefined;
+        height?: string | number | undefined;
+        componentFolder?: string | undefined;
+        report?: Report | string | undefined;
+        global?: Report | undefined;
+        customizeCell?: ((cell: CellBuilder, data: CellData) => void) | undefined;
+        customizeContextMenu?: ((items: ContextMenuItem[], data: CellData | ChartData, viewType: string) => ContextMenuItem[]) | undefined;
         // events
-        afterchartdraw?: () => void;
-        aftergriddraw?: (param: object) => void;
-        beforegriddraw?: (param: object) => void;
-        beforetoolbarcreated?: (toolbar: Toolbar) => void;
-        cellclick?: (cell: CellData) => void;
-        celldoubleclick?: (cell: CellData) => void;
-        chartclick?: (data: ChartData) => void;
-        datachanged?: (param: object) => void;
-        dataerror?: (param: object) => void;
-        datafilecancelled?: () => void;
-        dataloaded?: () => void;
-        exportcomplete?: () => void;
-        exportstart?: () => void;
-        fieldslistclose?: () => void;
-        fieldslistopen?: () => void;
-        filterclose?: () => void;
-        filteropen?: () => void;
-        loadingdata?: () => void;
-        loadinglocalization?: () => void;
-        loadingolapstructure?: () => void;
-        loadingreportfile?: () => void;
-        localizationerror?: () => void;
-        localizationloaded?: () => void;
-        olapstructureerror?: () => void;
-        olapstructureloaded?: () => void;
-        openingreportfile?: () => void;
-        printcomplete?: () => void;
-        printstart?: () => void;
-        querycomplete?: () => void;
-        queryerror?: () => void;
-        ready?: () => void;
-        reportchange?: () => void;
-        reportcomplete?: () => void;
-        reportfileloaded?: () => void;
-        reportfilecancelled?: () => void;
-        reportfileerror?: () => void;
-        runningquery?: () => void;
-        update?: () => void;
+        afterchartdraw?: (() => void) | undefined;
+        aftergriddraw?: ((param: object) => void) | undefined;
+        beforegriddraw?: ((param: object) => void) | undefined;
+        beforetoolbarcreated?: ((toolbar: Toolbar) => void) | undefined;
+        cellclick?: ((cell: CellData) => void) | undefined;
+        celldoubleclick?: ((cell: CellData) => void) | undefined;
+        chartclick?: ((data: ChartData) => void) | undefined;
+        datachanged?: ((param: object) => void) | undefined;
+        dataerror?: ((param: object) => void) | undefined;
+        datafilecancelled?: (() => void) | undefined;
+        dataloaded?: (() => void) | undefined;
+        exportcomplete?: (() => void) | undefined;
+        exportstart?: (() => void) | undefined;
+        fieldslistclose?: (() => void) | undefined;
+        fieldslistopen?: (() => void) | undefined;
+        filterclose?: (() => void) | undefined;
+        filteropen?: (() => void) | undefined;
+        loadingdata?: (() => void) | undefined;
+        loadinglocalization?: (() => void) | undefined;
+        loadingolapstructure?: (() => void) | undefined;
+        loadingreportfile?: (() => void) | undefined;
+        localizationerror?: (() => void) | undefined;
+        localizationloaded?: (() => void) | undefined;
+        olapstructureerror?: (() => void) | undefined;
+        olapstructureloaded?: (() => void) | undefined;
+        openingreportfile?: (() => void) | undefined;
+        printcomplete?: (() => void) | undefined;
+        printstart?: (() => void) | undefined;
+        querycomplete?: (() => void) | undefined;
+        queryerror?: (() => void) | undefined;
+        ready?: (() => void) | undefined;
+        reportchange?: (() => void) | undefined;
+        reportcomplete?: (() => void) | undefined;
+        reportfileloaded?: (() => void) | undefined;
+        reportfilecancelled?: (() => void) | undefined;
+        reportfileerror?: (() => void) | undefined;
+        runningquery?: (() => void) | undefined;
+        update?: (() => void) | undefined;
         // other
-        container?: string;
+        container?: string | undefined;
     }
 
     interface Pivot {
         addCalculatedMeasure(measure: Measure): void;
         addCondition(condition: ConditionalFormat): void;
         addJSON(json: object[]): void;
-        alert(options: { title?: string; message?: string; type?: string; buttons?: Array<{ label: string; handler?: () => void; }>; blocking?: boolean; }): void;
+        alert(
+            options: {
+                title?: string | undefined;
+                message?: string | undefined;
+                type?: string | undefined;
+                buttons?: Array<{ label: string; handler?: (() => void) | undefined; }> | undefined;
+                blocking?:
+                boolean | undefined;
+            }): void;
         clear(): void;
         clearFilter(hierarchyName: string): void;
         clearXMLACache(proxyUrl: string, databaseId: string, callbackHandler: ((reponse: object) => void) | string, cubeId: string, measuresGroupId: string,
@@ -98,7 +106,7 @@ declare namespace Flexmonster {
         getCell(rowIdx: number, colIdx: number): CellData;
         getColumns(): Hierarchy[];
         getCondition(id: string): ConditionalFormat;
-        getData(options: { slice?: Slice }, callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
+        getData(options: { slice?: Slice | undefined }, callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
             updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
         getFilter(hierarchyName: string): Filter;
         getFormat(measureName: string): Format;
@@ -141,429 +149,436 @@ declare namespace Flexmonster {
         sortingMethod(hierarchyName: string, compareFunction: (a: string, b: string) => number): void;
         sortValues(axisName: string, type: string, tuple: number[], measure: MeasureObject): void;
         toolbar: Toolbar;
-        updateData(object: DataSource | object[], options?: {ignoreScroll?: boolean, ignoreSorting?: boolean, partial?: boolean}): void;
+        updateData(object: DataSource | object[], options?: {ignoreScroll?: boolean | undefined, ignoreSorting?: boolean | undefined, partial?: boolean | undefined}): void;
         version: string;
         fusioncharts?: {
-            getData(options: { type: string; slice?: Slice; prepareDataFunction?: (rawData: any) => any },
+            getData(options: { type: string; slice?: Slice | undefined; prepareDataFunction?: ((rawData: any) => any) | undefined },
                 callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
                 updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
             getNumberFormat(format: object): object;
-        };
+        } | undefined;
         googlecharts?: {
-            getData(options: { type?: string; slice?: Slice; prepareDataFunction?: (rawData: any) => any },
+            getData(options: { type?: string | undefined; slice?: Slice | undefined; prepareDataFunction?: ((rawData: any) => any) | undefined },
                 callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
                 updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
             getNumberFormat(format: object): object;
             getNumberFormatPattern(format: object): string;
-        };
+        } | undefined;
         highcharts?: {
-            getData(options: { type?: string; slice?: Slice; xAxisType?: string; valuesOnly?: boolean, withDrilldown?: boolean, prepareDataFunction?: (rawData: any) => any },
+            getData(
+                options: {
+                    type?: string | undefined; slice?: Slice | undefined;
+                    xAxisType?: string | undefined;
+                    valuesOnly?: boolean | undefined,
+                    withDrilldown?: boolean | undefined,
+                    prepareDataFunction?: ((rawData: any) => any) | undefined
+                },
                 callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
                 updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
             getAxisFormat(format: object): string;
             getPointXFormat(format: object): string;
             getPointYFormat(format: object): string;
             getPointZFormat(format: object): string;
-        };
+        } | undefined;
     }
 
     interface Report {
-        dataSource?: DataSource;
-        slice?: Slice;
-        options?: Options;
-        conditions?: ConditionalFormat[];
-        formats?: Format[];
+        dataSource?: DataSource | undefined;
+        slice?: Slice | undefined;
+        options?: Options | undefined;
+        conditions?: ConditionalFormat[] | undefined;
+        formats?: Format[] | undefined;
         tableSizes?: {
-            columns?: ColumnSize[];
-            rows?: RowSize[];
-        };
-        localization?: object | string;
-        version?: string;
-        creationDate?: string;
+            columns?: ColumnSize[] | undefined;
+            rows?: RowSize[] | undefined;
+        } | undefined;
+        localization?: object | string | undefined;
+        version?: string | undefined;
+        creationDate?: string | undefined;
     }
 
     interface DataSource {
-        type?: string;
-        dataSourceType?: string;
-        browseForFile?: boolean;
-        catalog?: string;
-        cube?: string;
-        data?: object[];
-        dataSourceInfo?: string;
-        fieldSeparator?: string;
-        thousandSeparator?: string;
-        filename?: string;
-        ignoreQuotedLineBreaks?: boolean;
-        proxyUrl?: string;
-        recordsetDelimiter?: string;
-        binary?: boolean;
-        roles?: string;
-        localeIdentifier?: string;
-        effectiveUserName?: string;
-        customData?: string;
-        hash?: string;
-        username?: string;
-        password?: string;
-        requestHeaders?: object;
-        subquery?: string | object;
+        type?: string | undefined;
+        dataSourceType?: string | undefined;
+        browseForFile?: boolean | undefined;
+        catalog?: string | undefined;
+        cube?: string | undefined;
+        data?: object[] | undefined;
+        dataSourceInfo?: string | undefined;
+        fieldSeparator?: string | undefined;
+        thousandSeparator?: string | undefined;
+        filename?: string | undefined;
+        ignoreQuotedLineBreaks?: boolean | undefined;
+        proxyUrl?: string | undefined;
+        recordsetDelimiter?: string | undefined;
+        binary?: boolean | undefined;
+        roles?: string | undefined;
+        localeIdentifier?: string | undefined;
+        effectiveUserName?: string | undefined;
+        customData?: string | undefined;
+        hash?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        requestHeaders?: object | undefined;
+        subquery?: string | object | undefined;
         // elasticsearch
-        host?: string | string[] | object;
-        index?: string;
-        mapping?: object;
+        host?: string | string[] | object | undefined;
+        index?: string | undefined;
+        mapping?: object | undefined;
     }
 
     interface Slice {
-        columns?: Hierarchy[];
-        measures?: Measure[];
-        reportFilters?: Hierarchy[];
-        rows?: Hierarchy[];
+        columns?: Hierarchy[] | undefined;
+        measures?: Measure[] | undefined;
+        reportFilters?: Hierarchy[] | undefined;
+        rows?: Hierarchy[] | undefined;
         drills?: {
-            drillAll?: boolean;
-            columns?: Array<{ tuple: string[]; measure?: MeasureObject; }>;
-            rows?: Array<{ tuple: string[]; measure?: MeasureObject; }>;
-        };
+            drillAll?: boolean | undefined;
+            columns?: Array<{ tuple: string[]; measure?: MeasureObject | undefined; }> | undefined;
+            rows?: Array<{ tuple: string[]; measure?: MeasureObject | undefined; }> | undefined;
+        } | undefined;
         expands?: {
-            expandAll?: boolean;
-            columns?: Array<{ tuple: string[]; measure?: MeasureObject; }>;
-            rows?: Array<{ tuple: string[]; measure?: MeasureObject; }>;
-        };
+            expandAll?: boolean | undefined;
+            columns?: Array<{ tuple: string[]; measure?: MeasureObject | undefined; }> | undefined;
+            rows?: Array<{ tuple: string[]; measure?: MeasureObject | undefined; }> | undefined;
+        } | undefined;
         sorting?: {
-            column?: Array<{ type: string; tuple: string[]; measure: MeasureObject; }>;
-            row?: Array<{ type: string; tuple: string[]; measure: MeasureObject; }>;
-        };
-        drillThrough?: string[];
-        flatOrder?: string[];
+            column?: Array<{ type: string; tuple: string[]; measure: MeasureObject; }> | undefined;
+            row?: Array<{ type: string; tuple: string[]; measure: MeasureObject; }> | undefined;
+        } | undefined;
+        drillThrough?: string[] | undefined;
+        flatOrder?: string[] | undefined;
     }
 
     interface Options {
         chart?: {
-            activeMeasure?: MeasureObject;
-            activeTupleIndex?: number;
-            autoRange?: boolean;
-            labelsHierarchy?: string;
-            multipleMeasures?: boolean;
-            oneLevel?: boolean;
-            showFilter?: boolean;
-            showLegend?: boolean;
-            showLegendButton?: boolean;
-            showMeasures?: boolean;
-            showWarning?: boolean;
-            title?: string;
-            type?: string;
-            showDataLabels?: boolean;
-            reversedAxes?: boolean;
-            showAllLabels?: boolean;
-            showOneMeasureSelection?: boolean;
-            position?: string;
-            pieDataIndex?: string;
-            axisShortNumberFormat?: boolean;
-        };
+            activeMeasure?: MeasureObject | undefined;
+            activeTupleIndex?: number | undefined;
+            autoRange?: boolean | undefined;
+            labelsHierarchy?: string | undefined;
+            multipleMeasures?: boolean | undefined;
+            oneLevel?: boolean | undefined;
+            showFilter?: boolean | undefined;
+            showLegend?: boolean | undefined;
+            showLegendButton?: boolean | undefined;
+            showMeasures?: boolean | undefined;
+            showWarning?: boolean | undefined;
+            title?: string | undefined;
+            type?: string | undefined;
+            showDataLabels?: boolean | undefined;
+            reversedAxes?: boolean | undefined;
+            showAllLabels?: boolean | undefined;
+            showOneMeasureSelection?: boolean | undefined;
+            position?: string | undefined;
+            pieDataIndex?: string | undefined;
+            axisShortNumberFormat?: boolean | undefined;
+        } | undefined;
         grid?: {
-            showFilter?: boolean;
-            showGrandTotals?: string;
-            showHeaders?: boolean;
-            showHierarchies?: boolean;
-            showHierarchyCaptions?: boolean;
-            showReportFiltersArea?: boolean;
-            showTotals?: boolean;
-            showEmptyValues?: boolean;
-            title?: string;
-            type?: string;
-            showAutoCalculationBar?: boolean;
-            dragging?: boolean;
-            grandTotalsPosition?: string;
-            drillThroughMaxRows?: number;
-        };
+            showFilter?: boolean | undefined;
+            showGrandTotals?: string | undefined;
+            showHeaders?: boolean | undefined;
+            showHierarchies?: boolean | undefined;
+            showHierarchyCaptions?: boolean | undefined;
+            showReportFiltersArea?: boolean | undefined;
+            showTotals?: boolean | undefined;
+            showEmptyValues?: boolean | undefined;
+            title?: string | undefined;
+            type?: string | undefined;
+            showAutoCalculationBar?: boolean | undefined;
+            dragging?: boolean | undefined;
+            grandTotalsPosition?: string | undefined;
+            drillThroughMaxRows?: number | undefined;
+        } | undefined;
         filter?: {
-            timezoneOffset?: number;
-            weekOffset?: number;
-            dateFormat?: string;
-            liveSearch?: boolean;
-        };
-        configuratorActive?: boolean;
-        configuratorButton?: boolean;
-        dateTimezoneOffset?: number;
-        datePattern?: string;
-        dateTimePattern?: string;
-        defaultHierarchySortName?: string;
-        drillThrough?: boolean;
-        editing?: boolean;
-        selectEmptyCells?: boolean;
-        showAggregations?: boolean;
-        showCalculatedValuesButton?: boolean;
-        showDefaultSlice?: boolean;
-        showMemberProperties?: boolean;
-        sorting?: string;
-        viewType?: string;
-        showAggregationLabels?: boolean;
-        useOlapFormatting?: boolean;
-        defaultDateType?: string;
-        timePattern?: string;
-        showOutdatedDataAlert?: boolean;
-        showEmptyData?: boolean;
-        saveAllFormats?: boolean;
-        showDrillThroughConfigurator?: boolean;
-        grouping?: boolean;
-        showAllFieldsDrillThrough?: boolean;
-        validateFormulas?: boolean;
-        showFieldListSearch?: boolean;
-        strictDataTypes?: boolean;
-        caseSensitiveMembers?: boolean;
-        simplifyFieldListFolders?: boolean;
-        validateReportFiles?: boolean;
+            timezoneOffset?: number | undefined;
+            weekOffset?: number | undefined;
+            dateFormat?: string | undefined;
+            liveSearch?: boolean | undefined;
+        } | undefined;
+        configuratorActive?: boolean | undefined;
+        configuratorButton?: boolean | undefined;
+        dateTimezoneOffset?: number | undefined;
+        datePattern?: string | undefined;
+        dateTimePattern?: string | undefined;
+        defaultHierarchySortName?: string | undefined;
+        drillThrough?: boolean | undefined;
+        editing?: boolean | undefined;
+        selectEmptyCells?: boolean | undefined;
+        showAggregations?: boolean | undefined;
+        showCalculatedValuesButton?: boolean | undefined;
+        showDefaultSlice?: boolean | undefined;
+        showMemberProperties?: boolean | undefined;
+        sorting?: string | undefined;
+        viewType?: string | undefined;
+        showAggregationLabels?: boolean | undefined;
+        useOlapFormatting?: boolean | undefined;
+        defaultDateType?: string | undefined;
+        timePattern?: string | undefined;
+        showOutdatedDataAlert?: boolean | undefined;
+        showEmptyData?: boolean | undefined;
+        saveAllFormats?: boolean | undefined;
+        showDrillThroughConfigurator?: boolean | undefined;
+        grouping?: boolean | undefined;
+        showAllFieldsDrillThrough?: boolean | undefined;
+        validateFormulas?: boolean | undefined;
+        showFieldListSearch?: boolean | undefined;
+        strictDataTypes?: boolean | undefined;
+        caseSensitiveMembers?: boolean | undefined;
+        simplifyFieldListFolders?: boolean | undefined;
+        validateReportFiles?: boolean | undefined;
     }
 
     interface PrintOptions {
-        header?: string;
-        footer?: string;
+        header?: string | undefined;
+        footer?: string | undefined;
     }
 
     interface Member {
-        caption?: string;
-        uniqueName?: string;
-        hierarchyName?: string;
-        children?: Member[];
-        isLeaf?: boolean;
-        parentMember?: string;
+        caption?: string | undefined;
+        uniqueName?: string | undefined;
+        hierarchyName?: string | undefined;
+        children?: Member[] | undefined;
+        isLeaf?: boolean | undefined;
+        parentMember?: string | undefined;
     }
 
     interface FilterProperties {
         type: string;
-        members?: FilterItem[];
-        quantity?: number;
-        measure?: MeasureObject;
+        members?: FilterItem[] | undefined;
+        quantity?: number | undefined;
+        measure?: MeasureObject | undefined;
     }
 
     interface FilterItem {
-        caption?: string;
-        uniqueName?: string;
-        hierarchyName?: string;
+        caption?: string | undefined;
+        uniqueName?: string | undefined;
+        hierarchyName?: string | undefined;
     }
 
     interface CellData {
-        columnIndex?: number;
-        columns?: object[];
-        escapedLabel?: string;
-        height?: number;
-        hierarchy?: Hierarchy;
-        isClassicTotalRow?: boolean;
-        isDrillThrough?: boolean;
-        isGrandTotal?: boolean;
-        isGrandTotalColumn?: boolean;
-        isGrandTotalRow?: boolean;
-        isTotal?: boolean;
-        isTotalColumn?: boolean;
-        isTotalRow?: boolean;
-        label?: string;
-        level?: number;
-        measure?: MeasureObject;
-        member?: Member;
-        recordId?: string | string[];
-        rowData?: CellData[];
-        rowIndex?: number;
-        rows?: object[];
-        type?: string;
-        value?: number;
-        width?: number;
-        x?: number;
-        y?: number;
+        columnIndex?: number | undefined;
+        columns?: object[] | undefined;
+        escapedLabel?: string | undefined;
+        height?: number | undefined;
+        hierarchy?: Hierarchy | undefined;
+        isClassicTotalRow?: boolean | undefined;
+        isDrillThrough?: boolean | undefined;
+        isGrandTotal?: boolean | undefined;
+        isGrandTotalColumn?: boolean | undefined;
+        isGrandTotalRow?: boolean | undefined;
+        isTotal?: boolean | undefined;
+        isTotalColumn?: boolean | undefined;
+        isTotalRow?: boolean | undefined;
+        label?: string | undefined;
+        level?: number | undefined;
+        measure?: MeasureObject | undefined;
+        member?: Member | undefined;
+        recordId?: string | string[] | undefined;
+        rowData?: CellData[] | undefined;
+        rowIndex?: number | undefined;
+        rows?: object[] | undefined;
+        type?: string | undefined;
+        value?: number | undefined;
+        width?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 
     interface ExportOptions {
-        filename?: string;
-        destinationType?: string;
-        excelSheetName?: string;
-        footer?: string;
-        header?: string;
-        pageOrientation?: string;
-        showFilters?: boolean;
-        url?: string;
-        useOlapFormattingInExcel?: boolean;
-        useCustomizeCellForData?: boolean;
-        excelExportAll?: boolean;
-        requestHeaders?: object;
-        fontUrl?: string;
+        filename?: string | undefined;
+        destinationType?: string | undefined;
+        excelSheetName?: string | undefined;
+        footer?: string | undefined;
+        header?: string | undefined;
+        pageOrientation?: string | undefined;
+        showFilters?: boolean | undefined;
+        url?: string | undefined;
+        useOlapFormattingInExcel?: boolean | undefined;
+        useCustomizeCellForData?: boolean | undefined;
+        excelExportAll?: boolean | undefined;
+        requestHeaders?: object | undefined;
+        fontUrl?: string | undefined;
     }
 
     interface Hierarchy {
-        caption?: string;
-        dimensionName?: string;
-        filter?: Filter;
-        sortName?: string;
-        sortOrder?: string[];
-        uniqueName?: string;
-        levels?: Level[];
+        caption?: string | undefined;
+        dimensionName?: string | undefined;
+        filter?: Filter | undefined;
+        sortName?: string | undefined;
+        sortOrder?: string[] | undefined;
+        uniqueName?: string | undefined;
+        levels?: Level[] | undefined;
     }
 
     interface Filter {
-        members?: string[];
-        exclude?: string[];
-        include?: string[];
-        query?: NumberQuery | LabelQuery | DateQuery | TimeQuery | ValueQuery;
-        measure?: string | MeasureObject;
+        members?: string[] | undefined;
+        exclude?: string[] | undefined;
+        include?: string[] | undefined;
+        query?: NumberQuery | LabelQuery | DateQuery | TimeQuery | ValueQuery | undefined;
+        measure?: string | MeasureObject | undefined;
     }
 
     interface NumberQuery {
-        equal?: number;
-        not_equal?: number;
-        greater?: number;
-        greater_equal?: number;
-        less?: number;
-        less_equal?: number;
-        between?: number[];
-        not_between?: number[];
+        equal?: number | undefined;
+        not_equal?: number | undefined;
+        greater?: number | undefined;
+        greater_equal?: number | undefined;
+        less?: number | undefined;
+        less_equal?: number | undefined;
+        between?: number[] | undefined;
+        not_between?: number[] | undefined;
     }
 
     interface LabelQuery {
-        equal?: string;
-        not_equal?: string;
-        begin?: string;
-        not_begin?: string;
-        end?: string;
-        not_end?: string;
-        contain?: string;
-        not_contain?: string;
-        greater?: string;
-        greater_equal?: string;
-        less?: string;
-        less_equal?: string;
-        between?: string[];
-        not_between?: string[];
+        equal?: string | undefined;
+        not_equal?: string | undefined;
+        begin?: string | undefined;
+        not_begin?: string | undefined;
+        end?: string | undefined;
+        not_end?: string | undefined;
+        contain?: string | undefined;
+        not_contain?: string | undefined;
+        greater?: string | undefined;
+        greater_equal?: string | undefined;
+        less?: string | undefined;
+        less_equal?: string | undefined;
+        between?: string[] | undefined;
+        not_between?: string[] | undefined;
     }
 
     interface DateQuery {
-        equal?: string;
-        not_equal?: string;
-        before?: string;
-        before_equal?: string;
-        after?: string;
-        after_equal?: string;
-        between?: string[];
-        not_between?: string[];
-        last?: string;
-        current?: string;
-        next?: string;
+        equal?: string | undefined;
+        not_equal?: string | undefined;
+        before?: string | undefined;
+        before_equal?: string | undefined;
+        after?: string | undefined;
+        after_equal?: string | undefined;
+        between?: string[] | undefined;
+        not_between?: string[] | undefined;
+        last?: string | undefined;
+        current?: string | undefined;
+        next?: string | undefined;
     }
 
     interface TimeQuery {
-        equal?: string;
-        not_equal?: string;
-        greater?: string;
-        greater_equal?: string;
-        less?: string;
-        less_equal?: string;
-        between?: string[];
-        not_between?: string[];
+        equal?: string | undefined;
+        not_equal?: string | undefined;
+        greater?: string | undefined;
+        greater_equal?: string | undefined;
+        less?: string | undefined;
+        less_equal?: string | undefined;
+        between?: string[] | undefined;
+        not_between?: string[] | undefined;
     }
 
     interface ValueQuery extends NumberQuery {
-        top?: number;
-        bottom?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
     }
 
     interface Measure {
-        uniqueName?: string;
-        active?: boolean;
-        aggregation?: string;
-        availableAggregations?: string[];
-        caption?: string;
-        formula?: string;
-        format?: string;
-        grandTotalCaption?: string;
+        uniqueName?: string | undefined;
+        active?: boolean | undefined;
+        aggregation?: string | undefined;
+        availableAggregations?: string[] | undefined;
+        caption?: string | undefined;
+        formula?: string | undefined;
+        format?: string | undefined;
+        grandTotalCaption?: string | undefined;
     }
 
     interface MeasureObject {
         uniqueName: string;
-        aggregation?: string;
+        aggregation?: string | undefined;
     }
 
     interface ConditionalFormat {
-        formula?: string;
-        format?: Style;
-        formatCSS?: string;
-        row?: number;
-        column?: number;
-        measureName?: string;
-        hierarchy?: string;
-        member?: string;
-        isTotal?: number;
+        formula?: string | undefined;
+        format?: Style | undefined;
+        formatCSS?: string | undefined;
+        row?: number | undefined;
+        column?: number | undefined;
+        measureName?: string | undefined;
+        hierarchy?: string | undefined;
+        member?: string | undefined;
+        isTotal?: number | undefined;
     }
 
     interface Style {
-        color?: string;
-        backgroundColor?: string;
-        backgroundImage?: string;
-        borderColor?: string;
-        fontSize?: string;
-        fontWeight?: string;
-        fill?: string;
-        textAlign?: string;
-        fontFamily?: string;
-        width?: number;
-        maxWidth?: number;
-        height?: number;
-        maxHeight?: number;
+        color?: string | undefined;
+        backgroundColor?: string | undefined;
+        backgroundImage?: string | undefined;
+        borderColor?: string | undefined;
+        fontSize?: string | undefined;
+        fontWeight?: string | undefined;
+        fill?: string | undefined;
+        textAlign?: string | undefined;
+        fontFamily?: string | undefined;
+        width?: number | undefined;
+        maxWidth?: number | undefined;
+        height?: number | undefined;
+        maxHeight?: number | undefined;
     }
 
     interface Format {
-        name?: string;
-        thousandsSeparator?: string;
-        decimalSeparator?: string;
-        decimalPlaces?: number;
-        maxDecimalPlaces?: number;
-        maxSymbols?: number;
-        currencySymbol?: string;
-        currencySymbolAlign?: string;
-        negativeCurrencyFormat?: string;
-        positiveCurrencyFormat?: string;
-        nullValue?: string;
-        infinityValue?: string;
-        divideByZeroValue?: string;
-        textAlign?: string;
-        isPercent?: boolean;
-        beautifyFloatingPoint?: boolean;
+        name?: string | undefined;
+        thousandsSeparator?: string | undefined;
+        decimalSeparator?: string | undefined;
+        decimalPlaces?: number | undefined;
+        maxDecimalPlaces?: number | undefined;
+        maxSymbols?: number | undefined;
+        currencySymbol?: string | undefined;
+        currencySymbolAlign?: string | undefined;
+        negativeCurrencyFormat?: string | undefined;
+        positiveCurrencyFormat?: string | undefined;
+        nullValue?: string | undefined;
+        infinityValue?: string | undefined;
+        divideByZeroValue?: string | undefined;
+        textAlign?: string | undefined;
+        isPercent?: boolean | undefined;
+        beautifyFloatingPoint?: boolean | undefined;
     }
 
     interface ColumnSize {
-        width?: number;
-        idx?: number;
-        tuple?: string[];
-        measure?: MeasureObject;
+        width?: number | undefined;
+        idx?: number | undefined;
+        tuple?: string[] | undefined;
+        measure?: MeasureObject | undefined;
     }
 
     interface RowSize {
-        height?: number;
-        idx?: number;
-        tuple?: string[];
-        measure?: MeasureObject;
+        height?: number | undefined;
+        idx?: number | undefined;
+        tuple?: string[] | undefined;
+        measure?: MeasureObject | undefined;
     }
 
     interface CellBuilder {
-        attr?: object;
-        classes?: string[];
-        style?: object;
-        tag?: string;
-        text?: string;
+        attr?: object | undefined;
+        classes?: string[] | undefined;
+        style?: object | undefined;
+        tag?: string | undefined;
+        text?: string | undefined;
         addClass(value?: string): void;
         toHtml(): string;
     }
 
     interface ContextMenuItem {
-        label?: string;
-        handler?: (() => void) | string;
-        submenu?: ContextMenuItem[];
-        isSelected?: boolean;
-        class?: string;
+        label?: string | undefined;
+        handler?: (() => void) | string | undefined;
+        submenu?: ContextMenuItem[] | undefined;
+        isSelected?: boolean | undefined;
+        class?: string | undefined;
     }
 
     interface ChartData {
         element: any;
-        columns?: object[];
-        id?: string;
-        label?: string;
-        measure?: MeasureObject;
-        rows?: object[];
-        value?: number;
+        columns?: object[] | undefined;
+        id?: string | undefined;
+        label?: string | undefined;
+        measure?: MeasureObject | undefined;
+        rows?: object[] | undefined;
+        value?: number | undefined;
     }
 
     interface Toolbar {

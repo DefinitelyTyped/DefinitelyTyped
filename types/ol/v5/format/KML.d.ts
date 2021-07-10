@@ -24,10 +24,10 @@ export interface GxTrackObject {
     whens: number[];
 }
 export interface Options {
-    extractStyles?: boolean;
-    showPointNames?: boolean;
-    defaultStyle?: Style[];
-    writeStyles?: boolean;
+    extractStyles?: boolean | undefined;
+    showPointNames?: boolean | undefined;
+    defaultStyle?: Style[] | undefined;
+    writeStyles?: boolean | undefined;
 }
 export interface Vec2 {
     x: number;

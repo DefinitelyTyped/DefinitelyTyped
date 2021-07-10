@@ -217,10 +217,11 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
         const result = readline.createInterface({
             input: process.stdin,
         });
-        // Pending lib upgrade
-        // for await (const line of result) {
-        //
-        // }
+
+        // tslint:disable-next-line: await-promise
+        for await (const line of result) {
+            line; // $ExpectType string
+        }
     });
 }
 

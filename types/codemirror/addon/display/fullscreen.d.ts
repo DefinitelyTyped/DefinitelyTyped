@@ -8,6 +8,6 @@ declare module '../../' {
          * @see {@link https://codemirror.net/doc/manual.html#addon_fullscreen}
          * @default false
          */
-        fullScreen?: boolean;
+        fullScreen?: boolean | undefined;
     }
 }

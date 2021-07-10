@@ -18,12 +18,12 @@ export type ItemAdjustment = {
   /**
    * Currency code
    */
-  currency?: string;
+  currency?: string | undefined;
 
   /**
    * Unique identifier. Use this value to modify an adjustment in-place.
    */
-  id?: string;
+  id?: string | undefined;
 };
 
 export type NonItemAdjustment = {
@@ -40,7 +40,7 @@ export type NonItemAdjustment = {
   /**
    * Currency code
    */
-  currency?: string;
+  currency?: string | undefined;
 
   /**
    * Whether this adjustment is tax exempt
@@ -55,7 +55,7 @@ export type NonItemAdjustment = {
   /**
    * Unique identifier. Use this value to modify an adjustment in-place.
    */
-  id?: string;
+  id?: string | undefined;
 };
 
 export type Adjustment = ItemAdjustment | NonItemAdjustment;

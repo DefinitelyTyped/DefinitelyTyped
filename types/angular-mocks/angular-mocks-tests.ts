@@ -123,7 +123,7 @@ let $scope: ng.IScope;
 $componentController<{}, {}>('Test controller', { $scope });
 $componentController<{}, {}>('Test controller', { $scope, test: true });
 $componentController<{}, { test: boolean }>('Test controller', { $scope }, { test: true });
-$componentController<{}, { test?: boolean }>('Test controller', { $scope }, {});
+$componentController<{}, { test?: boolean | undefined }>('Test controller', { $scope }, {});
 $componentController<{}, {}>('Test controller', { $scope }, {}, 'identity');
 $componentController<{ cb: () => void }, {}>('Test controller', { $scope });
 $componentController<{}, { test: { name: string } }>('Test controller', {

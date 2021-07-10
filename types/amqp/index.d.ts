@@ -87,59 +87,59 @@ export interface Ack extends DeliveryInfo {
 }
 
 export interface ConnectionOptions {
-  host?: string;
-  url?: string;
-  port?: number;
-  login?: string;
-  password?: string;
-  connectionTimeout?: number;
-  authMechanism?: string;
-  vhost?: string;
-  noDelay?: boolean;
-  heartbeat?: number;
+  host?: string | undefined;
+  url?: string | undefined;
+  port?: number | undefined;
+  login?: string | undefined;
+  password?: string | undefined;
+  connectionTimeout?: number | undefined;
+  authMechanism?: string | undefined;
+  vhost?: string | undefined;
+  noDelay?: boolean | undefined;
+  heartbeat?: number | undefined;
   ssl?: {
     enabled: boolean;
-    keyFile?: string;
-    certFile?: string;
-    caFile?: string;
-    rejectUnauthorized?: boolean;
-  };
+    keyFile?: string | undefined;
+    certFile?: string | undefined;
+    caFile?: string | undefined;
+    rejectUnauthorized?: boolean | undefined;
+  } | undefined;
 
   /** Default: 'node-amqp' */
-  product?: string;
+  product?: string | undefined;
 
   /** Default: 'node-{NODE_VERSION}' */
-  platform?: string;
+  platform?: string | undefined;
 
   /** Default: node-amqp/package.json version */
-  version?: string;
+  version?: string | undefined;
 
-  defaultExchangeName?: string;
+  defaultExchangeName?: string | undefined;
 
   /** Default: true */
-  reconnect?: boolean;
+  reconnect?: boolean | undefined;
 
   /** Default: 'linear' */
-  reconnectBackoffStrategy?: string;
+  reconnectBackoffStrategy?: string | undefined;
 
   /** Default: 120000 */
-  reconnectExponentialLimit?: number;
+  reconnectExponentialLimit?: number | undefined;
 
   /** Default: 1000 */
-  reconnectBackoffTime?: number;
+  reconnectBackoffTime?: number | undefined;
 
   clientProperties?: {
-    applicationName?: string;
+    applicationName?: string | undefined;
     capabilities?: {
-      consumer_cancel_notify?: boolean
-    }
+      consumer_cancel_notify?: boolean | undefined
+    } | undefined
     /** Default: 'node-' + process.version */
-    platform?: string;
+    platform?: string | undefined;
     /** Default: node-amqp */
-    product?: string;
+    product?: string | undefined;
     /** Default: 'nodeAMQPVersion' */
-    version?: string;
-  };
+    version?: string | undefined;
+  } | undefined;
 }
 
 export interface QueueOptions {
@@ -150,7 +150,7 @@ export interface QueueOptions {
    *
    * The client can use this to check whether a queue exists without modifying the server state
    */
-  passive?: boolean;
+  passive?: boolean | undefined;
 
   /**
    * Default: false
@@ -162,7 +162,7 @@ export interface QueueOptions {
    * Note that durable queues do not necessarily hold persistent messages,
    * although it does not make sense to send persistent messages to a transient queue
    */
-  durable?: boolean;
+  durable?: boolean | undefined;
 
   /**
    * Default: false
@@ -171,7 +171,7 @@ export interface QueueOptions {
    *
    * Setting the 'exclusive' flag always implies 'autoDelete'
    */
-  exclusive?: boolean;
+  exclusive?: boolean | undefined;
 
   /**
    * Default: true
@@ -182,40 +182,40 @@ export interface QueueOptions {
    *
    * If there was no consumer ever on the queue, it won't be deleted
    */
-  autoDelete?: boolean;
+  autoDelete?: boolean | undefined;
 
   /**
    * Default: false
    *
    * If set, the queue will not be declared, this will allow a queue to be deleted if you don't know its previous options
    */
-  noDeclare?: boolean;
+  noDeclare?: boolean | undefined;
 
   /**
    * a map of additional arguments to pass in when creating a queue
    */
-  arguments?: { [arg: string]: any };
+  arguments?: { [arg: string]: any } | undefined;
 
   /**
    * Default: false
    *
    * when true the channel will close on unsubscribe
    */
-  closeChannelOnUnsubscribe?: boolean;
+  closeChannelOnUnsubscribe?: boolean | undefined;
 }
 
 export interface ExchangeOptions {
   /**
    * Default: 'topic'
    */
-  type?: 'direct' | 'fanout' | 'topic';
+  type?: 'direct' | 'fanout' | 'topic' | undefined;
 
   /**
    * Default: false
    *
    * f set, the server will not create the exchange. The client can use this to check whether an exchange exists without modifying the server state
    */
-  passive?: boolean;
+  passive?: boolean | undefined;
 
   /**
    * Default: true
@@ -226,14 +226,14 @@ export interface ExchangeOptions {
    *
    * Non-durable exchanges (transient exchanges) are purged if/when a server restarts
    */
-  durable?: boolean;
+  durable?: boolean | undefined;
 
   /**
    * Default: true
    *
    * If set, the exchange is deleted when there are no longer queues bound to it
    */
-  autoDelete?: boolean;
+  autoDelete?: boolean | undefined;
 
   /**
    * Default: false
@@ -241,7 +241,7 @@ export interface ExchangeOptions {
    * If set, the exchange will not be declared,
    * this will allow the exchange to be deleted if you dont know its previous options
    */
-  noDeclare?: boolean;
+  noDeclare?: boolean | undefined;
 
   /**
    * Default: false
@@ -249,12 +249,12 @@ export interface ExchangeOptions {
    * If set, the exchange will be in confirm mode, and you will get a 'ack'|'error' event emitted on a publish,
    * or the callback on the publish will be called
    */
-  confirm?: boolean;
+  confirm?: boolean | undefined;
 
   /**
    * a map of additional arguments to pass in when creating an exchange
    */
-  arguments?: { [arg: string]: any };
+  arguments?: { [arg: string]: any } | undefined;
 }
 
 export interface SubscribeOptions {
@@ -263,7 +263,7 @@ export interface SubscribeOptions {
    *
    * If set to true, only one subscriber is allowed at a time
    */
-  exclusive?: boolean;
+  exclusive?: boolean | undefined;
 
   /**
    * Default: false
@@ -273,7 +273,7 @@ export interface SubscribeOptions {
    *
    * When false, you will receive messages as fast as they are emitted
    */
-  ack?: boolean;
+  ack?: boolean | undefined;
 
   /**
    * Default: 1
@@ -282,21 +282,21 @@ export interface SubscribeOptions {
    *
    * Setting to zero will widen that window to 'unlimited'. If this is set, queue.shift() should not be used
    */
-  prefetchCount?: number;
+  prefetchCount?: number | undefined;
 
   /**
    * Default: undefined
    *
    * Will inject the routingKey into the payload received
    */
-  routingKeyInPayload?: boolean;
+  routingKeyInPayload?: boolean | undefined;
 
   /**
    * Default: undefined
    *
    * Will inject the routingKey into the payload received
    */
-  deliveryKeyInPayload?: boolean;
+  deliveryKeyInPayload?: boolean | undefined;
 }
 
 export interface DestroyOptions {
@@ -305,14 +305,14 @@ export interface DestroyOptions {
    *
    * Will only destroy the queue if it has no consumers
    */
-  ifUnused?: boolean;
+  ifUnused?: boolean | undefined;
 
   /**
    * Default: false
    *
    * Will ony be deleted if the queue has no messages
    */
-  ifEmpty?: boolean;
+  ifEmpty?: boolean | undefined;
 }
 
 export type SubscribeCallback = (
@@ -341,7 +341,7 @@ export interface ExchangePublishOptions {
    *
    * If this flag is false, the server silently drops the message
    */
-  mandatory?: boolean;
+  mandatory?: boolean | undefined;
 
   /**
    * Default: false
@@ -352,17 +352,17 @@ export interface ExchangePublishOptions {
    *
    * If this flag is false, the server will queue the message, but with no guarantee that it will ever be consumed
    */
-  immediate?: boolean;
+  immediate?: boolean | undefined;
 
   /**
    * Default: 'application/octet-stream'
    */
-  contentType?: string;
+  contentType?: string | undefined;
 
   /**
    * Default: null
    */
-  contentEncoding?: string;
+  contentEncoding?: string | undefined;
 
   /**
    * Default: {}
@@ -375,33 +375,33 @@ export interface ExchangePublishOptions {
    * 1: Non-persistent
    * 2: Persistent
    */
-  deliveryMode?: 1 | 2;
+  deliveryMode?: 1 | 2 | undefined;
 
-  priority?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+  priority?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | undefined;
 
   /**
    * Application correlation identifier
    */
-  correlationId?: string;
+  correlationId?: string | undefined;
 
   /**
    * Usually used to name a reply queue for a request message
    */
-  replyTo?: string;
+  replyTo?: string | undefined;
 
   /**
    * Default: null
    *
    * Message expiration specification -- ISO date string?
    */
-  expiration?: string;
+  expiration?: string | undefined;
 
   /**
    * Default: null
    *
    * Application message identifier
    */
-  messageId?: string;
+  messageId?: string | undefined;
 
   /**
    * Default: null
@@ -410,26 +410,26 @@ export interface ExchangePublishOptions {
    *
    * ISO date string?
    */
-  timestamp?: string;
+  timestamp?: string | undefined;
 
   /**
    * Default: null
    *
    * Message type name
    */
-  type?: string;
+  type?: string | undefined;
 
   /**
    * Default: null
    *
    * Creating user id
    */
-  userId?: string;
+  userId?: string | undefined;
 
   /**
    * Default: null
    *
    * Creating application id
    */
-  appId?: string;
+  appId?: string | undefined;
 }

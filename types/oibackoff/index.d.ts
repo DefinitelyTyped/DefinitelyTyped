@@ -8,10 +8,10 @@
 export function backoff(opts?: BackoffOptions): BackoffInstance;
 
 export interface BackoffOptions {
-    maxTries?: number;
-    algorithm?: 'incremental' | 'exponential' | 'fibonacci';
-    delayRatio?: number;
-    maxDelay?: number;
+    maxTries?: number | undefined;
+    algorithm?: 'incremental' | 'exponential' | 'fibonacci' | undefined;
+    delayRatio?: number | undefined;
+    maxDelay?: number | undefined;
 }
 
 export type BackoffIntermediate<A> = (err: A, tries: number, delay: number) => boolean;

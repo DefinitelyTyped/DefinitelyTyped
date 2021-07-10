@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 
 declare namespace PostVisibilityLabel {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const PostVisibilityLabel: ComponentType<PostVisibilityLabel.Props>;

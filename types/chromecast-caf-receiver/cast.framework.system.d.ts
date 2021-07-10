@@ -150,7 +150,7 @@ export class SenderDisconnectedEvent extends Event {
     /**
      * The reason the sender was disconnected.
      */
-    reason?: DisconnectReason;
+    reason?: DisconnectReason | undefined;
 }
 
 /**
@@ -181,12 +181,12 @@ export interface Sender {
     /**
      * Indicate the sender supports large messages (>64KB)
      */
-    largeMessageSupported?: boolean;
+    largeMessageSupported?: boolean | undefined;
 
     /**
      * The userAgent of the sender.
      */
-    userAgent?: string;
+    userAgent?: string | undefined;
 }
 
 /**

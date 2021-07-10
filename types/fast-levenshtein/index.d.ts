@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface LevenshteinOptions {
-    useCollator?: boolean;
+    useCollator?: boolean | undefined;
 }
 
 export function get(str1: string, str2: string, opts?: LevenshteinOptions): number;

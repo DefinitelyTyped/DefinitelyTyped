@@ -118,11 +118,11 @@ declare namespace NewRelic {
         /** Start time in ms since epoch */
         start: number;
         /** End time in ms since epoch.  Defaults to same as start resulting in trace object with a duration of zero. */
-        end?: number;
+        end?: number | undefined;
         /** Origin of event */
-        origin?: string;
+        origin?: string | undefined;
         /** Event type */
-        type?: string;
+        type?: string | undefined;
     }
 
     interface BrowserInteraction {

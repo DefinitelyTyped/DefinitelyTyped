@@ -10,8 +10,8 @@ import * as zlib from 'zlib';
 export interface options {
     src: string;
     dest: string;
-    tar?: tar.ExtractOptions;
-    gz?: zlib.ZlibOptions;
+    tar?: tar.ExtractOptions | undefined;
+    gz?: zlib.ZlibOptions | undefined;
 }
 
 export function compress(opts?: options, callback?: (error: Error | string | null) => void): void;

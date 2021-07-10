@@ -8,27 +8,27 @@
 
 declare namespace ScrollToFixed {
     interface ScrollToFixedOptions {
-        marginTop? : number | (() => number);
-        limit? : number | (() => number);
-        bottom?: number;
-        zIndex? : number;
-        spacerClass? : string;
-        preFixed?: () => void;
-        postFixed?: () => void;
-        fixed?: () => void;
-        unfixed?: () => void;
-        preUnfixed?: () => void;
-        postUnfixed?: () => void;
-        preAbsolute?: () => void;
-        postAbsolute?: () => void;
-        offsets? : boolean;
-        minWidth? : number;
-        maxWidth? : number;
-        dontCheckForPositionFixedSupport? : boolean;
-        dontSetWidth? : boolean;
-        removeOffsets? : boolean;
-        baseClassName?: string;
-        className?: string;
+        marginTop? : number | (() => number) | undefined;
+        limit? : number | (() => number) | undefined;
+        bottom?: number | undefined;
+        zIndex? : number | undefined;
+        spacerClass? : string | undefined;
+        preFixed?: (() => void) | undefined;
+        postFixed?: (() => void) | undefined;
+        fixed?: (() => void) | undefined;
+        unfixed?: (() => void) | undefined;
+        preUnfixed?: (() => void) | undefined;
+        postUnfixed?: (() => void) | undefined;
+        preAbsolute?: (() => void) | undefined;
+        postAbsolute?: (() => void) | undefined;
+        offsets? : boolean | undefined;
+        minWidth? : number | undefined;
+        maxWidth? : number | undefined;
+        dontCheckForPositionFixedSupport? : boolean | undefined;
+        dontSetWidth? : boolean | undefined;
+        removeOffsets? : boolean | undefined;
+        baseClassName?: string | undefined;
+        className?: string | undefined;
     }
 }
 

@@ -16,23 +16,23 @@ declare namespace audiosprite {
     type VBR_Vorbis = VBR | 10;
     type Channels = 1 | 2;
     interface Option {
-        output?: string;
-        path?: string;
-        export?: string;
-        format?: ExportType;
-        log?: LogLevel;
-        autoplay?: string | null;
-        loop?: string[];
-        silence?: number;
-        gap?: number;
-        minlength?: number;
-        bitrate?: number;
-        vbr?: VBR;
-        'vbr:vorbis'?: VBR_Vorbis;
-        samplerate?: number;
-        channels?: Channels;
-        rawparts?: string;
-        logger?: Logger;
+        output?: string | undefined;
+        path?: string | undefined;
+        export?: string | undefined;
+        format?: ExportType | undefined;
+        log?: LogLevel | undefined;
+        autoplay?: string | null | undefined;
+        loop?: string[] | undefined;
+        silence?: number | undefined;
+        gap?: number | undefined;
+        minlength?: number | undefined;
+        bitrate?: number | undefined;
+        vbr?: VBR | undefined;
+        'vbr:vorbis'?: VBR_Vorbis | undefined;
+        samplerate?: number | undefined;
+        channels?: Channels | undefined;
+        rawparts?: string | undefined;
+        logger?: Logger | undefined;
     }
 
     interface Logger {
@@ -50,6 +50,6 @@ declare namespace audiosprite {
                 loop: boolean;
             }
         };
-        autoplay?: string;
+        autoplay?: string | undefined;
     }
 }

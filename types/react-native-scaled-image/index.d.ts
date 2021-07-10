@@ -9,9 +9,9 @@ import { ImageSourcePropType, StyleProp, ImageStyle } from 'react-native';
 
 export interface ScaledImageProps {
   source: ImageSourcePropType;
-  height?: number;
-  width?: number;
-  style?: StyleProp<ImageStyle>;
+  height?: number | undefined;
+  width?: number | undefined;
+  style?: StyleProp<ImageStyle> | undefined;
 }
 
 export default class ScaledImage extends React.Component<ScaledImageProps> {}

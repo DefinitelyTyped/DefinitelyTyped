@@ -280,6 +280,7 @@ declare namespace Chai {
 
         sameMembers(set1: any[], set2: any[], msg?: string): void;
         includeMembers(set1: any[], set2: any[], msg?: string): void;
+        notIncludeMembers(set1: any[], set2: any[], msg?: string): void;
 
         ifError(val: any, msg?: string): void;
     }

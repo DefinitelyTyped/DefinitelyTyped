@@ -8,26 +8,26 @@ import { ResolveConfigOptions } from 'prettier';
 
 declare namespace prettyQuick {
     interface Options {
-        config?: ResolveConfigOptions;
-        since?: string;
+        config?: ResolveConfigOptions | undefined;
+        since?: string | undefined;
         /** @default false */
-        staged?: boolean;
-        pattern?: string | string[];
+        staged?: boolean | undefined;
+        pattern?: string | string[] | undefined;
         /** @default true */
-        restage?: boolean;
+        restage?: boolean | undefined;
         /**
          * @default 'master' | 'default'
          */
-        branch?: string;
-        bail?: boolean;
-        check?: boolean;
-        verbose?: boolean;
-        onFoundSinceRevision?: (name: string, revision: string) => void;
-        onFoundChangedFiles?: (changedFiles: string[]) => void;
-        onPartiallyStagedFile?: (file: string) => void;
-        onExamineFile?: (file: string) => void;
-        onCheckFile?: (file: string, isFormatted: boolean) => void;
-        onWriteFile?: (file: string) => void;
+        branch?: string | undefined;
+        bail?: boolean | undefined;
+        check?: boolean | undefined;
+        verbose?: boolean | undefined;
+        onFoundSinceRevision?: ((name: string, revision: string) => void) | undefined;
+        onFoundChangedFiles?: ((changedFiles: string[]) => void) | undefined;
+        onPartiallyStagedFile?: ((file: string) => void) | undefined;
+        onExamineFile?: ((file: string) => void) | undefined;
+        onCheckFile?: ((file: string, isFormatted: boolean) => void) | undefined;
+        onWriteFile?: ((file: string) => void) | undefined;
         // ...args support
         [key: string]: any;
     }

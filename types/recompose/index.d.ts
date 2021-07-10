@@ -250,17 +250,17 @@ declare module 'recompose' {
 
     // lifecycle: https://github.com/acdlite/recompose/blob/master/docs/API.md#lifecycle
     interface ReactLifeCycleFunctions<TProps, TState, TInstance = {}> {
-        componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        componentWillMount?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void) | undefined;
         UNSAFE_componentWillMount?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>): void;
-        componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
-        componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps) => void;
+        componentDidMount?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void) | undefined;
+        componentWillReceiveProps?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps) => void) | undefined;
         UNSAFE_componentWillReceiveProps?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps): void;
-        shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => boolean;
-        componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => void;
+        shouldComponentUpdate?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => boolean) | undefined;
+        componentWillUpdate?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => void) | undefined;
         UNSAFE_componentWillUpdate?(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState): void;
-        componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, prevProps: TProps, prevState: TState) => void;
-        componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
-        componentDidCatch?:(this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, error: Error, info: React.ErrorInfo) => void;
+        componentDidUpdate?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, prevProps: TProps, prevState: TState) => void) | undefined;
+        componentWillUnmount?: ((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void) | undefined;
+        componentDidCatch?:((this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, error: Error, info: React.ErrorInfo) => void) | undefined;
     }
 
     export function lifecycle<TProps, TState, TInstance = {}>(
@@ -405,8 +405,8 @@ declare module 'recompose' {
 
     // setObservableConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#setObservableConfig
     type ObservableConfig = {
-        fromESObservable?: <T>(observable: Subscribable<T>) => any;
-        toESObservable?: <T>(stream: any) => Subscribable<T>;
+        fromESObservable?: (<T>(observable: Subscribable<T>) => any) | undefined;
+        toESObservable?: (<T>(stream: any) => Subscribable<T>) | undefined;
     };
     export function setObservableConfig(config: ObservableConfig): void;
 }

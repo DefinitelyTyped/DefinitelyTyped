@@ -10,11 +10,11 @@ interface JQBlockUIOptions {
     /** message displayed when blocking (use null for no message) */
     message?: any;
     /** title string; only used when theme == true  */
-    title?: string;
+    title?: string | undefined;
     /** only used when theme == true (requires jquery-ui.js to be loaded) */
-    draggable?: boolean;
+    draggable?: boolean | undefined;
     /** set to true to use with jQuery UI themes */
-    theme?: boolean;
+    theme?: boolean | undefined;
 
     /** 
      * styles for the message when blocking; if you wish to disable 
@@ -30,54 +30,54 @@ interface JQBlockUIOptions {
     overlayCSS?: any;
 
     /** style to replace wait cursor before unblocking to correct issue of lingering wait cursor */
-    cursorReset?: string;
+    cursorReset?: string | undefined;
 
     /** styles applied when using $.growlUI */
     growlCSS?: any;
     /** ifreamSrc for IE */
-    iframeSrc?: string;
+    iframeSrc?: string | undefined;
 
     /** force usage of iframe in non-IE browsers (handy for blocking applets) */
-    forceIframe?: boolean;
+    forceIframe?: boolean | undefined;
 
     /** z-index for the blocking overlay */
-    baseZ?: number;
+    baseZ?: number | undefined;
 
 
     /** set true to have the message automatically centered for X */
-    centerX?: boolean;
+    centerX?: boolean | undefined;
     /** set true to have the message automatically centered for Y */
-    centerY?: boolean;
+    centerY?: boolean | undefined;
 
     /** 
      * allow body element to be stetched in ie6; this makes blocking look better
      * on "short" pages.  disable if you wish to prevent changes to the body height 
      */
-    allowBodyStretch?: boolean;
+    allowBodyStretch?: boolean | undefined;
 
     /** enable if you want key and mouse events to be disabled for content that is blocked */
-    bindEvents?: boolean;
+    bindEvents?: boolean | undefined;
 
     /** be default blockUI will supress tab navigation from leaving blocking content(if bindEvents is true) */
-    constrainTabKey?: boolean;
+    constrainTabKey?: boolean | undefined;
 
     /** fadeIn time in millis; set to 0 to disable fadeIn on block  */
-    fadeIn?: number;
+    fadeIn?: number | undefined;
 
     /** fadeOut time in millis; set to 0 to disable fadeOut on unblock */
-    fadeOut?: number;
+    fadeOut?: number | undefined;
 
     /** time in millis to wait before auto-unblocking; set to 0 to disable auto-unblock */
-    timeout?: number;
+    timeout?: number | undefined;
 
     /** disable if you don't want to show the overlay */
-    showOverlay?: boolean;
+    showOverlay?: boolean | undefined;
 
     /** if true, focus will be placed in the first available input field when page blocking */
-    focusInput?: boolean;
+    focusInput?: boolean | undefined;
 
     /** callback method invoked when fadeIn has completed and blocking message is visible */
-    onBlock?: () => void;
+    onBlock?: (() => void) | undefined;
 
     /** 
      * callback method invoked when unblocking has completed; the callback is 
@@ -85,22 +85,22 @@ interface JQBlockUIOptions {
      * blocks) and the options that were passed to the unblock call: 
      * onUnblock(element, options) 
      */
-    onUnblock?: (element: any, options: any) => void;
+    onUnblock?: ((element: any, options: any) => void) | undefined;
 
     // don't ask; if you really must know: http://groups.google.com/group/jquery-en/browse_thread/thread/36640a8730503595/2f6a79a77a78e493#2f6a79a77a78e493 
     /** quirksmodeOffsetHack */
-    quirksmodeOffsetHack?: number;
+    quirksmodeOffsetHack?: number | undefined;
 
     /** class name of the message block */
-    blockMsgClass?: string;
+    blockMsgClass?: string | undefined;
 
     /** if it is already blocked, then ignore it (don't unblock and reblock) */
-    ignoreIfBlocked?: boolean;
+    ignoreIfBlocked?: boolean | undefined;
 }
 
 interface JQBlockUIStatic {
     /** default options */
-    defaults?: JQBlockUIOptions;
+    defaults?: JQBlockUIOptions | undefined;
     /** block user activity for the page */
     (): void;
     /**
@@ -112,9 +112,9 @@ interface JQBlockUIStatic {
 
 interface JQueryStatic {
     /** block user activity for the page */
-    blockUI?: JQBlockUIStatic;
+    blockUI?: JQBlockUIStatic | undefined;
     /** unblock the page */
-    unblockUI?: JQBlockUIStatic;
+    unblockUI?: JQBlockUIStatic | undefined;
 }
 
 interface JQuery {

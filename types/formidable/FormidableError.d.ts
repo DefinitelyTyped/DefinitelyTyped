@@ -1,6 +1,6 @@
 declare class FormidableError extends Error {
     internalCode: number;
-    httpCode?: number;
+    httpCode?: number | undefined;
     constructor(message: string, internalCode: number, httpCode?: number);
 }
 

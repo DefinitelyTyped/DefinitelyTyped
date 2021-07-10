@@ -17,27 +17,27 @@ export interface CreateAccountOptions {
     /**
      * one of 'caldav' or 'carddav'. Defaults to 'caldav'.
      */
-    accountType?: "caldav" | "carddav";
+    accountType?: "caldav" | "carddav" | undefined;
 
     /**
      * list of caldav filters to send with request.
      */
-    filters?: object[];
+    filters?: object[] | undefined;
 
     /**
      *  whether or not to load dav collections.
      */
-    loadCollections?: boolean;
+    loadCollections?: boolean | undefined;
 
     /**
      * whether or not to load dav objects.
      */
-    loadObjects?: boolean;
+    loadObjects?: boolean | undefined;
 
     /**
      * request sandox.
      */
-    sandbox?: Sandbox | {};
+    sandbox?: Sandbox | {} | undefined;
 
     /**
      *  some url for server (needn't be base url).
@@ -47,13 +47,13 @@ export interface CreateAccountOptions {
     /**
      * VTIMEZONE calendar object.
      */
-    timezone?: string;
+    timezone?: string | undefined;
 
     /**
      * request sender.
      */
 
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -78,12 +78,12 @@ export interface CreateCalendarObjectOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -98,12 +98,12 @@ export interface UpdateCalendarObjectOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -118,12 +118,12 @@ export interface DeleteCalendarObjectOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -138,28 +138,28 @@ export interface SyncCalendarOptions {
     /**
      * list of caldav filters to send with request.
      */
-    filters?: object[];
+    filters?: object[] | undefined;
 
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * either 'basic' or 'webdav'. If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: "basic" | "webdav" | undefined;
 
     /**
      * VTIMEZONE calendar object.
      */
-    timezone?: string;
+    timezone?: string | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -174,28 +174,28 @@ export interface SyncCaldavAccountOptions {
     /**
      * list of caldav filters to send with request.
      */
-    filters?: object[];
+    filters?: object[] | undefined;
 
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * either 'basic' or 'webdav'. If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: "basic" | "webdav" | undefined;
 
     /**
      * VTIMEZONE calendar object.
      */
-    timezone?: string;
+    timezone?: string | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -219,11 +219,11 @@ export interface CreateCardOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -238,11 +238,11 @@ export interface UpdateCardOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -257,11 +257,11 @@ export interface DeleteCardOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -276,17 +276,17 @@ export interface SyncAddressBookOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
     /**
      * either 'basic' or 'webdav'.If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: "basic" | "webdav" | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -301,28 +301,28 @@ export interface SyncCarddavAccountOptions {
     /**
      * list of caldav filters to send with request.
      */
-    filters?: object[];
+    filters?: object[] | undefined;
 
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * either 'basic' or 'webdav'. If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: "basic" | "webdav" | undefined;
 
     /**
      * VTIMEZONE calendar object.
      */
-    timezone?: string;
+    timezone?: string | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -360,9 +360,9 @@ export namespace transport {
         /**
          *  request sandbox.
          */
-        sandbox?: Sandbox;
+        sandbox?: Sandbox | undefined;
 
-        retry?: boolean;
+        retry?: boolean | undefined;
     }
 
     class Basic extends Transport {
@@ -418,7 +418,7 @@ export namespace request {
         /**
          * value for Depth header.
          */
-        depth?: string;
+        depth?: string | undefined;
 
         /**
          * list of props to request.
@@ -461,7 +461,7 @@ export namespace request {
         /**
          * value for Depth header.
          */
-        depth?: string;
+        depth?: string | undefined;
 
         /**
          * list of filters to send with request.
@@ -490,7 +490,7 @@ export namespace request {
         /**
          *  value for Depth header.
          */
-        depth?: string;
+        depth?: string | undefined;
 
         /**
          * list of props to request.
@@ -509,7 +509,7 @@ export namespace request {
         /**
          * option value for Depth header.
          */
-        depth?: string;
+        depth?: string | undefined;
 
         /**
          * list of props to request.
@@ -650,11 +650,11 @@ export interface ClientSendOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
     /**
      * relative url for request.
      */
-    url?: string;
+    url?: string | undefined;
 }
 
 export type Partial<T> = {
@@ -783,10 +783,10 @@ export type VCardOptions = Partial<VCard>;
 export class Request {
     constructor(options?: RequestOptions);
     method: string;
-    requestData?: string;
-    transformRequest?: (xhr: any) => any;
-    transformResponse?: (xhr: any) => any;
-    onerror?: (error: Error) => any;
+    requestData?: string | undefined;
+    transformRequest?: ((xhr: any) => any) | undefined;
+    transformResponse?: ((xhr: any) => any) | undefined;
+    onerror?: ((error: Error) => any) | undefined;
 }
 
 export type RequestOptions = Partial<Request>;

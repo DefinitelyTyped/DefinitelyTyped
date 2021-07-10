@@ -106,46 +106,46 @@ declare namespace ProgressBar {
       /**
        * current completed index
        */
-      curr?: number;
+      curr?: number | undefined;
 
       /**
        * head character defaulting to complete character
        */
-      head?: string;
+      head?: string | undefined;
 
       /**
        * The displayed width of the progress bar defaulting to total.
        */
-      width?: number;
+      width?: number | undefined;
 
       /**
        * minimum time between updates in milliseconds defaulting to 16
        */
-      renderThrottle?: number;
+      renderThrottle?: number | undefined;
 
       /**
        * The output stream defaulting to stderr.
        */
-      stream?: NodeJS.WritableStream;
+      stream?: NodeJS.WritableStream | undefined;
 
       /**
        * Completion character defaulting to "=".
        */
-      complete?: string;
+      complete?: string | undefined;
 
       /**
        * Incomplete character defaulting to "-".
        */
-      incomplete?: string;
+      incomplete?: string | undefined;
 
       /**
        * Option to clear the bar on completion defaulting to false.
        */
-      clear?: boolean;
+      clear?: boolean | undefined;
 
       /**
        * Optional function to call when the progress bar completes.
        */
-      callback?: Function;
+      callback?: Function | undefined;
   }
 }

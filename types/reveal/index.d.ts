@@ -83,84 +83,84 @@ interface RevealStatic {
 
 interface RevealOptions {
     // Configuration
-    controls?: boolean;
-    progress?: boolean;
+    controls?: boolean | undefined;
+    progress?: boolean | undefined;
     // https://github.com/hakimel/reveal.js/#slide-number
-    slideNumber?: boolean | string;
+    slideNumber?: boolean | string | undefined;
 
-    history?: boolean;
-    plugins?: Plugin[];
+    history?: boolean | undefined;
+    plugins?: Plugin[] | undefined;
 
     // https://github.com/hakimel/reveal.js/#keyboard-bindings
     keyboard?: any;
-    overview?: boolean;
-    center?: boolean;
-    touch?: boolean;
-    loop?: boolean;
-    rtl?: boolean;
-    shuffle?: boolean;
-    fragments?: boolean;
-    embedded?: boolean;
-    help?: boolean;
-    showNotes?: boolean;
-    autoSlide?: number;
-    autoSlideStoppable?: boolean;
+    overview?: boolean | undefined;
+    center?: boolean | undefined;
+    touch?: boolean | undefined;
+    loop?: boolean | undefined;
+    rtl?: boolean | undefined;
+    shuffle?: boolean | undefined;
+    fragments?: boolean | undefined;
+    embedded?: boolean | undefined;
+    help?: boolean | undefined;
+    showNotes?: boolean | undefined;
+    autoSlide?: number | undefined;
+    autoSlideStoppable?: boolean | undefined;
     autoSlideMethod?: any;
-    mouseWheel?: boolean;
-    hideAddressBar?: boolean;
-    previewLinks?: boolean;
-    transition?: string;
-    transitionSpeed?: string;
-    backgroundTransition?: string;
-    viewDistance?: number;
+    mouseWheel?: boolean | undefined;
+    hideAddressBar?: boolean | undefined;
+    previewLinks?: boolean | undefined;
+    transition?: string | undefined;
+    transitionSpeed?: string | undefined;
+    backgroundTransition?: string | undefined;
+    viewDistance?: number | undefined;
 
     // https://github.com/hakimel/reveal.js/#parallax-background
     // Parallax background image
-    parallaxBackgroundImage?: string;
+    parallaxBackgroundImage?: string | undefined;
 
     // Parallax background size
-    parallaxBackgroundSize?: string; // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+    parallaxBackgroundSize?: string | undefined; // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
 
     // Number of pixels to move the parallax background per slide
     // - Calculated automatically unless specified
     // - Set to 0 to disable movement along an axis
-    parallaxBackgroundHorizontal?: number;
-    parallaxBackgroundVertical?: number;
+    parallaxBackgroundHorizontal?: number | undefined;
+    parallaxBackgroundVertical?: number | undefined;
 
-    rollingLinks?: boolean;
-    theme?: string;
+    rollingLinks?: boolean | undefined;
+    theme?: string | undefined;
 
     // Presentation Size
     // https://github.com/hakimel/reveal.js/#presentation-size
-    width?: number | string;
-    height?: number | string;
-    margin?: number | string;
-    minScale?: number | string;
-    maxScale?: number | string;
+    width?: number | string | undefined;
+    height?: number | string | undefined;
+    margin?: number | string | undefined;
+    minScale?: number | string | undefined;
+    maxScale?: number | string | undefined;
 
     // Dependencies
     // https://github.com/hakimel/reveal.js/#dependencies
-    dependencies?: RevealDependency[];
+    dependencies?: RevealDependency[] | undefined;
 
     // Exposes the reveal.js API through window.postMessage
-    postMessage?: boolean;
+    postMessage?: boolean | undefined;
 
     // Dispatches all reveal.js events to the parent window through postMessage
-    postMessageEvents?: boolean;
+    postMessageEvents?: boolean | undefined;
 
     // https://github.com/hakimel/reveal.js/#multiplexing
-    multiplex?: MultiplexConfig;
+    multiplex?: MultiplexConfig | undefined;
 
     // https://github.com/hakimel/reveal.js/#mathjax
-    math?: MathConfig;
+    math?: MathConfig | undefined;
 }
 
 // https://github.com/hakimel/reveal.js/#slide-changed-event
 interface SlideEvent {
-    previousSlide?: Element;
+    previousSlide?: Element | undefined;
     currentSlide: Element;
     indexh: number;
-    indexv?: number;
+    indexv?: number | undefined;
 }
 
 // https://github.com/hakimel/reveal.js/#fragment-events
@@ -171,7 +171,7 @@ interface FragmentEvent {
 // https://github.com/hakimel/reveal.js/#multiplexing
 interface MultiplexConfig {
     // Obtained from the socket.io server. Gives this (the master) control of the presentation
-    secret?: string;
+    secret?: string | undefined;
     // Obtained from the socket.io server
     id: string;
 
@@ -190,9 +190,9 @@ interface MathConfig {
 // https://github.com/hakimel/reveal.js/#dependencies
 interface RevealDependency {
     src: string;
-    condition?: () => boolean;
-    async?: boolean;
-    callback?: () => void;
+    condition?: (() => boolean) | undefined;
+    async?: boolean | undefined;
+    callback?: (() => void) | undefined;
 }
 
 interface Plugin {

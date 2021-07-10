@@ -25,19 +25,19 @@ declare namespace degit {
         /**
          * @default false
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
         /**
          * @default false
          */
-        force?: boolean;
+        force?: boolean | undefined;
         /**
          * @default undefined
          */
-        mode?: ValidModes;
+        mode?: ValidModes | undefined;
         /**
          * @default false
          */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
     }
 
     // varia
@@ -74,8 +74,8 @@ declare namespace degit {
 
     interface Action {
         action: string;
-        cache?: boolean;
-        verbose?: boolean;
+        cache?: boolean | undefined;
+        verbose?: boolean | undefined;
     }
 
     interface DegitAction extends Action {

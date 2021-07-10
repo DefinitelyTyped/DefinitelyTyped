@@ -26,47 +26,47 @@ declare namespace gapi.client {
 
         interface GetParameters {
             fileId: string;
-            acknowledgeAbuse?: boolean;
-            projection?: string;
-            revisionId?: string;
-            supportsTeamDrives?: boolean;
-            updateViewedDate?: boolean;
+            acknowledgeAbuse?: boolean | undefined;
+            projection?: string | undefined;
+            revisionId?: string | undefined;
+            supportsTeamDrives?: boolean | undefined;
+            updateViewedDate?: boolean | undefined;
         }
 
         interface PatchParameters {
             fileId: string;
-            resource?: FileResource
-            convert?: boolean;
-            modifiedDateBehavior?: string;
-            newRevision?: boolean;
-            ocr?: boolean;
-            ocrLanguage?: string;
-            pinned?: boolean;
-            removeParents?: string;
-            setModifiedDate?: boolean;
-            supportsTeamDrives?: boolean;
-            timedTextLanguage?: string;
-            timedTextTrackName?: string;
-            updateViewedData?: boolean;
-            useContentAsIndexableText?: boolean;
+            resource?: FileResource | undefined
+            convert?: boolean | undefined;
+            modifiedDateBehavior?: string | undefined;
+            newRevision?: boolean | undefined;
+            ocr?: boolean | undefined;
+            ocrLanguage?: string | undefined;
+            pinned?: boolean | undefined;
+            removeParents?: string | undefined;
+            setModifiedDate?: boolean | undefined;
+            supportsTeamDrives?: boolean | undefined;
+            timedTextLanguage?: string | undefined;
+            timedTextTrackName?: string | undefined;
+            updateViewedData?: boolean | undefined;
+            useContentAsIndexableText?: boolean | undefined;
         }
 
         interface CopyParameters {
             fileId: string;
-            resource?: FileResource;
-            convert?: boolean;
-            ocr?: boolean;
-            ocrLanguage?: string;
-            pinned?: boolean;
-            supportsTeamDrives?: boolean;
-            timedTextLanguage?: string;
-            timedTextTrackName?: string;
-            visibility?: string;
+            resource?: FileResource | undefined;
+            convert?: boolean | undefined;
+            ocr?: boolean | undefined;
+            ocrLanguage?: string | undefined;
+            pinned?: boolean | undefined;
+            supportsTeamDrives?: boolean | undefined;
+            timedTextLanguage?: string | undefined;
+            timedTextTrackName?: string | undefined;
+            visibility?: string | undefined;
         }
 
         interface DeleteParameters {
             fileId: string;
-            supportsTeamDrives?: boolean;
+            supportsTeamDrives?: boolean | undefined;
         }
 
         interface ExportParameters {
@@ -75,59 +75,59 @@ declare namespace gapi.client {
         }
 
         interface GenerateIdsParameters {
-            maxResults?: number;
-            space?: string;
+            maxResults?: number | undefined;
+            space?: string | undefined;
         }
 
         interface InsertParameters {
             uploadType: string;
-            convert?: boolean;
-            ocr?: boolean;
-            ocrLanguage?: string;
-            pinned?: boolean;
-            supportsTeamDrives?: boolean;
-            timedTextLanguage?: string;
-            timedTextTrackName?: string;
-            usecontentAsIndexableText?: boolean;
-            visibility?: string;
+            convert?: boolean | undefined;
+            ocr?: boolean | undefined;
+            ocrLanguage?: string | undefined;
+            pinned?: boolean | undefined;
+            supportsTeamDrives?: boolean | undefined;
+            timedTextLanguage?: string | undefined;
+            timedTextTrackName?: string | undefined;
+            usecontentAsIndexableText?: boolean | undefined;
+            visibility?: string | undefined;
         }
 
         interface ListParameters {
-            corpora?: string;
-            corpus?: string;
-            includeTeamDriveItems?: boolean;
-            maxResults?: number;
-            orderBy?: string;
-            pageToken?: string;
-            projection?: string;
-            q?: string;
-            spaces?: string;
-            supportsTeamDrives?: boolean;
-            teamDriveId?: string;
+            corpora?: string | undefined;
+            corpus?: string | undefined;
+            includeTeamDriveItems?: boolean | undefined;
+            maxResults?: number | undefined;
+            orderBy?: string | undefined;
+            pageToken?: string | undefined;
+            projection?: string | undefined;
+            q?: string | undefined;
+            spaces?: string | undefined;
+            supportsTeamDrives?: boolean | undefined;
+            teamDriveId?: string | undefined;
         }
 
         interface TouchParameters {
             fileId: string;
-            supportsTeamDrives?: boolean;
+            supportsTeamDrives?: boolean | undefined;
         }
 
         interface TrashParameters {
             fileId: string;
-            supportsTeamDrives?: boolean;
+            supportsTeamDrives?: boolean | undefined;
         }
 
 
         interface UntrashParameters {
             fileId: string;
-            supportsTeamDrives?: boolean;
+            supportsTeamDrives?: boolean | undefined;
         }
 
 
         interface WatchParameters {
             fileId: string;
-            resource?: WatchResource;
-            revisionId?: string;
-            supportsTeamDrives?: boolean;
+            resource?: WatchResource | undefined;
+            revisionId?: string | undefined;
+            supportsTeamDrives?: boolean | undefined;
         }
 
         interface FileResource {

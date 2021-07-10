@@ -25,23 +25,23 @@ export type WindowScrollerProps = {
     children: (params: WindowScrollerChildProps) => React.ReactNode;
 
     /** Callback to be invoked on-resize: ({ height, width }) */
-    onResize?: (params: { height: number; width: number }) => void;
+    onResize?: ((params: { height: number; width: number }) => void) | undefined;
 
     /** Callback to be invoked on-scroll: ({ scrollLeft, scrollTop }) */
-    onScroll?: (params: { scrollLeft: number; scrollTop: number }) => void;
+    onScroll?: ((params: { scrollLeft: number; scrollTop: number }) => void) | undefined;
 
     /** Element to attach scroll event listeners. Defaults to window. */
-    scrollElement?: typeof window | Element;
+    scrollElement?: typeof window | Element | undefined;
     /**
      * Wait this amount of time after the last scroll event before resetting child `pointer-events`.
      */
-    scrollingResetTimeInterval?: number;
+    scrollingResetTimeInterval?: number | undefined;
 
     /** Height used for server-side rendering */
-    serverHeight?: number;
+    serverHeight?: number | undefined;
 
     /** Width used for server-side rendering */
-    serverWidth?: number;
+    serverWidth?: number | undefined;
     /**
      * PLEASE NOTE
      * The [key: string]: any; line is here on purpose

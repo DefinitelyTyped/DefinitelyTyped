@@ -7,18 +7,18 @@ declare class Growl {
 
 declare namespace Growl {
     interface Option {
-        name?: string;
-        host?: string;
-        port?: number;
+        name?: string | undefined;
+        host?: string | undefined;
+        port?: number | undefined;
     }
 
     interface Notification extends notifier.Notification {
         /** whether or not to sticky the notification (defaults to false) */
-        sticky?: boolean;
+        sticky?: boolean | undefined;
         /** type of notification to use (defaults to the first registered type) */
-        label?: string;
+        label?: string | undefined;
         /** the priority of the notification from lowest (-2) to highest (2) */
-        priority?: number;
+        priority?: number | undefined;
     }
 }
 

@@ -18,7 +18,7 @@ export class LoadingManager {
      * @param loaded The number of items already loaded so far.
      * @param total The total amount of items to be loaded.
      */
-    onStart?: (url: string, loaded: number, total: number) => void;
+    onStart?: ((url: string, loaded: number, total: number) => void) | undefined;
 
     /**
      * Will be called when all items finish loading.

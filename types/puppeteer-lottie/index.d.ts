@@ -26,129 +26,129 @@ declare namespace renderLottie {
         /**
          * JSON exported animation data
          */
-        animationData?: object;
+        animationData?: object | undefined;
 
         /**
          * Relative path to the JSON file containing animation data
          */
-        path?: string;
+        path?: string | undefined;
 
         /**
          * Optional output width
          */
-        width?: number;
+        width?: number | undefined;
 
         /**
          * Optional output height
          */
-        height?: number;
+        height?: number | undefined;
 
         /**
          * JPEG quality for frames (does nothing if using png)
          * @default 90
          */
-        jpegQuality?: number;
+        jpegQuality?: number | undefined;
 
         /**
          * Set to true to disable console output
          */
-        quiet?: boolean;
+        quiet?: boolean | undefined;
 
         /**
          * Window device scale factor
          * @default 1
          */
-        deviceScaleFactor?: number;
+        deviceScaleFactor?: number | undefined;
 
         /**
          * Which lottie-web renderer to use
          * @default 'svg'
          */
-        renderer?: 'svg' | 'canvas' | 'html';
+        renderer?: 'svg' | 'canvas' | 'html' | undefined;
 
         /**
          * Optional lottie renderer settings
          */
-        rendererSettings?: SVGRendererConfig | CanvasRendererConfig | HTMLRendererConfig;
+        rendererSettings?: SVGRendererConfig | CanvasRendererConfig | HTMLRendererConfig | undefined;
 
         /**
          * Optional puppeteer launch settings
          */
-        puppeteerOptions?: LaunchOptions;
+        puppeteerOptions?: LaunchOptions | undefined;
 
         /**
          * Optional ffmpeg settings for crf, profileVideo and preset values
          */
-        ffmpegOptions?: FFmpegOptions;
+        ffmpegOptions?: FFmpegOptions | undefined;
 
         /**
          * Optional gifski settings (only for GIF outputs)
          */
-        gifskiOptions?: object;
+        gifskiOptions?: object | undefined;
 
         /**
          * Optional JS
          * [CSS styles](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference) to apply to the animation container
          */
-        style?: object;
+        style?: object | undefined;
 
         /**
          * Optionally injects arbitrary string content into the head, style, or body elements.
          */
-        inject?: Inject;
+        inject?: Inject | undefined;
 
         /**
          * Optional puppeteer instance to reuse
          */
-        browser?: Browser;
+        browser?: Browser | undefined;
     }
 
     interface Inject {
         /**
          *  Optionally injected into the document <head>
          */
-        head?: string;
+        head?: string | undefined;
 
         /**
          * Optionally injected into a <style> tag within the document <head>
          */
-        style?: string;
+        style?: string | undefined;
 
         /**
          * Optionally injected into the document <body>
          */
-        body?: string;
+        body?: string | undefined;
     }
 
     interface GifskiOptions {
         /**
          * Resize to max this width if set
          */
-        width?: number;
+        width?: number | undefined;
         /**
          * Resize to max this height if width is set. Note that aspect ratio is not preserved.
          */
-        height?: number;
+        height?: number | undefined;
         /**
          * 1-100, but useful range is 50-100. Recommended to set to 100.
          */
-        quality?: number;
+        quality?: number | undefined;
         /**
          * If true, looping is disabled
          */
-        once?: boolean;
+        once?: boolean | undefined;
         /**
          * Lower quality, but faster encode
          */
-        fast?: boolean;
+        fast?: boolean | undefined;
     }
 
     /**
      * Optional ffmpeg settings
      */
     interface FFmpegOptions {
-        crf?: number;
-        profileVideo?: 'baseline' | 'main' | 'high' | 'high10' | 'high422' | 'high444';
+        crf?: number | undefined;
+        profileVideo?: 'baseline' | 'main' | 'high' | 'high10' | 'high422' | 'high444' | undefined;
         preset?:
             | 'ultrafast'
             | 'superfast'
@@ -159,7 +159,7 @@ declare namespace renderLottie {
             | 'slow'
             | 'slower'
             | 'veryslow'
-            | 'placebo';
+            | 'placebo' | undefined;
     }
 }
 

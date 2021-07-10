@@ -35,7 +35,7 @@ declare namespace KoaWebsocket {
     class Server<StateT = any, CustomT = {}> {
         app: App;
         middleware: Array<Middleware<StateT, CustomT>>;
-        server?: ws.Server;
+        server?: ws.Server | undefined;
 
         constructor(app: Koa<StateT, CustomT>);
 

@@ -358,15 +358,15 @@ declare module "../index" {
         /**
          * @see _.leading
          */
-        leading?: boolean;
+        leading?: boolean | undefined;
         /**
          * @see _.maxWait
          */
-        maxWait?: number;
+        maxWait?: number | undefined;
         /**
          * @see _.trailing
          */
-        trailing?: boolean;
+        trailing?: boolean | undefined;
     }
     interface DebouncedFunc<T extends (...args: any[]) => any> {
         /**
@@ -1333,11 +1333,11 @@ declare module "../index" {
         /**
          * @see _.leading
          */
-        leading?: boolean;
+        leading?: boolean | undefined;
         /**
          * @see _.trailing
          */
-        trailing?: boolean;
+        trailing?: boolean | undefined;
     }
     interface LoDashStatic {
         /**

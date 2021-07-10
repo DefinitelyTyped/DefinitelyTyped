@@ -11,7 +11,7 @@ import {
 import { Alpha, Checkboard, EditableInput, Hue, Saturation } from "react-color/lib/components/common";
 
 interface CustomProps extends InjectedColorProps {
-    color?: Color;
+    color?: Color | undefined;
 }
 
 const CustomComponent: StatelessComponent<CustomProps> = (props: CustomProps) => {

@@ -2,14 +2,14 @@ import * as React from "react";
 import { ReactAttr, FCReturn, ReactDivAttr, JSXIntrinsicElementProps } from "../../../typings/shared";
 
 interface RowBaseIsolatedProps {
-    condensed?: boolean;
-    narrow?: boolean;
+    condensed?: boolean | undefined;
+    narrow?: boolean | undefined;
 }
 type SafeProps<P> = Omit<P, 'as' | 'condensed'>;
 
 interface RowBaseProps extends RowBaseIsolatedProps {
-    children?: React.ReactNode;
-    className?: ReactAttr['className'];
+    children?: React.ReactNode | undefined;
+    className?: ReactAttr['className'] | undefined;
 }
 
 export type RowDefaultProps = RowBaseProps &

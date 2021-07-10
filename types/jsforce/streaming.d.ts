@@ -9,7 +9,7 @@ export interface StreamingMessage {
     event: {
         type: string;
         createdDate: string;
-        replayId?: number;
+        replayId?: number | undefined;
     };
     sobject: Record;
 }

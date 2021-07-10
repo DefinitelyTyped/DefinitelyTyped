@@ -10,7 +10,7 @@ declare namespace MusicKit {
         /**
          * The identifier for the media item.
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * The type for the media item.
          */
@@ -103,7 +103,7 @@ declare namespace MusicKit {
         /**
          * The release date of the media item.
          */
-        readonly releaseDate?: Date;
+        readonly releaseDate?: Date | undefined;
         /**
          * The name of the media item.
          */

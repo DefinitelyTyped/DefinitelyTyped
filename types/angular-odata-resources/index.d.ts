@@ -15,12 +15,12 @@ declare namespace OData {
         /**
          * If true then the trailing slashes from any calculated URL will be stripped (defaults to true)
          */
-        stripTrailingSlashes?: boolean;
+        stripTrailingSlashes?: boolean | undefined;
         odata?: {
-            url?: string;
-            method?: string;
-        };
-        isodatav4?: boolean;
+            url?: string | undefined;
+            method?: string | undefined;
+        } | undefined;
+        isodatav4?: boolean | undefined;
     }
 
 
@@ -48,9 +48,9 @@ declare namespace OData {
 
     // Just a reference to facilitate describing new actions
     interface IActionDescriptor {
-        url?: string;
+        url?: string | undefined;
         method: string;
-        isArray?: boolean;
+        isArray?: boolean | undefined;
         params?: any;
         headers?: any;
     }

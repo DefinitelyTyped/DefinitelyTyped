@@ -3007,7 +3007,7 @@ declare module "sap/m/ActionListItem" {
     /**
      * Defines the text that appears in the control.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -3116,7 +3116,7 @@ declare module "sap/m/ActionSelect" {
     /**
      * Buttons to be added to the ActionSelect content.
      */
-    buttons?: Array<Button | string>;
+    buttons?: Array<Button | string> | undefined;
   }
 }
 
@@ -3478,7 +3478,7 @@ declare module "sap/m/ActionSheet" {
          * (on mobile device), the button that closes the dialog is set to this parameter. Otherwise this parameter
          * is set to null.
          */
-        origin?: Button;
+        origin?: Button | undefined;
       }
     ): this;
     /**
@@ -3503,7 +3503,7 @@ declare module "sap/m/ActionSheet" {
          * the button that closes the dialog is set to this parameter. Otherwise this parameter is set to null.
          * This is valid only for Phone mode of the ActionSheet
          */
-        origin?: Button;
+        origin?: Button | undefined;
       }
     ): this;
     /**
@@ -3836,32 +3836,32 @@ declare module "sap/m/ActionSheet" {
      */
     placement?:
       | (PlacementType | keyof typeof PlacementType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * If this is set to true, there will be a cancel button shown below the action buttons. There won't be
      * any cancel button shown in iPad regardless of this property. The default value is set to true.
      */
-    showCancelButton?: boolean | PropertyBindingInfo;
+    showCancelButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * This is the text displayed in the cancelButton. Default value is "Cancel", and it's translated according
      * to the current locale setting. This property will be ignored when running either in iPad or showCancelButton
      * is set to false.
      */
-    cancelButtonText?: string | PropertyBindingInfo;
+    cancelButtonText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Title will be shown in the header area in iPhone and every Android devices. This property will be ignored
      * in tablets and desktop browser.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * These buttons are added to the content area in ActionSheet control. When button is tapped, the ActionSheet
      * is closed before the tap event listener is called.
      */
-    buttons?: Button[] | Button | AggregationBindingInfo;
+    buttons?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.20.0) - This event is deprecated, use the cancelButtonPress event instead.
@@ -3869,27 +3869,27 @@ declare module "sap/m/ActionSheet" {
      * This event is fired when the cancelButton is tapped. For iPad, this event is also fired when showCancelButton
      * is set to true, and Popover is closed by tapping outside.
      */
-    cancelButtonTap?: Function;
+    cancelButtonTap?: Function | undefined;
 
     /**
      * This event will be fired before the ActionSheet is opened.
      */
-    beforeOpen?: Function;
+    beforeOpen?: Function | undefined;
 
     /**
      * This event will be fired after the ActionSheet is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: Function | undefined;
 
     /**
      * This event will be fired before the ActionSheet is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: Function | undefined;
 
     /**
      * This event will be fired after the ActionSheet is closed.
      */
-    afterClose?: Function;
+    afterClose?: Function | undefined;
 
     /**
      * This event is fired when the cancelButton is clicked.
@@ -3897,7 +3897,7 @@ declare module "sap/m/ActionSheet" {
      * **Note: ** For any device other than phones, this event would be fired always when the Popover closes.
      * To prevent this behavior, the `showCancelButton` property needs to be set to `false`.
      */
-    cancelButtonPress?: Function;
+    cancelButtonPress?: Function | undefined;
   }
 }
 
@@ -4045,7 +4045,7 @@ declare module "sap/m/App" {
         /**
          * Whether the device is in landscape orientation.
          */
-        landscape?: boolean;
+        landscape?: boolean | undefined;
       }
     ): this;
     /**
@@ -4370,7 +4370,7 @@ declare module "sap/m/App" {
      * glare effect and rounded corners, setting the file name so it ends with "-precomposed.png" and setting
      * the "homeIconPrecomposed" property to "true".
      */
-    homeIcon?: any | PropertyBindingInfo;
+    homeIcon?: any | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -4381,7 +4381,7 @@ declare module "sap/m/App" {
      * the "backgroundRepeat" property to define whether this image should be stretched to cover the complete
      * App or whether it should be tiled.
      */
-    backgroundColor?: string | PropertyBindingInfo;
+    backgroundColor?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -4392,7 +4392,7 @@ declare module "sap/m/App" {
      * Use the "backgroundRepeat" property to define whether this image should be stretched to cover the complete
      * App or whether it should be tiled.
      */
-    backgroundImage?: URI | PropertyBindingInfo;
+    backgroundImage?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -4400,7 +4400,7 @@ declare module "sap/m/App" {
      * Whether the background image (if configured) should be proportionally stretched to cover the whole App
      * (false) or whether it should be tiled (true).
      */
-    backgroundRepeat?: boolean | PropertyBindingInfo;
+    backgroundRepeat?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -4409,7 +4409,7 @@ declare module "sap/m/App" {
      * This can be used to make the application content better readable by making the background image partly
      * transparent.
      */
-    backgroundOpacity?: float | PropertyBindingInfo;
+    backgroundOpacity?: float | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58.0
@@ -4425,7 +4425,7 @@ declare module "sap/m/App" {
      * while the property is set to `true`, the `App` will have no address bar when opened from that same icon
      * regardless of a changed property value to `false` at a later time.
      */
-    mobileWebAppCapable?: boolean | PropertyBindingInfo;
+    mobileWebAppCapable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.91
@@ -4435,14 +4435,14 @@ declare module "sap/m/App" {
      * **Note**: When the `isTopLevel` property set to `true`, `sap.m.App` traverses its parent DOM elements
      * and sets their height to 100%.
      */
-    isTopLevel?: boolean | PropertyBindingInfo;
+    isTopLevel?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.20.0) - use {@link sap.ui.Device.orientation.attachHandler} instead.
      *
      * Fired when the orientation (portrait/landscape) of the device is changed.
      */
-    orientationChange?: Function;
+    orientationChange?: Function | undefined;
   }
 }
 
@@ -5024,45 +5024,45 @@ declare module "sap/m/Avatar" {
     /**
      * Determines the path to the desired image or icon.
      */
-    src?: URI | PropertyBindingInfo;
+    src?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines the displayed initials.
      */
-    initials?: string | PropertyBindingInfo;
+    initials?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the shape of the `Avatar`.
      */
     displayShape?:
       | (AvatarShape | keyof typeof AvatarShape)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Sets a predefined display size of the `Avatar`.
      */
-    displaySize?: (AvatarSize | keyof typeof AvatarSize) | PropertyBindingInfo;
+    displaySize?: (AvatarSize | keyof typeof AvatarSize) | PropertyBindingInfo | undefined;
 
     /**
      * Specifies custom display size of the `Avatar`.
      *
      * **Note:** It takes effect if the `displaySize` property is set to `Custom`.
      */
-    customDisplaySize?: CSSSize | PropertyBindingInfo;
+    customDisplaySize?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Specifies custom font size of the `Avatar`.
      *
      * **Note:** It takes effect if the `displaySize` property is set to `Custom`.
      */
-    customFontSize?: CSSSize | PropertyBindingInfo;
+    customFontSize?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Specifies how an image would fit in the `Avatar`.
      */
     imageFitType?:
       | (AvatarImageFitType | keyof typeof AvatarImageFitType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the fallback icon displayed in case of wrong image src and no initials set.
@@ -5071,7 +5071,7 @@ declare module "sap/m/Avatar" {
      * 	 - If not set, a default fallback icon is displayed depending on the set `displayShape` property.
      * 	 - Accepted values are only icons from the SAP icon font.
      */
-    fallbackIcon?: string | PropertyBindingInfo;
+    fallbackIcon?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the background color of the control.
@@ -5081,12 +5081,12 @@ declare module "sap/m/Avatar" {
      */
     backgroundColor?:
       | (AvatarColor | keyof typeof AvatarColor)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the control is displayed with border.
      */
-    showBorder?: boolean | PropertyBindingInfo;
+    showBorder?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.77
@@ -5098,7 +5098,7 @@ declare module "sap/m/Avatar" {
      * 	 - Suggesting an image change: `sap-icon://camera`
      * 	 - Suggesting an editing action: `sap-icon://edit`
      */
-    badgeIcon?: URI | PropertyBindingInfo;
+    badgeIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.77
@@ -5109,7 +5109,7 @@ declare module "sap/m/Avatar" {
      * 	 - Specific default tooltips are displayed for each of the predefined `badgeIcons`.
      * 	 - For any other icons, the displayed tooltip is the same as the main control tooltip.
      */
-    badgeTooltip?: string | PropertyBindingInfo;
+    badgeTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * A `sap.m.LightBox` instance, that will be opened automatically when the user interacts with the `Avatar`
@@ -5117,22 +5117,22 @@ declare module "sap/m/Avatar" {
      *
      * The `press` event will still be fired.
      */
-    detailBox?: LightBox;
+    detailBox?: LightBox | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledBy).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Fired when the user selects the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -5424,7 +5424,7 @@ declare module "sap/m/BadgeCustomData" {
   }
 
   export interface $BadgeCustomDataSettings extends $CustomDataSettings {
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.87
@@ -5433,7 +5433,7 @@ declare module "sap/m/BadgeCustomData" {
      */
     animation?:
       | (BadgeAnimationType | keyof typeof BadgeAnimationType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
   }
 }
 
@@ -5939,7 +5939,7 @@ declare module "sap/m/Bar" {
      * If this flag is set to true, contentMiddle will be rendered as a HBox and layoutData can be used to allocate
      * available space.
      */
-    enableFlexBox?: boolean | PropertyBindingInfo;
+    enableFlexBox?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.12
@@ -5948,7 +5948,7 @@ declare module "sap/m/Bar" {
      *
      * Indicates whether the Bar is partially translucent. It is only applied for touch devices.
      */
-    translucent?: boolean | PropertyBindingInfo;
+    translucent?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22
@@ -5956,7 +5956,7 @@ declare module "sap/m/Bar" {
      * Determines the design of the bar. If set to auto, it becomes dependent on the place where the bar is
      * placed.
      */
-    design?: (BarDesign | keyof typeof BarDesign) | PropertyBindingInfo;
+    design?: (BarDesign | keyof typeof BarDesign) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.85
@@ -5968,30 +5968,30 @@ declare module "sap/m/Bar" {
      */
     titleAlignment?:
       | (TitleAlignment | keyof typeof TitleAlignment)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Represents the left content area, usually containing a button or an app icon. If it is overlapped by
      * the right content, its content will disappear and the text will show an ellipsis.
      */
-    contentLeft?: Control[] | Control | AggregationBindingInfo;
+    contentLeft?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Represents the middle content area. Controls such as label, segmented buttons or select can be placed
      * here. The content is centrally positioned if there is enough space. If the right or left content overlaps
      * the middle content, the middle content will be centered in the space between the left and the right content.
      */
-    contentMiddle?: Control[] | Control | AggregationBindingInfo;
+    contentMiddle?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Represents the right content area. Controls such as action buttons or search field can be placed here.
      */
-    contentRight?: Control[] | Control | AggregationBindingInfo;
+    contentRight?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
   }
 }
 
@@ -6206,7 +6206,7 @@ declare module "sap/m/Breadcrumbs" {
      *
      * Determines the text of current/last element in the Breadcrumbs path.
      */
-    currentLocationText?: string | PropertyBindingInfo;
+    currentLocationText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.69
@@ -6215,7 +6215,7 @@ declare module "sap/m/Breadcrumbs" {
      */
     separatorStyle?:
       | (BreadcrumbsSeparatorStyle | keyof typeof BreadcrumbsSeparatorStyle)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34
@@ -6224,7 +6224,7 @@ declare module "sap/m/Breadcrumbs" {
      * of the link will not work since it's incompatible with the concept of the control. The other properties
      * will work, but their effect may be undesirable.
      */
-    links?: Link[] | Link | AggregationBindingInfo;
+    links?: Link[] | Link | AggregationBindingInfo | undefined;
   }
 }
 
@@ -6385,7 +6385,7 @@ declare module "sap/m/BusyDialog" {
          * Indicates if the close events are triggered by a user, pressing a cancel button or because the operation
          * was terminated. This parameter is set to true if the close event is fired by user interaction.
          */
-        cancelPressed?: boolean;
+        cancelPressed?: boolean | undefined;
       }
     ): this;
     /**
@@ -6648,25 +6648,25 @@ declare module "sap/m/BusyDialog" {
     /**
      * Optional text displayed inside the dialog.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Sets the title of the BusyDialog. The default value is an empty string.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Icon, used from the BusyIndicator. This icon is invisible in iOS platform and it is density aware. You
      * can use the density convention (@2, @1.5, etc.) to provide higher resolution image for higher density
      * screens.
      */
-    customIcon?: URI | PropertyBindingInfo;
+    customIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines the rotation speed of the given image. If GIF file is used, the speed has to be set to 0. The
      * value is in milliseconds.
      */
-    customIconRotationSpeed?: int | PropertyBindingInfo;
+    customIconRotationSpeed?: int | PropertyBindingInfo | undefined;
 
     /**
      * If this is set to `false`, the source image will be loaded directly without attempting to fetch the density
@@ -6675,27 +6675,27 @@ declare module "sap/m/BusyDialog" {
      *
      * If bandwidth is the key for the application, set this value to `false`.
      */
-    customIconDensityAware?: boolean | PropertyBindingInfo;
+    customIconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Width of the provided icon with default value "44px".
      */
-    customIconWidth?: CSSSize | PropertyBindingInfo;
+    customIconWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Height of the provided icon with default value "44px".
      */
-    customIconHeight?: CSSSize | PropertyBindingInfo;
+    customIconHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The text of the cancel button. The default text is "Cancel" (translated to the respective language).
      */
-    cancelButtonText?: string | PropertyBindingInfo;
+    cancelButtonText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Indicates if the cancel button will be rendered inside the busy dialog. The default value is set to `false`.
      */
-    showCancelButton?: boolean | PropertyBindingInfo;
+    showCancelButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
@@ -6706,18 +6706,18 @@ declare module "sap/m/BusyDialog" {
      */
     titleAlignment?:
       | (TitleAlignment | keyof typeof TitleAlignment)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Fires when the busy dialog is closed. Note: the BusyDialog will not be closed by the InstanceManager.closeAllDialogs
      * method
      */
-    close?: Function;
+    close?: Function | undefined;
   }
 }
 
@@ -7074,7 +7074,7 @@ declare module "sap/m/BusyIndicator" {
      * Defines text to be displayed below the busy indicator. It can be used to inform the user of the current
      * operation.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Options for the text direction are RTL and LTR. Alternatively, the control can inherit the text direction
@@ -7082,19 +7082,19 @@ declare module "sap/m/BusyIndicator" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Icon URL if an icon is used as the busy indicator.
      */
-    customIcon?: URI | PropertyBindingInfo;
+    customIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines the rotation speed of the given image. If a .gif is used, the speed has to be set to 0. The unit
      * is in ms. **Note:** Values are considered valid when greater than or equal to 0. If invalid value is
      * provided the speed defaults to 0.
      */
-    customIconRotationSpeed?: int | PropertyBindingInfo;
+    customIconRotationSpeed?: int | PropertyBindingInfo | undefined;
 
     /**
      * If this is set to false, the src image will be loaded directly without attempting to fetch the density
@@ -7102,23 +7102,23 @@ declare module "sap/m/BusyIndicator" {
      * are sent to the server, trying to get the density perfect version of the specified image. If bandwidth
      * is the key for the application, set this value to false.
      */
-    customIconDensityAware?: boolean | PropertyBindingInfo;
+    customIconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Width of the provided icon. By default 44px are used.
      */
-    customIconWidth?: CSSSize | PropertyBindingInfo;
+    customIconWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Height of the provided icon. By default 44px are used.
      */
-    customIconHeight?: CSSSize | PropertyBindingInfo;
+    customIconHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the size of the busy indicator. The animation consists of three circles, each of which will be
      * this size. Therefore the total width of the control amounts to three times the given size.
      */
-    size?: CSSSize | PropertyBindingInfo;
+    size?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.32.1)
@@ -7126,14 +7126,14 @@ declare module "sap/m/BusyIndicator" {
      * Setting this property will not have any effect on the appearance of the BusyIndicator in versions greater
      * than or equal to 1.32.1
      */
-    design?: string | PropertyBindingInfo;
+    design?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.27.0
      *
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
   }
 }
 
@@ -7717,41 +7717,41 @@ declare module "sap/m/Button" {
     /**
      * Determines the text of the `Button`.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the `Button` type.
      */
-    type?: (ButtonType | keyof typeof ButtonType) | PropertyBindingInfo;
+    type?: (ButtonType | keyof typeof ButtonType) | PropertyBindingInfo | undefined;
 
     /**
      * Defines the `Button` width.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the `Button` is enabled (default is set to `true`). A disabled `Button` has different
      * colors depending on the {@link sap.m.ButtonType ButtonType}.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the icon to be displayed as graphical element within the `Button`. It can be an image or an icon
      * from the icon font.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the icon is displayed before the text.
      */
-    iconFirst?: boolean | PropertyBindingInfo;
+    iconFirst?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The source property of an alternative icon for the active (depressed) state of the button. Both active
      * and default icon properties should be defined and have the same type: image or icon font. If the `icon`
      * property is not set or has a different type, the active icon is not displayed.
      */
-    activeIcon?: URI | PropertyBindingInfo;
+    activeIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * By default, this is set to true but then one or more requests are sent trying to get the density perfect
@@ -7760,7 +7760,7 @@ declare module "sap/m/Button" {
      * If only one version of image is provided, set this value to false to avoid the attempt of fetching density
      * perfect image.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -7770,7 +7770,7 @@ declare module "sap/m/Button" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.84.0
@@ -7782,29 +7782,29 @@ declare module "sap/m/Button" {
      */
     ariaHasPopup?:
       | (aria.HasPopup | keyof typeof aria.HasPopup)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @deprecated (since 1.20) - replaced by `press` event
      *
      * Fired when the user taps the control.
      */
-    tap?: Function;
+    tap?: Function | undefined;
 
     /**
      * Fired when the user clicks or taps on the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -8103,7 +8103,7 @@ declare module "sap/m/Carousel" {
         /**
          * Indexes of all active pages after the page change.
          */
-        activePages?: Array<any>;
+        activePages?: Array<any> | undefined;
       }
     ): this;
     /**
@@ -8119,7 +8119,7 @@ declare module "sap/m/Carousel" {
         /**
          * Id of the page which will be loaded
          */
-        pageId?: string;
+        pageId?: string | undefined;
       }
     ): this;
     /**
@@ -8133,15 +8133,15 @@ declare module "sap/m/Carousel" {
         /**
          * ID of the page which was active before the page change.
          */
-        oldActivePageId?: string;
+        oldActivePageId?: string | undefined;
         /**
          * ID of the page which will be active after the page change.
          */
-        newActivePageId?: string;
+        newActivePageId?: string | undefined;
         /**
          * Indexes of all active pages after the page change.
          */
-        activePages?: Array<any>;
+        activePages?: Array<any> | undefined;
       }
     ): this;
     /**
@@ -8157,7 +8157,7 @@ declare module "sap/m/Carousel" {
         /**
          * Id of the page which will be unloaded
          */
-        pageId?: string;
+        pageId?: string | undefined;
       }
     ): this;
     /**
@@ -8529,24 +8529,24 @@ declare module "sap/m/Carousel" {
      * The height of the carousel. Note that when a percentage value is used, the height of the surrounding
      * container must be defined.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The width of the carousel. Note that when a percentage value is used, the height of the surrounding container
      * must be defined.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the carousel should loop, i.e show the first page after the last page is reached and
      * vice versa.
      */
-    loop?: boolean | PropertyBindingInfo;
+    loop?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Show or hide carousel's page indicator.
      */
-    showPageIndicator?: boolean | PropertyBindingInfo;
+    showPageIndicator?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines where the carousel's page indicator is displayed. Possible values are sap.m.PlacementType.Top,
@@ -8555,7 +8555,7 @@ declare module "sap/m/Carousel" {
      */
     pageIndicatorPlacement?:
       | (PlacementType | keyof typeof PlacementType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.18.7) - Since 1.18.7 pages are no longer loaded or unloaded. Therefore busy indicator
@@ -8563,7 +8563,7 @@ declare module "sap/m/Carousel" {
      *
      * Show or hide busy indicator in the carousel when loading pages after swipe.
      */
-    showBusyIndicator?: boolean | PropertyBindingInfo;
+    showBusyIndicator?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines where the carousel's arrows are placed. Default is `sap.m.CarouselArrowsPlacement.Content` used
@@ -8572,12 +8572,12 @@ declare module "sap/m/Carousel" {
      */
     arrowsPlacement?:
       | (CarouselArrowsPlacement | keyof typeof CarouselArrowsPlacement)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The content which the carousel displays.
      */
-    pages?: Control[] | Control | AggregationBindingInfo;
+    pages?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.62
@@ -8586,21 +8586,21 @@ declare module "sap/m/Carousel" {
      *
      * **Note:** When this property is used, the `loop` property is ignored.
      */
-    customLayout?: CarouselLayout;
+    customLayout?: CarouselLayout | undefined;
 
     /**
      * Provides getter and setter for the currently displayed page. For the setter, argument may be the control
      * itself, which must be member of the carousel's page list, or the control's id. The getter will return
      * the control id
      */
-    activePage?: Control | string;
+    activePage?: Control | string | undefined;
 
     /**
      * @deprecated (since 1.18.7) - Since 1.18.7 pages are no longer loaded or unloaded
      *
      * Carousel requires a new page to be loaded. This event may be used to fill the content of that page
      */
-    loadPage?: Function;
+    loadPage?: Function | undefined;
 
     /**
      * @deprecated (since 1.18.7) - Since 1.18.7 pages are no longer loaded or unloaded
@@ -8608,21 +8608,21 @@ declare module "sap/m/Carousel" {
      * Carousel does not display a page any longer and unloads it. This event may be used to clean up the content
      * of that page.
      */
-    unloadPage?: Function;
+    unloadPage?: Function | undefined;
 
     /**
      * This event is fired after a carousel swipe has been completed. It is triggered both by physical swipe
      * events and through API carousel manipulations such as calling 'next', 'previous' or 'setActivePageId'
      * functions.
      */
-    pageChanged?: Function;
+    pageChanged?: Function | undefined;
 
     /**
      * This event is fired before a carousel swipe has been completed. It is triggered both by physical swipe
      * events and through API carousel manipulations such as calling 'next', 'previous' or 'setActivePageId'
      * functions.
      */
-    beforePageChanged?: Function;
+    beforePageChanged?: Function | undefined;
   }
 }
 
@@ -8734,7 +8734,7 @@ declare module "sap/m/CarouselLayout" {
      * **Note:** When this property is set to something different than the default value, the `loop` property
      * of `Carousel` is ignored.
      */
-    visiblePagesCount?: int | PropertyBindingInfo;
+    visiblePagesCount?: int | PropertyBindingInfo | undefined;
   }
 }
 
@@ -8913,7 +8913,7 @@ declare module "sap/m/CheckBox" {
         /**
          * Checks whether the CheckBox is marked or not .
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
       }
     ): this;
     /**
@@ -9401,7 +9401,7 @@ declare module "sap/m/CheckBox" {
      * When this property is set to `true`, the control is displayed as selected, unless the value of the `partiallySelected`
      * property is also set to `true`. In this case, the control is displayed as partially selected.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58
@@ -9415,24 +9415,24 @@ declare module "sap/m/CheckBox" {
      * 	 - If `selected` = `true` and `partiallySelected` = `false`, the control is displayed as selected
      * 	 - If `selected` = `false`, the control is displayed as not selected regardless of what is set for `partiallySelected`
      */
-    partiallySelected?: boolean | PropertyBindingInfo;
+    partiallySelected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Disables the Checkbox. Disabled controls are not interactive and are rendered differently according to
      * the theme.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The 'name' property to be used in the HTML code, for example for HTML forms that send data to the server
      * via submit.
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the text displayed next to the checkbox
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Options for the text direction are RTL and LTR. Alternatively, the control can inherit the text direction
@@ -9440,13 +9440,13 @@ declare module "sap/m/CheckBox" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Aligns the text of the checkbox. Available alignment settings are "Begin", "Center", "End", "Left", and
      * "Right".
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the total width of the control or the width of its label only, depending on the value of `useEntireWidth`.
@@ -9454,7 +9454,7 @@ declare module "sap/m/CheckBox" {
      * **Note:** When `useEntireWidth` is set to `true`, `width` is applied to the control as a whole (checkbox
      * and label). Otherwise, `width` is applied to the label only.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -9463,20 +9463,20 @@ declare module "sap/m/CheckBox" {
      *
      * **Note:** by default the width is set to the label
      */
-    useEntireWidth?: boolean | PropertyBindingInfo;
+    useEntireWidth?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Flag to switch on activeHandling, when it is switched off, there will be no visual changes on active
      * state. Default value is 'true'
      */
-    activeHandling?: boolean | PropertyBindingInfo;
+    activeHandling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.25
      *
      * Specifies whether the user shall be allowed to edit the state of the checkbox
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38
@@ -9484,7 +9484,7 @@ declare module "sap/m/CheckBox" {
      * Accepts the core enumeration ValueState.type that supports 'None', 'Error', 'Warning', 'Success' and
      * 'Information'.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -9496,7 +9496,7 @@ declare module "sap/m/CheckBox" {
      *
      *  When the property `enabled` is set to `false` this property has no effect.
      */
-    displayOnly?: boolean | PropertyBindingInfo;
+    displayOnly?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -9505,22 +9505,22 @@ declare module "sap/m/CheckBox" {
      *
      * When set to `false` (default), the label's text is truncated with ellipsis at the end.
      */
-    wrapping?: boolean | PropertyBindingInfo;
+    wrapping?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is triggered when the control status is changed by the user by selecting or deselecting the checkbox.
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -9712,11 +9712,11 @@ declare module "sap/m/ColorPalette" {
         /**
          * The color that is returned when user chooses the "Default color" button.
          */
-        value?: CSSColor;
+        value?: CSSColor | undefined;
         /**
          * Denotes if the color has been chosen by selecting the "Default Color" button (true or false)
          */
-        defaultAction?: boolean;
+        defaultAction?: boolean | undefined;
       }
     ): this;
     /**
@@ -9732,39 +9732,39 @@ declare module "sap/m/ColorPalette" {
         /**
          * Parameter containing the RED value (0-255).
          */
-        r?: int;
+        r?: int | undefined;
         /**
          * Parameter containing the GREEN value (0-255).
          */
-        g?: int;
+        g?: int | undefined;
         /**
          * Parameter containing the BLUE value (0-255).
          */
-        b?: int;
+        b?: int | undefined;
         /**
          * Parameter containing the HUE value (0-360).
          */
-        h?: int;
+        h?: int | undefined;
         /**
          * Parameter containing the SATURATION value (0-100).
          */
-        s?: int;
+        s?: int | undefined;
         /**
          * Parameter containing the VALUE value (0-100).
          */
-        v?: int;
+        v?: int | undefined;
         /**
          * Parameter containing the LIGHTNESS value (0-100).
          */
-        l?: int;
+        l?: int | undefined;
         /**
          * Parameter containing the Hexadecimal string (#FFFFFF).
          */
-        hex?: string;
+        hex?: string | undefined;
         /**
          * Parameter containing the alpha value (transparency).
          */
-        alpha?: string;
+        alpha?: string | undefined;
       }
     ): this;
     /**
@@ -9849,19 +9849,19 @@ declare module "sap/m/ColorPalette" {
     /**
      * Defines the List of colors displayed in the palette. Minimum is 2 colors, maximum is 15 colors.
      */
-    colors?: CSSColor[] | PropertyBindingInfo;
+    colors?: CSSColor[] | PropertyBindingInfo | undefined;
 
     /**
      * Fired when the user selects a color.
      */
-    colorSelect?: Function;
+    colorSelect?: Function | undefined;
 
     /**
      * @SINCE 1.85
      *
      * Fired when the value is changed by user interaction in the internal ColorPicker
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
   }
 }
 
@@ -10029,11 +10029,11 @@ declare module "sap/m/ColorPalettePopover" {
         /**
          * The color that is returned when user chooses the "Default Color" button.
          */
-        value?: CSSColor;
+        value?: CSSColor | undefined;
         /**
          * Denotes if the color has been chosen by selecting the "Default Color" button (true or false).
          */
-        defaultAction?: boolean;
+        defaultAction?: boolean | undefined;
       }
     ): this;
     /**
@@ -10049,39 +10049,39 @@ declare module "sap/m/ColorPalettePopover" {
         /**
          * Parameter containing the RED value (0-255).
          */
-        r?: int;
+        r?: int | undefined;
         /**
          * Parameter containing the GREEN value (0-255).
          */
-        g?: int;
+        g?: int | undefined;
         /**
          * Parameter containing the BLUE value (0-255).
          */
-        b?: int;
+        b?: int | undefined;
         /**
          * Parameter containing the HUE value (0-360).
          */
-        h?: int;
+        h?: int | undefined;
         /**
          * Parameter containing the SATURATION value (0-100).
          */
-        s?: int;
+        s?: int | undefined;
         /**
          * Parameter containing the VALUE value (0-100).
          */
-        v?: int;
+        v?: int | undefined;
         /**
          * Parameter containing the LIGHTNESS value (0-100).
          */
-        l?: int;
+        l?: int | undefined;
         /**
          * Parameter containing the Hexadecimal string (#FFFFFF).
          */
-        hex?: string;
+        hex?: string | undefined;
         /**
          * Parameter containing the alpha value (transparency).
          */
-        alpha?: string;
+        alpha?: string | undefined;
       }
     ): this;
     /**
@@ -10292,29 +10292,29 @@ declare module "sap/m/ColorPalettePopover" {
      * The color, which the app developer will receive when end-user chooses the "Default color" button. See
      * event {@link #event:colorSelect colorSelect}.
      */
-    defaultColor?: CSSColor | PropertyBindingInfo;
+    defaultColor?: CSSColor | PropertyBindingInfo | undefined;
 
     /**
      * Defines the List of colors displayed in the palette. Minimum is 2 colors, maximum is 15 colors.
      */
-    colors?: CSSColor[] | PropertyBindingInfo;
+    colors?: CSSColor[] | PropertyBindingInfo | undefined;
 
     /**
      * Indicates if the button for default color selection is available.
      */
-    showDefaultColorButton?: boolean | PropertyBindingInfo;
+    showDefaultColorButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Denotes if the color has been chosen by selecting the "Default Color" button (true or false)
      */
-    showMoreColorsButton?: boolean | PropertyBindingInfo;
+    showMoreColorsButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.74
      *
      * Indicates if the Recent Colors section is available
      */
-    showRecentColorsSection?: boolean | PropertyBindingInfo;
+    showRecentColorsSection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.70
@@ -10323,19 +10323,19 @@ declare module "sap/m/ColorPalettePopover" {
      */
     displayMode?:
       | (ColorPickerDisplayMode | keyof typeof ColorPickerDisplayMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Fired when the user selects a color.
      */
-    colorSelect?: Function;
+    colorSelect?: Function | undefined;
 
     /**
      * @SINCE 1.85
      *
      * Fired when the value is changed by user interaction in the internal ColorPicker of the ColorPalette
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
   }
 }
 
@@ -10993,32 +10993,32 @@ declare module "sap/m/Column" {
      * If a column has a flexible width, such as % or auto, the `autoPopinWidth` property is used to calculate
      * the `minScreenWidth`.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the horizontal alignment of the column content.
      *
      * **Note:** Text controls with a `textAlign` property inherits the horizontal alignment.
      */
-    hAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    hAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Defines the vertical alignment of the cells in a column. This property does not affect the vertical alignment
      * of header and footer.
      */
-    vAlign?: (VerticalAlign | keyof typeof VerticalAlign) | PropertyBindingInfo;
+    vAlign?: (VerticalAlign | keyof typeof VerticalAlign) | PropertyBindingInfo | undefined;
 
     /**
      * CSS class name for column contents(header, cells and footer of column). This property can be used for
      * different column styling. If column is shown as pop-in then this class name is applied to related pop-in
      * row.
      */
-    styleClass?: string | PropertyBindingInfo;
+    styleClass?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether or not the column is visible. Invisible columns are not rendered.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the minimum screen width to show or hide this column. By default column is always shown. The
@@ -11029,14 +11029,14 @@ declare module "sap/m/Column" {
      * property for further responsive design options. **Note:** This property gets overwritten if the `sap.m.Table`
      * control is configured with `autoPopinMode=true`. See {@link sap.m.Table#getAutoPopinMode}
      */
-    minScreenWidth?: string | PropertyBindingInfo;
+    minScreenWidth?: string | PropertyBindingInfo | undefined;
 
     /**
      * According to your minScreenWidth settings, the column can be hidden in different screen sizes. Setting
      * this property to true, shows this column as pop-in instead of hiding it. **Note:** This property gets
      * overwritten if the `sap.m.Table` control is configured with `autoPopinMode=true`. See {@link sap.m.Table#getAutoPopinMode}
      */
-    demandPopin?: boolean | PropertyBindingInfo;
+    demandPopin?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.14) - Use popinDisplay property instead.
@@ -11046,7 +11046,7 @@ declare module "sap/m/Column" {
      *
      * **Note:** Controls with a text align do not inherit the horizontal alignment.
      */
-    popinHAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    popinHAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.13.2
@@ -11055,7 +11055,7 @@ declare module "sap/m/Column" {
      */
     popinDisplay?:
       | (PopinDisplay | keyof typeof PopinDisplay)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
@@ -11069,7 +11069,7 @@ declare module "sap/m/Column" {
      * as a pop-in. Merging is not supported if the `items` aggregation of the `sap.m.Table` control is bound
      * to an {@link sap.ui.model.odata.v4.ODataModel OData V4 model}.
      */
-    mergeDuplicates?: boolean | PropertyBindingInfo;
+    mergeDuplicates?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
@@ -11080,7 +11080,7 @@ declare module "sap/m/Column" {
      * should be used to merge icons. **Note:** You can pass one string parameter to given function after "#"
      * sign. e.g. "data#myparameter"
      */
-    mergeFunctionName?: string | PropertyBindingInfo;
+    mergeFunctionName?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.61
@@ -11089,7 +11089,7 @@ declare module "sap/m/Column" {
      *
      * **Note:** Defining this property does not trigger the sorting.
      */
-    sortIndicator?: (SortOrder | keyof typeof SortOrder) | PropertyBindingInfo;
+    sortIndicator?: (SortOrder | keyof typeof SortOrder) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.76
@@ -11100,7 +11100,7 @@ declare module "sap/m/Column" {
      * into consideration for calculating the `minScreenWidth` property and for setting the `demandPopin` property
      * of the column. See {@link sap.m.Table#getAutoPopinMode}
      */
-    importance?: (Priority | keyof typeof Priority) | PropertyBindingInfo;
+    importance?: (Priority | keyof typeof Priority) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.76
@@ -11112,17 +11112,17 @@ declare module "sap/m/Column" {
      * the column. See {@link sap.m.Column#getWidth} and {@link sap.m.Table#getAutoPopinMode}. **Note:** A float
      * value is set for the `autoPopinWidth` property which is internally treated as a rem value.
      */
-    autoPopinWidth?: float | PropertyBindingInfo;
+    autoPopinWidth?: float | PropertyBindingInfo | undefined;
 
     /**
      * Control to be displayed in the column header.
      */
-    header?: Control;
+    header?: Control | undefined;
 
     /**
      * Control to be displayed in the column footer.
      */
-    footer?: Control;
+    footer?: Control | undefined;
   }
 }
 
@@ -11353,13 +11353,13 @@ declare module "sap/m/ColumnListItem" {
      * **Note:** `vAlign` property of `sap.m.Column` overrides the property for cell vertical alignment if both
      * are set.
      */
-    vAlign?: (VerticalAlign | keyof typeof VerticalAlign) | PropertyBindingInfo;
+    vAlign?: (VerticalAlign | keyof typeof VerticalAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Every `control` inside the `cells` aggregation defines one cell of the row. **Note:** The order of the
      * `cells` aggregation must match the order of the `columns` aggregation of `sap.m.Table`.
      */
-    cells?: Control[] | Control | AggregationBindingInfo;
+    cells?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -11623,11 +11623,11 @@ declare module "sap/m/ComboBox" {
         /**
          * The new `value` of the `control`
          */
-        value?: string;
+        value?: string | undefined;
         /**
          * Indicates whether the change event was caused by selecting an item in the list
          */
-        itemPressed?: boolean;
+        itemPressed?: boolean | undefined;
       }
     ): this;
     /**
@@ -11641,7 +11641,7 @@ declare module "sap/m/ComboBox" {
         /**
          * The selected item.
          */
-        selectedItem?: Item;
+        selectedItem?: Item | undefined;
       }
     ): this;
     /**
@@ -11861,12 +11861,12 @@ declare module "sap/m/ComboBox" {
      *
      * **Note:** If duplicate keys exist, the first item matching the key is used.
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * ID of the selected item.
      */
-    selectedItemId?: string | PropertyBindingInfo;
+    selectedItemId?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46
@@ -11874,12 +11874,12 @@ declare module "sap/m/ComboBox" {
      * Indicates whether the filter should check in both the `text` and the `additionalText` property of the
      * {@link sap.ui.core.ListItem} for the suggestion.
      */
-    filterSecondaryValues?: boolean | PropertyBindingInfo;
+    filterSecondaryValues?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Sets or retrieves the selected item from the aggregation named items.
      */
-    selectedItem?: Item | string;
+    selectedItem?: Item | string | undefined;
 
     /**
      * This event is fired when the value in the text input field is changed in combination with one of the
@@ -11890,13 +11890,13 @@ declare module "sap/m/ComboBox" {
      * 	 - The Enter key is pressed
      * 	 - An item in the list is selected
      */
-    change?: Function;
+    change?: Function | undefined;
 
     /**
      * This event is fired when the user types something that matches with an item in the list; it is also fired
      * when the user presses on a list item, or when navigating via keyboard.
      */
-    selectionChange?: Function;
+    selectionChange?: Function | undefined;
   }
 }
 
@@ -12429,13 +12429,13 @@ declare module "sap/m/ComboBoxBase" {
      * Indicates whether the text values of the `additionalText` property of a {@link sap.ui.core.ListItem}
      * are shown.
      */
-    showSecondaryValues?: boolean | PropertyBindingInfo;
+    showSecondaryValues?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the items contained within this control. **Note:** Disabled items are not visualized in the list
      * with the available options, however they can still be accessed through the aggregation.
      */
-    items?: Item[] | Item | AggregationBindingInfo;
+    items?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.38
@@ -12452,7 +12452,7 @@ declare module "sap/m/ComboBoxBase" {
      *
      * **Note**: Currently the `sap.m.MultiComboBox` does not support this event.
      */
-    loadItems?: Function;
+    loadItems?: Function | undefined;
   }
 }
 
@@ -12604,14 +12604,14 @@ declare module "sap/m/ComboBoxTextField" {
     /**
      * Sets the maximum width of the text field.
      */
-    maxWidth?: CSSSize | PropertyBindingInfo;
+    maxWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38
      *
      * Indicates whether the dropdown downward-facing arrow button is shown.
      */
-    showButton?: boolean | PropertyBindingInfo;
+    showButton?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -12808,12 +12808,12 @@ declare module "sap/m/CustomListItem" {
      * **Note:** If defined, then only the provided custom accessibility description is announced when there
      * is a focus on the list item.
      */
-    accDescription?: string | PropertyBindingInfo;
+    accDescription?: string | PropertyBindingInfo | undefined;
 
     /**
      * The content of this list item
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -12913,7 +12913,7 @@ declare module "sap/m/CustomTile" {
     /**
      * Defines the content of the CustomTile.
      */
-    content?: Control;
+    content?: Control | undefined;
   }
 }
 
@@ -13075,7 +13075,7 @@ declare module "sap/m/CustomTreeItem" {
     /**
      * The content of this tree item.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -13308,11 +13308,11 @@ declare module "sap/m/DatePicker" {
         /**
          * Date range containing the start and end date displayed in the `Calendar` popup.
          */
-        dateRange?: DateRange;
+        dateRange?: DateRange | undefined;
         /**
          * Indicates if the event is fired, due to popup being opened.
          */
-        afterPopupOpened?: boolean;
+        afterPopupOpened?: boolean | undefined;
       }
     ): this;
     /**
@@ -13658,7 +13658,7 @@ declare module "sap/m/DatePicker" {
      * configuration is used. **Note:** If data binding on `value` property with type `sap.ui.model.type.Date`
      * is used, this property will be ignored.
      */
-    displayFormatType?: string | PropertyBindingInfo;
+    displayFormatType?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.1
@@ -13668,7 +13668,7 @@ declare module "sap/m/DatePicker" {
      */
     secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -13678,7 +13678,7 @@ declare module "sap/m/DatePicker" {
      * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` and the `minDate` are switched
      * before rendering.
      */
-    minDate?: object | PropertyBindingInfo;
+    minDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -13688,14 +13688,14 @@ declare module "sap/m/DatePicker" {
      * **Note:** If the `maxDate` is set to be before the `minDate`, the `maxDate` and the `minDate` are switched
      * before rendering.
      */
-    maxDate?: object | PropertyBindingInfo;
+    maxDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.70
      *
      * Hides or shows the popover's footer.
      */
-    showFooter?: boolean | PropertyBindingInfo;
+    showFooter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.5
@@ -13709,7 +13709,7 @@ declare module "sap/m/DatePicker" {
      * **Note:** Since 1.48 you could set a non-working day via the sap.ui.unified.CalendarDayType.NonWorking
      * enum type just as any other special date type using sap.ui.unified.DateRangeType.
      */
-    specialDates?: UI5Element[] | UI5Element | AggregationBindingInfo;
+    specialDates?: UI5Element[] | UI5Element | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.5
@@ -13718,14 +13718,14 @@ declare module "sap/m/DatePicker" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: Control | string;
+    legend?: Control | string | undefined;
 
     /**
      * @SINCE 1.46.0
      *
      * Fired when navigating in `Calendar` popup.
      */
-    navigate?: Function;
+    navigate?: Function | undefined;
   }
 }
 
@@ -14048,28 +14048,28 @@ declare module "sap/m/DateRangeSelection" {
      * Delimiter between start and end date. Default value is "-". If no delimiter is given, the one defined
      * for the used locale is used.
      */
-    delimiter?: string | PropertyBindingInfo;
+    delimiter?: string | PropertyBindingInfo | undefined;
 
     /**
      * The end date of the range as JavaScript Date object. This is independent from any formatter.
      *
      * **Note:** If this property is used, the `value` property should not be changed from the caller.
      */
-    secondDateValue?: object | PropertyBindingInfo;
+    secondDateValue?: object | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.22.0) - replaced by `dateValue` property of the {@link sap.m.DateTimeField}
      *
      * Start date of the range.
      */
-    from?: object | PropertyBindingInfo;
+    from?: object | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.22.0) - replaced by `secondDateValue` property
      *
      * End date of the range.
      */
-    to?: object | PropertyBindingInfo;
+    to?: object | PropertyBindingInfo | undefined;
   }
 }
 
@@ -14252,12 +14252,12 @@ declare module "sap/m/DateTimeField" {
     /**
      * Determines the format, displayed in the input field.
      */
-    displayFormat?: string | PropertyBindingInfo;
+    displayFormat?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the format of the value property.
      */
-    valueFormat?: string | PropertyBindingInfo;
+    valueFormat?: string | PropertyBindingInfo | undefined;
 
     /**
      * Holds a reference to a JavaScript Date Object. The `value` (string) property will be set according to
@@ -14266,7 +14266,7 @@ declare module "sap/m/DateTimeField" {
      * obtain the day, month, year, hours, minutes and seconds of the chosen date and time. Although possible
      * to bind it, the recommendation is not to do it. When binding is needed, use `value` property instead.
      */
-    dateValue?: object | PropertyBindingInfo;
+    dateValue?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -14280,7 +14280,7 @@ declare module "sap/m/DateTimeField" {
      * 			or {@link sap.m.DateTimePicker}), it takes into account only the time part, only the date part or both
      * 			parts of the JavaScript Date Object.
      */
-    initialFocusedDateValue?: object | PropertyBindingInfo;
+    initialFocusedDateValue?: object | PropertyBindingInfo | undefined;
   }
 }
 
@@ -14437,15 +14437,15 @@ declare module "sap/m/DateTimeInput" {
         /**
          * The string value of the control in given valueFormat (or locale format).
          */
-        value?: string;
+        value?: string | undefined;
         /**
          * The value of control as JavaScript Date Object or null if value is empty.
          */
-        dateValue?: object;
+        dateValue?: object | undefined;
         /**
          * if set, the entered value is a valid date. If not set the entered value cannot be converted to a date.
          */
-        valid?: boolean;
+        valid?: boolean | undefined;
       }
     ): this;
     /**
@@ -14874,18 +14874,18 @@ declare module "sap/m/DateTimeInput" {
      *
      * The "Now" literal can also be assigned as a parameter to show the current date and/or time.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether the user can interact with the control or not. **Note:** Disabled controls cannot be
      * focused and they are out of the tab-chain.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.12.0
@@ -14893,12 +14893,12 @@ declare module "sap/m/DateTimeInput" {
      * Defines whether the control can be modified by the user or not. **Note:** A user can tab to non-editable
      * control, highlight it, and copy the text from it.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Visualizes the validation state of the control, e.g. `Error`, `Warning`, `Success`.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
@@ -14906,31 +14906,31 @@ declare module "sap/m/DateTimeInput" {
      * Defines the text that appears in the value state message pop-up. If this is not specified, a default
      * text is shown from the resource bundle.
      */
-    valueStateText?: string | PropertyBindingInfo;
+    valueStateText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
      *
      * Indicates whether the value state message should be shown or not.
      */
-    showValueStateMessage?: boolean | PropertyBindingInfo;
+    showValueStateMessage?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the name of the control for the purposes of form submission.
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines a short hint intended to aid the user with data entry when the control has no value.
      */
-    placeholder?: string | PropertyBindingInfo;
+    placeholder?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
      *
      * Defines the horizontal alignment of the text that is shown inside the input field.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -14939,14 +14939,14 @@ declare module "sap/m/DateTimeInput" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Type of DateTimeInput (e.g. Date, Time, DateTime)
      */
     type?:
       | (DateTimeInputType | keyof typeof DateTimeInputType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Displays date value in this given format in text field. Default value is taken from locale settings.
@@ -14954,31 +14954,31 @@ declare module "sap/m/DateTimeInput" {
      * or the latter wins. If the user's browser supports native picker then this property is overwritten by
      * browser with locale settings.
      */
-    displayFormat?: string | PropertyBindingInfo;
+    displayFormat?: string | PropertyBindingInfo | undefined;
 
     /**
      * Given value property should match with valueFormat to parse date. Default value is taken from locale
      * settings. You can only set and get value in this format. If you use data-binding on value property with
      * type sap.ui.model.type.Date you can ignore this property or the latter wins.
      */
-    valueFormat?: string | PropertyBindingInfo;
+    valueFormat?: string | PropertyBindingInfo | undefined;
 
     /**
      * This property as JavaScript Date Object can be used to assign a new value which is independent from valueFormat.
      */
-    dateValue?: object | PropertyBindingInfo;
+    dateValue?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.27.0
      *
      * Association to controls / IDs that label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * This event gets fired when the selection has finished and the value has changed.
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 
@@ -15189,7 +15189,7 @@ declare module "sap/m/DateTimePicker" {
      * Sets the minutes slider step. If the step is less than 1, it will be automatically converted back to
      * 1. The minutes slider is populated only by multiples of the step.
      */
-    minutesStep?: int | PropertyBindingInfo;
+    minutesStep?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.56
@@ -15197,7 +15197,7 @@ declare module "sap/m/DateTimePicker" {
      * Sets the seconds slider step. If the step is less than 1, it will be automatically converted back to
      * 1. The seconds slider is populated only by multiples of the step.
      */
-    secondsStep?: int | PropertyBindingInfo;
+    secondsStep?: int | PropertyBindingInfo | undefined;
   }
 }
 
@@ -15569,7 +15569,7 @@ declare module "sap/m/Dialog" {
          * or the `endButton`, the button that closes the Dialog is set to this parameter. Otherwise, the parameter
          * is set to `null`.
          */
-        origin?: Button;
+        origin?: Button | undefined;
       }
     ): this;
     /**
@@ -15594,7 +15594,7 @@ declare module "sap/m/Dialog" {
          * or the `endButton`, the button that closes the Dialog is set to this parameter. Otherwise, the parameter
          * is set to `null`.
          */
-        origin?: Button;
+        origin?: Button | undefined;
       }
     ): this;
     /**
@@ -16464,12 +16464,12 @@ declare module "sap/m/Dialog" {
      * You can use the density convention (@2, @1.5, etc.) to provide higher resolution image for higher density
      * screen.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Title text appears in the Dialog header.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.1
@@ -16477,13 +16477,13 @@ declare module "sap/m/Dialog" {
      * Determines whether the header is shown inside the Dialog. If this property is set to `true`, the `text`
      * and `icon` properties are ignored. This property has a default value `true`.
      */
-    showHeader?: boolean | PropertyBindingInfo;
+    showHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The `type` of the Dialog. In some themes, the type Message will limit the Dialog width within 480px on
      * tablet and desktop.
      */
-    type?: (DialogType | keyof typeof DialogType) | PropertyBindingInfo;
+    type?: (DialogType | keyof typeof DialogType) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -16493,7 +16493,7 @@ declare module "sap/m/Dialog" {
      * If a value other than `None` is set, a predefined icon will be added to the Dialog. Setting the `icon`
      * property will overwrite the predefined icon.
      */
-    state?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    state?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -16503,7 +16503,7 @@ declare module "sap/m/Dialog" {
      *
      * Determines whether the Dialog will be displayed on full screen on a phone.
      */
-    stretchOnPhone?: boolean | PropertyBindingInfo;
+    stretchOnPhone?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.13.1
@@ -16512,7 +16512,7 @@ declare module "sap/m/Dialog" {
      * to approximately 90% of the viewport. This property is only applicable to a Standard Dialog. Message-type
      * Dialog ignores it.
      */
-    stretch?: boolean | PropertyBindingInfo;
+    stretch?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.12.1
@@ -16523,7 +16523,7 @@ declare module "sap/m/Dialog" {
      * width of the screen, it will be overwritten by the min or max value. The current mininum value of the
      * Dialog width on tablet is 400px.
      */
-    contentWidth?: CSSSize | PropertyBindingInfo;
+    contentWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.12.1
@@ -16532,7 +16532,7 @@ declare module "sap/m/Dialog" {
      * on a screen, it will be overwritten by the maximum available height on a screen in order to make sure
      * that the Dialog isn't cut off.
      */
-    contentHeight?: CSSSize | PropertyBindingInfo;
+    contentHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.1
@@ -16542,7 +16542,7 @@ declare module "sap/m/Dialog" {
      * as a direct child added to the Dialog. If there is, the Dialog will turn off `scrolling` by setting this
      * property to `false`, automatically ignoring the existing value of the property.
      */
-    horizontalScrolling?: boolean | PropertyBindingInfo;
+    horizontalScrolling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.1
@@ -16552,7 +16552,7 @@ declare module "sap/m/Dialog" {
      * as a direct child added to the Dialog. If there is, the Dialog will turn off `scrolling` by setting this
      * property to `false`, automatically ignoring the existing value of this property.
      */
-    verticalScrolling?: boolean | PropertyBindingInfo;
+    verticalScrolling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30
@@ -16561,7 +16561,7 @@ declare module "sap/m/Dialog" {
      * resize handler in its bottom right corner. This property has a default value `false`. The Dialog can
      * be resizable only in desktop mode.
      */
-    resizable?: boolean | PropertyBindingInfo;
+    resizable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30
@@ -16570,7 +16570,7 @@ declare module "sap/m/Dialog" {
      * by its header. This property has a default value `false`. The Dialog can be draggable only in desktop
      * mode.
      */
-    draggable?: boolean | PropertyBindingInfo;
+    draggable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
@@ -16580,14 +16580,14 @@ declare module "sap/m/Dialog" {
      *  The function allows you to define custom behavior which will be executed when the Escape key is pressed.
      * By default, when the Escape key is pressed, the Dialog is immediately closed.
      */
-    escapeHandler?: Function | PropertyBindingInfo;
+    escapeHandler?: Function | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
      *
      * Indicates whether the Dialog will be closed automatically when a routing navigation occurs.
      */
-    closeOnNavigation?: boolean | PropertyBindingInfo;
+    closeOnNavigation?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
@@ -16598,14 +16598,14 @@ declare module "sap/m/Dialog" {
      */
     titleAlignment?:
       | (TitleAlignment | keyof typeof TitleAlignment)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The content inside the Dialog.
      * **Note:** When the content of the Dialog is comprised of controls that use `position: absolute`, such
      * as `SplitContainer`, the Dialog has to have either `stretch: true` or `contentHeight` set.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.12.2
@@ -16614,7 +16614,7 @@ declare module "sap/m/Dialog" {
      * The `subHeader` is out of the content area and won't be scrolled when the content size is bigger than
      * the content area size.
      */
-    subHeader?: IBar;
+    subHeader?: IBar | undefined;
 
     /**
      * @SINCE 1.15.1
@@ -16622,7 +16622,7 @@ declare module "sap/m/Dialog" {
      * When it is set, the `icon`, `title` and `showHeader` properties are ignored. Only the `customHeader`
      * is shown as the header of the Dialog.
      */
-    customHeader?: IBar;
+    customHeader?: IBar | undefined;
 
     /**
      * @SINCE 1.15.1
@@ -16635,7 +16635,7 @@ declare module "sap/m/Dialog" {
      * on other platforms, this `button` (and the `endButton` together when set) is (are) rendered at the right
      * side (left side in RTL mode) of the footer area.
      */
-    beginButton?: Button;
+    beginButton?: Button | undefined;
 
     /**
      * @SINCE 1.15.1
@@ -16648,7 +16648,7 @@ declare module "sap/m/Dialog" {
      * on other platforms, this `button` (and the `beginButton` together when set) is (are) rendered at the
      * right side (left side in RTL mode) of the footer area.
      */
-    endButton?: Button;
+    endButton?: Button | undefined;
 
     /**
      * @SINCE 1.21.1
@@ -16658,7 +16658,7 @@ declare module "sap/m/Dialog" {
      * this aggregation are aligned at the right side (left side in RTL mode) of the footer instead of in the
      * middle of the footer.
      */
-    buttons?: Button[] | Button | AggregationBindingInfo;
+    buttons?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.15.1) - `LeftButton` has been deprecated since 1.15.1. Please use the `beginButton`
@@ -16669,7 +16669,7 @@ declare module "sap/m/Dialog" {
      * is only removed from the bar, not destroyed. When `showHeader` is set to `false`, this property will
      * be ignored. Setting `leftButton` will also set the `beginButton` internally.
      */
-    leftButton?: Button | string;
+    leftButton?: Button | string | undefined;
 
     /**
      * @deprecated (since 1.15.1) - `RightButton` has been deprecated since 1.15.1. Please use the `endButton`
@@ -16679,7 +16679,7 @@ declare module "sap/m/Dialog" {
      * the Right button from the bar. And the button is only removed from the bar, not destroyed. When `showHeader`
      * is set to false, this property will be ignored. Setting `rightButton` will also set the `endButton` internally.
      */
-    rightButton?: Button | string;
+    rightButton?: Button | string | undefined;
 
     /**
      * @SINCE 1.15.0
@@ -16690,37 +16690,37 @@ declare module "sap/m/Dialog" {
      * limitation, the On-Screen keyboard can't be opened with JavaScript code. The opening of On-Screen keyboard
      * must be triggered by real user action.
      */
-    initialFocus?: Control | string;
+    initialFocus?: Control | string | undefined;
 
     /**
      * Association to controls/IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls/IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * This event will be fired before the Dialog is opened.
      */
-    beforeOpen?: Function;
+    beforeOpen?: Function | undefined;
 
     /**
      * This event will be fired after the Dialog is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: Function | undefined;
 
     /**
      * This event will be fired before the Dialog is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: Function | undefined;
 
     /**
      * This event will be fired after the Dialog is closed.
      */
-    afterClose?: Function;
+    afterClose?: Function | undefined;
   }
 }
 
@@ -16873,12 +16873,12 @@ declare module "sap/m/DisplayListItem" {
     /**
      * Defines the label of the list item.
      */
-    label?: string | PropertyBindingInfo;
+    label?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the value of the list item.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -16888,7 +16888,7 @@ declare module "sap/m/DisplayListItem" {
      */
     valueTextDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
   }
 }
 
@@ -17029,12 +17029,12 @@ declare module "sap/m/DraftIndicator" {
      */
     state?:
       | (DraftIndicatorState | keyof typeof DraftIndicatorState)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Minimum time in milliseconds for showing the draft indicator
      */
-    minDisplayTime?: int | PropertyBindingInfo;
+    minDisplayTime?: int | PropertyBindingInfo | undefined;
   }
 }
 
@@ -17362,7 +17362,7 @@ declare module "sap/m/ExpandableText" {
     /**
      * Determines the text to be displayed.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Available options for the text direction are left-to-right (LTR) and right-to-left (RTL) By default the
@@ -17370,37 +17370,37 @@ declare module "sap/m/ExpandableText" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the type of text wrapping to be used (hyphenated or normal).
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Sets the horizontal alignment of the text.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Specifies how whitespace and tabs inside the control are handled. If true, whitespace will be preserved
      * by the browser.
      */
-    renderWhitespace?: boolean | PropertyBindingInfo;
+    renderWhitespace?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines how the full text will be displayed - InPlace or Popover
      */
     overflowMode?:
       | (ExpandableTextOverflowMode | keyof typeof ExpandableTextOverflowMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the maximum number of characters from the beginning of the text field that are shown initially.
      */
-    maxCharacters?: int | PropertyBindingInfo;
+    maxCharacters?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.91
@@ -17409,7 +17409,7 @@ declare module "sap/m/ExpandableText" {
      */
     emptyIndicatorMode?:
       | (EmptyIndicatorMode | keyof typeof EmptyIndicatorMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
   }
 }
 
@@ -17904,7 +17904,7 @@ declare module "sap/m/FacetFilter" {
      * **Note:** Always set this property to `true` when your facet lists are not active, so that the user is
      * able to select them and interact with them.
      */
-    showPersonalization?: boolean | PropertyBindingInfo;
+    showPersonalization?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the default appearance of the FacetFilter on the device. Possible values are `Simple` (default)
@@ -17912,33 +17912,33 @@ declare module "sap/m/FacetFilter" {
      */
     type?:
       | (FacetFilterType | keyof typeof FacetFilterType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Enables/disables live search in the search field of all `sap.m.FacetFilterList` instances.
      */
-    liveSearch?: boolean | PropertyBindingInfo;
+    liveSearch?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Shows the summary bar instead of the FacetFilter buttons bar when set to `true`.
      */
-    showSummaryBar?: boolean | PropertyBindingInfo;
+    showSummaryBar?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Shows/hides the FacetFilter Reset button.
      */
-    showReset?: boolean | PropertyBindingInfo;
+    showReset?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set to `true`, an OK button is displayed for every FacetFilterList popover. This button allows the
      * user to close the popover from within the popover instead of having to click outside of it.
      */
-    showPopoverOKButton?: boolean | PropertyBindingInfo;
+    showPopoverOKButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Collection of FacetFilterList controls.
      */
-    lists?: FacetFilterList[] | FacetFilterList | AggregationBindingInfo;
+    lists?: FacetFilterList[] | FacetFilterList | AggregationBindingInfo | undefined;
 
     /**
      * Fired when the Reset button is pressed to inform that all FacetFilterLists need to be reset.
@@ -17948,12 +17948,12 @@ declare module "sap/m/FacetFilter" {
      * filtering behavior has to be defined at application level inside the `search` and `reset` event handler
      * functions.
      */
-    reset?: Function;
+    reset?: Function | undefined;
 
     /**
      * Fired when the user confirms filter selection.
      */
-    confirm?: Function;
+    confirm?: Function | undefined;
   }
 }
 
@@ -18098,19 +18098,19 @@ declare module "sap/m/FacetFilterItem" {
     /**
      * Can be used as input for subsequent actions.
      */
-    key?: string | PropertyBindingInfo;
+    key?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text to be displayed for the item.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.18.11) - replaced by `setCounter` method
      *
      * Defines the number of objects that match this item in the target data set.
      */
-    count?: int | PropertyBindingInfo;
+    count?: int | PropertyBindingInfo | undefined;
   }
 }
 
@@ -18336,19 +18336,19 @@ declare module "sap/m/FacetFilterList" {
          * Array of selected items. Items returned are only copies and therefore can only be used to read properties,
          * not set them.
          */
-        selectedItems?: FacetFilterItem[];
+        selectedItems?: FacetFilterItem[] | undefined;
         /**
          * `True` if the select All checkbox is selected. This will be `false` if all items are actually selected
          * (every FacetFilterItem.selected == true). In that case selectedItems will contain all selected items.
          */
-        allSelected?: boolean;
+        allSelected?: boolean | undefined;
         /**
          * Associative array containing the keys of selected FacetFilterItems. Unlike the selectedItems parameter,
          * this contains only the keys for all selected items, not the items themselves. Being an associative array,
          * each object property is the FacetFilterItem key value and the value of the property is the FacetFilterItem
          * text.
          */
-        selectedKeys?: object;
+        selectedKeys?: object | undefined;
       }
     ): this;
     /**
@@ -18379,7 +18379,7 @@ declare module "sap/m/FacetFilterList" {
         /**
          * Value received as user input in the `sap.m.SearchField`, and taken as a JavaScript string object.
          */
-        term?: string;
+        term?: string | undefined;
       }
     ): boolean;
     /**
@@ -18791,12 +18791,12 @@ declare module "sap/m/FacetFilterList" {
      * Defines the title of the facet. The facet title is displayed on the facet button when the FacetFilter
      * type is set to `Simple`. It is also displayed as a list item in the facet page of the dialog.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * If set to `true`, the item text wraps when it is too long.
      */
-    wordWrap?: boolean | PropertyBindingInfo;
+    wordWrap?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.20.0) - replaced by `setMode` method. `FacetFilterList` overrides the `setMode`
@@ -18805,7 +18805,7 @@ declare module "sap/m/FacetFilterList" {
      *
      * Specifies whether multiple or single selection is used.
      */
-    multiSelect?: boolean | PropertyBindingInfo;
+    multiSelect?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates that the list is displayed as a button when the FacetFilter type is set to `Simple`.
@@ -18814,50 +18814,50 @@ declare module "sap/m/FacetFilterList" {
      * set to `false`. This is needed, as the non-active lists are not displayed, and without a personalization
      * button they can't be selected by the user.
      */
-    active?: boolean | PropertyBindingInfo;
+    active?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set to `true`, enables case-insensitive search for OData.
      */
-    enableCaseInsensitiveSearch?: boolean | PropertyBindingInfo;
+    enableCaseInsensitiveSearch?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the number of objects that match this item in the target data set when all filter items are
      * selected.
      */
-    allCount?: int | PropertyBindingInfo;
+    allCount?: int | PropertyBindingInfo | undefined;
 
     /**
      * Sequence that determines the order in which FacetFilterList is shown on the FacetFilter. Lists are rendered
      * by ascending order of sequence.
      */
-    sequence?: int | PropertyBindingInfo;
+    sequence?: int | PropertyBindingInfo | undefined;
 
     /**
      * Unique identifier for this filter list.
      */
-    key?: string | PropertyBindingInfo;
+    key?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.20.4
      *
      * Specifies whether remove icon for facet is visible or hidden.
      */
-    showRemoveFacetIcon?: boolean | PropertyBindingInfo;
+    showRemoveFacetIcon?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22.1
      *
      * Retains the list sequence if it is inactive and made active again.
      */
-    retainListSequence?: boolean | PropertyBindingInfo;
+    retainListSequence?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * FacetFilterList data type. Only String data type will provide search function.
      */
     dataType?:
       | (FacetFilterListDataType | keyof typeof FacetFilterListDataType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Fired before the filter list is opened.
@@ -18866,12 +18866,12 @@ declare module "sap/m/FacetFilterList" {
      * function in the `listOpen` event handler function. If the default filtering behavior is prevented then
      * filtering behavior has to be defined at application level inside the `listOpen` event handler function.
      */
-    listOpen?: Function;
+    listOpen?: Function | undefined;
 
     /**
      * Triggered after the list of items is closed.
      */
-    listClose?: Function;
+    listClose?: Function | undefined;
 
     /**
      * @SINCE 1.76
@@ -18884,7 +18884,7 @@ declare module "sap/m/FacetFilterList" {
      * are loaded initially. If the default filtering behavior is prevented then filtering behavior has to be
      * defined at application level inside the `search` event handler function.
      */
-    search?: Function;
+    search?: Function | undefined;
   }
 }
 
@@ -19161,37 +19161,37 @@ declare module "sap/m/FeedContent" {
      *
      * Updates the size of the chart. If not set then the default size is applied based on the device tile.
      */
-    size?: (Size | keyof typeof Size) | PropertyBindingInfo;
+    size?: (Size | keyof typeof Size) | PropertyBindingInfo | undefined;
 
     /**
      * The content text.
      */
-    contentText?: string | PropertyBindingInfo;
+    contentText?: string | PropertyBindingInfo | undefined;
 
     /**
      * The subheader.
      */
-    subheader?: string | PropertyBindingInfo;
+    subheader?: string | PropertyBindingInfo | undefined;
 
     /**
      * The actual value.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * The semantic color of the value.
      */
-    valueColor?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo;
+    valueColor?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo | undefined;
 
     /**
      * The number of characters to display for the value property.
      */
-    truncateValueTo?: int | PropertyBindingInfo;
+    truncateValueTo?: int | PropertyBindingInfo | undefined;
 
     /**
      * The event is triggered when the feed content is pressed.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -19318,7 +19318,7 @@ declare module "sap/m/FeedInput" {
         /**
          * The value of the feed input before reseting it.
          */
-        value?: string;
+        value?: string | undefined;
       }
     ): this;
     /**
@@ -19772,13 +19772,13 @@ declare module "sap/m/FeedInput" {
     /**
      * Set this flag to "false" to disable both text input and post button.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the number of visible text lines for the control. **Note:** Minimum value is 2, maximum value
      * is 15.
      */
-    rows?: int | PropertyBindingInfo;
+    rows?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the characters, exceeding the maximum allowed character count, are visible in the
@@ -19788,41 +19788,41 @@ declare module "sap/m/FeedInput" {
      * property. If set to `true`, the characters exceeding the `maxLength` value are selected on paste and
      * the counter below the input field displays their number.
      */
-    showExceededText?: boolean | PropertyBindingInfo;
+    showExceededText?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The maximum length (the maximum number of characters) for the feed's input value. By default this is
      * not limited.
      */
-    maxLength?: int | PropertyBindingInfo;
+    maxLength?: int | PropertyBindingInfo | undefined;
 
     /**
      * Indicates the ability of the control to automatically grow and shrink dynamically with its content.
      */
-    growing?: boolean | PropertyBindingInfo;
+    growing?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the maximum number of lines that the control can grow. Value is set to 0 by default, which means
      * an unlimited numbers of rows. **Note:** Minimum value to set is equal to the `rows` property value, maximum
      * value is 15.
      */
-    growingMaxLines?: int | PropertyBindingInfo;
+    growingMaxLines?: int | PropertyBindingInfo | undefined;
 
     /**
      * The placeholder text shown in the input area as long as the user has not entered any text value.
      */
-    placeholder?: string | PropertyBindingInfo;
+    placeholder?: string | PropertyBindingInfo | undefined;
 
     /**
      * The text value of the feed input. As long as the user has not entered any text the post button is disabled
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * Icon to be displayed as a graphical element within the feed input. This can be an image or an icon from
      * the icon font.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
@@ -19831,27 +19831,27 @@ declare module "sap/m/FeedInput" {
      */
     iconDisplayShape?:
       | (AvatarShape | keyof typeof AvatarShape)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
      *
      * Defines the initials of the icon.
      */
-    iconInitials?: string | PropertyBindingInfo;
+    iconInitials?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
      *
      * Defines the size of the icon.
      */
-    iconSize?: (AvatarSize | keyof typeof AvatarSize) | PropertyBindingInfo;
+    iconSize?: (AvatarSize | keyof typeof AvatarSize) | PropertyBindingInfo | undefined;
 
     /**
      * If set to "true" (default), icons will be displayed. In case no icon is provided the standard placeholder
      * will be displayed. if set to "false" icons are hidden
      */
-    showIcon?: boolean | PropertyBindingInfo;
+    showIcon?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Some mobile devices support higher resolution images while others do not. Therefore, you should provide
@@ -19866,7 +19866,7 @@ declare module "sap/m/FeedInput" {
      *
      * Deprecated as of version 1.88. Image is replaced by avatar.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
@@ -19875,20 +19875,20 @@ declare module "sap/m/FeedInput" {
      * will be rendered as the title attribute of this element) or an instance of sap.ui.core.TooltipBase. If
      * a new tooltip is set, any previously set tooltip is deactivated. The default value is set language dependent.
      */
-    buttonTooltip?: TooltipBase | PropertyBindingInfo;
+    buttonTooltip?: TooltipBase | PropertyBindingInfo | undefined;
 
     /**
      * Text for Picture which will be read by screenreader. If a new ariaLabelForPicture is set, any previously
      * set ariaLabelForPicture is deactivated. Deprecated as of version 1.88. This will not have any effect
      * in code now.
      */
-    ariaLabelForPicture?: string | PropertyBindingInfo;
+    ariaLabelForPicture?: string | PropertyBindingInfo | undefined;
 
     /**
      * The Post event is triggered when the user has entered a value and pressed the post button. After firing
      * this event, the value is reset.
      */
-    post?: Function;
+    post?: Function | undefined;
   }
 }
 
@@ -20079,12 +20079,12 @@ declare module "sap/m/FeedListItem" {
         /**
          * Dom reference of the feed item's icon to be used for positioning.
          */
-        domRef?: string;
+        domRef?: string | undefined;
         /**
          * Function to retrieve the DOM reference for the `iconPress` event. The function returns the DOM element
          * of the icon or null
          */
-        getDomRef?: Function;
+        getDomRef?: Function | undefined;
       }
     ): this;
     /**
@@ -20098,12 +20098,12 @@ declare module "sap/m/FeedListItem" {
         /**
          * Dom reference of the feed item's sender string to be used for positioning.
          */
-        domRef?: string;
+        domRef?: string | undefined;
         /**
          * Function to retrieve the DOM reference for the `senderPress` event. The function returns the DOM element
          * of the sender link or null
          */
-        getDomRef?: Function;
+        getDomRef?: Function | undefined;
       }
     ): this;
     /**
@@ -20664,7 +20664,7 @@ declare module "sap/m/FeedListItem" {
      * the icon font. If no icon is provided, a default person-placeholder icon is displayed. Icon is only shown
      * if showIcon = true.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
@@ -20673,36 +20673,36 @@ declare module "sap/m/FeedListItem" {
      */
     iconDisplayShape?:
       | (AvatarShape | keyof typeof AvatarShape)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
      *
      * Defines the initials of the icon.
      */
-    iconInitials?: string | PropertyBindingInfo;
+    iconInitials?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.88
      *
      * Defines the size of the icon.
      */
-    iconSize?: (AvatarSize | keyof typeof AvatarSize) | PropertyBindingInfo;
+    iconSize?: (AvatarSize | keyof typeof AvatarSize) | PropertyBindingInfo | undefined;
 
     /**
      * Icon displayed when the list item is active.
      */
-    activeIcon?: URI | PropertyBindingInfo;
+    activeIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Sender of the chunk
      */
-    sender?: string | PropertyBindingInfo;
+    sender?: string | PropertyBindingInfo | undefined;
 
     /**
      * The FeedListItem text. It supports html formatted tags as described in the documentation of sap.m.FormattedText
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.60
@@ -20712,7 +20712,7 @@ declare module "sap/m/FeedListItem" {
      * of the feed list item is collapsed, the "MORE" link can be used to expand the feed list item and show
      * the rest of the text.
      */
-    moreLabel?: string | PropertyBindingInfo;
+    moreLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.60
@@ -20721,27 +20721,27 @@ declare module "sap/m/FeedListItem" {
      *  Clicking the "LESS" link collapses the item, hiding the text that exceeds the allowed maximum number
      * of characters.
      */
-    lessLabel?: string | PropertyBindingInfo;
+    lessLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * The Info text.
      */
-    info?: string | PropertyBindingInfo;
+    info?: string | PropertyBindingInfo | undefined;
 
     /**
      * This chunks timestamp
      */
-    timestamp?: string | PropertyBindingInfo;
+    timestamp?: string | PropertyBindingInfo | undefined;
 
     /**
      * If true, sender string is a link, which will fire 'senderPress' events. If false, sender is normal text.
      */
-    senderActive?: boolean | PropertyBindingInfo;
+    senderActive?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If true, icon is a link, which will fire 'iconPress' events. If false, icon is normal image
      */
-    iconActive?: boolean | PropertyBindingInfo;
+    iconActive?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * By default, this is set to true but then one or more requests are sent trying to get the density perfect
@@ -20751,12 +20751,12 @@ declare module "sap/m/FeedListItem" {
      *
      * Deprecated as of version 1.88. Image is replaced by avatar.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set to "true" (default), icons will be displayed, if set to false icons are hidden
      */
-    showIcon?: boolean | PropertyBindingInfo;
+    showIcon?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46.1
@@ -20766,7 +20766,7 @@ declare module "sap/m/FeedListItem" {
      */
     convertLinksToAnchorTags?:
       | (LinkConversion | keyof typeof LinkConversion)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46.1
@@ -20775,7 +20775,7 @@ declare module "sap/m/FeedListItem" {
      * property is used with a value other than sap.m.LinkConversion.None. Options are the standard values for
      * the target attribute of the HTML anchor tag: _self, _top, _blank, _parent, _search.
      */
-    convertedLinksDefaultTarget?: string | PropertyBindingInfo;
+    convertedLinksDefaultTarget?: string | PropertyBindingInfo | undefined;
 
     /**
      * The expand and collapse feature is set by default and uses 300 characters on mobile devices and 500 characters
@@ -20784,7 +20784,7 @@ declare module "sap/m/FeedListItem" {
      * text link More, the entire text can be displayed. The text link Less collapses the text. The application
      * is able to set the value to its needs.
      */
-    maxCharacters?: int | PropertyBindingInfo;
+    maxCharacters?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52.0
@@ -20794,17 +20794,17 @@ declare module "sap/m/FeedListItem" {
     actions?:
       | FeedListItemAction[]
       | FeedListItemAction
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Event is fired when name of the sender is pressed.
      */
-    senderPress?: Function;
+    senderPress?: Function | undefined;
 
     /**
      * Event is fired when the icon is pressed.
      */
-    iconPress?: Function;
+    iconPress?: Function | undefined;
   }
 }
 
@@ -21063,33 +21063,33 @@ declare module "sap/m/FeedListItemAction" {
     /**
      * The icon of the action.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The text of the item. It is used as a tooltip and for accessibility reasons.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * The key of the item.
      */
-    key?: string | PropertyBindingInfo;
+    key?: string | PropertyBindingInfo | undefined;
 
     /**
      * Hides or shows a button on the UI.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Enables or disables a button on the UI. All buttons are enabled by default. Disabled buttons are colored
      * differently as per the theme of the UI.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The `press` event is fired when the user triggers the corresponding action.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -21534,7 +21534,7 @@ declare module "sap/m/FlexBox" {
      * The height of the `sap.m.FlexBox`. Note that when a percentage is given, for the height to work as expected,
      * the height of the surrounding container must be defined.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.1
@@ -21542,26 +21542,26 @@ declare module "sap/m/FlexBox" {
      * The width of the `sap.m.FlexBox`. Note that when a percentage is given, for the width to work as expected,
      * the width of the surrounding container must be defined.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the `sap.m.FlexBox` is in block or inline mode.
      */
-    displayInline?: boolean | PropertyBindingInfo;
+    displayInline?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the direction of the layout of child elements.
      */
     direction?:
       | (FlexDirection | keyof typeof FlexDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the `sap.m.FlexBox` will be sized to completely fill its container. If the `sap.m.FlexBox`
      * is inserted into a Page, the property 'enableScrolling' of the Page needs to be set to 'false' for the
      * FlexBox to fit the entire viewport.
      */
-    fitContainer?: boolean | PropertyBindingInfo;
+    fitContainer?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the layout is rendered as a series of divs or as an unordered list (ul).
@@ -21570,21 +21570,21 @@ declare module "sap/m/FlexBox" {
      */
     renderType?:
       | (FlexRendertype | keyof typeof FlexRendertype)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the layout behavior along the main axis.
      */
     justifyContent?:
       | (FlexJustifyContent | keyof typeof FlexJustifyContent)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the layout behavior of items along the cross-axis.
      */
     alignItems?:
       | (FlexAlignItems | keyof typeof FlexAlignItems)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36.0
@@ -21592,7 +21592,7 @@ declare module "sap/m/FlexBox" {
      * Determines the wrapping behavior of the flex container. This property has no effect in older browsers,
      * e.g. Android Native 4.3 and below.
      */
-    wrap?: (FlexWrap | keyof typeof FlexWrap) | PropertyBindingInfo;
+    wrap?: (FlexWrap | keyof typeof FlexWrap) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36.0
@@ -21601,7 +21601,7 @@ declare module "sap/m/FlexBox" {
      */
     alignContent?:
       | (FlexAlignContent | keyof typeof FlexAlignContent)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.5
@@ -21610,12 +21610,12 @@ declare module "sap/m/FlexBox" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Flex items within the flexible box layout
      */
-    items?: Control[] | Control | AggregationBindingInfo;
+    items?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -21915,17 +21915,17 @@ declare module "sap/m/FlexItemData" {
      */
     alignSelf?:
       | (FlexAlignSelf | keyof typeof FlexAlignSelf)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the display order of flex items independent of their source code order.
      */
-    order?: int | PropertyBindingInfo;
+    order?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines the flexibility of the flex item when allocatable space is remaining.
      */
-    growFactor?: float | PropertyBindingInfo;
+    growFactor?: float | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.24.0
@@ -21933,7 +21933,7 @@ declare module "sap/m/FlexItemData" {
      * The shrink factor determines how much the flex item will shrink relative to the rest of the flex items
      * in the flex container when negative free space is distributed.
      */
-    shrinkFactor?: float | PropertyBindingInfo;
+    shrinkFactor?: float | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32.0
@@ -21941,40 +21941,40 @@ declare module "sap/m/FlexItemData" {
      * The base size is the initial main size of the item for the flex algorithm. If set to "auto", this will
      * be the computed size of the item.
      */
-    baseSize?: CSSSize | PropertyBindingInfo;
+    baseSize?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36.0
      *
      * The minimum height of the flex item.
      */
-    minHeight?: CSSSize | PropertyBindingInfo;
+    minHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36.0
      *
      * The maximum height of the flex item.
      */
-    maxHeight?: CSSSize | PropertyBindingInfo;
+    maxHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36.0
      *
      * The minimum width of the flex item.
      */
-    minWidth?: CSSSize | PropertyBindingInfo;
+    minWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36.0
      *
      * The maximum width of the flex item.
      */
-    maxWidth?: CSSSize | PropertyBindingInfo;
+    maxWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The style class will be applied to the flex item and can be used for CSS selectors.
      */
-    styleClass?: string | PropertyBindingInfo;
+    styleClass?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.5
@@ -21983,7 +21983,7 @@ declare module "sap/m/FlexItemData" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
   }
 }
 
@@ -22380,12 +22380,12 @@ declare module "sap/m/FormattedText" {
      * **Note:** Keep in mind that not supported HTML tags and the content nested inside them are both not rendered
      * by the control.
      */
-    htmlText?: string | PropertyBindingInfo;
+    htmlText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Optional width of the control in CSS units.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.45.5
@@ -22395,7 +22395,7 @@ declare module "sap/m/FormattedText" {
      */
     convertLinksToAnchorTags?:
       | (LinkConversion | keyof typeof LinkConversion)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.45.5
@@ -22406,12 +22406,12 @@ declare module "sap/m/FormattedText" {
      * Options are the standard values for the `target` attribute of the HTML anchor tag: `_self`, `_top`, `_blank`,
      * `_parent`, `_search`.
      */
-    convertedLinksDefaultTarget?: string | PropertyBindingInfo;
+    convertedLinksDefaultTarget?: string | PropertyBindingInfo | undefined;
 
     /**
      * Optional height of the control in CSS units.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.86.0
@@ -22424,7 +22424,7 @@ declare module "sap/m/FormattedText" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.86.0
@@ -22434,14 +22434,14 @@ declare module "sap/m/FormattedText" {
      * **Note:** This functionality if set to the root element. To set explicit alignment to an element use
      * the `style` attribute.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * List of `sap.m.Link` controls that will be used to replace the placeholders in the text. Placeholders
      * are replaced according to their indexes. The placeholder with index %%0 will be replaced by the first
      * link in the aggregation, etc.
      */
-    controls?: Link[] | Link | AggregationBindingInfo;
+    controls?: Link[] | Link | AggregationBindingInfo | undefined;
   }
 }
 
@@ -22722,20 +22722,20 @@ declare module "sap/m/GenericTag" {
     /**
      * Defines the text rendered by the control. It's a value-descriptive text rendered on one line.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the control status that is represented in different colors, including the color bar and the
      * color and type of the displayed icon.
      */
-    status?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    status?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the visual mode of the control.
      */
     design?:
       | (GenericTagDesign | keyof typeof GenericTagDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the state of the control.
@@ -22745,17 +22745,17 @@ declare module "sap/m/GenericTag" {
      */
     valueState?:
       | (GenericTagValueState | keyof typeof GenericTagValueState)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Numeric value rendered by the control.
      */
-    value?: ObjectNumber;
+    value?: ObjectNumber | undefined;
 
     /**
      * Fired when the user clicks/taps on the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -22923,12 +22923,12 @@ declare module "sap/m/GenericTile" {
         /**
          * The current scope the GenericTile was in when the event occurred.
          */
-        scope?: GenericTileScope | keyof typeof GenericTileScope;
+        scope?: GenericTileScope | keyof typeof GenericTileScope | undefined;
         /**
          * The action that was pressed on the tile. In the Actions scope, the available actions are Press and Remove.
          * In Display scope, the parameter value is only Press.
          */
-        action?: string;
+        action?: string | undefined;
         /**
          * The pressed DOM Element pointing to the GenericTile's DOM Element in Display scope. In Actions scope
          * it points to the more icon, when the tile is pressed, or to the DOM Element of the remove button, when
@@ -23503,22 +23503,22 @@ declare module "sap/m/GenericTile" {
      */
     mode?:
       | (GenericTileMode | keyof typeof GenericTileMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The header of the tile.
      */
-    header?: string | PropertyBindingInfo;
+    header?: string | PropertyBindingInfo | undefined;
 
     /**
      * The subheader of the tile.
      */
-    subheader?: string | PropertyBindingInfo;
+    subheader?: string | PropertyBindingInfo | undefined;
 
     /**
      * The message that appears when the control is in the Failed state.
      */
-    failedText?: string | PropertyBindingInfo;
+    failedText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.38.0) - The GenericTile control has now a fixed size, depending on the used media
@@ -23526,34 +23526,34 @@ declare module "sap/m/GenericTile" {
      *
      * The size of the tile. If not set, then the default size is applied based on the device.
      */
-    size?: (Size | keyof typeof Size) | PropertyBindingInfo;
+    size?: (Size | keyof typeof Size) | PropertyBindingInfo | undefined;
 
     /**
      * The FrameType: OneByOne, TwoByOne, OneByHalf, or TwoByHalf. Default set to OneByOne if property is not
      * defined or set to Auto by the app.
      */
-    frameType?: (FrameType | keyof typeof FrameType) | PropertyBindingInfo;
+    frameType?: (FrameType | keyof typeof FrameType) | PropertyBindingInfo | undefined;
 
     /**
      * The URI of the background image.
      */
-    backgroundImage?: URI | PropertyBindingInfo;
+    backgroundImage?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The image to be displayed as a graphical element within the header. This can be an image or an icon from
      * the icon font.
      */
-    headerImage?: URI | PropertyBindingInfo;
+    headerImage?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The load status.
      */
-    state?: (LoadState | keyof typeof LoadState) | PropertyBindingInfo;
+    state?: (LoadState | keyof typeof LoadState) | PropertyBindingInfo | undefined;
 
     /**
      * Description of a header image that is used in the tooltip.
      */
-    imageDescription?: string | PropertyBindingInfo;
+    imageDescription?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46.0
@@ -23562,7 +23562,7 @@ declare module "sap/m/GenericTile" {
      */
     scope?:
       | (GenericTileScope | keyof typeof GenericTileScope)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * If set to `TileSizeBehavior.Small`, the tile size is the same as it would be on a small-screened phone
@@ -23571,35 +23571,35 @@ declare module "sap/m/GenericTile" {
      */
     sizeBehavior?:
       | (TileSizeBehavior | keyof typeof TileSizeBehavior)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.50.0
      *
      * Additional description for aria-label. The aria-label is rendered before the standard aria-label.
      */
-    ariaLabel?: string | PropertyBindingInfo;
+    ariaLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.83
      *
      * Additional description for aria-role.
      */
-    ariaRole?: string | PropertyBindingInfo;
+    ariaRole?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.83
      *
      * Additional description for aria-roledescription.
      */
-    ariaRoleDescription?: string | PropertyBindingInfo;
+    ariaRoleDescription?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.76
      *
      * Renders the given link as root element and therefore enables the open in new tab / window functionality
      */
-    url?: URI | PropertyBindingInfo;
+    url?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.60
@@ -23608,26 +23608,26 @@ declare module "sap/m/GenericTile" {
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
      *
      * Width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.82
      *
      * Tooltip text which is added at the tooltip generated by the control.
      */
-    additionalTooltip?: string | PropertyBindingInfo;
+    additionalTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * The content of the tile.
      */
-    tileContent?: TileContent[] | TileContent | AggregationBindingInfo;
+    tileContent?: TileContent[] | TileContent | AggregationBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.36.0) - This aggregation is deprecated, use sap.m.ImageContent control to display
@@ -23636,12 +23636,12 @@ declare module "sap/m/GenericTile" {
      * An icon or image to be displayed in the control. This aggregation is deprecated since version 1.36.0,
      * to display an icon or image use sap.m.ImageContent control instead.
      */
-    icon?: Control;
+    icon?: Control | undefined;
 
     /**
      * The event is triggered when the user presses the tile.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -23825,13 +23825,13 @@ declare module "sap/m/GroupHeaderListItem" {
     /**
      * Defines the title of the group header.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the count of items in the group, but it could also be an amount which represents the sum of all
      * amounts in the group. **Note:** Will not be displayed if not set.
      */
-    count?: string | PropertyBindingInfo;
+    count?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.13.2
@@ -23839,7 +23839,7 @@ declare module "sap/m/GroupHeaderListItem" {
      *
      * Allows to uppercase the group title.
      */
-    upperCase?: boolean | PropertyBindingInfo;
+    upperCase?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -23849,7 +23849,7 @@ declare module "sap/m/GroupHeaderListItem" {
      */
     titleTextDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
   }
 }
 
@@ -24067,7 +24067,7 @@ declare module "sap/m/GrowingList" {
      *
      * Number of items requested from the server. To activate this you should set growing property to "true"
      */
-    threshold?: int | PropertyBindingInfo;
+    threshold?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
@@ -24076,7 +24076,7 @@ declare module "sap/m/GrowingList" {
      * More Data") coming from the messagebundle properties. This property can be used only if growing property
      * is set "true" and scrollToLoad property is set "false".
      */
-    triggerText?: string | PropertyBindingInfo;
+    triggerText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
@@ -24086,7 +24086,7 @@ declare module "sap/m/GrowingList" {
      * property can be set true, if growing property is set "true" and if you only have one instance of this
      * control inside the scroll container(e.g Page).
      */
-    scrollToLoad?: boolean | PropertyBindingInfo;
+    scrollToLoad?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -24628,28 +24628,28 @@ declare module "sap/m/HeaderContainer" {
     /**
      * Number of pixels to scroll when the user chooses Next or Previous buttons. Relevant only for desktop.
      */
-    scrollStep?: int | PropertyBindingInfo;
+    scrollStep?: int | PropertyBindingInfo | undefined;
 
     /**
      * Number of items to scroll when the user chose Next or Previous buttons. Relevant only for desktop. Have
      * priority over 'ScrollStep'. Have to be positive number.
      */
-    scrollStepByItem?: int | PropertyBindingInfo;
+    scrollStepByItem?: int | PropertyBindingInfo | undefined;
 
     /**
      * Scroll animation time in milliseconds.
      */
-    scrollTime?: int | PropertyBindingInfo;
+    scrollTime?: int | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether the incomplete item on the edge of visible area is displayed or hidden.
      */
-    showOverflowItem?: boolean | PropertyBindingInfo;
+    showOverflowItem?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set to true, it shows dividers between the different content controls.
      */
-    showDividers?: boolean | PropertyBindingInfo;
+    showDividers?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The orientation of the HeaderContainer. There are two orientation modes: horizontal and vertical. In
@@ -24658,7 +24658,7 @@ declare module "sap/m/HeaderContainer" {
      */
     orientation?:
       | (Orientation | keyof typeof Orientation)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the background color of the content. The visualization of the different options depends on
@@ -24666,24 +24666,24 @@ declare module "sap/m/HeaderContainer" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The width of the whole HeaderContainer. If not specified, it is rendered as '100%' in horizontal orientation
      * and as 'auto' in vertical orientation.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The height of the whole HeaderContainer. If not specified, it is rendered as 'auto' in horizontal orientation
      * and as '100%' in vertical orientation.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Content to add to HeaderContainer.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.62.0
@@ -24694,12 +24694,12 @@ declare module "sap/m/HeaderContainer" {
      * the `ariaLabelledBy` annotation.
      * Can be used by screen reader software.
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * This event is triggered on pressing the scroll button.
      */
-    scroll?: Function;
+    scroll?: Function | undefined;
   }
 }
 
@@ -24949,11 +24949,11 @@ declare module "sap/m/IconTabBar" {
         /**
          * If the tab will expand, this is true.
          */
-        expand?: boolean;
+        expand?: boolean | undefined;
         /**
          * If the tab will collapse, this is true.
          */
-        collapse?: boolean;
+        collapse?: boolean | undefined;
       }
     ): this;
     /**
@@ -24967,19 +24967,19 @@ declare module "sap/m/IconTabBar" {
         /**
          * The selected item
          */
-        item?: IconTabFilter;
+        item?: IconTabFilter | undefined;
         /**
          * The key of the selected item
          */
-        key?: string;
+        key?: string | undefined;
         /**
          * The selected item
          */
-        selectedItem?: IconTabFilter;
+        selectedItem?: IconTabFilter | undefined;
         /**
          * The key of the selected item
          */
-        selectedKey?: string;
+        selectedKey?: string | undefined;
       }
     ): this;
     /**
@@ -25526,21 +25526,21 @@ declare module "sap/m/IconTabBar" {
      *
      * Defines whether the current selection should be visualized.
      */
-    showSelection?: boolean | PropertyBindingInfo;
+    showSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.0
      *
      * Defines if the tabs are collapsible and expandable.
      */
-    expandable?: boolean | PropertyBindingInfo;
+    expandable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.0
      *
      * Indicates if the actual tab content is expanded or not.
      */
-    expanded?: boolean | PropertyBindingInfo;
+    expanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.0
@@ -25550,14 +25550,14 @@ declare module "sap/m/IconTabBar" {
      * If the key has no corresponding aggregated item, no changes will apply. If duplicate keys exists the
      * first item matching the key is used.
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22
      *
      * Determines whether the text of the icon tab filter (not the count) is displayed in uppercase.
      */
-    upperCase?: boolean | PropertyBindingInfo;
+    upperCase?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26
@@ -25565,7 +25565,7 @@ declare module "sap/m/IconTabBar" {
      * Determines whether the IconTabBar height is stretched to the maximum possible height of its parent container.
      * As a prerequisite, the height of the parent container must be defined as a fixed value.
      */
-    stretchContentHeight?: boolean | PropertyBindingInfo;
+    stretchContentHeight?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26
@@ -25573,7 +25573,7 @@ declare module "sap/m/IconTabBar" {
      * Determines whether the IconTabBar content fits to the full area. The paddings are removed if it's set
      * to false.
      */
-    applyContentPadding?: boolean | PropertyBindingInfo;
+    applyContentPadding?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26
@@ -25585,7 +25585,7 @@ declare module "sap/m/IconTabBar" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40
@@ -25594,7 +25594,7 @@ declare module "sap/m/IconTabBar" {
      */
     headerMode?:
       | (IconTabHeaderMode | keyof typeof IconTabHeaderMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.42
@@ -25605,7 +25605,7 @@ declare module "sap/m/IconTabBar" {
      * The overflow select list represents a list, where all tab filters are displayed, so the user can select
      * specific tab filter easier.
      */
-    showOverflowSelectList?: boolean | PropertyBindingInfo;
+    showOverflowSelectList?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
@@ -25617,7 +25617,7 @@ declare module "sap/m/IconTabBar" {
      */
     headerBackgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46
@@ -25626,7 +25626,7 @@ declare module "sap/m/IconTabBar" {
      * sap.m.IconTabSeparator} cannot be dragged and dropped Items can be moved around {@link sap.m.IconTabSeparator
      * sap.m.IconTabSeparator}
      */
-    enableTabReordering?: boolean | PropertyBindingInfo;
+    enableTabReordering?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.79
@@ -25636,7 +25636,7 @@ declare module "sap/m/IconTabBar" {
      * via user interaction only, and does not restrict adding items to the `items` aggregation of {@link sap.m.IconTabFilter
      * sap.m.IconTabFilter}.
      */
-    maxNestingLevel?: int | PropertyBindingInfo;
+    maxNestingLevel?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.56
@@ -25649,7 +25649,7 @@ declare module "sap/m/IconTabBar" {
      */
     tabDensityMode?:
       | (IconTabDensityMode | keyof typeof IconTabDensityMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.78
@@ -25659,7 +25659,7 @@ declare module "sap/m/IconTabBar" {
      * The given object can contain the following keys: `headerLabel` - text to serve as a label for the header,
      * `headerDescription` - text to serve as a description for the header.
      */
-    ariaTexts?: object | PropertyBindingInfo;
+    ariaTexts?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.90
@@ -25672,31 +25672,31 @@ declare module "sap/m/IconTabBar" {
      */
     tabsOverflowMode?:
       | (TabsOverflowMode | keyof typeof TabsOverflowMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The items displayed in the IconTabBar.
      */
-    items?: IconTab[] | IconTab | AggregationBindingInfo;
+    items?: IconTab[] | IconTab | AggregationBindingInfo | undefined;
 
     /**
      * Represents the contents displayed below the IconTabBar. If there are multiple contents, they are rendered
      * after each other. The developer has to manage to display the right one or use the content aggregation
      * inside the IconTabFilter (which will be displayed instead if it is set).
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Fires when an item is selected.
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * @SINCE 1.15.0
      *
      * Indicates that the tab will expand or collapse.
      */
-    expand?: Function;
+    expand?: Function | undefined;
   }
 }
 
@@ -26171,7 +26171,7 @@ declare module "sap/m/IconTabFilter" {
     /**
      * Represents the "count" text, which is displayed in the tab filter.
      */
-    count?: string | PropertyBindingInfo;
+    count?: string | PropertyBindingInfo | undefined;
 
     /**
      * Enables special visualization for disabled filter (show all items). **Note:** You can use this property
@@ -26180,12 +26180,12 @@ declare module "sap/m/IconTabFilter" {
      * filter. You can find more detailed information in the {@link https://experience.sap.com/fiori-design-web/icontabbar/#tabs-as-filters
      * UX Guidelines}.
      */
-    showAll?: boolean | PropertyBindingInfo;
+    showAll?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the icon to be displayed for the tab filter.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the icon color.
@@ -26195,7 +26195,7 @@ declare module "sap/m/IconTabFilter" {
      * color can be used, this is named Default. Semantic colors and brand colors should not be mixed up inside
      * one IconTabBar.
      */
-    iconColor?: (IconColor | keyof typeof IconColor) | PropertyBindingInfo;
+    iconColor?: (IconColor | keyof typeof IconColor) | PropertyBindingInfo | undefined;
 
     /**
      * If set to true, it sends one or more requests, trying to get the density perfect version of the image
@@ -26203,19 +26203,19 @@ declare module "sap/m/IconTabFilter" {
      *
      * If bandwidth is key for the application, set this value to false.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the tab filter is rendered.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the icon and the texts are placed vertically or horizontally.
      */
     design?:
       | (IconTabFilterDesign | keyof typeof IconTabFilterDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.0
@@ -26224,7 +26224,7 @@ declare module "sap/m/IconTabFilter" {
      *
      * If this content is set, it is displayed instead of the general content inside the IconTabBar.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.77
@@ -26232,7 +26232,7 @@ declare module "sap/m/IconTabFilter" {
      *
      * The sub items of this filter (optional).
      */
-    items?: IconTab[] | IconTab | AggregationBindingInfo;
+    items?: IconTab[] | IconTab | AggregationBindingInfo | undefined;
   }
 }
 
@@ -26380,11 +26380,11 @@ declare module "sap/m/IconTabHeader" {
         /**
          * The selected item
          */
-        item?: IconTabFilter;
+        item?: IconTabFilter | undefined;
         /**
          * The key of the selected item
          */
-        key?: string;
+        key?: string | undefined;
       }
     ): this;
     /**
@@ -26793,7 +26793,7 @@ declare module "sap/m/IconTabHeader" {
      *
      * Defines whether the current selection is visualized.
      */
-    showSelection?: boolean | PropertyBindingInfo;
+    showSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.0
@@ -26803,14 +26803,14 @@ declare module "sap/m/IconTabHeader" {
      * If the key has no corresponding aggregated item, no changes will apply. If duplicate keys exists the
      * first item matching, the key is used.
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.0
      *
      * Specifies whether the control is rendered.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40
@@ -26819,7 +26819,7 @@ declare module "sap/m/IconTabHeader" {
      */
     mode?:
       | (IconTabHeaderMode | keyof typeof IconTabHeaderMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.75)
@@ -26829,7 +26829,7 @@ declare module "sap/m/IconTabHeader" {
      * The overflow select list represents a list, where all tab filters are displayed, so the user can select
      * specific tab filter easier.
      */
-    showOverflowSelectList?: boolean | PropertyBindingInfo;
+    showOverflowSelectList?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
@@ -26841,7 +26841,7 @@ declare module "sap/m/IconTabHeader" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46
@@ -26850,7 +26850,7 @@ declare module "sap/m/IconTabHeader" {
      * sap.m.IconTabSeparator} cannot be dragged and dropped Items can be moved around {@link sap.m.IconTabSeparator
      * sap.m.IconTabSeparator}
      */
-    enableTabReordering?: boolean | PropertyBindingInfo;
+    enableTabReordering?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.79
@@ -26860,7 +26860,7 @@ declare module "sap/m/IconTabHeader" {
      * via user interaction only, and does not restrict adding items to the `items` aggregation of {@link sap.m.IconTabFilter
      * sap.m.IconTabFilter}.
      */
-    maxNestingLevel?: int | PropertyBindingInfo;
+    maxNestingLevel?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.56
@@ -26873,7 +26873,7 @@ declare module "sap/m/IconTabHeader" {
      */
     tabDensityMode?:
       | (IconTabDensityMode | keyof typeof IconTabDensityMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.80
@@ -26883,7 +26883,7 @@ declare module "sap/m/IconTabHeader" {
      * The given object can contain the following keys: `headerLabel` - text to serve as a label for the header,
      * `headerDescription` - text to serve as a description for the header.
      */
-    ariaTexts?: object | PropertyBindingInfo;
+    ariaTexts?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.90
@@ -26896,17 +26896,17 @@ declare module "sap/m/IconTabHeader" {
      */
     tabsOverflowMode?:
       | (TabsOverflowMode | keyof typeof TabsOverflowMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The items displayed in the IconTabHeader.
      */
-    items?: IconTab[] | IconTab | AggregationBindingInfo;
+    items?: IconTab[] | IconTab | AggregationBindingInfo | undefined;
 
     /**
      * Fires when an item is selected.
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -27099,12 +27099,12 @@ declare module "sap/m/IconTabSeparator" {
     /**
      * The icon to display for this separator. If no icon is given, a separator line is used instead.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the separator is rendered.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set to true, it sends one or more requests, trying to get the density perfect version of the image
@@ -27112,7 +27112,7 @@ declare module "sap/m/IconTabSeparator" {
      *
      * If bandwidth is key for the application, set this value to false.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -28078,7 +28078,7 @@ declare module "sap/m/Image" {
      * The path will be adapted to the density-aware format according to the density of the device following
      * the naming convention [imageName]@[densityValue].[extension].
      */
-    src?: URI | PropertyBindingInfo;
+    src?: URI | PropertyBindingInfo | undefined;
 
     /**
      * When the empty value is kept, the original size is not changed.
@@ -28087,7 +28087,7 @@ declare module "sap/m/Image" {
      * width/height is maintained. When the `mode` property is set to `sap.m.ImageMode.Background`, this property
      * always needs to be set. Otherwise the output DOM element has a 0 size.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * When the empty value is kept, the original size is not changed.
@@ -28096,7 +28096,7 @@ declare module "sap/m/Image" {
      * width/height is maintained. When the `mode` property is set to `sap.m.ImageMode.Background`, this property
      * always needs to be set. Otherwise the output DOM element has a 0 size.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * A decorative image is included for design reasons; accessibility tools will ignore decorative images.
@@ -28105,19 +28105,19 @@ declare module "sap/m/Image" {
      * not be rendered as decorative). A decorative image has no `ALT` attribute, so the `alt` property is ignored
      * if the image is decorative.
      */
-    decorative?: boolean | PropertyBindingInfo;
+    decorative?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The alternative text that is displayed in case the image is not available, or cannot be displayed.
      *
      * If the image is set to decorative, this property is ignored.
      */
-    alt?: string | PropertyBindingInfo;
+    alt?: string | PropertyBindingInfo | undefined;
 
     /**
      * The name of the image map that defines the clickable areas.
      */
-    useMap?: string | PropertyBindingInfo;
+    useMap?: string | PropertyBindingInfo | undefined;
 
     /**
      * If this is set to `true`, one or more network requests will be made that try to obtain the density perfect
@@ -28131,12 +28131,12 @@ declare module "sap/m/Image" {
      * should set this property to `true` only if you also provide the corresponding image versions for high-density
      * devices.
      */
-    densityAware?: boolean | PropertyBindingInfo;
+    densityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The source property which is used when the image is pressed.
      */
-    activeSrc?: URI | PropertyBindingInfo;
+    activeSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
@@ -28148,7 +28148,7 @@ declare module "sap/m/Image" {
      * is set to the CSS style `background-image` and the root DOM element is rendered as a <span> tag
      * instead of an <img> tag.
      */
-    mode?: (ImageMode | keyof typeof ImageMode) | PropertyBindingInfo;
+    mode?: (ImageMode | keyof typeof ImageMode) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
@@ -28158,7 +28158,7 @@ declare module "sap/m/Image" {
      * This property is set on the output DOM element using the CSS style `background-size`. It takes effect
      * only when the `mode` property is set to `sap.m.ImageMode.Background`.
      */
-    backgroundSize?: string | PropertyBindingInfo;
+    backgroundSize?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
@@ -28168,7 +28168,7 @@ declare module "sap/m/Image" {
      * This property is set on the output DOM element using the CSS style `background-position`. It takes effect
      * only when the `mode` property is set to `sap.m.ImageMode.Background`.
      */
-    backgroundPosition?: string | PropertyBindingInfo;
+    backgroundPosition?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
@@ -28178,7 +28178,7 @@ declare module "sap/m/Image" {
      * This property is set on the output DOM element using the CSS style `background-repeat`. It takes effect
      * only when the `mode` property is set to `sap.m.ImageMode.Background`.
      */
-    backgroundRepeat?: string | PropertyBindingInfo;
+    backgroundRepeat?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.87
@@ -28189,7 +28189,7 @@ declare module "sap/m/Image" {
      * **Note:** Keep in mind that the property uses the loading attribute of HTML `<img>` element which
      * is not supported for Internet Explorer.
      */
-    lazyLoading?: boolean | PropertyBindingInfo;
+    lazyLoading?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.87.0
@@ -28205,7 +28205,7 @@ declare module "sap/m/Image" {
      */
     ariaHasPopup?:
       | (aria.HasPopup | keyof typeof aria.HasPopup)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * A `sap.m.LightBox` instance that will be opened automatically when the user interacts with the `Image`
@@ -28213,41 +28213,41 @@ declare module "sap/m/Image" {
      *
      * The `tap` event will still be fired.
      */
-    detailBox?: LightBox;
+    detailBox?: LightBox | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledBy).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.79
      *
      * Association to controls / IDs which are details to this control (see WAI-ARIA attribute aria-details).
      */
-    ariaDetails?: Array<Control | string>;
+    ariaDetails?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the user clicks on the control. (This event is deprecated, use the press event instead)
      */
-    tap?: Function;
+    tap?: Function | undefined;
 
     /**
      * Event is fired when the user clicks on the control.
      */
-    press?: Function;
+    press?: Function | undefined;
 
     /**
      * @SINCE 1.36.2
      *
      * Event is fired when the image resource is loaded.
      */
-    load?: Function;
+    load?: Function | undefined;
 
     /**
      * @SINCE 1.36.2
@@ -28255,7 +28255,7 @@ declare module "sap/m/Image" {
      * Event is fired when the image resource can't be loaded. If densityAware is set to true, the event is
      * fired when none of the fallback resources can be loaded.
      */
-    error?: Function;
+    error?: Function | undefined;
   }
 }
 
@@ -28442,17 +28442,17 @@ declare module "sap/m/ImageContent" {
      * The image to be displayed as a graphical element within the imageContent. This can be an image or an
      * icon from the icon font.
      */
-    src?: URI | PropertyBindingInfo;
+    src?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Description of image. This text is used to provide ScreenReader information.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * The event is triggered when the image content is pressed.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -28917,17 +28917,17 @@ declare module "sap/m/Input" {
         /**
          * The current value of the input, after a live change event.
          */
-        value?: string;
+        value?: string | undefined;
         /**
          * Indicates that ESC key triggered the event. **Note:** This parameter will not be sent unless the ESC
          * key is pressed.
          */
-        escPressed?: boolean;
+        escPressed?: boolean | undefined;
         /**
          * The value of the input before pressing ESC key. **Note:** This parameter will not be sent unless the
          * ESC key is pressed.
          */
-        previousValue?: string;
+        previousValue?: string | undefined;
       }
     ): this;
     /**
@@ -28943,7 +28943,7 @@ declare module "sap/m/Input" {
         /**
          * The new value of the input.
          */
-        value?: string;
+        value?: string | undefined;
       }
     ): this;
     /**
@@ -28959,13 +28959,13 @@ declare module "sap/m/Input" {
         /**
          * The current value which has been typed in the input.
          */
-        suggestValue?: string;
+        suggestValue?: string | undefined;
         /**
          * The suggestion list is passed to this event for convenience. If you use list-based or tabular suggestions,
          * fill the suggestionList with the items you want to suggest. Otherwise, directly add the suggestions to
          * the "suggestionItems" aggregation of the input control.
          */
-        suggestionColumns?: ListBase;
+        suggestionColumns?: ListBase | undefined;
       }
     ): this;
     /**
@@ -28982,7 +28982,7 @@ declare module "sap/m/Input" {
          * This is the item selected in the suggestion popup for one and two-value suggestions. For tabular suggestions,
          * this value will not be set.
          */
-        selectedItem?: Item;
+        selectedItem?: Item | undefined;
         /**
          * This is the row selected in the tabular suggestion popup represented as a ColumnListItem. For one and
          * two-value suggestions, this value will not be set.
@@ -28990,7 +28990,7 @@ declare module "sap/m/Input" {
          * **Note:** The row result function to select a result value for the string is already executed at this
          * time. To pick different value for the input field or to do follow up steps after the item has been selected.
          */
-        selectedRow?: ColumnListItem;
+        selectedRow?: ColumnListItem | undefined;
       }
     ): this;
     /**
@@ -29008,7 +29008,7 @@ declare module "sap/m/Input" {
          * false. It can be used to determine whether the "value help" trigger or the "show all items" trigger has
          * been pressed.
          */
-        fromSuggestions?: boolean;
+        fromSuggestions?: boolean | undefined;
       }
     ): this;
     /**
@@ -30220,14 +30220,14 @@ declare module "sap/m/Input" {
      * defines extended formats that are mostly incompatible with normal HTML representations for numbers and
      * dates.
      */
-    type?: (InputType | keyof typeof InputType) | PropertyBindingInfo;
+    type?: (InputType | keyof typeof InputType) | PropertyBindingInfo | undefined;
 
     /**
      * Maximum number of characters. Value '0' means the feature is switched off. This parameter is not compatible
      * with the input type `sap.m.InputType.Number`. If the input type is set to `Number`, the `maxLength` value
      * is ignored.
      */
-    maxLength?: int | PropertyBindingInfo;
+    maxLength?: int | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.9.1) - `sap.m.DatePicker`, `sap.m.TimePicker` or `sap.m.DateTimePicker` should be
@@ -30236,7 +30236,7 @@ declare module "sap/m/Input" {
      * Only used if type=date and no datepicker is available. The data is displayed and the user input is parsed
      * according to this format. **Note:** The value property is always of the form RFC 3339 (YYYY-MM-dd).
      */
-    dateFormat?: string | PropertyBindingInfo;
+    dateFormat?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
@@ -30244,14 +30244,14 @@ declare module "sap/m/Input" {
      * If set to true, a value help indicator will be displayed inside the control. When clicked the event "valueHelpRequest"
      * will be fired.
      */
-    showValueHelp?: boolean | PropertyBindingInfo;
+    showValueHelp?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.84.0
      *
      * Set custom value help icon.
      */
-    valueHelpIconSrc?: URI | PropertyBindingInfo;
+    valueHelpIconSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.1
@@ -30261,7 +30261,7 @@ declare module "sap/m/Input" {
      * will first open a dialog where the input and suggestions are shown. When runs on a tablet, the suggestions
      * are shown in a popup next to the input.
      */
-    showSuggestion?: boolean | PropertyBindingInfo;
+    showSuggestion?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.21.0
@@ -30270,12 +30270,12 @@ declare module "sap/m/Input" {
      * for all user interactions. The properties "showValueHelp", "editable", and "enabled" must be set to true,
      * otherwise the property will have no effect
      */
-    valueHelpOnly?: boolean | PropertyBindingInfo;
+    valueHelpOnly?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether to filter the provided suggestions before showing them to the user.
      */
-    filterSuggests?: boolean | PropertyBindingInfo;
+    filterSuggests?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.21.1
@@ -30285,7 +30285,7 @@ declare module "sap/m/Input" {
      * By default, the suggestion list is always as wide as the input field. **Note:** The value will be ignored
      * if the actual width of the input field is larger than the specified parameter value.
      */
-    maxSuggestionWidth?: CSSSize | PropertyBindingInfo;
+    maxSuggestionWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.21.2
@@ -30296,7 +30296,7 @@ declare module "sap/m/Input" {
      * **Note:** When it's set to 0, suggest event is fired when input with no text gets focus. In this case
      * no suggestion popup will open.
      */
-    startSuggestion?: int | PropertyBindingInfo;
+    startSuggestion?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22.1
@@ -30307,19 +30307,19 @@ declare module "sap/m/Input" {
      * **Note:** If suggestions are not tabular or no suggestions are used, the button will not be displayed
      * and this flag is without effect.
      */
-    showTableSuggestionValueHelp?: boolean | PropertyBindingInfo;
+    showTableSuggestionValueHelp?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The description is a text after the input field, e.g. units of measurement, currencies.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * This property only takes effect if the description property is set. It controls the distribution of space
      * between the input field and the description text. The default value is 50% leaving the other 50% for
      * the description.
      */
-    fieldWidth?: CSSSize | PropertyBindingInfo;
+    fieldWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.24
@@ -30332,7 +30332,7 @@ declare module "sap/m/Input" {
      * input. In such cases, subscription to the liveChange event is more appropriate, as it corresponds to
      * the way the underlying model gets updated.
      */
-    valueLiveUpdate?: boolean | PropertyBindingInfo;
+    valueLiveUpdate?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
@@ -30341,7 +30341,7 @@ declare module "sap/m/Input" {
      *
      * **Note:** If duplicate keys exist, the first item matching the key is used.
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
@@ -30350,28 +30350,28 @@ declare module "sap/m/Input" {
      */
     textFormatMode?:
       | (InputTextFormatMode | keyof typeof InputTextFormatMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
      *
      * Defines the display text formatter function.
      */
-    textFormatter?: any | PropertyBindingInfo;
+    textFormatter?: any | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
      *
      * Defines the validation callback function called when a suggestion row gets selected.
      */
-    suggestionRowValidator?: any | PropertyBindingInfo;
+    suggestionRowValidator?: any | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46
      *
      * Specifies whether the suggestions highlighting is enabled.
      */
-    enableSuggestionsHighlighting?: boolean | PropertyBindingInfo;
+    enableSuggestionsHighlighting?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.89
@@ -30381,7 +30381,7 @@ declare module "sap/m/Input" {
      * `enableTableAutoPopinMode`, from true to false, the application must reconfigure the `demandPopin` and
      * `minScreenWidth` properties of the `sap.m.Column` control by itself.
      */
-    enableTableAutoPopinMode?: boolean | PropertyBindingInfo;
+    enableTableAutoPopinMode?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.61
@@ -30389,7 +30389,7 @@ declare module "sap/m/Input" {
      * Specifies whether autocomplete is enabled. Works only if "showSuggestion" property is set to true. **Note:**
      * The autocomplete feature is disabled on Android devices due to a OS specific issue.
      */
-    autocomplete?: boolean | PropertyBindingInfo;
+    autocomplete?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.1
@@ -30409,7 +30409,7 @@ declare module "sap/m/Input" {
      * be accessed through the aggregation. **Note:** If `suggestionItems` & `suggestionRows` are set in parallel,
      * the last aggeragtion to come would overwrite the previous ones.
      */
-    suggestionItems?: Item[] | Item | AggregationBindingInfo;
+    suggestionItems?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.21.1
@@ -30417,7 +30417,7 @@ declare module "sap/m/Input" {
      * The suggestionColumns and suggestionRows are for tabular input suggestions. This aggregation allows for
      * binding the table columns; for more details see the aggregation "suggestionRows".
      */
-    suggestionColumns?: Column[] | Column | AggregationBindingInfo;
+    suggestionColumns?: Column[] | Column | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.21.1
@@ -30431,35 +30431,35 @@ declare module "sap/m/Input" {
       | Array<GroupHeaderListItem | ColumnListItem>
       | GroupHeaderListItem
       | ColumnListItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
      *
      * Sets or retrieves the selected item from the suggestionItems.
      */
-    selectedItem?: Item | string;
+    selectedItem?: Item | string | undefined;
 
     /**
      * @SINCE 1.44
      *
      * Sets or retrieves the selected row from the suggestionRows.
      */
-    selectedRow?: ColumnListItem | string;
+    selectedRow?: ColumnListItem | string | undefined;
 
     /**
      * Fired when the value of the input is changed by user interaction - each keystroke, delete, paste, etc.
      *
      * **Note:** Browsing autocomplete suggestions does not fires the event.
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
 
     /**
      * @SINCE 1.16
      *
      * When the value help indicator is clicked, this event will be fired.
      */
-    valueHelpRequest?: Function;
+    valueHelpRequest?: Function | undefined;
 
     /**
      * @SINCE 1.16.1
@@ -30467,7 +30467,7 @@ declare module "sap/m/Input" {
      * This event is fired when user types in the input and showSuggestion is set to true. Changing the suggestItems
      * aggregation will show the suggestions within a popup.
      */
-    suggest?: Function;
+    suggest?: Function | undefined;
 
     /**
      * @SINCE 1.16.3
@@ -30475,7 +30475,7 @@ declare module "sap/m/Input" {
      * This event is fired when suggestionItem shown in suggestion popup are selected. This event is only fired
      * when showSuggestion is set to true and there are suggestionItems shown in the suggestion popup.
      */
-    suggestionItemSelected?: Function;
+    suggestionItemSelected?: Function | undefined;
 
     /**
      * @SINCE 1.33.0
@@ -30488,7 +30488,7 @@ declare module "sap/m/Input" {
      * 	 - The event is also fired when an item of the select list is selected via Enter.
      * 	 - The event is only fired on an input which allows text input (`editable`, `enabled` and not `valueHelpOnly`).
      */
-    submit?: Function;
+    submit?: Function | undefined;
   }
 }
 
@@ -30709,7 +30709,7 @@ declare module "sap/m/InputBase" {
         /**
          * The new `value` of the `control`.
          */
-        value?: string;
+        value?: string | undefined;
       }
     ): this;
     /**
@@ -31247,7 +31247,7 @@ declare module "sap/m/InputBase" {
     /**
      * Defines the value of the control.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the width of the control.
@@ -31255,28 +31255,28 @@ declare module "sap/m/InputBase" {
      * **Note:** If the provided width is too small, the control gets stretched to its min width, which is needed
      * in order for the control to be usable and well aligned.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether the user can interact with the control or not. **Note:** Disabled controls cannot be
      * focused and they are out of the tab-chain.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Visualizes the validation state of the control, e.g. `Error`, `Warning`, `Success`.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * The name to be used in the HTML code (for example, for HTML forms that send data to the server via submission).
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines a short hint intended to aid the user with data entry when the control has no value.
      */
-    placeholder?: string | PropertyBindingInfo;
+    placeholder?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.12.0
@@ -31284,7 +31284,7 @@ declare module "sap/m/InputBase" {
      * Defines whether the control can be modified by the user or not. **Note:** A user can tab to non-editable
      * control, highlight it, and copy the text from it.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
@@ -31292,21 +31292,21 @@ declare module "sap/m/InputBase" {
      * Defines the text that appears in the value state message pop-up. If this is not specified, a default
      * text is shown from the resource bundle.
      */
-    valueStateText?: string | PropertyBindingInfo;
+    valueStateText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
      *
      * Indicates whether the value state message should be shown or not.
      */
-    showValueStateMessage?: boolean | PropertyBindingInfo;
+    showValueStateMessage?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
      *
      * Defines the horizontal alignment of the text that is shown inside the input field.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -31315,7 +31315,7 @@ declare module "sap/m/InputBase" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.4
@@ -31324,7 +31324,7 @@ declare module "sap/m/InputBase" {
      * single relationship between the field and a label (see aggregation `labelFor` of `sap.m.Label`) cannot
      * be established (e.g. one label should label multiple fields).
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.78
@@ -31333,27 +31333,27 @@ declare module "sap/m/InputBase" {
      * Defines the formatted text that appears in the value state message pop-up. It can include links. If both
      * `valueStateText` and `formattedValueStateText` are set - the latter is shown.
      */
-    formattedValueStateText?: FormattedText;
+    formattedValueStateText?: FormattedText | undefined;
 
     /**
      * @SINCE 1.27.0
      *
      * Association to controls / IDs that label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.90
      *
      * Association to controls / IDs that describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Is fired when the text in the input field has changed and the focus leaves the input field or the enter
      * key is pressed.
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 
@@ -31567,7 +31567,7 @@ declare module "sap/m/InputListItem" {
     /**
      * Label of the list item
      */
-    label?: string | PropertyBindingInfo;
+    label?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
@@ -31577,12 +31577,12 @@ declare module "sap/m/InputListItem" {
      */
     labelTextDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Content controls can be added
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -32207,17 +32207,17 @@ declare module "sap/m/Label" {
     /**
      * Sets the design of a Label to either Standard or Bold.
      */
-    design?: (LabelDesign | keyof typeof LabelDesign) | PropertyBindingInfo;
+    design?: (LabelDesign | keyof typeof LabelDesign) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the Label text to be displayed.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Available alignment settings are "Begin", "Center", "End", "Left", and "Right".
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Options for the text direction are RTL and LTR. Alternatively, the control can inherit the text direction
@@ -32225,18 +32225,18 @@ declare module "sap/m/Label" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the width of the label.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Indicates that user input is required for input control labeled by the sap.m.Label. When the property
      * is set to true and associated input field is empty an asterisk character is added to the label text.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.50.0
@@ -32245,7 +32245,7 @@ declare module "sap/m/Label" {
      *
      * **Note:** This property should be used only in Form controls in preview mode.
      */
-    displayOnly?: boolean | PropertyBindingInfo;
+    displayOnly?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.50
@@ -32253,7 +32253,7 @@ declare module "sap/m/Label" {
      * Determines the wrapping of the text within the `Label`. If set to true the `Label` will wrap, when set
      * to false the `Label` will be truncated and replaced with ellipsis which is the default behavior.
      */
-    wrapping?: boolean | PropertyBindingInfo;
+    wrapping?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.60
@@ -32264,20 +32264,20 @@ declare module "sap/m/Label" {
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
      *
      * Specifies the vertical alignment of the `Label` related to the tallest and lowest element on the line.
      */
-    vAlign?: (VerticalAlign | keyof typeof VerticalAlign) | PropertyBindingInfo;
+    vAlign?: (VerticalAlign | keyof typeof VerticalAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Association to the labeled control. By default the label set the for attribute to the ID of the labeled
      * control. This can be changed by implementing the function getIdForLabel on the labelled control.
      */
-    labelFor?: Control | string;
+    labelFor?: Control | string | undefined;
   }
 }
 
@@ -32507,7 +32507,7 @@ declare module "sap/m/LightBox" {
      * Aggregation which holds data about the image and its description. Although multiple LightBoxItems may
      * be added to this aggregation only the first one in the list will be taken into account.
      */
-    imageContent?: LightBoxItem[] | LightBoxItem | AggregationBindingInfo;
+    imageContent?: LightBoxItem[] | LightBoxItem | AggregationBindingInfo | undefined;
   }
 }
 
@@ -32657,22 +32657,22 @@ declare module "sap/m/LightBoxItem" {
     /**
      * Source for the image. This property is mandatory. If not set the popup will not open.
      */
-    imageSrc?: URI | PropertyBindingInfo;
+    imageSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Alt value for the image.
      */
-    alt?: string | PropertyBindingInfo;
+    alt?: string | PropertyBindingInfo | undefined;
 
     /**
      * Title text for the image. This property is mandatory.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Subtitle text for the image.
      */
-    subtitle?: string | PropertyBindingInfo;
+    subtitle?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -32853,13 +32853,13 @@ declare module "sap/m/Link" {
         /**
          * Indicates whether the CTRL key was pressed when the link was selected.
          */
-        ctrlKey?: boolean;
+        ctrlKey?: boolean | undefined;
         /**
          * Indicates whether the "meta" key was pressed when the link was selected.
          *
          * On Macintosh keyboards, this is the command key (⌘). On Windows keyboards, this is the windows key (⊞).
          */
-        metaKey?: boolean;
+        metaKey?: boolean | undefined;
       }
     ): boolean;
     /**
@@ -33312,12 +33312,12 @@ declare module "sap/m/Link" {
     /**
      * Defines the displayed link text.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the link can be triggered by the user.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies a target where the linked content will open.
@@ -33326,7 +33326,7 @@ declare module "sap/m/Link" {
      * `_search`. Alternatively, a frame name can be entered. This property is only used when the `href` property
      * is set.
      */
-    target?: string | PropertyBindingInfo;
+    target?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.84
@@ -33336,19 +33336,19 @@ declare module "sap/m/Link" {
      * **Note:** A default value of `noopener noreferrer` is set only to links that have a cross-origin URL
      * and a specified `target` with value other than `_self`.
      */
-    rel?: string | PropertyBindingInfo;
+    rel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the width of the link (CSS-size such as % or px). When it is set, this is the exact size.
      * When left blank, the text defines the size.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the link target URI. Supports standard hyperlink behavior. If a JavaScript action should be triggered,
      * this should not be set, but instead an event handler for the `press` event should be registered.
      */
-    href?: URI | PropertyBindingInfo;
+    href?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54.0
@@ -33360,19 +33360,19 @@ declare module "sap/m/Link" {
      *
      * **Note:** Additional URLs are allowed through {@link module:sap/base/security/URLListValidator URLListValidator}.
      */
-    validateUrl?: boolean | PropertyBindingInfo;
+    validateUrl?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the link text is allowed to wrap when there is no sufficient space.
      */
-    wrapping?: boolean | PropertyBindingInfo;
+    wrapping?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
      *
      * Determines the horizontal alignment of the text.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -33382,7 +33382,7 @@ declare module "sap/m/Link" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22
@@ -33391,14 +33391,14 @@ declare module "sap/m/Link" {
      * hierarchy between large data lists of important and less important links. Subtle links should not be
      * used in any other use case.
      */
-    subtle?: boolean | PropertyBindingInfo;
+    subtle?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22
      *
      * Emphasized links look visually more important than regular links.
      */
-    emphasized?: boolean | PropertyBindingInfo;
+    emphasized?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.86.0
@@ -33410,7 +33410,7 @@ declare module "sap/m/Link" {
      */
     ariaHasPopup?:
       | (aria.HasPopup | keyof typeof aria.HasPopup)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.89
@@ -33419,22 +33419,22 @@ declare module "sap/m/Link" {
      */
     emptyIndicatorMode?:
       | (EmptyIndicatorMode | keyof typeof EmptyIndicatorMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the user triggers the link control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -33556,7 +33556,7 @@ declare module "sap/m/List" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
   }
 }
 
@@ -34167,7 +34167,7 @@ declare module "sap/m/ListBase" {
         /**
          * Item in which the context menu was opened.
          */
-        listItem?: ListItemBase;
+        listItem?: ListItemBase | undefined;
       }
     ): boolean;
     /**
@@ -34181,7 +34181,7 @@ declare module "sap/m/ListBase" {
         /**
          * The item which fired the delete event.
          */
-        listItem?: ListItemBase;
+        listItem?: ListItemBase | undefined;
       }
     ): this;
     /**
@@ -34198,11 +34198,11 @@ declare module "sap/m/ListBase" {
         /**
          * Actual number of items.
          */
-        actual?: int;
+        actual?: int | undefined;
         /**
          * Total number of items.
          */
-        total?: int;
+        total?: int | undefined;
       }
     ): this;
     /**
@@ -34219,11 +34219,11 @@ declare module "sap/m/ListBase" {
         /**
          * Actual number of items.
          */
-        actual?: int;
+        actual?: int | undefined;
         /**
          * Total number of items.
          */
-        total?: int;
+        total?: int | undefined;
       }
     ): this;
     /**
@@ -34239,11 +34239,11 @@ declare module "sap/m/ListBase" {
         /**
          * The item which fired the pressed event.
          */
-        listItem?: ListItemBase;
+        listItem?: ListItemBase | undefined;
         /**
          * The control which caused the press event within the container.
          */
-        srcControl?: Control;
+        srcControl?: Control | undefined;
       }
     ): this;
     /**
@@ -34259,7 +34259,7 @@ declare module "sap/m/ListBase" {
         /**
          * The item which fired the select event.
          */
-        listItem?: ListItemBase;
+        listItem?: ListItemBase | undefined;
       }
     ): this;
     /**
@@ -34276,19 +34276,19 @@ declare module "sap/m/ListBase" {
          * The item whose selection has changed. In `MultiSelect` mode, only the up-most selected item is returned.
          * This parameter can be used for single-selection modes.
          */
-        listItem?: ListItemBase;
+        listItem?: ListItemBase | undefined;
         /**
          * Array of items whose selection has changed. This parameter can be used for `MultiSelect` mode.
          */
-        listItems?: ListItemBase[];
+        listItems?: ListItemBase[] | undefined;
         /**
          * Indicates whether the `listItem` parameter is selected or not.
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
         /**
          * Indicates whether the select all action is triggered or not.
          */
-        selectAll?: boolean;
+        selectAll?: boolean | undefined;
       }
     ): this;
     /**
@@ -34305,21 +34305,21 @@ declare module "sap/m/ListBase" {
         /**
          * The item which fired the swipe.
          */
-        listItem?: ListItemBase;
+        listItem?: ListItemBase | undefined;
         /**
          * Aggregated `swipeContent` control that is shown on the right hand side of the item.
          */
-        swipeContent?: Control;
+        swipeContent?: Control | undefined;
         /**
          * Holds which control caused the swipe event within the item.
          */
-        srcControl?: Control;
+        srcControl?: Control | undefined;
         /**
          * Shows in which direction the user swipes and can have the value `BeginToEnd` (left to right in LTR languages
          * and right to left in RTL languages) or `EndToBegin` (right to left in LTR languages and left to right
          * in RTL languages)
          */
-        swipeDirection?: SwipeDirection | keyof typeof SwipeDirection;
+        swipeDirection?: SwipeDirection | keyof typeof SwipeDirection | undefined;
       }
     ): boolean;
     /**
@@ -34335,15 +34335,15 @@ declare module "sap/m/ListBase" {
         /**
          * The reason of the update, e.g. Binding, Filter, Sort, Growing, Change, Refresh, Context.
          */
-        reason?: string;
+        reason?: string | undefined;
         /**
          * Actual number of items.
          */
-        actual?: int;
+        actual?: int | undefined;
         /**
          * The total count of bound items. This can be used if the `growing` property is set to `true`.
          */
-        total?: int;
+        total?: int | undefined;
       }
     ): this;
     /**
@@ -34359,15 +34359,15 @@ declare module "sap/m/ListBase" {
         /**
          * The reason of the update, e.g. Binding, Filter, Sort, Growing, Change, Refresh, Context.
          */
-        reason?: string;
+        reason?: string | undefined;
         /**
          * Actual number of items.
          */
-        actual?: int;
+        actual?: int | undefined;
         /**
          * The total count of bound items. This can be used if the `growing` property is set to `true`.
          */
-        total?: int;
+        total?: int | undefined;
       }
     ): this;
     /**
@@ -35454,13 +35454,13 @@ declare module "sap/m/ListBase" {
     /**
      * Defines the indentation of the container. Setting it to `true` indents the list.
      */
-    inset?: boolean | PropertyBindingInfo;
+    inset?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the header text that appears in the control. **Note:** If `headerToolbar` aggregation is set,
      * then this property is ignored.
      */
-    headerText?: string | PropertyBindingInfo;
+    headerText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.14
@@ -35470,44 +35470,44 @@ declare module "sap/m/ListBase" {
      */
     headerDesign?:
       | (ListHeaderDesign | keyof typeof ListHeaderDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the footer text that appears in the control.
      */
-    footerText?: string | PropertyBindingInfo;
+    footerText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the mode of the control (e.g. `None`, `SingleSelect`, `MultiSelect`, `Delete`).
      */
-    mode?: (ListMode | keyof typeof ListMode) | PropertyBindingInfo;
+    mode?: (ListMode | keyof typeof ListMode) | PropertyBindingInfo | undefined;
 
     /**
      * Sets the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the items are selectable by clicking on the item itself (`true`) rather than having to
      * set the selection control first. **Note:** The `SingleSelectMaster` mode also provides this functionality
      * by default.
      */
-    includeItemInSelection?: boolean | PropertyBindingInfo;
+    includeItemInSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Activates the unread indicator for all items, if set to `true`.
      */
-    showUnread?: boolean | PropertyBindingInfo;
+    showUnread?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * This text is displayed when the control contains no items.
      */
-    noDataText?: string | PropertyBindingInfo;
+    noDataText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether or not the text specified in the `noDataText` property is displayed.
      */
-    showNoData?: boolean | PropertyBindingInfo;
+    showNoData?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.20.2
@@ -35517,19 +35517,19 @@ declare module "sap/m/ListBase" {
      * loading is finished. By default, the busy indicator will be shown after one second. This behavior can
      * be customized by setting the `busyIndicatorDelay` property.
      */
-    enableBusyIndicator?: boolean | PropertyBindingInfo;
+    enableBusyIndicator?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines if animations will be shown while switching between modes.
      */
-    modeAnimationOn?: boolean | PropertyBindingInfo;
+    modeAnimationOn?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines which item separator style will be used.
      */
     showSeparators?:
       | (ListSeparators | keyof typeof ListSeparators)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the direction of the swipe movement (e.g LeftToRight, RightToLeft, Both) to display the control
@@ -35537,7 +35537,7 @@ declare module "sap/m/ListBase" {
      */
     swipeDirection?:
       | (SwipeDirection | keyof typeof SwipeDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
@@ -35546,7 +35546,7 @@ declare module "sap/m/ListBase" {
      * model. **Note:**: This feature only works when an `items` aggregation is bound. Growing must not be used
      * together with two-way binding.
      */
-    growing?: boolean | PropertyBindingInfo;
+    growing?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
@@ -35554,7 +35554,7 @@ declare module "sap/m/ListBase" {
      * Defines the number of items to be requested from the model for each grow. This property can only be used
      * if the `growing` property is set to `true`.
      */
-    growingThreshold?: int | PropertyBindingInfo;
+    growingThreshold?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
@@ -35562,7 +35562,7 @@ declare module "sap/m/ListBase" {
      * Defines the text displayed on the growing button. The default is a translated text ("More") coming from
      * the message bundle. This property can only be used if the `growing` property is set to `true`.
      */
-    growingTriggerText?: string | PropertyBindingInfo;
+    growingTriggerText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
@@ -35572,7 +35572,7 @@ declare module "sap/m/ListBase" {
      * is set to `true` and only if there is one instance of `sap.m.List` or `sap.m.Table` inside the scrollable
      * scroll container (e.g `sap.m.Page`).
      */
-    growingScrollToLoad?: boolean | PropertyBindingInfo;
+    growingScrollToLoad?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40.0
@@ -35583,7 +35583,7 @@ declare module "sap/m/ListBase" {
      */
     growingDirection?:
       | (ListGrowingDirection | keyof typeof ListGrowingDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.6
@@ -35594,7 +35594,7 @@ declare module "sap/m/ListBase" {
      * of the item does not always point to the same entry in the model, for example, if the order of the data
      * in the `JSONModel` is changed.
      */
-    rememberSelections?: boolean | PropertyBindingInfo;
+    rememberSelections?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -35603,7 +35603,7 @@ declare module "sap/m/ListBase" {
      */
     keyboardMode?:
       | (ListKeyboardMode | keyof typeof ListKeyboardMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58
@@ -35623,12 +35623,12 @@ declare module "sap/m/ListBase" {
      * 			an intransparent background color.
      * 	 - This feature supports only the default height of the toolbar control.
      */
-    sticky?: Array<Sticky | keyof typeof Sticky> | PropertyBindingInfo;
+    sticky?: Array<Sticky | keyof typeof Sticky> | PropertyBindingInfo | undefined;
 
     /**
      * Defines the items contained within this control.
      */
-    items?: ListItemBase[] | ListItemBase | AggregationBindingInfo;
+    items?: ListItemBase[] | ListItemBase | AggregationBindingInfo | undefined;
 
     /**
      * User can swipe to bring in this control on the right hand side of an item. **Note:**
@@ -35636,7 +35636,7 @@ declare module "sap/m/ListBase" {
      * 	 - There is no accessible alternative provided by the control for swiping. Applications that use this
      * 			functionality must provide an accessible alternative UI to perform the same action.
      */
-    swipeContent?: Control;
+    swipeContent?: Control | undefined;
 
     /**
      * @SINCE 1.16
@@ -35644,28 +35644,28 @@ declare module "sap/m/ListBase" {
      * The header area can be used as a toolbar to add extra controls for user interactions. **Note:** When
      * set, this overwrites the `headerText` property.
      */
-    headerToolbar?: Toolbar;
+    headerToolbar?: Toolbar | undefined;
 
     /**
      * @SINCE 1.16
      *
      * A toolbar that is placed below the header to show extra information to the user.
      */
-    infoToolbar?: Toolbar;
+    infoToolbar?: Toolbar | undefined;
 
     /**
      * @SINCE 1.54
      *
      * Defines the context menu of the items.
      */
-    contextMenu?: IContextMenu;
+    contextMenu?: IContextMenu | undefined;
 
     /**
      * @SINCE 1.28.0
      *
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @deprecated (since 1.16) - Use the `selectionChange` event instead.
@@ -35673,19 +35673,19 @@ declare module "sap/m/ListBase" {
      * Fires when selection is changed via user interaction. In `MultiSelect` mode, this event is also fired
      * on deselection.
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * @SINCE 1.16
      *
      * Fires when selection is changed via user interaction inside the control.
      */
-    selectionChange?: Function;
+    selectionChange?: Function | undefined;
 
     /**
      * Fires when delete icon is pressed by user.
      */
-    delete?: Function;
+    delete?: Function | undefined;
 
     /**
      * Fires after user's swipe action and before the `swipeContent` is shown. On the `swipe` event handler,
@@ -35695,7 +35695,7 @@ declare module "sap/m/ListBase" {
      * **Note:** There is no accessible alternative provided by the control for swiping. Applications that use
      * this functionality must provide an accessible alternative UI to perform the same action.
      */
-    swipe?: Function;
+    swipe?: Function | undefined;
 
     /**
      * @SINCE 1.16
@@ -35703,7 +35703,7 @@ declare module "sap/m/ListBase" {
      *
      * Fires before the new growing chunk is requested from the model.
      */
-    growingStarted?: Function;
+    growingStarted?: Function | undefined;
 
     /**
      * @SINCE 1.16
@@ -35711,7 +35711,7 @@ declare module "sap/m/ListBase" {
      *
      * Fires after the new growing chunk has been fetched from the model and processed by the control.
      */
-    growingFinished?: Function;
+    growingFinished?: Function | undefined;
 
     /**
      * @SINCE 1.16.3
@@ -35720,21 +35720,21 @@ declare module "sap/m/ListBase" {
      *
      * **Note:** Event handler should not invalidate the control.
      */
-    updateStarted?: Function;
+    updateStarted?: Function | undefined;
 
     /**
      * @SINCE 1.16.3
      *
      * Fires after `items` binding is updated and processed by the control.
      */
-    updateFinished?: Function;
+    updateFinished?: Function | undefined;
 
     /**
      * @SINCE 1.20
      *
      * Fires when an item is pressed unless the item's `type` property is `Inactive`.
      */
-    itemPress?: Function;
+    itemPress?: Function | undefined;
 
     /**
      * @SINCE 1.54
@@ -35742,7 +35742,7 @@ declare module "sap/m/ListBase" {
      * Fired when the context menu is opened. When the context menu is opened, the binding context of the item
      * is set to the given `contextMenu`.
      */
-    beforeOpenContextMenu?: Function;
+    beforeOpenContextMenu?: Function | undefined;
   }
 }
 
@@ -36382,30 +36382,30 @@ declare module "sap/m/ListItemBase" {
     /**
      * Defines the visual indication and behavior of the list items, e.g. `Active`, `Navigation`, `Detail`.
      */
-    type?: (ListType | keyof typeof ListType) | PropertyBindingInfo;
+    type?: (ListType | keyof typeof ListType) | PropertyBindingInfo | undefined;
 
     /**
      * Whether the control should be visible on the screen. If set to false, a placeholder is rendered instead
      * of the real control.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Activates the unread indicator for the list item, if set to `true`. **Note:** This flag is ignored when
      * the `showUnread` property of the parent is set to `false`.
      */
-    unread?: boolean | PropertyBindingInfo;
+    unread?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the selected state of the list items. **Note:** Binding the `selected` property in single selection
      * modes may cause unwanted results if you have more than one selected items in your binding.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the counter value of the list items.
      */
-    counter?: int | PropertyBindingInfo;
+    counter?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44.0
@@ -36420,7 +36420,7 @@ declare module "sap/m/ListItemBase" {
      * property does not need to be set because a default text is used. However, the default text can be overridden
      * by setting the `highlightText` property. In all other cases the `highlightText` property must be set.
      */
-    highlight?: string | PropertyBindingInfo;
+    highlight?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.62
@@ -36428,7 +36428,7 @@ declare module "sap/m/ListItemBase" {
      * Defines the semantics of the {@link sap.m.ListItemBase#setHighlight highlight} property for accessibility
      * purposes.
      */
-    highlightText?: string | PropertyBindingInfo;
+    highlightText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
@@ -36438,28 +36438,28 @@ declare module "sap/m/ListItemBase" {
      * If set to `true`, a navigation indicator is displayed at the end of the list item. **Note:** This property
      * must be set for **one** list item only.
      */
-    navigated?: boolean | PropertyBindingInfo;
+    navigated?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
      *
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @deprecated (since 1.20.0) - Instead, use `press` event.
      *
      * Fires when the user taps on the control.
      */
-    tap?: Function;
+    tap?: Function | undefined;
 
     /**
      * @deprecated (since 1.20.0) - Instead, use `detailPress` event.
      *
      * Fires when the user taps on the detail button of the control.
      */
-    detailTap?: Function;
+    detailTap?: Function | undefined;
 
     /**
      * Fires when the user clicks on the control. **Note:** This event is not fired when the parent `mode` is
@@ -36467,12 +36467,12 @@ declare module "sap/m/ListItemBase" {
      * element that handles its own `press` event then the list item's `press` event is not fired. Also see
      * {@link sap.m.ListBase#attachItemPress}.
      */
-    press?: Function;
+    press?: Function | undefined;
 
     /**
      * Fires when the user clicks on the detail button of the control.
      */
-    detailPress?: Function;
+    detailPress?: Function | undefined;
   }
 }
 
@@ -36677,7 +36677,7 @@ declare module "sap/m/MaskInput" {
     /**
      * Defines a placeholder symbol. Shown at the position where there is no user input yet.
      */
-    placeholderSymbol?: string | PropertyBindingInfo;
+    placeholderSymbol?: string | PropertyBindingInfo | undefined;
 
     /**
      * Mask defined by its characters type (respectively, by its length). You should consider the following
@@ -36689,12 +36689,12 @@ declare module "sap/m/MaskInput" {
      * immutable. Use the double escape '^^' if you want to make use of the escape character as an immutable
      * one.
      */
-    mask?: string | PropertyBindingInfo;
+    mask?: string | PropertyBindingInfo | undefined;
 
     /**
      * A list of validation rules (one rule per mask character).
      */
-    rules?: MaskInputRule[] | MaskInputRule | AggregationBindingInfo;
+    rules?: MaskInputRule[] | MaskInputRule | AggregationBindingInfo | undefined;
   }
 }
 
@@ -36820,12 +36820,12 @@ declare module "sap/m/MaskInputRule" {
     /**
      * Defines the symbol used in the mask format which will accept a certain range of characters.
      */
-    maskFormatSymbol?: string | PropertyBindingInfo;
+    maskFormatSymbol?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the allowed characters as a regular expression.
      */
-    regex?: string | PropertyBindingInfo;
+    regex?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -37028,7 +37028,7 @@ declare module "sap/m/Menu" {
         /**
          * The `MenuItem` which was selected.
          */
-        item?: MenuItem;
+        item?: MenuItem | undefined;
       }
     ): this;
     /**
@@ -37187,22 +37187,22 @@ declare module "sap/m/Menu" {
     /**
      * Defines the `Menu` title.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the items contained within this control.
      */
-    items?: MenuItem[] | MenuItem | AggregationBindingInfo;
+    items?: MenuItem[] | MenuItem | AggregationBindingInfo | undefined;
 
     /**
      * Fired when a `MenuItem` is selected.
      */
-    itemSelected?: Function;
+    itemSelected?: Function | undefined;
 
     /**
      * Fired when the menu is closed.
      */
-    closed?: Function;
+    closed?: Function | undefined;
   }
 }
 
@@ -37727,47 +37727,47 @@ declare module "sap/m/MenuButton" {
      * **Note:** In `Split` `buttonMode` with `useDefaultActionOnly` set to `false`, the text is changed to
      * display the last selected item's text, while in `Regular` `buttonMode` the text stays unchanged.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the type of the `MenuButton` (for example, Default, Accept, Reject, Back, etc.)
      *
      * **Note:** Not all existing types are valid for the control. See {@link sap.m.ButtonType} documentation.
      */
-    type?: (ButtonType | keyof typeof ButtonType) | PropertyBindingInfo;
+    type?: (ButtonType | keyof typeof ButtonType) | PropertyBindingInfo | undefined;
 
     /**
      * Defines the width of the `MenuButton`.
      * **Note:**As per visual design this width can be maximum of 12rem (192px).
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Boolean property to enable the control (default is `true`).
      * **Note:** Depending on custom settings, the buttons that are disabled have other colors than the enabled
      * ones.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the icon to be displayed as a graphical element within the button. It can be an image or an icon
      * from the icon font.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The source property of an alternative icon for the active (pressed) state of the button. Both active
      * and default icon properties should be defined and of the same type - image or icon font. If the `icon`
      * property is not set or has a different type, the active icon is not displayed.
      */
-    activeIcon?: URI | PropertyBindingInfo;
+    activeIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * When set to `true` (default), one or more requests are sent trying to get the density perfect version
      * of image if this version of image doesn't exist on the server. If only one version of image is provided,
      * set this value to `false` to avoid the attempt of fetching density perfect image.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the element's text directionality with enumerated options. By default, the control inherits
@@ -37775,14 +37775,14 @@ declare module "sap/m/MenuButton" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the `MenuButton` is set to `Regular` or `Split` mode.
      */
     buttonMode?:
       | (MenuButtonMode | keyof typeof MenuButtonMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.56.0
@@ -37793,34 +37793,34 @@ declare module "sap/m/MenuButton" {
      * **Note:** In the case that the menu has no space to show itself in the view port of the current window
      * it tries to open itself to the inverted direction.
      */
-    menuPosition?: Dock | PropertyBindingInfo;
+    menuPosition?: Dock | PropertyBindingInfo | undefined;
 
     /**
      * Controls whether the default action handler is invoked always or it is invoked only until a menu item
      * is selected. Usable only if `buttonMode` is set to `Split`.
      */
-    useDefaultActionOnly?: boolean | PropertyBindingInfo;
+    useDefaultActionOnly?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the menu that opens for this button.
      */
-    menu?: Menu;
+    menu?: Menu | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Fired when the `buttonMode` is set to `Split` and the user presses the main button unless `useDefaultActionOnly`
      * is set to `false` and another action from the menu has been selected previously.
      */
-    defaultAction?: Function;
+    defaultAction?: Function | undefined;
   }
 }
 
@@ -38046,15 +38046,15 @@ declare module "sap/m/MenuItem" {
         /**
          * The aggregation name of the changed aggregation.
          */
-        aggregationName?: String;
+        aggregationName?: String | undefined;
         /**
          * Which method changed the aggregation.
          */
-        methodName?: String;
+        methodName?: String | undefined;
         /**
          * What parameters were used to change the aggregation.
          */
-        methodParams?: Object;
+        methodParams?: Object | undefined;
       }
     ): this;
     /**
@@ -38077,7 +38077,7 @@ declare module "sap/m/MenuItem" {
         /**
          * The property name to be changed.
          */
-        propertyKey?: string;
+        propertyKey?: string | undefined;
         /**
          * The new property value.
          */
@@ -38269,39 +38269,39 @@ declare module "sap/m/MenuItem" {
     /**
      * Defines the icon, which belongs to the item. This can be a URI to an image or an icon font URI.
      */
-    icon?: string | PropertyBindingInfo;
+    icon?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the item should be visible on the screen. If set to `false`, a placeholder is rendered
      * instead of the real item.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether a visual separator should be rendered before the item. **Note:** If an item is invisible
      * its separator is also not displayed.
      */
-    startsSection?: boolean | PropertyBindingInfo;
+    startsSection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the sub-items contained within this element.
      */
-    items?: MenuItem[] | MenuItem | AggregationBindingInfo;
+    items?: MenuItem[] | MenuItem | AggregationBindingInfo | undefined;
 
     /**
      * Fired after the item has been pressed.
      */
-    press?: Function;
+    press?: Function | undefined;
 
     /**
      * Fired when a property of the item changes.
      */
-    propertyChanged?: Function;
+    propertyChanged?: Function | undefined;
 
     /**
      * Fired when aggregation of the item changes.
      */
-    aggregationChanged?: Function;
+    aggregationChanged?: Function | undefined;
   }
 }
 
@@ -38401,52 +38401,52 @@ declare module "sap/m/MessageBox" {
         /**
          * callback function to be called when the user closes the dialog
          */
-        onClose?: Function;
+        onClose?: Function | undefined;
         /**
          * Title to be displayed in the alert dialog
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * ID to be used for the alert dialog. Intended for test scenarios, not recommended for productive apps
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * Added since version 1.21.2. CSS style class which is added to the alert dialog's root DOM node. The compact
          * design can be activated by setting this to "sapUiSizeCompact"
          */
-        styleClass?: string;
+        styleClass?: string | undefined;
         /**
          * Added since version 1.28.0. initialFocus, this option sets the action name, the text of the button or
          * the control that gets the focus as first focusable element after the MessageBox is opened. The usage
          * of sap.ui.core.Control to set initialFocus is deprecated since version 1.30.4.
          */
-        initialFocus?: string | (Action | keyof typeof Action);
+        initialFocus?: string | (Action | keyof typeof Action) | undefined;
         /**
          * Added since version 1.28. Specifies the element's text directionality with enumerated options. By default,
          * the control inherits text direction from the DOM.
          */
-        textDirection?: TextDirection | keyof typeof TextDirection;
+        textDirection?: TextDirection | keyof typeof TextDirection | undefined;
         /**
          * verticalScrolling is deprecated since version 1.30.4. VerticalScrolling, this option indicates if the
          * user can scroll vertically inside the MessageBox when the content is larger than the content area.
          */
-        verticalScrolling?: boolean;
+        verticalScrolling?: boolean | undefined;
         /**
          * horizontalScrolling is deprecated since version 1.30.4. HorizontalScrolling, this option indicates if
          * the user can scroll horizontally inside the MessageBox when the content is larger than the content area.
          */
-        horizontalScrolling?: boolean;
+        horizontalScrolling?: boolean | undefined;
         /**
          * Added since version 1.28.0. If 'details' is set in the MessageBox, a link to view details is added. When
          * the user clicks the link, the text area containing 'details' information is displayed. The initial visibility
          * is not configurable and the details are hidden by default.
          */
-        details?: string;
+        details?: string | undefined;
         /**
          * Added since version 1.72.0. Whether the MessageBox will be closed automatically when a routing navigation
          * occurs.
          */
-        closeOnNavigation?: boolean;
+        closeOnNavigation?: boolean | undefined;
       }
     ): void;
     /**
@@ -38499,53 +38499,53 @@ declare module "sap/m/MessageBox" {
         /**
          * Callback to be called when the user closes the dialog
          */
-        onClose?: Function;
+        onClose?: Function | undefined;
         /**
          * Title to display in the confirmation dialog
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * ID to be used for the confirmation dialog. Intended for test scenarios, not recommended for productive
          * apps
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * Added since version 1.21.2. CSS style class which is added to the confirmation dialog's root DOM node.
          * The compact design can be activated by setting this to "sapUiSizeCompact"
          */
-        styleClass?: string;
+        styleClass?: string | undefined;
         /**
          * Added since version 1.28.0. initialFocus, this option sets the action name, the text of the button or
          * the control that gets the focus as first focusable element after the MessageBox is opened. The usage
          * of sap.ui.core.Control to set initialFocus is deprecated since version 1.30.4.
          */
-        initialFocus?: string | (Action | keyof typeof Action);
+        initialFocus?: string | (Action | keyof typeof Action) | undefined;
         /**
          * Added since version 1.28. Specifies the element's text directionality with enumerated options. By default,
          * the control inherits text direction from the DOM.
          */
-        textDirection?: TextDirection | keyof typeof TextDirection;
+        textDirection?: TextDirection | keyof typeof TextDirection | undefined;
         /**
          * verticalScrolling is deprecated since version 1.30.4. VerticalScrolling, this option indicates if the
          * user can scroll vertically inside the MessageBox when the content is larger than the content area.
          */
-        verticalScrolling?: boolean;
+        verticalScrolling?: boolean | undefined;
         /**
          * horizontalScrolling is deprecated since version 1.30.4. HorizontalScrolling, this option indicates if
          * the user can scroll horizontally inside the MessageBox when the content is larger than the content area.
          */
-        horizontalScrolling?: boolean;
+        horizontalScrolling?: boolean | undefined;
         /**
          * Added since version 1.28.0. If 'details' is set in the MessageBox, a link to view details is added. When
          * the user clicks the link, the text area containing 'details' information is displayed. The initial visibility
          * is not configurable and the details are hidden by default.
          */
-        details?: string;
+        details?: string | undefined;
         /**
          * Added since version 1.72.0. Whether the MessageBox will be closed automatically when a routing navigation
          * occurs.
          */
-        closeOnNavigation?: boolean;
+        closeOnNavigation?: boolean | undefined;
       }
     ): void;
     /**
@@ -38594,52 +38594,52 @@ declare module "sap/m/MessageBox" {
         /**
          * Callback when the user closes the dialog
          */
-        onClose?: Function;
+        onClose?: Function | undefined;
         /**
          * Title of the error dialog
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * ID for the error dialog. Intended for test scenarios, not recommended for productive apps
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * CSS style class which is added to the error dialog's root DOM node. The compact design can be activated
          * by setting this to "sapUiSizeCompact"
          */
-        styleClass?: string;
+        styleClass?: string | undefined;
         /**
          * This option sets the action name, the text of the button or the control that gets the focus as first
          * focusable element after the MessageBox is opened. The usage of sap.ui.core.Control to set initialFocus
          * is deprecated since version 1.30.4.
          */
-        initialFocus?: string | (Action | keyof typeof Action);
+        initialFocus?: string | (Action | keyof typeof Action) | undefined;
         /**
          * Specifies the element's text directionality with enumerated options. By default, the control inherits
          * text direction from the DOM.
          */
-        textDirection?: TextDirection | keyof typeof TextDirection;
+        textDirection?: TextDirection | keyof typeof TextDirection | undefined;
         /**
          * verticalScrolling is deprecated since version 1.30.4. VerticalScrolling, this option indicates if the
          * user can scroll vertically inside the MessageBox when the content is larger than the content area.
          */
-        verticalScrolling?: boolean;
+        verticalScrolling?: boolean | undefined;
         /**
          * horizontalScrolling is deprecated since version 1.30.4. HorizontalScrolling, this option indicates if
          * the user can scroll horizontally inside the MessageBox when the content is larger than the content area.
          */
-        horizontalScrolling?: boolean;
+        horizontalScrolling?: boolean | undefined;
         /**
          * Added since version 1.28.0. If 'details' is set in the MessageBox, a link to view details is added. When
          * the user clicks the link, the text area containing 'details' information is displayed. The initial visibility
          * is not configurable and the details are hidden by default.
          */
-        details?: string;
+        details?: string | undefined;
         /**
          * Added since version 1.72.0. Whether the MessageBox will be closed automatically when a routing navigation
          * occurs.
          */
-        closeOnNavigation?: boolean;
+        closeOnNavigation?: boolean | undefined;
       }
     ): void;
     /**
@@ -38686,52 +38686,52 @@ declare module "sap/m/MessageBox" {
         /**
          * Callback when the user closes the dialog
          */
-        onClose?: Function;
+        onClose?: Function | undefined;
         /**
          * Title of the information dialog
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * ID for the information dialog. Intended for test scenarios, not recommended for productive apps
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * CSS style class which is added to the information dialog's root DOM node. The compact design can be activated
          * by setting this to "sapUiSizeCompact"
          */
-        styleClass?: string;
+        styleClass?: string | undefined;
         /**
          * This option sets the action name, the text of the button or the control that gets the focus as first
          * focusable element after the MessageBox is opened. The usage of sap.ui.core.Control to set initialFocus
          * is deprecated since version 1.30.4.
          */
-        initialFocus?: string | (Action | keyof typeof Action);
+        initialFocus?: string | (Action | keyof typeof Action) | undefined;
         /**
          * Specifies the element's text directionality with enumerated options. By default, the control inherits
          * text direction from the DOM.
          */
-        textDirection?: TextDirection | keyof typeof TextDirection;
+        textDirection?: TextDirection | keyof typeof TextDirection | undefined;
         /**
          * verticalScrolling is deprecated since version 1.30.4. VerticalScrolling, this option indicates if the
          * user can scroll vertically inside the MessageBox when the content is larger than the content area.
          */
-        verticalScrolling?: boolean;
+        verticalScrolling?: boolean | undefined;
         /**
          * horizontalScrolling is deprecated since version 1.30.4. HorizontalScrolling, this option indicates if
          * the user can scroll horizontally inside the MessageBox when the content is larger than the content area.
          */
-        horizontalScrolling?: boolean;
+        horizontalScrolling?: boolean | undefined;
         /**
          * Added since version 1.28.0. If 'details' is set in the MessageBox, a link to view details is added. When
          * the user clicks the link, the text area containing 'details' information is displayed. The initial visibility
          * is not configurable and the details are hidden by default.
          */
-        details?: string;
+        details?: string | undefined;
         /**
          * Added since version 1.72.0. Whether the MessageBox will be closed automatically when a routing navigation
          * occurs.
          */
-        closeOnNavigation?: boolean;
+        closeOnNavigation?: boolean | undefined;
       }
     ): void;
     /**
@@ -38784,11 +38784,11 @@ declare module "sap/m/MessageBox" {
         /**
          * The icon to be displayed.
          */
-        icon?: Icon;
+        icon?: Icon | undefined;
         /**
          * The title of the message box.
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * Either a single action, or an array of actions. If no action(s) are given, the single action MessageBox.Action.OK
          * is taken as a default for the parameter. Custom action(s) string or an array can be provided, and then
@@ -38798,61 +38798,61 @@ declare module "sap/m/MessageBox" {
           | (Action | keyof typeof Action)
           | Array<Action | keyof typeof Action>
           | string
-          | string[];
+          | string[] | undefined;
         /**
          * Added since version 1.75.0. Specifies which action of the created dialog will be emphasized. EmphasizedAction
          * will apply only if the property `actions` is provided.
          */
-        emphasizedAction?: (Action | keyof typeof Action) | string;
+        emphasizedAction?: (Action | keyof typeof Action) | string | undefined;
         /**
          * Function to be called when the user taps a button or closes the message box.
          */
-        onClose?: Function;
+        onClose?: Function | undefined;
         /**
          * ID to be used for the dialog. Intended for test scenarios, not recommended for productive apps
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * Added since version 1.21.2. CSS style class which is added to the dialog's root DOM node. The compact
          * design can be activated by setting this to "sapUiSizeCompact"
          */
-        styleClass?: string;
+        styleClass?: string | undefined;
         /**
          * Added since version 1.28.0. initialFocus, this option sets the action name, the text of the button or
          * the control that gets the focus as first focusable element after the MessageBox is opened. The usage
          * of sap.ui.core.Control to set initialFocus is deprecated since version 1.30.4.
          */
-        initialFocus?: string | (Action | keyof typeof Action);
+        initialFocus?: string | (Action | keyof typeof Action) | undefined;
         /**
          * Added since version 1.28. Specifies the element's text directionality with enumerated options. By default,
          * the control inherits text direction from the DOM.
          */
-        textDirection?: TextDirection | keyof typeof TextDirection;
+        textDirection?: TextDirection | keyof typeof TextDirection | undefined;
         /**
          * verticalScrolling is deprecated since version 1.30.4. VerticalScrolling, this option indicates if the
          * user can scroll vertically inside the MessageBox when the content is larger than the content area.
          */
-        verticalScrolling?: boolean;
+        verticalScrolling?: boolean | undefined;
         /**
          * horizontalScrolling is deprecated since version 1.30.4. HorizontalScrolling, this option indicates if
          * the user can scroll horizontally inside the MessageBox when the content is larger than the content area.
          */
-        horizontalScrolling?: boolean;
+        horizontalScrolling?: boolean | undefined;
         /**
          * Added since version 1.28.0. If 'details' is set in the MessageBox, a link to view details is added. When
          * the user clicks the link, the text area containing 'details' information is displayed. The initial visibility
          * is not configurable and the details are hidden by default.
          */
-        details?: string;
+        details?: string | undefined;
         /**
          * The width of the MessageBox
          */
-        contentWidth?: CSSSize;
+        contentWidth?: CSSSize | undefined;
         /**
          * Added since version 1.72.0. Whether the MessageBox will be closed automatically when a routing navigation
          * occurs.
          */
-        closeOnNavigation?: boolean;
+        closeOnNavigation?: boolean | undefined;
       }
     ): void;
     /**
@@ -38901,52 +38901,52 @@ declare module "sap/m/MessageBox" {
         /**
          * Callback when the user closes the dialog
          */
-        onClose?: Function;
+        onClose?: Function | undefined;
         /**
          * Title of the success dialog
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * ID for the success dialog. Intended for test scenarios, not recommended for productive apps
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * CSS style class which is added to the success dialog's root DOM node. The compact design can be activated
          * by setting this to "sapUiSizeCompact"
          */
-        styleClass?: string;
+        styleClass?: string | undefined;
         /**
          * This option sets the action name, the text of the button or the control that gets the focus as first
          * focusable element after the MessageBox is opened. The usage of sap.ui.core.Control to set initialFocus
          * is deprecated since version 1.30.4.
          */
-        initialFocus?: string | (Action | keyof typeof Action);
+        initialFocus?: string | (Action | keyof typeof Action) | undefined;
         /**
          * Specifies the element's text directionality with enumerated options. By default, the control inherits
          * text direction from the DOM.
          */
-        textDirection?: TextDirection | keyof typeof TextDirection;
+        textDirection?: TextDirection | keyof typeof TextDirection | undefined;
         /**
          * verticalScrolling is deprecated since version 1.30.4. VerticalScrolling, this option indicates if the
          * user can scroll vertically inside the MessageBox when the content is larger than the content area.
          */
-        verticalScrolling?: boolean;
+        verticalScrolling?: boolean | undefined;
         /**
          * horizontalScrolling is deprecated since version 1.30.4. HorizontalScrolling, this option indicates if
          * the user can scroll horizontally inside the MessageBox when the content is larger than the content area.
          */
-        horizontalScrolling?: boolean;
+        horizontalScrolling?: boolean | undefined;
         /**
          * Added since version 1.28.0. If 'details' is set in the MessageBox, a link to view details is added. When
          * the user clicks the link, the text area containing 'details' information is displayed. The initial visibility
          * is not configurable and the details are hidden by default.
          */
-        details?: string;
+        details?: string | undefined;
         /**
          * Added since version 1.72.0. Whether the MessageBox will be closed automatically when a routing navigation
          * occurs.
          */
-        closeOnNavigation?: boolean;
+        closeOnNavigation?: boolean | undefined;
       }
     ): void;
     /**
@@ -38993,52 +38993,52 @@ declare module "sap/m/MessageBox" {
         /**
          * Callback when the user closes the dialog
          */
-        onClose?: Function;
+        onClose?: Function | undefined;
         /**
          * Title of the warning dialog
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * ID to for the warning dialog. Intended for test scenarios, not recommended for productive apps
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * CSS style class which is added to the warning dialog's root DOM node. The compact design can be activated
          * by setting this to "sapUiSizeCompact"
          */
-        styleClass?: string;
+        styleClass?: string | undefined;
         /**
          * This option sets the action name, the text of the button or the control that gets the focus as first
          * focusable element after the MessageBox is opened. The usage of sap.ui.core.Control to set initialFocus
          * is deprecated since version 1.30.4.
          */
-        initialFocus?: string | (Action | keyof typeof Action);
+        initialFocus?: string | (Action | keyof typeof Action) | undefined;
         /**
          * Specifies the element's text directionality with enumerated options. By default, the control inherits
          * text direction from the DOM.
          */
-        textDirection?: TextDirection | keyof typeof TextDirection;
+        textDirection?: TextDirection | keyof typeof TextDirection | undefined;
         /**
          * verticalScrolling is deprecated since version 1.30.4. VerticalScrolling, this option indicates if the
          * user can scroll vertically inside the MessageBox when the content is larger than the content area.
          */
-        verticalScrolling?: boolean;
+        verticalScrolling?: boolean | undefined;
         /**
          * horizontalScrolling is deprecated since version 1.30.4. HorizontalScrolling, this option indicates if
          * the user can scroll horizontally inside the MessageBox when the content is larger than the content area.
          */
-        horizontalScrolling?: boolean;
+        horizontalScrolling?: boolean | undefined;
         /**
          * Added since version 1.28.0. If 'details' is set in the MessageBox, a link to view details is added. When
          * the user clicks the link, the text area containing 'details' information is displayed. The initial visibility
          * is not configurable and the details are hidden by default.
          */
-        details?: string;
+        details?: string | undefined;
         /**
          * Added since version 1.72.0. Whether the MessageBox will be closed automatically when a routing navigation
          * occurs.
          */
-        closeOnNavigation?: boolean;
+        closeOnNavigation?: boolean | undefined;
       }
     ): void;
   }
@@ -39423,55 +39423,55 @@ declare module "sap/m/MessageItem" {
     /**
      * Specifies the type of the message
      */
-    type?: (MessageType | keyof typeof MessageType) | PropertyBindingInfo;
+    type?: (MessageType | keyof typeof MessageType) | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the title of the message
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the subtitle of the message **Note:** This is only visible when the `title` property is not
      * empty.
      */
-    subtitle?: string | PropertyBindingInfo;
+    subtitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies detailed description of the message
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies if description should be interpreted as markup
      */
-    markupDescription?: boolean | PropertyBindingInfo;
+    markupDescription?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies long text description location URL
      */
-    longtextUrl?: URI | PropertyBindingInfo;
+    longtextUrl?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines the number of messages for a given message.
      */
-    counter?: int | PropertyBindingInfo;
+    counter?: int | PropertyBindingInfo | undefined;
 
     /**
      * Name of a message group the current item belongs to.
      */
-    groupName?: string | PropertyBindingInfo;
+    groupName?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58
      *
      * Defines whether the title of the item will be interactive.
      */
-    activeTitle?: boolean | PropertyBindingInfo;
+    activeTitle?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Adds an sap.m.Link control which will be displayed at the end of the description of a message.
      */
-    link?: Link;
+    link?: Link | undefined;
   }
 }
 
@@ -40034,40 +40034,40 @@ declare module "sap/m/MessagePage" {
     /**
      * Determines the main text displayed on the MessagePage.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the detailed description that shows additional information on the MessagePage.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the title in the header of MessagePage.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the visibility of the MessagePage header. Can be used to hide the header of the MessagePage
      * when it's embedded in another page.
      */
-    showHeader?: boolean | PropertyBindingInfo;
+    showHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the visibility of the navigation button in MessagePage header.
      */
-    showNavButton?: boolean | PropertyBindingInfo;
+    showNavButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the icon displayed on the MessagePage.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
      *
      * Defines the alt attribute of the icon displayed on the `MessagePage`.
      */
-    iconAlt?: string | PropertyBindingInfo;
+    iconAlt?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the element's text directionality with enumerated options. By default, the control inherits
@@ -40075,7 +40075,7 @@ declare module "sap/m/MessagePage" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -40084,21 +40084,21 @@ declare module "sap/m/MessagePage" {
      *
      * For details regarding supported HTML tags, see {@link sap.m.FormattedText}
      */
-    enableFormattedText?: boolean | PropertyBindingInfo;
+    enableFormattedText?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The (optional) custom Text control of this page. Use this aggregation when the "text" (sap.m.Text) control
      * needs to be replaced with an sap.m.Link control. "text" and "textDirection" setters can be used for this
      * aggregation.
      */
-    customText?: Link;
+    customText?: Link | undefined;
 
     /**
      * The (optional) custom description control of this page. Use this aggregation when the "description" (sap.m.Text)
      * control needs to be replaced with an sap.m.Link control. "description" and "textDirection" setters can
      * be used for this aggregation.
      */
-    customDescription?: Link;
+    customDescription?: Link | undefined;
 
     /**
      * @SINCE 1.54
@@ -40108,24 +40108,24 @@ declare module "sap/m/MessagePage" {
      * **Note:** Buttons added to this aggregation are both vertically and horizontally centered. Depending
      * on the available space, they may be rendered on several lines.
      */
-    buttons?: Button[] | Button | AggregationBindingInfo;
+    buttons?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.28.1
      *
      * This event is fired when Nav Button is pressed.
      */
-    navButtonPress?: Function;
+    navButtonPress?: Function | undefined;
   }
 }
 
@@ -40631,7 +40631,7 @@ declare module "sap/m/MessagePopover" {
         /**
          * Refers to the message item that contains the activeTitle.
          */
-        item?: MessageItem;
+        item?: MessageItem | undefined;
       }
     ): this;
     /**
@@ -40645,7 +40645,7 @@ declare module "sap/m/MessagePopover" {
         /**
          * Refers to the control that opens the popover.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -40659,7 +40659,7 @@ declare module "sap/m/MessagePopover" {
         /**
          * Refers to the control that opens the popover.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -40673,7 +40673,7 @@ declare module "sap/m/MessagePopover" {
         /**
          * Refers to the control that opens the popover. See {@link sap.ui.core.MessageType} enum values for types.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -40687,7 +40687,7 @@ declare module "sap/m/MessagePopover" {
         /**
          * Refers to the control that opens the popover.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -40701,11 +40701,11 @@ declare module "sap/m/MessagePopover" {
         /**
          * Refers to the `MessagePopover` item that is being presented.
          */
-        item?: MessagePopoverItem;
+        item?: MessagePopoverItem | undefined;
         /**
          * Refers to the type of messages being shown.
          */
-        messageTypeFilter?: MessageType | keyof typeof MessageType;
+        messageTypeFilter?: MessageType | keyof typeof MessageType | undefined;
       }
     ): this;
     /**
@@ -40719,7 +40719,7 @@ declare module "sap/m/MessagePopover" {
         /**
          * This parameter refers to the type of messages being shown.
          */
-        messageTypeFilter?: MessageType | keyof typeof MessageType;
+        messageTypeFilter?: MessageType | keyof typeof MessageType | undefined;
       }
     ): this;
     /**
@@ -41143,13 +41143,13 @@ declare module "sap/m/MessagePopover" {
      * Callback function for resolving a promise after description has been asynchronously loaded inside this
      * function. You can use this function in order to validate the description before displaying it.
      */
-    asyncDescriptionHandler?: any | PropertyBindingInfo;
+    asyncDescriptionHandler?: any | PropertyBindingInfo | undefined;
 
     /**
      * Callback function for resolving a promise after a link has been asynchronously validated inside this
      * function. You can use this function in order to validate URLs before displaying them inside the description.
      */
-    asyncURLHandler?: any | PropertyBindingInfo;
+    asyncURLHandler?: any | PropertyBindingInfo | undefined;
 
     /**
      * Determines the position, where the control will appear on the screen. The default value is `sap.m.VerticalPlacementType.Vertical`.
@@ -41158,19 +41158,19 @@ declare module "sap/m/MessagePopover" {
      */
     placement?:
       | (VerticalPlacementType | keyof typeof VerticalPlacementType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Sets the initial state of the control - expanded or collapsed. By default the control opens as expanded.
      * Note: If there is only one message in the control, this state will be ignored and the details page of
      * the message will be shown.
      */
-    initiallyExpanded?: boolean | PropertyBindingInfo;
+    initiallyExpanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the MessageItems are grouped or not.
      */
-    groupItems?: boolean | PropertyBindingInfo;
+    groupItems?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * A list with message items.
@@ -41179,59 +41179,59 @@ declare module "sap/m/MessagePopover" {
       | Array<MessagePopoverItem | MessageItem>
       | MessagePopoverItem
       | MessageItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Sets a custom header button.
      */
-    headerButton?: Button;
+    headerButton?: Button | undefined;
 
     /**
      * Event fired after the popover is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: Function | undefined;
 
     /**
      * Event fired after the popover is closed.
      */
-    afterClose?: Function;
+    afterClose?: Function | undefined;
 
     /**
      * Event fired before the popover is opened.
      */
-    beforeOpen?: Function;
+    beforeOpen?: Function | undefined;
 
     /**
      * Event fired before the popover is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: Function | undefined;
 
     /**
      * Event fired when description is shown.
      */
-    itemSelect?: Function;
+    itemSelect?: Function | undefined;
 
     /**
      * Event fired when one of the lists is shown when (not) filtered by type.
      */
-    listSelect?: Function;
+    listSelect?: Function | undefined;
 
     /**
      * Event fired when the long text description data from a remote URL is loaded.
      */
-    longtextLoaded?: Function;
+    longtextLoaded?: Function | undefined;
 
     /**
      * Event fired when a validation of a URL from long text description is ready.
      */
-    urlValidated?: Function;
+    urlValidated?: Function | undefined;
 
     /**
      * @SINCE 1.58
      *
      * Event fired when an active title of a `MessageItem` is clicked.
      */
-    activeTitlePress?: Function;
+    activeTitlePress?: Function | undefined;
   }
 }
 
@@ -41650,30 +41650,30 @@ declare module "sap/m/MessageStrip" {
     /**
      * Determines the text of the message.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the type of messages that are displayed in the MessageStrip. Possible values are: Information
      * (default), Success, Warning, Error. If None is passed, the value is set to Information and a warning
      * is displayed in the console.
      */
-    type?: (MessageType | keyof typeof MessageType) | PropertyBindingInfo;
+    type?: (MessageType | keyof typeof MessageType) | PropertyBindingInfo | undefined;
 
     /**
      * Determines a custom icon which is displayed. If none is set, the default icon for this message type is
      * used.
      */
-    customIcon?: URI | PropertyBindingInfo;
+    customIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Determines if an icon is displayed for the message.
      */
-    showIcon?: boolean | PropertyBindingInfo;
+    showIcon?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the message has a close button in the upper right corner.
      */
-    showCloseButton?: boolean | PropertyBindingInfo;
+    showCloseButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.50
@@ -41689,17 +41689,17 @@ declare module "sap/m/MessageStrip" {
      * 	 - `strong`
      * 	 - `u`
      */
-    enableFormattedText?: boolean | PropertyBindingInfo;
+    enableFormattedText?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Adds an sap.m.Link control which will be displayed at the end of the message.
      */
-    link?: Link;
+    link?: Link | undefined;
 
     /**
      * This event will be fired after the container is closed.
      */
-    close?: Function;
+    close?: Function | undefined;
   }
 }
 
@@ -41771,21 +41771,21 @@ declare module "sap/m/MessageToast" {
         /**
          * Time in milliseconds before the close animation starts. Needs to be a finite positive nonzero integer.
          */
-        duration?: int;
+        duration?: int | undefined;
         /**
          * The width of the message toast, this value can be provided in %, em, px and all possible CSS measures.
          */
-        width?: CSSSize;
+        width?: CSSSize | undefined;
         /**
          * Specifies which point of the message toast should be aligned (e.g. `Dock.LeftTop` To use as align point
          * the left top corner of the message toast).
          */
-        my?: Dock;
+        my?: Dock | undefined;
         /**
          * Specifies the point of the reference element to which the message toast should be aligned (e.g. `Dock.RightBottom`
          * To position the message toast according to the bottom right corner of the reference element).
          */
-        at?: Dock;
+        at?: Dock | undefined;
         /**
          * Specifies the reference element to which the message toast should be aligned, by default it is aligned
          * to the browser visual viewport.
@@ -41795,35 +41795,35 @@ declare module "sap/m/MessageToast" {
          * The offset relative to the docking point, specified as a string with space-separated pixel values (e.g.
          * "10 5" to move the message toast 10 pixels to the right and 5 pixels to the bottom).
          */
-        offset?: string;
+        offset?: string | undefined;
         /**
          * Specifies how the position of the message toast should be adjusted in case it overflows the screen in
          * some direction. Possible values “fit”, “flip”, “none”, or a pair for horizontal and vertical e.g. "fit
          * flip”, "fit none".
          */
-        collision?: string;
+        collision?: string | undefined;
         /**
          * Function to be called when the message toast closes.
          */
-        onClose?: Function;
+        onClose?: Function | undefined;
         /**
          * Specify whether the message toast should close as soon as the end user touches the screen.
          */
-        autoClose?: boolean;
+        autoClose?: boolean | undefined;
         /**
          * Describes how the close animation will progress. Possible values "ease", "linear", "ease-in", "ease-out",
          * "ease-in-out".
          */
-        animationTimingFunction?: string;
+        animationTimingFunction?: string | undefined;
         /**
          * Time in milliseconds that the close animation takes to complete. Needs to be a finite positive integer.
          * For not animation set to 0.
          */
-        animationDuration?: int;
+        animationDuration?: int | undefined;
         /**
          * Specifies if the message toast closes on browser navigation.
          */
-        closeOnBrowserNavigation?: boolean;
+        closeOnBrowserNavigation?: boolean | undefined;
       }
     ): void;
   }
@@ -42207,7 +42207,7 @@ declare module "sap/m/MessageView" {
         /**
          * Refers to the message item that contains the activeTitle.
          */
-        item?: MessageItem;
+        item?: MessageItem | undefined;
       }
     ): this;
     /**
@@ -42223,7 +42223,7 @@ declare module "sap/m/MessageView" {
         /**
          * This refers to the control which opens the popover.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -42237,11 +42237,11 @@ declare module "sap/m/MessageView" {
         /**
          * Refers to the message item that is being presented.
          */
-        item?: MessageItem;
+        item?: MessageItem | undefined;
         /**
          * Refers to the type of messages being shown. See sap.ui.core.MessageType values for types.
          */
-        messageTypeFilter?: MessageType | keyof typeof MessageType;
+        messageTypeFilter?: MessageType | keyof typeof MessageType | undefined;
       }
     ): this;
     /**
@@ -42255,7 +42255,7 @@ declare module "sap/m/MessageView" {
         /**
          * This parameter refers to the type of messages being shown.
          */
-        messageTypeFilter?: MessageType | keyof typeof MessageType;
+        messageTypeFilter?: MessageType | keyof typeof MessageType | undefined;
       }
     ): this;
     /**
@@ -42573,68 +42573,68 @@ declare module "sap/m/MessageView" {
      * Callback function for resolving a promise after description has been asynchronously loaded inside this
      * function.
      */
-    asyncDescriptionHandler?: any | PropertyBindingInfo;
+    asyncDescriptionHandler?: any | PropertyBindingInfo | undefined;
 
     /**
      * Callback function for resolving a promise after a link has been asynchronously validated inside this
      * function.
      */
-    asyncURLHandler?: any | PropertyBindingInfo;
+    asyncURLHandler?: any | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the MessageItems are grouped or not.
      */
-    groupItems?: boolean | PropertyBindingInfo;
+    groupItems?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the header of details page will be shown.
      */
-    showDetailsPageHeader?: boolean | PropertyBindingInfo;
+    showDetailsPageHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * A list with message items. If only one item is provided, the initial page will be the details page for
      * the item.
      */
-    items?: MessageItem[] | MessageItem | AggregationBindingInfo;
+    items?: MessageItem[] | MessageItem | AggregationBindingInfo | undefined;
 
     /**
      * Sets a custom header button.
      */
-    headerButton?: Button;
+    headerButton?: Button | undefined;
 
     /**
      * @deprecated (since 1.72) - Use the appropriate event from the wrapper control, instead.
      *
      * Event fired after the popover is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: Function | undefined;
 
     /**
      * Event fired when description is shown.
      */
-    itemSelect?: Function;
+    itemSelect?: Function | undefined;
 
     /**
      * Event fired when one of the lists is shown when (not) filtered by type.
      */
-    listSelect?: Function;
+    listSelect?: Function | undefined;
 
     /**
      * Event fired when the long text description data from a remote URL is loaded.
      */
-    longtextLoaded?: Function;
+    longtextLoaded?: Function | undefined;
 
     /**
      * Event fired when a validation of a URL from long text description is ready.
      */
-    urlValidated?: Function;
+    urlValidated?: Function | undefined;
 
     /**
      * @SINCE 1.58
      *
      * Event fired when an activeTitle of a MessageItem is pressed.
      */
-    activeTitlePress?: Function;
+    activeTitlePress?: Function | undefined;
   }
 }
 
@@ -42890,11 +42890,11 @@ declare module "sap/m/MultiComboBox" {
         /**
          * Item which selection is changed
          */
-        changedItem?: Item;
+        changedItem?: Item | undefined;
         /**
          * Selection state: true if item is selected, false if item is not selected
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
       }
     ): this;
     /**
@@ -42908,7 +42908,7 @@ declare module "sap/m/MultiComboBox" {
         /**
          * The selected items which are selected after list box has been closed.
          */
-        selectedItems?: Item[];
+        selectedItems?: Item[] | undefined;
       }
     ): this;
     /**
@@ -43063,23 +43063,23 @@ declare module "sap/m/MultiComboBox" {
      * Keys of the selected items. If the key has no corresponding item, no changes will apply. If duplicate
      * keys exists the first item matching the key is used.
      */
-    selectedKeys?: string[] | PropertyBindingInfo;
+    selectedKeys?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * Provides getter and setter for the selected items from the aggregation named items.
      */
-    selectedItems?: Array<Item | string>;
+    selectedItems?: Array<Item | string> | undefined;
 
     /**
      * Event is fired when selection of an item is changed. Note: please do not use the "change" event inherited
      * from sap.m.InputBase
      */
-    selectionChange?: Function;
+    selectionChange?: Function | undefined;
 
     /**
      * Event is fired when user has finished a selection of items in a list box and list box has been closed.
      */
-    selectionFinish?: Function;
+    selectionFinish?: Function | undefined;
   }
 }
 
@@ -43196,15 +43196,15 @@ declare module "sap/m/MultiInput" {
         /**
          * Suggested token
          */
-        token?: object;
+        token?: object | undefined;
         /**
          * Any object used to find the suggested token
          */
-        suggestionObject?: object;
+        suggestionObject?: object | undefined;
         /**
          * Callback which gets called after validation has finished
          */
-        validationCallback?: Function;
+        validationCallback?: Function | undefined;
       },
       /**
        * [optional] Array of all validators to be used
@@ -43356,23 +43356,23 @@ declare module "sap/m/MultiInput" {
          * sap.m.Tokenizer.TokenChangeType.RemovedAll for "removedAll" and sap.m.Tokenizer.TokenChangeType.TokensChanged
          * for "tokensChanged".
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * The added token or removed token. This parameter is used when tokenChange type is "added" or "removed".
          */
-        token?: Token;
+        token?: Token | undefined;
         /**
          * The array of removed tokens. This parameter is used when tokenChange type is "removedAll".
          */
-        tokens?: Token[];
+        tokens?: Token[] | undefined;
         /**
          * The array of tokens that are added. This parameter is used when tokenChange type is "tokenChanged".
          */
-        addedTokens?: Token[];
+        addedTokens?: Token[] | undefined;
         /**
          * The array of tokens that are removed. This parameter is used when tokenChange type is "tokenChanged".
          */
-        removedTokens?: Token[];
+        removedTokens?: Token[] | undefined;
       }
     ): this;
     /**
@@ -43392,15 +43392,15 @@ declare module "sap/m/MultiInput" {
          * Type of tokenChange event. There are two TokenUpdate types: "added", "removed" Use sap.m.Tokenizer.TokenUpdateType.Added
          * for "added" and sap.m.Tokenizer.TokenUpdateType.Removed for "removed".
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * The array of tokens that are added. This parameter is used when tokenUpdate type is "added".
          */
-        addedTokens?: Token[];
+        addedTokens?: Token[] | undefined;
         /**
          * The array of tokens that are removed. This parameter is used when tokenUpdate type is "removed".
          */
-        removedTokens?: Token[];
+        removedTokens?: Token[] | undefined;
       }
     ): boolean;
     /**
@@ -43685,33 +43685,33 @@ declare module "sap/m/MultiInput" {
      * This property does not take effect on smartphones or when the editable property is set to false. **Caution:**
      * Do not enable multi-line mode in tables and forms.
      */
-    enableMultiLineMode?: boolean | PropertyBindingInfo;
+    enableMultiLineMode?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36
      *
      * The max number of tokens that is allowed in MultiInput.
      */
-    maxTokens?: int | PropertyBindingInfo;
+    maxTokens?: int | PropertyBindingInfo | undefined;
 
     /**
      * The currently displayed tokens
      */
-    tokens?: Token[] | Token | AggregationBindingInfo;
+    tokens?: Token[] | Token | AggregationBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.46) - Please use the new event tokenUpdate.
      *
      * Fired when the tokens aggregation changed (add / remove token)
      */
-    tokenChange?: Function;
+    tokenChange?: Function | undefined;
 
     /**
      * @SINCE 1.46
      *
      * Fired when the tokens aggregation changed due to a user interaction (add / remove token)
      */
-    tokenUpdate?: Function;
+    tokenUpdate?: Function | undefined;
   }
 }
 
@@ -44089,44 +44089,44 @@ declare module "sap/m/NavContainer" {
         /**
          * The page which had been shown before navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page which had been shown before navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page which is now shown after navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page which is now shown after navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Whether the "to" page (more precisely: a control with the ID of the page which has been navigated to)
          * had not been shown/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Whether was a forward navigation, triggered by "to()".
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Whether this was a back navigation, triggered by "back()".
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Whether this was a navigation to the root page, triggered by "backToTop()".
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Whether this was a navigation to a specific page, triggered by "backToPage()".
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * How the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): this;
     /**
@@ -44145,44 +44145,44 @@ declare module "sap/m/NavContainer" {
         /**
          * The page which was shown before the current navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page which was shown before the current navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page which will be shown after the current navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page which will be shown after the current navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Whether the "to" page (more precisely: a control with the ID of the page which is currently navigated
          * to) has not been shown/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Whether this is a forward navigation, triggered by "to()".
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Whether this is a back navigation, triggered by "back()".
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Whether this is a navigation to the root page, triggered by "backToTop()".
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Whether this was a navigation to a specific page, triggered by "backToPage()".
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * How the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): boolean;
     /**
@@ -44672,24 +44672,24 @@ declare module "sap/m/NavContainer" {
      * 	 - If the `autoFocus` is set to `false` and at the same time another wrapping control has its own logic
      * 			for focus restoring upon rerendering, the focus will still appear.
      */
-    autoFocus?: boolean | PropertyBindingInfo;
+    autoFocus?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The height of the NavContainer. Can be changed when the NavContainer should not cover the whole available
      * area.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The width of the NavContainer. Can be changed when the NavContainer should not cover the whole available
      * area.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Whether the NavContainer is visible.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.7.1
@@ -44698,7 +44698,7 @@ declare module "sap/m/NavContainer" {
      * to use. The default is "slide". Other options are: "baseSlide", "fade", "flip" and "show" - and the names
      * of any registered custom transitions.
      */
-    defaultTransitionName?: string | PropertyBindingInfo;
+    defaultTransitionName?: string | PropertyBindingInfo | undefined;
 
     /**
      * The content entities between which this NavContainer navigates. These can be of type sap.m.Page, sap.ui.core.mvc.View,
@@ -44707,7 +44707,7 @@ declare module "sap/m/NavContainer" {
      * These aggregated controls will receive navigation events like {@link sap.m.NavContainerChild#event:BeforeShow
      * BeforeShow}, they are documented in the pseudo interface {@link sap.m.NavContainerChild sap.m.NavContainerChild}
      */
-    pages?: Control[] | Control | AggregationBindingInfo;
+    pages?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * This association can be used to define which page is displayed initially. If the given page does not
@@ -44717,7 +44717,7 @@ declare module "sap/m/NavContainer" {
      * This could be used not only for the initial display, but also if the user wants to navigate "up to top",
      * so this page serves as a sort of "home/root page".
      */
-    initialPage?: Control | string;
+    initialPage?: Control | string | undefined;
 
     /**
      * @SINCE 1.7.1
@@ -44726,7 +44726,7 @@ declare module "sap/m/NavContainer" {
      * controls are fired). The transition (if any) to the new page has not started yet. This event can be aborted
      * by the application with preventDefault(), which means that there will be no navigation.
      */
-    navigate?: Function;
+    navigate?: Function | undefined;
 
     /**
      * @SINCE 1.7.1
@@ -44735,7 +44735,7 @@ declare module "sap/m/NavContainer" {
      * have been fired). In case of animated transitions this event is fired with some delay after the "navigate"
      * event.
      */
-    afterNavigate?: Function;
+    afterNavigate?: Function | undefined;
   }
 }
 
@@ -44951,22 +44951,22 @@ declare module "sap/m/NewsContent" {
      *
      * Updates the size of the chart. If not set then the default size is applied based on the device tile.
      */
-    size?: (Size | keyof typeof Size) | PropertyBindingInfo;
+    size?: (Size | keyof typeof Size) | PropertyBindingInfo | undefined;
 
     /**
      * The content text.
      */
-    contentText?: string | PropertyBindingInfo;
+    contentText?: string | PropertyBindingInfo | undefined;
 
     /**
      * The subheader.
      */
-    subheader?: string | PropertyBindingInfo;
+    subheader?: string | PropertyBindingInfo | undefined;
 
     /**
      * The event is triggered when the News Content is pressed.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -45442,50 +45442,50 @@ declare module "sap/m/NotificationListBase" {
     /**
      * Determines the priority of the Notification.
      */
-    priority?: (Priority | keyof typeof Priority) | PropertyBindingInfo;
+    priority?: (Priority | keyof typeof Priority) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the title of the NotificationListBase item.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * The time stamp of the Notification.
      */
-    datetime?: string | PropertyBindingInfo;
+    datetime?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the action buttons visibility.
      *
      * **Note:** Action buttons are not shown when Notification List Groups are collapsed.
      */
-    showButtons?: boolean | PropertyBindingInfo;
+    showButtons?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the visibility of the close button.
      */
-    showCloseButton?: boolean | PropertyBindingInfo;
+    showCloseButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the notification author name.
      */
-    authorName?: string | PropertyBindingInfo;
+    authorName?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the URL of the notification author picture.
      */
-    authorPicture?: URI | PropertyBindingInfo;
+    authorPicture?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Action buttons.
      */
-    buttons?: Button[] | Button | AggregationBindingInfo;
+    buttons?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * Fired when the close button of the notification is pressed.
      * **Note:** Pressing the close button doesn't destroy the notification automatically.
      */
-    close?: Function;
+    close?: Function | undefined;
   }
 }
 
@@ -45638,7 +45638,7 @@ declare module "sap/m/NotificationListGroup" {
         /**
          * Indicates exact collapse direction
          */
-        collapsed?: boolean;
+        collapsed?: boolean | undefined;
       }
     ): this;
     /**
@@ -45918,52 +45918,52 @@ declare module "sap/m/NotificationListGroup" {
     /**
      * Determines if the group is collapsed or expanded.
      */
-    collapsed?: boolean | PropertyBindingInfo;
+    collapsed?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the group will automatically set the priority based on the highest priority of its notifications
      * or get its priority from the `priority` property.
      */
-    autoPriority?: boolean | PropertyBindingInfo;
+    autoPriority?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the group header/footer of the empty group will be always shown. By default groups with
      * 0 notifications are not shown.
      */
-    showEmptyGroup?: boolean | PropertyBindingInfo;
+    showEmptyGroup?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the collapse/expand button for an empty group is displayed.
      */
-    enableCollapseButtonWhenEmpty?: boolean | PropertyBindingInfo;
+    enableCollapseButtonWhenEmpty?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the items counter inside the group header will be visible.
      *
      * **Note:** Counter value represents the number of currently visible (loaded) items inside the group.
      */
-    showItemsCounter?: boolean | PropertyBindingInfo;
+    showItemsCounter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.73)
      *
      * Determines the notification group's author name.
      */
-    authorName?: string | PropertyBindingInfo;
+    authorName?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.73)
      *
      * Determines the URL of the notification group's author picture.
      */
-    authorPicture?: URI | PropertyBindingInfo;
+    authorPicture?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.73)
      *
      * Determines the due date of the NotificationListGroup.
      */
-    datetime?: string | PropertyBindingInfo;
+    datetime?: string | PropertyBindingInfo | undefined;
 
     /**
      * The NotificationListItems inside the group.
@@ -45971,14 +45971,14 @@ declare module "sap/m/NotificationListGroup" {
     items?:
       | NotificationListItem[]
       | NotificationListItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
      *
      * `onCollapse` event is called when collapse property value is changed
      */
-    onCollapse?: Function;
+    onCollapse?: Function | undefined;
   }
 }
 
@@ -46210,23 +46210,23 @@ declare module "sap/m/NotificationListItem" {
     /**
      * Determines the description of the NotificationListItem.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the displayed author initials.
      */
-    authorInitials?: string | PropertyBindingInfo;
+    authorInitials?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the text in the title and the description of the notification are truncated to the first
      * two lines.
      */
-    truncate?: boolean | PropertyBindingInfo;
+    truncate?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the "Show More" button should be hidden.
      */
-    hideShowMoreButton?: boolean | PropertyBindingInfo;
+    hideShowMoreButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the background color of the avatar of the author.
@@ -46236,13 +46236,13 @@ declare module "sap/m/NotificationListItem" {
      */
     authorAvatarColor?:
       | (AvatarColor | keyof typeof AvatarColor)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The sap.m.MessageStrip control that holds the information about any error that may occur when pressing
      * the notification buttons
      */
-    processingMessage?: MessageStrip;
+    processingMessage?: MessageStrip | undefined;
   }
 }
 
@@ -46744,43 +46744,43 @@ declare module "sap/m/NumericContent" {
     /**
      * If set to true, the change of the value will be animated.
      */
-    animateTextChange?: boolean | PropertyBindingInfo;
+    animateTextChange?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set to true, the value parameter contains a numeric value and scale. If set to false (default), the
      * value parameter contains a numeric value only.
      */
-    formatterValue?: boolean | PropertyBindingInfo;
+    formatterValue?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The icon to be displayed as a graphical element within the control. This can be an image or an icon from
      * the icon font.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Description of an icon that is used in the tooltip.
      */
-    iconDescription?: string | PropertyBindingInfo;
+    iconDescription?: string | PropertyBindingInfo | undefined;
 
     /**
      * The indicator arrow that shows value deviation.
      */
     indicator?:
       | (DeviationIndicator | keyof typeof DeviationIndicator)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * If set to true, the omitted value property is set to 0.
      */
-    nullifyValue?: boolean | PropertyBindingInfo;
+    nullifyValue?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The scaling prefix. Financial characters can be used for currencies and counters. The SI prefixes can
      * be used for units. If the scaling prefix contains more than three characters, only the first three characters
      * are displayed.
      */
-    scale?: string | PropertyBindingInfo;
+    scale?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.38.0) - The NumericContent control has now a fixed size, depending on the used media
@@ -46788,7 +46788,7 @@ declare module "sap/m/NumericContent" {
      *
      * Updates the size of the control. If not set, then the default size is applied based on the device tile.
      */
-    size?: (Size | keyof typeof Size) | PropertyBindingInfo;
+    size?: (Size | keyof typeof Size) | PropertyBindingInfo | undefined;
 
     /**
      * The number of characters of the `value` property to display.
@@ -46796,32 +46796,32 @@ declare module "sap/m/NumericContent" {
      * **Note** If `adaptiveFontSize` is set to `true` the default value of this property will vary between
      * languages. If `adaptiveFontSize` is set to `false` the default value of this property is `4`.
      */
-    truncateValueTo?: int | PropertyBindingInfo;
+    truncateValueTo?: int | PropertyBindingInfo | undefined;
 
     /**
      * The actual value.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * The semantic color of the value.
      */
-    valueColor?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo;
+    valueColor?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo | undefined;
 
     /**
      * The width of the control. If it is not set, the size of the control is defined by the 'size' property.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * If the value is set to false, the content is adjusted to the whole size of the control.
      */
-    withMargin?: boolean | PropertyBindingInfo;
+    withMargin?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates the load status.
      */
-    state?: (LoadState | keyof typeof LoadState) | PropertyBindingInfo;
+    state?: (LoadState | keyof typeof LoadState) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.73
@@ -46830,12 +46830,12 @@ declare module "sap/m/NumericContent" {
      * If set to its default value true this property applies the appropriate font style class based on the
      * language. When set to false the font size will always be large
      */
-    adaptiveFontSize?: boolean | PropertyBindingInfo;
+    adaptiveFontSize?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The event is fired when the user chooses the numeric content.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -46964,7 +46964,7 @@ declare module "sap/m/ObjectAttribute" {
         /**
          * DOM reference of the ObjectAttribute's text to be used for positioning.
          */
-        domRef?: string;
+        domRef?: string | undefined;
       }
     ): this;
     /**
@@ -47110,12 +47110,12 @@ declare module "sap/m/ObjectAttribute" {
     /**
      * Defines the ObjectAttribute title.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the ObjectAttribute text.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Indicates if the `ObjectAttribute` text is selectable for the user.
@@ -47126,7 +47126,7 @@ declare module "sap/m/ObjectAttribute" {
      * and the text direction of the `title` or the `text` does not match the text direction of the application,
      * the `textDirection` property should be set to ensure correct display.
      */
-    active?: boolean | PropertyBindingInfo;
+    active?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the direction of the text. Available options for the text direction are LTR (left-to-right),
@@ -47134,19 +47134,19 @@ declare module "sap/m/ObjectAttribute" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * When the aggregation is set, it replaces the `text`, `active` and `textDirection` properties. This also
      * ignores the press event. The provided control is displayed as an active link in case it is a sap.m.Link.
      * **Note:** It will only allow sap.m.Text and sap.m.Link controls.
      */
-    customContent?: Control;
+    customContent?: Control | undefined;
 
     /**
      * Fires when the user clicks on active text.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -47513,7 +47513,7 @@ declare module "sap/m/ObjectHeader" {
         /**
          * Dom reference of the object header' icon to be used for positioning.
          */
-        domRef?: object;
+        domRef?: object | undefined;
       }
     ): this;
     /**
@@ -47527,7 +47527,7 @@ declare module "sap/m/ObjectHeader" {
         /**
          * Dom reference of the object header' intro to be used for positioning.
          */
-        domRef?: object;
+        domRef?: object | undefined;
       }
     ): this;
     /**
@@ -47541,7 +47541,7 @@ declare module "sap/m/ObjectHeader" {
         /**
          * Dom reference of the object header' title to be used for positioning.
          */
-        domRef?: object;
+        domRef?: object | undefined;
       }
     ): this;
     /**
@@ -47557,7 +47557,7 @@ declare module "sap/m/ObjectHeader" {
         /**
          * Dom reference of the object header' titleArrow to be used for positioning.
          */
-        domRef?: object;
+        domRef?: object | undefined;
       }
     ): this;
     /**
@@ -48724,34 +48724,34 @@ declare module "sap/m/ObjectHeader" {
     /**
      * Determines the title of the `ObjectHeader`.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the displayed number of the `ObjectHeader` number field.
      */
-    number?: string | PropertyBindingInfo;
+    number?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the units qualifier of the `ObjectHeader` number.
      *
      * **Note:** The value of the `numberUnit` is not displayed if the number property is set to `null`.
      */
-    numberUnit?: string | PropertyBindingInfo;
+    numberUnit?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the introductory text for the `ObjectHeader`.
      */
-    intro?: string | PropertyBindingInfo;
+    intro?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the introductory text of the `ObjectHeader` is clickable.
      */
-    introActive?: boolean | PropertyBindingInfo;
+    introActive?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the title of the `ObjectHeader` is clickable and is set only if a title is provided.
      */
-    titleActive?: boolean | PropertyBindingInfo;
+    titleActive?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the icon of the `ObjectHeader`.
@@ -48759,23 +48759,23 @@ declare module "sap/m/ObjectHeader" {
      * **Note:** Recursive resolution of binding expressions is not supported by the framework. It works only
      * in ObjectHeader, since it is a composite control and creates an Image control internally.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the `ObjectHeader` icon is clickable.
      */
-    iconActive?: boolean | PropertyBindingInfo;
+    iconActive?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the alternative text of the `ObjectHeader` icon. The text is displayed if the image for the
      * icon is not available, or cannot be displayed.
      */
-    iconAlt?: string | PropertyBindingInfo;
+    iconAlt?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the tooltip text of the `ObjectHeader` icon.
      */
-    iconTooltip?: string | PropertyBindingInfo;
+    iconTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * By default, this is set to `true` but then one or more requests are sent trying to get the density perfect
@@ -48783,7 +48783,7 @@ declare module "sap/m/ObjectHeader" {
      *
      * If bandwidth is the key for the application, set this value to `false`.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.61
@@ -48795,7 +48795,7 @@ declare module "sap/m/ObjectHeader" {
      */
     imageShape?:
       | (ObjectHeaderPictureShape | keyof typeof ObjectHeaderPictureShape)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
@@ -48806,7 +48806,7 @@ declare module "sap/m/ObjectHeader" {
      * Sets the favorite state for the `ObjectHeader`. The `showMarkers` property must be set to `true` for
      * this property to take effect.
      */
-    markFavorite?: boolean | PropertyBindingInfo;
+    markFavorite?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
@@ -48817,7 +48817,7 @@ declare module "sap/m/ObjectHeader" {
      * Sets the flagged state for the `ObjectHeader`. The `showMarkers` property must be set to `true` for this
      * property to take effect.
      */
-    markFlagged?: boolean | PropertyBindingInfo;
+    markFlagged?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
@@ -48827,28 +48827,28 @@ declare module "sap/m/ObjectHeader" {
      *
      * If set to `true`, the `ObjectHeader` can be marked with icons such as favorite and flag.
      */
-    showMarkers?: boolean | PropertyBindingInfo;
+    showMarkers?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
      *
      * Determines whether the selector arrow icon/image is displayed and can be pressed.
      */
-    showTitleSelector?: boolean | PropertyBindingInfo;
+    showTitleSelector?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
      *
      * Determines the value state of the `number` and `numberUnit` properties.
      */
-    numberState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    numberState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * `ObjectHeader` with title, one attribute, number, and number unit.
      *
      * **Note:** Only applied if the `responsive` property is set to `false`.
      */
-    condensed?: boolean | PropertyBindingInfo;
+    condensed?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the background color of the `ObjectHeader`.
@@ -48860,7 +48860,7 @@ declare module "sap/m/ObjectHeader" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.21.1
@@ -48875,7 +48875,7 @@ declare module "sap/m/ObjectHeader" {
      * 	 - The title is truncated to 80 characters if longer. For portrait mode on phone, the title is truncated
      * 			to 50 characters.
      */
-    responsive?: boolean | PropertyBindingInfo;
+    responsive?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
@@ -48902,7 +48902,7 @@ declare module "sap/m/ObjectHeader" {
      * 	 - On desktop, 5+ attributes/statuses - 3 columns
      * 	 - On tablet, always in 2 columns
      */
-    fullScreenOptimized?: boolean | PropertyBindingInfo;
+    fullScreenOptimized?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
@@ -48912,7 +48912,7 @@ declare module "sap/m/ObjectHeader" {
      * **Note:** If an action should be triggered, this property should not be set, but instead an event handler
      * for the `titlePress` event should be registered.
      */
-    titleHref?: URI | PropertyBindingInfo;
+    titleHref?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
@@ -48920,7 +48920,7 @@ declare module "sap/m/ObjectHeader" {
      * Determines the `target` attribute for the title link. Options are `_self`, `_top`, `_blank`, `_parent`,
      * `_search`. Alternatively, a frame name can be entered.
      */
-    titleTarget?: string | PropertyBindingInfo;
+    titleTarget?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
@@ -48928,7 +48928,7 @@ declare module "sap/m/ObjectHeader" {
      * Determines the intro link target URI. Supports standard hyperlink behavior. If an action should be triggered,
      * this should not be set, but instead an event handler for the `introPress` event should be registered.
      */
-    introHref?: URI | PropertyBindingInfo;
+    introHref?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
@@ -48936,7 +48936,7 @@ declare module "sap/m/ObjectHeader" {
      * Determines the `target` attribute for the intro link. Options are `_self`, `_top`, `_blank`, `_parent`,
      * `_search`. Alternatively, a frame name can be entered.
      */
-    introTarget?: string | PropertyBindingInfo;
+    introTarget?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -48946,7 +48946,7 @@ declare module "sap/m/ObjectHeader" {
      */
     titleTextDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -48956,7 +48956,7 @@ declare module "sap/m/ObjectHeader" {
      */
     introTextDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -48966,7 +48966,7 @@ declare module "sap/m/ObjectHeader" {
      */
     numberTextDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
@@ -48974,7 +48974,7 @@ declare module "sap/m/ObjectHeader" {
      * Determines a custom text for the tooltip of the select title arrow. If not set, a default text of the
      * tooltip will be displayed.
      */
-    titleSelectorTooltip?: string | PropertyBindingInfo;
+    titleSelectorTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the semantic level of the title.
@@ -48982,12 +48982,12 @@ declare module "sap/m/ObjectHeader" {
      * This information is used by assistive technologies, such as screen readers to create a hierarchical site
      * map for faster navigation. Depending on this setting an HTML h1-h6 element is used.
      */
-    titleLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo;
+    titleLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo | undefined;
 
     /**
      * The list of Object Attributes
      */
-    attributes?: ObjectAttribute[] | ObjectAttribute | AggregationBindingInfo;
+    attributes?: ObjectAttribute[] | ObjectAttribute | AggregationBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.16.0) - replaced by `statuses` aggregation
@@ -48995,7 +48995,7 @@ declare module "sap/m/ObjectHeader" {
      * First status shown on the right side of the attributes above the second status. If it is not set the
      * first attribute will expand to take the entire row.
      */
-    firstStatus?: ObjectStatus;
+    firstStatus?: ObjectStatus | undefined;
 
     /**
      * @deprecated (since 1.16.0) - replaced by `statuses` aggregation
@@ -49003,7 +49003,7 @@ declare module "sap/m/ObjectHeader" {
      * Second status shown on the right side of the attributes below the first status. If it is not set the
      * second attribute will expand to take the entire row.
      */
-    secondStatus?: ObjectStatus;
+    secondStatus?: ObjectStatus | undefined;
 
     /**
      * @SINCE 1.16.0
@@ -49011,7 +49011,7 @@ declare module "sap/m/ObjectHeader" {
      * The list of Object sap.ui.core.Control. It will only allow sap.m.ObjectStatus and sap.m.ProgressIndicator
      * controls.
      */
-    statuses?: Control[] | Control | AggregationBindingInfo;
+    statuses?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -49020,7 +49020,7 @@ declare module "sap/m/ObjectHeader" {
      * this aggregation. The numbers are hidden on tablet and phone size screens. When only one number is provided,
      * it is rendered with additional separator from the main ObjectHeader number.
      */
-    additionalNumbers?: ObjectNumber[] | ObjectNumber | AggregationBindingInfo;
+    additionalNumbers?: ObjectNumber[] | ObjectNumber | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.21.1
@@ -49030,7 +49030,7 @@ declare module "sap/m/ObjectHeader" {
      * care of by the inner control. If used with an IconTabBar control, only the header will be displayed inside
      * the object header, the content will be displayed below the ObjectHeader.
      */
-    headerContainer?: ObjectHeaderContainer;
+    headerContainer?: ObjectHeaderContainer | undefined;
 
     /**
      * List of markers (icon and/or text) that can be displayed for the `ObjectHeader`, such as favorite and
@@ -49039,39 +49039,39 @@ declare module "sap/m/ObjectHeader" {
      *  **Note:** You should use either this aggregation or the already deprecated properties - `markFlagged`
      * and `markFavorite`. Using both can lead to unexpected results.
      */
-    markers?: ObjectMarker[] | ObjectMarker | AggregationBindingInfo;
+    markers?: ObjectMarker[] | ObjectMarker | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the title is active and the user taps/clicks on it
      */
-    titlePress?: Function;
+    titlePress?: Function | undefined;
 
     /**
      * Event is fired when the intro is active and the user taps/clicks on it
      */
-    introPress?: Function;
+    introPress?: Function | undefined;
 
     /**
      * Event is fired when the title icon is active and the user taps/clicks on it
      */
-    iconPress?: Function;
+    iconPress?: Function | undefined;
 
     /**
      * @SINCE 1.16.0
      *
      * Event is fired when the object header title selector (down-arrow) is pressed
      */
-    titleSelectorPress?: Function;
+    titleSelectorPress?: Function | undefined;
   }
 }
 
@@ -49218,7 +49218,7 @@ declare module "sap/m/ObjectIdentifier" {
         /**
          * DOM reference of the object identifier's title.
          */
-        domRef?: object;
+        domRef?: object | undefined;
       }
     ): this;
     /**
@@ -49473,45 +49473,45 @@ declare module "sap/m/ObjectIdentifier" {
     /**
      * Defines the object title.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the object text.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.24.0) - There is no replacement for the moment.
      *
      * Indicates whether or not the notes icon is displayed.
      */
-    badgeNotes?: boolean | PropertyBindingInfo;
+    badgeNotes?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.24.0) - There is no replacement for the moment.
      *
      * Indicates whether or not the address book icon is displayed.
      */
-    badgePeople?: boolean | PropertyBindingInfo;
+    badgePeople?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.24.0) - There is no replacement for the moment.
      *
      * Indicates whether or not the attachments icon is displayed.
      */
-    badgeAttachments?: boolean | PropertyBindingInfo;
+    badgeAttachments?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates if the ObjectIdentifier is visible. An invisible ObjectIdentifier is not being rendered.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26
      *
      * Indicates if the ObjectIdentifier's title is clickable.
      */
-    titleActive?: boolean | PropertyBindingInfo;
+    titleActive?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -49521,7 +49521,7 @@ declare module "sap/m/ObjectIdentifier" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.89
@@ -49530,19 +49530,19 @@ declare module "sap/m/ObjectIdentifier" {
      */
     emptyIndicatorMode?:
       | (EmptyIndicatorMode | keyof typeof EmptyIndicatorMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs, which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.26
      *
      * Fires when the title is active and the user taps/clicks on it.
      */
-    titlePress?: Function;
+    titlePress?: Function | undefined;
   }
 }
 
@@ -50138,32 +50138,32 @@ declare module "sap/m/ObjectListItem" {
     /**
      * Defines the ObjectListItem title.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the ObjectListItem number.
      */
-    number?: string | PropertyBindingInfo;
+    number?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the number units qualifier of the ObjectListItem.
      */
-    numberUnit?: string | PropertyBindingInfo;
+    numberUnit?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the introductory text for the ObjectListItem.
      */
-    intro?: string | PropertyBindingInfo;
+    intro?: string | PropertyBindingInfo | undefined;
 
     /**
      * ObjectListItem icon displayed to the left of the title.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Icon displayed when the ObjectListItem is active.
      */
-    activeIcon?: URI | PropertyBindingInfo;
+    activeIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * By default, this is set to true but then one or more requests are sent trying to get the density perfect
@@ -50171,7 +50171,7 @@ declare module "sap/m/ObjectListItem" {
      *
      * If bandwidth is key for the application, set this value to false.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
@@ -50181,7 +50181,7 @@ declare module "sap/m/ObjectListItem" {
      *
      * Sets the favorite state for the ObjectListItem.
      */
-    markFavorite?: boolean | PropertyBindingInfo;
+    markFavorite?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
@@ -50191,7 +50191,7 @@ declare module "sap/m/ObjectListItem" {
      *
      * Sets the flagged state for the ObjectListItem.
      */
-    markFlagged?: boolean | PropertyBindingInfo;
+    markFlagged?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
@@ -50202,14 +50202,14 @@ declare module "sap/m/ObjectListItem" {
      *
      * If set to true, the ObjectListItem can be marked with icons such as favorite and flag.
      */
-    showMarkers?: boolean | PropertyBindingInfo;
+    showMarkers?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.0
      *
      * Defines the ObjectListItem number and numberUnit value state.
      */
-    numberState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    numberState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text direction of the item title. Available options for the title direction are LTR (left-to-right)
@@ -50217,7 +50217,7 @@ declare module "sap/m/ObjectListItem" {
      */
     titleTextDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text direction of the item intro. Available options for the intro direction are LTR (left-to-right)
@@ -50225,7 +50225,7 @@ declare module "sap/m/ObjectListItem" {
      */
     introTextDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text direction of the item number. Available options for the number direction are LTR
@@ -50234,7 +50234,7 @@ declare module "sap/m/ObjectListItem" {
      */
     numberTextDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
@@ -50246,22 +50246,22 @@ declare module "sap/m/ObjectListItem" {
      *
      * Sets the locked state of the ObjectListItem.
      */
-    markLocked?: boolean | PropertyBindingInfo;
+    markLocked?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * List of attributes displayed below the title to the left of the status fields.
      */
-    attributes?: ObjectAttribute[] | ObjectAttribute | AggregationBindingInfo;
+    attributes?: ObjectAttribute[] | ObjectAttribute | AggregationBindingInfo | undefined;
 
     /**
      * First status text field displayed on the right side of the attributes.
      */
-    firstStatus?: ObjectStatus;
+    firstStatus?: ObjectStatus | undefined;
 
     /**
      * Second status text field displayed on the right side of the attributes.
      */
-    secondStatus?: ObjectStatus;
+    secondStatus?: ObjectStatus | undefined;
 
     /**
      * List of markers (icon and/or text) that can be displayed for the `ObjectListItems`, such as favorite
@@ -50270,7 +50270,7 @@ declare module "sap/m/ObjectListItem" {
      *  **Note:** You should use either this aggregation or the already deprecated properties - `markFlagged`,
      * `markFavorite`, and `markLocked`. Using both can lead to unexpected results.
      */
-    markers?: ObjectMarker[] | ObjectMarker | AggregationBindingInfo;
+    markers?: ObjectMarker[] | ObjectMarker | AggregationBindingInfo | undefined;
   }
 }
 
@@ -50581,7 +50581,7 @@ declare module "sap/m/ObjectMarker" {
      */
     type?:
       | (ObjectMarkerType | keyof typeof ObjectMarkerType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Sets one of the visibility states. Visibility states are as follows:
@@ -50591,29 +50591,29 @@ declare module "sap/m/ObjectMarker" {
      */
     visibility?:
       | (ObjectMarkerVisibility | keyof typeof ObjectMarkerVisibility)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Sets additional information to the displayed `type`.
      *
      * **Note:** If no type is set, the additional information will not be displayed.
      */
-    additionalInfo?: string | PropertyBindingInfo;
+    additionalInfo?: string | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the `ObjectMarker` is interactive and the user taps/clicks on it.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -51096,32 +51096,32 @@ declare module "sap/m/ObjectNumber" {
     /**
      * Defines the number field.
      */
-    number?: string | PropertyBindingInfo;
+    number?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.16.1) - replaced by `unit` property
      *
      * Defines the number units qualifier.
      */
-    numberUnit?: string | PropertyBindingInfo;
+    numberUnit?: string | PropertyBindingInfo | undefined;
 
     /**
      * Indicates if the object number should appear emphasized.
      */
-    emphasized?: boolean | PropertyBindingInfo;
+    emphasized?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the object number's value state. Setting this state will cause the number to be rendered in
      * state-specific colors.
      */
-    state?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    state?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.1
      *
      * Defines the number units qualifier. If numberUnit and unit are both set, the unit value is used.
      */
-    unit?: string | PropertyBindingInfo;
+    unit?: string | PropertyBindingInfo | undefined;
 
     /**
      * Available options for the number and unit text direction are LTR(left-to-right) and RTL(right-to-left).
@@ -51129,12 +51129,12 @@ declare module "sap/m/ObjectNumber" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Sets the horizontal alignment of the number and unit.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.86
@@ -51143,14 +51143,14 @@ declare module "sap/m/ObjectNumber" {
      *
      * **Note:** If you set this property to `true`, you have to set also the `number` or `unit` property.
      */
-    active?: boolean | PropertyBindingInfo;
+    active?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.86
      *
      * Determines whether the background color reflects the set `state` instead of the control's text.
      */
-    inverted?: boolean | PropertyBindingInfo;
+    inverted?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.89
@@ -51159,24 +51159,24 @@ declare module "sap/m/ObjectNumber" {
      */
     emptyIndicatorMode?:
       | (EmptyIndicatorMode | keyof typeof EmptyIndicatorMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.86
      *
      * Fires when the user clicks/taps on active `Object Number`.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -51590,12 +51590,12 @@ declare module "sap/m/ObjectStatus" {
     /**
      * Defines the ObjectStatus title.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the ObjectStatus text.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -51604,25 +51604,25 @@ declare module "sap/m/ObjectStatus" {
      *
      * **Note:** If you set this property to `true`, you have to also set the `text` or `icon` property.
      */
-    active?: boolean | PropertyBindingInfo;
+    active?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the text value state. The allowed values are from the enum type `sap.ui.core.ValueState`. Since
      * version 1.66 the `state` property also accepts values from enum type `sap.ui.core.IndicationColor`.
      */
-    state?: string | PropertyBindingInfo;
+    state?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.66
      *
      * Determines whether the background color reflects the set `state` instead of the control's text.
      */
-    inverted?: boolean | PropertyBindingInfo;
+    inverted?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Icon URI. This may be either an icon font or image path.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * By default, this is set to true but then one or more requests are sent trying to get the density perfect
@@ -51630,7 +51630,7 @@ declare module "sap/m/ObjectStatus" {
      *
      * If bandwidth is key for the application, set this value to false.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the direction of the text, not including the title. Available options for the text direction
@@ -51639,7 +51639,7 @@ declare module "sap/m/ObjectStatus" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.89
@@ -51648,19 +51648,19 @@ declare module "sap/m/ObjectStatus" {
      */
     emptyIndicatorMode?:
       | (EmptyIndicatorMode | keyof typeof EmptyIndicatorMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs, which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.54
      *
      * Fires when the user clicks/taps on active text.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -51852,7 +51852,7 @@ declare module "sap/m/OverflowToolbar" {
      * asynchronously. This way it is not blocking the thread immediately after re-rendering or resizing. However,
      * it may lead to flickering, when there is a change in the width of the content of the `OverflowToolbar`.
      */
-    asyncMode?: boolean | PropertyBindingInfo;
+    asyncMode?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -52142,14 +52142,14 @@ declare module "sap/m/OverflowToolbarLayoutData" {
      *
      * The OverflowToolbar item can or cannot move to the overflow area
      */
-    moveToOverflow?: boolean | PropertyBindingInfo;
+    moveToOverflow?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.32)
      *
      * The OverflowToolbar item can or cannot stay in the overflow area
      */
-    stayInOverflow?: boolean | PropertyBindingInfo;
+    stayInOverflow?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32
@@ -52159,7 +52159,7 @@ declare module "sap/m/OverflowToolbarLayoutData" {
      */
     priority?:
       | (OverflowToolbarPriority | keyof typeof OverflowToolbarPriority)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32
@@ -52169,14 +52169,14 @@ declare module "sap/m/OverflowToolbarLayoutData" {
      * is defined by the element with highest priority. Elements that belong to a group are not allowed to have
      * AlwaysOverflow or NeverOverflow priority.
      */
-    group?: int | PropertyBindingInfo;
+    group?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40
      *
      * Defines whether the overflow area is automatically closed when interacting with a control in it
      */
-    closeOverflowOnInteraction?: boolean | PropertyBindingInfo;
+    closeOverflowOnInteraction?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -52445,35 +52445,35 @@ declare module "sap/m/P13nColumnsItem" {
      *
      * This property contains the unique table column key
      */
-    columnKey?: string | PropertyBindingInfo;
+    columnKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
      *
      * This property contains the index of a table column
      */
-    index?: int | PropertyBindingInfo;
+    index?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
      *
      * This property decides whether a `P13nColumnsItem` is visible
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
      *
      * This property contains the with of a table column.
      */
-    width?: string | PropertyBindingInfo;
+    width?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
      *
      * This property contains the total flag of a table column.
      */
-    total?: boolean | PropertyBindingInfo;
+    total?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -52727,7 +52727,7 @@ declare module "sap/m/P13nColumnsPanel" {
         /**
          * `columnsItem` that needs to be added in the model.
          */
-        newItem?: P13nColumnsItem;
+        newItem?: P13nColumnsItem | undefined;
       }
     ): this;
     /**
@@ -52744,17 +52744,17 @@ declare module "sap/m/P13nColumnsPanel" {
          * Contains `columnsItems` that needs to be created in the model. Deprecated as of version 1.50, replaced
          * by new parameter `items`.
          */
-        newItems?: P13nColumnsItem[];
+        newItems?: P13nColumnsItem[] | undefined;
         /**
          * Contains `columnsItems` that needs to be changed in the model. Deprecated as of version 1.50, replaced
          * by new parameter `items`.
          */
-        existingItems?: P13nColumnsItem[];
+        existingItems?: P13nColumnsItem[] | undefined;
         /**
          * Array contains an object for each item in `items` aggregation enriched with index and visibility information.
          * The item order reflects the current order of columns in the panel.
          */
-        items?: object[];
+        items?: object[] | undefined;
       }
     ): this;
     /**
@@ -52994,14 +52994,14 @@ declare module "sap/m/P13nColumnsPanel" {
      * /customData>
      * ```
      */
-    visibleItemsThreshold?: int | PropertyBindingInfo;
+    visibleItemsThreshold?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
      *
      * List of columns that has been changed.
      */
-    columnsItems?: P13nColumnsItem[] | P13nColumnsItem | AggregationBindingInfo;
+    columnsItems?: P13nColumnsItem[] | P13nColumnsItem | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
@@ -53009,14 +53009,14 @@ declare module "sap/m/P13nColumnsPanel" {
      *
      * Event raised when a `columnsItem` is added.
      */
-    addColumnsItem?: Function;
+    addColumnsItem?: Function | undefined;
 
     /**
      * @SINCE 1.26.7
      *
      * Event raised if `columnsItems` is changed or new one needs to be created in the model.
      */
-    changeColumnsItems?: Function;
+    changeColumnsItems?: Function | undefined;
 
     /**
      * @SINCE 1.26.7
@@ -53025,7 +53025,7 @@ declare module "sap/m/P13nColumnsPanel" {
      * Event raised if `setData` is called in model. The event serves the purpose of minimizing such calls since
      * they can take up a lot of performance.
      */
-    setData?: Function;
+    setData?: Function | undefined;
   }
 }
 
@@ -53560,73 +53560,73 @@ declare module "sap/m/P13nConditionPanel" {
     /**
      * defines the max number of conditions on the ConditionPanel
      */
-    maxConditions?: string | PropertyBindingInfo;
+    maxConditions?: string | PropertyBindingInfo | undefined;
 
     /**
      * exclude options for filter
      */
-    exclude?: boolean | PropertyBindingInfo;
+    exclude?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * defines if the mediaQuery or a ContainerResize will be used for layout update. When the `P13nConditionPanel`
      * is used on a dialog the property should be set to `true`!
      */
-    containerQuery?: boolean | PropertyBindingInfo;
+    containerQuery?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * adds initial a new empty condition row
      */
-    autoAddNewRow?: boolean | PropertyBindingInfo;
+    autoAddNewRow?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * makes the remove icon on the first condition row disabled when only one condition exist.
      */
-    disableFirstRemoveIcon?: boolean | PropertyBindingInfo;
+    disableFirstRemoveIcon?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * makes the Add icon visible on each condition row. If is set to false the Add is only visible at the end
      * and you can only append a new condition.
      */
-    alwaysShowAddIcon?: boolean | PropertyBindingInfo;
+    alwaysShowAddIcon?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * new added condition use the settings from the previous condition as default.
      */
-    usePrevConditionSetting?: boolean | PropertyBindingInfo;
+    usePrevConditionSetting?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * KeyField value can only be selected once. When you set the property to `true` the ConditionPanel will
      * automatically offers on the KeyField drop down only the keyFields which are not used. The default behavior
      * is that in each keyField dropdown all keyfields are listed.
      */
-    autoReduceKeyFieldItems?: boolean | PropertyBindingInfo;
+    autoReduceKeyFieldItems?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * can be used to control the layout behavior. Default is "" which will automatically change the layout.
      * With "Desktop", "Table" or "Phone" you can set a fixed layout.
      */
-    layoutMode?: string | PropertyBindingInfo;
+    layoutMode?: string | PropertyBindingInfo | undefined;
 
     /**
      * show additional labels in the condition
      */
-    showLabel?: boolean | PropertyBindingInfo;
+    showLabel?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * This represents the displayFormat of the condition Values. With the value "UpperCase" the entered value
      * of the condition will be converted to upperCase.
      */
-    displayFormat?: string | PropertyBindingInfo;
+    displayFormat?: string | PropertyBindingInfo | undefined;
 
     /**
      * Calls the validation listener tbd...
      */
-    validationExecutor?: object | PropertyBindingInfo;
+    validationExecutor?: object | PropertyBindingInfo | undefined;
 
     /**
      * Workaround for updating the binding
      */
-    dataChange?: Function;
+    dataChange?: Function | undefined;
   }
 }
 
@@ -54095,14 +54095,14 @@ declare module "sap/m/P13nDialog" {
      * effect anymore. Due to extensibility reason the type should be `string`. So it is feasible to add a custom
      * panel without expanding the type.
      */
-    initialVisiblePanelType?: string | PropertyBindingInfo;
+    initialVisiblePanelType?: string | PropertyBindingInfo | undefined;
 
     /**
      * This property determines whether the 'Restore' button is shown inside the dialog. If this property is
      * set to true, clicking the 'Reset' button will trigger the `reset` event sending a notification that model
      * data must be reset.
      */
-    showReset?: boolean | PropertyBindingInfo;
+    showReset?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36.0
@@ -54110,33 +54110,33 @@ declare module "sap/m/P13nDialog" {
      * This property determines whether the 'Restore' button is enabled and is taken into account only if `showReset`
      * is set to `true`.
      */
-    showResetEnabled?: boolean | PropertyBindingInfo;
+    showResetEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Calls the validation listener once all panel-relevant validation checks have been done. This callback
      * function is called in order to perform cross-model validation checks.
      */
-    validationExecutor?: object | PropertyBindingInfo;
+    validationExecutor?: object | PropertyBindingInfo | undefined;
 
     /**
      * The dialog panels displayed in the dialog.
      */
-    panels?: P13nPanel[] | P13nPanel | AggregationBindingInfo;
+    panels?: P13nPanel[] | P13nPanel | AggregationBindingInfo | undefined;
 
     /**
      * Event fired if the 'ok' button in `P13nDialog` is clicked.
      */
-    ok?: Function;
+    ok?: Function | undefined;
 
     /**
      * Event fired if the 'cancel' button in `P13nDialog` is clicked.
      */
-    cancel?: Function;
+    cancel?: Function | undefined;
 
     /**
      * Event fired if the 'reset' button in `P13nDialog` is clicked.
      */
-    reset?: Function;
+    reset?: Function | undefined;
   }
 }
 
@@ -54300,23 +54300,23 @@ declare module "sap/m/P13nDimMeasureItem" {
      * Specifies the unique chart column key. In this context a column refers to dimensions or measures of a
      * chart.
      */
-    columnKey?: string | PropertyBindingInfo;
+    columnKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the order of visible dimensions or measures of a chart.
      */
-    index?: int | PropertyBindingInfo;
+    index?: int | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the visibility of dimensions or measures.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the role of dimensions or measures. The role determines how dimensions and measures influence
      * the chart.
      */
-    role?: string | PropertyBindingInfo;
+    role?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -54714,7 +54714,7 @@ declare module "sap/m/P13nDimMeasurePanel" {
     /**
      * Specifies a chart type key.
      */
-    chartTypeKey?: string | PropertyBindingInfo;
+    chartTypeKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * List of columns that has been changed.
@@ -54722,12 +54722,12 @@ declare module "sap/m/P13nDimMeasurePanel" {
     dimMeasureItems?:
       | P13nDimMeasureItem[]
       | P13nDimMeasureItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Specifies available chart types.
      */
-    availableChartTypes?: Item[] | Item | AggregationBindingInfo;
+    availableChartTypes?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.50.0
@@ -54735,14 +54735,14 @@ declare module "sap/m/P13nDimMeasurePanel" {
      * Event raised when one or more `DimMeasureItems` has been updated. Aggregation `DimMeasureItems` should
      * be updated outside...
      */
-    changeDimMeasureItems?: Function;
+    changeDimMeasureItems?: Function | undefined;
 
     /**
      * @SINCE 1.50.0
      *
      * Event raised when a `ChartType` has been updated.
      */
-    changeChartType?: Function;
+    changeChartType?: Function | undefined;
   }
 }
 
@@ -54920,27 +54920,27 @@ declare module "sap/m/P13nFilterItem" {
     /**
      * sap.m.P13nConditionOperation
      */
-    operation?: string | PropertyBindingInfo;
+    operation?: string | PropertyBindingInfo | undefined;
 
     /**
      * value of the filter
      */
-    value1?: string | PropertyBindingInfo;
+    value1?: string | PropertyBindingInfo | undefined;
 
     /**
      * to value of the between filter
      */
-    value2?: string | PropertyBindingInfo;
+    value2?: string | PropertyBindingInfo | undefined;
 
     /**
      * key of the column
      */
-    columnKey?: string | PropertyBindingInfo;
+    columnKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * defines if the filter is an include or exclude filter item
      */
-    exclude?: boolean | PropertyBindingInfo;
+    exclude?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -55232,20 +55232,20 @@ declare module "sap/m/P13nFilterPanel" {
         /**
          * reason for the changeFilterItem event. Value can be added, updated or removed.
          */
-        reason?: string;
+        reason?: string | undefined;
         /**
          * key of the changed filterItem
          */
-        key?: string;
+        key?: string | undefined;
         /**
          * index of the changed filterItem
          */
-        index?: int;
+        index?: int | undefined;
         /**
          * JSON object of the changed filterItem instance (in case of reason=="removed" the itemData parameter does
          * not exist)
          */
-        itemData?: object;
+        itemData?: object | undefined;
       }
     ): this;
     /**
@@ -55610,61 +55610,61 @@ declare module "sap/m/P13nFilterPanel" {
     /**
      * Defines the maximum number of include filters.
      */
-    maxIncludes?: string | PropertyBindingInfo;
+    maxIncludes?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the maximum number of exclude filters.
      */
-    maxExcludes?: string | PropertyBindingInfo;
+    maxExcludes?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines if the `mediaQuery` or a `ContainerResize` is used for layout update. If the `ConditionPanel`
      * is used in a dialog, the property must be set to `true`.
      */
-    containerQuery?: boolean | PropertyBindingInfo;
+    containerQuery?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Can be used to control the layout behavior. Default is "" which will automatically change the layout.
      * With "Desktop", "Table" or"Phone" you can set a fixed layout.
      */
-    layoutMode?: string | PropertyBindingInfo;
+    layoutMode?: string | PropertyBindingInfo | undefined;
 
     /**
      * Should empty operation be enabled for certain data types. This is also based on their nullable setting.
      */
-    enableEmptyOperations?: boolean | PropertyBindingInfo;
+    enableEmptyOperations?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines filter items.
      */
-    filterItems?: P13nFilterItem[] | P13nFilterItem | AggregationBindingInfo;
+    filterItems?: P13nFilterItem[] | P13nFilterItem | AggregationBindingInfo | undefined;
 
     /**
      * Defines an optional message strip to be displayed in the content area
      */
-    messageStrip?: MessageStrip;
+    messageStrip?: MessageStrip | undefined;
 
     /**
      * Event raised if a filter item has been added.
      */
-    addFilterItem?: Function;
+    addFilterItem?: Function | undefined;
 
     /**
      * Event raised if a filter item has been removed.
      */
-    removeFilterItem?: Function;
+    removeFilterItem?: Function | undefined;
 
     /**
      * Event raised if a filter item has been updated.
      */
-    updateFilterItem?: Function;
+    updateFilterItem?: Function | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.56)
      *
      * Event raised if a filter item has been changed. reason can be added, updated or removed.
      */
-    filterItemChanged?: Function;
+    filterItemChanged?: Function | undefined;
   }
 }
 
@@ -55804,17 +55804,17 @@ declare module "sap/m/P13nGroupItem" {
     /**
      * sap.m.P13nConditionOperation
      */
-    operation?: string | PropertyBindingInfo;
+    operation?: string | PropertyBindingInfo | undefined;
 
     /**
      * key of the column
      */
-    columnKey?: string | PropertyBindingInfo;
+    columnKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * make the grouped column as normalcolumn visible
      */
-    showIfGrouped?: boolean | PropertyBindingInfo;
+    showIfGrouped?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -56269,39 +56269,39 @@ declare module "sap/m/P13nGroupPanel" {
     /**
      * Defines the maximum number of groups.
      */
-    maxGroups?: string | PropertyBindingInfo;
+    maxGroups?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines if `mediaQuery` or `ContainerResize` is used for a layout update. If `ConditionPanel` is used
      * in a dialog, the property must be set to true.
      */
-    containerQuery?: boolean | PropertyBindingInfo;
+    containerQuery?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Can be used to control the layout behavior. Default is "" which will automatically change the layout.
      * With "Desktop", "Table" or "Phone" you can set a fixed layout.
      */
-    layoutMode?: string | PropertyBindingInfo;
+    layoutMode?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defined group items.
      */
-    groupItems?: P13nGroupItem[] | P13nGroupItem | AggregationBindingInfo;
+    groupItems?: P13nGroupItem[] | P13nGroupItem | AggregationBindingInfo | undefined;
 
     /**
      * Event raised if a `GroupItem` has been added.
      */
-    addGroupItem?: Function;
+    addGroupItem?: Function | undefined;
 
     /**
      * Event raised if a `GroupItem` has been removed.
      */
-    removeGroupItem?: Function;
+    removeGroupItem?: Function | undefined;
 
     /**
      * Event raised if a `GroupItem` has been updated.
      */
-    updateGroupItem?: Function;
+    updateGroupItem?: Function | undefined;
   }
 }
 
@@ -56814,34 +56814,34 @@ declare module "sap/m/P13nItem" {
     /**
      * Can be used as input for subsequent actions.
      */
-    columnKey?: string | PropertyBindingInfo;
+    columnKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * The text to be displayed for the item.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines visibility of column
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * data type of the column (text, numeric or date is supported)
      */
-    type?: string | PropertyBindingInfo;
+    type?: string | PropertyBindingInfo | undefined;
 
     /**
      * data type instance of the column. Can be used instead of the type, precision, scale and formatSettings
      * properties
      */
-    typeInstance?: object | PropertyBindingInfo;
+    typeInstance?: object | PropertyBindingInfo | undefined;
 
     /**
      * if type==numeric the precision will be used to format the entered value (maxIntegerDigits of the used
      * Formatter)
      */
-    precision?: string | PropertyBindingInfo;
+    precision?: string | PropertyBindingInfo | undefined;
 
     /**
      * A JSON object containing the formatSettings which will be used to pass additional type/format settings
@@ -56859,27 +56859,27 @@ declare module "sap/m/P13nItem" {
      * }
      * ```
      */
-    formatSettings?: object | PropertyBindingInfo;
+    formatSettings?: object | PropertyBindingInfo | undefined;
 
     /**
      * if type==numeric the scale will be used to format the entered value (maxFractionDigits of the used Formatter)
      */
-    scale?: string | PropertyBindingInfo;
+    scale?: string | PropertyBindingInfo | undefined;
 
     /**
      * specifies the number of characters which can be entered in the value fields of the condition panel
      */
-    maxLength?: string | PropertyBindingInfo;
+    maxLength?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines column width
      */
-    width?: string | PropertyBindingInfo;
+    width?: string | PropertyBindingInfo | undefined;
 
     /**
      * the column with isDefault==true will be used as the selected column item on the conditionPanel
      */
-    isDefault?: boolean | PropertyBindingInfo;
+    isDefault?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -56887,52 +56887,52 @@ declare module "sap/m/P13nItem" {
      * the array of values for type bool. e.g. ["", "Off", "On"]. The first entry can be empty (used to blank
      * the value field). Next value represent the false value, last entry the true value.
      */
-    values?: string[] | PropertyBindingInfo;
+    values?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * Defines role. The role is reflected in the manner how the dimension will influence the chart layout.
      */
-    role?: string | PropertyBindingInfo;
+    role?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * Defines aggregation role
      */
-    aggregationRole?: string | PropertyBindingInfo;
+    aggregationRole?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46.0
      *
      * Defines href of a link.
      */
-    href?: string | PropertyBindingInfo;
+    href?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines target of a link.
      */
-    target?: string | PropertyBindingInfo;
+    target?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46.0
      *
      * Defines press handler of a link.
      */
-    press?: object | PropertyBindingInfo;
+    press?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.56.0
      *
      * Defines additional information of the link.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines if the item is nullable
      */
-    nullable?: boolean | PropertyBindingInfo;
+    nullable?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -57344,52 +57344,52 @@ declare module "sap/m/P13nPanel" {
     /**
      * Title text appears in the panel.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
      *
      * Large title text appears e.g. in dialog header in case that only one panel is shown.
      */
-    titleLarge?: string | PropertyBindingInfo;
+    titleLarge?: string | PropertyBindingInfo | undefined;
 
     /**
      * Panel type for generic use. Due to extensibility reason the type of `type` property should be `string`.
      * So it is feasible to add a custom panel without expanding the type.
      */
-    type?: string | PropertyBindingInfo;
+    type?: string | PropertyBindingInfo | undefined;
 
     /**
      * Enables the vertical Scrolling on the `P13nDialog` when the panel is shown.
      */
-    verticalScrolling?: boolean | PropertyBindingInfo;
+    verticalScrolling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Callback method which is called in order to validate end user entry.
      */
-    validationExecutor?: object | PropertyBindingInfo;
+    validationExecutor?: object | PropertyBindingInfo | undefined;
 
     /**
      * Callback method which is called in order to register for validation result.
      */
-    validationListener?: object | PropertyBindingInfo;
+    validationListener?: object | PropertyBindingInfo | undefined;
 
     /**
      * Callback which notifies a change on this panel.
      */
-    changeNotifier?: object | PropertyBindingInfo;
+    changeNotifier?: object | PropertyBindingInfo | undefined;
 
     /**
      * Defines personalization items (e.g. columns in the `P13nColumnsPanel`).
      */
-    items?: P13nItem[] | P13nItem | AggregationBindingInfo;
+    items?: P13nItem[] | P13nItem | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
      *
      * Due to performance the data of the panel can be requested in lazy mode e.g. when the panel is displayed
      */
-    beforeNavigationTo?: Function;
+    beforeNavigationTo?: Function | undefined;
   }
 }
 
@@ -57506,12 +57506,12 @@ declare module "sap/m/P13nSortItem" {
     /**
      * sap.m.P13nConditionOperation
      */
-    operation?: string | PropertyBindingInfo;
+    operation?: string | PropertyBindingInfo | undefined;
 
     /**
      * key of the column
      */
-    columnKey?: string | PropertyBindingInfo;
+    columnKey?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -57944,33 +57944,33 @@ declare module "sap/m/P13nSortPanel" {
      * defines if the mediaQuery or a ContainerResize will be used for layout update. When the ConditionPanel
      * is used on a dialog the property should be set to true!
      */
-    containerQuery?: boolean | PropertyBindingInfo;
+    containerQuery?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * can be used to control the layout behavior. Default is "" which will automatically change the layout.
      * With "Desktop", "Table" or "Phone" you can set a fixed layout.
      */
-    layoutMode?: string | PropertyBindingInfo;
+    layoutMode?: string | PropertyBindingInfo | undefined;
 
     /**
      * defined Sort Items
      */
-    sortItems?: P13nSortItem[] | P13nSortItem | AggregationBindingInfo;
+    sortItems?: P13nSortItem[] | P13nSortItem | AggregationBindingInfo | undefined;
 
     /**
      * event raised when a SortItem was added
      */
-    addSortItem?: Function;
+    addSortItem?: Function | undefined;
 
     /**
      * event raised when a SortItem was removed
      */
-    removeSortItem?: Function;
+    removeSortItem?: Function | undefined;
 
     /**
      * event raised when a SortItem was updated
      */
-    updateSortItem?: Function;
+    updateSortItem?: Function | undefined;
   }
 }
 
@@ -58881,32 +58881,32 @@ declare module "sap/m/Page" {
     /**
      * The title text appearing in the page header bar.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the semantic level of the title. Using "Auto" no explicit level information is written. Used
      * for accessibility purposes only.
      */
-    titleLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo;
+    titleLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo | undefined;
 
     /**
      * A nav button will be rendered on the left area of header bar if this property is set to true.
      */
-    showNavButton?: boolean | PropertyBindingInfo;
+    showNavButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Whether this page shall have a header. If set to true, either the control under the "customHeader" aggregation
      * is used, or if there is no such control, a Header control is constructed from the properties "title",
      * "showNavButton", "navButtonText" and "icon" depending on the platform.
      */
-    showHeader?: boolean | PropertyBindingInfo;
+    showHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
      *
      * Whether this page shall show the subheader.
      */
-    showSubHeader?: boolean | PropertyBindingInfo;
+    showSubHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.20) - Deprecated since the MVI theme is removed now. This property only affected
@@ -58915,14 +58915,14 @@ declare module "sap/m/Page" {
      * The text of the nav button when running in iOS (if shown) in case it deviates from the default, which
      * is "Back". This property is mvi-theme-dependent and will not have any effect in other themes.
      */
-    navButtonText?: string | PropertyBindingInfo;
+    navButtonText?: string | PropertyBindingInfo | undefined;
 
     /**
      * The tooltip of the nav button
      *
      * Since version 1.34
      */
-    navButtonTooltip?: string | PropertyBindingInfo;
+    navButtonTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * Enable vertical scrolling of page contents. Page headers and footers are fixed and do not scroll. If
@@ -58933,7 +58933,7 @@ declare module "sap/m/Page" {
      * content of the Page. This allows you to freely configure scrolling. It can also be used to create horizontally-scrolling
      * sub-areas of (vertically-scrolling) Pages.
      */
-    enableScrolling?: boolean | PropertyBindingInfo;
+    enableScrolling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.20) - Deprecated since the MVI theme is removed now. This property only affected
@@ -58942,7 +58942,7 @@ declare module "sap/m/Page" {
      * the icon that is rendered in the page header bar in non-iOS phone/tablet platforms. This property is
      * theme-dependent and only has an effect in the MVI theme.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * This property is used to set the background color of a page. When a list is placed inside a page, the
@@ -58951,7 +58951,7 @@ declare module "sap/m/Page" {
      */
     backgroundDesign?:
       | (PageBackgroundDesign | keyof typeof PageBackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.12
@@ -58964,14 +58964,14 @@ declare module "sap/m/Page" {
      */
     navButtonType?:
       | (ButtonType | keyof typeof ButtonType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.13.1
      *
      * Whether this page shall have a footer
      */
-    showFooter?: boolean | PropertyBindingInfo;
+    showFooter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.29.0
@@ -58982,13 +58982,13 @@ declare module "sap/m/Page" {
      * in the sub header and live search continuously updates the content area while the user is still able
      * to type.
      */
-    contentOnlyBusy?: boolean | PropertyBindingInfo;
+    contentOnlyBusy?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Decides whether the footer can float. When set to true, the footer is not fixed below the content area
      * anymore, but rather floats over it with a slight offset from the bottom.
      */
-    floatingFooter?: boolean | PropertyBindingInfo;
+    floatingFooter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
@@ -58999,57 +58999,57 @@ declare module "sap/m/Page" {
      */
     titleAlignment?:
       | (TitleAlignment | keyof typeof TitleAlignment)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The content of this page
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The (optional) custom header of this page. Use this aggregation only when a custom header is constructed
      * where the default header consisting of title text + nav button is not sufficient. If this aggregation
      * is set, the simple properties "title", "showNavButton", "NavButtonText" and "icon" are not used.
      */
-    customHeader?: IBar;
+    customHeader?: IBar | undefined;
 
     /**
      * The (optional) footer of this page. It is always located at the bottom of the page
      */
-    footer?: IBar;
+    footer?: IBar | undefined;
 
     /**
      * a subHeader will be rendered directly under the header
      */
-    subHeader?: IBar;
+    subHeader?: IBar | undefined;
 
     /**
      * Controls to be added to the right side of the page header. Usually an application would use Button controls
      * and limit the number to one when the application needs to run on smartphones. There is no automatic overflow
      * handling when the space is insufficient. When a customHeader is used, this aggregation will be ignored.
      */
-    headerContent?: Control[] | Control | AggregationBindingInfo;
+    headerContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Accessible landmark settings to be applied on the containers of the `sap.m.Page` control.
      *
      * If not set, no landmarks will be written.
      */
-    landmarkInfo?: PageAccessibleLandmarkInfo;
+    landmarkInfo?: PageAccessibleLandmarkInfo | undefined;
 
     /**
      * @deprecated (since 1.12.2) - the navButtonPress event is replacing this event
      *
      * this event is fired when Nav Button is tapped
      */
-    navButtonTap?: Function;
+    navButtonTap?: Function | undefined;
 
     /**
      * @SINCE 1.12.2
      *
      * this event is fired when Nav Button is pressed
      */
-    navButtonPress?: Function;
+    navButtonPress?: Function | undefined;
   }
 }
 
@@ -59407,7 +59407,7 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
      */
     rootRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts that describe the landmark of the root container of the corresponding `sap.m.Page` control.
@@ -59415,7 +59415,7 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), a predefined
      * text is used.
      */
-    rootLabel?: string | PropertyBindingInfo;
+    rootLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Landmark role of the content container of the corresponding `sap.m.Page` control.
@@ -59424,7 +59424,7 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
      */
     contentRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts that describe the landmark of the content container of the corresponding `sap.m.Page` control.
@@ -59432,7 +59432,7 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), a predefined
      * text is used.
      */
-    contentLabel?: string | PropertyBindingInfo;
+    contentLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Landmark role of the header container of the corresponding `sap.m.Page` control.
@@ -59441,7 +59441,7 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
      */
     headerRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts that describe the landmark of the header container of the corresponding `sap.m.Page` control.
@@ -59449,7 +59449,7 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), a predefined
      * text is used.
      */
-    headerLabel?: string | PropertyBindingInfo;
+    headerLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Landmark role of the subheader container of the corresponding `sap.m.Page` control.
@@ -59458,7 +59458,7 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
      */
     subHeaderRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts that describe the landmark of the subheader container of the corresponding `sap.m.Page` control.
@@ -59466,7 +59466,7 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), a predefined
      * text is used.
      */
-    subHeaderLabel?: string | PropertyBindingInfo;
+    subHeaderLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Landmark role of the footer container of the corresponding `sap.m.Page` control.
@@ -59475,7 +59475,7 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
      */
     footerRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts that describe the landmark of the footer container of the corresponding `sap.m.Page` control.
@@ -59483,7 +59483,7 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), a predefined
      * text is used.
      */
-    footerLabel?: string | PropertyBindingInfo;
+    footerLabel?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -59603,11 +59603,11 @@ declare module "sap/m/PagingButton" {
         /**
          * The number of the new position.
          */
-        newPosition?: int;
+        newPosition?: int | undefined;
         /**
          * The number of the old position.
          */
-        oldPosition?: int;
+        oldPosition?: int | undefined;
       }
     ): this;
     /**
@@ -59744,32 +59744,32 @@ declare module "sap/m/PagingButton" {
      * Determines the total count of items/entities that the control navigates through. The minimum number of
      * items/entities is 1.
      */
-    count?: int | PropertyBindingInfo;
+    count?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines the current position in the items/entities that the control navigates through. Starting (minimum)
      * number is 1.
      */
-    position?: int | PropertyBindingInfo;
+    position?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36
      *
      * Determines the tooltip of the next button.
      */
-    nextButtonTooltip?: string | PropertyBindingInfo;
+    nextButtonTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36
      *
      * Determines the tooltip of the previous button.
      */
-    previousButtonTooltip?: string | PropertyBindingInfo;
+    previousButtonTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * Fired when the current position is changed.
      */
-    positionChange?: Function;
+    positionChange?: Function | undefined;
   }
 }
 
@@ -59962,11 +59962,11 @@ declare module "sap/m/Panel" {
         /**
          * If the panel will expand, this is true. If the panel will collapse, this is false.
          */
-        expand?: boolean;
+        expand?: boolean | undefined;
         /**
          * Identifies whether the event is triggered by an user interaction or by calling setExpanded.
          */
-        triggeredByInteraction?: boolean;
+        triggeredByInteraction?: boolean | undefined;
       }
     ): this;
     /**
@@ -60298,17 +60298,17 @@ declare module "sap/m/Panel" {
      * This property is used to set the header text of the Panel. The "headerText" is visible in both expanded
      * and collapsed state. Note: This property is overwritten by the "headerToolbar" aggregation.
      */
-    headerText?: string | PropertyBindingInfo;
+    headerText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the Panel width.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines the Panel height.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22
@@ -60317,7 +60317,7 @@ declare module "sap/m/Panel" {
      * (if available) and content of the Panel. Note: If expandable is set to false, the Panel will always be
      * rendered expanded.
      */
-    expandable?: boolean | PropertyBindingInfo;
+    expandable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22
@@ -60326,7 +60326,7 @@ declare module "sap/m/Panel" {
      * (if available) and the content are rendered. If expanded is set to false, then only the headerText or
      * headerToolbar is rendered.
      */
-    expanded?: boolean | PropertyBindingInfo;
+    expanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26
@@ -60334,7 +60334,7 @@ declare module "sap/m/Panel" {
      * Indicates whether the transition between the expanded and the collapsed state of the control is animated.
      * By default the animation is enabled.
      */
-    expandAnimation?: boolean | PropertyBindingInfo;
+    expandAnimation?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30
@@ -60344,7 +60344,7 @@ declare module "sap/m/Panel" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46
@@ -60354,12 +60354,12 @@ declare module "sap/m/Panel" {
      */
     accessibleRole?:
       | (PanelAccessibleRole | keyof typeof PanelAccessibleRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the content of the Panel. The content will be visible only when the Panel is expanded.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
@@ -60368,7 +60368,7 @@ declare module "sap/m/Panel" {
      * in both expanded and collapsed state. Use it when you want to add extra controls for user interactions
      * in the header. Note: This aggregation overwrites "headerText" property.
      */
-    headerToolbar?: Toolbar;
+    headerToolbar?: Toolbar | undefined;
 
     /**
      * @SINCE 1.16
@@ -60377,14 +60377,14 @@ declare module "sap/m/Panel" {
      * is placed below the header and is visible only in expanded state. Use it when you want to show extra
      * information to the user.
      */
-    infoToolbar?: Toolbar;
+    infoToolbar?: Toolbar | undefined;
 
     /**
      * @SINCE 1.22
      *
      * Indicates that the panel will expand or collapse.
      */
-    expand?: Function;
+    expand?: Function | undefined;
   }
 }
 
@@ -61011,13 +61011,13 @@ declare module "sap/m/PDFViewer" {
      * Defines the height of the PDF viewer control, respective to the height of the parent container. Can be
      * set to a percent, pixel, or em value.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the width of the PDF viewer control, respective to the width of the parent container. Can be
      * set to a percent, pixel, or em value.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the path to the PDF file to display. Can be set to a relative or an absolute path.
@@ -61026,19 +61026,19 @@ declare module "sap/m/PDFViewer" {
      * For more information about URL filtering, see {@link topic:91f3768f6f4d1014b6dd926db0e91070 URLList Validator
      * Filtering}.
      */
-    source?: URI | PropertyBindingInfo;
+    source?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.50.0) - replaced by {@link sap.m.PDFViewer#getErrorPlaceholderMessage}.
      *
      * A custom error message that is displayed when the PDF file cannot be loaded.
      */
-    errorMessage?: string | PropertyBindingInfo;
+    errorMessage?: string | PropertyBindingInfo | undefined;
 
     /**
      * A custom text that is displayed instead of the PDF file content when the PDF file cannot be loaded.
      */
-    errorPlaceholderMessage?: string | PropertyBindingInfo;
+    errorPlaceholderMessage?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.50.0) - replaced by {@link sap.m.PDFViewer#getTitle}.
@@ -61046,17 +61046,17 @@ declare module "sap/m/PDFViewer" {
      * A custom title for the PDF viewer popup dialog. Works only if the PDF viewer is set to open in a popup
      * dialog.
      */
-    popupHeaderTitle?: string | PropertyBindingInfo;
+    popupHeaderTitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * A custom title for the PDF viewer.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Shows or hides the download button.
      */
-    showDownloadButton?: boolean | PropertyBindingInfo;
+    showDownloadButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines how the PDF viewer should be displayed.
@@ -61072,30 +61072,30 @@ declare module "sap/m/PDFViewer" {
      */
     displayType?:
       | (PDFViewerDisplayType | keyof typeof PDFViewerDisplayType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * A custom control that can be used instead of the error message specified by the errorPlaceholderMessage
      * property.
      */
-    errorPlaceholder?: Control;
+    errorPlaceholder?: Control | undefined;
 
     /**
      * A multiple aggregation for buttons that can be added to the footer of the popup dialog. Works only if
      * the PDF viewer is set to open in a popup dialog.
      */
-    popupButtons?: Button[] | Button | AggregationBindingInfo;
+    popupButtons?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * This event is fired when a PDF file is loaded. If the PDF is loaded in smaller chunks, this event is
      * fired as often as defined by the browser's plugin. This may happen after a couple chunks are processed.
      */
-    loaded?: Function;
+    loaded?: Function | undefined;
 
     /**
      * This event is fired when there is an error loading the PDF file.
      */
-    error?: Function;
+    error?: Function | undefined;
 
     /**
      * This event is fired when the PDF viewer control cannot check the loaded content. For example, the default
@@ -61103,7 +61103,7 @@ declare module "sap/m/PDFViewer" {
      * happen when the source PDF file is stored in a different domain. If you want no error message to be displayed
      * when this event is fired, call the preventDefault() method inside the event handler.
      */
-    sourceValidationFailed?: Function;
+    sourceValidationFailed?: Function | undefined;
   }
 }
 
@@ -61560,20 +61560,20 @@ declare module "sap/m/PlanningCalendar" {
         /**
          * The selected appointment.
          */
-        appointment?: CalendarAppointment;
+        appointment?: CalendarAppointment | undefined;
         /**
          * The selected appointments in case a group appointment is selected.
          */
-        appointments?: CalendarAppointment[];
+        appointments?: CalendarAppointment[] | undefined;
         /**
          * If set, the appointment was selected using multiple selection (e.g. Shift + single mouse click), meaning
          * more than the current appointment could be selected.
          */
-        multiSelect?: boolean;
+        multiSelect?: boolean | undefined;
         /**
          * Gives the ID of the DOM element of the clicked appointment
          */
-        domRefId?: string;
+        domRefId?: string | undefined;
       }
     ): this;
     /**
@@ -61587,19 +61587,19 @@ declare module "sap/m/PlanningCalendar" {
         /**
          * Start date of the selected interval, as a JavaScript date object.
          */
-        startDate?: object;
+        startDate?: object | undefined;
         /**
          * Interval end date as a JavaScript date object.
          */
-        endDate?: object;
+        endDate?: object | undefined;
         /**
          * If set, the selected interval is a subinterval.
          */
-        subInterval?: boolean;
+        subInterval?: boolean | undefined;
         /**
          * Row of the selected interval.
          */
-        row?: PlanningCalendarRow;
+        row?: PlanningCalendarRow | undefined;
       }
     ): this;
     /**
@@ -61618,11 +61618,11 @@ declare module "sap/m/PlanningCalendar" {
          * **Note:** Intended to be used as an easy way to get an ID of a `PlanningCalendarRowHeader`. Do NOT use
          * for modification.
          */
-        headerId?: string;
+        headerId?: string | undefined;
         /**
          * The row user clicked on.
          */
-        row?: PlanningCalendarRow;
+        row?: PlanningCalendarRow | undefined;
       }
     ): this;
     /**
@@ -61636,7 +61636,7 @@ declare module "sap/m/PlanningCalendar" {
         /**
          * Array of rows whose selection has changed.
          */
-        rows?: PlanningCalendarRow[];
+        rows?: PlanningCalendarRow[] | undefined;
       }
     ): this;
     /**
@@ -62650,7 +62650,7 @@ declare module "sap/m/PlanningCalendar" {
     /**
      * Determines the start date of the row, as a JavaScript date object. The current date is used as default.
      */
-    startDate?: object | PropertyBindingInfo;
+    startDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * Defines the key of the `PlanningCalendarView` used for the output.
@@ -62658,23 +62658,23 @@ declare module "sap/m/PlanningCalendar" {
      * **Note:** The default value is set `Hour`. If you are using your own views, the keys of these views should
      * be used instead.
      */
-    viewKey?: string | PropertyBindingInfo;
+    viewKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether only a single row can be selected.
      */
-    singleSelection?: boolean | PropertyBindingInfo;
+    singleSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the width of the `PlanningCalendar`.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the height of the `PlanningCalendar`. **Note:** If the set height is less than the displayed
      * content, it will not be applied
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the assigned interval headers are displayed. You can assign them using the `intervalHeaders`
@@ -62684,7 +62684,7 @@ declare module "sap/m/PlanningCalendar" {
      * the space (at the top of the intervals) where the assigned interval headers appear, will remain visible
      * even if no interval headers are assigned.
      */
-    showIntervalHeaders?: boolean | PropertyBindingInfo;
+    showIntervalHeaders?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -62695,19 +62695,19 @@ declare module "sap/m/PlanningCalendar" {
      *
      * **Note:** This property takes effect, only if `showIntervalHeaders` is also set to `true`.
      */
-    showEmptyIntervalHeaders?: boolean | PropertyBindingInfo;
+    showEmptyIntervalHeaders?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the column containing the headers of the {@link sap.m.PlanningCalendarRow PlanningCalendarRows}
      * is displayed.
      */
-    showRowHeaders?: boolean | PropertyBindingInfo;
+    showRowHeaders?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the text that is displayed when no {@link sap.m.PlanningCalendarRow PlanningCalendarRows} are
      * assigned.
      */
-    noDataText?: string | PropertyBindingInfo;
+    noDataText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.48.0
@@ -62720,7 +62720,7 @@ declare module "sap/m/PlanningCalendar" {
      */
     groupAppointmentsMode?:
       | (GroupAppointmentsMode | keyof typeof GroupAppointmentsMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -62730,7 +62730,7 @@ declare module "sap/m/PlanningCalendar" {
      * **Note:** On phone devices this property is ignored, appointments are always rendered in full height
      * to facilitate touching.
      */
-    appointmentsReducedHeight?: boolean | PropertyBindingInfo;
+    appointmentsReducedHeight?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.81.0
@@ -62739,7 +62739,7 @@ declare module "sap/m/PlanningCalendar" {
      */
     appointmentHeight?:
       | (CalendarAppointmentHeight | keyof typeof CalendarAppointmentHeight)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.81.0
@@ -62753,7 +62753,7 @@ declare module "sap/m/PlanningCalendar" {
           | CalendarAppointmentRoundWidth
           | keyof typeof CalendarAppointmentRoundWidth
         )
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40.0
@@ -62765,7 +62765,7 @@ declare module "sap/m/PlanningCalendar" {
           | CalendarAppointmentVisualization
           | keyof typeof CalendarAppointmentVisualization
         )
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -62776,7 +62776,7 @@ declare module "sap/m/PlanningCalendar" {
      * **Note:** If the `minDate` is set to be after the current `maxDate`, the `maxDate` is set to the last
      * date of the month in which the `minDate` belongs.
      */
-    minDate?: object | PropertyBindingInfo;
+    minDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -62787,21 +62787,21 @@ declare module "sap/m/PlanningCalendar" {
      * **Note:** If the `maxDate` is set to be before the current `minDate`, the `minDate` is set to the first
      * date of the month in which the `maxDate` belongs.
      */
-    maxDate?: object | PropertyBindingInfo;
+    maxDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.50
      *
      * Determines whether the day names are displayed in a separate line or inside the single days.
      */
-    showDayNamesLine?: boolean | PropertyBindingInfo;
+    showDayNamesLine?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
      *
      * Determines if the week numbers are displayed.
      */
-    showWeekNumbers?: boolean | PropertyBindingInfo;
+    showWeekNumbers?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.50
@@ -62814,7 +62814,7 @@ declare module "sap/m/PlanningCalendar" {
      * not set and no custom views are available, all default views will be displayed. If not set and there
      * are any custom views available, only the custom views will be displayed.
      */
-    builtInViews?: string[] | PropertyBindingInfo;
+    builtInViews?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -62840,12 +62840,12 @@ declare module "sap/m/PlanningCalendar" {
      * **Note:** The `stickyHeader` of the `PlanningCalendar` uses the `sticky` property of `sap.m.Table`. Therefore,
      * all features and restrictions of the property in `sap.m.Table` apply to the `PlanningCalendar` as well.
      */
-    stickyHeader?: boolean | PropertyBindingInfo;
+    stickyHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Rows of the `PlanningCalendar`.
      */
-    rows?: PlanningCalendarRow[] | PlanningCalendarRow | AggregationBindingInfo;
+    rows?: PlanningCalendarRow[] | PlanningCalendarRow | AggregationBindingInfo | undefined;
 
     /**
      * Views of the `PlanningCalendar`.
@@ -62855,26 +62855,26 @@ declare module "sap/m/PlanningCalendar" {
     views?:
       | PlanningCalendarView[]
       | PlanningCalendarView
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Special days in the header calendar visualized as date range with a type.
      *
      * **Note:** If one day is assigned to more than one type, only the first type will be used.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
 
     /**
      * The content of the toolbar.
      */
-    toolbarContent?: Control[] | Control | AggregationBindingInfo;
+    toolbarContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.40.0
      *
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.40.0
@@ -62883,22 +62883,22 @@ declare module "sap/m/PlanningCalendar" {
      *
      * **Note:** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string;
+    legend?: CalendarLegend | string | undefined;
 
     /**
      * Fired if an appointment is selected.
      */
-    appointmentSelect?: Function;
+    appointmentSelect?: Function | undefined;
 
     /**
      * Fired if an interval was selected in the calendar header or in the row.
      */
-    intervalSelect?: Function;
+    intervalSelect?: Function | undefined;
 
     /**
      * Fires when row selection is changed.
      */
-    rowSelectionChange?: Function;
+    rowSelectionChange?: Function | undefined;
 
     /**
      * Fired when the `startDate` property was changed while navigating in the `PlanningCalendar`. The new value
@@ -62906,19 +62906,19 @@ declare module "sap/m/PlanningCalendar" {
      * in case when the `viewKey` property is changed, and as a result of which the view requires a change in
      * the `startDate` property.
      */
-    startDateChange?: Function;
+    startDateChange?: Function | undefined;
 
     /**
      * Fired when the `viewKey` property was changed by user interaction.
      */
-    viewChange?: Function;
+    viewChange?: Function | undefined;
 
     /**
      * @SINCE 1.46.0
      *
      * Fires when a row header is clicked.
      */
-    rowHeaderClick?: Function;
+    rowHeaderClick?: Function | undefined;
   }
 }
 
@@ -63115,13 +63115,13 @@ declare module "sap/m/PlanningCalendarLegend" {
     /**
      * Defines the text displayed in the header of the items list. It is commonly related to the calendar days.
      */
-    itemsHeader?: string | PropertyBindingInfo;
+    itemsHeader?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the text displayed in the header of the appointment items list. It is commonly related to the
      * calendar appointments.
      */
-    appointmentItemsHeader?: string | PropertyBindingInfo;
+    appointmentItemsHeader?: string | PropertyBindingInfo | undefined;
 
     /**
      * The legend items which show color and type information about the calendar appointments.
@@ -63129,7 +63129,7 @@ declare module "sap/m/PlanningCalendarLegend" {
     appointmentItems?:
       | CalendarLegendItem[]
       | CalendarLegendItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
   }
 }
 
@@ -63471,15 +63471,15 @@ declare module "sap/m/PlanningCalendarRow" {
         /**
          * Start date of the created appointment, as a JavaScript date object.
          */
-        startDate?: object;
+        startDate?: object | undefined;
         /**
          * End date of the created appointment, as a JavaScript date object.
          */
-        endDate?: object;
+        endDate?: object | undefined;
         /**
          * The row of the appointment.
          */
-        calendarRow?: PlanningCalendarRow;
+        calendarRow?: PlanningCalendarRow | undefined;
       }
     ): this;
     /**
@@ -63498,19 +63498,19 @@ declare module "sap/m/PlanningCalendarRow" {
         /**
          * The dropped appointment.
          */
-        appointment?: CalendarAppointment;
+        appointment?: CalendarAppointment | undefined;
         /**
          * Start date of the dropped appointment, as a JavaScript date object.
          */
-        startDate?: object;
+        startDate?: object | undefined;
         /**
          * Dropped appointment end date as a JavaScript date object.
          */
-        endDate?: object;
+        endDate?: object | undefined;
         /**
          * The row of the appointment.
          */
-        calendarRow?: PlanningCalendarRow;
+        calendarRow?: PlanningCalendarRow | undefined;
       }
     ): boolean;
     /**
@@ -63526,23 +63526,23 @@ declare module "sap/m/PlanningCalendarRow" {
         /**
          * The dropped appointment.
          */
-        appointment?: CalendarAppointment;
+        appointment?: CalendarAppointment | undefined;
         /**
          * Start date of the dropped appointment, as a JavaScript date object.
          */
-        startDate?: object;
+        startDate?: object | undefined;
         /**
          * Dropped appointment end date as a JavaScript date object.
          */
-        endDate?: object;
+        endDate?: object | undefined;
         /**
          * The row of the appointment.
          */
-        calendarRow?: PlanningCalendarRow;
+        calendarRow?: PlanningCalendarRow | undefined;
         /**
          * The drop type. If true - it's "Copy", if false - it's "Move".
          */
-        copy?: boolean;
+        copy?: boolean | undefined;
       }
     ): this;
     /**
@@ -63558,15 +63558,15 @@ declare module "sap/m/PlanningCalendarRow" {
         /**
          * The resized appointment.
          */
-        appointment?: CalendarAppointment;
+        appointment?: CalendarAppointment | undefined;
         /**
          * Start date of the resized appointment, as a JavaScript date object.
          */
-        startDate?: object;
+        startDate?: object | undefined;
         /**
          * End date of the resized appointment, as a JavaScript date object.
          */
-        endDate?: object;
+        endDate?: object | undefined;
       }
     ): this;
     /**
@@ -64272,17 +64272,17 @@ declare module "sap/m/PlanningCalendarRow" {
     /**
      * Defines the title of the header (for example, the name of the person).
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the text of the header (for example, the department of the person).
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the URI of an image or an icon registered in `sap.ui.core.IconPool`.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the provided weekdays are displayed as non-working days. Valid values inside the array
@@ -64292,7 +64292,7 @@ declare module "sap/m/PlanningCalendarRow" {
      * **Note:** The non-working days are visualized if the `intervalType` property of the {@link sap.m.PlanningCalendarView}
      * is set to `Day`.
      */
-    nonWorkingDays?: int[] | PropertyBindingInfo;
+    nonWorkingDays?: int[] | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the provided hours are displayed as non-working hours. Valid values inside the array
@@ -64301,7 +64301,7 @@ declare module "sap/m/PlanningCalendarRow" {
      * **Note:** The non-working hours are visualized if `intervalType` property of the {@link sap.m.PlanningCalendarView}
      * is set to `Hour`.
      */
-    nonWorkingHours?: int[] | PropertyBindingInfo;
+    nonWorkingHours?: int[] | PropertyBindingInfo | undefined;
 
     /**
      * Defines the selected state of the `PlanningCalendarRow`.
@@ -64309,12 +64309,12 @@ declare module "sap/m/PlanningCalendarRow" {
      * **Note:** Binding the `selected` property in single selection modes may cause unwanted results if you
      * have more than one selected row in your binding.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the identifier of the row.
      */
-    key?: string | PropertyBindingInfo;
+    key?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -64353,7 +64353,7 @@ declare module "sap/m/PlanningCalendarRow" {
      * **Note:** In "One month" view, the appointments are not draggable on small screen (as there they are
      * displayed as a list below the dates). Group appointments are also not draggable.
      */
-    enableAppointmentsDragAndDrop?: boolean | PropertyBindingInfo;
+    enableAppointmentsDragAndDrop?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.56
@@ -64379,7 +64379,7 @@ declare module "sap/m/PlanningCalendarRow" {
      * **Notes:** In "One month" view, the appointments are not resizable on small screen (as there they are
      * displayed as a list below the dates). Group appointments are also not resizable
      */
-    enableAppointmentsResize?: boolean | PropertyBindingInfo;
+    enableAppointmentsResize?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.56
@@ -64392,13 +64392,13 @@ declare module "sap/m/PlanningCalendarRow" {
      * **Notes:** In "One month" view, the appointments cannot be created on small screen (as there they are
      * displayed as a list below the dates).
      */
-    enableAppointmentsCreate?: boolean | PropertyBindingInfo;
+    enableAppointmentsCreate?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the text that is displayed when no {@link sap.ui.unified.CalendarAppointment CalendarAppointments}
      * are assigned.
      */
-    noAppointmentsText?: string | PropertyBindingInfo;
+    noAppointmentsText?: string | PropertyBindingInfo | undefined;
 
     /**
      * The appointments to be displayed in the row. Appointments that outside the visible time frame are not
@@ -64409,7 +64409,7 @@ declare module "sap/m/PlanningCalendarRow" {
     appointments?:
       | CalendarAppointment[]
       | CalendarAppointment
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * The appointments to be displayed at the top of the intervals (for example, for public holidays). Appointments
@@ -64423,7 +64423,7 @@ declare module "sap/m/PlanningCalendarRow" {
     intervalHeaders?:
       | CalendarAppointment[]
       | CalendarAppointment
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.56
@@ -64434,7 +64434,7 @@ declare module "sap/m/PlanningCalendarRow" {
      * in the `PlanningCalendarRow`. If the aggregation is set as another type, the date or date range will
      * be ignored and will not be displayed in the control.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.67
@@ -64445,14 +64445,14 @@ declare module "sap/m/PlanningCalendarRow" {
      * **Note:** If the `headerContent` aggregation is added, then the set icon, description, title and tooltip
      * are ignored.
      */
-    headerContent?: Control[] | Control | AggregationBindingInfo;
+    headerContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
      *
      * Fired if an appointment is dropped.
      */
-    appointmentDrop?: Function;
+    appointmentDrop?: Function | undefined;
 
     /**
      * @SINCE 1.56
@@ -64466,21 +64466,21 @@ declare module "sap/m/PlanningCalendarRow" {
      * the event to prevent this default behavior. In this case, the placeholder will no longer be available
      * and it will not be possible to drop the appointment in the row.
      */
-    appointmentDragEnter?: Function;
+    appointmentDragEnter?: Function | undefined;
 
     /**
      * @SINCE 1.56
      *
      * Fired if an appointment is resized.
      */
-    appointmentResize?: Function;
+    appointmentResize?: Function | undefined;
 
     /**
      * @SINCE 1.56
      *
      * Fired if an appointment is created.
      */
-    appointmentCreate?: Function;
+    appointmentCreate?: Function | undefined;
   }
 }
 
@@ -64773,7 +64773,7 @@ declare module "sap/m/PlanningCalendarView" {
     /**
      * Defines the key of the view. This must be set to identify the used view in the {@link sap.m.PlanningCalendar}.
      */
-    key?: string | PropertyBindingInfo;
+    key?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the type of the intervals of the row.
@@ -64781,30 +64781,30 @@ declare module "sap/m/PlanningCalendarView" {
      * **Note:** Not all predefined interval types are supported for this property. For more information, see
      * the descriptions in the {@link sap.ui.unified.CalendarIntervalType CalendarIntervalType} enumeration.
      */
-    intervalType?: CalendarIntervalType | PropertyBindingInfo;
+    intervalType?: CalendarIntervalType | PropertyBindingInfo | undefined;
 
     /**
      * Defines the description of the `PlanningCalendarView`.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the number of intervals that are displayed for a {@link sap.m.PlanningCalendar} that is less
      * than 600 pixels wide. **Note:** On a phone the maximum visible intervals are 8.
      */
-    intervalsS?: int | PropertyBindingInfo;
+    intervalsS?: int | PropertyBindingInfo | undefined;
 
     /**
      * Defines the number of intervals that are displayed for a {@link sap.m.PlanningCalendar} that is between
      * 600 and 1024 pixels wide.
      */
-    intervalsM?: int | PropertyBindingInfo;
+    intervalsM?: int | PropertyBindingInfo | undefined;
 
     /**
      * Defines the number of intervals that are displayed for a {@link sap.m.PlanningCalendar} that is more
      * than 1024 pixels wide.
      */
-    intervalsL?: int | PropertyBindingInfo;
+    intervalsL?: int | PropertyBindingInfo | undefined;
 
     /**
      * If set, subintervals are displayed as lines in the rows.
@@ -64814,7 +64814,7 @@ declare module "sap/m/PlanningCalendarView" {
      * 	 - Hour subintervals for interval types `Day`, `Week` and `OneMonth`.
      * 	 - Day subintervals for interval type `Month`.
      */
-    showSubIntervals?: boolean | PropertyBindingInfo;
+    showSubIntervals?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.81.0
@@ -64823,7 +64823,7 @@ declare module "sap/m/PlanningCalendarView" {
      */
     appointmentHeight?:
       | (CalendarAppointmentHeight | keyof typeof CalendarAppointmentHeight)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
   }
 }
 
@@ -64945,11 +64945,11 @@ declare module "sap/m/plugins/ColumnResizer" {
         /**
          * The column being resized.
          */
-        column?: UI5Element;
+        column?: UI5Element | undefined;
         /**
          * The new width of the column.
          */
-        width?: CSSSize;
+        width?: CSSSize | undefined;
       }
     ): boolean;
     /**
@@ -64989,7 +64989,7 @@ declare module "sap/m/plugins/ColumnResizer" {
     /**
      * This event is fired when the column is resized.
      */
-    columnResize?: Function;
+    columnResize?: Function | undefined;
   }
 }
 
@@ -65206,7 +65206,7 @@ declare module "sap/m/plugins/DataStateIndicator" {
         /**
          * The filter object representing the entries with messages.
          */
-        filter?: Filter;
+        filter?: Filter | undefined;
       }
     ): boolean;
     /**
@@ -65237,12 +65237,12 @@ declare module "sap/m/plugins/DataStateIndicator" {
         /**
          * The data state object.
          */
-        dataState?: DataState;
+        dataState?: DataState | undefined;
         /**
          * The messages (@see sap.ui.core.message.Message) from the current `dataState` object filtered by the given
          * `filter` function.
          */
-        filteredMessages?: object[];
+        filteredMessages?: object[] | undefined;
       }
     ): boolean;
     /**
@@ -65403,7 +65403,7 @@ declare module "sap/m/plugins/DataStateIndicator" {
      * This callback gets called using the {@link sap.ui.core.message.Message message} and {@link sap.ui.core.Control
      * related control} parameters. Return `true` to keep the message, `false` otherwise.
      */
-    filter?: Function | PropertyBindingInfo;
+    filter?: Function | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.89
@@ -65414,12 +65414,12 @@ declare module "sap/m/plugins/DataStateIndicator" {
      *
      * **Note:** This feature must be enabled for OData models only.
      */
-    enableFiltering?: boolean | PropertyBindingInfo;
+    enableFiltering?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * This event is fired when the {@link sap.ui.model.DataState data state} of the plugin parent is changed.
      */
-    dataStateChange?: Function;
+    dataStateChange?: Function | undefined;
 
     /**
      * @SINCE 1.89
@@ -65427,7 +65427,7 @@ declare module "sap/m/plugins/DataStateIndicator" {
      * This event is fired when the user filters data state messages and if the `enableFiltering` property is
      * set to `true`.
      */
-    applyFilter?: Function;
+    applyFilter?: Function | undefined;
 
     /**
      * @SINCE 1.89
@@ -65435,7 +65435,7 @@ declare module "sap/m/plugins/DataStateIndicator" {
      * This event is fired when the user clears the data state message filter and if the `enableFiltering` property
      * is set to `true`.
      */
-    clearFilter?: Function;
+    clearFilter?: Function | undefined;
   }
 }
 
@@ -65564,11 +65564,11 @@ declare module "sap/m/plugins/PasteProvider" {
          * Two-dimentional array of strings with data from the clipboard. The first dimension represents the rows,
          * and the second dimension represents the cells of the tabular data.
          */
-        data?: Array<string[]>;
+        data?: Array<string[]> | undefined;
         /**
          * The text data, with all special characters, from the clipboard.
          */
-        text?: string;
+        text?: string | undefined;
       }
     ): boolean;
     /**
@@ -65617,7 +65617,7 @@ declare module "sap/m/plugins/PasteProvider" {
     /**
      * Defines the control which the paste is associated with.
      */
-    pasteFor?: Control | string;
+    pasteFor?: Control | string | undefined;
 
     /**
      * This event gets fired when the user pastes content from the clipboard or when the Paste button is pressed
@@ -65626,7 +65626,7 @@ declare module "sap/m/plugins/PasteProvider" {
      * event that represents the paste data gets dispatched for the control defined in the `pasteFor` association.
      * To avoid this, call `preventDefault` on the event instance.
      */
-    paste?: Function;
+    paste?: Function | undefined;
   }
 }
 
@@ -65972,7 +65972,7 @@ declare module "sap/m/Popover" {
         /**
          * This refers to the control which opens the popover.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -65986,7 +65986,7 @@ declare module "sap/m/Popover" {
         /**
          * This refers to the control which opens the popover.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -66000,7 +66000,7 @@ declare module "sap/m/Popover" {
         /**
          * This refers to the control which opens the popover.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -66014,7 +66014,7 @@ declare module "sap/m/Popover" {
         /**
          * This refers to the control which opens the popover.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -66841,42 +66841,42 @@ declare module "sap/m/Popover" {
      */
     placement?:
       | (PlacementType | keyof typeof PlacementType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * If a header should be shown at the top of the popover.
      */
-    showHeader?: boolean | PropertyBindingInfo;
+    showHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Title text appears in the header. This property will be ignored when `showHeader` is set to `false`.
      * If you want to show a header in the `sap.m.Popover`, don't forget to set the {@link #setShowHeader showHeader}
      * property to `true`.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * If the popover will not be closed when tapping outside the popover. It also blocks any interaction with
      * the background. The default value is false.
      */
-    modal?: boolean | PropertyBindingInfo;
+    modal?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The offset for the popover placement in the x axis. It's with unit pixel.
      */
-    offsetX?: int | PropertyBindingInfo;
+    offsetX?: int | PropertyBindingInfo | undefined;
 
     /**
      * The offset for the popover placement in the y axis. It's with unit pixel.
      */
-    offsetY?: int | PropertyBindingInfo;
+    offsetY?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.31
      *
      * Whether Popover arrow should be visible
      */
-    showArrow?: boolean | PropertyBindingInfo;
+    showArrow?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.0
@@ -66888,14 +66888,14 @@ declare module "sap/m/Popover" {
      * size by themselves, for exmaple sap.m.List, sap.m.Image etc., only needed for controls that adapt their
      * size to the parent control.
      */
-    contentWidth?: CSSSize | PropertyBindingInfo;
+    contentWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36
      *
      * Sets the minimum width of the content area inside popover.
      */
-    contentMinWidth?: CSSSize | PropertyBindingInfo;
+    contentMinWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.0
@@ -66907,7 +66907,7 @@ declare module "sap/m/Popover" {
      * size by themselves, for exmaple sap.m.List, sap.m.Image etc., only needed for controls that adapt their
      * size to the parent control.
      */
-    contentHeight?: CSSSize | PropertyBindingInfo;
+    contentHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.15.0) - This property is deprecated. Please use properties verticalScrolling and
@@ -66917,7 +66917,7 @@ declare module "sap/m/Popover" {
      * This property is deprecated. Please use properties verticalScrolling and horizontalScrolling instead.
      * If you still use this property it will be mapped on the new properties verticalScrolling and horizontalScrolling.
      */
-    enableScrolling?: boolean | PropertyBindingInfo;
+    enableScrolling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.0
@@ -66929,7 +66929,7 @@ declare module "sap/m/Popover" {
      * as direct child added to Popover. If there is, Popover will turn off scrolling by setting this property
      * to false automatically ignoring the existing value of this property.
      */
-    verticalScrolling?: boolean | PropertyBindingInfo;
+    verticalScrolling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.0
@@ -66941,7 +66941,7 @@ declare module "sap/m/Popover" {
      * as direct child added to Popover. If there is, Popover will turn off scrolling by setting this property
      * to false automatically ignoring the existing value of this property.
      */
-    horizontalScrolling?: boolean | PropertyBindingInfo;
+    horizontalScrolling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.5
@@ -66949,7 +66949,7 @@ declare module "sap/m/Popover" {
      *
      * Whether bouncing is enabled.
      */
-    bounce?: boolean | PropertyBindingInfo;
+    bounce?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36.4
@@ -66957,7 +66957,7 @@ declare module "sap/m/Popover" {
      *
      * Whether resize option is enabled. *Note:* This property is effective only on Desktop
      */
-    resizable?: boolean | PropertyBindingInfo;
+    resizable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
@@ -66968,18 +66968,18 @@ declare module "sap/m/Popover" {
      */
     titleAlignment?:
       | (TitleAlignment | keyof typeof TitleAlignment)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The content inside the popover.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Any control that needed to be displayed in the header area. When this is set, the showHeader property
      * is ignored, and only this customHeader is shown on the top of popover.
      */
-    customHeader?: Control;
+    customHeader?: Control | undefined;
 
     /**
      * @SINCE 1.15.1
@@ -66988,12 +66988,12 @@ declare module "sap/m/Popover" {
      * the beginning of Popover when there's no main header. SubHeader is out of the content area and won't
      * be scrolled when content's size is bigger than the content area's size.
      */
-    subHeader?: Control;
+    subHeader?: Control | undefined;
 
     /**
      * This is optional footer which is shown on the bottom of the popover.
      */
-    footer?: Control;
+    footer?: Control | undefined;
 
     /**
      * @SINCE 1.15.1
@@ -67001,7 +67001,7 @@ declare module "sap/m/Popover" {
      * BeginButton is shown at the left side (right side in RTL mode) inside the header. When showHeader is
      * set to false, the property is ignored.
      */
-    beginButton?: Control;
+    beginButton?: Control | undefined;
 
     /**
      * @SINCE 1.15.1
@@ -67009,7 +67009,7 @@ declare module "sap/m/Popover" {
      * EndButton is always shown at the right side (left side in RTL mode) inside the header. When showHeader
      * is set to false, the property is ignored.
      */
-    endButton?: Control;
+    endButton?: Control | undefined;
 
     /**
      * @deprecated (since 1.15.1) - This property has been deprecated since 1.15.1. Please use the beginButton
@@ -67019,7 +67019,7 @@ declare module "sap/m/Popover" {
      * platforms. Please set this to null if you want to remove the left button from the bar. And the button
      * is only removed from the bar, not destroyed. When showHeader is set to false, this property will be ignored.
      */
-    leftButton?: Button | string;
+    leftButton?: Button | string | undefined;
 
     /**
      * @deprecated (since 1.15.1) - This property has been deprecated since 1.15.1. Please use the endButton
@@ -67029,7 +67029,7 @@ declare module "sap/m/Popover" {
      * the right button from the bar. And the button is only removed from the bar, not destroyed. When showHeader
      * is set to false, this property will be ignored.
      */
-    rightButton?: Button | string;
+    rightButton?: Button | string | undefined;
 
     /**
      * @SINCE 1.15.0
@@ -67038,37 +67038,37 @@ declare module "sap/m/Popover" {
      * a control other than these two buttons needs to get the focus, set the `initialFocus` with the control
      * which should be focused on.
      */
-    initialFocus?: Control | string;
+    initialFocus?: Control | string | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * This event will be fired after the popover is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: Function | undefined;
 
     /**
      * This event will be fired after the popover is closed.
      */
-    afterClose?: Function;
+    afterClose?: Function | undefined;
 
     /**
      * This event will be fired before the popover is opened.
      */
-    beforeOpen?: Function;
+    beforeOpen?: Function | undefined;
 
     /**
      * This event will be fired before the popover is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: Function | undefined;
   }
 }
 
@@ -67491,18 +67491,18 @@ declare module "sap/m/ProgressIndicator" {
     /**
      * Switches enabled state of the control. Disabled fields have different colors, and cannot be focused.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the state of the bar. Enumeration sap.ui.core.ValueState provides Error, Warning, Success,
      * Information, None (default value). The color for each state depends on the theme.
      */
-    state?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    state?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the text value to be displayed in the bar.
      */
-    displayValue?: string | PropertyBindingInfo;
+    displayValue?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the numerical value in percent for the length of the progress bar.
@@ -67510,17 +67510,17 @@ declare module "sap/m/ProgressIndicator" {
      * **Note:** If a value greater than 100 is provided, the `percentValue` is set to 100. In other cases of
      * invalid value, `percentValue` is set to its default of 0.
      */
-    percentValue?: float | PropertyBindingInfo;
+    percentValue?: float | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether the displayValue should be shown in the ProgressIndicator.
      */
-    showValue?: boolean | PropertyBindingInfo;
+    showValue?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.0
@@ -67528,7 +67528,7 @@ declare module "sap/m/ProgressIndicator" {
      * Specifies the height of the control. The default value depends on the theme. Suggested size for normal
      * use is 2.5rem (40px). Suggested size for small size (like for use in ObjectHeader) is 1.375rem (22px).
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -67538,7 +67538,7 @@ declare module "sap/m/ProgressIndicator" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.50
@@ -67546,28 +67546,28 @@ declare module "sap/m/ProgressIndicator" {
      * Determines whether the control is in display-only state where the control has different visualization
      * and cannot be focused.
      */
-    displayOnly?: boolean | PropertyBindingInfo;
+    displayOnly?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.73
      *
      * Determines whether a percentage change is displayed with animation.
      */
-    displayAnimation?: boolean | PropertyBindingInfo;
+    displayAnimation?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.69
      *
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.69
      *
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledBy).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
   }
 }
 
@@ -67822,19 +67822,19 @@ declare module "sap/m/PullToRefresh" {
      * Optional description. May be used to inform a user, for example, when the list has been updated last
      * time.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * Set to true to display an icon/logo. Icon must be set either in the customIcon property or in the CSS
      * theme for the PullToRefresh control.
      */
-    showIcon?: boolean | PropertyBindingInfo;
+    showIcon?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Provide a URI to a custom icon image to replace the SAP logo. Large images are scaled down to max 50px
      * height.
      */
-    customIcon?: URI | PropertyBindingInfo;
+    customIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * By default, this is set to true but then one or more requests are sent trying to get the density perfect
@@ -67842,12 +67842,12 @@ declare module "sap/m/PullToRefresh" {
      *
      * If bandwidth is the key for the application, set this value to false.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Event indicates that the user has requested new data
      */
-    refresh?: Function;
+    refresh?: Function | undefined;
   }
 }
 
@@ -68109,12 +68109,12 @@ declare module "sap/m/QuickView" {
         /**
          * This parameter refers to the control, which opens the QuickView.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
         /**
          * This parameter contains the control, which triggers the close of the QuickView. It is undefined when
          * running on desktop or tablet.
          */
-        origin?: Button;
+        origin?: Button | undefined;
       }
     ): this;
     /**
@@ -68128,7 +68128,7 @@ declare module "sap/m/QuickView" {
         /**
          * This parameter refers to the control, which opens the QuickView.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -68142,12 +68142,12 @@ declare module "sap/m/QuickView" {
         /**
          * This parameter refers to the control, which opens the QuickView.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
         /**
          * This parameter contains the control, which triggers the close of the QuickView. It is undefined when
          * running on desktop or tablet.
          */
-        origin?: Button;
+        origin?: Button | undefined;
       }
     ): this;
     /**
@@ -68161,7 +68161,7 @@ declare module "sap/m/QuickView" {
         /**
          * This parameter refers to the control, which opens the QuickView.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -68293,32 +68293,32 @@ declare module "sap/m/QuickView" {
      */
     placement?:
       | (PlacementType | keyof typeof PlacementType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The width of the QuickView. The property takes effect only when running on desktop or tablet.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * This event fires after the QuickView is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: Function | undefined;
 
     /**
      * This event fires after the QuickView is closed.
      */
-    afterClose?: Function;
+    afterClose?: Function | undefined;
 
     /**
      * This event fires before the QuickView is opened.
      */
-    beforeOpen?: Function;
+    beforeOpen?: Function | undefined;
 
     /**
      * This event fires before the QuickView is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: Function | undefined;
   }
 }
 
@@ -68505,52 +68505,52 @@ declare module "sap/m/QuickViewBase" {
         /**
          * Determines the page, which has been displayed before navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * Determines the ID of the page, which has been displayed before navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * Determines the page, which is now displayed after navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * Determines the ID of the page, which is now displayed after navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Determines whether the "to" page (a control with the ID of the page, which has been navigated to) has
          * not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether this was a forward navigation.
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this was a back navigation.
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this was a navigation to the root page.
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page.
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
         /**
          * Determines whether this is a navigation to the top page.
          */
-        isTopPage?: boolean;
+        isTopPage?: boolean | undefined;
         /**
          * Determines which link initiated the navigation.
          */
-        navOrigin?: Control;
+        navOrigin?: Control | undefined;
       }
     ): this;
     /**
@@ -68567,48 +68567,48 @@ declare module "sap/m/QuickViewBase" {
         /**
          * The page which was displayed before the current navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page which was displayed before the current navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page which will be displayed after the current navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page which will be displayed after the current navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Determines whether the "to" page (a control with the ID of the page which is currently navigated to)
          * has not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether this is a forward navigation.
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this is a back navigation.
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this is a navigation to the root page.
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page.
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
         /**
          * Determines which link initiated the navigation.
          */
-        navOrigin?: Control;
+        navOrigin?: Control | undefined;
       }
     ): boolean;
     /**
@@ -68716,20 +68716,20 @@ declare module "sap/m/QuickViewBase" {
      * Displays a page header, object icon or image, object name with short description, and object information
      * divided in groups
      */
-    pages?: QuickViewPage[] | QuickViewPage | AggregationBindingInfo;
+    pages?: QuickViewPage[] | QuickViewPage | AggregationBindingInfo | undefined;
 
     /**
      * The event is fired when navigation between two pages has been triggered. The transition (if any) to the
      * new page has not started yet. This event can be aborted by the application with preventDefault(), which
      * means that there will be no navigation.
      */
-    navigate?: Function;
+    navigate?: Function | undefined;
 
     /**
      * The event is fired when navigation between two pages has completed. In case of animated transitions this
      * event is fired with some delay after the "navigate" event.
      */
-    afterNavigate?: Function;
+    afterNavigate?: Function | undefined;
   }
 }
 
@@ -68836,7 +68836,7 @@ declare module "sap/m/QuickViewCard" {
     /**
      * Determines whether the browser displays the vertical scroll bar or simply cuts the content of the QuickViewCard.
      */
-    showVerticalScrollBar?: boolean | PropertyBindingInfo;
+    showVerticalScrollBar?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -69041,12 +69041,12 @@ declare module "sap/m/QuickViewGroup" {
     /**
      * Determines whether the group is visible on the screen.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The title of the group
      */
-    heading?: string | PropertyBindingInfo;
+    heading?: string | PropertyBindingInfo | undefined;
 
     /**
      * A combination of one label and another control (Link or Text) associated to this label.
@@ -69054,7 +69054,7 @@ declare module "sap/m/QuickViewGroup" {
     elements?:
       | QuickViewGroupElement[]
       | QuickViewGroupElement
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
   }
 }
 
@@ -69330,29 +69330,29 @@ declare module "sap/m/QuickViewGroupElement" {
     /**
      * Determines whether the element should be visible on the screen.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the text displayed below the associated label.
      */
-    label?: string | PropertyBindingInfo;
+    label?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the text of the control that associates with the label.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the address of the QuickViewGroupElement link. Works only with QuickViewGroupElement of type
      * link.
      */
-    url?: string | PropertyBindingInfo;
+    url?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the target of the link - it works like the target property of the HTML  tag. Works only
      * with QuickViewGroupElement of type link.
      */
-    target?: string | PropertyBindingInfo;
+    target?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the type of the displayed information - phone number, mobile number, e-mail, link, text or
@@ -69360,18 +69360,18 @@ declare module "sap/m/QuickViewGroupElement" {
      */
     type?:
       | (QuickViewGroupElementType | keyof typeof QuickViewGroupElementType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the ID of the QuickViewPage, which is opened from the link in the QuickViewGroupElement. Works
      * only with QuickViewGroupElement of type pageLink.
      */
-    pageLinkId?: string | PropertyBindingInfo;
+    pageLinkId?: string | PropertyBindingInfo | undefined;
 
     /**
      * The subject of the email. Works only with QuickViewGroupElement of type email.
      */
-    emailSubject?: string | PropertyBindingInfo;
+    emailSubject?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -69720,38 +69720,38 @@ declare module "sap/m/QuickViewPage" {
     /**
      * Page id
      */
-    pageId?: string | PropertyBindingInfo;
+    pageId?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the text displayed in the header of the control.
      */
-    header?: string | PropertyBindingInfo;
+    header?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the text displayed in the header of the content section of the control.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the URL which opens when the title or the thumbnail is clicked.
      */
-    titleUrl?: string | PropertyBindingInfo;
+    titleUrl?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the application which provides target and param configuration for cross-application navigation
      * from the 'page header'.
      */
-    crossAppNavCallback?: object | PropertyBindingInfo;
+    crossAppNavCallback?: object | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the text displayed under the header of the content section
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the URL of the icon displayed under the header of the page
      */
-    icon?: string | PropertyBindingInfo;
+    icon?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.69
@@ -69760,12 +69760,12 @@ declare module "sap/m/QuickViewPage" {
      *
      * **Note** Accepted values are only icons from the SAP icon font.
      */
-    fallbackIcon?: URI | PropertyBindingInfo;
+    fallbackIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * QuickViewGroup consists of a title (optional) and an entity of group elements.
      */
-    groups?: QuickViewGroup[] | QuickViewGroup | AggregationBindingInfo;
+    groups?: QuickViewGroup[] | QuickViewGroup | AggregationBindingInfo | undefined;
   }
 }
 
@@ -69956,7 +69956,7 @@ declare module "sap/m/RadioButton" {
         /**
          * Checks whether the RadioButton is active or not.
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
       }
     ): this;
     /**
@@ -70319,12 +70319,12 @@ declare module "sap/m/RadioButton" {
     /**
      * Specifies if the radio button is disabled.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the select state of the radio button
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Name of the radio button group the current radio button belongs to. You can define a new name for the
@@ -70337,12 +70337,12 @@ declare module "sap/m/RadioButton" {
      * will handle the screen reader support. For example such wrappers are `sap.m.List`, `sap.m.Table` and
      * `sap.f.GridList`.
      */
-    groupName?: string | PropertyBindingInfo;
+    groupName?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the text displayed next to the RadioButton
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Options for the text direction are RTL and LTR. Alternatively, the control can inherit the text direction
@@ -70350,13 +70350,13 @@ declare module "sap/m/RadioButton" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Width of the RadioButton or it's label depending on the useEntireWidth property. By Default width is
      * set only for the label.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.42
@@ -70364,27 +70364,27 @@ declare module "sap/m/RadioButton" {
      * Indicates if the given width will be applied for the whole RadioButton or only it's label. By Default
      * width is set only for the label.
      */
-    useEntireWidth?: boolean | PropertyBindingInfo;
+    useEntireWidth?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * This is a flag to switch on activeHandling. When it is switched off, there will not be visual changes
      * on active state. Default value is 'true'
      */
-    activeHandling?: boolean | PropertyBindingInfo;
+    activeHandling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.25
      *
      * Specifies whether the user can select the radio button.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.25
      *
      * Marker for the correctness of the current value e.g., Error, Success, etc.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
@@ -70392,22 +70392,22 @@ declare module "sap/m/RadioButton" {
      * Specifies the alignment of the radio button. Available alignment settings are "Begin", "Center", "End",
      * "Left", and "Right".
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is triggered when the user makes a change on the radio button (selecting or unselecting it).
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -70604,7 +70604,7 @@ declare module "sap/m/RadioButtonGroup" {
         /**
          * Index of the selected RadioButton.
          */
-        selectedIndex?: int;
+        selectedIndex?: int | undefined;
       }
     ): this;
     /**
@@ -70895,19 +70895,19 @@ declare module "sap/m/RadioButtonGroup" {
     /**
      * Specifies the width of the RadioButtonGroup.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the maximum number of radio buttons displayed in one line.
      */
-    columns?: int | PropertyBindingInfo;
+    columns?: int | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the user can change the selected value of the RadioButtonGroup. When the property is
      * set to false, the control obtains visual styles different from its visual styles for the normal and the
      * disabled state. Additionally, the control is no longer interactive, but can receive focus.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Marker for the correctness of the current value e.g., Error, Success, etc. Changing this property will
@@ -70915,18 +70915,18 @@ declare module "sap/m/RadioButtonGroup" {
      * when the accessibility feature is enabled, sets the value of the invalid property for the whole RadioButtonGroup
      * to "true".
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the index of the selected/checked RadioButton. Default is 0. If no radio button is selected,
      * the selectedIndex property will return -1.
      */
-    selectedIndex?: int | PropertyBindingInfo;
+    selectedIndex?: int | PropertyBindingInfo | undefined;
 
     /**
      * Switches the enabled state of the control. All radio buttons inside a disabled group are disabled.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -70936,27 +70936,27 @@ declare module "sap/m/RadioButtonGroup" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Returns a list of the RadioButtons in a RadioButtonGroup
      */
-    buttons?: RadioButton[] | RadioButton | AggregationBindingInfo;
+    buttons?: RadioButton[] | RadioButton | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Fires when selection is changed by user interaction.
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -71120,7 +71120,7 @@ declare module "sap/m/RangeSlider" {
      * **Note:** If the value is not in the valid range (between `min` and `max`) it will be changed to be in
      * the valid range. If it is smaller than `value` it will be set to the same value.
      */
-    value2?: float | PropertyBindingInfo;
+    value2?: float | PropertyBindingInfo | undefined;
 
     /**
      * Determines the currently selected range on the slider.
@@ -71128,7 +71128,7 @@ declare module "sap/m/RangeSlider" {
      * If the value is lower/higher than the allowed minimum/maximum, a warning message will be output to the
      * console.
      */
-    range?: float[] | PropertyBindingInfo;
+    range?: float[] | PropertyBindingInfo | undefined;
   }
 }
 
@@ -71335,7 +71335,7 @@ declare module "sap/m/RatingIndicator" {
         /**
          * The rated value
          */
-        value?: int;
+        value?: int | undefined;
       }
     ): this;
     /**
@@ -71349,7 +71349,7 @@ declare module "sap/m/RatingIndicator" {
         /**
          * The current value of the rating after a live change event.
          */
-        value?: float;
+        value?: float | undefined;
       }
     ): this;
     /**
@@ -71684,17 +71684,17 @@ declare module "sap/m/RatingIndicator" {
      * Value "true" is required to let the user rate with this control. It is recommended to set this parameter
      * to "false" for the "Small" size which is meant for indicating a value only
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The number of displayed rating symbols
      */
-    maxValue?: int | PropertyBindingInfo;
+    maxValue?: int | PropertyBindingInfo | undefined;
 
     /**
      * The indicated value of the rating
      */
-    value?: float | PropertyBindingInfo;
+    value?: float | PropertyBindingInfo | undefined;
 
     /**
      * The Size of the image or icon to be displayed. The default value depends on the theme. Please be sure
@@ -71702,32 +71702,32 @@ declare module "sap/m/RatingIndicator" {
      * Recommended size is 1.375rem (22px) for normal, 1rem (16px) for small, and 2rem (32px) for large icons
      * correspondingly.
      */
-    iconSize?: CSSSize | PropertyBindingInfo;
+    iconSize?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The URI to the icon font icon or image that will be displayed for selected rating symbols. A star icon
      * will be used if the property is not set
      */
-    iconSelected?: URI | PropertyBindingInfo;
+    iconSelected?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The URI to the icon font icon or image that will be displayed for all unselected rating symbols. A star
      * icon will be used if the property is not set
      */
-    iconUnselected?: URI | PropertyBindingInfo;
+    iconUnselected?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The URI to the icon font icon or image that will be displayed for hovered rating symbols. A star icon
      * will be used if the property is not set
      */
-    iconHovered?: URI | PropertyBindingInfo;
+    iconHovered?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines how float values are visualized: Full, Half (see enumeration RatingIndicatorVisualMode)
      */
     visualMode?:
       | (RatingIndicatorVisualMode | keyof typeof RatingIndicatorVisualMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.50.0
@@ -71735,7 +71735,7 @@ declare module "sap/m/RatingIndicator" {
      * The RatingIndicator in displayOnly mode is not interactive, not editable, not focusable, and not in the
      * tab chain. This setting is used for forms in review mode.
      */
-    displayOnly?: boolean | PropertyBindingInfo;
+    displayOnly?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52.0
@@ -71743,27 +71743,27 @@ declare module "sap/m/RatingIndicator" {
      * Defines whether the user is allowed to edit the RatingIndicator. If editable is false the control is
      * focusable, and in the tab chain but not interactive.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * The event is fired when the user has done a rating.
      */
-    change?: Function;
+    change?: Function | undefined;
 
     /**
      * This event is triggered during the dragging period, each time the rating value changes.
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
   }
 }
 
@@ -72069,12 +72069,12 @@ declare module "sap/m/ResponsivePopover" {
          * This parameter contains the control which is passed as the parameter when calling openBy method. When
          * runs on the phone, this parameter is undefined.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
         /**
          * This parameter contains the control which triggers the close of the ResponsivePopover. This parameter
          * is undefined when runs on desktop or tablet.
          */
-        origin?: Button;
+        origin?: Button | undefined;
       }
     ): this;
     /**
@@ -72089,7 +72089,7 @@ declare module "sap/m/ResponsivePopover" {
          * This parameter contains the control which is passed as the parameter when calling openBy method. When
          * runs on the phone, this parameter is undefined.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -72104,12 +72104,12 @@ declare module "sap/m/ResponsivePopover" {
          * This parameter contains the control which is passed as the parameter when calling openBy method. When
          * runs on the phone, this parameter is undefined.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
         /**
          * This parameter contains the control which triggers the close of the ResponsivePopover. This parameter
          * is undefined when runs on desktop or tablet.
          */
-        origin?: Button;
+        origin?: Button | undefined;
       }
     ): this;
     /**
@@ -72124,7 +72124,7 @@ declare module "sap/m/ResponsivePopover" {
          * This parameter contains the control which is passed as the parameter when calling openBy method. When
          * runs on the phone, this parameter is undefined.
          */
-        openBy?: Control;
+        openBy?: Control | undefined;
       }
     ): this;
     /**
@@ -72722,75 +72722,75 @@ declare module "sap/m/ResponsivePopover" {
      */
     placement?:
       | (PlacementType | keyof typeof PlacementType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * This property is supported by both variants. Please see the documentation on sap.m.Popover#showHeader
      * and sap.m.Dialog#showHeader
      */
-    showHeader?: boolean | PropertyBindingInfo;
+    showHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * This property is supported by both variants. Please see the documentation on sap.m.Popover#title and
      * sap.m.Dialog#title
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * This property only takes effect on phone. Please see the documentation sap.m.Dialog#icon.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * This property only takes effect on desktop or tablet. Please see the documentation sap.m.Popover#modal.
      */
-    modal?: boolean | PropertyBindingInfo;
+    modal?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * This property only takes effect on desktop or tablet. Please see the documentation sap.m.Popover#offsetX.
      */
-    offsetX?: int | PropertyBindingInfo;
+    offsetX?: int | PropertyBindingInfo | undefined;
 
     /**
      * This property only takes effect on desktop or tablet. Please see the documentation sap.m.Popover#offsetY.
      */
-    offsetY?: int | PropertyBindingInfo;
+    offsetY?: int | PropertyBindingInfo | undefined;
 
     /**
      * This property only takes effect on desktop or tablet. Please see the documentation sap.m.Popover#showArrow.
      */
-    showArrow?: boolean | PropertyBindingInfo;
+    showArrow?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * This property is supported by both variants. Please see the documentation on sap.m.Popover#contentWidth
      * and sap.m.Dialog#contentWidth
      */
-    contentWidth?: CSSSize | PropertyBindingInfo;
+    contentWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * This property is supported by both variants. Please see the documentation on sap.m.Popover#contentHeight
      * and sap.m.Dialog#contentHeight
      */
-    contentHeight?: CSSSize | PropertyBindingInfo;
+    contentHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * This property is supported by both variants. Please see the documentation on sap.m.Popover#horizontalScrolling
      * and sap.m.Dialog#horizontalScrolling
      */
-    horizontalScrolling?: boolean | PropertyBindingInfo;
+    horizontalScrolling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * This property is supported by both variants. Please see the documentation on sap.m.Popover#verticalScrolling
      * and sap.m.Dialog#verticalScrolling
      */
-    verticalScrolling?: boolean | PropertyBindingInfo;
+    verticalScrolling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines if a close button should be inserted into the dialog's header dynamically to close the dialog.
      * This property only takes effect on phone. **Note:** The close button could be placed only in a sap.m.Bar
      * if a sap.m.Toolbar is passed as a header - the property will not take effect.
      */
-    showCloseButton?: boolean | PropertyBindingInfo;
+    showCloseButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36.4
@@ -72798,7 +72798,7 @@ declare module "sap/m/ResponsivePopover" {
      *
      * Whether resize option is enabled.
      */
-    resizable?: boolean | PropertyBindingInfo;
+    resizable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
@@ -72809,74 +72809,74 @@ declare module "sap/m/ResponsivePopover" {
      */
     titleAlignment?:
       | (TitleAlignment | keyof typeof TitleAlignment)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Content is supported by both variants. Please see the documentation on sap.m.Popover#content and sap.m.Dialog#content
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * CustomHeader is supported by both variants. Please see the documentation on sap.m.Popover#customHeader
      * and sap.m.Dialog#customHeader
      */
-    customHeader?: IBar;
+    customHeader?: IBar | undefined;
 
     /**
      * SubHeader is supported by both variants. Please see the documentation on sap.m.Popover#subHeader and
      * sap.m.Dialog#subHeader
      */
-    subHeader?: IBar;
+    subHeader?: IBar | undefined;
 
     /**
      * BeginButton is supported by both variants. It is always show in the left part (right part in RTL mode)
      * of the footer which is located at the bottom of the ResponsivePopover. If buttons need to be displayed
      * in header, please use customHeader instead.
      */
-    beginButton?: Button;
+    beginButton?: Button | undefined;
 
     /**
      * EndButton is supported by both variants. It is always show in the right part (left part in RTL mode)
      * of the footer which is located at the bottom of the ResponsivePopover. If buttons need to be displayed
      * in header, please use customHeader instead.
      */
-    endButton?: Button;
+    endButton?: Button | undefined;
 
     /**
      * InitialFocus is supported by both variants. Please see the documentation on sap.m.Popover#initialFocus
      * and sap.m.Dialog#initialFocus
      */
-    initialFocus?: Control | string;
+    initialFocus?: Control | string | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired before popover or dialog is open.
      */
-    beforeOpen?: Function;
+    beforeOpen?: Function | undefined;
 
     /**
      * Event is fired after popover or dialog is open.
      */
-    afterOpen?: Function;
+    afterOpen?: Function | undefined;
 
     /**
      * Event is fired before popover or dialog is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: Function | undefined;
 
     /**
      * Event is fired after popover or dialog is closed.
      */
-    afterClose?: Function;
+    afterClose?: Function | undefined;
   }
 }
 
@@ -73004,7 +73004,7 @@ declare module "sap/m/ResponsiveScale" {
     /**
      * Put a label on every N-th tickmark.
      */
-    tickmarksBetweenLabels?: int | PropertyBindingInfo;
+    tickmarksBetweenLabels?: int | PropertyBindingInfo | undefined;
   }
 }
 
@@ -73268,7 +73268,7 @@ declare module "sap/m/routing/Router" {
         /**
          * @since 1.34. Whether the views which are loaded within this router instance asyncly.
          */
-        async?: boolean;
+        async?: boolean | undefined;
       },
       /**
        * the Component of all the views that will be created by this Router,
@@ -73506,14 +73506,14 @@ declare module "sap/m/routing/Targets" {
          * function. If you specify the "parent" property of a target, the control will not be searched in the root
          * view but in the view Created by the parent (see parent documentation).
          */
-        rootView?: string;
+        rootView?: string | undefined;
         /**
          * @since 1.34 Whether the views which are created through this Targets are loaded asyncly. This option
          * can be set only when the Targets is used standalone without the involvement of a Router. Otherwise the
          * async option is inherited from the Router.
          */
-        async?: boolean;
-      };
+        async?: boolean | undefined;
+      } | undefined;
       /**
        * One or multiple targets in a map.
        */
@@ -73609,18 +73609,18 @@ declare module "sap/m/routing/Targets" {
            * The type of the view that is going to be created. These are the supported types: {@link sap.ui.core.mvc.ViewType}.
            * You always have to provide a viewType except if `oOptions.config.viewType` is set or using {@link sap.ui.core.routing.Views#setView}.
            */
-          viewType?: string;
+          viewType?: string | undefined;
           /**
            * A prefix that will be prepended in front of the viewName.
            *  **Example:** viewName is set to "myView" and viewPath is set to "myApp" - the created viewName will
            * be "myApp.myView".
            */
-          viewPath?: string;
+          viewPath?: string | undefined;
           /**
            * The id of the created view. This is will be prefixed with the id of the component set to the views instance
            * provided in oOptions.views. For details see {@link sap.ui.core.routing.Views#getView}.
            */
-          viewId?: string;
+          viewId?: string | undefined;
           /**
            * The id of the parent of the controlId - This should be the id of the view that contains your controlId,
            * since the target control will be retrieved by calling the {@link sap.ui.core.mvc.View#byId} function
@@ -73629,26 +73629,26 @@ declare module "sap/m/routing/Targets" {
            * You only need to specify this, if you are not using a Targets instance created by a component and you
            * should give the id of root view of your application to this property.
            */
-          targetParent?: string;
+          targetParent?: string | undefined;
           /**
            * The id of the control where you want to place the view created by this target. The view of the target
            * will be put into this container Control, using the controlAggregation property. You have to specify both
            * properties or the target will not be able to place itself. An example for containers are {@link sap.ui.ux3.Shell}
            * with the aggregation 'content' or a {@link sap.m.NavContainer} with the aggregation 'pages'.
            */
-          controlId?: string;
+          controlId?: string | undefined;
           /**
            * The name of an aggregation of the controlId, that contains views. Eg: a {@link sap.m.NavContainer} has
            * an aggregation 'pages', another Example is the {@link sap.ui.ux3.Shell} it has 'content'.
            */
-          controlAggregation?: string;
+          controlAggregation?: string | undefined;
           /**
            * Defines a boolean that can be passed to specify if the aggregation should be cleared - all items will
            * be removed - before adding the View to it. When using a {@link sap.ui.ux3.Shell} this should be true.
            * For a {@link sap.m.NavContainer} it should be false. When you use the {@link sap.m.routing.Router} the
            * default will be false.
            */
-          clearControlAggregation?: boolean;
+          clearControlAggregation?: boolean | undefined;
           /**
            * A reference to another target, using the name of the target. If you display a target that has a parent,
            * the parent will also be displayed. Also the control you specify with the controlId parameter, will be
@@ -73730,7 +73730,7 @@ declare module "sap/m/routing/Targets" {
            * view will be put into the content Aggregation of the second IconTabFilter. So a parent will always be
            * created before the target referencing it.
            */
-          parent?: string;
+          parent?: string | undefined;
           /**
            * If you are having an application that has a logical order of views (eg: a create account process, first
            * provide user data, then review and confirm them). You always want to show a backwards transition if a
@@ -73775,16 +73775,16 @@ declare module "sap/m/routing/Targets" {
            * 	 -  If we navigate to 'settings' the navContainer will show a forwards navigation, since the viewLevel
            * 			is not defined and cannot be compared.
            */
-          viewLevel?: int;
+          viewLevel?: int | undefined;
           /**
            * define which transition of the {@link sap.m.NavContainer} will be applied when navigating. If it is not
            * defined, the nav container will take its default transition.
            */
-          transition?: string;
+          transition?: string | undefined;
           /**
            * define the transitionParameters of the {@link sap.m.NavContainer}
            */
-          transitionParameters?: string;
+          transitionParameters?: string | undefined;
         };
       };
     });
@@ -74148,7 +74148,7 @@ declare module "sap/m/ScrollContainer" {
      * normal HTML block elements. If only vertical scrolling is enabled, make sure the content always fits
      * or wraps.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The height of the ScrollContainer. By default the height equals the content height. If only horizontal
@@ -74158,12 +74158,12 @@ declare module "sap/m/ScrollContainer" {
      * Note that when a percentage is given, for the height to work as expected, the height of the surrounding
      * container must be defined.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Whether horizontal scrolling should be possible.
      */
-    horizontal?: boolean | PropertyBindingInfo;
+    horizontal?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Whether vertical scrolling should be possible.
@@ -74173,7 +74173,7 @@ declare module "sap/m/ScrollContainer" {
      * set to "true". Important: it is not supported to have nested controls that both enable scrolling into
      * the same dimension.
      */
-    vertical?: boolean | PropertyBindingInfo;
+    vertical?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Whether the scroll container can be focused.
@@ -74181,12 +74181,12 @@ declare module "sap/m/ScrollContainer" {
      * Note that it should be set to "true" when there are no focusable elements inside or when keyboard interaction
      * requires an additional tab stop on the container.
      */
-    focusable?: boolean | PropertyBindingInfo;
+    focusable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The content of the ScrollContainer.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -74511,7 +74511,7 @@ declare module "sap/m/SearchField" {
         /**
          * The new value of the control.
          */
-        value?: string;
+        value?: string | undefined;
       }
     ): this;
     /**
@@ -74527,7 +74527,7 @@ declare module "sap/m/SearchField" {
         /**
          * Current search string.
          */
-        newValue?: string;
+        newValue?: string | undefined;
       }
     ): this;
     /**
@@ -74541,19 +74541,19 @@ declare module "sap/m/SearchField" {
         /**
          * The search query string.
          */
-        query?: string;
+        query?: string | undefined;
         /**
          * Suggestion list item in case if the user has selected an item from the suggestions list.
          */
-        suggestionItem?: SuggestionItem;
+        suggestionItem?: SuggestionItem | undefined;
         /**
          * Indicates if the user pressed the refresh icon.
          */
-        refreshButtonPressed?: boolean;
+        refreshButtonPressed?: boolean | undefined;
         /**
          * Indicates if the user pressed the clear icon.
          */
-        clearButtonPressed?: boolean;
+        clearButtonPressed?: boolean | undefined;
       }
     ): this;
     /**
@@ -74569,7 +74569,7 @@ declare module "sap/m/SearchField" {
         /**
          * Current search string of the search field.
          */
-        suggestValue?: string;
+        suggestValue?: string | undefined;
       }
     ): this;
     /**
@@ -75089,40 +75089,40 @@ declare module "sap/m/SearchField" {
     /**
      * Input Value.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the CSS width of the input. If not set, width is 100%.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Boolean property to enable the control (default is true).
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Invisible inputs are not rendered.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Maximum number of characters. Value '0' means the feature is switched off.
      */
-    maxLength?: int | PropertyBindingInfo;
+    maxLength?: int | PropertyBindingInfo | undefined;
 
     /**
      * Text shown when no value available. Default placeholder text is the word "Search" in the current local
      * language (if supported) or in English.
      */
-    placeholder?: string | PropertyBindingInfo;
+    placeholder?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.16.0) - This parameter is deprecated. Use "showSearchButton" instead.
      *
      * Set to false to hide the magnifier icon.
      */
-    showMagnifier?: boolean | PropertyBindingInfo;
+    showMagnifier?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
@@ -75130,7 +75130,7 @@ declare module "sap/m/SearchField" {
      * Set to true to display a refresh button in place of the search icon. By pressing the refresh button or
      * F5 key on keyboard, the user can reload the results list without changing the search string.
      */
-    showRefreshButton?: boolean | PropertyBindingInfo;
+    showRefreshButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
@@ -75138,7 +75138,7 @@ declare module "sap/m/SearchField" {
      * Tooltip text of the refresh button. If it is not set, the Default tooltip text is the word "Refresh"
      * in the current local language (if supported) or in English. Tooltips are not displayed on touch devices.
      */
-    refreshButtonTooltip?: string | PropertyBindingInfo;
+    refreshButtonTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.23
@@ -75146,7 +75146,7 @@ declare module "sap/m/SearchField" {
      * Set to true to show the search button with the magnifier icon. If false, both the search and refresh
      * buttons are not displayed even if the "showRefreshButton" property is true.
      */
-    showSearchButton?: boolean | PropertyBindingInfo;
+    showSearchButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34
@@ -75154,7 +75154,7 @@ declare module "sap/m/SearchField" {
      * If true, a `suggest` event is fired when user types in the input and when the input is focused. On a
      * phone device, a full screen dialog with suggestions is always shown even if the suggestions list is empty.
      */
-    enableSuggestions?: boolean | PropertyBindingInfo;
+    enableSuggestions?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.20
@@ -75165,7 +75165,7 @@ declare module "sap/m/SearchField" {
      * an application re-renders the SearchField during the liveChange event, set this property to false to
      * disable text selection by focus.
      */
-    selectOnFocus?: boolean | PropertyBindingInfo;
+    selectOnFocus?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34
@@ -75180,22 +75180,22 @@ declare module "sap/m/SearchField" {
     suggestionItems?:
       | SuggestionItem[]
       | SuggestionItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event which is fired when the user triggers a search.
      */
-    search?: Function;
+    search?: Function | undefined;
 
     /**
      * @SINCE 1.77
@@ -75203,7 +75203,7 @@ declare module "sap/m/SearchField" {
      * This event is fired when the user changes the value of the search field. Unlike the `liveChange` event,
      * the `change` event is not fired for each key press.
      */
-    change?: Function;
+    change?: Function | undefined;
 
     /**
      * @SINCE 1.9.1
@@ -75211,7 +75211,7 @@ declare module "sap/m/SearchField" {
      * This event is fired each time when the value of the search field is changed by the user - e.g. at each
      * key press. Do not invalidate a focused search field, especially during the liveChange event.
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
 
     /**
      * @SINCE 1.34
@@ -75220,7 +75220,7 @@ declare module "sap/m/SearchField" {
      * event means that suggestion data should be updated, in case if suggestions are used. Use the value parameter
      * to create new suggestions for it.
      */
-    suggest?: Function;
+    suggest?: Function | undefined;
   }
 }
 
@@ -75520,16 +75520,16 @@ declare module "sap/m/SegmentedButton" {
         /**
          * Reference to the button, that has been selected.
          */
-        button?: Button;
+        button?: Button | undefined;
         /**
          * ID of the button, which has been selected.
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * Key of the button, which has been selected. This property is only filled when the control is initiated
          * with the items aggregation.
          */
-        key?: string;
+        key?: string | undefined;
       }
     ): this;
     /**
@@ -75545,7 +75545,7 @@ declare module "sap/m/SegmentedButton" {
         /**
          * Reference to the item, that has been selected.
          */
-        item?: SegmentedButtonItem;
+        item?: SegmentedButtonItem | undefined;
       }
     ): this;
     /**
@@ -75867,13 +75867,13 @@ declare module "sap/m/SegmentedButton" {
      * Defines the width of the SegmentedButton control. If not set, it uses the minimum required width to make
      * all buttons inside of the same size (based on the biggest button).
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Disables all the buttons in the SegmentedButton control. When disabled all the buttons look grey and
      * you cannot focus or click on them.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -75881,7 +75881,7 @@ declare module "sap/m/SegmentedButton" {
      * Key of the selected item. If no item to this key is found in the items aggregation, no changes will apply.
      * Only the items aggregation is affected. If duplicate keys exist, the first item matching the key is used.
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.28.0) - replaced by `items` aggregation
@@ -75891,7 +75891,7 @@ declare module "sap/m/SegmentedButton" {
      * of the Button control are evaluated. Setting other properties of the button will have no effect. Alternatively,
      * you can use the createButton method to add buttons.
      */
-    buttons?: Button[] | Button | AggregationBindingInfo;
+    buttons?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
@@ -75905,7 +75905,7 @@ declare module "sap/m/SegmentedButton" {
     items?:
       | SegmentedButtonItem[]
       | SegmentedButtonItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.52) - replaced by `selectedItem` association
@@ -75915,38 +75915,38 @@ declare module "sap/m/SegmentedButton" {
      * value (for example, an ID of a button that does not exist) the selection on the SegmentedButton will
      * be removed.
      */
-    selectedButton?: Button | string;
+    selectedButton?: Button | string | undefined;
 
     /**
      * @SINCE 1.52
      *
      * A reference to the currently selected item control.
      */
-    selectedItem?: SegmentedButtonItem | string;
+    selectedItem?: SegmentedButtonItem | string | undefined;
 
     /**
      * Association to controls / IDs, which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs, which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @deprecated (since 1.52) - replaced by `selectionChange` event
      *
      * Fires when the user selects a button, which returns the ID and button object.
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * @SINCE 1.52
      *
      * Fires when the user selects an item, which returns the item object.
      */
-    selectionChange?: Function;
+    selectionChange?: Function | undefined;
   }
 }
 
@@ -76163,23 +76163,23 @@ declare module "sap/m/SegmentedButtonItem" {
     /**
      * The icon, which belongs to the button. This can be a URI to an image or an icon font URI.
      */
-    icon?: string | PropertyBindingInfo;
+    icon?: string | PropertyBindingInfo | undefined;
 
     /**
      * Whether the button should be visible on the screen. If set to false, a placeholder is rendered instead
      * of the real button.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Sets the width of the buttons.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Fires when the user clicks on an individual button.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -76382,7 +76382,7 @@ declare module "sap/m/Select" {
         /**
          * The selected item.
          */
-        selectedItem?: Item;
+        selectedItem?: Item | undefined;
       }
     ): this;
     /**
@@ -77163,7 +77163,7 @@ declare module "sap/m/Select" {
     /**
      * The name to be used in the HTML code (for example, for HTML forms that send data to the server via submit).
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the user can modify the selected item. When the property is set to `false`, the control
@@ -77172,7 +77172,7 @@ declare module "sap/m/Select" {
      * **Note:** When both `enabled` and `editable` properties are set to `false`, `enabled` has priority over
      * `editable`.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.66.0
@@ -77183,7 +77183,7 @@ declare module "sap/m/Select" {
      * **Note:** When both `enabled` and `editable` properties are set to `false`, `enabled` has priority over
      * `editable`.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Sets the width of the field. By default, the field width is automatically adjusted to the size of its
@@ -77195,14 +77195,14 @@ declare module "sap/m/Select" {
      *
      * **Note:** This property is ignored if the `autoAdjustWidth` property is set to `true`.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Sets the maximum width of the control.
      *
      * **Note:** This property is ignored if the `autoAdjustWidth` property is set to `true`.
      */
-    maxWidth?: CSSSize | PropertyBindingInfo;
+    maxWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11
@@ -77215,42 +77215,42 @@ declare module "sap/m/Select" {
      * 	 -  Invalid or missing `selectedKey` leads to severe functional issues in `sap.ui.table.Table`, when
      * 			the `sap.m.Select` is used inside a `sap.ui.table.Table` column.
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.12
      *
      * ID of the selected item.
      */
-    selectedItemId?: string | PropertyBindingInfo;
+    selectedItemId?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
      *
      * The URI to the icon that will be displayed only when using the `IconOnly` type.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
      *
      * Type of a select. Possible values `Default`, `IconOnly`.
      */
-    type?: (SelectType | keyof typeof SelectType) | PropertyBindingInfo;
+    type?: (SelectType | keyof typeof SelectType) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
      *
      * Indicates whether the width of the input field is determined by the selected item's content.
      */
-    autoAdjustWidth?: boolean | PropertyBindingInfo;
+    autoAdjustWidth?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
      *
      * Sets the horizontal alignment of the text within the input field.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28
@@ -77260,14 +77260,14 @@ declare module "sap/m/Select" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40.2
      *
      * Visualizes the validation state of the control, e.g. `Error`, `Warning`, `Success`, `Information`.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40.5
@@ -77275,7 +77275,7 @@ declare module "sap/m/Select" {
      * Defines the text of the value state message popup. If this is not specified, a default text is shown
      * from the resource bundle.
      */
-    valueStateText?: string | PropertyBindingInfo;
+    valueStateText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40
@@ -77283,7 +77283,7 @@ declare module "sap/m/Select" {
      * Indicates whether the text values of the `additionalText` property of a {@link sap.ui.core.ListItem}
      * are shown.
      */
-    showSecondaryValues?: boolean | PropertyBindingInfo;
+    showSecondaryValues?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.77
@@ -77291,7 +77291,7 @@ declare module "sap/m/Select" {
      * Modifies the behavior of the `setSelectedKey` method so that the selected item is cleared when a provided
      * selected key is missing.
      */
-    resetOnMissingKey?: boolean | PropertyBindingInfo;
+    resetOnMissingKey?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34
@@ -77300,7 +77300,7 @@ declare module "sap/m/Select" {
      * recommend that you always set this property to `false` and bind the `selectedKey` property to the desired
      * value for better interoperability with data binding.
      */
-    forceSelection?: boolean | PropertyBindingInfo;
+    forceSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.69
@@ -77309,7 +77309,7 @@ declare module "sap/m/Select" {
      * When the text is truncated (`wrapItemsText` property is set to `false`), the max width of the `SelectList`
      * is 600px. When `wrapItemsText` is set to `true`, `SelectList` takes all of the available width.
      */
-    wrapItemsText?: boolean | PropertyBindingInfo;
+    wrapItemsText?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.86
@@ -77319,7 +77319,7 @@ declare module "sap/m/Select" {
      *
      * **Note:** This property takes effect only when the `showSecondaryValues` property is set to `true`.
      */
-    columnRatio?: SelectColumnRatio | PropertyBindingInfo;
+    columnRatio?: SelectColumnRatio | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.74
@@ -77328,7 +77328,7 @@ declare module "sap/m/Select" {
      * single relationship between the field and a label (see aggregation `labelFor` of `sap.m.Label`) cannot
      * be established (e.g. one label should label multiple fields).
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the items contained within this control.
@@ -77343,19 +77343,19 @@ declare module "sap/m/Select" {
      * ` <ListItem text="Paper plane" icon="sap-icon://paper-plane"></ListItem> `
      * ```
      */
-    items?: Item[] | Item | AggregationBindingInfo;
+    items?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * Sets or retrieves the selected item from the aggregation named items.
      */
-    selectedItem?: Item | string;
+    selectedItem?: Item | string | undefined;
 
     /**
      * @SINCE 1.27.0
      *
      * Association to controls / IDs which label this control (see WAI-ARIA attribute `aria-labelledby`).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * This event is fired when the value in the selection field is changed in combination with one of the following
@@ -77364,7 +77364,7 @@ declare module "sap/m/Select" {
      * 	 - The Enter key is pressed
      * 	 - The item is pressed
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 
@@ -77697,12 +77697,12 @@ declare module "sap/m/SelectDialog" {
          * Returns the selected list item. When no item is selected, "null" is returned. When multi-selection is
          * enabled and multiple items are selected, only the first selected item is returned.
          */
-        selectedItem?: StandardListItem;
+        selectedItem?: StandardListItem | undefined;
         /**
          * Returns an array containing the visible selected list items. If no items are selected, an empty array
          * is returned.
          */
-        selectedItems?: StandardListItem[];
+        selectedItems?: StandardListItem[] | undefined;
         /**
          * Returns the binding contexts of the selected items including the non-visible items, but excluding the
          * not loaded items. See {@link sap.m.ListBase#getSelectedContexts getSelectedContexts} of `sap.m.ListBase`.
@@ -77712,7 +77712,7 @@ declare module "sap/m/SelectDialog" {
          * are not visible upon opening the dialog, these contexts are not loaded. Therefore, these items will not
          * be included in the selectedContexts array unless they are displayed at least once.
          */
-        selectedContexts?: object[];
+        selectedContexts?: object[] | undefined;
       }
     ): this;
     /**
@@ -77726,7 +77726,7 @@ declare module "sap/m/SelectDialog" {
         /**
          * The value to search for, which can change at any keypress
          */
-        value?: string;
+        value?: string | undefined;
         /**
          * The Items binding of the Select Dialog. It will only be available if the items aggregation is bound to
          * a model.
@@ -77745,7 +77745,7 @@ declare module "sap/m/SelectDialog" {
         /**
          * The value entered in the search
          */
-        value?: string;
+        value?: string | undefined;
         /**
          * The Items binding of the Select Dialog for search purposes. It will only be available if the items aggregation
          * is bound to a model.
@@ -77754,7 +77754,7 @@ declare module "sap/m/SelectDialog" {
         /**
          * Returns if the Clear button is pressed.
          */
-        clearButtonPressed?: boolean;
+        clearButtonPressed?: boolean | undefined;
       }
     ): this;
     /**
@@ -78236,24 +78236,24 @@ declare module "sap/m/SelectDialog" {
     /**
      * Determines the title text that appears in the dialog header
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text shown when the list has no data
      */
-    noDataText?: string | PropertyBindingInfo;
+    noDataText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the user can select several options from the list
      */
-    multiSelect?: boolean | PropertyBindingInfo;
+    multiSelect?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the number of items initially displayed in the list. Also defines the number of items to be
      * requested from the model for each grow. **Note:** This property could take affect only be used if the
      * property `growing` is set to `true`.
      */
-    growingThreshold?: int | PropertyBindingInfo;
+    growingThreshold?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.56
@@ -78265,14 +78265,14 @@ declare module "sap/m/SelectDialog" {
      * To make sure that all items in the table are loaded at once and the above features work properly, we
      * recommend setting the `growing` property to false.
      */
-    growing?: boolean | PropertyBindingInfo;
+    growing?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.18
      *
      * Determines the content width of the inner dialog. For more information, see the dialog documentation.
      */
-    contentWidth?: CSSSize | PropertyBindingInfo;
+    contentWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.18
@@ -78284,12 +78284,12 @@ declare module "sap/m/SelectDialog" {
      * **Note:** The sap.m.SelectDialog uses {@link sap.m.ListBase#rememberSelections this} property of the
      * ListBase and therefore its limitations also apply here.
      */
-    rememberSelections?: boolean | PropertyBindingInfo;
+    rememberSelections?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the content height of the inner dialog. For more information, see the dialog documentation.
      */
-    contentHeight?: CSSSize | PropertyBindingInfo;
+    contentHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58
@@ -78303,14 +78303,14 @@ declare module "sap/m/SelectDialog" {
      * Select Dialog to edit/maintain it. **Note:**When used with oData, only the loaded selections will be
      * cleared.
      */
-    showClearButton?: boolean | PropertyBindingInfo;
+    showClearButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.68
      *
      * Overwrites the default text for the confirmation button.
      */
-    confirmButtonText?: string | PropertyBindingInfo;
+    confirmButtonText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.70
@@ -78318,7 +78318,7 @@ declare module "sap/m/SelectDialog" {
      * When set to `true`, the SelectDialog is draggable by its header. The default value is `false`. **Note**:
      * The SelectDialog can be draggable only in desktop mode.
      */
-    draggable?: boolean | PropertyBindingInfo;
+    draggable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.70
@@ -78326,7 +78326,7 @@ declare module "sap/m/SelectDialog" {
      * When set to `true`, the SelectDialog will have a resize handler in its bottom right corner. The default
      * value is `false`. **Note**: The SelectDialog can be resizable only in desktop mode.
      */
-    resizable?: boolean | PropertyBindingInfo;
+    resizable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
@@ -78337,35 +78337,35 @@ declare module "sap/m/SelectDialog" {
      */
     titleAlignment?:
       | (TitleAlignment | keyof typeof TitleAlignment)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The items of the list shown in the search dialog. It is recommended to use a StandardListItem for the
      * dialog but other combinations are also possible.
      */
-    items?: ListItemBase[] | ListItemBase | AggregationBindingInfo;
+    items?: ListItemBase[] | ListItemBase | AggregationBindingInfo | undefined;
 
     /**
      * This event will be fired when the dialog is confirmed by selecting an item in single selection mode or
      * by pressing the confirmation button in multi selection mode . The items being selected are returned as
      * event parameters.
      */
-    confirm?: Function;
+    confirm?: Function | undefined;
 
     /**
      * This event will be fired when the search button has been clicked on the searchfield on the visual control
      */
-    search?: Function;
+    search?: Function | undefined;
 
     /**
      * This event will be fired when the value of the search field is changed by a user - e.g. at each key press
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
 
     /**
      * This event will be fired when the cancel button is clicked or ESC key is pressed
      */
-    cancel?: Function;
+    cancel?: Function | undefined;
   }
 }
 
@@ -78676,20 +78676,20 @@ declare module "sap/m/SelectionDetails" {
         /**
          * The action that has to be processed once the action has been pressed
          */
-        action?: Item;
+        action?: Item | undefined;
         /**
          * If the action is pressed on one of the {@link sap.m.SelectionDetailsItem items}, the parameter contains
          * a reference to the pressed {@link sap.m.SelectionDetailsItem item}. If a custom action or action group
          * of the SelectionDetails popover is pressed, this parameter refers to all {@link sap.m.SelectionDetailsItem
          * items}
          */
-        items?: SelectionDetailsItem;
+        items?: SelectionDetailsItem | undefined;
         /**
          * The action level of action buttons. The available levels are Item, List and Group
          */
         level?:
           | SelectionDetailsActionLevel
-          | keyof typeof SelectionDetailsActionLevel;
+          | keyof typeof SelectionDetailsActionLevel | undefined;
       }
     ): this;
     /**
@@ -78722,17 +78722,17 @@ declare module "sap/m/SelectionDetails" {
          * The item on which the action has been pressed. Can be null in case a navigation was done without item
          * context, e.g. action press.
          */
-        item?: SelectionDetailsItem;
+        item?: SelectionDetailsItem | undefined;
         /**
          * Direction of the triggered navigation, possible values are "to" and "back".
          */
-        direction?: string;
+        direction?: string | undefined;
         /**
          * The content of the currently viewed page that was previously added via {@link sap.m.SelectionDetailsFacade#navTo}.
          * This contains the content of the page before the navigation was triggered. Can be null in case of first
          * event triggering.
          */
-        content?: Control;
+        content?: Control | undefined;
       }
     ): this;
     /**
@@ -78995,39 +78995,39 @@ declare module "sap/m/SelectionDetails" {
     items?:
       | SelectionDetailsItem[]
       | SelectionDetailsItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Contains custom actions shown in the responsive toolbar below items on the first page.
      */
-    actions?: Item[] | Item | AggregationBindingInfo;
+    actions?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * Contains actions that are rendered as a dedicated {@link sap.m.StandardListItem item}. In case an action
      * group is pressed, a navigation should be triggered via `navTo` method. A maximum of 5 actionGroups is
      * displayed inside the popover, though more can be added to the aggregation.
      */
-    actionGroups?: Item[] | Item | AggregationBindingInfo;
+    actionGroups?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * Event is triggered before the popover is open.
      */
-    beforeOpen?: Function;
+    beforeOpen?: Function | undefined;
 
     /**
      * Event is triggered before the popover is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: Function | undefined;
 
     /**
      * Event is triggered after a list item of {@link sap.m.SelectionDetailsItem} is pressed.
      */
-    navigate?: Function;
+    navigate?: Function | undefined;
 
     /**
      * Event is triggered when a custom action is pressed.
      */
-    actionPress?: Function;
+    actionPress?: Function | undefined;
   }
 }
 
@@ -79611,7 +79611,7 @@ declare module "sap/m/SelectionDetailsItem" {
     /**
      * Determines whether or not the item is active and a navigation event is triggered on press.
      */
-    enableNav?: boolean | PropertyBindingInfo;
+    enableNav?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Contains a record of information about, for example, measures and dimensions. These entries are usually
@@ -79620,12 +79620,12 @@ declare module "sap/m/SelectionDetailsItem" {
     lines?:
       | SelectionDetailsItemLine[]
       | SelectionDetailsItemLine
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Contains custom actions shown below the main content of the item.
      */
-    actions?: Item[] | Item | AggregationBindingInfo;
+    actions?: Item[] | Item | AggregationBindingInfo | undefined;
   }
 }
 
@@ -79811,30 +79811,30 @@ declare module "sap/m/SelectionDetailsItemLine" {
      * The label that is shown as the first part of the line. It may contain the name of the currently selected
      * dimension or measure.
      */
-    label?: string | PropertyBindingInfo;
+    label?: string | PropertyBindingInfo | undefined;
 
     /**
      * The value of the line, for example the value of the currently selected measure. Expected type is a string,
      * number or a plain object, including date and time properties of type string.
      */
-    value?: any | PropertyBindingInfo;
+    value?: any | PropertyBindingInfo | undefined;
 
     /**
      * The display value of the line. If this property is set, it overrides the value property and is displayed
      * as is.
      */
-    displayValue?: string | PropertyBindingInfo;
+    displayValue?: string | PropertyBindingInfo | undefined;
 
     /**
      * The unit of the given value. If this unit is given, the line is displayed bold.
      */
-    unit?: string | PropertyBindingInfo;
+    unit?: string | PropertyBindingInfo | undefined;
 
     /**
      * A string to be rendered by the control as a line marker. This string must be a valid SVG definition.
      * The only valid tags are: svg, path, line.
      */
-    lineMarker?: string | PropertyBindingInfo;
+    lineMarker?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -80050,7 +80050,7 @@ declare module "sap/m/SelectList" {
         /**
          * The pressed item.
          */
-        item?: Item;
+        item?: Item | undefined;
       }
     ): this;
     /**
@@ -80064,7 +80064,7 @@ declare module "sap/m/SelectList" {
         /**
          * The selected item.
          */
-        selectedItem?: Item;
+        selectedItem?: Item | undefined;
       }
     ): this;
     /**
@@ -80454,29 +80454,29 @@ declare module "sap/m/SelectList" {
     /**
      * Indicates whether the user can change the selection.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Sets the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Sets the maximum width of the control.
      */
-    maxWidth?: CSSSize | PropertyBindingInfo;
+    maxWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Key of the selected item.
      *
      * **Note: ** If duplicate keys exist, the first item matching the key is used.
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * ID of the selected item.
      */
-    selectedItemId?: string | PropertyBindingInfo;
+    selectedItemId?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32.3
@@ -80484,7 +80484,7 @@ declare module "sap/m/SelectList" {
      * Indicates whether the text values of the `additionalText` property of a {@link sap.ui.core.ListItem}
      * are shown.
      */
-    showSecondaryValues?: boolean | PropertyBindingInfo;
+    showSecondaryValues?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38
@@ -80499,31 +80499,31 @@ declare module "sap/m/SelectList" {
           | SelectListKeyboardNavigationMode
           | keyof typeof SelectListKeyboardNavigationMode
         )
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.91
      *
      * Determines whether the disabled items are hidden from the DOM structure.
      */
-    hideDisabledItems?: boolean | PropertyBindingInfo;
+    hideDisabledItems?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the items contained within this control.
      */
-    items?: Item[] | Item | AggregationBindingInfo;
+    items?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * Sets or retrieves the selected item from the aggregation named items.
      */
-    selectedItem?: Item | string;
+    selectedItem?: Item | string | undefined;
 
     /**
      * @SINCE 1.27.0
      *
      * Association to controls / IDs which label this control (see WAI-ARIA attribute `aria-labelledby`).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * This event is fired when the selection has changed.
@@ -80531,14 +80531,14 @@ declare module "sap/m/SelectList" {
      * **Note: ** The selection can be changed by pressing a non-selected item or via keyboard and after the
      * enter or space key is pressed.
      */
-    selectionChange?: Function;
+    selectionChange?: Function | undefined;
 
     /**
      * @SINCE 1.32.4
      *
      * This event is fired when an item is pressed.
      */
-    itemPress?: Function;
+    itemPress?: Function | undefined;
   }
 }
 
@@ -81336,107 +81336,107 @@ declare module "sap/m/semantic/DetailPage" {
     /**
      * Add action
      */
-    addAction?: AddAction;
+    addAction?: AddAction | undefined;
 
     /**
      * Main action
      */
-    mainAction?: MainAction;
+    mainAction?: MainAction | undefined;
 
     /**
      * Positive action
      */
-    positiveAction?: PositiveAction;
+    positiveAction?: PositiveAction | undefined;
 
     /**
      * Negative action
      */
-    negativeAction?: NegativeAction;
+    negativeAction?: NegativeAction | undefined;
 
     /**
      * Negative action
      */
-    forwardAction?: ForwardAction;
+    forwardAction?: ForwardAction | undefined;
 
     /**
      * Edit action
      */
-    editAction?: EditAction;
+    editAction?: EditAction | undefined;
 
     /**
      * Save action
      */
-    saveAction?: SaveAction;
+    saveAction?: SaveAction | undefined;
 
     /**
      * Delete action
      */
-    deleteAction?: DeleteAction;
+    deleteAction?: DeleteAction | undefined;
 
     /**
      * Cancel action
      */
-    cancelAction?: CancelAction;
+    cancelAction?: CancelAction | undefined;
 
     /**
      * Flag action
      */
-    flagAction?: FlagAction;
+    flagAction?: FlagAction | undefined;
 
     /**
      * Favorite action
      */
-    favoriteAction?: FavoriteAction;
+    favoriteAction?: FavoriteAction | undefined;
 
     /**
      * OpenIn action
      */
-    openInAction?: OpenInAction;
+    openInAction?: OpenInAction | undefined;
 
     /**
      * DiscussInJam action
      */
-    discussInJamAction?: DiscussInJamAction;
+    discussInJamAction?: DiscussInJamAction | undefined;
 
     /**
      * ShareInJam action
      */
-    shareInJamAction?: ShareInJamAction;
+    shareInJamAction?: ShareInJamAction | undefined;
 
     /**
      * SendEmail action
      */
-    sendEmailAction?: SendEmailAction;
+    sendEmailAction?: SendEmailAction | undefined;
 
     /**
      * SendMessage action
      */
-    sendMessageAction?: SendMessageAction;
+    sendMessageAction?: SendMessageAction | undefined;
 
     /**
      * Print action
      */
-    printAction?: PrintAction;
+    printAction?: PrintAction | undefined;
 
     /**
      * MessagesIndicator
      */
-    messagesIndicator?: MessagesIndicator;
+    messagesIndicator?: MessagesIndicator | undefined;
 
     /**
      * SaveAsTile button
      */
-    saveAsTileAction?: Button;
+    saveAsTileAction?: Button | undefined;
 
     /**
      * Paging action
      */
-    pagingAction?: PagingButton;
+    pagingAction?: PagingButton | undefined;
 
     /**
      * DraftIndicator
      */
-    draftIndicator?: DraftIndicator;
+    draftIndicator?: DraftIndicator | undefined;
   }
 }
 
@@ -82594,107 +82594,107 @@ declare module "sap/m/semantic/FullscreenPage" {
     /**
      * Add action
      */
-    addAction?: AddAction;
+    addAction?: AddAction | undefined;
 
     /**
      * Main action
      */
-    mainAction?: MainAction;
+    mainAction?: MainAction | undefined;
 
     /**
      * Positive action
      */
-    positiveAction?: PositiveAction;
+    positiveAction?: PositiveAction | undefined;
 
     /**
      * Negative action
      */
-    negativeAction?: NegativeAction;
+    negativeAction?: NegativeAction | undefined;
 
     /**
      * Negative action
      */
-    forwardAction?: ForwardAction;
+    forwardAction?: ForwardAction | undefined;
 
     /**
      * Edit action
      */
-    editAction?: EditAction;
+    editAction?: EditAction | undefined;
 
     /**
      * Save action
      */
-    saveAction?: SaveAction;
+    saveAction?: SaveAction | undefined;
 
     /**
      * Delete action
      */
-    deleteAction?: DeleteAction;
+    deleteAction?: DeleteAction | undefined;
 
     /**
      * Cancel action
      */
-    cancelAction?: CancelAction;
+    cancelAction?: CancelAction | undefined;
 
     /**
      * Flag action
      */
-    flagAction?: FlagAction;
+    flagAction?: FlagAction | undefined;
 
     /**
      * Favorite action
      */
-    favoriteAction?: FavoriteAction;
+    favoriteAction?: FavoriteAction | undefined;
 
     /**
      * OpenIn action
      */
-    openInAction?: OpenInAction;
+    openInAction?: OpenInAction | undefined;
 
     /**
      * DiscussInJam action
      */
-    discussInJamAction?: DiscussInJamAction;
+    discussInJamAction?: DiscussInJamAction | undefined;
 
     /**
      * ShareInJam action
      */
-    shareInJamAction?: ShareInJamAction;
+    shareInJamAction?: ShareInJamAction | undefined;
 
     /**
      * SendEmail action
      */
-    sendEmailAction?: SendEmailAction;
+    sendEmailAction?: SendEmailAction | undefined;
 
     /**
      * SendMessage action
      */
-    sendMessageAction?: SendMessageAction;
+    sendMessageAction?: SendMessageAction | undefined;
 
     /**
      * Print action
      */
-    printAction?: PrintAction;
+    printAction?: PrintAction | undefined;
 
     /**
      * MessagesIndicator
      */
-    messagesIndicator?: MessagesIndicator;
+    messagesIndicator?: MessagesIndicator | undefined;
 
     /**
      * SaveAsTile button
      */
-    saveAsTileAction?: Button;
+    saveAsTileAction?: Button | undefined;
 
     /**
      * Paging action
      */
-    pagingAction?: PagingButton;
+    pagingAction?: PagingButton | undefined;
 
     /**
      * DraftIndicator
      */
-    draftIndicator?: DraftIndicator;
+    draftIndicator?: DraftIndicator | undefined;
   }
 }
 
@@ -82991,7 +82991,7 @@ declare module "sap/m/semantic/MainAction" {
     /**
      * Button text
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -83383,72 +83383,72 @@ declare module "sap/m/semantic/MasterPage" {
     /**
      * Add action
      */
-    addAction?: AddAction;
+    addAction?: AddAction | undefined;
 
     /**
      * Main action
      */
-    mainAction?: MainAction;
+    mainAction?: MainAction | undefined;
 
     /**
      * Positive action
      */
-    positiveAction?: PositiveAction;
+    positiveAction?: PositiveAction | undefined;
 
     /**
      * Negative action
      */
-    negativeAction?: NegativeAction;
+    negativeAction?: NegativeAction | undefined;
 
     /**
      * MultiSelect action
      */
-    multiSelectAction?: MultiSelectAction;
+    multiSelectAction?: MultiSelectAction | undefined;
 
     /**
      * Forward action
      */
-    forwardAction?: ForwardAction;
+    forwardAction?: ForwardAction | undefined;
 
     /**
      * Edit action
      */
-    editAction?: EditAction;
+    editAction?: EditAction | undefined;
 
     /**
      * Save action
      */
-    saveAction?: SaveAction;
+    saveAction?: SaveAction | undefined;
 
     /**
      * Delete action
      */
-    deleteAction?: DeleteAction;
+    deleteAction?: DeleteAction | undefined;
 
     /**
      * Cancel action
      */
-    cancelAction?: CancelAction;
+    cancelAction?: CancelAction | undefined;
 
     /**
      * Sort action
      */
-    sort?: semantic.ISort;
+    sort?: semantic.ISort | undefined;
 
     /**
      * Filter action
      */
-    filter?: semantic.IFilter;
+    filter?: semantic.IFilter | undefined;
 
     /**
      * Group action
      */
-    group?: semantic.IGroup;
+    group?: semantic.IGroup | undefined;
 
     /**
      * MessagesIndicator
      */
-    messagesIndicator?: MessagesIndicator;
+    messagesIndicator?: MessagesIndicator | undefined;
   }
 }
 
@@ -83721,7 +83721,7 @@ declare module "sap/m/semantic/NegativeAction" {
     /**
      * Button text
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -83909,7 +83909,7 @@ declare module "sap/m/semantic/PositiveAction" {
     /**
      * Button text
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -84248,12 +84248,12 @@ declare module "sap/m/semantic/SemanticButton" {
     /**
      * See {@link sap.m.Button#enabled}
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * See {@link sap.m.Button#event:press}
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -84361,7 +84361,7 @@ declare module "sap/m/semantic/SemanticControl" {
     /**
      * See {@link sap.ui.core.Control#visible}
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -85000,32 +85000,32 @@ declare module "sap/m/semantic/SemanticPage" {
     /**
      * See {@link sap.m.Page#title}
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * See {@link sap.m.Page#titleLevel}
      */
-    titleLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo;
+    titleLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo | undefined;
 
     /**
      * See {@link sap.m.Page#showNavButton}
      */
-    showNavButton?: boolean | PropertyBindingInfo;
+    showNavButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * See {@link sap.m.Page#showSubHeader}
      */
-    showSubHeader?: boolean | PropertyBindingInfo;
+    showSubHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * See {@link sap.m.Page#enableScrolling}
      */
-    enableScrolling?: boolean | PropertyBindingInfo;
+    enableScrolling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Hides or shows the page footer
      */
-    showFooter?: boolean | PropertyBindingInfo;
+    showFooter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40.1
@@ -85033,7 +85033,7 @@ declare module "sap/m/semantic/SemanticPage" {
      * Determines whether the floating footer behavior is enabled. If set to `true`, the content is visible
      * when it's underneath the footer.
      */
-    floatingFooter?: boolean | PropertyBindingInfo;
+    floatingFooter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
@@ -85045,7 +85045,7 @@ declare module "sap/m/semantic/SemanticPage" {
           | semantic.SemanticRuleSetType
           | keyof typeof semantic.SemanticRuleSetType
         )
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -85054,39 +85054,39 @@ declare module "sap/m/semantic/SemanticPage" {
      */
     backgroundDesign?:
       | (PageBackgroundDesign | keyof typeof PageBackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * See {@link sap.m.Page#subHeader}
      */
-    subHeader?: IBar;
+    subHeader?: IBar | undefined;
 
     /**
      * See {@link sap.m.Page#content}
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Custom header buttons
      */
-    customHeaderContent?: Button[] | Button | AggregationBindingInfo;
+    customHeaderContent?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * Custom footer buttons
      */
-    customFooterContent?: Button[] | Button | AggregationBindingInfo;
+    customFooterContent?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * Accessible landmark settings to be applied to the containers of the `sap.m.Page` control.
      *
      * If not set, no landmarks will be written.
      */
-    landmarkInfo?: PageAccessibleLandmarkInfo;
+    landmarkInfo?: PageAccessibleLandmarkInfo | undefined;
 
     /**
      * See {@link sap.m.Page#navButtonPress}
      */
-    navButtonPress?: Function;
+    navButtonPress?: Function | undefined;
   }
 }
 
@@ -85239,7 +85239,7 @@ declare module "sap/m/semantic/SemanticSelect" {
         /**
          * The selected item.
          */
-        selectedItem?: Item;
+        selectedItem?: Item | undefined;
       }
     ): this;
     /**
@@ -85381,27 +85381,27 @@ declare module "sap/m/semantic/SemanticSelect" {
     /**
      * See {@link sap.m.Select#getEnabled}
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * See {@link sap.m.Select#getSelectedKey}
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * See {@link sap.m.Select#getItems}
      */
-    items?: Item[] | Item | AggregationBindingInfo;
+    items?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * See {@link sap.m.Select#getSelectedItem}
      */
-    selectedItem?: Item | string;
+    selectedItem?: Item | string | undefined;
 
     /**
      * See {@link sap.m.Select#event:change}
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 
@@ -85507,7 +85507,7 @@ declare module "sap/m/semantic/SemanticToggleButton" {
     /**
      * The property is “true” when the control is toggled. The default state of this property is "false".
      */
-    pressed?: boolean | PropertyBindingInfo;
+    pressed?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -85902,7 +85902,7 @@ declare module "sap/m/semantic/ShareMenuPage" {
     /**
      * Custom share menu buttons
      */
-    customShareMenuContent?: Button[] | Button | AggregationBindingInfo;
+    customShareMenuContent?: Button[] | Button | AggregationBindingInfo | undefined;
   }
 }
 
@@ -86574,7 +86574,7 @@ declare module "sap/m/Shell" {
      * Defines the application title, which may or may not be displayed outside the actual application, depending
      * on the available screen size.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the logo to be displayed next to the App when the screen is sufficiently large.
@@ -86582,26 +86582,26 @@ declare module "sap/m/Shell" {
      * Note: If property value isn't set, then the logo address is taken from the theme parameters. For reference
      * please see: {@link sap.ui.core.theming.Parameters}
      */
-    logo?: URI | PropertyBindingInfo;
+    logo?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the Logout button should be displayed. Currently, this only happens on very tall screens
      * (1568px height), otherwise, it is always hidden.
      */
-    showLogout?: boolean | PropertyBindingInfo;
+    showLogout?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines texts, such as the name of the logged-in user, which should be displayed on the right side of
      * the header (if there is enough space to display the header at all - this only happens on very tall screens
      * (1568px height), otherwise, it is always hidden).
      */
-    headerRightText?: string | PropertyBindingInfo;
+    headerRightText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the width of the content (the aggregated App) should be limited or extended to the
      * full screen width.
      */
-    appWidthLimited?: boolean | PropertyBindingInfo;
+    appWidthLimited?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -86611,7 +86611,7 @@ declare module "sap/m/Shell" {
      * above this colored background. Use the backgroundRepeat property to define whether this image should
      * be stretched to cover the complete Shell or whether it should be tiled.
      */
-    backgroundColor?: CSSColor | PropertyBindingInfo;
+    backgroundColor?: CSSColor | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -86621,7 +86621,7 @@ declare module "sap/m/Shell" {
      * any color set for the background. Use the backgroundRepeat property to define whether this image should
      * be stretched to cover the complete Shell or whether it should be tiled.
      */
-    backgroundImage?: URI | PropertyBindingInfo;
+    backgroundImage?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -86629,7 +86629,7 @@ declare module "sap/m/Shell" {
      * Determines whether the background image (if configured) should be proportionally stretched to cover the
      * whole Shell (false, default) or whether it should be tiled (true).
      */
-    backgroundRepeat?: boolean | PropertyBindingInfo;
+    backgroundRepeat?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -86638,7 +86638,7 @@ declare module "sap/m/Shell" {
      * 1 (fully opaque). This can be used to improve readability of the Shell content by making the background
      * image partly transparent.
      */
-    backgroundOpacity?: float | PropertyBindingInfo;
+    backgroundOpacity?: float | PropertyBindingInfo | undefined;
 
     /**
      * Sets the icon used for the mobile device home screen and the icon to be used for bookmarks by desktop
@@ -86656,7 +86656,7 @@ declare module "sap/m/Shell" {
      *
      * See jQuery.sap.setIcons() for full documentation.
      */
-    homeIcon?: object | PropertyBindingInfo;
+    homeIcon?: object | PropertyBindingInfo | undefined;
 
     /**
      * Defines the semantic level of the title.
@@ -86664,17 +86664,17 @@ declare module "sap/m/Shell" {
      * This information is used by assistive technologies, such as screen readers to create a hierarchical site
      * map for faster navigation. Depending on this setting an HTML h1-h6 element is used.
      */
-    titleLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo;
+    titleLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo | undefined;
 
     /**
      * A Shell contains an App or a SplitApp (they may be wrapped in a View). Other control types are not allowed.
      */
-    app?: Control;
+    app?: Control | undefined;
 
     /**
      * Fires when the user presses the logout button/link.
      */
-    logout?: Function;
+    logout?: Function | undefined;
   }
 }
 
@@ -87232,11 +87232,11 @@ declare module "sap/m/SinglePlanningCalendar" {
         /**
          * Start date of the created appointment, as a JavaScript date object.
          */
-        startDate?: object;
+        startDate?: object | undefined;
         /**
          * End date of the created appointment, as a JavaScript date object.
          */
-        endDate?: object;
+        endDate?: object | undefined;
       }
     ): this;
     /**
@@ -87252,19 +87252,19 @@ declare module "sap/m/SinglePlanningCalendar" {
         /**
          * The dropped appointment.
          */
-        appointment?: CalendarAppointment;
+        appointment?: CalendarAppointment | undefined;
         /**
          * Start date of the dropped appointment, as a JavaScript date object.
          */
-        startDate?: object;
+        startDate?: object | undefined;
         /**
          * Dropped appointment end date as a JavaScript date object.
          */
-        endDate?: object;
+        endDate?: object | undefined;
         /**
          * The drop type. If true - it's "Copy", if false - it's "Move".
          */
-        copy?: boolean;
+        copy?: boolean | undefined;
       }
     ): this;
     /**
@@ -87280,15 +87280,15 @@ declare module "sap/m/SinglePlanningCalendar" {
         /**
          * The resized appointment.
          */
-        appointment?: CalendarAppointment;
+        appointment?: CalendarAppointment | undefined;
         /**
          * Start date of the resized appointment, as a JavaScript date object.
          */
-        startDate?: object;
+        startDate?: object | undefined;
         /**
          * End date of the resized appointment, as a JavaScript date object.
          */
-        endDate?: object;
+        endDate?: object | undefined;
       }
     ): this;
     /**
@@ -87302,11 +87302,11 @@ declare module "sap/m/SinglePlanningCalendar" {
         /**
          * The appointment on which the event was triggered.
          */
-        appointment?: CalendarAppointment;
+        appointment?: CalendarAppointment | undefined;
         /**
          * All appointments with changed selected state.
          */
-        appointments?: CalendarAppointment[];
+        appointments?: CalendarAppointment[] | undefined;
       }
     ): this;
     /**
@@ -87322,11 +87322,11 @@ declare module "sap/m/SinglePlanningCalendar" {
         /**
          * The start date as a JavaScript date object of the focused grid cell.
          */
-        startDate?: object;
+        startDate?: object | undefined;
         /**
          * The end date as a JavaScript date object of the focused grid cell.
          */
-        endDate?: object;
+        endDate?: object | undefined;
       }
     ): this;
     /**
@@ -87340,7 +87340,7 @@ declare module "sap/m/SinglePlanningCalendar" {
         /**
          * Date of the selected header, as a JavaScript date object. It is considered as a local date.
          */
-        date?: object;
+        date?: object | undefined;
       }
     ): this;
     /**
@@ -87354,7 +87354,7 @@ declare module "sap/m/SinglePlanningCalendar" {
         /**
          * The date as a JavaScript date object of the cell with the pressed more link.
          */
-        date?: object;
+        date?: object | undefined;
       }
     ): this;
     /**
@@ -87368,7 +87368,7 @@ declare module "sap/m/SinglePlanningCalendar" {
         /**
          * The new start date, as a JavaScript date object. It is considered as a local date.
          */
-        date?: object;
+        date?: object | undefined;
       }
     ): this;
     /**
@@ -88086,31 +88086,31 @@ declare module "sap/m/SinglePlanningCalendar" {
     /**
      * Determines the title of the `SinglePlanningCalendar`.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the start date of the grid, as a JavaScript date object. It is considered as a local date.
      * The time part will be ignored. The current date is used as default.
      */
-    startDate?: object | PropertyBindingInfo;
+    startDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * Determines the start hour of the grid to be shown if the `fullDay` property is set to `false`. Otherwise
      * the previous hours are displayed as non-working. The passed hour is considered as 24-hour based.
      */
-    startHour?: int | PropertyBindingInfo;
+    startHour?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines the end hour of the grid to be shown if the `fullDay` property is set to `false`. Otherwise
      * the next hours are displayed as non-working. The passed hour is considered as 24-hour based.
      */
-    endHour?: int | PropertyBindingInfo;
+    endHour?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines if all of the hours in a day are displayed. If set to `false`, the hours shown are between
      * the `startHour` and `endHour`.
      */
-    fullDay?: boolean | PropertyBindingInfo;
+    fullDay?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.62
@@ -88125,7 +88125,7 @@ declare module "sap/m/SinglePlanningCalendar" {
      */
     stickyMode?:
       | (PlanningCalendarStickyMode | keyof typeof PlanningCalendarStickyMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.64
@@ -88135,7 +88135,7 @@ declare module "sap/m/SinglePlanningCalendar" {
      * The drag and drop interaction is visualized by a placeholder highlighting the area where the appointment
      * can be dropped by the user.
      */
-    enableAppointmentsDragAndDrop?: boolean | PropertyBindingInfo;
+    enableAppointmentsDragAndDrop?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.65
@@ -88147,7 +88147,7 @@ declare module "sap/m/SinglePlanningCalendar" {
      * The appointment snaps on every interval of 30 minutes. After the resize is finished, the {@link #event:appointmentResize
      * appointmentResize} event is fired, containing the new start and end JavaScript date objects.
      */
-    enableAppointmentsResize?: boolean | PropertyBindingInfo;
+    enableAppointmentsResize?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.65
@@ -88157,12 +88157,12 @@ declare module "sap/m/SinglePlanningCalendar" {
      * See {@link #property:enableAppointmentsResize enableAppointmentsResize} for the specific points for events
      * snapping
      */
-    enableAppointmentsCreate?: boolean | PropertyBindingInfo;
+    enableAppointmentsCreate?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The controls to be passed to the toolbar.
      */
-    actions?: Control[] | Control | AggregationBindingInfo;
+    actions?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The appointments to be displayed in the grid. Appointments outside the visible time frame are not rendered.
@@ -88172,7 +88172,7 @@ declare module "sap/m/SinglePlanningCalendar" {
     appointments?:
       | CalendarAppointment[]
       | CalendarAppointment
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Views of the `SinglePlanningCalendar`.
@@ -88182,7 +88182,7 @@ declare module "sap/m/SinglePlanningCalendar" {
     views?:
       | SinglePlanningCalendarView[]
       | SinglePlanningCalendarView
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.66
@@ -88191,12 +88191,12 @@ declare module "sap/m/SinglePlanningCalendar" {
      *
      * **Note:** If one day is assigned to more than one type, only the first type is used.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
 
     /**
      * Corresponds to the currently selected view.
      */
-    selectedView?: SinglePlanningCalendarView | string;
+    selectedView?: SinglePlanningCalendarView | string | undefined;
 
     /**
      * @SINCE 1.65.0
@@ -88205,63 +88205,63 @@ declare module "sap/m/SinglePlanningCalendar" {
      *
      * **Note:** The legend does not have to be rendered but must exist and all required types must be assigned.
      */
-    legend?: PlanningCalendarLegend | string;
+    legend?: PlanningCalendarLegend | string | undefined;
 
     /**
      * Fired when the selected state of an appointment is changed.
      */
-    appointmentSelect?: Function;
+    appointmentSelect?: Function | undefined;
 
     /**
      * @SINCE 1.64
      *
      * Fired if an appointment is dropped.
      */
-    appointmentDrop?: Function;
+    appointmentDrop?: Function | undefined;
 
     /**
      * @SINCE 1.65
      *
      * Fired when an appointment is resized.
      */
-    appointmentResize?: Function;
+    appointmentResize?: Function | undefined;
 
     /**
      * @SINCE 1.65
      *
      * Fired if an appointment is created.
      */
-    appointmentCreate?: Function;
+    appointmentCreate?: Function | undefined;
 
     /**
      * Fired if a date is selected in the calendar header.
      */
-    headerDateSelect?: Function;
+    headerDateSelect?: Function | undefined;
 
     /**
      * `startDate` is changed while navigating in the `SinglePlanningCalendar`.
      */
-    startDateChange?: Function;
+    startDateChange?: Function | undefined;
 
     /**
      * @SINCE 1.65
      *
      * Fired when a grid cell is pressed.
      */
-    cellPress?: Function;
+    cellPress?: Function | undefined;
 
     /**
      * Fired when a 'more' button is pressed. **Note:** The 'more' button appears in a month view cell when
      * multiple appointments exist and the available space is not sufficient to display all of them.
      */
-    moreLinkPress?: Function;
+    moreLinkPress?: Function | undefined;
 
     /**
      * @SINCE 1.71.0
      *
      * The view was changed by user interaction.
      */
-    viewChange?: Function;
+    viewChange?: Function | undefined;
   }
 }
 
@@ -88567,12 +88567,12 @@ declare module "sap/m/SinglePlanningCalendarView" {
     /**
      * Indicates a unique key for the view
      */
-    key?: string | PropertyBindingInfo;
+    key?: string | PropertyBindingInfo | undefined;
 
     /**
      * Adds a title for the view
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -88997,7 +88997,7 @@ declare module "sap/m/Slider" {
         /**
          * The current value of the slider after a change.
          */
-        value?: float;
+        value?: float | undefined;
       }
     ): this;
     /**
@@ -89011,7 +89011,7 @@ declare module "sap/m/Slider" {
         /**
          * The current value of the slider after a live change.
          */
-        value?: float;
+        value?: float | undefined;
       }
     ): this;
     /**
@@ -89555,28 +89555,28 @@ declare module "sap/m/Slider" {
     /**
      * Defines the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether the user can change the value.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The name property to be used in the HTML code for the slider (e.g. for HTML forms that send data to the
      * server via submit).
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * The minimum value.
      */
-    min?: float | PropertyBindingInfo;
+    min?: float | PropertyBindingInfo | undefined;
 
     /**
      * The maximum value.
      */
-    max?: float | PropertyBindingInfo;
+    max?: float | PropertyBindingInfo | undefined;
 
     /**
      * Define the amount of units to change the slider when adjusting by drag and drop.
@@ -89588,12 +89588,12 @@ declare module "sap/m/Slider" {
      * If the width of the slider converted to pixels is less than the range (max - min), the value will be
      * rounded to multiples of the step size.
      */
-    step?: float | PropertyBindingInfo;
+    step?: float | PropertyBindingInfo | undefined;
 
     /**
      * Indicate whether a progress bar indicator is shown.
      */
-    progress?: boolean | PropertyBindingInfo;
+    progress?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Define the value.
@@ -89601,14 +89601,14 @@ declare module "sap/m/Slider" {
      * If the value is lower/higher than the allowed minimum/maximum, the value of the properties `min`/`max`
      * are used instead.
      */
-    value?: float | PropertyBindingInfo;
+    value?: float | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.31
      *
      * Indicate whether the handle tooltip is shown.
      */
-    showHandleTooltip?: boolean | PropertyBindingInfo;
+    showHandleTooltip?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.42
@@ -89616,7 +89616,7 @@ declare module "sap/m/Slider" {
      * Indicate whether the handle's advanced tooltip is shown. **Note:** Setting this option to `true` will
      * ignore the value set in `showHandleTooltip`. This will cause only the advanced tooltip to be shown.
      */
-    showAdvancedTooltip?: boolean | PropertyBindingInfo;
+    showAdvancedTooltip?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.42
@@ -89624,21 +89624,21 @@ declare module "sap/m/Slider" {
      * Indicates whether input fields should be used as tooltips for the handles. **Note:** Setting this option
      * to `true` will only work if `showAdvancedTooltip` is set to `true`.
      */
-    inputsAsTooltips?: boolean | PropertyBindingInfo;
+    inputsAsTooltips?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
      *
      * Enables tickmarks visualisation
      */
-    enableTickmarks?: boolean | PropertyBindingInfo;
+    enableTickmarks?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46
      *
      * Scale for visualisation of tickmarks and labels
      */
-    scale?: IScale;
+    scale?: IScale | undefined;
 
     /**
      * @SINCE 1.56
@@ -89650,24 +89650,24 @@ declare module "sap/m/Slider" {
     customTooltips?:
       | SliderTooltipBase[]
       | SliderTooltipBase
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.27.0
      *
      * Association to controls / IDs which label this control (see WAI-ARIA attribute `aria-labelledby`).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * This event is triggered after the end user finishes interacting, if there is any change.
      */
-    change?: Function;
+    change?: Function | undefined;
 
     /**
      * This event is triggered during the dragging period, each time the slider value changes.
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
   }
 }
 
@@ -89916,11 +89916,11 @@ declare module "sap/m/SlideTile" {
         /**
          * The current scope the SlideTile was in when the event occurred.
          */
-        scope?: GenericTileScope | keyof typeof GenericTileScope;
+        scope?: GenericTileScope | keyof typeof GenericTileScope | undefined;
         /**
          * The action that was pressed on the tile. In the Actions scope, the available actions are Press and Remove.
          */
-        action?: string;
+        action?: string | undefined;
         /**
          * The Element's DOM Element. In Actions scope the domRef points to the DOM Element of the remove button
          * (if pressed) or the more icon.
@@ -90133,12 +90133,12 @@ declare module "sap/m/SlideTile" {
     /**
      * The time of the slide display in milliseconds.
      */
-    displayTime?: int | PropertyBindingInfo;
+    displayTime?: int | PropertyBindingInfo | undefined;
 
     /**
      * The time of the slide changing in milliseconds.
      */
-    transitionTime?: int | PropertyBindingInfo;
+    transitionTime?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46.0
@@ -90147,7 +90147,7 @@ declare module "sap/m/SlideTile" {
      */
     scope?:
       | (GenericTileScope | keyof typeof GenericTileScope)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * If set to `TileSizeBehavior.Small`, the tile size is the same as it would be on a small-screened phone
@@ -90157,26 +90157,26 @@ declare module "sap/m/SlideTile" {
      */
     sizeBehavior?:
       | (TileSizeBehavior | keyof typeof TileSizeBehavior)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
      *
      * Width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The set of Generic Tiles to be shown in the control.
      */
-    tiles?: GenericTile[] | GenericTile | AggregationBindingInfo;
+    tiles?: GenericTile[] | GenericTile | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.46.0
      *
      * The event is fired when the user chooses the tile. The event is available only in Actions scope.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -90316,7 +90316,7 @@ declare module "sap/m/SplitApp" {
         /**
          * Returns true if the device is in landscape mode.
          */
-        landscape?: boolean;
+        landscape?: boolean | undefined;
       }
     ): this;
     /**
@@ -90429,14 +90429,14 @@ declare module "sap/m/SplitApp" {
      * effect, rounded corners, setting the file name to end with "-precomposed.png", and setting the homeIconPrecomposed
      * property to true.
      */
-    homeIcon?: any | PropertyBindingInfo;
+    homeIcon?: any | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.87) - use {@link sap.ui.Device.orientation.attachHandler} instead.
      *
      * Fires when orientation (portrait/landscape) is changed.
      */
-    orientationChange?: Function;
+    orientationChange?: Function | undefined;
   }
 }
 
@@ -91126,44 +91126,44 @@ declare module "sap/m/SplitContainer" {
         /**
          * The page, which had been displayed before navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page, which had been displayed before navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page, which is now displayed after navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page, which is now displayed after navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Determines whether the "to" page (more precisely: a control with the ID of the page, which has been navigated
          * to) has not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether was a forward navigation, triggered by to().
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this was a back navigation, triggered by back().
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this was a navigation to the root page, triggered by backToTop().
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page, triggered by backToPage().
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): this;
     /**
@@ -91186,44 +91186,44 @@ declare module "sap/m/SplitContainer" {
         /**
          * The page, which had been displayed before navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page, which had been displayed before navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page, which is now displayed after navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page, which is now displayed after navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Whether the "to" page (more precisely: a control with the ID of the page, which has been navigated to)
          * has not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether was a forward navigation, triggered by to().
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this was a back navigation, triggered by back().
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this was a navigation to the root page, triggered by backToTop().
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page, triggered by backToPage().
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): this;
     /**
@@ -91267,44 +91267,44 @@ declare module "sap/m/SplitContainer" {
         /**
          * The page, which was displayed before the current navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page, which was displayed before the current navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page, which will be displayed after the current navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page, which will be displayed after the current navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Determines whether the "to" page (more precisely: a control with the ID of the page, which is currently
          * navigated to) has not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether this is a forward navigation, triggered by to().
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this is a back navigation, triggered by back().
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this is a navigation to the root page, triggered by backToTop().
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page, triggered by backToPage().
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): boolean;
     /**
@@ -91330,44 +91330,44 @@ declare module "sap/m/SplitContainer" {
         /**
          * The page, which was displayed before the current navigation.
          */
-        from?: Control;
+        from?: Control | undefined;
         /**
          * The ID of the page, which was displayed before the current navigation.
          */
-        fromId?: string;
+        fromId?: string | undefined;
         /**
          * The page, which will be displayed after the current navigation.
          */
-        to?: Control;
+        to?: Control | undefined;
         /**
          * The ID of the page, which will be displayed after the current navigation.
          */
-        toId?: string;
+        toId?: string | undefined;
         /**
          * Determines whether the "to" page (more precisely: a control with the ID of the page, which is currently
          * being navigated to) has not been displayed/navigated to before.
          */
-        firstTime?: boolean;
+        firstTime?: boolean | undefined;
         /**
          * Determines whether this is a forward navigation, triggered by to().
          */
-        isTo?: boolean;
+        isTo?: boolean | undefined;
         /**
          * Determines whether this is a back navigation, triggered by back().
          */
-        isBack?: boolean;
+        isBack?: boolean | undefined;
         /**
          * Determines whether this is a navigation to the root page, triggered by backToTop().
          */
-        isBackToTop?: boolean;
+        isBackToTop?: boolean | undefined;
         /**
          * Determines whether this was a navigation to a specific page, triggered by backToPage().
          */
-        isBackToPage?: boolean;
+        isBackToPage?: boolean | undefined;
         /**
          * Determines how the navigation was triggered, possible values are "to", "back", "backToPage", and "backToTop".
          */
-        direction?: string;
+        direction?: string | undefined;
       }
     ): boolean;
     /**
@@ -92239,21 +92239,21 @@ declare module "sap/m/SplitContainer" {
      * to use. The default is "slide", other options are "fade", "show", and the names of any registered custom
      * transitions.
      */
-    defaultTransitionNameDetail?: string | PropertyBindingInfo;
+    defaultTransitionNameDetail?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the type of the transition/animation to apply when to() is called, without defining the transition
      * to use. The default is "slide", other options are "fade", "show", and the names of any registered custom
      * transitions.
      */
-    defaultTransitionNameMaster?: string | PropertyBindingInfo;
+    defaultTransitionNameMaster?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the master page will always be displayed (in portrait and landscape mode - StretchCompressMode),
      * or if it should be hidden when in portrait mode (ShowHideMode). Default is ShowHideMode. Other possible
      * values are Hide (Master is always hidden) and Popover (master is displayed in popover).
      */
-    mode?: (SplitAppMode | keyof typeof SplitAppMode) | PropertyBindingInfo;
+    mode?: (SplitAppMode | keyof typeof SplitAppMode) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text displayed in master button, which has a default value "Navigation". This text is
@@ -92264,7 +92264,7 @@ declare module "sap/m/SplitContainer" {
      * or sap.m.Page with built-in header, which is wrapped by one or several sap.ui.core.mvc.View. Otherwise,
      * the show/hide of master button needs to be managed by the application.
      */
-    masterButtonText?: string | PropertyBindingInfo;
+    masterButtonText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.48
@@ -92272,7 +92272,7 @@ declare module "sap/m/SplitContainer" {
      * Specifies the tooltip of the master button. If the tooltip is not specified, the title of the page, which
      * is displayed is the master part, is set as tooltip to the master button.
      */
-    masterButtonTooltip?: string | PropertyBindingInfo;
+    masterButtonTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -92283,7 +92283,7 @@ declare module "sap/m/SplitContainer" {
      * this setting. Use the backgroundRepeat property to define whether this image should be stretched to cover
      * the complete SplitContainer or whether it should be tiled.
      */
-    backgroundColor?: string | PropertyBindingInfo;
+    backgroundColor?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -92294,7 +92294,7 @@ declare module "sap/m/SplitContainer" {
      * this image setting. Use the backgroundRepeat property to define whether this image should be stretched
      * to cover the complete SplitContainer or whether it should be tiled.
      */
-    backgroundImage?: URI | PropertyBindingInfo;
+    backgroundImage?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -92302,7 +92302,7 @@ declare module "sap/m/SplitContainer" {
      * Defines whether the background image (if configured) is proportionally stretched to cover the whole SplitContainer
      * (false) or whether it should be tiled (true).
      */
-    backgroundRepeat?: boolean | PropertyBindingInfo;
+    backgroundRepeat?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.2
@@ -92310,7 +92310,7 @@ declare module "sap/m/SplitContainer" {
      * Defines the opacity of the background image - between 0 (fully transparent) and 1 (fully opaque). This
      * can be used to improve the content visibility by making the background image partly transparent.
      */
-    backgroundOpacity?: float | PropertyBindingInfo;
+    backgroundOpacity?: float | PropertyBindingInfo | undefined;
 
     /**
      * Determines the content entities, between which the SplitContainer navigates in master area. These can
@@ -92318,7 +92318,7 @@ declare module "sap/m/SplitContainer" {
      * semantics. These aggregated controls receive navigation events like {@link sap.m.NavContainerChild#event:BeforeShow
      * BeforeShow}, they are documented in the pseudo interface {@link sap.m.NavContainerChild sap.m.NavContainerChild}.
      */
-    masterPages?: Control[] | Control | AggregationBindingInfo;
+    masterPages?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Determines the content entities, between which the SplitContainer navigates in detail area. These can
@@ -92326,69 +92326,69 @@ declare module "sap/m/SplitContainer" {
      * semantics. These aggregated controls receive navigation events like {@link sap.m.NavContainerChild#event:BeforeShow
      * BeforeShow}, they are documented in the pseudo interface {@link sap.m.NavContainerChild sap.m.NavContainerChild}.
      */
-    detailPages?: Control[] | Control | AggregationBindingInfo;
+    detailPages?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Sets the initial detail page, which is displayed on application launch.
      */
-    initialDetail?: Control | string;
+    initialDetail?: Control | string | undefined;
 
     /**
      * Sets the initial master page, which is displayed on application launch.
      */
-    initialMaster?: Control | string;
+    initialMaster?: Control | string | undefined;
 
     /**
      * Fires when navigation between two pages in master area has been triggered. The transition (if any) to
      * the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    masterNavigate?: Function;
+    masterNavigate?: Function | undefined;
 
     /**
      * Fires when navigation between two pages in master area has completed. NOTE: In case of animated transitions
      * this event is fired with some delay after the navigate event.
      */
-    afterMasterNavigate?: Function;
+    afterMasterNavigate?: Function | undefined;
 
     /**
      * Fires when a Master Button needs to be shown or hidden. This is necessary for custom headers when the
      * SplitContainer control does not handle the placement of the master button automatically.
      */
-    masterButton?: Function;
+    masterButton?: Function | undefined;
 
     /**
      * Fires before the master area is opened.
      */
-    beforeMasterOpen?: Function;
+    beforeMasterOpen?: Function | undefined;
 
     /**
      * Fires when the master area is fully opened after animation if any.
      */
-    afterMasterOpen?: Function;
+    afterMasterOpen?: Function | undefined;
 
     /**
      * Fires before the master area is closed.
      */
-    beforeMasterClose?: Function;
+    beforeMasterClose?: Function | undefined;
 
     /**
      * Fires when the master area is fully closed after the animation (if any).
      */
-    afterMasterClose?: Function;
+    afterMasterClose?: Function | undefined;
 
     /**
      * Fires when navigation between two pages in detail area has been triggered. The transition (if any) to
      * the new page has not started yet. NOTE: This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    detailNavigate?: Function;
+    detailNavigate?: Function | undefined;
 
     /**
      * Fires when navigation between two pages in detail area has completed. NOTE: In case of animated transitions
      * this event is fired with some delay after the "navigate" event.
      */
-    afterDetailNavigate?: Function;
+    afterDetailNavigate?: Function | undefined;
   }
 }
 
@@ -92803,46 +92803,46 @@ declare module "sap/m/StandardListItem" {
     /**
      * Defines the title of the list item.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the additional information for the title. **Note:** This is only visible when the `title` property
      * is not empty.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the list item icon.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines the indentation of the icon. If set to `false`, the icon will not be shown as embedded. Instead
      * it will take the full height of the list item.
      */
-    iconInset?: boolean | PropertyBindingInfo;
+    iconInset?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * By default, one or more requests are sent to get the density perfect version of the icon if the given
      * version of the icon doesn't exist on the server. **Note:** If bandwidth is a key factor for the application,
      * set this value to `false`.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the icon that is shown while the list item is pressed.
      */
-    activeIcon?: URI | PropertyBindingInfo;
+    activeIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines an additional information text.
      */
-    info?: string | PropertyBindingInfo;
+    info?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the state of the information text, e.g. `Error`, `Warning`, `Success`.
      */
-    infoState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    infoState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.3
@@ -92851,7 +92851,7 @@ declare module "sap/m/StandardListItem" {
      * If you have list items with and without descriptions, this results in titles with different sizes. In
      * this case, it can be better to switch the size adaption off by setting this property to `false`.
      */
-    adaptTitleSize?: boolean | PropertyBindingInfo;
+    adaptTitleSize?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -92861,7 +92861,7 @@ declare module "sap/m/StandardListItem" {
      */
     titleTextDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -92871,7 +92871,7 @@ declare module "sap/m/StandardListItem" {
      */
     infoTextDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.67
@@ -92883,7 +92883,7 @@ declare module "sap/m/StandardListItem" {
      * In the desktop mode, initial rendering of the control contains 300 characters along with a button to
      * expand and collapse the text whereas in the phone mode, the character limit is set to 100 characters.
      */
-    wrapping?: boolean | PropertyBindingInfo;
+    wrapping?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.74
@@ -92892,7 +92892,7 @@ declare module "sap/m/StandardListItem" {
      * the `infoState` property is rendered as the background color for the info text, if this property is set
      * to `true`.
      */
-    infoStateInverted?: boolean | PropertyBindingInfo;
+    infoStateInverted?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -93192,44 +93192,44 @@ declare module "sap/m/StandardTile" {
     /**
      * Defines the title of the StandardTile.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the description of the StandardTile.
      */
-    info?: string | PropertyBindingInfo;
+    info?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the icon of the StandardTile.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines the active icon of the StandardTile.
      */
-    activeIcon?: URI | PropertyBindingInfo;
+    activeIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines the number field of the StandardTile.
      */
-    number?: string | PropertyBindingInfo;
+    number?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the number units qualifier of the StandardTile.
      */
-    numberUnit?: string | PropertyBindingInfo;
+    numberUnit?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the color of the info text. Possible values are Error, Warning, Success and so on.
      */
-    infoState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    infoState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * Defines the type of the StandardTile.
      */
     type?:
       | (StandardTileType | keyof typeof StandardTileType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * By default, this is set to true but then one or more requests are sent trying to get the density perfect
@@ -93237,12 +93237,12 @@ declare module "sap/m/StandardTile" {
      *
      * If bandwidth is key for the application, set this value to false.
      */
-    iconDensityAware?: boolean | PropertyBindingInfo;
+    iconDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs, which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
   }
 }
 
@@ -93368,12 +93368,12 @@ declare module "sap/m/StandardTreeItem" {
     /**
      * Defines the title of the item.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the tree item icon.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
   }
 }
 
@@ -93580,7 +93580,7 @@ declare module "sap/m/StepInput" {
         /**
          * The new `value` of the `control`.
          */
-        value?: string;
+        value?: string | undefined;
       }
     ): this;
     /**
@@ -94113,12 +94113,12 @@ declare module "sap/m/StepInput" {
     /**
      * Sets the minimum possible value of the defined range.
      */
-    min?: float | PropertyBindingInfo;
+    min?: float | PropertyBindingInfo | undefined;
 
     /**
      * Sets the maximum possible value of the defined range.
      */
-    max?: float | PropertyBindingInfo;
+    max?: float | PropertyBindingInfo | undefined;
 
     /**
      * Increases/decreases the value of the input. **Note:**
@@ -94131,7 +94131,7 @@ declare module "sap/m/StepInput" {
      * 	 - Depending on what is set for the `value` and the `displayValuePrecision` properties, it is possible
      * 			the displayed value to be rounded to a higher number, for example to 3.0 when the actual value is 2.99.
      */
-    step?: float | PropertyBindingInfo;
+    step?: float | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -94144,32 +94144,32 @@ declare module "sap/m/StepInput" {
      */
     stepMode?:
       | (StepInputStepModeType | keyof typeof StepInputStepModeType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Increases/decreases the value with a larger value than the set step only when using the PageUp/PageDown
      * keys. Default value is 2 times larger than the set step.
      */
-    largerStep?: float | PropertyBindingInfo;
+    largerStep?: float | PropertyBindingInfo | undefined;
 
     /**
      * Determines the value of the `StepInput` and can be set initially from the app developer.
      */
-    value?: float | PropertyBindingInfo;
+    value?: float | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44.15
      *
      * Defines the name of the control for the purposes of form submission.
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44.15
      *
      * Defines a short hint intended to aid the user with data entry when the control has no value.
      */
-    placeholder?: string | PropertyBindingInfo;
+    placeholder?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44.15
@@ -94178,37 +94178,37 @@ declare module "sap/m/StepInput" {
      * single relationship between the field and a label (see aggregation `labelFor` of `sap.m.Label`) cannot
      * be established (e.g. one label should label multiple fields).
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Accepts the core enumeration ValueState.type that supports `None`, `Error`, `Warning` and `Success`.
      * ValueState is managed internally only when validation is triggered by user interaction.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
      *
      * Defines the text that appears in the value state message pop-up.
      */
-    valueStateText?: string | PropertyBindingInfo;
+    valueStateText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the control can be modified by the user or not. **Note:** A user can tab to the non-editable
      * control, highlight it, and copy the text from it.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether the user can interact with the control or not. **Note:** Disabled controls cannot be
      * focused and they are out of the tab-chain.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46
@@ -94218,14 +94218,14 @@ declare module "sap/m/StepInput" {
      * The value should be between 0 (default) and 20. In case the value is not valid it will be set to the
      * default value.
      */
-    displayValuePrecision?: int | PropertyBindingInfo;
+    displayValuePrecision?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
      *
      * Determines the description text after the input field, for example units of measurement, currencies.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -94235,14 +94235,14 @@ declare module "sap/m/StepInput" {
      *
      * **Note:** This property takes effect only if the `description` property is also set.
      */
-    fieldWidth?: CSSSize | PropertyBindingInfo;
+    fieldWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
      *
      * Defines the horizontal alignment of the text that is displayed inside the input field.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -94251,17 +94251,17 @@ declare module "sap/m/StepInput" {
      */
     validationMode?:
       | (StepInputValidationMode | keyof typeof StepInputValidationMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs that label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Is fired when one of the following happens:
@@ -94270,7 +94270,7 @@ declare module "sap/m/StepInput" {
      *
      * 	 - One of the decrement or increment buttons is pressed
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 
@@ -94429,12 +94429,12 @@ declare module "sap/m/SuggestionItem" {
     /**
      * The icon belonging to this list item instance. This can be a URI to an image or an icon font URI.
      */
-    icon?: string | PropertyBindingInfo;
+    icon?: string | PropertyBindingInfo | undefined;
 
     /**
      * Additional text of type string, optionally to be displayed along with this item.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -94574,7 +94574,7 @@ declare module "sap/m/Switch" {
         /**
          * The new state of the switch.
          */
-        state?: boolean;
+        state?: boolean | undefined;
       }
     ): this;
     /**
@@ -94781,7 +94781,7 @@ declare module "sap/m/Switch" {
     /**
      * A boolean value indicating whether the switch is on or off.
      */
-    state?: boolean | PropertyBindingInfo;
+    state?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Custom text for the "ON" state.
@@ -94789,7 +94789,7 @@ declare module "sap/m/Switch" {
      * "ON" translated to the current language is the default value. Beware that the given text will be cut
      * off if available space is exceeded.
      */
-    customTextOn?: string | PropertyBindingInfo;
+    customTextOn?: string | PropertyBindingInfo | undefined;
 
     /**
      * Custom text for the "OFF" state.
@@ -94797,35 +94797,35 @@ declare module "sap/m/Switch" {
      * "OFF" translated to the current language is the default value. Beware that the given text will be cut
      * off if available space is exceeded.
      */
-    customTextOff?: string | PropertyBindingInfo;
+    customTextOff?: string | PropertyBindingInfo | undefined;
 
     /**
      * Whether the switch is enabled.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The name to be used in the HTML code for the switch (e.g. for HTML forms that send data to the server
      * via submit).
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * Type of a Switch. Possibles values "Default", "AcceptReject".
      */
-    type?: (SwitchType | keyof typeof SwitchType) | PropertyBindingInfo;
+    type?: (SwitchType | keyof typeof SwitchType) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.27.0
      *
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Triggered when a switch changes the state.
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 
@@ -95097,7 +95097,7 @@ declare module "sap/m/TabContainer" {
         /**
          * The item to be closed.
          */
-        item?: TabContainerItem;
+        item?: TabContainerItem | undefined;
       }
     ): boolean;
     /**
@@ -95114,7 +95114,7 @@ declare module "sap/m/TabContainer" {
         /**
          * The selected item.
          */
-        item?: TabContainerItem;
+        item?: TabContainerItem | undefined;
       }
     ): boolean;
     /**
@@ -95301,7 +95301,7 @@ declare module "sap/m/TabContainer" {
     /**
      * Defines whether an Add New Tab button is displayed in the `TabStrip`.
      */
-    showAddNewButton?: boolean | PropertyBindingInfo;
+    showAddNewButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.71
@@ -95310,32 +95310,32 @@ declare module "sap/m/TabContainer" {
      */
     backgroundDesign?:
       | (PageBackgroundDesign | keyof typeof PageBackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The items displayed in the `TabContainer`.
      */
-    items?: TabContainerItem[] | TabContainerItem | AggregationBindingInfo;
+    items?: TabContainerItem[] | TabContainerItem | AggregationBindingInfo | undefined;
 
     /**
      * Sets or retrieves the selected item from the `items` aggregation.
      */
-    selectedItem?: TabContainerItem | string;
+    selectedItem?: TabContainerItem | string | undefined;
 
     /**
      * Fired when an item is closed.
      */
-    itemClose?: Function;
+    itemClose?: Function | undefined;
 
     /**
      * Fired when an item is pressed.
      */
-    itemSelect?: Function;
+    itemSelect?: Function | undefined;
 
     /**
      * Fired when the Add New Tab button is pressed.
      */
-    addNewButtonPress?: Function;
+    addNewButtonPress?: Function | undefined;
   }
 }
 
@@ -95475,11 +95475,11 @@ declare module "sap/m/TabContainerItem" {
         /**
          * The item changed.
          */
-        itemChanged?: TabContainerItem;
+        itemChanged?: TabContainerItem | undefined;
         /**
          * The key of the property.
          */
-        propertyKey?: string;
+        propertyKey?: string | undefined;
         /**
          * The value of the property.
          */
@@ -95713,14 +95713,14 @@ declare module "sap/m/TabContainerItem" {
     /**
      * Determines the text to be displayed for the item.
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.63)
      *
      * Determines additional text to be displayed for the item.
      */
-    additionalText?: string | PropertyBindingInfo;
+    additionalText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.63)
@@ -95728,35 +95728,35 @@ declare module "sap/m/TabContainerItem" {
      * Defines the icon to be displayed as graphical element within the `TabContainerItem`. It can be an image
      * or an icon from the icon font.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.63)
      *
      * Determines the tooltip text of the `TabContainerItem`'s icon.
      */
-    iconTooltip?: string | PropertyBindingInfo;
+    iconTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the name of the item. Can be used as input for subsequent actions.
      */
-    key?: string | PropertyBindingInfo;
+    key?: string | PropertyBindingInfo | undefined;
 
     /**
      * Shows if a control is edited (default is false). Items that are marked as modified have a * symbol to
      * indicate that they haven't been saved.
      */
-    modified?: boolean | PropertyBindingInfo;
+    modified?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The content displayed for this item.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Sends information that some of the properties have changed.
      */
-    itemPropertyChanged?: Function;
+    itemPropertyChanged?: Function | undefined;
   }
 }
 
@@ -96030,12 +96030,12 @@ declare module "sap/m/Table" {
         /**
          * Item in which the context menu was opened.
          */
-        listItem?: ColumnListItem;
+        listItem?: ColumnListItem | undefined;
         /**
          * Column in which the context menu was opened. **Note:** This parameter might be undefined for the items
          * that are not part of a column definition.
          */
-        column?: Column;
+        column?: Column | undefined;
       }
     ): boolean;
     /**
@@ -96055,7 +96055,7 @@ declare module "sap/m/Table" {
          * 2D array of strings with data from the clipboard. The first dimension represents the rows, and the second
          * dimension represents the cells of the tabular data.
          */
-        data?: Array<string[]>;
+        data?: Array<string[]> | undefined;
       }
     ): boolean;
     /**
@@ -96071,15 +96071,15 @@ declare module "sap/m/Table" {
         /**
          * Returns true if there are visible columns in the pop-in area
          */
-        hasPopin?: boolean;
+        hasPopin?: boolean | undefined;
         /**
          * Returns array of all visible columns in the pop-in area.
          */
-        visibleInPopin?: Column[];
+        visibleInPopin?: Column[] | undefined;
         /**
          * Returns array of columns that are hidden in the pop-in based on their importance. See {@link sap.m.Column#getImportance}
          */
-        hiddenInPopin?: Column[];
+        hiddenInPopin?: Column[] | undefined;
       }
     ): this;
     /**
@@ -96549,7 +96549,7 @@ declare module "sap/m/Table" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22
@@ -96590,7 +96590,7 @@ declare module "sap/m/Table" {
      * overflow. In auto layout mode the `width` property of `sap.m.Column` is taken into account as a minimum
      * width.
      */
-    fixedLayout?: any | PropertyBindingInfo;
+    fixedLayout?: any | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22.1
@@ -96598,7 +96598,7 @@ declare module "sap/m/Table" {
      * Setting this property to `true` will show an overlay on top of the table content and prevents the user
      * interaction with it.
      */
-    showOverlay?: boolean | PropertyBindingInfo;
+    showOverlay?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -96606,7 +96606,7 @@ declare module "sap/m/Table" {
      * Enables alternating table row colors. **Note:** This property can only be used with the Belize and Belize
      * Deep themes. Alternate row coloring is not available for the High Contrast Black/White themes.
      */
-    alternateRowColors?: boolean | PropertyBindingInfo;
+    alternateRowColors?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -96616,7 +96616,7 @@ declare module "sap/m/Table" {
      */
     popinLayout?:
       | (PopinLayout | keyof typeof PopinLayout)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.60
@@ -96633,7 +96633,7 @@ declare module "sap/m/Table" {
      * can be applied to the `contextualWidth` property. Due to the rendering cost, we recommend to use the
      * valid value mentioned before except for "Auto".
      */
-    contextualWidth?: string | PropertyBindingInfo;
+    contextualWidth?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.76
@@ -96654,7 +96654,7 @@ declare module "sap/m/Table" {
      * and `minScreenWidth` properties of the `sap.m.Column` control by itself. There is no automatic mechanism
      * that restores the old values if `autoPopinMode` was set from `false` to `true` before.
      */
-    autoPopinMode?: boolean | PropertyBindingInfo;
+    autoPopinMode?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.77
@@ -96668,12 +96668,12 @@ declare module "sap/m/Table" {
      */
     hiddenInPopin?:
       | Array<Priority | keyof typeof Priority>
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the columns of the table.
      */
-    columns?: Column[] | Column | AggregationBindingInfo;
+    columns?: Column[] | Column | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -96681,7 +96681,7 @@ declare module "sap/m/Table" {
      * Fired when the context menu is opened. When the context menu is opened, the binding context of the item
      * is set to the given `contextMenu`.
      */
-    beforeOpenContextMenu?: Function;
+    beforeOpenContextMenu?: Function | undefined;
 
     /**
      * @SINCE 1.60
@@ -96689,14 +96689,14 @@ declare module "sap/m/Table" {
      * This event gets fired when the user pastes content from the clipboard to the table. Pasting can be done
      * via the context menu or the standard paste keyboard shortcut, if the focus is inside the table.
      */
-    paste?: Function;
+    paste?: Function | undefined;
 
     /**
      * @SINCE 1.77
      *
      * Fired when the table pop-in has changed.
      */
-    popinChanged?: Function;
+    popinChanged?: Function | undefined;
   }
 }
 
@@ -97109,24 +97109,24 @@ declare module "sap/m/TablePersoController" {
 
   export interface $TablePersoControllerSettings
     extends $ManagedObjectSettings {
-    contentWidth?: CSSSize | PropertyBindingInfo;
+    contentWidth?: CSSSize | PropertyBindingInfo | undefined;
 
-    contentHeight?: CSSSize | PropertyBindingInfo;
+    contentHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Available options for the text direction are LTR and RTL. By default the control inherits the text direction
      * from its parent control.
      */
-    componentName?: string | PropertyBindingInfo;
+    componentName?: string | PropertyBindingInfo | undefined;
 
-    hasGrouping?: boolean | PropertyBindingInfo;
+    hasGrouping?: boolean | PropertyBindingInfo | undefined;
 
-    showSelectAll?: boolean | PropertyBindingInfo;
+    showSelectAll?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Controls the visibility of the Reset button of the `TablePersoDialog`.
      */
-    showResetAll?: boolean | PropertyBindingInfo;
+    showResetAll?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Controls the behavior of the Reset button of the `TablePersoDialog`.
@@ -97139,18 +97139,18 @@ declare module "sap/m/TablePersoController" {
      */
     resetAllMode?:
       | (ResetAllMode | keyof typeof ResetAllMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
-    persoService?: Object;
+    persoService?: Object | undefined;
 
-    table?: Table | string;
+    table?: Table | string | undefined;
 
     /**
      * Also several tables may be personalized at once given they have same columns.
      */
-    tables?: Array<Table | string>;
+    tables?: Array<Table | string> | undefined;
 
-    personalizationsDone?: Function;
+    personalizationsDone?: Function | undefined;
   }
 }
 
@@ -97542,21 +97542,21 @@ declare module "sap/m/TablePersoDialog" {
   }
 
   export interface $TablePersoDialogSettings extends $ManagedObjectSettings {
-    contentWidth?: CSSSize | PropertyBindingInfo;
+    contentWidth?: CSSSize | PropertyBindingInfo | undefined;
 
-    contentHeight?: CSSSize | PropertyBindingInfo;
+    contentHeight?: CSSSize | PropertyBindingInfo | undefined;
 
-    persoMap?: object | PropertyBindingInfo;
+    persoMap?: object | PropertyBindingInfo | undefined;
 
-    columnInfoCallback?: object | PropertyBindingInfo;
+    columnInfoCallback?: object | PropertyBindingInfo | undefined;
 
-    initialColumnState?: object | PropertyBindingInfo;
+    initialColumnState?: object | PropertyBindingInfo | undefined;
 
-    hasGrouping?: boolean | PropertyBindingInfo;
+    hasGrouping?: boolean | PropertyBindingInfo | undefined;
 
-    showSelectAll?: boolean | PropertyBindingInfo;
+    showSelectAll?: boolean | PropertyBindingInfo | undefined;
 
-    showResetAll?: boolean | PropertyBindingInfo;
+    showResetAll?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.30.1) - This aggregate is no longer used. It collided with the TablePersoController's
@@ -97564,16 +97564,16 @@ declare module "sap/m/TablePersoDialog" {
      *
      * Refers to the service for reading and writing the personalization.
      */
-    persoService?: Object;
+    persoService?: Object | undefined;
 
     /**
      * The table which shall be personalized.
      */
-    persoDialogFor?: Table | string;
+    persoDialogFor?: Table | string | undefined;
 
-    confirm?: Function;
+    confirm?: Function | undefined;
 
-    cancel?: Function;
+    cancel?: Function | undefined;
   }
 }
 
@@ -98061,12 +98061,12 @@ declare module "sap/m/TableSelectDialog" {
          * Returns the selected list item. When no item is selected, "null" is returned. When multi-selection is
          * enabled and multiple items are selected, only the first selected item is returned.
          */
-        selectedItem?: StandardListItem;
+        selectedItem?: StandardListItem | undefined;
         /**
          * Returns an array containing the visible selected list items. If no items are selected, an empty array
          * is returned.
          */
-        selectedItems?: StandardListItem[];
+        selectedItems?: StandardListItem[] | undefined;
         /**
          * Returns the binding contexts of the selected items including the non-visible items, but excluding the
          * not loaded items. Note: In contrast to the parameter "selectedItems", this parameter includes the selected
@@ -98075,7 +98075,7 @@ declare module "sap/m/TableSelectDialog" {
          * visible upon opening the dialog, these contexts are not loaded. Therefore, these items will not be included
          * in the selectedContexts array unless they are displayed at least once.
          */
-        selectedContexts?: string;
+        selectedContexts?: string | undefined;
       }
     ): this;
     /**
@@ -98089,7 +98089,7 @@ declare module "sap/m/TableSelectDialog" {
         /**
          * Specifies the value entered in the search field.
          */
-        value?: string;
+        value?: string | undefined;
         /**
          * The Items binding of the Table Select Dialog. Only available if the items aggregation is bound to a model.
          */
@@ -98107,7 +98107,7 @@ declare module "sap/m/TableSelectDialog" {
         /**
          * Specifies the value entered in the search field.
          */
-        value?: string;
+        value?: string | undefined;
         /**
          * Determines the Items binding of the Table Select Dialog. Only available if the items aggregation is bound
          * to a model.
@@ -98116,7 +98116,7 @@ declare module "sap/m/TableSelectDialog" {
         /**
          * Returns if the Clear button is pressed.
          */
-        clearButtonPressed?: boolean;
+        clearButtonPressed?: boolean | undefined;
       }
     ): this;
     /**
@@ -98665,17 +98665,17 @@ declare module "sap/m/TableSelectDialog" {
     /**
      * Specifies the title text in the dialog header.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the text displayed when the table has no data.
      */
-    noDataText?: string | PropertyBindingInfo;
+    noDataText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Enables the user to select several options from the table.
      */
-    multiSelect?: boolean | PropertyBindingInfo;
+    multiSelect?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.56
@@ -98687,21 +98687,21 @@ declare module "sap/m/TableSelectDialog" {
      * To make sure that all items in the table are loaded at once and the above features work properly, we
      * recommend setting the `growing` property to `false`.
      */
-    growing?: boolean | PropertyBindingInfo;
+    growing?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the number of items initially displayed in the table and defines the number of items to be
      * requested from the model for each grow. This property can only be used if the property `growing` is set
      * to `true`.
      */
-    growingThreshold?: int | PropertyBindingInfo;
+    growingThreshold?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.18
      *
      * Determines the content width of the inner dialog. For more information, see the Dialog documentation.
      */
-    contentWidth?: CSSSize | PropertyBindingInfo;
+    contentWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.18
@@ -98711,12 +98711,12 @@ declare module "sap/m/TableSelectDialog" {
      * dialog should reset the selection to allow for a new selection each time set it to `false` Note: This
      * property must be set before the Dialog is opened to have an effect.
      */
-    rememberSelections?: boolean | PropertyBindingInfo;
+    rememberSelections?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the content height of the inner dialog. For more information, see the Dialog documentation.
      */
-    contentHeight?: CSSSize | PropertyBindingInfo;
+    contentHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58
@@ -98735,7 +98735,7 @@ declare module "sap/m/TableSelectDialog" {
      *
      * **Note:** When used with OData, only the loaded selections will be cleared.
      */
-    showClearButton?: boolean | PropertyBindingInfo;
+    showClearButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.68
@@ -98743,7 +98743,7 @@ declare module "sap/m/TableSelectDialog" {
      * Overwrites the default text for the confirmation button. Note: This property applies only when the property
      * `multiSelect` is set to `true`.
      */
-    confirmButtonText?: string | PropertyBindingInfo;
+    confirmButtonText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.71
@@ -98751,7 +98751,7 @@ declare module "sap/m/TableSelectDialog" {
      * When set to `true`, the TableSelectDialog is draggable by its header. The default value is `false`. **Note**:
      * The TableSelectDialog can be draggable only in desktop mode.
      */
-    draggable?: boolean | PropertyBindingInfo;
+    draggable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.71
@@ -98759,7 +98759,7 @@ declare module "sap/m/TableSelectDialog" {
      * When set to `true`, the TableSelectDialog will have a resize handler in its bottom right corner. The
      * default value is `false`. **Note**: The TableSelectDialog can be resizable only in desktop mode.
      */
-    resizable?: boolean | PropertyBindingInfo;
+    resizable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
@@ -98770,38 +98770,38 @@ declare module "sap/m/TableSelectDialog" {
      */
     titleAlignment?:
       | (TitleAlignment | keyof typeof TitleAlignment)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The items of the table.
      */
-    items?: ColumnListItem[] | ColumnListItem | AggregationBindingInfo;
+    items?: ColumnListItem[] | ColumnListItem | AggregationBindingInfo | undefined;
 
     /**
      * The columns bindings.
      */
-    columns?: Column[] | Column | AggregationBindingInfo;
+    columns?: Column[] | Column | AggregationBindingInfo | undefined;
 
     /**
      * Fires when the dialog is confirmed by selecting an item in single-selection mode or by pressing the confirmation
      * button in multi-selection mode. The items being selected are returned as event parameters.
      */
-    confirm?: Function;
+    confirm?: Function | undefined;
 
     /**
      * Fires when the search button has been clicked on dialog.
      */
-    search?: Function;
+    search?: Function | undefined;
 
     /**
      * Fires when the value of the search field is changed by a user (for example at each key press).
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
 
     /**
      * Fires when the Cancel button is clicked.
      */
-    cancel?: Function;
+    cancel?: Function | undefined;
   }
 }
 
@@ -99298,7 +99298,7 @@ declare module "sap/m/Text" {
     /**
      * Determines the text to be displayed.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Available options for the text direction are LTR and RTL. By default the control inherits the text direction
@@ -99306,12 +99306,12 @@ declare module "sap/m/Text" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Enables text wrapping.
      */
-    wrapping?: boolean | PropertyBindingInfo;
+    wrapping?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.60
@@ -99322,18 +99322,18 @@ declare module "sap/m/Text" {
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Sets the horizontal alignment of the text.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Sets the width of the Text control. By default, the Text control uses the full width available. Set this
      * property to restrict the width to a custom value.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.13.2
@@ -99343,7 +99343,7 @@ declare module "sap/m/Text" {
      * **Note**: The multi-line overflow indicator depends on the browser line clamping support. For such browsers,
      * this will be shown as ellipsis, for the other browsers the overflow will just be hidden.
      */
-    maxLines?: int | PropertyBindingInfo;
+    maxLines?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.51
@@ -99352,7 +99352,7 @@ declare module "sap/m/Text" {
      * by the browser. Depending on wrapping property text will either only wrap on line breaks or wrap when
      * necessary, and on line breaks.
      */
-    renderWhitespace?: boolean | PropertyBindingInfo;
+    renderWhitespace?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.87
@@ -99361,7 +99361,7 @@ declare module "sap/m/Text" {
      */
     emptyIndicatorMode?:
       | (EmptyIndicatorMode | keyof typeof EmptyIndicatorMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
   }
 }
 
@@ -99508,7 +99508,7 @@ declare module "sap/m/TextArea" {
         /**
          * The new `value` of the control.
          */
-        value?: string;
+        value?: string | undefined;
       }
     ): this;
     /**
@@ -99777,23 +99777,23 @@ declare module "sap/m/TextArea" {
      * Defines the number of visible text lines for the control. **Note:** The `height` property wins over the
      * `rows` property, if both are set.
      */
-    rows?: int | PropertyBindingInfo;
+    rows?: int | PropertyBindingInfo | undefined;
 
     /**
      * Defines the visible width of the control, in average character widths. **Note:** The `width` property
      * wins over the `cols` property, if both are set.
      */
-    cols?: int | PropertyBindingInfo;
+    cols?: int | PropertyBindingInfo | undefined;
 
     /**
      * Defines the height of the control.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the maximum number of characters that the `value` can be.
      */
-    maxLength?: int | PropertyBindingInfo;
+    maxLength?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.48
@@ -99805,12 +99805,12 @@ declare module "sap/m/TextArea" {
      * property. If set to `true` the characters exceeding the `maxLength` value are selected on paste and the
      * counter below the input field displays their number.
      */
-    showExceededText?: boolean | PropertyBindingInfo;
+    showExceededText?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates how the control wraps the text, e.g. `Soft`, `Hard`, `Off`.
      */
-    wrapping?: (Wrapping | keyof typeof Wrapping) | PropertyBindingInfo;
+    wrapping?: (Wrapping | keyof typeof Wrapping) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30
@@ -99818,7 +99818,7 @@ declare module "sap/m/TextArea" {
      * Indicates when the `value` property gets updated with the user changes. Setting it to `true` updates
      * the `value` property whenever the user has modified the text shown on the text area.
      */
-    valueLiveUpdate?: boolean | PropertyBindingInfo;
+    valueLiveUpdate?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -99826,19 +99826,19 @@ declare module "sap/m/TextArea" {
      * Indicates the ability of the control to automatically grow and shrink dynamically with its content. **Note:**
      * The `height` property is ignored, if this property set to `true`.
      */
-    growing?: boolean | PropertyBindingInfo;
+    growing?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
      *
      * Defines the maximum number of lines that the control can grow.
      */
-    growingMaxLines?: int | PropertyBindingInfo;
+    growingMaxLines?: int | PropertyBindingInfo | undefined;
 
     /**
      * Is fired whenever the user has modified the text shown on the text area.
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
   }
 }
 
@@ -100012,12 +100012,12 @@ declare module "sap/m/Tile" {
      * Determines whether the tile is movable within the surrounding tile container. The remove event is fired
      * by the tile container.
      */
-    removable?: boolean | PropertyBindingInfo;
+    removable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Tap event is raised if the user taps or clicks the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -100250,7 +100250,7 @@ declare module "sap/m/TileContainer" {
         /**
          * The deleted Tile.
          */
-        tile?: Tile;
+        tile?: Tile | undefined;
       }
     ): this;
     /**
@@ -100264,11 +100264,11 @@ declare module "sap/m/TileContainer" {
         /**
          * The Tile that has been moved.
          */
-        tile?: Tile;
+        tile?: Tile | undefined;
         /**
          * The new index of the Tile in the tiles aggregation.
          */
-        newIndex?: int;
+        newIndex?: int | undefined;
       }
     ): this;
     /**
@@ -100503,42 +100503,42 @@ declare module "sap/m/TileContainer" {
     /**
      * Defines the width of the TileContainer in px.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the height of the TileContainer in px.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the TileContainer is editable so you can move, delete or add tiles.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the user is allowed to add Tiles in Edit mode (editable = true).
      */
-    allowAdd?: boolean | PropertyBindingInfo;
+    allowAdd?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The Tiles to be displayed by the TileContainer.
      */
-    tiles?: Tile[] | Tile | AggregationBindingInfo;
+    tiles?: Tile[] | Tile | AggregationBindingInfo | undefined;
 
     /**
      * Fires if a Tile is moved.
      */
-    tileMove?: Function;
+    tileMove?: Function | undefined;
 
     /**
      * Fires if a Tile is deleted in Edit mode.
      */
-    tileDelete?: Function;
+    tileDelete?: Function | undefined;
 
     /**
      * Fires when a Tile is added.
      */
-    tileAdd?: Function;
+    tileAdd?: Function | undefined;
   }
 }
 
@@ -100819,14 +100819,14 @@ declare module "sap/m/TileContent" {
     /**
      * The footer text of the tile.
      */
-    footer?: string | PropertyBindingInfo;
+    footer?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44
      *
      * The semantic color of the footer.
      */
-    footerColor?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo;
+    footerColor?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.38.0) - The TileContent control has now a fixed size, depending on the used media
@@ -100835,27 +100835,27 @@ declare module "sap/m/TileContent" {
      * Updates the size of the tile. If it is not set, then the default size is applied based on the device
      * tile.
      */
-    size?: (Size | keyof typeof Size) | PropertyBindingInfo;
+    size?: (Size | keyof typeof Size) | PropertyBindingInfo | undefined;
 
     /**
      * The percent sign, the currency symbol, or the unit of measure.
      */
-    unit?: string | PropertyBindingInfo;
+    unit?: string | PropertyBindingInfo | undefined;
 
     /**
      * Disables control if true.
      */
-    disabled?: boolean | PropertyBindingInfo;
+    disabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Frame types: 1x1, 2x1, and auto.
      */
-    frameType?: (FrameType | keyof typeof FrameType) | PropertyBindingInfo;
+    frameType?: (FrameType | keyof typeof FrameType) | PropertyBindingInfo | undefined;
 
     /**
      * The switchable view that depends on the tile type.
      */
-    content?: Control;
+    content?: Control | undefined;
   }
 }
 
@@ -101346,12 +101346,12 @@ declare module "sap/m/TimePicker" {
      * language settings if not set explicitly. Used in combination with 12 hour `displayFormat` containing
      * 'a', which stands for day period string.
      */
-    localeId?: string | PropertyBindingInfo;
+    localeId?: string | PropertyBindingInfo | undefined;
 
     /**
      * Displays the text of the general picker label and is read by screen readers. It is visible only on phone.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40
@@ -101359,7 +101359,7 @@ declare module "sap/m/TimePicker" {
      * Sets the minutes step. If step is less than 1, it will be automatically converted back to 1. The minutes
      * clock is populated only by multiples of the step.
      */
-    minutesStep?: int | PropertyBindingInfo;
+    minutesStep?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40
@@ -101367,12 +101367,12 @@ declare module "sap/m/TimePicker" {
      * Sets the seconds step. If step is less than 1, it will be automatically converted back to 1. The seconds
      * clock is populated only by multiples of the step.
      */
-    secondsStep?: int | PropertyBindingInfo;
+    secondsStep?: int | PropertyBindingInfo | undefined;
 
     /**
      * Defines a placeholder symbol. Shown at the position where there is no user input yet.
      */
-    placeholderSymbol?: string | PropertyBindingInfo;
+    placeholderSymbol?: string | PropertyBindingInfo | undefined;
 
     /**
      * Mask defined by its characters type (respectively, by its length). You should consider the following
@@ -101384,7 +101384,7 @@ declare module "sap/m/TimePicker" {
      * immutable. Use the double escape '^^' if you want to make use of the escape character as an immutable
      * one.
      */
-    mask?: string | PropertyBindingInfo;
+    mask?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -101398,7 +101398,7 @@ declare module "sap/m/TimePicker" {
      */
     maskMode?:
       | (TimePickerMaskMode | keyof typeof TimePickerMaskMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -101406,12 +101406,12 @@ declare module "sap/m/TimePicker" {
      * Allows to set a value of 24:00, used to indicate the end of the day. Works only with HH or H formats.
      * Don't use it together with am/pm.
      */
-    support2400?: boolean | PropertyBindingInfo;
+    support2400?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * A list of validation rules (one rule per mask character).
      */
-    rules?: MaskInputRule[] | MaskInputRule | AggregationBindingInfo;
+    rules?: MaskInputRule[] | MaskInputRule | AggregationBindingInfo | undefined;
   }
 }
 
@@ -101714,7 +101714,7 @@ declare module "sap/m/TimePickerSliders" {
         /**
          * The new `value` of the control.
          */
-        value?: string;
+        value?: string | undefined;
       }
     ): this;
     /**
@@ -101944,53 +101944,53 @@ declare module "sap/m/TimePickerSliders" {
      * language settings if not set explicitly. Used in combination with 12 hour `displayFormat` containing
      * 'a', which stands for day period string.
      */
-    localeId?: string | PropertyBindingInfo;
+    localeId?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the time `displayFormat` of the sliders. The `displayFormat` comes from the browser language
      * settings if not set explicitly.
      */
-    displayFormat?: string | PropertyBindingInfo;
+    displayFormat?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the text of the picker label.
      *
      * It is read by screen readers. It is visible only on phone.
      */
-    labelText?: string | PropertyBindingInfo;
+    labelText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Sets the minutes slider step. If step is less than 1, it will be automatically converted back to 1. The
      * minutes slider is populated only by multiples of the step.
      */
-    minutesStep?: int | PropertyBindingInfo;
+    minutesStep?: int | PropertyBindingInfo | undefined;
 
     /**
      * Sets the seconds slider step. If step is less than 1, it will be automatically converted back to 1. The
      * seconds slider is populated only by multiples of the step.
      */
-    secondsStep?: int | PropertyBindingInfo;
+    secondsStep?: int | PropertyBindingInfo | undefined;
 
     /**
      * Sets the width of the container. The minimum width is 320px.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Sets the height of the container. If percentage value is used the parent container should have specified
      * height
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the value of the control.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the format of the `value` property.
      */
-    valueFormat?: string | PropertyBindingInfo;
+    valueFormat?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -101998,12 +101998,12 @@ declare module "sap/m/TimePickerSliders" {
      * Allows to set a value of 24:00, used to indicate the end of the day. Works only with HH or H formats.
      * Don't use it together with am/pm.
      */
-    support2400?: boolean | PropertyBindingInfo;
+    support2400?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Fired when the value is changed.
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 
@@ -102410,7 +102410,7 @@ declare module "sap/m/Title" {
      * **Note:** this property is not used if there is a control added to the `content` aggregation **Note:**
      * this property will be overridden if there is title element associated and it has `text` property set.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the semantic level of the title. This information is e.g. used by assistive technologies like
@@ -102422,7 +102422,7 @@ declare module "sap/m/Title" {
      * **Note:** this property will be overridden if there is title element associated and it has `level` property
      * set.
      */
-    level?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo;
+    level?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo | undefined;
 
     /**
      * Defines the style of the title. When using the `Auto` styling, the appearance of the title depends on
@@ -102430,12 +102430,12 @@ declare module "sap/m/Title" {
      * by setting a different style explicitly. The actual appearance of the title and the different styles
      * always depends on the theme being used.
      */
-    titleStyle?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo;
+    titleStyle?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo | undefined;
 
     /**
      * Defines the width of the title.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the alignment of the text within the title. **Note:** This property only has an effect if the
@@ -102443,7 +102443,7 @@ declare module "sap/m/Title" {
      *
      * **Note:** this property will be overridden if there is a control added to the `content` aggregation
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Options for the text direction are RTL and LTR. Alternatively, the control can inherit the text direction
@@ -102453,7 +102453,7 @@ declare module "sap/m/Title" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -102463,7 +102463,7 @@ declare module "sap/m/Title" {
      * **Note:** Wrapping must only be activated if the surrounding container allows flexible heights. **Note:**
      * this property will be ignored if there is a control added to the `content` aggregation
      */
-    wrapping?: boolean | PropertyBindingInfo;
+    wrapping?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.60
@@ -102475,7 +102475,7 @@ declare module "sap/m/Title" {
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.87
@@ -102487,7 +102487,7 @@ declare module "sap/m/Title" {
      * be overridden - `text`, `textAlign`, `textDirection`; the following will be ignored - `wrapping`, `wrappingType`.
      * The `title` association will be ignored too.
      */
-    content?: ITitleContent;
+    content?: ITitleContent | undefined;
 
     /**
      * Defines a relationship to a generic title description.
@@ -102496,7 +102496,7 @@ declare module "sap/m/Title" {
      * otherwise the properties `text`, `level` and tooltip (text only) of this element will override
      * the corresponding properties of the `Title` control.
      */
-    title?: Title1 | string;
+    title?: Title1 | string | undefined;
   }
 }
 
@@ -102619,7 +102619,7 @@ declare module "sap/m/ToggleButton" {
         /**
          * The current pressed state of the control.
          */
-        pressed?: boolean;
+        pressed?: boolean | undefined;
       }
     ): this;
     /**
@@ -102678,12 +102678,12 @@ declare module "sap/m/ToggleButton" {
     /**
      * The property is “true” when the control is toggled. The default state of this property is "false".
      */
-    pressed?: boolean | PropertyBindingInfo;
+    pressed?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Fired when the user clicks or taps on the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -103206,22 +103206,22 @@ declare module "sap/m/Token" {
     /**
      * Indicates the current selection status of the token.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Key of the token.
      */
-    key?: string | PropertyBindingInfo;
+    key?: string | PropertyBindingInfo | undefined;
 
     /**
      * Displayed text of the token.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Indicates the editable status of the token. If it is set to `true`, token displays a delete icon.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -103231,37 +103231,37 @@ declare module "sap/m/Token" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * This event is fired if the user clicks the token's delete icon.
      */
-    delete?: Function;
+    delete?: Function | undefined;
 
     /**
      * This event is fired when the user clicks on the token.
      */
-    press?: Function;
+    press?: Function | undefined;
 
     /**
      * This event is fired when the token gets selected.
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * This event is fired when the token gets deselected.
      */
-    deselect?: Function;
+    deselect?: Function | undefined;
   }
 }
 
@@ -103373,15 +103373,15 @@ declare module "sap/m/Tokenizer" {
         /**
          * Suggested token
          */
-        token?: object;
+        token?: object | undefined;
         /**
          * Any object used to find the suggested token
          */
-        suggestionObject?: object;
+        suggestionObject?: object | undefined;
         /**
          * Callback which gets called after validation has finished
          */
-        validationCallback?: Function;
+        validationCallback?: Function | undefined;
       }
     ): void;
     /**
@@ -103565,23 +103565,23 @@ declare module "sap/m/Tokenizer" {
          * sap.m.Tokenizer.TokenChangeType.RemovedAll for "removedAll" and sap.m.Tokenizer.TokenChangeType.TokensChanged
          * for "tokensChanged".
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * the added token or removed token. This parameter is used when tokenChange type is "added" or "removed".
          */
-        token?: Token;
+        token?: Token | undefined;
         /**
          * the array of removed tokens. This parameter is used when tokenChange type is "removedAll".
          */
-        tokens?: Token[];
+        tokens?: Token[] | undefined;
         /**
          * the array of tokens that are added. This parameter is used when tokenChange type is "tokenChanged".
          */
-        addedTokens?: Token[];
+        addedTokens?: Token[] | undefined;
         /**
          * the array of tokens that are removed. This parameter is used when tokenChange type is "tokenChanged".
          */
-        removedTokens?: Token[];
+        removedTokens?: Token[] | undefined;
       }
     ): this;
     /**
@@ -103597,11 +103597,11 @@ declare module "sap/m/Tokenizer" {
         /**
          * The array of tokens that are removed.
          */
-        tokens?: Token[];
+        tokens?: Token[] | undefined;
         /**
          * Keycode of the key pressed for deletion (backspace or delete).
          */
-        keyCode?: number;
+        keyCode?: number | undefined;
       }
     ): this;
     /**
@@ -103622,15 +103622,15 @@ declare module "sap/m/Tokenizer" {
          * Type of tokenChange event. There are two TokenUpdate types: "added", "removed" Use sap.m.Tokenizer.TokenUpdateType.Added
          * for "added" and sap.m.Tokenizer.TokenUpdateType.Removed for "removed".
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * The array of tokens that are added. This parameter is used when tokenUpdate type is "added".
          */
-        addedTokens?: Token[];
+        addedTokens?: Token[] | undefined;
         /**
          * The array of tokens that are removed. This parameter is used when tokenUpdate type is "removed".
          */
-        removedTokens?: Token[];
+        removedTokens?: Token[] | undefined;
       }
     ): boolean;
     /**
@@ -103969,17 +103969,17 @@ declare module "sap/m/Tokenizer" {
     /**
      * true if tokens shall be editable otherwise false
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the width of the Tokenizer.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the maximum width of the Tokenizer.
      */
-    maxWidth?: CSSSize | PropertyBindingInfo;
+    maxWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the mode that the Tokenizer will use:
@@ -103987,29 +103987,29 @@ declare module "sap/m/Tokenizer" {
      * 	 - `sap.m.TokenizerRenderMode.Narrow` mode forces the Tokenizer to show only as much tokens as possible
      * 			in its width and add an n-More indicator
      */
-    renderMode?: string | PropertyBindingInfo;
+    renderMode?: string | PropertyBindingInfo | undefined;
 
     /**
      * the currently displayed tokens
      */
-    tokens?: Token[] | Token | AggregationBindingInfo;
+    tokens?: Token[] | Token | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @deprecated (since 1.82) - replaced by `tokenDelete` event.
      *
      * Fired when the tokens aggregation changed (add / remove token)
      */
-    tokenChange?: Function;
+    tokenChange?: Function | undefined;
 
     /**
      * @SINCE 1.46
@@ -104017,7 +104017,7 @@ declare module "sap/m/Tokenizer" {
      *
      * Fired when the tokens aggregation changed due to a user interaction (add / remove token)
      */
-    tokenUpdate?: Function;
+    tokenUpdate?: Function | undefined;
 
     /**
      * @SINCE 1.82
@@ -104025,7 +104025,7 @@ declare module "sap/m/Tokenizer" {
      * Fired when a token is deleted by clicking icon, pressing backspace or delete button.  Once the
      * event is fired, application is responsible for removing / destroying the token from the aggregation.
      */
-    tokenDelete?: Function;
+    tokenDelete?: Function | undefined;
   }
 }
 
@@ -104217,7 +104217,7 @@ declare module "sap/m/Toolbar" {
         /**
          * The toolbar item that was pressed
          */
-        srcControl?: Control;
+        srcControl?: Control | undefined;
       }
     ): this;
     /**
@@ -104538,20 +104538,20 @@ declare module "sap/m/Toolbar" {
      * Defines the width of the control. By default, Toolbar is a block element. If the width is not explicitly
      * set, the control will assume its natural size.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Indicates that the whole toolbar is clickable. The Press event is fired only if Active is set to true.
      * Note: This property should be used when there are no interactive controls inside the toolbar and the
      * toolbar itself is meant to be interactive.
      */
-    active?: boolean | PropertyBindingInfo;
+    active?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Sets the enabled property of all controls defined in the content aggregation. Note: This property does
      * not apply to the toolbar itself, but rather to its items.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the height of the control. By default, the `height` property depends on the used theme and the
@@ -104559,7 +104559,7 @@ declare module "sap/m/Toolbar" {
      *
      * **Note:** It is not recommended to use this property if the `sapMTBHeader-CTX` class is used
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.8
@@ -104568,7 +104568,7 @@ declare module "sap/m/Toolbar" {
      *
      * **Note:** Design settings are theme-dependent. They also determine the default height of the toolbar.
      */
-    design?: (ToolbarDesign | keyof typeof ToolbarDesign) | PropertyBindingInfo;
+    design?: (ToolbarDesign | keyof typeof ToolbarDesign) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -104577,7 +104577,7 @@ declare module "sap/m/Toolbar" {
      *
      * **Note:** The visual styles are theme-dependent.
      */
-    style?: (ToolbarStyle | keyof typeof ToolbarStyle) | PropertyBindingInfo;
+    style?: (ToolbarStyle | keyof typeof ToolbarStyle) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.79.0
@@ -104591,22 +104591,22 @@ declare module "sap/m/Toolbar" {
      * 	 -  If you use other controls, or directly `sap.ui.core.Popup`, you need to check the container role/type
      * 			and map the value of `ariaHasPopup` accordingly.
      */
-    ariaHasPopup?: string | PropertyBindingInfo;
+    ariaHasPopup?: string | PropertyBindingInfo | undefined;
 
     /**
      * The content of the toolbar.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Fired when the user clicks on the toolbar, if the Active property is set to "true".
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -104764,17 +104764,17 @@ declare module "sap/m/ToolbarLayoutData" {
      *
      * Note: Nested layout controls should not be shrinkable.
      */
-    shrinkable?: boolean | PropertyBindingInfo;
+    shrinkable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Sets the minimum width of the toolbar item.
      */
-    minWidth?: CSSSize | PropertyBindingInfo;
+    minWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Sets the maximum width of the toolbar item.
      */
-    maxWidth?: CSSSize | PropertyBindingInfo;
+    maxWidth?: CSSSize | PropertyBindingInfo | undefined;
   }
 }
 
@@ -104978,7 +104978,7 @@ declare module "sap/m/ToolbarSpacer" {
      * it covers the remaining space between toolbar items. This feature can be used to push next item to the
      * edge of the toolbar.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
   }
 }
 
@@ -105162,15 +105162,15 @@ declare module "sap/m/Tree" {
         /**
          * Index of the expanded/collapsed item
          */
-        itemIndex?: int;
+        itemIndex?: int | undefined;
         /**
          * Binding context of the item
          */
-        itemContext?: object;
+        itemContext?: object | undefined;
         /**
          * Flag that indicates whether the item has been expanded or collapsed
          */
-        expanded?: boolean;
+        expanded?: boolean | undefined;
       }
     ): this;
     /**
@@ -105261,7 +105261,7 @@ declare module "sap/m/Tree" {
      *
      * Fired when an item has been expanded or collapsed by user interaction.
      */
-    toggleOpenState?: Function;
+    toggleOpenState?: Function | undefined;
   }
 }
 
@@ -105623,7 +105623,7 @@ declare module "sap/m/upload/Uploader" {
         /**
          * The item that is going to be deleted.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -105637,7 +105637,7 @@ declare module "sap/m/upload/Uploader" {
         /**
          * The item that was uploaded.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -105651,17 +105651,17 @@ declare module "sap/m/upload/Uploader" {
         /**
          * The item that is being uploaded.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
         /**
          * The number of bytes transferred since the beginning of the operation. This doesn't include headers and
          * other overhead, but only the content itself
          */
-        loaded?: int;
+        loaded?: int | undefined;
         /**
          * The total number of bytes of content that will be transferred during the operation. If the total size
          * is unknown, this value is zero.
          */
-        total?: int;
+        total?: int | undefined;
       }
     ): this;
     /**
@@ -105675,7 +105675,7 @@ declare module "sap/m/upload/Uploader" {
         /**
          * The item that is going to be uploaded.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -105867,39 +105867,39 @@ declare module "sap/m/upload/Uploader" {
     /**
      * URL where the next file is going to be uploaded to.
      */
-    uploadUrl?: string | PropertyBindingInfo;
+    uploadUrl?: string | PropertyBindingInfo | undefined;
 
     /**
      * URL where the next file is going to be download from.
      */
-    downloadUrl?: string | PropertyBindingInfo;
+    downloadUrl?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.90
      *
      * HTTP request method chosen for file upload.
      */
-    httpRequestMethod?: UploaderHttpRequestMethod | PropertyBindingInfo;
+    httpRequestMethod?: UploaderHttpRequestMethod | PropertyBindingInfo | undefined;
 
     /**
      * The event is fired just after the POST request was sent.
      */
-    uploadStarted?: Function;
+    uploadStarted?: Function | undefined;
 
     /**
      * The event is fired every time an XHR request reports progress in uploading.
      */
-    uploadProgressed?: Function;
+    uploadProgressed?: Function | undefined;
 
     /**
      * The event is fired when an XHR request reports successful completion of upload process.
      */
-    uploadCompleted?: Function;
+    uploadCompleted?: Function | undefined;
 
     /**
      * The event is fired when an XHR request reports its abortion.
      */
-    uploadAborted?: Function;
+    uploadAborted?: Function | undefined;
   }
 }
 
@@ -106688,7 +106688,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The file that has just been added.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -106704,7 +106704,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The item edited.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -106720,7 +106720,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The item removed from the set of items to be uploaded.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -106737,7 +106737,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The file to be added to the set of items to be uploaded.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): boolean;
     /**
@@ -106754,7 +106754,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The item to be edited.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): boolean;
     /**
@@ -106771,7 +106771,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The item to be removed from the set of items to be uploaded.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): boolean;
     /**
@@ -106788,7 +106788,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The file whose upload is just about to start.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): boolean;
     /**
@@ -106805,7 +106805,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The file whose upload is about to be terminated.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): boolean;
     /**
@@ -106819,7 +106819,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The file that fails to meet the file name length restriction specified in the `maxFileNameLength` property.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -106833,7 +106833,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The file that fails to meet the file size restriction specified in the `maxFileSize` property.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -106847,7 +106847,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The file that fails to meet the file type restriction specified in the `fileType` property.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -106861,7 +106861,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The file that fails to meet the media type restriction specified in the `mediaTypes` property.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -106875,7 +106875,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * Items whose selection status has just been changed.
          */
-        items?: UploadSetItem[];
+        items?: UploadSetItem[] | undefined;
       }
     ): this;
     /**
@@ -106889,7 +106889,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The file whose upload has just been completed.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -106903,7 +106903,7 @@ declare module "sap/m/upload/UploadSet" {
         /**
          * The file whose upload has just been terminated.
          */
-        item?: UploadSetItem;
+        item?: UploadSetItem | undefined;
       }
     ): this;
     /**
@@ -107688,149 +107688,149 @@ declare module "sap/m/upload/UploadSet" {
      * Allowed file types for files to be uploaded.
      * If this property is not set, any file can be uploaded.
      */
-    fileTypes?: string[] | PropertyBindingInfo;
+    fileTypes?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * Maximum length of names of files to be uploaded.
      * If set to `null` or `0`, any files can be uploaded, regardless of their names length.
      */
-    maxFileNameLength?: int | PropertyBindingInfo;
+    maxFileNameLength?: int | PropertyBindingInfo | undefined;
 
     /**
      * Size limit in megabytes for files to be uploaded.
      * If set to `null` or `0`, files of any size can be uploaded.
      */
-    maxFileSize?: float | PropertyBindingInfo;
+    maxFileSize?: float | PropertyBindingInfo | undefined;
 
     /**
      * Allowed media types for files to be uploaded.
      * If this property is not set, any file can be uploaded.
      */
-    mediaTypes?: string[] | PropertyBindingInfo;
+    mediaTypes?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * Defines custom text for the 'No data' text label.
      */
-    noDataText?: string | PropertyBindingInfo;
+    noDataText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines custom text for the 'No data' description label.
      */
-    noDataDescription?: string | PropertyBindingInfo;
+    noDataDescription?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the upload process should be triggered as soon as the file is added.
      *  If set to `false`, no upload is triggered when a file is added.
      */
-    instantUpload?: boolean | PropertyBindingInfo;
+    instantUpload?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether file icons should be displayed.
      */
-    showIcons?: boolean | PropertyBindingInfo;
+    showIcons?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether it is allowed to terminate the upload process.
      */
-    terminationEnabled?: boolean | PropertyBindingInfo;
+    terminationEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the upload action is allowed.
      */
-    uploadEnabled?: boolean | PropertyBindingInfo;
+    uploadEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * URL where the uploaded files will be stored.
      */
-    uploadUrl?: string | PropertyBindingInfo;
+    uploadUrl?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.90
      *
      * HTTP request method chosen for file upload.
      */
-    httpRequestMethod?: UploaderHttpRequestMethod | PropertyBindingInfo;
+    httpRequestMethod?: UploaderHttpRequestMethod | PropertyBindingInfo | undefined;
 
     /**
      * Items representing files that have already been uploaded.
      */
-    items?: UploadSetItem[] | UploadSetItem | AggregationBindingInfo;
+    items?: UploadSetItem[] | UploadSetItem | AggregationBindingInfo | undefined;
 
     /**
      * Items representing files yet to be uploaded.
      */
-    incompleteItems?: UploadSetItem[] | UploadSetItem | AggregationBindingInfo;
+    incompleteItems?: UploadSetItem[] | UploadSetItem | AggregationBindingInfo | undefined;
 
     /**
      * Header fields to be included in the header section of an XHR request.
      */
-    headerFields?: Item[] | Item | AggregationBindingInfo;
+    headerFields?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * Main toolbar of the `UploadSet` control.
      */
-    toolbar?: OverflowToolbar;
+    toolbar?: OverflowToolbar | undefined;
 
     /**
      * Defines the uploader to be used. If not specified, the default implementation is used.
      */
-    uploader?: Uploader;
+    uploader?: Uploader | undefined;
 
     /**
      * This event is fired when a new file is added to the set of items to be uploaded.
      */
-    afterItemAdded?: Function;
+    afterItemAdded?: Function | undefined;
 
     /**
      * @SINCE 1.83
      *
      * This event is fired after the item is removed on click of ok button in confirmation dialog.
      */
-    afterItemRemoved?: Function;
+    afterItemRemoved?: Function | undefined;
 
     /**
      * @SINCE 1.83
      *
      * This event is fired after item edit is confirmed.
      */
-    afterItemEdited?: Function;
+    afterItemEdited?: Function | undefined;
 
     /**
      * This event is fired just before a new file is added to the set of items to be uploaded.
      */
-    beforeItemAdded?: Function;
+    beforeItemAdded?: Function | undefined;
 
     /**
      * This event is fired just before the confirmation dialog for 'Remove' action is displayed.
      */
-    beforeItemRemoved?: Function;
+    beforeItemRemoved?: Function | undefined;
 
     /**
      * This event is fired when the edit button is clicked for an item and no other item is being edited at
      * the same time.
      * If there is another item that has unsaved changes, the editing of the clicked item cannot be started.
      */
-    beforeItemEdited?: Function;
+    beforeItemEdited?: Function | undefined;
 
     /**
      * This event is fired right before the upload process begins.
      */
-    beforeUploadStarts?: Function;
+    beforeUploadStarts?: Function | undefined;
 
     /**
      * This event is fired right after the upload process is finished.
      */
-    uploadCompleted?: Function;
+    uploadCompleted?: Function | undefined;
 
     /**
      * This event is fired right before the upload is terminated.
      */
-    beforeUploadTermination?: Function;
+    beforeUploadTermination?: Function | undefined;
 
     /**
      * This event is fired right after the upload is terminated.
      */
-    uploadTerminated?: Function;
+    uploadTerminated?: Function | undefined;
 
     /**
      * This event is fired in either of the following cases:
@@ -107838,7 +107838,7 @@ declare module "sap/m/upload/UploadSet" {
      *
      * 	 - When the file type restriction changes, and the file to be uploaded fails to meet the new restriction.
      */
-    fileTypeMismatch?: Function;
+    fileTypeMismatch?: Function | undefined;
 
     /**
      * This event is fired in either of the following cases:
@@ -107847,7 +107847,7 @@ declare module "sap/m/upload/UploadSet" {
      * 	 - When the file name length restriction changes, and the file to be uploaded fails to meet the new
      * 			restriction.
      */
-    fileNameLengthExceeded?: Function;
+    fileNameLengthExceeded?: Function | undefined;
 
     /**
      * This event is fired in either of the following cases:
@@ -107855,7 +107855,7 @@ declare module "sap/m/upload/UploadSet" {
      * 			the `maxFileSize` property.
      * 	 - When the file size restriction changes, and the file to be uploaded fails to meet the new restriction.
      */
-    fileSizeExceeded?: Function;
+    fileSizeExceeded?: Function | undefined;
 
     /**
      * This event is fired in either of the following cases:
@@ -107863,12 +107863,12 @@ declare module "sap/m/upload/UploadSet" {
      * 			the `mediaTypes` property.
      * 	 - When the media type restriction changes, and the file to be uploaded fails to meet the new restriction.
      */
-    mediaTypeMismatch?: Function;
+    mediaTypeMismatch?: Function | undefined;
 
     /**
      * This event is fired simultaneously with the respective event in the inner {@link sap.m.List} control.
      */
-    selectionChanged?: Function;
+    selectionChanged?: Function | undefined;
   }
 }
 
@@ -108589,90 +108589,90 @@ declare module "sap/m/upload/UploadSetItem" {
     /**
      * Enables or disables the remove button.
      */
-    enabledRemove?: boolean | PropertyBindingInfo;
+    enabledRemove?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Enables or disables the edit button.
      */
-    enabledEdit?: boolean | PropertyBindingInfo;
+    enabledEdit?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the name of the uploaded file.
      */
-    fileName?: string | PropertyBindingInfo;
+    fileName?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the MIME type of the file.
      */
-    mediaType?: string | PropertyBindingInfo;
+    mediaType?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the URL where the thumbnail of the file is located. Can also be set to an SAPUI5 icon URL.
      */
-    thumbnailUrl?: string | PropertyBindingInfo;
+    thumbnailUrl?: string | PropertyBindingInfo | undefined;
 
     /**
      * State of the item relevant to its upload process.
      */
     uploadState?:
       | (UploadState | keyof typeof UploadState)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the URL where the file is located.
      * If the application doesn't provide a value for this property, the icon and the file name are not clickable
      * in {@link sap.m.upload.UploadSet}.
      */
-    url?: string | PropertyBindingInfo;
+    url?: string | PropertyBindingInfo | undefined;
 
     /**
      * Shows or hides the remove button.
      */
-    visibleRemove?: boolean | PropertyBindingInfo;
+    visibleRemove?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Shows or hides the edit button.
      */
-    visibleEdit?: boolean | PropertyBindingInfo;
+    visibleEdit?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.90
      *
      * URL where the uploaded files will be stored. If empty, uploadUrl from the uploader is considered.
      */
-    uploadUrl?: string | PropertyBindingInfo;
+    uploadUrl?: string | PropertyBindingInfo | undefined;
 
     /**
      * Attributes of the item.
      */
-    attributes?: ObjectAttribute[] | ObjectAttribute | AggregationBindingInfo;
+    attributes?: ObjectAttribute[] | ObjectAttribute | AggregationBindingInfo | undefined;
 
     /**
      * Markers of the item.
      */
-    markers?: ObjectMarker[] | ObjectMarker | AggregationBindingInfo;
+    markers?: ObjectMarker[] | ObjectMarker | AggregationBindingInfo | undefined;
 
     /**
      * Statuses of the item.
      */
-    statuses?: ObjectStatus[] | ObjectStatus | AggregationBindingInfo;
+    statuses?: ObjectStatus[] | ObjectStatus | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.90
      *
      * Header fields to be included in the header section of an XMLHttpRequest (XHR) request
      */
-    headerFields?: Item[] | Item | AggregationBindingInfo;
+    headerFields?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * This event is fired when an open action is invoked on an item.
      */
-    openPressed?: Function;
+    openPressed?: Function | undefined;
 
     /**
      * This event is fired when a remove action is invoked on an item.
      */
-    removePressed?: Function;
+    removePressed?: Function | undefined;
   }
 }
 
@@ -109254,15 +109254,15 @@ declare module "sap/m/UploadCollection" {
         /**
          * Specifies the name of the file to be uploaded.
          */
-        fileName?: string;
+        fileName?: string | undefined;
         /**
          * Adds a header parameter to the file that will be uploaded.
          */
-        addHeaderParameter?: Function;
+        addHeaderParameter?: Function | undefined;
         /**
          * Returns the corresponding header parameter (type sap.m.UploadCollectionParameter) if available.
          */
-        getHeaderParameter?: Function;
+        getHeaderParameter?: Function | undefined;
       }
     ): this;
     /**
@@ -109277,13 +109277,13 @@ declare module "sap/m/UploadCollection" {
          * A unique Id of the attached document. This parameter is deprecated since 1.28.0. Use the `files` parameter
          * instead.
          */
-        documentId?: string;
+        documentId?: string | undefined;
         /**
          * A FileList of individually selected files from the underlying system. See www.w3.org for the FileList
          * Interface definition. Restriction: Internet Explorer 9 supports only single file with property file.name.
          * Since version 1.28.0.
          */
-        files?: object[];
+        files?: object[] | undefined;
       }
     ): this;
     /**
@@ -109298,11 +109298,11 @@ declare module "sap/m/UploadCollection" {
          * A unique Id of the attached document. This parameter is deprecated since 1.28.0. Use the `item` parameter
          * instead.
          */
-        documentId?: string;
+        documentId?: string | undefined;
         /**
          * An item to be deleted from the collection. Since version 1.28.0.
          */
-        item?: UploadCollectionItem;
+        item?: UploadCollectionItem | undefined;
       }
     ): this;
     /**
@@ -109317,12 +109317,12 @@ declare module "sap/m/UploadCollection" {
          * A unique Id of the attached document. This parameter is deprecated since 1.28.0. Use the `files` parameter
          * instead.
          */
-        documentId?: string;
+        documentId?: string | undefined;
         /**
          * A FileList of individually selected files from the underlying system. Restriction: Internet Explorer
          * 9 supports only single file with property file.name. Since version 1.28.0.
          */
-        files?: object[];
+        files?: object[] | undefined;
       }
     ): this;
     /**
@@ -109337,15 +109337,15 @@ declare module "sap/m/UploadCollection" {
          * A unique Id of the attached document. This parameter is deprecated since 1.28.0. Use the `item` parameter
          * instead.
          */
-        documentId?: string;
+        documentId?: string | undefined;
         /**
          * The new file name. This parameter is deprecated since 1.28.0. Use the `item` parameter instead.
          */
-        fileName?: string;
+        fileName?: string | undefined;
         /**
          * The renamed UI element as an UploadCollectionItem. Since 1.28.0.
          */
-        item?: UploadCollectionItem;
+        item?: UploadCollectionItem | undefined;
       }
     ): this;
     /**
@@ -109360,17 +109360,17 @@ declare module "sap/m/UploadCollection" {
          * A unique Id of the attached document. This parameter is deprecated since 1.28.0. Use the `files` parameter
          * instead.
          */
-        documentId?: string;
+        documentId?: string | undefined;
         /**
          * The size in MB of a file to be uploaded. This parameter is deprecated since 1.28.0. Use the `files` parameter
          * instead.
          */
-        fileSize?: string;
+        fileSize?: string | undefined;
         /**
          * A FileList of individually selected files from the underlying system. Restriction: Internet Explorer
          * 9 supports only single file with property file.name. Since 1.28.0.
          */
-        files?: object[];
+        files?: object[] | undefined;
       }
     ): this;
     /**
@@ -109387,15 +109387,15 @@ declare module "sap/m/UploadCollection" {
          * The item whose selection has changed. In `MultiSelect` mode, only the topmost selected item is returned.
          * This parameter can be used for single-selection modes.
          */
-        selectedItem?: UploadCollectionItem;
+        selectedItem?: UploadCollectionItem | undefined;
         /**
          * Array of items whose selection has changed. This parameter can be used for `MultiSelect` mode.
          */
-        selectedItems?: UploadCollectionItem[];
+        selectedItems?: UploadCollectionItem[] | undefined;
         /**
          * Indicates whether the `listItem` parameter is selected or not.
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
       }
     ): this;
     /**
@@ -109410,20 +109410,20 @@ declare module "sap/m/UploadCollection" {
          * A unique Id of the attached document. This parameter is deprecated since 1.28.0. Use the `files` parameter
          * instead.
          */
-        documentId?: string;
+        documentId?: string | undefined;
         /**
          * File type. This parameter is deprecated since 1.28.0. Use the `files` parameter instead.
          */
-        fileType?: string;
+        fileType?: string | undefined;
         /**
          * MIME type. This parameter is deprecated since 1.28.0. Use the `files` parameter instead.
          */
-        mimeType?: string;
+        mimeType?: string | undefined;
         /**
          * A FileList of individually selected files from the underlying system. Restriction: Internet Explorer
          * 9 supports only single file. Since 1.28.0.
          */
-        files?: object[];
+        files?: object[] | undefined;
       }
     ): this;
     /**
@@ -109437,17 +109437,17 @@ declare module "sap/m/UploadCollection" {
         /**
          * Ready state XHR. This parameter is deprecated since 1.28.0. Use the `files` parameter instead.
          */
-        readyStateXHR?: string;
+        readyStateXHR?: string | undefined;
         /**
          * Response of the completed upload request. This parameter is deprecated since 1.28.0. Use the `files`
          * parameter instead.
          */
-        response?: string;
+        response?: string | undefined;
         /**
          * Status Code of the completed upload event. This parameter is deprecated since 1.28.0. Use the `files`
          * parameter instead.
          */
-        status?: string;
+        status?: string | undefined;
         /**
          * A list of uploaded files. Each entry contains the following members. fileName : The name of a file to
          * be uploaded. response : Response message which comes from the server. On the server side, this response
@@ -109460,7 +109460,7 @@ declare module "sap/m/UploadCollection" {
          * is reflected by a property in the header-object, with the property value reflecting the header-field's
          * content. This property is not supported by Internet Explorer 9 and lower. Since 1.28.0.
          */
-        files?: object[];
+        files?: object[] | undefined;
       }
     ): this;
     /**
@@ -109474,12 +109474,12 @@ declare module "sap/m/UploadCollection" {
         /**
          * Specifies the name of the file of which the upload is to be terminated.
          */
-        fileName?: string;
+        fileName?: string | undefined;
         /**
          * This callback function returns the corresponding header parameter (type sap.m.UploadCollectionParameter)
          * if available.
          */
-        getHeaderParameter?: Function;
+        getHeaderParameter?: Function | undefined;
       }
     ): this;
     /**
@@ -110354,26 +110354,26 @@ declare module "sap/m/UploadCollection" {
      * types. If at least one file does not fit the file type requirements, the upload is prevented. Example:
      * ["jpg", "png", "bmp"].
      */
-    fileType?: string[] | PropertyBindingInfo;
+    fileType?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the maximum length of a file name. If the maximum file name length is exceeded, the corresponding
      * event 'filenameLengthExceed' is triggered.
      */
-    maximumFilenameLength?: int | PropertyBindingInfo;
+    maximumFilenameLength?: int | PropertyBindingInfo | undefined;
 
     /**
      * Specifies a file size limit in megabytes that prevents the upload if at least one file exceeds the limit.
      * This property is not supported by Internet Explorer 8 and 9.
      */
-    maximumFileSize?: float | PropertyBindingInfo;
+    maximumFileSize?: float | PropertyBindingInfo | undefined;
 
     /**
      * Defines the allowed MIME types of files to be uploaded. The chosen files will be checked against an array
      * of MIME types. If at least one file does not fit the MIME type requirements, the upload is prevented.
      * This property is not supported by Internet Explorer 8 and 9. Example: mimeType ["image/png", "image/jpeg"].
      */
-    mimeType?: string[] | PropertyBindingInfo;
+    mimeType?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * Lets the user select multiple files from the same folder and then upload them. Internet Explorer 8 and
@@ -110383,43 +110383,43 @@ declare module "sap/m/UploadCollection" {
      * If multiple property is set to false, the control shows an error message if more than one file is chosen
      * for drag & drop.
      */
-    multiple?: boolean | PropertyBindingInfo;
+    multiple?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Allows you to set your own text for the 'No data' text label.
      */
-    noDataText?: string | PropertyBindingInfo;
+    noDataText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46.0
      *
      * Allows you to set your own text for the 'No data' description label.
      */
-    noDataDescription?: string | PropertyBindingInfo;
+    noDataDescription?: string | PropertyBindingInfo | undefined;
 
     /**
      * Allows the user to use the same name for a file when editing the file name. 'Same name' refers to an
      * already existing file name in the list.
      */
-    sameFilenameAllowed?: boolean | PropertyBindingInfo;
+    sameFilenameAllowed?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether separators are shown between list items.
      */
     showSeparators?:
       | (ListSeparators | keyof typeof ListSeparators)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Enables the upload of a file. If property instantUpload is false it is not allowed to change uploadEnabled
      * at runtime.
      */
-    uploadEnabled?: boolean | PropertyBindingInfo;
+    uploadEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the URL where the uploaded files have to be stored.
      */
-    uploadUrl?: string | PropertyBindingInfo;
+    uploadUrl?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
@@ -110427,7 +110427,7 @@ declare module "sap/m/UploadCollection" {
      * If false, no upload is triggered when a file is selected. In addition, if a file was selected, a new
      * FileUploader instance is created to ensure that multiple files can be chosen.
      */
-    instantUpload?: boolean | PropertyBindingInfo;
+    instantUpload?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
@@ -110437,7 +110437,7 @@ declare module "sap/m/UploadCollection" {
      * If a new title is set, the default is deactivated. The default value is set to language-dependent "Attachments
      * (n)".
      */
-    numberOfAttachmentsText?: string | PropertyBindingInfo;
+    numberOfAttachmentsText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -110448,14 +110448,14 @@ declare module "sap/m/UploadCollection" {
      * addition, if instant upload is set to false the mode sap.m.ListMode.MultiSelect is not supported and
      * will be automatically set to sap.m.ListMode.None.
      */
-    mode?: (ListMode | keyof typeof ListMode) | PropertyBindingInfo;
+    mode?: (ListMode | keyof typeof ListMode) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.42.0
      *
      * If true, the button used for uploading files is invisible.
      */
-    uploadButtonInvisible?: boolean | PropertyBindingInfo;
+    uploadButtonInvisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.42.0
@@ -110463,7 +110463,7 @@ declare module "sap/m/UploadCollection" {
      * If true, the button that is used to terminate the instant file upload gets visible. The button normally
      * appears when a file is being uploaded.
      */
-    terminationEnabled?: boolean | PropertyBindingInfo;
+    terminationEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Uploaded items.
@@ -110471,7 +110471,7 @@ declare module "sap/m/UploadCollection" {
     items?:
       | UploadCollectionItem[]
       | UploadCollectionItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Specifies the header parameters for the FileUploader that are submitted only with XHR requests. Header
@@ -110480,7 +110480,7 @@ declare module "sap/m/UploadCollection" {
     headerParameters?:
       | UploadCollectionParameter[]
       | UploadCollectionParameter
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Specifies the parameters for the FileUploader that are rendered as a hidden input field.
@@ -110488,79 +110488,79 @@ declare module "sap/m/UploadCollection" {
     parameters?:
       | UploadCollectionParameter[]
       | UploadCollectionParameter
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * Specifies the toolbar.
      */
-    toolbar?: OverflowToolbar;
+    toolbar?: OverflowToolbar | undefined;
 
     /**
      * @SINCE 1.44.0
      *
      * Specifies the info toolbar for filtering information. Sorting information will not displayed.
      */
-    infoToolbar?: Toolbar;
+    infoToolbar?: Toolbar | undefined;
 
     /**
      * The event is triggered when files are selected in the FileUploader dialog. Applications can set parameters
      * and headerParameters which will be dispatched to the embedded FileUploader control. Restriction: parameters
      * and headerParameters are not supported by Internet Explorer 9.
      */
-    change?: Function;
+    change?: Function | undefined;
 
     /**
      * The event is triggered when an uploaded attachment is selected and the Delete button is pressed.
      */
-    fileDeleted?: Function;
+    fileDeleted?: Function | undefined;
 
     /**
      * The event is triggered when the name of a chosen file is longer than the value specified with the maximumFilenameLength
      * property (only if provided by the application).
      */
-    filenameLengthExceed?: Function;
+    filenameLengthExceed?: Function | undefined;
 
     /**
      * The event is triggered when the file name is changed.
      */
-    fileRenamed?: Function;
+    fileRenamed?: Function | undefined;
 
     /**
      * The event is triggered when the file size of an uploaded file is exceeded (only if the maxFileSize property
      * was provided by the application). This event is not supported by Internet Explorer 9.
      */
-    fileSizeExceed?: Function;
+    fileSizeExceed?: Function | undefined;
 
     /**
      * The event is triggered when the file type or the MIME type don't match the permitted types (only if the
      * fileType property or the mimeType property are provided by the application).
      */
-    typeMissmatch?: Function;
+    typeMissmatch?: Function | undefined;
 
     /**
      * The event is triggered as soon as the upload request is completed.
      */
-    uploadComplete?: Function;
+    uploadComplete?: Function | undefined;
 
     /**
      * The event is triggered as soon as the upload request was terminated by the user.
      */
-    uploadTerminated?: Function;
+    uploadTerminated?: Function | undefined;
 
     /**
      * The event is triggered before the actual upload starts. An event is fired per file. All the necessary
      * header parameters should be set here.
      */
-    beforeUploadStarts?: Function;
+    beforeUploadStarts?: Function | undefined;
 
     /**
      * @SINCE 1.36.0
      *
      * Fires when selection is changed via user interaction inside the control.
      */
-    selectionChange?: Function;
+    selectionChange?: Function | undefined;
   }
 }
 
@@ -111446,85 +111446,85 @@ declare module "sap/m/UploadCollectionItem" {
      *
      * Specifies the name of the user who uploaded the file.
      */
-    contributor?: string | PropertyBindingInfo;
+    contributor?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies a unique identifier of the file (created by the application).
      */
-    documentId?: string | PropertyBindingInfo;
+    documentId?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the name of the uploaded file.
      */
-    fileName?: string | PropertyBindingInfo;
+    fileName?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.30) - This property is deprecated; use the aggregation attributes instead.
      *
      * Specifies the size of the uploaded file (in megabytes).
      */
-    fileSize?: float | PropertyBindingInfo;
+    fileSize?: float | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the MIME type of the file.
      */
-    mimeType?: string | PropertyBindingInfo;
+    mimeType?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the URL where the thumbnail of the file is located. This can also be an SAPUI5 icon URL.
      */
-    thumbnailUrl?: string | PropertyBindingInfo;
+    thumbnailUrl?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.30) - This property is deprecated; use the aggregation attributes instead.
      *
      * Specifies the date on which the file was uploaded. The application has to define the date format.
      */
-    uploadedDate?: string | PropertyBindingInfo;
+    uploadedDate?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the URL where the file is located. If the application doesn't provide a value for this property,
      * the icon and the file name of the UploadCollectionItem are not clickable.
      */
-    url?: string | PropertyBindingInfo;
+    url?: string | PropertyBindingInfo | undefined;
 
     /**
      * Enables/Disables the Edit button. If the value is true, the Edit button is enabled and the edit function
      * can be used. If the value is false, the edit function is not available.
      */
-    enableEdit?: boolean | PropertyBindingInfo;
+    enableEdit?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Enables/Disables the Delete button. If the value is true, the Delete button is enabled and the delete
      * function can be used. If the value is false, the delete function is not available.
      */
-    enableDelete?: boolean | PropertyBindingInfo;
+    enableDelete?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Show/Hide the Edit button. If the value is true, the Edit button is visible. If the value is false, the
      * Edit button is not visible.
      */
-    visibleEdit?: boolean | PropertyBindingInfo;
+    visibleEdit?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Show/Hide the Delete button. If the value is true, the Delete button is visible. If the value is false,
      * the Delete button is not visible.
      */
-    visibleDelete?: boolean | PropertyBindingInfo;
+    visibleDelete?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
      *
      * Aria label for the icon (or for the image).
      */
-    ariaLabelForPicture?: string | PropertyBindingInfo;
+    ariaLabelForPicture?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * Defines the selected state of the UploadCollectionItem.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
@@ -111538,14 +111538,14 @@ declare module "sap/m/UploadCollectionItem" {
      * aggregation attributes ‘contributor’: ‘B’. As a result, the attributes ‘contributor’:’A’ and ‘contributor’:’B’
      * are displayed. To make sure the title does not appear twice, check if one of the properties is filled.
      */
-    attributes?: ObjectAttribute[] | ObjectAttribute | AggregationBindingInfo;
+    attributes?: ObjectAttribute[] | ObjectAttribute | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
      *
      * Statuses of an uploaded item Statuses will be displayed after an item has been uploaded
      */
-    statuses?: ObjectStatus[] | ObjectStatus | AggregationBindingInfo;
+    statuses?: ObjectStatus[] | ObjectStatus | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.40.0
@@ -111553,14 +111553,14 @@ declare module "sap/m/UploadCollectionItem" {
      * Markers of an uploaded item Markers will be displayed after an item has been uploaded But not in Edit
      * mode
      */
-    markers?: ObjectMarker[] | ObjectMarker | AggregationBindingInfo;
+    markers?: ObjectMarker[] | ObjectMarker | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
      *
      * ID of the FileUploader instance
      */
-    fileUploader?: FileUploader | string;
+    fileUploader?: FileUploader | string | undefined;
 
     /**
      * @SINCE 1.50.0
@@ -111568,7 +111568,7 @@ declare module "sap/m/UploadCollectionItem" {
      * This event is triggered when the user presses the filename link. If this event is provided, it overwrites
      * the default behavior of opening the file.
      */
-    press?: Function;
+    press?: Function | undefined;
 
     /**
      * @SINCE 1.50.0
@@ -111577,7 +111577,7 @@ declare module "sap/m/UploadCollectionItem" {
      * event is triggered. If this event is triggered, it overwrites the default delete behavior of UploadCollection
      * and the fileDeleted event of UploadCollection is not triggered.
      */
-    deletePress?: Function;
+    deletePress?: Function | undefined;
   }
 }
 
@@ -111702,14 +111702,14 @@ declare module "sap/m/UploadCollectionParameter" {
      *
      * Specifies the name of the parameter.
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.12.2
      *
      * Specifies the value of the parameter.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -112018,12 +112018,12 @@ declare module "sap/m/ViewSettingsCustomItem" {
      * The number of currently active filters for this custom filter item. It will be displayed in the filter
      * list of the ViewSettingsDialog to represent the filter state of the custom control.
      */
-    filterCount?: int | PropertyBindingInfo;
+    filterCount?: int | PropertyBindingInfo | undefined;
 
     /**
      * A custom control for the filter field. It can be used for complex filtering mechanisms.
      */
-    customControl?: Control;
+    customControl?: Control | undefined;
   }
 }
 
@@ -112214,17 +112214,17 @@ declare module "sap/m/ViewSettingsCustomTab" {
     /**
      * Custom tab button icon
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Custom tab title
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * The content of this Custom tab
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -112727,44 +112727,44 @@ declare module "sap/m/ViewSettingsDialog" {
         /**
          * The selected sort item.
          */
-        sortItem?: ViewSettingsItem;
+        sortItem?: ViewSettingsItem | undefined;
         /**
          * The selected sort order (true = descending, false = ascending).
          */
-        sortDescending?: boolean;
+        sortDescending?: boolean | undefined;
         /**
          * The selected group item.
          */
-        groupItem?: ViewSettingsItem;
+        groupItem?: ViewSettingsItem | undefined;
         /**
          * The selected group order (true = descending, false = ascending).
          */
-        groupDescending?: boolean;
+        groupDescending?: boolean | undefined;
         /**
          * The selected preset filter item.
          */
-        presetFilterItem?: ViewSettingsItem;
+        presetFilterItem?: ViewSettingsItem | undefined;
         /**
          * The selected filters in an array of ViewSettingsItem.
          */
-        filterItems?: ViewSettingsItem[];
+        filterItems?: ViewSettingsItem[] | undefined;
         /**
          * The selected filter items in an object notation format: { key: boolean }. If a custom control filter
          * was displayed (for example, the user clicked on the filter item), the value for its key is set to true
          * to indicate that there has been an interaction with the control.
          */
-        filterKeys?: object;
+        filterKeys?: object | undefined;
         /**
          * The selected filter items in an object notation format: { parentKey: { key: boolean, key2: boolean, ...
          * }, ...}. If a custom control filter was displayed (for example, the user clicked on the filter item),
          * the value for its key is set to true to indicate that there has been an interaction with the control.
          */
-        filterCompoundKeys?: object;
+        filterCompoundKeys?: object | undefined;
         /**
          * The selected filter items in a string format to display in the control's header bar in format "Filtered
          * by: key (subkey1, subkey2, subkey3)".
          */
-        filterString?: string;
+        filterString?: string | undefined;
       }
     ): this;
     /**
@@ -112778,7 +112778,7 @@ declare module "sap/m/ViewSettingsDialog" {
         /**
          * The filter item for which the details are opened.
          */
-        parentFilterItem?: ViewSettingsFilterItem;
+        parentFilterItem?: ViewSettingsFilterItem | undefined;
       }
     ): this;
     /**
@@ -113503,17 +113503,17 @@ declare module "sap/m/ViewSettingsDialog" {
      * Defines the title of the dialog. If not set and there is only one active tab, the dialog uses the default
      * "View" or "Sort", "Group", "Filter" respectively.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the sort order is descending or ascending (default).
      */
-    sortDescending?: boolean | PropertyBindingInfo;
+    sortDescending?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the group order is descending or ascending (default).
      */
-    groupDescending?: boolean | PropertyBindingInfo;
+    groupDescending?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.42
@@ -113524,7 +113524,7 @@ declare module "sap/m/ViewSettingsDialog" {
      */
     filterSearchOperator?:
       | (StringFilterOperator | keyof typeof StringFilterOperator)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.72
@@ -113536,21 +113536,21 @@ declare module "sap/m/ViewSettingsDialog" {
      */
     titleAlignment?:
       | (TitleAlignment | keyof typeof TitleAlignment)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
      *
      * The list of items with key and value that can be sorted over (for example, a list of columns for a table).
      */
-    sortItems?: ViewSettingsItem[] | ViewSettingsItem | AggregationBindingInfo;
+    sortItems?: ViewSettingsItem[] | ViewSettingsItem | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
      *
      * The list of items with key and value that can be grouped on (for example, a list of columns for a table).
      */
-    groupItems?: ViewSettingsItem[] | ViewSettingsItem | AggregationBindingInfo;
+    groupItems?: ViewSettingsItem[] | ViewSettingsItem | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
@@ -113563,7 +113563,7 @@ declare module "sap/m/ViewSettingsDialog" {
     filterItems?:
       | ViewSettingsItem[]
       | ViewSettingsItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.16
@@ -113574,7 +113574,7 @@ declare module "sap/m/ViewSettingsDialog" {
     presetFilterItems?:
       | ViewSettingsItem[]
       | ViewSettingsItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.30
@@ -113584,27 +113584,27 @@ declare module "sap/m/ViewSettingsDialog" {
     customTabs?:
       | ViewSettingsCustomTab[]
       | ViewSettingsCustomTab
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * The sort item that is selected. It can be set by either passing a key or the item itself to the function
      * setSelectedSortItem.
      */
-    selectedSortItem?: ViewSettingsItem | string;
+    selectedSortItem?: ViewSettingsItem | string | undefined;
 
     /**
      * The group item that is selected. It can be set by either passing a key or the item itself to the function
      * setSelectedGroupItem. By default 'None' is selected. You can restore back to 'None' by setting this association
      * to empty value.
      */
-    selectedGroupItem?: ViewSettingsItem | string;
+    selectedGroupItem?: ViewSettingsItem | string | undefined;
 
     /**
      * The preset filter item that is selected. It can be set by either passing a key or the item itself to
      * the function setSelectedPresetFilterItem. Note that either a preset filter OR multiple detail filters
      * can be active at the same time.
      */
-    selectedPresetFilterItem?: ViewSettingsItem | string;
+    selectedPresetFilterItem?: ViewSettingsItem | string | undefined;
 
     /**
      * Indicates that the user has pressed the OK button and the selected sort, group, and filter settings should
@@ -113613,27 +113613,27 @@ declare module "sap/m/ViewSettingsDialog" {
      * **Note:** Custom tabs are not converted to event parameters automatically. For custom tabs, you have
      * to read the state of your controls inside the callback of this event.
      */
-    confirm?: Function;
+    confirm?: Function | undefined;
 
     /**
      * Called when the Cancel button is pressed. It can be used to set the state of custom filter controls.
      */
-    cancel?: Function;
+    cancel?: Function | undefined;
 
     /**
      * Called when the filters are being reset.
      */
-    resetFilters?: Function;
+    resetFilters?: Function | undefined;
 
     /**
      * Called when the Reset button is pressed. It can be used to set the state of custom tabs.
      */
-    reset?: Function;
+    reset?: Function | undefined;
 
     /**
      * Fired when the filter detail page is opened.
      */
-    filterDetailPageOpened?: Function;
+    filterDetailPageOpened?: Function | undefined;
   }
 }
 
@@ -113889,18 +113889,18 @@ declare module "sap/m/ViewSettingsFilterItem" {
     /**
      * If set to (true), multi selection will be allowed for the items aggregation.
      */
-    multiSelect?: boolean | PropertyBindingInfo;
+    multiSelect?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Items with key and value that are logically grouped under this filter item. They are used to display
      * filter details in the ViewSettingsDialog.
      */
-    items?: ViewSettingsItem[] | ViewSettingsItem | AggregationBindingInfo;
+    items?: ViewSettingsItem[] | ViewSettingsItem | AggregationBindingInfo | undefined;
 
     /**
      * Let the outside world know that the filter detail aggregation was changed.
      */
-    filterDetailItemsAggregationChange?: Function;
+    filterDetailItemsAggregationChange?: Function | undefined;
   }
 }
 
@@ -114023,11 +114023,11 @@ declare module "sap/m/ViewSettingsItem" {
         /**
          * Instance of the item that changed.
          */
-        changedItem?: ViewSettingsItem;
+        changedItem?: ViewSettingsItem | undefined;
         /**
          * Key of the changed property.
          */
-        propertyKey?: string;
+        propertyKey?: string | undefined;
         /**
          * Value of the changed property.
          */
@@ -114089,12 +114089,12 @@ declare module "sap/m/ViewSettingsItem" {
      * Selected state of the item. If set to "true", the item will be displayed as selected in the view settings
      * dialog.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Let the outside world know that some of its properties has changed.
      */
-    itemPropertyChanged?: Function;
+    itemPropertyChanged?: Function | undefined;
   }
 }
 
@@ -114327,7 +114327,7 @@ declare module "sap/m/WheelSlider" {
         /**
          * The new selected key
          */
-        newKey?: string;
+        newKey?: string | undefined;
       }
     ): this;
     /**
@@ -114525,42 +114525,42 @@ declare module "sap/m/WheelSlider" {
     /**
      * Defines the key of the currently selected value of the slider.
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether the slider supports cyclic scrolling.
      */
-    isCyclic?: boolean | PropertyBindingInfo;
+    isCyclic?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the descriptive text for the slider, placed as a label above it.
      */
-    label?: string | PropertyBindingInfo;
+    label?: string | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether the slider is currently expanded.
      */
-    isExpanded?: boolean | PropertyBindingInfo;
+    isExpanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The items of the slider.
      */
-    items?: Item[] | Item | AggregationBindingInfo;
+    items?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * Fires when the slider is expanded.
      */
-    expanded?: Function;
+    expanded?: Function | undefined;
 
     /**
      * Fires when the slider is collapsed.
      */
-    collapsed?: Function;
+    collapsed?: Function | undefined;
 
     /**
      * Fires when the selected key changes.
      */
-    selectedKeyChange?: Function;
+    selectedKeyChange?: Function | undefined;
   }
 }
 
@@ -114764,23 +114764,23 @@ declare module "sap/m/WheelSliderContainer" {
     /**
      * Defines the text of the picker label.
      */
-    labelText?: string | PropertyBindingInfo;
+    labelText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Sets the width of the container. The minimum width is 320px.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Sets the height of the container. If percentage value is used, the parent container must have specified
      * height.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The sliders in the container.
      */
-    sliders?: WheelSlider[] | WheelSlider | AggregationBindingInfo;
+    sliders?: WheelSlider[] | WheelSlider | AggregationBindingInfo | undefined;
   }
 }
 
@@ -115020,7 +115020,7 @@ declare module "sap/m/Wizard" {
         /**
          * The index of the activated step as a parameter. One-based.
          */
-        index?: int;
+        index?: int | undefined;
       }
     ): this;
     /**
@@ -115312,25 +115312,25 @@ declare module "sap/m/Wizard" {
     /**
      * Determines the width of the Wizard.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines the height of the Wizard.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Controls the visibility of the next button. The developers can choose to control the flow of the steps
      * either through the API (with `nextStep` and `previousStep` methods) or let the user click the next button,
      * and control it with `validateStep` or `invalidateStep` methods.
      */
-    showNextButton?: boolean | PropertyBindingInfo;
+    showNextButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Changes the text of the finish button for the last step. This property can be used only if `showNextButton`
      * is set to true. By default the text of the button is "Review".
      */
-    finishButtonText?: string | PropertyBindingInfo;
+    finishButtonText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32
@@ -115341,7 +115341,7 @@ declare module "sap/m/Wizard" {
      * the available subsequent steps. Note: If this property is set to false, `next` and `subSequentSteps`
      * associations of the WizardStep control are ignored.
      */
-    enableBranching?: boolean | PropertyBindingInfo;
+    enableBranching?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * This property is used to set the background color of a Wizard content. The `Standard` option with the
@@ -115349,7 +115349,7 @@ declare module "sap/m/Wizard" {
      */
     backgroundDesign?:
       | (PageBackgroundDesign | keyof typeof PageBackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.84)
@@ -115358,12 +115358,12 @@ declare module "sap/m/Wizard" {
      */
     renderMode?:
       | (WizardRenderMode | keyof typeof WizardRenderMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The wizard steps to be included in the content of the control.
      */
-    steps?: WizardStep[] | WizardStep | AggregationBindingInfo;
+    steps?: WizardStep[] | WizardStep | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.50
@@ -115372,18 +115372,18 @@ declare module "sap/m/Wizard" {
      * if we have A->B->C->D steps, we are on step A and we setCurrentStep(C) A,B and C are going to be activated.
      * D will still remain unvisited. The parameter needs to be a Wizard step that is part of the current Wizard
      */
-    currentStep?: WizardStep | string;
+    currentStep?: WizardStep | string | undefined;
 
     /**
      * The StepActivated event is fired every time a new step is activated.
      */
-    stepActivate?: Function;
+    stepActivate?: Function | undefined;
 
     /**
      * The complete event is fired when the user clicks the finish button of the Wizard. The finish button is
      * only available on the last step of the Wizard.
      */
-    complete?: Function;
+    complete?: Function | undefined;
   }
 }
 
@@ -115826,14 +115826,14 @@ declare module "sap/m/WizardStep" {
     /**
      * Determines the title of the step. The title is visualized in the Wizard control.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the icon that is displayed for this step. The icon is visualized in the progress navigation
      * part of the Wizard control. **Note:** In order for the icon to be displayed, each step in the Wizard
      * should have this property defined, otherwise the default numbering will be displayed.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32
@@ -115841,7 +115841,7 @@ declare module "sap/m/WizardStep" {
      * Indicates whether or not the step is validated. When a step is validated a Next button is visualized
      * in the Wizard control.
      */
-    validated?: boolean | PropertyBindingInfo;
+    validated?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -115849,12 +115849,12 @@ declare module "sap/m/WizardStep" {
      * Indicates whether or not the step is optional. When a step is optional an "(Optional)" label is displayed
      * under the step's title.
      */
-    optional?: boolean | PropertyBindingInfo;
+    optional?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The content of the Wizard Step.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.32
@@ -115863,25 +115863,25 @@ declare module "sap/m/WizardStep" {
      * association to store the next steps that are about to come after the current. If this is going to be
      * a final step - leave this association empty.
      */
-    subsequentSteps?: Array<WizardStep | string>;
+    subsequentSteps?: Array<WizardStep | string> | undefined;
 
     /**
      * @SINCE 1.32
      *
      * The next step to be taken. It must be defined in order for the previous step to be completed.
      */
-    nextStep?: WizardStep | string;
+    nextStep?: WizardStep | string | undefined;
 
     /**
      * This event is fired after the user presses the Next button in the Wizard, or on `nextStep` method call
      * from the app developer.
      */
-    complete?: Function;
+    complete?: Function | undefined;
 
     /**
      * This event is fired on next step activation from the Wizard.
      */
-    activate?: Function;
+    activate?: Function | undefined;
   }
 }
 

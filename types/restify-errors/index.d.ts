@@ -7,11 +7,11 @@
 import { VError, Options as vErrorOptions } from "verror";
 
 export interface RestifyHttpErrorOptions extends vErrorOptions {
-    statusCode?: number;
+    statusCode?: number | undefined;
 
-    message?: string;
+    message?: string | undefined;
 
-    code?: string;
+    code?: string | undefined;
 
     context?: any;
 }
@@ -55,7 +55,7 @@ export class DefinedHttpError extends HttpError {
 }
 
 export interface RestifyRestErrorOptions extends RestifyHttpErrorOptions {
-    restCode?: string;
+    restCode?: string | undefined;
 }
 
 export class RestError extends HttpError {

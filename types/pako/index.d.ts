@@ -38,50 +38,50 @@ declare namespace Pako {
     }
 
     interface DeflateOptions {
-        level?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-        windowBits?: number;
-        memLevel?: number;
-        strategy?: StrategyValues;
+        level?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | undefined;
+        windowBits?: number | undefined;
+        memLevel?: number | undefined;
+        strategy?: StrategyValues | undefined;
         dictionary?: any;
-        raw?: boolean;
-        to?: 'string';
-        chunkSize?: number;
-        gzip?: boolean;
-        header?: Header;
+        raw?: boolean | undefined;
+        to?: 'string' | undefined;
+        chunkSize?: number | undefined;
+        gzip?: boolean | undefined;
+        header?: Header | undefined;
     }
 
     interface DeflateFunctionOptions {
-        level?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-        windowBits?: number;
-        memLevel?: number;
-        strategy?: StrategyValues;
+        level?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | undefined;
+        windowBits?: number | undefined;
+        memLevel?: number | undefined;
+        strategy?: StrategyValues | undefined;
         dictionary?: any;
-        raw?: boolean;
-        to?: 'string';
+        raw?: boolean | undefined;
+        to?: 'string' | undefined;
     }
 
     interface InflateOptions {
-        windowBits?: number;
+        windowBits?: number | undefined;
         dictionary?: any;
-        raw?: boolean;
-        to?: 'string';
-        chunkSize?: number;
+        raw?: boolean | undefined;
+        to?: 'string' | undefined;
+        chunkSize?: number | undefined;
     }
 
     interface InflateFunctionOptions {
-        windowBits?: number;
-        raw?: boolean;
-        to?: 'string';
+        windowBits?: number | undefined;
+        raw?: boolean | undefined;
+        to?: 'string' | undefined;
     }
 
     interface Header {
-        text?: boolean;
-        time?: number;
-        os?: number;
-        extra?: number[];
-        name?: string;
-        comment?: string;
-        hcrc?: boolean;
+        text?: boolean | undefined;
+        time?: number | undefined;
+        os?: number | undefined;
+        extra?: number[] | undefined;
+        name?: string | undefined;
+        comment?: string | undefined;
+        hcrc?: boolean | undefined;
     }
 
     type Data = Uint8Array | number[] | string;
@@ -137,7 +137,7 @@ declare namespace Pako {
     // https://github.com/nodeca/pako/blob/893381abcafa10fa2081ce60dae7d4d8e873a658/lib/inflate.js
     class Inflate {
         constructor(options?: InflateOptions);
-        header?: Header;
+        header?: Header | undefined;
         err: ReturnCodes;
         msg: string;
         result: Data;

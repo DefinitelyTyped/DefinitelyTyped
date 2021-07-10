@@ -10,15 +10,15 @@ import { EventEmitter } from 'events';
 
 export interface SyncOptions {
     /** remove files that copied on past before copy. */
-    clean?: boolean;
+    clean?: boolean | undefined;
     /** Follow symbolic links when copying from them. */
-    dereference?: boolean;
+    dereference?: boolean | undefined;
     /** Copy empty directories which is matched with the glob. */
-    includeEmptyDirs?: boolean;
+    includeEmptyDirs?: boolean | undefined;
     /** Preserve UID, GID, ATIME, and MTIME of files. */
-    preserve?: boolean;
+    preserve?: boolean | undefined;
     /** Do not overwrite files on destination if the source file is older. */
-    update?: boolean;
+    update?: boolean | undefined;
 }
 
 export interface AsyncOptions extends SyncOptions {
@@ -28,7 +28,7 @@ export interface AsyncOptions extends SyncOptions {
 
 export interface WatchOptions extends AsyncOptions, SyncOptions {
     /** Flag to not copy at the initial time of watch. */
-    initialCopy?: boolean;
+    initialCopy?: boolean | undefined;
 }
 
 export class Watcher extends EventEmitter {

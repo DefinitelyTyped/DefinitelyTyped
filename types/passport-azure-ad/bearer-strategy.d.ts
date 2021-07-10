@@ -11,10 +11,10 @@ export type VerifyBearerFunctionWithReq = (
 ) => void;
 
 export interface IBearerStrategyOption extends IBaseStrategyOption {
-    audience?: string | string[];
-    policyName?: String;
-    allowMultiAudiencesInToken?: boolean;
-    scope?: string[];
+    audience?: string | string[] | undefined;
+    policyName?: String | undefined;
+    allowMultiAudiencesInToken?: boolean | undefined;
+    scope?: string[] | undefined;
 }
 
 export interface IBearerStrategyOptionWithRequest extends IBearerStrategyOption {

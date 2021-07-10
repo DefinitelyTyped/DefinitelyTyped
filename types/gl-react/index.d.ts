@@ -11,7 +11,7 @@ export type Vec4 = [number, number, number, number];
 
 export interface BusProps {
   children?: any;
-  uniform?: string;
+  uniform?: string | undefined;
   index: number;
 }
 
@@ -19,7 +19,7 @@ export class Bus extends React.Component<BusProps> {
   id: number;
   context: { glParent: Surface<any> | Node, glSurface: Surface<any> };
   dependents: Array<Node | Surface<any>>;
-  glNode?: Node;
+  glNode?: Node | undefined;
   glBusRootNode: any;
 
   static defaultProps: BusProps;
@@ -41,10 +41,10 @@ export type connectSize = (GLComponent: any) => any;
 export interface SurfaceProps {
   children?: any;
   style?: any;
-  preload?: any[];
-  visitor?: Visitor;
-  onLoad?: () => void;
-  onLoadError?: (e: Error) => void;
+  preload?: any[] | undefined;
+  visitor?: Visitor | undefined;
+  onLoad?: (() => void) | undefined;
+  onLoadError?: ((e: Error) => void) | undefined;
 }
 
 export interface SurfaceState {
@@ -55,7 +55,7 @@ export interface SurfaceState {
 
 export class Surface<T> extends React.Component<SurfaceProps, SurfaceState> {
   id: number;
-  gl?: WebGLRenderingContext;
+  gl?: WebGLRenderingContext | undefined;
   buffer: WebGLBuffer;
   loaderResolver?: any;
   glView: T;
@@ -124,30 +124,30 @@ export interface Framebuffer {
 export interface NodeProps {
   shader: ShaderIdentifier | ShaderDefinition;
   uniformsOptions?: any;
-  uniforms?: { [key: string]: any };
-  ignoreUnusedUniforms?: string[] | boolean;
-  sync?: boolean;
-  width?: number;
-  height?: number;
+  uniforms?: { [key: string]: any } | undefined;
+  ignoreUnusedUniforms?: string[] | boolean | undefined;
+  sync?: boolean | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
   children?: any;
-  backbuffering?: boolean;
+  backbuffering?: boolean | undefined;
   blendFunc?: {
     src: () => void;
     dst: () => void;
-  };
+  } | undefined;
   clear?: {
     color: Vec4;
-  };
+  } | undefined;
 
-  onDraw?: () => void;
+  onDraw?: (() => void) | undefined;
 }
 
 export class Node extends React.Component<NodeProps> {
   drawProps: NodeProps;
   context: SurfaceContext;
-  framebuffer?: Framebuffer;
-  backbuffer?: Framebuffer;
-  capturePixelsArray?: Uint8Array;
+  framebuffer?: Framebuffer | undefined;
+  backbuffer?: Framebuffer | undefined;
+  capturePixelsArray?: Uint8Array | undefined;
   id: number;
   uniformsBus: {
     [key: string]: Array<Bus | undefined>;
@@ -163,7 +163,7 @@ export interface ShaderIdentifier {
 
 export interface ShaderDefinition {
   frag: string;
-  vert?: string;
+  vert?: string | undefined;
 }
 
 export interface ShaderInfo {

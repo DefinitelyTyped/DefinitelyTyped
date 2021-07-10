@@ -15,9 +15,9 @@ export interface Settings {
     characters_including_spacesRegExp: RegExp;
     connectorRegExp: RegExp;
     l10n: {
-        type?: CountType;
+        type?: CountType | undefined;
         /** Array of known shortcode names */
-        shortcodes?: string[];
+        shortcodes?: string[] | undefined;
     };
     /** Characters to be removed from input text. */
     removeRegExp: RegExp;

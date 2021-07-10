@@ -120,31 +120,31 @@ declare global {
              * If the connect has not succeeded within this number of seconds, it is deemed to have failed.
              * @default The default is 30 seconds.
              */
-            timeout?: number;
+            timeout?: number | undefined;
             /** Authentication username for this connection. */
-            userName?: string;
+            userName?: string | undefined;
             /** Authentication password for this connection. */
-            password?: string;
+            password?: string | undefined;
             /** Sent by the server when the client disconnects abnormally. */
-            willMessage?: Message;
+            willMessage?: Message | undefined;
             /**
              * The server disconnects this client if there is no activity for this number of seconds.
              * @default The default value of 60 seconds is assumed if not set.
              */
-            keepAliveInterval?: number;
+            keepAliveInterval?: number | undefined;
             /**
              * If true(default) the client and server persistent state is deleted on successful connect.
              * @default true
              */
-            cleanSession?: boolean;
+            cleanSession?: boolean | undefined;
             /** If present and true, use an SSL Websocket connection. */
-            useSSL?: boolean;
+            useSSL?: boolean | undefined;
             /** Passed to the onSuccess callback or onFailure callback. */
             invocationContext?: any;
             /**
              * Called when the connect acknowledgement has been received from the server.
              */
-            onSuccess?: OnSuccessCallback;
+            onSuccess?: OnSuccessCallback | undefined;
             /**
              * Specifies the mqtt version to use when connecting
              * <dl>
@@ -153,21 +153,21 @@ declare global {
              * </dl>
              * @default 4
              */
-            mqttVersion?: 3 | 4;
+            mqttVersion?: 3 | 4 | undefined;
             /**
              * Called when the connect request has failed or timed out.
              */
-            onFailure?: OnFailureCallback;
+            onFailure?: OnFailureCallback | undefined;
             /**
              * If present this contains either a set of hostnames or fully qualified
              * WebSocket URIs (ws://example.com:1883/mqtt), that are tried in order in place of the host and port
              * paramater on the construtor. The hosts are tried one at at time in order until one of then succeeds.
              */
-            hosts?: string[];
+            hosts?: string[] | undefined;
             /**
              * If present the set of ports matching the hosts. If hosts contains URIs, this property is not used.
              */
-            ports?: number[];
+            ports?: number[] | undefined;
         }
 
         /**
@@ -175,34 +175,34 @@ declare global {
          */
         interface SubscribeOptions {
             /** the maximum qos of any publications sent as a result of making this subscription. */
-            qos?: Qos;
+            qos?: Qos | undefined;
             /** passed to the onSuccess callback or onFailure callback. */
             invocationContext?: any;
             /** called when the subscribe acknowledgement has been received from the server. */
-            onSuccess?: OnSubscribeSuccessCallback;
+            onSuccess?: OnSubscribeSuccessCallback | undefined;
             /** called when the subscribe request has failed or timed out. */
-            onFailure?: OnFailureCallback;
+            onFailure?: OnFailureCallback | undefined;
             /**
              * timeout which, if present, determines the number of seconds after which the onFailure calback is called.
              * The presence of a timeout does not prevent the onSuccess callback from being called when the subscribe
              * completes.
              */
-            timeout?: number;
+            timeout?: number | undefined;
         }
 
         interface UnsubscribeOptions {
             /** passed to the onSuccess callback or onFailure callback.  */
             invocationContext?: any;
             /** called when the unsubscribe acknowledgement has been received from the server. */
-            onSuccess?: OnSuccessCallback;
+            onSuccess?: OnSuccessCallback | undefined;
             /** called when the unsubscribe request has failed or timed out. */
-            onFailure?: OnFailureCallback;
+            onFailure?: OnFailureCallback | undefined;
             /**
              * timeout which, if present, determines the number of seconds after which the onFailure calback is called.
              * The presence of a timeout does not prevent the onSuccess callback from being called when the unsubscribe
              * completes.
              */
-            timeout?: number;
+            timeout?: number | undefined;
         }
 
         interface TraceElement {
@@ -246,7 +246,7 @@ declare global {
             readonly port: number;
 
             /** function called with trace information, if set */
-            trace?: TraceFunction;
+            trace?: TraceFunction | undefined;
 
             /**
              * called when a connection has been lost. after a connect() method has succeeded.

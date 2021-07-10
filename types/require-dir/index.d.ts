@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface options {
-    recurse?: boolean;
-    duplicates?: boolean;
-    extensions?: string[];
+    recurse?: boolean | undefined;
+    duplicates?: boolean | undefined;
+    extensions?: string[] | undefined;
     filter?: any;
     mapKey?: any;
     mapValue?: any;

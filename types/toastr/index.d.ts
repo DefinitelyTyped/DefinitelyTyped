@@ -13,116 +13,116 @@ interface ToastrOptions {
      * swing and linear are built into jQuery.
      * @default swing
      */
-    showEasing?: string;
+    showEasing?: string | undefined;
     /**
      * Optionally override the animation easing to show or hide the toasts.
      * swing and linear are built into jQuery.
      * @default swing
      */
-    hideEasing?: string;
+    hideEasing?: string | undefined;
     /**
      * Use the jQuery show method of your choice.
      * The methods fadeIn/fadeOut, slideDown/slideUp, and show/hide are built into jQuery.
      * @default fadeIn
      */
-    showMethod?: string;
+    showMethod?: string | undefined;
     /**
      * Use the jQuery hide method of your choice.
      * The methods fadeIn/fadeOut, slideDown/slideUp, and show/hide are built into jQuery.
      * @default fadeOut
      */
-    hideMethod?: string;
+    hideMethod?: string | undefined;
     /**
      * Should a close button be shown?
      * @default undefined
      */
-    closeButton?: boolean;
+    closeButton?: boolean | undefined;
     /**
      * CSS class the close button will be given.
      * @default toast-close-button
      */
-    closeClass?: string;
+    closeClass?: string | undefined;
     /**
      * Time in milliseconds the toast should take to hide, when the close button is clicked.
      * Falls back to hide configuration.
      * @default false
      */
-    closeDuration?: number;
+    closeDuration?: number | undefined;
     /**
      * The animation easing while hiding the toast, when the close button is clicked.
      * Falls back to hide configuration.
      * swing and linear are built into jQuery.
      * @default false
      */
-    closeEasing?: string;
+    closeEasing?: string | undefined;
     /**
      * Use the jQuery show/hide method of your choice, when the close button is clicked.
      * Falls back to hide configuration.
      * The methods fadeIn/fadeOut, slideDown/slideUp, and show/hide are built into jQuery.
      * @default false
      */
-    closeMethod?: string;
+    closeMethod?: string | undefined;
     /**
      * Set to false so that the toast hides event if hovered.
      * @default true
      */
-    closeOnHover?: boolean;
+    closeOnHover?: boolean | undefined;
     /**
      * Html for the close button.
      */
-    closeHtml?: string;
+    closeHtml?: string | undefined;
     /**
      * onCloseClick function callback, fired when the close button is clicked.
      * Closing cannot be prevented by ev.stopPropagation() etc.
      * @default undefined
      */
-    onCloseClick?: (ev: JQueryMouseEventObject) => void;
+    onCloseClick?: ((ev: JQueryMouseEventObject) => void) | undefined;
     /**
      * Should clicking on toast dismiss it?
      * @default true
      */
-    tapToDismiss?: boolean;
+    tapToDismiss?: boolean | undefined;
     /**
      * CSS class the toast element will be given.
      * @default toast
      */
-    toastClass?: string;
+    toastClass?: string | undefined;
     /**
      * Id toast container will be given.
      * @default toast-container
      */
-    containerId?: string;
+    containerId?: string | undefined;
     /**
      * Should debug details be outputted to the console?
      * @default false
      */
-    debug?: boolean;
+    debug?: boolean | undefined;
     /**
      * Time in milliseconds the toast should take to show.
      * @default 300
      */
-    showDuration?: number;
+    showDuration?: number | undefined;
     /**
      * onShown function callback.
      * @default undefined
      */
-    onShown?: () => void;
+    onShown?: (() => void) | undefined;
     /**
      * Time in milliseconds the toast should take to hide.
      * @default 1000
      */
-    hideDuration?: number;
+    hideDuration?: number | undefined;
     /**
      * onHidden function callback.
      * @default undefined
      */
-    onHidden?: () => void;
+    onHidden?: (() => void) | undefined;
     /**
      * Time in milliseconds the toast should be displayed after leaving mouse over.
      * Set timeOut and extendedTimeOut to 0 to make it sticky.
      * @default 1000
      */
-    extendedTimeOut?: number;
+    extendedTimeOut?: number | undefined;
     /**
      * If specified, you must provide all classes.
      */
@@ -147,12 +147,12 @@ interface ToastrOptions {
          * @default toast-warning
          */
         warning: string;
-    };
+    } | undefined;
     /**
      * Icon to use for toast.
      * @default toast-info
      */
-    iconClass?: string;
+    iconClass?: string | undefined;
     /**
      * Where toast should be displayed.
      * The default stylesheet covers:
@@ -160,64 +160,64 @@ interface ToastrOptions {
      * toast-bottom-left, toast-bottom-center, toast-bottom-right, toast-bottom-full-width
      * @default toast-top-right
      */
-    positionClass?: string;
+    positionClass?: string | undefined;
     /**
      * Time in milliseconds that the toast should be displayed.
      * Set timeOut and extendedTimeOut to 0 to make it sticky.
      * @default 5000
      */
-    timeOut?: number;
+    timeOut?: number | undefined;
     /**
      * CSS class the title element will be given.
      * @default toast-title
      */
-    titleClass?: string;
+    titleClass?: string | undefined;
     /**
      * CSS class the message element will be given.
      * @default toast-message
      */
-    messageClass?: string;
+    messageClass?: string | undefined;
     /**
      * Set newest toast to appear on top.
      * @default true
      */
-    newestOnTop?: boolean;
+    newestOnTop?: boolean | undefined;
     /**
      * The element to put the toastr container
      * @default body
      */
-    target?: string;
+    target?: string | undefined;
     /**
      * Rather than having identical toasts stack, set the preventDuplicates property to true.
      * Duplicates are matched to the previous toast based on their message content.
      * @default false
      */
-    preventDuplicates?: boolean;
+    preventDuplicates?: boolean | undefined;
     /**
      * Visually indicates how long before a toast expires.
      * @default false
      */
-    progressBar?: boolean;
+    progressBar?: boolean | undefined;
     /**
      * CSS class the progressbar element will be given.
      * @default toast-progress
      */
-    progressClass?: string;
+    progressClass?: string | undefined;
     /**
      * Function to execute on toast click. Closing cannot be prevented by ev.stopPropagation() etc.
      * @default undefined
      */
-    onclick?: (ev: JQueryMouseEventObject) => void;
+    onclick?: ((ev: JQueryMouseEventObject) => void) | undefined;
     /**
      * Should the title and message text be escaped?
      * @default false
      */
-    escapeHtml?: boolean;
+    escapeHtml?: boolean | undefined;
     /**
      * Flip the toastr to be displayed properly for right-to-left languages.
      * @default false
      */
-    rtl?: boolean;
+    rtl?: boolean | undefined;
 }
 
 interface ToastrDisplayMethod {
@@ -249,11 +249,11 @@ interface ToastMap {
     /**
      * The toast title.
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * Any override options specified when the toast was created.
      */
-    optionsOverride?: ToastrOptions;
+    optionsOverride?: ToastrOptions | undefined;
 }
 
 interface ToastrResponse {
@@ -272,7 +272,7 @@ interface ToastrResponse {
     /**
      * The datetime the toast was closed, if the state is hidden.
      */
-    endTime?: Date;
+    endTime?: Date | undefined;
     /**
      * The toastr options.
      */

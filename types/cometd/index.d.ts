@@ -17,60 +17,60 @@ export interface Configuration {
      * The log level. Possible values are: "warn", "info", "debug". Output to `window.console` if
      * available.
      */
-    logLevel?: string;
+    logLevel?: string | undefined;
     /**
      * The maximum number of connections used to connect to the Bayeux server. Change this value
      * only if you know exactly the client’s connection limit and what "request queued behind long
      * poll" means.
      */
-    maxConnections?: number;
+    maxConnections?: number | undefined;
     /**
      * The number of milliseconds that the backoff time increments every time a connection with the
      * Bayeux server fails. CometD attempts to reconnect after the backoff time elapses.
      */
-    backoffIncrement?: number;
+    backoffIncrement?: number | undefined;
     /**
      * The maximum number of milliseconds of the backoff time after which the backoff time is not
      * incremented further.
      */
-    maxBackoff?: number;
+    maxBackoff?: number | undefined;
     /**
      * The maximum number of milliseconds to wait before considering a request to the Bayeux server
      * failed.
      */
-    maxNetworkDelay?: number;
+    maxNetworkDelay?: number | undefined;
     /**
      * An object containing the request headers to be sent for every Bayeux request (for example,
      * `{"My-Custom-Header": "MyValue"}`).
      */
-    requestHeaders?: object;
+    requestHeaders?: object | undefined;
     /**
      * Determines whether or not the Bayeux message type (handshake, connect, disconnect) is
      * appended to the URL of the Bayeux server (see above).
      */
-    appendMessageTypeToURL?: boolean;
+    appendMessageTypeToURL?: boolean | undefined;
     /**
      * Determines whether multiple publishes that get queued are sent as a batch on the first
      * occasion, without requiring explicit batching.
      */
-    autoBatch?: boolean;
+    autoBatch?: boolean | undefined;
     /**
      * The maximum number of milliseconds to wait for a WebSocket connection to be opened. It does
      * not apply to HTTP connections. A timeout value of 0 means to wait forever.
      */
-    connectTimeout?: number;
+    connectTimeout?: number | undefined;
     /**
      * Only applies to the websocket transport. Determines whether to stick using the websocket
      * transport when a websocket transport failure has been detected after the websocket transport
      * was able to successfully connect to the server.
      */
-    stickyReconnect?: boolean;
+    stickyReconnect?: boolean | undefined;
     /**
      * The max length of the URI for a request made with the callback-polling transport. Microsoft
      * Internet Explorer 7 and 8 are known to limit the URI length, so single large messages sent by
      * CometD may fail to remain within the max URI length when encoded in JSON.
      */
-    maxURILength?: number;
+    maxURILength?: number | undefined;
     /**
      * Uses the scheduler service available in Web Workers via Worker.setTimeout(fn, delay) rather
      * than using that available via Window.setTimeout(fn, delay). Browsers are now throttling the
@@ -79,7 +79,7 @@ export interface Configuration {
      * server. The Worker scheduler is not throttled and guarantees that scheduler events happen
      * on time.
      */
-    useWorkerScheduler?: boolean;
+    useWorkerScheduler?: boolean | undefined;
 }
 
 export type ConnectionType = 'long-polling' | 'callback-polling' | 'iframe' | 'flash';
@@ -89,22 +89,22 @@ export type Status = 'disconnected' | 'disconnecting' | 'handshaking' | 'connect
 export interface BaseMessage {
     successful: boolean;
     channel: string;
-    id?: string;
-    clientId?: string;
+    id?: string | undefined;
+    clientId?: string | undefined;
     advice?: {
-        reconnect?: ReconnectAdvice;
-        timeout?: number;
-        interval?: number;
-        'multiple-clients'?: boolean;
-        hosts?: string[];
-    };
-    connectionType?: ConnectionType;
-    timestamp?: string;
+        reconnect?: ReconnectAdvice | undefined;
+        timeout?: number | undefined;
+        interval?: number | undefined;
+        'multiple-clients'?: boolean | undefined;
+        hosts?: string[] | undefined;
+    } | undefined;
+    connectionType?: ConnectionType | undefined;
+    timestamp?: string | undefined;
     data?: any;
-    error?: string;
+    error?: string | undefined;
     ext?: any;
-    version?: string;
-    minimumVersion?: string;
+    version?: string | undefined;
+    minimumVersion?: string | undefined;
 }
 
 export interface SuccessfulHandshakeMessage extends BaseMessage {
@@ -112,14 +112,14 @@ export interface SuccessfulHandshakeMessage extends BaseMessage {
     version: string;
     supportedConnectionTypes: ConnectionType[];
     clientId: string;
-    authSuccessful?: true;
+    authSuccessful?: true | undefined;
     reestablish: boolean;
 }
 
 export interface UnsuccessfulHandshakeMessage extends BaseMessage {
     successful: false;
     error: string;
-    supportedConnectionTypes?: ConnectionType[];
+    supportedConnectionTypes?: ConnectionType[] | undefined;
     reestablish?: undefined;
 }
 
@@ -145,10 +145,10 @@ export interface SubscriptionHandle {
 }
 
 export interface Extension {
-    incoming?: Listener;
-    outgoing?: Listener;
-    registered?: (name: string, cometd: CometD) => void;
-    unregistered?: () => void;
+    incoming?: Listener | undefined;
+    outgoing?: Listener | undefined;
+    registered?: ((name: string, cometd: CometD) => void) | undefined;
+    unregistered?: (() => void) | undefined;
 }
 
 export class CometD {

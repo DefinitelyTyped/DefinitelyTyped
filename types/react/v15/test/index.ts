@@ -21,17 +21,17 @@ interface Console {
 
 interface Props extends React.Attributes {
     hello: string;
-    world?: string;
+    world?: string | undefined;
     foo: number;
 }
 
 interface State {
-    inputValue?: string;
-    seconds?: number;
+    inputValue?: string | undefined;
+    seconds?: number | undefined;
 }
 
 interface Context {
-    someValue?: string;
+    someValue?: string | undefined;
 }
 
 interface ChildContext {
@@ -141,7 +141,7 @@ class ModernComponentNoState extends React.Component<Props> { }
 class ModernComponentNoPropsAndState extends React.Component { }
 
 interface SCProps {
-    foo?: number;
+    foo?: number | undefined;
 }
 
 function StatelessComponent(props: SCProps) {
@@ -735,7 +735,7 @@ const formEvent: InputFormEvent = changeEvent;
     interface ComponentProps {
         prop1: string;
         prop2: string;
-        prop3?: string;
+        prop3?: string | undefined;
     }
     class ComponentWithDefaultProps extends React.Component<ComponentProps> {
         static defaultProps = {

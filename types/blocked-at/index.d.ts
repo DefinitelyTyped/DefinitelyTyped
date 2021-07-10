@@ -19,10 +19,10 @@ declare function blockedAt(fn: (time: number, stack: string[], resource: blocked
 
 declare namespace blockedAt {
   interface Options {
-    trimFalsePositives?: boolean;
-    threshold?: number;
-    resourcesCap?: number;
-    debug?: boolean;
+    trimFalsePositives?: boolean | undefined;
+    threshold?: number | undefined;
+    resourcesCap?: number | undefined;
+    debug?: boolean | undefined;
   }
 
   interface Resource {

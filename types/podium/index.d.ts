@@ -43,7 +43,7 @@ interface Podium {
      * @param callback  an optional callback method invoked when all subscribers have been notified using the signature function()
      * @see {@link https://github.com/hapijs/podium/blob/master/API.md#podiumemitcriteria-data-callback}
      */
-    emit(criteria: string | {name: string, channel?: string, tags?: string | string[]}, data: any, callback?: (() => void)): void;
+    emit(criteria: string | {name: string, channel?: string | undefined, tags?: string | string[] | undefined}, data: any, callback?: (() => void)): void;
 
     /**
      * podium.on(criteria, listener)
@@ -114,15 +114,15 @@ declare namespace Podium {
         /** the event name string (required). */
         name: string;
         /** a string or array of strings specifying the event channels available. Defaults to no channel restrictions (event updates can specify a channel or not). */
-        channels?: string | string[];
+        channels?: string | string[] | undefined;
         /** if true, the data object passed to podium.emit() is cloned before it is passed to the listeners (unless an override specified by each listener). Defaults to false (data is passed as-is). */
-        clone?: boolean;
+        clone?: boolean | undefined;
         /** if true, the data object passed to podium.emit() must be an array and the listener method is called with each array element passed as a separate argument (unless an override specified by each listener). This should only be used when the emitted data structure is known and predictable. Defaults to false (data is emitted as a single argument regardless of its type). */
-        spread?: boolean;
+        spread?: boolean | undefined;
         /** if true and the criteria object passed to podium.emit() includes tags, the tags are mapped to an object (where each tag string is the key and the value is true) which is appended to the arguments list at the end (but before the callback argument if block is set). A configuration override can be set by each listener. Defaults to false. */
-        tags?: boolean;
+        tags?: boolean | undefined;
         /** if true, the same event name can be registered multiple times where the second registration is ignored. Note that if the registration config is changed between registrations, only the first configuration is used. Defaults to false (a duplicate registration will throw an error). */
-        shared?: boolean;
+        shared?: boolean | undefined;
     }
 
     /**
@@ -134,26 +134,26 @@ declare namespace Podium {
         /** the event name string (required). */
         name: string;
         /** if true, the listener method receives an additional callback argument which must be called when the method completes. No other event will be emitted until the callback methods is called. The method signature is function(). If block is set to a positive integer, the value is used to set a timeout after which any pending events will be emitted, ignoring the eventual call to callback. Defaults to false (non blocking). */
-        block?: boolean | number;
+        block?: boolean | number | undefined;
         /** a string or array of strings specifying the event channels to subscribe to. If the event registration specified a list of allowed channels, the channels array must match the allowed channels. If channels are specified, event updates without any channel designation will not be included in the subscription. Defaults to no channels filter. */
-        channels?: string | string[];
+        channels?: string | string[] | undefined;
         /** if true, the data object passed to podium.emit() is cloned before it is passed to the listener method. Defaults to the event registration option (which defaults to false). */
-        clone?: boolean;
+        clone?: boolean | undefined;
         /** a positive integer indicating the number of times the listener can be called after which the subscription is automatically removed. A count of 1 is the same as calling podium.once(). Defaults to no limit. */
-        count?: number;
+        count?: number | undefined;
         /**
          * the event tags (if present) to subscribe to which can be one of:
          *  * a tag string.
          *  * an array of tag strings.
          *  * an object with the following:
          */
-        filter?: string | string[] | CriteriaFilterOptionsObject;
+        filter?: string | string[] | CriteriaFilterOptionsObject | undefined;
         /** if true, and the data object passed to podium.emit() is an array, the listener method is called with each array element passed as a separate argument. This should only be used when the emitted data structure is known and predictable. Defaults to the event registration option (which defaults to false). */
-        spread?: boolean;
+        spread?: boolean | undefined;
         /** if true and the criteria object passed to podium.emit() includes tags, the tags are mapped to an object (where each tag string is the key and the value is true) which is appended to the arguments list at the end (but before the callback argument if block is set). Defaults to the event registration option (which defaults to false). */
-        tags?: boolean;
+        tags?: boolean | undefined;
         /** the handler method set to receive event updates. The function signature depends on the block, spread, and tags options. */
-        listener?: Listener;
+        listener?: Listener | undefined;
     }
 
     /**
@@ -161,9 +161,9 @@ declare namespace Podium {
      */
     export interface CriteriaFilterOptionsObject {
         /** a tag string or array of tag strings. */
-        tags?: string | string[];
+        tags?: string | string[] | undefined;
         /** if true, all tags must be present for the event update to match the subscription. Defaults to false (at least one matching tag). */
-        all?: boolean;
+        all?: boolean | undefined;
     }
 
     /**

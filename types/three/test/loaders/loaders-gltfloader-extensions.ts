@@ -24,15 +24,15 @@ interface SceneInfo {
     authorURL: string;
     cameraPos: THREE.Vector3;
     extensions: string[];
-    addEnvMap?: boolean;
-    objectRotation?: THREE.Euler;
-    objectScale?: THREE.Vector3;
-    objectPosition?: THREE.Vector3;
-    center?: THREE.Vector3;
-    addLights?: boolean;
-    addGround?: boolean;
-    shadows?: boolean;
-    animationTime?: number;
+    addEnvMap?: boolean | undefined;
+    objectRotation?: THREE.Euler | undefined;
+    objectScale?: THREE.Vector3 | undefined;
+    objectPosition?: THREE.Vector3 | undefined;
+    center?: THREE.Vector3 | undefined;
+    addLights?: boolean | undefined;
+    addGround?: boolean | undefined;
+    shadows?: boolean | undefined;
+    animationTime?: number | undefined;
 }
 
 const scenes: Record<string, SceneInfo> = {

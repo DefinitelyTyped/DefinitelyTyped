@@ -1,6 +1,6 @@
 export interface Identity {
     uuid: string;
-    name?: string;
+    name?: string | undefined;
     entityType?: any;
 }
 export interface NamedIdentity {
@@ -8,15 +8,15 @@ export interface NamedIdentity {
     name: string;
 }
 export interface GroupWindowIdentity extends Identity {
-    isExternalWindow?: boolean;
+    isExternalWindow?: boolean | undefined;
 }
 interface NativeIdOptional extends Identity {
-    nativeId?: string;
+    nativeId?: string | undefined;
 }
 interface UuidOptional {
     nativeId: string;
-    name?: string;
-    uuid?: string;
+    name?: string | undefined;
+    uuid?: string | undefined;
 }
 export declare type ExternalWindowIdentity = NativeIdOptional | UuidOptional;
 export {};

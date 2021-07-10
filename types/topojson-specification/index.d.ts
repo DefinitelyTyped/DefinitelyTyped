@@ -19,7 +19,7 @@ export as namespace TopoJSON;
 // 2. TopoJSON Objects
 export interface TopoJSON {
     type: "Topology" | GeoJSON.GeoJsonGeometryTypes | null;
-    bbox?: GeoJSON.BBox;
+    bbox?: GeoJSON.BBox | undefined;
 }
 
 // 2.1. Topology Objects
@@ -27,7 +27,7 @@ export interface Topology<T extends Objects<Properties> = Objects<Properties>> e
     type: "Topology";
     objects: T;
     arcs: Arc[];
-    transform?: Transform;
+    transform?: Transform | undefined;
 }
 
 // 2.1.1. Positions
@@ -55,8 +55,8 @@ export interface Objects<P extends Properties = {}> {
 // 2.2. Geometry Objects
 export interface GeometryObjectA<P extends Properties = {}> extends TopoJSON {
     type: GeoJSON.GeoJsonGeometryTypes | null;
-    id?: number | string;
-    properties?: P;
+    id?: number | string | undefined;
+    properties?: P | undefined;
 }
 
 export type GeometryObject<P extends Properties = {}> =

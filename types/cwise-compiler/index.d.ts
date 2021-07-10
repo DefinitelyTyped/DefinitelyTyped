@@ -24,7 +24,7 @@ declare namespace cwise_compiler {
         debug: boolean;
         funcName: string;
         blockSize: number;
-        printCode?: boolean;
+        printCode?: boolean | undefined;
     }
     interface Procedure {
         argTypes: ArgType[];
@@ -41,7 +41,7 @@ declare namespace cwise_compiler {
         body: CompiledRoutine;
         post: CompiledRoutine;
         debug: boolean;
-        blockSize?: number;
+        blockSize?: number | undefined;
     }
 }
 

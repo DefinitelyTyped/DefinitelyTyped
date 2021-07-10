@@ -9,8 +9,8 @@ declare function gitUserName(options?: gitUserName.Options): string | null;
 
 declare namespace gitUserName {
     interface Options {
-        cwd?: string;
-        path?: string;
-        gitconfig?: string;
+        cwd?: string | undefined;
+        path?: string | undefined;
+        gitconfig?: string | undefined;
     }
 }

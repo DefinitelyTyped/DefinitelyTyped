@@ -9,26 +9,26 @@ import * as react from "react";
 export type VerticalAlign = "baseline" | "length" | "sub" | "super" | "top" | "text-top" | "middle" | "bottom" | "text-bottom" | "initial" | "inherit";
 
 export interface HalogenCommonProps {
-  loading?: boolean;
-  color?: string;
-  id?: string;
-  className?: string;
-  verticalAlign?: VerticalAlign;
+  loading?: boolean | undefined;
+  color?: string | undefined;
+  id?: string | undefined;
+  className?: string | undefined;
+  verticalAlign?: VerticalAlign | undefined;
 }
 
 export interface SizeLoaderProps extends HalogenCommonProps {
-  size?: string;
+  size?: string | undefined;
 }
 
 export interface MarginLoaderProps<T> extends HalogenCommonProps {
-  margin?: T;
-  size?: T;
+  margin?: T | undefined;
+  size?: T | undefined;
 }
 
 export interface RadiusLoaderProps extends MarginLoaderProps<string> {
-  height?: string;
-  width?: string;
-  radius?: string;
+  height?: string | undefined;
+  width?: string | undefined;
+  radius?: string | undefined;
 }
 
 /**

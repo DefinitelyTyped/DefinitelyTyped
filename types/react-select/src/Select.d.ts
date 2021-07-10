@@ -41,23 +41,23 @@ export interface NamedProps<
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > {
     /** Aria label (for assistive tech) */
-    'aria-label'?: string;
+    'aria-label'?: string | undefined;
     /** HTML ID of an element that should be used as the label (for assistive tech) */
-    'aria-labelledby'?: string;
+    'aria-labelledby'?: string | undefined;
     /** Focus the control when it is mounted */
-    autoFocus?: boolean;
+    autoFocus?: boolean | undefined;
     /** Remove the currently focused option when the user presses backspace */
-    backspaceRemovesValue?: boolean;
+    backspaceRemovesValue?: boolean | undefined;
     /** Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices) */
-    blurInputOnSelect?: boolean;
+    blurInputOnSelect?: boolean | undefined;
     /** When the user reaches the top/bottom of the menu, prevent scroll on the scroll-parent  */
-    captureMenuScroll?: boolean;
+    captureMenuScroll?: boolean | undefined;
     /** className attribute applied to the outer component */
-    className?: string;
+    className?: string | undefined;
     /** classNamePrefix attribute used as a base for inner component classNames */
-    classNamePrefix?: string | null;
+    classNamePrefix?: string | null | undefined;
     /** Close the select menu when the user selects an option */
-    closeMenuOnSelect?: boolean;
+    closeMenuOnSelect?: boolean | undefined;
     /**
      * If `true`, close the select menu when the user scrolls the document/body.
      *
@@ -70,7 +70,7 @@ export interface NamedProps<
      * This is useful when you have a scrollable modal and want to portal the menu out,
      * but want to avoid graphical issues.
      */
-    closeMenuOnScroll?: boolean | EventListener;
+    closeMenuOnScroll?: boolean | EventListener | undefined;
     /**
      * This complex object includes all the compositional components that are used
      * in `react-select`. If you wish to overwrite a component, pass in an object
@@ -80,118 +80,118 @@ export interface NamedProps<
      * instead. For a list of the components that can be passed in, and the shape
      * that will be passed to them, see [the components docs](/api#components)
      */
-    components?: SelectComponentsConfig<OptionType, IsMulti, GroupType>;
+    components?: SelectComponentsConfig<OptionType, IsMulti, GroupType> | undefined;
     /** Whether the value of the select, e.g. SingleValue, should be displayed in the control. */
-    controlShouldRenderValue?: boolean;
+    controlShouldRenderValue?: boolean | undefined;
     /** Delimiter used to join multiple values into a single HTML Input value */
-    delimiter?: string;
+    delimiter?: string | undefined;
     /** Clear all values when the user presses escape AND the menu is closed */
-    escapeClearsValue?: boolean;
+    escapeClearsValue?: boolean | undefined;
     /** Custom method to filter whether an option should be displayed in the menu */
-    filterOption?: ((option: Option, rawInput: string) => boolean) | null;
+    filterOption?: ((option: Option, rawInput: string) => boolean) | null | undefined;
     /** Formats group labels in the menu as React components */
-    formatGroupLabel?: formatGroupLabel<OptionType, GroupType>;
+    formatGroupLabel?: formatGroupLabel<OptionType, GroupType> | undefined;
     /** Formats option labels in the menu and control as React components */
-    formatOptionLabel?: (option: OptionType, labelMeta: FormatOptionLabelMeta<OptionType, IsMulti>) => React.ReactNode;
+    formatOptionLabel?: ((option: OptionType, labelMeta: FormatOptionLabelMeta<OptionType, IsMulti>) => React.ReactNode) | undefined;
     /** Resolves option data to a string to be displayed as the label by components */
-    getOptionLabel?: getOptionLabel<OptionType>;
+    getOptionLabel?: getOptionLabel<OptionType> | undefined;
     /** Resolves option data to a string to compare options and specify value attributes */
-    getOptionValue?: getOptionValue<OptionType>;
+    getOptionValue?: getOptionValue<OptionType> | undefined;
     /** Hide the selected option from the menu */
-    hideSelectedOptions?: boolean;
+    hideSelectedOptions?: boolean | undefined;
     /** The id to set on the SelectContainer component. */
-    id?: string;
+    id?: string | undefined;
     /** The value of the search input */
-    inputValue?: string;
+    inputValue?: string | undefined;
     /** The id of the search input */
-    inputId?: string;
+    inputId?: string | undefined;
     /** Define an id prefix for the select components e.g. {your-id}-value */
-    instanceId?: number | string;
+    instanceId?: number | string | undefined;
     /** Is the select value clearable */
-    isClearable?: boolean;
+    isClearable?: boolean | undefined;
     /** Is the select disabled */
-    isDisabled?: boolean;
+    isDisabled?: boolean | undefined;
     /** Is the select in a state of loading (async) */
-    isLoading?: boolean;
+    isLoading?: boolean | undefined;
     /** Override the built-in logic to detect whether an option is disabled */
-    isOptionDisabled?: (option: OptionType, options: OptionsType<OptionType>) => boolean | false;
+    isOptionDisabled?: ((option: OptionType, options: OptionsType<OptionType>) => boolean | false) | undefined;
     /** Override the built-in logic to detect whether an option is selected */
-    isOptionSelected?: (option: OptionType, options: OptionsType<OptionType>) => boolean;
+    isOptionSelected?: ((option: OptionType, options: OptionsType<OptionType>) => boolean) | undefined;
     /** Support multiple selected options */
-    isMulti?: IsMulti;
+    isMulti?: IsMulti | undefined;
     /** Is the select direction right-to-left */
-    isRtl?: boolean;
+    isRtl?: boolean | undefined;
     /** Whether to enable search functionality */
-    isSearchable?: boolean;
+    isSearchable?: boolean | undefined;
     /** Async: Text to display when loading options */
-    loadingMessage?: (obj: { inputValue: string }) => string | null;
+    loadingMessage?: ((obj: { inputValue: string }) => string | null) | undefined;
     /** Minimum height of the menu before flipping */
-    minMenuHeight?: number;
+    minMenuHeight?: number | undefined;
     /** Maximum height of the menu before scrolling */
-    maxMenuHeight?: number;
+    maxMenuHeight?: number | undefined;
     /** Whether the menu is open */
-    menuIsOpen?: boolean;
+    menuIsOpen?: boolean | undefined;
     /**
      * Default placement of the menu in relation to the control. 'auto' will flip
      * when there isn't enough space below the control.
      */
-    menuPlacement?: MenuPlacement;
+    menuPlacement?: MenuPlacement | undefined;
     /** The CSS position value of the menu, when "fixed" extra layout management is required */
-    menuPosition?: MenuPosition;
+    menuPosition?: MenuPosition | undefined;
     /** Whether the menu should use a portal, and where it should attach */
-    menuPortalTarget?: HTMLElement | null;
+    menuPortalTarget?: HTMLElement | null | undefined;
     /** Whether to block scroll events when the menu is open */
-    menuShouldBlockScroll?: boolean;
+    menuShouldBlockScroll?: boolean | undefined;
     /** Whether the menu should be scrolled into view when it opens */
-    menuShouldScrollIntoView?: boolean;
+    menuShouldScrollIntoView?: boolean | undefined;
     /** Name of the HTML Input (optional - without this, no input will be rendered) */
-    name?: string;
+    name?: string | undefined;
     /** Text to display when there are no options */
-    noOptionsMessage?: (obj: { inputValue: string }) => string | null;
+    noOptionsMessage?: ((obj: { inputValue: string }) => string | null) | undefined;
     /** Handle blur events on the control */
-    onBlur?: FocusEventHandler;
+    onBlur?: FocusEventHandler | undefined;
     /** Handle change events on the select */
-    onChange?: (value: ValueType<OptionType, IsMulti>, action: ActionMeta<OptionType>) => void;
+    onChange?: ((value: ValueType<OptionType, IsMulti>, action: ActionMeta<OptionType>) => void) | undefined;
     /** Handle focus events on the control */
-    onFocus?: FocusEventHandler;
+    onFocus?: FocusEventHandler | undefined;
     /** Handle change events on the input */
-    onInputChange?: (newValue: string, actionMeta: InputActionMeta) => void;
+    onInputChange?: ((newValue: string, actionMeta: InputActionMeta) => void) | undefined;
     /** Handle key down events on the select */
-    onKeyDown?: KeyboardEventHandler;
+    onKeyDown?: KeyboardEventHandler | undefined;
     /** Handle the menu opening */
-    onMenuOpen?: () => void;
+    onMenuOpen?: (() => void) | undefined;
     /** Handle the menu closing */
-    onMenuClose?: () => void;
+    onMenuClose?: (() => void) | undefined;
     /** Fired when the user scrolls to the top of the menu */
-    onMenuScrollToTop?: (event: React.SyntheticEvent<HTMLElement>) => void;
+    onMenuScrollToTop?: ((event: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     /** Fired when the user scrolls to the bottom of the menu */
-    onMenuScrollToBottom?: (event: React.SyntheticEvent<HTMLElement>) => void;
+    onMenuScrollToBottom?: ((event: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     /** Allows control of whether the menu is opened when the Select is focused */
-    openMenuOnFocus?: boolean;
+    openMenuOnFocus?: boolean | undefined;
     /** Allows control of whether the menu is opened when the Select is clicked */
-    openMenuOnClick?: boolean;
+    openMenuOnClick?: boolean | undefined;
     /** Array of options that populate the select menu */
-    options?: ReadonlyArray<OptionType | GroupType>;
+    options?: ReadonlyArray<OptionType | GroupType> | undefined;
     /** Number of options to jump in menu when page{up|down} keys are used */
-    pageSize?: number;
+    pageSize?: number | undefined;
     /** Placeholder text for the select value */
-    placeholder?: React.ReactNode;
+    placeholder?: React.ReactNode | undefined;
     /** Status to relay to screen readers */
-    screenReaderStatus?: (obj: { count: number }) => string;
+    screenReaderStatus?: ((obj: { count: number }) => string) | undefined;
     /** Style modifier methods */
-    styles?: StylesConfig<OptionType, IsMulti, GroupType>;
+    styles?: StylesConfig<OptionType, IsMulti, GroupType> | undefined;
     /** Theme modifier method */
-    theme?: ThemeConfig;
+    theme?: ThemeConfig | undefined;
     /** Sets the tabIndex attribute on the input */
-    tabIndex?: string | null;
+    tabIndex?: string | null | undefined;
     /** Select the currently focused option when the user presses tab */
-    tabSelectsValue?: boolean;
+    tabSelectsValue?: boolean | undefined;
     /** The value of the select; reflected by the selected option */
-    value?: readonly OptionType[] | OptionType | null;
+    value?: readonly OptionType[] | OptionType | null | undefined;
 
-    defaultInputValue?: string;
-    defaultMenuIsOpen?: boolean;
-    defaultValue?: readonly OptionType[] | OptionType | null;
+    defaultInputValue?: string | undefined;
+    defaultMenuIsOpen?: boolean | undefined;
+    defaultValue?: readonly OptionType[] | OptionType | null | undefined;
 }
 
 export interface Props<
@@ -307,7 +307,7 @@ export default class Select<
         selectOption: (newValue: OptionType) => void;
         setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option?: OptionType) => void;
         selectProps: Readonly<{
-            children?: React.ReactNode;
+            children?: React.ReactNode | undefined;
         }> &
             Readonly<Props<OptionType, IsMulti, GroupType>>;
     };
@@ -325,7 +325,7 @@ export default class Select<
     // Helpers
     // ==============================
     announceAriaLiveSelection: (props: { event: string; context: ValueEventContext }) => void;
-    announceAriaLiveContext: (props: { event: string; context?: InstructionsContext }) => void;
+    announceAriaLiveContext: (props: { event: string; context?: InstructionsContext | undefined }) => void;
 
     hasValue(): boolean;
     hasOptions(): boolean;

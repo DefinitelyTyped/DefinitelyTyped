@@ -91,22 +91,22 @@ export interface Blockquote extends Parent {
 
 export interface List extends Parent {
     type: 'list';
-    ordered?: boolean;
-    start?: number;
-    spread?: boolean;
+    ordered?: boolean | undefined;
+    start?: number | undefined;
+    spread?: boolean | undefined;
     children: ListContent[];
 }
 
 export interface ListItem extends Parent {
     type: 'listItem';
-    checked?: boolean;
-    spread?: boolean;
+    checked?: boolean | undefined;
+    spread?: boolean | undefined;
     children: BlockContent[];
 }
 
 export interface Table extends Parent {
     type: 'table';
-    align?: AlignType[];
+    align?: AlignType[] | undefined;
     children: TableContent[];
 }
 
@@ -126,8 +126,8 @@ export interface HTML extends Literal {
 
 export interface Code extends Literal {
     type: 'code';
-    lang?: string;
-    meta?: string;
+    lang?: string | undefined;
+    meta?: string | undefined;
 }
 
 export interface YAML extends Literal {
@@ -200,12 +200,12 @@ export interface FootnoteReference extends Node, Association {
 // Mixin
 export interface Resource {
     url: string;
-    title?: string;
+    title?: string | undefined;
 }
 
 export interface Association {
     identifier: string;
-    label?: string;
+    label?: string | undefined;
 }
 
 export interface Reference extends Association {
@@ -213,5 +213,5 @@ export interface Reference extends Association {
 }
 
 export interface Alternative {
-    alt?: string;
+    alt?: string | undefined;
 }

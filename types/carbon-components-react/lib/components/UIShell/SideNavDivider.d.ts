@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface SideNavDividerProps {
-    className?: string;
+    className?: string | undefined;
 }
 
 declare const SideNavDivider: React.FC<SideNavDividerProps>;

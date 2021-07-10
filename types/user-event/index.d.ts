@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface UserOpts {
-    allAtOnce?: boolean;
-    delay?: number;
+    allAtOnce?: boolean | undefined;
+    delay?: number | undefined;
 }
 declare const userEvent: {
     click: (element: Element | Window) => void;

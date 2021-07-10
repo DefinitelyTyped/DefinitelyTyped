@@ -5,5 +5,5 @@ export default class RealTimeCollaborativeEditing extends Plugin {
 }
 
 export interface RealTimeCollaborationConfig {
-    channelId?: string;
+    channelId?: string | undefined;
 }

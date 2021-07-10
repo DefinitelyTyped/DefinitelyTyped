@@ -8,11 +8,11 @@ import * as geojson from 'geojson';
 
 declare module 'leaflet' {
     interface FreeHandShapesOptions {
-        polygon?: PolylineOptions;
-        polyline?: PolylineOptions;
-        simplify_tolerance?: number;
-        merge_polygons?: boolean;
-        concave_polygons?: boolean;
+        polygon?: PolylineOptions | undefined;
+        polyline?: PolylineOptions | undefined;
+        simplify_tolerance?: number | undefined;
+        merge_polygons?: boolean | undefined;
+        concave_polygons?: boolean | undefined;
     }
 
     class FreeHandShapes extends FeatureGroup {

@@ -47,23 +47,23 @@ declare namespace timestring {
         /**
          * @default 24
          */
-        hoursPerDay?: number;
+        hoursPerDay?: number | undefined;
         /**
          * @default 7
          */
-        daysPerWeek?: number;
+        daysPerWeek?: number | undefined;
         /**
          * @default 4
          */
-        weeksPerMonth?: number;
+        weeksPerMonth?: number | undefined;
         /**
          * @default 12
          */
-        monthsPerYear?: number;
+        monthsPerYear?: number | undefined;
         /**
          * @default 365.25s
          */
-        daysPerYear?: number;
+        daysPerYear?: number | undefined;
     }
 }
 

@@ -36,17 +36,17 @@ declare namespace Fixtures {
         /**
          * Specifiy the fixtures directory or default to `./fixtures`.
          */
-        dir?: string;
+        dir?: string | undefined;
 
         /**
          * Filter the fixtures present in the directory with a regex pattern.
          */
-        filter?: string;
+        filter?: string | undefined;
 
         /**
          * Specify `true` to mute the log output or default to `false`.
          */
-        mute?: boolean;
+        mute?: boolean | undefined;
     }
 }
 

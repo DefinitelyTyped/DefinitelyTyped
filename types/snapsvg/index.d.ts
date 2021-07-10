@@ -135,8 +135,8 @@ declare namespace Snap {
     export interface Animation {
         attr:{[attr:string]:string|number|boolean|any};
         duration:number;
-        easing?:(num:number)=>number;
-        callback?:()=>void;
+        easing?:((num:number)=>number) | undefined;
+        callback?:(()=>void) | undefined;
     }
 
     export interface Element {
@@ -172,7 +172,7 @@ declare namespace Snap {
         node:HTMLElement;
         outerSVG():string;
         /** The top level element will included an reference to its Paper after it is rendered. */
-        paper?: Snap.Paper;
+        paper?: Snap.Paper | undefined;
         parent():Snap.Element;
         pattern(x:any,y:any,width:any,height:any):Snap.Element;
         prepend(el:Snap.Element):Snap.Element;

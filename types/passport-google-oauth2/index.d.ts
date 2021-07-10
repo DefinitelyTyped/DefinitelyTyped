@@ -11,9 +11,9 @@ export interface StrategyOptions {
   clientID: string;
   clientSecret: string;
   callbackURL: string;
-  passReqToCallback?: true;
-  scope?: string[];
-  proxy?: boolean;
+  passReqToCallback?: true | undefined;
+  scope?: string[] | undefined;
+  proxy?: boolean | undefined;
 }
 
 export interface StrategyOptionsWithRequest {
@@ -21,7 +21,7 @@ export interface StrategyOptionsWithRequest {
   clientSecret: string;
   callbackURL: string;
   passReqToCallback: true;
-  scope?: string[];
+  scope?: string[] | undefined;
 }
 
 export interface VerifyOptions {

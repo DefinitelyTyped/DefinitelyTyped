@@ -14,22 +14,22 @@ type WeMiddleware = (req: any, res: Response | http.ServerResponse, next: NextFu
 
 declare function weAccessMiddleware(
     options: {
-        accessTokenUrl?: string;
-        ticketUrl?: string;
+        accessTokenUrl?: string | undefined;
+        ticketUrl?: string | undefined;
         appId: string;
         appSecret: string;
-        https?: boolean;
+        https?: boolean | undefined;
     },
     errorHandler?: (e: any) => any
 ): WeMiddleware;
 
 declare namespace weAccessMiddleware {
     interface WeAccessMidOption {
-        accessTokenUrl?: string;
-        ticketUrl?: string;
+        accessTokenUrl?: string | undefined;
+        ticketUrl?: string | undefined;
         appId: string;
         appSecret: string;
-        https?: boolean;
+        https?: boolean | undefined;
     }
 
     interface WeAccessMiddleware extends WeMiddleware, EventEmitter, Function {}

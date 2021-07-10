@@ -160,9 +160,9 @@ interface ParsedRTPType {
     name: 'PCMU' | 'GSM' | 'G723' | 'DVI4' | 'DVI4' | 'LPC' | 'PCMA' | 'G722' | 'L16' | 'L16' | 'QCELP' | 'CN' |
           'MPA' | 'G728' | 'DVI4' | 'DVI4' | 'G729' | 'CelB' | 'JPEG' | 'nv' | 'H261' | 'MPV' | 'MP2T' | 'H263' |
           'reserved' | 'unassigned' | 'dynamic';
-    mediaType?: 'A' | 'AV' | 'V';
-    clockRate?: 8000 | 16000 | 44100 | 90000 | 11025 | 22050;
-    channels?: 1 | 2;
+    mediaType?: 'A' | 'AV' | 'V' | undefined;
+    clockRate?: 8000 | 16000 | 44100 | 90000 | 11025 | 22050 | undefined;
+    channels?: 1 | 2 | undefined;
 }
 
 declare function parseRtpPayloadType(payloadType: 0): {name: 'PCMU', mediaType: 'A', clockRate: 8000, channels: 1};

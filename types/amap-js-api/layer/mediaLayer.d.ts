@@ -4,19 +4,19 @@ declare namespace AMap {
             /**
              * 显示范围
              */
-            bounds?: Bounds;
+            bounds?: Bounds | undefined;
             /**
              * 是否可见
              */
-            visible?: boolean;
+            visible?: boolean | undefined;
             /**
              * 缩放范围
              */
-            zooms?: [number, number];
+            zooms?: [number, number] | undefined;
             /**
              * 透明度
              */
-            opacity?: number;
+            opacity?: number | undefined;
         }
     }
 

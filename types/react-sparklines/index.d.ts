@@ -12,66 +12,66 @@ export interface Point {
 }
 
 export interface SparklinesProps {
-    data?: number[];
-    limit?: number;
-    width?: number;
-    height?: number;
-    svgWidth?: React.SVGAttributes<React.ReactSVGElement>['width'];
-    svgHeight?: React.SVGAttributes<React.ReactSVGElement>['height'];
-    preserveAspectRatio?: React.SVGAttributes<React.ReactSVGElement>['preserveAspectRatio'];
-    margin?: number;
-    min?: number;
-    max?: number;
-    style?: React.SVGAttributes<React.ReactSVGElement>['style'];
+    data?: number[] | undefined;
+    limit?: number | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    svgWidth?: React.SVGAttributes<React.ReactSVGElement>['width'] | undefined;
+    svgHeight?: React.SVGAttributes<React.ReactSVGElement>['height'] | undefined;
+    preserveAspectRatio?: React.SVGAttributes<React.ReactSVGElement>['preserveAspectRatio'] | undefined;
+    margin?: number | undefined;
+    min?: number | undefined;
+    max?: number | undefined;
+    style?: React.SVGAttributes<React.ReactSVGElement>['style'] | undefined;
 }
 export class Sparklines extends React.PureComponent<SparklinesProps> {}
 
 export interface SparklinesBarsProps {
-    points?: Point[];
-    height?: number;
-    style?: React.SVGAttributes<React.ReactSVGElement>['style'];
-    barWidth?: number;
-    margin?: number;
-    onMouseMove?: (p: Point, event: React.MouseEvent<React.ReactSVGElement>) => void;
+    points?: Point[] | undefined;
+    height?: number | undefined;
+    style?: React.SVGAttributes<React.ReactSVGElement>['style'] | undefined;
+    barWidth?: number | undefined;
+    margin?: number | undefined;
+    onMouseMove?: ((p: Point, event: React.MouseEvent<React.ReactSVGElement>) => void) | undefined;
 }
 export class SparklinesBars extends React.Component<SparklinesBarsProps> {}
 
 export interface SparklinesCurveProps {
-    color?: React.SVGAttributes<React.ReactSVGElement>['color'];
-    style?: React.SVGAttributes<React.ReactSVGElement>['style'];
+    color?: React.SVGAttributes<React.ReactSVGElement>['color'] | undefined;
+    style?: React.SVGAttributes<React.ReactSVGElement>['style'] | undefined;
 }
 export class SparklinesCurve extends React.Component<SparklinesCurveProps> {}
 
 export interface SparklinesLineProps {
-    color?: React.SVGAttributes<React.ReactSVGElement>['color'];
-    style?: React.SVGAttributes<React.ReactSVGElement>['style'];
-    onMouseMove?: (event: 'enter' | 'click', value: number, point: Point) => void;
+    color?: React.SVGAttributes<React.ReactSVGElement>['color'] | undefined;
+    style?: React.SVGAttributes<React.ReactSVGElement>['style'] | undefined;
+    onMouseMove?: ((event: 'enter' | 'click', value: number, point: Point) => void) | undefined;
 }
 export class SparklinesLine extends React.Component<SparklinesLineProps> {}
 
 export interface SparklinesNormalBandProps {
-    style?: React.SVGAttributes<React.ReactSVGElement>['style'];
+    style?: React.SVGAttributes<React.ReactSVGElement>['style'] | undefined;
 }
 export class SparklinesNormalBand extends React.Component<SparklinesNormalBandProps> {}
 
 export interface SparklinesReferenceLineProps {
-    type?: 'max' | 'min' | 'mean' | 'avg' | 'median' | 'custom';
-    value?: number;
-    style?: React.SVGAttributes<React.ReactSVGElement>['style'];
+    type?: 'max' | 'min' | 'mean' | 'avg' | 'median' | 'custom' | undefined;
+    value?: number | undefined;
+    style?: React.SVGAttributes<React.ReactSVGElement>['style'] | undefined;
 }
 export class SparklinesReferenceLine extends React.Component<SparklinesReferenceLineProps> {}
 
 export interface SparklinesSpotsProps {
-    size?: number;
-    style?: React.SVGAttributes<React.ReactSVGElement>['style'];
-    spotColors?: { [change: string]: string };
+    size?: number | undefined;
+    style?: React.SVGAttributes<React.ReactSVGElement>['style'] | undefined;
+    spotColors?: { [change: string]: string } | undefined;
 }
 export class SparklinesSpots extends React.Component<SparklinesSpotsProps> {}
 
 export interface SparklinesTextProps {
-    text?: string;
-    point?: Point;
-    fontSize?: number;
-    fontFamily?: string;
+    text?: string | undefined;
+    point?: Point | undefined;
+    fontSize?: number | undefined;
+    fontFamily?: string | undefined;
 }
 export class SparklinesText extends React.Component<SparklinesTextProps> {}

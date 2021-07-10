@@ -84,43 +84,43 @@ declare namespace Remarkable {
         /**
          * Enable HTML tags in source.
          */
-        html?: boolean;
+        html?: boolean | undefined;
 
         /**
          * Use "/" to close single tags (<br />).
          */
-        xhtmlOut?: boolean;
+        xhtmlOut?: boolean | undefined;
 
         /**
          * Convert "\n" in paragraphs into <br>.
          */
-        breaks?: boolean;
+        breaks?: boolean | undefined;
 
         /**
          * CSS language prefix for fenced blocks.
          */
-        langPrefix?: string;
+        langPrefix?: string | undefined;
 
         /**
          * Autoconvert URL-like text to links.
          */
-        linkify?: boolean;
+        linkify?: boolean | undefined;
 
         /**
          * Set target to open link in
          */
-        linkTarget?: string;
+        linkTarget?: string | undefined;
 
         /**
          * Enable some language-neutral replacement + quotes beautification.
          */
-        typographer?: boolean;
+        typographer?: boolean | undefined;
 
         /**
          * Double + single quotes replacement pairs, when typographer enabled,
          * and smartquotes on. Set doubles to "«»" for Russian, "„“" for German.
          */
-        quotes?: string;
+        quotes?: string | undefined;
 
         /**
          * Highlighter function. Should return escaped HTML, or "" if the source
@@ -376,7 +376,7 @@ declare namespace Remarkable {
          * property which is a 2 elements array marking the first and last line of the
          * `src` used to generate the token.
          */
-        lines?: [number, number];
+        lines?: [number, number] | undefined;
     }
 
     interface BlockContentToken extends TagToken {
@@ -384,13 +384,13 @@ declare namespace Remarkable {
          * The content of the block. This might include inline mardown syntax
          * which may need further processing by the inline rules.
          */
-        content?: string;
+        content?: string | undefined;
 
         /**
          * This is initialized with an empty array (`[]`) and will be filled
          * with the inline parser tokens as the inline parsing rules are applied.
          */
-        children?: Token[];
+        children?: Token[] | undefined;
     }
 
     interface ContentToken extends TagToken {
@@ -403,7 +403,7 @@ declare namespace Remarkable {
         /**
          * Is this a block element
          */
-        block?: boolean;
+        block?: boolean | undefined;
     }
 
     // ---------------
@@ -448,7 +448,7 @@ declare namespace Remarkable {
 
     interface FenceToken extends ContentToken {
         content: string;
-        block?: false;
+        block?: false | undefined;
 
         /**
          * Fenced block params.
@@ -466,7 +466,7 @@ declare namespace Remarkable {
         /**
          * Footnote sub id.
          */
-        subId?: number;
+        subId?: number | undefined;
     }
     interface FootnoteReferenceToken extends FootnoteGenericToken {}
     interface FootnoteReferenceOpenToken extends FootnoteReferenceToken {
@@ -544,7 +544,7 @@ declare namespace Remarkable {
     }
 
     interface TextToken extends TagToken {
-        content?: string;
+        content?: string | undefined;
         type: 'text';
     }
 
@@ -612,7 +612,7 @@ declare namespace Remarkable {
         /**
          * Link title.
          */
-        title?: string;
+        title?: string | undefined;
         type: 'link_open';
     }
     interface LinkCloseToken extends LinkToken {

@@ -11,49 +11,49 @@ import * as React from 'react';
 import { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native';
 
 export interface ContentInset {
-    top?: number;
-    label?: number;
-    input?: number;
+    top?: number | undefined;
+    label?: number | undefined;
+    input?: number | undefined;
 }
 
 export interface TextFieldProps extends TextInputProps {
-    animationDuration?: number;
+    animationDuration?: number | undefined;
 
-    fontSize?: number;
-    labelFontSize?: number;
-    contentInset?: ContentInset;
+    fontSize?: number | undefined;
+    labelFontSize?: number | undefined;
+    contentInset?: ContentInset | undefined;
 
-    style?: StyleProp<TextStyle>;
-    labelTextStyle?: StyleProp<TextStyle>;
-    titleTextStyle?: StyleProp<TextStyle>;
-    affixTextStyle?: StyleProp<TextStyle>;
+    style?: StyleProp<TextStyle> | undefined;
+    labelTextStyle?: StyleProp<TextStyle> | undefined;
+    titleTextStyle?: StyleProp<TextStyle> | undefined;
+    affixTextStyle?: StyleProp<TextStyle> | undefined;
 
-    tintColor?: string;
-    textColor?: string;
-    baseColor?: string;
+    tintColor?: string | undefined;
+    textColor?: string | undefined;
+    baseColor?: string | undefined;
 
-    label?: string;
-    title?: string;
+    label?: string | undefined;
+    title?: string | undefined;
 
-    characterRestriction?: number;
+    characterRestriction?: number | undefined;
 
-    error?: string;
-    errorColor?: string;
+    error?: string | undefined;
+    errorColor?: string | undefined;
 
-    lineWidth?: number;
-    activeLineWidth?: number;
+    lineWidth?: number | undefined;
+    activeLineWidth?: number | undefined;
 
-    disabled?: boolean;
+    disabled?: boolean | undefined;
 
-    disabledLineWidth?: number;
+    disabledLineWidth?: number | undefined;
 
-    clearTextOnFocus?: boolean;
+    clearTextOnFocus?: boolean | undefined;
 
-    prefix?: string;
-    suffix?: string;
+    prefix?: string | undefined;
+    suffix?: string | undefined;
 
-    containerStyle?: StyleProp<ViewStyle>;
-    inputContainerStyle?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle> | undefined;
+    inputContainerStyle?: StyleProp<ViewStyle> | undefined;
 
     onPress?(event: Event): void;
     onChangeText?(text: string): void;
@@ -61,36 +61,36 @@ export interface TextFieldProps extends TextInputProps {
     renderLeftAccessory?(): JSX.Element;
     renderRightAccessory?(): JSX.Element;
 
-    lineType?: 'solid' | 'dotted' | 'dashed' | 'none';
-    disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none';
+    lineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
+    disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
 
-    editable?: boolean;
-    multiline?: boolean;
+    editable?: boolean | undefined;
+    multiline?: boolean | undefined;
 
     formatText?(text: string): string;
     /**
      * Label position adjustment
      */
-    labelOffset?: LabelOffset;
+    labelOffset?: LabelOffset | undefined;
 }
 
 export interface LabelOffset {
     /**
      * Horizontal offset for inactive state
      */
-    x0?: number;
+    x0?: number | undefined;
     /**
      * Vertical offset for inactive state
      */
-    y0?: number;
+    y0?: number | undefined;
     /**
      * Horizontal offset for active state
      */
-    x1?: number;
+    x1?: number | undefined;
     /**
      * Vertical offset for active state
      */
-    y1?: number;
+    y1?: number | undefined;
 }
 
 /**

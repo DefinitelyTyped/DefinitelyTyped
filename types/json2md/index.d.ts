@@ -43,7 +43,7 @@ declare namespace json2md {
         }
 
         interface CodeInput {
-            language?: string;
+            language?: string | undefined;
             content: string | string[];
         }
 

@@ -120,7 +120,7 @@ class MyComponent2 extends React.Component {
     }
 }
 
-type FacebookLoginWrapperProps = ReactFacebookLoginProps & { className?: string };
+type FacebookLoginWrapperProps = ReactFacebookLoginProps & { className?: string | undefined };
 
 export const FacebookLoginWrapper = ({ className, ...props }: FacebookLoginWrapperProps) => (
     <FacebookLogin {...props} cssClass={className} />

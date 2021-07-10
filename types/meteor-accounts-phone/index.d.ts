@@ -5,9 +5,9 @@
 
 declare namespace SMS {
   var twilio: {
-    FROM?: string;
-    ACCOUNT_SID?: string;
-    AUTH_TOKEN?: string;
+    FROM?: string | undefined;
+    ACCOUNT_SID?: string | undefined;
+    AUTH_TOKEN?: string | undefined;
   };
 
   var phoneTemplate: {
@@ -30,14 +30,14 @@ declare module 'meteor/meteor' {
 
 declare namespace Accounts {
   var _options: {
-    verificationCodeLength?: number,
-    verificationMaxRetries?: number,
-    verificationRetriesWaitTime?: number,
-    verificationWaitTime?: number,
-    sendPhoneVerificationCodeOnCreation?: boolean,
-    forbidClientAccountCreation?: boolean,
-    phoneVerificationMasterCode?: Array<string>,
-    adminPhoneNumbers?: Array<string>
+    verificationCodeLength?: number | undefined,
+    verificationMaxRetries?: number | undefined,
+    verificationRetriesWaitTime?: number | undefined,
+    verificationWaitTime?: number | undefined,
+    sendPhoneVerificationCodeOnCreation?: boolean | undefined,
+    forbidClientAccountCreation?: boolean | undefined,
+    phoneVerificationMasterCode?: Array<string> | undefined,
+    adminPhoneNumbers?: Array<string> | undefined
   };
 
   function createUserWithPhone(options: Object, callback?: Function): void;
@@ -50,14 +50,14 @@ declare namespace Accounts {
 declare module 'meteor/accounts-base' {
   namespace Accounts {
     var _options: {
-      verificationCodeLength?: number,
-      verificationMaxRetries?: number,
-      verificationRetriesWaitTime?: number,
-      verificationWaitTime?: number,
-      sendPhoneVerificationCodeOnCreation?: boolean,
-      forbidClientAccountCreation?: boolean,
-      phoneVerificationMasterCode?: Array<string>,
-      adminPhoneNumbers?: Array<string>
+      verificationCodeLength?: number | undefined,
+      verificationMaxRetries?: number | undefined,
+      verificationRetriesWaitTime?: number | undefined,
+      verificationWaitTime?: number | undefined,
+      sendPhoneVerificationCodeOnCreation?: boolean | undefined,
+      forbidClientAccountCreation?: boolean | undefined,
+      phoneVerificationMasterCode?: Array<string> | undefined,
+      adminPhoneNumbers?: Array<string> | undefined
     };
 
     function createUserWithPhone(options: Object, callback?: Function): void;

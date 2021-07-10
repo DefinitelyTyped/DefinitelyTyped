@@ -39,7 +39,7 @@ interface OffscreenCanvas extends EventTarget {
 
     getContext(contextId: "webgl2", contextAttributes?: WebGLContextAttributes): WebGL2RenderingContext | null;
 
-    convertToBlob(options?: { type?: string, quality?: number }): Promise<Blob>;
+    convertToBlob(options?: { type?: string | undefined, quality?: number | undefined }): Promise<Blob>;
 
     transferToImageBitmap(): ImageBitmap;
 }

@@ -2,22 +2,22 @@ import { Service } from "./service";
 import { Subscription } from "./subscription";
 
 export interface Type {
-    readonly explicit?: boolean;
-    readonly foreground?: boolean;
-    readonly persist?: boolean;
+    readonly explicit?: boolean | undefined;
+    readonly foreground?: boolean | undefined;
+    readonly persist?: boolean | undefined;
 }
 
 export interface Activity {
     readonly description: string;
     readonly name: string;
-    readonly type?: Type;
+    readonly type?: Type | undefined;
 }
 
 export interface ActivitySpec {
     readonly activity: Activity;
-    readonly replace?: boolean;
-    readonly start?: boolean;
-    readonly subscribe?: boolean;
+    readonly replace?: boolean | undefined;
+    readonly start?: boolean | undefined;
+    readonly subscribe?: boolean | undefined;
 }
 
 export interface CreateDummyCallback {

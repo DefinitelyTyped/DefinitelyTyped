@@ -26,25 +26,25 @@ declare namespace koaSession {
     }
 
     interface SessionOptions {
-        key?: string;
-        store?: SessionStore;
-        ttl?: number;
-        prefix?: string;
+        key?: string | undefined;
+        store?: SessionStore | undefined;
+        ttl?: number | undefined;
+        prefix?: string | undefined;
         cookie?: {
-            path?: string;
-            rewrite?: boolean;
-            signed?: boolean;
-            maxAge?: number | null;
-            secure?: boolean;
-            httpOnly?: boolean;
-            sameSite?: boolean | 'lax' | 'none' | 'strict';
-            overwrite?: boolean;
-        };
-        allowEmpty?: boolean;
-        defer?: boolean;
-        reconnectTimeout?: number;
-        rolling?: boolean;
-        sessionIdStore?: SessionIdStore;
+            path?: string | undefined;
+            rewrite?: boolean | undefined;
+            signed?: boolean | undefined;
+            maxAge?: number | null | undefined;
+            secure?: boolean | undefined;
+            httpOnly?: boolean | undefined;
+            sameSite?: boolean | 'lax' | 'none' | 'strict' | undefined;
+            overwrite?: boolean | undefined;
+        } | undefined;
+        allowEmpty?: boolean | undefined;
+        defer?: boolean | undefined;
+        reconnectTimeout?: number | undefined;
+        rolling?: boolean | undefined;
+        sessionIdStore?: SessionIdStore | undefined;
         genSid?(length: number): string;
         errorHandler?(error: Error, type: string, ctx: Koa.Context): void;
         valid?(ctx: Koa.Context, session: Session): boolean;

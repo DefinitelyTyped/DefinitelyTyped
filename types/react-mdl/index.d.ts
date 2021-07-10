@@ -15,160 +15,160 @@ declare namespace __ReactMDL {
     class __MDLBasicComponent extends __MDLComponent<__MDLOtherProps> { }
 
     interface ShadowedComponent {
-        shadow?: number;
+        shadow?: number | undefined;
     }
     interface RippleComponent {
-        ripple?: boolean;
+        ripple?: boolean | undefined;
     }
     interface CustomRenderedComponent {
-        component?: string | JSX.Element | Function;
+        component?: string | JSX.Element | Function | undefined;
     }
 
 
     // HTMLAttributes (minus the 'data', 'icon', 'label', 'name', 'rows', 'size', 'title', 'value' attributes)
     interface MDLHTMLAttributes {
         // React-specific Attributes
-        defaultChecked?: boolean;
-        defaultValue?: number | string | string[];
+        defaultChecked?: boolean | undefined;
+        defaultValue?: number | string | string[] | undefined;
 
         // Standard HTML Attributes
-        accept?: string;
-        acceptCharset?: string;
-        accessKey?: string;
-        action?: string;
-        allowFullScreen?: boolean;
-        allowTransparency?: boolean;
-        alt?: string;
-        async?: boolean;
-        autoComplete?: string;
-        autoFocus?: boolean;
-        autoPlay?: boolean;
-        capture?: boolean;
-        cellPadding?: number | string;
-        cellSpacing?: number | string;
-        charSet?: string;
-        challenge?: string;
-        checked?: boolean;
-        classID?: string;
-        className?: string;
-        cols?: number;
-        colSpan?: number;
-        content?: string;
-        contentEditable?: boolean;
-        contextMenu?: string;
-        controls?: boolean;
-        coords?: string;
-        crossOrigin?: string;
-        dateTime?: string;
-        default?: boolean;
-        defer?: boolean;
-        dir?: string;
-        disabled?: boolean;
+        accept?: string | undefined;
+        acceptCharset?: string | undefined;
+        accessKey?: string | undefined;
+        action?: string | undefined;
+        allowFullScreen?: boolean | undefined;
+        allowTransparency?: boolean | undefined;
+        alt?: string | undefined;
+        async?: boolean | undefined;
+        autoComplete?: string | undefined;
+        autoFocus?: boolean | undefined;
+        autoPlay?: boolean | undefined;
+        capture?: boolean | undefined;
+        cellPadding?: number | string | undefined;
+        cellSpacing?: number | string | undefined;
+        charSet?: string | undefined;
+        challenge?: string | undefined;
+        checked?: boolean | undefined;
+        classID?: string | undefined;
+        className?: string | undefined;
+        cols?: number | undefined;
+        colSpan?: number | undefined;
+        content?: string | undefined;
+        contentEditable?: boolean | undefined;
+        contextMenu?: string | undefined;
+        controls?: boolean | undefined;
+        coords?: string | undefined;
+        crossOrigin?: string | undefined;
+        dateTime?: string | undefined;
+        default?: boolean | undefined;
+        defer?: boolean | undefined;
+        dir?: string | undefined;
+        disabled?: boolean | undefined;
         download?: any;
-        draggable?: boolean;
-        encType?: string;
-        form?: string;
-        formAction?: string;
-        formEncType?: string;
-        formMethod?: string;
-        formNoValidate?: boolean;
-        formTarget?: string;
-        frameBorder?: number | string;
-        headers?: string;
-        height?: number | string;
-        hidden?: boolean;
-        high?: number;
-        href?: string;
-        hrefLang?: string;
-        htmlFor?: string;
-        httpEquiv?: string;
-        id?: string;
-        inputMode?: string;
-        integrity?: string;
-        is?: string;
-        keyParams?: string;
-        keyType?: string;
-        kind?: string;
-        lang?: string;
-        list?: string;
-        loop?: boolean;
-        low?: number;
-        manifest?: string;
-        marginHeight?: number;
-        marginWidth?: number;
-        max?: number | string;
-        maxLength?: number;
-        media?: string;
-        mediaGroup?: string;
-        method?: string;
-        min?: number | string;
-        minLength?: number;
-        multiple?: boolean;
-        muted?: boolean;
-        nonce?: string;
-        noValidate?: boolean;
-        open?: boolean;
-        optimum?: number;
-        pattern?: string;
-        placeholder?: string;
-        poster?: string;
-        preload?: string;
-        radioGroup?: string;
-        readOnly?: boolean;
-        rel?: string;
-        required?: boolean;
-        reversed?: boolean;
-        role?: string;
-        rowSpan?: number;
-        sandbox?: string;
-        scope?: string;
-        scoped?: boolean;
-        scrolling?: string;
-        seamless?: boolean;
-        selected?: boolean;
-        shape?: string;
-        sizes?: string;
-        span?: number;
-        spellCheck?: boolean;
-        src?: string;
-        srcDoc?: string;
-        srcLang?: string;
-        srcSet?: string;
-        start?: number;
-        step?: number | string;
-        style?: React.CSSProperties;
-        summary?: string;
-        tabIndex?: number;
-        target?: string;
-        type?: string;
-        useMap?: string;
-        width?: number | string;
-        wmode?: string;
-        wrap?: string;
+        draggable?: boolean | undefined;
+        encType?: string | undefined;
+        form?: string | undefined;
+        formAction?: string | undefined;
+        formEncType?: string | undefined;
+        formMethod?: string | undefined;
+        formNoValidate?: boolean | undefined;
+        formTarget?: string | undefined;
+        frameBorder?: number | string | undefined;
+        headers?: string | undefined;
+        height?: number | string | undefined;
+        hidden?: boolean | undefined;
+        high?: number | undefined;
+        href?: string | undefined;
+        hrefLang?: string | undefined;
+        htmlFor?: string | undefined;
+        httpEquiv?: string | undefined;
+        id?: string | undefined;
+        inputMode?: string | undefined;
+        integrity?: string | undefined;
+        is?: string | undefined;
+        keyParams?: string | undefined;
+        keyType?: string | undefined;
+        kind?: string | undefined;
+        lang?: string | undefined;
+        list?: string | undefined;
+        loop?: boolean | undefined;
+        low?: number | undefined;
+        manifest?: string | undefined;
+        marginHeight?: number | undefined;
+        marginWidth?: number | undefined;
+        max?: number | string | undefined;
+        maxLength?: number | undefined;
+        media?: string | undefined;
+        mediaGroup?: string | undefined;
+        method?: string | undefined;
+        min?: number | string | undefined;
+        minLength?: number | undefined;
+        multiple?: boolean | undefined;
+        muted?: boolean | undefined;
+        nonce?: string | undefined;
+        noValidate?: boolean | undefined;
+        open?: boolean | undefined;
+        optimum?: number | undefined;
+        pattern?: string | undefined;
+        placeholder?: string | undefined;
+        poster?: string | undefined;
+        preload?: string | undefined;
+        radioGroup?: string | undefined;
+        readOnly?: boolean | undefined;
+        rel?: string | undefined;
+        required?: boolean | undefined;
+        reversed?: boolean | undefined;
+        role?: string | undefined;
+        rowSpan?: number | undefined;
+        sandbox?: string | undefined;
+        scope?: string | undefined;
+        scoped?: boolean | undefined;
+        scrolling?: string | undefined;
+        seamless?: boolean | undefined;
+        selected?: boolean | undefined;
+        shape?: string | undefined;
+        sizes?: string | undefined;
+        span?: number | undefined;
+        spellCheck?: boolean | undefined;
+        src?: string | undefined;
+        srcDoc?: string | undefined;
+        srcLang?: string | undefined;
+        srcSet?: string | undefined;
+        start?: number | undefined;
+        step?: number | string | undefined;
+        style?: React.CSSProperties | undefined;
+        summary?: string | undefined;
+        tabIndex?: number | undefined;
+        target?: string | undefined;
+        type?: string | undefined;
+        useMap?: string | undefined;
+        width?: number | string | undefined;
+        wmode?: string | undefined;
+        wrap?: string | undefined;
 
         // RDFa Attributes
-        about?: string;
-        datatype?: string;
+        about?: string | undefined;
+        datatype?: string | undefined;
         inlist?: any;
-        prefix?: string;
-        property?: string;
-        resource?: string;
-        typeof?: string;
-        vocab?: string;
+        prefix?: string | undefined;
+        property?: string | undefined;
+        resource?: string | undefined;
+        typeof?: string | undefined;
+        vocab?: string | undefined;
 
         // Non-standard Attributes
-        autoCapitalize?: string;
-        autoCorrect?: string;
-        autoSave?: string;
-        color?: string;
-        itemProp?: string;
-        itemScope?: boolean;
-        itemType?: string;
-        itemID?: string;
-        itemRef?: string;
-        results?: number;
-        security?: string;
-        unselectable?: boolean;
+        autoCapitalize?: string | undefined;
+        autoCorrect?: string | undefined;
+        autoSave?: string | undefined;
+        color?: string | undefined;
+        itemProp?: string | undefined;
+        itemScope?: boolean | undefined;
+        itemType?: string | undefined;
+        itemID?: string | undefined;
+        itemRef?: string | undefined;
+        results?: number | undefined;
+        security?: string | undefined;
+        unselectable?: boolean | undefined;
 
         // Allows aria- and data- Attributes
         [key: string]: any;
@@ -176,110 +176,110 @@ declare namespace __ReactMDL {
     // DOMAttributes (minus 'onClick', 'onChange')
     interface MDLDOMAttributes<T> {
         // DOMAttributes (minus onClick)
-        children?: React.ReactNode;
+        children?: React.ReactNode | undefined;
         dangerouslySetInnerHTML?: {
             __html: string;
-        };
+        } | undefined;
 
         // Clipboard Events
-        onCopy?: React.ClipboardEventHandler<T>;
-        onCut?: React.ClipboardEventHandler<T>;
-        onPaste?: React.ClipboardEventHandler<T>;
+        onCopy?: React.ClipboardEventHandler<T> | undefined;
+        onCut?: React.ClipboardEventHandler<T> | undefined;
+        onPaste?: React.ClipboardEventHandler<T> | undefined;
 
         // Composition Events
-        onCompositionEnd?: React.CompositionEventHandler<T>;
-        onCompositionStart?: React.CompositionEventHandler<T>;
-        onCompositionUpdate?: React.CompositionEventHandler<T>;
+        onCompositionEnd?: React.CompositionEventHandler<T> | undefined;
+        onCompositionStart?: React.CompositionEventHandler<T> | undefined;
+        onCompositionUpdate?: React.CompositionEventHandler<T> | undefined;
 
         // Focus Events
-        onFocus?: React.FocusEventHandler<T>;
-        onBlur?: React.FocusEventHandler<T>;
+        onFocus?: React.FocusEventHandler<T> | undefined;
+        onBlur?: React.FocusEventHandler<T> | undefined;
 
         // Form Events
-        onInput?: React.FormEventHandler<T>;
-        onSubmit?: React.FormEventHandler<T>;
+        onInput?: React.FormEventHandler<T> | undefined;
+        onSubmit?: React.FormEventHandler<T> | undefined;
 
         // Image Events
-        onLoad?: React.ReactEventHandler<T>;
-        onError?: React.ReactEventHandler<T>; // also a Media Event
+        onLoad?: React.ReactEventHandler<T> | undefined;
+        onError?: React.ReactEventHandler<T> | undefined; // also a Media Event
 
         // Keyboard Events
-        onKeyDown?: React.KeyboardEventHandler<T>;
-        onKeyPress?: React.KeyboardEventHandler<T>;
-        onKeyUp?: React.KeyboardEventHandler<T>;
+        onKeyDown?: React.KeyboardEventHandler<T> | undefined;
+        onKeyPress?: React.KeyboardEventHandler<T> | undefined;
+        onKeyUp?: React.KeyboardEventHandler<T> | undefined;
 
         // Media Events
-        onAbort?: React.ReactEventHandler<T>;
-        onCanPlay?: React.ReactEventHandler<T>;
-        onCanPlayThrough?: React.ReactEventHandler<T>;
-        onDurationChange?: React.ReactEventHandler<T>;
-        onEmptied?: React.ReactEventHandler<T>;
-        onEncrypted?: React.ReactEventHandler<T>;
-        onEnded?: React.ReactEventHandler<T>;
-        onLoadedData?: React.ReactEventHandler<T>;
-        onLoadedMetadata?: React.ReactEventHandler<T>;
-        onLoadStart?: React.ReactEventHandler<T>;
-        onPause?: React.ReactEventHandler<T>;
-        onPlay?: React.ReactEventHandler<T>;
-        onPlaying?: React.ReactEventHandler<T>;
-        onProgress?: React.ReactEventHandler<T>;
-        onRateChange?: React.ReactEventHandler<T>;
-        onSeeked?: React.ReactEventHandler<T>;
-        onSeeking?: React.ReactEventHandler<T>;
-        onStalled?: React.ReactEventHandler<T>;
-        onSuspend?: React.ReactEventHandler<T>;
-        onTimeUpdate?: React.ReactEventHandler<T>;
-        onVolumeChange?: React.ReactEventHandler<T>;
-        onWaiting?: React.ReactEventHandler<T>;
+        onAbort?: React.ReactEventHandler<T> | undefined;
+        onCanPlay?: React.ReactEventHandler<T> | undefined;
+        onCanPlayThrough?: React.ReactEventHandler<T> | undefined;
+        onDurationChange?: React.ReactEventHandler<T> | undefined;
+        onEmptied?: React.ReactEventHandler<T> | undefined;
+        onEncrypted?: React.ReactEventHandler<T> | undefined;
+        onEnded?: React.ReactEventHandler<T> | undefined;
+        onLoadedData?: React.ReactEventHandler<T> | undefined;
+        onLoadedMetadata?: React.ReactEventHandler<T> | undefined;
+        onLoadStart?: React.ReactEventHandler<T> | undefined;
+        onPause?: React.ReactEventHandler<T> | undefined;
+        onPlay?: React.ReactEventHandler<T> | undefined;
+        onPlaying?: React.ReactEventHandler<T> | undefined;
+        onProgress?: React.ReactEventHandler<T> | undefined;
+        onRateChange?: React.ReactEventHandler<T> | undefined;
+        onSeeked?: React.ReactEventHandler<T> | undefined;
+        onSeeking?: React.ReactEventHandler<T> | undefined;
+        onStalled?: React.ReactEventHandler<T> | undefined;
+        onSuspend?: React.ReactEventHandler<T> | undefined;
+        onTimeUpdate?: React.ReactEventHandler<T> | undefined;
+        onVolumeChange?: React.ReactEventHandler<T> | undefined;
+        onWaiting?: React.ReactEventHandler<T> | undefined;
 
         // MouseEvents
-        onContextMenu?: React.MouseEventHandler<T>;
-        onDoubleClick?: React.MouseEventHandler<T>;
-        onDrag?: React.DragEventHandler<T>;
-        onDragEnd?: React.DragEventHandler<T>;
-        onDragEnter?: React.DragEventHandler<T>;
-        onDragExit?: React.DragEventHandler<T>;
-        onDragLeave?: React.DragEventHandler<T>;
-        onDragOver?: React.DragEventHandler<T>;
-        onDragStart?: React.DragEventHandler<T>;
-        onDrop?: React.DragEventHandler<T>;
-        onMouseDown?: React.MouseEventHandler<T>;
-        onMouseEnter?: React.MouseEventHandler<T>;
-        onMouseLeave?: React.MouseEventHandler<T>;
-        onMouseMove?: React.MouseEventHandler<T>;
-        onMouseOut?: React.MouseEventHandler<T>;
-        onMouseOver?: React.MouseEventHandler<T>;
-        onMouseUp?: React.MouseEventHandler<T>;
+        onContextMenu?: React.MouseEventHandler<T> | undefined;
+        onDoubleClick?: React.MouseEventHandler<T> | undefined;
+        onDrag?: React.DragEventHandler<T> | undefined;
+        onDragEnd?: React.DragEventHandler<T> | undefined;
+        onDragEnter?: React.DragEventHandler<T> | undefined;
+        onDragExit?: React.DragEventHandler<T> | undefined;
+        onDragLeave?: React.DragEventHandler<T> | undefined;
+        onDragOver?: React.DragEventHandler<T> | undefined;
+        onDragStart?: React.DragEventHandler<T> | undefined;
+        onDrop?: React.DragEventHandler<T> | undefined;
+        onMouseDown?: React.MouseEventHandler<T> | undefined;
+        onMouseEnter?: React.MouseEventHandler<T> | undefined;
+        onMouseLeave?: React.MouseEventHandler<T> | undefined;
+        onMouseMove?: React.MouseEventHandler<T> | undefined;
+        onMouseOut?: React.MouseEventHandler<T> | undefined;
+        onMouseOver?: React.MouseEventHandler<T> | undefined;
+        onMouseUp?: React.MouseEventHandler<T> | undefined;
 
         // Selection Events
-        onSelect?: React.ReactEventHandler<T>;
+        onSelect?: React.ReactEventHandler<T> | undefined;
 
         // Touch Events
-        onTouchCancel?: React.TouchEventHandler<T>;
-        onTouchEnd?: React.TouchEventHandler<T>;
-        onTouchMove?: React.TouchEventHandler<T>;
-        onTouchStart?: React.TouchEventHandler<T>;
+        onTouchCancel?: React.TouchEventHandler<T> | undefined;
+        onTouchEnd?: React.TouchEventHandler<T> | undefined;
+        onTouchMove?: React.TouchEventHandler<T> | undefined;
+        onTouchStart?: React.TouchEventHandler<T> | undefined;
 
         // UI Events
-        onScroll?: React.UIEventHandler<T>;
+        onScroll?: React.UIEventHandler<T> | undefined;
 
         // Wheel Events
-        onWheel?: React.WheelEventHandler<T>;
+        onWheel?: React.WheelEventHandler<T> | undefined;
     }
 
 
 
     interface BadgeProps extends __MDLClassProps {
         text: string | number;
-        className?: string;
-        noBackground?: boolean;
-        overlap?: boolean;
+        className?: string | undefined;
+        noBackground?: boolean | undefined;
+        overlap?: boolean | undefined;
     }
     class Badge extends __MDLComponent<BadgeProps> { }
 
     interface ChipProps extends __MDLOtherProps {
-        onClick?: React.MouseEventHandler<Chip>;
-        onClose?: React.MouseEventHandler<Chip>;
+        onClick?: React.MouseEventHandler<Chip> | undefined;
+        onClose?: React.MouseEventHandler<Chip> | undefined;
     }
 
     class Chip extends __MDLComponent<ChipProps> { }
@@ -287,19 +287,19 @@ declare namespace __ReactMDL {
     class ChipContact extends __MDLComponent<__MDLOtherProps> { }
 
     interface ButtonProps extends __MDLOtherProps, RippleComponent, CustomRenderedComponent {
-        accent?: boolean;
-        colored?: boolean;
-        primary?: boolean;
+        accent?: boolean | undefined;
+        colored?: boolean | undefined;
+        primary?: boolean | undefined;
     }
     interface StandardButtonProps extends ButtonProps {
-        raised?: boolean;
+        raised?: boolean | undefined;
     }
     interface FABButtonProps extends ButtonProps {
-        mini?: boolean;
+        mini?: boolean | undefined;
     }
     interface IconButtonProps extends ButtonProps {
-        name?: string;
-        raised?: boolean;
+        name?: string | undefined;
+        raised?: boolean | undefined;
     }
     class Button extends __MDLComponent<StandardButtonProps> { }
     class FABButton extends __MDLComponent<FABButtonProps> { }
@@ -308,10 +308,10 @@ declare namespace __ReactMDL {
 
     interface CardProps extends __MDLOtherProps, ShadowedComponent { }
     interface CardActionProps extends __MDLOtherProps {
-        border?: boolean;
+        border?: boolean | undefined;
     }
     interface CardTitleProps extends __MDLOtherProps {
-        expand?: boolean;
+        expand?: boolean | undefined;
     }
     class Card extends __MDLComponent<CardProps> { }
     class CardActions extends __MDLComponent<CardActionProps> { }
@@ -322,33 +322,33 @@ declare namespace __ReactMDL {
 
 
     interface CheckboxProps extends __MDLOtherProps, RippleComponent {
-        checked?: boolean;
-        disabled?: boolean;
-        label?: string;
+        checked?: boolean | undefined;
+        disabled?: boolean | undefined;
+        label?: string | undefined;
     }
     class Checkbox extends __MDLComponent<CheckboxProps> { }
 
     interface UndecoratedTableProps extends __MDLClassProps, MDLHTMLAttributes, React.DOMAttributes<UndecoratedTable>, ShadowedComponent {
         rows: Array<any>;
-        rowKeyColumn?: string;
+        rowKeyColumn?: string | undefined;
 
-        name?: string;
-        title?: string;
+        name?: string | undefined;
+        title?: string | undefined;
     }
     interface TableProps extends UndecoratedTableProps {
-        sortable?: boolean;
-        selectable?: boolean;
-        onSelectionChanged?: (row: any) => any;
+        sortable?: boolean | undefined;
+        selectable?: boolean | undefined;
+        onSelectionChanged?: ((row: any) => any) | undefined;
     }
     interface TableHeaderProps extends __MDLClassProps, MDLHTMLAttributes, MDLDOMAttributes<TableHeader> {
         name: string;
-        title?: string;
-        cellFormatter?: (value: any, row: any, index: number) => React.ReactNode;
-        numeric?: boolean;
-        nosort?: boolean;
-        onClick?: (e: React.MouseEvent<TableHeader>, name: string) => any;
-        sortFn?: (a: any, b: any, isAsc: boolean) => number;
-        tooltip?: React.ReactNode;
+        title?: string | undefined;
+        cellFormatter?: ((value: any, row: any, index: number) => React.ReactNode) | undefined;
+        numeric?: boolean | undefined;
+        nosort?: boolean | undefined;
+        onClick?: ((e: React.MouseEvent<TableHeader>, name: string) => any) | undefined;
+        sortFn?: ((a: any, b: any, isAsc: boolean) => number) | undefined;
+        tooltip?: React.ReactNode | undefined;
     }
     class Table extends __MDLComponent<TableProps> { }
     class TableHeader extends __MDLComponent<TableHeaderProps> { }
@@ -357,11 +357,11 @@ declare namespace __ReactMDL {
 
 
     interface DialogProps extends __MDLOtherProps {
-        open?: boolean;
-        onCancel?: (e: any) => void;
+        open?: boolean | undefined;
+        onCancel?: ((e: any) => void) | undefined;
     }
     interface DialogActionsProps extends __MDLOtherProps {
-        fullWidth?: boolean;
+        fullWidth?: boolean | undefined;
     }
     interface DialogTitleProps extends __MDLOtherProps, CustomRenderedComponent { }
     class Dialog extends __MDLComponent<DialogProps> { }
@@ -371,20 +371,20 @@ declare namespace __ReactMDL {
 
 
     interface GridProps extends __MDLOtherProps, CustomRenderedComponent, ShadowedComponent {
-        noSpacing?: boolean;
+        noSpacing?: boolean | undefined;
     }
     interface CellProps extends __MDLOtherProps, CustomRenderedComponent, ShadowedComponent {
         col: number;
-        offset?: number;
-        offsetDesktop?: number;
-        offsetPhone?: number;
-        offsetTablet?: number;
-        align?: string;
-        phone?: number;
-        tablet?: number;
-        hideDesktop?: boolean;
-        hidePhone?: boolean;
-        hideTablet?: boolean;
+        offset?: number | undefined;
+        offsetDesktop?: number | undefined;
+        offsetPhone?: number | undefined;
+        offsetTablet?: number | undefined;
+        align?: string | undefined;
+        phone?: number | undefined;
+        tablet?: number | undefined;
+        hideDesktop?: boolean | undefined;
+        hidePhone?: boolean | undefined;
+        hideTablet?: boolean | undefined;
     }
     class Grid extends __MDLComponent<GridProps> { }
     class Cell extends __MDLComponent<CellProps> { }
@@ -398,37 +398,37 @@ declare namespace __ReactMDL {
 
     interface IconToggleProps extends __MDLOtherProps, RippleComponent {
         name: string;
-        checked?: boolean;
-        disabled?: boolean;
+        checked?: boolean | undefined;
+        disabled?: boolean | undefined;
     }
     class IconToggle extends __MDLComponent<IconToggleProps> { }
 
 
     interface ContentProps extends __MDLOtherProps, CustomRenderedComponent { }
     interface DrawerProps extends __MDLOtherProps {
-        title?: string;
+        title?: string | undefined;
     }
     interface HeaderProps extends __MDLOtherProps {
         title?: any; // string | JSX.Element
-        scroll?: boolean;
-        seamed?: boolean;
-        transparent?: boolean;
-        waterfall?: boolean;
-        hideTop?: boolean;
-        hideSpacer?: boolean;
+        scroll?: boolean | undefined;
+        seamed?: boolean | undefined;
+        transparent?: boolean | undefined;
+        waterfall?: boolean | undefined;
+        hideTop?: boolean | undefined;
+        hideSpacer?: boolean | undefined;
     }
     interface HeaderRowProps extends __MDLOtherProps {
         title?: any; // string | JSX.Element
-        hideSpacer?: boolean;
+        hideSpacer?: boolean | undefined;
     }
     interface HeaderTabsProps extends __MDLOtherProps, RippleComponent {
-        activeTab?: number;
-        onChange?: React.FormEventHandler<Header>;
+        activeTab?: number | undefined;
+        onChange?: React.FormEventHandler<Header> | undefined;
     }
     interface LayoutProps extends __MDLOtherProps {
-        fixedDrawer?: boolean;
-        fixedHeader?: boolean;
-        fixedTabs?: boolean;
+        fixedDrawer?: boolean | undefined;
+        fixedHeader?: boolean | undefined;
+        fixedTabs?: boolean | undefined;
     }
     interface NavigationProps extends __MDLOtherProps { }
     class Content extends __MDLComponent<ContentProps> { }
@@ -441,25 +441,25 @@ declare namespace __ReactMDL {
     class Spacer extends __MDLBasicComponent { }
 
     interface FooterProps extends MDLHTMLAttributes, React.DOMAttributes<Footer> {
-        size?: string;
+        size?: string | undefined;
 
-        title?: string;
+        title?: string | undefined;
     }
     interface FooterDropDownSectionProps extends MDLHTMLAttributes, React.DOMAttributes<FooterDropDownSection> {
-        size?: string;
+        size?: string | undefined;
         title: React.ReactNode;
     }
     interface FooterLinkListProps extends MDLHTMLAttributes, React.DOMAttributes<FooterLinkList> {
-        size?: string;
+        size?: string | undefined;
 
-        title?: string;
+        title?: string | undefined;
     }
     interface FooterSectionProps extends MDLHTMLAttributes, React.DOMAttributes<FooterSection> {
-        size?: string;
-        type?: string;
-        logo?: React.ReactNode;
+        size?: string | undefined;
+        type?: string | undefined;
+        logo?: React.ReactNode | undefined;
 
-        title?: string;
+        title?: string | undefined;
     }
     class Footer extends __MDLComponent<FooterProps> { }
     class FooterDropDownSection extends __MDLComponent<FooterDropDownSectionProps> { }
@@ -467,17 +467,17 @@ declare namespace __ReactMDL {
     class FooterSection extends __MDLComponent<FooterSectionProps> { }
 
     interface ListItemProps extends __MDLOtherProps {
-        twoLine?: boolean;
-        threeLine?: boolean;
+        twoLine?: boolean | undefined;
+        threeLine?: boolean | undefined;
     }
     interface ListItemActionProps extends __MDLOtherProps {
-        info?: string;
+        info?: string | undefined;
     }
     interface ListItemContentProps extends MDLHTMLAttributes, React.DOMAttributes<ListItemContent> {
-        avatar?: string | JSX.Element;
-        icon?: string | JSX.Element;
-        subtitle?: React.ReactNode;
-        useBodyClass?: boolean;
+        avatar?: string | JSX.Element | undefined;
+        icon?: string | JSX.Element | undefined;
+        subtitle?: React.ReactNode | undefined;
+        useBodyClass?: boolean | undefined;
     }
     class List extends __MDLBasicComponent { }
     class ListItem extends __MDLComponent<ListItemProps> { }
@@ -487,36 +487,36 @@ declare namespace __ReactMDL {
 
     interface MenuProps extends __MDLOtherProps, RippleComponent {
         target: string;
-        align?: string;
-        valign?: string;
+        align?: string | undefined;
+        valign?: string | undefined;
     }
     class Menu extends __MDLComponent<MenuProps> { }
     class MenuItem extends __MDLBasicComponent { }
 
 
     interface ProgressBarProps extends __MDLOtherProps {
-        buffer?: number;
-        indeterminate?: boolean;
-        progress?: number;
+        buffer?: number | undefined;
+        indeterminate?: boolean | undefined;
+        progress?: number | undefined;
     }
     class ProgressBar extends __MDLComponent<ProgressBarProps> { }
 
 
     interface RadioProps extends MDLHTMLAttributes, React.DOMAttributes<Radio>, RippleComponent {
         value: string | number;
-        checked?: boolean;
-        disabled?: boolean;
-        name?: string;
-        onChange?: React.FormEventHandler<Radio>;
-        label?: string;
+        checked?: boolean | undefined;
+        disabled?: boolean | undefined;
+        name?: string | undefined;
+        onChange?: React.FormEventHandler<Radio> | undefined;
+        label?: string | undefined;
     }
     interface RadioGroupProps extends MDLHTMLAttributes, React.DOMAttributes<RadioGroup> {
         name: string;
         value: string | number;
-        childContainer?: string;
-        container?: string;
-        onChange?: React.FormEventHandler<RadioGroup>;
-        label?: string;
+        childContainer?: string | undefined;
+        container?: string | undefined;
+        onChange?: React.FormEventHandler<RadioGroup> | undefined;
+        label?: string | undefined;
     }
     class Radio extends __MDLComponent<RadioProps> { }
     class RadioGroup extends __MDLComponent<RadioGroupProps> { }
@@ -525,8 +525,8 @@ declare namespace __ReactMDL {
     interface SliderProps extends MDLHTMLAttributes, React.DOMAttributes<Slider> {
         max: number;
         min: number;
-        onChange?: React.FormEventHandler<Slider>;
-        value?: number;
+        onChange?: React.FormEventHandler<Slider> | undefined;
+        value?: number | undefined;
     }
     class Slider extends __MDLComponent<SliderProps> { }
 
@@ -534,50 +534,50 @@ declare namespace __ReactMDL {
     interface SnackbarProps extends __MDLOtherProps {
         active: boolean;
         onTimeout: () => any;
-        action?: string;
-        onActionClick?: React.MouseEventHandler<Snackbar>;
-        timeout?: number;
+        action?: string | undefined;
+        onActionClick?: React.MouseEventHandler<Snackbar> | undefined;
+        timeout?: number | undefined;
     }
     class Snackbar extends __MDLComponent<SnackbarProps> { }
 
 
     interface SpinnerProps extends __MDLOtherProps {
-        singleColor?: boolean;
+        singleColor?: boolean | undefined;
     }
     class Spinner extends __MDLComponent<SpinnerProps> { }
 
 
     interface SwitchProps extends __MDLOtherProps, RippleComponent {
-        checked?: boolean;
-        disabled?: boolean;
-        onChange?: React.FormEventHandler<Switch>;
+        checked?: boolean | undefined;
+        disabled?: boolean | undefined;
+        onChange?: React.FormEventHandler<Switch> | undefined;
     }
     class Switch extends __MDLComponent<SwitchProps> { }
 
 
     interface TabProps extends __MDLOtherProps, CustomRenderedComponent {
-        active?: boolean;
-        cssPrefix?: string;
-        onTabClick?: (tabId: number) => any;
-        tabId?: number;
+        active?: boolean | undefined;
+        cssPrefix?: string | undefined;
+        onTabClick?: ((tabId: number) => any) | undefined;
+        tabId?: number | undefined;
     }
     interface TabBarProps extends MDLHTMLAttributes, MDLDOMAttributes<TabBar> {
         cssPrefix: string;
-        activeTab?: number;
-        onChange?: (tabId: number) => any;
+        activeTab?: number | undefined;
+        onChange?: ((tabId: number) => any) | undefined;
 
-        name?: string;
-        title?: string;
-        onClick?: React.MouseEventHandler<TabBar>;
+        name?: string | undefined;
+        title?: string | undefined;
+        onClick?: React.MouseEventHandler<TabBar> | undefined;
     }
     interface TabsProps extends MDLHTMLAttributes, MDLDOMAttributes<Tabs> {
-        activeTab?: number;
-        onChange?: (tabId: number) => any;
-        tabBarProps?: TabBarProps;
+        activeTab?: number | undefined;
+        onChange?: ((tabId: number) => any) | undefined;
+        tabBarProps?: TabBarProps | undefined;
 
-        name?: string;
-        title?: string;
-        onClick?: React.MouseEventHandler<Tabs>;
+        name?: string | undefined;
+        title?: string | undefined;
+        onClick?: React.MouseEventHandler<Tabs> | undefined;
     }
     class Tab extends __MDLComponent<TabProps> { }
     class TabBar extends __MDLComponent<TabBarProps> { }
@@ -586,37 +586,37 @@ declare namespace __ReactMDL {
 
     interface TextfieldProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLInputElement> {
         label: string;
-        disabled?: boolean;
-        error?: React.ReactNode;
-        expandable?: boolean;
-        expandableIcon?: string;
-        floatingLabel?: boolean;
-        id?: string;
-        inputClassName?: string;
-        maxRows?: number;
-        onChange?: React.FormEventHandler<HTMLInputElement>;
-        pattern?: string;
-        required?: boolean;
-        rows?: number;
-        value?: string | number;
+        disabled?: boolean | undefined;
+        error?: React.ReactNode | undefined;
+        expandable?: boolean | undefined;
+        expandableIcon?: string | undefined;
+        floatingLabel?: boolean | undefined;
+        id?: string | undefined;
+        inputClassName?: string | undefined;
+        maxRows?: number | undefined;
+        onChange?: React.FormEventHandler<HTMLInputElement> | undefined;
+        pattern?: string | undefined;
+        required?: boolean | undefined;
+        rows?: number | undefined;
+        value?: string | number | undefined;
 
-        name?: string;
-        title?: string;
+        name?: string | undefined;
+        title?: string | undefined;
     }
     class Textfield extends __MDLComponent<TextfieldProps> {
-        inputRef?: HTMLInputElement;
+        inputRef?: HTMLInputElement | undefined;
     }
 
 
     interface TooltipProps extends MDLHTMLAttributes, React.DOMAttributes<Tooltip> {
         label: React.ReactNode;
-        large?: boolean;
-        position?: string;
+        large?: boolean | undefined;
+        position?: string | undefined;
 
-        name?: string;
-        title?: string;
+        name?: string | undefined;
+        title?: string | undefined;
     }
     class Tooltip extends __MDLComponent<TooltipProps> { }
 
-    class MDLComponent extends React.Component<{ recursive?: boolean }> { }
+    class MDLComponent extends React.Component<{ recursive?: boolean | undefined }> { }
 }

@@ -24,8 +24,8 @@ interface AttachmentPayload {
 
 // This is used when uploading a file.
 interface FilePayload {
-    type?: string; // Optional if it can be inferred from the file
-    name?: string; // Optional if it can be inferred from the file
+    type?: string | undefined; // Optional if it can be inferred from the file
+    name?: string | undefined; // Optional if it can be inferred from the file
     file: Blob;
     customData?: any;
 }

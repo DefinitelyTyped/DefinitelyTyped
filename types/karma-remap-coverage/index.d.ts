@@ -23,7 +23,7 @@ declare module 'karma' {
          *
          * {@link https://github.com/sshev/karma-remap-coverage#remapcoveragereporter-format }
          */
-        remapCoverageReporter?: KarmaRemapCoverageReporter;
+        remapCoverageReporter?: KarmaRemapCoverageReporter | undefined;
     }
 
     // remapped reporter types to key-value pairs

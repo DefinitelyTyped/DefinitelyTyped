@@ -14,9 +14,9 @@ export function decode(
 export interface ValidateOptions {
     audience: string | ReadonlyArray<string>;
     issuer: string;
-    leeway?: number;
-    maxAge?: number;
-    nonce?: string;
+    leeway?: number | undefined;
+    maxAge?: number | undefined;
+    nonce?: string | undefined;
 }
 /**
  * Validator for ID Tokens following OIDC spec.

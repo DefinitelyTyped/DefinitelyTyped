@@ -18,56 +18,56 @@ export interface ReactFundamentalComponentInstance<C, H> {
 export interface ReactFundamentalImpl<C, H> {
   displayName: string;
   reconcileChildren: boolean;
-  getInitialState?: (props: {
+  getInitialState?: ((props: {
     [key: string]: any;
   }) => {
     [key: string]: any;
-  };
+  }) | undefined;
   getInstance: (context: C, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
   }) => H;
-  getServerSideString?: (context: C, props: {
+  getServerSideString?: ((context: C, props: {
     [key: string]: any;
-  }) => string;
-  getServerSideStringClose?: (context: C, props: {
+  }) => string) | undefined;
+  getServerSideStringClose?: ((context: C, props: {
     [key: string]: any;
-  }) => string;
+  }) => string) | undefined;
   onMount: (context: C, instance: unknown, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
   }) => void;
-  shouldUpdate?: (context: C, prevProps: null | {
+  shouldUpdate?: ((context: C, prevProps: null | {
     [key: string]: any;
   }, nextProps: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => boolean;
-  onUpdate?: (context: C, instance: unknown, prevProps: null | {
+  }) => boolean) | undefined;
+  onUpdate?: ((context: C, instance: unknown, prevProps: null | {
     [key: string]: any;
   }, nextProps: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => void;
-  onUnmount?: (context: C, instance: unknown, props: {
+  }) => void) | undefined;
+  onUnmount?: ((context: C, instance: unknown, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => void;
-  onHydrate?: (context: C, props: {
+  }) => void) | undefined;
+  onHydrate?: ((context: C, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => boolean;
-  onFocus?: (context: C, props: {
+  }) => boolean) | undefined;
+  onFocus?: ((context: C, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => boolean;
+  }) => boolean) | undefined;
 }
 
 export interface ReactFundamentalComponent<C, H> {

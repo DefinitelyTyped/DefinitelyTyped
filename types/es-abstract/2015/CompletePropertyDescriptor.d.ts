@@ -8,12 +8,12 @@ declare function CompletePropertyDescriptor<D extends PropertyDescriptor>(
             '[[Value]]': T;
             '[[Writable]]': boolean;
         }
-        : D extends { '[[Value]]'?: infer T } | { '[[Writable]]'?: boolean }
+        : D extends { '[[Value]]'?: infer T | undefined } | { '[[Writable]]'?: boolean | undefined }
         ? GenericDescriptor & {
             '[[Value]]': T | undefined;
             '[[Writable]]': boolean;
         }
-        : D extends { '[[Get]]'?: () => infer T } | { '[[Set]]'?: (value: infer T) => void }
+        : D extends { '[[Get]]'?: (() => infer T) | undefined } | { '[[Set]]'?: ((value: infer T) => void) | undefined }
         ? GenericDescriptor & {
             '[[Get]]': (() => T) | undefined;
             '[[Set]]': ((value: T) => void) | undefined;

@@ -507,7 +507,7 @@ declare namespace RPIO {
          * true: use /dev/gpiomem for non-root but GPIO-only access
          * false: use /dev/mem for full access but requires root
          */
-        gpiomem?: boolean;
+        gpiomem?: boolean | undefined;
 
         /**
          * There are two naming schemes when referring to GPIO pins:
@@ -522,19 +522,19 @@ declare namespace RPIO {
          * gpio: use the Broadcom GPIOxx naming
          * physical: use the physical P01-P40 header layout
          */
-        mapping?: "gpio" | "physical";
+        mapping?: "gpio" | "physical" | undefined;
         
         /**
          * Mock mode is a dry-run environment where everything except pin access is performed. This is useful for testing scripts, and can also be used on systems which do not support GPIO at all.
          * If rpio is executed on unsupported hardware it will automatically start up in mock mode, and a warn event is emitted. By default the warn event is handled by a simple logger to stdout, but this can be overridden by the user creating their own warn handler.
          * The user can also explicitly request mock mode, where the argument is the type of hardware they wish to emulate.
          */
-        mock?: "raspi-b-r1" | "raspi-a" | "raspi-b" | "raspi-a+" | "raspi-b+" | "raspi-2" | "raspi-3" | "raspi-zero" | "raspi-zero-w";
+        mock?: "raspi-b-r1" | "raspi-a" | "raspi-b" | "raspi-a+" | "raspi-b+" | "raspi-2" | "raspi-3" | "raspi-zero" | "raspi-zero-w" | undefined;
    
         /**
          * Rpio automatically unmaps and clears all memory maps when the node process exits.
          */
-        close_on_exit?: boolean;
+        close_on_exit?: boolean | undefined;
     }
 
     /**

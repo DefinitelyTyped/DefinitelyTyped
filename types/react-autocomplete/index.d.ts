@@ -22,13 +22,13 @@ declare namespace Autocomplete {
          *
          * Invoked every time the user changes the input's value.
          */
-        onChange?: (e: ChangeEvent<HTMLInputElement>, value: string) => void;
+        onChange?: ((e: ChangeEvent<HTMLInputElement>, value: string) => void) | undefined;
         /**
          * Arguments: `value: String, item: Any`
          *
          * Invoked when the user selects an item from the dropdown menu.
          */
-        onSelect?: (value: string, item: any) => void;
+        onSelect?: ((value: string, item: any) => void) | undefined;
         /**
          * Arguments: `item: Any, value: String`
          *
@@ -36,7 +36,7 @@ declare namespace Autocomplete {
          * determine whether or not it should be displayed in the dropdown menu.
          * By default all items are always rendered.
          */
-        shouldItemRender?: (item: any, value: string) => boolean;
+        shouldItemRender?: ((item: any, value: string) => boolean) | undefined;
         /**
          * Arguments: `item: Any`
          *
@@ -44,13 +44,13 @@ declare namespace Autocomplete {
          * determine whether the item should be selectable or not.
          * By default all items are selectable.
          */
-        isItemSelectable?: (item: any) => boolean;
+        isItemSelectable?: ((item: any) => boolean) | undefined;
         /**
          * Arguments: `itemA: Any, itemB: Any, value: String`
          *
          * The function which is used to sort `items` before display.
          */
-        sortItems?: (a: any, b: any, value: string) => number;
+        sortItems?: ((a: any, b: any, value: string) => number) | undefined;
         /**
          * Arguments: `item: Any`
          *
@@ -75,17 +75,17 @@ declare namespace Autocomplete {
          * { top, left, minWidth } which are the coordinates of the top-left corner
          * and the width of the dropdown menu.
          */
-        renderMenu?: (
+        renderMenu?: ((
             items: ReactNode[],
             value: string,
             styles: CSSProperties,
-        ) => ReactNode;
+        ) => ReactNode) | undefined;
         /**
          * Styles that are applied to the dropdown menu in the default `renderMenu`
          * implementation. If you override `renderMenu` and you want to use
          * `menuStyle` you must manually apply them (`this.props.menuStyle`).
          */
-        menuStyle?: CSSProperties;
+        menuStyle?: CSSProperties | undefined;
         /**
          * Arguments: `props: Object`
          *
@@ -95,7 +95,7 @@ declare namespace Autocomplete {
          * apply `props.ref` and all `props.on<event>` event handlers. Failing to do
          * this will cause `Autocomplete` to behave unexpectedly.
          */
-        renderInput?: (props: HTMLProps<HTMLInputElement>) => ReactNode;
+        renderInput?: ((props: HTMLProps<HTMLInputElement>) => ReactNode) | undefined;
         /**
          * Props passed to `props.renderInput`. By default these props will be
          * applied to the `<input />` element rendered by `Autocomplete`, unless you
@@ -105,43 +105,43 @@ declare namespace Autocomplete {
          * aria-autocomplete. `inputProps` is commonly used for (but not limited to)
          * placeholder, event handlers (onFocus, onBlur, etc.), autoFocus, etc..
          */
-        inputProps?: HTMLProps<HTMLInputElement>;
+        inputProps?: HTMLProps<HTMLInputElement> | undefined;
         /**
          * Props that are applied to the element which wraps the `<input />` and
          * dropdown menu elements rendered by `Autocomplete`.
          */
-        wrapperProps?: HTMLProps<HTMLDivElement>;
+        wrapperProps?: HTMLProps<HTMLDivElement> | undefined;
         /**
          * This is a shorthand for `wrapperProps={{ style: <your styles> }}`.
          * Note that `wrapperStyle` is applied before `wrapperProps`, so the latter
          * will win if it contains a `style` entry.
          */
-        wrapperStyle?: CSSProperties;
+        wrapperStyle?: CSSProperties | undefined;
         /**
          * Whether or not to automatically highlight the top match in the dropdown
          * menu.
          */
-        autoHighlight?: boolean;
+        autoHighlight?: boolean | undefined;
         /**
          * Whether or not to automatically select the highlighted item when the
          * `<input>` loses focus.
          */
-        selectOnBlur?: boolean;
+        selectOnBlur?: boolean | undefined;
         /**
          * Arguments: `isOpen: Boolean`
          *
          * Invoked every time the dropdown menu's visibility changes (i.e. every
          * time it is displayed/hidden).
          */
-        onMenuVisibilityChange?: (isOpen: boolean) => void;
+        onMenuVisibilityChange?: ((isOpen: boolean) => void) | undefined;
         /**
          * Used to override the internal logic which displays/hides the dropdown
          * menu. This is useful if you want to force a certain state based on your
          * UX/business logic. Use it together with `onMenuVisibilityChange` for
          * fine-grained control over the dropdown menu dynamics.
          */
-        open?: boolean;
-        debug?: boolean;
+        open?: boolean | undefined;
+        debug?: boolean | undefined;
     }
 
     interface State {
@@ -158,9 +158,9 @@ declare namespace Autocomplete {
       /**
        * These three `menu___` values are used in CSS to layout the menu.
        */
-      menuLeft?: number;
-      menuTop?: number;
-      menuWidth?: number;
+      menuLeft?: number | undefined;
+      menuTop?: number | undefined;
+      menuWidth?: number | undefined;
     }
 }
 declare class Autocomplete extends Component<Autocomplete.Props, Autocomplete.State> {

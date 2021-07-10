@@ -17,17 +17,17 @@ interface Point2D {
 interface BounceOptions<T> {
     from: T
     to: T
-    duration?: number
-    delay?: number
-    easing?: string
-    bounces?: number
-    stiffness?: number
+    duration?: number | undefined
+    delay?: number | undefined
+    easing?: string | undefined
+    bounces?: number | undefined
+    stiffness?: number | undefined
 }
 
 interface AnimationOptions {
-    loop?: boolean
-    remove?: boolean
-    onComplete?: () => void
+    loop?: boolean | undefined
+    remove?: boolean | undefined
+    onComplete?: (() => void) | undefined
 }
 
 interface SerailizedComponent<T> {

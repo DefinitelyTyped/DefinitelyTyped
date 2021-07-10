@@ -12,7 +12,7 @@ export function Person(props: PersonProps) {
 
 export interface FancyButtonProps {
     onClick: () => void;
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
 export interface FancyButton {
     fancyClick(): void;

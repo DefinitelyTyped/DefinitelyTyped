@@ -30,40 +30,40 @@ declare namespace JQueryDynatable {
          *
          * @default true
          */
-        paginate?: boolean;
+        paginate?: boolean | undefined;
         /**
          * Enable the sorting feature
          *
          * @default true
          */
-        sort?: boolean;
+        sort?: boolean | undefined;
         /**
          * Enable the pushState feature
          * Used to update the page URL parameters and cache the query result for the browser's forward- and back-buttons
          *
          * @default true
          */
-        pushState?: boolean;
+        pushState?: boolean | undefined;
         /**
          * Enable the search feature
          *
          * @default true
          */
-        search?: boolean;
+        search?: boolean | undefined;
         /**
          * Enable the recordCount feature
          * When pagination is enabled, dynatable will also show the currently displayed records and the total number of records
          *
          * @default true
          */
-        recordCount?: boolean;
+        recordCount?: boolean | undefined;
         /**
          * Enable the perPageSelect feature
          * The perPageSelect will insert a form control filled with the options from `perPageOptions`
          *
          * @default true
          */
-        perPageSelect?: boolean;
+        perPageSelect?: boolean | undefined;
     }
     interface Column {
         index: number;
@@ -128,27 +128,27 @@ declare namespace JQueryDynatable {
          * // `underscore` would translate it to id `favorite_music`
          * // `lowercase` would translate it to id `favorite music`
          */
-        defaultColumnIdStyle?: string;
+        defaultColumnIdStyle?: string | undefined;
         /** Generated internally by the plugin, will be reset by the DomColumns at init */
-        columns?: Array<JQueryDynatable.Column>;
+        columns?: Array<JQueryDynatable.Column> | undefined;
         /**
          * Selector used by dynatable in order to find the table header row
          *
          * @default 'thead tr'
          */
-        headRowSelector?: string;
+        headRowSelector?: string | undefined;
         /**
          * Selector used by dynatable in order to find the table body rows
          *
          * @default 'tbody tr'
          */
-        bodyRowSelector?: string;
+        bodyRowSelector?: string | undefined;
         /**
          * Optional classname that can be added by dynatable to the header cells
          *
          * @default null
          */
-        headRowClass?: string;
+        headRowClass?: string | undefined;
     }
     interface Inputs {
         /**
@@ -163,7 +163,7 @@ declare namespace JQueryDynatable {
          * @example
          * $('#search-year')
          */
-        queries?: JQuery;
+        queries?: JQuery | undefined;
         /**
          * @todo Find out how this `inputs.sorts` setting is useful + show an example
          * @default null
@@ -176,7 +176,7 @@ declare namespace JQueryDynatable {
          * @default ['ctrlKey', 'shiftKey', 'metaKey']
          * @see https://en.wikipedia.org/wiki/Modifier_key
          */
-        multisort?: Array<string>;
+        multisort?: Array<string> | undefined;
         /**
          * @todo Find out how this `inputs.page` setting is useful + show an example
          * @default null
@@ -187,7 +187,7 @@ declare namespace JQueryDynatable {
          *
          * @default 'blur change'
          */
-        queryEvent?: string;
+        queryEvent?: string | undefined;
         /**
          * The jQuery object pointing to a target where to insert the recordCount html
          *
@@ -196,7 +196,7 @@ declare namespace JQueryDynatable {
          * @example
          * $('#chart-status-text')
          */
-        recordCountTarget?: JQuery;
+        recordCountTarget?: JQuery | undefined;
         /**
          * Determines where the recordCount is inserted
          *
@@ -204,14 +204,14 @@ declare namespace JQueryDynatable {
          * @default 'after'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
-        recordCountPlacement?: string;
+        recordCountPlacement?: string | undefined;
         /**
          * The target inside next to which the pagination block will be inserted (before or after).
          * You can use a selector string, an Element or a JQuery.
          *
          * @default null
          */
-        paginationLinkTarget?: string|Element|JQuery;
+        paginationLinkTarget?: string|Element|JQuery | undefined;
         /**
          * Determines where the pagination links are inserted
          *
@@ -219,68 +219,68 @@ declare namespace JQueryDynatable {
          * @default 'after'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
-        paginationLinkPlacement?: string;
+        paginationLinkPlacement?: string | undefined;
         /**
          * The classname to be injected on the `<ul>` containing the pagination
          *
          * @default 'dynatable-pagination-links'
          */
-        paginationClass?: string;
+        paginationClass?: string | undefined;
         /**
          * The classname to be injected on every pagination link
          *
          * @default 'dynatable-page-link'
          */
-        paginationLinkClass?: string;
+        paginationLinkClass?: string | undefined;
         /**
          * The classname to be injected on the previous page link
          *
          * @default 'dynatable-page-prev'
          */
-        paginationPrevClass?: string;
+        paginationPrevClass?: string | undefined;
         /**
          * The classname to be injected on the next page link
          *
          * @default 'dynatable-page-next'
          */
-        paginationNextClass?: string;
+        paginationNextClass?: string | undefined;
         /**
          * The classname to be injected on the current page link
          *
          * @default 'dynatable-active-page'
          */
-        paginationActiveClass?: string;
+        paginationActiveClass?: string | undefined;
         /**
          * The classname to be injected on the disabled page links
          *
          * @default 'dynatable-disabled-page'
          */
-        paginationDisabledClass?: string;
+        paginationDisabledClass?: string | undefined;
         /**
          * Text content for the previous page link
          *
          * @default 'Previous'
          */
-        paginationPrev?: string;
+        paginationPrev?: string | undefined;
         /**
          * Text content for the next page link
          *
          * @default 'Next'
          */
-        paginationNext?: string;
+        paginationNext?: string | undefined;
         /**
          * Define the number of page number links shown inside the pagination
          *
          * @default [1,2,2,1]
          */
-        paginationGap?: Array<number>;
+        paginationGap?: Array<number> | undefined;
         /**
          * The target next to which the search block will be inserted (before or after).
          * You can use a selector string, an Element or a JQuery.
          *
          * @default null
          */
-        searchTarget?: string|Element|JQuery;
+        searchTarget?: string|Element|JQuery | undefined;
         /**
          * Determines where the search field is inserted
          *
@@ -288,20 +288,20 @@ declare namespace JQueryDynatable {
          * @default 'before'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
-        searchPlacement?: string;
+        searchPlacement?: string | undefined;
         /**
          * Text preceding the search field
          *
          * @default 'Search: '
          */
-        searchText?: string;
+        searchText?: string | undefined;
         /**
          * The target next to which the per page pagination block will be inserted (before or after).
          * You can use a selector string, an Element or a jQuery object.
          *
          * @default null
          */
-        perPageTarget?: string|Element|JQuery;
+        perPageTarget?: string|Element|JQuery | undefined;
         /**
          * Determines where the perPage menu is inserted
          *
@@ -309,67 +309,67 @@ declare namespace JQueryDynatable {
          * @default 'before'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
-        perPagePlacement?: string;
+        perPagePlacement?: string | undefined;
         /**
          * Text content preceding the items per page <select>
          *
          * @default 'Show: '
          */
-        perPageText?: string;
+        perPageText?: string | undefined;
         /**
          * Text content introducing the pagination
          *
          * @default 'Pages: '
          */
-        pageText?: string;
+        pageText?: string | undefined;
         /**
          * Text content used inside the recordsCount
          *
          * @default '{pageLowerBound} to {pageUpperBound} of'
          */
-        recordCountPageBoundTemplate?: string;
+        recordCountPageBoundTemplate?: string | undefined;
         /**
          * Text content used inside the recordsCount
          *
          * @default '{recordsShown} of'
          */
-        recordCountPageUnboundedTemplate?: string;
+        recordCountPageUnboundedTemplate?: string | undefined;
         /**
          * Text content used inside the recordsCount
          *
          * @default '{recordsQueryCount} {collectionName}'
          */
-        recordCountTotalTemplate?: string;
+        recordCountTotalTemplate?: string | undefined;
         /**
          * Text content used inside the recordsCount
          *
          * @default ' (filtered from {recordsTotal} total records)'
          */
-        recordCountFilteredTemplate?: string;
+        recordCountFilteredTemplate?: string | undefined;
         /**
          * Text content used inside the recordsCount
          *
          * @default 'Showing '
          */
-        recordCountText?: string;
+        recordCountText?: string | undefined;
         /**
          * Text content used inside the recordsCount
          *
          * @default '{text} {pageTemplate} {totalTemplate} {filteredTemplate}'
          */
-        recordCountTextTemplate?: string;
+        recordCountTextTemplate?: string | undefined;
         /**
          * Text content used inside the recordsCount
          *
          * @default '<span id="dynatable-record-count-{elementId}" class="dynatable-record-count">{textTemplate}</span>'
          */
-        recordCountTemplate?: string;
+        recordCountTemplate?: string | undefined;
         /**
          * Text content injected inside the processingIndicator
          *
          * @default 'Processing...'
          */
-        processingText?: string;
+        processingText?: string | undefined;
     }
     interface Dataset {
         /**
@@ -377,13 +377,13 @@ declare namespace JQueryDynatable {
          *
          * @default false
          */
-        ajax?: boolean;
+        ajax?: boolean | undefined;
         /**
          * A string containing the URL to which the request is sent.
          *
          * @default null
          */
-        ajaxUrl?: string;
+        ajaxUrl?: string | undefined;
         /**
          * Defining the `cache` setting for the jQuery's ajax call...
          * true or false for dataType 'script' and 'jsonp'
@@ -391,13 +391,13 @@ declare namespace JQueryDynatable {
          * @default null
          * @see http://api.jquery.com/jQuery.ajax
          */
-        ajaxCache?: boolean;
+        ajaxCache?: boolean | undefined;
         /**
          * Send the ajax request automatically
          *
          * @default false
          */
-        ajaxOnLoad?: boolean;
+        ajaxOnLoad?: boolean | undefined;
         /**
          * Defining the `method` setting for the jQuery's ajax call...
          * The HTTP method to use for the request (e.g. "POST", "GET", "PUT").
@@ -406,7 +406,7 @@ declare namespace JQueryDynatable {
          * @default 'GET'
          * @todo Check if other methods could be used... ('GET', 'PUT', 'HEAD', 'POST', 'PATCH', 'TRACE', 'DELETE', 'CONNECT', 'OPTIONS', 'IS_AWARE', 'IS_EAGER', 'PROPFIND', 'IS_OPTIONAL', 'IS_REQUIRED', 'IS_CONSTRUCTOR', 'IS_INSTANTIATOR')
          */
-        ajaxMethod?: string;
+        ajaxMethod?: string | undefined;
         /**
          * The type of data that you're expecting back from the server.
          * If none is specified, jQuery will try to infer it based on the MIME type of the response...
@@ -415,62 +415,62 @@ declare namespace JQueryDynatable {
          * @default 'json'
          * @see http://api.jquery.com/jQuery.ajax
          */
-        ajaxDataType?: string;
+        ajaxDataType?: string | undefined;
         /**
          * Name of the property in the dataset that contains the total number of records
          *
          * @default null
          */
-        totalRecordCount?: string;
+        totalRecordCount?: string | undefined;
         /**
          * Object describing the current request's filtering
          *
          * @default {}
          */
-        queries?: Object;
+        queries?: Object | undefined;
         /**
          * Name of the property in the dataset that contains the total number of records for the current query
          *
          * @default null
          */
-        queryRecordCount?: string;
+        queryRecordCount?: string | undefined;
         /**
          * The page represented in the for the current dataset
          *
          * @default null
          */
-        page?: number;
+        page?: number | undefined;
         /**
          * The default number of items loaded per page
          *
          * @default 10
          */
-        perPageDefault?: number;
+        perPageDefault?: number | undefined;
         /**
          * The default options available in the perPage menu built by dynatable
          *
          * @default [10,20,50,100]
          */
-        perPageOptions?: Array<number>;
+        perPageOptions?: Array<number> | undefined;
         /**
          * Object describing the current request's sorting
          *
          * @default {}
          */
-        sorts?: Object;
+        sorts?: Object | undefined;
         /**
          * The sorting keys (generated by dynatable)
          *
          * @default null
          */
-        sortsKeys?: Array<string>;
+        sortsKeys?: Array<string> | undefined;
         /**
          * The sorting types (generated by dynatable)
          * It will hosts the type of object to sort (string, number, etc.)
          *
          * @default {}
          */
-        sortTypes?: Object;
+        sortTypes?: Object | undefined;
         /**
          * The core data (generated or loaded by dynatable)
          *
@@ -500,7 +500,7 @@ declare namespace JQueryDynatable {
          *     return '<tr>' + tr + '</tr>';
          * };
          */
-        _rowWriter?: (rowIndex: number, record: any, columns: Array<Column>, cellWriter: Function) => string;
+        _rowWriter?: ((rowIndex: number, record: any, columns: Array<Column>, cellWriter: Function) => string) | undefined;
         /**
          * Function that returns the HTML code that will be injected for the cell
          *
@@ -534,7 +534,7 @@ declare namespace JQueryDynatable {
          *     return td + '>' + html + '</td>';
          * };
          */
-        _cellWriter?: (column: Column, record: any) => string;
+        _cellWriter?: ((column: Column, record: any) => string) | undefined;
         /**
          * Function that returns the cell data to be written inside the cell
          *
@@ -549,7 +549,7 @@ declare namespace JQueryDynatable {
          *    return record[this.id];
          * };
          */
-        _attributeWriter?: (record: any) => any;
+        _attributeWriter?: ((record: any) => any) | undefined;
     }
     interface Readers {
         /**
@@ -567,7 +567,7 @@ declare namespace JQueryDynatable {
          *     //...
          * };
          */
-        _rowReader?: (index: number, thisRef: any, record: any) => any;
+        _rowReader?: ((index: number, thisRef: any, record: any) => any) | undefined;
         /**
          * Function that interprets the cell into data
          *
@@ -582,58 +582,58 @@ declare namespace JQueryDynatable {
          *    return $(cell).html();
          * };
          */
-        _attributeReader?: (cell: Element, record: any) => any;
+        _attributeReader?: ((cell: Element, record: any) => any) | undefined;
     }
     interface Params {
         /**
          * @default 'dynatable'
          */
-        dynatable?: string;
+        dynatable?: string | undefined;
         /**
          * @default 'queries'
          */
-        queries?: string;
+        queries?: string | undefined;
         /**
          * @default 'sorts'
          */
-        sorts?: string;
+        sorts?: string | undefined;
         /**
          * @default 'page'
          */
-        page?: string;
+        page?: string | undefined;
         /**
          * @default 'perPage'
          */
-        perPage?: string;
+        perPage?: string | undefined;
         /**
          * @default 'offset'
          */
-        offset?: string;
+        offset?: string | undefined;
         /**
          * @default 'records'
          */
-        records?: string;
+        records?: string | undefined;
         /**
          * @default null
          */
-        record?: Object;
+        record?: Object | undefined;
         /**
          * @default 'queryRecordCount'
          */
-        queryRecordCount?: string;
+        queryRecordCount?: string | undefined;
         /**
          * @default 'totalRecordCount'
          */
-        totalRecordCount?: string;
+        totalRecordCount?: string | undefined;
     }
     interface Options {
-        features?: Features;
-        table?: Table;
-        inputs?: Inputs;
-        dataset?: Dataset;
-        writers?: Writers;
-        readers?: Readers;
-        params?: Params;
+        features?: Features | undefined;
+        table?: Table | undefined;
+        inputs?: Inputs | undefined;
+        dataset?: Dataset | undefined;
+        writers?: Writers | undefined;
+        readers?: Readers | undefined;
+        params?: Params | undefined;
     }
     interface DOM {
         /**

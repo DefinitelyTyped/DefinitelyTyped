@@ -9,13 +9,13 @@ import * as motion from 'react-motion';
 
 declare namespace Transition {
     interface TransitionProps {
-        component?: string | boolean | React.ReactElement;
-        runOnMount?: boolean;
-        appear?: motion.Style;
-        enter?: motion.Style;
-        leave?: motion.Style;
-        onEnter?: (style: motion.PlainStyle) => void;
-        onLeave?: (style: motion.Style) => void;
+        component?: string | boolean | React.ReactElement | undefined;
+        runOnMount?: boolean | undefined;
+        appear?: motion.Style | undefined;
+        enter?: motion.Style | undefined;
+        leave?: motion.Style | undefined;
+        onEnter?: ((style: motion.PlainStyle) => void) | undefined;
+        onLeave?: ((style: motion.Style) => void) | undefined;
     }
 }
 

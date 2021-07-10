@@ -2,14 +2,14 @@ import { baseComponent, baseComponentEventMap, baseComponentSettableProperties, 
 export interface ojLabel extends baseComponent<ojLabelSettableProperties> {
     for: string | null;
     help: {
-        definition?: string | null;
-        source?: string | null;
+        definition?: string | null | undefined;
+        source?: string | null | undefined;
     };
     labelId: string | null;
     showRequired: boolean | null;
     translations: {
-        tooltipHelp?: string;
-        tooltipRequired?: string;
+        tooltipHelp?: string | undefined;
+        tooltipRequired?: string | undefined;
     };
     onForChanged: ((event: JetElementCustomEvent<ojLabel["for"]>) => any) | null;
     onHelpChanged: ((event: JetElementCustomEvent<ojLabel["help"]>) => any) | null;
@@ -33,14 +33,14 @@ export interface ojLabelEventMap extends baseComponentEventMap<ojLabelSettablePr
 export interface ojLabelSettableProperties extends baseComponentSettableProperties {
     for: string | null;
     help: {
-        definition?: string | null;
-        source?: string | null;
+        definition?: string | null | undefined;
+        source?: string | null | undefined;
     };
     labelId: string | null;
     showRequired: boolean | null;
     translations: {
-        tooltipHelp?: string;
-        tooltipRequired?: string;
+        tooltipHelp?: string | undefined;
+        tooltipRequired?: string | undefined;
     };
 }
 export interface ojLabelSettablePropertiesLenient extends Partial<ojLabelSettableProperties> {

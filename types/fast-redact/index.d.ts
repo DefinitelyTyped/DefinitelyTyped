@@ -24,21 +24,21 @@ declare namespace F {
 
     interface RedactOptions {
         /** An array of strings describing the nested location of a key in an object. */
-        paths?: string[];
+        paths?: string[] | undefined;
 
         /** This is the value which overwrites redacted properties. */
-        censor?: string | ((v: any) => any);
+        censor?: string | ((v: any) => any) | undefined;
 
         /** The remove option, when set to true will cause keys to be removed from the serialized output. */
-        remove?: boolean;
+        remove?: boolean | undefined;
 
         /**
          * The serialize option may either be a function or a boolean. If a function is supplied, this will be used to serialize the redacted object.
          * The default serialize is the function JSON.stringify
          */
-        serialize?: boolean | ((v: any) => any);
+        serialize?: boolean | ((v: any) => any) | undefined;
 
         /** The strict option, when set to true, will cause the redactor function to throw if instead of an object it finds a primitive. */
-        strict?: boolean;
+        strict?: boolean | undefined;
     }
 }

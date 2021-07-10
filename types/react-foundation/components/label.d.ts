@@ -11,5 +11,5 @@ import { FlexboxPropTypes } from '../utils';
  */
 export declare const Label: React.StatelessComponent<LabelProps>;
 export interface LabelProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLSpanElement> {
-    color?: LabelColors;
+    color?: LabelColors | undefined;
 }

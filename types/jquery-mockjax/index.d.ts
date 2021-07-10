@@ -12,11 +12,11 @@
 type MockJaxLoggingFunction = (message?: any, ...additionalParameters: any[]) => void;
 
 interface MockJaxStandardLogger {
-    error?: MockJaxLoggingFunction;
-    warn?: MockJaxLoggingFunction;
-    info?: MockJaxLoggingFunction;
-    log?: MockJaxLoggingFunction;
-    debug?: MockJaxLoggingFunction;
+    error?: MockJaxLoggingFunction | undefined;
+    warn?: MockJaxLoggingFunction | undefined;
+    info?: MockJaxLoggingFunction | undefined;
+    log?: MockJaxLoggingFunction | undefined;
+    debug?: MockJaxLoggingFunction | undefined;
 }
 
 interface MockJaxCustomLogger {
@@ -28,33 +28,33 @@ interface MockJaxSettingsHeaders {
 }
 
 interface MockJaxSettings {
-    url?: string | RegExp;
-    urlParams?: string[];
+    url?: string | RegExp | undefined;
+    urlParams?: string[] | undefined;
     data?: any;
-    type?: string;
-    headers?: MockJaxSettingsHeaders;
-    logging?: boolean | number;
-    status?: number;
-    statusText?: string;
-    responseTime?: number;
-    isTimeout?: boolean;
-    dataType?: string;
-    contentType?: string;
-    response?: (settings: any, done?: Function) => void;
-    responseText?: string | Object;
-    responseXml?: string;
-    proxy?: string;
-    proxyType?: string;
-    lastModified?: string;
-    etag?: string;
-    onAfterSuccess?: Function;
-    onAfterError?: Function;
-    onAfterComplete?: Function;
-    logger?: MockJaxStandardLogger | MockJaxCustomLogger;
-    logLevelMethods?: string[];
-    namespace?: string;
-    throwUnmocked?: boolean;
-    retainAjaxCalls?: boolean;
+    type?: string | undefined;
+    headers?: MockJaxSettingsHeaders | undefined;
+    logging?: boolean | number | undefined;
+    status?: number | undefined;
+    statusText?: string | undefined;
+    responseTime?: number | undefined;
+    isTimeout?: boolean | undefined;
+    dataType?: string | undefined;
+    contentType?: string | undefined;
+    response?: ((settings: any, done?: Function) => void) | undefined;
+    responseText?: string | Object | undefined;
+    responseXml?: string | undefined;
+    proxy?: string | undefined;
+    proxyType?: string | undefined;
+    lastModified?: string | undefined;
+    etag?: string | undefined;
+    onAfterSuccess?: Function | undefined;
+    onAfterError?: Function | undefined;
+    onAfterComplete?: Function | undefined;
+    logger?: MockJaxStandardLogger | MockJaxCustomLogger | undefined;
+    logLevelMethods?: string[] | undefined;
+    namespace?: string | undefined;
+    throwUnmocked?: boolean | undefined;
+    retainAjaxCalls?: boolean | undefined;
 }
 
 interface MockJaxStatic {

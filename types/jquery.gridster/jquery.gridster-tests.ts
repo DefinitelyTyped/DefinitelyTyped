@@ -1,8 +1,8 @@
 
 
 interface SerializeData {
-    x?: number;
-    y?: number;
+    x?: number | undefined;
+    y?: number | undefined;
 }
 
 var options: GridsterOptions = {

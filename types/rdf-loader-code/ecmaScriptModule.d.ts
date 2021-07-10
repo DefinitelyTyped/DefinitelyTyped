@@ -2,7 +2,7 @@ import { Loader } from 'rdf-loaders-registry';
 import LoaderRegistry = require('rdf-loaders-registry');
 
 interface Options {
-    basePath?: string;
+    basePath?: string | undefined;
 }
 
 type EcmaScriptModuleLoader = Loader<unknown, Options> & {

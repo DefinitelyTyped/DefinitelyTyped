@@ -17,11 +17,11 @@ declare namespace OnClickOut {
     }
 
     interface OnClickOutProps {
-        disableOnClickOutside?: boolean;
-        eventTypes?: string | string[];
-        outsideClickIgnoreClass?: string;
-        preventDefault?: boolean;
-        stopPropagation?: boolean;
+        disableOnClickOutside?: boolean | undefined;
+        eventTypes?: string | string[] | undefined;
+        outsideClickIgnoreClass?: string | undefined;
+        preventDefault?: boolean | undefined;
+        stopPropagation?: boolean | undefined;
     }
 }
 

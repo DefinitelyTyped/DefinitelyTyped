@@ -42,7 +42,7 @@ export interface Message {
     element: Element;
     msg: string;
     code: string;
-    data?: MessageData;
+    data?: MessageData | undefined;
 }
 
 /**

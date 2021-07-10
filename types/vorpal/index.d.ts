@@ -49,7 +49,7 @@ declare namespace Vorpal {
         alias(command: string): this;
         parse(value: (command: string, args: Args) => string): this;
         option(option: string, description: string, autocomplete?: ReadonlyArray<string>): this;
-        types(types: { string?: ReadonlyArray<string> }): this;
+        types(types: { string?: ReadonlyArray<string> | undefined }): this;
         hidden(): this;
         remove(): this;
         help(value: (args: Args) => void): this;

@@ -208,6 +208,9 @@ declare module 'os' {
         }
     }
 
+    const devNull: string;
+    const EOL: string;
+
     function arch(): string;
     /**
      * Returns a string identifying the kernel version.
@@ -219,7 +222,6 @@ declare module 'os' {
     function version(): string;
     function platform(): NodeJS.Platform;
     function tmpdir(): string;
-    const EOL: string;
     function endianness(): "BE" | "LE";
     /**
      * Gets the priority of a process.
@@ -236,4 +238,8 @@ declare module 'os' {
      * @param priority Must be in range of -20 to 19
      */
     function setPriority(pid: number, priority: number): void;
+}
+
+declare module 'node:os' {
+    export * from 'os';
 }

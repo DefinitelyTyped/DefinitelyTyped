@@ -172,7 +172,7 @@ const Story = (() => {
         relay: RelayRefetchProp;
         story: Story_story;
         onLike: StoryLike;
-        ignoreMe?: {};
+        ignoreMe?: {} | undefined;
     }
 
     interface State {
@@ -312,7 +312,7 @@ const Feed = (() => {
         relay: RelayProp;
         feed: FeedStories_feed;
         onStoryLike: StoryLike;
-        ignoreMe?: {};
+        ignoreMe?: {} | undefined;
     }
 
     const FeedStoryEdges: React.FC<{ edges: FeedStory_edges; relay: RelayProp }> = ({ edges }) => (
@@ -412,7 +412,7 @@ const Feed = (() => {
 type UserFeed_user = {
     readonly feed: {
         readonly pageInfo: {
-            readonly endCursor?: string | null;
+            readonly endCursor?: string | null | undefined;
             readonly hasNextPage: boolean;
         };
         readonly ' $fragmentRefs': FragmentRefs<'FeedStories_feed'>;
@@ -424,7 +424,7 @@ type UserFeed_user = {
         relay: RelayPaginationProp;
         loadMoreTitle: string;
         user: UserFeed_user;
-        ignoreMe?: {};
+        ignoreMe?: {} | undefined;
     }
 
     class UserFeed extends React.Component<Props> {

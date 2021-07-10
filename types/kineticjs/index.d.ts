@@ -418,14 +418,14 @@ declare namespace Kinetic {
     }
 
     interface LayerConfig extends ObjectOptionsConfig {
-        clearBeforeDraw?: boolean;
+        clearBeforeDraw?: boolean | undefined;
     }
 
     //shape configs class
     interface RectConfig extends DrawOptionsConfig, ObjectOptionsConfig {
-        width?: number;
-        height?: number;
-        cornerRadius?: number;
+        width?: number | undefined;
+        height?: number | undefined;
+        cornerRadius?: number | undefined;
     }
 
     interface CircleConfig extends DrawOptionsConfig, ObjectOptionsConfig {
@@ -434,8 +434,8 @@ declare namespace Kinetic {
 
     interface ImageConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         image: any;
-        width?: number;
-        height?: number;
+        width?: number | undefined;
+        height?: number | undefined;
         crop?: any;
     }
 
@@ -443,29 +443,29 @@ declare namespace Kinetic {
         image: any;
         animations?: any;
         animation?: any;
-        frameRate?: number;
+        frameRate?: number | undefined;
     }
 
     interface TextConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         text: string;
-        fontSize?: number;
-        fontFamily?: string;
-        fontStyle?: string;
+        fontSize?: number | undefined;
+        fontFamily?: string | undefined;
+        fontStyle?: string | undefined;
         textFill?: any;
         textStroke?: any;
-        textStrokeWidth?: number;
-        align?: string;
-        padding?: string;
-        width?: number;
-        height?: number;
-        lineHeight?: number;
-        cornerRadius?: number;
+        textStrokeWidth?: number | undefined;
+        align?: string | undefined;
+        padding?: string | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        lineHeight?: number | undefined;
+        cornerRadius?: number | undefined;
     }
 
     interface LineConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         points: any;
-        lineCap?: string;
-        dash?: number[];
+        lineCap?: string | undefined;
+        dash?: number[] | undefined;
     }
 
     interface RegularPolygonConfig extends DrawOptionsConfig, ObjectOptionsConfig {
@@ -488,10 +488,10 @@ declare namespace Kinetic {
     }
 
     interface DrawOptionsConfig {
-        fill?: string;
-        stroke?: string;
-        strokeWidth?: number;
-        lineJoin?: string;
+        fill?: string | undefined;
+        stroke?: string | undefined;
+        strokeWidth?: number | undefined;
+        lineJoin?: string | undefined;
         shadow?: any;
     }
 
@@ -501,23 +501,23 @@ declare namespace Kinetic {
     }
 
     interface ObjectOptionsConfig {
-        x?: number;
-        y?: number;
-        visible?: boolean;
-        listening?: boolean;
-        id?: string;
-        name?: string;
+        x?: number | undefined;
+        y?: number | undefined;
+        visible?: boolean | undefined;
+        listening?: boolean | undefined;
+        id?: string | undefined;
+        name?: string | undefined;
         opacity?: any;
-        scale?: Vector2d;
-        rotation?: number;
-        rotationDeg?: number;
-        offset?: Vector2d;
-        draggable?: boolean;
-        dragConstraint?: string;
+        scale?: Vector2d | undefined;
+        rotation?: number | undefined;
+        rotationDeg?: number | undefined;
+        offset?: Vector2d | undefined;
+        draggable?: boolean | undefined;
+        dragConstraint?: string | undefined;
         dragBounds?: any;
-        dragBoundFunc?: (pos: Vector2d) => Vector2d;
-        width?: number;
-        height?: number;
+        dragBoundFunc?: ((pos: Vector2d) => Vector2d) | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     interface ISize {

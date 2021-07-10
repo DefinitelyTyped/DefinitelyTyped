@@ -56,12 +56,12 @@ export interface Element extends Parent {
     /**
      * Represents information associated with the element.
      */
-    properties?: Properties;
+    properties?: Properties | undefined;
 
     /**
      * If the tagName field is 'template', a content field can be present.
      */
-    content?: Root;
+    content?: Root | undefined;
 
     /**
      * List representing the children of a node.
@@ -90,12 +90,12 @@ export interface DocType extends UnistNode {
     /**
      * Represents the document’s public identifier.
      */
-    public?: string;
+    public?: string | undefined;
 
     /**
      * Represents the document’s system identifier.
      */
-    system?: string;
+    system?: string | undefined;
 }
 
 /**

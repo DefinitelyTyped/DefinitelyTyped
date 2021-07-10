@@ -48,10 +48,14 @@ export class Room {
     storageToken: any;                 // A token which a data store can use to remember the state of the room.
 
     constructor(roomId: string, client: MatrixClient, myUserId: string, opts?: {
-        storageToken?: any;      // Optional. The token which a data store can use to remember the state of the room. What this means is dependent on the store implementation.
-        pendingEventOrdering?: string;   // <optional> Controls where pending messages appear in a room's timeline. If "chronological", messages will appear in the timeline
-        timelineSupport?: boolean;  // <optional> false Set to true to enable improved timeline support.
-        unstableClientRelationAggregation?: boolean;  // <optional> false Optional. Set to true to enable client-side aggregation of event relations via `EventTimelineSet#getRelationsForEvent`.
+        // Optional. The token which a data store can use to remember the state of the room. What this means is dependent on the store implementation.
+        storageToken?: any;
+        // <optional> Controls where pending messages appear in a room's timeline. If "chronological", messages will appear in the timeline
+        pendingEventOrdering?: string | undefined;
+        // <optional> false Set to true to enable improved timeline support.
+        timelineSupport?: boolean | undefined;
+        // <optional> false Optional. Set to true to enable client-side aggregation of event relations via `EventTimelineSet#getRelationsForEvent`.
+        unstableClientRelationAggregation?: boolean | undefined;
     })
 
     addAccountData(events: MatrixEvent[]): void;
@@ -255,8 +259,8 @@ export class MemoryStore implements MatrixStore {
 export class IndexedDBStore extends MemoryStore {
     constructor(opts: {
         indexedDB: any;
-        dbName?: string;
-        workerScript?: string;
+        dbName?: string | undefined;
+        workerScript?: string | undefined;
         workerApi?: any;
     });
 }
@@ -290,12 +294,12 @@ export interface LoginPayload {
 }
 export interface RequestTokenPayload {
     sid: string;
-    submit_url?: string;
+    submit_url?: string | undefined;
 }
 export interface IncludeEventContext {
-    before_limit?: number;
-    after_limit?: number;
-    include_profile?: boolean;
+    before_limit?: number | undefined;
+    after_limit?: number | undefined;
+    include_profile?: boolean | undefined;
 }
 export interface EventContext {
     start: string;
@@ -305,7 +309,7 @@ export interface EventContext {
             displayname: string;
             avatar_url: string;
         };
-    };
+    } | undefined;
     events_before: MatrixEvent[];
     events_after: MatrixEvent[];
 }
@@ -315,8 +319,8 @@ export interface SearchResult {
     context: EventContext;
 }
 export interface GroupValue {
-    next_batch?: string;
-    order?: number;
+    next_batch?: string | undefined;
+    order?: number | undefined;
     results: string[];
 }
 export interface SearchResponse {
@@ -327,9 +331,9 @@ export interface SearchResponse {
             highlights: string[];
             state?: {
                 [roomId: string]: MatrixEvent[];
-            };
-            groups?: GroupValue;
-            next_batch?: string;
+            } | undefined;
+            groups?: GroupValue | undefined;
+            next_batch?: string | undefined;
         };
     };
 }
@@ -338,11 +342,11 @@ export interface SearchBody {
     search_categories: {
         room_events: {
             search_term: string;
-            keys?: SearchKey[];
+            keys?: SearchKey[] | undefined;
             filter?: any;
             order_by?: any;
-            event_context?: IncludeEventContext;
-            include_state?: boolean;
+            event_context?: IncludeEventContext | undefined;
+            include_state?: boolean | undefined;
             groupings?: any;
         }
     };
@@ -353,14 +357,14 @@ export interface SyncData {
   /**
    * The 'next_batch' result from /sync, which will become the 'since' token for the next call to /sync. Only present if state=PREPARED or state=SYNCING.
    */
-  nextSyncToken?: string;
+  nextSyncToken?: string | undefined;
   /**
    * The 'since' token passed to /sync. null for the first successful sync since this client was started. Only present if state=PREPARED or state=SYNCING.
    */
-  oldSyncToken?: string | null;
-  catchingUp?: boolean;
-  fromCache?: boolean;
-  error?: Error;
+  oldSyncToken?: string | null | undefined;
+  catchingUp?: boolean | undefined;
+  fromCache?: boolean | undefined;
+  error?: Error | undefined;
 }
 export type SyncCallback = (state: SyncState, prevState: SyncState, data: SyncData) => void;
 
@@ -396,7 +400,7 @@ export class MatrixClient extends EventEmitter {
     createKeyBackupVersion(info: object): Promise<object>;
     createRoom(options: CreateRoomOptions, callback?: MatrixCallback): Promise<{
         room_id: string;
-        room_alias?: string;
+        room_alias?: string | undefined;
     }>;
     deactivateAccount(auth: object, erase: boolean): Promise<void>;
     deleteAlias(alias: string, callback?: MatrixCallback): Promise<void>;
@@ -457,8 +461,8 @@ export class MatrixClient extends EventEmitter {
     getOrCreateFilter(filterName: string, filter: Filter): Promise<string>;
     getPresenceList(callback?: MatrixCallback): Promise<object[]>;
     getProfileInfo(userId: string, info?: string, callback?: MatrixCallback): Promise<{
-        displayname?: string;
-        avatar_url?: string;
+        displayname?: string | undefined;
+        avatar_url?: string | undefined;
     }>;
     getPublicisedGroups(userIds: string[]): Promise<object>;
     getPushActionsForEvent(event: MatrixEvent): PushAction;
@@ -508,9 +512,9 @@ export class MatrixClient extends EventEmitter {
     isUsernameAvailable(username: string): Promise<boolean>;
     joinGroup(groupId: string): Promise<void>;
     joinRoom(roomIdOrAlias: string, opts?: {
-        syncRoom?: boolean; // True to do a room initial sync on the resulting room. If false, the returned Room object will have no current state. Default: true.
-        inviteSignUrl?: boolean;  // If the caller has a keypair 3pid invite, the signing URL is passed in this parameter.
-        viaServers?: string[]; // <string> The server names to try and join through in addition to those that are automatically chosen.
+        syncRoom?: boolean | undefined; // True to do a room initial sync on the resulting room. If false, the returned Room object will have no current state. Default: true.
+        inviteSignUrl?: boolean | undefined;  // If the caller has a keypair 3pid invite, the signing URL is passed in this parameter.
+        viaServers?: string[] | undefined; // <string> The server names to try and join through in addition to those that are automatically chosen.
     }, callback?: MatrixCallback): Promise<Room>;
     kick(roomId: string, userId: string, reason?: string, callback?: MatrixCallback): Promise<void>;
     leave(roomId: string, callback?: MatrixCallback): Promise<void>;
@@ -584,7 +588,7 @@ export class MatrixClient extends EventEmitter {
     scrollback(room: Room, limit: number, callback?: MatrixCallback): Promise<Room>;
     search(
         opts: {
-            next_batch?: string;  // the batch token to pass in the query string
+            next_batch?: string | undefined;  // the batch token to pass in the query string
             body: SearchBody;  // the JSON object to pass to the request body.
         },
         callback?: MatrixCallback,
@@ -592,20 +596,20 @@ export class MatrixClient extends EventEmitter {
     searchMessageText(
         opts: {
             query: string; // The text to query.
-            keys?: string;  // <optional> The keys to search on. Defaults to all keys. One of "content.body", "content.name", "content.topic".
+            keys?: string | undefined;  // <optional> The keys to search on. Defaults to all keys. One of "content.body", "content.name", "content.topic".
         },
         callback?: MatrixCallback,
     ): Promise<SearchResponse>;
     searchRoomEvents(opts: {
         term: string;  // the term to search for
-        filter?: object;  // a JSON filter object to pass in the request
+        filter?: object | undefined;  // a JSON filter object to pass in the request
     }): Promise<SearchResponse>;
     searchUserDirectory(opts: {
         term: string;  // the term with which to search.
-        limit?: number;  // the maximum number of results to return. The server will apply a limit if unspecified.
+        limit?: number | undefined;  // the maximum number of results to return. The server will apply a limit if unspecified.
     }): Promise<{
-        limited?: boolean;
-        results: Array<{ user_id: string; display_name?: string | null; avatar_url?: string | null; }>;
+        limited?: boolean | undefined;
+        results: Array<{ user_id: string; display_name?: string | null | undefined; avatar_url?: string | null | undefined; }>;
     }>;
     sendEmoteMessage(
         roomId: string, body: string, txnId?: string, callback?: MatrixCallback,
@@ -696,9 +700,9 @@ export class MatrixClient extends EventEmitter {
       // If true, the homeserver should add another pusher with the given pushkey and App ID in addition to any others
       // with different user IDs. Otherwise, the homeserver must remove any other pushers with the same App ID and
       // pushkey for different users. The default is false.
-      append?: boolean;
+      append?: boolean | undefined;
       // This string determines which set of device specific rules this pusher executes.
-      profile_tag?: string;
+      profile_tag?: string | undefined;
     }, callback?: MatrixCallback): Promise<void>;
     setPushRuleActions(
         scope: string, kind: string, ruleId: string, actions: string[], callback?: MatrixCallback,
@@ -724,14 +728,22 @@ export class MatrixClient extends EventEmitter {
     setRoomTopic(roomId: string, topic: string, callback?: MatrixCallback): Promise<void>;
 
     startClient(opts?: number | {
-        initialSyncLimit?: number;  // <optional> The event limit= to apply to initial sync. Default: 8.
-        includeArchivedRooms?: boolean; // <optional> True to put archived=true on the /initialSync request. Default: false.
-        resolveInvitesToProfiles?: boolean; // <optional> True to do /profile requests on every invite event if the displayname/avatar_url is not known for this user ID. Default: false.
-        pendingEventOrdering?: string;  // <optional> Controls where pending messages appear in a room's timeline. If "chronological", messages will appear in the timeline when the call to sendEvent
-        pollTimeout?: number; // <optional> The number of milliseconds to wait on /sync. Default: 30000 (30 seconds).
-        filter?: Filter;  // <optional> The filter to apply to /sync calls. This will override the opts.initialSyncLimit, which would normally result in a timeline limit filter.
-        disablePresence?: boolean;  // <optional> True to perform syncing without automatically updating presence.
-        lazyLoadMembers?: boolean;  // <optional> True to not load all membership events during initial sync but fetch them when needed by calling `loadOutOfBandMembers` This will override the filter
+        // <optional> The event limit= to apply to initial sync. Default: 8.
+        initialSyncLimit?: number | undefined;
+        // <optional> True to put archived=true on the /initialSync request. Default: false.
+        includeArchivedRooms?: boolean | undefined;
+        // <optional> True to do /profile requests on every invite event if the displayname/avatar_url is not known for this user ID. Default: false.
+        resolveInvitesToProfiles?: boolean | undefined;
+        // <optional> Controls where pending messages appear in a room's timeline. If "chronological", messages will appear in the timeline when the call to sendEvent
+        pendingEventOrdering?: string | undefined;
+        // <optional> The number of milliseconds to wait on /sync. Default: 30000 (30 seconds).
+        pollTimeout?: number | undefined;
+        // <optional> The filter to apply to /sync calls. This will override the opts.initialSyncLimit, which would normally result in a timeline limit filter.
+        filter?: Filter | undefined;
+        // <optional> True to perform syncing without automatically updating presence.
+        disablePresence?: boolean | undefined;
+        // <optional> True to not load all membership events during initial sync but fetch them when needed by calling `loadOutOfBandMembers` This will override the filter
+        lazyLoadMembers?: boolean | undefined;
     }): Promise<void>;
     stopClient(): void;
     stopPeeking(): void;
@@ -743,13 +755,19 @@ export class MatrixClient extends EventEmitter {
     updateGroupRoomVisibility(groupId: string, roomId: string, isPublic: boolean): Promise<void>;
     upgradeRoom(roomId: string, newVersion: string): Promise<{ replacement_room: object }>;
     uploadContent(file: any, opts: {
-        name?: string;
-        includeFilename?: boolean;  // <optional> if false will not send the filename, e.g for encrypted file uploads where filename leaks are undesirable. Defaults to true.
-        type?: string;  // <optional> Content-type for the upload. Defaults to file.type, or applicaton/octet-stream.
-        rawResponse?: boolean;  // <optional> Return the raw body, rather than parsing the JSON. Defaults to false (except on node.js, where it defaults to true for backwards compatibility).
-        onlyContentUri?: boolean; // <optional> Just return the content URI, rather than the whole body. Defaults to false (except on browsers, where it defaults to true for backwards compatibility).
-        callback?: (...args: any[]) => any;  // <optional> Deprecated. Optional. The callback to invoke on success/failure. See the promise return values for more information.
-        progressHandler?: (...args: any[]) => any; // <optional> Optional. Called when a chunk of data has been uploaded, with an object containing the fields `loaded` (number of bytes transferred)
+        name?: string | undefined;
+        // <optional> if false will not send the filename, e.g for encrypted file uploads where filename leaks are undesirable. Defaults to true.
+        includeFilename?: boolean | undefined;
+        // <optional> Content-type for the upload. Defaults to file.type, or applicaton/octet-stream.
+        type?: string | undefined;
+        // <optional> Return the raw body, rather than parsing the JSON. Defaults to false (except on node.js, where it defaults to true for backwards compatibility).
+        rawResponse?: boolean | undefined;
+        // <optional> Just return the content URI, rather than the whole body. Defaults to false (except on browsers, where it defaults to true for backwards compatibility).
+        onlyContentUri?: boolean | undefined;
+        // <optional> Deprecated. Optional. The callback to invoke on success/failure. See the promise return values for more information.
+        callback?: ((...args: any[]) => any) | undefined;
+        // <optional> Optional. Called when a chunk of data has been uploaded, with an object containing the fields `loaded` (number of bytes transferred)
+        progressHandler?: ((...args: any[]) => any) | undefined;
     }): Promise<string>;
     uploadKeys(): object;
     uploadKeysRequest(content: object, opts?: object, callback?: MatrixCallback): Promise<object>;
@@ -813,9 +831,9 @@ export class Relations extends EventEmitter {
 }
 export class EventTimelineSet extends EventEmitter {
     constructor(room: Room | null, opts: {
-        timelineSupport?: boolean;
-        filter?: Filter;
-        unstableClientRelationAggregation?: boolean;
+        timelineSupport?: boolean | undefined;
+        filter?: Filter | undefined;
+        unstableClientRelationAggregation?: boolean | undefined;
     });
     addEventsToTimeline(events: MatrixEvent[], toStartOfTimeline: boolean, timeline: EventTimeline, paginationToken?: string): void;
     addEventToTimeline(event: MatrixEvent, timeline: EventTimeline, toStartOfTimeline: boolean, fromCache: boolean): void;
@@ -910,7 +928,7 @@ export class TimelineWindow {
     constructor(
         client: MatrixClient,
         timelineSet: EventTimelineSet,
-        opts?: { windowLimit?: number }
+        opts?: { windowLimit?: number | undefined }
     );
     canPaginate(direction: EventTimelineDirection): boolean;
     extend(direction: EventTimelineDirection, size: number): boolean;
@@ -930,34 +948,34 @@ export interface CreateRoomOptions {
     /**
      * <string> A list of user IDs to invite to this room.
      */
-    invite?: string[];
+    invite?: string[] | undefined;
     /**
      * The name to give this room.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The alias localpart to assign to this room.
      */
-    room_alias_name?: string;
+    room_alias_name?: string | undefined;
     /**
      * The topic to give this room.
      */
-    topic?: string;
-    visibility?: "public" | "private";
+    topic?: string | undefined;
+    visibility?: "public" | "private" | undefined;
     /**
      * Convenience parameter for setting various default state events based on a preset.
      * If unspecified, the server should use the visibility to determine which preset to use.
      * A visbility of public equates to a preset of public_chat and private visibility equates to a preset of private_chat.
      * One of: ["private_chat", "public_chat", "trusted_private_chat"]
      */
-    preset?: "private_chat" | "public_chat" | "trusted_private_chat";
-    is_direct?: boolean;
+    preset?: "private_chat" | "public_chat" | "trusted_private_chat" | undefined;
+    is_direct?: boolean | undefined;
     /**
      * A list of state events to set in the new room. This allows the user to override the default state events set in the new room.
      * The expected format of the state events are an object with type, state_key and content keys set.
      * Takes precedence over events set by preset, but gets overriden by name and topic keys.
      */
-    initial_state?: StateEvent[];
+    initial_state?: StateEvent[] | undefined;
 }
 
 export type FilterComponent = any;
@@ -1112,26 +1130,26 @@ export class RoomState {
 }
 
 export interface CreateClientOption {
-    baseUrl?: string;
-    idBaseUrl?: string;
+    baseUrl?: string | undefined;
+    idBaseUrl?: string | undefined;
     request?: any;
-    accessToken?: string;
-    userId?: string;
+    accessToken?: string | undefined;
+    userId?: string | undefined;
     deviceToImport?: any;
-    identityServer?: { getAccessToken: () => Promise<string> };
-    store?: MatrixStore;
-    scheduler?: MatrixScheduler;
+    identityServer?: { getAccessToken: () => Promise<string> } | undefined;
+    store?: MatrixStore | undefined;
+    scheduler?: MatrixScheduler | undefined;
     cryptoStore?: any;
-    deviceId?: string;
+    deviceId?: string | undefined;
     queryParams?: any;
-    localTimeoutMs?: number;
-    useAuthorizationHeader?: boolean;
-    timelineSupport?: boolean;
-    unstableClientRelationAggregation?: boolean;
-    verificationMethods?: string[];
-    forceTURN?: boolean;
-    fallbackICEServerAllowed?: boolean;
-    cryptoCallbacks?: { [cb: string]: (...any: any[]) => void };
+    localTimeoutMs?: number | undefined;
+    useAuthorizationHeader?: boolean | undefined;
+    timelineSupport?: boolean | undefined;
+    unstableClientRelationAggregation?: boolean | undefined;
+    verificationMethods?: string[] | undefined;
+    forceTURN?: boolean | undefined;
+    fallbackICEServerAllowed?: boolean | undefined;
+    cryptoCallbacks?: { [cb: string]: (...any: any[]) => void } | undefined;
 }
 
 export function createClient(ops: string | CreateClientOption): MatrixClient;
@@ -1156,9 +1174,9 @@ export interface EventContentTypeAudioMessage extends EventContentTypeMessage {
 }
 
 export interface UnsignedType {
-    age?: number;
-    transaction_id?: string;
-    redacted_because?: RawEvent;
+    age?: number | undefined;
+    transaction_id?: string | undefined;
+    redacted_because?: RawEvent | undefined;
 }
 
 export interface RawEvent<IEventContentType = EventContentTypeMessage, EventTypeName = EventType> {
@@ -1166,11 +1184,11 @@ export interface RawEvent<IEventContentType = EventContentTypeMessage, EventType
     origin_server_ts: number;
     sender: string;
     type: EventTypeName;
-    unsigned?: UnsignedType;
+    unsigned?: UnsignedType | undefined;
     event_id: string;
     room_id: string;
     // only set when the event is of type "m.room.redaction"
-    redacts?: string;
+    redacts?: string | undefined;
 }
 
 export interface SyncResponse {
@@ -1192,7 +1210,7 @@ export class SyncAccumulator {
     /**
      * Default is 50.
      */
-    maxTimelineEntries?: number;
+    maxTimelineEntries?: number | undefined;
   })
 
   /**

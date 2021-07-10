@@ -62,12 +62,12 @@ export function toastAlert(alertId: string, timeShown?: number): void;
  * @param param Parameters for the sticky alert.
  */
 export function initStickyAlert(param: {
-    content?: string;
-    title?: string;
-    alertType?: string;
-    fillType?: string;
-    hasDismissButton?: boolean;
-    timeShown?: number;
+    content?: string | undefined;
+    title?: string | undefined;
+    alertType?: string | undefined;
+    fillType?: string | undefined;
+    hasDismissButton?: boolean | undefined;
+    timeShown?: number | undefined;
 }): void;
 
 /** An overridable click handler, to avoid adding another event listener to the DOM */

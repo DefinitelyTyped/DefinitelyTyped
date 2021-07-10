@@ -11,29 +11,29 @@ declare module 'karma' {
         /**
          * {@link https://github.com/mlex/karma-spec-reporter#configuration}
          */
-        specReporter?: SpecReporterOptions;
+        specReporter?: SpecReporterOptions | undefined;
     }
 
     interface SpecReporterOptions {
         /** limit number of lines logged per test */
-        maxLogLines?: number;
+        maxLogLines?: number | undefined;
         /** do not print error summary */
-        suppressErrorSummary?: boolean;
+        suppressErrorSummary?: boolean | undefined;
         /** do not print information about failed tests */
-        suppressFailed?: boolean;
+        suppressFailed?: boolean | undefined;
         /** do not print information about passed tests */
-        suppressPassed?: boolean;
+        suppressPassed?: boolean | undefined;
         /** do not print information about skipped tests */
-        suppressSkipped?: boolean;
+        suppressSkipped?: boolean | undefined;
         /** print the time elapsed for each spec */
-        showSpecTiming?: boolean;
+        showSpecTiming?: boolean | undefined;
         /** test would finish with error when a first fail occurs */
-        failFast?: boolean;
+        failFast?: boolean | undefined;
         /** custom prefixes to use when reporting passed/failed/skipped prefixes */
         prefixes?: {
-            success?: string;
-            failure?: string;
-            skipped?: string;
-        };
+            success?: string | undefined;
+            failure?: string | undefined;
+            skipped?: string | undefined;
+        } | undefined;
     }
 }

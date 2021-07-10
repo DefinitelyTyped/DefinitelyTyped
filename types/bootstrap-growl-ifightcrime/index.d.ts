@@ -17,54 +17,54 @@ declare namespace BootstrapGrowlIfightcrime {
         /**
          * Position: top or bottom
          */
-         from?: OffsetPositionType;
+         from?: OffsetPositionType | undefined;
 
         /**
          * Offset amount
          */
-         amount?: number;
+         amount?: number | undefined;
      }
 
      interface Options {
         /**
          * Which element to append to
          */
-         ele?: string;
+         ele?: string | undefined;
 
         /**
          * Values of (null, 'info', 'danger', 'success', 'warning') or another value
          */
-         type?: AlertType;
+         type?: AlertType | undefined;
 
         /**
          * Offset Options
          */
-         offset?: OffsetOption;
+         offset?: OffsetOption | undefined;
 
         /**
          * 'left', 'right', or 'center'
          */
-         align?: AlignType;
+         align?: AlignType | undefined;
 
         /**
          * Integer or 'auto'
          */
-         width?: number | 'auto';
+         width?: number | 'auto' | undefined;
 
         /**
          * Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
          */
-         delay?: number;
+         delay?: number | undefined;
 
         /**
          *  If true then will display a cross to close the popup.
          */
-         allow_dismiss?: boolean;
+         allow_dismiss?: boolean | undefined;
 
         /**
          * Spacing between consecutively stacked growls.
          */
-         stackup_spacing?: number;
+         stackup_spacing?: number | undefined;
      }
 }
 interface JQueryStatic {

@@ -59,37 +59,37 @@ declare namespace JQuerySortable {
     type SerializeFunc = ($parent: JQuery, $children: any, parentIsContainer: boolean) => void;
 
     interface GroupOptions {
-        afterMove?: ($placeholder: JQuery, container: Container, $closestItemOrContainer: JQuery) => void;
-        containerPath?: string;
-        containerSelector?: string;
-        distance?: number;
-        delay?: number;
-        handle?: string;
-        itemPath?: string;
-        itemSelector?: string;
-        isValidTarget?: ($item: JQuery, container: Container) => boolean;
-        onCancel?: OnCancelHandler;
-        onDrag?: OnDragEventHandler;
-        onDragStart?: GenericEventHandler;
-        onDrop?: GenericEventHandler;
-        onMousedown?: OnMousedownHandler;
-        placeholder?: JQuery | any[] | Element | string;
-        pullPlaceholder?: boolean;
-        serialize?: SerializeFunc;
-        tolerance?: number;
+        afterMove?: (($placeholder: JQuery, container: Container, $closestItemOrContainer: JQuery) => void) | undefined;
+        containerPath?: string | undefined;
+        containerSelector?: string | undefined;
+        distance?: number | undefined;
+        delay?: number | undefined;
+        handle?: string | undefined;
+        itemPath?: string | undefined;
+        itemSelector?: string | undefined;
+        isValidTarget?: (($item: JQuery, container: Container) => boolean) | undefined;
+        onCancel?: OnCancelHandler | undefined;
+        onDrag?: OnDragEventHandler | undefined;
+        onDragStart?: GenericEventHandler | undefined;
+        onDrop?: GenericEventHandler | undefined;
+        onMousedown?: OnMousedownHandler | undefined;
+        placeholder?: JQuery | any[] | Element | string | undefined;
+        pullPlaceholder?: boolean | undefined;
+        serialize?: SerializeFunc | undefined;
+        tolerance?: number | undefined;
     }
 
 
     interface ContainerOptions {
-        drag?: boolean;
-        drop?: boolean;
-        exclude?: string;
-        nested?: boolean;
-        vertical?: boolean;
+        drag?: boolean | undefined;
+        drop?: boolean | undefined;
+        exclude?: string | undefined;
+        nested?: boolean | undefined;
+        vertical?: boolean | undefined;
     }
 
     interface Options extends GroupOptions, ContainerOptions {
-        group?: string;
+        group?: string | undefined;
     }
 }
 

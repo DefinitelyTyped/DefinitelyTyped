@@ -19,17 +19,17 @@ export interface ChromePickerStylesProps {
 }
 
 export interface ChromePickerDisableAlphaStyles {
-    color?: CSSProperties;
-    alpha?: CSSProperties;
-    hue?: CSSProperties;
-    swatch?: CSSProperties;
+    color?: CSSProperties | undefined;
+    alpha?: CSSProperties | undefined;
+    hue?: CSSProperties | undefined;
+    swatch?: CSSProperties | undefined;
 }
 
 export interface ChromePickerProps extends RenderersProps, CustomPickerProps {
-    width?: string;
-    disableAlpha?: boolean;
-    styles?: Partial<Classes<ChromePickerStylesProps>>;
-    className?: string;
+    width?: string | undefined;
+    disableAlpha?: boolean | undefined;
+    styles?: Partial<Classes<ChromePickerStylesProps>> | undefined;
+    className?: string | undefined;
 }
 
 export default class ChromePicker extends Component<ChromePickerProps> { }

@@ -34,10 +34,10 @@ declare namespace Router {
     type RouterListener = (error: Error, nextState: RouterState) => void;
 
     interface LocationDescriptor {
-        pathname?: Pathname;
-        query?: Query;
-        hash?: Href;
-        state?: HLocationState;
+        pathname?: Pathname | undefined;
+        query?: Query | undefined;
+        hash?: Href | undefined;
+        state?: HLocationState | undefined;
     }
 
     interface RedirectFunction {
@@ -56,39 +56,39 @@ declare namespace Router {
     }
 
     interface RouterProps extends React.Props<Router> {
-        history?: History;
-        routes?: RouteConfig; // alias for children
-        createElement?: (component: RouteComponent, props: Object) => any;
-        onError?: (error: any) => any;
-        onUpdate?: () => any;
-        parseQueryString?: ParseQueryString;
-        stringifyQuery?: StringifyQuery;
-        basename?: string;
-        render?: (renderProps: React.Props<{}>) => RouterContext;
+        history?: History | undefined;
+        routes?: RouteConfig | undefined; // alias for children
+        createElement?: ((component: RouteComponent, props: Object) => any) | undefined;
+        onError?: ((error: any) => any) | undefined;
+        onUpdate?: (() => any) | undefined;
+        parseQueryString?: ParseQueryString | undefined;
+        stringifyQuery?: StringifyQuery | undefined;
+        basename?: string | undefined;
+        render?: ((renderProps: React.Props<{}>) => RouterContext) | undefined;
     }
 
     interface PlainRoute {
-        path?: RoutePattern;
-        component?: RouteComponent;
-        components?: RouteComponents;
-        getComponent?: (location: Location, cb: (error: any, component?: RouteComponent) => void) => void;
-        getComponents?: (location: Location, cb: (error: any, components?: RouteComponents) => void) => void;
-        onEnter?: EnterHook;
-        onLeave?: LeaveHook;
-        indexRoute?: PlainRoute;
-        getIndexRoute?: (location: Location, cb: (error: any, indexRoute: RouteConfig) => void) => void;
-        childRoutes?: PlainRoute[];
-        getChildRoutes?: (location: Location, cb: (error: any, childRoutes: RouteConfig) => void) => void;
+        path?: RoutePattern | undefined;
+        component?: RouteComponent | undefined;
+        components?: RouteComponents | undefined;
+        getComponent?: ((location: Location, cb: (error: any, component?: RouteComponent) => void) => void) | undefined;
+        getComponents?: ((location: Location, cb: (error: any, components?: RouteComponents) => void) => void) | undefined;
+        onEnter?: EnterHook | undefined;
+        onLeave?: LeaveHook | undefined;
+        indexRoute?: PlainRoute | undefined;
+        getIndexRoute?: ((location: Location, cb: (error: any, indexRoute: RouteConfig) => void) => void) | undefined;
+        childRoutes?: PlainRoute[] | undefined;
+        getChildRoutes?: ((location: Location, cb: (error: any, childRoutes: RouteConfig) => void) => void) | undefined;
     }
 
     interface RouteComponentProps<P, R> {
-        history?: History;
+        history?: History | undefined;
         location: Location;
         params: P;
-        route?: PlainRoute;
-        routeParams?: R;
-        routes?: PlainRoute[];
-        children?: React.ReactElement;
+        route?: PlainRoute | undefined;
+        routeParams?: R | undefined;
+        routes?: PlainRoute[] | undefined;
+        children?: React.ReactElement | undefined;
     }
 
     interface RouterOnContext extends History {

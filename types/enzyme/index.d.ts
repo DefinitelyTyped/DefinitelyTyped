@@ -311,9 +311,9 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      */
     debug(options?: {
         /** Whether props should be omitted in the resulting string. Props are included by default. */
-        ignoreProps?: boolean;
+        ignoreProps?: boolean | undefined;
         /** Whether arrays and objects passed as props should be verbosely printed. */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
     }): string;
 
     /**
@@ -614,12 +614,12 @@ export interface Lifecycles {
     componentDidUpdate?: {
         onSetState: boolean;
         prevContext: boolean;
-    };
-    getDerivedStateFromProps?: { hasShouldComponentUpdateBug: boolean } | boolean;
+    } | undefined;
+    getDerivedStateFromProps?: { hasShouldComponentUpdateBug: boolean } | boolean | undefined;
     getChildContext?: {
         calledByRenderer: boolean;
         [key: string]: any;
-    };
+    } | undefined;
     setState?: any;
     // TODO Maybe some life cycle are missing
     [lifecycleName: string]: any;
@@ -631,11 +631,11 @@ export interface ShallowRendererProps {
      * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
      * setProps and setContext. Default to false.
      */
-    disableLifecycleMethods?: boolean;
+    disableLifecycleMethods?: boolean | undefined;
     /**
      * Enable experimental support for full react lifecycle methods
      */
-    lifecycleExperimental?: boolean;
+    lifecycleExperimental?: boolean | undefined;
     /**
      * Context to be passed into the component
      */
@@ -644,31 +644,31 @@ export interface ShallowRendererProps {
      * The legacy enableComponentDidUpdateOnSetState option should be matched by
      * `lifecycles: { componentDidUpdate: { onSetState: true } }`, for compatibility
      */
-    enableComponentDidUpdateOnSetState?: boolean;
+    enableComponentDidUpdateOnSetState?: boolean | undefined;
     /**
      * the legacy supportPrevContextArgumentOfComponentDidUpdate option should be matched by
      * `lifecycles: { componentDidUpdate: { prevContext: true } }`, for compatibility
      */
-    supportPrevContextArgumentOfComponentDidUpdate?: boolean;
-    lifecycles?: Lifecycles;
+    supportPrevContextArgumentOfComponentDidUpdate?: boolean | undefined;
+    lifecycles?: Lifecycles | undefined;
     /**
      * A component that will render as a parent of the node.
      * It can be used to provide context to the `node`, among other things.
      * See the [getWrappingComponent() docs](https://airbnb.io/enzyme/docs/api/ShallowWrapper/getWrappingComponent.html) for an example.
      * **Note**: `wrappingComponent` must render its children.
      */
-    wrappingComponent?: ComponentType<any>;
+    wrappingComponent?: ComponentType<any> | undefined;
     /**
      * Initial props to pass to the `wrappingComponent` if it is specified.
      */
-    wrappingComponentProps?: {};
+    wrappingComponentProps?: {} | undefined;
     /**
      * If set to true, when rendering Suspense enzyme will replace all the lazy components in children
      * with fallback element prop. Otherwise it won't handle fallback of lazy component.
      * Default to true. Note: not supported in React < 16.6.
      */
-    suspenseFallback?: boolean;
-    adapter?: EnzymeAdapter;
+    suspenseFallback?: boolean | undefined;
+    adapter?: EnzymeAdapter | undefined;
     /* TODO what are these doing??? */
     attachTo?: any;
     hydrateIn?: any;
@@ -679,26 +679,26 @@ export interface MountRendererProps {
     /**
      * Context to be passed into the component
      */
-    context?: {};
+    context?: {} | undefined;
     /**
      * DOM Element to attach the component to
      */
-    attachTo?: HTMLElement | null;
+    attachTo?: HTMLElement | null | undefined;
     /**
      * Merged contextTypes for all children of the wrapper
      */
-    childContextTypes?: {};
+    childContextTypes?: {} | undefined;
     /**
      * A component that will render as a parent of the node.
      * It can be used to provide context to the `node`, among other things.
      * See the [getWrappingComponent() docs](https://airbnb.io/enzyme/docs/api/ShallowWrapper/getWrappingComponent.html) for an example.
      * **Note**: `wrappingComponent` must render its children.
      */
-    wrappingComponent?: ComponentType<any>;
+    wrappingComponent?: ComponentType<any> | undefined;
     /**
      * Initial props to pass to the `wrappingComponent` if it is specified.
      */
-    wrappingComponentProps?: {};
+    wrappingComponentProps?: {} | undefined;
 }
 
 /**
@@ -729,7 +729,7 @@ export function render<P, S>(node: ReactElement<P>, options?: any): cheerio.Chee
 
 // See https://github.com/airbnb/enzyme/blob/v3.10.0/packages/enzyme/src/EnzymeAdapter.js
 export class EnzymeAdapter {
-    wrapWithWrappingComponent?: (node: ReactElement, options?: ShallowRendererProps) => any;
+    wrapWithWrappingComponent?: ((node: ReactElement, options?: ShallowRendererProps) => any) | undefined;
 }
 
 /**
@@ -745,5 +745,5 @@ export function configure(options: {
      * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
      * setProps and setContext. Default to false.
      */
-    disableLifecycleMethods?: boolean;
+    disableLifecycleMethods?: boolean | undefined;
 }): void;

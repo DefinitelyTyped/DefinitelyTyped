@@ -218,12 +218,12 @@ export interface TypeGeneratorOptions {
      * Import flow types from the Haste-style global module name or per-enum
      * global module name given by the function variant.
      */
-    readonly enumsHasteModule?: string | ((enumName: string) => string);
+    readonly enumsHasteModule?: string | ((enumName: string) => string) | undefined;
 
     /**
      * Optional normalization IR for generating raw response
      */
-    readonly normalizationIR?: Root;
+    readonly normalizationIR?: Root | undefined;
 }
 
 /**

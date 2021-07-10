@@ -16,7 +16,7 @@ declare namespace i18n {
          * Setup some locales - other locales default to en silently
          * @default []
          */
-        locales?: string[];
+        locales?: string[] | undefined;
 
         /**
          * Language fallback map
@@ -24,115 +24,115 @@ declare namespace i18n {
          */
         fallbacks?: {
             [locale: string]: string;
-        };
+        } | undefined;
 
         /**
          * Alter a site wide default locale
          * @default "en"
          */
-        defaultLocale?: string;
+        defaultLocale?: string | undefined;
 
         /**
          * Will return translation from defaultLocale in case current locale doesn't provide it
          * @default false
          */
-        retryInDefaultLocale?: boolean;
+        retryInDefaultLocale?: boolean | undefined;
 
         /**
          * Sets a custom cookie name to parse locale settings from
          * @default null
          */
-        cookie?: string;
+        cookie?: string | undefined;
 
         /**
          * Sets a custom header name to read the language preference from - accept-language header by default
          * @default 'accept-language'
          */
-        header?: string;
+        header?: string | undefined;
 
         /**
          * Query parameter to switch locale (ie. /home?lang=ch)
          * @default null
          */
-        queryParameter?: string;
+        queryParameter?: string | undefined;
 
         /**
          * Where to store json files, relative to modules directory
          * @default "./locales"
          */
-        directory?: string;
+        directory?: string | undefined;
 
         /**
          * Control mode on directory creation. Setting has no effect on win.
          * @default null
          */
-        directoryPermissions?: string;
+        directoryPermissions?: string | undefined;
 
         /**
          * Watch for changes in json files to reload locale on updates
          * @default false
          */
-        autoReload?: boolean;
+        autoReload?: boolean | undefined;
 
         /**
          * Whether to write new locale information to disk
          * @default true
          */
-        updateFiles?: boolean;
+        updateFiles?: boolean | undefined;
 
         /**
          * Sync locale information across all files
          * @default false
          */
-        syncFiles?: boolean;
+        syncFiles?: boolean | undefined;
 
         /**
          * What to use as the indentation unit
          * @default "\t"
          */
-        indent?: string;
+        indent?: string | undefined;
 
         /**
          * Setting extension of json files (you might want to set this to '.js' according to webtranslateit)
          * @default ".json"
          */
-        extension?: string;
+        extension?: string | undefined;
 
         /**
          * Setting prefix of json files name (in case you use different locale files naming scheme (webapp-en.json), rather then just en.json)
          * @default ""
          */
-        prefix?: string;
+        prefix?: string | undefined;
 
         /**
          * Enable object notation
          * @default false
          */
-        objectNotation?: boolean;
+        objectNotation?: boolean | undefined;
 
         /**
          * Setting of log level DEBUG
          * @default require("debug")("i18n:debug")
          */
-        logDebugFn?: (msg: string) => void;
+        logDebugFn?: ((msg: string) => void) | undefined;
 
         /**
          * Setting of log level WARN
          * @default require("debug")("i18n:warn")
          */
-        logWarnFn?: (msg: string) => void;
+        logWarnFn?: ((msg: string) => void) | undefined;
 
         /**
          * Setting of log level ERROR
          * @default require("debug")("i18n:error")
          */
-        logErrorFn?: (msg: string) => void;
+        logErrorFn?: ((msg: string) => void) | undefined;
 
         /**
          * Function to provide missing translations.
          * @since 0.10.0
          */
-        missingKeyFn?: (locale: string, value: string) => string;
+        missingKeyFn?: ((locale: string, value: string) => string) | undefined;
 
         /**
          * object or [obj1, obj2] to bind the i18n api and current locale to
@@ -147,14 +147,14 @@ declare namespace i18n {
          */
         api?: {
             [method: string]: string;
-        };
+        } | undefined;
 
         /**
          * Downcase locale when passed on queryParam; e.g. lang=en-US becomes en-us.
          * When set to false, the queryParam value will be used as passed; e.g. lang=en-US remains en-US.
          * @default true
          */
-        preserveLegacyCase?: boolean;
+        preserveLegacyCase?: boolean | undefined;
 
         /**
          * Static translation catalog. Setting this option overrides `locales`.
@@ -162,7 +162,7 @@ declare namespace i18n {
          * **NOTE**: Enabling `staticCatalog` disables all other fs realated options such as `updateFiles`, `autoReload` and `syncFiles`.
          * @since 0.10.0
          */
-        staticCatalog?: GlobalCatalog;
+        staticCatalog?: GlobalCatalog | undefined;
 
         /**
          * Use mustache with customTags (https://www.npmjs.com/package/mustache#custom-delimiters) or disable mustache entirely
@@ -171,22 +171,22 @@ declare namespace i18n {
             /**
              * @default ['{{', '}}']
              */
-            tags?: [string, string];
+            tags?: [string, string] | undefined;
             /**
              * @default false
              */
-            disable?: boolean;
-        };
+            disable?: boolean | undefined;
+        } | undefined;
     }
     interface TranslateOptions {
         phrase: string;
-        locale?: string;
+        locale?: string | undefined;
     }
     interface PluralOptions {
         singular: string;
         plural: string;
-        count?: number;
-        locale?: string;
+        count?: number | undefined;
+        locale?: string | undefined;
     }
     interface Replacements {
         [key: string]: string;

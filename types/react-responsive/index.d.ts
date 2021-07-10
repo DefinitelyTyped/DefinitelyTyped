@@ -9,81 +9,81 @@
 import * as React from "react";
 
 export interface MediaQueryTypes {
-    all?: boolean;
-    grid?: boolean;
-    aural?: boolean;
-    braille?: boolean;
-    handheld?: boolean;
-    print?: boolean;
-    projection?: boolean;
-    screen?: boolean;
-    tty?: boolean;
-    tv?: boolean;
-    embossed?: boolean;
+    all?: boolean | undefined;
+    grid?: boolean | undefined;
+    aural?: boolean | undefined;
+    braille?: boolean | undefined;
+    handheld?: boolean | undefined;
+    print?: boolean | undefined;
+    projection?: boolean | undefined;
+    screen?: boolean | undefined;
+    tty?: boolean | undefined;
+    tv?: boolean | undefined;
+    embossed?: boolean | undefined;
 }
 
 export type MediaQueryType = keyof MediaQueryTypes;
 
 export interface MediaQueryMatchers {
-    aspectRatio?: string;
-    deviceAspectRatio?: string;
-    height?: number | string;
-    deviceHeight?: number | string;
-    width?: number | string;
-    deviceWidth?: number | string;
-    color?: boolean;
-    colorIndex?: boolean;
-    monochrome?: boolean;
-    resolution?: number | string;
-    orientation?: 'portrait' | 'landscape';
-    scan?: 'progressive' | 'interlace';
-    type?: MediaQueryType;
+    aspectRatio?: string | undefined;
+    deviceAspectRatio?: string | undefined;
+    height?: number | string | undefined;
+    deviceHeight?: number | string | undefined;
+    width?: number | string | undefined;
+    deviceWidth?: number | string | undefined;
+    color?: boolean | undefined;
+    colorIndex?: boolean | undefined;
+    monochrome?: boolean | undefined;
+    resolution?: number | string | undefined;
+    orientation?: 'portrait' | 'landscape' | undefined;
+    scan?: 'progressive' | 'interlace' | undefined;
+    type?: MediaQueryType | undefined;
 }
 
 export interface MediaQueryFeatures extends MediaQueryMatchers {
-    minAspectRatio?: string;
-    maxAspectRatio?: string;
+    minAspectRatio?: string | undefined;
+    maxAspectRatio?: string | undefined;
 
-    minDeviceAspectRatio?: string;
-    maxDeviceAspectRatio?: string;
+    minDeviceAspectRatio?: string | undefined;
+    maxDeviceAspectRatio?: string | undefined;
 
-    minHeight?: number | string;
-    maxHeight?: number | string;
+    minHeight?: number | string | undefined;
+    maxHeight?: number | string | undefined;
 
-    minDeviceHeight?: number | string;
-    maxDeviceHeight?: number | string;
+    minDeviceHeight?: number | string | undefined;
+    maxDeviceHeight?: number | string | undefined;
 
-    minWidth?: number | string;
-    maxWidth?: number | string;
+    minWidth?: number | string | undefined;
+    maxWidth?: number | string | undefined;
 
-    minDeviceWidth?: number | string;
-    maxDeviceWidth?: number | string;
+    minDeviceWidth?: number | string | undefined;
+    maxDeviceWidth?: number | string | undefined;
 
-    minColor?: number;
-    maxColor?: number;
+    minColor?: number | undefined;
+    maxColor?: number | undefined;
 
-    minColorIndex?: number;
-    maxColorIndex?: number;
+    minColorIndex?: number | undefined;
+    maxColorIndex?: number | undefined;
 
-    minMonochrome?: number;
-    maxMonochrome?: number;
+    minMonochrome?: number | undefined;
+    maxMonochrome?: number | undefined;
 
-    minResolution?: number | string;
-    maxResolution?: number | string;
+    minResolution?: number | string | undefined;
+    maxResolution?: number | string | undefined;
 }
 
 export interface MediaQueryAllQueryable extends MediaQueryFeatures, MediaQueryTypes {}
 
 export interface MediaQueryProps extends MediaQueryAllQueryable {
-    component?: string | React.SFC<any> | React.ClassType<any, any, any> | React.ComponentClass<any>;
-    query?: string;
-    style?: React.CSSProperties;
-    className?: string;
-    children?: React.ReactNode | ((matches: boolean) => React.ReactNode);
-    device?: MediaQueryMatchers;
-    values?: Partial<MediaQueryMatchers>;
-    onBeforeChange?: (matches: boolean) => void;
-    onChange?: (matches: boolean) => void;
+    component?: string | React.SFC<any> | React.ClassType<any, any, any> | React.ComponentClass<any> | undefined;
+    query?: string | undefined;
+    style?: React.CSSProperties | undefined;
+    className?: string | undefined;
+    children?: React.ReactNode | ((matches: boolean) => React.ReactNode) | undefined;
+    device?: MediaQueryMatchers | undefined;
+    values?: Partial<MediaQueryMatchers> | undefined;
+    onBeforeChange?: ((matches: boolean) => void) | undefined;
+    onChange?: ((matches: boolean) => void) | undefined;
 }
 
 declare class MediaQuery extends React.Component<MediaQueryProps> { }
@@ -92,7 +92,7 @@ export function toQuery(matchers: Partial<MediaQueryAllQueryable>): string;
 export const Context: React.Context<Partial<MediaQueryAllQueryable>>;
 
 export function useMediaQuery(
-    settings: Partial<MediaQueryAllQueryable & { query?: string }>,
+    settings: Partial<MediaQueryAllQueryable & { query?: string | undefined }>,
     device?: MediaQueryMatchers,
     callback?: (matches: boolean) => void
 ): boolean;

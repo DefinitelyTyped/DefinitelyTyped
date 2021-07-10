@@ -11,13 +11,13 @@ export interface ReaderFragment {
     readonly kind: string; // 'Fragment';
     readonly name: string;
     readonly type: string;
-    readonly abstractKey?: string | null;
+    readonly abstractKey?: string | null | undefined;
     readonly metadata:
         | {
-              readonly connection?: ReadonlyArray<ConnectionMetadata>;
-              readonly mask?: boolean;
-              readonly plural?: boolean;
-              readonly refetch?: ReaderRefetchMetadata;
+              readonly connection?: ReadonlyArray<ConnectionMetadata> | undefined;
+              readonly mask?: boolean | undefined;
+              readonly plural?: boolean | undefined;
+              readonly refetch?: ReaderRefetchMetadata | undefined;
           }
         | null
         | undefined;
@@ -55,7 +55,7 @@ export interface ReaderPaginationMetadata {
 
 export interface ReaderRefetchableFragment extends ReaderFragment {
     readonly metadata: {
-        readonly connection?: [ConnectionMetadata];
+        readonly connection?: [ConnectionMetadata] | undefined;
         readonly refetch: ReaderRefetchMetadata;
     };
 }
@@ -124,7 +124,7 @@ export interface ReaderLiteral {
 export interface ReaderVariable {
     readonly kind: string; // 'Variable';
     readonly name: string;
-    readonly type?: string | null;
+    readonly type?: string | null | undefined;
     readonly variableName: string;
 }
 
@@ -152,10 +152,10 @@ export interface ReaderRootArgument {
 }
 
 export interface ReaderRefetchMetadata {
-    readonly connection?: ReaderPaginationMetadata | null;
+    readonly connection?: ReaderPaginationMetadata | null | undefined;
     readonly operation: string | ConcreteRequest;
     readonly fragmentPathInResult: ReadonlyArray<string>;
-    readonly identifierField?: string | null;
+    readonly identifierField?: string | null | undefined;
 }
 
 export interface ReaderCondition {
@@ -180,7 +180,7 @@ export interface ReaderInlineFragment {
     readonly kind: string; // 'InlineFragment';
     readonly selections: ReadonlyArray<ReaderSelection>;
     readonly type: string;
-    readonly abstractKey?: string | null;
+    readonly abstractKey?: string | null | undefined;
 }
 
 export type ReaderSelectableNode = ReaderFragment | ReaderSplitOperation;

@@ -20,7 +20,11 @@ const MyVisitor: Visitor = {
 const MyVisitor2: Visitor = {
     Identifier(path) {
         path.type; // $ExpectType "Identifier"
+        path.parentPath; // $ExpectType NodePath<Node>
         console.log('Visiting: ' + path.node.name);
+    },
+    Program(path) {
+        path.parentPath; // $ExpectType null
     },
 };
 
@@ -347,13 +351,11 @@ const visitorWithInvalidDenylist: Visitor = {
 };
 
 // Test that NodePath can be narrowed from union to single type
-const path: NodePath<
-  t.ExportDefaultDeclaration | t.ExportNamedDeclaration
-> = new NodePath<t.ExportNamedDeclaration>(
-  null as any,
-  {} as any,
+const path: NodePath<t.ExportDefaultDeclaration | t.ExportNamedDeclaration> = new NodePath<t.ExportNamedDeclaration>(
+    null as any,
+    {} as any,
 );
 
 if (path.isExportNamedDeclaration()) {
-  path.type; // $ExpectType "ExportNamedDeclaration"
+    path.type; // $ExpectType "ExportNamedDeclaration"
 }

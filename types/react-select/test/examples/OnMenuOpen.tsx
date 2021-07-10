@@ -7,7 +7,7 @@ import { Note } from '../styled-components';
 const Checkbox = (props: any) => <input type="checkbox" {...props} />;
 
 interface State {
-    defaultMenuScroll?: number;
+    defaultMenuScroll?: number | undefined;
 }
 
 export default class SelectScrolledMenu extends React.Component<{}, State> {

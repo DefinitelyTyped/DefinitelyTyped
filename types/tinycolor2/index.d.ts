@@ -61,17 +61,17 @@ declare namespace tinycolor {
     }
 
     interface ConstructorOptions {
-        format?: string;
-        gradientType?: boolean;
+        format?: string | undefined;
+        gradientType?: boolean | undefined;
     }
 
     interface WCAG2Options {
-        level?: "AA" | "AAA";
-        size?: "large" | "small";
+        level?: "AA" | "AAA" | undefined;
+        size?: "large" | "small" | undefined;
     }
 
     interface MostReadableArgs extends WCAG2Options {
-        includeFallbackColors?: boolean;
+        includeFallbackColors?: boolean | undefined;
     }
 
     interface Constructor {

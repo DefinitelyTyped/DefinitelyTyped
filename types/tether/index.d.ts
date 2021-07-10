@@ -23,25 +23,25 @@ declare class Tether {
 declare namespace Tether {
     interface ITetherOptions {
         attachment: string;
-        bodyElement?: HTMLElement;
-        classes?: {[className: string]: boolean | string};
-        classPrefix?: string;
-        constraints?: ITetherConstraint[];
-        element?: HTMLElement | string | any /* JQuery */;
-        enabled?: boolean;
-        offset?: string;
+        bodyElement?: HTMLElement | undefined;
+        classes?: {[className: string]: boolean | string} | undefined;
+        classPrefix?: string | undefined;
+        constraints?: ITetherConstraint[] | undefined;
+        element?: HTMLElement | string | any | undefined /* JQuery */;
+        enabled?: boolean | undefined;
+        offset?: string | undefined;
         optimizations?: any;
-        target?: HTMLElement | string | any /* JQuery */;
-        targetAttachment?: string;
-        targetOffset?: string;
-        targetModifier?: string;
+        target?: HTMLElement | string | any | undefined /* JQuery */;
+        targetAttachment?: string | undefined;
+        targetOffset?: string | undefined;
+        targetModifier?: string | undefined;
     }
 
     interface ITetherConstraint {
-        attachment?: string;
-        outOfBoundsClass?: string;
-        pin?: boolean | string[];
-        pinnedClass?: string;
-        to?: string | HTMLElement | number[];
+        attachment?: string | undefined;
+        outOfBoundsClass?: string | undefined;
+        pin?: boolean | string[] | undefined;
+        pinnedClass?: string | undefined;
+        to?: string | HTMLElement | number[] | undefined;
     }
 }

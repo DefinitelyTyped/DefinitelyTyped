@@ -17,9 +17,9 @@ declare namespace cwise {
         pre?(a: number, ...args: any[]): void;
         body(a: number, ...args: any[]): void;
         post?(a: number, ...args: any[]): void;
-        funcName?: string;
-        blockSize?: number;
-        printCode?: boolean;
+        funcName?: string | undefined;
+        blockSize?: number | undefined;
+        printCode?: boolean | undefined;
     }
 }
 export = cwise;

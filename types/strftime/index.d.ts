@@ -26,15 +26,15 @@ declare module "strftime" {
          * @interface
          */
         export interface LocaleFormats {
-            D?: string;
-            F?: string;
-            R?: string;
-            T?: string;
-            X?: string;
-            c?: string;
-            r?: string;
-            v?: string;
-            x?: string;
+            D?: string | undefined;
+            F?: string | undefined;
+            R?: string | undefined;
+            T?: string | undefined;
+            X?: string | undefined;
+            c?: string | undefined;
+            r?: string | undefined;
+            v?: string | undefined;
+            x?: string | undefined;
         }
 
         /**
@@ -42,14 +42,14 @@ declare module "strftime" {
          * @interface
          */
         export interface Locale {
-            days?: Array<string>;
-            shortDays?: Array<string>;
-            months?: Array<string>;
-            shortMonths?: Array<string>;
-            AM?: string;
-            PM?: string;
-            am?: string;
-            pm?: string;
+            days?: Array<string> | undefined;
+            shortDays?: Array<string> | undefined;
+            months?: Array<string> | undefined;
+            shortMonths?: Array<string> | undefined;
+            AM?: string | undefined;
+            PM?: string | undefined;
+            am?: string | undefined;
+            pm?: string | undefined;
             formats: LocaleFormats
         }
     }

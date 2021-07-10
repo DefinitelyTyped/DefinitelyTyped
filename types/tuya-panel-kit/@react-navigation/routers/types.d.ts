@@ -3,7 +3,7 @@ import type * as CommonActions from './CommonActions';
 export declare type CommonNavigationAction = CommonActions.Action;
 // tslint:disable-next-line strict-export-declare-modifiers
 declare type NavigationRoute<ParamList extends ParamListBase, RouteName extends keyof ParamList> = Route<Extract<RouteName, string>, ParamList[RouteName]> & {
-    state?: NavigationState | PartialState<NavigationState>;
+    state?: NavigationState | PartialState<NavigationState> | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type NavigationState<ParamList extends ParamListBase = ParamListBase> = Readonly<{
@@ -23,7 +23,7 @@ export declare type NavigationState<ParamList extends ParamListBase = ParamListB
     /**
      * Alternative entries for history.
      */
-    history?: unknown[];
+    history?: unknown[] | undefined;
     /**
      * List of rendered routes.
      */
@@ -44,17 +44,17 @@ export declare type NavigationState<ParamList extends ParamListBase = ParamListB
 export declare type InitialState = Readonly<Partial<Omit<NavigationState, 'stale' | 'routes'>> & {
     // tslint:disable-next-line array-type
     routes: (Omit<Route<string>, 'key'> & {
-        state?: InitialState;
+        state?: InitialState | undefined;
     })[];
 }>;
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type PartialRoute<R extends Route<string>> = Omit<R, 'key'> & {
-    key?: string;
-    state?: PartialState<NavigationState>;
+    key?: string | undefined;
+    state?: PartialState<NavigationState> | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type PartialState<State extends NavigationState> = Partial<Omit<State, 'stale' | 'routes'>> & Readonly<{
-    stale?: true;
+    stale?: true | undefined;
     // tslint:disable-next-line array-type
     routes: PartialRoute<Route<State['routeNames'][number]>>[];
 }>;
@@ -72,7 +72,7 @@ export declare type Route<RouteName extends string, Params extends object | unde
     /**
      * Params for this route
      */
-    params?: Readonly<Params>;
+    params?: Readonly<Params> | undefined;
 }> : Readonly<{
     /**
      * Params for this route
@@ -90,15 +90,15 @@ export declare type NavigationAction = Readonly<{
     /**
      * Additional data for the action
      */
-    payload?: object;
+    payload?: object | undefined;
     /**
      * Key of the route which dispatched this action.
      */
-    source?: string;
+    source?: string | undefined;
     /**
      * Key of the navigator which should handle this action.
      */
-    target?: string;
+    target?: string | undefined;
 }>;
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type ActionCreators<Action extends NavigationAction> = {
@@ -110,7 +110,7 @@ export declare type DefaultRouterOptions<RouteName extends string = string> = {
      * Name of the route to focus by on initial render.
      * If not specified, usually the first route is used.
      */
-    initialRouteName?: RouteName;
+    initialRouteName?: RouteName | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type RouterFactory<State extends NavigationState, Action extends NavigationAction, RouterOptions extends DefaultRouterOptions> = (options: RouterOptions) => Router<State, Action>;
@@ -175,6 +175,6 @@ export declare type Router<State extends NavigationState, Action extends Navigat
     /**
      * Action creators for the router.
      */
-    actionCreators?: ActionCreators<Action>;
+    actionCreators?: ActionCreators<Action> | undefined;
 };
 export {};

@@ -15,9 +15,9 @@ declare namespace node_geocoder {
 
     interface BaseOptions {
         provider: string;
-        httpAdapter?: 'https' | 'http' | 'request';
-        timeout?: number;
-        formatterPattern?: string;
+        httpAdapter?: 'https' | 'http' | 'request' | undefined;
+        timeout?: number | undefined;
+        formatterPattern?: string | undefined;
         formatter?: any;
     }
 
@@ -25,32 +25,32 @@ declare namespace node_geocoder {
         provider: 'here';
         appId: string;
         appCode: string;
-        language?: string;
-        politicalView?: string;
-        country?: string;
-        state?: string;
-        production?: boolean;
+        language?: string | undefined;
+        politicalView?: string | undefined;
+        country?: string | undefined;
+        state?: string | undefined;
+        production?: boolean | undefined;
     }
 
     interface OpenStreetMapOptions {
         provider: 'openstreetmap';
-        language?: string;
-        email?: string;
-        apiKey?: string;
-        osmServer?: string;
+        language?: string | undefined;
+        email?: string | undefined;
+        apiKey?: string | undefined;
+        osmServer?: string | undefined;
     }
 
     interface OpenDataFranceOptions {
         provider: 'opendatafrance';
-        language?: string;
-        email?: string;
-        apiKey?: string;
+        language?: string | undefined;
+        email?: string | undefined;
+        apiKey?: string | undefined;
     }
 
     interface AgolOptions {
         provider: 'agol';
-        client_id?: string;
-        client_secret?: string;
+        client_id?: string | undefined;
+        client_secret?: string | undefined;
     }
 
     interface SmartyStreetsOptions {
@@ -61,19 +61,19 @@ declare namespace node_geocoder {
 
     interface GoogleOptions {
         provider: 'google';
-        clientId?: string;
-        apiKey?: string;
-        language?: string;
-        region?: string;
-        excludePartialMatches?: boolean;
-        channel?: string;
+        clientId?: string | undefined;
+        apiKey?: string | undefined;
+        language?: string | undefined;
+        region?: string | undefined;
+        excludePartialMatches?: boolean | undefined;
+        channel?: string | undefined;
     }
 
     interface GenericOptions {
         provider: Providers;
-        apiKey?: string;
-        language?: string;
-        host?: string;
+        apiKey?: string | undefined;
+        language?: string | undefined;
+        host?: string | undefined;
     }
 
     type Options = BaseOptions & (GenericOptions | HereOptions | OpenStreetMapOptions | OpenDataFranceOptions | AgolOptions | SmartyStreetsOptions | GoogleOptions);
@@ -84,40 +84,40 @@ declare namespace node_geocoder {
     }
 
     interface Entry {
-        formattedAddress?: string;
-        latitude?: number;
-        longitude?: number;
+        formattedAddress?: string | undefined;
+        latitude?: number | undefined;
+        longitude?: number | undefined;
         extra?: {
-            googlePlaceId?: string;
-            confidence?: number;
-        };
+            googlePlaceId?: string | undefined;
+            confidence?: number | undefined;
+        } | undefined;
         administrativeLevels?: {
-            level1long?: string;
-            level1short?: string;
-            level2long?: string;
-            level2short?: string;
-        };
-        city?: string;
-        streetName?: string;
-        streetNumber?: string;
-        country?: string;
-        countryCode?: string;
-        zipcode?: string;
-        provider?: string;
-        state?: string;
-        stateCode?: string;
-        county?: string;
-        district?: string;
-        building?: string;
+            level1long?: string | undefined;
+            level1short?: string | undefined;
+            level2long?: string | undefined;
+            level2short?: string | undefined;
+        } | undefined;
+        city?: string | undefined;
+        streetName?: string | undefined;
+        streetNumber?: string | undefined;
+        country?: string | undefined;
+        countryCode?: string | undefined;
+        zipcode?: string | undefined;
+        provider?: string | undefined;
+        state?: string | undefined;
+        stateCode?: string | undefined;
+        county?: string | undefined;
+        district?: string | undefined;
+        building?: string | undefined;
     }
 
     interface Query {
-        address?: string;
-        country?: string;
-        countryCode?: string;
-        zipcode?: string;
-        minConfidence?: number;
-        limit?: number;
+        address?: string | undefined;
+        country?: string | undefined;
+        countryCode?: string | undefined;
+        zipcode?: string | undefined;
+        minConfidence?: number | undefined;
+        limit?: number | undefined;
     }
 
     interface BatchResult {

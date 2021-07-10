@@ -29,13 +29,13 @@ export interface AppEnv {
 }
 
 export interface GetAppEnvOptions {
-    name?: string;
-    protocol?: string;
+    name?: string | undefined;
+    protocol?: string | undefined;
     vcap?: {
-        application?: string;
-        services?: string;
-    };
-    vcapFile?: string;
+        application?: string | undefined;
+        services?: string | undefined;
+    } | undefined;
+    vcapFile?: string | undefined;
 }
 
 export function getAppEnv(options?: GetAppEnvOptions): AppEnv;

@@ -23,10 +23,10 @@ export interface VirtualizedOptionRenderOptions<T> {
 }
 
 export interface AdditionalVirtualizedSelectProps<TValue> {
-    maxHeight?: number;
-    optionHeight?: number | ((options: { option: TValue }) => number);
+    maxHeight?: number | undefined;
+    optionHeight?: number | ((options: { option: TValue }) => number) | undefined;
     optionRenderer?(options: VirtualizedOptionRenderOptions<TValue>): JSX.Element;
-    selectComponent?: React.ComponentClass<any> | React.StatelessComponent<any>;
+    selectComponent?: React.ComponentClass<any> | React.StatelessComponent<any> | undefined;
 }
 
 type VirtualizedSelectProps<TValue = OptionValues> = (ReactCreatableSelectProps<TValue> & ReactAsyncSelectProps<TValue> & AdditionalVirtualizedSelectProps<TValue> & { async: true }) |

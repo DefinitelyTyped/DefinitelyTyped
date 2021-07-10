@@ -3,18 +3,18 @@ export interface ojFilmStrip extends baseComponent<ojFilmStripSettableProperties
     arrowPlacement: 'adjacent' | 'overlay';
     arrowVisibility: 'visible' | 'hidden' | 'hover' | 'auto';
     currentItem: {
-        id?: string;
-        index?: number;
+        id?: string | undefined;
+        index?: number | undefined;
     };
     looping: 'off' | 'page';
     maxItemsPerPage: number;
     orientation: 'horizontal' | 'vertical';
     translations: {
-        labelAccArrowNextPage?: string;
-        labelAccArrowPreviousPage?: string;
-        labelAccFilmStrip?: string;
-        tipArrowNextPage?: string;
-        tipArrowPreviousPage?: string;
+        labelAccArrowNextPage?: string | undefined;
+        labelAccArrowPreviousPage?: string | undefined;
+        labelAccFilmStrip?: string | undefined;
+        tipArrowNextPage?: string | undefined;
+        tipArrowPreviousPage?: string | undefined;
     };
     onArrowPlacementChanged: ((event: JetElementCustomEvent<ojFilmStrip["arrowPlacement"]>) => any) | null;
     onArrowVisibilityChanged: ((event: JetElementCustomEvent<ojFilmStrip["arrowVisibility"]>) => any) | null;
@@ -44,18 +44,18 @@ export interface ojFilmStripSettableProperties extends baseComponentSettableProp
     arrowPlacement: 'adjacent' | 'overlay';
     arrowVisibility: 'visible' | 'hidden' | 'hover' | 'auto';
     currentItem: {
-        id?: string;
-        index?: number;
+        id?: string | undefined;
+        index?: number | undefined;
     };
     looping: 'off' | 'page';
     maxItemsPerPage: number;
     orientation: 'horizontal' | 'vertical';
     translations: {
-        labelAccArrowNextPage?: string;
-        labelAccArrowPreviousPage?: string;
-        labelAccFilmStrip?: string;
-        tipArrowNextPage?: string;
-        tipArrowPreviousPage?: string;
+        labelAccArrowNextPage?: string | undefined;
+        labelAccArrowPreviousPage?: string | undefined;
+        labelAccFilmStrip?: string | undefined;
+        tipArrowNextPage?: string | undefined;
+        tipArrowPreviousPage?: string | undefined;
     };
 }
 export interface ojFilmStripSettablePropertiesLenient extends Partial<ojFilmStripSettableProperties> {

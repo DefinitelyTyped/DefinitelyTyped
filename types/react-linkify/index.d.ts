@@ -41,22 +41,22 @@ export interface Props {
    * Default to using exisint <a> tag with the provided href={decoratedHref}, key={key}
    * and children={decoratedText}, without additional styling
    */
-  componentDecorator?: (decoratedHref: string, decoratedText: string, key: number) => React.ReactNode;
+  componentDecorator?: ((decoratedHref: string, decoratedText: string, key: number) => React.ReactNode) | undefined;
   /**
    * Custom href decorator or mapper on the matched (url) href
    * Default to no transformation
    */
-  hrefDecorator?: (urlHref: string) => string;
+  hrefDecorator?: ((urlHref: string) => string) | undefined;
   /**
    * Custom matcher for (url), that returns each match with the matching information
    * Default to https://github.com/markdown-it/linkify-it's LinkifyIt().tlds(tlds).match
    */
-  matchDecorator?: (text: string) => MatchInfo[] | null;
+  matchDecorator?: ((text: string) => MatchInfo[] | null) | undefined;
   /**
    * Custom text decorator or mapper on the matched (url) text
    * Default to no transformation
    */
-  textDecorator?: (urlText: string) => string;
+  textDecorator?: ((urlText: string) => string) | undefined;
 }
 
 export default class ReactLinkify extends React.Component<Props> { }

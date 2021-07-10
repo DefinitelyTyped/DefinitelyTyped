@@ -11,11 +11,11 @@ declare function SwaggerExpressValidator(options: SwaggerExpressValidator.Option
 declare namespace SwaggerExpressValidator {
     interface Options {
         schema: string;
-        validateRequest?: boolean;
-        validateResponse?: boolean;
-        allowNullable?: boolean;
-        requestValidationFn?: (req: Request, data: any, errors: any) => void;
-        responseValidationFn?: (req: Request, data: any, errors: any) => void;
+        validateRequest?: boolean | undefined;
+        validateResponse?: boolean | undefined;
+        allowNullable?: boolean | undefined;
+        requestValidationFn?: ((req: Request, data: any, errors: any) => void) | undefined;
+        responseValidationFn?: ((req: Request, data: any, errors: any) => void) | undefined;
     }
 
     function validator(options: Options): RequestHandler;

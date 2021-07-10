@@ -7,8 +7,8 @@ import Pumpify = require("pumpify");
 
 declare namespace csv2json {
   interface Options {
-    dynamicTyping?: boolean;
-    separator?: string;
+    dynamicTyping?: boolean | undefined;
+    separator?: string | undefined;
   }
 }
 

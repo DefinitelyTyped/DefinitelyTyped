@@ -10,7 +10,7 @@ declare namespace echarts {
              * Component ID, not specified by default.
              * If specified, it can be used to refer the component in option or API.
              */
-            id?: string;
+            id?: string | undefined;
             /**
              * zlevel value of all graphical elements in.
              * zlevel is used to make layers with Canvas.
@@ -21,7 +21,7 @@ declare namespace echarts {
              *
              * @default 0
              */
-            zlevel?: number;
+            zlevel?: number | undefined;
             /**
              * z value of all graphical elements in, which controls order of drawing graphical components.
              * Components with smaller z values may be overwritten by those with larger z values.
@@ -29,7 +29,7 @@ declare namespace echarts {
              *
              * @default 2
              */
-            z?: number;
+            z?: number | undefined;
             /**
              * Distance between calendar component and the left side of the container.
              * left value can be instant pixel value like 20;
@@ -40,7 +40,7 @@ declare namespace echarts {
              *
              * @default 80
              */
-            left?: number | string;
+            left?: number | string | undefined;
             /**
              * Distance between calendar component and the top side of the container.
              * top value can be instant pixel value like 20;
@@ -51,7 +51,7 @@ declare namespace echarts {
              *
              * @default 60
              */
-            top?: number | string;
+            top?: number | string | undefined;
             /**
              * Distance between calendar component and the right side of the container.
              * right value can be instant pixel value like 20;
@@ -60,7 +60,7 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            right?: number | string;
+            right?: number | string | undefined;
             /**
              * Distance between calendar component and the bottom side of the container.
              * bottom value can be instant pixel value like 20;
@@ -69,7 +69,7 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            bottom?: number | string;
+            bottom?: number | string | undefined;
             /**
              * The height of calendar coordinates.
              * Note: cellSize is 20 by default.
@@ -77,19 +77,19 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            width?: number | string;
+            width?: number | string | undefined;
             /**
              * The height of calendar coordinates.
              * Note: cellSize is 20 by default.
              * If height is set, cellSize[1] will be forced to auto;
              */
-            height?: number | string;
+            height?: number | string | undefined;
             /**
              * Required, range of Calendar coordinates, support multiple formats.
              *
              * @see https://echarts.apache.org/en/option.html#calendar
              */
-            range?: number | string | number[] | string[];
+            range?: number | string | number[] | string[] | undefined;
             /**
              * The size of each rect of calendar coordinates,
              * can be set to a single value or array,
@@ -98,11 +98,11 @@ declare namespace echarts {
              *
              * @default 20
              */
-            cellSize?: number | 'auto' | ('auto' | number)[];
+            cellSize?: number | 'auto' | ('auto' | number)[] | undefined;
             /**
              * The layout orientation of calendar.
              */
-            orient?: 'horizontal' | 'vertical';
+            orient?: 'horizontal' | 'vertical' | undefined;
             /**
              * Calendar coordinates splitLine style.
              */
@@ -112,47 +112,47 @@ declare namespace echarts {
                  *
                  * @default true
                  */
-                show?: boolean;
-                lineStyle?: LineStyle;
-            };
+                show?: boolean | undefined;
+                lineStyle?: LineStyle | undefined;
+            } | undefined;
             /**
              * Every rect style in calendar coordinates.
              *
              * @see https://echarts.apache.org/en/option.html#calendar.itemStyle
              */
             itemStyle?: {
-                color?: EChartOption.Color;
-                borderColor?: EChartOption.Color;
-                borderWidth?: number;
-                borderType?: 'solid' | 'dashed' | 'dotted';
-                shadowBlur?: number;
-                shadowColor?: EChartOption.Color;
-                shadowOffsetX?: number;
-                shadowOffsetY?: number;
-                opacity?: number;
-            };
+                color?: EChartOption.Color | undefined;
+                borderColor?: EChartOption.Color | undefined;
+                borderWidth?: number | undefined;
+                borderType?: 'solid' | 'dashed' | 'dotted' | undefined;
+                shadowBlur?: number | undefined;
+                shadowColor?: EChartOption.Color | undefined;
+                shadowOffsetX?: number | undefined;
+                shadowOffsetY?: number | undefined;
+                opacity?: number | undefined;
+            } | undefined;
             /**
              * Day style in calendar coordinates.
              * @see https://echarts.apache.org/en/option.html#calendar.dayLabel
              */
-            dayLabel?: Calendar.DayLabel;
+            dayLabel?: Calendar.DayLabel | undefined;
             /**
              * Month label in calendar coordinates.
              * @see https://echarts.apache.org/en/option.html#calendar.monthLabel
              */
-            monthLabel?: Calendar.MonthLabel;
+            monthLabel?: Calendar.MonthLabel | undefined;
             /**
              * Year label in calendar coordinates.
              * @see https://echarts.apache.org/en/option.html#calendar.yearLabel
              */
-            yearLabel?: Calendar.YearLabel;
+            yearLabel?: Calendar.YearLabel | undefined;
             /**
              * Whether to ignore mouse events.
              * Default value is false, for triggering and responding to mouse events.
              *
              * @default false
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
         }
         namespace Calendar {
             interface Label extends TextStyleWithRich {
@@ -161,18 +161,18 @@ declare namespace echarts {
                  *
                  * @default true
                  */
-                show?: boolean;
+                show?: boolean | undefined;
                 /**
                  * The margin between the label and the axis line.
                  */
-                margin?: number;
+                margin?: number | undefined;
                 /**
                  * Week text content, defaults to 'en'; It supports Chinese, English, and custom;
                  * index 0 always means Sunday;
                  *
                  * @default 'en'
                  */
-                nameMap?: string | number | (string | number)[];
+                nameMap?: string | number | (string | number)[] | undefined;
             }
             interface DayLabel extends Label {
                 /**
@@ -180,35 +180,35 @@ declare namespace echarts {
                  *
                  * @default 0
                  */
-                firstDay?: number;
+                firstDay?: number | undefined;
                 /**
                  * Position of week, at the beginning or end of the range.
                  *
                  * @default 'start'
                  */
-                position?: 'start' | 'end';
+                position?: 'start' | 'end' | undefined;
             }
             interface MonthLabel extends Label {
                 /**
                  * Formatter of month text label, which supports string template and callback function.
                  */
-                formatter?: string | MonthLabelFormatter;
+                formatter?: string | MonthLabelFormatter | undefined;
                 /**
                  * Position of week, at the beginning or end of the range.
                  *
                  * @default 'start'
                  */
-                position?: 'start' | 'end';
+                position?: 'start' | 'end' | undefined;
             }
             interface MonthLabelFormatter {
                 (params: MonthLabelFormatterParams): string;
             }
             interface MonthLabelFormatterParams {
-                nameMap?: string | number | (string | number)[];
-                yyyy?: number;
-                yy?: number;
-                MM?: number;
-                M?: number;
+                nameMap?: string | number | (string | number)[] | undefined;
+                yyyy?: number | undefined;
+                yy?: number | undefined;
+                MM?: number | undefined;
+                M?: number | undefined;
             }
             interface YearLabel extends Label {
                 /**
@@ -216,21 +216,21 @@ declare namespace echarts {
                  * By default, the current range of the year,
                  * if the interval across the year, showing the first year and the last year
                  */
-                formatter?: string;
+                formatter?: string | undefined;
                 /**
                  * Position of year.
                  * Default: when orient is set as horizontal,
                  * position is left when orient is set as vertical, position is top
                  */
-                position?: 'top' | 'bottom' | 'left' | 'right';
+                position?: 'top' | 'bottom' | 'left' | 'right' | undefined;
             }
             interface YearLabelFormatter {
                 (params: YearLabelFormatterParams): string;
             }
             interface YearLabelFormatterParams {
-                nameMap?: string | number | (string | number)[];
-                start?: number;
-                end?: number;
+                nameMap?: string | number | (string | number)[] | undefined;
+                start?: number | undefined;
+                end?: number | undefined;
             }
         }
     }

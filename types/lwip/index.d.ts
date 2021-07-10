@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-export type ColorObject = { r: number, g: number, b: number, a?: number };
+export type ColorObject = { r: number, g: number, b: number, a?: number | undefined };
 export type Color = string | [number, number, number, number] | ColorObject;
 
 export interface ImageCallback {
@@ -52,19 +52,19 @@ export function create(width: number, height: number, callback: ImageCallback): 
 export function create(width: number, height: number, color: Color, callback: ImageCallback): void;
 
 export type JpegBufferParams = {
-    quality?: number;
+    quality?: number | undefined;
 };
 
 export type PngBufferParams = {
-    compression?: string;
-    interlaced?: boolean;
-    transparency?: boolean | string;
+    compression?: string | undefined;
+    interlaced?: boolean | undefined;
+    transparency?: boolean | string | undefined;
 };
 
 export type GifBufferParams = {
-    colors?: number;
-    interlaced?: boolean;
-    transparency?: boolean | string;
+    colors?: number | undefined;
+    interlaced?: boolean | undefined;
+    transparency?: boolean | string | undefined;
     threshold: number;
 }
 

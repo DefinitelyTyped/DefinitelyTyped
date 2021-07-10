@@ -519,21 +519,21 @@ declare module 'durandal/composition' {
         parent: HTMLElement;
         activeView: HTMLElement;
         triggerAttach(): void;
-        bindingContext?: KnockoutBindingContext;
-        cacheViews?: boolean;
-        viewElements?: HTMLElement[];
+        bindingContext?: KnockoutBindingContext | undefined;
+        cacheViews?: boolean | undefined;
+        viewElements?: HTMLElement[] | undefined;
         model?: any;
         view?: any;
-        area?: string;
-        preserveContext?: boolean;
-        activate?: boolean;
-        strategy?: (context: CompositionContext) => DurandalPromise<HTMLElement>;
+        area?: string | undefined;
+        preserveContext?: boolean | undefined;
+        activate?: boolean | undefined;
+        strategy?: ((context: CompositionContext) => DurandalPromise<HTMLElement>) | undefined;
         composingNewView: boolean;
         child: HTMLElement;
-        binding?: (child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void;
-        attached?: (child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void;
-        compositionComplete?: (child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void;
-        transition?: string;
+        binding?: ((child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void) | undefined;
+        attached?: ((child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void) | undefined;
+        compositionComplete?: ((child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void) | undefined;
+        transition?: string | undefined;
     }
 
     /**
@@ -695,7 +695,7 @@ declare module 'plugins/dialog' {
         /**
          * Opacity of the blockout. The default is 0.6.
          */
-        blockoutOpacity?: number;
+        blockoutOpacity?: number | undefined;
     }
 
     interface Dialog {
@@ -1006,7 +1006,7 @@ declare module 'plugins/serializer' {
          * @param {object} value The object value to check.
          * @returns {object} The value to serialize.
         */
-        replacer?: (key: string, value: any) => any;
+        replacer?: ((key: string, value: any) => any) | undefined;
 
         /**
          * The amount of space to use for indentation when writing out JSON.
@@ -1488,35 +1488,35 @@ interface DurandalHistoryOptions {
     /**
      * The function that will be called back when the fragment changes.
      */
-    routeHandler?: (fragment: string) => void;
+    routeHandler?: ((fragment: string) => void) | undefined;
 
     /**
      * The url root used to extract the fragment when using push state.
      */
-    root?: string;
+    root?: string | undefined;
 
     /**
      * Use hash change when present.
      * @default true
      */
-    hashChange?: boolean;
+    hashChange?: boolean | undefined;
 
     /**
      * Use push state when present.
      * @default false
      */
-    pushState?: boolean;
+    pushState?: boolean | undefined;
 
     /**
      * Prevents loading of the current url when activating history.
      * @default false
      */
-    silent?: boolean;
+    silent?: boolean | undefined;
 
     /**
      * Override default history init behavior by navigating directly to this route.
      */
-    startRoute?: string;
+    startRoute?: string | undefined;
 }
 
 interface DurandalNavigationOptions {
@@ -1526,14 +1526,14 @@ interface DurandalNavigationOptions {
 
 interface DurandalRouteConfiguration {
     title?: any;
-    moduleId?: string;
-    hash?: string;
-    route?: string | string[];
-    routePattern?: RegExp;
-    isActive?: KnockoutComputed<boolean>;
+    moduleId?: string | undefined;
+    hash?: string | undefined;
+    route?: string | string[] | undefined;
+    routePattern?: RegExp | undefined;
+    isActive?: KnockoutComputed<boolean> | undefined;
     nav?: any;
-    hasChildRoutes?: boolean;
-    viewUrl?: string;
+    hasChildRoutes?: boolean | undefined;
+    viewUrl?: string | undefined;
 }
 
 interface DurandalRouteInstruction {
@@ -1545,10 +1545,10 @@ interface DurandalRouteInstruction {
 }
 
 interface DurandalRelativeRouteSettings {
-    moduleId?: string;
-    route?: string;
-    fromParent?: boolean;
-    dynamicHash?: string;
+    moduleId?: string | undefined;
+    route?: string | undefined;
+    fromParent?: boolean | undefined;
+    dynamicHash?: string | undefined;
 }
 
 interface DurandalRouterBase<T> extends DurandalEventSupport<T> {
@@ -1785,12 +1785,12 @@ interface DurandalRouterBase<T> extends DurandalEventSupport<T> {
      * @param {object} instruction The route instruction. The instruction object has config, fragment, queryString, params and queryParams properties.
      * @returns {Promise|Boolean|String} If a boolean, determines whether or not the route should activate or be cancelled. If a string, causes a redirect to the specified route. Can also be a promise for either of these value types.
      */
-    guardRoute?: (instance: Object, instruction: DurandalRouteInstruction) => DurandalPromise<boolean | string> | boolean | string;
+    guardRoute?: ((instance: Object, instruction: DurandalRouteInstruction) => DurandalPromise<boolean | string> | boolean | string) | undefined;
 
     /**
      * Parent router of the current child router.
      */
-    parent?: DurandalRouter;
+    parent?: DurandalRouter | undefined;
 }
 
 interface DurandalRouter extends DurandalRouterBase<DurandalRouter> { }

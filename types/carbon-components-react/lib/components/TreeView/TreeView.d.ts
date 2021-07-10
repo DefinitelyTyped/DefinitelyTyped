@@ -4,13 +4,13 @@ import TreeNode, { TreeNodeStandaloneProps } from "./TreeNode";
 
 type ExcludedAttributes = "aria-label" | "aria-labelledby" | "onSelect" | "ref" | "role";
 export interface TreeViewProps extends Omit<ReactAttr<HTMLUListElement>, ExcludedAttributes> {
-    active?: number | string;
-    hideLabel?: boolean;
+    active?: number | string | undefined;
+    hideLabel?: boolean | undefined;
     label: string;
-    multiselect?: boolean;
-    onSelect?: TreeNodeStandaloneProps["onSelect"];
+    multiselect?: boolean | undefined;
+    onSelect?: TreeNodeStandaloneProps["onSelect"] | undefined;
     selected: ReadonlyArray<number | string>;
-    size?: "compact" | "default";
+    size?: "compact" | "default" | undefined;
 }
 
 interface TreeViewFC extends React.FC<TreeViewProps> {

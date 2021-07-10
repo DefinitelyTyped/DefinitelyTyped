@@ -1,10 +1,10 @@
 import { StateMachine, StateMachineEvent, create } from 'javascript-state-machine';
 
 interface StateMachineTest extends StateMachine {
-    warn?: StateMachineEvent;
-    panic?: StateMachineEvent;
-    calm?: StateMachineEvent;
-    clear?: StateMachineEvent;
+    warn?: StateMachineEvent | undefined;
+    panic?: StateMachineEvent | undefined;
+    calm?: StateMachineEvent | undefined;
+    clear?: StateMachineEvent | undefined;
 }
 
 const fsm: StateMachineTest = StateMachine.create({

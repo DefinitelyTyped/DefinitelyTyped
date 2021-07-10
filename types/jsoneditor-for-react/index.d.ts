@@ -13,6 +13,6 @@ export interface ReactJsonEditorProps {
 }
 
 export default class ReactJsoneditor extends React.Component<ReactJsonEditorProps> {
-    private editor?: JSONEditor;
-    private options?: JSONEditorOptions;
+    private editor?: JSONEditor | undefined;
+    private options?: JSONEditorOptions | undefined;
 }

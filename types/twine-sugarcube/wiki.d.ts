@@ -1,6 +1,6 @@
 export type OutputDestination = DocumentFragment | HTMLElement | JQuery;
 export interface WikifierOptions {
-    ignoreTerminatorCase?: boolean;
+    ignoreTerminatorCase?: boolean | undefined;
     profile: string;
 }
 

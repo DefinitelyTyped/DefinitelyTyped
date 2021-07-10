@@ -51,7 +51,7 @@ export default class KeystrokeHandler {
     set(
         keystroke: string | Array<string | number>,
         callback: (keyEvtData: KeyEventData, cancel: () => void) => void,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     /**
      * Triggers a keystroke handler for a specified key combination, if such a keystroke was {@link #set defined}.

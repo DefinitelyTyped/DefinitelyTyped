@@ -18,10 +18,10 @@ type Saturation = number | ColorValueArray;
 type HashFunction = (input: string) => number;
 
 interface ColorHashOptions {
-    lightness?: Lightness;
-    saturation?: Saturation;
-    hue?: Hue;
-    hash?: HashFunction;
+    lightness?: Lightness | undefined;
+    saturation?: Saturation | undefined;
+    hue?: Hue | undefined;
+    hash?: HashFunction | undefined;
 }
 
 declare class ColorHash {

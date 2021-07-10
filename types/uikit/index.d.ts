@@ -24,15 +24,15 @@ export namespace UIkit {
     const update: object;
 
     interface UIkitAccordionOptions {
-        active?: number;
-        animation?: boolean;
-        collapsible?: boolean;
-        content?: string;
-        duration?: number;
-        multiple?: boolean;
-        targets?: string;
-        toggle?: string;
-        transition?: string;
+        active?: number | undefined;
+        animation?: boolean | undefined;
+        collapsible?: boolean | undefined;
+        content?: string | undefined;
+        duration?: number | undefined;
+        multiple?: boolean | undefined;
+        targets?: string | undefined;
+        toggle?: string | undefined;
+        transition?: string | undefined;
     }
 
     interface UIkitAccordionElement {
@@ -42,9 +42,9 @@ export namespace UIkit {
     type Accordion = (element: UIkitElement, options?: UIkitAccordionOptions) => UIkitAccordionElement;
 
     interface UIkitAlertOptions {
-        animation?: boolean | string;
-        duration?: number;
-        'sel-close'?: string;
+        animation?: boolean | string | undefined;
+        duration?: number | undefined;
+        'sel-close'?: string | undefined;
     }
 
     interface UIkitAlertElement {
@@ -54,25 +54,25 @@ export namespace UIkit {
     type Alert = (element: UIkitElement, options?: UIkitAlertOptions) => UIkitAlertElement;
 
     interface UIkitCoverOptions {
-        automute?: boolean;
-        width?: number;
-        height?: number;
+        automute?: boolean | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     type Cover = (element: UIkitElement, options?: UIkitCoverOptions) => void;
 
     interface UIkitDropOptions {
-        toggle?: string | boolean;
-        pos?: string;
-        mode?: string;
-        'delay-show'?: number;
-        'delay-hide'?: number;
-        boundary?: string;
-        'boundary-align'?: boolean;
-        flip?: boolean | string;
-        offset?: number;
-        animation?: string;
-        duration?: number;
+        toggle?: string | boolean | undefined;
+        pos?: string | undefined;
+        mode?: string | undefined;
+        'delay-show'?: number | undefined;
+        'delay-hide'?: number | undefined;
+        boundary?: string | undefined;
+        'boundary-align'?: boolean | undefined;
+        flip?: boolean | string | undefined;
+        offset?: number | undefined;
+        animation?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface UIkitDropElement {
@@ -83,17 +83,17 @@ export namespace UIkit {
     type Drop = (element: UIkitElement, options?: UIkitDropOptions) => UIkitDropElement;
 
     interface UIkitDropdownOptions {
-        toggle?: string | boolean;
-        pos?: string;
-        mode?: string;
-        'delay-show'?: number;
-        'delay-hide'?: number;
-        boundary?: string;
-        'boundary-align'?: boolean;
-        flip?: boolean | string;
-        offset?: number;
-        animation?: string;
-        duration?: number;
+        toggle?: string | boolean | undefined;
+        pos?: string | undefined;
+        mode?: string | undefined;
+        'delay-show'?: number | undefined;
+        'delay-hide'?: number | undefined;
+        boundary?: string | undefined;
+        'boundary-align'?: boolean | undefined;
+        flip?: boolean | string | undefined;
+        offset?: number | undefined;
+        animation?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface UIkitDropdownElement {
@@ -104,30 +104,30 @@ export namespace UIkit {
     type Dropdown = (element: UIkitElement, options?: UIkitDropdownOptions) => UIkitDropdownElement;
 
     interface UIkitFormOptions {
-        target?: string | boolean;
+        target?: string | boolean | undefined;
     }
 
     type FormCustom = (element: UIkitElement, options?: UIkitFormOptions) => void;
 
     interface UIkitGridOptions {
-        margin?: string;
-        'first-column'?: string;
-        masonry?: boolean;
-        parallax?: number;
+        margin?: string | undefined;
+        'first-column'?: string | undefined;
+        masonry?: boolean | undefined;
+        parallax?: number | undefined;
     }
 
     type Grid = (element: UIkitElement, options?: UIkitGridOptions) => void;
 
     interface UIkitHeightMatchOptions {
-        target?: string;
-        row?: boolean;
+        target?: string | undefined;
+        row?: boolean | undefined;
     }
 
     type HeightMatch = (element: UIkitElement, options?: UIkitHeightMatchOptions) => void;
 
     interface UIkitIconOptions {
-        icon?: string;
-        ratio?: number;
+        icon?: string | undefined;
+        ratio?: number | undefined;
     }
 
     type Icon = (element: UIkitElement, options?: UIkitIconOptions) => {
@@ -135,40 +135,40 @@ export namespace UIkit {
     };
 
     interface UIkitImageOptions {
-        dataSrc?: string;
-        dataSrcset?: string | boolean;
-        sizes?: string | boolean;
-        width?: string | boolean;
-        height?: string | boolean;
-        offsetTop?: string;
-        offsetLeft?: string | number;
-        target?: string | boolean;
+        dataSrc?: string | undefined;
+        dataSrcset?: string | boolean | undefined;
+        sizes?: string | boolean | undefined;
+        width?: string | boolean | undefined;
+        height?: string | boolean | undefined;
+        offsetTop?: string | undefined;
+        offsetLeft?: string | number | undefined;
+        target?: string | boolean | undefined;
     }
 
     type Img = (element: UIkitElement, options?: UIkitImageOptions) => void;
 
     interface UIkitLeaderOptions {
-        fill?: string;
-        media?: number | string;
+        fill?: string | undefined;
+        media?: number | string | undefined;
     }
 
     type Leader = (element: UIkitElement, options?: UIkitLeaderOptions) => void;
 
     interface UIkitMarginOptions {
-        margin?: string;
-        'first-column'?: string;
+        margin?: string | undefined;
+        'first-column'?: string | undefined;
     }
 
     type Margin = (element: UIkitElement, options?: UIkitMarginOptions) => void;
 
     interface UIkitModalOptions {
-        'esc-close'?: boolean;
-        'bg-close'?: boolean;
-        stack?: boolean;
-        container?: string | boolean;
-        'cls-page'?: string;
-        'cls-panel'?: string;
-        'sel-close'?: string;
+        'esc-close'?: boolean | undefined;
+        'bg-close'?: boolean | undefined;
+        stack?: boolean | undefined;
+        container?: string | boolean | undefined;
+        'cls-page'?: string | undefined;
+        'cls-panel'?: string | undefined;
+        'sel-close'?: string | undefined;
     }
 
     interface UIkitModalElement {
@@ -189,14 +189,14 @@ export namespace UIkit {
     }
 
     interface UIkitNavOptions {
-        targets?: string;
-        toggle?: string;
-        content?: string;
-        collapsible?: boolean;
-        multiple?: boolean;
-        transition?: string;
-        animation?: string;
-        duration?: number;
+        targets?: string | undefined;
+        toggle?: string | undefined;
+        content?: string | undefined;
+        collapsible?: boolean | undefined;
+        multiple?: boolean | undefined;
+        transition?: string | undefined;
+        animation?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface UIkitNavElement {
@@ -207,27 +207,27 @@ export namespace UIkit {
     type Nav = (element: UIkitElement, options?: UIkitNavOptions) => UIkitNavElement;
 
     interface UIkitNavbarOptions {
-        align?: string;
-        mode?: string;
-        'delay-show'?: number;
-        'delay-hide'?: number;
-        boundary?: string;
-        'boundary-align'?: boolean;
-        offset?: number;
-        dropbar?: boolean;
-        'dropbar-mode'?: string;
-        duration?: number;
+        align?: string | undefined;
+        mode?: string | undefined;
+        'delay-show'?: number | undefined;
+        'delay-hide'?: number | undefined;
+        boundary?: string | undefined;
+        'boundary-align'?: boolean | undefined;
+        offset?: number | undefined;
+        dropbar?: boolean | undefined;
+        'dropbar-mode'?: string | undefined;
+        duration?: number | undefined;
     }
 
     type Navbar = (element: UIkitElement, options?: UIkitNavbarOptions) => void;
 
     interface UIkitOffcanvasOptions {
-        mode?: string;
-        flip?: boolean;
-        overlay?: boolean;
-        'esc-close'?: boolean;
-        'bg-close'?: boolean;
-        container?: string | boolean;
+        mode?: string | undefined;
+        flip?: boolean | undefined;
+        overlay?: boolean | undefined;
+        'esc-close'?: boolean | undefined;
+        'bg-close'?: boolean | undefined;
+        container?: string | boolean | undefined;
     }
 
     interface UIkitOffcanvasElement {
@@ -238,8 +238,8 @@ export namespace UIkit {
     type Offcanvas = (element: UIkitElement, options?: UIkitOffcanvasOptions) => UIkitOffcanvasElement;
 
     interface UIkitScrollOptions {
-        duration?: number;
-        offset?: number;
+        duration?: number | undefined;
+        offset?: number | undefined;
     }
 
     interface UIkitScrollElement {
@@ -249,43 +249,43 @@ export namespace UIkit {
     type Scroll = (element: UIkitElement, options?: UIkitScrollOptions) => UIkitScrollElement;
 
     interface UIkitScrollspyOptions {
-        cls?: string;
-        hidden?: boolean;
-        'offset-top'?: number;
-        'offset-left'?: number;
-        repeat?: boolean;
-        delay?: number;
+        cls?: string | undefined;
+        hidden?: boolean | undefined;
+        'offset-top'?: number | undefined;
+        'offset-left'?: number | undefined;
+        repeat?: boolean | undefined;
+        delay?: number | undefined;
     }
 
     interface UIkitScrollspyNavOptions {
-        cls?: string;
-        closest?: string;
-        scroll?: boolean;
-        overflow?: boolean;
-        offset?: number;
+        cls?: string | undefined;
+        closest?: string | undefined;
+        scroll?: boolean | undefined;
+        overflow?: boolean | undefined;
+        offset?: number | undefined;
     }
 
     type Scrollspy = (element: UIkitElement, options?: UIkitScrollspyOptions) => void;
     type ScrollspyNav = (element: UIkitElement, options?: UIkitScrollspyNavOptions) => void;
 
     interface UIkitStickyOptions {
-        top?: number | string;
-        bottom?: boolean | string;
-        offset?: number | string;
-        animation?: string | boolean;
-        'cls-active'?: string;
-        'cls-inactive'?: string;
-        'width-element'?: string | boolean;
-        'show-on-up'?: boolean;
-        media?: number | string | boolean;
-        'target-offset'?: boolean | number;
+        top?: number | string | undefined;
+        bottom?: boolean | string | undefined;
+        offset?: number | string | undefined;
+        animation?: string | boolean | undefined;
+        'cls-active'?: string | undefined;
+        'cls-inactive'?: string | undefined;
+        'width-element'?: string | boolean | undefined;
+        'show-on-up'?: boolean | undefined;
+        media?: number | string | boolean | undefined;
+        'target-offset'?: boolean | number | undefined;
     }
 
     type Sticky = (element: UIkitElement, options?: UIkitStickyOptions) => void;
 
     interface UIkitSvgOptions {
-        src?: string;
-        'stroke-animation'?: boolean;
+        src?: string | undefined;
+        'stroke-animation'?: boolean | undefined;
     }
 
     type Svg = (element: UIkitElement, options?: UIkitSvgOptions) => {
@@ -293,12 +293,12 @@ export namespace UIkit {
     };
 
     interface UIkitSwiterOptions {
-        connect?: string;
-        toggle?: string;
-        active?: number;
-        animation?: string;
-        duration?: number;
-        swiping?: boolean;
+        connect?: string | undefined;
+        toggle?: string | undefined;
+        active?: number | undefined;
+        animation?: string | undefined;
+        duration?: number | undefined;
+        swiping?: boolean | undefined;
     }
 
     interface UIkitSwitcherElement {
@@ -308,13 +308,13 @@ export namespace UIkit {
     type Switcher = (element: UIkitElement, options?: UIkitSwiterOptions) => UIkitSwitcherElement;
 
     interface UIkitTabOptions {
-        connect?: string;
-        toggle?: string;
-        active?: number;
-        animation?: string;
-        duration?: number;
-        swiping?: boolean;
-        media?: number | string;
+        connect?: string | undefined;
+        toggle?: string | undefined;
+        active?: number | undefined;
+        animation?: string | undefined;
+        duration?: number | undefined;
+        swiping?: boolean | undefined;
+        media?: number | string | undefined;
     }
 
     interface UIkitTabElement {
@@ -324,13 +324,13 @@ export namespace UIkit {
     type Tab = (element: UIkitElement, options?: UIkitTabOptions) => UIkitTabElement;
 
     interface UIkitToggleOptions {
-        target?: string;
-        mode?: string;
-        cls?: string;
-        media?: number | string;
-        animation?: string;
-        duration?: number;
-        queued?: boolean;
+        target?: string | undefined;
+        mode?: string | undefined;
+        cls?: string | undefined;
+        media?: number | string | undefined;
+        animation?: string | undefined;
+        duration?: number | undefined;
+        queued?: boolean | undefined;
     }
 
     interface UIkitToggleElement {
@@ -340,8 +340,8 @@ export namespace UIkit {
     type Toggle = (element: UIkitElement, options?: UIkitToggleOptions) => UIkitToggleElement;
 
     interface UIkitVideoOptions {
-        autoplay?: boolean | string;
-        automute?: boolean;
+        autoplay?: boolean | string | undefined;
+        automute?: boolean | undefined;
     }
 
     type Video = (element: UIkitElement, options?: UIkitVideoOptions) => void;
@@ -349,7 +349,7 @@ export namespace UIkit {
     // Components
 
     interface UIkitCountdownOptions {
-        date?: string | boolean;
+        date?: string | boolean | undefined;
     }
 
     interface UIkitCountdownElement {
@@ -360,24 +360,24 @@ export namespace UIkit {
     type Countdown = (element: UIkitElement, options?: UIkitCountdownOptions) => UIkitCountdownElement;
 
     interface UIkitFilterOptions {
-        target?: string;
-        selActive?: string | boolean;
+        target?: string | undefined;
+        selActive?: string | boolean | undefined;
     }
 
     type Filter = (element: UIkitElement, options?: UIkitFilterOptions) => void;
 
     interface UIkitLightboxPanelOptions {
-        animation?: string;
-        autoplay?: boolean;
-        'autoplay-interval'?: number;
-        'pause-on-hover'?: boolean;
-        'video-autoplay'?: boolean;
-        index?: number;
-        velocity?: number;
-        preload?: number;
-        items?: object[];
-        template?: string;
-        'delay-controls'?: number;
+        animation?: string | undefined;
+        autoplay?: boolean | undefined;
+        'autoplay-interval'?: number | undefined;
+        'pause-on-hover'?: boolean | undefined;
+        'video-autoplay'?: boolean | undefined;
+        index?: number | undefined;
+        velocity?: number | undefined;
+        preload?: number | undefined;
+        items?: object[] | undefined;
+        template?: string | undefined;
+        'delay-controls'?: number | undefined;
     }
 
     interface UIkitLightboxPanelElement {
@@ -392,13 +392,13 @@ export namespace UIkit {
     }
 
     interface UIkitLightboxOptions {
-        animation?: string;
-        autoplay?: number;
-        'autoplay-interval'?: number;
-        'pause-on-hover'?: boolean;
-        'video-autoplay'?: boolean;
-        index?: string;
-        toggle?: string;
+        animation?: string | undefined;
+        autoplay?: number | undefined;
+        'autoplay-interval'?: number | undefined;
+        'pause-on-hover'?: boolean | undefined;
+        'video-autoplay'?: boolean | undefined;
+        index?: string | undefined;
+        toggle?: string | undefined;
     }
 
     interface UIkitLightboxElement {
@@ -408,11 +408,11 @@ export namespace UIkit {
 
     type Lightbox = (element: UIkitElement, options?: UIkitLightboxOptions) => UIkitLightboxElement;
     interface UIkitNotificationOptions {
-        message?: string;
-        status?: 'primary' | 'success' | 'warning' | 'danger';
-        timeout?: number;
-        group?: string;
-        pos?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+        message?: string | undefined;
+        status?: 'primary' | 'success' | 'warning' | 'danger' | undefined;
+        timeout?: number | undefined;
+        group?: string | undefined;
+        pos?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | undefined;
     }
 
     interface UIkitNotificationElement {
@@ -425,25 +425,25 @@ export namespace UIkit {
     }
 
     interface UIkitParallaxOptions {
-        easing?: number;
-        target?: string;
-        viewport?: number;
-        media?: number | string;
+        easing?: number | undefined;
+        target?: string | undefined;
+        viewport?: number | undefined;
+        media?: number | string | undefined;
     }
 
     type Parallax = (element: UIkitElement, options?: UIkitParallaxOptions) => void;
 
     interface UIkitSliderOptions {
-        autoplay?: boolean;
-        'autoplay-interval'?: number;
-        center?: boolean;
-        draggable?: boolean;
-        easing?: string;
-        finite?: boolean;
-        index?: number;
-        'pause-on-hover'?: boolean;
-        sets?: boolean;
-        velocity?: number;
+        autoplay?: boolean | undefined;
+        'autoplay-interval'?: number | undefined;
+        center?: boolean | undefined;
+        draggable?: boolean | undefined;
+        easing?: string | undefined;
+        finite?: boolean | undefined;
+        index?: number | undefined;
+        'pause-on-hover'?: boolean | undefined;
+        sets?: boolean | undefined;
+        velocity?: number | undefined;
     }
 
     interface UIkitSliderElement {
@@ -455,18 +455,18 @@ export namespace UIkit {
     type Slider = (element: UIkitElement, options?: UIkitSliderOptions) => UIkitSliderElement;
 
     interface UIkitSlideshowOptions {
-        animation?: string;
-        autoplay?: boolean;
-        'autoplay-interval'?: number;
-        draggable?: boolean;
-        easing?: string;
-        finite?: boolean;
-        'pause-on-hover'?: boolean;
-        index?: number;
-        velocity?: number;
-        ratio?: string | number;
-        'min-height'?: boolean | number;
-        'max-height'?: boolean | number;
+        animation?: string | undefined;
+        autoplay?: boolean | undefined;
+        'autoplay-interval'?: number | undefined;
+        draggable?: boolean | undefined;
+        easing?: string | undefined;
+        finite?: boolean | undefined;
+        'pause-on-hover'?: boolean | undefined;
+        index?: number | undefined;
+        velocity?: number | undefined;
+        ratio?: string | number | undefined;
+        'min-height'?: boolean | number | undefined;
+        'max-height'?: boolean | number | undefined;
     }
 
     interface UIkitSlidershowElement {
@@ -478,30 +478,30 @@ export namespace UIkit {
     type Slidershow = (element: UIkitElement, options?: UIkitSlideshowOptions) => UIkitSlidershowElement;
 
     interface UIkitSortableOptions {
-        group?: string;
-        animation?: number;
-        threshold?: number;
-        'cls-item'?: string;
-        'cls-placeholder'?: string;
-        'cls-drag'?: string;
-        'cls-drag-state'?: string;
-        'cls-base'?: string;
-        'cls-no-drag'?: string;
-        'cls-empty'?: string;
+        group?: string | undefined;
+        animation?: number | undefined;
+        threshold?: number | undefined;
+        'cls-item'?: string | undefined;
+        'cls-placeholder'?: string | undefined;
+        'cls-drag'?: string | undefined;
+        'cls-drag-state'?: string | undefined;
+        'cls-base'?: string | undefined;
+        'cls-no-drag'?: string | undefined;
+        'cls-empty'?: string | undefined;
         'cls-custom': string;
-        handle?: string;
+        handle?: string | undefined;
     }
 
     type Sortable = (element: UIkitElement, options?: UIkitSortableOptions) => void;
 
     interface UIkitTooltipOptions {
-        title?: string;
-        pos?: string;
-        offset?: number | boolean;
-        animation?: string;
-        duration?: number;
-        delay?: number;
-        cls?: string;
+        title?: string | undefined;
+        pos?: string | undefined;
+        offset?: number | boolean | undefined;
+        animation?: string | undefined;
+        duration?: number | undefined;
+        delay?: number | undefined;
+        cls?: string | undefined;
     }
 
     interface UIkitTooltipElement {
@@ -512,29 +512,29 @@ export namespace UIkit {
     type Tooltip = (element: UIkitElement, options?: UIkitTooltipOptions) => UIkitTooltipElement;
 
     interface UIkitUploadOptions {
-        url?: string;
-        multiple?: boolean;
-        name?: string;
-        params?: object;
-        allow?: string | boolean;
-        mime?: string | boolean;
-        concurrent?: number;
-        type?: string;
-        method?: string;
-        'msg-invalid-mime'?: string;
-        'msg-invalid-name'?: string;
-        'cls-dragover'?: string;
-        abort?: object;
-        'before-all'?: object;
-        'before-send'?: object;
-        complete?: object;
-        'complete-all'?: object;
-        error?: object;
-        load?: object;
-        'load-end'?: object;
-        'load-start'?: object;
-        progress?: object;
-        fail?: object;
+        url?: string | undefined;
+        multiple?: boolean | undefined;
+        name?: string | undefined;
+        params?: object | undefined;
+        allow?: string | boolean | undefined;
+        mime?: string | boolean | undefined;
+        concurrent?: number | undefined;
+        type?: string | undefined;
+        method?: string | undefined;
+        'msg-invalid-mime'?: string | undefined;
+        'msg-invalid-name'?: string | undefined;
+        'cls-dragover'?: string | undefined;
+        abort?: object | undefined;
+        'before-all'?: object | undefined;
+        'before-send'?: object | undefined;
+        complete?: object | undefined;
+        'complete-all'?: object | undefined;
+        error?: object | undefined;
+        load?: object | undefined;
+        'load-end'?: object | undefined;
+        'load-start'?: object | undefined;
+        progress?: object | undefined;
+        fail?: object | undefined;
     }
 
     type Upload = (element: UIkitElement, options?: UIkitUploadOptions) => void;

@@ -19,8 +19,8 @@ declare namespace SeamlessImmutable {
     };
 
     interface MergeConfig {
-        deep?: boolean;
-        mode?: 'replace' | 'merge';
+        deep?: boolean | undefined;
+        mode?: 'replace' | 'merge' | undefined;
         merger?(a: any, b: any, config: any): any;
     }
 

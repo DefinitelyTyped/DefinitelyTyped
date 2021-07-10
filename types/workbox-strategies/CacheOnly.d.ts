@@ -13,7 +13,7 @@ export class CacheOnly implements RouteHandlerObject {
 }
 
 export interface CacheOnlyOptions {
-    cacheName?: string;
-    matchOptions?: CacheQueryOptions;
-    plugins?: WorkboxPlugin[];
+    cacheName?: string | undefined;
+    matchOptions?: CacheQueryOptions | undefined;
+    plugins?: WorkboxPlugin[] | undefined;
 }

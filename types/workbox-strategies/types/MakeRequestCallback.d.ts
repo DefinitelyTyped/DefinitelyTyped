@@ -4,5 +4,5 @@ export interface MakeRequestCallback {
 
 export interface MakeRequestCallbackOptions {
     request: string | Request;
-    event?: ExtendableEvent;
+    event?: ExtendableEvent | undefined;
 }

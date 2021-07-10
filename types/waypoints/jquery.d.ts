@@ -8,6 +8,6 @@ interface JQuery {
 }
 
 interface WaypointOptionsJQuery extends WaypointOptionsBase {
-    handler?: (this: Waypoint, direction?: string) => void;
-    context?: HTMLElement|string;
+    handler?: ((this: Waypoint, direction?: string) => void) | undefined;
+    context?: HTMLElement|string | undefined;
 }

@@ -8,12 +8,12 @@ declare function expectType<T>(value: T): T;
 
 interface Language {
     language: string;
-    description?: string;
+    description?: string | undefined;
 }
 
 interface LanguageDescriptorMap {
     language: TypedPropertyDescriptor<string>;
-    description?: TypedPropertyDescriptor<string | undefined>;
+    description?: TypedPropertyDescriptor<string | undefined> | undefined;
 }
 
 declare let lang: Language;

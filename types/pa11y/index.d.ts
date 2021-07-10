@@ -15,9 +15,9 @@ interface LaunchConfig {
 }
 
 interface LogConfig {
-    debug?: () => void;
-    error?: () => void;
-    info?: () => void;
+    debug?: (() => void) | undefined;
+    error?: (() => void) | undefined;
+    info?: (() => void) | undefined;
 }
 
 interface ResultIssue {
@@ -36,32 +36,32 @@ interface Results {
 }
 
 interface Options {
-    actions?: string[];
-    browser?: Browser;
-    page?: Page;
-    pages?: Page[];
-    chromeLaunchConfig?: LaunchConfig;
-    headers?: object;
-    hideElements?: string;
-    ignore?: string[];
-    ignoreUrl?: boolean;
-    includeNotices?: boolean;
-    includeWarnings?: boolean;
-    level?: string;
-    log?: LogConfig;
-    method?: string;
-    postData?: string;
-    reporter?: string;
-    rootElement?: string;
-    runners?: string[];
-    rules?: string[];
-    screenCapture?: string;
-    standard?: AccessibilityStandard;
-    threshold?: number;
-    timeout?: number;
-    userAgent?: string;
-    viewport?: Viewport;
-    wait?: number;
+    actions?: string[] | undefined;
+    browser?: Browser | undefined;
+    page?: Page | undefined;
+    pages?: Page[] | undefined;
+    chromeLaunchConfig?: LaunchConfig | undefined;
+    headers?: object | undefined;
+    hideElements?: string | undefined;
+    ignore?: string[] | undefined;
+    ignoreUrl?: boolean | undefined;
+    includeNotices?: boolean | undefined;
+    includeWarnings?: boolean | undefined;
+    level?: string | undefined;
+    log?: LogConfig | undefined;
+    method?: string | undefined;
+    postData?: string | undefined;
+    reporter?: string | undefined;
+    rootElement?: string | undefined;
+    runners?: string[] | undefined;
+    rules?: string[] | undefined;
+    screenCapture?: string | undefined;
+    standard?: AccessibilityStandard | undefined;
+    threshold?: number | undefined;
+    timeout?: number | undefined;
+    userAgent?: string | undefined;
+    viewport?: Viewport | undefined;
+    wait?: number | undefined;
 }
 
 declare function pa11y(url: string, options?: Options): Promise<Results>;

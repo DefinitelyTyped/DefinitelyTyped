@@ -60,12 +60,7 @@ function test_pagesDialogs() {
     $.mobile.page.prototype.options.domCache = true;
 
     $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-        if (applicationCache &&
-             applicationCache.status != applicationCache.UNCACHED &&
-             applicationCache.status != applicationCache.OBSOLETE) {
-                 // the important bit
-            options.isLocal = true;
-        }
+        options.isLocal = true;
     });
 
     $(document).bind("pagebeforechange", function (e, data?) {

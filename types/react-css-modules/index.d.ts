@@ -5,8 +5,8 @@
 // TypeScript Version: 2.8
 
 interface TypeOptions {
-    allowMultiple?: boolean;
-    handleNotFoundStyleName?: 'throw' | 'log' | 'ignore';
+    allowMultiple?: boolean | undefined;
+    handleNotFoundStyleName?: 'throw' | 'log' | 'ignore' | undefined;
 }
 
 type StylesObject = any;
@@ -21,7 +21,7 @@ declare module CSSModules {
     //
     // interface MyComponentProps extends CSSModules.InjectedCSSModuleProps {}
     interface InjectedCSSModuleProps {
-        styles?: StylesObject;
+        styles?: StylesObject | undefined;
     }
 }
 
@@ -31,12 +31,12 @@ export = CSSModules;
 
 declare module 'react' {
     interface Attributes {
-        styleName?: string;
+        styleName?: string | undefined;
     }
     interface HTMLAttributes<T> {
-        styleName?: string;
+        styleName?: string | undefined;
     }
     interface SVGAttributes<T> {
-        styleName?: string;
+        styleName?: string | undefined;
     }
 }

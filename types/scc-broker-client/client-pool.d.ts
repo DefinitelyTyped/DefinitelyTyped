@@ -7,22 +7,22 @@ import ConsumableStream = require('consumable-stream');
 import Hasher = require('./hasher');
 
 interface ClientPoolOptions {
-    clientCount?: number;
+    clientCount?: number | undefined;
     targetURI: string;
-    authKey?: Secret;
+    authKey?: Secret | undefined;
 }
 
 interface BrokenDownURI {
     hostname: string;
-    port?: string;
-    secure?: true;
+    port?: string | undefined;
+    secure?: true | undefined;
 }
 
 declare class ClientPool extends AsyncStreamEmitter<any> {
     hasher: Hasher;
     clientCount: number;
     targetURI: string;
-    authKey?: Secret;
+    authKey?: Secret | undefined;
     clients: AGClientSocket[];
 
     constructor(options?: ClientPoolOptions);

@@ -21,10 +21,10 @@ export function error(message: string, data?: object): void;
 export function fatal(message: string, data?: object): void;
 
 export interface LoggerConfig {
-    level?: string;
-    color?: boolean;
-    readable?: boolean;
-    prefix?: string;
+    level?: string | undefined;
+    color?: boolean | undefined;
+    readable?: boolean | undefined;
+    prefix?: string | undefined;
 }
 
 export class Logger {

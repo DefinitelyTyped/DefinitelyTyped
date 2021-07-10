@@ -19,7 +19,7 @@ export type RenderReturn = JSX.Element | false | null;
 
 export interface FormProps {
     loadState?(props: FormProps, self: Form): FormState | undefined;
-    defaultValues?: FormValues;
+    defaultValues?: FormValues | undefined;
     preValidate?(values: FormValues, state: FormState, props: FormProps, self: Form): FormValues;
     validate?(values: FormValues, state: FormState, props: FormProps): FormErrors;
     onValidationFail?(values: FormValues, state: FormState, props: FormProps, self: Form): void;
@@ -36,7 +36,7 @@ export interface FormState {
     touched: Touched;
     errors: FormErrors;
     nestedErrors: NestedErrors;
-    dirty?: boolean;
+    dirty?: boolean | undefined;
 }
 
 export const FormDefaultProps: FormProps;
@@ -65,7 +65,7 @@ export interface FormContext {
 
 export class Form
     extends React.Component<
-        FormProps & { children?: ((props: FormFunctionProps) => RenderReturn) | RenderReturn },
+        FormProps & { children?: ((props: FormFunctionProps) => RenderReturn) | RenderReturn | undefined },
         FormState
     >
     implements FormApi, React.ChildContextProvider<FormContext> {
@@ -120,7 +120,7 @@ export interface FormFieldApi {
 }
 
 export interface FormFieldPropsWithField {
-    field?: string;
+    field?: string | undefined;
     children(api: FormFieldApi): React.ReactElement | null;
 }
 export interface FormFieldPropsWithoutField {
@@ -131,19 +131,19 @@ export const FormField: React.SFC<FormFieldProps>;
 
 // FormError
 export interface FormErrorProps {
-    field?: FormFieldPropsWithField['field'];
-    className?: string;
-    style?: React.HTMLAttributes<HTMLElement>['style'];
+    field?: FormFieldPropsWithField['field'] | undefined;
+    className?: string | undefined;
+    style?: React.HTMLAttributes<HTMLElement>['style'] | undefined;
 }
 export const FormError: React.SFC<FormErrorProps>;
 
 export interface FormInputProps {
-    field?: FormFieldPropsWithField['field'];
-    showErrors?: boolean;
-    errorBefore?: boolean;
-    isForm?: boolean;
-    className?: string;
-    errorProps?: FormErrorProps;
+    field?: FormFieldPropsWithField['field'] | undefined;
+    showErrors?: boolean | undefined;
+    errorBefore?: boolean | undefined;
+    isForm?: boolean | undefined;
+    className?: string | undefined;
+    errorProps?: FormErrorProps | undefined;
 }
 
 export interface FormInputPropsWithChildren extends FormInputProps {
@@ -166,7 +166,7 @@ export type ClickHandler<T> = EventHandler<T, React.MouseEvent<T>>;
 export interface SelectOption {
     label: string;
     value: any;
-    disabled?: boolean;
+    disabled?: boolean | undefined;
 }
 export interface SelectAttrs extends React.SelectHTMLAttributes<HTMLSelectElement> {
     onChange?: any;
@@ -174,15 +174,15 @@ export interface SelectAttrs extends React.SelectHTMLAttributes<HTMLSelectElemen
 }
 export interface SelectProps extends SelectAttrs {
     options: ReadonlyArray<SelectOption>;
-    field?: FormInputProps['field'];
-    showErrors?: FormInputProps['showErrors'];
-    errorBefore?: FormInputProps['errorBefore'];
-    onChange?: ChangeHandler<HTMLSelectElement>;
-    onBlur?: FocusHandler<HTMLSelectElement>;
-    isForm?: FormInputProps['isForm'];
-    noTouch?: boolean;
-    errorProps?: FormInputProps['errorProps'];
-    placeholder?: string;
+    field?: FormInputProps['field'] | undefined;
+    showErrors?: FormInputProps['showErrors'] | undefined;
+    errorBefore?: FormInputProps['errorBefore'] | undefined;
+    onChange?: ChangeHandler<HTMLSelectElement> | undefined;
+    onBlur?: FocusHandler<HTMLSelectElement> | undefined;
+    isForm?: FormInputProps['isForm'] | undefined;
+    noTouch?: boolean | undefined;
+    errorProps?: FormInputProps['errorProps'] | undefined;
+    placeholder?: string | undefined;
 }
 export const Select: React.SFC<SelectProps>;
 
@@ -191,14 +191,14 @@ export interface InputAttrs extends React.InputHTMLAttributes<HTMLInputElement> 
     onBlur?: any;
 }
 export interface CheckboxProps extends InputAttrs {
-    field?: FormInputProps['field'];
-    showErrors?: FormInputProps['showErrors'];
-    errorBefore?: FormInputProps['errorBefore'];
-    onChange?: ChangeHandler<HTMLInputElement>;
-    onBlur?: FocusHandler<HTMLInputElement>;
-    isForm?: FormInputProps['isForm'];
-    noTouch?: boolean;
-    errorProps?: FormInputProps['errorProps'];
+    field?: FormInputProps['field'] | undefined;
+    showErrors?: FormInputProps['showErrors'] | undefined;
+    errorBefore?: FormInputProps['errorBefore'] | undefined;
+    onChange?: ChangeHandler<HTMLInputElement> | undefined;
+    onBlur?: FocusHandler<HTMLInputElement> | undefined;
+    isForm?: FormInputProps['isForm'] | undefined;
+    noTouch?: boolean | undefined;
+    errorProps?: FormInputProps['errorProps'] | undefined;
 }
 export const Checkbox: React.SFC<CheckboxProps>;
 
@@ -207,42 +207,42 @@ export interface TextareaAttrs extends React.TextareaHTMLAttributes<HTMLTextArea
     onBlur?: any;
 }
 export interface TextareaProps extends TextareaAttrs {
-    field?: FormInputProps['field'];
-    showErrors?: FormInputProps['showErrors'];
-    errorBefore?: FormInputProps['errorBefore'];
-    onChange?: ChangeHandler<HTMLTextAreaElement>;
-    onBlur?: FocusHandler<HTMLTextAreaElement>;
-    isForm?: FormInputProps['isForm'];
-    noTouch?: boolean;
-    errorProps?: FormInputProps['errorProps'];
+    field?: FormInputProps['field'] | undefined;
+    showErrors?: FormInputProps['showErrors'] | undefined;
+    errorBefore?: FormInputProps['errorBefore'] | undefined;
+    onChange?: ChangeHandler<HTMLTextAreaElement> | undefined;
+    onBlur?: FocusHandler<HTMLTextAreaElement> | undefined;
+    isForm?: FormInputProps['isForm'] | undefined;
+    noTouch?: boolean | undefined;
+    errorProps?: FormInputProps['errorProps'] | undefined;
 }
 export const Textarea: React.SFC<TextareaProps>;
 
 export interface NestedFormProps extends FormProps {
-    field?: FormInputProps['field'];
-    children?: React.ReactElement<FormProps> | [React.ReactElement<FormProps>];
-    errorProps?: FormInputProps['errorProps'];
+    field?: FormInputProps['field'] | undefined;
+    children?: React.ReactElement<FormProps> | [React.ReactElement<FormProps>] | undefined;
+    errorProps?: FormInputProps['errorProps'] | undefined;
 }
 export const NestedForm: React.SFC<NestedFormProps>;
 
 export interface TextProps extends InputAttrs {
-    field?: FormInputProps['field'];
-    showErrors?: FormInputProps['showErrors'];
-    errorBefore?: FormInputProps['errorBefore'];
-    onChange?: ChangeHandler<HTMLInputElement>;
-    onBlur?: FocusHandler<HTMLInputElement>;
-    isForm?: FormInputProps['isForm'];
-    noTouch?: boolean;
-    errorProps?: FormInputProps['errorProps'];
+    field?: FormInputProps['field'] | undefined;
+    showErrors?: FormInputProps['showErrors'] | undefined;
+    errorBefore?: FormInputProps['errorBefore'] | undefined;
+    onChange?: ChangeHandler<HTMLInputElement> | undefined;
+    onBlur?: FocusHandler<HTMLInputElement> | undefined;
+    isForm?: FormInputProps['isForm'] | undefined;
+    noTouch?: boolean | undefined;
+    errorProps?: FormInputProps['errorProps'] | undefined;
 }
 export const Text: React.SFC<TextProps>;
 
 export interface RadioGroupProps {
-    field?: FormInputProps['field'];
-    showErrors?: FormInputProps['showErrors'];
-    errorBefore?: FormInputProps['errorBefore'];
-    isForm?: FormInputProps['isForm'];
-    errorProps?: FormInputProps['errorProps'];
+    field?: FormInputProps['field'] | undefined;
+    showErrors?: FormInputProps['showErrors'] | undefined;
+    errorBefore?: FormInputProps['errorBefore'] | undefined;
+    isForm?: FormInputProps['isForm'] | undefined;
+    errorProps?: FormInputProps['errorProps'] | undefined;
 }
 export interface RadioGroupContext {
     formRadioGroup: RadioGroup;
@@ -273,9 +273,9 @@ export interface InputWIthoutClick extends InputAttrs {
     onClick?: any;
 }
 export interface RadioProps extends InputWIthoutClick {
-    onClick?: ClickHandler<HTMLInputElement>;
-    onChange?: ChangeHandler<HTMLInputElement>;
-    onBlur?: FocusHandler<HTMLInputElement>;
+    onClick?: ClickHandler<HTMLInputElement> | undefined;
+    onChange?: ChangeHandler<HTMLInputElement> | undefined;
+    onBlur?: FocusHandler<HTMLInputElement> | undefined;
 }
 export class Radio extends React.Component<RadioProps> {
     static contextTypes: {

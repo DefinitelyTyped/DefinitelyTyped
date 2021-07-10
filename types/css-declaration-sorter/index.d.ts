@@ -52,13 +52,13 @@ declare namespace cssDeclarationSorter {
          * Provide the name of one of the built-in sort orders or a comparison function that is passed to `Array.sort`.
          * @default 'alphabetical'
          */
-        order?: SortOrder | SortFunction;
+        order?: SortOrder | SortFunction | undefined;
         /**
          * To prevent breaking legacy CSS where shorthand declarations override longhand declarations
          * (also taking into account vendor prefixes) this option can enabled.
          * For example `animation-name: some; animation: greeting;` will be kept in this order when `keepOverrides` is `true`.
          */
-        keepOverrides?: boolean;
+        keepOverrides?: boolean | undefined;
     }
 
     type CssDeclarationSorter = PluginCreator<Options>;

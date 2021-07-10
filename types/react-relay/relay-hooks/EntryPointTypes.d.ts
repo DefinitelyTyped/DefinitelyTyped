@@ -25,15 +25,15 @@ export interface JSResourceReference<TModule> {
 export type PreloadFetchPolicy = 'store-or-network' | 'store-and-network' | 'network-only';
 
 export type PreloadOptions = Readonly<{
-    fetchKey?: string | number;
-    fetchPolicy?: PreloadFetchPolicy | null;
-    networkCacheConfig?: CacheConfig | null;
+    fetchKey?: string | number | undefined;
+    fetchPolicy?: PreloadFetchPolicy | null | undefined;
+    networkCacheConfig?: CacheConfig | null | undefined;
 }>;
 
 export type LoadQueryOptions = Readonly<{
-    fetchPolicy?: PreloadFetchPolicy | null;
-    networkCacheConfig?: CacheConfig | null;
-    onQueryAstLoadTimeout?: (() => void) | null;
+    fetchPolicy?: PreloadFetchPolicy | null | undefined;
+    networkCacheConfig?: CacheConfig | null | undefined;
+    onQueryAstLoadTimeout?: (() => void) | null | undefined;
 }>;
 
 // Note: the phantom type parameter here helps ensures that the
@@ -52,22 +52,22 @@ export interface PreloadedQuery<
 > extends Readonly<{
         kind: 'PreloadedQuery';
         environment: IEnvironment;
-        environmentProviderOptions?: TEnvironmentProviderOptions | null;
+        environmentProviderOptions?: TEnvironmentProviderOptions | null | undefined;
         fetchKey: string | number;
         fetchPolicy: PreloadFetchPolicy;
-        networkCacheConfig?: CacheConfig | null;
-        id?: string | null;
+        networkCacheConfig?: CacheConfig | null | undefined;
+        id?: string | null | undefined;
         name: string;
-        source?: Observable<GraphQLResponse> | null;
+        source?: Observable<GraphQLResponse> | null | undefined;
         variables: VariablesOf<TQuery>;
         dispose: DisposeFn;
         isDisposed: boolean;
     }> {}
 
 export type PreloadQueryStatus = Readonly<{
-    cacheConfig?: CacheConfig | null;
+    cacheConfig?: CacheConfig | null | undefined;
     source: 'cache' | 'network';
-    fetchTime?: number | null;
+    fetchTime?: number | null | undefined;
 }>;
 
 /**
@@ -158,9 +158,9 @@ export interface PreloadProps<
     TPreloadedEntryPoints extends Record<string, EntryPoint<any, any> | undefined>,
     TExtraProps extends {} | null
 > extends Readonly<{
-        entryPoints?: ThinNestedEntryPointParamsObject<TPreloadedEntryPoints>;
-        extraProps?: TExtraProps;
-        queries?: ThinQueryParamsObject<TPreloadedQueries>;
+        entryPoints?: ThinNestedEntryPointParamsObject<TPreloadedEntryPoints> | undefined;
+        extraProps?: TExtraProps | undefined;
+        queries?: ThinQueryParamsObject<TPreloadedQueries> | undefined;
     }> {}
 
 // The shape of the props of the entry point `root` component
@@ -216,8 +216,8 @@ export interface ThinQueryParams<
         /**
          * Any execution options to apply during network
          */
-        options?: PreloadOptions | null;
-        environmentProviderOptions?: TEnvironmentProviderOptions | null;
+        options?: PreloadOptions | null | undefined;
+        environmentProviderOptions?: TEnvironmentProviderOptions | null | undefined;
     }> {}
 
 export interface ThinNestedEntryPointParams<TEntryPoint>

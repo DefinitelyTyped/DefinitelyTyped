@@ -3,18 +3,18 @@ declare module 'url' {
 
     // Input to `url.format`
     interface UrlObject {
-        auth?: string | null;
-        hash?: string | null;
-        host?: string | null;
-        hostname?: string | null;
-        href?: string | null;
-        path?: string | null;
-        pathname?: string | null;
-        protocol?: string | null;
-        search?: string | null;
-        slashes?: boolean | null;
-        port?: string | number | null;
-        query?: string | null | ParsedUrlQueryInput;
+        auth?: string | null | undefined;
+        hash?: string | null | undefined;
+        host?: string | null | undefined;
+        hostname?: string | null | undefined;
+        href?: string | null | undefined;
+        path?: string | null | undefined;
+        pathname?: string | null | undefined;
+        protocol?: string | null | undefined;
+        search?: string | null | undefined;
+        slashes?: boolean | null | undefined;
+        port?: string | number | null | undefined;
+        query?: string | null | ParsedUrlQueryInput | undefined;
     }
 
     // Output of `url.parse`
@@ -74,10 +74,10 @@ declare module 'url' {
     function pathToFileURL(url: string): URL;
 
     interface URLFormatOptions {
-        auth?: boolean;
-        fragment?: boolean;
-        search?: boolean;
-        unicode?: boolean;
+        auth?: boolean | undefined;
+        fragment?: boolean | undefined;
+        search?: boolean | undefined;
+        unicode?: boolean | undefined;
     }
 
     class URL {

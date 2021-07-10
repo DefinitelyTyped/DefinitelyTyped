@@ -7,6 +7,6 @@ export class CacheExpiration {
 }
 
 export interface CacheExpirationConfig {
-    maxAgeSeconds?: number;
-    maxEntries?: number;
+    maxAgeSeconds?: number | undefined;
+    maxEntries?: number | undefined;
 }

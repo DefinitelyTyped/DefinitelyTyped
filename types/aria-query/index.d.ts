@@ -9,8 +9,8 @@ export type ARIARoleDefintionKey = ARIAAbstractRole | ARIARole | ARIADPubRole;
 
 export const aria: Map<ARIAProperty, ARIAPropertyDefinition>;
 export interface DOMDefinition {
-    reserved?: boolean;
-    interactive?: boolean;
+    reserved?: boolean | undefined;
+    interactive?: boolean | undefined;
 }
 export const dom: Map<string, DOMDefinition>;
 export const elementRoles: Map<ARIARoleRelationConcept, Set<ARIARoleDefintionKey>>;
@@ -248,68 +248,68 @@ export type ARIAProperty =
     | ARIAState;
 
 export interface ARIAPropertyMap {
-    'aria-busy'?: unknown;
-    'aria-checked'?: unknown;
-    'aria-disabled'?: unknown;
-    'aria-expanded'?: unknown;
-    'aria-grabbed'?: unknown;
-    'aria-hidden'?: unknown;
-    'aria-invalid'?: unknown;
-    'aria-pressed'?: unknown;
-    'aria-selected'?: unknown;
-    'aria-activedescendant'?: unknown;
-    'aria-atomic'?: unknown;
-    'aria-autocomplete'?: unknown;
-    'aria-colcount'?: unknown;
-    'aria-colindex'?: unknown;
-    'aria-colspan'?: unknown;
-    'aria-controls'?: unknown;
-    'aria-current'?: ARIAPropertyCurrent | null;
-    'aria-describedat'?: unknown;
-    'aria-describedby'?: unknown;
-    'aria-details'?: unknown;
-    'aria-dropeffect'?: unknown;
-    'aria-errormessage'?: unknown;
-    'aria-flowto'?: unknown;
-    'aria-haspopup'?: unknown;
-    'aria-keyshortcuts'?: unknown;
-    'aria-label'?: unknown;
-    'aria-labelledby'?: unknown;
-    'aria-level'?: unknown;
-    'aria-live'?: unknown;
-    'aria-modal'?: unknown;
-    'aria-multiline'?: unknown;
-    'aria-multiselectable'?: unknown;
-    'aria-orientation'?: unknown;
-    'aria-owns'?: unknown;
-    'aria-placeholder'?: unknown;
-    'aria-posinset'?: unknown;
-    'aria-readonly'?: unknown;
-    'aria-relevant'?: unknown;
-    'aria-required'?: unknown;
-    'aria-roledescription'?: unknown;
-    'aria-rowcount'?: unknown;
-    'aria-rowindex'?: unknown;
-    'aria-rowspan'?: unknown;
-    'aria-setsize'?: unknown;
-    'aria-sort'?: unknown;
-    'aria-valuemax'?: unknown;
-    'aria-valuemin'?: unknown;
-    'aria-valuenow'?: unknown;
-    'aria-valuetext'?: unknown;
+    'aria-busy'?: unknown | undefined;
+    'aria-checked'?: unknown | undefined;
+    'aria-disabled'?: unknown | undefined;
+    'aria-expanded'?: unknown | undefined;
+    'aria-grabbed'?: unknown | undefined;
+    'aria-hidden'?: unknown | undefined;
+    'aria-invalid'?: unknown | undefined;
+    'aria-pressed'?: unknown | undefined;
+    'aria-selected'?: unknown | undefined;
+    'aria-activedescendant'?: unknown | undefined;
+    'aria-atomic'?: unknown | undefined;
+    'aria-autocomplete'?: unknown | undefined;
+    'aria-colcount'?: unknown | undefined;
+    'aria-colindex'?: unknown | undefined;
+    'aria-colspan'?: unknown | undefined;
+    'aria-controls'?: unknown | undefined;
+    'aria-current'?: ARIAPropertyCurrent | null | undefined;
+    'aria-describedat'?: unknown | undefined;
+    'aria-describedby'?: unknown | undefined;
+    'aria-details'?: unknown | undefined;
+    'aria-dropeffect'?: unknown | undefined;
+    'aria-errormessage'?: unknown | undefined;
+    'aria-flowto'?: unknown | undefined;
+    'aria-haspopup'?: unknown | undefined;
+    'aria-keyshortcuts'?: unknown | undefined;
+    'aria-label'?: unknown | undefined;
+    'aria-labelledby'?: unknown | undefined;
+    'aria-level'?: unknown | undefined;
+    'aria-live'?: unknown | undefined;
+    'aria-modal'?: unknown | undefined;
+    'aria-multiline'?: unknown | undefined;
+    'aria-multiselectable'?: unknown | undefined;
+    'aria-orientation'?: unknown | undefined;
+    'aria-owns'?: unknown | undefined;
+    'aria-placeholder'?: unknown | undefined;
+    'aria-posinset'?: unknown | undefined;
+    'aria-readonly'?: unknown | undefined;
+    'aria-relevant'?: unknown | undefined;
+    'aria-required'?: unknown | undefined;
+    'aria-roledescription'?: unknown | undefined;
+    'aria-rowcount'?: unknown | undefined;
+    'aria-rowindex'?: unknown | undefined;
+    'aria-rowspan'?: unknown | undefined;
+    'aria-setsize'?: unknown | undefined;
+    'aria-sort'?: unknown | undefined;
+    'aria-valuemax'?: unknown | undefined;
+    'aria-valuemin'?: unknown | undefined;
+    'aria-valuenow'?: unknown | undefined;
+    'aria-valuetext'?: unknown | undefined;
 }
 
 export interface ARIAPropertyDefinition {
     type: 'string' | 'id' | 'idlist' | 'integer' | 'number' | 'boolean' | 'token' | 'tokenlist' | 'tristate';
-    values?: Array<string | boolean>;
-    allowundefined?: boolean;
+    values?: Array<string | boolean> | undefined;
+    allowundefined?: boolean | undefined;
 }
 
 export type ARIAPropertyCurrent = 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | true | false;
 
 export interface ARIARoleRelation {
-    module?: string;
-    concept?: ARIARoleRelationConcept;
+    module?: string | undefined;
+    concept?: ARIARoleRelationConcept | undefined;
 }
 
 /* The concept in a related domain that informs behavior mappings.
@@ -317,7 +317,7 @@ export interface ARIARoleRelation {
  * and ARIA to name a few. */
 export interface ARIARoleRelationConcept {
     name: string;
-    attributes?: ARIARoleRelationConceptAttribute[];
+    attributes?: ARIARoleRelationConceptAttribute[] | undefined;
     // These constraints are drawn from the mapping between ARIA and HTML:
     // https://www.w3.org/TR/html-aria
     constraints?: Array<
@@ -325,13 +325,13 @@ export interface ARIARoleRelationConcept {
         | 'direct descendant of ol, ul or menu'
         | 'direct descendant of details element with the open attribute defined'
         | 'descendant of table'
-    >;
+    > | undefined;
 }
 
 export interface ARIARoleRelationConceptAttribute {
     name: string;
-    value?: string | number;
+    value?: string | number | undefined;
     // These constraints are drawn from the mapping between ARIA and HTML:
     // https://www.w3.org/TR/html-aria
-    constraints?: Array<'unset' | '>1'>;
+    constraints?: Array<'unset' | '>1'> | undefined;
 }

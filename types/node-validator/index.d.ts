@@ -5,18 +5,18 @@
 
 declare namespace ValidatorOptions {
     interface IsStringOptions {
-        regex?: RegExp,
-        message?: String
+        regex?: RegExp | undefined,
+        message?: String | undefined
     }
 
     interface IsNumberOptions {
-        min?: Number,
-        max?: Number
+        min?: Number | undefined,
+        max?: Number | undefined
     }
 
     interface IsDateOptions {
-        format?: String,
-        message?: String
+        format?: String | undefined,
+        message?: String | undefined
     }
 
     type Options = IsStringOptions | IsNumberOptions | IsDateOptions;

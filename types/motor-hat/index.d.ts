@@ -38,8 +38,8 @@ export interface DCOptions {
      */
     pins: PinDefinition;
 
-    speed?: number;
-    frequency?: number;
+    speed?: number | undefined;
+    frequency?: number | undefined;
 }
 
 /**
@@ -145,17 +145,17 @@ export interface ServoOptions {
     /**
      * Duration in ms of pulse at position 0
      */
-    min?: number;
+    min?: number | undefined;
 
     /**
      * Duration in ms of pulse at position 100
      */
-    max?: number;
+    max?: number | undefined;
 
     /**
      * PWM Controller frequency for the servo
      */
-    freq?: number;
+    freq?: number | undefined;
 }
 
 /**
@@ -206,39 +206,39 @@ export interface StepperOptions {
     /**
      * Steps per revolution of the stepper motor
      */
-    steps?: number;
+    steps?: number | undefined;
 
     /**
      * number of microsteps per step
      */
-    microsteps?: 8 | 16;
+    microsteps?: 8 | 16 | undefined;
 
     /**
      * PWM Controller frequency for the stepper
      */
-    frequency?: number;
+    frequency?: number | undefined;
 
     /**
      * Stepping style
      */
-    style?: 'single' | 'double' | 'interleaved' | 'microstep';
+    style?: 'single' | 'double' | 'interleaved' | 'microstep' | undefined;
 
-    current?: number;
+    current?: number | undefined;
 
     /**
      * Pulses per second
      */
-    pps?: number;
+    pps?: number | undefined;
 
     /**
      * Revolutions per minute
      */
-    rpm?: number;
+    rpm?: number | undefined;
 
     /**
      * Steps per second
      */
-    sps?: number;
+    sps?: number | undefined;
 }
 
 export interface StepResult {
@@ -287,17 +287,17 @@ export interface StepperSpeed {
     /**
      * Speed in steps per second
      */
-    sps?: number;
+    sps?: number | undefined;
 
     /**
      * Speed in pulses per second (pulses can be steps, microsteps, etc)
      */
-    pps?: number;
+    pps?: number | undefined;
 
     /**
      * Speed in revolutions per minute
      */
-    rpm?: number;
+    rpm?: number | undefined;
 }
 
 /**
@@ -514,13 +514,13 @@ export interface MotorHatOptions {
      *
      * * 0x60 for official AdaFruit HATs??
      */
-    address?: number;
+    address?: number | undefined;
 
     /**
      * i2c driver devfile number. Varies by RaspBerry version.
      * Should be automatically detected.
      */
-    busnum?: number;
+    busnum?: number | undefined;
 
     /**
      * Definition of the stepper motors connected to the HAT.
@@ -528,20 +528,20 @@ export interface MotorHatOptions {
      * { W1: winding, W2: winding }. Each winding should be one of following: 'M1', 'M2', 'M3',
      * 'M4' depending on the port the stepper is connected to. Correct example: { W1: 'M3', W2: 'M1' }
      */
-    steppers?: ReadonlyArray<{ W1: Motor; W2: Motor }>;
+    steppers?: ReadonlyArray<{ W1: Motor; W2: Motor }> | undefined;
 
     /**
      * Definition of the DC motors connected to the HAT.
      * At most 4 DCs, each should be one of following: 'M1', 'M2', 'M3', 'M4' depending on
      * port the motor is connected to.
      */
-    dcs?: ReadonlyArray<Motor>;
+    dcs?: ReadonlyArray<Motor> | undefined;
 
     /**
      * Definition of the servos connected to the HAT.
      * List of the channels that have servos connected to them. 0 to 15.
      */
-    servos?: ReadonlyArray<number>;
+    servos?: ReadonlyArray<number> | undefined;
 }
 
 /**

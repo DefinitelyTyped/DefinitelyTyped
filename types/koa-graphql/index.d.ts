@@ -37,20 +37,20 @@ declare namespace graphqlHTTP {
         /**
          * A boolean to configure whether the output should be pretty-printed.
          */
-        pretty?: boolean;
+        pretty?: boolean | undefined;
 
         /**
          * An optional function which will be used to format any errors produced by
          * fulfilling a GraphQL operation. If no function is provided, GraphQL's
          * default spec-compliant `formatError` function will be used.
          */
-        formatError?: (error: GraphQLError, context?: any) => any;
+        formatError?: ((error: GraphQLError, context?: any) => any) | undefined;
 
         /**
          * An optional array of validation rules that will be applied on the document
          * in addition to those defined by the GraphQL spec.
          */
-        validationRules?: Array<(arg0: ValidationContext) => ASTVisitor>;
+        validationRules?: Array<(arg0: ValidationContext) => ASTVisitor> | undefined;
 
         /**
          * An optional function for adding additional metadata to the GraphQL response
@@ -62,18 +62,18 @@ declare namespace graphqlHTTP {
          *
          * This function may be async.
          */
-        extensions?: (info: RequestInfo) => { [key: string]: any };
+        extensions?: ((info: RequestInfo) => { [key: string]: any }) | undefined;
 
         /**
          * A boolean to optionally enable GraphiQL mode.
          */
-        graphiql?: boolean;
+        graphiql?: boolean | undefined;
 
         /**
          * A resolver function to use when one is not provided by the schema.
          * If not provided, the default field resolver is used (which looks for a
          * value or method on the source value with the field's name).
          */
-        fieldResolver?: GraphQLFieldResolver<any, any>;
+        fieldResolver?: GraphQLFieldResolver<any, any> | undefined;
     }
 }

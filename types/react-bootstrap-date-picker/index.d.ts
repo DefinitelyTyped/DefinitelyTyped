@@ -17,31 +17,31 @@ declare namespace DatePicker {
     type ChangeCallback = (value: string, formattedValue: string) => void;
 
     interface DatePickerProps {
-        value?: string;
-        defaultValue?: string;
-        minDate?: string;
-        maxDate?: string;
+        value?: string | undefined;
+        defaultValue?: string | undefined;
+        minDate?: string | undefined;
+        maxDate?: string | undefined;
         style?: any;
-        className?: string;
-        autoFocus?: boolean;
-        disabled?: boolean;
-        onChange?: ChangeCallback;
-        onFocus?: FocusEventHandler<any>;
-        onBlur?: FocusEventHandler<any>;
-        dateFormat?: string;
-        clearButtonElement?: ReactNode;
-        showClearButton?: boolean;
+        className?: string | undefined;
+        autoFocus?: boolean | undefined;
+        disabled?: boolean | undefined;
+        onChange?: ChangeCallback | undefined;
+        onFocus?: FocusEventHandler<any> | undefined;
+        onBlur?: FocusEventHandler<any> | undefined;
+        dateFormat?: string | undefined;
+        clearButtonElement?: ReactNode | undefined;
+        showClearButton?: boolean | undefined;
         onClear?(): void;
-        previousButtonElement?: ReactNode;
-        nextButtonElement?: ReactNode;
-        cellPadding?: string;
-        dayLabels?: string[];
-        monthLabels?: string[];
-        calendarPlacement?: string;
+        previousButtonElement?: ReactNode | undefined;
+        nextButtonElement?: ReactNode | undefined;
+        cellPadding?: string | undefined;
+        dayLabels?: string[] | undefined;
+        monthLabels?: string[] | undefined;
+        calendarPlacement?: string | undefined;
         calendarContainer?: any;
-        weekStartsOnMonday?: boolean;
-        showTodayButton?: boolean;
-        todayButtonLabel?: string;
-        customControl?: StatelessComponent<any> | ComponentClass<any>;
+        weekStartsOnMonday?: boolean | undefined;
+        showTodayButton?: boolean | undefined;
+        todayButtonLabel?: string | undefined;
+        customControl?: StatelessComponent<any> | ComponentClass<any> | undefined;
     }
 }

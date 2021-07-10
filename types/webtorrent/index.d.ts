@@ -22,26 +22,26 @@ declare namespace WebTorrent {
         WEBRTC_SUPPORT: boolean;
     }
     interface Options {
-        maxConns?: number;
-        nodeId?: string | Buffer;
-        peerId?: string | Buffer;
-        tracker?: boolean | {};
-        dht?: boolean | {};
-        webSeeds?: boolean;
-        utp?: boolean;
+        maxConns?: number | undefined;
+        nodeId?: string | Buffer | undefined;
+        peerId?: string | Buffer | undefined;
+        tracker?: boolean | {} | undefined;
+        dht?: boolean | {} | undefined;
+        webSeeds?: boolean | undefined;
+        utp?: boolean | undefined;
     }
 
     interface TorrentOptions {
-        announce?: any[];
+        announce?: any[] | undefined;
         getAnnounceOpts?(): void;
-        maxWebConns?: number;
-        path?: string;
+        maxWebConns?: number | undefined;
+        path?: string | undefined;
         store?(chunkLength: number, storeOpts: { length: number, files: File[], torrent: Torrent, }): any;
-        private?: boolean;
+        private?: boolean | undefined;
     }
 
     interface TorrentDestroyOptions {
-        destroyStore?: boolean;
+        destroyStore?: boolean | undefined;
     }
 
     interface Instance extends NodeJS.EventEmitter {
@@ -178,13 +178,13 @@ declare namespace WebTorrent {
 
         appendTo(
             rootElement: HTMLElement | string,
-            opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number },
+            opts?: { autoplay?: boolean | undefined, controls?: boolean | undefined, maxBlobLength?: number | undefined },
             callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
         appendTo(rootElement: HTMLElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
 
         renderTo(
             rootElement: HTMLMediaElement | string,
-            opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number },
+            opts?: { autoplay?: boolean | undefined, controls?: boolean | undefined, maxBlobLength?: number | undefined },
             callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
         renderTo(rootElement: HTMLMediaElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
 

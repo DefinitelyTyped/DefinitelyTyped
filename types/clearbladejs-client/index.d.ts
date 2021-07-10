@@ -20,31 +20,31 @@ declare namespace CbClient {
     interface InitOptions {
         systemKey: string;
         systemSecret: string;
-        masterSecret?: string;
-        logging?: boolean;
-        callback?: CbCallback;
-        email?: string;
-        password?: string;
-        registerUser?: boolean;
-        useUser?: APIUser;
-        URI?: string;
-        messagingURI?: string;
-        messagingPort?: number;
-        defaultQoS?: MessagingQOS;
-        callTimeout?: number;
-        messagingAuthPort?: number;
+        masterSecret?: string | undefined;
+        logging?: boolean | undefined;
+        callback?: CbCallback | undefined;
+        email?: string | undefined;
+        password?: string | undefined;
+        registerUser?: boolean | undefined;
+        useUser?: APIUser | undefined;
+        URI?: string | undefined;
+        messagingURI?: string | undefined;
+        messagingPort?: number | undefined;
+        defaultQoS?: MessagingQOS | undefined;
+        callTimeout?: number | undefined;
+        messagingAuthPort?: number | undefined;
     }
 
     interface RequestOptions {
-        method?: string;
-        endpoint?: string;
-        body?: string;
-        qs?: string;
-        URI?: string;
-        useUser?: boolean;
-        authToken?: string;
-        timeout?: number;
-        user?: APIUser;
+        method?: string | undefined;
+        endpoint?: string | undefined;
+        body?: string | undefined;
+        qs?: string | undefined;
+        URI?: string | undefined;
+        useUser?: boolean | undefined;
+        authToken?: string | undefined;
+        timeout?: number | undefined;
+        user?: APIUser | undefined;
     }
 
     interface APIUser {
@@ -162,8 +162,8 @@ declare namespace CbClient {
     type QueryValue = string | number | boolean;
 
     interface QueryOptions {
-        offset?: number;
-        limit?: number;
+        offset?: number | undefined;
+        limit?: number | undefined;
     }
 
     interface QueryOptionsWithName
@@ -174,11 +174,11 @@ declare namespace CbClient {
             QueryOptions {}
 
     interface Query {
-        SELECTCOLUMNS?: string[];
-        SORT?: QuerySortDirections;
-        FILTERS?: QueryFilter[];
-        PAGESIZE?: number;
-        PAGENUM?: number;
+        SELECTCOLUMNS?: string[] | undefined;
+        SORT?: QuerySortDirections | undefined;
+        FILTERS?: QueryFilter[] | undefined;
+        PAGESIZE?: number | undefined;
+        PAGENUM?: number | undefined;
     }
 
     interface QueryFilter {
@@ -317,16 +317,16 @@ declare namespace CbClient {
     }
 
     interface CommonMessagingProperties {
-        cleanSession?: boolean;
-        useSSL?: boolean;
-        hosts?: string;
-        ports?: string;
-        onSuccess?: Function;
-        onFailure?: Function;
+        cleanSession?: boolean | undefined;
+        useSSL?: boolean | undefined;
+        hosts?: string | undefined;
+        ports?: string | undefined;
+        onSuccess?: Function | undefined;
+        onFailure?: Function | undefined;
     }
 
     interface MessagingOptions extends CommonMessagingProperties {
-        qos?: MessagingQOS;
+        qos?: MessagingQOS | undefined;
     }
 
     interface MessagingConfiguration extends CommonMessagingProperties {
@@ -337,11 +337,11 @@ declare namespace CbClient {
     type MessageCallback = (message: string) => void;
 
     interface MessagingSubscribeOptions {
-        qos?: MessagingQOS;
-        invocationContext?: object;
-        onSuccess?: Function;
-        onFailure?: Function;
-        timeout?: number;
+        qos?: MessagingQOS | undefined;
+        invocationContext?: object | undefined;
+        onSuccess?: Function | undefined;
+        onFailure?: Function | undefined;
+        timeout?: number | undefined;
     }
 
     interface MessagingStats {

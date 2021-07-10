@@ -52,7 +52,7 @@ export interface Styletron {
     debug?: {
         stackIndex: StackIndex;
         stackInfo: StackInfo;
-    };
+    } | undefined;
 }
 
 export type StyleObjectFn<P extends object> = (props: P) => StyleObject;
@@ -60,8 +60,8 @@ export type StyleObjectFn<P extends object> = (props: P) => StyleObject;
 export type $StyleProp<P extends object> = StyleObject | StyleObjectFn<P>;
 
 export interface StyletronComponentInjectedProps<P extends object> {
-    $as?: StyletronBase;
-    $style?: $StyleProp<P>;
+    $as?: StyletronBase | undefined;
+    $style?: $StyleProp<P> | undefined;
 }
 
 export type StyletronComponent<P extends object> = React.FC<P & StyletronComponentInjectedProps<P>> & {
@@ -121,9 +121,9 @@ export type DebugEngine = BrowserDebugEngine | NoopDebugEngine;
 export interface DevProviderProps {
     children: React.ReactNode;
     value: StandardEngine;
-    debugAfterHydration?: boolean;
+    debugAfterHydration?: boolean | undefined;
     /** DebugEngineContext */
-    debug?: DebugEngine;
+    debug?: DebugEngine | undefined;
 }
 
 export class DevProvider extends React.Component<DevProviderProps, { hydrating: boolean }> {}

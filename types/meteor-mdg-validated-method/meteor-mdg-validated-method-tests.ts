@@ -57,7 +57,7 @@ const methodReturnsName = new ValidatedMethod({
 // mixins can add fields to ValidatedMethodOptions
 declare module 'meteor/mdg:validated-method' {
     interface ValidatedMethodOptionsMixinFields<TRunArg, TRunReturn> {
-        schema?: SimpleSchema;
+        schema?: SimpleSchema | undefined;
     }
 }
 

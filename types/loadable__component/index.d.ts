@@ -26,12 +26,12 @@ export type ComponentResolver<Props, Module = DefaultComponent<Props>> = (
 
 export interface OptionsWithoutResolver<Props> {
     cacheKey?(props: Props): any;
-    fallback?: JSX.Element;
-    ssr?: boolean;
+    fallback?: JSX.Element | undefined;
+    ssr?: boolean | undefined;
 }
 
 export interface Options<Props, Module = DefaultComponent<Props>> extends OptionsWithoutResolver<Props> {
-    resolveComponent?: ComponentResolver<Props, Module>;
+    resolveComponent?: ComponentResolver<Props, Module> | undefined;
 }
 
 export interface OptionsWithResolver<Props, Module = DefaultComponent<Props>> extends OptionsWithoutResolver<Props> {
@@ -39,7 +39,7 @@ export interface OptionsWithResolver<Props, Module = DefaultComponent<Props>> ex
 }
 
 export interface LoadableReadyOptions {
-    namespace?: string;
+    namespace?: string | undefined;
 }
 
 export interface LoadableComponentMethods<Props> {
@@ -48,14 +48,14 @@ export interface LoadableComponentMethods<Props> {
 }
 
 export interface ExtraComponentProps {
-    fallback?: JSX.Element;
+    fallback?: JSX.Element | undefined;
 }
 
 export type LoadableComponent<Props> = React.ComponentType<Props & ExtraComponentProps> &
     LoadableComponentMethods<Props>;
 
 export interface ExtraClassComponentProps<Component extends React.ComponentClass> extends ExtraComponentProps {
-    ref?: React.LegacyRef<InstanceType<Component>>;
+    ref?: React.LegacyRef<InstanceType<Component>> | undefined;
 }
 
 export type LoadableClassComponent<Component extends React.ComponentClass> = React.ComponentType<
@@ -64,9 +64,9 @@ export type LoadableClassComponent<Component extends React.ComponentClass> = Rea
     LoadableComponentMethods<React.ComponentProps<Component>>;
 
 export type LoadableLibrary<Module> = React.ComponentType<{
-    fallback?: JSX.Element;
-    children?: (module: Module) => React.ReactNode;
-    ref?: React.Ref<Module>;
+    fallback?: JSX.Element | undefined;
+    children?: ((module: Module) => React.ReactNode) | undefined;
+    ref?: React.Ref<Module> | undefined;
 }> &
     Module &
     LoadableComponentMethods<object>;

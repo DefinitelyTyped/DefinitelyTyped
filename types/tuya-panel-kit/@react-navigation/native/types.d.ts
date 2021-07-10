@@ -17,7 +17,7 @@ export declare type LinkingOptions = {
      * Whether deep link handling should be enabled.
      * Defaults to true.
      */
-    enabled?: boolean;
+    enabled?: boolean | undefined;
     /**
      * The prefixes are stripped from the URL before parsing them.
      * Usually they are the `scheme` + `host` (e.g. `myapp://chat?user=jane`)
@@ -49,9 +49,9 @@ export declare type LinkingOptions = {
      * ```
      */
     config?: {
-        initialRouteName?: string;
+        initialRouteName?: string | undefined;
         screens: PathConfigMap;
-    };
+    } | undefined;
     /**
      * Custom function to get the initial URL used for linking.
      * Uses `Linking.getInitialURL()` by default.
@@ -64,7 +64,7 @@ export declare type LinkingOptions = {
      * }
      * ```
      */
-    getInitialURL?: () => Promise<string | null | undefined>;
+    getInitialURL?: (() => Promise<string | null | undefined>) | undefined;
     /**
      * Custom function to get subscribe to URL updates.
      * Uses `Linking.addEventListener('url', callback)` by default.
@@ -83,21 +83,21 @@ export declare type LinkingOptions = {
      * }
      * ```
      */
-    subscribe?: (listener: (url: string) => void) => undefined | void | (() => void);
+    subscribe?: ((listener: (url: string) => void) => undefined | void | (() => void)) | undefined;
     /**
      * Custom function to parse the URL to a valid navigation state (advanced).
      */
-    getStateFromPath?: typeof getStateFromPathDefault;
+    getStateFromPath?: typeof getStateFromPathDefault | undefined;
     /**
      * Custom function to convert the state object to a valid URL (advanced).
      * Only applicable on Web.
      */
-    getPathFromState?: typeof getPathFromStateDefault;
+    getPathFromState?: typeof getPathFromStateDefault | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type DocumentTitleOptions = {
-    enabled?: boolean;
-    formatter?: (options: Record<string, any> | undefined, route: Route<string> | undefined) => string;
+    enabled?: boolean | undefined;
+    formatter?: ((options: Record<string, any> | undefined, route: Route<string> | undefined) => string) | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type ServerContainerRef = {

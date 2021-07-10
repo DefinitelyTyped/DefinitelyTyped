@@ -5,7 +5,7 @@ export default class Token implements Observable {
 
     constructor(
         tokenUrlOrRefreshToken: string | (() => string),
-        options: { initValue?: string; autoRefresh?: boolean },
+        options: { initValue?: string | undefined; autoRefresh?: boolean | undefined },
     );
     destroy(): void;
     init(): Promise<Token>;
@@ -13,7 +13,7 @@ export default class Token implements Observable {
 
     static create(
         tokenUrlOrRefreshToken: string | (() => string),
-        options: { initValue?: string; autoRefresh?: boolean },
+        options: { initValue?: string | undefined; autoRefresh?: boolean | undefined },
     ): Promise<Token>;
 
     set(option: Record<string, unknown>): void;

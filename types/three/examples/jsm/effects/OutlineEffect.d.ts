@@ -1,10 +1,10 @@
 import { Camera, Scene, Vector2, Vector4, WebGLRenderer, WebGLRenderTarget, WebGLShadowMap } from '../../../src/Three';
 
 export interface OutlineEffectParameters {
-    defaultThickness?: number;
-    defaultColor?: number[];
-    defaultAlpha?: number;
-    defaultKeepAlive?: boolean;
+    defaultThickness?: number | undefined;
+    defaultColor?: number[] | undefined;
+    defaultAlpha?: number | undefined;
+    defaultKeepAlive?: boolean | undefined;
 }
 
 export class OutlineEffect {

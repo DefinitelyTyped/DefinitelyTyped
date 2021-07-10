@@ -11,11 +11,11 @@ import SimpleGeometry from '../geom/SimpleGeometry';
 import TextFeature from './TextFeature';
 
 export interface Options {
-    splitCollection?: boolean;
+    splitCollection?: boolean | undefined;
 }
 export interface Token {
     type: number;
-    value?: number | string;
+    value?: number | string | undefined;
     position: number;
 }
 export default class WKT extends TextFeature {

@@ -10,10 +10,10 @@ export as namespace ReactHooksHelper;
 
 export interface NavigationProps {
     next: () => void;
-    previous?: () => void;
-    go?: (step: number | string) => void;
-    play?: () => void;
-    pause?: () => void;
+    previous?: (() => void) | undefined;
+    go?: ((step: number | string) => void) | undefined;
+    play?: (() => void) | undefined;
+    pause?: (() => void) | undefined;
 }
 
 export interface Step {
@@ -21,8 +21,8 @@ export interface Step {
 }
 
 export interface UseStepParams {
-    initialStep?: number;
-    autoAdvanceDuration?: number;
+    initialStep?: number | undefined;
+    autoAdvanceDuration?: number | undefined;
     steps: Step[] | number;
 }
 
@@ -40,8 +40,8 @@ export interface FormTarget {
     target: {
         name: string; // object property name or Dot separated when hierarchical
         value: any;
-        type?: string;
-        checked?: boolean;
+        type?: string | undefined;
+        checked?: boolean | undefined;
     };
 }
 

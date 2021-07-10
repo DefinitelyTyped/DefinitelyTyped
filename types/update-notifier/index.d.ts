@@ -19,7 +19,7 @@ declare namespace UpdateNotifier {
         constructor(settings?: Settings);
 
         readonly config: ConfigStore;
-        readonly update?: UpdateInfo;
+        readonly update?: UpdateInfo | undefined;
         check(): void;
         /**
          * Check update information
@@ -35,34 +35,34 @@ declare namespace UpdateNotifier {
          * Which dist-tag to use to find the latest version
          * @default 'latest'
          */
-        distTag?: string;
-        pkg?: Package;
+        distTag?: string | undefined;
+        pkg?: Package | undefined;
         /**
          * @deprecated use `pkg.name`
          */
-        packageName?: string;
+        packageName?: string | undefined;
         /**
          * @deprecated use `pkg.version`
          */
-        packageVersion?: string;
+        packageVersion?: string | undefined;
         /** How often to check for updates */
-        updateCheckInterval?: number;
+        updateCheckInterval?: number | undefined;
         /** Allows notification to be shown when running as an npm script */
-        shouldNotifyInNpmScript?: boolean;
+        shouldNotifyInNpmScript?: boolean | undefined;
     }
 
     interface NotifyOptions {
         /** Message that will be shown when an update is available */
-        message?: string;
+        message?: string | undefined;
         /** Defer showing the notification to after the process has exited */
-        defer?: boolean;
+        defer?: boolean | undefined;
         /** Include the -g argument in the default message's npm i recommendation */
-        isGlobal?: boolean;
+        isGlobal?: boolean | undefined;
         /**
          * Options object that will be passed to `boxen`
          * See https://github.com/sindresorhus/boxen/blob/master/index.d.ts
          */
-        boxenOptions?: boxen.Options;
+        boxenOptions?: boxen.Options | undefined;
     }
 
     interface Package {

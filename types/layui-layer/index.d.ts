@@ -36,7 +36,7 @@ declare namespace layer {
          * 基本层类型
          * @default 0
          */
-        type?: Types[keyof Types];
+        type?: Types[keyof Types] | undefined;
         /**
          * 标题
          * @default '信息'
@@ -45,17 +45,17 @@ declare namespace layer {
          * ['文本', 'font-size:18px;']
          * false    //不显示标题栏
          */
-        title?: string | false | [string, string];
+        title?: string | false | [string, string] | undefined;
         /**
          * 内容
          * @default ''
          */
-        content?: string | HTMLElement | JQuery | [string, string];
+        content?: string | HTMLElement | JQuery | [string, string] | undefined;
         /**
          * 样式类名
          * @default ''
          */
-        skin?: string;
+        skin?: string | undefined;
         /**
          * 宽高
          * @default 'auto'
@@ -63,7 +63,7 @@ declare namespace layer {
          * '500px'    //定义宽度，高度自适应
          * ['500px', '300px']    //定义宽高
          */
-        area?: string | [string, string];
+        area?: string | [string, string] | undefined;
         /**
          * 坐标
          * @default 'auto'
@@ -80,19 +80,19 @@ declare namespace layer {
          * 'rt'    //快捷设置右上角
          * 'rb'    //快捷设置右下角
          */
-        offset?: string | [string, string];
+        offset?: string | [string, string] | undefined;
         /**
          * 图标
          * 信息框和加载层的私有参数
          * @description 信息框默认不显示图标。当你想显示图标时，默认皮肤可以传入0-6如果是加载层，可以传入0-2。
          */
-        icon?: number;
+        icon?: number | undefined;
         /**
          * 按钮
          * @default '确认'
          * @description 信息框模式时，btn默认是一个确认按钮，其它层类型则默认不显示，加载层和tips层则无效。
          */
-        btn?: string | string[];
+        btn?: string | string[] | undefined;
         /**
          * 按钮排列
          * @default 'r'
@@ -101,36 +101,36 @@ declare namespace layer {
          * 'c'    //按钮居中对齐
          * 'r'    //按钮右对齐。默认值，不用设置
          */
-        btnAlign?: "l" | "c" | "r";
+        btnAlign?: "l" | "c" | "r" | undefined;
         /**
          * 关闭按钮
          * @description layer提供了两种风格的关闭按钮，可通过配置1和2来展示，如果不显示，则closeBtn: 0
          * @default 1
          */
-        closeBtn?: 0 | 1 | 2;
+        closeBtn?: 0 | 1 | 2 | undefined;
         /**
          * 遮罩
          * @default 0.3
          * @example [0.8, '#393D49']    //透明度、颜色
          */
-        shade?: number | false | [number, string];
+        shade?: number | false | [number, string] | undefined;
         /**
          * 是否点击遮罩关闭
          * @description 如果你的shade是存在的，那么你可以设定shadeClose来控制点击弹层外区域关闭。
          * @default false
          */
-        shadeClose?: boolean;
+        shadeClose?: boolean | undefined;
         /**
          * 自动关闭所需毫秒
          * @default 0 //不会自动关闭
          */
-        time?: number;
+        time?: number | undefined;
         /**
          * 用于控制弹层唯一标识
          * @description 设置该值后，不管是什么类型的层，都只允许同时弹出一个。一般用于页面层和iframe层模式
          * @default ''
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * 弹出动画
          * @default 0
@@ -145,31 +145,31 @@ declare namespace layer {
          * 5    //渐显
          * 6    //抖动
          */
-        anim?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6;
+        anim?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
         /**
          * 关闭动画
          * @default true
          * @since 3.0.3
          */
-        isOutAnim?: boolean;
+        isOutAnim?: boolean | undefined;
         /**
          * 最大最小化
          * @default false
          * @description 显示最大小化按钮。该参数值对type:1和type:2有效。
          */
-        maxmin?: boolean;
+        maxmin?: boolean | undefined;
         /**
          * 固定
          * @default true
          * @description 鼠标滚动时，层是否固定在可视区域。
          */
-        fixed?: boolean;
+        fixed?: boolean | undefined;
         /**
          * 是否允许拉伸
          * @default true
          * @description 可以在弹层右下角拖动来拉伸尺寸。该参数对loading、tips层无效
          */
-        resize?: boolean;
+        resize?: boolean | undefined;
         /**
          * 监听窗口拉伸动作
          * @param layero 当前层的DOM对象
@@ -179,35 +179,35 @@ declare namespace layer {
          * 是否允许浏览器出现滚动条
          * @default true
          */
-        scrollbar?: boolean;
+        scrollbar?: boolean | undefined;
         /**
          * 最大宽度
          * @default 360
          * @description 只有当`area: 'auto'`时，maxWidth的设定才有效。
          */
-        maxWidth?: number;
+        maxWidth?: number | undefined;
         /**
          * 最大高度
          * @since 3.1.0
          * @description 只有当高度自适应时，maxHeight的设定才有效。
          */
-        maxHeight?: number;
+        maxHeight?: number | undefined;
         /**
          * 层叠顺序
          * @default 19891014
          * @description 一般用于解决和其它组件的层叠冲突。
          */
-        zIndex?: number;
+        zIndex?: number | undefined;
         /**
          * 触发拖动的元素
          * @default '.layui-layer-title'
          */
-        move?: Selector | false | JQuery;
+        move?: Selector | false | JQuery | undefined;
         /**
          * 是否允许拖拽到窗口外
          * @default false
          */
-        moveOut?: boolean;
+        moveOut?: boolean | undefined;
         /**
          * 拖动完毕后的回调方法
          * @param this 合并的选项
@@ -225,13 +225,13 @@ declare namespace layer {
          * 4    //左
          * [1, '#c00']  //方向，颜色
          */
-        tips?: number | [number, string];
+        tips?: number | [number, string] | undefined;
         /**
          * 是否允许多个tips
          * @default false
          * @description 允许多个意味着不会销毁之前的tips层。
          */
-        tipsMore?: boolean;
+        tipsMore?: boolean | undefined;
         /**
          * 层弹出后的成功回调方法
          * @param layero 当前层DOM
@@ -289,28 +289,28 @@ declare namespace layer {
         /**
          * js所在的目录，可以是绝对目录，也可以是相对目录
          */
-        path?: string;
+        path?: string | undefined;
         /**
          * 拓展的css皮肤
          */
-        extend?: string | string[];
+        extend?: string | string[] | undefined;
     }
 
     interface PromptOptions extends Options {
         /**
          * 输入框类型，支持0（文本）默认1（密码）2（多行文本）
          */
-        formType?: 0 | 1 | 2;
+        formType?: 0 | 1 | 2 | undefined;
         /**
          * 初始时的值
          * @default ''
          */
-        value?: string;
+        value?: string | undefined;
         /**
          * 可输入文本的最大长度
          * @default 500
          */
-        maxlength?: number;
+        maxlength?: number | undefined;
     }
 
     interface TabOptions extends Options {
@@ -347,7 +347,7 @@ declare namespace layer {
          * 初始显示的图片序号
          * @default 0
          */
-        start?: number;
+        start?: number | undefined;
         /** 相册包含的图片 */
         data: PhotosDataItem[];
     }
@@ -356,7 +356,7 @@ declare namespace layer {
         /** 图片名 */
         alt: string;
         /** 图片id */
-        pid?: number;
+        pid?: number | undefined;
         /** 原图地址 */
         src: string;
         /** 缩略图地址 */
@@ -525,16 +525,16 @@ declare namespace layer {
          * @deprecated v3.0
          * @description 只提供默认的一种拖拽风格
          */
-        moveType?: number;
+        moveType?: number | undefined;
         /**
          * @deprecated v3.0
          * @see {@link #fixed}
          */
-        fix?: boolean;
+        fix?: boolean | undefined;
         /**
          * @deprecated v3.0
          * @see {@link #anim}
          */
-        shift?: number;
+        shift?: number | undefined;
     }
 }

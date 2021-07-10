@@ -14,13 +14,13 @@ declare module 'karma' {
          * Config entry to configure how the bundle gets created
          * see {@link https://github.com/nikku/karma-browserify#usage}
          */
-        browserify?: BrowserifyOptions;
+        browserify?: BrowserifyOptions | undefined;
 
         /**
          * You can configure the underlying watchify instance
          * see {@link https://github.com/nikku/karma-browserify#watchify-config}
          */
-        watchify?: WatchifyOptions;
+        watchify?: WatchifyOptions | undefined;
     }
 
     interface BrowserifyOptions extends browserify.Options {
@@ -29,7 +29,7 @@ declare module 'karma' {
          * and that receives the browserify instance as an argument.
          * See {@link https://github.com/nikku/karma-browserify#additional-bundle-configuration}
          */
-        configure?: (bundle: browserify.BrowserifyObject) => void;
+        configure?: ((bundle: browserify.BrowserifyObject) => void) | undefined;
     }
 
     type WatchifyOptions = watchify.Options;

@@ -10,20 +10,20 @@ interface Options {
     /**
      * Interval to pass to fs.watchFile.
      */
-    interval?: number;
+    interval?: number | undefined;
     /**
      * Delay for events called in succession for the same file/event in milliseconds.
      */
-    debounceDelay?: number;
+    debounceDelay?: number | undefined;
     /**
      * Force the watch mode. Either 'auto' (default),
      * 'watch' (force native events), or 'poll' (force stat polling).
      */
-    mode?: Mode;
+    mode?: Mode | undefined;
     /**
      * The current working directory to base file patterns from. Default is `process.cwd()`.
      */
-    cwd?: string;
+    cwd?: string | undefined;
 }
 
 declare namespace gaze {

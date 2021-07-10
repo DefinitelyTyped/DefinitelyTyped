@@ -62,42 +62,42 @@ declare namespace oc {
         /**
          * The name of the module for easy retrieval later.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * The list of files to be loaded for this module.
          */
-        files?: string[];
+        files?: string[] | undefined;
     }
 
     interface IOptionsConfig extends ng.IRequestShortcutConfig {
         /**
          * If true, bypasses browser cache by appending a timestamp to URLs. Defaults to true.
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
 
         /**
          * If true, a module config will be invoked each time the module is reloaded. Use with caution, as re-invoking configs can lead to unexpected results.
          * Defaults to false.
          */
-        reconfig?: boolean;
+        reconfig?: boolean | undefined;
 
         /**
          * If true, a module run block will be invoked each time the module is reloaded. Use with caution, as re-invoking run blocks can lead to unexpected results.
          * Defaults to false.
          */
-        rerun?: boolean;
+        rerun?: boolean | undefined;
 
         /**
          * If true, will load files in a series, instead of in parallel. Defaults to false.
          */
-        serie?: boolean;
+        serie?: boolean | undefined;
 
         /**
          * If set, will insert files immediately before the provided CSS selector, instead of the default behavior of inserting files immediately before the
          * last child of the <head> element. Defaults to undefined.
          */
-        insertBefore?: string;
+        insertBefore?: string | undefined;
     }
 
     interface ILazyLoadProvider {
@@ -112,17 +112,17 @@ declare namespace oc {
         /**
          * If true, all errors will be logged to the console, in addition to rejecting a promise. Defaults to false.
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * If true, an event will be broadcast whenever a module, component or file is loaded. Events that can be broadcast are: ocLazyLoad.moduleLoaded,
          * ocLazyLoad.moduleReloaded, ocLazyLoad.componentLoaded, ocLazyLoad.fileLoaded. Defaults to false.
          */
-        events?: boolean;
+        events?: boolean | undefined;
 
         /**
          * Predefines a set of module configurations for later use. A name must be provided for each module so that it can be retrieved later.
          */
-        modules?: IModuleConfig[];
+        modules?: IModuleConfig[] | undefined;
     }
 }

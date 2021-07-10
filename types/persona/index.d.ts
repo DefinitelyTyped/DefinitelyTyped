@@ -9,25 +9,25 @@ declare namespace Persona {
         loggedInUser: string;
         onlogin: (s: string) => void;
         onlogout: () => void;
-        onready?: () => void;
+        onready?: (() => void) | undefined;
     }
 
     export interface RequestOptions {
-        backgroundColor?: string;
-        siteName?: string;
-        siteLogo?: string;
-        termsOfService?: string;
-        privacyPolicy?: string;
-        returnTo?: string;
-        oncancel?: () => void;
+        backgroundColor?: string | undefined;
+        siteName?: string | undefined;
+        siteLogo?: string | undefined;
+        termsOfService?: string | undefined;
+        privacyPolicy?: string | undefined;
+        returnTo?: string | undefined;
+        oncancel?: (() => void) | undefined;
     }
 
     export interface GetOptions {
-        backgroundColor?: string;
-        siteName?: string;
-        siteLogo?: string;
-        termsOfService?: string;
-        privacyPolicy?: string;
+        backgroundColor?: string | undefined;
+        siteName?: string | undefined;
+        siteLogo?: string | undefined;
+        termsOfService?: string | undefined;
+        privacyPolicy?: string | undefined;
     }
 
     export interface Persona {

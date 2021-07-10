@@ -92,7 +92,7 @@ declare namespace GoogleAdsScripts {
             /** Creates a location target in this campaign from a location. */
             addLocation(location: TargetedLocation): TargetedLocationOperation;
             /** Creates a location target in this campaign from a location JSON. */
-            addLocation(location: { id: number; bidModifier?: number }): TargetedLocationOperation;
+            addLocation(location: { id: number; bidModifier?: number | undefined }): TargetedLocationOperation;
             /** Creates a location target in this campaign from a location ID and bid modifier. */
             addLocation(locationId: number, bidModifier: number): TargetedLocationOperation;
             /** Adds a negative keyword list to this campaign. */
@@ -105,7 +105,7 @@ declare namespace GoogleAdsScripts {
                 longitude: number,
                 radius: number,
                 radiusUnits: string,
-                optArgs?: { bidModifier?: number; address?: AddressObject },
+                optArgs?: { bidModifier?: number | undefined; address?: AddressObject | undefined },
             ): TargetedProximityOperation;
             /** Applies a label to the video campaign. */
             applyLabel(name: string): void;

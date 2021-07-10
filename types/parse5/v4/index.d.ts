@@ -64,13 +64,13 @@ declare namespace Options {
          *
          * **Default:** `false`
          */
-        locationInfo?: boolean;
+        locationInfo?: boolean | undefined;
         /**
          * Specifies the resulting tree format.
          *
          * **Default:** `treeAdapters.default`
          */
-        treeAdapter?: AST.TreeAdapter;
+        treeAdapter?: AST.TreeAdapter | undefined;
     }
 
     export interface SAXParserOptions {
@@ -79,7 +79,7 @@ declare namespace Options {
          * When enabled, each token event handler will receive {@link MarkupData.Location} (or {@link MarkupData.StartTagLocation})
          * object as its last argument.
          */
-        locationInfo?: boolean;
+        locationInfo?: boolean | undefined;
     }
 
     export interface SerializerOptions {
@@ -88,7 +88,7 @@ declare namespace Options {
          *
          * **Default:** `treeAdapters.default`
          */
-        treeAdapter?: AST.TreeAdapter;
+        treeAdapter?: AST.TreeAdapter | undefined;
     }
 }
 
@@ -118,11 +118,11 @@ declare namespace AST {
             /**
              * The namespace of the attribute.
              */
-            namespace?: string;
+            namespace?: string | undefined;
             /**
              * The namespace-related prefix of the attribute.
              */
-            prefix?: string;
+            prefix?: string | undefined;
         }
 
         /**
@@ -218,7 +218,7 @@ declare namespace AST {
             /**
              * Element source code location info. Available if location info is enabled via {@link Options.ParserOptions}.
              */
-            __location?: MarkupData.ElementLocation;
+            __location?: MarkupData.ElementLocation | undefined;
         }
 
         /**
@@ -240,7 +240,7 @@ declare namespace AST {
             /**
              * Comment source code location info. Available if location info is enabled via {@link Options.ParserOptions}.
              */
-            __location?: MarkupData.Location;
+            __location?: MarkupData.Location | undefined;
         }
 
         /**
@@ -262,7 +262,7 @@ declare namespace AST {
             /**
              * Text node source code location info. Available if location info is enabled via {@link Options.ParserOptions}.
              */
-            __location?: MarkupData.Location;
+            __location?: MarkupData.Location | undefined;
         }
     }
 
@@ -422,7 +422,7 @@ declare namespace AST {
             /**
              * Element source code location info. Available if location info is enabled via {@link Options.ParserOptions}.
              */
-            __location?: MarkupData.ElementLocation;
+            __location?: MarkupData.ElementLocation | undefined;
         }
 
         /**
@@ -444,7 +444,7 @@ declare namespace AST {
             /**
              * Comment source code location info. Available if location info is enabled via {@link Options.ParserOptions}.
              */
-            __location?: MarkupData.Location;
+            __location?: MarkupData.Location | undefined;
         }
 
         /**
@@ -466,7 +466,7 @@ declare namespace AST {
             /**
              * Comment source code location info. Available if location info is enabled via {@link Options.ParserOptions}.
              */
-            __location?: MarkupData.Location;
+            __location?: MarkupData.Location | undefined;
         }
     }
 

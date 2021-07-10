@@ -11,7 +11,7 @@ declare namespace serialize {
          *
          * @default false
          */
-        requireWellFormed?: boolean;
+        requireWellFormed?: boolean | undefined;
     }
 }
 

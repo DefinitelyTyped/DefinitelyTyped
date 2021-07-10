@@ -11,9 +11,9 @@ import WebSocket = require("ws");
 declare namespace Socket {
   interface Options extends DuplexOptions {
     /** websocket server url */
-    url?: string;
+    url?: string | undefined;
     /** raw websocket instance to wrap */
-    socket?: WebSocket;
+    socket?: WebSocket | undefined;
   }
 }
 

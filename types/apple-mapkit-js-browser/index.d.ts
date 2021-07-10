@@ -68,7 +68,7 @@ declare namespace mapkit {
          * An ID that indicates the preferred language in which to display map
          * labels, controls, directions, and other text.
          */
-        language?: string;
+        language?: string | undefined;
     }
 
     /**
@@ -480,69 +480,69 @@ declare namespace mapkit {
         /**
          * The visible area of the map defined in map units.
          */
-        visibleMapRect?: MapRect;
+        visibleMapRect?: MapRect | undefined;
         /**
          * The area currently displayed by the map.
          */
-        region?: CoordinateRegion;
+        region?: CoordinateRegion | undefined;
         /**
          * The map coordinate at the center of the map view.
          */
-        center?: Coordinate;
+        center?: Coordinate | undefined;
         /**
          * The map's rotation, in degrees.
          */
-        rotation?: number;
+        rotation?: number | undefined;
         /**
          * The CSS color that is used to paint the user interface controls on the map.
          */
-        tintColor?: string;
+        tintColor?: string | undefined;
         /**
          * The map’s color scheme when displaying standard or muted standard map types.
          */
-        colorScheme?: string;
+        colorScheme?: string | undefined;
         /**
          * The type of data displayed by the map view.
          */
-        mapType?: string;
+        mapType?: string | undefined;
         /**
          * The map's inset margins.
          */
-        padding?: Padding;
+        padding?: Padding | undefined;
         /**
          * A Boolean value that determines whether to display a control that lets
          * users choose the map type.
          */
-        showsMapTypeControl?: boolean;
+        showsMapTypeControl?: boolean | undefined;
         /**
          * A Boolean value that determines whether the user may rotate the map using
          * the compass control or a rotate gesture.
          */
-        isRotationEnabled?: boolean;
+        isRotationEnabled?: boolean | undefined;
         /**
          * A feature visibility setting that determines when the compass is visible.
          */
-        showsCompass?: string;
+        showsCompass?: string | undefined;
         /**
          * A Boolean value that determines whether the user may zoom in and out on
          * the map using pinch gestures or the zoom control.
          */
-        isZoomEnabled?: boolean;
+        isZoomEnabled?: boolean | undefined;
         /**
          * A Boolean value that determines whether to display a control for zooming
          * in and zooming out on a map.
          */
-        showsZoomControl?: boolean;
+        showsZoomControl?: boolean | undefined;
         /**
          * A Boolean value that determines whether the user may scroll the map with
          * a pointing device or gestures on a touchscreen.
          */
-        isScrollEnabled?: boolean;
+        isScrollEnabled?: boolean | undefined;
         /**
          * A feature visibility setting that determines when the map's scale is
          * displayed.
          */
-        showsScale?: string;
+        showsScale?: string | undefined;
         /**
          * A delegate method for modifying cluster annotations.
          */
@@ -550,41 +550,41 @@ declare namespace mapkit {
         /**
          * An array of all the annotations on the map.
          */
-        annotations?: Annotation[];
+        annotations?: Annotation[] | undefined;
         /**
          * The annotation on the map that is selected.
          */
-        selectedAnnotation?: Annotation;
+        selectedAnnotation?: Annotation | undefined;
         /**
          * An array of all of the map's overlays.
          */
-        overlays?: Overlay[];
+        overlays?: Overlay[] | undefined;
         /**
          * The overlay on the map that is selected.
          */
-        selectedOverlay?: Overlay;
+        selectedOverlay?: Overlay | undefined;
         /**
          * A Boolean value that determines whether the map displays points of interest.
          */
-        showsPointsOfInterest?: boolean;
+        showsPointsOfInterest?: boolean | undefined;
         /*
          * The filter used to determine the points of interest shown on the map.
          */
-        pointOfInterestFilter?: PointOfInterestFilter;
+        pointOfInterestFilter?: PointOfInterestFilter | undefined;
         /**
          * A Boolean value that determines whether to show the user's location on
          * the map.
          */
-        showsUserLocation?: boolean;
+        showsUserLocation?: boolean | undefined;
         /**
          * A Boolean value that determines whether to center the map on the user's
          * location.
          */
-        tracksUserLocation?: boolean;
+        tracksUserLocation?: boolean | undefined;
         /**
          * A Boolean value that determines whether the user location control is visible.
          */
-        showsUserLocationControl?: boolean;
+        showsUserLocationControl?: boolean | undefined;
     }
 
     /**
@@ -594,11 +594,11 @@ declare namespace mapkit {
         /**
          * A rectangular area on a two-dimensional map projection.
          */
-        mapRect?: MapRect;
+        mapRect?: MapRect | undefined;
         /**
          * A rectangular area on a map, defined by coordinates of the rectangle's northeast and southwest corners.
          */
-        region?: CoordinateRegion;
+        region?: CoordinateRegion | undefined;
     }
 
     /**
@@ -627,8 +627,8 @@ declare namespace mapkit {
 
   // Annotation Events
 
-  'select': EventBase<T> & { annotation?: Annotation; overlay?: Overlay };
-  'deselect': EventBase<T> & { annotation?: Annotation; overlay?: Overlay };
+  'select': EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
+  'deselect': EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
   'drag-start': EventBase<T> & { annotation: Annotation };
   'dragging': EventBase<T> & { annotation: Annotation; coordinate: Coordinate };
   'drag-end': EventBase<T> & { annotation: Annotation };
@@ -647,15 +647,15 @@ declare namespace mapkit {
          * A Boolean value that determines whether the map is animated as the map
          * region changes to show the items.
          */
-        animate?: boolean;
+        animate?: boolean | undefined;
         /**
          * The minimum longitudinal and latitudinal span the map should display.
          */
-        padding?: Padding;
+        padding?: Padding | undefined;
         /**
          * Spacing that is added around the computed map region when showing items.
          */
-        minimumSpan?: CoordinateSpan;
+        minimumSpan?: CoordinateSpan | undefined;
     }
 
     /**
@@ -850,19 +850,19 @@ declare namespace mapkit {
         /**
          * The amount of padding, in CSS pixels, to inset the map from the bottom edge.
          */
-        bottom?: number;
+        bottom?: number | undefined;
         /**
          * The amount of padding, in CSS pixels, to inset the map from the left edge.
          */
-        left?: number;
+        left?: number | undefined;
         /**
          * The amount of padding, in CSS pixels, to inset the map from the right edge.
          */
-        right?: number;
+        right?: number | undefined;
         /**
          * The amount of padding, in CSS pixels, to inset the map from the top edge.
          */
-        top?: number;
+        top?: number | undefined;
     }
 
     /**
@@ -1028,16 +1028,16 @@ declare namespace mapkit {
         /**
          * The text to display in the annotation's callout.
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * The text to display as a subtitle on the second line of an annotation's
          * callout.
          */
-        subtitle?: string;
+        subtitle?: string | undefined;
         /**
          * Accessibility text for the annotation.
          */
-        accessibilityLabel?: string;
+        accessibilityLabel?: string | undefined;
         /**
          * Data you define that is assigned to the annotation.
          */
@@ -1045,64 +1045,64 @@ declare namespace mapkit {
         /**
          * A Boolean value that determines whether the user can drag the annotation.
          */
-        draggable?: boolean;
+        draggable?: boolean | undefined;
         /**
          * A Boolean value that determines if the annotation is visible or hidden.
          */
-        visible?: boolean;
+        visible?: boolean | undefined;
         /**
          * A Boolean value that determines whether the annotation responds to user
          * interaction.
          */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
         /**
          * A Boolean value that determines whether the annotation is selected.
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
         /**
          * A Boolean value that determines whether a callout should be shown.
          */
-        calloutEnabled?: boolean;
+        calloutEnabled?: boolean | undefined;
         /**
          * A Boolean value that determines if the annotation should be animated.
          */
-        animates?: boolean;
+        animates?: boolean | undefined;
         /**
          * A CSS animation that runs when the annotation appears on the map.
          */
-        appearanceAnimation?: string;
+        appearanceAnimation?: string | undefined;
         /**
          * The offset in CSS pixels of the element from the bottom center.
          */
-        anchorOffset?: DOMPoint;
+        anchorOffset?: DOMPoint | undefined;
         /**
          * The offset in CSS pixels of a callout from the top center of the element.
          */
-        calloutOffset?: DOMPoint;
+        calloutOffset?: DOMPoint | undefined;
         /**
          * A delegate that enables you to customize the annotation's callout.
          */
-        callout?: AnnotationCalloutDelegate;
+        callout?: AnnotationCalloutDelegate | undefined;
         /**
          * The desired dimensions of the annotation, in CSS pixels.
          */
-        size?: { width: number; height: number };
+        size?: { width: number; height: number } | undefined;
         /**
          * A hint the map uses to prioritize displaying the annotation.
          */
-        displayPriority?: number;
+        displayPriority?: number | undefined;
         /**
          * Spacing added around the annotation when showing items.
          */
-        padding?: Padding;
+        padding?: Padding | undefined;
         /**
          * A mode that determines the shape of the collision frame.
          */
-        collisionMode?: string;
+        collisionMode?: string | undefined;
         /**
          * An identifer used for grouping annotations into the same cluster.
          */
-        clusteringIdentifier?: string;
+        clusteringIdentifier?: string | undefined;
     }
 
     /**
@@ -1164,8 +1164,8 @@ declare namespace mapkit {
          */
         url: {
             1: string;
-            2?: string;
-            3?: string;
+            2?: string | undefined;
+            3?: string | undefined;
         };
     }
 
@@ -1217,35 +1217,35 @@ declare namespace mapkit {
         /**
          * The background color of the balloon.
          */
-        color?: string;
+        color?: string | undefined;
         /**
          * The fill color of the glyph.
          */
-        glyphColor?: string;
+        glyphColor?: string | undefined;
         /**
          * The text to display in the marker balloon.
          */
-        glyphText?: string;
+        glyphText?: string | undefined;
         /**
          * The image to display in the marker balloon.
          */
         glyphImage?: {
             1: string;
-            2?: string;
-            3?: string;
-        };
+            2?: string | undefined;
+            3?: string | undefined;
+        } | undefined;
         /**
          * The image to display in the balloon when the marker is selected.
          */
-        selectedGlyphImage?: object;
+        selectedGlyphImage?: object | undefined;
         /**
          * A value that determines the behavior of the subtitle's visibility.
          */
-        subtitleVisibility?: string;
+        subtitleVisibility?: string | undefined;
         /**
          * A value that determines the behavior of the title's visibility.
          */
-        titleVisibility?: string;
+        titleVisibility?: string | undefined;
     }
 
     // prettier-ignore
@@ -1360,27 +1360,27 @@ declare namespace mapkit {
         /**
          * Custom data to associate with this overlay.
          */
-        data?: object;
+        data?: object | undefined;
         /**
          * A Boolean value that determines if an overlay is visible.
          */
-        visible?: boolean;
+        visible?: boolean | undefined;
         /**
          * A Boolean value that determines whether the overlay responds to user
          * interaction.
          */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
         /**
          * A Boolean value that indicates whether the overlay is selected.
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
     }
 
     /**
      * An observable set of style attributes for an overlay.
      */
     interface StylesOverlayOptions extends OverlayOptions {
-        style?: Style;
+        style?: Style | undefined;
     }
 
     type OverlayEventType = 'select' | 'deselect';
@@ -1463,19 +1463,19 @@ declare namespace mapkit {
         /**
          * Minimum zoom level of the overlay.
          */
-        minimumZ?: number;
+        minimumZ?: number | undefined;
         /**
          * Maximum zoom level of the overlay.
          */
-        maximumZ?: number;
+        maximumZ?: number | undefined;
         /**
          * Opacity level of the overlay.
          */
-        opacity?: number;
+        opacity?: number | undefined;
         /**
          * Custom data used to populate the URL template.
          */
-        data?: object;
+        data?: object | undefined;
     }
 
     type URLTemplateCallback = (x: number, y: number, z: number, scale: number, data: object) => string;
@@ -1550,51 +1550,51 @@ declare namespace mapkit {
         /**
          * The fill color of a shape.
          */
-        fillColor?: string;
+        fillColor?: string | undefined;
         /**
          * The opacity of the fill color.
          */
-        fillOpacity?: number;
+        fillOpacity?: number | undefined;
         /**
          * A rule for determining whether a point is inside or outside a polygon.
          */
-        fillRule?: string;
+        fillRule?: string | undefined;
         /**
          * The style to use when drawing line endings.
          */
-        lineCap?: string;
+        lineCap?: string | undefined;
         /**
          * An array of line and gap lengths, used to create a dashed line.
          */
-        lineDash?: number[];
+        lineDash?: number[] | undefined;
         /**
          * The number of CSS pixels to offset drawing of a line's dash pattern.
          */
-        lineDashOffset?: number;
+        lineDashOffset?: number | undefined;
         /**
          * The style to use when drawing joins between line segments.
          */
-        lineJoin?: string;
+        lineJoin?: string | undefined;
         /**
          * The width of a line's stroke, in CSS pixels.
          */
-        lineWidth?: number;
+        lineWidth?: number | undefined;
         /**
          * The stroke color of a line.
          */
-        strokeColor?: string;
+        strokeColor?: string | undefined;
         /**
          * The opacity of the stroke color.
          */
-        strokeOpacity?: number;
+        strokeOpacity?: number | undefined;
         /**
          * The unit distance along the line where a stroke begins.
          */
-        strokeStart?: number;
+        strokeStart?: number | undefined;
         /**
          * The unit distance along the line where a stroke ends.
          */
-        strokeEnd?: number;
+        strokeEnd?: number | undefined;
         /**
          * The gradient to apply along the line.
          */
@@ -1685,12 +1685,12 @@ declare namespace mapkit {
          * A Boolean value that indicates whether the geocoder should return results
          * near the user's current location.
          */
-        language?: string;
+        language?: string | undefined;
         /**
          * A Boolean value that indicates whether the geocoder should return results
          * near the user's current location.
          */
-        getsUserLocation?: boolean;
+        getsUserLocation?: boolean | undefined;
     }
 
     /**
@@ -1701,19 +1701,19 @@ declare namespace mapkit {
         /**
          * The language in which to display the lookup results.
          */
-        language?: string;
+        language?: string | undefined;
         /**
          * Coordinates used to constrain the lookup results.
          */
-        coordinate?: Coordinate;
+        coordinate?: Coordinate | undefined;
         /**
          * A region in which to constrain lookup results.
          */
-        region?: CoordinateRegion;
+        region?: CoordinateRegion | undefined;
         /**
          * A list of countries in which to constrain the lookup results.
          */
-        limitToCountries?: string;
+        limitToCountries?: string | undefined;
     }
 
     /**
@@ -1750,51 +1750,51 @@ declare namespace mapkit {
         /**
          * The category of the place.
          */
-        pointOfInterestCategory?: PointOfInterestCategory;
+        pointOfInterestCategory?: PointOfInterestCategory | undefined;
         /**
          * The country of the place.
          */
-        country?: string;
+        country?: string | undefined;
         /**
          * The state or province of the place.
          */
-        administrativeArea?: string;
+        administrativeArea?: string | undefined;
         /**
          * The short code for the state or area.
          */
-        administrativeAreaCode?: string;
+        administrativeAreaCode?: string | undefined;
         /**
          * The city of the place.
          */
-        locality?: string;
+        locality?: string | undefined;
         /**
          * The postal code of the place.
          */
-        postCode?: string;
+        postCode?: string | undefined;
         /**
          * The name of the area within the locality.
          */
-        subLocality?: string;
+        subLocality?: string | undefined;
         /**
          * The street name at the place.
          */
-        thoroughfare?: string;
+        thoroughfare?: string | undefined;
         /**
          * The number on the street at the place.
          */
-        subThoroughfare?: string;
+        subThoroughfare?: string | undefined;
         /**
          * A combination of thoroughfare and subthoroughfare.
          */
-        fullThoroughfare?: string;
+        fullThoroughfare?: string | undefined;
         /**
          * Common names of the area in which the place resides.
          */
-        areasOfInterest?: string[];
+        areasOfInterest?: string[] | undefined;
         /**
          * Common names for the local area or neighborhood of the place.
          */
-        dependentLocalities?: string[];
+        dependentLocalities?: string[] | undefined;
     }
 
     /**
@@ -1851,40 +1851,40 @@ declare namespace mapkit {
         /**
          * A language ID that determines the language for the search result text.
          */
-        language?: string;
+        language?: string | undefined;
         /**
          * A Boolean value that indicates whether to limit the search results to the
          * user's current location, as determined by the web browser.
          */
-        getsUserLocation?: boolean;
+        getsUserLocation?: boolean | undefined;
         /**
          * A map coordinate that provides a hint for the geographic area to search.
          */
-        coordinate?: Coordinate;
+        coordinate?: Coordinate | undefined;
         /**
          * A map region that provides a hint for the geographic area to search.
          */
-        region?: CoordinateRegion;
+        region?: CoordinateRegion | undefined;
         /**
          * A Boolean value that indicates whether the search autocomplete results should include queries.
          */
-        includeQueries?: boolean;
+        includeQueries?: boolean | undefined;
         /**
          * A Boolean value that indicates whether the search results should include addresses.
          */
-        includeAddresses?: boolean;
+        includeAddresses?: boolean | undefined;
         /**
          * A string that constrains search results to within the provided countries.
          */
-        limitToCountries?: boolean;
+        limitToCountries?: boolean | undefined;
         /**
          * A Boolean value that indicates whether the search results should include points of interest.
          */
-        includePointsOfInterest?: boolean;
+        includePointsOfInterest?: boolean | undefined;
         /**
          * A filter used to include or exclude point of interest categories.
          */
-        pointOfInterestFilter?: PointOfInterestFilter;
+        pointOfInterestFilter?: PointOfInterestFilter | undefined;
     }
 
     /**
@@ -1894,35 +1894,35 @@ declare namespace mapkit {
         /**
          * A language ID that determines the language for the search result text.
          */
-        language?: string;
+        language?: string | undefined;
         /**
          * A map coordinate that provides a hint for the geographic area to search.
          */
-        coordinate?: Coordinate;
+        coordinate?: Coordinate | undefined;
         /**
          * A map region that provides a hint for the geographic area to search.
          */
-        region?: CoordinateRegion;
+        region?: CoordinateRegion | undefined;
         /**
          * A Boolean value that indicates whether the search results should include addresses.
          */
-        includeAddresses?: boolean;
+        includeAddresses?: boolean | undefined;
         /**
          * A Boolean value that indicates whether the search results should include points of interest.
          */
-        includePointsOfInterest?: boolean;
+        includePointsOfInterest?: boolean | undefined;
         /**
          * A Boolean value that indicates whether the search results should include queries.
          */
-        includeQueries?: boolean;
+        includeQueries?: boolean | undefined;
         /**
          * A filter used to include or exclude point of interest categories in search results.
          */
-        pointOfInterestFilter?: PointOfInterestFilter;
+        pointOfInterestFilter?: PointOfInterestFilter | undefined;
         /**
          * A string that constrains search results to within the provided countries.
          */
-        limitToCountries?: string;
+        limitToCountries?: string | undefined;
     }
 
     type SearchCallback<Q> = (
@@ -1937,7 +1937,7 @@ declare namespace mapkit {
              * A region that encloses the search results. This property is not present
              * if there are no results.
              */
-            displayRegion?: CoordinateRegion;
+            displayRegion?: CoordinateRegion | undefined;
             /**
              * An array of Place objects. The places array is empty if there is no match.
              */
@@ -1992,15 +1992,15 @@ declare namespace mapkit {
         /**
          * A Boolean value that indicates whether the search results should include addresses.
          */
-        includeAddresses?: boolean;
+        includeAddresses?: boolean | undefined;
         /**
          * A Boolean value that indicates whether the search results should include points of interest.
          */
-        includePointsOfInterest?: boolean;
+        includePointsOfInterest?: boolean | undefined;
         /**
          * A filter used to include or exclude point of interest categories in search results.
          */
-        pointOfInterestFilter?: PointOfInterestFilter;
+        pointOfInterestFilter?: PointOfInterestFilter | undefined;
     }
 
     /**
@@ -2143,23 +2143,23 @@ declare namespace mapkit {
         /**
          * A language ID that determines the language for the search result text.
          */
-        language?: string;
+        language?: string | undefined;
         /**
          * The center point of the request represented as latitude and longitude.
          */
-        center?: Coordinate;
+        center?: Coordinate | undefined;
         /**
          * The distance provided in meters, or the longest distance derived from the center point to the region’s bounding box.
          */
-        radius?: number;
+        radius?: number | undefined;
         /**
          * The region that bounds the area in which to fetch points of interest.
          */
-        region?: CoordinateRegion;
+        region?: CoordinateRegion | undefined;
         /**
          * A filter used to include or exclude point of interest categories.
          */
-        pointOfInterestFilter?: PointOfInterestFilter;
+        pointOfInterestFilter?: PointOfInterestFilter | undefined;
     }
 
     type PointsOfInterestSearchCallback = (error: Error | null, data: PointsOfInterestSearchResponse) => void;
@@ -2416,7 +2416,7 @@ declare namespace mapkit {
         /**
          * A language ID that determines the language for route information.
          */
-        language?: string;
+        language?: string | undefined;
     }
 
     /**
@@ -2492,20 +2492,20 @@ declare namespace mapkit {
         /**
          * The arrival date for the trip.
          */
-        arrivalDate?: Date;
+        arrivalDate?: Date | undefined;
         /**
          * The departure date for the trip.
          */
-        departureDate?: Date;
+        departureDate?: Date | undefined;
         /**
          * The mode of transportation to which directions should apply.
          */
-        transportType?: Directions.Transport;
+        transportType?: Directions.Transport | undefined;
         /**
          * A Boolean value that indicates whether the server should return multiple
          * routes when they are available.
          */
-        requestsAlternateRoutes?: boolean;
+        requestsAlternateRoutes?: boolean | undefined;
     }
 
     /**
@@ -2710,11 +2710,11 @@ declare namespace mapkit {
         /**
          * The minimum allowed distance of the camera from the center of the map in meters.
          */
-        minCameraDistance?: number;
+        minCameraDistance?: number | undefined;
         /**
          * The maximum allowed distance of the camera from the center of the map in meters.
          */
-        maxCameraDistance?: number;
+        maxCameraDistance?: number | undefined;
     }
 
     /**

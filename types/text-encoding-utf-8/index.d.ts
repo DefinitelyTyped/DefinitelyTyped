@@ -5,16 +5,16 @@
 
 export namespace TextEncoding {
     interface TextDecoderOptions {
-        fatal?: boolean;
-        ignoreBOM?: boolean;
+        fatal?: boolean | undefined;
+        ignoreBOM?: boolean | undefined;
     }
 
     interface TextDecodeOptions {
-        stream?: boolean;
+        stream?: boolean | undefined;
     }
 
     interface TextEncoderOptions {
-        NONSTANDARD_allowLegacyEncoding?: boolean;
+        NONSTANDARD_allowLegacyEncoding?: boolean | undefined;
     }
 
     interface TextDecoder {
@@ -30,7 +30,7 @@ export namespace TextEncoding {
     }
 
     interface TextEncodeOptions {
-        stream?: boolean;
+        stream?: boolean | undefined;
     }
 
     interface TextEncoderStatic {

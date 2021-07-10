@@ -8,10 +8,10 @@ declare var BetterCurry: BetterCurryModule.BetterCurry;
 declare namespace BetterCurryModule {
 
     export interface DelegateOptions {
-        as?: string;
-        len?: number;
-        args?: any[];
-        name?: string;
+        as?: string | undefined;
+        len?: number | undefined;
+        args?: any[] | undefined;
+        name?: string | undefined;
     }
 
     export class Delegate<T> {

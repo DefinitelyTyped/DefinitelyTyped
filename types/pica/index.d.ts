@@ -8,32 +8,32 @@ declare namespace pica {
     interface PicaOptions {
         // tile width/height.
         // Images are processed by regions, to restrict peak memory use. Default 1024.
-        tile?: number;
+        tile?: number | undefined;
         // list of features to use.
         // Default is [ 'js', 'wasm', 'ww' ]. Can be [ 'js', 'wasm', 'cib', 'ww' ] or [ 'all' ].
         // Note, resize via createImageBitmap() ('cib') disabled by default due problems with quality.
-        features?: string[];
+        features?: string[] | undefined;
         // cache timeout, ms. Webworkers create is not fast.
         // This option allow reuse webworkers effectively. Default 2000.
-        idle?: number;
+        idle?: number | undefined;
         // max webworkers pool size. Default is autodetected CPU count, but not more than 4.
-        concurrency?: number;
+        concurrency?: number | undefined;
     }
 
     interface PicaResizeOptions {
         // 0..3. Default = 3 (lanczos, win=3).
-        quality?: number;
+        quality?: number | undefined;
         // use alpha channel. Default = false.
-        alpha?: boolean;
+        alpha?: boolean | undefined;
         // >=0, in percents. Default = 0 (off). Usually between 50 to 100 is good.
-        unsharpAmount?: number;
+        unsharpAmount?: number | undefined;
         //  0.5..2.0. By default it's not set. Radius of Gaussian blur.
         // If it is less than 0.5, Unsharp Mask is off. Big values are clamped to 2.0.
-        unsharpRadius?: number;
+        unsharpRadius?: number | undefined;
         // 0..255. Default = 0. Threshold for applying unsharp mask.
-        unsharpThreshold?: number;
+        unsharpThreshold?: number | undefined;
         // Promise instance. If defined, current operation will be terminated on rejection.
-        cancelToken?: Promise<unknown>;
+        cancelToken?: Promise<unknown> | undefined;
     }
 
     interface PicaResizeBufferOptions {
@@ -48,18 +48,18 @@ declare namespace pica {
         // output height, >=0, in pixels.
         toHeigh: number;
         // 0..3. Default = 3 (lanczos, win=3).
-        quality?: number;
+        quality?: number | undefined;
         // use alpha channel. Default = false.
-        alpha?: boolean;
+        alpha?: boolean | undefined;
         // >=0, in percents. Default = 0 (off). Usually between 50 to 100 is good.
-        unsharpAmount?: number;
+        unsharpAmount?: number | undefined;
         // 0.5..2.0. Radius of Gaussian blur.
         // If it is less than 0.5, Unsharp Mask is off. Big values are clamped to 2.0.
-        unsharpRadius?: number;
+        unsharpRadius?: number | undefined;
         // 0..255. Default = 0. Threshold for applying unsharp mask.
-        unsharpThreshold?: number;
+        unsharpThreshold?: number | undefined;
         // Optional. Output buffer to write data, if you don't wish pica to create new one.
-        dest?: string;
+        dest?: string | undefined;
     }
 
     interface Pica {

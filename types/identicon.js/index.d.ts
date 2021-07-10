@@ -6,11 +6,11 @@
 export type Color = [number, number, number, number];
 
 export interface IdenticonOptions {
-    background?: Color;
-    foreground?: Color;
-    margin?: number;
-    size?: number;
-    format?: "svg" | "png";
+    background?: Color | undefined;
+    foreground?: Color | undefined;
+    margin?: number | undefined;
+    size?: number | undefined;
+    format?: "svg" | "png" | undefined;
 }
 
 export interface PNGlib {

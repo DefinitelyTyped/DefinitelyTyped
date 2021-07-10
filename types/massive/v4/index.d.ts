@@ -18,42 +18,42 @@ declare namespace massive {
     type UUID = number | string;
 
     interface Loader {
-        blacklist?: string | string[];
-        whitelist?: string | string[];
-        functionBlacklist?: string | string[];
-        functionWhitelist?: string | string[];
-        allowedSchemas?: string | string[];
-        exceptions?: string | string[];
-        scripts?: string;
+        blacklist?: string | string[] | undefined;
+        whitelist?: string | string[] | undefined;
+        functionBlacklist?: string | string[] | undefined;
+        functionWhitelist?: string | string[] | undefined;
+        allowedSchemas?: string | string[] | undefined;
+        exceptions?: string | string[] | undefined;
+        scripts?: string | undefined;
     }
 
     interface DropOptions {
-        cascade?: boolean;
+        cascade?: boolean | undefined;
     }
 
     interface ConnectionInfo {
-        user?: string;
-        database?: string;
-        password?: string | null;
-        port?: number;
-        host?: string;
-        ssl?: boolean;
-        application_name?: string;
-        fallback_application_name?: boolean;
+        user?: string | undefined;
+        database?: string | undefined;
+        password?: string | null | undefined;
+        port?: number | undefined;
+        host?: string | undefined;
+        ssl?: boolean | undefined;
+        application_name?: string | undefined;
+        fallback_application_name?: boolean | undefined;
     }
 
     /** Bundled insert, select, update and delete query options.. Shame on me */
     interface GenericQueryOptions {
-        columns?: string[];
-        limit?: number;
-        offset?: number;
-        only?: boolean;
-        order?: string[];
-        orderBody?: boolean;
-        build?: boolean;
-        document?: boolean;
-        single?: boolean;
-        stream?: boolean;
+        columns?: string[] | undefined;
+        limit?: number | undefined;
+        offset?: number | undefined;
+        only?: boolean | undefined;
+        order?: string[] | undefined;
+        orderBody?: boolean | undefined;
+        build?: boolean | undefined;
+        document?: boolean | undefined;
+        single?: boolean | undefined;
+        stream?: boolean | undefined;
     }
 
     interface SearchDefinition {
@@ -66,11 +66,11 @@ declare namespace massive {
 
     interface QueryOptions {
         /** This is a query against a document table. */
-        document?: boolean;
+        document?: boolean | undefined;
         /** True to return a single result object instead of an array of results. */
-        single?: boolean;
+        single?: boolean | undefined;
         /** True to return a stream instead of a resultset. */
-        stream?: boolean;
+        stream?: boolean | undefined;
     }
 
     interface SearchCriteria {

@@ -5,17 +5,17 @@ export type ButtonOptions = "emphasized" | "transparent";
 export type ButtonTypes = "standard" | "positive" | "negative" | "medium" | "ghost" | "attention";
 
 export type ButtonProps = {
-    className?: string;
-    compact?: boolean;
-    disabled?: boolean;
-    disableStyles?: boolean;
-    glyph?: string;
-    option?: ButtonOptions;
-    ref?: React.RefObject<HTMLButtonElement>;
-    selected?: boolean;
-    type?: ButtonTypes;
-    typeAttr?: "submit" | "reset" | "button";
-    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    className?: string | undefined;
+    compact?: boolean | undefined;
+    disabled?: boolean | undefined;
+    disableStyles?: boolean | undefined;
+    glyph?: string | undefined;
+    option?: ButtonOptions | undefined;
+    ref?: React.RefObject<HTMLButtonElement> | undefined;
+    selected?: boolean | undefined;
+    type?: ButtonTypes | undefined;
+    typeAttr?: "submit" | "reset" | "button" | undefined;
+    onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
 } & React.HTMLAttributes<HTMLButtonElement>;
 
 declare const Button: React.FunctionComponent<ButtonProps> & {displayName: "Button"};

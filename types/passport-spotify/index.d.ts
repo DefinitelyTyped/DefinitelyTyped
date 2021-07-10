@@ -16,7 +16,7 @@ export interface Profile {
     country: string;
     followers: number | null;
     product: string | null;
-    emails?: [{ value: string; type: null }];
+    emails?: [{ value: string; type: null }] | undefined;
     _raw: string;
     _json: any;
 }
@@ -25,16 +25,16 @@ export interface _StrategyOptionsBase {
     clientID: string;
     clientSecret: string;
     callbackURL: string;
-    scope?: string[];
-    authorizationURL?: string;
-    tokenURL?: string;
-    scopeSeparator?: string;
-    userProfileURL?: string;
-    showDialog?: boolean;
+    scope?: string[] | undefined;
+    authorizationURL?: string | undefined;
+    tokenURL?: string | undefined;
+    scopeSeparator?: string | undefined;
+    userProfileURL?: string | undefined;
+    showDialog?: boolean | undefined;
 }
 
 export interface StrategyOptions extends _StrategyOptionsBase {
-    passReqToCallback?: false | null;
+    passReqToCallback?: false | null | undefined;
 }
 
 export interface StrategyOptionsWithRequest extends _StrategyOptionsBase {

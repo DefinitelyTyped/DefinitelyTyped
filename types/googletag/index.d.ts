@@ -282,21 +282,21 @@ declare namespace googletag {
         /**
          * childDirectedTreatment configuration indicates whether the page should be treated as child-directed. Set to null to clear the configuration.
          */
-        childDirectedTreatment?: boolean | null;
+        childDirectedTreatment?: boolean | null | undefined;
         /**
          * limitedAds configuration enables serving to run in [limited ads](https://support.google.com/admanager/answer/9882911) mode to aid in publisher regulatory compliance needs.
          * When enabled, the GPT library itself may optionally be requested from a cookie-less,
          * [limited ads URL](https://developers.google.com/publisher-tag/guides/general-best-practices#load_from_an_official_source).
          */
-        limitedAds?: boolean;
+        limitedAds?: boolean | undefined;
         /**
          * restrictDataProcessing configuration enables serving to run in restricted processing mode to aid in publisher regulatory compliance needs.
          */
-        restrictDataProcessing?: boolean;
+        restrictDataProcessing?: boolean | undefined;
         /**
          * underAgeOfConsent configuration indicates whether to mark ad requests as coming from users under the age of consent. Set to null to clear the configuration.
          */
-        underAgeOfConsent?: boolean | null;
+        underAgeOfConsent?: boolean | null | undefined;
     }
     /**
      * Publisher Ads service. This service is used to fetch and show ads from your Google Ad Manager account.
@@ -361,7 +361,7 @@ declare namespace googletag {
          * desktop.
          * For example, a mobileScaling of 2.0 will multiply all margins by 2 on mobile devices, increasing the minimum distance a slot can be before fetching and rendering.
          */
-        enableLazyLoad(opt_config?: { fetchMarginPercent?: number, renderMarginPercent?: number, mobileScaling?: number }): void;
+        enableLazyLoad(opt_config?: { fetchMarginPercent?: number | undefined, renderMarginPercent?: number | undefined, mobileScaling?: number | undefined }): void;
         /**
          * Enables single request mode for fetching multiple ads at the same time.
          * This requires all pubads slots to be defined and added to the pubads service prior to enabling the service.
@@ -563,22 +563,22 @@ declare namespace googletag {
         /**
          * true to allow expansion by overlay and false otherwise.
          */
-        allowOverlayExpansion?: boolean;
+        allowOverlayExpansion?: boolean | undefined;
         /**
          * true to allow expansion by push and false otherwise.
          */
-        allowPushExpansion?: boolean;
+        allowPushExpansion?: boolean | undefined;
         /**
          * true if SafeFrame should use the HTML5 sandbox attribute to prevent top level navigation.
          * The only valid value is true (cannot be forced to false).
          * Note that the sandbox attribute disables plugins (e.g.
          * Flash) and creatives that attempt to navigate the top level page instead of opening in a new window.
          */
-        sandbox?: boolean;
+        sandbox?: boolean | undefined;
         /**
          * Whether to use a unique subdomain for SafeFrame for Reservation creatives. Pass in null to clear the stored value.
          */
-        useUniqueDomain?: boolean | null;
+        useUniqueDomain?: boolean | null | undefined;
     }
     /**
      * Base service class that contains methods common for all services.

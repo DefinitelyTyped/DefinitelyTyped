@@ -87,7 +87,7 @@ declare module 'async_hooks' {
        * The ID of the execution context that created this async event.
        * @default executionAsyncId()
        */
-      triggerAsyncId?: number;
+      triggerAsyncId?: number | undefined;
 
       /**
        * Disables automatic `emitDestroy` when the object is garbage collected.
@@ -96,7 +96,7 @@ declare module 'async_hooks' {
        * sensitive API's `emitDestroy` is called with it.
        * @default false
        */
-      requireManualDestroy?: boolean;
+      requireManualDestroy?: boolean | undefined;
     }
 
     /**

@@ -1,5 +1,6 @@
 import * as sql from 'mssql';
 import * as msnodesqlv8 from 'mssql/msnodesqlv8';
+import tds = require('tedious');
 
 interface Entity {
     value: number;
@@ -14,13 +15,11 @@ var config: sql.config = {
     options: {
         encrypt: true
     },
-    pool: {
-        autostart: true
-    },
-    beforeConnect: conn => {
-        conn.on('debug', message => console.info(message));
-        conn.on('error', err => console.error(err));
-        conn.removeAllListeners();
+    pool: {},
+    beforeConnect: (conn) => {
+        (conn as tds.Connection).on('debug', message => console.info(message));
+        (conn as tds.Connection).on('error', err => console.error(err));
+        (conn as tds.Connection).removeAllListeners();
     }
 }
 

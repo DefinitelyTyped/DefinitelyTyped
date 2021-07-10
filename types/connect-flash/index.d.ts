@@ -19,7 +19,7 @@ declare namespace Express {
 declare module "connect-flash" {
     import express = require('express');
     interface IConnectFlashOptions {
-        unsafe?: boolean;
+        unsafe?: boolean | undefined;
     }
     function e(options?: IConnectFlashOptions): express.RequestHandler;
     export = e;

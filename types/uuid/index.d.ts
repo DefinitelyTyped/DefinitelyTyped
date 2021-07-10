@@ -16,17 +16,17 @@ type OutputBuffer = ArrayLike<number>;
 type InputBuffer = ArrayLike<number>;
 
 interface RandomOptions {
-    random?: InputBuffer;
+    random?: InputBuffer | undefined;
 }
 interface RngOptions {
-    rng?: () => InputBuffer;
+    rng?: (() => InputBuffer) | undefined;
 }
 
 interface V1BaseOptions {
-    node?: InputBuffer;
-    clockseq?: number;
-    msecs?: number | Date;
-    nsecs?: number;
+    node?: InputBuffer | undefined;
+    clockseq?: number | undefined;
+    msecs?: number | Date | undefined;
+    nsecs?: number | undefined;
 }
 interface V1RandomOptions extends V1BaseOptions, RandomOptions {}
 interface V1RngOptions extends V1BaseOptions, RngOptions {}

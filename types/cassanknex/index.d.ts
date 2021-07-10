@@ -17,8 +17,8 @@ export = CassanKnex;
 
 declare namespace CassanKnex {
     interface DriverOptions {
-        debug?: boolean;
-        connection?: Client | ClientOptions;
+        debug?: boolean | undefined;
+        connection?: Client | ClientOptions | undefined;
     }
 
   /**

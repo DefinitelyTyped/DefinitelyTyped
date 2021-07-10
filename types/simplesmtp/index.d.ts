@@ -1,7 +1,7 @@
 // Type definitions for simplesmtp 0.3.35
 // Project: https://github.com/andris9/simplesmtp
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
@@ -11,35 +11,35 @@ export interface SmtpServerOptions {
     /**
      * the hostname of the server, will be used for informational messages
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * if set to true, print out messages about the connection
      */
-    debug?: boolean;
+    debug?: boolean | undefined;
     /**
      * client timeout in milliseconds, defaults to 60 000
      */
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * start a server on secure connection
      */
-    secureConnection?: boolean;
+    secureConnection?: boolean | undefined;
     /**
      * greeting banner that is sent to the client on connection
      */
-    SMTPBanner?: string;
+    SMTPBanner?: string | undefined;
     /**
      * if set to true, require that the client must authenticate itself
      */
-    requireAuthentication?: boolean;
+    requireAuthentication?: boolean | undefined;
     /**
      * if set to true, client may authenticate itself but don't have to
      */
-    enableAuthentication?: boolean;
+    enableAuthentication?: boolean | undefined;
     /**
      * maximum size of an e-mail in bytes
      */
-    maxSize?: number;
+    maxSize?: number | undefined;
     /**
      * TLS credentials
      */
@@ -47,23 +47,23 @@ export interface SmtpServerOptions {
     /**
      * allowed authentication methods, defaults to <code>['PLAIN', 'LOGIN']</code>
      */
-    authMethods?: string[];
+    authMethods?: string[] | undefined;
     /**
      * if set, support HELO only
      */
-    disableEHLO?: boolean;
+    disableEHLO?: boolean | undefined;
     /**
      * if set, allow client do not use STARTTLS
      */
-    ignoreTLS?: boolean;
+    ignoreTLS?: boolean | undefined;
     /**
      * if set, do not validate sender domains
      */
-    disableDNSValidation?: boolean;
+    disableDNSValidation?: boolean | undefined;
     /**
      * if set, limit the number of simultaneous connections to the server
      */
-    maxClients?: number;
+    maxClients?: number | undefined;
 }
 
 /**

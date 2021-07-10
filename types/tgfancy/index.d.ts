@@ -16,30 +16,30 @@ declare namespace Tgfancy {
     }
 
     interface RatelimitingOptions {
-        maxRetries?: number;
-        timeout?: number;
+        maxRetries?: number | undefined;
+        timeout?: number | undefined;
         notify?(methodName: string, ...args: any[]): void;
-        maxBackoff?: number;
+        maxBackoff?: number | undefined;
     }
 
     interface WebSocketOptions {
         url: string;
-        autoOpen?: boolean;
+        autoOpen?: boolean | undefined;
     }
 
     interface TgfancyOptions {
-        chatIdResolution?: boolean | ChatIdResolutionOptions;
-        emojification?: boolean | EmojificationOptions;
-        kickWithoutBan?: boolean;
-        openshiftWebHook?: boolean;
-        orderedSending?: boolean;
-        ratelimiting?: boolean | RatelimitingOptions;
-        textPaging?: boolean;
-        webSocket?: boolean | WebSocketOptions;
+        chatIdResolution?: boolean | ChatIdResolutionOptions | undefined;
+        emojification?: boolean | EmojificationOptions | undefined;
+        kickWithoutBan?: boolean | undefined;
+        openshiftWebHook?: boolean | undefined;
+        orderedSending?: boolean | undefined;
+        ratelimiting?: boolean | RatelimitingOptions | undefined;
+        textPaging?: boolean | undefined;
+        webSocket?: boolean | WebSocketOptions | undefined;
     }
 
     interface ConstructorOptions extends TelegramBot.ConstructorOptions {
-        tgfancy?: TgfancyOptions;
+        tgfancy?: TgfancyOptions | undefined;
     }
 
     interface ResolvedChat {
@@ -55,7 +55,7 @@ declare namespace Tgfancy {
 
     interface ResolvedUser extends ResolvedChat {
         first_name: string;
-        last_name?: string;
+        last_name?: string | undefined;
     }
 }
 

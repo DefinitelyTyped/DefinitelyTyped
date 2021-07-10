@@ -13,12 +13,12 @@ declare namespace createServer {
         email: string;
         agreeTos: boolean;
         domains: DomainList | (() => (DomainList | Promise<DomainList>));
-        dir?: string;
+        dir?: string | undefined;
         ports?: {
-            http?: number,
-            https?: number
-        };
-        debug?: boolean;
+            http?: number | undefined,
+            https?: number | undefined
+        } | undefined;
+        debug?: boolean | undefined;
     }
 }
 

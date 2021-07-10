@@ -15,12 +15,12 @@ export interface Token {
     /**
      * Hash describing the bank account
      */
-    bank_account?: BankAccount;
+    bank_account?: BankAccount | undefined;
 
     /**
      * Hash describing the card used to make the charge
      */
-    card?: Card;
+    card?: Card | undefined;
 
     /**
      * IP address of the client that generated the token
@@ -59,13 +59,13 @@ export interface TokenData {
     /**
      * The amount paid, not a decimal. In USD this is in cents.
      */
-    amount?: number;
+    amount?: number | undefined;
 
     /**
      * Fields for billing address information.
      */
     address_line1: string;
-    address_line2?: string;
+    address_line2?: string | undefined;
     address_city: string;
     address_state: string;
     address_zip: string;
@@ -74,13 +74,13 @@ export interface TokenData {
      * A two character country code identifying the country
      * @example 'US'
      */
-    address_country?: string;
+    address_country?: string | undefined;
 
     /**
      * Used to add a card to an account
      * NOTE: Currently, the only supported currency for debit card payouts is 'usd'
      */
-    currency?: string;
+    currency?: string | undefined;
 }
 
 // --- RESPONSE FROM STRIPE WHEN CREATING OR FETCHING A TOKEN --- //
@@ -88,12 +88,12 @@ export interface TokenResult {
     /**
      * The generated string that can be used for communication with the backend
      */
-    token?: Token;
+    token?: Token | undefined;
 
     /**
      * There was an error. This includes client-side validation errors.
      */
-    error?: StripeError;
+    error?: StripeError | undefined;
 }
 
 // --- DATA TO CREATE A PERSONAL TOKEN --- //
@@ -139,5 +139,5 @@ export interface BankTokenData extends IBANTokenData {
      * The routing transit number for the bank account
      * NOTE: This is optional if the {@link BankTokenData.currency} is 'eur'
      */
-    routing_number?: string;
+    routing_number?: string | undefined;
 }

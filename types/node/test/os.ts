@@ -239,3 +239,7 @@ if (os.platform() === 'win32') {
 
     os.setPriority(os.constants.priority.PRIORITY_LOW);
 }
+
+{
+    const dnull: string = os.devNull;
+}

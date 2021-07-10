@@ -56,10 +56,10 @@ interface Sound {
     id: number; // 音频 id
     src: string; // 播放地址（目前支持 m4a, aac, mp3, wav 格式）
     title: string; // 音频标题, 原生音频播放器中的分享功能，分享出去的卡片简介，也将使用该值。
-    coverImgUrl?: string; // 音频背景图
-    epname?: string; // 专辑名称
-    singer?: string; // 歌手名
-    duration?: number; // 音频时长(单位: 秒)
+    coverImgUrl?: string | undefined; // 音频背景图
+    epname?: string | undefined; // 专辑名称
+    singer?: string | undefined; // 歌手名
+    duration?: number | undefined; // 音频时长(单位: 秒)
 }
 
 /**

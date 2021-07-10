@@ -11,26 +11,26 @@ type s = number;
 declare namespace XOAuth2 {
     interface Options {
         /** User e-mail address */
-        user?: string;
+        user?: string | undefined;
         /** Client ID value */
-        clientId?: string;
+        clientId?: string | undefined;
         /** Client secret value */
-        clientSecret?: string;
+        clientSecret?: string | undefined;
         /** Refresh token for an user */
-        refreshToken?: string;
+        refreshToken?: string | undefined;
         /** Endpoint for token generation, defaults to 'https://accounts.google.com/o/oauth2/token' */
-        accessUrl?: string;
+        accessUrl?: string | undefined;
         /** An existing valid accessToken */
-        accessToken?: string;
+        accessToken?: string | undefined;
         /** Private key for JSW */
-        privateKey?: string | { key: string; passphrase: string; };
+        privateKey?: string | { key: string; passphrase: string; } | undefined;
         /** Optional Access Token expire time in ms */
-        expires?: ms;
+        expires?: ms | undefined;
         /** Optional TTL for Access Token in seconds */
-        timeout?: s;
+        timeout?: s | undefined;
         /** Function to run when a new access token is required */
         provisionCallback?(user: string, renew: boolean, callback: (err: Error | null, accessToken: string, expires: number) => void): void;
-        serviceClient?: string;
+        serviceClient?: string | undefined;
     }
 
     interface Token {
@@ -40,7 +40,7 @@ declare namespace XOAuth2 {
     }
 
     interface RequestParams {
-        customHeaders?: http.OutgoingHttpHeaders;
+        customHeaders?: http.OutgoingHttpHeaders | undefined;
     }
 }
 

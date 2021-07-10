@@ -12,22 +12,22 @@ export interface Options {
     /**
      * Don't include non-required object properties not specified in `required` property of the schema object
      */
-    readonly skipNonRequired?: boolean;
+    readonly skipNonRequired?: boolean | undefined;
 
     /**
      * Don't include readOnly object properties
      */
-    readonly skipReadOnly?: boolean;
+    readonly skipReadOnly?: boolean | undefined;
 
     /**
      * Don't include writeOnly object properties
      */
-    readonly skipWriteOnly?: boolean;
+    readonly skipWriteOnly?: boolean | undefined;
 
     /**
      * Don't log console warning messages
      */
-    readonly quiet?: boolean;
+    readonly quiet?: boolean | undefined;
 }
 
 /**

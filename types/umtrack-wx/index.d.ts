@@ -14,15 +14,15 @@ declare namespace UMA {
          * @description
          * Whether or not to use openid for statistics, if this is false, the user statistics will be used by "Umeng" + random ID
          */
-        useOpenid?: boolean;
+        useOpenid?: boolean | undefined;
         /**
          * @description If you need to get openid from the Umeng backend, please go to the Umeng backend to set the miniprogram's appId and secret
          */
-        autoGetOpenid?: boolean;
+        autoGetOpenid?: boolean | undefined;
         /**
          * @description debug mode
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
     }
 
     type EventParams = string | {[key: string]: string};

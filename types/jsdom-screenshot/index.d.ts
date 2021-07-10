@@ -6,13 +6,13 @@
 import { LaunchOptions, ScreenshotOptions, Viewport, Page } from 'puppeteer';
 
 export interface GenerateImageOptions {
-    launch?: LaunchOptions;
-    screenshot?: ScreenshotOptions;
-    serve?: ReadonlyArray<string>;
-    debug?: boolean;
-    waitUntilNetworkIdle?: boolean;
-    viewport?: Viewport;
-    intercept?: VoidFunction;
+    launch?: LaunchOptions | undefined;
+    screenshot?: ScreenshotOptions | undefined;
+    serve?: ReadonlyArray<string> | undefined;
+    debug?: boolean | undefined;
+    waitUntilNetworkIdle?: boolean | undefined;
+    viewport?: Viewport | undefined;
+    intercept?: VoidFunction | undefined;
 }
 
 export function debug(element?: Element | Document): void;

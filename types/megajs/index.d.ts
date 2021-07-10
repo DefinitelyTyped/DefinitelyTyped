@@ -19,46 +19,46 @@ export interface AccountInfo {
 }
 
 export interface DownloadOptions {
-  maxConnections?: number;
-  initialChunkSize?: number;
-  chunkSizeIncrement?: number;
-  maxChunkSize?: number;
-  returnCiphertext?: boolean;
+  maxConnections?: number | undefined;
+  initialChunkSize?: number | undefined;
+  chunkSizeIncrement?: number | undefined;
+  maxChunkSize?: number | undefined;
+  returnCiphertext?: boolean | undefined;
   start?: any;
   end?: any;
 }
 
 export interface UploadOptions {
   name: string;
-  attributes?: object;
+  attributes?: object | undefined;
   size?: any;
-  thumbnailImage?: Buffer | Readable;
-  previewImage?: Buffer | Readable;
+  thumbnailImage?: Buffer | Readable | undefined;
+  previewImage?: Buffer | Readable | undefined;
 }
 
 export interface LinkOptions {
-  noKey?: boolean;
-  key?: string | Buffer;
+  noKey?: boolean | undefined;
+  key?: string | Buffer | undefined;
 }
 
 export interface MakeDirectoryOptions {
   name: string;
-  attributes?: object;
-  key?: string | Buffer;
+  attributes?: object | undefined;
+  key?: string | Buffer | undefined;
 }
 
 export interface FileOptions {
   downloadId: string;
   key: string;
-  directory?: boolean;
+  directory?: boolean | undefined;
 }
 
 export interface StorageOptions {
   email: string;
   password: string;
-  keepalive?: boolean;
-  autologin?: boolean;
-  autoload?: boolean;
+  keepalive?: boolean | undefined;
+  autologin?: boolean | undefined;
+  autoload?: boolean | undefined;
 }
 
 export class File {

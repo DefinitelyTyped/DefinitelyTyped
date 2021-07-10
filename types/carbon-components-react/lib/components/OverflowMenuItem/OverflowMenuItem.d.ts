@@ -5,20 +5,20 @@ type ExcludedAttributes = "disabled" | "href" | "ref" | "title" | "tabIndex";
 
 interface SharedProps {
     // closeMenu is supplied by Overflow parent component
-    disabled?: boolean,
-    hasDivider?: boolean,
-    isDelete?: boolean,
+    disabled?: boolean | undefined,
+    hasDivider?: boolean | undefined,
+    isDelete?: boolean | undefined,
     itemText: NonNullable<React.ReactNode>,
     /**
      * @deprecated
      */
-    primaryFocus?: boolean,
-    requireTitle?: boolean,
-    wrapperClassName?: string,
+    primaryFocus?: boolean | undefined,
+    requireTitle?: boolean | undefined,
+    wrapperClassName?: string | undefined,
 }
 
 export interface OverflowMenuItemButtonProps extends Omit<ReactButtonAttr, ExcludedAttributes>, SharedProps {
-    href?: null,
+    href?: null | undefined,
 }
 
 export interface OverflowMenuItemAnchorProps extends Omit<ReactAnchorAttr, ExcludedAttributes>, SharedProps {

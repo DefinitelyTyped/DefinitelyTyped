@@ -5,19 +5,19 @@
 
 
 interface Config {
-    browsers?: string[];
-    cascade?: boolean;
-    remove?: boolean;
+    browsers?: string[] | undefined;
+    cascade?: boolean | undefined;
+    remove?: boolean | undefined;
 }
 
 interface Options {
-    from?: string;
-    to?: string;
-    safe?: boolean;
+    from?: string | undefined;
+    to?: string | undefined;
+    safe?: boolean | undefined;
     map?: {
-        inline?: boolean;
-        prev?: string | Object;
-    }
+        inline?: boolean | undefined;
+        prev?: string | Object | undefined;
+    } | undefined
 }
 
 interface Result {

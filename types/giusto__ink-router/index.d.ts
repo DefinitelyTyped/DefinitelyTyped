@@ -9,22 +9,22 @@ import { Component, ComponentType } from "react";
 export interface RouterProps {
     initialEntries?: Array<(string | {
         pathname: string;
-        search?: string;
-        hash?: string;
+        search?: string | undefined;
+        hash?: string | undefined;
         state?: any;
-        key?: string;
-    })>;
-    initialIndex?: number;
-    keyLength?: number;
-    getUserConfirmation?: () => void;
+        key?: string | undefined;
+    })> | undefined;
+    initialIndex?: number | undefined;
+    keyLength?: number | undefined;
+    getUserConfirmation?: (() => void) | undefined;
 }
 export class Router extends Component<RouterProps> { }
 
 export interface CommandLineRouterProps {
-    args?: string[];
-    options?: Record<string, any>;
-    initialEntries?: string[];
-    initialIndex?: number;
+    args?: string[] | undefined;
+    options?: Record<string, any> | undefined;
+    initialEntries?: string[] | undefined;
+    initialIndex?: number | undefined;
 }
 export class CommandLineRouter extends Component<CommandLineRouterProps> { }
 
@@ -39,18 +39,18 @@ export interface RouteComponentProps<T extends Record<string, any> = {}> {
 
 export interface RouteProps {
     path: string;
-    exact?: boolean;
+    exact?: boolean | undefined;
     location?: {
-        key?: string,
-        pathname?: string,
-    };
+        key?: string | undefined,
+        pathname?: string | undefined,
+    } | undefined;
     component: React.ComponentType<any>;
 }
 export class Route extends Component<RouteProps> { }
 
 export interface SwitchProps {
-    children?: React.ReactElement<RouteProps> | Array<React.ReactElement<RouteProps>>;
-    notFound?: (() => any) | React.ComponentType<any>;
+    children?: React.ReactElement<RouteProps> | Array<React.ReactElement<RouteProps>> | undefined;
+    notFound?: (() => any) | React.ComponentType<any> | undefined;
 }
 export class Switch extends Component<SwitchProps> { }
 

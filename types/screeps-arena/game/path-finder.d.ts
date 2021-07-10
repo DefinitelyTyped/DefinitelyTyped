@@ -89,24 +89,24 @@ declare module "game/path-finder" {
      * The cheapest path that is out of range of every goal will be returned.
      * The default is false)
      */
-    flee?: boolean;
+    flee?: boolean | undefined;
 
     /**
      * The maximum limit of possible pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU.
      * The default value is 2000.
      */
-    maxOps?: number;
+    maxOps?: number | undefined;
 
     /**
      * (The maximum allowed cost of the path returned. The default is Infinity.)
      */
-    maxCost?: number;
+    maxCost?: number | undefined;
 
     /**
      * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand the underlying
      * A* algorithm mechanics! The default value is 1.2.
      */
-    heuristicWeight?: number;
+    heuristicWeight?: number | undefined;
 
     // // /**
     // //  * If true, the result path will be serialized using Room.serializePath. The default is false.
@@ -116,22 +116,22 @@ declare module "game/path-finder" {
     /**
      * Path to within (range) tiles of target tile. The default is to path to the tile that the target is on (0).
      */
-    range?: number;
+    range?: number | undefined;
 
     /**
      * Cost for walking on plain positions. The default is 1.
      */
-    plainCost?: number;
+    plainCost?: number | undefined;
 
     /**
      * Cost for walking on swamp positions. The default is 5.
      */
-    swampCost?: number;
+    swampCost?: number | undefined;
 
     /**
      * CostMatrix (Container for custom navigation cost data)
      */
-    costMatrix?: CostMatrix;
+    costMatrix?: CostMatrix | undefined;
   }
 
   export interface MoveToOpts extends FindPathOpts {
@@ -164,7 +164,7 @@ declare module "game/path-finder" {
      * An array of the room's objects or RoomPosition objects which should be treated as obstacles during the search. This option cannot
      * be used when the new PathFinder is enabled (use costCallback option instead).
      */
-    ignore?: any[] | RoomPosition[];
+    ignore?: any[] | RoomPosition[] | undefined;
   }
 
   export interface FindPathResult {

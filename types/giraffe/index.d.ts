@@ -12,9 +12,9 @@ declare namespace Giraffe {
 
   interface GiraffeObject {
     app: App;
-    appEvents?: StringMap;
-    dataEvents?: StringMap;
-    defaultOptions?: DefaultOptions;
+    appEvents?: StringMap | undefined;
+    dataEvents?: StringMap | undefined;
+    defaultOptions?: DefaultOptions | undefined;
 
     initialize?();
     beforeInitialize?();
@@ -26,16 +26,16 @@ declare namespace Giraffe {
   }
 
   interface AttachmentOptions {
-    method?: string;
-    forceRender?: boolean;
-    suppressRender?: boolean;
+    method?: string | undefined;
+    forceRender?: boolean | undefined;
+    suppressRender?: boolean | undefined;
   }
 
   interface DefaultOptions {
-    disposeOnDetach?: boolean;
-    alwaysRender?: boolean;
-    saveScrollPosition?: boolean;
-    documentTitle?: string;
+    disposeOnDetach?: boolean | undefined;
+    alwaysRender?: boolean | undefined;
+    saveScrollPosition?: boolean | undefined;
+    documentTitle?: string | undefined;
   }
 
   interface AppMap {

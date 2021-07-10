@@ -64,7 +64,7 @@ declare namespace conventionalRecommendedBump {
              * or `undefined` if `whatBump` does not return a valid `level` property, or
              * the `level` property is not set by `whatBump`.
              */
-            releaseType?: Recommendation.ReleaseType;
+            releaseType?: Recommendation.ReleaseType | undefined;
         }
 
         namespace Recommendation {
@@ -86,7 +86,7 @@ declare namespace conventionalRecommendedBump {
          * @default
          * true
          */
-        ignoreReverted?: boolean;
+        ignoreReverted?: boolean | undefined;
 
         /**
          * It's recommended to use a preset so you don't have to define everything
@@ -94,7 +94,7 @@ declare namespace conventionalRecommendedBump {
          *
          * The value is passed to [`conventional-changelog-preset-loader`](https://www.npmjs.com/package/conventional-changelog-preset-loader).
          */
-        preset?: string;
+        preset?: string | undefined;
 
         /**
          * This should serve as default values for other arguments of
@@ -105,7 +105,7 @@ declare namespace conventionalRecommendedBump {
          * `config` option will be overwritten by the value loaded by
          * `conventional-changelog-preset-loader` if the `preset` options is set.
          */
-        config?: CoreOptions.Config<Commit, WriterContext>;
+        config?: CoreOptions.Config<Commit, WriterContext> | undefined;
 
         /**
          * A function that takes parsed commits as an argument.
@@ -121,7 +121,7 @@ declare namespace conventionalRecommendedBump {
          * `level` is a `number` indicating what bump it should be and `reason` is the
          * reason of such release.
          */
-        whatBump?: Options.WhatBump;
+        whatBump?: Options.WhatBump | undefined;
 
         /**
          * Specify a prefix for the git tag that will be taken into account during the
@@ -131,7 +131,7 @@ declare namespace conventionalRecommendedBump {
          * would specifying `--tagPrefix=version/` using the CLI, or `version/` as the
          * value of the `tagPrefix` option.
          */
-        tagPrefix?: string;
+        tagPrefix?: string | undefined;
 
         /**
          * Specify the name of a package in a [Lerna](https://lernajs.io/)-managed
@@ -144,7 +144,7 @@ declare namespace conventionalRecommendedBump {
          * specifying `--lernaPackage=conventional-changelog` using the CLI, or
          * `conventional-changelog` as the value of the `lernaPackage` option.
          */
-        lernaPackage?: string;
+        lernaPackage?: string | undefined;
     }
 
     namespace Options {
@@ -152,8 +152,8 @@ declare namespace conventionalRecommendedBump {
 
         namespace WhatBump {
             interface Result {
-                level?: number;
-                reason?: string;
+                level?: number | undefined;
+                reason?: string | undefined;
             }
         }
     }

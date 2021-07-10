@@ -12,13 +12,13 @@ declare namespace rtlcss {
     interface MapOptions {
         scope: string;
         ignoreCase: boolean;
-        greedy?: boolean;
+        greedy?: boolean | undefined;
     }
 
     interface StringMap {
         name: string;
         priority: number;
-        exclusive?: boolean;
+        exclusive?: boolean | undefined;
         search: string | string[];
         replace: string | string[];
         options: MapOptions;

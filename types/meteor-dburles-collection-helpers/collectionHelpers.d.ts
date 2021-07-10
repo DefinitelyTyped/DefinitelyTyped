@@ -29,7 +29,7 @@ declare module 'meteor/dburles:collection-helpers' {
     // property with it)
     // weirdly, ({} & HelperFlavor) still accepts {}!
     interface HelperFlavor {
-        _meteor_dburles_collection_helpers_isHelper?: Flavor;
+        _meteor_dburles_collection_helpers_isHelper?: Flavor | undefined;
     }
     // for types where (T & HelperFlavor) === never, (T | HelperBrand) is used instead,
     // and the HelperBrand is stripped off in HelpersOf
@@ -59,7 +59,7 @@ declare module 'meteor/dburles:collection-helpers' {
     // used to flavor Helpers<T> so we can get back to the original T if needed
     // not to be confused with HelperFlavor
     interface HelpersFlavor<T> {
-        _meteor_dburles_collection_helpers_isHelpersOf?: [Flavor, T];
+        _meteor_dburles_collection_helpers_isHelpersOf?: [Flavor, T] | undefined;
     }
     // apply HelpersFlavor, but only if the resulting type wouldn't be never or weak
     type FlavorAsHelpers<TOriginal, TToFlavor> = [TToFlavor] extends [TToFlavor & HelpersFlavor<TOriginal>]
@@ -135,10 +135,10 @@ declare module 'meteor/dburles:collection-helpers' {
             : (T & HelperFlavor & OptionalHelperFlavor) | undefined
         : never;
     interface OptionalHelperFlavor {
-        _meteor_dburles_collection_helpers_isOptionalHelper?: Flavor;
+        _meteor_dburles_collection_helpers_isOptionalHelper?: Flavor | undefined;
     }
     interface OptionalHelperBrand {
-        _meteor_dburles_collection_helpers_isBrandUnsupportedOptionalHelper?: Brand;
+        _meteor_dburles_collection_helpers_isBrandUnsupportedOptionalHelper?: Brand | undefined;
     }
     type OptionalHelperNames<T> = T extends T
         ? {
@@ -153,7 +153,7 @@ declare module 'meteor/dburles:collection-helpers' {
         : never;
 
     interface DataFlavor<T> {
-        _meteor_dburles_collection_helpers_isData?: [Flavor, T];
+        _meteor_dburles_collection_helpers_isData?: [Flavor, T] | undefined;
     }
     /**
      * Just the non-method/Helper properties of the type, with the methods and Helpers made optional.

@@ -24,16 +24,16 @@ declare class reactNotifyToast {
 }
 
 interface Options {
-    wrapperId?: string;
-    animationDuration?: number;
-    timeout?: number;
-    zIndex?: number;
-    top?: number | string;
+    wrapperId?: string | undefined;
+    animationDuration?: number | undefined;
+    timeout?: number | undefined;
+    zIndex?: number | undefined;
+    top?: number | string | undefined;
     colors?: any;
 }
 
 interface NotificationProps {
-    options?: Options;
+    options?: Options | undefined;
 }
 
 export class Notification extends React.Component<NotificationProps, any> {}

@@ -4,7 +4,7 @@ import { Intel } from "./inteltypes";
 
 /** class to handle rendering into leaflet the JSON data from the servers */
 export class Render {
-    portalMarkerScale?: number;
+    portalMarkerScale?: number | undefined;
 
     private isRendering: boolean;
 

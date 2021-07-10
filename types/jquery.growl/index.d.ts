@@ -11,21 +11,21 @@ declare namespace growl {
         // Message
         message: string;
         // Title
-        title?: string;
+        title?: string | undefined;
         // URL
-        url?: string;
+        url?: string | undefined;
         // while hovering over the alert, prevent it from being dismissed (true | false - default: true)
-        delayOnHover?: boolean;
+        delayOnHover?: boolean | undefined;
         // the duration (in milliseconds) for which the alert is displayed (default: 3200)
-        duration?: number;
+        duration?: number | undefined;
         // whether the alert should be fixed rather than auto- dismissed(true | false - default: false)
-        fixed?: boolean;
+        fixed?: boolean | undefined;
         // the alert's position ('tl' | 'tr' | 'bl' | 'br' | 'tc' | 'bc' - default: 'tr')
-        location?: string;
+        location?: string | undefined;
         // the alert's size ('small' | 'medium' | 'large' - default: 'medium')
-        size?: string;
+        size?: string | undefined;
         // the alert's style ('default' | 'error' | 'notice' | 'warning' - default: 'default')
-        style?: string;
+        style?: string | undefined;
     }
 }
 

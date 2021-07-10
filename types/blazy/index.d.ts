@@ -14,31 +14,31 @@ interface Blazy {
 
 interface BlazyOptions {
 
-  breakpoints?: Breakpoint[];
+  breakpoints?: Breakpoint[] | undefined;
 
-  container?: string;
+  container?: string | undefined;
 
-  error?: (ele: Element|HTMLElement, msg: string) => void;
+  error?: ((ele: Element|HTMLElement, msg: string) => void) | undefined;
 
-  errorClass?: string;
+  errorClass?: string | undefined;
 
-  loadInvisible?: boolean;
+  loadInvisible?: boolean | undefined;
 
-  offset?: number;
+  offset?: number | undefined;
 
-  saveViewportOffsetDelay?: number;
+  saveViewportOffsetDelay?: number | undefined;
 
-  selector?: string;
+  selector?: string | undefined;
 
-  separator?: string;
+  separator?: string | undefined;
 
-  src?: string;
+  src?: string | undefined;
 
-  success?: (ele: Element|HTMLElement) => void;
+  success?: ((ele: Element|HTMLElement) => void) | undefined;
 
-  successClass?: string;
+  successClass?: string | undefined;
 
-  validateDelay?: number;
+  validateDelay?: number | undefined;
 
 }
 

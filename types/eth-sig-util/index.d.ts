@@ -133,11 +133,11 @@ export interface EIP712Message {
  * @see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md#definition-of-domainseparator
  */
 export interface EIP712Domain {
-    name?: string;
-    version?: string;
-    chainId?: string | number;
-    verifyingContract?: string;
-    salt?: string;
+    name?: string | undefined;
+    version?: string | undefined;
+    chainId?: string | number | undefined;
+    verifyingContract?: string | undefined;
+    salt?: string | undefined;
 }
 
 export interface EIP712TypedData {

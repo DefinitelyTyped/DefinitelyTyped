@@ -11,11 +11,11 @@ declare module 'mitm' {
 
     interface SocketOptions {
         port: number;
-        host?: string;
-        localAddress?: string;
-        localPort?: string;
-        family?: number;
-        allowHalfOpen?: boolean;
+        host?: string | undefined;
+        localAddress?: string | undefined;
+        localPort?: string | undefined;
+        family?: number | undefined;
+        allowHalfOpen?: boolean | undefined;
     }
 
     interface BypassableSocket extends net.Socket {

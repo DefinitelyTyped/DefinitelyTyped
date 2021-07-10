@@ -9,26 +9,26 @@
 import { OperationOptions } from "retry";
 
 export interface LockOptions {
-    stale?: number; // default: 10000
-    update?: number; // default: stale/2
-    retries?: number | OperationOptions; // default: 0
-    realpath?: boolean; // default: true
+    stale?: number | undefined; // default: 10000
+    update?: number | undefined; // default: stale/2
+    retries?: number | OperationOptions | undefined; // default: 0
+    realpath?: boolean | undefined; // default: true
     fs?: any; // default: graceful-fs
-    onCompromised?: (err: Error) => any; // default: (err) => throw err
-    lockfilePath?: string; // default: `${file}.lock`
+    onCompromised?: ((err: Error) => any) | undefined; // default: (err) => throw err
+    lockfilePath?: string | undefined; // default: `${file}.lock`
 }
 
 export interface UnlockOptions {
-    realpath?: boolean; // default: true
+    realpath?: boolean | undefined; // default: true
     fs?: any; // default: graceful-fs
-    lockfilePath?: string; // default: `${file}.lock`
+    lockfilePath?: string | undefined; // default: `${file}.lock`
 }
 
 export interface CheckOptions {
-    stale?: number; // default: 10000
-    realpath?: boolean; // default: true
+    stale?: number | undefined; // default: 10000
+    realpath?: boolean | undefined; // default: true
     fs?: any; // default: graceful-fs
-    lockfilePath?: string; // default: `${file}.lock`
+    lockfilePath?: string | undefined; // default: `${file}.lock`
 }
 
 export function lock(file: string, options?: LockOptions): Promise<() => Promise<void>>;

@@ -21,10 +21,10 @@ declare namespace JsReportChromePdf {
         width: string | number;
         height: string | number;
         margin: {
-            top?: string | number;
-            right?: string | number;
-            bottom?: string | number;
-            left?: string | number;
+            top?: string | number | undefined;
+            right?: string | number | undefined;
+            bottom?: string | number | undefined;
+            left?: string | number | undefined;
         };
         preferCSSPageSize: boolean;
 
@@ -103,8 +103,8 @@ declare namespace JsReportChromePdf {
         launchOptions: Partial<LaunchOptions>;
     }
     interface ChromeTemplate extends Template {
-        chrome?: Partial<Chrome>;
-        chromeImage?: Partial<ChromeImage>;
+        chrome?: Partial<Chrome> | undefined;
+        chromeImage?: Partial<ChromeImage> | undefined;
         recipe: 'chrome-pdf' | 'chrome-image' | string;
         content: string;
     }

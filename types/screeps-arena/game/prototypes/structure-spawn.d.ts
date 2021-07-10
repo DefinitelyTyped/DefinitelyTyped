@@ -20,7 +20,7 @@ declare module "game/prototypes" {
      */
     spawnCreep(
       body: BodyPartConstant[]
-    ): { object?: Creep; error?: ERR_BUSY | ERR_INVALID_ARGS | ERR_NOT_ENOUGH_ENERGY };
+    ): { object?: Creep | undefined; error?: ERR_BUSY | ERR_INVALID_ARGS | ERR_NOT_ENOUGH_ENERGY | undefined };
   }
   interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _ConstructorById<StructureSpawn> {}
 

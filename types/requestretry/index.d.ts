@@ -29,12 +29,12 @@ declare namespace requestretry {
     }
 
     interface RequestRetryOptions extends request.CoreOptions {
-        maxAttempts?: number;
+        maxAttempts?: number | undefined;
         promiseFactory?(resolver: any): any;
-        retryDelay?: number;
-        retryStrategy?: RetryStrategy;
-        delayStrategy?: DelayStrategy;
-        fullResponse?: boolean;
+        retryDelay?: number | undefined;
+        retryStrategy?: RetryStrategy | undefined;
+        delayStrategy?: DelayStrategy | undefined;
+        fullResponse?: boolean | undefined;
     }
 }
 

@@ -17,6 +17,9 @@
         "paths": {
             "d3-array": [
                 "d3-array/v1"
+            ],
+            "d3-time": [
+                "d3-time/v1"
             ]
         },
         "noEmit": true,

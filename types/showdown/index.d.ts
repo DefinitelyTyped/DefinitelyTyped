@@ -38,26 +38,26 @@ declare namespace Showdown {
     }
 
     interface ConverterGlobals {
-        converter?: Converter;
+        converter?: Converter | undefined;
         gDimensions?: {
-            width?:  number;
-            height?: number;
-        };
-        gHtmlBlocks?:  string[];
-        gHtmlMdBlocks?: string[];
-        gHtmlSpans?: string[];
-        gListLevel?: number;
-        gTitles?: {[key: string]: string};
-        gUrls?: {[key: string]: string};
-        ghCodeBlocks?: {codeblock?: string, text?: string}[];
-        hashLinkCounts?: {[key: string]: number};
-        langExtensions?: ShowdownExtension[];
+            width?:  number | undefined;
+            height?: number | undefined;
+        } | undefined;
+        gHtmlBlocks?:  string[] | undefined;
+        gHtmlMdBlocks?: string[] | undefined;
+        gHtmlSpans?: string[] | undefined;
+        gListLevel?: number | undefined;
+        gTitles?: {[key: string]: string} | undefined;
+        gUrls?: {[key: string]: string} | undefined;
+        ghCodeBlocks?: {codeblock?: string | undefined, text?: string | undefined}[] | undefined;
+        hashLinkCounts?: {[key: string]: number} | undefined;
+        langExtensions?: ShowdownExtension[] | undefined;
         metadata?: {
-            parsed?: {[key: string]: string};
-            raw?: string;
-            format?: string;
-        };
-        outputModifiers?: ShowdownExtension[];
+            parsed?: {[key: string]: string} | undefined;
+            raw?: string | undefined;
+            format?: string | undefined;
+        } | undefined;
+        outputModifiers?: ShowdownExtension[] | undefined;
     }
 
     interface Extension {
@@ -73,7 +73,7 @@ declare namespace Showdown {
         /**
          * Event listeners functions that called on the conversion, when the `event` occurs.
          */
-        listeners?: {[event: string]: EventListener}
+        listeners?: {[event: string]: EventListener} | undefined
     }
 
     /**
@@ -96,7 +96,7 @@ declare namespace Showdown {
          * Keep in mind that, if a string is used, it will automatically be given a g modifier,
          * that is, it is assumed to be a global replacement.
          */
-        regex?: string | RegExp;
+        regex?: string | RegExp | undefined;
 
         /**
          * Can be either a string or a function. If replace is a string,
@@ -119,7 +119,7 @@ declare namespace Showdown {
      * ```
      */
     interface FilterExtension extends Extension {
-        filter?: (text: string, converter: Converter, options?: ConverterOptions) => string;
+        filter?: ((text: string, converter: Converter, options?: ConverterOptions) => string) | undefined;
     }
 
     /**
@@ -207,7 +207,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.0.0
          */
-        omitExtraWLInCodeBlocks?: boolean;
+        omitExtraWLInCodeBlocks?: boolean | undefined;
 
         /**
          * Disable the automatic generation of header ids.
@@ -235,7 +235,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.1.0
          */
-        noHeaderId?: boolean;
+        noHeaderId?: boolean | undefined;
 
         /**
          * Use text in curly braces as header id.
@@ -247,7 +247,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.7.0
          */
-        customizedHeaderId?: boolean;
+        customizedHeaderId?: boolean | undefined;
 
         /**
          * Generate header ids compatible with github style (spaces are replaced
@@ -274,7 +274,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.5.5
          */
-        ghCompatibleHeaderId?: boolean;
+        ghCompatibleHeaderId?: boolean | undefined;
 
         /**
          * Add a prefix to the generated header ids.
@@ -284,7 +284,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.0.0
          */
-        prefixHeaderId?: string | boolean;
+        prefixHeaderId?: string | boolean | undefined;
 
         /**
          * Setting this option to true will prevent showdown from modifying the prefix.
@@ -294,7 +294,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.7.3
          */
-        rawPrefixHeaderId?: boolean;
+        rawPrefixHeaderId?: boolean | undefined;
 
         /**
          * Remove only spaces, ' and " from generated header ids (including prefixes),
@@ -304,7 +304,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.7.3
          */
-        rawHeaderId?: boolean;
+        rawHeaderId?: boolean | undefined;
 
         /**
          * Enable support for setting image dimensions from within markdown syntax.
@@ -318,7 +318,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.1.0
          */
-        parseImgDimensions?: boolean;
+        parseImgDimensions?: boolean | undefined;
 
         /**
          * Set the header starting level. For instance, setting this to 3 means that
@@ -344,7 +344,7 @@ declare namespace Showdown {
          * @default 1
          * @since 1.1.0
          */
-        headerLevelStart?: number;
+        headerLevelStart?: number | undefined;
 
         /**
          * Turning this option on will enable automatic linking to urls.
@@ -370,7 +370,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.2.0
          */
-        simplifiedAutoLink?: boolean;
+        simplifiedAutoLink?: boolean | undefined;
 
         /**
          * @deprecated https://github.com/showdownjs/showdown/commit/d3ebff7ef0cde5abfc3874463946d5297fc82e78
@@ -400,7 +400,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.5.1
          */
-        excludeTrailingPunctuationFromURLs?: boolean;
+        excludeTrailingPunctuationFromURLs?: boolean | undefined;
 
         /**
          * Turning this on will stop showdown from interpreting underscores in the middle of
@@ -427,7 +427,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.2.0
          */
-        literalMidWordUnderscores?: boolean;
+        literalMidWordUnderscores?: boolean | undefined;
 
         /**
          * Enable support for strikethrough syntax.
@@ -445,7 +445,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.2.0
          */
-        strikethrough?: boolean;
+        strikethrough?: boolean | undefined;
 
         /**
          * Enable support for tables syntax.
@@ -462,7 +462,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.2.0
          */
-        tables?: boolean;
+        tables?: boolean | undefined;
 
         /**
          * If enabled adds an id property to table headers tags.
@@ -471,7 +471,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.2.0
          */
-        tablesHeaderId?: boolean;
+        tablesHeaderId?: boolean | undefined;
 
         /**
          * Enable support for GFM code block style syntax (fenced codeblocks).
@@ -485,7 +485,7 @@ declare namespace Showdown {
          * @default true
          * @since 1.2.0
          */
-        ghCodeBlocks?: boolean;
+        ghCodeBlocks?: boolean | undefined;
 
         /**
          * Enable support for GFM takslists.
@@ -500,7 +500,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.2.0
          */
-        tasklists?: boolean;
+        tasklists?: boolean | undefined;
 
         /**
          * Prevents weird effects in live previews due to incomplete input.
@@ -510,7 +510,7 @@ declare namespace Showdown {
          * You can prevent this by enabling this option.
          * @default false
          */
-        smoothLivePreview?: boolean;
+        smoothLivePreview?: boolean | undefined;
 
         /**
          * Tries to smartly fix indentation problems related to es6 template
@@ -519,7 +519,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.4.2
          */
-        smartIndentationFix?: boolean;
+        smartIndentationFix?: boolean | undefined;
 
         /**
          * Disables the requirement of indenting sublists by 4 spaces for them to be nested,
@@ -577,7 +577,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.5.0
          */
-        disableForced4SpacesIndentedSublists?: boolean;
+        disableForced4SpacesIndentedSublists?: boolean | undefined;
 
         /**
          * Parses line breaks as like GitHub does, without needing 2 spaces at the end of the line.
@@ -606,7 +606,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.5.1
          */
-        simpleLineBreaks?: boolean;
+        simpleLineBreaks?: boolean | undefined;
 
         /**
          * Makes adding a space between # and the header text mandatory.
@@ -633,7 +633,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.5.3
          */
-        requireSpaceBeforeHeadingText?: boolean;
+        requireSpaceBeforeHeadingText?: boolean | undefined;
 
         /**
          * Enables support for github @mentions, which links to the github profile page of the username mentioned.
@@ -659,7 +659,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.6.0
          */
-        ghMentions?: boolean;
+        ghMentions?: boolean | undefined;
 
         /**
          * Changes the link generated by @mentions. `{u}` is replaced by the text of the mentions. Only applies if **[ghMentions][]** is enabled.
@@ -685,7 +685,7 @@ declare namespace Showdown {
          * @default https://github.com/{u}
          * @since 1.6.2
          */
-        ghMentionsLink?: string;
+        ghMentionsLink?: string | undefined;
 
         /**
          * Enables e-mail addresses encoding through the use of Character Entities, transforming ASCII e-mail addresses into its equivalent decimal entities.
@@ -712,7 +712,7 @@ declare namespace Showdown {
          * @default true
          * @since 1.6.1
          */
-        encodeEmails?: boolean;
+        encodeEmails?: boolean | undefined;
 
         /**
          * Open all links in new windows (by adding the attribute target="_blank" to <a> tags).
@@ -736,7 +736,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.7.0
          */
-        openLinksInNewWindow?: boolean;
+        openLinksInNewWindow?: boolean | undefined;
 
         /**
          * Support for HTML Tag escaping.
@@ -760,7 +760,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.7.2
          */
-        backslashEscapesHTMLTags?: boolean;
+        backslashEscapesHTMLTags?: boolean | undefined;
 
         /**
          * Enable emoji support.
@@ -773,7 +773,7 @@ declare namespace Showdown {
          * @see https://github.com/showdownjs/showdown/wiki/Emojis
          * @since 1.8.0
          */
-        emoji?: boolean;
+        emoji?: boolean | undefined;
 
         /**
          * Enable support for underline. Syntax is double or triple underscores: `__underline word__`. With this option enabled,
@@ -798,7 +798,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.8.0
          */
-        underline?: boolean;
+        underline?: boolean | undefined;
 
         /**
          * Outputs a complete html document, including <html>, <head> and <body> tags' instead of an HTML fragment.
@@ -830,7 +830,7 @@ declare namespace Showdown {
          * @default false
          * @since 1.8.5
          */
-        completeHTMLDocument?: boolean;
+        completeHTMLDocument?: boolean | undefined;
 
         /**
          * Enable support for document metadata (defined at the top of the document
@@ -845,14 +845,14 @@ declare namespace Showdown {
          * @default false
          * @since 1.8.5
          */
-        metadata?: boolean;
+        metadata?: boolean | undefined;
 
         /**
          * Split adjacent blockquote blocks.
          *
          * @since 1.8.6
          */
-        splitAdjacentBlockquotes?: boolean;
+        splitAdjacentBlockquotes?: boolean | undefined;
 
         /**
          * For custom options {extension, subParser} And also an out-of-date definitions
@@ -866,7 +866,7 @@ declare namespace Showdown {
         /**
          * Add extensions to the new converter can be showdown extensions or "global" extensions name.
          */
-        extensions?: ((() => ShowdownExtension[] | ShowdownExtension)  | ShowdownExtension[] | ShowdownExtension | string)[];
+        extensions?: ((() => ShowdownExtension[] | ShowdownExtension)  | ShowdownExtension[] | ShowdownExtension | string)[] | undefined;
     }
 
     /**
@@ -881,15 +881,15 @@ declare namespace Showdown {
         /**
          * The default value of option.
          */
-        defaultValue?: boolean;
+        defaultValue?: boolean | undefined;
         /**
          * The description of the option.
          */
-        description?: string;
+        description?: string | undefined;
         /**
          * The type of the option value.
          */
-        type?: 'boolean' | 'string' | 'integer'
+        type?: 'boolean' | 'string' | 'integer' | undefined
     }
 
    /**

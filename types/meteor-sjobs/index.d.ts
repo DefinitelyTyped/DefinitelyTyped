@@ -10,28 +10,28 @@
 declare module 'meteor/msavin:sjobs' {
     interface Options {
         /** Specify if the package should start automatically on Meteor.startup. */
-        autoStart?: boolean;
+        autoStart?: boolean | undefined;
         /** Specify if the package should retry failed jobs whenever a new server takes control. */
-        autoRetry?: boolean;
+        autoRetry?: boolean | undefined;
         /** Specify if the package should automatically delete internal data (not job related). */
-        autoPurge?: boolean;
+        autoPurge?: boolean | undefined;
         /**  Specify how often the package should check for due jobs. */
-        interval?: number;
+        interval?: number | undefined;
         /** Specify how long after server startup the package should start running. */
-        startupDelay?: number;
+        startupDelay?: number | undefined;
         /** Specify how long the server could be inactive before another server takes on the master role. */
-        maxWait?: number;
+        maxWait?: number | undefined;
         /**  development mode assumes that only one server is running, and that it is the active one. */
-        disableDevelopmentMode?: boolean;
-        gracePeriod?: number;
+        disableDevelopmentMode?: boolean | undefined;
+        gracePeriod?: number | undefined;
         /** Determine how to set the serverId - for example, you can have the package use your hosts deployment id */
-        setServerId?: () => string;
+        setServerId?: (() => string) | undefined;
         /** Determine how to get the current date, if for whatever reason, new Date() is not suitable */
-        getDate?: () => Date;
+        getDate?: (() => Date) | undefined;
         /** Determine how to log the package outputs */
-        log?: (messages: string | object) => void;
+        log?: ((messages: string | object) => void) | undefined;
         /** Store jobs data in a remote collection. */
-        remoteCollection?: string;
+        remoteCollection?: string | undefined;
     }
 
     type JobState = 'pending' | 'success' | 'failure';
@@ -63,14 +63,14 @@ declare module 'meteor/msavin:sjobs' {
 
     interface HistoryItem {
         date: Date;
-        state?: JobState;
+        state?: JobState | undefined;
         serverId: string;
-        type?: string;
-        newDue?: Date;
+        type?: string | undefined;
+        newDue?: Date | undefined;
     }
 
     interface Job {
-        _id?: string;
+        _id?: string | undefined;
         name: string;
         created: Date;
         serverId: string;
@@ -87,40 +87,40 @@ declare module 'meteor/msavin:sjobs' {
      * The date object will be updated in the order that is specified.
      */
     interface CfgTimeObject {
-        year?: number;
-        month?: number;
-        day?: number;
-        hour?: number;
-        minute?: number;
-        second?: number;
-        milisecond?: number;
-        years?: number;
-        months?: number;
-        days?: number;
-        hours?: number;
-        minutes?: number;
-        seconds?: number;
-        miliseconds?: number;
+        year?: number | undefined;
+        month?: number | undefined;
+        day?: number | undefined;
+        hour?: number | undefined;
+        minute?: number | undefined;
+        second?: number | undefined;
+        milisecond?: number | undefined;
+        years?: number | undefined;
+        months?: number | undefined;
+        days?: number | undefined;
+        hours?: number | undefined;
+        minutes?: number | undefined;
+        seconds?: number | undefined;
+        miliseconds?: number | undefined;
     }
 
     interface JobRunConfigObject {
         /** Will schedule the job at a later time, using the current time and your inputs to calculate the due time. */
-        in?: CfgTimeObject;
+        in?: CfgTimeObject | undefined;
         /** Overrides the current time with your inputs */
-        on?: CfgTimeObject;
+        on?: CfgTimeObject | undefined;
         /**
          * The default priority for each job is 0, if set to a positive integer, it will run ahead of other jobs.
          * If set to a negative integer, it will only run after all the zero or positive jobs have completed.
          */
-        priority?: number;
+        priority?: number | undefined;
         /** Provide your own date. This stacks with the in and on operator, and will be applied before they perform their operations. */
-        date?: () => Date;
+        date?: (() => Date) | undefined;
         /** If a job is marked as unique, it will only be scheduled if no other job exists with the same arguments. */
-        unique?: boolean;
+        unique?: boolean | undefined;
         /** If a job is marked as singular, it will only be scheduled if no other job is pending with the same arguments. */
-        singular?: boolean;
+        singular?: boolean | undefined;
         /** Run a callback function after scheduling the job. */
-        callback?: (error: true | null, result: Job) => any;
+        callback?: ((error: true | null, result: Job) => any) | undefined;
     }
     // tslint:disable-next-line no-unnecessary-class
     class Jobs {

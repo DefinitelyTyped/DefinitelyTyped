@@ -5,9 +5,9 @@ import ComponentFactory from "../componentfactory";
 import { DropdownPanelFocusable } from "../dropdown/dropdownpanelfocusable";
 
 export default class ToolbarView extends View implements DropdownPanelFocusable {
-    ariaLabel?: string;
+    ariaLabel?: string | undefined;
     readonly children: ViewCollection;
-    class?: string;
+    class?: string | undefined;
     readonly focusTracker: FocusTracker;
     readonly focusables: ViewCollection;
     isCompact: boolean;
@@ -25,8 +25,8 @@ export default class ToolbarView extends View implements DropdownPanelFocusable 
 }
 
 export interface ToolbarOptions {
-    isFloating?: boolean;
-    shouldGroupWhenFull?: boolean;
+    isFloating?: boolean | undefined;
+    shouldGroupWhenFull?: boolean | undefined;
 }
 
 export interface ItemsView extends View {

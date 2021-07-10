@@ -28,17 +28,17 @@ declare namespace PinoHttp {
      * See https://github.com/pinojs/pino-http#pinohttpopts-stream
      */
     interface Options extends LoggerOptions {
-        logger?: Logger;
-        genReqId?: GenReqId;
-        useLevel?: Level;
-        stream?: DestinationStream;
-        autoLogging?: boolean | AutoLoggingOptions;
-        customLogLevel?: (res: ServerResponse, error: Error) => Level;
-        customSuccessMessage?: (res: ServerResponse) => string;
-        customErrorMessage?: (error: Error, res: ServerResponse) => string;
-        customAttributeKeys?: CustomAttributeKeys;
-        wrapSerializers?: boolean;
-        reqCustomProps?: (req: IncomingMessage, res: ServerResponse) => object;
+        logger?: Logger | undefined;
+        genReqId?: GenReqId | undefined;
+        useLevel?: Level | undefined;
+        stream?: DestinationStream | undefined;
+        autoLogging?: boolean | AutoLoggingOptions | undefined;
+        customLogLevel?: ((res: ServerResponse, error: Error) => Level) | undefined;
+        customSuccessMessage?: ((res: ServerResponse) => string) | undefined;
+        customErrorMessage?: ((error: Error, res: ServerResponse) => string) | undefined;
+        customAttributeKeys?: CustomAttributeKeys | undefined;
+        wrapSerializers?: boolean | undefined;
+        reqCustomProps?: ((req: IncomingMessage, res: ServerResponse) => object) | undefined;
     }
 
     interface GenReqId {
@@ -46,15 +46,15 @@ declare namespace PinoHttp {
     }
 
     interface AutoLoggingOptions {
-        ignorePaths?: string[];
-        getPath?: (req: IncomingMessage) => string | undefined;
+        ignorePaths?: string[] | undefined;
+        getPath?: ((req: IncomingMessage) => string | undefined) | undefined;
     }
 
     interface CustomAttributeKeys {
-        req?: string;
-        res?: string;
-        err?: string;
-        responseTime?: string;
+        req?: string | undefined;
+        res?: string | undefined;
+        err?: string | undefined;
+        responseTime?: string | undefined;
     }
 
     const startTime: unique symbol;
@@ -67,7 +67,7 @@ declare module 'http' {
     }
 
     interface ServerResponse {
-        err?: Error;
+        err?: Error | undefined;
     }
 
     interface OutgoingMessage {

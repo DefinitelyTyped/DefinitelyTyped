@@ -162,12 +162,12 @@ declare namespace Roles {
         role : string|string[],
         group? : string,
         options? : {
-            sort?: Mongo.SortSpecifier;
-        skip?: number;
-        limit?: number;
-        fields?: Mongo.FieldSpecifier;
-        reactive?: boolean;
-        transform?: Function;
+            sort?: Mongo.SortSpecifier | undefined;
+        skip?: number | undefined;
+        limit?: number | undefined;
+        fields?: Mongo.FieldSpecifier | undefined;
+        reactive?: boolean | undefined;
+        transform?: Function | undefined;
     }) : Mongo.Cursor<Meteor.User>;
 
     /**
@@ -418,12 +418,12 @@ declare module "meteor/alanning:roles" {
             role : string|string[],
             group? : string,
             options? : {
-                sort?: Mongo.SortSpecifier;
-            skip?: number;
-            limit?: number;
-            fields?: Mongo.FieldSpecifier;
-            reactive?: boolean;
-            transform?: Function;
+                sort?: Mongo.SortSpecifier | undefined;
+            skip?: number | undefined;
+            limit?: number | undefined;
+            fields?: Mongo.FieldSpecifier | undefined;
+            reactive?: boolean | undefined;
+            transform?: Function | undefined;
         }) : Mongo.Cursor<Meteor.User>;
 
         /**

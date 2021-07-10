@@ -613,6 +613,8 @@ const x: number = zTransform.x;
 const y: number = zTransform.y;
 const k: number = zTransform.k;
 
+zTransform = new d3Zoom.ZoomTransform(k, x, y);
+
 const transformedPoint: [number, number] = zTransform.apply([15, 20]);
 const transformedX: number = zTransform.applyX(15);
 const transformedY: number = zTransform.applyY(20);

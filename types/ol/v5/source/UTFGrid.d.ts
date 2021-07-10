@@ -10,15 +10,15 @@ import TileSource from './Tile';
 import { Config } from './TileJSON';
 
 export interface Options {
-    preemptive?: boolean;
-    jsonp?: boolean;
-    tileJSON?: Config;
-    url?: string;
+    preemptive?: boolean | undefined;
+    jsonp?: boolean | undefined;
+    tileJSON?: Config | undefined;
+    url?: string | undefined;
 }
 export interface UTFGridJSON {
     grid: string[];
     keys: string[];
-    data?: { [key: string]: object };
+    data?: { [key: string]: object } | undefined;
 }
 export class CustomTile extends Tile {
     constructor(tileCoord: TileCoord, state: TileState, src: string, extent: Extent, preemptive: boolean, jsonp: boolean);

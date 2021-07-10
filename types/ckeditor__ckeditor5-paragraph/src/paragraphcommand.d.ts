@@ -5,5 +5,5 @@ import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 export default class ParagraphCommand extends Command {
     readonly value: boolean;
     refresh(): void;
-    execute(options?: { selection?: Selection | DocumentSelection }): void;
+    execute(options?: { selection?: Selection | DocumentSelection | undefined }): void;
 }

@@ -19,7 +19,7 @@ declare namespace OptimizeCssAssetsPlugin {
          *
          * @default /\.css$/g
          */
-        assetNameRegExp?: RegExp;
+        assetNameRegExp?: RegExp | undefined;
         /**
          * The CSS processor used to optimize \ minimize the CSS. This should be a
          * function that follows `cssnano.process` interface (receives a CSS and
@@ -29,25 +29,25 @@ declare namespace OptimizeCssAssetsPlugin {
          */
         cssProcessor?: {
             process: (css: string, options?: object) => PromiseLike<any>;
-        };
+        } | undefined;
         /**
          * The options passed to the `cssProcessor`.
          *
          * @default {}
          */
-        cssProcessorOptions?: object;
+        cssProcessorOptions?: object | undefined;
         /**
          * The plugin options passed to the `cssProcessor`.
          *
          * @default {}
          */
-        cssProcessorPluginOptions?: object;
+        cssProcessorPluginOptions?: object | undefined;
         /**
          * A boolean indicating if the plugin can print messages to the console.
          *
          * @default true
          */
-        canPrint?: boolean;
+        canPrint?: boolean | undefined;
     }
 }
 

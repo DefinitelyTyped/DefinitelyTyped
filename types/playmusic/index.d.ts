@@ -6,16 +6,16 @@
 /// <reference types="node" />
 
 export interface InitOptions {
-    androidId?: string;
-    email?: string;
-    password?: string;
-    masterToken?: string;
+    androidId?: string | undefined;
+    email?: string | undefined;
+    password?: string | undefined;
+    masterToken?: string | undefined;
 }
 
 export interface LoginOptions {
-    androidId?: string;
-    email?: string;
-    password?: string;
+    androidId?: string | undefined;
+    email?: string | undefined;
+    password?: string | undefined;
 }
 
 export interface LoginResponse {
@@ -24,151 +24,151 @@ export interface LoginResponse {
 }
 
 export interface LibraryOptions {
-    limit?: number;
-    nextPageToken?: string;
+    limit?: number | undefined;
+    nextPageToken?: string | undefined;
 }
 
 export interface LibraryResponse {
-    data?: LibraryData;
-    kind?: string;
-    nextPageToken?: string;
+    data?: LibraryData | undefined;
+    kind?: string | undefined;
+    nextPageToken?: string | undefined;
 }
 
 export interface LibraryData {
-    items?: LibraryItem[];
+    items?: LibraryItem[] | undefined;
 }
 
 export interface LibraryItem {
-    album?: string;
-    albumArtist?: string;
-    albumArtRef?: ArtRef[];
-    artist?: string;
-    artistArtRef?: ArtRef[];
-    artistId?: string[];
-    beatsPerMinute?: number;
-    clientId?: string;
-    comment?: string;
-    composer?: string;
-    creationTimestamp?: string;
-    deleted?: boolean;
-    discNumber?: number;
-    durationMillis?: string;
-    estimatedSize?: string;
-    genre?: string;
-    id?: string;
-    kind?: string;
-    lastModifiedTimestamp?: string;
-    nid?: string;
-    playCount?: number;
-    rating?: string;
-    recentTimestamp?: string;
-    storeId?: string;
-    title?: string;
-    totalDiscCount?: number;
-    totalTrackCount?: number;
-    trackNumber?: number;
-    year?: number;
+    album?: string | undefined;
+    albumArtist?: string | undefined;
+    albumArtRef?: ArtRef[] | undefined;
+    artist?: string | undefined;
+    artistArtRef?: ArtRef[] | undefined;
+    artistId?: string[] | undefined;
+    beatsPerMinute?: number | undefined;
+    clientId?: string | undefined;
+    comment?: string | undefined;
+    composer?: string | undefined;
+    creationTimestamp?: string | undefined;
+    deleted?: boolean | undefined;
+    discNumber?: number | undefined;
+    durationMillis?: string | undefined;
+    estimatedSize?: string | undefined;
+    genre?: string | undefined;
+    id?: string | undefined;
+    kind?: string | undefined;
+    lastModifiedTimestamp?: string | undefined;
+    nid?: string | undefined;
+    playCount?: number | undefined;
+    rating?: string | undefined;
+    recentTimestamp?: string | undefined;
+    storeId?: string | undefined;
+    title?: string | undefined;
+    totalDiscCount?: number | undefined;
+    totalTrackCount?: number | undefined;
+    trackNumber?: number | undefined;
+    year?: number | undefined;
 }
 
 export interface ArtRef {
-    url?: string;
+    url?: string | undefined;
 }
 
 export interface PlaylistListResponse {
-    data?: PlaylistListData;
-    kind?: string;
+    data?: PlaylistListData | undefined;
+    kind?: string | undefined;
 }
 
 export interface PlaylistListData {
-    items?: PlaylistListItem[];
+    items?: PlaylistListItem[] | undefined;
 }
 
 export interface PlaylistListItem {
-    accessControlled?: boolean;
-    creationTimestamp?: string;
-    deleted?: boolean;
-    description?: string;
-    id?: string;
-    kind?: string;
-    lastModifiedTimestamp?: string;
-    name?: string;
-    ownerName?: string;
-    ownerProfilePhotoUrl?: string;
-    recentTimestamp?: string;
-    shareToken?: string;
-    type?: string;
+    accessControlled?: boolean | undefined;
+    creationTimestamp?: string | undefined;
+    deleted?: boolean | undefined;
+    description?: string | undefined;
+    id?: string | undefined;
+    kind?: string | undefined;
+    lastModifiedTimestamp?: string | undefined;
+    name?: string | undefined;
+    ownerName?: string | undefined;
+    ownerProfilePhotoUrl?: string | undefined;
+    recentTimestamp?: string | undefined;
+    shareToken?: string | undefined;
+    type?: string | undefined;
 }
 
 export interface PlaylistOptions {
-    limit?: number;
-    nextPageToken?: string;
+    limit?: number | undefined;
+    nextPageToken?: string | undefined;
 }
 
 export interface PlaylistResponse {
-    data?: PlaylistData;
-    kind?: string;
-    nextPageToken?: string;
+    data?: PlaylistData | undefined;
+    kind?: string | undefined;
+    nextPageToken?: string | undefined;
 }
 
 export interface PlaylistData {
-    items?: PlaylistItem[];
+    items?: PlaylistItem[] | undefined;
 }
 
 export interface PlaylistItem {
-    absolutePosition?: string;
-    clientId?: string;
-    creationTimestamp?: string;
-    deleted?: boolean;
-    id?: string;
-    kind?: string;
-    lastModifiedTimestamp?: string;
-    playlistId?: string;
-    source?: string;
-    track?: PlaylistTrack;
-    trackId?: string;
+    absolutePosition?: string | undefined;
+    clientId?: string | undefined;
+    creationTimestamp?: string | undefined;
+    deleted?: boolean | undefined;
+    id?: string | undefined;
+    kind?: string | undefined;
+    lastModifiedTimestamp?: string | undefined;
+    playlistId?: string | undefined;
+    source?: string | undefined;
+    track?: PlaylistTrack | undefined;
+    trackId?: string | undefined;
 }
 
 export interface PlaylistTrack {
-    album?: string;
-    albumArtist?: string;
-    albumArtRef?: ArtRef[];
-    albumAvailableForPurchase?: boolean;
-    albumId?: string;
-    artist?: string;
-    artistArtRef?: ArtRef[];
-    artistId?: string[];
-    composer?: string;
-    contentType?: string;
-    discNumber?: number;
-    durationMillis?: string;
-    estimatedSize?: string;
-    genre?: string;
-    kind?: string;
-    nid?: string;
-    playCount?: number;
-    storeId?: string;
-    title?: string;
-    trackAvailableForPurchase?: boolean;
-    trackAvailableForSubscription?: boolean;
-    trackNumber?: number;
-    trackType?: string;
-    year?: number;
+    album?: string | undefined;
+    albumArtist?: string | undefined;
+    albumArtRef?: ArtRef[] | undefined;
+    albumAvailableForPurchase?: boolean | undefined;
+    albumId?: string | undefined;
+    artist?: string | undefined;
+    artistArtRef?: ArtRef[] | undefined;
+    artistId?: string[] | undefined;
+    composer?: string | undefined;
+    contentType?: string | undefined;
+    discNumber?: number | undefined;
+    durationMillis?: string | undefined;
+    estimatedSize?: string | undefined;
+    genre?: string | undefined;
+    kind?: string | undefined;
+    nid?: string | undefined;
+    playCount?: number | undefined;
+    storeId?: string | undefined;
+    title?: string | undefined;
+    trackAvailableForPurchase?: boolean | undefined;
+    trackAvailableForSubscription?: boolean | undefined;
+    trackNumber?: number | undefined;
+    trackType?: string | undefined;
+    year?: number | undefined;
 }
 
 export interface PlaylistMeta {
-    name?: string;
-    description?: string;
-    shareState?: string;
+    name?: string | undefined;
+    description?: string | undefined;
+    shareState?: string | undefined;
 }
 
 export interface MutateResponses {
-    mutate_response?: MutateResponse[];
+    mutate_response?: MutateResponse[] | undefined;
 }
 
 export interface MutateResponse {
-    client_id?: string;
-    id?: string;
-    response_code?: string;
+    client_id?: string | undefined;
+    id?: string | undefined;
+    response_code?: string | undefined;
 }
 
 export default class PlayMusic {

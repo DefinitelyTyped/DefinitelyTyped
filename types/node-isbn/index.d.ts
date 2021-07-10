@@ -53,15 +53,15 @@ declare namespace isbn {
     interface Book {
         authors: string[];
         categories: string[];
-        description?: string;
+        description?: string | undefined;
         imageLinks?: {
             smallThumbnail: string;
             thumbnail: string;
-        };
+        } | undefined;
         industryIdentifiers: string[];
         infoLink: string;
         language: BookLanguage;
-        pageCount?: number;
+        pageCount?: number | undefined;
         previewLink: string;
         printType: "BOOK";
         publishedDate: string;

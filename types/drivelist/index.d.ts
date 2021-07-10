@@ -7,7 +7,7 @@ export type BusType = "SATA" | "SCSI" | "ATA" | "IDE" | "PCI" | "UNKNOWN";
 
 export interface MountPoint {
     path: string;
-    label?: string;
+    label?: string | undefined;
 }
 
 export interface Drive {

@@ -36,5 +36,5 @@ export default class MinimapPlugin extends Observer implements WaveSurferPlugin 
 
 export interface MinimapPluginParams extends PluginParams {
     /** CSS selector or HTML element where the map should be rendered. By default it is simply appended after the waveform. */
-    container?: string | HTMLElement | false;
+    container?: string | HTMLElement | false | undefined;
 }

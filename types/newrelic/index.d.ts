@@ -344,7 +344,7 @@ export const instrumentMessages: Instrument;
  */
 export function shutdown(cb?: (error?: Error) => void): void;
 export function shutdown(
-    options?: { collectPendingData?: boolean; timeout?: number; waitForIdle?: boolean },
+    options?: { collectPendingData?: boolean | undefined; timeout?: number | undefined; waitForIdle?: boolean | undefined },
     cb?: (error?: Error) => void,
 ): void;
 
@@ -370,7 +370,7 @@ export function getTraceMetadata(): TraceMetadata;
 export function setLambdaHandler<T extends (...args: any[]) => any>(handler: T): T;
 
 export interface Instrument {
-    (opts: { moduleName: string; onRequire: () => void; onError?: (err: Error) => void }): void;
+    (opts: { moduleName: string; onRequire: () => void; onError?: ((err: Error) => void) | undefined }): void;
     (moduleName: string, onRequire: () => void, onError?: (err: Error) => void): void;
 }
 
@@ -435,12 +435,12 @@ export interface LinkingMetadata {
     /**
      * The current trace ID
      */
-    'trace.id'?: string;
+    'trace.id'?: string | undefined;
 
     /**
      * The current span ID
      */
-    'span.id'?: string;
+    'span.id'?: string | undefined;
 
     /**
      * The application name specified in the connect request as
@@ -457,7 +457,7 @@ export interface LinkingMetadata {
     /**
      * The entity ID returned in the connect reply as entity_guid
      */
-    'entity.guid'?: string;
+    'entity.guid'?: string | undefined;
 
     /**
      * The hostname as specified in the connect request as
@@ -471,10 +471,10 @@ export interface TraceMetadata {
     /**
      * The current trace ID
      */
-    traceId?: string;
+    traceId?: string | undefined;
 
     /**
      * The current span ID
      */
-    spanId?: string;
+    spanId?: string | undefined;
 }

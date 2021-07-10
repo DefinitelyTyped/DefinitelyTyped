@@ -125,7 +125,7 @@ export class PullSocket extends Socket {
 export type ConnectionPort =
     number
     | string
-    | { protocol?: string, hostname?: string, pathname: string, port: string | number };
+    | { protocol?: string | undefined, hostname?: string | undefined, pathname: string, port: string | number };
 
 export function socket(type: string, options?: any): Socket;
 

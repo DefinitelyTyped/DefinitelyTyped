@@ -52,5 +52,5 @@ export default class EventInfo<S extends Emitter = Emitter, N extends string = "
      *      evt.stop();
      *    } );
      */
-    return?: unknown;
+    return?: unknown | undefined;
 }

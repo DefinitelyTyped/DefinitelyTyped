@@ -60,6 +60,6 @@ declare namespace Yallist {
         prev: Node<T> | null;
         next: Node<T> | null;
         value: T;
-        list?: Yallist<T>;
+        list?: Yallist<T> | undefined;
     }
 }

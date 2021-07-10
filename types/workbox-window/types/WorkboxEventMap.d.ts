@@ -21,9 +21,9 @@ export interface WorkboxExtendableEvent extends WorkboxEvent {
 }
 
 export interface WorkboxUpdatableEvent extends WorkboxExtendableEvent {
-    readonly isUpdate?: boolean;
+    readonly isUpdate?: boolean | undefined;
 }
 
 export interface WorkboxWaitingEvent extends WorkboxUpdatableEvent {
-    readonly wasWaitingBeforeRegister?: boolean;
+    readonly wasWaitingBeforeRegister?: boolean | undefined;
 }

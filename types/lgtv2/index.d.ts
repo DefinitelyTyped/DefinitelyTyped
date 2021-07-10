@@ -16,12 +16,12 @@ declare namespace LGTV {
     }
 
     interface Config {
-        url?: string;
-        timeout?: number;
-        reconnect?: number;
-        keyFile?: string;
-        clientKey?: string;
-        saveKey?: (key: string, callback: (error?: NodeJS.ErrnoException | null) => void) => void;
+        url?: string | undefined;
+        timeout?: number | undefined;
+        reconnect?: number | undefined;
+        keyFile?: string | undefined;
+        clientKey?: string | undefined;
+        saveKey?: ((key: string, callback: (error?: NodeJS.ErrnoException | null) => void) => void) | undefined;
     }
 }
 

@@ -5,12 +5,12 @@ import FormControlStatic = require('./FormControlStatic');
 
 declare namespace FormControl {
     export interface FormControlProps extends React.HTMLProps<FormControl> {
-        bsClass?: string;
-        bsSize?: Sizes;
-        componentClass?: React.ReactType;
-        id?: string;
-        inputRef?: (instance: HTMLInputElement) => void;
-        type?: string;
+        bsClass?: string | undefined;
+        bsSize?: Sizes | undefined;
+        componentClass?: React.ReactType | undefined;
+        id?: string | undefined;
+        inputRef?: ((instance: HTMLInputElement) => void) | undefined;
+        type?: string | undefined;
     }
 }
 declare class FormControl extends React.Component<FormControl.FormControlProps> {

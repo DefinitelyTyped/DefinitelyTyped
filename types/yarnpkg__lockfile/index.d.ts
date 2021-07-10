@@ -9,8 +9,8 @@ export interface Dependency {
 
 export interface FirstLevelDependency {
   version: string;
-  resolved?: string;
-  dependencies?: Dependency;
+  resolved?: string | undefined;
+  dependencies?: Dependency | undefined;
 }
 
 export interface LockFileObject {

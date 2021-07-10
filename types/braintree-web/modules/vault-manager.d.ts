@@ -12,8 +12,8 @@ import { VenmoAccountDetails } from './venmo';
  * @see https://braintree.github.io/braintree-web/3.75.0/module-braintree-web_vault-manager.html
  */
 export class VaultManager {
-    static create(options: { client?: Client; authorization?: string; }): Promise<VaultManager>;
-    static create(options: { client?: Client; authorization?: string; }, callback: callback<VaultManager>): void;
+    static create(options: { client?: Client | undefined; authorization?: string | undefined; }): Promise<VaultManager>;
+    static create(options: { client?: Client | undefined; authorization?: string | undefined; }, callback: callback<VaultManager>): void;
 
     /**
      * Fetches payment methods owned by the customer whose id was used to generate the client token used to create the client.
@@ -38,8 +38,8 @@ export class VaultManager {
 export interface FetchPaymentMethodsPayload {
     nonce: string;
     default: boolean;
-    details?: HostedFieldsAccountDetails | ThreeDSecureAccountDetails | GooglePaymentDetails | PayPalAccountDetails | UnionPayAccountDetails | VenmoAccountDetails | Record<string, any>;
+    details?: HostedFieldsAccountDetails | ThreeDSecureAccountDetails | GooglePaymentDetails | PayPalAccountDetails | UnionPayAccountDetails | VenmoAccountDetails | Record<string, any> | undefined;
     type: string;
     description: string | null;
-    binData?: Record<string, any>;
+    binData?: Record<string, any> | undefined;
 }

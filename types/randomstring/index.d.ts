@@ -5,10 +5,10 @@
 
 declare namespace Randomstring {
     interface GenerateOptions {
-        length?: number;
-        readable?: boolean;
-        charset?: string;
-        capitalization?: string;
+        length?: number | undefined;
+        readable?: boolean | undefined;
+        charset?: string | undefined;
+        capitalization?: string | undefined;
     }
 
     function generate(options?: GenerateOptions | number): string;

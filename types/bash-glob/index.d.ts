@@ -11,15 +11,15 @@ declare function bashGlob(pattern: Patterns, options: bashGlob.Options, callback
 
 declare namespace bashGlob {
     interface Options {
-        cwd?: string;
-        dot?: boolean;
-        dotglob?: boolean;
-        extglob?: boolean;
-        failglob?: boolean;
-        globstar?: boolean;
-        nocase?: boolean;
-        nocaseglob?: boolean;
-        nullglob?: boolean;
+        cwd?: string | undefined;
+        dot?: boolean | undefined;
+        dotglob?: boolean | undefined;
+        extglob?: boolean | undefined;
+        failglob?: boolean | undefined;
+        globstar?: boolean | undefined;
+        nocase?: boolean | undefined;
+        nocaseglob?: boolean | undefined;
+        nullglob?: boolean | undefined;
     }
 
     function on(event: 'match' | 'files', callback: (files: string, cwd: string) => void): void;

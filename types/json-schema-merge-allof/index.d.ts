@@ -32,7 +32,7 @@ declare namespace merger {
          * false during the merge process. The resulting schema will still get
          * additionalProperties set to false.
          */
-        ignoreAdditionalProperties?: boolean;
+        ignoreAdditionalProperties?: boolean | undefined;
         /**
          * **resolvers** Object
          *
@@ -80,7 +80,7 @@ declare namespace merger {
              * ```
              */
             defaultResolver?(values: any[], path: string[], mergeSchemas: MergeSchemas, options: Options<Schema>): any;
-        };
+        } | undefined;
     }
     type MergeSchemas = <T extends JSONSchema>(schemas: ReadonlyArray<T>) => T;
     type MergeChildSchemas = <T extends JSONSchema>(schemas: ReadonlyArray<T>, childSchemaName: string) => T;

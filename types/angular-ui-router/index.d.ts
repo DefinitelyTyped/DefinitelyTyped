@@ -27,44 +27,44 @@ export type IType = angular.ui.IType;
 declare module 'angular' {
     export namespace ui {
         interface IState {
-            name?: string;
+            name?: string | undefined;
             /**
              * String HTML content, or function that returns an HTML string
              */
-            template?: string | { (params: IStateParamsService): string };
+            template?: string | { (params: IStateParamsService): string } | undefined;
             /**
              * String URL path to template file OR Function, returns URL path string
              */
-            templateUrl?: string | { (params: IStateParamsService): string };
+            templateUrl?: string | { (params: IStateParamsService): string } | undefined;
             /**
              * Function, returns HTML content string
              */
-            templateProvider?: Function | Array<string | Function>;
+            templateProvider?: Function | Array<string | Function> | undefined;
             /**
              * String, component name
              */
-            component?: string;
+            component?: string | undefined;
             /**
              * A controller paired to the state. Function, annotated array or name as String
              */
-            controller?: Function | string | Array<string | Function>;
-            controllerAs?: string;
+            controller?: Function | string | Array<string | Function> | undefined;
+            controllerAs?: string | undefined;
             /**
              * Function (injectable), returns the actual controller function or string.
              */
-            controllerProvider?: Function | Array<string | Function>;
+            controllerProvider?: Function | Array<string | Function> | undefined;
 
             /**
              * Specifies the parent state of this state
              */
-            parent?: string | IState;
+            parent?: string | IState | undefined;
 
 
-            resolve?: { [name: string]: any };
+            resolve?: { [name: string]: any } | undefined;
             /**
              * A url with optional parameters. When a state is navigated or transitioned to, the $stateParams service will be populated with any parameters that were passed.
              */
-            url?: string | IUrlMatcher;
+            url?: string | IUrlMatcher | undefined;
             /**
              * A map which optionally configures parameters declared in the url, or defines additional non-url parameters. Only use this within a state if you are not using url. Otherwise you can specify your parameters within the url. When a state is navigated or transitioned to, the $stateParams service will be populated with any parameters that were passed.
              */
@@ -72,18 +72,18 @@ declare module 'angular' {
             /**
              * Use the views property to set up multiple views. If you don't need multiple views within a single state this property is not needed. Tip: remember that often nested views are more useful and powerful than multiple sibling views.
              */
-            views?: { [name: string]: IState };
-            abstract?: boolean;
+            views?: { [name: string]: IState } | undefined;
+            abstract?: boolean | undefined;
             /**
              * Callback function for when a state is entered. Good way to trigger an action or dispatch an event, such as opening a dialog.
              * If minifying your scripts, make sure to explicitly annotate this function, because it won't be automatically annotated by your build tools.
              */
-            onEnter?: Function | Array<string | Function>;
+            onEnter?: Function | Array<string | Function> | undefined;
             /**
              * Callback functions for when a state is entered and exited. Good way to trigger an action or dispatch an event, such as opening a dialog.
              * If minifying your scripts, make sure to explicitly annotate this function, because it won't be automatically annotated by your build tools.
              */
-            onExit?: Function | Array<string | Function>;
+            onExit?: Function | Array<string | Function> | undefined;
             /**
              * Arbitrary data object, useful for custom configuration.
              */
@@ -92,18 +92,18 @@ declare module 'angular' {
             /**
              * Boolean (default true). If false will not re-trigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
              */
-            reloadOnSearch?: boolean;
+            reloadOnSearch?: boolean | undefined;
 
             /**
              * Boolean (default true). If false will reload state on everytransitions. Useful for when you'd like to restore all data  to its initial state.
              */
-            cache?: boolean;
+            cache?: boolean | undefined;
 
             /**
              * string | function | object
              * Synchronously or asynchronously redirects Transitions to a different state/params
              */
-            redirectTo?: string | Function | IState;
+            redirectTo?: string | Function | IState | undefined;
 
         }
 
@@ -222,30 +222,30 @@ declare module 'angular' {
             /**
              * {boolean=true|string=} - If true will update the url in the location bar, if false will not. If string, must be "replace", which will update url and also replace last history record.
              */
-            location?: boolean | string;
+            location?: boolean | string | undefined;
             /**
              *  {boolean=true}, If true will inherit url parameters from current url.
              */
-            inherit?: boolean;
+            inherit?: boolean | undefined;
             /**
              * {object=$state.$current}, When transitioning with relative path (e.g '^'), defines which state to be relative from.
              */
-            relative?: IState;
+            relative?: IState | undefined;
             /**
              * {boolean=true}, If true will broadcast $stateChangeStart and $stateChangeSuccess events.
              */
-            notify?: boolean;
+            notify?: boolean | undefined;
             /**
          * {boolean=false|string|IState}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
              */
-            reload?: boolean | string | IState;
+            reload?: boolean | string | IState | undefined;
         }
 
         interface IHrefOptions {
-            lossy?: boolean;
-            inherit?: boolean;
-            relative?: IState;
-            absolute?: boolean;
+            lossy?: boolean | undefined;
+            inherit?: boolean | undefined;
+            relative?: IState | undefined;
+            absolute?: boolean | undefined;
         }
 
         interface IStateService {
@@ -368,7 +368,7 @@ declare module 'angular' {
             /**
              * The regular expression pattern used to match values of this type when coming from a substring of a URL.
              */
-            pattern?: RegExp;
+            pattern?: RegExp | undefined;
         }
     }
 

@@ -32,8 +32,8 @@ export class LargeObject {
 }
 
 export interface LargeObjectManagerSettings {
-  pg?: pg.Client;
-  pgPromise?: object; // module: pg-promise/Task
+  pg?: pg.Client | undefined;
+  pgPromise?: object | undefined; // module: pg-promise/Task
 }
 
 export class LargeObjectManager {

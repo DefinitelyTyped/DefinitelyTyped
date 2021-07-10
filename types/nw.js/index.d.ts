@@ -64,12 +64,12 @@ declare global {
             /**
              * {Boolean} (Optional) do not populate the Edit menu
              */
-            hideEdit?: boolean;
+            hideEdit?: boolean | undefined;
 
             /**
              * {Boolean} (Optional) do not populate the Window menu
              */
-            hideWindow?: boolean;
+            hideWindow?: boolean | undefined;
         }
 
         /**
@@ -79,52 +79,52 @@ declare global {
             /**
              * {string} (Optional) Label for normal item or checkbox
              */
-            label?: string;
+            label?: string | undefined;
 
             /**
              * {string} (Optional) Icon for normal item or checkbox
              */
-            icon?: string;
+            icon?: string | undefined;
 
             /**
              * {string} (Optional) Tooltip for normal item or checkbox
              */
-            tooltip?: string;
+            tooltip?: string | undefined;
 
             /**
              * {string} (Optional) The type of the item. Three types are accepted: normal, checkbox, separator
              */
-            type?: string | 'normal' | 'checkbox' | 'separator';
+            type?: string | 'normal' | 'checkbox' | 'separator' | undefined;
 
             /**
              * {Function} (Optional) The callback function when item is triggered by mouse click or keyboard shortcut
              */
-            click?: Function;
+            click?: Function | undefined;
 
             /**
              * {boolean} (Optional) Whether the item is enabled or disabled. It"s set to true by default.
              */
-            enabled?: boolean;
+            enabled?: boolean | undefined;
 
             /**
              * {boolean} (Optional) Whether the checkbox is checked or not. It"s set to false by default.
              */
-            checked?: boolean;
+            checked?: boolean | undefined;
 
             /**
              * {nw.Menu} (Optional) A submenu
              */
-            submenu?: nw.Menu;
+            submenu?: nw.Menu | undefined;
 
             /**
              * {string} (Optional) The key of the shortcut
              */
-            key?: string;
+            key?: string | undefined;
 
             /**
              * {string} (Optional) The modifiers of the shortcut
              */
-            modifiers?: string;
+            modifiers?: string | undefined;
         }
 
         /**
@@ -282,32 +282,32 @@ declare global {
             /**
              * {string} title
              */
-            title?: string;
+            title?: string | undefined;
 
             /**
              * {string} tooltip
              */
-            tooltip?: string;
+            tooltip?: string | undefined;
 
             /**
              * {string} icon
              */
-            icon?: string;
+            icon?: string | undefined;
 
             /**
              * {string} alternate
              */
-            alticon?: string;
+            alticon?: string | undefined;
 
             /**
              * {boolean} whether icons are templates
              */
-            iconsAreTemplates?: boolean;
+            iconsAreTemplates?: boolean | undefined;
 
             /**
              * {Menu} popup menu
              */
-            menu?: nw.Menu;
+            menu?: nw.Menu | undefined;
         }
 
         /**
@@ -353,12 +353,12 @@ declare global {
             /**
              * (Optional) The image format used to generate the image. It supports two formats: "png" and "jpeg". If ignored, it’s "jpeg" by default.
              */
-            format?: string;
+            format?: string | undefined;
 
             /**
              *  (Optional) It supports three types: "raw", "buffer" and "datauri". If ignored, it’s "datauri" by default.
              */
-            datatype?: string;
+            datatype?: string | undefined;
         }
 
         /**
@@ -467,7 +467,7 @@ declare global {
             /**
              * (Optional) The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies.
              */
-            expirationDate?: number;
+            expirationDate?: number | undefined;
 
             /**
              * The ID of the cookie store containing this cookie.
@@ -502,27 +502,27 @@ declare global {
             /**
              * Restricts the retrieved cookies to those that would match the given URL.
              */
-            url?: string;
+            url?: string | undefined;
 
             /**
              * Filters the cookies by name.
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * Restricts the retrieved cookies to those whose domains match or are subdomains of this one.
              */
-            domain?: string;
+            domain?: string | undefined;
 
             /**
              * Restricts the retrieved cookies to those whose path exactly matches this string.
              */
-            path?: string;
+            path?: string | undefined;
 
             /**
              * Filters the cookies by their Secure property.
              */
-            secure?: boolean;
+            secure?: boolean | undefined;
 
             /**
              * Filters out session vs. persistent cookies.
@@ -532,7 +532,7 @@ declare global {
             /**
              * The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used.
              */
-            storeId?: string;
+            storeId?: string | undefined;
         }
 
         /**
@@ -547,47 +547,47 @@ declare global {
             /**
              * The name of the cookie. Empty by default if omitted.
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * The value of the cookie. Empty by default if omitted.
              */
-            value?: string;
+            value?: string | undefined;
 
             /**
              * The domain of the cookie. If omitted, the cookie becomes a host-only cookie.
              */
-            domain?: string;
+            domain?: string | undefined;
 
             /**
              * The path of the cookie. Defaults to the path portion of the url parameter.
              */
-            path?: string;
+            path?: string | undefined;
 
             /**
              * Whether the cookie should be marked as Secure. Defaults to false.
              */
-            secure?: boolean;
+            secure?: boolean | undefined;
 
             /**
              * Whether the cookie should be marked as HttpOnly. Defaults to false.
              */
-            httpOnly?: boolean;
+            httpOnly?: boolean | undefined;
 
             /**
              * The cookie's same-site status: defaults to 'no_restriction'.
              */
-            sameSite?: string | 'no_restriction' | 'lax' | 'strict';
+            sameSite?: string | 'no_restriction' | 'lax' | 'strict' | undefined;
 
             /**
              * The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie.
              */
-            expirationDate?: number;
+            expirationDate?: number | undefined;
 
             /**
              * The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store.
              */
-            storeId?: string;
+            storeId?: string | undefined;
         }
 
         /**
@@ -694,124 +694,124 @@ declare global {
             /**
              * The id used to identify the window.
              */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * The default title of window created by NW.js
              */
-            title?: string;
+            title?: string | undefined;
 
             /**
              * The initial width of the main window.
              */
-            width?: number;
+            width?: number | undefined;
 
             /**
              * The initial height of the main window.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              * Path to window’s icon
              */
-            icon?: string;
+            icon?: string | undefined;
 
             /**
              * Controls where window will be put, be `null` or `center` or `mouse`
              */
-            position?: string;
+            position?: string | undefined;
 
             /**
              * Minimum width of window
              */
-            min_width?: number;
+            min_width?: number | undefined;
 
             /**
              * Minimum height of window
              */
-            min_height?: number;
+            min_height?: number | undefined;
 
             /**
              * Maximum width of window
              */
-            max_width?: number;
+            max_width?: number | undefined;
 
             /**
              * Maximum height of window
              */
-            max_height?: number;
+            max_height?: number | undefined;
 
             /**
              * Show as desktop background window under X11 environment
              */
-            as_desktop?: boolean;
+            as_desktop?: boolean | undefined;
 
             /**
              * Whether window is resizable
              */
-            resizable?: boolean;
+            resizable?: boolean | undefined;
 
             /**
              * Whether the window should always stay on top of other windows.
              */
-            always_on_top?: boolean;
+            always_on_top?: boolean | undefined;
 
             /**
              * Whether the window should be visible on all workspaces simultaneously (on platforms that support multiple workspaces, currently Mac OS X and Linux).
              */
-            visible_on_all_workspaces?: boolean;
+            visible_on_all_workspaces?: boolean | undefined;
 
             /**
              * Whether window is fullscreen
              */
-            fullscreen?: boolean;
+            fullscreen?: boolean | undefined;
 
             /**
              * Whether the window is shown in taskbar or dock. The default is true.
              */
-            show_in_taskbar?: boolean;
+            show_in_taskbar?: boolean | undefined;
 
             /**
              * Specify it to false to make the window frameless
              */
-            frame?: boolean;
+            frame?: boolean | undefined;
 
             /**
              * Specify it to false if you want your app to be hidden on startup
              */
-            show?: boolean;
+            show?: boolean | undefined;
 
             /**
              * Whether to use Kiosk mode.
              */
-            kiosk?: boolean;
+            kiosk?: boolean | undefined;
 
             /**
              * Whether to turn on transparent window mode.
              */
-            transparent?: boolean;
+            transparent?: boolean | undefined;
         }
 
         interface WindowOpenOption extends WindowOption {
             /**
              * (Optional) Whether to open a new window in a separate render process.
              */
-            new_instance?: boolean;
+            new_instance?: boolean | undefined;
 
             /**
              * (Optional) The script to be injected before document loaded.
              */
-            inject_js_start?: string;
+            inject_js_start?: string | undefined;
 
             /**
              * (Optional) The script to be injected before document unloaded.
              */
-            inject_js_end?: string;
+            inject_js_end?: string | undefined;
 
             /**
              * (Optional) The id used to identify the window.
              */
-            id?: string;
+            id?: string | undefined;
         }
 
         /**

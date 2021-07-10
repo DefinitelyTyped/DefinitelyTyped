@@ -11,17 +11,17 @@ declare namespace jQueryCountdown {
         /**
          * Allow to continue after finishes
          */
-        elapse?: boolean;
+        elapse?: boolean | undefined;
 
         /**
          * The update rate in milliseconds
          */
-        precision?: number;
+        precision?: number | undefined;
 
         /**
          * Deferred initialization mode
          */
-        defer?: boolean;
+        defer?: boolean | undefined;
     }
 
     interface Event extends JQuery.Event {

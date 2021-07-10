@@ -8,22 +8,22 @@ export type FormatterType = "json" | "string" | "verbose";
 export type SyntaxType = "scss" | "sass" | "less" | "sugarss";
 
 export interface LinterOptions {
-    code?: string;
-    codeFilename?: string;
-    config?: JSON;
-    configBasedir?: string;
-    configFile?: string;
-    configOverrides?: JSON;
-    cache?: boolean;
-    cacheLocation?: string;
-    files?: string | string[];
-    fix?: boolean;
-    formatter?: FormatterType;
-    ignoreDisables?: boolean;
-    reportNeedlessDisables?: boolean;
-    ignorePath?: boolean;
-    syntax?: SyntaxType;
-    customSyntax?: string;
+    code?: string | undefined;
+    codeFilename?: string | undefined;
+    config?: JSON | undefined;
+    configBasedir?: string | undefined;
+    configFile?: string | undefined;
+    configOverrides?: JSON | undefined;
+    cache?: boolean | undefined;
+    cacheLocation?: string | undefined;
+    files?: string | string[] | undefined;
+    fix?: boolean | undefined;
+    formatter?: FormatterType | undefined;
+    ignoreDisables?: boolean | undefined;
+    reportNeedlessDisables?: boolean | undefined;
+    ignorePath?: boolean | undefined;
+    syntax?: SyntaxType | undefined;
+    customSyntax?: string | undefined;
 }
 
 export interface LinterResult {

@@ -7,11 +7,11 @@
 
 
 interface ConstructorOptions {
-    datacenter?: number;
-    worker?: number;
-    id?: number;
-    epoch?: number;
-    seqMask?: number;
+    datacenter?: number | undefined;
+    worker?: number | undefined;
+    id?: number | undefined;
+    epoch?: number | undefined;
+    seqMask?: number | undefined;
 }
 
 declare namespace FlakeId {}

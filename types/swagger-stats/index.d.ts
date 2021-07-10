@@ -241,19 +241,19 @@ export interface RequestResponseRecord {
   http: {
     request: {
       url: string;
-      headers?: IncomingHttpHeaders;
-      clength?: number;
-      route_path?: string;
-      params?: Record<string, any>;
-      query?: Record<string, any>;
+      headers?: IncomingHttpHeaders | undefined;
+      clength?: number | undefined;
+      route_path?: string | undefined;
+      params?: Record<string, any> | undefined;
+      query?: Record<string, any> | undefined;
       body?: any;
     };
     response: {
       code: string;
       class: string;
       phrase: string;
-      headers?: OutgoingHttpHeaders;
-      clength?: number;
+      headers?: OutgoingHttpHeaders | undefined;
+      clength?: number | undefined;
     };
   };
   ip: string;
@@ -263,23 +263,23 @@ export interface RequestResponseRecord {
   api: {
     path: string;
     query: string;
-    swagger?: string;
-    deprecated?: string;
-    operationId?: string;
-    tags?: string;
-    params?: string;
+    swagger?: string | undefined;
+    deprecated?: string | undefined;
+    operationId?: string | undefined;
+    tags?: string | undefined;
+    params?: string | undefined;
   };
-  attrs?: Record<string, string>;
-  attrsint?: Record<string, number>;
+  attrs?: Record<string, string> | undefined;
+  attrsint?: Record<string, number> | undefined;
   [field: string]: any;
 }
 
 export interface APIOperationDefinition {
   swagger: boolean;
   deprecated: boolean;
-  description?: string;
-  operationId?: string;
-  summary?: string;
+  description?: string | undefined;
+  operationId?: string | undefined;
+  summary?: string | undefined;
   tags?: any;
 }
 
@@ -290,9 +290,9 @@ export interface ErrorsStats {
 }
 
 export interface APIOperationStats {
-  defs?: APIOperationDefinition;
-  stats?: APIOperationDefinition;
-  details?: APIOperationDefinition;
+  defs?: APIOperationDefinition | undefined;
+  stats?: APIOperationDefinition | undefined;
+  details?: APIOperationDefinition | undefined;
 }
 
 export interface CoreStats {
@@ -305,14 +305,14 @@ export interface CoreStats {
   hostname: string;
   ip: string;
   apdexThreshold: number;
-  method?: Record<HTTPMethodSubset, ReqResStats>;
-  timeline?: TimelineStats;
-  lasterrors?: RequestResponseRecord[];
-  longestreq?: RequestResponseRecord[];
-  apidefs?: Record<string, Record<HTTPMethod, APIOperationDefinition>>;
-  apistats?: Record<string, Record<HTTPMethod, ReqResStats>>;
-  errors?: ErrorsStats;
-  apiop?: Record<string, Record<HTTPMethod, APIOperationStats>>;
+  method?: Record<HTTPMethodSubset, ReqResStats> | undefined;
+  timeline?: TimelineStats | undefined;
+  lasterrors?: RequestResponseRecord[] | undefined;
+  longestreq?: RequestResponseRecord[] | undefined;
+  apidefs?: Record<string, Record<HTTPMethod, APIOperationDefinition>> | undefined;
+  apistats?: Record<string, Record<HTTPMethod, ReqResStats>> | undefined;
+  errors?: ErrorsStats | undefined;
+  apiop?: Record<string, Record<HTTPMethod, APIOperationStats>> | undefined;
 }
 
 export function getCoreStats(): CoreStats;

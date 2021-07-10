@@ -23,7 +23,7 @@ export class ContentMatch<S extends Schema = any> {
      * Get the first matching node type at this match position that can
      * be generated.
      */
-    defaultType?: NodeType;
+    defaultType?: NodeType | undefined;
     /**
      * The number of outgoing edges this node has in the finite automaton
      * that describes the content expression.
@@ -122,11 +122,11 @@ export class Fragment<S extends Schema = any> {
     /**
      * The first child of the fragment, or `null` if it is empty.
      */
-    firstChild?: ProsemirrorNode<S> | null;
+    firstChild?: ProsemirrorNode<S> | null | undefined;
     /**
      * The last child of the fragment, or `null` if it is empty.
      */
-    lastChild?: ProsemirrorNode<S> | null;
+    lastChild?: ProsemirrorNode<S> | null | undefined;
     /**
      * The number of child nodes in this fragment.
      */
@@ -201,7 +201,7 @@ export interface ParseOptions<S extends Schema = any> {
      * `true` to preserve whitespace, but normalize newlines to
      * spaces, and `"full"` to preserve whitespace entirely.
      */
-    preserveWhitespace?: boolean | 'full' | null;
+    preserveWhitespace?: boolean | 'full' | null | undefined;
     /**
      * When given, the parser will, beside parsing the content,
      * record the document positions of the given DOM positions. It
@@ -209,33 +209,33 @@ export interface ParseOptions<S extends Schema = any> {
      * that holds the document position. DOM positions that are not
      * in the parsed content will not be written to.
      */
-    findPositions?: Array<{ node: Node; offset: number }> | null;
+    findPositions?: Array<{ node: Node; offset: number }> | null | undefined;
     /**
      * The child node index to start parsing from.
      */
-    from?: number | null;
+    from?: number | null | undefined;
     /**
      * The child node index to stop parsing at.
      */
-    to?: number | null;
+    to?: number | null | undefined;
     /**
      * By default, the content is parsed into the schema's default
      * [top node type](#model.Schema.topNodeType). You can pass this
      * option to use the type and attributes from a different node
      * as the top container.
      */
-    topNode?: ProsemirrorNode<S> | null;
+    topNode?: ProsemirrorNode<S> | null | undefined;
     /**
      * Provide the starting content match that content parsed into the
      * top node is matched against.
      */
-    topMatch?: ContentMatch | null;
+    topMatch?: ContentMatch | null | undefined;
     /**
      * A set of additional nodes to count as
      * [context](#model.ParseRule.context) when parsing, above the
      * given [top node](#model.ParseOptions.topNode).
      */
-    context?: ResolvedPos<S> | null;
+    context?: ResolvedPos<S> | null | undefined;
 }
 /**
  * A value that describes how to parse a given DOM node or inline
@@ -246,13 +246,13 @@ export interface ParseRule {
      * A CSS selector describing the kind of DOM elements to match. A
      * single rule should have _either_ a `tag` or a `style` property.
      */
-    tag?: string | null;
+    tag?: string | null | undefined;
     /**
      * The namespace to match. This should be used with `tag`.
      * Nodes are only matched when the namespace matches or this property
      * is null.
      */
-    namespace?: string | null;
+    namespace?: string | null | undefined;
     /**
      * A CSS property name to match. When given, this rule matches
      * inline styles that list that property. May also have the form
@@ -261,7 +261,7 @@ export interface ParseRule {
      * complicated filters, use [`getAttrs`](#model.ParseRule.getAttrs)
      * and return undefined to indicate that the match failed.)
      */
-    style?: string | null;
+    style?: string | null | undefined;
     /**
      * Can be used to change the order in which the parse rules in a
      * schema are tried. Those with higher priority come first. Rules
@@ -269,14 +269,14 @@ export interface ParseRule {
      * property is only meaningful in a schema—when directly
      * constructing a parser, the order of the rule array is used.
      */
-    priority?: number | null;
+    priority?: number | null | undefined;
     /**
      * By default, when a rule matches an element or style, no further
      * rules get a chance to match it. By setting this to false,
      * you indicate that even when this rule matches, other rules
      * that come after it should also run.
      */
-    consuming?: boolean | null;
+    consuming?: boolean | null | undefined;
     /**
      * When given, restricts this rule to only match when the current
      * context—the parent nodes into which the content is being
@@ -290,7 +290,7 @@ export interface ParseRule {
      * different contexts, they can be separated by a pipe (`|`)
      * character, as in `"blockquote/|list_item/"`.
      */
-    context?: string | null;
+    context?: string | null | undefined;
     /**
      * The name of the node type to create when this rule matches. Only
      * valid for rules with a `tag` property, not for style rules. Each
@@ -299,25 +299,25 @@ export interface ParseRule {
      * [mark spec](#model.MarkSpec.parseDOM), in which case the `node`
      * or `mark` property will be derived from its position).
      */
-    node?: string | null;
+    node?: string | null | undefined;
     /**
      * The name of the mark type to wrap the matched content in.
      */
-    mark?: string | null;
+    mark?: string | null | undefined;
     /**
      * When true, ignore content that matches this rule.
      */
-    ignore?: boolean | null;
+    ignore?: boolean | null | undefined;
     /**
      * When true, ignore the node that matches this rule, but do parse
      * its content.
      */
-    skip?: boolean | null;
+    skip?: boolean | null | undefined;
     /**
      * Attributes for the node or mark created by this rule. When
      * `getAttrs` is provided, it takes precedence.
      */
-    attrs?: { [key: string]: any } | null;
+    attrs?: { [key: string]: any } | null | undefined;
     /**
      * A function used to compute the attributes for the node or mark
      * created by this rule. Can also be used to describe further
@@ -328,7 +328,7 @@ export interface ParseRule {
      * Called with a DOM Element for `tag` rules, and with a string (the
      * style's value) for `style` rules.
      */
-    getAttrs?: ((p: Node | string) => { [key: string]: any } | false | null | undefined) | null;
+    getAttrs?: ((p: Node | string) => { [key: string]: any } | false | null | undefined) | null | undefined;
     /**
      * For `tag` rules that produce non-leaf nodes or marks, by default
      * the content of the DOM element is parsed as content of the mark
@@ -337,13 +337,13 @@ export interface ParseRule {
      * content element, or a function that returns the actual content
      * element to the parser.
      */
-    contentElement?: string | ((p: Node) => Node) | null;
+    contentElement?: string | ((p: Node) => Node) | null | undefined;
     /**
      * Can be used to override the content of a matched node. When
      * present, instead of parsing the node's child nodes, the result of
      * this function is used.
      */
-    getContent?: (<S extends Schema = any>(p: Node, schema: S) => Fragment<S>) | null;
+    getContent?: (<S extends Schema = any>(p: Node, schema: S) => Fragment<S>) | null | undefined;
     /**
      * Controls whether whitespace should be preserved when parsing the
      * content inside the matched element. `false` means whitespace may
@@ -351,7 +351,7 @@ export interface ParseRule {
      * but newlines normalized to spaces, and `"full"` means that
      * newlines should also be preserved.
      */
-    preserveWhitespace?: boolean | 'full' | null;
+    preserveWhitespace?: boolean | 'full' | null | undefined;
 }
 /**
  * A DOM parser represents a strategy for parsing DOM content into
@@ -488,7 +488,7 @@ declare class ProsemirrorNode<S extends Schema = any> {
     /**
      * For text nodes, this contains the node's text content.
      */
-    text?: string | null;
+    text?: string | null | undefined;
     /**
      * The size of this node, as defined by the integer-based [indexing
      * scheme](/docs/guide/#doc.indexing). For text nodes, this is the
@@ -557,12 +557,12 @@ declare class ProsemirrorNode<S extends Schema = any> {
      * Returns this node's first child, or `null` if there are no
      * children.
      */
-    firstChild?: ProsemirrorNode<S> | null;
+    firstChild?: ProsemirrorNode<S> | null | undefined;
     /**
      * Returns this node's last child, or `null` if there are no
      * children.
      */
-    lastChild?: ProsemirrorNode<S> | null;
+    lastChild?: ProsemirrorNode<S> | null | undefined;
     /**
      * Test whether two nodes represent the same piece of document.
      */
@@ -616,13 +616,13 @@ declare class ProsemirrorNode<S extends Schema = any> {
      * and return it along with its index and offset relative to this
      * node.
      */
-    childAfter(pos: number): { node?: ProsemirrorNode<S> | null; index: number; offset: number };
+    childAfter(pos: number): { node?: ProsemirrorNode<S> | null | undefined; index: number; offset: number };
     /**
      * Find the (direct) child node before the given offset, if any,
      * and return it along with its index and offset relative to this
      * node.
      */
-    childBefore(pos: number): { node?: ProsemirrorNode<S> | null; index: number; offset: number };
+    childBefore(pos: number): { node?: ProsemirrorNode<S> | null | undefined; index: number; offset: number };
     /**
      * Resolve the given position in the document, returning an
      * [object](#model.ResolvedPos) with information about its context.
@@ -856,13 +856,13 @@ export class ResolvedPos<S extends Schema = any> {
      * points into a text node, only the part of that node after the
      * position is returned.
      */
-    nodeAfter?: ProsemirrorNode<S> | null;
+    nodeAfter?: ProsemirrorNode<S> | null | undefined;
     /**
      * Get the node directly before the position, if any. If the
      * position points into a text node, only the part of that node
      * before the position is returned.
      */
-    nodeBefore?: ProsemirrorNode<S> | null;
+    nodeBefore?: ProsemirrorNode<S> | null | undefined;
     /**
      * Get the position at the given index in the parent node at the
      * given depth (which defaults to this.depth).
@@ -1132,12 +1132,12 @@ export interface SchemaSpec<N extends string = any, M extends string = any> {
      * sets](#model.Mark.addToSet) are sorted and in which [parse
      * rules](#model.MarkSpec.parseDOM) are tried.
      */
-    marks?: { [name in M]: MarkSpec } | OrderedMap<MarkSpec> | null;
+    marks?: { [name in M]: MarkSpec } | OrderedMap<MarkSpec> | null | undefined;
     /**
      * The name of the default top-level node for the schema. Defaults
      * to `"doc"`.
      */
-    topNode?: string | null;
+    topNode?: string | null | undefined;
 }
 export interface NodeSpec {
     /**
@@ -1145,7 +1145,7 @@ export interface NodeSpec {
      * guide](/docs/guide/#schema.content_expressions). When not given,
      * the node does not allow any content.
      */
-    content?: string | null;
+    content?: string | null | undefined;
     /**
      * The marks that are allowed inside of this node. May be a
      * space-separated string referring to mark names or groups, `"_"`
@@ -1153,43 +1153,43 @@ export interface NodeSpec {
      * not given, nodes with inline content default to allowing all
      * marks, other nodes default to not allowing marks.
      */
-    marks?: string | null;
+    marks?: string | null | undefined;
     /**
      * The group or space-separated groups to which this node belongs,
      * which can be referred to in the content expressions for the
      * schema.
      */
-    group?: string | null;
+    group?: string | null | undefined;
     /**
      * Should be set to true for inline nodes. (Implied for text nodes.)
      */
-    inline?: boolean | null;
+    inline?: boolean | null | undefined;
     /**
      * Can be set to true to indicate that, though this isn't a [leaf
      * node](#model.NodeType.isLeaf), it doesn't have directly editable
      * content and should be treated as a single unit in the view.
      */
-    atom?: boolean | null;
+    atom?: boolean | null | undefined;
     /**
      * The attributes that nodes of this type get.
      */
-    attrs?: { [name: string]: AttributeSpec } | null;
+    attrs?: { [name: string]: AttributeSpec } | null | undefined;
     /**
      * Controls whether nodes of this type can be selected as a [node
      * selection](#state.NodeSelection). Defaults to true for non-text
      * nodes.
      */
-    selectable?: boolean | null;
+    selectable?: boolean | null | undefined;
     /**
      * Determines whether nodes of this type can be dragged without
      * being selected. Defaults to false.
      */
-    draggable?: boolean | null;
+    draggable?: boolean | null | undefined;
     /**
      * Can be used to indicate that this node contains code, which
      * causes some commands to behave differently.
      */
-    code?: boolean | null;
+    code?: boolean | null | undefined;
     /**
      * Determines whether this node is considered an important parent
      * node during replace operations (such as paste). Non-defining (the
@@ -1200,14 +1200,14 @@ export interface NodeSpec {
      * non-default-paragraph textblock types, and possibly list items,
      * are marked as defining.
      */
-    defining?: boolean | null;
+    defining?: boolean | null | undefined;
     /**
      * When enabled (default is false), the sides of nodes of this type
      * count as boundaries that regular editing operations, like
      * backspacing or lifting, won't cross. An example of a node that
      * should probably have this enabled is a table cell.
      */
-    isolating?: boolean | null;
+    isolating?: boolean | null | undefined;
     /**
      * Defines the default way a node of this type should be serialized
      * to DOM/HTML (as used by
@@ -1222,7 +1222,7 @@ export interface NodeSpec {
      * differently, this is not supported inside the editor, so you
      * shouldn't override that in your text node spec.
      */
-    toDOM?: ((node: ProsemirrorNode) => DOMOutputSpec) | null;
+    toDOM?: ((node: ProsemirrorNode) => DOMOutputSpec) | null | undefined;
     /**
      * Associates DOM parser information with this node, which can be
      * used by [`DOMParser.fromSchema`](#model.DOMParser^fromSchema) to
@@ -1231,12 +1231,12 @@ export interface NodeSpec {
      * If you supply your own parser, you do not need to also specify
      * parsing rules in your schema.
      */
-    parseDOM?: ParseRule[] | null;
+    parseDOM?: ParseRule[] | null | undefined;
     /**
      * Defines the default way a node of this type should be serialized
      * to a string representation for debugging (e.g. in error messages).
      */
-    toDebugString?: ((node: ProsemirrorNode) => string) | null;
+    toDebugString?: ((node: ProsemirrorNode) => string) | null | undefined;
     /**
      * Allow specifying arbitrary fields on a NodeSpec.
      */
@@ -1246,13 +1246,13 @@ export interface MarkSpec {
     /**
      * The attributes that marks of this type get.
      */
-    attrs?: { [name: string]: AttributeSpec } | null;
+    attrs?: { [name: string]: AttributeSpec } | null | undefined;
     /**
      * Whether this mark should be active when the cursor is positioned
      * at its end (or at its start when that is also the start of the
      * parent node). Defaults to true.
      */
-    inclusive?: boolean | null;
+    inclusive?: boolean | null | undefined;
     /**
      * Determines which other marks this mark can coexist with. Should
      * be a space-separated strings naming other marks or groups of marks.
@@ -1268,27 +1268,27 @@ export interface MarkSpec {
      * mark's own name) to allow multiple marks of a given type to
      * coexist (as long as they have different attributes).
      */
-    excludes?: string | null;
+    excludes?: string | null | undefined;
     /**
      * The group or space-separated groups to which this mark belongs.
      */
-    group?: string | null;
+    group?: string | null | undefined;
     /**
      * Determines whether marks of this type can span multiple adjacent
      * nodes when serialized to DOM/HTML. Defaults to true.
      */
-    spanning?: boolean | null;
+    spanning?: boolean | null | undefined;
     /**
      * Defines the default way marks of this type should be serialized
      * to DOM/HTML.
      */
-    toDOM?: ((mark: Mark, inline: boolean) => DOMOutputSpec) | null;
+    toDOM?: ((mark: Mark, inline: boolean) => DOMOutputSpec) | null | undefined;
     /**
      * Associates DOM parser information with this mark (see the
      * corresponding [node spec field](#model.NodeSpec.parseDOM)). The
      * `mark` field in the rules is implied.
      */
-    parseDOM?: ParseRule[] | null;
+    parseDOM?: ParseRule[] | null | undefined;
     /**
      * Allow specifying arbitrary fields on a MarkSpec.
      */
@@ -1379,17 +1379,17 @@ export class Schema<N extends string = any, M extends string = any> {
 }
 export interface DOMOutputSpecArray {
     0: string;
-    1?: DOMOutputSpec | 0 | { [attr: string]: string | null | undefined };
-    2?: DOMOutputSpec | 0;
-    3?: DOMOutputSpec | 0;
-    4?: DOMOutputSpec | 0;
-    5?: DOMOutputSpec | 0;
-    6?: DOMOutputSpec | 0;
-    7?: DOMOutputSpec | 0;
-    8?: DOMOutputSpec | 0;
-    9?: DOMOutputSpec | 0;
+    1?: DOMOutputSpec | 0 | { [attr: string]: string | null | undefined } | undefined;
+    2?: DOMOutputSpec | 0 | undefined;
+    3?: DOMOutputSpec | 0 | undefined;
+    4?: DOMOutputSpec | 0 | undefined;
+    5?: DOMOutputSpec | 0 | undefined;
+    6?: DOMOutputSpec | 0 | undefined;
+    7?: DOMOutputSpec | 0 | undefined;
+    8?: DOMOutputSpec | 0 | undefined;
+    9?: DOMOutputSpec | 0 | undefined;
 }
-export type DOMOutputSpec = string | Node | DOMOutputSpecArray | {dom: Node, contentDOM?: Node};
+export type DOMOutputSpec = string | Node | DOMOutputSpecArray | {dom: Node, contentDOM?: Node | undefined};
 /**
  * A DOM serializer knows how to convert ProseMirror nodes and
  * marks of various types to DOM nodes.
@@ -1436,7 +1436,7 @@ export class DOMSerializer<S extends Schema = any> {
      * the spec has a hole (zero) in it, `contentDOM` will point at the
      * node with the hole.
      */
-    static renderSpec(doc: Document, structure: DOMOutputSpec): { dom: Node; contentDOM?: Node | null };
+    static renderSpec(doc: Document, structure: DOMOutputSpec): { dom: Node; contentDOM?: Node | null | undefined };
     /**
      * Build a serializer using the [`toDOM`](#model.NodeSpec.toDOM)
      * properties in a schema's node and mark specs.

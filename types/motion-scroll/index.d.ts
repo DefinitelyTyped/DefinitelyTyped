@@ -6,14 +6,14 @@
 export as namespace MotionScroll;
 
 export function scroll(config: {
-  element?: HTMLElement;
-  axis?: "x" | "y";
-  scrollTo?: number;
-  speed?: number;
-  easing?: () => void;
-  callBack?: () => void;
-  delay?: number;
-  force?: boolean;
-  minScrollTime?: number;
-  maxScrollTime?: number;
+  element?: HTMLElement | undefined;
+  axis?: "x" | "y" | undefined;
+  scrollTo?: number | undefined;
+  speed?: number | undefined;
+  easing?: (() => void) | undefined;
+  callBack?: (() => void) | undefined;
+  delay?: number | undefined;
+  force?: boolean | undefined;
+  minScrollTime?: number | undefined;
+  maxScrollTime?: number | undefined;
 }): void;

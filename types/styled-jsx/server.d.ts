@@ -1,10 +1,10 @@
 import { ReactElement } from "react";
 
 declare function flushToHTML(opts?: {
-  nonce?: string;
+  nonce?: string | undefined;
 }): string;
 declare function flushToReact<T>(opts?: {
-  nonce?: string;
+  nonce?: string | undefined;
 }): Array<ReactElement<T>>;
 
 export { flushToHTML };

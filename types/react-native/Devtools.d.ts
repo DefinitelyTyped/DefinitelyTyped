@@ -7,7 +7,7 @@ declare module 'react-native/Libraries/Core/Devtools/parseErrorStack' {
     };
 
     export interface ExtendedError extends Error {
-        framesToPop?: number;
+        framesToPop?: number | undefined;
     }
 
     export default function parseErrorStack(error: ExtendedError): StackFrame[];

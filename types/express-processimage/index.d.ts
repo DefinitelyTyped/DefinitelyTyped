@@ -14,18 +14,18 @@ declare function processImage(options?: processImage.Options): NextFunction;
 
 declare namespace processImage {
     interface Options {
-        allowedImageSourceContentTypes?: string[];
-        allowOperation?: (operationName: string, ...args: any[]) => boolean;
+        allowedImageSourceContentTypes?: string[] | undefined;
+        allowOperation?: ((operationName: string, ...args: any[]) => boolean) | undefined;
         /** @debug false */
-        debug?: boolean;
-        filters?: Record<string, boolean>;
-        maxInputPixels?: number;
-        maxOutputPixels?: number;
-        onPipeline?: (pipeline: object) => void;
-        root?: string;
-        sharpCache?: number;
+        debug?: boolean | undefined;
+        filters?: Record<string, boolean> | undefined;
+        maxInputPixels?: number | undefined;
+        maxOutputPixels?: number | undefined;
+        onPipeline?: ((pipeline: object) => void) | undefined;
+        root?: string | undefined;
+        sharpCache?: number | undefined;
         /** @defult false */
-        secondGuessSourceContentType?: boolean;
+        secondGuessSourceContentType?: boolean | undefined;
     }
 }
 

@@ -39,67 +39,67 @@ export {
 };
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    size?: string;
-    variant?: string;
+    size?: string | undefined;
+    variant?: string | undefined;
 }
 
 export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
-    name?: string;
-    label?: React.ReactNode;
-    autoFocus?: boolean;
-    checked?: boolean;
-    disabled?: boolean;
-    form?: string;
-    required?: boolean;
-    value?: string | string[] | number;
+    name?: string | undefined;
+    label?: React.ReactNode | undefined;
+    autoFocus?: boolean | undefined;
+    checked?: boolean | undefined;
+    disabled?: boolean | undefined;
+    form?: string | undefined;
+    required?: boolean | undefined;
+    value?: string | string[] | number | undefined;
 }
 
 export interface ColProps extends DivProps {
-    xs?: number;
-    sm?: number;
-    md?: number;
-    lg?: number;
-    xl?: number;
-    'xs-offset'?: number;
-    'sm-offset'?: number;
-    'md-offset'?: number;
-    'lg-offset'?: number;
-    'xl-offset'?: number;
+    xs?: number | undefined;
+    sm?: number | undefined;
+    md?: number | undefined;
+    lg?: number | undefined;
+    xl?: number | undefined;
+    'xs-offset'?: number | undefined;
+    'sm-offset'?: number | undefined;
+    'md-offset'?: number | undefined;
+    'lg-offset'?: number | undefined;
+    'xl-offset'?: number | undefined;
 }
 
 export interface ContainerProps extends DivProps {
-    fluid?: boolean;
+    fluid?: boolean | undefined;
 }
 
 export interface DivProps extends React.HTMLAttributes<HTMLDivElement> {}
 export type DividerProps = DivProps;
 
 export interface DropdownItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
-    link?: string;
-    target?: string;
+    link?: string | undefined;
+    target?: string | undefined;
 }
 
 export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-    onOutsideClick?: React.MouseEventHandler<HTMLDivElement>;
+    onOutsideClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
 
-    variant?: string;
-    size?: string;
-    label?: React.ReactNode;
-    alignMenu?: 'left' | 'right';
-    disabled?: boolean;
+    variant?: string | undefined;
+    size?: string | undefined;
+    label?: React.ReactNode | undefined;
+    alignMenu?: 'left' | 'right' | undefined;
+    disabled?: boolean | undefined;
 }
 
 export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
-    inline?: boolean;
+    inline?: boolean | undefined;
 }
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    inputRef?: React.Ref<HTMLInputElement>;
-    onLabelClick?: React.MouseEventHandler<HTMLInputElement>;
-    hint?: string;
-    invalid?: boolean;
-    label?: React.ReactNode;
-    floatingLabel?: boolean;
+    inputRef?: React.Ref<HTMLInputElement> | undefined;
+    onLabelClick?: React.MouseEventHandler<HTMLInputElement> | undefined;
+    hint?: string | undefined;
+    invalid?: boolean | undefined;
+    label?: React.ReactNode | undefined;
+    floatingLabel?: boolean | undefined;
 }
 
 export interface OptionProps extends React.OptionHTMLAttributes<HTMLOptionElement> {
@@ -109,35 +109,35 @@ export type PanelProps = DivProps;
 export type RadioProps = CheckboxProps;
 
 export interface RowProps extends DivProps {
-    xs?: number;
-    sm?: number;
-    md?: number;
-    lg?: number;
+    xs?: number | undefined;
+    sm?: number | undefined;
+    md?: number | undefined;
+    lg?: number | undefined;
 }
 
 export interface SelectProps extends DivProps {
-    label?: React.ReactNode;
-    readOnly?: boolean;
-    useDefault?: boolean;
+    label?: React.ReactNode | undefined;
+    readOnly?: boolean | undefined;
+    useDefault?: boolean | undefined;
 }
 
 export interface TabProps {
     value?: any;
-    label?: React.ReactNode;
-    onActive?: (tab: Tab) => void;
+    label?: React.ReactNode | undefined;
+    onActive?: ((tab: Tab) => void) | undefined;
 }
 
 export interface TabsProps extends DivProps {
-    defaultSelectedIndex?: number;
-    selectedIndex?: number;
-    justified?: boolean;
+    defaultSelectedIndex?: number | undefined;
+    selectedIndex?: number | undefined;
+    justified?: boolean | undefined;
 }
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-    inputRef?: React.Ref<HTMLTextAreaElement>;
-    onLabelClick?: React.MouseEventHandler<HTMLInputElement>;
-    hint?: string;
-    invalid?: boolean;
-    label?: React.ReactNode;
-    floatingLabel?: boolean;
+    inputRef?: React.Ref<HTMLTextAreaElement> | undefined;
+    onLabelClick?: React.MouseEventHandler<HTMLInputElement> | undefined;
+    hint?: string | undefined;
+    invalid?: boolean | undefined;
+    label?: React.ReactNode | undefined;
+    floatingLabel?: boolean | undefined;
 }

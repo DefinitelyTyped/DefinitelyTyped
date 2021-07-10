@@ -1,7 +1,7 @@
 // Type definitions for koa-json v2.x
 // Project: https://github.com/koajs/json
 // Definitions by: Alex Friedman <https://github.com/brooklyndev>
-// Definitions: https://github.com/brooklyndev/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /* =================== USAGE ===================
@@ -21,17 +21,17 @@ declare function json(opts?: {
     /**
      * default to pretty response [true]
     */
-    pretty?: boolean,
+    pretty?: boolean | undefined,
 
     /**
      * optional query-string param for pretty responses [none]
      */
-    param?: string,
+    param?: string | undefined,
 
     /**
      * JSON spaces [2]
      */
-    spaces?: number
+    spaces?: number | undefined
 }): Koa.Middleware;
 declare namespace json { }
 export = json;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    indentation?: string;
+    indentation?: string | undefined;
 }
 
 export abstract class Generator {

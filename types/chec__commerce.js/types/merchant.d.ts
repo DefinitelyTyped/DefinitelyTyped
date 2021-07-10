@@ -11,8 +11,8 @@ export interface Merchant {
     currency: Currency;
     support_email: string;
     timezone: string | null;
-    logo?: string;
-    logo_shape?: string;
+    logo?: string | undefined;
+    logo_shape?: string | undefined;
     cover: string | null;
     intercom: boolean;
     has: {

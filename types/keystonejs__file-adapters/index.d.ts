@@ -10,8 +10,8 @@
 declare module '@keystonejs/file-adapters' {
     interface LocalFileAdapterConfig {
         src: string;
-        path?: string;
-        getFilename?: (options: { id: string; originalFilename: string }) => string;
+        path?: string | undefined;
+        getFilename?: ((options: { id: string; originalFilename: string }) => string) | undefined;
     }
 
     class LocalFileAdapter {
@@ -19,7 +19,7 @@ declare module '@keystonejs/file-adapters' {
 
         save(params: {
             stream: any;
-            filename?: string;
+            filename?: string | undefined;
             id: string;
         }): Promise<{ filename: string; id: string }>;
         publicUrl(params: { filename: string }): string;
@@ -29,7 +29,7 @@ declare module '@keystonejs/file-adapters' {
         cloudName: string;
         apiKey: string;
         apiSecret: string;
-        folder?: string;
+        folder?: string | undefined;
     }
 
     class CloudinaryFileAdapter {
@@ -37,7 +37,7 @@ declare module '@keystonejs/file-adapters' {
 
         save(params: {
             stream: any;
-            filename?: string;
+            filename?: string | undefined;
             id: string;
         }): Promise<{ filename: string; id: string }>;
         publicUrl(params: { filename: string }): string;

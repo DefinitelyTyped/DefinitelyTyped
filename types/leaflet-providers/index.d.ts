@@ -22,8 +22,8 @@ declare module 'leaflet' {
 
       interface ProviderConfig {
         url: string;
-        options?: TileLayerOptions;
-        variants?: {[variantName: string]: string | ProviderConfig};
+        options?: TileLayerOptions | undefined;
+        variants?: {[variantName: string]: string | ProviderConfig} | undefined;
       }
     }
   }

@@ -12,7 +12,7 @@ declare namespace GulpZip {
          * Compress
          * @default true
          */
-        compress?: boolean;
+        compress?: boolean | undefined;
 
         /**
          * Overrides the modification timestamp for all files added to the archive.
@@ -23,7 +23,7 @@ declare namespace GulpZip {
          *
          * @default undefined
          */
-        modifiedTime?: Date;
+        modifiedTime?: Date | undefined;
     }
 }
 

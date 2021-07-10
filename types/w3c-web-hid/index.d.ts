@@ -6,10 +6,10 @@
 
 /*~ https://wicg.github.io/webhid/#enumeration */
 interface HIDDeviceFilter {
-    vendorId?: number;
-    productId?: number;
-    usagePage?: number;
-    usage?: number;
+    vendorId?: number | undefined;
+    productId?: number | undefined;
+    usagePage?: number | undefined;
+    usage?: number | undefined;
 }
 
 /*~ https://wicg.github.io/webhid/#enumeration */
@@ -96,61 +96,61 @@ type HIDUnitSystem =
 
 /*~ https://wicg.github.io/webhid/#report-descriptor */
 interface HIDReportItem {
-    isAbsolute?: boolean;
-    isArray?: boolean;
-    isBufferedBytes?: boolean;
-    isConstant?: boolean;
-    isLinear?: boolean;
-    isRange?: boolean;
-    isVolatile?: boolean;
-    hasNull?: boolean;
-    hasPreferredState?: boolean;
-    wrap?: boolean;
-    usages?: number[];
-    usageMinimum?: number;
-    usageMaximum?: number;
-    reportSize?: number;
-    reportCount?: number;
-    unitExponent?: number;
-    unitSystem?: HIDUnitSystem;
-    unitFactorLengthExponent?: number;
-    unitFactorMassExponent?: number;
-    unitFactorTimeExponent?: number;
-    unitFactorTemperatureExponent?: number;
-    unitFactorCurrentExponent?: number;
-    unitFactorLuminousIntensityExponent?: number;
-    logicalMinimum?: number;
-    logicalMaximum?: number;
-    physicalMinimum?: number;
-    physicalMaximum?: number;
-    strings?: string[];
+    isAbsolute?: boolean | undefined;
+    isArray?: boolean | undefined;
+    isBufferedBytes?: boolean | undefined;
+    isConstant?: boolean | undefined;
+    isLinear?: boolean | undefined;
+    isRange?: boolean | undefined;
+    isVolatile?: boolean | undefined;
+    hasNull?: boolean | undefined;
+    hasPreferredState?: boolean | undefined;
+    wrap?: boolean | undefined;
+    usages?: number[] | undefined;
+    usageMinimum?: number | undefined;
+    usageMaximum?: number | undefined;
+    reportSize?: number | undefined;
+    reportCount?: number | undefined;
+    unitExponent?: number | undefined;
+    unitSystem?: HIDUnitSystem | undefined;
+    unitFactorLengthExponent?: number | undefined;
+    unitFactorMassExponent?: number | undefined;
+    unitFactorTimeExponent?: number | undefined;
+    unitFactorTemperatureExponent?: number | undefined;
+    unitFactorCurrentExponent?: number | undefined;
+    unitFactorLuminousIntensityExponent?: number | undefined;
+    logicalMinimum?: number | undefined;
+    logicalMaximum?: number | undefined;
+    physicalMinimum?: number | undefined;
+    physicalMaximum?: number | undefined;
+    strings?: string[] | undefined;
 }
 
 /*~ https://wicg.github.io/webhid/#report-descriptor */
 interface HIDReportInfo {
-    reportId?: number;
-    items?: HIDReportItem[];
+    reportId?: number | undefined;
+    items?: HIDReportItem[] | undefined;
 }
 
 /*~ https://wicg.github.io/webhid/#report-descriptor */
 interface HIDCollectionInfo {
-    usagePage?: number;
-    usage?: number;
-    type?: number;
-    children?: HIDCollectionInfo[];
-    inputReports?: HIDReportInfo[];
-    outputReports?: HIDReportInfo[];
-    featureReports?: HIDReportInfo[];
+    usagePage?: number | undefined;
+    usage?: number | undefined;
+    type?: number | undefined;
+    children?: HIDCollectionInfo[] | undefined;
+    inputReports?: HIDReportInfo[] | undefined;
+    outputReports?: HIDReportInfo[] | undefined;
+    featureReports?: HIDReportInfo[] | undefined;
 }
 
 /*~ https://wicg.github.io/webhid/#device-usage */
 declare class HIDDevice extends EventTarget {
     oninputreport: ((this: this, ev: HIDInputReportEvent) => any) | null;
-    readonly opened?: boolean;
-    readonly vendorId?: number;
-    readonly productId?: number;
-    readonly productName?: string;
-    readonly collections?: HIDCollectionInfo[];
+    readonly opened?: boolean | undefined;
+    readonly vendorId?: number | undefined;
+    readonly productId?: number | undefined;
+    readonly productName?: string | undefined;
+    readonly collections?: HIDCollectionInfo[] | undefined;
 
     open(): Promise<void>;
 

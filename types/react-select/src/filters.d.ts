@@ -1,9 +1,9 @@
 export interface Config {
-    ignoreCase?: boolean;
-    ignoreAccents?: boolean;
-    stringify?: (obj: any) => string;
-    trim?: boolean;
-    matchFrom?: 'any' | 'start';
+    ignoreCase?: boolean | undefined;
+    ignoreAccents?: boolean | undefined;
+    stringify?: ((obj: any) => string) | undefined;
+    trim?: boolean | undefined;
+    matchFrom?: 'any' | 'start' | undefined;
 }
 
 import { stripDiacritics } from './diacritics';

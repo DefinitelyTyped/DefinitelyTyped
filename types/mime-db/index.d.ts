@@ -14,13 +14,13 @@ declare namespace database {
          * Where the mime type is defined.
          * If not set, it's probably a custom media type.
          */
-        readonly source?: MimeSource;
+        readonly source?: MimeSource | undefined;
         /** Known extensions associated with this mime type. */
-        readonly extensions?: ReadonlyArray<string>;
+        readonly extensions?: ReadonlyArray<string> | undefined;
         /** Whether a file of this type can be gzipped. */
-        readonly compressible?: boolean;
+        readonly compressible?: boolean | undefined;
         /** The default charset associated with this type, if any. */
-        readonly charset?: string;
+        readonly charset?: string | undefined;
     }
 
     /**

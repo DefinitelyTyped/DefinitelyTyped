@@ -196,16 +196,16 @@ export interface ECMAScript6 extends Linter.RulesRecord {
                 | string
                 | {
                       name: string;
-                      importNames?: string[];
-                      message?: string;
+                      importNames?: string[] | undefined;
+                      message?: string | undefined;
                   }
                 | Partial<{
                       paths: Array<
                           | string
                           | {
                                 name: string;
-                                importNames?: string[];
-                                message?: string;
+                                importNames?: string[] | undefined;
+                                message?: string | undefined;
                             }
                       >;
                       patterns: string[];

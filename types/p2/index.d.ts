@@ -9,8 +9,8 @@ export as namespace p2;
 declare namespace p2 {
     export interface AABBOptions {
 
-        upperBound?: [number, number];
-        lowerBound?: [number, number];
+        upperBound?: [number, number] | undefined;
+        lowerBound?: [number, number] | undefined;
 
     }
 
@@ -88,12 +88,12 @@ declare namespace p2 {
 
         from: [number, number],
         to: [number, number],
-        checkCollisionResponse?: boolean;
-        skipBackfaces?: boolean;
-        collisionMask?: number;
-        collisionGroup?: number;
-        mode?: number;
-        callback?: (result: RaycastResult) => void;
+        checkCollisionResponse?: boolean | undefined;
+        skipBackfaces?: boolean | undefined;
+        collisionMask?: number | undefined;
+        collisionGroup?: number | undefined;
+        mode?: number | undefined;
+        callback?: ((result: RaycastResult) => void) | undefined;
 
     }
 
@@ -152,10 +152,10 @@ declare namespace p2 {
 
     export interface DistanceConstraintOptions extends ConstraintOptions {
 
-        distance?: number;
-        localAnchorA?: [number, number];
-        localAnchorB?: [number, number];
-        maxForce?: number;
+        distance?: number | undefined;
+        localAnchorA?: [number, number] | undefined;
+        localAnchorB?: [number, number] | undefined;
+        maxForce?: number | undefined;
 
     }
 
@@ -181,9 +181,9 @@ declare namespace p2 {
 
     export interface GearConstraintOptions extends ConstraintOptions {
 
-        angle?: number;
-        ratio?: number;
-        maxTorque?: number;
+        angle?: number | undefined;
+        ratio?: number | undefined;
+        maxTorque?: number | undefined;
 
     }
 
@@ -202,9 +202,9 @@ declare namespace p2 {
 
     export interface LockConstraintOptions extends ConstraintOptions {
 
-        localOffsetB?: [number, number];
-        localAngleB?: number;
-        maxForce?: number;
+        localOffsetB?: [number, number] | undefined;
+        localAngleB?: number | undefined;
+        maxForce?: number | undefined;
 
     }
 
@@ -220,13 +220,13 @@ declare namespace p2 {
 
     export interface PrismaticConstraintOptions extends ConstraintOptions {
 
-        maxForce?: number;
-        localAnchorA?: [number, number];
-        localAnchorB?: [number, number];
-        localAxisA?: [number, number];
-        disableRotationalLock?: boolean;
-        upperLimit?: number;
-        lowerLimit?: number;
+        maxForce?: number | undefined;
+        localAnchorA?: [number, number] | undefined;
+        localAnchorB?: [number, number] | undefined;
+        localAxisA?: [number, number] | undefined;
+        disableRotationalLock?: boolean | undefined;
+        upperLimit?: number | undefined;
+        lowerLimit?: number | undefined;
 
     }
 
@@ -258,10 +258,10 @@ declare namespace p2 {
 
     export interface RevoluteConstraintOptions extends ConstraintOptions {
 
-        worldPivot?: [number, number];
-        localPivotA?: [number, number];
-        localPivotB?: [number, number];
-        maxForce?: number;
+        worldPivot?: [number, number] | undefined;
+        localPivotA?: [number, number] | undefined;
+        localPivotB?: [number, number] | undefined;
+        maxForce?: number | undefined;
 
     }
 
@@ -292,8 +292,8 @@ declare namespace p2 {
 
     export interface ConstraintOptions {
 
-        collideConnected?: boolean;
-        wakeUpBodies?: boolean;
+        collideConnected?: boolean | undefined;
+        wakeUpBodies?: boolean | undefined;
 
     }
 
@@ -321,8 +321,8 @@ declare namespace p2 {
 
     export interface AngleLockEquationOptions {
 
-        angle?: number;
-        ratio?: number;
+        angle?: number | undefined;
+        ratio?: number | undefined;
 
     }
 
@@ -409,7 +409,7 @@ declare namespace p2 {
 
     export interface RotationalLockEquationOptions {
 
-        angle?: number;
+        angle?: number | undefined;
 
     }
 
@@ -440,13 +440,13 @@ declare namespace p2 {
 
     export interface ContactMaterialOptions {
 
-        friction?: number;
-        restitution?: number;
-        stiffness?: number;
-        relaxation?: number;
-        frictionStiffness?: number;
-        frictionRelaxation?: number;
-        surfaceVelocity?: number;
+        friction?: number | undefined;
+        restitution?: number | undefined;
+        stiffness?: number | undefined;
+        relaxation?: number | undefined;
+        frictionStiffness?: number | undefined;
+        frictionRelaxation?: number | undefined;
+        surfaceVelocity?: number | undefined;
 
     }
 
@@ -525,25 +525,25 @@ declare namespace p2 {
 
     export interface BodyOptions {
 
-        force?: [number, number];
-        position?: [number, number];
-        velocity?: [number, number];
-        allowSleep?: boolean;
-        collisionResponse?: boolean;
-        angle?: number;
-        angularDamping?: number;
-        angularForce?: number;
-        angularVelocity?: number;
-        ccdIterations?: number;
-        ccdSpeedThreshold?: number;
-        fixedRotation?: boolean;
-        gravityScale?: number;
-        id?: number;
-        mass?: number;
-        sleepSpeedLimit?: number;
-        sleepTimeLimit?: number;
-        fixedX?: boolean;
-        fixedY?: boolean;
+        force?: [number, number] | undefined;
+        position?: [number, number] | undefined;
+        velocity?: [number, number] | undefined;
+        allowSleep?: boolean | undefined;
+        collisionResponse?: boolean | undefined;
+        angle?: number | undefined;
+        angularDamping?: number | undefined;
+        angularForce?: number | undefined;
+        angularVelocity?: number | undefined;
+        ccdIterations?: number | undefined;
+        ccdSpeedThreshold?: number | undefined;
+        fixedRotation?: boolean | undefined;
+        gravityScale?: number | undefined;
+        id?: number | undefined;
+        mass?: number | undefined;
+        sleepSpeedLimit?: number | undefined;
+        sleepTimeLimit?: number | undefined;
+        fixedX?: boolean | undefined;
+        fixedY?: boolean | undefined;
 
     }
 
@@ -628,9 +628,9 @@ declare namespace p2 {
         vectorToLocalFrame(out: [number, number], worldVector: [number, number]): void;
         vectorToWorldFrame(out: [number, number], localVector: [number, number]): void;
         fromPolygon(path: [number, number][], options?: {
-            optimalDecomp?: boolean;
-            skipSimpleCheck?: boolean;
-            removeCollinearPoints?: boolean | number;
+            optimalDecomp?: boolean | undefined;
+            skipSimpleCheck?: boolean | undefined;
+            removeCollinearPoints?: boolean | number | undefined;
         }): boolean;
         adjustCenterOfMass(): void;
         setZeroForce(): void;
@@ -646,7 +646,7 @@ declare namespace p2 {
 
     export interface LinearSpringOptions extends SpringOptions {
 
-        restLength?: number;
+        restLength?: number | undefined;
 
     }
 
@@ -668,7 +668,7 @@ declare namespace p2 {
 
     export interface RotationalSpringOptions extends SpringOptions {
 
-        restAngle?: number
+        restAngle?: number | undefined
 
     }
 
@@ -682,12 +682,12 @@ declare namespace p2 {
 
     export interface SpringOptions {
 
-        stiffness?: number;
-        damping?: number;
-        localAnchorA?: [number, number];
-        localAnchorB?: [number, number];
-        worldAnchorA?: [number, number];
-        worldAnchorB?: [number, number];
+        stiffness?: number | undefined;
+        damping?: number | undefined;
+        localAnchorA?: [number, number] | undefined;
+        localAnchorB?: [number, number] | undefined;
+        worldAnchorA?: [number, number] | undefined;
+        worldAnchorB?: [number, number] | undefined;
 
     }
 
@@ -706,9 +706,9 @@ declare namespace p2 {
 
     export interface WheelConstraintOptions {
 
-        localForwardVector?: [number, number];
-        localPosition?: [number, number];
-        sideFriction?: number;
+        localForwardVector?: [number, number] | undefined;
+        localPosition?: [number, number] | undefined;
+        sideFriction?: number | undefined;
 
     }
 
@@ -755,8 +755,8 @@ declare namespace p2 {
 
     export interface BoxOptions extends SharedShapeOptions {
 
-        width?: number;
-        height?: number;
+        width?: number | undefined;
+        height?: number | undefined;
 
     }
 
@@ -771,8 +771,8 @@ declare namespace p2 {
 
     export interface CapsuleOptions extends SharedShapeOptions {
 
-        length?: number;
-        radius?: number;
+        length?: number | undefined;
+        radius?: number | undefined;
 
     }
 
@@ -790,7 +790,7 @@ declare namespace p2 {
 
     export interface CircleOptions extends SharedShapeOptions {
 
-        radius?: number;
+        radius?: number | undefined;
 
     }
 
@@ -808,8 +808,8 @@ declare namespace p2 {
 
     export interface ConvexOptions extends SharedShapeOptions {
 
-        vertices?: [number, number]|ArrayLike<number>[];
-        axes?: [number, number]|ArrayLike<number>[];
+        vertices?: [number, number]|ArrayLike<number>[] | undefined;
+        axes?: [number, number]|ArrayLike<number>[] | undefined;
 
     }
 
@@ -839,10 +839,10 @@ declare namespace p2 {
 
     export interface HeightfieldOptions extends SharedShapeOptions {
 
-        heights?: number[];
-        minValue?: number;
-        maxValue?: number;
-        elementWidth?: number;
+        heights?: number[] | undefined;
+        minValue?: number | undefined;
+        maxValue?: number | undefined;
+        elementWidth?: number | undefined;
 
     }
 
@@ -864,7 +864,7 @@ declare namespace p2 {
 
     export interface LineOptions extends SharedShapeOptions {
 
-        length?: number;
+        length?: number | undefined;
 
     }
 
@@ -898,18 +898,18 @@ declare namespace p2 {
 
     export interface SharedShapeOptions {
 
-        position?: [number, number];
-        angle?: number;
-        collisionGroup?: number;
-        collisionMask?: number;
-        sensor?: boolean;
-        collisionResponse?: boolean;
+        position?: [number, number] | undefined;
+        angle?: number | undefined;
+        collisionGroup?: number | undefined;
+        collisionMask?: number | undefined;
+        sensor?: boolean | undefined;
+        collisionResponse?: boolean | undefined;
 
     }
 
     export interface ShapeOptions extends SharedShapeOptions {
 
-        type?: number;
+        type?: number | undefined;
 
     }
 
@@ -949,8 +949,8 @@ declare namespace p2 {
 
     export interface GSSolverOptions {
 
-        iterations?: number;
-        tolerance?: number;
+        iterations?: number | undefined;
+        tolerance?: number | undefined;
 
     }
 
@@ -1057,7 +1057,7 @@ declare namespace p2 {
     }
 
     export interface PoolOptions {
-        size?: number;
+        size?: number | undefined;
     }
 
     export class Pool {
@@ -1142,10 +1142,10 @@ declare namespace p2 {
     }
 
     export interface WorldOptions {
-        solver?: Solver;
-        gravity?: [number, number];
-        broadphase?: Broadphase;
-        islandSplit?: boolean;
+        solver?: Solver | undefined;
+        gravity?: [number, number] | undefined;
+        broadphase?: Broadphase | undefined;
+        islandSplit?: boolean | undefined;
     }
 
     export class World extends EventEmitter {
@@ -1259,8 +1259,8 @@ declare namespace p2 {
         clone(): World;
         hitTest(worldPoint: [number, number], bodies: Body[], precision: number): Body[];
         setGlobalEquationParameters(parameters: {
-            relaxation?: number;
-            stiffness?: number;
+            relaxation?: number | undefined;
+            stiffness?: number | undefined;
         }): void;
         setGlobalStiffness(stiffness: number): void;
         setGlobalRelaxation(relaxation: number): void;

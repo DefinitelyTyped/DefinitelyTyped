@@ -23,9 +23,9 @@ export interface WrappableRequest {
     setTimeout?(...args: any[]): any;
 }
 export interface WrappableResponse {
-    statusCode?: number;
+    statusCode?: number | undefined;
     headers: {
-        location?: string
+        location?: string | undefined
     };
     destroy(): any;
 }
@@ -82,15 +82,15 @@ export interface RedirectScheme<Options, Request extends WrappableRequest, Respo
 
 export type Override<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
 export interface FollowOptions<Options> {
-    followRedirects?: boolean;
-    maxRedirects?: number;
-    maxBodyLength?: number;
-    beforeRedirect?: (options: Options & FollowOptions<Options>, responseDetails: ResponseDetails) => void;
+    followRedirects?: boolean | undefined;
+    maxRedirects?: number | undefined;
+    maxBodyLength?: number | undefined;
+    beforeRedirect?: ((options: Options & FollowOptions<Options>, responseDetails: ResponseDetails) => void) | undefined;
     agents?: {
-        http?: coreHttp.Agent;
-        https?: coreHttps.Agent;
-    };
-    trackRedirects?: boolean;
+        http?: coreHttp.Agent | undefined;
+        https?: coreHttps.Agent | undefined;
+    } | undefined;
+    trackRedirects?: boolean | undefined;
 }
 
 export interface FollowResponse {

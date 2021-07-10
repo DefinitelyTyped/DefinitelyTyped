@@ -12,6 +12,6 @@ export  function loadProgressBar(
 
 declare module "axios" {
     interface AxiosRequestConfig {
-        progress?: boolean;
+        progress?: boolean | undefined;
     }
 }

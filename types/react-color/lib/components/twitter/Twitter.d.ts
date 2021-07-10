@@ -15,10 +15,10 @@ export interface TwitterPickerStylesProps {
 }
 
 export interface TwitterPickerProps extends ColorPickerProps<TwitterPicker> {
-    colors?: string[];
-    width?: string;
-    triangle?: 'hide' | 'top-left' | 'top-right';
-    styles?: Partial<Classes<TwitterPickerStylesProps>>;
+    colors?: string[] | undefined;
+    width?: string | undefined;
+    triangle?: 'hide' | 'top-left' | 'top-right' | undefined;
+    styles?: Partial<Classes<TwitterPickerStylesProps>> | undefined;
     onSwatchHover?(color: ColorResult, event: MouseEvent): void;
 }
 

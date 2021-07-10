@@ -15,14 +15,14 @@ declare namespace textversionjs {
     type imgProcess = (src: string, alt: string) => string;
 
     interface styleConfig {
-        linkProcess?: linkProcess;
-        imgProcess?: imgProcess;
-        headingStyle?: 'underline' | 'linebreak' |  'hashify';
-        listStyle?: 'indentation' | 'linebreak';
-        uIndentionChar?: string;
-        oIndentionChar?: string;
-        listIndentionTabs?: number;
-        keepNbsps?: boolean;
+        linkProcess?: linkProcess | undefined;
+        imgProcess?: imgProcess | undefined;
+        headingStyle?: 'underline' | 'linebreak' |  'hashify' | undefined;
+        listStyle?: 'indentation' | 'linebreak' | undefined;
+        uIndentionChar?: string | undefined;
+        oIndentionChar?: string | undefined;
+        listIndentionTabs?: number | undefined;
+        keepNbsps?: boolean | undefined;
     }
 }
 

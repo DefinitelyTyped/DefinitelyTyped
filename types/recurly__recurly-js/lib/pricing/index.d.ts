@@ -4,11 +4,11 @@ import { SubscriptionPricingInstance } from './subscription';
 
 export type Tax = {
   tax_code: string;
-  vat_number?: string;
+  vat_number?: string | undefined;
   amounts?: {
-    now?: string;
-    next?: string;
-  };
+    now?: string | undefined;
+    next?: string | undefined;
+  } | undefined;
 };
 
 export type PricingEvent =

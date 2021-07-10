@@ -18,12 +18,12 @@ export interface QueueOnSyncHandler {
 }
 
 export interface QueueOptions {
-    maxRetentionTime?: number;
-    onSync?: QueueOnSyncHandler;
+    maxRetentionTime?: number | undefined;
+    onSync?: QueueOnSyncHandler | undefined;
 }
 
 export interface QueueEntry<Metadata = any> {
     request: Request;
-    metadata?: Metadata;
-    timestamp?: number;
+    metadata?: Metadata | undefined;
+    timestamp?: number | undefined;
 }

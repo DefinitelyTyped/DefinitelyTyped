@@ -10,11 +10,11 @@ export interface ojSlider extends editableValue<number | null, ojSliderSettableP
     type: 'fromMin' | 'fromMax' | 'single';
     value: number | null;
     translations: {
-        invalidStep?: string;
-        maxMin?: string;
-        noValue?: string;
-        optionNum?: string;
-        valueRange?: string;
+        invalidStep?: string | undefined;
+        maxMin?: string | undefined;
+        noValue?: string | undefined;
+        optionNum?: string | undefined;
+        valueRange?: string | undefined;
     };
     onDisabledChanged: ((event: JetElementCustomEvent<ojSlider["disabled"]>) => any) | null;
     onMaxChanged: ((event: JetElementCustomEvent<ojSlider["max"]>) => any) | null;
@@ -71,11 +71,11 @@ export interface ojSliderSettableProperties extends editableValueSettablePropert
     type: 'fromMin' | 'fromMax' | 'single';
     value: number | null;
     translations: {
-        invalidStep?: string;
-        maxMin?: string;
-        noValue?: string;
-        optionNum?: string;
-        valueRange?: string;
+        invalidStep?: string | undefined;
+        maxMin?: string | undefined;
+        noValue?: string | undefined;
+        optionNum?: string | undefined;
+        valueRange?: string | undefined;
     };
 }
 export interface ojSliderSettablePropertiesLenient extends Partial<ojSliderSettableProperties> {

@@ -5,20 +5,20 @@
 
 
 interface Options {
-    host?: string;
-    hostname?: string;
-    cache?: boolean;
-    raw?: boolean;
-    forceSave?: boolean;
+    host?: string | undefined;
+    hostname?: string | undefined;
+    cache?: boolean | undefined;
+    raw?: boolean | undefined;
+    forceSave?: boolean | undefined;
     auth?: string | {
         username: string;
         password: string;
-    }
-    ca?: string;
-    secure?: boolean;
-    retries?: number;
-    retryTimeout?: number;
-    maxSockets?: number;
+    } | undefined
+    ca?: string | undefined;
+    secure?: boolean | undefined;
+    retries?: number | undefined;
+    retryTimeout?: number | undefined;
+    maxSockets?: number | undefined;
 }
 
 interface Callback {
@@ -46,12 +46,12 @@ export declare class Connection {
         target: string | {
             url: string;
         };
-        cancel?: boolean;
-        continuous?: boolean;
-        create_target?: boolean;
-        doc_ids?: string[];
-        filter?: string;
-        proxy?: string;
+        cancel?: boolean | undefined;
+        continuous?: boolean | undefined;
+        create_target?: boolean | undefined;
+        doc_ids?: string[] | undefined;
+        filter?: string | undefined;
+        proxy?: string | undefined;
         query_params?: any;
     }, callback: Callback): void;
 }
@@ -83,14 +83,14 @@ export declare class Database {
         callback: Callback): void;
     view(name: string, callback: Callback): void;
     view(name: string, options: {
-        group?: boolean;
-        reduce?: boolean;
-        key?: string;
+        group?: boolean | undefined;
+        reduce?: boolean | undefined;
+        key?: string | undefined;
         startkey?: any;
         endkey?: any;
-        include_docs?: boolean;
-        limit?: number;
-        descending?: boolean;
+        include_docs?: boolean | undefined;
+        limit?: number | undefined;
+        descending?: boolean | undefined;
     }, callback: Callback): void;
     temporaryView(view: any, callback: Callback): void;
     create(callback: ErrorCallback): void;

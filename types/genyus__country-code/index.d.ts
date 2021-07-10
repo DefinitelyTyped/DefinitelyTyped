@@ -23,8 +23,8 @@ export interface Options {
      * number from 0 - 1, a percentage of accuracy for the search
      * @default 1
      */
-    accuracy?: number;
-    name?: string;
+    accuracy?: number | undefined;
+    name?: string | undefined;
 }
 
 export const countries: {

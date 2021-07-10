@@ -16,7 +16,7 @@ export class PrecacheController {
 
 export namespace PrecacheController {
     interface InstallOptions {
-        event?: FetchEvent;
-        plugins?: WorkboxPlugin[];
+        event?: FetchEvent | undefined;
+        plugins?: WorkboxPlugin[] | undefined;
     }
 }

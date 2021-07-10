@@ -17,9 +17,9 @@ export interface AsyncStorage {
 }
 
 interface LoginOptions {
-    callbackUri?: string;
-    popupUri?: string;
-    storage?: Storage | AsyncStorage;
+    callbackUri?: string | undefined;
+    popupUri?: string | undefined;
+    storage?: Storage | AsyncStorage | undefined;
 }
 
 export interface SolidAuthClient extends EventEmitter {

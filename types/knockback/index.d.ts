@@ -12,7 +12,7 @@ declare namespace Knockback {
         emitter: (newEmitter) => void;
         update: (newValue) => void;
         event_selector: string;
-        key?: string;
+        key?: string | undefined;
     }
 
     interface FactoryOptions {
@@ -101,28 +101,28 @@ declare namespace Knockback {
     }
 
     interface OptionsBase {
-        path?: string;               // the path to the value (used to create related observables from the factory).
-        store?: Store;               // a store used to cache and share view models.
-        factory?: Factory;           // a factory used to create view models.
+        path?: string | undefined;               // the path to the value (used to create related observables from the factory).
+        store?: Store | undefined;               // a store used to cache and share view models.
+        factory?: Factory | undefined;           // a factory used to create view models.
         options?: any;               // a set of options merge into these options using _.defaults. Useful for extending options when deriving classes rather than merging them by hand.
     }
 
     interface ViewModelOptions extends OptionsBase {
-        internals?: string[];       // an array of atttributes that should be scoped with an underscore, eg. name -> _name
-        requires?: string[];        // an array of atttributes that will have kb.Observables created even if they do not exist on the Backbone.Model. Useful for binding Views that require specific observables to exist
-        keys?: string[];            // restricts the keys used on a model. Useful for reducing the number of kb.Observables created from a limited set of Backbone.Model attributes
+        internals?: string[] | undefined;       // an array of atttributes that should be scoped with an underscore, eg. name -> _name
+        requires?: string[] | undefined;        // an array of atttributes that will have kb.Observables created even if they do not exist on the Backbone.Model. Useful for binding Views that require specific observables to exist
+        keys?: string[] | undefined;            // restricts the keys used on a model. Useful for reducing the number of kb.Observables created from a limited set of Backbone.Model attributes
         if(objOrArray: any);        // an array is supplied, excludes keys to exclude on the view model; for example, if you want to provide a custom implementation. If an Object, it provides options to the kb.Observable constructor.
-        path?: string;              // the path to the value (used to create related observables from the factory).
+        path?: string | undefined;              // the path to the value (used to create related observables from the factory).
         factories?: any;            // a map of dot-deliminated paths; for example {'models.name': kb.ViewModel} to either constructors or create functions. Signature: {'some.path': function(object, options)}
     }
 
     interface CollectionOptions extends OptionsBase {
-        models_only?: boolean;         // flag for skipping the creation of view models. The collection observable will be populated with (possibly sorted) models.
+        models_only?: boolean | undefined;         // flag for skipping the creation of view models. The collection observable will be populated with (possibly sorted) models.
         view_model?: any;           // (Constructor) — the view model constructor used for models in the collection. Signature: constructor(model, options)
         create?: any;               // a function used to create a view model for models in the collection. Signature: create(model, options)
         factories?: any;            // a map of dot-deliminated paths; for example 'models.owner': kb.ViewModel to either constructors or create functions. Signature: 'some.path': function(object, options)
         comparator?: any;           //a function that is used to sort an object. Signature: function(model_a, model_b) returns negative value for ascending, 0 for equal, and positive for descending
-        sort_attribute?: string;    // the name of an attribute. Default: resort on all changes to a model.
+        sort_attribute?: string | undefined;    // the name of an attribute. Default: resort on all changes to a model.
         filters?: any;              // filters can be individual ids (observable or simple) or arrays of ids, functions, or arrays of functions.
     }
 
@@ -210,12 +210,12 @@ declare namespace Knockback {
     */
     interface IObservableOptions {
         key: string;
-        read?: () => any;
-        write?: (value: any) => void;
-        args?: KnockoutObservable<any>[];
-        localizer?: LocalizedObservable;
+        read?: (() => any) | undefined;
+        write?: ((value: any) => void) | undefined;
+        args?: KnockoutObservable<any>[] | undefined;
+        localizer?: LocalizedObservable | undefined;
         default?: any;
-        path?: string;
+        path?: string | undefined;
         store?: any;
         factory?: any;
         options?: any;

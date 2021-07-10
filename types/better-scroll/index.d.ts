@@ -62,10 +62,10 @@ declare namespace BScroll {
     }
 
     interface BounceObjectOption {
-        top?: boolean;
-        bottom?: boolean;
-        left?: boolean;
-        right?: boolean;
+        top?: boolean | undefined;
+        bottom?: boolean | undefined;
+        left?: boolean | undefined;
+        right?: boolean | undefined;
     }
 
     interface DoubleClick {
@@ -76,15 +76,15 @@ declare namespace BScroll {
         swipe?: {
             style: string;
             fn: (t: number) => number;
-        };
+        } | undefined;
         swipeBounce?: {
             style: string;
             fn: (t: number) => number;
-        };
+        } | undefined;
         bounce?: {
             style: string;
             fn: (t: number) => number;
-        };
+        } | undefined;
     }
 
     interface BsOption {

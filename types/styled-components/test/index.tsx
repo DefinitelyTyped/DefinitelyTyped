@@ -59,7 +59,7 @@ interface MyTheme {
 
 interface ButtonProps {
     name: string;
-    primary?: boolean;
+    primary?: boolean | undefined;
     theme: MyTheme;
 }
 
@@ -587,10 +587,10 @@ const AnchorContainer = () => (
 
 const WithComponentRandomHeading = WithComponentH1.withComponent(Random);
 
-const WithComponentCompA: React.SFC<{ a: number; className?: string }> = ({ className }) => (
+const WithComponentCompA: React.SFC<{ a: number; className?: string | undefined }> = ({ className }) => (
     <div className={className} />
 );
-const WithComponentCompB: React.SFC<{ b: number; className?: string }> = ({ className }) => (
+const WithComponentCompB: React.SFC<{ b: number; className?: string | undefined }> = ({ className }) => (
     <div className={className} />
 );
 const WithComponentStyledA = styled(WithComponentCompA)`
@@ -640,7 +640,7 @@ const forwardedAsTest = (
 );
 
 interface ExternalAsComponentProps {
-    as?: string | React.ComponentType<any>;
+    as?: string | React.ComponentType<any> | undefined;
     type: 'primitive' | 'complex';
 }
 const ExternalAsComponent: React.FC<ExternalAsComponentProps> = () => null;
@@ -676,7 +676,7 @@ const HasAttributesOfAsOrForwardedAsComponent = (
 
 interface TestContainerProps {
     size: 'big' | 'small';
-    test?: boolean;
+    test?: boolean | undefined;
 }
 const TestContainer = ({ size, test }: TestContainerProps) => {
     return null;
@@ -1088,7 +1088,7 @@ function validateDefaultProps() {
 }
 
 interface WrapperProps {
-    className?: string;
+    className?: string | undefined;
 }
 export class WrapperClass extends React.Component<WrapperProps> {
     render() {
@@ -1125,10 +1125,10 @@ function staticPropertyPassthrough() {
         a: number;
     }
     interface BProps {
-        b?: string;
+        b?: string | undefined;
     }
     interface BState {
-        b?: string;
+        b?: string | undefined;
     }
     class A extends React.Component<AProps> {}
     class B extends React.Component {

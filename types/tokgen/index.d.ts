@@ -15,8 +15,8 @@ declare class TokenGenerator {
 
 declare namespace TokenGenerator {
   interface OptionsObject {
-    chars?: string;
-    length?: number;
+    chars?: string | undefined;
+    length?: number | undefined;
   }
 
   type Options = number | string | OptionsObject;

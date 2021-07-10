@@ -14,7 +14,7 @@ export default class Writer {
     readonly batch: Batch;
     readonly model: Model;
 
-    addMarker(name: string, options?: { usingOperation?: boolean; range: Range; affectsData?: boolean }): Marker;
+    addMarker(name: string, options?: { usingOperation?: boolean | undefined; range: Range; affectsData?: boolean | undefined }): Marker;
     append(item: Item | DocumentFragment, parent: Element | DocumentFragment): void;
     appendElement(
         name: string,
@@ -43,7 +43,7 @@ export default class Writer {
     createSelection(
         selectable: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean },
+        options?: { backward?: boolean | undefined },
     ): Selection;
     createText(data: string, attributes?: Record<string, string | number | boolean>): Text;
     insert(
@@ -88,7 +88,7 @@ export default class Writer {
     setSelection(
         selectable: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean },
+        options?: { backward?: boolean | undefined },
     ): void;
     setSelectionAttribute(
         keyOrObjectOrIterable: Record<string, string | number | boolean> | Array<[string, string | number | boolean]>,
@@ -100,7 +100,7 @@ export default class Writer {
     unwrap(element: Element): void;
     updateMarker(
         markerOrName: string | Marker,
-        options?: { range?: Range; usingOperation?: boolean; affectsData?: boolean },
+        options?: { range?: Range | undefined; usingOperation?: boolean | undefined; affectsData?: boolean | undefined },
     ): void;
     wrap(range: Range, elementOrString: Element | string): void;
 }

@@ -10,12 +10,12 @@
 export const EVENTS: string[];
 
 export interface SAXOptions {
-    trim?: boolean;
-    normalize?: boolean;
-    lowercase?: boolean;
-    xmlns?: boolean;
-    noscript?: boolean;
-    position?: boolean;
+    trim?: boolean | undefined;
+    normalize?: boolean | undefined;
+    lowercase?: boolean | undefined;
+    xmlns?: boolean | undefined;
+    noscript?: boolean | undefined;
+    position?: boolean | undefined;
 }
 
 export interface QualifiedName {

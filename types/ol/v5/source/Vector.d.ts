@@ -12,15 +12,15 @@ import Source, { AttributionLike } from './Source';
 
 export type LoadingStrategy = (p0: Extent, p1: number) => Extent[];
 export interface Options {
-    attributions?: AttributionLike;
-    features?: Feature[] | Collection<Feature>;
-    format?: FeatureFormat;
-    loader?: FeatureLoader;
-    overlaps?: boolean;
-    strategy?: LoadingStrategy;
-    url?: string | FeatureUrlFunction;
-    useSpatialIndex?: boolean;
-    wrapX?: boolean;
+    attributions?: AttributionLike | undefined;
+    features?: Feature[] | Collection<Feature> | undefined;
+    format?: FeatureFormat | undefined;
+    loader?: FeatureLoader | undefined;
+    overlaps?: boolean | undefined;
+    strategy?: LoadingStrategy | undefined;
+    url?: string | FeatureUrlFunction | undefined;
+    useSpatialIndex?: boolean | undefined;
+    wrapX?: boolean | undefined;
 }
 export default class VectorSource extends Source {
     constructor(opt_options?: Options);

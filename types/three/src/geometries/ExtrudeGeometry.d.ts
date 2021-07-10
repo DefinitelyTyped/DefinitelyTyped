@@ -8,34 +8,34 @@ export interface ExtrudeGeometryOptions {
     /**
      * @default 12
      */
-    curveSegments?: number;
+    curveSegments?: number | undefined;
     /**
      * @default 1
      */
-    steps?: number;
+    steps?: number | undefined;
     /**
      * @default 100
      */
-    depth?: number;
+    depth?: number | undefined;
     /**
      * @default true
      */
-    bevelEnabled?: boolean;
+    bevelEnabled?: boolean | undefined;
     /**
      * @default 6
      */
-    bevelThickness?: number;
-    bevelSize?: number;
+    bevelThickness?: number | undefined;
+    bevelSize?: number | undefined;
     /**
      * @default 0
      */
-    bevelOffset?: number;
+    bevelOffset?: number | undefined;
     /**
      * @default 3
      */
-    bevelSegments?: number;
-    extrudePath?: Curve<Vector3>;
-    UVGenerator?: UVGenerator;
+    bevelSegments?: number | undefined;
+    extrudePath?: Curve<Vector3> | undefined;
+    UVGenerator?: UVGenerator | undefined;
 }
 
 export interface UVGenerator {
@@ -66,6 +66,8 @@ export class ExtrudeGeometry extends BufferGeometry {
 
     addShapeList(shapes: Shape[], options?: any): void;
     addShape(shape: Shape, options?: any): void;
+
+    static fromJSON(data: any): ExtrudeGeometry;
 }
 
 export { ExtrudeGeometry as ExtrudeBufferGeometry };

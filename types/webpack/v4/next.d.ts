@@ -43,7 +43,7 @@ declare module '.' {
             /**
              * preset for the default values
              */
-            preset?: Preset;
+            preset?: Preset | undefined;
         }
     }
 }

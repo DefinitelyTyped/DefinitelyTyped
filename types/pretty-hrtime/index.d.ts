@@ -9,7 +9,7 @@ declare function prettyHrtime(hrTime: [number, number], options?: prettyHrtime.O
 
 declare namespace prettyHrtime {
     interface Options {
-        verbose?: boolean;
-        precise?: boolean;
+        verbose?: boolean | undefined;
+        precise?: boolean | undefined;
     }
 }

@@ -18,66 +18,66 @@ declare namespace browser._manifest {
 
     /** Represents a WebExtension manifest.json file */
     interface WebExtensionManifest {
-        browser_action?: _WebExtensionManifestBrowserAction;
-        experiment_apis?: { [key: string]: experiments.ExperimentAPI };
+        browser_action?: _WebExtensionManifestBrowserAction | undefined;
+        experiment_apis?: { [key: string]: experiments.ExperimentAPI } | undefined;
         /** A list of protocol handler definitions. */
-        protocol_handlers?: ProtocolHandler[];
-        default_locale?: string;
-        l10n_resources?: string[];
-        minimum_chrome_version?: string;
-        minimum_opera_version?: string;
-        icons?: _WebExtensionManifestIcons;
-        incognito?: _WebExtensionManifestIncognito;
+        protocol_handlers?: ProtocolHandler[] | undefined;
+        default_locale?: string | undefined;
+        l10n_resources?: string[] | undefined;
+        minimum_chrome_version?: string | undefined;
+        minimum_opera_version?: string | undefined;
+        icons?: _WebExtensionManifestIcons | undefined;
+        incognito?: _WebExtensionManifestIncognito | undefined;
         background?:
             | {
                   page: ExtensionURL;
-                  persistent?: PersistentBackgroundProperty;
+                  persistent?: PersistentBackgroundProperty | undefined;
               }
             | {
                   scripts: ExtensionURL[];
-                  persistent?: PersistentBackgroundProperty;
+                  persistent?: PersistentBackgroundProperty | undefined;
               }
             | {
                   service_worker: ExtensionURL;
-              };
-        options_ui?: _WebExtensionManifestOptionsUi;
-        content_scripts?: ContentScript[];
+              } | undefined;
+        options_ui?: _WebExtensionManifestOptionsUi | undefined;
+        content_scripts?: ContentScript[] | undefined;
         content_security_policy?:
             | string
             | {
                   /** The Content Security Policy used for extension pages. */
-                  extension_pages?: string;
+                  extension_pages?: string | undefined;
                   /** The Content Security Policy used for content scripts. */
-                  content_scripts?: string;
+                  content_scripts?: string | undefined;
                   /**
                    * An alias for content_scripts to support Chrome compatibility. Content Security Policy implementations may differ between Firefox and Chrome. If both isolated_world and content_scripts exist, the value from content_scripts will be used.
                    */
-                  isolated_world?: string;
-              };
-        permissions?: PermissionOrOrigin[];
-        optional_permissions?: OptionalPermissionOrOrigin[];
-        web_accessible_resources?: string[];
-        developer?: _WebExtensionManifestDeveloper;
-        hidden?: boolean;
-        page_action?: _WebExtensionManifestPageAction;
-        telemetry?: _WebExtensionManifestTelemetry;
-        theme_experiment?: ThemeExperiment;
-        user_scripts?: _WebExtensionManifestUserScripts;
-        chrome_settings_overrides?: _WebExtensionManifestChromeSettingsOverrides;
-        commands?: { [key: string]: _WebExtensionManifestCommands };
-        devtools_page?: ExtensionURL;
-        omnibox?: _WebExtensionManifestOmnibox;
-        sidebar_action?: _WebExtensionManifestSidebarAction;
-        chrome_url_overrides?: _WebExtensionManifestChromeUrlOverrides;
+                  isolated_world?: string | undefined;
+              } | undefined;
+        permissions?: PermissionOrOrigin[] | undefined;
+        optional_permissions?: OptionalPermissionOrOrigin[] | undefined;
+        web_accessible_resources?: string[] | undefined;
+        developer?: _WebExtensionManifestDeveloper | undefined;
+        hidden?: boolean | undefined;
+        page_action?: _WebExtensionManifestPageAction | undefined;
+        telemetry?: _WebExtensionManifestTelemetry | undefined;
+        theme_experiment?: ThemeExperiment | undefined;
+        user_scripts?: _WebExtensionManifestUserScripts | undefined;
+        chrome_settings_overrides?: _WebExtensionManifestChromeSettingsOverrides | undefined;
+        commands?: { [key: string]: _WebExtensionManifestCommands } | undefined;
+        devtools_page?: ExtensionURL | undefined;
+        omnibox?: _WebExtensionManifestOmnibox | undefined;
+        sidebar_action?: _WebExtensionManifestSidebarAction | undefined;
+        chrome_url_overrides?: _WebExtensionManifestChromeUrlOverrides | undefined;
         manifest_version: number;
-        applications?: _WebExtensionManifestApplications;
-        browser_specific_settings?: _WebExtensionManifestBrowserSpecificSettings;
+        applications?: _WebExtensionManifestApplications | undefined;
+        browser_specific_settings?: _WebExtensionManifestBrowserSpecificSettings | undefined;
         name: string;
-        short_name?: string;
-        description?: string;
-        author?: string;
+        short_name?: string | undefined;
+        description?: string | undefined;
+        author?: string | undefined;
         version: string;
-        homepage_url?: string;
+        homepage_url?: string | undefined;
     }
 
     type OptionalPermission = OptionalPermissionNoPrompt | _OptionalPermission;
@@ -105,43 +105,43 @@ declare namespace browser._manifest {
     /** Common properties for all manifest.json files */
     interface ManifestBase {
         manifest_version: number;
-        applications?: _ManifestBaseApplications;
-        browser_specific_settings?: _ManifestBaseBrowserSpecificSettings;
+        applications?: _ManifestBaseApplications | undefined;
+        browser_specific_settings?: _ManifestBaseBrowserSpecificSettings | undefined;
         name: string;
-        short_name?: string;
-        description?: string;
-        author?: string;
+        short_name?: string | undefined;
+        description?: string | undefined;
+        author?: string | undefined;
         version: string;
-        homepage_url?: string;
+        homepage_url?: string | undefined;
     }
 
     /** Represents a WebExtension language pack manifest.json file */
     interface WebExtensionLangpackManifest {
-        homepage_url?: string;
+        homepage_url?: string | undefined;
         langpack_id: string;
         languages: _WebExtensionLangpackManifestLanguages;
-        sources?: _WebExtensionLangpackManifestSources;
+        sources?: _WebExtensionLangpackManifestSources | undefined;
         manifest_version: number;
-        applications?: _WebExtensionLangpackManifestApplications;
-        browser_specific_settings?: _WebExtensionLangpackManifestBrowserSpecificSettings;
+        applications?: _WebExtensionLangpackManifestApplications | undefined;
+        browser_specific_settings?: _WebExtensionLangpackManifestBrowserSpecificSettings | undefined;
         name: string;
-        short_name?: string;
-        description?: string;
-        author?: string;
+        short_name?: string | undefined;
+        description?: string | undefined;
+        author?: string | undefined;
         version: string;
     }
 
     /** Represents a WebExtension dictionary manifest.json file */
     interface WebExtensionDictionaryManifest {
-        homepage_url?: string;
+        homepage_url?: string | undefined;
         dictionaries: _WebExtensionDictionaryManifestDictionaries;
         manifest_version: number;
-        applications?: _WebExtensionDictionaryManifestApplications;
-        browser_specific_settings?: _WebExtensionDictionaryManifestBrowserSpecificSettings;
+        applications?: _WebExtensionDictionaryManifestApplications | undefined;
+        browser_specific_settings?: _WebExtensionDictionaryManifestBrowserSpecificSettings | undefined;
         name: string;
-        short_name?: string;
-        description?: string;
-        author?: string;
+        short_name?: string | undefined;
+        description?: string | undefined;
+        author?: string | undefined;
         version: string;
     }
 
@@ -169,10 +169,10 @@ declare namespace browser._manifest {
     type ExtensionID = string;
 
     interface FirefoxSpecificProperties {
-        id?: ExtensionID;
-        update_url?: string;
-        strict_min_version?: string;
-        strict_max_version?: string;
+        id?: ExtensionID | undefined;
+        update_url?: string | undefined;
+        strict_min_version?: string | undefined;
+        strict_max_version?: string | undefined;
     }
 
     type MatchPattern = MatchPatternRestricted | MatchPatternUnestricted | '<all_urls>';
@@ -190,23 +190,23 @@ declare namespace browser._manifest {
      */
     interface ContentScript {
         matches: MatchPattern[];
-        exclude_matches?: MatchPattern[];
-        include_globs?: string[];
-        exclude_globs?: string[];
+        exclude_matches?: MatchPattern[] | undefined;
+        include_globs?: string[] | undefined;
+        exclude_globs?: string[] | undefined;
         /** The list of CSS files to inject */
-        css?: ExtensionURL[];
+        css?: ExtensionURL[] | undefined;
         /** The list of JS files to inject */
-        js?: ExtensionURL[];
+        js?: ExtensionURL[] | undefined;
         /**
          * If allFrames is `true`, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's `false` and is only injected into the top frame.
          */
-        all_frames?: boolean;
+        all_frames?: boolean | undefined;
         /**
          * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is `false`.
          */
-        match_about_blank?: boolean;
+        match_about_blank?: boolean | undefined;
         /** The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle". */
-        run_at?: extensionTypes.RunAt;
+        run_at?: extensionTypes.RunAt | undefined;
     }
 
     type IconPath =
@@ -248,25 +248,25 @@ declare namespace browser._manifest {
     type ThemeColor = string | [number, number, number] | [number, number, number, number];
 
     interface ThemeExperiment {
-        stylesheet?: ExtensionURL;
-        images?: { [key: string]: string };
-        colors?: { [key: string]: string };
-        properties?: { [key: string]: string };
+        stylesheet?: ExtensionURL | undefined;
+        images?: { [key: string]: string } | undefined;
+        colors?: { [key: string]: string } | undefined;
+        properties?: { [key: string]: string } | undefined;
     }
 
     interface ThemeType {
-        images?: _ThemeTypeImages;
-        colors?: _ThemeTypeColors;
-        properties?: _ThemeType;
+        images?: _ThemeTypeImages | undefined;
+        colors?: _ThemeTypeColors | undefined;
+        properties?: _ThemeType | undefined;
     }
 
     /** Contents of manifest.json for a static theme */
     interface ThemeManifest {
         theme: ThemeType;
-        dark_theme?: ThemeType;
-        default_locale?: string;
-        theme_experiment?: ThemeExperiment;
-        icons?: _ThemeManifestIcons;
+        dark_theme?: ThemeType | undefined;
+        default_locale?: string | undefined;
+        theme_experiment?: ThemeExperiment | undefined;
+        icons?: _ThemeManifestIcons | undefined;
     }
 
     type KeyName = string;
@@ -298,14 +298,14 @@ declare namespace browser._manifest {
         | 'personaltoolbar';
 
     interface _WebExtensionManifestBrowserAction {
-        default_title?: string;
-        default_icon?: IconPath;
+        default_title?: string | undefined;
+        default_icon?: IconPath | undefined;
         /** Specifies icons to use for dark and light themes */
-        theme_icons?: ThemeIcons[];
-        default_popup?: string;
-        browser_style?: boolean;
+        theme_icons?: ThemeIcons[] | undefined;
+        default_popup?: string | undefined;
+        browser_style?: boolean | undefined;
         /** Defines the location the browserAction will appear by default. The default location is navbar. */
-        default_area?: _WebExtensionManifestBrowserActionDefaultArea;
+        default_area?: _WebExtensionManifestBrowserActionDefaultArea | undefined;
     }
 
     interface _WebExtensionManifestIcons {
@@ -316,31 +316,31 @@ declare namespace browser._manifest {
 
     interface _WebExtensionManifestOptionsUi {
         page: ExtensionURL;
-        browser_style?: boolean;
-        chrome_style?: boolean;
-        open_in_tab?: boolean;
+        browser_style?: boolean | undefined;
+        chrome_style?: boolean | undefined;
+        open_in_tab?: boolean | undefined;
     }
 
     interface _WebExtensionManifestDeveloper {
-        name?: string;
-        url?: string;
+        name?: string | undefined;
+        url?: string | undefined;
     }
 
     interface _WebExtensionManifestPageAction {
-        default_title?: string;
-        default_icon?: IconPath;
-        default_popup?: string;
-        browser_style?: boolean;
-        show_matches?: MatchPattern[];
-        hide_matches?: MatchPatternRestricted[];
-        pinned?: boolean;
+        default_title?: string | undefined;
+        default_icon?: IconPath | undefined;
+        default_popup?: string | undefined;
+        browser_style?: boolean | undefined;
+        show_matches?: MatchPattern[] | undefined;
+        hide_matches?: MatchPatternRestricted[] | undefined;
+        pinned?: boolean | undefined;
     }
 
     interface _WebExtensionManifestTelemetryPublicKeyKey {
-        crv?: string;
-        kty?: string;
-        x?: string;
-        y?: string;
+        crv?: string | undefined;
+        kty?: string | undefined;
+        x?: string | undefined;
+        y?: string | undefined;
     }
 
     interface _WebExtensionManifestTelemetryPublicKey {
@@ -352,12 +352,12 @@ declare namespace browser._manifest {
         ping_type: string;
         schemaNamespace: string;
         public_key: _WebExtensionManifestTelemetryPublicKey;
-        study_name?: string;
-        pioneer_id?: boolean;
+        study_name?: string | undefined;
+        pioneer_id?: boolean | undefined;
     }
 
     interface _WebExtensionManifestUserScripts {
-        api_script?: ExtensionURL;
+        api_script?: ExtensionURL | undefined;
     }
 
     /** The type of param can be either "purpose" or "pref". */
@@ -377,72 +377,72 @@ declare namespace browser._manifest {
         /** A url parameter name */
         name: string;
         /** The type of param can be either "purpose" or "pref". */
-        condition?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition;
+        condition?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition | undefined;
         /** The preference to retrieve the value from. */
-        pref?: string;
+        pref?: string | undefined;
         /** The context that initiates a search, required if condition is "purpose". */
-        purpose?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose;
+        purpose?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose | undefined;
         /** A url parameter value. */
-        value?: string;
+        value?: string | undefined;
     }
 
     interface _WebExtensionManifestChromeSettingsOverridesSearchProvider {
         name: string;
-        keyword?: string | string[];
+        keyword?: string | string[] | undefined;
         search_url: string;
-        favicon_url?: string;
-        suggest_url?: string;
+        favicon_url?: string | undefined;
+        suggest_url?: string | undefined;
         /** @deprecated Unsupported on Firefox at this time. */
-        instant_url?: string;
+        instant_url?: string | undefined;
         /** @deprecated Unsupported on Firefox at this time. */
-        image_url?: string;
+        image_url?: string | undefined;
         /** GET parameters to the search_url as a query string. */
-        search_url_get_params?: string;
+        search_url_get_params?: string | undefined;
         /** POST parameters to the search_url as a query string. */
-        search_url_post_params?: string;
+        search_url_post_params?: string | undefined;
         /** GET parameters to the suggest_url as a query string. */
-        suggest_url_get_params?: string;
+        suggest_url_get_params?: string | undefined;
         /** POST parameters to the suggest_url as a query string. */
-        suggest_url_post_params?: string;
+        suggest_url_post_params?: string | undefined;
         /** @deprecated Unsupported on Firefox at this time. */
-        instant_url_post_params?: string;
+        instant_url_post_params?: string | undefined;
         /** @deprecated Unsupported on Firefox at this time. */
-        image_url_post_params?: string;
-        search_form?: string;
+        image_url_post_params?: string | undefined;
+        search_form?: string | undefined;
         /** @deprecated Unsupported on Firefox at this time. */
-        alternate_urls?: string[];
+        alternate_urls?: string[] | undefined;
         /** @deprecated Unsupported on Firefox. */
-        prepopulated_id?: number;
+        prepopulated_id?: number | undefined;
         /** Encoding of the search term. */
-        encoding?: string;
+        encoding?: string | undefined;
         /** Sets the default engine to a built-in engine only. */
-        is_default?: boolean;
+        is_default?: boolean | undefined;
         /**
          * A list of optional search url parameters. This allows the additon of search url parameters based on how the search is performed in Firefox.
          */
-        params?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParams[];
+        params?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParams[] | undefined;
     }
 
     interface _WebExtensionManifestChromeSettingsOverrides {
-        homepage?: string;
-        search_provider?: _WebExtensionManifestChromeSettingsOverridesSearchProvider;
+        homepage?: string | undefined;
+        search_provider?: _WebExtensionManifestChromeSettingsOverridesSearchProvider | undefined;
     }
 
     interface _WebExtensionManifestCommandsSuggestedKey {
-        default?: KeyName;
-        mac?: KeyName;
-        linux?: KeyName;
-        windows?: KeyName;
-        chromeos?: string;
-        android?: string;
-        ios?: string;
+        default?: KeyName | undefined;
+        mac?: KeyName | undefined;
+        linux?: KeyName | undefined;
+        windows?: KeyName | undefined;
+        chromeos?: string | undefined;
+        android?: string | undefined;
+        ios?: string | undefined;
         /** @deprecated Unknown platform name */
-        additionalProperties?: string;
+        additionalProperties?: string | undefined;
     }
 
     interface _WebExtensionManifestCommands {
-        suggested_key?: _WebExtensionManifestCommandsSuggestedKey;
-        description?: string;
+        suggested_key?: _WebExtensionManifestCommandsSuggestedKey | undefined;
+        description?: string | undefined;
     }
 
     interface _WebExtensionManifestOmnibox {
@@ -450,29 +450,29 @@ declare namespace browser._manifest {
     }
 
     interface _WebExtensionManifestSidebarAction {
-        default_title?: string;
-        default_icon?: IconPath;
-        browser_style?: boolean;
+        default_title?: string | undefined;
+        default_icon?: IconPath | undefined;
+        browser_style?: boolean | undefined;
         default_panel: string;
         /** Whether or not the sidebar is opened at install. Default is `true`. */
-        open_at_install?: boolean;
+        open_at_install?: boolean | undefined;
     }
 
     interface _WebExtensionManifestChromeUrlOverrides {
-        newtab?: ExtensionURL;
+        newtab?: ExtensionURL | undefined;
         /** @deprecated Unsupported on Firefox at this time. */
-        bookmarks?: ExtensionURL;
+        bookmarks?: ExtensionURL | undefined;
         /** @deprecated Unsupported on Firefox at this time. */
-        history?: ExtensionURL;
+        history?: ExtensionURL | undefined;
     }
 
     interface _WebExtensionManifestApplications {
-        gecko?: FirefoxSpecificProperties;
+        gecko?: FirefoxSpecificProperties | undefined;
     }
 
     interface _WebExtensionManifestBrowserSpecificSettings {
-        gecko?: FirefoxSpecificProperties;
-        edge?: { [key: string]: any };
+        gecko?: FirefoxSpecificProperties | undefined;
+        edge?: { [key: string]: any } | undefined;
     }
 
     type _OptionalPermission =
@@ -535,12 +535,12 @@ declare namespace browser._manifest {
         | 'xmpp';
 
     interface _ManifestBaseApplications {
-        gecko?: FirefoxSpecificProperties;
+        gecko?: FirefoxSpecificProperties | undefined;
     }
 
     interface _ManifestBaseBrowserSpecificSettings {
-        gecko?: FirefoxSpecificProperties;
-        edge?: { [key: string]: any };
+        gecko?: FirefoxSpecificProperties | undefined;
+        edge?: { [key: string]: any } | undefined;
     }
 
     interface _UndefinedChromeResources {
@@ -561,17 +561,17 @@ declare namespace browser._manifest {
     interface _WebExtensionLangpackManifestSources {
         [key: string]: {
             base_path: ExtensionURL;
-            paths?: string[];
+            paths?: string[] | undefined;
         };
     }
 
     interface _WebExtensionLangpackManifestApplications {
-        gecko?: FirefoxSpecificProperties;
+        gecko?: FirefoxSpecificProperties | undefined;
     }
 
     interface _WebExtensionLangpackManifestBrowserSpecificSettings {
-        gecko?: FirefoxSpecificProperties;
-        edge?: { [key: string]: any };
+        gecko?: FirefoxSpecificProperties | undefined;
+        edge?: { [key: string]: any } | undefined;
     }
 
     interface _WebExtensionDictionaryManifestDictionaries {
@@ -579,72 +579,72 @@ declare namespace browser._manifest {
     }
 
     interface _WebExtensionDictionaryManifestApplications {
-        gecko?: FirefoxSpecificProperties;
+        gecko?: FirefoxSpecificProperties | undefined;
     }
 
     interface _WebExtensionDictionaryManifestBrowserSpecificSettings {
-        gecko?: FirefoxSpecificProperties;
-        edge?: { [key: string]: any };
+        gecko?: FirefoxSpecificProperties | undefined;
+        edge?: { [key: string]: any } | undefined;
     }
 
     interface _ThemeTypeImages {
-        additional_backgrounds?: ImageDataOrExtensionURL[];
+        additional_backgrounds?: ImageDataOrExtensionURL[] | undefined;
         /**
          * @deprecated Unsupported images property, use 'theme.images.theme_frame', this alias is ignored in Firefox >= 70.
          */
-        headerURL?: ImageDataOrExtensionURL;
-        theme_frame?: ImageDataOrExtensionURL;
+        headerURL?: ImageDataOrExtensionURL | undefined;
+        theme_frame?: ImageDataOrExtensionURL | undefined;
     }
 
     interface _ThemeTypeColors {
-        tab_selected?: ThemeColor;
+        tab_selected?: ThemeColor | undefined;
         /**
          * @deprecated Unsupported colors property, use 'theme.colors.frame', this alias is ignored in Firefox >= 70.
          */
-        accentcolor?: ThemeColor;
-        frame?: ThemeColor;
-        frame_inactive?: ThemeColor;
+        accentcolor?: ThemeColor | undefined;
+        frame?: ThemeColor | undefined;
+        frame_inactive?: ThemeColor | undefined;
         /**
          * @deprecated Unsupported color property, use 'theme.colors.tab_background_text', this alias is ignored in Firefox >= 70.
          */
-        textcolor?: ThemeColor;
-        tab_background_text?: ThemeColor;
-        tab_background_separator?: ThemeColor;
-        tab_loading?: ThemeColor;
-        tab_text?: ThemeColor;
-        tab_line?: ThemeColor;
-        toolbar?: ThemeColor;
+        textcolor?: ThemeColor | undefined;
+        tab_background_text?: ThemeColor | undefined;
+        tab_background_separator?: ThemeColor | undefined;
+        tab_loading?: ThemeColor | undefined;
+        tab_text?: ThemeColor | undefined;
+        tab_line?: ThemeColor | undefined;
+        toolbar?: ThemeColor | undefined;
         /** This color property is an alias of 'bookmark_text'. */
-        toolbar_text?: ThemeColor;
-        bookmark_text?: ThemeColor;
-        toolbar_field?: ThemeColor;
-        toolbar_field_text?: ThemeColor;
-        toolbar_field_border?: ThemeColor;
-        toolbar_field_separator?: ThemeColor;
-        toolbar_top_separator?: ThemeColor;
-        toolbar_bottom_separator?: ThemeColor;
-        toolbar_vertical_separator?: ThemeColor;
-        icons?: ThemeColor;
-        icons_attention?: ThemeColor;
-        button_background_hover?: ThemeColor;
-        button_background_active?: ThemeColor;
-        popup?: ThemeColor;
-        popup_text?: ThemeColor;
-        popup_border?: ThemeColor;
-        toolbar_field_focus?: ThemeColor;
-        toolbar_field_text_focus?: ThemeColor;
-        toolbar_field_border_focus?: ThemeColor;
-        popup_highlight?: ThemeColor;
-        popup_highlight_text?: ThemeColor;
-        ntp_background?: ThemeColor;
-        ntp_text?: ThemeColor;
-        sidebar?: ThemeColor;
-        sidebar_border?: ThemeColor;
-        sidebar_text?: ThemeColor;
-        sidebar_highlight?: ThemeColor;
-        sidebar_highlight_text?: ThemeColor;
-        toolbar_field_highlight?: ThemeColor;
-        toolbar_field_highlight_text?: ThemeColor;
+        toolbar_text?: ThemeColor | undefined;
+        bookmark_text?: ThemeColor | undefined;
+        toolbar_field?: ThemeColor | undefined;
+        toolbar_field_text?: ThemeColor | undefined;
+        toolbar_field_border?: ThemeColor | undefined;
+        toolbar_field_separator?: ThemeColor | undefined;
+        toolbar_top_separator?: ThemeColor | undefined;
+        toolbar_bottom_separator?: ThemeColor | undefined;
+        toolbar_vertical_separator?: ThemeColor | undefined;
+        icons?: ThemeColor | undefined;
+        icons_attention?: ThemeColor | undefined;
+        button_background_hover?: ThemeColor | undefined;
+        button_background_active?: ThemeColor | undefined;
+        popup?: ThemeColor | undefined;
+        popup_text?: ThemeColor | undefined;
+        popup_border?: ThemeColor | undefined;
+        toolbar_field_focus?: ThemeColor | undefined;
+        toolbar_field_text_focus?: ThemeColor | undefined;
+        toolbar_field_border_focus?: ThemeColor | undefined;
+        popup_highlight?: ThemeColor | undefined;
+        popup_highlight_text?: ThemeColor | undefined;
+        ntp_background?: ThemeColor | undefined;
+        ntp_text?: ThemeColor | undefined;
+        sidebar?: ThemeColor | undefined;
+        sidebar_border?: ThemeColor | undefined;
+        sidebar_text?: ThemeColor | undefined;
+        sidebar_highlight?: ThemeColor | undefined;
+        sidebar_highlight_text?: ThemeColor | undefined;
+        toolbar_field_highlight?: ThemeColor | undefined;
+        toolbar_field_highlight_text?: ThemeColor | undefined;
     }
 
     type _ThemeTypeAdditionalBackgroundsAlignment =
@@ -666,8 +666,8 @@ declare namespace browser._manifest {
     type _ThemeTypeAdditionalBackgroundsTiling = 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y';
 
     interface _ThemeType {
-        additional_backgrounds_alignment?: _ThemeTypeAdditionalBackgroundsAlignment[];
-        additional_backgrounds_tiling?: _ThemeTypeAdditionalBackgroundsTiling[];
+        additional_backgrounds_alignment?: _ThemeTypeAdditionalBackgroundsAlignment[] | undefined;
+        additional_backgrounds_tiling?: _ThemeTypeAdditionalBackgroundsTiling[] | undefined;
     }
 
     interface _ThemeManifestIcons {
@@ -703,13 +703,13 @@ declare namespace browser.activityLog {
 
     interface _OnExtensionActivityDetailsData {
         /** A list of arguments passed to the call. */
-        args?: any[];
+        args?: any[] | undefined;
         /** The result of the call. */
-        result?: object;
+        result?: object | undefined;
         /** The tab associated with this event if it is a tab or content script. */
-        tabId?: number;
+        tabId?: number | undefined;
         /** If the type is content_script, this is the url of the script that was injected. */
-        url?: string;
+        url?: string | undefined;
     }
 
     interface _OnExtensionActivityDetails {
@@ -720,7 +720,7 @@ declare namespace browser.activityLog {
          */
         type: _OnExtensionActivityDetailsType;
         /** The type of view where the activity occurred. Content scripts will not have a viewType. */
-        viewType?: _OnExtensionActivityDetailsViewType;
+        viewType?: _OnExtensionActivityDetailsViewType | undefined;
         /** The name of the api call or event, or the script url if this is a content or user script event. */
         name: string;
         data: _OnExtensionActivityDetailsData;
@@ -752,7 +752,7 @@ declare namespace browser.alarms {
         /** Time when the alarm is scheduled to fire, in milliseconds past the epoch. */
         scheduledTime: number;
         /** When present, signals that the alarm triggers periodically after so many minutes. */
-        periodInMinutes?: number;
+        periodInMinutes?: number | undefined;
     }
 
     /**
@@ -760,11 +760,11 @@ declare namespace browser.alarms {
      */
     interface _CreateAlarmInfo {
         /** Time when the alarm is scheduled to first fire, in milliseconds past the epoch. */
-        when?: number;
+        when?: number | undefined;
         /** Number of minutes from the current time after which the alarm should first fire. */
-        delayInMinutes?: number;
+        delayInMinutes?: number | undefined;
         /** Number of minutes after which the alarm should recur repeatedly. */
-        periodInMinutes?: number;
+        periodInMinutes?: number | undefined;
     }
 
     /* alarms functions */
@@ -822,11 +822,11 @@ declare namespace browser.browserAction {
         /**
          * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
          */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
          */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     type ColorArray = [number, number, number, number];
@@ -844,7 +844,7 @@ declare namespace browser.browserAction {
         /** An array of keyboard modifiers that were held while the menu item was clicked. */
         modifiers: _OnClickDataModifiers[];
         /** An integer value of button by which menu item was clicked. */
-        button?: number;
+        button?: number | undefined;
     }
 
     type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
@@ -858,11 +858,11 @@ declare namespace browser.browserAction {
         /**
          * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
          */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
          */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     /**
@@ -876,7 +876,7 @@ declare namespace browser.browserAction {
             | ImageDataType
             | {
                   [key: number]: ImageDataType;
-              };
+              } | undefined;
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
@@ -884,15 +884,15 @@ declare namespace browser.browserAction {
             | string
             | {
                   [key: number]: string;
-              };
+              } | undefined;
         /**
          * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
          */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
          */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     /**
@@ -904,11 +904,11 @@ declare namespace browser.browserAction {
         /**
          * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
          */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
          */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     /**
@@ -920,11 +920,11 @@ declare namespace browser.browserAction {
         /**
          * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
          */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
          */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     /**
@@ -935,11 +935,11 @@ declare namespace browser.browserAction {
         /**
          * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
          */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
          */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     /**
@@ -950,11 +950,11 @@ declare namespace browser.browserAction {
         /**
          * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
          */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.
          */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     /* browserAction functions */
@@ -1183,23 +1183,23 @@ declare namespace browser.contentScripts {
     /** Details of a content script registered programmatically */
     interface RegisteredContentScriptOptions {
         matches: _manifest.MatchPattern[];
-        excludeMatches?: _manifest.MatchPattern[];
-        includeGlobs?: string[];
-        excludeGlobs?: string[];
+        excludeMatches?: _manifest.MatchPattern[] | undefined;
+        includeGlobs?: string[] | undefined;
+        excludeGlobs?: string[] | undefined;
         /** The list of CSS files to inject */
-        css?: extensionTypes.ExtensionFileOrCode[];
+        css?: extensionTypes.ExtensionFileOrCode[] | undefined;
         /** The list of JS files to inject */
-        js?: extensionTypes.ExtensionFileOrCode[];
+        js?: extensionTypes.ExtensionFileOrCode[] | undefined;
         /**
          * If allFrames is `true`, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's `false` and is only injected into the top frame.
          */
-        allFrames?: boolean;
+        allFrames?: boolean | undefined;
         /**
          * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is `false`.
          */
-        matchAboutBlank?: boolean;
+        matchAboutBlank?: boolean | undefined;
         /** The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle". */
-        runAt?: extensionTypes.RunAt;
+        runAt?: extensionTypes.RunAt | undefined;
     }
 
     /** An object that represents a content script registered programmatically */
@@ -1243,7 +1243,7 @@ declare namespace browser.contextualIdentities {
     /** Information to filter the contextual identities being retrieved. */
     interface _QueryDetails {
         /** Filters the contextual identity by name. */
-        name?: string;
+        name?: string | undefined;
     }
 
     /** Details about the contextual identity being created. */
@@ -1259,11 +1259,11 @@ declare namespace browser.contextualIdentities {
     /** Details about the contextual identity being created. */
     interface _UpdateDetails {
         /** The name of the contextual identity. */
-        name?: string;
+        name?: string | undefined;
         /** The color of the contextual identity. */
-        color?: string;
+        color?: string | undefined;
         /** The icon of the contextual identity. */
-        icon?: string;
+        icon?: string | undefined;
     }
 
     interface _OnUpdatedChangeInfo {
@@ -1365,7 +1365,7 @@ declare namespace browser.cookies {
         /**
          * The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies.
          */
-        expirationDate?: number;
+        expirationDate?: number | undefined;
         /** The ID of the cookie store containing this cookie, as provided in getAllCookieStores(). */
         storeId: string;
         /** The first-party domain of the cookie. */
@@ -1400,35 +1400,35 @@ declare namespace browser.cookies {
         /**
          * The ID of the cookie store in which to look for the cookie. By default, the current execution context's cookie store will be used.
          */
-        storeId?: string;
+        storeId?: string | undefined;
         /**
          * The first-party domain which the cookie to retrieve is associated. This attribute is required if First-Party Isolation is enabled.
          */
-        firstPartyDomain?: string;
+        firstPartyDomain?: string | undefined;
     }
 
     /** Information to filter the cookies being retrieved. */
     interface _GetAllDetails {
         /** Restricts the retrieved cookies to those that would match the given URL. */
-        url?: string;
+        url?: string | undefined;
         /** Filters the cookies by name. */
-        name?: string;
+        name?: string | undefined;
         /** Restricts the retrieved cookies to those whose domains match or are subdomains of this one. */
-        domain?: string;
+        domain?: string | undefined;
         /** Restricts the retrieved cookies to those whose path exactly matches this string. */
-        path?: string;
+        path?: string | undefined;
         /** Filters the cookies by their Secure property. */
-        secure?: boolean;
+        secure?: boolean | undefined;
         /** Filters out session vs. persistent cookies. */
-        session?: boolean;
+        session?: boolean | undefined;
         /**
          * The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used.
          */
-        storeId?: string;
+        storeId?: string | undefined;
         /**
          * Restricts the retrieved cookies to those whose first-party domains match this one. This attribute is required if First-Party Isolation is enabled. To not filter by a specific first-party domain, use `null` or `undefined`.
          */
-        firstPartyDomain?: string;
+        firstPartyDomain?: string | undefined;
     }
 
     /** Details about the cookie being set. */
@@ -1438,31 +1438,31 @@ declare namespace browser.cookies {
          */
         url: string;
         /** The name of the cookie. Empty by default if omitted. */
-        name?: string;
+        name?: string | undefined;
         /** The value of the cookie. Empty by default if omitted. */
-        value?: string;
+        value?: string | undefined;
         /** The domain of the cookie. If omitted, the cookie becomes a host-only cookie. */
-        domain?: string;
+        domain?: string | undefined;
         /** The path of the cookie. Defaults to the path portion of the url parameter. */
-        path?: string;
+        path?: string | undefined;
         /** Whether the cookie should be marked as Secure. Defaults to false. */
-        secure?: boolean;
+        secure?: boolean | undefined;
         /** Whether the cookie should be marked as HttpOnly. Defaults to false. */
-        httpOnly?: boolean;
+        httpOnly?: boolean | undefined;
         /** The cookie's same-site status. */
-        sameSite?: SameSiteStatus;
+        sameSite?: SameSiteStatus | undefined;
         /**
          * The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie.
          */
-        expirationDate?: number;
+        expirationDate?: number | undefined;
         /**
          * The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store.
          */
-        storeId?: string;
+        storeId?: string | undefined;
         /**
          * The first-party domain of the cookie. This attribute is required if First-Party Isolation is enabled.
          */
-        firstPartyDomain?: string;
+        firstPartyDomain?: string | undefined;
     }
 
     /**
@@ -1490,11 +1490,11 @@ declare namespace browser.cookies {
         /**
          * The ID of the cookie store to look in for the cookie. If unspecified, the cookie is looked for by default in the current execution context's cookie store.
          */
-        storeId?: string;
+        storeId?: string | undefined;
         /**
          * The first-party domain associated with the cookie. This attribute is required if First-Party Isolation is enabled.
          */
-        firstPartyDomain?: string;
+        firstPartyDomain?: string | undefined;
     }
 
     interface _OnChangedChangeInfo {
@@ -1555,7 +1555,7 @@ declare namespace browser.dns {
         /**
          * The canonical hostname for this record. this value is empty if the record was not fetched with the 'canonical_name' flag.
          */
-        canonicalName?: string;
+        canonicalName?: string | undefined;
         /** Record retreived with TRR. */
         isTRR: string;
         addresses: string[];
@@ -1656,7 +1656,7 @@ declare namespace browser.downloads {
         id: number;
         /** Absolute URL. */
         url: string;
-        referrer?: string;
+        referrer?: string | undefined;
         /** Absolute local path. */
         filename: string;
         /** False if this download is recorded in the history, true if it is not recorded. */
@@ -1664,19 +1664,19 @@ declare namespace browser.downloads {
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
         danger: DangerType;
         /** The file's MIME type. */
-        mime?: string;
+        mime?: string | undefined;
         /** Number of milliseconds between the unix epoch and when this download began. */
         startTime: string;
         /** Number of milliseconds between the unix epoch and when this download ended. */
-        endTime?: string;
-        estimatedEndTime?: string;
+        endTime?: string | undefined;
+        estimatedEndTime?: string | undefined;
         /** Indicates whether the download is progressing, interrupted, or complete. */
         state: State;
         /** True if the download has stopped reading data from the host, but kept the connection open. */
         paused: boolean;
         canResume: boolean;
         /** Number indicating why a download was interrupted. */
-        error?: InterruptReason;
+        error?: InterruptReason | undefined;
         /** Number of bytes received so far from the host, without considering file compression. */
         bytesReceived: number;
         /** Number of bytes in the whole file, without considering file compression, or -1 if unknown. */
@@ -1684,23 +1684,23 @@ declare namespace browser.downloads {
         /** Number of bytes in the whole file post-decompression, or -1 if unknown. */
         fileSize: number;
         exists: boolean;
-        byExtensionId?: string;
-        byExtensionName?: string;
+        byExtensionId?: string | undefined;
+        byExtensionName?: string | undefined;
     }
 
     interface StringDelta {
-        current?: string;
-        previous?: string;
+        current?: string | undefined;
+        previous?: string | undefined;
     }
 
     interface DoubleDelta {
-        current?: number;
-        previous?: number;
+        current?: number | undefined;
+        previous?: number | undefined;
     }
 
     interface BooleanDelta {
-        current?: boolean;
-        previous?: boolean;
+        current?: boolean | undefined;
+        previous?: boolean | undefined;
     }
 
     /**
@@ -1715,55 +1715,55 @@ declare namespace browser.downloads {
         /**
          * This array of search terms limits results to DownloadItems whose `filename` or `url` contain all of the search terms that do not begin with a dash '-' and none of the search terms that do begin with a dash.
          */
-        query?: string[];
+        query?: string[] | undefined;
         /** Limits results to downloads that started before the given ms since the epoch. */
-        startedBefore?: DownloadTime;
+        startedBefore?: DownloadTime | undefined;
         /** Limits results to downloads that started after the given ms since the epoch. */
-        startedAfter?: DownloadTime;
+        startedAfter?: DownloadTime | undefined;
         /** Limits results to downloads that ended before the given ms since the epoch. */
-        endedBefore?: DownloadTime;
+        endedBefore?: DownloadTime | undefined;
         /** Limits results to downloads that ended after the given ms since the epoch. */
-        endedAfter?: DownloadTime;
+        endedAfter?: DownloadTime | undefined;
         /** Limits results to downloads whose totalBytes is greater than the given integer. */
-        totalBytesGreater?: number;
+        totalBytesGreater?: number | undefined;
         /** Limits results to downloads whose totalBytes is less than the given integer. */
-        totalBytesLess?: number;
+        totalBytesLess?: number | undefined;
         /** Limits results to DownloadItems whose `filename` matches the given regular expression. */
-        filenameRegex?: string;
+        filenameRegex?: string | undefined;
         /** Limits results to DownloadItems whose `url` matches the given regular expression. */
-        urlRegex?: string;
+        urlRegex?: string | undefined;
         /**
          * Setting this integer limits the number of results. Otherwise, all matching DownloadItems will be returned.
          */
-        limit?: number;
+        limit?: number | undefined;
         /**
          * Setting elements of this array to DownloadItem properties in order to sort the search results. For example, setting `orderBy='startTime'` sorts the DownloadItems by their start time in ascending order. To specify descending order, prefix `orderBy` with a hyphen: '-startTime'.
          */
-        orderBy?: string[];
-        id?: number;
+        orderBy?: string[] | undefined;
+        id?: number | undefined;
         /** Absolute URL. */
-        url?: string;
+        url?: string | undefined;
         /** Absolute local path. */
-        filename?: string;
+        filename?: string | undefined;
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
-        danger?: DangerType;
+        danger?: DangerType | undefined;
         /** The file's MIME type. */
-        mime?: string;
-        startTime?: string;
-        endTime?: string;
+        mime?: string | undefined;
+        startTime?: string | undefined;
+        endTime?: string | undefined;
         /** Indicates whether the download is progressing, interrupted, or complete. */
-        state?: State;
+        state?: State | undefined;
         /** True if the download has stopped reading data from the host, but kept the connection open. */
-        paused?: boolean;
+        paused?: boolean | undefined;
         /** Why a download was interrupted. */
-        error?: InterruptReason;
+        error?: InterruptReason | undefined;
         /** Number of bytes received so far from the host, without considering file compression. */
-        bytesReceived?: number;
+        bytesReceived?: number | undefined;
         /** Number of bytes in the whole file, without considering file compression, or -1 if unknown. */
-        totalBytes?: number;
+        totalBytes?: number | undefined;
         /** Number of bytes in the whole file post-decompression, or -1 if unknown. */
-        fileSize?: number;
-        exists?: boolean;
+        fileSize?: number | undefined;
+        exists?: boolean | undefined;
     }
 
     /** The HTTP method to use if the URL uses the HTTP[S] protocol. */
@@ -1781,62 +1781,62 @@ declare namespace browser.downloads {
         /** The URL to download. */
         url: string;
         /** A file path relative to the Downloads directory to contain the downloaded file. */
-        filename?: string;
+        filename?: string | undefined;
         /** Whether to associate the download with a private browsing session. */
-        incognito?: boolean;
-        conflictAction?: FilenameConflictAction;
+        incognito?: boolean | undefined;
+        conflictAction?: FilenameConflictAction | undefined;
         /**
          * Use a file-chooser to allow the user to select a filename. If the option is not specified, the file chooser will be shown only if the Firefox "Always ask you where to save files" option is enabled (i.e. the pref `browser.download.useDownloadDir` is set to `false`).
          */
-        saveAs?: boolean;
+        saveAs?: boolean | undefined;
         /** The HTTP method to use if the URL uses the HTTP[S] protocol. */
-        method?: _DownloadOptionsMethod;
+        method?: _DownloadOptionsMethod | undefined;
         /**
          * Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys `name` and either `value` or `binaryValue`, restricted to those allowed by XMLHttpRequest.
          */
-        headers?: _DownloadOptionsHeaders[];
+        headers?: _DownloadOptionsHeaders[] | undefined;
         /** Post body. */
-        body?: string;
+        body?: string | undefined;
         /**
          * When this flag is set to `true`, then the browser will allow downloads to proceed after encountering HTTP errors such as `404 Not Found`.
          */
-        allowHttpErrors?: boolean;
+        allowHttpErrors?: boolean | undefined;
     }
 
     interface _GetFileIconOptions {
         /**
          * The size of the icon. The returned icon will be square with dimensions size * size pixels. The default size for the icon is 32x32 pixels.
          */
-        size?: number;
+        size?: number | undefined;
     }
 
     interface _OnChangedDownloadDelta {
         /** The `id` of the DownloadItem that changed. */
         id: number;
         /** Describes a change in a DownloadItem's `url`. */
-        url?: StringDelta;
+        url?: StringDelta | undefined;
         /** Describes a change in a DownloadItem's `filename`. */
-        filename?: StringDelta;
+        filename?: StringDelta | undefined;
         /** Describes a change in a DownloadItem's `danger`. */
-        danger?: StringDelta;
+        danger?: StringDelta | undefined;
         /** Describes a change in a DownloadItem's `mime`. */
-        mime?: StringDelta;
+        mime?: StringDelta | undefined;
         /** Describes a change in a DownloadItem's `startTime`. */
-        startTime?: StringDelta;
+        startTime?: StringDelta | undefined;
         /** Describes a change in a DownloadItem's `endTime`. */
-        endTime?: StringDelta;
+        endTime?: StringDelta | undefined;
         /** Describes a change in a DownloadItem's `state`. */
-        state?: StringDelta;
-        canResume?: BooleanDelta;
+        state?: StringDelta | undefined;
+        canResume?: BooleanDelta | undefined;
         /** Describes a change in a DownloadItem's `paused`. */
-        paused?: BooleanDelta;
+        paused?: BooleanDelta | undefined;
         /** Describes a change in a DownloadItem's `error`. */
-        error?: StringDelta;
+        error?: StringDelta | undefined;
         /** Describes a change in a DownloadItem's `totalBytes`. */
-        totalBytes?: DoubleDelta;
+        totalBytes?: DoubleDelta | undefined;
         /** Describes a change in a DownloadItem's `fileSize`. */
-        fileSize?: DoubleDelta;
-        exists?: BooleanDelta;
+        fileSize?: DoubleDelta | undefined;
+        exists?: BooleanDelta | undefined;
     }
 
     /* downloads functions */
@@ -1929,15 +1929,15 @@ declare namespace browser.events {
     /** Description of a declarative rule for handling events. */
     interface Rule {
         /** Optional identifier that allows referencing this rule. */
-        id?: string;
+        id?: string | undefined;
         /** Tags can be used to annotate rules and perform operations on sets of rules. */
-        tags?: string[];
+        tags?: string[] | undefined;
         /** List of conditions that can trigger the actions. */
         conditions: any[];
         /** List of actions that are triggered if one of the condtions is fulfilled. */
         actions: any[];
         /** Optional priority of this rule. Defaults to 100. */
-        priority?: number;
+        priority?: number | undefined;
     }
 
     /** An object which allows the addition and removal of listeners for a Chrome event. */
@@ -1998,59 +1998,59 @@ declare namespace browser.events {
         /**
          * Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.
          */
-        hostContains?: string;
+        hostContains?: string | undefined;
         /** Matches if the host name of the URL is equal to a specified string. */
-        hostEquals?: string;
+        hostEquals?: string | undefined;
         /** Matches if the host name of the URL starts with a specified string. */
-        hostPrefix?: string;
+        hostPrefix?: string | undefined;
         /** Matches if the host name of the URL ends with a specified string. */
-        hostSuffix?: string;
+        hostSuffix?: string | undefined;
         /** Matches if the path segment of the URL contains a specified string. */
-        pathContains?: string;
+        pathContains?: string | undefined;
         /** Matches if the path segment of the URL is equal to a specified string. */
-        pathEquals?: string;
+        pathEquals?: string | undefined;
         /** Matches if the path segment of the URL starts with a specified string. */
-        pathPrefix?: string;
+        pathPrefix?: string | undefined;
         /** Matches if the path segment of the URL ends with a specified string. */
-        pathSuffix?: string;
+        pathSuffix?: string | undefined;
         /** Matches if the query segment of the URL contains a specified string. */
-        queryContains?: string;
+        queryContains?: string | undefined;
         /** Matches if the query segment of the URL is equal to a specified string. */
-        queryEquals?: string;
+        queryEquals?: string | undefined;
         /** Matches if the query segment of the URL starts with a specified string. */
-        queryPrefix?: string;
+        queryPrefix?: string | undefined;
         /** Matches if the query segment of the URL ends with a specified string. */
-        querySuffix?: string;
+        querySuffix?: string | undefined;
         /**
          * Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.
          */
-        urlContains?: string;
+        urlContains?: string | undefined;
         /**
          * Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.
          */
-        urlEquals?: string;
+        urlEquals?: string | undefined;
         /**
          * Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the [RE2 syntax](https://github.com/google/re2/blob/master/doc/syntax.txt).
          */
-        urlMatches?: string;
+        urlMatches?: string | undefined;
         /**
          * Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the [RE2 syntax](https://github.com/google/re2/blob/master/doc/syntax.txt).
          */
-        originAndPathMatches?: string;
+        originAndPathMatches?: string | undefined;
         /**
          * Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.
          */
-        urlPrefix?: string;
+        urlPrefix?: string | undefined;
         /**
          * Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.
          */
-        urlSuffix?: string;
+        urlSuffix?: string | undefined;
         /** Matches if the scheme of the URL is equal to any of the schemes specified in the array. */
-        schemes?: string[];
+        schemes?: string[] | undefined;
         /**
          * Matches if the port of the URL is contained in any of the specified port lists. For example `[80, 443, [1000, 1200]]` matches all requests on port 80, 443 and in the range 1000-1200.
          */
-        ports?: Array<number | [number, number]>;
+        ports?: Array<number | [number, number]> | undefined;
     }
 }
 
@@ -2059,8 +2059,8 @@ declare namespace browser.experiments {
     /* experiments types */
     interface ExperimentAPI {
         schema: ExperimentURL;
-        parent?: _ExperimentAPIParent;
-        child?: _ExperimentAPIChild;
+        parent?: _ExperimentAPIParent | undefined;
+        child?: _ExperimentAPIChild | undefined;
     }
 
     type ExperimentURL = string;
@@ -2078,10 +2078,10 @@ declare namespace browser.experiments {
     type APIChildScope = 'addon_child' | 'content_child' | 'devtools_child';
 
     interface _ExperimentAPIParent {
-        events?: APIEvents;
-        paths?: APIPaths;
+        events?: APIEvents | undefined;
+        paths?: APIPaths | undefined;
         script: ExperimentURL;
-        scopes?: APIParentScope[];
+        scopes?: APIParentScope[] | undefined;
     }
 
     interface _ExperimentAPIChild {
@@ -2111,11 +2111,11 @@ declare namespace browser.extension {
         /**
          * The type of view to get. If omitted, returns all views (including background pages and tabs). Valid values: 'tab', 'popup', 'sidebar'.
          */
-        type?: ViewType;
+        type?: ViewType | undefined;
         /** The window to restrict the search to. If omitted, returns all views. */
-        windowId?: number;
+        windowId?: number | undefined;
         /** Find a view according to a tab id. If this field is omitted, returns all views. */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     /* extension properties */
@@ -2211,17 +2211,17 @@ declare namespace browser.extensionTypes {
     /** Details about the format, quality, area and scale of the capture. */
     interface ImageDetails {
         /** The format of the resulting image. Default is `"jpeg"`. */
-        format?: ImageFormat;
+        format?: ImageFormat | undefined;
         /**
          * When format is `"jpeg"`, controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.
          */
-        quality?: number;
+        quality?: number | undefined;
         /**
          * The area of the document to capture, in CSS pixels, relative to the page. If omitted, capture the visible viewport.
          */
-        rect?: _ImageDetailsRect;
+        rect?: _ImageDetailsRect | undefined;
         /** The scale of the resulting image. Defaults to `devicePixelRatio`. */
-        scale?: number;
+        scale?: number | undefined;
     }
 
     /** The soonest that the JavaScript or CSS will be injected into the tab. */
@@ -2240,23 +2240,23 @@ declare namespace browser.extensionTypes {
          * **Warning:**
          * Be careful using the `code` parameter. Incorrect use of it may open your extension to [cross site scripting](https://en.wikipedia.org/wiki/Cross-site_scripting) attacks.
          */
-        code?: string;
+        code?: string | undefined;
         /** JavaScript or CSS file to inject. */
-        file?: string;
+        file?: string | undefined;
         /**
          * If allFrames is `true`, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's `false` and is only injected into the top frame.
          */
-        allFrames?: boolean;
+        allFrames?: boolean | undefined;
         /**
          * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is `false`.
          */
-        matchAboutBlank?: boolean;
+        matchAboutBlank?: boolean | undefined;
         /** The ID of the frame to inject the script into. This may not be used in combination with `allFrames`. */
-        frameId?: number;
+        frameId?: number | undefined;
         /** The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle". */
-        runAt?: RunAt;
+        runAt?: RunAt | undefined;
         /** The css origin of the stylesheet to inject. Defaults to "author". */
-        cssOrigin?: CSSOrigin;
+        cssOrigin?: CSSOrigin | undefined;
     }
 
     type Date = string | number | globalThis.Date;
@@ -2330,7 +2330,7 @@ declare namespace browser.geckoProfiler {
         /**
          * The length of the window of time that's kept in the buffer. Any collected samples are discarded as soon as they are older than the number of seconds specified in this setting. Zero means no duration restriction.
          */
-        windowLength?: number;
+        windowLength?: number | undefined;
         /**
          * Interval in milliseconds between samples of profiling data. A smaller value will increase the detail of the profiles captured.
          */
@@ -2338,7 +2338,7 @@ declare namespace browser.geckoProfiler {
         /** A list of active features for the profiler. */
         features: ProfilerFeature[];
         /** A list of thread names for which to capture profiles. */
-        threads?: string[];
+        threads?: string[] | undefined;
     }
 
     /* geckoProfiler functions */
@@ -2458,9 +2458,9 @@ declare namespace browser.identity {
     }
 
     interface _GetAuthTokenDetails {
-        interactive?: boolean;
-        account?: AccountInfo;
-        scopes?: string[];
+        interactive?: boolean | undefined;
+        account?: AccountInfo | undefined;
+        scopes?: string[] | undefined;
     }
 
     interface _GetProfileUserInfoReturnUserinfo {
@@ -2479,7 +2479,7 @@ declare namespace browser.identity {
 
     interface _LaunchWebAuthFlowDetails {
         url: _manifest.HttpURL;
-        interactive?: boolean;
+        interactive?: boolean | undefined;
     }
 
     /* identity functions */
@@ -2600,35 +2600,35 @@ declare namespace browser.management {
         /** The name of this extension. */
         name: string;
         /** A short version of the name of this extension. */
-        shortName?: string;
+        shortName?: string | undefined;
         /** The description of this extension. */
         description: string;
         /** The version of this extension. */
         version: string;
         /** The version name of this extension if the manifest specified one. */
-        versionName?: string;
+        versionName?: string | undefined;
         /** Whether this extension can be disabled or uninstalled by the user. */
         mayDisable: boolean;
         /** Whether it is currently enabled or disabled. */
         enabled: boolean;
         /** A reason the item is disabled. */
-        disabledReason?: ExtensionDisabledReason;
+        disabledReason?: ExtensionDisabledReason | undefined;
         /** The type of this extension, 'extension' or 'theme'. */
         type: ExtensionType;
         /** The URL of the homepage of this extension. */
-        homepageUrl?: string;
+        homepageUrl?: string | undefined;
         /** The update URL of this extension. */
-        updateUrl?: string;
+        updateUrl?: string | undefined;
         /** The url for the item's options page, if it has one. */
         optionsUrl: string;
         /**
          * A list of icon information. Note that this just reflects what was declared in the manifest, and the actual image at that url may be larger or smaller than what was declared, so you might consider using explicit width and height attributes on img tags referencing these images. See the manifest documentation on icons for more details.
          */
-        icons?: IconInfo[];
+        icons?: IconInfo[] | undefined;
         /** Returns a list of API based permissions. */
-        permissions?: string[];
+        permissions?: string[] | undefined;
         /** Returns a list of host based permissions. */
-        hostPermissions?: string[];
+        hostPermissions?: string[] | undefined;
         /** How the extension was installed. */
         installType: ExtensionInstallType;
     }
@@ -2641,14 +2641,14 @@ declare namespace browser.management {
         /** URL pointing to the XPI file on addons.mozilla.org or similar. */
         url: _manifest.HttpURL;
         /** A hash of the XPI file, using sha256 or stronger. */
-        hash?: string;
+        hash?: string | undefined;
     }
 
     interface _UninstallSelfOptions {
         /** Whether or not a confirm-uninstall dialog should prompt the user. Defaults to false. */
-        showConfirmDialog?: boolean;
+        showConfirmDialog?: boolean | undefined;
         /** The message to display to a user when being asked to confirm removal of the extension. */
-        dialogMessage?: string;
+        dialogMessage?: string | undefined;
     }
 
     /* management functions */
@@ -2710,7 +2710,7 @@ declare namespace browser.networkStatus {
         /** If known, the type of network connection that is avialable. */
         type: _NetworkLinkInfoType;
         /** If known, the network id or name. */
-        id?: string;
+        id?: string | undefined;
     }
 
     /** Status of the network link, if "unknown" then link is usually assumed to be "up" */
@@ -2758,78 +2758,78 @@ declare namespace browser.notifications {
         /** Which type of notification to display. */
         type: TemplateType;
         /** A URL to the sender's avatar, app icon, or a thumbnail for image notifications. */
-        iconUrl?: string;
+        iconUrl?: string | undefined;
         /** A URL to the app icon mask. */
-        appIconMaskUrl?: string;
+        appIconMaskUrl?: string | undefined;
         /** Title of the notification (e.g. sender name for email). */
         title: string;
         /** Main notification content. */
         message: string;
         /** Alternate notification content with a lower-weight font. */
-        contextMessage?: string;
+        contextMessage?: string | undefined;
         /** Priority ranges from -2 to 2\. -2 is lowest priority. 2 is highest. Zero is default. */
-        priority?: number;
+        priority?: number | undefined;
         /** A timestamp associated with the notification, in milliseconds past the epoch. */
-        eventTime?: number;
+        eventTime?: number | undefined;
         /**
          * Text and icons for up to two notification action buttons.
          * @deprecated Unsupported on Firefox at this time.
          */
-        buttons?: _CreateNotificationOptionsButtons[];
+        buttons?: _CreateNotificationOptionsButtons[] | undefined;
         /** A URL to the image thumbnail for image-type notifications. */
-        imageUrl?: string;
+        imageUrl?: string | undefined;
         /** Items for multi-item notifications. */
-        items?: NotificationItem[];
+        items?: NotificationItem[] | undefined;
         /** Current progress ranges from 0 to 100. */
-        progress?: number;
+        progress?: number | undefined;
         /**
          * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
          */
-        isClickable?: boolean;
+        isClickable?: boolean | undefined;
     }
 
     interface UpdateNotificationOptions {
         /** Which type of notification to display. */
-        type?: TemplateType;
+        type?: TemplateType | undefined;
         /** A URL to the sender's avatar, app icon, or a thumbnail for image notifications. */
-        iconUrl?: string;
+        iconUrl?: string | undefined;
         /** A URL to the app icon mask. */
-        appIconMaskUrl?: string;
+        appIconMaskUrl?: string | undefined;
         /** Title of the notification (e.g. sender name for email). */
-        title?: string;
+        title?: string | undefined;
         /** Main notification content. */
-        message?: string;
+        message?: string | undefined;
         /** Alternate notification content with a lower-weight font. */
-        contextMessage?: string;
+        contextMessage?: string | undefined;
         /** Priority ranges from -2 to 2\. -2 is lowest priority. 2 is highest. Zero is default. */
-        priority?: number;
+        priority?: number | undefined;
         /** A timestamp associated with the notification, in milliseconds past the epoch. */
-        eventTime?: number;
+        eventTime?: number | undefined;
         /**
          * Text and icons for up to two notification action buttons.
          * @deprecated Unsupported on Firefox at this time.
          */
-        buttons?: _UpdateNotificationOptionsButtons[];
+        buttons?: _UpdateNotificationOptionsButtons[] | undefined;
         /** A URL to the image thumbnail for image-type notifications. */
-        imageUrl?: string;
+        imageUrl?: string | undefined;
         /** Items for multi-item notifications. */
-        items?: NotificationItem[];
+        items?: NotificationItem[] | undefined;
         /** Current progress ranges from 0 to 100. */
-        progress?: number;
+        progress?: number | undefined;
         /**
          * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
          */
-        isClickable?: boolean;
+        isClickable?: boolean | undefined;
     }
 
     interface _CreateNotificationOptionsButtons {
         title: string;
-        iconUrl?: string;
+        iconUrl?: string | undefined;
     }
 
     interface _UpdateNotificationOptionsButtons {
         title: string;
-        iconUrl?: string;
+        iconUrl?: string | undefined;
     }
 
     /* notifications functions */
@@ -2926,7 +2926,7 @@ declare namespace browser.pageAction {
         /** An array of keyboard modifiers that were held while the menu item was clicked. */
         modifiers: _OnClickDataModifiers[];
         /** An integer value of button by which menu item was clicked. */
-        button?: number;
+        button?: number | undefined;
     }
 
     type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
@@ -2958,7 +2958,7 @@ declare namespace browser.pageAction {
             | ImageDataType
             | {
                   [key: number]: ImageDataType;
-              };
+              } | undefined;
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
@@ -2966,7 +2966,7 @@ declare namespace browser.pageAction {
             | string
             | {
                   [key: number]: string;
-              };
+              } | undefined;
     }
 
     interface _SetPopupDetails {
@@ -3030,13 +3030,13 @@ declare namespace browser.pageAction {
 declare namespace browser.permissions {
     /* permissions types */
     interface Permissions {
-        permissions?: _manifest.OptionalPermission[];
-        origins?: _manifest.MatchPattern[];
+        permissions?: _manifest.OptionalPermission[] | undefined;
+        origins?: _manifest.MatchPattern[] | undefined;
     }
 
     interface AnyPermissions {
-        permissions?: _manifest.Permission[];
-        origins?: _manifest.MatchPattern[];
+        permissions?: _manifest.Permission[] | undefined;
+        origins?: _manifest.MatchPattern[] | undefined;
     }
 
     /* permissions functions */
@@ -3091,9 +3091,9 @@ declare namespace browser.privacy.network {
     /** An object which describes TLS minimum and maximum versions. */
     interface tlsVersionRestrictionConfig {
         /** The minimum TLS version supported. */
-        minimum?: _TlsVersionRestrictionConfigMinimum;
+        minimum?: _TlsVersionRestrictionConfigMinimum | undefined;
         /** The maximum TLS version supported. */
-        maximum?: _TlsVersionRestrictionConfigMaximum;
+        maximum?: _TlsVersionRestrictionConfigMaximum | undefined;
     }
 
     /** The minimum TLS version supported. */
@@ -3162,9 +3162,9 @@ declare namespace browser.privacy.websites {
     /** The settings for cookies. */
     interface CookieConfig {
         /** The type of cookies to allow. */
-        behavior?: _CookieConfigBehavior;
+        behavior?: _CookieConfigBehavior | undefined;
         /** Whether to create all cookies as nonPersistent (i.e., session) cookies. */
-        nonPersistentCookies?: boolean;
+        nonPersistentCookies?: boolean | undefined;
     }
 
     /** The type of cookies to allow. */
@@ -3232,31 +3232,31 @@ declare namespace browser.proxy {
     /** An object which describes proxy settings. */
     interface ProxyConfig {
         /** The type of proxy to use. */
-        proxyType?: _ProxyConfigProxyType;
+        proxyType?: _ProxyConfigProxyType | undefined;
         /** The address of the http proxy, can include a port. */
-        http?: string;
+        http?: string | undefined;
         /** Use the http proxy server for all protocols. */
-        httpProxyAll?: boolean;
+        httpProxyAll?: boolean | undefined;
         /** The address of the ftp proxy, can include a port. */
-        ftp?: string;
+        ftp?: string | undefined;
         /** The address of the ssl proxy, can include a port. */
-        ssl?: string;
+        ssl?: string | undefined;
         /** The address of the socks proxy, can include a port. */
-        socks?: string;
+        socks?: string | undefined;
         /** The version of the socks proxy. */
-        socksVersion?: number;
+        socksVersion?: number | undefined;
         /** A list of hosts which should not be proxied. */
-        passthrough?: string;
+        passthrough?: string | undefined;
         /** A URL to use to configure the proxy. */
-        autoConfigUrl?: string;
+        autoConfigUrl?: string | undefined;
         /** Do not prompt for authentication if password is saved. */
-        autoLogin?: boolean;
+        autoLogin?: boolean | undefined;
         /** Proxy DNS when using SOCKS v5. */
-        proxyDNS?: boolean;
+        proxyDNS?: boolean | undefined;
         /**
          * If true (the default value), do not use newer TLS protocol features that might have interoperability problems on the Internet. This is intended only for use with critical infrastructure like the updates, and is only available to privileged addons.
          */
-        respectBeConservative?: boolean;
+        respectBeConservative?: boolean | undefined;
     }
 
     /** The type of proxy to use. */
@@ -3277,13 +3277,13 @@ declare namespace browser.proxy {
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
         /** True for private browsing requests. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** The cookie store ID of the contextual identity. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** URL of the resource that triggered this request. */
-        originUrl?: string;
+        originUrl?: string | undefined;
         /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
+        documentUrl?: string | undefined;
         /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
         tabId: number;
         /** How the requested resource will be used. */
@@ -3293,7 +3293,7 @@ declare namespace browser.proxy {
         /** Indicates if this response was fetched from disk cache. */
         fromCache: boolean;
         /** The HTTP request headers that are going to be sent out with this request. */
-        requestHeaders?: webRequest.HttpHeaders;
+        requestHeaders?: webRequest.HttpHeaders | undefined;
         /** Url classification if the request has been classified. */
         urlClassification: webRequest.UrlClassification;
         /** Indicates if this request and its content window hierarchy is third party. */
@@ -3333,8 +3333,8 @@ declare namespace browser.runtime {
         disconnect: () => void;
         postMessage: (message: object) => void;
         /** This property will **only** be present on ports passed to onConnect/onConnectExternal listeners. */
-        sender?: MessageSender;
-        error?: Error;
+        sender?: MessageSender | undefined;
+        error?: Error | undefined;
         onMessage: WebExtEvent<(response: object) => void>;
         onDisconnect: WebExtEvent<(port: Port) => void>;
     }
@@ -3344,22 +3344,22 @@ declare namespace browser.runtime {
         /**
          * The `tabs.Tab` which opened the connection, if any. This property will **only** be present when the connection was opened from a tab (including content scripts), and **only** if the receiver is an extension, not an app.
          */
-        tab?: tabs.Tab;
+        tab?: tabs.Tab | undefined;
         /**
          * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when `tab` is set.
          */
-        frameId?: number;
+        frameId?: number | undefined;
         /** The ID of the extension or app that opened the connection, if any. */
-        id?: string;
+        id?: string | undefined;
         /**
          * The URL of the page or frame that opened the connection. If the sender is in an iframe, it will be iframe's URL not the URL of the page which hosts it.
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * The TLS channel ID of the page or frame that opened the connection, if requested by the extension or app, and if available.
          * @deprecated Unsupported on Firefox at this time.
          */
-        tlsChannelId?: string;
+        tlsChannelId?: string | undefined;
     }
 
     /** The operating system the browser is running on. */
@@ -3378,7 +3378,7 @@ declare namespace browser.runtime {
          * The native client architecture. This may be different from arch on some platforms.
          * @deprecated Unsupported on Firefox at this time.
          */
-        nacl_arch?: PlatformNaclArch;
+        nacl_arch?: PlatformNaclArch | undefined;
     }
 
     /** An object containing information about the current browser. */
@@ -3409,7 +3409,7 @@ declare namespace browser.runtime {
     /** This will be defined during an API method callback if there was an error */
     interface _LastError {
         /** Details about the error which occurred. */
-        message?: string;
+        message?: string | undefined;
     }
 
     /** If an update is available, this contains more information about the available update. */
@@ -3420,11 +3420,11 @@ declare namespace browser.runtime {
 
     interface _ConnectConnectInfo {
         /** Will be passed into onConnect for processes that are listening for the connection event. */
-        name?: string;
+        name?: string | undefined;
         /**
          * Whether the TLS channel ID will be passed into onConnectExternal for processes that are listening for the connection event.
          */
-        includeTlsChannelId?: boolean;
+        includeTlsChannelId?: boolean | undefined;
     }
 
     interface _SendMessageOptions {
@@ -3432,7 +3432,7 @@ declare namespace browser.runtime {
          * Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event.
          * @deprecated Unsupported on Firefox at this time.
          */
-        includeTlsChannelId?: boolean;
+        includeTlsChannelId?: boolean | undefined;
     }
 
     type DirectoryEntry = any;
@@ -3443,14 +3443,14 @@ declare namespace browser.runtime {
         /**
          * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
          */
-        previousVersion?: string;
+        previousVersion?: string | undefined;
         /** Indicates whether the addon is installed as a temporary extension. */
         temporary: boolean;
         /**
          * Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'.
          * @deprecated Unsupported on Firefox at this time.
          */
-        id?: string;
+        id?: string | undefined;
     }
 
     /** The manifest details of the available update. */
@@ -3759,13 +3759,13 @@ declare namespace browser.telemetry {
     interface ScalarData {
         kind: ScalarType;
         /** True if this is a keyed scalar. */
-        keyed?: boolean;
+        keyed?: boolean | undefined;
         /** True if this data should be recorded on release. */
-        record_on_release?: boolean;
+        record_on_release?: boolean | undefined;
         /**
          * True if this scalar entry is expired. This allows recording it without error, but it will be discarded.
          */
-        expired?: boolean;
+        expired?: boolean | undefined;
     }
 
     /** Represents registration data for a Telemetry event. */
@@ -3777,23 +3777,23 @@ declare namespace browser.telemetry {
         /** List of allowed extra keys for this event entry. */
         extra_keys: string[];
         /** True if this data should be recorded on release. */
-        record_on_release?: boolean;
+        record_on_release?: boolean | undefined;
         /**
          * True if this event entry is expired. This allows recording it without error, but it will be discarded.
          */
-        expired?: boolean;
+        expired?: boolean | undefined;
     }
 
     /** Options object. */
     interface _SubmitPingOptions {
         /** True if the ping should contain the client id. */
-        addClientId?: boolean;
+        addClientId?: boolean | undefined;
         /** True if the ping should contain the environment data. */
-        addEnvironment?: boolean;
+        addEnvironment?: boolean | undefined;
         /** Set to override the environment data. */
-        overrideEnvironment?: { [key: string]: any };
+        overrideEnvironment?: { [key: string]: any } | undefined;
         /** If true, send the ping using the PingSender. */
-        usePingSender?: boolean;
+        usePingSender?: boolean | undefined;
     }
 
     /** Options object. */
@@ -3932,7 +3932,7 @@ declare namespace browser.theme {
         /** The new theme after update */
         theme: object;
         /** The id of the window the theme has been applied to */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     /* theme functions */
@@ -4035,13 +4035,13 @@ declare namespace browser.types {
          * Whether the effective value is specific to the incognito session.
          * This property will _only_ be present if the `incognito` property in the `details` parameter of `get()` was true.
          */
-        incognitoSpecific?: boolean;
+        incognitoSpecific?: boolean | undefined;
     }
 
     /** Which setting to consider. */
     interface _GetDetails {
         /** Whether to return the value that applies to the incognito session (default false). */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
     }
 
     /** Which setting to change. */
@@ -4052,13 +4052,13 @@ declare namespace browser.types {
          */
         value: any;
         /** Where to set the setting (default: regular). */
-        scope?: SettingScope;
+        scope?: SettingScope | undefined;
     }
 
     /** Which setting to clear. */
     interface _ClearDetails {
         /** Where to clear the setting (default: regular). */
-        scope?: SettingScope;
+        scope?: SettingScope | undefined;
     }
 
     interface _OnChangeDetails {
@@ -4070,7 +4070,7 @@ declare namespace browser.types {
          * Whether the value that has changed is specific to the incognito session.
          * This property will _only_ be present if the user has enabled the extension in incognito mode.
          */
-        incognitoSpecific?: boolean;
+        incognitoSpecific?: boolean | undefined;
     }
 }
 
@@ -4086,21 +4086,21 @@ declare namespace browser.userScripts {
         /** The list of JS files to inject */
         js: extensionTypes.ExtensionFileOrCode[];
         /** An opaque user script metadata value */
-        scriptMetadata?: extensionTypes.PlainJSONValue;
+        scriptMetadata?: extensionTypes.PlainJSONValue | undefined;
         matches: _manifest.MatchPattern[];
-        excludeMatches?: _manifest.MatchPattern[];
-        includeGlobs?: string[];
-        excludeGlobs?: string[];
+        excludeMatches?: _manifest.MatchPattern[] | undefined;
+        includeGlobs?: string[] | undefined;
+        excludeGlobs?: string[] | undefined;
         /**
          * If allFrames is `true`, implies that the JavaScript should be injected into all frames of current page. By default, it's `false` and is only injected into the top frame.
          */
-        allFrames?: boolean;
+        allFrames?: boolean | undefined;
         /**
          * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is `false`.
          */
-        matchAboutBlank?: boolean;
+        matchAboutBlank?: boolean | undefined;
         /** The soonest that the JavaScript will be injected into the tab. Defaults to "document_idle". */
-        runAt?: extensionTypes.RunAt;
+        runAt?: extensionTypes.RunAt | undefined;
     }
 
     /** An object that represents a user script registered programmatically */
@@ -4181,7 +4181,7 @@ declare namespace browser.webNavigation {
         /**
          * True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired.
          */
-        errorOccurred?: boolean;
+        errorOccurred?: boolean | undefined;
         /**
          * The URL currently associated with this frame, if the frame identified by the frameId existed at one point in the given tab. The fact that an URL is associated with a given frameId does not imply that the corresponding frame still exists.
          */
@@ -4201,7 +4201,7 @@ declare namespace browser.webNavigation {
         /** The ID of the tab in which the frame is. */
         tabId: number;
         /** The ID of the process runs the renderer for this tab. */
-        processId?: number;
+        processId?: number | undefined;
         /** The ID of the frame in the given tab. */
         frameId: number;
     }
@@ -4210,12 +4210,12 @@ declare namespace browser.webNavigation {
         /**
          * True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired.
          */
-        errorOccurred?: boolean;
+        errorOccurred?: boolean | undefined;
         /**
          * The ID of the process runs the renderer for this tab.
          * @deprecated Unsupported on Firefox at this time.
          */
-        processId?: number;
+        processId?: number | undefined;
         /** The ID of the tab in which the frame is. */
         tabId: number;
         /**
@@ -4242,7 +4242,7 @@ declare namespace browser.webNavigation {
          * The ID of the process runs the renderer for this tab.
          * @deprecated Unsupported on Firefox at this time.
          */
-        processId?: number;
+        processId?: number | undefined;
         /**
          * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique for a given tab and process.
          */
@@ -4269,7 +4269,7 @@ declare namespace browser.webNavigation {
          * The ID of the process runs the renderer for this tab.
          * @deprecated Unsupported on Firefox at this time.
          */
-        processId?: number;
+        processId?: number | undefined;
         /**
          * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
          */
@@ -4278,12 +4278,12 @@ declare namespace browser.webNavigation {
          * Cause of the navigation.
          * @deprecated Unsupported on Firefox at this time.
          */
-        transitionType?: TransitionType;
+        transitionType?: TransitionType | undefined;
         /**
          * A list of transition qualifiers.
          * @deprecated Unsupported on Firefox at this time.
          */
-        transitionQualifiers?: TransitionQualifier[];
+        transitionQualifiers?: TransitionQualifier[] | undefined;
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
     }
@@ -4302,7 +4302,7 @@ declare namespace browser.webNavigation {
          * The ID of the process runs the renderer for this tab.
          * @deprecated Unsupported on Firefox at this time.
          */
-        processId?: number;
+        processId?: number | undefined;
         /**
          * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
          */
@@ -4327,7 +4327,7 @@ declare namespace browser.webNavigation {
          * The ID of the process runs the renderer for this tab.
          * @deprecated Unsupported on Firefox at this time.
          */
-        processId?: number;
+        processId?: number | undefined;
         /**
          * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
          */
@@ -4350,7 +4350,7 @@ declare namespace browser.webNavigation {
          * The ID of the process runs the renderer for this tab.
          * @deprecated Unsupported on Firefox at this time.
          */
-        processId?: number;
+        processId?: number | undefined;
         /**
          * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
          */
@@ -4359,7 +4359,7 @@ declare namespace browser.webNavigation {
          * The error description.
          * @deprecated Unsupported on Firefox at this time.
          */
-        error?: string;
+        error?: string | undefined;
         /** The time when the error occurred, in milliseconds since the epoch. */
         timeStamp: number;
     }
@@ -4405,7 +4405,7 @@ declare namespace browser.webNavigation {
          * The ID of the process runs the renderer for this tab.
          * @deprecated Unsupported on Firefox at this time.
          */
-        processId?: number;
+        processId?: number | undefined;
         /**
          * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
          */
@@ -4414,12 +4414,12 @@ declare namespace browser.webNavigation {
          * Cause of the navigation.
          * @deprecated Unsupported on Firefox at this time.
          */
-        transitionType?: TransitionType;
+        transitionType?: TransitionType | undefined;
         /**
          * A list of transition qualifiers.
          * @deprecated Unsupported on Firefox at this time.
          */
-        transitionQualifiers?: TransitionQualifier[];
+        transitionQualifiers?: TransitionQualifier[] | undefined;
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
     }
@@ -4449,7 +4449,7 @@ declare namespace browser.webNavigation {
          * The ID of the process runs the renderer for this tab.
          * @deprecated Unsupported on Firefox at this time.
          */
-        processId?: number;
+        processId?: number | undefined;
         /**
          * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
          */
@@ -4458,12 +4458,12 @@ declare namespace browser.webNavigation {
          * Cause of the navigation.
          * @deprecated Unsupported on Firefox at this time.
          */
-        transitionType?: TransitionType;
+        transitionType?: TransitionType | undefined;
         /**
          * A list of transition qualifiers.
          * @deprecated Unsupported on Firefox at this time.
          */
-        transitionQualifiers?: TransitionQualifier[];
+        transitionQualifiers?: TransitionQualifier[] | undefined;
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
     }
@@ -4578,11 +4578,11 @@ declare namespace browser.webRequest {
         /** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
         urls: string[];
         /** A list of request types. Requests that cannot match any of the types will be filtered out. */
-        types?: ResourceType[];
-        tabId?: number;
-        windowId?: number;
+        types?: ResourceType[] | undefined;
+        tabId?: number | undefined;
+        windowId?: number | undefined;
         /** If provided, requests that do not match the incognito state will be filtered out. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
     }
 
     /**
@@ -4597,27 +4597,27 @@ declare namespace browser.webRequest {
         /**
          * If true, the request is cancelled. Used in onBeforeRequest, this prevents the request from being sent.
          */
-        cancel?: boolean;
+        cancel?: boolean | undefined;
         /**
          * Only used as a response to the onBeforeRequest and onHeadersReceived events. If set, the original request is prevented from being sent/completed and is instead redirected to the given URL. Redirections to non-HTTP schemes such as data: are allowed. Redirects initiated by a redirect action use the original request method for the redirect, with one exception: If the redirect is initiated at the onHeadersReceived stage, then the redirect will be issued using the GET method.
          */
-        redirectUrl?: string;
+        redirectUrl?: string | undefined;
         /**
          * Only used as a response to the onBeforeRequest event. If set, the original request is prevented from being sent/completed and is instead upgraded to a secure request. If any extension returns `redirectUrl` during onBeforeRequest, `upgradeToSecure` will have no affect.
          */
-        upgradeToSecure?: boolean;
+        upgradeToSecure?: boolean | undefined;
         /**
          * Only used as a response to the onBeforeSendHeaders event. If set, the request is made with these request headers instead.
          */
-        requestHeaders?: HttpHeaders;
+        requestHeaders?: HttpHeaders | undefined;
         /**
          * Only used as a response to the onHeadersReceived event. If set, the server is assumed to have responded with these response headers instead. Only return `responseHeaders` if you really want to modify the headers in order to limit the number of conflicts (only one extension may modify `responseHeaders` for each request).
          */
-        responseHeaders?: HttpHeaders;
+        responseHeaders?: HttpHeaders | undefined;
         /**
          * Only used as a response to the onAuthRequired event. If set, the request is made using the supplied credentials.
          */
-        authCredentials?: _BlockingResponseAuthCredentials;
+        authCredentials?: _BlockingResponseAuthCredentials | undefined;
     }
 
     /** Contains the certificate properties of the request if it is a secure request. */
@@ -4630,7 +4630,7 @@ declare namespace browser.webRequest {
         serialNumber: string;
         isBuiltInRoot: boolean;
         subjectPublicKeyInfoDigest: _CertificateInfoSubjectPublicKeyInfoDigest;
-        rawDER?: number[];
+        rawDER?: number[] | undefined;
     }
 
     type CertificateTransparencyStatus =
@@ -4645,37 +4645,37 @@ declare namespace browser.webRequest {
     interface SecurityInfo {
         state: _SecurityInfoState;
         /** Error message if state is "broken" */
-        errorMessage?: string;
+        errorMessage?: string | undefined;
         /** Protocol version if state is "secure" */
-        protocolVersion?: _SecurityInfoProtocolVersion;
+        protocolVersion?: _SecurityInfoProtocolVersion | undefined;
         /** The cipher suite used in this request if state is "secure". */
-        cipherSuite?: string;
+        cipherSuite?: string | undefined;
         /** The key exchange algorithm used in this request if state is "secure". */
-        keaGroupName?: string;
+        keaGroupName?: string | undefined;
         /** The signature scheme used in this request if state is "secure". */
-        signatureSchemeName?: string;
+        signatureSchemeName?: string | undefined;
         /**
          * Certificate data if state is "secure". Will only contain one entry unless `certificateChain` is passed as an option.
          */
         certificates: CertificateInfo[];
         /** The domain name does not match the certificate domain. */
-        isDomainMismatch?: boolean;
-        isExtendedValidation?: boolean;
+        isDomainMismatch?: boolean | undefined;
+        isExtendedValidation?: boolean | undefined;
         /**
          * The certificate is either expired or is not yet valid. See `CertificateInfo.validity` for start and end dates.
          */
-        isNotValidAtThisTime?: boolean;
-        isUntrusted?: boolean;
+        isNotValidAtThisTime?: boolean | undefined;
+        isUntrusted?: boolean | undefined;
         /**
          * Certificate transparency compliance per RFC 6962\. See `https://www.certificate-transparency.org/what-is-ct` for more information.
          */
-        certificateTransparencyStatus?: CertificateTransparencyStatus;
+        certificateTransparencyStatus?: CertificateTransparencyStatus | undefined;
         /** True if host uses Strict Transport Security and state is "secure". */
-        hsts?: boolean;
+        hsts?: boolean | undefined;
         /** True if host uses Public Key Pinning and state is "secure". */
-        hpkp?: string;
+        hpkp?: string | undefined;
         /** list of reasons that cause the request to be considered weak, if state is "weak" */
-        weaknessReasons?: TransportWeaknessReasons[];
+        weaknessReasons?: TransportWeaknessReasons[] | undefined;
     }
 
     /** Contains data uploaded in a URL request. */
@@ -4683,7 +4683,7 @@ declare namespace browser.webRequest {
         /** An ArrayBuffer with a copy of the data. */
         bytes?: any;
         /** A string with the file's path and name. */
-        file?: string;
+        file?: string | undefined;
     }
 
     /** Tracking flags that match our internal tracking classification */
@@ -4743,11 +4743,11 @@ declare namespace browser.webRequest {
         /** Name of the HTTP header. */
         name: string;
         /** Value of the HTTP header if it can be represented by UTF-8. */
-        value?: string;
+        value?: string | undefined;
         /**
          * Value of the HTTP header if it cannot be represented by UTF-8, stored as individual byte values (0..255).
          */
-        binaryValue?: number[];
+        binaryValue?: number[] | undefined;
     }
 
     /**
@@ -4794,23 +4794,23 @@ declare namespace browser.webRequest {
 
     interface _GetSecurityInfoOptions {
         /** Include the entire certificate chain. */
-        certificateChain?: boolean;
+        certificateChain?: boolean | undefined;
         /** Include raw certificate data for processing by the extension. */
-        rawDER?: boolean;
+        rawDER?: boolean | undefined;
     }
 
     /** Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'. */
     interface _OnBeforeRequestDetailsRequestBody {
         /** Errors when obtaining request body data. */
-        error?: string;
+        error?: string | undefined;
         /**
          * If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1', 'value2']}.
          */
-        formData?: object;
+        formData?: object | undefined;
         /**
          * If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array.
          */
-        raw?: UploadData[];
+        raw?: UploadData[] | undefined;
     }
 
     interface _OnBeforeRequestDetails {
@@ -4828,15 +4828,15 @@ declare namespace browser.webRequest {
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
         /** True for private browsing requests. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** The cookie store ID of the contextual identity. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** URL of the resource that triggered this request. */
-        originUrl?: string;
+        originUrl?: string | undefined;
         /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
+        documentUrl?: string | undefined;
         /** Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'. */
-        requestBody?: _OnBeforeRequestDetailsRequestBody;
+        requestBody?: _OnBeforeRequestDetailsRequestBody | undefined;
         /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
         tabId: number;
         /** How the requested resource will be used. */
@@ -4844,7 +4844,7 @@ declare namespace browser.webRequest {
         /** The time when this signal is triggered, in milliseconds since the epoch. */
         timeStamp: number;
         /** Tracking classification if the request has been classified. */
-        urlClassification?: UrlClassification;
+        urlClassification?: UrlClassification | undefined;
         /** Indicates if this request and its content window hierarchy is third party. */
         thirdParty: boolean;
     }
@@ -4878,13 +4878,13 @@ declare namespace browser.webRequest {
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
         /** True for private browsing requests. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** The cookie store ID of the contextual identity. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** URL of the resource that triggered this request. */
-        originUrl?: string;
+        originUrl?: string | undefined;
         /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
+        documentUrl?: string | undefined;
         /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
         tabId: number;
         /** How the requested resource will be used. */
@@ -4892,9 +4892,9 @@ declare namespace browser.webRequest {
         /** The time when this signal is triggered, in milliseconds since the epoch. */
         timeStamp: number;
         /** The HTTP request headers that are going to be sent out with this request. */
-        requestHeaders?: HttpHeaders;
+        requestHeaders?: HttpHeaders | undefined;
         /** Tracking classification if the request has been classified. */
-        urlClassification?: UrlClassification;
+        urlClassification?: UrlClassification | undefined;
         /** Indicates if this request and its content window hierarchy is third party. */
         thirdParty: boolean;
     }
@@ -4928,13 +4928,13 @@ declare namespace browser.webRequest {
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
         /** True for private browsing requests. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** The cookie store ID of the contextual identity. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** URL of the resource that triggered this request. */
-        originUrl?: string;
+        originUrl?: string | undefined;
         /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
+        documentUrl?: string | undefined;
         /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
         tabId: number;
         /** How the requested resource will be used. */
@@ -4942,9 +4942,9 @@ declare namespace browser.webRequest {
         /** The time when this signal is triggered, in milliseconds since the epoch. */
         timeStamp: number;
         /** The HTTP request headers that have been sent out with this request. */
-        requestHeaders?: HttpHeaders;
+        requestHeaders?: HttpHeaders | undefined;
         /** Tracking classification if the request has been classified. */
-        urlClassification?: UrlClassification;
+        urlClassification?: UrlClassification | undefined;
         /** Indicates if this request and its content window hierarchy is third party. */
         thirdParty: boolean;
     }
@@ -4974,13 +4974,13 @@ declare namespace browser.webRequest {
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
         /** True for private browsing requests. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** The cookie store ID of the contextual identity. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** URL of the resource that triggered this request. */
-        originUrl?: string;
+        originUrl?: string | undefined;
         /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
+        documentUrl?: string | undefined;
         /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
         tabId: number;
         /** How the requested resource will be used. */
@@ -4992,11 +4992,11 @@ declare namespace browser.webRequest {
          */
         statusLine: string;
         /** The HTTP response headers that have been received with this response. */
-        responseHeaders?: HttpHeaders;
+        responseHeaders?: HttpHeaders | undefined;
         /** Standard HTTP status code returned by the server. */
         statusCode: number;
         /** Tracking classification if the request has been classified. */
-        urlClassification?: UrlClassification;
+        urlClassification?: UrlClassification | undefined;
         /** Indicates if this request and its content window hierarchy is third party. */
         thirdParty: boolean;
     }
@@ -5036,13 +5036,13 @@ declare namespace browser.webRequest {
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
         /** True for private browsing requests. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** The cookie store ID of the contextual identity. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** URL of the resource that triggered this request. */
-        originUrl?: string;
+        originUrl?: string | undefined;
         /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
+        documentUrl?: string | undefined;
         /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
         tabId: number;
         /** How the requested resource will be used. */
@@ -5052,13 +5052,13 @@ declare namespace browser.webRequest {
         /** The authentication scheme, e.g. Basic or Digest. */
         scheme: string;
         /** The authentication realm provided by the server, if there is one. */
-        realm?: string;
+        realm?: string | undefined;
         /** The server requesting authentication. */
         challenger: _OnAuthRequiredDetailsChallenger;
         /** True for Proxy-Authenticate, false for WWW-Authenticate. */
         isProxy: boolean;
         /** The HTTP response headers that were received along with this response. */
-        responseHeaders?: HttpHeaders;
+        responseHeaders?: HttpHeaders | undefined;
         /**
          * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.
          */
@@ -5066,7 +5066,7 @@ declare namespace browser.webRequest {
         /** Standard HTTP status code returned by the server. */
         statusCode: number;
         /** Tracking classification if the request has been classified. */
-        urlClassification?: UrlClassification;
+        urlClassification?: UrlClassification | undefined;
         /** Indicates if this request and its content window hierarchy is third party. */
         thirdParty: boolean;
     }
@@ -5100,13 +5100,13 @@ declare namespace browser.webRequest {
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
         /** True for private browsing requests. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** The cookie store ID of the contextual identity. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** URL of the resource that triggered this request. */
-        originUrl?: string;
+        originUrl?: string | undefined;
         /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
+        documentUrl?: string | undefined;
         /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
         tabId: number;
         /** How the requested resource will be used. */
@@ -5116,19 +5116,19 @@ declare namespace browser.webRequest {
         /**
          * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
          */
-        ip?: string;
+        ip?: string | undefined;
         /** Indicates if this response was fetched from disk cache. */
         fromCache: boolean;
         /** Standard HTTP status code returned by the server. */
         statusCode: number;
         /** The HTTP response headers that were received along with this response. */
-        responseHeaders?: HttpHeaders;
+        responseHeaders?: HttpHeaders | undefined;
         /**
          * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.
          */
         statusLine: string;
         /** Tracking classification if the request has been classified. */
-        urlClassification?: UrlClassification;
+        urlClassification?: UrlClassification | undefined;
         /** Indicates if this request and its content window hierarchy is third party. */
         thirdParty: boolean;
     }
@@ -5160,13 +5160,13 @@ declare namespace browser.webRequest {
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
         /** True for private browsing requests. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** The cookie store ID of the contextual identity. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** URL of the resource that triggered this request. */
-        originUrl?: string;
+        originUrl?: string | undefined;
         /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
+        documentUrl?: string | undefined;
         /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
         tabId: number;
         /** How the requested resource will be used. */
@@ -5176,7 +5176,7 @@ declare namespace browser.webRequest {
         /**
          * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
          */
-        ip?: string;
+        ip?: string | undefined;
         /** Indicates if this response was fetched from disk cache. */
         fromCache: boolean;
         /** Standard HTTP status code returned by the server. */
@@ -5184,13 +5184,13 @@ declare namespace browser.webRequest {
         /** The new URL. */
         redirectUrl: string;
         /** The HTTP response headers that were received along with this redirect. */
-        responseHeaders?: HttpHeaders;
+        responseHeaders?: HttpHeaders | undefined;
         /**
          * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.
          */
         statusLine: string;
         /** Tracking classification if the request has been classified. */
-        urlClassification?: UrlClassification;
+        urlClassification?: UrlClassification | undefined;
         /** Indicates if this request and its content window hierarchy is third party. */
         thirdParty: boolean;
     }
@@ -5222,13 +5222,13 @@ declare namespace browser.webRequest {
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
         /** True for private browsing requests. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** The cookie store ID of the contextual identity. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** URL of the resource that triggered this request. */
-        originUrl?: string;
+        originUrl?: string | undefined;
         /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
+        documentUrl?: string | undefined;
         /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
         tabId: number;
         /** How the requested resource will be used. */
@@ -5238,13 +5238,13 @@ declare namespace browser.webRequest {
         /**
          * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
          */
-        ip?: string;
+        ip?: string | undefined;
         /** Indicates if this response was fetched from disk cache. */
         fromCache: boolean;
         /** Standard HTTP status code returned by the server. */
         statusCode: number;
         /** The HTTP response headers that were received along with this response. */
-        responseHeaders?: HttpHeaders;
+        responseHeaders?: HttpHeaders | undefined;
         /**
          * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.
          */
@@ -5284,13 +5284,13 @@ declare namespace browser.webRequest {
         /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
         parentFrameId: number;
         /** True for private browsing requests. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /** The cookie store ID of the contextual identity. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** URL of the resource that triggered this request. */
-        originUrl?: string;
+        originUrl?: string | undefined;
         /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
+        documentUrl?: string | undefined;
         /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
         tabId: number;
         /** How the requested resource will be used. */
@@ -5300,7 +5300,7 @@ declare namespace browser.webRequest {
         /**
          * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
          */
-        ip?: string;
+        ip?: string | undefined;
         /** Indicates if this response was fetched from disk cache. */
         fromCache: boolean;
         /**
@@ -5308,7 +5308,7 @@ declare namespace browser.webRequest {
          */
         error: string;
         /** Tracking classification if the request has been classified. */
-        urlClassification?: UrlClassification;
+        urlClassification?: UrlClassification | undefined;
         /** Indicates if this request and its content window hierarchy is third party. */
         thirdParty: boolean;
     }
@@ -5415,46 +5415,46 @@ declare namespace browser.bookmarks {
          */
         id: string;
         /** The `id` of the parent folder. Omitted for the root node. */
-        parentId?: string;
+        parentId?: string | undefined;
         /** The 0-based position of this node within its parent folder. */
-        index?: number;
+        index?: number | undefined;
         /** The URL navigated to when a user clicks the bookmark. Omitted for folders. */
-        url?: string;
+        url?: string | undefined;
         /** The text displayed for the node. */
         title: string;
         /** When this node was created, in milliseconds since the epoch (`new Date(dateAdded)`). */
-        dateAdded?: number;
+        dateAdded?: number | undefined;
         /** When the contents of this folder last changed, in milliseconds since the epoch. */
-        dateGroupModified?: number;
+        dateGroupModified?: number | undefined;
         /**
          * Indicates the reason why this node is unmodifiable. The `managed` value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default).
          */
-        unmodifiable?: BookmarkTreeNodeUnmodifiable;
+        unmodifiable?: BookmarkTreeNodeUnmodifiable | undefined;
         /** Indicates the type of the BookmarkTreeNode, which can be one of bookmark, folder or separator. */
-        type?: BookmarkTreeNodeType;
+        type?: BookmarkTreeNodeType | undefined;
         /** An ordered list of children of this node. */
-        children?: BookmarkTreeNode[];
+        children?: BookmarkTreeNode[] | undefined;
     }
 
     /** Object passed to the create() function. */
     interface CreateDetails {
         /** Defaults to the Other Bookmarks folder. */
-        parentId?: string;
-        index?: number;
-        title?: string;
-        url?: string;
+        parentId?: string | undefined;
+        index?: number | undefined;
+        title?: string | undefined;
+        url?: string | undefined;
         /** Indicates the type of BookmarkTreeNode to create, which can be one of bookmark, folder or separator. */
-        type?: BookmarkTreeNodeType;
+        type?: BookmarkTreeNodeType | undefined;
     }
 
     interface _MoveDestination {
-        parentId?: string;
-        index?: number;
+        parentId?: string | undefined;
+        index?: number | undefined;
     }
 
     interface _UpdateChanges {
-        title?: string;
-        url?: string;
+        title?: string | undefined;
+        url?: string | undefined;
     }
 
     interface _OnRemovedRemoveInfo {
@@ -5465,7 +5465,7 @@ declare namespace browser.bookmarks {
 
     interface _OnChangedChangeInfo {
         title: string;
-        url?: string;
+        url?: string | undefined;
     }
 
     interface _OnMovedMoveInfo {
@@ -5513,11 +5513,11 @@ declare namespace browser.bookmarks {
             | string
             | {
                   /** A string of words that are matched against bookmark URLs and titles. */
-                  query?: string;
+                  query?: string | undefined;
                   /** The URL of the bookmark; matches verbatim. Note that folders have no URL. */
-                  url?: string;
+                  url?: string | undefined;
                   /** The title of the bookmark; matches verbatim. */
-                  title?: string;
+                  title?: string | undefined;
               }
     ): Promise<BookmarkTreeNode[]>;
 
@@ -5580,13 +5580,13 @@ declare namespace browser.browsingData {
         /**
          * Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the `getTime` method of the JavaScript `Date` object). If absent, defaults to 0 (which would remove all browsing data).
          */
-        since?: extensionTypes.Date;
+        since?: extensionTypes.Date | undefined;
         /** Only remove data associated with these hostnames (only applies to cookies and localStorage). */
-        hostnames?: string[];
+        hostnames?: string[] | undefined;
         /**
          * An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you _really_ want to remove application data before adding 'protectedWeb' or 'extensions'.
          */
-        originTypes?: _RemovalOptionsOriginTypes;
+        originTypes?: _RemovalOptionsOriginTypes | undefined;
     }
 
     /** A set of data types. Missing data types are interpreted as `false`. */
@@ -5594,27 +5594,27 @@ declare namespace browser.browsingData {
         /**
          * The browser's cache. Note: when removing data, this clears the _entire_ cache: it is not limited to the range you specify.
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
         /** The browser's cookies. */
-        cookies?: boolean;
+        cookies?: boolean | undefined;
         /** The browser's download list. */
-        downloads?: boolean;
+        downloads?: boolean | undefined;
         /** The browser's stored form data. */
-        formData?: boolean;
+        formData?: boolean | undefined;
         /** The browser's history. */
-        history?: boolean;
+        history?: boolean | undefined;
         /** Websites' IndexedDB data. */
-        indexedDB?: boolean;
+        indexedDB?: boolean | undefined;
         /** Websites' local storage data. */
-        localStorage?: boolean;
+        localStorage?: boolean | undefined;
         /** Server-bound certificates. */
-        serverBoundCertificates?: boolean;
+        serverBoundCertificates?: boolean | undefined;
         /** Stored passwords. */
-        passwords?: boolean;
+        passwords?: boolean | undefined;
         /** Plugins' data. */
-        pluginData?: boolean;
+        pluginData?: boolean | undefined;
         /** Service Workers. */
-        serviceWorkers?: boolean;
+        serviceWorkers?: boolean | undefined;
     }
 
     /**
@@ -5622,11 +5622,11 @@ declare namespace browser.browsingData {
      */
     interface _RemovalOptionsOriginTypes {
         /** Normal websites. */
-        unprotectedWeb?: boolean;
+        unprotectedWeb?: boolean | undefined;
         /** Websites that have been installed as hosted applications (be careful!). */
-        protectedWeb?: boolean;
+        protectedWeb?: boolean | undefined;
         /** Extensions and packaged applications a user has installed (be _really_ careful!). */
-        extension?: boolean;
+        extension?: boolean | undefined;
     }
 
     interface _SettingsReturnResult {
@@ -5713,11 +5713,11 @@ declare namespace browser.commands {
     /* commands types */
     interface Command {
         /** The name of the Extension Command */
-        name?: string;
+        name?: string | undefined;
         /** The Extension Command description */
-        description?: string;
+        description?: string | undefined;
         /** The shortcut active for this command, or blank if not active. */
-        shortcut?: string;
+        shortcut?: string | undefined;
     }
 
     /** The new description for the command. */
@@ -5725,8 +5725,8 @@ declare namespace browser.commands {
         /** The name of the command. */
         name: string;
         /** The new description for the command. */
-        description?: string;
-        shortcut?: string;
+        description?: string | undefined;
+        shortcut?: string | undefined;
     }
 
     /* commands functions */
@@ -5806,37 +5806,37 @@ declare namespace browser.devtools.inspectedWindow {
          * If specified, the expression is evaluated on the iframe whose URL matches the one specified. By default, the expression is evaluated in the top frame of the inspected page.
          * @deprecated Unsupported on Firefox at this time.
          */
-        frameURL?: string;
+        frameURL?: string | undefined;
         /**
          * Evaluate the expression in the context of the content script of the calling extension, provided that the content script is already injected into the inspected page. If not, the expression is not evaluated and the callback is invoked with the exception parameter set to an object that has the `isError` field set to true and the `code` field set to `E_NOTFOUND`.
          * @deprecated Unsupported on Firefox at this time.
          */
-        useContentScriptContext?: boolean;
+        useContentScriptContext?: boolean | undefined;
         /**
          * Evaluate the expression in the context of a content script of an extension that matches the specified origin. If given, contextSecurityOrigin overrides the 'true' setting on userContentScriptContext.
          * @deprecated Unsupported on Firefox at this time.
          */
-        contextSecurityOrigin?: string;
+        contextSecurityOrigin?: string | undefined;
     }
 
     interface _ReloadReloadOptions {
         /**
          * When true, the loader will bypass the cache for all inspected page resources loaded before the `load` event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window.
          */
-        ignoreCache?: boolean;
+        ignoreCache?: boolean | undefined;
         /**
          * If specified, the string will override the value of the `User-Agent` HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the `navigator.userAgent` property that's returned to any scripts that are running within the inspected page.
          */
-        userAgent?: string;
+        userAgent?: string | undefined;
         /**
          * If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads—for example, if the user presses Ctrl+R.
          */
-        injectedScript?: string;
+        injectedScript?: string | undefined;
         /**
          * If specified, this script evaluates into a function that accepts three string arguments: the source to preprocess, the URL of the source, and a function name if the source is an DOM event handler. The preprocessorerScript function should return a string to be compiled by Chrome in place of the input source. In the case that the source is a DOM event handler, the returned source must compile to a single JS function.
          * @deprecated Please avoid using this parameter, it will be removed soon.
          */
-        preprocessorScript?: string;
+        preprocessorScript?: string | undefined;
     }
 
     /* devtools.inspectedWindow properties */
@@ -6098,25 +6098,25 @@ declare namespace browser.find {
     /** Search parameters. */
     interface _FindParams {
         /** Tab to query. Defaults to the active tab. */
-        tabId?: number;
+        tabId?: number | undefined;
         /** Find only ranges with case sensitive match. */
-        caseSensitive?: boolean;
+        caseSensitive?: boolean | undefined;
         /** Find only ranges that match entire word. */
-        entireWord?: boolean;
+        entireWord?: boolean | undefined;
         /** Return rectangle data which describes visual position of search results. */
-        includeRectData?: boolean;
+        includeRectData?: boolean | undefined;
         /** Return range data which provides range data in a serializable form. */
-        includeRangeData?: boolean;
+        includeRangeData?: boolean | undefined;
     }
 
     /** highlightResults parameters */
     interface _HighlightResultsParams {
         /** Found range to be highlighted. Default highlights all ranges. */
-        rangeIndex?: number;
+        rangeIndex?: number | undefined;
         /** Tab to highlight. Defaults to the active tab. */
-        tabId?: number;
+        tabId?: number | undefined;
         /** Don't scroll to highlighted item. */
-        noScroll?: boolean;
+        noScroll?: boolean | undefined;
     }
 
     /* find functions */
@@ -6136,7 +6136,7 @@ declare namespace browser.find {
             endTextNodePos: number;
             startOffset: number;
             endOffset: number;
-        }>;
+        }> | undefined;
         rectData?: Array<{
             rectsAndTexts: {
                 rectList: Array<{
@@ -6148,7 +6148,7 @@ declare namespace browser.find {
                 textList: string[];
             };
             textList: string;
-        }>;
+        }> | undefined;
     }>;
 
     /**
@@ -6192,15 +6192,15 @@ declare namespace browser.history {
         /** The unique identifier for the item. */
         id: string;
         /** The URL navigated to by a user. */
-        url?: string;
+        url?: string | undefined;
         /** The title of the page when it was last loaded. */
-        title?: string;
+        title?: string | undefined;
         /** When this page was last loaded, represented in milliseconds since the epoch. */
-        lastVisitTime?: number;
+        lastVisitTime?: number | undefined;
         /** The number of times the user has navigated to this page. */
-        visitCount?: number;
+        visitCount?: number | undefined;
         /** The number of times the user has navigated to this page by typing in the address. */
-        typedCount?: number;
+        typedCount?: number | undefined;
     }
 
     /** An object encapsulating one visit to a URL. */
@@ -6210,7 +6210,7 @@ declare namespace browser.history {
         /** The unique identifier for this visit. */
         visitId: string;
         /** When this visit occurred, represented in milliseconds since the epoch. */
-        visitTime?: number;
+        visitTime?: number | undefined;
         /** The visit ID of the referrer. */
         referringVisitId: string;
         /** The transition type for this visit from its referrer. */
@@ -6223,11 +6223,11 @@ declare namespace browser.history {
         /**
          * Limit results to those visited after this date. If not specified, this defaults to 24 hours in the past.
          */
-        startTime?: extensionTypes.Date;
+        startTime?: extensionTypes.Date | undefined;
         /** Limit results to those visited before this date. */
-        endTime?: extensionTypes.Date;
+        endTime?: extensionTypes.Date | undefined;
         /** The maximum number of results to retrieve. Defaults to 100. */
-        maxResults?: number;
+        maxResults?: number | undefined;
     }
 
     interface _GetVisitsDetails {
@@ -6241,11 +6241,11 @@ declare namespace browser.history {
         /** The URL to add. Must be a valid URL that can be added to history. */
         url: string;
         /** The title of the page. */
-        title?: string;
+        title?: string | undefined;
         /** The transition type for this visit from its referrer. */
-        transition?: TransitionType;
+        transition?: TransitionType | undefined;
         /** The date when this visit occurred. */
-        visitTime?: extensionTypes.Date;
+        visitTime?: extensionTypes.Date | undefined;
     }
 
     interface _DeleteUrlDetails {
@@ -6346,45 +6346,45 @@ declare namespace browser.contextMenus {
         /** The ID of the menu item that was clicked. */
         menuItemId: number | string;
         /** The parent ID, if any, for the item clicked. */
-        parentMenuItemId?: number | string;
+        parentMenuItemId?: number | string | undefined;
         /** The type of view where the menu is clicked. May be unset if the menu is not associated with a view. */
-        viewType?: extension.ViewType;
+        viewType?: extension.ViewType | undefined;
         /**
          * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
          */
-        mediaType?: string;
+        mediaType?: string | undefined;
         /** If the element is a link, the text of that link. */
-        linkText?: string;
+        linkText?: string | undefined;
         /** If the element is a link, the URL it points to. */
-        linkUrl?: string;
+        linkUrl?: string | undefined;
         /** Will be present for elements with a 'src' URL. */
-        srcUrl?: string;
+        srcUrl?: string | undefined;
         /**
          * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
          */
-        pageUrl?: string;
+        pageUrl?: string | undefined;
         /** The id of the frame of the element where the context menu was clicked. */
-        frameId?: number;
+        frameId?: number | undefined;
         /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
-        frameUrl?: string;
+        frameUrl?: string | undefined;
         /** The text for the context selection, if any. */
-        selectionText?: string;
+        selectionText?: string | undefined;
         /** A flag indicating whether the element is editable (text input, textarea, etc.). */
         editable: boolean;
         /** A flag indicating the state of a checkbox or radio item before it was clicked. */
-        wasChecked?: boolean;
+        wasChecked?: boolean | undefined;
         /** A flag indicating the state of a checkbox or radio item after it is clicked. */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /** The id of the bookmark where the context menu was clicked, if it was on a bookmark. */
         bookmarkId: string;
         /** An array of keyboard modifiers that were held while the menu item was clicked. */
         modifiers: _OnClickDataModifiers[];
         /** An integer value of button by which menu item was clicked. */
-        button?: number;
+        button?: number | undefined;
         /**
          * An identifier of the clicked element, if any. Use menus.getTargetElement in the page to find the corresponding element.
          */
-        targetElementId?: number;
+        targetElementId?: number | undefined;
     }
 
     type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
@@ -6395,50 +6395,50 @@ declare namespace browser.contextMenus {
 
     interface _CreateCreateProperties {
         /** The type of menu item. Defaults to 'normal' if not specified. */
-        type?: ItemType;
+        type?: ItemType | undefined;
         /**
          * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
          */
-        id?: string;
-        icons?: _CreateCreatePropertiesIcons;
+        id?: string | undefined;
+        icons?: _CreateCreatePropertiesIcons | undefined;
         /**
          * The text to be displayed in the item; this is _required_ unless `type` is 'separator'. When the context is 'selection', you can use `%s` within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.
          */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /** List of contexts this menu item will appear in. Defaults to ['page'] if not specified. */
-        contexts?: ContextType[];
+        contexts?: ContextType[] | undefined;
         /**
          * List of view types where the menu item will be shown. Defaults to any view, including those without a viewType.
          */
-        viewTypes?: extension.ViewType[];
+        viewTypes?: extension.ViewType[] | undefined;
         /** Whether the item is visible in the menu. */
-        visible?: boolean;
+        visible?: boolean | undefined;
         /**
          * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for `contextMenus.onClicked`.
          * @param info Information about the item clicked and the context where the click happened.
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
-        onclick?: (info: OnClickData, tab: tabs.Tab) => void;
+        onclick?: ((info: OnClickData, tab: tabs.Tab) => void) | undefined;
         /** The ID of a parent menu item; this makes the item a child of a previously added item. */
-        parentId?: number | string;
+        parentId?: number | string | undefined;
         /**
          * Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.
          */
-        documentUrlPatterns?: string[];
+        documentUrlPatterns?: string[] | undefined;
         /**
          * Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.
          */
-        targetUrlPatterns?: string[];
+        targetUrlPatterns?: string[] | undefined;
         /** Whether this context menu item is enabled or disabled. Defaults to true. */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
         /**
          * Specifies a command to issue for the context click. Currently supports internal commands _execute_page_action, _execute_browser_action and _execute_sidebar_action.
          */
-        command?: string;
+        command?: string | undefined;
     }
 
     interface _UpdateUpdatePropertiesIcons {
@@ -6447,23 +6447,23 @@ declare namespace browser.contextMenus {
 
     /** The properties to update. Accepts the same values as the create function. */
     interface _UpdateUpdateProperties {
-        type?: ItemType;
-        icons?: _UpdateUpdatePropertiesIcons;
-        title?: string;
-        checked?: boolean;
-        contexts?: ContextType[];
-        viewTypes?: extension.ViewType[];
+        type?: ItemType | undefined;
+        icons?: _UpdateUpdatePropertiesIcons | undefined;
+        title?: string | undefined;
+        checked?: boolean | undefined;
+        contexts?: ContextType[] | undefined;
+        viewTypes?: extension.ViewType[] | undefined;
         /** Whether the item is visible in the menu. */
-        visible?: boolean;
+        visible?: boolean | undefined;
         /**
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
-        onclick?: (info: OnClickData, tab: tabs.Tab) => void;
+        onclick?: ((info: OnClickData, tab: tabs.Tab) => void) | undefined;
         /** Note: You cannot change an item to be a child of one of its own descendants. */
-        parentId?: number | string;
-        documentUrlPatterns?: string[];
-        targetUrlPatterns?: string[];
-        enabled?: boolean;
+        parentId?: number | string | undefined;
+        documentUrlPatterns?: string[] | undefined;
+        targetUrlPatterns?: string[] | undefined;
+        enabled?: boolean | undefined;
     }
 
     /**
@@ -6473,15 +6473,15 @@ declare namespace browser.contextMenus {
 
     interface _OverrideContextContextOptions {
         /** Whether to also include default menu items in the menu. */
-        showDefaults?: boolean;
+        showDefaults?: boolean | undefined;
         /**
          * ContextType to override, to allow menu items from other extensions in the menu. Currently only 'bookmark' and 'tab' are supported. showDefaults cannot be used with this option.
          */
-        context?: _OverrideContextContextOptionsContext;
+        context?: _OverrideContextContextOptionsContext | undefined;
         /** Required when context is 'bookmark'. Requires 'bookmark' permission. */
-        bookmarkId?: string;
+        bookmarkId?: string | undefined;
         /** Required when context is 'tab'. Requires 'tabs' permission. */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     /**
@@ -6492,16 +6492,16 @@ declare namespace browser.contextMenus {
         menuIds: number | string[];
         /** A list of all contexts that apply to the menu. */
         contexts: ContextType[];
-        viewType?: extension.ViewType;
+        viewType?: extension.ViewType | undefined;
         editable: boolean;
-        mediaType?: string;
-        linkUrl?: string;
-        linkText?: string;
-        srcUrl?: string;
-        pageUrl?: string;
-        frameUrl?: string;
-        selectionText?: string;
-        targetElementId?: number;
+        mediaType?: string | undefined;
+        linkUrl?: string | undefined;
+        linkText?: string | undefined;
+        srcUrl?: string | undefined;
+        pageUrl?: string | undefined;
+        frameUrl?: string | undefined;
+        selectionText?: string | undefined;
+        targetElementId?: number | undefined;
     }
 
     /* contextMenus properties */
@@ -6608,45 +6608,45 @@ declare namespace browser.menus {
         /** The ID of the menu item that was clicked. */
         menuItemId: number | string;
         /** The parent ID, if any, for the item clicked. */
-        parentMenuItemId?: number | string;
+        parentMenuItemId?: number | string | undefined;
         /** The type of view where the menu is clicked. May be unset if the menu is not associated with a view. */
-        viewType?: extension.ViewType;
+        viewType?: extension.ViewType | undefined;
         /**
          * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
          */
-        mediaType?: string;
+        mediaType?: string | undefined;
         /** If the element is a link, the text of that link. */
-        linkText?: string;
+        linkText?: string | undefined;
         /** If the element is a link, the URL it points to. */
-        linkUrl?: string;
+        linkUrl?: string | undefined;
         /** Will be present for elements with a 'src' URL. */
-        srcUrl?: string;
+        srcUrl?: string | undefined;
         /**
          * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
          */
-        pageUrl?: string;
+        pageUrl?: string | undefined;
         /** The id of the frame of the element where the context menu was clicked. */
-        frameId?: number;
+        frameId?: number | undefined;
         /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
-        frameUrl?: string;
+        frameUrl?: string | undefined;
         /** The text for the context selection, if any. */
-        selectionText?: string;
+        selectionText?: string | undefined;
         /** A flag indicating whether the element is editable (text input, textarea, etc.). */
         editable: boolean;
         /** A flag indicating the state of a checkbox or radio item before it was clicked. */
-        wasChecked?: boolean;
+        wasChecked?: boolean | undefined;
         /** A flag indicating the state of a checkbox or radio item after it is clicked. */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /** The id of the bookmark where the context menu was clicked, if it was on a bookmark. */
         bookmarkId: string;
         /** An array of keyboard modifiers that were held while the menu item was clicked. */
         modifiers: _OnClickDataModifiers[];
         /** An integer value of button by which menu item was clicked. */
-        button?: number;
+        button?: number | undefined;
         /**
          * An identifier of the clicked element, if any. Use menus.getTargetElement in the page to find the corresponding element.
          */
-        targetElementId?: number;
+        targetElementId?: number | undefined;
     }
 
     type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
@@ -6657,50 +6657,50 @@ declare namespace browser.menus {
 
     interface _CreateCreateProperties {
         /** The type of menu item. Defaults to 'normal' if not specified. */
-        type?: ItemType;
+        type?: ItemType | undefined;
         /**
          * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
          */
-        id?: string;
-        icons?: _CreateCreatePropertiesIcons;
+        id?: string | undefined;
+        icons?: _CreateCreatePropertiesIcons | undefined;
         /**
          * The text to be displayed in the item; this is _required_ unless `type` is 'separator'. When the context is 'selection', you can use `%s` within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.
          */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /** List of contexts this menu item will appear in. Defaults to ['page'] if not specified. */
-        contexts?: ContextType[];
+        contexts?: ContextType[] | undefined;
         /**
          * List of view types where the menu item will be shown. Defaults to any view, including those without a viewType.
          */
-        viewTypes?: extension.ViewType[];
+        viewTypes?: extension.ViewType[] | undefined;
         /** Whether the item is visible in the menu. */
-        visible?: boolean;
+        visible?: boolean | undefined;
         /**
          * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for `contextMenus.onClicked`.
          * @param info Information about the item clicked and the context where the click happened.
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
-        onclick?: (info: OnClickData, tab: tabs.Tab) => void;
+        onclick?: ((info: OnClickData, tab: tabs.Tab) => void) | undefined;
         /** The ID of a parent menu item; this makes the item a child of a previously added item. */
-        parentId?: number | string;
+        parentId?: number | string | undefined;
         /**
          * Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.
          */
-        documentUrlPatterns?: string[];
+        documentUrlPatterns?: string[] | undefined;
         /**
          * Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.
          */
-        targetUrlPatterns?: string[];
+        targetUrlPatterns?: string[] | undefined;
         /** Whether this context menu item is enabled or disabled. Defaults to true. */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
         /**
          * Specifies a command to issue for the context click. Currently supports internal commands _execute_page_action, _execute_browser_action and _execute_sidebar_action.
          */
-        command?: string;
+        command?: string | undefined;
     }
 
     interface _UpdateUpdatePropertiesIcons {
@@ -6709,23 +6709,23 @@ declare namespace browser.menus {
 
     /** The properties to update. Accepts the same values as the create function. */
     interface _UpdateUpdateProperties {
-        type?: ItemType;
-        icons?: _UpdateUpdatePropertiesIcons;
-        title?: string;
-        checked?: boolean;
-        contexts?: ContextType[];
-        viewTypes?: extension.ViewType[];
+        type?: ItemType | undefined;
+        icons?: _UpdateUpdatePropertiesIcons | undefined;
+        title?: string | undefined;
+        checked?: boolean | undefined;
+        contexts?: ContextType[] | undefined;
+        viewTypes?: extension.ViewType[] | undefined;
         /** Whether the item is visible in the menu. */
-        visible?: boolean;
+        visible?: boolean | undefined;
         /**
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
-        onclick?: (info: OnClickData, tab: tabs.Tab) => void;
+        onclick?: ((info: OnClickData, tab: tabs.Tab) => void) | undefined;
         /** Note: You cannot change an item to be a child of one of its own descendants. */
-        parentId?: number | string;
-        documentUrlPatterns?: string[];
-        targetUrlPatterns?: string[];
-        enabled?: boolean;
+        parentId?: number | string | undefined;
+        documentUrlPatterns?: string[] | undefined;
+        targetUrlPatterns?: string[] | undefined;
+        enabled?: boolean | undefined;
     }
 
     /**
@@ -6735,15 +6735,15 @@ declare namespace browser.menus {
 
     interface _OverrideContextContextOptions {
         /** Whether to also include default menu items in the menu. */
-        showDefaults?: boolean;
+        showDefaults?: boolean | undefined;
         /**
          * ContextType to override, to allow menu items from other extensions in the menu. Currently only 'bookmark' and 'tab' are supported. showDefaults cannot be used with this option.
          */
-        context?: _OverrideContextContextOptionsContext;
+        context?: _OverrideContextContextOptionsContext | undefined;
         /** Required when context is 'bookmark'. Requires 'bookmark' permission. */
-        bookmarkId?: string;
+        bookmarkId?: string | undefined;
         /** Required when context is 'tab'. Requires 'tabs' permission. */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     /**
@@ -6754,16 +6754,16 @@ declare namespace browser.menus {
         menuIds: number | string[];
         /** A list of all contexts that apply to the menu. */
         contexts: ContextType[];
-        viewType?: extension.ViewType;
+        viewType?: extension.ViewType | undefined;
         editable: boolean;
-        mediaType?: string;
-        linkUrl?: string;
-        linkText?: string;
-        srcUrl?: string;
-        pageUrl?: string;
-        frameUrl?: string;
-        selectionText?: string;
-        targetElementId?: number;
+        mediaType?: string | undefined;
+        linkUrl?: string | undefined;
+        linkText?: string | undefined;
+        srcUrl?: string | undefined;
+        pageUrl?: string | undefined;
+        frameUrl?: string | undefined;
+        selectionText?: string | undefined;
+        targetElementId?: number | undefined;
     }
 
     /* menus properties */
@@ -6924,12 +6924,12 @@ declare namespace browser.omnibox {
          * An array of style ranges for the description, as provided by the extension.
          * @deprecated Unsupported on Firefox at this time.
          */
-        descriptionStyles?: _SuggestResultDescriptionStyles[];
+        descriptionStyles?: _SuggestResultDescriptionStyles[] | undefined;
         /**
          * An array of style ranges for the description, as provided by ToValue().
          * @deprecated Unsupported on Firefox at this time.
          */
-        descriptionStylesRaw?: _SuggestResultDescriptionStylesRaw[];
+        descriptionStylesRaw?: _SuggestResultDescriptionStylesRaw[] | undefined;
     }
 
     /** A suggest result. */
@@ -6940,12 +6940,12 @@ declare namespace browser.omnibox {
          * An array of style ranges for the description, as provided by the extension.
          * @deprecated Unsupported on Firefox at this time.
          */
-        descriptionStyles?: _DefaultSuggestResultDescriptionStyles[];
+        descriptionStyles?: _DefaultSuggestResultDescriptionStyles[] | undefined;
         /**
          * An array of style ranges for the description, as provided by ToValue().
          * @deprecated Unsupported on Firefox at this time.
          */
-        descriptionStylesRaw?: _DefaultSuggestResultDescriptionStylesRaw[];
+        descriptionStylesRaw?: _DefaultSuggestResultDescriptionStylesRaw[] | undefined;
     }
 
     /** The style ranges for the description, as provided by the extension. */
@@ -6953,7 +6953,7 @@ declare namespace browser.omnibox {
         offset: number;
         /** The style type */
         type: DescriptionStyleType;
-        length?: number;
+        length?: number | undefined;
     }
 
     /** The style ranges for the description, as provided by ToValue(). */
@@ -6967,7 +6967,7 @@ declare namespace browser.omnibox {
         offset: number;
         /** The style type */
         type: DescriptionStyleType;
-        length?: number;
+        length?: number | undefined;
     }
 
     /** The style ranges for the description, as provided by ToValue(). */
@@ -7038,7 +7038,7 @@ declare namespace browser.pkcs11 {
             FWVersion: string;
             serial: string;
             isLoggedIn: string;
-        };
+        } | undefined;
     }>;
 }
 
@@ -7055,17 +7055,17 @@ declare namespace browser.search {
     interface SearchEngine {
         name: string;
         isDefault: boolean;
-        alias?: string;
-        favIconUrl?: string;
+        alias?: string | undefined;
+        favIconUrl?: string | undefined;
     }
 
     interface _SearchSearchProperties {
         /** Terms to search for. */
         query: string;
         /** Search engine to use. Uses the default if not specified. */
-        engine?: string;
+        engine?: string | undefined;
         /** The ID of the tab for the search results. If not specified, a new tab is created. */
-        tabId?: number;
+        tabId?: number | undefined;
     }
 
     /* search functions */
@@ -7089,18 +7089,18 @@ declare namespace browser.sessions {
         /**
          * The maximum number of entries to be fetched in the requested list. Omit this parameter to fetch the maximum number of entries (`sessions.MAX_SESSION_RESULTS`).
          */
-        maxResults?: number;
+        maxResults?: number | undefined;
     }
 
     interface Session {
         /** The time when the window or tab was closed or modified, represented in milliseconds since the epoch. */
         lastModified: number;
         /** The `tabs.Tab`, if this entry describes a tab. Either this or `sessions.Session.window` will be set. */
-        tab?: tabs.Tab;
+        tab?: tabs.Tab | undefined;
         /**
          * The `windows.Window`, if this entry describes a window. Either this or `sessions.Session.tab` will be set.
          */
-        window?: windows.Window;
+        window?: windows.Window | undefined;
     }
 
     interface Device {
@@ -7213,20 +7213,20 @@ declare namespace browser.sidebarAction {
         /** The string the sidebar action should display when moused over. */
         title: string | null;
         /** Sets the sidebar title for the tab specified by tabId. Automatically resets when the tab is closed. */
-        tabId?: number;
+        tabId?: number | undefined;
         /** Sets the sidebar title for the window specified by windowId. */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     interface _GetTitleDetails {
         /**
          * Specify the tab to get the title from. If no tab nor window is specified, the global title is returned.
          */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * Specify the window to get the title from. If no tab nor window is specified, the global title is returned.
          */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     interface _SetIconDetails {
@@ -7237,22 +7237,22 @@ declare namespace browser.sidebarAction {
             | ImageDataType
             | {
                   [key: number]: ImageDataType;
-              };
+              } | undefined;
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?: string | { [key: string]: string };
+        path?: string | { [key: string]: string } | undefined;
         /** Sets the sidebar icon for the tab specified by tabId. Automatically resets when the tab is closed. */
-        tabId?: number;
+        tabId?: number | undefined;
         /** Sets the sidebar icon for the window specified by windowId. */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     interface _SetPanelDetails {
         /** Sets the sidebar url for the tab specified by tabId. Automatically resets when the tab is closed. */
-        tabId?: number;
+        tabId?: number | undefined;
         /** Sets the sidebar url for the window specified by windowId. */
-        windowId?: number;
+        windowId?: number | undefined;
         /** The url to the html file to show in a sidebar. If set to the empty string (''), no sidebar is shown. */
         panel: string | null;
     }
@@ -7261,16 +7261,16 @@ declare namespace browser.sidebarAction {
         /**
          * Specify the tab to get the panel from. If no tab nor window is specified, the global panel is returned.
          */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * Specify the window to get the panel from. If no tab nor window is specified, the global panel is returned.
          */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     interface _IsOpenDetails {
         /** Specify the window to get the openness from. */
-        windowId?: number;
+        windowId?: number | undefined;
     }
 
     /* sidebarAction functions */
@@ -7329,11 +7329,11 @@ declare namespace browser.tabs {
          */
         muted: boolean;
         /** The reason the tab was muted or unmuted. Not set if the tab's mute state has never been changed. */
-        reason?: MutedInfoReason;
+        reason?: MutedInfoReason | undefined;
         /**
          * The ID of the extension that changed the muted state. Not set if an extension was not the reason the muted state last changed.
          */
-        extensionId?: string;
+        extensionId?: string | undefined;
     }
 
     /** Tab sharing state for screen, microphone and camera. */
@@ -7341,7 +7341,7 @@ declare namespace browser.tabs {
         /**
          * If the tab is sharing the screen the value will be one of "Screen", "Window", or "Application", or undefined if not screen sharing.
          */
-        screen?: string;
+        screen?: string | undefined;
         /** True if the tab is using the camera. */
         camera: boolean;
         /** True if the tab is using the microphone. */
@@ -7352,20 +7352,20 @@ declare namespace browser.tabs {
         /**
          * The ID of the tab. Tab IDs are unique within a browser session. Under some circumstances a Tab may not be assigned an ID, for example when querying foreign tabs using the `sessions` API, in which case a session ID may be present. Tab ID can also be set to `tabs.TAB_ID_NONE` for apps and devtools windows.
          */
-        id?: number;
+        id?: number | undefined;
         /** The zero-based index of the tab within its window. */
         index: number;
         /** The ID of the window the tab is contained within. */
-        windowId?: number;
+        windowId?: number | undefined;
         /**
          * The ID of the tab that opened this tab, if any. This property is only present if the opener tab still exists.
          */
-        openerTabId?: number;
+        openerTabId?: number | undefined;
         /**
          * Whether the tab is selected.
          * @deprecated Please use `tabs.Tab.highlighted`.
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
         /** Whether the tab is highlighted. Works as an alias of active */
         highlighted: boolean;
         /** Whether the tab is active in its window. (Does not necessarily mean the window is focused.) */
@@ -7373,51 +7373,51 @@ declare namespace browser.tabs {
         /** Whether the tab is pinned. */
         pinned: boolean;
         /** The last time the tab was accessed as the number of milliseconds since epoch. */
-        lastAccessed?: number;
+        lastAccessed?: number | undefined;
         /**
          * Whether the tab has produced sound over the past couple of seconds (but it might not be heard if also muted). Equivalent to whether the speaker audio indicator is showing.
          */
-        audible?: boolean;
+        audible?: boolean | undefined;
         /** Current tab muted state and the reason for the last state change. */
-        mutedInfo?: MutedInfo;
+        mutedInfo?: MutedInfo | undefined;
         /**
          * The URL the tab is displaying. This property is only present if the extension's manifest includes the `"tabs"` permission.
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * The title of the tab. This property is only present if the extension's manifest includes the `"tabs"` permission.
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * The URL of the tab's favicon. This property is only present if the extension's manifest includes the `"tabs"` permission. It may also be an empty string if the tab is loading.
          */
-        favIconUrl?: string;
+        favIconUrl?: string | undefined;
         /** Either _loading_ or _complete_. */
-        status?: string;
+        status?: string | undefined;
         /** True while the tab is not loaded with content. */
-        discarded?: boolean;
+        discarded?: boolean | undefined;
         /** Whether the tab is in an incognito window. */
         incognito: boolean;
         /** The width of the tab in pixels. */
-        width?: number;
+        width?: number | undefined;
         /** The height of the tab in pixels. */
-        height?: number;
+        height?: number | undefined;
         /** True if the tab is hidden. */
-        hidden?: boolean;
+        hidden?: boolean | undefined;
         /** The session ID used to uniquely identify a Tab obtained from the `sessions` API. */
-        sessionId?: string;
+        sessionId?: string | undefined;
         /** The CookieStoreId used for the tab. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** Whether the document in the tab can be rendered in reader mode. */
-        isArticle?: boolean;
+        isArticle?: boolean | undefined;
         /** Whether the document in the tab is being rendered in reader mode. */
-        isInReaderMode?: boolean;
+        isInReaderMode?: boolean | undefined;
         /** Current tab sharing state for screen, microphone and camera. */
-        sharingState?: SharingState;
+        sharingState?: SharingState | undefined;
         /** Whether the tab is drawing attention. */
-        attention?: boolean;
+        attention?: boolean | undefined;
         /** The ID of this tab's successor, if any; `tabs.TAB_ID_NONE` otherwise. */
-        successorTabId?: number;
+        successorTabId?: number | undefined;
     }
 
     /**
@@ -7453,63 +7453,63 @@ declare namespace browser.tabs {
         /**
          * Defines how zoom changes are handled, i.e. which entity is responsible for the actual scaling of the page; defaults to `automatic`.
          */
-        mode?: ZoomSettingsMode;
+        mode?: ZoomSettingsMode | undefined;
         /**
          * Defines whether zoom changes will persist for the page's origin, or only take effect in this tab; defaults to `per-origin` when in `automatic` mode, and `per-tab` otherwise.
          */
-        scope?: ZoomSettingsScope;
+        scope?: ZoomSettingsScope | undefined;
         /** Used to return the default zoom level for the current tab in calls to tabs.getZoomSettings. */
-        defaultZoomFactor?: number;
+        defaultZoomFactor?: number | undefined;
     }
 
     /** Defines the page settings to be used when saving a page as a pdf file. */
     interface PageSettings {
         /** The name of the file. May include optional .pdf extension. */
-        toFileName?: string;
+        toFileName?: string | undefined;
         /** The page size unit: 0 = inches, 1 = millimeters. Default: 0. */
-        paperSizeUnit?: number;
+        paperSizeUnit?: number | undefined;
         /** The paper width in paper size units. Default: 8.5. */
-        paperWidth?: number;
+        paperWidth?: number | undefined;
         /** The paper height in paper size units. Default: 11.0. */
-        paperHeight?: number;
+        paperHeight?: number | undefined;
         /** The page content orientation: 0 = portrait, 1 = landscape. Default: 0. */
-        orientation?: number;
+        orientation?: number | undefined;
         /** The page content scaling factor: 1.0 = 100% = normal size. Default: 1.0. */
-        scaling?: number;
+        scaling?: number | undefined;
         /** Whether the page content should shrink to fit the page width (overrides scaling). Default: true. */
-        shrinkToFit?: boolean;
+        shrinkToFit?: boolean | undefined;
         /** Whether the page background colors should be shown. Default: false. */
-        showBackgroundColors?: boolean;
+        showBackgroundColors?: boolean | undefined;
         /** Whether the page background images should be shown. Default: false. */
-        showBackgroundImages?: boolean;
+        showBackgroundImages?: boolean | undefined;
         /** The spacing between the left header/footer and the left edge of the paper (inches). Default: 0. */
-        edgeLeft?: number;
+        edgeLeft?: number | undefined;
         /** The spacing between the right header/footer and the right edge of the paper (inches). Default: 0. */
-        edgeRight?: number;
+        edgeRight?: number | undefined;
         /** The spacing between the top of the headers and the top edge of the paper (inches). Default: 0 */
-        edgeTop?: number;
+        edgeTop?: number | undefined;
         /** The spacing between the bottom of the footers and the bottom edge of the paper (inches). Default: 0. */
-        edgeBottom?: number;
+        edgeBottom?: number | undefined;
         /** The margin between the page content and the left edge of the paper (inches). Default: 0.5. */
-        marginLeft?: number;
+        marginLeft?: number | undefined;
         /** The margin between the page content and the right edge of the paper (inches). Default: 0.5. */
-        marginRight?: number;
+        marginRight?: number | undefined;
         /** The margin between the page content and the top edge of the paper (inches). Default: 0.5. */
-        marginTop?: number;
+        marginTop?: number | undefined;
         /** The margin between the page content and the bottom edge of the paper (inches). Default: 0.5. */
-        marginBottom?: number;
+        marginBottom?: number | undefined;
         /** The text for the page's left header. Default: '&T'. */
-        headerLeft?: string;
+        headerLeft?: string | undefined;
         /** The text for the page's center header. Default: ''. */
-        headerCenter?: string;
+        headerCenter?: string | undefined;
         /** The text for the page's right header. Default: '&U'. */
-        headerRight?: string;
+        headerRight?: string | undefined;
         /** The text for the page's left footer. Default: '&PT'. */
-        footerLeft?: string;
+        footerLeft?: string | undefined;
         /** The text for the page's center footer. Default: ''. */
-        footerCenter?: string;
+        footerCenter?: string | undefined;
         /** The text for the page's right footer. Default: '&D'. */
-        footerRight?: string;
+        footerRight?: string | undefined;
     }
 
     /** Whether the tabs have completed loading. */
@@ -7537,215 +7537,215 @@ declare namespace browser.tabs {
         /**
          * A list of URLs or URL patterns. Events that cannot match any of the URLs will be filtered out. Filtering with urls requires the `"tabs"` or `"activeTab"` permission.
          */
-        urls?: string[];
+        urls?: string[] | undefined;
         /** A list of property names. Events that do not match any of the names will be filtered out. */
-        properties?: UpdatePropertyName[];
-        tabId?: number;
-        windowId?: number;
+        properties?: UpdatePropertyName[] | undefined;
+        tabId?: number | undefined;
+        windowId?: number | undefined;
     }
 
     interface _ConnectConnectInfo {
         /** Will be passed into onConnect for content scripts that are listening for the connection event. */
-        name?: string;
+        name?: string | undefined;
         /** Open a port to a specific frame identified by `frameId` instead of all frames in the tab. */
-        frameId?: number;
+        frameId?: number | undefined;
     }
 
     interface _SendMessageOptions {
         /** Send a message to a specific frame identified by `frameId` instead of all frames in the tab. */
-        frameId?: number;
+        frameId?: number | undefined;
     }
 
     interface _CreateCreateProperties {
         /** The window to create the new tab in. Defaults to the current window. */
-        windowId?: number;
+        windowId?: number | undefined;
         /**
          * The position the tab should take in the window. The provided value will be clamped to between zero and the number of tabs in the window.
          */
-        index?: number;
+        index?: number | undefined;
         /**
          * The URL to navigate the tab to initially. Fully-qualified URLs must include a scheme (i.e. 'http://www.google.com', not 'www.google.com'). Relative URLs will be relative to the current page within the extension. Defaults to the New Tab Page.
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * Whether the tab should become the active tab in the window. Does not affect whether the window is focused (see `windows.update`). Defaults to `true`.
          */
-        active?: boolean;
+        active?: boolean | undefined;
         /**
          * Whether the tab should become the selected tab in the window. Defaults to `true`
          * @deprecated Please use _active_.
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
         /** Whether the tab should be pinned. Defaults to `false` */
-        pinned?: boolean;
+        pinned?: boolean | undefined;
         /**
          * The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as the newly created tab.
          */
-        openerTabId?: number;
+        openerTabId?: number | undefined;
         /** The CookieStoreId for the tab that opened this tab. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** Whether the document in the tab should be opened in reader mode. */
-        openInReaderMode?: boolean;
+        openInReaderMode?: boolean | undefined;
         /** Whether the tab is marked as 'discarded' when created. */
-        discarded?: boolean;
+        discarded?: boolean | undefined;
         /** The title used for display if the tab is created in discarded mode. */
-        title?: string;
+        title?: string | undefined;
     }
 
     interface _DuplicateDuplicateProperties {
         /**
          * The position the new tab should take in the window. The provided value will be clamped to between zero and the number of tabs in the window.
          */
-        index?: number;
+        index?: number | undefined;
         /**
          * Whether the tab should become the active tab in the window. Does not affect whether the window is focused (see `windows.update`). Defaults to `true`.
          */
-        active?: boolean;
+        active?: boolean | undefined;
     }
 
     type _QueryQueryInfoScreen = 'Screen' | 'Window' | 'Application';
 
     interface _QueryQueryInfo {
         /** Whether the tabs are active in their windows. */
-        active?: boolean;
+        active?: boolean | undefined;
         /** Whether the tabs are drawing attention. */
-        attention?: boolean;
+        attention?: boolean | undefined;
         /** Whether the tabs are pinned. */
-        pinned?: boolean;
+        pinned?: boolean | undefined;
         /** Whether the tabs are audible. */
-        audible?: boolean;
+        audible?: boolean | undefined;
         /** Whether the tabs are muted. */
-        muted?: boolean;
+        muted?: boolean | undefined;
         /** Whether the tabs are highlighted. Works as an alias of active. */
-        highlighted?: boolean;
+        highlighted?: boolean | undefined;
         /** Whether the tabs are in the current window. */
-        currentWindow?: boolean;
+        currentWindow?: boolean | undefined;
         /** Whether the tabs are in the last focused window. */
-        lastFocusedWindow?: boolean;
+        lastFocusedWindow?: boolean | undefined;
         /** Whether the tabs have completed loading. */
-        status?: TabStatus;
+        status?: TabStatus | undefined;
         /** True while the tabs are not loaded with content. */
-        discarded?: boolean;
+        discarded?: boolean | undefined;
         /** True while the tabs are hidden. */
-        hidden?: boolean;
+        hidden?: boolean | undefined;
         /** Match page titles against a pattern. */
-        title?: string;
+        title?: string | undefined;
         /** Match tabs against one or more URL patterns. Note that fragment identifiers are not matched. */
-        url?: string | string[];
+        url?: string | string[] | undefined;
         /** The ID of the parent window, or `windows.WINDOW_ID_CURRENT` for the current window. */
-        windowId?: number;
+        windowId?: number | undefined;
         /** The type of window the tabs are in. */
-        windowType?: WindowType;
+        windowType?: WindowType | undefined;
         /** The position of the tabs within their windows. */
-        index?: number;
+        index?: number | undefined;
         /** The CookieStoreId used for the tab. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /**
          * The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as this tab.
          */
-        openerTabId?: number;
+        openerTabId?: number | undefined;
         /** True for any screen sharing, or a string to specify type of screen sharing. */
-        screen?: boolean | _QueryQueryInfoScreen;
+        screen?: boolean | _QueryQueryInfoScreen | undefined;
         /** True if the tab is using the camera. */
-        camera?: boolean;
+        camera?: boolean | undefined;
         /** True if the tab is using the microphone. */
-        microphone?: boolean;
+        microphone?: boolean | undefined;
     }
 
     interface _HighlightHighlightInfo {
         /** The window that contains the tabs. */
-        windowId?: number;
+        windowId?: number | undefined;
         /**
          * If true, the `windows.Window` returned will have a `tabs` property that contains a list of the `tabs.Tab` objects. The `Tab` objects only contain the `url`, `title` and `favIconUrl` properties if the extension's manifest file includes the `"tabs"` permission. If false, the `windows.Window` won't have the `tabs` property.
          */
-        populate?: boolean;
+        populate?: boolean | undefined;
         /** One or more tab indices to highlight. */
         tabs: number[] | number;
     }
 
     interface _UpdateUpdateProperties {
         /** A URL to navigate the tab to. */
-        url?: string;
+        url?: string | undefined;
         /**
          * Whether the tab should be active. Does not affect whether the window is focused (see `windows.update`).
          */
-        active?: boolean;
+        active?: boolean | undefined;
         /** Adds or removes the tab from the current selection. */
-        highlighted?: boolean;
+        highlighted?: boolean | undefined;
         /**
          * Whether the tab should be selected.
          * @deprecated Please use _highlighted_.
          */
-        selected?: boolean;
+        selected?: boolean | undefined;
         /** Whether the tab should be pinned. */
-        pinned?: boolean;
+        pinned?: boolean | undefined;
         /** Whether the tab should be muted. */
-        muted?: boolean;
+        muted?: boolean | undefined;
         /**
          * The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as this tab.
          */
-        openerTabId?: number;
+        openerTabId?: number | undefined;
         /** Whether the load should replace the current history entry for the tab. */
-        loadReplace?: boolean;
+        loadReplace?: boolean | undefined;
         /**
          * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
          */
-        successorTabId?: number;
+        successorTabId?: number | undefined;
     }
 
     interface _MoveMoveProperties {
         /** Defaults to the window the tab is currently in. */
-        windowId?: number;
+        windowId?: number | undefined;
         /** The position to move the window to. -1 will place the tab at the end of the window. */
         index: number;
     }
 
     interface _ReloadReloadProperties {
         /** Whether using any local cache. Default is false. */
-        bypassCache?: boolean;
+        bypassCache?: boolean | undefined;
     }
 
     interface _MoveInSuccessionOptions {
         /** Whether to move the tabs before (false) or after (true) tabId in the succession. Defaults to false. */
-        append?: boolean;
+        append?: boolean | undefined;
         /**
          * Whether to link up the current predecessors or successor (depending on options.append) of tabId to the other side of the chain after it is prepended or appended. If true, one of the following happens: if options.append is false, the first tab in the array is set as the successor of any current predecessors of tabId; if options.append is true, the current successor of tabId is set as the successor of the last tab in the array. Defaults to false.
          */
-        insert?: boolean;
+        insert?: boolean | undefined;
     }
 
     /** Lists the changes to the state of the tab that was updated. */
     interface _OnUpdatedChangeInfo {
         /** The tab's new attention state. */
-        attention?: boolean;
+        attention?: boolean | undefined;
         /** The tab's new audible state. */
-        audible?: boolean;
+        audible?: boolean | undefined;
         /** True while the tab is not loaded with content. */
-        discarded?: boolean;
+        discarded?: boolean | undefined;
         /**
          * The tab's new favicon URL. This property is only present if the extension's manifest includes the `"tabs"` permission.
          */
-        favIconUrl?: string;
+        favIconUrl?: string | undefined;
         /** The tab's new hidden state. */
-        hidden?: boolean;
+        hidden?: boolean | undefined;
         /** Whether the document in the tab can be rendered in reader mode. */
-        isArticle?: boolean;
+        isArticle?: boolean | undefined;
         /** The tab's new muted state and the reason for the change. */
-        mutedInfo?: MutedInfo;
+        mutedInfo?: MutedInfo | undefined;
         /** The tab's new pinned state. */
-        pinned?: boolean;
+        pinned?: boolean | undefined;
         /** The tab's new sharing state for screen, microphone and camera. */
-        sharingState?: SharingState;
+        sharingState?: SharingState | undefined;
         /** The status of the tab. Can be either _loading_ or _complete_. */
-        status?: string;
+        status?: string | undefined;
         /**
          * The title of the tab if it has changed. This property is only present if the extension's manifest includes the `"tabs"` permission.
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * The tab's URL if it has changed. This property is only present if the extension's manifest includes the `"tabs"` permission.
          */
-        url?: string;
+        url?: string | undefined;
     }
 
     interface _TabsOnUpdatedEvent<
@@ -7776,7 +7776,7 @@ declare namespace browser.tabs {
         /** The ID of the tab that has become active. */
         tabId: number;
         /** The ID of the tab that was previously active, if that tab is still open. */
-        previousTabId?: number;
+        previousTabId?: number | undefined;
         /** The ID of the window the active tab changed inside of. */
         windowId: number;
     }
@@ -8173,11 +8173,11 @@ declare namespace browser.topSites {
         /** The most visited URL. */
         url: string;
         /** The title of the page. */
-        title?: string;
+        title?: string | undefined;
         /** Data URL for the favicon, if available. */
-        favicon?: string;
+        favicon?: string | undefined;
         /** The entry type, either `url` for a normal page link, or `search` for a search shortcut. */
-        type?: _MostVisitedURLType;
+        type?: _MostVisitedURLType | undefined;
     }
 
     /** The entry type, either `url` for a normal page link, or `search` for a search shortcut. */
@@ -8185,23 +8185,23 @@ declare namespace browser.topSites {
 
     interface _GetOptions {
         /** @deprecated Please use the other options to tune the results received from topSites. */
-        providers?: string[];
+        providers?: string[] | undefined;
         /** The number of top sites to return, defaults to the value used by Firefox */
-        limit?: number;
+        limit?: number | undefined;
         /** Limit the result to a single top site link per domain */
-        onePerDomain?: boolean;
+        onePerDomain?: boolean | undefined;
         /** Include sites that the user has blocked from appearing on the Firefox new tab. */
-        includeBlocked?: boolean;
+        includeBlocked?: boolean | undefined;
         /** Include sites favicon if available. */
-        includeFavicon?: boolean;
+        includeFavicon?: boolean | undefined;
         /** Include sites that the user has pinned on the Firefox new tab. */
-        includePinned?: boolean;
+        includePinned?: boolean | undefined;
         /** Include search shortcuts appearing on the Firefox new tab. */
-        includeSearchShortcuts?: boolean;
+        includeSearchShortcuts?: boolean | undefined;
         /**
          * Return the sites that exactly appear on the user's new-tab page. When true, all other options are ignored except limit and includeFavicon. If the user disabled newtab Top Sites, the newtab parameter will be ignored.
          */
-        newtab?: boolean;
+        newtab?: boolean | undefined;
     }
 
     /* topSites functions */
@@ -8244,7 +8244,7 @@ declare namespace browser.urlbar {
         /** The result's type. */
         type: ResultType;
         /** Suggest a preferred position for this result within the result set. */
-        suggestedIndex?: number;
+        suggestedIndex?: number | undefined;
     }
 
     /**
@@ -8255,7 +8255,7 @@ declare namespace browser.urlbar {
     /** Options to the `search` function. */
     interface SearchOptions {
         /** Whether to focus the input field and select its contents. */
-        focus?: boolean;
+        focus?: boolean | undefined;
     }
 
     /**
@@ -8374,39 +8374,39 @@ declare namespace browser.windows {
         /**
          * The ID of the window. Window IDs are unique within a browser session. Under some circumstances a Window may not be assigned an ID, for example when querying windows using the `sessions` API, in which case a session ID may be present.
          */
-        id?: number;
+        id?: number | undefined;
         /** Whether the window is currently the focused window. */
         focused: boolean;
         /**
          * The offset of the window from the top edge of the screen in pixels. Under some circumstances a Window may not be assigned top property, for example when querying closed windows from the `sessions` API.
          */
-        top?: number;
+        top?: number | undefined;
         /**
          * The offset of the window from the left edge of the screen in pixels. Under some circumstances a Window may not be assigned left property, for example when querying closed windows from the `sessions` API.
          */
-        left?: number;
+        left?: number | undefined;
         /**
          * The width of the window, including the frame, in pixels. Under some circumstances a Window may not be assigned width property, for example when querying closed windows from the `sessions` API.
          */
-        width?: number;
+        width?: number | undefined;
         /**
          * The height of the window, including the frame, in pixels. Under some circumstances a Window may not be assigned height property, for example when querying closed windows from the `sessions` API.
          */
-        height?: number;
+        height?: number | undefined;
         /** Array of `tabs.Tab` objects representing the current tabs in the window. */
-        tabs?: tabs.Tab[];
+        tabs?: tabs.Tab[] | undefined;
         /** Whether the window is incognito. */
         incognito: boolean;
         /** The type of browser window this is. */
-        type?: WindowType;
+        type?: WindowType | undefined;
         /** The state of this browser window. */
-        state?: WindowState;
+        state?: WindowState | undefined;
         /** Whether the window is set to be always on top. */
         alwaysOnTop: boolean;
         /** The session ID used to uniquely identify a Window obtained from the `sessions` API. */
-        sessionId?: string;
+        sessionId?: string | undefined;
         /** The title of the window. Read-only. */
-        title?: string;
+        title?: string | undefined;
     }
 
     /**
@@ -8419,12 +8419,12 @@ declare namespace browser.windows {
         /**
          * If true, the `windows.Window` returned will have a `tabs` property that contains a list of the `tabs.Tab` objects. The `Tab` objects only contain the `url`, `title` and `favIconUrl` properties if the extension's manifest file includes the `"tabs"` permission.
          */
-        populate?: boolean;
+        populate?: boolean | undefined;
         /**
          * `windowTypes` is deprecated and ignored on Firefox.
          * @deprecated `windowTypes` is deprecated and ignored on Firefox.
          */
-        windowTypes?: WindowType[];
+        windowTypes?: WindowType[] | undefined;
     }
 
     /**
@@ -8435,86 +8435,86 @@ declare namespace browser.windows {
          * If set, the `windows.Window` returned will be filtered based on its type. If unset the default filter is set to `['app', 'normal', 'panel', 'popup']`, with `'app'` and `'panel'` window types limited to the extension's own windows.
          * @deprecated If set, the `windows.Window` returned will be filtered based on its type. If unset the default filter is set to `['app', 'normal', 'panel', 'popup']`, with `'app'` and `'panel'` window types limited to the extension's own windows.
          */
-        windowTypes?: WindowType[];
+        windowTypes?: WindowType[] | undefined;
         /**
          * If true, the `windows.Window` returned will have a `tabs` property that contains a list of the `tabs.Tab` objects. The `Tab` objects only contain the `url`, `title` and `favIconUrl` properties if the extension's manifest file includes the `"tabs"` permission.
          */
-        populate?: boolean;
+        populate?: boolean | undefined;
     }
 
     interface _CreateCreateData {
         /**
          * A URL or array of URLs to open as tabs in the window. Fully-qualified URLs must include a scheme (i.e. 'http://www.google.com', not 'www.google.com'). Relative URLs will be relative to the current page within the extension. Defaults to the New Tab Page.
          */
-        url?: string | string[];
+        url?: string | string[] | undefined;
         /** The id of the tab for which you want to adopt to the new window. */
-        tabId?: number;
+        tabId?: number | undefined;
         /**
          * The number of pixels to position the new window from the left edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels.
          */
-        left?: number;
+        left?: number | undefined;
         /**
          * The number of pixels to position the new window from the top edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels.
          */
-        top?: number;
+        top?: number | undefined;
         /**
          * The width in pixels of the new window, including the frame. If not specified defaults to a natural width.
          */
-        width?: number;
+        width?: number | undefined;
         /**
          * The height in pixels of the new window, including the frame. If not specified defaults to a natural height.
          */
-        height?: number;
+        height?: number | undefined;
         /**
          * If true, opens an active window. If false, opens an inactive window.
          * @deprecated Unsupported on Firefox at this time.
          */
-        focused?: boolean;
+        focused?: boolean | undefined;
         /** Whether the new window should be an incognito window. */
-        incognito?: boolean;
+        incognito?: boolean | undefined;
         /**
          * Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set.
          */
-        type?: CreateType;
+        type?: CreateType | undefined;
         /**
          * The initial state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'.
          */
-        state?: WindowState;
+        state?: WindowState | undefined;
         /** Allow scripts to close the window. */
-        allowScriptsToClose?: boolean;
+        allowScriptsToClose?: boolean | undefined;
         /** The CookieStoreId to use for all tabs that were created when the window is opened. */
-        cookieStoreId?: string;
+        cookieStoreId?: string | undefined;
         /** A string to add to the beginning of the window title. */
-        titlePreface?: string;
+        titlePreface?: string | undefined;
     }
 
     interface _UpdateUpdateInfo {
         /**
          * The offset from the left edge of the screen to move the window to in pixels. This value is ignored for panels.
          */
-        left?: number;
+        left?: number | undefined;
         /**
          * The offset from the top edge of the screen to move the window to in pixels. This value is ignored for panels.
          */
-        top?: number;
+        top?: number | undefined;
         /** The width to resize the window to in pixels. This value is ignored for panels. */
-        width?: number;
+        width?: number | undefined;
         /** The height to resize the window to in pixels. This value is ignored for panels. */
-        height?: number;
+        height?: number | undefined;
         /**
          * If true, brings the window to the front. If false, brings the next window in the z-order to the front.
          */
-        focused?: boolean;
+        focused?: boolean | undefined;
         /**
          * If true, causes the window to be displayed in a manner that draws the user's attention to the window, without changing the focused window. The effect lasts until the user changes focus to the window. This option has no effect if the window already has focus. Set to false to cancel a previous draw attention request.
          */
-        drawAttention?: boolean;
+        drawAttention?: boolean | undefined;
         /**
          * The new state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'.
          */
-        state?: WindowState;
+        state?: WindowState | undefined;
         /** A string to add to the beginning of the window title. */
-        titlePreface?: string;
+        titlePreface?: string | undefined;
     }
 
     /* windows properties */

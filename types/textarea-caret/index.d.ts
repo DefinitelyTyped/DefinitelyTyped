@@ -13,7 +13,7 @@ interface Caret {
 }
 
 interface Options {
-    debug?: boolean;
+    debug?: boolean | undefined;
 }
 
 declare function textarea_caret(element: HTMLElement, position: number, options?: Options): Caret;

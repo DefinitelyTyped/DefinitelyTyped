@@ -10,26 +10,26 @@ declare namespace DiffEngine {
         /**
          * @default 'MM/dd/yyyy hh:mm a'
          */
-        dateFormat?: string;
+        dateFormat?: string | undefined;
 
         prefilter: string[] | PathPredicate | undefined;
         /**
          * @default 'Obj'
          */
-        objectName?: string;
+        objectName?: string | undefined;
         /**
          * @default false
          */
-        ignoreArrays?: boolean;
+        ignoreArrays?: boolean | undefined;
         /**
          * @default []
          */
-        sensitivePaths?: string[];
+        sensitivePaths?: string[] | undefined;
         /**
          * @default false
          */
-        dontHumanizePropertyNames?: boolean;
-        templates?: Record<TemplateType, string>;
+        dontHumanizePropertyNames?: boolean | undefined;
+        templates?: Record<TemplateType, string> | undefined;
     }
 }
 

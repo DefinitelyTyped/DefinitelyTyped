@@ -108,7 +108,7 @@ export type SendMessage = (
         /**
          * A CMsgProtoBufHeader object if this message is protobuf-backed, otherwise header.proto is falsy.
          */
-        proto?: CMsgProtoBufHeader | false
+        proto?: CMsgProtoBufHeader | false | undefined
     },
 
     /**
@@ -185,12 +185,12 @@ export interface CMsgClientLogon {
     /**
      * Steam Guard code. Must be valid if provided, otherwise the logon will fail. Note that Steam Guard codes expire after a short while
      */
-    auth_code?: string;
+    auth_code?: string | undefined;
 
     /**
      * Two-factor authentication code provided by the Steam mobile application. You will have to provide this code every time you log in if your account uses 2FA.
      */
-    two_factor_code?: string;
+    two_factor_code?: string | undefined;
 
     /**
      * SHA1 hash of your sentry file.
@@ -199,7 +199,7 @@ export interface CMsgClientLogon {
      * If no Steam Guard code is provided, the hash must be already registered with this account, otherwise it's ignored.
      * This value will be ignored if you enable 2FA.
      */
-    sha_sentryfile?: string;
+    sha_sentryfile?: string | undefined;
 }
 
 export interface CMsgClientLogonPassword extends CMsgClientLogon {
@@ -229,27 +229,27 @@ export interface CMsgClientLogonResponse {
 }
 
 export interface CMsgProtoBufHeader {
-    steamid?: string;
-    client_sessionid?: number;
-    routing_appid?: number;
-    jobid_source?: string;
-    jobid_target?: string;
-    target_job_name?: string;
-    seq_num?: number;
-    eresult?: number;
-    error_message?: string;
-    ip?: number;
-    auth_account_flags?: number;
-    token_source?: number;
-    admin_spoofing_user?: boolean;
-    transport_error?: number;
-    messageid?: string;
-    publisher_group_id?: number;
-    sysid?: number;
-    trace_tag?: string;
-    webapi_key_id?: number;
-    is_from_external_source?: boolean;
-    forward_to_sysid?: number[];
+    steamid?: string | undefined;
+    client_sessionid?: number | undefined;
+    routing_appid?: number | undefined;
+    jobid_source?: string | undefined;
+    jobid_target?: string | undefined;
+    target_job_name?: string | undefined;
+    seq_num?: number | undefined;
+    eresult?: number | undefined;
+    error_message?: string | undefined;
+    ip?: number | undefined;
+    auth_account_flags?: number | undefined;
+    token_source?: number | undefined;
+    admin_spoofing_user?: boolean | undefined;
+    transport_error?: number | undefined;
+    messageid?: string | undefined;
+    publisher_group_id?: number | undefined;
+    sysid?: number | undefined;
+    trace_tag?: string | undefined;
+    webapi_key_id?: number | undefined;
+    is_from_external_source?: boolean | undefined;
+    forward_to_sysid?: number[] | undefined;
 }
 
 // Enums

@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
-    tailSpace?: string;
-    elementSeparator?: string;
-    modSeparator?: string;
-    modValueSeparator?: string;
-    classSeparator?: string;
-    isFullModifier?: boolean;
-    isFullBoolValue?: boolean;
+    tailSpace?: string | undefined;
+    elementSeparator?: string | undefined;
+    modSeparator?: string | undefined;
+    modValueSeparator?: string | undefined;
+    classSeparator?: string | undefined;
+    isFullModifier?: boolean | undefined;
+    isFullBoolValue?: boolean | undefined;
 }
 
 interface Mods {

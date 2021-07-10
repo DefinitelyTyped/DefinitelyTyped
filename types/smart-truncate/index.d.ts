@@ -3,4 +3,4 @@
 // Definitions by: Omer Yalhi <https://github.com/oyalhi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function smartTruncate(text: string, length: number, options?: { position?: number; mark?: string }): string;
+export function smartTruncate(text: string, length: number, options?: { position?: number | undefined; mark?: string | undefined }): string;

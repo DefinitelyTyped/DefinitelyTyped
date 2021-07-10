@@ -121,7 +121,7 @@ declare class Convert {
     constructor(numerator: number, denominator: number);
     from(from: unit): this;
     to(to: unit): number;
-    toBest(options?: { exclude?: unit[], cutOffNumber?: number }): { val: number, unit: string, singular: string, plural: string };
+    toBest(options?: { exclude?: unit[] | undefined, cutOffNumber?: number | undefined }): { val: number, unit: string, singular: string, plural: string };
     getUnit<T extends unit>(abbr: T): { abbr: T, measure: measure, system: system, unit: { name: { singular: string, plural: string }, to_anchor: number } };
     describe<T extends unit>(abbr: T): { abbr: T, measure: measure, system: system, singular: string, plural: string };
     list(measure?: measure): Array<{ abbr: unit, measure: measure, system: system, singular: string, plural: string }>;

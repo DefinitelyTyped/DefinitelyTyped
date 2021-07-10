@@ -11,15 +11,15 @@ declare module "match-media-mock" {
         /**
          * Screen type
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * Screen height
          */
-        height?: number;
+        height?: number | undefined;
         /**
          * Screen width
          */
-        width?: number;
+        width?: number | undefined;
     }
     interface MatchMediaMock {
         /**

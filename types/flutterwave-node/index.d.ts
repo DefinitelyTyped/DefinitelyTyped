@@ -45,18 +45,18 @@ interface Card {
 interface CardChargeRequest {
     token: string;
     currency: string;
-    country?: string;
+    country?: string | undefined;
     amount: string;
     email: string;
-    firstname?: string;
-    lastname?: string;
-    IP?: string;
-    narration?: string;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    IP?: string | undefined;
+    narration?: string | undefined;
     txRef: string;
-    string?: string;
-    device_fingerprint?: string;
-    payment_plan?: string;
-    subaccounts?: [];
+    string?: string | undefined;
+    device_fingerprint?: string | undefined;
+    payment_plan?: string | undefined;
+    subaccounts?: [] | undefined;
 }
 
 interface CardChargeResponse extends BaseResponse {
@@ -135,7 +135,7 @@ interface CardChargeResponse extends BaseResponse {
 
 interface CardValidateRequest {
     transaction_reference: string;
-    otp?: string;
+    otp?: string | undefined;
 }
 
 interface CardValidateResponse extends BaseResponse {
@@ -205,8 +205,8 @@ interface Status {
 }
 
 interface StatusRequeryRequest {
-    flwref?: string;
-    txref?: string;
+    flwref?: string | undefined;
+    txref?: string | undefined;
 }
 
 interface StatusRequeryResponse extends BaseResponse {
@@ -283,10 +283,10 @@ interface StatusRequeryResponse extends BaseResponse {
 }
 
 interface StatusXqequeryRequest {
-    flwref?: string;
-    txref?: string;
-    last_attempt?: string;
-    only_successful?: string;
+    flwref?: string | undefined;
+    txref?: string | undefined;
+    last_attempt?: string | undefined;
+    only_successful?: string | undefined;
 }
 
 interface Account {
@@ -295,25 +295,25 @@ interface Account {
 }
 
 interface AccountChargeRequest {
-    currency?: string;
-    country?: string;
+    currency?: string | undefined;
+    country?: string | undefined;
     amount: string;
-    phonenumber?: string;
-    billingzip?: string;
+    phonenumber?: string | undefined;
+    billingzip?: string | undefined;
     email: string;
-    firstname?: string;
-    lastname?: string;
-    IP?: string;
-    narration?: string;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    IP?: string | undefined;
+    narration?: string | undefined;
     txRef: string;
     meta?: any;
-    pin?: string;
-    bvn?: string;
-    charge_type?: string;
+    pin?: string | undefined;
+    bvn?: string | undefined;
+    charge_type?: string | undefined;
     device_fingerprint: string;
     accountbank: string;
     accountnumber: string;
-    payment_type?: string;
+    payment_type?: string | undefined;
     is_internet_banking?: any;
     include_integrity_hash?: any;
 }
@@ -331,18 +331,18 @@ interface TokenCharge {
 interface TokenChargeCardRequest {
     token: string;
     currency: string;
-    country?: string;
+    country?: string | undefined;
     amount: string;
     email: string;
-    firstname?: string;
-    lastname?: string;
-    IP?: string;
-    narration?: string;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    IP?: string | undefined;
+    narration?: string | undefined;
     txRef: string;
-    meta?: string;
-    device_fingerprint?: string;
-    payment_plan?: string;
-    subaccounts?: [];
+    meta?: string | undefined;
+    device_fingerprint?: string | undefined;
+    payment_plan?: string | undefined;
+    subaccounts?: [] | undefined;
 }
 
 interface TokenChargeCardResponse extends BaseResponse {
@@ -430,17 +430,17 @@ interface MobileOptions {
 interface MobileOptionsChargeUssdRequest {
     currency: string;
     country: string;
-    payment_type?: string;
+    payment_type?: string | undefined;
     amount: string;
     email: string;
-    phonenumber?: string;
-    firstname?: string;
-    lastname?: string;
-    IP?: string;
+    phonenumber?: string | undefined;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    IP?: string | undefined;
     txRef: string;
     orderRef: string;
     is_ussd: string;
-    device_fingerprint?: string;
+    device_fingerprint?: string | undefined;
 }
 
 interface MobileOptionsChargeUssdResponse extends BaseResponse {
@@ -477,7 +477,7 @@ interface MiscGetFeeRequest {
     amount: string | number;
     card6?: any;
     ptype?: any;
-    currency?: string;
+    currency?: string | undefined;
 }
 
 interface MiscGetBalHistRequest {
@@ -488,7 +488,7 @@ interface MiscGetBalHistRequest {
 }
 
 interface MiscGetBanksRequest {
-    __n?: string;
+    __n?: string | undefined;
 }
 
 interface MiscDisburseRequest {
@@ -515,10 +515,10 @@ interface MiscExchangeRatesRequest {
 }
 
 interface MiscListTransactionsRequest {
-    seckey?: string;
-    from?: string;
-    to?: string;
-    page?: string;
+    seckey?: string | undefined;
+    from?: string | undefined;
+    to?: string | undefined;
+    page?: string | undefined;
 }
 
 interface Preauth {
@@ -530,36 +530,36 @@ interface Preauth {
 
 interface PreauthPreauthRequest {
     cardno: string | number;
-    currency?: string;
-    suggested_auth?: string;
-    country?: string;
-    settlement_token?: string;
+    currency?: string | undefined;
+    suggested_auth?: string | undefined;
+    country?: string | undefined;
+    settlement_token?: string | undefined;
     cvv: string | number;
     amount: string | number;
-    phonenumber?: string | number;
-    billingzip?: string | number;
+    phonenumber?: string | number | undefined;
+    billingzip?: string | number | undefined;
     expiryyear: string | number;
     expirymonth: string | number;
     email: string;
-    firstname?: string;
-    lastname?: string;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
     IP: string;
-    narration?: string;
+    narration?: string | undefined;
     txRef: string;
     meta?: any;
-    pin?: string | number;
-    bvn?: string | number;
+    pin?: string | number | undefined;
+    bvn?: string | number | undefined;
     charge_type: string;
-    device_fingerprint?: string;
-    recurring_stop?: string;
-    include_integrity_hash?: string;
+    device_fingerprint?: string | undefined;
+    recurring_stop?: string | undefined;
+    include_integrity_hash?: string | undefined;
 }
 
 interface PreauthVoidRequest {
-    id?: string;
-    ref?: string;
-    amount?: string;
-    action?: string;
+    id?: string | undefined;
+    ref?: string | undefined;
+    amount?: string | undefined;
+    action?: string | undefined;
 }
 
 interface PreauthVoidRespone extends BaseResponse {
@@ -582,7 +582,7 @@ interface PreauthVoidRespone extends BaseResponse {
 
 interface PreauthCaptureCardRequest {
     flwRef: string;
-    amount?: string;
+    amount?: string | undefined;
 }
 
 interface security {
@@ -611,17 +611,17 @@ interface Transfer {
 }
 
 interface TransferInitiateRequest {
-    account_bank?: string;
-    account_number?: string;
-    recipient?: string;
+    account_bank?: string | undefined;
+    account_number?: string | undefined;
+    recipient?: string | undefined;
     amount: string;
-    narration?: string;
+    narration?: string | undefined;
     currency: string;
-    reference?: string;
-    callback_url?: string;
+    reference?: string | undefined;
+    callback_url?: string | undefined;
     beneficiary_name: string;
     destination_branch_code: string;
-    debit_currency?: string;
+    debit_currency?: string | undefined;
 }
 
 interface TransferInitiateResponse extends BaseResponse {
@@ -646,7 +646,7 @@ interface TransferInitiateResponse extends BaseResponse {
 
 interface TransferBulkRequest {
     title: string;
-    bulk_data?: [];
+    bulk_data?: [] | undefined;
 }
 
 interface TransferBulkResponse extends BaseResponse {
@@ -693,8 +693,8 @@ interface TransferFetchResponse extends BaseResponse {
 }
 
 interface TransferListRequest {
-    page?: string;
-    status?: string;
+    page?: string | undefined;
+    status?: string | undefined;
 }
 
 interface TransferListResponse extends BaseResponse {
@@ -747,7 +747,7 @@ interface TransferGetApplicableFeeResponse extends BaseResponse {
 }
 
 interface TransferGetBalanceRequest {
-    currency?: string;
+    currency?: string | undefined;
 }
 
 interface TransferGetBalanceResponse extends BaseResponse {
@@ -794,8 +794,8 @@ interface TransferRetrieveStatusOfBulkResponse extends BaseResponse {
 interface TranferAccountVerificationRequest {
     recipientaccount: string;
     destbankcode: string;
-    currency?: string;
-    country?: string;
+    currency?: string | undefined;
+    country?: string | undefined;
 }
 
 interface TranferAccountVerificationResponse {
@@ -823,11 +823,11 @@ interface SubaccountCreateRequest {
     account_bank: string;
     account_number: string;
     business_name: string;
-    business_email?: string;
-    business_contact?: string;
-    business_contact_mobile?: string;
+    business_email?: string | undefined;
+    business_contact?: string | undefined;
+    business_contact_mobile?: string | undefined;
     business_mobile: string;
-    meta?: string;
+    meta?: string | undefined;
     split_type: string;
     split_value: string;
     country: string;
@@ -850,9 +850,9 @@ interface SubaccountCreateResponse extends BaseResponse {
 }
 
 interface SubaccountListRequest {
-    account_number?: string;
-    account_bank?: string;
-    bank_name?: string;
+    account_number?: string | undefined;
+    account_bank?: string | undefined;
+    bank_name?: string | undefined;
 }
 
 interface SubaccountListResponse {
@@ -936,7 +936,7 @@ interface PaymentplanCreateRequest {
     amount: string;
     name: string;
     interval: string;
-    duration?: string;
+    duration?: string | undefined;
 }
 
 interface PaymentplanCreateResponse extends BaseResponse {
@@ -979,8 +979,8 @@ interface PaymentplanListResponse extends BaseResponse {
 }
 
 interface PaymentplanFetchRequest {
-    id?: string;
-    q?: string;
+    id?: string | undefined;
+    q?: string | undefined;
 }
 
 interface PaymentplanFetchResponse {
@@ -997,8 +997,8 @@ interface PaymentplanCancelResponse {
 
 interface PaymentplanEditRequest {
     id: string;
-    name?: string;
-    status?: string;
+    name?: string | undefined;
+    status?: string | undefined;
 }
 
 interface PaymentplanEditResponse {
@@ -1020,12 +1020,12 @@ interface MobileMoneyMpesaRequest {
     amount: string;
     phonenumber: string;
     email: string;
-    firstname?: string;
-    lastname?: string;
-    IP?: string;
-    narration?: string;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    IP?: string | undefined;
+    narration?: string | undefined;
     txRef: string;
-    meta?: string;
+    meta?: string | undefined;
     payment_type: string;
     is_mpesa: string;
     is_mpesa_lipa: string;
@@ -1073,10 +1073,10 @@ interface MobileMoneyGhanaRequest {
     network: string;
     email: string;
     phonenumber: string;
-    firstname?: string;
-    lastname?: string;
-    subaccounts?: string;
-    IP?: string;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    subaccounts?: string | undefined;
+    IP?: string | undefined;
     txRef: string;
     orderRef: string;
     voucher: string;
@@ -1147,10 +1147,10 @@ interface MobileMoneyZambiaRequest {
     network: string;
     email: string;
     phonenumber: string;
-    firstname?: string;
-    lastname?: string;
-    subaccounts?: string;
-    IP?: string;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    subaccounts?: string | undefined;
+    IP?: string | undefined;
     txRef: string;
     orderRef: string;
     voucher: string;
@@ -1221,10 +1221,10 @@ interface MobileMoneyRwandaRequest {
     network: string;
     email: string;
     phonenumber: string;
-    firstname?: string;
-    lastname?: string;
-    subaccounts?: string;
-    IP?: string;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    subaccounts?: string | undefined;
+    IP?: string | undefined;
     txRef: string;
     orderRef: string;
     voucher: string;
@@ -1295,10 +1295,10 @@ interface MobileMoneyFrancophoneRequest {
     network: string;
     email: string;
     phonenumber: string;
-    firstname?: string;
-    lastname?: string;
-    subaccounts?: string;
-    IP?: string;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    subaccounts?: string | undefined;
+    IP?: string | undefined;
     txRef: string;
     orderRef: string;
     voucher: string;
@@ -1333,10 +1333,10 @@ interface MobileMoneyUgandaRequest {
     network: string;
     email: string;
     phonenumber: string;
-    firstname?: string;
-    lastname?: string;
-    subaccounts?: string;
-    IP?: string;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    subaccounts?: string | undefined;
+    IP?: string | undefined;
     txRef: string;
     orderRef: string;
     voucher: string;
@@ -1417,12 +1417,12 @@ interface VirtualCardsCreateRequest {
     currency: string;
     amount: string;
     billing_name: string;
-    billing_address?: string;
-    billing_city?: string;
-    billing_state?: string;
-    billing_postal_code?: string;
-    billing_country?: string;
-    callback_url?: string;
+    billing_address?: string | undefined;
+    billing_city?: string | undefined;
+    billing_state?: string | undefined;
+    billing_postal_code?: string | undefined;
+    billing_country?: string | undefined;
+    callback_url?: string | undefined;
 }
 
 interface VirtualCardsCreateResponse extends BaseResponse {
@@ -1451,7 +1451,7 @@ interface VirtualCardsCreateResponse extends BaseResponse {
 }
 
 interface VirtualCardsListRequest {
-    page?: string;
+    page?: string | undefined;
 }
 
 interface VirtualCardsListResponse extends BaseResponse {
@@ -1540,7 +1540,7 @@ interface VirtualCardsTerminateResponse extends BaseResponse {
 interface VirtualCardsFundRequest {
     id: string;
     amount: string;
-    debit_currency?: string;
+    debit_currency?: string | undefined;
 }
 
 interface VirtualCardsFundResponse extends BaseResponse {
@@ -1640,11 +1640,11 @@ interface VirtualAccount {
 
 interface VirtualAccountAccountNumberRequest {
     email: string;
-    is_permanent?: string;
-    frequency?: string;
-    duration?: string;
-    narration?: string;
-    txref?: string;
+    is_permanent?: string | undefined;
+    frequency?: string | undefined;
+    duration?: string | undefined;
+    narration?: string | undefined;
+    txref?: string | undefined;
 }
 
 interface VirtualAccountAccountNumberResponse extends BaseResponse {
@@ -1669,7 +1669,7 @@ interface Refund {
 
 interface RefundRefundRequest {
     ref: string;
-    amount?: string;
+    amount?: string | undefined;
 }
 
 interface RefundRefundResponse extends BaseResponse {
@@ -1707,7 +1707,7 @@ interface BillsPaymentBillsRequest {
     service_method: string;
     service_version: string;
     service_channel: string;
-    service_payload?: string;
+    service_payload?: string | undefined;
 }
 
 interface BillsPaymentBillsResponse extends BaseResponse {
@@ -1720,10 +1720,10 @@ interface Settlement {
 }
 
 interface SettlementListRequest {
-    from?: string;
-    to?: string;
-    page?: string;
-    subaccountid?: string;
+    from?: string | undefined;
+    to?: string | undefined;
+    page?: string | undefined;
+    subaccountid?: string | undefined;
 }
 
 interface SettlementListResponse extends BaseResponse {
@@ -1780,8 +1780,8 @@ interface SettlementListResponse extends BaseResponse {
 
 interface SettlementFetchRequest {
     id: string;
-    from?: string;
-    to?: string;
+    from?: string | undefined;
+    to?: string | undefined;
 }
 
 interface SettlementFetchResponse extends BaseResponse {
@@ -1859,17 +1859,17 @@ interface USSD {
 interface USSDChargeRequest {
     currency: string;
     country: string;
-    payment_type?: string;
+    payment_type?: string | undefined;
     amount: string;
     email: string;
-    phonenumber?: string;
-    firstname?: string;
-    lastname?: string;
-    IP?: string;
+    phonenumber?: string | undefined;
+    firstname?: string | undefined;
+    lastname?: string | undefined;
+    IP?: string | undefined;
     txRef: string;
     orderRef: string;
     is_ussd: string;
-    device_fingerprint?: string;
+    device_fingerprint?: string | undefined;
 }
 
 interface USSDChargeResponse {
@@ -1898,7 +1898,7 @@ interface Ebills {
 }
 
 interface EbillsCreateRequest {
-    narration?: string;
+    narration?: string | undefined;
     numberofunits: string;
     currency: string;
     amount: string;
@@ -1907,7 +1907,7 @@ interface EbillsCreateRequest {
     txRef: string;
     IP: string;
     country: string;
-    custom_business_name?: string;
+    custom_business_name?: string | undefined;
 }
 
 interface EbillsCreateResponse extends BaseResponse {
@@ -1921,7 +1921,7 @@ interface EbillsCreateResponse extends BaseResponse {
 
 interface EbillsUpdateRequest {
     reference: string;
-    currency?: string;
+    currency?: string | undefined;
     amount: string;
 }
 

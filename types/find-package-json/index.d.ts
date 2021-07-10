@@ -53,38 +53,38 @@ declare namespace find {
 
     interface Package {
         [k: string]: any;
-        name?: string;
-        version?: string;
-        files?: string[];
-        bin?: { [k: string]: string };
-        man?: string[];
-        keywords?: string[];
-        author?: Person;
-        maintainers?: Person[];
-        contributors?: Person[];
-        bundleDependencies?: { [name: string]: string };
-        dependencies?: { [name: string]: string };
-        devDependencies?: { [name: string]: string };
-        optionalDependencies?: { [name: string]: string };
-        description?: string;
-        engines?: { [type: string]: string };
-        license?: string;
-        repository?: { type: string; url: string };
-        bugs?: { url: string; email?: string } | { url?: string; email: string };
-        homepage?: string;
-        scripts?: { [k: string]: string };
-        readme?: string;
-        main?: string;
-        module?: string;
-        browser?: string;
-        type?: string;
-        types?: string;
-        typings?: string;
+        name?: string | undefined;
+        version?: string | undefined;
+        files?: string[] | undefined;
+        bin?: { [k: string]: string } | undefined;
+        man?: string[] | undefined;
+        keywords?: string[] | undefined;
+        author?: Person | undefined;
+        maintainers?: Person[] | undefined;
+        contributors?: Person[] | undefined;
+        bundleDependencies?: { [name: string]: string } | undefined;
+        dependencies?: { [name: string]: string } | undefined;
+        devDependencies?: { [name: string]: string } | undefined;
+        optionalDependencies?: { [name: string]: string } | undefined;
+        description?: string | undefined;
+        engines?: { [type: string]: string } | undefined;
+        license?: string | undefined;
+        repository?: { type: string; url: string } | undefined;
+        bugs?: { url: string; email?: string | undefined } | { url?: string | undefined; email: string } | undefined;
+        homepage?: string | undefined;
+        scripts?: { [k: string]: string } | undefined;
+        readme?: string | undefined;
+        main?: string | undefined;
+        module?: string | undefined;
+        browser?: string | undefined;
+        type?: string | undefined;
+        types?: string | undefined;
+        typings?: string | undefined;
     }
 
     interface Person {
-        name?: string;
-        email?: string;
-        url?: string;
+        name?: string | undefined;
+        email?: string | undefined;
+        url?: string | undefined;
     }
 }

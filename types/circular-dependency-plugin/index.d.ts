@@ -21,23 +21,23 @@ declare namespace CircularDependencyPlugin {
     /**
      * @default false
      */
-    allowAsyncCycles?: boolean;
+    allowAsyncCycles?: boolean | undefined;
     /**
      * @default process.cwd()
      */
-    cwd?: string;
+    cwd?: string | undefined;
     /**
      * @default /$^/
      */
-    exclude?: RegExp;
+    exclude?: RegExp | undefined;
     /**
      * @default /.*\/
      */
-    include?: RegExp;
+    include?: RegExp | undefined;
     /**
      * @default false
      */
-    failOnError?: boolean;
+    failOnError?: boolean | undefined;
     /**
      * @default false
      */
@@ -45,8 +45,8 @@ declare namespace CircularDependencyPlugin {
       module: Module;
       paths: string[];
       compilation: compilation.Compilation;
-    }) => void);
-    onEnd?: (x: { compilation: compilation.Compilation }) => void;
-    onStart?: (x: { compilation: compilation.Compilation }) => void;
+    }) => void) | undefined;
+    onEnd?: ((x: { compilation: compilation.Compilation }) => void) | undefined;
+    onStart?: ((x: { compilation: compilation.Compilation }) => void) | undefined;
   }
 }

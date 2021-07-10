@@ -2,7 +2,7 @@
 // Project: https://github.com/plaid/link
 // Definitions by: Aaron Holderman <https://github.com/afholderman>
 //                 Hannes Kindströmmer <https://github.com/brolaugh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 declare global {
@@ -21,20 +21,20 @@ export namespace Plaid {
         key: string;
         env: Environment;
         onSuccess: OnSuccess;
-        onExit?: OnExit;
-        onEvent?: OnEvent;
-        onLoad?: OnLoad;
-        language?: Language;
-        linkCustomizationName?: string;
-        countryCodes?: Country[];
-        webhook?: string;
-        userLegalName?: string;
-        userEmailAddress?: string;
-        token?: string;
-        isWebView?: boolean;
-        oauthNonce?: string;
-        oauthRedirectUri?: string;
-        oauthStateId?: string;
+        onExit?: OnExit | undefined;
+        onEvent?: OnEvent | undefined;
+        onLoad?: OnLoad | undefined;
+        language?: Language | undefined;
+        linkCustomizationName?: string | undefined;
+        countryCodes?: Country[] | undefined;
+        webhook?: string | undefined;
+        userLegalName?: string | undefined;
+        userEmailAddress?: string | undefined;
+        token?: string | undefined;
+        isWebView?: boolean | undefined;
+        oauthNonce?: string | undefined;
+        oauthRedirectUri?: string | undefined;
+        oauthStateId?: string | undefined;
     }
 
     type OnSuccess = (public_token: string, metadata: OnSuccessMetaData) => void;

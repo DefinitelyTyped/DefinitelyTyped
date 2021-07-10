@@ -44,10 +44,10 @@ export interface DisplayMarkerLayer {
     markScreenRange(
         range: RangeCompatible,
         options?: {
-            reversed?: boolean;
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
-            exclusive?: boolean;
-            clipDirection?: 'backward' | 'forward' | 'closest';
+            reversed?: boolean | undefined;
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            exclusive?: boolean | undefined;
+            clipDirection?: 'backward' | 'forward' | 'closest' | undefined;
         },
     ): DisplayMarker;
 
@@ -58,9 +58,9 @@ export interface DisplayMarkerLayer {
     markScreenPosition(
         screenPosition: PointCompatible,
         options?: {
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
-            exclusive?: boolean;
-            clipDirection?: 'backward' | 'forward' | 'closest';
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            exclusive?: boolean | undefined;
+            clipDirection?: 'backward' | 'forward' | 'closest' | undefined;
         },
     ): DisplayMarker;
 
@@ -68,9 +68,9 @@ export interface DisplayMarkerLayer {
     markBufferRange(
         range: RangeCompatible,
         options?: {
-            reversed?: boolean;
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
-            exclusive?: boolean;
+            reversed?: boolean | undefined;
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            exclusive?: boolean | undefined;
         },
     ): DisplayMarker;
 
@@ -81,8 +81,8 @@ export interface DisplayMarkerLayer {
     markBufferPosition(
         bufferPosition: PointCompatible,
         options?: {
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
-            exclusive?: boolean;
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            exclusive?: boolean | undefined;
         },
     ): DisplayMarker;
 
@@ -109,68 +109,68 @@ export interface DisplayMarkerLayer {
 
 export interface FindDisplayMarkerOptions {
     /** Only include markers starting at this Point in buffer coordinates. */
-    startBufferPosition?: PointCompatible;
+    startBufferPosition?: PointCompatible | undefined;
 
     /** Only include markers ending at this Point in buffer coordinates. */
-    endBufferPosition?: PointCompatible;
+    endBufferPosition?: PointCompatible | undefined;
 
     /** Only include markers starting at this Point in screen coordinates. */
-    startScreenPosition?: PointCompatible;
+    startScreenPosition?: PointCompatible | undefined;
 
     /** Only include markers ending at this Point in screen coordinates. */
-    endScreenPosition?: PointCompatible;
+    endScreenPosition?: PointCompatible | undefined;
 
     /** Only include markers starting inside this Range in buffer coordinates. */
-    startsInBufferRange?: RangeCompatible;
+    startsInBufferRange?: RangeCompatible | undefined;
 
     /** Only include markers ending inside this Range in buffer coordinates. */
-    endsInBufferRange?: RangeCompatible;
+    endsInBufferRange?: RangeCompatible | undefined;
 
     /** Only include markers starting inside this Range in screen coordinates. */
-    startsInScreenRange?: RangeCompatible;
+    startsInScreenRange?: RangeCompatible | undefined;
 
     /** Only include markers ending inside this Range in screen coordinates. */
-    endsInScreenRange?: RangeCompatible;
+    endsInScreenRange?: RangeCompatible | undefined;
 
     /** Only include markers starting at this row in buffer coordinates. */
-    startBufferRow?: number;
+    startBufferRow?: number | undefined;
 
     /** Only include markers ending at this row in buffer coordinates. */
-    endBufferRow?: number;
+    endBufferRow?: number | undefined;
 
     /** Only include markers starting at this row in screen coordinates. */
-    startScreenRow?: number;
+    startScreenRow?: number | undefined;
 
     /** Only include markers ending at this row in screen coordinates. */
-    endScreenRow?: number;
+    endScreenRow?: number | undefined;
 
     /**
      *  Only include markers intersecting this Array of [startRow, endRow] in
      *  buffer coordinates.
      */
-    intersectsBufferRowRange?: [number, number];
+    intersectsBufferRowRange?: [number, number] | undefined;
 
     /**
      *  Only include markers intersecting this Array of [startRow, endRow] in
      *  screen coordinates.
      */
-    intersectsScreenRowRange?: [number, number];
+    intersectsScreenRowRange?: [number, number] | undefined;
 
     /** Only include markers containing this Range in buffer coordinates. */
-    containsBufferRange?: RangeCompatible;
+    containsBufferRange?: RangeCompatible | undefined;
 
     /** Only include markers containing this Point in buffer coordinates. */
-    containsBufferPosition?: PointCompatible;
+    containsBufferPosition?: PointCompatible | undefined;
 
     /** Only include markers contained in this Range in buffer coordinates. */
-    containedInBufferRange?: RangeCompatible;
+    containedInBufferRange?: RangeCompatible | undefined;
 
     /** Only include markers contained in this Range in screen coordinates. */
-    containedInScreenRange?: RangeCompatible;
+    containedInScreenRange?: RangeCompatible | undefined;
 
     /** Only include markers intersecting this Range in buffer coordinates. */
-    intersectsBufferRange?: RangeCompatible;
+    intersectsBufferRange?: RangeCompatible | undefined;
 
     /** Only include markers intersecting this Range in screen coordinates. */
-    intersectsScreenRange?: RangeCompatible;
+    intersectsScreenRange?: RangeCompatible | undefined;
 }

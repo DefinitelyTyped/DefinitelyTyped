@@ -22,85 +22,85 @@ declare namespace moduleDeps {
         /**
          * A string or array of string transforms
          */
-        transform?: Transform | Transform[];
+        transform?: Transform | Transform[] | undefined;
 
         /**
          * An array path of strings showing where to look in the package.json
          * for source transformations. If falsy, don't look at the package.json at all
          */
-        transformKey?: string[];
+        transformKey?: string[] | undefined;
 
         /**
          * Custom resolve function using the opts.resolve(id, parent, cb) signature that browser-resolve has
          */
-        resolve?: (id: string, opts: ParentObject, cb: (err?: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => void) => void;
+        resolve?: ((id: string, opts: ParentObject, cb: (err?: Error | null, file?: string, pkg?: PackageObject, fakePath?: any) => void) => void) | undefined;
 
         /**
          * A custom dependency detection function. opts.detect(source) should return an array of dependency module names. By default detective is used
          */
-        detect?: (source: string) => string[];
+        detect?: ((source: string) => string[]) | undefined;
 
         /**
          * A function (id) to skip resolution of some module id strings. If defined,
          * opts.filter(id) should return truthy for all the ids to include and falsey for all the ids to skip.
          */
-        filter?: (id: string) => boolean;
+        filter?: ((id: string) => boolean) | undefined;
 
         /**
          * A function (id, file, pkg) that gets called after id has been resolved.
          * Return false to skip this file
          */
-        postFilter?: (id: string, file: string, pkg: PackageObject) => (void | boolean); // tslint:disable-line:void-return
+        postFilter?: ((id: string, file: string, pkg: PackageObject) => (void | boolean)) | undefined; // tslint:disable-line:void-return
 
         /**
          * Transform the parsed package.json contents before using the values.
          * opts.packageFilter(pkg, dir) should return the new pkg object to use.
          */
-        packageFilter?: (pkg: PackageObject, dir: string) => PackageObject;
+        packageFilter?: ((pkg: PackageObject, dir: string) => PackageObject) | undefined;
 
         /**
          * An array of absolute paths to not parse for dependencies.
          * Use this for large dependencies like jquery or threejs which take forever to parse.
          */
-        noParse?: boolean | string[];
+        noParse?: boolean | string[] | undefined;
 
         /**
          * An object mapping filenames to file objects to skip costly io
          */
-        cache?: { [fileName: string]: any };
+        cache?: { [fileName: string]: any } | undefined;
 
         /**
          * An object mapping filenames to their parent package.json contents
          * for browser fields, main entries, and transforms
          */
-        packageCache?: { [fileName: string]: any };
+        packageCache?: { [fileName: string]: any } | undefined;
 
         /**
          * An object mapping filenames to raw source to avoid reading from disk.
          */
-        fileCache?: { [fileName: string]: string };
+        fileCache?: { [fileName: string]: string } | undefined;
 
         /**
          * A complex cache handler that allows async and persistent caching of data.
          */
-        persistentCache?: (file: string, id: string, pkg: PackageObject, fallback: (dataAsString: string, cb: CacheCallback) => void, cb: CacheCallback) => void;
+        persistentCache?: ((file: string, id: string, pkg: PackageObject, fallback: (dataAsString: string, cb: CacheCallback) => void, cb: CacheCallback) => void) | undefined;
 
         /**
          * Array of global paths to search. Defaults to splitting on ':' in process.env.NODE_PATH
          */
-        paths?: string[];
+        paths?: string[] | undefined;
 
         /**
          * Ignore files that failed to resolve
          */
-        ignoreMissing?: boolean;
+        ignoreMissing?: boolean | undefined;
 
         // un-documented options used by module-deps
-        basedir?: string;
-        globalTransform?: Transform | Transform[];
-        extensions?: string[];
-        modules?: { [name: string]: any };
-        expose?: { [name: string]: string };
+        basedir?: string | undefined;
+        globalTransform?: Transform | Transform[] | undefined;
+        extensions?: string[] | undefined;
+        modules?: { [name: string]: any } | undefined;
+        expose?: { [name: string]: string } | undefined;
 
         [prop: string]: any;
     }
@@ -110,9 +110,9 @@ declare namespace moduleDeps {
 
         readFile(file: string, id?: any, pkg?: PackageObject): NodeJS.ReadableStream;
 
-        getTransforms(file: string, pkg: PackageObject, opts?: { builtin?: boolean; inNodeModules?: boolean }): NodeJS.ReadWriteStream;
+        getTransforms(file: string, pkg: PackageObject, opts?: { builtin?: boolean | undefined; inNodeModules?: boolean | undefined }): NodeJS.ReadWriteStream;
 
-        walk(id: string | { file: string; id: string; entry?: boolean; expose?: string; noparse?: boolean; source?: string },
+        walk(id: string | { file: string; id: string; entry?: boolean | undefined; expose?: string | undefined; noparse?: boolean | undefined; source?: string | undefined },
             parent: { modules: any },
             cb: (err: Error | null, file?: string) => void): void;
 
@@ -149,20 +149,20 @@ declare namespace moduleDeps {
 
     type CacheCallback = (err: Error | null, res?: { source: string; package: any; deps: { [dep: string]: boolean } }) => void;
 
-    type Transform = string | ((file: string, opts: { basedir?: string }) => NodeJS.ReadWriteStream);
+    type Transform = string | ((file: string, opts: { basedir?: string | undefined }) => NodeJS.ReadWriteStream);
 
     interface InputRow {
         file: string;
         id: string;
-        entry?: boolean;
+        entry?: boolean | undefined;
         expose: string;
-        noparse?: boolean;
+        noparse?: boolean | undefined;
     }
 
     interface InputTransform {
         transform: string | (() => any);
         options: any;
-        global?: boolean;
+        global?: boolean | undefined;
     }
 
     interface ParentObject {
@@ -171,11 +171,11 @@ declare namespace moduleDeps {
         basedir: string;
         paths: string[];
         package?: any;
-        packageFilter?: (p: PackageObject, x: string) => PackageObject & { __dirname: string };
-        inNodeModules?: boolean;
+        packageFilter?: ((p: PackageObject, x: string) => PackageObject & { __dirname: string }) | undefined;
+        inNodeModules?: boolean | undefined;
         // undocumented, see 'Options' interface
-        extensions?: string[];
-        modules?: { [name: string]: any };
+        extensions?: string[] | undefined;
+        modules?: { [name: string]: any } | undefined;
     }
 
     interface TransformObject {

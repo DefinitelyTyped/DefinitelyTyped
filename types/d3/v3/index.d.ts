@@ -937,7 +937,7 @@ declare namespace d3 {
 
     interface BaseEvent {
         type: string;
-        sourceEvent?: Event;
+        sourceEvent?: Event | undefined;
     }
 
     /**
@@ -2843,11 +2843,11 @@ declare namespace d3 {
 
         namespace cluster {
             interface Result {
-                parent?: Result;
-                children?: Result[];
-                depth?: number;
-                x?: number;
-                y?: number;
+                parent?: Result | undefined;
+                children?: Result[] | undefined;
+                depth?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
             }
 
             interface Link<T extends Result> {
@@ -2895,13 +2895,13 @@ declare namespace d3 {
             }
 
             interface Node {
-                index?: number;
-                x?: number;
-                y?: number;
-                px?: number;
-                py?: number;
-                fixed?: boolean;
-                weight?: number;
+                index?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
+                px?: number | undefined;
+                py?: number | undefined;
+                fixed?: boolean | undefined;
+                weight?: number | undefined;
             }
 
             interface Event {
@@ -2968,10 +2968,10 @@ declare namespace d3 {
 
         namespace hierarchy {
             interface Result {
-                parent?: Result;
-                children?: Result[];
-                value?: number;
-                depth?: number;
+                parent?: Result | undefined;
+                children?: Result[] | undefined;
+                value?: number | undefined;
+                depth?: number | undefined;
             }
         }
 
@@ -3025,13 +3025,13 @@ declare namespace d3 {
 
         namespace pack {
             interface Node {
-                parent?: Node;
-                children?: Node[];
-                value?: number;
-                depth?: number;
-                x?: number;
-                y?: number;
-                r?: number;
+                parent?: Node | undefined;
+                children?: Node[] | undefined;
+                value?: number | undefined;
+                depth?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
+                r?: number | undefined;
             }
 
             interface Link<T extends Node> {
@@ -3077,14 +3077,14 @@ declare namespace d3 {
             }
 
             interface Node {
-                parent?: Node;
-                children?: Node[];
-                value?: number;
-                depth?: number;
-                x?: number;
-                y?: number;
-                dx?: number;
-                dy?: number;
+                parent?: Node | undefined;
+                children?: Node[] | undefined;
+                value?: number | undefined;
+                depth?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
+                dx?: number | undefined;
+                dy?: number | undefined;
             }
 
         }
@@ -3151,7 +3151,7 @@ declare namespace d3 {
             interface Value {
                 x: number;
                 y: number;
-                y0?: number;
+                y0?: number | undefined;
             }
         }
 
@@ -3196,11 +3196,11 @@ declare namespace d3 {
             }
 
             interface Node {
-                parent?: Node;
-                children?: Node[];
-                depth?: number;
-                x?: number;
-                y?: number;
+                parent?: Node | undefined;
+                children?: Node[] | undefined;
+                depth?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
             }
         }
 
@@ -3235,14 +3235,14 @@ declare namespace d3 {
 
         namespace treemap {
             interface Node {
-                parent?: Node;
-                children?: Node[];
-                value?: number;
-                depth?: number;
-                x?: number;
-                y?: number;
-                dx?: number;
-                dy?: number;
+                parent?: Node | undefined;
+                children?: Node[] | undefined;
+                value?: number | undefined;
+                depth?: number | undefined;
+                x?: number | undefined;
+                y?: number | undefined;
+                dx?: number | undefined;
+                dy?: number | undefined;
             }
 
             interface Link<T extends Node> {

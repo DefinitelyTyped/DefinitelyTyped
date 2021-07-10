@@ -14,7 +14,7 @@ export type NoOutputCallback = () => void;
 export type Restore = () => void;
 
 export interface Options {
-    isTTY?: boolean;
+    isTTY?: boolean | undefined;
 }
 
 export interface Inspector {

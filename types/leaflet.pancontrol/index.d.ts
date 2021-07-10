@@ -8,7 +8,7 @@ import { ControlOptions, Control as LControl } from 'leaflet';
 
 declare module 'leaflet' {
   interface MapOptions {
-    panControl?: boolean;
+    panControl?: boolean | undefined;
   }
 
   namespace control {
@@ -17,7 +17,7 @@ declare module 'leaflet' {
 
   namespace Control {
     interface PanControlOptions extends ControlOptions {
-      panOffset?: number;
+      panOffset?: number | undefined;
     }
 
     class Pan extends LControl {

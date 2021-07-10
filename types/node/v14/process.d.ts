@@ -26,10 +26,10 @@ declare module 'process' {
 
             interface ProcessRelease {
                 name: string;
-                sourceUrl?: string;
-                headersUrl?: string;
-                libUrl?: string;
-                lts?: string;
+                sourceUrl?: string | undefined;
+                headersUrl?: string | undefined;
+                libUrl?: string | undefined;
+                lts?: string | undefined;
             }
 
             interface ProcessVersions extends Dict<string> {
@@ -76,7 +76,7 @@ declare module 'process' {
             type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<any>, value: any) => void;
 
             interface Socket extends ReadWriteStream {
-                isTTY?: true;
+                isTTY?: true | undefined;
             }
 
             // Alias for compatibility
@@ -199,7 +199,7 @@ declare module 'process' {
                 emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
                 env: ProcessEnv;
                 exit(code?: number): never;
-                exitCode?: number;
+                exitCode?: number | undefined;
                 getgid(): number;
                 setgid(id: number | string): void;
                 getuid(): number;
@@ -247,7 +247,7 @@ declare module 'process' {
                 arch: string;
                 platform: Platform;
                 /** @deprecated since v14.0.0 - use `require.main` instead. */
-                mainModule?: Module;
+                mainModule?: Module | undefined;
                 memoryUsage(): MemoryUsage;
                 cpuUsage(previousValue?: CpuUsage): CpuUsage;
                 nextTick(callback: Function, ...args: any[]): void;
@@ -277,7 +277,7 @@ declare module 'process' {
                 domain: Domain;
 
                 // Worker
-                send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
+                send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean | undefined}, callback?: (error: Error | null) => void): boolean;
                 disconnect(): void;
                 connected: boolean;
 
@@ -291,7 +291,7 @@ declare module 'process' {
                 /**
                  * Only available with `--experimental-report`
                  */
-                report?: ProcessReport;
+                report?: ProcessReport | undefined;
 
                 resourceUsage(): ResourceUsage;
 

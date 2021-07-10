@@ -14,17 +14,17 @@ export interface RenderLabelProps {
 }
 
 export interface ProgressStepProps extends Omit<ReactButtonAttr, "onClick">, InternationalProps<ProgressStepTranslationKey> {
-    complete?: boolean, // provided by parent
-    current?: boolean,
-    description?: string,
-    index?: number, // provided by parent
-    invalid?: boolean,
+    complete?: boolean | undefined, // provided by parent
+    current?: boolean | undefined,
+    description?: string | undefined,
+    index?: number | undefined, // provided by parent
+    invalid?: boolean | undefined,
     label: NonNullable<React.ReactNode>,
     onClick?(e?: React.MouseEvent<HTMLButtonElement>): void, // provided by parent
-    overflowTooltipProps?: object,
-    renderLabel?: React.FC<RenderLabelProps>,
-    secondaryLabel?: string,
-    tooltipId?: string,
+    overflowTooltipProps?: object | undefined,
+    renderLabel?: React.FC<RenderLabelProps> | undefined,
+    secondaryLabel?: string | undefined,
+    tooltipId?: string | undefined,
 }
 
 export declare const ProgressStep: React.FC<ProgressStepProps>;
@@ -32,10 +32,10 @@ export declare const ProgressStep: React.FC<ProgressStepProps>;
 // ProgressIndicator
 
 export interface ProgressIndicatorProps extends Omit<ReactAttr<HTMLUListElement>, "onChange"> {
-    currentIndex?: number,
+    currentIndex?: number | undefined,
     onChange?(index: number): void,
-    vertical?: boolean,
-    spaceEqually?: boolean,
+    vertical?: boolean | undefined,
+    spaceEqually?: boolean | undefined,
 }
 
 export declare class ProgressIndicator extends React.Component<ProgressIndicatorProps> { }

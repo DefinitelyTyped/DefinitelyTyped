@@ -244,7 +244,7 @@ export interface LoaderOptions {
      * };
      * ```
      */
-    sassOptions?: LoaderOptions.SassOptions | LoaderOptions.Callback<LoaderOptions.SassOptions>;
+    sassOptions?: LoaderOptions.SassOptions | LoaderOptions.Callback<LoaderOptions.SassOptions> | undefined;
 
     /**
      * Prepends `Sass`/`SCSS` code before the actual entry file. In this case, the
@@ -319,7 +319,7 @@ export interface LoaderOptions {
      * @default
      * undefined
      */
-    prependData?: string | LoaderOptions.Callback<string>;
+    prependData?: string | LoaderOptions.Callback<string> | undefined;
 
     /**
      * Enables/Disables generation of source maps.
@@ -365,7 +365,7 @@ export interface LoaderOptions {
      * @defaults
      * Depends on the `compiler.devtool` value.
      */
-    sourceMap?: boolean;
+    sourceMap?: boolean | undefined;
 
     /**
      * Enables/Disables the default Webpack importer.
@@ -401,7 +401,7 @@ export interface LoaderOptions {
      * @default
      * true
      */
-    webpackImporter?: boolean;
+    webpackImporter?: boolean | undefined;
 }
 
 export namespace LoaderOptions {

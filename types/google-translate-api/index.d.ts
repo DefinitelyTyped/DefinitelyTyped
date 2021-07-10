@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface TranslateOption {
-    from?: string;
-    to?: string;
-    raw?: boolean;
+    from?: string | undefined;
+    to?: string | undefined;
+    raw?: boolean | undefined;
 }
 interface TranslateResult {
     text: string;

@@ -11,6 +11,8 @@ export class OctahedronGeometry extends PolyhedronGeometry {
      * @default 'OctahedronGeometry'
      */
     type: string;
+
+    static fromJSON(data: any): OctahedronGeometry;
 }
 
 export { OctahedronGeometry as OctahedronBufferGeometry };

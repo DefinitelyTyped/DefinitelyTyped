@@ -29,7 +29,7 @@ declare class MiniPass extends EventEmitter implements NodeJS.WritableStream {
     end(chunk: any, encoding?: string | null, cb?: () => void): void;
     resume(): void;
     pause(): void;
-    pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+    pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
 
     addEventHandler(event: string, listener: (...args: any[]) => void): this;
     addEventHandler(event: 'data', listener: (chunk: any) => void): this;
@@ -62,7 +62,7 @@ declare class MiniPass extends EventEmitter implements NodeJS.WritableStream {
 
 declare namespace MiniPass {
     interface Options {
-        objectMode?: boolean;
-        encoding?: string | null;
+        objectMode?: boolean | undefined;
+        encoding?: string | null | undefined;
     }
 }

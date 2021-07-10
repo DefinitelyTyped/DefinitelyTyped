@@ -15,7 +15,7 @@ declare namespace create {
             log(name: string, n: number, start: number, callback: (err: Error, data: any) => void): void;
             log(name: string, n: number, start: number, type: 'text' | 'html', callback: (err: Error, data: any) => void): void;
             log(name: string, n: number, start: number, type: 'text' | 'html', meta: boolean, callback: (err: Error, data: any) => void): void;
-            logStream(name: string, n: number, options?: { type?: 'text' | 'html', delay?: number }): NodeJS.ReadableStream;
+            logStream(name: string, n: number, options?: { type?: 'text' | 'html' | undefined, delay?: number | undefined }): NodeJS.ReadableStream;
             stop(name: string, n: number, callback: (err: Error) => void): void;
             term(name: string, n: number, callback: (err: Error) => void): void;
         };
@@ -119,26 +119,26 @@ declare namespace create {
     interface JobBuildOptions {
         name: string;
         parameters?: any;
-        token?: string;
+        token?: string | undefined;
     }
 
     interface JenkinsClientOptions {
-        baseUrl?: string;
-        crumbIssuer?: boolean;
+        baseUrl?: string | undefined;
+        crumbIssuer?: boolean | undefined;
         headers?: any;
-        promisify?: boolean | ((...args: any[]) => any);
+        promisify?: boolean | ((...args: any[]) => any) | undefined;
     }
 }
 
 declare function create(opts?: {
-        baseUrl?: string;
-        crumbIssuer?: boolean;
+        baseUrl?: string | undefined;
+        crumbIssuer?: boolean | undefined;
         headers?: any;
-        promisify?: false;
+        promisify?: false | undefined;
     }): create.JenkinsAPI;
 declare function create(opts: {
-        baseUrl?: string;
-        crumbIssuer?: boolean;
+        baseUrl?: string | undefined;
+        crumbIssuer?: boolean | undefined;
         headers?: any;
         promisify: true;
     }): create.JenkinsPromisifiedAPI;

@@ -64,7 +64,7 @@ export interface GeoJsonObject {
      * The axes order of a bbox follows the axes order of geometries.
      * https://tools.ietf.org/html/rfc7946#section-5
      */
-    bbox?: BBox;
+    bbox?: BBox | undefined;
 }
 
 /**
@@ -158,7 +158,7 @@ export interface Feature<G extends Geometry | null = Geometry, P = GeoJsonProper
      * A value that uniquely identifies this feature in a
      * https://tools.ietf.org/html/rfc7946#section-3.2.
      */
-    id?: string | number;
+    id?: string | number | undefined;
     /**
      * Properties associated with this feature.
      */

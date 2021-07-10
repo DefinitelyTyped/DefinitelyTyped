@@ -17,8 +17,8 @@ export type UriCallback = (uri: string) => void;
 export interface RequestOptions {
     method: string;
     path: string;
-    query?: object;
-    headers?: object;
+    query?: object | undefined;
+    headers?: object | undefined;
 }
 
 export class Vimeo {

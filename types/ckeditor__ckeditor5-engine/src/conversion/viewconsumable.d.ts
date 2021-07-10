@@ -7,39 +7,39 @@ export default class ViewConsumable {
     add(
         element: Element,
         consumables?: {
-            name?: boolean;
-            attributes?: string | string[];
-            classes?: string | string[];
-            styles?: string | string[];
+            name?: boolean | undefined;
+            attributes?: string | string[] | undefined;
+            classes?: string | string[] | undefined;
+            styles?: string | string[] | undefined;
         },
     ): void;
     consume(
         element: Element,
         consumables?: {
-            name?: boolean;
-            attributes?: string | string[];
-            classes?: string | string[];
-            styles?: string | string[];
+            name?: boolean | undefined;
+            attributes?: string | string[] | undefined;
+            classes?: string | string[] | undefined;
+            styles?: string | string[] | undefined;
         },
     ): boolean;
     consume(element: Text | DocumentFragment): boolean;
     revert(
         element: Element,
         consumables?: {
-            name?: boolean;
-            attributes?: string | string[];
-            classes?: string | string[];
-            styles?: string | string[];
+            name?: boolean | undefined;
+            attributes?: string | string[] | undefined;
+            classes?: string | string[] | undefined;
+            styles?: string | string[] | undefined;
         },
     ): void;
     revert(element: Text | DocumentFragment): void;
     test(
         element: Element,
         consumables?: {
-            name?: boolean;
-            attributes?: string | string[];
-            classes?: string | string[];
-            styles?: string | string[];
+            name?: boolean | undefined;
+            attributes?: string | string[] | undefined;
+            classes?: string | string[] | undefined;
+            styles?: string | string[] | undefined;
         },
     ): boolean | null;
     test(element: Text | DocumentFragment): boolean | null;

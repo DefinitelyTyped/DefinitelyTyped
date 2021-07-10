@@ -28,6 +28,6 @@ const configTest = (config: karma.Config) => {
 // required by window prop definition
 declare global {
     interface Window {
-        parallelDescribeCount?: number;
+        parallelDescribeCount?: number | undefined;
     }
 }

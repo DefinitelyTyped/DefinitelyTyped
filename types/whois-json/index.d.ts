@@ -16,49 +16,49 @@ declare namespace Whois {
     }
 
     interface RegistrationData {
-        domainName?: string;
-        registryDomainId?: string;
-        registrarWhoisServer?: string;
-        registrarUrl?: string;
-        updatedDate?: string;
-        creationDate?: string;
-        registrarRegistrationExpirationDate?: string;
-        registrar?: string;
-        registrarIanaId?: string;
-        registrarAbuseContactEmail?: string;
-        registrarAbuseContactPhone?: string;
-        domainStatus?: string;
-        registrantName?: string;
-        registrantOrganization?: string;
-        registrantStreet?: string;
-        registrantCity?: string;
-        registrantStateProvince?: string;
-        registrantPostalCode?: string;
-        registrantCountry?: string;
-        registrantPhone?: string;
-        registrantEmail?: string;
-        adminName?: string;
-        adminOrganization?: string;
-        adminStreet?: string;
-        adminCity?: string;
-        adminStateProvince?: string;
-        adminPostalCode?: string;
-        adminCountry?: string;
-        adminPhone?: string;
-        adminEmail?: string;
-        techName?: string;
-        techOrganization?: string;
-        techStreet?: string;
-        techCity?: string;
-        techStateProvince?: string;
-        techPostalCode?: string;
-        techCountry?: string;
-        techPhone?: string;
-        techEmail?: string;
-        nameServer?: string;
-        dnssec?: string;
-        urlOfTheIcannWhoisDataProblemReportingSystem?: string;
-        lastUpdateOfWhoisDatabase?: string;
+        domainName?: string | undefined;
+        registryDomainId?: string | undefined;
+        registrarWhoisServer?: string | undefined;
+        registrarUrl?: string | undefined;
+        updatedDate?: string | undefined;
+        creationDate?: string | undefined;
+        registrarRegistrationExpirationDate?: string | undefined;
+        registrar?: string | undefined;
+        registrarIanaId?: string | undefined;
+        registrarAbuseContactEmail?: string | undefined;
+        registrarAbuseContactPhone?: string | undefined;
+        domainStatus?: string | undefined;
+        registrantName?: string | undefined;
+        registrantOrganization?: string | undefined;
+        registrantStreet?: string | undefined;
+        registrantCity?: string | undefined;
+        registrantStateProvince?: string | undefined;
+        registrantPostalCode?: string | undefined;
+        registrantCountry?: string | undefined;
+        registrantPhone?: string | undefined;
+        registrantEmail?: string | undefined;
+        adminName?: string | undefined;
+        adminOrganization?: string | undefined;
+        adminStreet?: string | undefined;
+        adminCity?: string | undefined;
+        adminStateProvince?: string | undefined;
+        adminPostalCode?: string | undefined;
+        adminCountry?: string | undefined;
+        adminPhone?: string | undefined;
+        adminEmail?: string | undefined;
+        techName?: string | undefined;
+        techOrganization?: string | undefined;
+        techStreet?: string | undefined;
+        techCity?: string | undefined;
+        techStateProvince?: string | undefined;
+        techPostalCode?: string | undefined;
+        techCountry?: string | undefined;
+        techPhone?: string | undefined;
+        techEmail?: string | undefined;
+        nameServer?: string | undefined;
+        dnssec?: string | undefined;
+        urlOfTheIcannWhoisDataProblemReportingSystem?: string | undefined;
+        lastUpdateOfWhoisDatabase?: string | undefined;
     }
 
     /**
@@ -66,17 +66,17 @@ declare namespace Whois {
      */
     interface Options {
         /** WHOIS server */
-        server?: string | Endpoint;
+        server?: string | Endpoint | undefined;
         /** number of times to follow redirects */
-        follow?: number;
+        follow?: number | undefined;
         /** socket timeout in milliseconds */
-        timeout?: number;
+        timeout?: number | undefined;
         /** show verbose results */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
         /** bind to a local IP address */
-        bind?: string;
+        bind?: string | undefined;
         /** SOCKS proxy */
-        proxy?: string | SocksProxy;
+        proxy?: string | SocksProxy | undefined;
     }
 
     /**

@@ -2,7 +2,7 @@
 // Project: https://github.com/andris9/smtp-server
 // Definitions by: markisme <https://github.com/markisme>
 //                 taisiias <https://github.com/Taisiias>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 import { EventEmitter } from 'events';
@@ -31,7 +31,7 @@ export interface SMTPServerOptions {
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    secure?: boolean;
+    secure?: boolean | undefined;
     key?: any;
     cert?: any;
     ca?: any;
@@ -42,7 +42,7 @@ export interface SMTPServerOptions {
      * @type {string}
      * @memberOf SMTPServerOptions
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * optional greeting message.
      *  This message is appended to the default ESMTP response.
@@ -50,7 +50,7 @@ export interface SMTPServerOptions {
      * @type {string}
      * @memberOf SMTPServerOptions
      */
-    banner?: string;
+    banner?: string | undefined;
     /**
      * optional maximum allowed message size in bytes, 
      * see details:https://github.com/andris9/smtp-server#using-size-extension
@@ -58,7 +58,7 @@ export interface SMTPServerOptions {
      * @type {number}
      * @memberOf SMTPServerOptions
      */
-    size?: number;
+    size?: number | undefined;
     /**
      * optional array of allowed authentication methods, defaults to ['PLAIN', 'LOGIN']. 
      * Only the methods listed in this array are allowed, 
@@ -70,7 +70,7 @@ export interface SMTPServerOptions {
      * @type {string[]}
      * @memberOf SMTPServerOptions
      */
-    authMethods?: string[];
+    authMethods?: string[] | undefined;
     /**
      * allow authentication, but do not require it
      * 
@@ -87,7 +87,7 @@ export interface SMTPServerOptions {
      * @type {*}
      * @memberOf SMTPServerOptions
      */
-    disabledCommands?: string[];
+    disabledCommands?: string[] | undefined;
     /**
      * optional boolean, if set to true then allow using STARTTLS 
      * but do not advertise or require it. It only makes sense 
@@ -97,49 +97,49 @@ export interface SMTPServerOptions {
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    hideSTARTTLS?: boolean;
+    hideSTARTTLS?: boolean | undefined;
     /**
      * optional boolean, if set to true then does not show PIPELINING in feature list
      * 
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    hidePIPELINING?: boolean;
+    hidePIPELINING?: boolean | undefined;
     /**
      * optional boolean, if set to true then does not show 8BITMIME in features list
      * 
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    hide8BITMIME?: boolean;
+    hide8BITMIME?: boolean | undefined;
     /**
      * optional boolean, if set to true then does not show SMTPUTF8 in features list
      * 
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    hideSMTPUTF8?: boolean;
+    hideSMTPUTF8?: boolean | undefined;
     /**
      * optional boolean, if set to true allows authentication even if connection is not secured first
      * 
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    allowInsecureAuth?: boolean;
+    allowInsecureAuth?: boolean | undefined;
     /**
      * optional boolean, if set to true then does not try to reverse resolve client hostname
      * 
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    disableReverseLookup?: boolean;
+    disableReverseLookup?: boolean | undefined;
     /**
      * optional Map or an object of TLS options for SNI where servername is the key. Overrided by SNICallback.
      * 
      * @type {Object}
      * @memberOf SMTPServerOptions
      */
-    sniOptions?: Object;
+    sniOptions?: Object | undefined;
     /**
      * optional bunyan compatible logger instance. 
      * If set to true then logs to console. 
@@ -148,14 +148,14 @@ export interface SMTPServerOptions {
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    logger?: boolean;
+    logger?: boolean | undefined;
     /**
      * sets the maximum number of concurrently connected clients, defaults to Infinity
      * 
      * @type {number}
      * @memberOf SMTPServerOptions
      */
-    maxClients?: number;//defaults to Infinity
+    maxClients?: number | undefined;//defaults to Infinity
     /**
      * boolean, if set to true expects to be behind a proxy that emits a 
      * PROXY header{http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt} (version 1 only)
@@ -163,7 +163,7 @@ export interface SMTPServerOptions {
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    useProxy?: boolean;
+    useProxy?: boolean | undefined;
     /**
      * boolean, if set to true, enables usage of 
      * XCLIENT{http://www.postfix.org/XCLIENT_README.html} extension to override connection properties. 
@@ -172,7 +172,7 @@ export interface SMTPServerOptions {
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    useXClient?: boolean;
+    useXClient?: boolean | undefined;
     /**
      * boolean, if set to true, enables usage of XFORWARD{http://www.postfix.org/XFORWARD_README.html} extension. 
      * See session.xForward (Map object) for the details provided by the client
@@ -180,21 +180,21 @@ export interface SMTPServerOptions {
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    useXForward?: boolean;
+    useXForward?: boolean | undefined;
     /**
      * boolean, if set to true use LMTP protocol instead of SMTP
      * 
      * @type {boolean}
      * @memberOf SMTPServerOptions
      */
-    lmtp?: boolean;
+    lmtp?: boolean | undefined;
     /**
      * How many milliseconds of inactivity to allow before disconnecting the client (defaults to 1 minute)
      * 
      * @type {number}
      * @memberOf SMTPServerOptions
      */
-    socketTimeout?: number;//millisceonds
+    socketTimeout?: number | undefined;//millisceonds
     /**
      * How many millisceonds to wait before disconnecting pending 
      * connections once server.close() has been called (defaults to 30 seconds)
@@ -202,49 +202,49 @@ export interface SMTPServerOptions {
      * @type {number}
      * @memberOf SMTPServerOptions
      */
-    closeTimeout?: number;//millisceonds
+    closeTimeout?: number | undefined;//millisceonds
     /**
      * The callback to handle authentications (see details https://github.com/andris9/smtp-server#handling-authentication)
      * 
      * 
      * @memberOf SMTPServerOptions
      */
-    onAuth?: (auth: Authentication, session: Session, callback: (err?: Error, response?: AuthenticationResponse) => any) => any;
+    onAuth?: ((auth: Authentication, session: Session, callback: (err?: Error, response?: AuthenticationResponse) => any) => any) | undefined;
     /**
      * The callback to handle the client connection. (see details https://github.com/andris9/smtp-server#validating-client-connection)
      * 
      * 
      * @memberOf SMTPServerOptions
      */
-    onConnect?: (session: Session, callback: (err?: Error) => any) => any;
+    onConnect?: ((session: Session, callback: (err?: Error) => any) => any) | undefined;
     /**
      * the callback to validate MAIL FROM commands (see details https://github.com/andris9/smtp-server#validating-sender-addresses)
      * 
      * 
      * @memberOf SMTPServerOptions
      */
-    onMailFrom?: (address: Address, session: Session, callback: (err?: Error) => any) => any;
+    onMailFrom?: ((address: Address, session: Session, callback: (err?: Error) => any) => any) | undefined;
     /**
      * The callback to validate RCPT TO commands (see details https://github.com/andris9/smtp-server#validating-recipient-addresses)
      * 
      * 
      * @memberOf SMTPServerOptions
      */
-    onRcptTo?: (address: Address, session: Session, callback: (err?: Error) => any) => any;
+    onRcptTo?: ((address: Address, session: Session, callback: (err?: Error) => any) => any) | undefined;
     /**
      * the callback to handle incoming messages (see details https://github.com/andris9/smtp-server#processing-incoming-message)
      * 
      * 
      * @memberOf SMTPServerOptions
      */
-    onData?: (stream: any, session: Session, callback: (err?: Error) => any) => any;
+    onData?: ((stream: any, session: Session, callback: (err?: Error) => any) => any) | undefined;
     /**
      * the callback that informs about closed client connection
      * 
      * 
      * @memberOf SMTPServerOptions
      */
-    onClose?: (session: Session) => any;
+    onClose?: ((session: Session) => any) | undefined;
 }
 
 export interface Authentication {
@@ -261,21 +261,21 @@ export interface Authentication {
      * @type {string}
      * @memberOf Authentication
      */
-    username?: string;
+    username?: string | undefined;
     /**
      * the password if LOGIN or PLAIN was used
      * 
      * @type {string}
      * @memberOf Authentication
      */
-    password?: string;
+    password?: string | undefined;
     /**
      *  the OAuth2 bearer access token if 'XOAUTH2' was used as the authentication method
      * 
      * @type {string}
      * @memberOf Authentication
      */
-    accessToken?: string;
+    accessToken?: string | undefined;
     /**
      * a function for validating CRAM-MD5 challenge responses. 
      * Takes the password of the user as an argument and returns true if the response matches the password
@@ -303,7 +303,7 @@ export interface AuthenticationResponse {
      * @type {{}}
      * @memberOf AuthenticationResponse
      */
-    data?: {};
+    data?: {} | undefined;
 }
 
 export interface Session {

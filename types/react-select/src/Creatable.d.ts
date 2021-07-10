@@ -14,34 +14,34 @@ export interface CreatableProps<
      * prevent the "create new ..." option being displayed while async results are
      * still being loaded.
      */
-    allowCreateWhileLoading?: boolean;
+    allowCreateWhileLoading?: boolean | undefined;
     /**
      * Gets the label for the "create new ..." option in the menu. Is given the
      * current input value.
      */
-    formatCreateLabel?: (inputValue: string) => React.ReactNode;
+    formatCreateLabel?: ((inputValue: string) => React.ReactNode) | undefined;
     /**
      * Determines whether the "create new ..." option should be displayed based on
      * the current input value, select value and options array.
      */
-    isValidNewOption?: (
+    isValidNewOption?: ((
         inputValue: string,
         value: ValueType<OptionType, IsMulti>,
         options: ReadonlyArray<OptionType | GroupType>,
-    ) => boolean;
+    ) => boolean) | undefined;
     /**
      * Returns the data for the new option when it is created. Used to display the
      * value, and is passed to `onChange`.
      */
-    getNewOptionData?: (inputValue: string, optionLabel: React.ReactNode) => OptionType;
+    getNewOptionData?: ((inputValue: string, optionLabel: React.ReactNode) => OptionType) | undefined;
     /**
      * If provided, this will be called with the input value when a new option is
      * created, and `onChange` will **not** be called. Use this when you need more
      * control over what happens when new options are created.
      */
-    onCreateOption?: (inputValue: string) => void;
+    onCreateOption?: ((inputValue: string) => void) | undefined;
     /** Sets the position of the createOption element in your options list. Defaults to 'last' */
-    createOptionPosition?: 'first' | 'last';
+    createOptionPosition?: 'first' | 'last' | undefined;
 }
 
 export type Props<

@@ -74,7 +74,7 @@ declare namespace compression {
          * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning| Node.js documentation}
          * @see {@link https://github.com/expressjs/compression#chunksize|chunkSize documentation}
          */
-        chunkSize?: number;
+        chunkSize?: number | undefined;
 
         /**
          * A function to decide if the response should be considered for compression. This function is called as
@@ -87,7 +87,7 @@ declare namespace compression {
          * @see {@link https://github.com/expressjs/compression#filter|`filter` documentation}
          * @see {@link https://www.npmjs.com/package/compressible|compressible module}
          */
-        filter?: CompressionFilter;
+        filter?: CompressionFilter | undefined;
 
         /**
          * The level of zlib compression to apply to responses. A higher level will result in better compression, but
@@ -114,7 +114,7 @@ declare namespace compression {
          * @default zlib.constants.DEFAULT_COMPRESSION or -1
          * @see {@link https://github.com/expressjs/compression#level|`level` documentation}
          */
-        level?: number;
+        level?: number | undefined;
 
         /**
          * This specifies how much memory should be allocated for the internal compression state and is an integer in
@@ -124,7 +124,7 @@ declare namespace compression {
          * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning|Node.js documentation}
          * @see {@link https://github.com/expressjs/compression#memlevel|`memLevel` documentation}
          */
-        memLevel?: number;
+        memLevel?: number | undefined;
 
         /**
          * This is used to tune the compression algorithm. This value only affects the compression ratio, not the
@@ -142,7 +142,7 @@ declare namespace compression {
          *
          * **Note** in the list above, `zlib` is from `zlib = require('zlib')`.
          */
-        strategy?: number;
+        strategy?: number | undefined;
 
         /**
          * The byte threshold for the response body size before compression is considered for the response, defaults to
@@ -155,13 +155,13 @@ declare namespace compression {
          * @see {@link https://www.npmjs.com/package/bytes|`bytes` module}
          * @see {@link https://github.com/expressjs/compression#threshold|`threshold` documentation}
          */
-        threshold?: number | string;
+        threshold?: number | string | undefined;
 
         /**
          * @default zlib.constants.Z_DEFAULT_WINDOWBITS or 15.
          * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning|Node.js documentation}
          */
-        windowBits?: number;
+        windowBits?: number | undefined;
         /**
          * In addition , `zlib` options may be passed in to the options object.
          */

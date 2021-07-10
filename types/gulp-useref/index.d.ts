@@ -8,12 +8,12 @@
 
 
 interface Options {
-    searchPath?: string | string[];
-    base?: string;
-    noAssets?: boolean;
-    noconcat?: boolean;
-    additionalStreams?: Array<NodeJS.ReadWriteStream>;
-    transformPath?: (filePath: string) => void;
+    searchPath?: string | string[] | undefined;
+    base?: string | undefined;
+    noAssets?: boolean | undefined;
+    noconcat?: boolean | undefined;
+    additionalStreams?: Array<NodeJS.ReadWriteStream> | undefined;
+    transformPath?: ((filePath: string) => void) | undefined;
 }
 
 interface Useref {

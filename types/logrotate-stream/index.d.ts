@@ -29,7 +29,7 @@ declare namespace logrotateStream {
         /**
          * Optionally compress rotated files with gzip.
          */
-        compress?: boolean;
+        compress?: boolean | undefined;
     }
 
 }

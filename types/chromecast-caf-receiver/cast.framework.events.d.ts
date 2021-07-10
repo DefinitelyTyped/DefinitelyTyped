@@ -149,12 +149,12 @@ export class SegmentDownloadedEvent extends Event {
     /**
      * The time it took to download the segment; in milliseconds.
      */
-    downloadTime?: number;
+    downloadTime?: number | undefined;
 
     /**
      * The number of bytes in the segment.
      */
-    size?: number;
+    size?: number | undefined;
 }
 
 /**
@@ -166,12 +166,12 @@ export class RequestEvent extends Event {
     /**
      * The data that was sent with the request.
      */
-    requestData?: RequestData;
+    requestData?: RequestData | undefined;
 
     /**
      * The sender id the request came from.
      */
-    senderId?: string;
+    senderId?: string | undefined;
 }
 
 /**
@@ -194,7 +194,7 @@ export class MediaStatusEvent extends Event {
     /**
      * The media status that was sent.
      */
-    mediaStatus?: MediaStatus;
+    mediaStatus?: MediaStatus | undefined;
 }
 /**
  * Event data for pause events forwarded from the MediaElement.
@@ -205,7 +205,7 @@ export class MediaPauseEvent extends Event {
     /**
      * Indicate if the media ended (indicates the pause was fired due to stream reached the end).
      */
-    ended?: boolean;
+    ended?: boolean | undefined;
 }
 /**
  * Event data for @see{@link EventType.MEDIA_FINISHED} event.
@@ -216,12 +216,12 @@ export class MediaFinishedEvent extends Event {
     /**
      * The time when the media finished (in seconds). For an item in a queue; this value represents the time in the currently playing queue item ( where 0 means the queue item has just started).
      */
-    currentMediaTime?: number;
+    currentMediaTime?: number | undefined;
 
     /**
      * The reason the media finished.
      */
-    endedReason?: EndedReason;
+    endedReason?: EndedReason | undefined;
 }
 /**
  * Event data for all events forwarded from the MediaElement.
@@ -232,7 +232,7 @@ export class MediaElementEvent extends Event {
     /**
      * The time in the currently playing clip when the event was fired (in seconds). Undefined if playback has not started yet.
      */
-    currentMediaTime?: number;
+    currentMediaTime?: number | undefined;
 }
 /**
  * Event data for all events pertaining to processing a load / preload request. made to the player.
@@ -341,7 +341,7 @@ export class ClipEndedEvent extends Event {
     /**
      * The reason the clip ended.
      */
-    endedReason?: EndedReason;
+    endedReason?: EndedReason | undefined;
 }
 
 /**
@@ -389,22 +389,22 @@ export class BreaksEvent extends Event {
     /**
      * The break's id. Refer to Break.id
      */
-    breakId?: string;
+    breakId?: string | undefined;
 
     /**
      * The break clip's id. Refer to BreakClip.id
      */
-    breakClipId?: string;
+    breakClipId?: string | undefined;
 
     /**
      * The time in the currently playing media when the break event occurred.
      */
-    currentMediaTime?: number;
+    currentMediaTime?: number | undefined;
 
     /**
      * The reason the break clip ended.
      */
-    endedReason?: EndedReason;
+    endedReason?: EndedReason | undefined;
 
     /**
      * Index of break clip; which starts from 1.
@@ -419,7 +419,7 @@ export class BreaksEvent extends Event {
     /**
      * When to skip current break clip in sec; after break clip begins to play.
      */
-    whenSkippable?: number;
+    whenSkippable?: number | undefined;
 }
 
 /**
@@ -441,7 +441,7 @@ export class ErrorEvent extends Event {
     /**
      * An error code representing the cause of the error.
      */
-    detailedErrorCode?: DetailedErrorCode;
+    detailedErrorCode?: DetailedErrorCode | undefined;
 
     /**
      * The error object. This could be an Error object (e.g., if an Error was thrown in an event handler) or an object with error information (e.g., if the receiver received an invalid command).
@@ -451,7 +451,7 @@ export class ErrorEvent extends Event {
     /**
      * Optional error reason.
      */
-    reason?: ErrorReason;
+    reason?: ErrorReason | undefined;
 }
 
 /**
@@ -469,7 +469,7 @@ export class CustomStateEvent extends Event {
 export class MediaInformationChangedEvent extends Event {
     constructor(media?: MediaInformation);
 
-    media?: MediaInformation;
+    media?: MediaInformation | undefined;
 }
 
 /**

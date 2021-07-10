@@ -9,7 +9,7 @@ import * as React from "react";
 
 export interface StickyHeaderProps {
     tableBody: HTMLElement | null;
-    onScroll?: (e: Partial<UIEvent>) => void;
+    onScroll?: ((e: Partial<UIEvent>) => void) | undefined;
 }
 
 export class Header extends React.Component<StickyHeaderProps & Table.HeaderProps> {
@@ -19,7 +19,7 @@ export class Header extends React.Component<StickyHeaderProps & Table.HeaderProp
 
 export interface StickyBodyProps {
     tableHeader: HTMLElement | null;
-    onScroll?: (e: Partial<UIEvent>) => void;
+    onScroll?: ((e: Partial<UIEvent>) => void) | undefined;
 }
 
 export class Body extends React.Component<StickyBodyProps & Table.BodyProps> {

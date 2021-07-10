@@ -18,41 +18,41 @@ export interface SignatureCaptureProps extends ViewProps {
      *
      * @default false
      */
-    saveImageFileInExtStorage?: boolean;
+    saveImageFileInExtStorage?: boolean | undefined;
 
     /**
      * If this props is made to false, it will hide the dashed border (the border is shown on iOS only).
      *
      * @default false
      */
-    showBorder?: boolean;
+    showBorder?: boolean | undefined;
 
     /**
      * If this props is made to true, it will display the native buttons "Save" and "Reset".
      *
      * @default false
      */
-    showNativeButtons?: boolean;
+    showNativeButtons?: boolean | undefined;
 
     /**
      * If this props is made to true, it will display the "x_ _ _ _ _ _ _ _ _ _ _" placeholder indicating where to sign.
      *
      * @default false
      */
-    showTitleLabel?: boolean;
+    showTitleLabel?: boolean | undefined;
 
     /**
      * Change the screen orientation based on boolean value
      * "portrait" or "landscape"
      */
-    viewMode?: 'portrait' | 'landscape';
+    viewMode?: 'portrait' | 'landscape' | undefined;
 
     /**
      * sets the max size of the image maintains aspect ratio,
      *
      * @default 500
      */
-    maxSize?: number;
+    maxSize?: number | undefined;
 
     /**
      * Triggered when saveImage() is called, which return Base64 Encoded String and image file path.

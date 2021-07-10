@@ -89,56 +89,56 @@ declare namespace formidable {
          *
          * @default 'utf-8'
          */
-        encoding?: BufferEncoding;
+        encoding?: BufferEncoding | undefined;
 
         /**
          * the directory for placing file uploads in. You can move them later by using fs.rename()
          *
          * @default os.tmpdir()
          */
-        uploadDir?: string;
+        uploadDir?: string | undefined;
 
         /**
          * to include the extensions of the original files or not
          *
          * @default false
          */
-        keepExtensions?: boolean;
+        keepExtensions?: boolean | undefined;
 
         /**
          * allow upload empty files
          *
          * @default true
          */
-        allowEmptyFiles?: boolean;
+        allowEmptyFiles?: boolean | undefined;
 
         /**
          * the minium size of uploaded file
          *
          * @default 1
          */
-        minFileSize?: number;
+        minFileSize?: number | undefined;
 
         /**
          * limit the size of uploaded file
          *
          * @default 200 * 1024 * 1024
          */
-        maxFileSize?: number;
+        maxFileSize?: number | undefined;
 
         /**
          * limit the number of fields, set 0 for unlimited
          *
          * @default 1000
          */
-        maxFields?: number;
+        maxFields?: number | undefined;
 
         /**
          * limit the amount of memory all fields together (except files) can allocate in bytes
          *
          * @default 20 * 1024 * 1024
          */
-        maxFieldsSize?: number;
+        maxFieldsSize?: number | undefined;
 
         /**
          * include checksums calculated for incoming files, set this to some hash algorithm, see
@@ -146,7 +146,7 @@ declare namespace formidable {
          *
          * @default false
          */
-        hash?: string | false;
+        hash?: string | false | undefined;
 
         /**
          * which by default writes to host machine file system every file parsed; The function should
@@ -159,7 +159,7 @@ declare namespace formidable {
          *
          * @default null
          */
-        fileWriteStreamHandler?: () => void;
+        fileWriteStreamHandler?: (() => void) | undefined;
 
         /**
          * when you call the .parse method, the files argument (of the callback) will contain arrays of
@@ -168,9 +168,9 @@ declare namespace formidable {
          *
          * @default false
          */
-        multiples?: boolean;
+        multiples?: boolean | undefined;
 
-        enabledPlugins?: string[];
+        enabledPlugins?: string[] | undefined;
     }
 
     interface Fields {
@@ -181,9 +181,9 @@ declare namespace formidable {
     }
 
     interface Part extends Stream {
-        filename?: string;
+        filename?: string | undefined;
         headers: Record<string, string>;
-        mime?: string;
+        mime?: string | undefined;
         name: string;
     }
 
@@ -224,12 +224,12 @@ declare namespace formidable {
          * A Date object (or `null`) containing the time this file was last written to. Mostly here for
          * compatibility with the [W3C File API Draft](http://dev.w3.org/2006/webapi/FileAPI/).
          */
-        lastModifiedDate?: Date | null;
+        lastModifiedDate?: Date | null | undefined;
 
         /**
          * If `options.hash` calculation was set, you can read the hex digest out of this var.
          */
-        hash?: string | "sha1" | "md5" | "sha256" | null;
+        hash?: string | "sha1" | "md5" | "sha256" | null | undefined;
 
         /**
          * This method returns a JSON-representation of the file, allowing you to JSON.stringify() the
@@ -244,7 +244,7 @@ declare namespace formidable {
 
     interface EmitData {
         formname: any;
-        key?: string | number;
+        key?: string | number | undefined;
         name: "fileBegin" | "file";
         value: File | string;
     }

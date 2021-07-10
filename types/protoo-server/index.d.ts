@@ -28,8 +28,8 @@ export interface ProotooResponse {
     id: number;
     ok: boolean;
     data?: any;
-    errorCode?: number;
-    errorReason?: string;
+    errorCode?: number | undefined;
+    errorReason?: string | undefined;
 }
 
 export interface ProtooNotification {

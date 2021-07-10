@@ -14,10 +14,10 @@ export interface InputProps {
     /** Set whether the input should be visible. Does not affect input size. */
     isHidden: boolean;
     /** Whether the input is disabled */
-    isDisabled?: boolean;
-    className?: string;
+    isDisabled?: boolean | undefined;
+    className?: string | undefined;
     /** Autocomplete value for the Select Input */
-    autoComplete?: string;
+    autoComplete?: string | undefined;
 }
 
 export function inputCSS(props: InputProps): CSSObject;

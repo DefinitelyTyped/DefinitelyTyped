@@ -12,7 +12,7 @@ declare function extractDomain(urls: string[], options?: extractDomain.Options):
 
 declare namespace extractDomain {
     interface Options {
-        tld?: boolean;
+        tld?: boolean | undefined;
     }
 }
 

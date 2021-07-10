@@ -19,7 +19,7 @@ declare namespace split {
     }
 
     interface Options extends TransformOptions {
-        maxLength?: number;
+        maxLength?: number | undefined;
     }
     type Matcher = string | RegExp;
 }

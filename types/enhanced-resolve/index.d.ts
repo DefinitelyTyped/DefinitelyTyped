@@ -54,29 +54,29 @@ declare namespace Resolve {
 
     export namespace ResolverFactory {
         interface ResolverOption {
-            alias?: AliasItem[] | Dictionary<string>;
-            aliasFields?: string[];
-            cachePredicate?: (val: ResolverRequest) => boolean;
-            descriptionFiles?: string[];
-            enforceExtension?: boolean;
-            enforceModuleExtension?: boolean;
-            extensions?: string[];
-            fileSystem?: AbstractInputFileSystem;
-            mainFields?: string[];
-            mainFiles?: string[];
-            moduleExtensions?: string[];
-            modules?: string[];
-            plugins?: Tapable.Plugin[];
-            resolver?: Resolver;
-            resolveToContext?: boolean;
-            symlinks?: string[] | boolean;
-            unsafeCache?: boolean | Dictionary<any>;
-            useSyncFileSystemCalls?: boolean;
+            alias?: AliasItem[] | Dictionary<string> | undefined;
+            aliasFields?: string[] | undefined;
+            cachePredicate?: ((val: ResolverRequest) => boolean) | undefined;
+            descriptionFiles?: string[] | undefined;
+            enforceExtension?: boolean | undefined;
+            enforceModuleExtension?: boolean | undefined;
+            extensions?: string[] | undefined;
+            fileSystem?: AbstractInputFileSystem | undefined;
+            mainFields?: string[] | undefined;
+            mainFiles?: string[] | undefined;
+            moduleExtensions?: string[] | undefined;
+            modules?: string[] | undefined;
+            plugins?: Tapable.Plugin[] | undefined;
+            resolver?: Resolver | undefined;
+            resolveToContext?: boolean | undefined;
+            symlinks?: string[] | boolean | undefined;
+            unsafeCache?: boolean | Dictionary<any> | undefined;
+            useSyncFileSystemCalls?: boolean | undefined;
         }
         interface AliasItem {
             alias: string;
             name: string;
-            onlyModule?: boolean;
+            onlyModule?: boolean | undefined;
         }
         function createResolver(options: ResolverOption): Resolver;
     }
@@ -92,12 +92,12 @@ declare namespace Resolve {
         readFile(
             filename: string, options: {
                 encoding: string;
-                flag?: string;
+                flag?: string | undefined;
             }, callback: (err: NodeJS.ErrnoException, data: string) => void
         ): void;
         readFile(
             filename: string, options: {
-                flag?: string;
+                flag?: string | undefined;
             }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void
         ): void;
         readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
@@ -112,12 +112,12 @@ declare namespace Resolve {
         readFileSync(
             filename: string, options: {
                 encoding: string;
-                flag?: string;
+                flag?: string | undefined;
             }
         ): string;
         readFileSync(
             filename: string, options?: {
-                flag?: string;
+                flag?: string | undefined;
             }
         ): Buffer;
 
@@ -143,7 +143,7 @@ declare namespace Resolve {
 
         readdirSync?(path: string): string[];
 
-        readFileSync?(filename: string, options?: { flag?: string; }): Buffer;
+        readFileSync?(filename: string, options?: { flag?: string | undefined; }): Buffer;
 
         readlinkSync?(path: string | Buffer): string;
 

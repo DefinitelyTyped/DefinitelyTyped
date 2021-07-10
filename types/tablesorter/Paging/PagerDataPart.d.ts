@@ -22,7 +22,7 @@ export interface PagerDataPart<TElement = HTMLElement> {
      * | `{filteredRows}`   | The amount of filtered rows.                 |
      * | `{totalRows}`      | The total amount of rows.                    |
      */
-    output?: string | PagerOutputProcessor<TElement>;
+    output?: string | PagerOutputProcessor<TElement> | undefined;
 
     /**
      * The number of total rows.
@@ -32,15 +32,15 @@ export interface PagerDataPart<TElement = HTMLElement> {
     /**
      * The number of filtered rows.
      */
-    filteredRows?: number;
+    filteredRows?: number | undefined;
 
     /**
      * The column-names of the table.
      */
-    headers?: string[];
+    headers?: string[] | undefined;
 
     /**
      * The data to show.
      */
-    rows?: any[][] | JQuery;
+    rows?: any[][] | JQuery | undefined;
 }

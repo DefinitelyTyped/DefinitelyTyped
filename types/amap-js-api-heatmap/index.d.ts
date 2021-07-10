@@ -11,34 +11,34 @@ declare namespace AMap {
             /**
              * 热力图中单个点的半径，默认：30，单位：pixel
              */
-            radius?: number;
+            radius?: number | undefined;
             /**
              * 热力图的渐变区间
              */
-            gradient?: { [key: string]: string };
+            gradient?: { [key: string]: string } | undefined;
             /**
              * 热力图透明度数组，取值范围[0,1]，0表示完全透明，1表示不透明
              * 默认：[0,1]
              */
-            opacity?: [number, number];
+            opacity?: [number, number] | undefined;
             /**
              * 支持的缩放级别范围，取值范围[3-18]
              * 默认：[3,18]
              */
-            zooms?: [number, number];
+            zooms?: [number, number] | undefined;
 
-            rejectMapMask?: boolean;
-            visible?: boolean;
-            radiusUnit?: string;
-            blur?: number;
-            zIndex?: number;
-            renderOnZooming?: boolean;
+            rejectMapMask?: boolean | undefined;
+            visible?: boolean | undefined;
+            radiusUnit?: string | undefined;
+            blur?: number | undefined;
+            zIndex?: number | undefined;
+            renderOnZooming?: boolean | undefined;
             ['3d']?: {
-                heightScale?: number;
-                heightBezier?: number[];
-                gridSize?: number;
-                drawGridLine?: boolean;
-            };
+                heightScale?: number | undefined;
+                heightBezier?: number[] | undefined;
+                gridSize?: number | undefined;
+                drawGridLine?: boolean | undefined;
+            } | undefined;
         }
         interface Data {
             /**
@@ -58,7 +58,7 @@ declare namespace AMap {
             /**
              * 权重的最大值
              */
-            max?: number;
+            max?: number | undefined;
             /**
              * 坐标数据集
              */

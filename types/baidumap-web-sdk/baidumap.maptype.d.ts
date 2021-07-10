@@ -42,11 +42,11 @@ declare namespace BMap {
         getTips(): string;
     }
     interface MapTypeOptions {
-        minZoom?: number;
-        maxZoom?: number;
-        errorImageUrl?: string;
-        textColor?: number;
-        tips?: string;
+        minZoom?: number | undefined;
+        maxZoom?: number | undefined;
+        errorImageUrl?: string | undefined;
+        textColor?: number | undefined;
+        tips?: string | undefined;
     }
     interface Projection {
         lngLatToPoint(lngLat: Point): Pixel;

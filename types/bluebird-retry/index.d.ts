@@ -10,13 +10,13 @@ declare function retry<T>(func: (param: T) => void, options?: retry.Options): Pr
 
 declare namespace retry {
     interface Options {
-        interval?: number;
-        backoff?: number;
-        max_interval?: number;
-        timeout?: number;
-        max_tries?: number;
+        interval?: number | undefined;
+        backoff?: number | undefined;
+        max_interval?: number | undefined;
+        timeout?: number | undefined;
+        max_tries?: number | undefined;
         predicate?: any;
-        throw_original?: boolean;
+        throw_original?: boolean | undefined;
         context?: any;
         args?: any;
     }

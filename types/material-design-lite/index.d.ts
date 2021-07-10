@@ -121,7 +121,7 @@ declare module MaterialDesignLite {
         constructor(element : HTMLElement) : void;
         classAsString : string;
         cssClass : string;
-        widget? : string | boolean;
+        widget? : string | boolean | undefined;
     }
 }
 

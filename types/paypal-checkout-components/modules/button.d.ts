@@ -12,39 +12,39 @@ export enum FundingOption {
 export interface ButtonRenderer {
     render(
         options: {
-            env?: Environment;
-            style?: ButtonStyle;
-            locale?: string;
+            env?: Environment | undefined;
+            style?: ButtonStyle | undefined;
+            locale?: string | undefined;
 
-            payment?: () => Promise<string>;
+            payment?: (() => Promise<string>) | undefined;
             onAuthorize: (data: AuthorizationData, actions: object) => Promise<AuthorizationResponse>;
-            onCancel?: (data: CancellationData, actions: object) => void;
-            onError?: (error: string) => void;
-            onShippingChange?: () => void;
-            onAuth?: (data: string | object) => object;
-            accessToken?: () => void;
-            onClose?: () => void;
+            onCancel?: ((data: CancellationData, actions: object) => void) | undefined;
+            onError?: ((error: string) => void) | undefined;
+            onShippingChange?: (() => void) | undefined;
+            onAuth?: ((data: string | object) => object) | undefined;
+            accessToken?: (() => void) | undefined;
+            onClose?: (() => void) | undefined;
 
             funding?: {
-                allowed?: FundingOption[];
-                disallowed?: FundingOption[];
-            };
+                allowed?: FundingOption[] | undefined;
+                disallowed?: FundingOption[] | undefined;
+            } | undefined;
 
-            sessionID?: string;
-            buttonSessionID?: string;
-            meta?: object;
-            stage?: string;
-            stageUrl?: string;
-            authCode?: string;
-            localhostUrl?: string;
-            checkoutUri?: string;
-            client?: object;
-            commit?: boolean;
-            experience?: object;
-            fundingSource?: string;
-            fundingOffered?: object;
-            logLevel?: string;
-            test?: object;
+            sessionID?: string | undefined;
+            buttonSessionID?: string | undefined;
+            meta?: object | undefined;
+            stage?: string | undefined;
+            stageUrl?: string | undefined;
+            authCode?: string | undefined;
+            localhostUrl?: string | undefined;
+            checkoutUri?: string | undefined;
+            client?: object | undefined;
+            commit?: boolean | undefined;
+            experience?: object | undefined;
+            fundingSource?: string | undefined;
+            fundingOffered?: object | undefined;
+            logLevel?: string | undefined;
+            test?: object | undefined;
         },
         selector: string,
     ): void;

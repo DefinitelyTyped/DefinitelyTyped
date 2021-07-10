@@ -11,7 +11,7 @@ import stream = require('stream');
 type MapCallback = (chunk: any, index: number) => void;
 
 interface Through2MapOptions extends stream.DuplexOptions {
-    wantStrings?: boolean;
+    wantStrings?: boolean | undefined;
 }
 
 declare function through2_map(options?: Through2MapOptions, fn?: MapCallback): through2.Through2Constructor;

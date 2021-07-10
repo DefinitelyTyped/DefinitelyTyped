@@ -14,15 +14,15 @@ export type ChildProps = {
  */
 export type ArrowKeyStepperProps = {
     children: (props: ChildProps) => React.ReactNode;
-    className?: string;
+    className?: string | undefined;
     columnCount: number;
     rowCount: number;
-    mode?: 'edges' | 'cells';
-    disabled?: boolean;
-    isControlled?: boolean;
-    onScrollToChange?: (params: ScrollIndices) => void;
-    scrollToColumn?: number;
-    scrollToRow?: number;
+    mode?: 'edges' | 'cells' | undefined;
+    disabled?: boolean | undefined;
+    isControlled?: boolean | undefined;
+    onScrollToChange?: ((params: ScrollIndices) => void) | undefined;
+    scrollToColumn?: number | undefined;
+    scrollToRow?: number | undefined;
     /**
      * PLEASE NOTE
      * The [key: string]: any; line is here on purpose

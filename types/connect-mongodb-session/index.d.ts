@@ -26,9 +26,9 @@ declare namespace ConnectMongoDBSession {
     interface MongoDBSessionOptions {
         uri: string;
         collection: string;
-        expires?: number;
-        databaseName?: string;
-        connectionOptions?: MongoClientOptions;
-        idField?: string;
+        expires?: number | undefined;
+        databaseName?: string | undefined;
+        connectionOptions?: MongoClientOptions | undefined;
+        idField?: string | undefined;
     }
 }

@@ -19,7 +19,7 @@ interface QUnitModuleCallbacks extends ModuleCallbacks, Hooks {
     setup?(assert: Assert): void;
     teardown?(assert: Assert): void;
     afterTeardown?(assert: Assert): void;
-    needs?: string[];
+    needs?: string[] | undefined;
 }
 
 /**
@@ -52,7 +52,7 @@ interface SetupTestOptions {
     /**
      * The resolver to use when instantiating container-managed entities in the test.
      */
-    resolver?: Ember.Resolver;
+    resolver?: Ember.Resolver | undefined;
 }
 
 /**
@@ -113,40 +113,40 @@ interface QUnitStartOptions {
     /**
      * If `false` tests will not be loaded automatically.
      */
-    loadTests?: boolean;
+    loadTests?: boolean | undefined;
 
     /**
      * If `false` the test container will not be setup based on `devmode`,
      * `dockcontainer`, or `nocontainer` URL params.
      */
-    setupTestContainer?: boolean;
+    setupTestContainer?: boolean | undefined;
 
     /**
      * If `false` tests will not be automatically started (you must run
      * `QUnit.start()` to kick them off).
      */
-    startTests?: boolean;
+    startTests?: boolean | undefined;
 
     /**
      * If `false` the default Ember.Test adapter will not be updated.
      */
-    setupTestAdapter?: boolean;
+    setupTestAdapter?: boolean | undefined;
 
     /**
      * `false` opts out of the default behavior of setting `Ember.testing`
      * to `true` before all tests and back to `false` after each test will.
      */
-    setupEmberTesting?: boolean;
+    setupEmberTesting?: boolean | undefined;
 
     /**
      * If `false` validation of `Ember.onerror` will be disabled.
      */
-    setupEmberOnerrorValidation?: boolean;
+    setupEmberOnerrorValidation?: boolean | undefined;
 
     /**
      * If `false` test isolation validation will be disabled.
      */
-    setupTestIsolationValidation?: boolean;
+    setupTestIsolationValidation?: boolean | undefined;
 }
 
 export function start(options?: QUnitStartOptions): void;

@@ -3,7 +3,7 @@ import { TransitionActions, TransitionProps } from './Transition';
 
 export interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = 'div'>
     extends TransitionActions {
-    component?: T | null;
+    component?: T | null | undefined;
 }
 
 export interface ComponentTransitionGroupProps<T extends ReactType> extends TransitionActions {
@@ -13,7 +13,7 @@ export interface ComponentTransitionGroupProps<T extends ReactType> extends Tran
 export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = 'div', V extends ReactType = any> =
     | (IntrinsicTransitionGroupProps<T> & JSX.IntrinsicElements[T])
     | (ComponentTransitionGroupProps<V>) & {
-          children?: ReactElement<TransitionProps<any>> | Array<ReactElement<TransitionProps<any>>>;
+          children?: ReactElement<TransitionProps<any>> | Array<ReactElement<TransitionProps<any>>> | undefined;
           childFactory?(child: ReactElement): ReactElement;
           [prop: string]: any;
       };

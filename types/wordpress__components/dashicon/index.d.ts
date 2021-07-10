@@ -10,7 +10,7 @@ declare namespace Dashicon {
          * Width of the icon (in pixels).
          * @defaultValue 20
          */
-        size?: number;
+        size?: number | undefined;
     }
     type Icon =
         | 'admin-appearance'

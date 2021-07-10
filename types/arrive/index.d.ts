@@ -7,9 +7,9 @@
 export { };
 
 interface Options {
-    fireOnAttributesModification?: boolean;
-    onceOnly?: boolean;
-    existing?: boolean;
+    fireOnAttributesModification?: boolean | undefined;
+    onceOnly?: boolean | undefined;
+    existing?: boolean | undefined;
 }
 
 type ArriveSignature = (element: string, handlerOrOptions: ((this: Element, element: Element) => void) | Options, handler?: (this: Element, element: Element) => void) => void;

@@ -9,8 +9,8 @@ export default class HtmlEmbed extends Plugin {
 }
 
 export interface HtmlEmbedConfig {
-    sanitizeHtml?: (inputHtml: string) => HtmlEmbedSanitizeOutput;
-    showPreviews?: boolean;
+    sanitizeHtml?: ((inputHtml: string) => HtmlEmbedSanitizeOutput) | undefined;
+    showPreviews?: boolean | undefined;
 }
 export interface HtmlEmbedSanitizeOutput {
     html: string;

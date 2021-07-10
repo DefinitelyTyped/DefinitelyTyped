@@ -11,17 +11,17 @@ export function local(cb: (err: any, localBrowsers: Launcher) => void): void;
 
 export namespace local {
   export const platform: {
-    chrome?: BrowserPlatformDetails;
-    chromium?: BrowserPlatformDetails;
-    canary?: BrowserPlatformDetails;
-    firefox?: BrowserPlatformDetails;
-    aurora?: BrowserPlatformDetails;
-    opera?: BrowserPlatformDetails;
-    ie?: BrowserPlatformDetails;
-    edge?: BrowserPlatformDetails;
-    safari?: BrowserPlatformDetails;
-    phantom?: BrowserPlatformDetails;
-    nodeWebkit?: BrowserPlatformDetails;
+    chrome?: BrowserPlatformDetails | undefined;
+    chromium?: BrowserPlatformDetails | undefined;
+    canary?: BrowserPlatformDetails | undefined;
+    firefox?: BrowserPlatformDetails | undefined;
+    aurora?: BrowserPlatformDetails | undefined;
+    opera?: BrowserPlatformDetails | undefined;
+    ie?: BrowserPlatformDetails | undefined;
+    edge?: BrowserPlatformDetails | undefined;
+    safari?: BrowserPlatformDetails | undefined;
+    phantom?: BrowserPlatformDetails | undefined;
+    nodeWebkit?: BrowserPlatformDetails | undefined;
   };
 }
 
@@ -35,23 +35,23 @@ export function browserstack(
     cb: (err: any, browserstack: Launcher) => void): void;
 
 interface BrowserPlatformDetails {
-  pathQuery?: string;
-  plistPath?: string;
-  command?: string;
-  process?: string;
-  versionKey?: string;
-  defaultLocation?: string;
-  args?: string[];
-  opensTab?: boolean;
-  multi?: boolean;
-  getCommand?: (browser: BrowserPlatformDetails, url: string, args: string[]) => string;
-  cwd?: string;
-  imageName?: string;
+  pathQuery?: string | undefined;
+  plistPath?: string | undefined;
+  command?: string | undefined;
+  process?: string | undefined;
+  versionKey?: string | undefined;
+  defaultLocation?: string | undefined;
+  args?: string[] | undefined;
+  opensTab?: boolean | undefined;
+  multi?: boolean | undefined;
+  getCommand?: ((browser: BrowserPlatformDetails, url: string, args: string[]) => string) | undefined;
+  cwd?: string | undefined;
+  imageName?: string | undefined;
 }
 
 interface LaunchOptions {
   browser: string;
-  version?: string;
+  version?: string | undefined;
 }
 
 interface Launcher {

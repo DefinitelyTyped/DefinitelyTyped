@@ -2,16 +2,16 @@ import * as React from "react";
 import { IconGlyph } from "../Icon/Icon";
 
 export type TabProps = {
-    className?: string;
-    disableStyles?: boolean;
-    glyph?: IconGlyph;
-    id?: string;
-    index?: number;
+    className?: string | undefined;
+    disableStyles?: boolean | undefined;
+    glyph?: IconGlyph | undefined;
+    id?: string | undefined;
+    index?: number | undefined;
     linkProps?: any;
-    selected?: boolean;
+    selected?: boolean | undefined;
     tabContentProps?: any;
-    title?: string;
-    onClick?: (...args: any[]) => any;
+    title?: string | undefined;
+    onClick?: ((...args: any[]) => any) | undefined;
 } & { [x: string]: any };
 
 declare const Tab: React.FunctionComponent<TabProps> & {

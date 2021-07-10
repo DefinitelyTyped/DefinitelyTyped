@@ -59,27 +59,27 @@ interface Options {
     /**
      * A hash containing methods (functions) of any future created instance.
      */
-    methods?: {} | {}[];
+    methods?: {} | {}[] | undefined;
 
     /**
      * A hash containing references to the object. This hash will be shallow mixed into any future created instance.
      */
-    refs?: {} | {}[];
+    refs?: {} | {}[] | undefined;
 
     /**
      * Initialization function which will be called per each newly created instance.
      */
-    init?: Init | Init[];
+    init?: Init | Init[] | undefined;
 
     /**
      * Properties which will be deeply (but safely, no data override) merged into any future created instance.
      */
-    props?: {} | {}[];
+    props?: {} | {}[] | undefined;
 
     /**
      * Properties which will be mixed to the new and any other stamp which this stamp will be composed with.
      */
-    static?: {} | {}[];
+    static?: {} | {}[] | undefined;
 }
 
 /**

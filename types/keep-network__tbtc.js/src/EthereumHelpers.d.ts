@@ -4,10 +4,10 @@ import BN = require("bn.js");
 export namespace EthereumHelpers {
     function isMainnet(web3: Web3): Promise<boolean>;
     interface ContractCallOptions {
-        from?: string;
-        gasPrice?: string;
-        gas?: number;
-        value?: number | string | BN;
+        from?: string | undefined;
+        gasPrice?: string | undefined;
+        gas?: number | undefined;
+        value?: number | string | BN | undefined;
     }
     interface ContractCall {
         send(options: ContractCallOptions, callback?: (err: Error, transactionHash: string) => void): Promise<any>;

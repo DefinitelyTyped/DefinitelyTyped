@@ -371,7 +371,7 @@ declare namespace Spectrum {
          * </script>
          * ```
          */
-        color?: string | false;
+        color?: string | false | undefined;
 
         /**
          * The color picker will always show up at full size, and be positioned
@@ -395,7 +395,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        flat?: boolean;
+        flat?: boolean | undefined;
 
         /**
          * Adds an input to allow for free form typing. The color parsing is
@@ -412,7 +412,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        showInput?: boolean;
+        showInput?: boolean | undefined;
 
         /**
          * Shows the color that was initially set when opening. This provides an
@@ -424,13 +424,13 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        showInitial?: boolean;
+        showInitial?: boolean | undefined;
 
         /**
          * Allows the color picker to have no color as a value. This will
          * display a button to set selection to 'no color'.
          */
-        allowEmpty?: boolean;
+        allowEmpty?: boolean | undefined;
 
         /**
          * Allows alpha transparency selection.
@@ -441,7 +441,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        showAlpha?: boolean;
+        showAlpha?: boolean | undefined;
 
         /**
          * Spectrum can be automatically disabled if you pass in the `disabled`
@@ -460,7 +460,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
 
         /**
          * Sets a palette below the color picker to make it convenient for users
@@ -476,7 +476,7 @@ declare namespace Spectrum {
          * ]]
          * ```
          */
-        palette?: ReadonlyArray<ReadonlyArray<string>>;
+        palette?: ReadonlyArray<ReadonlyArray<string>> | undefined;
 
         /**
          * Spectrum can show a palette below the color picker to make it
@@ -495,7 +495,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        showPalette?: boolean;
+        showPalette?: boolean | undefined;
 
         /**
          * Shows only the colors specified in the palette.
@@ -513,7 +513,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        showPaletteOnly?: boolean;
+        showPaletteOnly?: boolean | undefined;
 
         /**
          * Shows a button to toggle the color picker next to the palette.
@@ -548,19 +548,19 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        togglePaletteOnly?: boolean;
+        togglePaletteOnly?: boolean | undefined;
 
         /**
          * Changes the text on the open-toggle color picker button. Defaults to
          * `more`.
          */
-        togglePaletteMoreText?: string;
+        togglePaletteMoreText?: string | undefined;
 
         /**
          * Changes the text on the close-toggle color picker button. Defaults to
          * `less`.
          */
-        togglePaletteLessText?: string;
+        togglePaletteLessText?: string | undefined;
 
         /**
          * Automatically hides the color picker after a palette color is
@@ -580,7 +580,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        hideAfterPaletteSelect?: boolean;
+        hideAfterPaletteSelect?: boolean | undefined;
 
         /**
          * Keeps track of what has been selected by the user.
@@ -605,7 +605,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        showSelectionPalette?: boolean;
+        showSelectionPalette?: boolean | undefined;
 
         /**
          * The users selection will be saved in the browser's `localStorage`
@@ -613,7 +613,7 @@ declare namespace Spectrum {
          *
          * May be `false` when no value has been set explicitly.
          */
-        localStorageKey?: string | false;
+        localStorageKey?: string | false | undefined;
 
         /**
          * When clicking outside of the color picker, you can force it to fire a
@@ -629,29 +629,29 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        clickoutFiresChange?: boolean;
+        clickoutFiresChange?: boolean | undefined;
 
         /**
          * Sets the text on the cancel button. Defaults to `cancel`.
          */
-        cancelText?: string;
+        cancelText?: string | undefined;
 
         /**
          * Sets the text on the choose button. Defaults to `choose`.
          */
-        chooseText?: string;
+        chooseText?: string | undefined;
 
         /**
          * Sets the text on the clear button. Defaults to
          * `Clear Color Selection`.
          */
-        clearText?: string;
+        clearText?: string | undefined;
 
         /**
          * Sets the text for when no color has been selected. Defaults to
          * `No Color Selected`.
          */
-        noColorSelectedText?: string;
+        noColorSelectedText?: string | undefined;
 
         /**
          * Adds an additional class name to the just the container element.
@@ -668,7 +668,7 @@ declare namespace Spectrum {
          * }
          * ```
          */
-        containerClassName?: string;
+        containerClassName?: string | undefined;
 
         /**
          * Adds an additional class name to just the replacer element.
@@ -685,7 +685,7 @@ declare namespace Spectrum {
          * }
          * ```
          */
-        replacerClassName?: string;
+        replacerClassName?: string | undefined;
 
         /**
          * Sets the format that is displayed in the text box. This may be
@@ -732,7 +732,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        preferredFormat?: ColorFormatName | false;
+        preferredFormat?: ColorFormatName | false | undefined;
 
         /**
          * Toggles the choose / cancel buttons.
@@ -746,7 +746,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        showButtons?: boolean;
+        showButtons?: boolean | undefined;
 
         /**
          * Sets which element the color picker container is appended to (default
@@ -755,7 +755,7 @@ declare namespace Spectrum {
          * Changing this can help resolve issues with opening the color picker
          * in a modal dialog or fixed position container, for instance.
          */
-        appendTo?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element | DocumentFragment> | JQuery;
+        appendTo?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element | DocumentFragment> | JQuery | undefined;
 
         /**
          * Sets the max size for the palette.
@@ -776,7 +776,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        maxSelectionSize?: number;
+        maxSelectionSize?: number | undefined;
 
         /**
          * The default values inside of the selection palette. Make sure that
@@ -797,12 +797,12 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        selectionPalette?: ReadonlyArray<string>;
+        selectionPalette?: ReadonlyArray<string> | undefined;
 
         /**
          * Additional offset to apply as a CSS unit to the container.
          */
-        offset?: JQuery.CoordinatesPartial | null;
+        offset?: JQuery.CoordinatesPartial | null | undefined;
 
         /**
          * Called as the original input changes. Only happens when the input is
@@ -818,7 +818,7 @@ declare namespace Spectrum {
          *
          * @param color The currently selected color of the color picker.
          */
-        change?: (color: tinycolor.Instance) => void;
+        change?: ((color: tinycolor.Instance) => void) | undefined;
 
         /**
          * Called as the user moves around within the color picker.
@@ -833,7 +833,7 @@ declare namespace Spectrum {
          *
          * @param color The currently selected color of the color picker.
          */
-        move?: (color: tinycolor.Instance) => void;
+        move?: ((color: tinycolor.Instance) => void) | undefined;
 
         /**
          * Called after the color picker is opened. This is ignored on a flat
@@ -852,7 +852,7 @@ declare namespace Spectrum {
          *
          * @param color The currently selected color of the color picker.
          */
-        show?: (color: tinycolor.Instance) => void;
+        show?: ((color: tinycolor.Instance) => void) | undefined;
 
         /**
          * Called after the color picker is hidden.
@@ -875,7 +875,7 @@ declare namespace Spectrum {
          *
          * @param color The currently selected color of the color picker.
          */
-        hide?: (color: tinycolor.Instance) => void;
+        hide?: ((color: tinycolor.Instance) => void) | undefined;
 
         /**
          * You can prevent the color picker from showing up if you return
@@ -895,7 +895,7 @@ declare namespace Spectrum {
          * @param color The currently selected color of the color picker.
          * @return `false` to prevent the color picker from showing up.
          */
-        beforeShow?: (color: tinycolor.Instance) => boolean | void;
+        beforeShow?: ((color: tinycolor.Instance) => boolean | void) | undefined;
     }
 
     /**

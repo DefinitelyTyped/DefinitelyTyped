@@ -35,7 +35,7 @@ export default class View implements Emitter, Observable {
     createSelection(
         selectable?: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean; fake?: boolean; label?: string },
+        options?: { backward?: boolean | undefined; fake?: boolean | undefined; label?: string | undefined },
     ): Selection;
     destroy(): void;
     detachDomRoot(name: string): void;
@@ -68,7 +68,7 @@ export default class View implements Emitter, Observable {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;

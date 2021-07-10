@@ -7,36 +7,36 @@
 
 declare namespace SailsIOJS {
     export interface SDKInfo {
-        version?: string;
-        language?: string;
-        platform?: "browser" | "node";
-        versionString?: string;
+        version?: string | undefined;
+        language?: string | undefined;
+        platform?: "browser" | "node" | undefined;
+        versionString?: string | undefined;
     }
     export interface ClientSails {
-        url?: string;
-        autoConnect?: boolean;
-        headers?: { [index: string]: string };
-        transports?: Array<"websocket" | "polling">;
-        rejectUnauthorized?: boolean;
-        reconnection?: boolean;
-        reconnectionAttempts?: number;
-        reconnectionDelay?: number;
-        reconnectionDelayMax?: number;
-        useCORSRouteToGetCookie?: boolean;
-        query?: string;
-        path?: string;
+        url?: string | undefined;
+        autoConnect?: boolean | undefined;
+        headers?: { [index: string]: string } | undefined;
+        transports?: Array<"websocket" | "polling"> | undefined;
+        rejectUnauthorized?: boolean | undefined;
+        reconnection?: boolean | undefined;
+        reconnectionAttempts?: number | undefined;
+        reconnectionDelay?: number | undefined;
+        reconnectionDelayMax?: number | undefined;
+        useCORSRouteToGetCookie?: boolean | undefined;
+        query?: string | undefined;
+        path?: string | undefined;
         // All logs are disabled when `io.sails.environment = 'production'`
-        environment?: "production" | string;
+        environment?: "production" | string | undefined;
         connect(url?: string, config?: ConnectConfig): Socket;
-        initialConnectionHeaders?: InitialConnectionHeaders;
-        strict?: boolean;
-        sdk?: SDKInfo;
+        initialConnectionHeaders?: InitialConnectionHeaders | undefined;
+        strict?: boolean | undefined;
+        sdk?: SDKInfo | undefined;
     }
     export interface ConnectConfig {
-        initialConnectionHeaders?: InitialConnectionHeaders
+        initialConnectionHeaders?: InitialConnectionHeaders | undefined
     }
     export interface InitialConnectionHeaders {
-        nosession?: boolean;
+        nosession?: boolean | undefined;
         [key: string]: unknown;
     }
     export interface Client {
@@ -46,8 +46,8 @@ declare namespace SailsIOJS {
     export interface Headers { [index: string]: string }
     export interface RequestOptions {
         url: string;
-        method?: string;
-        headers?: Headers;
+        method?: string | undefined;
+        headers?: Headers | undefined;
         params?: any;
         data?: any;
     }
@@ -55,7 +55,7 @@ declare namespace SailsIOJS {
         headers: Headers;
         statusCode: number;
         body: any;
-        error?: Error;
+        error?: Error | undefined;
         toString: () => string;
         toPOJO: () => {
             body: any;

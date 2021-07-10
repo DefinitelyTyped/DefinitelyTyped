@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-selection module 2.0
+// Type definitions for D3JS d3-selection module 3.0
 // Project: https://github.com/d3/d3-selection/, https://d3js.org/d3-selection
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,9 +6,8 @@
 //                 denisname <https://github.com/denisname>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 3.0.0
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -307,7 +306,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
     filter<FilteredElement extends BaseType>(selector: ValueFn<GElement, Datum, boolean>): Selection<FilteredElement, Datum, PElement, PDatum>;
 
     /**
-     * Returns a new selection merging this selection with the specified other selection.
+     * Returns a new selection merging this selection with the specified other selection or transition.
      * The returned selection has the same number of groups and the same parents as this selection.
      * Any missing (null) elements in this selection are filled with the corresponding element,
      * if present (not null), from the specified selection. (If the other selection has additional groups or parents,
@@ -323,7 +322,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param other Selection to be merged.
      */
-    merge(other: Selection<GElement, Datum, PElement, PDatum>): Selection<GElement, Datum, PElement, PDatum>;
+    merge(other: Selection<GElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum>): Selection<GElement, Datum, PElement, PDatum>;
 
     /**
      * Returns a new selection with the (first) child of each element of the current selection matching the selector.
@@ -824,7 +823,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     join<K extends keyof ElementTagNameMap, OldDatum = Datum>(
         enter: K,
-        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
+        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum> | undefined,
         exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
     ): Selection<GElement | ElementTagNameMap[K], Datum, PElement, PDatum>;
     /**
@@ -835,7 +834,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     join<ChildElement extends BaseType, OldDatum = Datum>(
         enter: string,
-        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
+        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum> | undefined,
         exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
     ): Selection<ChildElement | GElement, Datum, PElement, PDatum>;
     /**
@@ -845,8 +844,8 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * The "matching" logic is determined by the key function passed to `selection.data`.
      */
     join<ChildElement extends BaseType, OldDatum = Datum>(
-        enter: (elem: Selection<EnterElement, Datum, PElement, PDatum>) => Selection<ChildElement, Datum, PElement, PDatum>,
-        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
+        enter: (elem: Selection<EnterElement, Datum, PElement, PDatum>) => Selection<ChildElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum>,
+        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum> | undefined,
         exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
     ): Selection<ChildElement | GElement, Datum, PElement, PDatum>;
 

@@ -17,7 +17,7 @@ export interface ApplicationInfo {
     launchMode: string;
     manifest: object;
     manifestUrl: string;
-    parentUuid?: string;
+    parentUuid?: string | undefined;
     runtime: object;
 }
 export interface LogInfo {
@@ -28,9 +28,9 @@ export declare class NavigationRejectedReply extends Reply<'window-navigation-re
     url: string;
 }
 export interface ShortCutConfig {
-    desktop?: boolean;
-    startMenu?: boolean;
-    systemStartup?: boolean;
+    desktop?: boolean | undefined;
+    startMenu?: boolean | undefined;
+    systemStartup?: boolean | undefined;
 }
 export interface TrayInfo {
     bounds: Bounds;
@@ -43,8 +43,8 @@ export interface ManifestInfo {
     manifestUrl: string;
 }
 export interface RvmLaunchOptions {
-    noUi?: boolean;
-    userAppConfigArgs?: object;
+    noUi?: boolean | undefined;
+    userAppConfigArgs?: object | undefined;
 }
 /**
  * @typedef {object} ApplicationOption
@@ -188,7 +188,7 @@ export default class ApplicationModule extends Base {
  */
 export declare class Application extends EmitterBase<ApplicationEvents> {
     identity: Identity;
-    _manifestUrl?: string;
+    _manifestUrl?: string | undefined;
     private window;
     constructor(wire: Transport, identity: Identity);
     private windowListFromIdentityList;

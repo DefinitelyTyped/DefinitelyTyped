@@ -9,8 +9,8 @@ export interface HotKeyOptions {
 }
 
 export interface HotKey {
-    which?: number;
-    key?: string;
+    which?: number | undefined;
+    key?: string | undefined;
     altKey: boolean;
     ctrlKey: boolean;
     metaKey: boolean;

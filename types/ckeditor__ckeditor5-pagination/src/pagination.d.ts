@@ -7,7 +7,7 @@ export default class Pagination extends Plugin {
 }
 
 export interface PaginationConfig {
-    enableOnUnsupportedBrowsers?: boolean;
+    enableOnUnsupportedBrowsers?: boolean | undefined;
     pageHeight: string;
     pageMargins: PaginationMarginsConfig;
     pageWidth: string;

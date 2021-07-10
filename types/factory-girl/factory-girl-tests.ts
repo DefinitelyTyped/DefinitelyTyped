@@ -3,18 +3,18 @@ import * as factory from 'factory-girl';
 import { factory as namedImportedFactory } from 'factory-girl';
 
 interface User {
-    username?: string;
-    score?: number;
-    email?: string;
-    roles?: Role[];
+    username?: string | undefined;
+    score?: number | undefined;
+    email?: string | undefined;
+    roles?: Role[] | undefined;
     creditCard?: any;
-    boss?: User;
-    addresses?: any[];
+    boss?: User | undefined;
+    addresses?: any[] | undefined;
 }
 
 interface Role {
-    id?: number;
-    name?: string;
+    id?: number | undefined;
+    name?: string | undefined;
 }
 
 interface SuperUser extends User {

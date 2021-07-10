@@ -1,4 +1,4 @@
 import { RequestHandler } from 'express';
 import Lasso from '../lib/Lasso';
 
-export function serveStatic(options?: { lasso?: Lasso; sendOptions?: any; }): RequestHandler;
+export function serveStatic(options?: { lasso?: Lasso | undefined; sendOptions?: any; }): RequestHandler;

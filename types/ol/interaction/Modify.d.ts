@@ -17,23 +17,23 @@ import { StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
 export interface Options {
-    condition?: Condition;
-    deleteCondition?: Condition;
-    insertVertexCondition?: Condition;
-    pixelTolerance?: number;
-    style?: StyleLike;
-    source?: VectorSource<Geometry>;
-    hitDetection?: boolean | BaseVectorLayer<VectorSource<Geometry> | VectorTile>;
-    features?: Collection<Feature<Geometry>>;
-    wrapX?: boolean;
+    condition?: Condition | undefined;
+    deleteCondition?: Condition | undefined;
+    insertVertexCondition?: Condition | undefined;
+    pixelTolerance?: number | undefined;
+    style?: StyleLike | undefined;
+    source?: VectorSource<Geometry> | undefined;
+    hitDetection?: boolean | BaseVectorLayer<VectorSource<Geometry> | VectorTile> | undefined;
+    features?: Collection<Feature<Geometry>> | undefined;
+    wrapX?: boolean | undefined;
 }
 export interface SegmentData {
-    depth?: number[];
+    depth?: number[] | undefined;
     feature: Feature<Geometry>;
     geometry: SimpleGeometry;
-    index?: number;
+    index?: number | undefined;
     segment: Extent[];
-    featureSegments?: SegmentData[];
+    featureSegments?: SegmentData[] | undefined;
 }
 declare enum ModifyEventType {
     MODIFYSTART = 'modifystart',

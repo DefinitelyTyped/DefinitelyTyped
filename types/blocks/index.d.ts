@@ -511,28 +511,28 @@ interface App extends Extendable<App> {
 
 interface PropertyPrototype {
     defaultValue?: any;
-    isObservable?: boolean;
-    field?: string;
+    isObservable?: boolean | undefined;
+    field?: string | undefined;
     value?: any;
-    validateOnChange?: boolean;
-    maxErrors?: number;
-    validateInitially?: boolean
+    validateOnChange?: boolean | undefined;
+    maxErrors?: number | undefined;
+    validateInitially?: boolean | undefined
 
     // Validators
-    required?: Validator;
-    minlength?: Validator;
-    maxlength?: Validator;
-    min?: Validator;
-    max?: Validator;
-    email?: Validator;
-    url?: Validator;
-    date?: Validator;
-    creditcard?: Validator;
-    regexp?: Validator;
-    number?: Validator;
-    digits?: Validator;
-    letters?: Validator;
-    equals?: Validator;
+    required?: Validator | undefined;
+    minlength?: Validator | undefined;
+    maxlength?: Validator | undefined;
+    min?: Validator | undefined;
+    max?: Validator | undefined;
+    email?: Validator | undefined;
+    url?: Validator | undefined;
+    date?: Validator | undefined;
+    creditcard?: Validator | undefined;
+    regexp?: Validator | undefined;
+    number?: Validator | undefined;
+    digits?: Validator | undefined;
+    letters?: Validator | undefined;
+    equals?: Validator | undefined;
 }
 
 interface Validator { }
@@ -560,25 +560,25 @@ interface ViewPrototype {
     /**
      * Override the init method to perform actions when the View is first created and shown on the page
      */
-    init?: Function;
+    init?: Function | undefined;
 
     /**
      * Override the routed method to perform actions when the View have routing and routing mechanism actives it.
      */
-    routed?: Function;
+    routed?: Function | undefined;
 
-    navigateTo?: Function;
+    navigateTo?: Function | undefined;
 
     /**
      * Override the ready method to perform actions when the DOM is ready and
      * all data-query have been executed.
      */
-    ready?: Function;
+    ready?: Function | undefined;
 
     options?: {
         route?: any;
-        url?: string
-    };
+        url?: string | undefined
+    } | undefined;
 
     [propertyName: string]: any;
 }
@@ -611,7 +611,7 @@ interface ModelPrototype {
     /**
      * Override the init method to perform actions on creation for each Model instance
      */
-    init?: Function;
+    init?: Function | undefined;
     
     /**
      * Validates all observable properties that have validation and returns true if all values are valid otherwise returns false
@@ -638,13 +638,13 @@ interface ModelPrototype {
     isNew?(): boolean;
 
     options?: {
-        idAttr?: string;
-        baseUrl?: string;
-        read?: { url?: string };
-        create?: { url?: string };
-        destroy?: { url?: string };
-        update?: { url?: string };
-    };
+        idAttr?: string | undefined;
+        baseUrl?: string | undefined;
+        read?: { url?: string | undefined } | undefined;
+        create?: { url?: string | undefined } | undefined;
+        destroy?: { url?: string | undefined } | undefined;
+        update?: { url?: string | undefined } | undefined;
+    } | undefined;
 
     [propertyName: string]: string | boolean | Object | Validator;
 }
@@ -681,11 +681,11 @@ interface Collection extends Extendable<Collection> {
 
 interface CollectionPrototype {
     options?: {
-        read?: { url?: string };
-        create?: { url?: string };
-        destroy?: { url?: string };
-        update?: { url?: string };
-    };
+        read?: { url?: string | undefined } | undefined;
+        create?: { url?: string | undefined } | undefined;
+        destroy?: { url?: string | undefined } | undefined;
+        update?: { url?: string | undefined } | undefined;
+    } | undefined;
     [propertyName: string]: any;
 }
 
@@ -708,19 +708,19 @@ interface Server {
     /**
      * The port at which your application will be run
      */
-    port?: number;
+    port?: number | undefined;
     
     /**
      * The folder where your application files like .html; .js and .css are going to be.
      * The value is passed to express.static() middleware.
      */
-    static?: string;
+    static?: string | undefined;
     
     /**
      * Caches pages result instead of executing them each time.
      * Disabling cache could impact performance.
      */
-    cache?: boolean;
+    cache?: boolean | undefined;
     
     /**
      * Provide an express middleware function or an array of middleware functions.

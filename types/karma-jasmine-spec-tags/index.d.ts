@@ -17,18 +17,18 @@ declare module 'karma' {
          * defines a prefix for a tag name
          * @default '#'
          */
-        tagPrefix?: string;
+        tagPrefix?: string | undefined;
         /**
          * defines a comma-separated list of tag names:
          * * if `names` is defined then specs which match to tags will be executed.
          * * If `names` is not defined then all specs with a tag will be executed.
          */
-        tags?: string | string[] | boolean;
+        tags?: string | string[] | boolean | undefined;
         /**
          * defines a comma-separated list of tag names
          * * If `names` is defined then specs which match to tags will be skipped.
          * * If `names` is not defined then all specs with a tag will be skipped.
          */
-        skipTags?: string | string[] | boolean;
+        skipTags?: string | string[] | boolean | undefined;
     }
 }

@@ -12,16 +12,16 @@ declare namespace Disassembler {
     type ReplaceArray = Array<string | number>;
 
     interface DisassemblerOptions extends TransformOptions {
-        packValues?: boolean;
-        packKeys?: boolean;
-        packStrings?: boolean;
-        packNumbers?: boolean;
-        streamValues?: boolean;
-        streamKeys?: boolean;
-        streamStrings?: boolean;
-        streamNumbers?: boolean;
-        jsonStreaming?: boolean;
-        replacer?: ReplacerFunction | ReplaceArray;
+        packValues?: boolean | undefined;
+        packKeys?: boolean | undefined;
+        packStrings?: boolean | undefined;
+        packNumbers?: boolean | undefined;
+        streamValues?: boolean | undefined;
+        streamKeys?: boolean | undefined;
+        streamStrings?: boolean | undefined;
+        streamNumbers?: boolean | undefined;
+        jsonStreaming?: boolean | undefined;
+        replacer?: ReplacerFunction | ReplaceArray | undefined;
     }
 
     function make(options?: DisassemblerOptions): Disassembler;

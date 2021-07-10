@@ -14,13 +14,13 @@ declare function from2(opts: from2.Options, read: from2.ReadInput): NodeJS.Reada
 
 declare namespace from2 {
     function obj(read: ReadObjectInput): NodeJS.ReadableStream;
-    function obj(opts: { objectMode?: true } & stream.ReadableOptions, read: ReadObjectInput): NodeJS.ReadableStream;
+    function obj(opts: { objectMode?: true | undefined } & stream.ReadableOptions, read: ReadObjectInput): NodeJS.ReadableStream;
 
     function ctor(opts?: Options): From2Ctor<ReadInput>;
     function ctor(opts: ObjectModeOptions): From2Ctor<ReadObjectInput>;
 
     type ObjectModeOptions = { objectMode: true } & stream.ReadableOptions;
-    type Options = { objectMode?: false } & stream.ReadableOptions;
+    type Options = { objectMode?: false | undefined } & stream.ReadableOptions;
 
     type From2Ctor<R extends ReadInput | ReadObjectInput> = new(read: R) => NodeJS.ReadableStream;
 

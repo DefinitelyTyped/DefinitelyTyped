@@ -6,32 +6,32 @@ import { NormalMapTypes } from '../constants';
 
 export interface MeshToonMaterialParameters extends MaterialParameters {
     /** geometry color in hexadecimal. Default is 0xffffff. */
-    color?: Color | string | number;
-    opacity?: number;
-    gradientMap?: Texture | null;
-    map?: Texture | null;
-    lightMap?: Texture | null;
-    lightMapIntensity?: number;
-    aoMap?: Texture | null;
-    aoMapIntensity?: number;
-    emissive?: Color | string | number;
-    emissiveIntensity?: number;
-    emissiveMap?: Texture | null;
-    bumpMap?: Texture | null;
-    bumpScale?: number;
-    normalMap?: Texture | null;
-    normalMapType?: NormalMapTypes;
-    normalScale?: Vector2;
-    displacementMap?: Texture | null;
-    displacementScale?: number;
-    displacementBias?: number;
-    alphaMap?: Texture | null;
-    wireframe?: boolean;
-    wireframeLinewidth?: number;
-    wireframeLinecap?: string;
-    wireframeLinejoin?: string;
-    morphTargets?: boolean;
-    morphNormals?: boolean;
+    color?: Color | string | number | undefined;
+    opacity?: number | undefined;
+    gradientMap?: Texture | null | undefined;
+    map?: Texture | null | undefined;
+    lightMap?: Texture | null | undefined;
+    lightMapIntensity?: number | undefined;
+    aoMap?: Texture | null | undefined;
+    aoMapIntensity?: number | undefined;
+    emissive?: Color | string | number | undefined;
+    emissiveIntensity?: number | undefined;
+    emissiveMap?: Texture | null | undefined;
+    bumpMap?: Texture | null | undefined;
+    bumpScale?: number | undefined;
+    normalMap?: Texture | null | undefined;
+    normalMapType?: NormalMapTypes | undefined;
+    normalScale?: Vector2 | undefined;
+    displacementMap?: Texture | null | undefined;
+    displacementScale?: number | undefined;
+    displacementBias?: number | undefined;
+    alphaMap?: Texture | null | undefined;
+    wireframe?: boolean | undefined;
+    wireframeLinewidth?: number | undefined;
+    wireframeLinecap?: string | undefined;
+    wireframeLinejoin?: string | undefined;
+    morphTargets?: boolean | undefined;
+    morphNormals?: boolean | undefined;
 }
 
 export class MeshToonMaterial extends Material {

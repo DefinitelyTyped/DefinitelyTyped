@@ -253,7 +253,7 @@ pino({ name: "my-logger" }, destinationViaOptionsObject);
 
 interface StrictShape {
     activity: string;
-    err?: unknown;
+    err?: unknown | undefined;
 }
 
 info<StrictShape>({

@@ -150,29 +150,29 @@ declare function GM_setClipboard(text: string): void;
  * @see {@link http://wiki.greasespot.net/GM_xmlhttpRequest#Arguments}
  */
 interface GMXMLHttpRequestOptions {
-    binary?: boolean;
+    binary?: boolean | undefined;
     context?: any;
-    data?: string;
-    headers?: Object;
+    data?: string | undefined;
+    headers?: Object | undefined;
     method: string;
-    onabort?: (response: GMXMLHttpRequestResponse) => any;
-    onerror?: (response: GMXMLHttpRequestResponse) => any;
-    onload?: (response: GMXMLHttpRequestResponse) => any;
-    onprogress?: (response: GMXMLHttpRequestProgressResponse) => any;
-    onreadystatechange?: (response: GMXMLHttpRequestResponse) => any;
-    ontimeout?: (response: GMXMLHttpRequestResponse) => any;
-    overrideMimeType?: string;
-    password?: string;
-    synchronous?: boolean;
-    timeout?: number;
+    onabort?: ((response: GMXMLHttpRequestResponse) => any) | undefined;
+    onerror?: ((response: GMXMLHttpRequestResponse) => any) | undefined;
+    onload?: ((response: GMXMLHttpRequestResponse) => any) | undefined;
+    onprogress?: ((response: GMXMLHttpRequestProgressResponse) => any) | undefined;
+    onreadystatechange?: ((response: GMXMLHttpRequestResponse) => any) | undefined;
+    ontimeout?: ((response: GMXMLHttpRequestResponse) => any) | undefined;
+    overrideMimeType?: string | undefined;
+    password?: string | undefined;
+    synchronous?: boolean | undefined;
+    timeout?: number | undefined;
     upload?: {
-        onabort?: (response: GMXMLHttpRequestResponse) => any;
-        onerror?: (response: GMXMLHttpRequestResponse) => any;
-        onload?: (response: GMXMLHttpRequestResponse) => any;
-        onprogress?: (response: GMXMLHttpRequestProgressResponse) => any;
-    };
+        onabort?: ((response: GMXMLHttpRequestResponse) => any) | undefined;
+        onerror?: ((response: GMXMLHttpRequestResponse) => any) | undefined;
+        onload?: ((response: GMXMLHttpRequestResponse) => any) | undefined;
+        onprogress?: ((response: GMXMLHttpRequestProgressResponse) => any) | undefined;
+    } | undefined;
     url: string;
-    user?: string;
+    user?: string | undefined;
 }
 
 /**

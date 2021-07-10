@@ -13,10 +13,10 @@ declare namespace WordExtractor {
     class Document {
         getBody(): string;
         getFootnotes(): string;
-        getHeaders(options?: { includeFooters?: boolean }): string;
+        getHeaders(options?: { includeFooters?: boolean | undefined }): string;
         getFooters(): string;
         getAnnotations(): string;
-        getTextboxes(options?: { includeHeadersAndFooters?: boolean; includeBody?: boolean }): string;
+        getTextboxes(options?: { includeHeadersAndFooters?: boolean | undefined; includeBody?: boolean | undefined }): string;
         getEndNotes(): string;
     }
 }

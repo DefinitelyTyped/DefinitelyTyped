@@ -36,37 +36,37 @@ export type AvailableWidths = Widths[keyof Widths];
 
 export interface Props {
     /** Prevents user interaction with the button */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /** A @hig/icon element */
-    icon?: JSX.Element;
+    icon?: JSX.Element | undefined;
     /** Sets the link of a button */
-    link?: string;
+    link?: string | undefined;
     /** Triggers when you click the button */
-    onClick?: Callback;
+    onClick?: Callback | undefined;
     /** Triggers blur when focus is moved away from icon */
-    onBlur?: Callback;
+    onBlur?: Callback | undefined;
     /** Triggers when focus is moved to button */
-    onFocus?: Callback;
+    onFocus?: Callback | undefined;
     /** Triggers when you hover over the button */
-    onHover?: Callback;
+    onHover?: Callback | undefined;
     /** Triggers when the user's mouse is pressed over the button */
-    onMouseDown?: Callback;
+    onMouseDown?: Callback | undefined;
     /** Triggers when the user's mouse is over the button */
-    onMouseEnter?: Callback;
+    onMouseEnter?: Callback | undefined;
     /** Triggers when the user's mouse is no longer over the button */
-    onMouseLeave?: Callback;
+    onMouseLeave?: Callback | undefined;
     /** Triggers when the user's mouse is no longer pressed over the button */
-    onMouseUp?: Callback;
+    onMouseUp?: Callback | undefined;
     /** Adds custom/overriding styles */
-    stylesheet?: unknown;
+    stylesheet?: unknown | undefined;
     /** Specifies where to display the linked URL */
-    target?: AvailableTargets;
+    target?: AvailableTargets | undefined;
     /** Sets the title of a button */
     title: string;
     /** Specifies type of button */
-    type?: AvailableTypes;
+    type?: AvailableTypes | undefined;
     /** Specifies width of button */
-    width?: AvailableWidths;
+    width?: AvailableWidths | undefined;
 }
 
 export const availableTargets: AvailableTargets;

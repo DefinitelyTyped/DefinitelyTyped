@@ -1,8 +1,8 @@
 import { StreamType } from "../StreamsClient";
 
 export interface AdminStreamAttributes {
-    roomName?: string;
-    roomDescription?: string;
+    roomName?: string | undefined;
+    roomDescription?: string | undefined;
     createdByUserId: number;
     createdDate: number;
     lastModifiedDate: number;
@@ -10,7 +10,7 @@ export interface AdminStreamAttributes {
     originCompanyId: number;
     membersCount: number;
     lastMessageDate: number;
-    members?: number[];
+    members?: number[] | undefined;
 }
 
 export interface AdminStreamInfo {
@@ -32,18 +32,18 @@ export interface AdminStreamListResponse {
 
 export interface StreamUser {
     userId: number;
-    email?: string;
-    firstName?: string;
-    lastName?: string;
-    displayName?: string;
-    company?: string;
-    companyId?: number;
+    email?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    displayName?: string | undefined;
+    company?: string | undefined;
+    companyId?: number | undefined;
     isExternal: boolean;
 }
 
 export interface StreamMember {
     user: StreamUser;
-    isOwner?: boolean;
+    isOwner?: boolean | undefined;
     isCreator: boolean;
     joinDate: number;
 }
@@ -61,15 +61,15 @@ export interface ImportMessage {
     intendedMessageTimestamp: number;
     intendedMessageFromUserId: number;
     originatingSystemId: string;
-    originalMessageId?: string;
+    originalMessageId?: string | undefined;
     streamId: string;
 }
 
 export interface ImportMessageResult {
-    messageId?: string;
+    messageId?: string | undefined;
     originatingSystemId: string;
-    originalMessageId?: string;
-    diagnostic?: string;
+    originalMessageId?: string | undefined;
+    diagnostic?: string | undefined;
 }
 
 export interface SuppressedMessage {

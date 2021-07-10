@@ -6,9 +6,9 @@
 
 
 interface MockeryEnableArgs {
-    useCleanCache?: boolean;
-    warnOnReplace?: boolean;
-    warnOnUnregistered?: boolean;
+    useCleanCache?: boolean | undefined;
+    warnOnReplace?: boolean | undefined;
+    warnOnUnregistered?: boolean | undefined;
 }
 
 export declare function enable(args?: MockeryEnableArgs): void;

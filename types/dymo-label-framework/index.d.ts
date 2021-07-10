@@ -110,31 +110,31 @@ declare namespace dymo.label.framework {
      */
     interface Color {
         /** alpha channel [0..255] default: 255 */
-        alpha?: number;
+        alpha?: number | undefined;
         /** red channel [0..255] default: 0 */
-        red?: number;
+        red?: number | undefined;
         /** green channel [0..255] default: 0 */
-        green?: number;
+        green?: number | undefined;
         /** blue channel [0..255] default: 0 */
-        blue?: number;
+        blue?: number | undefined;
     }
 
     interface CreateLabelRenderParamsXmlParams {
         /** The color of the label. */
-        labelColor?: Color;
+        labelColor?: Color | undefined;
         /** The color of label shadow. */
-        shadowColor?: Color;
+        shadowColor?: Color | undefined;
         /** The shadow width in TWIPS. If '0' is specified, no shadow is rendered. */
-        shadowDepth?: number;
+        shadowDepth?: number | undefined;
         /**  The direction of the label content on the label (left-to-right or right-to-left). Use the dymo.label.framework.FlowDirection enumeration to specify the value. */
-        flowDirection?: FlowDirection;
+        flowDirection?: FlowDirection | undefined;
         /**
          * If true, the PNG will be generated using the display resolution.
          * If false, the PNG will be generated using the printer resolution.
          * If the display resolution is used, the resulting PNG will be smaller.
          * Use the printer resolution if the resulting image will be zoomed. This will give the zoomed preview better quality.
          */
-        pngUseDisplayResolution?: boolean;
+        pngUseDisplayResolution?: boolean | undefined;
     }
 
     /**
@@ -148,15 +148,15 @@ declare namespace dymo.label.framework {
 
     interface CreateLabelWriterPrintParamsXmlParams {
         /** The number of copies to print. */
-        copies?: number;
+        copies?: number | undefined;
         /** The print job title/description. */
-        jobTitle?: string;
+        jobTitle?: string | undefined;
         /** The direction of the label content on the label (left-to-right or right-to-left). Use the dymo.label.framework.FlowDirection enumeration to specify the value. */
-        flowDirection?: FlowDirection;
+        flowDirection?: FlowDirection | undefined;
         /** The print quality. Use the dymo.label.framework.LabelWriterPrintQuality enumeration to specify the value. */
-        printQuality?: LabelWriterPrintQuality;
+        printQuality?: LabelWriterPrintQuality | undefined;
         /** The roll to print to if the printer is a TwinTurbo printer. Use the dymo.label.framework.TwinTurboRoll enumeration to specify the value. */
-        twinTurboRoll?: TwinTurboRoll;
+        twinTurboRoll?: TwinTurboRoll | undefined;
     }
 
     /**
@@ -171,15 +171,15 @@ declare namespace dymo.label.framework {
 
     interface CreateTapePrintParamsXmlParams {
         /** The number of copies to print. */
-        copies?: number;
+        copies?: number | undefined;
         /** The print job title/description. */
-        jobTitle?: string;
+        jobTitle?: string | undefined;
         /** The direction of the label content on the label (left-to-right or right-to-left). Use the dymo.label.framework.FlowDirection enumeration to specify the value. */
-        flowDirection?: FlowDirection;
+        flowDirection?: FlowDirection | undefined;
         /** The label alignment on the tape. Use the dymo.label.framework.TapeAlignment enumeration to specify the value. */
-        alignment?: TapeAlignment;
+        alignment?: TapeAlignment | undefined;
         /** The cut mode (if auto-cut is supported by the printer). Use the dymo.label.framework.TapeCutMode enumeration to specify the value. */
-        cutMode?: TapeCutMode;
+        cutMode?: TapeCutMode | undefined;
     }
 
     /**

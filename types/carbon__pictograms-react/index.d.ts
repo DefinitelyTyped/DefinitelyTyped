@@ -11,16 +11,16 @@ export interface CarbonPictogramProps
     React.SVGProps<React.ReactSVGElement>,
     "ref" | "tabIndex" | "aria-hidden"
   > {
-  "aria-hidden"?: string;
-  "aria-label"?: string;
-  "aria-labelledby"?: string;
-  height?: number;
-  preserveAspectRatio?: string;
-  tabIndex?: string;
-  title?: string;
-  viewBox?: string;
-  width?: number;
-  xmlns?: string;
+  "aria-hidden"?: string | undefined;
+  "aria-label"?: string | undefined;
+  "aria-labelledby"?: string | undefined;
+  height?: number | undefined;
+  preserveAspectRatio?: string | undefined;
+  tabIndex?: string | undefined;
+  title?: string | undefined;
+  viewBox?: string | undefined;
+  width?: number | undefined;
+  xmlns?: string | undefined;
 }
 
 export type CarbonPictogramType = React.ForwardRefExoticComponent<

@@ -46,8 +46,8 @@ declare module 'moment' {
     }
 
     interface LocaleSpecification {
-        workinghours?: WorkingHoursMap;
-        holidays?: string[];
+        workinghours?: WorkingHoursMap | undefined;
+        holidays?: string[] | undefined;
     }
 
     interface TransitionTime {

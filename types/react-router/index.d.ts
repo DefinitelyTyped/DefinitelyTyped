@@ -38,32 +38,32 @@ export interface RouterChildContext<Params extends { [K in keyof Params]?: strin
     };
 }
 export interface MemoryRouterProps {
-    initialEntries?: H.LocationDescriptor[];
-    initialIndex?: number;
-    getUserConfirmation?: (message: string, callback: (ok: boolean) => void) => void;
-    keyLength?: number;
+    initialEntries?: H.LocationDescriptor[] | undefined;
+    initialIndex?: number | undefined;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
+    keyLength?: number | undefined;
 }
 
 export class MemoryRouter extends React.Component<MemoryRouterProps, any> {}
 
 export interface PromptProps {
     message: string | ((location: H.Location, action: H.Action) => string | boolean);
-    when?: boolean;
+    when?: boolean | undefined;
 }
 export class Prompt extends React.Component<PromptProps, any> {}
 
 export interface RedirectProps {
     to: H.LocationDescriptor;
-    push?: boolean;
-    from?: string;
-    path?: string;
-    exact?: boolean;
-    strict?: boolean;
+    push?: boolean | undefined;
+    from?: string | undefined;
+    path?: string | undefined;
+    exact?: boolean | undefined;
+    strict?: boolean | undefined;
 }
 export class Redirect extends React.Component<RedirectProps, any> {}
 
 export interface StaticContext {
-    statusCode?: number;
+    statusCode?: number | undefined;
 }
 
 export interface RouteComponentProps<
@@ -74,7 +74,7 @@ export interface RouteComponentProps<
     history: H.History<S>;
     location: H.Location<S>;
     match: match<Params>;
-    staticContext?: C;
+    staticContext?: C | undefined;
 }
 
 export interface RouteChildrenProps<Params extends { [K in keyof Params]?: string } = {}, S = H.LocationState> {
@@ -87,14 +87,14 @@ export interface RouteProps<
     Path extends string = string,
     Params extends { [K: string]: string | undefined } = ExtractRouteParams<Path, string>
 > {
-    location?: H.Location;
-    component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
-    render?: (props: RouteComponentProps<Params>) => React.ReactNode;
-    children?: ((props: RouteChildrenProps<Params>) => React.ReactNode) | React.ReactNode;
-    path?: Path | readonly Path[];
-    exact?: boolean;
-    sensitive?: boolean;
-    strict?: boolean;
+    location?: H.Location | undefined;
+    component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any> | undefined;
+    render?: ((props: RouteComponentProps<Params>) => React.ReactNode) | undefined;
+    children?: ((props: RouteChildrenProps<Params>) => React.ReactNode) | React.ReactNode | undefined;
+    path?: Path | readonly Path[] | undefined;
+    exact?: boolean | undefined;
+    sensitive?: boolean | undefined;
+    strict?: boolean | undefined;
 }
 export class Route<T extends {} = {}, Path extends string = string> extends React.Component<
     RouteProps<Path> & OmitNative<T, keyof RouteProps>,
@@ -107,20 +107,20 @@ export interface RouterProps {
 export class Router extends React.Component<RouterProps, any> {}
 
 export interface StaticRouterContext extends StaticContext {
-    url?: string;
-    action?: 'PUSH' | 'REPLACE';
-    location?: object;
+    url?: string | undefined;
+    action?: 'PUSH' | 'REPLACE' | undefined;
+    location?: object | undefined;
 }
 export interface StaticRouterProps {
-    basename?: string;
-    location?: string | object;
-    context?: StaticRouterContext;
+    basename?: string | undefined;
+    location?: string | object | undefined;
+    context?: StaticRouterContext | undefined;
 }
 
 export class StaticRouter extends React.Component<StaticRouterProps, any> {}
 export interface SwitchProps {
-    children?: React.ReactNode;
-    location?: H.Location;
+    children?: React.ReactNode | undefined;
+    location?: H.Location | undefined;
 }
 export class Switch extends React.Component<SwitchProps, any> {}
 
@@ -166,7 +166,7 @@ export type ExtractRouteParams<T extends string, U = string | number | boolean> 
 export function generatePath<S extends string>(path: S, params?: ExtractRouteParams<S>): string;
 
 export type WithRouterProps<C extends React.ComponentType<any>> = C extends React.ComponentClass
-    ? { wrappedComponentRef?: React.Ref<InstanceType<C>> }
+    ? { wrappedComponentRef?: React.Ref<InstanceType<C>> | undefined }
     : {};
 
 export interface WithRouterStatics<C extends React.ComponentType<any>> {

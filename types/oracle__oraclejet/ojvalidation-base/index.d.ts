@@ -14,7 +14,7 @@ export class ColorConverter implements Converter<Color> {
 export namespace ColorConverter {
     // tslint:disable-next-line interface-over-type-literal
     type ConverterOptions = {
-        format?: 'rgb' | 'hsl' | 'hsv' | 'hex' | 'hex3';
+        format?: 'rgb' | 'hsl' | 'hsv' | 'hex' | 'hex3' | undefined;
     };
 }
 export interface ColorConverterFactory {
@@ -56,23 +56,23 @@ export class LengthValidator implements Validator<number | string> {
 export namespace LengthValidator {
     // tslint:disable-next-line interface-over-type-literal
     type ValidatorOptions = {
-        countBy?: 'codeUnit' | 'codePoint';
-        min?: number;
-        max?: number;
+        countBy?: 'codeUnit' | 'codePoint' | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
         hint?: {
-            max?: string;
-            min?: string;
-            inRange?: string;
-            exact?: string;
-        };
+            max?: string | undefined;
+            min?: string | undefined;
+            inRange?: string | undefined;
+            exact?: string | undefined;
+        } | undefined;
         messageDetail?: {
-            tooLong?: string;
-            tooShort?: string;
-        };
+            tooLong?: string | undefined;
+            tooShort?: string | undefined;
+        } | undefined;
         messageSummary?: {
-            tooLong?: string;
-            tooShort?: string;
-        };
+            tooLong?: string | undefined;
+            tooShort?: string | undefined;
+        } | undefined;
     };
 }
 export interface LengthValidatorFactory {
@@ -86,10 +86,10 @@ export class RegExpValidator implements Validator<string | number> {
 export namespace RegExpValidator {
     // tslint:disable-next-line interface-over-type-literal
     type ValidatorOptions = {
-        pattern?: string;
-        hint?: string;
-        messageSummary?: string;
-        messageDetail?: string;
+        pattern?: string | undefined;
+        hint?: string | undefined;
+        messageSummary?: string | undefined;
+        messageDetail?: string | undefined;
     };
 }
 export interface RegExpValidatorFactory {
@@ -103,9 +103,9 @@ export class RequiredValidator implements Validator<object | string | number> {
 export namespace RequiredValidator {
     // tslint:disable-next-line interface-over-type-literal
     type ValidatorOptions = {
-        hint?: string;
-        messageSummary?: string;
-        messageDetail?: string;
+        hint?: string | undefined;
+        messageSummary?: string | undefined;
+        messageDetail?: string | undefined;
     };
 }
 export interface RequiredValidatorFactory {
@@ -117,12 +117,12 @@ export namespace Validation {
     // tslint:disable-next-line interface-over-type-literal
     type RegisteredConverter = {
         type: string;
-        options?: object;
+        options?: object | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type RegisteredValidator = {
         type: string;
-        options?: object;
+        options?: object | undefined;
     };
 }
 export interface Validator<V> {

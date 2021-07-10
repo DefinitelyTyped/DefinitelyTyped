@@ -231,34 +231,34 @@ export const OCSP_REASON_UNSPECIFIED = 'unspecified';
  */
 export interface Params {
     /** Authentication method. */
-    auth?: AuthMethod;
+    auth?: AuthMethod | undefined;
 
     /** Request body compression. */
-    compression?: string;
+    compression?: string | undefined;
 
     /** Request scoped cookies. */
-    cookies?: { [name: string]: ParamsCookieValue };
+    cookies?: { [name: string]: ParamsCookieValue } | undefined;
 
     /** Request headers. */
-    headers?: { [name: string]: string };
+    headers?: { [name: string]: string } | undefined;
 
     /** Cookie jar to override default VU cookie jar with. */
-    jar?: CookieJar;
+    jar?: CookieJar | undefined;
 
     /** Maximum redirects to follow. */
-    redirects?: number;
+    redirects?: number | undefined;
 
     /** Response type. */
-    responseType?: ResponseType;
+    responseType?: ResponseType | undefined;
 
     /** Response time metric tags. */
-    tags?: { [name: string]: string };
+    tags?: { [name: string]: string } | undefined;
 
     /** Request timeout. */
-    timeout?: string | number;
+    timeout?: string | number | undefined;
 
     /** Sets a ResponseCallback only for this request. */
-    responseCallback?: ExpectedStatusesCallback;
+    responseCallback?: ExpectedStatusesCallback | undefined;
 }
 
 /**
@@ -266,7 +266,7 @@ export interface Params {
  * Used to infer response body type.
  */
 export interface RefinedParams<RT extends ResponseType | undefined> extends Params {
-    responseType?: RT;
+    responseType?: RT | undefined;
 }
 
 /**
@@ -283,7 +283,7 @@ export type ResponseType = 'binary' | 'none' | 'text';
  * Cookie value in request parameters.
  * https://k6.io/docs/javascript-api/k6-http/params-k6-http
  */
-export type ParamsCookieValue = string | { value?: string; replace?: boolean };
+export type ParamsCookieValue = string | { value?: string | undefined; replace?: boolean | undefined };
 
 // === Request body ===
 // --------------------
@@ -325,10 +325,10 @@ export interface ObjectBatchRequest {
     url: string;
 
     /** Request body. */
-    body?: RequestBody | null;
+    body?: RequestBody | null | undefined;
 
     /** Requset parameters. */
-    params?: Params | null;
+    params?: Params | null | undefined;
 }
 
 /**
@@ -364,8 +364,8 @@ export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
 export interface ObjectRefinedBatchRequest<RT extends ResponseType | undefined> {
     method: string;
     url: string;
-    body?: RequestBody | null;
-    params?: RefinedParams<RT> | null;
+    body?: RequestBody | null | undefined;
+    params?: RefinedParams<RT> | null | undefined;
 }
 
 // === Batch responses ===
@@ -496,8 +496,8 @@ export interface Response {
      * @returns Link click response.
      */
     clickLink<RT extends ResponseType | undefined>(args?: {
-        selector?: string;
-        params?: RefinedParams<RT> | null;
+        selector?: string | undefined;
+        params?: RefinedParams<RT> | null | undefined;
     }): RefinedResponse<RT>;
 
     /**
@@ -532,10 +532,10 @@ export interface Response {
      * @returns Form submission response.
      */
     submitForm<RT extends ResponseType | undefined>(args?: {
-        formSelector?: string;
-        fields?: { [name: string]: string };
-        submitSelector?: string;
-        params?: RefinedParams<RT> | null;
+        formSelector?: string | undefined;
+        fields?: { [name: string]: string } | undefined;
+        submitSelector?: string | undefined;
+        params?: RefinedParams<RT> | null | undefined;
     }): RefinedResponse<RT>;
 }
 
@@ -660,10 +660,10 @@ export abstract class FileData {
     data: string | bytes | ArrayBuffer;
 
     /** Filename to include in MIME message. */
-    filename?: string;
+    filename?: string | undefined;
 
     /** Content type to include in MIME message. */
-    content_type?: string;
+    content_type?: string | undefined;
 }
 
 // === Cookie jar ===
@@ -707,22 +707,22 @@ export interface CookieJarCookies {
  */
 export interface CookieOptions {
     /** Domain allowed to receive. */
-    domain?: string;
+    domain?: string | undefined;
 
     /** Scope path. */
-    path?: string;
+    path?: string | undefined;
 
     /** Expiry time in RFC1123 format. */
-    expires?: string;
+    expires?: string | undefined;
 
     /** Seconds until expiration. */
-    max_age?: number;
+    max_age?: number | undefined;
 
     /** Secure. */
-    secure?: boolean;
+    secure?: boolean | undefined;
 
     /** HTTP only. */
-    http_only?: boolean;
+    http_only?: boolean | undefined;
 }
 
 interface ExpectedStatusesCallback {

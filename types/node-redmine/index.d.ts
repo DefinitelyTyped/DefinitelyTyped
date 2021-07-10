@@ -13,7 +13,7 @@ export interface IssueRecord {
     priority: IssueRecordField;
     author: IssueRecordField;
     assigned_to: IssueRecordField;
-    parent?: IssueRecordField;
+    parent?: IssueRecordField | undefined;
     subject: string;
     description: string;
     start_date: string | null;
@@ -28,21 +28,21 @@ export interface IssueRecord {
 
 export interface IssueRecordField {
     id: number;
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface IssueParams {
-    project_id?: number;
-    tracker_id?: number;
-    priority_id?: number;
-    category_id?: number;
-    status_id?: number;
-    assigned_to_id?: number;
-    subject?: string;
-    description?: string;
-    parent_issue_id?: number;
-    notes?: string;
-    uploads?: UploadRecord[];
+    project_id?: number | undefined;
+    tracker_id?: number | undefined;
+    priority_id?: number | undefined;
+    category_id?: number | undefined;
+    status_id?: number | undefined;
+    assigned_to_id?: number | undefined;
+    subject?: string | undefined;
+    description?: string | undefined;
+    parent_issue_id?: number | undefined;
+    notes?: string | undefined;
+    uploads?: UploadRecord[] | undefined;
 }
 
 export interface UploadResult {
@@ -51,7 +51,7 @@ export interface UploadResult {
 
 export interface UploadRecord {
     token: string;
-    content_type?: string;
+    content_type?: string | undefined;
     filename: string;
 }
 

@@ -17,43 +17,43 @@ export default feathersAuthentication;
 export const hooks: AuthHooks.Hooks;
 
 export interface FeathersAuthenticationOptions {
-    path?: string;
-    header?: string;
-    entity?: string;
-    service?: string;
-    passReqToCallback?: boolean;
-    session?: boolean;
+    path?: string | undefined;
+    header?: string | undefined;
+    entity?: string | undefined;
+    service?: string | undefined;
+    passReqToCallback?: boolean | undefined;
+    session?: boolean | undefined;
     cookie?: {
-        enabled?: boolean;
-        name?: string;
-        httpOnly?: boolean;
-        secure?: boolean;
-    };
+        enabled?: boolean | undefined;
+        name?: string | undefined;
+        httpOnly?: boolean | undefined;
+        secure?: boolean | undefined;
+    } | undefined;
     jwt?: {
         /**
          * By default is an access token
          */
         header?: {
             [key: string]: any
-        };
+        } | undefined;
 
         /**
          * The resource server where the token is processed
          */
-        audience?: string;
+        audience?: string | undefined;
 
         /**
          * Typically the entity id associated with the JWT
          */
-        subject?: string;
+        subject?: string | undefined;
 
         /**
          * The issuing server, application or resource
          */
-        issuer?: string;
-        algorithm?: string;
-        expiresIn?: string;
-    };
+        issuer?: string | undefined;
+        algorithm?: string | undefined;
+        expiresIn?: string | undefined;
+    } | undefined;
 }
 
 export namespace express {

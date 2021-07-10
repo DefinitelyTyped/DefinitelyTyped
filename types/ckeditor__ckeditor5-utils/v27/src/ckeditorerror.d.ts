@@ -100,7 +100,7 @@ export default class CKEditorError<
      * The additional error data passed to the constructor. Undefined if none was passed.
      *
      */
-    data?: D;
+    data?: D | undefined;
     /**
      * Checks if the error is of the `CKEditorError` type.
      */

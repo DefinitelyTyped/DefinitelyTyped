@@ -69,47 +69,47 @@ declare namespace tempfs {
          *
          * Also see {@link options#name}. Default: <code>tempfs.dir()</code>
          */
-        dir?: String;
+        dir?: String | undefined;
 
         /**
          * The maximum number of chance to retry before throwing an error.
          *
          * It should be a finite number. Default: 5
          */
-        limit?: Number;
+        limit?: Number | undefined;
 
         /**
          * File mode (default: 0600) or directory mode (default: 0700) to use.
          */
-        mode?: Number;
+        mode?: Number | undefined;
 
         /**
          * If set, join the two paths <code>{@link options#dir} ||
          * tempfs.dir()</code> and {@link options#name} together and use the
          * result as the customized filename/pathname.
          */
-        name?: String;
+        name?: String | undefined;
 
         /**
          * The prefix for the generated random name.
          *
          * Default: "tmp-"
          */
-        prefix?: String;
+        prefix?: String | undefined;
 
         /**
          * Whether {@link dir#unlink} should remove a directory recursively.
          *
          * Default: false
          */
-        recursive?: Boolean;
+        recursive?: Boolean | undefined;
 
         /**
          * The suffix for the generated random name.
          *
          * Default: ""
          */
-        suffix?: String;
+        suffix?: String | undefined;
 
         /**
          * A string containing some capital letters Xs for substitution with
@@ -118,7 +118,7 @@ declare namespace tempfs {
          * Then it is used as part of the filename/dirname. Just like what you
          * do with the <code>mktemp(3)</code> function in the C library.
          */
-        template?: String;
+        template?: String | undefined;
 
         /**
          * If set to true, let temp-fs manage the the current file/directory for
@@ -126,7 +126,7 @@ declare namespace tempfs {
          * temp-fs manage it even if the global tracking is on. Otherwise, use
          * the current global setting.
          */
-        track?: Boolean;
+        track?: Boolean | undefined;
     }
 
     /**

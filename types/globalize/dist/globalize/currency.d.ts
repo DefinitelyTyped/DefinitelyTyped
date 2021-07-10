@@ -5,7 +5,7 @@ declare module "../globalize" {
         /**
         * symbol (default), accounting, code or name.
         */
-        style?: "symbol" | "accounting" | "code" | "name";
+        style?: "symbol" | "accounting" | "code" | "name" | undefined;
     }
 
     interface Shared {

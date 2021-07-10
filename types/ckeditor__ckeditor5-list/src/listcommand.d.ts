@@ -5,5 +5,5 @@ export default class ListCommand extends Command {
     value: boolean;
     constructor(editor: Editor, type: 'numbered' | 'bulleted');
     refresh(): void;
-    execute(options?: { forceValue?: boolean }): void;
+    execute(options?: { forceValue?: boolean | undefined }): void;
 }

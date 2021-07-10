@@ -23,8 +23,8 @@ interface FastClickObject {
 }
 
 interface FastClickOptions {
-    touchBoundary?: number;
-    tapDelay?: number;
+    touchBoundary?: number | undefined;
+    tapDelay?: number | undefined;
 }
 
 interface FastClickStatic {

@@ -31,11 +31,11 @@ declare module "koa" {
 
 declare const koaCsrf: {
     new (opts?: {
-        invalidSessionSecretMessage?: string;
-        invalidSessionSecretStatusCode?: number;
-        invalidTokenMessage?: string;
-        invalidTokenStatusCode?: number;
-        excludedMethods?: string[];
-        disableQuery?: boolean;
+        invalidSessionSecretMessage?: string | undefined;
+        invalidSessionSecretStatusCode?: number | undefined;
+        invalidTokenMessage?: string | undefined;
+        invalidTokenStatusCode?: number | undefined;
+        excludedMethods?: string[] | undefined;
+        disableQuery?: boolean | undefined;
     }): Middleware;
 };

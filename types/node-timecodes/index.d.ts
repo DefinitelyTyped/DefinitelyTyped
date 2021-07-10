@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface TimecodeOptions {
-    frameRate?: number;
-    ms?: boolean;
+    frameRate?: number | undefined;
+    ms?: boolean | undefined;
 }
 
 export function toSeconds(timecode: string, frameRate?: number): number;

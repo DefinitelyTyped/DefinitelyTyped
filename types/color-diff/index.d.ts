@@ -7,7 +7,7 @@ export interface RGBColor {
   R: number;
   G: number;
   B: number;
-  A?: number;
+  A?: number | undefined;
 }
 
 export interface LabColor {

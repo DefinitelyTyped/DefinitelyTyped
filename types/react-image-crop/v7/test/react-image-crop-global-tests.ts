@@ -1,5 +1,5 @@
 interface TestState {
-    crop?: ReactCrop.Crop;
+    crop?: ReactCrop.Crop | undefined;
 }
 const initialState = {
     crop: {

@@ -19,7 +19,7 @@ declare namespace K {
     type QueueMethod = "shift" | "pop";
 
     interface Options extends ReadableOptions {
-        queueMethod?: QueueMethod;
+        queueMethod?: QueueMethod | undefined;
         pathSorter?(pathA: string, pathB: string): number;
         fs?: any; // fs or mock-fs
         filter?(path: string): boolean;

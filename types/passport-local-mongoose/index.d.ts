@@ -47,46 +47,46 @@ declare module 'mongoose' {
 
   // error messages
   export interface PassportLocalErrorMessages {
-    MissingPasswordError?: string;
-    AttemptTooSoonError?: string;
-    TooManyAttemptsError?: string;
-    NoSaltValueStoredError?: string;
-    IncorrectPasswordError?: string;
-    IncorrectUsernameError?: string;
-    MissingUsernameError?: string;
-    UserExistsError?: string;
+    MissingPasswordError?: string | undefined;
+    AttemptTooSoonError?: string | undefined;
+    TooManyAttemptsError?: string | undefined;
+    NoSaltValueStoredError?: string | undefined;
+    IncorrectPasswordError?: string | undefined;
+    IncorrectUsernameError?: string | undefined;
+    MissingUsernameError?: string | undefined;
+    UserExistsError?: string | undefined;
   }
 
   // plugin options
   export interface PassportLocalOptions {
-    saltlen?: number;
-    iterations?: number;
-    keylen?: number;
-    encoding?: string;
-    digestAlgorithm?: string;
-    passwordValidator?: (password: string, cb: (err: any) => void) => void;
+    saltlen?: number | undefined;
+    iterations?: number | undefined;
+    keylen?: number | undefined;
+    encoding?: string | undefined;
+    digestAlgorithm?: string | undefined;
+    passwordValidator?: ((password: string, cb: (err: any) => void) => void) | undefined;
 
-    usernameField?: string;
-    usernameUnique?: boolean;
+    usernameField?: string | undefined;
+    usernameUnique?: boolean | undefined;
 
     usernameQueryFields: Array<string>;
 
-    selectFields?: string;
-    populateFields?: string;
+    selectFields?: string | undefined;
+    populateFields?: string | undefined;
 
-    usernameLowerCase?: boolean;
+    usernameLowerCase?: boolean | undefined;
 
-    hashField?: string;
-    saltField?: string;
+    hashField?: string | undefined;
+    saltField?: string | undefined;
 
-    limitAttempts?: boolean;
-    lastLoginField?: string;
-    attemptsField?: string;
-    interval?: number;
-    maxInterval?: number;
-    maxAttempts?: number;
+    limitAttempts?: boolean | undefined;
+    lastLoginField?: string | undefined;
+    attemptsField?: string | undefined;
+    interval?: number | undefined;
+    maxInterval?: number | undefined;
+    maxAttempts?: number | undefined;
 
-    errorMessages?: PassportLocalErrorMessages;
+    errorMessages?: PassportLocalErrorMessages | undefined;
   }
 
   export interface PassportLocalSchema extends Schema {

@@ -17,12 +17,12 @@ declare namespace download {
          *
          * @default false
          */
-        extract?: boolean;
+        extract?: boolean | undefined;
 
         /**
          * Name of the saved file.
          */
-        filename?: string;
+        filename?: string | undefined;
     }
 }
 

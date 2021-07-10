@@ -265,7 +265,7 @@ export class Actions {
    * element may be moved to the location of another element, or by an offset (in
    * pixels).
    */
-  dragAndDrop(from: WebElement, to?: WebElement|{x?: number | string, y?: number|string}|null):
+  dragAndDrop(from: WebElement, to?: WebElement|{x?: number | string | undefined, y?: number|string | undefined}|null):
       Actions;
 
   /**

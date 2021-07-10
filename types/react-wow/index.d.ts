@@ -11,7 +11,7 @@ export interface ReactWOWProps {
      * Animation css class.
      * @default animated
      */
-    animateClass?: string;
+    animateClass?: string | undefined;
 
     /**
      * Animation name.
@@ -112,7 +112,7 @@ export interface ReactWOWProps {
     /**
      * The callback is fired every time an animation is stoped.
      */
-    callback?: () => void;
+    callback?: (() => void) | undefined;
 
     /**
      * Content you want to apply the animation to.
@@ -122,47 +122,47 @@ export interface ReactWOWProps {
     /**
      * Animation delay.
      */
-    delay?: string;
+    delay?: string | undefined;
 
     /**
      * Disable the animation.
      * @default false
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
 
     /**
      * Animation duration.
      */
-    duration?: string;
+    duration?: string | undefined;
 
     /**
      * Animation iteration count.
      */
-    iteration?: string;
+    iteration?: string | undefined;
 
     /**
      * Distance to the element when triggering the animation.
      * @default 0
      */
-    offset?: number | number[];
+    offset?: number | number[] | undefined;
 
     /**
      * If your components inside a overflow container, set this to true.
      * @default false
      */
-    overflow?: boolean;
+    overflow?: boolean | undefined;
 
     /**
      * Listen and react to resize event.
      * @default true
      */
-    resize?: boolean;
+    resize?: boolean | undefined;
 
     /**
      * Listen and react to scroll event.
      * @default true
      */
-    scroll?: boolean;
+    scroll?: boolean | undefined;
 }
 
 export default class ReactWOW extends React.Component<ReactWOWProps> {}

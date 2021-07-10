@@ -3,7 +3,7 @@ import { GoogleSignin, GoogleSigninButton, User, statusCodes } from 'react-nativ
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 
 interface State {
-    user?: User;
+    user?: User | undefined;
 }
 
 export default class Signin extends React.Component<{}, State> {

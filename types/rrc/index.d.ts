@@ -9,7 +9,7 @@ import * as H from "history";
 import { RouteProps, RouteComponentProps, match as MatchObject } from "react-router-dom";
 
 export interface ScrollIntoViewProps {
-    alignToTop?: boolean;
+    alignToTop?: boolean | undefined;
     id: string;
 }
 
@@ -18,8 +18,8 @@ export class ScrollIntoView extends React.Component<ScrollIntoViewProps> { }
 export type PropIdCallback = () => string;
 
 export interface WithScrollOptions {
-    propId?: PropIdCallback;
-    alignToTop?: boolean;
+    propId?: PropIdCallback | undefined;
+    alignToTop?: boolean | undefined;
 }
 
 export type ComponentConstructor<Props> = React.ComponentType<Props>;
@@ -27,7 +27,7 @@ export type ComponentConstructor<Props> = React.ComponentType<Props>;
 export function withScroll(component: ComponentConstructor<RouteComponentProps<any> | {}>, options?: WithScrollOptions)
     : ComponentConstructor<RouteComponentProps<any> | {}>;
 
-export type RouteConfiguration = RouteProps & { inject?: { [key: string]: any } };
+export type RouteConfiguration = RouteProps & { inject?: { [key: string]: any } | undefined };
 
 export interface SwitchProps {
     routes: RouteConfiguration[];
@@ -40,7 +40,7 @@ export type OnUpdateCall = (location: H.Location) => void;
 
 export interface OnUpdateProps {
     call: OnUpdateCall;
-    immediate?: boolean;
+    immediate?: boolean | undefined;
 }
 
 export class OnUpdate extends React.Component<OnUpdateProps> { }
@@ -48,12 +48,12 @@ export class OnUpdate extends React.Component<OnUpdateProps> { }
 export type IsActiveCallback = () => boolean;
 
 export interface WhenActiveOptions {
-    exact?: boolean;
-    strict?: boolean;
-    pathProp?: string;
-    className?: string;
-    style?: React.CSSProperties;
-    isActive?: IsActiveCallback;
+    exact?: boolean | undefined;
+    strict?: boolean | undefined;
+    pathProp?: string | undefined;
+    className?: string | undefined;
+    style?: React.CSSProperties | undefined;
+    isActive?: IsActiveCallback | undefined;
 }
 
 export type WhenActiveReturnType<Props> = (component: ComponentConstructor<Props>) => ComponentConstructor<Props>;
@@ -69,7 +69,7 @@ export class Status extends React.Component<StatusProps> { }
 export type GetKeyFunction<Params> = (match: MatchObject<Params>, route: RouteConfiguration, location: H.Location) => string;
 
 export interface WrapSwitchProps<Params> extends SwitchProps {
-    getKey?: GetKeyFunction<Params>;
+    getKey?: GetKeyFunction<Params> | undefined;
 }
 
 export function wrapSwitch<WrapperProps, Params>(Wrapper: ComponentConstructor<WrapperProps>):

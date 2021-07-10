@@ -42,7 +42,7 @@ export class Client extends EventEmitter {
 
     setUserVoiceSettings(id: string, settings: UserVoiceSettings): Promise<any>;
 
-    selectVoiceChannel(id: string, options?: { timeout?: number, force?: boolean }): Promise<Channel>;
+    selectVoiceChannel(id: string, options?: { timeout?: number | undefined, force?: boolean | undefined }): Promise<Channel>;
     selectTextChannel(id: string, options?: { timeout: number, force: boolean }): Promise<Channel>;
 
     getVoiceSettings(): Promise<VoiceSettings>;
@@ -82,18 +82,18 @@ export interface RPCClientOptions {
 
 export interface RPCLoginOptions {
     clientId: string;
-    clientSecret?: string;
-    accessToken?: string;
-    rpcToken?: string;
-    tokenEndpoint?: string;
-    scopes?: string[];
+    clientSecret?: string | undefined;
+    accessToken?: string | undefined;
+    rpcToken?: string | undefined;
+    tokenEndpoint?: string | undefined;
+    scopes?: string[] | undefined;
 }
 
 export interface Guild {
     id: string;
     name: string;
-    icon_url?: string;
-    members?: any[];
+    icon_url?: string | undefined;
+    members?: any[] | undefined;
 }
 
 export interface Subscription {
@@ -109,37 +109,37 @@ export interface Channel {
    */
     type: number;
 
-    guild_id?: string;
+    guild_id?: string | undefined;
 
   /**
    * (text)
    */
-    topic?: string;
+    topic?: string | undefined;
 
   /**
    * (voice)
    */
-    bitrate?: number;
+    bitrate?: number | undefined;
 
   /**
    * (voice) 0 if none
    */
-    user_limit?: number;
+    user_limit?: number | undefined;
 
   /**
    * (text)
    */
-    position?: number;
+    position?: number | undefined;
 
   /**
    * (voice) https://discordapp.com/developers/docs/resources/voice#voice-state-object
    */
-    voice_states?: any[];
+    voice_states?: any[] | undefined;
 
   /**
    * (text) https://discordapp.com/developers/docs/resources/channel#message-object
    */
-    messages?: any[];
+    messages?: any[] | undefined;
 }
 
 export interface CertifiedDevice {
@@ -148,17 +148,17 @@ export interface CertifiedDevice {
     vendor: { name: string, url: string };
     model: { name: string, url: string };
     related: string[];
-    echoCancellation?: boolean;
-    noiseSuppression?: boolean;
-    automaticGainControl?: boolean;
-    hardwareMute?: boolean;
+    echoCancellation?: boolean | undefined;
+    noiseSuppression?: boolean | undefined;
+    automaticGainControl?: boolean | undefined;
+    hardwareMute?: boolean | undefined;
 }
 
 export interface UserVoiceSettings {
     id: string;
-    pan?: { left: number, right: number };
-    volume?: number;
-    mute?: boolean;
+    pan?: { left: number, right: number } | undefined;
+    volume?: number | undefined;
+    mute?: boolean | undefined;
 }
 
 export interface VoiceSettings {
@@ -172,34 +172,34 @@ export interface VoiceSettings {
     input?: {
         device: string,
         volume: number
-    };
+    } | undefined;
     output?: {
         device: string,
         volume: number
-    };
+    } | undefined;
     mode?: {
         autoThreshold: boolean,
         threshold: number,
         shortcut: Array<{ type: number, code: number, name: string }>,
         delay: number
-    };
+    } | undefined;
 }
 
 export interface Presence {
-    state?: string;
-    details?: string;
-    startTimestamp?: number | Date;
-    endTimestamp?: number | Date;
-    largeImageKey?: string;
-    largeImageText?: string;
-    smallImageKey?: string;
-    smallImageText?: string;
-    instance?: boolean;
-    partyId?: string;
-    partySize?: number;
-    partyMax?: number;
-    matchSecret?: string;
-    spectateSecret?: string;
-    joinSecret?: string;
-    buttons?: Array<{ label: string, url: string }>;
+    state?: string | undefined;
+    details?: string | undefined;
+    startTimestamp?: number | Date | undefined;
+    endTimestamp?: number | Date | undefined;
+    largeImageKey?: string | undefined;
+    largeImageText?: string | undefined;
+    smallImageKey?: string | undefined;
+    smallImageText?: string | undefined;
+    instance?: boolean | undefined;
+    partyId?: string | undefined;
+    partySize?: number | undefined;
+    partyMax?: number | undefined;
+    matchSecret?: string | undefined;
+    spectateSecret?: string | undefined;
+    joinSecret?: string | undefined;
+    buttons?: Array<{ label: string, url: string }> | undefined;
 }

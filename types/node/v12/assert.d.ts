@@ -11,12 +11,12 @@ declare module 'assert' {
             code: 'ERR_ASSERTION';
 
             constructor(options?: {
-                message?: string;
+                message?: string | undefined;
                 actual?: any;
                 expected?: any;
-                operator?: string;
+                operator?: string | undefined;
                 // tslint:disable-next-line:ban-types
-                stackStartFn?: Function;
+                stackStartFn?: Function | undefined;
             });
         }
 

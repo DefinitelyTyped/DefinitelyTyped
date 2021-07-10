@@ -65,7 +65,7 @@ import h = require('vhtml');
 
 // -------- Functional Pseudo-Components -------- //
 
-declare function Component(props: { prop1: string; prop2?: number }): string;
+declare function Component(props: { prop1: string; prop2?: number | undefined }): string;
 
 // $ExpectType string
 <Component prop1="foo" prop2={125} />;

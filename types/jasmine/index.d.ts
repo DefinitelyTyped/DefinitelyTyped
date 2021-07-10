@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.7
+// Type definitions for Jasmine 3.8
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -196,8 +196,9 @@ declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: "ge
 /**
  * Installs spies on all writable and configurable properties of an object.
  * @param object The object upon which to install the `Spy`s.
+ * @param includeNonEnumerable Whether or not to add spies to non-enumerable properties.
  */
-declare function spyOnAllFunctions<T>(object: T): jasmine.SpyObj<T>;
+declare function spyOnAllFunctions<T>(object: T, includeNonEnumerable?: boolean): jasmine.SpyObj<T>;
 
 declare namespace jasmine {
     type Func = (...args: any[]) => any;
@@ -241,20 +242,20 @@ declare namespace jasmine {
          * @since 3.3.0
          * @default true
          */
-        random?: boolean;
+        random?: boolean | undefined;
         /**
          * Seed to use as the basis of randomization.
          * Null causes the seed to be determined randomly at the start of execution.
          * @since 3.3.0
          * @default null
          */
-        seed?: number | string;
+        seed?: number | string | undefined;
         /**
          * Whether to stop execution of the suite after the first spec failure
          * @since 3.3.0
          * @default false
          */
-        failFast?: boolean;
+        failFast?: boolean | undefined;
         /**
          * Whether to fail the spec if it ran no expectations. By default
          * a spec that ran no expectations is reported as passed. Setting this
@@ -262,26 +263,26 @@ declare namespace jasmine {
          * @since 3.5.0
          * @default false
          */
-        failSpecWithNoExpectations?: boolean;
+        failSpecWithNoExpectations?: boolean | undefined;
         /**
          * Whether to cause specs to only have one expectation failure.
          * @since 3.3.0
          * @default false
          */
-        oneFailurePerSpec?: boolean;
+        oneFailurePerSpec?: boolean | undefined;
         /**
          * Function to use to filter specs
          * @since 3.3.0
          * @default true
          */
-        specFilter?: Function;
+        specFilter?: Function | undefined;
         /**
          * Whether or not reporters should hide disabled specs from their output.
          * Currently only supported by Jasmine's HTMLReporter
          * @since 3.3.0
          * @default false
          */
-        hideDisabled?: boolean;
+        hideDisabled?: boolean | undefined;
         /**
          * Set to provide a custom promise library that Jasmine will use if it needs
          * to create a promise. If not set, it will default to whatever global Promise
@@ -289,7 +290,7 @@ declare namespace jasmine {
          * @since 3.5.0
          * @default undefined
          */
-        Promise?: Function;
+        Promise?: Function | undefined;
     }
 
     function clock(): Clock;
@@ -450,7 +451,7 @@ declare namespace jasmine {
 
     interface CustomMatcherResult {
         pass: boolean;
-        message?: string;
+        message?: string | undefined;
     }
 
     interface DiffBuilder {
@@ -804,9 +805,7 @@ declare namespace jasmine {
         not: ArrayLikeMatchers<T>;
     }
 
-    type MatchableArgs<Fn> = Fn extends (...args: infer P) => any
-        ? { [K in keyof P]: Expected<P[K]> }
-        : never;
+    type MatchableArgs<Fn> = Fn extends (...args: infer P) => any ? { [K in keyof P]: Expected<P[K]> } : never;
 
     interface FunctionMatchers<Fn extends Func> extends Matchers<any> {
         /**
@@ -898,6 +897,11 @@ declare namespace jasmine {
          * @param message Additional context to show when the matcher fails.
          */
         withContext(message: string): AsyncMatchers<T, U>;
+
+        /**
+         * Fail as soon as possible if the actual is pending. Otherwise evaluate the matcher.
+         */
+        already: AsyncMatchers<T, U>;
 
         /**
          * Invert the matcher following this expect.
@@ -1104,6 +1108,8 @@ declare namespace jasmine {
         reset(): void;
         /** Set this spy to do a shallow clone of arguments passed to each invocation. */
         saveArgumentsByValue(): void;
+        /** Get the "this" object that was passed to a specific invocation of this spy. */
+        thisFor(index: number): any;
     }
 
     interface CallInfo<Fn extends Func> {
@@ -1160,7 +1166,7 @@ declare namespace jasmine {
     var MAX_PRETTY_PRINT_ARRAY_LENGTH: number;
 
     /**
-     * Maximum number of charasters to display when pretty printing objects.
+     * Maximum number of characters to display when pretty printing objects.
      * Characters past this number will be ellipised.
      */
     var MAX_PRETTY_PRINT_CHARS: number;
@@ -1172,6 +1178,67 @@ declare namespace jasmine {
     var MAX_PRETTY_PRINT_DEPTH: number;
 
     var version: string;
+
+    interface JasmineOptions {
+        /**
+         * The path to the project's base directory. This can be absolute or relative
+         * to the current working directory. If it isn't specified, the current working
+         * directory will be used.
+         */
+        projectBaseDir?: string;
+    }
+
+    interface JasmineConfig {
+        /**
+         * Whether to fail specs that contain no expectations.
+         * @default false
+         */
+        failSpecWithNoExpectations?: boolean;
+        /**
+         * An array of helper file paths or globs that match helper files. Each path or
+         * glob will be evaluated relative to the spec directory. Helpers are loaded before specs.
+         */
+        helpers?: string[];
+        /**
+         * Specifies how to load files with names ending in .js. Valid values are
+         * "require" and "import". "import" should be safe in all cases, and is
+         * required if your project contains ES modules with filenames ending in .js.
+         * @default "require"
+         */
+        jsLoader?: "require" | "import";
+        /**
+         * Whether to run specs in a random order.
+         */
+        random?: boolean;
+        /**
+         * An array of module names to load via require() at the start of execution.
+         */
+        requires?: string[];
+        /**
+         * The directory that spec files are contained in, relative to the project base directory.
+         */
+        spec_dir?: string;
+        /**
+         * An array of spec file paths or globs that match helper files. Each path
+         * or glob will be evaluated relative to the spec directory.
+         */
+        spec_files?: string[];
+        /**
+         * Whether to stop suite execution on the first spec failure.
+         */
+        stopOnSpecFailure?: boolean;
+        /**
+         * Whether to stop each spec on the first expectation failure.
+         */
+        stopSpecOnExpectationFailure?: boolean;
+    }
+
+    interface DefaultReporterOptions {
+        timer?: any;
+        print?: (...args: any[]) => void;
+        showColors?: boolean;
+        jasmineCorePath?: string;
+    }
 }
 
 declare module "jasmine" {
@@ -1190,30 +1257,58 @@ declare module "jasmine" {
         onCompleteCallbackAdded: boolean;
         defaultReporterConfigured: boolean;
 
-        constructor(options: any);
+        constructor(options: jasmine.JasmineOptions);
         addMatchers(matchers: jasmine.CustomMatcherFactories): void;
+        /**
+         * Add a custom reporter to the Jasmine environment.
+         */
         addReporter(reporter: jasmine.CustomReporter): void;
+        /**
+         * Adds a spec file to the list that will be loaded when the suite is executed.
+         */
         addSpecFile(filePath: string): void;
         addSpecFiles(files: string[]): void;
         addHelperFiles(files: string[]): void;
         addRequires(files: string[]): void;
-        configureDefaultReporter(options: any, ...args: any[]): void;
+        /**
+         * Configure the default reporter.
+         */
+        configureDefaultReporter(options: jasmine.DefaultReporterOptions): void;
         execute(files?: string[], filterString?: string): Promise<void>;
         exitCodeCompletion(passed: boolean): void;
-        loadConfig(config: any): void;
+        loadConfig(config: jasmine.JasmineConfig): void;
         loadConfigFile(configFilePath?: string): void;
         loadHelpers(): Promise<void>;
         loadSpecs(): Promise<void>;
         loadRequires(): void;
         onComplete(onCompleteCallback: (passed: boolean) => void): void;
+        /**
+         * Provide a fallback reporter if no other reporters have been specified.
+         */
         provideFallbackReporter(reporter: jasmine.CustomReporter): void;
+        /**
+         * Clears all registered reporters.
+         */
         clearReporters(): void;
-        randomizeTests(value?: boolean): void;
+        /**
+         * Sets whether to randomize the order of specs.
+         */
+        randomizeTests(value: boolean): void;
+        /**
+         * Sets the random seed.
+         */
         seed(value: number): void;
+        /**
+         * Sets whether to show colors in the console reporter.
+         */
         showColors(value: boolean): void;
         stopSpecOnExpectationFailure(value: boolean): void;
         stopOnSpecFailure(value: boolean): void;
         static ConsoleReporter(): any;
+
+        /**
+         * The version of jasmine-core in use
+         */
         coreVersion(): string;
     }
     export = jasmine;

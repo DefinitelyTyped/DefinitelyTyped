@@ -21,25 +21,25 @@ declare namespace BitField {
         /**
          * @default 0
          */
-        pageOffset?: number;
+        pageOffset?: number | undefined;
         /**
          * How big should the partial buffers be.
          * @default 1024
          */
-        pageSize?: number;
+        pageSize?: number | undefined;
         /**
          * A pre-configured Pager instance.
          */
-        pages?: PagerInstance;
+        pages?: PagerInstance | undefined;
         /**
          * An existing bitfield.
          */
-        buffer?: Buffer;
+        buffer?: Buffer | undefined;
         /**
          * Track when pages are being updated in the pager.
          * @default false
          */
-        trackUpdates?: boolean;
+        trackUpdates?: boolean | undefined;
     }
 
     interface BitFieldInstance {

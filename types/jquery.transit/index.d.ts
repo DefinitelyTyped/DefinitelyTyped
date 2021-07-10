@@ -8,31 +8,31 @@
 // Transit //////////////////////////////////////////////////
 
 interface JQueryTransitOptions {
-    translate?: number[] | string | string[];
-    x?: number | string;
-    y?: number | string;
-    width?: number | string;
-    height?: number | string;
-    margin?: string;
-    marginTop?: string;
-    marginLeft?: string;
-    marginRight?: string;
-    marginBottom?: string;
-    skewX?: string;
-    skewY?: string;
-    perspective?: string;
-    rotate?: number | string;
-    rotateX?: string;
-    rotateY?: string;
-    rotate3d?: string;
-    transform?: string;
-    transformOrigin?: string;
-    opacity?: number;
-    duration?: number;
-    delay?: number;
-    easing?: string;
-    complete?: () => void;
-    scale?: number | number[];
+    translate?: number[] | string | string[] | undefined;
+    x?: number | string | undefined;
+    y?: number | string | undefined;
+    width?: number | string | undefined;
+    height?: number | string | undefined;
+    margin?: string | undefined;
+    marginTop?: string | undefined;
+    marginLeft?: string | undefined;
+    marginRight?: string | undefined;
+    marginBottom?: string | undefined;
+    skewX?: string | undefined;
+    skewY?: string | undefined;
+    perspective?: string | undefined;
+    rotate?: number | string | undefined;
+    rotateX?: string | undefined;
+    rotateY?: string | undefined;
+    rotate3d?: string | undefined;
+    transform?: string | undefined;
+    transformOrigin?: string | undefined;
+    opacity?: number | undefined;
+    duration?: number | undefined;
+    delay?: number | undefined;
+    easing?: string | undefined;
+    complete?: (() => void) | undefined;
+    scale?: number | number[] | undefined;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

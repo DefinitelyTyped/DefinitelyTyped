@@ -10,8 +10,8 @@ declare namespace validate {
     interface Results {
         validForNewPackages: boolean;
         validForOldPackages: boolean;
-        errors?: string[];
-        warnings?: string[];
+        errors?: string[] | undefined;
+        warnings?: string[] | undefined;
     }
 
     interface ValidNames extends Results {

@@ -107,7 +107,7 @@ export interface UpdateOptions {
      *
      * @default []
      */
-    displayItems?: PaymentItem[];
+    displayItems?: PaymentItem[] | undefined;
 
     /**
      * An array of possible shipping options
@@ -115,7 +115,7 @@ export interface UpdateOptions {
      *
      * @default []
      */
-    shippingOptions?: ShippingOption[];
+    shippingOptions?: ShippingOption[] | undefined;
 }
 
 /**
@@ -133,26 +133,26 @@ export interface StripePaymentOptions extends UpdateOptions {
      * Whether or not the form should ask for the payer's name
      * @default false
      */
-    requestPayerName?: boolean;
+    requestPayerName?: boolean | undefined;
 
     /**
      * Whether or not the form should ask for the payer's email address
      * @default false
      */
-    requestPayerEmail?: boolean;
+    requestPayerEmail?: boolean | undefined;
 
     /**
      * Whether or not the form should ask for the payer's phone number
      * @default false
      */
-    requestPayerPhone?: boolean;
+    requestPayerPhone?: boolean | undefined;
 
     /**
      * Whether or not a shipping address should be requested
      * NOTE: Setting this to true requires `shippingOptions` to be set with at least one option!
      * @see shippingOptions
      */
-    requestShipping?: boolean;
+    requestShipping?: boolean | undefined;
 }
 
 export interface PaymentItem {
@@ -171,7 +171,7 @@ export interface PaymentItem {
      * Whether or not the payment should be executed immediately
      * If you might change this amount later (for example, after you have calculated shipping costs), set this to `true`
      */
-    pending?: boolean;
+    pending?: boolean | undefined;
 }
 
 // --- PAYMENT RESPONSE FROM STRIPE --- //
@@ -205,9 +205,9 @@ export interface StripePaymentResponse {
      * @see PaymentOptions.requestPayerEmail
      * @see PaymentOptions.requestPayerPhone
      */
-    readonly payerName?: string;
-    readonly payerEmail?: string;
-    readonly payerPhone?: string;
+    readonly payerName?: string | undefined;
+    readonly payerEmail?: string | undefined;
+    readonly payerPhone?: string | undefined;
 
     /**
      * The shipping address the payer selected

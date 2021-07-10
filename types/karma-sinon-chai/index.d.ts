@@ -14,7 +14,7 @@ declare module 'karma' {
         /**
          * chai config
          */
-        chai?: Partial<Chai.Config>;
+        chai?: Partial<Chai.Config> | undefined;
     }
 }
 

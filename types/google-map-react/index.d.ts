@@ -10,55 +10,55 @@ declare class googleMapReact extends React.Component<googleMapReact.Props> {}
 
 declare namespace googleMapReact {
     type BootstrapURLKeys = ({ key: string } | { client: string; v: string }) & {
-        language?: string;
-        region?: string;
-        libraries?: string[] | string;
+        language?: string | undefined;
+        region?: string | undefined;
+        libraries?: string[] | string | undefined;
     };
 
     interface MapTypeStyle {
-        elementType?: string;
-        featureType?: string;
+        elementType?: string | undefined;
+        featureType?: string | undefined;
         stylers: any[];
     }
 
     interface MapOptions {
         // Any options from https://developers.google.com/maps/documentation/javascript/reference/3/#MapOptions
         // excluding 'zoom' and 'center' which get set via props.
-        backgroundColor?: string;
-        clickableIcons?: boolean;
-        controlSize?: number;
-        disableDefaultUI?: boolean;
-        disableDoubleClickZoom?: boolean;
-        draggable?: boolean;
-        draggableCursor?: string;
-        draggingCursor?: string;
-        fullscreenControl?: boolean;
-        fullscreenControlOptions?: { position: number };
-        gestureHandling?: string;
-        heading?: number;
-        keyboardShortcuts?: boolean;
-        mapTypeControl?: boolean;
+        backgroundColor?: string | undefined;
+        clickableIcons?: boolean | undefined;
+        controlSize?: number | undefined;
+        disableDefaultUI?: boolean | undefined;
+        disableDoubleClickZoom?: boolean | undefined;
+        draggable?: boolean | undefined;
+        draggableCursor?: string | undefined;
+        draggingCursor?: string | undefined;
+        fullscreenControl?: boolean | undefined;
+        fullscreenControlOptions?: { position: number } | undefined;
+        gestureHandling?: string | undefined;
+        heading?: number | undefined;
+        keyboardShortcuts?: boolean | undefined;
+        mapTypeControl?: boolean | undefined;
         mapTypeControlOptions?: any;
-        mapTypeId?: string;
-        minZoom?: number;
-        maxZoom?: number;
-        noClear?: boolean;
-        options?: (maps: Maps) => Props;
-        panControl?: boolean;
-        panControlOptions?: { position: number };
-        rotateControl?: boolean;
-        rotateControlOptions?: { position: number };
-        scaleControl?: boolean;
+        mapTypeId?: string | undefined;
+        minZoom?: number | undefined;
+        maxZoom?: number | undefined;
+        noClear?: boolean | undefined;
+        options?: ((maps: Maps) => Props) | undefined;
+        panControl?: boolean | undefined;
+        panControlOptions?: { position: number } | undefined;
+        rotateControl?: boolean | undefined;
+        rotateControlOptions?: { position: number } | undefined;
+        scaleControl?: boolean | undefined;
         scaleControlOptions?: any;
-        scrollwheel?: boolean;
+        scrollwheel?: boolean | undefined;
         streetView?: any;
-        streetViewControl?: boolean;
-        streetViewControlOptions?: { position: number };
-        styles?: MapTypeStyle[];
-        tilt?: number;
-        zoomControl?: boolean;
-        zoomControlOptions?: { position: number };
-        minZoomOverride?: boolean; // Not a standard option; specific to google-map-react: https://github.com/google-map-react/google-map-react/pull/154
+        streetViewControl?: boolean | undefined;
+        streetViewControlOptions?: { position: number } | undefined;
+        styles?: MapTypeStyle[] | undefined;
+        tilt?: number | undefined;
+        zoomControl?: boolean | undefined;
+        zoomControlOptions?: { position: number } | undefined;
+        minZoomOverride?: boolean | undefined; // Not a standard option; specific to google-map-react: https://github.com/google-map-react/google-map-react/pull/154
     }
 
     interface Maps {
@@ -103,8 +103,8 @@ declare namespace googleMapReact {
     interface NESWBounds {
         ne: Coords;
         sw: Coords;
-        nw?: Coords;
-        se?: Coords;
+        nw?: Coords | undefined;
+        se?: Coords | undefined;
     }
 
     interface Coords {
@@ -132,33 +132,33 @@ declare namespace googleMapReact {
     interface Position {
         lat: number;
         lng: number;
-        weight?: number;
+        weight?: number | undefined;
     }
 
     interface Heatmap {
         positions: Position[];
         options: {
-            radius?: number;
-            opacity?: number;
+            radius?: number | undefined;
+            opacity?: number | undefined;
         };
     }
 
     interface Props {
-        bootstrapURLKeys?: BootstrapURLKeys;
-        defaultCenter?: Coords;
-        center?: Coords;
-        defaultZoom?: number;
-        zoom?: number;
-        heatmapLibrary?: boolean;
-        hoverDistance?: number;
-        options?: MapOptions | ((maps: Maps) => MapOptions);
-        margin?: any[];
-        debounced?: boolean;
-        draggable?: boolean;
-        layerTypes?: string[];
+        bootstrapURLKeys?: BootstrapURLKeys | undefined;
+        defaultCenter?: Coords | undefined;
+        center?: Coords | undefined;
+        defaultZoom?: number | undefined;
+        zoom?: number | undefined;
+        heatmapLibrary?: boolean | undefined;
+        hoverDistance?: number | undefined;
+        options?: MapOptions | ((maps: Maps) => MapOptions) | undefined;
+        margin?: any[] | undefined;
+        debounced?: boolean | undefined;
+        draggable?: boolean | undefined;
+        layerTypes?: string[] | undefined;
         onClick?(value: ClickEventValue): any;
         onChange?(value: ChangeEventValue): any;
-        resetBoundsOnResize?: boolean;
+        resetBoundsOnResize?: boolean | undefined;
         onChildClick?(hoverKey: any, childProps: any): void;
         onChildMouseEnter?(hoverKey: any, childProps: any): void;
         onChildMouseLeave?(hoverKey: any, childProps: any): void;
@@ -174,14 +174,14 @@ declare namespace googleMapReact {
         googleMapLoader?(bootstrapURLKeys: any): void;
         onGoogleApiLoaded?(maps: { map: any; maps: any; ref: Element | null }): void;
         onTilesLoaded?(): void;
-        yesIWantToUseGoogleMapApiInternals?: boolean;
-        style?: React.CSSProperties;
-        shouldUnregisterMapOnUnmount?: boolean;
-        heatmap?: Heatmap;
+        yesIWantToUseGoogleMapApiInternals?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
+        shouldUnregisterMapOnUnmount?: boolean | undefined;
+        heatmap?: Heatmap | undefined;
     }
 
     interface ChildComponentProps extends Coords {
-        $hover?: boolean;
+        $hover?: boolean | undefined;
     }
 
     interface Tile extends Point {

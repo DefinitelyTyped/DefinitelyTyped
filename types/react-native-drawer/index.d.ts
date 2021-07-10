@@ -10,13 +10,13 @@ import * as React from 'react';
 import { ViewStyle, ScaledSize } from 'react-native';
 
 export interface NestedViewStyles {
-    main?: ViewStyle;
-    drawerOverlay?: ViewStyle;
-    mainOverlay?: ViewStyle;
+    main?: ViewStyle | undefined;
+    drawerOverlay?: ViewStyle | undefined;
+    mainOverlay?: ViewStyle | undefined;
 }
 
 export interface DrawerStyles extends NestedViewStyles {
-    drawer?: ViewStyle;
+    drawer?: ViewStyle | undefined;
 }
 
 export type TweenFunctions = 'linear' |
@@ -57,32 +57,32 @@ export interface DrawerProperties {
     /**
      * Menu component
      */
-    content?: React.ReactNode;
+    content?: React.ReactNode | undefined;
     /**
      * Type of drawer
      */
-    type?: 'displace' | 'overlay' | 'static';
+    type?: 'displace' | 'overlay' | 'static' | undefined;
     /**
      * If true will trigger drawer open, if false will trigger close.
      */
-    open?: boolean;
+    open?: boolean | undefined;
     /**
      * Can either be a integer (pixel value) or decimal (ratio of screen width). Defines the right hand margin when
      * the drawer is open. Or, can be function which returns offset
      */
-    openDrawerOffset?: ((viewport: ScaledSize) => number) | number;
+    openDrawerOffset?: ((viewport: ScaledSize) => number) | number | undefined;
     /**
      * Same as openDrawerOffset, except defines left hand margin when drawer is closed
      */
-    closedDrawerOffset?: (() => number) | number;
+    closedDrawerOffset?: (() => number) | number | undefined;
     /**
      * If true the drawer can not be opened and will not respond to pans
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * Styles for the drawer, main, drawerOverlay and mainOverlay container Views
      */
-    styles?: DrawerStyles;
+    styles?: DrawerStyles | undefined;
 
     // Animation / Tween
 
@@ -94,11 +94,11 @@ export interface DrawerProperties {
     /**
      * The duration of the open/close animation
      */
-    tweenDuration?: number;
+    tweenDuration?: number | undefined;
     /**
      *  A easing type supported by tween-functions
      */
-    tweenEasing?: TweenFunctions;
+    tweenEasing?: TweenFunctions | undefined;
 
     // Event Handlers
 
@@ -129,63 +129,63 @@ export interface DrawerProperties {
      * If true, will capture all gestures inside of the pan mask. If 'open' will
      * only capture when drawer is open
      */
-    captureGestures?: boolean | 'open' | 'closed';
+    captureGestures?: boolean | 'open' | 'closed' | undefined;
     /**
      * Toggle drawer when double tap occurs within pan mask?
      */
-    acceptDoubleTap?: boolean;
+    acceptDoubleTap?: boolean | undefined;
     /**
      * Toggle drawer when any tap occurs within pan mask?
      */
-    acceptTap?: boolean;
+    acceptTap?: boolean | undefined;
     /**
      * Allow for drawer pan (on touch drag). Set to false to effectively
      * disable the drawer while still allowing programmatic control
      */
-    acceptPan?: boolean;
+    acceptPan?: boolean | undefined;
     /**
      * Allow Pan when drawer is 'open'
      */
-    acceptPanOnDrawer?: boolean;
+    acceptPanOnDrawer?: boolean | undefined;
     /**
      * Same as acceptTap, except only for close
      */
-    tapToClose?: boolean;
+    tapToClose?: boolean | undefined;
     /**
      * If true, attempts to handle only horizontal swipes, making it play well with a child ScrollView
      */
-    negotiatePan?: boolean;
+    negotiatePan?: boolean | undefined;
 
     // Additional Configurations
 
     /**
      * Ratio of screen width that must be travelled to trigger a drawer open/close
      */
-    panThreshold?: number;
+    panThreshold?: number | undefined;
     /**
      * Ratio of screen width that is valid for the start of a pan open action. If null -> defaults to max(.05, closedDrawerOffset)
      */
-    panOpenMask?: number;
+    panOpenMask?: number | undefined;
     /**
      * Ratio of screen width that is valid for the start of a pan close action. If null -> defaults to max(.05, openDrawerOffset)
      */
-    panCloseMask?: number;
+    panCloseMask?: number | undefined;
     /**
      * Initialize with drawer open
      */
-    initializeOpen?: number;
+    initializeOpen?: number | undefined;
     /**
      * which side the drawer should be on.
      */
-    side?: 'left' | 'right' | 'top' | 'bottom';
+    side?: 'left' | 'right' | 'top' | 'bottom' | undefined;
     /**
      * if true will run InteractionManager for open/close animations.
      */
-    useInteractionManager?: boolean;
+    useInteractionManager?: boolean | undefined;
     /**
      * (Android-only) Sets the elevation of the drawer using Android's underlying elevation API
      */
-    elevation?: number;
+    elevation?: number | undefined;
 }
 
 export default class Drawer extends React.Component<DrawerProperties> {

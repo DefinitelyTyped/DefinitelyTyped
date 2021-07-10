@@ -9,9 +9,9 @@ import { EventEmitter } from 'events';
 
 declare namespace Parser {
     interface ParserOptions {
-        baseIRI?: string;
-        context?: Context;
-        factory?: DataFactory;
+        baseIRI?: string | undefined;
+        context?: Context | undefined;
+        factory?: DataFactory | undefined;
     }
 }
 

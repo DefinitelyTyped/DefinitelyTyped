@@ -10,12 +10,12 @@ declare function hark(stream: HTMLAudioElement | HTMLVideoElement | MediaStream,
 
 declare namespace hark {
     interface Option {
-        smoothing?: number;
-        interval?: number;
-        threshold?: number;
-        play?: boolean;
-        history?: number;
-        audioContext?: AudioContext;
+        smoothing?: number | undefined;
+        interval?: number | undefined;
+        threshold?: number | undefined;
+        play?: boolean | undefined;
+        history?: number | undefined;
+        audioContext?: AudioContext | undefined;
     }
 
     interface Harker {

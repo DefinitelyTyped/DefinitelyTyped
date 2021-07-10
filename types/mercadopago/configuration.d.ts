@@ -8,11 +8,11 @@ export interface ConfigTokenOption extends GeneralConfigOptions {
 }
 
 export interface GeneralConfigOptions {
-  platform_id?: string;
-  corporation_id?: string;
-  integrator_id?: string;
-  sandbox?: MercadoPagoConfig['sandbox'];
-  show_promise_error?: MercadoPagoConfig['show_promise_error'];
+  platform_id?: string | undefined;
+  corporation_id?: string | undefined;
+  integrator_id?: string | undefined;
+  sandbox?: MercadoPagoConfig['sandbox'] | undefined;
+  show_promise_error?: MercadoPagoConfig['show_promise_error'] | undefined;
 }
 
 export type ConfigOptions = ConfigCredentialsOption | ConfigTokenOption;

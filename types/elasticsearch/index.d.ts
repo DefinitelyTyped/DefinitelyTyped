@@ -102,25 +102,25 @@ export class Client {
 export interface ConfigOptions {
     host?: any;
     hosts?: any;
-    httpAuth?: string;
+    httpAuth?: string | undefined;
     log?: any;
-    apiVersion?: string;
+    apiVersion?: string | undefined;
     plugins?: any;
-    sniffOnStart?: boolean;
-    sniffInterval?: number;
-    sniffOnConnectionFault?: boolean;
-    maxRetries?: number;
-    requestTimeout?: number;
-    deadTimeout?: number;
-    pingTimeout?: number;
-    keepAlive?: boolean;
-    maxSockets?: number;
-    suggestCompression?: boolean;
-    connectionClass?: string | typeof HttpConnector;
-    sniffedNodesProtocol?: string;
-    ssl?: object;
+    sniffOnStart?: boolean | undefined;
+    sniffInterval?: number | undefined;
+    sniffOnConnectionFault?: boolean | undefined;
+    maxRetries?: number | undefined;
+    requestTimeout?: number | undefined;
+    deadTimeout?: number | undefined;
+    pingTimeout?: number | undefined;
+    keepAlive?: boolean | undefined;
+    maxSockets?: number | undefined;
+    suggestCompression?: boolean | undefined;
+    connectionClass?: string | typeof HttpConnector | undefined;
+    sniffedNodesProtocol?: string | undefined;
+    ssl?: object | undefined;
     selector?: any;
-    defer?: () => void;
+    defer?: (() => void) | undefined;
     nodesToHostCallback?: any;
     createNodeAgent?: any;
 }
@@ -132,12 +132,12 @@ export interface Explanation {
 }
 
 export interface GenericParams {
-    requestTimeout?: number;
-    maxRetries?: number;
-    method?: string;
+    requestTimeout?: number | undefined;
+    maxRetries?: number | undefined;
+    method?: string | undefined;
     body?: any;
-    ignore?: number | number[];
-    filterPath?: string | string[];
+    ignore?: number | number[] | undefined;
+    filterPath?: string | string[] | undefined;
 }
 
 export interface ShardsResponse {
@@ -162,17 +162,17 @@ export type DefaultOperator = "AND" | "OR";
 export type Conflicts = "abort" | "proceed";
 
 export interface BulkIndexDocumentsParams extends GenericParams {
-    waitForActiveShards?: string;
-    refresh?: Refresh;
-    routing?: string;
-    timeout?: TimeSpan;
-    type?: string;
-    fields?: NameList;
-    _source?: NameList;
-    _sourceExclude?: NameList;
-    _sourceInclude?: NameList;
-    pipeline?: string;
-    index?: string;
+    waitForActiveShards?: string | undefined;
+    refresh?: Refresh | undefined;
+    routing?: string | undefined;
+    timeout?: TimeSpan | undefined;
+    type?: string | undefined;
+    fields?: NameList | undefined;
+    _source?: NameList | undefined;
+    _sourceExclude?: NameList | undefined;
+    _sourceInclude?: NameList | undefined;
+    pipeline?: string | undefined;
+    index?: string | undefined;
 }
 
 export interface ClearScrollParams extends GenericParams {
@@ -180,21 +180,21 @@ export interface ClearScrollParams extends GenericParams {
 }
 
 export interface CountParams extends GenericParams {
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    minScore?: number;
-    preference?: string;
-    routing?: string;
-    q?: string;
-    analyzer?: string;
-    analyzeWildcard?: boolean;
-    defaultOperator?: DefaultOperator;
-    df?: string;
-    lenient?: boolean;
-    lowercaseExpandedTerms?: boolean;
-    index?: NameList;
-    type?: NameList;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    minScore?: number | undefined;
+    preference?: string | undefined;
+    routing?: string | undefined;
+    q?: string | undefined;
+    analyzer?: string | undefined;
+    analyzeWildcard?: boolean | undefined;
+    defaultOperator?: DefaultOperator | undefined;
+    df?: string | undefined;
+    lenient?: boolean | undefined;
+    lowercaseExpandedTerms?: boolean | undefined;
+    index?: NameList | undefined;
+    type?: NameList | undefined;
 }
 
 export interface CountResponse {
@@ -203,17 +203,17 @@ export interface CountResponse {
 }
 
 export interface CreateDocumentParams extends GenericParams {
-    waitForActiveShards?: string;
-    parent?: string;
-    refresh?: Refresh;
-    routing?: string;
-    timeout?: TimeSpan;
-    timestamp?: Date | number;
-    ttl?: TimeSpan;
-    version?: number;
-    versionType?: VersionType;
-    pipeline?: string;
-    id?: string;
+    waitForActiveShards?: string | undefined;
+    parent?: string | undefined;
+    refresh?: Refresh | undefined;
+    routing?: string | undefined;
+    timeout?: TimeSpan | undefined;
+    timestamp?: Date | number | undefined;
+    ttl?: TimeSpan | undefined;
+    version?: number | undefined;
+    versionType?: VersionType | undefined;
+    pipeline?: string | undefined;
+    id?: string | undefined;
     index: string;
     type: string;
 }
@@ -229,13 +229,13 @@ export interface CreateDocumentResponse {
 }
 
 export interface DeleteDocumentParams extends GenericParams {
-    waitForActiveShards?: string;
-    parent?: string;
-    refresh?: Refresh;
-    routing?: string;
-    timeout?: TimeSpan;
-    version?: number;
-    versionType?: VersionType;
+    waitForActiveShards?: string | undefined;
+    parent?: string | undefined;
+    refresh?: Refresh | undefined;
+    routing?: string | undefined;
+    timeout?: TimeSpan | undefined;
+    version?: number | undefined;
+    versionType?: VersionType | undefined;
     index: string;
     type: string;
     id: string;
@@ -252,41 +252,41 @@ export interface DeleteDocumentResponse {
 }
 
 export interface DeleteDocumentByQueryParams extends GenericParams {
-    analyzer?: string;
-    analyzeWildcard?: boolean;
-    defaultOperator?: DefaultOperator;
-    df?: string;
-    from?: number;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    conflicts?: Conflicts;
-    expandWildcards?: ExpandWildcards;
-    lenient?: boolean;
-    lowercaseExpandedTerms?: boolean;
-    preference?: string;
-    q?: string;
-    routing?: string | string[] | boolean;
-    scroll?: string;
-    searchType?: "query_then_fetch" | "dfs_query_then_fetch";
-    searchTimeout?: TimeSpan;
-    size?: number;
-    sort?: NameList;
-    _source?: NameList;
-    _sourceExclude?: NameList;
-    _sourceInclude?: NameList;
-    terminateAfter?: number;
-    stats?: string | string[] | boolean;
-    version?: number;
-    requestCache?: boolean;
-    refresh?: Refresh;
-    timeout?: TimeSpan;
-    waitForActiveShards?: string;
-    scrollSize?: number;
-    waitForCompletion?: boolean;
-    requestsPerSecond?: number;
-    slices?: number;
-    index?: string;
-    type?: string;
+    analyzer?: string | undefined;
+    analyzeWildcard?: boolean | undefined;
+    defaultOperator?: DefaultOperator | undefined;
+    df?: string | undefined;
+    from?: number | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    conflicts?: Conflicts | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    lenient?: boolean | undefined;
+    lowercaseExpandedTerms?: boolean | undefined;
+    preference?: string | undefined;
+    q?: string | undefined;
+    routing?: string | string[] | boolean | undefined;
+    scroll?: string | undefined;
+    searchType?: "query_then_fetch" | "dfs_query_then_fetch" | undefined;
+    searchTimeout?: TimeSpan | undefined;
+    size?: number | undefined;
+    sort?: NameList | undefined;
+    _source?: NameList | undefined;
+    _sourceExclude?: NameList | undefined;
+    _sourceInclude?: NameList | undefined;
+    terminateAfter?: number | undefined;
+    stats?: string | string[] | boolean | undefined;
+    version?: number | undefined;
+    requestCache?: boolean | undefined;
+    refresh?: Refresh | undefined;
+    timeout?: TimeSpan | undefined;
+    waitForActiveShards?: string | undefined;
+    scrollSize?: number | undefined;
+    waitForCompletion?: boolean | undefined;
+    requestsPerSecond?: number | undefined;
+    slices?: number | undefined;
+    index?: string | undefined;
+    type?: string | undefined;
 }
 
 export interface DeleteDocumentByQueryResponse extends ReindexResponse {
@@ -303,34 +303,34 @@ export interface DeleteTemplateParams extends GenericParams {
 }
 
 export interface ExistsParams extends GenericParams {
-    parent?: string;
-    preference?: string;
-    realtime?: boolean;
-    refresh?: boolean;
-    routing?: string;
+    parent?: string | undefined;
+    preference?: string | undefined;
+    realtime?: boolean | undefined;
+    refresh?: boolean | undefined;
+    routing?: string | undefined;
     id: string;
     index: string;
     type: string;
 }
 
 export interface ExplainParams extends GenericParams {
-    analyzeWildcard?: boolean;
-    analyzer?: string;
-    defaultOperator?: DefaultOperator;
-    df?: string;
-    storedFields?: NameList;
-    lenient?: boolean;
-    lowercaseExpandedTerms?: boolean;
-    parent?: string;
-    preference?: string;
-    q?: string;
-    routing?: string;
-    _source?: NameList;
-    _sourceExclude?: NameList;
-    _sourceInclude?: NameList;
-    id?: string;
-    index?: string;
-    type?: string;
+    analyzeWildcard?: boolean | undefined;
+    analyzer?: string | undefined;
+    defaultOperator?: DefaultOperator | undefined;
+    df?: string | undefined;
+    storedFields?: NameList | undefined;
+    lenient?: boolean | undefined;
+    lowercaseExpandedTerms?: boolean | undefined;
+    parent?: string | undefined;
+    preference?: string | undefined;
+    q?: string | undefined;
+    routing?: string | undefined;
+    _source?: NameList | undefined;
+    _sourceExclude?: NameList | undefined;
+    _sourceInclude?: NameList | undefined;
+    id?: string | undefined;
+    index?: string | undefined;
+    type?: string | undefined;
 }
 
 export interface ExplainResponse {
@@ -348,18 +348,18 @@ export interface ExplainResponseDetails {
 }
 
 export interface FieldStatsParams extends GenericParams {
-    fields?: NameList;
-    level?: "indices" | "cluster";
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    index?: NameList;
+    fields?: NameList | undefined;
+    level?: "indices" | "cluster" | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    index?: NameList | undefined;
 }
 
 export interface FieldStatsResponse {
     _shards: ShardsResponse;
     indices: { [indexName: string]: FieldStatsResponseIndex };
-    conflicts?: { [fieldName: string]: string };
+    conflicts?: { [fieldName: string]: string } | undefined;
 }
 
 export interface FieldStatsResponseIndex {
@@ -379,17 +379,17 @@ export interface FieldStatsResponseField {
 }
 
 export interface GetParams extends GenericParams {
-    storedFields?: NameList;
-    parent?: string;
-    preference?: string;
-    realtime?: boolean;
-    refresh?: boolean;
-    routing?: string;
-    _source?: NameList;
-    _sourceExclude?: NameList;
-    _sourceInclude?: NameList;
-    version?: number;
-    versionType?: VersionType;
+    storedFields?: NameList | undefined;
+    parent?: string | undefined;
+    preference?: string | undefined;
+    realtime?: boolean | undefined;
+    refresh?: boolean | undefined;
+    routing?: string | undefined;
+    _source?: NameList | undefined;
+    _sourceExclude?: NameList | undefined;
+    _sourceInclude?: NameList | undefined;
+    version?: number | undefined;
+    versionType?: VersionType | undefined;
     id: string;
     index: string;
     type: string;
@@ -400,7 +400,7 @@ export interface GetResponse<T> {
     _type: string;
     _id: string;
     _version: number;
-    _routing?: string;
+    _routing?: string | undefined;
     found: boolean;
     _source: T;
 }
@@ -411,15 +411,15 @@ export interface GetScriptParams extends GenericParams {
 }
 
 export interface GetSourceParams extends GenericParams {
-    preference?: string;
-    realtime?: boolean;
-    refresh?: boolean;
-    routing?: string;
+    preference?: string | undefined;
+    realtime?: boolean | undefined;
+    refresh?: boolean | undefined;
+    routing?: string | undefined;
     _source: NameList;
-    _sourceExclude?: NameList;
-    _sourceInclude?: NameList;
-    version?: number;
-    versionType?: VersionType;
+    _sourceExclude?: NameList | undefined;
+    _sourceInclude?: NameList | undefined;
+    version?: number | undefined;
+    versionType?: VersionType | undefined;
     id: string;
     index: string;
     type: string;
@@ -430,18 +430,18 @@ export interface GetTemplateParams extends GenericParams {
 }
 
 export interface IndexDocumentParams<T> extends GenericParams {
-    waitForActiveShards?: string;
-    opType?: "index" | "create";
-    parent?: string;
-    refresh?: Refresh;
-    routing?: string;
-    timeout?: TimeSpan;
-    timestamp?: Date | number;
-    ttl?: TimeSpan;
-    version?: number;
-    versionType?: VersionType;
-    pipeline?: string;
-    id?: string;
+    waitForActiveShards?: string | undefined;
+    opType?: "index" | "create" | undefined;
+    parent?: string | undefined;
+    refresh?: Refresh | undefined;
+    routing?: string | undefined;
+    timeout?: TimeSpan | undefined;
+    timestamp?: Date | number | undefined;
+    ttl?: TimeSpan | undefined;
+    version?: number | undefined;
+    versionType?: VersionType | undefined;
+    pipeline?: string | undefined;
+    id?: string | undefined;
     index: string;
     type: string;
     body: T;
@@ -451,53 +451,53 @@ export interface InfoParams extends GenericParams {
 }
 
 export interface MGetParams extends GenericParams {
-    storedFields?: NameList;
-    preference?: string;
-    realtime?: boolean;
-    refresh?: boolean;
-    routing?: string;
-    _source?: NameList;
-    _sourceExclude?: NameList;
-    _sourceInclude?: NameList;
-    index?: string;
-    type?: string;
+    storedFields?: NameList | undefined;
+    preference?: string | undefined;
+    realtime?: boolean | undefined;
+    refresh?: boolean | undefined;
+    routing?: string | undefined;
+    _source?: NameList | undefined;
+    _sourceExclude?: NameList | undefined;
+    _sourceInclude?: NameList | undefined;
+    index?: string | undefined;
+    type?: string | undefined;
 }
 
 export interface MGetResponse<T> {
-    docs?: Array<GetResponse<T>>;
+    docs?: Array<GetResponse<T>> | undefined;
 }
 
 export interface MSearchParams extends GenericParams {
-    search_type?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch";
-    maxConcurrentSearches?: number;
-    index?: NameList;
-    type?: NameList;
+    search_type?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch" | undefined;
+    maxConcurrentSearches?: number | undefined;
+    index?: NameList | undefined;
+    type?: NameList | undefined;
 }
 
 export interface MSearchResponse<T> {
-    responses?: Array<SearchResponse<T>>;
+    responses?: Array<SearchResponse<T>> | undefined;
 }
 
 export interface MSearchTemplateParams extends GenericParams {
-    search_type?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch";
-    index?: NameList;
-    type?: NameList;
+    search_type?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch" | undefined;
+    index?: NameList | undefined;
+    type?: NameList | undefined;
 }
 
 export interface MTermVectorsParams extends GenericParams {
-    ids?: NameList;
-    termStatistics?: boolean;
-    fieldStatistics?: boolean;
-    fields?: NameList;
-    offsets?: boolean;
-    positions?: boolean;
-    payloads?: boolean;
-    preference?: string;
-    routing?: string;
-    parent?: string;
-    realtime?: boolean;
-    version?: number;
-    versionType?: VersionType;
+    ids?: NameList | undefined;
+    termStatistics?: boolean | undefined;
+    fieldStatistics?: boolean | undefined;
+    fields?: NameList | undefined;
+    offsets?: boolean | undefined;
+    positions?: boolean | undefined;
+    payloads?: boolean | undefined;
+    preference?: string | undefined;
+    routing?: string | undefined;
+    parent?: string | undefined;
+    realtime?: boolean | undefined;
+    version?: number | undefined;
+    versionType?: VersionType | undefined;
     index: string;
     type: string;
 }
@@ -517,37 +517,37 @@ export interface PutTemplateParams extends GenericParams {
 }
 
 export interface ReindexParams extends GenericParams {
-    refresh?: boolean;
-    timeout?: TimeSpan;
-    waitForActiveShards?: string;
-    waitForCompletion?: boolean;
-    requestsPerSecond?: number;
-    slices?: number;
+    refresh?: boolean | undefined;
+    timeout?: TimeSpan | undefined;
+    waitForActiveShards?: string | undefined;
+    waitForCompletion?: boolean | undefined;
+    requestsPerSecond?: number | undefined;
+    slices?: number | undefined;
     body: {
-        conflicts?: string;
+        conflicts?: string | undefined;
         source: {
             index: string | string[];
-            type?: string | string[];
+            type?: string | string[] | undefined;
             query?: any;
             sort?: any;
-            size?: number;
+            size?: number | undefined;
             remote?: {
                 host: string;
-                username?: string;
-                password?: string;
-            }
+                username?: string | undefined;
+                password?: string | undefined;
+            } | undefined
         };
         dest: {
             index: string;
-            version_type?: string;
-            op_type?: string;
-            routing?: string;
-            pipeline?: string;
+            version_type?: string | undefined;
+            op_type?: string | undefined;
+            routing?: string | undefined;
+            pipeline?: string | undefined;
         };
         script?: {
             inline: string;
             lang: string;
-        }
+        } | undefined
     };
 }
 
@@ -566,48 +566,48 @@ export interface ScrollParams extends GenericParams {
 }
 
 export interface SearchParams extends GenericParams {
-    analyzer?: string;
-    analyzeWildcard?: boolean;
-    defaultOperator?: DefaultOperator;
-    df?: string;
-    explain?: boolean;
-    storedFields?: NameList;
-    docvalueFields?: NameList;
-    fielddataFields?: NameList;
-    from?: number;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    lenient?: boolean;
-    lowercaseExpandedTerms?: boolean;
-    preference?: string;
-    q?: string;
-    routing?: NameList;
-    scroll?: TimeSpan;
-    searchType?: "query_then_fetch" | "dfs_query_then_fetch";
-    size?: number;
-    sort?: NameList;
-    _source?: NameList;
-    _sourceExclude?: NameList;
-    _sourceInclude?: NameList;
-    terminateAfter?: number;
-    stats?: NameList;
-    suggestField?: string;
-    suggestMode?: "missing" | "popular" | "always";
-    suggestSize?: number;
-    suggestText?: string;
-    timeout?: TimeSpan;
-    trackScores?: boolean;
-    version?: boolean;
-    requestCache?: boolean;
-    index?: NameList;
-    type?: NameList;
+    analyzer?: string | undefined;
+    analyzeWildcard?: boolean | undefined;
+    defaultOperator?: DefaultOperator | undefined;
+    df?: string | undefined;
+    explain?: boolean | undefined;
+    storedFields?: NameList | undefined;
+    docvalueFields?: NameList | undefined;
+    fielddataFields?: NameList | undefined;
+    from?: number | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    lenient?: boolean | undefined;
+    lowercaseExpandedTerms?: boolean | undefined;
+    preference?: string | undefined;
+    q?: string | undefined;
+    routing?: NameList | undefined;
+    scroll?: TimeSpan | undefined;
+    searchType?: "query_then_fetch" | "dfs_query_then_fetch" | undefined;
+    size?: number | undefined;
+    sort?: NameList | undefined;
+    _source?: NameList | undefined;
+    _sourceExclude?: NameList | undefined;
+    _sourceInclude?: NameList | undefined;
+    terminateAfter?: number | undefined;
+    stats?: NameList | undefined;
+    suggestField?: string | undefined;
+    suggestMode?: "missing" | "popular" | "always" | undefined;
+    suggestSize?: number | undefined;
+    suggestText?: string | undefined;
+    timeout?: TimeSpan | undefined;
+    trackScores?: boolean | undefined;
+    version?: boolean | undefined;
+    requestCache?: boolean | undefined;
+    index?: NameList | undefined;
+    type?: NameList | undefined;
 }
 
 export interface SearchResponse<T> {
     took: number;
     timed_out: boolean;
-    _scroll_id?: string;
+    _scroll_id?: string | undefined;
     _shards: ShardsResponse;
     hits: {
         total: number;
@@ -618,25 +618,25 @@ export interface SearchResponse<T> {
             _id: string;
             _score: number;
             _source: T;
-            _version?: number;
-            _explanation?: Explanation;
+            _version?: number | undefined;
+            _explanation?: Explanation | undefined;
             fields?: any;
             highlight?: any;
             inner_hits?: any;
-            matched_queries?: string[];
-            sort?: string[];
+            matched_queries?: string[] | undefined;
+            sort?: string[] | undefined;
         }>;
     };
     aggregations?: any;
 }
 
 export interface SearchShardsParams extends GenericParams {
-    preference?: string;
-    routing?: string;
-    local?: boolean;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
+    preference?: string | undefined;
+    routing?: string | undefined;
+    local?: boolean | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
     index: NameList;
     type: NameList;
 }
@@ -659,110 +659,110 @@ export interface SearchShardsResponseShard {
 }
 
 export interface SearchTemplateParams extends GenericParams {
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    preference?: string;
-    routing?: NameList;
-    scroll?: TimeSpan;
-    searchType?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch";
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    preference?: string | undefined;
+    routing?: NameList | undefined;
+    scroll?: TimeSpan | undefined;
+    searchType?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch" | undefined;
     index: NameList;
     type: NameList;
 }
 
 export interface SuggestParams extends GenericParams {
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    preference?: string;
-    routing?: string;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    preference?: string | undefined;
+    routing?: string | undefined;
     index: NameList;
 }
 
 export interface TermvectorsParams extends GenericParams {
-    termStatistics?: boolean;
-    fieldStatistics?: boolean;
-    fields?: NameList;
-    offsets?: boolean;
-    positions?: boolean;
-    payloads?: boolean;
-    preference?: string;
-    routing?: string;
-    parent?: string;
-    realtime?: boolean;
-    version?: number;
-    versionType?: VersionType;
+    termStatistics?: boolean | undefined;
+    fieldStatistics?: boolean | undefined;
+    fields?: NameList | undefined;
+    offsets?: boolean | undefined;
+    positions?: boolean | undefined;
+    payloads?: boolean | undefined;
+    preference?: string | undefined;
+    routing?: string | undefined;
+    parent?: string | undefined;
+    realtime?: boolean | undefined;
+    version?: number | undefined;
+    versionType?: VersionType | undefined;
     index: string;
     type: string;
-    id?: string;
+    id?: string | undefined;
 }
 
 export interface UpdateDocumentParams extends GenericParams {
-    waitForActiveShards?: string;
-    fields?: NameList;
-    _source?: NameList;
-    _sourceExclude?: NameList;
-    _sourceInclude?: NameList;
-    lang?: string;
-    parent?: string;
-    refresh?: Refresh;
-    retryOnConflict?: number;
-    routing?: string;
-    timeout?: TimeSpan;
-    timestamp?: Date | number;
-    ttl?: TimeSpan;
-    version?: number;
-    versionType?: "internal" | "force";
+    waitForActiveShards?: string | undefined;
+    fields?: NameList | undefined;
+    _source?: NameList | undefined;
+    _sourceExclude?: NameList | undefined;
+    _sourceInclude?: NameList | undefined;
+    lang?: string | undefined;
+    parent?: string | undefined;
+    refresh?: Refresh | undefined;
+    retryOnConflict?: number | undefined;
+    routing?: string | undefined;
+    timeout?: TimeSpan | undefined;
+    timestamp?: Date | number | undefined;
+    ttl?: TimeSpan | undefined;
+    version?: number | undefined;
+    versionType?: "internal" | "force" | undefined;
     id: string;
     index: string;
     type: string;
 }
 
 export interface UpdateDocumentByQueryParams extends GenericParams {
-    analyzer?: string;
-    analyzeWildcard?: boolean;
-    defaultOperator?: DefaultOperator;
-    df?: string;
-    explain?: boolean;
-    storedFields?: NameList;
-    docvalueFields?: NameList;
-    fielddataFields?: NameList;
-    from?: number;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    conflicts?: Conflicts;
-    expandWildcards?: ExpandWildcards;
-    lenient?: boolean;
-    lowercaseExpandedTerms?: boolean;
-    pipeline?: string;
-    preference?: string;
-    q?: string;
-    routing?: NameList;
-    scroll?: TimeSpan;
-    searchType?: "query_then_fetch" | "dfs_query_then_fetch";
-    searchTimeout?: TimeSpan;
-    size?: number;
-    sort?: NameList;
-    _source?: NameList;
-    _sourceExclude?: NameList;
-    _sourceInclude?: NameList;
-    terminateAfter?: number;
-    stats?: NameList;
-    suggestField?: string;
-    suggestMode?: "missing" | "popular" | "always";
-    suggestSize?: number;
-    suggestText?: string;
-    timeout?: TimeSpan;
-    trackScores?: boolean;
-    version?: boolean;
-    versionType?: boolean;
-    requestCache?: boolean;
-    refresh?: boolean;
-    waitForActiveShards?: string;
-    scrollSize?: number;
-    waitForCompletion?: boolean;
-    requestsPerSecond?: number;
-    slices?: number;
+    analyzer?: string | undefined;
+    analyzeWildcard?: boolean | undefined;
+    defaultOperator?: DefaultOperator | undefined;
+    df?: string | undefined;
+    explain?: boolean | undefined;
+    storedFields?: NameList | undefined;
+    docvalueFields?: NameList | undefined;
+    fielddataFields?: NameList | undefined;
+    from?: number | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    conflicts?: Conflicts | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    lenient?: boolean | undefined;
+    lowercaseExpandedTerms?: boolean | undefined;
+    pipeline?: string | undefined;
+    preference?: string | undefined;
+    q?: string | undefined;
+    routing?: NameList | undefined;
+    scroll?: TimeSpan | undefined;
+    searchType?: "query_then_fetch" | "dfs_query_then_fetch" | undefined;
+    searchTimeout?: TimeSpan | undefined;
+    size?: number | undefined;
+    sort?: NameList | undefined;
+    _source?: NameList | undefined;
+    _sourceExclude?: NameList | undefined;
+    _sourceInclude?: NameList | undefined;
+    terminateAfter?: number | undefined;
+    stats?: NameList | undefined;
+    suggestField?: string | undefined;
+    suggestMode?: "missing" | "popular" | "always" | undefined;
+    suggestSize?: number | undefined;
+    suggestText?: string | undefined;
+    timeout?: TimeSpan | undefined;
+    trackScores?: boolean | undefined;
+    version?: boolean | undefined;
+    versionType?: boolean | undefined;
+    requestCache?: boolean | undefined;
+    refresh?: boolean | undefined;
+    waitForActiveShards?: string | undefined;
+    scrollSize?: number | undefined;
+    waitForCompletion?: boolean | undefined;
+    requestsPerSecond?: number | undefined;
+    slices?: number | undefined;
     index: NameList;
     type: NameList;
 }
@@ -775,7 +775,7 @@ export interface ReindexResponse extends ReindexResponseBase {
     took: number;
     timed_out: boolean;
     failures: any[];
-    slices?: ReindexOrByQueryResponseSlice[];
+    slices?: ReindexOrByQueryResponseSlice[] | undefined;
 }
 
 export interface ReindexOrByQueryResponseSlice extends ReindexResponseBase {
@@ -843,93 +843,93 @@ export type CatBytes = "b" | "k" | "kb" | "m" | "mb" | "g" | "gb" | "t" | "tb" |
 
 export interface CatCommonParams extends GenericParams {
     format: string;
-    local?: boolean;
-    masterTimeout?: TimeSpan;
-    h?: NameList;
-    help?: boolean;
-    v?: boolean;
+    local?: boolean | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    h?: NameList | undefined;
+    help?: boolean | undefined;
+    v?: boolean | undefined;
 }
 
 export interface CatAliasesParams extends CatCommonParams {
-    name?: NameList;
+    name?: NameList | undefined;
 }
 
 export interface CatAllocationParams extends CatCommonParams {
-    bytes?: CatBytes;
-    nodeId?: NameList;
+    bytes?: CatBytes | undefined;
+    nodeId?: NameList | undefined;
 }
 
 export interface CatCountParams extends CatCommonParams {
-    index?: NameList;
+    index?: NameList | undefined;
 }
 
 export interface CatFielddataParams extends CatCommonParams {
-    bytes?: CatBytes;
-    fields?: NameList;
+    bytes?: CatBytes | undefined;
+    fields?: NameList | undefined;
 }
 
 export interface CatHealthParams extends CatCommonParams {
-    ts?: boolean;
+    ts?: boolean | undefined;
 }
 
 export interface CatHelpParams extends GenericParams {
-    help?: boolean;
+    help?: boolean | undefined;
 }
 
 export interface CatIndicesParams extends CatCommonParams {
-    bytes?: CatBytes;
-    health?: "green" | "yellow" | "red";
-    pri?: boolean;
-    index?: NameList;
+    bytes?: CatBytes | undefined;
+    health?: "green" | "yellow" | "red" | undefined;
+    pri?: boolean | undefined;
+    index?: NameList | undefined;
 }
 
 export interface CatRecoveryParams extends GenericParams {
     format: string;
-    bytes?: CatBytes;
-    masterTimeout?: TimeSpan;
-    h?: NameList;
-    help?: boolean;
-    v?: boolean;
+    bytes?: CatBytes | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    h?: NameList | undefined;
+    help?: boolean | undefined;
+    v?: boolean | undefined;
 }
 
 export interface CatSegmentsParams extends GenericParams {
     format: string;
-    h?: NameList;
-    help?: boolean;
-    v?: boolean;
-    index?: NameList;
+    h?: NameList | undefined;
+    help?: boolean | undefined;
+    v?: boolean | undefined;
+    index?: NameList | undefined;
 }
 
 export interface CatShardsParams extends CatCommonParams {
-    index?: NameList;
-    bytes?: CatBytes;
+    index?: NameList | undefined;
+    bytes?: CatBytes | undefined;
 }
 
 export interface CatSnapshotsParams extends GenericParams {
     format: string;
-    ignoreUnavailable?: boolean;
-    masterTimeout?: TimeSpan;
-    h?: NameList;
-    help?: boolean;
-    v?: boolean;
-    repository?: NameList;
+    ignoreUnavailable?: boolean | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    h?: NameList | undefined;
+    help?: boolean | undefined;
+    v?: boolean | undefined;
+    repository?: NameList | undefined;
 }
 
 export interface CatTasksParams extends GenericParams {
     format: string;
-    nodeId?: NameList;
-    actions?: NameList;
-    detailed?: boolean;
-    parentNode?: string;
-    parentTask?: number;
-    h?: NameList;
-    help?: boolean;
-    v?: boolean;
+    nodeId?: NameList | undefined;
+    actions?: NameList | undefined;
+    detailed?: boolean | undefined;
+    parentNode?: string | undefined;
+    parentTask?: number | undefined;
+    h?: NameList | undefined;
+    help?: boolean | undefined;
+    v?: boolean | undefined;
 }
 
 export interface CatThreadPoolParams extends CatCommonParams {
-    size?: "" | "k" | "m" | "g" | "t" | "p";
-    threadPoolPatterns?: NameList;
+    size?: "" | "k" | "m" | "g" | "t" | "p" | undefined;
+    threadPoolPatterns?: NameList | undefined;
 }
 
 export interface Cluster {
@@ -952,65 +952,65 @@ export interface Cluster {
 }
 
 export interface ClusterAllocationExplainParams extends GenericParams {
-    includeYesDecisions?: boolean;
-    includeDiskInfo?: boolean;
+    includeYesDecisions?: boolean | undefined;
+    includeDiskInfo?: boolean | undefined;
 }
 
 export interface ClusterGetSettingsParams extends GenericParams {
-    flatSettings?: boolean;
-    masterTimeout?: TimeSpan;
-    timeout?: TimeSpan;
-    includeDefaults?: boolean;
+    flatSettings?: boolean | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    timeout?: TimeSpan | undefined;
+    includeDefaults?: boolean | undefined;
 }
 
 export interface ClusterHealthParams extends GenericParams {
-    level?: "cluster" | "indices" | "shards";
-    local?: boolean;
-    masterTimeout?: TimeSpan;
-    waitForActiveShards?: string;
-    waitForNodes?: string;
-    waitForEvents?: "immediate" | "urgent" | "high" | "normal" | "low" | "languid";
-    waitForRelocatingShards?: boolean;
-    waitForStatus?: "green" | "yellow" | "red";
-    index?: NameList;
+    level?: "cluster" | "indices" | "shards" | undefined;
+    local?: boolean | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    waitForActiveShards?: string | undefined;
+    waitForNodes?: string | undefined;
+    waitForEvents?: "immediate" | "urgent" | "high" | "normal" | "low" | "languid" | undefined;
+    waitForRelocatingShards?: boolean | undefined;
+    waitForStatus?: "green" | "yellow" | "red" | undefined;
+    index?: NameList | undefined;
 }
 
 export interface ClusterPendingTasksParams extends GenericParams {
-    local?: boolean;
-    masterTimeout?: TimeSpan;
+    local?: boolean | undefined;
+    masterTimeout?: TimeSpan | undefined;
 }
 
 export interface ClusterPutSettingsParams extends GenericParams {
-    flatSettings?: boolean;
-    masterTimeout?: TimeSpan;
-    timeout?: TimeSpan;
+    flatSettings?: boolean | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    timeout?: TimeSpan | undefined;
 }
 
 export interface ClusterRerouteParams extends GenericParams {
-    dryRun?: boolean;
-    explain?: boolean;
-    retryFailed?: boolean;
-    metric?: NameList;
-    masterTimeout?: TimeSpan;
-    timeout?: TimeSpan;
+    dryRun?: boolean | undefined;
+    explain?: boolean | undefined;
+    retryFailed?: boolean | undefined;
+    metric?: NameList | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    timeout?: TimeSpan | undefined;
 }
 
 export interface ClusterStateParams extends GenericParams {
-    local?: boolean;
-    masterTimeout?: TimeSpan;
-    flatSettings?: boolean;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    index?: NameList;
-    metric?: NameList;
+    local?: boolean | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    flatSettings?: boolean | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    index?: NameList | undefined;
+    metric?: NameList | undefined;
 }
 
 export interface ClusterStatsParams extends GenericParams {
-    flatSettings?: boolean;
-    human?: boolean;
-    timeout?: TimeSpan;
-    nodeId?: NameList;
+    flatSettings?: boolean | undefined;
+    human?: boolean | undefined;
+    timeout?: TimeSpan | undefined;
+    nodeId?: NameList | undefined;
 }
 
 export class Indices {
@@ -1089,75 +1089,75 @@ export class Indices {
 }
 
 export interface IndicesAnalyzeParams extends GenericParams {
-    analyzer?: string;
-    charFilter?: NameList;
-    field?: string;
-    filter?: NameList;
-    index?: string;
-    perferLocal?: boolean;
-    text?: NameList;
-    tokenizer?: string;
-    explain?: boolean;
-    attributes?: NameList;
-    format?: "";
+    analyzer?: string | undefined;
+    charFilter?: NameList | undefined;
+    field?: string | undefined;
+    filter?: NameList | undefined;
+    index?: string | undefined;
+    perferLocal?: boolean | undefined;
+    text?: NameList | undefined;
+    tokenizer?: string | undefined;
+    explain?: boolean | undefined;
+    attributes?: NameList | undefined;
+    format?: "" | undefined;
 }
 
 export interface IndicesClearCacheParams extends GenericParams {
-    fieldData?: boolean;
-    fielddata?: boolean;    // yes the docs really have both
-    fields?: NameList;
-    query?: boolean;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    index?: NameList;
-    recycler?: boolean;
-    request?: boolean;
+    fieldData?: boolean | undefined;
+    fielddata?: boolean | undefined;    // yes the docs really have both
+    fields?: NameList | undefined;
+    query?: boolean | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    index?: NameList | undefined;
+    recycler?: boolean | undefined;
+    request?: boolean | undefined;
 }
 
 export interface IndicesCloseParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
     index: NameList;
 }
 
 export interface IndicesCreateParams extends GenericParams {
-    waitForActiveShards?: string;
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
-    updateAllTypes?: boolean;
-    includeTypeName?: boolean;
+    waitForActiveShards?: string | undefined;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    updateAllTypes?: boolean | undefined;
+    includeTypeName?: boolean | undefined;
     index: string;
 }
 
 export interface IndicesDeleteParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
     index: NameList;
-    ignoreUnavailable?: boolean;
+    ignoreUnavailable?: boolean | undefined;
 }
 
 export interface IndicesDeleteAliasParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
     index: NameList;
     name: NameList;
 }
 
 export interface IndicesDeleteTemplateParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
     name: string;
 }
 
 export interface IndicesExistsParams extends GenericParams {
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    local?: boolean;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    local?: boolean | undefined;
     index: NameList;
 }
 
@@ -1166,8 +1166,8 @@ export interface IndicesExistsAliasParams extends IndicesExistsParams {
 }
 
 export interface IndicesExistsTemplateParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
     name: NameList;
 }
 
@@ -1176,179 +1176,179 @@ export interface IndicesExistsTypeParams extends IndicesExistsParams {
 }
 
 export interface IndicesFlushParams extends GenericParams {
-    force?: boolean;
-    waitIfOngoing?: boolean;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
+    force?: boolean | undefined;
+    waitIfOngoing?: boolean | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
     index: NameList;
 }
 
 export interface IndicesFlushSyncedParams extends GenericParams {
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
     index: NameList;
 }
 
 export interface IndicesForcemergeParams extends GenericParams {
-    flush?: boolean;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    maxNumSegments?: number;
-    onlyExpungeDeletes?: boolean;
+    flush?: boolean | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    maxNumSegments?: number | undefined;
+    onlyExpungeDeletes?: boolean | undefined;
     operationThreading?: any;   // even the docs don't know what this does
-    waitForMerge?: boolean;
+    waitForMerge?: boolean | undefined;
     index: NameList;
 }
 
 export interface IndicesGetParams extends GenericParams {
-    local?: boolean;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    flatSettings?: boolean;
-    human?: boolean;
-    includeDefaults?: boolean;
-    index?: NameList;
-    feature?: NameList;
-    includeTypeName?: boolean;
+    local?: boolean | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    flatSettings?: boolean | undefined;
+    human?: boolean | undefined;
+    includeDefaults?: boolean | undefined;
+    index?: NameList | undefined;
+    feature?: NameList | undefined;
+    includeTypeName?: boolean | undefined;
 }
 
 export interface IndicesGetAliasParams extends GenericParams {
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    local?: boolean;
-    index?: NameList;
-    name?: NameList;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    local?: boolean | undefined;
+    index?: NameList | undefined;
+    name?: NameList | undefined;
 }
 
 export interface IndicesGetFieldMappingParams extends GenericParams {
-    includeDefaults?: boolean;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    local?: boolean;
-    index?: NameList;
-    type?: NameList;
-    fields?: NameList;
-    includeTypeName?: boolean;
+    includeDefaults?: boolean | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    local?: boolean | undefined;
+    index?: NameList | undefined;
+    type?: NameList | undefined;
+    fields?: NameList | undefined;
+    includeTypeName?: boolean | undefined;
 }
 
 export interface IndicesGetMappingParams extends GenericParams {
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    local?: boolean;
-    index?: NameList;
-    type?: NameList;
-    includeTypeName?: boolean;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    local?: boolean | undefined;
+    index?: NameList | undefined;
+    type?: NameList | undefined;
+    includeTypeName?: boolean | undefined;
 }
 
 export interface IndicesGetSettingsParams extends GenericParams {
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    flatSettings?: boolean;
-    local?: boolean;
-    human?: boolean;
-    includeDefaults?: boolean;
-    index?: NameList;
-    name?: NameList;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    flatSettings?: boolean | undefined;
+    local?: boolean | undefined;
+    human?: boolean | undefined;
+    includeDefaults?: boolean | undefined;
+    index?: NameList | undefined;
+    name?: NameList | undefined;
 }
 
 export interface IndicesGetTemplateParams extends GenericParams {
-    flatSettings?: boolean;
-    masterTimeout?: TimeSpan;
-    local?: boolean;
-    name?: NameList;
-    includeTypeName?: boolean;
+    flatSettings?: boolean | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    local?: boolean | undefined;
+    name?: NameList | undefined;
+    includeTypeName?: boolean | undefined;
 }
 
 export interface IndicesGetUpgradeParams extends GenericParams {
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    human?: boolean;
-    index?: NameList;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    human?: boolean | undefined;
+    index?: NameList | undefined;
 }
 
 export interface IndicesOpenParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    index?: NameList;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    index?: NameList | undefined;
 }
 
 export interface IndicesPutAliasParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
-    index?: NameList;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    index?: NameList | undefined;
     name: NameList;
 }
 
 export interface IndicesPutMappingParams extends GenericParams {
-  timeout?: TimeSpan;
-  masterTimeout?: TimeSpan;
-  ignoreUnavailable?: boolean;
-  allowNoIndices?: boolean;
-  expandWildcards?: ExpandWildcards;
-  updateAllTypes?: boolean;
+  timeout?: TimeSpan | undefined;
+  masterTimeout?: TimeSpan | undefined;
+  ignoreUnavailable?: boolean | undefined;
+  allowNoIndices?: boolean | undefined;
+  expandWildcards?: ExpandWildcards | undefined;
+  updateAllTypes?: boolean | undefined;
   index: NameList;
   type: string;
-  includeTypeName?: boolean;
+  includeTypeName?: boolean | undefined;
   body: any;
 }
 
 export interface IndicesPutSettingsParams extends GenericParams {
-    masterTimeout?: TimeSpan;
-    preserveExisting?: boolean;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    flatSettings?: boolean;
+    masterTimeout?: TimeSpan | undefined;
+    preserveExisting?: boolean | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    flatSettings?: boolean | undefined;
     index: NameList;
     body: any;
 }
 
 export interface IndicesPutTemplateParams extends GenericParams {
-    order?: number;
-    create?: boolean;
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
-    flatSettings?: boolean;
+    order?: number | undefined;
+    create?: boolean | undefined;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    flatSettings?: boolean | undefined;
     name: string;
     body: any;
-    includeTypeName?: boolean;
+    includeTypeName?: boolean | undefined;
 }
 
 export interface IndicesRecoveryParams extends GenericParams {
-    detailed?: boolean;
-    activeOnly?: boolean;
-    human?: boolean;
+    detailed?: boolean | undefined;
+    activeOnly?: boolean | undefined;
+    human?: boolean | undefined;
     index: NameList;
 }
 
 export interface IndicesRefreshParams extends GenericParams {
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    force?: boolean;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    force?: boolean | undefined;
     operationThreading?: any;   // even the docs don't know what this does
     index: NameList;
 }
 
 export interface IndicesRolloverParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
-    waitForActiveShards?: number | string;
-    alias?: string;
-    newIndex?: string;
-    includeTypeName?: boolean;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    waitForActiveShards?: number | string | undefined;
+    alias?: string | undefined;
+    newIndex?: string | undefined;
+    includeTypeName?: boolean | undefined;
 }
 
 export interface IndicesRolloverResponse {
@@ -1362,47 +1362,47 @@ export interface IndicesRolloverResponse {
 }
 
 export interface IndicesSegmentsParams extends GenericParams {
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    human?: boolean;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    human?: boolean | undefined;
     operationThreading?: any;   // even the docs don't know what this does
-    verbose?: boolean;
+    verbose?: boolean | undefined;
     index: NameList;
 }
 
 export interface IndicesShardStoresParams extends GenericParams {
-    status?: NameList;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
+    status?: NameList | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
     operationThreading?: any;   // even the docs don't know what this does
     index: NameList;
 }
 
 export interface IndicesShrinkParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
-    waitForActiveShards?: string | number;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    waitForActiveShards?: string | number | undefined;
     index: string;
     target: string;
 }
 
 export interface IndicesStatsParams extends GenericParams {
-    completionFields?: NameList;
-    fielddataFields?: NameList;
-    fields?: NameList;
-    groups?: NameList;
-    human?: boolean;
-    level?: "cluster" | "indices" | "shards";
-    types?: NameList;
+    completionFields?: NameList | undefined;
+    fielddataFields?: NameList | undefined;
+    fields?: NameList | undefined;
+    groups?: NameList | undefined;
+    human?: boolean | undefined;
+    level?: "cluster" | "indices" | "shards" | undefined;
+    types?: NameList | undefined;
     index: NameList;
-    metric?: NameList;
+    metric?: NameList | undefined;
 }
 
 export interface IndicesUpdateAliasesParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
     body: {
         actions: IndicesUpdateAliasesParamsAction[];
     };
@@ -1410,46 +1410,46 @@ export interface IndicesUpdateAliasesParams extends GenericParams {
 
 export interface IndicesUpdateAliasesParamsAction {
     add?: {
-        index?: string;
-        indices?: string[];
+        index?: string | undefined;
+        indices?: string[] | undefined;
         alias: string;
-        routing?: string;
-        filter?: object;
-    };
+        routing?: string | undefined;
+        filter?: object | undefined;
+    } | undefined;
     remove?: {
-        index?: string;
-        indices?: string[];
+        index?: string | undefined;
+        indices?: string[] | undefined;
         alias: string;
-    };
+    } | undefined;
     remove_index?: {
         index: string;
-    };
+    } | undefined;
 }
 
 export interface IndicesUpgradeParams extends GenericParams {
-    expandWildcards?: ExpandWildcards;
-    ignoreUnavailable?: boolean;
-    waitForCompletion?: boolean;
-    onlyAncientSegments?: boolean;
+    expandWildcards?: ExpandWildcards | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    waitForCompletion?: boolean | undefined;
+    onlyAncientSegments?: boolean | undefined;
     index: NameList;
 }
 
 export interface IndicesValidateQueryParams extends GenericParams {
-    explain?: boolean;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
+    explain?: boolean | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
     operationThreading?: any;   // even the docs don't know what this does
-    q?: string;
-    analyzer?: string;
-    analyzeWildcard?: boolean;
-    defaultOperator?: DefaultOperator;
-    df?: string;
-    lenient?: boolean;
-    lowercaseExpandedTerms?: boolean;
-    rewrite?: boolean;
+    q?: string | undefined;
+    analyzer?: string | undefined;
+    analyzeWildcard?: boolean | undefined;
+    defaultOperator?: DefaultOperator | undefined;
+    df?: string | undefined;
+    lenient?: boolean | undefined;
+    lowercaseExpandedTerms?: boolean | undefined;
+    rewrite?: boolean | undefined;
     index: NameList;
-    type?: NameList;
+    type?: NameList | undefined;
 }
 
 export class Ingest {
@@ -1464,25 +1464,25 @@ export class Ingest {
 }
 
 export interface IngestDeletePipelineParams extends GenericParams {
-    masterTimeout?: number;
-    timeout?: number;
+    masterTimeout?: number | undefined;
+    timeout?: number | undefined;
     id: string;
 }
 
 export interface IngestGetPipelineParams extends GenericParams {
-    masterTimeout?: number;
+    masterTimeout?: number | undefined;
     id: string;
 }
 
 export interface IngestPutPipelineParams extends GenericParams {
-    masterTimeout?: number;
-    timeout?: number;
+    masterTimeout?: number | undefined;
+    timeout?: number | undefined;
     id: string;
     body: any;
 }
 
 export interface IngestSimulateParams extends GenericParams {
-    verbose?: boolean;
+    verbose?: boolean | undefined;
     id: string;
 }
 
@@ -1496,35 +1496,35 @@ export class Nodes {
 }
 
 export interface NodesHotThreadsParams extends GenericParams {
-    interval?: TimeSpan;
-    snapshots?: number;
-    threads?: number;
-    ignoreIdleThreads?: boolean;
-    type?: "cpu" | "wait" | "blocked";
-    timeout?: TimeSpan;
+    interval?: TimeSpan | undefined;
+    snapshots?: number | undefined;
+    threads?: number | undefined;
+    ignoreIdleThreads?: boolean | undefined;
+    type?: "cpu" | "wait" | "blocked" | undefined;
+    timeout?: TimeSpan | undefined;
     nodeId: NameList;
 }
 
 export interface NodesInfoParams extends GenericParams {
-    flatSettings?: boolean;
-    human?: boolean;
-    timeout?: TimeSpan;
+    flatSettings?: boolean | undefined;
+    human?: boolean | undefined;
+    timeout?: TimeSpan | undefined;
     nodeId: NameList;
-    metric?: NameList;
+    metric?: NameList | undefined;
 }
 
 export interface NodesStatsParams extends GenericParams {
-    completionFields?: NameList;
-    fielddataFields?: NameList;
-    fields?: NameList;
-    groups?: boolean;
-    human?: boolean;
-    level?: "indices" | "node" | "shards";
-    types?: NameList;
-    timeout?: TimeSpan;
-    metric?: NameList;
-    indexMetric?: NameList;
-    nodeId?: NameList;
+    completionFields?: NameList | undefined;
+    fielddataFields?: NameList | undefined;
+    fields?: NameList | undefined;
+    groups?: boolean | undefined;
+    human?: boolean | undefined;
+    level?: "indices" | "node" | "shards" | undefined;
+    types?: NameList | undefined;
+    timeout?: TimeSpan | undefined;
+    metric?: NameList | undefined;
+    indexMetric?: NameList | undefined;
+    nodeId?: NameList | undefined;
 }
 
 export class Snapshot {
@@ -1549,61 +1549,61 @@ export class Snapshot {
 }
 
 export interface SnapshotCreateParams extends GenericParams {
-    masterTimeout?: TimeSpan;
-    waitForCompletion?: boolean;
+    masterTimeout?: TimeSpan | undefined;
+    waitForCompletion?: boolean | undefined;
     repository: string;
     snapshot: string;
 }
 
 export interface SnapshotCreateRepositoryParams extends GenericParams {
-    masterTimeout?: TimeSpan;
-    timeout?: TimeSpan;
-    verify?: boolean;
+    masterTimeout?: TimeSpan | undefined;
+    timeout?: TimeSpan | undefined;
+    verify?: boolean | undefined;
     repository: string;
 }
 
 export interface SnapshotDeleteParams extends GenericParams {
-    masterTimeout?: TimeSpan;
+    masterTimeout?: TimeSpan | undefined;
     repository: string;
     snapshot: string;
 }
 
 export interface SnapshotDeleteRepositoryParams extends GenericParams {
-    masterTimeout?: TimeSpan;
-    timeout?: TimeSpan;
+    masterTimeout?: TimeSpan | undefined;
+    timeout?: TimeSpan | undefined;
     repository: string;
 }
 
 export interface SnapshotGetParams extends GenericParams {
-    masterTimeout?: TimeSpan;
-    ignoreUnavailable?: boolean;
+    masterTimeout?: TimeSpan | undefined;
+    ignoreUnavailable?: boolean | undefined;
     repository: string;
     snapshot: NameList;
 }
 
 export interface SnapshotGetRepositoryParams extends GenericParams {
-    masterTimeout?: TimeSpan;
-    local?: boolean;
+    masterTimeout?: TimeSpan | undefined;
+    local?: boolean | undefined;
     repository: NameList;
 }
 
 export interface SnapshotRestoreParams extends GenericParams {
-    masterTimeout?: TimeSpan;
-    waitForCompletion?: boolean;
+    masterTimeout?: TimeSpan | undefined;
+    waitForCompletion?: boolean | undefined;
     repository: string;
     snapshot: string;
 }
 
 export interface SnapshotStatusParams extends GenericParams {
-    masterTimeout?: TimeSpan;
-    ignoreUnavailable?: boolean;
+    masterTimeout?: TimeSpan | undefined;
+    ignoreUnavailable?: boolean | undefined;
     repository: string;
     snapshot: NameList;
 }
 
 export interface SnapshotVerifyRepositoryParams extends GenericParams {
-    masterTimeout?: TimeSpan;
-    timeout?: TimeSpan;
+    masterTimeout?: TimeSpan | undefined;
+    timeout?: TimeSpan | undefined;
     repository: string;
 }
 
@@ -1617,26 +1617,26 @@ export class Tasks {
 }
 
 export interface TasksCancelParams extends GenericParams {
-    nodeId?: NameList;
-    actions?: NameList;
-    parentNode?: string;
-    parentTask?: string;
-    taskId?: string;
+    nodeId?: NameList | undefined;
+    actions?: NameList | undefined;
+    parentNode?: string | undefined;
+    parentTask?: string | undefined;
+    taskId?: string | undefined;
 }
 
 export interface TasksGetParams extends GenericParams {
-    waitForCompletion?: boolean;
-    taskId?: string;
+    waitForCompletion?: boolean | undefined;
+    taskId?: string | undefined;
 }
 
 export interface TasksListParams extends GenericParams {
-    nodeId?: NameList;
-    actions?: NameList;
-    detailed?: boolean;
-    parentNode?: string;
-    parentTask?: string;
-    waitForCompletion?: boolean;
-    groupBy?: "nodes" | "parents";
+    nodeId?: NameList | undefined;
+    actions?: NameList | undefined;
+    detailed?: boolean | undefined;
+    parentNode?: string | undefined;
+    parentTask?: string | undefined;
+    waitForCompletion?: boolean | undefined;
+    groupBy?: "nodes" | "parents" | undefined;
 }
 
 export namespace errors {

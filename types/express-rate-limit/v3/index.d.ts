@@ -39,7 +39,7 @@ declare namespace RateLimit {
          * Enable headers for request limit (`X-RateLimit-Limit`) and current usage (`X-RateLimit-Remaining`) on all
          * responses andtime to wait before retrying (`Retry-After`) when `max` is exceeded. Defaults to `true`.
          */
-        headers?: boolean;
+        headers?: boolean | undefined;
 
         /**
          * Function used to generate keys. Defaults to using `req.ip`.
@@ -51,13 +51,13 @@ declare namespace RateLimit {
          * Max number of connections during `windowMs` before sending a 429 response. May be a `number` or
          * a function that returns a `number` or a `Promise<number>`. Defaults to `5`. Set to `0` to disable.
          */
-        max?: number | MaxValueFn;
+        max?: number | MaxValueFn | undefined;
 
         /**
          * Error message sent to user when `max` is exceeded. May be a `string`, JSON object, or any other value
          * that Express's `req.send()` supports. Defaults to `'Too many requests, please try again later.'`.
          */
-        message?: string | Buffer | Message;
+        message?: string | Buffer | Message | undefined;
 
         /**
          * Function that is called the first time `max` is exceeded. The `req.rateLimit` object has `limit`, `current`,
@@ -77,27 +77,27 @@ declare namespace RateLimit {
         /**
          * When set to `true`, failed requests (status >= 400, request canceled or errored) won't be counted. Defaults to `false`.
          */
-        skipFailedRequests?: boolean;
+        skipFailedRequests?: boolean | undefined;
 
         /**
          * When set to `true`, successful requests (status < 400) won't be counted. Defaults to `false`.
          */
-        skipSuccessfulRequests?: boolean;
+        skipSuccessfulRequests?: boolean | undefined;
 
         /**
          * HTTP status code returned when `max` is exceeded. Defaults to `429`.
          */
-        statusCode?: number;
+        statusCode?: number | undefined;
 
         /**
          * The storage to use when persisting rate limit attempts.
          */
-        store?: Store;
+        store?: Store | undefined;
 
         /**
          * How long in milliseconds to keep records of requests in memory. Defaults to `60000` (1 minute).
          */
-        windowMs?: number;
+        windowMs?: number | undefined;
     }
     interface Instance extends express.RequestHandler {
         resetKey(key: string): void;

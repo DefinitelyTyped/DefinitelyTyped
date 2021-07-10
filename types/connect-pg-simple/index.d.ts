@@ -23,16 +23,16 @@ declare namespace connectPgSimple {
       touch(sid: string, session: SessionData, callback?: () => void): void;
   }
   interface PGStoreOptions {
-      pool?: Pool;
-      pgPromise?: object; // not typed to avoid dependency to "pg-promise" module (which includes its own types)
-      conString?: string;
-      conObject?: PoolConfig;
-      ttl?: number;
-      createTableIfMissing?: boolean;
-      schemaName?: string;
-      tableName?: string;
-      pruneSessionInterval?: false | number;
-      errorLog?: (...args: any[]) => void;
+      pool?: Pool | undefined;
+      pgPromise?: object | undefined; // not typed to avoid dependency to "pg-promise" module (which includes its own types)
+      conString?: string | undefined;
+      conObject?: PoolConfig | undefined;
+      ttl?: number | undefined;
+      createTableIfMissing?: boolean | undefined;
+      schemaName?: string | undefined;
+      tableName?: string | undefined;
+      pruneSessionInterval?: false | number | undefined;
+      errorLog?: ((...args: any[]) => void) | undefined;
   }
 }
 

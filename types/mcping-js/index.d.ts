@@ -16,7 +16,7 @@ export interface PingResponse {
         sample?: Array<{
             name: string;
             id: string;
-        }>;
+        }> | undefined;
     };
 
     description: {

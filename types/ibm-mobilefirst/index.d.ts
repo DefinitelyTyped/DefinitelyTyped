@@ -88,23 +88,23 @@ declare namespace WL.App {
         (): void;
     }
     interface OpenURLOptions {
-        status?: number;
-        toolbar?: number;
-        location?: number;
-        menubar?: number;
-        directories?: number;
-        resizable?: number;
-        scrollbars?: number;
+        status?: number | undefined;
+        toolbar?: number | undefined;
+        location?: number | undefined;
+        menubar?: number | undefined;
+        directories?: number | undefined;
+        resizable?: number | undefined;
+        scrollbars?: number | undefined;
     }
     interface Data {
     }
     interface KeepAliveInBackgroundOptions {
-        tickerText?: string;
-        contentTitle?: string;
-        contentTextText?: string;
-        icon?: string;
-        notificationId?: number;
-        className?: string;
+        tickerText?: string | undefined;
+        contentTitle?: string | undefined;
+        contentTextText?: string | undefined;
+        icon?: string | undefined;
+        notificationId?: number | undefined;
+        className?: string | undefined;
     }
     function addActionReceiver(id: string, callback: ActionReceiverCallback): void;
     /**
@@ -147,12 +147,12 @@ declare namespace WL.Badge {
 }
 declare namespace WL {
     interface BusyIndicatorOptions {
-        tickerText?: string;
-        contentTitle?: string;
-        contentTextText?: string;
-        icon?: string;
-        notificationId?: number;
-        className?: string;
+        tickerText?: string | undefined;
+        contentTitle?: string | undefined;
+        contentTextText?: string | undefined;
+        icon?: string | undefined;
+        notificationId?: number | undefined;
+        className?: string | undefined;
     }
     class BusyIndicator {
         constructor(containerId?: string, options?: BusyIndicator);
@@ -167,7 +167,7 @@ declare namespace WL.Client {
     interface ConnectOptions {
         onSuccess: (response: ResponseBase) => void;
         onFailure: (response: FailureResponse) => void;
-        timeout?: number;
+        timeout?: number | undefined;
     }
     interface ChallengehandlerInvocationData {
         adapter: string;
@@ -177,9 +177,9 @@ declare namespace WL.Client {
     interface ChallengeHandlerAuthenticationOptions {
     }
     interface ChallengeHandlerSubmitLoginFormOptions {
-        timeout?: number;
-        headers?: Object;
-        parameters?: Object;
+        timeout?: number | undefined;
+        headers?: Object | undefined;
+        parameters?: Object | undefined;
     }
     class AbstractChallengeHandler {
         handleChallenge(challenge: any): boolean;
@@ -190,46 +190,46 @@ declare namespace WL.Client {
         submitSuccess(): void;
     }
     interface InitOptions extends Options {
-        timeout?: number;
+        timeout?: number | undefined;
         /**
          * @deprecated since version 6.2. Use WL.Logger.config function with an object specifying the level instead.
          */
-        enableLogger?: boolean;
-        messages?: string;
-        authenticator?: Object;
-        heartBeatIntervalInSecs?: number;
+        enableLogger?: boolean | undefined;
+        messages?: string | undefined;
+        authenticator?: Object | undefined;
+        heartBeatIntervalInSecs?: number | undefined;
         /**
          * @deprecated. If you would like your application to connect to the Worklight Server, use WL.Client.connect().
          */
-        connectOnStartup?: boolean;
-        onConnectionFailure?: (response: WL.FailureResponse) => void;
-        onUnsupportedVersion?: (response: WL.FailureResponse) => void;
-        onRequestTimeout?: (response: WL.FailureResponse) => void;
-        onUnsupportedBrowser?: (response: WL.FailureResponse) => void;
-        onDisabledCookies?: (response: WL.FailureResponse) => void;
-        onUserInstanceAccessViolation?: (response: WL.FailureResponse) => void;
-        onErrorRemoteDisableDenial?: (response: WL.FailureResponse) => void;
+        connectOnStartup?: boolean | undefined;
+        onConnectionFailure?: ((response: WL.FailureResponse) => void) | undefined;
+        onUnsupportedVersion?: ((response: WL.FailureResponse) => void) | undefined;
+        onRequestTimeout?: ((response: WL.FailureResponse) => void) | undefined;
+        onUnsupportedBrowser?: ((response: WL.FailureResponse) => void) | undefined;
+        onDisabledCookies?: ((response: WL.FailureResponse) => void) | undefined;
+        onUserInstanceAccessViolation?: ((response: WL.FailureResponse) => void) | undefined;
+        onErrorRemoteDisableDenial?: ((response: WL.FailureResponse) => void) | undefined;
         /**
          * @deprecated since version 5.0.6. Instead, use onErrorRemoteDisableDenial.
          */
-        onErrorAppVersionAccessDenial?: (response: WL.FailureResponse) => void;
-        validateArguments?: boolean;
-        autoHideSplash?: boolean;
+        onErrorAppVersionAccessDenial?: ((response: WL.FailureResponse) => void) | undefined;
+        validateArguments?: boolean | undefined;
+        autoHideSplash?: boolean | undefined;
         onGetCustomDeviceProvisioningProperties: (resumeDeviceProvisioningProcess: (data: any) => void) => void;
     }
     interface ProcedureInvocationData {
         adapter: string;
         procedure: string;
-        parameters?: any[];
-        compressResponse?: boolean;
+        parameters?: any[] | undefined;
+        compressResponse?: boolean | undefined;
     }
     interface ProcedureInvocationResult {
         isSuccessful: boolean;
-        errors?: string[];
+        errors?: string[] | undefined;
     }
     interface ProcedureResponse extends ResponseBase {
-        invocationResult?: ProcedureInvocationResult;
-        parameters?: any[];
+        invocationResult?: ProcedureInvocationResult | undefined;
+        parameters?: any[] | undefined;
     }
     interface ProcedureInvocationOptions extends Options {
         timeout: number;
@@ -286,8 +286,8 @@ declare namespace WL.Client {
     function reloadApp(): void;
     function removeGlobalHeader(headerName: string): void;
     interface EventTransmissionPolicy {
-        eventStorageEnabled?: boolean;
-        interval?: number;
+        eventStorageEnabled?: boolean | undefined;
+        interval?: number | undefined;
     }
     function setEventTransmissionPolicy(policy: EventTransmissionPolicy): void;
     function setHeartBeatInterval(interval: number): void;
@@ -306,16 +306,16 @@ declare namespace WL.Device {
         "3GAddress": string;
     }
     interface NetworkInfo {
-        isNetworkConnected?: boolean;
-        isAirplaneMode?: boolean;
-        isRoaming?: boolean;
-        networkConnectionType?: string;
-        wifiName?: string;
-        telephonyNetworkType?: string;
-        carrierName?: string;
-        ipAddress?: string;
-        Ipv4Addresses?: AddressPair[];
-        Ipv6Addresses?: AddressPair[];
+        isNetworkConnected?: boolean | undefined;
+        isAirplaneMode?: boolean | undefined;
+        isRoaming?: boolean | undefined;
+        networkConnectionType?: string | undefined;
+        wifiName?: string | undefined;
+        telephonyNetworkType?: string | undefined;
+        carrierName?: string | undefined;
+        ipAddress?: string | undefined;
+        Ipv4Addresses?: AddressPair[] | undefined;
+        Ipv6Addresses?: AddressPair[] | undefined;
     }
     function getNetworkInfo(callback: (networkInfo: NetworkInfo) => void): void;
 }
@@ -422,11 +422,11 @@ declare namespace WL.JSONStore {
      */
     function getErrorMessage(errorCode: number): string;
     interface InitOptions {
-        username?: string;
-        password?: string;
-        clear?: boolean;
-        localKeyGen?: boolean;
-        analytics?: boolean;
+        username?: string | undefined;
+        password?: string | undefined;
+        clear?: boolean | undefined;
+        localKeyGen?: boolean | undefined;
+        analytics?: boolean | undefined;
     }
     function init(collections: any, options?: InitOptions): JQueryDeferred<any>;
     /**
@@ -452,54 +452,54 @@ declare namespace WL.JSONStore {
     function usePassword(pwd: string): boolean;
     interface AddOptions extends WL.Options {
         additionalSearchFields?: any;
-        markDirty?: boolean;
+        markDirty?: boolean | undefined;
         /**
          * @deprecated
          */
-        push?: boolean;
+        push?: boolean | undefined;
     }
     interface BasicFindOptions extends WL.Options {
-        filter?: string[];
-        sort?: string[];
+        filter?: string[] | undefined;
+        sort?: string[] | undefined;
     }
     interface AdvancedFindOptions extends BasicFindOptions {
-        limit?: number;
-        offset?: number;
+        limit?: number | undefined;
+        offset?: number | undefined;
     }
     interface FindOptions extends BasicFindOptions {
-        exact?: boolean;
-        limit?: number;
-        offset?: number;
+        exact?: boolean | undefined;
+        limit?: number | undefined;
+        offset?: number | undefined;
     }
     interface EraseOptions extends WL.Options {
-        push?: boolean;
+        push?: boolean | undefined;
     }
     interface RefreshOptions extends WL.Options {
         push: boolean;
     }
     interface ChangeOptions extends WL.Options {
-        addNew?: boolean;
-        markDirty?: boolean;
-        replaceCriteria?: string[];
+        addNew?: boolean | undefined;
+        markDirty?: boolean | undefined;
+        replaceCriteria?: string[] | undefined;
     }
     interface RemoveOptions extends WL.Options {
-        markDirty?: boolean;
+        markDirty?: boolean | undefined;
         /**
          * @deprecated
          */
-        push?: boolean;
-        exact?: boolean;
+        push?: boolean | undefined;
+        exact?: boolean | undefined;
     }
     interface ReplaceOptions extends WL.Options {
-        markDirty?: boolean;
+        markDirty?: boolean | undefined;
         /**
          * @deprecated
          */
-        push?: boolean;
+        push?: boolean | undefined;
     }
     interface StoreOptions extends WL.Options {
-        additionalSearchFields?: Object;
-        push?: boolean;
+        additionalSearchFields?: Object | undefined;
+        push?: boolean | undefined;
     }
     class JSONStoreInstance {
         add(data: any, options?: AddOptions): JQueryDeferred<any>;
@@ -626,40 +626,40 @@ declare namespace WL {
         (message: string | string[], level: string, package: string): void;
     }
     interface Tag {
-        level?: boolean;
-        tag?: boolean;
+        level?: boolean | undefined;
+        tag?: boolean | undefined;
     }
     interface Filter {
         [name: string]: string;
     }
     interface LoggerOptions {
-        stringify?: boolean;
-        pretty?: boolean;
-        stacktrace?: boolean;
-        callback?: LoggerCallback;
-        pkg?: string;
-        tag?: Tag;
+        stringify?: boolean | undefined;
+        pretty?: boolean | undefined;
+        stacktrace?: boolean | undefined;
+        callback?: LoggerCallback | undefined;
+        pkg?: string | undefined;
+        tag?: Tag | undefined;
         /**
          * @deprecated since version 6.2. use filters instead.
          */
-        whitelist?: string[];
+        whitelist?: string[] | undefined;
         /**
          * @deprecated since version 6.2. use filters instead.
          */
-        blacklist?: string[];
-        filters?: Filter;
-        capture?: boolean;
-        autoSendLogs?: boolean;
-        maxFileSize?: number;
-        level?: string[] | string | number;
+        blacklist?: string[] | undefined;
+        filters?: Filter | undefined;
+        capture?: boolean | undefined;
+        autoSendLogs?: boolean | undefined;
+        maxFileSize?: number | undefined;
+        level?: string[] | string | number | undefined;
     }
     interface NativeOptions {
-        maxFileSize?: number;
-        level?: string;
-        capture?: boolean;
-        autoSendLogs?: boolean;
-        autoUpdateConfig?: boolean;
-        filters?: Filter;
+        maxFileSize?: number | undefined;
+        level?: string | undefined;
+        capture?: boolean | undefined;
+        autoSendLogs?: boolean | undefined;
+        autoUpdateConfig?: boolean | undefined;
+        filters?: Filter | undefined;
     }
     /**
      * Artifact to allow chaining of Logger class as: WL.Logger.ctx({pkg: 'something'}).debug('Hello world');
@@ -778,7 +778,7 @@ declare namespace WL.SecurityUtils {
 declare namespace WL.SimpleDialog {
     interface Button {
         text: string;
-        handler?: Function;
+        handler?: Function | undefined;
     }
     interface Options {
         title: string;
@@ -790,8 +790,8 @@ declare namespace WL.SimpleDialog {
 declare namespace WL.TabBar {
     interface ItemOptions {
         image: string;
-        badge?: string; // for iOS
-        imageSelected?: string; // for Android
+        badge?: string | undefined; // for iOS
+        imageSelected?: string | undefined; // for Android
     }
     function addItem(id: string, callback: Function, title: string, options: ItemOptions): WL.TabBarItem;
     function init(): void;
@@ -825,16 +825,16 @@ declare namespace WL.Trusteer {
     }
     interface AssetmentRisks {
         device_key: string;
-        'malware.any'?: AssesmentRisk;
-        'network.wifi'?: AssesmentRisk;
-        'os.rooted'?: AssesmentRisk;
-        'os.rooted.native'?: AssesmentRisk;
-        'os.rooted.hiders'?: AssesmentRisk;
-        'os.ver_up_to_date'?: AssesmentRisk;
-        'plat.android.dumpsys'?: AssesmentRisk;
-        'plat.android.apprestrict'?: AssesmentRisk;
-        'total.risk.generic'?: AssesmentRisk;
-        'tas.config_update'?: AssesmentRisk;
+        'malware.any'?: AssesmentRisk | undefined;
+        'network.wifi'?: AssesmentRisk | undefined;
+        'os.rooted'?: AssesmentRisk | undefined;
+        'os.rooted.native'?: AssesmentRisk | undefined;
+        'os.rooted.hiders'?: AssesmentRisk | undefined;
+        'os.ver_up_to_date'?: AssesmentRisk | undefined;
+        'plat.android.dumpsys'?: AssesmentRisk | undefined;
+        'plat.android.apprestrict'?: AssesmentRisk | undefined;
+        'total.risk.generic'?: AssesmentRisk | undefined;
+        'tas.config_update'?: AssesmentRisk | undefined;
     }
     function getRiskAssessment(onSuccess: ResponseHandler<Response>, onFailure: ResponseHandler<FailureResponse>): AssetmentRisks;
 }

@@ -208,12 +208,12 @@ declare namespace PageJS {
          * enable case-sensitive routes
          * @type {[type]}
          */
-        sensitive?: boolean;
+        sensitive?: boolean | undefined;
         /**
          * enable strict matching for trailing slashes
          * @type {[type]}
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
     }
 
     interface Options {

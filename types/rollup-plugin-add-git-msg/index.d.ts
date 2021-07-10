@@ -9,10 +9,10 @@ import { Plugin } from 'rollup';
 
 declare namespace addGitMsg {
     interface AddGitMsgPluginOptions {
-        showDate?: boolean;
-        showTag?: boolean;
-        showCommitID?: boolean;
-        copyright?: string | null;
+        showDate?: boolean | undefined;
+        showTag?: boolean | undefined;
+        showCommitID?: boolean | undefined;
+        copyright?: string | null | undefined;
     }
 }
 

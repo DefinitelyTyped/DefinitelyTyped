@@ -43,7 +43,7 @@ transfer.search(lnglat, lnglat, (status, result) => {
             end.location;
             // $ExpectType string
             end.name;
-            // $ExpectType "start" | "end"
+            // $ExpectType "end" | "start" || "start" | "end"
             end.type;
         }
         // $ExpectType string

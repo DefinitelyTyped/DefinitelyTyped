@@ -9,7 +9,7 @@ import * as React from 'react';
 export interface LinkProps {
     to: string;
     onClick?(): void;
-    className?: string;
+    className?: string | undefined;
 }
 
 export interface LayoutProps {

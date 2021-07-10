@@ -3,7 +3,7 @@ import merge from 'mergerino';
 function deletingWorks() {
     interface State {
         deep: {
-            prop?: string;
+            prop?: string | undefined;
         };
         fake?: any;
         other: boolean | null;
@@ -29,8 +29,8 @@ function functionSubWorks() {
         age: number;
         name: string;
         obj: {
-            prop?: boolean;
-            replaced?: boolean;
+            prop?: boolean | undefined;
+            replaced?: boolean | undefined;
         };
     }
 
@@ -55,7 +55,7 @@ function deepFunctionSubToUncreatedObjectPath() {
             stats: {
                 count: number;
             };
-        };
+        } | undefined;
         orig: boolean;
     }
 
@@ -80,7 +80,7 @@ function addNestedObject() {
         age: number;
         add?: {
             sub: boolean;
-        };
+        } | undefined;
     }
     const state: State = { age: 10 };
     const add = { sub: true };
@@ -93,7 +93,7 @@ function deepMergeObjects() {
         sub: {
             sub: {
                 prop: boolean;
-                newProp?: boolean;
+                newProp?: boolean | undefined;
             };
         };
     }
@@ -121,7 +121,7 @@ function functionPatch() {
     interface State {
         age: number;
         foo: string;
-        prop?: boolean;
+        prop?: boolean | undefined;
     }
     const state: State = { age: 10, foo: 'bar' };
     const newState = merge(state, (s, m) => {
@@ -131,12 +131,12 @@ function functionPatch() {
 
 function multiArrayFalsyPatches() {
     interface State {
-        age?: number;
+        age?: number | undefined;
         foo: string;
-        baz?: number;
-        hello?: boolean;
-        arr?: number[];
-        prop?: boolean;
+        baz?: number | undefined;
+        hello?: boolean | undefined;
+        arr?: number[] | undefined;
+        prop?: boolean | undefined;
     }
     const state: State = { foo: 'bar' };
     const newState = merge(

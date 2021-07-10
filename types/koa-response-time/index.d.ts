@@ -9,7 +9,7 @@
 import { Middleware } from 'koa';
 
 interface KoaResponseTimeOptions {
-    hrtime?: boolean;
+    hrtime?: boolean | undefined;
 }
 
 /**

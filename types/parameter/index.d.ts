@@ -56,26 +56,26 @@ declare namespace Parameter {
         /**
          * translate function
          */
-        translate?: ParameterTranslateFunction;
+        translate?: ParameterTranslateFunction | undefined;
 
         /**
          * config whether to validate the passed in value must be a object
          * @default false
          */
-        validateRoot?: boolean;
+        validateRoot?: boolean | undefined;
 
         /**
          * convert primitive params to specific type.
          * @default false
          */
-        convert?: boolean;
+        convert?: boolean | undefined;
 
         /**
          * convert empty string(''), NaN, Null to undefined, this option can make rule.required more powerful,
          * **This may change the original input params.**
          * @default false
          */
-        widelyUndefined?: boolean;
+        widelyUndefined?: boolean | undefined;
     }
 
     type ParameterConvertType = 'int' | 'number' | 'string' | 'bool' | 'boolean' | ((value: any) => any);
@@ -117,7 +117,7 @@ declare namespace Parameter {
          * If required is set to false, this property can be null or undefined.
          * @default true
          */
-        required?: boolean;
+        required?: boolean | undefined;
         /**
          * The type of property, every type has it's own rule for the validate.
          */
@@ -126,7 +126,7 @@ declare namespace Parameter {
          * Make parameter convert the input param to the specific type, support int, number, string and boolean,
          * also support a function to customize your own convert method.
          */
-        convertType?: ParameterConvertType;
+        convertType?: ParameterConvertType | undefined;
         /**
          * The default value of property, once the property is allowed non-required and missed, parameter will
          * use this as the default value. **This may change the original input params.**
@@ -137,7 +137,7 @@ declare namespace Parameter {
          * **This may change the original input params.**
          * @default false
          */
-        widelyUndefined?: boolean;
+        widelyUndefined?: boolean | undefined;
     }
 
     interface ParameterRuleCustom extends ParameterRuleBase {
@@ -149,11 +149,11 @@ declare namespace Parameter {
         /**
          * The minimum of the value, value must <= max
          */
-        min?: number;
+        min?: number | undefined;
         /**
          * The maximum of the value, value must >= min.
          */
-        max?: number;
+        max?: number | undefined;
     }
 
     interface ParameterRuleString extends ParameterRuleBase {
@@ -162,44 +162,44 @@ declare namespace Parameter {
          * Allow empty string, default to false. If rule.required set to false, allowEmpty will be set to true by default.
          * @alias ParameterRuleString.empty
          */
-        allowEmpty?: boolean;
+        allowEmpty?: boolean | undefined;
         /**
          * Alias of allowEmpty
          */
-        empty?: boolean;
-        format?: RegExp;
-        min?: number;
-        max?: number;
-        trim?: boolean;
+        empty?: boolean | undefined;
+        format?: RegExp | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
+        trim?: boolean | undefined;
     }
 
     interface ParameterRuleID extends ParameterRuleBase {
         type: 'id' | 'id?';
-        allowEmpty?: boolean;
+        allowEmpty?: boolean | undefined;
     }
 
     interface ParameterRuleDateTime extends ParameterRuleBase {
         type: 'date' | 'date?' | 'dateTime' | 'dateTime?' | 'datetime' | 'datetime?';
-        allowEmpty?: boolean;
+        allowEmpty?: boolean | undefined;
     }
 
     interface ParameterRuleEmail extends ParameterRuleBase {
         type: 'email' | 'email?';
-        message?: string;
-        allowEmpty?: boolean;
+        message?: string | undefined;
+        allowEmpty?: boolean | undefined;
     }
 
     interface ParameterRuleUrl extends ParameterRuleBase {
         type: 'url' | 'url?';
-        message?: string;
-        allowEmpty?: boolean;
+        message?: string | undefined;
+        allowEmpty?: boolean | undefined;
     }
 
     type ParameterRuleBoolean = ParameterRuleBase;
 
     interface ParameterRulePassword extends Omit<ParameterRuleString, 'type' | 'format'> {
         type: 'password' | 'password?';
-        compare?: string;
+        compare?: string | undefined;
     }
 
     interface ParameterRuleEnum extends ParameterRuleBase {
@@ -209,15 +209,15 @@ declare namespace Parameter {
 
     interface ParameterRuleObject extends ParameterRuleBase {
         type: 'object' | 'object?';
-        rule?: ParameterRules;
+        rule?: ParameterRules | undefined;
     }
 
     interface ParameterRuleArray extends ParameterRuleBase {
         type: 'array' | 'array?';
-        itemType?: string;
-        rule?: ParameterRules;
-        min?: number;
-        max?: number;
+        itemType?: string | undefined;
+        rule?: ParameterRules | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
     }
 
     type ParameterRuleItem =
@@ -241,7 +241,7 @@ declare namespace Parameter {
 
     interface ValidateError {
         code: string;
-        field?: string;
+        field?: string | undefined;
         message: string;
     }
 

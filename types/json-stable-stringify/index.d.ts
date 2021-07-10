@@ -16,9 +16,9 @@ declare namespace stringify {
     type Replacer = (key: string, value: any) => any;
 
     interface Options {
-        cmp?: Comparator;
-        space?: number | string;
-        replacer?: Replacer;
+        cmp?: Comparator | undefined;
+        space?: number | string | undefined;
+        replacer?: Replacer | undefined;
     }
 }
 

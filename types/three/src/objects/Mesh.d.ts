@@ -6,14 +6,14 @@ import { Intersection } from '../core/Raycaster';
 
 export class Mesh<
     TGeometry extends BufferGeometry = BufferGeometry,
-    TMaterial extends Material | Material[] = Material | Material[]
+    TMaterial extends Material | Material[] = Material | Material[],
 > extends Object3D {
     constructor(geometry?: TGeometry, material?: TMaterial);
 
     geometry: TGeometry;
     material: TMaterial;
-    morphTargetInfluences?: number[];
-    morphTargetDictionary?: { [key: string]: number };
+    morphTargetInfluences?: number[] | undefined;
+    morphTargetDictionary?: { [key: string]: number } | undefined;
     readonly isMesh: true;
     type: string;
 

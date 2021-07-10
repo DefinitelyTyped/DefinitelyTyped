@@ -41,11 +41,11 @@ export type GeoGeometryObjects = GeoJSON.GeometryObject | GeoSphere;
  */
 export interface ExtendedGeometryCollection<GeometryType extends GeoGeometryObjects = GeoGeometryObjects> {
     type: string;
-    bbox?: number[];
+    bbox?: number[] | undefined;
     crs?: {
         type: string;
         properties: any;
-    };
+    } | undefined;
     geometries: GeometryType[];
 }
 
@@ -65,7 +65,7 @@ export interface ExtendedFeature<
     > extends GeoJSON.GeoJsonObject {
     geometry: GeometryType;
     properties: Properties;
-    id?: string | number;
+    id?: string | number | undefined;
 }
 
 /**

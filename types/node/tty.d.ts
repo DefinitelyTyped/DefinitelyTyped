@@ -64,3 +64,7 @@ declare module 'tty' {
         isTTY: boolean;
     }
 }
+
+declare module 'node:tty' {
+    export * from 'tty';
+}

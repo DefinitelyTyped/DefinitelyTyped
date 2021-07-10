@@ -23,12 +23,12 @@ declare namespace ngCordova {
     }
 
     export interface IFileDownloadOptions extends FileDownloadOptions {
-        encodeURI?: boolean;
-        timeout?: number;
+        encodeURI?: boolean | undefined;
+        timeout?: number | undefined;
     }
 
     export interface IFileUploadOptions extends FileUploadOptions {
-        encodeURI?: boolean;
-         timeout?: number;
+        encodeURI?: boolean | undefined;
+         timeout?: number | undefined;
     }
 }

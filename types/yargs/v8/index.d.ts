@@ -204,50 +204,50 @@ declare namespace yargs {
     }
 
     interface RequireDirectoryOptions {
-        recurse?: boolean;
-        extensions?: string[];
-        visit?: (commandObject: any, pathToFile?: string, filename?: string) => any;
-        include?: RegExp | ((pathToFile: string) => boolean);
-        exclude?: RegExp | ((pathToFile: string) => boolean);
+        recurse?: boolean | undefined;
+        extensions?: string[] | undefined;
+        visit?: ((commandObject: any, pathToFile?: string, filename?: string) => any) | undefined;
+        include?: RegExp | ((pathToFile: string) => boolean) | undefined;
+        exclude?: RegExp | ((pathToFile: string) => boolean) | undefined;
     }
 
     interface Options {
-        alias?: string | string[];
-        array?: boolean;
-        boolean?: boolean;
-        choices?: Choices;
-        coerce?: (arg: any) => any;
-        config?: boolean;
-        configParser?: (configPath: string) => object;
-        conflicts?: string | object;
-        count?: boolean;
+        alias?: string | string[] | undefined;
+        array?: boolean | undefined;
+        boolean?: boolean | undefined;
+        choices?: Choices | undefined;
+        coerce?: ((arg: any) => any) | undefined;
+        config?: boolean | undefined;
+        configParser?: ((configPath: string) => object) | undefined;
+        conflicts?: string | object | undefined;
+        count?: boolean | undefined;
         default?: any;
-        defaultDescription?: string;
+        defaultDescription?: string | undefined;
         /** @deprecated since version 6.6.0 */
-        demand?: boolean | string;
-        demandOption?: boolean | string;
-        desc?: string;
-        describe?: string;
-        description?: string;
-        global?: boolean;
-        group?: string;
-        implies?: string | object;
-        nargs?: number;
-        normalize?: boolean;
-        number?: boolean;
-        require?: boolean | string;
-        required?: boolean | string;
-        requiresArg?: boolean | string;
-        skipValidation?: boolean;
-        string?: boolean;
-        type?: "array" | "boolean" | "count" | "number" | "string";
+        demand?: boolean | string | undefined;
+        demandOption?: boolean | string | undefined;
+        desc?: string | undefined;
+        describe?: string | undefined;
+        description?: string | undefined;
+        global?: boolean | undefined;
+        group?: string | undefined;
+        implies?: string | object | undefined;
+        nargs?: number | undefined;
+        normalize?: boolean | undefined;
+        number?: boolean | undefined;
+        require?: boolean | string | undefined;
+        required?: boolean | string | undefined;
+        requiresArg?: boolean | string | undefined;
+        skipValidation?: boolean | undefined;
+        string?: boolean | undefined;
+        type?: "array" | "boolean" | "count" | "number" | "string" | undefined;
     }
 
     interface CommandModule {
-        aliases?: string[] | string;
-        builder?: CommandBuilder;
-        command?: string[] | string;
-        describe?: string | false;
+        aliases?: string[] | string | undefined;
+        builder?: CommandBuilder | undefined;
+        command?: string[] | string | undefined;
+        describe?: string | false | undefined;
         handler: (args: any) => void;
     }
 

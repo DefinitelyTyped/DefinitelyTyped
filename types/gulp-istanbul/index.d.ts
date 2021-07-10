@@ -10,20 +10,20 @@ declare function GulpIstanbul(opts?: GulpIstanbul.Options): NodeJS.ReadWriteStre
 
 declare namespace GulpIstanbul {
     export function hookRequire(): NodeJS.ReadWriteStream;
-    export function summarizeCoverage(opts?: { coverageVariable?: string }): Coverage;
+    export function summarizeCoverage(opts?: { coverageVariable?: string | undefined }): Coverage;
     export function writeReports(opts?: ReportOptions): NodeJS.ReadWriteStream;
     export function enforceThresholds(opts?: ThresholdOptions): NodeJS.ReadWriteStream;
 
     interface Options {
-        coverageVariable?: string;
-        includeUntested?: boolean;
-        embedSource?: boolean;
-        preserveComments?: boolean;
-        noCompact?: boolean;
-        noAutoWrap?: boolean;
-        codeGenerationOptions?: Object;
-        debug?: boolean;
-        walkDebug?: boolean;
+        coverageVariable?: string | undefined;
+        includeUntested?: boolean | undefined;
+        embedSource?: boolean | undefined;
+        preserveComments?: boolean | undefined;
+        noCompact?: boolean | undefined;
+        noAutoWrap?: boolean | undefined;
+        codeGenerationOptions?: Object | undefined;
+        debug?: boolean | undefined;
+        walkDebug?: boolean | undefined;
     }
 
     interface Coverage {
@@ -41,22 +41,22 @@ declare namespace GulpIstanbul {
     }
 
     interface ReportOptions {
-        dir?: string;
-        reporters?: string[];
-        reportOpts?: { dir?: string };
-        coverageVariable?: string;
+        dir?: string | undefined;
+        reporters?: string[] | undefined;
+        reportOpts?: { dir?: string | undefined } | undefined;
+        coverageVariable?: string | undefined;
     }
 
     interface ThresholdOptions {
-        coverageVariable?: string;
-        thresholds?: { global?: CoverageOptions | number; each?: CoverageOptions | number };
+        coverageVariable?: string | undefined;
+        thresholds?: { global?: CoverageOptions | number | undefined; each?: CoverageOptions | number | undefined } | undefined;
     }
 
     interface CoverageOptions {
-        lines?: number;
-        statements?: number;
-        functions?: number;
-        branches?: number;
+        lines?: number | undefined;
+        statements?: number | undefined;
+        functions?: number | undefined;
+        branches?: number | undefined;
     }
 }
 

@@ -47,23 +47,23 @@ export interface Reporter {
 }
 
 export interface ReporterConfig {
-    logSpans?: boolean;
-    agentHost?: string;
-    agentPort?: number;
-    agentSocketType?: SocketType | SocketOptions;
-    collectorEndpoint?: string;
-    username?: string;
-    password?: string;
-    flushIntervalMs?: number;
+    logSpans?: boolean | undefined;
+    agentHost?: string | undefined;
+    agentPort?: number | undefined;
+    agentSocketType?: SocketType | SocketOptions | undefined;
+    collectorEndpoint?: string | undefined;
+    username?: string | undefined;
+    password?: string | undefined;
+    flushIntervalMs?: number | undefined;
 }
 
 export interface SamplerConfig {
     type: string;
     param: number;
-    hostPort?: string;
-    host?: string;
-    port?: number;
-    refreshIntervalMs?: number;
+    hostPort?: string | undefined;
+    host?: string | undefined;
+    port?: number | undefined;
+    refreshIntervalMs?: number | undefined;
 }
 
 // Timer tracks how long an operation took and also computes percentiles.
@@ -73,20 +73,20 @@ export interface Timer {
 }
 
 export interface TracingConfig {
-    serviceName?: string;
-    disable?: boolean;
-    sampler?: SamplerConfig;
-    reporter?: ReporterConfig;
-    traceId128bit?: boolean;
-    shareRpcSpan?: boolean;
+    serviceName?: string | undefined;
+    disable?: boolean | undefined;
+    sampler?: SamplerConfig | undefined;
+    reporter?: ReporterConfig | undefined;
+    traceId128bit?: boolean | undefined;
+    shareRpcSpan?: boolean | undefined;
 }
 
 export interface TracingOptions {
-    reporter?: Reporter;
-    metrics?: PrometheusMetricsFactory;
-    logger?: Logger;
+    reporter?: Reporter | undefined;
+    metrics?: PrometheusMetricsFactory | undefined;
+    logger?: Logger | undefined;
     tags?: any;
-    traceId128bit?: boolean;
+    traceId128bit?: boolean | undefined;
 }
 
 export interface Injector {
@@ -120,10 +120,10 @@ export class PrometheusMetricsFactory {
 }
 
 export interface TextMapCodecOptions {
-    urlEncoding?: boolean;
-    contextKey?: string;
-    baggagePrefix?: string;
-    metrics?: MetricsFactory;
+    urlEncoding?: boolean | undefined;
+    contextKey?: string | undefined;
+    baggagePrefix?: string | undefined;
+    metrics?: MetricsFactory | undefined;
 }
 
 export class TextMapCodec implements Injector, Extractor {
@@ -133,9 +133,9 @@ export class TextMapCodec implements Injector, Extractor {
 }
 
 export interface ZipkinB3TextMapCodecOptions {
-    urlEncoding?: boolean;
-    baggagePrefix?: string;
-    metrics?: MetricsFactory;
+    urlEncoding?: boolean | undefined;
+    baggagePrefix?: string | undefined;
+    metrics?: MetricsFactory | undefined;
 }
 
 export class ZipkinB3TextMapCodec implements Injector, Extractor {

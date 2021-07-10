@@ -8,7 +8,7 @@ export default class ImageResizeButtons extends Plugin {
 }
 
 export interface ImageResizeOption {
-    label?: string;
+    label?: string | undefined;
     name: string;
     icon: 'small' | 'medium' | 'large' | 'original';
     value: string | null;

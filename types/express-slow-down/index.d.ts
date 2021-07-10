@@ -31,7 +31,7 @@ declare namespace SlowDown {
          * to limit. Represents milliseconds since epoch (compare to `Date.now()`). This field
          * depends on store support. It will be `undefined` if the store does not provide the value.
          */
-        resetTime?: number;
+        resetTime?: number | undefined;
 
         /**
          * Amount of delay imposed on current request in milliseconds
@@ -59,36 +59,36 @@ declare namespace SlowDown {
         /**
          * How long to keep records of requests in memory. Defaults to `60000` (1 minute)
          */
-        windowMs?: number;
+        windowMs?: number | undefined;
 
         /**
          * Max number of connections during `windowMs` before starting to delay responses.
          * Defaults to `1`. Set to `0` to disable delaying.
          */
-        delayAfter?: number;
+        delayAfter?: number | undefined;
 
         /**
          * How long to delay the response, multiplied by `(number recent hits - delayAfter)`.
          * Defaults to `1000` (1 second). Set to `0` to disable delaying.
          */
-        delayMs?: number;
+        delayMs?: number | undefined;
 
         /**
          * Maximum value for `delayMs` after many consecutive attempts, that is, after the n-th request,
          * the delay will be always `maxDelayMs`. Important when your application is running behind a
          * load balancer or reverse proxy that has a request timeout. Defaults to Infinity.
          */
-        maxDelayMs?: number;
+        maxDelayMs?: number | undefined;
 
         /**
          * When `true` failed requests (response status >= 400) won't be counted. Defaults to `false`.
          */
-        skipFailedRequests?: boolean;
+        skipFailedRequests?: boolean | undefined;
 
         /**
          * When `true` successful requests (response status < 400) won't be counted. Defaults to `false`.
          */
-        skipSuccessfulRequests?: boolean;
+        skipSuccessfulRequests?: boolean | undefined;
 
         /**
          * Function used to generate keys. By default user IP address (`req.ip`) is used.
@@ -111,7 +111,7 @@ declare namespace SlowDown {
         /**
          * The storage to use when persisting request attempts. By default, the MemoryStore is used.
          */
-        store?: Store;
+        store?: Store | undefined;
     }
 }
 

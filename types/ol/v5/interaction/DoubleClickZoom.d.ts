@@ -5,8 +5,8 @@ import { ObjectEvent } from '../Object';
 import Interaction from './Interaction';
 
 export interface Options {
-    duration?: number;
-    delta?: number;
+    duration?: number | undefined;
+    delta?: number | undefined;
 }
 export default class DoubleClickZoom extends Interaction {
     constructor(opt_options?: Options);

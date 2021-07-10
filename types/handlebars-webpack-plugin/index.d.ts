@@ -37,14 +37,14 @@ declare namespace HandlebarsWebpackPlugin {
          * Also supports nested directories if write
          * path.join(process.cwd(), "app", "src", "**", "*.hbs"),
          */
-        entry?: string;
+        entry?: string | undefined;
 
         /**
          * Output path and filename(s).
          * This should lie within the webpacks output-folder
          * if omitted, the input filepath stripped of its extension will be used
          */
-        output?: string;
+        output?: string | undefined;
 
         /**
          * You can also add a [path] variable, which will emit the files with their
@@ -53,62 +53,62 @@ declare namespace HandlebarsWebpackPlugin {
          *
          * data passed to main hbs template: `main-template(data)`
          */
-        data?: object | string;
+        data?: object | string | undefined;
 
         /**
          * globbed path to partials, where folder/filename is unique
          */
-        partials?: string[];
+        partials?: string[] | undefined;
 
         /**
          * Register custom helpers. May be either a function or a glob-pattern
          */
-        helpers?: HelperDeclareSpec | { projectHelpers: string };
+        helpers?: HelperDeclareSpec | { projectHelpers: string } | undefined;
 
         /**
          * Modify the default output path of each entry-template
          */
-        getTargetFilepath?: (filepath: string, outputTemplate: string, rootFolder: string) => string | undefined;
+        getTargetFilepath?: ((filepath: string, outputTemplate: string, rootFolder: string) => string | undefined) | undefined;
 
         /**
          * Modify the hbs partial-id created for a loaded partial
          */
-        getPartialId?: (filePath: string) => string | undefined;
+        getPartialId?: ((filePath: string) => string | undefined) | undefined;
 
         /**
          * onBeforeSetup hook, runs before setup of the plugin
          */
-        onBeforeSetup?: (Handlebars: RuntimeOptions) => any;
+        onBeforeSetup?: ((Handlebars: RuntimeOptions) => any) | undefined;
 
         /**
          * onBeforeAddPartials hook, runs before the partials addition to the .html files
          */
-        onBeforeAddPartials?: (Handlebars: RuntimeOptions, partialsMap: PartialsMap) => any;
+        onBeforeAddPartials?: ((Handlebars: RuntimeOptions, partialsMap: PartialsMap) => any) | undefined;
 
         /**
          * onBeforeCompile hook, runs before the plugin compilation
          */
-        onBeforeCompile?: (Handlebars: RuntimeOptions, templateContent: string) => any;
+        onBeforeCompile?: ((Handlebars: RuntimeOptions, templateContent: string) => any) | undefined;
 
         /**
          * onBeforeRender hook, runs before rendering of the templates
          */
-        onBeforeRender?: (Handlebars: RuntimeOptions, data: object, filename: string) => any;
+        onBeforeRender?: ((Handlebars: RuntimeOptions, data: object, filename: string) => any) | undefined;
 
         /**
          * onBeforeSave hook, runs before saving
          */
-        onBeforeSave?: (Handlebars: RuntimeOptions, resultHtml: string, filename: string) => any;
+        onBeforeSave?: ((Handlebars: RuntimeOptions, resultHtml: string, filename: string) => any) | undefined;
 
         /**
          * onDone, runs before the final stages of the plugin
          */
-        onDone?: (Handlebars: RuntimeOptions, filename: string) => any;
+        onDone?: ((Handlebars: RuntimeOptions, filename: string) => any) | undefined;
 
         /**
          * HtmlWebpackPlugin additional configurations
          */
-        htmlWebpackPlugin?: Options | HtmlWebpackPlugin;
+        htmlWebpackPlugin?: Options | HtmlWebpackPlugin | undefined;
     }
 }
 

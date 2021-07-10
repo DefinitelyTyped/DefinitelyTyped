@@ -7,33 +7,33 @@
 /// <reference types="jquery" />
 
 interface UniformCoreOptions {
-    activeClass?: string;
-    autoHide?: boolean;
-    buttonClass?: string;
-    checkboxClass?: string;
-    checkedClass?: string;
-    disabledClass?: string;
-    eventNamespace?: string;
-    fileButtonClass?: string;
-    fileButtonHtml?: string;
-    fileClass?: string;
-    fileDefaultHtml?: string;
-    filenameClass?: string;
-    focusClass?: string;
-    hoverClass?: string;
-    idPrefix?: string;
-    inputAddTypeAsClass?: boolean;
-    inputClass?: string;
-    radioClass?: string;
-    resetDefaultHtml?: string;
+    activeClass?: string | undefined;
+    autoHide?: boolean | undefined;
+    buttonClass?: string | undefined;
+    checkboxClass?: string | undefined;
+    checkedClass?: string | undefined;
+    disabledClass?: string | undefined;
+    eventNamespace?: string | undefined;
+    fileButtonClass?: string | undefined;
+    fileButtonHtml?: string | undefined;
+    fileClass?: string | undefined;
+    fileDefaultHtml?: string | undefined;
+    filenameClass?: string | undefined;
+    focusClass?: string | undefined;
+    hoverClass?: string | undefined;
+    idPrefix?: string | undefined;
+    inputAddTypeAsClass?: boolean | undefined;
+    inputClass?: string | undefined;
+    radioClass?: string | undefined;
+    resetDefaultHtml?: string | undefined;
     resetSelector?: any;
-    selectAutoWidth?: boolean;
-    selectClass?: string;
-    selectMultiClass?: string;
-    submitDefaultHtml?: string;
-    textareaClass?: string;
-    useID?: boolean;
-    wrapperClass?: string;
+    selectAutoWidth?: boolean | undefined;
+    selectClass?: string | undefined;
+    selectMultiClass?: string | undefined;
+    submitDefaultHtml?: string | undefined;
+    textareaClass?: string | undefined;
+    useID?: boolean | undefined;
+    wrapperClass?: string | undefined;
 }
 
 interface UniformOptions extends UniformCoreOptions {

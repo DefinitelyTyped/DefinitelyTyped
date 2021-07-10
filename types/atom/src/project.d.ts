@@ -87,5 +87,5 @@ export interface Project {
 export interface ProjectSpecification {
     paths: string[];
     originPath: string;
-    config?: ConfigValues;
+    config?: ConfigValues | undefined;
 }

@@ -25,33 +25,33 @@ declare module 'leaflet' {
          * Specifies if the text should be repeated along the polyline.
          * @default false
          */
-        repeat?: boolean;
+        repeat?: boolean | undefined;
         /**
          * Centers the text according to the polyline's bounding box.
          * @default false
          */
-        center?: boolean;
+        center?: boolean | undefined;
         /**
          * Show text below the path.
          * @default false
          */
-        below?: boolean;
+        below?: boolean | undefined;
         /**
          * Set an offset to position text relative to the polyline.
          * @default 0
          */
-        offset?: number;
+        offset?: number | undefined;
         /**
          * Rotate text.
          * @default 0
          */
-        orientation?: TextPathOrientation;
+        orientation?: TextPathOrientation | undefined;
         /**
          * Object containing the attributes applied to the text tag.
          * @see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text#attributes
          * @default {}
          */
-        attributes?: Record<string, string>;
+        attributes?: Record<string, string> | undefined;
     }
 
     interface Polyline {

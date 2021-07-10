@@ -112,8 +112,8 @@ export const SEMVER_SPEC_VERSION: '2.0.0';
 export type ReleaseType = 'major' | 'premajor' | 'minor' | 'preminor' | 'patch' | 'prepatch' | 'prerelease';
 
 export interface Options {
-    loose?: boolean;
-    includePrerelease?: boolean;
+    loose?: boolean | undefined;
+    includePrerelease?: boolean | undefined;
 }
 export interface CoerceOptions extends Options {
     /**
@@ -127,7 +127,7 @@ export interface CoerceOptions extends Options {
      *
      * @since 6.2.0
      */
-    rtl?: boolean;
+    rtl?: boolean | undefined;
 }
 
 export type Operator = '===' | '!==' | '' | '=' | '==' | '!=' | '>' | '>=' | '<' | '<=';

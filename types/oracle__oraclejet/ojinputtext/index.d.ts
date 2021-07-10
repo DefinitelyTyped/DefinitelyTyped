@@ -12,14 +12,14 @@ export interface inputBase<V, SP extends inputBaseSettableProperties<V, SV>, SV 
     validators: Array<Validator<V> | Validation.RegisteredValidator> | null;
     translations: {
         regexp?: {
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
     onAsyncValidatorsChanged: ((event: JetElementCustomEvent<inputBase<V, SP, SV, RV>["asyncValidators"]>) => any) | null;
     onAutocompleteChanged: ((event: JetElementCustomEvent<inputBase<V, SP, SV, RV>["autocomplete"]>) => any) | null;
@@ -79,14 +79,14 @@ export interface inputBaseSettableProperties<V, SV = V, RV = V> extends editable
     validators: Array<Validator<V> | Validation.RegisteredValidator> | null;
     translations: {
         regexp?: {
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
 }
 export interface inputBaseSettablePropertiesLenient<V, SV, RV> extends Partial<inputBaseSettableProperties<V, SV, RV>> {
@@ -96,14 +96,14 @@ export interface ojInputPassword extends inputBase<string | null, ojInputPasswor
     value: string | null;
     translations: {
         regexp?: {
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
     onValueChanged: ((event: JetElementCustomEvent<ojInputPassword["value"]>) => any) | null;
     onOjAnimateEnd: ((event: ojInputPassword.ojAnimateEnd) => any) | null;
@@ -140,14 +140,14 @@ export interface ojInputPasswordSettableProperties extends inputBaseSettableProp
     value: string | null;
     translations: {
         regexp?: {
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
         required?: {
-            hint?: string;
-            messageDetail?: string;
-            messageSummary?: string;
-        };
+            hint?: string | undefined;
+            messageDetail?: string | undefined;
+            messageSummary?: string | undefined;
+        } | undefined;
     };
 }
 export interface ojInputPasswordSettablePropertiesLenient extends Partial<ojInputPasswordSettableProperties> {

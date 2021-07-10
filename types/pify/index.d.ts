@@ -12,12 +12,12 @@ declare function pify(input: object, options?: pify.PifyOptions): any;
 
 declare namespace pify {
     interface PifyOptions {
-        multiArgs?: boolean;
-        include?: Array<string | RegExp>;
-        exclude?: Array<string | RegExp>;
-        excludeMain?: boolean;
-        errorFirst?: boolean;
-        promiseModule?: PromiseModule;
+        multiArgs?: boolean | undefined;
+        include?: Array<string | RegExp> | undefined;
+        exclude?: Array<string | RegExp> | undefined;
+        excludeMain?: boolean | undefined;
+        errorFirst?: boolean | undefined;
+        promiseModule?: PromiseModule | undefined;
     }
 
     interface PromiseModule {

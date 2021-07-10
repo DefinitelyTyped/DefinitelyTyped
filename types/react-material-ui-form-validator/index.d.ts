@@ -10,11 +10,11 @@ import * as React from 'react';
 import { SelectFieldProps, TextFieldProps } from 'material-ui';
 
 export interface ValidatorFormProps {
-    className?: string;
+    className?: string | undefined;
     onSubmit: (event: React.FormEvent) => void;
-    instantValidate?: boolean;
-    onError?: (errors: any[]) => void;
-    debounceTime?: number;
+    instantValidate?: boolean | undefined;
+    onError?: ((errors: any[]) => void) | undefined;
+    debounceTime?: number | undefined;
     [key: string]: any;
 }
 export class ValidatorForm extends React.Component<ValidatorFormProps> {
@@ -25,12 +25,12 @@ export class ValidatorForm extends React.Component<ValidatorFormProps> {
 }
 
 export interface ValidatorComponentProps {
-    errorMessages?: any[] | string;
-    validators?: any[];
+    errorMessages?: any[] | string | undefined;
+    validators?: any[] | undefined;
     name: string;
     value: any;
-    validatorListener?: (isValid: boolean) => void;
-    withRequiredValidator?: boolean;
+    validatorListener?: ((isValid: boolean) => void) | undefined;
+    withRequiredValidator?: boolean | undefined;
     [key: string]: any;
 }
 

@@ -13,7 +13,7 @@ declare function containsPath(
 
 declare namespace containsPath {
     interface Options {
-        nocase?: boolean;
-        partialMatch?: boolean;
+        nocase?: boolean | undefined;
+        partialMatch?: boolean | undefined;
     }
 }

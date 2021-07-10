@@ -8,9 +8,9 @@
 import gulp = require('gulp');
 
 interface IOptions {
-    configFile?: string;
-    args?: Array<string>;
-    debug?: boolean;
+    configFile?: string | undefined;
+    args?: Array<string> | undefined;
+    debug?: boolean | undefined;
 }
 
 interface IGulpProtractor {

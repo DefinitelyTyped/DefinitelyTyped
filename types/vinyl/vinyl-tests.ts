@@ -21,10 +21,10 @@ const {describe, it, before, after, beforeEach, afterEach} = null as any as {
 interface TestFile extends File {
     sourceMap?: any;
     custom?: any;
-    _symlink?: string;
-    _contents?: Buffer | NodeJS.ReadableStream | null;
-    _cwd?: string;
-    _base?: string;
+    _symlink?: string | undefined;
+    _contents?: Buffer | NodeJS.ReadableStream | null | undefined;
+    _cwd?: string | undefined;
+    _base?: string | undefined;
 }
 
 const pipe: (streams: [NodeJS.ReadableStream, NodeJS.WritableStream], cb: (err?: Error) => void) => void = miss.pipe;

@@ -8,8 +8,8 @@ import passport = require('passport');
 import express = require('express');
 
 export interface StrategyOption {
-    key?: string;
-    cookie?: express.CookieOptions;
+    key?: string | undefined;
+    cookie?: express.CookieOptions | undefined;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {

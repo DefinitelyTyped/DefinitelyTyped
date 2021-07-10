@@ -64,27 +64,27 @@ export interface OptionalOptions {
    * Defaults to 'bell-provider' where 'provider' is the provider name (or 'custom' for custom providers).
    * For example, the Twitter cookie name defaults to 'bell-twitter'.
    */
-  cookie?: string;
+  cookie?: string | undefined;
   /**
    * sets the cookie secure flag.
    * Defaults to true.
    */
-  isSecure?: boolean;
+  isSecure?: boolean | undefined;
   /**
    * sets the cookie HTTP only flag.
    * Defaults to true.
    */
-  isHttpOnly?: boolean;
+  isHttpOnly?: boolean | undefined;
   /**
    * cookie time-to-live in milliseconds.
    * Defaults to null (session time-life - cookies are deleted when the browser is closed).
    */
-  ttl?: number;
+  ttl?: number | undefined;
   /**
    * the domain scope.
    * Defaults to null (no domain).
    */
-  domain?: string;
+  domain?: string | undefined;
   /**
    * provider-specific query parameters for the authentication endpoint.
    * It may be passed either as an object to merge into the query string,
@@ -96,14 +96,14 @@ export interface OptionalOptions {
    * * Twitter supports `force_login`, `screen_name`.
    * * Linkedin supports `fields`.
    */
-  providerParams?: StringLikeMap | ((request: Request) => StringLikeMap);
+  providerParams?: StringLikeMap | ((request: Request) => StringLikeMap) | undefined;
   /**
    * allows passing query parameters from a bell protected endpoint to the auth request.
    * It will merge the query params you pass along with the providerParams and any other predefined ones.
    * Be aware that this will override predefined query parameters!
    * Default to false.
    */
-  allowRuntimeProviderParams?: StringLikeMap | boolean;
+  allowRuntimeProviderParams?: StringLikeMap | boolean | undefined;
   /**
    * Each built-in vendor comes with the required scope for basic profile information.
    * Use scope to specify a different scope as required by your application.
@@ -111,14 +111,14 @@ export interface OptionalOptions {
    * or a function which takes the client's request and returns an object.
    * Consult the provider for their specific supported scopes.
    */
-  scope?: string[] | ((request: Request) => string[]);
+  scope?: string[] | ((request: Request) => string[]) | undefined;
   /**
    * skips obtaining a user profile from the provider.
    * Useful if you need specific scopes,
    * but not the user profile.
    * Defaults to false.
    */
-  skipProfile?: boolean;
+  skipProfile?: boolean | undefined;
   /**
    * a configuration object used to customize the provider settings.
    * The built-in 'twitter' provider accepts the `extendedProfile` & `getMethod` options.
@@ -128,7 +128,7 @@ export interface OptionalOptions {
    * option which allows pointing to a private enterprise installation (e.g. 'https://vpn.example.com').
    * See Providers documentation for more information.
    */
-  config?: { extendedProfile?: boolean; getMethod?: string } | { uri?: string };
+  config?: { extendedProfile?: boolean | undefined; getMethod?: string | undefined } | { uri?: string | undefined } | undefined;
   /**
    * an object of key-value pairs that specify additional
    * URL query parameters to send with the profile request to the provider.
@@ -136,7 +136,7 @@ export interface OptionalOptions {
    * for example, could have fields specified to determine the fields returned from the user's graph,
    * which would then be available to you in the auth.credentials.profile.raw object.
    */
-  profileParams?: StringLikeMap;
+  profileParams?: StringLikeMap | undefined;
   /**
    * allows passing additional OAuth state from initial request.
    * This must be a function returning a string,
@@ -149,12 +149,12 @@ export interface OptionalOptions {
    * A boolean indicating whether or not you want the redirect_uri to be forced to https.
    * Useful if your hapi application runs as http, but is accessed through https.
    */
-  forceHttps?: boolean;
+  forceHttps?: boolean | undefined;
   /**
    * Set the base redirect_uri manually if it cannot be inferred properly from server settings.
    * Useful to override port, protocol, and host if proxied or forwarded.
    */
-  location?: string | ((req: Request) => string);
+  location?: string | ((req: Request) => string) | undefined;
 }
 
 export interface RequiredProviderOptions {
@@ -191,7 +191,7 @@ export interface Credentials {
   /**
    * Varying data depending on provider.
    */
-  profile?: object;
+  profile?: object | undefined;
 }
 
 export interface Credentials1 extends Credentials {
@@ -199,8 +199,8 @@ export interface Credentials1 extends Credentials {
 }
 
 export interface Credentials2 extends Credentials {
-  refreshToken?: string;
-  expiresIn?: number;
+  refreshToken?: string | undefined;
+  expiresIn?: number | undefined;
 }
 
 export interface CustomProtocol {
@@ -208,7 +208,7 @@ export interface CustomProtocol {
    * The name of the protocol.
    * @default custom
    */
-  name?: string;
+  name?: string | undefined;
   /**
    * the authorization endpoint URI.
    */
@@ -223,7 +223,7 @@ export interface CustomProtocol {
    */
   headers?: {
     [key: string]: string;
-  };
+  } | undefined;
 }
 
 /**
@@ -246,11 +246,11 @@ export interface CustomProtocol1 extends CustomProtocol {
    * * 'HMAC-SHA1' - default
    * * 'RSA-SHA1' - in that case, the clientSecret is your RSA private key
    */
-  signatureMethod?: 'HMAC-SHA1' | 'RSA-SHA1';
+  signatureMethod?: 'HMAC-SHA1' | 'RSA-SHA1' | undefined;
   /**
    * the temporary credentials (request token) endpoint).
    */
-  temporary?: string;
+  temporary?: string | undefined;
 
   profile: ProfileGetter<Credentials1>;
 }
@@ -265,23 +265,23 @@ export interface CustomProtocol2 extends CustomProtocol {
   /**
    * an array of scope strings.
    */
-  scope?: string[] | ((query: StringLikeMap) => string[]);
+  scope?: string[] | ((query: StringLikeMap) => string[]) | undefined;
   /**
    * boolean that determines if OAuth client id and client secret will be sent
    * as parameters as opposed to an Authorization header.
    * Defaults to false.
    */
-  useParamsAuth?: boolean;
+  useParamsAuth?: boolean | undefined;
 
   /**
    * If specified, uses proof key exchange.
    */
-  pkce?: PkceSetting;
+  pkce?: PkceSetting | undefined;
 
   /**
    * the scope separator character. Only required when a provider has a broken OAuth 2.0 implementation. Defaults to space (Facebook and GitHub default to comma).
    */
-  scopeSeparator?: string;
+  scopeSeparator?: string | undefined;
 
   profile: ProfileGetter<Credentials2>;
 }

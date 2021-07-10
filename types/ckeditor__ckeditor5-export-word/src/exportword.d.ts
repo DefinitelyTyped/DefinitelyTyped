@@ -6,11 +6,11 @@ export default class ExportWord extends Plugin implements Emitter, Observable {}
 
 export interface ExportWordConfig {
     converterOptions?: {
-        margin_top?: 0 | string;
-        margin_bottom?: 0 | string;
-        margin_right?: 0 | string;
-        margin_left?: 0 | string;
-        auto_pagination?: boolean;
+        margin_top?: 0 | string | undefined;
+        margin_bottom?: 0 | string | undefined;
+        margin_right?: 0 | string | undefined;
+        margin_left?: 0 | string | undefined;
+        auto_pagination?: boolean | undefined;
         format?:
             | "Letter"
             | "Legal"
@@ -23,18 +23,18 @@ export interface ExportWordConfig {
             | "A5"
             | "A6"
             | "B4"
-            | "B5";
+            | "B5" | undefined;
         header?: Array<{
             html: string;
             css: string;
-            type?: "default" | "even" | "odd" | "first";
-        }>;
+            type?: "default" | "even" | "odd" | "first" | undefined;
+        }> | undefined;
         footer?: Array<{
             html: string;
             css: string;
-            type?: "default" | "even" | "odd" | "first";
-        }>;
-        timezone?: string;
+            type?: "default" | "even" | "odd" | "first" | undefined;
+        }> | undefined;
+        timezone?: string | undefined;
         comments?: Array<
             Record<
                 string,
@@ -44,17 +44,17 @@ export interface ExportWordConfig {
                     created: string;
                 }
             >
-        >;
+        > | undefined;
         suggestions?: Record<
             string,
             {
                 author: string;
                 created: string;
             }
-        >;
-    };
-    converterUrl?: string;
-    fileName?: string;
-    stylesheets?: string[];
-    tokenUrl?: false | string | (() => Promise<string>);
+        > | undefined;
+    } | undefined;
+    converterUrl?: string | undefined;
+    fileName?: string | undefined;
+    stylesheets?: string[] | undefined;
+    tokenUrl?: false | string | (() => Promise<string>) | undefined;
 }

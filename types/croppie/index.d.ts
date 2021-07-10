@@ -15,10 +15,10 @@ declare class Croppie {
 
     bind(options: {
         url: string,
-        points?: number[],
-        orientation?: number,
-        zoom?: number,
-        useCanvas?: boolean,
+        points?: number[] | undefined,
+        orientation?: number | undefined,
+        zoom?: number | undefined,
+        useCanvas?: boolean | undefined,
     }): Promise<void>;
 
     result(options: Croppie.ResultOptions & { type: 'base64' | 'canvas' }): Promise<string>;
@@ -44,33 +44,33 @@ declare namespace Croppie {
     type Type = 'canvas' | 'base64' | 'html' | 'blob' | 'rawcanvas';
 
     interface ResultOptions {
-        type?: Type;
-        size?: 'viewport' | 'original' | { width: number, height: number };
-        format?: Format;
-        quality?: number;
-        circle?: boolean;
+        type?: Type | undefined;
+        size?: 'viewport' | 'original' | { width: number, height: number } | undefined;
+        format?: Format | undefined;
+        quality?: number | undefined;
+        circle?: boolean | undefined;
     }
 
     interface CroppieOptions {
-        boundary?: { width: number, height: number };
-        customClass?: string;
-        enableExif?: boolean;
-        enableOrientation?: boolean;
-        enableZoom?: boolean;
-        enforceBoundary?: boolean;
-        enableResize?: boolean;
+        boundary?: { width: number, height: number } | undefined;
+        customClass?: string | undefined;
+        enableExif?: boolean | undefined;
+        enableOrientation?: boolean | undefined;
+        enableZoom?: boolean | undefined;
+        enforceBoundary?: boolean | undefined;
+        enableResize?: boolean | undefined;
         /** @default 1.5 */
-        maxZoom?: number;
+        maxZoom?: number | undefined;
         /** @default 0 */
-        minZoom?: number;
-        mouseWheelZoom?: boolean | 'ctrl';
-        showZoomer?: boolean;
-        viewport?: { width: number, height: number, type?: CropType };
+        minZoom?: number | undefined;
+        mouseWheelZoom?: boolean | 'ctrl' | undefined;
+        showZoomer?: boolean | undefined;
+        viewport?: { width: number, height: number, type?: CropType | undefined } | undefined;
     }
 
     interface CropData {
-        points?: number[];
-        orientation?: number;
-        zoom?: number;
+        points?: number[] | undefined;
+        orientation?: number | undefined;
+        zoom?: number | undefined;
     }
 }

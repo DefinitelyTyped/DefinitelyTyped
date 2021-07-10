@@ -13,16 +13,16 @@ declare namespace GridFSStream {
     }
 
     export interface Options {
-        _id?: string;
-        filename?: string;
-        mode?: string;
+        _id?: string | undefined;
+        filename?: string | undefined;
+        mode?: string | undefined;
 
-        range?: Range;
+        range?: Range | undefined;
 
         // any other options from the GridStore may be passed too, e.g.
-        chunkSize?: number;
-        content_type?: string;
-        root?: string;
+        chunkSize?: number | undefined;
+        content_type?: string | undefined;
+        root?: string | undefined;
         metadata?: any;
     }
 

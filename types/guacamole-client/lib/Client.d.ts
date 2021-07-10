@@ -25,7 +25,7 @@ export namespace Client {
     interface ExportLayerBase {
         height: number;
         width: number;
-        url?: string;
+        url?: string | undefined;
     }
 
     type ExportLayer =

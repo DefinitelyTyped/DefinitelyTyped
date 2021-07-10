@@ -32,11 +32,11 @@ declare module 'moment' {
 
     interface HolidayDefinition {
         date: string;
-        keywords?: string[];
-        keywords_y?: string[];
-        keywords_n?: string[];
-        regions?: string[];
-        regions_n?: string[];
+        keywords?: string[] | undefined;
+        keywords_y?: string[] | undefined;
+        keywords_n?: string[] | undefined;
+        regions?: string[] | undefined;
+        regions_n?: string[] | undefined;
     }
 
     interface HolidaysMapping {

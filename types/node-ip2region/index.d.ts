@@ -1,6 +1,6 @@
 // Type definitions for node-ip2region 1.0
 // Project: https://github.com/lionsoul2014/ip2region
-// Definitions by: DCsunset <https://github.com/DefinitelyTyped>
+// Definitions by: DCsunset <https://github.com/DCsunset>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 

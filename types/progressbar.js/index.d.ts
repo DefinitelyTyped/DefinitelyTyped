@@ -42,25 +42,25 @@ declare namespace main {
          * Duration for animation in milliseconds
          * @default 800
          */
-        duration?: number;
+        duration?: number | undefined;
 
         /**
          * Easing for animation.
          */
-        easing?: string;
+        easing?: string | undefined;
 
         /**
          * Attachment which can be any object
          * you need to modify within the step function.
          * Passed as a parameter to step function.
          */
-        attachement?: SVGPathElement;
+        attachement?: SVGPathElement | undefined;
 
-        from?: Color;
+        from?: Color | undefined;
 
-        to?: Color;
+        to?: Color | undefined;
 
-        step?: StepFunction;
+        step?: StepFunction | undefined;
     }
 
     interface AnimationSupport {
@@ -98,7 +98,7 @@ declare namespace main {
          * Stroke color.
          * @default '#3a3a3a'
          */
-        color?: string;
+        color?: string | undefined;
 
         /**
          * Width of the stroke.
@@ -109,21 +109,21 @@ declare namespace main {
          * @see {@link https://github.com/kimmobrunfeldt/progressbar.js/issues/79}
          * @default 1.0
          */
-        strokeWidth?: number;
+        strokeWidth?: number | undefined;
 
         /**
          * If trail options are not defined, trail won't be drawn
          * Color for lighter trail stroke underneath the actual progress path.
          * @default '#eee'
          */
-        trailColor?: string;
+        trailColor?: string | undefined;
 
         /**
          * Width of the trail stroke.
          * Trail is always centered relative to actual progress path.
          * @default 1.0
          */
-        trailWidth?: number;
+        trailWidth?: number | undefined;
 
         /**
          * Inline CSS styles for the created SVG element
@@ -132,7 +132,7 @@ declare namespace main {
          * If you specify anything in this object, none of the default styles apply
          * @default null
          */
-        svgStyle?: SvgInlineStyle | null;
+        svgStyle?: SvgInlineStyle | null | undefined;
 
         /**
          *  Text element is a <p> element appended to container
@@ -141,20 +141,20 @@ declare namespace main {
          * You can also prevent all default inline styles with 'text.style: null'
          * @default null
          */
-        text?: TextOptions | null;
+        text?: TextOptions | null | undefined;
 
         /**
          * Fill color for the shape. If null, no fill.
          * @default null
          */
-        fill?: string | null;
+        fill?: string | null | undefined;
 
         /**
          * If true, some useful console.warn calls will be done if it seems
          * that progressbar is used incorrectly
          * @default false
          */
-        warnings?: boolean;
+        warnings?: boolean | undefined;
     }
 
     /** Inline CSS styles for the created SVG element */
@@ -171,13 +171,13 @@ declare namespace main {
          * Initial value for text.
          * @default null
          */
-        value?: string | null;
+        value?: string | null | undefined;
 
         /**
          * Class name for text element.
          * @default 'progressbar-text'
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Inline CSS styles for the text element.
@@ -186,7 +186,7 @@ declare namespace main {
          * set to position: relative. You can disable behavior this with `autoStyleContainer: false`
          * If you specify anything in this object, none of the default styles apply.
          */
-        style?: TextInlineStyle | null;
+        style?: TextInlineStyle | null | undefined;
 
         /**
          * Only effective if the `text.style` is not `null`.
@@ -194,7 +194,7 @@ declare namespace main {
          * Setting this to false disables that feature.
          * @default true
          */
-        autoStyleContainer?: boolean;
+        autoStyleContainer?: boolean | undefined;
 
         /**
          * Only effective if the shape is SemiCircle.
@@ -202,7 +202,7 @@ declare namespace main {
          * If false, bottom line of SVG canvas is in the center of text.
          * @default true
          */
-        alignToBottom?: boolean;
+        alignToBottom?: boolean | undefined;
     }
 }
 

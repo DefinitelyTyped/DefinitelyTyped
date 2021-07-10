@@ -6,16 +6,16 @@ import { TileSourceEvent } from './Tile';
 import XYZ from './XYZ';
 
 export interface Options {
-    cacheSize?: number;
-    imageSmoothing?: boolean;
+    cacheSize?: number | undefined;
+    imageSmoothing?: boolean | undefined;
     layer: string;
-    minZoom?: number;
-    maxZoom?: number;
-    reprojectionErrorThreshold?: number;
-    tileLoadFunction?: LoadFunction;
-    transition?: number;
-    url?: string;
-    wrapX?: boolean;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    transition?: number | undefined;
+    url?: string | undefined;
+    wrapX?: boolean | undefined;
 }
 export default class Stamen extends XYZ {
     constructor(options: Options);

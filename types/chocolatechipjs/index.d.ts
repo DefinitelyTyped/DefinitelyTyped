@@ -1111,7 +1111,7 @@ interface Headers {
 }
 
 interface RequestInit {
-  timeout?: number;
+  timeout?: number | undefined;
 }
 
 interface ChocolateChipStatic {
@@ -1131,7 +1131,7 @@ interface ChocolateChipStatic {
     /**
      * A number representing milliseconds to express when to refect a JSONP request.
      */
-    timeout?: number;
+    timeout?: number | undefined;
 
     /**
      * The optional name for the callback when the server response will execute.
@@ -1139,12 +1139,12 @@ interface ChocolateChipStatic {
      * However some sites may use a different name for their JSONP function.
      * Consult the documentation on the site to ascertain the correct value for this callback.
      */
-    callbackName?: string;
+    callbackName?: string | undefined;
 
     /**
      * This value determines whether the callbacks and script associate with JSONP persist or are purged after the request returns. By default this is set to true, meaning that they will be purged.
      */
-    clear?: boolean;
+    clear?: boolean | undefined;
   }): any;
 }
 

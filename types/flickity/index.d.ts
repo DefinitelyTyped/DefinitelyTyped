@@ -83,33 +83,33 @@ declare namespace Flickity {
          *
          * default: '.gallery-cell'
          */
-        cellSelector?: string;
+        cellSelector?: string | undefined;
 
         /**
          * Zero-based index of the initial selected cell.
          */
-        initialIndex?: number;
+        initialIndex?: number | undefined;
 
         /**
          * Enable keyboard navigation. Users can tab to a Flickity gallery, and pressing left & right keys to change cells.
          *
          * default: true
          */
-        accessibility?: boolean;
+        accessibility?: boolean | undefined;
 
         /**
          * Sets the height of the gallery to the height of the tallest cell.  Set to  false if you prefer to size the gallery with CSS, rather than using the size of cells.
          *
          * default: true
          */
-        setGallerySize?: boolean;
+        setGallerySize?: boolean | undefined;
 
         /**
          * Adjusts sizes and positions when window is resized.
          *
          * default: true
          */
-        resize?: boolean;
+        resize?: boolean | undefined;
 
         /**
          * Align cells within the gallery element.
@@ -117,42 +117,42 @@ declare namespace Flickity {
          *
          * default: 'center'
          */
-        cellAlign?: string;
+        cellAlign?: string | undefined;
 
         /**
          * Contains cells to gallery element to prevent excess scroll at beginning or end. Has no effect if wrapAround is enabled
          *
          * default: true
          */
-        contain?: boolean;
+        contain?: boolean | undefined;
 
         /**
          * Unloaded images have no size, which can throw off cell positions. To fix this, the imagesLoaded option re-positions cells once their images have loaded.
          *
          * default: true
          */
-        imagesLoaded?: boolean;
+        imagesLoaded?: boolean | undefined;
 
         /**
          * Sets positioning in percent values, rather than pixel values. If your cells do not have percent widths, we recommended percentPosition: false.
          *
          * default: false
          */
-        percentPosition?: boolean;
+        percentPosition?: boolean | undefined;
 
         /**
          * Enables right-to-left layout.
          *
          * default: false
          */
-        rightToLeft?: boolean;
+        rightToLeft?: boolean | undefined;
 
         /**
          * Enables dragging and flicking
          *
          * default: true
          */
-        draggable?: boolean;
+        draggable?: boolean | undefined;
 
         /**
          * Enables content to be freely scrolled and flicked without aligning cells to an end position.
@@ -160,14 +160,14 @@ declare namespace Flickity {
          *
          * default: false
          */
-        freeScroll?: boolean;
+        freeScroll?: boolean | undefined;
 
         /**
          * At the end of cells, wrap-around to the other end for infinite scrolling.
          *
          * default: false
          */
-        wrapAround?: boolean;
+        wrapAround?: boolean | undefined;
 
         /**
          * Groups cells together in slides. Flicking, page dots, and previous/next buttons are mapped to group slides, not individual cells.
@@ -176,7 +176,7 @@ declare namespace Flickity {
          * If set to a number, group cells by that number.
          * If set to a percent string, group cells that fit in the percent of the width of the carousel viewport.
          */
-        groupCells?: boolean | number | string;
+        groupCells?: boolean | number | string | undefined;
 
         /**
          * Loads cell images when a cell is selected.
@@ -186,7 +186,7 @@ declare namespace Flickity {
          *
          * default: false
          */
-        lazyLoad?: boolean | number;
+        lazyLoad?: boolean | number | undefined;
 
         /**
          * Loads cell background image when a cell is selected.
@@ -195,24 +195,24 @@ declare namespace Flickity {
          * If set to a number n, load background images in selected slide and next n slides and previous n slides.
          * bgLazyLoad requires the flickity-bg-lazyload package. This package is not included and must be installed separately.
          */
-        bgLazyLoad?: boolean | number;
+        bgLazyLoad?: boolean | number | undefined;
 
         /**
          * Automatically advances to the next cell.
          *
          * default: false
          */
-        autoPlay?: boolean | number;
+        autoPlay?: boolean | number | undefined;
 
         /**
          * Auto-playing will pause when the user hovers over the carousel. Set pauseAutoPlayOnHover: false to disable this behavior.
          */
-        pauseAutoPlayOnHover?: boolean;
+        pauseAutoPlayOnHover?: boolean | undefined;
 
         /**
          * Changes height of carousel to fit height of selected slide.
          */
-        adaptiveHeight?: boolean;
+        adaptiveHeight?: boolean | undefined;
 
         /**
          * You can enable and disable Flickity with CSS. watchCSS option watches the content of :after of the gallery element. Flickity is enabled if :after content is 'flickity'.
@@ -220,176 +220,176 @@ declare namespace Flickity {
          *
          * default: false
          */
-        watchCSS?: boolean | string;
+        watchCSS?: boolean | string | undefined;
 
         /**
          * Use one Flickity gallery as navigation for another.
          *
          * default: disabled
          */
-        asNavFor?: string | HTMLElement;
+        asNavFor?: string | HTMLElement | undefined;
 
         /**
          * Enables hash navigation to select slides with links and URLs.
          * default: false
          */
-        hash?: boolean;
+        hash?: boolean | undefined;
 
         /**
          * The number of pixels a mouse or touch has to move before dragging begins. Increase dragThreshold to allow for more wiggle room for vertical page scrolling on touch devices.
          *
          * default: 3
          */
-        dragThreshold?: number;
+        dragThreshold?: number | undefined;
 
         /**
          * selectedAttraction attracts the position of the slider to the selected cell. Higher attraction makes the slider move faster. Lower makes it move slower.
          *
          * default: 0.025
          */
-        selectedAttraction?: number;
+        selectedAttraction?: number | undefined;
 
         /**
          * Friction slows the movement of slider. Higher friction makes the slider feel stickier and less bouncy. Lower friction makes the slider feel looser and more wobbly.
          *
          * default: 0.28
          */
-        friction?: number;
+        friction?: number | undefined;
 
         /**
          * Slows movement of slider when freeScroll: true. Higher friction makes the slider feel stickier. Lower friction makes the slider feel looser.
          *
          * default: 0.075
          */
-        freeScrollFriction?: number;
+        freeScrollFriction?: number | undefined;
 
         /**
          * Creates and enables previous & next buttons.
          *
          * default: true
          */
-        prevNextButtons?: boolean;
+        prevNextButtons?: boolean | undefined;
 
         /**
          * Creates and enables paging dots.
          *
          * default: true
          */
-        pageDots?: boolean;
+        pageDots?: boolean | undefined;
 
         /**
          * Draws the shape of the arrows in the previous & next buttons.
          * javascript dictionary of points or path to SVG file
          */
-        arrowShape?: string | { x0: number, x1: number, y1: number, x2: number, y2: number, x3: number };
+        arrowShape?: string | { x0: number, x1: number, y1: number, x2: number, y2: number, x3: number } | undefined;
 
         /**
          * Bind events within Flickity's options by setting on to an Object. The object's keys should match the event names. on is useful for capturing events as Flickity is initialized, like ready
          */
-        on?: EventBindings;
+        on?: EventBindings | undefined;
     }
 
     interface EventBindings {
         /**
          * Triggered after Flickity has been activated.
          */
-        ready?: () => void;
+        ready?: (() => void) | undefined;
 
         /**
          * Triggered when the selected slide is changed.
          */
-        change?: (index?: number) => void;
+        change?: ((index?: number) => void) | undefined;
 
         /**
          * Triggered when a slide is selected.
          * select is triggered any time a slide is selected, even on the same slide. change is triggered only when a different slide is selected.
          * This event was previously cellSelect in Flickity v1. cellSelect will continue to work in Flickity v2.
          */
-        select?: (index?: number) => void;
-        cellSelect?: (index?: number) => void;
+        select?: ((index?: number) => void) | undefined;
+        cellSelect?: ((index?: number) => void) | undefined;
         /**
          * Triggered when the slider is settled at its end position.
          */
-        settle?: (index?: number) => void;
+        settle?: ((index?: number) => void) | undefined;
 
         /**
          * Triggered when the slider moves.
          */
-        scroll?: (progress?: number) => void;
+        scroll?: ((progress?: number) => void) | undefined;
 
         /**
          * Triggered when dragging starts and the slider starts moving.
          */
-        dragStart?: (
+        dragStart?: ((
             event?: Event,
-            pointer?: Element | Touch) => void;
+            pointer?: Element | Touch) => void) | undefined;
 
         /**
          * Triggered when dragging moves and the slider moves.
          */
-        dragMove?: (
+        dragMove?: ((
             event?: Event,
             pointer?: Element | Touch,
-            moveVector?: { x: number, y: number }) => void;
+            moveVector?: { x: number, y: number }) => void) | undefined;
 
         /**
          * Triggered when dragging ends.
          */
-        dragEnd?: (
+        dragEnd?: ((
             event: Event,
-            pointer?: Element | Touch) => void;
+            pointer?: Element | Touch) => void) | undefined;
 
         /**
          * Triggered when the user's pointer (mouse, touch, pointer) presses down.
          */
-        pointerDown?: (
+        pointerDown?: ((
             event: Event,
-            pointer?: Element | Touch) => void;
+            pointer?: Element | Touch) => void) | undefined;
 
         /**
          * Triggered when the user's pointer moves.
          */
-        pointerMove?: (
+        pointerMove?: ((
             event?: Event,
             pointer?: Element | Touch,
-            moveVector?: { x: number, y: number }) => void;
+            moveVector?: { x: number, y: number }) => void) | undefined;
 
         /**
          * Triggered when the user's pointer unpresses.
          */
-        pointerUp?: (
+        pointerUp?: ((
             event?: Event,
-            pointer?: Element | Touch) => void;
+            pointer?: Element | Touch) => void) | undefined;
 
         /**
          * Triggered when the user's pointer is pressed and unpressed and has not moved enough to start dragging.
          * click events are hard to detect with draggable UI, as they are triggered whenever a user drags.
          * Flickity's staticClick event resolves this, as it is triggered when the user has not dragged.
          */
-        staticClick?: (
+        staticClick?: ((
             event?: Event,
             pointer?: Element | Touch,
             cellElement?: Element,
-            cellIndex?: number) => void;
+            cellIndex?: number) => void) | undefined;
 
         /**
          * Triggered after an image has been loaded with lazyLoad.
          */
-        lazyLoad?: (
+        lazyLoad?: ((
             event?: Event,
-            cellElement?: Element) => void;
+            cellElement?: Element) => void) | undefined;
 
         /**
          * Triggered after a background image has been loaded with bgLazyLoad.
          */
-        bgLazyLoad?: (
+        bgLazyLoad?: ((
             event?: Event,
-            element?: Element) => void;
+            element?: Element) => void) | undefined;
 
         /**
          * Triggered after entering or exiting fullscreen view.
          */
-        fullscreenChange?: (isFullscreen?: boolean) => void;
+        fullscreenChange?: ((isFullscreen?: boolean) => void) | undefined;
     }
 }
 

@@ -37,11 +37,11 @@ declare module 'simple-url-cache' {
     export interface RedisStorageConfig extends privateN.StorageConfig {
         host:string;
         port:number;
-        path?:string;
-        url?:string;
-        socket_keepalive?:boolean;
-        password?:string;
-        db?:string;
+        path?:string | undefined;
+        url?:string | undefined;
+        socket_keepalive?:boolean | undefined;
+        password?:string | undefined;
+        db?:string | undefined;
     }
 
     namespace privateN {

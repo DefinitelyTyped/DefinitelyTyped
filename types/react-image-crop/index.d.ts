@@ -14,44 +14,44 @@ export as namespace ReactCrop;
 
 declare namespace ReactCrop {
     interface Crop {
-        aspect?: number;
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
-        unit?: 'px' | '%';
+        aspect?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        unit?: 'px' | '%' | undefined;
     }
 
     interface PercentCrop extends Crop {
-        unit?: '%';
+        unit?: '%' | undefined;
     }
 
     interface ReactCropProps {
         src: string;
-        crop?: Crop;
-        imageAlt?: string;
-        minWidth?: number;
-        minHeight?: number;
-        maxWidth?: number;
-        maxHeight?: number;
-        keepSelection?: boolean;
+        crop?: Crop | undefined;
+        imageAlt?: string | undefined;
+        minWidth?: number | undefined;
+        minHeight?: number | undefined;
+        maxWidth?: number | undefined;
+        maxHeight?: number | undefined;
+        keepSelection?: boolean | undefined;
         onChange: (crop: Crop, percentCrop: PercentCrop) => void;
-        onComplete?: (crop: Crop, percentCrop: PercentCrop) => void;
-        onImageLoaded?: (target: HTMLImageElement) => void;
-        onDragStart?: () => void;
-        onDragEnd?: () => void;
-        disabled?: boolean;
-        crossorigin?: 'anonymous' | 'use-credentials';
-        children?: ReactNode;
-        style?: CSSProperties;
-        imageStyle?: CSSProperties;
-        onImageError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
-        className?: string;
-        locked?: boolean;
-        renderComponent?: ReactNode;
-        renderSelectionAddon?: (state: any) => ReactNode;
-        ruleOfThirds?: boolean;
-        circularCrop?: boolean;
+        onComplete?: ((crop: Crop, percentCrop: PercentCrop) => void) | undefined;
+        onImageLoaded?: ((target: HTMLImageElement) => void) | undefined;
+        onDragStart?: (() => void) | undefined;
+        onDragEnd?: (() => void) | undefined;
+        disabled?: boolean | undefined;
+        crossorigin?: 'anonymous' | 'use-credentials' | undefined;
+        children?: ReactNode | undefined;
+        style?: CSSProperties | undefined;
+        imageStyle?: CSSProperties | undefined;
+        onImageError?: ((event: React.SyntheticEvent<HTMLImageElement>) => void) | undefined;
+        className?: string | undefined;
+        locked?: boolean | undefined;
+        renderComponent?: ReactNode | undefined;
+        renderSelectionAddon?: ((state: any) => ReactNode) | undefined;
+        ruleOfThirds?: boolean | undefined;
+        circularCrop?: boolean | undefined;
     }
 
     function makeAspectCrop(crop: Crop, imageWidth: number, imageHeight: number): Crop;

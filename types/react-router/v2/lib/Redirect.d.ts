@@ -8,11 +8,11 @@ export default self;
 
 declare namespace self {
     interface RedirectProps extends React.Props<Redirect> {
-        path?: Router.RoutePattern;
-        from?: Router.RoutePattern; // alias for path
+        path?: Router.RoutePattern | undefined;
+        from?: Router.RoutePattern | undefined; // alias for path
         to: Router.RoutePattern;
-        query?: H.Query;
-        state?: H.LocationState;
+        query?: H.Query | undefined;
+        state?: H.LocationState | undefined;
     }
     interface Redirect extends React.ComponentClass<RedirectProps> { }
     interface RedirectElement extends React.ReactElement<RedirectProps> { }

@@ -7,7 +7,7 @@ declare function globParent(pattern: string, options?: globParent.Options): stri
 
 declare namespace globParent {
     interface Options {
-        flipBackslashes?: boolean;
+        flipBackslashes?: boolean | undefined;
     }
 }
 

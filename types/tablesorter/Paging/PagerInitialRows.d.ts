@@ -5,10 +5,10 @@ export interface PagerInitialRows {
     /**
      * The total number of rows.
      */
-    total?: number;
+    total?: number | undefined;
 
     /**
      * The filtered number of rows.
      */
-    filtered?: number;
+    filtered?: number | undefined;
 }

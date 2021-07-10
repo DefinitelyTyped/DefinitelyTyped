@@ -49,7 +49,7 @@ export interface Variables extends Linter.RulesRecord {
                 | string
                 | {
                       name: string;
-                      message?: string;
+                      message?: string | undefined;
                   }
             >
         ]

@@ -26,11 +26,11 @@ export class Driver extends webdriver.WebDriver {
 
 export interface IOptionsValues {
     args: string[];
-    binary?: string;
+    binary?: string | undefined;
     detach: boolean;
     extensions: string[];
     localState?: any;
-    logFile?: string;
+    logFile?: string | undefined;
     prefs?: any;
 }
 

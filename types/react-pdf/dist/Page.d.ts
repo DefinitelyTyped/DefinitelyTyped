@@ -16,8 +16,8 @@ export interface TextLayerItemInternal {
     fontName: string;
     itemIndex: number;
     page: PDFPageItem;
-    rotate?: 0 | 90 | 180 | 270;
-    scale?: number;
+    rotate?: 0 | 90 | 180 | 270 | undefined;
+    scale?: number | undefined;
     str: string;
     transform: number[];
     width: number;
@@ -44,25 +44,25 @@ export interface Props {
      * A function that behaves like ref,
      * but it's passed to main `<canvas>` rendered by `<Page>` component.
      */
-    canvasRef?: React.LegacyRef<HTMLCanvasElement>;
+    canvasRef?: React.LegacyRef<HTMLCanvasElement> | undefined;
 
     /**
      * Defines custom class name(s), that will be added to rendered element.
      * @default 'react-pdf__Page'
      */
-    className?: string | string[];
+    className?: string | string[] | undefined;
 
     /**
      * A function that customizes how a text layer is rendered.
      * Passes itext item and index for item.
      */
-    customTextRenderer?: (layer: TextLayerItemInternal) => JSX.Element;
+    customTextRenderer?: ((layer: TextLayerItemInternal) => JSX.Element) | undefined;
 
     /**
      * Defines what the component should display in case of an error.
      * @default 'Failed to load PDF file.'
      */
-    error?: string | React.ReactElement | RenderFunction;
+    error?: string | React.ReactElement | RenderFunction | undefined;
 
     /**
      * Defines the height of the page.
@@ -70,121 +70,121 @@ export interface Props {
      * If you define `width` and `height` at the same time, `height` will be ignored.
      * If you define `height` and `scale` at the same time, the height will be multiplied by a given factor.
      */
-    height?: number;
+    height?: number | undefined;
 
     /**
      * A function that behaves like ref,
      * but it's passed to main `<div>` rendered by `<Page>` component.
      */
-    inputRef?: React.LegacyRef<HTMLDivElement>;
+    inputRef?: React.LegacyRef<HTMLDivElement> | undefined;
 
     /**
      * Defines what the component should display while loading.
      * @default 'Loading page…'
      */
-    loading?: string | React.ReactElement | RenderFunction;
+    loading?: string | React.ReactElement | RenderFunction | undefined;
 
     /**
      * Defines what the component should display in case of no data.
      * @default 'No page specified.'
      */
-    noData?: string | React.ReactElement | RenderFunction;
+    noData?: string | React.ReactElement | RenderFunction | undefined;
 
     /**
      * Function called when page has been clicked.
      */
-    onClick?: (event: React.MouseEvent, page: PDFPageProxy) => void;
+    onClick?: ((event: React.MouseEvent, page: PDFPageProxy) => void) | undefined;
 
     /**
      * Function called in case of an error while loading the page.
      */
-    onLoadError?: (error: Error) => void;
+    onLoadError?: ((error: Error) => void) | undefined;
 
     /**
      * Function called when the page is successfully loaded.
      */
-    onLoadSuccess?: (page: PDFPageProxy) => void;
+    onLoadSuccess?: ((page: PDFPageProxy) => void) | undefined;
 
     /**
      * Function called in case of an error while rendering the page.
      */
-    onRenderError?: (error: Error) => void;
+    onRenderError?: ((error: Error) => void) | undefined;
 
     /**
      * Function called when the page is successfully rendered on the screen.
      */
-    onRenderSuccess?: () => void;
+    onRenderSuccess?: (() => void) | undefined;
 
     /**
      * Function called when annotations are successfully loaded.
      */
-    onGetAnnotationsSuccess?: (annotations: any) => void;
+    onGetAnnotationsSuccess?: ((annotations: any) => void) | undefined;
 
     /**
      * Function called in case of an error while loading annotations.
      */
-    onGetAnnotationsError?: (error: Error) => void;
+    onGetAnnotationsError?: ((error: Error) => void) | undefined;
 
     /**
      * Function called when text layer items are successfully loaded.
      */
-    onGetTextSuccess?: (items: TextItem[]) => void;
+    onGetTextSuccess?: ((items: TextItem[]) => void) | undefined;
 
     /**
      * Function called in case of an error while loading text layer items.
      */
-    onGetTextError?: (error: Error) => void;
+    onGetTextError?: ((error: Error) => void) | undefined;
 
     /**
      * Defines which page from PDF file should be displayed.
      * @default 0
      */
-    pageIndex?: number;
+    pageIndex?: number | undefined;
 
     /**
      * Defines which page from PDF file should be displayed.
      * If provided, pageIndex prop will be ignored.
      * @default 1
      */
-    pageNumber?: number;
+    pageNumber?: number | undefined;
 
     /**
      * Defines whether annotations (e.g. links) should be rendered.
      * @default true
      */
-    renderAnnotationLayer?: boolean;
+    renderAnnotationLayer?: boolean | undefined;
 
     /**
      * Defines whether interactive forms should be rendered.
      * `renderAnnotationLayer` prop must be set to true.
      * @default false
      */
-    renderInteractiveForms?: boolean;
+    renderInteractiveForms?: boolean | undefined;
 
     /**
      * Defines the rendering mode of the page.
      * @default 'canvas'
      */
-    renderMode?: 'canvas' | 'svg' | 'none';
+    renderMode?: 'canvas' | 'svg' | 'none' | undefined;
 
     /**
      * Defines whether a text layer should be rendered.
      * @default true
      */
-    renderTextLayer?: boolean;
+    renderTextLayer?: boolean | undefined;
 
     /**
      * Defines the rotation of the page in degrees.
      * 90 = rotated to the right, 180 = upside down, 270 = rotated to the left.
      * Defaults to page's default setting, usually 0.
      */
-    rotate?: number;
+    rotate?: number | undefined;
 
     /**
      * Defines the scale in which PDF file should be rendered.
      * @default 1.0
      */
-    scale?: number;
+    scale?: number | undefined;
 
     /**
      * Defines the width of the page.
@@ -192,7 +192,7 @@ export interface Props {
      * If you define `width` and `height` at the same time, `height` will be ignored.
      * If you define `width` and `scale` at the same time, the width will be multiplied by a given factor.
      */
-    width?: number;
+    width?: number | undefined;
 }
 
 export default class Page extends React.Component<Props> {}

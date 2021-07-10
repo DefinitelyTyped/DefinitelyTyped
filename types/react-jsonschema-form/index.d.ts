@@ -29,91 +29,91 @@ declare module 'react-jsonschema-form' {
         /** Form schema */
         schema: JSONSchema6;
         /** If true, disabled prop is passed down to each field on the form */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         /** Form uiSchema */
-        uiSchema?: UiSchema;
+        uiSchema?: UiSchema | undefined;
         /** Data to pass into form mathcing the schema */
-        formData?: T;
+        formData?: T | undefined;
         /** Data that is passed down to all fields and widgets. Used for implementing context aware fields and widgets */
         formContext?: any;
         /** Directory of registered widgets */
-        widgets?: { [name: string]: Widget };
+        widgets?: { [name: string]: Widget } | undefined;
         /** Dictionary of registered fields */
-        fields?: { [name: string]: Field };
+        fields?: { [name: string]: Field } | undefined;
         /**
          * If set to true, turns off all validation
          * @default false
          */
-        noValidate?: boolean;
+        noValidate?: boolean | undefined;
         /**
          * If set to true, turns off HTML5 validation
          * @default false
          */
-        noHtml5Validate?: boolean;
+        noHtml5Validate?: boolean | undefined;
         /** When true, a list of errors will show. When false, only inline input validation errors will show */
-        showErrorList?: boolean;
+        showErrorList?: boolean | undefined;
         /** A React component used to customize how form errors are displayed */
-        ErrorList?: React.FunctionComponent<ErrorListProps>;
+        ErrorList?: React.FunctionComponent<ErrorListProps> | undefined;
         /** Function that specifices custom validation rules for the form */
-        validate?: (formData: T, errors: FormValidation) => FormValidation;
-        onBlur?: (id: string, value: boolean | number | string | null) => void;
-        onChange?: (e: IChangeEvent<T>, es?: ErrorSchema) => any;
-        onError?: (e: any) => any;
-        onFocus?: (id: string, value: boolean | number | string | null) => void;
-        onSubmit?: (e: ISubmitEvent<T>) => any;
+        validate?: ((formData: T, errors: FormValidation) => FormValidation) | undefined;
+        onBlur?: ((id: string, value: boolean | number | string | null) => void) | undefined;
+        onChange?: ((e: IChangeEvent<T>, es?: ErrorSchema) => any) | undefined;
+        onError?: ((e: any) => any) | undefined;
+        onFocus?: ((id: string, value: boolean | number | string | null) => void) | undefined;
+        onSubmit?: ((e: ISubmitEvent<T>) => any) | undefined;
         /**
          * If set to true, will perform validation as data is changed rather than just on submit
          * @default false
          */
-        liveValidate?: boolean;
-        FieldTemplate?: React.FunctionComponent<FieldTemplateProps>;
-        ArrayFieldTemplate?: React.FunctionComponent<ArrayFieldTemplateProps>;
-        ObjectFieldTemplate?: React.FunctionComponent<ObjectFieldTemplateProps>;
-        safeRenderCompletion?: boolean;
+        liveValidate?: boolean | undefined;
+        FieldTemplate?: React.FunctionComponent<FieldTemplateProps> | undefined;
+        ArrayFieldTemplate?: React.FunctionComponent<ArrayFieldTemplateProps> | undefined;
+        ObjectFieldTemplate?: React.FunctionComponent<ObjectFieldTemplateProps> | undefined;
+        safeRenderCompletion?: boolean | undefined;
         /** Function that modifies default errors from JSCON Schema Validation */
-        transformErrors?: (errors: AjvError[]) => AjvError[];
+        transformErrors?: ((errors: AjvError[]) => AjvError[]) | undefined;
         /**
          * Used to change prefix of ids to avoid collision with existing ids in DOM
          * @default 'root'
          */
-        idPrefix?: string;
+        idPrefix?: string | undefined;
         /** Allows you to validate formdata against another JSON Schema meta schema */
-        additionalMetaSchemas?: ReadonlyArray<object>;
+        additionalMetaSchemas?: ReadonlyArray<object> | undefined;
         /** Allows you to define custom formats for validation */
-        customFormats?: { [k: string]: string | RegExp | ((data: string) => boolean) };
+        customFormats?: { [k: string]: string | RegExp | ((data: string) => boolean) } | undefined;
         // HTML Attributes
         /** The value that will be passed to `id` HTML attribute of form  */
-        id?: string;
+        id?: string | undefined;
         /** The value that will be passed to `class` HTML attribute of form  */
-        className?: string;
+        className?: string | undefined;
         /** The value that will be passed to `name` HTML attribute of form  */
-        name?: string;
+        name?: string | undefined;
         /** The value that will be passed to `method` HTML attribute of form  */
-        method?: string;
+        method?: string | undefined;
         /** The value that will be passed to `target` HTML attribute of form  */
-        target?: string;
+        target?: string | undefined;
         /** The value that will be passed to `action` HTML attribute of form  */
-        action?: string;
+        action?: string | undefined;
         /** @deprecated Same functionality as autoComplete */
-        autocomplete?: string;
+        autocomplete?: string | undefined;
         /** The value that will be passed to `autocomplete ` HTML attribute of form */
-        autoComplete?: string;
+        autoComplete?: string | undefined;
         /** The value that will be passed to `enctype` HTML attribute of form  */
-        enctype?: string;
+        enctype?: string | undefined;
         /** The value that will be passed to `accept-charset` HTML attribute of form  */
-        acceptcharset?: string;
+        acceptcharset?: string | undefined;
         /**
          * If set to true, extra form data values not in form field will be removed when `onSubmit` is called
          * @default false
          */
-        omitExtraData?: boolean;
+        omitExtraData?: boolean | undefined;
         /**
          * If `omitExtraData` and `liveOmit` are both set to true, then extra form data values that are not in any form field will be removed whenever `onChange` is called.
          * @default false
          */
-        liveOmit?: boolean;
+        liveOmit?: boolean | undefined;
         /** Used to change the default `form` tag into a different HTML tag */
-        tagName?: keyof JSX.IntrinsicElements | React.ComponentType;
+        tagName?: keyof JSX.IntrinsicElements | React.ComponentType | undefined;
     }
 
     export default class Form<T> extends React.Component<FormProps<T>> {
@@ -129,13 +129,13 @@ declare module 'react-jsonschema-form' {
     }
 
     export type UiSchema = {
-        'ui:field'?: Field | string;
-        'ui:widget'?: Widget | string;
-        'ui:options'?: { [key: string]: boolean | number | string | object | any[] | null };
-        'ui:order'?: string[];
-        'ui:FieldTemplate'?: React.FunctionComponent<FieldTemplateProps>;
-        'ui:ArrayFieldTemplate'?: React.FunctionComponent<ArrayFieldTemplateProps>;
-        'ui:ObjectFieldTemplate'?: React.FunctionComponent<ObjectFieldTemplateProps>;
+        'ui:field'?: Field | string | undefined;
+        'ui:widget'?: Widget | string | undefined;
+        'ui:options'?: { [key: string]: boolean | number | string | object | any[] | null } | undefined;
+        'ui:order'?: string[] | undefined;
+        'ui:FieldTemplate'?: React.FunctionComponent<FieldTemplateProps> | undefined;
+        'ui:ArrayFieldTemplate'?: React.FunctionComponent<ArrayFieldTemplateProps> | undefined;
+        'ui:ObjectFieldTemplate'?: React.FunctionComponent<ObjectFieldTemplateProps> | undefined;
         [name: string]: any;
     };
 
@@ -311,7 +311,7 @@ declare module 'react-jsonschema-form' {
         idSchema: IdSchema;
         schema: JSONSchema6;
         uiSchema: UiSchema;
-        status?: string;
+        status?: string | undefined;
     }
 
     export type ISubmitEvent<T> = IChangeEvent<T>;
@@ -482,9 +482,9 @@ declare module 'react-jsonschema-form/lib/utils' {
     export function dataURItoBlob(dataURI: string): { name: string; blob: Blob };
 
     export interface IRangeSpec {
-        min?: number;
-        max?: number;
-        step?: number;
+        min?: number | undefined;
+        max?: number | undefined;
+        step?: number | undefined;
     }
 
     export function rangeSpec(schema: JSONSchema6): IRangeSpec;

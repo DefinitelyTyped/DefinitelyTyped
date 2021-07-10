@@ -9,25 +9,25 @@ import * as stream from "stream";
 
 declare namespace gulpCodecov {
     interface CodecovOptions {
-        branch?: string;
-        build?: string;
-        clear?: boolean;
-        commit?: string;
-        disable?: string;
-        dump?: boolean;
-        env?: string;
-        file?: string;
-        flags?: string;
-        'gcov-args'?: string;
-        'gcov-exec'?: string;
-        'gcov-glob'?: string;
-        'gcov-root'?: string;
-        pipe?: boolean;
-        root?: string;
-        slug?: string;
-        token?: string;
-        url?: string;
-        yml?: string;
+        branch?: string | undefined;
+        build?: string | undefined;
+        clear?: boolean | undefined;
+        commit?: string | undefined;
+        disable?: string | undefined;
+        dump?: boolean | undefined;
+        env?: string | undefined;
+        file?: string | undefined;
+        flags?: string | undefined;
+        'gcov-args'?: string | undefined;
+        'gcov-exec'?: string | undefined;
+        'gcov-glob'?: string | undefined;
+        'gcov-root'?: string | undefined;
+        pipe?: boolean | undefined;
+        root?: string | undefined;
+        slug?: string | undefined;
+        token?: string | undefined;
+        url?: string | undefined;
+        yml?: string | undefined;
     }
 }
 

@@ -11,22 +11,22 @@ export interface ChromePerfLoggingPrefs {
     /**
      * Default: true. Whether or not to collect events from Network domain.
      */
-    enableNetwork?: boolean;
+    enableNetwork?: boolean | undefined;
     /**
      * Default: true. Whether or not to collect events from Page domain.
      */
-    enablePage?: boolean;
+    enablePage?: boolean | undefined;
     /**
      * A comma-separated string of Chrome tracing categories for which trace events should be collected.
      * An unspecified or empty string disables tracing.
      */
-    traceCategories?: string;
+    traceCategories?: string | undefined;
     /**
      * Default: 1000. The requested number of milliseconds between DevTools trace buffer usage events. For example, if 1000,
      * then once per second, DevTools will report how full the trace buffer is. If a report indicates the buffer usage is 100%,
      * a warning will be issued.
      */
-    bufferUsageReportingInterval?: number;
+    bufferUsageReportingInterval?: number | undefined;
 }
 
 export interface ChromeOptions {
@@ -34,151 +34,151 @@ export interface ChromeOptions {
      *     List of command-line arguments to use when starting Chrome. Arguments with an associated value should be separated by a '=' sign
      * (e.g., ['start-maximized', 'user-data-dir=/tmp/temp_profile']).
      */
-    args?: string[];
+    args?: string[] | undefined;
     /**
      * Path to the Chrome executable to use (on Mac OS X, this should be the actual binary, not just the app. e.g.,
      * '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')
      */
-    binary?: string;
+    binary?: string | undefined;
     /**
      * A list of Chrome extensions to install on startup. Each item in the list should be a base-64 encoded packed Chrome extension (.crx)
      */
-    extensions?: string[];
+    extensions?: string[] | undefined;
     /**
      * A dictionary with each entry consisting of the name of the preference and its value. These preferences are applied
      * to the Local State file in the user data folder.
      */
-    localState?: Record<string, string>;
+    localState?: Record<string, string> | undefined;
     /**
      * A dictionary with each entry consisting of the name of the preference and its value. These preferences are only applied
      * to the user profile in use.
      */
-    prefs?: Record<string, string>;
+    prefs?: Record<string, string> | undefined;
     /**
      * Default: false. If false, Chrome will be quit when ChromeDriver is killed, regardless of whether the session is quit.
      * If true, Chrome will only be quit if the session is quit (or closed). Note, if true, and the session is not quit,
      * ChromeDriver cannot clean up the temporary user data directory that the running Chrome instance is using.
      */
-    detach?: boolean;
+    detach?: boolean | undefined;
     /**
      * An address of a Chrome debugger server to connect to, in the form of <hostname/ip:port>, e.g. '127.0.0.1:38947'
      */
-    debuggerAddress?: string;
+    debuggerAddress?: string | undefined;
     /**
      * List of Chrome command line switches to exclude that ChromeDriver by default passes when starting Chrome.
      * Do not prefix switches with --.
      */
-    excludeSwitches?: string[];
+    excludeSwitches?: string[] | undefined;
     /**
      * Directory to store Chrome minidumps . (Supported only on Linux.)
      */
-    minidumpPath?: string;
+    minidumpPath?: string | undefined;
     /**
      * A dictionary with either a value for “deviceName,” or values for “deviceMetrics” and “userAgent.” Refer to Mobile Emulation for more information.
      */
-    mobileEmulation?: Record<string, string>;
+    mobileEmulation?: Record<string, string> | undefined;
     /**
      * An optional dictionary that specifies performance logging preferences. See below for more information.
      */
-    perfLoggingPrefs?: ChromePerfLoggingPrefs;
+    perfLoggingPrefs?: ChromePerfLoggingPrefs | undefined;
     /**
      * A list of window types that will appear in the list of window handles. For access to <webview> elements, include "webview" in this list.
      */
-    windowTypes?: string[];
+    windowTypes?: string[] | undefined;
     /**
      * Flag to activate W3C WebDriver API. Chromedriver (as of version 2.41 at least) simply does not support the W3C WebDriver API.
      */
-    w3c?: boolean;
+    w3c?: boolean | undefined;
 }
 
 export interface NightwatchDesiredCapabilities {
     /**
      * The name of the browser being used; should be one of {android|chrome|firefox|htmlunit|internet explorer|iPhone|iPad|opera|safari}.
      */
-    browserName?: string;
+    browserName?: string | undefined;
 
     /**
      * The browser version, or the empty string if unknown.
      */
-    version?: string;
+    version?: string | undefined;
 
     /**
      * A key specifying which platform the browser should be running on. This value should be one of {WINDOWS|XP|VISTA|MAC|LINUX|UNIX|ANDROID}.
      * When requesting a new session, the client may specify ANY to indicate any available platform may be used.
      * For more information see [GridPlatforms (https://code.google.com/p/selenium/wiki/GridPlatforms)]
      */
-    platform?: string;
+    platform?: string | undefined;
 
     /**
      * Whether the session supports taking screenshots of the current page.
      */
-    takesScreenShot?: boolean;
+    takesScreenShot?: boolean | undefined;
 
     /**
      * Whether the session can interact with modal popups, such as window.alert and window.confirm.
      */
-    handlesAlerts?: boolean;
+    handlesAlerts?: boolean | undefined;
 
     /**
      * Whether the session supports CSS selectors when searching for elements.
      */
-    cssSelectorsEnabled?: boolean;
+    cssSelectorsEnabled?: boolean | undefined;
 
     /**
      * Whether the session supports executing user supplied JavaScript in the context of the current page (only on HTMLUnitDriver).
      */
-    javascriptEnabled?: boolean;
+    javascriptEnabled?: boolean | undefined;
 
     /**
      * Whether the session can interact with database storage.
      */
-    databaseEnabled?: boolean;
+    databaseEnabled?: boolean | undefined;
 
     /**
      * Whether the session can set and query the browser's location context.
      */
-    locationContextEnabled?: boolean;
+    locationContextEnabled?: boolean | undefined;
 
     /**
      * Whether the session can interact with the application cache.
      */
-    applicationCacheEnabled?: boolean;
+    applicationCacheEnabled?: boolean | undefined;
 
     /**
      * Whether the session can query for the browser's connectivity and disable it if desired.
      */
-    browserConnectionEnabled?: boolean;
+    browserConnectionEnabled?: boolean | undefined;
 
     /**
      * Whether the session supports interactions with storage objects (http://www.w3.org/TR/2009/WD-webstorage-20091029/).
      */
-    webStorageEnabled?: boolean;
+    webStorageEnabled?: boolean | undefined;
 
     /**
      * Whether the session should accept all SSL certs by default.
      */
-    acceptSslCerts?: boolean;
+    acceptSslCerts?: boolean | undefined;
 
     /**
      * Whether the session can rotate the current page's current layout between portrait and landscape orientations (only applies to mobile platforms).
      */
-    rotatable?: boolean;
+    rotatable?: boolean | undefined;
 
     /**
      * Whether the session is capable of generating native events when simulating user input.
      */
-    nativeEvents?: boolean;
+    nativeEvents?: boolean | undefined;
 
     /**
      * What the browser should do with an unhandled alert before throwing out the UnhandledAlertException. Possible values are "accept", "dismiss" and "ignore"
      */
-    unexpectedAlertBehaviour?: string;
+    unexpectedAlertBehaviour?: string | undefined;
 
     /**
      * Allows the user to specify whether elements are scrolled into the viewport for interaction to align with the top (0) or bottom (1) of the viewport.
      * The default value is to align with the top of the viewport. Supported in IE and Firefox (since 2.36)
      */
-    elementScrollBehaviour?: number;
+    elementScrollBehaviour?: number | undefined;
 
     /**
      * A JSON object describing the logging level of different components in the browser, the driver, or any intermediary WebDriver servers.
@@ -186,34 +186,34 @@ export interface NightwatchDesiredCapabilities {
      * This produces a JSON object looking something like: {"loggingPrefs": {"driver": "INFO", "server": "OFF", "browser": "FINE"}}.
      */
     loggingPrefs?: {
-        browser?: string;
-        driver?: string;
-        server?: string;
-    };
+        browser?: string | undefined;
+        driver?: string | undefined;
+        server?: string | undefined;
+    } | undefined;
     /**
      * This is a list of all the Chrome-specific desired capabilities.
      */
-    chromeOptions?: ChromeOptions;
+    chromeOptions?: ChromeOptions | undefined;
 }
 
 export interface NightwatchScreenshotOptions {
-    enabled?: boolean;
-    on_failure?: boolean;
-    on_error?: boolean;
-    path?: string;
+    enabled?: boolean | undefined;
+    on_failure?: boolean | undefined;
+    on_error?: boolean | undefined;
+    path?: string | undefined;
 }
 
 export interface NightwatchTestRunner {
-    "type"?: string;
+    "type"?: string | undefined;
     options?: {
-        ui?: string;
-    };
+        ui?: string | undefined;
+    } | undefined;
 }
 
 export interface NightwatchTestWorker {
     enabled: boolean;
     workers: string;
-    node_options?: string | string[];
+    node_options?: string | string[] | undefined;
 }
 
 export interface NightwatchOptions {
@@ -225,33 +225,33 @@ export interface NightwatchOptions {
     /**
      * The location where the JUnit XML report files will be saved.
      */
-    output_folder?: string;
+    output_folder?: string | undefined;
 
     /**
      * Location(s) where custom commands will be loaded from.
      */
-    custom_commands_path?: string | string[];
+    custom_commands_path?: string | string[] | undefined;
 
     /**
      * Location(s) where custom assertions will be loaded from.
      */
-    custom_assertions_path?: string | string[];
+    custom_assertions_path?: string | string[] | undefined;
 
     /**
      * Location(s) where page object files will be loaded from.
      */
-    page_objects_path?: string | string[];
+    page_objects_path?: string | string[] | undefined;
 
     /**
      * Location of an external globals module which will be loaded and made available to the test as a property globals on the main client instance.
      * Globals can also be defined/overwritten inside a test_settings environment.
      */
-    globals_path?: string;
+    globals_path?: string | undefined;
 
     /**
      * An object containing Selenium Server related configuration options. See below for details.
      */
-    selenium?: NightwatchSeleniumOptions;
+    selenium?: NightwatchSeleniumOptions | undefined;
 
     /**
      * This object contains all the test related options. See below for details.
@@ -261,29 +261,29 @@ export interface NightwatchOptions {
     /**
      * Whether or not to buffer the output in case of parallel running. See below for details.
      */
-    live_output?: boolean;
+    live_output?: boolean | undefined;
 
     /**
      * Controls whether or not to disable coloring of the cli output globally.
      */
-    disable_color?: boolean;
+    disable_color?: boolean | undefined;
 
     /**
      * Specifies the delay(in milliseconds) between starting the child processes when running in parallel mode.
      */
-    parallel_process_delay?: number;
+    parallel_process_delay?: number | undefined;
 
     /**
      * Whether or not to run individual test files in parallel. If set to true, runs the tests in parallel and determines the number of workers automatically.
      * If set to an object, can specify specify the number of workers as "auto" or a number. Example: "test_workers" : {"enabled" : true, "workers" : "auto"}
      */
-    test_workers?: boolean | NightwatchTestWorker;
+    test_workers?: boolean | NightwatchTestWorker | undefined;
 
     /**
      * Specifies which test runner to use when running the tests. Values can be either default (built in nightwatch runner) or mocha.
      * Example: "test_runner" : {"type" : "mocha", "options" : {"ui" : "tdd"}}
      */
-    test_runner?: string | NightwatchTestRunner;
+    test_runner?: string | NightwatchTestRunner | undefined;
 
     /**
      * Allows for webdriver config (mostly the same as selenium)
@@ -293,7 +293,7 @@ export interface NightwatchOptions {
         start_process: boolean;
         server_path: string;
         cli_args: string[];
-    };
+    } | undefined;
 }
 
 export interface NightwatchGlobals {
@@ -302,35 +302,35 @@ export interface NightwatchGlobals {
      * it's being used in waitFor commands and expect assertions
      * @default true
      */
-    abortOnAssertionFailure?: boolean;
+    abortOnAssertionFailure?: boolean | undefined;
 
     /**
      * this will overwrite the default polling interval (currently 500ms) for waitFor commands
      * and expect assertions that use retry
      * @default 300
      */
-    waitForConditionPollInterval?: number;
+    waitForConditionPollInterval?: number | undefined;
 
     /**
      * default timeout value in milliseconds for waitFor commands and implicit waitFor value for
      * expect assertions
      * @default 5000
      */
-    waitForConditionTimeout?: number;
+    waitForConditionTimeout?: number | undefined;
 
     /**
      * this will cause waitFor commands on elements to throw an error if multiple
      * elements are found using the given locate strategy and selector
      * @default true
      */
-    throwOnMultipleElementsReturned?: boolean;
+    throwOnMultipleElementsReturned?: boolean | undefined;
 
     /**
      * controls the timeout time for async hooks. Expects the done() callback to be invoked within this time
      * or an error is thrown
      * @default 10000
      */
-    asyncHookTimeout?: number;
+    asyncHookTimeout?: number | undefined;
 }
 
 export interface NightwatchSeleniumOptions {
@@ -387,49 +387,49 @@ export interface NightwatchTestSettingGeneric {
     /**
      * A url which can be used later in the tests as the main url to load. Can be useful if your tests will run on different environments, each one with a different url.
      */
-    launch_url?: string;
+    launch_url?: string | undefined;
 
     /**
      * The hostname/IP on which the selenium server is accepting connections.
      */
-    selenium_host?: string;
+    selenium_host?: string | undefined;
 
     /**
      * The port number on which the selenium server is accepting connections.
      */
-    selenium_port?: number;
+    selenium_port?: number | undefined;
 
     /**
      * Whether to show extended Selenium command logs.
      */
-    silent?: boolean;
+    silent?: boolean | undefined;
 
     /**
      * Use to disable terminal output completely.
      */
-    output?: boolean;
+    output?: boolean | undefined;
 
     /**
      * Use to disable colored output in the terminal.
      */
-    disable_colors?: boolean;
+    disable_colors?: boolean | undefined;
 
     /**
      * In case the selenium server requires credentials this username will be used to compute the Authorization header.
      * The value can be also an environment variable, in which case it will look like this: "username" : "${SAUCE_USERNAME}"
      */
-    username?: string;
+    username?: string | undefined;
 
     /**
      * This field will be used together with username to compute the Authorization header.
      * Like username, the value can be also an environment variable: "access_key" : "${SAUCE_ACCESS_KEY}"
      */
-    access_key?: string;
+    access_key?: string | undefined;
 
     /**
      * Proxy requests to the selenium server. http, https, socks(v5), socks5, sock4, and pac are accepted. Uses node-proxy-agent. Example: http://user:pass@host:port
      */
-    proxy?: string;
+    proxy?: string | undefined;
 
     /**
      * An object which will be passed to the Selenium WebDriver when a new session will be created. You can specify browser name for instance along with other capabilities.
@@ -440,34 +440,34 @@ export interface NightwatchTestSettingGeneric {
      * }
      * You can view the complete list of capabilities https://code.google.com/p/selenium/wiki/DesiredCapabilities.
      */
-    desiredCapabilities?: NightwatchDesiredCapabilities;
+    desiredCapabilities?: NightwatchDesiredCapabilities | undefined;
 
     /**
      * An object which will be made available within the test and can be overwritten per environment. Example:"globals" : {  "myGlobal" : "some_global" }
      */
-    globals?: NightwatchTestHooks;
+    globals?: NightwatchTestHooks | undefined;
 
     /**
      * An array of folders or file patterns to be skipped (relative to the main source folder).
      * Example: "exclude" : ["excluded-folder"] or: "exclude" : ["test-folder/*-smoke.js"]
      */
-    exclude?: string[];
+    exclude?: string[] | undefined;
 
     /**
      * Folder or file pattern to be used when loading the tests. Files that don't match this patter will be ignored.
      * Example: "filter" : "tests/*-smoke.js"
      */
-    filter?: string;
+    filter?: string | undefined;
 
     /**
      * Do not show the Base64 image data in the (verbose) log when taking screenshots.
      */
-    log_screenshot_data?: boolean;
+    log_screenshot_data?: boolean | undefined;
 
     /**
      * Use xpath as the default locator strategy
      */
-    use_xpath?: boolean;
+    use_xpath?: boolean | undefined;
 
     /**
      * Same as Selenium settings cli_args. You can override the global cli_args on a per-environment basis.
@@ -477,12 +477,12 @@ export interface NightwatchTestSettingGeneric {
     /**
      * End the session automatically when the test is being terminated, usually after a failed assertion.
      */
-    end_session_on_fail?: boolean;
+    end_session_on_fail?: boolean | undefined;
 
     /**
      * Skip the rest of testcases (if any) when one testcase fails..
      */
-    skip_testcases_on_fail?: boolean;
+    skip_testcases_on_fail?: boolean | undefined;
 }
 
 export interface NightwatchTestSettingScreenshots extends NightwatchTestSettingGeneric {
@@ -875,7 +875,7 @@ export interface NightwatchLogEntry {
      */
     level: "SEVERE" | "WARNING" | "INFO" | "DEBUG";
 
-    source?: string;
+    source?: string | undefined;
 }
 
 export interface NightwatchKeys {
@@ -1047,12 +1047,12 @@ export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomComman
 export type NightwatchTest = (browser: NightwatchBrowser) => void;
 
 export interface NightwatchTestFunctions {
-    before?: NightwatchTestHook;
-    after?: NightwatchTestHook;
-    beforeEach?: NightwatchTestHook;
-    afterEach?: NightwatchTestHook;
-    "@tags"?: string | string[];
-    "@disabled"?: boolean;
+    before?: NightwatchTestHook | undefined;
+    after?: NightwatchTestHook | undefined;
+    beforeEach?: NightwatchTestHook | undefined;
+    afterEach?: NightwatchTestHook | undefined;
+    "@tags"?: string | string[] | undefined;
+    "@disabled"?: boolean | undefined;
     [key: string]: any;
 }
 
@@ -1066,10 +1066,10 @@ export type GlobalNightwatchTestHookEach = ((browser: NightwatchBrowser, done: (
 export type GlobalNightwatchTestHook = ((done: (err?: any) => void) => void);
 
 export interface NightwatchTestHooks extends NightwatchGlobals {
-    before?: GlobalNightwatchTestHook;
-    after?: GlobalNightwatchTestHook;
-    beforeEach?: GlobalNightwatchTestHookEach;
-    afterEach?: GlobalNightwatchTestHookEach;
+    before?: GlobalNightwatchTestHook | undefined;
+    after?: GlobalNightwatchTestHook | undefined;
+    beforeEach?: GlobalNightwatchTestHookEach | undefined;
+    afterEach?: GlobalNightwatchTestHookEach | undefined;
 }
 
 export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
@@ -1106,7 +1106,7 @@ export interface NightwatchAssertion<T, U = any> {
 export interface NightwatchClient {
     api: NightwatchAPI;
     assertion: NightwatchAssert;
-    locateStrategy?: LocateStrategy;
+    locateStrategy?: LocateStrategy | undefined;
 }
 
 export interface Nightwatch {

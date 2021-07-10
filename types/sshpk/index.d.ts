@@ -10,8 +10,8 @@ declare class SshPK {}
 declare namespace SshPK {
   class Algo {
     parts: string[];
-    sizePart?: string;
-    normalize?: boolean;
+    sizePart?: string | undefined;
+    normalize?: boolean | undefined;
   }
 
   class algInfo {
@@ -245,9 +245,9 @@ declare namespace SshPK {
     type: string;
     parts: string;
     part: string;
-    comment?: string;
-    source?: string;
-    curve?: string;
+    comment?: string | undefined;
+    source?: string | undefined;
+    curve?: string | undefined;
     size: number;
     constructor(opts: any);
 
@@ -268,7 +268,7 @@ declare namespace SshPK {
   }
 
   class PrivateKey {
-    comment?: string;
+    comment?: string | undefined;
     constructor(opts: any);
 
     static formats: Formats;

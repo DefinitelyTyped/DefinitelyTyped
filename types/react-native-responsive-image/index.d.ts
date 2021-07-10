@@ -22,45 +22,45 @@ export interface ResponsiveImageProps {
     /**
      * Image initial width
      */
-    initWidth?: number;
+    initWidth?: number | undefined;
 
     /**
      * Image initial height
      */
-    initHeight?: number;
+    initHeight?: number | undefined;
 
     /**
      * Style
      */
-    style?: StyleProp<ImageStyle>;
+    style?: StyleProp<ImageStyle> | undefined;
 
     /**
      * Invoked on load error with {nativeEvent: {error}}
      */
-    onError?: (error: NativeSyntheticEvent<ImageErrorEventData>) => void;
+    onError?: ((error: NativeSyntheticEvent<ImageErrorEventData>) => void) | undefined;
 
     /**
      * Invoked when load completes successfully
      * { source: { url, height, width } }.
      */
-    onLoad?: (event: NativeSyntheticEvent<ImageLoadEventData>) => void;
+    onLoad?: ((event: NativeSyntheticEvent<ImageLoadEventData>) => void) | undefined;
 
     /**
      * Invoked when load either succeeds or fails
      */
-    onLoadEnd?: () => void;
+    onLoadEnd?: (() => void) | undefined;
 
     /**
      * Invoked on load start
      */
-    onLoadStart?: () => void;
+    onLoadStart?: (() => void) | undefined;
 
-    borderRadius?: number;
+    borderRadius?: number | undefined;
 
     /**
      * Invoked on download progress with {nativeEvent: {loaded, total}}
      */
-    onProgress?: (event: NativeSyntheticEvent<ImageProgressEventDataIOS>) => void;
+    onProgress?: ((event: NativeSyntheticEvent<ImageProgressEventDataIOS>) => void) | undefined;
 
     /**
      * The image source (either a remote URL or a local file resource).
@@ -95,14 +95,14 @@ export interface ResponsiveImageProps {
      * if bigger than the area of the view.
      * The image will not be scaled up.
      */
-    resizeMode?: ImageResizeMode;
+    resizeMode?: ImageResizeMode | undefined;
 
     /**
      * A static image to display while downloading the final image off the network.
      */
-    defaultSource?: ImageURISource | number;
+    defaultSource?: ImageURISource | number | undefined;
 
-    component?: Image | ImageBackground;
+    component?: Image | ImageBackground | undefined;
 }
 
 export default class ResponsiveImage extends React.Component<ResponsiveImageProps> {}

@@ -353,7 +353,7 @@ declare namespace SemanticUI {
             margin?: {
                 top: number;
                 bottom: number;
-            };
+            } | undefined;
             top: number;
             bottom: number;
 

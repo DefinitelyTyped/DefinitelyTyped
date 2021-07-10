@@ -34,40 +34,40 @@ export function compile(rules: Rules): Lexer;
 export function states(states: {[x: string]: Rules}, start?: string): Lexer;
 
 export interface Rule {
-    match?: RegExp | string | string[];
+    match?: RegExp | string | string[] | undefined;
     /**
      * Moo tracks detailed information about the input for you.
      * It will track line numbers, as long as you apply the `lineBreaks: true`
      * option to any tokens which might contain newlines. Moo will try to warn you if you forget to do this.
      */
-    lineBreaks?: boolean;
+    lineBreaks?: boolean | undefined;
     /**
      * Moves the lexer to a new state, and pushes the old state onto the stack.
      */
-    push?: string;
+    push?: string | undefined;
     /**
      * Returns to a previous state, by removing one or more states from the stack.
      */
-    pop?: number;
+    pop?: number | undefined;
     /**
      * Moves to a new state, but does not affect the stack.
      */
-    next?: string;
+    next?: string | undefined;
     /**
      * You can have a token type that both matches tokens and contains error values.
      */
-    error?: true;
+    error?: true | undefined;
     /**
      * Moo doesn't allow capturing groups, but you can supply a transform function, value(),
      * which will be called on the value before storing it in the Token object.
      */
-    value?: (x: string) => string;
+    value?: ((x: string) => string) | undefined;
 
     /**
      * Used for mapping one set of types to another.
      * See https://github.com/no-context/moo#keywords for an example
      */
-    type?: TypeMapper;
+    type?: TypeMapper | undefined;
 }
 export interface Rules {
     [x: string]: RegExp | string | string[] | Rule | Rule[] | ErrorRule | FallbackRule;
@@ -121,7 +121,7 @@ export interface Token {
     /**
      * The name of the group, as passed to compile.
      */
-    type?: string;
+    type?: string | undefined;
     /**
      * The match contents.
      */

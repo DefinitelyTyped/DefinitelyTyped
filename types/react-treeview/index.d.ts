@@ -8,12 +8,12 @@ import { Component, HTMLAttributes } from 'react';
 
 declare namespace TreeView {
   interface TreeProps extends HTMLAttributes<HTMLDivElement> {
-    collapsed?: boolean;
-    defaultCollapsed?: boolean;
+    collapsed?: boolean | undefined;
+    defaultCollapsed?: boolean | undefined;
     nodeLabel: React.ReactNode;
-    itemClassName?: string;
-    treeViewClassName?: string;
-    childrenClassName?: string;
+    itemClassName?: string | undefined;
+    treeViewClassName?: string | undefined;
+    childrenClassName?: string | undefined;
   }
 }
 

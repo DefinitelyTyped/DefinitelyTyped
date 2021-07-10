@@ -24,11 +24,11 @@ declare namespace ReactSwipe {
     }
 
     interface Props {
-        id?: string;
-        swipeOptions?: SwipeOptions;
-        childCount?: number;
-        style?: Style;
-        className?: string;
+        id?: string | undefined;
+        swipeOptions?: SwipeOptions | undefined;
+        childCount?: number | undefined;
+        style?: Style | undefined;
+        className?: string | undefined;
     }
 }
 

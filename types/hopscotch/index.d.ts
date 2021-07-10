@@ -7,37 +7,37 @@ declare type CallbackNameNamesOrDefinition = string | string[] | (() => void);
 declare type placementTypes = 'top' | 'bottom' | 'right' | 'left';
 
 interface HopscotchConfiguration {
-  bubbleWidth?: number;
-  buddleHeight?: number;
+  bubbleWidth?: number | undefined;
+  buddleHeight?: number | undefined;
 
-  smoothScroll?: boolean;
-  scrollDuration?: number;
-  scrollTopMargin?: number;
+  smoothScroll?: boolean | undefined;
+  scrollDuration?: number | undefined;
+  scrollTopMargin?: number | undefined;
 
-  showCloseButton?: boolean;
-  showNextButton?: boolean;
-  showPrevButton?: boolean;
+  showCloseButton?: boolean | undefined;
+  showNextButton?: boolean | undefined;
+  showPrevButton?: boolean | undefined;
 
-  arrowWidth?: number;
-  skipIfNoElement?: boolean;
-  nextOnTargetClick?: boolean;
+  arrowWidth?: number | undefined;
+  skipIfNoElement?: boolean | undefined;
+  nextOnTargetClick?: boolean | undefined;
 
-  onNext?:  CallbackNameNamesOrDefinition;
-  onPrev?:  CallbackNameNamesOrDefinition;
-  onStart?: CallbackNameNamesOrDefinition;
-  onEnd?:   CallbackNameNamesOrDefinition;
-  onClose?: CallbackNameNamesOrDefinition;
-  onError?: CallbackNameNamesOrDefinition;
-  onShow?:  CallbackNameNamesOrDefinition;
+  onNext?:  CallbackNameNamesOrDefinition | undefined;
+  onPrev?:  CallbackNameNamesOrDefinition | undefined;
+  onStart?: CallbackNameNamesOrDefinition | undefined;
+  onEnd?:   CallbackNameNamesOrDefinition | undefined;
+  onClose?: CallbackNameNamesOrDefinition | undefined;
+  onError?: CallbackNameNamesOrDefinition | undefined;
+  onShow?:  CallbackNameNamesOrDefinition | undefined;
                
   i18n?: {
-    nextBtn?: string;
-    prevBtn?: string;
-    doneBtn?: string;
-    skipBtn?: string;
-    closeTooltip?: string;
-    stepNums?: string[];
-  }
+    nextBtn?: string | undefined;
+    prevBtn?: string | undefined;
+    doneBtn?: string | undefined;
+    skipBtn?: string | undefined;
+    closeTooltip?: string | undefined;
+    stepNums?: string[] | undefined;
+  } | undefined
 }
 
 interface TourDefinition extends HopscotchConfiguration {
@@ -49,33 +49,33 @@ interface StepDefinition {
   placement: placementTypes;
   target: string | HTMLElement | Array<string | HTMLElement>
 
-  title?: string;
-  content?: string;
+  title?: string | undefined;
+  content?: string | undefined;
 
-  width?: number;
-  padding?: number;
+  width?: number | undefined;
+  padding?: number | undefined;
 
-  xOffset?: number | 'center';
-  yOffset?: number | 'center';
-  arrowOffset?: number | 'center';
+  xOffset?: number | 'center' | undefined;
+  yOffset?: number | 'center' | undefined;
+  arrowOffset?: number | 'center' | undefined;
 
-  delay?: number;
-  zIndex?: number;
+  delay?: number | undefined;
+  zIndex?: number | undefined;
 
-  showNextButton?: boolean;
-  showPrevButton?: boolean;
-  showCTAButton?: boolean;
+  showNextButton?: boolean | undefined;
+  showPrevButton?: boolean | undefined;
+  showCTAButton?: boolean | undefined;
 
-  ctaLabel?: string;
-  multipage?: boolean;
-  showSkip?: boolean;
-  fixedElement?: boolean;
-  nextOnTargetClick?: boolean;
+  ctaLabel?: string | undefined;
+  multipage?: boolean | undefined;
+  showSkip?: boolean | undefined;
+  fixedElement?: boolean | undefined;
+  nextOnTargetClick?: boolean | undefined;
 
-  onPrev?: CallbackNameNamesOrDefinition;
-  onNext?: CallbackNameNamesOrDefinition;
-  onShow?: CallbackNameNamesOrDefinition;
-  onCTA?:  CallbackNameNamesOrDefinition;
+  onPrev?: CallbackNameNamesOrDefinition | undefined;
+  onNext?: CallbackNameNamesOrDefinition | undefined;
+  onShow?: CallbackNameNamesOrDefinition | undefined;
+  onCTA?:  CallbackNameNamesOrDefinition | undefined;
 }
 
 interface HopscotchStatic {

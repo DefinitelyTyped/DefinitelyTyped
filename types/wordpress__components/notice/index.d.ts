@@ -10,14 +10,14 @@ declare namespace Notice {
         /**
          * An array of action objects.
          */
-        actions?: readonly Action[];
-        className?: string;
+        actions?: readonly Action[] | undefined;
+        className?: string | undefined;
         /**
          * Whether the notice should be dismissible or not.
          * @defaultValue true
          */
-        isDismissible?: boolean;
-        status?: Status;
+        isDismissible?: boolean | undefined;
+        status?: Status | undefined;
         /**
          * Function called when dismissing the notice.
          */
@@ -25,11 +25,11 @@ declare namespace Notice {
     }
     interface BaseAction {
         label: string;
-        className?: string;
+        className?: string | undefined;
         /**
          * Should default classes be removed from the action?
          */
-        noDefaultClasses?: boolean;
+        noDefaultClasses?: boolean | undefined;
     }
     interface ButtonAction extends BaseAction {
         onClick: MouseEventHandler<HTMLButtonElement>;

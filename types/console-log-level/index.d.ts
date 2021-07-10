@@ -12,9 +12,9 @@ declare namespace consoleLogLevel {
 }
 
 interface Options {
-    level?: consoleLogLevel.LogLevelNames;
-    prefix?: string | PrefixFunction;
-    stderr?: boolean;
+    level?: consoleLogLevel.LogLevelNames | undefined;
+    prefix?: string | PrefixFunction | undefined;
+    stderr?: boolean | undefined;
 }
 
 declare function consoleLogLevel(opts?: Options): consoleLogLevel.Logger;

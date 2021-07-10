@@ -24,7 +24,7 @@ declare namespace ToggleButtonGroup {
   }
 
   interface CheckboxProps {
-    name?: string;
+    name?: string | undefined;
     type: "checkbox";
     onChange?(values: any[]): void;
   }

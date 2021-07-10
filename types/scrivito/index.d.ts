@@ -29,15 +29,15 @@ type Attribute =
     | "widgetlist";
 
 interface AttributeOptions {
-    values?: string[];
-    only?: string | string[];
+    values?: string[] | undefined;
+    only?: string | string[] | undefined;
 }
 
 type AttributeWithOptions = [Attribute, AttributeOptions];
 
 interface OptimizeFor {
-    width?: number | string;
-    height?: number | string;
+    width?: number | string | undefined;
+    height?: number | string | undefined;
 }
 
 interface OptimizeForFit extends OptimizeFor {
@@ -57,7 +57,7 @@ type OptimizeDefinition = OptimizeForFit | OptimizeForResize;
 
 interface UploadOptions {
     filename: string;
-    contentType?: string;
+    contentType?: string | undefined;
 }
 
 export class Binary {
@@ -65,7 +65,7 @@ export class Binary {
     static upload(source: Blob | File, options: UploadOptions): FutureBinary;
     contentLength(): number;
     contentType(): string;
-    copy(options?: { filename?: string; contentType?: string }): FutureBinary;
+    copy(options?: { filename?: string | undefined; contentType?: string | undefined }): FutureBinary;
     filename(): string;
     isPrivate(): boolean;
     metadata(): MetadataCollection;
@@ -85,13 +85,13 @@ export class FutureBinary {
  */
 interface CSSImageStyleBackgroundProps {
     image: Obj | Binary | string;
-    attachment?: React.CSSProperties["backgroundAttachment"];
-    clip?: React.CSSProperties["backgroundClip"];
-    color?: React.CSSProperties["backgroundColor"];
-    origin?: React.CSSProperties["backgroundOrigin"];
-    position?: React.CSSProperties["backgroundPosition"];
-    repeat?: React.CSSProperties["backgroundRepeat"];
-    size?: React.CSSProperties["backgroundSize"];
+    attachment?: React.CSSProperties["backgroundAttachment"] | undefined;
+    clip?: React.CSSProperties["backgroundClip"] | undefined;
+    color?: React.CSSProperties["backgroundColor"] | undefined;
+    origin?: React.CSSProperties["backgroundOrigin"] | undefined;
+    position?: React.CSSProperties["backgroundPosition"] | undefined;
+    repeat?: React.CSSProperties["backgroundRepeat"] | undefined;
+    size?: React.CSSProperties["backgroundSize"] | undefined;
 }
 
 type CSSPropsWithoutBackground = Omit<
@@ -110,27 +110,27 @@ interface BackgroundImageBackgroundProp {
 }
 
 interface BackgroundImageTagProps {
-    tag?: string;
+    tag?: string | undefined;
     style: CSSPropsWithoutBackground & BackgroundImageBackgroundProp;
-    className?: string;
+    className?: string | undefined;
 }
 export class BackgroundImageTag extends React.Component<BackgroundImageTagProps, any> {}
 
 interface ChildListTagProps {
-    parent?: Obj;
-    tag?: string;
-    renderChild?: (child: Obj) => React.ReactElement;
-    className?: string;
+    parent?: Obj | undefined;
+    tag?: string | undefined;
+    renderChild?: ((child: Obj) => React.ReactElement) | undefined;
+    className?: string | undefined;
 }
 
 export class ChildListTag extends React.Component<ChildListTagProps, any> {}
 
 interface ContentTagProps extends Omit<React.AllHTMLAttributes<any>, "content"> {
     attribute: string;
-    content?: Obj | Widget;
-    tag?: string;
+    content?: Obj | Widget | undefined;
+    tag?: string | undefined;
     page?: any;
-    widgetProps?: object;
+    widgetProps?: object | undefined;
 }
 
 export class ContentTag extends React.Component<ContentTagProps, any> {}
@@ -138,9 +138,9 @@ export class ContentTag extends React.Component<ContentTagProps, any> {}
 export class CurrentPage extends React.Component<{}, any> {}
 
 interface ImageTagProps extends React.HTMLAttributes<HTMLImageElement> {
-    attribute?: string;
+    attribute?: string | undefined;
     content: Binary | Obj | Widget;
-    alt?: string;
+    alt?: string | undefined;
 }
 
 export class ImageTag extends React.Component<ImageTagProps, any> {}
@@ -149,8 +149,8 @@ export class InPlaceEditingOff extends React.Component<any, any> {}
 
 interface LinkTagProps extends React.HTMLAttributes<HTMLAnchorElement> {
     to: Obj | Link;
-    params?: object;
-    onClick?: (event: React.MouseEvent) => void;
+    params?: object | undefined;
+    onClick?: ((event: React.MouseEvent) => void) | undefined;
 }
 export class LinkTag extends React.Component<LinkTagProps, any> {}
 
@@ -159,7 +159,7 @@ export class NotFoundErrorPage extends React.Component<{}, any> {}
 export class RestoreInPlaceEditing extends React.Component<{}, any> {}
 
 interface WidgetTagProps extends React.HTMLAttributes<any> {
-    tag?: string;
+    tag?: string | undefined;
     [key: string]: any;
 }
 
@@ -173,17 +173,17 @@ type Priority = "foreground" | "background";
 
 interface ConfigOptions {
     tenant: string;
-    homepage?: () => Obj | null;
-    origin?: string;
-    routingBasePath?: string;
-    visitorAuthentication?: boolean;
+    homepage?: (() => Obj | null) | undefined;
+    origin?: string | undefined;
+    routingBasePath?: string | undefined;
+    visitorAuthentication?: boolean | undefined;
     // Hard to type
-    constraintsValidation?: (constraints: any) => any;
-    endpoint?: string;
-    priority?: Priority;
-    adoptUi?: boolean;
-    baseUrlForSite?: (siteId: string) => string | undefined;
-    siteForUrl?: (url: string) => { siteId: string; baseUrl: string } | undefined;
+    constraintsValidation?: ((constraints: any) => any) | undefined;
+    endpoint?: string | undefined;
+    priority?: Priority | undefined;
+    adoptUi?: boolean | undefined;
+    baseUrlForSite?: ((siteId: string) => string | undefined) | undefined;
+    siteForUrl?: ((url: string) => { siteId: string; baseUrl: string } | undefined) | undefined;
 }
 
 /**
@@ -196,12 +196,12 @@ interface AttributeValue {
 }
 
 interface AttributeProps {
-    title?: string;
-    description?: string;
-    values?: AttributeValue[];
+    title?: string | undefined;
+    description?: string | undefined;
+    values?: AttributeValue[] | undefined;
     options?: {
         toolbar: string[];
-    };
+    } | undefined;
 }
 
 interface EditingConfigAttributes {
@@ -211,15 +211,15 @@ interface EditingConfigAttributes {
 // TODO talk about this with krishan
 interface PropertiesGroup {
     title: string;
-    component?: string;
-    properties?: string[];
+    component?: string | undefined;
+    properties?: string[] | undefined;
 }
 
 export type ValidationReturnType = { message: string; severity: string } | string | undefined;
 
 type AttributeValidationCallback = (
     current: any,
-    options?: { obj?: Obj; widget?: Widget; content: any; name: string },
+    options?: { obj?: Obj | undefined; widget?: Widget | undefined; content: any; name: string },
 ) => ValidationReturnType;
 
 export type AttributeBasedValidation = [string, AttributeValidationCallback];
@@ -229,37 +229,37 @@ export type ClassBasedValidation = (target: Widget | Obj) => ValidationReturnTyp
 export type Validation = AttributeBasedValidation | ClassBasedValidation;
 
 interface EditingConfig {
-    title?: string;
-    thumbnail?: string;
-    description?: string;
-    titleForContent?: (instance: Obj | Widget) => string | void;
-    descriptionForContent?: (instance: Obj | Widget) => string;
-    attributes?: EditingConfigAttributes;
-    properties?: string[];
-    propertiesGroups?: PropertiesGroup[];
-    hideInSelectionDialogs?: boolean;
-    initialContent?: Record<string, any>;
-    initialize?: (instance: Obj) => void;
-    initializeCopy?: (originalInstance: Obj) => void;
-    validations?: Validation[];
+    title?: string | undefined;
+    thumbnail?: string | undefined;
+    description?: string | undefined;
+    titleForContent?: ((instance: Obj | Widget) => string | void) | undefined;
+    descriptionForContent?: ((instance: Obj | Widget) => string) | undefined;
+    attributes?: EditingConfigAttributes | undefined;
+    properties?: string[] | undefined;
+    propertiesGroups?: PropertiesGroup[] | undefined;
+    hideInSelectionDialogs?: boolean | undefined;
+    initialContent?: Record<string, any> | undefined;
+    initialize?: ((instance: Obj) => void) | undefined;
+    initializeCopy?: ((originalInstance: Obj) => void) | undefined;
+    validations?: Validation[] | undefined;
 }
 
 /**
  * Link definitions
  */
 interface InternalLinkAttributes {
-    hash?: string;
+    hash?: string | undefined;
     obj: Obj;
-    query?: string;
-    rel?: string;
-    target?: string;
-    title?: string;
+    query?: string | undefined;
+    rel?: string | undefined;
+    target?: string | undefined;
+    title?: string | undefined;
 }
 
 interface ExternalLinkAttributes {
-    rel?: string;
-    target?: string;
-    title?: string;
+    rel?: string | undefined;
+    target?: string | undefined;
+    title?: string | undefined;
     url: string;
 }
 
@@ -456,8 +456,8 @@ interface SiteContext {
 
 interface ObjClassOptions {
     attributes: Record<string, Attribute | AttributeWithOptions>;
-    extractTextAttributes?: string[];
-    extend?: ObjClass;
+    extractTextAttributes?: string[] | undefined;
+    extend?: ObjClass | undefined;
     onlyChildren: string | string[];
     onlyInside: string | string[];
 }
@@ -488,9 +488,9 @@ export class Widget {
 
 interface WidgetClassOptions {
     attributes: Record<string, Attribute | AttributeWithOptions>;
-    extractTextAttributes?: string[];
-    extend?: WidgetClass;
-    onlyInside?: string | string[];
+    extractTextAttributes?: string[] | undefined;
+    extend?: WidgetClass | undefined;
+    onlyInside?: string | string[] | undefined;
 }
 
 type WidgetClass = typeof Widget;
@@ -541,12 +541,12 @@ interface MenuPosition {
 interface MenuInsertParameters {
     id: string;
     title: string;
-    icon?: string;
-    description?: string;
-    position?: MenuPosition;
-    group?: string;
+    icon?: string | undefined;
+    description?: string | undefined;
+    position?: MenuPosition | undefined;
+    group?: string | undefined;
     onClick: () => void;
-    enabled?: boolean;
+    enabled?: boolean | undefined;
 }
 
 type MenuModifyParameters = Pick<MenuInsertParameters, "id" | "group" | "icon" | "position" | "title">;
@@ -583,7 +583,7 @@ export function getClass(name: string): ObjClass | WidgetClass | null;
 export function isEditorLoggedIn(): boolean;
 export function isInPlaceEditingActive(): boolean;
 export function load<T>(functionToLoad: () => T): Promise<T>;
-export function navigateTo(target: (() => Obj | Link) | Obj | Link, options?: { hash?: string; params?: any }): void;
+export function navigateTo(target: (() => Obj | Link) | Obj | Link, options?: { hash?: string | undefined; params?: any }): void;
 export function openDialog(name: string): void;
 export function preload(preloadDump: any): Promise<{ dumpLoaded: boolean }>;
 export function provideComponent(className: string, component: WidgetComponent | ObjComponent): void;
@@ -601,7 +601,7 @@ export function renderPage(page: Obj, renderFunction: () => void): Promise<{ res
 export function setVisitorIdToken(idToken: string): void;
 export function updateContent(): void;
 export function updateMenuExtensions(): void;
-export function urlFor(target: Obj | Binary | Link, options?: { query?: string; hash?: string }): string;
+export function urlFor(target: Obj | Binary | Link, options?: { query?: string | undefined; hash?: string | undefined }): string;
 export function useHistory(history: History): void;
 export function validationResultsFor(model: Obj | Widget, attribute: string): ValidationResult[];
 export function isComparisonActive(): boolean;

@@ -23,17 +23,17 @@ export { default as Snap } from './interaction/Snap';
 export { default as Translate } from './interaction/Translate';
 
 export interface DefaultsOptions {
-    altShiftDragRotate?: boolean;
-    onFocusOnly?: boolean;
-    constrainResolution?: boolean;
-    doubleClickZoom?: boolean;
-    keyboard?: boolean;
-    mouseWheelZoom?: boolean;
-    shiftDragZoom?: boolean;
-    dragPan?: boolean;
-    pinchRotate?: boolean;
-    pinchZoom?: boolean;
-    zoomDelta?: number;
-    zoomDuration?: number;
+    altShiftDragRotate?: boolean | undefined;
+    onFocusOnly?: boolean | undefined;
+    constrainResolution?: boolean | undefined;
+    doubleClickZoom?: boolean | undefined;
+    keyboard?: boolean | undefined;
+    mouseWheelZoom?: boolean | undefined;
+    shiftDragZoom?: boolean | undefined;
+    dragPan?: boolean | undefined;
+    pinchRotate?: boolean | undefined;
+    pinchZoom?: boolean | undefined;
+    zoomDelta?: number | undefined;
+    zoomDuration?: number | undefined;
 }
 export function defaults(opt_options?: DefaultsOptions): Collection<Interaction>;

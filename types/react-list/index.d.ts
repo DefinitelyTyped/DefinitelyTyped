@@ -16,20 +16,20 @@ type ItemSizeGetter = (index: number) => number;
 type ScrollParentGetter = () => JSX.Element;
 
 interface ReactListProps extends Props<ReactList> {
-    axis?: 'x' | 'y';
-    initialIndex?: number;
-    itemRenderer?: ItemRenderer;
-    itemSizeEstimator?: ItemSizeEstimator;
-    itemSizeGetter?: ItemSizeGetter;
-    itemsRenderer?: ItemsRenderer;
-    length?: number;
-    minSize?: number;
-    pageSize?: number;
-    scrollParentGetter?: ScrollParentGetter;
-    threshold?: number;
-    type?: string;
-    useStaticSize?: boolean;
-    useTranslate3d?: boolean;
+    axis?: 'x' | 'y' | undefined;
+    initialIndex?: number | undefined;
+    itemRenderer?: ItemRenderer | undefined;
+    itemSizeEstimator?: ItemSizeEstimator | undefined;
+    itemSizeGetter?: ItemSizeGetter | undefined;
+    itemsRenderer?: ItemsRenderer | undefined;
+    length?: number | undefined;
+    minSize?: number | undefined;
+    pageSize?: number | undefined;
+    scrollParentGetter?: ScrollParentGetter | undefined;
+    threshold?: number | undefined;
+    type?: string | undefined;
+    useStaticSize?: boolean | undefined;
+    useTranslate3d?: boolean | undefined;
 }
 
 declare class ReactList extends Component<ReactListProps> {

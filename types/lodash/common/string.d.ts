@@ -475,7 +475,7 @@ declare module "../index" {
         /**
          * @see _.sourceURL
          */
-        sourceURL?: string;
+        sourceURL?: string | undefined;
     }
     interface TemplateExecutor {
         (data?: object): string;
@@ -655,15 +655,15 @@ declare module "../index" {
         /**
          * @see _.length
          */
-        length?: number;
+        length?: number | undefined;
         /**
          * @see _.omission
          */
-        omission?: string;
+        omission?: string | undefined;
         /**
          * @see _.separator
          */
-        separator?: string | RegExp;
+        separator?: string | RegExp | undefined;
     }
     interface LoDashStatic {
         /**

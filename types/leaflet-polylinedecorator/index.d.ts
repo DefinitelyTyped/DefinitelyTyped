@@ -11,8 +11,8 @@ import * as L from 'leaflet';
 declare module 'leaflet' {
     namespace Symbol {
         interface DashOptions {
-            pixelSize?: number;
-            pathOptions?: PathOptions;
+            pixelSize?: number | undefined;
+            pathOptions?: PathOptions | undefined;
         }
 
         class Dash {
@@ -24,10 +24,10 @@ declare module 'leaflet' {
         function dash(options?: DashOptions): Dash;
 
         interface ArrowHeadOptions {
-            polygon?: boolean;
-            pixelSize?: number;
-            headAngle?: number;
-            pathOptions?: PathOptions;
+            polygon?: boolean | undefined;
+            pixelSize?: number | undefined;
+            headAngle?: number | undefined;
+            pathOptions?: PathOptions | undefined;
         }
 
         class ArrowHead {
@@ -39,8 +39,8 @@ declare module 'leaflet' {
         function arrowHead(options?: ArrowHeadOptions): ArrowHead;
 
         interface MarkerOptions {
-            rotate?: boolean;
-            markerOptions?: L.MarkerOptions;
+            rotate?: boolean | undefined;
+            markerOptions?: L.MarkerOptions | undefined;
         }
 
         class Marker {
@@ -56,8 +56,8 @@ declare module 'leaflet' {
     function isCoordArray(c: any): boolean;
 
     interface Pattern {
-        offset?: number | string;
-        endOffset?: number | string;
+        offset?: number | string | undefined;
+        endOffset?: number | string | undefined;
         repeat: number | string;
         symbol: Symbol.Dash | Symbol.ArrowHead | Symbol.Marker;
     }

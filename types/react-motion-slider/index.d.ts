@@ -12,60 +12,60 @@ declare module "react-motion-slider" {
         /**
          * Move to a slide by its key.
          */
-        currentKey?: string | number;
+        currentKey?: string | number | undefined;
         /**
          * Move to a slide by its index.
          */
-        currentIndex?: number;
+        currentIndex?: number | undefined;
         /**
          * The amount of slides shown in view
          * @default 1
          */
-        slidesToShow?: number;
+        slidesToShow?: number | undefined;
         /**
          * The amount of slides to move upon using prev and next methods.
          * @default 1
          */
-        slidesToMove?: number;
+        slidesToMove?: number | undefined;
         /**
          * Animates the wrapper height to fit the current slide.
          * @default false
          */
-        autoHeight?: boolean;
+        autoHeight?: boolean | undefined;
         /**
          * Offsets the slide to align either left, center, or right.
          * @default "left"
          */
-        align?: "left" | "center" | "right";
+        align?: "left" | "center" | "right" | undefined;
         /**
          * Enable touch and/or mouse dragging
          * @default true
          */
-        swipe?: boolean | "touch" | "mouse";
+        swipe?: boolean | "touch" | "mouse" | undefined;
         /**
          * The amount the user must swipe to advance slides. (sliderWidth * swipeThreshold)
          * @default 0.5
          */
-        swipeThreshold?: number;
+        swipeThreshold?: number | undefined;
         /**
          * The amount of time in milliseconds that determines if a swipe was a flick or not.
          */
-        flickTimeout?: number;
+        flickTimeout?: number | undefined;
         /**
          * Accepts a React Motion spring config.
          */
-        springConfig?: OpaqueConfig;
+        springConfig?: OpaqueConfig | undefined;
         /**
          * Prop callback fired before slide change.
          * @param currentIndex
          * @param nextIndex
          */
-        beforeSlide?: (currentIndex: number, nextIndex: number) => void;
+        beforeSlide?: ((currentIndex: number, nextIndex: number) => void) | undefined;
         /**
          * Prop callback fired after slide change.
          * @param currentIndex
          */
-        afterSlide?: (currentIndex: number) => void;
+        afterSlide?: ((currentIndex: number) => void) | undefined;
     }
 
     export default class Slider extends React.Component<SliderProps> {

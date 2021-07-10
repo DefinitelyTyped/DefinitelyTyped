@@ -16,24 +16,24 @@ declare class Recaptcha {
 }
 
 interface RecaptchaOptions {
-    tabindex?: number;
-    theme?: string;
-    callback?: Function;
-    lang?: string;
-    custom_theme_widget?: string;
-    custom_translations?: CustomTranslations;
+    tabindex?: number | undefined;
+    theme?: string | undefined;
+    callback?: Function | undefined;
+    lang?: string | undefined;
+    custom_theme_widget?: string | undefined;
+    custom_translations?: CustomTranslations | undefined;
 }
 
 interface CustomTranslations {
-    visual_challenge?: string;
-    audio_challenge?: string;
-    refresh_btn?: string;
-    instructions_visual?: string;
-    instructions_audio?: string;
-    help_btn?: string;
-    play_again?: string;
-    cant_hear_this?: string;
-    incorrect_try_again?: string;
-    image_alt_text?: string;
-    privacy_and_terms?: string;
+    visual_challenge?: string | undefined;
+    audio_challenge?: string | undefined;
+    refresh_btn?: string | undefined;
+    instructions_visual?: string | undefined;
+    instructions_audio?: string | undefined;
+    help_btn?: string | undefined;
+    play_again?: string | undefined;
+    cant_hear_this?: string | undefined;
+    incorrect_try_again?: string | undefined;
+    image_alt_text?: string | undefined;
+    privacy_and_terms?: string | undefined;
 }

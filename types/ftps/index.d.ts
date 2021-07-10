@@ -8,29 +8,29 @@ export = FTP;
 declare namespace FTP {
     interface FTPOptions {
         host: string;
-        port?: number;
-        protocol?: string;
-        username?: string;
-        password?: string;
-        escape?: boolean;
-        retries?: number;
-        timeout?: number;
-        retryInterval?: number;
-        retryIntervalMultiplier?: number;
-        requiresPassword?: boolean;
-        autoConfirm?: boolean;
-        cwd?: string;
-        additionalLftpCommands?: string;
-        requireSSHKey?: boolean;
-        sshKeyPath?: string;
+        port?: number | undefined;
+        protocol?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        escape?: boolean | undefined;
+        retries?: number | undefined;
+        timeout?: number | undefined;
+        retryInterval?: number | undefined;
+        retryIntervalMultiplier?: number | undefined;
+        requiresPassword?: boolean | undefined;
+        autoConfirm?: boolean | undefined;
+        cwd?: string | undefined;
+        additionalLftpCommands?: string | undefined;
+        requireSSHKey?: boolean | undefined;
+        sshKeyPath?: string | undefined;
     }
 
     interface MirrorOptions {
-        remoteDir?: string;
-        localDir?: string;
-        options?: string;
-        upload?: boolean;
-        parallel?: boolean | number;
+        remoteDir?: string | undefined;
+        localDir?: string | undefined;
+        options?: string | undefined;
+        upload?: boolean | undefined;
+        parallel?: boolean | number | undefined;
         filter?: any;
     }
 

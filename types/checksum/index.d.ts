@@ -14,7 +14,7 @@ declare namespace checksum {
          * Algorithm to use, default 'sha1'
          * Can be 'sha1' or 'md5'  (see module 'crypto').
          */
-        algorithm?: string;
+        algorithm?: string | undefined;
     }
 
     /**

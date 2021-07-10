@@ -38,13 +38,13 @@ export interface Options {
      * do not care of case type
      * @default false
      */
-    caseInsensitive?: boolean;
+    caseInsensitive?: boolean | undefined;
 
     /**
      * return partial (substring) results too
      * @default false
      */
-    contains?: boolean;
+    contains?: boolean | undefined;
 }
 
 export interface Device {

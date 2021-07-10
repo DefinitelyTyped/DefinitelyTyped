@@ -46,8 +46,8 @@ declare namespace autobahn {
     }
 
     interface IInvocation {
-        caller?: number;
-        progress?: (args : any[], kwargs : any) => void;
+        caller?: number | undefined;
+        progress?: ((args : any[], kwargs : any) => void) | undefined;
         procedure: string;
     }
 
@@ -59,7 +59,7 @@ declare namespace autobahn {
 
     interface IEvent {
         publication: number;
-        publisher?: number;
+        publisher?: number | undefined;
         topic: string;
     }
 
@@ -159,32 +159,32 @@ declare namespace autobahn {
     }
 
     interface ICallOptions {
-        timeout?: number;
-        receive_progress?: boolean;
-        disclose_me?: boolean;
+        timeout?: number | undefined;
+        receive_progress?: boolean | undefined;
+        disclose_me?: boolean | undefined;
     }
 
     interface IPublishOptions {
-        acknowledge?: boolean;
-        exclude?: number[];
-        exclude_authid?: string[];
-        exclude_authrole?: string[];
-        eligible?: number[];
-        eligible_authid?: string[];
-        eligible_authrole?: string[];
-        retain?: boolean;
-        disclose_me?: boolean;
-        exclude_me?: boolean;
+        acknowledge?: boolean | undefined;
+        exclude?: number[] | undefined;
+        exclude_authid?: string[] | undefined;
+        exclude_authrole?: string[] | undefined;
+        eligible?: number[] | undefined;
+        eligible_authid?: string[] | undefined;
+        eligible_authrole?: string[] | undefined;
+        retain?: boolean | undefined;
+        disclose_me?: boolean | undefined;
+        exclude_me?: boolean | undefined;
     }
 
     interface ISubscribeOptions {
-        match?: string;
-        get_retained?: boolean;
+        match?: string | undefined;
+        get_retained?: boolean | undefined;
     }
 
     interface IRegisterOptions {
-        disclose_caller?: boolean;
-        invoke?: 'single' | 'roundrobin' | 'random' | 'first' | 'last';
+        disclose_caller?: boolean | undefined;
+        invoke?: 'single' | 'roundrobin' | 'random' | 'first' | 'last' | undefined;
     }
 
     export class Connection {
@@ -194,8 +194,8 @@ declare namespace autobahn {
         readonly isOpen: boolean;
         readonly isRetrying: boolean;
         readonly transport: ITransport;
-        readonly session?: Session;
-        readonly defer?: DeferFactory;
+        readonly session?: Session | undefined;
+        readonly defer?: DeferFactory | undefined;
 
         open(): void;
 
@@ -206,8 +206,8 @@ declare namespace autobahn {
     }
 
     interface ITransportDefinition {
-        url?: string;
-        protocols?: string[];
+        url?: string | undefined;
+        protocols?: string[] | undefined;
         type: TransportType;
     }
 
@@ -216,22 +216,22 @@ declare namespace autobahn {
     type OnChallengeHandler = (session: Session, method: string, extra: any) => string | When.Promise<string>;
 
     interface IConnectionOptions {
-        use_es6_promises?: boolean;
+        use_es6_promises?: boolean | undefined;
         // use explicit deferred factory, e.g. jQuery.Deferred or Q.defer
-        use_deferred?: DeferFactory;
-        transports?: ITransportDefinition[];
-        retry_if_unreachable?: boolean;
-        max_retries?: number;
-        initial_retry_delay?: number;
-        max_retry_delay?: number;
-        retry_delay_growth?: number;
-        retry_delay_jitter?: number;
-        url?: string;
-        protocols?: string[];
-        onchallenge?: OnChallengeHandler;
+        use_deferred?: DeferFactory | undefined;
+        transports?: ITransportDefinition[] | undefined;
+        retry_if_unreachable?: boolean | undefined;
+        max_retries?: number | undefined;
+        initial_retry_delay?: number | undefined;
+        max_retry_delay?: number | undefined;
+        retry_delay_growth?: number | undefined;
+        retry_delay_jitter?: number | undefined;
+        url?: string | undefined;
+        protocols?: string[] | undefined;
+        onchallenge?: OnChallengeHandler | undefined;
         realm: string;
-        authmethods?: string[];
-        authid?: string;
+        authmethods?: string[] | undefined;
+        authid?: string | undefined;
     }
 
     interface ICloseEventDetails {
@@ -244,12 +244,12 @@ declare namespace autobahn {
     
     // Workaround to get intellisense on type unions of 'literals' | string. 
     // See https://github.com/Microsoft/TypeScript/issues/29729
-    type CustomTransportType = string & { zz_IGNORE_ME?: never };
+    type CustomTransportType = string & { zz_IGNORE_ME?: never | undefined };
     type TransportType = DefaultTransportType | CustomTransportType;
 
     interface ITransportInfo {
-        url?: string;
-        protocol?: string;
+        url?: string | undefined;
+        protocol?: string | undefined;
         type: TransportType;
     }
 

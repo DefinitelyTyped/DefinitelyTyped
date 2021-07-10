@@ -37,20 +37,20 @@ declare namespace yargsParser {
     }
 
     interface Options {
-        alias?: { [key: string]: string | string[] };
-        array?: string[];
-        boolean?: string[];
-        config?: string | string[] | { [key: string]: boolean };
-        configuration?: Partial<Configuration>;
-        coerce?: { [key: string]: (arg: any) => any };
-        count?: string[];
-        default?: { [key: string]: any };
-        envPrefix?: string;
-        narg?: { [key: string]: number };
-        normalize?: string[];
-        string?: string[];
-        number?: string[];
-        '--'?: boolean;
+        alias?: { [key: string]: string | string[] } | undefined;
+        array?: string[] | undefined;
+        boolean?: string[] | undefined;
+        config?: string | string[] | { [key: string]: boolean } | undefined;
+        configuration?: Partial<Configuration> | undefined;
+        coerce?: { [key: string]: (arg: any) => any } | undefined;
+        count?: string[] | undefined;
+        default?: { [key: string]: any } | undefined;
+        envPrefix?: string | undefined;
+        narg?: { [key: string]: number } | undefined;
+        normalize?: string[] | undefined;
+        string?: string[] | undefined;
+        number?: string[] | undefined;
+        '--'?: boolean | undefined;
     }
 
     interface Parser {

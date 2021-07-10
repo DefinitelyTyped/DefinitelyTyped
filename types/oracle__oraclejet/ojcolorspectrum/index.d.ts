@@ -6,10 +6,10 @@ export interface ojColorSpectrum extends editableValue<Color, ojColorSpectrumSet
     readonly transientValue: Color;
     value: Color;
     translations: {
-        labelHue?: string;
-        labelOpacity?: string;
-        labelSatLum?: string;
-        labelThumbDesc?: string;
+        labelHue?: string | undefined;
+        labelOpacity?: string | undefined;
+        labelSatLum?: string | undefined;
+        labelThumbDesc?: string | undefined;
     };
     onLabelledByChanged: ((event: JetElementCustomEvent<ojColorSpectrum["labelledBy"]>) => any) | null;
     onTransientValueChanged: ((event: JetElementCustomEvent<ojColorSpectrum["transientValue"]>) => any) | null;
@@ -51,10 +51,10 @@ export interface ojColorSpectrumSettableProperties extends editableValueSettable
     readonly transientValue: Color;
     value: Color;
     translations: {
-        labelHue?: string;
-        labelOpacity?: string;
-        labelSatLum?: string;
-        labelThumbDesc?: string;
+        labelHue?: string | undefined;
+        labelOpacity?: string | undefined;
+        labelSatLum?: string | undefined;
+        labelThumbDesc?: string | undefined;
     };
 }
 export interface ojColorSpectrumSettablePropertiesLenient extends Partial<ojColorSpectrumSettableProperties> {

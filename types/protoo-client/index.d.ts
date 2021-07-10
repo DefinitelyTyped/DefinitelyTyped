@@ -28,12 +28,12 @@ export class WebSocketTransport {
     constructor(
         url: string,
         options?: {
-            protocols?: string | string[];
-            origin?: string;
-            headers?: http.OutgoingHttpHeaders;
-            requestOptions?: object;
-            clientConfig?: websocket.IClientConfig;
-            retry?: retry.OperationOptions;
+            protocols?: string | string[] | undefined;
+            origin?: string | undefined;
+            headers?: http.OutgoingHttpHeaders | undefined;
+            requestOptions?: object | undefined;
+            clientConfig?: websocket.IClientConfig | undefined;
+            retry?: retry.OperationOptions | undefined;
         },
     );
 

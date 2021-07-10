@@ -38,26 +38,26 @@ declare namespace OverlayScrollbars {
 
     type UpdatedCallback = (this: OverlayScrollbars, args?: UpdatedArgs) => void;
 
-    type Coordinates = { x?: Position; y?: Position }
-        | { l?: Position; t?: Position }
-        | { left?: Position; top?: Position }
+    type Coordinates = { x?: Position | undefined; y?: Position | undefined }
+        | { l?: Position | undefined; t?: Position | undefined }
+        | { left?: Position | undefined; top?: Position | undefined }
         | [Position, Position]
         | Position
         | HTMLElement
         | JQuery
         | {
             el: HTMLElement | JQuery;
-            scroll?: ScrollBehavior | { x?: ScrollBehavior; y?: ScrollBehavior } | [ScrollBehavior, ScrollBehavior];
-            block?: BlockBehavior | { x?: BlockBehavior; y?: BlockBehavior } | [BlockBehavior, BlockBehavior];
+            scroll?: ScrollBehavior | { x?: ScrollBehavior | undefined; y?: ScrollBehavior | undefined } | [ScrollBehavior, ScrollBehavior] | undefined;
+            block?: BlockBehavior | { x?: BlockBehavior | undefined; y?: BlockBehavior | undefined } | [BlockBehavior, BlockBehavior] | undefined;
             margin?: Margin
             | {
-                top?: Margin;
-                right?: Margin;
-                bottom?: Margin;
-                left?: Margin;
+                top?: Margin | undefined;
+                right?: Margin | undefined;
+                bottom?: Margin | undefined;
+                left?: Margin | undefined;
             }
             | [Margin, Margin]
-            | [Margin, Margin, Margin, Margin];
+            | [Margin, Margin, Margin, Margin] | undefined;
         };
 
     interface OverflowChangedArgs {
@@ -88,51 +88,51 @@ declare namespace OverlayScrollbars {
     }
 
     interface Options {
-        className?: string | null;
-        resize?: ResizeBehavior;
-        sizeAutoCapable?: boolean;
-        clipAlways?: boolean;
-        normalizeRTL?: boolean;
-        paddingAbsolute?: boolean;
-        autoUpdate?: boolean | null;
-        autoUpdateInterval?: number;
-        updateOnLoad?: string | ReadonlyArray<string> | null;
+        className?: string | null | undefined;
+        resize?: ResizeBehavior | undefined;
+        sizeAutoCapable?: boolean | undefined;
+        clipAlways?: boolean | undefined;
+        normalizeRTL?: boolean | undefined;
+        paddingAbsolute?: boolean | undefined;
+        autoUpdate?: boolean | null | undefined;
+        autoUpdateInterval?: number | undefined;
+        updateOnLoad?: string | ReadonlyArray<string> | null | undefined;
         nativeScrollbarsOverlaid?: {
-            showNativeScrollbars?: boolean;
-            initialize?: boolean;
-        };
+            showNativeScrollbars?: boolean | undefined;
+            initialize?: boolean | undefined;
+        } | undefined;
         overflowBehavior?: {
-            x?: OverflowBehavior;
-            y?: OverflowBehavior;
-        };
+            x?: OverflowBehavior | undefined;
+            y?: OverflowBehavior | undefined;
+        } | undefined;
         scrollbars?: {
-            visibility?: VisibilityBehavior;
-            autoHide?: AutoHideBehavior;
-            autoHideDelay?: number;
-            dragScrolling?: boolean;
-            clickScrolling?: boolean;
-            touchSupport?: boolean;
-            snapHandle?: boolean;
-        };
+            visibility?: VisibilityBehavior | undefined;
+            autoHide?: AutoHideBehavior | undefined;
+            autoHideDelay?: number | undefined;
+            dragScrolling?: boolean | undefined;
+            clickScrolling?: boolean | undefined;
+            touchSupport?: boolean | undefined;
+            snapHandle?: boolean | undefined;
+        } | undefined;
         textarea?: {
-            dynWidth?: boolean;
-            dynHeight?: boolean;
-            inheritedAttrs?: string | ReadonlyArray<string> | null;
-        };
+            dynWidth?: boolean | undefined;
+            dynHeight?: boolean | undefined;
+            inheritedAttrs?: string | ReadonlyArray<string> | null | undefined;
+        } | undefined;
         callbacks?: {
-            onInitialized?: BasicEventCallback | null;
-            onInitializationWithdrawn?: BasicEventCallback | null;
-            onDestroyed?: BasicEventCallback | null;
-            onScrollStart?: ScrollEventCallback | null;
-            onScroll?: ScrollEventCallback | null;
-            onScrollStop?: ScrollEventCallback | null;
-            onOverflowChanged?: OverflowChangedCallback | null;
-            onOverflowAmountChanged?: OverflowAmountChangedCallback | null;
-            onDirectionChanged?: DirectionChangedCallback | null;
-            onContentSizeChanged?: SizeChangedCallback | null;
-            onHostSizeChanged?: SizeChangedCallback | null;
-            onUpdated?: UpdatedCallback | null;
-        };
+            onInitialized?: BasicEventCallback | null | undefined;
+            onInitializationWithdrawn?: BasicEventCallback | null | undefined;
+            onDestroyed?: BasicEventCallback | null | undefined;
+            onScrollStart?: ScrollEventCallback | null | undefined;
+            onScroll?: ScrollEventCallback | null | undefined;
+            onScrollStop?: ScrollEventCallback | null | undefined;
+            onOverflowChanged?: OverflowChangedCallback | null | undefined;
+            onOverflowAmountChanged?: OverflowAmountChangedCallback | null | undefined;
+            onDirectionChanged?: DirectionChangedCallback | null | undefined;
+            onContentSizeChanged?: SizeChangedCallback | null | undefined;
+            onHostSizeChanged?: SizeChangedCallback | null | undefined;
+            onUpdated?: UpdatedCallback | null | undefined;
+        } | undefined;
     }
 
     interface ScrollInfo {
@@ -245,7 +245,7 @@ declare namespace OverlayScrollbars {
     interface ExtensionInfo {
         name: string;
         extensionFactory: (this: OverlayScrollbars, defaultOptions: {}, compatibility: Compatibility, framework: any) => Extension;
-        defaultOptions?: {};
+        defaultOptions?: {} | undefined;
     }
 
     interface Globals {
@@ -311,7 +311,7 @@ interface OverlayScrollbars {
     scroll(
         coordinates: OverlayScrollbars.Coordinates,
         duration?: number,
-        easing?: OverlayScrollbars.Easing | { x?: OverlayScrollbars.Easing; y?: OverlayScrollbars.Easing } | [OverlayScrollbars.Easing, OverlayScrollbars.Easing],
+        easing?: OverlayScrollbars.Easing | { x?: OverlayScrollbars.Easing | undefined; y?: OverlayScrollbars.Easing | undefined } | [OverlayScrollbars.Easing, OverlayScrollbars.Easing],
         complete?: (...args: any[]) => any
     ): void;
     scroll(coordinates: OverlayScrollbars.Coordinates, options: {}): void;

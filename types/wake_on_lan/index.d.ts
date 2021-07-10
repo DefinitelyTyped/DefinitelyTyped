@@ -1,7 +1,7 @@
 // Type definitions for wake_on_lan
 // Project: https://github.com/agnat/node_wake_on_lan
 // Definitions by: Tobias Kahlert <https://github.com/SrTobi>
-// Definitions: https://github.com/SrTobi/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 
@@ -15,22 +15,22 @@ declare namespace wol {
         /**
          * The ip address to which the packet is send  (default: 255.255.255.255)
          */
-        address?:string;
+        address?:string | undefined;
 
         /**
          * Number of packets to send (default: 3)
          */
-        num_packets?:number;
+        num_packets?:number | undefined;
 
         /**
          * The interval between packets (default: 100ms)
          */
-        interval?:number;
+        interval?:number | undefined;
 
         /**
          * The port to send to (default: 9)
          */
-        port?:number;
+        port?:number | undefined;
     }
 
     type ErrorCallback = (Error:any) => void;

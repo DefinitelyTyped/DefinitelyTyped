@@ -16,6 +16,6 @@ export interface FontFamilyOption {
 }
 
 export interface FontFamilyConfig {
-    options?: Array<string | FontFamilyOption>;
-    supportAllValues?: boolean;
+    options?: Array<string | FontFamilyOption> | undefined;
+    supportAllValues?: boolean | undefined;
 }

@@ -10,23 +10,23 @@ export interface AutoRecurring {
   /** Identificador de moeda local. */
   currency_id: Currency;
   /** Data (ISO_8601) de início da assinatura. */
-  start_date?: string;
+  start_date?: string | undefined;
   /** Data (ISO_8601) de término da assinatura. */
-  end_date?: string;
+  end_date?: string | undefined;
 }
 
 export interface CreatePreApprovalPayload {
   /** Email do pagador. */
-  payer_email?: string;
+  payer_email?: string | undefined;
   /** Url de retorno. */
-  back_url?: string;
+  back_url?: string | undefined;
   /** Identificador de fornecedor. */
-  collector_id?: string;
+  collector_id?: string | undefined;
   /** Status de assinatura. */
-  status?: string;
+  status?: string | undefined;
   /** Título da assinatura. */
-  reason?: string;
+  reason?: string | undefined;
   /** Valor de referência de assinatura. */
-  external_reference?: string;
-  auto_recurring?: AutoRecurring;
+  external_reference?: string | undefined;
+  auto_recurring?: AutoRecurring | undefined;
 }

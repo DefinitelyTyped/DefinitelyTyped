@@ -8,7 +8,7 @@
  * @param options.circularRefs enable circularRefs (default is true)
  * @return New/current config
  */
-export function config({ circularRefs }?: { circularRefs?: boolean }): { circularRefs: boolean };
+export function config({ circularRefs }?: { circularRefs?: boolean | undefined }): { circularRefs: boolean };
 /**
  * The LosslessJSON.parse() method parses a string as JSON, optionally transforming
  * the value produced by parsing.

@@ -20,7 +20,7 @@ import Delta = require("quill-delta");
  *
  *  But this would break a lot of existing code as it would require manual discrimination of the union types.
  */
-export type DeltaOperation = { insert?: any; delete?: number; retain?: number } & OptionalAttributes;
+export type DeltaOperation = { insert?: any; delete?: number | undefined; retain?: number | undefined } & OptionalAttributes;
 interface SourceMap {
     API: "api";
     SILENT: "silent";
@@ -30,11 +30,11 @@ export type Sources = "api" | "user" | "silent";
 
 export interface Key {
     key: string | number;
-    shortKey?: boolean | null;
-    shiftKey?: boolean | null;
-    altKey?: boolean | null;
-    metaKey?: boolean | null;
-    ctrlKey?: boolean | null;
+    shortKey?: boolean | null | undefined;
+    shiftKey?: boolean | null | undefined;
+    altKey?: boolean | null | undefined;
+    metaKey?: boolean | null | undefined;
+    ctrlKey?: boolean | null | undefined;
 }
 
 export interface StringMap {
@@ -42,7 +42,7 @@ export interface StringMap {
 }
 
 export interface OptionalAttributes {
-    attributes?: StringMap;
+    attributes?: StringMap | undefined;
 }
 
 export type TextChangeHandler = (delta: Delta, oldContents: Delta, source: Sources) => any;
@@ -61,22 +61,22 @@ export type ClipboardMatcherNode = string | number;
 
 export interface ClipboardStatic {
     matchers: Array<[ClipboardMatcherNode, ClipboardMatcherCallback]>;
-    convert(content?: { html?: string; text?: string }, formats?: StringMap): Delta;
+    convert(content?: { html?: string | undefined; text?: string | undefined }, formats?: StringMap): Delta;
     addMatcher(selectorOrNodeType: ClipboardMatcherNode, callback: ClipboardMatcherCallback): void;
     dangerouslyPasteHTML(html: string, source?: Sources): void;
     dangerouslyPasteHTML(index: number, html: string, source?: Sources): void;
 }
 
 export interface QuillOptionsStatic {
-    debug?: string | boolean;
-    modules?: StringMap;
-    placeholder?: string;
-    readOnly?: boolean;
-    theme?: string;
-    formats?: string[];
-    bounds?: HTMLElement | string;
-    scrollingContainer?: HTMLElement | string;
-    strict?: boolean;
+    debug?: string | boolean | undefined;
+    modules?: StringMap | undefined;
+    placeholder?: string | undefined;
+    readOnly?: boolean | undefined;
+    theme?: string | undefined;
+    formats?: string[] | undefined;
+    bounds?: HTMLElement | string | undefined;
+    scrollingContainer?: HTMLElement | string | undefined;
+    strict?: boolean | undefined;
 }
 
 export interface BoundsStatic {

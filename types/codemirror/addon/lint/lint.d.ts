@@ -2,15 +2,15 @@ import * as CodeMirror from '../../';
 
 export interface BaseLintStateOptions<T> {
     /** debounce delay before linting onChange */
-    delay?: number;
+    delay?: number | undefined;
 
     /** callback to modify an annotation before display */
-    formatAnnotation?: (annotation: Annotation) => Annotation;
+    formatAnnotation?: ((annotation: Annotation) => Annotation) | undefined;
 
     /** whether to lint onChange event */
-    lintOnChange?: boolean;
+    lintOnChange?: boolean | undefined;
 
-    selfContain?: boolean;
+    selfContain?: boolean | undefined;
 
     /** callback after linter completes */
     onUpdateLinting?(annotationsNotSorted: Annotation[], annotations: Annotation[], codeMirror: CodeMirror.Editor): void;
@@ -19,21 +19,21 @@ export interface BaseLintStateOptions<T> {
      * Passing rules in `options` property prevents JSHint (and other linters) from complaining
      * about unrecognized rules like `onUpdateLinting`, `delay`, `lintOnChange`, etc.
      */
-    options?: T;
+    options?: T | undefined;
 
     /** controls display of lint tooltips */
-    tooltips?: boolean | 'gutter';
+    tooltips?: boolean | 'gutter' | undefined;
 }
 
 export interface SyncLintStateOptions<T> extends BaseLintStateOptions<T> {
-    async?: false;
-    getAnnotations?: Linter<T>;
+    async?: false | undefined;
+    getAnnotations?: Linter<T> | undefined;
 }
 
 export interface AsyncLintStateOptions<T> extends BaseLintStateOptions<T> {
     /** specifies that the lint process runs asynchronously */
     async: true;
-    getAnnotations?: AsyncLinter<T>;
+    getAnnotations?: AsyncLinter<T> | undefined;
 }
 
 export type LintStateOptions<T> = SyncLintStateOptions<T> | AsyncLintStateOptions<T>;
@@ -73,9 +73,9 @@ export interface UpdateLintingCallback {
  */
 export interface Annotation {
     from: CodeMirror.Position;
-    message?: string;
-    severity?: string;
-    to?: CodeMirror.Position;
+    message?: string | undefined;
+    severity?: string | undefined;
+    to?: CodeMirror.Position | undefined;
 }
 
 declare module '../../' {
@@ -85,7 +85,7 @@ declare module '../../' {
 
     interface EditorConfiguration {
         /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
-        lint?: boolean | LintStateOptions<any> | Linter<any>;
+        lint?: boolean | LintStateOptions<any> | Linter<any> | undefined;
     }
 
     namespace lint {}

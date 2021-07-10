@@ -14,44 +14,44 @@ declare module '@hapi/catbox-redis' {
         /**
          * Raw client.
          */
-        client?: Redis;
+        client?: Redis | undefined;
         /**
          * the Redis server URL (if url is provided, host, port, and socket are ignored)
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * the Redis server hostname.
          * Defaults to '127.0.0.1'.
          */
-        host?: string;
+        host?: string | undefined;
         /**
          * the Redis server port or unix domain socket path.
          * Defaults to 6379.
          */
-        port?: number;
+        port?: number | undefined;
         /**
          * the unix socket string to connect to (if socket is provided, host and port are ignored)
          */
-        socket?: string;
+        socket?: string | undefined;
         /**
          * the Redis authentication password when required.
          */
-        password?: string;
+        password?: string | undefined;
         /**
          * the Redis database.
          */
-        database?: string;
+        database?: string | undefined;
         /**
          * an array of redis sentinel addresses to connect to.
          */
         sentinels?: Array<{
           host: string;
-        }>;
+        }> | undefined;
         /**
          * the name of the sentinel master.
          * (Only needed when sentinels is specified)
          */
-        sentinelName?: string;
+        sentinelName?: string | undefined;
       }
     }
     class CatboxRedis<T> extends Client<T> {

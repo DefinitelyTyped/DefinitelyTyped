@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Position {
-    x?: number;
-    y?: number;
+    x?: number | undefined;
+    y?: number | undefined;
 }
 
 export interface ScrollingState {
@@ -22,20 +22,20 @@ export interface ScrollingState {
 }
 
 export interface ScrollBoosterOptions {
-    content?: HTMLElement | null;
+    content?: HTMLElement | null | undefined;
     viewport: HTMLElement | null;
-    scrollMode?: 'transform' | 'native';
-    direction?: 'horizontal' | 'vertical' | 'all';
-    bounce?: boolean;
-    textSelection?: boolean;
-    inputsFocus?: boolean;
-    pointerMode?: 'touch' | 'mouse' | 'all';
-    friction?: number;
-    bounceForce?: number;
-    emulateScroll?: boolean;
-    onUpdate?: (state: ScrollingState) => void;
-    onClick?: (state: ScrollingState, event: Event) => void;
-    shouldScroll?: (state: ScrollingState, event: Event) => boolean;
+    scrollMode?: 'transform' | 'native' | undefined;
+    direction?: 'horizontal' | 'vertical' | 'all' | undefined;
+    bounce?: boolean | undefined;
+    textSelection?: boolean | undefined;
+    inputsFocus?: boolean | undefined;
+    pointerMode?: 'touch' | 'mouse' | 'all' | undefined;
+    friction?: number | undefined;
+    bounceForce?: number | undefined;
+    emulateScroll?: boolean | undefined;
+    onUpdate?: ((state: ScrollingState) => void) | undefined;
+    onClick?: ((state: ScrollingState, event: Event) => void) | undefined;
+    shouldScroll?: ((state: ScrollingState, event: Event) => boolean) | undefined;
 }
 
 export default class ScrollBooster {

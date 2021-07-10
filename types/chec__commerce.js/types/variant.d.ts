@@ -10,8 +10,8 @@ export interface Variant {
     is_valid: boolean;
     invalid_reason_code: string | null;
     meta: any;
-    created?: number;
-    updated?: number;
+    created?: number | undefined;
+    updated?: number | undefined;
     options: { [name: string]: string };
     assets: Asset[];
 }

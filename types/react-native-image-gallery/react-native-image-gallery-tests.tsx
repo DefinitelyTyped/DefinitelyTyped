@@ -4,7 +4,7 @@ import Gallery, { Image } from 'react-native-image-gallery';
 
 interface State {
     index: number;
-    images: Array<Image & { caption?: string }>;
+    images: Array<Image & { caption?: string | undefined }>;
 }
 
 export default class DemoGallery extends React.Component<{}, State> {

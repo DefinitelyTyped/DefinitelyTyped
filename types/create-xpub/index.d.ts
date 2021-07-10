@@ -31,7 +31,7 @@ declare namespace createXpub {
          * Network version bytes.
          * @default 0x0488B21E
          */
-        networkVersion?: number;
+        networkVersion?: number | undefined;
         /**
          * The depth of the derived key.
          */

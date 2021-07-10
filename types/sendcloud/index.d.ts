@@ -92,16 +92,16 @@ declare class ListMember {
 }
 
 interface EmailListListData {
-    start?: number;
-    limit?: number;
+    start?: number | undefined;
+    limit?: number | undefined;
 }
 
 interface EmailListCreateOptions {
     api_user: string;
     api_key: string;
-    address?: string;
-    start?: number;
-    limit?: number;
+    address?: string | undefined;
+    start?: number | undefined;
+    limit?: number | undefined;
 }
 
 interface EmailListResponse {
@@ -132,9 +132,9 @@ interface EmailListUpdateOptions {
     api_user: string;
     api_key: string;
     address: string;
-    toAddress?: string;
-    name?: string;
-    description?: string;
+    toAddress?: string | undefined;
+    name?: string | undefined;
+    description?: string | undefined;
 }
 
 interface EmailListUpdateResponse {
@@ -151,10 +151,10 @@ interface EmailListUpdateResponse {
 interface ListMemberListOptions {
     api_user: string;
     api_key: string;
-    mail_list_addr?: string;
-    member_addr?: string;
-    start?: number;
-    end?: number;
+    mail_list_addr?: string | undefined;
+    member_addr?: string | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
 }
 
 interface ListMemberListResponse {
@@ -171,10 +171,10 @@ interface ListMemberListResponse {
 }
 
 interface ListMemberAddOptions {
-    name?: string;
-    vars?: string;
-    description?: string;
-    upsert?: string;
+    name?: string | undefined;
+    vars?: string | undefined;
+    description?: string | undefined;
+    upsert?: string | undefined;
 }
 
 interface ListMemberAddResposne {
@@ -188,46 +188,46 @@ interface ListMemberDeleteResposne {
 }
 
 interface ListMemberUpdateOptions {
-    name?: string;
-    vars?: string;
+    name?: string | undefined;
+    vars?: string | undefined;
 }
 
 interface SendOptions {
-    api_user?: string;
-    api_key?: string;
-    from?: string;
-    to?: string;
-    subject?: string;
-    html?: string;
-    fromname?: string;
-    bcc?: string;
-    cc?: string;
-    replyto?: string;
-    label?: number;
-    headers?: string;
-    files?: string;
-    x_smtpapi?: string;
-    resp_email_id?: string;
-    use_maillist?: string;
-    gzip_compress?: string;
+    api_user?: string | undefined;
+    api_key?: string | undefined;
+    from?: string | undefined;
+    to?: string | undefined;
+    subject?: string | undefined;
+    html?: string | undefined;
+    fromname?: string | undefined;
+    bcc?: string | undefined;
+    cc?: string | undefined;
+    replyto?: string | undefined;
+    label?: number | undefined;
+    headers?: string | undefined;
+    files?: string | undefined;
+    x_smtpapi?: string | undefined;
+    resp_email_id?: string | undefined;
+    use_maillist?: string | undefined;
+    gzip_compress?: string | undefined;
 }
 
 interface TemplateSendOptions {
-    api_user?: string;
-    api_key?: string;
-    from?: string;
-    substitution_vars?: string;
-    to?: string;
-    subject?: string;
-    template_invoke_name?: string;
-    fromname?: string;
-    replyTo?: string;
-    label?: number;
-    headers?: string;
-    files?: string;
-    resp_email_id?: string;
-    use_maillist?: string;
-    gzip_compress?: string;
+    api_user?: string | undefined;
+    api_key?: string | undefined;
+    from?: string | undefined;
+    substitution_vars?: string | undefined;
+    to?: string | undefined;
+    subject?: string | undefined;
+    template_invoke_name?: string | undefined;
+    fromname?: string | undefined;
+    replyTo?: string | undefined;
+    label?: number | undefined;
+    headers?: string | undefined;
+    files?: string | undefined;
+    resp_email_id?: string | undefined;
+    use_maillist?: string | undefined;
+    gzip_compress?: string | undefined;
 }
 
 interface TemplateSendResponse {

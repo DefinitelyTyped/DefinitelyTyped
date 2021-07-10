@@ -8,13 +8,13 @@ export type CheckboxOnChangeDataVariant = (evt: React.ChangeEvent<HTMLInputEleme
 export type CheckboxOnChangeDefaultVariant = (checked: boolean, id: string, event: React.ChangeEvent<HTMLInputElement>) => void;
 
 export interface CheckboxProps extends Omit<ReactInputAttr, ExcludedAttributes> {
-    defaultChecked?: boolean,
-    hideLabel?: boolean,
+    defaultChecked?: boolean | undefined,
+    hideLabel?: boolean | undefined,
     id: string,
-    indeterminate?: boolean,
+    indeterminate?: boolean | undefined,
     labelText: NonNullable<React.ReactNode>,
-    onChange?: CheckboxOnChangeDataVariant | CheckboxOnChangeDefaultVariant;
-    wrapperClassName?: string,
+    onChange?: CheckboxOnChangeDataVariant | CheckboxOnChangeDefaultVariant | undefined;
+    wrapperClassName?: string | undefined,
 }
 
 declare const Checkbox: React.RefForwardingComponent<HTMLInputElement, CheckboxProps>;

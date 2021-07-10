@@ -8,32 +8,32 @@
 
 export interface INotificationOptions {
     title: string;
-    body?: string;
+    body?: string | undefined;
     icon: string;
-    sound?: string;
-    badge?: string;
-    tag?: string;
-    color?: string;
-    click_action?: string;
-    body_loc_key?: string;
-    body_loc_args?: string;
-    title_loc_args?: string;
-    title_loc_key?: string;
+    sound?: string | undefined;
+    badge?: string | undefined;
+    tag?: string | undefined;
+    color?: string | undefined;
+    click_action?: string | undefined;
+    body_loc_key?: string | undefined;
+    body_loc_args?: string | undefined;
+    title_loc_args?: string | undefined;
+    title_loc_key?: string | undefined;
 }
 
 export interface IMessageOptions {
-    collapseKey?: string;
-    priority?: string;
-    contentAvailable?: boolean;
-    mutableContent?: boolean;
-    delayWhileIdle?: boolean;
-    timeToLive?: number;
-    restrictedPackageName?: string;
-    dryRun?: boolean;
+    collapseKey?: string | undefined;
+    priority?: string | undefined;
+    contentAvailable?: boolean | undefined;
+    mutableContent?: boolean | undefined;
+    delayWhileIdle?: boolean | undefined;
+    timeToLive?: number | undefined;
+    restrictedPackageName?: string | undefined;
+    dryRun?: boolean | undefined;
     data?: {
         [key: string]: string;
-    };
-    notification?: INotificationOptions;
+    } | undefined;
+    notification?: INotificationOptions | undefined;
 }
 
 export declare class Message {
@@ -52,21 +52,21 @@ export declare class Message {
 
 export interface ISenderOptions {
     proxy?: any;
-    maxSockets?: number;
-    timeout?: number;
+    maxSockets?: number | undefined;
+    timeout?: number | undefined;
 }
 export interface ISenderSendOptions {
-    retries?: number;
-    backoff?: number;
+    retries?: number | undefined;
+    backoff?: number | undefined;
 }
 
 export interface IRecipient {
-    to?: string,
-    topic?: string,
-    condition?: string,
-    notificationKey?: string,
-    registrationIds?: string[],
-    registrationTokens?: string[]
+    to?: string | undefined,
+    topic?: string | undefined,
+    condition?: string | undefined,
+    notificationKey?: string | undefined,
+    registrationIds?: string[] | undefined,
+    registrationTokens?: string[] | undefined
 }
 
 export declare class Sender {
@@ -85,10 +85,10 @@ export interface IResponseBody {
     success: number;
     failure: number;
     canonical_ids: number;
-    multicast_id?: number;
+    multicast_id?: number | undefined;
     results?: {
-        message_id?: string;
-        registration_id?: string;
-        error?: string;
-    }[];
+        message_id?: string | undefined;
+        registration_id?: string | undefined;
+        error?: string | undefined;
+    }[] | undefined;
 }
