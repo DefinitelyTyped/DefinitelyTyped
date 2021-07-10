@@ -29,4 +29,10 @@ export interface ScheduleOptions {
      * The timezone that is used for job scheduling
      */
     timezone?: string;
+    /**
+     * Specifies whether to recover missed executions instead of skipping them.
+     * 
+     * Defaults to `false`
+     */
+    recoverMissedExecutions?: boolean;
 }
