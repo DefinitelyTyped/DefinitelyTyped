@@ -1,5 +1,5 @@
 import indy from "indy-sdk";
-import { Buffer } from 'buffer';
+import { Buffer } from 'buffer/';
 
 indy.openBlobStorageWriter('default', {
     base_dir: 'dir',
