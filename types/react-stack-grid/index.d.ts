@@ -10,7 +10,7 @@ interface Units {
     angle: string;
 }
 export interface Grid {
-    updateLayout?: (() => void) | undefined;
+    updateLayout: () => void;
 }
 export interface StackGridProps {
     columnWidth: number | string;
