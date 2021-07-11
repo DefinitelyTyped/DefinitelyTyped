@@ -6,7 +6,7 @@
 //                 Nathan Rajlich <https://github.com/TooTallNate>
 //                 Daniel Berlanga <https://github.com/danikaze>
 //                 Jeff Huijsmans <https://github.com/jeffhuys>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference types="node" />

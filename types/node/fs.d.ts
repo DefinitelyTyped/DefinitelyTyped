@@ -10,13 +10,19 @@ declare module 'fs' {
      */
     export type PathLike = string | Buffer | URL;
 
+    export type PathOrFileDescriptor = PathLike | number;
+
+    export type TimeLike = string | number | Date;
+
     export type NoParamCallback = (err: NodeJS.ErrnoException | null) => void;
 
     export type BufferEncodingOption = 'buffer' | { encoding: 'buffer' };
 
-    export interface BaseEncodingOptions {
+    export interface ObjectEncodingOptions {
         encoding?: BufferEncoding | null | undefined;
     }
+
+    export type EncodingOption = ObjectEncodingOptions | BufferEncoding | undefined | null;
 
     export type OpenMode = number | string;
 
@@ -71,7 +77,7 @@ declare module 'fs' {
     /**
      * A class representing a directory stream.
      */
-    export class Dir {
+    export class Dir implements AsyncIterable<Dirent> {
         readonly path: string;
 
         /**
@@ -430,7 +436,7 @@ declare module 'fs' {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    export function lutimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date, callback: NoParamCallback): void;
+    export function lutimes(path: PathLike, atime: TimeLike, mtime: TimeLike, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace lutimes {
@@ -442,7 +448,7 @@ declare module 'fs' {
          * @param atime The last access time. If a string is provided, it will be coerced to number.
          * @param mtime The last modified time. If a string is provided, it will be coerced to number.
          */
-        function __promisify__(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+        function __promisify__(path: PathLike, atime: TimeLike, mtime: TimeLike): Promise<void>;
     }
 
     /**
@@ -453,7 +459,7 @@ declare module 'fs' {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    export function lutimesSync(path: PathLike, atime: string | number | Date, mtime: string | number | Date): void;
+    export function lutimesSync(path: PathLike, atime: TimeLike, mtime: TimeLike): void;
 
     /**
      * Asynchronous chmod(2) - Change permissions of a file.
@@ -684,7 +690,7 @@ declare module 'fs' {
      */
     export function readlink(
         path: PathLike,
-        options: BaseEncodingOptions | BufferEncoding | undefined | null,
+        options: EncodingOption,
         callback: (err: NodeJS.ErrnoException | null, linkString: string) => void
     ): void;
 
@@ -700,7 +706,7 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readlink(path: PathLike, options: BaseEncodingOptions | string | undefined | null, callback: (err: NodeJS.ErrnoException | null, linkString: string | Buffer) => void): void;
+    export function readlink(path: PathLike, options: EncodingOption, callback: (err: NodeJS.ErrnoException | null, linkString: string | Buffer) => void): void;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
@@ -715,7 +721,7 @@ declare module 'fs' {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: BaseEncodingOptions | BufferEncoding | null): Promise<string>;
+        function __promisify__(path: PathLike, options?: EncodingOption): Promise<string>;
 
         /**
          * Asynchronous readlink(2) - read value of a symbolic link.
@@ -729,7 +735,7 @@ declare module 'fs' {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: BaseEncodingOptions | string | null): Promise<string | Buffer>;
+        function __promisify__(path: PathLike, options?: EncodingOption): Promise<string | Buffer>;
     }
 
     /**
@@ -737,7 +743,7 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readlinkSync(path: PathLike, options?: BaseEncodingOptions | BufferEncoding | null): string;
+    export function readlinkSync(path: PathLike, options?: EncodingOption): string;
 
     /**
      * Synchronous readlink(2) - read value of a symbolic link.
@@ -751,7 +757,7 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readlinkSync(path: PathLike, options?: BaseEncodingOptions | string | null): string | Buffer;
+    export function readlinkSync(path: PathLike, options?: EncodingOption): string | Buffer;
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -760,7 +766,7 @@ declare module 'fs' {
      */
     export function realpath(
         path: PathLike,
-        options: BaseEncodingOptions | BufferEncoding | undefined | null,
+        options: EncodingOption,
         callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
     ): void;
 
@@ -776,7 +782,7 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function realpath(path: PathLike, options: BaseEncodingOptions | string | undefined | null, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void): void;
+    export function realpath(path: PathLike, options: EncodingOption, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void): void;
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -791,7 +797,7 @@ declare module 'fs' {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: BaseEncodingOptions | BufferEncoding | null): Promise<string>;
+        function __promisify__(path: PathLike, options?: EncodingOption): Promise<string>;
 
         /**
          * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -805,15 +811,15 @@ declare module 'fs' {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: BaseEncodingOptions | string | null): Promise<string | Buffer>;
+        function __promisify__(path: PathLike, options?: EncodingOption): Promise<string | Buffer>;
 
         function native(
             path: PathLike,
-            options: BaseEncodingOptions | BufferEncoding | undefined | null,
+            options: EncodingOption,
             callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void
         ): void;
         function native(path: PathLike, options: BufferEncodingOption, callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void): void;
-        function native(path: PathLike, options: BaseEncodingOptions | string | undefined | null, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void): void;
+        function native(path: PathLike, options: EncodingOption, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void): void;
         function native(path: PathLike, callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void): void;
     }
 
@@ -822,7 +828,7 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function realpathSync(path: PathLike, options?: BaseEncodingOptions | BufferEncoding | null): string;
+    export function realpathSync(path: PathLike, options?: EncodingOption): string;
 
     /**
      * Synchronous realpath(3) - return the canonicalized absolute pathname.
@@ -836,12 +842,12 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function realpathSync(path: PathLike, options?: BaseEncodingOptions | string | null): string | Buffer;
+    export function realpathSync(path: PathLike, options?: EncodingOption): string | Buffer;
 
     export namespace realpathSync {
-        function native(path: PathLike, options?: BaseEncodingOptions | BufferEncoding | null): string;
+        function native(path: PathLike, options?: EncodingOption): string;
         function native(path: PathLike, options: BufferEncodingOption): Buffer;
-        function native(path: PathLike, options?: BaseEncodingOptions | string | null): string | Buffer;
+        function native(path: PathLike, options?: EncodingOption): string | Buffer;
     }
 
     /**
@@ -875,6 +881,16 @@ declare module 'fs' {
          * @default 0
          */
         maxRetries?: number | undefined;
+        /**
+         * @deprecated since v14.14.0 In future versions of Node.js and will trigger a warning
+         * `fs.rmdir(path, { recursive: true })` will throw if `path` does not exist or is a file.
+         * Use `fs.rm(path, { recursive: true, force: true })` instead.
+         *
+         * If `true`, perform a recursive directory removal. In
+         * recursive mode soperations are retried on failure.
+         * @default false
+         */
+        recursive?: boolean | undefined;
         /**
          * The amount of time in milliseconds to wait between retries.
          * This option is ignored if the `recursive` option is not `true`.
@@ -1053,7 +1069,7 @@ declare module 'fs' {
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function mkdtemp(prefix: string, options: BaseEncodingOptions | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException | null, folder: string) => void): void;
+    export function mkdtemp(prefix: string, options: EncodingOption, callback: (err: NodeJS.ErrnoException | null, folder: string) => void): void;
 
     /**
      * Asynchronously creates a unique temporary directory.
@@ -1067,7 +1083,7 @@ declare module 'fs' {
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function mkdtemp(prefix: string, options: BaseEncodingOptions | string | undefined | null, callback: (err: NodeJS.ErrnoException | null, folder: string | Buffer) => void): void;
+    export function mkdtemp(prefix: string, options: EncodingOption, callback: (err: NodeJS.ErrnoException | null, folder: string | Buffer) => void): void;
 
     /**
      * Asynchronously creates a unique temporary directory.
@@ -1082,7 +1098,7 @@ declare module 'fs' {
          * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(prefix: string, options?: BaseEncodingOptions | BufferEncoding | null): Promise<string>;
+        function __promisify__(prefix: string, options?: EncodingOption): Promise<string>;
 
         /**
          * Asynchronously creates a unique temporary directory.
@@ -1096,7 +1112,7 @@ declare module 'fs' {
          * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(prefix: string, options?: BaseEncodingOptions | string | null): Promise<string | Buffer>;
+        function __promisify__(prefix: string, options?: EncodingOption): Promise<string | Buffer>;
     }
 
     /**
@@ -1104,7 +1120,7 @@ declare module 'fs' {
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function mkdtempSync(prefix: string, options?: BaseEncodingOptions | BufferEncoding | null): string;
+    export function mkdtempSync(prefix: string, options?: EncodingOption): string;
 
     /**
      * Synchronously creates a unique temporary directory.
@@ -1118,7 +1134,7 @@ declare module 'fs' {
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function mkdtempSync(prefix: string, options?: BaseEncodingOptions | string | null): string | Buffer;
+    export function mkdtempSync(prefix: string, options?: EncodingOption): string | Buffer;
 
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -1149,7 +1165,7 @@ declare module 'fs' {
      */
     export function readdir(
         path: PathLike,
-        options: BaseEncodingOptions & { withFileTypes?: false | undefined } | BufferEncoding | undefined | null,
+        options: ObjectEncodingOptions & { withFileTypes?: false | undefined } | BufferEncoding | undefined | null,
         callback: (err: NodeJS.ErrnoException | null, files: string[] | Buffer[]) => void,
     ): void;
 
@@ -1164,7 +1180,7 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
      */
-    export function readdir(path: PathLike, options: BaseEncodingOptions & { withFileTypes: true }, callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void): void;
+    export function readdir(path: PathLike, options: ObjectEncodingOptions & { withFileTypes: true }, callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace readdir {
@@ -1187,14 +1203,14 @@ declare module 'fs' {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: BaseEncodingOptions & { withFileTypes?: false | undefined } | BufferEncoding | null): Promise<string[] | Buffer[]>;
+        function __promisify__(path: PathLike, options?: ObjectEncodingOptions & { withFileTypes?: false | undefined } | BufferEncoding | null): Promise<string[] | Buffer[]>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options If called with `withFileTypes: true` the result data will be an array of Dirent
          */
-        function __promisify__(path: PathLike, options: BaseEncodingOptions & { withFileTypes: true }): Promise<Dirent[]>;
+        function __promisify__(path: PathLike, options: ObjectEncodingOptions & { withFileTypes: true }): Promise<Dirent[]>;
     }
 
     /**
@@ -1216,14 +1232,14 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdirSync(path: PathLike, options?: BaseEncodingOptions & { withFileTypes?: false | undefined } | BufferEncoding | null): string[] | Buffer[];
+    export function readdirSync(path: PathLike, options?: ObjectEncodingOptions & { withFileTypes?: false | undefined } | BufferEncoding | null): string[] | Buffer[];
 
     /**
      * Synchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
      */
-    export function readdirSync(path: PathLike, options: BaseEncodingOptions & { withFileTypes: true }): Dirent[];
+    export function readdirSync(path: PathLike, options: ObjectEncodingOptions & { withFileTypes: true }): Dirent[];
 
     /**
      * Asynchronous close(2) - close a file descriptor.
@@ -1282,7 +1298,7 @@ declare module 'fs' {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    export function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date, callback: NoParamCallback): void;
+    export function utimes(path: PathLike, atime: TimeLike, mtime: TimeLike, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace utimes {
@@ -1292,7 +1308,7 @@ declare module 'fs' {
          * @param atime The last access time. If a string is provided, it will be coerced to number.
          * @param mtime The last modified time. If a string is provided, it will be coerced to number.
          */
-        function __promisify__(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+        function __promisify__(path: PathLike, atime: TimeLike, mtime: TimeLike): Promise<void>;
     }
 
     /**
@@ -1301,7 +1317,7 @@ declare module 'fs' {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    export function utimesSync(path: PathLike, atime: string | number | Date, mtime: string | number | Date): void;
+    export function utimesSync(path: PathLike, atime: TimeLike, mtime: TimeLike): void;
 
     /**
      * Asynchronously change file timestamps of the file referenced by the supplied file descriptor.
@@ -1309,7 +1325,7 @@ declare module 'fs' {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    export function futimes(fd: number, atime: string | number | Date, mtime: string | number | Date, callback: NoParamCallback): void;
+    export function futimes(fd: number, atime: TimeLike, mtime: TimeLike, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace futimes {
@@ -1319,7 +1335,7 @@ declare module 'fs' {
          * @param atime The last access time. If a string is provided, it will be coerced to number.
          * @param mtime The last modified time. If a string is provided, it will be coerced to number.
          */
-        function __promisify__(fd: number, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+        function __promisify__(fd: number, atime: TimeLike, mtime: TimeLike): Promise<void>;
     }
 
     /**
@@ -1328,7 +1344,7 @@ declare module 'fs' {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    export function futimesSync(fd: number, atime: string | number | Date, mtime: string | number | Date): void;
+    export function futimesSync(fd: number, atime: TimeLike, mtime: TimeLike): void;
 
     /**
      * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
@@ -1550,7 +1566,7 @@ declare module 'fs' {
      * If a flag is not provided, it defaults to `'r'`.
      */
     export function readFile(
-        path: PathLike | number,
+        path: PathOrFileDescriptor,
         options: { encoding?: null | undefined; flag?: string | undefined; } & Abortable | undefined | null,
         callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
     ): void;
@@ -1563,7 +1579,7 @@ declare module 'fs' {
      * If a flag is not provided, it defaults to `'r'`.
      */
     export function readFile(
-        path: PathLike | number,
+        path: PathOrFileDescriptor,
         options: { encoding: BufferEncoding; flag?: string | undefined; } & Abortable | string,
         callback: (err: NodeJS.ErrnoException | null, data: string) => void,
     ): void;
@@ -1576,9 +1592,8 @@ declare module 'fs' {
      * If a flag is not provided, it defaults to `'r'`.
      */
     export function readFile(
-        path: PathLike | number,
-        // TODO: unify the options across all readfile functions
-        options: BaseEncodingOptions & { flag?: string | undefined; } & Abortable | string | undefined | null,
+        path: PathOrFileDescriptor,
+        options: ObjectEncodingOptions & { flag?: string | undefined; } & Abortable | string | undefined | null,
         callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
     ): void;
 
@@ -1587,7 +1602,7 @@ declare module 'fs' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      */
-    export function readFile(path: PathLike | number, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
+    export function readFile(path: PathOrFileDescriptor, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace readFile {
@@ -1598,7 +1613,7 @@ declare module 'fs' {
          * @param options An object that may contain an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        function __promisify__(path: PathLike | number, options?: { encoding?: null | undefined; flag?: string | undefined; } | null): Promise<Buffer>;
+        function __promisify__(path: PathOrFileDescriptor, options?: { encoding?: null | undefined; flag?: string | undefined; } | null): Promise<Buffer>;
 
         /**
          * Asynchronously reads the entire contents of a file.
@@ -1608,7 +1623,7 @@ declare module 'fs' {
          * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        function __promisify__(path: PathLike | number, options: { encoding: BufferEncoding; flag?: string | undefined; } | string): Promise<string>;
+        function __promisify__(path: PathOrFileDescriptor, options: { encoding: BufferEncoding; flag?: string | undefined; } | string): Promise<string>;
 
         /**
          * Asynchronously reads the entire contents of a file.
@@ -1618,7 +1633,7 @@ declare module 'fs' {
          * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        function __promisify__(path: PathLike | number, options?: BaseEncodingOptions & { flag?: string | undefined; } | string | null): Promise<string | Buffer>;
+        function __promisify__(path: PathOrFileDescriptor, options?: ObjectEncodingOptions & { flag?: string | undefined; } | string | null): Promise<string | Buffer>;
     }
 
     /**
@@ -1627,7 +1642,7 @@ declare module 'fs' {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param options An object that may contain an optional flag. If a flag is not provided, it defaults to `'r'`.
      */
-    export function readFileSync(path: PathLike | number, options?: { encoding?: null | undefined; flag?: string | undefined; } | null): Buffer;
+    export function readFileSync(path: PathOrFileDescriptor, options?: { encoding?: null | undefined; flag?: string | undefined; } | null): Buffer;
 
     /**
      * Synchronously reads the entire contents of a file.
@@ -1636,7 +1651,7 @@ declare module 'fs' {
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    export function readFileSync(path: PathLike | number, options: { encoding: BufferEncoding; flag?: string | undefined; } | BufferEncoding): string;
+    export function readFileSync(path: PathOrFileDescriptor, options: { encoding: BufferEncoding; flag?: string | undefined; } | BufferEncoding): string;
 
     /**
      * Synchronously reads the entire contents of a file.
@@ -1645,9 +1660,9 @@ declare module 'fs' {
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    export function readFileSync(path: PathLike | number, options?: BaseEncodingOptions & { flag?: string | undefined; } | BufferEncoding | null): string | Buffer;
+    export function readFileSync(path: PathOrFileDescriptor, options?: ObjectEncodingOptions & { flag?: string | undefined; } | BufferEncoding | null): string | Buffer;
 
-    export type WriteFileOptions = (BaseEncodingOptions & Abortable & { mode?: Mode | undefined; flag?: string | undefined; }) | string | null;
+    export type WriteFileOptions = (ObjectEncodingOptions & Abortable & { mode?: Mode | undefined; flag?: string | undefined; }) | string | null;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -1660,7 +1675,7 @@ declare module 'fs' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    export function writeFile(path: PathLike | number, data: string | NodeJS.ArrayBufferView, options: WriteFileOptions, callback: NoParamCallback): void;
+    export function writeFile(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options: WriteFileOptions, callback: NoParamCallback): void;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -1668,7 +1683,7 @@ declare module 'fs' {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      */
-    export function writeFile(path: PathLike | number, data: string | NodeJS.ArrayBufferView, callback: NoParamCallback): void;
+    export function writeFile(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace writeFile {
@@ -1684,7 +1699,7 @@ declare module 'fs' {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'w'` is used.
          */
-        function __promisify__(path: PathLike | number, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): Promise<void>;
+        function __promisify__(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): Promise<void>;
     }
 
     /**
@@ -1698,7 +1713,7 @@ declare module 'fs' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    export function writeFileSync(path: PathLike | number, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): void;
+    export function writeFileSync(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -1711,7 +1726,7 @@ declare module 'fs' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    export function appendFile(file: PathLike | number, data: string | Uint8Array, options: WriteFileOptions, callback: NoParamCallback): void;
+    export function appendFile(file: PathOrFileDescriptor, data: string | Uint8Array, options: WriteFileOptions, callback: NoParamCallback): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -1719,7 +1734,7 @@ declare module 'fs' {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      */
-    export function appendFile(file: PathLike | number, data: string | Uint8Array, callback: NoParamCallback): void;
+    export function appendFile(file: PathOrFileDescriptor, data: string | Uint8Array, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace appendFile {
@@ -1735,7 +1750,7 @@ declare module 'fs' {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'a'` is used.
          */
-        function __promisify__(file: PathLike | number, data: string | Uint8Array, options?: WriteFileOptions): Promise<void>;
+        function __promisify__(file: PathOrFileDescriptor, data: string | Uint8Array, options?: WriteFileOptions): Promise<void>;
     }
 
     /**
@@ -1749,7 +1764,7 @@ declare module 'fs' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    export function appendFileSync(file: PathLike | number, data: string | Uint8Array, options?: WriteFileOptions): void;
+    export function appendFileSync(file: PathOrFileDescriptor, data: string | Uint8Array, options?: WriteFileOptions): void;
 
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.

@@ -2,7 +2,7 @@
 // Project: https://github.com/quentinrossetti/node-7z
 // Definitions by: Erik Rothoff Andersson <https://github.com/erkie>
 //                 Colin Berry <https://github.com/colin969>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 

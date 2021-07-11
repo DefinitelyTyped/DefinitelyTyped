@@ -3,7 +3,7 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>,
 //                 Daniel Perez Alvarez <https://github.com/unindented>,
 //                 Alec Custer <https://github.com/alechemy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Options struct for the init() function

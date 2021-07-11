@@ -391,7 +391,7 @@ declare module 'crypto' {
     function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject | JsonWebKeyInput): KeyObject;
     function createSecretKey(key: NodeJS.ArrayBufferView): KeyObject;
 
-    function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
+    function createSign(algorithm: string, options?: stream.WritableOptions): Sign;
 
     type DSAEncoding = 'der' | 'ieee-p1363';
 
@@ -415,11 +415,11 @@ declare module 'crypto' {
 
     type KeyLike = string | Buffer | KeyObject;
 
-    class Signer extends stream.Writable {
+    class Sign extends stream.Writable {
         private constructor();
 
-        update(data: BinaryLike): Signer;
-        update(data: string, input_encoding: Encoding): Signer;
+        update(data: BinaryLike): this;
+        update(data: string, input_encoding: Encoding): this;
         sign(private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput): Buffer;
         sign(
             private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
@@ -1363,8 +1363,6 @@ declare module 'crypto' {
 
     function secureHeapUsed(): SecureHeapUsage;
 
-    // TODO: X509Certificate
-
     interface RandomUUIDOptions {
         /**
          * By default, to improve performance,
@@ -1586,6 +1584,10 @@ declare module 'crypto' {
      * Checks the primality of the candidate.
      */
     function checkPrimeSync(value: LargeNumberLike, options?: CheckPrimeOptions): boolean;
+
+    namespace webcrypto {
+        class CryptoKey {} // placeholder
+    }
 }
 
 declare module 'node:crypto' {

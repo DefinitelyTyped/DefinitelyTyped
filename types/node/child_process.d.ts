@@ -1,5 +1,5 @@
 declare module 'child_process' {
-    import { BaseEncodingOptions } from 'fs';
+    import { ObjectEncodingOptions } from 'fs';
     import { EventEmitter, Abortable } from 'events';
     import * as net from 'net';
     import { Writable, Readable, Stream, Pipe } from 'stream';
@@ -327,7 +327,7 @@ declare module 'child_process' {
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
     function exec(
         command: string,
-        options: (BaseEncodingOptions & ExecOptions) | undefined | null,
+        options: (ObjectEncodingOptions & ExecOptions) | undefined | null,
         callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
     ): ChildProcess;
 
@@ -341,7 +341,7 @@ declare module 'child_process' {
         function __promisify__(command: string, options: { encoding: "buffer" | null } & ExecOptions): PromiseWithChild<{ stdout: Buffer, stderr: Buffer }>;
         function __promisify__(command: string, options: { encoding: BufferEncoding } & ExecOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
         function __promisify__(command: string, options: ExecOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
-        function __promisify__(command: string, options?: (BaseEncodingOptions & ExecOptions) | null): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        function __promisify__(command: string, options?: (ObjectEncodingOptions & ExecOptions) | null): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
     interface ExecFileOptions extends CommonOptions, Abortable {
@@ -363,9 +363,9 @@ declare module 'child_process' {
     type ExecFileException = ExecException & NodeJS.ErrnoException;
 
     function execFile(file: string): ChildProcess;
-    function execFile(file: string, options: (BaseEncodingOptions & ExecFileOptions) | undefined | null): ChildProcess;
+    function execFile(file: string, options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null): ChildProcess;
     function execFile(file: string, args?: ReadonlyArray<string> | null): ChildProcess;
-    function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: (BaseEncodingOptions & ExecFileOptions) | undefined | null): ChildProcess;
+    function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null): ChildProcess;
 
     // no `options` definitely means stdout/stderr are `string`.
     function execFile(file: string, callback: (error: ExecFileException | null, stdout: string, stderr: string) => void): ChildProcess;
@@ -415,13 +415,13 @@ declare module 'child_process' {
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
     function execFile(
         file: string,
-        options: (BaseEncodingOptions & ExecFileOptions) | undefined | null,
+        options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
         callback: ((error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null,
     ): ChildProcess;
     function execFile(
         file: string,
         args: ReadonlyArray<string> | undefined | null,
-        options: (BaseEncodingOptions & ExecFileOptions) | undefined | null,
+        options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
         callback: ((error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null,
     ): ChildProcess;
 
@@ -441,11 +441,11 @@ declare module 'child_process' {
         ): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
         function __promisify__(file: string, options: ExecFileOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
         function __promisify__(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, options: (BaseEncodingOptions & ExecFileOptions) | undefined | null): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        function __promisify__(file: string, options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
         function __promisify__(
             file: string,
             args: ReadonlyArray<string> | undefined | null,
-            options: (BaseEncodingOptions & ExecFileOptions) | undefined | null,
+            options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
         ): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
@@ -488,7 +488,7 @@ declare module 'child_process' {
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
-    interface CommonExecOptions extends ProcessEnvOptions {
+    interface CommonExecOptions extends CommonOptions {
         input?: string | NodeJS.ArrayBufferView | undefined;
         stdio?: StdioOptions | undefined;
         killSignal?: NodeJS.Signals | number | undefined;

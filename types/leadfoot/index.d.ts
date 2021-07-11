@@ -1,7 +1,7 @@
 // Type definitions for leadfoot
 // Project: https://github.com/theintern/leadfoot
 // Definitions by: theintern <https://github.com/theintern>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="dojo" />
 /// <reference types="node" />

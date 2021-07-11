@@ -41,7 +41,7 @@ declare namespace CustomFunctions {
           * Your custom error message, such as "This stock price is unavailable". Custom messages are only available with certain error codes.
           * [Api set: CustomFunctionsRuntime 1.2]
           */
-        message?: string | undefined;
+        message?: string;
     }
 
     /**
@@ -57,7 +57,7 @@ declare namespace CustomFunctions {
          * If the metadata JSON file is being generated from JSDoc comments, include the tag `@requiresAddress`.
          * [Api set: CustomFunctionsRuntime 1.1]
          */
-        address?: string | undefined;
+        address?: string;
         /**
          * The range addresses where the function parameters are located, if requested, otherwise undefined.
          *
@@ -67,7 +67,7 @@ declare namespace CustomFunctions {
          * If the metadata JSON file is being generated from JSDoc comments, include the tag `@requiresParameterAddresses`.
          * [Api set: CustomFunctionsRuntime 1.3]
          */
-        parameterAddresses?: string[] | undefined;
+        parameterAddresses?: string[];
     }
 
     /**

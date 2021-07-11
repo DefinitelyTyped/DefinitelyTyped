@@ -4810,8 +4810,8 @@ declare namespace cytoscape {
         clockwise?: boolean | undefined;
 
         // whether levels have an equal radial distance betwen them, may cause bounding box overflow
-        equidistant: false;
-        minNodeSpacing: 10; // min spacing between outside of nodes (used for radius adjustment)
+        equidistant: boolean;
+        minNodeSpacing: number; // min spacing between outside of nodes (used for radius adjustment)
         // height of layout area (overrides container height)
         height: undefined;
         // width of layout area (overrides container width)

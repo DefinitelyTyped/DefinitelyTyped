@@ -5,7 +5,7 @@
 //                 Donald Ford <https://github.com/donaldtf>
 //                 Vlad Florescu <https://github.com/vladflorescu94>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';

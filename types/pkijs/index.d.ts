@@ -1,7 +1,7 @@
 // Type definitions for pkijs
 // Project: https://github.com/PeculiarVentures/PKI.js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
 /// <reference types="asn1js" />

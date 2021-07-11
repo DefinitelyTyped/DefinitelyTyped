@@ -1,7 +1,7 @@
 // Type definitions for pino 3.0
 // Project: https://github.com/mcollina/pino.git
 // Definitions by: Peter Snider <https://github.com/psnider>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 

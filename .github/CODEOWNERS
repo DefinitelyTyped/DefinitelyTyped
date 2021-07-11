@@ -7642,7 +7642,7 @@
 /types/wordpress__block-serialization-default-parser/   @dsifford
 /types/wordpress__block-serialization-spec-parser/      @dsifford
 /types/wordpress__blocks/                               @dsifford @sirreal
-/types/wordpress__components/                           @dsifford @sirreal @p-jackson @saramarcondes
+/types/wordpress__components/                           @dsifford @sirreal @p-jackson @sarayourfriend
 /types/wordpress__compose/                              @dsifford
 /types/wordpress__core-data/                            @dsifford
 /types/wordpress__custom-templated-path-webpack-plugin/ @dsifford

@@ -25,6 +25,9 @@ declare namespace SendmailTransport {
         envelope: MimeNode.Envelope;
         messageId: string;
         response: string;
+        accepted: Array<string | Mail.Address>;
+        rejected: Array<string | Mail.Address>;
+        pending: Array<string | Mail.Address>;
     }
 }
 
@@ -41,7 +44,10 @@ declare class SendmailTransport implements Transport<SendmailTransport.SentMessa
     constructor(options: SendmailTransport.Options);
 
     /** Compiles a mailcomposer message and forwards it to handler that sends it */
-    send(mail: MailMessage<SendmailTransport.SentMessageInfo>, callback: (err: Error | null, info: SendmailTransport.SentMessageInfo) => void): void;
+    send(
+        mail: MailMessage<SendmailTransport.SentMessageInfo>,
+        callback: (err: Error | null, info: SendmailTransport.SentMessageInfo) => void,
+    ): void;
 }
 
 export = SendmailTransport;

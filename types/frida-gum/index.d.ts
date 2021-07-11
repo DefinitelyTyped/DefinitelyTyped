@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 16.5
+// Type definitions for non-npm package frida-gum 17.0
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
@@ -141,15 +141,6 @@ type ImmediateId = number;
 
 type ScheduledCallback = (...params: any[]) => void;
 
-/**
- * Forces garbage collection.
- *
- * Useful for testing `WeakRef.bind()` logic, but also sometimes needed when
- * using the Duktape runtime and its default GC heuristics proving a bit too
- * lazy.
- */
-declare function gc(): void;
-
 declare namespace rpc {
     /**
      * Empty object that you can either replace or insert into to expose an RPC-style API to your application.
@@ -222,6 +213,30 @@ declare namespace Script {
     function unpin(): void;
 
     /**
+     * Starts monitoring the lifetime of `target`. Calls `callback` as soon as
+     * value has been garbage-collected, or the script is about to get
+     * unloaded.
+     *
+     * Useful when you're building a language-binding where you need to free
+     * native resources when a JS value is no longer needed.
+     *
+     * Be careful so `callback` is not a closure that accidentally captures
+     * `target` and keeps it alive beyond its intended lifetime.
+     *
+     * @param target Heap-allocated JavaScript value to monitor lifetime of.
+     * @param callback Function to call when `target` gets GCed.
+     */
+    function bindWeak(target: any, callback: WeakRefCallback): WeakRefId;
+
+    /**
+     * Stops monitoring the value passed to `WeakRef.bind()` and calls the
+     * callback immediately.
+     *
+     * @param id ID returned by a previous call to `WeakRef.bind()`.
+     */
+    function unbindWeak(id: WeakRefId): void;
+
+    /**
      * Installs or uninstalls a handler that is used to resolve attempts to
      * access non-existent global variables.
      *
@@ -235,6 +250,14 @@ declare namespace Script {
 }
 
 type ScriptRuntime = "DUK" | "V8";
+
+type WeakRefCallback = () => void;
+
+/**
+ * Opaque ID returned by `Script.bindWeak()`. Pass it to `Script.unbindWeak()`
+ * to stop monitoring the target value.
+ */
+type WeakRefId = number;
 
 interface GlobalAccessHandler {
     /**
@@ -1620,7 +1643,21 @@ declare class NativeCallback extends NativePointer {
     constructor(func: NativeCallbackImplementation, retType: NativeType, argTypes: NativeType[], abi?: NativeABI);
 }
 
-type NativeCallbackImplementation = (this: InvocationContext | undefined, ...params: any[]) => any;
+type NativeCallbackImplementation = (this: CallbackContext | InvocationContext, ...params: any[]) => any;
+
+interface CallbackContext {
+    /**
+     * Return address.
+     */
+    returnAddress: NativePointer;
+
+    /**
+     * CPU registers, but unlike `InvocationContext` this is read-only and only
+     * contains the bare minimum needed for `Thread.backtrace()` - all others
+     * are zeroed out.
+     */
+    context: CpuContext;
+}
 
 type NativeArgumentValue = NativePointerValue | UInt64 | Int64 | number | boolean | any[];
 
@@ -4898,43 +4935,6 @@ declare namespace Java {
         suffix: string;
     }
 }
-
-/**
- * Monitors the lifetime of a heap-allocated JavaScript value.
- *
- * Useful when you're building a language-binding where you need to free
- * native resources when a JS value is no longer needed.
- */
-declare namespace WeakRef {
-    /**
-     * Starts monitoring the lifetime of `target`. Calls `callback` as soon as
-     * value has been garbage-collected, or the script is about to get
-     * unloaded.
-     *
-     * Be careful so `callback` is not a closure that accidentally captures
-     * `target` and keeps it alive beyond its intended lifetime.
-     *
-     * @param target Heap-allocated JavaScript value to monitor lifetime of.
-     * @param callback Function to call when `target` gets GCed.
-     */
-    function bind(target: any, callback: WeakRefCallback): WeakRefId;
-
-    /**
-     * Stops monitoring the value passed to `WeakRef.bind()` and calls the
-     * callback immediately.
-     *
-     * @param id ID returned by a previous call to `WeakRef.bind()`.
-     */
-    function unbind(id: WeakRefId): void;
-}
-
-type WeakRefCallback = () => void;
-
-/**
- * Opaque ID returned by `WeakRef.bind()`. Pass it to `WeakRef.unbind()` to
- * stop monitoring the target value.
- */
-type WeakRefId = number;
 
 /**
  * Generates machine code for x86.
