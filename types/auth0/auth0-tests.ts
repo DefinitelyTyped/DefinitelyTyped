@@ -840,6 +840,219 @@ management.deleteGuardianEnrollment({ id: 'cd_0000000000000001' }, err => consol
 management.invalidateRememberBrowser({ id: 'cd_0000000000000001' }).then(() => console.log('mfa resetter'));
 management.invalidateRememberBrowser({ id: 'cd_0000000000000001' }, err => console.log('mfa resetter error'));
 
+// Actions
+management.actions
+    .create({})
+    .then(() => {})
+    .catch(err => console.error(err));
+management.actions.create({}, err => {
+    if (err) {
+        console.error(err);
+    }
+});
+
+management.actions
+    .createVersion({ id: 'action_id' }, {})
+    .then(actionVersion => {
+        console.log(actionVersion);
+    })
+    .catch(err => console.error(err));
+management.actions.createVersion({ id: 'action_id' }, {}, (err, actionVersion) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log(actionVersion);
+});
+
+management.actions
+    .delete({ id: 'action_id' })
+    .then(() => {})
+    .catch(err => console.error(err));
+management.actions.delete({ id: 'action_id' }, err => {
+    if (err) {
+        console.error(err);
+    }
+});
+
+management.actions
+    .deploy({ id: 'action_id' })
+    .then(actionVersion => {
+        console.log(actionVersion);
+    })
+    .catch(err => console.error(err));
+management.actions.deploy({ id: 'action_id' }, (err, actionVersion) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log(actionVersion);
+});
+
+management.actions
+    .deployVersion({ id: 'action_id', version_id: 'version_id' })
+    .then(actionVersion => {
+        console.log(actionVersion);
+    })
+    .catch(err => console.error(err));
+management.actions.deployVersion({ id: 'action_id', version_id: 'version_id' }, (err, actionVersion) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log(actionVersion);
+});
+
+management.actions
+    .get({ id: 'action_id' })
+    .then(action => {
+        console.log(action);
+    })
+    .catch(err => console.error(err));
+management.actions.get({ id: 'action_id' }, (err, action) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log(action);
+});
+
+management.actions
+    .getAll()
+    .then(actions => {
+        console.log(actions);
+    })
+    .catch(err => console.error(err));
+management.actions
+    .getAll({ per_page: 10, page: 0, triggerId: 'triggerId', actionName: '' })
+    .then(actions => {
+        console.log(actions);
+    })
+    .catch(err => console.error(err));
+management.actions.getAll({ per_page: 10, page: 0, triggerId: 'triggerId', actionName: '' }, (actions, err) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log(actions);
+});
+
+management.actions
+    .getAllTriggers()
+    .then(actions => {
+        console.log(actions);
+    })
+    .catch(err => console.error(err));
+management.actions
+    .getAllTriggers({ per_page: 10, page: 0 })
+    .then(actions => {
+        console.log(actions);
+    })
+    .catch(err => console.error(err));
+management.actions.getAllTriggers({ per_page: 10, page: 0 }, (err, actions) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log(actions);
+});
+
+management.actions
+    .getTriggerBindings({ trigger_id: 'trigger_id' })
+    .then(bindings => {
+        console.log(bindings);
+    })
+    .catch(err => console.error(err));
+management.actions.getTriggerBindings({ trigger_id: 'trigger_id' }, (err, bindings) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log(bindings);
+});
+
+management.actions
+    .getVersion({ id: 'action_id', version_id: 'version_id' })
+    .then(actionVersion => {
+        console.log(actionVersion);
+    })
+    .catch(err => console.error(err));
+management.actions.getVersion({ id: 'action_id', version_id: 'version_id' }, (err, actionVersion) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log(actionVersion);
+});
+
+management.actions
+    .getVersions()
+    .then(actionVersions => {
+        console.log(actionVersions);
+    })
+    .catch(err => console.error(err));
+management.actions
+    .getVersions({ per_page: 10, page: 0, id: 'action_id' })
+    .then(actionVersions => {
+        console.log(actionVersions);
+    })
+    .catch(err => console.error(err));
+management.actions.getVersions({ per_page: 10, page: 0, id: 'action_id' }, (err, actionVersions) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log(actionVersions);
+});
+
+management.actions
+    .test({ id: 'action_id' }, {})
+    .then(() => {})
+    .catch(err => console.error(err));
+management.actions.test({ id: 'action_id' }, {}, err => {
+    if (err) {
+        console.error(err);
+    }
+});
+
+management.actions
+    .testTrigger({ trigger_id: 'trigger_id' }, {})
+    .then(() => {})
+    .catch(err => console.error(err));
+management.actions.testTrigger({ trigger_id: 'trigger_id' }, {}, err => {
+    if (err) {
+        console.error(err);
+    }
+});
+
+management.actions
+    .update({ id: 'action_id' }, {})
+    .then(action => {
+        console.log(action);
+    })
+    .catch(err => console.error(err));
+management.actions.update({ id: 'action_id' }, {}, (err, action) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log(action);
+});
+
+management.actions
+    .updateTriggerBindings({ trigger_id: 'trigger_id' }, {})
+    .then(bindings => {
+        console.log(bindings);
+    })
+    .catch(err => console.error(err));
+management.actions.updateTriggerBindings({ trigger_id: 'trigger_id' }, {}, (err, bindings) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log(bindings);
+});
+
 const authentication = new auth0.AuthenticationClient({
     domain: 'auth0.com',
 });

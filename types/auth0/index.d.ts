@@ -1112,8 +1112,76 @@ export class AuthenticationClient {
     ): void;
 }
 
+export interface ActionsManagerOptions {
+    baseUrl: string;
+    headers?: any;
+    retry?: RetryOptions;
+}
+
+export class ActionsManager {
+    constructor(options: ActionsManagerOptions);
+
+    create(data: object, cb: (err: Error) => void): void;
+    create(data: object): Promise<void>;
+
+    createVersion(params: ObjectWithId, data: object, cb: (err: Error, actionVersion: string) => void): void;
+    createVersion(params: ObjectWithId, data: object): Promise<string>;
+
+    delete(params: ObjectWithId, cb: (err: Error) => void): void;
+    delete(params: ObjectWithId): Promise<void>;
+
+    deploy(params: ObjectWithId, cb: (err: Error, actionVersion: string) => void): void;
+    deploy(params: ObjectWithId): Promise<string>;
+
+    deployVersion(params: { id: string; version_id: string }, cb: (err: Error, actionVersion: string) => void): void;
+    deployVersion(params: { id: string; version_id: string }): Promise<string>;
+
+    get(params: ObjectWithId, cb: (err: Error, action: object) => void): void;
+    get(params: ObjectWithId): Promise<object>;
+
+    getAll(
+        params: { per_page?: number; page?: number; triggerId?: string; actionName?: string },
+        cb: (err: Error, actions: object[]) => void,
+    ): void;
+    getAll(params?: { per_page?: number; page?: number; triggerId?: string; actionName?: string }): Promise<object[]>;
+
+    getAllTriggers(params: { per_page?: number; page?: number }, cb: (err: Error, actions: object[]) => void): void;
+    getAllTriggers(params?: { per_page?: number; page?: number }): Promise<object[]>;
+
+    getTriggerBindings(params: { trigger_id: string }, cb: (err: Error, bindings: object[]) => void): void;
+    getTriggerBindings(params: { trigger_id: string }): Promise<object[]>;
+
+    getVersion(params: { id: string; version_id: string }, cb: (err: Error, actionVersion: string) => void): void;
+    getVersion(params: { id: string; version_id: string }): Promise<string>;
+
+    getVersions(
+        params: { per_page?: number; page?: number; id?: string },
+        cb: (err: Error, actionVersions: object[]) => void,
+    ): void;
+    getVersions(params?: { per_page?: number; page?: number; id?: string }): Promise<object[]>;
+
+    test(params: ObjectWithId, payload: object, cb: (err: Error) => void): void;
+    test(params: ObjectWithId, payload: object): Promise<void>;
+
+    testTrigger(params: { trigger_id: string }, payload: object, cb: (err: Error) => void): void;
+    testTrigger(params: { trigger_id: string }, payload: object): Promise<void>;
+
+    update(params: ObjectWithId, data: object, cb: (err: Error, action: object) => void): void;
+    update(params: ObjectWithId, data: object): Promise<object>;
+
+    updateTriggerBindings(
+        params: { trigger_id: string },
+        data: object,
+        cb: (err: Error, bindings: object[]) => void,
+    ): void;
+    updateTriggerBindings(params: { trigger_id: string }, data: object): Promise<object[]>;
+}
+
 export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     constructor(options: ManagementClientOptions);
+
+    // Members
+    actions: ActionsManager;
 
     getClientInfo(): ClientInfo;
 
