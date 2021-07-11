@@ -1,4 +1,5 @@
-import indy, { RevocRegDef, RevRegDef } from 'indy-sdk';
+import indy from "indy-sdk";
+import { Buffer } from 'buffer';
 
 indy.openBlobStorageWriter('default', {
     base_dir: 'dir',
@@ -8,7 +9,7 @@ indy.openBlobStorageReader('default', {
     base_dir: 'dir',
 });
 
-const revRegDef: RevocRegDef = {
+const revRegDef: indy.RevocRegDef = {
     id: '10',
     revocDefType: 'CL_ACCUM',
     tag: 'tag',
