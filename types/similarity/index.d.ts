@@ -10,7 +10,7 @@ declare namespace similarity {
         /**
          * treat casing differences as differences
          */
-        sensitive?: boolean;
+        sensitive?: boolean | undefined;
     }
 }
 

@@ -6,7 +6,7 @@
 
 import { AnimationOptions, AnimationSupport } from './';
 declare class Path<SElement extends Element = SVGPathElement> {
-    readonly path?: SElement;
+    readonly path?: SElement | undefined;
     constructor(path: SElement | string | null, options?: AnimationOptions);
 }
 // tslint:disable-next-line no-empty-interface adds members from animation contract

@@ -20,13 +20,13 @@ declare namespace ReactTimeout {
   type Id = number;
 
   interface ReactTimeoutProps {
-      setTimeout?: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer;
-      clearTimeout?: (timer: Timer) => void;
-      setInterval?: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Id;
-      clearInterval?: (id: Id) => void;
-      setImmediate?: (callback: (...args: any[]) => void, ...args: any[]) => Id;
-      clearImmediate?: (id: Id) => void;
-      requestAnimationFrame?: (callback: (...args: any[]) => void) => Id;
-      cancelAnimationFrame?: (id: Id) => void;
+      setTimeout?: ((callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer) | undefined;
+      clearTimeout?: ((timer: Timer) => void) | undefined;
+      setInterval?: ((callback: (...args: any[]) => void, ms: number, ...args: any[]) => Id) | undefined;
+      clearInterval?: ((id: Id) => void) | undefined;
+      setImmediate?: ((callback: (...args: any[]) => void, ...args: any[]) => Id) | undefined;
+      clearImmediate?: ((id: Id) => void) | undefined;
+      requestAnimationFrame?: ((callback: (...args: any[]) => void) => Id) | undefined;
+      cancelAnimationFrame?: ((id: Id) => void) | undefined;
   }
 }

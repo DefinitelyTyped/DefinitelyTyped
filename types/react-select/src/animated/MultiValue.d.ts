@@ -7,8 +7,8 @@ export type AnimatedMultiValueProps<
     OptionType extends OptionTypeBase,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > = {
-    in?: boolean;
-    onExited?: fn;
+    in?: boolean | undefined;
+    onExited?: fn | undefined;
 } & MultiValueProps<OptionType, GroupType>;
 
 export function AnimatedMultiValue<

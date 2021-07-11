@@ -46,8 +46,8 @@ declare namespace copy {
     type Callback = (error: Error | null, files?: File[]) => void;
 
     interface Options {
-        cwd?: string;
-        srcBase?: string;
+        cwd?: string | undefined;
+        srcBase?: string | undefined;
     }
 }
 

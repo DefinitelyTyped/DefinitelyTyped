@@ -44,9 +44,9 @@ declare namespace Worker {
 
   interface Vehicle {
     type: 'BICYCLE' | 'CAR' | 'MOTORCYCLE' | 'TRUCK';
-    color?: string;
-    description?: string;
-    licensePlate?: string;
+    color?: string | undefined;
+    description?: string | undefined;
+    licensePlate?: string | undefined;
   }
 
   /**
@@ -57,14 +57,14 @@ declare namespace Worker {
    * @prop teams - Optional. A comma-separated list of the team IDs that workers must be part of.
    */
   interface GetWorkerQueryProps {
-    filter?: string;
-    phones?: string;
-    states?: string;
-    teams?: string;
+    filter?: string | undefined;
+    phones?: string | undefined;
+    states?: string | undefined;
+    teams?: string | undefined;
   }
 
   interface GetWorkerByLocationProps extends Location {
-    radius?: number;
+    radius?: number | undefined;
   }
 
   /**
@@ -80,18 +80,18 @@ declare namespace Worker {
     name: string;
     phone: string;
     teams: string;
-    vehicle?: Vehicle;
-    capacity?: number;
-    displayName?: string;
+    vehicle?: Vehicle | undefined;
+    capacity?: number | undefined;
+    displayName?: string | undefined;
   }
 
   interface UpdateWorkerProps {
-    capacity?: number;
-    displayName?: string;
-    metadata?: OnfleetMetadata;
-    name?: string;
-    teams?: string;
-    vehicle?: Vehicle;
+    capacity?: number | undefined;
+    displayName?: string | undefined;
+    metadata?: OnfleetMetadata | undefined;
+    name?: string | undefined;
+    teams?: string | undefined;
+    vehicle?: Vehicle | undefined;
   }
 
   interface WorkerSchedule {

@@ -25,13 +25,13 @@ declare namespace createTestServer {
         /**
          * SSL certificate options to be passed to {@link create-cert#createCert | createCert()}.
          */
-        certificate?: string | CreateCertOptions;
+        certificate?: string | CreateCertOptions | undefined;
         /**
          * Body parser options object to be passed to `body-parser` methods.
          *
          * If set to `false` then all body parsing middleware will be disabled.
          */
-        bodyParser?: false | OptionsJson & OptionsText & OptionsUrlencoded;
+        bodyParser?: false | OptionsJson & OptionsText & OptionsUrlencoded | undefined;
     }
 
     interface TestServer {
@@ -42,7 +42,7 @@ declare namespace createTestServer {
          *
          * `undefined` while the server is not listening.
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * The port number you can reach the HTTP server on.
          *
@@ -50,7 +50,7 @@ declare namespace createTestServer {
          *
          * `undefined` while the server is not listening.
          */
-        port?: number;
+        port?: number | undefined;
         /**
          * The url you can reach the HTTPS server on.
          *
@@ -58,7 +58,7 @@ declare namespace createTestServer {
          *
          * `undefined` while the server is not listening.
          */
-        sslUrl?: string;
+        sslUrl?: string | undefined;
         /**
          * The port number you can reach the HTTPS server on.
          *
@@ -66,7 +66,7 @@ declare namespace createTestServer {
          *
          * `undefined` while the server is not listening.
          */
-        sslPort?: number;
+        sslPort?: number | undefined;
         /**
          * The CA certificate to validate the server certificate against.
          */

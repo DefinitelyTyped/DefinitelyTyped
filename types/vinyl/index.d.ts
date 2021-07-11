@@ -11,17 +11,17 @@ interface ConstructorOptions {
     /**
      * The current working directory of the file. Default: process.cwd()
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Used for relative pathing. Typically where a glob starts. Default: options.cwd
      */
-    base?: string;
+    base?: string | undefined;
 
     /**
      * Full path to the file.
      */
-    path?: string;
+    path?: string | undefined;
 
     /**
      * Stores the path history. If `options.path` and `options.history` are both passed,
@@ -29,21 +29,21 @@ interface ConstructorOptions {
      * normalized by the `file.path` setter.
      * Default: `[]` (or `[options.path]` if `options.path` is passed)
      */
-    history?: string[];
+    history?: string[] | undefined;
 
     /**
      * The result of an fs.stat call. This is how you mark the file as a directory or
      * symbolic link. See `isDirectory()`, `isSymbolic()` and `fs.Stats` for more information.
      * http://nodejs.org/api/fs.html#fs_class_fs_stats
      */
-    stat?: fs.Stats;
+    stat?: fs.Stats | undefined;
 
     /**
      * File contents.
      * Type: `Buffer`, `Stream`, or null
      * Default: null
      */
-    contents?: Buffer | NodeJS.ReadableStream | null;
+    contents?: Buffer | NodeJS.ReadableStream | null | undefined;
 
     /**
      * Any custom option properties will be directly assigned to the new Vinyl object.
@@ -309,7 +309,7 @@ interface File {
      * If `file.contents` is a `Buffer` and `options.contents` is `false`, the `Buffer` reference
      * will be reused instead of copied.
      */
-    clone(opts?: { contents?: boolean, deep?: boolean } | boolean): this;
+    clone(opts?: { contents?: boolean | undefined, deep?: boolean | undefined } | boolean): this;
 
     /**
      * Returns a formatted-string interpretation of the Vinyl object.
@@ -329,7 +329,7 @@ interface File {
             /**
              * If false, the destination stream will not be ended (same as node core).
              */
-            end?: boolean;
+            end?: boolean | undefined;
         }
     ): T;
 }

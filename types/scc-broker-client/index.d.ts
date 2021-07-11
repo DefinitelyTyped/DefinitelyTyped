@@ -26,26 +26,26 @@ export interface MappingEngine {
 }
 
 export interface SCCBrokerClientOptions {
-    stateServerReconnectRandomness?: number;
-    authKey?: Secret;
-    mappingEngine?: 'skeletonRendezvous' | 'simple' | MappingEngine;
+    stateServerReconnectRandomness?: number | undefined;
+    authKey?: Secret | undefined;
+    mappingEngine?: 'skeletonRendezvous' | 'simple' | MappingEngine | undefined;
 
-    clientPoolSize?: number;
+    clientPoolSize?: number | undefined;
 
     stateServerHost: string;
-    stateServerPort?: number;
-    stateServerConnectTimeout?: number;
-    stateServerAckTimeout?: number;
+    stateServerPort?: number | undefined;
+    stateServerConnectTimeout?: number | undefined;
+    stateServerAckTimeout?: number | undefined;
 
-    instancePort?: number;
-    instanceId?: string;
-    instanceIp?: string;
-    instanceIpFamily?: string;
+    instancePort?: number | undefined;
+    instanceId?: string | undefined;
+    instanceIp?: string | undefined;
+    instanceIpFamily?: string | undefined;
 
-    noErrorLogging?: boolean;
-    brokerRetryDelay?: number;
+    noErrorLogging?: boolean | undefined;
+    brokerRetryDelay?: number | undefined;
 
-    pubSubBatchDuration?: number;
+    pubSubBatchDuration?: number | undefined;
 }
 
 export function attach(broker: Broker, options: SCCBrokerClientOptions): ClusterBrokerClient;

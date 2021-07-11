@@ -5,15 +5,15 @@ import PluggableMap from '../PluggableMap';
 import Control from './Control';
 
 export interface Options {
-    className?: string;
-    label?: string | Text | HTMLElement;
-    labelActive?: string | Text | HTMLElement;
-    activeClassName?: string;
-    inactiveClassName?: string;
-    tipLabel?: string;
-    keys?: boolean;
-    target?: HTMLElement | string;
-    source?: HTMLElement | string;
+    className?: string | undefined;
+    label?: string | Text | HTMLElement | undefined;
+    labelActive?: string | Text | HTMLElement | undefined;
+    activeClassName?: string | undefined;
+    inactiveClassName?: string | undefined;
+    tipLabel?: string | undefined;
+    keys?: boolean | undefined;
+    target?: HTMLElement | string | undefined;
+    source?: HTMLElement | string | undefined;
 }
 export default class FullScreen extends Control {
     constructor(opt_options?: Options);

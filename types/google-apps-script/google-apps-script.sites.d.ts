@@ -103,17 +103,17 @@ declare namespace GoogleAppsScript {
     }
     interface PageAdvancedParameters {
       /** only get pages of this type */
-      type?: PageType[];
+      type?: PageType[] | undefined;
       /** start the results here */
-      start?: Integer;
+      start?: Integer | undefined;
       /** the max number of results (default 200) */
-      max?: Integer;
+      max?: Integer | undefined;
       /** whether to include draft pages (default false) */
-      includeDrafts?: boolean;
+      includeDrafts?: boolean | undefined;
       /** whether to include deleted pages (default false) */
-      includeDeleted?: boolean;
+      includeDeleted?: boolean | undefined;
       /** only return pages matching this query */
-      search?: string;
+      search?: string | undefined;
     }
     /**
      * A Page on a Google Site.
@@ -141,7 +141,7 @@ declare namespace GoogleAppsScript {
       getAnnouncements(): Page[];
       getAnnouncements(optOptions: PageAdvancedParameters): Page[];
       getAttachments(): Attachment[];
-      getAttachments(optOptions: { start?: Integer; max?: Integer}): Attachment[];
+      getAttachments(optOptions: { start?: Integer | undefined; max?: Integer | undefined}): Attachment[];
       getAuthors(): string[];
       getChildByName(name: string): Page;
       getChildren(): Page[];
@@ -153,7 +153,7 @@ declare namespace GoogleAppsScript {
       getLastEdited(): Base.Date;
       getLastUpdated(): Base.Date;
       getListItems(): ListItem[];
-      getListItems(optOptions: { start?: Integer; max?: Integer}): ListItem[];
+      getListItems(optOptions: { start?: Integer | undefined; max?: Integer | undefined}): ListItem[];
       getName(): string;
       getPageType(): PageType;
       getParent(): Page;
@@ -172,7 +172,7 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): Page;
       /** @deprecated DO NOT USE */ addComment(content: string): Comment;
       /** @deprecated DO NOT USE */ getComments(): Comment[];
-      /** @deprecated DO NOT USE */ getComments(optOptions: { start?: Integer; max?: Integer}): Comment[];
+      /** @deprecated DO NOT USE */ getComments(optOptions: { start?: Integer | undefined; max?: Integer | undefined}): Comment[];
       /** @deprecated DO NOT USE */ getPageName(): string;
       /** @deprecated DO NOT USE */ getSelfLink(): string;
     }

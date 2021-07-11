@@ -17,8 +17,8 @@ interface GenericConfig {
     dynamodb: DynamoDB.DocumentClient;
     lockTable: string;
     partitionKey: string;
-    sortKey?: string;
-    owner?: string;
+    sortKey?: string | undefined;
+    owner?: string | undefined;
 }
 
 export interface FailClosedConfig extends GenericConfig {
@@ -26,9 +26,9 @@ export interface FailClosedConfig extends GenericConfig {
 }
 
 export interface FailOpenConfig extends GenericConfig {
-    heartbeatPeriodMs?: number;
+    heartbeatPeriodMs?: number | undefined;
     leaseDurationMs: number;
-    trustLocalTime?: boolean;
+    trustLocalTime?: boolean | undefined;
 }
 
 export class LockClient<PartitionTableKeyType extends string | number> {

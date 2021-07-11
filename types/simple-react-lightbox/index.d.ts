@@ -11,12 +11,12 @@ import { ReactNode } from 'react';
 
 export interface Element {
     src: string;
-    thumbnail?: string;
-    caption?: string;
-    autoplay?: boolean;
-    width?: number;
-    height?: string | number;
-    showControls?: boolean;
+    thumbnail?: string | undefined;
+    caption?: string | undefined;
+    autoplay?: boolean | undefined;
+    width?: number | undefined;
+    height?: string | number | undefined;
+    showControls?: boolean | undefined;
 }
 
 /**
@@ -133,63 +133,63 @@ export interface Slide {
 
 export interface SRLWrapperOptions {
     settings?: {
-        autoplaySpeed?: number;
-        boxShadow?: string;
-        disableKeyboardControls?: boolean;
-        disablePanzoom?: boolean;
-        disableWheelControls?: boolean;
-        downloadedFileName?: string;
-        hideControlsAfter?: number | boolean;
-        lightboxTransitionSpeed?: number;
-        lightboxTransitionTimingFunction?: string;
-        overlayColor?: string;
-        slideAnimationType?: string;
-        slideSpringValues?: number[];
-        slideTransitionSpeed?: number;
-        slideTransitionTimingFunction?: string;
-        usingPreact?: boolean;
-    };
+        autoplaySpeed?: number | undefined;
+        boxShadow?: string | undefined;
+        disableKeyboardControls?: boolean | undefined;
+        disablePanzoom?: boolean | undefined;
+        disableWheelControls?: boolean | undefined;
+        downloadedFileName?: string | undefined;
+        hideControlsAfter?: number | boolean | undefined;
+        lightboxTransitionSpeed?: number | undefined;
+        lightboxTransitionTimingFunction?: string | undefined;
+        overlayColor?: string | undefined;
+        slideAnimationType?: string | undefined;
+        slideSpringValues?: number[] | undefined;
+        slideTransitionSpeed?: number | undefined;
+        slideTransitionTimingFunction?: string | undefined;
+        usingPreact?: boolean | undefined;
+    } | undefined;
     buttons?: {
-        backgroundColor?: string;
-        iconColor?: string;
-        iconPadding?: string;
-        showAutoplayButton?: boolean;
-        showCloseButton?: boolean;
-        showDownloadButton?: boolean;
-        showFullscreenButton?: boolean;
-        showNextButton?: boolean;
-        showPrevButton?: boolean;
-        showThumbnailsButton?: boolean;
-        size?: string;
-    };
+        backgroundColor?: string | undefined;
+        iconColor?: string | undefined;
+        iconPadding?: string | undefined;
+        showAutoplayButton?: boolean | undefined;
+        showCloseButton?: boolean | undefined;
+        showDownloadButton?: boolean | undefined;
+        showFullscreenButton?: boolean | undefined;
+        showNextButton?: boolean | undefined;
+        showPrevButton?: boolean | undefined;
+        showThumbnailsButton?: boolean | undefined;
+        size?: string | undefined;
+    } | undefined;
     caption?: {
-        captionColor?: string;
-        captionAlignment?: string;
-        captionFontFamily?: string;
-        captionFontSize?: string;
-        captionFontStyle?: string;
-        captionFontWeight?: number | string;
-        captionContainerPadding?: string;
-        captionTextTransform?: string;
-        showCaption?: boolean;
-    };
+        captionColor?: string | undefined;
+        captionAlignment?: string | undefined;
+        captionFontFamily?: string | undefined;
+        captionFontSize?: string | undefined;
+        captionFontStyle?: string | undefined;
+        captionFontWeight?: number | string | undefined;
+        captionContainerPadding?: string | undefined;
+        captionTextTransform?: string | undefined;
+        showCaption?: boolean | undefined;
+    } | undefined;
     thumbnails?: {
-        showThumbnails?: boolean;
-        thumbnailsAlignment?: string;
-        thumbnailsContainerPadding?: string;
-        thumbnailsContainerBackgroundColor?: string;
-        thumbnailsGap?: string;
-        thumbnailsIconColor?: string;
-        thumbnailsOpacity?: number;
-        thumbnailsPosition?: string;
-        thumbnailsSize?: string[];
-    };
+        showThumbnails?: boolean | undefined;
+        thumbnailsAlignment?: string | undefined;
+        thumbnailsContainerPadding?: string | undefined;
+        thumbnailsContainerBackgroundColor?: string | undefined;
+        thumbnailsGap?: string | undefined;
+        thumbnailsIconColor?: string | undefined;
+        thumbnailsOpacity?: number | undefined;
+        thumbnailsPosition?: string | undefined;
+        thumbnailsSize?: string[] | undefined;
+    } | undefined;
     progressBar?: {
-        backgroundColor?: string;
-        fillColor?: string;
-        height?: string;
-        showProgressBar?: boolean;
-    };
+        backgroundColor?: string | undefined;
+        fillColor?: string | undefined;
+        height?: string | undefined;
+        showProgressBar?: boolean | undefined;
+    } | undefined;
 }
 
 /**
@@ -220,13 +220,13 @@ export function useLightbox(): { openLightbox(index?: number): void; closeLightb
 // If the user provide the elements prop, don't let him to also use children, and vice-versa.
 
 export interface WrapperWithElements {
-    children?: never;
+    children?: never | undefined;
     elements: Elements;
 }
 
 export interface WrapperWithChildren {
     children: ReactNode;
-    elements?: never;
+    elements?: never | undefined;
 }
 
 /**
@@ -261,8 +261,8 @@ export interface Callbacks {
 }
 
 export type SRLWrapperProps = (WrapperWithElements | WrapperWithChildren) & {
-    options?: SRLWrapperOptions;
-    callbacks?: Callbacks;
+    options?: SRLWrapperOptions | undefined;
+    callbacks?: Callbacks | undefined;
 };
 
 /**

@@ -95,7 +95,7 @@ export interface RendererContext<TState> {
      * Fires when a message is sent via the `vscode.notebook.createRendererMessaging`
      * object in the extension host.
      */
-    onDidReceiveMessage?: VSCodeEvent<any>;
+    onDidReceiveMessage?: VSCodeEvent<any> | undefined;
 }
 
 /**

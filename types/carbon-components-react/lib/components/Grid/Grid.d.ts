@@ -3,16 +3,16 @@ import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../
 
 // These are the props not spread onto the component supplied from the "as" prop (aliased BaseComponent in the src).
 interface GridBaseIsolatedProps {
-    columns?: number;
-    condensed?: boolean;
-    fullWidth?: boolean;
-    narrow?: boolean;
+    columns?: number | undefined;
+    condensed?: boolean | undefined;
+    fullWidth?: boolean | undefined;
+    narrow?: boolean | undefined;
 }
 type SafeProps<P> = Omit<P, 'as' | keyof GridBaseIsolatedProps>;
 
 interface GridBaseProps extends GridBaseIsolatedProps {
-    children?: React.ReactNode;
-    className?: ReactAttr['className'];
+    children?: React.ReactNode | undefined;
+    className?: ReactAttr['className'] | undefined;
 }
 
 export type GridDefaultProps = GridBaseProps &

@@ -13,8 +13,8 @@ declare class AmbientWeatherApi {
     deviceData(
         macAddress: string,
         options?: {
-            endDate?: string;
-            limit?: number;
+            endDate?: string | undefined;
+            limit?: number | undefined;
         },
     ): Promise<AmbientWeatherApi.DeviceData[]>;
 
@@ -74,291 +74,291 @@ declare namespace AmbientWeatherApi {
     // Docs pulled from: https://github.com/ambient-weather/api-docs/wiki/Device-Data-Specs
     interface DeviceData {
         /** instantaneous wind direction, 0-360º */
-        winddir?: number;
+        winddir?: number | undefined;
 
         /** instantaneous wind speed, mph */
-        windspeedmph?: number;
+        windspeedmph?: number | undefined;
 
         /** max wind speed in the last 10 minutes, mph */
-        windgustmph?: number;
+        windgustmph?: number | undefined;
 
         /** Maximum wind speed in last day, mph */
-        maxdailygust?: number;
+        maxdailygust?: number | undefined;
 
         /** Wind direction at which the wind gust occurred, 0-360º */
-        windgustdir?: number;
+        windgustdir?: number | undefined;
 
         /** Average wind speed, 2 minute average, mph */
-        windspdmph_avg2m?: number;
+        windspdmph_avg2m?: number | undefined;
 
         /** Average wind direction, 2 minute average, mph */
-        winddir_avg2m?: number;
+        winddir_avg2m?: number | undefined;
 
         /** Average wind speed, 10 minute average, mph */
-        windspdmph_avg10m?: number;
+        windspdmph_avg10m?: number | undefined;
 
         /** Average wind direction, 10 minute average, 0-360º */
-        winddir_avg10m?: number;
+        winddir_avg10m?: number | undefined;
 
         /** Outdoor Humidity, 0-100% */
-        humidity?: number;
+        humidity?: number | undefined;
 
         /** Humidity Sensor #1, 0-100% */
-        humidity1?: number;
+        humidity1?: number | undefined;
 
         /** Humidity Sensor #2, 0-100% */
-        humidity2?: number;
+        humidity2?: number | undefined;
 
         /** Humidity Sensor #3, 0-100% */
-        humidity3?: number;
+        humidity3?: number | undefined;
 
         /** Humidity Sensor #4, 0-100% */
-        humidity4?: number;
+        humidity4?: number | undefined;
 
         /** Humidity Sensor #5, 0-100% */
-        humidity5?: number;
+        humidity5?: number | undefined;
 
         /** Humidity Sensor #6, 0-100% */
-        humidity6?: number;
+        humidity6?: number | undefined;
 
         /** Humidity Sensor #7, 0-100% */
-        humidity7?: number;
+        humidity7?: number | undefined;
 
         /** Humidity Sensor #8, 0-100% */
-        humidity8?: number;
+        humidity8?: number | undefined;
 
         /** Humidity Sensor #9, 0-100% */
-        humidity9?: number;
+        humidity9?: number | undefined;
 
         /** Humidity Sensor #10, 0-100% */
-        humidity10?: number;
+        humidity10?: number | undefined;
 
         /** Indoor Humidity, 0-100% */
-        humidityin?: number;
+        humidityin?: number | undefined;
 
         /** Outdoor Temperature, ºF */
-        tempf?: number;
+        tempf?: number | undefined;
 
         /** Temperature Sensor #1, ºF */
-        temp1f?: number;
+        temp1f?: number | undefined;
 
         /** Temperature Sensor #2, ºF */
-        temp2f?: number;
+        temp2f?: number | undefined;
 
         /** Temperature Sensor #3, ºF */
-        temp3f?: number;
+        temp3f?: number | undefined;
 
         /** Temperature Sensor #4, ºF */
-        temp4f?: number;
+        temp4f?: number | undefined;
 
         /** Temperature Sensor #5, ºF */
-        temp5f?: number;
+        temp5f?: number | undefined;
 
         /** Temperature Sensor #6, ºF */
-        temp6f?: number;
+        temp6f?: number | undefined;
 
         /** Temperature Sensor #7, ºF */
-        temp7f?: number;
+        temp7f?: number | undefined;
 
         /** Temperature Sensor #8, ºF */
-        temp8f?: number;
+        temp8f?: number | undefined;
 
         /** Temperature Sensor #9, ºF */
-        temp9f?: number;
+        temp9f?: number | undefined;
 
         /** Temperature Sensor #10, ºF */
-        temp10f?: number;
+        temp10f?: number | undefined;
 
         /** Soil Temperature Sensor #1, ºF */
-        soiltemp1f?: number;
+        soiltemp1f?: number | undefined;
 
         /** Soil Temperature Sensor #2, ºF */
-        soiltemp2f?: number;
+        soiltemp2f?: number | undefined;
 
         /** Soil Temperature Sensor #3, ºF */
-        soiltemp3f?: number;
+        soiltemp3f?: number | undefined;
 
         /** Soil Temperature Sensor #4, ºF */
-        soiltemp4f?: number;
+        soiltemp4f?: number | undefined;
 
         /** Soil Temperature Sensor #5, ºF */
-        soiltemp5f?: number;
+        soiltemp5f?: number | undefined;
 
         /** Soil Temperature Sensor #6, ºF */
-        soiltemp6f?: number;
+        soiltemp6f?: number | undefined;
 
         /** Soil Temperature Sensor #7, ºF */
-        soiltemp7f?: number;
+        soiltemp7f?: number | undefined;
 
         /** Soil Temperature Sensor #8, ºF */
-        soiltemp8f?: number;
+        soiltemp8f?: number | undefined;
 
         /** Soil Temperature Sensor #9, ºF */
-        soiltemp9f?: number;
+        soiltemp9f?: number | undefined;
 
         /** Soil Temperature Sensor #10, ºF */
-        soiltemp10f?: number;
+        soiltemp10f?: number | undefined;
 
         /** Soil Humidity Sensor #1, % */
-        soilhum1?: number;
+        soilhum1?: number | undefined;
 
         /** Soil Humidity Sensor #2, % */
-        soilhum2?: number;
+        soilhum2?: number | undefined;
 
         /** Soil Humidity Sensor #3, % */
-        soilhum3?: number;
+        soilhum3?: number | undefined;
 
         /** Soil Humidity Sensor #4, % */
-        soilhum4?: number;
+        soilhum4?: number | undefined;
 
         /** Soil Humidity Sensor #5, % */
-        soilhum5?: number;
+        soilhum5?: number | undefined;
 
         /** Soil Humidity Sensor #6, % */
-        soilhum6?: number;
+        soilhum6?: number | undefined;
 
         /** Soil Humidity Sensor #7, % */
-        soilhum7?: number;
+        soilhum7?: number | undefined;
 
         /** Soil Humidity Sensor #8, % */
-        soilhum8?: number;
+        soilhum8?: number | undefined;
 
         /** Soil Humidity Sensor #9, % */
-        soilhum9?: number;
+        soilhum9?: number | undefined;
 
         /** Soil Humidity Sensor #10, % */
-        soilhum10?: number;
+        soilhum10?: number | undefined;
 
         /** Indoor Temperature, ºF */
-        tempinf?: number;
+        tempinf?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        battout?: number;
+        battout?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        battin?: number;
+        battin?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        batt1?: number;
+        batt1?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        batt2?: number;
+        batt2?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        batt3?: number;
+        batt3?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        batt4?: number;
+        batt4?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        batt5?: number;
+        batt5?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        batt6?: number;
+        batt6?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        batt7?: number;
+        batt7?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        batt8?: number;
+        batt8?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        batt9?: number;
+        batt9?: number | undefined;
 
         /** OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        batt10?: number;
+        batt10?: number | undefined;
 
         /** PM2.5 Air Quality Sensor Battery indication, OK/Low indication, Int, 1=OK, 0=Low (Meteobridge Users 1=Low, 0=OK) */
-        batt_25?: number;
+        batt_25?: number | undefined;
 
         /** Hourly Rain Rate, in/hr */
-        hourlyrainin?: number;
+        hourlyrainin?: number | undefined;
 
         /** Daily Rain, in */
-        dailyrainin?: number;
+        dailyrainin?: number | undefined;
 
         /** 24 Hour Rain, in */
-        '24hourrainin'?: number;
+        '24hourrainin'?: number | undefined;
 
         /** Weekly Rain, in */
-        weeklyrainin?: number;
+        weeklyrainin?: number | undefined;
 
         /** Monthly Rain, in */
-        monthlyrainin?: number;
+        monthlyrainin?: number | undefined;
 
         /** Yearly Rain, in */
-        yearlyrainin?: number;
+        yearlyrainin?: number | undefined;
 
         /** Event Rain, in */
-        eventrainin?: number;
+        eventrainin?: number | undefined;
 
         /** Total Rain, in (since last factory reset) */
-        totalrainin?: number;
+        totalrainin?: number | undefined;
 
         /** Relative Pressure, inHg */
-        baromrelin?: number;
+        baromrelin?: number | undefined;
 
         /** Absolute Pressure, inHg */
-        baromabsin?: number;
+        baromabsin?: number | undefined;
 
         /** Ultra-Violet Radiation Index, integer on all devices EXCEPT WS-8478. */
-        uv?: number;
+        uv?: number | undefined;
 
         /** Solar Radiation, W/m^2 */
-        solarradiation?: number;
+        solarradiation?: number | undefined;
 
         /** CO2 Meter, ppm */
-        co2?: number;
+        co2?: number | undefined;
 
         /** Relay 1, 0 or 1 */
-        relay1?: number;
+        relay1?: number | undefined;
 
         /** Relay 2, 0 or 1 */
-        relay2?: number;
+        relay2?: number | undefined;
 
         /** Relay 3, 0 or 1 */
-        relay3?: number;
+        relay3?: number | undefined;
 
         /** Relay 4, 0 or 1 */
-        relay4?: number;
+        relay4?: number | undefined;
 
         /** Relay 5, 0 or 1 */
-        relay5?: number;
+        relay5?: number | undefined;
 
         /** Relay 6, 0 or 1 */
-        relay6?: number;
+        relay6?: number | undefined;
 
         /** Relay 7, 0 or 1 */
-        relay7?: number;
+        relay7?: number | undefined;
 
         /** Relay 8, 0 or 1 */
-        relay8?: number;
+        relay8?: number | undefined;
 
         /** Relay 9, 0 or 1 */
-        relay9?: number;
+        relay9?: number | undefined;
 
         /** Relay 10, 0 or 1 */
-        relay10?: number;
+        relay10?: number | undefined;
 
         /** PM2.5 Air Quality, Float, µg/m^3 */
-        pm25?: number;
+        pm25?: number | undefined;
 
         /** PM2.5 Air Quality 24 hour average, Float, µg/m^3 */
-        pm25_24h?: number;
+        pm25_24h?: number | undefined;
 
         /** PM2.5 Air Quality, Indoor, Float, µg/m^3 */
-        pm25_in?: number;
+        pm25_in?: number | undefined;
 
         /** PM2.5 Air Quality 24 hour average, Indoor, Float, µg/m^3 */
-        pm25_in_24h?: number;
+        pm25_in_24h?: number | undefined;
 
         // No official documentation for this properties
-        feelsLike?: number;
-        dewPoint?: number;
-        feelsLikein?: number;
-        dewPointin?: number;
-        batt_co2?: string;
-        lastRain?: string;
+        feelsLike?: number | undefined;
+        dewPoint?: number | undefined;
+        feelsLikein?: number | undefined;
+        dewPointin?: number | undefined;
+        batt_co2?: string | undefined;
+        lastRain?: string | undefined;
 
         /** IANA Time Zone, String */
         tz: string;

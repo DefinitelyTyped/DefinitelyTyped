@@ -7,17 +7,17 @@
 declare class Lyricist {
     constructor(accessToken: string);
 
-    album(id: number, opts?: { fetchTracklist?: boolean, textFormat?: Lyricist.LyricistTextFormat }): Promise<Lyricist.Album>;
+    album(id: number, opts?: { fetchTracklist?: boolean | undefined, textFormat?: Lyricist.LyricistTextFormat | undefined }): Promise<Lyricist.Album>;
 
-    artist(id: number, opts: { textFormat?: Lyricist.LyricistTextFormat }): Promise<Lyricist.Artist>;
+    artist(id: number, opts: { textFormat?: Lyricist.LyricistTextFormat | undefined }): Promise<Lyricist.Artist>;
 
-    artistByName(name: string, opts: { textFormat?: Lyricist.LyricistTextFormat }): Promise<Lyricist.Artist>;
+    artistByName(name: string, opts: { textFormat?: Lyricist.LyricistTextFormat | undefined }): Promise<Lyricist.Artist>;
 
     search(query: string): Promise<Lyricist.SearchResult[]>;
 
-    song(id: number, opts?: { fetchLyrics?: boolean, textFormat?: Lyricist.LyricistTextFormat }): Promise<Lyricist.Song>;
+    song(id: number, opts?: { fetchLyrics?: boolean | undefined, textFormat?: Lyricist.LyricistTextFormat | undefined }): Promise<Lyricist.Song>;
 
-    songsByArtist(id: number, opts?: { page?: number, perPage?: number, sort?: 'asc' | 'desc' }): Promise<Lyricist.SongByArtist[]>;
+    songsByArtist(id: number, opts?: { page?: number | undefined, perPage?: number | undefined, sort?: 'asc' | 'desc' | undefined }): Promise<Lyricist.SongByArtist[]>;
 }
 
 declare namespace Lyricist {
@@ -28,9 +28,9 @@ declare namespace Lyricist {
     }
 
     interface Description {
-        [LyricistTextFormat.DOM]?: object;
-        [LyricistTextFormat.PLAIN]?: string;
-        [LyricistTextFormat.HTML]?: string;
+        [LyricistTextFormat.DOM]?: object | undefined;
+        [LyricistTextFormat.PLAIN]?: string | undefined;
+        [LyricistTextFormat.HTML]?: string | undefined;
     }
 
     // Song ============================================================================================

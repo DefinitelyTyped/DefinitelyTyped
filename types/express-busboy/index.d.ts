@@ -8,11 +8,11 @@ import * as connectBusboy from 'connect-busboy';
 import * as express from 'express';
 
 export interface ExpressBusboyOptions extends connectBusboy.ConnectBusboyOptions {
-    upload?: boolean;
-    path?: string;
-    allowedPath?: string | RegExp | ((url: string) => boolean);
-    restrictMultiple?: boolean;
-    mimeTypeLimit?: string | string[];
+    upload?: boolean | undefined;
+    path?: string | undefined;
+    allowedPath?: string | RegExp | ((url: string) => boolean) | undefined;
+    restrictMultiple?: boolean | undefined;
+    mimeTypeLimit?: string | string[] | undefined;
 }
 
 export function extend(app: express.Application, options?: ExpressBusboyOptions): express.Application;

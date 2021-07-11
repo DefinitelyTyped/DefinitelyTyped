@@ -3,11 +3,11 @@ import { ReactDivAttr, TooltipAlignment, VerticalDirection } from "../../../typi
 
 type ExcludedPropsKeys = "onBlur" | "onFocus";
 export interface TooltipDefinitionProps extends Omit<ReactDivAttr, ExcludedPropsKeys> {
-    align?: TooltipAlignment,
-    direction?: VerticalDirection, // required but has default value
+    align?: TooltipAlignment | undefined,
+    direction?: VerticalDirection | undefined, // required but has default value
     onBlur?(event: React.FocusEvent<HTMLButtonElement>): void;
     onFocus?(event: React.FocusEvent<HTMLButtonElement>): void,
-    triggerClassName?: string
+    triggerClassName?: string | undefined
     tooltipText: NonNullable<React.ReactNode>,
 }
 

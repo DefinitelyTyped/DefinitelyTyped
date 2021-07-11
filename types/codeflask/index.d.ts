@@ -18,18 +18,18 @@ export = CodeFlask;
 
 declare namespace CodeFlask {
     interface options {
-        language?: string;
-        rtl?: boolean;
-        tabSize?: number;
-        enableAutocorrect?: boolean;
-        lineNumbers?: boolean;
-        defaultTheme?: boolean;
-        areaId?: string;
-        ariaLabelledby?: string;
-        readonly?: boolean;
-        handleTabs?: boolean;
-        handleSelfClosingCharacters?: boolean;
-        handleNewLineIndentation?: boolean;
-        styleParent?: ShadowRoot;
+        language?: string | undefined;
+        rtl?: boolean | undefined;
+        tabSize?: number | undefined;
+        enableAutocorrect?: boolean | undefined;
+        lineNumbers?: boolean | undefined;
+        defaultTheme?: boolean | undefined;
+        areaId?: string | undefined;
+        ariaLabelledby?: string | undefined;
+        readonly?: boolean | undefined;
+        handleTabs?: boolean | undefined;
+        handleSelfClosingCharacters?: boolean | undefined;
+        handleNewLineIndentation?: boolean | undefined;
+        styleParent?: ShadowRoot | undefined;
     }
 }

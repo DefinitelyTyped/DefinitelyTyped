@@ -15,18 +15,18 @@ import {
 
 // FlipCard
 export interface FlipCardProps {
-  style?: StyleProp<ViewStyle>;
-  flip?: boolean;
-  friction?: number;
-  perspective?: number;
-  flipHorizontal?: boolean;
-  flipVertical?: boolean;
-  clickable?: boolean;
-  onFlipEnd?: () => void;
-  onFlipStart?: () => void;
-  alignHeight?: boolean;
-  alignWidth?: boolean;
-  useNativeDriver?: boolean;
+  style?: StyleProp<ViewStyle> | undefined;
+  flip?: boolean | undefined;
+  friction?: number | undefined;
+  perspective?: number | undefined;
+  flipHorizontal?: boolean | undefined;
+  flipVertical?: boolean | undefined;
+  clickable?: boolean | undefined;
+  onFlipEnd?: (() => void) | undefined;
+  onFlipStart?: (() => void) | undefined;
+  alignHeight?: boolean | undefined;
+  alignWidth?: boolean | undefined;
+  useNativeDriver?: boolean | undefined;
 }
 // Face
 export interface FaceProps {

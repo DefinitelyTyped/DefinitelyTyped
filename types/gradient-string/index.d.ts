@@ -18,8 +18,8 @@ declare namespace gradient {
     }
 
     interface Options {
-        interpolation?: string;
-        hsvSpin?: string;
+        interpolation?: string | undefined;
+        hsvSpin?: string | undefined;
     }
 
     const atlas: Gradient;

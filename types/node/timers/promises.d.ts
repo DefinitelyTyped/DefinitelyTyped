@@ -19,3 +19,7 @@ declare module 'timers/promises' {
      */
     function setInterval<T = void>(delay?: number, value?: T, options?: TimerOptions): AsyncIterable<T>;
 }
+
+declare module 'node:timers/promises' {
+    export * from 'timers/promises';
+}

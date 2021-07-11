@@ -25,15 +25,15 @@ declare namespace Destination {
    *  for example, 325 Front Street W., M5V 3B5, CA will be geocoded correctly.
    */
   interface DestinationAddress {
-    apartment?: string;
+    apartment?: string | undefined;
     city: string;
     country: string;
-    name?: string;
+    name?: string | undefined;
     number: string;
-    postalCode?: string;
-    state?: string;
+    postalCode?: string | undefined;
+    state?: string | undefined;
     street: string;
-    unparsed?: string;
+    unparsed?: string | undefined;
   }
 
   interface OnfleetDestination {
@@ -56,8 +56,8 @@ declare namespace Destination {
 
   interface CreateDestinationProps {
     address: DestinationAddress;
-    location?: Location;
-    notes?: string;
+    location?: Location | undefined;
+    notes?: string | undefined;
   }
 }
 

@@ -9,8 +9,8 @@ export default class DecoupledEditorUIView extends EditorUIView {
         locale: Locale,
         editingView: View,
         options?: {
-            editableElement?: HTMLElement;
-            shouldToolbarGroupWhenFull?: boolean;
+            editableElement?: HTMLElement | undefined;
+            shouldToolbarGroupWhenFull?: boolean | undefined;
         },
     );
 }

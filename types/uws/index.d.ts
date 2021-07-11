@@ -41,11 +41,11 @@ declare class WebSocket extends events.EventEmitter {
     close(code?: number, data?: any): void;
     pause(): void;
     resume(): void;
-    ping(data?: any, options?: { mask?: boolean; binary?: boolean }, dontFail?: boolean): void;
-    pong(data?: any, options?: { mask?: boolean; binary?: boolean }, dontFail?: boolean): void;
+    ping(data?: any, options?: { mask?: boolean | undefined; binary?: boolean | undefined }, dontFail?: boolean): void;
+    pong(data?: any, options?: { mask?: boolean | undefined; binary?: boolean | undefined }, dontFail?: boolean): void;
     send(data: any, cb?: (err: Error) => void): void;
-    send(data: any, options: { mask?: boolean; binary?: boolean }, cb?: (err: Error) => void): void;
-    stream(options: { mask?: boolean; binary?: boolean }, cb?: (err: Error, final: boolean) => void): void;
+    send(data: any, options: { mask?: boolean | undefined; binary?: boolean | undefined }, cb?: (err: Error) => void): void;
+    stream(options: { mask?: boolean | undefined; binary?: boolean | undefined }, cb?: (err: Error, final: boolean) => void): void;
     stream(cb?: (err: Error, final: boolean) => void): void;
     terminate(): void;
 
@@ -84,48 +84,48 @@ declare namespace WebSocket {
         , callback: (res: boolean) => void) => void;
 
     export interface IClientOptions {
-        protocol?: string;
-        agent?: http.Agent;
-        headers?: { [key: string]: string };
+        protocol?: string | undefined;
+        agent?: http.Agent | undefined;
+        headers?: { [key: string]: string } | undefined;
         protocolVersion?: any;
-        host?: string;
-        origin?: string;
+        host?: string | undefined;
+        origin?: string | undefined;
         pfx?: any;
         key?: any;
-        passphrase?: string;
+        passphrase?: string | undefined;
         cert?: any;
-        ca?: any[];
-        ciphers?: string;
-        rejectUnauthorized?: boolean;
+        ca?: any[] | undefined;
+        ciphers?: string | undefined;
+        rejectUnauthorized?: boolean | undefined;
     }
 
     export interface IPerMessageDeflateOptions {
-        serverNoContextTakeover?: boolean;
-        clientNoContextTakeover?: boolean;
-        serverMaxWindowBits?: number;
-        clientMaxWindowBits?: number;
-        memLevel?: number;
+        serverNoContextTakeover?: boolean | undefined;
+        clientNoContextTakeover?: boolean | undefined;
+        serverMaxWindowBits?: number | undefined;
+        clientMaxWindowBits?: number | undefined;
+        memLevel?: number | undefined;
     }
 
     export interface IPerMessageDeflateOptions {
-        serverNoContextTakeover?: boolean;
-        clientNoContextTakeover?: boolean;
-        serverMaxWindowBits?: number;
-        clientMaxWindowBits?: number;
-        memLevel?: number;
+        serverNoContextTakeover?: boolean | undefined;
+        clientNoContextTakeover?: boolean | undefined;
+        serverMaxWindowBits?: number | undefined;
+        clientMaxWindowBits?: number | undefined;
+        memLevel?: number | undefined;
     }
 
     export interface IServerOptions {
-        host?: string;
-        port?: number;
-        server?: http.Server | https.Server;
-        verifyClient?: VerifyClientCallbackAsync | VerifyClientCallbackSync;
+        host?: string | undefined;
+        port?: number | undefined;
+        server?: http.Server | https.Server | undefined;
+        verifyClient?: VerifyClientCallbackAsync | VerifyClientCallbackSync | undefined;
         handleProtocols?: any;
-        path?: string;
-        noServer?: boolean;
-        disableHixie?: boolean;
-        clientTracking?: boolean;
-        perMessageDeflate?: boolean | IPerMessageDeflateOptions;
+        path?: string | undefined;
+        noServer?: boolean | undefined;
+        disableHixie?: boolean | undefined;
+        clientTracking?: boolean | undefined;
+        perMessageDeflate?: boolean | IPerMessageDeflateOptions | undefined;
     }
 
     export class Server extends events.EventEmitter {

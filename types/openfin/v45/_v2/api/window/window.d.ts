@@ -69,7 +69,7 @@ export interface FrameInfo {
     name: string;
     uuid: string;
     entityType: EntityType;
-    parent?: Identity;
+    parent?: Identity | undefined;
 }
 export interface Area {
     height: number;

@@ -12,9 +12,9 @@ declare namespace Dropbox {
     }
     interface Credentials {
         key: string;
-        secret?: string;
-        token?: string;
-        uid?: string;
+        secret?: string | undefined;
+        token?: string | undefined;
+        uid?: string | undefined;
     }
 
 
@@ -68,70 +68,70 @@ declare namespace Dropbox {
 
     interface ClientFileReadOptions {
 
-        versionTag?: string;
-        rev?: string;
-        arrayBuffer?: boolean;
-        blob?: boolean;
-        buffer?: boolean;
-        binary?: boolean;
-        length?: number;
-        start?: number;
-        httpCache?: boolean;
+        versionTag?: string | undefined;
+        rev?: string | undefined;
+        arrayBuffer?: boolean | undefined;
+        blob?: boolean | undefined;
+        buffer?: boolean | undefined;
+        binary?: boolean | undefined;
+        length?: number | undefined;
+        start?: number | undefined;
+        httpCache?: boolean | undefined;
     }
 
     interface ClientFileWriteOptions {
-        lastVersionTag?: string;
-        parentRev?: string;
-        noOverwrite?: boolean;
+        lastVersionTag?: string | undefined;
+        parentRev?: string | undefined;
+        noOverwrite?: boolean | undefined;
     }
 
     interface ReadDirOptions {
-        removed?: boolean;
-        deleted?: boolean;
+        removed?: boolean | undefined;
+        deleted?: boolean | undefined;
         limit?: any;
-        versionTag?: string;
-        contentHash?: string;
-        httpCache?: boolean;
+        versionTag?: string | undefined;
+        contentHash?: string | undefined;
+        httpCache?: boolean | undefined;
     }
 
     interface MakeURLOptions {
-        download?: boolean;
-        downloadHack?: boolean;
-        long?: boolean;
-        longUrl?: boolean;
+        download?: boolean | undefined;
+        downloadHack?: boolean | undefined;
+        long?: boolean | undefined;
+        longUrl?: boolean | undefined;
     }
 
     interface HistoryOptions {
-        limit?: number;
-        httpCache?: boolean;
+        limit?: number | undefined;
+        httpCache?: boolean | undefined;
 
     }
 
     interface ThumbnailUrlOptions {
-        png?: boolean;
-        format?: string;
-        size?: string;
+        png?: boolean | undefined;
+        format?: string | undefined;
+        size?: string | undefined;
     }
 
     interface ReadThumbnailOptions extends ThumbnailUrlOptions {
-        arrayBuffer?: boolean;
-        blob?: boolean;
-        buffer?: boolean;
+        arrayBuffer?: boolean | undefined;
+        blob?: boolean | undefined;
+        buffer?: boolean | undefined;
     }
 
     interface FindByNameOptions {
-        limit?: number;
-        removed?: boolean;
-        deleted?: boolean;
-        httpCache?: boolean;
+        limit?: number | undefined;
+        removed?: boolean | undefined;
+        deleted?: boolean | undefined;
+        httpCache?: boolean | undefined;
 
     }
 
     interface RedirectOptions {
-        redirectUrl?: string;
-        redirectFile?: string;
-        scope?: string;
-        rememberUser?: boolean;
+        redirectUrl?: string | undefined;
+        redirectFile?: string | undefined;
+        scope?: string | undefined;
+        rememberUser?: boolean | undefined;
     }
 
     namespace Util {
@@ -338,7 +338,7 @@ declare namespace Dropbox {
         }
 
         class NodeServer extends IAuthDriver {
-            constructor(options?: { port: number; tls?: {} });
+            constructor(options?: { port: number; tls?: {} | undefined });
             authType(): string;
             url(): string;
             openBrowser(url: string): void;

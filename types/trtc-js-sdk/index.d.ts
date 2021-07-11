@@ -208,7 +208,7 @@ export interface Client {
      * });
      * ```
      */
-    subscribe(stream: RemoteStream, options?: { audio?: boolean; video?: boolean }): Promise<void>;
+    subscribe(stream: RemoteStream, options?: { audio?: boolean | undefined; video?: boolean | undefined }): Promise<void>;
 
     /**
      * 取消订阅远端流
@@ -274,17 +274,17 @@ export interface ClientConfig {
      */
     mode: 'rtc' | 'live';
     /** 是否使用 String 类型的 roomId，支持 v4.3.0+ 版本。 */
-    useStringRoomId?: boolean;
+    useStringRoomId?: boolean | undefined;
     /** 绑定腾讯云直播 CDN 流 ID，设置之后，您就可以在腾讯云直播 CDN 上通过标准直播方案（FLV|HLS）播放该用户的音视频流。 */
-    streamId?: string;
+    streamId?: string | undefined;
     /** 设置云端录制完成后的回调消息中的 "userdefinerecordid" 字段内容，便于您更方便的识别录制回调。 */
-    userDefineRecordId?: string;
+    userDefineRecordId?: string | undefined;
     /**
      * 纯音频推流模式,需要旁路直播和录制时需要带上此参数:
      * - 1 表示本次是纯音频推流，不需要录制 MP3 文件
      * - 2 表示本次是纯音频推流，录制文件为 MP3
      */
-    pureAudioPushMode?: 1 | 2;
+    pureAudioPushMode?: 1 | 2 | undefined;
 }
 
 /** 客户端事件 */
@@ -602,13 +602,13 @@ export interface StreamConfig {
     /** 是否从摄像头采集视频 */
     video: boolean;
     /** 音频源 */
-    audioSource?: MediaStreamTrack;
+    audioSource?: MediaStreamTrack | undefined;
     /** 视频源 */
-    videoSource?: MediaStreamTrack;
+    videoSource?: MediaStreamTrack | undefined;
     /** 麦克风设备 deviceId，通过 getMicrophones() 获取 */
-    microphoneId?: string;
+    microphoneId?: string | undefined;
     /** 摄像头设备 deviceId，通过 getCameras() 获取 */
-    cameraId?: string;
+    cameraId?: string | undefined;
     /**
      * 在移动设备上，可通过该参数选择使用前置或后置摄像头：
      * - `user`：前置摄像头
@@ -616,18 +616,18 @@ export interface StreamConfig {
      *
      * **注意** 请勿同时使用 cameraId 和 facingMode 参数。
      */
-    facingMode?: 'user' | 'environment';
+    facingMode?: 'user' | 'environment' | undefined;
     /** 是否采集屏幕分享流 */
-    screen?: boolean;
+    screen?: boolean | undefined;
     /**
      * 是否采集系统音频
      * 请勿同时设置 audio 和 screenAudio 为 true。
      * 采集系统声音只支持 Chrome M74+ ，在 Windows 和 Chrome OS 上，可以捕获整个系统的音频，在 Linux 和 Mac 上，只能捕获选项卡的音频。其它 Chrome 版本、其它系统、其它浏览器均不支持。
      * 屏幕分享获取指引：https://trtc-1252463788.file.myqcloud.com/web/docs/tutorial-06-advanced-screencast.html。
      */
-    screenAudio?: boolean;
+    screenAudio?: boolean | undefined;
     /** 视频显示是否为镜像，默认为 true。建议在使用前置摄像头时开启，使用后置摄像头时关闭。镜像设置不适用于屏幕分享。 */
-    mirror?: boolean;
+    mirror?: boolean | undefined;
 }
 
 export interface StreamEventMap {
@@ -659,11 +659,11 @@ export interface JoinOptions {
     /** 房间号 */
     roomId: number | string;
     /** 用户角色 */
-    role?: Role;
+    role?: Role | undefined;
     /**
      * @deprecated 进房钥匙，若需要权限控制请携带该参数，因某些局限性目前已不建议使用该参数。
      */
-    privateMapKey?: string;
+    privateMapKey?: string | undefined;
 }
 
 export interface RemoteMutedState {
@@ -771,9 +771,9 @@ export type ConnectionState = 'DISCONNECTED' | 'CONNECTING' | 'RECONNECTING' | '
 /** 播放选项 */
 export interface PlayOptions {
     /** 视频画面显示模式，参考 [CSS object-fit 属性](https://developer.mozilla.org/zh-CN/docs/Web/CSS/object-fit) */
-    objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+    objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down' | undefined;
     /** 是否需要 mute 声音，对于本地流通常需要 mute 声音以防止播放从麦克风采集回来的声音。 */
-    muted?: boolean;
+    muted?: boolean | undefined;
 }
 
 export interface Profile {
@@ -815,27 +815,27 @@ export interface NetworkQuality {
 
 export interface MixTranscodeConfig {
     /** 混流转码后的流 ID，默认值为'' */
-    streamId?: string;
+    streamId?: string | undefined;
     /** 转码后视频分辨率的宽度（px），转码后视频的宽度设置必须大于等于 0 且能容纳所有混入视频，默认值为 640 */
-    videoWidth?: number;
+    videoWidth?: number | undefined;
     /** 转码后视频分辨率的高度（px），转码后视频的高度设置必须大于等于 0 且能容纳所有混入视频，默认值为 480 */
-    videoHeight?: number;
+    videoHeight?: number | undefined;
     /** 转码后的视频码率（kbps），如果传入值为 0，码率值将由 videoWidth 和 videoHeight 决定 */
-    videoBitrate?: number;
+    videoBitrate?: number | undefined;
     /** 转码后的视频帧率（fps），默认值为 15， 取值范围为(0, 30] */
-    videoFramerate?: number;
+    videoFramerate?: number | undefined;
     /** 转码后的视频关键帧间隔（s），默认值为 2，取值范围为[1, 8] */
-    videoGOP?: number;
+    videoGOP?: number | undefined;
     /** 转码后的音频采样率（Hz），默认值为 48000 */
-    audioSampleRate?: number;
+    audioSampleRate?: number | undefined;
     /** 转码后的音频码率（kbps），默认值为 64，取值范围为[32, 192] */
-    audioBitrate?: number;
+    audioBitrate?: number | undefined;
     /** 转码后的音频声道数， 默认值为 1，取值范围为 1 或 2 */
-    audioChannels?: 1 | 2;
+    audioChannels?: 1 | 2 | undefined;
     /** 混合后画面的背景颜色，格式为十六进制数字，默认值为 0x000000（黑色） */
-    backgroundColor?: number;
+    backgroundColor?: number | undefined;
     /** 混合后画面的背景图，默认值为 '' */
-    backgroundImage?: string;
+    backgroundImage?: string | undefined;
     /** 混入用户流的信息列表[必填]，必须包含接口调用者的信息 */
     mixUsers: MixUser[];
 }
@@ -846,13 +846,13 @@ export interface MixUser {
     /** 只混入该用户的音频流, 若该值为true, 则以下视频相关参数不需要传入 */
     pureAudio: boolean;
     /** 该用户流在混流中的宽度（px），必须大于等于0，默认值为 0 */
-    width?: number;
+    width?: number | undefined;
     /** 该用户流在混流中的高度（px），必须大于等于0，默认值为 0 */
-    height?: number;
+    height?: number | undefined;
     /** 以混流左上角为起点，该用户流在混流中的 X 坐标（px），必须大于等于 0，默认值为 0 */
-    locationX?: number;
+    locationX?: number | undefined;
     /** 以混流左上角为起点，该用户流在混流中的 Y 坐标（px），必须大于等于 0，默认值为 0 */
-    locationY?: number;
+    locationY?: number | undefined;
     /** 该用户流在混流中的图层层次，取值范围为[1, 15]；若 pureAudio 的值为 false， 则 zOrder 必传，且各混入流的 zOrder 不可重复 */
-    zOrder?: number;
+    zOrder?: number | undefined;
 }

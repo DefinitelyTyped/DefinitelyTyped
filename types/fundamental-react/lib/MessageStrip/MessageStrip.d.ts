@@ -2,16 +2,16 @@ import * as React from "react";
 
 export interface MessageStripProps {
     buttonProps?: any;
-    className?: string;
-    disableStyles?: boolean;
-    dismissible?: boolean;
-    link?: string;
+    className?: string | undefined;
+    disableStyles?: boolean | undefined;
+    dismissible?: boolean | undefined;
+    link?: string | undefined;
     linkProps?: any;
-    linkText?: string;
+    linkText?: string | undefined;
     localizedText?: any;
-    noGlyph?: boolean;
+    noGlyph?: boolean | undefined;
     type?: any;
-    onCloseClicked?: (...args: any[]) => any;
+    onCloseClicked?: ((...args: any[]) => any) | undefined;
 }
 
 declare const MessageStrip: React.FunctionComponent<MessageStripProps> & {

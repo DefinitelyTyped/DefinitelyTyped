@@ -517,7 +517,7 @@ ReactDOM.render(
 
 // Inject just dispatch and don't listen to store
 
-const AppWrap = (props: DispatchProp & { children?: React.ReactNode }) => <div />;
+const AppWrap = (props: DispatchProp & { children?: React.ReactNode | undefined }) => <div />;
 const WrappedApp = connect()(AppWrap);
 
 <WrappedApp />;
@@ -604,7 +604,7 @@ connect(undefined, mapDispatchToProps6)(TodoApp);
 
 interface TestProp {
     property1: number;
-    someOtherProperty?: string;
+    someOtherProperty?: string | undefined;
 }
 interface TestState {
     isLoaded: boolean;
@@ -1053,8 +1053,8 @@ function TestOptionalPropsMergedCorrectly() {
     interface OptionalDecorationProps {
         foo: string;
         bar: number;
-        optionalProp?: boolean;
-        dependsOnDispatch?: () => void;
+        optionalProp?: boolean | undefined;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     class Component extends React.Component<OptionalDecorationProps> {
@@ -1097,8 +1097,8 @@ function TestMoreGeneralDecorationProps() {
     interface MoreGeneralDecorationProps {
         foo: string | number;
         bar: number | 'foo';
-        optionalProp?: boolean | object;
-        dependsOnDispatch?: () => void;
+        optionalProp?: boolean | object | undefined;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     class Component extends React.Component<MoreGeneralDecorationProps> {
@@ -1150,11 +1150,11 @@ function TestFailsMoreSpecificInjectedProps() {
     interface MapStateProps {
         foo: string | number;
         bar: number | 'foo';
-        dependsOnDispatch?: () => void;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     interface MapDispatchProps {
-        dependsOnDispatch?: () => void;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     function mapStateToProps(state: any): MapStateProps {
@@ -1281,7 +1281,7 @@ function TestProviderContext() {
 }
 
 function TestSelector() {
-    interface OwnProps { key?: string; }
+    interface OwnProps { key?: string | undefined; }
     interface State { key: string; }
 
     const simpleSelect: Selector<State, string> = (state: State) => state.key;

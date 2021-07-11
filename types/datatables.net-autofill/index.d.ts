@@ -12,14 +12,14 @@ declare namespace DataTables {
     /*
      * autoFill extension options
      */
-    autoFill?: boolean | AutoFillSettings;
+    autoFill?: boolean | AutoFillSettings | undefined;
   }
 
   interface AutoFillSettings {
     /*
      * Always ask the end user if an action should be taken or not
      */
-    alwaysAsk?: boolean;
+    alwaysAsk?: boolean | undefined;
     /*
      * Select the columns that can be auto filled
      */
@@ -28,6 +28,6 @@ declare namespace DataTables {
      *
      * Initial enablement state of AutoFill
      */
-    enable?: boolean;
+    enable?: boolean | undefined;
   }
 }

@@ -8,7 +8,7 @@ export type State = 'FAILED' | 'IN_PROGRESS' | 'NOT_REQUESTED' | 'SUCCEEDED';
 export default class RequestState<T = never> {
     readonly state: State;
 
-    readonly attachment?: T;
+    readonly attachment?: T | undefined;
 
     constructor(state?: State, attachment?: T);
 

@@ -68,27 +68,27 @@ declare namespace InquirerFuzzyPath {
         /**
          * The root search directory, default to ".".
          */
-        rootPath?: string;
+        rootPath?: string | undefined;
 
         /**
          * A function to exclude some paths from the file-system scan.
          */
-        excludePath?: (path: string) => boolean;
+        excludePath?: ((path: string) => boolean) | undefined;
 
         /**
          * A function to exclude some paths from the final list.
          */
-        excludeFilter?: (path: string) => boolean;
+        excludeFilter?: ((path: string) => boolean) | undefined;
 
         /**
          * A string to specify the type of nodes to display, default to "any".
          */
-        itemType?: 'any' | 'directory' | 'file';
+        itemType?: 'any' | 'directory' | 'file' | undefined;
 
         /**
          * An integer (>= 0) to limit the depth of sub-folders to scan,
          * undefined means infinite.
          */
-        depthLimit?: number;
+        depthLimit?: number | undefined;
     }
 }

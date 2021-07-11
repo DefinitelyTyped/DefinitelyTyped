@@ -13,10 +13,10 @@ import * as React from 'react';
 export type Point = [number, number];
 
 export interface ProjectionConfig {
-    scale?: number;
-    center?: [number, number];
-    parallels?: [number, number];
-    rotate?: [number, number, number];
+    scale?: number | undefined;
+    center?: [number, number] | undefined;
+    parallels?: [number, number] | undefined;
+    rotate?: [number, number, number] | undefined;
 }
 export type ProjectionFunction = (width: number, height: number, config: ProjectionConfig) => GeoProjection;
 
@@ -24,19 +24,19 @@ export interface ComposableMapProps extends React.SVGAttributes<SVGSVGElement> {
     /**
      * @default 800
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * @default 600
      */
-    height?: number;
+    height?: number | undefined;
     /**
      * @default "geoEqualEarth"
      */
-    projection?: string | ProjectionFunction;
+    projection?: string | ProjectionFunction | undefined;
     /**
      * @default {}
      */
-    projectionConfig?: ProjectionConfig;
+    projectionConfig?: ProjectionConfig | undefined;
 }
 
 export interface Position {
@@ -52,37 +52,38 @@ export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
     /**
      * @default [0, 0]
      */
-    center?: Point;
+    center?: Point | undefined;
     /**
      * @default 1
      */
-    zoom?: number;
+    zoom?: number | undefined;
     /**
      * @default 1
      */
-    minZoom?: number;
+    minZoom?: number | undefined;
     /**
      * @default 5
      */
-    maxZoom?: number;
+    maxZoom?: number | undefined;
     /**
      * @default 0.025
      */
-    zoomSensitivity?: number;
+    zoomSensitivity?: number | undefined;
     /**
      * @default false
      */
-    disablePanning?: boolean;
+    disablePanning?: boolean | undefined;
     /**
      * @default false
      */
-    disableZooming?: boolean;
-    onMoveStart?: (event: any, position: Position) => void;
-    onMoveEnd?: (event: any, position: Position) => void;
-    onZoomStart?: (event: any, position: Position) => void;
-    onZoomEnd?: (event: any, position: Position) => void;
-    filterZoomEvent?: (event: any) => boolean;
-    translateExtent?: [[number, number], [number, number]];
+    disableZooming?: boolean | undefined;
+    onMoveStart?: ((position: { coordinates: [number, number], zoom: number }, event: any) => void) | undefined;
+    onMove?: ((position: {x: number, y: number, k: number, dragging: WheelEvent }, event: any) => void) | undefined;
+    onMoveEnd?: ((position: { coordinates: [number, number], zoom: number }, event: any) => void) | undefined;
+    onZoomStart?: ((event: any, position: Position) => void) | undefined;
+    onZoomEnd?: ((event: any, position: Position) => void) | undefined;
+    filterZoomEvent?: ((event: any) => boolean) | undefined;
+    translateExtent?: [[number, number], [number, number]] | undefined;
 }
 
 interface GeographiesChildrenArgument {
@@ -92,73 +93,73 @@ interface GeographiesChildrenArgument {
 }
 
 export interface GeographiesProps extends React.SVGAttributes<SVGGElement> {
-    parseGeographies?: (features: Array<Feature<any, any>>) => Array<Feature<any, any>>;
-    geography?: string | Record<string, any> | string[];
-    children?: (data: GeographiesChildrenArgument) => void;
+    parseGeographies?: ((features: Array<Feature<any, any>>) => Array<Feature<any, any>>) | undefined;
+    geography?: string | Record<string, any> | string[] | undefined;
+    children?: ((data: GeographiesChildrenArgument) => void) | undefined;
 }
 
 export interface GeographyProps
     extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
     geography?: any;
     style?: {
-        default?: React.CSSProperties;
-        hover?: React.CSSProperties;
-        pressed?: React.CSSProperties;
-    };
-    onMouseEnter?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
-    onMouseLeave?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
-    onMouseDown?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
-    onMouseUp?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
-    onFocus?: (event: React.FocusEvent<SVGPathElement>) => void;
-    onBlur?: (event: React.FocusEvent<SVGPathElement>) => void;
+        default?: React.CSSProperties | undefined;
+        hover?: React.CSSProperties | undefined;
+        pressed?: React.CSSProperties | undefined;
+    } | undefined;
+    onMouseEnter?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
+    onMouseLeave?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
+    onMouseDown?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
+    onMouseUp?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
+    onFocus?: ((event: React.FocusEvent<SVGPathElement>) => void) | undefined;
+    onBlur?: ((event: React.FocusEvent<SVGPathElement>) => void) | undefined;
 }
 
 export interface MarkerProps
     extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
-    coordinates?: Point;
+    coordinates?: Point | undefined;
     style?: {
-        default?: React.CSSProperties;
-        hover?: React.CSSProperties;
-        pressed?: React.CSSProperties;
-    };
-    onMouseEnter?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
-    onMouseLeave?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
-    onMouseDown?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
-    onMouseUp?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
-    onFocus?: (event: React.FocusEvent<SVGPathElement>) => void;
-    onBlur?: (event: React.FocusEvent<SVGPathElement>) => void;
+        default?: React.CSSProperties | undefined;
+        hover?: React.CSSProperties | undefined;
+        pressed?: React.CSSProperties | undefined;
+    } | undefined;
+    onMouseEnter?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
+    onMouseLeave?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
+    onMouseDown?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
+    onMouseUp?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
+    onFocus?: ((event: React.FocusEvent<SVGPathElement>) => void) | undefined;
+    onBlur?: ((event: React.FocusEvent<SVGPathElement>) => void) | undefined;
 }
 
 export interface AnnotationProps extends React.SVGProps<SVGGElement> {
-    subject?: Point;
+    subject?: Point | undefined;
     connectorProps: React.SVGProps<SVGPathElement>;
     /**
      * @default 30
      */
-    dx?: number | string;
+    dx?: number | string | undefined;
     /**
      * @default 30
      */
-    dy?: number | string;
+    dy?: number | string | undefined;
     /**
      * @default 0
      */
-    curve?: number;
+    curve?: number | undefined;
 }
 
 export interface GraticuleProps extends React.SVGProps<SVGPathElement> {
     /**
      * @default [10, 10]
      */
-    step?: Point;
+    step?: Point | undefined;
     /**
      * @default "currentcolor"
      */
-    stroke?: string;
+    stroke?: string | undefined;
     /**
      * @default "transparent"
      */
-    fill?: string;
+    fill?: string | undefined;
 }
 
 export interface LineProps
@@ -166,27 +167,27 @@ export interface LineProps
     /**
      * @default [0, 0]
      */
-    from?: Point;
+    from?: Point | undefined;
     /**
      * @default [0, 0]
      */
-    to?: Point;
+    to?: Point | undefined;
     /**
      * @default [[0, 0], [0, 0]]
      */
-    coordinates?: Point[];
+    coordinates?: Point[] | undefined;
     /**
      * @default "currentcolor"
      */
-    stroke?: string;
+    stroke?: string | undefined;
     /**
      * @default 3
      */
-    strokeWidth?: number | string;
+    strokeWidth?: number | string | undefined;
     /**
      * @default "transparent"
      */
-    fill?: string;
+    fill?: string | undefined;
 }
 
 interface SphereProps extends React.SVGProps<SVGPathElement> {

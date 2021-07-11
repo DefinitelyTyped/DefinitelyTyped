@@ -11,7 +11,7 @@ export = React.__Addons.update;
 declare module 'react' {
     interface UpdateSpecCommand {
         $set?: any;
-        $merge?: {};
+        $merge?: {} | undefined;
         $apply?(value: any): any;
     }
 
@@ -22,9 +22,9 @@ declare module 'react' {
     type UpdateSpec = number[][] | UpdateSpecCommand | UpdateSpecPath;
 
     interface UpdateArraySpec extends UpdateSpecCommand {
-        $push?: any[];
-        $unshift?: any[];
-        $splice?: any[][];
+        $push?: any[] | undefined;
+        $unshift?: any[] | undefined;
+        $splice?: any[][] | undefined;
     }
 
     namespace __Addons {

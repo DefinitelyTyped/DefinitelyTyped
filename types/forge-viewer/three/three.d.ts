@@ -338,7 +338,7 @@ declare namespace THREE {
         boundingBox: Box3;
         boundingSphere: Sphere;
         drawRange: { start: number, count: number };
-        groups: Array<{start: number, count: number, materialIndex?: number}>;
+        groups: Array<{start: number, count: number, materialIndex?: number | undefined}>;
         id: number;
         index: BufferAttribute;
         morphAttributes: any;
@@ -881,10 +881,10 @@ declare namespace THREE {
     }
 
     interface LineBasicMaterialParameters extends MaterialParameters {
-        color?: number|string;
-        linecap?: string;
-        linejoin?: string;
-        linewidth?: number;
+        color?: number|string | undefined;
+        linecap?: string | undefined;
+        linejoin?: string | undefined;
+        linewidth?: number | undefined;
     }
 
     class LineDashedMaterial extends Material {
@@ -902,11 +902,11 @@ declare namespace THREE {
     }
 
     interface LineDashedMaterialParameters extends MaterialParameters {
-        color?: number|string;
-        dashSize?: number;
-        gapSize?: number;
-        linewidth?: number;
-        scale?: number;
+        color?: number|string | undefined;
+        dashSize?: number | undefined;
+        gapSize?: number | undefined;
+        linewidth?: number | undefined;
+        scale?: number | undefined;
     }
 
     class LineSegments extends Line {
@@ -1007,33 +1007,33 @@ declare namespace THREE {
     }
 
     interface MaterialParameters {
-        alphaTest?: number;
-        blending?: Blending;
-        blendEquation?: BlendingEquation;
-        blendSrc?: BlendingDstFactor;
-        blendDst?: BlendingSrcFactor;
-        blendSrcAlpha?: number;
-        blendDstAlpha?: number;
-        blendEquationAlpha?: number;
-        colorWrite?: boolean;
-        depthFunc?: DepthModes;
-        depthTest?: boolean;
-        depthWrite?: boolean;
-        fog?: boolean;
-        lights?: boolean;
-        name?: string;
-        opacity?: number;
-        overdraw?: number;
-        precision?: number;
-        polygonOffset?: boolean;
-        polygonOffsetFactor?: number;
-        polygonOffsetUnits?: number;
-        premultipliedAlpha?: boolean;
-        shading?: Shading;
-        side?: Side;
-        transparent?: boolean;
-        vertexColors?: Colors;
-        visible?: boolean;
+        alphaTest?: number | undefined;
+        blending?: Blending | undefined;
+        blendEquation?: BlendingEquation | undefined;
+        blendSrc?: BlendingDstFactor | undefined;
+        blendDst?: BlendingSrcFactor | undefined;
+        blendSrcAlpha?: number | undefined;
+        blendDstAlpha?: number | undefined;
+        blendEquationAlpha?: number | undefined;
+        colorWrite?: boolean | undefined;
+        depthFunc?: DepthModes | undefined;
+        depthTest?: boolean | undefined;
+        depthWrite?: boolean | undefined;
+        fog?: boolean | undefined;
+        lights?: boolean | undefined;
+        name?: string | undefined;
+        opacity?: number | undefined;
+        overdraw?: number | undefined;
+        precision?: number | undefined;
+        polygonOffset?: boolean | undefined;
+        polygonOffsetFactor?: number | undefined;
+        polygonOffsetUnits?: number | undefined;
+        premultipliedAlpha?: boolean | undefined;
+        shading?: Shading | undefined;
+        side?: Side | undefined;
+        transparent?: boolean | undefined;
+        vertexColors?: Colors | undefined;
+        visible?: boolean | undefined;
     }
 
     interface Matrix {
@@ -1159,24 +1159,24 @@ declare namespace THREE {
     }
 
     interface MeshBasicMaterialParameters extends MaterialParameters {
-        color?: number|string;
-        opacity?: number;
-        map?: Texture;
-        aoMap?: Texture;
-        aoMapIntensity?: number;
-        specularMap?: Texture;
-        alphaMap?: Texture;
-        envMap?: Texture;
-        combine?: Combine;
-        reflectivity?: number;
-        refractionRatio?: number;
-        shading?: Shading;
-        wireframe?: boolean;
-        wireframeLinewidth?: number;
-        wireframeLinecap?: string;
-        wireframeLinejoin?: string;
-        skinning?: boolean;
-        morphTargets?: boolean;
+        color?: number|string | undefined;
+        opacity?: number | undefined;
+        map?: Texture | undefined;
+        aoMap?: Texture | undefined;
+        aoMapIntensity?: number | undefined;
+        specularMap?: Texture | undefined;
+        alphaMap?: Texture | undefined;
+        envMap?: Texture | undefined;
+        combine?: Combine | undefined;
+        reflectivity?: number | undefined;
+        refractionRatio?: number | undefined;
+        shading?: Shading | undefined;
+        wireframe?: boolean | undefined;
+        wireframeLinewidth?: number | undefined;
+        wireframeLinecap?: string | undefined;
+        wireframeLinejoin?: string | undefined;
+        skinning?: boolean | undefined;
+        morphTargets?: boolean | undefined;
     }
 
     class MeshDepthMaterial extends Material {
@@ -1228,40 +1228,40 @@ declare namespace THREE {
     }
 
     interface MeshLambertMaterialParameters extends MaterialParameters {
-        color?: number|string;
-        emissive?: number|string;
-        emissiveIntensity?: number;
-        emissiveMap?: Texture;
-        map?: Texture;
-        lighhtMap?: Texture;
-        lightMapIntensity?: number;
-        aoMap?: Texture;
-        aoMapIntensity?: number;
-        specularMap?: Texture;
-        alphaMap?: Texture;
-        envMap?: Texture;
-        combine?: Combine;
-        reflectivity?: number;
-        refractionRatio?: number;
-        wireframe?: boolean;
-        wireframeLinewidth?: number;
-        wireframeLinecap?: string;
-        wireframeLinejoin?: string;
-        skinning?: boolean;
-        morphTargets?: boolean;
-        morphNormals?: boolean;
+        color?: number|string | undefined;
+        emissive?: number|string | undefined;
+        emissiveIntensity?: number | undefined;
+        emissiveMap?: Texture | undefined;
+        map?: Texture | undefined;
+        lighhtMap?: Texture | undefined;
+        lightMapIntensity?: number | undefined;
+        aoMap?: Texture | undefined;
+        aoMapIntensity?: number | undefined;
+        specularMap?: Texture | undefined;
+        alphaMap?: Texture | undefined;
+        envMap?: Texture | undefined;
+        combine?: Combine | undefined;
+        reflectivity?: number | undefined;
+        refractionRatio?: number | undefined;
+        wireframe?: boolean | undefined;
+        wireframeLinewidth?: number | undefined;
+        wireframeLinecap?: string | undefined;
+        wireframeLinejoin?: string | undefined;
+        skinning?: boolean | undefined;
+        morphTargets?: boolean | undefined;
+        morphNormals?: boolean | undefined;
     }
 
     interface MeshDepthMaterialParameters extends MaterialParameters {
-        wireframe?: boolean;
-        wireframeLinewidth?: number;
+        wireframe?: boolean | undefined;
+        wireframeLinewidth?: number | undefined;
     }
     interface MeshNormalMaterialParameters extends MaterialParameters {
-        morphTargets?: boolean;
+        morphTargets?: boolean | undefined;
         /** Render geometry as wireframe. Default is false (i.e. render as smooth shaded). */
-        wireframe?: boolean;
+        wireframe?: boolean | undefined;
         /** Controls wireframe thickness. Default is 1. */
-        wireframeLinewidth?: number;
+        wireframeLinewidth?: number | undefined;
     }
 
     class MeshNormalMaterial extends Material {
@@ -1319,38 +1319,38 @@ declare namespace THREE {
 
     interface MeshPhongMaterialParameters extends MaterialParameters {
         /** geometry color in hexadecimal. Default is 0xffffff. */
-        color?: number|string;
-        specular?: number;
-        shininess?: number;
-        opacity?: number;
-        map?: Texture;
-        lightMap?: Texture;
-        lightMapIntensity?: number;
-        aoMap?: Texture;
-        aoMapIntensity?: number;
-        emissive?: number;
-        emissiveIntensity?: number;
-        emissiveMap?: Texture;
-        bumpMap?: Texture;
-        bumpScale?: number;
-        normalMap?: Texture;
-        normalScale?: Vector2;
-        displacementMap?: Texture;
-        displacementScale?: number;
-        displacementBias?: number;
-        specularMap?: Texture;
-        alphaMap?: Texture;
-        envMap?: Texture;
-        combine?: Combine;
-        reflectivity?: number;
-        refractionRatio?: number;
-        wireframe?: boolean;
-        wireframeLinewidth?: number;
-        wireframeLinecap?: string;
-        wireframeLinejoin?: string;
-        skinning?: boolean;
-        morphTargets?: boolean;
-        morphNormals?: boolean;
+        color?: number|string | undefined;
+        specular?: number | undefined;
+        shininess?: number | undefined;
+        opacity?: number | undefined;
+        map?: Texture | undefined;
+        lightMap?: Texture | undefined;
+        lightMapIntensity?: number | undefined;
+        aoMap?: Texture | undefined;
+        aoMapIntensity?: number | undefined;
+        emissive?: number | undefined;
+        emissiveIntensity?: number | undefined;
+        emissiveMap?: Texture | undefined;
+        bumpMap?: Texture | undefined;
+        bumpScale?: number | undefined;
+        normalMap?: Texture | undefined;
+        normalScale?: Vector2 | undefined;
+        displacementMap?: Texture | undefined;
+        displacementScale?: number | undefined;
+        displacementBias?: number | undefined;
+        specularMap?: Texture | undefined;
+        alphaMap?: Texture | undefined;
+        envMap?: Texture | undefined;
+        combine?: Combine | undefined;
+        reflectivity?: number | undefined;
+        refractionRatio?: number | undefined;
+        wireframe?: boolean | undefined;
+        wireframeLinewidth?: number | undefined;
+        wireframeLinecap?: string | undefined;
+        wireframeLinejoin?: string | undefined;
+        skinning?: boolean | undefined;
+        morphTargets?: boolean | undefined;
+        morphNormals?: boolean | undefined;
     }
 
     class MeshPhysicalMaterial extends MeshStandardMaterial {
@@ -1363,9 +1363,9 @@ declare namespace THREE {
     }
 
     interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
-        clearCoat?: number;
-        clearCoatRoughness?: number;
-        reflectivity?: number;
+        clearCoat?: number | undefined;
+        clearCoatRoughness?: number | undefined;
+        reflectivity?: number | undefined;
     }
 
     class MeshStandardMaterial extends Material {
@@ -1408,35 +1408,35 @@ declare namespace THREE {
     }
 
     interface MeshStandardMaterialParameters extends MaterialParameters {
-        color?: number|string;
-        roughness?: number;
-        metalness?: number;
-        map?: Texture;
-        lighhtMap?: Texture;
-        lightMapIntensity?: number;
-        aoMap?: Texture;
-        aoMapIntensity?: number;
-        emissive?: Color;
-        emissiveIntensity?: number;
-        emissiveMap?: Texture;
-        bumpMap?: Texture;
-        bumpScale?: number;
-        normalMap?: Texture;
-        normalScale?: number;
-        displacementMap?: Texture;
-        displacementScale?: number;
-        displacementBias?: number;
-        roughnessMap?: Texture;
-        metalMap?: Texture;
-        alphaMap?: Texture;
-        envMap?: Texture;
-        envMapIntensity?: number;
-        refractionRatio?: number;
-        wireframe?: boolean;
-        wireframeLinewidth?: number;
-        skinning?: boolean;
-        morphTargets?: boolean;
-        morphNormals?: boolean;
+        color?: number|string | undefined;
+        roughness?: number | undefined;
+        metalness?: number | undefined;
+        map?: Texture | undefined;
+        lighhtMap?: Texture | undefined;
+        lightMapIntensity?: number | undefined;
+        aoMap?: Texture | undefined;
+        aoMapIntensity?: number | undefined;
+        emissive?: Color | undefined;
+        emissiveIntensity?: number | undefined;
+        emissiveMap?: Texture | undefined;
+        bumpMap?: Texture | undefined;
+        bumpScale?: number | undefined;
+        normalMap?: Texture | undefined;
+        normalScale?: number | undefined;
+        displacementMap?: Texture | undefined;
+        displacementScale?: number | undefined;
+        displacementBias?: number | undefined;
+        roughnessMap?: Texture | undefined;
+        metalMap?: Texture | undefined;
+        alphaMap?: Texture | undefined;
+        envMap?: Texture | undefined;
+        envMapIntensity?: number | undefined;
+        refractionRatio?: number | undefined;
+        wireframe?: boolean | undefined;
+        wireframeLinewidth?: number | undefined;
+        skinning?: boolean | undefined;
+        morphTargets?: boolean | undefined;
+        morphNormals?: boolean | undefined;
     }
 
     interface MorphColor {
@@ -1654,11 +1654,11 @@ declare namespace THREE {
 
     class PointCloudMaterial extends Material {
         constructor(parameters: {
-            color?: string;
-            fog?: boolean;
-            opacity?: number;
-            size?: number;
-            vertexColors?: number;
+            color?: string | undefined;
+            fog?: boolean | undefined;
+            opacity?: number | undefined;
+            size?: number | undefined;
+            vertexColors?: number | undefined;
         });
     }
 
@@ -1837,16 +1837,16 @@ declare namespace THREE {
     interface ShaderMaterialParameters extends MaterialParameters {
         defines?: any;
         uniforms?: any;
-        vertexShader?: string;
-        fragmentShader?: string;
-        lineWidth?: number;
-        wireframe?: boolean;
-        wireframeLinewidth?: number;
-        lights?: boolean;
-        clipping?: boolean;
-        skinning?: boolean;
-        morphTargets?: boolean;
-        morphNormals?: boolean;
+        vertexShader?: string | undefined;
+        fragmentShader?: string | undefined;
+        lineWidth?: number | undefined;
+        wireframe?: boolean | undefined;
+        wireframeLinewidth?: number | undefined;
+        lights?: boolean | undefined;
+        clipping?: boolean | undefined;
+        skinning?: boolean | undefined;
+        morphTargets?: boolean | undefined;
+        morphNormals?: boolean | undefined;
         attributes?: any;
     }
 
@@ -2308,15 +2308,15 @@ declare namespace THREE {
     }
 
     interface WebGLRenderTargetOptions {
-        wrapS?: Wrapping;
-        wrapT?: Wrapping;
-        magFilter?: TextureFilter;
-        minFilter?: TextureFilter;
-        format?: number; // RGBAFormat;
-        type?: TextureDataType; // UnsignedByteType;
-        anisotropy?: number; // 1;
-        depthBuffer?: boolean; // true;
-        stencilBuffer?: boolean; // true;
+        wrapS?: Wrapping | undefined;
+        wrapT?: Wrapping | undefined;
+        magFilter?: TextureFilter | undefined;
+        minFilter?: TextureFilter | undefined;
+        format?: number | undefined; // RGBAFormat;
+        type?: TextureDataType | undefined; // UnsignedByteType;
+        anisotropy?: number | undefined; // 1;
+        depthBuffer?: boolean | undefined; // true;
+        stencilBuffer?: boolean | undefined; // true;
     }
 
     class WebGLRenderer implements Renderer {
@@ -2416,17 +2416,17 @@ declare namespace THREE {
     }
 
     interface WebGLRendererParameters {
-        canvas?: HTMLCanvasElement;
-        precision?: string;
-        alpha?: boolean;
-        premultipliedAlpha?: boolean;
-        antialias?: boolean;
-        stencil?: boolean;
-        preserveDrawingBuffer?: boolean;
-        clearColor?: number;
-        clearAlpha?: number;
-        devicePixelRatio?: number;
-        logarithmicDepthBuffer?: boolean;
+        canvas?: HTMLCanvasElement | undefined;
+        precision?: string | undefined;
+        alpha?: boolean | undefined;
+        premultipliedAlpha?: boolean | undefined;
+        antialias?: boolean | undefined;
+        stencil?: boolean | undefined;
+        preserveDrawingBuffer?: boolean | undefined;
+        clearColor?: number | undefined;
+        clearAlpha?: number | undefined;
+        devicePixelRatio?: number | undefined;
+        logarithmicDepthBuffer?: boolean | undefined;
     }
 
     class WebGLShadowMap {

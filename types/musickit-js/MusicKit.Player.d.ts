@@ -71,7 +71,7 @@ declare namespace MusicKit {
         /**
          * The index of the now playing item in the current playback queue.
          */
-        readonly nowPlayingItemIndex?: number;
+        readonly nowPlayingItemIndex?: number | undefined;
         /**
          * The current playback rate for the player.
          */
@@ -83,7 +83,7 @@ declare namespace MusicKit {
         /**
          * A Boolean value that indicates whether a playback target is available.
          */
-        readonly playbackTargetAvailable?: boolean;
+        readonly playbackTargetAvailable?: boolean | undefined;
         /**
          * The current playback queue of the music player.
          */

@@ -10,19 +10,19 @@ import { TestRunner } from "atom";
 
 interface AtomMochaOptions {
     /** Which reporter to use on the terminal. */
-    reporter?: string;
+    reporter?: string | undefined;
 
     /** Whether or not to assign the created Atom environment to `global.atom`. */
-    globalAtom?: boolean;
+    globalAtom?: boolean | undefined;
 
     /** File extensions that indicate that the file contains tests. */
-    testSuffixes?: string[];
+    testSuffixes?: string[] | undefined;
 
     /** Whether or not to colorize output on the terminal. */
-    colors?: boolean;
+    colors?: boolean | undefined;
 
     /** The string to use for the window title in the HTML reporter. */
-    htmlTitle?: string;
+    htmlTitle?: string | undefined;
 }
 
 // The test runner function is augmented on export by:
