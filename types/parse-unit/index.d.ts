@@ -3,6 +3,5 @@
 // Definitions by: Jack Works <https://github.com/Jack-Works>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function parse(value: string | number): [number, string];
-declare function parse(): [number, string];
+declare function parse(value?: string | number): [number, string];
 export = parse;
