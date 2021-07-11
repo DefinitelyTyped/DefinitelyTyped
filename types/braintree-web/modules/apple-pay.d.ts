@@ -38,6 +38,7 @@ export interface ApplePayPaymentRequest {
     merchantCapabilities: string[];
 
     billingContact?: any;
+    lineItems?: ApplePayLineItem[];
     shippingContact?: any;
     shippingMethods?: any;
     shippingType?: any;
@@ -70,6 +71,12 @@ export interface ApplePayDetails {
     cardType: string;
     cardholderName: string;
     dpanLastTwo: string;
+}
+
+export interface ApplePayLineItem {
+    type: string;
+    label: string;
+    amount: number;
 }
 
 export interface ApplePayPayload {
