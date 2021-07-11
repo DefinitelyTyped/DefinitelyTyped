@@ -3,6 +3,7 @@
 // Definitions by: Uri Shaked <https://github.com/urish>
 //                    Xavier Lozinguez <http://github.com/xlozinguez>
 //                    Rob Moran <https://github.com/thegecko>
+//                    David Bjerremose <https://github.com/DaBs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type BluetoothServiceUUID = number | string;
@@ -61,12 +62,14 @@ interface BluetoothLEScan extends RequestLEScanOptions {
 }
 
 interface BluetoothAdvertisementEvent extends Event {
-    device: BluetoothDevice;
-    rssi: number;
-    txPower: number;
-    manufacturerData?: BluetoothManufacturerData | undefined;
-    serviceData?: BluetoothServiceData | undefined;
-    uuids?: BluetoothServiceUUID[] | undefined;
+    readonly device: BluetoothDevice;
+    readonly uuids: BluetoothServiceUUID[];
+    readonly manufacturerData: BluetoothManufacturerData;
+    readonly serviceData: BluetoothServiceData;
+    readonly name?: string | undefined;
+    readonly appearance?: number | undefined;
+    readonly rssi?: number | undefined;
+    readonly txPower?: number | undefined;
 }
 
 interface BluetoothRemoteGATTDescriptor {
@@ -94,7 +97,7 @@ interface CharacteristicEventHandlers {
 }
 
 interface BluetoothRemoteGATTCharacteristic extends EventTarget, CharacteristicEventHandlers {
-    readonly service?: BluetoothRemoteGATTService | undefined;
+    readonly service: BluetoothRemoteGATTService;
     readonly uuid: string;
     readonly properties: BluetoothCharacteristicProperties;
     readonly value?: DataView | undefined;
