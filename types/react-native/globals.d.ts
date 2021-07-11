@@ -385,15 +385,27 @@ declare class AbortSignal implements EventTarget {
 
     onabort: (event: AbortEvent) => void;
 
-    addEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
-        capture?: boolean,
-        once?: boolean,
-        passive?: boolean
-    }) => void;
+    addEventListener: (
+        type: 'abort',
+        listener: (this: AbortSignal, event: any) => any,
+        options?:
+            | boolean
+            | {
+                  capture?: boolean;
+                  once?: boolean;
+                  passive?: boolean;
+              },
+    ) => void;
 
-    removeEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
-        capture?: boolean
-    }) => void;
+    removeEventListener: (
+        type: 'abort',
+        listener: (this: AbortSignal, event: any) => any,
+        options?:
+            | boolean
+            | {
+                  capture?: boolean;
+              },
+    ) => void;
 }
 
 declare class AbortController {
