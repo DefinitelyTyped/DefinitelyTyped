@@ -60,6 +60,6 @@ export class Router extends String {
     trimParam(param: string): string;
     valueOf(): string;
 }
-declare function route(name: undefined, params: undefined, absolute?: boolean, customZiggy?: Partial<Config>): Router;
+declare function route(name?: undefined, params?: undefined, absolute?: boolean, customZiggy?: Partial<Config>): Router;
 declare function route(name: string, params?: InputParams, absolute?: boolean, customZiggy?: Config): string;
 export default route;
