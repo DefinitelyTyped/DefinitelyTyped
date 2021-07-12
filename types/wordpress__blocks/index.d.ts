@@ -2,6 +2,7 @@
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
+//                 Dennis Snell <https://github.com/dmsnell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -318,6 +319,10 @@ export namespace AttributeSource {
         | {
               type: 'array';
               default?: any[] | undefined;
+          }
+        | {
+              type: 'object';
+              default?: object | undefined;
           }
         | {
               type: 'boolean';
