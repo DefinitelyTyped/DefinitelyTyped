@@ -16,3 +16,4 @@ const num6: Integer.IntClass = Integer.fromString("ff", 16);
 let num7: Integer.IntClass = Integer.fromString("ff", 16, "255");
 num7 = Integer.fromString("ff", 16, num5);
 Integer(Integer(123));
+const num8: Integer.IntClass = Integer(); // $ExpectType IntClass
