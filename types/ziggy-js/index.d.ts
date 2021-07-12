@@ -27,14 +27,14 @@ export interface Route {
 }
 
 export interface Config {
-    namedRoutes: {
+    routes: {
         [key: string]: Route;
     };
-    baseUrl: string;
-    baseProtocol: 'http' | 'https';
-    baseDomain: string;
-    basePort?: number | null | undefined;
-    defaultParameters: {
+    url: string;
+    protocol: 'http' | 'https';
+    domain: string;
+    port?: number | null | undefined;
+    defaults: {
         [_: string]: string | number;
     };
 }
