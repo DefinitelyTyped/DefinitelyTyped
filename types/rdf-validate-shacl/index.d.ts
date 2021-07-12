@@ -18,7 +18,7 @@ declare namespace SHACLValidator {
     }
 }
 
-declare class SHACLValidator<F extends Factory = Required<Factory>> {
+declare class SHACLValidator<F extends Factory = RDF.DataFactory & RDF.DatasetCoreFactory> {
     constructor(shapes: RDF.DatasetCore, options?: SHACLValidator.Options<F>);
     factory: F;
     depth: number;
