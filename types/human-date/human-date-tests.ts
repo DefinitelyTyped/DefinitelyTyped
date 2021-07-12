@@ -23,7 +23,7 @@ hdate.monthName("8-16-1987");
 hdate.monthName(new Date("8-16-1987"));
 
 // .toUTC method
-hdate.toUTC() // $ExpectType string
+hdate.toUTC(); // $ExpectType Date
 hdate.toUTC(1000000000000);
 hdate.toUTC(1000000000000).getFullYear();
 hdate.toUTC("8-16-1987");
