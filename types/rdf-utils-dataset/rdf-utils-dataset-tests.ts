@@ -1,9 +1,11 @@
-import resource = require('rdf-utils-dataset/resource');
+import utils = require('rdf-utils-dataset');
 import resourceToGraph = require('rdf-utils-dataset/resourcesToGraph');
 import { DatasetIndexed } from 'rdf-dataset-indexed/dataset';
 import DatasetExt = require('rdf-ext/lib/Dataset');
 import QuadExt = require('rdf-ext/lib/Quad');
 import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Term } from 'rdf-js';
+
+const { resource } = utils;
 
 type Factory<OutQuad extends BaseQuad,
     InQuad extends BaseQuad,

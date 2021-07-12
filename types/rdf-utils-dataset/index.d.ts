@@ -3,9 +3,10 @@
 // Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DatasetIndexed } from 'rdf-dataset-indexed/dataset';
-import { BaseQuad, Term } from 'rdf-js';
+import resource = require('./resource');
 
-declare function resource<D extends DatasetIndexed<BaseQuad, BaseQuad>>(input: D, subject: Term): D;
+declare const utils: {
+    resource: typeof resource,
+};
 
-export { resource };
+export = utils;
