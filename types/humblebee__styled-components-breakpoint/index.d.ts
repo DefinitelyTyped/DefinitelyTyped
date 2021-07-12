@@ -3,6 +3,7 @@
 // Definitions by: Carl Ribbegårdh <https://github.com/CarlRibbegaardh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// tslint:disable-next-line:no-single-declare-module
 declare module "@humblebee/styled-components-breakpoint" {
     import { CSSObject, SimpleInterpolation } from "styled-components";
 
@@ -29,6 +30,7 @@ declare module "@humblebee/styled-components-breakpoint" {
     // export const getMediaShorthands: (breakpoints: Breakpoints, rule: Rule)
     //     => {};
 
+    // tslint:disable-next-line prefer-declare-function
     export const getMedia: (breakpoints: Breakpoints) => {
         /**
          * Will return a media query with a min-width of the defined breakpoint
