@@ -411,22 +411,21 @@ declare namespace jspreadsheet {
             | undefined;
         /** Before a column is excluded. You can cancel the insert event by returning false. */
         onbeforedeletecolumn?:
-            | ((instance: HTMLElement, startColumnIndex: number, endColumnIndex: number) => void)
+            | ((instance: HTMLElement, startColumnIndex: number, count: number) => void)
             | undefined;
         /** Before a row is deleted. You can cancel the delete event by returning false. */
-        onbeforedeleterow?: ((instance: HTMLElement, startRowIndex: number, endRowIndex: number) => void) | undefined;
+        onbeforedeleterow?: ((instance: HTMLElement, startRowIndex: number, count: number) => void) | undefined;
         /** Before a new column is inserted. You can cancel the insert event by returning false. */
-        // tslint:disable-next-line ban-types
-        onbeforeinsertcolumn?: Function | undefined;
+        onbeforeinsertcolumn?:
+            | ((instance: HTMLElement, startColumnIndex: number, count: number, isBefore: boolean) => void)
+            | undefined;
         /** Before a new row is inserted. You can cancel the insert event by returning false. */
-        // tslint:disable-next-line ban-types
-        onbeforeinsertrow?: Function | undefined;
+        onbeforeinsertrow?: ((instance: HTMLElement, startColumnIndex: number, count: number, isBefore: boolean) => void) | undefined;
         /** Before the paste action is performed. Used to parse any input data, should return the data. */
         // tslint:disable-next-line ban-types
         onbeforepaste?: Function | undefined;
         /** On table blur */
-        // tslint:disable-next-line ban-types
-        onblur?: Function | undefined;
+        onblur?: ((instance: HTMLElement) => void) | undefined;
         /** After a column value is changed. */
         onchange?:
             | ((
@@ -456,35 +455,43 @@ declare namespace jspreadsheet {
             | ((
                   instance: HTMLElement,
                   startColumnIndex: number,
-                  endColumnIndex: number,
+                  count: number,
                   cells: HTMLTableCellElement[][],
               ) => void)
             | undefined;
         /** After a row is excluded. */
-        // tslint:disable-next-line ban-types
         ondeleterow?:
+            | ((instance: HTMLElement, startRowIndex: number, count: number, cells: HTMLTableCellElement[][]) => void)
+            | undefined;
+        /** When a closeEditor is called. */
+        oneditionend?:
             | ((
                   instance: HTMLElement,
-                  startRowIndex: number,
-                  endRowIndex: number,
+                  cell: HTMLTableCellElement,
+                  columnIndex: string,
+                  rowIndex: string,
+                  value: CellValue,
+              ) => void)
+            | undefined;
+        /** When a openEditor is called. */
+        oneditionstart?:
+            | ((instance: HTMLElement, cell: HTMLTableCellElement, columnIndex: string, rowIndex: string) => void)
+            | undefined;
+        /** On table focus */
+        onfocus?: ((instance: HTMLElement) => void) | undefined;
+        /** After a new column is inserted. */
+        oninsertcolumn?:
+            | ((
+                  instance: HTMLElement,
+                  startColumnIndex: number,
+                  count: number,
                   cells: HTMLTableCellElement[][],
               ) => void)
             | undefined;
-        /** When a closeEditor is called. */
-        // tslint:disable-next-line ban-types
-        oneditionend?: Function | undefined;
-        /** When a openEditor is called. */
-        // tslint:disable-next-line ban-types
-        oneditionstart?: Function | undefined;
-        /** On table focus */
-        // tslint:disable-next-line ban-types
-        onfocus?: Function | undefined;
-        /** After a new column is inserted. */
-        // tslint:disable-next-line ban-types
-        oninsertcolumn?: Function | undefined;
         /** After a new row is inserted. */
-        // tslint:disable-next-line ban-types
-        oninsertrow?: Function | undefined;
+        oninsertrow?:
+            | ((instance: HTMLElement, startRowIndex: number, count: number, cells: HTMLTableCellElement[][]) => void)
+            | undefined;
         /** This method is called when the method setData */
         onload?: ((instance: HTMLElement) => void) | undefined;
         /** On column merge */
