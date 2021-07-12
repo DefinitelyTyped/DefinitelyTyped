@@ -3,6 +3,6 @@ export interface DownloadPreloadOption {
 }
 export interface DownloadPreloadInfo {
     success: boolean;
-    url?: string;
+    url?: string | undefined;
     error: string;
 }

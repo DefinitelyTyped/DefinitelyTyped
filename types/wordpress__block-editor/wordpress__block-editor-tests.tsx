@@ -412,6 +412,9 @@ be.transformStyles(STYLES, '.foobar');
 // Store
 // ============================================================================
 
+// $ExpectType any
+be.store;
+
 // $ExpectType void
 dispatch('core/block-editor').insertBlock(BLOCK_INSTANCE);
 dispatch('core/block-editor').insertBlock(BLOCK_INSTANCE, 4);

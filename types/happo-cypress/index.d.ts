@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface HappoScreenshotOptions {
-    component?: string;
-    variant?: string;
-    targets?: ReadonlyArray<string>;
-    responsiveInlinedCanvases?: boolean;
-    transformDOM?: HappoTransformDOMOptions;
+    component?: string | undefined;
+    variant?: string | undefined;
+    targets?: ReadonlyArray<string> | undefined;
+    responsiveInlinedCanvases?: boolean | undefined;
+    transformDOM?: HappoTransformDOMOptions | undefined;
 }
 
 export interface HappoTransformDOMOptions {
@@ -17,11 +17,11 @@ export interface HappoTransformDOMOptions {
 }
 
 export interface HappoHideDynamicElementsOptions {
-    matchers?: ReadonlyArray<RegExp>;
-    defaultMatchers?: ReadonlyArray<RegExp>;
-    selectors?: ReadonlyArray<string>;
-    defaultSelectors?: ReadonlyArray<string>;
-    replace?: boolean;
+    matchers?: ReadonlyArray<RegExp> | undefined;
+    defaultMatchers?: ReadonlyArray<RegExp> | undefined;
+    selectors?: ReadonlyArray<string> | undefined;
+    defaultSelectors?: ReadonlyArray<string> | undefined;
+    replace?: boolean | undefined;
 }
 
 declare global {

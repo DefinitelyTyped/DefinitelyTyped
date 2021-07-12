@@ -25,7 +25,7 @@ declare namespace RangeParser {
          * The "combine" option can be set to `true` and overlapping & adjacent ranges
          * will be combined into a single range.
          */
-        combine?: boolean;
+        combine?: boolean | undefined;
     }
     type ResultUnsatisfiable = -1;
     type ResultInvalid = -2;

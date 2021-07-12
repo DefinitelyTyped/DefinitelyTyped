@@ -2,15 +2,15 @@ declare namespace AMap {
     namespace TileLayer {
         namespace WMS {
             interface Params {
-                VERSION?: string;
-                LAYERS?: string;
-                STYLES?: string;
-                FORMAT?: string;
-                TRANSPARENT?: 'TRUE' | 'FALSE';
-                BGCOLOR?: string;
-                EXCEPTIONS?: string;
-                TIME?: string;
-                ELEVATION?: string;
+                VERSION?: string | undefined;
+                LAYERS?: string | undefined;
+                STYLES?: string | undefined;
+                FORMAT?: string | undefined;
+                TRANSPARENT?: 'TRUE' | 'FALSE' | undefined;
+                BGCOLOR?: string | undefined;
+                EXCEPTIONS?: string | undefined;
+                TIME?: string | undefined;
+                ELEVATION?: string | undefined;
             }
             interface Options extends Flexible.Options {
                 /**
@@ -24,7 +24,7 @@ declare namespace AMap {
                 /**
                  * 地图级别切换时，不同级别的图片是否进行混合
                  */
-                blend?: boolean;
+                blend?: boolean | undefined;
             }
         }
         class WMS extends Flexible {

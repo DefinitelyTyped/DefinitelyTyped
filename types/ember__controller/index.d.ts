@@ -19,9 +19,9 @@ type QueryParamScopeTypes = 'controller' | 'model';
 
 // tslint:disable-next-line strict-export-declare-modifiers
 interface QueryParamConfig {
-    type?: QueryParamTypes;
-    scope?: QueryParamScopeTypes;
-    as?: string;
+    type?: QueryParamTypes | undefined;
+    scope?: QueryParamScopeTypes | undefined;
+    as?: string | undefined;
 }
 
 /**

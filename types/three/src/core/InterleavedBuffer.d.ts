@@ -39,9 +39,7 @@ export class InterleavedBuffer {
     copy(source: InterleavedBuffer): this;
     copyAt(index1: number, attribute: InterleavedBufferAttribute, index2: number): InterleavedBuffer;
     set(value: ArrayLike<number>, index: number): InterleavedBuffer;
-    toJSON(
-        data: object,
-    ): {
+    toJSON(data: object): {
         uuid: string;
         buffer: string;
         type: string;

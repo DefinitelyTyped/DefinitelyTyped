@@ -115,8 +115,8 @@ export function always<T>(val: T): () => T;
  * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
  * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
  */
-export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
-export function and<T extends { and?: ((...a: readonly any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
+export function and<T extends { and?: ((...a: readonly any[]) => any) | undefined; } | number | boolean | string | null>(fn1: T, val2: any): boolean;
+export function and<T extends { and?: ((...a: readonly any[]) => any) | undefined; } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
 
 /**
  * Returns the result of applying the onSuccess function to the value inside a successfully resolved promise. This is useful for working with promises inside function compositions.
@@ -666,8 +666,7 @@ export function forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: 
 /**
  * Creates a new object out of a list key-value pairs.
  */
-export function fromPairs<V>(pairs: Array<KeyValuePair<string, V>>): { [index: string]: V };
-export function fromPairs<V>(pairs: Array<KeyValuePair<number, V>>): { [index: number]: V };
+export function fromPairs<V>(pairs: Array<KeyValuePair<string, V>> | Array<KeyValuePair<number, V>>): { [index: string]: V };
 
 /**
  * Splits a list into sublists stored in an object, based on the result of
@@ -1275,8 +1274,8 @@ export function none<T>(fn: (a: T) => boolean, list: readonly T[]): boolean;
 export function none<T>(fn: (a: T) => boolean): (list: readonly T[]) => boolean;
 
 /**
- * A function wrapping a call to the given function in a `!` operation.  It will return `true` when the
- * underlying function would return a false-y value, and `false` when it would return a truth-y one.
+ * A function that returns the ! of its argument.
+ * It will return true when passed false-y value, and false when passed a truth-y one.
  */
 export function not(value: any): boolean;
 
@@ -1337,8 +1336,8 @@ export function once<F extends (...a: readonly any[]) => any>(fn: F): F;
  */
 export function or<T, U>(a: T, b: U): T | U;
 export function or<T>(a: T): <U>(b: U) => T | U;
-export function or<T extends { or?: ((...a: readonly any[]) => any); }, U>(fn1: T, val2: U): T | U;
-export function or<T extends { or?: ((...a: readonly any[]) => any); }>(fn1: T): <U>(val2: U) => T | U;
+export function or<T extends { or?: ((...a: readonly any[]) => any) | undefined; }, U>(fn1: T, val2: U): T | U;
+export function or<T extends { or?: ((...a: readonly any[]) => any) | undefined; }>(fn1: T): <U>(val2: U) => T | U;
 
 /**
  * Returns the result of applying the onFailure function to the value inside a failed promise.
@@ -1901,7 +1900,8 @@ export function takeWhile<T>(fn: (x: T) => boolean, list: readonly T[]): T[];
 export function takeWhile<T>(fn: (x: T) => boolean): (list: readonly T[]) => T[];
 
 /**
- * The function to call with x. The return value of fn will be thrown away.
+ * Runs the given function with the supplied object, then returns the object.
+ * Acts as a transducer if a transformer is given as second parameter.
  */
 export function tap<T>(fn: (a: T) => any, value: T): T;
 export function tap<T>(fn: (a: T) => any): (value: T) => T;

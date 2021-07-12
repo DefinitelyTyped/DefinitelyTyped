@@ -7,7 +7,7 @@ declare class URLSearchParamsImpl {
                 | { readonly [name: string]: string }
                 | string,
         ],
-        privateData: { readonly doNotStripQMark?: boolean },
+        privateData: { readonly doNotStripQMark?: boolean | undefined },
     );
 
     append(name: string, value: string): void;

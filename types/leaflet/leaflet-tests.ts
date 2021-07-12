@@ -800,6 +800,7 @@ export class ExtendedTileLayer extends L.TileLayer {
     createTile(coords: L.Coords, done: L.DoneCallback) {
         const newCoords: L.Coords = (new L.Point(coords.x, coords.y) as L.Coords);
         newCoords.z = coords.z;
+        this._wrapCoords(coords);
         return super.createTile(newCoords, done);
     }
 

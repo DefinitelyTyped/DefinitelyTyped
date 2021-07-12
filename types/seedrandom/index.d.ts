@@ -13,10 +13,10 @@ declare namespace seedrandom {
     }
 
     interface Options {
-        entropy?: boolean;
-        global?: boolean;
-        pass?: Callback;
-        state?: boolean | State;
+        entropy?: boolean | undefined;
+        global?: boolean | undefined;
+        pass?: Callback | undefined;
+        state?: boolean | State | undefined;
     }
 }
 

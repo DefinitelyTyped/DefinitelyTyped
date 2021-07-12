@@ -21,23 +21,23 @@ declare namespace BrotliWebpackPlugin {
      * - `[path]` is replaced with the path of the original asset.
      * - `[query]` is replaced with the query.
      */
-    asset?: string;
+    asset?: string | undefined;
     /**
      * All assets matching this RegExp are processed. Defaults to every asset.
      */
-    test?: RegExp;
+    test?: RegExp | undefined;
     /**
      * Only assets bigger than this size (in bytes) are processed. Defaults to `0`.
      */
-    threshold?: number;
+    threshold?: number | undefined;
     /**
      * Only assets that compress better that this ratio are processed. Defaults to `0.8`.
      */
-    minRatio?: number;
+    minRatio?: number | undefined;
     /**
      * Remove original files that were compressed with brotli. Default: `false`.
      */
-    deleteOriginalAssets?: boolean;
+    deleteOriginalAssets?: boolean | undefined;
   }
 }
 

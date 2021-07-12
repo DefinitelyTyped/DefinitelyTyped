@@ -62,7 +62,7 @@ interface CommonWidgetProps {
    */
   translations?: {
     [key: string]: string | ((...args: any[]) => any);
-  };
+  } | undefined;
 }
 
 export class Breadcrumb extends React.Component<any> {}
@@ -72,7 +72,7 @@ export class HierarchicalMenu extends React.Component<any> {}
 export class Highlight extends React.Component<any> {}
 
 export interface HitsProps<T> {
-  hitComponent?: React.ComponentType<{ hit: Hit<T> }>;
+  hitComponent?: React.ComponentType<{ hit: Hit<T> }> | undefined;
 }
 /**
  * Displays a list of hits.
@@ -96,19 +96,20 @@ export class RefinementList extends React.Component<any> {}
 export class ScrollTo extends React.Component<any> {}
 
 export interface SearchBoxProps extends CommonWidgetProps {
-  focusShortcuts?: string[];
-  autoFocus?: boolean;
-  defaultRefinement?: string;
-  searchAsYouType?: boolean;
-  showLoadingIndicator?: boolean;
+  inputRef?: React.Ref<HTMLInputElement> | undefined;
+  focusShortcuts?: string[] | undefined;
+  autoFocus?: boolean | undefined;
+  defaultRefinement?: string | undefined;
+  searchAsYouType?: boolean | undefined;
+  showLoadingIndicator?: boolean | undefined;
 
-  submit?: JSX.Element;
-  reset?: JSX.Element;
-  loadingIndicator?: JSX.Element;
+  submit?: JSX.Element | undefined;
+  reset?: JSX.Element | undefined;
+  loadingIndicator?: JSX.Element | undefined;
 
-  onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-  onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-  onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
+  onSubmit?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+  onReset?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+  onChange?: ((event: React.SyntheticEvent<HTMLInputElement>) => any) | undefined;
 }
 /**
  * The SearchBox component displays a search box that lets the user search for a specific query.
@@ -124,8 +125,8 @@ export interface RelevantSortComponentProps {
  * The RelevantSort component displays an informative banner and a button that toggle the `relevancyStrictness` between 0 and the value setted on the dashboard.
  */
 export class RelevantSort extends React.Component<{
-  buttonTextComponent?: React.FunctionComponent<RelevantSortComponentProps>;
-  textComponent?: React.FunctionComponent<RelevantSortComponentProps>;
+  buttonTextComponent?: React.FunctionComponent<RelevantSortComponentProps> | undefined;
+  textComponent?: React.FunctionComponent<RelevantSortComponentProps> | undefined;
 }> {}
 export class SortBy extends React.Component<any> {}
 /**
@@ -134,7 +135,7 @@ export class SortBy extends React.Component<any> {}
 export class Stats extends React.Component<{
   translations?: {
     [key: string]: (n: number, ms: number, nSortedHits: number, areHitsSorted: boolean) => string;
-  };
+  } | undefined;
 }> {}
 export class ToggleRefinement extends React.Component<any> {}
 
@@ -148,7 +149,7 @@ export function createClassNames(baseName: string): (...elements: string[]) => s
 
 export interface VoiceSearchHelperParams {
   searchAsYouSpeak: boolean;
-  language?: string;
+  language?: string | undefined;
   onQueryChange: (query: string) => void;
   onStateChange: () => void;
 }
@@ -159,7 +160,7 @@ export interface VoiceListeningState {
   status: Status;
   transcript: string;
   isSpeechFinal: boolean;
-  errorCode?: "no-speech" | "aborted" | "audio-capture" | "network" | "not-allowed" | "service-not-allowed" | "bad-grammar" | "language-not-supported";
+  errorCode?: "no-speech" | "aborted" | "audio-capture" | "network" | "not-allowed" | "service-not-allowed" | "bad-grammar" | "language-not-supported" | undefined;
 }
 
 export interface VoiceSearchHelper {

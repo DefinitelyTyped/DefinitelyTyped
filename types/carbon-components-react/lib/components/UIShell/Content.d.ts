@@ -2,9 +2,9 @@ import * as React from "react";
 import { ReactCreateElementParam, FCReturn, FCProps } from "../../../typings/shared";
 
 export interface ContentPropsBase {
-    className?: string,
-    children?: React.ReactNode,
-    tagName?: ReactCreateElementParam,
+    className?: string | undefined,
+    children?: React.ReactNode | undefined,
+    tagName?: ReactCreateElementParam | undefined,
 }
 
 export type ContentProps<E extends object = {}> = E & ContentPropsBase;

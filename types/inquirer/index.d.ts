@@ -81,12 +81,12 @@ interface ListQuestionOptionsBase<T, TChoiceMap> extends inquirer.Question<T> {
     /**
      * The choices of the prompt.
      */
-    choices?: inquirer.AsyncDynamicQuestionProperty<ReadonlyArray<inquirer.DistinctChoice<TChoiceMap>>, T>;
+    choices?: inquirer.AsyncDynamicQuestionProperty<ReadonlyArray<inquirer.DistinctChoice<TChoiceMap>>, T> | undefined;
 
     /**
      * The number of elements to show on each page.
      */
-    pageSize?: number;
+    pageSize?: number | undefined;
 }
 
 /**
@@ -116,12 +116,12 @@ declare namespace inquirer {
         /**
          * A stream to read the input from.
          */
-        input?: NodeJS.ReadStream;
+        input?: NodeJS.ReadStream | undefined;
 
         /**
          * A stream to write the output to.
          */
-        output?: NodeJS.WriteStream;
+        output?: NodeJS.WriteStream | undefined;
     }
 
     /**
@@ -229,11 +229,23 @@ declare namespace inquirer {
 
     /**
      * Represents a dynamic property for a question.
+     *
+     * @template T
+     * The type of the property.
+     *
+     * @template TAnswers
+     * The type of the answers.
      */
     type DynamicQuestionProperty<T, TAnswers extends Answers = Answers> = T | ((answers: TAnswers) => T);
 
     /**
      * Represents a dynamic property for a question which can be fetched asynchronously.
+     *
+     * @template T
+     * The type of the property.
+     *
+     * @template TAnswers
+     * The type of the answers.
      */
     type AsyncDynamicQuestionProperty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<T | Promise<T>, TAnswers>;
 
@@ -247,32 +259,32 @@ declare namespace inquirer {
         /**
          * The type of the question.
          */
-        type?: string;
+        type?: string | undefined;
 
         /**
          * The key to save the answer to the answers-hash.
          */
-        name?: KeyUnion<T>;
+        name?: KeyUnion<T> | undefined;
 
         /**
          * The message to show to the user.
          */
-        message?: AsyncDynamicQuestionProperty<string, T>;
+        message?: AsyncDynamicQuestionProperty<string, T> | undefined;
 
         /**
          * The default value of the question.
          */
-        default?: AsyncDynamicQuestionProperty<any, T>;
+        default?: AsyncDynamicQuestionProperty<any, T> | undefined;
 
         /**
          * The prefix of the `message`.
          */
-        prefix?: string;
+        prefix?: string | undefined;
 
         /**
          * The suffix of the `message`.
          */
-        suffix?: string;
+        suffix?: string | undefined;
 
         /**
          * Post-processes the answer.
@@ -288,7 +300,7 @@ declare namespace inquirer {
         /**
          * A value indicating whether the question should be prompted.
          */
-        when?: AsyncDynamicQuestionProperty<boolean, T>;
+        when?: AsyncDynamicQuestionProperty<boolean, T> | undefined;
 
         /**
          * Validates the integrity of the answer.
@@ -312,25 +324,22 @@ declare namespace inquirer {
         /**
          * The type of the choice.
          */
-        type?: string;
+        type?: string | undefined;
     }
 
     /**
      * Provides options for a choice.
-     *
-     * @template T
-     * The type of the answers.
      */
-    interface ChoiceOptions<T extends Answers = Answers> extends ChoiceBase {
+    interface ChoiceOptions extends ChoiceBase {
         /**
          * @inheritdoc
          */
-        type?: "choice";
+        type?: "choice" | undefined;
 
         /**
          * The name of the choice to show to the user.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * The value of the choice.
@@ -340,7 +349,7 @@ declare namespace inquirer {
         /**
          * The short form of the name of the choice.
          */
-        short?: string;
+        short?: string | undefined;
 
         /**
          * The extra properties of the choice.
@@ -354,11 +363,11 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+    interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions {
         /**
          * A value indicating whether the choice is disabled.
          */
-        disabled?: DynamicQuestionProperty<boolean | string, T>;
+        disabled?: DynamicQuestionProperty<boolean | string, T> | undefined;
     }
 
     /**
@@ -371,26 +380,23 @@ declare namespace inquirer {
         /**
          * A value indicating whether the choice should be initially checked.
          */
-        checked?: boolean;
+        checked?: boolean | undefined;
     }
 
     /**
      * Provides options for a choice of the `ExpandPrompt`.
-     *
-     * @template T
-     * The type of the answers.
      */
-    interface ExpandChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+    interface ExpandChoiceOptions extends ChoiceOptions {
         /**
          * The key to press for selecting the choice.
          */
-        key?: string;
+        key?: string | undefined;
     }
 
     /**
      * Represents a separator.
      */
-    interface SeparatorOptions {
+    interface SeparatorOptions extends ChoiceBase {
         /**
          * Gets the type of the choice.
          */
@@ -399,7 +405,7 @@ declare namespace inquirer {
         /**
          * Gets or sets the text of the separator.
          */
-        line?: string;
+        line?: string | undefined;
     }
 
     /**
@@ -410,7 +416,7 @@ declare namespace inquirer {
      */
     interface BaseChoiceMap<T extends Answers = Answers> {
         Choice: Choice<T>;
-        ChoiceOptions: ChoiceOptions<T>;
+        ChoiceOptions: ChoiceOptions;
         SeparatorOptions: SeparatorOptions;
         Separator: Separator;
     }
@@ -442,7 +448,7 @@ declare namespace inquirer {
      * The type of the answers.
      */
     interface ExpandChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
-        ExpandChoiceOptions: ExpandChoiceOptions<T>;
+        ExpandChoiceOptions: ExpandChoiceOptions;
     }
 
     /**
@@ -461,17 +467,23 @@ declare namespace inquirer {
     /**
      * Provides valid choices for the question of the `TChoiceMap`.
      *
+     * @template TAnswers
+     * The type of the answers.
+     *
      * @template TChoiceMap
      * The choice-types to provide.
      */
-    type DistinctChoice<TChoiceMap> =
+    type DistinctChoice<TAnswers extends Answers = Answers, TChoiceMap = AllChoiceMap<TAnswers>> =
         string |
         TChoiceMap[keyof TChoiceMap];
 
     /**
      * Represents a set of choices.
+     *
+     * @template T
+     * The type of the answers.
      */
-    type ChoiceCollection<T extends Answers = Answers> = Array<DistinctChoice<AllChoiceMap>>;
+    type ChoiceCollection<T extends Answers = Answers> = Array<DistinctChoice<AllChoiceMap<T>>>;
 
     /**
      * Provides options for a question for the `InputPrompt`.
@@ -495,7 +507,7 @@ declare namespace inquirer {
          * @returns
          * The value to display to the user.
          */
-        transformer?(input: any, answers: T, flags: { isFinal?: boolean }): string | Promise<string>;
+        transformer?(input: any, answers: T, flags: { isFinal?: boolean | undefined }): string | Promise<string>;
     }
 
     /**
@@ -508,7 +520,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        type?: "input";
+        type?: "input" | undefined;
     }
 
     /**
@@ -542,7 +554,7 @@ declare namespace inquirer {
         /**
          * The character to replace the user-input.
          */
-        mask?: string;
+        mask?: string | undefined;
     }
 
     /**
@@ -568,7 +580,7 @@ declare namespace inquirer {
         /**
          * A value indicating whether choices in a list should be looped.
          */
-        loop?: boolean;
+        loop?: boolean | undefined;
     }
 
     /**
@@ -898,7 +910,7 @@ declare namespace inquirer {
             /**
              * The initial text to display.
              */
-            bottomBar?: string;
+            bottomBar?: string | undefined;
         }
 
         /**

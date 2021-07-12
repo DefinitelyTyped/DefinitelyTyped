@@ -23,8 +23,8 @@ type Options = Partial<{
 interface AddOption {
     value: string;
     text: string;
-    index?: number;
-    nested?: string;
+    index?: number | undefined;
+    nested?: string | undefined;
 }
 
 type Method = 'select_all' | 'deselect_all' | 'refresh';

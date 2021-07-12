@@ -67,14 +67,16 @@ export type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame)
 export type XRPlaneSet = Set<XRPlane>;
 export type XRAnchorSet = Set<XRAnchor>;
 
-export type XREventHandler = EventHandlerNonNull;
+export interface XREventHandler {
+    (event: Event): any;
+}
 
 // tslint:disable-next-line no-empty-interface
 export interface XRLayer extends EventTarget {}
 
 export interface XRSessionInit {
-    optionalFeatures?: string[];
-    requiredFeatures?: string[];
+    optionalFeatures?: string[] | undefined;
+    requiredFeatures?: string[] | undefined;
 }
 
 export interface XRSessionEvent extends Event {
@@ -94,12 +96,12 @@ export interface XRViewport {
 }
 
 export interface XRWebGLLayerInit {
-    antialias?: boolean;
-    depth?: boolean;
-    stencil?: boolean;
-    alpha?: boolean;
-    multiview?: boolean;
-    framebufferScaleFactor?: number;
+    antialias?: boolean | undefined;
+    depth?: boolean | undefined;
+    stencil?: boolean | undefined;
+    alpha?: boolean | undefined;
+    multiview?: boolean | undefined;
+    framebufferScaleFactor?: number | undefined;
 }
 
 export class XRWebGLLayer {
@@ -121,18 +123,18 @@ export class XRWebGLLayer {
 export interface XRSpace extends EventTarget {}
 
 export interface XRRenderState {
-    readonly baseLayer?: XRWebGLLayer;
+    readonly baseLayer?: XRWebGLLayer | undefined;
     readonly depthFar: number;
     readonly depthNear: number;
-    readonly inlineVerticalFieldOfView?: number;
+    readonly inlineVerticalFieldOfView?: number | undefined;
 }
 
 export interface XRRenderStateInit extends XRRenderState {
     baseLayer: XRWebGLLayer;
     depthFar: number;
     depthNear: number;
-    inlineVerticalFieldOfView?: number;
-    layers?: XRLayer[];
+    inlineVerticalFieldOfView?: number | undefined;
+    layers?: XRLayer[] | undefined;
 }
 
 export interface XRReferenceSpace extends XRSpace {
@@ -148,10 +150,10 @@ export interface XRInputSource {
     readonly handedness: XRHandedness;
     readonly targetRayMode: XRTargetRayMode;
     readonly targetRaySpace: XRSpace;
-    readonly gripSpace?: XRSpace;
-    readonly gamepad?: Gamepad;
+    readonly gripSpace?: XRSpace | undefined;
+    readonly gamepad?: Gamepad | undefined;
     readonly profiles: string[];
-    readonly hand?: XRHand;
+    readonly hand?: XRHand | undefined;
 }
 
 export interface XRPose {
@@ -170,12 +172,12 @@ export interface XRFrame {
         hitTestSource: XRTransientInputHitTestSource,
     ): XRTransientInputHitTestResult[];
     // Anchors
-    trackedAnchors?: XRAnchorSet;
+    trackedAnchors?: XRAnchorSet | undefined;
     createAnchor?(pose: XRRigidTransform, space: XRSpace): Promise<XRAnchor>;
     // Planes
     worldInformation?: {
-        detectedPlanes?: XRPlaneSet;
-    };
+        detectedPlanes?: XRPlaneSet | undefined;
+    } | undefined;
     // Hand tracking
     getJointPose?(joint: XRJointSpace, baseSpace: XRSpace): XRJointPose;
 }
@@ -258,7 +260,7 @@ export interface XRSession {
     requestHitTest?(ray: XRRay, referenceSpace: XRReferenceSpace): Promise<XRHitResult[]>;
 
     // legacy plane detection
-    updateWorldTrackingState?(options: { planeDetectionState?: { enabled: boolean } }): void;
+    updateWorldTrackingState?(options: { planeDetectionState?: { enabled: boolean } | undefined }): void;
 }
 
 export interface XRViewerPose extends XRPose {
@@ -277,7 +279,7 @@ export interface XRView {
     readonly eye: XREye;
     readonly projectionMatrix: Float32Array;
     readonly transform: XRRigidTransform;
-    readonly recommendedViewportScale?: number;
+    readonly recommendedViewportScale?: number | undefined;
     requestViewportScale(scale: number): void;
 }
 
@@ -326,14 +328,14 @@ export interface XRTransientInputHitTestSource {
 
 export interface XRHitTestOptionsInit {
     space: XRSpace;
-    entityTypes?: XRHitTestTrackableType[];
-    offsetRay?: XRRay;
+    entityTypes?: XRHitTestTrackableType[] | undefined;
+    offsetRay?: XRRay | undefined;
 }
 
 export interface XRTransientInputHitTestOptionsInit {
     profile: string;
-    entityTypes?: XRHitTestTrackableType[];
-    offsetRay?: XRRay;
+    entityTypes?: XRHitTestTrackableType[] | undefined;
+    offsetRay?: XRRay | undefined;
 }
 
 export interface XRAnchor {

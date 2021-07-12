@@ -55,7 +55,6 @@
 /// <reference path="../tty.d.ts" />
 /// <reference path="../url.d.ts" />
 /// <reference path="../util.d.ts" />
-/// <reference path="../util/types.d.ts" />
 /// <reference path="../v8.d.ts" />
 /// <reference path="../vm.d.ts" />
 /// <reference path="../worker_threads.d.ts" />

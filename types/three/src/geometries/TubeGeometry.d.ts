@@ -33,6 +33,8 @@ export class TubeGeometry extends BufferGeometry {
     tangents: Vector3[];
     normals: Vector3[];
     binormals: Vector3[];
+
+    static fromJSON(data: any): TubeGeometry;
 }
 
 export { TubeGeometry as TubeBufferGeometry };

@@ -33,35 +33,35 @@ declare namespace InlineCss {
          *
          * @default ""
          */
-        extraCss?: string;
+        extraCss?: string | undefined;
 
         /**
          * Whether to inline styles in `<style></style>`.
          *
          * @default true
          */
-        applyStyleTags?: boolean;
+        applyStyleTags?: boolean | undefined;
 
         /**
          * Whether to resolve `<link rel="stylesheet">` tags and inline the resulting styles.
          *
          * @default true
          */
-        applyLinkTags?: boolean;
+        applyLinkTags?: boolean | undefined;
 
         /**
          * Whether to remove the original `<style></style>` tags after (possibly) inlining the css from them.
          *
          * @default true
          */
-        removeStyleTags?: boolean;
+        removeStyleTags?: boolean | undefined;
 
         /**
          * Whether to remove the original `<link rel="stylesheet">` tags after (possibly) inlining the css from them.
          *
          * @default true
          */
-        removeLinkTags?: boolean;
+        removeLinkTags?: boolean | undefined;
 
         /**
          * Preserves all media queries (and contained styles) within `<style></style>` tags as a refinement when
@@ -69,28 +69,28 @@ declare namespace InlineCss {
          *
          * @default false
          */
-        preserveMediaQueries?: boolean;
+        preserveMediaQueries?: boolean | undefined;
 
         /**
          * Whether to use any CSS pixel widths to create `width` attributes on elements.
          *
          * @default false
          */
-        applyWidthAttributes?: boolean;
+        applyWidthAttributes?: boolean | undefined;
 
         /**
          * Whether to apply the `border`, `cellpadding` and `cellspacing` attributes to table elements.
          *
          * @default false
          */
-        applyTableAttributes?: boolean;
+        applyTableAttributes?: boolean | undefined;
 
         /**
          * Whether to remove the `class` and `id` attributes from the markup.
          *
          * @default false
          */
-        removeHtmlSelectors?: boolean;
+        removeHtmlSelectors?: boolean | undefined;
 
         /**
          * An object that specifies fenced code blocks that should be ignored during parsing and inlining.
@@ -100,7 +100,7 @@ declare namespace InlineCss {
          *
          * @default { EJS: { start: '<%', end: '%>' }, HBS: { start: '{{', end: '}}' } }
          */
-        codeBlocks?: Record<string, CodeBlockSpec>;
+        codeBlocks?: Record<string, CodeBlockSpec> | undefined;
     }
 
     interface CodeBlockSpec {

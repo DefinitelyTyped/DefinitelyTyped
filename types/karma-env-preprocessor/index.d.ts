@@ -11,6 +11,6 @@ declare module 'karma' {
          * environment variables available to your tests
          * {@link https://github.com/jsok/karma-env-preprocessor#configuration}
          */
-        envPreprocessor?: string[];
+        envPreprocessor?: string[] | undefined;
     }
 }

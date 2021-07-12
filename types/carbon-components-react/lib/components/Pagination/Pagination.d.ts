@@ -9,24 +9,24 @@ export interface PaginationPageSize {
 }
 
 export interface PaginationProps extends Omit<ReactDivAttr, ExcludedAttributes> {
-    backwardText?: string,
-    forwardText?: string,
-    id?: number | string,
-    isLastPage?: boolean,
-    itemsPerPageText?: string,
+    backwardText?: string | undefined,
+    forwardText?: string | undefined,
+    id?: number | string | undefined,
+    isLastPage?: boolean | undefined,
+    itemsPerPageText?: string | undefined,
     itemRangeText?(min: number, max: number, total: number): string,
     itemText?(min: number, max: number): string,
     onChange(data: { page: number, pageSize: number }): void,
-    page?: number,
-    pageInputDisabled?: boolean,
-    pageNumberText?: string,
+    page?: number | undefined,
+    pageInputDisabled?: boolean | undefined,
+    pageNumberText?: string | undefined,
     pageRangeText?(current: number, total: number): string,
-    pageSize?: number,
-    pageSizeInputDisabled?: boolean;
+    pageSize?: number | undefined,
+    pageSizeInputDisabled?: boolean | undefined;
     pageSizes: readonly number[] | readonly PaginationPageSize[],
     pageText?(page: number): string,
-    pagesUnknown?: boolean,
-    totalItems?: number,
+    pagesUnknown?: boolean | undefined,
+    totalItems?: number | undefined,
 }
 
 declare class Pagination extends React.Component<PaginationProps> { }

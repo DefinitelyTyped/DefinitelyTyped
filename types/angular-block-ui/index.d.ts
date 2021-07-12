@@ -17,7 +17,7 @@ declare module 'angular' {
              *
              * Default value is 'Loading ...'.
              */
-            message?: string;
+            message?: string | undefined;
 
             /**
              * Specifies the amount in milliseconds before the block
@@ -26,12 +26,12 @@ declare module 'angular' {
              *
              * The default value is 250.
              */
-            delay?: number;
+            delay?: number | undefined;
 
             /**
              * Specifies a custom template to use as the overlay.
              */
-            template?: string;
+            template?: string | undefined;
 
             /**
              * Specifies a url to retrieve the template from.
@@ -42,7 +42,7 @@ declare module 'angular' {
              * If you're using the grunt with html2js or angular-templates,
              * which I highly recommend, you're already set.
              */
-            templateUrl?: string;
+            templateUrl?: string | undefined;
 
             /**
              * By default the BlockUI module will start a block whenever
@@ -53,7 +53,7 @@ declare module 'angular' {
              *
              * The default value is 'true'
              */
-            autoBlock?: boolean;
+            autoBlock?: boolean | undefined;
 
             /**
              * By default the BlockUI module will reset the block count and
@@ -63,7 +63,7 @@ declare module 'angular' {
              *
              * The default value is 'true'
              */
-            resetOnException?: boolean;
+            resetOnException?: boolean | undefined;
 
             /**
              * Allows you to specify a filter function to exclude certain ajax
@@ -90,7 +90,7 @@ declare module 'angular' {
              *
              * The default value is 'true'
              */
-            autoInjectBodyBlock?: boolean;
+            autoInjectBodyBlock?: boolean | undefined;
 
             /**
              * A string containing the default css classes (separated by spaces)
@@ -98,7 +98,7 @@ declare module 'angular' {
              *
              * The default value is "block-ui block-ui-anim-fade"
              */
-            cssClass?: string;
+            cssClass?: string | undefined;
 
             /**
              * While a user interface block is active the user can still navigate
@@ -117,7 +117,7 @@ declare module 'angular' {
              *
              * The default value is 'false'
              */
-            blockBrowserNavigation?: boolean;
+            blockBrowserNavigation?: boolean | undefined;
         }
 
         interface BlockUIService {

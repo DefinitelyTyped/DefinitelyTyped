@@ -14,11 +14,11 @@ declare namespace JestPresetStylelint {
         plugins: string[];
         ruleName: string;
         config?: any;
-        fix?: boolean;
-        skipBasicChecks?: boolean;
-        syntax?: Syntax;
-        accept?: Case[];
-        reject?: RejectCase[];
+        fix?: boolean | undefined;
+        skipBasicChecks?: boolean | undefined;
+        syntax?: Syntax | undefined;
+        accept?: Case[] | undefined;
+        reject?: RejectCase[] | undefined;
     }
 
     type Syntax = "css-in-js"
@@ -31,18 +31,18 @@ declare namespace JestPresetStylelint {
 
     interface Case {
         code: string;
-        description?: string;
+        description?: string | undefined;
     }
 
     interface Report {
-        message?: string;
-        line?: number;
-        column?: number;
+        message?: string | undefined;
+        line?: number | undefined;
+        column?: number | undefined;
     }
 
     interface RejectCase extends Case, Report {
-        fixed?: string;
-        only?: boolean;
-        warnings?: Report[];
+        fixed?: string | undefined;
+        only?: boolean | undefined;
+        warnings?: Report[] | undefined;
     }
 }

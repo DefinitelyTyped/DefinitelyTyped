@@ -8,20 +8,20 @@ export interface Keyword {
 }
 
 export interface ImmutableRoomAttributes {
-    readOnly?: boolean;
-    copyProtected?: boolean;
-    public?: boolean;
+    readOnly?: boolean | undefined;
+    copyProtected?: boolean | undefined;
+    public?: boolean | undefined;
 }
 
 export interface BaseRoomAttributes {
     name: string;
     description: string;
-    membersCanInvite?: boolean;
-    discoverable?: boolean;
-    keywords?: Keyword[];
-    crossPod?: boolean;
-    viewHistory?: boolean;
-    multiLateralRoom?: boolean;
+    membersCanInvite?: boolean | undefined;
+    discoverable?: boolean | undefined;
+    keywords?: Keyword[] | undefined;
+    crossPod?: boolean | undefined;
+    viewHistory?: boolean | undefined;
+    multiLateralRoom?: boolean | undefined;
 }
 
 export interface AllRoomAttributes extends BaseRoomAttributes, ImmutableRoomAttributes { }
@@ -46,8 +46,8 @@ export interface ActivateRoomResponse {
 
 export interface RoomMember {
     id: number;
-    owner?: boolean;
-    joinDate?: number;
+    owner?: boolean | undefined;
+    joinDate?: number | undefined;
 }
 
 export interface RoomMemberOperationResult {
@@ -56,10 +56,10 @@ export interface RoomMemberOperationResult {
 }
 
 export interface Query {
-    query?: string;
-    labels?: string[];
-    active?: boolean;
-    creator?: UserId;
+    query?: string | undefined;
+    labels?: string[] | undefined;
+    active?: boolean | undefined;
+    creator?: UserId | undefined;
 }
 
 export interface FacetedMatch {
@@ -93,8 +93,8 @@ export interface UserStream {
     crossPod: boolean;
     active: boolean;
     streamType: StreamType;
-    streamAttributes?: StreamAttributes;
-    roomAttributes?: RoomAttributes;
+    streamAttributes?: StreamAttributes | undefined;
+    roomAttributes?: RoomAttributes | undefined;
 }
 
 export function getUserIMStreamId(userIDs: number[]): Promise<UserId>;

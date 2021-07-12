@@ -8,7 +8,7 @@
 export interface PublishParams {
     topic: string;
     payload: Buffer | Blob | string | ArrayLike<any>;
-    queueFullPolicy?: 'AllOrError' | 'BestEffort';
+    queueFullPolicy?: 'AllOrError' | 'BestEffort' | undefined;
 }
 
 export interface IotCallbackData {

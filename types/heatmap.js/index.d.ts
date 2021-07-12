@@ -195,69 +195,69 @@ export interface BaseHeatmapConfiguration<V extends string = 'value'> {
     /**
      * A background color string in form of hexcode, color name, or rgb(a)
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
 
     /**
      * The blur factor that will be applied to all datapoints. The higher the
      * blur factor is, the smoother the gradients will be
      * Default value: 0.85
      */
-    blur?: number;
+    blur?: number | undefined;
 
     /**
      * An object that represents the gradient.
      * Syntax: {[key: number in range [0,1]]: color}
      */
-    gradient?: { [key: string]: string };
+    gradient?: { [key: string]: string } | undefined;
 
     /**
      * The maximal opacity the highest value in the heatmap will have. (will be
      * overridden if opacity set)
      * Default value: 0.6
      */
-    maxOpacity?: number;
+    maxOpacity?: number | undefined;
 
     /**
      * The minimum opacity the lowest value in the heatmap will have (will be
      * overridden if opacity set)
      */
-    minOpacity?: number;
+    minOpacity?: number | undefined;
 
     /**
      * A global opacity for the whole heatmap. This overrides maxOpacity and
      * minOpacity if set
      * Default value: 0.6
      */
-    opacity?: number;
+    opacity?: number | undefined;
 
     /**
      * The radius each datapoint will have (if not specified on the datapoint
      * itself)
      */
-    radius?: number;
+    radius?: number | undefined;
 
     /**
      * Scales the radius based on map zoom.
      */
-    scaleRadius?: boolean;
+    scaleRadius?: boolean | undefined;
 
     /**
      * The property name of the value/weight in a datapoint
      * Default value: 'value'
      */
-    valueField?: V;
+    valueField?: V | undefined;
 
     /**
      * Pass a callback to receive extrema change updates. Useful for DOM
      * legends.
      */
-    onExtremaChange?: () => void;
+    onExtremaChange?: (() => void) | undefined;
 
     /**
      * Indicate whether the heatmap should use a global extrema or a local
      * extrema (the maximum and minimum of the currently displayed viewport)
      */
-    useLocalExtrema?: boolean;
+    useLocalExtrema?: boolean | undefined;
 }
 
 /**
@@ -278,13 +278,13 @@ export interface HeatmapConfiguration<
      * The property name of your x coordinate in a datapoint
      * Default value: 'x'
      */
-    xField?: X;
+    xField?: X | undefined;
 
     /**
      * The property name of your y coordinate in a datapoint
      * Default value: 'y'
      */
-    yField?: Y;
+    yField?: Y | undefined;
 }
 
 export interface HeatmapOverlayConfiguration<
@@ -296,13 +296,13 @@ export interface HeatmapOverlayConfiguration<
      * The property name of your latitude coordinate in a datapoint
      * Default value: 'x'
      */
-    latField?: TLat;
+    latField?: TLat | undefined;
 
     /**
      * The property name of your longitude coordinate in a datapoint
      * Default value: 'y'
      */
-    lngField?: TLong;
+    lngField?: TLong | undefined;
 }
 
 /**

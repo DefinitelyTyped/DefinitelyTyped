@@ -40,23 +40,23 @@ declare module 'path' {
             /**
              * The root of the path such as '/' or 'c:\'
              */
-            root?: string;
+            root?: string | undefined;
             /**
              * The full directory path such as '/home/user/dir' or 'c:\path\dir'
              */
-            dir?: string;
+            dir?: string | undefined;
             /**
              * The file name including extension (if any) such as 'index.html'
              */
-            base?: string;
+            base?: string | undefined;
             /**
              * The file extension (if any) such as '.html'
              */
-            ext?: string;
+            ext?: string | undefined;
             /**
              * The file name without extension (if any) such as 'index'
              */
-            name?: string;
+            name?: string | undefined;
         }
 
         interface PlatformPath {
@@ -159,5 +159,10 @@ declare module 'path' {
         }
     }
     const path: path.PlatformPath;
+    export = path;
+}
+
+declare module 'node:path' {
+    import path = require('path');
     export = path;
 }

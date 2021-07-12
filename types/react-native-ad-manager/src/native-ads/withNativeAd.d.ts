@@ -3,11 +3,11 @@ import { BannerProps } from '../../helper-types';
 import NativeAdsManager = require('./NativeAdsManager');
 
 interface NativeAdWrapperProps extends BannerProps {
-    validAdTypes?: string[];
-    customTemplateIds?: string[];
-    adsManager?: NativeAdsManager;
-    correlator?: string;
-    adLoaderIndex?: string;
+    validAdTypes?: string[] | undefined;
+    customTemplateIds?: string[] | undefined;
+    adsManager?: NativeAdsManager | undefined;
+    correlator?: string | undefined;
+    adLoaderIndex?: string | undefined;
 }
 
 declare function withNativeAd<P>(Component: React.ComponentType<P>): React.ComponentClass<P & NativeAdWrapperProps>;
