@@ -9,11 +9,14 @@ interface Units {
     length: string;
     angle: string;
 }
+export interface Grid {
+    updateLayout: () => void;
+}
 export interface StackGridProps {
     columnWidth: number | string;
     className?: string | undefined;
     style?: React.CSSProperties | undefined;
-    gridRef?: (() => void) | undefined;
+    gridRef?: ((grid: Grid) => void) | undefined;
     component?: string | undefined;
     itemComponent?: string | undefined;
     gutterWidth?: number | undefined;
