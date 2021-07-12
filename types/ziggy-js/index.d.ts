@@ -35,6 +35,11 @@ export interface Config {
     defaults: {
         [_: string]: string | number;
     };
+    location?: {
+        host?: string;
+        pathname?: string
+        search?: string
+    };
 }
 
 export class Router extends String {
