@@ -335,7 +335,12 @@ export namespace AttributeSource {
         | {
               type: 'string';
               default?: string | undefined;
-          });
+          })
+        | 'array'
+        | 'object'
+        | 'boolean'
+        | 'number'
+        | 'string';
 }
 
 export type BlockAttribute<T> =

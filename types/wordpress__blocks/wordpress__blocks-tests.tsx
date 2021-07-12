@@ -355,6 +355,20 @@ blocks.registerBlockType<{ foo: object }>('my/foo', {
     category: 'common',
 });
 
+// $ExpectType Block<{ foo: string; }> | undefined
+blocks.registerBlockType<{ foo: string }>('my/foo', {
+    attributes: {
+        foo: 'string',
+    },
+    icon: {
+        src: 'carrot',
+        foreground: 'orange',
+        background: 'green',
+    },
+    title: 'Foo',
+    category: 'common',
+});
+
 // $ExpectType void
 blocks.setDefaultBlockName('my/foo');
 
