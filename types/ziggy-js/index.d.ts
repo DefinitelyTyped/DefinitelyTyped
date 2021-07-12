@@ -1,4 +1,4 @@
-// Type definitions for ziggy-js 1.0
+// Type definitions for ziggy-js 1.3.4
 // Project: https://github.com/tightenco/ziggy#readme
 // Definitions by: Ben Allfree <https://github.com/benallfree>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -31,8 +31,6 @@ export interface Config {
         [key: string]: Route;
     };
     url: string;
-    protocol: 'http' | 'https';
-    domain: string;
     port?: number | null | undefined;
     defaults: {
         [_: string]: string | number;
