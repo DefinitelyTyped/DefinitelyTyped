@@ -3,25 +3,27 @@
 // Definitions by: Tomasz Pluskiewicz <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DataFactory, DatasetCore, DatasetCoreFactory } from 'rdf-js';
+import * as RDF from 'rdf-js';
 import ValidationReport = require('./src/validation-report');
 
-type FactoryFor<D> = D extends DatasetCore<infer OutQuad, infer InQuad> ? DataFactory<OutQuad, InQuad> & DatasetCoreFactory<OutQuad, InQuad, D> : never;
-type OutQuadOf<T> = T extends DatasetCore<infer Q, any> ? Q : never;
+type Factory<OutQuad extends RDF.Quad = RDF.Quad,
+    InQuad extends RDF.Quad = RDF.Quad,
+    D extends RDF.DatasetCore<OutQuad, InQuad> = RDF.DatasetCore<OutQuad, InQuad>,
+> = RDF.DataFactory<OutQuad, InQuad> & RDF.DatasetCoreFactory<OutQuad, InQuad, D>;
 
 declare namespace SHACLValidator {
-    interface Options<F extends DataFactory & DatasetCoreFactory> {
+    interface Options<F extends Factory> {
         factory?: F | undefined;
         maxErrors?: number | undefined;
     }
 }
 
-declare class SHACLValidator<D extends DatasetCore, F extends FactoryFor<D>> {
-    constructor(shapes: D, options?: SHACLValidator.Options<F>);
+declare class SHACLValidator<F extends Factory = Required<Factory>> {
+    constructor(shapes: RDF.DatasetCore, options?: SHACLValidator.Options<F>);
     factory: F;
     depth: number;
-    validate(data: D): ValidationReport<D>;
-    nodeConformsToShape(focusNode: OutQuadOf<D>['subject'], shapeNode: OutQuadOf<D>['subject']): boolean;
+    validate(data: RDF.DatasetCore): ValidationReport<F>;
+    nodeConformsToShape(focusNode: RDF.Term, shapeNode: RDF.Term): boolean;
 }
 
 export = SHACLValidator;

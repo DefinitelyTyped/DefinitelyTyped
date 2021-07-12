@@ -12,7 +12,15 @@ import { PropType } from './_PropType';
 type PrefixesRecord = Record<string, NamedNode | string>;
 type Prefixes = PrefixMap | PrefixesRecord;
 
-interface DataFactoryExt extends DataFactory<QuadExt, Quad>, DatasetCoreFactory<QuadExt, Quad, Dataset> {}
+interface DataFactoryExt extends DataFactory<QuadExt, Quad>, DatasetCoreFactory<QuadExt, Quad, Dataset> {
+    namedNode<Iri extends string = string>(value: Iri): NamedNodeExt<Iri>;
+    blankNode(value?: string): BlankNodeExt;
+    literal(value: string, languageOrDatatype?: string | NamedNode): LiteralExt;
+    variable(value: string): VariableExt;
+    defaultGraph(): DefaultGraphExt;
+    quad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object, graph?: Quad_Graph): QuadExt;
+    dataset(quads?: Quad[], graph?: PropType<QuadExt, 'graph'>): Dataset;
+}
 
 // tslint:disable-next-line no-unnecessary-class
 declare class DataFactoryExt  {

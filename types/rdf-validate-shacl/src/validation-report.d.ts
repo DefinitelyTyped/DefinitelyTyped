@@ -1,36 +1,40 @@
-import { DataFactory, DatasetCore, DatasetCoreFactory } from 'rdf-js';
+import * as RDF from 'rdf-js';
 import { GraphPointer } from 'clownface';
 
-type FactoryFor<D> = D extends DatasetCore<infer OutQuad, infer InQuad> ? DataFactory<OutQuad, InQuad> & DatasetCoreFactory<OutQuad, InQuad, D> : never;
-type OutQuadOf<D> = D extends DatasetCore<infer Q, any> ? Q : never;
-type InQuadOf<D> = D extends DatasetCore<any, infer Q> ? Q : never;
-type SubjectOf<D> = OutQuadOf<D>['subject'];
-type ObjectOf<D> = OutQuadOf<D>['object'];
+type Factory<OutQuad extends RDF.Quad = RDF.Quad,
+    InQuad extends RDF.Quad = RDF.Quad,
+    D extends RDF.DatasetCore<OutQuad, InQuad> = RDF.DatasetCore<OutQuad, InQuad>,
+> = RDF.DataFactory<OutQuad, InQuad> & RDF.DatasetCoreFactory<OutQuad, InQuad, D>;
+
+type BlankNodeOf<F extends Factory> = ReturnType<F['blankNode']>;
+type NamedNodeOf<F extends Factory> = ReturnType<F['namedNode']>;
+type LiteralOf<F extends Factory> = ReturnType<F['literal']>;
+type DatasetOf<F extends Factory> = ReturnType<F['dataset']>;
 
 declare namespace ValidationReport {
-    interface Options<F extends DataFactory & DatasetCoreFactory> {
+    interface Options<F extends Factory> {
         factory: F;
     }
 
-    interface ValidationResult<D extends DatasetCore> {
-        term: SubjectOf<D>;
-        dataset: D;
-        cf: GraphPointer<SubjectOf<D>, D>;
-        readonly message: Array<ObjectOf<D>>;
-        readonly path: ObjectOf<D> | null;
-        readonly focusNode: ObjectOf<D> | null;
-        readonly severity: ObjectOf<D> | null;
-        readonly sourceConstraintComponent: ObjectOf<D> | null;
-        readonly sourceShape: ObjectOf<D> | null;
+    interface ValidationResult<F extends Factory = Factory> {
+        term: BlankNodeOf<F> | NamedNodeOf<F>;
+        dataset: DatasetOf<F>;
+        cf: GraphPointer<BlankNodeOf<F> | NamedNodeOf<F>, DatasetOf<F>>;
+        readonly message: Array<BlankNodeOf<F> | NamedNodeOf<F> | LiteralOf<F>>;
+        readonly path: BlankNodeOf<F> | NamedNodeOf<F> | null;
+        readonly focusNode: BlankNodeOf<F> | NamedNodeOf<F> | null;
+        readonly severity: NamedNodeOf<F> | null;
+        readonly sourceConstraintComponent: BlankNodeOf<F> | NamedNodeOf<F> | null;
+        readonly sourceShape: BlankNodeOf<F> | NamedNodeOf<F> | null;
     }
 }
 
-declare class ValidationReport<D extends DatasetCore> {
-    constructor(resultQuads: Array<InQuadOf<D>>, options: ValidationReport.Options<FactoryFor<D>>);
-    term: SubjectOf<D>;
-    dataset: D;
+declare class ValidationReport<F extends Factory = Factory> {
+    constructor(resultQuads: RDF.Quad[], options: ValidationReport.Options<F>);
+    term: BlankNodeOf<F> | NamedNodeOf<F>;
+    dataset: DatasetOf<F>;
     conforms: boolean;
-    results: Array<ValidationReport.ValidationResult<D>>;
+    results: Array<ValidationReport.ValidationResult<F>>;
 }
 
 export = ValidationReport;

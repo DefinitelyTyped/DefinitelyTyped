@@ -1,55 +1,68 @@
-import { DataFactory, DatasetCore, DatasetCoreFactory, Quad_Object } from 'rdf-js';
+import { DataFactory, DatasetCore, DatasetCoreFactory } from 'rdf-js';
 import SHACLValidator = require('rdf-validate-shacl');
-import ValidationReport = require('rdf-validate-shacl/src/validation-report');
 import DataFactoryExt = require('rdf-ext/lib/DataFactory');
-import DatasetExt = require('rdf-ext/lib/Dataset');
-import NamedNodeExt = require('rdf-ext/lib/NamedNode');
 
-const shapes1: DatasetCore = <any> {};
-const data1: DatasetCore = <any> {};
+const shapes: DatasetCore = <any> {};
+const data: DatasetCore = <any> {};
 const factory1: DatasetCoreFactory & DataFactory = <any> {};
-const shapes2: DatasetExt = <any> {};
-const data2: DatasetExt = <any> {};
 const factory2: DataFactoryExt = <any> {};
 
-// $ExpectType SHACLValidator<DatasetCore<Quad, Quad>, DatasetCoreFactory<Quad, Quad, DatasetCore<Quad, Quad>> & DataFactory<Quad, Quad>>
-const validator1 = new SHACLValidator(shapes1, { factory: factory1 });
+// $ExpectType SHACLValidator<DatasetCoreFactory<Quad, Quad, DatasetCore<Quad, Quad>> & DataFactory<Quad, Quad>>
+const validator1 = new SHACLValidator(shapes, { factory: factory1 });
 
-// $ExpectType ValidationReport<DatasetCore<Quad, Quad>>
-const report1 = validator1.validate(data1);
+// $ExpectType DatasetCoreFactory<Quad, Quad, DatasetCore<Quad, Quad>> & DataFactory<Quad, Quad>
+validator1.factory;
+
+// $ExpectType ValidationReport<DatasetCoreFactory<Quad, Quad, DatasetCore<Quad, Quad>> & DataFactory<Quad, Quad>>
+const report1 = validator1.validate(data);
 
 // $ExpectType boolean
 report1.conforms;
 
 for (const result of report1.results) {
-    result.message; // $ExpectType Quad_Object[]
-    result.path; // $ExpectType Quad_Object | null
-    result.focusNode; // $ExpectType Quad_Object | null
-    result.severity; // $ExpectType Quad_Object | null
-    result.sourceConstraintComponent; // $ExpectType Quad_Object | null
-    result.sourceShape; // $ExpectType Quad_Object | null
+    result.term; // $ExpectType BlankNode | NamedNode<string>
+    result.dataset; // $ExpectType DatasetCore<Quad, Quad>
+    result.cf; // $ExpectType GraphPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>> || AnyPointer<BlankNode | NamedNode<string>, DatasetCore<Quad, Quad>>
+    result.message; // $ExpectType (BlankNode | NamedNode<string> | Literal)[] || (BlankNode | Literal | NamedNode<string>)[]
+    result.path; // $ExpectType BlankNode | NamedNode<string> | null
+    result.focusNode; // $ExpectType BlankNode | NamedNode<string> | null
+    result.severity; // $ExpectType NamedNode<string> | null
+    result.sourceConstraintComponent; // $ExpectType BlankNode | NamedNode<string> | null
+    result.sourceShape; // $ExpectType BlankNode | NamedNode<string> | null
 }
+
+// $ExpectType BlankNode | NamedNode<string>
+report1.term;
 
 // $ExpectType DatasetCore<Quad, Quad>
 report1.dataset;
 
-// $ExpectType SHACLValidator<DatasetExt, DataFactoryExt>
-const validator2 = new SHACLValidator(shapes2, { factory: factory2 });
+// $ExpectType SHACLValidator<DataFactoryExt>
+const validator2 = new SHACLValidator(shapes, { factory: factory2 });
 
-// $ExpectType ValidationReport<DatasetExt>
-const report2 = validator2.validate(data2);
+// $ExpectType DataFactoryExt
+validator2.factory;
+
+// $ExpectType ValidationReport<DataFactoryExt>
+const report2 = validator2.validate(data);
 
 // $ExpectType boolean
 report2.conforms;
 
 for (const result of report2.results) {
-    result.message; // $ExpectType (NamedNodeExt<string> | BlankNodeExt | VariableExt | LiteralExt)[]
-    result.path; // $ExpectType NamedNodeExt<string> | BlankNodeExt | VariableExt | LiteralExt | null
-    result.focusNode; // $ExpectType NamedNodeExt<string> | BlankNodeExt | VariableExt | LiteralExt | null
-    result.severity; // $ExpectType NamedNodeExt<string> | BlankNodeExt | VariableExt | LiteralExt | null
-    result.sourceConstraintComponent; // $ExpectType NamedNodeExt<string> | BlankNodeExt | VariableExt | LiteralExt | null
-    result.sourceShape; // $ExpectType NamedNodeExt<string> | BlankNodeExt | VariableExt | LiteralExt | null
+    result.term; // $ExpectType BlankNodeExt | NamedNodeExt<string>
+    result.dataset; // $ExpectType DatasetExt
+    result.cf; // $ExpectType GraphPointer<BlankNodeExt | NamedNodeExt<string>, DatasetExt> || AnyPointer<BlankNodeExt | NamedNodeExt<string>, DatasetExt>
+    result.message; // $ExpectType (BlankNodeExt | LiteralExt | NamedNodeExt<string>)[]
+    result.path; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
+    result.focusNode; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
+    result.severity; // $ExpectType NamedNodeExt<string> | null
+    result.sourceConstraintComponent; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
+    result.sourceShape; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
 }
+
+// $ExpectType BlankNodeExt | NamedNodeExt<string>
+report2.term;
 
 // $ExpectType DatasetExt
 report2.dataset;
