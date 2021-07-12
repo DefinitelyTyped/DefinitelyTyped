@@ -15,7 +15,7 @@ interface Layui {
     layer: Layui.Layer;
     laypage: Layui.Laypage;
     laytpl: Layui.Laytpl;
-    //          // layui.all
+    'layui.all': string;
     rate: Layui.Rate;
     slider: Layui.Slider;
     table: Layui.Table;
@@ -89,7 +89,7 @@ interface Layui {
      * @param tableName  key键， 为sessionStorage中的一个key
      * @param row 存储的json对象数据
      */
-    data(tableName: string, row?: { key: string; value?: any; remove?: boolean }|null): any;
+    data(tableName: string, row?: { key: string; value?: any; remove?: boolean } | null): any;
 
     // https://www.layui.com/doc/base/modules.html#extend
     /**
@@ -99,8 +99,7 @@ interface Layui {
      *      模块加载完毕的回调函数，它返回一个 exports 参数，用于输出该模块的接口。	<br/>&nbsp;
      *      其参数exports 是一个函数，它接受两个参数，第1个参数为模块名，第2个参数为模块接口。
      */
-    define(mods: string[], callback: Layui.ExportsCallback): any;
-
+    define(mods: string[] | string, callback: Layui.ExportsCallback): any;
     /**
      *  扩展一个 layui 模块,挂载到layui上
      * @param callback  回调函数： 通过回调中参数export来挂载模块到layui	<br/>&nbsp;
@@ -163,9 +162,9 @@ interface Layui {
     /**
      * 对象（Array、Object、DOM 对象等）遍历，可用于取代 for 语句
      * @param arry  Array对象
-     * @param fn
+     * @param fn 回调函数
      */
-    each(arry: any[], fn: (k: number, v: any) => void): Layui;
+    each(arry: any[], fn?: (k: number, v: any) => void): Layui;
 
     /**
      * 对象（Array、Object、DOM 对象等）遍历，可用于取代 for 语句
@@ -304,7 +303,7 @@ interface Layui {
      * @param tableName  key键， 为sessionStorage中的一个key
      * @param row 存储的json对象数据
      */
-    sessionData(tableName: string, row?: { key: string; value?: any; remove?: boolean }|null): any;
+    sessionData(tableName: string, row?: { key: string; value?: any; remove?: boolean } | null): any;
 
     // https://www.layui.com/doc/base/infrastructure.html
     /**
@@ -350,7 +349,7 @@ interface Layui {
         exports?: any[],
     ): { v: string };
     /**
-     * 使用特定模块
+     * 使用自定模块
      * @param mods  自定义模块，非内置模块
      * @param callback  回调函数
      * @param exports  数组，存储对 mods解析后加载的模块
@@ -358,7 +357,7 @@ interface Layui {
     use(mods: string, callback: (this: Layui, module: any) => any, exports?: any[]): { v: string };
 
     /**
-     * 使用特定模块
+     * 使用多模块
      * @param mods  内置或自定模块名 (若模块不存在则抛js错误，callback不会执行)
      * @param callback  回调函数 	<br/>&nbsp;
      *  1、不建议callback中设置参数因为没有TS约束，可用layui.xx调用具体模块;	<br/>&nbsp;

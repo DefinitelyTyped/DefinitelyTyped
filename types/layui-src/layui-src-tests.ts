@@ -1,17 +1,17 @@
 /// <reference types="jquery" />
 
-$.ajax;
-
-function prototypeProp() {
+// layui方法和属性
+function B_method() {
+    layui['layui.all'];
     layui.v;
-
+    $.ajax;
     // layui.modules['all'];
     // layui.modules['notExists'];
 
     // layui.define
-    layui.define(['layer', 'form'],  (exports) => {
+    layui.define(['layer', 'form'], exports => {
         const layer = layui.layer;
-            const  form = layui.form;
+        const form = layui.form;
         layer.msg('Hello World');
         exports('index', {}); // 注意，这里是模块输出的核心，模块名必须和 use 时的模块名一致
     });
@@ -20,8 +20,8 @@ function prototypeProp() {
         //  需确保您的 layui.js 是引入的构建后的版本（即官网下载或 git 平台的发行版）
         // 直接可得到各种内置模块
         const layer = layui.layer;
-            const   form = layui.form;
-        const   table = layui.table;
+        const form = layui.form;
+        const table = layui.table;
 
         // …
         layer.msg('Hello World');
@@ -47,7 +47,7 @@ function prototypeProp() {
     layui.use(['layer', 'laydate'], () => {
         // console.log(this.$);
         const layer = layui.layer;
-            const  laydate = layui.laydate;
+        const laydate = layui.laydate;
 
         // do something
     });
@@ -56,8 +56,8 @@ function prototypeProp() {
     layui.use(() => {
         // console.log(this.carousel);
         const layer = layui.layer;
-            const  laydate = layui.laydate;
-        const  table = layui.table;
+        const laydate = layui.laydate;
+        const table = layui.table;
         // …
 
         // do something
@@ -87,7 +87,7 @@ function prototypeProp() {
     });
     layui.use(['layer', 'form'], () => {
         const layer = layui.layer;
-            const  form = layui.form;
+        const form = layui.form;
 
         layer.msg('Hello World');
     });
@@ -118,7 +118,7 @@ function prototypeProp() {
 
     const device = layui.device();
     device.os === 'Windows';
-    device.android ;
+    device.android;
     layui.device('android');
     layui.device('myflag');
     layui.device().myflag;
@@ -164,7 +164,6 @@ function prototypeProp() {
     // 使用拓展模块
     layui.use(['mymod', 'mod1'], () => {
         // let mymod = layui.mymod;
-        //
         // mymod.hello('World!'); // 弹出 Hello World!
     });
 
@@ -247,6 +246,8 @@ function prototypeProp() {
         factoryCallback();
     }
 }
+
+// ---------------------------- 组件测试----------
 
 function carousel() {
     layui.use('carousel', () => {
@@ -613,6 +614,39 @@ function layTest() {
     layui.lay.position;
     layui.lay.options('.a');
     layui.lay.options('.a', 'id');
+
+    const ll = layui.lay(document.body);
+    ll.addClass('abc a', false);
+    ll.addClass('abc b', true);
+    ll.removeClass('')[0].title;
+    ll.hasClass('abc');
+    ll.css('');
+    ll.css('', '');
+    const x = window.lay.each([0, 1])('div');
+    x.selector;
+    window.lay.each({})('div').selector;
+    layui.lay.each([]);
+    layui.lay('div').each((index, ele) => {
+        // console.log(index+ele)
+    })[0].title;
+    window.lay('div').find('input').addClass;
+    layui.lay('');
+    layui.lay('').each;
+    layui.lay('').addClass('');
+    layui.lay('').length;
+    layui.lay('#abc').on('click', e => {
+        console.log();
+    });
+    layui.laypage.on(document.getElementById('abc'), 'click', e => {
+        console.log(e);
+    });
+    const eme = document.getElementById('abc');
+    if (eme) {
+        // let elem: HTMLButtonElement = eme;
+        layui.laypage.on(null, 'click', e => {
+            console.log(e);
+        });
+    }
 }
 
 function laydateTest() {
@@ -726,15 +760,7 @@ function layeditTest() {
     });
 }
 function layerTest() {
-    layui.use('layer', a => {
-        const layer = layui.layer;
-        layui.layer.load(1, {});
-        layui.use('layer', () => {
-            const layer = layui.layer;
-
-            layer.msg('hello');
-        });
-
+    layui.use('layer', layer => {
         /*
         如果是页面层
         */
@@ -750,7 +776,7 @@ function layerTest() {
         $.post('url', {}, str => {
             layer.open({
                 type: 1,
-                content: str, //  注意，如果str是object，那么需要字符拼接。
+                content: str, // 注意，如果str是object，那么需要字符拼接。
             });
         });
         /*
@@ -758,7 +784,7 @@ function layerTest() {
         */
         layer.open({
             type: 2,
-            content: 'http://sentsin.com', //  这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+            content: 'http://sentsin.com', // 这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
         });
         /*
         如果是用layer.open执行tips层
@@ -766,6 +792,426 @@ function layerTest() {
         layer.open({
             type: 4,
             content: ['内容', '#id'], // 数组第二项即吸附元素选择器或者DOM
+        });
+
+        // 单个使用
+        layer.open({
+            skin: 'demo-class',
+        });
+        // 全局使用。即所有弹出层都默认采用，但是单个配置skin的优先级更高
+        layer.config({
+            skin: 'demo-class',
+        });
+        // eg1
+        layer.alert('酷毙了', { icon: 1 });
+        // eg2
+        layer.msg('不开心。。', { icon: 5 });
+        // eg3
+        layer.load(1); // 风格1的加载
+
+        // eg1
+        layer.confirm(
+            '纳尼？',
+            {
+                btn: ['按钮一', '按钮二', '按钮三'], // 可以无限个按钮
+                btn3: (index, layero) => {
+                    // 按钮【按钮三】的回调
+                },
+            },
+            (index, layero) => {
+                // 按钮【按钮一】的回调
+            },
+            index => {
+                // 按钮【按钮二】的回调
+            },
+        );
+
+        // eg2
+        layer.open({
+            content: 'test',
+            btn: ['按钮一', '按钮二', '按钮三'],
+            yes: (index, layero) => {
+                // 按钮【按钮一】的回调
+            },
+            btn2: (index, layero) => {
+                // 按钮【按钮二】的回调
+                // return false 开启该代码可禁止点击该按钮关闭
+            },
+            btn3: (index, layero) => {
+                // 按钮【按钮三】的回调
+                // return false 开启该代码可禁止点击该按钮关闭
+            },
+            cancel: () => {
+                // 右上角关闭回调
+                // return false 开启该代码可禁止点击该按钮关闭
+            },
+            resizing: layero => {
+                console.log(layero);
+            },
+            success: (layero, index) => {
+                console.log(layero, index);
+            },
+        });
+
+        layer.msg('hello');
+
+        layer.open({
+            minStack: true,
+            content: '测试回调',
+            success: (layero, index) => {
+                console.log(layero, index);
+            },
+            cancel: (index, layero) => {
+                if (confirm('确定要关闭么')) {
+                    // 只有当点击confirm框的确定时，该层才会关闭
+                    layer.close(index);
+                }
+                return false;
+            },
+        });
+        layer.config({
+            anim: 1, // 默认动画风格
+            skin: 'layui-layer-molv', // 默认皮肤
+            //  …
+        });
+        //  除此之外，extend 还允许你加载拓展的 css 皮肤，如：
+        layer.config({
+            //  如果是独立版的layer，则将 myskin 存放在 ./skin 目录下
+            //  如果是layui中使用layer，则将 myskin 存放在 ./css/modules/layer 目录下
+            extend: 'myskin/style.css',
+        });
+        // 页面一打开就执行弹层
+        layer.ready(() => {
+            layer.msg('很高兴一开场就见到你');
+        });
+        let index = layer.open({
+            content: 'test',
+        });
+
+        // eg1
+        layer.alert('只想简单的提示');
+        // eg2
+        layer.alert('加了个图标', { icon: 1 }); // 这时如果你也还想执行yes回调，可以放在第三个参数中。
+        // eg3
+        layer.alert('有了回调', index => {
+            // do something
+
+            layer.close(index);
+        });
+
+        layer.confirm(1);
+        // eg1
+        layer.confirm('is not?', { icon: 3, title: '提示' }, index => {
+            // do something
+
+            layer.close(index);
+        });
+        // eg2
+        layer.confirm('is not?', index => {
+            // do something
+
+            layer.close(index);
+        });
+
+        // eg1
+        layer.msg('只想弱弱提示');
+        // eg2
+        layer.msg('有表情地提示', { icon: 6 });
+        // eg3
+        layer.msg('关闭后想做些什么', () => {
+            // do something
+        });
+        // eg
+        layer.msg(
+            '同上',
+            {
+                icon: 1,
+                time: 2000, // 2秒关闭（如果不配置，默认是3秒）
+            },
+            () => {
+                // do something
+            },
+        );
+        // eg1
+        index = layer.load();
+        // eg2
+        index = layer.load(1); // 换了种风格
+        // eg3
+        index = layer.load(2, { time: 10 * 1000 }); // 又换了种风格，并且设定最长等待10秒
+        // 关闭
+
+        // eg1
+        layer.tips('只想提示地精准些', '#id');
+        // eg 2
+        $('#id').on('click', () => {
+            layer.tips('只想提示地精准些'); // 在元素的事件回调体中，follow直接赋予this即可
+        });
+        // eg 3
+        layer.tips('在上面', '#id', {
+            tips: 1,
+        });
+
+        // 当你想关闭当前页的某个层时
+        index = layer.open();
+        index = layer.alert();
+        index = layer.load();
+        index = layer.tips();
+        // 正如你看到的，每一种弹层调用方式，都会返回一个index
+        layer.close(index); // 此时你只需要把获得的index，轻轻地赋予layer.close即可
+
+        // 如果你想关闭最新弹出的层，直接获取layer.index即可
+        layer.close(layer.index); // 它获取的始终是最新弹出的某个层，值是由layer内部动态递增计算的
+
+        layer.ie;
+        layer.index;
+        layer.path;
+        layer.v;
+        layer.zIndex;
+
+        // 当你在iframe页面关闭自身时
+
+        window.layui;
+        window.lay;
+        window.layer;
+        if (parent) {
+            parent.layer;
+            parent.layer.close(index); // 再执行关闭
+        }
+
+        index = layui.layer.getFrameIndex(window.name); // 先得到当前iframe层的索引
+
+        // 关闭后的回调（layui 2.6.5、layer 3.4.0 新增）
+        layer.close(index, () => {
+            // do something
+        });
+        layer.open({
+            type: 2,
+            shade: false,
+            area: '500px',
+            maxmin: true,
+            content: 'http://www.layui.com',
+            zIndex: layer.zIndex, // 重点1
+            success: layero => {
+                layer.setTop(layero); // 重点2
+                layero.css('z-index', 0);
+            },
+        });
+
+        layer.closeAll(); // 疯狂模式，关闭所有层
+        layer.closeAll('dialog'); // 关闭信息框
+        layer.closeAll('page'); // 关闭所有页面层
+        layer.closeAll('iframe'); // 关闭所有的iframe层
+        layer.closeAll('loading'); // 关闭加载层
+        layer.closeAll('tips'); // 关闭所有的tips层
+
+        // 关闭后的回调（layui 2.6.5、layer 3.4.0 新增）
+        layer.closeAll('loading', () => {
+            // 关闭 loading 并执行回调
+            // do something
+        });
+        layer.closeAll(() => {
+            // 关闭所有层并执行回调
+            // do something
+        });
+
+        layer.style(index, {
+            width: '1000px',
+            top: '10px',
+        });
+
+        layer.title('标题变了', index);
+
+        layer.open({
+            type: 2,
+            content: 'test/iframe.html',
+            success: (layero, index) => {
+                const body = layer.getChildFrame('body', index);
+                // let iframeWin = window[layero.find('iframe')[0]['name']]; // 得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                console.log(body.html()); // 得到iframe页的body内容
+                body.find('input').val('Hi，我是从父页来的');
+            },
+        });
+        // 假设这是iframe页
+        if (parent) {
+            index = parent.layer.getFrameIndex(window.name); // 先得到当前iframe层的索引
+            parent.layer.close(index); // 再执行关闭
+        }
+
+        // 通过这种方式弹出的层，每当它被选择，就会置顶。
+        layer.open({
+            type: 2,
+            shade: false,
+            area: '500px',
+            maxmin: true,
+            content: 'http://www.layui.com',
+            zIndex: layer.zIndex, // 重点1
+            success: layero => {
+                layer.setTop(layero); // 重点2
+            },
+        });
+
+        layer.full(index); // 执行最大化
+        layer.min(index); // 执行最小化
+        layer.restore(index); // 执行还原
+
+        // 例子1
+        layer.prompt((value, index, elem) => {
+            alert(value); // 得到value
+            layer.close(index);
+        });
+
+        // 例子2
+        layui.layer.prompt(
+            {
+                formType: 2, // 输入框类型，支持0（文本）默认1（密码）2（多行文本）
+                value: '初始值', // 初始时的值，默认空字符
+                maxlength: 140, // 可输入文本的最大长度，默认500
+                title: '请输入值',
+                area: ['800px', '350px'], // 自定义文本域宽高
+            },
+            (value, index, elem) => {
+                layui.layer.alert(value); // 得到value
+                layui.layer.close(index);
+            },
+        );
+
+        layer.tab({
+            area: ['600px', '300px'],
+            tab: [
+                {
+                    title: 'TAB1',
+                    content: '内容1',
+                },
+                {
+                    title: 'TAB2',
+                    content: '内容2',
+                },
+                {
+                    title: 'TAB3',
+                    content: '内容3',
+                },
+            ],
+        });
+        $.getJSON('/jquery/layer/test/photos.json', json => {
+            layer.photos({
+                photos: json,
+                anim: 5, // 0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+            });
+        });
+        layer.photos({
+            photos: {
+                title: '', // 相册标题
+                id: 123, // 相册id
+                start: 0, // 初始显示的图片序号，默认0
+                data: [
+                    // 相册包含的图片，数组格式
+                    {
+                        alt: '图片名',
+                        pid: 666, // 图片id
+                        src: '', // 原图地址
+                        thumb: '', // 缩略图地址
+                    },
+                ],
+            },
+            tab: (pic, layero) => {
+                console.log(pic); // 当前图片的一些信息
+            },
+        });
+    });
+}
+
+function laytplTest() {
+    layui.use('laytpl', () => {
+        const laytpl = layui.laytpl;
+
+        // 直接解析字符
+        laytpl('{{ d.name }}是一位公猿').render(
+            {
+                name: '贤心',
+            },
+            string => {
+                console.log(string); // 贤心是一位公猿
+            },
+        );
+
+        // 你也可以采用下述同步写法，将 render 方法的回调函数剔除，可直接返回渲染好的字符
+        const string = laytpl('{{ d.name }}是一位公猿').render({
+            name: '贤心',
+        });
+        console.log(string); // 贤心是一位公猿
+
+        // 如果模板较大，你也可以采用数据的写法，这样会比较直观一些
+        laytpl(['{{ d.name }}是一位公猿', '其它字符 {{ d.content }}  其它字符'].join(''));
+
+        const data = {
+            // 数据
+            title: 'Layui常用模块',
+            list: [
+                { modname: '弹层', alias: 'layer', site: 'layer.layui.com' },
+                { modname: '表单', alias: 'form' },
+            ],
+        };
+        const getTpl = document.body.innerHTML;
+        const view = document.getElementById('view');
+        laytpl(getTpl).render(data, html => {
+            if (view) {
+                view['innerHTML'] = html;
+            }
+        });
+        laytpl('').parse('', {});
+        laytpl('').render({});
+
+        laytpl('').tpl;
+        laytpl.config({
+            open: '<%',
+            close: '%>',
+        });
+        laytpl.config({
+            // open: '<%',
+            close: '%>',
+        });
+        laytpl.config();
+        // 分割符将必须采用上述定义的
+        laytpl(
+            [
+                '<%# let type = "公"; %>', // JS 表达式
+                '<% d.name %>是一位<% type %>猿。',
+            ].join(''),
+        ).render(
+            {
+                name: '贤心',
+            },
+            string => {
+                console.log(string); // 贤心是一位公猿
+            },
+        );
+    });
+}
+
+function rateTest() {
+    layui.use('rate', () => {
+        const rate = layui.rate;
+        rate.set();
+        rate.config;
+        rate.on;
+        rate.index;
+
+        // 渲染
+        const ins1 = rate.render({
+            elem: '#test1', // 绑定元素
+        });
+        ins1;
+        rate.render({
+            elem: '#test1',
+            setText(value) {
+                /*                let arrs = {
+                    1: '极差',
+                    2: '差',
+                    3: '中等',
+                    4: '好',
+                };*/
+                // arrs[String(value)] || ( value + "星");
+            },
         });
     });
 }
@@ -873,6 +1319,7 @@ function tableTest() {
                 dataName: 'rows', // 规定数据列表的字段名称，默认：data
             },
         });
+        rendered.config.cols;
         layui.use(['table', 'laytpl', 'element'], () => {
             const table = layui.table;
 
@@ -1075,10 +1522,10 @@ function tableTest() {
         const layEvent = obj.event; // 获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         const tr = obj.tr; // 获得当前行 tr 的 DOM 对象（如果有的话）
         switch (layEvent) {
-            case "detail" : {
+            case 'detail': {
                 break;
             }
-            case "del" : {
+            case 'del': {
                 // 删除
                 layui.layer.confirm('真的删除行么', index => {
                     obj.del(); // 删除对应行（tr）的DOM结构，并更新缓存
@@ -1086,7 +1533,7 @@ function tableTest() {
                     // 向服务端发送删除指令
                 });
             }
-            case "edit" : {
+            case 'edit': {
                 // 编辑
                 // do something
 
@@ -1096,7 +1543,7 @@ function tableTest() {
                     title: 'xxx',
                 });
             }
-            case "LAYTABLE_TIPS" : {
+            case 'LAYTABLE_TIPS': {
                 layui.layer.alert('Hi，头部工具栏扩展的右侧图标。');
             }
         }
@@ -1471,7 +1918,6 @@ function utilTest() {
         );
         console.log(x.v);
 
-        //
         x = layui.use(['util', 'form', 'b'], (a: Layui.Util, b, c) => {}, exported);
         layui.use(aa => {
             aa.config;
