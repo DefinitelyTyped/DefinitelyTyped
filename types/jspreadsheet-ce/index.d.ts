@@ -1,6 +1,7 @@
 // Type definitions for jspreadsheet-ce 4.7
 // Project: https://github.com/jspreadsheet/ce
 // Definitions by: arx-8 <https://github.com/arx-8>
+//                  vishnutsivan <https://github.com/vishnutsivan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 2.9
 
@@ -410,9 +411,7 @@ declare namespace jspreadsheet {
               ) => CellValue | void)
             | undefined;
         /** Before a column is excluded. You can cancel the insert event by returning false. */
-        onbeforedeletecolumn?:
-            | ((instance: HTMLElement, startColumnIndex: number, count: number) => void)
-            | undefined;
+        onbeforedeletecolumn?: ((instance: HTMLElement, startColumnIndex: number, count: number) => void) | undefined;
         /** Before a row is deleted. You can cancel the delete event by returning false. */
         onbeforedeleterow?: ((instance: HTMLElement, startRowIndex: number, count: number) => void) | undefined;
         /** Before a new column is inserted. You can cancel the insert event by returning false. */
@@ -420,7 +419,9 @@ declare namespace jspreadsheet {
             | ((instance: HTMLElement, startColumnIndex: number, count: number, isBefore: boolean) => void)
             | undefined;
         /** Before a new row is inserted. You can cancel the insert event by returning false. */
-        onbeforeinsertrow?: ((instance: HTMLElement, startColumnIndex: number, count: number, isBefore: boolean) => void) | undefined;
+        onbeforeinsertrow?:
+            | ((instance: HTMLElement, startColumnIndex: number, count: number, isBefore: boolean) => void)
+            | undefined;
         /** Before the paste action is performed. Used to parse any input data, should return the data. */
         // tslint:disable-next-line ban-types
         onbeforepaste?: Function | undefined;
