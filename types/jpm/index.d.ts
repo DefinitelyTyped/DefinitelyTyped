@@ -94,9 +94,9 @@ declare module "sdk/context-menu" {
   export var PredicateContext: PredicateContext;
 
   interface PredicateContext extends Context {
-    (predicateFunction: (context: {documentType: string, documentURL: string, targetName: string, targetID?: string,
-                                   isEditable: boolean, selectionText?: string, srcURL?: string, linkURL?: string,
-                                   value?: string}) => boolean): Object;
+    (predicateFunction: (context: {documentType: string, documentURL: string, targetName: string, targetID?: string | undefined,
+                                   isEditable: boolean, selectionText?: string | undefined, srcURL?: string | undefined, linkURL?: string | undefined,
+                                   value?: string | undefined}) => boolean): Object;
   }
 
   interface ItemContext extends Array<Context> {
@@ -111,16 +111,16 @@ declare module "sdk/context-menu" {
     label: string;
     image: string | URL;
     data: any;
-    parentMenu?: Menu;
-    contentScript?: string | string[];
-    contentScriptFile?: string | string[];
+    parentMenu?: Menu | undefined;
+    contentScript?: string | string[] | undefined;
+    contentScriptFile?: string | string[] | undefined;
   }
   /**
    * A menu item
    * @constructor
    */
-  export function Item(options: {label: string, image?: string, accessKey?: string, context?: Context | Context[],
-    contentScript?: string, contentScriptFile?: string,  data?: any, onMessage?: (message?: any) => any}): Item;
+  export function Item(options: {label: string, image?: string | undefined, accessKey?: string | undefined, context?: Context | Context[] | undefined,
+    contentScript?: string | undefined, contentScriptFile?: string | undefined,  data?: any, onMessage?: ((message?: any) => any) | undefined}): Item;
   
   /**
    * @constructor
@@ -141,7 +141,7 @@ declare module "sdk/context-menu" {
     items: ItemMenuSeparator[];
     image: string | URL;
     context: ItemContext;
-    parentMenu?: Menu;
+    parentMenu?: Menu | undefined;
     contentScript: string | string[];
     contentScriptFile: string | string[];
   }
@@ -153,8 +153,8 @@ declare module "sdk/context-menu" {
    * @contructor
    * @param options
    */
-  export function Menu(options: {label: string, items: ItemMenuSeparator[], image?: string, context?: Context[],
-    contentScript?: string | string[], contentScriptFile?: string | string[], onMessage: (message?: any) => void}): Menu;
+  export function Menu(options: {label: string, items: ItemMenuSeparator[], image?: string | undefined, context?: Context[] | undefined,
+    contentScript?: string | string[] | undefined, contentScriptFile?: string | string[] | undefined, onMessage: (message?: any) => void}): Menu;
 
 }
 
@@ -212,8 +212,8 @@ declare module "sdk/notifications" {
    * @param options.onClick A function to be called when the user clicks the message. It will be passed the value of data
    * @param options.data A string that will be passed to onClick
    */
-  export function notify(options: {title?: string, text?: string, iconURL?: string, onClick?: (data: string) => any,
-                                   data?: string}): void;
+  export function notify(options: {title?: string | undefined, text?: string | undefined, iconURL?: string | undefined, onClick?: ((data: string) => any) | undefined,
+                                   data?: string | undefined}): void;
 }
 
 /**
@@ -236,10 +236,10 @@ declare module "sdk/page-mod" {
    *                         whose URL matches the page-mod's include pattern
    * @param options.onError This event is emitted when an uncaught runtime error occurs in one of the page-mod's content scripts
    */
-  export function PageMod(options: {include: string | string[] | RegExp | RegExp[], contentScript?: string | string[],
-    contentScriptFile?: string | string[], contentStyle?: string | string[], contentStyleFile?: string | string[],
-    contentScriptOptions?: any, attachTo?: attachmentMode | attachmentMode[], contentScriptWhen?: "start" | "ready" | "end",
-    exclude?: string | string[], onAttach?: (worker: FFAddonSDK.ContentWorker) => any, onError?: (error: Error) => any}): PageMod;
+  export function PageMod(options: {include: string | string[] | RegExp | RegExp[], contentScript?: string | string[] | undefined,
+    contentScriptFile?: string | string[] | undefined, contentStyle?: string | string[] | undefined, contentStyleFile?: string | string[] | undefined,
+    contentScriptOptions?: any, attachTo?: attachmentMode | attachmentMode[] | undefined, contentScriptWhen?: "start" | "ready" | "end" | undefined,
+    exclude?: string | string[] | undefined, onAttach?: ((worker: FFAddonSDK.ContentWorker) => any) | undefined, onError?: ((error: Error) => any) | undefined}): PageMod;
 
   type attachmentMode = "existing" | "top" | "frame"
 
@@ -275,22 +275,22 @@ declare module "sdk/page-worker" {
    *                                    page has been loaded, at the time the window.onload event fires
    * @param options.contentScriptOptions Read-only value exposed to content scripts under self.options property
    */
-  export function Page(options: {contentURL?: string, contentScript?: string | string[],
-                       contentScriptFile?: string | string[], contentScriptWhen?: "start" | "ready" | "end",
-                       onMessage?: (message: string) => any, allow?: {script: boolean}, contentScriptOptions?: any,
-                       include?: string | string[] | RegExp | RegExp[]}): PageWorker;
+  export function Page(options: {contentURL?: string | undefined, contentScript?: string | string[] | undefined,
+                       contentScriptFile?: string | string[] | undefined, contentScriptWhen?: "start" | "ready" | "end" | undefined,
+                       onMessage?: ((message: string) => any) | undefined, allow?: {script: boolean} | undefined, contentScriptOptions?: any,
+                       include?: string | string[] | RegExp | RegExp[] | undefined}): PageWorker;
 
   interface PageWorker {
     port: FFAddonSDK.Port;
-    contentURL?: string;
+    contentURL?: string | undefined;
     destroy: () => void;
     postMessage: (message: string) => void;
     on: (event: "message" | "error", handler: (arg?: "message" | Error) => any) => void;
     removeListener: (event: string, listener: Function) => void;
-    allow?: {script: boolean};
-    include?: string | string[] | RegExp | RegExp[];
-    contentScriptFile?: string | string[];
-    contentScript?: string | string[];
+    allow?: {script: boolean} | undefined;
+    include?: string | string[] | RegExp | RegExp[] | undefined;
+    contentScriptFile?: string | string[] | undefined;
+    contentScript?: string | string[] | undefined;
   }
 
 }
@@ -326,16 +326,16 @@ declare module "sdk/panel" {
    *                                    The context menu will be the same one that's displayed in web pages
    */
 
-  export function Panel(options: {contentURL?: string | URL, width?: number, height?: number, contentScript?: string | string[],
-                                  contentScriptFile?: string | string[], contentScriptWhen?: "start" | "ready" | "end",
-                                  contentScriptOptions?: any, contentStyle?: string | string[],
-                                  contentStyleFile?: string | string[], position?: PanelPosition,
-                                  allow?: {script?: boolean}, focus?: boolean, contextMenu?: boolean,
-                                  onMessage?: (message: string) => any, onShow?: () => any, onHide?: () => any,
-                                  onError?: (error: Error) => any}): Panel;
+  export function Panel(options: {contentURL?: string | URL | undefined, width?: number | undefined, height?: number | undefined, contentScript?: string | string[] | undefined,
+                                  contentScriptFile?: string | string[] | undefined, contentScriptWhen?: "start" | "ready" | "end" | undefined,
+                                  contentScriptOptions?: any, contentStyle?: string | string[] | undefined,
+                                  contentStyleFile?: string | string[] | undefined, position?: PanelPosition | undefined,
+                                  allow?: {script?: boolean | undefined} | undefined, focus?: boolean | undefined, contextMenu?: boolean | undefined,
+                                  onMessage?: ((message: string) => any) | undefined, onShow?: (() => any) | undefined, onHide?: (() => any) | undefined,
+                                  onError?: ((error: Error) => any) | undefined}): Panel;
 
   interface Panel {
-    show: (options?: {width?: number, height?: number, position?: PanelPosition, focus?: boolean}) => void;
+    show: (options?: {width?: number | undefined, height?: number | undefined, position?: PanelPosition | undefined, focus?: boolean | undefined}) => void;
     hide: () => void;
     resize: (width: number, height: number) => void;
     destroy: () => void;
@@ -347,14 +347,14 @@ declare module "sdk/panel" {
     height: number;
     width: number;
     focus: boolean;
-    contentURL?: string | URL;
-    allow?: {script: boolean};
-    contentScriptFile?: string | string[];
-    contentScript?: string | string[];
+    contentURL?: string | URL | undefined;
+    allow?: {script: boolean} | undefined;
+    contentScriptFile?: string | string[] | undefined;
+    contentScript?: string | string[] | undefined;
     contentScriptWhen: "start" | "ready" | "end";
     contentScriptOptions?: any;
   }
-  type PanelPosition = FFAddonSDK.ToggleButton | FFAddonSDK.Widget | {top?: number, right?: number, bottom?: number, left?: number};
+  type PanelPosition = FFAddonSDK.ToggleButton | FFAddonSDK.Widget | {top?: number | undefined, right?: number | undefined, bottom?: number | undefined, left?: number | undefined};
 }
 
 /**
@@ -365,9 +365,9 @@ declare module "sdk/passwords" {
    * This function is used to retrieve a credential, or a list of credentials, stored in the Password Manager
    * @param options.onComplete The callback function that is called once the function completes successfully
    */
-  export function search(options: {onComplete: (credentials: Credential[]) => any, username?: string, url?: string,
-                                   password?: string, formSubmitURL?: string, realm?: string, usernameField?: string,
-                                   passwordField?: string, onError?: (error: FFAddonSDK.NSIException) => any}): void;
+  export function search(options: {onComplete: (credentials: Credential[]) => any, username?: string | undefined, url?: string | undefined,
+                                   password?: string | undefined, formSubmitURL?: string | undefined, realm?: string | undefined, usernameField?: string | undefined,
+                                   passwordField?: string | undefined, onError?: ((error: FFAddonSDK.NSIException) => any) | undefined}): void;
 
   /**
    * This function is used to store a credential in the Password Manager.
@@ -375,21 +375,21 @@ declare module "sdk/passwords" {
    * As different sorts of credentials contain different properties, the appropriate options differ depending
    * on the sort of credential being stored
    */
-  export function store(options: Credential & {onComplete?: () => any, onError?: (error: FFAddonSDK.NSIException) => any}): void;
+  export function store(options: Credential & {onComplete?: (() => any) | undefined, onError?: ((error: FFAddonSDK.NSIException) => any) | undefined}): void;
 
   /**
    * Removes a stored credential
    */
-  export function remove(options: Credential & {onComplete?: () => any, onError?: (error: FFAddonSDK.NSIException) => any}): void;
+  export function remove(options: Credential & {onComplete?: (() => any) | undefined, onError?: ((error: FFAddonSDK.NSIException) => any) | undefined}): void;
 
   interface Credential {
     username: string;
     password: string;
-    url?: string;
-    formSubmitURL?: string;
-    realm?: string;
-    usernameField?: string;
-    passwordField?: string;
+    url?: string | undefined;
+    formSubmitURL?: string | undefined;
+    realm?: string | undefined;
+    usernameField?: string | undefined;
+    passwordField?: string | undefined;
   }
 }
 
@@ -454,13 +454,13 @@ declare module "sdk/request" {
    * @param [options.anonymous=false] If true, the request will be sent without cookies or authentication headers
    * @constructor
    */
-  export function Request(options: {url?: string | FFAddonSDK.SDKURL, onComplete?: (response: Response) => any,
-                          headers?: Object, content?: string | Object, contentType?: string, anonymous?: boolean,
-                          overrideMimeType?: string}): Request;
+  export function Request(options: {url?: string | FFAddonSDK.SDKURL | undefined, onComplete?: ((response: Response) => any) | undefined,
+                          headers?: Object | undefined, content?: string | Object | undefined, contentType?: string | undefined, anonymous?: boolean | undefined,
+                          overrideMimeType?: string | undefined}): Request;
   // a strongly-typed generic variant of the request
-  export function Request<ResponseType>(options: {url?: string | FFAddonSDK.SDKURL, onComplete?: (response: STResponse<ResponseType>) => any,
-                          headers?: Object, content?: string | Object, contentType?: string, anonymous?: boolean,
-                          overrideMimeType?: string}): STRequest<ResponseType>;
+  export function Request<ResponseType>(options: {url?: string | FFAddonSDK.SDKURL | undefined, onComplete?: ((response: STResponse<ResponseType>) => any) | undefined,
+                          headers?: Object | undefined, content?: string | Object | undefined, contentType?: string | undefined, anonymous?: boolean | undefined,
+                          overrideMimeType?: string | undefined}): STRequest<ResponseType>;
 
   interface BaseRequest {
     get: () => void;
@@ -719,10 +719,10 @@ declare module "sdk/tabs" {
    *                        if the tab's location changes or the content is reloaded.
    *                        After this event has been emitted, all properties relating to the tab's content can be used.
    */
-  export function open(options: string | {url: string, inNewWindow?: boolean, inBackground?: boolean, isPinned?: boolean,
-                       onOpen?: (tab: FFAddonSDK.Tab) => any, onClose?: (tab: FFAddonSDK.Tab) => any, onReady?: (tab: FFAddonSDK.Tab) => any,
-                       onLoad?: (tab: FFAddonSDK.Tab) => any, onPageShow?: (tab: FFAddonSDK.Tab) => any, onActivate?: (tab: FFAddonSDK.Tab) => any,
-                       onDeactivate?: (tab: FFAddonSDK.Tab) => any}): void;
+  export function open(options: string | {url: string, inNewWindow?: boolean | undefined, inBackground?: boolean | undefined, isPinned?: boolean | undefined,
+                       onOpen?: ((tab: FFAddonSDK.Tab) => any) | undefined, onClose?: ((tab: FFAddonSDK.Tab) => any) | undefined, onReady?: ((tab: FFAddonSDK.Tab) => any) | undefined,
+                       onLoad?: ((tab: FFAddonSDK.Tab) => any) | undefined, onPageShow?: ((tab: FFAddonSDK.Tab) => any) | undefined, onActivate?: ((tab: FFAddonSDK.Tab) => any) | undefined,
+                       onDeactivate?: ((tab: FFAddonSDK.Tab) => any) | undefined}): void;
 
   export function on(event: "open" | "close" | "ready" | "load" | "pageshow" | "activate" | "deactivate",
                      handler: (tab: FFAddonSDK.Tab) => any): void;
@@ -785,9 +785,9 @@ declare module "sdk/ui/button/action" {
    * @param options.icon One or more icons for the button
    */
   export function ActionButton(options: {id: string, label: string,
-                               icon: FFAddonSDK.Icon, onClick?: (state: FFAddonSDK.ActionButton) => any,
-                               onChange?: (state: FFAddonSDK.ActionButtonState) => any, disabled?: boolean,
-                               badge?: string | number, badgeColor?: string}): FFAddonSDK.ActionButton;
+                               icon: FFAddonSDK.Icon, onClick?: ((state: FFAddonSDK.ActionButton) => any) | undefined,
+                               onChange?: ((state: FFAddonSDK.ActionButtonState) => any) | undefined, disabled?: boolean | undefined,
+                               badge?: string | number | undefined, badgeColor?: string | undefined}): FFAddonSDK.ActionButton;
 }
 
 /**
@@ -806,9 +806,9 @@ declare module "sdk/ui/button/toggle" {
    * @param options.icon One or more icons for the button
    */
   export function ToggleButton(options: {id: string, label: string, icon: FFAddonSDK.Icon,
-                                         onChange?: (state: FFAddonSDK.ToggleButtonState) => any,
-                                         onClick?: (state: FFAddonSDK.ToggleButtonState) => any, badge?: string | number,
-                                         badgeColor?: string, disabled?: boolean, checked?: boolean}): FFAddonSDK.ToggleButton;
+                                         onChange?: ((state: FFAddonSDK.ToggleButtonState) => any) | undefined,
+                                         onClick?: ((state: FFAddonSDK.ToggleButtonState) => any) | undefined, badge?: string | number | undefined,
+                                         badgeColor?: string | undefined, disabled?: boolean | undefined, checked?: boolean | undefined}): FFAddonSDK.ToggleButton;
 
 }
 
@@ -840,9 +840,9 @@ declare module "sdk/ui/frame" {
    *        After receiving this message, you ahould not attempt to communicate with the frame scripts
    * @constructor
    */
-  export function Frame(options: {url: string, name?: string, onMessage?: (message: FFAddonSDK.FrameEvent) => any,
-                        onReady?: (event: FFAddonSDK.FrameEvent) => any, onLoad?: (event: FFAddonSDK.FrameEvent) => any,
-                        onAttach?: (event: FFAddonSDK.FrameEvent) => any, onDetach?: (event: FFAddonSDK.FrameEvent) => any}): FFAddonSDK.Frame;
+  export function Frame(options: {url: string, name?: string | undefined, onMessage?: ((message: FFAddonSDK.FrameEvent) => any) | undefined,
+                        onReady?: ((event: FFAddonSDK.FrameEvent) => any) | undefined, onLoad?: ((event: FFAddonSDK.FrameEvent) => any) | undefined,
+                        onAttach?: ((event: FFAddonSDK.FrameEvent) => any) | undefined, onDetach?: ((event: FFAddonSDK.FrameEvent) => any) | undefined}): FFAddonSDK.Frame;
 
 }
 
@@ -861,9 +861,9 @@ declare module "sdk/ui/toolbar" {
    *        Note that since there is only one toolbar for the whole browser, opening another browser window does not
    *        cause this event to be emitted again. After this event the toolbar's properties are available
    */
-  export function Toolbar(options: {title: string, items: ToolbarItem[], hidden?: boolean,
-                          onAttach?: (toolbar: Toolbar) => any, onDetach?: (toolbar: Toolbar) => any,
-                          onShow?: (toolbar: Toolbar) => any, onHide?: (toolbar: Toolbar) => any}): Toolbar;
+  export function Toolbar(options: {title: string, items: ToolbarItem[], hidden?: boolean | undefined,
+                          onAttach?: ((toolbar: Toolbar) => any) | undefined, onDetach?: ((toolbar: Toolbar) => any) | undefined,
+                          onShow?: ((toolbar: Toolbar) => any) | undefined, onHide?: ((toolbar: Toolbar) => any) | undefined}): Toolbar;
 
   interface Toolbar {
     title: string;
@@ -890,9 +890,9 @@ declare module "sdk/ui/sidebar" {
    * @constructor
    * @param options.id The id of the sidebar. This is used to identify this sidebar in its chrome window. It must be unique
    */
-  export function Sidebar(options: {id?: string, title: string, url: string, onShow?: () => any, onHide?: () => any,
-                          onAttach?: (worker: SidebarWorker) => any, onDetach?: () => any,
-                          onReady?: (worker: SidebarWorker) => any}): Sidebar;
+  export function Sidebar(options: {id?: string | undefined, title: string, url: string, onShow?: (() => any) | undefined, onHide?: (() => any) | undefined,
+                          onAttach?: ((worker: SidebarWorker) => any) | undefined, onDetach?: (() => any) | undefined,
+                          onReady?: ((worker: SidebarWorker) => any) | undefined}): Sidebar;
 
   interface Sidebar {
     id: string;
@@ -976,9 +976,9 @@ declare module "sdk/windows" {
      * Open a new window
      * @param options.isPrivate determines whether the new window should be private or not
      */
-    open: (options: string | {url: string, isPrivate?: boolean, onOpen?: (window: FFAddonSDK.BrowserWindow) => any,
-                            onClose?: (window: FFAddonSDK.BrowserWindow) => any, onActivate?: (window: FFAddonSDK.BrowserWindow) => any,
-                            onDeactivate?: (window: FFAddonSDK.BrowserWindow) => any}) => FFAddonSDK.BrowserWindow;
+    open: (options: string | {url: string, isPrivate?: boolean | undefined, onOpen?: ((window: FFAddonSDK.BrowserWindow) => any) | undefined,
+                            onClose?: ((window: FFAddonSDK.BrowserWindow) => any) | undefined, onActivate?: ((window: FFAddonSDK.BrowserWindow) => any) | undefined,
+                            onDeactivate?: ((window: FFAddonSDK.BrowserWindow) => any) | undefined}) => FFAddonSDK.BrowserWindow;
     on: (event: "open" | "close" | "activate" | "deactivate", handler: (window: FFAddonSDK.BrowserWindow) => any) => void;
     activeWindow: FFAddonSDK.BrowserWindow;
   }
@@ -1027,7 +1027,7 @@ declare namespace FFAddonSDK {
     destroy: () => void;
   }
 
-  type Icon = string | {"16"?: string, "32"?: string, "64"?: string};
+  type Icon = string | {"16"?: string | undefined, "32"?: string | undefined, "64"?: string | undefined};
 
   interface ToggleButtonState {
     id: string;
@@ -1042,8 +1042,8 @@ declare namespace FFAddonSDK {
     on: (event: "click" | "change", handler: (state: ToggleButtonState) => any) => void;
     once: (event: "click" | "change", handler: (state: ToggleButtonState) => any) => void;
     removeListener: (event: string, handler: Function) => void;
-    state: (target: "window" | "tab" | Tab | BrowserWindow | ToggleButton, state?: {disabled?: boolean, label?: string, icon?: Icon,
-      checked?: boolean, badge?: string | number, badgeColor?: string}) => ToggleButtonState;
+    state: (target: "window" | "tab" | Tab | BrowserWindow | ToggleButton, state?: {disabled?: boolean | undefined, label?: string | undefined, icon?: Icon | undefined,
+      checked?: boolean | undefined, badge?: string | number | undefined, badgeColor?: string | undefined}) => ToggleButtonState;
     destroy: () => void;
   }
 
@@ -1060,7 +1060,7 @@ declare namespace FFAddonSDK {
   interface ActionButton extends ActionButtonState {
     // there's a compromise here by always returning ActionButtonState. It will return undefined if no options are passed
     state: (target: BrowserWindow | Tab | ActionButton | "window" | "tab",
-            state?: {disabled?: boolean, label?: string, icon?: Icon}) => ActionButtonState;
+            state?: {disabled?: boolean | undefined, label?: string | undefined, icon?: Icon | undefined}) => ActionButtonState;
     click: () => void;
     destroy: () => void;
     on: (event: "click" | "click", handler: (state: ActionButtonState) => any) => void ;
@@ -1079,8 +1079,8 @@ declare namespace FFAddonSDK {
     window: BrowserWindow;
     readyState: "uninitialized" | "loading" | "interactive" | "complete";
     on: (event: "ready" | "load" | "pageshow" | "activate" | "deactivate" | "close", handler: (tab: Tab) => any)=> void;
-    attach: (options: {contentScript?: string | string[], contentScriptFile?: string | string[], contentScriptOptions?: Object,
-      onMessage?: (message: string) => any, onError?: (error: Error) => any}) => ContentWorker;
+    attach: (options: {contentScript?: string | string[] | undefined, contentScriptFile?: string | string[] | undefined, contentScriptOptions?: Object | undefined,
+      onMessage?: ((message: string) => any) | undefined, onError?: ((error: Error) => any) | undefined}) => ContentWorker;
     activate: () => void;
     pin: () => void;
     unpin: () => void;
@@ -1100,7 +1100,7 @@ declare namespace FFAddonSDK {
   }
 
   interface ContentWorker {
-    new(options: {window: Window, contentScript?: string | string[], contentScriptFile?: string | string[],
+    new(options: {window: Window, contentScript?: string | string[] | undefined, contentScriptFile?: string | string[] | undefined,
       onMessage: (data?: any) => any, onError: (data?: any) => any}): ContentWorker;
     url: URL;
     port: Port,
@@ -1122,7 +1122,7 @@ declare namespace FFAddonSDK {
     columnNumber: number;
     data: any;
     filename: string;
-    inner?: NSIException;
+    inner?: NSIException | undefined;
     location?: any;
     message: string;
     name: string;

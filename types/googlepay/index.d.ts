@@ -56,7 +56,7 @@ declare namespace google.payments.api {
          *
          * @default false
          */
-        emailRequired?: false | true;
+        emailRequired?: false | true | undefined;
 
         /**
          * Whether a shipping address is required from the buyer.
@@ -68,7 +68,7 @@ declare namespace google.payments.api {
          *
          * @default false
          */
-        shippingAddressRequired?: false | true;
+        shippingAddressRequired?: false | true | undefined;
 
         /**
          * Optional shipping address parameters.
@@ -77,7 +77,7 @@ declare namespace google.payments.api {
          * [[ShippingAddressParameters|`ShippingAddressParameters`]] will be
          * assumed.
          */
-        shippingAddressParameters?: ShippingAddressParameters;
+        shippingAddressParameters?: ShippingAddressParameters | undefined;
 
         /**
          * List of allowed payment methods.
@@ -98,7 +98,7 @@ declare namespace google.payments.api {
          * Offers available for redemption that can be used with the current
          * order.
          */
-        offerInfo?: OfferInfo;
+        offerInfo?: OfferInfo | undefined;
 
         /**
          * Whether a shipping option is required from the buyer.
@@ -108,7 +108,7 @@ declare namespace google.payments.api {
          *
          * @default false
          */
-        shippingOptionRequired?: false | true;
+        shippingOptionRequired?: false | true | undefined;
 
         /**
          * Parameters for shipping option that can be used in this request.
@@ -119,7 +119,7 @@ declare namespace google.payments.api {
          *
          * Note: This field is currently only for web only.
          */
-        shippingOptionParameters?: ShippingOptionParameters;
+        shippingOptionParameters?: ShippingOptionParameters | undefined;
 
         /**
          * List of callbacks that the developer intents to handle.
@@ -130,7 +130,7 @@ declare namespace google.payments.api {
          *
          * Note: This  functionality is only available for web.
          */
-        callbackIntents?: CallbackIntent[];
+        callbackIntents?: CallbackIntent[] | undefined;
     }
 
     /**
@@ -197,7 +197,7 @@ declare namespace google.payments.api {
          *
          * @default false
          */
-        existingPaymentMethodRequired?: false | true;
+        existingPaymentMethodRequired?: false | true | undefined;
     }
 
     /**
@@ -230,7 +230,7 @@ declare namespace google.payments.api {
          * [[PaymentDataRequest.emailRequired|`PaymentDataRequest.emailRequired`]]
          * was set to `true`.
          */
-        email?: string;
+        email?: string | undefined;
 
         /**
          * The shipping address.
@@ -239,7 +239,7 @@ declare namespace google.payments.api {
          * [[PaymentDataRequest.shippingAddressRequired|`PaymentDataRequest.shippingAddressRequired`]]
          * was set to `true`.
          */
-        shippingAddress?: Address;
+        shippingAddress?: Address | undefined;
 
         /**
          * Data about the selected payment method.
@@ -250,12 +250,12 @@ declare namespace google.payments.api {
          * Contains the data for the offer applied by the user. This will be
          * populated if an offer is applied to the transaction.
          */
-        offerData?: OfferData;
+        offerData?: OfferData | undefined;
 
         /**
          * Contains the data for shipping option selected by the user.
          */
-        shippingOptionData?: SelectionOptionData;
+        shippingOptionData?: SelectionOptionData | undefined;
     }
 
     /**
@@ -277,17 +277,17 @@ declare namespace google.payments.api {
         /**
          * Contains limited data for user selected shipping address information.
          */
-        shippingAddress?: IntermediateAddress;
+        shippingAddress?: IntermediateAddress | undefined;
 
         /**
          * Contains the data for shipping option selected by the user.
          */
-        shippingOptionData?: SelectionOptionData;
+        shippingOptionData?: SelectionOptionData | undefined;
 
         /**
          * Contains the data for offers applied by the user.
          */
-        offerData?: OfferData;
+        offerData?: OfferData | undefined;
     }
 
     /**
@@ -327,7 +327,7 @@ declare namespace google.payments.api {
          * [[PaymentsClient|`PaymentsClient`]] is configured for a test
          * environment.
          */
-        paymentMethodPresent?: false | true;
+        paymentMethodPresent?: false | true | undefined;
     }
 
     /**
@@ -346,7 +346,7 @@ declare namespace google.payments.api {
          *
          * Note: This field is currently only for web only.
          */
-        newTransactionInfo?: TransactionInfo;
+        newTransactionInfo?: TransactionInfo | undefined;
 
         /**
          * Contains updated shipping option parameters. All fields in
@@ -356,7 +356,7 @@ declare namespace google.payments.api {
          * options instead of a delta of any earlier version. Note: This field
          * is currently only for web only.
          */
-        newShippingOptionParameters?: ShippingOptionParameters;
+        newShippingOptionParameters?: ShippingOptionParameters | undefined;
 
         /**
          * Contains the updated offer information. All fields in OfferInfo are
@@ -366,14 +366,14 @@ declare namespace google.payments.api {
          * instead of a delta of any earlier version. Note: This field is
          * currently only for web only.
          */
-        newOfferInfo?: OfferInfo;
+        newOfferInfo?: OfferInfo | undefined;
 
         /**
          * Error for the last PaymentData, will be displayed to the user.
          *
          * Note: This field is currently only for web only.
          */
-        error?: PaymentDataError;
+        error?: PaymentDataError | undefined;
     }
 
     /**
@@ -383,7 +383,7 @@ declare namespace google.payments.api {
         /**
          * Error for the last PaymentData, will be displayed to the user.
          */
-        error?: PaymentDataError;
+        error?: PaymentDataError | undefined;
 
         /**
          * Represents the state of the transaction after callback is performed.
@@ -415,7 +415,7 @@ declare namespace google.payments.api {
          *
          * @default false
          */
-        phoneNumberRequired?: false | true;
+        phoneNumberRequired?: false | true | undefined;
     }
 
     /**
@@ -425,7 +425,7 @@ declare namespace google.payments.api {
         /**
          * Name of the recipient at this address.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * The first line of the address.
@@ -435,7 +435,7 @@ declare namespace google.payments.api {
          *
          * @default ""
          */
-        address1?: string;
+        address1?: string | undefined;
 
         /**
          * The second line of the address.
@@ -445,7 +445,7 @@ declare namespace google.payments.api {
          *
          * @default ""
          */
-        address2?: string;
+        address2?: string | undefined;
 
         /**
          * The third line of the address.
@@ -455,7 +455,7 @@ declare namespace google.payments.api {
          *
          * @default ""
          */
-        address3?: string;
+        address3?: string | undefined;
 
         /**
          * The locality (e.g. city or town).
@@ -486,7 +486,7 @@ declare namespace google.payments.api {
          * Note: some regions do not have sorting codes. In those cases
          * this field will be set to an empty string.
          */
-        sortingCode?: string;
+        sortingCode?: string | undefined;
 
         /**
          * The phone number.
@@ -494,7 +494,7 @@ declare namespace google.payments.api {
          * This field will only be present if the caller requested that a phone
          * number be returned.
          */
-        phoneNumber?: string;
+        phoneNumber?: string | undefined;
     }
 
     /**
@@ -556,7 +556,7 @@ declare namespace google.payments.api {
          * payment method returned to you in a format you can charge or
          * reference.
          */
-        tokenizationSpecification?: PaymentMethodTokenizationSpecification;
+        tokenizationSpecification?: PaymentMethodTokenizationSpecification | undefined;
     }
 
     /**
@@ -721,7 +721,7 @@ declare namespace google.payments.api {
          *
          * @default false
          */
-        phoneNumberRequired?: false | true;
+        phoneNumberRequired?: false | true | undefined;
     }
 
     /**
@@ -781,7 +781,7 @@ declare namespace google.payments.api {
          *
          * @default true
          */
-        allowPrepaidCards?: false | true;
+        allowPrepaidCards?: false | true | undefined;
 
         /**
          * Whether a credit card may be used for this transaction.
@@ -790,7 +790,7 @@ declare namespace google.payments.api {
          *
          * @default true
          */
-        allowCreditCards?: false | true;
+        allowCreditCards?: false | true | undefined;
 
         /**
          * Whether a billing address is required from the buyer.
@@ -804,7 +804,7 @@ declare namespace google.payments.api {
          *
          * @default false
          */
-        billingAddressRequired?: false | true;
+        billingAddressRequired?: false | true | undefined;
 
         /**
          * Optional billing address parameters.
@@ -813,7 +813,7 @@ declare namespace google.payments.api {
          * [[BillingAddressParameters|`BillingAddressParameters`]] will be
          * assumed.
          */
-        billingAddressParameters?: BillingAddressParameters;
+        billingAddressParameters?: BillingAddressParameters | undefined;
 
         /**
          * List of card network parameters.
@@ -821,7 +821,7 @@ declare namespace google.payments.api {
          * This field is optional. You may set it when network specific
          * parameters are needed to complete a transaction.
          */
-        cardNetworkParameters?: CardNetworkParameters[];
+        cardNetworkParameters?: CardNetworkParameters[] | undefined;
     }
 
     /**
@@ -846,7 +846,7 @@ declare namespace google.payments.api {
          * This is an optional field. We recommend setting this field to allow
          * SCA challenges to be done for the given card network.
          */
-        acquirerBin?: string;
+        acquirerBin?: string | undefined;
 
         /**
          * Acquirer-assigned Merchant identifier for VISA.
@@ -854,7 +854,7 @@ declare namespace google.payments.api {
          * This is an optional field. We recommend setting this field to allow
          * SCA challenges to be done for the given card network.
          */
-        acquirerMerchantId?: string;
+        acquirerMerchantId?: string | undefined;
     }
 
     /**
@@ -882,7 +882,7 @@ declare namespace google.payments.api {
          * This field is optional. If not set, the Business name in your Google
          * Pay Developer Profile will be used.
          */
-        merchantName?: string;
+        merchantName?: string | undefined;
 
         /**
          * The info of the software used by merchants to integrate with GPay.
@@ -890,7 +890,7 @@ declare namespace google.payments.api {
          * This field is optional and its values may be set by software
          * providers to identify the software the merchant is using.
          */
-        softwareInfo?: SoftwareInfo;
+        softwareInfo?: SoftwareInfo | undefined;
     }
 
     /**
@@ -905,7 +905,7 @@ declare namespace google.payments.api {
          *
          * This field is optional.
          */
-        id?: string;
+        id?: string | undefined;
 
         /**
          * The version of the software.
@@ -914,7 +914,7 @@ declare namespace google.payments.api {
          *
          * This field is optional.
          */
-        version?: string;
+        version?: string | undefined;
     }
 
     /**
@@ -928,7 +928,7 @@ declare namespace google.payments.api {
          * for referring to this transaction later on (e.g. for debugging issues
          * when communicating with Google).
          */
-        transactionId?: string;
+        transactionId?: string | undefined;
 
         /**
          * ISO 4217 alphabetic currency code of the transaction.
@@ -946,7 +946,7 @@ declare namespace google.payments.api {
          * may need to provide extra information to you or your processor in
          * order to complete a transaction).
          */
-        countryCode?: string;
+        countryCode?: string | undefined;
 
         /**
          * Total price of this transaction.
@@ -973,7 +973,7 @@ declare namespace google.payments.api {
          * information. Otherwise the cart modal dialog will not be rendered
          * even if transactionInfo.displayItems is set.
          */
-        totalPriceLabel?: string;
+        totalPriceLabel?: string | undefined;
 
         /**
          * Status of this transaction's total price.
@@ -999,7 +999,7 @@ declare namespace google.payments.api {
          *   reservation details. The maximum length allowed for this field
          *   is 80.
          */
-        transactionNote?: string;
+        transactionNote?: string | undefined;
 
         /**
          * Optional checkout option parameter. Whether to use the 'Continue' or
@@ -1010,13 +1010,13 @@ declare namespace google.payments.api {
          *
          * @default "DEFAULT"
          */
-        checkoutOption?: CheckoutOption;
+        checkoutOption?: CheckoutOption | undefined;
 
         /**
          * This can be used to display a high level breakdown of the total
          * price. e.g. 'subtotal', 'discount'.
          */
-        displayItems?: DisplayItem[];
+        displayItems?: DisplayItem[] | undefined;
     }
 
     /**
@@ -1038,7 +1038,7 @@ declare namespace google.payments.api {
          * - For [[PaymentMethodType|`CARD`]], this field
          *   will be an object conforming to [[CardInfo|`CardInfo`]].
          */
-        info?: CardInfo;
+        info?: CardInfo | undefined;
 
         /**
          * User-facing message to describe the payment method funding this
@@ -1054,7 +1054,7 @@ declare namespace google.payments.api {
          * additional details, see
          * [[PaymentMethodData.info|`PaymentMethodData.info`]].
          */
-        description?: string;
+        description?: string | undefined;
 
         /**
          * Tokenization data for the payment method.
@@ -1082,7 +1082,7 @@ declare namespace google.payments.api {
          *   will be an object conforming to
          *   [[IntermediateCardInfo|`IntermediateCardInfo`]].
          */
-        info?: IntermediateCardInfo;
+        info?: IntermediateCardInfo | undefined;
     }
 
     /**
@@ -1124,7 +1124,7 @@ declare namespace google.payments.api {
          * is set as required through
          * [[CardParameters.billingAddressRequired|`CardParameters.billingAddressRequired`]].
          */
-        billingAddress?: Address;
+        billingAddress?: Address | undefined;
     }
 
     /**
@@ -1234,7 +1234,7 @@ declare namespace google.payments.api {
          *
          * This field is optional.
          */
-        defaultSelectedOptionId?: string;
+        defaultSelectedOptionId?: string | undefined;
     }
 
     /**
@@ -1260,7 +1260,7 @@ declare namespace google.payments.api {
          *
          * This field is optional.
          */
-        description?: string;
+        description?: string | undefined;
     }
 
     /**
@@ -1309,7 +1309,7 @@ declare namespace google.payments.api {
          * This field is optional and default value is
          * [[DisplayItemStatus|`FINAL`]] if absent.
          */
-        status?: DisplayItemStatus;
+        status?: DisplayItemStatus | undefined;
     }
 
     /**
@@ -1743,14 +1743,14 @@ declare namespace google.payments.api {
          *
          * @default "default"
          */
-        buttonColor?: ButtonColor;
+        buttonColor?: ButtonColor | undefined;
 
         /**
          * Specifies the text to be displayed within the Google Pay button.
          *
          * @default "buy"
          */
-        buttonType?: ButtonType;
+        buttonType?: ButtonType | undefined;
 
         /**
          * Determines how the button's size should change relative to the
@@ -1758,7 +1758,7 @@ declare namespace google.payments.api {
          *
          * @default "static"
          */
-        buttonSizeMode?: ButtonSizeMode;
+        buttonSizeMode?: ButtonSizeMode | undefined;
 
         /**
          * Specifies how to append Google Pay resources, such as `<style>` tags,
@@ -1770,7 +1770,7 @@ declare namespace google.payments.api {
          *
          * @default document
          */
-        buttonRootNode?: HTMLDocument | ShadowRoot;
+        buttonRootNode?: HTMLDocument | ShadowRoot | undefined;
 
         /**
          * The [ISO
@@ -1784,7 +1784,7 @@ declare namespace google.payments.api {
          *
          * @default browser or operating system language
          */
-        buttonLocale?: string;
+        buttonLocale?: string | undefined;
     }
 
     /**
@@ -1939,13 +1939,13 @@ declare namespace google.payments.api {
          * This method handles payment data changes in the payment sheet such as
          * shipping address and shipping options.
          */
-        onPaymentDataChanged?: PaymentDataChangedHandler;
+        onPaymentDataChanged?: PaymentDataChangedHandler | undefined;
 
         /**
          * This method is called when a payment is authorized in the payment
          * sheet.
          */
-        onPaymentAuthorized?: PaymentAuthorizedHandler;
+        onPaymentAuthorized?: PaymentAuthorizedHandler | undefined;
     }
 
     /**
@@ -1978,18 +1978,18 @@ declare namespace google.payments.api {
          *
          * @default "TEST"
          */
-        environment?: Environment;
+        environment?: Environment | undefined;
 
         /**
          * This object provides information about the merchant that requests
          * payment data.
          */
-        merchantInfo?: MerchantInfo;
+        merchantInfo?: MerchantInfo | undefined;
 
         /**
          * This object declares the callbacks used for Dynamic Price Updates.
          */
-        paymentDataCallbacks?: PaymentDataCallbacks;
+        paymentDataCallbacks?: PaymentDataCallbacks | undefined;
     }
 
     /**

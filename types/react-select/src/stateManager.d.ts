@@ -16,13 +16,13 @@ export interface Props<
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > {
-    defaultInputValue?: string;
-    defaultMenuIsOpen?: boolean;
-    defaultValue?: readonly OptionType[] | OptionType | null;
-    inputValue?: string;
-    menuIsOpen?: boolean;
-    value?: readonly OptionType[] | OptionType | null;
-    onChange?: (value: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void;
+    defaultInputValue?: string | undefined;
+    defaultMenuIsOpen?: boolean | undefined;
+    defaultValue?: readonly OptionType[] | OptionType | null | undefined;
+    inputValue?: string | undefined;
+    menuIsOpen?: boolean | undefined;
+    value?: readonly OptionType[] | OptionType | null | undefined;
+    onChange?: ((value: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void) | undefined;
 }
 
 type StateProps<T extends SelectProps<any, boolean, any>> = Pick<

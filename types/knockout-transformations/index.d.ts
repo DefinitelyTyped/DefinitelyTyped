@@ -12,7 +12,7 @@ declare namespace KnockoutTransformations {
     }
     interface MappingOption<T, TResult> {
         mapping: Mapping<T, TResult>;
-        disposeItem?: (item: TResult) => void;
+        disposeItem?: ((item: TResult) => void) | undefined;
     }
     interface MappingWithDisposeCallbackOption<T, TResult> {
         mappingWithDisposeCallback: (value: T) => {

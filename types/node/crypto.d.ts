@@ -154,7 +154,7 @@ declare module 'crypto' {
          * For XOF hash functions such as `shake256`, the
          * outputLength option can be used to specify the desired output length in bytes.
          */
-        outputLength?: number;
+        outputLength?: number | undefined;
     }
 
     /** @deprecated since v10.0.0 */
@@ -193,26 +193,26 @@ declare module 'crypto' {
     interface KeyExportOptions<T extends KeyFormat> {
         type: 'pkcs1' | 'spki' | 'pkcs8' | 'sec1';
         format: T;
-        cipher?: string;
-        passphrase?: string | Buffer;
+        cipher?: string | undefined;
+        passphrase?: string | Buffer | undefined;
     }
     interface JwkKeyExportOptions {
         format: 'jwk';
     }
     interface JsonWebKey {
-        crv?: string;
-        d?: string;
-        dp?: string;
-        dq?: string;
-        e?: string;
-        k?: string;
-        kty?: string;
-        n?: string;
-        p?: string;
-        q?: string;
-        qi?: string;
-        x?: string;
-        y?: string;
+        crv?: string | undefined;
+        d?: string | undefined;
+        dp?: string | undefined;
+        dq?: string | undefined;
+        e?: string | undefined;
+        k?: string | undefined;
+        kty?: string | undefined;
+        n?: string | undefined;
+        p?: string | undefined;
+        q?: string | undefined;
+        qi?: string | undefined;
+        x?: string | undefined;
+        y?: string | undefined;
         [key: string]: unknown;
     }
 
@@ -220,19 +220,19 @@ declare module 'crypto' {
         /**
          * Key size in bits (RSA, DSA).
          */
-        modulusLength?: number;
+        modulusLength?: number | undefined;
         /**
          * Public exponent (RSA).
          */
-        publicExponent?: bigint;
+        publicExponent?: bigint | undefined;
         /**
          * Size of q in bits (DSA).
          */
-        divisorLength?: number;
+        divisorLength?: number | undefined;
         /**
          * Name of the curve (EC).
          */
-        namedCurve?: string;
+        namedCurve?: string | undefined;
     }
 
     interface JwkKeyExportOptions {
@@ -241,23 +241,23 @@ declare module 'crypto' {
 
     class KeyObject {
         private constructor();
-        asymmetricKeyType?: KeyType;
+        asymmetricKeyType?: KeyType | undefined;
         /**
          * For asymmetric keys, this property represents the size of the embedded key in
          * bytes. This property is `undefined` for symmetric keys.
          */
-        asymmetricKeySize?: number;
+        asymmetricKeySize?: number | undefined;
         /**
          * This property exists only on asymmetric keys. Depending on the type of the key,
          * this object contains information about the key. None of the information obtained
          * through this property can be used to uniquely identify a key or to compromise the
          * security of the key.
          */
-        asymmetricKeyDetails?: AsymmetricKeyDetails;
+        asymmetricKeyDetails?: AsymmetricKeyDetails | undefined;
         export(options: KeyExportOptions<'pem'>): string | Buffer;
         export(options?: KeyExportOptions<'der'>): Buffer;
         export(options?: JwkKeyExportOptions): JsonWebKey;
-        symmetricKeySize?: number;
+        symmetricKeySize?: number | undefined;
         type: KeyObjectType;
     }
 
@@ -272,7 +272,7 @@ declare module 'crypto' {
         authTagLength: number;
     }
     interface CipherGCMOptions extends stream.TransformOptions {
-        authTagLength?: number;
+        authTagLength?: number | undefined;
     }
     /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): CipherCCM;
@@ -369,15 +369,15 @@ declare module 'crypto' {
 
     interface PrivateKeyInput {
         key: string | Buffer;
-        format?: KeyFormat;
-        type?: 'pkcs1' | 'pkcs8' | 'sec1';
-        passphrase?: string | Buffer;
+        format?: KeyFormat | undefined;
+        type?: 'pkcs1' | 'pkcs8' | 'sec1' | undefined;
+        passphrase?: string | Buffer | undefined;
     }
 
     interface PublicKeyInput {
         key: string | Buffer;
-        format?: KeyFormat;
-        type?: 'pkcs1' | 'spki';
+        format?: KeyFormat | undefined;
+        type?: 'pkcs1' | 'spki' | undefined;
     }
 
     function generateKey(type: 'hmac' | 'aes', options: {length: number}, callback: (err: Error | null, key: KeyObject) => void): void;
@@ -391,7 +391,7 @@ declare module 'crypto' {
     function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject | JsonWebKeyInput): KeyObject;
     function createSecretKey(key: NodeJS.ArrayBufferView): KeyObject;
 
-    function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
+    function createSign(algorithm: string, options?: stream.WritableOptions): Sign;
 
     type DSAEncoding = 'der' | 'ieee-p1363';
 
@@ -399,9 +399,9 @@ declare module 'crypto' {
         /**
          * @See crypto.constants.RSA_PKCS1_PADDING
          */
-        padding?: number;
-        saltLength?: number;
-        dsaEncoding?: DSAEncoding;
+        padding?: number | undefined;
+        saltLength?: number | undefined;
+        dsaEncoding?: DSAEncoding | undefined;
     }
 
     interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions { }
@@ -415,11 +415,11 @@ declare module 'crypto' {
 
     type KeyLike = string | Buffer | KeyObject;
 
-    class Signer extends stream.Writable {
+    class Sign extends stream.Writable {
         private constructor();
 
-        update(data: BinaryLike): Signer;
-        update(data: string, input_encoding: Encoding): Signer;
+        update(data: BinaryLike): this;
+        update(data: string, input_encoding: Encoding): this;
         sign(private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput): Buffer;
         sign(
             private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
@@ -530,13 +530,13 @@ declare module 'crypto' {
     ): void;
 
     interface ScryptOptions {
-        cost?: number;
-        blockSize?: number;
-        parallelization?: number;
-        N?: number;
-        r?: number;
-        p?: number;
-        maxmem?: number;
+        cost?: number | undefined;
+        blockSize?: number | undefined;
+        parallelization?: number | undefined;
+        N?: number | undefined;
+        r?: number | undefined;
+        p?: number | undefined;
+        maxmem?: number | undefined;
     }
     function scrypt(
         password: BinaryLike,
@@ -555,17 +555,17 @@ declare module 'crypto' {
 
     interface RsaPublicKey {
         key: KeyLike;
-        padding?: number;
+        padding?: number | undefined;
     }
     interface RsaPrivateKey {
         key: KeyLike;
-        passphrase?: string;
+        passphrase?: string | undefined;
         /**
          * @default 'sha1'
          */
-        oaepHash?: string;
-        oaepLabel?: NodeJS.TypedArray;
-        padding?: number;
+        oaepHash?: string | undefined;
+        oaepLabel?: NodeJS.TypedArray | undefined;
+        padding?: number | undefined;
     }
     function publicEncrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
     function publicDecrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
@@ -611,8 +611,8 @@ declare module 'crypto' {
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
-        cipher?: string;
-        passphrase?: string;
+        cipher?: string | undefined;
+        passphrase?: string | undefined;
     }
 
     interface KeyPairKeyObjectResult {
@@ -660,7 +660,7 @@ declare module 'crypto' {
         /**
          * @default 0x10001
          */
-        publicExponent?: number;
+        publicExponent?: number | undefined;
     }
 
     interface DSAKeyPairKeyObjectOptions {
@@ -683,7 +683,7 @@ declare module 'crypto' {
         /**
          * @default 0x10001
          */
-        publicExponent?: number;
+        publicExponent?: number | undefined;
 
         publicKeyEncoding: {
             type: 'pkcs1' | 'spki';
@@ -1270,11 +1270,11 @@ declare module 'crypto' {
         /**
          * A test key length.
          */
-        keyLength?: number;
+        keyLength?: number | undefined;
         /**
          * A test IV length.
          */
-        ivLength?: number;
+        ivLength?: number | undefined;
     }
 
     interface CipherInfo {
@@ -1290,12 +1290,12 @@ declare module 'crypto' {
          * The block size of the cipher in bytes.
          * This property is omitted when mode is 'stream'.
          */
-        blockSize?: number;
+        blockSize?: number | undefined;
         /**
          * The expected or default initialization vector length in bytes.
          * This property is omitted if the cipher does not use an initialization vector.
          */
-        ivLength?: number;
+        ivLength?: number | undefined;
         /**
          * The expected or default key length in bytes.
          */
@@ -1363,8 +1363,6 @@ declare module 'crypto' {
 
     function secureHeapUsed(): SecureHeapUsage;
 
-    // TODO: X509Certificate
-
     interface RandomUUIDOptions {
         /**
          * By default, to improve performance,
@@ -1374,7 +1372,7 @@ declare module 'crypto' {
          *
          * @default `false`
          */
-        disableEntropyCache?: boolean;
+        disableEntropyCache?: boolean | undefined;
     }
 
     function randomUUID(options?: RandomUUIDOptions): string;
@@ -1450,7 +1448,7 @@ declare module 'crypto' {
         /**
          * The issuer certificate or `undefined` if the issuer certificate is not available.
          */
-        readonly issuerCertificate?: X509Certificate;
+        readonly issuerCertificate?: X509Certificate | undefined;
 
         /**
          * The public key for this certificate.
@@ -1537,13 +1535,13 @@ declare module 'crypto' {
     type LargeNumberLike = NodeJS.ArrayBufferView | SharedArrayBuffer | ArrayBuffer | bigint;
 
     interface GeneratePrimeOptions {
-        add?: LargeNumberLike;
-        rem?: LargeNumberLike;
+        add?: LargeNumberLike | undefined;
+        rem?: LargeNumberLike | undefined;
         /**
          * @default false
          */
-        safe?: boolean;
-        bigint?: boolean;
+        safe?: boolean | undefined;
+        bigint?: boolean | undefined;
     }
 
     interface GeneratePrimeOptionsBigInt extends GeneratePrimeOptions {
@@ -1551,7 +1549,7 @@ declare module 'crypto' {
     }
 
     interface GeneratePrimeOptionsArrayBuffer extends GeneratePrimeOptions {
-        bigint?: false;
+        bigint?: false | undefined;
     }
 
     function generatePrime(size: number, callback: (err: Error | null, prime: ArrayBuffer) => void): void;
@@ -1573,7 +1571,7 @@ declare module 'crypto' {
          *
          * @default 0
          */
-        checks?: number;
+        checks?: number | undefined;
     }
 
     /**
@@ -1586,6 +1584,10 @@ declare module 'crypto' {
      * Checks the primality of the candidate.
      */
     function checkPrimeSync(value: LargeNumberLike, options?: CheckPrimeOptions): boolean;
+
+    namespace webcrypto {
+        class CryptoKey {} // placeholder
+    }
 }
 
 declare module 'node:crypto' {

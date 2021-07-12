@@ -17,27 +17,27 @@ import { TileSourceEvent } from './Tile';
 import UrlTile from './UrlTile';
 
 export interface Options {
-    attributions?: AttributionLike;
-    attributionsCollapsible?: boolean;
-    cacheSize?: number;
-    extent?: Extent;
-    format?: FeatureFormat;
-    overlaps?: boolean;
-    projection?: ProjectionLike;
-    state?: State;
-    tileClass?: typeof VectorTile_1;
-    maxZoom?: number;
-    minZoom?: number;
-    tileSize?: number | Size;
-    maxResolution?: number;
-    tileGrid?: TileGrid;
-    tileLoadFunction?: LoadFunction;
-    tileUrlFunction?: UrlFunction;
-    url?: string;
-    transition?: number;
-    urls?: string[];
-    wrapX?: boolean;
-    zDirection?: number;
+    attributions?: AttributionLike | undefined;
+    attributionsCollapsible?: boolean | undefined;
+    cacheSize?: number | undefined;
+    extent?: Extent | undefined;
+    format?: FeatureFormat | undefined;
+    overlaps?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    state?: State | undefined;
+    tileClass?: typeof VectorTile_1 | undefined;
+    maxZoom?: number | undefined;
+    minZoom?: number | undefined;
+    tileSize?: number | Size | undefined;
+    maxResolution?: number | undefined;
+    tileGrid?: TileGrid | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    tileUrlFunction?: UrlFunction | undefined;
+    url?: string | undefined;
+    transition?: number | undefined;
+    urls?: string[] | undefined;
+    wrapX?: boolean | undefined;
+    zDirection?: number | undefined;
 }
 export default class VectorTile extends UrlTile {
     constructor(options: Options);

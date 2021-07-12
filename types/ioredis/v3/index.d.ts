@@ -40,8 +40,8 @@ declare class Commander {
     defineCommand(
         name: string,
         definition: {
-            numberOfKeys?: number;
-            lua?: string;
+            numberOfKeys?: number | undefined;
+            lua?: string | undefined;
         },
     ): any;
     sendCommand(): void;
@@ -962,8 +962,8 @@ declare namespace IORedis {
     }
 
     interface NodeConfiguration {
-        host?: string;
-        port?: number;
+        host?: string | undefined;
+        port?: number | undefined;
     }
 
     type ClusterNode = string | number | NodeConfiguration;
@@ -976,37 +976,37 @@ declare namespace IORedis {
     }
 
     interface RedisOptions {
-        port?: number;
-        host?: string;
+        port?: number | undefined;
+        host?: string | undefined;
         /**
          * 4 (IPv4) or 6 (IPv6), Defaults to 4.
          */
-        family?: number;
+        family?: number | undefined;
         /**
          * Local domain socket path. If set the port, host and family will be ignored.
          */
-        path?: string;
+        path?: string | undefined;
         /**
          * TCP KeepAlive on the socket with a X ms delay before start. Set to a non-number value to disable keepAlive.
          */
-        keepAlive?: number;
-        connectionName?: string;
+        keepAlive?: number | undefined;
+        connectionName?: string | undefined;
         /**
          * If set, client will send AUTH command with the value of this option when connected.
          */
-        password?: string;
+        password?: string | undefined;
         /**
          * Database index to use.
          */
-        db?: number;
+        db?: number | undefined;
         /**
          * When a connection is established to the Redis server, the server might still be loading
          * the database from disk. While loading, the server not respond to any commands.
          * To work around this, when this option is true, ioredis will check the status of the Redis server,
          * and when the Redis server is able to process commands, a ready event will be emitted.
          */
-        enableReadyCheck?: boolean;
-        keyPrefix?: string;
+        enableReadyCheck?: boolean | undefined;
+        keyPrefix?: string | undefined;
         /**
          * When the return value isn't a number, ioredis will stop trying to reconnect.
          * Fixed in: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/15858
@@ -1024,57 +1024,57 @@ declare namespace IORedis {
          * server has been established). If this option is false, when execute the command when the connection
          * isn't ready, an error will be returned.
          */
-        enableOfflineQueue?: boolean;
+        enableOfflineQueue?: boolean | undefined;
         /**
          * The milliseconds before a timeout occurs during the initial connection to the Redis server.
          * default: 10000.
          */
-        connectTimeout?: number;
+        connectTimeout?: number | undefined;
         /**
          * After reconnected, if the previous connection was in the subscriber mode, client will auto re-subscribe these channels.
          * default: true.
          */
-        autoResubscribe?: boolean;
+        autoResubscribe?: boolean | undefined;
         /**
          * If true, client will resend unfulfilled commands(e.g. block commands) in the previous connection when reconnected.
          * default: true.
          */
-        autoResendUnfulfilledCommands?: boolean;
-        lazyConnect?: boolean;
-        tls?: tls.ConnectionOptions;
-        sentinels?: Array<{ host: string; port: number }>;
-        name?: string;
+        autoResendUnfulfilledCommands?: boolean | undefined;
+        lazyConnect?: boolean | undefined;
+        tls?: tls.ConnectionOptions | undefined;
+        sentinels?: Array<{ host: string; port: number }> | undefined;
+        name?: string | undefined;
         /**
          * Enable READONLY mode for the connection. Only available for cluster mode.
          * default: false.
          */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
         /**
          * If you are using the hiredis parser, it's highly recommended to enable this option.
          * Create another instance with dropBufferSupport disabled for other commands that you want to return binary instead of string
          */
-        dropBufferSupport?: boolean;
+        dropBufferSupport?: boolean | undefined;
         /**
          * Whether to show a friendly error stack. Will decrease the performance significantly.
          */
-        showFriendlyErrorStack?: boolean;
+        showFriendlyErrorStack?: boolean | undefined;
     }
 
     interface ScanStreamOption {
-        match?: string;
-        count?: number;
+        match?: string | undefined;
+        count?: number | undefined;
     }
 
     interface ClusterOptions {
         clusterRetryStrategy?(times: number): number | null;
-        enableOfflineQueue?: boolean;
-        enableReadyCheck?: boolean;
-        scaleReads?: string;
-        maxRedirections?: number;
-        retryDelayOnFailover?: number;
-        retryDelayOnClusterDown?: number;
-        retryDelayOnTryAgain?: number;
-        redisOptions?: RedisOptions;
+        enableOfflineQueue?: boolean | undefined;
+        enableReadyCheck?: boolean | undefined;
+        scaleReads?: string | undefined;
+        maxRedirections?: number | undefined;
+        retryDelayOnFailover?: number | undefined;
+        retryDelayOnClusterDown?: number | undefined;
+        retryDelayOnTryAgain?: number | undefined;
+        redisOptions?: RedisOptions | undefined;
     }
 
     interface MultiOptions {

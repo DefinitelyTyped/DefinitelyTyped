@@ -20,7 +20,7 @@ declare namespace vision {
          */
         engines: {[fileExtension: string]: NpmModule} | ServerViewsEnginesOptions;
         /** defines the default filename extension to append to template names when multiple engines are configured and no explicit extension is provided for a given template. No default value. */
-        defaultExtension?: string;
+        defaultExtension?: string | undefined;
     }
 
     /**
@@ -39,7 +39,7 @@ declare namespace vision {
          * Partials are small segments of template code that can be nested and reused throughout other templates.
          * Defaults to no partials support (empty path).
          */
-        partialsPath?: string | string[];
+        partialsPath?: string | string[] | undefined;
         /**
          * The directory path, or array of directory paths, where helpers are located.
          * Helpers are functions used within templates to perform transformations and other data manipulations using the template context or other inputs.
@@ -48,9 +48,9 @@ declare namespace vision {
          * Sub-folders are not supported and are ignored. Defaults to no helpers support (empty path).
          * Note that jade does not support loading helpers this way.
          */
-        helpersPath?: string | string[];
+        helpersPath?: string | string[] | undefined;
         /** if set to false, templates will not be cached (thus will be read from file on every use). Defaults to true. */
-        isCached?: boolean;
+        isCached?: boolean | undefined;
     }
 
     /**
@@ -59,11 +59,11 @@ declare namespace vision {
      */
     interface ViewHandlerOrReplyOptions {
         /** the root file path, or array of file paths, used to resolve and load the templates identified when calling reply.view(). Defaults to current working directory. */
-        path?: string | string[];
+        path?: string | string[] | undefined;
         /**
          * a base path used as prefix for path and partialsPath. No default.
          */
-        relativeTo?: string;
+        relativeTo?: string | undefined;
         /**
          * If set to true or a layout filename, layout support is enabled.
          * A layout is a single template file used as the parent template for other view templates in the same engine.
@@ -72,25 +72,25 @@ declare namespace vision {
          * Disable layout when using Jade as it will handle including any layout files independently.
          * Defaults to false.
          */
-        layout?: boolean | string;
+        layout?: boolean | string | undefined;
         /** the root file path, or array of file paths, where layout templates are located (using the relativeTo prefix if present). Defaults to path. */
-        layoutPath?: string | string[];
+        layoutPath?: string | string[] | undefined;
         /** the key used by the template engine to denote where primary template content should go. Defaults to 'content'. */
-        layoutKeyword?: string;
+        layoutKeyword?: string | undefined;
         /** the text encoding used by the templates when reading the files and outputting the result. Defaults to 'utf8'. */
-        encoding?: string;
+        encoding?: string | undefined;
         /** if set to true, allows absolute template paths passed to reply.view(). Defaults to false. */
-        allowAbsolutePaths?: boolean;
+        allowAbsolutePaths?: boolean | undefined;
         /** if set to true, allows template paths passed to reply.view() to contain '../'. Defaults to false. */
-        allowInsecureAccess?: boolean;
+        allowInsecureAccess?: boolean | undefined;
         /** options object passed to the engine's compile function. Defaults to empty options {}. */
-        compileOptions?: CompileOptions;
+        compileOptions?: CompileOptions | undefined;
         /** options object passed to the returned function from the compile operation. Defaults to empty options {}. */
-        runtimeOptions?: RuntimeOptions;
+        runtimeOptions?: RuntimeOptions | undefined;
         /** the content type of the engine results. Defaults to 'text/html'. */
-        contentType?: string;
+        contentType?: string | undefined;
         /** specify whether the engine compile() method is 'sync' or 'async'. Defaults to 'sync'. */
-        compileMode?: 'sync' | 'async';
+        compileMode?: 'sync' | 'async' | undefined;
         /**
          * A global context used with all templates.
          * The global context option can be either an object or a function that takes the request as its only argument and returns a context object.
@@ -99,7 +99,7 @@ declare namespace vision {
          * When rendering views, the global context will be merged with any context object specified on the handler or using reply.view().
          * When multiple context objects are used, values from the global context always have lowest precedence.
          */
-        context?: object | ((request: Request) => object);
+        context?: object | ((request: Request) => object) | undefined;
     }
 
     /**
@@ -274,13 +274,13 @@ declare module '@hapi/hapi' {
             /** the template filename and path, relative to the templates path configured via the server views manager. */
             template: string;
             /** optional object used by the template to render context-specific result. Defaults to no context {}. */
-            context?: object;
+            context?: object | undefined;
             /**
              * optional object used to override the server's views manager configuration for this response.
              * Cannot override isCached, partialsPath, or helpersPath which are only loaded at initialization.
              * TODO check if it can have `defaultExtension`.
              */
-            options?: vision.ViewHandlerOrReplyOptions;
-        };
+            options?: vision.ViewHandlerOrReplyOptions | undefined;
+        } | undefined;
     }
 }

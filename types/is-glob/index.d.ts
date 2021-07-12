@@ -12,7 +12,7 @@ declare namespace isGlob {
          * that would return false may return true. This is done so that matching libraries like micromatch
          * have a chance at determining if the pattern is a glob or not.
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
     }
 }
 

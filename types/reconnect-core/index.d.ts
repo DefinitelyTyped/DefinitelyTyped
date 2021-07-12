@@ -16,10 +16,10 @@ declare namespace reconnect {
         (opts?: ModuleOptions<ConnectionType>, cb?: (con: ConnectionType) => void) => Instance<ArgType, ConnectionType>;
 
     interface ModuleOptions<ConnectionType> extends ExponentialOptions {
-        immediate?: boolean;
-        failAfter?: number;
-        onConnect?: (con: ConnectionType) => void;
-        strategy?: "fibonacci" | "exponential" | Backoff;
+        immediate?: boolean | undefined;
+        failAfter?: number | undefined;
+        onConnect?: ((con: ConnectionType) => void) | undefined;
+        strategy?: "fibonacci" | "exponential" | Backoff | undefined;
     }
 
     interface Instance<ArgType, ConnectionType> extends EventEmitter {

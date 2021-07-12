@@ -413,8 +413,8 @@ jest.fn().mockImplementation((test: number) => test);
 jest.fn().mockResolvedValue(1);
 
 interface SpyInterface {
-    prop?: number;
-    method?: (arg1: boolean) => void;
+    prop?: number | undefined;
+    method?: ((arg1: boolean) => void) | undefined;
 }
 const spiedTarget = {
     returnsVoid(): void {},

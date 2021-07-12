@@ -11,24 +11,24 @@ declare namespace __ReactFlexr {
         /**
          * Vertical Align Sub Cells: top, center, bottom
          */
-        align?: "top" | "center" | "bottom";
+        align?: "top" | "center" | "bottom" | undefined;
 
         /**
          * Horizontal Align Sub Cells: left, center, right
          */
-        hAlign?: "left" | "center" | "right";
+        hAlign?: "left" | "center" | "right" | undefined;
 
         /**
          * Override default gutter: '1em', '5%', '10px', etc.
          * Propagates downwards. Cells inside this Grid component
          * will use the same gutter.
          */
-        gutter?: string;
+        gutter?: string | undefined;
 
         /**
          * All sub cells will be full height.
          */
-        flexCells?: boolean;
+        flexCells?: boolean | undefined;
     }
 
     export class Grid extends React.Component<GridProps> {
@@ -38,46 +38,46 @@ declare namespace __ReactFlexr {
         /**
          * Vertical Align This Cell: top, center, bottom
          */
-        align?: "top" | "center" | "bottom";
+        align?: "top" | "center" | "bottom" | undefined;
 
         /**
          * Override default gutter: '1em', '5%', '10px', etc.
          */
-        gutter?: string;
+        gutter?: string | undefined;
 
         /**
          * Cell will be full height.
          */
-        flex?: boolean;
+        flex?: boolean | undefined;
 
         /**
          * Takes a fraction. e.g. 1/6
          */
-        size?: string | number;
+        size?: string | number | undefined;
 
         /**
          * Like size, but only for palm devices.
          * Accepts 'hidden' as well.
          */
-        palm?: string | number;
+        palm?: string | number | undefined;
 
         /**
          * Like size, but only for lap devices.
          * Accepts 'hidden' as well.
          */
-        lap?: string | number;
+        lap?: string | number | undefined;
 
         /**
          * Like size, but only for ( palm + lap ) devices.
          * Accepts 'hidden' as well.
          */
-        portable?: string | number;
+        portable?: string | number | undefined;
 
         /**
          * Like size, but only for desk devices.
          * Accepts 'hidden' as well.
          */
-        desk?: string | number;
+        desk?: string | number | undefined;
     }
 
     export class Cell extends React.Component<CellProps> {

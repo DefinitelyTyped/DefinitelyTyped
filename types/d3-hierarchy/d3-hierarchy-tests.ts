@@ -26,7 +26,7 @@ let idString: string | undefined;
 interface HierarchyDatum {
     name: string;
     val: number;
-    children?: Iterable<HierarchyDatum>;
+    children?: Iterable<HierarchyDatum> | undefined;
 }
 
 let hierarchyRootDatum: HierarchyDatum = {

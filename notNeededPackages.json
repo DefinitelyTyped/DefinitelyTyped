@@ -1745,6 +1745,10 @@
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
         },
+        "html2canvas": {
+            "libraryName": "html2canvas",
+            "asOfVersion": "1.0.0"
+        },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
             "asOfVersion": "2.3.0"
@@ -2556,6 +2560,10 @@
         "map-obj": {
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
+        },
+        "maplibre-gl": {
+            "libraryName": "maplibre-gl",
+            "asOfVersion": "1.14.0"
         },
         "maquette": {
             "libraryName": "maquette",

@@ -12,19 +12,19 @@ interface JQueryFileInputOptions {
     /**
      * The type of data that is expected back from the server.
      */
-    dataType?: string;
+    dataType?: string | undefined;
 
     /**
      * The drop target element(s), by the default the complete document.
      * Set to null to disable drag & drop support:
      */
-    dropZone?: Element | Element[] | JQuery | string;
+    dropZone?: Element | Element[] | JQuery | string | undefined;
 
     /**
      * The paste target element(s), by the default the complete document.
      * Set to null to disable paste support:
      */
-    pasteZone?: Element | Element[] | JQuery | string;
+    pasteZone?: Element | Element[] | JQuery | string | undefined;
 
     /**
      * The file input field(s), that are listened to for change events.
@@ -32,7 +32,7 @@ interface JQueryFileInputOptions {
      * of the widget element on plugin initialization.
      * Set to null to disable the change listener.
      */
-    fileInput?: Element | Element[] | JQuery | string;
+    fileInput?: Element | Element[] | JQuery | string | undefined;
 
     /**
      * By default, the file input field is replaced with a clone after
@@ -40,7 +40,7 @@ interface JQueryFileInputOptions {
      * queues and allows change events to be fired for the same file
      * selection, but can be disabled by setting the following option to false:
      */
-    replaceFileInput?: boolean;
+    replaceFileInput?: boolean | undefined;
 
     /**
      * The parameter name for the file form data (the request argument name).
@@ -55,72 +55,72 @@ interface JQueryFileInputOptions {
      * request for XHR type uploads. Set to false to upload file
      * selections in one request each:
      */
-    singleFileUploads?: boolean;
+    singleFileUploads?: boolean | undefined;
 
     /**
      * To limit the number of files uploaded with one XHR request,
      * set the following option to an integer greater than 0:
      */
-    limitMultiFileUploads?: number;
+    limitMultiFileUploads?: number | undefined;
 
     /**
      * The following option limits the number of files uploaded with one
      * XHR request to keep the request size under or equal to the defined
      * limit in bytes
      */
-    limitMultiFileUploadSize?: number;
+    limitMultiFileUploadSize?: number | undefined;
 
     /**
      * Multipart file uploads add a number of bytes to each uploaded file,
      * therefore the following option adds an overhead for each file used
      * in the limitMultiFileUploadSize configuration:
      */
-    limitMultiFileUploadSizeOverhead?: number;
+    limitMultiFileUploadSizeOverhead?: number | undefined;
 
     /**
      * Set the following option to true to issue all file upload requests
      * in a sequential order:
      */
-    sequentialUploads?: boolean;
+    sequentialUploads?: boolean | undefined;
 
     /**
      * To limit the number of concurrent uploads,
      * set the following option to an integer greater than 0:
      */
-    limitConcurrentUploads?: number;
+    limitConcurrentUploads?: number | undefined;
 
     /**
      * Set the following option to true to force iframe transport uploads:
      */
-    forceIframeTransport?: boolean;
+    forceIframeTransport?: boolean | undefined;
 
     /**
      * Set the following option to the location of a redirect url on the
      * origin server, for cross-domain iframe transport uploads:
      */
-    redirect?: string;
+    redirect?: string | undefined;
 
     /**
      * The parameter name for the redirect url, sent as part of the form
      * data and set to 'redirect' if this option is empty:
      */
-    redirectParamName?: string;
+    redirectParamName?: string | undefined;
 
     // The HTTP request method must be "POST" or "PUT"
-    type?: string,
+    type?: string | undefined,
 
     /**
      * Set the following option to the location of a postMessage window,
      * to enable postMessage transport uploads:
      */
-    postMessage?: string;
+    postMessage?: string | undefined;
 
     /**
      * By default, XHR file uploads are sent as multipart/form-data.
      * The iframe transport is always using multipart/form-data.
      * Set to false to enable non-multipart XHR uploads:
      */
-    multipart?: boolean;
+    multipart?: boolean | undefined;
 
     /**
      * To upload large files in smaller chunks, set the following option
@@ -128,7 +128,7 @@ interface JQueryFileInputOptions {
      * or the browser does not support the required Blob API, files will
      * be uploaded as a whole.
      */
-    maxChunkSize?: number;
+    maxChunkSize?: number | undefined;
 
     /**
      * When a non-multipart upload or a chunked multipart upload has been
@@ -137,29 +137,29 @@ interface JQueryFileInputOptions {
      * useful when modifying the options object inside of the "add" or
      * "send" callbacks, as the options are cloned for each file upload.
      */
-    uploadedBytes?: number;
+    uploadedBytes?: number | undefined;
 
     /**
      * By default, failed (abort or error) file uploads are removed from the
      * global progress calculation. Set the following option to false to
      * prevent recalculating the global progress data:
      */
-    recalculateProgress?: boolean;
+    recalculateProgress?: boolean | undefined;
 
     /**
      * Interval in milliseconds to calculate and trigger progress events:
      */
-    progressInterval?: number;
+    progressInterval?: number | undefined;
 
     /**
      * Interval in milliseconds to calculate progress bitrate:
      */
-    bitrateInterval?: number;
+    bitrateInterval?: number | undefined;
 
     /**
      * By default, uploads are started automatically when adding files:
      */
-    autoUpload?: boolean;
+    autoUpload?: boolean | undefined;
 
     /**
      * Error and info messages:
@@ -199,20 +199,20 @@ interface JQueryFileInputOptions {
      * handlers using jQuery's Deferred callbacks:
      * data.submit().done(func).fail(func).always(func);
      */
-    add?:  (e: JQueryEventObject, data: JqueryFileUploadAddObject) => void;
+    add?:  ((e: JQueryEventObject, data: JqueryFileUploadAddObject) => void) | undefined;
 
     // The plugin options are used as settings object for the ajax calls.
     // The following are jQuery ajax settings required for the file uploads:
-    processData?: boolean;
+    processData?: boolean | undefined;
 
-    contentType?: string;
+    contentType?: string | undefined;
 
-    cache?: boolean;
-    timeout?: number;
+    cache?: boolean | undefined;
+    timeout?: number | undefined;
 
-    active?: Function;
-    progress?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
-    send?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
+    active?: Function | undefined;
+    progress?: ((e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void) | undefined;
+    send?: ((e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void) | undefined;
 
     // Validation
 
@@ -224,27 +224,27 @@ interface JQueryFileInputOptions {
      * Note: This option has only an effect for browsers supporting the File API.
      * @see https://github.com/blueimp/jQuery-File-Upload/wiki/Options#maxfilesize
      */
-    maxFileSize?: number;
+    maxFileSize?: number | undefined;
 
     // Other callbacks:
-    submit?: Function;
-    done?: (e: JQueryEventObject, data: JQueryFileUploadDone) => void;
-    fail?: (e: JQueryEventObject, data: JQueryFileUploadDone) => void;
-    always?: (e: JQueryEventObject, data: JQueryFileInputOptions) => void;
-    progressall?: (e: JQueryEventObject, data: JQueryFileUploadProgressAllObject) => void;
-    start?: (e: JQueryEventObject) => void;
-    stop?: (e: JQueryEventObject) => void;
-    change?: (e: JQueryEventObject, data: JQueryFileUploadChangeObject) => void;
-    paste?: (e: JQueryEventObject, data: JQueryFileUploadFilesObject) => void;
-    drop?: (e: JQueryEventObject, data: JQueryFileUploadFilesObject) => void;
-    dragover?: (e: JQueryEventObject) => void;
-    chunksend?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
-    chunkdone?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
-    chunkfail?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
-    chunkalways?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
+    submit?: Function | undefined;
+    done?: ((e: JQueryEventObject, data: JQueryFileUploadDone) => void) | undefined;
+    fail?: ((e: JQueryEventObject, data: JQueryFileUploadDone) => void) | undefined;
+    always?: ((e: JQueryEventObject, data: JQueryFileInputOptions) => void) | undefined;
+    progressall?: ((e: JQueryEventObject, data: JQueryFileUploadProgressAllObject) => void) | undefined;
+    start?: ((e: JQueryEventObject) => void) | undefined;
+    stop?: ((e: JQueryEventObject) => void) | undefined;
+    change?: ((e: JQueryEventObject, data: JQueryFileUploadChangeObject) => void) | undefined;
+    paste?: ((e: JQueryEventObject, data: JQueryFileUploadFilesObject) => void) | undefined;
+    drop?: ((e: JQueryEventObject, data: JQueryFileUploadFilesObject) => void) | undefined;
+    dragover?: ((e: JQueryEventObject) => void) | undefined;
+    chunksend?: ((e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void) | undefined;
+    chunkdone?: ((e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void) | undefined;
+    chunkfail?: ((e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void) | undefined;
+    chunkalways?: ((e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void) | undefined;
 
     // Others
-    url?: string;
+    url?: string | undefined;
     files?: any;
 
     // Cross-site XMLHttpRequest file uploads
@@ -270,14 +270,14 @@ interface JqueryFileUploadEnhancedPromise<T> extends JQueryPromise<T>{
 }
 
 interface JQuerySupport {
-    fileInput?: boolean;
+    fileInput?: boolean | undefined;
 }
 
 interface JQueryFileUploadChangeObject {
-    fileInput?: JQuery;
-    fileInputClone?: JQuery;
+    fileInput?: JQuery | undefined;
+    fileInputClone?: JQuery | undefined;
     files: File[];
-    form?: JQuery;
+    form?: JQuery | undefined;
     originalFiles: File[];
 }
 
@@ -292,13 +292,13 @@ interface JqueryFileUploadConvenienceObject {
 }
 
 interface JqueryFileUploadAddObject extends JQueryFileUploadChangeObject, JqueryFileUploadConvenienceObject {
-    paramName?: string | string[];
+    paramName?: string | string[] | undefined;
 }
 
 interface JQueryFileUploadProgressAllObject {
-    loaded?: number;
-    total?: number;
-    bitrate?: number;
+    loaded?: number | undefined;
+    total?: number | undefined;
+    bitrate?: number | undefined;
 }
 
 interface JQueryFileUploadXhr {

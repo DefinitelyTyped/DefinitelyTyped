@@ -20,7 +20,7 @@ export interface CreditCardInfo {
     cvv: string;
     expirationDate: string;
     billingAddress: {
-        postalCode?: string;
+        postalCode?: string | undefined;
     };
 }
 
@@ -95,7 +95,7 @@ export interface Client {
      *   });
      * });
      */
-    request(options: { method: string; endpoint: string; data: any; timeout?: number }, callback: callback): void;
+    request(options: { method: string; endpoint: string; data: any; timeout?: number | undefined }, callback: callback): void;
 
     /**
      * Cleanly tear down anything set up by {@link Client#getConfiguration|create}.

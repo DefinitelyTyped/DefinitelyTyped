@@ -18,31 +18,31 @@ interface FancyBoxPlainObject {
 }
 
 interface FancyBoxGroupItemWithFilledProps extends FancyBoxGroupItem {
-    $thumb?: JQuery;
+    $thumb?: JQuery | undefined;
     thumb?: any;
-    contentType?: string;
-    index?: number;
+    contentType?: string | undefined;
+    index?: number | undefined;
 }
 
 interface FancyBoxGroupItem {
     src: string;
-    type?: "image" | "inline" | "ajax" | "iframe" | "html";
-    opts?: FancyBoxOptions;
+    type?: "image" | "inline" | "ajax" | "iframe" | "html" | undefined;
+    opts?: FancyBoxOptions | undefined;
 }
 
 interface FancyBoxSlide extends FancyBoxGroupItemWithFilledProps {
-    $content?: JQuery;
-    $image?: JQuery;
-    $slide?: JQuery;
-    $spinner?: JQuery;
-    $iframe?: JQuery<HTMLIFrameElement>;
-    forcedDuration?: number;
+    $content?: JQuery | undefined;
+    $image?: JQuery | undefined;
+    $slide?: JQuery | undefined;
+    $spinner?: JQuery | undefined;
+    $iframe?: JQuery<HTMLIFrameElement> | undefined;
+    forcedDuration?: number | undefined;
     height: number;
     isComplete: boolean;
     isLoaded: boolean;
     isLoading: boolean;
     isRevealed: boolean;
-    contentSource?: string;
+    contentSource?: string | undefined;
     pos: number;
     width: number;
 }
@@ -68,85 +68,85 @@ interface FancyBoxIframeSettings {
     /**
      * Iframe template
      */
-    tpl?: string;
+    tpl?: string | undefined;
     /**
      * Preload iframe before displaying it
      * This allows to calculate iframe content width and height
      * (note: Due to "Same Origin Policy", you can't get cross domain data).
      */
-    preload?: boolean;
+    preload?: boolean | undefined;
     /**
      * Custom CSS styling for iframe wrapping element
      * You can use this to set custom iframe dimensions
      */
-    css?: FancyBoxPlainObject;
+    css?: FancyBoxPlainObject | undefined;
     /**
      * Iframe tag attributes
      */
-    attr?: FancyBoxPlainObject;
+    attr?: FancyBoxPlainObject | undefined;
 }
 
 interface FancyBoxVideoOptions {
-    tpl?: string;
-    format?: string;
-    autoStart?: boolean;
+    tpl?: string | undefined;
+    format?: string | undefined;
+    autoStart?: boolean | undefined;
 }
 
 interface FancyBoxButtonTemplateOptions {
-    download?: string;
-    zoom?: string;
-    close?: string;
-    arrowLeft?: string;
-    arrowRight?: string;
+    download?: string | undefined;
+    zoom?: string | undefined;
+    close?: string | undefined;
+    arrowLeft?: string | undefined;
+    arrowRight?: string | undefined;
     /**
      * This small close button will be appended to your html/inline/ajax content by default,
      * if "smallBtn" option is not set to false
      */
-    smallBtn?: string;
+    smallBtn?: string | undefined;
 }
 
 interface FancyBoxTouchOptions {
     /**
      *  Allow to drag content vertically
      */
-    vertical?: boolean;
+    vertical?: boolean | undefined;
     /**
      * Continue movement after releasing mouse/touch when panning
      */
-    momentum?: boolean;
+    momentum?: boolean | undefined;
 }
 
 interface FancyThumbsOptions {
     /**
      * Display thumbnails on opening
      */
-    autoStart?: boolean;
+    autoStart?: boolean | undefined;
     /**
      * Hide thumbnail grid when closing animation starts
      */
-    hideOnClose?: boolean;
+    hideOnClose?: boolean | undefined;
     /**
      * Container is injected into this element
      */
-    parentEl?: string;
+    parentEl?: string | undefined;
     /**
      * Vertical (y) or horizontal (x) scrolling
      */
-    axis?: "x" | "y";
+    axis?: "x" | "y" | undefined;
 }
 
 interface FancyBoxInternationalizatioObject {
-    CLOSE?: string;
-    NEXT?: string;
-    PREV?: string;
-    ERROR?: string;
-    PLAY_START?: string;
-    PLAY_STOP?: string;
-    FULL_SCREEN?: string;
-    THUMBS?: string;
-    DOWNLOAD?: string;
-    SHARE?: string;
-    ZOOM?: string;
+    CLOSE?: string | undefined;
+    NEXT?: string | undefined;
+    PREV?: string | undefined;
+    ERROR?: string | undefined;
+    PLAY_START?: string | undefined;
+    PLAY_STOP?: string | undefined;
+    FULL_SCREEN?: string | undefined;
+    THUMBS?: string | undefined;
+    DOWNLOAD?: string | undefined;
+    SHARE?: string | undefined;
+    ZOOM?: string | undefined;
 }
 
 interface FancyBoxInternationalizationOptions {
@@ -168,72 +168,72 @@ interface FancyBoxOptions {
      * Close existing modals
      * Set this to false if you do not need to stack multiple instances
      */
-    closeExisting?: boolean;
+    closeExisting?: boolean | undefined;
     /**
      * Enable infinite gallery navigation
      */
-    loop?: boolean;
+    loop?: boolean | undefined;
     /**
      * Horizontal space between slides
      */
-    gutter?: number;
+    gutter?: number | undefined;
     /**
      * Enable keyboard navigation
      */
-    keyboard?: boolean;
+    keyboard?: boolean | undefined;
     /**
      * Should allow caption to overlap the content
      */
-    preventCaptionOverlap?: boolean;
+    preventCaptionOverlap?: boolean | undefined;
     /**
      * Should display navigation arrows at the screen edges
      */
-    arrows?: boolean;
+    arrows?: boolean | undefined;
     /**
      * Should display counter at the top left corner
      */
-    infobar?: boolean;
+    infobar?: boolean | undefined;
     /**
      * Should display close button (using `btnTpl.smallBtn` template) over the content
      * Can be true, false, "auto"
      * If "auto" - will be automatically enabled for "html", "inline" or "ajax" items
      */
-    smallBtn?: boolean | "auto";
+    smallBtn?: boolean | "auto" | undefined;
     /**
      * Should display toolbar (buttons at the top)
      * Can be true, false, "auto"
      * If "auto" - will be automatically hidden if "smallBtn" is enabled
      */
-    toolbar?: boolean | "auto";
+    toolbar?: boolean | "auto" | undefined;
     /**
      * What buttons should appear in the top right corner.
      * Buttons will be created using templates from `btnTpl` option
      * and they will be placed into toolbar (class="fancybox-toolbar"` element)
      */
-    buttons?: Array<keyof FancyBoxButtonTypes>;
+    buttons?: Array<keyof FancyBoxButtonTypes> | undefined;
     /**
      * Detect "idle" time in seconds
      */
-    idleTime?: number;
+    idleTime?: number | undefined;
     /**
      * Disable right-click and use simple image protection for images
      */
-    protect?: boolean;
+    protect?: boolean | undefined;
     /**
      * Shortcut to make content "modal" - disable keyboard navigtion, hide buttons, etc
      */
-    modal?: boolean;
-    image?: FancyBoxImageOption;
-    ajax?: FancyBoxAjaxOption;
-    iframe?: FancyBoxIframeSettings;
+    modal?: boolean | undefined;
+    image?: FancyBoxImageOption | undefined;
+    ajax?: FancyBoxAjaxOption | undefined;
+    iframe?: FancyBoxIframeSettings | undefined;
     /**
      * For HTML5 video only
      */
-    video?: FancyBoxVideoOptions;
+    video?: FancyBoxVideoOptions | undefined;
     /**
      * Default content type if cannot be detected automatically
      */
-    defaultType?: "image" | "inline" | "ajax" | "iframe" | "html";
+    defaultType?: "image" | "inline" | "ajax" | "iframe" | "html" | undefined;
     /**
      * Open/close animation type
      * Possible values:
@@ -242,16 +242,16 @@ interface FancyBoxOptions {
      * "fade"
      * "zoom-in-out"
      */
-    animationEffect?: boolean | "zoom" | "fade" | "zoom-in-out";
+    animationEffect?: boolean | "zoom" | "fade" | "zoom-in-out" | undefined;
     /**
      * Duration in ms for open/close animation
      */
-    animationDuration?: number;
+    animationDuration?: number | undefined;
     /**
      * Should image change opacity while zooming
      * If opacity is "auto", then opacity will be changed if image and thumbnail have different aspect ratios
      */
-    zoomOpacity?: "auto" | boolean;
+    zoomOpacity?: "auto" | boolean | undefined;
     /**
      * Transition effect between slides
      * Possible values:
@@ -263,60 +263,60 @@ interface FancyBoxOptions {
      * "zoom-in-out"
      * "rotate"
      */
-    transitionEffect?: "fade" | "slide" | "circular" | "tube" | "zoom-in-out" | "rotate" | boolean;
+    transitionEffect?: "fade" | "slide" | "circular" | "tube" | "zoom-in-out" | "rotate" | boolean | undefined;
     /**
      * Duration in ms for transition animation
      */
-    transitionDuration?: number;
+    transitionDuration?: number | undefined;
     /**
      * Custom CSS class for slide element
      */
-    slideClass?: string;
+    slideClass?: string | undefined;
     /**
      * Custom CSS class for layout
      */
-    baseClass?: string;
+    baseClass?: string | undefined;
     /**
      * Base template for layout
      */
-    baseTpl?: string;
+    baseTpl?: string | undefined;
     /**
      * Loading indicator template
      */
-    spinnerTpl?: string;
+    spinnerTpl?: string | undefined;
     /**
      * Error message template
      */
-    errorTpl?: string;
+    errorTpl?: string | undefined;
     /**
      * Button templates
      */
-    btnTpl?: FancyBoxButtonTemplateOptions;
+    btnTpl?: FancyBoxButtonTemplateOptions | undefined;
     /**
      * Container is injected into this element
      */
-    parentEl?: string;
+    parentEl?: string | undefined;
     /**
      * Hide browser vertical scrollbars; use at your own risk
      */
-    hideScrollbar?: boolean;
+    hideScrollbar?: boolean | undefined;
     /**
      * Try to focus on the first focusable element after opening
      */
-    autoFocus?: boolean;
+    autoFocus?: boolean | undefined;
     /**
      * Put focus back to active element after closing
      */
-    backFocus?: boolean;
+    backFocus?: boolean | undefined;
     /**
      * Do not let user to focus on element outside modal content
      */
-    trapFocus?: boolean;
-    fullScreen?: { autostart: boolean };
+    trapFocus?: boolean | undefined;
+    fullScreen?: { autostart: boolean } | undefined;
     /**
      * Set `touch: false` to disable panning/swiping
      */
-    touch?: FancyBoxTouchOptions | false;
+    touch?: FancyBoxTouchOptions | false | undefined;
     /**
      * Hash value when initializing manually,
      * set `false` to disable hash change
@@ -333,14 +333,14 @@ interface FancyBoxOptions {
      *   }
      * }
      */
-    media?: FancyBoxPlainObject;
-    slideShow?: { autoStart?: boolean; speed?: number; };
-    thumbs?: FancyThumbsOptions;
+    media?: FancyBoxPlainObject | undefined;
+    slideShow?: { autoStart?: boolean | undefined; speed?: number | undefined; } | undefined;
+    thumbs?: FancyThumbsOptions | undefined;
     /**
      * Use mousewheel to navigate gallery
      * If 'auto' - enabled for images only
      */
-    wheel?: "auto" | false;
+    wheel?: "auto" | false | undefined;
     /**
      * When instance has been initialized
      */
@@ -380,31 +380,31 @@ interface FancyBoxOptions {
     /**
      * Clicked on the content
      */
-    clickContent?: FancyBoxInteractions;
+    clickContent?: FancyBoxInteractions | undefined;
     /**
      * Clicked on the slide
      */
-    clickSlide?: FancyBoxInteractions;
+    clickSlide?: FancyBoxInteractions | undefined;
     /**
      * Clicked on the background (backdrop) element;
      * if you have not changed the layout, then most likely you need to use `clickSlide` option
      */
-    clickOutside?: FancyBoxInteractions;
+    clickOutside?: FancyBoxInteractions | undefined;
     /**
      * Same as previous two, but for double click
      */
-    dblclickContent?: FancyBoxInteractions;
+    dblclickContent?: FancyBoxInteractions | undefined;
     /**
      * Same as previous two, but for double click
      */
-    dblclickSlide?: FancyBoxInteractions;
+    dblclickSlide?: FancyBoxInteractions | undefined;
     /**
      * Same as previous two, but for double click
      */
-    dblclickOutside?: FancyBoxInteractions;
-    lang?: string;
-    i18n?: FancyBoxInternationalizationOptions;
-    caption?: string | ((instance: FancyBoxInstance, current: FancyBoxSlide) => string);
+    dblclickOutside?: FancyBoxInteractions | undefined;
+    lang?: string | undefined;
+    i18n?: FancyBoxInternationalizationOptions | undefined;
+    caption?: string | ((instance: FancyBoxInstance, current: FancyBoxSlide) => string) | undefined;
 }
 
 interface FancyBoxRefs {
@@ -448,7 +448,7 @@ interface FancyBoxGestures {
 }
 
 interface FancyBoxSlideShow {
-    $button?: JQuery;
+    $button?: JQuery | undefined;
     $progress: JQuery;
     instance: FancyBoxInstance;
     clear(): void;
@@ -457,14 +457,14 @@ interface FancyBoxSlideShow {
     set(force: boolean): void;
     start(): void;
     stop(): void;
-    timer?: number;
+    timer?: number | undefined;
     toggle(): void;
 }
 
 interface FancyThumbs {
-    $button?: JQuery;
-    $grid?: JQuery;
-    $list?: JQuery;
+    $button?: JQuery | undefined;
+    $grid?: JQuery | undefined;
+    $list?: JQuery | undefined;
     instance: FancyBoxInstance;
     opts: FancyThumbsOptions;
     create(): void;
@@ -732,9 +732,9 @@ interface FancyBoxInstanceMethods {
 }
 
 interface FancyBoxInstance extends FancyBoxInstanceMethods {
-    $caption?: JQuery;
-    $refs?: FancyBoxRefs;
-    $trigger?: JQuery;
+    $caption?: JQuery | undefined;
+    $refs?: FancyBoxRefs | undefined;
+    $trigger?: JQuery | undefined;
     FullScreen: FancyBoxFullScreen;
     Guestures: FancyBoxGestures;
     SlideShow: FancyBoxSlideShow;
@@ -758,15 +758,15 @@ interface FancyBoxInstance extends FancyBoxInstanceMethods {
 }
 
 interface FancyBoxThumbPos extends FancyBoxGetFitPosResults {
-    scaleX?: number;
-    scaleY?: number;
+    scaleX?: number | undefined;
+    scaleY?: number | undefined;
 }
 
 interface FancyBoxGetFitPosResults {
-    top?: number;
-    left?: number;
-    width?: number;
-    height?: number;
+    top?: number | undefined;
+    left?: number | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
 }
 
 interface FancyBoxJQueryMethods {
@@ -778,7 +778,7 @@ interface FancyBoxJQueryMethods {
     getTranslate($el: JQuery): void;
     isMobile: boolean;
     open(items: JQuery | string | FancyBoxGroupItem[] | FancyBoxGroupItem, opts?: FancyBoxOptions, index?: number): FancyBoxInstance;
-    setTranslate($el: JQuery, props: { left?: number; top?: number; }): void;
+    setTranslate($el: JQuery, props: { left?: number | undefined; top?: number | undefined; }): void;
     stop($el: JQuery, callCallback: boolean): void;
     use3d: string;
     version: string;

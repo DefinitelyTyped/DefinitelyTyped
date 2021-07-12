@@ -165,12 +165,20 @@ declare namespace validator {
 
     const isAlphanumericLocales: AlphanumericLocale[];
 
+    interface IsAlphanumericOptions {
+        /**
+         * @default undefined
+         */
+        ignore?: string | RegExp | undefined;
+    }
+
     /**
      * Check if the string contains only letters and numbers.
      *
      * @param [locale] - AlphanumericLocale
+     * @param [options] - IsAlphanumericOptions
      */
-    function isAlphanumeric(str: string, locale?: AlphanumericLocale): boolean;
+    function isAlphanumeric(str: string, locale?: AlphanumericLocale, options?: IsAlphanumericOptions): boolean;
 
     /**
      * Check if the string contains ASCII chars only.
@@ -1107,7 +1115,7 @@ declare namespace validator {
          * if set as true isURL will check if port is present in the URL
          * @default false
          */
-        require_port?: boolean;
+        require_port?: boolean | undefined;
         /**
          * @default true
          */

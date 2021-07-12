@@ -12,7 +12,7 @@ interface GulpPugLinter {
 declare namespace GulpPugLinter {
     interface Options {
         reporter?: any;
-        failAfterError?: boolean;
+        failAfterError?: boolean | undefined;
     }
 }
 

@@ -6,7 +6,7 @@
 
 declare namespace Express {
     export interface Request {
-        originalMethod?: string;
+        originalMethod?: string | undefined;
     }
 }
 

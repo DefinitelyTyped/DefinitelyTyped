@@ -10,7 +10,7 @@ import { FlexboxPropTypes } from '../utils';
  */
 export declare const Tabs: React.StatelessComponent<TabsProps>;
 export interface TabsProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLUListElement> {
-    isVertical?: boolean;
+    isVertical?: boolean | undefined;
 }
 /**
  * Tab item component.
@@ -20,7 +20,7 @@ export interface TabsProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLUL
  */
 export declare const TabItem: React.StatelessComponent<TabItemProps>;
 export interface TabItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLLIElement> {
-    isActive?: boolean;
+    isActive?: boolean | undefined;
 }
 /**
  * Tab panel container component.
@@ -30,8 +30,8 @@ export interface TabItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTM
  */
 export declare const TabsContent: React.StatelessComponent<TabsContentProps>;
 export interface TabsContentProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    isActive?: boolean;
-    isVertical?: boolean;
+    isActive?: boolean | undefined;
+    isVertical?: boolean | undefined;
 }
 /**
  * Tab panel item component.
@@ -41,5 +41,5 @@ export interface TabsContentProps extends FlexboxPropTypes, React.HTMLAttributes
  */
 export declare const TabPanel: React.StatelessComponent<TabPanelProps>;
 export interface TabPanelProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    isActive?: boolean;
+    isActive?: boolean | undefined;
 }

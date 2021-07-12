@@ -66,7 +66,7 @@ interface MediaStreamTrackProcessorInit {
      * by the track. If the internal buffer is full, each time the track produces a new frame, the
      * oldest frame in the buffer will be dropped and the new frame will be added to the buffer.
      */
-    maxBufferSize?: number;
+    maxBufferSize?: number | undefined;
 }
 
 /**
@@ -94,8 +94,8 @@ declare var MediaStreamTrackGenerator: {
     prototype: MediaStreamTrackGenerator<any>;
 
     /** Constructor overrides based on the type of track. */
-    new (init: MediaStreamTrackGeneratorInit & { kind: "audio", signalTarget?: MediaStreamAudioTrack }): MediaStreamAudioTrackGenerator;
-    new (init: MediaStreamTrackGeneratorInit & { kind: "video", signalTarget?: MediaStreamVideoTrack }): MediaStreamVideoTrackGenerator;
+    new (init: MediaStreamTrackGeneratorInit & { kind: "audio", signalTarget?: MediaStreamAudioTrack | undefined }): MediaStreamAudioTrackGenerator;
+    new (init: MediaStreamTrackGeneratorInit & { kind: "video", signalTarget?: MediaStreamVideoTrack | undefined }): MediaStreamVideoTrackGenerator;
 };
 
 interface MediaStreamTrackGeneratorInit {
@@ -105,7 +105,7 @@ interface MediaStreamTrackGeneratorInit {
      * signals. If signalTarget is provided and signalTarget.kind and kind do not match, the
      * MediaStreamTrackGenerator’s constructor will raise an exception.
      */
-    signalTarget?: MediaStreamTrack;
+    signalTarget?: MediaStreamTrack | undefined;
 }
 
 type MediaStreamTrackGeneratorKind = "audio" | "video";

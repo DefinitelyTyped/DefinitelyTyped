@@ -23,60 +23,60 @@ declare class CssMinimizerPlugin {
 
 declare namespace CssMinimizerPlugin {
     interface Options {
-        minimizerOptions?: MinimizerOptions | MinimizerOptions[];
+        minimizerOptions?: MinimizerOptions | MinimizerOptions[] | undefined;
         /**
          * Test to match files against.
          */
-        test?: string | RegExp | Array<string | RegExp>;
+        test?: string | RegExp | Array<string | RegExp> | undefined;
         /**
          * Files to include
          */
-        include?: string | RegExp | Array<string | RegExp>;
+        include?: string | RegExp | Array<string | RegExp> | undefined;
         /**
          * Files to exclude.
          */
-        exclude?: string | RegExp | Array<string | RegExp>;
+        exclude?: string | RegExp | Array<string | RegExp> | undefined;
         /**
          * Enable file caching.
          * @default 'node_modules/.cache/css-minimizer-webpack-plugin'
          */
-        cache?: boolean | string;
+        cache?: boolean | string | undefined;
         /**
          * Allows you to override default cache keys.
          */
-        cacheKeys?: (defaultCacheKeys: CacheKeys, file: string) => CacheKeys;
+        cacheKeys?: ((defaultCacheKeys: CacheKeys, file: string) => CacheKeys) | undefined;
         /**
          * Use multi-process parallel running to improve the build speed.
          * Default number of concurrent runs: os.cpus().length - 1.
          */
-        parallel?: boolean | number;
+        parallel?: boolean | number | undefined;
         /**
          * Enable (and configure) source map support.
          * Use PostCss SourceMap options.
          * Default configuration when enabled: { inline: false }.
          */
-        sourceMap?: boolean | SourceMapOptions;
+        sourceMap?: boolean | SourceMapOptions | undefined;
         /**
          * Allows you to override default minify function.
          * By default plugin uses cssnano package. Useful for using and testing unpublished versions or forks.
          */
-        minify?: MinifyFunc | MinifyFunc[];
+        minify?: MinifyFunc | MinifyFunc[] | undefined;
         /**
          * Allow to filter css-minimizer warnings (By default cssnano).
          * Return true to keep the warning, a falsy value (false/null/undefined) otherwise.
          */
-        warningsFilter?: (warning: string, file: string, source: string) => boolean | undefined | null;
+        warningsFilter?: ((warning: string, file: string, source: string) => boolean | undefined | null) | undefined;
     }
 
     interface MinimizerOptions extends CssNanoOptions {
         processorOptions?: {
-            from?: ProcessOptions["from"];
-            map?: ProcessOptions["map"];
-            parser?: ProcessOptions["parser"] | string;
-            stringifier?: ProcessOptions["stringifier"] | string;
-            syntax?: ProcessOptions["syntax"] | string;
-            to?: ProcessOptions["to"];
-        };
+            from?: ProcessOptions["from"] | undefined;
+            map?: ProcessOptions["map"] | undefined;
+            parser?: ProcessOptions["parser"] | string | undefined;
+            stringifier?: ProcessOptions["stringifier"] | string | undefined;
+            syntax?: ProcessOptions["syntax"] | string | undefined;
+            to?: ProcessOptions["to"] | undefined;
+        } | undefined;
     }
 
     interface MinifyFunc {

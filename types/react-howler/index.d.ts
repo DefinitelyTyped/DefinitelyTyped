@@ -15,20 +15,20 @@ declare enum HOWLER_STATE {
 
 interface Props {
     src: string | string[];
-    format?: string[];
-    playing?: boolean;
-    mute?: boolean;
-    loop?: boolean;
-    preload?: boolean;
-    volume?: number;
-    onEnd?: () => void;
-    onPause?: () => void;
-    onPlay?: (id: number) => void;
-    onVolume?: (id: number) => void;
-    onStop?: (id: number) => void;
-    onLoad?: () => void;
-    onLoadError?: (id: number) => void;
-    html5?: boolean;
+    format?: string[] | undefined;
+    playing?: boolean | undefined;
+    mute?: boolean | undefined;
+    loop?: boolean | undefined;
+    preload?: boolean | undefined;
+    volume?: number | undefined;
+    onEnd?: (() => void) | undefined;
+    onPause?: (() => void) | undefined;
+    onPlay?: ((id: number) => void) | undefined;
+    onVolume?: ((id: number) => void) | undefined;
+    onStop?: ((id: number) => void) | undefined;
+    onLoad?: (() => void) | undefined;
+    onLoadError?: ((id: number) => void) | undefined;
+    html5?: boolean | undefined;
 }
 
 declare class ReactHowler extends React.Component<Props> {

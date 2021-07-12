@@ -25,86 +25,86 @@ export interface DragEvent {
 }
 
 export interface ModalContentProps {
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle> | undefined;
 }
 
 export interface BackdropProps {
     visible: boolean;
     opacity: number;
-    onPress?: () => void;
-    backgroundColor?: string;
-    animationDuration?: number;
-    pointerEvents?: string;
-    useNativeDriver?: boolean;
+    onPress?: (() => void) | undefined;
+    backgroundColor?: string | undefined;
+    animationDuration?: number | undefined;
+    pointerEvents?: string | undefined;
+    useNativeDriver?: boolean | undefined;
 }
 
 export interface ModalFooterProps {
-    bordered?: boolean;
-    style?: StyleProp<ViewStyle>;
+    bordered?: boolean | undefined;
+    style?: StyleProp<ViewStyle> | undefined;
 }
 
 export interface ModalButtonProps {
     text: string;
     onPress: () => void;
-    align?: AlignTypes;
-    style?: StyleProp<ViewStyle>;
-    textStyle?: StyleProp<TextStyle>;
-    disabled?: boolean;
-    activeOpacity?: number;
-    bordered?: boolean;
+    align?: AlignTypes | undefined;
+    style?: StyleProp<ViewStyle> | undefined;
+    textStyle?: StyleProp<TextStyle> | undefined;
+    disabled?: boolean | undefined;
+    activeOpacity?: number | undefined;
+    bordered?: boolean | undefined;
 }
 
 export interface ModalTitleProps {
     title: string;
-    style?: StyleProp<ViewStyle>;
-    textStyle?: StyleProp<TextStyle>;
-    align?: AlignTypes;
-    hasTitleBar?: boolean;
+    style?: StyleProp<ViewStyle> | undefined;
+    textStyle?: StyleProp<TextStyle> | undefined;
+    align?: AlignTypes | undefined;
+    hasTitleBar?: boolean | undefined;
 }
 
 export interface ModalProps {
     visible: boolean;
-    width?: number;
-    height?: number;
-    rounded?: boolean;
-    hasOverlay?: boolean;
-    overlayPointerEvents?: OverlayPointerEventTypes;
-    overlayBackgroundColor?: string;
-    overlayOpacity?: number;
-    modalTitle?: React.ReactNode;
-    modalAnimation?: FadeAnimation | ScaleAnimation | SlideAnimation;
-    modalStyle?: StyleProp<ViewStyle>;
-    style?: StyleProp<ViewStyle>;
-    animationDuration?: number;
-    onTouchOutside?: () => void;
-    onHardwareBackPress?: () => boolean;
-    onShow?: () => void;
-    onDismiss?: () => void;
-    footer?: React.ReactNode;
-    onMove?: (event: DragEvent) => void;
-    onSwiping?: (event: DragEvent) => void;
-    onSwipeRelease?: (event: DragEvent) => void;
-    onSwipingOut?: (event: DragEvent) => void;
-    onSwipeOut?: (event: DragEvent) => void;
-    swipeDirection?: SwipeDirection | SwipeDirection[];
-    swipeThreshold?: number;
-    useNativeDriver?: boolean;
+    width?: number | undefined;
+    height?: number | undefined;
+    rounded?: boolean | undefined;
+    hasOverlay?: boolean | undefined;
+    overlayPointerEvents?: OverlayPointerEventTypes | undefined;
+    overlayBackgroundColor?: string | undefined;
+    overlayOpacity?: number | undefined;
+    modalTitle?: React.ReactNode | undefined;
+    modalAnimation?: FadeAnimation | ScaleAnimation | SlideAnimation | undefined;
+    modalStyle?: StyleProp<ViewStyle> | undefined;
+    style?: StyleProp<ViewStyle> | undefined;
+    animationDuration?: number | undefined;
+    onTouchOutside?: (() => void) | undefined;
+    onHardwareBackPress?: (() => boolean) | undefined;
+    onShow?: (() => void) | undefined;
+    onDismiss?: (() => void) | undefined;
+    footer?: React.ReactNode | undefined;
+    onMove?: ((event: DragEvent) => void) | undefined;
+    onSwiping?: ((event: DragEvent) => void) | undefined;
+    onSwipeRelease?: ((event: DragEvent) => void) | undefined;
+    onSwipingOut?: ((event: DragEvent) => void) | undefined;
+    onSwipeOut?: ((event: DragEvent) => void) | undefined;
+    swipeDirection?: SwipeDirection | SwipeDirection[] | undefined;
+    swipeThreshold?: number | undefined;
+    useNativeDriver?: boolean | undefined;
 }
 
 export interface DraggableViewProps {
-    style?: StyleProp<ViewStyle>;
-    onMove?: (event: DragEvent) => void;
-    onSwiping?: (event: DragEvent) => void;
-    onRelease?: (event: DragEvent) => void;
-    onSwipingOut?: (event: DragEvent) => void;
-    onSwipeOut?: (event: DragEvent) => void;
-    swipeThreshold?: number;
-    swipeDirection?: SwipeDirection | SwipeDirection[];
+    style?: StyleProp<ViewStyle> | undefined;
+    onMove?: ((event: DragEvent) => void) | undefined;
+    onSwiping?: ((event: DragEvent) => void) | undefined;
+    onRelease?: ((event: DragEvent) => void) | undefined;
+    onSwipingOut?: ((event: DragEvent) => void) | undefined;
+    onSwipeOut?: ((event: DragEvent) => void) | undefined;
+    swipeThreshold?: number | undefined;
+    swipeDirection?: SwipeDirection | SwipeDirection[] | undefined;
 }
 
 export class FadeAnimation {
     constructor(toValue?: number);
-    constructor(params: { toValue?: number, animationDuration?: number });
+    constructor(params: { toValue?: number | undefined, animationDuration?: number | undefined });
     toValue(toValue: number): void;
     createAnimations(): object;
 }
@@ -117,7 +117,7 @@ export class ScaleAnimation {
 
 export class SlideAnimation {
     constructor(toValue?: number);
-    constructor(params: { toValue?: number, slideFrom?: SlideFromTypes });
+    constructor(params: { toValue?: number | undefined, slideFrom?: SlideFromTypes | undefined });
     toValue(toValue: number): void;
     createAnimations(): object;
 }

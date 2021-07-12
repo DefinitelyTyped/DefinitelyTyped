@@ -10,30 +10,30 @@ export = EventHooksPlugin;
 
 declare namespace EventHooksPlugin {
     interface Options {
-        shouldEmit?: () => void;
-        done?: () => void;
-        additionalPass?: () => void;
-        beforeRun?: () => void;
-        run?: () => void;
-        emit?: () => void;
-        afterEmit?: () => void;
-        thisCompilation?: () => void;
-        compilation?: () => void;
-        normalModuleFactory?: () => void;
-        contextModuleFactory?: () => void;
-        beforeCompile?: () => void;
-        compile?: () => void;
-        make?: () => void;
-        afterCompile?: () => void;
-        watchRun?: () => void;
-        failed?: () => void;
-        invalid?: () => void;
-        watchClose?: () => void;
-        environment?: () => void;
-        afterEnvironment?: () => void;
-        afterPlugins?: () => void;
-        afterResolvers?: () => void;
-        entryOption?: () => void;
+        shouldEmit?: (() => void) | undefined;
+        done?: (() => void) | undefined;
+        additionalPass?: (() => void) | undefined;
+        beforeRun?: (() => void) | undefined;
+        run?: (() => void) | undefined;
+        emit?: (() => void) | undefined;
+        afterEmit?: (() => void) | undefined;
+        thisCompilation?: (() => void) | undefined;
+        compilation?: (() => void) | undefined;
+        normalModuleFactory?: (() => void) | undefined;
+        contextModuleFactory?: (() => void) | undefined;
+        beforeCompile?: (() => void) | undefined;
+        compile?: (() => void) | undefined;
+        make?: (() => void) | undefined;
+        afterCompile?: (() => void) | undefined;
+        watchRun?: (() => void) | undefined;
+        failed?: (() => void) | undefined;
+        invalid?: (() => void) | undefined;
+        watchClose?: (() => void) | undefined;
+        environment?: (() => void) | undefined;
+        afterEnvironment?: (() => void) | undefined;
+        afterPlugins?: (() => void) | undefined;
+        afterResolvers?: (() => void) | undefined;
+        entryOption?: (() => void) | undefined;
     }
 }
 

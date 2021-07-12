@@ -6841,7 +6841,7 @@ fp.now(); // $ExpectType number
 {
     const source: _.Dictionary<(...args: any[]) => any> = {};
     const dest: AbcObject = anything;
-    const options: {chain?: boolean} = {};
+    const options: {chain?: boolean | undefined} = {};
 
     _.mixin(source); // $ExpectType LoDashStatic
     _.mixin(source, options); // $ExpectType LoDashStatic

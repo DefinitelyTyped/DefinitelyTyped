@@ -9,11 +9,11 @@ import * as raven from 'raven';
 interface FormattedLog {
     message: string;
     extra: ReadonlyArray<object>;
-    error?: Error;
+    error?: Error | undefined;
 }
 
 interface SentryConfig {
-    client?: {} | raven.Client;
+    client?: {} | raven.Client | undefined;
 }
 
 export = makeSentryTarget;

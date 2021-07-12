@@ -9,23 +9,23 @@ export interface FillState {
     fillStyle: ColorLike;
 }
 export interface FillStrokeState {
-    currentFillStyle?: ColorLike;
-    currentStrokeStyle?: ColorLike;
-    currentLineCap?: string;
+    currentFillStyle?: ColorLike | undefined;
+    currentStrokeStyle?: ColorLike | undefined;
+    currentLineCap?: string | undefined;
     currentLineDash: number[];
-    currentLineDashOffset?: number;
-    currentLineJoin?: string;
-    currentLineWidth?: number;
-    currentMiterLimit?: number;
-    lastStroke?: number;
-    fillStyle?: ColorLike;
-    strokeStyle?: ColorLike;
-    lineCap?: string;
+    currentLineDashOffset?: number | undefined;
+    currentLineJoin?: string | undefined;
+    currentLineWidth?: number | undefined;
+    currentMiterLimit?: number | undefined;
+    lastStroke?: number | undefined;
+    fillStyle?: ColorLike | undefined;
+    strokeStyle?: ColorLike | undefined;
+    lineCap?: string | undefined;
     lineDash: number[];
-    lineDashOffset?: number;
-    lineJoin?: string;
-    lineWidth?: number;
-    miterLimit?: number;
+    lineDashOffset?: number | undefined;
+    lineJoin?: string | undefined;
+    lineWidth?: number | undefined;
+    miterLimit?: number | undefined;
 }
 export interface StrokeState {
     lineCap: string;
@@ -38,15 +38,15 @@ export interface StrokeState {
 }
 export interface TextState {
     font: string;
-    textAlign?: string;
+    textAlign?: string | undefined;
     textBaseline: string;
-    placement?: string;
-    maxAngle?: number;
-    overflow?: boolean;
-    backgroundFill?: Fill;
-    backgroundStroke?: Stroke;
-    scale?: number;
-    padding?: number[];
+    placement?: string | undefined;
+    maxAngle?: number | undefined;
+    overflow?: boolean | undefined;
+    backgroundFill?: Fill | undefined;
+    backgroundStroke?: Stroke | undefined;
+    scale?: number | undefined;
+    padding?: number[] | undefined;
 }
 export const labelCache: LRUCache<HTMLCanvasElement>;
 export function drawImage(

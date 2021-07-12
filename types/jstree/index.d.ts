@@ -14,12 +14,12 @@ interface JQueryStatic {
      * @property jstree
      * @type {JSTreeStatic}
      */
-    jstree?: JSTreeStatic;
+    jstree?: JSTreeStatic | undefined;
 
     /**
      * helpers
      */
-    vakata?: VakataStatic;
+    vakata?: VakataStatic | undefined;
 }
 
 interface JQuery {
@@ -142,27 +142,27 @@ interface JSTreeStaticDefaults {
     /**
      * stores all defaults for the checkbox plugin
      */
-    checkbox?: JSTreeStaticDefaultsCheckbox;
+    checkbox?: JSTreeStaticDefaultsCheckbox | undefined;
 
     /**
      * stores all defaults for the contextmenu plugin
      */
-    contextmenu?: JSTreeStaticDefaultsContextMenu;
+    contextmenu?: JSTreeStaticDefaultsContextMenu | undefined;
 
     /**
      * stores all defaults for the drag'n'drop plugin
      */
-    dnd?: JSTreeStaticDefaultsDragNDrop;
+    dnd?: JSTreeStaticDefaultsDragNDrop | undefined;
 
     /**
      * Adds massload functionality to jsTree, so that multiple nodes can be loaded in a single request (only useful with lazy loading).
      */
-    massload?: JSTreeStaticDefaultsMassload;
+    massload?: JSTreeStaticDefaultsMassload | undefined;
 
     /**
      * stores all defaults for the search plugin
      */
-    search?: JSTreeStaticDefaultsSearch;
+    search?: JSTreeStaticDefaultsSearch | undefined;
 
     /**
      * the settings function used to sort the nodes.
@@ -170,12 +170,12 @@ interface JSTreeStaticDefaults {
      * @name $.jstree.defaults.sort
      * @plugin sort
      */
-    sort?: (x: any, y: any) => number;
+    sort?: ((x: any, y: any) => number) | undefined;
 
     /**
      * stores all defaults for the state plugin
      */
-    state?: JSTreeStaticDefaultsState;
+    state?: JSTreeStaticDefaultsState | undefined;
 
     /**
      * An object storing all types as key value pairs,
@@ -202,7 +202,7 @@ interface JSTreeStaticDefaults {
      * @name $.jstree.defaults.unique
      * @plugin unique
      */
-    unique?: JSTreeStaticDefaultsUnique;
+    unique?: JSTreeStaticDefaultsUnique | undefined;
 
     /**
      * a callback (function) which is invoked in the instance's scope and receives two arguments
@@ -212,7 +212,7 @@ interface JSTreeStaticDefaults {
      * @name $.jstree.defaults.conditionalselect
      * @plugin conditionalselect
      */
-    conditionalselect?: () => boolean;
+    conditionalselect?: (() => boolean) | undefined;
 
     /**
      * a callback (function) which is invoked in the instance's scope and receives two arguments
@@ -222,7 +222,7 @@ interface JSTreeStaticDefaults {
      * @name $.jstree.defaults.conditionalclose
      * @plugin conditionalclose
      */
-    conditionalclose?: () => boolean;
+    conditionalclose?: (() => boolean) | undefined;
 }
 
 interface JSTreeStaticDefaultsCore {
@@ -341,20 +341,20 @@ interface JSTreeStaticDefaultsCore {
      * a boolean indicating if multiple nodes can be selected
      * @name $.jstree.defaults.core.multiple
      */
-    multiple?: boolean;
+    multiple?: boolean | undefined;
 
     /**
      * theme configuration object
      * @name $.jstree.defaults.core.themes
      */
-    themes?: JSTreeStaticDefaultsCoreThemes;
+    themes?: JSTreeStaticDefaultsCoreThemes | undefined;
 
     /**
      * if left as `true` all parents of all selected nodes will be opened once the tree loads
      * (so that all selected nodes are visible to the user)
      * @name $.jstree.defaults.core.expand_selected_onload
      */
-    expand_selected_onload?: boolean;
+    expand_selected_onload?: boolean | undefined;
 
     /**
      * if left as `true` web workers will be used to parse incoming JSON data where possible,
@@ -362,39 +362,39 @@ interface JSTreeStaticDefaultsCore {
      * Workers are however about 30% slower. Defaults to `true`
      * @name $.jstree.defaults.core.worker
      */
-    worker?: boolean;
+    worker?: boolean | undefined;
 
     /**
      * Force node text to plain text (and escape HTML). Defaults to `false`
      * @name $.jstree.defaults.core.force_text
      */
-    force_text?: boolean;
+    force_text?: boolean | undefined;
 
     /**
      * Should the node be toggled if the text is double clicked. Defaults to `true`
      * @name $.jstree.defaults.core.dblclick_toggle
      */
-    dblclick_toggle?: boolean;
+    dblclick_toggle?: boolean | undefined;
 
     /**
      * Should the loaded nodes be part of the state. Defaults to `false`
      * @name $.jstree.defaults.core.dblclick_toggle
      */
-    loaded_state?: boolean;
+    loaded_state?: boolean | undefined;
 
     /**
      * Should the last active node be focused when the tree container is blurred and the focused again.
      * This helps working with screen readers. Defaults to `true`
      * @name $.jstree.defaults.core.restore_focus
      */
-    restore_focus?: boolean;
+    restore_focus?: boolean | undefined;
 
     /**
      * Default keyboard shortcuts (an object where each key is the button name or combo - like 'enter', 'ctrl-space', 'p', etc
      * and the value is the function to execute in the instance's scope)
      * @name $.jstree.defaults.core.keyboard
      */
-    keyboard?: JSTreeStaticDefaultsCoreKeyboard;
+    keyboard?: JSTreeStaticDefaultsCoreKeyboard | undefined;
 }
 
 interface JSTreeStaticDefaultsCoreThemes {
@@ -402,44 +402,44 @@ interface JSTreeStaticDefaultsCoreThemes {
      * the name of the theme to use (if left as `false` the default theme is used)
      * @name $.jstree.defaults.core.themes.name
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * the URL of the theme's CSS file, leave this as `false` if you have manually included the theme CSS (recommended).
      * You can set this to `true` too which will try to autoload the theme.
      * @name $.jstree.defaults.core.themes.url
      */
-    url?: string;
+    url?: string | undefined;
 
     /**
      * the location of all jstree themes - only used if `url` is set to `true`
      * @name $.jstree.defaults.core.themes.dir
      */
-    dir?: string;
+    dir?: string | undefined;
 
     /**
      * a boolean indicating if connecting dots are shown
      * @name $.jstree.defaults.core.themes.dots
      */
-    dots?: boolean;
+    dots?: boolean | undefined;
 
     /**
      * a boolean indicating if node icons are shown
      * @name $.jstree.defaults.core.themes.icons
      */
-    icons?: boolean;
+    icons?: boolean | undefined;
 
     /**
      * a boolean indicating if node ellipsis should be shown - this only works with a fixed with on the container
      * @name $.jstree.defaults.core.themes.ellipsis
      */
-    ellipsis?: boolean;
+    ellipsis?: boolean | undefined;
 
     /**
      * a boolean indicating if the tree background is striped
      * @name $.jstree.defaults.core.themes.stripes
      */
-    stripes?: boolean;
+    stripes?: boolean | undefined;
 
     /**
      * a string (or boolean `false`) specifying the theme variant to use (if the theme supports variants)
@@ -452,7 +452,7 @@ interface JSTreeStaticDefaultsCoreThemes {
      * Defaults to `false`.
      * @name $.jstree.defaults.core.themes.responsive
      */
-    responsive?: boolean;
+    responsive?: boolean | undefined;
 }
 
 interface JSTreeStaticDefaultsCoreKeyboard {
@@ -1799,7 +1799,7 @@ interface JSTree extends JQuery {
      * this.sourceTreeNativeElement.jstree(true).settings.core.data = [];
      * this.sourceTreeNativeElement.jstree(true).refresh();
      */
-    settings?: JSTreeStaticDefaults;
+    settings?: JSTreeStaticDefaults | undefined;
 
     /**
      * checkbox plugin
@@ -2113,37 +2113,37 @@ interface JSTreeGetJsonOptions {
     /**
      * do not return state information
      */
-    no_state?: boolean;
+    no_state?: boolean | undefined;
 
     /**
      * do not return ID
      */
-    no_id?: boolean;
+    no_id?: boolean | undefined;
 
     /**
      * do not include children
      */
-    no_children?: boolean;
+    no_children?: boolean | undefined;
 
     /**
      * do not include node data
      */
-    no_data?: boolean;
+    no_data?: boolean | undefined;
 
     /**
      * do not include LI attributes
      */
-    no_li_attr?: boolean;
+    no_li_attr?: boolean | undefined;
 
     /**
      * do not include A attributes
      */
-    no_a_attr?: boolean;
+    no_a_attr?: boolean | undefined;
 
     /**
      * return flat JSON instead of nested
      */
-    flat?: boolean;
+    flat?: boolean | undefined;
 }
 
 interface JSTreeBindOptions {

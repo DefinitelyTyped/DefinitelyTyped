@@ -26,15 +26,15 @@ export interface CredentialResponse {
 }
 
 export interface IdConfiguration {
-    client_id?: string;
-    auto_select?: boolean;
-    callback?: (credentialResponse: CredentialResponse) => void;
-    native_callback?: () => void;
-    cancel_on_tap_outside?: boolean;
-    prompt_parent_id?: string;
-    nonce?: string;
-    context?: string;
-    state_cookie_domain?: string;
+    client_id?: string | undefined;
+    auto_select?: boolean | undefined;
+    callback?: ((credentialResponse: CredentialResponse) => void) | undefined;
+    native_callback?: (() => void) | undefined;
+    cancel_on_tap_outside?: boolean | undefined;
+    prompt_parent_id?: string | undefined;
+    nonce?: string | undefined;
+    context?: string | undefined;
+    state_cookie_domain?: string | undefined;
 }
 
 export interface PromptMomentNotification {

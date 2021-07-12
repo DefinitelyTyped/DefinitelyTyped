@@ -13,6 +13,32 @@ const accelerometer1 = () => {
     sensor.onerror = event => console.log(event.error.name, event.error.message);
 };
 
+const gravitySensor1 = () => {
+    const sensor = new GravitySensor({ frequency: 5, referenceFrame: "screen" });
+
+    sensor.onreading = () => {
+      if (sensor.y && sensor.y >= 9.8) {
+        console.log("Web page is perpendicular to the ground.");
+      }
+    };
+
+    sensor.start();
+};
+
+const linearAccelerationSensor1 = () => {
+    const shakeThreshold = 25;
+
+    const sensor = new LinearAccelerationSensor({ frequency: 60 });
+
+    sensor.addEventListener("reading", () => {
+      if (sensor.x && sensor.x > shakeThreshold) {
+        console.log("Shake detected.");
+      }
+    });
+
+    sensor.start();
+};
+
 // Gyroscope: https://www.w3.org/TR/gyroscope/
 
 const gyroscope1 = () => {

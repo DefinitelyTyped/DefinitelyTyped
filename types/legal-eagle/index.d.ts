@@ -11,8 +11,8 @@ declare function legalEagle(
 declare namespace legalEagle {
     interface Options {
         path: string;
-        overrides?: LicenseLookup;
-        omitPermissive?: boolean;
+        overrides?: LicenseLookup | undefined;
+        omitPermissive?: boolean | undefined;
     }
     interface LicenseLookup {
         [id: string]: Entry;

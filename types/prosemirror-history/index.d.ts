@@ -25,7 +25,7 @@ export function closeHistory<S extends Schema = any>(tr: Transaction<S>): Transa
  * property](#state.Transaction.setMeta) of `false` on a transaction
  * to prevent it from being rolled back by undo.
  */
-export function history(config?: { depth?: number | null; newGroupDelay?: number | null }): Plugin;
+export function history(config?: { depth?: number | null | undefined; newGroupDelay?: number | null | undefined }): Plugin;
 /**
  * A command function that undoes the last change, if any.
  */

@@ -14,17 +14,17 @@ import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: string;
-    projection?: ProjectionLike;
-    reprojectionErrorThreshold?: number;
-    url?: string;
-    tierSizeCalculation?: string;
-    size?: Size;
-    extent?: Extent;
-    transition?: number;
-    tileSize?: number;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: string | undefined;
+    projection?: ProjectionLike | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    url?: string | undefined;
+    tierSizeCalculation?: string | undefined;
+    size?: Size | undefined;
+    extent?: Extent | undefined;
+    transition?: number | undefined;
+    tileSize?: number | undefined;
 }
 export class CustomTile extends ImageTile {
     constructor(tileGrid: TileGrid, tileCoord: TileCoord, state: TileState, src: string, crossOrigin: string, tileLoadFunction: LoadFunction, opt_options?: Options_1);

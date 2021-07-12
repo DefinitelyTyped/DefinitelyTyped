@@ -621,7 +621,7 @@ QUnit.test( "rejects", function( assert ) {
 
   // Using a custom error like object
   class CustomError {
-    message?: string;
+    message?: string | undefined;
     constructor(message?: string) {
        this.message = message;
     }

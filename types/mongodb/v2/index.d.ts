@@ -44,7 +44,7 @@ export interface MongoCallback<T> {
 export class MongoError extends Error {
     constructor(message: string);
     static create(options: Object): MongoError;
-    code?: number;
+    code?: number | undefined;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#.connect
@@ -57,43 +57,43 @@ export interface MongoClientOptions
         SSLOptions,
         HighAvailabilityOptions {
     // The logging level (error/warn/info/debug)
-    loggerLevel?: string;
+    loggerLevel?: string | undefined;
     // Custom logger object
-    logger?: Object;
+    logger?: Object | undefined;
     // Default: false;
-    validateOptions?: Object;
+    validateOptions?: Object | undefined;
 }
 
 export interface SSLOptions {
     // Default:5; Number of connections for each server instance
-    poolSize?: number;
+    poolSize?: number | undefined;
     // Use ssl connection (needs to have a mongod server with ssl support)
-    ssl?: boolean;
+    ssl?: boolean | undefined;
     // Default: true; Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
-    sslValidate?: Object;
+    sslValidate?: Object | undefined;
     // Default: true; Server identity checking during SSL
-    checkServerIdentity?: boolean | Function;
+    checkServerIdentity?: boolean | Function | undefined;
     // Array of valid certificates either as Buffers or Strings
-    sslCA?: Array<Buffer | string>;
+    sslCA?: Array<Buffer | string> | undefined;
     // SSL Certificate revocation list binary buffer
-    sslCRL?: Buffer;
+    sslCRL?: Buffer | undefined;
     // SSL Certificate binary buffer
-    sslCert?: Buffer | string;
+    sslCert?: Buffer | string | undefined;
     // SSL Key file binary buffer
-    sslKey?: Buffer | string;
+    sslKey?: Buffer | string | undefined;
     // SSL Certificate pass phrase
-    sslPass?: Buffer | string;
+    sslPass?: Buffer | string | undefined;
     // String containing the server name requested via TLS SNI.
-    servername?: string;
+    servername?: string | undefined;
 }
 
 export interface HighAvailabilityOptions {
     // Default: true; Turn on high availability monitoring.
-    ha?: boolean;
+    ha?: boolean | undefined;
     // Default: 10000; The High availability period for replicaset inquiry
-    haInterval?: number;
+    haInterval?: number | undefined;
     // Default: false;
-    domainsEnabled?: boolean;
+    domainsEnabled?: boolean | undefined;
 }
 
 // See http://mongodb.github.io/node-mongodb-native/2.2/api/ReadPreference.html
@@ -101,7 +101,7 @@ export class ReadPreference {
     constructor(mode: string, tags: Object);
     mode: string;
     tags: any;
-    options: { maxStalenessSeconds?: number }; // Max Secondary Read Stalleness in Seconds
+    options: { maxStalenessSeconds?: number | undefined }; // Max Secondary Read Stalleness in Seconds
     static PRIMARY: string;
     static PRIMARY_PREFERRED: string;
     static SECONDARY: string;
@@ -114,90 +114,90 @@ export class ReadPreference {
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html
 export interface DbCreateOptions {
     // If the database authentication is dependent on another databaseName.
-    authSource?: string;
+    authSource?: string | undefined;
     // Default: null;https://docs.mongodb.com/manual/reference/write-concern/#write-concern
-    w?: number | string;
+    w?: number | string | undefined;
     // The write concern timeout to finish (combining with w option).
-    wtimeout?: number;
+    wtimeout?: number | undefined;
     // Specify a journal write concern.
-    j?: boolean;
+    j?: boolean | undefined;
     // Default: false; Force server to create _id fields instead of client.
-    forceServerObjectId?: boolean;
+    forceServerObjectId?: boolean | undefined;
     // Default: false; Use c++ bson parser.
-    native_parser?: boolean;
+    native_parser?: boolean | undefined;
     // Serialize functions on any object.
-    serializeFunctions?: boolean;
+    serializeFunctions?: boolean | undefined;
     // Specify if the BSON serializer should ignore undefined fields.
-    ignoreUndefined?: boolean;
+    ignoreUndefined?: boolean | undefined;
     // Return document results as raw BSON buffers.
-    raw?: boolean;
+    raw?: boolean | undefined;
     // Default: true; Promotes Long values to number if they fit inside the 53 bits resolution.
-    promoteLongs?: boolean;
+    promoteLongs?: boolean | undefined;
     // Default: -1 (unlimited); Amount of operations the driver buffers up untill discard any new ones
-    promoteBuffers?: number;
+    promoteBuffers?: number | undefined;
     // the prefered read preference. use 'ReadPreference' class.
-    readPreference?: ReadPreference | string;
+    readPreference?: ReadPreference | string | undefined;
     // Default: true; Promotes BSON values to native types where possible, set to false to only receive wrapper types.
-    promoteValues?: Object;
+    promoteValues?: Object | undefined;
     // Custom primary key factory to generate _id values (see Custom primary keys).
-    pkFactory?: Object;
+    pkFactory?: Object | undefined;
     // ES6 compatible promise constructor
-    promiseLibrary?: Object;
+    promiseLibrary?: Object | undefined;
     // https://docs.mongodb.com/manual/reference/read-concern/#read-concern
-    readConcern?: { level?: Object };
+    readConcern?: { level?: Object | undefined } | undefined;
     // Sets a cap on how many operations the driver will buffer up before giving up on getting a
     // working connection, default is -1 which is unlimited.
-    bufferMaxEntries?: number;
+    bufferMaxEntries?: number | undefined;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
 export interface SocketOptions {
     // Reconnect on error. default:false
-    autoReconnect?: boolean;
+    autoReconnect?: boolean | undefined;
     // TCP Socket NoDelay option. default:true
-    noDelay?: boolean;
+    noDelay?: boolean | undefined;
     // TCP KeepAlive enabled on the socket. default:true
-    keepAlive?: boolean;
+    keepAlive?: boolean | undefined;
     // TCP KeepAlive initial delay before sending first keep-alive packet when idle. default:300000
-    keepAliveInitialDelay?: number;
+    keepAliveInitialDelay?: number | undefined;
     // TCP Connection timeout setting. default 0
-    connectTimeoutMS?: number;
+    connectTimeoutMS?: number | undefined;
     // TCP Socket timeout setting. default 0
-    socketTimeoutMS?: number;
+    socketTimeoutMS?: number | undefined;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
 export interface ServerOptions extends SSLOptions {
     // Default: 30;
-    reconnectTries?: number;
+    reconnectTries?: number | undefined;
     // Default: 1000;
-    reconnectInterval?: number;
+    reconnectInterval?: number | undefined;
     // Default: true;
-    monitoring?: boolean;
-    socketOptions?: SocketOptions;
+    monitoring?: boolean | undefined;
+    socketOptions?: SocketOptions | undefined;
     // Default: 10000; The High availability period for replicaset inquiry
-    haInterval?: number;
+    haInterval?: number | undefined;
     // Default: false;
-    domainsEnabled?: boolean;
+    domainsEnabled?: boolean | undefined;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Mongos.html
 export interface MongosOptions extends SSLOptions, HighAvailabilityOptions {
     // Default: 15; Cutoff latency point in MS for MongoS proxy selection
-    acceptableLatencyMS?: number;
-    socketOptions?: SocketOptions;
+    acceptableLatencyMS?: number | undefined;
+    socketOptions?: SocketOptions | undefined;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/ReplSet.html
 export interface ReplSetOptions extends SSLOptions, HighAvailabilityOptions {
     // The max staleness to secondary reads (values under 10 seconds cannot be guaranteed);
-    maxStalenessSeconds?: number;
+    maxStalenessSeconds?: number | undefined;
     // The name of the replicaset to connect to.
-    replicaSet?: string;
+    replicaSet?: string | undefined;
     // Default: 15 ; Range of servers to pick when using NEAREST (lowest ping ms + the latency fence, ex: range of 1 to (1 + 15) ms)
-    secondaryAcceptableLatencyMS?: number;
-    connectWithNoPrimary?: boolean;
-    socketOptions?: SocketOptions;
+    secondaryAcceptableLatencyMS?: number | undefined;
+    connectWithNoPrimary?: boolean | undefined;
+    socketOptions?: SocketOptions | undefined;
 }
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html
@@ -260,7 +260,7 @@ export class Db extends EventEmitter {
     createIndex(name: string, fieldOrSpec: string | Object, options: IndexOptions, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#db
     db(dbName: string): Db;
-    db(dbName: string, options: { noListener?: boolean; returnNonCachedInstance?: boolean }): Db;
+    db(dbName: string, options: { noListener?: boolean | undefined; returnNonCachedInstance?: boolean | undefined }): Db;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#dropCollection
     dropCollection(name: string): Promise<boolean>;
     dropCollection(name: string, callback: MongoCallback<boolean>): void;
@@ -277,42 +277,42 @@ export class Db extends EventEmitter {
     executeDbAdminCommand(command: Object, callback: MongoCallback<any>): void;
     executeDbAdminCommand(
         command: Object,
-        options?: { readPreference?: ReadPreference | string; maxTimeMS?: number },
+        options?: { readPreference?: ReadPreference | string | undefined; maxTimeMS?: number | undefined },
     ): Promise<any>;
     executeDbAdminCommand(
         command: Object,
-        options: { readPreference?: ReadPreference | string; maxTimeMS?: number },
+        options: { readPreference?: ReadPreference | string | undefined; maxTimeMS?: number | undefined },
         callback: MongoCallback<any>,
     ): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#indexInformation
     indexInformation(name: string, callback: MongoCallback<any>): void;
     indexInformation(
         name: string,
-        options?: { full?: boolean; readPreference?: ReadPreference | string },
+        options?: { full?: boolean | undefined; readPreference?: ReadPreference | string | undefined },
     ): Promise<any>;
     indexInformation(
         name: string,
-        options: { full?: boolean; readPreference?: ReadPreference | string },
+        options: { full?: boolean | undefined; readPreference?: ReadPreference | string | undefined },
         callback: MongoCallback<any>,
     ): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#listCollections
     listCollections(
         filter?: Object,
-        options?: { batchSize?: number; readPreference?: ReadPreference | string },
+        options?: { batchSize?: number | undefined; readPreference?: ReadPreference | string | undefined },
     ): CommandCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#logout
     logout(callback: MongoCallback<any>): void;
-    logout(options?: { dbName?: string }): Promise<any>;
-    logout(options: { dbName?: string }, callback: MongoCallback<any>): void;
+    logout(options?: { dbName?: string | undefined }): Promise<any>;
+    logout(options: { dbName?: string | undefined }, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#open
     open(): Promise<Db>;
     open(callback: MongoCallback<Db>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#removeUser
     removeUser(username: string, callback: MongoCallback<any>): void;
-    removeUser(username: string, options?: { w?: number | string; wtimeout?: number; j?: boolean }): Promise<any>;
+    removeUser(username: string, options?: { w?: number | string | undefined; wtimeout?: number | undefined; j?: boolean | undefined }): Promise<any>;
     removeUser(
         username: string,
-        options: { w?: number | string; wtimeout?: number; j?: boolean },
+        options: { w?: number | string | undefined; wtimeout?: number | undefined; j?: boolean | undefined },
         callback: MongoCallback<any>,
     ): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#renameCollection
@@ -324,18 +324,18 @@ export class Db extends EventEmitter {
     renameCollection<TSchema = Default>(
         fromCollection: string,
         toCollection: string,
-        options?: { dropTarget?: boolean },
+        options?: { dropTarget?: boolean | undefined },
     ): Promise<Collection<TSchema>>;
     renameCollection<TSchema = Default>(
         fromCollection: string,
         toCollection: string,
-        options: { dropTarget?: boolean },
+        options: { dropTarget?: boolean | undefined },
         callback: MongoCallback<Collection<TSchema>>,
     ): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#stats
     stats(callback: MongoCallback<any>): void;
-    stats(options?: { scale?: number }): Promise<any>;
-    stats(options: { scale?: number }, callback: MongoCallback<any>): void;
+    stats(options?: { scale?: number | undefined }): Promise<any>;
+    stats(options: { scale?: number | undefined }, callback: MongoCallback<any>): void;
 }
 
 // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
@@ -361,79 +361,79 @@ export class Mongos extends EventEmitter {
 
 // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#addUser
 export interface DbAddUserOptions {
-    w?: string | number;
-    wtimeout?: number;
-    j?: boolean;
-    customData?: Object;
-    roles?: Object[];
+    w?: string | number | undefined;
+    wtimeout?: number | undefined;
+    j?: boolean | undefined;
+    customData?: Object | undefined;
+    roles?: Object[] | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html#createCollection
 export interface CollectionCreateOptions {
-    w?: number | string;
-    wtimeout?: number;
-    j?: boolean;
-    raw?: boolean;
-    pkFactory?: Object;
-    readPreference?: ReadPreference | string;
-    serializeFunctions?: boolean;
-    strict?: boolean;
-    capped?: boolean;
-    autoIndexId?: boolean;
-    size?: number;
-    max?: number;
-    flags?: number;
-    storageEngine?: object;
-    validator?: object;
-    validationLevel?: 'off' | 'strict' | 'moderate';
-    validationAction?: 'error' | 'warn';
-    indexOptionDefaults?: object;
-    viewOn?: string;
-    pipeline?: any[];
-    collation?: object;
+    w?: number | string | undefined;
+    wtimeout?: number | undefined;
+    j?: boolean | undefined;
+    raw?: boolean | undefined;
+    pkFactory?: Object | undefined;
+    readPreference?: ReadPreference | string | undefined;
+    serializeFunctions?: boolean | undefined;
+    strict?: boolean | undefined;
+    capped?: boolean | undefined;
+    autoIndexId?: boolean | undefined;
+    size?: number | undefined;
+    max?: number | undefined;
+    flags?: number | undefined;
+    storageEngine?: object | undefined;
+    validator?: object | undefined;
+    validationLevel?: 'off' | 'strict' | 'moderate' | undefined;
+    validationAction?: 'error' | 'warn' | undefined;
+    indexOptionDefaults?: object | undefined;
+    viewOn?: string | undefined;
+    pipeline?: any[] | undefined;
+    collation?: object | undefined;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#collection
 export interface DbCollectionOptions {
-    w?: number | string;
-    wtimeout?: number;
-    j?: boolean;
-    raw?: boolean;
-    pkFactory?: Object;
-    readPreference?: ReadPreference | string;
-    serializeFunctions?: boolean;
-    strict?: boolean;
-    readConcern?: { level: Object };
+    w?: number | string | undefined;
+    wtimeout?: number | undefined;
+    j?: boolean | undefined;
+    raw?: boolean | undefined;
+    pkFactory?: Object | undefined;
+    readPreference?: ReadPreference | string | undefined;
+    serializeFunctions?: boolean | undefined;
+    strict?: boolean | undefined;
+    readConcern?: { level: Object } | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html#createIndex
 export interface IndexOptions {
     // The write concern.
-    w?: number | string;
+    w?: number | string | undefined;
     // The write concern timeout.
-    wtimeout?: number;
+    wtimeout?: number | undefined;
     // Specify a journal write concern.
-    j?: boolean;
+    j?: boolean | undefined;
     // Creates an unique index.
-    unique?: boolean;
+    unique?: boolean | undefined;
     // Creates a sparse index.
-    sparse?: boolean;
+    sparse?: boolean | undefined;
     // Creates the index in the background, yielding whenever possible.
-    background?: boolean;
+    background?: boolean | undefined;
     // A unique index cannot be created on a key that has pre-existing duplicate values.
     // If you would like to create the index anyway, keeping the first document the database indexes and
     // deleting all subsequent documents that have duplicate value
-    dropDups?: boolean;
+    dropDups?: boolean | undefined;
     // For geo spatial indexes set the lower bound for the co-ordinates.
-    min?: number;
+    min?: number | undefined;
     // For geo spatial indexes set the high bound for the co-ordinates.
-    max?: number;
+    max?: number | undefined;
     // Specify the format version of the indexes.
-    v?: number;
+    v?: number | undefined;
     // Allows you to expire data on indexes applied to a data (MongoDB 2.2 or higher)
-    expireAfterSeconds?: number;
+    expireAfterSeconds?: number | undefined;
     // Override the auto generated index name (useful if the resulting name is larger than 128 bytes)
-    name?: string;
+    name?: string | undefined;
     // Creates a partial index based on the given filter object (MongoDB 3.2 or higher)
     partialFilterExpression?: any;
 }
@@ -453,10 +453,10 @@ export interface Admin {
     buildInfo(callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#command
     command(command: Object, callback: MongoCallback<any>): void;
-    command(command: Object, options?: { readPreference?: ReadPreference | string; maxTimeMS?: number }): Promise<any>;
+    command(command: Object, options?: { readPreference?: ReadPreference | string | undefined; maxTimeMS?: number | undefined }): Promise<any>;
     command(
         command: Object,
-        options: { readPreference?: ReadPreference | string; maxTimeMS?: number },
+        options: { readPreference?: ReadPreference | string | undefined; maxTimeMS?: number | undefined },
         callback: MongoCallback<any>,
     ): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#listDatabases
@@ -498,20 +498,20 @@ export interface Admin {
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#addUser
 export interface AddUserOptions {
-    w?: number | string;
-    wtimeout?: number;
-    j?: boolean;
+    w?: number | string | undefined;
+    wtimeout?: number | undefined;
+    j?: boolean | undefined;
     fsync: boolean;
-    customData?: Object;
-    roles?: Object[];
+    customData?: Object | undefined;
+    roles?: Object[] | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#removeUser
 export interface FSyncOptions {
-    w?: number | string;
-    wtimeout?: number;
-    j?: boolean;
-    fsync?: boolean;
+    w?: number | string | undefined;
+    wtimeout?: number | undefined;
+    j?: boolean | undefined;
+    fsync?: boolean | undefined;
 }
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html
@@ -560,20 +560,20 @@ export interface Collection<TSchema = Default> {
     deleteOne(filter: Object, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     deleteOne(
         filter: Object,
-        options?: { w?: number | string; wtimmeout?: number; j?: boolean; bypassDocumentValidation?: boolean },
+        options?: { w?: number | string | undefined; wtimmeout?: number | undefined; j?: boolean | undefined; bypassDocumentValidation?: boolean | undefined },
     ): Promise<DeleteWriteOpResultObject>;
     deleteOne(
         filter: Object,
-        options: { w?: number | string; wtimmeout?: number; j?: boolean; bypassDocumentValidation?: boolean },
+        options: { w?: number | string | undefined; wtimmeout?: number | undefined; j?: boolean | undefined; bypassDocumentValidation?: boolean | undefined },
         callback: MongoCallback<DeleteWriteOpResultObject>,
     ): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#distinct
     distinct(key: string, query: Object, callback: MongoCallback<any>): void;
-    distinct(key: string, query: Object, options?: { readPreference?: ReadPreference | string }): Promise<any>;
+    distinct(key: string, query: Object, options?: { readPreference?: ReadPreference | string | undefined }): Promise<any>;
     distinct(
         key: string,
         query: Object,
-        options: { readPreference?: ReadPreference | string },
+        options: { readPreference?: ReadPreference | string | undefined },
         callback: MongoCallback<any>,
     ): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#drop
@@ -598,11 +598,11 @@ export interface Collection<TSchema = Default> {
     findOneAndDelete(filter: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndDelete(
         filter: Object,
-        options?: { projection?: Object; sort?: Object; maxTimeMS?: number },
+        options?: { projection?: Object | undefined; sort?: Object | undefined; maxTimeMS?: number | undefined },
     ): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
     findOneAndDelete(
         filter: Object,
-        options: { projection?: Object; sort?: Object; maxTimeMS?: number },
+        options: { projection?: Object | undefined; sort?: Object | undefined; maxTimeMS?: number | undefined },
         callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>,
     ): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndReplace
@@ -664,7 +664,7 @@ export interface Collection<TSchema = Default> {
         reduce: Function | Code,
         finalize: Function | Code,
         command: boolean,
-        options?: { readPreference?: ReadPreference | string },
+        options?: { readPreference?: ReadPreference | string | undefined },
     ): Promise<any>;
     group(
         keys: Object | Array<any> | Function | Code,
@@ -673,7 +673,7 @@ export interface Collection<TSchema = Default> {
         reduce: Function | Code,
         finalize: Function | Code,
         command: boolean,
-        options: { readPreference?: ReadPreference | string },
+        options: { readPreference?: ReadPreference | string | undefined },
         callback: MongoCallback<any>,
     ): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#indexes
@@ -713,7 +713,7 @@ export interface Collection<TSchema = Default> {
     isCapped(): Promise<any>;
     isCapped(callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#listIndexes
-    listIndexes(options?: { batchSize?: number; readPreference?: ReadPreference | string }): CommandCursor;
+    listIndexes(options?: { batchSize?: number | undefined; readPreference?: ReadPreference | string | undefined }): CommandCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#mapReduce
     mapReduce(map: Function | string, reduce: Function | string, callback: MongoCallback<any>): void;
     mapReduce(map: Function | string, reduce: Function | string, options?: MapReduceOptions): Promise<any>;
@@ -737,17 +737,17 @@ export interface Collection<TSchema = Default> {
     /** @deprecated Use use deleteOne, deleteMany or bulkWrite */
     remove(selector: Object, callback: MongoCallback<WriteOpResult>): void;
     /** @deprecated Use use deleteOne, deleteMany or bulkWrite */
-    remove(selector: Object, options?: CollectionOptions & { single?: boolean }): Promise<WriteOpResult>;
+    remove(selector: Object, options?: CollectionOptions & { single?: boolean | undefined }): Promise<WriteOpResult>;
     /** @deprecated Use use deleteOne, deleteMany or bulkWrite */
     remove(
         selector: Object,
-        options?: CollectionOptions & { single?: boolean },
+        options?: CollectionOptions & { single?: boolean | undefined },
         callback?: MongoCallback<WriteOpResult>,
     ): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#rename
     rename(newName: string, callback: MongoCallback<Collection<TSchema>>): void;
-    rename(newName: string, options?: { dropTarget?: boolean }): Promise<Collection<TSchema>>;
-    rename(newName: string, options: { dropTarget?: boolean }, callback: MongoCallback<Collection<TSchema>>): void;
+    rename(newName: string, options?: { dropTarget?: boolean | undefined }): Promise<Collection<TSchema>>;
+    rename(newName: string, options: { dropTarget?: boolean | undefined }, callback: MongoCallback<Collection<TSchema>>): void;
     //http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#replaceOne
     replaceOne(filter: Object, doc: Object, callback: MongoCallback<ReplaceWriteOpResult>): void;
     replaceOne(filter: Object, doc: Object, options?: ReplaceOneOptions): Promise<ReplaceWriteOpResult>;
@@ -772,12 +772,12 @@ export interface Collection<TSchema = Default> {
     /** @deprecated use updateOne, updateMany or bulkWrite */
     update(filter: Object, update: Object, callback: MongoCallback<WriteOpResult>): void;
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: Object, update: Object, options?: ReplaceOneOptions & { multi?: boolean }): Promise<WriteOpResult>;
+    update(filter: Object, update: Object, options?: ReplaceOneOptions & { multi?: boolean | undefined }): Promise<WriteOpResult>;
     /** @deprecated use updateOne, updateMany or bulkWrite */
     update(
         filter: Object,
         update: Object,
-        options: ReplaceOneOptions & { multi?: boolean },
+        options: ReplaceOneOptions & { multi?: boolean | undefined },
         callback: MongoCallback<WriteOpResult>,
     ): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#updateMany
@@ -785,12 +785,12 @@ export interface Collection<TSchema = Default> {
     updateMany(
         filter: Object,
         update: Object,
-        options?: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean },
+        options?: { upsert?: boolean | undefined; w?: any; wtimeout?: number | undefined; j?: boolean | undefined },
     ): Promise<UpdateWriteOpResult>;
     updateMany(
         filter: Object,
         update: Object,
-        options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean },
+        options: { upsert?: boolean | undefined; w?: any; wtimeout?: number | undefined; j?: boolean | undefined },
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#updateOne
@@ -825,7 +825,7 @@ export interface CollStats {
     // Padding can speed up updates if documents grow.
     paddingFactor: number;
     // A number that indicates the user-set flags on the collection. userFlags only appears when using the mmapv1 storage engine.
-    userFlags?: number;
+    userFlags?: number | undefined;
     // Total index size in bytes.
     totalIndexSize: number;
     // Size of specific indexes in bytes.
@@ -839,7 +839,7 @@ export interface CollStats {
     max: number;
     // The maximum size of a capped collection.
     maxSize: number;
-    wiredTiger?: WiredTigerData;
+    wiredTiger?: WiredTigerData | undefined;
     indexDetails?: any;
     ok: number;
 }
@@ -982,65 +982,65 @@ export interface WiredTigerData {
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
 export interface CollectionAggregationOptions {
-    readPreference?: ReadPreference | string;
+    readPreference?: ReadPreference | string | undefined;
     // Return the query as cursor, on 2.6 > it returns as a real cursor
     // on pre 2.6 it returns as an emulated cursor.
-    cursor?: { batchSize: number };
+    cursor?: { batchSize: number } | undefined;
     // Explain returns the aggregation execution plan (requires mongodb 2.6 >).
-    explain?: boolean;
+    explain?: boolean | undefined;
     // lets the server know if it can use disk to store
     // temporary results for the aggregation (requires mongodb 2.6 >).
-    allowDiskUse?: boolean;
+    allowDiskUse?: boolean | undefined;
     // specifies a cumulative time limit in milliseconds for processing operations
     // on the cursor. MongoDB interrupts the operation at the earliest following interrupt point.
-    maxTimeMS?: number;
+    maxTimeMS?: number | undefined;
     // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
-    bypassDocumentValidation?: boolean;
+    bypassDocumentValidation?: boolean | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#insertMany
 export interface CollectionInsertManyOptions {
     // The write concern.
-    w?: number | string;
+    w?: number | string | undefined;
     // The write concern timeout.
-    wtimeout?: number;
+    wtimeout?: number | undefined;
     // Specify a journal write concern.
-    j?: boolean;
+    j?: boolean | undefined;
     // Serialize functions on any object.
-    serializeFunctions?: boolean;
+    serializeFunctions?: boolean | undefined;
     //Force server to assign _id values instead of driver.
-    forceServerObjectId?: boolean;
+    forceServerObjectId?: boolean | undefined;
     // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
-    bypassDocumentValidation?: boolean;
+    bypassDocumentValidation?: boolean | undefined;
     // If true, when an insert fails, don't execute the remaining writes. If false, continue with remaining inserts when one fails.
-    ordered?: boolean;
+    ordered?: boolean | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#bulkWrite
 export interface CollectionBulkWriteOptions {
     // The write concern.
-    w?: number | string;
+    w?: number | string | undefined;
     // The write concern timeout.
-    wtimeout?: number;
+    wtimeout?: number | undefined;
     // Specify a journal write concern.
-    j?: boolean;
+    j?: boolean | undefined;
     // Serialize functions on any object.
-    serializeFunctions?: boolean;
+    serializeFunctions?: boolean | undefined;
     //Force server to assign _id values instead of driver.
-    forceServerObjectId?: boolean;
+    forceServerObjectId?: boolean | undefined;
     // Execute write operation in ordered or unordered fashion.
-    ordered?: boolean;
+    ordered?: boolean | undefined;
     // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
-    bypassDocumentValidation?: boolean;
+    bypassDocumentValidation?: boolean | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~BulkWriteOpResult
 export interface BulkWriteOpResultObject {
-    insertedCount?: number;
-    matchedCount?: number;
-    modifiedCount?: number;
-    deletedCount?: number;
-    upsertedCount?: number;
+    insertedCount?: number | undefined;
+    matchedCount?: number | undefined;
+    modifiedCount?: number | undefined;
+    deletedCount?: number | undefined;
+    upsertedCount?: number | undefined;
     insertedIds?: any;
     upsertedIds?: any;
     result?: any;
@@ -1049,13 +1049,13 @@ export interface BulkWriteOpResultObject {
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#count
 export interface MongoCountPreferences {
     // The limit of documents to count.
-    limit?: number;
+    limit?: number | undefined;
     // The number of documents to skip for the count.
-    skip?: number;
+    skip?: number | undefined;
     // An index name hint for the query.
-    hint?: string;
+    hint?: string | undefined;
     // The preferred read preference
-    readPreference?: ReadPreference | string;
+    readPreference?: ReadPreference | string | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~deleteWriteOpResult
@@ -1063,54 +1063,54 @@ export interface DeleteWriteOpResultObject {
     //The raw result returned from MongoDB, field will vary depending on server version.
     result: {
         //Is 1 if the command executed correctly.
-        ok?: number;
+        ok?: number | undefined;
         //The total count of documents deleted.
-        n?: number;
+        n?: number | undefined;
     };
     //The connection object used for the operation.
     connection?: any;
     //The number of documents deleted.
-    deletedCount?: number;
+    deletedCount?: number | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~findAndModifyWriteOpResult
 export interface FindAndModifyWriteOpResultObject<TSchema = Default> {
     //Document returned from findAndModify command.
-    value?: TSchema;
+    value?: TSchema | undefined;
     //The raw lastErrorObject returned from the command.
     lastErrorObject?: any;
     //Is 1 if the command executed correctly.
-    ok?: number;
+    ok?: number | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndReplace
 export interface FindOneAndReplaceOption {
-    projection?: Object;
-    sort?: Object;
-    maxTimeMS?: number;
-    upsert?: boolean;
-    returnOriginal?: boolean;
+    projection?: Object | undefined;
+    sort?: Object | undefined;
+    maxTimeMS?: number | undefined;
+    upsert?: boolean | undefined;
+    returnOriginal?: boolean | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#geoHaystackSearch
 export interface GeoHaystackSearchOptions {
-    readPreference?: ReadPreference | string;
-    maxDistance?: number;
-    search?: Object;
-    limit?: number;
+    readPreference?: ReadPreference | string | undefined;
+    maxDistance?: number | undefined;
+    search?: Object | undefined;
+    limit?: number | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#geoNear
 export interface GeoNearOptions {
-    readPreference?: ReadPreference | string;
-    num?: number;
-    minDistance?: number;
-    maxDistance?: number;
-    distanceMultiplier?: number;
-    query?: Object;
-    spherical?: boolean;
-    uniqueDocs?: boolean;
-    includeLocs?: boolean;
+    readPreference?: ReadPreference | string | undefined;
+    num?: number | undefined;
+    minDistance?: number | undefined;
+    maxDistance?: number | undefined;
+    distanceMultiplier?: number | undefined;
+    query?: Object | undefined;
+    spherical?: boolean | undefined;
+    uniqueDocs?: boolean | undefined;
+    includeLocs?: boolean | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Code.html
@@ -1123,11 +1123,11 @@ export class Code {
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#deleteMany
 export interface CollectionOptions {
     //The write concern.
-    w?: number | string;
+    w?: number | string | undefined;
     //The write concern timeout.
-    wtimeout?: number;
+    wtimeout?: number | undefined;
     //Specify a journal write concern.
-    j?: boolean;
+    j?: boolean | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html
@@ -1219,26 +1219,26 @@ export interface FindOperatorsUnordered {
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
 export interface FindOneOptions {
-    limit?: number;
-    sort?: Array<any> | Object;
-    fields?: Object;
-    skip?: number;
-    hint?: Object;
-    explain?: boolean;
-    snapshot?: boolean;
-    timeout?: boolean;
-    tailable?: boolean;
-    batchSize?: number;
-    returnKey?: boolean;
-    maxScan?: number;
-    min?: number;
-    max?: number;
-    showDiskLoc?: boolean;
-    comment?: string;
-    raw?: boolean;
-    readPreference?: ReadPreference | string;
-    partial?: boolean;
-    maxTimeMS?: number;
+    limit?: number | undefined;
+    sort?: Array<any> | Object | undefined;
+    fields?: Object | undefined;
+    skip?: number | undefined;
+    hint?: Object | undefined;
+    explain?: boolean | undefined;
+    snapshot?: boolean | undefined;
+    timeout?: boolean | undefined;
+    tailable?: boolean | undefined;
+    batchSize?: number | undefined;
+    returnKey?: boolean | undefined;
+    maxScan?: number | undefined;
+    min?: number | undefined;
+    max?: number | undefined;
+    showDiskLoc?: boolean | undefined;
+    comment?: string | undefined;
+    raw?: boolean | undefined;
+    readPreference?: ReadPreference | string | undefined;
+    partial?: boolean | undefined;
+    maxTimeMS?: number | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertWriteOpResult
@@ -1253,17 +1253,17 @@ export interface InsertWriteOpResult {
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertOne
 export interface CollectionInsertOneOptions {
     // The write concern.
-    w?: number | string;
+    w?: number | string | undefined;
     // The write concern timeout.
-    wtimeout?: number;
+    wtimeout?: number | undefined;
     // Specify a journal write concern.
-    j?: boolean;
+    j?: boolean | undefined;
     // Serialize functions on any object.
-    serializeFunctions?: boolean;
+    serializeFunctions?: boolean | undefined;
     //Force server to assign _id values instead of driver.
-    forceServerObjectId?: boolean;
+    forceServerObjectId?: boolean | undefined;
     //Allow driver to bypass schema validation in MongoDB 3.2 or higher.
-    bypassDocumentValidation?: boolean;
+    bypassDocumentValidation?: boolean | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertOneWriteOpResult
@@ -1277,19 +1277,19 @@ export interface InsertOneWriteOpResult {
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#parallelCollectionScan
 export interface ParallelCollectionScanOptions {
-    readPreference?: ReadPreference | string;
-    batchSize?: number;
-    numCursors?: number;
-    raw?: boolean;
+    readPreference?: ReadPreference | string | undefined;
+    batchSize?: number | undefined;
+    numCursors?: number | undefined;
+    raw?: boolean | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#replaceOne
 export interface ReplaceOneOptions {
-    upsert?: boolean;
-    w?: number | string;
-    wtimeout?: number;
-    j?: boolean;
-    bypassDocumentValidation?: boolean;
+    upsert?: boolean | undefined;
+    w?: number | string | undefined;
+    wtimeout?: number | undefined;
+    j?: boolean | undefined;
+    bypassDocumentValidation?: boolean | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~updateWriteOpResult
@@ -1309,17 +1309,17 @@ export interface ReplaceWriteOpResult extends UpdateWriteOpResult {
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#mapReduce
 export interface MapReduceOptions {
-    readPreference?: ReadPreference | string;
-    out?: Object;
-    query?: Object;
-    sort?: Object;
-    limit?: number;
-    keeptemp?: boolean;
-    finalize?: Function | string;
-    scope?: Object;
-    jsMode?: boolean;
-    verbose?: boolean;
-    bypassDocumentValidation?: boolean;
+    readPreference?: ReadPreference | string | undefined;
+    out?: Object | undefined;
+    query?: Object | undefined;
+    sort?: Object | undefined;
+    limit?: number | undefined;
+    keeptemp?: boolean | undefined;
+    finalize?: Function | string | undefined;
+    scope?: Object | undefined;
+    jsMode?: boolean | undefined;
+    verbose?: boolean | undefined;
+    bypassDocumentValidation?: boolean | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~WriteOpResult
@@ -1410,7 +1410,7 @@ export class Cursor<T = Default> extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#sort
     sort(keyOrList: string | Object[] | Object, direction?: number): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#stream
-    stream(options?: { transform?: Function }): Cursor<T>;
+    stream(options?: { transform?: Function | undefined }): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#toArray
     toArray(): Promise<T[]>;
     toArray(callback: MongoCallback<T[]>): void;
@@ -1420,11 +1420,11 @@ export class Cursor<T = Default> extends Readable {
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#count
 export interface CursorCommentOptions {
-    skip?: number;
-    limit?: number;
-    maxTimeMS?: number;
-    hint?: string;
-    readPreference?: ReadPreference | string;
+    skip?: number | undefined;
+    limit?: number | undefined;
+    maxTimeMS?: number | undefined;
+    hint?: string | undefined;
+    readPreference?: ReadPreference | string | undefined;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~iteratorCallback
@@ -1552,10 +1552,10 @@ export class GridFSBucket {
 
 // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html
 export interface GridFSBucketOptions {
-    bucketName?: string;
-    chunkSizeBytes?: number;
-    writeConcern?: Object;
-    ReadPreference?: Object;
+    bucketName?: string | undefined;
+    chunkSizeBytes?: number | undefined;
+    writeConcern?: Object | undefined;
+    ReadPreference?: Object | undefined;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#~errorCallback
@@ -1565,20 +1565,20 @@ export interface GridFSBucketErrorCallback {
 
 // http://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#find
 export interface GridFSBucketFindOptions {
-    batchSize?: number;
-    limit?: number;
-    maxTimeMS?: number;
-    noCursorTimeout?: boolean;
-    skip?: number;
-    sort?: Object;
+    batchSize?: number | undefined;
+    limit?: number | undefined;
+    maxTimeMS?: number | undefined;
+    noCursorTimeout?: boolean | undefined;
+    skip?: number | undefined;
+    sort?: Object | undefined;
 }
 
 // https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucket.html#openUploadStream
 export interface GridFSBucketOpenUploadStreamOptions {
-    chunkSizeBytes?: number;
-    metadata?: Object;
-    contentType?: string;
-    aliases?: Array<string>;
+    chunkSizeBytes?: number | undefined;
+    metadata?: Object | undefined;
+    contentType?: string | undefined;
+    aliases?: Array<string> | undefined;
 }
 
 // https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketReadStream.html
@@ -1595,10 +1595,10 @@ export class GridFSBucketReadStream extends Readable {
 
 // https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketReadStream.html
 export interface GridFSBucketReadStreamOptions {
-    sort?: number;
-    skip?: number;
-    start?: number;
-    end?: number;
+    sort?: number | undefined;
+    skip?: number | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
 }
 
 // https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketWriteStream.html
@@ -1609,11 +1609,11 @@ export class GridFSBucketWriteStream extends Writable {
 
 // https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketWriteStream.html
 export interface GridFSBucketWriteStreamOptions {
-    id?: GridFSBucketWriteStreamId;
-    chunkSizeBytes?: number;
-    w?: number;
-    wtimeout?: number;
-    j?: number;
+    id?: GridFSBucketWriteStreamId | undefined;
+    chunkSizeBytes?: number | undefined;
+    w?: number | undefined;
+    wtimeout?: number | undefined;
+    j?: number | undefined;
 }
 
 type GridFSBucketWriteStreamId = string | number | Object | ObjectID;

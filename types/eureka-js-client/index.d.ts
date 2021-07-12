@@ -21,16 +21,16 @@ export namespace EurekaClient {
     type DataCenterName = 'Netflix' | 'Amazon' | 'MyOwn';
 
     interface EurekaConfig {
-        requestMiddleware?: (requestOpts: any, done: (opts: any) => void) => void;
+        requestMiddleware?: ((requestOpts: any, done: (opts: any) => void) => void) | undefined;
         instance: EurekaInstanceConfig;
         eureka: EurekaClientConfig;
-        shouldUseDelta?: boolean;
+        shouldUseDelta?: boolean | undefined;
         logger?: {
             warn: (...args: any[]) => void;
             info: (...args: any[]) => void;
             debug: (...args: any[]) => void;
             error: (...args: any[]) => void;
-        };
+        } | undefined;
     }
     interface EurekaInstanceConfig {
         app: string;
@@ -38,53 +38,53 @@ export namespace EurekaClient {
         ipAddr: string;
         vipAddress: string;
         dataCenterInfo: DataCenterInfo;
-        port?: number | PortWrapper | LegacyPortWrapper;
-        instanceId?: string;
-        appGroupName?: string;
-        sid?: string;
-        securePort?: number | PortWrapper | LegacyPortWrapper;
-        homePageUrl?: string;
-        statusPageUrl?: string;
-        healthCheckUrl?: string;
-        secureHealthCheckUrl?: string;
-        secureVipAddress?: string;
-        countryId?: number;
-        status?: InstanceStatus;
-        overriddenstatus?: InstanceStatus;
-        leaseInfo?: LeaseInfo;
-        isCoordinatingDiscoveryServer?: boolean;
-        lastUpdatedTimestamp?: number;
-        lastDirtyTimestamp?: number;
-        actionType?: ActionType;
+        port?: number | PortWrapper | LegacyPortWrapper | undefined;
+        instanceId?: string | undefined;
+        appGroupName?: string | undefined;
+        sid?: string | undefined;
+        securePort?: number | PortWrapper | LegacyPortWrapper | undefined;
+        homePageUrl?: string | undefined;
+        statusPageUrl?: string | undefined;
+        healthCheckUrl?: string | undefined;
+        secureHealthCheckUrl?: string | undefined;
+        secureVipAddress?: string | undefined;
+        countryId?: number | undefined;
+        status?: InstanceStatus | undefined;
+        overriddenstatus?: InstanceStatus | undefined;
+        leaseInfo?: LeaseInfo | undefined;
+        isCoordinatingDiscoveryServer?: boolean | undefined;
+        lastUpdatedTimestamp?: number | undefined;
+        lastDirtyTimestamp?: number | undefined;
+        actionType?: ActionType | undefined;
         metadata?: {
             [index: string]: string;
-        };
+        } | undefined;
     }
     interface EurekaClientConfig {
-        host?: string;
-        port?: number;
-        heartbeatInterval?: number;
-        registryFetchInterval?: number;
-        maxRetries?: number;
-        requestRetryDelay?: number;
-        fetchRegistry?: boolean;
-        filterUpInstances?: boolean;
-        servicePath?: string;
-        ssl?: boolean;
-        useDns?: boolean;
-        preferSameZone?: boolean;
-        clusterRefreshInterval?: boolean;
-        fetchMetadata?: boolean;
-        registerWithEureka?: boolean;
-        useLocalMetadata?: boolean;
-        preferIpAddress?: boolean;
+        host?: string | undefined;
+        port?: number | undefined;
+        heartbeatInterval?: number | undefined;
+        registryFetchInterval?: number | undefined;
+        maxRetries?: number | undefined;
+        requestRetryDelay?: number | undefined;
+        fetchRegistry?: boolean | undefined;
+        filterUpInstances?: boolean | undefined;
+        servicePath?: string | undefined;
+        ssl?: boolean | undefined;
+        useDns?: boolean | undefined;
+        preferSameZone?: boolean | undefined;
+        clusterRefreshInterval?: boolean | undefined;
+        fetchMetadata?: boolean | undefined;
+        registerWithEureka?: boolean | undefined;
+        useLocalMetadata?: boolean | undefined;
+        preferIpAddress?: boolean | undefined;
         serviceUrls?: {
             [index: string]: string[];
-        };
+        } | undefined;
     }
     interface EurekaYmlConfig {
         cwd: string;
-        filename?: string;
+        filename?: string | undefined;
     }
     interface EurekaMiddlewareConfig {
         requestMiddleware: (requestOpts: any, done: (opts: any) => void) => void;
@@ -98,15 +98,15 @@ export namespace EurekaClient {
         port: number;
     }
     interface LeaseInfo {
-        renewalIntervalInSecs?: number;
-        durationInSecs?: number;
-        registrationTimestamp?: number;
-        lastRenewalTimestamp?: number;
-        evictionTimestamp?: number;
-        serviceUpTimestamp?: number;
+        renewalIntervalInSecs?: number | undefined;
+        durationInSecs?: number | undefined;
+        registrationTimestamp?: number | undefined;
+        lastRenewalTimestamp?: number | undefined;
+        evictionTimestamp?: number | undefined;
+        serviceUpTimestamp?: number | undefined;
     }
     interface DataCenterInfo {
         name: DataCenterName;
-        '@class'?: string;
+        '@class'?: string | undefined;
     }
 }

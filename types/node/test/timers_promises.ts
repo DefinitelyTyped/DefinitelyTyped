@@ -13,3 +13,9 @@ setTimeout(); // $ExpectType Promise<void>
 
 const res3: AsyncIterable<string> = setInterval(123, 'asd', opts);
 setInterval(); // $ExpectType AsyncIterable<void>
+
+(async () => {
+    for await (const test of setInterval(123, 1)) {
+        test; // $ExpectType number
+    }
+});
