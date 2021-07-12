@@ -1209,3 +1209,5 @@ declare namespace cornerstone {
 }
 
 export default cornerstone;
+
+export as namespace cornerstone;
