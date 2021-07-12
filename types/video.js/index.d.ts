@@ -6977,5 +6977,9 @@ export interface VideoJsPlayerPluginOptions {
 declare global {
     interface Window {
         HELP_IMPROVE_VIDEOJS: boolean;
+        /**
+         * @link https://docs.videojs.com/tutorial-skins.html
+         */
+        VIDEOJS_NO_DYNAMIC_STYLE?: boolean | undefined;
     }
 }

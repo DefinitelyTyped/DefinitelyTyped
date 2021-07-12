@@ -2,6 +2,8 @@ import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js';
 
 // $ExpectType boolean
 window.HELP_IMPROVE_VIDEOJS;
+// $ExpectType boolean | undefined
+window.VIDEOJS_NO_DYNAMIC_STYLE;
 
 const videoElement = document.createElement('video');
 // $ExpectType VideoJsPlayer
