@@ -217,7 +217,7 @@ generator.registerPriorities(
       queueName: 'my#cleanup',
       before: 'end'
     }
-  ])
+  ]);
 
 generator.registerConfigPrompts([{ storage: generator.config, exportOption: true, type: "input" }]);
 generator.registerTransformStream([]);
