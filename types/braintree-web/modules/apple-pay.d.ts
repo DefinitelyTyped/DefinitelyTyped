@@ -1,7 +1,7 @@
 import { callback } from './core';
 import { Client } from './client';
 
-// more info https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types/paymentrequest
+// More info: https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest
 
 //  billingContact
 //  Billing contact information for the user.
@@ -24,26 +24,47 @@ import { Client } from './client';
 //    shippingType
 //  How the items are to be shipped.This property is optional.If specified, it must be one or more of shipping, delivery, storePickup, or servicePickup.The default value is shipping.
 //    supportedNetworks
-//  Required.The payment networks supported by the merchant.The value must be one or more of amex, discover, interac, masterCard, privateLabel, or visa.
+//  Required.The payment networks supported by the merchant. The value must be one or more of amex, discover, interac, masterCard, privateLabel, or visa.
 //    total
-//  Required.The total amount for the payment.The total must be greater than zero and have a label to pass validation.
+//  Required.The total amount for the payment. Total must be greater than zero and have a label to pass validation.
 export interface ApplePayPaymentRequest {
-    total: {
-        label: string;
-        amount: string;
-    };
-    countryCode: string;
-    currencyCode: string;
-    supportedNetworks: string[];
-    merchantCapabilities: string[];
-
-    billingContact?: any;
+    total: ApplePayLineItem;
     lineItems?: ApplePayLineItem[];
-    shippingContact?: any;
-    shippingMethods?: any;
-    shippingType?: any;
-    requiredBillingContactFields?: any;
-    requiredShippingContactFields?: any;
+    currencyCode?: string; // required but provided by Braintree Gateway during createPaymentRequest() if not specified
+    shippingType?: ApplePayShippingType;
+    shippingMethods?: ApplePayShippingMethod[];
+    merchantCapabilities?: ApplePayMerchantCapability[]; // required but provided by Braintree Gateway during createPaymentRequest() if not specified
+    supportedNetworks?: string[]; // required but provided by Braintree Gateway during createPaymentRequest() if not specified
+    countryCode?: string; // required but provided by Braintree Gateway during createPaymentRequest() if not specified
+    requiredBillingContactFields?: ApplePayContactField[];
+    billingContact?: ApplePayPaymentContact;
+    requiredShippingContactFields?: ApplePayContactField[];
+    shippingContact?: ApplePayPaymentContact;
+    applicationData?: string;
+    supportedCountries?: string[];
+    supportsCouponCode?: boolean;
+    couponCode?: string;
+    shippingContactEditingMode?: ApplePayShippingContactEditingMode;
+}
+
+export enum ApplePayContactField {
+    email = 'email',
+    name = 'name',
+    phone = 'phone',
+    postalAddress = 'postalAddress',
+    phoneticName = 'phoneticName'
+}
+
+export enum ApplePayMerchantCapability {
+    supports3DS = 'supports3DS',
+    supportsEMV = 'supportsEMV',
+    supportsCredit = 'supportsCredit',
+    supportsDebit = 'supportsDebit'
+}
+
+export enum ApplePayShippingContactEditingMode {
+  enabled = 'enabled',
+  storePickup = 'storePickup'
 }
 
 export enum ApplePayStatusCodes {
@@ -67,6 +88,18 @@ export enum ApplePayStatusCodes {
 
 export type ApplePayTokenizeValues = 'Yes' | 'No' | 'Unknown';
 
+export interface ApplePayDateComponentsRange {
+    startDateComponents: ApplePayDateComponents;
+    endDateComponents: ApplePayDateComponents;
+}
+
+export interface ApplePayDateComponents {
+    years: number;
+    months: number;
+    days: number;
+    hours: number;
+}
+
 export interface ApplePayDetails {
     cardType: string;
     cardholderName: string;
@@ -74,9 +107,51 @@ export interface ApplePayDetails {
 }
 
 export interface ApplePayLineItem {
-    type: string;
-    label: string;
-    amount: number;
+    type?: ApplePayLineItemType;
+    label?: string;
+    amount?: string;
+    paymentTiming?: ApplePayPaymentTiming;
+    recurringPaymentStartDate?: Date;
+    recurringPaymentIntervalUnit?: ApplePayRecurringPaymentDateUnit;
+    recurringPaymentIntervalCount?: number;
+    recurringPaymentEndDate?: Date;
+    deferredPaymentDate?: Date;
+}
+
+export enum ApplePayLineItemType {
+    final = 'final',
+    pending = 'pending'
+}
+
+export interface ApplePayPaymentContact {
+    phoneNumber?: string;
+    emailAddress?: string;
+    givenName?: string;
+    familyName?: string;
+    phoneticGivenName?: string;
+    phoneticFamilyName?: string;
+    addressLines?: string[];
+    subLocality?: string;
+    locality?: string;
+    postalCode?: string;
+    subAdministrativeArea?: string;
+    administrativeArea?: string;
+    country?: string;
+    countryCode?: string;
+}
+
+export enum ApplePayPaymentTiming {
+    immediate = 'immediate',
+    recurring = 'recurring',
+    deferred = 'deferred'
+}
+
+export enum ApplePayRecurringPaymentDateUnit {
+    year = 'year',
+    month = 'month',
+    day = 'day',
+    hour = 'hour',
+    minute = 'minute'
 }
 
 export interface ApplePayPayload {
@@ -96,6 +171,21 @@ export interface ApplePayPayload {
         prepaid: ApplePayTokenizeValues;
         productId: string;
     };
+}
+
+export interface ApplePayShippingMethod {
+    label: string;
+    detail: string;
+    amount: string;
+    identifier: string;
+    dateComponentsRange?: ApplePayDateComponentsRange;
+}
+
+export enum ApplePayShippingType {
+    shipping = 'shipping',
+    delivery = 'delivery',
+    storePickup = 'storePickup',
+    servicePickup = 'servicePickup'
 }
 
 export class ApplePaySession {
@@ -152,6 +242,7 @@ export interface ApplePay {
     VERSION: string;
 
     /**
+     * See https://braintree.github.io/braintree-web/current/ApplePay.html#createPaymentRequest
      * Merges a payment request with Braintree defaults
      * The following properties are assigned to `paymentRequest` if not already defined
      * - countryCode
@@ -175,6 +266,7 @@ export interface ApplePay {
     createPaymentRequest(paymentRequest: ApplePayPaymentRequest): ApplePayPaymentRequest;
 
     /**
+     * See https://braintree.github.io/braintree-web/current/ApplePay.html#performValidation
      * Validates the merchant website, as required by ApplePaySession before payment can be authorized.     * - The canonical name for your store.
      * - The system may display this name to the user.
      * - Use a 128-character or less, UTF-8 string.
@@ -210,6 +302,7 @@ export interface ApplePay {
     ): void;
 
     /**
+     * See https://braintree.github.io/braintree-web/current/ApplePay.html#tokenize
      * Tokenizes an Apple Pay payment.     * @example
      * var applePay = require('braintree-web/apple-pay');
      *
@@ -232,4 +325,10 @@ export interface ApplePay {
      * });
      */
     tokenize(options: { token: any }, callback: callback): void;
+    
+    /**
+     * See https://braintree.github.io/braintree-web/current/ApplePay.html#tokenize
+     * Cleanly tear down anything set up by create.
+     */
+    teardown(callback?: callback): void;
 }
