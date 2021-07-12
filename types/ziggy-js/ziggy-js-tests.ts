@@ -8,6 +8,9 @@ ziggy.default();
 // $ExpectType string
 ziggy.default("test");
 
+// $ExpectType Router
+ziggy.default(undefined, undefined, true, {});
+
 // $ExpectType boolean
 new ziggy.Router().current("test");
 
