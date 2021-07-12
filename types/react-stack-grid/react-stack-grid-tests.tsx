@@ -46,7 +46,6 @@ ReactDOM.render(
     document.querySelector('.app'),
 );
 
-
 /** GridRef Options */
 ReactDOM.render(
     <StackGrid
