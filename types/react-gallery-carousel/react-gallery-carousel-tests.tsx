@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Carousel, { CarouselRef, Images } from 'react-gallery-carousel';
+import Carousel = require('react-gallery-carousel');
 
 const images: Carousel.Images = [
     {
