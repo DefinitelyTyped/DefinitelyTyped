@@ -1,4 +1,4 @@
-// Type definitions for OpenUI5 1.91
+// Type definitions for OpenUI5 1.92
 // Project: https://github.com/SAP/openui5
 // Definitions by: OpenUI5 Bot <https://github.com/openui5bot>
 //                 Peter Muessig <https://github.com/petermuessig>
@@ -47,3 +47,6 @@
 /// <reference path="./sap.ui.unified.d.ts"/>
 /// <reference path="./sap.ui.ux3.d.ts"/>
 /// <reference path="./sap.uxap.d.ts"/>
+/// <reference path="./sap.ui.webc.common.d.ts"/>
+/// <reference path="./sap.ui.webc.fiori.d.ts"/>
+/// <reference path="./sap.ui.webc.main.d.ts"/>
