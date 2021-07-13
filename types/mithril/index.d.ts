@@ -324,6 +324,10 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface Element extends Mithril.Vnode {}
 
+        interface ElementAttributesProperty {
+          attrs: Record<string, unknown>;
+        }
+
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends Mithril.Attributes {}
         // tslint:disable-next-line:no-empty-interface
