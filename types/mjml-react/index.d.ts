@@ -384,10 +384,9 @@ export interface MjmlTableProps {
     align?: 'left' | 'right' | 'center' | undefined;
     role?: 'presentation' | 'none';
     border?: React.CSSProperties['border'] | undefined;
-    cssClass?: string | undefined;
 }
 
-export class MjmlTable extends React.Component<MjmlTableProps & PaddingProps> { }
+export class MjmlTable extends React.Component<MjmlTableProps & PaddingProps & ClassNameProps> { }
 
 // mj-text
 export interface MjmlTextProps {
