@@ -41,8 +41,8 @@ export default class DowncastWriter {
         options?: { isAllowedInsideAttributeElement?: boolean | undefined },
     ): EmptyElement;
     createPositionAfter(item: Item): Position;
-    createPositionAt(itemOrPosition: View, offset?: number | "end" | "before" | "after"): Position;
-    createPositionAt(itemOrPosition: Item | Position): Position;
+    createPositionAt(itemOrPosition: Item, offset?: number | "end" | "before" | "after"): Position;
+    createPositionAt(itemOrPosition: Position): Position;
     createPositionBefore(item: Item): Position;
     createRange(start: Position, end?: Position): Range;
     createRangeIn(element: Element): Range;
