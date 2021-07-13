@@ -17,8 +17,8 @@
 		"no-single-declare-module": false,    // these modules do exist and we want TypeScript to know about them
 		"interface-over-type-literal": false, // this rule is considered debatable (see https://github.com/palantir/tslint/issues/3248)
 
-		// the following rules have already been fixed in the "main" branch of OpenUI5, but did not make the 1.92 release
-		"no-redundant-undefined": false,
+		// the following rules have already been fixed in the "main" branch of OpenUI5, but the fixes did not make the 1.92 release
+		"redundant-undefined": false,
 		"no-mergeable-namespace": false,
 		"no-unnecessary-qualifier": false,
 		"no-redundant-jsdoc-2": false
