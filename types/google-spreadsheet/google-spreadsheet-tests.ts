@@ -69,4 +69,8 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
      a1.textFormat = { bold: true };
      c6.note = 'This is a note!';
      await sheet.saveUpdatedCells(); // save all updates in one call
+
+     // create empty document
+     const emptyDoc = new GoogleSpreadsheet();
+     await emptyDoc.createNewSpreadsheetDocument({title: 'This is a new Spread Sheet'});
  })();

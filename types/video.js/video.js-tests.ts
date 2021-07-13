@@ -2,6 +2,8 @@ import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js';
 
 // $ExpectType boolean
 window.HELP_IMPROVE_VIDEOJS;
+// $ExpectType boolean | undefined
+window.VIDEOJS_NO_DYNAMIC_STYLE;
 
 const videoElement = document.createElement('video');
 // $ExpectType VideoJsPlayer
@@ -82,7 +84,7 @@ playerOptions.controlBar! = {
     timeDivider: false,
 };
 
-videojs('example_video_1', playerOptions).ready(function() {
+videojs('example_video_1', playerOptions).ready(function playerReady() {
     // EXAMPLE: Start playing the video.
     const playPromise = this.play();
 

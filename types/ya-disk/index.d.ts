@@ -70,21 +70,21 @@ interface SystemFolders {
 }
 
 export interface Resource {
-    public_key?: string;
-    public_url?: string;
-    _embedded?: boolean;
-    preview?: string;
+    public_key?: string | undefined;
+    public_url?: string | undefined;
+    _embedded?: boolean | undefined;
+    preview?: string | undefined;
     name: string;
     custom_properties: Record<string, string>;
     created: string;
     modified: string;
     path: string;
-    origin_path?: string;
+    origin_path?: string | undefined;
     md5: string;
     type: ResourceType;
     mime_type: string;
     size: number;
-    file?: string;
+    file?: string | undefined;
 }
 
 interface FilesResourceList {
@@ -108,27 +108,27 @@ interface ApiResponse<T> {
 }
 
 interface GetProps {
-    fields?: string;
-    sort?: Sort;
-    limit?: number;
-    offset?: number;
-    preview_size?: PreviewSize;
-    preview_crop?: boolean;
+    fields?: string | undefined;
+    sort?: Sort | undefined;
+    limit?: number | undefined;
+    offset?: number | undefined;
+    preview_size?: PreviewSize | undefined;
+    preview_crop?: boolean | undefined;
 }
 
 interface ListProps {
-    limit?: number;
-    media_type?: MediaType;
-    offset?: number;
-    preview_size?: PreviewSize;
-    preview_crop?: boolean;
+    limit?: number | undefined;
+    media_type?: MediaType | undefined;
+    offset?: number | undefined;
+    preview_size?: PreviewSize | undefined;
+    preview_crop?: boolean | undefined;
 }
 
 interface RecentProps {
-    limit?: number;
-    media_type?: MediaType;
-    preview_size?: PreviewSize;
-    preview_crop?: boolean;
+    limit?: number | undefined;
+    media_type?: MediaType | undefined;
+    preview_size?: PreviewSize | undefined;
+    preview_crop?: boolean | undefined;
 }
 
 export namespace download {

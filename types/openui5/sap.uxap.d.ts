@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/uxap/library" {
   /**
@@ -376,12 +376,12 @@ declare module "sap/uxap/AnchorBar" {
      * Determines whether to show a Popover with Subsection links when clicking on Section links in the Anchor
      * bar.
      */
-    showPopover?: boolean | PropertyBindingInfo;
+    showPopover?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the Anchor bar items are displayed in upper case.
      */
-    upperCase?: boolean | PropertyBindingInfo;
+    upperCase?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58
@@ -393,12 +393,12 @@ declare module "sap/uxap/AnchorBar" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The button that represents the Section being scrolled by the user.
      */
-    selectedButton?: Button | string;
+    selectedButton?: Button | string | undefined;
   }
 }
 
@@ -583,7 +583,7 @@ declare module "sap/uxap/BlockBase" {
         /**
          * The initialized view.
          */
-        view?: View;
+        view?: View | undefined;
       }
     ): this;
     /**
@@ -803,18 +803,18 @@ declare module "sap/uxap/BlockBase" {
      * {@link sap.uxap.ObjectPageSubSection SubSection}. The `mode` property of `BlockBase` changes when the
      * `mode` property of `ObjectPageSubSection` changes.
      */
-    mode?: string | PropertyBindingInfo;
+    mode?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the visibility of the block.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines on how many columns the layout will be rendered. Allowed values are integers from 1 to 4 and
      * "auto".
      */
-    columnLayout?: BlockBaseColumnLayout | PropertyBindingInfo;
+    columnLayout?: BlockBaseColumnLayout | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the block should automatically adjust its inner forms. Allowed values are "BlockColumns"
@@ -825,7 +825,7 @@ declare module "sap/uxap/BlockBase" {
      */
     formAdjustment?:
       | (BlockBaseFormAdjustment | keyof typeof BlockBaseFormAdjustment)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the show more button should be shown.
@@ -833,12 +833,12 @@ declare module "sap/uxap/BlockBase" {
      * **Note:** The property will take effect if the `BlockBase` is inside `ObjectPageSubSection` and would
      * be ignored in case the `BlockBase` is nested inside another `BlockBase`.
      */
-    showSubSectionMore?: boolean | PropertyBindingInfo;
+    showSubSectionMore?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Map external UI5 model and internal Block model
      */
-    mappings?: ModelMapping[] | ModelMapping | AggregationBindingInfo;
+    mappings?: ModelMapping[] | ModelMapping | AggregationBindingInfo | undefined;
 
     /**
      * The current view. Corresponds to the currently specified `mode` of the sap.uxap.BlockBase.
@@ -848,14 +848,14 @@ declare module "sap/uxap/BlockBase" {
      * creation is completed. Applications that want to be notified when a view is created should subscribe
      * to the `viewInit` event.
      */
-    selectedView?: Control | string;
+    selectedView?: Control | string | undefined;
 
     /**
      * @SINCE 1.72
      *
      * Fired when an aggregated view is instantiated.
      */
-    viewInit?: Function;
+    viewInit?: Function | undefined;
   }
 }
 
@@ -1052,17 +1052,17 @@ declare module "sap/uxap/BreadCrumbs" {
     /**
      * Sets the visibility of the current/last element in the BreadCrumbs path.
      */
-    showCurrentLocation?: boolean | PropertyBindingInfo;
+    showCurrentLocation?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * A list of all the active link elements in the BreadCrumbs control.
      */
-    links?: Link[] | Link | AggregationBindingInfo;
+    links?: Link[] | Link | AggregationBindingInfo | undefined;
 
     /**
      * The current/last element in the BreadCrumbs path.
      */
-    currentLocation?: Text;
+    currentLocation?: Text | undefined;
   }
 }
 
@@ -1167,7 +1167,7 @@ declare module "sap/uxap/HierarchicalSelect" {
     /**
      * Determines whether the HierarchicalSelect items are displayed in upper case.
      */
-    upperCase?: boolean | PropertyBindingInfo;
+    upperCase?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -1307,17 +1307,17 @@ declare module "sap/uxap/ModelMapping" {
     /**
      * Determines the external model name.
      */
-    externalModelName?: string | PropertyBindingInfo;
+    externalModelName?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the internal model name.
      */
-    internalModelName?: string | PropertyBindingInfo;
+    internalModelName?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the external path.
      */
-    externalPath?: string | PropertyBindingInfo;
+    externalPath?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -1687,7 +1687,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      */
     rootRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts which describe the landmark of the root container of the corresponding `sap.uxap.ObjectPageLayout`
@@ -1696,7 +1696,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
      */
-    rootLabel?: string | PropertyBindingInfo;
+    rootLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Landmark role of the content container of the corresponding `sap.uxap.ObjectPageLayout` control.
@@ -1705,7 +1705,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      */
     contentRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts which describe the landmark of the content container of the corresponding `sap.uxap.ObjectPageLayout`
@@ -1714,7 +1714,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
      */
-    contentLabel?: string | PropertyBindingInfo;
+    contentLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Landmark role of the navigation container of the corresponding `sap.uxap.ObjectPageLayout` control.
@@ -1723,7 +1723,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      */
     navigationRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts which describe the landmark of the navigation container of the corresponding `sap.uxap.ObjectPageLayout`
@@ -1732,7 +1732,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
      */
-    navigationLabel?: string | PropertyBindingInfo;
+    navigationLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Landmark role of the header container of the corresponding `sap.uxap.ObjectPageLayout` control.
@@ -1741,7 +1741,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      */
     headerRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts which describe the landmark of the header container of the corresponding `sap.uxap.ObjectPageLayout`
@@ -1750,7 +1750,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
      */
-    headerLabel?: string | PropertyBindingInfo;
+    headerLabel?: string | PropertyBindingInfo | undefined;
 
     /**
      * Landmark role of the footer container of the corresponding `sap.uxap.ObjectPageLayout` control.
@@ -1759,7 +1759,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      */
     footerRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Texts which describe the landmark of the header container of the corresponding `sap.uxap.ObjectPageLayout`
@@ -1768,7 +1768,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
      */
-    footerLabel?: string | PropertyBindingInfo;
+    footerLabel?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -1804,6 +1804,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderContent" {
     __implements__sap_uxap_IHeaderContent: boolean;
     /**
      * Constructor for a new `ObjectPageDynamicHeaderContent`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageHeader#constructor
+     * sap.f.DynamicPageHeader} can be used.
      */
     constructor(
       /**
@@ -1813,6 +1820,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderContent" {
     );
     /**
      * Constructor for a new `ObjectPageDynamicHeaderContent`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageHeader#constructor
+     * sap.f.DynamicPageHeader} can be used.
      */
     constructor(
       /**
@@ -1885,6 +1899,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderTitle" {
     __implements__sap_uxap_IHeaderTitle: boolean;
     /**
      * Constructor for a new `ObjectPageDynamicHeaderTitle`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageTitle#constructor
+     * sap.f.DynamicPageTitle} can be used.
      * See:
      * 	{@link topic:6e340c119ddd4c778b315f65a0432420 Object Page Dynamic Header}
      * 	{@link topic:d2ef0099542d44dc868719d908e576d0 Object Page Headers}
@@ -1898,6 +1919,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderTitle" {
     );
     /**
      * Constructor for a new `ObjectPageDynamicHeaderTitle`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageTitle#constructor
+     * sap.f.DynamicPageTitle} can be used.
      * See:
      * 	{@link topic:6e340c119ddd4c778b315f65a0432420 Object Page Dynamic Header}
      * 	{@link topic:d2ef0099542d44dc868719d908e576d0 Object Page Headers}
@@ -2235,7 +2263,7 @@ declare module "sap/uxap/ObjectPageHeader" {
         /**
          * DOM reference of the changed item's icon to be used for positioning.
          */
-        domRef?: string;
+        domRef?: string | undefined;
       }
     ): this;
     /**
@@ -2249,7 +2277,7 @@ declare module "sap/uxap/ObjectPageHeader" {
         /**
          * DOM reference of the lock item's icon to be used for positioning.
          */
-        domRef?: string;
+        domRef?: string | undefined;
       }
     ): this;
     /**
@@ -2263,7 +2291,7 @@ declare module "sap/uxap/ObjectPageHeader" {
         /**
          * DOM reference of the title item's icon to be used for positioning.
          */
-        domRef?: string;
+        domRef?: string | undefined;
       }
     ): this;
     /**
@@ -2972,35 +3000,35 @@ declare module "sap/uxap/ObjectPageHeader" {
     /**
      * The URL of the image, representing the business object
      */
-    objectImageURI?: string | PropertyBindingInfo;
+    objectImageURI?: string | PropertyBindingInfo | undefined;
 
     /**
      * The text to be used for the Alt and Tooltip attribute of the image, supplied via the objectImageURI property
      */
-    objectImageAlt?: string | PropertyBindingInfo;
+    objectImageAlt?: string | PropertyBindingInfo | undefined;
 
     /**
      * The value of densityAware for the image, supplied via the objectImageURI property. See sap.m.Image for
      * more details on densityAware.
      */
-    objectImageDensityAware?: boolean | PropertyBindingInfo;
+    objectImageDensityAware?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The title of the object
      */
-    objectTitle?: string | PropertyBindingInfo;
+    objectTitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * The description of the object
      */
-    objectSubtitle?: string | PropertyBindingInfo;
+    objectSubtitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the picture should be displayed in a square or with a circle-shaped mask.
      */
     objectImageShape?:
       | (AvatarShape | keyof typeof AvatarShape)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.73
@@ -3009,27 +3037,27 @@ declare module "sap/uxap/ObjectPageHeader" {
      */
     objectImageBackgroundColor?:
       | (AvatarColor | keyof typeof AvatarColor)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the icon should always be visible or visible only when the header is snapped.
      */
-    isObjectIconAlwaysVisible?: boolean | PropertyBindingInfo;
+    isObjectIconAlwaysVisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the title should always be visible or visible only when the header is snapped.
      */
-    isObjectTitleAlwaysVisible?: boolean | PropertyBindingInfo;
+    isObjectTitleAlwaysVisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the subtitle should always be visible or visible only when the header is snapped.
      */
-    isObjectSubtitleAlwaysVisible?: boolean | PropertyBindingInfo;
+    isObjectSubtitleAlwaysVisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the action buttons should always be visible or visible only when the header is snapped.
      */
-    isActionAreaAlwaysVisible?: boolean | PropertyBindingInfo;
+    isActionAreaAlwaysVisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.40.1)
@@ -3039,40 +3067,40 @@ declare module "sap/uxap/ObjectPageHeader" {
      */
     headerDesign?:
       | (ObjectPageHeaderDesign | keyof typeof ObjectPageHeaderDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * When set to true, the selector arrow icon/image is shown and can be pressed.
      */
-    showTitleSelector?: boolean | PropertyBindingInfo;
+    showTitleSelector?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Set the favorite state to true or false. The showMarkers property must be true for this property to take
      * effect.
      */
-    markFavorite?: boolean | PropertyBindingInfo;
+    markFavorite?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Set the flagged state to true or false. The showMarkers property must be true for this property to take
      * effect.
      */
-    markFlagged?: boolean | PropertyBindingInfo;
+    markFlagged?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates if object page header title supports showing markers such as flagged and favorite.
      */
-    showMarkers?: boolean | PropertyBindingInfo;
+    showMarkers?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Set the locked state of the objectPageHeader.
      */
-    markLocked?: boolean | PropertyBindingInfo;
+    markLocked?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Enables support of a placeholder image in case no image is specified or the URL of the provided image
      * is invalid.
      */
-    showPlaceholder?: boolean | PropertyBindingInfo;
+    showPlaceholder?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -3080,7 +3108,7 @@ declare module "sap/uxap/ObjectPageHeader" {
      * Marks that there are unsaved changes in the objectPageHeader. The markChanges state cannot be used together
      * with the markLocked state. If both are set to true, only the locked state will be displayed.
      */
-    markChanges?: boolean | PropertyBindingInfo;
+    markChanges?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.50
@@ -3088,19 +3116,19 @@ declare module "sap/uxap/ObjectPageHeader" {
      * The breadcrumbs displayed in the `ObjectPageHeader`. If this aggregation is set, the `breadCrumbsLinks`
      * aggregation is omitted.
      */
-    breadcrumbs?: Breadcrumbs;
+    breadcrumbs?: Breadcrumbs | undefined;
 
     /**
      * @deprecated (since 1.50) - use the `breadcrumbs` aggregation instead.
      *
      * A list of all the active link elements in the BreadCrumbs control.
      */
-    breadCrumbsLinks?: Link[] | Link | AggregationBindingInfo;
+    breadCrumbsLinks?: Link[] | Link | AggregationBindingInfo | undefined;
 
     /**
      * An instance of sap.m.Bar to be embedded in the header
      */
-    navigationBar?: Bar;
+    navigationBar?: Bar | undefined;
 
     /**
      * List of actions that will be displayed in the header. You can use ObjectPageHeaderActionButton controls
@@ -3111,14 +3139,14 @@ declare module "sap/uxap/ObjectPageHeader" {
      * along with the `press` event to indicate that a popup shouldn't be opened from that action and a dialog
      * should be used instead.
      */
-    actions?: Control[] | Control | AggregationBindingInfo;
+    actions?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
      *
      * A button that is used for opening the side content of the page or some additional content.
      */
-    sideContentButton?: Button;
+    sideContentButton?: Button | undefined;
 
     /**
      * @SINCE 1.56
@@ -3130,22 +3158,22 @@ declare module "sap/uxap/ObjectPageHeader" {
      * **Note:** If the aggregation is destroyed or set to invalid value, the default tooltip will be set. The
      * default tooltip text is "Related options".
      */
-    titleSelectorTooltip?: string | TooltipBase | PropertyBindingInfo;
+    titleSelectorTooltip?: string | TooltipBase | PropertyBindingInfo | undefined;
 
     /**
      * The event is fired when the objectPage header title selector (down-arrow) is pressed
      */
-    titleSelectorPress?: Function;
+    titleSelectorPress?: Function | undefined;
 
     /**
      * The event is fired when the Locked button is pressed
      */
-    markLockedPress?: Function;
+    markLockedPress?: Function | undefined;
 
     /**
      * The event is fired when the unsaved changes button is pressed
      */
-    markChangesPress?: Function;
+    markChangesPress?: Function | undefined;
   }
 }
 
@@ -3164,6 +3192,9 @@ declare module "sap/uxap/ObjectPageHeaderActionButton" {
    * @SINCE 1.26
    *
    * A Button that is used in the `actions` aggregation of the {@link sap.uxap.ObjectPageHeader}.
+   *
+   * The button is designed to be used with {@link sap.uxap.ObjectPageHeader} and any usage outside the intended
+   * context is not recommended.
    */
   export default class ObjectPageHeaderActionButton
     extends Button
@@ -3315,21 +3346,21 @@ declare module "sap/uxap/ObjectPageHeaderActionButton" {
      * if you want to display icons only in the headerTitle part but still want to display text + icon in the
      * actionSheet that appears when not enough space is available on the screen for displaying all actions.
      */
-    hideText?: boolean | PropertyBindingInfo;
+    hideText?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Hide the button icon when rendered into the headerTitle part of the ObjectPageLayout. This is useful
      * if you want to display texts only in the headerTitle part but still want to display text + icon in the
      * actionSheet that appears when not enough space is available on the screen for displaying all actions.
      */
-    hideIcon?: boolean | PropertyBindingInfo;
+    hideIcon?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * Determines the order in which the button overflows.
      */
-    importance?: (Importance | keyof typeof Importance) | PropertyBindingInfo;
+    importance?: (Importance | keyof typeof Importance) | PropertyBindingInfo | undefined;
   }
 }
 
@@ -3531,12 +3562,12 @@ declare module "sap/uxap/ObjectPageHeaderContent" {
      */
     contentDesign?:
       | (ObjectPageHeaderDesign | keyof typeof ObjectPageHeaderDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The list of Objects of type sap.ui.core.Control.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -3763,32 +3794,32 @@ declare module "sap/uxap/ObjectPageHeaderLayoutData" {
     /**
      * If this property is set the control will be visible (or not) in a small sized layout.
      */
-    visibleS?: boolean | PropertyBindingInfo;
+    visibleS?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If this property is set the control will be visible (or not) in a medium sized layout.
      */
-    visibleM?: boolean | PropertyBindingInfo;
+    visibleM?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If this property is set the control will be visible (or not) in a large sized layout.
      */
-    visibleL?: boolean | PropertyBindingInfo;
+    visibleL?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If this property is set the control will display a separator before it.
      */
-    showSeparatorBefore?: boolean | PropertyBindingInfo;
+    showSeparatorBefore?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If this property is set the control will display a separator after it.
      */
-    showSeparatorAfter?: boolean | PropertyBindingInfo;
+    showSeparatorAfter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If this property is set the control will take the provided size.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
   }
 }
 
@@ -4203,11 +4234,11 @@ declare module "sap/uxap/ObjectPageLayout" {
         /**
          * The selected section object.
          */
-        section?: ObjectPageSection;
+        section?: ObjectPageSection | undefined;
         /**
          * The selected subsection object.
          */
-        subSection?: ObjectPageSubSection;
+        subSection?: ObjectPageSubSection | undefined;
       }
     ): this;
     /**
@@ -4223,11 +4254,11 @@ declare module "sap/uxap/ObjectPageLayout" {
         /**
          * The section which the layout is scrolled to.
          */
-        section?: ObjectPageSection;
+        section?: ObjectPageSection | undefined;
         /**
          * The subsection which the layout is scrolled to.
          */
-        subSection?: ObjectPageSubSection;
+        subSection?: ObjectPageSubSection | undefined;
       }
     ): this;
     /**
@@ -4243,7 +4274,7 @@ declare module "sap/uxap/ObjectPageLayout" {
         /**
          * Object whose keys are the visible SubSection IDs and their values are the SubSection instances
          */
-        visibleSubSections?: object;
+        visibleSubSections?: object | undefined;
       }
     ): this;
     /**
@@ -4258,7 +4289,7 @@ declare module "sap/uxap/ObjectPageLayout" {
          * False indicates that the Anchor bar has just detached from the Header and became part of the scrolling
          * area. True means that the Anchor bar has just snapped to the Header.
          */
-        fixed?: boolean;
+        fixed?: boolean | undefined;
       }
     ): this;
     /**
@@ -5218,18 +5249,18 @@ declare module "sap/uxap/ObjectPageLayout" {
     /**
      * Determines whether the Navigation bar (Anchor bar) is displayed.
      */
-    showAnchorBar?: boolean | PropertyBindingInfo;
+    showAnchorBar?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether to show a Popover with Subsection links when clicking on Section links in the Anchor
      * bar.
      */
-    showAnchorBarPopover?: boolean | PropertyBindingInfo;
+    showAnchorBarPopover?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the Anchor bar items are displayed in upper case.
      */
-    upperCaseAnchorBar?: boolean | PropertyBindingInfo;
+    upperCaseAnchorBar?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58
@@ -5241,24 +5272,24 @@ declare module "sap/uxap/ObjectPageLayout" {
      */
     backgroundDesignAnchorBar?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the height of the ObjectPage.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Enable lazy loading for the Object page Subsections.
      */
-    enableLazyLoading?: boolean | PropertyBindingInfo;
+    enableLazyLoading?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether Subsection titles are displayed on top or to the left of the Subsection content.
      */
     subSectionLayout?:
       | (ObjectPageSubSectionLayout | keyof typeof ObjectPageSubSectionLayout)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44.0
@@ -5285,7 +5316,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      */
     sectionTitleLevel?:
       | (TitleLevel | keyof typeof TitleLevel)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the navigation mode is tab-based instead of the default anchor bar. If enabled, the
@@ -5293,17 +5324,17 @@ declare module "sap/uxap/ObjectPageLayout" {
      *
      * **Note:** Keep in mind that the `sap.m.IconTabBar` control is no longer used for the tab navigation mode.
      */
-    useIconTabBar?: boolean | PropertyBindingInfo;
+    useIconTabBar?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the visibility of the Header content (headerContent aggregation).
      */
-    showHeaderContent?: boolean | PropertyBindingInfo;
+    showHeaderContent?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the to use two column layout for the L screen size.
      */
-    useTwoColumnsForLargeScreen?: boolean | PropertyBindingInfo;
+    useTwoColumnsForLargeScreen?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the title, image, markers and selectTitleArrow are shown in the Header content area.
@@ -5311,14 +5342,14 @@ declare module "sap/uxap/ObjectPageLayout" {
      * **Note**: This property is only taken into account if an instance of `sap.uxap.ObjectPageHeader` is used
      * for the `headerTitle` aggregation.
      */
-    showTitleInHeaderContent?: boolean | PropertyBindingInfo;
+    showTitleInHeaderContent?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32.0
      *
      * Determines whether sections and subsections with importance Low and Medium are hidden even on large screens.
      */
-    showOnlyHighImportance?: boolean | PropertyBindingInfo;
+    showOnlyHighImportance?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -5329,7 +5360,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      * **Note**: This property is only taken into account if an instance of `sap.uxap.ObjectPageHeader` is used
      * for the `headerTitle` aggregation.
      */
-    isChildPage?: boolean | PropertyBindingInfo;
+    isChildPage?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -5339,7 +5370,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      * **Note**: This property is only taken into account if an instance of `sap.uxap.ObjectPageHeader` is used
      * for the `headerTitle` aggregation.
      */
-    alwaysShowContentHeader?: boolean | PropertyBindingInfo;
+    alwaysShowContentHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -5352,7 +5383,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      * **Note:** This property is only taken into account if an instance of `sap.uxap.ObjectPageDynamicHeaderTitle`
      * is used for the `headerTitle` aggregation.
      */
-    headerContentPinnable?: boolean | PropertyBindingInfo;
+    headerContentPinnable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -5365,7 +5396,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      * **Note:** This property is only taken into account if an instance of `sap.uxap.ObjectPageDynamicHeaderTitle`
      * is used for the `headerTitle` aggregation.
      */
-    toggleHeaderOnTitleClick?: boolean | PropertyBindingInfo;
+    toggleHeaderOnTitleClick?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -5380,7 +5411,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      * 			when the control is rendered on tablet or mobile and the control`s title and header are with height larger
      * 			than the given threshold.
      */
-    preserveHeaderStateOnScroll?: boolean | PropertyBindingInfo;
+    preserveHeaderStateOnScroll?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -5390,7 +5421,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      * **Note**: This property is only taken into account if an instance of `sap.uxap.ObjectPageHeader` is used
      * for the `headerTitle` aggregation.
      */
-    showEditHeaderButton?: boolean | PropertyBindingInfo;
+    showEditHeaderButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -5398,36 +5429,36 @@ declare module "sap/uxap/ObjectPageLayout" {
      * Specifies whether the object page enables flexibility features, such as hiding and adding sections.
      *  For more information about SAPUI5 flexibility, refer to the Developer Guide.
      */
-    flexEnabled?: boolean | PropertyBindingInfo;
+    flexEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40
      *
      * Determines whether the footer is visible.
      */
-    showFooter?: boolean | PropertyBindingInfo;
+    showFooter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The sections that make up the Object page content area.
      */
-    sections?: ObjectPageSection[] | ObjectPageSection | AggregationBindingInfo;
+    sections?: ObjectPageSection[] | ObjectPageSection | AggregationBindingInfo | undefined;
 
     /**
      * Object page header title - the upper, always static, part of the Object page header.
      */
-    headerTitle?: IHeaderTitle;
+    headerTitle?: IHeaderTitle | undefined;
 
     /**
      * Object page header content - the dynamic part of the Object page header.
      */
-    headerContent?: Control[] | Control | AggregationBindingInfo;
+    headerContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.40
      *
      * Object page floating footer.
      */
-    footer?: IBar;
+    footer?: IBar | undefined;
 
     /**
      * @SINCE 1.61
@@ -5436,45 +5467,45 @@ declare module "sap/uxap/ObjectPageLayout" {
      *
      * If not set, no landmarks will be written.
      */
-    landmarkInfo?: ObjectPageAccessibleLandmarkInfo;
+    landmarkInfo?: ObjectPageAccessibleLandmarkInfo | undefined;
 
     /**
      * @SINCE 1.44.0
      *
      * The section that is selected by default on load.
      */
-    selectedSection?: ObjectPageSection | string;
+    selectedSection?: ObjectPageSection | string | undefined;
 
     /**
      * The event is fired when the Anchor bar is switched from moving to fixed or the other way round.
      */
-    toggleAnchorBar?: Function;
+    toggleAnchorBar?: Function | undefined;
 
     /**
      * @SINCE 1.73
      *
      * Fired when the current section is changed by scrolling.
      */
-    sectionChange?: Function;
+    sectionChange?: Function | undefined;
 
     /**
      * The event is fired when the Edit Header button is pressed
      */
-    editHeaderButtonPress?: Function;
+    editHeaderButtonPress?: Function | undefined;
 
     /**
      * @SINCE 1.40
      *
      * The event is fired when the selected section is changed using the navigation.
      */
-    navigate?: Function;
+    navigate?: Function | undefined;
 
     /**
      * @SINCE 1.77
      *
      * Fired when the visibility of subsections is changed.
      */
-    subSectionVisibilityChange?: Function;
+    subSectionVisibilityChange?: Function | undefined;
   }
 }
 
@@ -5625,7 +5656,7 @@ declare module "sap/uxap/ObjectPageLazyLoader" {
     /**
      * Controls to be displayed after this element is unstashed
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -5839,12 +5870,12 @@ declare module "sap/uxap/ObjectPageSection" {
     /**
      * Determines whether to display the Section title or not.
      */
-    showTitle?: boolean | PropertyBindingInfo;
+    showTitle?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the Section title is displayed in upper case.
      */
-    titleUppercase?: boolean | PropertyBindingInfo;
+    titleUppercase?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The list of Subsections.
@@ -5852,12 +5883,12 @@ declare module "sap/uxap/ObjectPageSection" {
     subSections?:
       | ObjectPageSubSection[]
       | ObjectPageSubSection
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * The most recently selected Subsection by the user.
      */
-    selectedSubSection?: ObjectPageSubSection | string;
+    selectedSubSection?: ObjectPageSubSection | string | undefined;
   }
 }
 
@@ -6102,7 +6133,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * instead of the section title. This behavior is true even if the `showTitle` propeprty of {@link sap.uxap.ObjectPageSubSection}
      * is set to `false`.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.44.0
@@ -6115,19 +6146,19 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * For example: if `titleLevel` is `TitleLevel.H1`, it will result as aria-level of 1 added to the `ObjectPageSectionBase`
      * title.
      */
-    titleLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo;
+    titleLevel?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo | undefined;
 
     /**
      * Invisible ObjectPageSectionBase are not rendered
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32.0
      *
      * Determines whether the section will be hidden on low resolutions.
      */
-    importance?: (Importance | keyof typeof Importance) | PropertyBindingInfo;
+    importance?: (Importance | keyof typeof Importance) | PropertyBindingInfo | undefined;
 
     /**
      * The custom button that will provide a link to the section in the ObjectPageLayout anchor bar. This button
@@ -6137,7 +6168,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      *
      * If you want to change some of the button properties, you would need to bind them to a model.
      */
-    customAnchorBarButton?: Button;
+    customAnchorBarButton?: Button | undefined;
   }
 }
 
@@ -6538,7 +6569,7 @@ declare module "sap/uxap/ObjectPageSubSection" {
      * which is the only one (or the only one visible), you need to set the `showTitle` properties to `false`
      * for both the section and its subsection.
      */
-    showTitle?: boolean | PropertyBindingInfo;
+    showTitle?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * A mode property that will be passed to the controls in the blocks and moreBlocks aggregations. Only relevant
@@ -6546,12 +6577,12 @@ declare module "sap/uxap/ObjectPageSubSection" {
      */
     mode?:
       | (ObjectPageSubSectionMode | keyof typeof ObjectPageSubSectionMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the Subsection title is displayed in upper case.
      */
-    titleUppercase?: boolean | PropertyBindingInfo;
+    titleUppercase?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Controls to be displayed in the subsection
@@ -6575,12 +6606,12 @@ declare module "sap/uxap/ObjectPageSubSection" {
      * ` <Form class="sapUxAPObjectPageSubSectionAlignContent" width="auto"></Form> `
      * ```
      */
-    blocks?: Control[] | Control | AggregationBindingInfo;
+    blocks?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Additional controls to display when the Show more / See all / (...) button is pressed
      */
-    moreBlocks?: Control[] | Control | AggregationBindingInfo;
+    moreBlocks?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Actions available for this subsection.
@@ -6592,7 +6623,7 @@ declare module "sap/uxap/ObjectPageSubSection" {
      * NOT have overflow behavior. If the available space is not enough, the controls will be displayed on more
      * lines.
      */
-    actions?: Control[] | Control | AggregationBindingInfo;
+    actions?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 

@@ -1,8 +1,8 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/support/library" {
   /**
-   * @SINCE 1.90.0
+   * @SINCE 1.91.0
    *
    * Defines the Audiences.
    */
@@ -21,7 +21,7 @@ declare module "sap/ui/support/library" {
     Internal = "Internal",
   }
   /**
-   * @SINCE 1.90.0
+   * @SINCE 1.91.0
    *
    * Issue Categories.
    */
@@ -76,7 +76,7 @@ declare module "sap/ui/support/library" {
     Usage = "Usage",
   }
   /**
-   * @SINCE 1.90.0
+   * @SINCE 1.91.0
    *
    * Analysis history formats.
    */
@@ -91,7 +91,7 @@ declare module "sap/ui/support/library" {
     String = "String",
   }
   /**
-   * @SINCE 1.90.0
+   * @SINCE 1.91.0
    *
    * Defines severity types.
    */
@@ -110,7 +110,7 @@ declare module "sap/ui/support/library" {
     Medium = "Medium",
   }
   /**
-   * @SINCE 1.90.0
+   * @SINCE 1.91.0
    *
    * Contains the available system presets.
    */
@@ -206,15 +206,15 @@ declare module "sap/ui/support/RuleAnalyzer" {
         /**
          * Possible values are `global`, `subtree` or `components`.
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * ID of the root element that forms a subtree. Use when the scope type is `subtree`.
          */
-        parentId?: string;
+        parentId?: string | undefined;
         /**
          * List of IDs of the components to be analyzed. Use only when the scope type is `components`.
          */
-        components?: string[];
+        components?: string[] | undefined;
       },
       /**
        * This optional parameter allows for selection of subset of rules for the analysis. You can pass:

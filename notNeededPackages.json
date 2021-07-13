@@ -500,6 +500,10 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "classify-poetry": {
+            "libraryName": "classify-poetry",
+            "asOfVersion": "1.0.1"
+        },
         "classnames": {
             "libraryName": "classnames",
             "asOfVersion": "2.3.0"
@@ -784,6 +788,10 @@
         "cuid": {
             "libraryName": "cuid",
             "asOfVersion": "2.0.1"
+        },
+        "cuss": {
+            "libraryName": "cuss",
+            "asOfVersion": "2.0.0"
         },
         "cycled": {
             "libraryName": "cycled",
@@ -1741,6 +1749,10 @@
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
         },
+        "html2canvas": {
+            "libraryName": "html2canvas",
+            "asOfVersion": "1.0.0"
+        },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
             "asOfVersion": "2.3.0"
@@ -2552,6 +2564,10 @@
         "map-obj": {
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
+        },
+        "maplibre-gl": {
+            "libraryName": "maplibre-gl",
+            "asOfVersion": "1.14.0"
         },
         "maquette": {
             "libraryName": "maquette",
@@ -3626,10 +3642,6 @@
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
         },
-        "rdf-js": {
-            "libraryName": "rdf-js",
-            "asOfVersion": "4.0.2"
-        },
         "rc-select": {
             "libraryName": "rc-select",
             "asOfVersion": "8.6.5"
@@ -3645,6 +3657,10 @@
         "rc-time-picker": {
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
+        },
+        "rdf-js": {
+            "libraryName": "rdf-js",
+            "asOfVersion": "4.0.2"
         },
         "rdflib": {
             "libraryName": "rdflib",
@@ -5421,6 +5437,10 @@
         "xumm-api": {
             "libraryName": "xumm-sdk",
             "asOfVersion": "0.1.4"
+        },
+        "y18n": {
+            "libraryName": "y18n",
+            "asOfVersion": "5.0.0"
         },
         "yaml": {
             "libraryName": "yaml",

@@ -7,7 +7,7 @@ export default class ColorGridView extends View {
     readonly items: ViewCollection;
     readonly keystrokes: KeystrokeHandler;
 
-    constructor(locale?: Locale, options?: { colorDefinitions?: ColorDefinition[]; columns?: number });
+    constructor(locale?: Locale, options?: { colorDefinitions?: ColorDefinition[] | undefined; columns?: number | undefined });
     focus(): void;
     focusLast(): void;
 }

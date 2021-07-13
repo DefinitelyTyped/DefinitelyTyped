@@ -1,10 +1,13 @@
 import {
+    ClickObserver,
     Conversion,
     DataController,
     disablePlaceholder,
     DocumentSelection,
+    DomConverter,
     DowncastWriter,
     EditingController,
+    Element,
     enablePlaceholder,
     hidePlaceholder,
     HtmlDataProcessor,
@@ -14,43 +17,39 @@ import {
     MarkerOperation,
     Model,
     needsPlaceholder,
+    Observer,
     Range,
     showPlaceholder,
     StylesProcessor,
     transformSets,
     TreeWalker,
     ViewDocument,
-    Element,
-    DomConverter,
-    Observer,
-    ClickObserver,
-    DomEventObserver,
 } from "@ckeditor/ckeditor5-engine";
-
 import ConversionHelpers from "@ckeditor/ckeditor5-engine/src/conversion/conversionhelpers";
 import DowncastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher";
+import Mapper from "@ckeditor/ckeditor5-engine/src/conversion/mapper";
 import UpcastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher";
-import DocumentFragment from "@ckeditor/ckeditor5-engine/src/model/documentfragment";
-import Operation from "@ckeditor/ckeditor5-engine/src/model/operation/operation";
-import ModelPosition, { PositionStickiness } from "@ckeditor/ckeditor5-engine/src/model/position";
-import Text from "@ckeditor/ckeditor5-engine/src/model/text";
-import ViewDocumentFragment from "@ckeditor/ckeditor5-engine/src/view/documentfragment";
-import ViewElement from "@ckeditor/ckeditor5-engine/src/view/element";
-import { ElementDefinition } from "@ckeditor/ckeditor5-engine/src/view/elementdefinition";
-import { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
-import Position from "@ckeditor/ckeditor5-engine/src/view/position";
-import View from "@ckeditor/ckeditor5-engine/src/view/view";
-import { EmitterMixin } from "@ckeditor/ckeditor5-utils";
 import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
+import DocumentFragment from "@ckeditor/ckeditor5-engine/src/model/documentfragment";
 import { Item } from "@ckeditor/ckeditor5-engine/src/model/item";
 import { Marker } from "@ckeditor/ckeditor5-engine/src/model/markercollection";
 import Node from "@ckeditor/ckeditor5-engine/src/model/node";
+import Operation from "@ckeditor/ckeditor5-engine/src/model/operation/operation";
+import ModelPosition, { PositionStickiness } from "@ckeditor/ckeditor5-engine/src/model/position";
 import Selection from "@ckeditor/ckeditor5-engine/src/model/selection";
+import Text from "@ckeditor/ckeditor5-engine/src/model/text";
 import Writer from "@ckeditor/ckeditor5-engine/src/model/writer";
 import { getFillerOffset } from "@ckeditor/ckeditor5-engine/src/view/containerelement";
+import ViewDocumentFragment from "@ckeditor/ckeditor5-engine/src/view/documentfragment";
 import EditableElement from "@ckeditor/ckeditor5-engine/src/view/editableelement";
+import ViewElement from "@ckeditor/ckeditor5-engine/src/view/element";
+import { ElementDefinition } from "@ckeditor/ckeditor5-engine/src/view/elementdefinition";
 import { BlockFillerMode } from "@ckeditor/ckeditor5-engine/src/view/filler";
+import { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
+import Position from "@ckeditor/ckeditor5-engine/src/view/position";
 import RootEditableElement from "@ckeditor/ckeditor5-engine/src/view/rooteditableelement";
+import View from "@ckeditor/ckeditor5-engine/src/view/view";
+import { EmitterMixin } from "@ckeditor/ckeditor5-utils";
 
 let str = "";
 let viewDocumentFragment = new ViewDocumentFragment();
@@ -387,3 +386,5 @@ const clickObserver = new ClickObserver(view);
 view.addObserver(ClickObserver);
 clickObserver.domEventType === "click";
 clickObserver.onDomEvent(new MouseEvent("foo"));
+
+new Mapper().on("foo", () => {});

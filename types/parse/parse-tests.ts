@@ -434,6 +434,15 @@ function test_user_acl_roles() {
         },
     );
 
+    Parse.User.requestEmailVerification("email@example.com").then(
+        data => {
+            // The current user is now set to user.
+        },
+        error => {
+            // The token could not be validated.
+        },
+    );
+
     // By specifying no write privileges for the ACL, we can ensure the role cannot be altered.
     const role = new Parse.Role("Administrator", groupACL);
     role.getUsers().add(userList[0]);
@@ -1407,8 +1416,8 @@ function testObject() {
         someString: string;
     }
     interface OptionalObjectAttributes {
-        example?: boolean;
-        another?: string;
+        example?: boolean | undefined;
+        another?: string | undefined;
     }
 
     async function testSave(

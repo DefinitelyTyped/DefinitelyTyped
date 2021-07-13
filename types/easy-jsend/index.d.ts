@@ -19,7 +19,7 @@ declare namespace Express {
     }
 
     interface PartialInput {
-        limit?: number;
+        limit?: number | undefined;
         offset: number;
         count: number;
         data: any;

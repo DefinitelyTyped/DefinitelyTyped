@@ -95,7 +95,7 @@ export interface RendererContext<TState> {
      * Fires when a message is sent via the `vscode.notebook.createRendererMessaging`
      * object in the extension host.
      */
-    onDidReceiveMessage?: VSCodeEvent<any>;
+    onDidReceiveMessage?: VSCodeEvent<any> | undefined;
 }
 
 /**
@@ -139,4 +139,11 @@ export interface RendererApi {
  *
  * @template TState Type of the renderer specific state persisted in the webview.
  */
-export type ActivationFunction<TState = any> = (context: RendererContext<TState>) => RendererApi;
+export interface ActivationFunction<TState = any> {
+    /**
+     * @param context Collection of APIs provided to your renderer.
+     *
+     * @return The renderer for your API or undefined if your renderer extends another and will not be called directly.
+     */
+    (context: RendererContext<TState>): Promise<RendererApi | undefined> | RendererApi | undefined;
+}

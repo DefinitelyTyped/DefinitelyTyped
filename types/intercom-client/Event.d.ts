@@ -13,12 +13,12 @@ export interface Event extends Partial<UserIdId>, Partial<IntercomUserIdId>, Par
 
 export type ListParam = EventIdentifier & {
   type: 'user',
-  per_page?: number, // max 100
+  per_page?: number | undefined, // max 100
 }
 
 export interface List {
   "type": "event.list",
   "total_count": number,
   "events": (Event)[],
-  "pages": { "next"?: string, "page": number, "per_page": number, "total_pages": number }
+  "pages": { "next"?: string | undefined, "page": number, "per_page": number, "total_pages": number }
 }

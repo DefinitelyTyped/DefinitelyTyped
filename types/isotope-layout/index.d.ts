@@ -17,113 +17,113 @@ declare namespace Isotope {
         /**
          * A horizontal grid layout where items are centered inside each cell. The grid is defined by columnWidth and rowHeight options.
          */
-        cellsByColumn?: CellsByColumn;
+        cellsByColumn?: CellsByColumn | undefined;
         /**
          * A vertical grid layout where items are centered inside each cell. The grid is defined by columnWidth and rowHeight options.
          */
-        cellsByRow?: CellsByRow;
+        cellsByRow?: CellsByRow | undefined;
         /**
          * CSS styles that are applied to the container element.
          */
-        containerStyle?: Style;
+        containerStyle?: Style | undefined;
         /**
          * Shows items that match the filter and hides items that do not match.
          * If set to a string, that value is used as a selector.
          * If filter is set to a function, that function checks each item and returns true or false if the item should be shown or hidden.
          */
-        filter?: string | ((itemElement: HTMLElement) => boolean);
+        filter?: string | ((itemElement: HTMLElement) => boolean) | undefined;
         /**
          * Items are arranged into rows. Rows progress vertically. Similar to what you would expect from a layout that uses CSS floats. fitRows works well for items that have the same height.
          */
-        fitRows?: FitRows;
+        fitRows?: FitRows | undefined;
         /**
          * Enables layout on initialization. Enabled by default initLayout: true.
          * Set initLayout: false to disable layout on initialization, so you can use methods or add events before the initial layout.
          * initLayout was previously isInitLayout in Isotope v2. isInitLayout will still work in Isotope v3
          */
-        initLayout?: boolean;
+        initLayout?: boolean | undefined;
         /**
          * Specifies which child elements will be used as item elements in the layout.
          * We recommend always setting itemSelector. itemSelector is useful to exclude sizing elements or other elements that are not part of the layout.
          */
-        itemSelector?: string;
+        itemSelector?: string | undefined;
         /**
          * Layout modes can have their own separate options. These are set in a corresponding object within the options.
          * masonry, fitRows, and vertical are included in Isotope by default. All other layout modes need to installed separately.
          */
-        layoutMode?: LayoutModes;
+        layoutMode?: LayoutModes | undefined;
         /**
          * Isotope reads data from HTML with the getSortData option.
          * getSortData is set with an object. The object’s keys are keywords used to sort by. Object values are either a shortcut string or function to retrieve the data.
          */
-        getSortData?: Sorter;
+        getSortData?: Sorter | undefined;
         /**
          * The styles applied to hide items when filtering.
          */
-        hiddenStyle?: Style;
+        hiddenStyle?: Style | undefined;
         /**
          * Items are arranged horizontally.
          */
-        horiz?: Horizontal;
+        horiz?: Horizontal | undefined;
         /**
          * The default layout mode. Items are arranged in a vertically cascading grid.
          */
-        masonry?: Masonry;
+        masonry?: Masonry | undefined;
         /**
          * Horizontal version of masonry. Items are arranged in a horizontally cascading grid.
          */
-        masontryHorizontal?: MasonryHorizontal;
+        masontryHorizontal?: MasonryHorizontal | undefined;
         /**
          * Controls the horizontal flow of the layout. By default, item elements start positioning at the left, with originLeft: true. Set originLeft: false for right-to-left layouts.
          */
-        originLeft?: boolean;
+        originLeft?: boolean | undefined;
         /**
          * Controls the vertical flow of the layout. By default, item elements start positioning at the top. Set to false for bottom-up layouts. It’s like Tetris!
          */
-        originTop?: boolean;
+        originTop?: boolean | undefined;
         /**
          * The packery layout mode uses a bin-packing algorithm. This is a fancy way of saying “it fills empty gaps.” It works similarly to masonry, except gaps will be filled.
          */
-        packery?: Packery;
+        packery?: Packery | undefined;
         /**
          * Sets item positions in percent values, rather than pixel values. percentPosition: true works well with percent-width items, as items will not transition their position on resize.
          */
-        percentPosition?: boolean;
+        percentPosition?: boolean | undefined;
         /**
          * Adjusts sizes and positions when window is resized. Enabled by default resize: true.
          */
-        resize?: boolean;
+        resize?: boolean | undefined;
         /**
          * Sorts items ascendingly if sortAscending: true “A, B, C…”, “1, 2, 3…”, or descendingly if sortAscending: false, “Z, Y, X…”, “9, 8, 7…”.
          * You can set ascending order for each sortBy value by setting sortAscending to an object.
          */
-        sortAscending?: boolean | SortOrder;
+        sortAscending?: boolean | SortOrder | undefined;
         /**
          * Sorts items according to which property of getSortData. The value of sortBy needs to match a key name in getSortData.
          */
-        sortBy?: string | string[];
+        sortBy?: string | string[] | undefined;
         /**
          * Staggers item transitions, so items transition incrementally after one another. Set as a CSS time format, '0.03s', or as a number in milliseconds, 30.
          */
-        stagger?: number | string;
+        stagger?: number | string | undefined;
         /**
          * Specifies which elements are stamped within the layout. Isotope will layout items around stamped elements.
          * The masonry, packery, and masonryHorizontal layout modes support stamping.
          * The stamp option stamps elements only when the Isotope instance is first initialized. You can stamp additional elements afterwards with the stamp method.
          */
-        stamp?: string;
+        stamp?: string | undefined;
         /**
          * Duration of the transition when items change position or appearance, set in a CSS time format, or as a number in milliseconds. Default: transitionDuration: '0.4s'
          */
-        transitionDuration?: number | string;
+        transitionDuration?: number | string | undefined;
         /**
          * Items are stacked vertically.
          */
-        vertical?: Vertical;
+        vertical?: Vertical | undefined;
         /**
          * The styles applied to reveal items when filtering.
          */
-        visibleStyle?: Style;
+        visibleStyle?: Style | undefined;
     }
 
     interface Sorter {
@@ -139,43 +139,43 @@ declare namespace Isotope {
     }
 
     interface CellsByColumn {
-        columnWidth?: number | string;
-        rowHeight?: number | string;
+        columnWidth?: number | string | undefined;
+        rowHeight?: number | string | undefined;
     }
 
     interface CellsByRow {
-        columnWidth?: number | string;
-        rowHeight?: number | string;
+        columnWidth?: number | string | undefined;
+        rowHeight?: number | string | undefined;
     }
 
     interface FitRows {
-        gutter?: number | string;
+        gutter?: number | string | undefined;
     }
 
     interface Horizontal {
-        verticalAligment?: number;
+        verticalAligment?: number | undefined;
     }
 
     interface Masonry {
-        columnWidth?: number | string;
-        fitWidth?: boolean;
-        gutter?: number | string;
+        columnWidth?: number | string | undefined;
+        fitWidth?: boolean | undefined;
+        gutter?: number | string | undefined;
     }
 
     interface MasonryHorizontal {
-        gutter?: number | string;
-        rowHeight?: number | string;
+        gutter?: number | string | undefined;
+        rowHeight?: number | string | undefined;
     }
 
     interface Packery {
-        columnWidth?: number | string;
-        gutter?: number | string;
-        horizontal?: boolean;
-        rowHeight?: number;
+        columnWidth?: number | string | undefined;
+        gutter?: number | string | undefined;
+        horizontal?: boolean | undefined;
+        rowHeight?: number | undefined;
     }
 
     interface Vertical {
-        horizontalAlignment?: number;
+        horizontalAlignment?: number | undefined;
     }
 }
 

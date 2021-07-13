@@ -82,13 +82,13 @@ export = TextBuffer;
 declare namespace TextBuffer {
   interface Options {
     dst: ScreenBuffer;
-    width?: number;
-    height?: number;
-    x?: number;
-    y?: number;
-    tabWidth?: number;
-    forceInBound?: number;
-    hidden?: boolean;
-    wrap?: boolean;
+    width?: number | undefined;
+    height?: number | undefined;
+    x?: number | undefined;
+    y?: number | undefined;
+    tabWidth?: number | undefined;
+    forceInBound?: number | undefined;
+    hidden?: boolean | undefined;
+    wrap?: boolean | undefined;
   }
 }

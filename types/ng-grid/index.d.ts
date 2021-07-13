@@ -163,18 +163,18 @@ declare namespace ngGrid {
     }
 
     export interface IDimension {
-        outerHeight?:number;
-        outerWidth?:number;
-        autoFitHeight?:boolean;
+        outerHeight?:number | undefined;
+        outerWidth?:number | undefined;
+        autoFitHeight?:boolean | undefined;
     }
 
     export interface IElementDimension {
-        rootMaxH?:number;
-        rootMaxW?:number;
-        rowIndexCellW?:number;
-        rowSelectedCellW?:number;
-        scrollH?:number;
-        scrollW?:number;
+        rootMaxH?:number | undefined;
+        rootMaxW?:number | undefined;
+        rowIndexCellW?:number | undefined;
+        rowSelectedCellW?:number | undefined;
+        scrollH?:number | undefined;
+        scrollW?:number | undefined;
     }
 
     export interface IRowStatic {
@@ -350,10 +350,10 @@ declare namespace ngGrid {
     export interface IGridOptions {
 
         /** Define an aggregate template to customize the rows when grouped. See github wiki for more details. */
-        aggregateTemplate?: string;
+        aggregateTemplate?: string | undefined;
 
         /** Callback for when you want to validate something after selection. */
-        afterSelectionChange?: (rowItem?: IRow, event?: any) => void ;
+        afterSelectionChange?: ((rowItem?: IRow, event?: any) => void) | undefined ;
 
         /** Callback if you want to inspect something before selection,
         return false if you want to cancel the selection. return true otherwise.
@@ -361,16 +361,16 @@ declare namespace ngGrid {
         use rowItem.changeSelection(event) method after returning false initially.
         Note: when shift+ Selecting multiple items in the grid this will only get called
         once and the rowItem will be an array of items that are queued to be selected. */
-        beforeSelectionChange?: (rowItem?: IRow, event?: any) => boolean ;
+        beforeSelectionChange?: ((rowItem?: IRow, event?: any) => boolean) | undefined ;
 
         /** checkbox templates. */
-        checkboxCellTemplate?: string;
+        checkboxCellTemplate?: string | undefined;
 
         /** checkbox templates. */
-        checkboxHeaderTemplate?: string;
+        checkboxHeaderTemplate?: string | undefined;
 
         /** definitions of columns as an array [], if not defined columns are auto-generated. See github wiki for more details. */
-        columnDefs?: IColumnDef[];
+        columnDefs?: IColumnDef[] | undefined;
 
         /** Data being displayed in the grid. This can be either a string of object ID or object reference.
             Using string is preferred, as this turns on change tracking in ng-grid
@@ -378,37 +378,37 @@ declare namespace ngGrid {
         data?: any;
 
         /** Data updated callback, fires every time the data is modified from outside the grid. */
-        dataUpdated?: Function;
+        dataUpdated?: Function | undefined;
 
         /** Enables cell editing. */
-        enableCellEdit?: boolean;
+        enableCellEdit?: boolean | undefined;
 
         /** Enables cell selection. */
-        enableCellSelection?: boolean;
+        enableCellSelection?: boolean | undefined;
 
         /** Enable or disable resizing of columns */
-        enableColumnResize?: boolean;
+        enableColumnResize?: boolean | undefined;
 
         /** Enable or disable reordering of columns */
-        enableColumnReordering?: boolean;
+        enableColumnReordering?: boolean | undefined;
 
         /** Enable or disable HEAVY column virtualization. This turns off selection checkboxes and column pinning and is designed for spreadsheet-like data. */
-        enableColumnHeavyVirt?: boolean;
+        enableColumnHeavyVirt?: boolean | undefined;
 
         /** Enables the server-side paging feature */
-        enablePaging?: boolean;
+        enablePaging?: boolean | undefined;
 
         /** Enable column pinning */
-        enablePinning?: boolean;
+        enablePinning?: boolean | undefined;
 
         /** Enable drag and drop row reordering. Only works in HTML5 compliant browsers. */
-        enableRowReordering?: boolean;
+        enableRowReordering?: boolean | undefined;
 
         /** To be able to have selectable rows in grid. */
-        enableRowSelection?: boolean;
+        enableRowSelection?: boolean | undefined;
 
         /** Enables or disables sorting in grid. */
-        enableSorting?: boolean;
+        enableSorting?: boolean | undefined;
 
         /**  string list of properties to exclude when auto-generating columns. */
         excludeProperties?: any;
@@ -417,77 +417,77 @@ declare namespace ngGrid {
         filterText: The text bound to the built-in search box.
         useExternalFilter: Bypass internal filtering if you want to roll your own filtering mechanism but want to use builtin search box.
         */
-        filterOptions?: IFilterOptions;
+        filterOptions?: IFilterOptions | undefined;
 
         /** Defining the height of the footer in pixels. */
-        footerRowHeight?: number;
+        footerRowHeight?: number | undefined;
 
         /** Initial fields to group data by. Array of field names, not displayName. */
-        groups?: string[];
+        groups?: string[] | undefined;
 
         /** The height of the header row in pixels. */
-        headerRowHeight?: number;
+        headerRowHeight?: number | undefined;
 
         /** Define a header row template for further customization. See github wiki for more details. */
-        headerRowTemplate?: string;
+        headerRowTemplate?: string | undefined;
 
         /** Enables the use of jquery UI reaggable/droppable plugin. requires jqueryUI to work if enabled.
         Useful if you want drag + drop but your users insist on crappy browsers. */
-        jqueryUIDraggable?: boolean;
+        jqueryUIDraggable?: boolean | undefined;
 
         /** Enable the use jqueryUIThemes */
-        jqueryUITheme?: boolean;
+        jqueryUITheme?: boolean | undefined;
 
         /** Prevent unselections when in single selection mode. */
-        keepLastSelected?: boolean;
+        keepLastSelected?: boolean | undefined;
 
         /** Maintains the column widths while resizing.
         Defaults to true when using *'s or undefined widths. Can be ovverriden by setting to false. */
-        maintainColumnRatios?: boolean;
+        maintainColumnRatios?: boolean | undefined;
 
         /** Set this to false if you only want one item selected at a time */
-        multiSelect?: boolean;
+        multiSelect?: boolean | undefined;
 
         /**  pagingOptions - */
-        pagingOptions?: IPagingOptions;
+        pagingOptions?: IPagingOptions | undefined;
 
         /** Array of plugin functions to register in ng-grid */
-        pinSelectionCheckbox?: boolean;
+        pinSelectionCheckbox?: boolean | undefined;
 
         /** Array of plugin functions to register in ng-grid */
-        plugins?: any[];
+        plugins?: any[] | undefined;
 
         /** Row height of rows in grid. */
-        rowHeight?: number;
+        rowHeight?: number | undefined;
 
         /** Define a row template to customize output. See github wiki for more details. */
-        rowTemplate?: string;
+        rowTemplate?: string | undefined;
 
         /** all of the items selected in the grid. In single select mode there will only be one item in the array. */
-        selectedItems?: any[];
+        selectedItems?: any[] | undefined;
 
         /** Select deselect an item by index. */
-        selectItem?: (idx:number, state:boolean) =>any;
+        selectItem?: ((idx:number, state:boolean) =>any) | undefined;
 
         /** Disable row selections by clicking on the row and only when the checkbox is clicked. */
-        selectWithCheckboxOnly?: boolean;
+        selectWithCheckboxOnly?: boolean | undefined;
 
         /** Enables menu to choose which columns to display and group by.
         If both showColumnMenu and showFilter are false the menu button will not display.*/
-        showColumnMenu?: boolean;
+        showColumnMenu?: boolean | undefined;
 
         /** Enables display of the filterbox in the column menu.
         If both showColumnMenu and showFilter are false the menu button will not display.*/
-        showFilter?: boolean;
+        showFilter?: boolean | undefined;
 
         /** Show or hide the footer alltogether the footer is enabled by default */
-        showFooter?: boolean;
+        showFooter?: boolean | undefined;
 
         /** Show the dropzone for drag and drop grouping */
-        showGroupPanel?: boolean;
+        showGroupPanel?: boolean | undefined;
 
         /** Row selection check boxes appear as the first column. */
-        showSelectionCheckbox?: boolean;
+        showSelectionCheckbox?: boolean | undefined;
 
         /** Define a sortInfo object to specify a default sorting state.
         You can also observe this variable to utilize server-side sorting (see useExternalSorting).
@@ -495,20 +495,20 @@ declare namespace ngGrid {
         sortInfo?: any;
 
         /** Set the tab index of the Vieport. */
-        tabIndex?: number;
+        tabIndex?: number | undefined;
 
         /** Prevents the internal sorting from executing.
         The sortInfo object will be updated with the sorting information so you can handle sorting (see sortInfo)*/
-        useExternalSorting?: boolean;
+        useExternalSorting?: boolean | undefined;
 
         /** i18n language support. choose from the installed or included languages, en, fr, sp, etc...*/
-        i18n?: string;
+        i18n?: string | undefined;
 
         /** the threshold in rows to force virtualization on  */
-        virtualizationThreshold?: number;
+        virtualizationThreshold?: number | undefined;
 
         /** Enables or disables text highlighting in grid by adding the "unselectable" class (See CSS file) */
-        enableHighlighting?: boolean;
+        enableHighlighting?: boolean | undefined;
     }
 
     export interface IColumnDef {
@@ -524,73 +524,73 @@ declare namespace ngGrid {
         minWidth?: any;
 
         /** Set the default visiblity of the column */
-        visible?: boolean;
+        visible?: boolean | undefined;
 
         /** Can also be a property path on your data model. "foo.bar.myField", "Name.First", etc..*/
-        field?: string;
+        field?: string | undefined;
 
         /** What to display in the column header */
-        displayName?: string;
+        displayName?: string | undefined;
 
         /** Restrict or allow the column to be sorted */
-        sortable?: boolean;
+        sortable?: boolean | undefined;
 
         /** Restrict or allow the column to be resized */
-        resizable?: boolean;
+        resizable?: boolean | undefined;
 
         /** Allows the column to be grouped with drag and drop, but has no effect on gridOptions.groups */
-        groupable?: boolean;
+        groupable?: boolean | undefined;
 
         /** Allows the column to be pinned when enablePinning is set to true */
-        pinnable?: boolean;
+        pinnable?: boolean | undefined;
 
         /** The template to use while editing */
-        editableCellTemplate?: string;
+        editableCellTemplate?: string | undefined;
 
         /** Allows the cell to use an edit template when focused (grid option enableCellSelection must be enabled)*/
-        enableCellEdit?: boolean;
+        enableCellEdit?: boolean | undefined;
 
         /** Controls when to use the edit template on per-row basis using an angular expression (enableCellEdit must also be true for editing)*/
-        cellEditableCondition?: string;
+        cellEditableCondition?: string | undefined;
 
         /** The funtion to use when filtering values in this column */
-        sortFn?: (a: any, b: any) => number;
+        sortFn?: ((a: any, b: any) => number) | undefined;
 
         /** Html template used to render the cell */
-        cellTemplate?: string;
+        cellTemplate?: string | undefined;
 
         /** User defined CSS class name */
-        cellClass?: string;
+        cellClass?: string | undefined;
 
         /** User defined CSS class name for the header cell */
-        headerClass?: string;
+        headerClass?: string | undefined;
 
         /** Html template used to render the header cell */
-        headerCellTemplate?: string;
+        headerCellTemplate?: string | undefined;
 
         /** string name for filter to use on the cell ('currency', 'date', etc..) */
-        cellFilter?: string;
+        cellFilter?: string | undefined;
 
         /** String name for filter to use on the aggregate label ('currency', 'date', etc..) defaults to cellFilter if not set. */
-        aggLabelFilter?: string;
+        aggLabelFilter?: string | undefined;
 
-        pinned?: boolean;
+        pinned?: boolean | undefined;
     }
 
     export interface IFilterOptions {
-        filterText?: string;
-        useExternalFilter?: boolean;
+        filterText?: string | undefined;
+        useExternalFilter?: boolean | undefined;
     }
 
     export interface IPagingOptions {
         /**  pageSizes: list of available page sizes.  */
-        pageSizes?: number[];
+        pageSizes?: number[] | undefined;
         /** pageSize: currently selected page size.  */
-        pageSize?: number;
+        pageSize?: number | undefined;
         /** totalServerItems: Total items are on the server.  */
-        totalServerItems?: number;
+        totalServerItems?: number | undefined;
         /** currentPage: the uhm... current page. */
-        currentPage?: number;
+        currentPage?: number | undefined;
     }
 
     export interface IPlugin {

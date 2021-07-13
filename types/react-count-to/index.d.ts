@@ -12,14 +12,14 @@ export = ReactCountTo;
 
 declare namespace ReactCountTo {
     interface Props {
-        from?: number;
+        from?: number | undefined;
         to: number;
         speed: number;
-        delay?: number;
+        delay?: number | undefined;
         onComplete?(): void;
-        digits?: number;
-        className?: string;
-        tagName?: string;
+        digits?: number | undefined;
+        className?: string | undefined;
+        tagName?: string | undefined;
         children?(value: number): React.ReactElement;
         easing?(progress: number): number;
     }

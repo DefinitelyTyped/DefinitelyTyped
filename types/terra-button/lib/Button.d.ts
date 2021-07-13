@@ -33,59 +33,59 @@ export interface ButtonProps<T extends HTMLButtonElement | HTMLAnchorElement> ex
   /**
    * Sets the href. When set will render the component as an anchor tag.
    */
-  href?: string;
+  href?: string | undefined;
   /**
    * An optional icon. Nested inline with the text when provided.
    */
-  icon?: React.ReactElement;
+  icon?: React.ReactElement | undefined;
   /**
    * Whether or not the button should only display as an icon.
    */
-  isIconOnly?: boolean;
+  isIconOnly?: boolean | undefined;
   /**
    * Whether or not the button should display as a block.
    */
-  isBlock?: boolean;
+  isBlock?: boolean | undefined;
   /**
    * Whether or not the button has reduced padding
    */
-  isCompact?: boolean;
+  isCompact?: boolean | undefined;
   /**
    * Whether or not the button should be disabled.
    */
-  isDisabled?: boolean;
+  isDisabled?: boolean | undefined;
   /**
    * Reverses the position of the icon and text.
    */
-  isReversed?: boolean;
+  isReversed?: boolean | undefined;
   /**
    * Callback function triggered when mouse is pressed.
    */
-  onMouseDown?: React.MouseEventHandler<T>;
+  onMouseDown?: React.MouseEventHandler<T> | undefined;
   /**
    * Callback function triggered when clicked.
    */
-  onClick?: React.MouseEventHandler<T>;
+  onClick?: React.MouseEventHandler<T> | undefined;
   /**
    * Callback function triggered when button loses focus.
    */
-  onBlur?: React.FocusEventHandler<T>;
+  onBlur?: React.FocusEventHandler<T> | undefined;
   /**
    * Callback function triggered when button gains focus.
    */
-  onFocus?: React.FocusEventHandler<T>;
+  onFocus?: React.FocusEventHandler<T> | undefined;
   /**
    * Callback function triggered when key is pressed.
    */
-  onKeyDown?: React.KeyboardEventHandler<T>;
+  onKeyDown?: React.KeyboardEventHandler<T> | undefined;
   /**
    * Callback function triggered when key is released.
    */
-  onKeyUp?: React.KeyboardEventHandler<T>;
+  onKeyUp?: React.KeyboardEventHandler<T> | undefined;
   /**
    * Callback ref to pass into the dom element.
    */
-  refCallback?: React.Ref<T>;
+  refCallback?: React.Ref<T> | undefined;
   /**
    * Sets the button text.
    * If the button is `isIconOnly` or variant `utility` this text is set as the aria-label and title for accessibility.
@@ -95,15 +95,15 @@ export interface ButtonProps<T extends HTMLButtonElement | HTMLAnchorElement> ex
    * Additional information to display as a native tooltip on hover.
    * Buttons declared as `isIconOnly` or `utility` will fallback to using `text` if not provided.
    */
-  title?: string;
+  title?: string | undefined;
   /**
    * Sets the button type. One of `button`; `submit`; or `reset`.
    */
-  type?: ButtonTypes;
+  type?: ButtonTypes | undefined;
   /**
    * Sets the button variant. One of `neutral`;  `emphasis`; `ghost`; `de-emphasis`; `action` or `utility`.
    */
-  variant?: ButtonVariants;
+  variant?: ButtonVariants | undefined;
 }
 
 export default class Button<T extends HTMLAnchorElement | HTMLButtonElement> extends React.Component<ButtonProps<T>> {

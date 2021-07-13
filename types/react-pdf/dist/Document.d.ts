@@ -13,19 +13,19 @@ export interface Props {
      * Defines custom class name(s), that will be added to rendered element.
      * @default 'react-pdf__Document'
      */
-    className?: string | string[];
+    className?: string | string[] | undefined;
 
     /**
      * Defines what the component should display in case of an error.
      * @default 'Failed to load PDF file.'
      */
-    error?: string | React.ReactElement | RenderFunction;
+    error?: string | React.ReactElement | RenderFunction | undefined;
 
     /**
      * Defines link target for external links rendered in annotations.
      * Defaults to unset, which means that default behavior will be used.
      */
-    externalLinkTarget?: '_self' | '_blank' | '_parent' | '_top';
+    externalLinkTarget?: '_self' | '_blank' | '_parent' | '_top' | undefined;
 
     /**
      * Defines what PDF should be displayed.
@@ -46,61 +46,61 @@ export interface Props {
      * A function that behaves like ref,
      * but it's passed to main `<div>` rendered by `<Document>` component.
      */
-    inputRef?: React.LegacyRef<HTMLDivElement>;
+    inputRef?: React.LegacyRef<HTMLDivElement> | undefined;
 
     /**
      * The path used to prefix the src attributes of annotation SVGs.
      */
-    imageResourcesPath?: string;
+    imageResourcesPath?: string | undefined;
 
     /**
      * Defines what the component should display while loading.
      * @default 'Loading PDF…'
      */
-    loading?: string | React.ReactElement | RenderFunction;
+    loading?: string | React.ReactElement | RenderFunction | undefined;
 
     /**
      * Defines what the component should display in case of no data.
      * @default 'No PDF file specified.'
      */
-    noData?: string | React.ReactElement | RenderFunction;
+    noData?: string | React.ReactElement | RenderFunction | undefined;
 
     /**
      * Function called when an outline item has been clicked.
      * Usually, you would like to use this callback to move the user wherever they requested to.
      */
-    onItemClick?: ({ pageNumber }: { pageNumber: string }) => void;
+    onItemClick?: (({ pageNumber }: { pageNumber: string }) => void) | undefined;
 
     /**
      * Function called in case of an error while loading a document.
      */
-    onLoadError?: (error: Error) => void;
+    onLoadError?: ((error: Error) => void) | undefined;
 
     /**
      * Function called, potentially multiple times, as the loading progresses.
      */
-    onLoadProgress?: (data: LoadingProcessData) => void;
+    onLoadProgress?: ((data: LoadingProcessData) => void) | undefined;
 
     /**
      * Function called when the document is successfully loaded.
      */
-    onLoadSuccess?: (pdf: PDFDocumentProxy) => void;
+    onLoadSuccess?: ((pdf: PDFDocumentProxy) => void) | undefined;
 
     /**
      * Function called when a password-protected PDF is loaded.
      * Defaults to a function that prompts the user for password.
      */
-    onPassword?: (callback: (...args: any[]) => any) => void;
+    onPassword?: ((callback: (...args: any[]) => any) => void) | undefined;
 
     /**
      * Function called in case of an error while retrieving document source from `file` prop.
      */
-    onSourceError?: (error: Error) => void;
+    onSourceError?: ((error: Error) => void) | undefined;
 
     /**
      * Function called when document source is successfully retrieved from `file` prop.
      */
-    onSourceSuccess?: () => void;
+    onSourceSuccess?: (() => void) | undefined;
 
     /**
      * An object in which additional parameters to be passed to PDF.js can be defined.
@@ -112,7 +112,7 @@ export interface Props {
      * Defines the rendering mode of the document.
      * @default 'canvas'
      */
-    renderMode?: 'canvas' | 'svg' | 'none';
+    renderMode?: 'canvas' | 'svg' | 'none' | undefined;
 
     /**
      * Defines the rotation of the document in degrees.
@@ -120,9 +120,9 @@ export interface Props {
      * even for the pages which were given rotate prop of their own.
      * 90 = rotated to the right, 180 = upside down, 270 = rotated to the left.
      */
-    rotate?: number;
+    rotate?: number | undefined;
 
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
 
 export default class Document extends React.Component<Props> {}

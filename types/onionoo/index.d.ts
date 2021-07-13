@@ -39,12 +39,12 @@ declare namespace Onionoo {
          * String to use as the base url for all API requests.
          * @default 'https://onionoo.torproject.org'
          */
-        baseUrl?: string;
+        baseUrl?: string | undefined;
         /**
          * Storage adapter instance for storing cached data.
          * @default false
          */
-        cache?: Cache | false;
+        cache?: Cache | false | undefined;
     }
 
     interface OptionsWithEndpoints extends Options {
@@ -59,11 +59,11 @@ declare namespace Onionoo {
         /**
          * Return only `relay` or only `bridge` documents.
          */
-        type?: 'relay' | 'bridge';
+        type?: 'relay' | 'bridge' | undefined;
         /**
          * Return only running (`true`) or only non-running relays and/or bridges (`false`).
          */
-        running?: boolean;
+        running?: boolean | undefined;
         /**
          * Return only (1) relays with the parameter value matching (part of a) nickname, (possibly $-prefixed)
          * beginning of a hex-encoded fingerprint, any 4 hex character block of a space-separated fingerprint,
@@ -83,7 +83,7 @@ declare namespace Onionoo {
          * internally be passed to that parameter. If a qualified search term for a given "key" is specified
          * more than once, only the first "value" is considered.
          */
-        search?: string;
+        search?: string | undefined;
         /**
          * Return only the relay with the parameter value matching the fingerprint or the bridge with the parameter
          * value matching the hashed fingerprint. Fingerprints should always be hashed using SHA-1, regardless of
@@ -91,20 +91,20 @@ declare namespace Onionoo {
          * Lookups only work for full fingerprints or hashed fingerprints consisting of 40 hex characters.
          * Lookups are case-insensitive.
          */
-        lookup?: string;
+        lookup?: string | undefined;
         /**
          * Return only relays which are located in the given country as identified by a two-letter country code.
          * Filtering by country code is case-insensitive. The special country code xz can be used for relays that
          * were not found in the GeoIP database.
          */
-        country?: string;
+        country?: string | undefined;
         /**
          * Return only relays which are located in either one of the given autonomous systems (AS) as identified
          * by AS number (with or without preceding "AS" part). Multiple AS numbers can be provided separated by commas.
          * Filtering by AS number is case-insensitive. The special AS number 0 can be used for relays that were
          * not found in the GeoIP database.
          */
-        as?: string;
+        as?: string | undefined;
         /**
          * Return only relays with the parameter value matching (part of) the autonomous system (AS) name they are
          * located in. If the parameter value contains spaces, only relays are returned which contain all
@@ -112,18 +112,18 @@ declare namespace Onionoo {
          * value, some of which need to be percent-encoded (# as %23, % as %25, & as %26, + as %2B, and / as %2F).
          * Comparisons are case-insensitive.
          */
-        as_name?: string;
+        as_name?: string | undefined;
         /**
          * Return only relays which have the given relay flag assigned by the directory authorities.
          * Filtering by flag is case-insensitive.
          */
-        flag?: string;
+        flag?: string | undefined;
         /**
          * Return only relays or bridges which have first been seen during the given range of days ago. A parameter
          * value "x-y" with x <= y returns relays or bridges that have first been seen at least x and at most y days ago.
          * Accepted short forms are "x", "x-", and "-y" which are interpreted as "x-x", "x-infinity", and "0-y".
          */
-        first_seen_days?: string;
+        first_seen_days?: string | undefined;
         /**
          * Return only relays or bridges which have last been seen during the given range of days ago. A parameter
          * value "x-y" with x <= y returns relays or bridges that have last been seen at least x and at most y days ago.
@@ -131,14 +131,14 @@ declare namespace Onionoo {
          * Note that relays and bridges that haven't been running in the past week are not included in results,
          * so that setting x to 8 or higher will lead to an empty result set.
          */
-        last_seen_days?: string;
+        last_seen_days?: string | undefined;
         /**
          * Return only relays with the parameter value matching (part of) the contact line. If the parameter value
          * contains spaces, only relays are returned which contain all space-separated parts in their contact line.
          * Only printable ASCII characters are permitted in the parameter value, some of which need to be
          * percent-encoded (# as %23, % as %25, & as %26, + as %2B, and / as %2F). Comparisons are case-insensitive.
          */
-        contact?: string;
+        contact?: string | undefined;
         /**
          * Return only the relay whose fingerprint matches the parameter value and all relays that this relay has
          * listed in its family by fingerprint and that in turn have listed this relay in their family by fingerprint.
@@ -147,31 +147,31 @@ declare namespace Onionoo {
          * consist of 40 hex characters where case does not matter, and it must not be hashed using SHA-1.
          * Bridges are not contained in the result, regardless of whether they define a family.
          */
-        family?: string;
+        family?: string | undefined;
         /**
          * Return only relays or bridges running either Tor version from a list or range given in the parameter value.
          * Tor versions must be provided without the leading "Tor" part. Multiple versions can either be provided as a
          * comma-separated list (","), as a range separated by two dots (".."), or as a list of ranges.
          * Provided versions are parsed and matched by parsed dotted numbers, rather than by string prefix.
          */
-        version?: string;
+        version?: string | undefined;
         /**
          * Return only relays or bridges running on an operating system that starts with the parameter value.
          * Searches are case-insensitive.
          */
-        os?: string;
+        os?: string | undefined;
         /**
          * Return only relays with a domain name ending in the given (partial) host name. Searches for subdomains
          * of a specific domain should ideally be prefixed with a period, for example: ".csail.mit.edu". Non-ASCII
          * host name characters must be encoded as punycode. Filtering by host name is case-insensitive.
          */
-        host_name?: string;
+        host_name?: string | undefined;
         /**
          * Return only relays and bridges running a Tor software version that is recommended (`true`) or not
          * recommended by the directory authorities (`false`). Uses the version in the consensus or bridge network status.
          * Relays and bridges are not contained in either result, if the version they are running is not known.
          */
-        recommended_version?: boolean;
+        recommended_version?: boolean | undefined;
         /**
          * Response documents can be reduced in size by requesting only a subset of contained fields.
          * Comma-separated list of fields that will be included in the result. So far, only top-level fields
@@ -179,7 +179,7 @@ declare namespace Onionoo {
          * If the fields parameter is provided, all other fields which are not contained in the provided list
          * will be removed from the result.
          */
-        fields?: string[];
+        fields?: string[] | undefined;
         /**
          * Re-order results by a comma-separated list of fields in ascending or descending order. Results are first
          * ordered by the first list element, then by the second, and so on. Possible fields for ordering are:
@@ -190,19 +190,19 @@ declare namespace Onionoo {
          * document type and does not require the ordering field to be contained in the document. If no `order`
          * parameter is given, ordering of results is undefined.
          */
-        order?: string;
+        order?: string | undefined;
 
         /**
          * Skip the given number of relays and/or bridges. Relays are skipped first, then bridges.
          * Non-positive `offset` values are treated as zero and don't change the result.
          */
-        offset?: number;
+        offset?: number | undefined;
         /**
          * Limit result to the given number of relays and/or bridges. Relays are kept first, then bridges.
          * Non-positive `limit` values are treated as zero and lead to an empty result. When used together with `offset`,
          * the offsetting step precedes the limiting step.
          */
-        limit?: number;
+        limit?: number | undefined;
     }
 
     type Summary = Response<RelaySummary, BridgeSummary>;
@@ -221,11 +221,11 @@ declare namespace Onionoo {
          * UTC date (YYYY-MM-DD) when the next major protocol version is scheduled to be deployed. Omitted if no major
          * protocol changes are planned.
          */
-        next_major_version_scheduled?: string;
+        next_major_version_scheduled?: string | undefined;
         /**
          * Git revision of the Onionoo instance's software used to write this response, which will be omitted if unknown.
          */
-        build_revision?: string;
+        build_revision?: string | undefined;
         /**
          * UTC timestamp (YYYY-MM-DD hh:mm:ss) when the last known relay network status consensus started being valid.
          * Indicates how recent the relay objects in this document are.
@@ -234,12 +234,12 @@ declare namespace Onionoo {
         /**
          * Number of skipped relays as requested by a positive "offset" parameter value. Omitted if zero.
          */
-        relays_skipped?: number;
+        relays_skipped?: number | undefined;
         relays: TRelay[];
         /**
          * Number of truncated relays as requested by a positive "limit" parameter value. Omitted if zero.
          */
-        relays_truncated?: number;
+        relays_truncated?: number | undefined;
         /**
          * UTC timestamp (YYYY-MM-DD hh:mm:ss) when the last known bridge network status was published.
          * Indicates how recent the bridge objects in this document are.
@@ -248,12 +248,12 @@ declare namespace Onionoo {
         /**
          * Number of skipped bridges as requested by a positive `offset` parameter value. Omitted if zero.
          */
-        bridges_skipped?: number;
+        bridges_skipped?: number | undefined;
         bridges: TBridge[];
         /**
          * Number of truncated bridges as requested by a positive `limit` parameter value. Omitted if zero.
          */
-        bridges_truncated?: number;
+        bridges_truncated?: number | undefined;
     }
 
     interface RelaySummary {
@@ -298,12 +298,12 @@ declare namespace Onionoo {
          * array is empty. Includes all exit addresses, regardless of whether they are used as onion-routing addresses
          * or not.
          */
-        exit_addresses?: string[];
+        exit_addresses?: string[] | undefined;
         /**
          * IPv4 address and TCP port where the relay accepts directory connections.
          * Omitted if the relay does not accept directory connections.
          */
-        dir_address?: string;
+        dir_address?: string | undefined;
         /**
          * UTC timestamp (YYYY-MM-DD hh:mm:ss) when this relay was last seen in a network status consensus.
          */
@@ -328,55 +328,55 @@ declare namespace Onionoo {
          * accounting limit and has not dropped out of the network for another, unknown reason. Omitted if either
          * the relay is not hibernating, or if no information is available about the hibernation status of the relay.
          */
-        hibernating?: boolean;
+        hibernating?: boolean | undefined;
         /**
          * Array of relay flags that the directory authorities assigned to this relay. May be omitted if empty.
          */
-        flags?: string[];
+        flags?: string[] | undefined;
         /**
          * Two-letter lower-case country code as found in a GeoIP database by resolving the relay's first
          * onion-routing IP address. Omitted if the relay IP address could not be found in the GeoIP database.
          */
-        country?: string;
+        country?: string | undefined;
         /**
          * Country name as found in a GeoIP database by resolving the relay's first onion-routing IP address.
          * Omitted if the relay IP address could not be found in the GeoIP database, or if the GeoIP database
          * did not contain a country name.
          */
-        country_name?: string;
+        country_name?: string | undefined;
         /**
          * Region name as found in a GeoIP database by resolving the relay's first onion-routing IP address.
          * Omitted if the relay IP address could not be found in the GeoIP database, or if the GeoIP database
          * did not contain a region name.
          */
-        region_name?: string;
+        region_name?: string | undefined;
         /**
          * City name as found in a GeoIP database by resolving the relay's first onion-routing IP address.
          * Omitted if the relay IP address could not be found in the GeoIP database, or if the GeoIP database
          * did not contain a city name.
          */
-        city_name?: string;
+        city_name?: string | undefined;
         /**
          * Latitude as found in a GeoIP database by resolving the relay's first onion-routing IP address.
          * Omitted if the relay IP address could not be found in the GeoIP database.
          */
-        latitude?: number;
+        latitude?: number | undefined;
         /**
          * Longitude as found in a GeoIP database by resolving the relay's first onion-routing IP address.
          * Omitted if the relay IP address could not be found in the GeoIP database.
          */
-        longitude?: number;
+        longitude?: number | undefined;
         /**
          * AS number as found in an AS database by resolving the relay's first onion-routing IP address.
          * AS number strings start with "AS", followed directly by the AS number. Omitted if the relay IP
          * address could not be found in the AS database.
          */
-        as?: string;
+        as?: string | undefined;
         /**
          * AS name as found in an AS database by resolving the relay's first onion-routing IP address.
          * Omitted if the relay IP address could not be found in the AS database.
          */
-        as_name?: string;
+        as_name?: string | undefined;
         /**
          * Weight assigned to this relay by the directory authorities that clients use in their path selection algorithm.
          * The unit is arbitrary; currently it's kilobytes per second, but that might change in the future.
@@ -388,7 +388,7 @@ declare namespace Onionoo {
          * if no lookup request was successful yet, or if no A record was found matching the PTR record.
          * @deprecated
          */
-        host_name?: string;
+        host_name?: string | undefined;
         /**
          * Host names as found in a reverse DNS lookup of the relay's primary IP address for which a matching A record
          * was also found. This field is updated at most once in 12 hours, unless the relay IP address changes.
@@ -397,7 +397,7 @@ declare namespace Onionoo {
          * of the PTR records). A DNSSEC validating resolver is used for these lookups. Failure to validate
          * DNSSEC signatures will prevent those names from appearing in this field.
          */
-        verified_host_names?: string[];
+        verified_host_names?: string[] | undefined;
         /**
          * Host names as found in a reverse DNS lookup of the relay's primary IP address that for which a matching
          * A record was not found. This field is updated at most once in 12 hours, unless the relay IP address changes.
@@ -406,41 +406,41 @@ declare namespace Onionoo {
          * A DNSSEC validating resolver is used for these lookups. Failure to validate DNSSEC signatures will prevent
          * those names from appearing in this field.
          */
-        unverified_host_names?: string[];
+        unverified_host_names?: string[] | undefined;
         /**
          * UTC timestamp (YYYY-MM-DD hh:mm:ss) when the relay was last (re-)started.
          * Missing if router descriptor containing this information cannot be found.
          */
-        last_restarted?: string;
+        last_restarted?: string | undefined;
         /**
          * Average bandwidth in bytes per second that this relay is willing to sustain over long periods.
          * Missing if router descriptor containing this information cannot be found.
          */
-        bandwidth_rate?: number;
+        bandwidth_rate?: number | undefined;
         /**
          * Bandwidth in bytes per second that this relay is willing to sustain in very short intervals.
          * Missing if router descriptor containing this information cannot be found.
          */
-        bandwidth_burst?: number;
+        bandwidth_burst?: number | undefined;
         /**
          * Bandwidth estimate in bytes per second of the capacity this relay can handle. The relay remembers
          * the maximum bandwidth sustained output over any ten second period in the past day, and another
          * sustained input. The `observed_bandwidth` value is the lesser of these two numbers. Missing if
          * router descriptor containing this information cannot be found.
          */
-        observed_bandwidth?: number;
+        observed_bandwidth?: number | undefined;
         /**
          * Bandwidth in bytes per second that this relay is willing and capable to provide. This bandwidth
          * value is the minimum of `bandwidth_rate`, `bandwidth_burst`, and `observed_bandwidth`.
          * Missing if router descriptor containing this information cannot be found.
          */
-        advertised_bandwidth?: number;
+        advertised_bandwidth?: number | undefined;
         /**
          * Array of exit-policy lines. Missing if router descriptor containing this information cannot be found.
          * May contradict the `exit_policy_summary` field in a rare edge case: this happens when the relay changes
          * its exit policy after the directory authorities summarized the previous exit policy.
          */
-        exit_policy?: string[];
+        exit_policy?: string[] | undefined;
         /**
          * Summary version of the relay's exit policy containing a dictionary with either an `accept` or a `reject` element.
          * If there is an `accept` (`reject`) element, the relay accepts (rejects) all TCP ports or port ranges
@@ -449,9 +449,9 @@ declare namespace Onionoo {
          * the directory authorities summarized the previous exit policy.
          */
         exit_policy_summary?: {
-            accept?: string[];
-            reject?: string[];
-        };
+            accept?: string[] | undefined;
+            reject?: string[] | undefined;
+        } | undefined;
         /**
          * Summary version of the relay's IPv6 exit policy containing a dictionary with either an `accept` or a `reject`
          * element. If there is an `accept` (`reject`) element, the relay accepts (rejects) all TCP ports or port ranges
@@ -461,31 +461,31 @@ declare namespace Onionoo {
          * exit policy.
          */
         exit_policy_v6_summary?: {
-            accept?: string[];
-            reject?: string[];
-        };
+            accept?: string[] | undefined;
+            reject?: string[] | undefined;
+        } | undefined;
         /**
          * Contact address of the relay operator. Omitted if empty or if descriptor containing this information
          * cannot be found.
          */
-        contact?: string;
+        contact?: string | undefined;
         /**
          * Platform string containing operating system and Tor version details. Omitted if empty or if descriptor
          * containing this information cannot be found.
          */
-        platform?: string;
+        platform?: string | undefined;
         /**
          * Tor software version without leading "Tor" as reported by the directory authorities in the "v" line of
          * the consensus. Omitted if either the directory authorities or the relay did not report which version
          * the relay runs or if the relay runs an alternative Tor implementation.
          */
-        version?: string;
+        version?: string | undefined;
         /**
          * Boolean field saying whether the Tor software version of this relay is recommended by the directory
          * authorities or not. Uses the relay version in the consensus. Omitted if either the directory authorities
          * did not recommend versions, or the relay did not report which version it runs.
          */
-        recommended_version?: boolean;
+        recommended_version?: boolean | undefined;
         /**
          * Status of the Tor software version of this relay based on the versions recommended by the directory authorities.
          * Possible version statuses are: `recommended` if a version is listed as recommended; `experimental` if a version
@@ -500,59 +500,59 @@ declare namespace Onionoo {
             | 'experimental'
             | 'obsolete'
             | 'new in series'
-            | 'unrecommended';
+            | 'unrecommended' | undefined;
         /**
          * Array of fingerprints of relays that are in an effective, mutual family relationship with this relay.
          * These relays are part of this relay's family and they consider this relay to be part of their family.
          * Always contains the relay's own fingerprint. Omitted if the descriptor containing this information
          * cannot be found.
          */
-        effective_family?: string[];
+        effective_family?: string[] | undefined;
         /**
          * Array of fingerprints of relays that are not in an effective, mutual family relationship with this relay.
          * These relays are part of this relay's family but they don't consider this relay to be part of their family.
          * Omitted if empty or if descriptor containing this information cannot be found.
          */
-        alleged_family?: string[];
+        alleged_family?: string[] | undefined;
         /**
          * Array of fingerprints of relays that are not in an effective, mutual family relationship with this relay
          * but that can be reached by following effective, mutual family relationships starting at this relay.
          * Omitted if empty or if descriptor containing this information cannot be found.
          */
-        indirect_family?: string[];
+        indirect_family?: string[] | undefined;
         /**
          * Fraction of this relay's consensus weight compared to the sum of all consensus weights in the network.
          * This fraction is a very rough approximation of the probability of this relay to be selected by clients.
          * Omitted if the relay is not running.
          */
-        consensus_weight_fraction?: number;
+        consensus_weight_fraction?: number | undefined;
         /**
          * Probability of this relay to be selected for the guard position. This probability is calculated based on
          * consensus weights, relay flags, and bandwidth weights in the consensus. Path selection depends on more
          * factors, so that this probability can only be an approximation. Omitted if the relay is not running,
          * or the consensus does not contain bandwidth weights.
          */
-        guard_probability?: number;
+        guard_probability?: number | undefined;
         /**
          * Probability of this relay to be selected for the middle position. This probability is calculated based on
          * consensus weights, relay flags, and bandwidth weights in the consensus. Path selection depends on more
          * factors, so that this probability can only be an approximation. Omitted if the relay is not running,
          * or the consensus does not contain bandwidth weights.
          */
-        middle_probability?: number;
+        middle_probability?: number | undefined;
         /**
          * Probability of this relay to be selected for the exit position. This probability is calculated based on
          * consensus weights, relay flags, and bandwidth weights in the consensus. Path selection depends on more
          * factors, so that this probability can only be an approximation. Omitted if the relay is not running,
          * or the consensus does not contain bandwidth weights.
          */
-        exit_probability?: number;
+        exit_probability?: number | undefined;
         /**
          * Boolean field saying whether the consensus weight of this relay is based on a threshold of 3 or more
          * measurements by Tor bandwidth authorities. Omitted if the network status consensus containing this
          * relay does not contain measurement information.
          */
-        measured?: boolean;
+        measured?: boolean | undefined;
         /**
          * Array of IPv4 or IPv6 addresses and TCP ports or port lists where the relay claims in its descriptor to
          * accept onion-routing connections but that the directory authorities failed to confirm as reachable.
@@ -564,7 +564,7 @@ declare namespace Onionoo {
          * to the processing, relays with unreachable addresses will be included here. Addresses are in arbitrary order.
          * IPv6 hex characters are all lower-case. Omitted if empty.
          */
-        unreachable_or_addresses?: string[];
+        unreachable_or_addresses?: string[] | undefined;
     }
 
     interface BridgeSummary {
@@ -616,35 +616,35 @@ declare namespace Onionoo {
         /**
          * Array of relay flags that the bridge authority assigned to this bridge. May be omitted if empty.
          */
-        flags?: string[];
+        flags?: string[] | undefined;
         /**
          * UTC timestamp (YYYY-MM-DD hh:mm:ss) when the bridge was last (re-)started.
          * Missing if router descriptor containing this information cannot be found.
          */
-        last_restarted?: string;
+        last_restarted?: string | undefined;
         /**
          * Bandwidth in bytes per second that this bridge is willing and capable to provide. This bandwidth value
          * is the minimum of `bandwidth_rate`, `bandwidth_burst`, and `observed_bandwidth`.
          * Missing if router descriptor containing this information cannot be found.
          */
-        advertised_bandwidth?: number;
+        advertised_bandwidth?: number | undefined;
         /**
          * Platform string containing operating system and Tor version details.
          * Omitted if not provided by the bridge or if descriptor containing this information cannot be found.
          */
-        platform?: string;
+        platform?: string | undefined;
         /**
          * Tor software version without leading "Tor" as reported by the bridge in the "platform" line of its server
          * descriptor. Omitted if not provided by the bridge, if the descriptor containing this information cannot
          * be found, or if the bridge runs an alternative Tor implementation.
          */
-        version?: string;
+        version?: string | undefined;
         /**
          * Boolean field saying whether the Tor software version of this bridge is recommended by the directory
          * authorities or not. Uses the bridge version in the bridge network status. Omitted if either the directory
          * authorities did not recommend versions, or the bridge did not report which version it runs.
          */
-        recommended_version?: boolean;
+        recommended_version?: boolean | undefined;
         /**
          * Status of the Tor software version of this bridge based on the versions recommended by the directory authorities.
          * Possible version statuses are: `recommended` if a version is listed as recommended; `experimental` if a
@@ -659,11 +659,11 @@ declare namespace Onionoo {
             | 'experimental'
             | 'obsolete'
             | 'new in series'
-            | 'unrecommended';
+            | 'unrecommended' | undefined;
         /**
          * Array of (pluggable) transport names supported by this bridge.
          */
-        transports?: string[];
+        transports?: string[] | undefined;
     }
 
     interface NodeBandwidth {
@@ -684,14 +684,14 @@ declare namespace Onionoo {
          */
         write_history?: Partial<
             Record<'3_days' | '1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        > | undefined;
         /**
          * Object containing graph history objects with read bytes for different time periods. The specification
          * of graph history objects is similar to those in the `write_history` field.
          */
         read_history?: Partial<
             Record<'3_days' | '1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        > | undefined;
     }
 
     interface RelayWeights {
@@ -711,7 +711,7 @@ declare namespace Onionoo {
          */
         consensus_weight_fraction?: Partial<
             Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        > | undefined;
         /**
          * History object containing the probability of this relay to be selected for the guard position.
          * This probability is calculated based on consensus weights, relay flags, and bandwidth weights in the consensus.
@@ -720,7 +720,7 @@ declare namespace Onionoo {
          */
         guard_probability?: Partial<
             Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        > | undefined;
         /**
          * History object containing the probability of this relay to be selected for the middle position.
          * This probability is calculated based on consensus weights, relay flags, and bandwidth weights in the consensus.
@@ -729,7 +729,7 @@ declare namespace Onionoo {
          */
         middle_probability?: Partial<
             Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        > | undefined;
         /**
          * History object containing the probability of this relay to be selected for the exit position.
          * This probability is calculated based on consensus weights, relay flags, and bandwidth weights in the consensus.
@@ -738,14 +738,14 @@ declare namespace Onionoo {
          */
         exit_probability?: Partial<
             Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        > | undefined;
         /**
          * History object containing the absolute consensus weight of this relay. The specification of this history
          * object is similar to that in the `consensus_weight_fraction` field above.
          */
         consensus_weight?: Partial<
             Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        > | undefined;
     }
 
     interface BridgeClients {
@@ -762,7 +762,7 @@ declare namespace Onionoo {
          * data resolution. The unit is number of clients. Contained graph history objects may contain null values
          * if the bridge did not report client statistics for at least 50% of a given time period.
          */
-        average_clients?: Partial<Record<'6_months' | '1_year' | '5_years', Histogram>>;
+        average_clients?: Partial<Record<'6_months' | '1_year' | '5_years', Histogram>> | undefined;
     }
 
     interface RelayUptime {
@@ -782,7 +782,7 @@ declare namespace Onionoo {
          */
         uptime?: Partial<
             Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        > | undefined;
         /**
          * Object containing fractional times of this relay having relay flags assigned. Keys are flag names like
          * `Running` or `Exit`, values are objects similar to the uptime field above, again with keys like
@@ -792,7 +792,7 @@ declare namespace Onionoo {
             [key: string]: Partial<
                 Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
             >;
-        };
+        } | undefined;
     }
 
     interface BridgeUptime {
@@ -806,7 +806,7 @@ declare namespace Onionoo {
          */
         uptime?: Partial<
             Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        > | undefined;
     }
 
     interface Histogram {

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 1.39
+// Type definitions for non-npm package microsoft-graph 2.0
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -128,6 +128,10 @@ export type PhoneType =
     | "otherFax"
     | "pager"
     | "radio";
+export type BodyType = "text" | "html";
+export type EducationAddedStudentAction = "none" | "assignIfOpen" | "unknownFutureValue";
+export type EducationAssignmentStatus = "draft" | "published" | "assigned" | "unknownFutureValue";
+export type EducationSubmissionStatus = "working" | "submitted" | "released" | "returned" | "unknownFutureValue";
 export type EducationExternalSource = "sis" | "manual" | "unknownFutureValue";
 export type EducationGender = "female" | "male" | "other" | "unknownFutureValue";
 export type EducationUserRole = "student" | "teacher" | "none" | "unknownFutureValue";
@@ -151,7 +155,6 @@ export type PhysicalAddressType = "unknown" | "home" | "business" | "other";
 export type BookingType = "unknown" | "standard" | "reserved";
 export type AttachmentType = "file" | "item" | "reference";
 export type AutomaticRepliesStatus = "disabled" | "alwaysEnabled" | "scheduled";
-export type BodyType = "text" | "html";
 export type CalendarColor =
     | "auto"
     | "lightBlue"
@@ -1171,6 +1174,23 @@ export type TeamSpecialization =
     | "unknownFutureValue";
 export type TeamVisibilityType = "private" | "public" | "hiddenMembership" | "unknownFutureValue";
 export type TeamworkActivityTopicSource = "entityUrl" | "text";
+export type TeamworkApplicationIdentityType =
+    | "aadApplication"
+    | "bot"
+    | "tenantBot"
+    | "office365Connector"
+    | "outgoingWebhook"
+    | "unknownFutureValue";
+export type TeamworkConversationIdentityType = "team" | "channel" | "chat" | "unknownFutureValue";
+export type TeamworkUserIdentityType =
+    | "aadUser"
+    | "onPremiseAadUser"
+    | "anonymousGuest"
+    | "federatedUser"
+    | "personalMicrosoftAccountUser"
+    | "skypeUser"
+    | "phoneUser"
+    | "unknownFutureValue";
 export type ScheduleChangeRequestActor = "sender" | "recipient" | "manager" | "system" | "unknownFutureValue";
 export type ScheduleChangeState = "pending" | "approved" | "declined" | "unknownFutureValue";
 export type ScheduleEntityTheme =
@@ -1475,112 +1495,128 @@ export interface DirectoryObject extends Entity {
 }
 export interface User extends DirectoryObject {
     /**
-     * true if the account is enabled; otherwise, false. This property is required when a user is created. Returned only on
-     * $select. Supports $filter.
+     * true if the account is enabled; otherwise, false. This property is required when a user is created. Supports $filter
+     * (eq, ne, NOT, and in).
      */
     accountEnabled?: NullableOption<boolean>;
     /**
      * Sets the age group of the user. Allowed values: null, minor, notAdult and adult. Refer to the legal age group property
-     * definitions for further information. Returned only on $select.
+     * definitions for further information. Supports $filter (eq, ne, NOT, and in).
      */
     ageGroup?: NullableOption<string>;
-    // The licenses that are assigned to the user, including inherited (group-based) licenses. Not nullable. Supports $filter.
+    /**
+     * The licenses that are assigned to the user, including inherited (group-based) licenses. Not nullable. Supports $filter
+     * (eq and NOT).
+     */
     assignedLicenses?: AssignedLicense[];
-    // The plans that are assigned to the user. Returned only on $select. Read-only. Not nullable.
+    // The plans that are assigned to the user. Read-only. Not nullable.Supports $filter (eq and NOT).
     assignedPlans?: AssignedPlan[];
     /**
-     * The telephone numbers for the user. Only one number can be set for this property. Returned by default. Read-only for
-     * users synced from on-premises directory.
+     * The telephone numbers for the user. Only one number can be set for this property. Read-only for users synced from
+     * on-premises directory. Supports $filter (eq and NOT).
      */
     businessPhones?: string[];
-    // The city in which the user is located. Maximum length is 128 characters. Returned only on $select. Supports $filter.
+    /**
+     * The city in which the user is located. Maximum length is 128 characters. Supports $filter (eq, ne, NOT, ge, le, in,
+     * startsWith).
+     */
     city?: NullableOption<string>;
     /**
      * The company name which the user is associated. This property can be useful for describing the company that an external
-     * user comes from. The maximum length of the company name is 64 characters.Returned only on $select.
+     * user comes from. The maximum length of the company name is 64 characters.Supports $filter (eq, ne, NOT, ge, le, in,
+     * startsWith).
      */
     companyName?: NullableOption<string>;
     /**
      * Sets whether consent has been obtained for minors. Allowed values: null, granted, denied and notRequired. Refer to the
-     * legal age group property definitions for further information. Returned only on $select.
+     * legal age group property definitions for further information. Supports $filter (eq, ne, NOT, and in).
      */
     consentProvidedForMinor?: NullableOption<string>;
     /**
-     * The country/region in which the user is located; for example, 'US' or 'UK'. Maximum length is 128 characters. Returned
-     * only on $select. Supports $filter.
+     * The country/region in which the user is located; for example, US or UK. Maximum length is 128 characters. Supports
+     * $filter (eq, ne, NOT, ge, le, in, startsWith).
      */
     country?: NullableOption<string>;
     /**
      * The date and time the user was created. The value cannot be modified and is automatically populated when the entity is
      * created. The DateTimeOffset type represents date and time information using ISO 8601 format and is always in UTC time.
      * Property is nullable. A null value indicates that an accurate creation time couldn't be determined for the user.
-     * Returned only on $select. Read-only. Supports $filter with the eq, ne, le, and ge operators.
+     * Read-only. Supports $filter (eq, ne, NOT , ge, le, and in operators).
      */
     createdDateTime?: NullableOption<string>;
     /**
      * Indicates whether the user account was created as a regular school or work account (null), an external account
      * (Invitation), a local account for an Azure Active Directory B2C tenant (LocalAccount) or self-service sign-up using
-     * email verification (EmailVerified). Returned only on $select. Read-only.
+     * email verification (EmailVerified). Read-only. Supports $filter (eq, ne, NOT, and in).
      */
     creationType?: NullableOption<string>;
     /**
-     * The name for the department in which the user works. Maximum length is 64 characters.Returned only on $select. Supports
-     * $filter.
+     * The name for the department in which the user works. Maximum length is 64 characters.Supports $filter (eq, ne, NOT ,
+     * ge, le, and in operators).
      */
     department?: NullableOption<string>;
     /**
      * The name displayed in the address book for the user. This value is usually the combination of the user's first name,
      * middle initial, and last name. This property is required when a user is created and it cannot be cleared during
-     * updates. Maximum length is 256 characters. Returned by default. Supports $filter and $orderby.
+     * updates. Maximum length is 256 characters. Supports $filter (eq, ne, NOT , ge, le, in, startsWith), $orderBy, and
+     * $search.
      */
     displayName?: NullableOption<string>;
     /**
-     * The date and time when the user was hired or will start work in case of a future hire. Returned only on $select.
-     * Supports $filter.
+     * The date and time when the user was hired or will start work in case of a future hire. Supports $filter (eq, ne, NOT ,
+     * ge, le, in).
      */
     employeeHireDate?: NullableOption<string>;
-    // The employee identifier assigned to the user by the organization. Returned only on $select. Supports $filter.
+    /**
+     * The employee identifier assigned to the user by the organization. Supports $filter (eq, ne, NOT , ge, le, in,
+     * startsWith).
+     */
     employeeId?: NullableOption<string>;
-    // Represents organization data (e.g. division and costCenter) associated with a user. Returned only on $select.
+    /**
+     * Represents organization data (e.g. division and costCenter) associated with a user. Supports $filter (eq, ne, NOT , ge,
+     * le, in).
+     */
     employeeOrgData?: NullableOption<EmployeeOrgData>;
     /**
-     * Captures enterprise worker type. For example, Employee, Contractor, Consultant, or Vendor. Returned only on $select.
-     * Supports $filter with the eq operator.
+     * Captures enterprise worker type. For example, Employee, Contractor, Consultant, or Vendor. Supports $filter (eq, ne,
+     * NOT , ge, le, in, startsWith).
      */
     employeeType?: NullableOption<string>;
     /**
      * For an external user invited to the tenant using the invitation API, this property represents the invited user's
      * invitation status. For invited users, the state can be PendingAcceptance or Accepted, or null for all other users.
-     * Returned only on $select. Supports $filter with the supported values. For example: $filter=externalUserState eq
-     * 'PendingAcceptance'.
+     * Supports $filter (eq, ne, NOT , in).
      */
     externalUserState?: NullableOption<string>;
-    // Shows the timestamp for the latest change to the externalUserState property. Returned only on $select.
+    // Shows the timestamp for the latest change to the externalUserState property. Supports $filter (eq, ne, NOT , in).
     externalUserStateChangeDateTime?: NullableOption<string>;
-    // The fax number of the user. Returned only on $select.
+    // The fax number of the user. Supports $filter (eq, ne, NOT , ge, le, in, startsWith).
     faxNumber?: NullableOption<string>;
-    // The given name (first name) of the user. Maximum length is 64 characters. Returned by default. Supports $filter.
+    /**
+     * The given name (first name) of the user. Maximum length is 64 characters. Supports $filter (eq, ne, NOT , ge, le, in,
+     * startsWith).
+     */
     givenName?: NullableOption<string>;
     /**
      * Represents the identities that can be used to sign in to this user account. An identity can be provided by Microsoft
      * (also known as a local account), by organizations, or by social identity providers such as Facebook, Google, and
-     * Microsoft, and tied to a user account. May contain multiple items with the same signInType value. Returned only on
-     * $select. Supports $filter.
+     * Microsoft, and tied to a user account. May contain multiple items with the same signInType value. Supports $filter (eq)
+     * only where the signInType is not userPrincipalName.
      */
     identities?: NullableOption<ObjectIdentity[]>;
-    // The instant message voice over IP (VOIP) session initiation protocol (SIP) addresses for the user. Read-only.
+    /**
+     * The instant message voice over IP (VOIP) session initiation protocol (SIP) addresses for the user. Read-only. Supports
+     * $filter (eq, NOT, ge, le, startsWith).
+     */
     imAddresses?: NullableOption<string[]>;
     // Do not use – reserved for future use.
     isResourceAccount?: NullableOption<boolean>;
-    /**
-     * The user's job title. Maximum length is 128 characters. Returned by default. Supports $filter (eq and startsWith
-     * operators).
-     */
+    // The user's job title. Maximum length is 128 characters. Supports $filter (eq, ne, NOT , ge, le, in, startsWith).
     jobTitle?: NullableOption<string>;
     /**
      * The time when this Azure AD user last changed their password. The Timestamp type represents date and time information
-     * using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
-     * Returned only on $select. Read-only.
+     * using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+     * Read-only. Returned only on $select.
      */
     lastPasswordChangeDateTime?: NullableOption<string>;
     /**
@@ -1590,37 +1626,39 @@ export interface User extends DirectoryObject {
      * definitions for further information. Returned only on $select.
      */
     legalAgeGroupClassification?: NullableOption<string>;
-    // State of license assignments for this user. Returned only on $select. Read-only.
+    // State of license assignments for this user. Read-only. Returned only on $select.
     licenseAssignmentStates?: NullableOption<LicenseAssignmentState[]>;
     /**
-     * The SMTP address for the user, for example, 'jeff@contoso.onmicrosoft.com'. Changes to this property will also update
-     * the user's proxyAddresses collection to include the value as an SMTP address. While this property can contain accent
-     * characters, using them can cause access issues with other Microsoft applications for the user. Supports $filter and
-     * endsWith.
+     * The SMTP address for the user, for example, admin@contoso.com. Changes to this property will also update the user's
+     * proxyAddresses collection to include the value as an SMTP address. While this property can contain accent characters,
+     * using them can cause access issues with other Microsoft applications for the user. Supports $filter (eq, ne, NOT, ge,
+     * le, in, startsWith, endsWith).
      */
     mail?: NullableOption<string>;
     /**
      * The mail alias for the user. This property must be specified when a user is created. Maximum length is 64 characters.
-     * Returned only on $select. Supports $filter.
+     * Supports $filter (eq, ne, NOT, ge, le, in, startsWith).
      */
     mailNickname?: NullableOption<string>;
     /**
-     * The primary cellular telephone number for the user. Returned by default. Read-only for users synced from on-premises
-     * directory.
+     * The primary cellular telephone number for the user. Read-only for users synced from on-premises directory. Supports
+     * $filter (eq, ne, NOT, ge, le, in, startsWith).
      */
     mobilePhone?: NullableOption<string>;
-    // The office location in the user's place of business. Maximum length is 128 characters. Returned by default.
+    /**
+     * The office location in the user's place of business. Maximum length is 128 characters. Supports $filter (eq, ne, NOT,
+     * ge, le, in, startsWith).
+     */
     officeLocation?: NullableOption<string>;
     /**
      * Contains the on-premises Active Directory distinguished name or DN. The property is only populated for customers who
-     * are synchronizing their on-premises directory to Azure Active Directory via Azure AD Connect. Returned only on $select.
-     * Read-only.
+     * are synchronizing their on-premises directory to Azure Active Directory via Azure AD Connect. Read-only.
      */
     onPremisesDistinguishedName?: NullableOption<string>;
     /**
      * Contains the on-premises domainFQDN, also called dnsDomainName synchronized from the on-premises directory. The
      * property is only populated for customers who are synchronizing their on-premises directory to Azure Active Directory
-     * via Azure AD Connect. Returned only on $select. Read-only.
+     * via Azure AD Connect. Read-only.
      */
     onPremisesDomainName?: NullableOption<string>;
     /**
@@ -1628,105 +1666,119 @@ export interface User extends DirectoryObject {
      * nor filterable. For an onPremisesSyncEnabled user, the source of authority for this set of properties is the
      * on-premises and is read-only and is read-only. For a cloud-only user (where onPremisesSyncEnabled is false), these
      * properties may be set during creation or update. These extension attributes are also known as Exchange custom
-     * attributes 1-15. Returned only on $select.
+     * attributes 1-15. Supports $filter (eq, NOT, ge, le, in).
      */
     onPremisesExtensionAttributes?: NullableOption<OnPremisesExtensionAttributes>;
     /**
      * This property is used to associate an on-premises Active Directory user account to their Azure AD user object. This
      * property must be specified when creating a new user account in the Graph if you are using a federated domain for the
-     * user's userPrincipalName (UPN) property. Important: The $ and _ characters cannot be used when specifying this
-     * property. Returned only on $select. Supports $filter.
+     * user's userPrincipalName (UPN) property. Note: The $ and _ characters cannot be used when specifying this property.
+     * Supports $filter (eq, ne, NOT, ge, le, in).
      */
     onPremisesImmutableId?: NullableOption<string>;
     /**
      * Indicates the last time at which the object was synced with the on-premises directory; for example:
      * '2013-02-16T03:04:54Z'. The Timestamp type represents date and time information using ISO 8601 format and is always in
-     * UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned only on $select. Read-only.
+     * UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only. Supports $filter (eq, ne, NOT,
+     * ge, le, in).
      */
     onPremisesLastSyncDateTime?: NullableOption<string>;
-    // Errors when using Microsoft synchronization product during provisioning. Returned only on $select.
+    // Errors when using Microsoft synchronization product during provisioning.
     onPremisesProvisioningErrors?: NullableOption<OnPremisesProvisioningError[]>;
     /**
      * Contains the on-premises sAMAccountName synchronized from the on-premises directory. The property is only populated for
-     * customers who are synchronizing their on-premises directory to Azure Active Directory via Azure AD Connect. Returned
-     * only on $select. Read-only.
+     * customers who are synchronizing their on-premises directory to Azure Active Directory via Azure AD Connect. Read-only.
+     * Supports $filter (eq, ne, NOT, ge, le, in, startsWith).
      */
     onPremisesSamAccountName?: NullableOption<string>;
     /**
      * Contains the on-premises security identifier (SID) for the user that was synchronized from on-premises to the cloud.
-     * Returned only on $select. Read-only.
+     * Read-only. Supports $filter (eq, ne, NOT, in).
      */
     onPremisesSecurityIdentifier?: NullableOption<string>;
     /**
      * true if this object is synced from an on-premises directory; false if this object was originally synced from an
      * on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory
-     * (default). Returned only on $select. Read-only.
+     * (default). Read-only. Supports $filter (eq, ne, NOT, in).
      */
     onPremisesSyncEnabled?: NullableOption<boolean>;
     /**
      * Contains the on-premises userPrincipalName synchronized from the on-premises directory. The property is only populated
      * for customers who are synchronizing their on-premises directory to Azure Active Directory via Azure AD Connect.
-     * Returned only on $select. Read-only.
+     * Read-only. Supports $filter (eq, ne, NOT, ge, le, in, startsWith).
      */
     onPremisesUserPrincipalName?: NullableOption<string>;
     /**
      * A list of additional email addresses for the user; for example: ['bob@contoso.com', 'Robert@fabrikam.com'].NOTE: While
      * this property can contain accent characters, they can cause access issues to first-party applications for the
-     * user.Returned only on $select. Supports$filter.
+     * user.Supports $filter (eq, NOT, ge, le, in, startsWith).
      */
     otherMails?: string[];
     /**
      * Specifies password policies for the user. This value is an enumeration with one possible value being
-     * 'DisableStrongPassword', which allows weaker passwords than the default policy to be specified.
-     * 'DisablePasswordExpiration' can also be specified. The two may be specified together; for example:
-     * 'DisablePasswordExpiration, DisableStrongPassword'.Returned only on $select.
+     * DisableStrongPassword, which allows weaker passwords than the default policy to be specified. DisablePasswordExpiration
+     * can also be specified. The two may be specified together; for example: DisablePasswordExpiration,
+     * DisableStrongPassword.Supports $filter (eq, ne, NOT).
      */
     passwordPolicies?: NullableOption<string>;
     /**
      * Specifies the password profile for the user. The profile contains the user's password. This property is required when a
      * user is created. The password in the profile must satisfy minimum requirements as specified by the passwordPolicies
-     * property. By default, a strong password is required. Returned only on $select.
+     * property. By default, a strong password is required. NOTE: For Azure B2C tenants, the forceChangePasswordNextSignIn
+     * property should be set to false and instead use custom policies and user flows to force password reset at first logon.
+     * See Force password reset at first logon.
      */
     passwordProfile?: NullableOption<PasswordProfile>;
     /**
      * The postal code for the user's postal address. The postal code is specific to the user's country/region. In the United
-     * States of America, this attribute contains the ZIP code. Maximum length is 40 characters. Returned only on $select.
+     * States of America, this attribute contains the ZIP code. Maximum length is 40 characters. Supports $filter (eq, ne,
+     * NOT, ge, le, in, startsWith).
      */
     postalCode?: NullableOption<string>;
-    // The preferred language for the user. Should follow ISO 639-1 Code; for example 'en-US'. Returned by default.
+    /**
+     * The preferred language for the user. Should follow ISO 639-1 Code; for example en-US. Supports $filter (eq, ne, NOT,
+     * ge, le, in, startsWith).
+     */
     preferredLanguage?: NullableOption<string>;
-    // The plans that are provisioned for the user. Returned only on $select. Read-only. Not nullable.
+    // The plans that are provisioned for the user. Read-only. Not nullable.
     provisionedPlans?: ProvisionedPlan[];
     /**
-     * For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com'] The any operator is required for filter
-     * expressions on multi-valued properties. Returned only on $select. Read-only, Not nullable. Supports $filter.
+     * For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com']. Read-only, Not nullable. Supports $filter (eq,
+     * NOT, ge, le, startsWith).
      */
     proxyAddresses?: string[];
     /**
      * true if the Outlook global address list should contain this user, otherwise false. If not set, this will be treated as
-     * true. For users invited through the invitation manager, this property will be set to false. Returned only on $select.
+     * true. For users invited through the invitation manager, this property will be set to false. Supports $filter (eq, ne,
+     * NOT, in).
      */
     showInAddressList?: NullableOption<boolean>;
     /**
      * Any refresh tokens or sessions tokens (session cookies) issued before this time are invalid, and applications will get
      * an error when using an invalid refresh or sessions token to acquire a delegated access token (to access APIs such as
      * Microsoft Graph). If this happens, the application will need to acquire a new refresh token by making a request to the
-     * authorize endpoint. Returned only on $select. Read-only. Use revokeSignInSessions to reset.
+     * authorize endpoint. Read-only. Use revokeSignInSessions to reset.
      */
     signInSessionsValidFromDateTime?: NullableOption<string>;
     /**
-     * The state or province in the user's address. Maximum length is 128 characters. Returned only on $select. Supports
-     * $filter.
+     * The state or province in the user's address. Maximum length is 128 characters. Supports $filter (eq, ne, NOT, ge, le,
+     * in, startsWith).
      */
     state?: NullableOption<string>;
-    // The street address of the user's place of business. Maximum length is 1024 characters. Returned only on $select.
+    /**
+     * The street address of the user's place of business. Maximum length is 1024 characters. Supports $filter (eq, ne, NOT,
+     * ge, le, in, startsWith).
+     */
     streetAddress?: NullableOption<string>;
-    // The user's surname (family name or last name). Maximum length is 64 characters. Returned by default. Supports $filter.
+    /**
+     * The user's surname (family name or last name). Maximum length is 64 characters. Supports $filter (eq, ne, NOT, ge, le,
+     * in, startsWith).
+     */
     surname?: NullableOption<string>;
     /**
      * A two letter country code (ISO standard 3166). Required for users that will be assigned licenses due to legal
-     * requirement to check for availability of services in countries. Examples include: 'US', 'JP', and 'GB'. Not nullable.
-     * Returned only on $select. Supports $filter.
+     * requirement to check for availability of services in countries. Examples include: US, JP, and GB. Not nullable.
+     * Supports $filter (eq, ne, NOT, ge, le, in, startsWith).
      */
     usageLocation?: NullableOption<string>;
     /**
@@ -1735,18 +1787,17 @@ export interface User extends DirectoryObject {
      * domain must be present in the tenant's collection of verified domains. This property is required when a user is
      * created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE:
      * While this property can contain accent characters, they can cause access issues to first-party applications for the
-     * user. Returned by default. Supports $filter, $orderby, and endsWith.
+     * user. Supports $filter (eq, ne, NOT, ge, le, in, startsWith, endsWith) and $orderBy.
      */
     userPrincipalName?: NullableOption<string>;
     /**
-     * A string value that can be used to classify user types in your directory, such as 'Member' and 'Guest'. Returned only
-     * on $select. Supports $filter.
+     * A string value that can be used to classify user types in your directory, such as Member and Guest. Supports $filter
+     * (eq, ne, NOT, in, startsWith, endsWith).
      */
     userType?: NullableOption<string>;
     /**
      * Settings for the primary mailbox of the signed-in user. You can get or update settings for sending automatic replies to
-     * incoming messages, locale, and time zone. Returned only on $select. Supported only on the Get user API (GET /users/{id}
-     * or GET /me).
+     * incoming messages, locale, and time zone. Returned only on $select.
      */
     mailboxSettings?: NullableOption<MailboxSettings>;
     // The limit on the maximum number of devices that the user is permitted to enroll. Allowed values are 5 or 1000.
@@ -2796,18 +2847,11 @@ export interface OfficeGraphInsights extends Entity {
 }
 export interface UserSettings extends Entity {
     /**
-     * Reflects the organization level setting controlling delegate access to the trending API. When set to true, the
-     * organization doesn't have access to Office Delve. The relevancy of the content displayed in Microsoft 365, for example
-     * in Suggested sites in SharePoint Home and the Discover view in OneDrive for Business is affected for the whole
-     * organization. This setting is read-only and can only be changed by administrators in the SharePoint admin center.
+     * Reflects the Office Delve organization level setting. When set to true, the organization doesn't have access to Office
+     * Delve. This setting is read-only and can only be changed by administrators in the SharePoint admin center.
      */
     contributionToContentDiscoveryAsOrganizationDisabled?: boolean;
-    /**
-     * When set to true, the delegate access to the user's trending API is disabled. When set to true, documents in the user's
-     * Office Delve are disabled. When set to true, the relevancy of the content displayed in Microsoft 365, for example in
-     * Suggested sites in SharePoint Home and the Discover view in OneDrive for Business is affected. Users can control this
-     * setting in Office Delve.
-     */
+    // When set to true, documents in the user's Office Delve are disabled. Users can control this setting in Office Delve.
     contributionToContentDiscoveryDisabled?: boolean;
     // The shift preferences for the user.
     shiftPreferences?: NullableOption<ShiftPreferences>;
@@ -2897,7 +2941,7 @@ export interface OnlineMeeting extends Entity {
     endDateTime?: NullableOption<string>;
     // The external ID. A custom ID. Optional.
     externalId?: NullableOption<string>;
-    // Whether or not to announce when callers join or leave.
+    // Indicates whether to announce when callers join or leave.
     isEntryExitAnnounced?: NullableOption<boolean>;
     // The join information in the language and locale variant specified in 'Accept-Language' request HTTP header. Read-only
     joinInformation?: NullableOption<ItemBody>;
@@ -3038,6 +3082,12 @@ export interface Application extends DirectoryObject {
      */
     createdDateTime?: NullableOption<string>;
     description?: NullableOption<string>;
+    /**
+     * Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value),
+     * NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious
+     * activity, or a violation of the Microsoft Services Agreement).
+     */
+    disabledByMicrosoftStatus?: NullableOption<string>;
     // The display name for the application.
     displayName?: NullableOption<string>;
     /**
@@ -3169,6 +3219,12 @@ export interface ServicePrincipal extends DirectoryObject {
      * MyApps will display the application description in this field. The maximum allowed size is 1024 characters.
      */
     description?: NullableOption<string>;
+    /**
+     * Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value),
+     * NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious
+     * activity, or a violation of the Microsoft Services Agreement).
+     */
+    disabledByMicrosoftStatus?: NullableOption<string>;
     // The display name for the service principal.
     displayName?: NullableOption<string>;
     // Home page or landing page of the application.
@@ -4070,6 +4126,14 @@ export interface Group extends DirectoryObject {
      */
     hasMembersWithLicenseErrors?: NullableOption<boolean>;
     /**
+     * Indicates whether this group can be assigned to an Azure Active Directory role.This property can only be set while
+     * creating the group and is immutable. If set to true, the securityEnabled property must also be set to true and the
+     * group cannot be a dynamic group (that is, groupTypes cannot contain DynamicMembership).Only callers in Global
+     * Administrator and Privileged Role Administrator roles can set this property. For more, see Using a group to manage
+     * Azure AD role assignmentsReturned by default.
+     */
+    isAssignableToRole?: NullableOption<boolean>;
+    /**
      * Indicates status of the group license assignment to all members of the group. Possible values: QueuedForProcessing,
      * ProcessingInProgress, and ProcessingComplete. Returned only on $select. Read-only.
      */
@@ -4227,7 +4291,7 @@ export interface Group extends DirectoryObject {
      * (supported only for security groups) Read-only. Nullable.
      */
     owners?: NullableOption<DirectoryObject[]>;
-    // The permission that has been granted for a group to a specific application.
+    // The permissions that have been granted for a group to a specific application.
     permissionGrants?: NullableOption<ResourceSpecificPermissionGrant[]>;
     // Settings that can govern this group's behavior, like whether members can invite guest users to the group. Nullable.
     settings?: NullableOption<GroupSetting[]>;
@@ -4275,7 +4339,7 @@ export interface ResourceSpecificPermissionGrant extends DirectoryObject {
     clientAppId?: NullableOption<string>;
     // ID of the Azure AD app that has been granted access. Read-only.
     clientId?: NullableOption<string>;
-    // The name of the permission. Read-only.
+    // The name of the resource-specific permission. Read-only.
     permission?: NullableOption<string>;
     // The type of permission. Possible values are: Application, Delegated. Read-only.
     permissionType?: NullableOption<string>;
@@ -4569,7 +4633,10 @@ export interface PermissionGrantConditionSet extends Entity {
 export interface SubscribedSku extends Entity {
     // For example, 'User' or 'Company'.
     appliesTo?: NullableOption<string>;
-    // Possible values are: Enabled, Warning, Suspended, Deleted, LockedOut.
+    /**
+     * Possible values are: Enabled, Warning, Suspended, Deleted, LockedOut. The capabilityStatus is Enabled if the
+     * prepaidUnits property has at least 1 unit that is enabled, and LockedOut if the customer cancelled their subscription.
+     */
     capabilityStatus?: NullableOption<string>;
     // The number of licenses that have been assigned.
     consumedUnits?: NullableOption<number>;
@@ -4584,6 +4651,186 @@ export interface SubscribedSku extends Entity {
      * organization has acquired, see List subscribedSkus.
      */
     skuPartNumber?: NullableOption<string>;
+}
+export interface EducationAssignment extends Entity {
+    /**
+     * Optional field to control the assignment behavior for students who are added after the assignment is published. If not
+     * specified, defaults to none value. Currently supports only two values: none or assignIfOpen.
+     */
+    addedStudentAction?: NullableOption<EducationAddedStudentAction>;
+    /**
+     * Identifies whether students can submit after the due date. If this property is not specified during create, it defaults
+     * to true.
+     */
+    allowLateSubmissions?: NullableOption<boolean>;
+    /**
+     * Identifies whether students can add their own resources to a submission or if they can only modify resources added by
+     * the teacher.
+     */
+    allowStudentsToAddResourcesToSubmission?: NullableOption<boolean>;
+    /**
+     * The date when the assignment should become active. If in the future, the assignment is not shown to the student until
+     * this date. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For
+     * example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    assignDateTime?: NullableOption<string>;
+    /**
+     * The moment that the assignment was published to students and the assignment shows up on the students timeline. The
+     * Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
+     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    assignedDateTime?: NullableOption<string>;
+    // Which users, or whole class should receive a submission object once the assignment is published.
+    assignTo?: NullableOption<EducationAssignmentRecipient>;
+    // Class which this assignment belongs.
+    classId?: NullableOption<string>;
+    /**
+     * Date when the assignment will be closed for submissions. This is an optional field that can be null if the assignment
+     * does not allowLateSubmissions or when the closeDateTime is the same as the dueDateTime. But if specified, then the
+     * closeDateTime must be greater than or equal to the dueDateTime. The Timestamp type represents date and time information
+     * using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    closeDateTime?: NullableOption<string>;
+    // Who created the assignment.
+    createdBy?: NullableOption<IdentitySet>;
+    /**
+     * Moment when the assignment was created. The Timestamp type represents date and time information using ISO 8601 format
+     * and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    createdDateTime?: NullableOption<string>;
+    // Name of the assignment.
+    displayName?: NullableOption<string>;
+    /**
+     * Date when the students assignment is due. The Timestamp type represents date and time information using ISO 8601 format
+     * and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    dueDateTime?: NullableOption<string>;
+    // How the assignment will be graded.
+    grading?: NullableOption<EducationAssignmentGradeType>;
+    // Instructions for the assignment. This along with the display name tell the student what to do.
+    instructions?: NullableOption<EducationItemBody>;
+    // Who last modified the assignment.
+    lastModifiedBy?: NullableOption<IdentitySet>;
+    /**
+     * Moment when the assignment was last modified. The Timestamp type represents date and time information using ISO 8601
+     * format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    lastModifiedDateTime?: NullableOption<string>;
+    /**
+     * Optional field to specify the URL of the channel to post the assignment publish notification. If not specified or null,
+     * defaults to the General channel. This field only applies to assignments where the assignTo value is
+     * educationAssignmentClassRecipient. Updating the notificationChannelUrl is not allowed after the assignment has been
+     * published.
+     */
+    notificationChannelUrl?: NullableOption<string>;
+    // Folder URL where all the file resources for this assignment are stored.
+    resourcesFolderUrl?: NullableOption<string>;
+    // Status of the Assignment. You can not PATCH this value. Possible values are: draft, scheduled, published, assigned.
+    status?: NullableOption<EducationAssignmentStatus>;
+    // The deep link URL for the given assignment.
+    webUrl?: NullableOption<string>;
+    // When set, enables users to easily find assignments of a given type. Read-only. Nullable.
+    categories?: NullableOption<EducationCategory[]>;
+    // Learning objects that are associated with this assignment. Only teachers can modify this list. Nullable.
+    resources?: NullableOption<EducationAssignmentResource[]>;
+    // When set, the grading rubric attached to this assignment.
+    rubric?: NullableOption<EducationRubric>;
+    // Once published, there is a submission object for each student representing their work and grade. Read-only. Nullable.
+    submissions?: NullableOption<EducationSubmission[]>;
+}
+export interface EducationCategory extends Entity {
+    // Unique identifier for the category.
+    displayName?: NullableOption<string>;
+}
+export interface EducationAssignmentResource extends Entity {
+    // Indicates whether this resource should be copied to each student submission for modification and submission.
+    distributeForStudentWork?: NullableOption<boolean>;
+    // Resource object that has been associated with this assignment.
+    resource?: NullableOption<EducationResource>;
+}
+export interface EducationRubric extends Entity {
+    // The user who created this resource.
+    createdBy?: NullableOption<IdentitySet>;
+    /**
+     * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
+     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    createdDateTime?: NullableOption<string>;
+    // The description of this rubric.
+    description?: NullableOption<EducationItemBody>;
+    // The name of this rubric.
+    displayName?: NullableOption<string>;
+    /**
+     * The grading type of this rubric -- null for a no-points rubric, or educationAssignmentPointsGradeType for a points
+     * rubric.
+     */
+    grading?: NullableOption<EducationAssignmentGradeType>;
+    // The last user to modify the resource.
+    lastModifiedBy?: NullableOption<IdentitySet>;
+    /**
+     * Moment in time when the resource was last modified. The Timestamp type represents date and time information using ISO
+     * 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    lastModifiedDateTime?: NullableOption<string>;
+    // The collection of levels making up this rubric.
+    levels?: NullableOption<RubricLevel[]>;
+    // The collection of qualities making up this rubric.
+    qualities?: NullableOption<RubricQuality[]>;
+}
+export interface EducationSubmission extends Entity {
+    // Who this submission is assigned to.
+    recipient?: NullableOption<EducationSubmissionRecipient>;
+    // Folder where all file resources for this submission need to be stored.
+    resourcesFolderUrl?: NullableOption<string>;
+    // User who moved the status of this submission to returned.
+    returnedBy?: NullableOption<IdentitySet>;
+    /**
+     * Moment in time when the submission was returned. The Timestamp type represents date and time information using ISO 8601
+     * format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    returnedDateTime?: NullableOption<string>;
+    // Read-Only. Possible values are: working, submitted, released, returned.
+    status?: NullableOption<EducationSubmissionStatus>;
+    // User who moved the resource into the submitted state.
+    submittedBy?: NullableOption<IdentitySet>;
+    /**
+     * Moment in time when the submission was moved into the submitted state. The Timestamp type represents date and time
+     * information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
+     * 2014-01-01T00:00:00Z
+     */
+    submittedDateTime?: NullableOption<string>;
+    // User who moved the resource from submitted into the working state.
+    unsubmittedBy?: NullableOption<IdentitySet>;
+    /**
+     * Moment in time when the submission was moved from submitted into the working state. The Timestamp type represents date
+     * and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
+     * 2014-01-01T00:00:00Z
+     */
+    unsubmittedDateTime?: NullableOption<string>;
+    // Read-Write. Nullable.
+    outcomes?: NullableOption<EducationOutcome[]>;
+    // Nullable.
+    resources?: NullableOption<EducationSubmissionResource[]>;
+    // Read-only. Nullable.
+    submittedResources?: NullableOption<EducationSubmissionResource[]>;
+}
+export interface EducationAssignmentDefaults extends Entity {
+    /**
+     * Class-level default behavior for handling students who are added after the assignment is published. Possible values
+     * are: none, assignIfOpen.
+     */
+    addedStudentAction?: NullableOption<EducationAddedStudentAction>;
+    // Class-level default value for due time field. Default value is 23:59:00.
+    dueTime?: NullableOption<string>;
+    // Default Teams channel to which notifications will be sent. Default value is null.
+    notificationChannelUrl?: NullableOption<string>;
+}
+export interface EducationAssignmentSettings extends Entity {
+    /**
+     * Indicates whether turn-in celebration animation will be shown. A value of true indicates that the animation will not be
+     * shown. Default value is false.
+     */
+    submissionAnimationDisabled?: NullableOption<boolean>;
 }
 export interface EducationClass extends Entity {
     // Class code used by the school to identify the class.
@@ -4613,6 +4860,11 @@ export interface EducationClass extends Entity {
     mailNickname?: string;
     // Term for the class.
     term?: NullableOption<EducationTerm>;
+    assignmentCategories?: NullableOption<EducationCategory[]>;
+    assignmentDefaults?: NullableOption<EducationAssignmentDefaults>;
+    // All assignments associated with this class. Nullable.
+    assignments?: NullableOption<EducationAssignment[]>;
+    assignmentSettings?: NullableOption<EducationAssignmentSettings>;
     // The underlying Microsoft 365 group object.
     group?: NullableOption<Group>;
     // All users in the class. Nullable.
@@ -4707,6 +4959,7 @@ export interface EducationUser extends Entity {
      * /$filter.
      */
     userType?: NullableOption<string>;
+    rubrics?: NullableOption<EducationRubric[]>;
     // Classes to which the user belongs. Nullable.
     classes?: NullableOption<EducationClass[]>;
     // Schools to which the user belongs. Nullable.
@@ -4755,11 +5008,43 @@ export interface EducationSchool extends EducationOrganization {
     // Users in the school. Nullable.
     users?: NullableOption<EducationUser[]>;
 }
+export interface EducationOutcome extends Entity {
+    lastModifiedBy?: NullableOption<IdentitySet>;
+    lastModifiedDateTime?: NullableOption<string>;
+}
+export interface EducationFeedbackOutcome extends EducationOutcome {
+    // Teacher's written feedback to the student.
+    feedback?: NullableOption<EducationFeedback>;
+    // A copy of the feedback property that is made when the grade is released to the student.
+    publishedFeedback?: NullableOption<EducationFeedback>;
+}
+export interface EducationPointsOutcome extends EducationOutcome {
+    // The numeric grade the teacher has given the student for this assignment.
+    points?: NullableOption<EducationAssignmentPointsGrade>;
+    // A copy of the points property that is made when the grade is released to the student.
+    publishedPoints?: NullableOption<EducationAssignmentPointsGrade>;
+}
 export interface EducationRoot {
     classes?: NullableOption<EducationClass[]>;
     me?: NullableOption<EducationUser>;
     schools?: NullableOption<EducationSchool[]>;
     users?: NullableOption<EducationUser[]>;
+}
+export interface EducationRubricOutcome extends EducationOutcome {
+    // A copy of the rubricQualityFeedback property that is made when the grade is released to the student.
+    publishedRubricQualityFeedback?: NullableOption<RubricQualityFeedbackModel[]>;
+    // A copy of the rubricQualitySelectedLevels property that is made when the grade is released to the student.
+    publishedRubricQualitySelectedLevels?: NullableOption<RubricQualitySelectedColumnModel[]>;
+    // A collection of specific feedback for each quality of this rubric.
+    rubricQualityFeedback?: NullableOption<RubricQualityFeedbackModel[]>;
+    // The level that the teacher has selected for each quality while grading this assignment.
+    rubricQualitySelectedLevels?: NullableOption<RubricQualitySelectedColumnModel[]>;
+}
+export interface EducationSubmissionResource extends Entity {
+    // Pointer to the assignment from which this resource was copied. If this is null, the student uploaded the resource.
+    assignmentResourceUrl?: NullableOption<string>;
+    // Resource object.
+    resource?: NullableOption<EducationResource>;
 }
 export interface AppScope extends Entity {
     /**
@@ -4963,7 +5248,7 @@ export interface Workbook extends Entity {
     application?: NullableOption<WorkbookApplication>;
     comments?: NullableOption<WorkbookComment[]>;
     functions?: NullableOption<WorkbookFunctions>;
-    // Represents a collection of workbook scoped named items (named ranges and constants). Read-only.
+    // Represents a collection of workbooks scoped named items (named ranges and constants). Read-only.
     names?: NullableOption<WorkbookNamedItem[]>;
     /**
      * The status of Workbook operations. Getting an operation collection is not supported, but you can get the status of a
@@ -6129,74 +6414,96 @@ export interface Call extends Entity {
 export interface AccessReviewInstance extends Entity {
     /**
      * DateTime when review instance is scheduled to end.The DatetimeOffset type represents date and time information using
-     * ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+     * ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Supports
+     * $select. Read-only.
      */
     endDateTime?: NullableOption<string>;
     /**
      * Created based on scope and instanceEnumerationScope at the accessReviewScheduleDefinition level. Defines the scope of
-     * users reviewed in a group. In the case of a single-group review, the scope defined at the
-     * accessReviewScheduleDefinition level applies to all instances. In the case of all groups review, scope may be different
-     * for each group. Read-only.
+     * users reviewed in a group. Supports $select and $filter (contains only). Read-only.
      */
     scope?: NullableOption<AccessReviewScope>;
     /**
      * DateTime when review instance is scheduled to start. May be in the future. The DateTimeOffset type represents date and
      * time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
-     * 2014-01-01T00:00:00Z.
+     * 2014-01-01T00:00:00Z. Supports $select. Read-only.
      */
     startDateTime?: NullableOption<string>;
     /**
-     * Specifies the status of an accessReview. The typical states include Initializing, NotStarted, Starting, InProgress,
-     * Completing, Completed, AutoReviewing, and AutoReviewed. Read-only.
+     * Specifies the status of an accessReview. Possible values: Initializing, NotStarted, Starting, InProgress, Completing,
+     * Completed, AutoReviewing, and AutoReviewed. Supports $select, $orderby, and $filter (eq only). Read-only.
      */
     status?: NullableOption<string>;
     /**
-     * Each user reviewed in an accessReviewInstance has a decision item representing if their access was approved, denied, or
-     * not yet reviewed.
+     * Each user reviewed in an accessReviewInstance has a decision item representing if they were approved, denied, or not
+     * yet reviewed.
      */
     decisions?: NullableOption<AccessReviewInstanceDecisionItem[]>;
 }
 export interface AccessReviewInstanceDecisionItem extends Entity {
-    // The identifier of the accessReviewInstance parent.
+    // The identifier of the accessReviewInstance parent. Supports $select. Read-only.
     accessReviewId?: string;
-    // The identifier of the user who applied the decision.
+    // The identifier of the user who applied the decision. Read-only.
     appliedBy?: NullableOption<UserIdentity>;
     /**
      * The timestamp when the approval decision was applied. The DatetimeOffset type represents date and time information
      * using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+     * Supports $select. Read-only.
      */
     appliedDateTime?: NullableOption<string>;
-    // The result of applying the decision. Possible values: NotApplied, Success, Failed, NotFound, or NotSupported.
+    /**
+     * The result of applying the decision. Possible values: New, AppliedSuccessfully, AppliedWithUnknownFailure,
+     * AppliedSuccessfullyButObjectNotFound and ApplyNotSupported. Supports $select, $orderby, and $filter (eq only).
+     * Read-only.
+     */
     applyResult?: NullableOption<string>;
-    // Result of the review. Possible values: Approve, Deny, NotReviewed, or DontKnow.
+    /**
+     * Result of the review. Possible values: Approve, Deny, NotReviewed, or DontKnow. Supports $select, $orderby, and $filter
+     * (eq only).
+     */
     decision?: NullableOption<string>;
-    // The review decision justification.
+    // Justification left by the reviewer when they made the decision.
     justification?: NullableOption<string>;
     /**
      * Every decision item in an access review represents a principal's access to a resource. This property represents details
      * of the principal. For example, if a decision item represents access of User 'Bob' to Group 'Sales' - The principal is
-     * 'Bob' and the resource is 'Sales'. Principals can be of two types - userIdentity and servicePrincipalIdentity.
+     * 'Bob' and the resource is 'Sales'. Principals can be of two types - userIdentity and servicePrincipalIdentity. Supports
+     * $select. Read-only.
      */
     principal?: NullableOption<Identity>;
+    /**
+     * Link to the principal object. For example: https://graph.microsoft.com/v1.0/users/a6c7aecb-cbfd-4763-87ef-e91b4bd509d9.
+     * Read-only.
+     */
     principalLink?: NullableOption<string>;
-    // A system-generated recommendation for the approval decision. Possible values: Approve, Deny, or NotAvailable.
+    /**
+     * A system-generated recommendation for the approval decision based off last interactive sign-in to tenant. Recommend
+     * approve if sign-in is within thirty days of start of review. Recommend deny if sign-in is greater than thirty days of
+     * start of review. Recommendation not available otherwise. Possible values: Approve, Deny, or NoInfoAvailable. Supports
+     * $select, $orderby, and $filter (eq only). Read-only.
+     */
     recommendation?: NullableOption<string>;
     /**
      * Every decision item in an access review represents a principal's access to a resource. This property represents details
      * of the resource. For example, if a decision item represents access of User 'Bob' to Group 'Sales' - The principal is
-     * Bob and the resource is 'Sales'. Resources can be of multiple types. See accessReviewInstanceDecisionItemResource
+     * Bob and the resource is 'Sales'. Resources can be of multiple types. See accessReviewInstanceDecisionItemResource.
+     * Read-only.
      */
     resource?: NullableOption<AccessReviewInstanceDecisionItemResource>;
+    /**
+     * A link to the resource. For example,
+     * https://graph.microsoft.com/v1.0/servicePrincipals/c86300f3-8695-4320-9f6e-32a2555f5ff8. Supports $select. Read-only.
+     */
     resourceLink?: NullableOption<string>;
-    // The identifier of the reviewer.
+    // The identifier of the reviewer. Supports $select. Read-only.
     reviewedBy?: NullableOption<UserIdentity>;
-    // The timestamp when the review occurred.
+    // The timestamp when the review decision occurred. Supports $select. Read-only.
     reviewedDateTime?: NullableOption<string>;
 }
 export interface AccessReviewScheduleDefinition extends Entity {
-    // User who created this review.
+    // User who created this review. Read-only.
     createdBy?: NullableOption<UserIdentity>;
-    // Timestamp when the access review series was created. Supports $select.
+    // Timestamp when the access review series was created. Supports $select. Read-only.
     createdDateTime?: NullableOption<string>;
     // Description provided by review creators to provide more context of the review to admins. Supports $select.
     descriptionForAdmins?: NullableOption<string>;
@@ -6205,13 +6512,13 @@ export interface AccessReviewScheduleDefinition extends Entity {
      * description in the email sent to them requesting their review. Supports $select.
      */
     descriptionForReviewers?: NullableOption<string>;
-    // Name of the access review series. Required on create. Supports $select.
+    // Name of the access review series. Supports $select and $orderBy. Required on create.
     displayName?: NullableOption<string>;
     /**
      * This collection of reviewer scopes is used to define the list of fallback reviewers. These fallback reviewers will be
      * notified to take action if no users are found from the list of reviewers specified. This could occur when either the
      * group owner is specified as the reviewer but the group owner does not exist, or manager is specified as reviewer but a
-     * user's manager does not exist. Supports $select.
+     * user's manager does not exist. See accessReviewReviewerScope. Replaces backupReviewers. Supports $select.
      */
     fallbackReviewers?: NullableOption<AccessReviewReviewerScope[]>;
     /**
@@ -6221,12 +6528,12 @@ export interface AccessReviewScheduleDefinition extends Entity {
      * instanceEnumerationScope, see Configure the scope of your access review definition using the Microsoft Graph API.
      */
     instanceEnumerationScope?: NullableOption<AccessReviewScope>;
-    // Timestamp when the access review series was last modified. Supports $select.
+    // Timestamp when the access review series was last modified. Supports $select. Read-only.
     lastModifiedDateTime?: NullableOption<string>;
     /**
-     * This collection of access review scopes is used to define who are the reviewers. Required on create. Supports $select.
-     * For examples of options for assigning reviewers, see Assign reviewers to your access review definition using the
-     * Microsoft Graph API.
+     * This collection of access review scopes is used to define who are the reviewers. The reviewers property is only
+     * updatable if individual users are assigned as reviewers. Required on create. Supports $select. For examples of options
+     * for assigning reviewers, see Assign reviewers to your access review definition using the Microsoft Graph API.
      */
     reviewers?: NullableOption<AccessReviewReviewerScope[]>;
     /**
@@ -6235,12 +6542,12 @@ export interface AccessReviewScheduleDefinition extends Entity {
      * review definition using the Microsoft Graph API.
      */
     scope?: NullableOption<AccessReviewScope>;
-    // The settings for an access review series, see type definition below. Supports $select.
+    // The settings for an access review series, see type definition below. Supports $select. Required on create.
     settings?: NullableOption<AccessReviewScheduleSettings>;
     /**
      * This read-only field specifies the status of an access review. The typical states include Initializing, NotStarted,
      * Starting, InProgress, Completing, Completed, AutoReviewing, and AutoReviewed. Supports $select, $orderby, and $filter
-     * (eq only).
+     * (eq only). Read-only.
      */
     status?: NullableOption<string>;
     /**
@@ -11199,7 +11506,7 @@ export interface Channel extends Entity {
      * programmatically with Create team. Default: false.
      */
     isFavoriteByDefault?: NullableOption<boolean>;
-    // The type of the channel. Can be set during creation and cannot be changed. Default: standard.
+    // The type of the channel. Can be set during creation and can't be changed. Default: standard.
     membershipType?: NullableOption<ChannelMembershipType>;
     /**
      * A hyperlink that will go to the channel in Microsoft Teams. This is the URL that you get when you right-click a channel
@@ -11235,7 +11542,7 @@ export interface ChatMessage extends Entity {
     // Read-only. Version number of the chat message.
     etag?: NullableOption<string>;
     // Read only. Details of the sender of the chat message.
-    from?: NullableOption<IdentitySet>;
+    from?: NullableOption<ChatMessageFromIdentitySet>;
     // The importance of the chat message. The possible values are: normal, high, urgent.
     importance?: ChatMessageImportance;
     /**
@@ -11272,7 +11579,7 @@ export interface ChatMessage extends Entity {
     summary?: NullableOption<string>;
     // Read-only. Link to the message in Microsoft Teams.
     webUrl?: NullableOption<string>;
-    // Content in a message hosted by Microsoft Teams e.g., images, code snippets etc.
+    // Content in a message hosted by Microsoft Teams - for example, images or code snippets.
     hostedContents?: NullableOption<ChatMessageHostedContent[]>;
     // Replies for a specified message.
     replies?: NullableOption<ChatMessage[]>;
@@ -11398,8 +11705,8 @@ export interface WorkforceIntegration extends ChangeTrackedEntity {
     /**
      * This property will replace supports in v1.0. We recommend that you use this property instead of supports. The supports
      * property will still be supported in beta for the time being. Possible values are none, shift, swapRequest, openshift,
-     * openShiftRequest, userShiftPreferences. If selecting more than one value, all values must start with the first letter
-     * in uppercase.
+     * openShiftRequest, userShiftPreferences, offerShiftRequest, timeCard, timeOffReason, timeOff, timeOffRequest and
+     * unknownFutureValue. If selecting more than one value, all values must start with the first letter in uppercase.
      */
     supportedEntities?: NullableOption<WorkforceIntegrationSupportedEntities>;
     // Workforce Integration URL for callbacks from the Shifts service.
@@ -11981,8 +12288,9 @@ export interface OnPremisesProvisioningError {
 }
 export interface PasswordProfile {
     /**
-     * If true, at next sign-in, the user must change their password. After a password change, this property will be
-     * automatically reset to false. If not set, default is false.
+     * true if the user must change her password on the next login; otherwise false. If not set, default is false. NOTE: For
+     * Azure B2C tenants, set to false and instead use custom policies and user flows to force password reset at first sign
+     * in. See Force password reset at first logon.
      */
     forceChangePasswordNextSignIn?: NullableOption<boolean>;
     /**
@@ -12450,11 +12758,17 @@ export interface LicenseProcessingState {
     state?: NullableOption<string>;
 }
 export interface LicenseUnitsDetail {
-    // The number of units that are enabled.
+    // The number of units that are enabled for the active subscription of the service SKU.
     enabled?: NullableOption<number>;
-    // The number of units that are suspended.
+    /**
+     * The number of units that are suspended because the subscription of the service SKU has been cancelled. The units cannot
+     * be assigned but can still be reactivated before they are deleted.
+     */
     suspended?: NullableOption<number>;
-    // The number of units that are in warning status.
+    /**
+     * The number of units that are in warning status. When the subscription of the service SKU has expired, the customer has
+     * a grace period to renew their subscription before it is cancelled (moved to a suspended state).
+     */
     warning?: NullableOption<number>;
 }
 export interface OptionalClaim {
@@ -12567,6 +12881,142 @@ export interface VerifiedDomain {
     // For example, 'Managed'.
     type?: NullableOption<string>;
 }
+// tslint:disable-next-line: no-empty-interface
+export interface EducationAssignmentRecipient {}
+// tslint:disable-next-line: no-empty-interface
+export interface EducationAssignmentClassRecipient extends EducationAssignmentRecipient {}
+export interface EducationAssignmentGrade {
+    // User who did the grading.
+    gradedBy?: NullableOption<IdentitySet>;
+    /**
+     * Moment in time when the grade was applied to this submission object. The Timestamp type represents date and time
+     * information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
+     * 2014-01-01T00:00:00Z
+     */
+    gradedDateTime?: NullableOption<string>;
+}
+// tslint:disable-next-line: interface-name
+export interface IdentitySet {
+    // Optional. The application associated with this action.
+    application?: NullableOption<Identity>;
+    // Optional. The device associated with this action.
+    device?: NullableOption<Identity>;
+    // Optional. The user associated with this action.
+    user?: NullableOption<Identity>;
+}
+// tslint:disable-next-line: no-empty-interface
+export interface EducationAssignmentGradeType {}
+// tslint:disable-next-line: no-empty-interface
+export interface EducationAssignmentGroupRecipient extends EducationAssignmentRecipient {}
+export interface EducationAssignmentIndividualRecipient extends EducationAssignmentRecipient {
+    // A collection of ids of the recipients.
+    recipients?: NullableOption<string[]>;
+}
+export interface EducationAssignmentPointsGrade extends EducationAssignmentGrade {
+    // Number of points a teacher is giving this submission object.
+    points?: NullableOption<number>;
+}
+export interface EducationAssignmentPointsGradeType extends EducationAssignmentGradeType {
+    // Max points possible for this assignment.
+    maxPoints?: NullableOption<number>;
+}
+export interface EducationResource {
+    // Who created the resource.
+    createdBy?: NullableOption<IdentitySet>;
+    /**
+     * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
+     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    createdDateTime?: NullableOption<string>;
+    // Display name of resource.
+    displayName?: NullableOption<string>;
+    // Who was the last user to modify the resource.
+    lastModifiedBy?: NullableOption<IdentitySet>;
+    /**
+     * Moment in time when the resource was last modified. The Timestamp type represents date and time information using ISO
+     * 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    lastModifiedDateTime?: NullableOption<string>;
+}
+export interface EducationExcelResource extends EducationResource {
+    // Pointer to the Excel file object.
+    fileUrl?: NullableOption<string>;
+}
+export interface EducationFeedback {
+    // User who created the feedback.
+    feedbackBy?: NullableOption<IdentitySet>;
+    /**
+     * Moment in time when the feedback was given. The Timestamp type represents date and time information using ISO 8601
+     * format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    feedbackDateTime?: NullableOption<string>;
+    // Feedback.
+    text?: NullableOption<EducationItemBody>;
+}
+export interface EducationItemBody {
+    content?: NullableOption<string>;
+    contentType?: NullableOption<BodyType>;
+}
+export interface EducationFileResource extends EducationResource {
+    // Location on disk of the file resource.
+    fileUrl?: NullableOption<string>;
+}
+export interface EducationLinkResource extends EducationResource {
+    // URL to the resource.
+    link?: NullableOption<string>;
+}
+export interface EducationPowerPointResource extends EducationResource {
+    // Location of the file on disk.
+    fileUrl?: NullableOption<string>;
+}
+// tslint:disable-next-line: no-empty-interface
+export interface EducationSubmissionRecipient {}
+export interface EducationSubmissionIndividualRecipient extends EducationSubmissionRecipient {
+    // User ID of the user to whom the submission is assigned.
+    userId?: NullableOption<string>;
+}
+export interface EducationWordResource extends EducationResource {
+    // Location of the file on disk.
+    fileUrl?: NullableOption<string>;
+}
+export interface RubricCriterion {
+    // The description of this criterion.
+    description?: NullableOption<EducationItemBody>;
+}
+export interface RubricLevel {
+    // The description of this rubric level.
+    description?: NullableOption<EducationItemBody>;
+    // The name of this rubric level.
+    displayName?: NullableOption<string>;
+    // Null if this is a no-points rubric; educationAssignmentPointsGradeType if it is a points rubric.
+    grading?: NullableOption<EducationAssignmentGradeType>;
+    // The ID of this resource.
+    levelId?: NullableOption<string>;
+}
+export interface RubricQuality {
+    // The collection of criteria for this rubric quality.
+    criteria?: NullableOption<RubricCriterion[]>;
+    // The description of this rubric quality.
+    description?: NullableOption<EducationItemBody>;
+    // The name of this rubric quality.
+    displayName?: NullableOption<string>;
+    // The ID of this resource.
+    qualityId?: NullableOption<string>;
+    // If present, a numerical weight for this quality. Weights must add up to 100.
+    weight?: NullableOption<number>;
+}
+export interface RubricQualityFeedbackModel {
+    // Specific feedback for one quality of this rubric.
+    feedback?: NullableOption<EducationItemBody>;
+    // The ID of the rubricQuality that this feedback is related to.
+    qualityId?: NullableOption<string>;
+}
+export interface RubricQualitySelectedColumnModel {
+    // ID of the selected level for this quality.
+    columnId?: NullableOption<string>;
+    // ID of the associated quality.
+    qualityId?: NullableOption<string>;
+}
 export interface EducationCourse {
     // Unique identifier for the course.
     courseNumber?: NullableOption<string>;
@@ -12578,6 +13028,28 @@ export interface EducationCourse {
     externalId?: NullableOption<string>;
     // Subject of the course.
     subject?: NullableOption<string>;
+}
+export interface EducationTerm {
+    // Display name of the term.
+    displayName?: NullableOption<string>;
+    // End of the term.
+    endDate?: NullableOption<string>;
+    // ID of term in the syncing system.
+    externalId?: NullableOption<string>;
+    // Start of the term.
+    startDate?: NullableOption<string>;
+}
+export interface PhysicalAddress {
+    // The city.
+    city?: NullableOption<string>;
+    // The country or region. It's a free-format string value, for example, 'United States'.
+    countryOrRegion?: NullableOption<string>;
+    // The postal code.
+    postalCode?: NullableOption<string>;
+    // The state.
+    state?: NullableOption<string>;
+    // The street.
+    street?: NullableOption<string>;
 }
 export interface EducationOnPremisesInfo {
     // Unique identifier for the user object in Active Directory.
@@ -12602,37 +13074,6 @@ export interface EducationTeacher {
     externalId?: NullableOption<string>;
     // Teacher number.
     teacherNumber?: NullableOption<string>;
-}
-export interface EducationTerm {
-    // Display name of the term.
-    displayName?: NullableOption<string>;
-    // End of the term.
-    endDate?: NullableOption<string>;
-    // ID of term in the syncing system.
-    externalId?: NullableOption<string>;
-    // Start of the term.
-    startDate?: NullableOption<string>;
-}
-// tslint:disable-next-line: interface-name
-export interface IdentitySet {
-    // Optional. The application associated with this action.
-    application?: NullableOption<Identity>;
-    // Optional. The device associated with this action.
-    device?: NullableOption<Identity>;
-    // Optional. The user associated with this action.
-    user?: NullableOption<Identity>;
-}
-export interface PhysicalAddress {
-    // The city.
-    city?: NullableOption<string>;
-    // The country or region. It's a free-format string value, for example, 'United States'.
-    countryOrRegion?: NullableOption<string>;
-    // The postal code.
-    postalCode?: NullableOption<string>;
-    // The state.
-    state?: NullableOption<string>;
-    // The street.
-    street?: NullableOption<string>;
 }
 export interface UnifiedRolePermission {
     // Set of tasks that can be performed on a resource.
@@ -14002,9 +14443,9 @@ export interface AppConsentRequestScope {
 // tslint:disable-next-line: no-empty-interface
 export interface DisableAndDeleteUserApplyAction extends AccessReviewApplyAction {}
 export interface PrincipalResourceMembershipsScope extends AccessReviewScope {
-    // Defines the scopes of the principals to be included in an access review.
+    // Defines the scopes of the principals whose access to resources are reviewed in the access review.
     principalScopes?: NullableOption<AccessReviewScope[]>;
-    // Defines the scopes of the resources for which access will be reviewed.
+    // Defines the scopes of the resources for which access is reviewed.
     resourceScopes?: NullableOption<AccessReviewScope[]>;
 }
 // tslint:disable-next-line: no-empty-interface
@@ -15918,7 +16359,7 @@ export interface AlertHistoryState {
 export interface AlertTrigger {
     // Name of the property serving as a detection trigger.
     name?: NullableOption<string>;
-    // Type of the property in the key:value pair for interpretation. For example, String, Boolean, etc.
+    // Type of the property in the key:value pair for interpretation. For example, String, Boolean etc.
     type?: NullableOption<string>;
     // Value of the property serving as a detection trigger.
     value?: NullableOption<string>;
@@ -16542,7 +16983,7 @@ export interface ChangeNotification {
     id?: NullableOption<string>;
     /**
      * The type of lifecycle notification if the current notification is a lifecycle notification. Optional. Supported values
-     * are missed, removed, reauthorizationRequired.
+     * are missed, subscriptionRemoved, reauthorizationRequired.
      */
     lifecycleEvent?: NullableOption<LifecycleEventType>;
     // The URI of the resource that emitted the change notification relative to https://graph.microsoft.com. Required.
@@ -16628,20 +17069,26 @@ export interface ChatMessageAttachment {
      */
     thumbnailUrl?: NullableOption<string>;
 }
+// tslint:disable-next-line: no-empty-interface
+export interface ChatMessageFromIdentitySet extends IdentitySet {}
 export interface ChatMessageMention {
     /**
      * Index of an entity being mentioned in the specified chatMessage. Matches the {index} value in the corresponding
      * &amp;lt;at id='{index}'&amp;gt; tag in the message body.
      */
     id?: NullableOption<number>;
-    /**
-     * The entity (user, application, team, or channel) that was mentioned. If it was a channel or team that was @mentioned,
-     * the identitySet contains a conversation property giving the ID of the team/channel, and a conversationIdentityType
-     * property that represents either the team or channel.
-     */
-    mentioned?: NullableOption<IdentitySet>;
+    // The entity (user, application, team, or channel) that was @mentioned.
+    mentioned?: NullableOption<ChatMessageMentionedIdentitySet>;
     // String used to represent the mention. For example, a user's display name, a team name.
     mentionText?: NullableOption<string>;
+}
+export interface ChatMessageMentionedIdentitySet extends IdentitySet {
+    // If present, represents a conversation (for example, team or channel) @mentioned in a message.
+    conversation?: NullableOption<TeamworkConversationIdentity>;
+}
+export interface TeamworkConversationIdentity extends Identity {
+    // Type of conversation. Possible values are: team, channel, and chat.
+    conversationIdentityType?: NullableOption<TeamworkConversationIdentityType>;
 }
 export interface ChatMessagePolicyViolation {
     /**
@@ -16696,8 +17143,10 @@ export interface ChatMessageReaction {
     // Supported values are like, angry, sad, laugh, heart, surprised.
     reactionType?: string;
     // The user who reacted to the message.
-    user?: IdentitySet;
+    user?: ChatMessageReactionIdentitySet;
 }
+// tslint:disable-next-line: no-empty-interface
+export interface ChatMessageReactionIdentitySet extends IdentitySet {}
 export interface OperationError {
     // Operation error code.
     code?: NullableOption<string>;
@@ -16779,6 +17228,22 @@ export interface TeamworkActivityTopic {
      * text.
      */
     webUrl?: NullableOption<string>;
+}
+export interface TeamworkApplicationIdentity extends Identity {
+    /**
+     * Type of application that is referenced. Possible values are: aadApplication, bot, tenantBot, office365Connector, and
+     * outgoingWebhook.
+     */
+    applicationIdentityType?: NullableOption<TeamworkApplicationIdentityType>;
+}
+// tslint:disable-next-line: no-empty-interface
+export interface TeamworkTagIdentity extends Identity {}
+export interface TeamworkUserIdentity extends Identity {
+    /**
+     * Type of user. Possible values are: aadUser, onPremiseAadUser, anonymousGuest, federatedUser,
+     * personalMicrosoftAccountUser, skypeUser, and phoneUser.
+     */
+    userIdentityType?: NullableOption<TeamworkUserIdentityType>;
 }
 export interface ScheduleEntity {
     endDateTime?: NullableOption<string>;

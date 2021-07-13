@@ -8,7 +8,7 @@ declare class Verifier extends Writable {
 
 declare namespace Verifier {
     interface VerifierOptions extends WritableOptions {
-        jsonStreaming?: boolean;
+        jsonStreaming?: boolean | undefined;
     }
 
     function make(options?: VerifierOptions): Verifier;

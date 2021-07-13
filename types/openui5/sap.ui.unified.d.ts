@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -681,11 +681,11 @@ declare module "sap/ui/unified/Calendar" {
         /**
          * The selected week number.
          */
-        weekNumber?: int;
+        weekNumber?: int | undefined;
         /**
          * The days of the corresponding week that are selected or deselected.
          */
-        weekDays?: DateRange;
+        weekDays?: DateRange | undefined;
       }
     ): boolean;
     /**
@@ -1313,12 +1313,12 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo;
+    intervalSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set, only a single date or interval, if intervalSelection is enabled, can be selected
      */
-    singleSelection?: boolean | PropertyBindingInfo;
+    singleSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
@@ -1329,7 +1329,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * **Note:** On phones, only one month is displayed.
      */
-    months?: int | PropertyBindingInfo;
+    months?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.9
@@ -1337,7 +1337,7 @@ declare module "sap/ui/unified/Calendar" {
      * If set, the first day of the displayed week is this day. Valid values are 0 to 6. If not a valid value
      * is set, the default of the used locale is used.
      */
-    firstDayOfWeek?: int | PropertyBindingInfo;
+    firstDayOfWeek?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.9
@@ -1349,7 +1349,7 @@ declare module "sap/ui/unified/Calendar" {
      * specific dates or dates ranges, such as national holidays, use the `specialDates` aggregation to set
      * them. Both the non-working days (from property) and dates (from aggregation) are visualized the same.
      */
-    nonWorkingDays?: int[] | PropertyBindingInfo;
+    nonWorkingDays?: int[] | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -1359,7 +1359,7 @@ declare module "sap/ui/unified/Calendar" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -1369,7 +1369,7 @@ declare module "sap/ui/unified/Calendar" {
      */
     secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -1378,7 +1378,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * **Note:** There is a theme depending minimum width, so the calendar can not be set smaller.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -1391,7 +1391,7 @@ declare module "sap/ui/unified/Calendar" {
      * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
      * of the `minDate`.
      */
-    minDate?: object | PropertyBindingInfo;
+    minDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -1404,7 +1404,7 @@ declare module "sap/ui/unified/Calendar" {
      * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
      * month of the `maxDate`.
      */
-    maxDate?: object | PropertyBindingInfo;
+    maxDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.48
@@ -1414,7 +1414,7 @@ declare module "sap/ui/unified/Calendar" {
      * **Note:** For Islamic calendars, the week numbers are not displayed regardless of what is set to this
      * property.
      */
-    showWeekNumbers?: boolean | PropertyBindingInfo;
+    showWeekNumbers?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Dates or date ranges for selected dates.
@@ -1422,7 +1422,7 @@ declare module "sap/ui/unified/Calendar" {
      * To set a single date (instead of a range), set only the `startDate` property of the {@link sap.ui.unified.DateRange}
      * class.
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.24.0
@@ -1437,7 +1437,7 @@ declare module "sap/ui/unified/Calendar" {
      * where if you need a weekly-reccuring non-working days (weekend), you should use the `nonWorkingDays`
      * property. Both the non-working days (from property) and dates (from aggregation) are visualized the same.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -1447,14 +1447,14 @@ declare module "sap/ui/unified/Calendar" {
      * To set a single date (instead of a range), set only the `startDate` property of the {@link sap.ui.unified.DateRange}
      * class.
      */
-    disabledDates?: DateRange[] | DateRange | AggregationBindingInfo;
+    disabledDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.0
      *
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.38.5
@@ -1463,17 +1463,17 @@ declare module "sap/ui/unified/Calendar" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string;
+    legend?: CalendarLegend | string | undefined;
 
     /**
      * Date selection changed
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * Date selection was cancelled
      */
-    cancel?: Function;
+    cancel?: Function | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -1482,7 +1482,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * Use `getStartDate` function to determine the current start date
      */
-    startDateChange?: Function;
+    startDateChange?: Function | undefined;
 
     /**
      * @SINCE 1.56
@@ -1494,7 +1494,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * **Note** Works for Gregorian calendars only and when `intervalSelection` is set to 'true'.
      */
-    weekNumberSelect?: Function;
+    weekNumberSelect?: Function | undefined;
   }
 }
 
@@ -1690,12 +1690,12 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      * is set to the start date So after setting the start date the date should be set to be in the range of
      * the start date
      */
-    startDate?: object | PropertyBindingInfo;
+    startDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * number of days displayed
      */
-    days?: int | PropertyBindingInfo;
+    days?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -1703,7 +1703,7 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      * If set the day names are shown in a separate line. If not set the day names are shown inside the single
      * days.
      */
-    showDayNamesLine?: boolean | PropertyBindingInfo;
+    showDayNamesLine?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -2446,21 +2446,21 @@ declare module "sap/ui/unified/calendar/Header" {
      *
      * Text of the first button (normally day)
      */
-    textButton0?: string | PropertyBindingInfo;
+    textButton0?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * Additional text of the first button (normally day)
      */
-    additionalTextButton0?: string | PropertyBindingInfo;
+    additionalTextButton0?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32.0
      *
      * aria-label of the first button (normally day)
      */
-    ariaLabelButton0?: string | PropertyBindingInfo;
+    ariaLabelButton0?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32.0
@@ -2469,92 +2469,92 @@ declare module "sap/ui/unified/calendar/Header" {
      *
      * **Note:** The default is set to false to be compatible to older versions
      */
-    visibleButton0?: boolean | PropertyBindingInfo;
+    visibleButton0?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Text of the second button (normally month)
      */
-    textButton1?: string | PropertyBindingInfo;
+    textButton1?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * Additional text of the second button (normally month)
      */
-    additionalTextButton1?: string | PropertyBindingInfo;
+    additionalTextButton1?: string | PropertyBindingInfo | undefined;
 
     /**
      * aria-label of the second button (normally month)
      */
-    ariaLabelButton1?: string | PropertyBindingInfo;
+    ariaLabelButton1?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32.0
      *
      * If set, the second button will be displayed
      */
-    visibleButton1?: boolean | PropertyBindingInfo;
+    visibleButton1?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Text of the third button (normally year)
      */
-    textButton2?: string | PropertyBindingInfo;
+    textButton2?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * Additional text of the third button (normally year)
      */
-    additionalTextButton2?: string | PropertyBindingInfo;
+    additionalTextButton2?: string | PropertyBindingInfo | undefined;
 
     /**
      * aria-label of the third button (normally year)
      */
-    ariaLabelButton2?: string | PropertyBindingInfo;
+    ariaLabelButton2?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32.0
      *
      * If set, the third button will be displayed
      */
-    visibleButton2?: boolean | PropertyBindingInfo;
+    visibleButton2?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Enables the previous button
      */
-    enabledPrevious?: boolean | PropertyBindingInfo;
+    enabledPrevious?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Enables the Next button
      */
-    enabledNext?: boolean | PropertyBindingInfo;
+    enabledNext?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Previous button pressed
      */
-    pressPrevious?: Function;
+    pressPrevious?: Function | undefined;
 
     /**
      * Next button pressed
      */
-    pressNext?: Function;
+    pressNext?: Function | undefined;
 
     /**
      * @SINCE 1.32.0
      *
      * First button pressed (normally day)
      */
-    pressButton0?: Function;
+    pressButton0?: Function | undefined;
 
     /**
      * Second button pressed (normally month)
      */
-    pressButton1?: Function;
+    pressButton1?: Function | undefined;
 
     /**
      * Third button pressed (normally year)
      */
-    pressButton2?: Function;
+    pressButton2?: Function | undefined;
   }
 }
 
@@ -2845,15 +2845,15 @@ declare module "sap/ui/unified/calendar/Month" {
         /**
          * focused date
          */
-        date?: object;
+        date?: object | undefined;
         /**
          * focused date is in an other month than the displayed one
          */
-        otherMonth?: boolean;
+        otherMonth?: boolean | undefined;
         /**
          * focused date is set to the same as before (date in other month clicked)
          */
-        restoreOldDate?: boolean;
+        restoreOldDate?: boolean | undefined;
       }
     ): this;
     /**
@@ -2881,13 +2881,13 @@ declare module "sap/ui/unified/calendar/Month" {
         /**
          * The selected week number.
          */
-        weekNumber?: int;
+        weekNumber?: int | undefined;
         /**
          * The days of the corresponding week that are selected or deselected.
          *
          * **Note:** Will be set to `null` if that week is being deselected.
          */
-        weekDays?: DateRange;
+        weekDays?: DateRange | undefined;
       }
     ): boolean;
     /**
@@ -3401,22 +3401,22 @@ declare module "sap/ui/unified/calendar/Month" {
      * A date as JavaScript Date object. The month including this date is rendered and this date is focused
      * initially (if no other focus is set).
      */
-    date?: object | PropertyBindingInfo;
+    date?: object | PropertyBindingInfo | undefined;
 
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo;
+    intervalSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set, only a single date or interval, if intervalSelection is enabled, can be selected
      */
-    singleSelection?: boolean | PropertyBindingInfo;
+    singleSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set, a header with the month name is shown
      */
-    showHeader?: boolean | PropertyBindingInfo;
+    showHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.9
@@ -3424,7 +3424,7 @@ declare module "sap/ui/unified/calendar/Month" {
      * If set, the first day of the displayed week is this day. Valid values are 0 to 6. If not a valid value
      * is set, the default of the used locale is used.
      */
-    firstDayOfWeek?: int | PropertyBindingInfo;
+    firstDayOfWeek?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.9
@@ -3432,7 +3432,7 @@ declare module "sap/ui/unified/calendar/Month" {
      * If set, the provided weekdays are displayed as non-working days. Valid values inside the array are 0
      * to 6. If not set, the weekend defined in the locale settings is displayed as non-working days.
      */
-    nonWorkingDays?: int[] | PropertyBindingInfo;
+    nonWorkingDays?: int[] | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -3442,7 +3442,7 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -3452,14 +3452,14 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
      *
      * Width of Month
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.48
@@ -3469,12 +3469,12 @@ declare module "sap/ui/unified/calendar/Month" {
      * **Note:** For Islamic calendars, the week numbers are not displayed regardless of what is set to this
      * property.
      */
-    showWeekNumbers?: boolean | PropertyBindingInfo;
+    showWeekNumbers?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Date Ranges for selected dates of the DatePicker
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
 
     /**
      * `DateRange` with type to visualize special days in the Calendar.
@@ -3483,19 +3483,19 @@ declare module "sap/ui/unified/calendar/Month" {
      * only exception is when one of the types is `NonWorking`, then you can have both `NonWorking` and the
      * other type. For example, you can have `NonWorking` + `Type01` but you can't have `Type01` + `Type02`.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
      *
      * Date Ranges for disabled dates
      */
-    disabledDates?: DateRange[] | DateRange | AggregationBindingInfo;
+    disabledDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.38.5
@@ -3504,17 +3504,17 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string;
+    legend?: CalendarLegend | string | undefined;
 
     /**
      * Date selection changed
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * Date focus changed
      */
-    focus?: Function;
+    focus?: Function | undefined;
 
     /**
      * @SINCE 1.60
@@ -3526,7 +3526,7 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * **Note:** Works for Gregorian calendars only and when `intervalSelection` is set to `true`.
      */
-    weekNumberSelect?: Function;
+    weekNumberSelect?: Function | undefined;
   }
 }
 
@@ -3981,21 +3981,21 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     /**
      * The month is initial focused and selected The value must be between 0 and 11
      */
-    month?: int | PropertyBindingInfo;
+    month?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
      *
      * number of displayed months The value must be between 1 and 12
      */
-    months?: int | PropertyBindingInfo;
+    months?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.74
      *
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo;
+    intervalSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
@@ -4003,7 +4003,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * number of months in each row The value must be between 0 and 12 (0 means just to have all months in one
      * row, independent of the number)
      */
-    columns?: int | PropertyBindingInfo;
+    columns?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -4013,19 +4013,19 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.74
      *
      * Date Ranges for selected dates of the MonthPicker
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
 
     /**
      * Month selection changed
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -4033,7 +4033,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * If less than 12 months are displayed the `pageChange` event is fired if the displayed months are changed
      * by user navigation.
      */
-    pageChange?: Function;
+    pageChange?: Function | undefined;
   }
 }
 
@@ -4264,11 +4264,11 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
         /**
          * First date, as JavaScript Date object, of the month that is focused.
          */
-        date?: object;
+        date?: object | undefined;
         /**
          * If set, the focused date is not rendered yet. (This happens by navigating out of the visible area.)
          */
-        notVisible?: boolean;
+        notVisible?: boolean | undefined;
       }
     ): this;
     /**
@@ -4589,42 +4589,42 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the date should
      * be set to be in the visible range.
      */
-    date?: object | PropertyBindingInfo;
+    date?: object | PropertyBindingInfo | undefined;
 
     /**
      * Start date, as JavaScript Date object, of the row. The month of this date is the first month of the displayed
      * row.
      */
-    startDate?: object | PropertyBindingInfo;
+    startDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * Number of months displayed
      */
-    months?: int | PropertyBindingInfo;
+    months?: int | PropertyBindingInfo | undefined;
 
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo;
+    intervalSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set, only a single month or interval, if intervalSelection is enabled, can be selected
      *
      * **Note:** Selection of multiple intervals is not supported in the current version.
      */
-    singleSelection?: boolean | PropertyBindingInfo;
+    singleSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set, a header with the years is shown to visualize what month belongs to what year.
      */
-    showHeader?: boolean | PropertyBindingInfo;
+    showHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
      *
      * **Note:** Even if only one day is selected, the whole corresponding month is selected.
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
 
     /**
      * Date ranges with type to visualize special months in the row. If one day is assigned to more than one
@@ -4633,12 +4633,12 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * **Note:** Even if only one day is set as a special day, the whole corresponding month is displayed in
      * this way.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.38.5
@@ -4647,17 +4647,17 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string;
+    legend?: CalendarLegend | string | undefined;
 
     /**
      * Month selection changed
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * Month focus changed
      */
-    focus?: Function;
+    focus?: Function | undefined;
   }
 }
 
@@ -4887,11 +4887,11 @@ declare module "sap/ui/unified/calendar/TimesRow" {
         /**
          * date, as JavaScript Date object, of the focused time.
          */
-        date?: object;
+        date?: object | undefined;
         /**
          * If set, the focused date is not rendered yet. (This happens by navigating out of the visible area.)
          */
-        notVisible?: boolean;
+        notVisible?: boolean | undefined;
       }
     ): this;
     /**
@@ -5256,17 +5256,17 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      * in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the date should
      * be set to be in the visible range.
      */
-    date?: object | PropertyBindingInfo;
+    date?: object | PropertyBindingInfo | undefined;
 
     /**
      * Start date, as JavaScript Date object, of the row.
      */
-    startDate?: object | PropertyBindingInfo;
+    startDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * Number of time items displayed
      */
-    items?: int | PropertyBindingInfo;
+    items?: int | PropertyBindingInfo | undefined;
 
     /**
      * Size of on time interval in minutes, default is 60 minutes.
@@ -5277,40 +5277,40 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      *
      * A day must be divisible by this interval size. One interval must not include more than one day.
      */
-    intervalMinutes?: int | PropertyBindingInfo;
+    intervalMinutes?: int | PropertyBindingInfo | undefined;
 
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo;
+    intervalSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set, only a single month or interval, if intervalSelection is enabled, can be selected
      *
      * **Note:** Selection of multiple intervals is not supported in the current version.
      */
-    singleSelection?: boolean | PropertyBindingInfo;
+    singleSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set, a header with the years is shown to visualize what month belongs to what year.
      */
-    showHeader?: boolean | PropertyBindingInfo;
+    showHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
 
     /**
      * Date ranges with type to visualize special item in the row. If one day is assigned to more than one type,
      * only the first one will be used.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.38.5
@@ -5319,17 +5319,17 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string;
+    legend?: CalendarLegend | string | undefined;
 
     /**
      * Time selection changed
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * Time focus changed
      */
-    focus?: Function;
+    focus?: Function | undefined;
   }
 }
 
@@ -5791,28 +5791,28 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      *
      * The year is initial focused and selected The value must be between 0 and 9999
      */
-    year?: int | PropertyBindingInfo;
+    year?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
      *
      * number of displayed years
      */
-    years?: int | PropertyBindingInfo;
+    years?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.74
      *
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo;
+    intervalSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.30.0
      *
      * number of years in each row 0 means just to have all years in one row, independent of the number
      */
-    columns?: int | PropertyBindingInfo;
+    columns?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -5820,7 +5820,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      * Date as JavaScript Date object. For this date a `YearPicker` is rendered. If a Year is selected the date
      * is updated with the start date of the selected year (depending on the calendar type).
      */
-    date?: object | PropertyBindingInfo;
+    date?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -5830,26 +5830,26 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.74
      *
      * Date Ranges for selected dates of the YearPicker
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
 
     /**
      * Year selection changed
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * @SINCE 1.38.0
      *
      * The `pageChange` event is fired if the displayed years are changed by user navigation.
      */
-    pageChange?: Function;
+    pageChange?: Function | undefined;
   }
 }
 
@@ -6110,41 +6110,41 @@ declare module "sap/ui/unified/CalendarAppointment" {
     /**
      * Title of the appointment.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Text of the appointment.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.81.0
      *
      * Description of the appointment.
      */
-    description?: string | PropertyBindingInfo;
+    description?: string | PropertyBindingInfo | undefined;
 
     /**
      * Icon of the Appointment. (e.g. picture of the person)
      *
      * URI of an image or an icon registered in sap.ui.core.IconPool.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Indicates if the icon is tentative.
      */
-    tentative?: boolean | PropertyBindingInfo;
+    tentative?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates if the icon is selected.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Can be used as identifier of the appointment
      */
-    key?: string | PropertyBindingInfo;
+    key?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46.0
@@ -6152,7 +6152,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * Overrides the color derived from the `type` property. This property will work only with full hex color
      * with pound symbol, e.g.: #FF0000.
      */
-    color?: CSSColor | PropertyBindingInfo;
+    color?: CSSColor | PropertyBindingInfo | undefined;
   }
 }
 
@@ -6359,12 +6359,12 @@ declare module "sap/ui/unified/CalendarDateInterval" {
     /**
      * Start date of the Interval
      */
-    startDate?: object | PropertyBindingInfo;
+    startDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * number of days displayed on phones the maximum rendered number of days is 8.
      */
-    days?: int | PropertyBindingInfo;
+    days?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
@@ -6372,14 +6372,14 @@ declare module "sap/ui/unified/CalendarDateInterval" {
      * If set the day names are shown in a separate line. If not set the day names are shown inside the single
      * days.
      */
-    showDayNamesLine?: boolean | PropertyBindingInfo;
+    showDayNamesLine?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * If set, the month- and yearPicker opens on a popup
      */
-    pickerPopup?: boolean | PropertyBindingInfo;
+    pickerPopup?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -6583,17 +6583,17 @@ declare module "sap/ui/unified/CalendarLegend" {
      * Values must be one of `sap.ui.unified.StandardCalendarLegendItem`. Note: for versions 1.50 and 1.52,
      * this property was defined in the subclass `sap.m.PlanningCalendarLegend`
      */
-    standardItems?: string[] | PropertyBindingInfo;
+    standardItems?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * Defines the width of the created columns in which the items are arranged.
      */
-    columnWidth?: CSSSize | PropertyBindingInfo;
+    columnWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Items to be displayed.
      */
-    items?: CalendarLegendItem[] | CalendarLegendItem | AggregationBindingInfo;
+    items?: CalendarLegendItem[] | CalendarLegendItem | AggregationBindingInfo | undefined;
   }
 }
 
@@ -6747,7 +6747,7 @@ declare module "sap/ui/unified/CalendarLegendItem" {
     /**
      * Text to be displayed for the item.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.28.9
@@ -6757,14 +6757,14 @@ declare module "sap/ui/unified/CalendarLegendItem" {
      */
     type?:
       | (CalendarDayType | keyof typeof CalendarDayType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.46.0
      *
      * Overrides the color derived from the `type` property.
      */
-    color?: CSSColor | PropertyBindingInfo;
+    color?: CSSColor | PropertyBindingInfo | undefined;
   }
 }
 
@@ -7449,39 +7449,39 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
     /**
      * Width of the `CalendarMonthInterval`. The width of the single months depends on this width.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Start date of the Interval as JavaScript Date object. The month of this Date will be the first month
      * in the displayed row.
      */
-    startDate?: object | PropertyBindingInfo;
+    startDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo;
+    intervalSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set, only a single date or interval, if `intervalSelection` is enabled, can be selected
      *
      * **Note:** Selection of multiple intervals is not supported in the current version.
      */
-    singleSelection?: boolean | PropertyBindingInfo;
+    singleSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Number of months displayed
      *
      * **Note:** On phones, the maximum number of months displayed in the row is always 6.
      */
-    months?: int | PropertyBindingInfo;
+    months?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * If set, the yearPicker opens on a popup
      */
-    pickerPopup?: boolean | PropertyBindingInfo;
+    pickerPopup?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -7491,7 +7491,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
      * of the `minDate`.
      */
-    minDate?: object | PropertyBindingInfo;
+    minDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -7501,7 +7501,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
      * month of the `maxDate`.
      */
-    maxDate?: object | PropertyBindingInfo;
+    maxDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * Date ranges for selected dates of the `CalendarMonthInterval`.
@@ -7510,7 +7510,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      *
      * **Note:** Even if only one day is selected, the whole corresponding month is selected.
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
 
     /**
      * Date ranges with type to visualize special months in the `CalendarMonthInterval`. If one day is assigned
@@ -7519,12 +7519,12 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      * **Note:** Even if only one day is set as a special day, the whole corresponding month is displayed in
      * this way.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.38.5
@@ -7533,24 +7533,24 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string;
+    legend?: CalendarLegend | string | undefined;
 
     /**
      * Month selection changed
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * Month selection was cancelled
      */
-    cancel?: Function;
+    cancel?: Function | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * `startDate` was changed while navigation in `CalendarMonthInterval`
      */
-    startDateChange?: Function;
+    startDateChange?: Function | undefined;
   }
 }
 
@@ -7845,15 +7845,15 @@ declare module "sap/ui/unified/CalendarRow" {
         /**
          * Interval start date as JavaScript date object
          */
-        startDate?: object;
+        startDate?: object | undefined;
         /**
          * Interval end date as JavaScript date object
          */
-        endDate?: object;
+        endDate?: object | undefined;
         /**
          * If set, the selected interval is a subinterval
          */
-        subInterval?: boolean;
+        subInterval?: boolean | undefined;
       }
     ): this;
     /**
@@ -7867,7 +7867,7 @@ declare module "sap/ui/unified/CalendarRow" {
         /**
          * The type of the event that triggers this `leaveRow`
          */
-        type?: string;
+        type?: string | undefined;
       }
     ): this;
     /**
@@ -7881,20 +7881,20 @@ declare module "sap/ui/unified/CalendarRow" {
         /**
          * selected appointment
          */
-        appointment?: CalendarAppointment;
+        appointment?: CalendarAppointment | undefined;
         /**
          * selected appointments in case a group appointment is selected
          */
-        appointments?: CalendarAppointment[];
+        appointments?: CalendarAppointment[] | undefined;
         /**
          * If set, the appointment was selected by multiple selection (e.g. shift + mouse click). So more than the
          * current appointment could be selected.
          */
-        multiSelect?: boolean;
+        multiSelect?: boolean | undefined;
         /**
          * Gives the ID of the DOM element of the clicked appointment
          */
-        domRefId?: string;
+        domRefId?: string | undefined;
       }
     ): this;
     /**
@@ -8665,17 +8665,17 @@ declare module "sap/ui/unified/CalendarRow" {
     /**
      * Start date, as JavaScript Date object, of the row. As default, the current date is used.
      */
-    startDate?: object | PropertyBindingInfo;
+    startDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * Number of displayed intervals. The size of the intervals is defined with `intervalType`
      */
-    intervals?: int | PropertyBindingInfo;
+    intervals?: int | PropertyBindingInfo | undefined;
 
     /**
      * Type of the intervals of the row. The default is one hour.
      */
-    intervalType?: CalendarIntervalType | PropertyBindingInfo;
+    intervalType?: CalendarIntervalType | PropertyBindingInfo | undefined;
 
     /**
      * If set, subintervals are shown.
@@ -8686,14 +8686,14 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * If the interval type is `Month`, days are shown.
      */
-    showSubIntervals?: boolean | PropertyBindingInfo;
+    showSubIntervals?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set, interval headers are shown like specified in `showEmptyIntervalHeaders`.
      *
      * If not set, no interval headers are shown even if `intervalHeaders` are assigned.
      */
-    showIntervalHeaders?: boolean | PropertyBindingInfo;
+    showIntervalHeaders?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -8704,7 +8704,7 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * **Note:** This property is only used if `showIntervalHeaders` is set to true.
      */
-    showEmptyIntervalHeaders?: boolean | PropertyBindingInfo;
+    showEmptyIntervalHeaders?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set, the provided weekdays are displayed as non-working days. Valid values inside the array are 0
@@ -8714,7 +8714,7 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * **Note:** The non working days are only visualized if `intervalType` is set to day.
      */
-    nonWorkingDays?: int[] | PropertyBindingInfo;
+    nonWorkingDays?: int[] | PropertyBindingInfo | undefined;
 
     /**
      * If set, the provided hours are displayed as non-working hours. Valid values inside the array are 0 to
@@ -8722,17 +8722,17 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * **Note:** The non working hours are only visualized if `intervalType` is set to hour.
      */
-    nonWorkingHours?: int[] | PropertyBindingInfo;
+    nonWorkingHours?: int[] | PropertyBindingInfo | undefined;
 
     /**
      * Width of the row
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Height of the row
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * If set, the `CalendarRow` checks for resize by itself.
@@ -8741,7 +8741,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * checks should be done only by this container control. Then the container control should call `handleResize`
      * of the `CalendarRow` if a resize happens.
      */
-    checkResize?: boolean | PropertyBindingInfo;
+    checkResize?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set the `CalendarRow` triggers a periodic update to visualize the current time.
@@ -8750,7 +8750,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * update should be triggered only by this container control. Then the container control should call `updateCurrentTimeVisualization`
      * of the `CalendarRow` to update the visualization.
      */
-    updateCurrentTime?: boolean | PropertyBindingInfo;
+    updateCurrentTime?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the mode in which the overlapping appointments are displayed.
@@ -8761,7 +8761,7 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     groupAppointmentsMode?:
       | (GroupAppointmentsMode | keyof typeof GroupAppointmentsMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -8772,7 +8772,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * **Note:** On phone devices this property is ignored, appointments are always rendered in full height
      * to allow touching.
      */
-    appointmentsReducedHeight?: boolean | PropertyBindingInfo;
+    appointmentsReducedHeight?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.40.0
@@ -8786,7 +8786,7 @@ declare module "sap/ui/unified/CalendarRow" {
           | CalendarAppointmentVisualization
           | keyof typeof CalendarAppointmentVisualization
         )
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.81.0
@@ -8795,7 +8795,7 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     appointmentHeight?:
       | (CalendarAppointmentHeight | keyof typeof CalendarAppointmentHeight)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.81.0
@@ -8809,7 +8809,7 @@ declare module "sap/ui/unified/CalendarRow" {
           | CalendarAppointmentRoundWidth
           | keyof typeof CalendarAppointmentRoundWidth
         )
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Appointments to be displayed in the row. Appointments outside the visible time frame are not rendered.
@@ -8819,7 +8819,7 @@ declare module "sap/ui/unified/CalendarRow" {
     appointments?:
       | CalendarAppointment[]
       | CalendarAppointment
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Appointments to be displayed in the top of the intervals. The `intervalHeaders` are used to visualize
@@ -8835,14 +8835,14 @@ declare module "sap/ui/unified/CalendarRow" {
     intervalHeaders?:
       | CalendarAppointment[]
       | CalendarAppointment
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      *
      * **Note** These labels are also assigned to the appointments.
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.40.0
@@ -8851,30 +8851,30 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string;
+    legend?: CalendarLegend | string | undefined;
 
     /**
      * Fired if an appointment was selected
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * `startDate` was changed while navigating in `CalendarRow`
      */
-    startDateChange?: Function;
+    startDateChange?: Function | undefined;
 
     /**
      * The `CalendarRow` should be left while navigating. (Arrow up or arrow down.) The caller should determine
      * the next control to be focused
      */
-    leaveRow?: Function;
+    leaveRow?: Function | undefined;
 
     /**
      * @SINCE 1.38.0
      *
      * Fired if an interval was selected
      */
-    intervalSelect?: Function;
+    intervalSelect?: Function | undefined;
   }
 }
 
@@ -9599,32 +9599,32 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
     /**
      * Width of the `CalendarTimeInterval`. The width of the single months depends on this width.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Start date of the Interval as JavaScript Date object. The time interval corresponding to this Date and
      * `items` and `intervalMinutes` will be the first time in the displayed row.
      */
-    startDate?: object | PropertyBindingInfo;
+    startDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo;
+    intervalSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set, only a single date or interval, if `intervalSelection` is enabled, can be selected
      *
      * **Note:** Selection of multiple intervals is not supported in the current version.
      */
-    singleSelection?: boolean | PropertyBindingInfo;
+    singleSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Number of time items displayed. Default is 12.
      *
      * **Note:** On phones, the maximum number of items displayed in the row is always 6.
      */
-    items?: int | PropertyBindingInfo;
+    items?: int | PropertyBindingInfo | undefined;
 
     /**
      * Size of on time interval in minutes, default is 60 minutes.
@@ -9635,14 +9635,14 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      *
      * A day must be divisible by this interval size. One interval must not include more than one day.
      */
-    intervalMinutes?: int | PropertyBindingInfo;
+    intervalMinutes?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * If set, the day-, month- and yearPicker opens on a popup
      */
-    pickerPopup?: boolean | PropertyBindingInfo;
+    pickerPopup?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -9652,7 +9652,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
      * of the `minDate`.
      */
-    minDate?: object | PropertyBindingInfo;
+    minDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.38.0
@@ -9662,25 +9662,25 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
      * month of the `maxDate`.
      */
-    maxDate?: object | PropertyBindingInfo;
+    maxDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * Date ranges for selected items of the `CalendarTimeInterval`.
      *
      * If `singleSelection` is set, only the first entry is used.
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
 
     /**
      * Date ranges with type to visualize special items in the `CalendarTimeInterval`. If one interval is assigned
      * to more than one type, only the first one will be used.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.38.5
@@ -9689,24 +9689,24 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string;
+    legend?: CalendarLegend | string | undefined;
 
     /**
      * Time selection changed
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * Time selection was cancelled
      */
-    cancel?: Function;
+    cancel?: Function | undefined;
 
     /**
      * @SINCE 1.34.0
      *
      * `startDate` was changed while navigation in `CalendarTimeInterval`
      */
-    startDateChange?: Function;
+    startDateChange?: Function | undefined;
   }
 }
 
@@ -9884,39 +9884,39 @@ declare module "sap/ui/unified/ColorPicker" {
         /**
          * Parameter containing the RED value (0-255).
          */
-        r?: int;
+        r?: int | undefined;
         /**
          * Parameter containing the GREEN value (0-255).
          */
-        g?: int;
+        g?: int | undefined;
         /**
          * Parameter containing the BLUE value (0-255).
          */
-        b?: int;
+        b?: int | undefined;
         /**
          * Parameter containing the HUE value (0-360).
          */
-        h?: int;
+        h?: int | undefined;
         /**
          * Parameter containing the SATURATION value (0-100).
          */
-        s?: int;
+        s?: int | undefined;
         /**
          * Parameter containing the VALUE value (0-100).
          */
-        v?: int;
+        v?: int | undefined;
         /**
          * Parameter containing the LIGHTNESS value (0-100).
          */
-        l?: int;
+        l?: int | undefined;
         /**
          * Parameter containing the Hexadecimal string (#FFFFFF).
          */
-        hex?: string;
+        hex?: string | undefined;
         /**
          * Parameter containing the alpha value (transparency).
          */
-        alpha?: string;
+        alpha?: string | undefined;
       }
     ): this;
     /**
@@ -9932,39 +9932,39 @@ declare module "sap/ui/unified/ColorPicker" {
         /**
          * Parameter containing the RED value (0-255).
          */
-        r?: int;
+        r?: int | undefined;
         /**
          * Parameter containing the GREEN value (0-255).
          */
-        g?: int;
+        g?: int | undefined;
         /**
          * Parameter containing the BLUE value (0-255).
          */
-        b?: int;
+        b?: int | undefined;
         /**
          * Parameter containing the HUE value (0-360).
          */
-        h?: int;
+        h?: int | undefined;
         /**
          * Parameter containing the SATURATION value (0-100).
          */
-        s?: int;
+        s?: int | undefined;
         /**
          * Parameter containing the VALUE value (0-100).
          */
-        v?: int;
+        v?: int | undefined;
         /**
          * Parameter containing the LIGHTNESS value (0-100).
          */
-        l?: int;
+        l?: int | undefined;
         /**
          * Parameter containing the Hexadecimal string (#FFFFFF).
          */
-        hex?: string;
+        hex?: string | undefined;
         /**
          * Parameter containing the alpha value (transparency).
          */
-        alpha?: string;
+        alpha?: string | undefined;
       }
     ): this;
     /**
@@ -10126,7 +10126,7 @@ declare module "sap/ui/unified/ColorPicker" {
      * 	 - HSV - hsv(360,100,100)
      * 	 - CSS - red  **Note:** The output parameter is an RGB string of the current color.
      */
-    colorString?: string | PropertyBindingInfo;
+    colorString?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.48.0
@@ -10139,7 +10139,7 @@ declare module "sap/ui/unified/ColorPicker" {
      */
     mode?:
       | (ColorPickerMode | keyof typeof ColorPickerMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.58
@@ -10148,7 +10148,7 @@ declare module "sap/ui/unified/ColorPicker" {
      */
     displayMode?:
       | (ColorPickerDisplayMode | keyof typeof ColorPickerDisplayMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.48.0
@@ -10157,7 +10157,7 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * **Note:** When the user action is mouse dragging, the `change` event fires on the mouseup event.
      */
-    change?: Function;
+    change?: Function | undefined;
 
     /**
      * @SINCE 1.48.0
@@ -10166,7 +10166,7 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * **Note:** When the user action is mouse move, the `liveChange` event is fired during the mousedown event.
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
   }
 }
 
@@ -10363,39 +10363,39 @@ declare module "sap/ui/unified/ColorPickerPopover" {
         /**
          * Parameter containing the RED value (0-255).
          */
-        r?: int;
+        r?: int | undefined;
         /**
          * Parameter containing the GREEN value (0-255).
          */
-        g?: int;
+        g?: int | undefined;
         /**
          * Parameter containing the BLUE value (0-255).
          */
-        b?: int;
+        b?: int | undefined;
         /**
          * Parameter containing the HUE value (0-360).
          */
-        h?: int;
+        h?: int | undefined;
         /**
          * Parameter containing the SATURATION value (0-100).
          */
-        s?: int;
+        s?: int | undefined;
         /**
          * Parameter containing the VALUE value (0-100).
          */
-        v?: int;
+        v?: int | undefined;
         /**
          * Parameter containing the LIGHTNESS value (0-100).
          */
-        l?: int;
+        l?: int | undefined;
         /**
          * Parameter containing the Hexadecimal string (#FFFFFF).
          */
-        hex?: string;
+        hex?: string | undefined;
         /**
          * Parameter containing the alpha value (transparency).
          */
-        alpha?: string;
+        alpha?: string | undefined;
       }
     ): this;
     /**
@@ -10411,39 +10411,39 @@ declare module "sap/ui/unified/ColorPickerPopover" {
         /**
          * Parameter containing the RED value (0-255).
          */
-        r?: int;
+        r?: int | undefined;
         /**
          * Parameter containing the GREEN value (0-255).
          */
-        g?: int;
+        g?: int | undefined;
         /**
          * Parameter containing the BLUE value (0-255).
          */
-        b?: int;
+        b?: int | undefined;
         /**
          * Parameter containing the HUE value (0-360).
          */
-        h?: int;
+        h?: int | undefined;
         /**
          * Parameter containing the SATURATION value (0-100).
          */
-        s?: int;
+        s?: int | undefined;
         /**
          * Parameter containing the VALUE value (0-100).
          */
-        v?: int;
+        v?: int | undefined;
         /**
          * Parameter containing the LIGHTNESS value (0-100).
          */
-        l?: int;
+        l?: int | undefined;
         /**
          * Parameter containing the Hexadecimal string (#FFFFFF).
          */
-        hex?: string;
+        hex?: string | undefined;
         /**
          * Parameter containing the alpha value (transparency).
          */
-        alpha?: string;
+        alpha?: string | undefined;
       }
     ): this;
     /**
@@ -10606,7 +10606,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      * 	 - HSV - hsv(360,100,100)
      * 	 - CSS - red  **Note:** The output parameter is an RGB string of the current color.
      */
-    colorString?: string | PropertyBindingInfo;
+    colorString?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.60.0
@@ -10615,7 +10615,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      */
     mode?:
       | (ColorPickerMode | keyof typeof ColorPickerMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.60.0
@@ -10624,21 +10624,21 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      */
     displayMode?:
       | (ColorPickerDisplayMode | keyof typeof ColorPickerDisplayMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.60.0
      *
      * Fired when the submit button of the popover is clicked.
      */
-    change?: Function;
+    change?: Function | undefined;
 
     /**
      * @SINCE 1.85
      *
      * Fired when the value is changed by user interaction in the internal ColorPicker
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
   }
 }
 
@@ -10900,22 +10900,22 @@ declare module "sap/ui/unified/ContentSwitcher" {
      * enables applications to implement their own animations via CSS by reacting to the parent class. See the
      * types sap.ui.unified.ContentSwitcherAnimation for default implementations.
      */
-    animation?: string | PropertyBindingInfo;
+    animation?: string | PropertyBindingInfo | undefined;
 
     /**
      * The number of the currently active content (1 or 2).
      */
-    activeContent?: int | PropertyBindingInfo;
+    activeContent?: int | PropertyBindingInfo | undefined;
 
     /**
      * The controls that should be shown in the first content
      */
-    content1?: Control[] | Control | AggregationBindingInfo;
+    content1?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The controls that should be shown in the second content
      */
-    content2?: Control[] | Control | AggregationBindingInfo;
+    content2?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -11131,7 +11131,7 @@ declare module "sap/ui/unified/Currency" {
     /**
      * Determines the currency value.
      */
-    value?: float | PropertyBindingInfo;
+    value?: float | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.54
@@ -11144,7 +11144,7 @@ declare module "sap/ui/unified/Currency" {
      *
      * **Note:** If set, it will take precedence over the `value` property.
      */
-    stringValue?: string | PropertyBindingInfo;
+    stringValue?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the displayed currency code (ISO 4217).
@@ -11152,24 +11152,24 @@ declare module "sap/ui/unified/Currency" {
      * **Note:** If a * character is set instead of currency code, only the character itself will be rendered,
      * ignoring the `value` property.
      */
-    currency?: string | PropertyBindingInfo;
+    currency?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the space that is available for the precision of the various currencies.
      */
-    maxPrecision?: int | PropertyBindingInfo;
+    maxPrecision?: int | PropertyBindingInfo | undefined;
 
     /**
      * Displays the currency symbol instead of the ISO currency code.
      */
-    useSymbol?: boolean | PropertyBindingInfo;
+    useSymbol?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.89
      *
      * Specifies if an empty indicator should be displayed when there is no text.
      */
-    emptyIndicatorMode?: any | PropertyBindingInfo;
+    emptyIndicatorMode?: any | PropertyBindingInfo | undefined;
   }
 }
 
@@ -11288,13 +11288,13 @@ declare module "sap/ui/unified/DateRange" {
     /**
      * Start date for a date range. This must be a JavaScript date object.
      */
-    startDate?: object | PropertyBindingInfo;
+    startDate?: object | PropertyBindingInfo | undefined;
 
     /**
      * End date for a date range. If empty only a single date is presented by this DateRange element. This must
      * be a JavaScript date object.
      */
-    endDate?: object | PropertyBindingInfo;
+    endDate?: object | PropertyBindingInfo | undefined;
   }
 }
 
@@ -11461,7 +11461,7 @@ declare module "sap/ui/unified/DateTypeRange" {
      */
     type?:
       | (CalendarDayType | keyof typeof CalendarDayType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.81.0
@@ -11472,7 +11472,7 @@ declare module "sap/ui/unified/DateTypeRange" {
      */
     secondaryType?:
       | (CalendarDayType | keyof typeof CalendarDayType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.76.0
@@ -11480,7 +11480,7 @@ declare module "sap/ui/unified/DateTypeRange" {
      * Background color of the `Calendar` `specialDates` aggregation. If set, this color will override the default
      * background color defined in `Calendar` `specialDates` aggregation
      */
-    color?: CSSColor | PropertyBindingInfo;
+    color?: CSSColor | PropertyBindingInfo | undefined;
   }
 }
 
@@ -12100,11 +12100,11 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * New file path value.
          */
-        newValue?: string;
+        newValue?: string | undefined;
         /**
          * Files.
          */
-        files?: object[];
+        files?: object[] | undefined;
       }
     ): this;
     /**
@@ -12127,7 +12127,7 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of the file to be uploaded.
          */
-        fileName?: string;
+        fileName?: string | undefined;
       }
     ): this;
     /**
@@ -12143,7 +12143,7 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The filename, which is longer than specified by the value of the property `maximumFilenameLength`.
          */
-        fileName?: string;
+        fileName?: string | undefined;
       }
     ): this;
     /**
@@ -12157,11 +12157,11 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string;
+        fileName?: string | undefined;
         /**
          * The size in MB of a file to be uploaded.
          */
-        fileSize?: string;
+        fileSize?: string | undefined;
       }
     ): this;
     /**
@@ -12175,15 +12175,15 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string;
+        fileName?: string | undefined;
         /**
          * The file ending of a file to be uploaded.
          */
-        fileType?: string;
+        fileType?: string | undefined;
         /**
          * The MIME type of a file to be uploaded.
          */
-        mimeType?: string;
+        mimeType?: string | undefined;
       }
     ): this;
     /**
@@ -12199,14 +12199,14 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string;
+        fileName?: string | undefined;
         /**
          * Http-Request-Headers.
          *
          * Required for receiving `requestHeader` is to set the property `sendXHR` to true. This property is not
          * supported by Internet Explorer 9.
          */
-        requestHeaders?: object[];
+        requestHeaders?: object[] | undefined;
       }
     ): this;
     /**
@@ -12220,7 +12220,7 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string;
+        fileName?: string | undefined;
         /**
          * Response message which comes from the server.
          *
@@ -12228,21 +12228,21 @@ declare module "sap/ui/unified/FileUploader" {
          * of the iFrame. It can consist of a return code and an optional message. This does not work in cross-domain
          * scenarios.
          */
-        response?: string;
+        response?: string | undefined;
         /**
          * ReadyState of the XHR request.
          *
          * Required for receiving a `readyStateXHR` is to set the property `sendXHR` to true. This property is not
          * supported by Internet Explorer 9.
          */
-        readyStateXHR?: string;
+        readyStateXHR?: string | undefined;
         /**
          * Status of the XHR request.
          *
          * Required for receiving a `status` is to set the property `sendXHR` to true. This property is not supported
          * by Internet Explorer 9.
          */
-        status?: string;
+        status?: string | undefined;
         /**
          * Http-Response which comes from the server.
          *
@@ -12250,7 +12250,7 @@ declare module "sap/ui/unified/FileUploader" {
          *
          * This property is not supported by Internet Explorer 9.
          */
-        responseRaw?: string;
+        responseRaw?: string | undefined;
         /**
          * Http-Response-Headers which come from the server.
          *
@@ -12260,14 +12260,14 @@ declare module "sap/ui/unified/FileUploader" {
          * Required for receiving `headers` is to set the property `sendXHR` to true. This property is not supported
          * by Internet Explorer 9.
          */
-        headers?: object;
+        headers?: object | undefined;
         /**
          * Http-Request-Headers.
          *
          * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
          * supported by Internet Explorer 9.
          */
-        requestHeaders?: object[];
+        requestHeaders?: object[] | undefined;
       }
     ): this;
     /**
@@ -12283,26 +12283,26 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * Indicates whether or not the relative upload progress can be calculated out of loaded and total.
          */
-        lengthComputable?: boolean;
+        lengthComputable?: boolean | undefined;
         /**
          * The number of bytes of the file which have been uploaded by the time the event was fired.
          */
-        loaded?: float;
+        loaded?: float | undefined;
         /**
          * The total size of the file to be uploaded in bytes.
          */
-        total?: float;
+        total?: float | undefined;
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string;
+        fileName?: string | undefined;
         /**
          * Http-Request-Headers.
          *
          * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
          * supported by Internet Explorer 9.
          */
-        requestHeaders?: object[];
+        requestHeaders?: object[] | undefined;
       }
     ): this;
     /**
@@ -12318,14 +12318,14 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string;
+        fileName?: string | undefined;
         /**
          * Http-Request-Headers.
          *
          * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
          * supported by Internet Explorer 9.
          */
-        requestHeaders?: object[];
+        requestHeaders?: object[] | undefined;
       }
     ): this;
     /**
@@ -13456,33 +13456,33 @@ declare module "sap/ui/unified/FileUploader" {
     /**
      * Value of the path for file upload.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * Disabled controls have different colors, depending on customer settings.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Used when URL address is on a remote server.
      */
-    uploadUrl?: URI | PropertyBindingInfo;
+    uploadUrl?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Unique control name for identification on the server side after sending data to the server.
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the displayed control width.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * If set to "true", the upload immediately starts after file selection. With the default setting, the upload
      * needs to be explicitly triggered.
      */
-    uploadOnChange?: boolean | PropertyBindingInfo;
+    uploadOnChange?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Additional data that is sent to the back end service.
@@ -13490,7 +13490,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Data will be transmitted as value of a hidden input where the name is derived from the `name` property
      * with suffix "-data".
      */
-    additionalData?: string | PropertyBindingInfo;
+    additionalData?: string | PropertyBindingInfo | undefined;
 
     /**
      * If the FileUploader is configured to upload the file directly after the file is selected, it is not allowed
@@ -13499,12 +13499,12 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * A typical use case would be if the files have different paths.
      */
-    sameFilenameAllowed?: boolean | PropertyBindingInfo;
+    sameFilenameAllowed?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The button's text can be overwritten using this property.
      */
-    buttonText?: string | PropertyBindingInfo;
+    buttonText?: string | PropertyBindingInfo | undefined;
 
     /**
      * The chosen files will be checked against an array of file types.
@@ -13514,7 +13514,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Example: `["jpg", "png", "bmp"]`.
      */
-    fileType?: string[] | PropertyBindingInfo;
+    fileType?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * Allows multiple files to be chosen and uploaded from the same folder.
@@ -13524,14 +13524,14 @@ declare module "sap/ui/unified/FileUploader" {
      * **Note:** Keep in mind that the various operating systems for mobile devices can react differently to
      * the property so that fewer upload functions may be available in some cases.
      */
-    multiple?: boolean | PropertyBindingInfo;
+    multiple?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * A file size limit in megabytes which prevents the upload if at least one file exceeds it.
      *
      * This property is not supported by Internet Explorer 9.
      */
-    maximumFileSize?: float | PropertyBindingInfo;
+    maximumFileSize?: float | PropertyBindingInfo | undefined;
 
     /**
      * The chosen files will be checked against an array of MIME types defined in this property.
@@ -13546,38 +13546,38 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Example: `["image/png", "image/jpeg"]`.
      */
-    mimeType?: string[] | PropertyBindingInfo;
+    mimeType?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * If set to "true", the request will be sent as XHR request instead of a form submit.
      *
      * This property is not supported by Internet Explorer 9.
      */
-    sendXHR?: boolean | PropertyBindingInfo;
+    sendXHR?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.81.0
      *
      * Chosen HTTP request method for file upload.
      */
-    httpRequestMethod?: FileUploaderHttpRequestMethod | PropertyBindingInfo;
+    httpRequestMethod?: FileUploaderHttpRequestMethod | PropertyBindingInfo | undefined;
 
     /**
      * Placeholder for the text field.
      */
-    placeholder?: string | PropertyBindingInfo;
+    placeholder?: string | PropertyBindingInfo | undefined;
 
     /**
      * Style of the button.
      *
      * Values "Transparent, "Accept", "Reject", or "Emphasized" are allowed.
      */
-    style?: string | PropertyBindingInfo;
+    style?: string | PropertyBindingInfo | undefined;
 
     /**
      * If set to "true", the `FileUploader` will be rendered as Button only, without showing the input field.
      */
-    buttonOnly?: boolean | PropertyBindingInfo;
+    buttonOnly?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set to "false", the request will be sent as file only request instead of a multipart/form-data request.
@@ -13585,7 +13585,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Only one file could be uploaded using this type of request. Required for sending such a request is to
      * set the property `sendXHR` to "true". This property is not supported by Internet Explorer 9.
      */
-    useMultipart?: boolean | PropertyBindingInfo;
+    useMultipart?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.24.0
@@ -13594,7 +13594,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * If the maximum filename length is exceeded, the corresponding event `filenameLengthExceed` is fired.
      */
-    maximumFilenameLength?: int | PropertyBindingInfo;
+    maximumFilenameLength?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.24.0
@@ -13603,7 +13603,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Possible values: Warning, Error, Success, None.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -13612,7 +13612,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * **Note:** If not specified, a default text, based on the value state type, will be used instead.
      */
-    valueStateText?: string | PropertyBindingInfo;
+    valueStateText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
@@ -13621,7 +13621,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * This can be a URI to an image or an icon font URI.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
@@ -13631,7 +13631,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * If not specified, the base icon is used. If an icon font icon is used, this property is ignored.
      */
-    iconHovered?: URI | PropertyBindingInfo;
+    iconHovered?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
@@ -13641,21 +13641,21 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * If not specified, the base or hovered icon is used. If an icon font icon is used, this property is ignored.
      */
-    iconSelected?: URI | PropertyBindingInfo;
+    iconSelected?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
      *
      * If set to true (default), the display sequence is 1. icon 2. control text.
      */
-    iconFirst?: boolean | PropertyBindingInfo;
+    iconFirst?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.0
      *
      * If set to true, the button is displayed without any text.
      */
-    iconOnly?: boolean | PropertyBindingInfo;
+    iconOnly?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.12.2
@@ -13665,7 +13665,7 @@ declare module "sap/ui/unified/FileUploader" {
     parameters?:
       | FileUploaderParameter[]
       | FileUploaderParameter
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * The header parameters for the `FileUploader` which are only submitted with XHR requests. Header parameters
@@ -13674,7 +13674,7 @@ declare module "sap/ui/unified/FileUploader" {
     headerParameters?:
       | FileUploaderParameter[]
       | FileUploaderParameter
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
@@ -13682,17 +13682,17 @@ declare module "sap/ui/unified/FileUploader" {
      * Settings for the `XMLHttpRequest` object. **Note:** This aggregation is only used when the `sendXHR`
      * property is set to `true`.
      */
-    xhrSettings?: FileUploaderXHRSettings;
+    xhrSettings?: FileUploaderXHRSettings | undefined;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute `aria-describedby`).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute `aria-labelledby`).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the value of the file path has been changed.
@@ -13700,7 +13700,7 @@ declare module "sap/ui/unified/FileUploader" {
      * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
      * Chrome browser when the Cancel button of the uploads window is pressed.
      */
-    change?: Function;
+    change?: Function | undefined;
 
     /**
      * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
@@ -13709,28 +13709,28 @@ declare module "sap/ui/unified/FileUploader" {
      * progress of the upload can be monitored by listening to the `uploadProgress` event. However, this covers
      * only the client side of the upload process and does not give any success status from the server.
      */
-    uploadComplete?: Function;
+    uploadComplete?: Function | undefined;
 
     /**
      * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
      */
-    typeMissmatch?: Function;
+    typeMissmatch?: Function | undefined;
 
     /**
      * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
      * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
      */
-    fileSizeExceed?: Function;
+    fileSizeExceed?: Function | undefined;
 
     /**
      * Event is fired when the size of the file is 0
      */
-    fileEmpty?: Function;
+    fileEmpty?: Function | undefined;
 
     /**
      * Event is fired when the file is allowed for upload on client side.
      */
-    fileAllowed?: Function;
+    fileAllowed?: Function | undefined;
 
     /**
      * @SINCE 1.24.0
@@ -13743,7 +13743,7 @@ declare module "sap/ui/unified/FileUploader" {
      * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
      * Internet Explorer 9.
      */
-    uploadProgress?: Function;
+    uploadProgress?: Function | undefined;
 
     /**
      * @SINCE 1.24.0
@@ -13753,7 +13753,7 @@ declare module "sap/ui/unified/FileUploader" {
      * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
      * Internet Explorer 9.
      */
-    uploadAborted?: Function;
+    uploadAborted?: Function | undefined;
 
     /**
      * @SINCE 1.24.0
@@ -13761,14 +13761,14 @@ declare module "sap/ui/unified/FileUploader" {
      * Event is fired, if the filename of a chosen file is longer than the value specified with the `maximumFilenameLength`
      * property.
      */
-    filenameLengthExceed?: Function;
+    filenameLengthExceed?: Function | undefined;
 
     /**
      * @SINCE 1.30.0
      *
      * Event is fired before an upload is started.
      */
-    uploadStart?: Function;
+    uploadStart?: Function | undefined;
   }
 }
 
@@ -13893,14 +13893,14 @@ declare module "sap/ui/unified/FileUploaderParameter" {
      *
      * The name of the hidden inputfield.
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.12.2
      *
      * The value of the hidden inputfield.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -14008,7 +14008,7 @@ declare module "sap/ui/unified/FileUploaderXHRSettings" {
      *
      * Determines the value of the `XMLHttpRequest.withCredentials` property
      */
-    withCredentials?: boolean | PropertyBindingInfo;
+    withCredentials?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -14168,7 +14168,7 @@ declare module "sap/ui/unified/Menu" {
         /**
          * The action (item) which was selected by the user.
          */
-        item?: MenuItemBase;
+        item?: MenuItemBase | undefined;
       }
     ): this;
     /**
@@ -14440,14 +14440,14 @@ declare module "sap/ui/unified/Menu" {
      * When a menu is disabled none of its items can be selected by the user. The enabled property of an item
      * (@link sap.ui.unified.MenuItemBase#getEnabled) has no effect when the menu of the item is disabled.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.27.0) - replaced by `ariaLabelledBy` association
      *
      * Accessible label / description of the menu for assistive technologies like screenreaders.
      */
-    ariaDescription?: string | PropertyBindingInfo;
+    ariaDescription?: string | PropertyBindingInfo | undefined;
 
     /**
      * The maximum number of items which are displayed before an overflow mechanism takes effect. A value smaller
@@ -14455,7 +14455,7 @@ declare module "sap/ui/unified/Menu" {
      * of the screen. If the maximum possible height is reached, an overflow takes effect, even if the maximum
      * number of visible items is not yet reached.
      */
-    maxVisibleItems?: int | PropertyBindingInfo;
+    maxVisibleItems?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.25.0
@@ -14467,12 +14467,12 @@ declare module "sap/ui/unified/Menu" {
      * the Home / End keys. If the value equals 1, the paging behavior is similar to that of the
      * arrow keys.
      */
-    pageSize?: int | PropertyBindingInfo;
+    pageSize?: int | PropertyBindingInfo | undefined;
 
     /**
      * The available actions to be displayed as items of the menu.
      */
-    items?: MenuItemBase[] | MenuItemBase | AggregationBindingInfo;
+    items?: MenuItemBase[] | MenuItemBase | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.26.3
@@ -14480,14 +14480,14 @@ declare module "sap/ui/unified/Menu" {
      * Reference to accessible labels (ids of existing DOM elements or controls) for assistive technologies
      * like screenreaders.
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Fired on the root menu of a menu hierarchy whenever a user selects an item within the menu or within
      * one of its direct or indirect submenus. **Note:** There is also a select event available for each single
      * menu item. This event and the event of the menu items are redundant.
      */
-    itemSelect?: Function;
+    itemSelect?: Function | undefined;
   }
 }
 
@@ -14649,18 +14649,18 @@ declare module "sap/ui/unified/MenuItem" {
     /**
      * Defines the text which should be displayed on the item.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the icon of the {@link sap.ui.core.IconPool sap.ui.core.IconPool} or an image which should be
      * displayed on the item.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
   }
 }
 
@@ -14788,7 +14788,7 @@ declare module "sap/ui/unified/MenuItemBase" {
         /**
          * The current item
          */
-        item?: MenuItemBase;
+        item?: MenuItemBase | undefined;
       }
     ): this;
     /**
@@ -14962,30 +14962,30 @@ declare module "sap/ui/unified/MenuItemBase" {
      * When an item is disabled the item can not be selected by the user. The enabled property of the item has
      * no effect when the menu of the item is disabled ({@link sap.ui.unified.Menu#getEnabled Menu#getEnabled}).
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Invisible items do not appear in the menu.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether a visual separator should be rendered before the item. **Note:** If an item is invisible
      * also the separator of this item is not shown.
      */
-    startsSection?: boolean | PropertyBindingInfo;
+    startsSection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * An optional submenu of the item which is opened when the item is selected by the user.
      */
-    submenu?: Menu;
+    submenu?: Menu | undefined;
 
     /**
      * Fired when the item is selected by the user. **Note:** The event is also available for items which have
      * a submenu. In general, applications must not handle event in this case because the user selection opens
      * the sub menu.
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -15183,24 +15183,24 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
     /**
      * Defines the label of the text field of the item.
      */
-    label?: string | PropertyBindingInfo;
+    label?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the icon of the {@link sap.ui.core.IconPool sap.ui.core.IconPool} or an image which should be
      * displayed on the item.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines the value of the text field of the item.
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the value state of the text field of the item. This allows you to visualize e.g. warnings or
      * errors.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
   }
 }
 
@@ -15689,21 +15689,21 @@ declare module "sap/ui/unified/Shell" {
     /**
      * The application icon. If a custom header is set this property has no effect.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.16.3) - Curtain is deprecated and replaced by ShellOverlay mechanism.
      *
      * Shows / Hides the curtain.
      */
-    showCurtain?: boolean | PropertyBindingInfo;
+    showCurtain?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.16.3) - Curtain is deprecated and replaced by ShellOverlay mechanism.
      *
      * Shows / Hides the side pane on the curtain.
      */
-    showCurtainPane?: boolean | PropertyBindingInfo;
+    showCurtainPane?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.18
@@ -15711,35 +15711,35 @@ declare module "sap/ui/unified/Shell" {
      * If set to false, the search area (aggregation 'search') is hidden. If a custom header is set this property
      * has no effect.
      */
-    searchVisible?: boolean | PropertyBindingInfo;
+    searchVisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The content to appear in the curtain area.
      */
-    curtainContent?: Control[] | Control | AggregationBindingInfo;
+    curtainContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The content to appear in the pane area of the curtain.
      */
-    curtainPaneContent?: Control[] | Control | AggregationBindingInfo;
+    curtainPaneContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The buttons shown in the begin (left in left-to-right case) of the Shell header. Currently max. 3 visible
      * buttons are supported. If a custom header is set this aggregation has no effect.
      */
-    headItems?: ShellHeadItem[] | ShellHeadItem | AggregationBindingInfo;
+    headItems?: ShellHeadItem[] | ShellHeadItem | AggregationBindingInfo | undefined;
 
     /**
      * The buttons shown in the end (right in left-to-right case) of the Shell header. Currently max. 3 visible
      * buttons are supported (when user is set only 1). If a custom header is set this aggregation has no effect.
      */
-    headEndItems?: ShellHeadItem[] | ShellHeadItem | AggregationBindingInfo;
+    headEndItems?: ShellHeadItem[] | ShellHeadItem | AggregationBindingInfo | undefined;
 
     /**
      * Experimental (This aggregation might change in future!): The search control which should be displayed
      * in the shell header. If a custom header is set this aggregation has no effect.
      */
-    search?: Control;
+    search?: Control | undefined;
 
     /**
      * @SINCE 1.22.0
@@ -15747,7 +15747,7 @@ declare module "sap/ui/unified/Shell" {
      * The user item which is rendered in the shell header beside the items. If a custom header is set this
      * aggregation has no effect.
      */
-    user?: ShellHeadUserItem;
+    user?: ShellHeadUserItem | undefined;
   }
 }
 
@@ -16108,19 +16108,19 @@ declare module "sap/ui/unified/ShellHeadItem" {
      *
      * If set to true, a divider is displayed before the item.
      */
-    startsSection?: boolean | PropertyBindingInfo;
+    startsSection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22.5
      *
      * If set to true, a separator is displayed after the item.
      */
-    showSeparator?: boolean | PropertyBindingInfo;
+    showSeparator?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the toggle state in case the item represents a toggle button (see also property `toggleEnabled`).
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.34.3
@@ -16129,37 +16129,37 @@ declare module "sap/ui/unified/ShellHeadItem" {
      * the toggle state. Otherwise the item is displayed as action button. In this case the `selected` property
      * is ignored.
      */
-    toggleEnabled?: boolean | PropertyBindingInfo;
+    toggleEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.18) - Markers should not be used anymore.
      *
      * If set to true, a theme dependent marker is shown on the item.
      */
-    showMarker?: boolean | PropertyBindingInfo;
+    showMarker?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The icon of the item, either defined in the sap.ui.core.IconPool or a URI to a custom image. An icon
      * must be set.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.18
      *
      * Invisible items are not shown on the UI.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the user presses the item.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -16406,7 +16406,7 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
     /**
      * The name of the user.
      */
-    username?: string | PropertyBindingInfo;
+    username?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.27.0
@@ -16414,22 +16414,22 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
      * The user item is intended to be used for user settings. Normally these settings are done via a Menu or
      * Dialog. If this property is set to true an indicator for such a popup mechanismn is shown in the item.
      */
-    showPopupIndicator?: boolean | PropertyBindingInfo;
+    showPopupIndicator?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * An image of the user, normally a URI to an image but also an icon from the sap.ui.core.IconPool is possible.
      */
-    image?: URI | PropertyBindingInfo;
+    image?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the user presses the button.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -16723,33 +16723,33 @@ declare module "sap/ui/unified/ShellLayout" {
     /**
      * Shows / Hides the side pane.
      */
-    showPane?: boolean | PropertyBindingInfo;
+    showPane?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Whether the header can be hidden (manually or automatically). This feature is only available when touch
      * events are supported.
      */
-    headerHiding?: boolean | PropertyBindingInfo;
+    headerHiding?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set to false, no header (and no items, search, ...) is shown.
      */
-    headerVisible?: boolean | PropertyBindingInfo;
+    headerVisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The content to appear in the main canvas.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The content to appear in the pane area.
      */
-    paneContent?: Control[] | Control | AggregationBindingInfo;
+    paneContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The control to appear in the header area.
      */
-    header?: Control;
+    header?: Control | undefined;
   }
 }
 
@@ -17026,28 +17026,28 @@ declare module "sap/ui/unified/ShellOverlay" {
     /**
      * The content to appear in the overlay.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Experimental (This aggregation might change in future!): The search control which should be displayed
      * in the overlay header.
      */
-    search?: Control;
+    search?: Control | undefined;
 
     /**
      * Reference to the sap.ui.unified.Shell or sap.ui.unified.ShellLayout control.
      */
-    shell?: ShellLayout | string;
+    shell?: ShellLayout | string | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Fired when the overlay was closed.
      */
-    closed?: Function;
+    closed?: Function | undefined;
   }
 }
 
@@ -17347,19 +17347,19 @@ declare module "sap/ui/unified/SplitContainer" {
     /**
      * Shows / Hides the secondary area.
      */
-    showSecondaryContent?: boolean | PropertyBindingInfo;
+    showSecondaryContent?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The width if the secondary content. The height is always 100%.
      */
-    secondaryContentSize?: CSSSize | PropertyBindingInfo;
+    secondaryContentSize?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.22) - Only available for backwards compatibility.
      *
      * Do not use. Use secondaryContentSize instead.
      */
-    secondaryContentWidth?: CSSSize | PropertyBindingInfo;
+    secondaryContentWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.22.0
@@ -17368,17 +17368,17 @@ declare module "sap/ui/unified/SplitContainer" {
      */
     orientation?:
       | (Orientation | keyof typeof Orientation)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The content to appear in the main area.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The content to appear in the secondary area.
      */
-    secondaryContent?: Control[] | Control | AggregationBindingInfo;
+    secondaryContent?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 

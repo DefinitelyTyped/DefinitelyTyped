@@ -9,8 +9,8 @@ export type PortCallback = (error: Error | null, port: number) => void;
 export type StatusCallback = (error: Error | null, port: Status) => void;
 
 export interface Options {
-    host?: string;
-    timeout?: number;
+    host?: string | undefined;
+    timeout?: number | undefined;
 }
 
 export function checkPortStatus(port: number): Promise<Status>;

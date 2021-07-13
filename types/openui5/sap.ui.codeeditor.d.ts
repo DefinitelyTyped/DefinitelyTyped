@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -173,11 +173,11 @@ declare module "sap/ui/codeeditor/CodeEditor" {
         /**
          * The current value of the code editor.
          */
-        value?: string;
+        value?: string | undefined;
         /**
          * The old value of the code editor.
          */
-        oldValue?: string;
+        oldValue?: string | undefined;
       }
     ): this;
     /**
@@ -191,11 +191,11 @@ declare module "sap/ui/codeeditor/CodeEditor" {
         /**
          * The current value of the code editor.
          */
-        value?: string;
+        value?: string | undefined;
         /**
          * The underlying change event of the third-party code editor.
          */
-        editorEvent?: object;
+        editorEvent?: object | undefined;
       }
     ): this;
     /**
@@ -524,7 +524,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * The value displayed in the code editor
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * The type of the code in the editor used for syntax highlighting Possible types are: abap, abc, actionscript,
@@ -541,33 +541,33 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * velocity, verilog, vhdl, wollok, xml, xquery, yaml, terraform, slim, redshift, red, puppet, php_laravel_blade,
      * mixal, jssm, fsharp, edifact, csp, cssound_score, cssound_orchestra, cssound_document,
      */
-    type?: string | PropertyBindingInfo;
+    type?: string | PropertyBindingInfo | undefined;
 
     /**
      * The width of the code editor
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The height of the code editor. A minimal height of 3rem will be applied in case the height is less than
      * 20px.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Sets whether the code in the editor can be changed by the user
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Sets whether line numbers should be shown
      */
-    lineNumbers?: boolean | PropertyBindingInfo;
+    lineNumbers?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Sets whether the code is automatically selected if a value is set
      */
-    valueSelection?: boolean | PropertyBindingInfo;
+    valueSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.48.1
@@ -578,7 +578,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * **Note:** Keep in mind that the auto expand `CodeEditor` behavior requires the `height` property to be
      * set to `auto`.
      */
-    maxLines?: int | PropertyBindingInfo;
+    maxLines?: int | PropertyBindingInfo | undefined;
 
     /**
      * Sets the editors color theme Possible values are: default, hcb, hcb_bright, hcb_blue, theme-ambiance,
@@ -587,22 +587,22 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * monokai, pastel_on_dark, solarized_dark, solarized_light, sqlserver, terminal, textmate, tomorrow, tomorrow_night,
      * tomorrow_night_blue, tomorrow_night_bright, tomorrow_night_eighties, twilight, dracula vibrant_ink, xcode
      */
-    colorTheme?: string | PropertyBindingInfo;
+    colorTheme?: string | PropertyBindingInfo | undefined;
 
     /**
      * Sets whether to show syntax hints the editor. This flag is only available if line numbers are shown.
      */
-    syntaxHints?: boolean | PropertyBindingInfo;
+    syntaxHints?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
 
     /**
      * Fired when the value has changed and the focus leaves the code editor.
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 

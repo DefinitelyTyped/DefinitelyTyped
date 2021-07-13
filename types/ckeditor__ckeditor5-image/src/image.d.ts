@@ -14,9 +14,9 @@ export default class Image extends Plugin {
 }
 
 export interface ImageConfig {
-    resizeOptions?: ImageResizeOption[];
-    resizeUnit?: 'px' | '%';
-    styles?: ImageStyleFormat[];
-    toolbar?: string[];
-    upload?: ImageUploadConfig;
+    resizeOptions?: ImageResizeOption[] | undefined;
+    resizeUnit?: 'px' | '%' | undefined;
+    styles?: ImageStyleFormat[] | undefined;
+    toolbar?: string[] | undefined;
+    upload?: ImageUploadConfig | undefined;
 }

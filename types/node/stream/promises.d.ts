@@ -65,3 +65,7 @@ declare module "stream/promises" {
         ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | PipelineOptions>,
     ): Promise<void>;
 }
+
+declare module 'node:stream/promises' {
+    export * from 'stream/promises';
+}

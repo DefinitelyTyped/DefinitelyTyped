@@ -44,11 +44,11 @@ export type ToysPreArg = (ToysPreShorthand | Lifecycle.Method);
 export function pre(options: ToysPreArg | ToysPreArg[]): RouteOptionsPreArray;
 
 export interface ReacherOptions {
-    separator?: string;
+    separator?: string | undefined;
     default?: any;
-    strict?: boolean;
-    functions?: boolean;
-    iterables?: boolean;
+    strict?: boolean | undefined;
+    functions?: boolean | undefined;
+    iterables?: boolean | undefined;
 }
 export type PerformReach = (input?: object) => any;
 export function reacher(chain: string | Array<(string | number)>, options?: ReacherOptions): PerformReach;
@@ -73,14 +73,14 @@ export namespace auth {
 }
 
 export interface EventOptions {
-    multiple?: boolean;
-    error?: boolean;
+    multiple?: boolean | undefined;
+    error?: boolean | undefined;
 }
 // has to resolve an `any` because return type is dependent on the event that is emitted
 export function event(emitter: EventEmitter, eventName: string, options?: EventOptions): Promise<any>;
 
 export interface StreamOptions {
-    cleanup?: boolean;
+    cleanup?: boolean | undefined;
 }
 export function stream(stream: Stream, options?: StreamOptions & FinishedOptions): Promise<void>;
 

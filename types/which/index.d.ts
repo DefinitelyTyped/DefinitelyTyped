@@ -40,7 +40,7 @@ declare namespace which {
 
     /** Options that ask for the first match (the default behavior) */
     interface OptionsFirst extends AsyncOptions {
-        all?: false;
+        all?: false | undefined;
     }
 
     /** Options that ask to receive null instead of a thrown error */
@@ -50,23 +50,23 @@ declare namespace which {
 
     /** Options that ask for a thrown error if executable is not found (the default behavior) */
     interface OptionsThrow extends Options {
-        nothrow?: false;
+        nothrow?: false | undefined;
     }
 
     /** Options for which() async API */
     interface AsyncOptions {
         /** If true, return all matches, instead of just the first one. Note that this means the function returns an array of strings instead of a single string. */
-        all?: boolean;
+        all?: boolean | undefined;
         /** Use instead of the PATH environment variable. */
-        path?: string;
+        path?: string | undefined;
         /** Use instead of the PATHEXT environment variable. */
-        pathExt?: string;
+        pathExt?: string | undefined;
     }
 
     /** Options for which() sync and async APIs */
     interface Options extends AsyncOptions {
         /** If true, returns null when not found */
-        nothrow?: boolean;
+        nothrow?: boolean | undefined;
     }
 }
 

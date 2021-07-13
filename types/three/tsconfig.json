@@ -37,6 +37,7 @@
         "test/loaders/loaders-ifc.ts",
         "test/loaders/loaders-voxloader.ts",
         "test/loaders/loaders-obj-mtl.ts",
+        "test/objects/instanced-mesh.ts",
         "test/materials/materials-envmaps-hdr.ts",
         "test/materials/materials-texture3d-partialupdate.ts",
         "test/materials/materials-variations-basic.ts",

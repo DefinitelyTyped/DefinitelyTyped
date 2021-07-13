@@ -193,7 +193,7 @@ wx.request({
 {
   interface IDialogMethod
     extends Partial<WechatMiniprogram.Component.MethodOption> {
-    f?: () => string
+    f?: (() => string) | undefined
     g: () => void
   }
   type Dialog = WechatMiniprogram.Component.Instance<{}, {}, IDialogMethod>
@@ -457,5 +457,20 @@ import WX = WechatMiniprogram
       // $ExpectType string
       res.randomTemplateId
     },
+  })
+}
+
+// https://github.com/wechat-miniprogram/api-typings/issues/204
+{
+  Page({
+    test() {
+      const observer = wx.createIntersectionObserver(this)
+      observer.observe('', e => {
+        // $ExpectType string
+        e.id
+        // $ExpectType Record<string, any>
+        e.dataset
+      })
+    }
   })
 }

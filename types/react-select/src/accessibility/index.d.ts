@@ -1,7 +1,7 @@
 export interface InstructionsContext {
-    isSearchable?: boolean;
-    isMulti?: boolean;
-    label?: string;
+    isSearchable?: boolean | undefined;
+    isMulti?: boolean | undefined;
+    label?: string | undefined;
 }
 export interface ValueEventContext {
     value: string;

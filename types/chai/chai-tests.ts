@@ -1880,6 +1880,8 @@ suite('assert', () => {
         assert.includeMembers([1, 2, 3], [3]);
         assert.includeMembers([5, 6], [7, 8]);
         assert.includeMembers([5, 6], [5, 6, 0]);
+
+        assert.notIncludeMembers([ 1, 2, 3 ], [ 5, 1 ], 'not include members');
     });
 
     test('memberEquals', () => {

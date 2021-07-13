@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -854,7 +854,7 @@ declare module "sap/ui/commons/Accordion" {
         /**
          * ID of the closed section
          */
-        closeSectionId?: string;
+        closeSectionId?: string | undefined;
       }
     ): this;
     /**
@@ -868,11 +868,11 @@ declare module "sap/ui/commons/Accordion" {
         /**
          * ID of the opened section
          */
-        openSectionId?: string;
+        openSectionId?: string | undefined;
         /**
          * IDs of the sections to be closed. Can be initial in the case of no previously opened section.
          */
-        closeSectionIds?: string[];
+        closeSectionIds?: string[] | undefined;
       }
     ): this;
     /**
@@ -886,11 +886,11 @@ declare module "sap/ui/commons/Accordion" {
         /**
          * ID of the moved section
          */
-        movedSectionId?: string;
+        movedSectionId?: string | undefined;
         /**
          * New index of the moved section
          */
-        newIndex?: int;
+        newIndex?: int | undefined;
       }
     ): this;
     /**
@@ -1051,32 +1051,32 @@ declare module "sap/ui/commons/Accordion" {
     /**
      * When the specified width is less than the width of a section content, a horizontal scroll bar is provided.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Section IDs that are opened by default at application start
      */
-    openedSectionsId?: string | PropertyBindingInfo;
+    openedSectionsId?: string | PropertyBindingInfo | undefined;
 
     /**
      * Empty container used to display any library control
      */
-    sections?: AccordionSection[] | AccordionSection | AggregationBindingInfo;
+    sections?: AccordionSection[] | AccordionSection | AggregationBindingInfo | undefined;
 
     /**
      * Event is triggered when the user opens a section.
      */
-    sectionOpen?: Function;
+    sectionOpen?: Function | undefined;
 
     /**
      * Event is triggered when the user closes a section.
      */
-    sectionClose?: Function;
+    sectionClose?: Function | undefined;
 
     /**
      * Event is triggered when the user changes the position of a section.
      */
-    sectionsReorder?: Function;
+    sectionsReorder?: Function | undefined;
   }
 }
 
@@ -1214,11 +1214,11 @@ declare module "sap/ui/commons/AccordionSection" {
         /**
          * Horizontal scroll position
          */
-        left?: int;
+        left?: int | undefined;
         /**
          * Vertical scroll position
          */
-        top?: int;
+        top?: int | undefined;
       }
     ): this;
     /**
@@ -1372,24 +1372,24 @@ declare module "sap/ui/commons/AccordionSection" {
     /**
      * When the section content exceeds maxHeight, a vertical scroll bar appears.
      */
-    maxHeight?: CSSSize | PropertyBindingInfo;
+    maxHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * It is required that the used theme supports the control.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.34) - Use Accordion's "openedSectionsId" property
      *
      * It is recommended to adjust the settings for the width when the section is set to 'collapsed'.
      */
-    collapsed?: boolean | PropertyBindingInfo;
+    collapsed?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Text for the section header
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Aggregates the controls that are contained in the panel. The control layout is browser-dependent. For
@@ -1397,12 +1397,12 @@ declare module "sap/ui/commons/AccordionSection" {
      * the child control may have width and height of 100%; when the panel dimensions are not set, the child
      * defines the panel size.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Event is fired when the user scrolls the panel
      */
-    scroll?: Function;
+    scroll?: Function | undefined;
   }
 }
 
@@ -1652,32 +1652,32 @@ declare module "sap/ui/commons/ApplicationHeader" {
     /**
      * Path (src) to the logo icon to be displayed in the application header.
      */
-    logoSrc?: URI | PropertyBindingInfo;
+    logoSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The text that will be displayed beside the logo in the application header. This property is optional.
      */
-    logoText?: string | PropertyBindingInfo;
+    logoText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the logoff area will be displayed at the right hand side of the application header.
      */
-    displayLogoff?: boolean | PropertyBindingInfo;
+    displayLogoff?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * User name that will be displayed beside the welcome text
      */
-    userName?: string | PropertyBindingInfo;
+    userName?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the welcome text is displayed
      */
-    displayWelcome?: boolean | PropertyBindingInfo;
+    displayWelcome?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Fires an event to log off the user from the application. No parameters.
      */
-    logoff?: Function;
+    logoff?: Function | undefined;
   }
 }
 
@@ -1835,22 +1835,22 @@ declare module "sap/ui/commons/Area" {
     /**
      * The value is a string and can be 'rect' for rectangle, 'poly' for poligon, 'circle', or default.
      */
-    shape?: string | PropertyBindingInfo;
+    shape?: string | PropertyBindingInfo | undefined;
 
     /**
      * Coordinates of the area
      */
-    coords?: string | PropertyBindingInfo;
+    coords?: string | PropertyBindingInfo | undefined;
 
     /**
      * Hyper link that is executed when the area is clicked
      */
-    href?: URI | PropertyBindingInfo;
+    href?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Alternative text that is displayed in the case the image is not available
      */
-    alt?: string | PropertyBindingInfo;
+    alt?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -1977,7 +1977,7 @@ declare module "sap/ui/commons/AutoComplete" {
         /**
          * The current value which was typed in.
          */
-        suggestValue?: string;
+        suggestValue?: string | undefined;
       }
     ): this;
     /**
@@ -2071,12 +2071,12 @@ declare module "sap/ui/commons/AutoComplete" {
      * Determines whether scrolling should be enabled when the number of items is higher than maxPopupItems.
      * If set to false only the first n items (n=maxPopupItems) are shown.
      */
-    enableScrolling?: boolean | PropertyBindingInfo;
+    enableScrolling?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Fired when the user has changed the value and a suggestion list update should occur.
      */
-    suggest?: Function;
+    suggest?: Function | undefined;
   }
 }
 
@@ -2576,85 +2576,85 @@ declare module "sap/ui/commons/Button" {
     /**
      * Button text displayed at runtime.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Boolean property to enable the control (default is true). Buttons that are disabled have other colors
      * than enabled ones, depending on custom settings.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Control width as common CSS-size (px or % as unit, for example)
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Unique identifier used for help service
      */
-    helpId?: string | PropertyBindingInfo;
+    helpId?: string | PropertyBindingInfo | undefined;
 
     /**
      * Icon to be displayed as graphical element within the button. This can be a URI to an image or an icon
      * font URI.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Icon to be displayed as graphical element within the button when it is hovered (only if also a base icon
      * was specified). If not specified the base icon is used. If an icon font icon is used, this property is
      * ignored.
      */
-    iconHovered?: URI | PropertyBindingInfo;
+    iconHovered?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Icon to be displayed as graphical element within the button when it is selected (only if also a base
      * icon was specified). If not specified the base or hovered icon is used. If an icon font icon is used,
      * this property is ignored.
      */
-    iconSelected?: URI | PropertyBindingInfo;
+    iconSelected?: URI | PropertyBindingInfo | undefined;
 
     /**
      * If set to true (default), the display sequence is 1. icon 2. control text .
      */
-    iconFirst?: boolean | PropertyBindingInfo;
+    iconFirst?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the button height. If this property is set, the height which is specified by the underlying
      * theme is not used any longer.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Indicates if the button is styled. If not it is rendered as native HTML-button. In this case a custom
      * styling can be added usig addStyleClass.
      */
-    styled?: boolean | PropertyBindingInfo;
+    styled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The button is rendered as lite button.
      */
-    lite?: boolean | PropertyBindingInfo;
+    lite?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Style of the button. (e.g. emphasized)
      */
-    style?: (ButtonStyle | keyof typeof ButtonStyle) | PropertyBindingInfo;
+    style?: (ButtonStyle | keyof typeof ButtonStyle) | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the user presses the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -2799,7 +2799,7 @@ declare module "sap/ui/commons/Callout" {
     /**
      * Determines the content of the Callout
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -3053,7 +3053,7 @@ declare module "sap/ui/commons/CalloutBase" {
         /**
          * Parent control that has this Callout as a tooltip
          */
-        parent?: Control;
+        parent?: Control | undefined;
       }
     ): boolean;
     /**
@@ -3076,7 +3076,7 @@ declare module "sap/ui/commons/CalloutBase" {
         /**
          * Parent control that has this Callout as a tooltip
          */
-        parent?: Control;
+        parent?: Control | undefined;
       }
     ): this;
     /**
@@ -3189,25 +3189,25 @@ declare module "sap/ui/commons/CalloutBase" {
     /**
      * The event is fired when the popup is opened.
      */
-    open?: Function;
+    open?: Function | undefined;
 
     /**
      * Event is fired when the Callout window is closed.
      */
-    close?: Function;
+    close?: Function | undefined;
 
     /**
      * Event is fired before a Callout is displayed. Call the preventDefault method of the event object to postpone
      * opening. Application may use this event to start asynchronous Ajax call to load the Callout content
      */
-    beforeOpen?: Function;
+    beforeOpen?: Function | undefined;
 
     /**
      * @SINCE 1.11.0
      *
      * Is fired when the Callout has been opened
      */
-    opened?: Function;
+    opened?: Function | undefined;
   }
 }
 
@@ -3603,54 +3603,54 @@ declare module "sap/ui/commons/Carousel" {
      */
     orientation?:
       | (enums.Orientation | keyof typeof enums.Orientation)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the width of the Carousel
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines the height of the Carousel
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Default height of the item in a carousel if no height can be determined
      */
-    defaultItemHeight?: int | PropertyBindingInfo;
+    defaultItemHeight?: int | PropertyBindingInfo | undefined;
 
     /**
      * Default width of the item in a carousel if no height can be determined
      */
-    defaultItemWidth?: int | PropertyBindingInfo;
+    defaultItemWidth?: int | PropertyBindingInfo | undefined;
 
     /**
      * Duration for animation when navigating through the contents of the Carousel
      */
-    animationDuration?: int | PropertyBindingInfo;
+    animationDuration?: int | PropertyBindingInfo | undefined;
 
     /**
      * If defined, the carousel displays the number of items defined. Items will be resized to fit the area.
      */
-    visibleItems?: int | PropertyBindingInfo;
+    visibleItems?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines the size of the handle in pixels. (Height for vertical carousel, width for horizontal carousel)
      */
-    handleSize?: int | PropertyBindingInfo;
+    handleSize?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.0
      *
      * The index of the element in the content aggreation which is displayed first on rendering
      */
-    firstVisibleIndex?: int | PropertyBindingInfo;
+    firstVisibleIndex?: int | PropertyBindingInfo | undefined;
 
     /**
      * Controls which are displayed inside the Carousel
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -3808,7 +3808,7 @@ declare module "sap/ui/commons/CheckBox" {
         /**
          * Checks whether the box is flagged or not flagged.
          */
-        checked?: boolean;
+        checked?: boolean | undefined;
       }
     ): this;
     /**
@@ -4066,33 +4066,33 @@ declare module "sap/ui/commons/CheckBox" {
     /**
      * Contains the state of the control whether it is flagged with a check mark, or not
      */
-    checked?: boolean | PropertyBindingInfo;
+    checked?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the text displayed next to the check box
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Using this property, the control could be disabled, if required.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the user shall be allowed to select the check box.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Accepts the core enumeration ValueState.type that supports 'None', 'Error', 'Warning' and 'Success'.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * The width can be set to an absolute value. If no value is set, the control width results from the text
      * length.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The value can be set to LTR or RTL. Otherwise, the control inherits the text direction from its parent
@@ -4100,28 +4100,28 @@ declare module "sap/ui/commons/CheckBox" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The 'name' property to be used in the HTML code, for example for HTML forms that send data to the server
      * via submit.
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 
@@ -4142,6 +4142,13 @@ declare module "sap/ui/commons/ColorPicker" {
   export default class ColorPicker extends ColorPicker1 {
     /**
      * Constructor for a new ColorPicker.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor
+     * sap.ui.unified.ColorPicker} can be used.
      */
     constructor(
       /**
@@ -4151,6 +4158,13 @@ declare module "sap/ui/commons/ColorPicker" {
     );
     /**
      * Constructor for a new ColorPicker.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor
+     * sap.ui.unified.ColorPicker} can be used.
      */
     constructor(
       /**
@@ -4562,13 +4576,13 @@ declare module "sap/ui/commons/ComboBox" {
      * Defines the number of items that shall be displayed at once. If the overall number of items is higher
      * than this setting, a scrollbar is provided.
      */
-    maxPopupItems?: int | PropertyBindingInfo;
+    maxPopupItems?: int | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether the `additionalText` property that is available for `sap.ui.core.ListItem` shall be
      * displayed in the list.
      */
-    displaySecondaryValues?: boolean | PropertyBindingInfo;
+    displaySecondaryValues?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Key of the selected item.
@@ -4579,19 +4593,19 @@ declare module "sap/ui/commons/ComboBox" {
      *
      * If the key is set to a not existing value it will not be changed.
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * Id of the selected item. If the value has no corresponding item, the `selectedItemId` is empty.
      *
      * If the `selectedItemId` is set to a not existing item, it will not be changed.
      */
-    selectedItemId?: string | PropertyBindingInfo;
+    selectedItemId?: string | PropertyBindingInfo | undefined;
 
     /**
      * `ListItems` (see `sap.ui.core.ListBox`) that shall be displayed in the list.
      */
-    items?: ListItem[] | ListItem | AggregationBindingInfo;
+    items?: ListItem[] | ListItem | AggregationBindingInfo | undefined;
 
     /**
      * Using this method, you provide a `ListBox` control. This allows reuse of item lists in different controls.
@@ -4602,7 +4616,7 @@ declare module "sap/ui/commons/ComboBox" {
      * to the view or the first used `ComboBox`). If it is not set as child or dependant to an other control
      * it will be automatically set as dependent to the first ComboBox where it is assigned.
      */
-    listBox?: ListBox | string;
+    listBox?: ListBox | string | undefined;
   }
 }
 
@@ -4758,13 +4772,13 @@ declare module "sap/ui/commons/DatePicker" {
      * be used to render the DatePicker.If the value property is bound to a model using a Date type the locale
      * will be ignored, because the locale information of the model are used.
      */
-    locale?: string | PropertyBindingInfo;
+    locale?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the date as a "yyyymmdd" string, independent from the format used. The inherited textField "value"
      * attribute uses the date format as configured via the locale. The date is interpreted as gregorian date
      */
-    yyyymmdd?: string | PropertyBindingInfo;
+    yyyymmdd?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -4931,19 +4945,19 @@ declare module "sap/ui/commons/Dialog" {
         /**
          * The width of the dialog when closed
          */
-        width?: int;
+        width?: int | undefined;
         /**
          * The height of the dialog when closed
          */
-        height?: int;
+        height?: int | undefined;
         /**
          * The top position of the dialog when closed
          */
-        top?: int;
+        top?: int | undefined;
         /**
          * The left position of the dialog when closed
          */
-        left?: int;
+        left?: int | undefined;
       }
     ): this;
     /**
@@ -5524,88 +5538,88 @@ declare module "sap/ui/commons/Dialog" {
      * Outer width of dialog window. When not set and not constrained by one of the width parameters (minWidth/maxWidth),
      * the window size is automatically adapted to the content.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Outer height of dialog window. When not set and not constrained by one of the height parameters (minHeight/maxHeight),
      * the window size is automatically adapted to the content.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Scroll position from left to right. "0" means leftmost position.
      */
-    scrollLeft?: int | PropertyBindingInfo;
+    scrollLeft?: int | PropertyBindingInfo | undefined;
 
     /**
      * Scroll position from top to bottom. "0" means topmost position.
      */
-    scrollTop?: int | PropertyBindingInfo;
+    scrollTop?: int | PropertyBindingInfo | undefined;
 
     /**
      * Dialog title displayed in the header.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Padding is theme-dependent. When set to "false", the content extends to the dialog borders.
      */
-    applyContentPadding?: boolean | PropertyBindingInfo;
+    applyContentPadding?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Displays a close button in the title bar.
      */
-    showCloseButton?: boolean | PropertyBindingInfo;
+    showCloseButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the dialog window can be resized by the user. The dialog frame contains the visual
      * symbol.
      */
-    resizable?: boolean | PropertyBindingInfo;
+    resizable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Minimum outer width of the dialog window. When set, neither the user nor some layout settings can make
      * the window smaller.
      */
-    minWidth?: CSSSize | PropertyBindingInfo;
+    minWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Minimum outer height of the dialog window. When set, neither the user nor some layout settings can make
      * the window smaller.
      */
-    minHeight?: CSSSize | PropertyBindingInfo;
+    minHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Maximum outer width of the dialog window. If set, neither the user nor some layout settings can make
      * the window larger.
      */
-    maxWidth?: CSSSize | PropertyBindingInfo;
+    maxWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Maximum outer height of the dialog window. If set, neither the user nor some layout settings can make
      * the window larger.
      */
-    maxHeight?: CSSSize | PropertyBindingInfo;
+    maxHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the border design. Border design is theme dependent.
      */
     contentBorderDesign?:
       | (enums.BorderDesign | keyof typeof enums.BorderDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the dialog should be modal, or not. In case of `true` the focus is kept inside the
      * dialog.
      */
-    modal?: boolean | PropertyBindingInfo;
+    modal?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The ARIA role for the control. E.g. for alert-style Dialogs this can be set to "AlertDialog".
      */
     accessibleRole?:
       | (AccessibleRole | keyof typeof AccessibleRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.0
@@ -5614,20 +5628,20 @@ declare module "sap/ui/commons/Dialog" {
      * drag&drop movements by the user. This doesn't affect modal dialogs -> modal dialogs always stay in the
      * window.
      */
-    keepInWindow?: boolean | PropertyBindingInfo;
+    keepInWindow?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.10
      *
      * If this property is set to true the Dialog will close if the Dialog loses its focus
      */
-    autoClose?: boolean | PropertyBindingInfo;
+    autoClose?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Aggregation of the buttons to display at the bottom of the dialog, for example OK and Cancel. Association
      * defaultButton can be used for one of the defined buttons.
      */
-    buttons?: Control[] | Control | AggregationBindingInfo;
+    buttons?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Aggregation of the content of the dialog (one or more controls).
@@ -5635,7 +5649,7 @@ declare module "sap/ui/commons/Dialog" {
      * Warning: when content is added with width given as a percentage, the Dialog itself should have a width
      * set.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Defines one of the buttons that have been provided via button aggregation to be the default button. This
@@ -5643,18 +5657,18 @@ declare module "sap/ui/commons/Dialog" {
      * The default button is activated when Enter is pressed in the context of the dialog and when the currently
      * selected element does not handle the Enter event itself.
      */
-    defaultButton?: Button | string;
+    defaultButton?: Button | string | undefined;
 
     /**
      * Defines the control that shall get the focus when the dialog is opened.
      */
-    initialFocus?: Control | string;
+    initialFocus?: Control | string | undefined;
 
     /**
      * Event is fired when the dialog has been closed (after closing-animation etc.). Event parameters provide
      * information about last position and last size.
      */
-    closed?: Function;
+    closed?: Function | undefined;
   }
 }
 
@@ -5784,7 +5798,7 @@ declare module "sap/ui/commons/DropdownBox" {
         /**
          * The current value of the DropdownBox.
          */
-        value?: string;
+        value?: string | undefined;
       }
     ): this;
     /**
@@ -6052,22 +6066,22 @@ declare module "sap/ui/commons/DropdownBox" {
     /**
      * Whether the DropdownBox's search help should be enabled.
      */
-    searchHelpEnabled?: boolean | PropertyBindingInfo;
+    searchHelpEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * (optional) The text to use for the search help entry.
      */
-    searchHelpText?: string | PropertyBindingInfo;
+    searchHelpText?: string | PropertyBindingInfo | undefined;
 
     /**
      * (optional) The additional Text to use for the search help entry.
      */
-    searchHelpAdditionalText?: string | PropertyBindingInfo;
+    searchHelpAdditionalText?: string | PropertyBindingInfo | undefined;
 
     /**
      * (optional) The URI of the icon to use for the search help entry.
      */
-    searchHelpIcon?: URI | PropertyBindingInfo;
+    searchHelpIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Maximum number of history items in the list.
@@ -6075,13 +6089,13 @@ declare module "sap/ui/commons/DropdownBox" {
      * If 0 no history is displayed or stored. The history is locally stored on the client. Therefore do not
      * activate this feature when this control handles confidential data.
      */
-    maxHistoryItems?: int | PropertyBindingInfo;
+    maxHistoryItems?: int | PropertyBindingInfo | undefined;
 
     /**
      * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
      * F4 key is pressed.
      */
-    searchHelp?: Function;
+    searchHelp?: Function | undefined;
   }
 }
 
@@ -6105,6 +6119,13 @@ declare module "sap/ui/commons/FileUploader" {
   export default class FileUploader extends FileUploader1 {
     /**
      * Constructor for a new FileUploader.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor
+     * sap.ui.unified.FileUploader} can be used.
      */
     constructor(
       /**
@@ -6114,6 +6135,13 @@ declare module "sap/ui/commons/FileUploader" {
     );
     /**
      * Constructor for a new FileUploader.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor
+     * sap.ui.unified.FileUploader} can be used.
      */
     constructor(
       /**
@@ -6173,6 +6201,13 @@ declare module "sap/ui/commons/FileUploaderParameter" {
   export default class FileUploaderParameter extends FileUploaderParameter1 {
     /**
      * Constructor for a new FileUploaderParameter.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor
+     * sap.ui.unified.FileUploaderParameter} can be used.
      */
     constructor(
       /**
@@ -6182,6 +6217,13 @@ declare module "sap/ui/commons/FileUploaderParameter" {
     );
     /**
      * Constructor for a new FileUploaderParameter.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor
+     * sap.ui.unified.FileUploaderParameter} can be used.
      */
     constructor(
       /**
@@ -6243,6 +6285,13 @@ declare module "sap/ui/commons/form/Form" {
   export default class Form extends Form1 {
     /**
      * Constructor for a new form/Form.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor
+     * sap.ui.layout.form.Form} can be used.
      */
     constructor(
       /**
@@ -6252,6 +6301,13 @@ declare module "sap/ui/commons/form/Form" {
     );
     /**
      * Constructor for a new form/Form.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor
+     * sap.ui.layout.form.Form} can be used.
      */
     constructor(
       /**
@@ -6332,6 +6388,13 @@ declare module "sap/ui/commons/form/FormContainer" {
   export default class FormContainer extends FormContainer1 {
     /**
      * Constructor for a new form/FormContainer.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor
+     * sap.ui.layout.form.FormContainer} can be used.
      */
     constructor(
       /**
@@ -6341,6 +6404,13 @@ declare module "sap/ui/commons/form/FormContainer" {
     );
     /**
      * Constructor for a new form/FormContainer.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor
+     * sap.ui.layout.form.FormContainer} can be used.
      */
     constructor(
       /**
@@ -6421,6 +6491,13 @@ declare module "sap/ui/commons/form/FormElement" {
   export default class FormElement extends FormElement1 {
     /**
      * Constructor for a new form/FormElement.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor
+     * sap.ui.layout.form.FormElement} can be used.
      */
     constructor(
       /**
@@ -6430,6 +6507,13 @@ declare module "sap/ui/commons/form/FormElement" {
     );
     /**
      * Constructor for a new form/FormElement.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor
+     * sap.ui.layout.form.FormElement} can be used.
      */
     constructor(
       /**
@@ -6510,6 +6594,13 @@ declare module "sap/ui/commons/form/FormLayout" {
   export default class FormLayout extends FormLayout1 {
     /**
      * Constructor for a new form/FormLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor
+     * sap.ui.layout.form.FormLayout} can be used.
      */
     constructor(
       /**
@@ -6519,6 +6610,13 @@ declare module "sap/ui/commons/form/FormLayout" {
     );
     /**
      * Constructor for a new form/FormLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor
+     * sap.ui.layout.form.FormLayout} can be used.
      */
     constructor(
       /**
@@ -6579,6 +6677,13 @@ declare module "sap/ui/commons/form/GridContainerData" {
   export default class GridContainerData extends GridContainerData1 {
     /**
      * Constructor for a new form/GridContainerData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor
+     * sap.ui.layout.form.GridContainerData} can be used.
      */
     constructor(
       /**
@@ -6588,6 +6693,13 @@ declare module "sap/ui/commons/form/GridContainerData" {
     );
     /**
      * Constructor for a new form/GridContainerData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor
+     * sap.ui.layout.form.GridContainerData} can be used.
      */
     constructor(
       /**
@@ -6649,6 +6761,13 @@ declare module "sap/ui/commons/form/GridElementData" {
   export default class GridElementData extends GridElementData1 {
     /**
      * Constructor for a new form/GridElementData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor
+     * sap.ui.layout.form.GridElementData} can be used.
      */
     constructor(
       /**
@@ -6658,6 +6777,13 @@ declare module "sap/ui/commons/form/GridElementData" {
     );
     /**
      * Constructor for a new form/GridElementData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor
+     * sap.ui.layout.form.GridElementData} can be used.
      */
     constructor(
       /**
@@ -6719,6 +6845,13 @@ declare module "sap/ui/commons/form/GridLayout" {
   export default class GridLayout extends GridLayout1 {
     /**
      * Constructor for a new form/GridLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor
+     * sap.ui.layout.form.GridLayout} can be used.
      */
     constructor(
       /**
@@ -6728,6 +6861,13 @@ declare module "sap/ui/commons/form/GridLayout" {
     );
     /**
      * Constructor for a new form/GridLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor
+     * sap.ui.layout.form.GridLayout} can be used.
      */
     constructor(
       /**
@@ -6787,6 +6927,13 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
   export default class ResponsiveLayout extends ResponsiveLayout1 {
     /**
      * Constructor for a new form/ResponsiveLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor
+     * sap.ui.layout.form.ResponsiveLayout} can be used.
      */
     constructor(
       /**
@@ -6796,6 +6943,13 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
     );
     /**
      * Constructor for a new form/ResponsiveLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor
+     * sap.ui.layout.form.ResponsiveLayout} can be used.
      */
     constructor(
       /**
@@ -6861,6 +7015,13 @@ declare module "sap/ui/commons/form/SimpleForm" {
   export default class SimpleForm extends SimpleForm1 {
     /**
      * Constructor for a new form/SimpleForm.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.SimpleForm#constructor
+     * sap.ui.layout.form.SimpleForm} can be used.
      */
     constructor(
       /**
@@ -6870,6 +7031,13 @@ declare module "sap/ui/commons/form/SimpleForm" {
     );
     /**
      * Constructor for a new form/SimpleForm.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.SimpleForm#constructor
+     * sap.ui.layout.form.SimpleForm} can be used.
      */
     constructor(
       /**
@@ -7134,17 +7302,17 @@ declare module "sap/ui/commons/FormattedTextView" {
      */
     accessibleRole?:
       | (AccessibleRole | keyof typeof AccessibleRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines text with placeholders.
      */
-    htmlText?: string | PropertyBindingInfo;
+    htmlText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Array of controls that should be replaced within htmlText.
      */
-    controls?: Control[] | Control | AggregationBindingInfo;
+    controls?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -7299,21 +7467,21 @@ declare module "sap/ui/commons/HorizontalDivider" {
     /**
      * Defines the width of the divider.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the type of the divider.
      */
     type?:
       | (HorizontalDividerType | keyof typeof HorizontalDividerType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the height of the divider.
      */
     height?:
       | (HorizontalDividerHeight | keyof typeof HorizontalDividerHeight)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
   }
 }
 
@@ -7600,19 +7768,19 @@ declare module "sap/ui/commons/Image" {
     /**
      * Relative or absolute path to URL where the image file is stored.
      */
-    src?: URI | PropertyBindingInfo;
+    src?: URI | PropertyBindingInfo | undefined;
 
     /**
      * When the empty value is kept, the original size is not changed. It is also possible to make settings
      * for width or height only, the overall size is maintained then, considering the aspect ratio.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * When the empty value is kept, the original size is not changed. It is also possible to make settings
      * for width or height only, the overall size is maintained then, considering the aspect ratio.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * A decorative image is included for design reasons. Accessibility tools will ignore decorative images.
@@ -7620,23 +7788,23 @@ declare module "sap/ui/commons/Image" {
      * not be rendered as decorative). A decorative image has no ALT attribute, so the Alt property is ignored
      * if the image is decorative.
      */
-    decorative?: boolean | PropertyBindingInfo;
+    decorative?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The alternative text that is displayed in case the Image is not available, or cannot be displayed. If
      * the image is set to decorative this property is ignored.
      */
-    alt?: string | PropertyBindingInfo;
+    alt?: string | PropertyBindingInfo | undefined;
 
     /**
      * The name of the image map that defines the clickable areas
      */
-    useMap?: string | PropertyBindingInfo;
+    useMap?: string | PropertyBindingInfo | undefined;
 
     /**
      * Event is fired when the user clicks on the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -7783,7 +7951,7 @@ declare module "sap/ui/commons/ImageMap" {
         /**
          * Id of clicked Area.
          */
-        areaId?: string;
+        areaId?: string | undefined;
       }
     ): this;
     /**
@@ -7879,17 +8047,17 @@ declare module "sap/ui/commons/ImageMap" {
     /**
      * Name for the image that serves as reference
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * Area representing the reference to the target location
      */
-    areas?: Area[] | Area | AggregationBindingInfo;
+    areas?: Area[] | Area | AggregationBindingInfo | undefined;
 
     /**
      * Event for the areas that can be clicked in an ImageMap
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -8068,7 +8236,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
         /**
          * The new / changed value of the InPlaceEdit.
          */
-        newValue?: string;
+        newValue?: string | undefined;
       }
     ): this;
     /**
@@ -8084,7 +8252,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
         /**
          * Current value of the Textfield.
          */
-        liveValue?: string;
+        liveValue?: string | undefined;
       }
     ): this;
     /**
@@ -8263,12 +8431,12 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * Visualizes warnings or errors related to the InPlaceEdit. Possible values: Warning, Error, Success. If
      * the content control has an own valueState property this will be used.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * If undo is enabled after changing the text an undo button appears.
      */
-    undoEnabled?: boolean | PropertyBindingInfo;
+    undoEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.0
@@ -8277,19 +8445,19 @@ declare module "sap/ui/commons/InPlaceEdit" {
      */
     design?:
       | (TextViewDesign | keyof typeof TextViewDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Content control of the InPlaceEdit. The following controls are allowed: TextField, ComboBox, DropdownBox
      * and Link
      */
-    content?: Control;
+    content?: Control | undefined;
 
     /**
      * Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter
      * key is pressed.
      */
-    change?: Function;
+    change?: Function | undefined;
 
     /**
      * @SINCE 1.16.5
@@ -8298,7 +8466,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * is not the content of the value property. The value property is only updated by ENTER and by leaving
      * the control.
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
   }
 }
 
@@ -8627,40 +8795,40 @@ declare module "sap/ui/commons/Label" {
     /**
      * Defines whether the labels are in bold format.
      */
-    design?: (LabelDesign | keyof typeof LabelDesign) | PropertyBindingInfo;
+    design?: (LabelDesign | keyof typeof LabelDesign) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text direction - right-to-left (RTL) and left-to-right (LTR).
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether a line wrapping width shall be displayed when the text value is longer than the width
      * is.
      */
-    wrapping?: boolean | PropertyBindingInfo;
+    wrapping?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the control width as common CSS-size (for example, px or % as unit).
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text to be displayed.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the icon to be displayed in the control. This can be a URI to an image or an icon font URI.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Determines the alignment of the text. Available options are `Begin`, `Center`, `End`, `Left`, and `Right`.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.0
@@ -8670,7 +8838,7 @@ declare module "sap/ui/commons/Label" {
      * the values of both required flags are combined with the OR operator, so a Label can't override a required=true
      * value.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.14.0
@@ -8678,14 +8846,14 @@ declare module "sap/ui/commons/Label" {
      * Determines whether the required indicator is at the beginning of the label (if set) or at the end (if
      * not set).
      */
-    requiredAtBegin?: boolean | PropertyBindingInfo;
+    requiredAtBegin?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the association to the labeled control. By default, the label is set the for the attribute to
      * the ID of the labeled control. This can be changed with the implementation of function getIdForLabel
      * on the labelled control.
      */
-    labelFor?: Control | string;
+    labelFor?: Control | string | undefined;
   }
 }
 
@@ -8979,26 +9147,26 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
     /**
      * The overall width of the control. When not set, 100% is automatically set.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The overall height of the control. When not set, 100% is automatically set.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * 'Auto', 'Scroll', 'Hidden', and 'None' are the available values for setting the vertical scrolling mode.
      */
     verticalScrolling?:
       | (Scrolling | keyof typeof Scrolling)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * 'Auto', 'Scroll', 'Hidden', and 'None' are the available values for setting the vertical scrolling mode.
      */
     horizontalScrolling?:
       | (Scrolling | keyof typeof Scrolling)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Positioned child controls within the layout
@@ -9006,7 +9174,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
     positions?:
       | PositionContainer[]
       | PositionContainer
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
   }
 }
 
@@ -9424,42 +9592,42 @@ declare module "sap/ui/commons/layout/BorderLayout" {
      *
      * The RTL setting swaps the areas Begin and End.
      */
-    rtl?: boolean | PropertyBindingInfo;
+    rtl?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the overall width of the layout
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the overall height of the layout
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Represents the Top area
      */
-    top?: BorderLayoutArea;
+    top?: BorderLayoutArea | undefined;
 
     /**
      * Represents the Begin area
      */
-    begin?: BorderLayoutArea;
+    begin?: BorderLayoutArea | undefined;
 
     /**
      * Represents the Center area
      */
-    center?: BorderLayoutArea;
+    center?: BorderLayoutArea | undefined;
 
     /**
      * Represents the End area
      */
-    end?: BorderLayoutArea;
+    end?: BorderLayoutArea | undefined;
 
     /**
      * Represents the Bottom area
      */
-    bottom?: BorderLayoutArea;
+    bottom?: BorderLayoutArea | undefined;
   }
 }
 
@@ -9759,37 +9927,37 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
           | layout.BorderLayoutAreaTypes
           | keyof typeof layout.BorderLayoutAreaTypes
         )
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The overflow mode of the area in horizontal direction as CSS value
      */
-    overflowX?: string | PropertyBindingInfo;
+    overflowX?: string | PropertyBindingInfo | undefined;
 
     /**
      * The overflow mode of the area in vertical direction as CSS value
      */
-    overflowY?: string | PropertyBindingInfo;
+    overflowY?: string | PropertyBindingInfo | undefined;
 
     /**
      * The content alignment as CSS value
      */
-    contentAlign?: string | PropertyBindingInfo;
+    contentAlign?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the height or the width. Is not used when the area element is in Center.
      */
-    size?: CSSSize | PropertyBindingInfo;
+    size?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Invisible controls are not rendered
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Controls within the area
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -9809,6 +9977,13 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
   export default class HorizontalLayout extends HorizontalLayout1 {
     /**
      * Constructor for a new layout/HorizontalLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor
+     * sap.ui.layout.HorizontalLayout} can be used.
      */
     constructor(
       /**
@@ -9818,6 +9993,13 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
     );
     /**
      * Constructor for a new layout/HorizontalLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor
+     * sap.ui.layout.HorizontalLayout} can be used.
      */
     constructor(
       /**
@@ -10127,12 +10309,12 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
     /**
      * CSS width of the matrix layout. If the LayoutFixed = true an adequate width should be provided.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * CSS height of the matrix layout.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Sets the table layout. If fixed the width parameter of a column has priority, if not the width of the
@@ -10140,23 +10322,23 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * of the MatrixLayout should be provided. Otherwise the column width displayed could be different than
      * the given ones because of browser dependend optimazations.
      */
-    layoutFixed?: boolean | PropertyBindingInfo;
+    layoutFixed?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Number of columns. If not specified, the number of columns will be determined from the given cells.
      */
-    columns?: int | PropertyBindingInfo;
+    columns?: int | PropertyBindingInfo | undefined;
 
     /**
      * Widths of the columns. Use an array to define the widths of the columns. If a column shall have an automatical
      * sizing enter "auto" for this column width.
      */
-    widths?: CSSSize[] | PropertyBindingInfo;
+    widths?: CSSSize[] | PropertyBindingInfo | undefined;
 
     /**
      * The matrix layout's individual rows.
      */
-    rows?: MatrixLayoutRow[] | MatrixLayoutRow | AggregationBindingInfo;
+    rows?: MatrixLayoutRow[] | MatrixLayoutRow | AggregationBindingInfo | undefined;
   }
 }
 
@@ -10539,17 +10721,17 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      */
     backgroundDesign?:
       | (layout.BackgroundDesign | keyof typeof layout.BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines how many columns of the underlying grid structure are occupied by this matrix layout cell.
      */
-    colSpan?: int | PropertyBindingInfo;
+    colSpan?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines the horizontal alignment of the matrix layout cell's content with the cell's borders.
      */
-    hAlign?: (layout.HAlign | keyof typeof layout.HAlign) | PropertyBindingInfo;
+    hAlign?: (layout.HAlign | keyof typeof layout.HAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the padding of the matrix layout cell's content within the cell's borders. The default value
@@ -10558,13 +10740,13 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      */
     padding?:
       | (layout.Padding | keyof typeof layout.Padding)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines how many rows of the underlying grid structure are occupied by this matrix layout cell. In
      * case a row-height is used, all rows affected by the RowSpan must have the same unit.
      */
-    rowSpan?: int | PropertyBindingInfo;
+    rowSpan?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines how a matrix layout cell is separated from its predecessor, via a vertical gutter of variable
@@ -10572,12 +10754,12 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      */
     separation?:
       | (layout.Separation | keyof typeof layout.Separation)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the vertical alignment of the matrix layout cell's content with the cell's borders.
      */
-    vAlign?: (layout.VAlign | keyof typeof layout.VAlign) | PropertyBindingInfo;
+    vAlign?: (layout.VAlign | keyof typeof layout.VAlign) | PropertyBindingInfo | undefined;
 
     /**
      * The matrix layout cell's content (arbitrary controls).
@@ -10585,7 +10767,7 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * If the matrix row has a defined height and the matrix has layoutFixed = true, the controls inside of
      * a cell should all use the same unit for its height property.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -10809,12 +10991,12 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
     /**
      * Height of the row.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The matrix layout row's individual cells.
      */
-    cells?: MatrixLayoutCell[] | MatrixLayoutCell | AggregationBindingInfo;
+    cells?: MatrixLayoutCell[] | MatrixLayoutCell | AggregationBindingInfo | undefined;
   }
 }
 
@@ -11053,39 +11235,39 @@ declare module "sap/ui/commons/layout/PositionContainer" {
     /**
      * Defines the distance to the top of the layout (as specified in HTML)
      */
-    top?: CSSSize | PropertyBindingInfo;
+    top?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the distance to the bottom of the layout (as specified in HTML)
      */
-    bottom?: CSSSize | PropertyBindingInfo;
+    bottom?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the distance to the left of the layout (as specified in HTML)
      */
-    left?: CSSSize | PropertyBindingInfo;
+    left?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the distance to the right of the layout (as specified in HTML)
      */
-    right?: CSSSize | PropertyBindingInfo;
+    right?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether this container shall be centered horizontally within the AbsoluteLayout area. The values
      * of the attributes left and right are ignored when this feature is activated.
      */
-    centerHorizontally?: boolean | PropertyBindingInfo;
+    centerHorizontally?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether this container should be centered vertically within the AbsoluteLayout area. The values
      * of the attributes top and bottom are ignored when this feature is activated.
      */
-    centerVertically?: boolean | PropertyBindingInfo;
+    centerVertically?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Child control of the position container
      */
-    control?: Control;
+    control?: Control | undefined;
   }
 }
 
@@ -11107,6 +11289,13 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
   export default class ResponsiveFlowLayout extends ResponsiveFlowLayout1 {
     /**
      * Constructor for a new layout/ResponsiveFlowLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor
+     * sap.ui.layout.ResponsiveFlowLayout} can be used.
      */
     constructor(
       /**
@@ -11116,6 +11305,13 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
     );
     /**
      * Constructor for a new layout/ResponsiveFlowLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor
+     * sap.ui.layout.ResponsiveFlowLayout} can be used.
      */
     constructor(
       /**
@@ -11176,6 +11372,13 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
   export default class ResponsiveFlowLayoutData extends ResponsiveFlowLayoutData1 {
     /**
      * Constructor for a new layout/ResponsiveFlowLayoutData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor
+     * sap.ui.layout.ResponsiveFlowLayoutData} can be used.
      */
     constructor(
       /**
@@ -11185,6 +11388,13 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
     );
     /**
      * Constructor for a new layout/ResponsiveFlowLayoutData.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor
+     * sap.ui.layout.ResponsiveFlowLayoutData} can be used.
      */
     constructor(
       /**
@@ -11265,6 +11475,13 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
   export default class VerticalLayout extends VerticalLayout1 {
     /**
      * Constructor for a new layout/VerticalLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor
+     * sap.ui.layout.VerticalLayout} can be used.
      */
     constructor(
       /**
@@ -11274,6 +11491,13 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
     );
     /**
      * Constructor for a new layout/VerticalLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor
+     * sap.ui.layout.VerticalLayout} can be used.
      */
     constructor(
       /**
@@ -11670,28 +11894,28 @@ declare module "sap/ui/commons/Link" {
     /**
      * Link text to be displayed.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Whether the link can be triggered by the user.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Unique identifier used for help service.
      */
-    helpId?: string | PropertyBindingInfo;
+    helpId?: string | PropertyBindingInfo | undefined;
 
     /**
      * The link target URI. Supports standard hyperlink behavior. If an action should be triggered, this should
      * not be set, but instead an event handler for the "press" event should be registered.
      */
-    href?: URI | PropertyBindingInfo;
+    href?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Options are _self, _top, _blank, _parent, _search. Alternatively, a frame name can be entered.
      */
-    target?: string | PropertyBindingInfo;
+    target?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.8.0
@@ -11699,22 +11923,22 @@ declare module "sap/ui/commons/Link" {
      * Width of text link. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
      * the text defines the size.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the user clicks the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -11897,22 +12121,22 @@ declare module "sap/ui/commons/ListBox" {
         /**
          * ID of the ListBox which triggered the event.
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * The currently selected index of the ListBox. In the case of multiple selection, this is exactly one of
          * the selected indices - the one whose selection has triggered the selection change. To get all currently
          * selected indices, use selectedIndices.
          */
-        selectedIndex?: int;
+        selectedIndex?: int | undefined;
         /**
          * The currently selected item of the ListBox. In the case of multiple selection, this is exactly one of
          * the selected items - the one whose selection has triggered the selection change.
          */
-        selectedItem?: Item;
+        selectedItem?: Item | undefined;
         /**
          * Array containing the indices which are selected.
          */
-        selectedIndices?: int[];
+        selectedIndices?: int[] | undefined;
       }
     ): this;
     /**
@@ -12402,35 +12626,35 @@ declare module "sap/ui/commons/ListBox" {
      * Determines whether the ListBox is interactive or not. Can be used to disable interaction with mouse or
      * keyboard.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the ListBox is enabled or not. Can be used to disable interaction with mouse or keyboard.
      * Disabled controls have another color display depending on custom settings.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether multiple selection is allowed.
      */
-    allowMultiSelect?: boolean | PropertyBindingInfo;
+    allowMultiSelect?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Control width as common CSS-size (px or % as unit, for example).
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Control height as common CSS-size (px or % as unit, for example). The setting overrides any definitions
      * made for the setVisibleItems() method.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Scroll bar position from the top. Setting the scrollTop property and calling scrollToIndex are two operations
      * influencing the same "physical" property, so the last call "wins".
      */
-    scrollTop?: int | PropertyBindingInfo;
+    scrollTop?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the icons of the list items shall also be displayed. Enabling icons requires some
@@ -12439,35 +12663,35 @@ declare module "sap/ui/commons/ListBox" {
      * of icons that can be displayed in the ListBox depends on the size of the icons themselves and of the
      * total ListBox height.
      */
-    displayIcons?: boolean | PropertyBindingInfo;
+    displayIcons?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the text values from the additionalText property (see sap.ui.core.ListItems) shall
      * be displayed.
      */
-    displaySecondaryValues?: boolean | PropertyBindingInfo;
+    displaySecondaryValues?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text alignment in the primary ListBox column.
      */
-    valueTextAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    valueTextAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text alignment in the secondary ListBox text column (if available).
      */
     secondaryValueTextAlign?:
       | (TextAlign | keyof typeof TextAlign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines the minimum width of the ListBox. If not set, there is no minimum width.
      */
-    minWidth?: CSSSize | PropertyBindingInfo;
+    minWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines the maximum width of the ListBox. If not set, there is no maximum width.
      */
-    maxWidth?: CSSSize | PropertyBindingInfo;
+    maxWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The ListBox height in number of items that are initially displayed without scrolling. This setting overwrites
@@ -12479,27 +12703,27 @@ declare module "sap/ui/commons/ListBox" {
      * in the case the control was already rendered. Note that if the control was not rendered, the behavior
      * will be undefined, it may return -1 or any other number.
      */
-    visibleItems?: int | PropertyBindingInfo;
+    visibleItems?: int | PropertyBindingInfo | undefined;
 
     /**
      * Aggregation of items to be displayed. Must be either of type sap.ui.core.ListItem or sap.ui.core.SeparatorItem.
      */
-    items?: Item[] | Item | AggregationBindingInfo;
+    items?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when selection is changed by user interaction.
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -12522,6 +12746,13 @@ declare module "sap/ui/commons/Menu" {
   export default class Menu extends Menu1 {
     /**
      * Constructor for a new Menu control.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor
+     * sap.ui.unified.Menu} can be used.
      */
     constructor(
       /**
@@ -12531,6 +12762,13 @@ declare module "sap/ui/commons/Menu" {
     );
     /**
      * Constructor for a new Menu control.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor
+     * sap.ui.unified.Menu} can be used.
      */
     constructor(
       /**
@@ -12790,22 +13028,22 @@ declare module "sap/ui/commons/MenuBar" {
     /**
      * When the MenuBar is not enabled, automatically all single menu items are also displayed as 'disabled'.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the width of the MenuBar
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Available design options are Header and Standard. Note that design settings are theme-dependent.
      */
-    design?: (MenuBarDesign | keyof typeof MenuBarDesign) | PropertyBindingInfo;
+    design?: (MenuBarDesign | keyof typeof MenuBarDesign) | PropertyBindingInfo | undefined;
 
     /**
      * Aggregation of menu items.
      */
-    items?: MenuItem[] | MenuItem | AggregationBindingInfo;
+    items?: MenuItem[] | MenuItem | AggregationBindingInfo | undefined;
   }
 }
 
@@ -12974,11 +13212,11 @@ declare module "sap/ui/commons/MenuButton" {
         /**
          * The ID of the selected item
          */
-        itemId?: string;
+        itemId?: string | undefined;
         /**
          * The selected item
          */
-        item?: MenuItemBase;
+        item?: MenuItemBase | undefined;
       }
     ): this;
     /**
@@ -13098,23 +13336,23 @@ declare module "sap/ui/commons/MenuButton" {
      * The position / edge (see sap.ui.core.Popup.Dock) of the button where the menu is docked. Default is 'begin
      * bottom'.
      */
-    dockButton?: string | PropertyBindingInfo;
+    dockButton?: string | PropertyBindingInfo | undefined;
 
     /**
      * The position / edge (see sap.ui.core.Popup.Dock) of the menu which is docked to the button. Default is
      * 'begin top'.
      */
-    dockMenu?: string | PropertyBindingInfo;
+    dockMenu?: string | PropertyBindingInfo | undefined;
 
     /**
      * Menu that shall be opened when the button is clicked
      */
-    menu?: Menu;
+    menu?: Menu | undefined;
 
     /**
      * Event that is fired when a menu item is selected by the user
      */
-    itemSelected?: Function;
+    itemSelected?: Function | undefined;
   }
 }
 
@@ -13136,6 +13374,13 @@ declare module "sap/ui/commons/MenuItem" {
   export default class MenuItem extends MenuItem1 {
     /**
      * Constructor for a new MenuItem element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor
+     * sap.ui.unified.MenuItem} can be used.
      */
     constructor(
       /**
@@ -13145,6 +13390,13 @@ declare module "sap/ui/commons/MenuItem" {
     );
     /**
      * Constructor for a new MenuItem element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor
+     * sap.ui.unified.MenuItem} can be used.
      */
     constructor(
       /**
@@ -13246,6 +13498,13 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
   export default class MenuTextFieldItem extends MenuTextFieldItem1 {
     /**
      * Constructor for a new MenuTextFieldItem element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor
+     * sap.ui.unified.MenuTextFieldItem} can be used.
      */
     constructor(
       /**
@@ -13255,6 +13514,13 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
     );
     /**
      * Constructor for a new MenuTextFieldItem element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor
+     * sap.ui.unified.MenuTextFieldItem} can be used.
      */
     constructor(
       /**
@@ -13466,22 +13732,22 @@ declare module "sap/ui/commons/Message" {
     /**
      * "Success", or "Warning", or "Error" messages. (Mandatory)
      */
-    type?: (MessageType | keyof typeof MessageType) | PropertyBindingInfo;
+    type?: (MessageType | keyof typeof MessageType) | PropertyBindingInfo | undefined;
 
     /**
      * Message short text. (Mandatory)
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Associated UI element ID. (Optional) For navigation to error field.
      */
-    associatedElementId?: string | PropertyBindingInfo;
+    associatedElementId?: string | PropertyBindingInfo | undefined;
 
     /**
      * Internal attribute, used to force the display of the "short" or the "long" text only.
      */
-    design?: string | PropertyBindingInfo;
+    design?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -13708,24 +13974,24 @@ declare module "sap/ui/commons/MessageBar" {
     /**
      * Element ID upon which the MessageBar will be initially positioned.
      */
-    anchorID?: string | PropertyBindingInfo;
+    anchorID?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether or not the MessageBar is visible. Invisible controls are not rendered.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Maximum number of simultaneous messages being toasted in a row. Value '0' means this dynamic part is
      * switched off.
      */
-    maxToasted?: int | PropertyBindingInfo;
+    maxToasted?: int | PropertyBindingInfo | undefined;
 
     /**
      * Maximum number of messages being displayed in the List before a scrollbar appears. Value '0' means no
      * limit.
      */
-    maxListed?: int | PropertyBindingInfo;
+    maxListed?: int | PropertyBindingInfo | undefined;
 
     /**
      * Type: sap.ui.core.Popup.Dock SnapPoint of MessageBar over anchorId. Note: Use "begin" or "end" for RTL
@@ -13733,7 +13999,7 @@ declare module "sap/ui/commons/MessageBar" {
      * or the "right" attribute. Therefore a MessageBar will only be extended in one direction, as Messages
      * come in.
      */
-    anchorSnapPoint?: string | PropertyBindingInfo;
+    anchorSnapPoint?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -14120,17 +14386,17 @@ declare module "sap/ui/commons/MessageList" {
     /**
      * Specifies whether or not the MessageList is visible. Invisible controls are not rendered.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * ID of the anchor under which the MessageList will render.
      */
-    anchorId?: string | PropertyBindingInfo;
+    anchorId?: string | PropertyBindingInfo | undefined;
 
     /**
      * Maximum number of messages being display in the List before a scrollbar appears. Value '0' means no limit.
      */
-    maxListed?: string | PropertyBindingInfo;
+    maxListed?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -14315,12 +14581,12 @@ declare module "sap/ui/commons/MessageToast" {
     /**
      * ID of the anchor on top of which the MessageToast is to render.
      */
-    anchorId?: string | PropertyBindingInfo;
+    anchorId?: string | PropertyBindingInfo | undefined;
 
     /**
      * Fired once the `toast()` method is over, so that the MessageBar can "toast" another message if needed.
      */
-    next?: Function;
+    next?: Function | undefined;
   }
 }
 
@@ -14440,19 +14706,19 @@ declare module "sap/ui/commons/Paginator" {
         /**
          * The page which is the current one before the page event is fired (and another page is displayed)
          */
-        srcPage?: int;
+        srcPage?: int | undefined;
         /**
          * The page that shall be displayed next after the page event is fired.
          *
          * The page number is 1-based: the first page has index 1, not 0, to match the number visible in the UI.
          */
-        targetPage?: int;
+        targetPage?: int | undefined;
         /**
          * Provides the values 'First', 'Last', 'Next', 'Previous', 'Goto'. The event parameter informs the application
          * how the user navigated to the new page: Whether the 'Next' button was used, or another button, or whether
          * the page was directly selected
          */
-        type?: PaginatorEvent | keyof typeof PaginatorEvent;
+        type?: PaginatorEvent | keyof typeof PaginatorEvent | undefined;
       }
     ): this;
     /**
@@ -14525,17 +14791,17 @@ declare module "sap/ui/commons/Paginator" {
     /**
      * Represents the current page (first page has index 1, not 0, to match the visual number)
      */
-    currentPage?: int | PropertyBindingInfo;
+    currentPage?: int | PropertyBindingInfo | undefined;
 
     /**
      * Represents the overall number of pages that are embedded into the parent control
      */
-    numberOfPages?: int | PropertyBindingInfo;
+    numberOfPages?: int | PropertyBindingInfo | undefined;
 
     /**
      * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
      */
-    page?: Function;
+    page?: Function | undefined;
   }
 }
 
@@ -14979,82 +15245,82 @@ declare module "sap/ui/commons/Panel" {
     /**
      * Determines the width of the Panel in CSS size.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines the height of the Panel in CSS size. Per default, the height for the Panel is automatically
      * adjusted to the content. Dimension allows to explicitly specify the height.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Represents the state of the of the Panel (enabled or disabled)
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the scroll position from left to right. Value "0" means leftmost position.
      */
-    scrollLeft?: int | PropertyBindingInfo;
+    scrollLeft?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines the scroll position from top to bottom. Value "0" means topmost position.
      */
-    scrollTop?: int | PropertyBindingInfo;
+    scrollTop?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the Panel will have padding. Padding is theme-dependent.
      */
-    applyContentPadding?: boolean | PropertyBindingInfo;
+    applyContentPadding?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the Panel will be initially collapsed. When it is initially collapsed, the contents
      * are not rendered. A collapsed Panel consumes less space than an expanded one.
      */
-    collapsed?: boolean | PropertyBindingInfo;
+    collapsed?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the background color. Note that color settings are theme-dependent.
      */
     areaDesign?:
       | (enums.AreaDesign | keyof typeof enums.AreaDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the Panel can have a box as border. Note that displaying borders is theme-dependent.
      */
     borderDesign?:
       | (enums.BorderDesign | keyof typeof enums.BorderDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the Panel will have an icon for collapsing/expanding, or not.
      */
-    showCollapseIcon?: boolean | PropertyBindingInfo;
+    showCollapseIcon?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the text that is rendered in the Panel header. Can be used to create a simple titles that do
      * not require an icon in the header.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Aggregates the controls that are contained in the Panel. It is recommended to use a layout control as
      * single direct child. When the Panel dimensions are set, the child control may have width and height of
      * 100%. When the dimensions are not set, the child defines the size of the Panel.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Aggregates the title element of the Panel. For text titles only, you alternatively could use setText()
      * which also creates a title in the background.
      */
-    title?: Title;
+    title?: Title | undefined;
 
     /**
      * The buttons that shall be displayed in the Panel header
      */
-    buttons?: Button[] | Button | AggregationBindingInfo;
+    buttons?: Button[] | Button | AggregationBindingInfo | undefined;
   }
 }
 
@@ -15074,6 +15340,13 @@ declare module "sap/ui/commons/PasswordField" {
   export default class PasswordField extends TextField {
     /**
      * Constructor for a new PasswordField.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor
+     * sap.ui.commons.TextField} can be used.
      */
     constructor(
       /**
@@ -15083,6 +15356,13 @@ declare module "sap/ui/commons/PasswordField" {
     );
     /**
      * Constructor for a new PasswordField.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor
+     * sap.ui.commons.TextField} can be used.
      */
     constructor(
       /**
@@ -15349,34 +15629,34 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * Determines whether the control is enabled or not. Disabled controls have different colors, and can not
      * be focused.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the color of the bar which visualizes the progress. Possible values defined in the sap.ui.core.BarColor
      * enumeration are the following: CRITICAL (yellow), NEGATIVE (red), POSITIVE (green), NEUTRAL (blue) (default
      * value).
      */
-    barColor?: (BarColor | keyof typeof BarColor) | PropertyBindingInfo;
+    barColor?: (BarColor | keyof typeof BarColor) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text value that will be displayed in the bar.
      */
-    displayValue?: string | PropertyBindingInfo;
+    displayValue?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the numerical value for the displayed length of the progress bar.
      */
-    percentValue?: int | PropertyBindingInfo;
+    percentValue?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines whether the percent value shall be rendered inside the bar.
      */
-    showValue?: boolean | PropertyBindingInfo;
+    showValue?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
   }
 }
 
@@ -15791,33 +16071,33 @@ declare module "sap/ui/commons/RadioButton" {
     /**
      * Defines the text displayed next to the RadioButton.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Displays the disabled controls in another color, depending on the customer settings.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the user can select the RadioButton.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the select state of the RadioButton.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Enumeration sap.ui.core.ValueState provides state values Error, Success, Warning and None.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * Determines the control width. By default, it depends on the text length. Alternatively, CSS sizes in
      * % or px can be set.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Defines the text direction - options are left-to-right (LTR) and right-to-left (RTL). Alternatively,
@@ -15825,34 +16105,34 @@ declare module "sap/ui/commons/RadioButton" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the name of the RadioButtonGroup, in which the current RadioButton belongs to. You can define
      * a new name for the group. If no new name is specified, the default is sapUiRbDefaultGroup. By default,
      * when one of the RadioButtons in a group is selected, all others are unselected.
      */
-    groupName?: string | PropertyBindingInfo;
+    groupName?: string | PropertyBindingInfo | undefined;
 
     /**
      * Can be used for subsequent actions.
      */
-    key?: string | PropertyBindingInfo;
+    key?: string | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs, which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs, which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Triggers when the user makes a change on the RadioButton.
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -16031,7 +16311,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
         /**
          * Index of the selected RadioButton.
          */
-        selectedIndex?: int;
+        selectedIndex?: int | undefined;
       }
     ): this;
     /**
@@ -16313,19 +16593,19 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     /**
      * Defines the width of the RadioButtonGroup.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines the maximum number of RadioButtons displayed in one line.
      */
-    columns?: int | PropertyBindingInfo;
+    columns?: int | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the user can change the selected value of the RadioButtonGroup. When the property is
      * set to false, the control obtains visual styles different from its visual styles for the normal and the
      * disabled state. Additionally the control is no longer interactive, but can receive focus.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The value state to be displayed for the RadioButton. Possible values are: sap.ui.core.ValueState.Error,
@@ -16333,12 +16613,12 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * Setting this attribute to sap.ui.core.ValueState.Error when the accessibility feature is enabled, sets
      * the value of the invalid property for the whole RadioButtonGroup to true.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * The index of the selected/checked RadioButton.
      */
-    selectedIndex?: int | PropertyBindingInfo;
+    selectedIndex?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.10.3
@@ -16347,27 +16627,27 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * The enabled property of the Item will not be used in this case. If the RadioButtonGroup is enabled, the
      * enabled property of the Item will define if a RadioButton is enabled or not.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The RadioButtons of this RadioButtonGroup.
      */
-    items?: Item[] | Item | AggregationBindingInfo;
+    items?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / IDs, which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs, which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Fires when selection is changed by user interaction.
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -16480,7 +16760,7 @@ declare module "sap/ui/commons/RangeSlider" {
      * **Note:** If the value is not in the valid range (between `min` and `max`) it will be changed to be in
      * the valid range. If it is smaller than `value` it will be set to the same value.
      */
-    value2?: float | PropertyBindingInfo;
+    value2?: float | PropertyBindingInfo | undefined;
   }
 }
 
@@ -16634,7 +16914,7 @@ declare module "sap/ui/commons/RatingIndicator" {
         /**
          * The value of the user rating
          */
-        value?: int;
+        value?: int | undefined;
       }
     ): this;
     /**
@@ -16896,66 +17176,66 @@ declare module "sap/ui/commons/RatingIndicator" {
     /**
      * Determines if the rating symbols can be edited.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the number of displayed rating symbols
      */
-    maxValue?: int | PropertyBindingInfo;
+    maxValue?: int | PropertyBindingInfo | undefined;
 
     /**
      * Determines the currently selected value. If value is set to sap.ui.commons.RatingIndicator.NoValue, the
      * averageValue is shown.
      */
-    value?: float | PropertyBindingInfo;
+    value?: float | PropertyBindingInfo | undefined;
 
     /**
      * Determines the average value. This value is shown if no value is set. This can be used to display an
      * average Value before the user votes.
      */
-    averageValue?: float | PropertyBindingInfo;
+    averageValue?: float | PropertyBindingInfo | undefined;
 
     /**
      * The URI to the image which shall be displayed for all selected rating symbols. Note that when this attribute
      * is used, also the other icon attributes need to be set.
      */
-    iconSelected?: URI | PropertyBindingInfo;
+    iconSelected?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The URI to the image which shall be displayed for all unselected rating symbols. If this attribute is
      * used, a requirement is that all custom icons need to have the same size. Note that when this attribute
      * is used also the other icon attributes need to be set.
      */
-    iconUnselected?: URI | PropertyBindingInfo;
+    iconUnselected?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The URI to the image which is displayed when the mouse hovers onto a rating symbol. If used, a requirement
      * is that all custom icons need to have the same size. Note that when this attribute is used also the other
      * icon attributes need to be set.
      */
-    iconHovered?: URI | PropertyBindingInfo;
+    iconHovered?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines how float values are visualized: Full, Half, Continuous (see enumeration RatingIndicatorVisualMode)
      */
     visualMode?:
       | (RatingIndicatorVisualMode | keyof typeof RatingIndicatorVisualMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * The event is fired when the user has done a rating.
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 
@@ -17096,7 +17376,7 @@ declare module "sap/ui/commons/ResponsiveContainer" {
         /**
          * The current range
          */
-        currentRange?: ResponsiveContainerRange;
+        currentRange?: ResponsiveContainerRange | undefined;
       }
     ): this;
     /**
@@ -17235,12 +17515,12 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     /**
      * The width of the responsive container.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The width of the responsive container.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The ranges defined for this container
@@ -17248,17 +17528,17 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     ranges?:
       | ResponsiveContainerRange[]
       | ResponsiveContainerRange
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * The default content to show, in case the range does not provide content
      */
-    defaultContent?: Control | string;
+    defaultContent?: Control | string | undefined;
 
     /**
      * The event is fired the width of the container reaches a new range.
      */
-    rangeSwitch?: Function;
+    rangeSwitch?: Function | undefined;
   }
 }
 
@@ -17424,22 +17704,22 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
     /**
      * The minimal width for this range to be displayed.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The minimal height for this range to be displayed.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * A key which can be used to identify the range (optional).
      */
-    key?: string | PropertyBindingInfo;
+    key?: string | PropertyBindingInfo | undefined;
 
     /**
      * The content to show for this range (optional).
      */
-    content?: Control | string;
+    content?: Control | string | undefined;
   }
 }
 
@@ -17605,26 +17885,26 @@ declare module "sap/ui/commons/RichTooltip" {
     /**
      * Tool tip title to be displayed in the header.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * If RichTooltip contains an image, this property is used to define the source path.
      */
-    imageSrc?: URI | PropertyBindingInfo;
+    imageSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.1
      *
      * This property is an individual text that will be used instead of the default ValueState text
      */
-    valueStateText?: string | PropertyBindingInfo;
+    valueStateText?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.1
      *
      * This is the alt text for the image
      */
-    imageAltText?: string | PropertyBindingInfo;
+    imageAltText?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -17800,7 +18080,7 @@ declare module "sap/ui/commons/RoadMap" {
         /**
          * ID of the expanded/collapsed step
          */
-        stepId?: string;
+        stepId?: string | undefined;
       }
     ): this;
     /**
@@ -17814,7 +18094,7 @@ declare module "sap/ui/commons/RoadMap" {
         /**
          * ID of the selected step
          */
-        stepId?: string;
+        stepId?: string | undefined;
       }
     ): this;
     /**
@@ -17989,37 +18269,37 @@ declare module "sap/ui/commons/RoadMap" {
     /**
      * Total number of steps to be displayed at once
      */
-    numberOfVisibleSteps?: int | PropertyBindingInfo;
+    numberOfVisibleSteps?: int | PropertyBindingInfo | undefined;
 
     /**
      * ID of the first step to be displayed
      */
-    firstVisibleStep?: string | PropertyBindingInfo;
+    firstVisibleStep?: string | PropertyBindingInfo | undefined;
 
     /**
      * ID of the step which is currently selected
      */
-    selectedStep?: string | PropertyBindingInfo;
+    selectedStep?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the control width in CSS size
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Steps that are composing the RoadMap
      */
-    steps?: RoadMapStep[] | RoadMapStep | AggregationBindingInfo;
+    steps?: RoadMapStep[] | RoadMapStep | AggregationBindingInfo | undefined;
 
     /**
      * Event is fired when the user selects a step.
      */
-    stepSelected?: Function;
+    stepSelected?: Function | undefined;
 
     /**
      * Event is fired when a given step is expanded or collapsed by user.
      */
-    stepExpanded?: Function;
+    stepExpanded?: Function | undefined;
   }
 }
 
@@ -18276,12 +18556,12 @@ declare module "sap/ui/commons/RoadMapStep" {
     /**
      * Label of the step
      */
-    label?: string | PropertyBindingInfo;
+    label?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the user shall be allowed to click a step, or not
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.10.5) - Note that sub steps will not be supported in future. This feature might
@@ -18289,12 +18569,12 @@ declare module "sap/ui/commons/RoadMapStep" {
      *
      * This property is only relevant when using sub steps.
      */
-    expanded?: boolean | PropertyBindingInfo;
+    expanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Step is visible
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
@@ -18303,7 +18583,7 @@ declare module "sap/ui/commons/RoadMapStep" {
      * Sub steps for the current step. Will be displayed only in the case that the step is expanded. Otherwise,
      * special arrows show the availability of sub steps. One level of sub steps supported.
      */
-    subSteps?: RoadMapStep[] | RoadMapStep | AggregationBindingInfo;
+    subSteps?: RoadMapStep[] | RoadMapStep | AggregationBindingInfo | undefined;
   }
 }
 
@@ -18617,7 +18897,7 @@ declare module "sap/ui/commons/RowRepeater" {
         /**
          * The ID of the filter that has just been applied.
          */
-        filterId?: string;
+        filterId?: string | undefined;
       }
     ): this;
     /**
@@ -18631,11 +18911,11 @@ declare module "sap/ui/commons/RowRepeater" {
         /**
          * The value of the currentPage property after the change.
          */
-        currentPage?: int;
+        currentPage?: int | undefined;
         /**
          * The value of the currentPage property before the change.
          */
-        previousPage?: int;
+        previousPage?: int | undefined;
       }
     ): this;
     /**
@@ -18649,11 +18929,11 @@ declare module "sap/ui/commons/RowRepeater" {
         /**
          * The value of the numberOfRows property after the change.
          */
-        numberOfRows?: int;
+        numberOfRows?: int | undefined;
         /**
          * The value of the numberOfRows property before the change.
          */
-        previousNumberOfRows?: int;
+        previousNumberOfRows?: int | undefined;
       }
     ): this;
     /**
@@ -18667,7 +18947,7 @@ declare module "sap/ui/commons/RowRepeater" {
         /**
          * The ID of the sorter that has just been applied.
          */
-        sorterId?: string;
+        sorterId?: string | undefined;
       }
     ): this;
     /**
@@ -19096,81 +19376,81 @@ declare module "sap/ui/commons/RowRepeater" {
     /**
      * Number of rows displayed.
      */
-    numberOfRows?: int | PropertyBindingInfo;
+    numberOfRows?: int | PropertyBindingInfo | undefined;
 
     /**
      * The index of the page currently displayed. The index starts at 1.
      */
-    currentPage?: int | PropertyBindingInfo;
+    currentPage?: int | PropertyBindingInfo | undefined;
 
     /**
      * Step size used to increase the numberOfRows value. This feature is only active if value is greater than
      * 0. This will deactivate the paging feature.
      */
-    showMoreSteps?: int | PropertyBindingInfo;
+    showMoreSteps?: int | PropertyBindingInfo | undefined;
 
     /**
      * Row height adapts to rendered content. If a fixed height is specified the cells have a maximum height
      * and the overflow will be hidden.
      */
-    fixedRowHeight?: CSSSize | PropertyBindingInfo;
+    fixedRowHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The visual design of the control.
      */
     design?:
       | (RowRepeaterDesign | keyof typeof RowRepeaterDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Threshold to fetch the next chunk of data. The minimal threshold can be the numberOfRows of the RR.
      */
-    threshold?: int | PropertyBindingInfo;
+    threshold?: int | PropertyBindingInfo | undefined;
 
     /**
      * Rows to be repeated.
      */
-    rows?: Control[] | Control | AggregationBindingInfo;
+    rows?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Title to be displayed in top left corner. Either text or icon.
      */
-    title?: Title;
+    title?: Title | undefined;
 
     /**
      * Filters to be provided in toolbar.
      */
-    filters?: RowRepeaterFilter[] | RowRepeaterFilter | AggregationBindingInfo;
+    filters?: RowRepeaterFilter[] | RowRepeaterFilter | AggregationBindingInfo | undefined;
 
     /**
      * Sorters to be provided in secondary toolbar.
      */
-    sorters?: RowRepeaterSorter[] | RowRepeaterSorter | AggregationBindingInfo;
+    sorters?: RowRepeaterSorter[] | RowRepeaterSorter | AggregationBindingInfo | undefined;
 
     /**
      * This control is shown, in case there is no data available to be displayed in the RowRepeater.
      */
-    noData?: Control;
+    noData?: Control | undefined;
 
     /**
      * This event is triggered when a filter is set.
      */
-    filter?: Function;
+    filter?: Function | undefined;
 
     /**
      * This event is triggered when a sorting is applied.
      */
-    sort?: Function;
+    sort?: Function | undefined;
 
     /**
      * This event is triggered when paging was executed.
      */
-    page?: Function;
+    page?: Function | undefined;
 
     /**
      * This event is triggered when the number of rows was changed.
      */
-    resize?: Function;
+    resize?: Function | undefined;
   }
 }
 
@@ -19307,17 +19587,17 @@ declare module "sap/ui/commons/RowRepeaterFilter" {
     /**
      * The filter title if needed for display.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * The filter icon if needed for display.
      */
-    icon?: string | PropertyBindingInfo;
+    icon?: string | PropertyBindingInfo | undefined;
 
     /**
      * The set of filter objects.
      */
-    filters?: object | PropertyBindingInfo;
+    filters?: object | PropertyBindingInfo | undefined;
   }
 }
 
@@ -19454,17 +19734,17 @@ declare module "sap/ui/commons/RowRepeaterSorter" {
     /**
      * The sorter title if needed for display.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * The sorter icon if needed for display.
      */
-    icon?: string | PropertyBindingInfo;
+    icon?: string | PropertyBindingInfo | undefined;
 
     /**
      * The sorter object.
      */
-    sorter?: object | PropertyBindingInfo;
+    sorter?: object | PropertyBindingInfo | undefined;
   }
 }
 
@@ -19653,7 +19933,7 @@ declare module "sap/ui/commons/SearchField" {
         /**
          * The search query
          */
-        query?: string;
+        query?: string | undefined;
       }
     ): this;
     /**
@@ -19667,7 +19947,7 @@ declare module "sap/ui/commons/SearchField" {
         /**
          * The value for which suggestions are required.
          */
-        value?: string;
+        value?: string | undefined;
       }
     ): this;
     /**
@@ -20213,128 +20493,128 @@ declare module "sap/ui/commons/SearchField" {
     /**
      * Defines whether a pop up list shall be provided for suggestions
      */
-    enableListSuggest?: boolean | PropertyBindingInfo;
+    enableListSuggest?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the list expander shall be displayed in the case of an enabled list for suggestions.
      * This feature is deactivated on mobile devices.
      */
-    showListExpander?: boolean | PropertyBindingInfo;
+    showListExpander?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the clear functionality shall be active
      */
-    enableClear?: boolean | PropertyBindingInfo;
+    enableClear?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether an additional search button shall be displayed
      */
-    showExternalButton?: boolean | PropertyBindingInfo;
+    showExternalButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.10.3
      *
      * When list suggestion is enabled all suggestions are cached and no suggest event is fired.
      */
-    enableCache?: boolean | PropertyBindingInfo;
+    enableCache?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the search event should also be fired when the SearchField is empty (like a Filter field)
      * and when the clear button (if activated) is pressed.
      */
-    enableFilterMode?: boolean | PropertyBindingInfo;
+    enableFilterMode?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Text that shall be displayed within the search field
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * Disabled fields have different colors, and they can not be focused.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Non-editable controls have different colors, depending on custom settings
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Control width in CSS-size
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Maximum number of characters. Value '0' means the feature is switched off.
      */
-    maxLength?: int | PropertyBindingInfo;
+    maxLength?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32
      *
      * Visualizes warnings or errors related to the input field. Possible values: Warning, Error, Success, None.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.32
      *
      * Placeholder for the input field.
      */
-    placeholder?: string | PropertyBindingInfo;
+    placeholder?: string | PropertyBindingInfo | undefined;
 
     /**
      * Sets the horizontal alignment of the text
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Defines the number of items in the suggestion list that shall be displayed at once. If the overall number
      * of list items is higher than the setting, a scroll bar is provided.
      */
-    visibleItemCount?: int | PropertyBindingInfo;
+    visibleItemCount?: int | PropertyBindingInfo | undefined;
 
     /**
      * Minimum length of the entered string triggering the suggestion list.
      */
-    startSuggestion?: int | PropertyBindingInfo;
+    startSuggestion?: int | PropertyBindingInfo | undefined;
 
     /**
      * Maximum number of suggestion items in the suggestion list.
      */
-    maxSuggestionItems?: int | PropertyBindingInfo;
+    maxSuggestionItems?: int | PropertyBindingInfo | undefined;
 
     /**
      * Maximum number of history items in the suggestion list. 0 displays and stores no history. The history
      * is locally stored on the client. Therefore do not activate this feature when this control handles confidential
      * data.
      */
-    maxHistoryItems?: int | PropertyBindingInfo;
+    maxHistoryItems?: int | PropertyBindingInfo | undefined;
 
     /**
      * Search provider instance which handles the suggestions for this SearchField (e.g. Open Search Protocol).
      */
-    searchProvider?: SearchProvider;
+    searchProvider?: SearchProvider | undefined;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event which is fired when the user triggers a search
      */
-    search?: Function;
+    search?: Function | undefined;
 
     /**
      * Event which is fired when new suggest values are required.
      */
-    suggest?: Function;
+    suggest?: Function | undefined;
   }
 }
 
@@ -20354,6 +20634,13 @@ declare module "sap/ui/commons/SearchProvider" {
   export default class SearchProvider extends OpenSearchProvider {
     /**
      * Constructor for a new SearchProvider.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor
+     * sap.ui.core.search.OpenSearchProvider} can be used.
      */
     constructor(
       /**
@@ -20363,6 +20650,13 @@ declare module "sap/ui/commons/SearchProvider" {
     );
     /**
      * Constructor for a new SearchProvider.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor
+     * sap.ui.core.search.OpenSearchProvider} can be used.
      */
     constructor(
       /**
@@ -20551,7 +20845,7 @@ declare module "sap/ui/commons/SegmentedButton" {
         /**
          * Id of selected ToggleButton
          */
-        selectedButtonId?: string;
+        selectedButtonId?: string | undefined;
       }
     ): this;
     /**
@@ -20666,22 +20960,22 @@ declare module "sap/ui/commons/SegmentedButton" {
     /**
      * enabled
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Buttons
      */
-    buttons?: Button[] | Button | AggregationBindingInfo;
+    buttons?: Button[] | Button | AggregationBindingInfo | undefined;
 
     /**
      * Selected Button
      */
-    selectedButton?: Button | string;
+    selectedButton?: Button | string | undefined;
 
     /**
      * Event fired when button selected
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -20860,7 +21154,7 @@ declare module "sap/ui/commons/Slider" {
         /**
          * Current value of the slider after a change.
          */
-        value?: float;
+        value?: float | undefined;
       }
     ): this;
     /**
@@ -20874,7 +21168,7 @@ declare module "sap/ui/commons/Slider" {
         /**
          * Current value of the slider after a change.
          */
-        value?: float;
+        value?: float | undefined;
       }
     ): this;
     /**
@@ -21252,21 +21546,21 @@ declare module "sap/ui/commons/Slider" {
     /**
      * Width of the horizontal slider.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Minimal value of the slider.
      *
      * **Note:** If `min` is larger than `max` both values will be switched
      */
-    min?: float | PropertyBindingInfo;
+    min?: float | PropertyBindingInfo | undefined;
 
     /**
      * Maximal value of the slider
      *
      * **Note:** If `min` is larger than `max` both values will be switched
      */
-    max?: float | PropertyBindingInfo;
+    max?: float | PropertyBindingInfo | undefined;
 
     /**
      * Current value of the slider. (Position of the grip.)
@@ -21274,75 +21568,75 @@ declare module "sap/ui/commons/Slider" {
      * **Note:** If the value is not in the valid range (between `min` and `max`) it will be changed to be in
      * the valid range.
      */
-    value?: float | PropertyBindingInfo;
+    value?: float | PropertyBindingInfo | undefined;
 
     /**
      * The grip can only be moved in steps of this width.
      */
-    smallStepWidth?: float | PropertyBindingInfo;
+    smallStepWidth?: float | PropertyBindingInfo | undefined;
 
     /**
      * Number of units that are displayed by ticks. The PageUp and PageDown keys navigate according to these
      * units.
      */
-    totalUnits?: int | PropertyBindingInfo;
+    totalUnits?: int | PropertyBindingInfo | undefined;
 
     /**
      * Display step numbers for the ticks on the slider.
      */
-    stepLabels?: boolean | PropertyBindingInfo;
+    stepLabels?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Using the slider interactively requires value "true".
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Labels to be displayed instead of numbers. Attribute totalUnits and label count should be the same
      *
      * **Note:** To show the labels `stepLabels` must be activated.
      */
-    labels?: string[] | PropertyBindingInfo;
+    labels?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.7.1
      *
      * Orientation of slider
      */
-    vertical?: boolean | PropertyBindingInfo;
+    vertical?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.7.1
      *
      * Height of the vertical slider.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Value was changed. This event is fired if the value has changed by a user action.
      */
-    change?: Function;
+    change?: Function | undefined;
 
     /**
      * Value was changed. This event is fired during the mouse move. The normal change event is only fired by
      * mouseup.
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
   }
 }
 
@@ -21740,56 +22034,56 @@ declare module "sap/ui/commons/Splitter" {
      */
     splitterOrientation?:
       | (Orientation | keyof typeof Orientation)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Position of splitter bar in percentage. The default value means that the splitter is positioned in the
      * middle of the area that is available for the splitter.
      */
-    splitterPosition?: Percentage | PropertyBindingInfo;
+    splitterPosition?: Percentage | PropertyBindingInfo | undefined;
 
     /**
      * The minimum size (width for vertical splitter or height for horizontal splitter) of the first Pane
      */
-    minSizeFirstPane?: Percentage | PropertyBindingInfo;
+    minSizeFirstPane?: Percentage | PropertyBindingInfo | undefined;
 
     /**
      * The minimum size (width for vertical splitter or height for horizontal splitter) of the second Pane
      */
-    minSizeSecondPane?: Percentage | PropertyBindingInfo;
+    minSizeSecondPane?: Percentage | PropertyBindingInfo | undefined;
 
     /**
      * The width of the split area in px or in %
      */
-    width?: SplitterSize | PropertyBindingInfo;
+    width?: SplitterSize | PropertyBindingInfo | undefined;
 
     /**
      * The height of the split area in px or in %
      */
-    height?: SplitterSize | PropertyBindingInfo;
+    height?: SplitterSize | PropertyBindingInfo | undefined;
 
     /**
      * Specifies if the browser should display scroll bars or simply cut the content of a splitter pane when
      * the content does not fit into its pane.
      */
-    showScrollBars?: boolean | PropertyBindingInfo;
+    showScrollBars?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * set the splitter bar to be visible or not.
      */
-    splitterBarVisible?: boolean | PropertyBindingInfo;
+    splitterBarVisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Controls inside the first pane. These are the left ones in case of defining a vertical splitter, and
      * the top ones in case of using the horizontal splitter.
      */
-    firstPaneContent?: Control[] | Control | AggregationBindingInfo;
+    firstPaneContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Controls inside the second pane. These are the right ones in case of defining a vertical splitter, and
      * the bottom ones in case of using the horizontal splitter.
      */
-    secondPaneContent?: Control[] | Control | AggregationBindingInfo;
+    secondPaneContent?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -21970,19 +22264,19 @@ declare module "sap/ui/commons/Tab" {
      */
     verticalScrolling?:
       | (Scrolling | keyof typeof Scrolling)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the horizontal scrolling.
      */
     horizontalScrolling?:
       | (Scrolling | keyof typeof Scrolling)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the tab contains a close button.
      */
-    closable?: boolean | PropertyBindingInfo;
+    closable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 0.17.0) - This property is not used. To identify the selected tab in a TabStrip selectedIndex
@@ -21990,7 +22284,7 @@ declare module "sap/ui/commons/Tab" {
      *
      * Defines whether the tab is the active one.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -22193,7 +22487,7 @@ declare module "sap/ui/commons/TabStrip" {
         /**
          * The index of the closed tab.
          */
-        index?: int;
+        index?: int | undefined;
       }
     ): this;
     /**
@@ -22207,7 +22501,7 @@ declare module "sap/ui/commons/TabStrip" {
         /**
          * The index of the selected tab.
          */
-        index?: int;
+        index?: int | undefined;
       }
     ): this;
     /**
@@ -22384,37 +22678,37 @@ declare module "sap/ui/commons/TabStrip" {
     /**
      * Specifies the height of the tab bar and content area.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the width of the bar and content area.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the index of the currently selected tab.
      */
-    selectedIndex?: int | PropertyBindingInfo;
+    selectedIndex?: int | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether tab reordering is enabled.
      */
-    enableTabReordering?: boolean | PropertyBindingInfo;
+    enableTabReordering?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The tabs contained in the TabStrip.
      */
-    tabs?: Tab[] | Tab | AggregationBindingInfo;
+    tabs?: Tab[] | Tab | AggregationBindingInfo | undefined;
 
     /**
      * Fires when the user selects a tab.
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * Fires when the user closes a tab.
      */
-    close?: Function;
+    close?: Function | undefined;
   }
 }
 
@@ -22642,40 +22936,40 @@ declare module "sap/ui/commons/TextArea" {
     /**
      * Height of text field. When it is set (CSS-size such as % or px), this is the exact size.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Number of Columns. Cols means number of characters per row. This proprty is only used if Width is not
      * used.
      */
-    cols?: int | PropertyBindingInfo;
+    cols?: int | PropertyBindingInfo | undefined;
 
     /**
      * Number of Rows. This proprty is only used if Height is not used.
      */
-    rows?: int | PropertyBindingInfo;
+    rows?: int | PropertyBindingInfo | undefined;
 
     /**
      * Text wrapping. Possible values are: Soft, Hard, Off.
      */
-    wrapping?: (Wrapping | keyof typeof Wrapping) | PropertyBindingInfo;
+    wrapping?: (Wrapping | keyof typeof Wrapping) | PropertyBindingInfo | undefined;
 
     /**
      * Position of cursor, e.g., to let the user re-start typing at the same position as before the server roundtrip
      */
-    cursorPos?: int | PropertyBindingInfo;
+    cursorPos?: int | PropertyBindingInfo | undefined;
 
     /**
      * text which appears, in case quick-help is switched on
      */
-    explanation?: string | PropertyBindingInfo;
+    explanation?: string | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.5.2) - Please use association AriaLabelledBy instead.
      *
      * ID of label control
      */
-    labeledBy?: string | PropertyBindingInfo;
+    labeledBy?: string | PropertyBindingInfo | undefined;
   }
 }
 
@@ -22892,7 +23186,7 @@ declare module "sap/ui/commons/TextField" {
         /**
          * The new / changed value of the `TextField`.
          */
-        newValue?: string;
+        newValue?: string | undefined;
       }
     ): this;
     /**
@@ -22906,7 +23200,7 @@ declare module "sap/ui/commons/TextField" {
         /**
          * Current visible value of the `TextField`.
          */
-        liveValue?: string;
+        liveValue?: string | undefined;
       }
     ): this;
     /**
@@ -23407,109 +23701,109 @@ declare module "sap/ui/commons/TextField" {
     /**
      * Text inside the `TextField`
      */
-    value?: string | PropertyBindingInfo;
+    value?: string | PropertyBindingInfo | undefined;
 
     /**
      * Direction of the text. Possible values: "rtl", "ltr".
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
      * it will visualize the requires state too.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
      * the text field length defines the width.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Maximum number of characters. Value '0' means the feature is switched off.
      */
-    maxLength?: int | PropertyBindingInfo;
+    maxLength?: int | PropertyBindingInfo | undefined;
 
     /**
      * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * Sets the horizontal alignment of the text.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * State of the Input Method Editor (IME).
      */
-    imeMode?: (ImeMode | keyof typeof ImeMode) | PropertyBindingInfo;
+    imeMode?: (ImeMode | keyof typeof ImeMode) | PropertyBindingInfo | undefined;
 
     /**
      * Font type. valid values are Standard and Monospace.
      */
-    design?: (Design | keyof typeof Design) | PropertyBindingInfo;
+    design?: (Design | keyof typeof Design) | PropertyBindingInfo | undefined;
 
     /**
      * Unique identifier used for help service.
      */
-    helpId?: string | PropertyBindingInfo;
+    helpId?: string | PropertyBindingInfo | undefined;
 
     /**
      * Accessibility role for the text field.
      */
     accessibleRole?:
       | (AccessibleRole | keyof typeof AccessibleRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
      * 'submit').
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.14.0
      *
      * Placeholder for the text field.
      */
-    placeholder?: string | PropertyBindingInfo;
+    placeholder?: string | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
      * key is pressed.
      */
-    change?: Function;
+    change?: Function | undefined;
 
     /**
      * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
      * This is not the content of the value property. The value property is only updated by ENTER and by leaving
      * the control.
      */
-    liveChange?: Function;
+    liveChange?: Function | undefined;
   }
 }
 
@@ -23908,7 +24202,7 @@ declare module "sap/ui/commons/TextView" {
     /**
      * Text to be displayed.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the text directionality. Available options are LTR and RTL. Alternatively, the control can
@@ -23916,64 +24210,64 @@ declare module "sap/ui/commons/TextView" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Switches the enabled state of the control. When the control is disabled, it is greyed out and no longer
      * focusable.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Unique identifier used for help services.
      */
-    helpId?: string | PropertyBindingInfo;
+    helpId?: string | PropertyBindingInfo | undefined;
 
     /**
      * The ARIA role for the control.
      */
     accessibleRole?:
       | (AccessibleRole | keyof typeof AccessibleRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the visual appearance of the control.
      */
     design?:
       | (TextViewDesign | keyof typeof TextViewDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Disabled automatic wrapping of the text.
      */
-    wrapping?: boolean | PropertyBindingInfo;
+    wrapping?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Semantic color of the text View
      */
     semanticColor?:
       | (TextViewColor | keyof typeof TextViewColor)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Sets the horizontal alignment of the text.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo | undefined;
 
     /**
      * Width of the TextView
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
   }
 }
 
@@ -23995,6 +24289,13 @@ declare module "sap/ui/commons/Title" {
   export default class Title extends Title1 {
     /**
      * Constructor for a new Title.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor
+     * sap.ui.core.Title} can be used.
      */
     constructor(
       /**
@@ -24004,6 +24305,13 @@ declare module "sap/ui/commons/Title" {
     );
     /**
      * Constructor for a new Title.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor
+     * sap.ui.core.Title} can be used.
      */
     constructor(
       /**
@@ -24173,7 +24481,7 @@ declare module "sap/ui/commons/ToggleButton" {
     /**
      * The property is “true” when the control is toggled. The default state of this property is "false".
      */
-    pressed?: boolean | PropertyBindingInfo;
+    pressed?: boolean | PropertyBindingInfo | undefined;
   }
 }
 
@@ -24454,28 +24762,28 @@ declare module "sap/ui/commons/Toolbar" {
      * When there is not enough space for the toolbar to display all items, the rightmost items are overflowing
      * into a drop-down menu.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Design settings are theme-dependent.
      */
-    design?: (ToolbarDesign | keyof typeof ToolbarDesign) | PropertyBindingInfo;
+    design?: (ToolbarDesign | keyof typeof ToolbarDesign) | PropertyBindingInfo | undefined;
 
     /**
      * Per default, tool bars have the stand alone status. Alternatively, they can be nested in other controls
      * and then inherit the design from their parent control.
      */
-    standalone?: boolean | PropertyBindingInfo;
+    standalone?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Aggregating the tool bar items.
      */
-    items?: ToolbarItem[] | ToolbarItem | AggregationBindingInfo;
+    items?: ToolbarItem[] | ToolbarItem | AggregationBindingInfo | undefined;
 
     /**
      * Aggregating the right side tool bar items.
      */
-    rightItems?: ToolbarItem[] | ToolbarItem | AggregationBindingInfo;
+    rightItems?: ToolbarItem[] | ToolbarItem | AggregationBindingInfo | undefined;
   }
 }
 
@@ -24602,14 +24910,14 @@ declare module "sap/ui/commons/ToolbarSeparator" {
     /**
      * When set to false, there is no visual indication of separation by a vertical line but by a wider space.
      */
-    displayVisualSeparator?: boolean | PropertyBindingInfo;
+    displayVisualSeparator?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Design of the Separator.
      */
     design?:
       | (ToolbarSeparatorDesign | keyof typeof ToolbarSeparatorDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
   }
 }
 
@@ -24814,11 +25122,11 @@ declare module "sap/ui/commons/Tree" {
         /**
          * The node which has been selected.
          */
-        node?: TreeNode;
+        node?: TreeNode | undefined;
         /**
          * The binding context of the selected node.
          */
-        nodeContext?: object;
+        nodeContext?: object | undefined;
       }
     ): boolean;
     /**
@@ -24832,11 +25140,11 @@ declare module "sap/ui/commons/Tree" {
         /**
          * The nodes which has been selected.
          */
-        nodes?: TreeNode[];
+        nodes?: TreeNode[] | undefined;
         /**
          * The binding context of the selected nodes.
          */
-        nodeContexts?: object[];
+        nodeContexts?: object[] | undefined;
       }
     ): this;
     /**
@@ -25125,60 +25433,60 @@ declare module "sap/ui/commons/Tree" {
     /**
      * Tree title
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Tree width
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Tree height
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Tree Header is display. If false, the tree will be in a transparent mode
      */
-    showHeader?: boolean | PropertyBindingInfo;
+    showHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Show Header icons (e.g. Expand/Collapse all). Only consider if showHeader is true
      */
-    showHeaderIcons?: boolean | PropertyBindingInfo;
+    showHeaderIcons?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Display horizontal scrollbar. If false, the overflow content will be hidden
      */
-    showHorizontalScrollbar?: boolean | PropertyBindingInfo;
+    showHorizontalScrollbar?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Minimal width for the Tree. Can be useful when, for example, the width is specified in percentage, to
      * avoid the tree to become too narrow when container is resize
      */
-    minWidth?: CSSSize | PropertyBindingInfo;
+    minWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Selection mode of the Tree.
      */
     selectionMode?:
       | (TreeSelectionMode | keyof typeof TreeSelectionMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * First level nodes
      */
-    nodes?: TreeNode[] | TreeNode | AggregationBindingInfo;
+    nodes?: TreeNode[] | TreeNode | AggregationBindingInfo | undefined;
 
     /**
      * Event is fired when a tree node is selected.
      */
-    select?: Function;
+    select?: Function | undefined;
 
     /**
      * fired when the selection of the tree has been changed
      */
-    selectionChange?: Function;
+    selectionChange?: Function | undefined;
   }
 }
 
@@ -25409,7 +25717,7 @@ declare module "sap/ui/commons/TreeNode" {
         /**
          * Node has been opened if true
          */
-        opened?: boolean;
+        opened?: boolean | undefined;
       }
     ): this;
     /**
@@ -25667,57 +25975,57 @@ declare module "sap/ui/commons/TreeNode" {
     /**
      * Node text
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Node is expanded
      */
-    expanded?: boolean | PropertyBindingInfo;
+    expanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Should the node has an expander.
      */
-    hasExpander?: boolean | PropertyBindingInfo;
+    hasExpander?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Icon to display in front of the node
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Node is selected
      */
-    isSelected?: boolean | PropertyBindingInfo;
+    isSelected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The node is selectable. If true, clicking on the node text triggers "selected" event
      */
-    selectable?: boolean | PropertyBindingInfo;
+    selectable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Subnodes for the current node
      */
-    nodes?: TreeNode[] | TreeNode | AggregationBindingInfo;
+    nodes?: TreeNode[] | TreeNode | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Node state has changed.
      */
-    toggleOpenState?: Function;
+    toggleOpenState?: Function | undefined;
 
     /**
      * Node is selected
      */
-    selected?: Function;
+    selected?: Function | undefined;
   }
 }
 
@@ -25843,7 +26151,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
         /**
          * Checks whether the box is flagged or not flagged.
          */
-        selectionState?: string;
+        selectionState?: string | undefined;
       }
     ): this;
     /**
@@ -26046,33 +26354,33 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      */
     selectionState?:
       | (TriStateCheckBoxState | keyof typeof TriStateCheckBoxState)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Defines the text displayed next to the check box
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Using this property, the control could be disabled, if required.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the user shall be allowed to flag the check box
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Accepts the core enumeration ValueState.type that supports 'None', 'Error', 'Warning' and 'Success'.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
 
     /**
      * The width can be set to an absolute value. If no value is set, the control width results from the text
      * length.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * The value can be set to LTR or RTL. Otherwise, the control inherits the text direction from its parent
@@ -26080,12 +26388,12 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
      */
-    change?: Function;
+    change?: Function | undefined;
   }
 }
 
@@ -26310,24 +26618,24 @@ declare module "sap/ui/commons/ValueHelpField" {
      * URL of the standard icon for the value help. If no parameter is supplied the default icon image will
      * be shown. This can be a URI to an image or an icon font URI.
      */
-    iconURL?: URI | PropertyBindingInfo;
+    iconURL?: URI | PropertyBindingInfo | undefined;
 
     /**
      * URL of the icon for the value help when hovered. If no parameter is supplied the standard icon image
      * will be shown. If an icon font icon is used, this property is ignored.
      */
-    iconHoverURL?: URI | PropertyBindingInfo;
+    iconHoverURL?: URI | PropertyBindingInfo | undefined;
 
     /**
      * URL of the icon for the value help when disabled. If no parameter is supplied the default icon image
      * will be shown. If an icon font icon is used, this property is ignored.
      */
-    iconDisabledURL?: URI | PropertyBindingInfo;
+    iconDisabledURL?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Event which is fired when the ValueHelp is requested.
      */
-    valueHelpRequest?: Function;
+    valueHelpRequest?: Function | undefined;
   }
 }
 

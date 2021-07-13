@@ -37,8 +37,14 @@ declare module '.' {
     }
 
     interface RootOptions {
-        hydrate?: boolean;
-        hydrationOptions?: HydrationOptions;
+        /**
+         * @deprecated Use `hydrateRoot(container)` instead
+         */
+        hydrate?: boolean | undefined;
+        /**
+         * @deprecated Use `hydrateRoot(container, hydrateOptions)` instead
+         */
+        hydrationOptions?: HydrationOptions | undefined;
     }
 
     interface Root {
@@ -52,4 +58,6 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#createroot
      */
     function createRoot(container: Element | Document | DocumentFragment | Comment, options?: RootOptions): Root;
+
+    function hydrateRoot(container: Element | Document | DocumentFragment | Comment, options?: HydrationOptions): Root;
 }

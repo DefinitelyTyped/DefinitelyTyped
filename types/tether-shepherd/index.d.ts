@@ -15,8 +15,8 @@ declare namespace TetherShepherd {
     }
 
     interface IShepherdTourOptions {
-        steps?: IShepherdTourStep[];
-        defaults?: IShepherdTourStepOptions;
+        steps?: IShepherdTourStep[] | undefined;
+        defaults?: IShepherdTourStepOptions | undefined;
     }
 
     interface IShepherdTour {
@@ -140,16 +140,16 @@ declare namespace TetherShepherd {
 
     interface IShepherdTourStepOptions {
         text?: any;
-        title?: string;
+        title?: string | undefined;
         attachTo?: any;
         beforeShowPromise?: any;
-        classes?: string;
-        buttons?: IShepherdTourButton[];
+        classes?: string | undefined;
+        buttons?: IShepherdTourButton[] | undefined;
         advanceOn?: any;
-        showCancelLink?: boolean;
-        scrollTo?: boolean;
+        showCancelLink?: boolean | undefined;
+        scrollTo?: boolean | undefined;
         when?: any;
-        showOn?: () => boolean;
+        showOn?: (() => boolean) | undefined;
 
         // TODO: Tie this in with the tether.d.ts
         tetherOptions?: any;
@@ -157,9 +157,9 @@ declare namespace TetherShepherd {
 
     interface IShepherdTourButton {
         text: string;
-        classes?: string;
-        action?: Function;
-        events?: IShepherdTourButtonEventHash;
+        classes?: string | undefined;
+        action?: Function | undefined;
+        events?: IShepherdTourButtonEventHash | undefined;
     }
 
     interface IShepherdTourButtonEventHash {

@@ -20,57 +20,57 @@ declare namespace layui {
      */
     interface LayerOptions {
         // 基础参数  https://www.layui.com/doc/modules/layer.html#base
-        type?: number;
-        title?: string | boolean | string[];
-        content?: string | HTMLElement | JQuery | string[];
-        skin?: string;
-        area?: string | string[];
-        offset?: number | string | string[];
-        icon?: number;
-        btn?: string | string[];
-        btnAlign?: string;
-        closeBtn?: string | boolean | number;
-        shade?: string | boolean | number | [number, string];
-        shadeClose?: boolean;
-        time?: number;
-        id?: string;
-        anim?: number;
-        isOutAnim?: boolean;
-        maxmin?: boolean;
-        fixed?: boolean;
-        resize?: boolean;
-        resizing?: (layero: JQuery) => any;
-        scrollbar?: boolean;
-        maxWidth?: number;
-        zIndex?: number;
-        move?: string | boolean | HTMLElement;
+        type?: number | undefined;
+        title?: string | boolean | string[] | undefined;
+        content?: string | HTMLElement | JQuery | string[] | undefined;
+        skin?: string | undefined;
+        area?: string | string[] | undefined;
+        offset?: number | string | string[] | undefined;
+        icon?: number | undefined;
+        btn?: string | string[] | undefined;
+        btnAlign?: string | undefined;
+        closeBtn?: string | boolean | number | undefined;
+        shade?: string | boolean | number | [number, string] | undefined;
+        shadeClose?: boolean | undefined;
+        time?: number | undefined;
+        id?: string | undefined;
+        anim?: number | undefined;
+        isOutAnim?: boolean | undefined;
+        maxmin?: boolean | undefined;
+        fixed?: boolean | undefined;
+        resize?: boolean | undefined;
+        resizing?: ((layero: JQuery) => any) | undefined;
+        scrollbar?: boolean | undefined;
+        maxWidth?: number | undefined;
+        zIndex?: number | undefined;
+        move?: string | boolean | HTMLElement | undefined;
         // moveType?: boolean; //固定1，不能修改
-        moveOut?: boolean;
-        moveEnd?: null | ((layero: JQuery) => any);
-        tips?: number | [number, string];
-        tipsMore?: boolean;
-        success?: LayerCallbackSuccess;
-        yes?: LayerCallbackYes;
-        btn2?: LayerCallbackYes;
-        btn3?: LayerCallbackYes;
-        cancel?: LayerCallbackCancel;
-        end?: LayerCallbackEnd;
-        full?: LayerCallbackFull;
-        min?: LayerCallbackMin;
-        restore?: LayerCallbackRestore;
+        moveOut?: boolean | undefined;
+        moveEnd?: null | ((layero: JQuery) => any) | undefined;
+        tips?: number | [number, string] | undefined;
+        tipsMore?: boolean | undefined;
+        success?: LayerCallbackSuccess | undefined;
+        yes?: LayerCallbackYes | undefined;
+        btn2?: LayerCallbackYes | undefined;
+        btn3?: LayerCallbackYes | undefined;
+        cancel?: LayerCallbackCancel | undefined;
+        end?: LayerCallbackEnd | undefined;
+        full?: LayerCallbackFull | undefined;
+        min?: LayerCallbackMin | undefined;
+        restore?: LayerCallbackRestore | undefined;
     }
 
     interface LayerConfigOptions extends LayerOptions {
         // 初始化全局配置
-        path?: string;
-        extend?: string[];
+        path?: string | undefined;
+        extend?: string[] | undefined;
     }
 
     interface LayerPromptOptions extends LayerOptions {
-        formType?: number;
-        value?: string;
-        maxlength?: number;
-        area?: string[];
+        formType?: number | undefined;
+        value?: string | undefined;
+        maxlength?: number | undefined;
+        area?: string[] | undefined;
     }
 
     interface LayerTabOptions extends LayerOptions {
@@ -79,19 +79,19 @@ declare namespace layui {
 
     interface LayerPhotosOptions extends LayerOptions {
         photos: LayerPhotosData | string;
-        tab?: (pic: LayerPhotosDataItem, layero: JQuery) => void;
+        tab?: ((pic: LayerPhotosDataItem, layero: JQuery) => void) | undefined;
     }
 
     interface LayerPhotosData {
         title: string;
         id: number;
-        start?: number;
+        start?: number | undefined;
         data: LayerPhotosDataItem[];
     }
 
     interface LayerPhotosDataItem {
         alt: string;
-        pid?: number;
+        pid?: number | undefined;
         src: string;
         thumb: string;
     }
@@ -250,20 +250,20 @@ declare namespace layui {
 
     interface PageOptions {
         // id选择器 不加#
-        elem?: string | HTMLElement;
-        count?: number;
-        limit?: number;
-        limits?: number[];
-        curr?: number;
-        groups?: number;
-        prev?: string;
-        next?: string;
-        first?: string;
-        last?: string;
-        layout?: Array<'count' | 'prev' | 'page' | 'next' | 'limit' | 'skip'>;
-        theme?: string;
-        hash?: string | boolean;
-        jump?: (obj: PageOptions, first: boolean) => void;
+        elem?: string | HTMLElement | undefined;
+        count?: number | undefined;
+        limit?: number | undefined;
+        limits?: number[] | undefined;
+        curr?: number | undefined;
+        groups?: number | undefined;
+        prev?: string | undefined;
+        next?: string | undefined;
+        first?: string | undefined;
+        last?: string | undefined;
+        layout?: Array<'count' | 'prev' | 'page' | 'next' | 'limit' | 'skip'> | undefined;
+        theme?: string | undefined;
+        hash?: string | boolean | undefined;
+        jump?: ((obj: PageOptions, first: boolean) => void) | undefined;
     }
 
     interface Laypage {
@@ -271,36 +271,36 @@ declare namespace layui {
     }
 
     interface DateParam {
-        year?: number;
-        month?: number;
-        date?: number;
-        hours?: number;
-        minutes?: number;
-        seconds?: number;
+        year?: number | undefined;
+        month?: number | undefined;
+        date?: number | undefined;
+        hours?: number | undefined;
+        minutes?: number | undefined;
+        seconds?: number | undefined;
     }
 
     interface DateOption {
-        elem?: string | HTMLElement;
-        type?: 'year' | 'month' | 'date' | 'time' | 'datetime';
-        range?: string | boolean;
-        format?: string;
-        value?: string | Date;
-        isInitValue?: boolean;
-        min?: string | number;
-        max?: string | number;
-        trigger?: string;
-        show?: boolean;
-        position?: 'abolute' | 'fixed' | 'static';
-        zIndex?: number;
-        showBottom?: boolean;
-        btns?: Array<'clear' | 'now' | 'confirm'>;
-        lang?: 'cn' | 'en';
-        theme?: string | 'default' | 'molv' | 'grid';
-        calendar?: boolean;
-        mark?: object;
-        ready?: (date: DateParam) => void;
-        change?: (value: string, date: DateParam, endDate: DateParam) => void;
-        done?: (value: string, date: DateParam, endDate: DateParam) => void;
+        elem?: string | HTMLElement | undefined;
+        type?: 'year' | 'month' | 'date' | 'time' | 'datetime' | undefined;
+        range?: string | boolean | undefined;
+        format?: string | undefined;
+        value?: string | Date | undefined;
+        isInitValue?: boolean | undefined;
+        min?: string | number | undefined;
+        max?: string | number | undefined;
+        trigger?: string | undefined;
+        show?: boolean | undefined;
+        position?: 'abolute' | 'fixed' | 'static' | undefined;
+        zIndex?: number | undefined;
+        showBottom?: boolean | undefined;
+        btns?: Array<'clear' | 'now' | 'confirm'> | undefined;
+        lang?: 'cn' | 'en' | undefined;
+        theme?: string | 'default' | 'molv' | 'grid' | undefined;
+        calendar?: boolean | undefined;
+        mark?: object | undefined;
+        ready?: ((date: DateParam) => void) | undefined;
+        change?: ((value: string, date: DateParam, endDate: DateParam) => void) | undefined;
+        done?: ((value: string, date: DateParam, endDate: DateParam) => void) | undefined;
     }
 
     /**
@@ -329,22 +329,22 @@ declare namespace layui {
         }
     */
     interface CarouselOption {
-        elem?: string | HTMLElement;
-        width?: string;
-        height?: string;
-        full?: boolean;
-        anim?: 'default' | 'updown' | 'fade';
-        autoplay?: boolean;
-        interval?: number;
-        index?: number;
-        arrow?: 'hover' | 'always' | 'none';
-        indicator?: 'insider' | 'outsider' | 'none';
-        trigger?: string;
+        elem?: string | HTMLElement | undefined;
+        width?: string | undefined;
+        height?: string | undefined;
+        full?: boolean | undefined;
+        anim?: 'default' | 'updown' | 'fade' | undefined;
+        autoplay?: boolean | undefined;
+        interval?: number | undefined;
+        index?: number | undefined;
+        arrow?: 'hover' | 'always' | 'none' | undefined;
+        indicator?: 'insider' | 'outsider' | 'none' | undefined;
+        trigger?: string | undefined;
     }
 
     interface CarouselItem {
-        index?: number;
-        prevIndex?: number;
+        index?: number | undefined;
+        prevIndex?: number | undefined;
         item?: any;
     }
 
@@ -357,27 +357,27 @@ declare namespace layui {
     }
 
     interface TableColumnOption {
-        checkbox?: boolean;
-        field?: string;
-        title?: string;
-        width?: string | number;
-        minWidth?: number;
-        type?: 'normal' | 'checkbox' | 'radio' | 'space' | 'numbers';
-        LAY_CHECKED?: boolean;
-        fixed?: 'left' | 'right';
-        hide?: boolean;
-        totalRow?: boolean | { score: number | string; experience: string };
-        totalRowText?: string;
-        sort?: boolean;
-        unresize?: boolean;
-        edit?: 'text' | string;
-        event?: string;
-        style?: string;
-        align?: 'left' | 'center' | 'right';
-        colspan?: number;
-        rowspan?: number;
-        templet?: string | ((d: any) => string);
-        toolbar?: string; // #toolbar 或者html且必须需有标签,例如'<b>{{d.city}}</b>'  因为源码中使用了 $(toolbar).html
+        checkbox?: boolean | undefined;
+        field?: string | undefined;
+        title?: string | undefined;
+        width?: string | number | undefined;
+        minWidth?: number | undefined;
+        type?: 'normal' | 'checkbox' | 'radio' | 'space' | 'numbers' | undefined;
+        LAY_CHECKED?: boolean | undefined;
+        fixed?: 'left' | 'right' | undefined;
+        hide?: boolean | undefined;
+        totalRow?: boolean | { score: number | string; experience: string } | undefined;
+        totalRowText?: string | undefined;
+        sort?: boolean | undefined;
+        unresize?: boolean | undefined;
+        edit?: 'text' | string | undefined;
+        event?: string | undefined;
+        style?: string | undefined;
+        align?: 'left' | 'center' | 'right' | undefined;
+        colspan?: number | undefined;
+        rowspan?: number | undefined;
+        templet?: string | ((d: any) => string) | undefined;
+        toolbar?: string | undefined; // #toolbar 或者html且必须需有标签,例如'<b>{{d.city}}</b>'  因为源码中使用了 $(toolbar).html
     }
 
     interface TableRequestRename {
@@ -427,38 +427,38 @@ declare namespace layui {
 
     interface TableOption {
         // 基础参数
-        elem?: string | HTMLElement;
-        cols?: TableColumnOption[][];
-        url?: string | null;
-        toolbar?: string | HTMLElement | boolean;
-        defaultToolbar?: Array<string | { title: string; layEvent: string; icon: string }>;
-        height?: number | string; // 'full-100'
-        width?: number | string;
-        cellMinWidth?: number;
-        done?: (res: object, curr?: number, count?: number) => void;
-        data?: object[];
-        totalRow?: boolean;
-        page?: boolean | PageOptions; // PageOptions时排除jump和elem
-        limit?: number;
-        limits?: number[];
-        loading?: boolean;
-        title?: string;
-        text?: { none: string };
-        autoSort?: boolean;
-        initSort?: { field: string; type?: 'null' | 'desc' | 'asc' };
-        id?: string;
-        skin?: 'line' | 'row' | 'nob';
-        even?: boolean;
-        size?: 'sm' | 'lg';
+        elem?: string | HTMLElement | undefined;
+        cols?: TableColumnOption[][] | undefined;
+        url?: string | null | undefined;
+        toolbar?: string | HTMLElement | boolean | undefined;
+        defaultToolbar?: Array<string | { title: string; layEvent: string; icon: string }> | undefined;
+        height?: number | string | undefined; // 'full-100'
+        width?: number | string | undefined;
+        cellMinWidth?: number | undefined;
+        done?: ((res: object, curr?: number, count?: number) => void) | undefined;
+        data?: object[] | undefined;
+        totalRow?: boolean | undefined;
+        page?: boolean | PageOptions | undefined; // PageOptions时排除jump和elem
+        limit?: number | undefined;
+        limits?: number[] | undefined;
+        loading?: boolean | undefined;
+        title?: string | undefined;
+        text?: { none: string } | undefined;
+        autoSort?: boolean | undefined;
+        initSort?: { field: string; type?: 'null' | 'desc' | 'asc' | undefined } | undefined;
+        id?: string | undefined;
+        skin?: 'line' | 'row' | 'nob' | undefined;
+        even?: boolean | undefined;
+        size?: 'sm' | 'lg' | undefined;
         // 异步数据接口
-        method?: string;
-        where?: object | null;
-        contentType?: string;
-        headers?: object;
-        parseData?: (res: object) => TableResponse;
+        method?: string | undefined;
+        where?: object | null | undefined;
+        contentType?: string | undefined;
+        headers?: object | undefined;
+        parseData?: ((res: object) => TableResponse) | undefined;
 
-        request?: TableRequestRename;
-        response?: TableResponseRename;
+        request?: TableRequestRename | undefined;
+        response?: TableResponseRename | undefined;
     }
 
     // 以下TableOn 开头interface，在调用地方使用
@@ -543,20 +543,20 @@ declare namespace layui {
         exportFile(id: string, data: any, type?: string): void; // type默认csv
     }
     interface UploadOption {
-        elem?: string | HTMLElement;
-        url?: string;
-        data?: object;
-        header?: object;
-        accept?: 'images' | 'file' | 'video' | 'audio';
-        acceptMime?: string;
-        exts?: string;
-        auto?: boolean;
-        bindAction?: string | HTMLElement;
-        field?: string;
-        size?: number;
-        multiple?: boolean;
-        number?: number;
-        drag?: boolean;
+        elem?: string | HTMLElement | undefined;
+        url?: string | undefined;
+        data?: object | undefined;
+        header?: object | undefined;
+        accept?: 'images' | 'file' | 'video' | 'audio' | undefined;
+        acceptMime?: string | undefined;
+        exts?: string | undefined;
+        auto?: boolean | undefined;
+        bindAction?: string | HTMLElement | undefined;
+        field?: string | undefined;
+        size?: number | undefined;
+        multiple?: boolean | undefined;
+        number?: number | undefined;
+        drag?: boolean | undefined;
         choose?(obj: object): void;
         before?(obj: object): void;
         done?(res: object, index: number, upload: () => void): void;
@@ -569,13 +569,13 @@ declare namespace layui {
     }
 
     interface RateOption {
-        elem?: string | HTMLElement;
-        length?: number;
-        value?: number;
-        theme?: string;
-        half?: boolean;
-        text?: boolean;
-        readonly?: boolean;
+        elem?: string | HTMLElement | undefined;
+        length?: number | undefined;
+        value?: number | undefined;
+        theme?: string | undefined;
+        half?: boolean | undefined;
+        text?: boolean | undefined;
+        readonly?: boolean | undefined;
         setText?(value: number): void;
         choose?(value: number): void;
     }
@@ -585,13 +585,13 @@ declare namespace layui {
     }
 
     interface FlowOption {
-        elem?: string | HTMLElement;
-        scrollElem?: string | HTMLElement;
-        isAuto?: boolean;
-        end?: string;
-        isLazyimg?: boolean;
-        mb?: number;
-        done?: (page: number, next: (html: string, isMore: boolean) => void) => void;
+        elem?: string | HTMLElement | undefined;
+        scrollElem?: string | HTMLElement | undefined;
+        isAuto?: boolean | undefined;
+        end?: string | undefined;
+        isLazyimg?: boolean | undefined;
+        mb?: number | undefined;
+        done?: ((page: number, next: (html: string, isMore: boolean) => void) => void) | undefined;
     }
 
     interface Flow {
@@ -600,12 +600,12 @@ declare namespace layui {
     }
 
     interface UtilBarOption {
-        bar1?: boolean | string;
-        bar2?: boolean | string;
-        bgcolor?: string;
-        showHeight?: number;
-        css?: { [key: string]: string | number };
-        click?: (type: string) => void;
+        bar1?: boolean | string | undefined;
+        bar2?: boolean | string | undefined;
+        bgcolor?: string | undefined;
+        showHeight?: number | undefined;
+        css?: { [key: string]: string | number } | undefined;
+        click?: ((type: string) => void) | undefined;
     }
 
     interface Util {
@@ -629,42 +629,42 @@ declare namespace layui {
     }
 
     interface CodeOption {
-        elem?: string;
-        title?: string;
-        height?: string;
-        encode?: boolean;
-        skin?: string;
-        about?: boolean;
+        elem?: string | undefined;
+        title?: string | undefined;
+        height?: string | undefined;
+        encode?: boolean | undefined;
+        skin?: string | undefined;
+        about?: boolean | undefined;
     }
 
     interface TreeOption {
-        elem?: string;
-        skin?: string;
-        href?: string;
-        target?: string;
-        nodes?: TreeNode | TreeNode[];
-        click?: (node: TreeNode) => void;
+        elem?: string | undefined;
+        skin?: string | undefined;
+        href?: string | undefined;
+        target?: string | undefined;
+        nodes?: TreeNode | TreeNode[] | undefined;
+        click?: ((node: TreeNode) => void) | undefined;
     }
 
     interface TreeNode {
-        name?: string;
-        spread?: boolean;
-        href?: string;
-        children?: TreeNode | TreeNode[];
+        name?: string | undefined;
+        spread?: boolean | undefined;
+        href?: string | undefined;
+        children?: TreeNode | TreeNode[] | undefined;
 
         [propName: string]: any;
     }
 
     interface ColorPickerOption {
-        elem?: string | HTMLElement;
-        color?: string;
-        format?: 'hex' | 'rgb' | 'rgba';
-        aplha?: boolean;
-        predefine?: boolean;
-        colors?: string[];
-        size?: 'lg' | 'sm' | 'xs';
-        change?: (color: any) => void;
-        done?: (color: any) => void;
+        elem?: string | HTMLElement | undefined;
+        color?: string | undefined;
+        format?: 'hex' | 'rgb' | 'rgba' | undefined;
+        aplha?: boolean | undefined;
+        predefine?: boolean | undefined;
+        colors?: string[] | undefined;
+        size?: 'lg' | 'sm' | 'xs' | undefined;
+        change?: ((color: any) => void) | undefined;
+        done?: ((color: any) => void) | undefined;
     }
 
     interface ColorPicker {
@@ -672,21 +672,21 @@ declare namespace layui {
     }
 
     interface SliderOption {
-        elem?: string | HTMLElement;
-        type?: 'default' | 'vertical';
-        mix?: number;
-        max?: number;
-        range?: boolean;
-        value?: number | number[];
-        step?: number;
-        showstep?: boolean;
-        tips?: boolean;
-        input?: boolean;
-        height?: number;
-        disabled?: boolean;
-        theme?: string;
-        setTips?: (value: number | number[]) => string;
-        change?: (value: number | number[]) => string;
+        elem?: string | HTMLElement | undefined;
+        type?: 'default' | 'vertical' | undefined;
+        mix?: number | undefined;
+        max?: number | undefined;
+        range?: boolean | undefined;
+        value?: number | number[] | undefined;
+        step?: number | undefined;
+        showstep?: boolean | undefined;
+        tips?: boolean | undefined;
+        input?: boolean | undefined;
+        height?: number | undefined;
+        disabled?: boolean | undefined;
+        theme?: string | undefined;
+        setTips?: ((value: number | number[]) => string) | undefined;
+        change?: ((value: number | number[]) => string) | undefined;
     }
 
     interface Slider {
@@ -709,10 +709,10 @@ declare namespace layui {
     }
 
     interface EditOption {
-        tool?: string[];
-        hideTool?: string[];
-        height?: number | string;
-        uploadImage?: { url: string; type: string };
+        tool?: string[] | undefined;
+        hideTool?: string[] | undefined;
+        height?: number | string | undefined;
+        uploadImage?: { url: string; type: string } | undefined;
     }
 
     interface Laytpl {

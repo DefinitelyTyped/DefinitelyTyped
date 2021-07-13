@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -57,7 +57,7 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
         /**
          * The callback will also be called after the initial variant is applied
          */
-        callAfterInitialVariant?: boolean;
+        callAfterInitialVariant?: boolean | undefined;
       }
     ): void;
     /**
@@ -123,7 +123,7 @@ declare module "sap/ui/fl/changeHandler/BaseAddViaDelegate" {
         /**
          * Hook revert controls that will not automatically be removed by removing the new property
          */
-        revertAdditionalControls?: Function;
+        revertAdditionalControls?: Function | undefined;
         /**
          * Aggregation name to be passed to the delegate
          */
@@ -135,7 +135,7 @@ declare module "sap/ui/fl/changeHandler/BaseAddViaDelegate" {
         /**
          * Option to store a different control as parent in the change
          */
-        mapParentIdIntoChange?: Function;
+        mapParentIdIntoChange?: Function | undefined;
         /**
          * Aggregation name to be passed to the delegate
          */
@@ -143,15 +143,15 @@ declare module "sap/ui/fl/changeHandler/BaseAddViaDelegate" {
         /**
          * Skip delegate method, is a function is passed it has to return a boolean
          */
-        skipCreateLabel?: boolean | Function;
+        skipCreateLabel?: boolean | Function | undefined;
         /**
          * Skip delegate method, is a function is passed it has to return a boolean
          */
-        skipCreateLayout?: boolean | Function;
+        skipCreateLayout?: boolean | Function | undefined;
         /**
          * Are default delegates supported?
          */
-        supportsDefault?: boolean;
+        supportsDefault?: boolean | undefined;
       }
     ): any;
   }
@@ -216,11 +216,11 @@ declare module "sap/ui/fl/interfaces/Delegate" {
         /**
          * Needed to calculate the correct ID in case you provide a selector
          */
-        appComponent?: UIComponent;
+        appComponent?: UIComponent | undefined;
         /**
          * XML node of the view, required for the XML case to create nodes and to find elements
          */
-        view?: Element;
+        view?: Element | undefined;
         /**
          * Selector to calculate the ID for the control that is created
          */
@@ -228,12 +228,12 @@ declare module "sap/ui/fl/interfaces/Delegate" {
           /**
            * Control ID targeted by the change
            */
-          id?: string;
+          id?: string | undefined;
           /**
            * `true` if the ID within the selector is a local ID or a global ID
            */
-          isLocalId?: boolean;
-        };
+          isLocalId?: boolean | undefined;
+        } | undefined;
         /**
          * Selector of the parent
          */
@@ -273,15 +273,15 @@ declare module "sap/ui/fl/interfaces/Delegate" {
         /**
          * Needed to calculate the correct ID in case you provide a selector
          */
-        appComponent?: UIComponent;
+        appComponent?: UIComponent | undefined;
         /**
          * XML node of the view, required for the XML case to create nodes and to find elements
          */
-        view?: Element;
+        view?: Element | undefined;
         /**
          * ID of the control the label is used for, this can serve as prefix for the label's ID
          */
-        labelFor?: string;
+        labelFor?: string | undefined;
         /**
          * Selector of the parent
          */
@@ -322,11 +322,11 @@ declare module "sap/ui/fl/interfaces/Delegate" {
         /**
          * Needed to calculate the correct ID in case you provide a selector
          */
-        appComponent?: UIComponent;
+        appComponent?: UIComponent | undefined;
         /**
          * XML node of the view, required for the XML case to create nodes and to find elements
          */
-        view?: Element;
+        view?: Element | undefined;
         /**
          * Selector to calculate the ID for the control that is created
          */
@@ -334,12 +334,12 @@ declare module "sap/ui/fl/interfaces/Delegate" {
           /**
            * Control ID targeted by the change
            */
-          id?: string;
+          id?: string | undefined;
           /**
            * `true` if the ID within the selector is a local ID or a global ID
            */
-          isLocalId?: boolean;
-        };
+          isLocalId?: boolean | undefined;
+        } | undefined;
         /**
          * Runtime binding path the control should be bound to
          */
@@ -360,7 +360,7 @@ declare module "sap/ui/fl/interfaces/Delegate" {
     ): Promise<LayoutControlInfo>;
     /**
      * Provides all properties that are available at the current binding context. In OData, this will probably
-     * be all properties of the entityType.
+     * be all properties of the entityType. Technical properties, such as field control, should not be returned.
      */
     getPropertyInfo(
       /**
@@ -444,13 +444,13 @@ declare module "sap/ui/fl/interfaces/Delegate" {
      * If metadata has label information, it should be provided. A fallback to the technical name is implemented
      * in the tooling and doesn't need to be provided by delegates
      */
-    label?: string;
+    label?: string | undefined;
     /**
      * If metadata has tooltip information (e.g. `quickinfo` annotation in OData), it should be provided. A
      * fallback to the label or technical name is implemented in the tooling and doesn't need to be provided
      * by delegates
      */
-    tooltip?: string;
+    tooltip?: string | undefined;
     /**
      * Relative binding path, starting from the current binding context. Usually the same as the name, but for
      * nested properties (e.g. complex properties or navigation properties) it has segments
@@ -462,23 +462,23 @@ declare module "sap/ui/fl/interfaces/Delegate" {
      * or properties that are unsupported by the delegate's create methods). These properties should be marked
      * as `unsupported`.
      */
-    unsupported?: boolean;
+    unsupported?: boolean | undefined;
     /**
      * The delegate has to return all properties that could be bound somewhere. However some properties maybe
      * shouldn't appear in the dialog (e.g. based on `UI.Hidden` annotation or Field Control). These properties
      * should be marked as `hiddenByAnnotation`.
      */
-    hideFromReveal?: boolean;
+    hideFromReveal?: boolean | undefined;
     /**
      * Only needed for OData-based delegates to help custom field support tooling
      */
-    entityType?: string;
+    entityType?: string | undefined;
     /**
      * Some properties can be nested (e.g. based on complex types and navigation properties in OData). In this
      * case the delegate can provide these nested properties. However currently only nesting of one level is
      * supported by adaptation dialogs.
      */
-    properties?: PropertyInfo[];
+    properties?: PropertyInfo[] | undefined;
   };
 
   /**
@@ -521,6 +521,8 @@ declare module "sap/ui/fl/interfaces/Delegate" {
 declare module "sap/ui/fl/transport/TransportDialog" {
   import { default as Dialog, $DialogSettings } from "sap/m/Dialog";
 
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
   /**
    * @deprecated (since 1.74) - The TransportDialog should be used only internally inside the `sap.ui.fl`
    * library.
@@ -532,6 +534,13 @@ declare module "sap/ui/fl/transport/TransportDialog" {
   export default class TransportDialog extends Dialog {
     /**
      * Constructor for a new transport/TransportDialog.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Dialog#constructor
+     * sap.m.Dialog} can be used.
      */
     constructor(
       /**
@@ -541,6 +550,13 @@ declare module "sap/ui/fl/transport/TransportDialog" {
     );
     /**
      * Constructor for a new transport/TransportDialog.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Dialog#constructor
+     * sap.m.Dialog} can be used.
      */
     constructor(
       /**
@@ -552,6 +568,32 @@ declare module "sap/ui/fl/transport/TransportDialog" {
        */
       mSettings?: $TransportDialogSettings
     );
+
+    /**
+     * Creates a new subclass of class sap.ui.fl.transport.TransportDialog with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Dialog.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TransportDialog>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.fl.transport.TransportDialog.
+     */
+    static getMetadata(): ElementMetadata;
   }
 
   export interface $TransportDialogSettings extends $DialogSettings {}
@@ -880,23 +922,23 @@ declare module "sap/ui/fl/variants/VariantManagement" {
         /**
          * Variant title
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * Indicates if an existing variant is overwritten or if a new variant is created.
          */
-        overwrite?: boolean;
+        overwrite?: boolean | undefined;
         /**
          * Variant key
          */
-        key?: string;
+        key?: string | undefined;
         /**
          * Apply Automatically indicator
          */
-        execute?: boolean;
+        execute?: boolean | undefined;
         /**
          * The default variant indicator
          */
-        def?: boolean;
+        def?: boolean | undefined;
       }
     ): this;
     /**
@@ -910,7 +952,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
         /**
          * Variant key
          */
-        key?: string;
+        key?: string | undefined;
       }
     ): this;
     /**
@@ -1320,50 +1362,50 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     /**
      * Indicates that Set as Default is visible in the Save View and the Manage Views dialogs.
      */
-    showSetAsDefault?: boolean | PropertyBindingInfo;
+    showSetAsDefault?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set to `true`, the key for a vendor variant will be added manually.
      *  **Note:**This flag is only used internally in the app variant scenarios.
      */
-    manualVariantKey?: boolean | PropertyBindingInfo;
+    manualVariantKey?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates that the control is in error state. If set to `true`, an error message will be displayed whenever
      * the variant is opened.
      */
-    inErrorState?: boolean | PropertyBindingInfo;
+    inErrorState?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates that the control is in edit state. If set to `false`, the footer of the Views list will
      * be hidden.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Determines the name of the model. The binding context will be defined by the current ID.  **Note:**
      * In a UI adaptation scenario, this property is not used at all, because the model name is `$FlexVariants`.
      */
-    modelName?: string | PropertyBindingInfo;
+    modelName?: string | PropertyBindingInfo | undefined;
 
     /**
      * Determines the intention of setting the current variant based on passed information.  **Note:** The
      * `VariantManagement` control does not react in any way to this property.
      */
-    updateVariantInURL?: boolean | PropertyBindingInfo;
+    updateVariantInURL?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * When set to false, doesn't reset the `VariantManagement` control to the default variant, when its binding
      * context is changed.
      */
-    resetOnContextChange?: boolean | PropertyBindingInfo;
+    resetOnContextChange?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.80
      *
      * Determines the behavior for Apply Automatically if the standard variant is marked as the default variant.
      */
-    executeOnSelectionForStandardDefault?: boolean | PropertyBindingInfo;
+    executeOnSelectionForStandardDefault?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.85
@@ -1376,38 +1418,38 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     displayTextForExecuteOnSelectionForStandardVariant?:
       | string
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Contains the controls for which the variant management is responsible.
      */
-    for?: Array<Control | string>;
+    for?: Array<Control | string> | undefined;
 
     /**
      * This event is fired when the Save View dialog or the Save As dialog is closed with the
      * save button.
      */
-    save?: Function;
+    save?: Function | undefined;
 
     /**
      * This event is fired when users presses the cancel button inside Save As dialog.
      */
-    cancel?: Function;
+    cancel?: Function | undefined;
 
     /**
      * This event is fired when users apply changes to variants in the Manage Views dialog.
      */
-    manage?: Function;
+    manage?: Function | undefined;
 
     /**
      * This event is fired when the model and context are set.
      */
-    initialized?: Function;
+    initialized?: Function | undefined;
 
     /**
      * This event is fired when a new variant is selected.
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -1688,6 +1730,8 @@ declare namespace sap {
 
     "sap/ui/fl/FlexControllerFactory": undefined;
 
+    "sap/ui/fl/initial/_internal/changeHandlers/ChangeRegistryItem": undefined;
+
     "sap/ui/fl/initial/_internal/connectors/BackendConnector": undefined;
 
     "sap/ui/fl/initial/_internal/connectors/KeyUserConnector": undefined;
@@ -1715,8 +1759,6 @@ declare namespace sap {
     "sap/ui/fl/library": undefined;
 
     "sap/ui/fl/PreprocessorImpl": undefined;
-
-    "sap/ui/fl/registry/ChangeRegistryItem": undefined;
 
     "sap/ui/fl/registry/Settings": undefined;
 

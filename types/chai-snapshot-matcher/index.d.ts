@@ -13,10 +13,10 @@ declare global {
     interface Assertion {
       matchSnapshot(that: Context, hint?: string): void;
       matchSpecificSnapshot(that: Context, options?: {
-          hint?: string;
-          name?: string;
-          folder?: string;
-          snapshotPath?: string;
+          hint?: string | undefined;
+          name?: string | undefined;
+          folder?: string | undefined;
+          snapshotPath?: string | undefined;
       }): void;
     }
   }

@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/tnt/library" {
   /**
@@ -323,13 +323,13 @@ declare module "sap/tnt/InfoLabel" {
     /**
      * Specifies the text inside the `InfoLabel` control.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the type of the `InfoLabel` paddings - loose or narrow. **Note:** By default the padding is
      * loose. It is recommended to use narrow (smaller) paddings for numeric texts.
      */
-    renderMode?: (RenderMode | keyof typeof RenderMode) | PropertyBindingInfo;
+    renderMode?: (RenderMode | keyof typeof RenderMode) | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the fill and text color of the control. Accepts a number between 1 and 10 as a value. You can
@@ -337,19 +337,19 @@ declare module "sap/tnt/InfoLabel" {
      * you can select them according to your own preferences. **Note:** ColorScheme 10 is available only in
      * Fiori 3 theme. The default `colorScheme` is 7.
      */
-    colorScheme?: int | PropertyBindingInfo;
+    colorScheme?: int | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the width of the `InfoLabel` control. By default, the `InfoLabel` control has the width of
      * the content. Set this property to restrict the width to a custom value.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines if the `InfoLabel` is in `displayOnly` mode. When set to `true` the control size adjusts to
      * fit other controls, for example non-editable `Forms`.
      */
-    displayOnly?: boolean | PropertyBindingInfo;
+    displayOnly?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Available options for the text direction are LTR and RTL. By default the control inherits the text direction
@@ -357,7 +357,7 @@ declare module "sap/tnt/InfoLabel" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.74
@@ -365,7 +365,7 @@ declare module "sap/tnt/InfoLabel" {
      * Defines the icon to be displayed as graphical element within the `InfoLabel`. It can be an icon from
      * the icon font.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
   }
 }
 
@@ -524,7 +524,7 @@ declare module "sap/tnt/NavigationList" {
         /**
          * The selected item.
          */
-        item?: Item;
+        item?: Item | undefined;
       }
     ): this;
     /**
@@ -709,46 +709,46 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Specifies the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Specifies if the control is in expanded or collapsed mode.
      */
-    expanded?: boolean | PropertyBindingInfo;
+    expanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.62.0
      *
      * Specifies the currently selected key.
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * The items displayed in the list.
      */
-    items?: NavigationListItem[] | NavigationListItem | AggregationBindingInfo;
+    items?: NavigationListItem[] | NavigationListItem | AggregationBindingInfo | undefined;
 
     /**
      * Association to controls / IDs, which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / IDs, which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * @SINCE 1.52.0
      *
      * The currently selected `NavigationListItem`.
      */
-    selectedItem?: NavigationListItem | string;
+    selectedItem?: NavigationListItem | string | undefined;
 
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: Function;
+    itemSelect?: Function | undefined;
   }
 }
 
@@ -885,7 +885,7 @@ declare module "sap/tnt/NavigationListItem" {
         /**
          * The selected item.
          */
-        item?: Item;
+        item?: Item | undefined;
       }
     ): this;
     /**
@@ -1106,30 +1106,30 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Specifies the icon for the item.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Specifies if the item is expanded.
      */
-    expanded?: boolean | PropertyBindingInfo;
+    expanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Specifies if the item has an expander.
      */
-    hasExpander?: boolean | PropertyBindingInfo;
+    hasExpander?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.52
      *
      * Specifies if the item should be shown.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the link target URI. Supports standard hyperlink behavior. If a JavaScript action should be triggered,
      * this should not be set, but instead an event handler for the `select` event should be registered.
      */
-    href?: URI | PropertyBindingInfo;
+    href?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Specifies the browsing context where the linked content will open.
@@ -1138,17 +1138,17 @@ declare module "sap/tnt/NavigationListItem" {
      * `_search`. Alternatively, a frame name can be entered. This property is only used when the `href` property
      * is set.
      */
-    target?: string | PropertyBindingInfo;
+    target?: string | PropertyBindingInfo | undefined;
 
     /**
      * The sub items.
      */
-    items?: NavigationListItem[] | NavigationListItem | AggregationBindingInfo;
+    items?: NavigationListItem[] | NavigationListItem | AggregationBindingInfo | undefined;
 
     /**
      * Fired when this item is selected.
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -1309,7 +1309,7 @@ declare module "sap/tnt/SideNavigation" {
         /**
          * The selected item.
          */
-        item?: Item;
+        item?: Item | undefined;
       }
     ): this;
     /**
@@ -1439,41 +1439,41 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Specifies if the control is expanded.
      */
-    expanded?: boolean | PropertyBindingInfo;
+    expanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.62.0
      *
      * Specifies the currently selected key.
      */
-    selectedKey?: string | PropertyBindingInfo;
+    selectedKey?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the content inside the flexible part.
      */
-    item?: NavigationList;
+    item?: NavigationList | undefined;
 
     /**
      * Defines the content inside the fixed part.
      */
-    fixedItem?: NavigationList;
+    fixedItem?: NavigationList | undefined;
 
     /**
      * Defines the content inside the footer.
      */
-    footer?: NavigationList;
+    footer?: NavigationList | undefined;
 
     /**
      * @SINCE 1.52.0
      *
      * The selected `NavigationListItem`.
      */
-    selectedItem?: NavigationListItem | string;
+    selectedItem?: NavigationListItem | string | undefined;
 
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: Function;
+    itemSelect?: Function | undefined;
   }
 }
 
@@ -1529,6 +1529,13 @@ declare module "sap/tnt/ToolHeader" {
     __implements__sap_tnt_IToolHeader: boolean;
     /**
      * Constructor for a new ToolHeader.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor
+     * sap.m.OverflowToolbar} can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */
@@ -1540,6 +1547,13 @@ declare module "sap/tnt/ToolHeader" {
     );
     /**
      * Constructor for a new ToolHeader.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor
+     * sap.m.OverflowToolbar} can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */
@@ -1868,22 +1882,22 @@ declare module "sap/tnt/ToolPage" {
     /**
      * Indicates if the side menu is expanded. Overrides the `expanded` property of the `sideContent` aggregation.
      */
-    sideExpanded?: boolean | PropertyBindingInfo;
+    sideExpanded?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The control to appear in the header area.
      */
-    header?: IToolHeader;
+    header?: IToolHeader | undefined;
 
     /**
      * The side menu of the layout.
      */
-    sideContent?: SideNavigation;
+    sideContent?: SideNavigation | undefined;
 
     /**
      * The content section.
      */
-    mainContents?: Control[] | Control | AggregationBindingInfo;
+    mainContents?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 

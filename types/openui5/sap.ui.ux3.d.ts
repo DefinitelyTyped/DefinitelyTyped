@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -377,16 +377,16 @@ declare module "sap/ui/ux3/ActionBar" {
         /**
          * Id of selected ThingAction
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * Selected ThingAction
          */
-        action?: ThingAction;
+        action?: ThingAction | undefined;
         /**
          * New State of the selected action.Only filled if the respective action maintains a state property, for
          * example 'FollowUp' or 'Favorite'
          */
-        newState?: string;
+        newState?: string | undefined;
       }
     ): this;
     /**
@@ -400,7 +400,7 @@ declare module "sap/ui/ux3/ActionBar" {
         /**
          * Feed text
          */
-        text?: string;
+        text?: string | undefined;
       }
     ): this;
     /**
@@ -742,69 +742,69 @@ declare module "sap/ui/ux3/ActionBar" {
      */
     followState?:
       | (FollowActionState | keyof typeof FollowActionState)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether “Mark for Follow Up” is active
      */
-    flagState?: boolean | PropertyBindingInfo;
+    flagState?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether “Favorite” is active
      */
-    favoriteState?: boolean | PropertyBindingInfo;
+    favoriteState?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether “Update” is active
      */
-    updateState?: boolean | PropertyBindingInfo;
+    updateState?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The thing icon uri. Icon will be displayed in Feeder
      */
-    thingIconURI?: URI | PropertyBindingInfo;
+    thingIconURI?: URI | PropertyBindingInfo | undefined;
 
     /**
      * If true, business actions are rendered as menu items of the 'More' menu button. Otherwise, 'More' menu
      * button is only displayed for overflow and business actions are rendered as inidividual buttons.
      */
-    alwaysShowMoreMenu?: boolean | PropertyBindingInfo;
+    alwaysShowMoreMenu?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether social action “Update” is shown, default is ‘true’
      */
-    showUpdate?: boolean | PropertyBindingInfo;
+    showUpdate?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether social action “Follow” is shown, default is ‘true’
      */
-    showFollow?: boolean | PropertyBindingInfo;
+    showFollow?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether social action “Mark for Follow Up” is shown, default is ‘true’
      */
-    showFlag?: boolean | PropertyBindingInfo;
+    showFlag?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether social action “Favorite” is shown, default is ‘true’
      */
-    showFavorite?: boolean | PropertyBindingInfo;
+    showFavorite?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether social action “Open” is shown, default is ‘true’
      */
-    showOpen?: boolean | PropertyBindingInfo;
+    showOpen?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The minimum width of ActionBar's the social actions part: business action controls have to be rendered
      * outside this area
      */
-    dividerWidth?: CSSSize | PropertyBindingInfo;
+    dividerWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Displayed on the actionBar's right hand-side, either as menu item under 'More' or as individual buttons
      */
-    businessActions?: ThingAction[] | ThingAction | AggregationBindingInfo;
+    businessActions?: ThingAction[] | ThingAction | AggregationBindingInfo | undefined;
 
     /**
      * Fired when any of the social action’s toolbar buttons except ‘Update’ or any of the business action’s
@@ -815,12 +815,12 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * For ‘Update’, please refer to event ‘feedSubmit’
      */
-    actionSelected?: Function;
+    actionSelected?: Function | undefined;
 
     /**
      * Fired when a new feed entry is submitted.
      */
-    feedSubmit?: Function;
+    feedSubmit?: Function | undefined;
   }
 }
 
@@ -1189,37 +1189,37 @@ declare module "sap/ui/ux3/Collection" {
     /**
      * Name for the collection
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * If a collection is editable an edit button will be displayed below the list of items
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Allow multi selection of items in collection
      */
-    multiSelection?: boolean | PropertyBindingInfo;
+    multiSelection?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Items in the collection
      */
-    items?: Item[] | Item | AggregationBindingInfo;
+    items?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * Contains all items that are currently selected
      */
-    selectedItems?: Array<Item | string>;
+    selectedItems?: Array<Item | string> | undefined;
 
     /**
      * Fired when ever the selected items changer
      */
-    selectionChanged?: Function;
+    selectionChanged?: Function | undefined;
 
     /**
      * Fires if a property has changed, and the collection inspector needs to do something after that
      */
-    propertyChanged?: Function;
+    propertyChanged?: Function | undefined;
   }
 }
 
@@ -1699,42 +1699,42 @@ declare module "sap/ui/ux3/CollectionInspector" {
     /**
      * Defines if the list of collection items is visible on the left
      */
-    sidebarVisible?: boolean | PropertyBindingInfo;
+    sidebarVisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If set to true, control will fit parents content area
      */
-    fitParent?: boolean | PropertyBindingInfo;
+    fitParent?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Collections which are displayed in the COllectionInspector
      */
-    collections?: Collection[] | Collection | AggregationBindingInfo;
+    collections?: Collection[] | Collection | AggregationBindingInfo | undefined;
 
     /**
      * All controls that are currently displayed
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Collection which is currently selected
      */
-    selectedCollection?: Collection | string;
+    selectedCollection?: Collection | string | undefined;
 
     /**
      * Event is fired if user selects a collection
      */
-    collectionSelected?: Function;
+    collectionSelected?: Function | undefined;
 
     /**
      * Fires when an item in a collection is selected
      */
-    itemSelectionChanged?: Function;
+    itemSelectionChanged?: Function | undefined;
 
     /**
      * Fires when the edit button is clicked
      */
-    editCollection?: Function;
+    editCollection?: Function | undefined;
   }
 }
 
@@ -1988,7 +1988,7 @@ declare module "sap/ui/ux3/DataSet" {
         /**
          * The search query
          */
-        query?: string;
+        query?: string | undefined;
       }
     ): this;
     /**
@@ -2002,11 +2002,11 @@ declare module "sap/ui/ux3/DataSet" {
         /**
          * Old lead selected index
          */
-        oldLeadSelectedIndex?: int;
+        oldLeadSelectedIndex?: int | undefined;
         /**
          * New lead selected index
          */
-        newLeadSelectedIndex?: int;
+        newLeadSelectedIndex?: int | undefined;
       }
     ): this;
     /**
@@ -2342,52 +2342,52 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * show Toolbar
      */
-    showToolbar?: boolean | PropertyBindingInfo;
+    showToolbar?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * show filter
      */
-    showFilter?: boolean | PropertyBindingInfo;
+    showFilter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Show/hide SearchField in Toolbar
      */
-    showSearchField?: boolean | PropertyBindingInfo;
+    showSearchField?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Selection mode of the DataSet
      */
-    multiSelect?: boolean | PropertyBindingInfo;
+    multiSelect?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Aggregation of DataSetItems
      */
-    items?: DataSetItem[] | DataSetItem | AggregationBindingInfo;
+    items?: DataSetItem[] | DataSetItem | AggregationBindingInfo | undefined;
 
     /**
      * views
      */
-    views?: DataSetView[] | DataSetView | AggregationBindingInfo;
+    views?: DataSetView[] | DataSetView | AggregationBindingInfo | undefined;
 
     /**
      * Filter control (e.g. a FacetFilter) for the DataSet
      */
-    filter?: Control[] | Control | AggregationBindingInfo;
+    filter?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Selected view of the Dataset
      */
-    selectedView?: DataSetView | string;
+    selectedView?: DataSetView | string | undefined;
 
     /**
      * selection Changed
      */
-    selectionChanged?: Function;
+    selectionChanged?: Function | undefined;
 
     /**
      * Event which is fired when the user triggers a search
      */
-    search?: Function;
+    search?: Function | undefined;
   }
 }
 
@@ -2507,7 +2507,7 @@ declare module "sap/ui/ux3/DataSetItem" {
         /**
          * Id of the selected Datset item
          */
-        itemId?: string;
+        itemId?: string | undefined;
       }
     ): this;
     /**
@@ -2626,27 +2626,27 @@ declare module "sap/ui/ux3/DataSetItem" {
     /**
      * image
      */
-    iconSrc?: URI | PropertyBindingInfo;
+    iconSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * title
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * checkable
      */
-    checkable?: boolean | PropertyBindingInfo;
+    checkable?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * subtitle
      */
-    subtitle?: string | PropertyBindingInfo;
+    subtitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * Event Fired when Datset item is selected.
      */
-    selected?: Function;
+    selected?: Function | undefined;
   }
 }
 
@@ -3056,27 +3056,27 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      * When true the DatSet items are floating containers. When set to false The Items are rendered in a 1 column
      * Layout.
      */
-    floating?: boolean | PropertyBindingInfo;
+    floating?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Name of the View
      */
-    name?: string | PropertyBindingInfo;
+    name?: string | PropertyBindingInfo | undefined;
 
     /**
      * Icon source for this view
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * icon: hovered state
      */
-    iconHovered?: URI | PropertyBindingInfo;
+    iconHovered?: URI | PropertyBindingInfo | undefined;
 
     /**
      * icon: selected state
      */
-    iconSelected?: URI | PropertyBindingInfo;
+    iconSelected?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.2
@@ -3084,7 +3084,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      * When true and the property floating is true the DatSet items are floating containers filling the whole
      * space of a row.
      */
-    responsive?: boolean | PropertyBindingInfo;
+    responsive?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.2
@@ -3092,7 +3092,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      * When itemMinWidth>0 and the property floating is true the given minimum width in pixels is set to DatSet
      * items. A minimum width must be given when the property responsive is set.
      */
-    itemMinWidth?: int | PropertyBindingInfo;
+    itemMinWidth?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.13.0
@@ -3101,21 +3101,21 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      * automatically when the user scrolls down. The number of items which are reloaded can be defined with
      * the property "reloadItemCount"
      */
-    initialItemCount?: int | PropertyBindingInfo;
+    initialItemCount?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.13.0
      *
      * This number defines the item count which is reloaded on scroll if initialItemCount is enabled.
      */
-    reloadItemCount?: int | PropertyBindingInfo;
+    reloadItemCount?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.13.0
      *
      * ID of the DOM Element or jQuery reference to the dom which holds the scrollbar for the dataset
      */
-    scrollArea?: any | PropertyBindingInfo;
+    scrollArea?: any | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.13.0
@@ -3123,12 +3123,12 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      * If the pagination feature is used without specifying a scroll area, a height for the dataset must be
      * defined.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * template
      */
-    template?: Control;
+    template?: Control | undefined;
   }
 }
 
@@ -3314,15 +3314,15 @@ declare module "sap/ui/ux3/Exact" {
         /**
          * The query string which was entered in the search field
          */
-        query?: string;
+        query?: string | undefined;
         /**
          * The attribute which was selected or unselected recently
          */
-        changedAttribute?: ExactAttribute;
+        changedAttribute?: ExactAttribute | undefined;
         /**
          * Array of all selected ExcatAttribute.
          */
-        allSelectedAttributes?: object;
+        allSelectedAttributes?: object | undefined;
       }
     ): this;
     /**
@@ -3336,7 +3336,7 @@ declare module "sap/ui/ux3/Exact" {
         /**
          * The query string which was entered in the search field.
          */
-        query?: string;
+        query?: string | undefined;
       }
     ): this;
     /**
@@ -3473,27 +3473,27 @@ declare module "sap/ui/ux3/Exact" {
     /**
      * A title text which is displayed above the result section
      */
-    resultText?: string | PropertyBindingInfo;
+    resultText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines the 'Settings' button in the browse section tool bar
      */
-    settingsMenu?: Menu;
+    settingsMenu?: Menu | undefined;
 
     /**
      * The attributes which shall be available to refine the search
      */
-    attributes?: ExactAttribute[] | ExactAttribute | AggregationBindingInfo;
+    attributes?: ExactAttribute[] | ExactAttribute | AggregationBindingInfo | undefined;
 
     /**
      * Event is fired when the search button is clicked
      */
-    search?: Function;
+    search?: Function | undefined;
 
     /**
      * Event which is fired when an attribute is selected or unselected.
      */
-    refineSearch?: Function;
+    refineSearch?: Function | undefined;
   }
 }
 
@@ -3720,17 +3720,17 @@ declare module "sap/ui/ux3/ExactArea" {
     /**
      * Specifies whether the tool bar shall be visible
      */
-    toolbarVisible?: boolean | PropertyBindingInfo;
+    toolbarVisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Arbitrary child controls of the content area
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Tool bar items which shall be shown in the tool bar.
      */
-    toolbarItems?: ToolbarItem[] | ToolbarItem | AggregationBindingInfo;
+    toolbarItems?: ToolbarItem[] | ToolbarItem | AggregationBindingInfo | undefined;
   }
 }
 
@@ -3872,7 +3872,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
         /**
          * The ExactAttribute
          */
-        attribute?: ExactAttribute;
+        attribute?: ExactAttribute | undefined;
       }
     ): this;
     /**
@@ -4180,26 +4180,26 @@ declare module "sap/ui/ux3/ExactAttribute" {
     /**
      * The attribute name
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the attribute shall be selected
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.7.0
      *
      * Specifies the width of the corresponding list in pixels. The value must be between 70 and 500.
      */
-    width?: int | PropertyBindingInfo;
+    width?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.7.1
      *
      * The order how the sublists of this attribute should be displayed.
      */
-    listOrder?: (ExactOrder | keyof typeof ExactOrder) | PropertyBindingInfo;
+    listOrder?: (ExactOrder | keyof typeof ExactOrder) | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the attribute shall have sub values for visual purposes. The indicator which is a little
@@ -4209,12 +4209,12 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * attribute is considered then and has to be maintained. If the back-end does not support count-calls,
      * for example, showSubAttributesIndicator should be set to true.
      */
-    showSubAttributesIndicator?: boolean | PropertyBindingInfo;
+    showSubAttributesIndicator?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * An example for additional data are database keys
      */
-    additionalData?: object | PropertyBindingInfo;
+    additionalData?: object | PropertyBindingInfo | undefined;
 
     /**
      * The supplyAttributes event is only fired if supplyActive has value true which is the default. After firing
@@ -4222,25 +4222,25 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * only once when the data is requested. To enable the event again it is possible to manually set the attribute
      * back to true.
      */
-    supplyActive?: boolean | PropertyBindingInfo;
+    supplyActive?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If you want the supply function to be called on every select, you can set the autoActivateSupply attribute
      * to true. In this case, supplyActive is automatically set to true on every unselect.
      */
-    autoActivateSupply?: boolean | PropertyBindingInfo;
+    autoActivateSupply?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Values (sub attributes) of this attribute
      */
-    attributes?: ExactAttribute[] | ExactAttribute | AggregationBindingInfo;
+    attributes?: ExactAttribute[] | ExactAttribute | AggregationBindingInfo | undefined;
 
     /**
      * A supply function is a handler which is attached to the supplyAttributes event. The event is fired when
      * the corresponding ExactAttribute is selected, it was already selected when a handler is attached or function
      * getAttributes() is called.
      */
-    supplyAttributes?: Function;
+    supplyAttributes?: Function | undefined;
   }
 }
 
@@ -4430,11 +4430,11 @@ declare module "sap/ui/ux3/ExactBrowser" {
         /**
          * The attribute which was selected or unselected recently
          */
-        attribute?: ExactAttribute;
+        attribute?: ExactAttribute | undefined;
         /**
          * Array of all selected ExactAttributes
          */
-        allAttributes?: object;
+        allAttributes?: object | undefined;
       }
     ): this;
     /**
@@ -4816,34 +4816,34 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * Title text in the list area of the Exact Browser. The title is not shown when the property showTopList
      * is set to false.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Title text in the header of the Exact Browser.
      */
-    headerTitle?: string | PropertyBindingInfo;
+    headerTitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.7.1
      *
      * The order how the sublists of the top level list should be displayed.
      */
-    topListOrder?: (ExactOrder | keyof typeof ExactOrder) | PropertyBindingInfo;
+    topListOrder?: (ExactOrder | keyof typeof ExactOrder) | PropertyBindingInfo | undefined;
 
     /**
      * Enables the close icons of the displayed lists.
      */
-    enableListClose?: boolean | PropertyBindingInfo;
+    enableListClose?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The height of the list area in px.
      */
-    listHeight?: int | PropertyBindingInfo;
+    listHeight?: int | PropertyBindingInfo | undefined;
 
     /**
      * Whether the header area of the ExactBrowser should be shown.
      */
-    showHeader?: boolean | PropertyBindingInfo;
+    showHeader?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.7.0
@@ -4851,52 +4851,52 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * Whether the top list of the ExactBrowser should be shown. When the property is set to false the application
      * must ensure to select top level attributes appropriately.
      */
-    showTopList?: boolean | PropertyBindingInfo;
+    showTopList?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Whether the reset functionality should be available in the header area.
      */
-    enableReset?: boolean | PropertyBindingInfo;
+    enableReset?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.2
      *
      * Whether the save button should be available in the header area.
      */
-    enableSave?: boolean | PropertyBindingInfo;
+    enableSave?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.7.0
      *
      * Specifies the width of the top list in pixels. The value must be between 70 and 500.
      */
-    topListWidth?: int | PropertyBindingInfo;
+    topListWidth?: int | PropertyBindingInfo | undefined;
 
     /**
      * The attributes which shall be available.
      */
-    attributes?: ExactAttribute[] | ExactAttribute | AggregationBindingInfo;
+    attributes?: ExactAttribute[] | ExactAttribute | AggregationBindingInfo | undefined;
 
     /**
      * Menu with options. The menu can not used when the property showTopList is set to false.
      */
-    optionsMenu?: Menu;
+    optionsMenu?: Menu | undefined;
 
     /**
      * The successor control of the Exact Browser. The id of this control is used in the ARIA description of
      * the control.
      */
-    followUpControl?: Control | string;
+    followUpControl?: Control | string | undefined;
 
     /**
      * Event is fired when an attribute is selected or unselected.
      */
-    attributeSelected?: Function;
+    attributeSelected?: Function | undefined;
 
     /**
      * Event is fired when an attribute is selected or unselected.
      */
-    save?: Function;
+    save?: Function | undefined;
   }
 }
 
@@ -5037,11 +5037,11 @@ declare module "sap/ui/ux3/ExactList" {
         /**
          * The attribute which was selected/unselected recently
          */
-        attribute?: ExactAttribute;
+        attribute?: ExactAttribute | undefined;
         /**
          * Array of all ExactAttributes
          */
-        allAttributes?: object;
+        allAttributes?: object | undefined;
       }
     ): this;
     /**
@@ -5199,33 +5199,33 @@ declare module "sap/ui/ux3/ExactList" {
     /**
      * Defines whether the close icon shall be displayed in the header.
      */
-    showClose?: boolean | PropertyBindingInfo;
+    showClose?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The title of this list is the top of the list hierarchy.
      */
-    topTitle?: string | PropertyBindingInfo;
+    topTitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * The height in px if this list is the top of the list hierarchy.
      */
-    topHeight?: int | PropertyBindingInfo;
+    topHeight?: int | PropertyBindingInfo | undefined;
 
     /**
      * The sub-ExactLists of this list. This aggregation must not be maintained from outside. The control automatically
      * takes care to fill this aggregation according to the given ExactAttribute.
      */
-    subLists?: ExactList[] | ExactList | AggregationBindingInfo;
+    subLists?: ExactList[] | ExactList | AggregationBindingInfo | undefined;
 
     /**
      * The associated ExactAttribute
      */
-    data?: ExactAttribute | string;
+    data?: ExactAttribute | string | undefined;
 
     /**
      * Event which is fired when an attribute is selected/unselected
      */
-    attributeSelected?: Function;
+    attributeSelected?: Function | undefined;
   }
 }
 
@@ -5402,12 +5402,12 @@ declare module "sap/ui/ux3/FacetFilter" {
      */
     visibleItemCountMode?:
       | (VisibleItemCountMode | keyof typeof VisibleItemCountMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Facet Filter list represents the list of the filter values and the title of this list.
      */
-    lists?: FacetFilterList[] | FacetFilterList | AggregationBindingInfo;
+    lists?: FacetFilterList[] | FacetFilterList | AggregationBindingInfo | undefined;
   }
 }
 
@@ -5543,20 +5543,20 @@ declare module "sap/ui/ux3/FacetFilterList" {
         /**
          * Id of the FacetFilterList taht fires the event.
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * Array of selected Indices.
          */
-        selectedIndices?: int[];
+        selectedIndices?: int[] | undefined;
         /**
          * Array of selected Items.
          */
-        selectedItems?: ListItem[];
+        selectedItems?: ListItem[] | undefined;
         /**
          * If it is true, then Item All is selected. That means all items in the list are selected - no filter is
          * set.
          */
-        all?: boolean;
+        all?: boolean | undefined;
       }
     ): this;
     /**
@@ -5746,12 +5746,12 @@ declare module "sap/ui/ux3/FacetFilterList" {
     /**
      * The title of this list.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether multiple or single selection is used.
      */
-    multiSelect?: boolean | PropertyBindingInfo;
+    multiSelect?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.0
@@ -5759,27 +5759,27 @@ declare module "sap/ui/ux3/FacetFilterList" {
      * Specifies whether the text values from the additionalText property (see sap.ui.core.ListItems) shall
      * be displayed.
      */
-    displaySecondaryValues?: boolean | PropertyBindingInfo;
+    displaySecondaryValues?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Array of type string containing the selected keys.
      */
-    selectedKeys?: string[] | PropertyBindingInfo;
+    selectedKeys?: string[] | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the counter for all entries is shown.
      */
-    showCounter?: boolean | PropertyBindingInfo;
+    showCounter?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The filter values that are presented as a list.
      */
-    items?: ListItem[] | ListItem | AggregationBindingInfo;
+    items?: ListItem[] | ListItem | AggregationBindingInfo | undefined;
 
     /**
      * On Select event.
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -6140,7 +6140,7 @@ declare module "sap/ui/ux3/Feed" {
         /**
          * New chunk
          */
-        chunk?: FeedChunk;
+        chunk?: FeedChunk | undefined;
       }
     ): this;
     /**
@@ -6154,7 +6154,7 @@ declare module "sap/ui/ux3/Feed" {
         /**
          * The new/changed value of the filter
          */
-        newValue?: string;
+        newValue?: string | undefined;
       }
     ): this;
     /**
@@ -6168,7 +6168,7 @@ declare module "sap/ui/ux3/Feed" {
         /**
          * The search query
          */
-        query?: string;
+        query?: string | undefined;
       }
     ): this;
     /**
@@ -6182,7 +6182,7 @@ declare module "sap/ui/ux3/Feed" {
         /**
          * Current live indicator
          */
-        live?: boolean;
+        live?: boolean | undefined;
       }
     ): this;
     /**
@@ -6196,11 +6196,11 @@ declare module "sap/ui/ux3/Feed" {
         /**
          * The Id of the selected item
          */
-        itemId?: string;
+        itemId?: string | undefined;
         /**
          * The selected item
          */
-        item?: MenuItemBase;
+        item?: MenuItemBase | undefined;
       }
     ): this;
     /**
@@ -6534,62 +6534,62 @@ declare module "sap/ui/ux3/Feed" {
     /**
      * The path to the thumbnail image used for the feeder
      */
-    feederThumbnailSrc?: URI | PropertyBindingInfo;
+    feederThumbnailSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The sender of the feeder
      */
-    feederSender?: string | PropertyBindingInfo;
+    feederSender?: string | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the feed shall be in live mode
      */
-    live?: boolean | PropertyBindingInfo;
+    live?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Title text of the Feed. If no text is entered "FEED" is displayed.
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Items of the filter
      */
-    filterItems?: ListItem[] | ListItem | AggregationBindingInfo;
+    filterItems?: ListItem[] | ListItem | AggregationBindingInfo | undefined;
 
     /**
      * The chunks
      */
-    chunks?: FeedChunk[] | FeedChunk | AggregationBindingInfo;
+    chunks?: FeedChunk[] | FeedChunk | AggregationBindingInfo | undefined;
 
     /**
      * MenuItems to open when the tool button is clicked by the user
      */
-    toolsMenuItems?: MenuItem[] | MenuItem | AggregationBindingInfo;
+    toolsMenuItems?: MenuItem[] | MenuItem | AggregationBindingInfo | undefined;
 
     /**
      * Event is fired when the filter is changed
      */
-    filterChange?: Function;
+    filterChange?: Function | undefined;
 
     /**
      * Event is fired when the search function on SearchField is triggered
      */
-    search?: Function;
+    search?: Function | undefined;
 
     /**
      * Event is fired when a new chunk is added
      */
-    chunkAdded?: Function;
+    chunkAdded?: Function | undefined;
 
     /**
      * Event is fired when an item from the tools MenuButton was selected
      */
-    toolsItemSelected?: Function;
+    toolsItemSelected?: Function | undefined;
 
     /**
      * Event is fired when the live mode has changed
      */
-    toggleLive?: Function;
+    toggleLive?: Function | undefined;
   }
 }
 
@@ -7082,11 +7082,11 @@ declare module "sap/ui/ux3/FeedChunk" {
         /**
          * The Id of the selected item
          */
-        itemId?: string;
+        itemId?: string | undefined;
         /**
          * The selected item
          */
-        item?: MenuItemBase;
+        item?: MenuItemBase | undefined;
       }
     ): this;
     /**
@@ -7100,7 +7100,7 @@ declare module "sap/ui/ux3/FeedChunk" {
         /**
          * New comment chunk
          */
-        comment?: FeedChunk;
+        comment?: FeedChunk | undefined;
       }
     ): this;
     /**
@@ -7132,7 +7132,7 @@ declare module "sap/ui/ux3/FeedChunk" {
         /**
          * Text of the @-reference
          */
-        text?: string;
+        text?: string | undefined;
       }
     ): this;
     /**
@@ -7155,7 +7155,7 @@ declare module "sap/ui/ux3/FeedChunk" {
         /**
          * Current favorite state
          */
-        favorite?: boolean;
+        favorite?: boolean | undefined;
       }
     ): this;
     /**
@@ -7169,7 +7169,7 @@ declare module "sap/ui/ux3/FeedChunk" {
         /**
          * Current flagged state
          */
-        flagged?: boolean;
+        flagged?: boolean | undefined;
       }
     ): this;
     /**
@@ -7183,7 +7183,7 @@ declare module "sap/ui/ux3/FeedChunk" {
         /**
          * Current shared state
          */
-        shareed?: boolean;
+        shareed?: boolean | undefined;
       }
     ): this;
     /**
@@ -7820,27 +7820,27 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * URL to the thumbnail image.
      */
-    thumbnailSrc?: URI | PropertyBindingInfo;
+    thumbnailSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The FeedChunk text. @References are supported.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Sender of the chunk
      */
-    sender?: string | PropertyBindingInfo;
+    sender?: string | PropertyBindingInfo | undefined;
 
     /**
      * Format is ISO 8601 YYYY-MM-DDThh:mm:ss.sZ, Z meaning the time is in UTC time zone
      */
-    timestamp?: string | PropertyBindingInfo;
+    timestamp?: string | PropertyBindingInfo | undefined;
 
     /**
      * Flag if the deletion of the chunk shall be allowed
      */
-    deletionAllowed?: boolean | PropertyBindingInfo;
+    deletionAllowed?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.4.0) - Not longer used. If a chunk is a comment is determined from hierarchy. If
@@ -7849,118 +7849,118 @@ declare module "sap/ui/ux3/FeedChunk" {
      * This flag changes a FeedChunk into a CommentChunk. In this case, it can not have own comments, furthermore
      * it must be assigned to a FeedChunk.
      */
-    commentChunk?: boolean | PropertyBindingInfo;
+    commentChunk?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * URL to the thumbnail image for the comment feeder. This property is optional if the chunk is a sub-control
      * of a feed control. In this case the value of the feed control is used if it's not set. So it must be
      * only set once on the feed control.
      */
-    feederThumbnailSrc?: URI | PropertyBindingInfo;
+    feederThumbnailSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Sender for the comment feeder This property is optional if the chunk is a sub-control of a feed control.
      * In this case the value of the feed control is used if it's not set. So it must be only set once on the
      * feed control.
      */
-    feederSender?: string | PropertyBindingInfo;
+    feederSender?: string | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the entry is flagged. This property is not supported for comment chunks.
      */
-    flagged?: boolean | PropertyBindingInfo;
+    flagged?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the entry shall be displayed as favorite. This property is not supported for comment
      * chunks.
      */
-    favorite?: boolean | PropertyBindingInfo;
+    favorite?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the entry shall be shared. This property is not supported for comment chunks.
      */
-    shared?: boolean | PropertyBindingInfo;
+    shared?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If true the flag action is enabled.
      */
-    enableFlag?: boolean | PropertyBindingInfo;
+    enableFlag?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If true the share action is enabled.
      */
-    enableShare?: boolean | PropertyBindingInfo;
+    enableShare?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If true the comment action is enabled.
      */
-    enableComment?: boolean | PropertyBindingInfo;
+    enableComment?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If true the inspect action is enabled.
      */
-    enableInspect?: boolean | PropertyBindingInfo;
+    enableInspect?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If true the favorite action is enabled.
      */
-    enableFavorite?: boolean | PropertyBindingInfo;
+    enableFavorite?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Comments on this chunk
      */
-    comments?: FeedChunk[] | FeedChunk | AggregationBindingInfo;
+    comments?: FeedChunk[] | FeedChunk | AggregationBindingInfo | undefined;
 
     /**
      * MenuItems to open when there is a click on the action menu button
      */
-    actionMenuItems?: MenuItem[] | MenuItem | AggregationBindingInfo;
+    actionMenuItems?: MenuItem[] | MenuItem | AggregationBindingInfo | undefined;
 
     /**
      * Event is fired when the deletion button is pressed.
      */
-    deleted?: Function;
+    deleted?: Function | undefined;
 
     /**
      * Event is raised when a comment is added to the entry. This event is not supported for comment chunks.
      */
-    commentAdded?: Function;
+    commentAdded?: Function | undefined;
 
     /**
      * Event is raised when the user clicks to flag the entry. This event is not supported for comment chunks.
      */
-    toggleFlagged?: Function;
+    toggleFlagged?: Function | undefined;
 
     /**
      * Event is fired when the thumbnail or the name of the sender is clicked.
      */
-    senderClicked?: Function;
+    senderClicked?: Function | undefined;
 
     /**
      * Click on a @-reference
      */
-    referenceClicked?: Function;
+    referenceClicked?: Function | undefined;
 
     /**
      * Event is raised when the user clicks to set the entry as favorite. This event is not supported for comment
      * chunks.
      */
-    toggleFavorite?: Function;
+    toggleFavorite?: Function | undefined;
 
     /**
      * Event is fired when the inspect button was pressed
      */
-    inspect?: Function;
+    inspect?: Function | undefined;
 
     /**
      * Event is raised when the user clicks to share the entry. This event is not supported for comment chunks.
      */
-    toggleShared?: Function;
+    toggleShared?: Function | undefined;
 
     /**
      * Event is fired when an item from the action menu button was selected.
      */
-    actionItemSelected?: Function;
+    actionItemSelected?: Function | undefined;
   }
 }
 
@@ -8085,7 +8085,7 @@ declare module "sap/ui/ux3/Feeder" {
         /**
          * The text that is submitted
          */
-        text?: string;
+        text?: string | undefined;
       }
     ): this;
     /**
@@ -8202,27 +8202,27 @@ declare module "sap/ui/ux3/Feeder" {
      * control. In this case the value of the feed or feddChunk control is used if it's not set. So it must
      * be only set once on the feed or feedChunk control.
      */
-    thumbnailSrc?: URI | PropertyBindingInfo;
+    thumbnailSrc?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The text for the Feeder. @References are supported.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * Type and size of the Feeder
      */
-    type?: (FeederType | keyof typeof FeederType) | PropertyBindingInfo;
+    type?: (FeederType | keyof typeof FeederType) | PropertyBindingInfo | undefined;
 
     /**
      * This property could be used for costum placeholder. If it is not set, the default text is used.
      */
-    placeholderText?: string | PropertyBindingInfo;
+    placeholderText?: string | PropertyBindingInfo | undefined;
 
     /**
      * Event is fired when the entered text is submitted
      */
-    submit?: Function;
+    submit?: Function | undefined;
   }
 }
 
@@ -8377,11 +8377,11 @@ declare module "sap/ui/ux3/NavigationBar" {
         /**
          * The ID of the newly selected NavigationItem.
          */
-        itemId?: string;
+        itemId?: string | undefined;
         /**
          * The newly selected NavigationItem.
          */
-        item?: NavigationItem;
+        item?: NavigationItem | undefined;
       }
     ): boolean;
     /**
@@ -8557,37 +8557,37 @@ declare module "sap/ui/ux3/NavigationBar" {
     /**
      * Defines whether the navigation bar shall have top-level appearance
      */
-    toplevelVariant?: boolean | PropertyBindingInfo;
+    toplevelVariant?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.36
      *
      * Sets the appearance of the menu items in the overflow menu to uppercase
      */
-    overflowItemsToUpperCase?: boolean | PropertyBindingInfo;
+    overflowItemsToUpperCase?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * If the navigation items need to have a different parent than the NavigationBar, alternatively the associatedItems
      * association can be used. The NavigationBar follows the approach to use the items aggregation. If this
      * aggregation is empty, associatedItems is used.
      */
-    items?: NavigationItem[] | NavigationItem | AggregationBindingInfo;
+    items?: NavigationItem[] | NavigationItem | AggregationBindingInfo | undefined;
 
     /**
      * The selected NavigationItem.
      */
-    selectedItem?: NavigationItem | string;
+    selectedItem?: NavigationItem | string | undefined;
 
     /**
      * This association is ignored as long as the items aggregation is used; and supposed to be used alternatively
      * when the items should be aggregated by other entities.
      */
-    associatedItems?: Array<NavigationItem | string>;
+    associatedItems?: Array<NavigationItem | string> | undefined;
 
     /**
      * Event is fired when an item is selected by the user
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -8795,7 +8795,7 @@ declare module "sap/ui/ux3/NavigationItem" {
      * is the application's responsibility to make sure it is not the currently selected one - or to select
      * another one in this case.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines the link target URL. This property is optional and should only be set when required! The use
@@ -8805,12 +8805,12 @@ declare module "sap/ui/ux3/NavigationItem" {
      * this URL and it is the application's responsibility to display what the user expects (e.g. the Shell,
      * with the respective NavigationItem being selected).
      */
-    href?: URI | PropertyBindingInfo;
+    href?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Any NavigationItems on the next hierarchy level connected to this NavigationItem
      */
-    subItems?: NavigationItem[] | NavigationItem | AggregationBindingInfo;
+    subItems?: NavigationItem[] | NavigationItem | AggregationBindingInfo | undefined;
   }
 }
 
@@ -9002,7 +9002,7 @@ declare module "sap/ui/ux3/NotificationBar" {
         /**
          * Indicates if the bar wants to be shown or hidden
          */
-        show?: boolean;
+        show?: boolean | undefined;
       }
     ): this;
     /**
@@ -9019,7 +9019,7 @@ declare module "sap/ui/ux3/NotificationBar" {
          * The corresponding status to which the bar was resized. The corresponding heights can be taken for the
          * bar's CSS file.
          */
-        status?: NotificationBarStatus | keyof typeof NotificationBarStatus;
+        status?: NotificationBarStatus | keyof typeof NotificationBarStatus | undefined;
       }
     ): this;
     /**
@@ -9207,33 +9207,33 @@ declare module "sap/ui/ux3/NotificationBar" {
      */
     visibleStatus?:
       | (NotificationBarStatus | keyof typeof NotificationBarStatus)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * This property enables the bar to be resized by the user.
      */
-    resizeEnabled?: boolean | PropertyBindingInfo;
+    resizeEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * This property defines if the toggler should be displayed the whole time when the NotificationBar is shown.
      */
-    alwaysShowToggler?: boolean | PropertyBindingInfo;
+    alwaysShowToggler?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Notifier that shows messages
      */
-    messageNotifier?: UI5Element;
+    messageNotifier?: UI5Element | undefined;
 
     /**
      * Notifiers that monitor something within the application and display the corresponding notifications.
      */
-    notifiers?: UI5Element[] | UI5Element | AggregationBindingInfo;
+    notifiers?: UI5Element[] | UI5Element | AggregationBindingInfo | undefined;
 
     /**
      * Event is fired when the bar wants to be displayed depending on given flag. This allows the application
      * to decide what to do.
      */
-    display?: Function;
+    display?: Function | undefined;
 
     /**
      * @SINCE 1.12.2
@@ -9242,7 +9242,7 @@ declare module "sap/ui/ux3/NotificationBar" {
      * The event itself can be used from SAPUI5-version 1.12.2 since there was a bug in the previous versions
      * firing this event.
      */
-    resize?: Function;
+    resize?: Function | undefined;
   }
 }
 
@@ -9382,11 +9382,11 @@ declare module "sap/ui/ux3/Notifier" {
         /**
          * The message that was selected
          */
-        message?: Message;
+        message?: Message | undefined;
         /**
          * The notifier that contains the selected message
          */
-        notifier?: Notifier;
+        notifier?: Notifier | undefined;
       }
     ): this;
     /**
@@ -9506,22 +9506,22 @@ declare module "sap/ui/ux3/Notifier" {
     /**
      * Icon of the control that should be displayed within the corresponding bar
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Defines the title that should be displayed within the opening popup
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Messages of this notifier.
      */
-    messages?: Message[] | Message | AggregationBindingInfo;
+    messages?: Message[] | Message | AggregationBindingInfo | undefined;
 
     /**
      * Event is fired when a message of the notifiers was selected.
      */
-    messageSelected?: Function;
+    messageSelected?: Function | undefined;
   }
 }
 
@@ -9763,7 +9763,7 @@ declare module "sap/ui/ux3/Overlay" {
         /**
          * The ID of the Overlay instance.
          */
-        id?: string;
+        id?: string | undefined;
       }
     ): boolean;
     /**
@@ -9780,7 +9780,7 @@ declare module "sap/ui/ux3/Overlay" {
         /**
          * The ID of the Overlay instance.
          */
-        id?: string;
+        id?: string | undefined;
       }
     ): boolean;
     /**
@@ -9794,7 +9794,7 @@ declare module "sap/ui/ux3/Overlay" {
         /**
          * The ID of the Overlay instance
          */
-        id?: string;
+        id?: string | undefined;
       }
     ): this;
     /**
@@ -9808,7 +9808,7 @@ declare module "sap/ui/ux3/Overlay" {
         /**
          * The ID of the Overlay instance.
          */
-        id?: string;
+        id?: string | undefined;
       }
     ): this;
     /**
@@ -9952,32 +9952,32 @@ declare module "sap/ui/ux3/Overlay" {
     /**
      * Defines whether the 'Open' button shall be visible.
      */
-    openButtonVisible?: boolean | PropertyBindingInfo;
+    openButtonVisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines whether the 'Close' button shall be visible.
      */
-    closeButtonVisible?: boolean | PropertyBindingInfo;
+    closeButtonVisible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Event is fired when the Overlay starts closing.
      */
-    close?: Function;
+    close?: Function | undefined;
 
     /**
      * Event is fired when the Overlay is closed.
      */
-    closed?: Function;
+    closed?: Function | undefined;
 
     /**
      * Event is fired when the 'Open' button of the Overlay is clicked.
      */
-    openNew?: Function;
+    openNew?: Function | undefined;
 
     /**
      * Event is fired when the Overlay is opened.
      */
-    open?: Function;
+    open?: Function | undefined;
   }
 }
 
@@ -10117,7 +10117,7 @@ declare module "sap/ui/ux3/OverlayContainer" {
     /**
      * Aggregation for content
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -10294,18 +10294,18 @@ declare module "sap/ui/ux3/OverlayDialog" {
      * Determines the width of the Overlay Dialog. If the width is set to "auto" it is always 50% of the overlay
      * width.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Determines the height of the Overlay Dialog. If the height is set to "auto" it is always 50% of the overlay
      * height.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Content for the OverlayDialog.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
   }
 }
 
@@ -10549,16 +10549,16 @@ declare module "sap/ui/ux3/QuickView" {
         /**
          * Id of selected ThingAction
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * Selected ThingAction
          */
-        action?: ThingAction;
+        action?: ThingAction | undefined;
         /**
          * New State of the selected action. Only filled if the respective action maintains a state property, for
          * example 'FollowUp' or 'Favorite'
          */
-        newState?: string;
+        newState?: string | undefined;
       }
     ): this;
     /**
@@ -10572,7 +10572,7 @@ declare module "sap/ui/ux3/QuickView" {
         /**
          * Feed text
          */
-        text?: string;
+        text?: string | undefined;
       }
     ): this;
     /**
@@ -10589,7 +10589,7 @@ declare module "sap/ui/ux3/QuickView" {
         /**
          * URI of the Thing Inspector application.
          */
-        href?: string;
+        href?: string | undefined;
       }
     ): boolean;
     /**
@@ -11092,112 +11092,112 @@ declare module "sap/ui/ux3/QuickView" {
      * Thing type (mandatory) like Account, Material, Employee etc. is displayed in a header at the top part
      * of the QuickView.
      */
-    type?: string | PropertyBindingInfo;
+    type?: string | PropertyBindingInfo | undefined;
 
     /**
      * Thing name shown in the header of the QuickView
      */
-    firstTitle?: string | PropertyBindingInfo;
+    firstTitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * URI to Thing Inspector
      */
-    firstTitleHref?: string | PropertyBindingInfo;
+    firstTitleHref?: string | PropertyBindingInfo | undefined;
 
     /**
      * Optional short text shown under the firstTitle
      */
-    secondTitle?: string | PropertyBindingInfo;
+    secondTitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * URI of the Thing icon image (mandatory). The image is scaled down to the maximal size of 32 pixel (vertical
      * or horizontal).
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Control width as common CSS-size (px or % as unit, for example).
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Show Action Bar
      */
-    showActionBar?: boolean | PropertyBindingInfo;
+    showActionBar?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Follow State of a Thing
      */
     followState?:
       | (FollowActionState | keyof typeof FollowActionState)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * State of Flag Action
      */
-    flagState?: boolean | PropertyBindingInfo;
+    flagState?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * State Of favorite Action
      */
-    favoriteState?: boolean | PropertyBindingInfo;
+    favoriteState?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Favorite action enabled/disabled. If disabled the action will be invisible.
      */
-    favoriteActionEnabled?: boolean | PropertyBindingInfo;
+    favoriteActionEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Update action enabled/disabled. If disabled the action will be invisible.
      */
-    updateActionEnabled?: boolean | PropertyBindingInfo;
+    updateActionEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Follow action enabled/disabled. If disabled the action will be invisible.
      */
-    followActionEnabled?: boolean | PropertyBindingInfo;
+    followActionEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Flag action enabled/disabled. If disabled the action will be invisible.
      */
-    flagActionEnabled?: boolean | PropertyBindingInfo;
+    flagActionEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Open Thing action enabled/disabled. If disabled the action will be invisible.
      */
-    openActionEnabled?: boolean | PropertyBindingInfo;
+    openActionEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Body content of the QuickView
      */
-    content?: UI5Element[] | UI5Element | AggregationBindingInfo;
+    content?: UI5Element[] | UI5Element | AggregationBindingInfo | undefined;
 
     /**
      * Actions of a Thing
      */
-    actions?: ThingAction[] | ThingAction | AggregationBindingInfo;
+    actions?: ThingAction[] | ThingAction | AggregationBindingInfo | undefined;
 
     /**
      * ActionBar. If no actionBar is set a default ActionBar will be created. In any case, ActionBar is displayed
      * only when the showActionBar property is set to true.
      */
-    actionBar?: ActionBar;
+    actionBar?: ActionBar | undefined;
 
     /**
      * Action is selected in Action Bar
      */
-    actionSelected?: Function;
+    actionSelected?: Function | undefined;
 
     /**
      * Fired when a new feed entry is submitted.
      */
-    feedSubmit?: Function;
+    feedSubmit?: Function | undefined;
 
     /**
      * Event is fired when a user clicks on the firstTitle link. Call the preventDefault method of the event
      * object to cancel browser navigation.
      */
-    navigate?: Function;
+    navigate?: Function | undefined;
   }
 }
 
@@ -11645,15 +11645,15 @@ declare module "sap/ui/ux3/Shell" {
         /**
          * The ID of the selected PaneBarItem.
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * The selected Item
          */
-        item?: Item;
+        item?: Item | undefined;
         /**
          * The key of the selected Item (or null if there is no key)
          */
-        key?: string;
+        key?: string | undefined;
       }
     ): this;
     /**
@@ -11669,7 +11669,7 @@ declare module "sap/ui/ux3/Shell" {
         /**
          * The id of the PaneBarItem to which the closed pane belonged.
          */
-        id?: string;
+        id?: string | undefined;
       }
     ): this;
     /**
@@ -11696,15 +11696,15 @@ declare module "sap/ui/ux3/Shell" {
          * The id of the workset item that has been newly selected by the user. If a top-level item has been clicked
          * which has sub-items, the ID of the currently active sub-item (/leaf) is given.
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * The selected NavigationItem
          */
-        item?: NavigationItem;
+        item?: NavigationItem | undefined;
         /**
          * The key of the selected NavigationItem (or null if there is no key)
          */
-        key?: string;
+        key?: string | undefined;
       }
     ): boolean;
     /**
@@ -12645,7 +12645,7 @@ declare module "sap/ui/ux3/Shell" {
      * The application title to appear in the left part of the header, usually a company and/or product name.
      * appIcon and appTitle are both optional and can both be set; in this case the icon appears first.
      */
-    appTitle?: string | PropertyBindingInfo;
+    appTitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * The URL of the image to appear in the left part of the header, usually a branding image containing a
@@ -12653,17 +12653,17 @@ declare module "sap/ui/ux3/Shell" {
      * icon appears first. If the appIcon is set, for accessibility reasons the appIconTooltip must also be
      * set.
      */
-    appIcon?: URI | PropertyBindingInfo;
+    appIcon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The tooltip of the application icon in the header
      */
-    appIconTooltip?: string | PropertyBindingInfo;
+    appIconTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * Whether the Logoff button in the header should be displayed or not.
      */
-    showLogoutButton?: boolean | PropertyBindingInfo;
+    showLogoutButton?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.0
@@ -12671,12 +12671,12 @@ declare module "sap/ui/ux3/Shell" {
      * The tooltip to be displayed for the Logout Button of the Shell. If not set, a text meaning "Logout" in
      * the current language will be displayed.
      */
-    logoutButtonTooltip?: string | PropertyBindingInfo;
+    logoutButtonTooltip?: string | PropertyBindingInfo | undefined;
 
     /**
      * Whether the "Global Search" tool should be displayed or not.
      */
-    showSearchTool?: boolean | PropertyBindingInfo;
+    showSearchTool?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @deprecated (since 1.7.2) - According to the current Ux designs, the ThingInspector should NOT be opened
@@ -12685,22 +12685,22 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Whether the "Inspector" tool should be displayed or not.
      */
-    showInspectorTool?: boolean | PropertyBindingInfo;
+    showInspectorTool?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Whether the "Feeder" tool should be displayed or not.
      */
-    showFeederTool?: boolean | PropertyBindingInfo;
+    showFeederTool?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Whether the tool area should be displayed at all or not.
      */
-    showTools?: boolean | PropertyBindingInfo;
+    showTools?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Whether the pane bar should be displayed at all or not.
      */
-    showPane?: boolean | PropertyBindingInfo;
+    showPane?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Defines which header type to be used. Depending on the header type some other functionality might be
@@ -12708,7 +12708,7 @@ declare module "sap/ui/ux3/Shell" {
      */
     headerType?:
       | (ShellHeaderType | keyof typeof ShellHeaderType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.12.0
@@ -12717,20 +12717,20 @@ declare module "sap/ui/ux3/Shell" {
      */
     designType?:
       | (ShellDesignType | keyof typeof ShellDesignType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * The width of the right-hand side pane in pixels. The value must be a non-negative integer. The Shell
      * reserves the right to define a minimum width (currently 50px).
      */
-    paneWidth?: int | PropertyBindingInfo;
+    paneWidth?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.0
      *
      * Whether the Shell content area should have a theme-dependent padding or not.
      */
-    applyContentPadding?: boolean | PropertyBindingInfo;
+    applyContentPadding?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.9.0
@@ -12739,7 +12739,7 @@ declare module "sap/ui/ux3/Shell" {
      * "100%" height in CSS and will then consume all available space. However, if content is larger, scrollbars
      * will appear at the content area of the Shell and not on window level.
      */
-    fullHeightContent?: boolean | PropertyBindingInfo;
+    fullHeightContent?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.14.0
@@ -12747,46 +12747,46 @@ declare module "sap/ui/ux3/Shell" {
      * Whether the Shell header (Title Area + Header Items) can be accessed when an Overlay, OverlayContainer
      * or ThingInspector is open.
      */
-    allowOverlayHeaderAccess?: boolean | PropertyBindingInfo;
+    allowOverlayHeaderAccess?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The workset items.
      */
-    worksetItems?: NavigationItem[] | NavigationItem | AggregationBindingInfo;
+    worksetItems?: NavigationItem[] | NavigationItem | AggregationBindingInfo | undefined;
 
     /**
      * The items to appear in the PaneBar.
      */
-    paneBarItems?: Item[] | Item | AggregationBindingInfo;
+    paneBarItems?: Item[] | Item | AggregationBindingInfo | undefined;
 
     /**
      * The content to appear in the pane area.
      */
-    paneContent?: Control[] | Control | AggregationBindingInfo;
+    paneContent?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The content to appear in the main canvas. Each modification of this aggregation leads to a re-rendering
      * of the content area - but not to a re-rendering of the complete Shell.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * The items which appear in the ToolPalette and are opened as popup when clicked.
      */
-    toolPopups?: ToolPopup[] | ToolPopup | AggregationBindingInfo;
+    toolPopups?: ToolPopup[] | ToolPopup | AggregationBindingInfo | undefined;
 
     /**
      * Controls to appear in the header next to the logout button. It is recommended to only use controls of
      * type Button, MenuButton and TextView. The respective UI guidelines need to be enforced on a higher level.
      */
-    headerItems?: Control[] | Control | AggregationBindingInfo;
+    headerItems?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * @SINCE 1.7.0
      *
      * The NotificationBar which should be integrated into the Shell.
      */
-    notificationBar?: NotificationBar;
+    notificationBar?: NotificationBar | undefined;
 
     /**
      * The ID of the Item that is currently selected. When setting, the NavigationItem itself can be given instead
@@ -12795,7 +12795,7 @@ declare module "sap/ui/ux3/Shell" {
      * this Shell, the first item (and first sub-item) will be selected after the call. When getting, always
      * the ID is returned, by which the NavigationItem instance can be retrieved.
      */
-    selectedWorksetItem?: NavigationItem | string;
+    selectedWorksetItem?: NavigationItem | string | undefined;
 
     /**
      * Fired when a workset item was selected by the user. The application may populate the sub-items of the
@@ -12803,28 +12803,28 @@ declare module "sap/ui/ux3/Shell" {
      * is responsible for displaying the correct content for the selected one of the newly created sub-items.
      * The Shell will currently always mark the first sub-item as selected.
      */
-    worksetItemSelected?: Function;
+    worksetItemSelected?: Function | undefined;
 
     /**
      * An item in the right-hand-side pane bar has been selected, the pane is now visible and can be filled
      * with UI elements.
      */
-    paneBarItemSelected?: Function;
+    paneBarItemSelected?: Function | undefined;
 
     /**
      * Fired when the user clicks the "Log-off" button
      */
-    logout?: Function;
+    logout?: Function | undefined;
 
     /**
      * Fired when search has been triggered.
      */
-    search?: Function;
+    search?: Function | undefined;
 
     /**
      * Fired when a new feed entry is submitted.
      */
-    feedSubmit?: Function;
+    feedSubmit?: Function | undefined;
 
     /**
      * @SINCE 1.12.0
@@ -12832,7 +12832,7 @@ declare module "sap/ui/ux3/Shell" {
      * Fired after a side pane of the shell is closed. It is also fired, when an open pane is closed by calling
      * setShowPane(false), if and only if the pane was opened before.
      */
-    paneClosed?: Function;
+    paneClosed?: Function | undefined;
   }
 }
 
@@ -12950,11 +12950,11 @@ declare module "sap/ui/ux3/ThingAction" {
         /**
          * Id of selected action
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * Selected Thing Action
          */
-        action?: ThingAction;
+        action?: ThingAction | undefined;
       }
     ): this;
     /**
@@ -13027,17 +13027,17 @@ declare module "sap/ui/ux3/ThingAction" {
     /**
      * text of action
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * action enabled (true/false)
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Event will be fired when the action was triggered.
      */
-    select?: Function;
+    select?: Function | undefined;
   }
 }
 
@@ -13281,22 +13281,22 @@ declare module "sap/ui/ux3/ThingGroup" {
     /**
      * Title of Group
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * If Group is used in a column layout the groups spans the all columns if set to true.
      */
-    colspan?: boolean | PropertyBindingInfo;
+    colspan?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Content of Group
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Actions of the groups content
      */
-    actions?: ThingGroup[] | ThingGroup | AggregationBindingInfo;
+    actions?: ThingGroup[] | ThingGroup | AggregationBindingInfo | undefined;
   }
 }
 
@@ -13565,11 +13565,11 @@ declare module "sap/ui/ux3/ThingInspector" {
         /**
          * Id of selected ThingAction
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * Selected ThingAction
          */
-        action?: ThingAction;
+        action?: ThingAction | undefined;
       }
     ): this;
     /**
@@ -13586,15 +13586,15 @@ declare module "sap/ui/ux3/ThingInspector" {
         /**
          * Id of selected NavigationItem
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * The selected NavigationItem
          */
-        item?: NavigationItem;
+        item?: NavigationItem | undefined;
         /**
          * Key of selected NavigationItem
          */
-        key?: string;
+        key?: string | undefined;
       }
     ): boolean;
     /**
@@ -13608,7 +13608,7 @@ declare module "sap/ui/ux3/ThingInspector" {
         /**
          * Feed text
          */
-        text?: string;
+        text?: string | undefined;
       }
     ): this;
     /**
@@ -14159,59 +14159,59 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * First Line of the Thing Inspector Title
      */
-    firstTitle?: string | PropertyBindingInfo;
+    firstTitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * Thing type
      */
-    type?: string | PropertyBindingInfo;
+    type?: string | PropertyBindingInfo | undefined;
 
     /**
      * Thing Icon Url
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Second Line of the Thing Inspector Title
      */
-    secondTitle?: string | PropertyBindingInfo;
+    secondTitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * Follow State of a Thing
      */
     followState?:
       | (FollowActionState | keyof typeof FollowActionState)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * State of Flag Action
      */
-    flagState?: boolean | PropertyBindingInfo;
+    flagState?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * State Of favorite Action
      */
-    favoriteState?: boolean | PropertyBindingInfo;
+    favoriteState?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Favorite action enabled/disabled. If disabled the action will be invisible.
      */
-    favoriteActionEnabled?: boolean | PropertyBindingInfo;
+    favoriteActionEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Update action enabled/disabled. If disabled the action will be invisible.
      */
-    updateActionEnabled?: boolean | PropertyBindingInfo;
+    updateActionEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Follow action enabled/disabled. If disabled the action will be invisible.
      */
-    followActionEnabled?: boolean | PropertyBindingInfo;
+    followActionEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Flag action enabled/disabled. If disabled the action will be invisible.
      */
-    flagActionEnabled?: boolean | PropertyBindingInfo;
+    flagActionEnabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.3
@@ -14220,53 +14220,53 @@ declare module "sap/ui/ux3/ThingInspector" {
      */
     headerType?:
       | (ThingViewerHeaderType | keyof typeof ThingViewerHeaderType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Actions of a Thing
      */
-    actions?: ThingAction[] | ThingAction | AggregationBindingInfo;
+    actions?: ThingAction[] | ThingAction | AggregationBindingInfo | undefined;
 
     /**
      * ThingGroups for the header content
      */
-    headerContent?: ThingGroup[] | ThingGroup | AggregationBindingInfo;
+    headerContent?: ThingGroup[] | ThingGroup | AggregationBindingInfo | undefined;
 
     /**
      * Thing Inspector facets
      */
-    facets?: NavigationItem[] | NavigationItem | AggregationBindingInfo;
+    facets?: NavigationItem[] | NavigationItem | AggregationBindingInfo | undefined;
 
     /**
      * ThingGroups for content of the selected facet
      */
-    facetContent?: ThingGroup[] | ThingGroup | AggregationBindingInfo;
+    facetContent?: ThingGroup[] | ThingGroup | AggregationBindingInfo | undefined;
 
     /**
      * ActionBar. If no actionBar is set a default ActionBar will be created.
      */
-    actionBar?: ActionBar;
+    actionBar?: ActionBar | undefined;
 
     /**
      * The Facet that is currently selected.
      */
-    selectedFacet?: NavigationItem | string;
+    selectedFacet?: NavigationItem | string | undefined;
 
     /**
      * Further thing related Action selected
      */
-    actionSelected?: Function;
+    actionSelected?: Function | undefined;
 
     /**
      * Event for facet selection. The application is responsible for displaying the correct content for the
      * selected one. The ThingInspector will currently always mark the first facet as selected.
      */
-    facetSelected?: Function;
+    facetSelected?: Function | undefined;
 
     /**
      * Fired when a new feed entry is submitted.
      */
-    feedSubmit?: Function;
+    feedSubmit?: Function | undefined;
   }
 }
 
@@ -14448,15 +14448,15 @@ declare module "sap/ui/ux3/ThingViewer" {
         /**
          * Id of selected NavigationItem
          */
-        id?: string;
+        id?: string | undefined;
         /**
          * The selected NavigationItem
          */
-        item?: NavigationItem;
+        item?: NavigationItem | undefined;
         /**
          * Key of selected NavigationItem
          */
-        key?: string;
+        key?: string | undefined;
       }
     ): boolean;
     /**
@@ -14805,32 +14805,32 @@ declare module "sap/ui/ux3/ThingViewer" {
     /**
      * Title of the Thing Inspector
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * Thing type
      */
-    type?: string | PropertyBindingInfo;
+    type?: string | PropertyBindingInfo | undefined;
 
     /**
      * Thing Icon Url
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Subtitle of the Thing Inspector
      */
-    subtitle?: string | PropertyBindingInfo;
+    subtitle?: string | PropertyBindingInfo | undefined;
 
     /**
      * Width of the ThingViewer
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * Height of the ThingViewer
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.16.3
@@ -14839,38 +14839,38 @@ declare module "sap/ui/ux3/ThingViewer" {
      */
     headerType?:
       | (ThingViewerHeaderType | keyof typeof ThingViewerHeaderType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * ThingGroups for the header content
      */
-    headerContent?: ThingGroup[] | ThingGroup | AggregationBindingInfo;
+    headerContent?: ThingGroup[] | ThingGroup | AggregationBindingInfo | undefined;
 
     /**
      * Thing Inspector facets
      */
-    facets?: NavigationItem[] | NavigationItem | AggregationBindingInfo;
+    facets?: NavigationItem[] | NavigationItem | AggregationBindingInfo | undefined;
 
     /**
      * ThingGroups for content of the selected facet
      */
-    facetContent?: ThingGroup[] | ThingGroup | AggregationBindingInfo;
+    facetContent?: ThingGroup[] | ThingGroup | AggregationBindingInfo | undefined;
 
     /**
      * An ActionBar can be given
      */
-    actionBar?: ActionBar;
+    actionBar?: ActionBar | undefined;
 
     /**
      * The Facet that is currently selected.
      */
-    selectedFacet?: NavigationItem | string;
+    selectedFacet?: NavigationItem | string | undefined;
 
     /**
      * Event for facet selection. The application is responsible for displaying the correct content for the
      * selected one. The ThingInspector will currently always mark the first facet as selected.
      */
-    facetSelected?: Function;
+    facetSelected?: Function | undefined;
   }
 }
 
@@ -15267,11 +15267,11 @@ declare module "sap/ui/ux3/ToolPopup" {
         /**
          * The onsapenter event, received by the pop up
          */
-        originalEvent?: object;
+        originalEvent?: object | undefined;
         /**
          * The control that was focused when the user pressed the Enter key (may be null)
          */
-        originalSrcControl?: Control;
+        originalSrcControl?: Control | undefined;
       }
     ): this;
     /**
@@ -15842,26 +15842,26 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * Determines the title displayed in the pop up window
      */
-    title?: string | PropertyBindingInfo;
+    title?: string | PropertyBindingInfo | undefined;
 
     /**
      * This property is relevant for Shell use: The URL to the icon displayed in the tool area which is used
      * to open the ToolPopup. The recommended size is 32x32px, including some transparent border. Therefore,
      * the content will cover about 20x20px.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * This property is relevant for Shell use: The URL to the icon in hover state, displayed in the tool area
      * which is used to open the popup.
      */
-    iconHover?: URI | PropertyBindingInfo;
+    iconHover?: URI | PropertyBindingInfo | undefined;
 
     /**
      * This property is relevant for Shell use: The URL to the icon in selected state displayed in the tool
      * area which is used to open the popup. If no selected icon is given, the hover icon is used.
      */
-    iconSelected?: URI | PropertyBindingInfo;
+    iconSelected?: URI | PropertyBindingInfo | undefined;
 
     /**
      * Specifies whether the popup is modal and blocks any user-interaction with controls in the background.
@@ -15869,7 +15869,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * and "autoclose" at the same time. In this case a warning will be prompted to the console and "autoclose"
      * won't be used.
      */
-    modal?: boolean | PropertyBindingInfo;
+    modal?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.11.1
@@ -15877,7 +15877,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * Specifies whether the ToolPopup has a dark or bright background. If set to true the background and borders
      * will be dark. If false they will be bright. This property only has an effect for the GoldReflection-theme.
      */
-    inverted?: boolean | PropertyBindingInfo;
+    inverted?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.13.2
@@ -15886,7 +15886,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * of the ToolPopup it will be closed. Please don't use "modal" and "autoclose" at the same time. In this
      * case a warning will be prompted to the console and "autoclose" won't be used.
      */
-    autoClose?: boolean | PropertyBindingInfo;
+    autoClose?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.13.2
@@ -15894,50 +15894,50 @@ declare module "sap/ui/ux3/ToolPopup" {
      * Forces a maximum height of the ToolPopup in pixels. If the ToolPopup content is higher than the ToolPopup,
      * the content will be scrollable.
      */
-    maxHeight?: CSSSize | PropertyBindingInfo;
+    maxHeight?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.15.0
      *
      * Forces a maximum width of the ToolPopup in pixels.
      */
-    maxWidth?: CSSSize | PropertyBindingInfo;
+    maxWidth?: CSSSize | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.19.0
      *
      * Time in milliseconds for the open animation.
      */
-    openDuration?: int | PropertyBindingInfo;
+    openDuration?: int | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.19.0
      *
      * Time in milliseconds for the close animation.
      */
-    closeDuration?: int | PropertyBindingInfo;
+    closeDuration?: int | PropertyBindingInfo | undefined;
 
     /**
      * Defines the buttons to appear in the popup
      */
-    buttons?: Control[] | Control | AggregationBindingInfo;
+    buttons?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Defines the content of the popup
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | undefined;
 
     /**
      * Defines the control that will get the focus when the ToolPopup is opened.
      */
-    initialFocus?: Control | string;
+    initialFocus?: Control | string | undefined;
 
     /**
      * This property is relevant for stand-alone use: This association needs to be set if the ToolPopup should
      * not be opened by/with the Shell. This association contains the instance of the control that assigns the
      * ToolPopup's position.
      */
-    opener?: Control | string;
+    opener?: Control | string | undefined;
 
     /**
      * @SINCE 1.20.1
@@ -15947,42 +15947,42 @@ declare module "sap/ui/ux3/ToolPopup" {
      * The default button is activated when Enter is pressed in the context of the dialog and when the currently
      * selected element does not handle the Enter event itself.
      */
-    defaultButton?: Control | string;
+    defaultButton?: Control | string | undefined;
 
     /**
      * Event is fired when the popup opens
      */
-    open?: Function;
+    open?: Function | undefined;
 
     /**
      * Event is fired when the popup closes because the user pressed Escape or the ToolPopup Button in the Shell.
      * This is called before the closing animation.
      */
-    close?: Function;
+    close?: Function | undefined;
 
     /**
      * Event is fired whenever the user clicks the Enter or the Enter key inside the pop up
      */
-    enter?: Function;
+    enter?: Function | undefined;
 
     /**
      * Event is fired when one of the icon properties is modified (Note: The icon is not rendered by the ToolPopup).
      * To be used by other controls which want to update the icon in their UI.
      */
-    iconChanged?: Function;
+    iconChanged?: Function | undefined;
 
     /**
      * This event is fired after the ToolPopup has finished its closing animation. It is called for EVERY close,
      * regardless of whether the user has triggered the close or whether the ToolPopup was closed via API call.
      */
-    closed?: Function;
+    closed?: Function | undefined;
 
     /**
      * @SINCE 1.19.0
      *
      * Event is being fired after the ToolPopup has been opened.
      */
-    opened?: Function;
+    opened?: Function | undefined;
   }
 }
 

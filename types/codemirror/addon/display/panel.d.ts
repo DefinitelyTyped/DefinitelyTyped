@@ -16,17 +16,17 @@ declare module '../../' {
          * `bottom`: Adds the panel at the very bottom.
          * `before-bottom`: Adds the panel at the top of the bottom panels.
          */
-        position?: 'top' | 'after-top' | 'bottom' | 'before-bottom';
+        position?: 'top' | 'after-top' | 'bottom' | 'before-bottom' | undefined;
         /** The new panel will be added before the given panel. */
-        before?: Panel;
+        before?: Panel | undefined;
         /** The new panel will be added after the given panel. */
-        after?: Panel;
+        after?: Panel | undefined;
         /** The new panel will replace the given panel. */
-        replace?: Panel;
+        replace?: Panel | undefined;
         /** Whether to scroll the editor to keep the text's vertical position stable, when adding a panel above it. Defaults to false. */
-        stable?: boolean;
+        stable?: boolean | undefined;
         /** The initial height of the panel. Defaults to the offsetHeight of the node. */
-        height?: number;
+        height?: number | undefined;
     }
 
     interface Editor {

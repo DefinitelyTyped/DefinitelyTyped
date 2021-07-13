@@ -144,7 +144,7 @@ declare namespace Hubot {
     type DoneFunction = () => void;
     type NextFunction = (done: DoneFunction) => void;
     interface MiddlewareContext<T extends Adapter = Adapter> {
-        response?: Response<T>;
+        response?: Response<T> | undefined;
         [key: string]: unknown;
     }
     type MiddlewareHandler<T extends Adapter = Adapter> = (
@@ -190,7 +190,7 @@ declare namespace Hubot {
         readonly pingIntervalId: null | NodeJS.Timeout;
         readonly globalHttpOptions: HttpOptions;
         readonly version: string;
-        readonly server?: Server;
+        readonly server?: Server | undefined;
         readonly router: Express;
 
         constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);

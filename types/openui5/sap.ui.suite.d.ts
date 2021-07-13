@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -321,39 +321,39 @@ declare module "sap/ui/suite/TaskCircle" {
      * Current value of the task circle to be displayed. In dependency of the parameters maxValue and minValue
      * it controls the size of the circle.
      */
-    value?: int | PropertyBindingInfo;
+    value?: int | PropertyBindingInfo | undefined;
 
     /**
      * Upper limit of the displayed values. Default is 100.
      */
-    maxValue?: int | PropertyBindingInfo;
+    maxValue?: int | PropertyBindingInfo | undefined;
 
     /**
      * Lower limit of the displayed values. Default is 0.
      */
-    minValue?: int | PropertyBindingInfo;
+    minValue?: int | PropertyBindingInfo | undefined;
 
     /**
      * Color of the circle. The default color is red.
      */
     color?:
       | (TaskCircleColor | keyof typeof TaskCircleColor)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the user clicks the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -574,22 +574,22 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
      * The numerical value between 0 and 100 which determines the height of the vertical bar. Values higher
      * than 100 will be displayed as 100%, values lower than zero will be displayed as 0%.
      */
-    percentage?: int | PropertyBindingInfo;
+    percentage?: int | PropertyBindingInfo | undefined;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string>;
+    ariaLabelledBy?: Array<Control | string> | undefined;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string>;
+    ariaDescribedBy?: Array<Control | string> | undefined;
 
     /**
      * Event is fired when the user clicks the control.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 

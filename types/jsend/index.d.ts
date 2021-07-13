@@ -12,15 +12,15 @@ declare namespace Express {
 declare namespace jsend {
   interface JSendObject {
     status: string;
-    code?: number;
+    code?: number | undefined;
     data?: any;
-    message?: string;
+    message?: string | undefined;
   }
 
   interface jsendCore {
     success(data: Object): JSendObject;
     fail(data: Object): JSendObject;
-    error(message: string | { message: string, code?: number, data?: Object }): JSendObject;
+    error(message: string | { message: string, code?: number | undefined, data?: Object | undefined }): JSendObject;
   }
 
   interface jsendExpress extends jsendCore {

@@ -1,4 +1,4 @@
-import inquirer = require('../..');
+import { Answers, CheckboxChoiceOptions, ExpandChoiceOptions, ListChoiceOptions } from "../..";
 
 /**
  * Represents a choice for several question-types.
@@ -6,14 +6,14 @@ import inquirer = require('../..');
  * @template T
  * The type of the answers.
  */
-declare class Choice<T extends inquirer.Answers = inquirer.Answers> implements
-    inquirer.ListChoiceOptions<T>,
-    inquirer.CheckboxChoiceOptions<T>,
-    inquirer.ExpandChoiceOptions<T> {
+declare class Choice<T extends Answers = Answers> implements
+    ListChoiceOptions<T>,
+    CheckboxChoiceOptions<T>,
+    ExpandChoiceOptions {
     /**
      * @inheritdoc
      */
-    type?: "choice";
+    type?: "choice" | undefined;
 
     /**
      * @inheritdoc
@@ -33,7 +33,7 @@ declare class Choice<T extends inquirer.Answers = inquirer.Answers> implements
     /**
      * @inheritdoc
      */
-    checked?: boolean;
+    checked?: boolean | undefined;
 
     /**
      * @inheritdoc
@@ -45,7 +45,7 @@ declare class Choice<T extends inquirer.Answers = inquirer.Answers> implements
      *
      * @inheritdoc
      */
-    key?: string;
+    key?: string | undefined;
 
     /**
      * @inheritdoc

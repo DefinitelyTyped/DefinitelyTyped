@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.91.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -411,43 +411,43 @@ declare module "sap/ui/integration/ActionDefinition" {
     /**
      * The type of the action.
      */
-    type?: (CardActionType | keyof typeof CardActionType) | PropertyBindingInfo;
+    type?: (CardActionType | keyof typeof CardActionType) | PropertyBindingInfo | undefined;
 
     /**
      * The text of the action button.
      */
-    text?: string | PropertyBindingInfo;
+    text?: string | PropertyBindingInfo | undefined;
 
     /**
      * The icon of the action button.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | undefined;
 
     /**
      * The type of the action button.
      */
-    buttonType?: (ButtonType | keyof typeof ButtonType) | PropertyBindingInfo;
+    buttonType?: (ButtonType | keyof typeof ButtonType) | PropertyBindingInfo | undefined;
 
     /**
      * Indicates whether the user can interact with the action button or not. **Note**: Disabled controls cannot
      * be focused and they are out of the navigation tab-chain.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * Whether the action button should be visible on the screen.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | undefined;
 
     /**
      * The parameters of the action.
      */
-    parameters?: object | PropertyBindingInfo;
+    parameters?: object | PropertyBindingInfo | undefined;
 
     /**
      * Fired when the action button is pressed.
      */
-    press?: Function;
+    press?: Function | undefined;
   }
 }
 
@@ -945,23 +945,23 @@ declare module "sap/ui/integration/Extension" {
         /**
          * The card the action is fired from.
          */
-        card?: Control;
+        card?: Control | undefined;
         /**
          * The action configuration.
          */
-        actionConfig?: object;
+        actionConfig?: object | undefined;
         /**
          * The action source.
          */
-        actionSource?: Control;
+        actionSource?: Control | undefined;
         /**
          * The parameters related to the triggered action.
          */
-        parameters?: object;
+        parameters?: object | undefined;
         /**
          * The type of the action.
          */
-        type?: CardActionType | keyof typeof CardActionType;
+        type?: CardActionType | keyof typeof CardActionType | undefined;
       }
     ): boolean;
     /**
@@ -1022,21 +1022,21 @@ declare module "sap/ui/integration/Extension" {
      *
      * The actions configuration.
      */
-    actions?: CardMenuAction[] | PropertyBindingInfo;
+    actions?: CardMenuAction[] | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.79)
      *
      * The formatters, which can be used in the manifest.
      */
-    formatters?: object | PropertyBindingInfo;
+    formatters?: object | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Fired when an action is triggered in the card.
      */
-    action?: Function;
+    action?: Function | undefined;
   }
 }
 
@@ -1117,6 +1117,31 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.91)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when a message from channels like navigator.serviceWorker is received.
+     */
+    attachMessage(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Detaches event handler `fnFunction` from the {@link #event:action action} event of this `sap.ui.integration.Host`.
@@ -1124,6 +1149,23 @@ declare module "sap/ui/integration/Host" {
      * The passed function and listener object must match the ones used for event registration.
      */
     detachAction(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.91)
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:message message} event of this `sap.ui.integration.Host`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachMessage(
       /**
        * The function to be called, when the event occurs
        */
@@ -1170,25 +1212,38 @@ declare module "sap/ui/integration/Host" {
         /**
          * The card the action is fired from.
          */
-        card?: Control;
+        card?: Control | undefined;
         /**
          * The action configuration.
          */
-        actionConfig?: object;
+        actionConfig?: object | undefined;
         /**
          * The action source.
          */
-        actionSource?: Control;
+        actionSource?: Control | undefined;
         /**
          * The parameters related to the triggered action.
          */
-        parameters?: object;
+        parameters?: object | undefined;
         /**
          * The type of the action.
          */
-        type?: CardActionType | keyof typeof CardActionType;
+        type?: CardActionType | keyof typeof CardActionType | undefined;
       }
     ): boolean;
+    /**
+     * @EXPERIMENTAL (since 1.91)
+     *
+     * Fires event {@link #event:message message} to attached listeners.
+     */
+    fireMessage(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        data?: object | undefined;
+      }
+    ): this;
     /**
      * @EXPERIMENTAL (since 1.75)
      *
@@ -1321,6 +1376,26 @@ declare module "sap/ui/integration/Host" {
        */
       oListener?: object
     ): this;
+    /**
+     * @EXPERIMENTAL (since 1.91)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when a message from channels like navigator.serviceWorker is received.
+     */
+    attachMessage(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
   }
 
   export interface $HostSettings extends $ElementSettings {
@@ -1329,7 +1404,7 @@ declare module "sap/ui/integration/Host" {
      *
      * The actions configuration.
      */
-    actions?: CardMenuAction[] | PropertyBindingInfo;
+    actions?: CardMenuAction[] | PropertyBindingInfo | undefined;
 
     /**
      * A function that resolves the given destination name to a URL.
@@ -1342,14 +1417,21 @@ declare module "sap/ui/integration/Host" {
      * The callback receives `destinationName` as parameter and returns a string with the URL. Or alternatively
      * the callback may return a `Promise` with the URL as an argument.
      */
-    resolveDestination?: Function | PropertyBindingInfo;
+    resolveDestination?: Function | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Fired when an action is triggered.
      */
-    action?: Function;
+    action?: Function | undefined;
+
+    /**
+     * @EXPERIMENTAL (since 1.91)
+     *
+     * Fired when a message from channels like navigator.serviceWorker is received.
+     */
+    message?: Function | undefined;
   }
 }
 
@@ -1641,19 +1723,19 @@ declare module "sap/ui/integration/widgets/Card" {
         /**
          * The action source.
          */
-        actionSource?: Control;
+        actionSource?: Control | undefined;
         /**
          * The manifest parameters related to the triggered action.
          */
-        manifestParameters?: object;
+        manifestParameters?: object | undefined;
         /**
          * The parameters related to the triggered action.
          */
-        parameters?: object;
+        parameters?: object | undefined;
         /**
          * The type of the action.
          */
-        type?: CardActionType | keyof typeof CardActionType;
+        type?: CardActionType | keyof typeof CardActionType | undefined;
       }
     ): boolean;
     /**
@@ -1916,30 +1998,30 @@ declare module "sap/ui/integration/widgets/Card" {
         /**
          * The mode of the request. Possible values are "cors", "no-cors", "same-origin".
          */
-        mode?: string;
+        mode?: string | undefined;
         /**
          * The HTTP method. Possible values are "GET", "POST".
          */
-        method?: string;
+        method?: string | undefined;
         /**
          * The request parameters. If the method is "POST" the parameters will be put as key/value pairs into the
          * body of the request.
          */
-        parameters?: Object;
+        parameters?: Object | undefined;
         /**
          * The expected Content-Type of the response. Possible values are "xml", "json", "text", "script", "html",
          * "jsonp". Note: Complex Binding is not supported when a dataType is provided. Serialization of the response
          * to an object is up to the developer.
          */
-        dataType?: Object;
+        dataType?: Object | undefined;
         /**
          * The HTTP headers of the request.
          */
-        headers?: Object;
+        headers?: Object | undefined;
         /**
          * Indicates whether cross-site requests should be made using credentials.
          */
-        withCredentials?: boolean;
+        withCredentials?: boolean | undefined;
       }
     ): Promise<any>;
     /**
@@ -2089,7 +2171,7 @@ declare module "sap/ui/integration/widgets/Card" {
         /**
          * Additional parameters which will be used by the action handler to perform the action.
          */
-        parameters?: object;
+        parameters?: object | undefined;
       }
     ): void;
     /**
@@ -2314,30 +2396,30 @@ declare module "sap/ui/integration/widgets/Card" {
         /**
          * The mode of the request. Possible values are "cors", "no-cors", "same-origin".
          */
-        mode?: string;
+        mode?: string | undefined;
         /**
          * The HTTP method. Possible values are "GET", "POST".
          */
-        method?: string;
+        method?: string | undefined;
         /**
          * The request parameters. If the method is "POST" the parameters will be put as key/value pairs into the
          * body of the request.
          */
-        parameters?: Object;
+        parameters?: Object | undefined;
         /**
          * The expected Content-Type of the response. Possible values are "xml", "json", "text", "script", "html",
          * "jsonp". Note: Complex Binding is not supported when a dataType is provided. Serialization of the response
          * to an object is up to the developer.
          */
-        dataType?: Object;
+        dataType?: Object | undefined;
         /**
          * The HTTP headers of the request.
          */
-        headers?: Object;
+        headers?: Object | undefined;
         /**
          * Indicates whether cross-site requests should be made using credentials.
          */
-        withCredentials?: boolean;
+        withCredentials?: boolean | undefined;
       }
     ): Promise<any>;
     /**
@@ -2402,7 +2484,7 @@ declare module "sap/ui/integration/widgets/Card" {
         /**
          * Additional parameters which will be used by the action handler to perform the action.
          */
-        parameters?: object;
+        parameters?: object | undefined;
       }
     ): void;
   }
@@ -2411,7 +2493,7 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * The URL of the manifest or an object.
      */
-    manifest?: any | PropertyBindingInfo;
+    manifest?: any | PropertyBindingInfo | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.65)
@@ -2419,7 +2501,7 @@ declare module "sap/ui/integration/widgets/Card" {
      * Overrides the default values of the parameters, which are defined in the manifest. The value is an object
      * containing parameters in format `{parameterKey: parameterValue}`.
      */
-    parameters?: object | PropertyBindingInfo;
+    parameters?: object | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.65
@@ -2427,7 +2509,7 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * Defines the state of the `Card`. When set to `Inactive`, the `Card` doesn't make requests.
      */
-    dataMode?: (CardDataMode | keyof typeof CardDataMode) | PropertyBindingInfo;
+    dataMode?: (CardDataMode | keyof typeof CardDataMode) | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.70
@@ -2436,7 +2518,7 @@ declare module "sap/ui/integration/widgets/Card" {
      * Defines the base URL of the Card Manifest. It should be used when manifest property is an object instead
      * of a URL.
      */
-    baseUrl?: URI | PropertyBindingInfo;
+    baseUrl?: URI | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.76
@@ -2458,7 +2540,7 @@ declare module "sap/ui/integration/widgets/Card" {
      * ]
      * ```
      */
-    manifestChanges?: object[] | PropertyBindingInfo;
+    manifestChanges?: object[] | PropertyBindingInfo | undefined;
 
     /**
      * @SINCE 1.85
@@ -2470,26 +2552,26 @@ declare module "sap/ui/integration/widgets/Card" {
     actionDefinitions?:
       | ActionDefinition[]
       | ActionDefinition
-      | AggregationBindingInfo;
+      | AggregationBindingInfo | undefined;
 
     /**
      * The host.
      */
-    host?: Control | string;
+    host?: Control | string | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.64)
      *
      * Fired when an action is triggered on the card.
      */
-    action?: Function;
+    action?: Function | undefined;
 
     /**
      * @EXPERIMENTAL (since 1.72)
      *
      * Fired when the manifest is loaded.
      */
-    manifestReady?: Function;
+    manifestReady?: Function | undefined;
 
     /**
      * Fired when card utilities (like `DataProviderFactory`) and the card elements (like header) are created
@@ -2497,7 +2579,7 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * Note: The card's content may not be available yet because it may depend on other resources to load.
      */
-    manifestApplied?: Function;
+    manifestApplied?: Function | undefined;
   }
 }
 
@@ -2577,6 +2659,8 @@ declare namespace sap {
     "sap/ui/integration/designtime/baseEditor/propertyEditor/PropertyEditorFactory": undefined;
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/selectEditor/SelectEditor": undefined;
+
+    "sap/ui/integration/designtime/baseEditor/propertyEditor/separatorEditor/SeparatorEditor": undefined;
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/stringEditor/StringEditor": undefined;
 

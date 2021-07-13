@@ -11,7 +11,7 @@ import * as server from "./server";
 
 declare module "react" {
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
-        jsx?: boolean;
-        global?: boolean;
+        jsx?: boolean | undefined;
+        global?: boolean | undefined;
     }
 }

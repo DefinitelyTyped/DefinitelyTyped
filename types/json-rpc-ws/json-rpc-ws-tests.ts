@@ -20,7 +20,7 @@ client.connect('ws://localhost:8080', function connected() {
 });
 
 interface CustomConnection extends JsonRpcWs.Connection {
-    rooms?: string[];
+    rooms?: string[] | undefined;
 }
 
 const serverWithCustomConnection = JsonRpcWs.createServer<CustomConnection>();
