@@ -263,7 +263,7 @@ declare class SpreedlyPaymentFrame {
      * @param event - Event to listen on.
      * @param callback - Event callback.
      */
-    on(event: 'errors', callback: (error: spreedly.SpreedlyError) => void): void;
+    on(event: 'errors', callback: (errors: spreedly.SpreedlyError[]) => void): void;
 
     /**
      * Triggered when an input event occurs in either iFrame field.
