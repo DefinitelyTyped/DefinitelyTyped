@@ -21,7 +21,7 @@ declare namespace Carousel {
      * @see {@link https://github.com/yifaneye/react-gallery-carousel/blob/3adffccaf131e69eb084736aa24a0a2b47268fa8/README.md#image-object-example}
      */
 
-    export interface Image {
+    interface Image {
         src: string;
         srcset?: string;
         sizes?: string;
@@ -50,33 +50,33 @@ declare namespace Carousel {
      * ]
      */
 
-    export type Images = Image[];
+    type Images = Image[];
 
     // Carousel with children has optional images.
-    export interface CarouselWithChildren {
+    interface CarouselWithChildren {
         images?: Images;
         children: React.ReactNode;
     }
 
     // Carousel has the props images mandatory if children do not exists.
-    export interface CarouselWithImages {
+    interface CarouselWithImages {
         images: Images;
         children?: React.ReactNode;
     }
 
     // Buttons of the carousel that accepts a boolean or string.
-    export type ButtonType = boolean | string;
+    type ButtonType = boolean | string;
 
     // Object fit css properties
-    export type ValueOf<T> = T[keyof T];
-    export type ObjectFit = ValueOf<Pick<React.CSSProperties, 'objectFit'>>;
+    type ValueOf<T> = T[keyof T];
+    type ObjectFit = ValueOf<Pick<React.CSSProperties, 'objectFit'>>;
 
     /**
      * The Ref carousel element with the imperative handlers.
      * @see {@link https://github.com/yifaneye/react-gallery-carousel#handlers}
      */
 
-    export type CarouselRef<T = unknown> = T & {
+    type CarouselRef<T = unknown> = T & {
         play(): void;
         pause(): void;
         toggleIsPlaying(): void;
@@ -93,7 +93,7 @@ declare namespace Carousel {
      * @see {@link https://github.com/yifaneye/react-gallery-carousel#props}
      */
 
-    export type CarouselProps = (CarouselWithChildren | CarouselWithImages) &
+    type CarouselProps = (CarouselWithChildren | CarouselWithImages) &
         Partial<{
             index: number;
             isRTL: boolean;
