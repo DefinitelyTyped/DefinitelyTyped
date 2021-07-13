@@ -78,4 +78,5 @@ declare global {
     type PlayerDataChangedEventHandler = (event: PlayerDataChangedEvent) => void;
     type RequestHandler = (request: framework.NetworkRequestInfo) => void;
     type BinaryHandler = (data: Uint8Array) => Uint8Array;
+    type TracksChangedHandler = () => void;
 }
