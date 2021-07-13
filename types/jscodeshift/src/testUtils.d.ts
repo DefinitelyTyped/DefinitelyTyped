@@ -23,7 +23,10 @@ export function defineInlineTest(
 export function runInlineTest(
   module: Transform,
   options: Options,
-  input: string,
+  input: {
+    path: string,
+    source: string,
+  },
   expectedOutput: string,
   testOptions?: TestOptions
 ): string;
