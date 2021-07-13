@@ -1,0 +1,31 @@
+import parser, { ast, tokenTypes } from 'pico8parse';
+
+const luaCode = "-- this is hello world in lua.\nprint('hello world')";
+
+// $ExpectType Chunk
+const ast1 = parser.parse(luaCode);
+console.log(JSON.stringify(ast1));
+
+// $ExpectType Chunk
+const ast2 = parser.parse(luaCode, {comments: false});
+console.log(JSON.stringify(ast2));
+
+// $ExpectType Parser
+const ast3 = parser.parse({wait: true});
+console.log(JSON.stringify(ast3));
+
+// $ExpectType Parser
+const ast4 = parser.parse(luaCode, {wait: true});
+console.log(JSON.stringify(ast4));
+
+// $ExpectType Chunk
+const ast5 = parser.parse(luaCode, {comments: false, encodingMode: 'pseudo-latin1'});
+console.log(JSON.stringify(ast5));
+
+// $ExpectType LabelStatement
+const nod1 = ast.labelStatement(ast.identifier("label"));
+console.log(JSON.stringify(nod1));
+
+// $ExpectType NumericLiteral
+const nod2 = ast.literal(tokenTypes.NumericLiteral, 42, "42");
+console.log(JSON.stringify(nod2));
