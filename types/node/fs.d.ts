@@ -1,8 +1,4 @@
 declare module 'fs' {
-    export * from 'node:fs';
-}
-
-declare module 'node:fs' {
     import * as stream from 'node:stream';
     import { Abortable, EventEmitter } from 'node:events';
     import { URL } from 'node:url';
@@ -2247,4 +2243,8 @@ declare module 'node:fs' {
         bigint?: boolean | undefined;
         throwIfNoEntry?: boolean | undefined;
     }
+}
+
+declare module 'node:fs' {
+    export * from 'fs';
 }

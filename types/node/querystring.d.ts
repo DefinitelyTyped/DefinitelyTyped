@@ -1,8 +1,4 @@
 declare module 'querystring' {
-    export * from 'node:querystring';
-}
-
-declare module 'node:querystring' {
     interface StringifyOptions {
         encodeURIComponent?: ((str: string) => string) | undefined;
     }
@@ -29,4 +25,8 @@ declare module 'node:querystring' {
     const decode: typeof parse;
     function escape(str: string): string;
     function unescape(str: string): string;
+}
+
+declare module 'node:querystring' {
+    export * from 'querystring';
 }

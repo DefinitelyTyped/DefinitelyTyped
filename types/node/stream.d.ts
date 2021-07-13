@@ -1,9 +1,4 @@
 declare module 'stream' {
-    import stream = require('node:stream');
-    export = stream;
-}
-
-declare module 'node:stream' {
     import { EventEmitter, Abortable } from 'node:events';
     import * as streamPromises from "node:stream/promises";
 
@@ -473,4 +468,9 @@ declare module 'node:stream' {
     }
 
     export = internal;
+}
+
+declare module 'node:stream' {
+    import stream = require('stream');
+    export = stream;
 }

@@ -4,6 +4,6 @@ declare module 'assert/strict' {
 }
 
 declare module 'node:assert/strict' {
-    import * as assert from 'node:assert';
-    export = assert;
+    import { strict } from 'node:assert';
+    export = strict;
 }

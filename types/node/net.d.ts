@@ -1,8 +1,4 @@
 declare module 'net' {
-    export * from 'node:net';
-}
-
-declare module 'node:net' {
     import * as stream from 'node:stream';
     import { Abortable, EventEmitter } from 'node:events';
     import * as dns from 'node:dns';
@@ -365,4 +361,8 @@ declare module 'node:net' {
         readonly port: number;
         readonly flowlabel: number;
     }
+}
+
+declare module 'node:net' {
+    export * from 'net';
 }

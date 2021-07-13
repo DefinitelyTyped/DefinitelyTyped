@@ -1,14 +1,7 @@
-/**
- * @deprecated
- */
- declare module 'domain' {
-    export * from 'node:domain';
-}
-
-/**
- * @deprecated
- */
-declare module 'node:domain' {
+ /**
+  * @deprecated
+  */
+declare module 'domain' {
     import EventEmitter = require('node:events');
     class Domain extends EventEmitter {
         members: Array<EventEmitter | NodeJS.Timer>;
@@ -22,4 +15,11 @@ declare module 'node:domain' {
     }
 
     function create(): Domain;
+}
+
+ /**
+  * @deprecated
+  */
+declare module 'node:domain' {
+    export * from 'domain';
 }

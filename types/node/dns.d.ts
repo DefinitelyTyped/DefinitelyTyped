@@ -1,8 +1,4 @@
 declare module 'dns' {
-    export * from 'node:dns';
-}
-
-declare module 'node:dns' {
     import * as dnsPromises from "node:dns/promises";
 
     // Supported getaddrinfo flags.
@@ -323,4 +319,8 @@ declare module 'node:dns' {
     }
 
     export { dnsPromises as promises };
+}
+
+declare module 'node:dns' {
+    export * from 'dns';
 }

@@ -1,8 +1,4 @@
 declare module 'crypto' {
-    export * from 'node:crypto';
-}
-
-declare module 'node:crypto' {
     import * as stream from 'node:stream';
     import { PeerCertificate } from 'node:tls';
 
@@ -1592,4 +1588,8 @@ declare module 'node:crypto' {
     namespace webcrypto {
         class CryptoKey {} // placeholder
     }
+}
+
+declare module 'node:crypto' {
+    export * from 'crypto';
 }

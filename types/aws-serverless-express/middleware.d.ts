@@ -1,7 +1,6 @@
 import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import { RequestHandler } from 'express';
 import 'http';
-import 'node:http';
 
 export interface APIGateway {
     event: Omit<APIGatewayProxyEvent, 'body'>;
@@ -9,13 +8,7 @@ export interface APIGateway {
 }
 
 declare module 'http' {
-    export interface IncomingMessage {
-        apiGateway?: APIGateway;
-    }
-}
-
-declare module 'node:http' {
-    export interface IncomingMessage {
+    interface IncomingMessage {
         apiGateway?: APIGateway;
     }
 }

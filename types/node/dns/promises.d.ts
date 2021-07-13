@@ -1,8 +1,4 @@
-declare module 'dns/promises' {
-    export * from 'node:dns/promises';
-}
-
-declare module "node:dns/promises" {
+declare module "dns/promises" {
     import {
         LookupAddress,
         LookupOneOptions,
@@ -98,4 +94,8 @@ declare module "node:dns/promises" {
         setLocalAddress(ipv4?: string, ipv6?: string): void;
         setServers: typeof setServers;
     }
+}
+
+declare module 'node:dns/promises' {
+    export * from 'dns/promises';
 }

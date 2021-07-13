@@ -1,8 +1,4 @@
 declare module 'worker_threads' {
-    export * from 'node:worker_threads';
-}
-
-declare module 'node:worker_threads' {
     import { Blob } from 'node:buffer';
     import { Context } from 'node:vm';
     import { EventEmitter } from 'node:events';
@@ -283,4 +279,8 @@ declare module 'node:worker_threads' {
      * @experimental
      */
     function setEnvironmentData(key: Serializable, value: Serializable): void;
+}
+
+declare module 'node:worker_threads' {
+    export * from 'worker_threads';
 }

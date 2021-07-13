@@ -1,8 +1,4 @@
 declare module 'v8' {
-    export * from 'node:v8';
-}
-
-declare module 'node:v8' {
     import { Readable } from 'node:stream';
 
     interface HeapSpaceInfo {
@@ -199,4 +195,8 @@ declare module 'node:v8' {
      * Stops writing coverage report.
      */
     function stopCoverage(): void;
+}
+
+declare module 'node:v8' {
+    export * from 'v8';
 }

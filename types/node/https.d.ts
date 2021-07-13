@@ -1,8 +1,4 @@
 declare module 'https' {
-    export * from 'node:https';
-}
-
-declare module 'node:https' {
     import * as tls from 'node:tls';
     import * as http from 'node:http';
     import { URL } from 'node:url';
@@ -37,4 +33,8 @@ declare module 'node:https' {
     function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     let globalAgent: Agent;
+}
+
+declare module 'node:https' {
+    export * from 'https';
 }

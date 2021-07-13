@@ -1,8 +1,4 @@
 declare module 'tls' {
-    export * from 'node:tls';
-}
-
-declare module 'node:tls' {
     import { X509Certificate } from 'node:crypto';
     import * as net from 'node:net';
 
@@ -794,4 +790,8 @@ declare module 'node:tls' {
      * of the ca option to tls.createSecureContext().
      */
     const rootCertificates: ReadonlyArray<string>;
+}
+
+declare module 'node:tls' {
+    export * from 'tls';
 }

@@ -1,11 +1,7 @@
-declare module 'async_hooks' {
-    export * from 'node:async_hooks';
-}
-
 /**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
  */
-declare module 'node:async_hooks' {
+declare module 'async_hooks' {
     /**
      * Returns the asyncId of the current execution context.
      */
@@ -225,4 +221,8 @@ declare module 'node:async_hooks' {
          */
         enterWith(store: T): void;
     }
+}
+
+declare module 'node:async_hooks' {
+    export * from 'async_hooks';
 }

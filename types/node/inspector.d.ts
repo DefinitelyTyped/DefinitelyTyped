@@ -10,14 +10,7 @@
 /**
  * The inspector module provides an API for interacting with the V8 inspector.
  */
- declare module 'inspector' {
-    export * from 'node:inspector';
-}
-
-/**
- * The inspector module provides an API for interacting with the V8 inspector.
- */
-declare module 'node:inspector' {
+declare module 'inspector' {
     import EventEmitter = require('node:events');
 
     interface InspectorNotification<T> {
@@ -3045,4 +3038,9 @@ declare module 'node:inspector' {
      * An exception will be thrown if there is no active inspector.
      */
     function waitForDebugger(): void;
+}
+
+declare module 'node:inspector' {
+    import EventEmitter = require('inspector');
+    export = EventEmitter;
 }

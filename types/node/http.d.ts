@@ -1,9 +1,4 @@
 declare module 'http' {
-    export * from 'node:http';
-    export { };
-}
-
-declare module 'node:http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
     import { Socket, Server as NetServer } from 'node:net';
@@ -434,4 +429,8 @@ declare module 'node:http' {
      * Defaults to 16KB. Configurable using the `--max-http-header-size` CLI option.
      */
     const maxHeaderSize: number;
+}
+
+declare module 'node:http' {
+    export * from 'http';
 }

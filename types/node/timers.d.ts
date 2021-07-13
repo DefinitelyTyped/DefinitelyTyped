@@ -1,8 +1,4 @@
 declare module 'timers' {
-    export * from 'node:timers';
-}
-
-declare module 'node:timers' {
     import { Abortable } from 'node:events';
     import { setTimeout as setTimeoutPromise, setImmediate as setImmediatePromise, setInterval as setIntervalPromise } from 'node:timers/promises';
 
@@ -72,4 +68,8 @@ declare module 'node:timers' {
 
         function queueMicrotask(callback: () => void): void;
     }
+}
+
+declare module 'node:timers' {
+    export * from 'timers';
 }

@@ -1,8 +1,4 @@
 declare module 'fs/promises' {
-    export * from 'node:fs/promises';
-}
-
-declare module 'node:fs/promises' {
     import { Abortable } from 'node:events';
     import { Stream } from 'node:stream';
     import {
@@ -545,4 +541,8 @@ declare module 'node:fs/promises' {
      * If `recursive` is not supplied, the default of `false` is used.
      */
     function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<string> | AsyncIterable<Buffer>;
+}
+
+declare module 'node:fs/promises' {
+    export * from 'fs/promises';
 }
