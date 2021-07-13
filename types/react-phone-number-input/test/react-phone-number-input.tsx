@@ -8,6 +8,8 @@ import PhoneInput, {
 } from 'react-phone-number-input';
 
 const phoneNumber: PhoneNumber | undefined = parsePhoneNumber('+12025550112');
+const phoneNumberWithOptions: PhoneNumber | undefined = parsePhoneNumber('2025550112', { defaultCountry: 'US' });
+const phoneNumberWithCountryCode: PhoneNumber | undefined = parsePhoneNumber('2025550112', 'US');
 
 const test1 = (
     <PhoneInput
@@ -50,16 +52,11 @@ const test2 = (
     />
 );
 
-const CountrySelect = ({
-    value,
-    onChange,
-    labels,
-    ...rest
-}: CountrySelectComponentProps) => (
+const CountrySelect = ({ value, onChange, labels, ...rest }: CountrySelectComponentProps) => (
     <select
         {...rest}
         value={value}
-        onChange={(event) => {
+        onChange={event => {
             if (onChange) {
                 onChange(event.target.value || undefined);
             }
@@ -75,10 +72,10 @@ const CountrySelect = ({
 
 CountrySelect.defaultProps = {
     labels: {
-        AU: "Australie",
-        CA: "Canada",
+        AU: 'Australie',
+        CA: 'Canada',
         US: "États-Unis d'Amérique",
-    }
+    },
 };
 
 const test3 = (
