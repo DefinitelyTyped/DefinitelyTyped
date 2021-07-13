@@ -12,7 +12,7 @@ export = madge;
  *
  * @param path A single file or directory, or an array of files/directories to read. A predefined tree can also be passed in as an object.
  * @param config The configuration to use (optional).
- * @returns A `Promise` resolved with the Madge instance object.
+ * @returns A Promise resolved with the MadgeInstance object.
  */
 declare function madge(path: madge.MadgePath, config?: madge.MadgeConfig): Promise<madge.MadgeInstance>;
 
@@ -24,28 +24,28 @@ declare namespace madge {
         /**
          * Return the module dependency graph as an object.
          *
-         * @returns An `Object` with all dependencies.
+         * @returns An object with all dependencies.
          */
         obj: () => MadgeModuleDependencyGraph;
 
         /**
          * Return produced warnings.
          *
-         * @returns An `Object` of warnings.
+         * @returns An object of warnings.
          */
         warnings: () => MadgeWarnings;
 
         /**
          * Return the modules that have circular dependencies.
          *
-         * @returns An `Array` of all modules that have circular dependencies.
+         * @returns An array of all modules that have circular dependencies.
          */
         circular: () => string[][];
 
         /**
          * Return circular dependency graph.
          *
-         * @returns An `Object` with only circular dependencies.
+         * @returns An object with only circular dependencies.
          */
         circularGraph: () => MadgeModuleDependencyGraph;
 
@@ -53,21 +53,21 @@ declare namespace madge {
          * Return a list of modules that depends on a given module.
          *
          * @param id The ID of the module.
-         * @returns An `Array` of all modules that depend on the given module.
+         * @returns An array of all modules that depend on the given module.
          */
         depends: (id: string) => string[];
 
         /**
          * Return a list of modules that no one is depending on.
          *
-         * @returns An `Array` of all modules that no one is depending on.
+         * @returns An array of all modules that no one is depending on.
          */
         orphans: () => string[];
 
         /**
          * Return a list of modules that have no dependencies.
          *
-         * @returns An `Array` of all modules that have no dependencies.
+         * @returns An array of all modules that have no dependencies.
          */
         leaves: () => string[];
 
@@ -75,7 +75,7 @@ declare namespace madge {
          * Return the module dependency graph as DOT output.
          *
          * @param circularOnly Only include circular dependencies.
-         * @returns A `Promise` resolved with a DOT representation of the module dependency graph
+         * @returns A Promise resolved with a DOT string representation of the module dependency graph
          */
         dot: (circularOnly?: boolean) => Promise<string>;
 
@@ -84,14 +84,14 @@ declare namespace madge {
          *
          * @param imagePath The output path of the image.
          * @param circularOnly Only include circular dependencies.
-         * @returns A `Promise` resolved with a full path to the written image.
+         * @returns A Promise resolved with a full path to the written image.
          */
         image: (imagePath: string, circularOnly?: boolean) => Promise<string>;
 
         /**
          * Return Buffer with XML SVG representation of the dependency graph.
          *
-         * @returns A `Promise` resolved with the XML SVG representation of the dependency graph as a `Buffer`.
+         * @returns A Promise resolved with the XML SVG representation of the dependency graph as a Buffer.
          */
         svg: () => Promise<Buffer>;
     }
