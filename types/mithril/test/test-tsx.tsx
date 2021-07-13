@@ -24,8 +24,10 @@ function ClosureComp(): m.Component<Attrs> {
 function testRender() {
     return [
         <ClassComp id={1} text="Title 1"/>,
-        // <PojoComp id={2} text="Title 2"/>,  <- won't compile
-        // <ClosureComp id={3} text="Title 3"/>  <- won't compile
+        // $ExpectError
+        <PojoComp id={2} text="Title 2"/>,
+        // $ExpectError
+        <ClosureComp id={3} text="Title 3"/>
     ];
 }
 
