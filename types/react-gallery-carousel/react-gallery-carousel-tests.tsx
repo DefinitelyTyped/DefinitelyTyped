@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Carousel, { CarouselRef, Images } from 'react-gallery-carousel';
 
-const images: Images = [
+const images: Carousel.Images = [
     {
         src: `https://placedog.net/700/420?id=1`,
         srcset: `https://placedog.net/400/240?id=1 400w, https://placedog.net/700/420?id=1 700w`,
