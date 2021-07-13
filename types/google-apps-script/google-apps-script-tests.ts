@@ -97,8 +97,11 @@ function doPost(e: GoogleAppsScript.Events.DoPost) {
 }
 
 // doGet function
-function doGet(e: GoogleAppsScript.Events.DoGet) {
-    const params: object = e.parameters;
+function doGet(e: GoogleAppsScript.Events.DoGet<{ param: string }>) {
+    const param: string = e.parameter.param;
+    const paramArray: string[] = e.parameters.param;
+    Logger.log(param);
+    Logger.log(paramArray);
 }
 
 // Base Service

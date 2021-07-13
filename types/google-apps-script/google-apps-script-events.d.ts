@@ -95,8 +95,9 @@ declare namespace GoogleAppsScript {
       authMode: Script.AuthMode;
     }
 
-    // tslint:disable-next-line: no-empty-interface
-    interface DoGet extends AppsScriptHttpRequestEvent {
+    interface DoGet<T = {}> extends AppsScriptHttpRequestEvent {
+      parameter: { [key in keyof T]: string };
+      parameters: { [key in keyof T]: string[] };
     }
 
     interface DoPost extends AppsScriptHttpRequestEvent {
