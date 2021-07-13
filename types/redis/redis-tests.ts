@@ -13,6 +13,7 @@ const numArrayCallback: (err: Error | null, res: number[]) => void = () => {};
 const nullableStrCallback: (err: Error | null, res: string | null) => void = () => {};
 const okCallback: (err: Error | null, res: 'OK') => void = () => {};
 const messageHandler: (channel: string, message: any) => void = () => {};
+const nullableCallback: (err: Error | null, res: { [key: string]: string } | null) => void = () => {};
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -171,3 +172,6 @@ client.zincrby('a', 1, 'b', strCallback);
 client.ZINCRBY('a', 1, 'b', strCallback);
 
 client.flushdb(okCallback);
+
+// hgetall callback's result can be null
+client.hgetall(str, nullableCallback);
