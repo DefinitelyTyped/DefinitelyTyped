@@ -256,13 +256,15 @@ export interface Client {
     client_aliases?: string[] | undefined;
     allowed_clients?: string[] | undefined;
     allowed_logout_urls?: string[] | undefined;
-    jwt_configuration?: {
-        // The amount of time (in seconds) that the token will be valid after being issued
-        lifetime_in_seconds?: number | undefined;
-        scopes?: {} | undefined;
-        // The algorithm used to sign the JsonWebToken
-        alg?: 'HS256' | 'RS256' | undefined;
-    } | undefined;
+    jwt_configuration?:
+        | {
+              // The amount of time (in seconds) that the token will be valid after being issued
+              lifetime_in_seconds?: number | undefined;
+              scopes?: {} | undefined;
+              // The algorithm used to sign the JsonWebToken
+              alg?: 'HS256' | 'RS256' | undefined;
+          }
+        | undefined;
     /**
      * A set of grant types that the client is authorized to use
      */
@@ -271,11 +273,13 @@ export interface Client {
      * Client signing keys.
      */
     signing_keys?: string[] | undefined;
-    encryption_key?: {
-        pub?: string | undefined;
-        cert?: string | undefined;
-        subject?: string | undefined;
-    } | undefined;
+    encryption_key?:
+        | {
+              pub?: string | undefined;
+              cert?: string | undefined;
+              subject?: string | undefined;
+          }
+        | undefined;
     sso?: boolean | undefined;
     /**
      * `true` to disable Single Sign On, `false` otherwise (default: `false`)
@@ -595,14 +599,16 @@ export interface Identity {
     provider: string;
     isSocial: boolean;
     access_token?: string | undefined;
-    profileData?: {
-        email?: string | undefined;
-        email_verified?: boolean | undefined;
-        name?: string | undefined;
-        phone_number?: string | undefined;
-        phone_verified?: boolean | undefined;
-        request_language?: string | undefined;
-    } | undefined;
+    profileData?:
+        | {
+              email?: string | undefined;
+              email_verified?: boolean | undefined;
+              name?: string | undefined;
+              phone_number?: string | undefined;
+              phone_verified?: boolean | undefined;
+              request_language?: string | undefined;
+          }
+        | undefined;
 }
 
 export interface AuthenticationClientOptions {
@@ -1058,6 +1064,12 @@ export interface PagingOptions {
     page?: number | undefined;
 }
 
+export type PaginatedResource<T extends Record<string, any>, K extends string> = {
+    total: number;
+    page: number;
+    per_page: number;
+} & { [P in K]: T[] };
+
 export class AuthenticationClient {
     // Members
     database?: DatabaseAuthenticator | undefined;
@@ -1118,63 +1130,174 @@ export interface ActionsManagerOptions {
     retry?: RetryOptions;
 }
 
+export type ActionExtensibilityPoint =
+    | 'post-login'
+    | 'credentials-exchange'
+    | 'pre-user-registration'
+    | 'post-user-registration'
+    | 'post-change-password'
+    | 'send-phone-message'
+    | 'iga-approval'
+    | 'iga-certification'
+    | 'iga-fulfillment-assignment'
+    | 'iga-fulfillment-execution';
+
+export type ActionStatus = 'built' | 'deployed';
+
+export type ActionRuntime = 'node12';
+
+export interface ActionTrigger {
+    id: ActionExtensibilityPoint;
+    version: string;
+}
+
+export interface ActionTriggerWithRuntimes extends ActionTrigger {
+    runtime: ActionRuntime[];
+}
+
+export interface ActionDependency {
+    name: string;
+    version: string;
+}
+
+export interface ActionSecret {
+    name: string;
+    updated_at: string;
+}
+
+export interface Action {
+    id: string;
+    name: string;
+    code: string;
+    runtime: ActionRuntime;
+    supported_triggers: ActionTrigger[];
+    dependencies: ActionDependency[];
+    secrets: ActionSecret[];
+    status: ActionStatus;
+    all_changes_deployed: boolean;
+    deployed_version?: ActionVersion;
+    created: string;
+    updated_at: string;
+    built_at: string;
+}
+
+export interface CreateAction {
+    name: string;
+    supported_triggers: ActionTrigger[];
+    code: string;
+    dependencies: ActionDependency[];
+    runtime: ActionRuntime;
+    secrets: {
+        name: string;
+        value: string;
+    }[];
+}
+
+export interface ActionVersion {
+    id: string;
+    action_id: string;
+    code: string;
+    runtime: ActionRuntime;
+    number: string;
+    deployed: boolean;
+    dependencies: ActionDependency[];
+    status: ActionStatus;
+    created: string;
+    updated_at: string;
+    built_at: string;
+    action: Action;
+}
+
+export interface ActionTriggerBinding {
+    id: string;
+    trigger_id: string;
+    action: Action;
+    created_at: string;
+    updated_at: string;
+    display_name: string;
+}
+
+export interface UpdateTriggerBindings {
+    bindings: {
+        ref: {
+            type: string;
+            value: string;
+        };
+        display_name: string;
+    }[];
+}
+
 export class ActionsManager {
     constructor(options: ActionsManagerOptions);
 
-    create(data: object, cb: (err: Error) => void): void;
-    create(data: object): Promise<void>;
+    create(data: CreateAction, cb: (err: Error) => void): void;
+    create(data: CreateAction): Promise<void>;
 
-    createVersion(params: ObjectWithId, data: object, cb: (err: Error, actionVersion: string) => void): void;
-    createVersion(params: ObjectWithId, data: object): Promise<string>;
+    createVersion(params: ObjectWithId, data: object, cb: (err: Error, actionVersion: ActionVersion) => void): void;
+    createVersion(params: ObjectWithId, data: object): Promise<ActionVersion>;
 
     delete(params: ObjectWithId, cb: (err: Error) => void): void;
     delete(params: ObjectWithId): Promise<void>;
 
-    deploy(params: ObjectWithId, cb: (err: Error, actionVersion: string) => void): void;
-    deploy(params: ObjectWithId): Promise<string>;
+    deploy(params: ObjectWithId, cb: (err: Error, actionVersion: ActionVersion) => void): void;
+    deploy(params: ObjectWithId): Promise<ActionVersion>;
 
-    deployVersion(params: { id: string; version_id: string }, cb: (err: Error, actionVersion: string) => void): void;
-    deployVersion(params: { id: string; version_id: string }): Promise<string>;
+    deployVersion(
+        params: ObjectWithId & { version_id: string },
+        cb: (err: Error, actionVersion: ActionVersion) => void,
+    ): void;
+    deployVersion(params: ObjectWithId & { version_id: string }): Promise<ActionVersion>;
 
-    get(params: ObjectWithId, cb: (err: Error, action: object) => void): void;
-    get(params: ObjectWithId): Promise<object>;
+    get(params: ObjectWithId, cb: (err: Error, action: Action) => void): void;
+    get(params: ObjectWithId): Promise<Action>;
 
     getAll(
-        params: { per_page?: number; page?: number; triggerId?: string; actionName?: string },
-        cb: (err: Error, actions: object[]) => void,
+        params: PagingOptions & { triggerId?: string; actionName?: string },
+        cb: (err: Error, actions: PaginatedResource<Action, 'actions'>) => void,
     ): void;
-    getAll(params?: { per_page?: number; page?: number; triggerId?: string; actionName?: string }): Promise<object[]>;
+    getAll(
+        params?: PagingOptions & {
+            triggerId?: string;
+            actionName?: string;
+        },
+    ): Promise<PaginatedResource<Action, 'actions'>>;
 
-    getAllTriggers(params: { per_page?: number; page?: number }, cb: (err: Error, actions: object[]) => void): void;
-    getAllTriggers(params?: { per_page?: number; page?: number }): Promise<object[]>;
+    getAllTriggers(params: PagingOptions, cb: (err: Error, triggers: ActionTriggerWithRuntimes[]) => void): void;
+    getAllTriggers(params?: PagingOptions): Promise<ActionTriggerWithRuntimes[]>;
 
-    getTriggerBindings(params: { trigger_id: string }, cb: (err: Error, bindings: object[]) => void): void;
-    getTriggerBindings(params: { trigger_id: string }): Promise<object[]>;
+    getTriggerBindings(
+        params: { trigger_id: string },
+        cb: (err: Error, bindings: PaginatedResource<ActionTriggerBinding, 'bindings'>) => void,
+    ): void;
+    getTriggerBindings(params: { trigger_id: string }): Promise<PaginatedResource<ActionTriggerBinding, 'bindings'>>;
 
-    getVersion(params: { id: string; version_id: string }, cb: (err: Error, actionVersion: string) => void): void;
-    getVersion(params: { id: string; version_id: string }): Promise<string>;
+    getVersion(
+        params: ObjectWithId & { version_id: string },
+        cb: (err: Error, actionVersion: ActionVersion) => void,
+    ): void;
+    getVersion(params: ObjectWithId & { version_id: string }): Promise<ActionVersion>;
 
     getVersions(
-        params: { per_page?: number; page?: number; id?: string },
-        cb: (err: Error, actionVersions: object[]) => void,
+        params: PagingOptions & ObjectWithId,
+        cb: (err: Error, actionVersions: PaginatedResource<ActionVersion, 'versions'>) => void,
     ): void;
-    getVersions(params?: { per_page?: number; page?: number; id?: string }): Promise<object[]>;
+    getVersions(params?: PagingOptions & ObjectWithId): Promise<PaginatedResource<ActionVersion, 'versions'>>;
 
-    test(params: ObjectWithId, payload: object, cb: (err: Error) => void): void;
-    test(params: ObjectWithId, payload: object): Promise<void>;
+    test(params: ObjectWithId, payload: Record<string, unknown>, cb: (err: Error) => void): void;
+    test(params: ObjectWithId, payload: Record<string, unknown>): Promise<void>;
 
-    testTrigger(params: { trigger_id: string }, payload: object, cb: (err: Error) => void): void;
-    testTrigger(params: { trigger_id: string }, payload: object): Promise<void>;
+    testTrigger(params: { trigger_id: string }, payload: Record<string, unknown>, cb: (err: Error) => void): void;
+    testTrigger(params: { trigger_id: string }, payload: Record<string, unknown>): Promise<void>;
 
-    update(params: ObjectWithId, data: object, cb: (err: Error, action: object) => void): void;
-    update(params: ObjectWithId, data: object): Promise<object>;
+    update(params: ObjectWithId, data: Partial<CreateAction>, cb: (err: Error, action: Action) => void): void;
+    update(params: ObjectWithId, data: Partial<CreateAction>): Promise<Action>;
 
     updateTriggerBindings(
         params: { trigger_id: string },
-        data: object,
-        cb: (err: Error, bindings: object[]) => void,
+        data: UpdateTriggerBindings,
+        cb: (err: Error, bindings: ActionTriggerBinding[]) => void,
     ): void;
-    updateTriggerBindings(params: { trigger_id: string }, data: object): Promise<object[]>;
+    updateTriggerBindings(params: { trigger_id: string }, data: UpdateTriggerBindings): Promise<ActionTriggerBinding[]>;
 }
 
 export class ManagementClient<A = AppMetadata, U = UserMetadata> {
