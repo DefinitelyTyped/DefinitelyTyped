@@ -82,7 +82,7 @@ const images: Images = [
 <Carousel images={[{ alt: 'alt description' }]} />;
 
 // Test carouselRef methods
-const carouselRef = React.useRef<CarouselRef<HTMLDivElement>>(null);
+const carouselRef = React.useRef<Carousel.CarouselRef<HTMLDivElement>>(null);
 
 <Carousel ref={carouselRef} images={images} />;
 
