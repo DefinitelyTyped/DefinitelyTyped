@@ -169,3 +169,7 @@ const applicationStatus: MicrosoftGraph.Application = {
 };
 
 const bodyType: MicrosoftGraph.BodyType = "text";
+
+const channel: MicrosoftGraph.Channel = {
+    description: "Test",
+};
