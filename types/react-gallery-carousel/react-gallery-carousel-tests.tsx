@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Carousel, { CarouselRef, Images } from 'react-gallery-carousel';
+import Carousel = require('react-gallery-carousel');
 
-const images: Images = [
+const images: Carousel.Images = [
     {
         src: `https://placedog.net/700/420?id=1`,
         srcset: `https://placedog.net/400/240?id=1 400w, https://placedog.net/700/420?id=1 700w`,
@@ -82,7 +82,7 @@ const images: Images = [
 <Carousel images={[{ alt: 'alt description' }]} />;
 
 // Test carouselRef methods
-const carouselRef = React.useRef<CarouselRef<HTMLDivElement>>(null);
+const carouselRef = React.useRef<Carousel.CarouselRef<HTMLDivElement>>(null);
 
 <Carousel ref={carouselRef} images={images} />;
 
