@@ -1,4 +1,4 @@
-import parser, { ast, tokenTypes } from 'pico8parse';
+import parser = require('pico8parse');
 
 const luaCode = "-- this is hello world in lua.\nprint('hello world')";
 
@@ -23,9 +23,9 @@ const ast5 = parser.parse(luaCode, {comments: false, encodingMode: 'pseudo-latin
 console.log(JSON.stringify(ast5));
 
 // $ExpectType LabelStatement
-const nod1 = ast.labelStatement(ast.identifier("label"));
+const nod1 = parser.ast.labelStatement(parser.ast.identifier("label"));
 console.log(JSON.stringify(nod1));
 
 // $ExpectType NumericLiteral
-const nod2 = ast.literal(tokenTypes.NumericLiteral, 42, "42");
+const nod2 = parser.ast.literal(parser.tokenTypes.NumericLiteral, 42, "42");
 console.log(JSON.stringify(nod2));
