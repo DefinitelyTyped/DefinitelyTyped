@@ -2673,6 +2673,7 @@ declare namespace Autodesk {
       class DataVisualization extends Viewing.Extension {
         datavizDotOverlay: any;
         deviceDepthOcclusion: boolean;
+        hasViewables: boolean;
 
         constructor(viewer: Viewing.Viewer3D, options?: {
           type: string;
