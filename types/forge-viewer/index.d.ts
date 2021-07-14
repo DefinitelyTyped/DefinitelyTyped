@@ -2734,5 +2734,11 @@ declare namespace Autodesk {
         registerDefaultTools(): void;
         unregisterDefaultTools(): void;
       }
+
+      class StringExtractor extends Viewing.Extension {
+        extractStringsFromModel(model: Viewing.Model): Promise<void>;
+        extractStringsFromModels(): Promise<any>;
+        getDocumentStrings(): Promise<string[]>;
+      }
     }
 }
