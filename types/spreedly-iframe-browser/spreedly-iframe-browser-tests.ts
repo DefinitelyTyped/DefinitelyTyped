@@ -52,7 +52,7 @@ spreedly_number_formats.forEach((number_format) => {
     spreedly_iframe.setNumberFormat(number_format); // $ExpectType void
 });
 spreedly_iframe.on('consoleError', (error: spreedly.SpreedlyConsoleError) => {}); // $ExpectType void
-spreedly_iframe.on('errors', (error: spreedly.SpreedlyError) => {}); // $ExpectType void
+spreedly_iframe.on('errors', (error: spreedly.SpreedlyError[]) => {}); // $ExpectType void
 spreedly_iframe.on(// $ExpectType void
     'fieldEvent',
     (name: spreedly.SpreedlyField, type: spreedly.SpreedlyFieldEventType, activeEl: spreedly.SpreedlyField, inputProperties: spreedly.SpreedlyFieldEventInputProperties) => {}
