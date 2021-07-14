@@ -5,7 +5,7 @@
 //                 Karim Stekelenburg <https://github.com/karimStekelenburg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+import { Buffer } from 'buffer/';
 
 export function createWallet(config: WalletConfig, credentials: WalletCredentials): Promise<void>;
 export function openWallet(config: WalletConfig, credentials: OpenWalletCredentials): Promise<WalletHandle>;
@@ -80,6 +80,31 @@ export function parseGetSchemaResponse(response: LedgerResponse): Promise<[Schem
 export function buildCredDefRequest(submitterDid: Did, credDef: CredDef): Promise<LedgerRequest>;
 export function buildGetCredDefRequest(submitterDid: Did | null, credDefId: CredDefId): Promise<LedgerRequest>;
 export function parseGetCredDefResponse(response: LedgerResponse): Promise<[CredDefId, CredDef]>;
+
+// Revocation Ledger methods
+export function buildRevocRegDefRequest(submitterDid: Did, data: RevocRegDef): Promise<LedgerRequest>;
+export function buildGetRevocRegDefRequest(submitterDid: Did | null, revRegId: RevRegId): Promise<LedgerRequest>;
+export function parseGetRevocRegDefResponse(response: LedgerResponse): Promise<[RevRegId, RevocRegDef]>;
+export function buildRevocRegEntryRequest(
+    submitterDid: Did,
+    revRegId: RevRegId,
+    revDefType: 'CL_ACCUM',
+    value: RevocRegDelta,
+): Promise<LedgerRequest>;
+export function buildGetRevocRegRequest(
+    submitterDid: Did | null,
+    revRegId: RevRegId,
+    timestamp: number,
+): Promise<LedgerRequest>;
+export function parseGetRevocRegResponse(response: LedgerResponse): Promise<[RevRegId, RevocReg, number]>;
+export function buildGetRevocRegDeltaRequest(
+    submitterDid: Did | null,
+    revRegId: RevRegId,
+    from: number | null,
+    to: number,
+): Promise<LedgerRequest>;
+export function parseGetRevocRegDeltaResponse(response: LedgerResponse): Promise<[RevRegId, RevocRegDelta, number]>;
+
 export function signRequest(wh: WalletHandle, submitterDid: Did, request: LedgerRequest): Promise<SignedLedgerRequest>;
 export function signAndSubmitRequest(
     poolHandle: PoolHandle,
@@ -123,7 +148,19 @@ export function issuerCreateAndStoreCredentialDef(
 ): Promise<[CredDefId, CredDef]>;
 // TODO: issuerRotateCredentialDefStart
 // TODO: issuerRotateCredentialDefApply
-// TODO: issuerCreateAndStoreRevocReg
+export function issuerCreateAndStoreRevocReg(
+    wh: WalletHandle,
+    issuerDid: Did,
+    revocDefType: 'CL_ACCUM' | null,
+    tag: string,
+    credDefId: CredDefId,
+    config: {
+        issuance_type?: 'ISSUANCE_BY_DEFAULT' | 'ISSUANCE_ON_DEMAND';
+        max_cred_num?: number;
+    },
+    tailsWriterHandle: BlobWriterHandle,
+): Promise<[RevRegId, RevocRegDef, RevocRegDelta]>;
+
 export function issuerCreateCredentialOffer(wh: WalletHandle, credDefId: CredDefId): Promise<CredOffer>;
 export function issuerCreateCredential(
     wh: WalletHandle,
@@ -133,8 +170,17 @@ export function issuerCreateCredential(
     revRegId: RevRegId | null,
     blobStorageReaderHandle: BlobStorageReaderHandle | 0,
 ): Promise<[Cred, CredRevocId, RevocRegDelta]>;
-// TODO: issuerRevokeCredential
-// TODO: issuerMergeRevocationRegistryDeltas
+
+export function issuerRevokeCredential(
+    wh: WalletHandle,
+    blobStorageReaderHandle: BlobStorageReaderHandle,
+    revRegId: RevRegId,
+    credRevocId: CredRevocId,
+): Promise<RevocRegDelta>;
+export function issuerMergeRevocationRegistryDeltas(
+    revRegDelta: RevocRegDelta,
+    otherRevRegDelta: RevocRegDelta,
+): Promise<RevocRegDelta>;
 
 // ---- PROVER ---- //
 export function proverCreateMasterSecret(wh: WalletHandle, masterSecretId: string): Promise<string>;
@@ -225,37 +271,37 @@ export interface TailsWriterConfig {
 }
 
 export interface WalletRecordOptions {
-    retrieveType?: boolean;
-    retrieveValue?: boolean;
-    retrieveTags?: boolean;
+    retrieveType?: boolean | undefined;
+    retrieveValue?: boolean | undefined;
+    retrieveTags?: boolean | undefined;
 }
 
 export interface WalletSearchOptions extends WalletRecordOptions {
-    retrieveRecords?: boolean;
-    retrieveTotalCount?: boolean;
+    retrieveRecords?: boolean | undefined;
+    retrieveTotalCount?: boolean | undefined;
 }
 
 export interface WalletConfig {
     id: string;
-    storage_type?: string;
-    storage_config?: WalletStorageConfig;
+    storage_type?: string | undefined;
+    storage_config?: WalletStorageConfig | undefined;
 }
 
 export interface WalletStorageConfig {
     [key: string]: unknown;
-    path?: string;
+    path?: string | undefined;
 }
 
 export interface WalletCredentials {
     key: string;
     storage_credentials?: {
         [key: string]: unknown;
-    };
-    key_derivation_method?: KeyDerivationMethod;
+    } | undefined;
+    key_derivation_method?: KeyDerivationMethod | undefined;
 }
 
 export interface OpenWalletCredentials extends WalletCredentials {
-    rekey_derivation_method?: KeyDerivationMethod;
+    rekey_derivation_method?: KeyDerivationMethod | undefined;
 }
 
 export interface WalletExportImportConfig {
@@ -264,11 +310,11 @@ export interface WalletExportImportConfig {
 }
 
 export interface DidConfig {
-    did?: string;
-    seed?: string;
-    crypto_type?: 'ed25519';
-    cid?: boolean;
-    method_name?: string;
+    did?: string | undefined;
+    seed?: string | undefined;
+    crypto_type?: 'ed25519' | undefined;
+    cid?: boolean | undefined;
+    method_name?: string | undefined;
 }
 
 export interface LedgerRequest {
@@ -348,13 +394,28 @@ export interface CredDef {
     tag: string;
     value: {
         primary: Record<string, unknown>;
-        revocation?: unknown;
+        revocation?: unknown | undefined;
     };
     ver: string;
 }
 
 export interface CredDefConfig {
-    support_revocation?: boolean;
+    support_revocation?: boolean | undefined;
+}
+
+export interface RevocRegDef {
+    id: RevRegId;
+    revocDefType: 'CL_ACCUM';
+    tag: string;
+    credDefId: CredDefId;
+    value: {
+        issuanceType: 'ISSUANCE_BY_DEFAULT' | 'ISSUANCE_ON_DEMAND';
+        maxCredNum: number;
+        tailsHash: string;
+        tailsLocation: string;
+        publicKeys: string[];
+    };
+    ver: string;
 }
 
 export interface CredOffer {
@@ -371,13 +432,13 @@ export interface IndyCredentialInfo {
     };
     schema_id: string;
     cred_def_id: string;
-    rev_reg_id?: number;
-    cred_rev_id?: number;
+    rev_reg_id?: number | undefined;
+    cred_rev_id?: number | undefined;
 }
 
 export interface IndyCredential {
     cred_info: IndyCredentialInfo;
-    interval?: NonRevokedInterval;
+    interval?: NonRevokedInterval | undefined;
 }
 export interface ProofCred {
     requested_attrs: {
@@ -386,7 +447,7 @@ export interface ProofCred {
     requested_predicates: {
         [key: string]: Array<{
             cred_info: IndyCredentialInfo;
-            timestamp?: number;
+            timestamp?: number | undefined;
         }>;
     };
 }
@@ -424,7 +485,7 @@ export interface IndyProof {
         };
     };
     proof: any;
-    identifiers: Array<{ schema_id: string; cred_def_id: string; rev_reg_id?: string; timestamp?: number }>;
+    identifiers: Array<{ schema_id: string; cred_def_id: string; rev_reg_id?: string | undefined; timestamp?: number | undefined }>;
 }
 
 export interface Schemas {
@@ -454,16 +515,16 @@ export interface IndyRequestedCredentials {
         [key: string]: string;
     };
     requested_attributes: {
-        [key: string]: { cred_id: string; timestamp?: number; revealed: boolean };
+        [key: string]: { cred_id: string; timestamp?: number | undefined; revealed: boolean };
     };
     requested_predicates: {
-        [key: string]: { cred_id: string; timestamp?: number };
+        [key: string]: { cred_id: string; timestamp?: number | undefined };
     };
 }
 
 export interface NonRevokedInterval {
-    from?: number;
-    to?: number;
+    from?: number | undefined;
+    to?: number | undefined;
 }
 export interface IndyProofRequest {
     name: string;
@@ -471,10 +532,10 @@ export interface IndyProofRequest {
     nonce: string;
     requested_attributes: {
         [key: string]: {
-            name?: string;
-            names?: string;
-            restrictions?: WalletQuery[];
-            non_revoked?: NonRevokedInterval;
+            name?: string | undefined;
+            names?: string | undefined;
+            restrictions?: WalletQuery[] | undefined;
+            non_revoked?: NonRevokedInterval | undefined;
         };
     };
     requested_predicates: {
@@ -482,12 +543,12 @@ export interface IndyProofRequest {
             name: string;
             p_type: '>=' | '>' | '<=' | '<';
             p_value: number;
-            restrictions?: WalletQuery[];
-            non_revoked?: NonRevokedInterval;
+            restrictions?: WalletQuery[] | undefined;
+            non_revoked?: NonRevokedInterval | undefined;
         };
     };
-    non_revoked?: NonRevokedInterval;
-    ver?: '1.0' | '2.0';
+    non_revoked?: NonRevokedInterval | undefined;
+    ver?: '1.0' | '2.0' | undefined;
 }
 
 export interface CredReq {
@@ -520,10 +581,25 @@ export interface Cred {
 }
 
 export type CredRevocId = string;
-export type RevocRegDelta = Record<string, unknown>;
+export interface RevocRegDelta {
+    value: {
+        prevAccum: string;
+        accum: string;
+        issued: number[];
+        revoked: number[];
+    };
+    ver: string;
+}
+
+export interface RevocReg {
+    value: {
+        accum: string;
+    };
+    ver: string;
+}
 
 export interface KeyConfig {
-    seed?: string;
+    seed?: string | undefined;
 }
 
 export interface PoolConfig {
@@ -531,19 +607,19 @@ export interface PoolConfig {
 }
 
 export interface RuntimePoolConfig {
-    timeout?: number;
-    extended_timeout?: number;
-    preordered_nodes?: string[];
-    number_read_nodes?: number;
+    timeout?: number | undefined;
+    extended_timeout?: number | undefined;
+    preordered_nodes?: string[] | undefined;
+    number_read_nodes?: number | undefined;
 }
 
 export interface WalletRecord {
     id: string;
-    type?: string;
-    value?: string;
+    type?: string | undefined;
+    value?: string | undefined;
     tags?: {
         [key: string]: string | undefined;
-    };
+    } | undefined;
 }
 
 export interface WalletRecordSearch {

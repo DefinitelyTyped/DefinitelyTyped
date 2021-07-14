@@ -13,20 +13,20 @@ declare module 'leaflet' {
         }
 
         interface PolylineMeasureOptions {
-            position?: string;
-            unit?: string;
-            measureControlTitleOn?: string;
-            measureControlTitleOff?: string;
-            measureControlLabel?: string;
-            measureControlClasses?: any[];
-            backgroundColor?: string;
-            cursor?: string;
-            clearMeasurementsOnStop?: boolean;
-            showMeasurementsClearControl?: boolean;
-            clearControlTitle?: string;
-            clearControlLabel?: string;
-            clearControlClasses?: any[];
-            showUnitControl?: boolean;
+            position?: string | undefined;
+            unit?: string | undefined;
+            measureControlTitleOn?: string | undefined;
+            measureControlTitleOff?: string | undefined;
+            measureControlLabel?: string | undefined;
+            measureControlClasses?: any[] | undefined;
+            backgroundColor?: string | undefined;
+            cursor?: string | undefined;
+            clearMeasurementsOnStop?: boolean | undefined;
+            showMeasurementsClearControl?: boolean | undefined;
+            clearControlTitle?: string | undefined;
+            clearControlLabel?: string | undefined;
+            clearControlClasses?: any[] | undefined;
+            showUnitControl?: boolean | undefined;
             tempLine?: any;
             fixedLine?: any;
             startCircle?: any;

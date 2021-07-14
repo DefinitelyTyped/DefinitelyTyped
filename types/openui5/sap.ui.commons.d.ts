@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -102,7 +102,6 @@ declare module "sap/ui/commons/library" {
      */
     Standard = "Standard",
   }
-
   /**
    * @deprecated (since 1.38)
    *
@@ -638,6 +637,8 @@ declare module "sap/ui/commons/Accordion" {
 
   import AccordionSection from "sap/ui/commons/AccordionSection";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { CSSSize } from "sap/ui/core/library";
@@ -710,7 +711,25 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:sectionClose sectionClose} event of this `sap.ui.commons.Accordion`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
+     *
+     * Event is triggered when the user closes a section.
+     */
+    attachSectionClose(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -733,7 +752,25 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:sectionOpen sectionOpen} event of this `sap.ui.commons.Accordion`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
+     *
+     * Event is triggered when the user opens a section.
+     */
+    attachSectionOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -757,7 +794,26 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:sectionsReorder sectionsReorder} event of this
+     * `sap.ui.commons.Accordion`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
+     *
+     * Event is triggered when the user changes the position of a section.
+     */
+    attachSectionsReorder(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -785,7 +841,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -800,7 +856,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -816,7 +872,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -990,61 +1046,6 @@ declare module "sap/ui/commons/Accordion" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:sectionClose sectionClose} event of this `sap.ui.commons.Accordion`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
-     *
-     * Event is triggered when the user closes a section.
-     */
-    attachSectionClose(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:sectionOpen sectionOpen} event of this `sap.ui.commons.Accordion`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
-     *
-     * Event is triggered when the user opens a section.
-     */
-    attachSectionOpen(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:sectionsReorder sectionsReorder} event of this
-     * `sap.ui.commons.Accordion`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
-     *
-     * Event is triggered when the user changes the position of a section.
-     */
-    attachSectionsReorder(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $AccordionSettings extends $ControlSettings {
@@ -1084,6 +1085,8 @@ declare module "sap/ui/commons/AccordionSection" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
   import Control from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -1157,7 +1160,25 @@ declare module "sap/ui/commons/AccordionSection" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.AccordionSection` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:scroll scroll} event of this `sap.ui.commons.AccordionSection`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.AccordionSection` itself.
+     *
+     * Event is fired when the user scrolls the panel
+     */
+    attachScroll(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.AccordionSection` itself
        */
@@ -1176,7 +1197,7 @@ declare module "sap/ui/commons/AccordionSection" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1348,24 +1369,6 @@ declare module "sap/ui/commons/AccordionSection" {
        */
       sTitle?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:scroll scroll} event of this `sap.ui.commons.AccordionSection`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.AccordionSection` itself.
-     *
-     * Event is fired when the user scrolls the panel
-     */
-    attachScroll(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.AccordionSection` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $AccordionSectionSettings extends $ElementSettings {
@@ -1408,6 +1411,8 @@ declare module "sap/ui/commons/AccordionSection" {
 
 declare module "sap/ui/commons/ApplicationHeader" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -1470,7 +1475,25 @@ declare module "sap/ui/commons/ApplicationHeader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ApplicationHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:logoff logoff} event of this `sap.ui.commons.ApplicationHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ApplicationHeader` itself.
+     *
+     * Fires an event to log off the user from the application. No parameters.
+     */
+    attachLogoff(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ApplicationHeader` itself
        */
@@ -1485,7 +1508,7 @@ declare module "sap/ui/commons/ApplicationHeader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1627,24 +1650,6 @@ declare module "sap/ui/commons/ApplicationHeader" {
        * New value for property `userName`
        */
       sUserName?: string
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:logoff logoff} event of this `sap.ui.commons.ApplicationHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ApplicationHeader` itself.
-     *
-     * Fires an event to log off the user from the application. No parameters.
-     */
-    attachLogoff(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ApplicationHeader` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -1862,6 +1867,8 @@ declare module "sap/ui/commons/AutoComplete" {
 
   import { ToolbarItem } from "sap/ui/commons/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ListBox from "sap/ui/commons/ListBox";
@@ -1924,7 +1931,25 @@ declare module "sap/ui/commons/AutoComplete" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.AutoComplete` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.ui.commons.AutoComplete`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.AutoComplete` itself.
+     *
+     * Fired when the user has changed the value and a suggestion list update should occur.
+     */
+    attachSuggest(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.AutoComplete` itself
        */
@@ -1939,7 +1964,7 @@ declare module "sap/ui/commons/AutoComplete" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2046,24 +2071,6 @@ declare module "sap/ui/commons/AutoComplete" {
      * @deprecated (since 1.10.0) - NOT SUPPORTED
      */
     setSelectedKey(sSelectedKey: string): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.ui.commons.AutoComplete`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.AutoComplete` itself.
-     *
-     * Fired when the user has changed the value and a suggestion list update should occur.
-     */
-    attachSuggest(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.AutoComplete` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $AutoCompleteSettings extends $ComboBoxSettings {
@@ -2086,6 +2093,8 @@ declare module "sap/ui/commons/Button" {
   import { ToolbarItem, ButtonStyle } from "sap/ui/commons/library";
 
   import { IFormContent, ID, CSSSize, URI } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -2168,7 +2177,25 @@ declare module "sap/ui/commons/Button" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Button` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Button`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Button` itself.
+     *
+     * Event is fired when the user presses the control.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Button` itself
        */
@@ -2183,7 +2210,7 @@ declare module "sap/ui/commons/Button" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2552,24 +2579,6 @@ declare module "sap/ui/commons/Button" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Button`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Button` itself.
-     *
-     * Event is fired when the user presses the control.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Button` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ButtonSettings extends $ControlSettings {
@@ -2809,6 +2818,8 @@ declare module "sap/ui/commons/CalloutBase" {
     $TooltipBaseSettings,
   } from "sap/ui/core/TooltipBase";
 
+  import Event from "sap/ui/base/Event";
+
   import Control from "sap/ui/core/Control";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -2875,7 +2886,26 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:beforeOpen beforeOpen} event of this `sap.ui.commons.CalloutBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
+     *
+     * Event is fired before a Callout is displayed. Call the preventDefault method of the event object to postpone
+     * opening. Application may use this event to start asynchronous Ajax call to load the Callout content
+     */
+    attachBeforeOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -2898,7 +2928,25 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.commons.CalloutBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
+     *
+     * Event is fired when the Callout window is closed.
+     */
+    attachClose(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -2921,7 +2969,25 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.commons.CalloutBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
+     *
+     * The event is fired when the popup is opened.
+     */
+    attachOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -2946,7 +3012,27 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.11.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
+     *
+     * Is fired when the Callout has been opened
+     */
+    attachOpened(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -2965,7 +3051,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2980,7 +3066,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2995,7 +3081,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3012,7 +3098,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3107,81 +3193,6 @@ declare module "sap/ui/commons/CalloutBase" {
        * docking position of the parent control
        */
       atPosition: Dock
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:beforeOpen beforeOpen} event of this `sap.ui.commons.CalloutBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
-     *
-     * Event is fired before a Callout is displayed. Call the preventDefault method of the event object to postpone
-     * opening. Application may use this event to start asynchronous Ajax call to load the Callout content
-     */
-    attachBeforeOpen(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.commons.CalloutBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
-     *
-     * Event is fired when the Callout window is closed.
-     */
-    attachClose(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.commons.CalloutBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
-     *
-     * The event is fired when the popup is opened.
-     */
-    attachOpen(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.11.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
-     *
-     * Is fired when the Callout has been opened
-     */
-    attachOpened(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -3665,6 +3676,8 @@ declare module "sap/ui/commons/CheckBox" {
     CSSSize,
   } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -3743,7 +3756,25 @@ declare module "sap/ui/commons/CheckBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CheckBox` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.CheckBox`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.CheckBox` itself.
+     *
+     * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CheckBox` itself
        */
@@ -3770,7 +3801,7 @@ declare module "sap/ui/commons/CheckBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4042,24 +4073,6 @@ declare module "sap/ui/commons/CheckBox" {
      * Unbinds property {@link #getChecked checked} from model data.
      */
     unbindChecked(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.CheckBox`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.CheckBox` itself.
-     *
-     * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.CheckBox` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CheckBoxSettings extends $ControlSettings {
@@ -4793,6 +4806,8 @@ declare module "sap/ui/commons/Dialog" {
     OpenState,
   } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import { enums } from "sap/ui/commons/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -4880,7 +4895,26 @@ declare module "sap/ui/commons/Dialog" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Dialog` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.commons.Dialog`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Dialog` itself.
+     *
+     * Event is fired when the dialog has been closed (after closing-animation etc.). Event parameters provide
+     * information about last position and last size.
+     */
+    attachClosed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Dialog` itself
        */
@@ -4907,7 +4941,7 @@ declare module "sap/ui/commons/Dialog" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5512,25 +5546,6 @@ declare module "sap/ui/commons/Dialog" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.commons.Dialog`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Dialog` itself.
-     *
-     * Event is fired when the dialog has been closed (after closing-animation etc.). Event parameters provide
-     * information about last position and last size.
-     */
-    attachClosed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Dialog` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $DialogSettings extends $ControlSettings {
@@ -5678,6 +5693,8 @@ declare module "sap/ui/commons/DropdownBox" {
     $ComboBoxSettings,
   } from "sap/ui/commons/ComboBox";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { URI } from "sap/ui/core/library";
@@ -5740,7 +5757,26 @@ declare module "sap/ui/commons/DropdownBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.DropdownBox` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:searchHelp searchHelp} event of this `sap.ui.commons.DropdownBox`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.DropdownBox` itself.
+     *
+     * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
+     * F4 key is pressed.
+     */
+    attachSearchHelp(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.DropdownBox` itself
        */
@@ -5760,7 +5796,7 @@ declare module "sap/ui/commons/DropdownBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6040,25 +6076,6 @@ declare module "sap/ui/commons/DropdownBox" {
        * new value for property `searchHelpText`
        */
       sSearchHelpText: string
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:searchHelp searchHelp} event of this `sap.ui.commons.DropdownBox`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.DropdownBox` itself.
-     *
-     * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
-     * F4 key is pressed.
-     */
-    attachSearchHelp(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.DropdownBox` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -7495,6 +7512,8 @@ declare module "sap/ui/commons/Image" {
 
   import { IFormContent, CSSSize, URI } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -7559,7 +7578,25 @@ declare module "sap/ui/commons/Image" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Image` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Image`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Image` itself.
+     *
+     * Event is fired when the user clicks on the control.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Image` itself
        */
@@ -7574,7 +7611,7 @@ declare module "sap/ui/commons/Image" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7744,24 +7781,6 @@ declare module "sap/ui/commons/Image" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Image`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Image` itself.
-     *
-     * Event is fired when the user clicks on the control.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Image` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ImageSettings extends $ControlSettings {
@@ -7812,6 +7831,8 @@ declare module "sap/ui/commons/ImageMap" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import Area from "sap/ui/commons/Area";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -7883,7 +7904,25 @@ declare module "sap/ui/commons/ImageMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ImageMap` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.ImageMap`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ImageMap` itself.
+     *
+     * Event for the areas that can be clicked in an ImageMap
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ImageMap` itself
        */
@@ -7913,7 +7952,7 @@ declare module "sap/ui/commons/ImageMap" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8023,24 +8062,6 @@ declare module "sap/ui/commons/ImageMap" {
        */
       sName?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.ImageMap`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ImageMap` itself.
-     *
-     * Event for the areas that can be clicked in an ImageMap
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ImageMap` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ImageMapSettings extends $ControlSettings {
@@ -8063,6 +8084,8 @@ declare module "sap/ui/commons/ImageMap" {
 
 declare module "sap/ui/commons/InPlaceEdit" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { TextViewDesign } from "sap/ui/commons/library";
 
@@ -8130,7 +8153,26 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.InPlaceEdit`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.InPlaceEdit` itself.
+     *
+     * Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter
+     * key is pressed.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
@@ -8157,7 +8199,29 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.16.5
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.InPlaceEdit` itself.
+     *
+     * This event if fired during typing into the InPlaceEdit and returns the currently entered value. This
+     * is not the content of the value property. The value property is only updated by ENTER and by leaving
+     * the control.
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
@@ -8181,7 +8245,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8198,7 +8262,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8382,47 +8446,6 @@ declare module "sap/ui/commons/InPlaceEdit" {
        * New value for property `valueState`
        */
       sValueState?: ValueState | keyof typeof ValueState
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.InPlaceEdit`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.InPlaceEdit` itself.
-     *
-     * Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter
-     * key is pressed.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.16.5
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.InPlaceEdit` itself.
-     *
-     * This event if fired during typing into the InPlaceEdit and returns the currently entered value. This
-     * is not the content of the value property. The value property is only updated by ENTER and by leaving
-     * the control.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -11550,6 +11573,8 @@ declare module "sap/ui/commons/Link" {
 
   import { IFormContent, ID, URI, CSSSize } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -11633,7 +11658,25 @@ declare module "sap/ui/commons/Link" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Link` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Link`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Link` itself.
+     *
+     * Event is fired when the user clicks the control.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Link` itself
        */
@@ -11648,7 +11691,7 @@ declare module "sap/ui/commons/Link" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11870,24 +11913,6 @@ declare module "sap/ui/commons/Link" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.Link`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Link` itself.
-     *
-     * Event is fired when the user clicks the control.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Link` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $LinkSettings extends $ControlSettings {
@@ -11948,6 +11973,8 @@ declare module "sap/ui/commons/ListBox" {
   import { ID, CSSSize, TextAlign } from "sap/ui/core/library";
 
   import Item from "sap/ui/core/Item";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -12060,7 +12087,25 @@ declare module "sap/ui/commons/ListBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ListBox` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.ListBox`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ListBox` itself.
+     *
+     * Event is fired when selection is changed by user interaction.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ListBox` itself
        */
@@ -12083,7 +12128,7 @@ declare module "sap/ui/commons/ListBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12601,24 +12646,6 @@ declare module "sap/ui/commons/ListBox" {
        */
       sWidth: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.ListBox`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ListBox` itself.
-     *
-     * Event is fired when selection is changed by user interaction.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ListBox` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ListBoxSettings extends $ControlSettings {
@@ -13050,6 +13077,8 @@ declare module "sap/ui/commons/MenuBar" {
 declare module "sap/ui/commons/MenuButton" {
   import { default as Button, $ButtonSettings } from "sap/ui/commons/Button";
 
+  import Event from "sap/ui/base/Event";
+
   import MenuItemBase from "sap/ui/unified/MenuItemBase";
 
   import Menu from "sap/ui/unified/Menu";
@@ -13113,7 +13142,25 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemSelected itemSelected} event of this `sap.ui.commons.MenuButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.MenuButton` itself.
+     *
+     * Event that is fired when a menu item is selected by the user
+     */
+    attachItemSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
        */
@@ -13145,6 +13192,26 @@ declare module "sap/ui/commons/MenuButton" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.MenuButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.MenuButton` itself.
+     *
+     * Event is fired when an item from the menu was selected.
+     * See:
+     * 	sap.ui.commons.MenuButton#attachItemSelected
+     */
+    attachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Destroys the menu in the aggregation named `menu`.
      */
     destroyMenu(): this;
@@ -13157,7 +13224,7 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13290,44 +13357,6 @@ declare module "sap/ui/commons/MenuButton" {
        * The menu to be set to the menu aggregation
        */
       oMenu: Menu
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:itemSelected itemSelected} event of this `sap.ui.commons.MenuButton`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.MenuButton` itself.
-     *
-     * Event that is fired when a menu item is selected by the user
-     */
-    attachItemSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.commons.MenuButton`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.MenuButton` itself.
-     *
-     * Event is fired when an item from the menu was selected.
-     * See:
-     * 	sap.ui.commons.MenuButton#attachItemSelected
-     */
-    attachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -14403,6 +14432,8 @@ declare module "sap/ui/commons/MessageList" {
 declare module "sap/ui/commons/MessageToast" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import Message from "sap/ui/commons/Message";
@@ -14463,7 +14494,25 @@ declare module "sap/ui/commons/MessageToast" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MessageToast` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:next next} event of this `sap.ui.commons.MessageToast`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.MessageToast` itself.
+     *
+     * Fired once the `toast()` method is over, so that the MessageBar can "toast" another message if needed.
+     */
+    attachNext(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.MessageToast` itself
        */
@@ -14478,7 +14527,7 @@ declare module "sap/ui/commons/MessageToast" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14557,24 +14606,6 @@ declare module "sap/ui/commons/MessageToast" {
        */
       sAnchorId: string
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:next next} event of this `sap.ui.commons.MessageToast`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.MessageToast` itself.
-     *
-     * Fired once the `toast()` method is over, so that the MessageBar can "toast" another message if needed.
-     */
-    attachNext(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.MessageToast` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MessageToastSettings extends $ControlSettings {
@@ -14592,6 +14623,8 @@ declare module "sap/ui/commons/MessageToast" {
 
 declare module "sap/ui/commons/Paginator" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { PaginatorEvent } from "sap/ui/commons/library";
 
@@ -14653,7 +14686,25 @@ declare module "sap/ui/commons/Paginator" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Paginator` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:page page} event of this `sap.ui.commons.Paginator`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Paginator` itself.
+     *
+     * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
+     */
+    attachPage(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Paginator` itself
        */
@@ -14668,7 +14719,7 @@ declare module "sap/ui/commons/Paginator" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14766,24 +14817,6 @@ declare module "sap/ui/commons/Paginator" {
        * New value for property `numberOfPages`
        */
       iNumberOfPages?: int
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:page page} event of this `sap.ui.commons.Paginator`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Paginator` itself.
-     *
-     * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
-     */
-    attachPage(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Paginator` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -15671,6 +15704,8 @@ declare module "sap/ui/commons/RadioButton" {
     CSSSize,
   } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -15753,7 +15788,25 @@ declare module "sap/ui/commons/RadioButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButton` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.RadioButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RadioButton` itself.
+     *
+     * Triggers when the user makes a change on the RadioButton.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButton` itself
        */
@@ -15768,7 +15821,7 @@ declare module "sap/ui/commons/RadioButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -16047,24 +16100,6 @@ declare module "sap/ui/commons/RadioButton" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.RadioButton`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RadioButton` itself.
-     *
-     * Triggers when the user makes a change on the RadioButton.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButton` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $RadioButtonSettings extends $ControlSettings {
@@ -16142,6 +16177,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
   import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Item from "sap/ui/core/Item";
+
+  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -16237,7 +16274,25 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButtonGroup` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.RadioButtonGroup`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RadioButtonGroup` itself.
+     *
+     * Fires when selection is changed by user interaction.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButtonGroup` itself
        */
@@ -16273,7 +16328,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -16569,24 +16624,6 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * Unbinds aggregation {@link #getItems items} from model data.
      */
     unbindItems(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.RadioButtonGroup`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RadioButtonGroup` itself.
-     *
-     * Fires when selection is changed by user interaction.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButtonGroup` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $RadioButtonGroupSettings extends $ControlSettings {
@@ -16769,6 +16806,8 @@ declare module "sap/ui/commons/RatingIndicator" {
 
   import { ID, URI } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -16849,7 +16888,25 @@ declare module "sap/ui/commons/RatingIndicator" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RatingIndicator` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.RatingIndicator`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RatingIndicator` itself.
+     *
+     * The event is fired when the user has done a rating.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RatingIndicator` itself
        */
@@ -16876,7 +16933,7 @@ declare module "sap/ui/commons/RatingIndicator" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -17152,24 +17209,6 @@ declare module "sap/ui/commons/RatingIndicator" {
      * Unbinds property {@link #getValue value} from model data.
      */
     unbindValue(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.RatingIndicator`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RatingIndicator` itself.
-     *
-     * The event is fired when the user has done a rating.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RatingIndicator` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $RatingIndicatorSettings extends $ControlSettings {
@@ -17243,6 +17282,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import ResponsiveContainerRange from "sap/ui/commons/ResponsiveContainerRange";
+
+  import Event from "sap/ui/base/Event";
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
@@ -17318,7 +17359,26 @@ declare module "sap/ui/commons/ResponsiveContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ResponsiveContainer`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:rangeSwitch rangeSwitch} event of this `sap.ui.commons.ResponsiveContainer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ResponsiveContainer` itself.
+     *
+     * The event is fired the width of the container reaches a new range.
+     */
+    attachRangeSwitch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ResponsiveContainer`
        * itself
@@ -17338,7 +17398,7 @@ declare module "sap/ui/commons/ResponsiveContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -17489,25 +17549,6 @@ declare module "sap/ui/commons/ResponsiveContainer" {
        * New value for property `width`
        */
       sWidth?: CSSSize
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:rangeSwitch rangeSwitch} event of this `sap.ui.commons.ResponsiveContainer`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ResponsiveContainer` itself.
-     *
-     * The event is fired the width of the container reaches a new range.
-     */
-    attachRangeSwitch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ResponsiveContainer`
-       * itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -17913,6 +17954,8 @@ declare module "sap/ui/commons/RoadMap" {
 
   import RoadMapStep from "sap/ui/commons/RoadMapStep";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { CSSSize } from "sap/ui/core/library";
@@ -17985,7 +18028,25 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:stepExpanded stepExpanded} event of this `sap.ui.commons.RoadMap`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
+     *
+     * Event is fired when a given step is expanded or collapsed by user.
+     */
+    attachStepExpanded(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -18008,7 +18069,25 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:stepSelected stepSelected} event of this `sap.ui.commons.RoadMap`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
+     *
+     * Event is fired when the user selects a step.
+     */
+    attachStepSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -18027,7 +18106,7 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18042,7 +18121,7 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18226,42 +18305,6 @@ declare module "sap/ui/commons/RoadMap" {
        * New value for property `width`
        */
       sWidth?: CSSSize
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:stepExpanded stepExpanded} event of this `sap.ui.commons.RoadMap`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
-     *
-     * Event is fired when a given step is expanded or collapsed by user.
-     */
-    attachStepExpanded(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:stepSelected stepSelected} event of this `sap.ui.commons.RoadMap`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
-     *
-     * Event is fired when the user selects a step.
-     */
-    attachStepSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -18594,6 +18637,8 @@ declare module "sap/ui/commons/RowRepeater" {
 
   import RowRepeaterSorter from "sap/ui/commons/RowRepeaterSorter";
 
+  import Event from "sap/ui/base/Event";
+
   import {
     AggregationBindingInfo,
     PropertyBindingInfo,
@@ -18698,7 +18743,25 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:filter filter} event of this `sap.ui.commons.RowRepeater`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
+     *
+     * This event is triggered when a filter is set.
+     */
+    attachFilter(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18721,7 +18784,25 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:page page} event of this `sap.ui.commons.RowRepeater`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
+     *
+     * This event is triggered when paging was executed.
+     */
+    attachPage(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18744,7 +18825,25 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.commons.RowRepeater`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
+     *
+     * This event is triggered when the number of rows was changed.
+     */
+    attachResize(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18767,7 +18866,25 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:sort sort} event of this `sap.ui.commons.RowRepeater`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
+     *
+     * This event is triggered when a sorting is applied.
+     */
+    attachSort(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18814,7 +18931,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18829,7 +18946,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18844,7 +18961,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18859,7 +18976,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19298,78 +19415,6 @@ declare module "sap/ui/commons/RowRepeater" {
      * Unbinds aggregation {@link #getRows rows} from model data.
      */
     unbindRows(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:filter filter} event of this `sap.ui.commons.RowRepeater`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
-     *
-     * This event is triggered when a filter is set.
-     */
-    attachFilter(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:page page} event of this `sap.ui.commons.RowRepeater`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
-     *
-     * This event is triggered when paging was executed.
-     */
-    attachPage(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.commons.RowRepeater`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
-     *
-     * This event is triggered when the number of rows was changed.
-     */
-    attachResize(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:sort sort} event of this `sap.ui.commons.RowRepeater`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
-     *
-     * This event is triggered when a sorting is applied.
-     */
-    attachSort(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $RowRepeaterSettings extends $ControlSettings {
@@ -19755,6 +19800,8 @@ declare module "sap/ui/commons/SearchField" {
 
   import { ID, TextAlign, ValueState, CSSSize } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import SearchProvider from "sap/ui/core/search/SearchProvider";
@@ -19834,7 +19881,25 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.commons.SearchField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
+     *
+     * Event which is fired when the user triggers a search
+     */
+    attachSearch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -19857,7 +19922,25 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.ui.commons.SearchField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
+     *
+     * Event which is fired when new suggest values are required.
+     */
+    attachSuggest(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -19880,7 +19963,7 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19895,7 +19978,7 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -20451,42 +20534,6 @@ declare module "sap/ui/commons/SearchField" {
        */
       aASuggestions: string[]
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.commons.SearchField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
-     *
-     * Event which is fired when the user triggers a search
-     */
-    attachSearch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.ui.commons.SearchField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
-     *
-     * Event which is fired when new suggest values are required.
-     */
-    attachSuggest(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $SearchFieldSettings extends $ControlSettings {
@@ -20709,6 +20756,8 @@ declare module "sap/ui/commons/SegmentedButton" {
 
   import Button from "sap/ui/commons/Button";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
@@ -20788,7 +20837,25 @@ declare module "sap/ui/commons/SegmentedButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SegmentedButton` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.SegmentedButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.SegmentedButton` itself.
+     *
+     * Event fired when button selected
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SegmentedButton` itself
        */
@@ -20807,7 +20874,7 @@ declare module "sap/ui/commons/SegmentedButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -20936,24 +21003,6 @@ declare module "sap/ui/commons/SegmentedButton" {
        */
       oSelectedButton: ID | Button
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.SegmentedButton`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.SegmentedButton` itself.
-     *
-     * Event fired when button selected
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.SegmentedButton` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $SegmentedButtonSettings extends $ControlSettings {
@@ -20983,6 +21032,8 @@ declare module "sap/ui/commons/Slider" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import { IFormContent, ID, CSSSize } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -21062,7 +21113,25 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.Slider`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Slider` itself.
+     *
+     * Value was changed. This event is fired if the value has changed by a user action.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -21086,7 +21155,26 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.Slider`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Slider` itself.
+     *
+     * Value was changed. This event is fired during the mouse move. The normal change event is only fired by
+     * mouseup.
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -21101,7 +21189,7 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -21116,7 +21204,7 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -21502,43 +21590,6 @@ declare module "sap/ui/commons/Slider" {
        * New value for property `width`
        */
       sWidth?: CSSSize
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.Slider`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Slider` itself.
-     *
-     * Value was changed. This event is fired if the value has changed by a user action.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.Slider`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Slider` itself.
-     *
-     * Value was changed. This event is fired during the mouse move. The normal change event is only fired by
-     * mouseup.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -22293,6 +22344,8 @@ declare module "sap/ui/commons/TabStrip" {
 
   import Tab from "sap/ui/commons/Tab";
 
+  import Event from "sap/ui/base/Event";
+
   import { CSSSize } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -22366,7 +22419,25 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.commons.TabStrip`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
+     *
+     * Fires when the user closes a tab.
+     */
+    attachClose(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -22389,7 +22460,25 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.TabStrip`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
+     *
+     * Fires when the user selects a tab.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -22434,7 +22523,7 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -22449,7 +22538,7 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -22635,42 +22724,6 @@ declare module "sap/ui/commons/TabStrip" {
        * New value for property `width`
        */
       sWidth?: CSSSize
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.commons.TabStrip`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
-     *
-     * Fires when the user closes a tab.
-     */
-    attachClose(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.TabStrip`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
-     *
-     * Fires when the user selects a tab.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -22990,6 +23043,8 @@ declare module "sap/ui/commons/TextField" {
     CSSSize,
   } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -23081,7 +23136,26 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
+     * key is pressed.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
        */
@@ -23106,7 +23180,27 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
+     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
+     * the control.
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
        */
@@ -23133,7 +23227,7 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -23148,7 +23242,7 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -23656,45 +23750,6 @@ declare module "sap/ui/commons/TextField" {
      * Unbinds property {@link #getValue value} from model data.
      */
     unbindValue(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
-     * key is pressed.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
-     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
-     * the control.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TextFieldSettings extends $ControlSettings {
@@ -24926,6 +24981,8 @@ declare module "sap/ui/commons/Tree" {
 
   import TreeNode from "sap/ui/commons/TreeNode";
 
+  import Event from "sap/ui/base/Event";
+
   import {
     AggregationBindingInfo,
     PropertyBindingInfo,
@@ -25002,7 +25059,25 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.Tree`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
+     *
+     * Event is fired when a tree node is selected.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -25026,7 +25101,26 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:selectionChange selectionChange} event of this
+     * `sap.ui.commons.Tree`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
+     *
+     * fired when the selection of the tree has been changed
+     */
+    attachSelectionChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -25061,7 +25155,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25077,7 +25171,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25390,43 +25484,6 @@ declare module "sap/ui/commons/Tree" {
      * Unbinds aggregation {@link #getNodes nodes} from model data.
      */
     unbindNodes(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.commons.Tree`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
-     *
-     * Event is fired when a tree node is selected.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selectionChange selectionChange} event of this
-     * `sap.ui.commons.Tree`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
-     *
-     * fired when the selection of the tree has been changed
-     */
-    attachSelectionChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TreeSettings extends $ControlSettings {
@@ -25496,6 +25553,8 @@ declare module "sap/ui/commons/TreeNode" {
   import { ID, URI } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -25585,7 +25644,25 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:selected selected} event of this `sap.ui.commons.TreeNode`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
+     *
+     * Node is selected
+     */
+    attachSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
        */
@@ -25609,7 +25686,26 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:toggleOpenState toggleOpenState} event of this
+     * `sap.ui.commons.TreeNode`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
+     *
+     * Node state has changed.
+     */
+    attachToggleOpenState(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
        */
@@ -25641,7 +25737,7 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25657,7 +25753,7 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25932,43 +26028,6 @@ declare module "sap/ui/commons/TreeNode" {
        */
       sText?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selected selected} event of this `sap.ui.commons.TreeNode`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
-     *
-     * Node is selected
-     */
-    attachSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:toggleOpenState toggleOpenState} event of this
-     * `sap.ui.commons.TreeNode`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
-     *
-     * Node state has changed.
-     */
-    attachToggleOpenState(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TreeNodeSettings extends $ElementSettings {
@@ -26031,6 +26090,8 @@ declare module "sap/ui/commons/TreeNode" {
 
 declare module "sap/ui/commons/TriStateCheckBox" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -26098,7 +26159,25 @@ declare module "sap/ui/commons/TriStateCheckBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TriStateCheckBox` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TriStateCheckBox`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TriStateCheckBox` itself.
+     *
+     * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TriStateCheckBox` itself
        */
@@ -26113,7 +26192,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -26328,24 +26407,6 @@ declare module "sap/ui/commons/TriStateCheckBox" {
        */
       destState: TriStateCheckBoxState | keyof typeof TriStateCheckBoxState
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TriStateCheckBox`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TriStateCheckBox` itself.
-     *
-     * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TriStateCheckBox` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TriStateCheckBoxSettings extends $ControlSettings {
@@ -26402,6 +26463,8 @@ declare module "sap/ui/commons/ValueHelpField" {
     default as TextField,
     $TextFieldSettings,
   } from "sap/ui/commons/TextField";
+
+  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -26464,7 +26527,26 @@ declare module "sap/ui/commons/ValueHelpField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ValueHelpField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:valueHelpRequest valueHelpRequest} event of
+     * this `sap.ui.commons.ValueHelpField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.ValueHelpField` itself.
+     *
+     * Event which is fired when the ValueHelp is requested.
+     */
+    attachValueHelpRequest(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ValueHelpField` itself
        */
@@ -26480,7 +26562,7 @@ declare module "sap/ui/commons/ValueHelpField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -26591,25 +26673,6 @@ declare module "sap/ui/commons/ValueHelpField" {
        * New value for property `iconURL`
        */
       sIconURL?: URI
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:valueHelpRequest valueHelpRequest} event of
-     * this `sap.ui.commons.ValueHelpField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.ValueHelpField` itself.
-     *
-     * Event which is fired when the ValueHelp is requested.
-     */
-    attachValueHelpRequest(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.ValueHelpField` itself
-       */
-      oListener?: object
     ): this;
   }
 

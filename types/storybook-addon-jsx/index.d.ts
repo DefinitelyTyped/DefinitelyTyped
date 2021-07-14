@@ -10,10 +10,10 @@ import { ReactElement, ReactNode } from 'react';
 export type displayNameFunc = (element: ReactElement) => string;
 
 export interface AddonParameters {
-    skip?: number;
-    enableBeautify?: boolean;
-    onBeforeRender?: (domString: string) => string;
-    displayName?: string | displayNameFunc;
+    skip?: number | undefined;
+    enableBeautify?: boolean | undefined;
+    onBeforeRender?: ((domString: string) => string) | undefined;
+    displayName?: string | displayNameFunc | undefined;
 }
 
 export type AddWithJSXFunc<StoryFnReturnType> = (

@@ -8,8 +8,8 @@
 import * as glob from "glob";
 
 interface Option {
-    filter?: string | ((filePath: string) => boolean);
-    cwd?: string;
+    filter?: string | ((filePath: string) => boolean) | undefined;
+    cwd?: string | undefined;
 }
 
 type _glob = typeof glob;

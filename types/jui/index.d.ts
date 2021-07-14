@@ -13,16 +13,16 @@ export interface UIAccordion extends UIEvent {
          * @cfg {Integer} [index=null]
          * Sets an enabled node
          */
-        index?: number,
+        index?: number | undefined,
         /**
          * @cfg {Boolean} [autoFold=false]
          * When you click on a node, the node folding
          */
-        autoFold?: boolean,
+        autoFold?: boolean | undefined,
         /**
          * @cfg {Boolean} [multipanel=false]
          */
-        multipanel?: boolean
+        multipanel?: boolean | undefined
     }): this;
     /**
      * Gets the index of the currently enabled node
@@ -45,7 +45,7 @@ export interface UIAutoComplete {
          * @cfg {Array} words
          * Designates words subject to autofill
          */
-        words?: string[]
+        words?: string[] | undefined
     }): this;
     /**
      * Updates words subject to autofill
@@ -66,8 +66,8 @@ export interface UIColorPicker {
     (selector: any, options?: {
         tpl?: any,
         event?: any,
-        type?: string,
-        color?: string
+        type?: string | undefined,
+        color?: string | undefined
     }): this;
     getColor(type: string): string | {};
     setColor(value: string | {}): void;
@@ -81,37 +81,37 @@ export interface UICombo {
          * @cfg {Integer} [index=0]
          * Determines an initial selection button with a specified index
          */
-        index?: number,
+        index?: number | undefined,
         /**
          * @cfg {String} [value=0]
          * Determines an initial selection button with a specified value
          */
-        value?: string,
+        value?: string | undefined,
         /**
          * @cfg {Integer} [width=0]
          * Determines the horizontal size of a combo box
          */
-        width?: number,
+        width?: number | undefined,
         /**
          * @cfg {Integer} [height=100]
          * Determines an initial selection button with a specified value
          */
-        height?: number,
+        height?: number | undefined,
         /**
          * @cfg {Boolean} [keydown=false]
          * It is possible to select a node using the keyboard
          */
-        keydown?: boolean,
+        keydown?: boolean | undefined,
         /**
          * @cfg {"top"/"bottom"} [position="bottom"]
          * It is possible to determine an initial selection button with a specified value
          */
-        position?: "top" | "bottom",
+        position?: "top" | "bottom" | undefined,
         /**
          * @cfg {Boolean} [flex=true]
          * Drop-down menu is varied by changing the width function
          */
-        flex?: boolean
+        flex?: boolean | undefined
     }): this;
     /**
      * Selects a button of a specified index
@@ -154,32 +154,32 @@ export interface UIDatePicker {
          * @cfg {"daily"/"monthly"/"yearly"} [type="daily"]
          * Determines the type of a calendar
          */
-        type?: "daily" | "monthly" | "yearly",
+        type?: "daily" | "monthly" | "yearly" | undefined,
         /**
          * @cfg {String} [titleFormat="yyyy.MM"]
          * Title format of a calendar
          */
-        titleFormat?: string,
+        titleFormat?: string | undefined,
         /**
          * @cfg {String} [format="yyyy-MM-dd"]
          * Format of the date handed over when selecting a specific date
          */
-        format?: string,
+        format?: string | undefined,
         /**
          * @cfg {Date} [date="now"]
          * Selects a specific date as a basic
          */
-        date?: "now" | Date,
+        date?: "now" | Date | undefined,
         /**
          * @cfg {Date} [minDate="null"]
          * Selects a specific minimum date
          */
-        minDate?: Date,
+        minDate?: Date | undefined,
         /**
          * @cfg {Date} [maxDate="null"]
          * Selects a specific maximum date
          */
-        maxDate?: Date
+        maxDate?: Date | undefined
     }): this;
     /**
      * Outputs a calendar that fits the year/month entered
@@ -232,37 +232,37 @@ export interface UIDropdown {
          * @cfg {Boolean} [close=true]
          * Closes the Auto when clicking on the dropdown list
          */
-        close?: boolean,
+        close?: boolean | undefined,
         /**
          * @cfg {Boolean} [keydown=false]
          * It is possible to choose anything on the dropdown list with the arrow keys on the keyboard
          */
-        keydown?: boolean,
+        keydown?: boolean | undefined,
         /**
          * @cfg {Integer} [left=0]
          * Sets the X coordinate of the dropdown list
          */
-        left?: number,
+        left?: number | undefined,
         /**
          * @cfg {Integer} [top=0]
          * Sets the Y coordinate of the dropdown list
          */
-        top?: number,
+        top?: number | undefined,
         /**
          * @cfg {Integer} [width=0]
          * Determines the horizontal size of a dropdown list
          */
-        width?: number,
+        width?: number | undefined,
         /**
          * @cfg {Integer} [height=0]
          * Determines the vertical size of a dropdown list
          */
-        height?: number,
+        height?: number | undefined,
         /**
          * @cfg {Array} nodes
          * Sets a dropdown list to data rather than markup
          */
-        nodes?: any[]
+        nodes?: any[] | undefined
     }): this;
     /**
      * Changes the dropdown list
@@ -294,32 +294,32 @@ export interface UIModal {
          * @cfg {"black"/"gray"} [color="black"]
          * Determines the color of a modal
          */
-        color?: "black" | "gray",
+        color?: "black" | "gray" | undefined,
         /**
          * @cfg {Float} [opacity=0.4]
          * Sets the transparency of a modal
          */
-        opacity?: number,
+        opacity?: number | undefined,
         /**
          * @cfg {String/DOMElement} [target="body"]
          * Sets a selector on which a modal is shown
          */
-        target?: string | any,
+        target?: string | any | undefined,
         /**
          * @cfg {Integer} [index=0]
          * Determines the sequence (index) of a modal
          */
-        index?: number,
+        index?: number | undefined,
         /**
          * @cfg {Boolean} [clone=false]
          * Copies an existing modal and shows it
          */
-        clone?: boolean,
+        clone?: boolean | undefined,
         /**
          * @cfg {Boolean} [autoHide=true]
          * Automatically hides a modal when clicking on it
          */
-        autoHide?: boolean
+        autoHide?: boolean | undefined
     }): this;
 
     hide(): void;
@@ -337,42 +337,42 @@ export interface UINotify {
          * @cfg {"top"/"top-lefet"/"top-right"/"bottom"/"bottom-left"/"bottom-right"} [position="top-right"]
          * Designates the location where a notice message is added
          */
-        position?: "top" | "top-lefet" | "top-right" | "bottom" | "bottom-left" | "bottom-right",
+        position?: "top" | "top-lefet" | "top-right" | "bottom" | "bottom-left" | "bottom-right" | undefined,
         /**
          * @cfg {Integer} [padding=12]
          * Determines the margin value of a notice message (the margin value may be in object form rather than a numeric value)
          */
-        padding?: number,
+        padding?: number | undefined,
         /**
          * @cfg {Integer} [distance=5]
          * Determines each margin value when there are multiple notice messages
          */
-        distance?: number,
+        distance?: number | undefined,
         /**
          * @cfg {Integer} [timeout=3000]
          * Determines the duration for which a notice message is displayed (the message does not disappear when the value is 0)
          */
-        timeout?: number,
+        timeout?: number | undefined,
         /**
          * @cfg {Integer} [showDuration=500]
          * Determines the duration of an effect when a notice message is shown
          */
-        showDuration?: number,
+        showDuration?: number | undefined,
         /**
          * @cfg {Integer} [hideDuration=500]
          * Determines the duration of an effect when a notice message disappears
          */
-        hideDuration?: number,
+        hideDuration?: number | undefined,
         /**
          * @cfg {String} [showEasing="swing"]
          * Determines an effect when a notice message is shown (see CSS3 specifications)
          */
-        showEasing?: string,
+        showEasing?: string | undefined,
         /**
          * @cfg {String} [hideEasing="linear"]
          * Determines an effect when a notice message disappears (see CSS3 specifications)
          */
-        hideEasing?: string
+        hideEasing?: string | undefined
     }): this;
     /**
      * Adds a notice message. The value passed is the data object shown by the notice template
@@ -391,17 +391,17 @@ export interface UIPaging {
          * @cfg {Integer} [count=0]
          * Total number of data records subject to paging)
          */
-        count?: number,
+        count?: number | undefined,
         /**
          * @cfg {Integer} [pageCount=10]
          * Number of data records per page
          */
-        pageCount?: number,
+        pageCount?: number | undefined,
         /**
          * @cfg {Integer} [screenCount=5]
          * Number of pages shown on the paging screen
          */
-        screenCount?: number
+        screenCount?: number | undefined
     }): this;
     /**
      * Reloads the number of specified data records, or reloads the initially configured number of data records if there is no parameter
@@ -429,13 +429,13 @@ export interface UIProgress {
     (selector: any, options?: {
         tpl?: any,
         event?: any,
-        type?: "simple" | "flat",       // simple or flat
-        orient?: "horizontal" | "vertical", // or vertical,
-        min?: number,
-        max?: number,
-        value?: number,
-        striped?: boolean,   // or true
-        animated?: boolean     // or true
+        type?: "simple" | "flat" | undefined,       // simple or flat
+        orient?: "horizontal" | "vertical" | undefined, // or vertical,
+        min?: number | undefined,
+        max?: number | undefined,
+        value?: number | undefined,
+        striped?: boolean | undefined,   // or true
+        animated?: boolean | undefined     // or true
     }): this;
     setAnimated(isAnimated: boolean): void;
     setStriped(isStriped: boolean): void;
@@ -447,9 +447,9 @@ export interface UIProperty {
     (selector: any, options?: {
         tpl?: any,
         event?: any,
-        sort?: string, // name, group, type
-        viewport?: string,
-        items?: any[]
+        sort?: string | undefined, // name, group, type
+        viewport?: string | undefined,
+        items?: any[] | undefined
     }): this;
     loadItems(newItems: any[]): void;
     addItem(item: {} | any[]): void;
@@ -495,11 +495,11 @@ export interface UISelect {
     (selector: any, options?: {
         tpl?: any,
         event?: any,
-        items?: any[],
-        placeholder?: string,
-        align?: 'left' | 'right',
-        valign?: 'top' | 'bottom',
-        multi?: boolean
+        items?: any[] | undefined,
+        placeholder?: string | undefined,
+        align?: 'left' | 'right' | undefined,
+        valign?: 'top' | 'bottom' | undefined,
+        multi?: boolean | undefined
     }): this;
     setValue(value: any | any[]): void;
     getValue(): any | any[];
@@ -512,16 +512,16 @@ export interface UISlider {
     (selector: any, options?: {
         tpl?: any,
         event?: any,
-        type?: "single" | "double", // or double
-        orient?: "horizontal" | "vertical", // or vertical,
-        min?: number,
-        max?: number,
-        step?: number,
-        from?: number,
-        to?: number,
-        tooltip?: boolean,
-        format?: string,
-        progress?: boolean
+        type?: "single" | "double" | undefined, // or double
+        orient?: "horizontal" | "vertical" | undefined, // or vertical,
+        min?: number | undefined,
+        max?: number | undefined,
+        step?: number | undefined,
+        from?: number | undefined,
+        to?: number | undefined,
+        tooltip?: boolean | undefined,
+        format?: string | undefined,
+        progress?: boolean | undefined
     }): this;
     /**
      * set FromHandle's value
@@ -553,32 +553,32 @@ export interface UISplitter {
          * @cfg {String} [splitterClass='ui-splitter']
          * set splitter's class for design
          */
-        splitterClass?: string,
+        splitterClass?: string | undefined,
         /**
          * @cfg {String} [hideClass='hide']
          * set splitter's hide class for design
          */
-        hideClass?: string,
+        hideClass?: string | undefined,
         /**
          * @cfg {Number} [barSize=4]
          * set splitter's bar size
          */
-        barSize?: number,
+        barSize?: number | undefined,
         /**
          * @cfg {Object} [barStyle={}]
          * set custom splitter bar style
          */
-        barStyle?: {},
+        barStyle?: {} | undefined,
         /**
          * @cfg {"vertical"/"horizontal"} [direction='vertical']
          * set bar's direction
          */
-        direction?: 'vertical' | 'horizontal',
+        direction?: 'vertical' | 'horizontal' | undefined,
         /**
          * @cfg {String/Number} [initSize='50%']
          * set first panel's default width or height
          */
-        initSize?: string | number,
+        initSize?: string | number | undefined,
         /**
          * @cfg {Number/Array} [minSize=30]
          * set panel's minimum width or height
@@ -589,7 +589,7 @@ export interface UISplitter {
          * minSize[1] is second panel's minimum size
          *
          */
-        minSize?: number | number[],
+        minSize?: number | number[] | undefined,
         /**
          * @cfg {String} [items=[]]
          *
@@ -598,14 +598,14 @@ export interface UISplitter {
          * support max two times
          *
          */
-        items?: any[],
+        items?: any[] | undefined,
         /**
          * @cfg {Boolean} [fixed=false]
          *
          * if fixed is true, panels can not resize.
          *
          */
-        fixed?: boolean
+        fixed?: boolean | undefined
     }): this;
     setDirection(d: 'horizontal' | 'vertical'): void;
     setInitSize(size: number): void;
@@ -618,8 +618,8 @@ export interface UISwitch {
     (selector: any, options?: {
         tpl?: any,
         event?: any,
-        checked?: boolean,
-        toggleEvent?: string
+        checked?: boolean | undefined,
+        toggleEvent?: string | undefined
     }): this;
     getValue(): boolean;
     setValue(value: boolean): void;
@@ -634,22 +634,22 @@ export interface UITab {
          * @cfg {String/DOMElement} [target=""]
          * Determines a selector in the area to become the content of a tab
          */
-        target?: string | any,
+        target?: string | any | undefined,
         /**
          * @cfg {Integer} [index=0]
          * Sets an enabled tab
          */
-        index?: number,
+        index?: number | undefined,
         /**
          * @cfg {Boolean} [drag=false]
          * Changes the tab location through dragging
          */
-        drag?: boolean,
+        drag?: boolean | undefined,
         /**
          * @cfg {Array} nodes
          * Sets a tab list to data rather than markup
          */
-        nodes?: any[]
+        nodes?: any[] | undefined
     }): this;
     /**
      * Changes the tab list
@@ -711,42 +711,42 @@ export interface UITooltip {
          * @cfg {String} [color="black"]
          * Determines the color of a tooltip
          */
-        color?: string,
+        color?: string | undefined,
         /**
          * @cfg {"top"/"bottom"/"left"/"right"} [position="top"]
          * Determines the location where a tooltip is shown
          */
-        position?: "top" | "bottom" | "left" | "right",
+        position?: "top" | "bottom" | "left" | "right" | undefined,
         /**
          * @cfg {Integer} [width=150]
          * Determines the horizontal size of a tooltip
          */
-        width?: number,
+        width?: number | undefined,
         /**
          * @cfg {"left"/"right"/"center"} [align="left"]
          * Determines the alignment state inside a tooltip
          */
-        align?: "left" | "right" | "center",
+        align?: "left" | "right" | "center" | undefined,
         /**
          * @cfg {Integer} [delay=0]
          * Determines the event time when a tooltip is shown
          */
-        delay?: number,
+        delay?: number | undefined,
         /**
          * @cfg {String} [showType="mouseover"]
          * Determines the type of event that triggers a tooltip
          */
-        showType?: string,
+        showType?: string | undefined,
         /**
          * @cfg {String} [hideType="mouseout"]
          * Determines the type of event that hides a tooltip
          */
-        hideType?: string,
+        hideType?: string | undefined,
         /**
          * @cfg {String} [title=""]
          * Sets the content of a tooltip (referring to the title properties in markup)
          */
-        title?: string,
+        title?: string | undefined,
     }): this;
     /**
      * Changes the content of a tooltip
@@ -757,28 +757,28 @@ export interface UITooltip {
 
 export interface UITreeNode {
     /** Data of a specified node */
-    data?: any[];
+    data?: any[] | undefined;
 
     /** LI element of a specified node */
     element?: any;
 
     /** Index of a specified node  */
-    index?: number;
+    index?: number | undefined;
 
     /** Unique number of a specifiede node at the current depth */
-    nodenum?: number;
+    nodenum?: number | undefined;
 
     /** Variable that refers to the parent of the current node */
-    parent?: UITreeNode;
+    parent?: UITreeNode | undefined;
 
     /** List of child nodes of a specified node */
-    children?: UITreeNode[];
+    children?: UITreeNode[] | undefined;
 
     /** Depth of a specified node */
-    depth?: number;
+    depth?: number | undefined;
 
     /** State value that indicates whether a child node is shown or hidden */
-    type?: string;
+    type?: string | undefined;
 }
 
 export interface UITreeBase {
@@ -806,27 +806,27 @@ export interface UITree {
          * @cfg {NodeObject} [root=null]
          * Adds a root node (required).
          */
-        root?: UITreeNode,
+        root?: UITreeNode | undefined,
         /**
          * @cfg {Boolean} [rootHide=false]
          * Hides a root node.
          */
-        rootHide?: boolean,
+        rootHide?: boolean | undefined,
         /**
          * @cfg {Boolean} [rootFold=false]
          * Folds up a root node.
          */
-        rootFold?: boolean,
+        rootFold?: boolean | undefined,
         /**
          * @cfg {Boolean} [drag=false]
          * It is possible to drag the movement of a node.
          */
-        drag?: boolean,
+        drag?: boolean | undefined,
         /**
          * @cfg {Boolean} [dragChild=true]
          * It is possible to drag the node movement but the node is not changed to a child node of the target node.
          */
-        dragChild?: boolean
+        dragChild?: boolean | undefined
     }): this;
     /**
      * Changes to the node at a specified index.
@@ -929,52 +929,52 @@ export interface UIWindow {
          * @cfg {Integer} [width=400]
          * Determines the horizontal size of a window
          */
-        width?: number,
+        width?: number | undefined,
         /**
          * @cfg {Integer} [height=300]
          * Determines the height of a window
          */
-        height?: number,
+        height?: number | undefined,
         /**
          * @cfg {String/Integer} [left="auto"]
          * Determines the X coordinate of a window
          */
-        left?: string | number,
+        left?: string | number | undefined,
         /**
          * @cfg {String/Integer} [top="auto"]
          * Determines the Y coordinate of a window
          */
-        top?: string | number,
+        top?: string | number | undefined,
         /**
          * @cfg {String/Integer} [right="auto"]
          * Determines the X coordinate based on the right side of a window
          */
-        right?: string | number,
+        right?: string | number | undefined,
         /**
          * @cfg {String/Integer} [bottom="auto"]
          * Determines the Y coordinate based on the bottom side of a window
          */
-        bottom?: string | number,
+        bottom?: string | number | undefined,
         /**
          * @cfg {Boolean} [modal=false]
          * Applies a modal UI to a window
          */
-        modal?: boolean,
+        modal?: boolean | undefined,
         /**
          * @cfg {Boolean} [move=true]
          * It is possible to move a window
          */
-        move?: boolean,
+        move?: boolean | undefined,
         /**
          * @cfg {Boolean} [resize=true]
          * It is possible to resize a window
          */
-        resize?: boolean,
+        resize?: boolean | undefined,
         /**
          * @cfg {Integer} [modalIndex=0]
          * Determines the z-index property of a modal UI
          */
-        modalIndex?: number
+        modalIndex?: number | undefined
     }): this;
 
     hide(): void;

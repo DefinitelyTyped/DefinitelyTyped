@@ -358,25 +358,25 @@ declare namespace Options {
     }
 
     interface Assert extends Bag {
-        todo?: boolean | string;
-        skip?: boolean | string;
-        diagnostic?: boolean;
+        todo?: boolean | string | undefined;
+        skip?: boolean | string | undefined;
+        diagnostic?: boolean | undefined;
     }
 
     interface Spawn extends Assert {
-        bail?: boolean;
-        timeout?: number;
+        bail?: boolean | undefined;
+        timeout?: number | undefined;
     }
 
     interface Test extends Assert {
-        timeout?: number;
-        bail?: boolean;
-        autoend?: boolean;
-        buffered?: boolean;
-        jobs?: number;
-        grep?: RegExp[];
-        only?: boolean;
-        runOnly?: boolean;
+        timeout?: number | undefined;
+        bail?: boolean | undefined;
+        autoend?: boolean | undefined;
+        buffered?: boolean | undefined;
+        jobs?: number | undefined;
+        grep?: RegExp[] | undefined;
+        only?: boolean | undefined;
+        runOnly?: boolean | undefined;
     }
 }
 

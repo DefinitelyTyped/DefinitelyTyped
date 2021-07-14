@@ -7,14 +7,14 @@
  */
 export interface CloudFrontHeaders {
     [name: string]: Array<{
-        key?: string;
+        key?: string | undefined;
         value: string;
     }>;
 }
 
 export type CloudFrontOrigin =
-    | { s3: CloudFrontS3Origin; custom?: never }
-    | { custom: CloudFrontCustomOrigin; s3?: never };
+    | { s3: CloudFrontS3Origin; custom?: never | undefined }
+    | { custom: CloudFrontCustomOrigin; s3?: never | undefined };
 
 export interface CloudFrontCustomOrigin {
     customHeaders: CloudFrontHeaders;
@@ -47,13 +47,13 @@ export interface CloudFrontRequest {
         data: string;
         encoding: 'base64' | 'text';
         readonly inputTruncated: boolean;
-    };
+    } | undefined;
     readonly clientIp: string;
     readonly method: string;
     uri: string;
     querystring: string;
     headers: CloudFrontHeaders;
-    origin?: CloudFrontOrigin;
+    origin?: CloudFrontOrigin | undefined;
 }
 
 export interface CloudFrontEvent {
@@ -72,8 +72,8 @@ export interface CloudFrontEvent {
  */
 export interface CloudFrontResultResponse {
     status: string;
-    statusDescription?: string;
-    headers?: CloudFrontHeaders;
-    bodyEncoding?: 'text' | 'base64';
-    body?: string;
+    statusDescription?: string | undefined;
+    headers?: CloudFrontHeaders | undefined;
+    bodyEncoding?: 'text' | 'base64' | undefined;
+    body?: string | undefined;
 }

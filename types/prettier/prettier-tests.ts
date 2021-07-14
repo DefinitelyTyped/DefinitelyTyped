@@ -222,6 +222,11 @@ const plugin: prettier.Plugin<PluginAST> = {
             array: true,
             default: [{ value: ['./pathA.js', './pathB.js'] }],
         },
+        testNoDefaultOption: {
+            since: '1.0.0',
+            type: 'path',
+            category: 'Test',
+        }
     },
 };
 

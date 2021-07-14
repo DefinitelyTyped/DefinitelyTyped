@@ -16,23 +16,23 @@ declare namespace AMap {
             /**
              * 城市
              */
-            city?: string;
+            city?: string | undefined;
             /**
              * 中心点
              */
-            radius?: number;
+            radius?: number | undefined;
             /**
              * 语言类型
              */
-            lang?: Lang;
+            lang?: Lang | undefined;
             /**
              * 是否批量查询
              */
-            batch?: boolean;
+            batch?: boolean | undefined;
             /**
              * 是否返回详细信息
              */
-            extensions?: 'base' | 'all';
+            extensions?: 'base' | 'all' | undefined;
         }
         interface BuildingArea {
             /**
@@ -303,7 +303,7 @@ declare namespace AMap {
              * 兴趣点列表
              */
             pois: ReGeocodePoi[];
-            aois?: ReGeocodeAoi[];
+            aois?: ReGeocodeAoi[] | undefined;
         }
         interface ReGeocodeResult {
             /**

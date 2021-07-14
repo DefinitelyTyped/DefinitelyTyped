@@ -185,12 +185,12 @@ declare namespace GoogleAppsScript {
             update(resource: Schema.ContainerVersion, path: string, optionalArgs: object): TagManager.Schema.ContainerVersion;
           }
           interface WorkspacesCollection {
-            Built_in_variables?: TagManager.Collection.Accounts.Containers.Workspaces.Built_in_variablesCollection;
-            Folders?: TagManager.Collection.Accounts.Containers.Workspaces.FoldersCollection;
-            Tags?: TagManager.Collection.Accounts.Containers.Workspaces.TagsCollection;
-            Triggers?: TagManager.Collection.Accounts.Containers.Workspaces.TriggersCollection;
-            Variables?: TagManager.Collection.Accounts.Containers.Workspaces.VariablesCollection;
-            Zones?: TagManager.Collection.Accounts.Containers.Workspaces.ZonesCollection;
+            Built_in_variables?: TagManager.Collection.Accounts.Containers.Workspaces.Built_in_variablesCollection | undefined;
+            Folders?: TagManager.Collection.Accounts.Containers.Workspaces.FoldersCollection | undefined;
+            Tags?: TagManager.Collection.Accounts.Containers.Workspaces.TagsCollection | undefined;
+            Triggers?: TagManager.Collection.Accounts.Containers.Workspaces.TriggersCollection | undefined;
+            Variables?: TagManager.Collection.Accounts.Containers.Workspaces.VariablesCollection | undefined;
+            Zones?: TagManager.Collection.Accounts.Containers.Workspaces.ZonesCollection | undefined;
             // Creates a Workspace.
             create(resource: Schema.Workspace, parent: string): TagManager.Schema.Workspace;
             // Creates a Container Version from the entities present in the workspace, deletes the workspace, and sets the base container version to the newly created version.
@@ -220,10 +220,10 @@ declare namespace GoogleAppsScript {
           }
         }
         interface ContainersCollection {
-          Environments?: TagManager.Collection.Accounts.Containers.EnvironmentsCollection;
-          Version_headers?: TagManager.Collection.Accounts.Containers.Version_headersCollection;
-          Versions?: TagManager.Collection.Accounts.Containers.VersionsCollection;
-          Workspaces?: TagManager.Collection.Accounts.Containers.WorkspacesCollection;
+          Environments?: TagManager.Collection.Accounts.Containers.EnvironmentsCollection | undefined;
+          Version_headers?: TagManager.Collection.Accounts.Containers.Version_headersCollection | undefined;
+          Versions?: TagManager.Collection.Accounts.Containers.VersionsCollection | undefined;
+          Workspaces?: TagManager.Collection.Accounts.Containers.WorkspacesCollection | undefined;
           // Creates a Container.
           create(resource: Schema.Container, parent: string): TagManager.Schema.Container;
           // Gets a Container.
@@ -255,8 +255,8 @@ declare namespace GoogleAppsScript {
         }
       }
       interface AccountsCollection {
-        Containers?: TagManager.Collection.Accounts.ContainersCollection;
-        User_permissions?: TagManager.Collection.Accounts.User_permissionsCollection;
+        Containers?: TagManager.Collection.Accounts.ContainersCollection | undefined;
+        User_permissions?: TagManager.Collection.Accounts.User_permissionsCollection | undefined;
         // Gets a GTM Account.
         get(path: string): TagManager.Schema.Account;
         // Lists all GTM Accounts that a user has access to.
@@ -271,386 +271,386 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Account {
-        accountId?: string;
-        fingerprint?: string;
-        name?: string;
-        path?: string;
-        shareData?: boolean;
-        tagManagerUrl?: string;
+        accountId?: string | undefined;
+        fingerprint?: string | undefined;
+        name?: string | undefined;
+        path?: string | undefined;
+        shareData?: boolean | undefined;
+        tagManagerUrl?: string | undefined;
       }
       interface AccountAccess {
-        permission?: string;
+        permission?: string | undefined;
       }
       interface BuiltInVariable {
-        accountId?: string;
-        containerId?: string;
-        name?: string;
-        path?: string;
-        type?: string;
-        workspaceId?: string;
+        accountId?: string | undefined;
+        containerId?: string | undefined;
+        name?: string | undefined;
+        path?: string | undefined;
+        type?: string | undefined;
+        workspaceId?: string | undefined;
       }
       interface Condition {
-        parameter?: TagManager.Schema.Parameter[];
-        type?: string;
+        parameter?: TagManager.Schema.Parameter[] | undefined;
+        type?: string | undefined;
       }
       interface Container {
-        accountId?: string;
-        containerId?: string;
-        domainName?: string[];
-        fingerprint?: string;
-        name?: string;
-        notes?: string;
-        path?: string;
-        publicId?: string;
-        tagManagerUrl?: string;
-        usageContext?: string[];
+        accountId?: string | undefined;
+        containerId?: string | undefined;
+        domainName?: string[] | undefined;
+        fingerprint?: string | undefined;
+        name?: string | undefined;
+        notes?: string | undefined;
+        path?: string | undefined;
+        publicId?: string | undefined;
+        tagManagerUrl?: string | undefined;
+        usageContext?: string[] | undefined;
       }
       interface ContainerAccess {
-        containerId?: string;
-        permission?: string;
+        containerId?: string | undefined;
+        permission?: string | undefined;
       }
       interface ContainerVersion {
-        accountId?: string;
-        builtInVariable?: TagManager.Schema.BuiltInVariable[];
-        container?: TagManager.Schema.Container;
-        containerId?: string;
-        containerVersionId?: string;
-        customTemplate?: TagManager.Schema.CustomTemplate[];
-        deleted?: boolean;
-        description?: string;
-        fingerprint?: string;
-        folder?: TagManager.Schema.Folder[];
-        name?: string;
-        path?: string;
-        tag?: TagManager.Schema.Tag[];
-        tagManagerUrl?: string;
-        trigger?: TagManager.Schema.Trigger[];
-        variable?: TagManager.Schema.Variable[];
-        zone?: TagManager.Schema.Zone[];
+        accountId?: string | undefined;
+        builtInVariable?: TagManager.Schema.BuiltInVariable[] | undefined;
+        container?: TagManager.Schema.Container | undefined;
+        containerId?: string | undefined;
+        containerVersionId?: string | undefined;
+        customTemplate?: TagManager.Schema.CustomTemplate[] | undefined;
+        deleted?: boolean | undefined;
+        description?: string | undefined;
+        fingerprint?: string | undefined;
+        folder?: TagManager.Schema.Folder[] | undefined;
+        name?: string | undefined;
+        path?: string | undefined;
+        tag?: TagManager.Schema.Tag[] | undefined;
+        tagManagerUrl?: string | undefined;
+        trigger?: TagManager.Schema.Trigger[] | undefined;
+        variable?: TagManager.Schema.Variable[] | undefined;
+        zone?: TagManager.Schema.Zone[] | undefined;
       }
       interface ContainerVersionHeader {
-        accountId?: string;
-        containerId?: string;
-        containerVersionId?: string;
-        deleted?: boolean;
-        name?: string;
-        numCustomTemplates?: string;
-        numMacros?: string;
-        numRules?: string;
-        numTags?: string;
-        numTriggers?: string;
-        numVariables?: string;
-        numZones?: string;
-        path?: string;
+        accountId?: string | undefined;
+        containerId?: string | undefined;
+        containerVersionId?: string | undefined;
+        deleted?: boolean | undefined;
+        name?: string | undefined;
+        numCustomTemplates?: string | undefined;
+        numMacros?: string | undefined;
+        numRules?: string | undefined;
+        numTags?: string | undefined;
+        numTriggers?: string | undefined;
+        numVariables?: string | undefined;
+        numZones?: string | undefined;
+        path?: string | undefined;
       }
       interface CreateBuiltInVariableResponse {
-        builtInVariable?: TagManager.Schema.BuiltInVariable[];
+        builtInVariable?: TagManager.Schema.BuiltInVariable[] | undefined;
       }
       interface CreateContainerVersionRequestVersionOptions {
-        name?: string;
-        notes?: string;
+        name?: string | undefined;
+        notes?: string | undefined;
       }
       interface CreateContainerVersionResponse {
-        compilerError?: boolean;
-        containerVersion?: TagManager.Schema.ContainerVersion;
-        newWorkspacePath?: string;
-        syncStatus?: TagManager.Schema.SyncStatus;
+        compilerError?: boolean | undefined;
+        containerVersion?: TagManager.Schema.ContainerVersion | undefined;
+        newWorkspacePath?: string | undefined;
+        syncStatus?: TagManager.Schema.SyncStatus | undefined;
       }
       interface CustomTemplate {
-        accountId?: string;
-        containerId?: string;
-        fingerprint?: string;
-        name?: string;
-        path?: string;
-        tagManagerUrl?: string;
-        templateData?: string;
-        templateId?: string;
-        workspaceId?: string;
+        accountId?: string | undefined;
+        containerId?: string | undefined;
+        fingerprint?: string | undefined;
+        name?: string | undefined;
+        path?: string | undefined;
+        tagManagerUrl?: string | undefined;
+        templateData?: string | undefined;
+        templateId?: string | undefined;
+        workspaceId?: string | undefined;
       }
       interface Entity {
-        changeStatus?: string;
-        folder?: TagManager.Schema.Folder;
-        tag?: TagManager.Schema.Tag;
-        trigger?: TagManager.Schema.Trigger;
-        variable?: TagManager.Schema.Variable;
+        changeStatus?: string | undefined;
+        folder?: TagManager.Schema.Folder | undefined;
+        tag?: TagManager.Schema.Tag | undefined;
+        trigger?: TagManager.Schema.Trigger | undefined;
+        variable?: TagManager.Schema.Variable | undefined;
       }
       interface Environment {
-        accountId?: string;
-        authorizationCode?: string;
-        authorizationTimestamp?: TagManager.Schema.Timestamp;
-        containerId?: string;
-        containerVersionId?: string;
-        description?: string;
-        enableDebug?: boolean;
-        environmentId?: string;
-        fingerprint?: string;
-        name?: string;
-        path?: string;
-        tagManagerUrl?: string;
-        type?: string;
-        url?: string;
-        workspaceId?: string;
+        accountId?: string | undefined;
+        authorizationCode?: string | undefined;
+        authorizationTimestamp?: TagManager.Schema.Timestamp | undefined;
+        containerId?: string | undefined;
+        containerVersionId?: string | undefined;
+        description?: string | undefined;
+        enableDebug?: boolean | undefined;
+        environmentId?: string | undefined;
+        fingerprint?: string | undefined;
+        name?: string | undefined;
+        path?: string | undefined;
+        tagManagerUrl?: string | undefined;
+        type?: string | undefined;
+        url?: string | undefined;
+        workspaceId?: string | undefined;
       }
       interface Folder {
-        accountId?: string;
-        containerId?: string;
-        fingerprint?: string;
-        folderId?: string;
-        name?: string;
-        notes?: string;
-        path?: string;
-        tagManagerUrl?: string;
-        workspaceId?: string;
+        accountId?: string | undefined;
+        containerId?: string | undefined;
+        fingerprint?: string | undefined;
+        folderId?: string | undefined;
+        name?: string | undefined;
+        notes?: string | undefined;
+        path?: string | undefined;
+        tagManagerUrl?: string | undefined;
+        workspaceId?: string | undefined;
       }
       interface FolderEntities {
-        nextPageToken?: string;
-        tag?: TagManager.Schema.Tag[];
-        trigger?: TagManager.Schema.Trigger[];
-        variable?: TagManager.Schema.Variable[];
+        nextPageToken?: string | undefined;
+        tag?: TagManager.Schema.Tag[] | undefined;
+        trigger?: TagManager.Schema.Trigger[] | undefined;
+        variable?: TagManager.Schema.Variable[] | undefined;
       }
       interface GetWorkspaceStatusResponse {
-        mergeConflict?: TagManager.Schema.MergeConflict[];
-        workspaceChange?: TagManager.Schema.Entity[];
+        mergeConflict?: TagManager.Schema.MergeConflict[] | undefined;
+        workspaceChange?: TagManager.Schema.Entity[] | undefined;
       }
       interface ListAccountsResponse {
-        account?: TagManager.Schema.Account[];
-        nextPageToken?: string;
+        account?: TagManager.Schema.Account[] | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ListContainerVersionsResponse {
-        containerVersionHeader?: TagManager.Schema.ContainerVersionHeader[];
-        nextPageToken?: string;
+        containerVersionHeader?: TagManager.Schema.ContainerVersionHeader[] | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ListContainersResponse {
-        container?: TagManager.Schema.Container[];
-        nextPageToken?: string;
+        container?: TagManager.Schema.Container[] | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ListEnabledBuiltInVariablesResponse {
-        builtInVariable?: TagManager.Schema.BuiltInVariable[];
-        nextPageToken?: string;
+        builtInVariable?: TagManager.Schema.BuiltInVariable[] | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ListEnvironmentsResponse {
-        environment?: TagManager.Schema.Environment[];
-        nextPageToken?: string;
+        environment?: TagManager.Schema.Environment[] | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ListFoldersResponse {
-        folder?: TagManager.Schema.Folder[];
-        nextPageToken?: string;
+        folder?: TagManager.Schema.Folder[] | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ListTagsResponse {
-        nextPageToken?: string;
-        tag?: TagManager.Schema.Tag[];
+        nextPageToken?: string | undefined;
+        tag?: TagManager.Schema.Tag[] | undefined;
       }
       interface ListTriggersResponse {
-        nextPageToken?: string;
-        trigger?: TagManager.Schema.Trigger[];
+        nextPageToken?: string | undefined;
+        trigger?: TagManager.Schema.Trigger[] | undefined;
       }
       interface ListUserPermissionsResponse {
-        nextPageToken?: string;
-        userPermission?: TagManager.Schema.UserPermission[];
+        nextPageToken?: string | undefined;
+        userPermission?: TagManager.Schema.UserPermission[] | undefined;
       }
       interface ListVariablesResponse {
-        nextPageToken?: string;
-        variable?: TagManager.Schema.Variable[];
+        nextPageToken?: string | undefined;
+        variable?: TagManager.Schema.Variable[] | undefined;
       }
       interface ListWorkspacesResponse {
-        nextPageToken?: string;
-        workspace?: TagManager.Schema.Workspace[];
+        nextPageToken?: string | undefined;
+        workspace?: TagManager.Schema.Workspace[] | undefined;
       }
       interface ListZonesResponse {
-        nextPageToken?: string;
-        zone?: TagManager.Schema.Zone[];
+        nextPageToken?: string | undefined;
+        zone?: TagManager.Schema.Zone[] | undefined;
       }
       interface MergeConflict {
-        entityInBaseVersion?: TagManager.Schema.Entity;
-        entityInWorkspace?: TagManager.Schema.Entity;
+        entityInBaseVersion?: TagManager.Schema.Entity | undefined;
+        entityInWorkspace?: TagManager.Schema.Entity | undefined;
       }
       interface Parameter {
-        key?: string;
-        list?: TagManager.Schema.Parameter[];
-        map?: TagManager.Schema.Parameter[];
-        type?: string;
-        value?: string;
+        key?: string | undefined;
+        list?: TagManager.Schema.Parameter[] | undefined;
+        map?: TagManager.Schema.Parameter[] | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface PublishContainerVersionResponse {
-        compilerError?: boolean;
-        containerVersion?: TagManager.Schema.ContainerVersion;
+        compilerError?: boolean | undefined;
+        containerVersion?: TagManager.Schema.ContainerVersion | undefined;
       }
       interface QuickPreviewResponse {
-        compilerError?: boolean;
-        containerVersion?: TagManager.Schema.ContainerVersion;
-        syncStatus?: TagManager.Schema.SyncStatus;
+        compilerError?: boolean | undefined;
+        containerVersion?: TagManager.Schema.ContainerVersion | undefined;
+        syncStatus?: TagManager.Schema.SyncStatus | undefined;
       }
       interface RevertBuiltInVariableResponse {
-        enabled?: boolean;
+        enabled?: boolean | undefined;
       }
       interface RevertFolderResponse {
-        folder?: TagManager.Schema.Folder;
+        folder?: TagManager.Schema.Folder | undefined;
       }
       interface RevertTagResponse {
-        tag?: TagManager.Schema.Tag;
+        tag?: TagManager.Schema.Tag | undefined;
       }
       interface RevertTriggerResponse {
-        trigger?: TagManager.Schema.Trigger;
+        trigger?: TagManager.Schema.Trigger | undefined;
       }
       interface RevertVariableResponse {
-        variable?: TagManager.Schema.Variable;
+        variable?: TagManager.Schema.Variable | undefined;
       }
       interface RevertZoneResponse {
-        zone?: TagManager.Schema.Zone;
+        zone?: TagManager.Schema.Zone | undefined;
       }
       interface SetupTag {
-        stopOnSetupFailure?: boolean;
-        tagName?: string;
+        stopOnSetupFailure?: boolean | undefined;
+        tagName?: string | undefined;
       }
       interface SyncStatus {
-        mergeConflict?: boolean;
-        syncError?: boolean;
+        mergeConflict?: boolean | undefined;
+        syncError?: boolean | undefined;
       }
       interface SyncWorkspaceResponse {
-        mergeConflict?: TagManager.Schema.MergeConflict[];
-        syncStatus?: TagManager.Schema.SyncStatus;
+        mergeConflict?: TagManager.Schema.MergeConflict[] | undefined;
+        syncStatus?: TagManager.Schema.SyncStatus | undefined;
       }
       interface Tag {
-        accountId?: string;
-        blockingRuleId?: string[];
-        blockingTriggerId?: string[];
-        containerId?: string;
-        fingerprint?: string;
-        firingRuleId?: string[];
-        firingTriggerId?: string[];
-        liveOnly?: boolean;
-        name?: string;
-        notes?: string;
-        parameter?: TagManager.Schema.Parameter[];
-        parentFolderId?: string;
-        path?: string;
-        paused?: boolean;
-        priority?: TagManager.Schema.Parameter;
-        scheduleEndMs?: string;
-        scheduleStartMs?: string;
-        setupTag?: TagManager.Schema.SetupTag[];
-        tagFiringOption?: string;
-        tagId?: string;
-        tagManagerUrl?: string;
-        teardownTag?: TagManager.Schema.TeardownTag[];
-        type?: string;
-        workspaceId?: string;
+        accountId?: string | undefined;
+        blockingRuleId?: string[] | undefined;
+        blockingTriggerId?: string[] | undefined;
+        containerId?: string | undefined;
+        fingerprint?: string | undefined;
+        firingRuleId?: string[] | undefined;
+        firingTriggerId?: string[] | undefined;
+        liveOnly?: boolean | undefined;
+        name?: string | undefined;
+        notes?: string | undefined;
+        parameter?: TagManager.Schema.Parameter[] | undefined;
+        parentFolderId?: string | undefined;
+        path?: string | undefined;
+        paused?: boolean | undefined;
+        priority?: TagManager.Schema.Parameter | undefined;
+        scheduleEndMs?: string | undefined;
+        scheduleStartMs?: string | undefined;
+        setupTag?: TagManager.Schema.SetupTag[] | undefined;
+        tagFiringOption?: string | undefined;
+        tagId?: string | undefined;
+        tagManagerUrl?: string | undefined;
+        teardownTag?: TagManager.Schema.TeardownTag[] | undefined;
+        type?: string | undefined;
+        workspaceId?: string | undefined;
       }
       interface TeardownTag {
-        stopTeardownOnFailure?: boolean;
-        tagName?: string;
+        stopTeardownOnFailure?: boolean | undefined;
+        tagName?: string | undefined;
       }
       interface Timestamp {
-        nanos?: number;
-        seconds?: string;
+        nanos?: number | undefined;
+        seconds?: string | undefined;
       }
       interface Trigger {
-        accountId?: string;
-        autoEventFilter?: TagManager.Schema.Condition[];
-        checkValidation?: TagManager.Schema.Parameter;
-        containerId?: string;
-        continuousTimeMinMilliseconds?: TagManager.Schema.Parameter;
-        customEventFilter?: TagManager.Schema.Condition[];
-        eventName?: TagManager.Schema.Parameter;
-        filter?: TagManager.Schema.Condition[];
-        fingerprint?: string;
-        horizontalScrollPercentageList?: TagManager.Schema.Parameter;
-        interval?: TagManager.Schema.Parameter;
-        intervalSeconds?: TagManager.Schema.Parameter;
-        limit?: TagManager.Schema.Parameter;
-        maxTimerLengthSeconds?: TagManager.Schema.Parameter;
-        name?: string;
-        notes?: string;
-        parameter?: TagManager.Schema.Parameter[];
-        parentFolderId?: string;
-        path?: string;
-        selector?: TagManager.Schema.Parameter;
-        tagManagerUrl?: string;
-        totalTimeMinMilliseconds?: TagManager.Schema.Parameter;
-        triggerId?: string;
-        type?: string;
-        uniqueTriggerId?: TagManager.Schema.Parameter;
-        verticalScrollPercentageList?: TagManager.Schema.Parameter;
-        visibilitySelector?: TagManager.Schema.Parameter;
-        visiblePercentageMax?: TagManager.Schema.Parameter;
-        visiblePercentageMin?: TagManager.Schema.Parameter;
-        waitForTags?: TagManager.Schema.Parameter;
-        waitForTagsTimeout?: TagManager.Schema.Parameter;
-        workspaceId?: string;
+        accountId?: string | undefined;
+        autoEventFilter?: TagManager.Schema.Condition[] | undefined;
+        checkValidation?: TagManager.Schema.Parameter | undefined;
+        containerId?: string | undefined;
+        continuousTimeMinMilliseconds?: TagManager.Schema.Parameter | undefined;
+        customEventFilter?: TagManager.Schema.Condition[] | undefined;
+        eventName?: TagManager.Schema.Parameter | undefined;
+        filter?: TagManager.Schema.Condition[] | undefined;
+        fingerprint?: string | undefined;
+        horizontalScrollPercentageList?: TagManager.Schema.Parameter | undefined;
+        interval?: TagManager.Schema.Parameter | undefined;
+        intervalSeconds?: TagManager.Schema.Parameter | undefined;
+        limit?: TagManager.Schema.Parameter | undefined;
+        maxTimerLengthSeconds?: TagManager.Schema.Parameter | undefined;
+        name?: string | undefined;
+        notes?: string | undefined;
+        parameter?: TagManager.Schema.Parameter[] | undefined;
+        parentFolderId?: string | undefined;
+        path?: string | undefined;
+        selector?: TagManager.Schema.Parameter | undefined;
+        tagManagerUrl?: string | undefined;
+        totalTimeMinMilliseconds?: TagManager.Schema.Parameter | undefined;
+        triggerId?: string | undefined;
+        type?: string | undefined;
+        uniqueTriggerId?: TagManager.Schema.Parameter | undefined;
+        verticalScrollPercentageList?: TagManager.Schema.Parameter | undefined;
+        visibilitySelector?: TagManager.Schema.Parameter | undefined;
+        visiblePercentageMax?: TagManager.Schema.Parameter | undefined;
+        visiblePercentageMin?: TagManager.Schema.Parameter | undefined;
+        waitForTags?: TagManager.Schema.Parameter | undefined;
+        waitForTagsTimeout?: TagManager.Schema.Parameter | undefined;
+        workspaceId?: string | undefined;
       }
       interface UserPermission {
-        accountAccess?: TagManager.Schema.AccountAccess;
-        accountId?: string;
-        containerAccess?: TagManager.Schema.ContainerAccess[];
-        emailAddress?: string;
-        path?: string;
+        accountAccess?: TagManager.Schema.AccountAccess | undefined;
+        accountId?: string | undefined;
+        containerAccess?: TagManager.Schema.ContainerAccess[] | undefined;
+        emailAddress?: string | undefined;
+        path?: string | undefined;
       }
       interface Variable {
-        accountId?: string;
-        containerId?: string;
-        disablingTriggerId?: string[];
-        enablingTriggerId?: string[];
-        fingerprint?: string;
-        formatValue?: TagManager.Schema.VariableFormatValue;
-        name?: string;
-        notes?: string;
-        parameter?: TagManager.Schema.Parameter[];
-        parentFolderId?: string;
-        path?: string;
-        scheduleEndMs?: string;
-        scheduleStartMs?: string;
-        tagManagerUrl?: string;
-        type?: string;
-        variableId?: string;
-        workspaceId?: string;
+        accountId?: string | undefined;
+        containerId?: string | undefined;
+        disablingTriggerId?: string[] | undefined;
+        enablingTriggerId?: string[] | undefined;
+        fingerprint?: string | undefined;
+        formatValue?: TagManager.Schema.VariableFormatValue | undefined;
+        name?: string | undefined;
+        notes?: string | undefined;
+        parameter?: TagManager.Schema.Parameter[] | undefined;
+        parentFolderId?: string | undefined;
+        path?: string | undefined;
+        scheduleEndMs?: string | undefined;
+        scheduleStartMs?: string | undefined;
+        tagManagerUrl?: string | undefined;
+        type?: string | undefined;
+        variableId?: string | undefined;
+        workspaceId?: string | undefined;
       }
       interface VariableFormatValue {
-        caseConversionType?: string;
-        convertFalseToValue?: TagManager.Schema.Parameter;
-        convertNullToValue?: TagManager.Schema.Parameter;
-        convertTrueToValue?: TagManager.Schema.Parameter;
-        convertUndefinedToValue?: TagManager.Schema.Parameter;
+        caseConversionType?: string | undefined;
+        convertFalseToValue?: TagManager.Schema.Parameter | undefined;
+        convertNullToValue?: TagManager.Schema.Parameter | undefined;
+        convertTrueToValue?: TagManager.Schema.Parameter | undefined;
+        convertUndefinedToValue?: TagManager.Schema.Parameter | undefined;
       }
       interface Workspace {
-        accountId?: string;
-        containerId?: string;
-        description?: string;
-        fingerprint?: string;
-        name?: string;
-        path?: string;
-        tagManagerUrl?: string;
-        workspaceId?: string;
+        accountId?: string | undefined;
+        containerId?: string | undefined;
+        description?: string | undefined;
+        fingerprint?: string | undefined;
+        name?: string | undefined;
+        path?: string | undefined;
+        tagManagerUrl?: string | undefined;
+        workspaceId?: string | undefined;
       }
       interface Zone {
-        accountId?: string;
-        boundary?: TagManager.Schema.ZoneBoundary;
-        childContainer?: TagManager.Schema.ZoneChildContainer[];
-        containerId?: string;
-        fingerprint?: string;
-        name?: string;
-        notes?: string;
-        path?: string;
-        tagManagerUrl?: string;
-        typeRestriction?: TagManager.Schema.ZoneTypeRestriction;
-        workspaceId?: string;
-        zoneId?: string;
+        accountId?: string | undefined;
+        boundary?: TagManager.Schema.ZoneBoundary | undefined;
+        childContainer?: TagManager.Schema.ZoneChildContainer[] | undefined;
+        containerId?: string | undefined;
+        fingerprint?: string | undefined;
+        name?: string | undefined;
+        notes?: string | undefined;
+        path?: string | undefined;
+        tagManagerUrl?: string | undefined;
+        typeRestriction?: TagManager.Schema.ZoneTypeRestriction | undefined;
+        workspaceId?: string | undefined;
+        zoneId?: string | undefined;
       }
       interface ZoneBoundary {
-        condition?: TagManager.Schema.Condition[];
-        customEvaluationTriggerId?: string[];
+        condition?: TagManager.Schema.Condition[] | undefined;
+        customEvaluationTriggerId?: string[] | undefined;
       }
       interface ZoneChildContainer {
-        nickname?: string;
-        publicId?: string;
+        nickname?: string | undefined;
+        publicId?: string | undefined;
       }
       interface ZoneTypeRestriction {
-        enable?: boolean;
-        whitelistedTypeId?: string[];
+        enable?: boolean | undefined;
+        whitelistedTypeId?: string[] | undefined;
       }
     }
   }
   interface TagManager {
-    Accounts?: TagManager.Collection.AccountsCollection;
+    Accounts?: TagManager.Collection.AccountsCollection | undefined;
     // Create a new instance of Account
     newAccount(): TagManager.Schema.Account;
     // Create a new instance of AccountAccess

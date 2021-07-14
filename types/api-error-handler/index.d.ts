@@ -12,12 +12,12 @@ declare namespace apiErrorHandler {
     // See https://github.com/expressjs/api-error-handler/blob/1.0.0/index.js
     interface Response {
         status: number;
-        stack?: string;
+        stack?: string | undefined;
         message: string;
 
         // Client errors
         code?: any;
-        name?: string;
+        name?: string | undefined;
         type?: any;
     }
 }

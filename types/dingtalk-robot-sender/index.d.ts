@@ -25,7 +25,7 @@ declare namespace Message {
     at?: {
         atMobiles: string[];
         isAtAll: boolean;
-    };
+    } | undefined;
   }
 
   interface Link {
@@ -53,14 +53,14 @@ declare namespace Message {
     actionCard: {
       title: string;
       text: string;
-      singleTitle?: string;
-      singleURL?: string;
+      singleTitle?: string | undefined;
+      singleURL?: string | undefined;
       hideAvatar: '0' | '1';
       btnOrientation: '0' | '1';
       btns?: Array<{
         title: string;
         actionURL: string;
-      }>;
+      }> | undefined;
     };
   }
 

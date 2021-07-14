@@ -11,7 +11,7 @@ import { Plugin } from 'rollup';
 
 declare namespace svgrRollup {
     interface Options {
-        include?: string;
+        include?: string | undefined;
         exclude: string;
         babel: boolean;
     }

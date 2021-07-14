@@ -5,13 +5,13 @@ import Units from './Units';
 
 export interface Options {
     code: string;
-    units?: Units | string;
-    extent?: Extent;
-    axisOrientation?: string;
-    global?: boolean;
-    metersPerUnit?: number;
-    worldExtent?: Extent;
-    getPointResolution?: (p0: number, p1: Coordinate) => number;
+    units?: Units | string | undefined;
+    extent?: Extent | undefined;
+    axisOrientation?: string | undefined;
+    global?: boolean | undefined;
+    metersPerUnit?: number | undefined;
+    worldExtent?: Extent | undefined;
+    getPointResolution?: ((p0: number, p1: Coordinate) => number) | undefined;
 }
 export default class Projection {
     constructor(options: Options);

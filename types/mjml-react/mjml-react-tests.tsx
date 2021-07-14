@@ -221,6 +221,7 @@ function renderOutTestEmail() {
 {
     const minProps: React.ReactNode = <MjmlTable />;
     const maxProps: React.ReactNode = <MjmlTable>child</MjmlTable>;
+    const roleProps: React.ReactNode = <MjmlTable role="presentation">child</MjmlTable>;
 }
 // TestMjmlTextTag
 {

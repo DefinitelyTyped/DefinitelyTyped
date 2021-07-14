@@ -8,11 +8,11 @@ export = blockies;
 
 declare namespace blockies {
     interface BlockiesConfig {
-        size?: number;
-        scale?: number;
-        seed?: string;
-        color?: string;
-        bgcolor?: string;
-        spotcolor?: string;
+        size?: number | undefined;
+        scale?: number | undefined;
+        seed?: string | undefined;
+        color?: string | undefined;
+        bgcolor?: string | undefined;
+        spotcolor?: string | undefined;
     }
 }

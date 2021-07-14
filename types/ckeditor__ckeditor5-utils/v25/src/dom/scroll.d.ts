@@ -12,7 +12,7 @@ export function scrollViewportToShowTarget({
     viewportOffset,
 }: {
     target: HTMLElement | Range;
-    viewportOffset?: number;
+    viewportOffset?: number | undefined;
 }): void;
 /**
  * Makes any page `HTMLElement` or `Range` (target) visible within its scrollable ancestors,

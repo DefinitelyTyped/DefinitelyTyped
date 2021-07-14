@@ -33,22 +33,22 @@ SOFTWARE.
 declare namespace BMapGL {
     class TileLayer {
         constructor(opts?: TileLayerOptions);
-        zIndex?: number;
+        zIndex?: number | undefined;
         getTilesUrl(tileCoord: Pixel, zoom: number): string;
         getCopyright(): Copyright;
         isTransparentPng(): boolean;
     }
     interface TileLayerOptions {
-        transparentPng?: boolean;
-        tileUrlTemplate?: string;
-        copyright?: Copyright;
-        zIndex?: number;
+        transparentPng?: boolean | undefined;
+        tileUrlTemplate?: string | undefined;
+        copyright?: Copyright | undefined;
+        zIndex?: number | undefined;
     }
     class TrafficLayer extends TileLayer {
         constructor(opts?: TrafficLayerOptions);
     }
     interface TrafficLayerOptions {
-        predictDate?: PredictDate;
+        predictDate?: PredictDate | undefined;
     }
     interface PredictDate {
         weekday: number;
@@ -80,12 +80,12 @@ declare namespace BMapGL {
         constructor();
     }
     interface CustomLayerOptions {
-        databoxId?: string;
-        geotableId?: string;
-        q?: string;
-        tags?: string;
-        filter?: string;
-        pointDensityType?: PointDensityType;
+        databoxId?: string | undefined;
+        geotableId?: string | undefined;
+        q?: string | undefined;
+        tags?: string | undefined;
+        filter?: string | undefined;
+        pointDensityType?: PointDensityType | undefined;
     }
     type PointDensityType = number;
 }

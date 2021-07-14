@@ -29,13 +29,13 @@ export function wrap<P extends {}>(WrappedComponent: {} | React.FunctionComponen
 export interface TesterProps {
     store: TestHookStore;
     specs: Array<(spec: TestScope) => void>;
-    waitTime?: number;
-    startDelay?: number;
-    clearAsyncStorage?: boolean;
-    reporter?: (report: TestReport) => void;
+    waitTime?: number | undefined;
+    startDelay?: number | undefined;
+    clearAsyncStorage?: boolean | undefined;
+    reporter?: ((report: TestReport) => void) | undefined;
 
     // Deprecated
-    sendReport?: boolean;
+    sendReport?: boolean | undefined;
 }
 
 export class Tester extends React.Component<TesterProps> {

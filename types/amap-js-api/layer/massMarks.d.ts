@@ -27,7 +27,7 @@ declare namespace AMap {
             /**
              * 旋转角度
              */
-            rotation?: number;
+            rotation?: number | undefined;
         }
 
         type UIEvent<N extends string, I> = Event<N, {
@@ -45,15 +45,15 @@ declare namespace AMap {
             /**
              * 显示层级
              */
-            zIndex?: number;
+            zIndex?: number | undefined;
             /**
              * 指针样式
              */
-            cursor?: string;
+            cursor?: string | undefined;
             /**
              * 是否在拖拽缩放过程中实时重绘
              */
-            alwayRender?: boolean;
+            alwayRender?: boolean | undefined;
             /**
              * 设置点的样式
              */
@@ -62,7 +62,7 @@ declare namespace AMap {
         }
         interface Data {
             lnglat: LocationValue;
-            style?: number;
+            style?: number | undefined;
         }
     }
 

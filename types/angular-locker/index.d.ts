@@ -151,11 +151,11 @@ declare module 'angular' {
         }
 
         interface ILockerSettings {
-            driver?: string;
-            'namespace'?: string | boolean;
-            separator?: string;
-            eventsEnabled?: boolean;
-            extend?: Object;
+            driver?: string | undefined;
+            'namespace'?: string | boolean | undefined;
+            separator?: string | undefined;
+            eventsEnabled?: boolean | undefined;
+            extend?: Object | undefined;
         }
 
         interface ILockerProvider extends angular.IServiceProvider {

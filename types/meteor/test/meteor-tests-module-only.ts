@@ -1,10 +1,10 @@
 // This file is for tests that involve modules that don't have corresponding
 // globals.
 
-import { fetch, Headers, Request, Response } from "meteor/fetch";
-import { Promise as MeteorPromise } from "meteor/promise";
-import { ServiceConfiguration } from "meteor/service-configuration";
-import { WebApp } from "meteor/webapp";
+import { fetch, Headers, Request, Response } from 'meteor/fetch';
+import { Promise as MeteorPromise } from 'meteor/promise';
+import { ServiceConfiguration } from 'meteor/service-configuration';
+import { WebApp } from 'meteor/webapp';
 
 const headers = new Headers({ 'Content-Type': 'application/json' });
 const request = new Request('https://github.com', { headers });

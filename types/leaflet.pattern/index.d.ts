@@ -16,62 +16,62 @@ declare module 'leaflet' {
     }
 
     interface PathOptions {
-        fillPattern?: Pattern | StripePattern;
+        fillPattern?: Pattern | StripePattern | undefined;
     }
 
     interface PatternOptions {
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
-        patternUnits?: 'userSpaceOnUse' | 'objectBoundingBox';
-        patternContentUnits?: 'userSpaceOnUse' | 'objectBoundingBox';
-        patternTransform?: string | null;
-        angle?: number | null;
+        x?: number | undefined;
+        y?: number | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        patternUnits?: 'userSpaceOnUse' | 'objectBoundingBox' | undefined;
+        patternContentUnits?: 'userSpaceOnUse' | 'objectBoundingBox' | undefined;
+        patternTransform?: string | null | undefined;
+        angle?: number | null | undefined;
     }
 
     interface StripePatternOptions extends PatternOptions {
-        weight?: number;
-        spaceWeight?: number;
-        color?: string;
-        spaceColor?: string;
-        opacity?: number;
-        spaceOpacity?: number;
+        weight?: number | undefined;
+        spaceWeight?: number | undefined;
+        color?: string | undefined;
+        spaceColor?: string | undefined;
+        opacity?: number | undefined;
+        spaceOpacity?: number | undefined;
     }
 
     interface PatternShapeOptions {
-        stroke?: boolean;
-        color?: string;
-        weight?: number;
-        opacity?: number;
-        lineCap?: 'butt' | 'round' | 'square' | 'inherit';
-        lineJoin?: 'butt' | 'round' | 'square' | 'inherit';
-        dashArray?: number[] | null;
-        dashOffset?: number | null;
-        fill?: boolean;
-        fillColor?: string;
-        fillOpacity?: number;
-        fillRule?: 'nonzero' | 'evenodd' | 'inherit';
-        fillPattern?: Pattern | null;
+        stroke?: boolean | undefined;
+        color?: string | undefined;
+        weight?: number | undefined;
+        opacity?: number | undefined;
+        lineCap?: 'butt' | 'round' | 'square' | 'inherit' | undefined;
+        lineJoin?: 'butt' | 'round' | 'square' | 'inherit' | undefined;
+        dashArray?: number[] | null | undefined;
+        dashOffset?: number | null | undefined;
+        fill?: boolean | undefined;
+        fillColor?: string | undefined;
+        fillOpacity?: number | undefined;
+        fillRule?: 'nonzero' | 'evenodd' | 'inherit' | undefined;
+        fillPattern?: Pattern | null | undefined;
     }
 
     interface PatternCircleOptions extends PatternShapeOptions {
-        x?: number;
-        y?: number;
-        radius?: number;
+        x?: number | undefined;
+        y?: number | undefined;
+        radius?: number | undefined;
     }
 
     interface PatternRectOptions extends PatternShapeOptions {
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
-        rx?: number | null;
-        ry?: number | null;
+        x?: number | undefined;
+        y?: number | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        rx?: number | null | undefined;
+        ry?: number | null | undefined;
     }
 
     interface PatternPathOptions extends PatternShapeOptions {
-        d?: string | null;
+        d?: string | null | undefined;
     }
 
     class Pattern extends Class {

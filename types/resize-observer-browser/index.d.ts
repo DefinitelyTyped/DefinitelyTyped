@@ -16,7 +16,7 @@ interface ResizeObserverOptions {
      *
      * @default 'content-box'
      */
-    box?: 'content-box' | 'border-box' | 'device-pixel-content-box';
+    box?: 'content-box' | 'border-box' | 'device-pixel-content-box' | undefined;
 }
 
 interface ResizeObserverSize {
@@ -44,5 +44,5 @@ interface ResizeObserverEntry {
     readonly contentRect: DOMRectReadOnly;
     readonly borderBoxSize: ReadonlyArray<ResizeObserverSize>;
     readonly contentBoxSize: ReadonlyArray<ResizeObserverSize>;
-    readonly devicePixelContentBoxSize?: ReadonlyArray<ResizeObserverSize>;
+    readonly devicePixelContentBoxSize?: ReadonlyArray<ResizeObserverSize> | undefined;
 }

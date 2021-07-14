@@ -375,6 +375,8 @@ rule = {
 
         context.getFilename();
 
+        context.getPhysicalFilename();
+
         context.getCwd();
 
         context.getSourceCode();

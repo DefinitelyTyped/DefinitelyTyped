@@ -25,10 +25,10 @@ export function positionAfterUiElements(viewPosition: Position): Position;
 export function getSiblingListItem(
     modelItem: Item,
     options?: {
-        sameIndent?: boolean;
-        smallerIndent?: boolean;
-        listIndent?: number;
-        direction?: 'forward' | 'backward';
+        sameIndent?: boolean | undefined;
+        smallerIndent?: boolean | undefined;
+        listIndent?: number | undefined;
+        direction?: 'forward' | 'backward' | undefined;
     },
 ): Item | null;
 

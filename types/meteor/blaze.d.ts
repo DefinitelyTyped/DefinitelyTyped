@@ -1,6 +1,6 @@
 import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';
-declare module "meteor/blaze" {
+declare module 'meteor/blaze' {
     module Blaze {
         var View: ViewStatic;
 
@@ -55,9 +55,21 @@ declare module "meteor/blaze" {
             find(selector: string): HTMLElement;
             findAll(selector: string): HTMLElement[];
             $: any;
-            onCreated(cb: Function): void;
-            onRendered(cb: Function): void;
-            onDestroyed(cb: Function): void;
+            /**
+             * Register a function to be called when an instance of this template is created.
+             * @param callback A function to be added as a callback.
+             */
+            onCreated(callback: (this: TemplateInstance) => any): void;
+            /**
+             * Register a function to be called when an instance of this template is inserted into the DOM.
+             * @param callback A function to be added as a callback.
+             */
+            onRendered(callback: (this: TemplateInstance) => any): void;
+            /**
+             * Register a function to be called when an instance of this template is removed from the DOM and destroyed.
+             * @param callback A function to be added as a callback.
+             */
+            onDestroyed(callback: (this: TemplateInstance) => any): void;
             created: Function;
             rendered: Function;
             destroyed: Function;
@@ -102,7 +114,13 @@ declare module "meteor/blaze" {
 
         function render(templateOrView: Template | View, parentNode: Node, nextNode?: Node, parentView?: View): View;
 
-        function renderWithData(templateOrView: Template | View, data: Object | Function, parentNode: Node, nextNode?: Node, parentView?: View): View;
+        function renderWithData(
+            templateOrView: Template | View,
+            data: Object | Function,
+            parentNode: Node,
+            nextNode?: Node,
+            parentView?: View,
+        ): View;
 
         function toHTML(templateOrView: Template | View): string;
 

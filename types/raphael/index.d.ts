@@ -422,7 +422,7 @@ export type RaphaelPotentialFailure<T extends {}> = T & {
      * If present and set to `1`, indicates that the operation that produced this result failed. Other fields
      * properties in this object may not be valid.
      */
-    error?: number;
+    error?: number | undefined;
 };
 
 /**
@@ -1247,7 +1247,7 @@ export interface RaphaelBaseElement<
     attr<
         // Trick compiler into inferring a tuple type without the consumer having to specify the tuple type explicitly
         // https://github.com/microsoft/TypeScript/issues/22679
-        K extends (Array<keyof RaphaelReadAttributes> & { "0"?: keyof RaphaelReadAttributes })
+        K extends (Array<keyof RaphaelReadAttributes> & { "0"?: keyof RaphaelReadAttributes | undefined })
     >(attributeNames: K): {
             [P in keyof K]: K[P] extends keyof RaphaelReadAttributes
             ? RaphaelReadAttributes[K[P]] | undefined

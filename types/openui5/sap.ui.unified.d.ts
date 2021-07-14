@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -56,7 +56,7 @@ declare module "sap/ui/unified/library" {
     Standard = "Standard",
   }
   /**
-   * @SINCE 1.24.0
+   * @SINCE 1.13
    *
    * Types of a calendar day used for visualization.
    */
@@ -327,6 +327,8 @@ declare module "sap/ui/unified/Calendar" {
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import CalendarType from "sap/ui/core/CalendarType";
@@ -434,7 +436,25 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.Calendar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
+     *
+     * Date selection was cancelled
+     */
+    attachCancel(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
        */
@@ -457,7 +477,25 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.Calendar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
+     *
+     * Date selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
        */
@@ -485,7 +523,30 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.34.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
+     * `sap.ui.unified.Calendar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
+     *
+     * `startDate` was changed while navigation in `Calendar`
+     *
+     * Use `getStartDate` function to determine the current start date
+     */
+    attachStartDateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
        */
@@ -516,7 +577,33 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.56
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:weekNumberSelect weekNumberSelect} event of
+     * this `sap.ui.unified.Calendar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
+     *
+     * Week number selection changed. By default, clicking on the week number will select the corresponding
+     * week. If the week has already been selected, clicking the week number will deselect it.
+     *
+     * The default behavior can be prevented using the `preventDefault` method.
+     *
+     * **Note** Works for Gregorian calendars only and when `intervalSelection` is set to 'true'.
+     */
+    attachWeekNumberSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
        */
@@ -547,7 +634,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -562,7 +649,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -580,7 +667,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -598,7 +685,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1222,91 +1309,6 @@ declare module "sap/ui/unified/Calendar" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.Calendar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
-     *
-     * Date selection was cancelled
-     */
-    attachCancel(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.Calendar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
-     *
-     * Date selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.34.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
-     * `sap.ui.unified.Calendar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
-     *
-     * `startDate` was changed while navigation in `Calendar`
-     *
-     * Use `getStartDate` function to determine the current start date
-     */
-    attachStartDateChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.56
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:weekNumberSelect weekNumberSelect} event of
-     * this `sap.ui.unified.Calendar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
-     *
-     * Week number selection changed. By default, clicking on the week number will select the corresponding
-     * week. If the week has already been selected, clicking the week number will deselect it.
-     *
-     * The default behavior can be prevented using the `preventDefault` method.
-     *
-     * **Note** Works for Gregorian calendars only and when `intervalSelection` is set to 'true'.
-     */
-    attachWeekNumberSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CalendarSettings extends $ControlSettings {
@@ -1710,6 +1712,8 @@ declare module "sap/ui/unified/calendar/DatesRow" {
 declare module "sap/ui/unified/calendar/Header" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -1776,7 +1780,27 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.32.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:pressButton0 pressButton0} event of this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * First button pressed (normally day)
+     */
+    attachPressButton0(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
        */
@@ -1799,7 +1823,25 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressButton1 pressButton1} event of this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Second button pressed (normally month)
+     */
+    attachPressButton1(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
        */
@@ -1822,7 +1864,25 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressButton2 pressButton2} event of this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Third button pressed (normally year)
+     */
+    attachPressButton2(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
        */
@@ -1845,7 +1905,25 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressNext pressNext} event of this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Next button pressed
+     */
+    attachPressNext(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
        */
@@ -1868,7 +1946,25 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressPrevious pressPrevious} event of this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Previous button pressed
+     */
+    attachPressPrevious(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
        */
@@ -1885,7 +1981,7 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1900,7 +1996,7 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1915,7 +2011,7 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1930,7 +2026,7 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1946,7 +2042,7 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2346,98 +2442,6 @@ declare module "sap/ui/unified/calendar/Header" {
        */
       bVisibleButton2?: boolean
     ): this;
-    /**
-     * @SINCE 1.32.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:pressButton0 pressButton0} event of this `sap.ui.unified.calendar.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
-     *
-     * First button pressed (normally day)
-     */
-    attachPressButton0(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:pressButton1 pressButton1} event of this `sap.ui.unified.calendar.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
-     *
-     * Second button pressed (normally month)
-     */
-    attachPressButton1(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:pressButton2 pressButton2} event of this `sap.ui.unified.calendar.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
-     *
-     * Third button pressed (normally year)
-     */
-    attachPressButton2(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:pressNext pressNext} event of this `sap.ui.unified.calendar.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
-     *
-     * Next button pressed
-     */
-    attachPressNext(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:pressPrevious pressPrevious} event of this `sap.ui.unified.calendar.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
-     *
-     * Previous button pressed
-     */
-    attachPressPrevious(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $HeaderSettings extends $ControlSettings {
@@ -2567,6 +2571,8 @@ declare module "sap/ui/unified/calendar/Month" {
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import CalendarType from "sap/ui/core/CalendarType";
@@ -2672,7 +2678,25 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.Month`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
+     *
+     * Date focus changed
+     */
+    attachFocus(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
        */
@@ -2695,7 +2719,25 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.Month`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
+     *
+     * Date selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
        */
@@ -2726,7 +2768,33 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.60
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:weekNumberSelect weekNumberSelect} event of
+     * this `sap.ui.unified.calendar.Month`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
+     *
+     * Fired when a week number selection is changed. By default, choosing the week number will select the corresponding
+     * week. If the week has already been selected, choosing the week number will deselect it.
+     *
+     * The default behavior can be prevented using the `preventDefault` method.
+     *
+     * **Note:** Works for Gregorian calendars only and when `intervalSelection` is set to `true`.
+     */
+    attachWeekNumberSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
        */
@@ -2765,7 +2833,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2780,7 +2848,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2798,7 +2866,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3332,68 +3400,6 @@ declare module "sap/ui/unified/calendar/Month" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.Month`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
-     *
-     * Date focus changed
-     */
-    attachFocus(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.Month`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
-     *
-     * Date selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.60
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:weekNumberSelect weekNumberSelect} event of
-     * this `sap.ui.unified.calendar.Month`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
-     *
-     * Fired when a week number selection is changed. By default, choosing the week number will select the corresponding
-     * week. If the week has already been selected, choosing the week number will deselect it.
-     *
-     * The default behavior can be prevented using the `preventDefault` method.
-     *
-     * **Note:** Works for Gregorian calendars only and when `intervalSelection` is set to `true`.
-     */
-    attachWeekNumberSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MonthSettings extends $ControlSettings {
@@ -3533,7 +3539,11 @@ declare module "sap/ui/unified/calendar/Month" {
 declare module "sap/ui/unified/calendar/MonthPicker" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import { ID } from "sap/ui/core/library";
+
   import DateRange from "sap/ui/unified/DateRange";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -3582,6 +3592,17 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     );
 
     /**
+     * @SINCE 1.92
+     *
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
      * @SINCE 1.74
      *
      * Adds some selectedDate to the aggregation {@link #getSelectedDates selectedDates}.
@@ -3612,7 +3633,29 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.38.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:pageChange pageChange} event of this `sap.ui.unified.calendar.MonthPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthPicker` itself.
+     *
+     * If less than 12 months are displayed the `pageChange` event is fired if the displayed months are changed
+     * by user navigation.
+     */
+    attachPageChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
        * itself
@@ -3636,7 +3679,26 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.MonthPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthPicker` itself.
+     *
+     * Month selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
        * itself
@@ -3660,7 +3722,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3675,7 +3737,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3722,6 +3784,13 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
        */
       mParameters?: object
     ): this;
+    /**
+     * @SINCE 1.92
+     *
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
+     * ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
     /**
      * @SINCE 1.30.0
      *
@@ -3820,6 +3889,12 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      */
     previousPage(): this;
     /**
+     * @SINCE 1.92
+     *
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
      * @SINCE 1.74
      *
      * Removes all the controls from the aggregation {@link #getSelectedDates selectedDates}.
@@ -3827,6 +3902,17 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * Additionally, it unregisters them from the hosting UIArea.
      */
     removeAllSelectedDates(): DateRange[];
+    /**
+     * @SINCE 1.92
+     *
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID;
     /**
      * @SINCE 1.74
      *
@@ -3934,47 +4020,6 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
        */
       sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
-    /**
-     * @SINCE 1.38.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:pageChange pageChange} event of this `sap.ui.unified.calendar.MonthPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthPicker` itself.
-     *
-     * If less than 12 months are displayed the `pageChange` event is fired if the displayed months are changed
-     * by user navigation.
-     */
-    attachPageChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.MonthPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthPicker` itself.
-     *
-     * Month selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MonthPickerSettings extends $ControlSettings {
@@ -4023,6 +4068,13 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
 
     /**
+     * @SINCE 1.92
+     *
+     * Association to controls / IDs that label this control (see WAI-ARIA attribute aria-labelledby).
+     */
+    ariaLabelledBy?: Array<Control | string>;
+
+    /**
      * Month selection changed
      */
     select?: Function;
@@ -4045,6 +4097,8 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
   import DateRange from "sap/ui/unified/DateRange";
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -4146,7 +4200,25 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.MonthsRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthsRow` itself.
+     *
+     * Month focus changed
+     */
+    attachFocus(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
        */
@@ -4169,7 +4241,25 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.MonthsRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthsRow` itself.
+     *
+     * Month selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
        */
@@ -4202,7 +4292,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4217,7 +4307,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4544,42 +4634,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
        */
       oStartDate: object
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.MonthsRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthsRow` itself.
-     *
-     * Month focus changed
-     */
-    attachFocus(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.MonthsRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthsRow` itself.
-     *
-     * Month selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MonthsRowSettings extends $ControlSettings {
@@ -4669,6 +4723,8 @@ declare module "sap/ui/unified/calendar/TimesRow" {
   import DateRange from "sap/ui/unified/DateRange";
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -4769,7 +4825,25 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.TimesRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.TimesRow` itself.
+     *
+     * Time focus changed
+     */
+    attachFocus(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
        */
@@ -4792,7 +4866,25 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.TimesRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.TimesRow` itself.
+     *
+     * Time selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
        */
@@ -4825,7 +4917,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4840,7 +4932,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5211,42 +5303,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
        */
       oStartDate: object
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.TimesRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.TimesRow` itself.
-     *
-     * Time focus changed
-     */
-    attachFocus(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.TimesRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.TimesRow` itself.
-     *
-     * Time selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TimesRowSettings extends $ControlSettings {
@@ -5338,6 +5394,8 @@ declare module "sap/ui/unified/calendar/YearPicker" {
 
   import DateRange from "sap/ui/unified/DateRange";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import CalendarType from "sap/ui/core/CalendarType";
@@ -5416,7 +5474,28 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.38.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:pageChange pageChange} event of this `sap.ui.unified.calendar.YearPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.YearPicker` itself.
+     *
+     * The `pageChange` event is fired if the displayed years are changed by user navigation.
+     */
+    attachPageChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
        * itself
@@ -5440,7 +5519,26 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.YearPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.YearPicker` itself.
+     *
+     * Year selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
        * itself
@@ -5464,7 +5562,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5479,7 +5577,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5742,46 +5840,6 @@ declare module "sap/ui/unified/calendar/YearPicker" {
        * New value for property `years`
        */
       iYears?: int
-    ): this;
-    /**
-     * @SINCE 1.38.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:pageChange pageChange} event of this `sap.ui.unified.calendar.YearPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.YearPicker` itself.
-     *
-     * The `pageChange` event is fired if the displayed years are changed by user navigation.
-     */
-    attachPageChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.YearPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.YearPicker` itself.
-     *
-     * Year selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
-       * itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -6777,6 +6835,8 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
 
+  import Event from "sap/ui/base/Event";
+
   import Calendar from "sap/ui/unified/Calendar";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -6873,7 +6933,26 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.CalendarMonthInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
+     *
+     * Month selection was cancelled
+     */
+    attachCancel(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
        * itself
@@ -6897,7 +6976,26 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarMonthInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
+     *
+     * Month selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
        * itself
@@ -6924,7 +7022,29 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.34.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
+     * `sap.ui.unified.CalendarMonthInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
+     *
+     * `startDate` was changed while navigation in `CalendarMonthInterval`
+     */
+    attachStartDateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
        * itself
@@ -6948,7 +7068,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6963,7 +7083,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6981,7 +7101,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7383,66 +7503,6 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.CalendarMonthInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
-     *
-     * Month selection was cancelled
-     */
-    attachCancel(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarMonthInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
-     *
-     * Month selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.34.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
-     * `sap.ui.unified.CalendarMonthInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
-     *
-     * `startDate` was changed while navigation in `CalendarMonthInterval`
-     */
-    attachStartDateChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CalendarMonthIntervalSettings extends $ControlSettings {
@@ -7561,6 +7621,8 @@ declare module "sap/ui/unified/CalendarRow" {
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import {
     CalendarAppointmentHeight,
     CalendarAppointmentRoundWidth,
@@ -7662,7 +7724,28 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.38.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:intervalSelect intervalSelect} event of this
+     * `sap.ui.unified.CalendarRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
+     *
+     * Fired if an interval was selected
+     */
+    attachIntervalSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -7686,7 +7769,26 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:leaveRow leaveRow} event of this `sap.ui.unified.CalendarRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
+     *
+     * The `CalendarRow` should be left while navigating. (Arrow up or arrow down.) The caller should determine
+     * the next control to be focused
+     */
+    attachLeaveRow(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -7709,7 +7811,25 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
+     *
+     * Fired if an appointment was selected
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -7733,7 +7853,26 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
+     * `sap.ui.unified.CalendarRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
+     *
+     * `startDate` was changed while navigating in `CalendarRow`
+     */
+    attachStartDateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -7759,7 +7898,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7774,7 +7913,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7789,7 +7928,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7805,7 +7944,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8582,83 +8721,6 @@ declare module "sap/ui/unified/CalendarRow" {
      * function of each `CalendarRow`.
      */
     updateCurrentTimeVisualization(): this;
-    /**
-     * @SINCE 1.38.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:intervalSelect intervalSelect} event of this
-     * `sap.ui.unified.CalendarRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
-     *
-     * Fired if an interval was selected
-     */
-    attachIntervalSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:leaveRow leaveRow} event of this `sap.ui.unified.CalendarRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
-     *
-     * The `CalendarRow` should be left while navigating. (Arrow up or arrow down.) The caller should determine
-     * the next control to be focused
-     */
-    attachLeaveRow(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
-     *
-     * Fired if an appointment was selected
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
-     * `sap.ui.unified.CalendarRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
-     *
-     * `startDate` was changed while navigating in `CalendarRow`
-     */
-    attachStartDateChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CalendarRowSettings extends $ControlSettings {
@@ -8887,6 +8949,8 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
 
+  import Event from "sap/ui/base/Event";
+
   import Calendar from "sap/ui/unified/Calendar";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -8979,7 +9043,26 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.CalendarTimeInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
+     *
+     * Time selection was cancelled
+     */
+    attachCancel(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
        * itself
@@ -9003,7 +9086,26 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarTimeInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
+     *
+     * Time selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
        * itself
@@ -9030,7 +9132,29 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.34.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
+     * `sap.ui.unified.CalendarTimeInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
+     *
+     * `startDate` was changed while navigation in `CalendarTimeInterval`
+     */
+    attachStartDateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
        * itself
@@ -9054,7 +9178,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9069,7 +9193,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9087,7 +9211,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9533,66 +9657,6 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.CalendarTimeInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
-     *
-     * Time selection was cancelled
-     */
-    attachCancel(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarTimeInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
-     *
-     * Time selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.34.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
-     * `sap.ui.unified.CalendarTimeInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
-     *
-     * `startDate` was changed while navigation in `CalendarTimeInterval`
-     */
-    attachStartDateChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CalendarTimeIntervalSettings extends $ControlSettings {
@@ -9713,6 +9777,8 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
 declare module "sap/ui/unified/ColorPicker" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import ColorPickerDisplayMode from "sap/ui/unified/ColorPickerDisplayMode";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -9783,7 +9849,29 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.48.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.ColorPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ColorPicker` itself.
+     *
+     * Fired when the value is changed by user action.
+     *
+     * **Note:** When the user action is mouse dragging, the `change` event fires on the mouseup event.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
        */
@@ -9810,7 +9898,29 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.48.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.unified.ColorPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ColorPicker` itself.
+     *
+     * Fired when the value is changed during the mouse move.
+     *
+     * **Note:** When the user action is mouse move, the `liveChange` event is fired during the mousedown event.
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
        */
@@ -9827,7 +9937,7 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9844,7 +9954,7 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10069,50 +10179,6 @@ declare module "sap/ui/unified/ColorPicker" {
        */
       bSuppressInvalidate: boolean
     ): void;
-    /**
-     * @SINCE 1.48.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.ColorPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ColorPicker` itself.
-     *
-     * Fired when the value is changed by user action.
-     *
-     * **Note:** When the user action is mouse dragging, the `change` event fires on the mouseup event.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.48.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.unified.ColorPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ColorPicker` itself.
-     *
-     * Fired when the value is changed during the mouse move.
-     *
-     * **Note:** When the user action is mouse move, the `liveChange` event is fired during the mousedown event.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ColorPickerSettings extends $ControlSettings {
@@ -10196,6 +10262,8 @@ declare module "sap/ui/unified/ColorPickerDisplayMode" {
 declare module "sap/ui/unified/ColorPickerPopover" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import ColorPickerDisplayMode from "sap/ui/unified/ColorPickerDisplayMode";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -10260,7 +10328,27 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.60.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.ColorPickerPopover`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ColorPickerPopover` itself.
+     *
+     * Fired when the submit button of the popover is clicked.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
        */
@@ -10285,7 +10373,27 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.85
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.unified.ColorPickerPopover`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ColorPickerPopover` itself.
+     *
+     * Fired when the value is changed by user interaction in the internal ColorPicker
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
        */
@@ -10306,7 +10414,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10323,7 +10431,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10552,46 +10660,6 @@ declare module "sap/ui/unified/ColorPickerPopover" {
        * New value for property `mode`
        */
       sMode?: ColorPickerMode | keyof typeof ColorPickerMode
-    ): this;
-    /**
-     * @SINCE 1.60.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.ColorPickerPopover`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ColorPickerPopover` itself.
-     *
-     * Fired when the submit button of the popover is clicked.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.85
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.unified.ColorPickerPopover`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ColorPickerPopover` itself.
-     *
-     * Fired when the value is changed by user interaction in the internal ColorPicker
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -11015,7 +11083,7 @@ declare module "sap/ui/unified/Currency" {
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
-    getAccessibilityInfo(): Object;
+    getAccessibilityInfo(): object;
     /**
      * Gets current value of property {@link #getCurrency currency}.
      *
@@ -11038,7 +11106,7 @@ declare module "sap/ui/unified/Currency" {
      *
      * Default value is `Off`.
      */
-    getEmptyIndicatorMode(): any;
+    getEmptyIndicatorMode(): /* was: sap.m.EmptyIndicatorMode */ any;
     /**
      * The formatted value.
      */
@@ -11102,7 +11170,7 @@ declare module "sap/ui/unified/Currency" {
       /**
        * New value for property `emptyIndicatorMode`
        */
-      sEmptyIndicatorMode?: any
+      sEmptyIndicatorMode?: /* was: sap.m.EmptyIndicatorMode */ any
     ): this;
     /**
      * @SINCE 1.54
@@ -11169,7 +11237,9 @@ declare module "sap/ui/unified/Currency" {
      *
      * Specifies if an empty indicator should be displayed when there is no text.
      */
-    emptyIndicatorMode?: any | PropertyBindingInfo;
+    emptyIndicatorMode?: /* was: sap.m.EmptyIndicatorMode */
+      | any
+      | PropertyBindingInfo;
   }
 }
 
@@ -11502,6 +11572,8 @@ declare module "sap/ui/unified/FileUploader" {
 
   import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import FileUploaderXHRSettings from "sap/ui/unified/FileUploaderXHRSettings";
@@ -11636,7 +11708,28 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired when the value of the file path has been changed.
+     *
+     * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
+     * Chrome browser when the Cancel button of the uploads window is pressed.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11659,7 +11752,25 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileAllowed fileAllowed} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired when the file is allowed for upload on client side.
+     */
+    attachFileAllowed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11682,7 +11793,25 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileEmpty fileEmpty} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired when the size of the file is 0
+     */
+    attachFileEmpty(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11709,7 +11838,29 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.24.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:filenameLengthExceed filenameLengthExceed} event
+     * of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired, if the filename of a chosen file is longer than the value specified with the `maximumFilenameLength`
+     * property.
+     */
+    attachFilenameLengthExceed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11734,7 +11885,27 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileSizeExceed fileSizeExceed} event of this
+     * `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
+     * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
+     */
+    attachFileSizeExceed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11757,7 +11928,25 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:typeMissmatch typeMissmatch} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
+     */
+    attachTypeMissmatch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11785,7 +11974,30 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.24.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:uploadAborted uploadAborted} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired after the current upload has been aborted.
+     *
+     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
+     * Internet Explorer 9.
+     */
+    attachUploadAborted(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11813,7 +12025,30 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:uploadComplete uploadComplete} event of this
+     * `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
+     *
+     * To see if the upload request was successful, check the `status` parameter for a value 2xx. The actual
+     * progress of the upload can be monitored by listening to the `uploadProgress` event. However, this covers
+     * only the client side of the upload process and does not give any success status from the server.
+     */
+    attachUploadComplete(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11845,7 +12080,34 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.24.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:uploadProgress uploadProgress} event of this
+     * `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired after the upload has started and before the upload is completed.
+     *
+     * It contains progress information related to the running upload. Depending on file size, band width and
+     * used browser the event is fired once or multiple times.
+     *
+     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
+     * Internet Explorer 9.
+     */
+    attachUploadProgress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11870,7 +12132,27 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.30.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:uploadStart uploadStart} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired before an upload is started.
+     */
+    attachUploadStart(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11913,7 +12195,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11928,7 +12210,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11943,7 +12225,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11961,7 +12243,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11977,7 +12259,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11993,7 +12275,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12011,7 +12293,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12027,7 +12309,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12045,7 +12327,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12062,7 +12344,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13240,216 +13522,6 @@ declare module "sap/ui/unified/FileUploader" {
        */
       bPreProcessFiles?: boolean
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired when the value of the file path has been changed.
-     *
-     * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
-     * Chrome browser when the Cancel button of the uploads window is pressed.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:fileAllowed fileAllowed} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired when the file is allowed for upload on client side.
-     */
-    attachFileAllowed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:fileEmpty fileEmpty} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired when the size of the file is 0
-     */
-    attachFileEmpty(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.24.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:filenameLengthExceed filenameLengthExceed} event
-     * of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired, if the filename of a chosen file is longer than the value specified with the `maximumFilenameLength`
-     * property.
-     */
-    attachFilenameLengthExceed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:fileSizeExceed fileSizeExceed} event of this
-     * `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
-     * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
-     */
-    attachFileSizeExceed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:typeMissmatch typeMissmatch} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
-     */
-    attachTypeMissmatch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.24.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:uploadAborted uploadAborted} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired after the current upload has been aborted.
-     *
-     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
-     * Internet Explorer 9.
-     */
-    attachUploadAborted(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:uploadComplete uploadComplete} event of this
-     * `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
-     *
-     * To see if the upload request was successful, check the `status` parameter for a value 2xx. The actual
-     * progress of the upload can be monitored by listening to the `uploadProgress` event. However, this covers
-     * only the client side of the upload process and does not give any success status from the server.
-     */
-    attachUploadComplete(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.24.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:uploadProgress uploadProgress} event of this
-     * `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired after the upload has started and before the upload is completed.
-     *
-     * It contains progress information related to the running upload. Depending on file size, band width and
-     * used browser the event is fired once or multiple times.
-     *
-     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
-     * Internet Explorer 9.
-     */
-    attachUploadProgress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.30.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:uploadStart uploadStart} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired before an upload is started.
-     */
-    attachUploadStart(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $FileUploaderSettings extends $ControlSettings {
@@ -14019,6 +14091,8 @@ declare module "sap/ui/unified/Menu" {
 
   import MenuItemBase from "sap/ui/unified/MenuItemBase";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import UI5Element from "sap/ui/core/Element";
@@ -14107,7 +14181,27 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.ui.unified.Menu`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Menu` itself.
+     *
+     * Fired on the root menu of a menu hierarchy whenever a user selects an item within the menu or within
+     * one of its direct or indirect submenus. **Note:** There is also a select event available for each single
+     * menu item. This event and the event of the menu items are redundant.
+     */
+    attachItemSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
        */
@@ -14130,7 +14224,7 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14413,26 +14507,6 @@ declare module "sap/ui/unified/Menu" {
        */
       iPageSize?: int
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.ui.unified.Menu`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.Menu` itself.
-     *
-     * Fired on the root menu of a menu hierarchy whenever a user selects an item within the menu or within
-     * one of its direct or indirect submenus. **Note:** There is also a select event available for each single
-     * menu item. This event and the event of the menu items are redundant.
-     */
-    attachItemSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MenuSettings extends $ControlSettings {
@@ -14667,6 +14741,8 @@ declare module "sap/ui/unified/MenuItem" {
 declare module "sap/ui/unified/MenuItemBase" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import Menu from "sap/ui/unified/Menu";
@@ -14731,7 +14807,27 @@ declare module "sap/ui/unified/MenuItemBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.MenuItemBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.MenuItemBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.MenuItemBase` itself.
+     *
+     * Fired when the item is selected by the user. **Note:** The event is also available for items which have
+     * a submenu. In general, applications must not handle event in this case because the user selection opens
+     * the sub menu.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.MenuItemBase` itself
        */
@@ -14750,7 +14846,7 @@ declare module "sap/ui/unified/MenuItemBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14934,26 +15030,6 @@ declare module "sap/ui/unified/MenuItemBase" {
        * New value for property `visible`
        */
       bVisible?: boolean
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.MenuItemBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.MenuItemBase` itself.
-     *
-     * Fired when the item is selected by the user. **Note:** The event is also available for items which have
-     * a submenu. In general, applications must not handle event in this case because the user selection opens
-     * the sub menu.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.MenuItemBase` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -15758,6 +15834,8 @@ declare module "sap/ui/unified/ShellHeadItem" {
 
   import Control from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -15826,7 +15904,25 @@ declare module "sap/ui/unified/ShellHeadItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.unified.ShellHeadItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ShellHeadItem` itself.
+     *
+     * Event is fired when the user presses the item.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadItem` itself
        */
@@ -15841,7 +15937,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -16082,24 +16178,6 @@ declare module "sap/ui/unified/ShellHeadItem" {
        */
       bVisible?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.unified.ShellHeadItem`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ShellHeadItem` itself.
-     *
-     * Event is fired when the user presses the item.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadItem` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ShellHeadItemSettings extends $ElementSettings {
@@ -16170,6 +16248,8 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
 
   import Control from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -16238,7 +16318,25 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadUserItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.unified.ShellHeadUserItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ShellHeadUserItem` itself.
+     *
+     * Event is fired when the user presses the button.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadUserItem` itself
        */
@@ -16253,7 +16351,7 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -16381,24 +16479,6 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
        * New value for property `username`
        */
       sUsername?: string
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.unified.ShellHeadUserItem`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ShellHeadUserItem` itself.
-     *
-     * Event is fired when the user presses the button.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadUserItem` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -16758,6 +16838,8 @@ declare module "sap/ui/unified/ShellOverlay" {
 
   import { ID } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ShellLayout from "sap/ui/unified/ShellLayout";
@@ -16837,7 +16919,25 @@ declare module "sap/ui/unified/ShellOverlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellOverlay` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.unified.ShellOverlay`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ShellOverlay` itself.
+     *
+     * Fired when the overlay was closed.
+     */
+    attachClosed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellOverlay` itself
        */
@@ -16864,7 +16964,7 @@ declare module "sap/ui/unified/ShellOverlay" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -17001,24 +17101,6 @@ declare module "sap/ui/unified/ShellOverlay" {
        * may be given
        */
       oShell: ID | ShellLayout
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.unified.ShellOverlay`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ShellOverlay` itself.
-     *
-     * Fired when the overlay was closed.
-     */
-    attachClosed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellOverlay` itself
-       */
-      oListener?: object
     ): this;
   }
 

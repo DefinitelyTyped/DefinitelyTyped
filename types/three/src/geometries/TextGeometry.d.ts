@@ -3,14 +3,14 @@ import { ExtrudeGeometry } from './ExtrudeGeometry';
 
 export interface TextGeometryParameters {
     font: Font;
-    size?: number;
-    height?: number;
-    curveSegments?: number;
-    bevelEnabled?: boolean;
-    bevelThickness?: number;
-    bevelSize?: number;
-    bevelOffset?: number;
-    bevelSegments?: number;
+    size?: number | undefined;
+    height?: number | undefined;
+    curveSegments?: number | undefined;
+    bevelEnabled?: boolean | undefined;
+    bevelThickness?: number | undefined;
+    bevelSize?: number | undefined;
+    bevelOffset?: number | undefined;
+    bevelSegments?: number | undefined;
 }
 
 export class TextGeometry extends ExtrudeGeometry {

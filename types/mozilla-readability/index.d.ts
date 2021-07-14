@@ -81,7 +81,7 @@ declare namespace Readability {
         /**
          * Control whether log messages are sent to the console
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * Set a maximum size on the documents that will be processed. This size is
@@ -90,9 +90,9 @@ declare namespace Readability {
          *
          * See implementation details at https://github.com/mozilla/readability/blob/52ab9b5c8916c306a47b2119270dcdabebf9d203/Readability.js#L2019
          */
-        maxElemsToParse?: number;
+        maxElemsToParse?: number | undefined;
 
-        nbTopCandidates?: number;
+        nbTopCandidates?: number | undefined;
 
         /**
          * Minimum number of characters in the extracted textContent in order to
@@ -103,14 +103,14 @@ declare namespace Readability {
          *
          * Changed from wordThreshold in https://github.com/mozilla/readability/commit/3ff9a166fb27928f222c4c0722e730eda412658a
          */
-        charThreshold?: number;
+        charThreshold?: number | undefined;
 
         /**
          * parse() removes the class="" attribute from every element in the given
          * subtree, except those that match CLASSES_TO_PRESERVE and
          * the classesToPreserve array from the options object.
          */
-        classesToPreserve?: string[];
+        classesToPreserve?: string[] | undefined;
 
         /**
          * By default Readability will strip all classes from the HTML elements in the
@@ -121,7 +121,7 @@ declare namespace Readability {
          * Added in https://github.com/mozilla/readability/commit/2982216913af2c66b0690e88606b03116553ad92
          */
 
-        keepClasses?: boolean;
+        keepClasses?: boolean | undefined;
     }
 
     interface ParseResult {

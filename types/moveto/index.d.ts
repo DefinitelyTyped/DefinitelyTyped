@@ -58,23 +58,23 @@ declare namespace MoveTo {
         /**
          * The tolerance of the target to be scrolled, can be negative or positive
          */
-        tolerance?: number;
+        tolerance?: number | undefined;
         /**
          * Duration of scrolling, in milliseconds
          */
-        duration?: number;
+        duration?: number | undefined;
         /**
          * Ease function name
          */
-        easing?: string;
+        easing?: string | undefined;
         /**
          * The container been computed and scrolled
          */
-        container?: Window | HTMLElement;
+        container?: Window | HTMLElement | undefined;
         /**
          * The function to be run after scrolling complete. Target passes as the first argument
          */
-        callback?: callbackType;
+        callback?: callbackType | undefined;
     }
 
     interface MoveToEaseFunctionsObject {

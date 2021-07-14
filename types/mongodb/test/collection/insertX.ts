@@ -45,7 +45,7 @@ async function run() {
      */
     interface TestModel {
         stringField: string;
-        numberField?: number;
+        numberField?: number | undefined;
         fruitTags: string[];
     }
     type TestModelWithId = TestModel & { _id: ObjectId };
@@ -84,7 +84,7 @@ async function run() {
     interface TestModelWithCustomId {
         _id: number;
         stringField: string;
-        numberField?: number;
+        numberField?: number | undefined;
         fruitTags: string[];
     }
     const collectionWithId = db.collection<TestModelWithCustomId>('testCollection');
@@ -126,7 +126,7 @@ async function run() {
     interface TestModelWithCustomObjectId {
         _id: ObjectId;
         stringField: string;
-        numberField?: number;
+        numberField?: number | undefined;
         fruitTags: string[];
     }
     const collectionWithObjectId = db.collection<TestModelWithCustomObjectId>('testCollection');
@@ -146,7 +146,7 @@ async function run() {
      */
     interface IndexTypeTestModel {
         stringField: string;
-        numberField?: number;
+        numberField?: number | undefined;
         [key: string]: any;
     }
     const indexTypeCollection1 = db.collection<IndexTypeTestModel>('testCollection');
@@ -192,7 +192,7 @@ async function run() {
     interface IndexTypeTestModelWithId {
         _id: number;
         stringField: string;
-        numberField?: number;
+        numberField?: number | undefined;
         [key: string]: any;
     }
     const indexTypeCollection2 = db.collection<IndexTypeTestModelWithId>('testCollection');
@@ -249,7 +249,7 @@ async function run() {
     interface IndexTypeTestModelWithObjectId {
         _id: ObjectId;
         stringField: string;
-        numberField?: number;
+        numberField?: number | undefined;
         [key: string]: any;
     }
     const indexTypeCollection3 = db.collection<IndexTypeTestModelWithObjectId>('testCollection');

@@ -8,11 +8,11 @@ declare class Stringer extends Transform {
 
 declare namespace Stringer {
     interface StringerOptions extends TransformOptions {
-        useValues?: boolean;
-        useKeyValues?: boolean;
-        useStringValues?: boolean;
-        useNumberValues?: boolean;
-        makeArray?: boolean;
+        useValues?: boolean | undefined;
+        useKeyValues?: boolean | undefined;
+        useStringValues?: boolean | undefined;
+        useNumberValues?: boolean | undefined;
+        makeArray?: boolean | undefined;
     }
 
     function make(options?: StringerOptions): Stringer;

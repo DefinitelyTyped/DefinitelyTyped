@@ -10,24 +10,24 @@ import express = require('express');
 
 declare namespace e {
     interface ExpressStatusMonitorConfig {
-        title?: string;
-        theme?: string;
-        path?: string;
-        socketPath?: string;
-        websocket?: SocketIO.Server | null; // References a socket.io instance
-        spans?: RetentionSpan[];
+        title?: string | undefined;
+        theme?: string | undefined;
+        path?: string | undefined;
+        socketPath?: string | undefined;
+        websocket?: SocketIO.Server | null | undefined; // References a socket.io instance
+        spans?: RetentionSpan[] | undefined;
         chartVisibility?: {
-            cpu?: boolean;
-            mem?: boolean;
-            load?: boolean;
+            cpu?: boolean | undefined;
+            mem?: boolean | undefined;
+            load?: boolean | undefined;
             /** @default true */
-            heap?: boolean;
-            responseTime?: boolean;
-            rps?: boolean;
-            statusCodes?: boolean;
-        };
-        healthChecks?: HealthCheck[];
-        ignoreStartsWith?: string;
+            heap?: boolean | undefined;
+            responseTime?: boolean | undefined;
+            rps?: boolean | undefined;
+            statusCodes?: boolean | undefined;
+        } | undefined;
+        healthChecks?: HealthCheck[] | undefined;
+        ignoreStartsWith?: string | undefined;
     }
 
     interface RetentionSpan {

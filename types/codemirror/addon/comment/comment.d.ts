@@ -14,21 +14,21 @@ declare module '../../' {
 
     interface CommentOptions {
         /** Override the [comment string properties](https://codemirror.net/doc/manual.html#mode_comment) of the mode with custom comment strings. */
-        blockCommentStart?: string;
+        blockCommentStart?: string | undefined;
         /** Override the [comment string properties](https://codemirror.net/doc/manual.html#mode_comment) of the mode with custom comment strings. */
-        blockCommentEnd?: string;
+        blockCommentEnd?: string | undefined;
         /** Override the [comment string properties](https://codemirror.net/doc/manual.html#mode_comment) of the mode with custom comment strings. */
-        blockCommentLead?: string;
+        blockCommentLead?: string | undefined;
         /** Override the [comment string properties](https://codemirror.net/doc/manual.html#mode_comment) of the mode with custom comment strings. */
-        lineComment?: string;
+        lineComment?: string | undefined;
         /** A string that will be inserted after opening and leading markers, and before closing comment markers. Defaults to a single space. */
-        padding?: string | null;
+        padding?: string | null | undefined;
         /** Whether, when adding line comments, to also comment lines that contain only whitespace. */
-        commentBlankLines?: boolean;
+        commentBlankLines?: boolean | undefined;
         /** When adding line comments and this is turned on, it will align the comment block to the current indentation of the first line of the block. */
-        indent?: boolean;
+        indent?: boolean | undefined;
         /** When block commenting, this controls whether the whole lines are indented, or only the precise range that is given. Defaults to `true`. */
-        fullLines?: boolean;
+        fullLines?: boolean | undefined;
     }
 
     interface CommandActions {

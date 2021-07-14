@@ -10,7 +10,7 @@ import { PluginObject } from 'vue';
 declare namespace VueMomentPlugin {
     interface Options {
         // The optional (self-maintained) moment instance
-        moment?: Moment;
+        moment?: Moment | undefined;
     }
 
     interface VueStatic extends Moment {
