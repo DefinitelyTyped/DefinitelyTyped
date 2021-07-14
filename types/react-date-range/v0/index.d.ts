@@ -95,7 +95,7 @@ export interface DateRangeProps extends Range, CommonCalendarProps {
     /** default: enUs from locale. Complete list here https://github.com/Adphorus/react-date-range/blob/next/src/locale/index.js */
     locale?: object;
     /** default: false */
-    linkedCalendars?;
+    linkedCalendars? boolean;
     /** default: 2 */
     calendars?: number | undefined;
     /** default: none */
