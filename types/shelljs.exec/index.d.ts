@@ -8,9 +8,11 @@
 
 import { ExecSyncOptions } from 'child_process';
 
+export interface ShellJsOptions {
+    silent?: boolean;
+}
+
 export interface ShellJsExecEnrich {
-    silent: boolean;
-    encoding: string;
     code: number;
     ok: boolean;
     stdout: string;
@@ -19,7 +21,7 @@ export interface ShellJsExecEnrich {
 }
 
 export type ShellJsExecResponse = ExecSyncOptions & ShellJsExecEnrich;
-export type ExecFn = (cmd: string, options?: ExecSyncOptions) => ShellJsExecResponse;
+export type ExecFn = (cmd: string, options?: ExecSyncOptions & ShellJsOptions) => ShellJsExecResponse;
 export type { ExecSyncOptions };
 
 declare const exec: ExecFn;
