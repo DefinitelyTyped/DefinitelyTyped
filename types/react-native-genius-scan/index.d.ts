@@ -1,8 +1,8 @@
-// Type definitions for @thegrizzlylabs/react-native-genius-scan
-// Project: https://geniusscansdk.com/
-// Definitions by:  Maxime Le Bonniec <https://github.com/Maxime-lbc> as IzyCardio
+// Type definitions for react-native-genius-scan
+// Project: https://www.npmjs.com/package/@thegrizzlylabs/react-native-genius-scan
+// Definitions by: Maxime Le Bonniec <https://github.com/Maxime-lbc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4.0
+// TypeScript Version: 3.4
 
 declare module '@thegrizzlylabs/react-native-genius-scan' {
     /**
