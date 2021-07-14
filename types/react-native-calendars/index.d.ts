@@ -350,12 +350,12 @@ export interface CalendarBaseProps {
      *  Provide aria-level for calendar heading for proper accessibility when used with web (react-native-web)
      */
     webAriaLevel?: number | undefined;
-  
+
     /**
      *  Replace default month and year title with custom one. the function receive a date as parameter.
      */
     renderHeader?: ((date: Date) => React.ReactNode) | undefined;
-  
+
     /**
      * Allow rendering of a totally custom header
      */
