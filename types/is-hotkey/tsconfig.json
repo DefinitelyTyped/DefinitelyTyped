@@ -20,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
-        "is-hotkey-tests.tsx"
+        "is-hotkey-tests.ts",
+        "is-hotkey-react-tests.tsx"
     ]
 }

@@ -35,11 +35,3 @@ isHotkey(['mod+s', 'cmd+s'], event); // $ExpectType boolean
 isCodeHotkey(['mod+s', 'cmd+s'])(event); // $ExpectType boolean
 
 isCodeHotkey(['mod+s', 'cmd+s'], event); // $ExpectType boolean
-
-const component = (
-    <button
-        onKeyDown={event => {
-            isHotkey('ctrl+a')(event); // $ExpectType boolean
-        }}
-    ></button>
-);
