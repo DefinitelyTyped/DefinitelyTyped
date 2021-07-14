@@ -28,6 +28,7 @@
         "@definitelytyped/definitions-parser": "latest",
         "@definitelytyped/dtslint-runner": "latest",
         "@definitelytyped/utils": "latest",
+        "danger": "^10.1.1",
         "@octokit/rest": "^16.0.0",
         "dtslint": "latest",
         "prettier": "^2.1.1",
