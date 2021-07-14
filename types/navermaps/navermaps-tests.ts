@@ -154,3 +154,12 @@ const ellipse = new naver.maps.Ellipse({
     fillColor: 'yellowgreen',
     fillOpacity: 0.3
 });
+
+// Polyline options
+const coords = [[37.1793196, 125.8795594], [37.5398662, 126.3312422]];
+const polyline = new naver.maps.Polyline({
+  map: map4,
+  path: coords.map(coord => new naver.maps.LatLng(coord[0], coord[1])),
+  strokeLineCap: "round",
+  strokeLineJoin: "round"
+});
