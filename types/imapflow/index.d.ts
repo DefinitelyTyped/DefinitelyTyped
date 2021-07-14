@@ -335,7 +335,7 @@ interface MailboxDeleteResponse {
 
 interface MessageStructureObject {
     part: string;
-    interface: string;
+    type: string;
     parameters: string;
     id: string;
     encoding: string;
