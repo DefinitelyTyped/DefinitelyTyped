@@ -8,11 +8,9 @@ const spreedly_card_types: spreedly.SpreedlyCardType[] = [
 const spreedly_number_formats: spreedly.SpreedlyNumberFormat[] = ['prettyFormat', 'maskedFormat', 'toggleMask'];
 spreedly_iframe.init('key', { numberEl: 'number', cvvEl: 'cvv' }); // $ExpectType void
 spreedly_iframe.reload(); // $ExpectType void
-spreedly_iframe.tokenizeCreditCard(); // $ExpectType void
 spreedly_iframe.tokenizeCreditCard({ // $ExpectType void
     first_name: 'First name',
     last_name: 'Last name',
-    full_name: 'Full name',
     month: '06',
     year: '2020',
     email: 'test@example.com',
@@ -33,6 +31,34 @@ spreedly_iframe.tokenizeCreditCard({ // $ExpectType void
     shipping_phone_number: '+15555555555',
     metadata: { test: 'value' },
 });
+spreedly_iframe.tokenizeCreditCard({ // $ExpectType void
+    full_name: 'Bob Clark',
+    month: '06',
+    year: '2020',
+    email: 'test@example.com',
+    address1: 'Address1',
+    address2: 'Address2',
+    city: 'New York',
+    state: 'NY',
+    zip: '55555',
+    country: 'US',
+    phone_number: '+15555555555',
+    company: 'Test company',
+    shipping_address1: 'Ship address 1',
+    shipping_address2: 'Ship address 2',
+    shipping_city: 'Ship city',
+    shipping_state: 'Ship state',
+    shipping_zip: '555555',
+    shipping_country: 'US',
+    shipping_phone_number: '+15555555555',
+    metadata: { test: 'value' },
+});
+// $ExpectError
+spreedly_iframe.tokenizeCreditCard({});
+// $ExpectError
+spreedly_iframe.tokenizeCreditCard({ first_name: 'First name' });
+// $ExpectError
+spreedly_iframe.tokenizeCreditCard({ last_name: 'Last name' });
 spreedly_iframe.validate(); // $ExpectType void
 spreedly_card_types.forEach((spreedly_card_type) => {
     spreedly_iframe.setRecache('token', { card_type: spreedly_card_type, last_four_digits: '1111' }); // $ExpectType void

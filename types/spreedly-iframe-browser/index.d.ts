@@ -41,9 +41,6 @@ declare namespace spreedly {
     }
 
     interface TokenizeCreditCardAdditionalFields {
-        first_name?: string;
-        last_name?: string;
-        full_name?: string;
         month?: string;
         year?: string;
         email?: string;
@@ -63,6 +60,15 @@ declare namespace spreedly {
         shipping_country?: string;
         shipping_phone_number?: string;
         metadata?: { [key: string]: string };
+    }
+
+    interface TokenizeCreditCardAdditionalFieldsFullName extends TokenizeCreditCardAdditionalFields {
+        full_name: string;
+    }
+
+    interface TokenizeCreditCardAdditionalFieldsFirstLastNames extends TokenizeCreditCardAdditionalFields {
+        first_name: string;
+        last_name: string;
     }
 
     interface SetRecacheOptions {
@@ -169,7 +175,7 @@ declare class SpreedlyPaymentFrame {
      *
      * @param additionalFields - Map of additional payment method fields to store alongside tokenized card.
      */
-    tokenizeCreditCard(additionalFields?: spreedly.TokenizeCreditCardAdditionalFields): void;
+    tokenizeCreditCard(additionalFields: spreedly.TokenizeCreditCardAdditionalFieldsFullName | spreedly.TokenizeCreditCardAdditionalFieldsFirstLastNames): void;
 
     /**
      * Request iFrame fields to report their validation status.
