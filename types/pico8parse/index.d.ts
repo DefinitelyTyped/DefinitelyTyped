@@ -316,6 +316,7 @@ declare namespace Pico8parse {
             | RepeatStatement
             | LocalStatement
             | AssignmentStatement
+            | AssignmentOperatorStatement
             | CallStatement
             | FunctionDeclaration
             | ForNumericStatement
