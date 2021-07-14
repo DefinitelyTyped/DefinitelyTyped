@@ -69,7 +69,7 @@ export declare type StackActionHelpers<ParamList extends ParamListBase> = {
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare const StackActions: {
     // tslint:disable-next-line no-redundant-undefined
-    replace(name: string, params?: object | undefined): StackActionType;
+    replace(name: string, params?: object): StackActionType;
     // tslint:disable-next-line no-redundant-undefined
     push(name: string, params?: object | undefined): StackActionType;
     pop(count?: number): StackActionType;

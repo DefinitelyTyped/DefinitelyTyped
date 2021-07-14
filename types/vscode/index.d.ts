@@ -10927,7 +10927,7 @@ declare module 'vscode' {
          * @param scope A scope for which the configuration is asked for.
          * @return The full configuration or a subset.
          */
-        export function getConfiguration(section?: string | undefined, scope?: ConfigurationScope | null): WorkspaceConfiguration;
+        export function getConfiguration(section?: string, scope?: ConfigurationScope | null): WorkspaceConfiguration;
 
         /**
          * An event that is emitted when the {@link WorkspaceConfiguration configuration} changed.
