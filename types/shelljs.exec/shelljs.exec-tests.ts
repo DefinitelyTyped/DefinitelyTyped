@@ -1,4 +1,4 @@
-import exec from 'shelljs.exec';
+import exec = require('shelljs.exec');
 
 exec('echo test with options', {
     stdio: [process.stdin, process.stdout, process.stderr],

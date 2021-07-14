@@ -8,21 +8,22 @@
 
 import { ExecSyncOptions } from 'child_process';
 
-export interface ShellJsOptions {
-    silent?: boolean;
+declare namespace exec {
+    export interface ShellJsOptions {
+        silent?: boolean;
+    }
+
+    export interface ShellJsExecEnrich {
+        code: number;
+        ok: boolean;
+        stdout: string;
+        stderr: string;
+        error: any;
+    }
+
+    export type ShellJsExecResponse = ExecSyncOptions & ShellJsExecEnrich;
+    export type { ExecSyncOptions };
 }
 
-export interface ShellJsExecEnrich {
-    code: number;
-    ok: boolean;
-    stdout: string;
-    stderr: string;
-    error: any;
-}
-
-export type ShellJsExecResponse = ExecSyncOptions & ShellJsExecEnrich;
-export type ExecFn = (cmd: string, options?: ExecSyncOptions & ShellJsOptions) => ShellJsExecResponse;
-export type { ExecSyncOptions };
-
-declare const exec: ExecFn;
-export default exec;
+declare function exec(cmd: string, options?: ExecSyncOptions & exec.ShellJsOptions): exec.ShellJsExecResponse;
+export = exec;
