@@ -131,17 +131,17 @@ export interface DateRangeProps extends Range, CommonCalendarProps {
     /** default: Continuous */
     endDatePlaceholder?: string | undefined;
     /** default: MMM d, yyyy */
-    dateDisplayFormat?: string | undefined;
+    dateDisplayFormat?: string;
     /** default: d */
-    dayDisplayFormat?: string | undefined;
+    dayDisplayFormat?: string;
     /** default: E */
-    weekdayDisplayFormat?: string | undefined;
+    weekdayDisplayFormat?: string;
     /** default: MMM yyyy */
-    monthDisplayFormat?: string | undefined;
+    monthDisplayFormat?: string ;
     /** default: vertical */
-    direction?: string | undefined;
+    direction?: string;
     /** default: false */
-    moveRangeOnFirstSelection?: boolean | undefined;
+    moveRangeOnFirstSelection?: boolean;
     /** default: false */
     retainEndDateOnFirstSelection?: boolean;
     /** default: false */
