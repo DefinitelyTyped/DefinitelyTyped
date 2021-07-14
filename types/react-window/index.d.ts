@@ -26,7 +26,7 @@ export interface ListChildComponentProps<T = any> {
     index: number;
     style: CSSProperties;
     data: T;
-    isScrolling?: boolean;
+    isScrolling?: boolean | undefined;
 }
 
 export interface GridChildComponentProps<T = any> {
@@ -34,7 +34,7 @@ export interface GridChildComponentProps<T = any> {
     rowIndex: number;
     style: CSSProperties;
     data: T;
-    isScrolling?: boolean;
+    isScrolling?: boolean | undefined;
 }
 
 // This is supposed to represent the type of the first parameter to
@@ -48,51 +48,51 @@ export interface CommonProps<T = any> {
     /**
      * Optional CSS class to attach to outermost <div> element.
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Tag name passed to document.createElement to create the inner container element. This is an advanced property; in most cases, the default ("div") should be used.
      */
-    innerElementType?: ReactElementType;
+    innerElementType?: ReactElementType | undefined;
     /**
      * Ref to attach to the inner container element. This is an advanced property.
      */
-    innerRef?: Ref<any>;
+    innerRef?: Ref<any> | undefined;
     /**
      * Tag name passed to document.createElement to create the inner container element. This is an advanced property; in most cases, the default ("div") should be used.
      *
      * @deprecated since 1.4.0
      */
-    innerTagName?: string;
+    innerTagName?: string | undefined;
     /**
      * Contextual data to be passed to the item renderer as a data prop. This is a light-weight alternative to React's built-in context API.
      *
      * Item data is useful for item renderers that are class components.
      */
-    itemData?: T;
+    itemData?: T | undefined;
     /**
      * Tag name passed to document.createElement to create the outer container element. This is an advanced property; in most cases, the default ("div") should be used.
      */
-    outerElementType?: ReactElementType;
+    outerElementType?: ReactElementType | undefined;
     /**
      * Ref to attach to the outer container element. This is an advanced property.
      */
-    outerRef?: Ref<any>;
+    outerRef?: Ref<any> | undefined;
     /**
      * Tag name passed to document.createElement to create the outer container element. This is an advanced property; in most cases, the default ("div") should be used.
      *
      * @deprecated since 1.4.0
      */
-    outerTagName?: string;
+    outerTagName?: string | undefined;
     /**
      * Optional inline style to attach to outermost <div> element.
      */
-    style?: CSSProperties;
+    style?: CSSProperties | undefined;
     /**
      * Adds an additional isScrolling parameter to the children render function. This parameter can be used to show a placeholder row or column while the list is being scrolled.
      *
      * Note that using this parameter will result in an additional render call after scrolling has stopped (when isScrolling changes from true to false).
      */
-    useIsScrolling?: boolean;
+    useIsScrolling?: boolean | undefined;
 }
 
 export type ListItemKeySelector<T = any> = (index: number, data: T) => Key;
@@ -146,7 +146,7 @@ export interface ListProps<T = any> extends CommonProps<T> {
      *
      * @default "ltr"
      */
-    direction?: CSSDirection | Direction;
+    direction?: CSSDirection | Direction | undefined;
     /**
      * Layout/orientation of the list.
      *
@@ -156,13 +156,13 @@ export interface ListProps<T = any> extends CommonProps<T> {
      *
      * Note that lists may scroll in both directions (depending on CSS) but content will only be windowed in the layout direction specified.
      */
-    layout?: Layout;
+    layout?: Layout | undefined;
     /**
      * Scroll offset for initial render.
      *
      * For vertical lists, this affects scrollTop. For horizontal lists, this affects scrollLeft.
      */
-    initialScrollOffset?: number;
+    initialScrollOffset?: number | undefined;
     /**
      * By default, lists will use an item's index as its key. This is okay if:
      *
@@ -171,7 +171,7 @@ export interface ListProps<T = any> extends CommonProps<T> {
      *
      * If your list does not satisfy the above constraints, use the itemKey property to specify your own keys for items
      */
-    itemKey?: ListItemKeySelector<T>;
+    itemKey?: ListItemKeySelector<T> | undefined;
     /**
      * The number of items (rows or columns) to render outside of the visible area. This property can be important for two reasons:
      *
@@ -180,15 +180,15 @@ export interface ListProps<T = any> extends CommonProps<T> {
      *
      * Note that overscanning too much can negatively impact performance. By default, List overscans by one item.
      */
-    overscanCount?: number;
+    overscanCount?: number | undefined;
     /**
      * Called when the items rendered by the list change.
      */
-    onItemsRendered?: (props: ListOnItemsRenderedProps) => any;
+    onItemsRendered?: ((props: ListOnItemsRenderedProps) => any) | undefined;
     /**
      * Called when the list scroll positions changes, as a result of user scrolling or scroll-to method calls.
      */
-    onScroll?: (props: ListOnScrollProps) => any;
+    onScroll?: ((props: ListOnScrollProps) => any) | undefined;
 }
 
 export type GridItemKeySelector<T = any> = (params: {
@@ -234,7 +234,7 @@ export interface GridProps<T = any> extends CommonProps<T> {
      *
      * @default "ltr"
      */
-    direction?: CSSDirection;
+    direction?: CSSDirection | undefined;
     /**
      * Height of the grid. This affects the number of rows that will be rendered (and displayed) at any given time.
      */
@@ -242,11 +242,11 @@ export interface GridProps<T = any> extends CommonProps<T> {
     /**
      * Horizontal scroll offset for initial render.
      */
-    initialScrollLeft?: number;
+    initialScrollLeft?: number | undefined;
     /**
      * Vertical scroll offset for initial render.
      */
-    initialScrollTop?: number;
+    initialScrollTop?: number | undefined;
     /**
      * By default, grids will use an item's indices as its key. This is okay if:
      *
@@ -255,19 +255,19 @@ export interface GridProps<T = any> extends CommonProps<T> {
      *
      * If your grid does not satisfy the above constraints, use the itemKey property to specify your own keys for items.
      */
-    itemKey?: GridItemKeySelector<T>;
+    itemKey?: GridItemKeySelector<T> | undefined;
     /**
      * Called when the items rendered by the grid change.
      */
-    onItemsRendered?: (props: GridOnItemsRenderedProps) => any;
+    onItemsRendered?: ((props: GridOnItemsRenderedProps) => any) | undefined;
     /**
      * Called when the grid scroll positions changes, as a result of user scrolling or scroll-to method calls.
      */
-    onScroll?: (props: GridOnScrollProps) => any;
+    onScroll?: ((props: GridOnScrollProps) => any) | undefined;
     /**
      * @deprecated since version 1.8.2, please use overscanColumnCount
      */
-    overscanColumnsCount?: number;
+    overscanColumnsCount?: number | undefined;
     /**
      * The number of columns to render outside of the visible area. This property can be important for two reasons:
      *
@@ -276,11 +276,11 @@ export interface GridProps<T = any> extends CommonProps<T> {
      *
      * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
      */
-    overscanColumnCount?: number;
+    overscanColumnCount?: number | undefined;
     /**
      * @deprecated since version 1.8.2, please use overscanRowCount
      */
-    overscanRowsCount?: number;
+    overscanRowsCount?: number | undefined;
     /**
      * The number of rows to render outside of the visible area. This property can be important for two reasons:
      *
@@ -289,7 +289,7 @@ export interface GridProps<T = any> extends CommonProps<T> {
      *
      * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
      */
-    overscanRowCount?: number;
+    overscanRowCount?: number | undefined;
     /**
      * The number of items (rows or columns) to render outside of the visible area. This property can be important for two reasons:
      *
@@ -300,7 +300,7 @@ export interface GridProps<T = any> extends CommonProps<T> {
      *
      * @deprecated since version 1.4.0
      */
-    overscanCount?: number;
+    overscanCount?: number | undefined;
     /**
      * Number of rows in the grid. Note that only a few rows will be rendered and displayed at a time.
      */
@@ -325,7 +325,7 @@ export interface VariableSizeListProps<T = any> extends ListProps<T> {
      * This value is used to calculated the estimated total size of a list before its items have all been measured. The total size impacts user scrolling behavior.
      * It is updated whenever new items are measured.
      */
-    estimatedItemSize?: number;
+    estimatedItemSize?: number | undefined;
     /**
      * Returns the size of a item in the direction being windowed. For vertical lists, this is the row height. For horizontal lists, this is the column width.
      */
@@ -354,14 +354,14 @@ export interface VariableSizeGridProps<T = any> extends GridProps<T> {
      * This value is used to calculated the estimated total width of a Grid before its columns have all been measured.
      * The estimated width impacts user scrolling behavior. It is updated whenever new columns are measured.
      */
-    estimatedColumnWidth?: number;
+    estimatedColumnWidth?: number | undefined;
     /**
      * Average (or estimated) row height for unrendered rows.
      *
      * This value is used to calculated the estimated total height of a Grid before its rows have all been measured.
      * The estimated height impacts user scrolling behavior. It is updated whenever new rows are measured.
      */
-    estimatedRowHeight?: number;
+    estimatedRowHeight?: number | undefined;
     /**
      * Returns the height of the specified row.
      */
@@ -447,9 +447,9 @@ export class FixedSizeGrid<T = any> extends Component<FixedSizeGridProps<T>> {
      * If either `columnIndex` or `rowIndex` are omitted, `scrollLeft` or `scrollTop` will be unchanged (respectively).
      */
     scrollToItem(params: {
-        align?: Align;
-        columnIndex?: number;
-        rowIndex?: number;
+        align?: Align | undefined;
+        columnIndex?: number | undefined;
+        rowIndex?: number | undefined;
     }): void;
 }
 
@@ -476,9 +476,9 @@ export class VariableSizeGrid<T = any> extends Component<VariableSizeGridProps<T
      * If either `columnIndex` or `rowIndex` are omitted, `scrollLeft` or `scrollTop` will be unchanged (respectively).
      */
     scrollToItem(params: {
-        align?: Align;
-        columnIndex?: number;
-        rowIndex?: number;
+        align?: Align | undefined;
+        columnIndex?: number | undefined;
+        rowIndex?: number | undefined;
     }): void;
     /**
      * VariableSizeGrid caches offsets and measurements for each column index for performance purposes.
@@ -502,7 +502,7 @@ export class VariableSizeGrid<T = any> extends Component<VariableSizeGridProps<T
     resetAfterIndices(params: {
         columnIndex: number;
         rowIndex: number;
-        shouldForceUpdate?: boolean;
+        shouldForceUpdate?: boolean | undefined;
     }): void;
     /**
      * VariableSizeGrid caches offsets and measurements for each row index for performance purposes.

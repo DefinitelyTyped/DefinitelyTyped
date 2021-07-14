@@ -30,10 +30,10 @@ export interface SybaseConnection {
 export interface ConnectionParameters {
     Server: string;
     UserId: string;
-    DatabaseFile?: string;
-    AutoStart?: string;
+    DatabaseFile?: string | undefined;
+    AutoStart?: string | undefined;
     Password: string;
-    Host?: string;
+    Host?: string | undefined;
 }
 
 export interface Statement {

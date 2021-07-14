@@ -14,20 +14,20 @@ interface _Options extends SwPrecacheOptions {
 
 declare namespace SWPrecacheWebpackPlugin {
     interface Options extends _Options {
-        filename?: string;
-        filepath?: string;
-        staticFileGlobsIgnorePatterns?: RegExp[];
-        mergeStaticsConfig?: boolean;
-        minify?: boolean;
+        filename?: string | undefined;
+        filepath?: string | undefined;
+        staticFileGlobsIgnorePatterns?: RegExp[] | undefined;
+        mergeStaticsConfig?: boolean | undefined;
+        minify?: boolean | undefined;
 
         // override sw-precache options
         importScripts?: Array<
             | string
             | {
-                  chunkName?: string;
-                  filename?: string;
+                  chunkName?: string | undefined;
+                  filename?: string | undefined;
               }
-        >;
+        > | undefined;
     }
 }
 

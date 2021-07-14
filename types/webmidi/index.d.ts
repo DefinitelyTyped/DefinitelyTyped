@@ -1,6 +1,6 @@
 // Type definitions for Web MIDI API 2.0
 // Project: http://www.w3.org/TR/webmidi/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
+// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Navigator {

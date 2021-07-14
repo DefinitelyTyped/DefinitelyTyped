@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -2537,7 +2537,9 @@ declare module "sap/ui/layout/cssgrid/GridBoxLayout" {
      * Returns a metadata object for class sap.ui.layout.cssgrid.GridBoxLayout.
      */
     static getMetadata(): ManagedObjectMetadata;
-    /**/
+    /**
+     *
+     */
     isResponsive(): boolean;
     /**
      * Sets a new value for property {@link #getBoxesPerRowConfig boxesPerRowConfig}.
@@ -2986,7 +2988,9 @@ declare module "sap/ui/layout/cssgrid/GridLayoutBase" {
      * Returns a metadata object for class sap.ui.layout.cssgrid.GridLayoutBase.
      */
     static getMetadata(): ManagedObjectMetadata;
-    /**/
+    /**
+     *
+     */
     isResponsive(): boolean;
   }
 
@@ -3001,7 +3005,9 @@ declare module "sap/ui/layout/cssgrid/GridLayoutDelegate" {
    * layout when necessary. Calls sap.ui.layout.cssgrid.GridLayoutBase hook functions.
    */
   export default class GridLayoutDelegate extends BaseObject {
-    /**/
+    /**
+     *
+     */
     constructor();
   }
 }
@@ -3011,6 +3017,8 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
     default as GridLayoutBase,
     $GridLayoutBaseSettings,
   } from "sap/ui/layout/cssgrid/GridLayoutBase";
+
+  import Event from "sap/ui/base/Event";
 
   import GridSettings from "sap/ui/layout/cssgrid/GridSettings";
 
@@ -3073,7 +3081,26 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.GridResponsiveLayout`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.GridResponsiveLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.cssgrid.GridResponsiveLayout` itself.
+     *
+     * Fired when the currently active GridSettings changes
+     */
+    attachLayoutChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.GridResponsiveLayout`
        * itself
@@ -3109,7 +3136,7 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3253,25 +3280,6 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
        * The layoutXL to set
        */
       oLayoutXL: GridSettings
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.GridResponsiveLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.layout.cssgrid.GridResponsiveLayout` itself.
-     *
-     * Fired when the currently active GridSettings changes
-     */
-    attachLayoutChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.GridResponsiveLayout`
-       * itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -3794,6 +3802,8 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
     $GridLayoutBaseSettings,
   } from "sap/ui/layout/cssgrid/GridLayoutBase";
 
+  import Event from "sap/ui/base/Event";
+
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
   /**
@@ -3854,7 +3864,26 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout` itself.
+     *
+     * Fired when the currently active layout changes
+     */
+    attachLayoutChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`
        * itself
@@ -3870,7 +3899,7 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3919,25 +3948,6 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
      * Returns if the Grid Layout is responsive.
      */
     isResponsive(): boolean;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout` itself.
-     *
-     * Fired when the currently active layout changes
-     */
-    attachLayoutChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.layout.cssgrid.ResponsiveColumnLayout`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ResponsiveColumnLayoutSettings
@@ -3951,6 +3961,8 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
 
 declare module "sap/ui/layout/DynamicSideContent" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -4101,7 +4113,28 @@ declare module "sap/ui/layout/DynamicSideContent" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.DynamicSideContent` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.32
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:breakpointChanged breakpointChanged} event of
+     * this `sap.ui.layout.DynamicSideContent`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.DynamicSideContent` itself.
+     *
+     * Fires when the current breakpoint has been changed.
+     */
+    attachBreakpointChanged(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.DynamicSideContent` itself
        */
@@ -4127,7 +4160,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4177,10 +4210,12 @@ declare module "sap/ui/layout/DynamicSideContent" {
      */
     getContainerQuery(): boolean;
     /**
-     * Returns the breakpoint for the current state of the control. If the control is not rendered yet this
-     * method will return `undefined`, as current break point calculation is based on the parent container width.
+     * Returns the breakpoint for the current state of the control.
+     *
+     * If the control is not rendered yet, this method will return `undefined`, as current break point calculation
+     * is based on the parent container width.
      */
-    getCurrentBreakpoint(): String;
+    getCurrentBreakpoint(): string;
     /**
      * Gets current value of property {@link #getEqualSplit equalSplit}.
      *
@@ -4463,27 +4498,6 @@ declare module "sap/ui/layout/DynamicSideContent" {
      * and side content areas. Only works if the current breakpoint is "S".
      */
     toggle(): this;
-    /**
-     * @SINCE 1.32
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:breakpointChanged breakpointChanged} event of
-     * this `sap.ui.layout.DynamicSideContent`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.layout.DynamicSideContent` itself.
-     *
-     * Fires when the current breakpoint has been changed.
-     */
-    attachBreakpointChanged(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.layout.DynamicSideContent` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $DynamicSideContentSettings extends $ControlSettings {
@@ -11070,6 +11084,10 @@ declare module "sap/ui/layout/HorizontalLayout" {
 declare module "sap/ui/layout/PaneContainer" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
+  import Event from "sap/ui/base/Event";
+
+  import LayoutData from "sap/ui/core/LayoutData";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { Orientation } from "sap/ui/core/library";
@@ -11079,8 +11097,6 @@ declare module "sap/ui/layout/PaneContainer" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
-
-  import LayoutData from "sap/ui/core/LayoutData";
 
   /**
    * @SINCE 1.38
@@ -11131,9 +11147,65 @@ declare module "sap/ui/layout/PaneContainer" {
       oPane: UI5Element
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.layout.PaneContainer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.PaneContainer` itself.
+     *
+     * Fired when contents are resized.
+     */
+    attachResize(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.PaneContainer` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.layout.PaneContainer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.PaneContainer` itself.
+     *
+     * Fired when contents are resized.
+     */
+    attachResize(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.PaneContainer` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Destroys all the panes in the aggregation {@link #getPanes panes}.
      */
     destroyPanes(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:resize resize} event of this `sap.ui.layout.PaneContainer`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachResize(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Creates a new subclass of class sap.ui.layout.PaneContainer with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
@@ -11155,6 +11227,28 @@ declare module "sap/ui/layout/PaneContainer" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Fires event {@link #event:resize resize} to attached listeners.
+     */
+    fireResize(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * An array of values representing the old (pixel)sizes of the split panes, which are inside the pane container.
+         */
+        oldSizes?: float[];
+        /**
+         * An array of values representing the new (pixel)sizes of the split panes, which are inside the pane container.
+         */
+        newSizes?: float[];
+      }
+    ): this;
+    /**
+     * Getter for property layoutData.
+     */
+    getLayoutData(): LayoutData;
     /**
      * Returns a metadata object for class sap.ui.layout.PaneContainer.
      */
@@ -11233,6 +11327,11 @@ declare module "sap/ui/layout/PaneContainer" {
      * The panes to be split. The control will show n-1 splitter bars between n controls in this aggregation.
      */
     panes?: UI5Element[] | UI5Element | AggregationBindingInfo;
+
+    /**
+     * Fired when contents are resized.
+     */
+    resize?: Function;
   }
 }
 
@@ -12073,6 +12172,8 @@ declare module "sap/ui/layout/SplitPane" {
 declare module "sap/ui/layout/Splitter" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import { CSSSize, Orientation } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -12168,7 +12269,25 @@ declare module "sap/ui/layout/Splitter" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.layout.Splitter` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.layout.Splitter`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.layout.Splitter` itself.
+     *
+     * Event is fired when contents are resized.
+     */
+    attachResize(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.layout.Splitter` itself
        */
@@ -12187,7 +12306,7 @@ declare module "sap/ui/layout/Splitter" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12437,24 +12556,6 @@ declare module "sap/ui/layout/Splitter" {
        */
       forceDirectly?: boolean
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.layout.Splitter`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.layout.Splitter` itself.
-     *
-     * Event is fired when contents are resized.
-     */
-    attachResize(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.layout.Splitter` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $SplitterSettings extends $ControlSettings {
@@ -12583,7 +12684,10 @@ declare module "sap/ui/layout/SplitterLayoutData" {
     /**
      * Gets current value of property {@link #getSize size}.
      *
-     * Sets the size of the splitter content.
+     * The size of the splitter content. This property is updated when the area is resized by the user.
+     *
+     * **Note:** Resizing areas in the sap.ui.layout.Splitter sets this property to "px" values, while resizing
+     * areas in the sap.ui.layout.ResponsiveSplitter sets it to % values.
      *
      * Default value is `'auto'`.
      */
@@ -12621,7 +12725,10 @@ declare module "sap/ui/layout/SplitterLayoutData" {
     /**
      * Sets a new value for property {@link #getSize size}.
      *
-     * Sets the size of the splitter content.
+     * The size of the splitter content. This property is updated when the area is resized by the user.
+     *
+     * **Note:** Resizing areas in the sap.ui.layout.Splitter sets this property to "px" values, while resizing
+     * areas in the sap.ui.layout.ResponsiveSplitter sets it to % values.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -12642,7 +12749,10 @@ declare module "sap/ui/layout/SplitterLayoutData" {
     resizable?: boolean | PropertyBindingInfo;
 
     /**
-     * Sets the size of the splitter content.
+     * The size of the splitter content. This property is updated when the area is resized by the user.
+     *
+     * **Note:** Resizing areas in the sap.ui.layout.Splitter sets this property to "px" values, while resizing
+     * areas in the sap.ui.layout.ResponsiveSplitter sets it to % values.
      */
     size?: CSSSize | PropertyBindingInfo;
 

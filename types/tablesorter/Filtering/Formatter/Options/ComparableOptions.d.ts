@@ -5,5 +5,5 @@ export interface ComparableOptions {
     /**
      * The compare-operators supported by the control.
      */
-    compare?: string | string[];
+    compare?: string | string[] | undefined;
 }

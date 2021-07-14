@@ -8,12 +8,12 @@ export default class TableUtils extends Plugin {
     getCellLocation(tableCell: Element): { row: number; column: number };
     createTable(
         writer: Writer,
-        options?: { rows?: number; columns?: number; headingRows?: number; headingColumns?: number },
+        options?: { rows?: number | undefined; columns?: number | undefined; headingRows?: number | undefined; headingColumns?: number | undefined },
     ): Element;
-    insertRows(table: Element, options?: { at?: number; rows?: number; copyStructureFrom?: boolean }): void;
-    insertColumns(table: Element, options?: { at?: number; columns?: number }): void;
-    removeRows(table: Element, options: { at: number; rows?: number }): void;
-    removeColumns(table: Element, options: { at: number; columns?: number }): void;
+    insertRows(table: Element, options?: { at?: number | undefined; rows?: number | undefined; copyStructureFrom?: boolean | undefined }): void;
+    insertColumns(table: Element, options?: { at?: number | undefined; columns?: number | undefined }): void;
+    removeRows(table: Element, options: { at: number; rows?: number | undefined }): void;
+    removeColumns(table: Element, options: { at: number; columns?: number | undefined }): void;
     splitCellVertically(tableCell: Element, numberOfCells?: number): void;
     splitCellHorizontally(tableCell: Element, numberOfCells?: number): void;
     getColumns(table: Element): number;

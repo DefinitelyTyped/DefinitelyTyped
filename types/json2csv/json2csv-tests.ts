@@ -16,9 +16,9 @@ let s: string;
 let obj: object;
 
 interface ExampleObj {
-    str?: string;
-    num?: number;
-    obj?: object;
+    str?: string | undefined;
+    num?: number | undefined;
+    obj?: object | undefined;
 }
 
 /**************

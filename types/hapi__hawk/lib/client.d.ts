@@ -10,24 +10,24 @@ export interface Credentials {
 
 export interface HeaderOptions {
     /** Oz application id */
-    app?: string;
+    app?: string | undefined;
     /** Payload content-type (ignored if hash provided) */
-    contentType?: string;
+    contentType?: string | undefined;
     credentials: Credentials;
     /** Oz delegated-by application id */
-    dlg?: string;
+    dlg?: string | undefined;
     /** Application specific data sent via the ext attribute */
-    ext?: string;
+    ext?: string | undefined;
     /** Pre-calculated payload hash */
-    hash?: string;
+    hash?: string | undefined;
     /** Time offset to sync with server time (ignored if timestamp provided) */
-    localtimeOffsetMsec?: number;
+    localtimeOffsetMsec?: number | undefined;
     /** A pre-generated nonce */
-    nonce?: string;
+    nonce?: string | undefined;
     /** UTF-8 encoded string for body hash generation (ignored if hash provided) */
-    payload?: string;
+    payload?: string | undefined;
     /** A pre-calculated timestamp in seconds */
-    timestamp?: number;
+    timestamp?: number | undefined;
 }
 
 export interface Header {
@@ -37,9 +37,9 @@ export interface Header {
 
 export interface AuthenticateOptions {
     /** optional payload received */
-    payload?: string;
+    payload?: string | undefined;
     /** specifies if a Server-Authorization header is required. Defaults to 'false' */
-    required?: boolean;
+    required?: boolean | undefined;
 }
 
 export interface Authentication {
@@ -49,7 +49,7 @@ export interface Authentication {
 export interface BewitOptions {
     credentials: Credentials;
     /** Application specific data sent via the ext attribute */
-    ext?: string;
+    ext?: string | undefined;
     /** Time offset to sync with server time */
     localtimeOffsetMsec: number;
     /** TTL in seconds */

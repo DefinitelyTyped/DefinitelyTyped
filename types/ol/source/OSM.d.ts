@@ -7,17 +7,17 @@ import { TileSourceEvent } from './Tile';
 import XYZ from './XYZ';
 
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: null | string;
-    imageSmoothing?: boolean;
-    maxZoom?: number;
-    opaque?: boolean;
-    reprojectionErrorThreshold?: number;
-    tileLoadFunction?: LoadFunction;
-    transition?: number;
-    url?: string;
-    wrapX?: boolean;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    imageSmoothing?: boolean | undefined;
+    maxZoom?: number | undefined;
+    opaque?: boolean | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    tileLoadFunction?: LoadFunction | undefined;
+    transition?: number | undefined;
+    url?: string | undefined;
+    wrapX?: boolean | undefined;
 }
 /**
  * The attribution containing a link to the OpenStreetMap Copyright and License

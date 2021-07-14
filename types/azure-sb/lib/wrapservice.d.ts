@@ -3,8 +3,8 @@ import { Azure } from 'azure-sb';
 declare class WrapService {
     constructor(acsHost: string, issuer?: string, accessKey?: string);
 
-    public issuer?: string;
-    public accessKey?: string;
+    public issuer?: string | undefined;
+    public accessKey?: string | undefined;
     public authenticationProvider: {
         signRequest(webResource: any, callback: () => void): void;
     };

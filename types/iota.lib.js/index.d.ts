@@ -6,13 +6,13 @@
 declare class IotaClass {
    constructor(settings: {
       provider: string;
-      sandbox?: boolean;
-      token?: boolean;
+      sandbox?: boolean | undefined;
+      token?: boolean | undefined;
    } | {
       host: string;
       port: number;
-      sandbox?: boolean;
-      token?: boolean;
+      sandbox?: boolean | undefined;
+      token?: boolean | undefined;
    });
 
    api: IotaApi;
@@ -127,10 +127,10 @@ interface IriApi {
 
    findTransactions(
       searchValues: {
-         addresses?: string[]
-         bundles?: string[]
-         tags?: string[]
-         approvees?: string[]
+         addresses?: string[] | undefined
+         bundles?: string[] | undefined
+         tags?: string[] | undefined
+         approvees?: string[] | undefined
       },
       callback: (error: Error, hashes: string[]) => void
    ): void;
@@ -201,10 +201,10 @@ interface IotaApi extends IriApi {
 
    findTransactionObjects(
       searchValues: {
-         addresses?: string[]
-         bundles?: string[]
-         tags?: string[]
-         approvees?: string[]
+         addresses?: string[] | undefined
+         bundles?: string[] | undefined
+         tags?: string[] | undefined
+         approvees?: string[] | undefined
       },
       callback?: (error: Error, transactions: TransactionObject[]) => void
    ): void;
@@ -222,11 +222,11 @@ interface IotaApi extends IriApi {
    getNewAddress(
       seed: string,
       options?: {
-         index?: number;
-         checksum?: boolean;
-         total?: number;
-         security?: Security
-         returnAll?: boolean;
+         index?: number | undefined;
+         checksum?: boolean | undefined;
+         total?: number | undefined;
+         security?: Security | undefined
+         returnAll?: boolean | undefined;
       },
       callback?: (error: Error, response: string | string[]) => void
    ): void;
@@ -234,10 +234,10 @@ interface IotaApi extends IriApi {
    getInputs(
       seed: string,
       options?: {
-         start?: number;
-         end?: number;
-         security?: Security
-         threshold?: boolean;
+         start?: number | undefined;
+         end?: number | undefined;
+         security?: Security | undefined
+         threshold?: boolean | undefined;
       },
       callback?: (error: Error, response: {
          inputs: InputObject[]
@@ -248,9 +248,9 @@ interface IotaApi extends IriApi {
       seed: string,
       transfers: TransferObject[],
       options?: {
-         inputs?: string[],
-         address?: string,
-         security?: Security
+         inputs?: string[] | undefined,
+         address?: string | undefined,
+         security?: Security | undefined
       },
       callback?: (error: Error, response: {
          trytes: string[]
@@ -300,10 +300,10 @@ interface IotaApi extends IriApi {
    getTransfers(
       seed: string,
       options?: {
-         start?: number;
-         end?: number;
-         security?: Security
-         inclusionStates?: boolean;
+         start?: number | undefined;
+         end?: number | undefined;
+         security?: Security | undefined
+         inclusionStates?: boolean | undefined;
       },
       callback?: (error: Error, transfers: TransactionObject[][]) => void
    ): void;
@@ -313,7 +313,7 @@ interface IotaApi extends IriApi {
       options?: {
          start: number;
          end: number;
-         security?: Security
+         security?: Security | undefined
       },
       callback?: (error: Error, response: {
          latestAddress: string;

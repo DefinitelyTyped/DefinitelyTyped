@@ -24,6 +24,7 @@
     "files": [
         "index.d.ts",
         "test/http-tests.ts",
-        "test/tables-tests.ts"
+        "test/tables-tests.ts",
+        "test/web-socket-tests.ts"
     ]
 }

@@ -9,7 +9,7 @@ import * as crypto from "crypto";
 
 export interface DKIMSignOptions {
     /** Header fields to sign (ie: 'from:to:cc:subject') */
-    headerFieldNames?: string;
+    headerFieldNames?: string | undefined;
     /** DKIM private key */
     privateKey: crypto.SignPrivateKeyInput | crypto.KeyLike;
     /** Domain name to use for signing (ie: 'domain.com') */

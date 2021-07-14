@@ -988,6 +988,7 @@ declare global {
             logIn<T extends User>(username: string, password: string, options?: FullOptions): Promise<T>;
             logOut<T extends User>(): Promise<T>;
             requestPasswordReset<T extends User>(email: string, options?: SuccessFailureOptions): Promise<T>;
+            requestEmailVerification<T extends User>(email: string, options?: UseMasterKeyOption): Promise<T>;
             extend(protoProps?: any, classProps?: any): any;
             hydrate<T extends User>(userJSON: any): Promise<T>;
             enableUnsafeCurrentUser(): void;

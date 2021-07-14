@@ -10,16 +10,16 @@ export type AudioEncodingIOSType = 'lpcm' | 'ima4' | 'MAC3' | 'MAC6' | 'ulaw' | 
 export type AudioEncodingType = 'aac' | AudioEncodingAndroidType | AudioEncodingIOSType;
 
 export interface RecordingOptions {
-    SampleRate?: number;
-    Channels?: number;
-    AudioQuality?: 'Low' | 'Medium' | 'High';
-    AudioEncoding?: AudioEncodingType;
-    OutputFormat?: string;
-    MeteringEnabled?: boolean;
-    MeasurementMode?: boolean;
-    AudioEncodingBitRate?: number;
-    IncludeBase64?: boolean;
-    AudioSource?: number;
+    SampleRate?: number | undefined;
+    Channels?: number | undefined;
+    AudioQuality?: 'Low' | 'Medium' | 'High' | undefined;
+    AudioEncoding?: AudioEncodingType | undefined;
+    OutputFormat?: string | undefined;
+    MeteringEnabled?: boolean | undefined;
+    MeasurementMode?: boolean | undefined;
+    AudioEncodingBitRate?: number | undefined;
+    IncludeBase64?: boolean | undefined;
+    AudioSource?: number | undefined;
 }
 
 export const AudioRecorder: {

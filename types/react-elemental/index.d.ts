@@ -20,13 +20,13 @@ import {
 export type AlertType = 'info' | 'success' | 'warn' | 'error';
 export type AlertSize = 'alpha' | 'beta';
 export interface AlertProps {
-    readonly type?: AlertType;
-    readonly size?: AlertSize;
+    readonly type?: AlertType | undefined;
+    readonly size?: AlertSize | undefined;
     readonly title: string;
     readonly message: string | ReactElement;
-    readonly dismissible?: boolean;
-    readonly style?: CSSProperties;
-    readonly onDismiss?: () => void;
+    readonly dismissible?: boolean | undefined;
+    readonly style?: CSSProperties | undefined;
+    readonly onDismiss?: (() => void) | undefined;
 }
 
 /**
@@ -37,12 +37,12 @@ export class Alert extends Component<AlertProps> {
 
 export type ButtonSize = 'alpha' | 'beta' | 'gamma';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    readonly color?: string;
-    readonly size?: ButtonSize;
-    readonly text?: string;
-    readonly disabled?: boolean;
-    readonly secondary?: boolean;
-    readonly style?: CSSProperties;
+    readonly color?: string | undefined;
+    readonly size?: ButtonSize | undefined;
+    readonly text?: string | undefined;
+    readonly disabled?: boolean | undefined;
+    readonly secondary?: boolean | undefined;
+    readonly style?: CSSProperties | undefined;
     readonly children?: any;
 }
 
@@ -53,12 +53,12 @@ export class Button extends Component<ButtonProps> {
 }
 
 export interface CheckboxProps {
-    readonly checked?: boolean;
-    readonly label?: string;
-    readonly style?: CSSProperties;
-    readonly disabled?: boolean;
-    readonly onChange?: (checked: boolean) => void;
-    readonly children?: ReactNode;
+    readonly checked?: boolean | undefined;
+    readonly label?: string | undefined;
+    readonly style?: CSSProperties | undefined;
+    readonly disabled?: boolean | undefined;
+    readonly onChange?: ((checked: boolean) => void) | undefined;
+    readonly children?: ReactNode | undefined;
 }
 export interface CheckboxState {
     readonly isHover: boolean;
@@ -73,13 +73,13 @@ export class Checkbox extends Component<CheckboxProps, CheckboxState> {
 
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     readonly alt: string;
-    readonly color?: string;
-    readonly width?: string;
-    readonly height?: string;
-    readonly lazy?: boolean;
-    readonly showIntermediate?: boolean;
-    readonly style?: CSSProperties;
-    readonly imgStyle?: CSSProperties;
+    readonly color?: string | undefined;
+    readonly width?: string | undefined;
+    readonly height?: string | undefined;
+    readonly lazy?: boolean | undefined;
+    readonly showIntermediate?: boolean | undefined;
+    readonly style?: CSSProperties | undefined;
+    readonly imgStyle?: CSSProperties | undefined;
 }
 export interface ImageState {
     readonly load: string;
@@ -92,8 +92,8 @@ export class Image extends Component<ImageProps, ImageState> {
 }
 
 export interface LabelProps {
-    readonly label?: string;
-    readonly sublabel?: string;
+    readonly label?: string | undefined;
+    readonly sublabel?: string | undefined;
 }
 
 /**
@@ -103,11 +103,11 @@ export const Label: FunctionComponent<LabelProps>;
 
 export type LinkType = 'regular' | 'plain' | 'underline';
 export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-    readonly type?: LinkType;
-    readonly ref?: string;
-    readonly activeColor?: string;
-    readonly style?: CSSProperties;
-    readonly children?: ReactNode;
+    readonly type?: LinkType | undefined;
+    readonly ref?: string | undefined;
+    readonly activeColor?: string | undefined;
+    readonly style?: CSSProperties | undefined;
+    readonly children?: ReactNode | undefined;
 }
 
 /**
@@ -117,11 +117,11 @@ export class Link extends Component<LinkProps> {
 }
 
 export interface LoadingBarProps {
-    readonly color?: string;
-    readonly thickness?: number;
-    readonly duration?: number;
-    readonly delay?: number;
-    readonly style?: CSSProperties;
+    readonly color?: string | undefined;
+    readonly thickness?: number | undefined;
+    readonly duration?: number | undefined;
+    readonly delay?: number | undefined;
+    readonly style?: CSSProperties | undefined;
 }
 export interface LoadingBarState {
     readonly position: number;
@@ -135,10 +135,10 @@ export class LoadingBar extends Component<LoadingBarProps, LoadingBarState> {
 
 export type ModalSize = 'alpha' | 'beta' | 'gamma';
 export interface ModalProps {
-    readonly size?: ModalSize;
-    readonly persistent?: boolean;
-    readonly onHide?: () => void;
-    readonly style?: CSSProperties;
+    readonly size?: ModalSize | undefined;
+    readonly persistent?: boolean | undefined;
+    readonly onHide?: (() => void) | undefined;
+    readonly style?: CSSProperties | undefined;
     readonly children?: any;
 }
 export interface ModalState {
@@ -155,11 +155,11 @@ export class Modal extends Component<ModalProps, ModalState> {
 
 export type PulsatorSize = 'alpha' | 'beta' | 'gamma' | 'delta';
 export interface PulsatorProps {
-    readonly color?: string;
-    readonly size?: PulsatorSize;
-    readonly inactive?: boolean;
-    readonly transparent?: boolean;
-    readonly style?: CSSProperties;
+    readonly color?: string | undefined;
+    readonly size?: PulsatorSize | undefined;
+    readonly inactive?: boolean | undefined;
+    readonly transparent?: boolean | undefined;
+    readonly style?: CSSProperties | undefined;
 }
 export interface PulsatorState {
     readonly color: any;
@@ -175,13 +175,13 @@ export type RadioGroupProps = HTMLAttributes<HTMLDivElement> & {
     readonly options?: Array<{
         readonly value: string;
         readonly label: string | ReactNode;
-        readonly disabled?: boolean;
-    }>;
-    readonly value?: string;
-    readonly accentColor?: string;
-    readonly idleColor?: string;
-    readonly radioRenderer?: (option: ReactElement, idx: number, options: ReactElement[]) => ReactElement;
-    readonly onChange?: (value: string) => void;
+        readonly disabled?: boolean | undefined;
+    }> | undefined;
+    readonly value?: string | undefined;
+    readonly accentColor?: string | undefined;
+    readonly idleColor?: string | undefined;
+    readonly radioRenderer?: ((option: ReactElement, idx: number, options: ReactElement[]) => ReactElement) | undefined;
+    readonly onChange?: ((value: string) => void) | undefined;
 };
 
 /**
@@ -191,16 +191,16 @@ export class RadioGroup extends Component<RadioGroupProps> {
 }
 
 export interface SelectListProps {
-    readonly placeholder?: string;
+    readonly placeholder?: string | undefined;
     readonly options?: Array<{
         readonly label: string;
         readonly value: string;
-    }>;
-    readonly width?: number | string;
-    readonly height?: number;
-    readonly error?: string;
-    readonly style?: CSSProperties;
-    readonly onChange?: (value: string) => void;
+    }> | undefined;
+    readonly width?: number | string | undefined;
+    readonly height?: number | undefined;
+    readonly error?: string | undefined;
+    readonly style?: CSSProperties | undefined;
+    readonly onChange?: ((value: string) => void) | undefined;
 }
 export interface SelectListState {
     readonly isExpanded: boolean;
@@ -220,14 +220,14 @@ export class SelectList extends Component<SelectListProps, SelectListState> {
 }
 
 export interface SpacingProps {
-    readonly padding?: boolean;
-    readonly size?: string;
-    readonly top?: boolean;
-    readonly right?: boolean;
-    readonly bottom?: boolean;
-    readonly left?: boolean;
-    readonly inline?: boolean;
-    readonly style?: CSSProperties;
+    readonly padding?: boolean | undefined;
+    readonly size?: string | undefined;
+    readonly top?: boolean | undefined;
+    readonly right?: boolean | undefined;
+    readonly bottom?: boolean | undefined;
+    readonly left?: boolean | undefined;
+    readonly inline?: boolean | undefined;
+    readonly style?: CSSProperties | undefined;
     readonly children?: any;
 }
 
@@ -238,12 +238,12 @@ export const Spacing: FunctionComponent<SpacingProps>;
 
 export type SpinnerSize = 'alpha' | 'beta' | 'gamma' | 'delta';
 export interface SpinnerProps {
-    readonly size?: SpinnerSize;
-    readonly ringColor?: string;
-    readonly accentColor?: string;
-    readonly duration?: number;
-    readonly thickness?: number;
-    readonly style?: CSSProperties;
+    readonly size?: SpinnerSize | undefined;
+    readonly ringColor?: string | undefined;
+    readonly accentColor?: string | undefined;
+    readonly duration?: number | undefined;
+    readonly thickness?: number | undefined;
+    readonly style?: CSSProperties | undefined;
 }
 
 /**
@@ -256,13 +256,13 @@ export interface TabsProps {
     readonly options?: Array<{
         readonly value: string;
         readonly label: string | ReactNode;
-    }>;
-    readonly value?: string;
-    readonly secondary?: boolean;
-    readonly fit?: boolean;
-    readonly invert?: boolean;
-    readonly onChange?: (value: string) => void;
-    readonly style?: CSSProperties;
+    }> | undefined;
+    readonly value?: string | undefined;
+    readonly secondary?: boolean | undefined;
+    readonly fit?: boolean | undefined;
+    readonly invert?: boolean | undefined;
+    readonly onChange?: ((value: string) => void) | undefined;
+    readonly style?: CSSProperties | undefined;
 }
 
 /**
@@ -273,13 +273,13 @@ export class Tabs extends Component<TabsProps> {
 
 export type TagSize = 'alpha' | 'beta';
 export interface TagProps {
-    readonly outlineColor?: string;
-    readonly backgroundColor?: string;
+    readonly outlineColor?: string | undefined;
+    readonly backgroundColor?: string | undefined;
     readonly text: string;
-    readonly size?: TagSize;
-    readonly dismissible?: boolean;
-    readonly onDismiss?: () => void;
-    readonly style?: CSSProperties;
+    readonly size?: TagSize | undefined;
+    readonly dismissible?: boolean | undefined;
+    readonly onDismiss?: (() => void) | undefined;
+    readonly style?: CSSProperties | undefined;
 }
 
 /**
@@ -288,16 +288,16 @@ export interface TagProps {
 export const Tag: FunctionComponent<TagProps>;
 
 export interface TextProps {
-    readonly secondary?: boolean;
-    readonly size?: string;
-    readonly color?: string;
-    readonly bold?: boolean;
-    readonly inline?: boolean;
-    readonly uppercase?: boolean;
-    readonly center?: boolean;
-    readonly right?: boolean;
-    readonly style?: CSSProperties;
-    readonly children?: ReactNode;
+    readonly secondary?: boolean | undefined;
+    readonly size?: string | undefined;
+    readonly color?: string | undefined;
+    readonly bold?: boolean | undefined;
+    readonly inline?: boolean | undefined;
+    readonly uppercase?: boolean | undefined;
+    readonly center?: boolean | undefined;
+    readonly right?: boolean | undefined;
+    readonly style?: CSSProperties | undefined;
+    readonly children?: ReactNode | undefined;
 }
 
 /**
@@ -307,9 +307,9 @@ export class Text extends Component<TextProps> {
 }
 
 export type TextAreaProps = TextFieldProps & {
-    readonly error?: string;
-    readonly secondary?: boolean;
-    readonly style?: CSSProperties;
+    readonly error?: string | undefined;
+    readonly secondary?: boolean | undefined;
+    readonly style?: CSSProperties | undefined;
 };
 
 /**
@@ -320,10 +320,10 @@ export type TextAreaProps = TextFieldProps & {
 export const TextArea: FunctionComponent<TextAreaProps>;
 
 export type TextFieldProps = TextareaHTMLAttributes<HTMLTextAreaElement> & InputHTMLAttributes<HTMLInputElement> & {
-    readonly error?: string;
-    readonly secondary?: boolean;
-    readonly textarea?: boolean;
-    readonly style?: CSSProperties;
+    readonly error?: string | undefined;
+    readonly secondary?: boolean | undefined;
+    readonly textarea?: boolean | undefined;
+    readonly style?: CSSProperties | undefined;
 };
 
 /**
@@ -333,10 +333,10 @@ export class TextField extends Component<TextFieldProps> {
 }
 
 export interface ToastProps {
-    readonly color?: string;
-    readonly accent?: string;
-    readonly style?: CSSProperties;
-    readonly children?: ReactNode;
+    readonly color?: string | undefined;
+    readonly accent?: string | undefined;
+    readonly style?: CSSProperties | undefined;
+    readonly children?: ReactNode | undefined;
 }
 
 /**
@@ -347,12 +347,12 @@ export const Toast: FunctionComponent<ToastProps>;
 
 export interface TooltipProps {
     readonly contents: ReactElement;
-    readonly persistent?: boolean;
-    readonly width?: number | string;
-    readonly offset?: number;
-    readonly top?: boolean;
-    readonly bottom?: boolean;
-    readonly style?: CSSProperties;
+    readonly persistent?: boolean | undefined;
+    readonly width?: number | string | undefined;
+    readonly offset?: number | undefined;
+    readonly top?: boolean | undefined;
+    readonly bottom?: boolean | undefined;
+    readonly style?: CSSProperties | undefined;
     readonly children: ReactNode;
 }
 
@@ -369,19 +369,19 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
 export interface ElementalProps {
     readonly fontOpts?: {
         readonly primary?: {
-            readonly regular?: string;
-            readonly bold?: string;
-        };
+            readonly regular?: string | undefined;
+            readonly bold?: string | undefined;
+        } | undefined;
         readonly secondary?: {
-            readonly regular?: string;
-            readonly bold?: string;
-        };
-    };
+            readonly regular?: string | undefined;
+            readonly bold?: string | undefined;
+        } | undefined;
+    } | undefined;
     readonly colorOpts?: {
-        readonly primary?: string;
-        readonly primaryLight?: string;
-        readonly primaryDark?: string;
-    };
+        readonly primary?: string | undefined;
+        readonly primaryLight?: string | undefined;
+        readonly primaryDark?: string | undefined;
+    } | undefined;
     readonly children: ReactNode;
 }
 
@@ -393,19 +393,19 @@ export class Elemental extends Component<ElementalProps> {}
 
 export interface FontOpts {
     primary?: {
-        regular?: string;
-        bold?: string;
-    };
+        regular?: string | undefined;
+        bold?: string | undefined;
+    } | undefined;
     secondary?: {
-        regular?: string;
-        bold?: string;
-    };
+        regular?: string | undefined;
+        bold?: string | undefined;
+    } | undefined;
 }
 
 export interface ColorOpts {
-    primary?: string;
-    primaryLight?: string;
-    primaryDark?: string;
+    primary?: string | undefined;
+    primaryLight?: string | undefined;
+    primaryDark?: string | undefined;
 }
 
 /**

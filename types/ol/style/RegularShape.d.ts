@@ -10,20 +10,20 @@ import Stroke from './Stroke';
  * Specify radius for regular polygons, or radius1 and radius2 for stars.
  */
 export interface Options {
-    fill?: Fill;
+    fill?: Fill | undefined;
     points: number;
-    radius?: number;
-    radius1?: number;
-    radius2?: number;
-    angle?: number;
-    displacement?: number[];
-    stroke?: Stroke;
-    rotation?: number;
-    rotateWithView?: boolean;
-    scale?: number | Size;
+    radius?: number | undefined;
+    radius1?: number | undefined;
+    radius2?: number | undefined;
+    angle?: number | undefined;
+    displacement?: number[] | undefined;
+    stroke?: Stroke | undefined;
+    rotation?: number | undefined;
+    rotateWithView?: boolean | undefined;
+    scale?: number | Size | undefined;
 }
 export interface RenderOptions {
-    strokeStyle?: ColorLike;
+    strokeStyle?: ColorLike | undefined;
     strokeWidth: number;
     size: number;
     lineCap: CanvasLineCap;

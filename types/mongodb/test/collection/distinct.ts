@@ -9,7 +9,7 @@ async function run() {
         array: string[];
         readonlyArray: ReadonlyArray<string>;
         test: string;
-        optional?: string;
+        optional?: string | undefined;
     }
 
     const client = await connect(connectionString);

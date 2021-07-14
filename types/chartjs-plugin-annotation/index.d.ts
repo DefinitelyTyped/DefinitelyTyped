@@ -11,7 +11,7 @@ import { Moment } from 'moment';
 declare module 'chart.js' {
   interface ChartOptions {
     // This is deprecated on master (not released yet)
-    annotation?: ChartJsAnnotation.AnnotationConfig;
+    annotation?: ChartJsAnnotation.AnnotationConfig | undefined;
   }
 
   // This is the correct version on master (not released yet)
@@ -34,9 +34,9 @@ declare const ChartJsAnnotation: Chart.PluginServiceGlobalRegistration & Chart.P
 // The lib exposes the enum and classes under different names/props in Chart.Annotation
 declare namespace ChartJsAnnotation {
   interface AnnotationConfig {
-    drawTime?: keyof typeof DrawTimeOptions;
-    events?: string[];
-    dblClickSpeed?: number;
+    drawTime?: keyof typeof DrawTimeOptions | undefined;
+    events?: string[] | undefined;
+    dblClickSpeed?: number | undefined;
     annotations: AnnotationOptions[];
   }
 
@@ -53,20 +53,20 @@ declare namespace ChartJsAnnotation {
 
   interface CommonAnnotationOptions {
     type: 'line' | 'box';
-    drawTime?: keyof typeof DrawTimeOptions;
-    id?: string;
+    drawTime?: keyof typeof DrawTimeOptions | undefined;
+    id?: string | undefined;
 
-    onMouseenter?: (event: MouseEvent) => void;
-    onMouseover?: (event: MouseEvent) => void;
-    onMouseleave?: (event: MouseEvent) => void;
-    onMouseout?: (event: MouseEvent) => void;
-    onMousemove?: (event: MouseEvent) => void;
-    onMousedown?: (event: MouseEvent) => void;
-    onMouseup?: (event: MouseEvent) => void;
-    onClick?: (event: MouseEvent) => void;
-    onDblclick?: (event: MouseEvent) => void;
-    onContextmenu?: (event: MouseEvent) => void;
-    onWheel?: (event: MouseEvent) => void;
+    onMouseenter?: ((event: MouseEvent) => void) | undefined;
+    onMouseover?: ((event: MouseEvent) => void) | undefined;
+    onMouseleave?: ((event: MouseEvent) => void) | undefined;
+    onMouseout?: ((event: MouseEvent) => void) | undefined;
+    onMousemove?: ((event: MouseEvent) => void) | undefined;
+    onMousedown?: ((event: MouseEvent) => void) | undefined;
+    onMouseup?: ((event: MouseEvent) => void) | undefined;
+    onClick?: ((event: MouseEvent) => void) | undefined;
+    onDblclick?: ((event: MouseEvent) => void) | undefined;
+    onContextmenu?: ((event: MouseEvent) => void) | undefined;
+    onWheel?: ((event: MouseEvent) => void) | undefined;
   }
 
   type ChartPointValue = number | string | Date | Moment;
@@ -76,46 +76,46 @@ declare namespace ChartJsAnnotation {
     mode: 'horizontal' | 'vertical';
     scaleID: string;
     value: ChartPointValue;
-    endValue?: ChartPointValue;
+    endValue?: ChartPointValue | undefined;
 
-    borderColor?: Chart.ChartColor;
-    borderWidth?: number;
-    borderDash?: number[];
-    borderDashOffset?: number;
+    borderColor?: Chart.ChartColor | undefined;
+    borderWidth?: number | undefined;
+    borderDash?: number[] | undefined;
+    borderDashOffset?: number | undefined;
 
-    label?: LineAnnotationLabel;
+    label?: LineAnnotationLabel | undefined;
   }
 
   interface BoxAnnotationOptions extends CommonAnnotationOptions {
     type: 'box';
-    xScaleID?: string;
-    yScaleID?: string;
+    xScaleID?: string | undefined;
+    yScaleID?: string | undefined;
     xMin: ChartPointValue;
     xMax: ChartPointValue;
     yMin: ChartPointValue;
     yMax: ChartPointValue;
 
-    borderColor?: Chart.ChartColor;
-    borderWidth?: number;
-    backgroundColor?: Chart.ChartColor;
+    borderColor?: Chart.ChartColor | undefined;
+    borderWidth?: number | undefined;
+    backgroundColor?: Chart.ChartColor | undefined;
   }
 
   type AnnotationOptions = LineAnnotationOptions | BoxAnnotationOptions;
 
   interface LineAnnotationLabel {
-    backgroundColor?: Chart.ChartColor;
-    fontFamily?: string;
-    fontSize?: number;
-    fontStyle?: string;
-    fontColor?: Chart.ChartColor;
-    xPadding?: number;
-    yPadding?: number;
-    cornerRadius?: number;
-    position?: 'top' | 'bottom' | 'left' | 'right' | 'center';
-    xAdjust?: number;
-    yAdjust?: number;
-    enabled?: boolean;
-    content?: string; // | string[]; // only on master (not released yet)
+    backgroundColor?: Chart.ChartColor | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: number | undefined;
+    fontStyle?: string | undefined;
+    fontColor?: Chart.ChartColor | undefined;
+    xPadding?: number | undefined;
+    yPadding?: number | undefined;
+    cornerRadius?: number | undefined;
+    position?: 'top' | 'bottom' | 'left' | 'right' | 'center' | undefined;
+    xAdjust?: number | undefined;
+    yAdjust?: number | undefined;
+    enabled?: boolean | undefined;
+    content?: string | undefined; // | string[]; // only on master (not released yet)
     // rotation?: number; // only on master (not released yet)
   }
 

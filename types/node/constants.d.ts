@@ -11,3 +11,8 @@ declare module 'constants' {
         typeof fsConstants;
     export = exp;
 }
+
+declare module 'node:constants' {
+    import constants = require('constants');
+    export = constants;
+}

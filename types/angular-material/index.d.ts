@@ -25,20 +25,20 @@ declare module 'angular' {
         }
 
         interface IBottomSheetOptions {
-            templateUrl?: string;
-            template?: string;
-            scope?: IScope; // default: new child scope
-            preserveScope?: boolean; // default: false
-            controller?: string | Injectable<IControllerConstructor>;
-            locals?: { [index: string]: any };
-            clickOutsideToClose?: boolean;
-            bindToController?: boolean; // default: false
-            disableBackdrop?: boolean;
-            escapeToClose?: boolean;
-            resolve?: ResolveObject;
-            controllerAs?: string;
-            parent?: ((scope: IScope, element: JQuery) => Element | JQuery) | string | Element | JQuery; // default: root node
-            disableParentScroll?: boolean; // default: true
+            templateUrl?: string | undefined;
+            template?: string | undefined;
+            scope?: IScope | undefined; // default: new child scope
+            preserveScope?: boolean | undefined; // default: false
+            controller?: string | Injectable<IControllerConstructor> | undefined;
+            locals?: { [index: string]: any } | undefined;
+            clickOutsideToClose?: boolean | undefined;
+            bindToController?: boolean | undefined; // default: false
+            disableBackdrop?: boolean | undefined;
+            escapeToClose?: boolean | undefined;
+            resolve?: ResolveObject | undefined;
+            controllerAs?: string | undefined;
+            parent?: ((scope: IScope, element: JQuery) => Element | JQuery) | string | Element | JQuery | undefined; // default: root node
+            disableParentScroll?: boolean | undefined; // default: true
         }
 
         interface IBottomSheetService {
@@ -101,33 +101,33 @@ declare module 'angular' {
         }
 
         interface IDialogOptions {
-            templateUrl?: string;
-            template?: string;
-            contentElement?: string | Element;
-            autoWrap?: boolean; // default: true
-            targetEvent?: MouseEvent;
+            templateUrl?: string | undefined;
+            template?: string | undefined;
+            contentElement?: string | Element | undefined;
+            autoWrap?: boolean | undefined; // default: true
+            targetEvent?: MouseEvent | undefined;
             openFrom?: any;
             closeTo?: any;
-            scope?: IScope; // default: new child scope
-            preserveScope?: boolean; // default: false
-            disableParentScroll?: boolean; // default: true
-            hasBackdrop?: boolean; // default: true
-            clickOutsideToClose?: boolean; // default: false
-            escapeToClose?: boolean; // default: true
-            focusOnOpen?: boolean; // default: true
-            controller?: string | Injectable<IControllerConstructor>;
-            locals?: { [index: string]: any };
-            bindToController?: boolean; // default: false
-            resolve?: ResolveObject;
-            controllerAs?: string;
-            parent?: string | Element | JQuery; // default: root node
+            scope?: IScope | undefined; // default: new child scope
+            preserveScope?: boolean | undefined; // default: false
+            disableParentScroll?: boolean | undefined; // default: true
+            hasBackdrop?: boolean | undefined; // default: true
+            clickOutsideToClose?: boolean | undefined; // default: false
+            escapeToClose?: boolean | undefined; // default: true
+            focusOnOpen?: boolean | undefined; // default: true
+            controller?: string | Injectable<IControllerConstructor> | undefined;
+            locals?: { [index: string]: any } | undefined;
+            bindToController?: boolean | undefined; // default: false
+            resolve?: ResolveObject | undefined;
+            controllerAs?: string | undefined;
+            parent?: string | Element | JQuery | undefined; // default: root node
             onShowing?(scope: IScope, element: JQuery): void;
             onComplete?(scope: IScope, element: JQuery): void;
             onRemoving?(element: JQuery, removePromise: IPromise<any>): void;
-            skipHide?: boolean;
-            multiple?: boolean;
-            fullscreen?: boolean; // default: false
-            title?: string;
+            skipHide?: boolean | undefined;
+            multiple?: boolean | undefined;
+            fullscreen?: boolean | undefined; // default: false
+            title?: string | undefined;
         }
 
         interface IDialogService {
@@ -145,7 +145,7 @@ declare module 'angular' {
         }
 
         interface IDialogProvider {
-            addPreset(presetName: string, presetOptions: { methods?: ReadonlyArray<string>, options: () => IDialogOptions }): IDialogProvider;
+            addPreset(presetName: string, presetOptions: { methods?: ReadonlyArray<string> | undefined, options: () => IDialogOptions }): IDialogProvider;
         }
 
         type IIcon = (id: string) => IPromise<Element>; // id is a unique ID or URL
@@ -195,20 +195,20 @@ declare module 'angular' {
         }
 
         interface IToastOptions {
-            templateUrl?: string;
-            template?: string;
-            autoWrap?: boolean;
-            scope?: IScope; // default: new child scope
-            preserveScope?: boolean; // default: false
-            hideDelay?: number | false; // default (ms): 3000
-            position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
-            toastClass?: string;
-            controller?: string | Injectable<IControllerConstructor>;
-            locals?: { [index: string]: any };
-            bindToController?: boolean; // default: false
-            resolve?: ResolveObject;
-            controllerAs?: string;
-            parent?: string | Element | JQuery; // default: root node
+            templateUrl?: string | undefined;
+            template?: string | undefined;
+            autoWrap?: boolean | undefined;
+            scope?: IScope | undefined; // default: new child scope
+            preserveScope?: boolean | undefined; // default: false
+            hideDelay?: number | false | undefined; // default (ms): 3000
+            position?: string | undefined; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
+            toastClass?: string | undefined;
+            controller?: string | Injectable<IControllerConstructor> | undefined;
+            locals?: { [index: string]: any } | undefined;
+            bindToController?: boolean | undefined; // default: false
+            resolve?: ResolveObject | undefined;
+            controllerAs?: string | undefined;
+            parent?: string | Element | JQuery | undefined; // default: root node
         }
 
         interface IToastService {
@@ -223,32 +223,32 @@ declare module 'angular' {
         }
 
         interface IPalette {
-            0?: string;
-            50?: string;
-            100?: string;
-            200?: string;
-            300?: string;
-            400?: string;
-            500?: string;
-            600?: string;
-            700?: string;
-            800?: string;
-            900?: string;
-            A100?: string;
-            A200?: string;
-            A400?: string;
-            A700?: string;
-            contrastDefaultColor?: string;
-            contrastDarkColors?: string | string[];
-            contrastLightColors?: string | string[];
-            contrastStrongLightColors?: string | string[];
+            0?: string | undefined;
+            50?: string | undefined;
+            100?: string | undefined;
+            200?: string | undefined;
+            300?: string | undefined;
+            400?: string | undefined;
+            500?: string | undefined;
+            600?: string | undefined;
+            700?: string | undefined;
+            800?: string | undefined;
+            900?: string | undefined;
+            A100?: string | undefined;
+            A200?: string | undefined;
+            A400?: string | undefined;
+            A700?: string | undefined;
+            contrastDefaultColor?: string | undefined;
+            contrastDarkColors?: string | string[] | undefined;
+            contrastLightColors?: string | string[] | undefined;
+            contrastStrongLightColors?: string | string[] | undefined;
         }
 
         interface IThemeHues {
-            default?: string;
-            'hue-1'?: string;
-            'hue-2'?: string;
-            'hue-3'?: string;
+            default?: string | undefined;
+            'hue-1'?: string | undefined;
+            'hue-2'?: string | undefined;
+            'hue-3'?: string | undefined;
         }
 
         interface IThemePalette {
@@ -314,11 +314,11 @@ declare module 'angular' {
         }
 
         interface IDefineThemeOptions {
-            primary?: string;
-            accent?: string;
-            warn?: string;
-            background?: string;
-            dark?: boolean;
+            primary?: string | undefined;
+            accent?: string | undefined;
+            warn?: string | undefined;
+            background?: string | undefined;
+            dark?: boolean | undefined;
         }
 
         interface IThemingService {
@@ -387,33 +387,33 @@ declare module 'angular' {
         }
 
         interface IPanelConfig {
-            id?: string;
-            template?: string;
-            templateUrl?: string;
-            controller?: string | Injectable<IControllerConstructor>;
-            controllerAs?: string;
-            bindToController?: boolean; // default: true
-            locals?: { [index: string]: any };
-            resolve?: ResolveObject;
-            attachTo?: string | JQuery | Element;
-            propagateContainerEvents?: boolean;
-            panelClass?: string;
-            zIndex?: number; // default: 80
-            position?: IPanelPosition;
-            clickOutsideToClose?: boolean; // default: false
-            escapeToClose?: boolean; // default: false
-            trapFocus?: boolean; // default: false
-            focusOnOpen?: boolean; // default: true
-            fullscreen?: boolean; // default: false
-            animation?: IPanelAnimation;
-            hasBackdrop?: boolean; // default: false
-            disableParentScroll?: boolean; // default: false
+            id?: string | undefined;
+            template?: string | undefined;
+            templateUrl?: string | undefined;
+            controller?: string | Injectable<IControllerConstructor> | undefined;
+            controllerAs?: string | undefined;
+            bindToController?: boolean | undefined; // default: true
+            locals?: { [index: string]: any } | undefined;
+            resolve?: ResolveObject | undefined;
+            attachTo?: string | JQuery | Element | undefined;
+            propagateContainerEvents?: boolean | undefined;
+            panelClass?: string | undefined;
+            zIndex?: number | undefined; // default: 80
+            position?: IPanelPosition | undefined;
+            clickOutsideToClose?: boolean | undefined; // default: false
+            escapeToClose?: boolean | undefined; // default: false
+            trapFocus?: boolean | undefined; // default: false
+            focusOnOpen?: boolean | undefined; // default: true
+            fullscreen?: boolean | undefined; // default: false
+            animation?: IPanelAnimation | undefined;
+            hasBackdrop?: boolean | undefined; // default: false
+            disableParentScroll?: boolean | undefined; // default: false
             onDomAdded?(...args: any[]): PromiseLike<void> | void;
             onOpenComplete?(...args: any[]): PromiseLike<void> | void;
             onRemoving?(...args: any[]): PromiseLike<void> | void;
             onDomRemoved?(...args: any[]): PromiseLike<void> | void;
-            origin?: string | JQuery | Element;
-            onCloseSuccess?: ((panel: IPanelRef, closeReason: string) => any);
+            origin?: string | JQuery | Element | undefined;
+            onCloseSuccess?: ((panel: IPanelRef, closeReason: string) => any) | undefined;
         }
 
         interface IPanelRef {
@@ -503,13 +503,13 @@ declare module 'angular' {
         }
 
         interface IProgressCircularConfig {
-            progressSize?: number;
-            strokeWidth?: number;
-            duration?: number;
+            progressSize?: number | undefined;
+            strokeWidth?: number | undefined;
+            duration?: number | undefined;
             easeFn?(t: number, b: number, c: number, d: number): number;
-            durationIndeterminate?: number;
-            startIndeterminate?: number;
-            endIndeterminate?: number;
+            durationIndeterminate?: number | undefined;
+            startIndeterminate?: number | undefined;
+            endIndeterminate?: number | undefined;
             easeFnIndeterminate?(t: number, b: number, c: number, d: number): number;
         }
 

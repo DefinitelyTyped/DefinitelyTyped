@@ -21,91 +21,91 @@ export interface Options {
      * Minimum distance required to trigger the refresh.
      * (default: `60`)
      */
-    distThreshold?: number;
+    distThreshold?: number | undefined;
 
     /**
      * Maximum distance possible for the element.
      * (default: `80`)
      */
-    distMax?: number;
+    distMax?: number | undefined;
 
     /**
      * After the `distThreshold` is reached and released, the element will have this height.
      * (default: `50`)
      */
-    distReload?: number;
+    distReload?: number | undefined;
 
     /**
      * After which distance should we start pulling.
      * (Default: `0`)
      */
-    distIgnore?: number;
+    distIgnore?: number | undefined;
 
     /**
      * Before which element the pull to refresh elements will be?
      * (default: `body`)
      */
-    mainElement?: string;
+    mainElement?: string | undefined;
 
     /**
      * Which element should trigger the pull to refresh?
      * (default: `body`)
      */
-    triggerElement?: string;
+    triggerElement?: string | undefined;
 
     /**
      * What class will the main element have?
      * (default: `.ptr`)
      */
-    ptrElement?: string;
+    ptrElement?: string | undefined;
 
     /**
      * What class prefix for the elements?
      * (default: `ptr--`)
      */
-    classPrefix?: string;
+    classPrefix?: string | undefined;
 
     /**
      * What property will be used to calculate the element's proportions?
      * (default: `min-height`)
      */
-    cssProp?: string;
+    cssProp?: string | undefined;
 
     /**
      * The icon for both `instructionsPullToRefresh` and `instructionsReleaseToRefresh`
      * (default: `&#8675;`)
      */
-    iconArrow?: string;
+    iconArrow?: string | undefined;
 
     /**
      * The icon when the refresh is in progress.
      * (default: `&hellip;`)
      */
-    iconRefreshing?: string;
+    iconRefreshing?: string | undefined;
 
     /**
      * The initial instructions string.
      * (default: `Pull down to refresh`)
      */
-    instructionsPullToRefresh?: string;
+    instructionsPullToRefresh?: string | undefined;
 
     /**
      * The instructions string when the `distThreshold` has been reached.
      * (default: `Release to refresh`)
      */
-    instructionsReleaseToRefresh?: string;
+    instructionsReleaseToRefresh?: string | undefined;
 
     /**
      * The refreshing text.
      * (default: `Refreshing`)
      */
-    instructionsRefreshing?: string;
+    instructionsRefreshing?: string | undefined;
 
     /**
      * The delay, in milliseconds before the `onRefresh` is triggered.
      * (default: `500`)
      */
-    refreshTimeout?: number;
+    refreshTimeout?: number | undefined;
 
     /**
      * It returns the default HTML for the widget, __PREFIX__ is replaced.
@@ -127,7 +127,7 @@ export interface Options {
      *
      * Defaults to `window.location.reload()`
      */
-    onRefresh?: (() => PromiseLike<void>) | (() => void);
+    onRefresh?: (() => PromiseLike<void>) | (() => void) | undefined;
 
     /**
      * The resistance function, accepts one parameter, must return a number, capping at 1.

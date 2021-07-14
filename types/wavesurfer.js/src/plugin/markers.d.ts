@@ -52,4 +52,6 @@ export interface MarkerParams {
     /** Background color for marker. */
     color?: string | undefined;
     position?: "top" | "bottom" | undefined;
+    /** An HTML element to display instead of the default marker image. */
+    markerElement?: HTMLElement | undefined;
 }

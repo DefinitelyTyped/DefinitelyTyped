@@ -343,6 +343,11 @@ declare namespace yargs {
         getCompletion(args: ReadonlyArray<string>, done: (completions: ReadonlyArray<string>) => void): Argv<T>;
 
         /**
+         * Returns a promise which resolves to a string containing the help text.
+         */
+        getHelp(): Promise<string>;
+
+        /**
          * Indicate that an option (or group of options) should not be reset when a command is executed
          *
          * Options default to being global.

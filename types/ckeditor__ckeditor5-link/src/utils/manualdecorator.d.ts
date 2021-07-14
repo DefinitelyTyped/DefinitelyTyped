@@ -7,7 +7,7 @@ export default class ManualDecorator implements Observable {
     readonly label: string;
     value: boolean;
 
-    constructor(config: { id: string; label: string; attributes: Record<string, string>; defaultValue?: boolean });
+    constructor(config: { id: string; label: string; attributes: Record<string, string>; defaultValue?: boolean | undefined });
 
     set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;

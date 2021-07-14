@@ -29,31 +29,31 @@ export interface SimulationNodeDatum {
     /**
      * Node’s zero-based index into nodes array. This property is set during the initialization process of a simulation.
      */
-    index?: number;
+    index?: number | undefined;
     /**
      * Node’s current x-position
      */
-    x?: number;
+    x?: number | undefined;
     /**
      * Node’s current y-position
      */
-    y?: number;
+    y?: number | undefined;
     /**
      * Node’s current x-velocity
      */
-    vx?: number;
+    vx?: number | undefined;
     /**
      * Node’s current y-velocity
      */
-    vy?: number;
+    vy?: number | undefined;
     /**
      * Node’s fixed x-position (if position was fixed)
      */
-    fx?: number | null;
+    fx?: number | null | undefined;
     /**
      * Node’s fixed y-position (if position was fixed)
      */
-    fy?: number | null;
+    fy?: number | null | undefined;
 }
 
 /**
@@ -87,7 +87,7 @@ export interface SimulationLinkDatum<NodeDatum extends SimulationNodeDatum> {
     /**
      * The zero-based index into the links array. Internally generated when calling ForceLink.links(...)
      */
-    index?: number;
+    index?: number | undefined;
 }
 
 /**
@@ -121,7 +121,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      * creation or by calling simulation.restart. The natural number of ticks when the simulation is started is
      * ⌈log(alphaMin) / log(1 - alphaDecay)⌉; by default, this is 300.
      */
-    tick(iterations?: number): void;
+    tick(iterations?: number): this;
 
     /**
      * Returns the simulation’s array of nodes as specified to the constructor.

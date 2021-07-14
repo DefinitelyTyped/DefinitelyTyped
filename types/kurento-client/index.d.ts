@@ -76,32 +76,32 @@ declare namespace kurento {
 
     interface RecorderEndpointOptions {
         uri: string;
-        mediaProfile?: MediaProfileSpecType;
-        stopOnEndOfStream?: boolean;
+        mediaProfile?: MediaProfileSpecType | undefined;
+        stopOnEndOfStream?: boolean | undefined;
     }
 
     interface Options {
-        failAfter?: number;
-        enableTransactions?: boolean;
-        useImplicitTransactions?: boolean;
-        strict?: boolean;
-        request_timeout?: number;
-        response_timeout?: number;
-        duplicates_timeout?: number;
-        access_token?: string;
+        failAfter?: number | undefined;
+        enableTransactions?: boolean | undefined;
+        useImplicitTransactions?: boolean | undefined;
+        strict?: boolean | undefined;
+        request_timeout?: number | undefined;
+        response_timeout?: number | undefined;
+        duplicates_timeout?: number | undefined;
+        access_token?: string | undefined;
         socket?: any;
     }
 
     interface ClientInstance {
         create(type: 'MediaPipeline'): Promise<MediaPipeline>;
-        create(type: 'WebRtcEndpoint', options?: { useDataChannels?: boolean }): Promise<WebRtcEndpoint>;
+        create(type: 'WebRtcEndpoint', options?: { useDataChannels?: boolean | undefined }): Promise<WebRtcEndpoint>;
         create(type: 'RecorderEndpoint', options: RecorderEndpointOptions): Promise<RecorderEndpoint>;
         create(
             type: 'PlayerEndpoint',
             options?: {
-                networkCache?: number;
+                networkCache?: number | undefined;
                 uri: string;
-                useEncodedMedia?: boolean;
+                useEncodedMedia?: boolean | undefined;
             },
         ): Promise<PlayerEndpoint>;
         create(type: string, options?: Record<string, unknown>): Promise<MediaElement>;
@@ -425,9 +425,9 @@ declare namespace kurento {
 
     interface PlayerEndpoint extends UriEndpoint {
         mediaPipeline: MediaPipeline;
-        networkCache?: number;
+        networkCache?: number | undefined;
         uri: string;
-        useEncodedMedia?: boolean;
+        useEncodedMedia?: boolean | undefined;
 
         play(callback?: (error: Error) => void): Promise<void>;
 

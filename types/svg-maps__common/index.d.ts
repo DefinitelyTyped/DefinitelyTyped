@@ -9,11 +9,11 @@
 export interface Location {
     path: string;
     id: string;
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface Map {
     viewBox: string;
     locations: Location[];
-    label?: string;
+    label?: string | undefined;
 }

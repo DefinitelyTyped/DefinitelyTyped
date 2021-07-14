@@ -13,7 +13,7 @@ declare module "karma" {
         /**
          * {@link https://github.com/karma-runner/karma-coverage/blob/v1.1.2/docs/configuration.md }
          */
-        coverageReporter?: KarmaCoverageReporter & { reporters?: KarmaCoverageReporter[] };
+        coverageReporter?: KarmaCoverageReporter & { reporters?: KarmaCoverageReporter[] | undefined } | undefined;
     }
 
     /** Reporter type */
@@ -32,61 +32,61 @@ declare module "karma" {
 
     interface Reporter {
         type: ReporterType;
-        dir?: string;
-        subdir?: string | ((browser: string) => string);
-        file?: string;
+        dir?: string | undefined;
+        subdir?: string | ((browser: string) => string) | undefined;
+        file?: string | undefined;
     }
 
     interface CheckTresholds {
-        global?: Tresholds;
-        each?: Tresholds;
+        global?: Tresholds | undefined;
+        each?: Tresholds | undefined;
     }
 
     interface Tresholds {
-        statements?: number;
-        branches?: number;
-        functions?: number;
-        lines?: number;
-        excludes?: string[];
-        overrides?: Record<string, Tresholds>;
+        statements?: number | undefined;
+        branches?: number | undefined;
+        functions?: number | undefined;
+        lines?: number | undefined;
+        excludes?: string[] | undefined;
+        overrides?: Record<string, Tresholds> | undefined;
     }
 
     interface Watermarks {
-        statements?: [number, number];
-        functions?: [number, number];
-        branches?: [number, number];
-        lines?: [number, number];
+        statements?: [number, number] | undefined;
+        functions?: [number, number] | undefined;
+        branches?: [number, number] | undefined;
+        lines?: [number, number] | undefined;
     }
 
     interface KarmaCoverageReporter {
         /** Specify a reporter type */
-        type?: ReporterType;
+        type?: ReporterType | undefined;
 
         /** This will be used to output coverage reports. When you set a relative path, the directory is resolved against the basePath. */
-        dir?: string;
+        dir?: string | undefined;
 
         /** This will be used in complement of the coverageReporter.dir option to generate the full output directory path */
-        subdir?: string | ((browser: string) => string);
+        subdir?: string | ((browser: string) => string) | undefined;
 
         /** If you use one of these reporters, `cobertura`, `lcovonly`, `teamcity`, `text` or `text-summary`, you may set the file option to specify the output file */
-        file?: string;
+        file?: string | undefined;
 
         /** This will be used to configure minimum threshold enforcement for coverage results */
-        check?: CheckTresholds;
+        check?: CheckTresholds | undefined;
 
         /** This will be used to set the coverage threshold colors */
-        watermarks?: Watermarks;
+        watermarks?: Watermarks | undefined;
         /**
          * You can opt to include all sources files, as indicated by the coverage preprocessor,
          * in your code coverage data, even if there are no tests covering them
          */
-        includeAllSources?: boolean;
+        includeAllSources?: boolean | undefined;
 
         /** You can opt to specify a source store allowing for external coverage collectors access to the instrumented code. */
-        sourceStore?: Store;
+        sourceStore?: Store | undefined;
 
         /** You can use multiple reporters, by providing array of options */
-        reporters?: Reporter[];
+        reporters?: Reporter[] | undefined;
         /**
          * Karma-coverage can infers the instrumenter regarding of the file extension.
          * It is possible to override this behavior and point out an instrumenter
@@ -94,18 +94,18 @@ declare module "karma" {
          */
         instrumenter?: {
             [key: string]: string;
-        };
+        } | undefined;
 
-        instrumenters?: Record<string, any>;
+        instrumenters?: Record<string, any> | undefined;
 
-        instrumenterOptions?: Record<string, Record<string, unknown>>;
+        instrumenterOptions?: Record<string, Record<string, unknown>> | undefined;
 
         /**
          * If set to true, then CoffeeScript files instrumented with Ibrik will use
          * the .js extension for the transpiled source (without this option,
          * the JavaScript files will keep the original .coffee extension)
          */
-        useJSExtensionForCoffeeScript?: boolean;
+        useJSExtensionForCoffeeScript?: boolean | undefined;
 
         [moreSettings: string]: unknown;
     }

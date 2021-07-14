@@ -72,38 +72,38 @@ declare namespace polymer {
         flush(): any;
     }
     interface FireOptions {
-        node?: HTMLElement | polymer.Base;
-        bubbles?: boolean;
-        cancelable?: boolean;
+        node?: HTMLElement | polymer.Base | undefined;
+        bubbles?: boolean | undefined;
+        cancelable?: boolean | undefined;
     }
     interface Element {
-        properties?: Object;
-        listeners?: Object;
-        behaviors?: Object[];
-        observers?: String[];
+        properties?: Object | undefined;
+        listeners?: Object | undefined;
+        behaviors?: Object[] | undefined;
+        observers?: String[] | undefined;
         factoryImpl?(...args: any[]): void;
         ready?(): void;
         created?(): void;
         attached?(): void;
         detached?(): void;
         attributeChanged?(attrName: string, oldVal: any, newVal: any): void;
-        prototype?: Object;
+        prototype?: Object | undefined;
     }
     interface PolymerTSElement {
-        $custom_cons?: FunctionConstructor;
-        $custom_cons_args?: any[];
-        template?: string;
-        style?: string;
+        $custom_cons?: FunctionConstructor | undefined;
+        $custom_cons_args?: any[] | undefined;
+        template?: string | undefined;
+        style?: string | undefined;
     }
     interface Property {
-        name?: string;
+        name?: string | undefined;
         type?: any;
         value?: any;
-        reflectToAttribute?: boolean;
-        readOnly?: boolean;
-        notify?: boolean;
-        computed?: string;
-        observer?: string;
+        reflectToAttribute?: boolean | undefined;
+        readOnly?: boolean | undefined;
+        notify?: boolean | undefined;
+        computed?: string | undefined;
+        observer?: string | undefined;
     }
     interface Base extends polymer.Element { }
     class Base extends polymer.PolymerBase {

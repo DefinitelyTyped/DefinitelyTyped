@@ -45,7 +45,7 @@ interface Parser {
 
 type AuthorizationHandler = (
     req: http.IncomingMessage,
-    done: (err?: string | Error | { statusCode?: number; authenticate?: string; message?: string }) => void,
+    done: (err?: string | Error | { statusCode?: number | undefined; authenticate?: string | undefined; message?: string | undefined }) => void,
 ) => void;
 
 type Middleware = (req: http.IncomingMessage, res: http.ServerResponse) => void;
@@ -91,8 +91,8 @@ declare class Primus extends EventEmitter {
     enable(name: string): this;
     disable(name: string): this;
 
-    destroy(options: { close?: boolean; reconnect: boolean; timeout: number }, fn: () => void): this;
-    end(data?: any, options?: { reconnect?: boolean }): void;
+    destroy(options: { close?: boolean | undefined; reconnect: boolean; timeout: number }, fn: () => void): this;
+    end(data?: any, options?: { reconnect?: boolean | undefined }): void;
 
     reserved(name: string): boolean;
 
@@ -102,25 +102,25 @@ declare class Primus extends EventEmitter {
 }
 
 interface PrimusOptions {
-    authorization?: AuthorizationHandler;
-    pathname?: string;
-    parser?: string | Parser;
-    transformer?: 'websockets' | 'engine.io' | 'browserchannel' | 'sockjs' | 'faye' | 'uws';
-    plugin?: string | object;
-    pingInterval?: number;
-    global?: string;
-    compression?: boolean;
-    maxLength?: number;
-    transport?: object;
+    authorization?: AuthorizationHandler | undefined;
+    pathname?: string | undefined;
+    parser?: string | Parser | undefined;
+    transformer?: 'websockets' | 'engine.io' | 'browserchannel' | 'sockjs' | 'faye' | 'uws' | undefined;
+    plugin?: string | object | undefined;
+    pingInterval?: number | undefined;
+    global?: string | undefined;
+    compression?: boolean | undefined;
+    maxLength?: number | undefined;
+    transport?: object | undefined;
     idGenerator?(): string;
 
     // Cors
-    origins?: string;
-    methods?: string;
-    credentials?: boolean;
-    maxAge?: string;
-    headers?: boolean;
-    exposed?: boolean;
+    origins?: string | undefined;
+    methods?: string | undefined;
+    credentials?: boolean | undefined;
+    maxAge?: string | undefined;
+    headers?: boolean | undefined;
+    exposed?: boolean | undefined;
 }
 
 declare namespace Primus {
@@ -142,7 +142,7 @@ declare namespace Primus {
         request: http.IncomingMessage;
 
         write(data: any): void;
-        end(data?: any, options?: { reconnect?: boolean }): void;
+        end(data?: any, options?: { reconnect?: boolean | undefined }): void;
         emits: emits.emits;
 
         on(event: 'data', handler: (message: any) => void): this;
@@ -150,11 +150,11 @@ declare namespace Primus {
     }
 
     interface ReconnectOpts {
-        max?: number;
-        min?: number;
-        retries?: number | null;
-        'reconnect timeout'?: number;
-        factor?: number;
+        max?: number | undefined;
+        min?: number | undefined;
+        retries?: number | null | undefined;
+        'reconnect timeout'?: number | undefined;
+        factor?: number | undefined;
     }
     interface ReconnectEventOpts extends Required<ReconnectOpts> {
         start: number;
@@ -166,20 +166,20 @@ declare namespace Primus {
     interface SocketOptions {
         // https://github.com/unshiftio/recovery
         reconnect?: {
-            max?: number;
-            min?: number;
-            retries?: number;
-            'reconnect timeout'?: number;
-            factor?: number;
-        };
-        timeout?: number;
-        pingTimeout?: number;
-        strategy?: string | Array<'disconnect' | 'online' | 'timeout'>;
-        manual?: boolean;
-        websockets?: boolean;
-        network?: boolean;
-        transport?: object;
-        queueSize?: number;
+            max?: number | undefined;
+            min?: number | undefined;
+            retries?: number | undefined;
+            'reconnect timeout'?: number | undefined;
+            factor?: number | undefined;
+        } | undefined;
+        timeout?: number | undefined;
+        pingTimeout?: number | undefined;
+        strategy?: string | Array<'disconnect' | 'online' | 'timeout'> | undefined;
+        manual?: boolean | undefined;
+        websockets?: boolean | undefined;
+        network?: boolean | undefined;
+        transport?: object | undefined;
+        queueSize?: number | undefined;
     }
     class Socket extends Stream {
         constructor(options?: SocketOptions);

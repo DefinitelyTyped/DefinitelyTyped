@@ -19,7 +19,7 @@ declare namespace Ouibounce {
          *
          * *Defaults to 20.*
          */
-        sensitivity?: number;
+        sensitivity?: number | undefined;
 
         /**
          * By default, Ouibounce will only fire once for each visitor.
@@ -32,7 +32,7 @@ declare namespace Ouibounce {
          * landing pages. If you enable `aggressive`, the modal will fire any
          * time the page is reloaded, for the same user.
          */
-        aggressive?: boolean;
+        aggressive?: boolean | undefined;
 
         /**
          * By default, Ouibounce won't fire in the first second to prevent
@@ -41,7 +41,7 @@ declare namespace Ouibounce {
          * of time that firing is surpressed for, you can pass in a number
          * of milliseconds to `timer`.
          */
-        timer?: number;
+        timer?: number | undefined;
 
         /**
          * By default, Ouibounce will show the modal immediately. You could
@@ -51,12 +51,12 @@ declare namespace Ouibounce {
          * period" for visitors instead of immediately presenting the modal
          * window.
          */
-        delay?: number;
+        delay?: number | undefined;
 
         /**
          * A function that will run once Ouibounce has been triggered.
          */
-        callback?: () => void;
+        callback?: (() => void) | undefined;
 
         /**
          * Ouibounce sets a cookie by default to prevent the modal from
@@ -66,7 +66,7 @@ declare namespace Ouibounce {
          * will expire at the end of the session, which for most browsers is
          * when the browser is closed entirely.
          */
-        cookieExpire?: number;
+        cookieExpire?: number | undefined;
 
         /**
          * Ouibounce sets a cookie by default to prevent the modal from
@@ -77,17 +77,17 @@ declare namespace Ouibounce {
          * blog.example.com and example.com), then set a `cookieDomain` such
          * as .example.com (notice the dot in front).
          */
-        cookieDomain?: string;
+        cookieDomain?: string | undefined;
 
         /**
          * The name for the cookie.
          */
-        cookieName?: string;
+        cookieName?: string | undefined;
 
         /**
          * Whether the cookie should be used sitewide.
          */
-        sitewide?: boolean;
+        sitewide?: boolean | undefined;
     }
 
     interface Ouibounce {
@@ -99,6 +99,6 @@ declare namespace Ouibounce {
         /**
          * Disables the ouibounce event.
          */
-        disable: (custom_options?: {cookieExpire?: number, cookieDomain?: string, cookieName?: string, sitewide?: boolean}) => void;
+        disable: (custom_options?: {cookieExpire?: number | undefined, cookieDomain?: string | undefined, cookieName?: string | undefined, sitewide?: boolean | undefined}) => void;
     }
 }

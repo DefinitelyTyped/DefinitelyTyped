@@ -13,12 +13,12 @@ declare global {
 
     interface PropObjectType {
       type: PropConstructorType;
-      value?: boolean | number | string | Function | Object;
-      reflectToAttribute?: boolean;
-      readOnly?: boolean;
-      notify?: boolean;
-      computed?: string;
-      observer?: string;
+      value?: boolean | number | string | Function | Object | undefined;
+      reflectToAttribute?: boolean | undefined;
+      readOnly?: boolean | undefined;
+      notify?: boolean | undefined;
+      computed?: string | undefined;
+      observer?: string | undefined;
     }
 
     interface CommonBase {
@@ -26,7 +26,7 @@ declare global {
 
       // Attributes
 
-      hostAttributes?: {[name: string]: any};
+      hostAttributes?: {[name: string]: any} | undefined;
 
       reflectPropertiesToAttribute?(name: string): void;
 
@@ -44,7 +44,7 @@ declare global {
 
       // Behaviors
 
-      behaviors?:Object[];
+      behaviors?:Object[] | undefined;
 
       // Constructors
 
@@ -62,13 +62,13 @@ declare global {
 
       // Extends
 
-      extends?: string;
+      extends?: string | undefined;
 
       getNativePrototype?(tag: string): Object;
 
       // Properties
 
-      properties?:{[prop:string]:(PropConstructorType|PropObjectType);};
+      properties?:{[prop:string]:(PropConstructorType|PropObjectType);} | undefined;
 
       getPropertyInfo?(property: string): Object;
 
@@ -105,7 +105,7 @@ declare global {
 
       // Events
 
-      listeners?: {[key:string]:string;};
+      listeners?: {[key:string]:string;} | undefined;
 
       listen?(node: Element, eventName: string, methodName: string): void;
 
@@ -204,7 +204,7 @@ declare global {
 
       copyOwnProperty?(name: string, source: Object, target: Object):void;
 
-      observers?: string[];
+      observers?: string[] | undefined;
 
       beforeRegister?(): void;
 

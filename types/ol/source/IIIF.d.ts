@@ -11,27 +11,27 @@ import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
 export interface Options {
-    attributions?: AttributionLike;
-    attributionsCollapsible?: boolean;
-    cacheSize?: number;
-    crossOrigin?: null | string;
-    extent?: Extent;
-    format?: string;
-    imageSmoothing?: boolean;
-    projection?: ProjectionLike;
-    quality?: string;
-    reprojectionErrorThreshold?: number;
-    resolutions?: number[];
+    attributions?: AttributionLike | undefined;
+    attributionsCollapsible?: boolean | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    extent?: Extent | undefined;
+    format?: string | undefined;
+    imageSmoothing?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    quality?: string | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    resolutions?: number[] | undefined;
     size: Size;
-    sizes?: Size[];
-    state?: State;
-    supports?: string[];
-    tilePixelRatio?: number;
-    tileSize?: number | Size;
-    transition?: number;
-    url?: string;
-    version?: Versions;
-    zDirection?: number;
+    sizes?: Size[] | undefined;
+    state?: State | undefined;
+    supports?: string[] | undefined;
+    tilePixelRatio?: number | undefined;
+    tileSize?: number | Size | undefined;
+    transition?: number | undefined;
+    url?: string | undefined;
+    version?: Versions | undefined;
+    zDirection?: number | undefined;
 }
 export default class IIIF extends TileImage {
     constructor(opt_options?: Options);
