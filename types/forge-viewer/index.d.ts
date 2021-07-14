@@ -454,10 +454,15 @@ declare namespace Autodesk {
         }
 
         class BubbleNode {
-          static MODEL_NODE: BubbleNodeSearchProps;
-          static GEOMETRY_SVF_NODE: BubbleNodeSearchProps;
-          static SHEET_NODE: BubbleNodeSearchProps;
+          static AEC_MODEL_DATA: BubbleNodeSearchProps;
           static GEOMETRY_F2D_NODE: BubbleNodeSearchProps;
+          static GEOMETRY_SVF_NODE: BubbleNodeSearchProps;
+          static IMAGE_NODE: BubbleNodeSearchProps;
+          static LEAFLET_NODE: BubbleNodeSearchProps;
+          static MASTER_VIEW_NODE: BubbleNodeSearchProps;
+          static MODEL_NODE: BubbleNodeSearchProps;
+          static PDF_PAGE_NODE: BubbleNodeSearchProps;
+          static SHEET_NODE: BubbleNodeSearchProps;
           static VIEWABLE_NODE: BubbleNodeSearchProps;
 
           static parseLineageUrnFromEncodedUrn(encodedUrn: string): string;
