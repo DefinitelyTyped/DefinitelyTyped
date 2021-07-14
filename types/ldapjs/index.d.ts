@@ -30,7 +30,7 @@ export interface CallBack {
 }
 
 export interface ClientOptions {
-    url: string;
+    url: string | string[];
     tlsOptions?: Object | undefined;
     socketPath?: string | undefined;
     log?: any;
