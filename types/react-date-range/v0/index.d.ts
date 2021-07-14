@@ -54,25 +54,25 @@ export interface CalendarTheme {
 
 export interface Range {
     /** default: today */
-    startDate?: moment.Moment | undefined;
+    startDate?: moment.Moment;
     /** default: today */
-    endDate?: moment.Moment | undefined;
+    endDate?: moment.Moment;
 }
 
 export interface CommonCalendarProps {
     /** default: DD/MM/YYY */
-    format?: string | undefined;
+    format?: string;
     /** default: moment.localeData().firstDayOfWeek() */
-    firstDayOfWeek?: number | undefined;
-    theme?: CalendarTheme | undefined;
+    firstDayOfWeek?: number;
+    theme?: CalendarTheme ;
     /** default: none */
-    onInit?: ((range: Range) => void) | undefined;
+    onInit?: ((range: Range) => void);
     /** default: none */
-    onChange?: ((range: Range) => void) | undefined;
+    onChange?: ((range: Range) => void);
     /** default: none */
-    minDate?: DateInputType | undefined;
+    minDate?: DateInputType;
     /** default: none */
-    maxDate?: DateInputType | undefined;
+    maxDate?: DateInputType;
     /**
      * Calendar languages.
      * ('cn' - Chinese, 'jp' - Japanese,
@@ -81,7 +81,7 @@ export interface CommonCalendarProps {
      * 'es' - Spanish, 'ru' - Russian,
      * 'tr' - Turkish) default: none
      */
-    lang?: LanguageType | undefined;
+    lang?: LanguageType;
 }
 
 export interface CalendarProps extends CommonCalendarProps {
@@ -93,9 +93,9 @@ export class Calendar extends React.Component<CalendarProps> { }
 
 export interface DateRangeProps extends Range, CommonCalendarProps {
     /** default: enUs from locale. Complete list here https://github.com/Adphorus/react-date-range/blob/next/src/locale/index.js */
-    locale?: object | undefined;
+    locale?: object;
     /** default: false */
-    linkedCalendars?: boolean | undefined;
+    linkedCalendars?;
     /** default: 2 */
     calendars?: number | undefined;
     /** default: none */
