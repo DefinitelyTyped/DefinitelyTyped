@@ -29,3 +29,7 @@ console.log(JSON.stringify(nod1));
 // $ExpectType NumericLiteral
 const nod2 = parser.ast.literal(parser.tokenTypes.NumericLiteral, 42, "42");
 console.log(JSON.stringify(nod2));
+
+// $ExpectType Chunk
+const ast6 = parser.parse(luaCode, { onCreateNode: (n: parser.ast.Node) => void n });
+console.log(JSON.stringify(ast6));

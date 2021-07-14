@@ -21,7 +21,7 @@ declare namespace Pico8parse {
          * A callback which will be invoked when a syntax node has been completed.
          * The node which has been created will be passed as the only parameter.
          */
-        onCreateNode: (node: Node) => void;
+        onCreateNode: (node: ast.Node) => void;
         /** A callback which will be invoked when a new scope is created. */
         onCreateScope: () => void;
         /** A callback which will be invoked when the current scope is destroyed. */
