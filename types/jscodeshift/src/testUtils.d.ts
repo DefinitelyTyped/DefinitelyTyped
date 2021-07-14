@@ -24,7 +24,7 @@ export function runInlineTest(
   module: Transform,
   options: Options,
   input: {
-    path: string,
+    path?: string,
     source: string,
   },
   expectedOutput: string,

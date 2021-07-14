@@ -139,7 +139,7 @@ testUtils.defineInlineTest(() => {}, { opt: true }, "import test from 'test';", 
 testUtils.runInlineTest(
     () => {},
     { opt: true },
-    { path: "/", source: "import test from 'test';" },
+    { source: "import test from 'test';" },
     "import test from './test';",
     {}
 );
