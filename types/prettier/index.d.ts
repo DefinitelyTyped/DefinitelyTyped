@@ -534,7 +534,7 @@ export namespace doc {
             | LineSuffix
             | LineSuffixBoundary
             | Trim;
-        type Doc = string | string[] | DocCommand;
+        type Doc = string | string[] | DocCommand | DocCommand[];
 
         interface Align {
             type: 'align';
