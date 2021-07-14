@@ -2740,5 +2740,12 @@ declare namespace Autodesk {
         extractStringsFromModels(): Promise<any>;
         getDocumentStrings(): Promise<string[]>;
       }
+
+      class VisualClusters extends Viewing.Extension {
+        layoutActive: boolean;
+
+        reset(): void;
+        setLayoutActive(active: boolean): Promise<void>;
+      }
     }
 }
