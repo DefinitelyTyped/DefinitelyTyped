@@ -266,8 +266,8 @@ interface SearchObject {
     larger?: number;
     smaller?: number;
     uid?: SequenceString;
-    modseq: bigint;
-    emailId: string;
+    modseq?: bigint;
+    emailId?: string;
     threadId?: string;
     before?: Date | string;
     on?: Date | string;
