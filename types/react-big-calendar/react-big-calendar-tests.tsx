@@ -488,15 +488,7 @@ MyWorkWeek.range = date => {
 };
 
 MyWorkWeek.navigate = (date, action) => {
-    const week = 7 * 24 * 60 * 60 * 1000; // week in milliseconds
-    switch (action) {
-        case Navigate.PREVIOUS:
-            return new Date(date.valueOf() - week);
-        case Navigate.NEXT:
-            return new Date(date.valueOf() + week);
-        default:
-            return date;
-    }
+    return date;
 };
 
 MyWorkWeek.title = date => {

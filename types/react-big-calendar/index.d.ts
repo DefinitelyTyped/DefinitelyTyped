@@ -390,12 +390,12 @@ export interface components {
 export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;
 export function momentLocalizer(momentInstance: object): DateLocalizer;
 export function dateFnsLocalizer(config: object): DateLocalizer;
-export const Navigate: {
+export interface Navigate {
     PREVIOUS: 'PREV';
     NEXT: 'NEXT';
     TODAY: 'TODAY';
     DATE: 'DATE';
-};
+}
 export const Views: {
     MONTH: 'month';
     WEEK: 'week';
