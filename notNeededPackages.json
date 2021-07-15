@@ -500,6 +500,10 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "classify-poetry": {
+            "libraryName": "classify-poetry",
+            "asOfVersion": "1.0.1"
+        },
         "classnames": {
             "libraryName": "classnames",
             "asOfVersion": "2.3.0"

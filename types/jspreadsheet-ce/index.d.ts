@@ -1,6 +1,7 @@
 // Type definitions for jspreadsheet-ce 4.7
 // Project: https://github.com/jspreadsheet/ce
 // Definitions by: arx-8 <https://github.com/arx-8>
+//                  vishnutsivan <https://github.com/vishnutsivan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 2.9
 
@@ -41,7 +42,9 @@ declare namespace jspreadsheet {
          * Translations can be done here
          * Default: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
          */
-        months?: [string, string, string, string, string, string, string, string, string, string, string, string] | undefined;
+        months?:
+            | [string, string, string, string, string, string, string, string, string, string, string, string]
+            | undefined;
         // tslint:disable-next-line ban-types
         onchange?: Function | undefined;
         /** Events */
@@ -67,6 +70,15 @@ declare namespace jspreadsheet {
          * Default: ["S", "M", "T", "W", "T", "F", "S"]
          */
         weekdays_short?: [string, string, string, string, string, string, string] | undefined;
+    }
+
+    interface CellChange {
+        col: string;
+        newValue: CellValue;
+        oldValue: CellValue;
+        row: string;
+        x: string;
+        y: string;
     }
 
     interface ColumnEditor {
@@ -111,7 +123,8 @@ declare namespace jspreadsheet {
             | 'image'
             | 'numeric'
             | 'radio'
-            | 'text' | undefined;
+            | 'text'
+            | undefined;
         url?: string | undefined;
         width?: number | undefined;
         wordWrap?: boolean | undefined;
@@ -386,39 +399,46 @@ declare namespace jspreadsheet {
 
     interface EventsOptions {
         /** After all changes are applied in the table. */
-        // tslint:disable-next-line ban-types
-        onafterchanges?: Function | undefined;
+        onafterchanges?: ((instance: HTMLElement, cellChanges: CellChange[]) => void) | undefined;
         /** Before a column value is changed. NOTE: It is possible to overwrite the original value, by return a new value on this method. v3.4.0+ */
-        // tslint:disable-next-line ban-types
-        onbeforechange?: Function | undefined;
+        onbeforechange?:
+            | ((
+                  instance: HTMLElement,
+                  cell: HTMLTableCellElement,
+                  columnIndex: number,
+                  rowIndex: number,
+                  value: CellValue,
+              ) => CellValue | void)
+            | undefined;
         /** Before a column is excluded. You can cancel the insert event by returning false. */
-        // tslint:disable-next-line ban-types
-        onbeforedeletecolumn?: Function | undefined;
+        onbeforedeletecolumn?: ((instance: HTMLElement, startColumnIndex: number, count: number) => void) | undefined;
         /** Before a row is deleted. You can cancel the delete event by returning false. */
-        // tslint:disable-next-line ban-types
-        onbeforedeleterow?: Function | undefined;
+        onbeforedeleterow?: ((instance: HTMLElement, startRowIndex: number, count: number) => void) | undefined;
         /** Before a new column is inserted. You can cancel the insert event by returning false. */
-        // tslint:disable-next-line ban-types
-        onbeforeinsertcolumn?: Function | undefined;
+        onbeforeinsertcolumn?:
+            | ((instance: HTMLElement, startColumnIndex: number, count: number, isBefore: boolean) => void)
+            | undefined;
         /** Before a new row is inserted. You can cancel the insert event by returning false. */
-        // tslint:disable-next-line ban-types
-        onbeforeinsertrow?: Function | undefined;
+        onbeforeinsertrow?:
+            | ((instance: HTMLElement, startColumnIndex: number, count: number, isBefore: boolean) => void)
+            | undefined;
         /** Before the paste action is performed. Used to parse any input data, should return the data. */
         // tslint:disable-next-line ban-types
         onbeforepaste?: Function | undefined;
         /** On table blur */
-        // tslint:disable-next-line ban-types
-        onblur?: Function | undefined;
+        onblur?: ((instance: HTMLElement) => void) | undefined;
         /** After a column value is changed. */
-        onchange?: ((
-            instance: HTMLElement,
-            cell: HTMLTableCellElement,
-            /** (e.g.) "0", "1" ... */
-            columnIndex: string,
-            /** (e.g.) "0", "1" ... */
-            rowIndex: string,
-            value: CellValue,
-        ) => void) | undefined;
+        onchange?:
+            | ((
+                  instance: HTMLElement,
+                  cell: HTMLTableCellElement,
+                  /** (e.g.) "0", "1" ... */
+                  columnIndex: string,
+                  /** (e.g.) "0", "1" ... */
+                  rowIndex: string,
+                  value: CellValue,
+              ) => void)
+            | undefined;
         /** On header change */
         // tslint:disable-next-line ban-types
         onchangeheader?: Function | undefined;
@@ -432,29 +452,49 @@ declare namespace jspreadsheet {
         // tslint:disable-next-line ban-types
         onchangestyle?: Function | undefined;
         /** After a column is excluded. */
-        // tslint:disable-next-line ban-types
-        ondeletecolumn?: Function | undefined;
+        ondeletecolumn?:
+            | ((
+                  instance: HTMLElement,
+                  startColumnIndex: number,
+                  count: number,
+                  cells: HTMLTableCellElement[][],
+              ) => void)
+            | undefined;
         /** After a row is excluded. */
-        // tslint:disable-next-line ban-types
-        ondeleterow?: Function | undefined;
+        ondeleterow?:
+            | ((instance: HTMLElement, startRowIndex: number, count: number, cells: HTMLTableCellElement[][]) => void)
+            | undefined;
         /** When a closeEditor is called. */
-        // tslint:disable-next-line ban-types
-        oneditionend?: Function | undefined;
+        oneditionend?:
+            | ((
+                  instance: HTMLElement,
+                  cell: HTMLTableCellElement,
+                  columnIndex: string,
+                  rowIndex: string,
+                  value: CellValue,
+              ) => void)
+            | undefined;
         /** When a openEditor is called. */
-        // tslint:disable-next-line ban-types
-        oneditionstart?: Function | undefined;
+        oneditionstart?:
+            | ((instance: HTMLElement, cell: HTMLTableCellElement, columnIndex: string, rowIndex: string) => void)
+            | undefined;
         /** On table focus */
-        // tslint:disable-next-line ban-types
-        onfocus?: Function | undefined;
+        onfocus?: ((instance: HTMLElement) => void) | undefined;
         /** After a new column is inserted. */
-        // tslint:disable-next-line ban-types
-        oninsertcolumn?: Function | undefined;
+        oninsertcolumn?:
+            | ((
+                  instance: HTMLElement,
+                  startColumnIndex: number,
+                  count: number,
+                  cells: HTMLTableCellElement[][],
+              ) => void)
+            | undefined;
         /** After a new row is inserted. */
-        // tslint:disable-next-line ban-types
-        oninsertrow?: Function | undefined;
+        oninsertrow?:
+            | ((instance: HTMLElement, startRowIndex: number, count: number, cells: HTMLTableCellElement[][]) => void)
+            | undefined;
         /** This method is called when the method setData */
-        // tslint:disable-next-line ban-types
-        onload?: Function | undefined;
+        onload?: ((instance: HTMLElement) => void) | undefined;
         /** On column merge */
         // tslint:disable-next-line ban-types
         onmerge?: Function | undefined;
@@ -465,8 +505,7 @@ declare namespace jspreadsheet {
         // tslint:disable-next-line ban-types
         onmoverow?: Function | undefined;
         /** After a paste action is performed in the javascript table. */
-        // tslint:disable-next-line ban-types
-        onpaste?: Function | undefined;
+        onpaste?: ((instance: HTMLElement, data: CellValue[][]) => void) | undefined;
         /** On redo is applied */
         // tslint:disable-next-line ban-types
         onredo?: Function | undefined;
@@ -477,8 +516,15 @@ declare namespace jspreadsheet {
         // tslint:disable-next-line ban-types
         onresizerow?: Function | undefined;
         /** On the selection is changed. */
-        // tslint:disable-next-line ban-types
-        onselection?: Function | undefined;
+        onselection?:
+            | ((
+                  instance: HTMLElement,
+                  startColumnIndex: number,
+                  startRowIndex: number,
+                  endColumnIndex: number,
+                  endRowIndex: number,
+              ) => void)
+            | undefined;
         /** After a colum is sorted. */
         // tslint:disable-next-line ban-types
         onsort?: Function | undefined;
@@ -554,12 +600,14 @@ declare namespace jspreadsheet {
         /** Minimum number of spare rows: [integer] */
         minSpareRows?: number[] | undefined;
         /** Define the nested headers, including title, colspan, etc: object */
-        nestedHeaders?: Array<
-            Array<{
-                colspan?: number | undefined;
-                title?: CellValue | undefined;
-            }>
-        > | undefined;
+        nestedHeaders?:
+            | Array<
+                  Array<{
+                      colspan?: number | undefined;
+                      title?: CellValue | undefined;
+                  }>
+              >
+            | undefined;
         /** Break the table by pages */
         pagination?: number | undefined;
         /** Number of records per page: 25,50,75,100 for example. */
@@ -591,7 +639,9 @@ declare namespace jspreadsheet {
         /** Add custom toolbars: object */
         toolbar?: Array<Record<string, any>> | undefined;
         /** Method to config custom script execution. NOTE: This does not work with lazyLoading, Pagination or Search options. */
-        updateTable?: ((instance: any, cell: any, col: any, row: any, val: any, label: any, cellName: any) => void) | undefined;
+        updateTable?:
+            | ((instance: any, cell: any, col: any, row: any, val: any, label: any, cellName: any) => void)
+            | undefined;
         /** Load a external json file from this URL: string */
         url?: string | undefined;
         /** Global text wrapping: bool */
@@ -666,7 +716,14 @@ declare namespace jspreadsheet {
     /**
      * @see https://bossanova.uk/jspreadsheet/v4/docs/quick-reference
      */
-    type Options = SharedMethodsInitializationOptions & MethodsOptions & EventsOptions & InitializationOptions & TranslationsOptions & UnDocumentOptions;
+    type Options = SharedMethodsInitializationOptions &
+        MethodsOptions &
+        EventsOptions &
+        InitializationOptions &
+        TranslationsOptions &
+        UnDocumentOptions;
+
+    type TabOptions = Options & { sheetName: string };
 
     interface ActionHistory {
         action: string;
@@ -903,6 +960,7 @@ declare namespace jspreadsheet {
         mouseUpControls: Function;
         // tslint:disable-next-line ban-types
         pasteControls: Function;
+        tabs: (element: HTMLDivElement, options?: TabOptions[]) => number[];
         timeControl: any;
         timeControlLoading: any;
         // tslint:disable-next-line ban-types

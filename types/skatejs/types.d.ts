@@ -61,7 +61,7 @@ export declare class WithRenderer<O = Mixed | null> extends HTMLElement implemen
 
   // Default renderer, returns string returned from render and adds it to root via innerHTML
   // -> override to get own renderer
-  renderer(root: Element | Node | ShadowRoot, html: (props?: Mixed | undefined) => O): void;
+  renderer(root: Element | Node | ShadowRoot, html: (props?: Mixed) => O): void;
 
   // called after render
   rendered?(): void;
