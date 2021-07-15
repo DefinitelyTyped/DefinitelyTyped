@@ -638,13 +638,39 @@ declare namespace Layui {
     interface Form {
         config: {
             autocomplete: any;
+            /**
+             * form内置的验证
+             */
             verify: {
+                /**
+                 * 日期验证 date[0]是正则,date[1]是验证失败的提示（"日期格式不正确"）
+                 */
                 date: [RegExp, string];
+                /**
+                 * 邮箱验证 email[0]是正则,email[1]是验证失败的提示（"邮箱格式不正确"）
+                 */
                 email: [RegExp, string];
+                /**
+                 * 身份证号验证 identity[0]是正则,identity[1]是验证失败的提示（ 请输入正确的身份证号"）
+                 */
                 identity: [RegExp, string];
+                /**
+                 * 验证数字，如果参数不是数字则返回"只能填写数字"，是数字则无返回值  <br/>&nbsp;
+                 *   bug：当0,"0"会提示不是数字
+                 * @param arg 参数 比如 1,"1",-1
+                 */
                 number: (arg: any) => string | null;
+                /**
+                 * 手机号验证 phone[0]是正则,phone[1]是验证失败的提示（"请输入正确的手机号"）
+                 */
                 phone: [RegExp, string];
+                /**
+                 * 空值验证 required[0]是正则,required[1]是为空的提示（"必填项不能为空"）
+                 */
                 required: [RegExp, string];
+                /**
+                 * url验证 url[0]是正则,url[1]是验证失败的提示（"链接格式不正确"）
+                 */
                 url: [RegExp, string];
                 [index: string]: [RegExp, string] | ((...arg: any) => any);
             };
@@ -1347,7 +1373,7 @@ declare namespace Layui {
          */
         restore?: LayerCallbackRestore;
         /**
-         * 是否默认堆叠在左下角 默认：true
+         * 最小化后是否默认堆叠在左下角 默认：true
          */
         minStack?: boolean;
     }
@@ -2050,14 +2076,40 @@ declare namespace Layui {
         rowspan?: number;
         /**
          * 自定义列模板，模板遵循 laytpl 语法    <br/>&nbsp;
+         *   回调参数d从v2.6.8新增 LAY_COL 字段，可得到当前列的表头配置信息
          *   laytpl:https://www.layui.com/doc/modules/laytpl.html
          */
-        templet?: string | ((d: any) => string);
+        templet?: string | ((d: TableColumnOptionForTemplet) => string);
         /**
          * 绑定工具条模板。可在每行对应的列中出现一些自定义的操作性按钮    <br/>&nbsp;
          *  dom选择器，例如#toolbar
          */
         toolbar?: string;
+    }
+
+    /**
+     * table 的templet回调参数格式 <br/>&nbsp;
+     *  tips:templet回调中可以使用 d.xx  xx为任意参数
+     */
+    interface TableColumnOptionForTemplet {
+        LAY_COL: TableColumnOptionForTempletCol;
+        LAY_INDEX: number;
+        LAY_TABLE_INDEX: number;
+        /**
+         * 该属性不存在，只是提示你：你可以用d.xxx 使用当前行中的任意数据属性。
+         */
+        '你可以用 d.xx 来使用当前行的其他属性': never;
+        [index: string]: any;
+    }
+
+    /**
+     * table的templet回调中 d.LAY_COL的格式定义
+     */
+    interface TableColumnOptionForTempletCol extends Required<TableColumnOption> {
+        HAS_PARENT: boolean;
+        PARENT_COL_INDEX: number;
+        key: string;
+        parentKey: string;
     }
 
     /**
@@ -2460,15 +2512,15 @@ declare namespace Layui {
 
         /**
          * 表格重载
-         * @param id
-         * @param option
-         * @param deep
+         * @param id table的id，唯一实例标识
+         * @param option 基础参数
+         * @param deep  true则深度复制
          */
         reload(id: string, option?: TableOption, deep?: boolean): void;
 
         /**
          * 核心入口
-         * @param option
+         * @param option 基础参数
          */
         render(option: TableOption): TableRendered;
 

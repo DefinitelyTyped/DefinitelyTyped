@@ -599,6 +599,9 @@ function formTest() {
     });
     layui.form.val('filter', new Date());
     layui.form.val('filter', { a: 1, b: true });
+
+    layui.form.config.autocomplete;
+    layui.form.config.verify.date;
 }
 
 function testJquery() {
@@ -1362,7 +1365,17 @@ function tableTest() {
                     */
                     ],
                     [
-                        { field: 'email', title: '邮箱', edit: 'text', rowspan: 1 },
+                        {
+                            field: 'email',
+                            title: '邮箱',
+                            edit: 'text',
+                            rowspan: 1,
+                            templet(d) {
+                                d.LAY_COL.type;
+                                d['你可以用 d.xx 来使用当前行的其他属性'] === undefined;
+                                return d.LAY_COL.type + d.email;
+                            },
+                        },
                         { field: 'experience', title: '积分', sort: true, totalRow: true, rowspan: 1 },
                     ],
                 ],
