@@ -435,8 +435,8 @@ function dropdown() {
                 // console.log(this.elem); // 得到当前组件绑定的原始 DOM 对象，批量绑定中常用。
             },
             ready: (elemPanel, elem) => {
-                console.log(elemPanel); // 得到组件面板的 DOM 对象
-                console.log(elem); // 得到基础参数 elem 所绑定的元素 DOM 对象
+                console.log(elemPanel[0]); // 得到组件面板的 DOM 对象
+                console.log(elem.hide()); // 得到基础参数 elem 所绑定的元素 DOM 对象
             },
         });
         ret.reload({ elem: '' });
@@ -453,6 +453,13 @@ function dropdown() {
         });
         c.config.data;
         c.reload;
+
+        function cb(this: HTMLElement, obj: any): any {
+            console.log(this.title);
+            console.log(obj.nothing);
+        }
+
+        layui.dropdown.on('click(id)', cb);
     });
 }
 function elementTest() {

@@ -370,6 +370,8 @@ declare namespace Layui {
         content?: string;
         /**
          * 组件成功弹出后的回调，并返回两个参数
+         * @param elemPanel  弹出的面板
+         * @param elem  点击的面板
          */
         ready?(elemPanel: JQuery, elem: JQuery): void;
         /**
@@ -394,11 +396,17 @@ declare namespace Layui {
         config: { [index: string]: any };
         index: number;
         set(options: CarouselOption): DropDown;
-        on(event: string, callback: (this: CarouselClass, obj: CarouselItem) => any): any;
+
         /**
-         * 重载实例 <br/>&nbsp;
-         *    id参数为render>options中的id，如果render时未指定id则从1开始。<br/>&nbsp;
-         *     bug :找不到id需返回DropDown实例本身<br/>&nbsp;
+         * 给dropdown绑定事件，当前只有click  即event类似:click(id|filter)
+         * @param event  事件名 如： click(id|filter)  括号内是.layui-menu的id=""或者lay-filter=""
+         * @param callback  回调中的参数是  <li lay-options="{id: 101}">中lay-options的值 字符串用''
+         */
+        on(event: string, callback: (this: HTMLElement, obj: any) => any): any;
+        /**
+         *  重载实例
+         * @param id  id参数为render>options中的id，如果render时未指定id则从1开始。
+         * @param options  全部基础参数
          */
         reload(id: string, options: DropDownOptionForReload): DropDownModule;
         /**
@@ -729,11 +737,11 @@ declare namespace Layui {
         off(eventName: string, fn: (...args: any) => any): HTMLElement[];
 
         /**
-         * 事件绑定
-         * @param eventName 事件名 比如click
-         * @param fn 回调
+         * 事件绑定，注意：只支持内置事件，不支持自定义事件
+         * @param eventName 事件名 比如click，自定事件会绑定失败
+         * @param fn 回调    (tip:this:any)
          */
-        on(eventName: string, fn: (...args: any) => any): HTMLElement[];
+        on<K extends keyof HTMLElementEventMap>(eventName: K, fn: (...args: any) => any): HTMLElement[];
 
         /**
          * 移除元素
@@ -777,10 +785,9 @@ declare namespace Layui {
     interface Lay {
         /**
          * 查找 DOM 作为返回实例的操作对象
-         * @param selector 选择器
+         * @param selector 选择器 原始dom或者选择器串
          */
         (selector?: string | HTMLElement): LAY;
-
         v: string;
 
         /**
@@ -1158,7 +1165,7 @@ declare namespace Layui {
          */
         icon?: number;
         /**
-         *   默认：'确认'  例如;btn: ['yes', 'no']	<br/>&nbsp;
+         *   默认：'确认'  例如;btn: ['yes','btn2'] 第一个对应yes回调，后边对应btn2,btn3回调	<br/>&nbsp;
          *   https://www.layui.com/doc/modules/layer.html#btn
          */
         btn?: string | string[];
@@ -1365,29 +1372,39 @@ declare namespace Layui {
         // https://www.layui.com/doc/modules/layer.html#layer.config
         /**
          * 初始化全局配置
+         * @param options  基础参数
+         * @param fn  无用
          */
-        config(options: LayerConfigOptions): void;
+        config(options: LayerConfigOptions, fn?: any): void;
 
         /**
-         * 初始化就绪 	<br/>&nbsp;
+         * 执行初始化，就绪后执行回调参数 	<br/>&nbsp;
          * ready(path: string, callback: () => void): void; //兼容旧版？ 	<br/>&nbsp;
-         * 初始化就绪 (主体CSS等待事件addcss或link的回调),当你在页面一打开就要执行弹层时可放入回调中
+         * 初始化就绪 (CSS完成的回调),当你在页面一打开就要执行弹层时可放入回调中
+         * @param callback 就绪后回调
          */
         ready(callback: () => void): void;
 
         /**
          * 原始核心方法
+         * @param options  基础参数
          */
         open(options?: LayerOptions): number;
 
         /**
          * 普通信息框
+         * @param content 内容
+         * @param options 基础参数
+         * @param yes  点击确定后的回调
          */
         alert(content?: any, options?: LayerOptions, yes?: LayerCallbackYes): number;
 
+        // 源码中会第三个参数代替第二个。单独定义一个方法。
         /**
-         * 普通信息框 	<br/>&nbsp;
-         *  源码中会第三个参数代替第二个。单独定义一个方法。
+         * 普通信息框
+         * @param content 内容
+         * @param options 基础参数
+         * @param yes  点击确定后的回调
          */
         alert(content: any, yes: LayerCallbackYes): number;
 
