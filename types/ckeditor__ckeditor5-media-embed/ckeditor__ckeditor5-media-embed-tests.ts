@@ -1,17 +1,16 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
-import { Element, DowncastWriter, Model, StylesProcessor } from '@ckeditor/ckeditor5-engine';
-import Selection from '@ckeditor/ckeditor5-engine/src/view/selection';
+import { DowncastWriter, Element, Model, StylesProcessor } from '@ckeditor/ckeditor5-engine';
+import Position from '@ckeditor/ckeditor5-engine/src/model/position';
 import ModelSelection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
+import Selection from '@ckeditor/ckeditor5-engine/src/view/selection';
 import ME from '@ckeditor/ckeditor5-media-embed';
 import * as converters from '@ckeditor/ckeditor5-media-embed/src/converters';
-import { Locale } from '@ckeditor/ckeditor5-utils';
-import MediaRegistry from '@ckeditor/ckeditor5-media-embed/src/mediaregistry';
 import Command from '@ckeditor/ckeditor5-media-embed/src/mediaembedcommand';
+import MediaRegistry from '@ckeditor/ckeditor5-media-embed/src/mediaregistry';
 import View from '@ckeditor/ckeditor5-media-embed/src/ui/mediaformview';
 import * as utils from '@ckeditor/ckeditor5-media-embed/src/utils';
-import Position from '@ckeditor/ckeditor5-engine/src/model/position';
-import EmptyElement from '@ckeditor/ckeditor5-engine/src/view/emptyelement';
+import { Locale } from '@ckeditor/ckeditor5-utils';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -53,9 +52,10 @@ new View([() => ''], new Locale()).isValid() === !0;
 new View([() => ''], new Locale()).resetFormStatus();
 new View([() => ''], new Locale()).urlInputView.render();
 
-utils.insertMedia(new Model(), '', new Position(new Element('div'), [4]));
-utils.isMediaWidget(new EmptyElement()) !== !0;
-utils.toMediaWidget(new EmptyElement(), new DowncastWriter(new Document(new StylesProcessor())), '');
+utils.insertMedia(new Model(), '', new Position(Element.fromJSON({ name: 'div' }), [4]));
+const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('foo');
+utils.isMediaWidget(emptyElement) !== !0;
+utils.toMediaWidget(emptyElement, new DowncastWriter(new Document(new StylesProcessor())), '');
 utils.createMediaFigureElement(
     new DowncastWriter(new Document(new StylesProcessor())),
     new MediaRegistry(new Locale(), {}),

@@ -39,17 +39,17 @@ new RestrictedEditingExceptionCommand(editor).refresh();
 new RestrictedEditingModeNavigationCommand(editor, 'forward').execute();
 new RestrictedEditingModeNavigationCommand(editor, 'backward').refresh();
 
-converters.upcastHighlightToMarker({ converterPriority: 'low', view: '', model: new Element('div') });
+converters.upcastHighlightToMarker({ converterPriority: 'low', view: '', model: Element.fromJSON({name: 'div'}) });
 converters.setupExceptionHighlighting(editor);
 converters.extendMarkerOnTypingPostFixer(editor);
 converters.resurrectCollapsedMarkerPostFixer(editor);
 
-const marker = utils.getMarkerAtPosition(editor, new Position(new Element('div'), [0]));
+const marker = utils.getMarkerAtPosition(editor, new Position(Element.fromJSON({name: 'div'}), [0]));
 if (marker) {
     marker.is('foo');
-    utils.isSelectionInMarker(new Selection(new Position(new Element('div'), [0])), marker);
+    utils.isSelectionInMarker(new Selection(new Position(Element.fromJSON({name: 'div'}), [0])), marker);
 }
 utils.isPositionInRangeBoundaries(
-    new Range(new Position(new Element('div'), [0])),
-    new Position(new Element('div'), [0]),
+    new Range(new Position(Element.fromJSON({name: 'div'}), [0])),
+    new Position(Element.fromJSON({name: 'div'}), [0]),
 );
