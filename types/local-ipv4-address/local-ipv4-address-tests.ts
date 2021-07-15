@@ -1,3 +1,3 @@
-import ipv4Address from 'local-ipv4-address';
+import ipv4Address = require('local-ipv4-address');
 
-ipv4Address().then((ip: string) => {});
+ipv4Address(); // $ExpectType Promise<string>
