@@ -2,6 +2,9 @@
 
 // layui方法和属性
 function B_method() {
+    window.lay().find;
+    window.layer.v;
+    window.layui.v;
     layui['layui.all'];
     layui.v;
     $.ajax;

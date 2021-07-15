@@ -12,6 +12,7 @@ declare namespace Layui {
     type LayerCallbackPrompt = null | ((value: string, index: number, elem: JQuery) => void);
 
     type ExportsCallback = (this: Layui, fn: (app: string, exports: object) => void) => void;
+
     /**
      * 全局属性
      */
@@ -33,6 +34,7 @@ declare namespace Layui {
          */
         base?: string;
     }
+
     /**
      * 地址中的参数和路径信息
      */
@@ -104,6 +106,7 @@ declare namespace Layui {
          */
         item: JQuery;
     }
+
     interface CarouselClass {
         /**
          * 配置属性
@@ -113,18 +116,22 @@ declare namespace Layui {
          * 初始焦点
          */
         elemItem: JQuery;
+
         /**
          * 轮播渲染
          */
         render(): void;
+
         /**
          * 重置轮播
          */
         reload(options: { [index: string]: string }): void;
+
         /**
          * 获取上一个等待条目的索引
          */
         prevIndex(): number;
+
         /**
          * 获取下一个等待条目的索引
          */
@@ -134,31 +141,38 @@ declare namespace Layui {
          * 手动递增索引值
          */
         addIndex(num: number): void;
+
         /**
          * 手动递减索引值
          */
         subIndex(num: number): void;
+
         /**
          * 自动轮播
          */
         autoplay(): void;
+
         /**
          * 箭头
          */
         arrow(): void;
+
         /**
          * 指示器
          */
         indicator(): void;
+
         /**
          * 滑动切换 type ：sub减，其他增
          */
         slide(type: string, num: number): void;
+
         /**
          * 事件处理
          */
         events(): void;
     }
+
     // https://www.layui.com/doc/modules/carousel.html
     // carousel 是 layui 2.0 版本中新增的全新模块，主要适用于跑马灯/轮播等交互场景。
     //   它并非单纯地为焦点图而生，准确地说，它可以满足任何类型内容的轮播式切换操作，
@@ -168,6 +182,7 @@ declare namespace Layui {
      */
     interface Carousel {
         config: { [index: string]: any };
+
         /**
          * 核心入口
          */
@@ -229,7 +244,7 @@ declare namespace Layui {
          */
         elem?: string | HTMLElement | JQuery;
         /**
-         * 	默认颜色，不管你是使用 hex、rgb 还是 rgba 的格式输入，最终会以指定的格式显示。
+         *    默认颜色，不管你是使用 hex、rgb 还是 rgba 的格式输入，最终会以指定的格式显示。
          */
         color?: string;
         /**
@@ -256,15 +271,18 @@ declare namespace Layui {
          * 下拉框大小，可以选择：lg、sm、xs。
          */
         size?: 'lg' | 'sm' | 'xs';
+
         /**
          * 颜色被改变的回调
          */
         change?(this: ColorPickerOption, color: string): void;
+
         /**
          * 颜色选择后的回调
          */
         done?(this: ColorPickerOption, color: string): void;
     }
+
     // https://www.layui.com/doc/modules/colorpicker.html
     /**
      * 颜色选择器
@@ -272,8 +290,11 @@ declare namespace Layui {
     interface ColorPicker {
         config: { [index: string]: any };
         index: number;
+
         render(option: ColorPickerOption): ColorPicker;
+
         set(option: ColorPickerOption): ColorPicker;
+
         /**
          * 绑定切换事件
          */
@@ -311,8 +332,10 @@ declare namespace Layui {
          * 自定义当前菜单项模板，优先级高于全局设定的 templet。详见下文。
          */
         templet?: string;
+
         [index: string]: any;
     }
+
     interface DropDownOption {
         /**
          * 绑定触发组件的元素。必填项
@@ -368,17 +391,20 @@ declare namespace Layui {
          * 自定义组件内容，从而替代默认的菜单结构
          */
         content?: string;
+
         /**
          * 组件成功弹出后的回调，并返回两个参数
          * @param elemPanel  弹出的面板
          * @param elem  点击的面板
          */
         ready?(elemPanel: JQuery, elem: JQuery): void;
+
         /**
          * 菜单项被点击时的回调，并返回两个参数
          */
         click?(data: any, othis: JQuery): void;
     }
+
     /**
      * reload时是用，全部可选
      */
@@ -390,12 +416,15 @@ declare namespace Layui {
 
     interface DropDownModule {
         config: DropDownOptionForRead;
+
         reload(options?: DropDownOptionForReload | object): void;
     }
+
     interface DropDown {
         config: { [index: string]: any };
         index: number;
-        set(options: CarouselOption): DropDown;
+
+        set(options: DropDownOption): DropDown;
 
         /**
          * 给dropdown绑定事件，当前只有click  即event类似:click(id|filter)
@@ -403,12 +432,14 @@ declare namespace Layui {
          * @param callback  回调中的参数是  <li lay-options="{id: 101}">中lay-options的值 字符串用''
          */
         on(event: string, callback: (this: HTMLElement, obj: any) => any): any;
+
         /**
          *  重载实例
          * @param id  id参数为render>options中的id，如果render时未指定id则从1开始。
          * @param options  全部基础参数
          */
         reload(id: string, options: DropDownOptionForReload): DropDownModule;
+
         /**
          * 核心入口
          */
@@ -440,6 +471,7 @@ declare namespace Layui {
          */
         bodyElem: string | HTMLElement | JQuery;
     }
+
     // https://www.layui.com/doc/modules/element.html
     /**
      * 元素操作
@@ -455,12 +487,14 @@ declare namespace Layui {
          * @param callback  不同filter对应的data类型不同
          */
         on(filter: string, callback: (this: any, data: any) => any): any;
+
         /**
          * 用于新增一个Tab选项
          * @param filter tab元素的 lay-filter="value" 过滤器的值（value）
          * @param options 设定可选值的对象，
          */
         tabAdd(filter: string, options: TabOption): void;
+
         /**
          * 用于删除指定的Tab选项
          * @param filter tab元素的 lay-filter="value" 过滤器的值（value）
@@ -499,10 +533,10 @@ declare namespace Layui {
          * 更新渲染 ，当type不能识别时，layui会遍历渲染"tab""nav"|"breadcrumb"|"progress"|"collapse" 全部；<br/>&nbsp;
          * @param type 表单的type类型，如下：    <br/>&nbsp;
          *  1、tab 重新对tab选项卡进行初始化渲染, <br/>&nbsp;
-         *  2、nav	重新对导航进行渲染   <br/>&nbsp;
-         *  3、breadcrumb	重新对面包屑进行渲染  <br/>&nbsp;
-         *  4、progress	重新对进度条进行渲染  <br/>&nbsp;
-         *  5、collapse	重新对折叠面板进行渲染 <br/>&nbsp;
+         *  2、nav    重新对导航进行渲染   <br/>&nbsp;
+         *  3、breadcrumb    重新对面包屑进行渲染  <br/>&nbsp;
+         *  4、progress    重新对进度条进行渲染  <br/>&nbsp;
+         *  5、collapse    重新对折叠面板进行渲染 <br/>&nbsp;
          * @param filter 为元素的 lay-filter="" 的值，用于局部更新
          */
         render(type?: 'tab' | 'nav' | 'breadcrumb' | 'progress' | 'collapse', filter?: string): void;
@@ -541,6 +575,7 @@ declare namespace Layui {
          */
         done?: (page: number, next: (html: string, hasMore: boolean) => void) => void;
     }
+
     // https://www.layui.com/doc/modules/flow.html
     /**
      * 流加载
@@ -590,9 +625,11 @@ declare namespace Layui {
          */
         field: any;
     }
+
     interface LayFormVerifyConfig {
         [index: string]: ((value: string, item: HTMLElement) => any) | [RegExp, string];
     }
+
     // https://www.layui.com/doc/element/form.html
     // https://www.layui.com/doc/modules/form.html
     /**
@@ -619,6 +656,7 @@ declare namespace Layui {
          * @param itemForm  表单field子元素的父容器，没有则是第一个.layui-form作为父元素。实例：$(".layui-form")，
          */
         getValue(filter: string, itemForm?: JQuery): { [index: string]: string };
+
         /**
          * 表单field元素回调事件 （每个表单都有一个默认事件）
          * @param event   类似： select(x)|checkbox(x)|switch(x)|radio(x)|submit(x) x为field上的lay-filter="x"
@@ -646,6 +684,7 @@ declare namespace Layui {
          */
         verify(config: LayFormVerifyConfig): Form;
     }
+
     interface LAY extends Omit<any[], 'find'> {
         /**
          * 当前的选择器
@@ -729,6 +768,7 @@ declare namespace Layui {
          * 获取第一个元素的innerHTML
          */
         html(): string;
+
         /**
          * 解除事件
          * @param eventName 事件名 比如click
@@ -754,6 +794,7 @@ declare namespace Layui {
          * @param key  是attribute的key
          */
         removeAttr(key: string): HTMLElement[];
+
         /**
          *  移除 className
          * @param className
@@ -782,12 +823,14 @@ declare namespace Layui {
          */
         width(): number;
     }
+
     interface Lay {
         /**
          * 查找 DOM 作为返回实例的操作对象
          * @param selector 选择器 原始dom或者选择器串
          */
         (selector?: string | HTMLElement): LAY;
+
         v: string;
 
         /**
@@ -806,10 +849,12 @@ declare namespace Layui {
          * 获取当前 JS 所在目录
          */
         getPath: string;
+
         /**
          * 阻止事件冒泡
          */
         stope(event?: Event): void;
+
         /**
          * 对象（Array、Object、DOM 对象等）遍历，可用于取代 for 语句 同layui.each
          * @param obj
@@ -864,6 +909,7 @@ declare namespace Layui {
          */
         isTopElem(elem: any): boolean;
     }
+
     interface DateParam {
         year?: number;
         month?: number;
@@ -872,6 +918,7 @@ declare namespace Layui {
         minutes?: number;
         seconds?: number;
     }
+
     interface DateOption {
         /**
          * 绑定的元素 ，选择的值会填充该元素
@@ -886,19 +933,19 @@ declare namespace Layui {
          */
         range?: string | boolean | any[];
         /**
-         * 自定义格式 默认值：yyyy-MM-dd  实例： 'yyyy年MM月dd日'	<br/>&nbsp;
-         *    yyyy	年份，至少四位数。如果不足四位，则前面补零	<br/>&nbsp;
-         *    y	年份，不限制位数，即不管年份多少位，前面均不补零	<br/>&nbsp;
-         *    MM	月份，至少两位数。如果不足两位，则前面补零。	<br/>&nbsp;
-         *    M	月份，允许一位数。	<br/>&nbsp;
-         *    dd	日期，至少两位数。如果不足两位，则前面补零。	<br/>&nbsp;
-         *    d	日期，允许一位数。	<br/>&nbsp;
-         *    HH	小时，至少两位数。如果不足两位，则前面补零。	<br/>&nbsp;
-         *    H	小时，允许一位数。	<br/>&nbsp;
-         *    mm	分钟，至少两位数。如果不足两位，则前面补零。	<br/>&nbsp;
-         *    m	分钟，允许一位数。	<br/>&nbsp;
-         *    ss	秒数，至少两位数。如果不足两位，则前面补零。	<br/>&nbsp;
-         *    s	秒数，允许一位数。	<br/>&nbsp;
+         * 自定义格式 默认值：yyyy-MM-dd  实例： 'yyyy年MM月dd日'    <br/>&nbsp;
+         *    yyyy    年份，至少四位数。如果不足四位，则前面补零    <br/>&nbsp;
+         *    y    年份，不限制位数，即不管年份多少位，前面均不补零    <br/>&nbsp;
+         *    MM    月份，至少两位数。如果不足两位，则前面补零。    <br/>&nbsp;
+         *    M    月份，允许一位数。    <br/>&nbsp;
+         *    dd    日期，至少两位数。如果不足两位，则前面补零。    <br/>&nbsp;
+         *    d    日期，允许一位数。    <br/>&nbsp;
+         *    HH    小时，至少两位数。如果不足两位，则前面补零。    <br/>&nbsp;
+         *    H    小时，允许一位数。    <br/>&nbsp;
+         *    mm    分钟，至少两位数。如果不足两位，则前面补零。    <br/>&nbsp;
+         *    m    分钟，允许一位数。    <br/>&nbsp;
+         *    ss    秒数，至少两位数。如果不足两位，则前面补零。    <br/>&nbsp;
+         *    s    秒数，允许一位数。    <br/>&nbsp;
          */
 
         format?: string;
@@ -907,29 +954,29 @@ declare namespace Layui {
          */
         value?: string | Date | number;
         /**
-         * 初始值填充 默认值：true	<br/>&nbsp;
+         * 初始值填充 默认值：true    <br/>&nbsp;
          */
         /**
          *   用于控制是否自动向元素填充初始值（需配合 value 参数使用）
          */
         isInitValue?: boolean;
         /**
-         * 是否开启选择值预览	<br/>&nbsp;
+         * 是否开启选择值预览    <br/>&nbsp;
          *   用于控制是否显示当前结果的预览（type 为 datetime 时不开启）
          */
         isPreview?: boolean;
         /**
-         * 最小范围内的日期时间值	<br/>&nbsp;
-         *  1.如果值为字符类型，则：年月日必须用 -（中划线）分割、时分秒必须用 :（半角冒号）号分割。这里并非遵循 format 设定的格式	<br/>&nbsp;
-         *  2.如果值为整数类型，且数字＜86400000，则数字代表天数，如：min: -7，即代表最小日期在7天前，正数代表若干天后	<br/>&nbsp;
+         * 最小范围内的日期时间值    <br/>&nbsp;
+         *  1.如果值为字符类型，则：年月日必须用 -（中划线）分割、时分秒必须用 :（半角冒号）号分割。这里并非遵循 format 设定的格式    <br/>&nbsp;
+         *  2.如果值为整数类型，且数字＜86400000，则数字代表天数，如：min: -7，即代表最小日期在7天前，正数代表若干天后    <br/>&nbsp;
          *  3.如果值为整数类型，且数字 ≥ 86400000，则数字代表时间戳，如：max: 4073558400000，即代表最大日期在：公元3000年1月1日
          */
 
         min?: string | number;
         /**
-         * 最大范围内的日期时间值	<br/>&nbsp;
-         *  1.如果值为字符类型，则：年月日必须用 -（中划线）分割、时分秒必须用 :（半角冒号）号分割。这里并非遵循 format 设定的格式	<br/>&nbsp;
-         *  2.如果值为整数类型，且数字＜86400000，则数字代表天数，如：min: -7，即代表最小日期在7天前，正数代表若干天后	<br/>&nbsp;
+         * 最大范围内的日期时间值    <br/>&nbsp;
+         *  1.如果值为字符类型，则：年月日必须用 -（中划线）分割、时分秒必须用 :（半角冒号）号分割。这里并非遵循 format 设定的格式    <br/>&nbsp;
+         *  2.如果值为整数类型，且数字＜86400000，则数字代表天数，如：min: -7，即代表最小日期在7天前，正数代表若干天后    <br/>&nbsp;
          *  3.如果值为整数类型，且数字 ≥ 86400000，则数字代表时间戳，如：max: 4073558400000，即代表最大日期在：公元3000年1月1日
          */
 
@@ -1019,10 +1066,11 @@ declare namespace Layui {
          * @param options
          */
         set(options?: DateOption): Laydate;
+
         /**
-         * 配置基础路径	<br/>&nbsp;
-         *  如果你不是采用 layui 或者普通 script 标签方式加载的 laydate.js，	<br/>&nbsp;
-         *  而是采用 requirejs 等其它方式引用 laydate，	<br/>&nbsp;
+         * 配置基础路径    <br/>&nbsp;
+         *  如果你不是采用 layui 或者普通 script 标签方式加载的 laydate.js，    <br/>&nbsp;
+         *  而是采用 requirejs 等其它方式引用 laydate，    <br/>&nbsp;
          *  那么你需要设置基础路径，以便 laydate.css 完成加载。
          */
 
@@ -1041,22 +1089,22 @@ declare namespace Layui {
      */
     interface EditOption {
         /**
-         * 重新定制编辑器工具栏，如： tool: ['link', 'unlink', 'face'] 当前可选有：	<br/>&nbsp;
-         *             'strong' //加粗	<br/>&nbsp;
-         *             ,'italic' //斜体	<br/>&nbsp;
-         *             ,'underline' //下划线	<br/>&nbsp;
-         *             ,'del' //删除线	<br/>&nbsp;
+         * 重新定制编辑器工具栏，如： tool: ['link', 'unlink', 'face'] 当前可选有：    <br/>&nbsp;
+         *             'strong' //加粗    <br/>&nbsp;
+         *             ,'italic' //斜体    <br/>&nbsp;
+         *             ,'underline' //下划线    <br/>&nbsp;
+         *             ,'del' //删除线    <br/>&nbsp;
          *
-         *             ,'|' //分割线	<br/>&nbsp;
+         *             ,'|' //分割线    <br/>&nbsp;
          *
-         *             ,'left' //左对齐	<br/>&nbsp;
-         *             ,'center' //居中对齐	<br/>&nbsp;
-         *             ,'right' //右对齐	<br/>&nbsp;
-         *             ,'link' //超链接	<br/>&nbsp;
-         *             ,'unlink' //清除链接	<br/>&nbsp;
-         *             ,'face' //表情	<br/>&nbsp;
-         *             ,'image' //插入图片	<br/>&nbsp;
-         *             ,'help' //帮助	<br/>&nbsp;
+         *             ,'left' //左对齐    <br/>&nbsp;
+         *             ,'center' //居中对齐    <br/>&nbsp;
+         *             ,'right' //右对齐    <br/>&nbsp;
+         *             ,'link' //超链接    <br/>&nbsp;
+         *             ,'unlink' //清除链接    <br/>&nbsp;
+         *             ,'face' //表情    <br/>&nbsp;
+         *             ,'image' //插入图片    <br/>&nbsp;
+         *             ,'help' //帮助    <br/>&nbsp;
          */
 
         tool?: string[];
@@ -1069,7 +1117,7 @@ declare namespace Layui {
          */
         height?: number | string;
         /**
-         * 设定图片上传接口，如：uploadImage: {url: '/upload/', type: 'post'},需要服务端返回：	<br/>&nbsp;
+         * 设定图片上传接口，如：uploadImage: {url: '/upload/', type: 'post'},需要服务端返回：    <br/>&nbsp;
          *   {	<br/>&nbsp;
          *     "code": 0 // 0表示成功，其它失败	<br/>&nbsp;
          *     ,"msg": "" // 提示信息  一般上传失败后返回	<br/>&nbsp;
@@ -1077,11 +1125,12 @@ declare namespace Layui {
          *       "src": "图片路径"	<br/>&nbsp;
          *      ,"title": "图片名称" //可选	<br/>&nbsp;
          *       }	<br/>&nbsp;
-         *  }	<br/>&nbsp;
+         *  }    <br/>&nbsp;
          */
 
         uploadImage?: { url: string; type: string };
     }
+
     // https://www.layui.com/doc/modules/layedit.html
     /**
      * 富文本编辑器
@@ -1124,15 +1173,16 @@ declare namespace Layui {
          */
         getSelection(index: number): string;
     }
+
     // https://www.layui.com/doc/modules/layer.html#base
     /**
      * 弹层组件
      */
     interface LayerOptions {
         /**
-         * 基本层类型	，layer提供了5种层类型。可传入的值有：	<br/>&nbsp;
-         *   0（信息框，默认）1（页面层）	<br/>&nbsp;
-         *   2（iframe层）3（加载层）4（tips层）。	<br/>&nbsp;
+         * 基本层类型    ，layer提供了5种层类型。可传入的值有：    <br/>&nbsp;
+         *   0（信息框，默认）1（页面层）    <br/>&nbsp;
+         *   2（iframe层）3（加载层）4（tips层）。    <br/>&nbsp;
          *   若你采用layer.open({type: 1})方式调用，则type为必填项（信息框除外）
          */
 
@@ -1146,7 +1196,7 @@ declare namespace Layui {
          */
         content?: string | HTMLElement | JQuery | string[];
         /**
-         * 样式类名 例如： skin: 'demo-class'  ，默认：''	<br/>&nbsp;
+         * 样式类名 例如： skin: 'demo-class'  ，默认：''    <br/>&nbsp;
          *    允许你传入layer内置的样式class名，还可以传入您自定义的class名
          */
         skin?: string;
@@ -1155,7 +1205,7 @@ declare namespace Layui {
          */
         area?: string | string[];
         /**
-         * 坐标	<br/>&nbsp;
+         * 坐标    <br/>&nbsp;
          * https://www.layui.com/doc/modules/layer.html#offset
          */
         offset?: number | string | string[];
@@ -1165,21 +1215,21 @@ declare namespace Layui {
          */
         icon?: number;
         /**
-         *   默认：'确认'  例如;btn: ['yes','btn2'] 第一个对应yes回调，后边对应btn2,btn3回调	<br/>&nbsp;
+         *   默认：'确认'  例如;btn: ['yes','btn2'] 第一个对应yes回调，后边对应btn2,btn3回调    <br/>&nbsp;
          *   https://www.layui.com/doc/modules/layer.html#btn
          */
         btn?: string | string[];
 
         /**
-         * 按钮排列  默认：r	<br/>&nbsp;
-         *  btnAlign: 'l' 按钮左对齐	<br/>&nbsp;
-         *  btnAlign: 'c' 按钮居中对齐	<br/>&nbsp;
+         * 按钮排列  默认：r    <br/>&nbsp;
+         *  btnAlign: 'l' 按钮左对齐    <br/>&nbsp;
+         *  btnAlign: 'c' 按钮居中对齐    <br/>&nbsp;
          *  btnAlign: 'r'  按钮右对齐。默认值，不用设置
          */
 
         btnAlign?: string;
         /**
-         * 关闭按钮  默认：1	<br/>&nbsp;
+         * 关闭按钮  默认：1    <br/>&nbsp;
          *  layer提供了两种风格的关闭按钮，可通过配置1和2来展示，如果不显示，则closeBtn: 0
          */
         closeBtn?: string | boolean | number;
@@ -1203,7 +1253,7 @@ declare namespace Layui {
          * https://www.layui.com/doc/modules/layer.html#anim
          */
         /**
-         * 弹出动画 ，默认：0 	<br/>&nbsp;
+         * 弹出动画 ，默认：0    <br/>&nbsp;
          *   目前anim可支持的动画类型有0-6 如果不想显示动画，设置 anim: -1 即可
          */
         anim?: number;
@@ -1212,7 +1262,7 @@ declare namespace Layui {
          */
         isOutAnim?: boolean;
         /**
-         * 最大最小化  默认：false	<br/>&nbsp;
+         * 最大最小化  默认：false    <br/>&nbsp;
          *   该参数值对type:1和type:2有效。默认不显示最大小化按钮。需要显示配置maxmin: true即可
          */
         maxmin?: boolean;
@@ -1224,10 +1274,12 @@ declare namespace Layui {
          * 是否允许拉伸 默认：true  该参数对loading、tips层无效
          */
         resize?: boolean;
+
         /**
          * 监听窗口拉伸动作 默认：null
          */
         resizing?(layero: JQuery): any;
+
         /**
          * 是否允许浏览器出现滚动条 ，默认：true
          */
@@ -1378,8 +1430,8 @@ declare namespace Layui {
         config(options: LayerConfigOptions, fn?: any): void;
 
         /**
-         * 执行初始化，就绪后执行回调参数 	<br/>&nbsp;
-         * ready(path: string, callback: () => void): void; //兼容旧版？ 	<br/>&nbsp;
+         * 执行初始化，就绪后执行回调参数    <br/>&nbsp;
+         * ready(path: string, callback: () => void): void; //兼容旧版？    <br/>&nbsp;
          * 初始化就绪 (CSS完成的回调),当你在页面一打开就要执行弹层时可放入回调中
          * @param callback 就绪后回调
          */
@@ -1581,8 +1633,8 @@ declare namespace Layui {
 
     interface PageOptions {
         /**
-         * 指向存放分页的容器，值可以是容器ID、DOM对象。如：	<br/>&nbsp;
-         * 1. elem: 'id'   注意：这里不能加 # 号	<br/>&nbsp;
+         * 指向存放分页的容器，值可以是容器ID、DOM对象。如：    <br/>&nbsp;
+         * 1. elem: 'id'   注意：这里不能加 # 号    <br/>&nbsp;
          * 2. elem: document.getElementById('id')
          */
         elem?: string | HTMLElement;
@@ -1595,7 +1647,7 @@ declare namespace Layui {
          */
         limit?: number;
         /**
-         * 每页条数的选择项。如果 layout 参数开启了 limit， 默认：[10, 20, 30, 40, 50]	<br/>&nbsp;
+         * 每页条数的选择项。如果 layout 参数开启了 limit， 默认：[10, 20, 30, 40, 50]    <br/>&nbsp;
          * 则会出现每页条数的select选择框
          */
         limits?: number[];
@@ -1626,27 +1678,28 @@ declare namespace Layui {
         last?: string | boolean;
 
         /**
-         * 自定义排版。可选值有：	<br/>&nbsp;
-         *  count（总条目输区域）、prev（上一页区域）、	<br/>&nbsp;
-         *  page（分页区域）、next（下一页区域）、limit（条目选项区域）、	<br/>&nbsp;
+         * 自定义排版。可选值有：    <br/>&nbsp;
+         *  count（总条目输区域）、prev（上一页区域）、    <br/>&nbsp;
+         *  page（分页区域）、next（下一页区域）、limit（条目选项区域）、    <br/>&nbsp;
          *  refresh（页面刷新区域。注意：layui 2.3.0 新增） 、skip（快捷跳页区域）
          */
         layout?: Array<'count' | 'prev' | 'page' | 'next' | 'limit' | 'refresh' | 'skip'>;
 
         /**
-         * 自定义主题。支持传入：颜色值，或任意普通字符。	<br/>&nbsp;
-         *  如：	<br/>&nbsp;
-         *  1. theme: '#c00'	<br/>&nbsp;
+         * 自定义主题。支持传入：颜色值，或任意普通字符。    <br/>&nbsp;
+         *  如：    <br/>&nbsp;
+         *  1. theme: '#c00'    <br/>&nbsp;
          *  2. theme: 'xxx' //将会生成 class="layui-laypage-xxx" 的CSS类，以便自定义主题
          */
         theme?: string;
 
         /**
-         * 开启location.hash，并自定义 hash 值。如果开启，在触发分页时，	<br/>&nbsp;
+         * 开启location.hash，并自定义 hash 值。如果开启，在触发分页时，    <br/>&nbsp;
          * 会自动对url追加：#!hash值={curr} 利用这个，可以在页面载入时就定位到指定页
          *
          */
         hash?: string | boolean;
+
         /**
          * 切换分页的回调
          * @param obj 当前分页的所有选项值
@@ -1654,6 +1707,7 @@ declare namespace Layui {
          */
         jump?(obj: PageOptionsForCallback, first: boolean): void;
     }
+
     /**
      * 先排除
      */
@@ -1667,7 +1721,7 @@ declare namespace Layui {
          */
         curr: number;
         /**
-         *  每页条数的选择项。如果 layout 参数开启了 limit， 默认：[10, 20, 30, 40, 50]	<br/>&nbsp;
+         *  每页条数的选择项。如果 layout 参数开启了 limit， 默认：[10, 20, 30, 40, 50]    <br/>&nbsp;
          *  则会出现每页条数的select选择框
          */
         limit: number;
@@ -1680,6 +1734,7 @@ declare namespace Layui {
          */
         groups: number;
     }
+
     // https://www.layui.com/doc/modules/laypage.html
     /**
      * 分页模块
@@ -1692,6 +1747,7 @@ declare namespace Layui {
             event: K,
             listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => void,
         ): void;
+
         on(elem: HTMLElement | null, event: string, listener: (this: HTMLElement, ...args: any) => any): void;
 
         render(options?: PageOptions): any;
@@ -1729,6 +1785,7 @@ declare namespace Layui {
          */
         render(data: object, callback?: (str: string) => any): string;
     }
+
     interface RateOption {
         /**
          * 指向容器选择器
@@ -1768,8 +1825,10 @@ declare namespace Layui {
          * @param value
          */
         setText?(value: number): void;
+
         choose?(value: number): void;
     }
+
     // https://www.layui.com/doc/modules/rate.html
     /**
      *  评分组件
@@ -1820,7 +1879,7 @@ declare namespace Layui {
          */
         range?: boolean;
         /**
-         * 滑块初始值，默认为数字，若开启了滑块为范围拖拽（即 range: true），则需赋值数组，	<br/>&nbsp;
+         * 滑块初始值，默认为数字，若开启了滑块为范围拖拽（即 range: true），则需赋值数组，    <br/>&nbsp;
          *   表示开始和结尾的区间，如：value: [30, 60]
          */
         value?: number | number[];
@@ -1837,7 +1896,7 @@ declare namespace Layui {
          */
         tips?: boolean;
         /**
-         * 是否显示输入框（注意：若 range 参数为 true 则强制无效）	<br/>&nbsp;
+         * 是否显示输入框（注意：若 range 参数为 true 则强制无效）    <br/>&nbsp;
          */
         /**
          *  点击输入框的上下按钮，以及输入任意数字后回车或失去焦点，均可动态改变滑块 默认：false
@@ -1855,17 +1914,20 @@ declare namespace Layui {
          * 主题颜色，以便用在不同的主题风格下 默认：#009688
          */
         theme?: string;
+
         /**
          * 自定义提示文本
          * @param value 滑块为范围模式是数组，否则是数字
          */
         setTips?(value: number | number[]): string;
+
         /**
-         * 数值改变的回调	<br/>&nbsp;
+         * 数值改变的回调    <br/>&nbsp;
          * @param value 滑块为范围模式是数组，否则是数字
          */
         change?(value: number | number[]): void;
     }
+
     // https://www.layui.com/doc/modules/slider.html
     /**
      * 滑块
@@ -1879,6 +1941,7 @@ declare namespace Layui {
          * @param options 基础参数
          */
         set(options?: SliderOption): Slider;
+
         // bug to fix
         on(event: string, callback: (obj: any) => any): any;
 
@@ -1895,6 +1958,7 @@ declare namespace Layui {
              */
             setValue(value: any, index?: number): void;
         };
+
         // setValue(value1: number, value2?: number): void;
     }
 
@@ -1909,12 +1973,12 @@ declare namespace Layui {
          */
         title?: string;
         /**
-         * 设定列宽，若不填写，则自动分配；若填写，则支持值为：数字、百分比。	<br/>&nbsp;
+         * 设定列宽，若不填写，则自动分配；若填写，则支持值为：数字、百分比。    <br/>&nbsp;
          *   请结合实际情况，对不同列做不同设定。
          */
         width?: string | number;
         /**
-         * 局部定义当前常规单元格的最小宽度（默认：60），	<br/>&nbsp;
+         * 局部定义当前常规单元格的最小宽度（默认：60），    <br/>&nbsp;
          *   一般用于列宽自动分配的情况。其优先级高于基础参数中的 cellMinWidth
          */
         minWidth?: number;
@@ -1928,8 +1992,8 @@ declare namespace Layui {
          */
         LAY_CHECKED?: boolean;
         /**
-         * 固定列。可选值有：left（固定在左）、right（固定在右）。一旦设定，对应的列将会被固定在左或右，不随滚动条而滚动。	<br/>&nbsp;
-         *   注意：如果是固定在左，该列必须放在表头最前面；如果是固定在右，该列必须放在表头最后面。	<br/>&nbsp;
+         * 固定列。可选值有：left（固定在左）、right（固定在右）。一旦设定，对应的列将会被固定在左或右，不随滚动条而滚动。    <br/>&nbsp;
+         *   注意：如果是固定在左，该列必须放在表头最前面；如果是固定在右，该列必须放在表头最后面。    <br/>&nbsp;
          *    非"right"就是left
          */
         fixed?: 'left' | 'right';
@@ -1955,7 +2019,7 @@ declare namespace Layui {
          */
         sort?: boolean;
         /**
-         * 是否禁用拖拽列宽（默认：false）。默认情况下会根据列类型（type）来决定是否禁用，如复选框列，会自动禁用。	<br/>&nbsp;
+         * 是否禁用拖拽列宽（默认：false）。默认情况下会根据列类型（type）来决定是否禁用，如复选框列，会自动禁用。    <br/>&nbsp;
          *   而其它普通列，默认允许拖拽列宽，当然你也可以设置 true 来禁用该功能。
          */
         unresize?: boolean;
@@ -1964,7 +2028,7 @@ declare namespace Layui {
          */
         edit?: 'text' | string;
         /**
-         * 自定义单元格点击事件名，以便在 tool 事件中完成对该单元格的业务处理，	<br/>&nbsp;
+         * 自定义单元格点击事件名，以便在 tool 事件中完成对该单元格的业务处理，    <br/>&nbsp;
          *   比如：table.on('tool(tableFilter)', function(obj){obj.event=''})
          */
         event?: string;
@@ -1985,12 +2049,12 @@ declare namespace Layui {
          */
         rowspan?: number;
         /**
-         * 自定义列模板，模板遵循 laytpl 语法	<br/>&nbsp;
+         * 自定义列模板，模板遵循 laytpl 语法    <br/>&nbsp;
          *   laytpl:https://www.layui.com/doc/modules/laytpl.html
          */
         templet?: string | ((d: any) => string);
         /**
-         * 绑定工具条模板。可在每行对应的列中出现一些自定义的操作性按钮	<br/>&nbsp;
+         * 绑定工具条模板。可在每行对应的列中出现一些自定义的操作性按钮    <br/>&nbsp;
          *  dom选择器，例如#toolbar
          */
         toolbar?: string;
@@ -2035,6 +2099,7 @@ declare namespace Layui {
          */
         dataName?: string;
     }
+
     /* 服务端返回数据不固定
         interface TableOriginResponse {
             status: number;
@@ -2056,19 +2121,16 @@ declare namespace Layui {
         [propName: string]: any;
     }
 
-    interface TableRequest {
-        page: number;
-        limit: number;
-
-        [propName: string]: any;
-    }
-
     interface TableRendered {
         config: TableOption;
+
         reload(options: TableOption, deep?: boolean): void;
+
         setColsWidth(): void;
+
         resize(): void;
     }
+
     // https://www.layui.com/doc/modules/table.html#options
     /**
      * 基础参数
@@ -2079,13 +2141,13 @@ declare namespace Layui {
          */
         elem?: string | HTMLElement | JQuery;
         /**
-         * 设置表头。值是一个二维数组。方法渲染方式必填 ,1维是表头集合，二维是列集合	<br/>&nbsp;
+         * 设置表头。值是一个二维数组。方法渲染方式必填 ,1维是表头集合，二维是列集合    <br/>&nbsp;
          * https://www.layui.com/doc/modules/table.html#cols
          */
         cols?: TableColumnOption[][];
         /**
-         * 接口地址	<br/>&nbsp;
-         *   默认会自动传递两个参数：?page=1&limit=30（该参数可通过 request 自定义）	<br/>&nbsp;
+         * 接口地址    <br/>&nbsp;
+         *   默认会自动传递两个参数：?page=1&limit=30（该参数可通过 request 自定义）    <br/>&nbsp;
          *    page 代表当前页码、limit 代表每页数据量
          */
         url?: string | null;
@@ -2127,6 +2189,7 @@ declare namespace Layui {
          * @param count 得到数据总量
          */
         done?(res: any, curr: number, count: number): void;
+
         /**
          *  数据请求失败的回调，返回两个参数：错误对象、内容
          * @param e  错误对象 ,是jqXHR对象（对XHR扩展），不同jquery版本其格式不同
@@ -2151,17 +2214,17 @@ declare namespace Layui {
          */
         page?: boolean | PageOptions;
         /**
-         * 每页显示的条数（默认 10）。值需对应 limits 参数的选项。	<br/>&nbsp;
+         * 每页显示的条数（默认 10）。值需对应 limits 参数的选项。    <br/>&nbsp;
          *  注意：优先级低于 page 参数中的 limit 参数
          */
         limit?: number;
         /**
-         * 每页条数的选择项，默认：[10,20,30,40,50,60,70,80,90]。	<br/>&nbsp;
+         * 每页条数的选择项，默认：[10,20,30,40,50,60,70,80,90]。    <br/>&nbsp;
          * 注意：优先级低于 page 参数中的 limits 参数
          */
         limits?: number[];
         /**
-         * 是否显示加载条（默认 true）。若为 false，则在切换分页时，不会出现加载条。	<br/>&nbsp;
+         * 是否显示加载条（默认 true）。若为 false，则在切换分页时，不会出现加载条。    <br/>&nbsp;
          * 该参数只适用于 url 参数开启的方式
          */
         loading?: boolean;
@@ -2174,12 +2237,12 @@ declare namespace Layui {
          */
         text?: { none: string };
         /**
-         * 默认 true，即直接由 table 组件在前端自动处理排序。	<br/>&nbsp;
+         * 默认 true，即直接由 table 组件在前端自动处理排序。    <br/>&nbsp;
          * 若为 false，则需自主排序，即由服务端返回排序好的数据
          */
         autoSort?: boolean;
         /**
-         * 初始排序状态。	<br/>&nbsp;
+         * 初始排序状态。    <br/>&nbsp;
          * 用于在数据表格渲染完毕时，默认按某个字段排序。
          */
         initSort?: { field: string; type?: 'null' | 'desc' | 'asc' };
@@ -2208,7 +2271,7 @@ declare namespace Layui {
          */
         where?: object | null;
         /**
-         * 发送到服务端的内容编码类型。	<br/>&nbsp;
+         * 发送到服务端的内容编码类型。    <br/>&nbsp;
          * 如果你要发送 json 内容，可以设置：contentType: 'application/json'
          */
         contentType?: string;
@@ -2242,11 +2305,15 @@ declare namespace Layui {
     interface TableOnCheckbox {
         checked: true;
         data: object;
+
         del(): void;
+
         tr: JQuery;
         type: string;
+
         update(fields: object): void;
     }
+
     /**
      * 点击table上边工具栏后回调参数的类型
      */
@@ -2254,36 +2321,50 @@ declare namespace Layui {
         config: TableOption;
         event: string;
     }
+
     /**
      * 点击table中工具列后回调参数的类型
      */
     interface TableOnTool {
         data: object;
+
         del(): void;
+
         event: string;
         tr: JQuery;
+
         update(fields: object): void;
     }
+
     /**
      * 点击table中行后回调参数的类型
      */
     interface TableOnRow {
         data: object;
+
         del(): void;
+
         tr: JQuery;
+
         update(fields: object): void;
     }
+
     /**
      * 点击table中单元格编辑后回调参数的类型
      */
     interface TableOnEdit {
         data: object;
+
         del(): void;
+
         field: string;
         tr: JQuery;
+
         update(fields: object): void;
+
         value: string;
     }
+
     /**
      * 点击table中列标题排序后回调参数的类型
      */
@@ -2291,6 +2372,7 @@ declare namespace Layui {
         field: string;
         type: string;
     }
+
     // https://www.layui.com/doc/element/table.html
     // https://www.layui.com/doc/modules/table.html
     /**
@@ -2310,6 +2392,7 @@ declare namespace Layui {
          * @param data
          */
         clearCacheKey(data: object): object;
+
         config: {
             checkName: 'LAY_CHECKED'; // 是否选中状态的字段名
             indexName: 'LAY_TABLE_INDEX'; // 初始下标索引名，用于恢复排序
@@ -2339,11 +2422,13 @@ declare namespace Layui {
          * @param type   默认csv
          */
         exportFile(id: string | any[], data?: any[] | null, type?: string): void;
+
         /**
          * 获取表格当前页的所有行数据
          * @param id  table参数中的id，无id则数字
          */
         getData(id: string): any[];
+
         index: number;
 
         /**
@@ -2380,6 +2465,7 @@ declare namespace Layui {
          * @param deep
          */
         reload(id: string, option?: TableOption, deep?: boolean): void;
+
         /**
          * 核心入口
          * @param option
@@ -2460,11 +2546,12 @@ declare namespace Layui {
          */
         onchange?(data: any, index: number): void;
     }
+
     interface TransferRendered {
         config: { [index: string]: any };
+
         /**
          * 获得右侧数据
-         * @param id 实例唯一索引
          */
         getData(): any[];
 
@@ -2474,6 +2561,7 @@ declare namespace Layui {
          * @param options 各项基础参数
          */
         reload(id: string, options: TransferOption): void;
+
         /**
          * 设定全局默认参数  bug to fix
          *
@@ -2488,11 +2576,13 @@ declare namespace Layui {
     interface Transfer {
         config: { [index: string]: any };
         index: number;
+
         /**
          * 获得右侧数据
          * @param id 实例唯一索引
          */
         getData(id: string): any[];
+
         /**
          * 核心方法
          * bug to fix
@@ -2513,6 +2603,7 @@ declare namespace Layui {
          * @param options 各项基础参数
          */
         reload(id: string, options: TransferOption): void;
+
         /**
          * 设定全局默认参数  bug to fix
          *
@@ -2520,6 +2611,7 @@ declare namespace Layui {
          */
         set(options: TransferOption): void;
     }
+
     // https://www.layui.com/doc/modules/tree.html#data
     interface TreeData {
         /**
@@ -2555,16 +2647,19 @@ declare namespace Layui {
          */
         disabled?: boolean;
     }
+
     interface TreeCheckData {
         data: any;
         checked: boolean;
         elem: JQuery;
     }
+
     interface TreeClickData {
         data: any;
         elem: JQuery;
         state: 'open' | 'close' | 'normal';
     }
+
     interface TreeOperateData {
         data: any;
         elem: JQuery;
@@ -2573,6 +2668,7 @@ declare namespace Layui {
          */
         type: 'add' | 'update' | 'del' | string;
     }
+
     /**
      * tree.reload()返回值
      */
@@ -2665,12 +2761,14 @@ declare namespace Layui {
          * @param args
          */
         dragstart?(...args: any): any;
+
         /**
          * 未知
          * @param args
          */
         dragend?(...args: any): any;
     }
+
     // https://www.layui.com/doc/modules/tree.html
     /**
      * 树形组件
@@ -2701,9 +2799,11 @@ declare namespace Layui {
 
         /**
          * 实例重载,重载一个已经创建的组件实例，覆盖基础属性
-         * @param id  render参数中的id，保证id存在否则出js错误
+         * @param id render参数中的id，保证id存在否则出js错误
+         * @param options 基础参数
          */
         reload(id: string, options: TreeOption): TreeReloaded;
+
         /**
          * 核心方法
          * @param option 基础参数
@@ -2715,6 +2815,7 @@ declare namespace Layui {
          * @param option
          */
         set(option?: TreeOption): Tree;
+
         /**
          * 设置节点勾选
          * @param id
@@ -2749,24 +2850,24 @@ declare namespace Layui {
          */
         headers?: object;
         /**
-         * 指定允许上传时校验的文件类型， 默认：images (即file,video,audio之外都可)	<br/>&nbsp;
+         * 指定允许上传时校验的文件类型， 默认：images (即file,video,audio之外都可)    <br/>&nbsp;
          */
         //  可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
         accept?: 'images' | 'file' | 'video' | 'audio';
         /**
-         * 规定打开文件选择框筛选出的文件类型，值为用逗号隔开。默认：images 如：	<br/>&nbsp;
+         * 规定打开文件选择框筛选出的文件类型，值为用逗号隔开。默认：images 如：    <br/>&nbsp;
          */
         //  acceptMime: 'image/*'（只显示图片文件）	<br/>&nbsp;
         //  acceptMime: 'image/jpg, image/png'（只显示 jpg 和 png 文件）
         acceptMime?: string;
         /**
-         * 允许上传的文件后缀。一般结合 accept 参数类设定。默认：jpg|png|gif|bmp|jpeg	<br/>&nbsp;
+         * 允许上传的文件后缀。一般结合 accept 参数类设定。默认：jpg|png|gif|bmp|jpeg    <br/>&nbsp;
          */
         //  假设 accept 为 file 类型时，那么你设置 exts: 'zip|rar|7z' 即代表只允许上传压缩格式的文件。	<br/>&nbsp;
         //  如果 accept 未设定，那么限制的就是图片的文件格式
         exts?: string;
         /**
-         * 是否选完文件后自动上传。 默认：true	<br/>&nbsp;
+         * 是否选完文件后自动上传。 默认：true    <br/>&nbsp;
          */
         //  如果设定 false，那么需要设置 bindAction 参数来指向一个其它按钮提交上传
         auto?: boolean;
@@ -2824,7 +2925,7 @@ declare namespace Layui {
         done?(this: UploadOptionThis, res: any, index: string, upload: (files?: Blob[]) => void): void;
 
         /**
-         * 执行上传请求出现异常的回调（一般为网络异常、URL 404等）。	<br/>&nbsp;
+         * 执行上传请求出现异常的回调（一般为网络异常、URL 404等）。    <br/>&nbsp;
          * 返回两个参数，分别为：index（当前文件的索引）、upload（重新上传的方法
          * @param index 当前文件索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
          * @param upload 上传函数
@@ -2852,7 +2953,9 @@ declare namespace Layui {
             index: string,
         ): void;
     }
+
     type UploadOptionThis = Required<UploadOption>;
+
     interface UploadAllDoneArg {
         /**
          * 得到总文件数
@@ -2867,17 +2970,16 @@ declare namespace Layui {
          */
         aborted: number;
     }
+
     interface UploadCallbackArg {
         /**
-         * 预览
-         * @param index  索引
-         * @param file  文件
-         * @param result  比如图片base64编码
+         *  预览
+         * @param callback index索引,file文件,result比如图片base64编码
          */
         preview(callback: (index: string, file: File, result: any) => void): void;
 
         /**
-         * 上传单个文件	<br/>&nbsp;
+         * 上传单个文件    <br/>&nbsp;
          * 对上传失败的单个文件重新上传，一般在某个事件中使用
          * @param index 索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
          * @param file 文件
@@ -2897,6 +2999,7 @@ declare namespace Layui {
          */
         resetFile(index: string, file: Blob, filename: any): void;
     }
+
     interface UploadRendered {
         /**
          * 参数信息
@@ -2908,6 +3011,7 @@ declare namespace Layui {
          * @param options 基础参数
          */
         reload(options?: UploadOption): void;
+
         /**
          * 重新上传的方法，一般在某个事件中使用
          * @param files 需要上传的文件数组
@@ -2924,6 +3028,7 @@ declare namespace Layui {
          * 全局参数项
          */
         config: { [index: string]: any };
+
         /**
          * 绑定事件，内部modName默认为 upload，绑定参考layui.onevent,触发参考layui.event
          * @param events
@@ -2936,6 +3041,7 @@ declare namespace Layui {
          * @param option 基础参数
          */
         render(option: UploadOption): UploadRendered;
+
         /**
          * 设置upload全局参数(预设基础参数值)
          * @param option 参数
@@ -2945,12 +3051,12 @@ declare namespace Layui {
 
     interface UtilBarOption {
         /**
-         * 默认false。如果值为true，则显示第一个bar，带有一个默认图标。	<br/>&nbsp;
+         * 默认false。如果值为true，则显示第一个bar，带有一个默认图标。    <br/>&nbsp;
          */
         //  如果值为图标字符，则显示第一个bar，并覆盖默认图标
         bar1?: boolean | string;
         /**
-         * 默认false。如果值为true，则显示第二个bar，带有一个默认图标。	<br/>&nbsp;
+         * 默认false。如果值为true，则显示第二个bar，带有一个默认图标。    <br/>&nbsp;
          */
         //  如果值为图标字符，则显示第二个bar，并覆盖默认图标
         bar2?: boolean | string;
@@ -2966,8 +3072,9 @@ declare namespace Layui {
          * 你可以通过重置bar的位置，比如 css: {right: 100, bottom: 100}
          */
         css?: { [key: string]: string | number | boolean };
+
         /**
-         * 点击bar的回调，函数返回一个type参数，用于区分bar类型。	<br/>&nbsp;
+         * 点击bar的回调，函数返回一个type参数，用于区分bar类型。    <br/>&nbsp;
          *  支持的类型有：bar1、bar2、top
          * @param type  bar1、bar2、top
          */
@@ -2989,9 +3096,9 @@ declare namespace Layui {
          * 倒计时
          * @param endTime  结束时间戳或Date对象，如：4073558400000，或：new Date(2099,1,1).
          * @param serverTime  当前服务器时间戳或Date对象
-         * @param callback 回调函数。如果倒计时尚在运行，则每一秒都会执行一次。并且返回三个参数：	<br/>&nbsp;
-         *      date（包含天/时/分/秒的对象）、	<br/>&nbsp;
-         *      serverTime（当前服务器时间戳或Date对象）,	<br/>&nbsp;
+         * @param callback 回调函数。如果倒计时尚在运行，则每一秒都会执行一次。并且返回三个参数：    <br/>&nbsp;
+         *      date（包含天/时/分/秒的对象）、    <br/>&nbsp;
+         *      serverTime（当前服务器时间戳或Date对象）,    <br/>&nbsp;
          *      timer（计时器返回的ID值，用于clearTimeout）
          */
         countdown(
