@@ -45,10 +45,10 @@ export interface Value {
     viewerHeight: number;
     SVGWidth: number;
     SVGHeight: number;
-    startX?: number | null;
-    startY?: number | null;
-    endX?: number | null;
-    endY?: number | null;
+    startX?: number | null | undefined;
+    startY?: number | null | undefined;
+    endX?: number | null | undefined;
+    endY?: number | null | undefined;
     miniatureOpen: boolean;
 }
 
@@ -79,9 +79,9 @@ export interface OptionalProps {
     detectPinchGesture: boolean;
 
     toolbarProps: {
-        position?: ToolbarPosition;
-        SVGAlignX?: typeof ALIGN_CENTER | typeof ALIGN_LEFT | typeof ALIGN_RIGHT;
-        SVGAlignY?: typeof ALIGN_CENTER | typeof ALIGN_TOP | typeof ALIGN_BOTTOM;
+        position?: ToolbarPosition | undefined;
+        SVGAlignX?: typeof ALIGN_CENTER | typeof ALIGN_LEFT | typeof ALIGN_RIGHT | undefined;
+        SVGAlignY?: typeof ALIGN_CENTER | typeof ALIGN_TOP | typeof ALIGN_BOTTOM | undefined;
     };
 
     customMiniature: React.ReactElement | React.ComponentType;

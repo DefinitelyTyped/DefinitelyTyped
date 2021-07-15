@@ -55,7 +55,7 @@ declare class Popover extends BaseComponent {
      * Static method which allows you to get the popover instance associated
      * with a DOM element
      */
-    static getInstance(element: Element, options?: Partial<Popover.Options>): Popover;
+    static getInstance(element: Element, options?: Partial<Popover.Options>): Popover | null;
 
     static jQueryInterface: Popover.jQueryInterface;
 

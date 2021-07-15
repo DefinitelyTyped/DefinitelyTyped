@@ -5,32 +5,32 @@
 
 interface MoneyOptions {
     // Decimal precision -> "90"
-    precision?: number;
+    precision?: number | undefined;
 
     // Decimal separator -> ",90"
-    separator?: string;
+    separator?: string | undefined;
 
     // Number delimiter -> "12.345.678"
-    delimiter?: string;
+    delimiter?: string | undefined;
 
     // Money unit -> "R$ 12.345.678,90"
-    unit?: string;
+    unit?: string | undefined;
 
     // Money unit -> "12.345.678,90 R$"
-    suffixUnit?: string;
+    suffixUnit?: string | undefined;
 
     // Force type only number instead decimal,
     // masking decimals with ",00"
     // Zero cents -> "R$ 1.234.567.890,00"
-    zeroCents?: boolean;
+    zeroCents?: boolean | undefined;
 }
 
 interface PatternOptions {
     // Pattern to mask value against.
-    pattern?: string;
+    pattern?: string | undefined;
 
     // Placeholder option to represent remaining characters to be entered
-    placeholder?: string;
+    placeholder?: string | undefined;
 }
 
 declare const VMasker: {

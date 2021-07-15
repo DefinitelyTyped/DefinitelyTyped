@@ -23,7 +23,7 @@ import {
 export type FieldType = "Field" | "FieldArray";
 
 export interface ErrorOther<T = string> {
-    _error?: T;
+    _error?: T | undefined;
 }
 
 export type FormErrors<FormData = {}, T = string> = {
@@ -31,7 +31,7 @@ export type FormErrors<FormData = {}, T = string> = {
 } & ErrorOther<T>;
 
 export interface WarningOther<T = void> {
-    _warning?: T;
+    _warning?: T | undefined;
 }
 
 export type FormWarnings<FormData = {}, T = void> = {

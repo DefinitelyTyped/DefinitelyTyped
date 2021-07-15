@@ -31,21 +31,21 @@ declare module 'react-redux-i18n' {
   }
 
   type TranslateProps = {
-    className?: string;
-    dangerousHTML?: boolean;
-    style?: React.CSSProperties;
-    tag?: React.ReactType;
+    className?: string | undefined;
+    dangerousHTML?: boolean | undefined;
+    style?: React.CSSProperties | undefined;
+    tag?: React.ReactType | undefined;
     value: string;
     [prop: string]: any;
   }
 
   type LocalizeProps = {
-    className?: string;
-    dangerousHTML?: boolean;
-    dateFormat?: string;
-    options?: Object;
-    style?: React.CSSProperties;
-    tag?: React.ReactType;
+    className?: string | undefined;
+    dangerousHTML?: boolean | undefined;
+    dateFormat?: string | undefined;
+    options?: Object | undefined;
+    style?: React.CSSProperties | undefined;
+    tag?: React.ReactType | undefined;
     value: string | number | object;
   }
 

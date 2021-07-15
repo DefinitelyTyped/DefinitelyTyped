@@ -43,8 +43,8 @@ class CalendarEvent {
     start: Date;
     endDate: Date;
     desc: string;
-    resourceId?: string;
-    tooltip?: string;
+    resourceId?: string | undefined;
+    tooltip?: string | undefined;
 
     constructor(_title: string, _start: Date, _endDate: Date, _allDay?: boolean, _desc?: string, _resourceId?: string) {
         this.title = _title;
@@ -166,6 +166,9 @@ class CalendarResource {
                 agenda: {
                     event: EventAgenda,
                 },
+                work_week: {
+                  event: Event
+                },
                 toolbar: Toolbar,
                 eventWrapper: EventWrapper,
             }}
@@ -266,6 +269,7 @@ class CalendarResource {
                     onShowMore={(events, date) => {
                         console.log('onShowMore fired, events: %O, date: %O', events, date);
                     }}
+                    doShowMoreDrillDown={true}
                     selectable={true}
                     step={20}
                     rtl={true}
@@ -523,4 +527,44 @@ class MyDay extends Day {
 // Using backgroundEvents
 {
     ReactDOM.render(<Calendar backgroundEvents={getEvents()} localizer={momentLocalizer(moment)} />, document.body);
+}
+
+// defaultView initializer
+{
+    const localizer = dateFnsLocalizer(dateFnsConfig);
+
+    const MonthView = () => (
+        <Calendar
+            defaultView={Views.MONTH}
+            localizer={localizer}
+        />
+    );
+
+    const WeekView = () => (
+        <Calendar
+            defaultView={Views.WEEK}
+            localizer={localizer}
+        />
+    );
+
+    const WorkWeekView = () => (
+        <Calendar
+            defaultView={Views.WORK_WEEK}
+            localizer={localizer}
+        />
+    );
+
+    const DAYView = () => (
+        <Calendar
+            defaultView={Views.DAY}
+            localizer={localizer}
+        />
+    );
+
+    const AgendaView = () => (
+        <Calendar
+            defaultView={Views.AGENDA}
+            localizer={localizer}
+        />
+    );
 }

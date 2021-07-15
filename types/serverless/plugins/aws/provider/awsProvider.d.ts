@@ -6,91 +6,91 @@ declare namespace Aws {
     */
     interface Serverless {
         service: Service | string;
-        useDotenv?: boolean;
-        frameworkVersion?: string;
-        enableLocalInstallationFallback?: boolean;
-        variablesResolutionMode?: '20210219';
-        unresolvedVariablesNotificationMode?: 'warn' | 'error';
-        disabledDeprecations?: string[];
-        configValidationMode?: 'warn' | 'error' | 'off';
+        useDotenv?: boolean | undefined;
+        frameworkVersion?: string | undefined;
+        enableLocalInstallationFallback?: boolean | undefined;
+        variablesResolutionMode?: '20210219' | '20210326' | undefined;
+        unresolvedVariablesNotificationMode?: 'warn' | 'error' | undefined;
+        disabledDeprecations?: string[] | undefined;
+        configValidationMode?: 'warn' | 'error' | 'off' | undefined;
         provider: Provider;
-        package?: Package;
-        functions?: Functions;
-        layers?: Layers;
-        resources?: Resources;
-        plugins?: string[];
-        org?: string;
-        app?: string;
-        tenant?: string;
-        custom?: Custom;
+        package?: Package | undefined;
+        functions?: Functions | undefined;
+        layers?: Layers | undefined;
+        resources?: Resources | undefined;
+        plugins?: string[] | undefined;
+        org?: string | undefined;
+        app?: string | undefined;
+        tenant?: string | undefined;
+        custom?: Custom | undefined;
     }
 
     interface Service {
         name: string;
         /** @deprecated in favor of `kmsKeyArn` at the provider level  */
-        awsKmsKeyArn?: string;
+        awsKmsKeyArn?: string | undefined;
     }
 
     interface Provider {
         name: 'aws';
-        runtime?: string;
-        stage?: string;
-        region?: string;
-        stackName?: string;
-        apiName?: string;
-        lambdaHashingVersion?: number;
-        websocketsApiName?: string;
-        websocketsApiRouteSelectionExpression?: string;
-        profile?: string;
-        memorySize?: number | string;
-        reservedConcurrency?: number | string;
-        timeout?: number | string;
-        logRetentionInDays?: number | string;
-        deploymentBucket?: DeploymentBucket;
-        deploymentPrefix?: string;
+        runtime?: string | undefined;
+        stage?: string | undefined;
+        region?: string | undefined;
+        stackName?: string | undefined;
+        apiName?: string | undefined;
+        lambdaHashingVersion?: number | undefined;
+        websocketsApiName?: string | undefined;
+        websocketsApiRouteSelectionExpression?: string | undefined;
+        profile?: string | undefined;
+        memorySize?: number | string | undefined;
+        reservedConcurrency?: number | string | undefined;
+        timeout?: number | string | undefined;
+        logRetentionInDays?: number | string | undefined;
+        deploymentBucket?: DeploymentBucket | undefined;
+        deploymentPrefix?: string | undefined;
         /** @deprecated in favor of `iam.role` */
-        role?: string;
+        role?: string | undefined;
         /** @deprecated in favor of `iam.role.permissionsBoundary` */
-        rolePermissionsBoundary?: string;
+        rolePermissionsBoundary?: string | undefined;
         /** @deprecated in favor of `iam.role.statements` */
-        iamRoleStatements?: IamRoleStatement[];
+        iamRoleStatements?: IamRoleStatement[] | undefined;
         /** @deprecated in favor of `iam.role.managedPolicies` */
-        iamManagedPolicies?: string[];
+        iamManagedPolicies?: string[] | undefined;
         /** @deprecated in favor of `iam.deploymentRole` */
-        cfnRole?: string;
-        iam?: IamSettings;
-        versionFunctions?: boolean;
-        environment?: Environment | string;
-        endpointType?: 'regional' | 'edge' | 'private';
-        apiKeys?: string[];
-        apiGateway?: ApiGateway;
-        alb?: Alb;
-        httpApi?: HttpApi;
-        usagePlan?: UsagePlan;
-        stackTags?: Tags;
-        stackPolicy?: ResourcePolicy[];
-        vpc?: string | Vpc;
-        notificationArns?: string[];
-        stackParameters?: StackParameters[];
-        resourcePolicy?: ResourcePolicy[];
-        rollbackConfiguration?: RollbackConfiguration;
-        tags?: Tags;
-        tracing?: Tracing;
-        logs?: Logs;
-        kmsKeyArn?: string;
+        cfnRole?: string | undefined;
+        iam?: IamSettings | undefined;
+        versionFunctions?: boolean | undefined;
+        environment?: Environment | string | undefined;
+        endpointType?: 'regional' | 'edge' | 'private' | undefined;
+        apiKeys?: string[] | undefined;
+        apiGateway?: ApiGateway | undefined;
+        alb?: Alb | undefined;
+        httpApi?: HttpApi | undefined;
+        usagePlan?: UsagePlan | undefined;
+        stackTags?: Tags | undefined;
+        stackPolicy?: ResourcePolicy[] | undefined;
+        vpc?: string | Vpc | undefined;
+        notificationArns?: string[] | undefined;
+        stackParameters?: StackParameters[] | undefined;
+        resourcePolicy?: ResourcePolicy[] | undefined;
+        rollbackConfiguration?: RollbackConfiguration | undefined;
+        tags?: Tags | undefined;
+        tracing?: Tracing | undefined;
+        logs?: Logs | undefined;
+        kmsKeyArn?: string | undefined;
     }
 
     interface IamSettings {
-        role?: string | IamRole;
-        deploymentRole?: string;
+        role?: string | IamRole | undefined;
+        deploymentRole?: string | undefined;
     }
 
     interface IamRole {
-        name?: string;
-        permissionBoundary?: string;
-        statements?: IamRoleStatement[];
-        managedPolicies?: string[];
-        tags?: Tags;
+        name?: string | undefined;
+        permissionBoundary?: string | undefined;
+        statements?: IamRoleStatement[] | undefined;
+        managedPolicies?: string[] | undefined;
+        tags?: Tags | undefined;
     }
 
     interface Tags {
@@ -98,15 +98,15 @@ declare namespace Aws {
     }
 
     interface DeploymentBucket {
-        name?: string;
-        maxPreviousDeploymentArtifacts?: number | string;
-        blockPublicAccess?: boolean;
-        serverSideEncryption?: string;
-        sseKMSKeyId?: string;
-        sseCustomerAlgorithim?: string;
-        sseCustomerKey?: string;
-        sseCustomerKeyMD5?: string;
-        tags?: Tags;
+        name?: string | undefined;
+        maxPreviousDeploymentArtifacts?: number | string | undefined;
+        blockPublicAccess?: boolean | undefined;
+        serverSideEncryption?: string | undefined;
+        sseKMSKeyId?: string | undefined;
+        sseCustomerAlgorithim?: string | undefined;
+        sseCustomerKey?: string | undefined;
+        sseCustomerKeyMD5?: string | undefined;
+        tags?: Tags | undefined;
     }
 
     interface Environment {
@@ -114,18 +114,18 @@ declare namespace Aws {
     }
 
     interface ApiGateway {
-        restApiId?: string;
-        restApiRootResourceId?: string;
+        restApiId?: string | undefined;
+        restApiRootResourceId?: string | undefined;
         restApiResources?: {
             [key: string]: string;
-        };
+        } | undefined;
         websocketApiId?: any;
-        apiKeySourceType?: 'HEADER' | 'AUTHORIZER' | 'header' | 'authorizer';
-        minimumCompressionSize?: number | string;
-        description?: string;
-        binaryMediaTypes?: string[];
-        metrics?: boolean;
-        shouldStartNameWithService?: boolean;
+        apiKeySourceType?: 'HEADER' | 'AUTHORIZER' | 'header' | 'authorizer' | undefined;
+        minimumCompressionSize?: number | string | undefined;
+        description?: string | undefined;
+        binaryMediaTypes?: string[] | undefined;
+        metrics?: boolean | undefined;
+        shouldStartNameWithService?: boolean | undefined;
     }
 
     interface CognitoAuthorizer {
@@ -133,33 +133,33 @@ declare namespace Aws {
         userPoolArn: string;
         userPoolClientId: string;
         userPoolDomain: string;
-        allowUnauthenticated?: boolean;
+        allowUnauthenticated?: boolean | undefined;
         requestExtraParams?: {
-            prompt?: string;
-            redirect?: boolean;
-        };
-        scope?: string;
-        sessionCookieName?: string;
-        sessionTimeout?: number | string;
+            prompt?: string | undefined;
+            redirect?: boolean | undefined;
+        } | undefined;
+        scope?: string | undefined;
+        sessionCookieName?: string | undefined;
+        sessionTimeout?: number | string | undefined;
     }
 
     interface OidcAuthorizer {
         type: 'oidc';
         authorizationEndpoint: string;
         clientId: string;
-        clientSecret?: string;
-        useExistingClientSecret?: boolean;
+        clientSecret?: string | undefined;
+        useExistingClientSecret?: boolean | undefined;
         issuer: string;
         tokenEndpoint: string;
         userInfoEndpoint: string;
-        allowUnauthenticated?: boolean;
+        allowUnauthenticated?: boolean | undefined;
         requestExtraParams?: {
-            prompt?: string;
-            redirect?: boolean;
-        };
-        scope?: string;
-        sessionCookieName?: string;
-        sessionTimeout?: number | string;
+            prompt?: string | undefined;
+            redirect?: boolean | undefined;
+        } | undefined;
+        scope?: string | undefined;
+        sessionCookieName?: string | undefined;
+        sessionTimeout?: number | string | undefined;
     }
 
     interface JwtAuthorizer {
@@ -173,54 +173,54 @@ declare namespace Aws {
     }
 
     interface Alb {
-        targetGroupPrefix?: string;
-        authorizers?: Authorizers;
+        targetGroupPrefix?: string | undefined;
+        authorizers?: Authorizers | undefined;
     }
 
     interface HttpApi {
-        id?: string;
-        name?: string;
-        payload?: string;
-        cors?: boolean;
-        authorizers?: Authorizers;
+        id?: string | undefined;
+        name?: string | undefined;
+        payload?: string | undefined;
+        cors?: boolean | undefined;
+        authorizers?: Authorizers | undefined;
     }
 
     interface Quota {
-        limit?: number | string;
-        offset?: number | string;
-        period?: string;
+        limit?: number | string | undefined;
+        offset?: number | string | undefined;
+        period?: string | undefined;
     }
 
     interface Throttle {
-        burstLimit?: number | string;
-        rateLimit?: number | string;
+        burstLimit?: number | string | undefined;
+        rateLimit?: number | string | undefined;
     }
 
     interface UsagePlan {
-        quota?: Quota;
-        throttle?: Throttle;
+        quota?: Quota | undefined;
+        throttle?: Throttle | undefined;
     }
 
     interface IamRoleStatement {
         Effect: 'Allow' | 'Deny';
-        Sid?: string;
+        Sid?: string | undefined;
         Condition?: {
             [key: string]: any;
-        };
-        Action?: string | string[] | { [key: string]: any };
-        NotAction?: string | string[] | { [key: string]: any };
-        Resource?: string | string[] | { [key: string]: any };
-        NotResource?: string | string[] | { [key: string]: any };
+        } | undefined;
+        Action?: string | string[] | { [key: string]: any } | undefined;
+        NotAction?: string | string[] | { [key: string]: any } | undefined;
+        Resource?: string | string[] | { [key: string]: any } | undefined;
+        NotResource?: string | string[] | { [key: string]: any } | undefined;
     }
 
     interface ResourcePolicy {
         Effect: 'Allow' | 'Deny';
-        Principal?: string | string[] | { [key: string]: any };
-        Action?: string | string[] | { [key: string]: any };
-        Resource?: string | string[] | { [key: string]: any };
+        Principal?: string | string[] | { [key: string]: any } | undefined;
+        Action?: string | string[] | { [key: string]: any } | undefined;
+        Resource?: string | string[] | { [key: string]: any } | undefined;
         Condition?: {
             [key: string]: any;
-        };
+        } | undefined;
     }
 
     interface Vpc {
@@ -245,127 +245,127 @@ declare namespace Aws {
 
     interface Tracing {
         apiGateway: boolean;
-        lambda?: 'Active' | 'PassThrough' | boolean;
+        lambda?: 'Active' | 'PassThrough' | boolean | undefined;
     }
 
     interface RestApiLogs {
-        accessLogging?: boolean;
-        format?: string;
-        executionLogging?: boolean;
-        level?: 'INFO' | 'ERROR';
-        fullExecutionData?: boolean;
-        role?: string;
-        roleManagedExternally?: boolean;
+        accessLogging?: boolean | undefined;
+        format?: string | undefined;
+        executionLogging?: boolean | undefined;
+        level?: 'INFO' | 'ERROR' | undefined;
+        fullExecutionData?: boolean | undefined;
+        role?: string | undefined;
+        roleManagedExternally?: boolean | undefined;
     }
 
     interface WebsocketLogs {
-        level?: 'INFO' | 'ERROR';
+        level?: 'INFO' | 'ERROR' | undefined;
     }
 
     interface HttpApiLogs {
-        format?: string;
+        format?: string | undefined;
     }
 
     interface Logs {
-        restApi?: true | RestApiLogs;
-        websocket?: WebsocketLogs;
-        httpApi?: boolean | HttpApiLogs;
-        frameworkLambda?: boolean;
+        restApi?: true | RestApiLogs | undefined;
+        websocket?: WebsocketLogs | undefined;
+        httpApi?: boolean | HttpApiLogs | undefined;
+        frameworkLambda?: boolean | undefined;
     }
 
     interface Package {
         /** @deprecated use `patterns` instead */
-        include?: string[];
+        include?: string[] | undefined;
         /** @deprecated use `patterns` instead */
-        exclude?: string[];
-        patterns?: string[];
-        excludeDevDependencies?: boolean;
-        artifact?: string;
-        individually?: boolean;
+        exclude?: string[] | undefined;
+        patterns?: string[] | undefined;
+        excludeDevDependencies?: boolean | undefined;
+        artifact?: string | undefined;
+        individually?: boolean | undefined;
     }
 
     interface Destinations {
-        onSuccess?: string;
-        onFailure?: string;
+        onSuccess?: string | undefined;
+        onFailure?: string | undefined;
     }
 
     interface HttpAuthorizer {
-        name?: string;
-        arn?: string;
-        resultTtlInSeconds?: number | string;
-        identitySource?: string;
-        identityValidationExpression?: string;
-        type?: string;
+        name?: string | undefined;
+        arn?: string | undefined;
+        resultTtlInSeconds?: number | string | undefined;
+        identitySource?: string | undefined;
+        identityValidationExpression?: string | undefined;
+        type?: string | undefined;
     }
 
     interface HttpCors {
-        origins?: string | string[];
-        headers?: string | string[];
-        allowCredentials?: boolean;
-        maxAge?: number;
-        cacheControl?: string;
+        origins?: string | string[] | undefined;
+        headers?: string | string[] | undefined;
+        allowCredentials?: boolean | undefined;
+        maxAge?: number | undefined;
+        cacheControl?: string | undefined;
     }
 
     interface HttpRequestParametersValidation {
-        querystrings?: { [key: string]: boolean };
-        headers?: { [key: string]: boolean };
-        paths?: { [key: string]: boolean };
+        querystrings?: { [key: string]: boolean } | undefined;
+        headers?: { [key: string]: boolean } | undefined;
+        paths?: { [key: string]: boolean } | undefined;
     }
 
     interface HttpRequestValidation {
-        parameters?: HttpRequestParametersValidation;
-        schema?: { [key: string]: Record<string, unknown> };
+        parameters?: HttpRequestParametersValidation | undefined;
+        schema?: { [key: string]: Record<string, unknown> } | undefined;
     }
 
     interface Http {
         path: string;
         method: string;
-        cors?: boolean | HttpCors;
-        private?: boolean;
-        async?: boolean;
-        authorizer?: HttpAuthorizer | string;
-        request?: HttpRequestValidation;
-        integration?: 'lambda' | 'mock';
+        cors?: boolean | HttpCors | undefined;
+        private?: boolean | undefined;
+        async?: boolean | undefined;
+        authorizer?: HttpAuthorizer | string | undefined;
+        request?: HttpRequestValidation | undefined;
+        integration?: 'lambda' | 'mock' | undefined;
     }
 
     interface NamedHttpApiEventAuthorizer {
         name: string;
-        scopes?: string[];
+        scopes?: string[] | undefined;
     }
 
     interface IdRefHttpApiEventAuthorizer {
         id: string;
-        scopes?: string[];
+        scopes?: string[] | undefined;
     }
 
     interface HttpApiEvent {
         method: string;
         path: string;
-        authorizer?: NamedHttpApiEventAuthorizer | IdRefHttpApiEventAuthorizer;
+        authorizer?: NamedHttpApiEventAuthorizer | IdRefHttpApiEventAuthorizer | undefined;
     }
 
     interface WebsocketAuthorizer {
-        name?: string;
-        arn?: string;
-        identitySource?: string[];
+        name?: string | undefined;
+        arn?: string | undefined;
+        identitySource?: string[] | undefined;
     }
 
     interface Websocket {
         route: string;
-        routeResponseSelectionExpression?: string;
-        authorizer?: WebsocketAuthorizer;
+        routeResponseSelectionExpression?: string | undefined;
+        authorizer?: WebsocketAuthorizer | undefined;
     }
 
     interface S3Rule {
-        prefix?: string;
-        suffix?: string;
+        prefix?: string | undefined;
+        suffix?: string | undefined;
     }
 
     interface S3 {
         bucket: string;
         event: string;
-        rules?: S3Rule[];
-        existing?: boolean;
+        rules?: S3Rule[] | undefined;
+        existing?: boolean | undefined;
     }
 
     interface Input {
@@ -378,13 +378,13 @@ declare namespace Aws {
     }
 
     interface Schedule {
-        name?: string;
-        description?: string;
+        name?: string | undefined;
+        description?: string | undefined;
         rate: string;
-        enabled?: boolean;
-        input?: Input;
-        inputPath?: string;
-        inputTransformer?: InputTransformer;
+        enabled?: boolean | undefined;
+        input?: Input | undefined;
+        inputPath?: string | undefined;
+        inputTransformer?: InputTransformer | undefined;
     }
 
     interface DeadLetterTargetImport {
@@ -393,56 +393,56 @@ declare namespace Aws {
     }
 
     interface RedrivePolicy {
-        deadLetterTargetArn?: string;
-        deadLetterTargetRef?: string;
-        deadLetterTargetImport?: DeadLetterTargetImport;
+        deadLetterTargetArn?: string | undefined;
+        deadLetterTargetRef?: string | undefined;
+        deadLetterTargetImport?: DeadLetterTargetImport | undefined;
     }
 
     interface Sns {
-        arn?: string;
-        topicName?: string;
-        displayName?: string;
-        filterPolicy?: Record<string, unknown>;
-        redrivePolicy?: RedrivePolicy;
+        arn?: string | undefined;
+        topicName?: string | undefined;
+        displayName?: string | undefined;
+        filterPolicy?: Record<string, unknown> | undefined;
+        redrivePolicy?: RedrivePolicy | undefined;
     }
 
     interface Sqs {
         arn: string | { [key: string]: any };
-        batchSize?: number | string;
-        maximumRetryAttempts?: number | string;
-        enabled?: boolean;
+        batchSize?: number | string | undefined;
+        maximumRetryAttempts?: number | string | undefined;
+        enabled?: boolean | undefined;
     }
 
     interface Stream {
         arn: string | { [key: string]: any };
-        batchSize?: number | string;
-        startingPosition?: number | string;
-        enabled?: boolean;
-        type?: 'dynamodb' | 'kinesis';
+        batchSize?: number | string | undefined;
+        startingPosition?: number | string | undefined;
+        enabled?: boolean | undefined;
+        type?: 'dynamodb' | 'kinesis' | undefined;
     }
 
     interface Msk {
         arn: string;
         topic: string;
-        batchSize?: number;
-        enabled?: boolean;
-        startingPosition?: 'LATEST' | 'TRIM_HORIZON';
+        batchSize?: number | undefined;
+        enabled?: boolean | undefined;
+        startingPosition?: 'LATEST' | 'TRIM_HORIZON' | undefined;
     }
 
     interface AlexaSkill {
         appId: string;
-        enabled?: boolean;
+        enabled?: boolean | undefined;
     }
 
     interface AlexaSmartHome {
         appId: string;
-        enabled?: boolean;
+        enabled?: boolean | undefined;
     }
 
     interface Iot {
         name: string;
-        description?: string;
-        enabled?: boolean;
+        description?: string | undefined;
+        enabled?: boolean | undefined;
         sql: string;
         sqlVersion: string;
     }
@@ -459,12 +459,12 @@ declare namespace Aws {
 
     interface CloudwatchEvent {
         event: string;
-        name?: string;
-        description?: string;
-        enabled?: boolean;
-        input?: Input;
-        inputPath?: string;
-        inputTransformer?: InputTransformer;
+        name?: string | undefined;
+        description?: string | undefined;
+        enabled?: boolean | undefined;
+        input?: Input | undefined;
+        inputPath?: string | undefined;
+        inputTransformer?: InputTransformer | undefined;
     }
 
     interface CloudwatchLog {
@@ -475,7 +475,7 @@ declare namespace Aws {
     interface CognitoUserPool {
         pool: string;
         trigger: string;
-        existing?: boolean;
+        existing?: boolean | undefined;
     }
 
     interface AlbEvent {
@@ -498,12 +498,12 @@ declare namespace Aws {
     }
 
     interface EventBridge {
-        schedule?: string;
-        eventBus?: string;
-        pattern?: PatternExisting | PatternInput;
-        input?: Input;
-        inputPath?: string;
-        inputTransformer?: InputTransformer;
+        schedule?: string | undefined;
+        eventBus?: string | undefined;
+        pattern?: PatternExisting | PatternInput | undefined;
+        input?: Input | undefined;
+        inputPath?: string | undefined;
+        inputTransformer?: InputTransformer | undefined;
     }
 
     interface Origin {
@@ -522,24 +522,24 @@ declare namespace Aws {
     }
 
     interface Event {
-        http?: Http;
-        httpApi?: HttpApiEvent;
-        websocket?: Websocket;
-        s3?: S3;
-        schedule?: string | Schedule;
-        sns?: Sns;
-        sqs?: Sqs;
-        stream?: Stream;
-        msk?: Msk;
-        alexaSkill?: AlexaSkill;
-        alexaSmartHome?: AlexaSmartHome;
-        iot?: Iot;
-        cloudwatchEvent?: CloudwatchEvent;
-        cloudwatchLog?: CloudwatchLog;
-        cognitoUserPool?: CognitoUserPool;
-        alb?: AlbEvent;
-        eventBridge?: EventBridge;
-        cloudFront?: CloudFront;
+        http?: Http | undefined;
+        httpApi?: HttpApiEvent | undefined;
+        websocket?: Websocket | undefined;
+        s3?: S3 | undefined;
+        schedule?: string | Schedule | undefined;
+        sns?: Sns | undefined;
+        sqs?: Sqs | undefined;
+        stream?: Stream | undefined;
+        msk?: Msk | undefined;
+        alexaSkill?: AlexaSkill | undefined;
+        alexaSmartHome?: AlexaSmartHome | undefined;
+        iot?: Iot | undefined;
+        cloudwatchEvent?: CloudwatchEvent | undefined;
+        cloudwatchLog?: CloudwatchLog | undefined;
+        cognitoUserPool?: CognitoUserPool | undefined;
+        alb?: AlbEvent | undefined;
+        eventBridge?: EventBridge | undefined;
+        cloudFront?: CloudFront | undefined;
     }
 
     interface FileSystemConfig {
@@ -548,30 +548,30 @@ declare namespace Aws {
     }
 
     interface AwsFunction {
-        name?: string;
-        description?: string;
-        memorySize?: number | string;
-        reservedConcurrency?: number | string;
-        provisionedConcurrency?: number | string;
-        runtime?: string;
-        timeout?: number | string;
-        role?: string;
-        onError?: string;
+        name?: string | undefined;
+        description?: string | undefined;
+        memorySize?: number | string | undefined;
+        reservedConcurrency?: number | string | undefined;
+        provisionedConcurrency?: number | string | undefined;
+        runtime?: string | undefined;
+        timeout?: number | string | undefined;
+        role?: string | undefined;
+        onError?: string | undefined;
         /** @deprecated in favor of `kmsKeyArn` */
-        awsKmsKeyArn?: string;
-        kmsKeyArn?: string;
-        environment?: Environment;
-        tags?: Tags;
-        vpc?: string | Vpc;
-        package?: Package;
-        layers?: Array<string | Record<string, string>>;
-        tracing?: 'Active' | 'PassThrough' | boolean;
-        condition?: string;
-        dependsOn?: string[];
-        fileSystemConfig?: FileSystemConfig;
-        destinations?: Destinations;
-        events?: Event[];
-        disableLogs?: boolean;
+        awsKmsKeyArn?: string | undefined;
+        kmsKeyArn?: string | undefined;
+        environment?: Environment | undefined;
+        tags?: Tags | undefined;
+        vpc?: string | Vpc | undefined;
+        package?: Package | undefined;
+        layers?: Array<string | Record<string, string>> | undefined;
+        tracing?: 'Active' | 'PassThrough' | boolean | undefined;
+        condition?: string | undefined;
+        dependsOn?: string[] | undefined;
+        fileSystemConfig?: FileSystemConfig | undefined;
+        destinations?: Destinations | undefined;
+        events?: Event[] | undefined;
+        disableLogs?: boolean | undefined;
     }
 
     interface AwsFunctionHandler extends AwsFunction {
@@ -588,12 +588,12 @@ declare namespace Aws {
 
     interface Layer {
         path: string;
-        name?: string;
-        description?: string;
-        compatibleRuntimes?: string[];
-        licenseInfo?: string;
-        allowedAccounts?: string[];
-        retain?: boolean;
+        name?: string | undefined;
+        description?: string | undefined;
+        compatibleRuntimes?: string[] | undefined;
+        licenseInfo?: string | undefined;
+        allowedAccounts?: string[] | undefined;
+        retain?: boolean | undefined;
     }
 
     interface Layers {
@@ -603,8 +603,8 @@ declare namespace Aws {
     interface CloudFormationResource {
         Type: string;
         Properties: { [key: string]: any };
-        DependsOn?: string | { [key: string]: any };
-        DeletionPolicy?: string;
+        DependsOn?: string | { [key: string]: any } | undefined;
+        DeletionPolicy?: string | undefined;
     }
 
     interface CloudFormationResources {
@@ -612,11 +612,11 @@ declare namespace Aws {
     }
 
     interface Output {
-        Description?: string;
+        Description?: string | undefined;
         Value?: any;
         Export?: {
             Name: any;
-        };
+        } | undefined;
         Condition?: any;
     }
 
@@ -625,10 +625,10 @@ declare namespace Aws {
     }
 
     interface Resources {
-        Description?: string;
+        Description?: string | undefined;
         Resources: CloudFormationResources;
-        extensions?: CloudFormationResources;
-        Outputs?: Outputs;
+        extensions?: CloudFormationResources | undefined;
+        Outputs?: Outputs | undefined;
     }
 
     interface Custom {
@@ -649,7 +649,7 @@ declare class Aws {
         service: string,
         method: string,
         params?: {},
-        options?: { useCache?: boolean; region?: string },
+        options?: { useCache?: boolean | undefined; region?: string | undefined },
     ): Promise<any>;
 }
 

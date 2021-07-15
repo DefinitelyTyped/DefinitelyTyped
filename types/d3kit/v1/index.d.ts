@@ -9,17 +9,17 @@ import * as d3 from "d3";
 declare namespace d3kit {
 
     export interface ChartMargin {
-        top?: number;
-        right?: number;
-        bottom?: number;
-        left?: number;
+        top?: number | undefined;
+        right?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
     }
 
     export interface ChartOptions {
-        margin?: ChartMargin;
-        offset?: [number,number];
-        initialWidth?: number;
-        initialHeight?: number;
+        margin?: ChartMargin | undefined;
+        offset?: [number,number] | undefined;
+        initialWidth?: number | undefined;
+        initialHeight?: number | undefined;
         [name: string]: any;
     }
 
@@ -108,9 +108,9 @@ declare namespace d3kit {
     }
 
     interface LayerConfig {
-        name?: string,
-        names?: Array<string>,
-        sublayers?: LayerConfig
+        name?: string | undefined,
+        names?: Array<string> | undefined,
+        sublayers?: LayerConfig | undefined
     }
 
     export class LayerOrganizer {

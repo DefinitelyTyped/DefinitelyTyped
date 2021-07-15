@@ -1,5 +1,7 @@
 import * as types from 'util/types';
 
+import { createPublicKey, KeyObject, webcrypto } from 'crypto';
+
 const object: unknown = {};
 const readonlySetOrArray: ReadonlySet<any> | ReadonlyArray<any> = new Set();
 const readonlyMapOrRecord: ReadonlyMap<any, any> | Record<any, any> = new Map();
@@ -55,7 +57,7 @@ if (types.isInt32Array(object)) {
     object; // $ExpectType Int32Array
 }
 if (types.isMap(object)) {
-    object; // $ExpectType Map<any, any>
+    object; // $ExpectType Map<unknown, unknown>
 
     if (types.isMap(readonlyMapOrRecord)) {
         readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any>
@@ -81,13 +83,13 @@ if (types.isNumberObject(object)) {
     object; // $ExpectType Number
 }
 if (types.isPromise(object)) {
-    object; // $ExpectType Promise<any>
+    object; // $ExpectType Promise<unknown>
 }
 if (types.isRegExp(object)) {
     object; // $ExpectType RegExp
 }
 if (types.isSet(object)) {
-    object; // $ExpectType Set<any>
+    object; // $ExpectType Set<unknown>
 
     if (types.isSet(readonlySetOrArray)) {
         readonlySetOrArray; // $ExpectType ReadonlySet<any>
@@ -118,10 +120,10 @@ if (types.isUint32Array(object)) {
     object; // $ExpectType Uint32Array
 }
 if (types.isWeakMap(object)) {
-    object; // $ExpectType WeakMap<any, any>
+    object; // $ExpectType WeakMap<object, unknown>
 }
 if (types.isWeakSet(object)) {
-    object; // $ExpectType WeakSet<any>
+    object; // $ExpectType WeakSet<object>
 }
 
 let b: boolean;
@@ -155,4 +157,14 @@ if (types.isBigInt64Array(value)) {
 } else {
     // $ExpectType number
     const b = value;
+}
+
+const keyObj: KeyObject | number = createPublicKey('test');
+if (types.isKeyObject(keyObj)) {
+    keyObj; // $ExpectType KeyObject
+}
+
+const cryptoKeyObj: webcrypto.CryptoKey | number = new webcrypto.CryptoKey();
+if (types.isCryptoKey(cryptoKeyObj)) {
+    cryptoKeyObj; // $ExpectType CryptoKey
 }

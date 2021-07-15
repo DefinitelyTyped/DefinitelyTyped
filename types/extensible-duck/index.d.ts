@@ -44,15 +44,15 @@ export interface DuckOptions<
 > {
     namespace: string;
     store: string;
-    storePath?: string;
+    storePath?: string | undefined;
     types: Array<keyof TActionTypes>;
     initialState: TState;
     reducer: DuckReducer<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts>;
     creators: DuckCreators<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts>;
     selectors: TSelectors;
-    sagas?: DuckSagas<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts>;
-    takes?: DuckTakes<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts>;
-    consts?: TConsts;
+    sagas?: DuckSagas<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts> | undefined;
+    takes?: DuckTakes<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts> | undefined;
+    consts?: TConsts | undefined;
 }
 
 export type DuckInstance<

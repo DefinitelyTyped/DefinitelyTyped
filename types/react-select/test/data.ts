@@ -4,8 +4,8 @@ export interface ColourOption {
     value: string;
     label: string;
     color: string;
-    isFixed?: boolean;
-    isDisabled?: boolean;
+    isFixed?: boolean | undefined;
+    isDisabled?: boolean | undefined;
 }
 
 export const colourOptions: readonly ColourOption[] = [

@@ -10,8 +10,8 @@ declare namespace CurrentGitBranch {
     type CurrentGitBranchResult = string | false;
 
     interface CurrentGitBranchOptionsObject {
-        altPath?: string;
-        branchOptions?: string;
+        altPath?: string | undefined;
+        branchOptions?: string | undefined;
     }
 }
 

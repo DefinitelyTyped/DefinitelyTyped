@@ -21,13 +21,13 @@ declare namespace connectAzureTable {
         update(method: 'SET' | 'TOUCH', sid: string, session: session.SessionData, callback?: (err: any) => void): void;
     }
     interface AzureTableStoreOptions {
-        logger?: (message: string) => void;
-        errorLogger?: (message: string) => void;
-        sessionTimeOut?: number; // sessionTimeOut in minutes
-        overrideCron?: string; // cron job description
-        storageAccount?: string;
-        accessKey?: string;
-        table?: string;
+        logger?: ((message: string) => void) | undefined;
+        errorLogger?: ((message: string) => void) | undefined;
+        sessionTimeOut?: number | undefined; // sessionTimeOut in minutes
+        overrideCron?: string | undefined; // cron job description
+        storageAccount?: string | undefined;
+        accessKey?: string | undefined;
+        table?: string | undefined;
     }
 }
 

@@ -14,9 +14,9 @@ declare namespace gapi.client.calendar {
   interface FreeBusyQueryParameters {
     timeMin: datetime;
     timeMax: datetime;
-    timeZone?: string;
-    groupExpansionMax?: integer;
-    calendarExpansionMax?: integer;
+    timeZone?: string | undefined;
+    groupExpansionMax?: integer | undefined;
+    calendarExpansionMax?: integer | undefined;
     items: {id: string}[];
   }
 
@@ -29,7 +29,7 @@ declare namespace gapi.client.calendar {
         errors?: {
           domain: string;
           reason: string;
-        }[];
+        }[] | undefined;
         calendars: string[];
       }
     };
@@ -38,7 +38,7 @@ declare namespace gapi.client.calendar {
         errors?: {
           domain: string;
           reason: string;
-        }[];
+        }[] | undefined;
         busy: {
           start: datetime;
           end: datetime;
@@ -84,7 +84,7 @@ declare namespace gapi.client.calendar {
     role: AccessRole;
     scope: {
       type: ScopeType;
-      value?: string;
+      value?: string | undefined;
     };
   }
 
@@ -122,19 +122,19 @@ declare namespace gapi.client.calendar {
     AccessRoleWithoutNone;
 
   interface CalendarListListParameters {
-    maxResults?: integer;
+    maxResults?: integer | undefined;
     // The minimum access role for the user in the returned entries. Optional. The default is no restriction. Acceptable values are:
-    minAccessRole?: AccessRoleWithoutNone;
-    pageToken?: string;
-    showDeleted?: boolean;
-    showHidden?: boolean;
-    syncToken?: string;
+    minAccessRole?: AccessRoleWithoutNone | undefined;
+    pageToken?: string | undefined;
+    showDeleted?: boolean | undefined;
+    showHidden?: boolean | undefined;
+    syncToken?: string | undefined;
   }
 
   interface CalendarListInsertParameters {
     // Parameters
     // Optional query parameters
-    colorRgbFormat?: boolean;
+    colorRgbFormat?: boolean | undefined;
 
     // CalendarList resource
     resource: CalendarListInput;
@@ -145,22 +145,22 @@ declare namespace gapi.client.calendar {
     id: string;
 
     // Optional Properties
-    backgroundColor?: string;
-    colorId?: string;
+    backgroundColor?: string | undefined;
+    colorId?: string | undefined;
     defaultReminders?: {
       method: ReminderMethod;
       minutes: integer;
-    }[];
-    foregroundColor?: string;
-    hidden?: boolean;
+    }[] | undefined;
+    foregroundColor?: string | undefined;
+    hidden?: boolean | undefined;
     notificationSettings?: {
       notifications: {
         type: NotificationType;
         method: string;
       }[];
-    };
-    selected?: boolean;
-    summaryOverride?: string;
+    } | undefined;
+    selected?: boolean | undefined;
+    summaryOverride?: string | undefined;
   }
 
   interface CalendarList {
@@ -171,13 +171,13 @@ declare namespace gapi.client.calendar {
      * Token used to access the next page of this result.
      * Omitted if no further results are available, in which case nextSyncToken is provided.
      */
-    nextPageToken?: string;
+    nextPageToken?: string | undefined;
 
     /**
      * Token used at a later point in time to retrieve only the entries that have changed since this result was returned.
      * Omitted if further results are available, in which case nextPageToken is provided.
      */
-    nextSyncToken?: string;
+    nextSyncToken?: string | undefined;
 
     items: CalendarListEntry[];
   }
@@ -200,15 +200,15 @@ declare namespace gapi.client.calendar {
     etag: etag;
     id: string;
     summary: string;
-    description?: string;
-    location?: string;
-    timeZone?: string;
-    summaryOverride?: string;
-    colorId?: string;
-    backgroundColor?: string;
-    foregroundColor?: string;
-    hidden?: boolean;
-    selected?: boolean;
+    description?: string | undefined;
+    location?: string | undefined;
+    timeZone?: string | undefined;
+    summaryOverride?: string | undefined;
+    colorId?: string | undefined;
+    backgroundColor?: string | undefined;
+    foregroundColor?: string | undefined;
+    hidden?: boolean | undefined;
+    selected?: boolean | undefined;
     // The effective access role that the authenticated user has on the calendar. Read-only.
     accessRole: AccessRoleWithoutNone;
     defaultReminders: {
@@ -220,9 +220,9 @@ declare namespace gapi.client.calendar {
         type: NotificationType;
         method: string;
       }[];
-    };
-    primary?: boolean;
-    deleted?: boolean;
+    } | undefined;
+    primary?: boolean | undefined;
+    deleted?: boolean | undefined;
   }
 
   export class calendars {
@@ -236,10 +236,10 @@ declare namespace gapi.client.calendar {
 
     // Calendars resource
     // Optional Properties
-    description?: string;
-    location?: string;
-    summary?: string;
-    timeZone?: string;
+    description?: string | undefined;
+    location?: string | undefined;
+    summary?: string | undefined;
+    timeZone?: string | undefined;
   }
 
   interface CalendarsInsertParameters {
@@ -247,9 +247,9 @@ declare namespace gapi.client.calendar {
     // Required Properties
     summary: string;
 
-    description?: string;
-    location?: string;
-    timeZone?: string;
+    description?: string | undefined;
+    location?: string | undefined;
+    timeZone?: string | undefined;
   }
 
   interface CalendarsDeleteParameters {
@@ -261,9 +261,9 @@ declare namespace gapi.client.calendar {
     etag: etag;
     id: string;
     summary: string;
-    description?: string;
-    location?: string;
-    timeZone?: string;
+    description?: string | undefined;
+    location?: string | undefined;
+    timeZone?: string | undefined;
   }
 
   export class events {
@@ -280,17 +280,17 @@ declare namespace gapi.client.calendar {
     calendarId: string;
     eventId: string;
 
-    alwaysIncludeEmail?: boolean;
-    maxAttendees?: integer;
-    timeZone?: string;
+    alwaysIncludeEmail?: boolean | undefined;
+    maxAttendees?: integer | undefined;
+    timeZone?: string | undefined;
   }
 
   interface EventsInsertParameters {
     calendarId: string;
 
-    maxAttendees?: integer;
-    sendNotifications?: boolean;
-    supportsAttachments?: boolean;
+    maxAttendees?: integer | undefined;
+    sendNotifications?: boolean | undefined;
+    supportsAttachments?: boolean | undefined;
 
     // Event resource
     resource: EventInput;
@@ -300,10 +300,10 @@ declare namespace gapi.client.calendar {
     calendarId: string;
     eventId: string;
 
-    alwaysIncludeEmail?: boolean;
-    maxAttendees?: integer;
-    sendNotifications?: boolean;
-    supportsAttachments?: boolean;
+    alwaysIncludeEmail?: boolean | undefined;
+    maxAttendees?: integer | undefined;
+    sendNotifications?: boolean | undefined;
+    supportsAttachments?: boolean | undefined;
 
     // Event resource
     resource: EventInput;
@@ -315,26 +315,26 @@ declare namespace gapi.client.calendar {
     calendarId: string;
     eventId: string;
     
-    sendNotifications?: boolean;
+    sendNotifications?: boolean | undefined;
   }
 
   interface EventInput {
     // Required Properties
     attachments?: {
       fileUrl: string;
-    }[];
+    }[] | undefined;
     attendees?: {
       email: string;
-      displayName?: string;
-      optional?: boolean;
-      responseStatus?: AttendeeResponseStatus;
-      comment?: string;
-      additionalGuests?: integer;
-    }[];
+      displayName?: string | undefined;
+      optional?: boolean | undefined;
+      responseStatus?: AttendeeResponseStatus | undefined;
+      comment?: string | undefined;
+      additionalGuests?: integer | undefined;
+    }[] | undefined;
     end: {
-      date?: date;
-      dateTime?: datetime;
-      timeZone?: string
+      date?: date | undefined;
+      dateTime?: datetime | undefined;
+      timeZone?: string | undefined
     };
     reminders?: {
       overrides: {
@@ -342,17 +342,17 @@ declare namespace gapi.client.calendar {
         minutes: integer;
       }[];
       useDefault: boolean;
-    };
+    } | undefined;
     start: {
-      date?: date;
-      dateTime?: datetime;
-      timeZone?: string;
+      date?: date | undefined;
+      dateTime?: datetime | undefined;
+      timeZone?: string | undefined;
     };
 
     // Optional Properties
-    anyoneCanAddSelf?: boolean;
-    colorId?: string;
-    description?: string;
+    anyoneCanAddSelf?: boolean | undefined;
+    colorId?: string | undefined;
+    description?: string | undefined;
     extendedProperties?: {
       private: {
         (key: string): string
@@ -360,9 +360,9 @@ declare namespace gapi.client.calendar {
       shared: {
         (key: string): string
       }
-    };
+    } | undefined;
     gadget?: {
-      display?: GadgetDisplayMode;
+      display?: GadgetDisplayMode | undefined;
       height: integer;
       iconLink: string;
       link: string;
@@ -372,26 +372,26 @@ declare namespace gapi.client.calendar {
       title: string;
       type: string;
       width: integer;
-    };
-    guestsCanInviteOthers?: boolean;
-    guestsCanSeeOtherGuests?: boolean;
-    id?: string;
-    location?: string;
+    } | undefined;
+    guestsCanInviteOthers?: boolean | undefined;
+    guestsCanSeeOtherGuests?: boolean | undefined;
+    id?: string | undefined;
+    location?: string | undefined;
     originalStartTime?: {
       date: date;
       dateTime: datetime;
       timeZone: string
-    };
-    recurrence?: string[];
-    sequence?: integer;
+    } | undefined;
+    recurrence?: string[] | undefined;
+    sequence?: integer | undefined;
     source?: {
       url: string;
       title: string
-    };
-    status?: EventStatus;
-    summary?: string;
-    transparency?: EventTransparency;
-    visibility?: EventVisibility;
+    } | undefined;
+    status?: EventStatus | undefined;
+    summary?: string | undefined;
+    transparency?: EventTransparency | undefined;
+    visibility?: EventVisibility | undefined;
   }
 
   // The order of the events returned in the result. Optional. The default is an unspecified, stable order.
@@ -419,23 +419,23 @@ declare namespace gapi.client.calendar {
 
   interface EventsListParameters {
     calendarId: string;
-    alwaysIncludeEmail?: boolean;
-    iCalUID?: string;
-    maxAttendees?: integer;
-    maxResults?: integer;
-    orderBy?: EventsOrder;
-    pageToken?: string;
-    privateExtendedProperty?: string;
-    q?: string;
-    sharedExtendedProperty?: string;
-    showDeleted?: boolean;
-    showHiddenInvitations?: boolean;
-    singleEvents?: boolean;
-    syncToken?: SyncToken;
-    timeMax?: datetime;
-    timeMin?: datetime;
-    timeZone?: string;
-    updatedMin?: datetime;
+    alwaysIncludeEmail?: boolean | undefined;
+    iCalUID?: string | undefined;
+    maxAttendees?: integer | undefined;
+    maxResults?: integer | undefined;
+    orderBy?: EventsOrder | undefined;
+    pageToken?: string | undefined;
+    privateExtendedProperty?: string | undefined;
+    q?: string | undefined;
+    sharedExtendedProperty?: string | undefined;
+    showDeleted?: boolean | undefined;
+    showHiddenInvitations?: boolean | undefined;
+    singleEvents?: boolean | undefined;
+    syncToken?: SyncToken | undefined;
+    timeMax?: datetime | undefined;
+    timeMin?: datetime | undefined;
+    timeZone?: string | undefined;
+    updatedMin?: datetime | undefined;
   }
 
   interface Events {
@@ -451,8 +451,8 @@ declare namespace gapi.client.calendar {
       method: ReminderMethod;
       minutes: integer;
     }[];
-    nextPageToken?: string;
-    nextSyncToken?: string;
+    nextPageToken?: string | undefined;
+    nextSyncToken?: string | undefined;
     items: Event[];
   }
 
@@ -519,93 +519,93 @@ declare namespace gapi.client.calendar {
     kind: 'calendar#event';
     etag: etag;
     id: string;
-    status?: EventStatus;
+    status?: EventStatus | undefined;
     htmlLink: string;
     created: datetime;
     updated: datetime;
     summary: string;
     description: string;
-    location?: string;
-    colorId?: string;
+    location?: string | undefined;
+    colorId?: string | undefined;
 
     // The creator of the event. Read-only.
     creator: {
       // The creator's Profile ID, if available.
-      id?: string;
+      id?: string | undefined;
 
       // The creator's email address, if available.
-      email?: string;
+      email?: string | undefined;
 
       // The creator's name, if available.
-      displayName?: string;
+      displayName?: string | undefined;
 
       // Whether the creator corresponds to the calendar on which this copy of the event appears. Read-only. The default is False.
-      self?: boolean;
+      self?: boolean | undefined;
     };
 
     // The organizer of the event.
     organizer: {
       // The organizer's Profile ID, if available.
-      id?: string;
+      id?: string | undefined;
 
       // The organizer's email address, if available.
-      email?: string;
+      email?: string | undefined;
 
       // The organizer's name, if available.
-      displayName?: string;
+      displayName?: string | undefined;
 
       // Whether the organizer corresponds to the calendar on which this copy of the event appears. Read-only. The default is False.
-      self?: boolean;
+      self?: boolean | undefined;
     };
 
     // The (inclusive) start time of the event. For a recurring event, this is the start time of the first instance.
     start: {
       // The date, in the format "yyyy-mm-dd", if this is an all-day event.
-      date?: date;
+      date?: date | undefined;
 
       // The time, as a combined date-time value (formatted according to RFC3339).
       // A time zone offset is required unless a time zone is explicitly specified in timeZone.
-      dateTime?: datetime;
+      dateTime?: datetime | undefined;
 
       // The time zone in which the time is specified. (Formatted as an IANA Time Zone Database name, e.g. "Europe/Zurich".)
       // For recurring events this field is required and specifies the time zone in which the recurrence is expanded.
       // For single events this field is optional and indicates a custom time zone for the event start/end.
-      timeZone?: string;
+      timeZone?: string | undefined;
     };
 
     // The (exclusive) end time of the event. For a recurring event, this is the end time of the first instance.
     end: {
       // The date, in the format "yyyy-mm-dd", if this is an all-day event.
-      date?: date;
+      date?: date | undefined;
 
       // The time, as a combined date-time value (formatted according to RFC3339).
       // A time zone offset is required unless a time zone is explicitly specified in timeZone.
-      dateTime?: datetime;
+      dateTime?: datetime | undefined;
 
       // The time zone in which the time is specified. (Formatted as an IANA Time Zone Database name, e.g. "Europe/Zurich".)
       // For recurring events this field is required and specifies the time zone in which the recurrence is expanded.
       // For single events this field is optional and indicates a custom time zone for the event start/end.
-      timeZone?: string;
+      timeZone?: string | undefined;
     };
 
     //     Whether the end time is actually unspecified. An end time is still provided for compatibility reasons, even if this attribute is set to True.
     // The default is False.
-    endTimeUnspecified?: boolean;
+    endTimeUnspecified?: boolean | undefined;
 
     recurrence: string[];
 
     // For an instance of a recurring event, this is the id of the recurring event to which this instance belongs. Immutable.
-    recurringEventId?: string;
+    recurringEventId?: string | undefined;
 
     // Whether the organizer corresponds to the calendar on which this copy of the event appears. Read-only. The default is False.
     originalStartTime?: {
       date: date;
       dateTime: datetime;
-      timeZone?: string;
-    };
+      timeZone?: string | undefined;
+    } | undefined;
 
-    transparency?: EventTransparency;
-    visibility?: EventVisibility;
+    transparency?: EventTransparency | undefined;
+    visibility?: EventVisibility | undefined;
     iCalUID: string;
     sequence: integer;
 
@@ -613,17 +613,17 @@ declare namespace gapi.client.calendar {
     attendees?: {
       id: string;
       email: string;
-      displayName?: string;
+      displayName?: string | undefined;
       organizer: boolean;
       self: boolean;
       resource: boolean;
-      optional?: boolean;
+      optional?: boolean | undefined;
       responseStatus: AttendeeResponseStatus;
-      comment?: string;
-      additionalGuests?: integer;
-    }[];
+      comment?: string | undefined;
+      additionalGuests?: integer | undefined;
+    }[] | undefined;
 
-    attendeesOmitted?: boolean;
+    attendeesOmitted?: boolean | undefined;
 
     // Extended properties of the event.
     extendedProperties?: {
@@ -633,10 +633,10 @@ declare namespace gapi.client.calendar {
       shared: {
         (key: string): string;
       }
-    };
+    } | undefined;
 
     // An absolute link to the Google+ hangout associated with this event. Read-only.
-    hangoutLink?: string;
+    hangoutLink?: string | undefined;
 
     // A gadget that extends this event.
     gadget?: {
@@ -644,29 +644,29 @@ declare namespace gapi.client.calendar {
       title: string;
       link: string;
       iconLink: string;
-      width?: integer;
-      height?: integer;
-      display?: GadgetDisplayMode;
+      width?: integer | undefined;
+      height?: integer | undefined;
+      display?: GadgetDisplayMode | undefined;
       preferences: {
         (key: string): string;
       }
-    };
+    } | undefined;
 
-    anyoneCanAddSelf?: boolean;
-    guestsCanInviteOthers?: boolean;
-    guestsCanModify?: boolean;
-    guestsCanSeeOtherGuests?: boolean;
-    privateCopy?: boolean;
+    anyoneCanAddSelf?: boolean | undefined;
+    guestsCanInviteOthers?: boolean | undefined;
+    guestsCanModify?: boolean | undefined;
+    guestsCanSeeOtherGuests?: boolean | undefined;
+    privateCopy?: boolean | undefined;
 
     // Whether this is a locked event copy where no changes can be made to the main event fields "summary", "description", "location", "start", "end" or "recurrence". The default is False. Read-Only.
-    locked?: boolean;
+    locked?: boolean | undefined;
 
     reminders: {
       useDefault: boolean;
       overrides?: {
         method: ReminderMethod;
         minutes: integer;
-      }[];
+      }[] | undefined;
     };
 
     // Source from which the event was created. For example, a web page, an email message or any document identifiable by an URL with HTTP or HTTPS scheme.
@@ -674,7 +674,7 @@ declare namespace gapi.client.calendar {
     source?: {
       url: string;
       title: string;
-    };
+    } | undefined;
 
     // File attachments for the event. Currently only Google Drive attachments are supported.
     attachments?: {
@@ -683,6 +683,6 @@ declare namespace gapi.client.calendar {
       mimeType: string;
       iconLink: string;
       fileId: string;
-    }[];
+    }[] | undefined;
   }
 }

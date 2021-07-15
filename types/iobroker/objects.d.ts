@@ -140,32 +140,32 @@ declare global {
             name: StringOrTranslated;
 
             /** When set to true, this object may not be deleted */
-            dontDelete?: true;
+            dontDelete?: true | undefined;
 
             /** When set to true, this object is only visible when expert mode is turned on in admin */
-            expert?: true;
+            expert?: true | undefined;
 
             // Icon and role aren't defined in SCHEMA.md,
             // but they are being used by some adapters
             /** Icon for this object */
-            icon?: string;
+            icon?: string | undefined;
             /** role of the object */
-            role?: string;
+            role?: string | undefined;
         }
 
         interface StateCommon extends ObjectCommon {
             /** Type of this state. See https://github.com/ioBroker/ioBroker/blob/master/doc/SCHEMA.md#state-commonrole for a detailed description */
-            type?: CommonType;
+            type?: CommonType | undefined;
             /** minimum value */
-            min?: number;
+            min?: number | undefined;
             /** maximum value */
-            max?: number;
+            max?: number | undefined;
             /** allowed interval for numeric values */
-            step?: number;
+            step?: number | undefined;
             /** unit of the value */
-            unit?: string;
+            unit?: string | undefined;
             /** description of this state */
-            desc?: StringOrTranslated;
+            desc?: StringOrTranslated | undefined;
 
             /** if this state is readable */
             read: boolean;
@@ -177,17 +177,17 @@ declare global {
             /** the default value */
             def?: any;
             /** the default status of the ack flag */
-            defAck?: boolean;
+            defAck?: boolean | undefined;
 
             /** Configures this state as an alias for another state */
             alias?: {
                 /** The target state id */
                 id: string;
                 /** An optional conversion function when reading, e.g. `"(val − 32) * 5/9"` */
-                read?: string;
+                read?: string | undefined;
                 /** An optional conversion function when reading, e.g. `"(val * 9/5) + 32"` */
-                write?: string;
-            };
+                write?: string | undefined;
+            } | undefined;
 
             /**
              * Dictionary of possible values for this state in the form
@@ -201,16 +201,16 @@ declare global {
              * In old ioBroker versions, this could also be a string of the form
              * "val1:text1;val2:text2" (now deprecated)
              */
-            states?: Record<string, string> | string;
+            states?: Record<string, string> | string | undefined;
 
             /** ID of a helper state indicating if the handler of this state is working */
-            workingID?: string;
+            workingID?: string | undefined;
 
             /** attached history information */
             history?: any;
 
             /** Custom settings for this state */
-            custom?: Record<string, any>;
+            custom?: Record<string, any> | undefined;
 
             /**
              * Settings for IOT adapters and how the state should be named in e.g. Alexa.
@@ -218,14 +218,14 @@ declare global {
              */
             smartName?: string | ({ [lang in Languages]?: string; } & {
                 /** Which kind of device this is */
-                smartType?: string | null;
+                smartType?: string | null | undefined;
                 /** Which value to set when the ON command is issued */
-                byOn?: string | null;
-            });
+                byOn?: string | null | undefined;
+            }) | undefined;
         }
         interface ChannelCommon extends ObjectCommon {
             /** description of this channel */
-            desc?: string;
+            desc?: string | undefined;
 
             // Make it possible to narrow the object type using the custom property
             custom?: undefined;
@@ -238,7 +238,7 @@ declare global {
         }
         interface EnumCommon extends ObjectCommon {
             /** The IDs of the enum members */
-            members?: string[];
+            members?: string[] | undefined;
 
             // Make it possible to narrow the object type using the custom property
             custom?: undefined;
@@ -341,11 +341,11 @@ declare global {
             /** Whether this script should be executed */
             enabled: boolean;
             /** Is used to determine whether a script has changed and needs to be recompiled */
-            sourceHash?: string;
+            sourceHash?: string | undefined;
             /** If the script uses a compiled language like TypeScript, this contains the compilation output */
-            compiled?: string;
+            compiled?: string | undefined;
             /** If the script uses a compiled language like TypeScript, this contains the generated declarations (global scripts only) */
-            declarations?: string;
+            declarations?: string | undefined;
 
             // Make it possible to narrow the object type using the custom property
             custom?: undefined;
@@ -360,79 +360,79 @@ declare global {
 
         interface AdapterCommon extends ObjectCommon {
             /** Custom attributes to be shown in admin in the object browser */
-            adminColumns?: any[];
+            adminColumns?: any[] | undefined;
             /** Settings for custom Admin Tabs */
             adminTab?: {
-                name?: string;
+                name?: string | undefined;
                 /** Icon name for FontAwesome */
-                "fa-icon"?: string;
+                "fa-icon"?: string | undefined;
                 /** If true, the Tab is not reloaded when the configuration changes */
-                ignoreConfigUpdate?: boolean;
+                ignoreConfigUpdate?: boolean | undefined;
                 /** Which URL should be loaded in the tab. Supports placeholders like http://%ip%:%port% */
-                link?: string;
+                link?: string | undefined;
                 /** If true, only one instance of this tab will be created for all instances */
-                singleton?: boolean;
-            };
-            allowInit?: boolean;
+                singleton?: boolean | undefined;
+            } | undefined;
+            allowInit?: boolean | undefined;
             /** Possible values for the instance mode (if more than one is possible) */
-            availableModes?: InstanceMode[];
+            availableModes?: InstanceMode[] | undefined;
             /** Whether this adapter includes custom blocks for Blockly. If true, `admin/blockly.js` must exist. */
-            blockly?: boolean;
+            blockly?: boolean | undefined;
             /** Where the adapter will get its data from. Set this together with @see dataSource */
-            connectionType?: "local" | "cloud";
+            connectionType?: "local" | "cloud" | undefined;
             /** If true, this adapter can be started in compact mode (in the same process as other adpaters) */
-            compact?: boolean;
+            compact?: boolean | undefined;
             /** The directory relative to iobroker-data where the adapter stores the data. Supports the placeholder `%INSTANCE%`. This folder will be backed up and restored automatically. */
-            dataFolder?: string;
+            dataFolder?: string | undefined;
             /** How the adapter will mainly receive its data. Set this together with @see connectionType */
-            dataSource?: "poll" | "push" | "assumption";
+            dataSource?: "poll" | "push" | "assumption" | undefined;
             /** A record of ioBroker adapters (including "js-controller") and version ranges which are required for this adapter. */
-            dependencies?: Array<Record<string, string>>;
+            dependencies?: Array<Record<string, string>> | undefined;
             /** Which files outside of the README.md have documentation for the adapter */
-            docs?: Partial<Record<Languages, string | string[]>>;
+            docs?: Partial<Record<Languages, string | string[]>> | undefined;
             /** Whether new instances should be enabled by default. *Should* be `false`! */
             enabled: boolean;
             /** If true, all previous data in the target directory (web) should be deleted before uploading */
-            eraseOnUpload?: boolean;
+            eraseOnUpload?: boolean | undefined;
             /** URL of an external icon that is shown for adapters that are not installed */
-            extIcon?: string;
+            extIcon?: string | undefined;
             /** Whether this adapter responds to `getHistory` messages */
-            getHistory?: boolean;
+            getHistory?: boolean | undefined;
             /** Filename of the local icon which is shown for installed adapters. Should be located in the `admin` directory */
-            icon?: string;
+            icon?: string | undefined;
             /** Which version of this adapter is installed */
             installedVersion: string;
-            keywords?: string[];
+            keywords?: string[] | undefined;
             /** A dictionary of links to web services this adapter provides */
-            localLinks?: Record<string, string>;
+            localLinks?: Record<string, string> | undefined;
             /** @deprecated Use @see localLinks */
-            localLink?: string;
-            logLevel?: LogLevel;
+            localLink?: string | undefined;
+            logLevel?: LogLevel | undefined;
             /** Whether this adapter receives logs from other hosts and adapters (e.g. to strore them somewhere) */
-            logTransporter?: boolean;
+            logTransporter?: boolean | undefined;
             /** Path to the start file of the adapter. Should be the same as in `package.json` */
-            main?: string;
+            main?: string | undefined;
             /** Whether the admin tab is written in materialize style. Required for Admin 3+ */
             materializeTab: boolean;
             /** Whether the admin configuration dialog is written in materialize style. Required for Admin 3+ */
             materialize: boolean;
             /** If `true`, the object `system.adapter.<adaptername>.<adapterinstance>.messagebox will be created to send messages to the adapter (used for email, pushover, etc...) */
-            messagebox?: true;
+            messagebox?: true | undefined;
             mode: InstanceMode;
             /** Name of the adapter (without leading `ioBroker.`) */
             name: string;
             /** If `true`, no configuration dialog will be shown */
-            noConfig?: true;
+            noConfig?: true | undefined;
             /** If `true`, this adapter's instances will not be shown in the admin overview screen. Useful for icon sets and widgets... */
-            noIntro?: true;
+            noIntro?: true | undefined;
             /** Set to `true` if the adapter is not available in the official ioBroker repositories. */
-            noRepository?: true;
+            noRepository?: true | undefined;
             /** If `true`, manual installation from GitHub is not possible */
-            nogit?: true;
+            nogit?: true | undefined;
             /** If `true`, this adapter cannot be deleted or updated manually. */
-            nondeletable?: true;
+            nondeletable?: true | undefined;
             /** If `true`, this "adapter" only contains HTML files and no main executable */
-            onlyWWW?: boolean;
+            onlyWWW?: boolean | undefined;
             /** Used to configure native (OS) dependencies of this adapter that need to be installed with system package manager before installing the adapter */
             osDependencies?: {
                 /** For OSX */
@@ -441,56 +441,56 @@ declare global {
                 linux: string[];
                 /** For Windows */
                 win32: string[];
-            };
+            } | undefined;
             /** Which OSes this adapter supports */
-            os?: "linux" | "darwin" | "win32" | Array<("linux" | "darwin" | "win32")>;
+            os?: "linux" | "darwin" | "win32" | Array<("linux" | "darwin" | "win32")> | undefined;
             platform: "Javascript/Node.js";
             /** The keys of common attributes (e.g. `history`) which are not deleted in a `setObject` call even if they are not present. Deletion must be done explicitly by setting them to `null`. */
-            preserveSettings?: string | string[];
+            preserveSettings?: string | string[] | undefined;
             /** Which adapters must be restarted after installing or updating this adapter. */
-            restartAdapters?: string[];
+            restartAdapters?: string[] | undefined;
             /** If the adapter runs in `schedule` mode, this contains the CRON */
-            schedule?: string;
-            serviceStates?: boolean | string;
+            schedule?: string | undefined;
+            serviceStates?: boolean | string | undefined;
             /** Whether this adapter may only be installed once per host */
-            singletonHost?: boolean;
+            singletonHost?: boolean | undefined;
             /** Whether this adapter may only be installed once in the whole system */
-            singleton?: boolean;
+            singleton?: boolean | undefined;
             /** Whether the adapter must be stopped before an update */
-            stopBeforeUpdate?: boolean;
+            stopBeforeUpdate?: boolean | undefined;
             /** Overrides the default timeout that ioBroker will wait before force-stopping the adapter */
-            stopTimeout?: number;
-            subscribable?: boolean;
+            stopTimeout?: number | undefined;
+            subscribable?: boolean | undefined;
             subscribe?: any; // ?
             /** If `true`, this adapter provides custom per-state settings. Requires a `custom_m.html` file in the `admin` directory. */
-            supportCustoms?: boolean;
+            supportCustoms?: boolean | undefined;
             /** Whether the adapter supports the signal stopInstance via messagebox */
-            supportStopInstance?: boolean;
+            supportStopInstance?: boolean | undefined;
             /** The translated names of this adapter to be shown in the admin UI */
-            titleLang?: Record<Languages, string>;
+            titleLang?: Record<Languages, string> | undefined;
             /** @deprecated The name of this adapter to be shown in the admin UI. Use @see titleLang instead. */
-            title?: string;
+            title?: string | undefined;
             /** The type of this adapter */
-            type?: string;
+            type?: string | undefined;
             /** If `true`, the `npm` package must be installed with the `--unsafe-perm` flag */
-            unsafePerm?: true;
+            unsafePerm?: true | undefined;
             /** The available version in the ioBroker repo. */
             version: string;
             /** If `true`, the adapter will be started if any value is written into `system.adapter.<name>.<instance>.wakeup. Normally the adapter should stop after processing the event. */
-            wakeup?: boolean;
+            wakeup?: boolean | undefined;
             /** Include the adapter version in the URL of the web adapter, e.g. `http://ip:port/1.2.3/material` instead of `http://ip:port/material` */
-            webByVersion?: boolean;
+            webByVersion?: boolean | undefined;
             /** Whether the web server in this adapter can be extended with plugin/extensions */
-            webExtendable?: boolean;
+            webExtendable?: boolean | undefined;
             /** Relative path to a module that contains an extension for the web adapter. Use together with @see native.webInstance to configure which instances this affects */
-            webExtension?: string;
+            webExtension?: string | undefined;
             webPreSettings?: any; // ?
             webservers?: any; // ?
             /** A list of pages that should be shown on the "web" index page */
-            welcomeScreen?: WelcomeScreenEntry[];
+            welcomeScreen?: WelcomeScreenEntry[] | undefined;
             /** A list of pages that should be shown on the ioBroker cloud index page */
-            welcomeScreenPro?: WelcomeScreenEntry[];
-            wwwDontUpload?: boolean;
+            welcomeScreenPro?: WelcomeScreenEntry[] | undefined;
+            wwwDontUpload?: boolean | undefined;
 
             // Make it possible to narrow the object type using the custom property
             custom?: undefined;
@@ -512,22 +512,22 @@ declare global {
             // without bugging users to change their code --> https://github.com/microsoft/TypeScript/issues/15300
             native: Record<string, any>;
             common: Record<string, any>;
-            enums?: Record<string, string>;
-            acl?: ObjectACL;
-            from?: string;
+            enums?: Record<string, string> | undefined;
+            acl?: ObjectACL | undefined;
+            from?: string | undefined;
             /** The user who created or updated this object */
-            user?: string;
-            ts?: number;
+            user?: string | undefined;
+            ts?: number | undefined;
         }
 
         interface StateObject extends BaseObject {
             type: 'state';
             common: StateCommon;
-            acl?: StateACL;
+            acl?: StateACL | undefined;
         }
         interface PartialStateObject extends Partial<Omit<StateObject, 'common' | 'acl'>> {
-            common?: Partial<StateCommon>;
-            acl?: Partial<StateACL>;
+            common?: Partial<StateCommon> | undefined;
+            acl?: Partial<StateACL> | undefined;
         }
 
         interface ChannelObject extends BaseObject {
@@ -536,7 +536,7 @@ declare global {
         }
         interface PartialChannelObject
             extends Partial<Omit<ChannelObject, 'common'>> {
-            common?: Partial<ChannelCommon>;
+            common?: Partial<ChannelCommon> | undefined;
         }
 
         interface DeviceObject extends BaseObject {
@@ -544,7 +544,7 @@ declare global {
             common: DeviceCommon;
         }
         interface PartialDeviceObject extends Partial<Omit<DeviceObject, 'common'>> {
-            common?: Partial<DeviceCommon>;
+            common?: Partial<DeviceCommon> | undefined;
         }
 
         interface FolderObject extends BaseObject {
@@ -553,7 +553,7 @@ declare global {
             common: OtherCommon;
         }
         interface PartialFolderObject extends Partial<Omit<FolderObject, 'common'>> {
-            common?: Partial<OtherCommon>;
+            common?: Partial<OtherCommon> | undefined;
         }
 
         interface EnumObject extends BaseObject {
@@ -561,7 +561,7 @@ declare global {
             common: EnumCommon;
         }
         interface PartialEnumObject extends Partial<Omit<EnumObject, 'common'>> {
-            common?: Partial<EnumCommon>;
+            common?: Partial<EnumCommon> | undefined;
         }
 
         interface MetaObject extends BaseObject {
@@ -569,7 +569,7 @@ declare global {
             common: MetaCommon;
         }
         interface PartialMetaObject extends Partial<Omit<MetaObject, 'common'>> {
-            common?: Partial<MetaCommon>;
+            common?: Partial<MetaCommon> | undefined;
         }
 
         interface InstanceObject extends BaseObject {
@@ -577,19 +577,19 @@ declare global {
             common: InstanceCommon;
         }
         interface PartialInstanceObject extends Partial<Omit<InstanceObject, 'common'>> {
-            common?: Partial<InstanceCommon>;
+            common?: Partial<InstanceCommon> | undefined;
         }
 
         interface AdapterObject extends BaseObject {
             type: 'adapter';
             common: AdapterCommon;
             /** An array of `native` properties which cannot be accessed from outside the defining adapter */
-            protectedNative?: string[];
+            protectedNative?: string[] | undefined;
             /** Like protectedNative, but the properties are also encrypted and decrypted automatically */
-            encryptedNative?: string[];
+            encryptedNative?: string[] | undefined;
         }
         interface PartialAdapterObject extends Partial<Omit<AdapterObject, 'common'>> {
-            common?: Partial<AdapterCommon>;
+            common?: Partial<AdapterCommon> | undefined;
         }
 
         interface HostObject extends BaseObject {
@@ -598,8 +598,8 @@ declare global {
             native: HostNative;
         }
         interface PartialHostObject extends Partial<Omit<HostObject, 'common' | 'native'>> {
-            common?: Partial<HostCommon>;
-            native?: Partial<HostNative>;
+            common?: Partial<HostCommon> | undefined;
+            native?: Partial<HostNative> | undefined;
         }
 
         interface UserObject extends BaseObject {
@@ -607,7 +607,7 @@ declare global {
             common: UserCommon;
         }
         interface PartialUserObject extends Partial<Omit<UserObject, 'common'>> {
-            common?: Partial<UserCommon>;
+            common?: Partial<UserCommon> | undefined;
         }
 
         interface GroupObject extends BaseObject {
@@ -615,7 +615,7 @@ declare global {
             common: GroupCommon;
         }
         interface PartialGroupObject extends Partial<Omit<GroupObject, 'common'>> {
-            common?: Partial<GroupCommon>;
+            common?: Partial<GroupCommon> | undefined;
         }
 
         interface ScriptObject extends BaseObject {
@@ -623,7 +623,7 @@ declare global {
             common: ScriptCommon;
         }
         interface PartialScriptObject extends Partial<Omit<ScriptObject, 'common'>> {
-            common?: Partial<ScriptCommon>;
+            common?: Partial<ScriptCommon> | undefined;
         }
 
         interface OtherObject extends BaseObject {
@@ -631,7 +631,7 @@ declare global {
             common: OtherCommon;
         }
         interface PartialOtherObject extends Partial<Omit<OtherObject, 'common'>> {
-            common?: Partial<OtherCommon>;
+            common?: Partial<OtherCommon> | undefined;
         }
 
         type AnyObject =
@@ -676,11 +676,11 @@ declare global {
 
         // In set[Foreign]Object[NotExists] methods, the ID and acl of the object is optional
         type SettableObjectWorker<T> = T extends AnyObject ? Omit<T, '_id' | 'acl'> & {
-            _id?: T['_id'];
-            acl?: T['acl'];
+            _id?: T['_id'] | undefined;
+            acl?: T['acl'] | undefined;
         } : never;
         // in extend[Foreign]Object, most properties are optional
-        type PartialObjectWorker<T> = T extends AnyObject ? AnyPartialObject & {type?: T["type"]} : never;
+        type PartialObjectWorker<T> = T extends AnyObject ? AnyPartialObject & {type?: T["type"] | undefined} : never;
 
         type SettableObject<T extends AnyObject = AnyObject> = SettableObjectWorker<T>;
         type PartialObject<T extends AnyObject = AnyObject> = PartialObjectWorker<T>;

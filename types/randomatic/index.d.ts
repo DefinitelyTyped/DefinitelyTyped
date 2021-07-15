@@ -14,8 +14,8 @@ declare namespace randomatic {
     const isCrypto: boolean;
 
     interface Options {
-        chars?: string;
-        exclude?: string | string[];
+        chars?: string | undefined;
+        exclude?: string | string[] | undefined;
     }
 }
 

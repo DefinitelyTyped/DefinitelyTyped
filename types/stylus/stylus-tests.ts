@@ -5,6 +5,12 @@
  */
 
 import stylus = require("stylus");
+import Renderer = require("stylus/lib/renderer");
+
+// $ExpectType typeof Renderer
+Renderer;
+// $ExpectType string
+new Renderer("str", {}).render();
 
 const str = "This is a stylus test";
 

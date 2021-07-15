@@ -155,7 +155,7 @@ export class Repository {
         message: string,
         Tree: Tree | Oid | string,
         parents: Array<string | Commit | Oid>,
-        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string, signedData: string}> | {code: Error.CODE, field?: string, signedData: string}
+        onSignature: (data: string) => Promise<{code: Error.CODE, field?: string | undefined, signedData: string}> | {code: Error.CODE, field?: string | undefined, signedData: string}
     ): Promise<Oid>;
     /**
      * Creates a new commit on HEAD from the list of passed in files

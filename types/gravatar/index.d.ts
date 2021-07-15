@@ -4,19 +4,22 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export type Protocol = false | 'http' | true | 'https';
+
 export interface Options {
-    cdn?: string;
-    d?: string;
-    default?: string;
-    f?: string;
-    forcedefault?: string;
-    format?: string;
-    protocol?: string;
-    r?: string;
-    rating?: string;
-    s?: string;
-    size?: string;
+    cdn?: string | undefined;
+    d?: string | undefined;
+    default?: string | undefined;
+    f?: string | undefined;
+    forcedefault?: string | undefined;
+    format?: string | undefined;
+    protocol?: Protocol | undefined;
+    r?: string | undefined;
+    rating?: string | undefined;
+    s?: string | undefined;
+    size?: string | undefined;
 }
+
 /**
  * @param email - The gravatar email
  * @param [options] - Query string options

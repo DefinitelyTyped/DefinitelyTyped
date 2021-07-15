@@ -192,3 +192,26 @@ router5.register('/foo', ['GET'], middleware1, {
     name: 'foo',
 });
 router5.register('/bar', ['GET', 'DELETE'], [middleware1, middleware2]);
+
+const router6 = new Router<{}>();
+router6.post<MyState, MyContext>('/foo', async (ctx) => {
+    ctx.state.foo = 'bar';
+    ctx.bar = 'foo';
+});
+router6.put<MyState>('/bar', async (ctx) => {
+    ctx.state.foo = 'bar';
+    // $ExpectError
+    ctx.bar = 'foo';
+});
+router6.del('/baz', async (ctx) => {
+    // $ExpectError
+    ctx.state.foo = 'bar';
+    // $ExpectError
+    ctx.bar = 'foo';
+});
+router6.put<number>('/blah', async (ctx) => {
+    ctx.state = 123;
+});
+router6.put<string>('/blerg', async (ctx) => {
+    ctx.state = 'abc';
+});

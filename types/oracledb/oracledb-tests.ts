@@ -444,17 +444,8 @@ const version4Tests = async () => {
 
     const { name, deqOptions, enqOptions, payloadType, payloadTypeClass, payloadTypeName } = queue;
 
-    const {
-        condition,
-        consumerName,
-        correlation,
-        mode,
-        msgId,
-        navigation,
-        transformation,
-        visibility,
-        wait,
-    } = deqOptions;
+    const { condition, consumerName, correlation, mode, msgId, navigation, transformation, visibility, wait } =
+        deqOptions;
 
     const messages = await queue.deqMany(5);
 
@@ -566,6 +557,37 @@ const testGenerics = async () => {
     const result3 = await connection.executeMany<MyTableRow>(sql, 5);
 
     console.log(result3.outBinds[0].firstColumn);
+};
+
+export const testQueryStreamGenerics = (connection: oracledb.Connection): void => {
+    interface MyStream {
+        streamTest: string;
+    }
+
+    const stream = connection.queryStream<MyStream>('SELECT 1 FROM DUAL WHERE 10 < :myValue', {
+        myValue: {
+            dir: oracledb.BIND_IN,
+            maxSize: 50,
+            type: oracledb.NUMBER,
+            val: 20,
+        },
+        anotherValue: {
+            dir: oracledb.BIND_INOUT,
+            type: oracledb.DB_TYPE_NCLOB,
+        },
+    });
+
+    stream.on('data', data => {
+        console.log(data);
+    });
+
+    stream.on('metadata', metadata => {
+        const streamClass = metadata[0].dbTypeClass;
+
+        const streamClassInstance = new streamClass({
+            streamTest: 'success',
+        });
+    });
 };
 
 const test4point1 = async (): Promise<void> => {

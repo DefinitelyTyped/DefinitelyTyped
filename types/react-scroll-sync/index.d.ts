@@ -7,18 +7,16 @@ import * as React from 'react';
 
 export interface ScrollSyncProps {
     onSync?(el: Element): void;
-    children: React.ReactNode;
-    proportional?: boolean;
-    vertical?: boolean;
-    horizontal?: boolean;
-    enabled?: boolean;
+    proportional?: boolean | undefined;
+    vertical?: boolean | undefined;
+    horizontal?: boolean | undefined;
+    enabled?: boolean | undefined;
 }
 
 export interface ScrollSyncPaneProps {
-    children: React.ReactNode;
-    attachTo?: HTMLElement;
-    group?: string;
-    enabled?: boolean;
+    attachTo?: HTMLElement | undefined;
+    group?: string | undefined;
+    enabled?: boolean | undefined;
 }
 
 export const ScrollSync: React.FC<ScrollSyncProps>;

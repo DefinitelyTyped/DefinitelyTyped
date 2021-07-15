@@ -12,7 +12,7 @@ declare namespace SignaturePad {
     x: number;
     y: number;
     time: number;
-    color?: string;
+    color?: string | undefined;
 
     constructor(x: number, y: number, time: number);
 
@@ -47,52 +47,52 @@ declare namespace SignaturePad {
     /*
      * (float or function) Radius of a single dot.
      */
-    dotSize?: number | (() => number)
+    dotSize?: number | (() => number) | undefined
 
     /*
      * (float) Minimum width of a line. Defaults to 0.5.
      */
-    minWidth?: number
+    minWidth?: number | undefined
 
     /*
      * (float) Maximum width of a line. Defaults to 2.5.
      */
-    maxWidth?: number
+    maxWidth?: number | undefined
 
     /*
      * (integer) Draw the next point at most once per every x milliseconds. Set it to 0 to turn off throttling. Defaults to 16.
      */
-    throttle?: number
+    throttle?: number | undefined
 
     /*
      * (integer) Add the next point only if the previous one is farther than x pixels. Defaults to 5.
      */
-    minDistance?: number
+    minDistance?: number | undefined
 
     /*
      * (string) Color used to clear the background. Can be any color format accepted by context.fillStyle. Defaults to "rgba(0,0,0,0)" (transparent black). Use a non-transparent color e.g. "rgb(255,255,255)" (opaque white) if you'd like to save signatures as JPEG images.
      */
-    backgroundColor?: string
+    backgroundColor?: string | undefined
 
     /*
      * (string) Color used to draw the lines. Can be any color format accepted by context.fillStyle. Defaults to "black".
      */
-    penColor?: string
+    penColor?: string | undefined
 
     /*
      * (float) Weight used to modify new velocity based on the previous velocity. Defaults to 0.7.
      */
-    velocityFilterWeight?: number
+    velocityFilterWeight?: number | undefined
 
     /*
      * (function) Callback when stroke begin.
      */
-    onBegin?: (event: MouseEvent) => void
+    onBegin?: ((event: MouseEvent) => void) | undefined
 
     /*
      * (function) Callback when stroke end.
      */
-    onEnd?: (event: MouseEvent) => void
+    onEnd?: ((event: MouseEvent) => void) | undefined
   }
 }
 
@@ -132,7 +132,7 @@ declare class SignaturePad {
   /**
    *   Draws signature image from data URL
    */
-  fromDataURL: (dataUrl: string, options?: { ratio?: number, width?: number, height?: number, callback?: (error?: ErrorEvent) => void }) => void;
+  fromDataURL: (dataUrl: string, options?: { ratio?: number | undefined, width?: number | undefined, height?: number | undefined, callback?: ((error?: ErrorEvent) => void) | undefined }) => void;
   /**
    *   Returns signature image as data URL.
    *   If 'type' parameter is ommitted, PNG dataUrl is returned.

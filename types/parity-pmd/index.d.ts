@@ -13,13 +13,13 @@
  */
 export interface PMDMessage {
     messageType: string;
-    version?: string;
-    timestamp?: number;
-    orderNumber?: number;
-    side?: string;
-    instrument?: string;
-    quantity?: number;
-    price?: number;
+    version?: string | undefined;
+    timestamp?: number | undefined;
+    orderNumber?: number | undefined;
+    side?: string | undefined;
+    instrument?: string | undefined;
+    quantity?: number | undefined;
+    price?: number | undefined;
 }
 
 export function format(message: PMDMessage): Buffer;

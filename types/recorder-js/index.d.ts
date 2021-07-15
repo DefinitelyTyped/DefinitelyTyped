@@ -18,7 +18,7 @@ declare namespace Recorder {
     type OnAnalysedHandler = (data: number[], lastNonZero: number) => void;
 
     interface RecorderConfig {
-        onAnalysed?: OnAnalysedHandler;
+        onAnalysed?: OnAnalysedHandler | undefined;
     }
 
     interface RecorderResult {

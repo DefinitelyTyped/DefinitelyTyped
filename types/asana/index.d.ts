@@ -35,13 +35,13 @@ declare namespace asana {
 
     /** Options to configure the client */
     interface ClientOptions extends DispatcherOptions {
-        clientId?: string | number;
-        clientSecret?: string;
-        redirectUri?: string;
-        asanaBaseUrl?: string;
+        clientId?: string | number | undefined;
+        clientSecret?: string | undefined;
+        redirectUri?: string | undefined;
+        asanaBaseUrl?: string | undefined;
         defaultHeaders?: {
             [key: string]: string;
-        };
+        } | undefined;
     }
 
     interface Client {
@@ -204,10 +204,10 @@ declare namespace asana {
     }
 
     interface DispatcherOptions {
-        authenticator?: auth.Authenticator;
-        retryOnRateLimit?: boolean;
-        handleUnauthorized?: () => boolean | Promise<boolean>;
-        requestTimeout?: string;
+        authenticator?: auth.Authenticator | undefined;
+        retryOnRateLimit?: boolean | undefined;
+        handleUnauthorized?: (() => boolean | Promise<boolean>) | undefined;
+        requestTimeout?: string | undefined;
     }
 
     interface Dispatcher {
@@ -380,13 +380,13 @@ declare namespace asana {
         }
 
         interface OauthAuthenticatorOptions {
-            flowType?: auth.FlowType;
-            credentials?: Credentials | string;
+            flowType?: auth.FlowType | undefined;
+            credentials?: Credentials | string | undefined;
         }
 
         interface Credentials {
-            access_token?: string;
-            refresh_token?: string;
+            access_token?: string | undefined;
+            refresh_token?: string | undefined;
         }
 
         interface OauthAuthenticator extends Authenticator {
@@ -455,9 +455,9 @@ declare namespace asana {
         }
 
         interface AppOptions extends AsanaAuthorizeUrlOptions {
-            clientId?: string | number;
-            clientSecret?: string;
-            scope?: string;
+            clientId?: string | number | undefined;
+            clientSecret?: string | undefined;
+            scope?: string | undefined;
         }
 
         interface App {
@@ -514,8 +514,8 @@ declare namespace asana {
         }
 
         interface AsanaAuthorizeUrlOptions {
-            redirectUri?: string;
-            asanaBaseUrl?: string;
+            redirectUri?: string | undefined;
+            asanaBaseUrl?: string | undefined;
         }
 
         var OauthError: OauthErrorStatic;
@@ -533,9 +533,9 @@ declare namespace asana {
         }
 
         interface OauthErrorOptions {
-            error?: string;
-            error_uri?: string;
-            error_description?: string;
+            error?: string | undefined;
+            error_uri?: string | undefined;
+            error_description?: string | undefined;
         }
 
         interface OauthError extends Error {}
@@ -863,8 +863,8 @@ declare namespace asana {
 
         namespace Events {
             interface Type {
-                data?: EventDataEntity[];
-                errors?: EventError[];
+                data?: EventDataEntity[] | undefined;
+                errors?: EventError[] | undefined;
                 sync: string;
             }
 
@@ -968,12 +968,12 @@ declare namespace asana {
             }
 
             interface CreateParams {
-                name?: string;
-                team?: string | number;
-                public?: boolean;
-                due_date?: string;
-                notes?: string;
-                color?: string;
+                name?: string | undefined;
+                team?: string | number | undefined;
+                public?: boolean | undefined;
+                due_date?: string | undefined;
+                notes?: string | undefined;
+                color?: string | undefined;
             }
 
             interface FollowersParams {
@@ -993,13 +993,13 @@ declare namespace asana {
             }
 
             interface FindAllParams extends PaginationParams {
-                workspace?: string | number;
-                team?: string | number;
-                archived?: boolean;
+                workspace?: string | number | undefined;
+                team?: string | number | undefined;
+                archived?: boolean | undefined;
             }
 
             interface FindByParams extends PaginationParams {
-                archived?: boolean;
+                archived?: boolean | undefined;
             }
         }
 
@@ -1404,8 +1404,8 @@ declare namespace asana {
             }
 
             interface FindAllParams extends PaginationParams {
-                team?: string | number;
-                archived?: boolean;
+                team?: string | number | undefined;
+                archived?: boolean | undefined;
             }
         }
 
@@ -1592,10 +1592,10 @@ declare namespace asana {
 
             interface CreateParams {
                 name: string;
-                completed?: boolean;
-                hearted?: boolean;
-                notes?: string;
-                custom_fields?: Object;
+                completed?: boolean | undefined;
+                hearted?: boolean | undefined;
+                notes?: string | undefined;
+                custom_fields?: Object | undefined;
             }
 
             interface FollowersParams {
@@ -1604,9 +1604,9 @@ declare namespace asana {
 
             interface AddProjectParams {
                 project: string | number;
-                insertBefore?: number;
-                insertAfter?: number;
-                section?: number;
+                insertBefore?: number | undefined;
+                insertAfter?: number | undefined;
+                section?: number | undefined;
             }
 
             interface RemoveProjectParams {
@@ -1618,17 +1618,17 @@ declare namespace asana {
             }
 
             interface CommentParams {
-                text?: string;
-                html_text?: string;
+                text?: string | undefined;
+                html_text?: string | undefined;
             }
 
             interface FindAllParams extends PaginationParams {
-                assignee?: number;
-                project?: string | number;
-                section?: string | number;
-                workspace?: string | number;
-                completed_since?: string;
-                modified_since?: string;
+                assignee?: number | undefined;
+                project?: string | number | undefined;
+                section?: string | number | undefined;
+                workspace?: string | number | undefined;
+                completed_since?: string | undefined;
+                modified_since?: string | undefined;
             }
         }
 
@@ -2030,8 +2030,8 @@ declare namespace asana {
 
             interface SectionsParams {
                 task: number | string;
-                insert_after?: string;
-                insert_before?: string;
+                insert_after?: string | undefined;
+                insert_before?: string | undefined;
             }
         }
 
@@ -2425,7 +2425,7 @@ declare namespace asana {
 
         namespace Workspaces {
             interface ShortType extends Resource {
-                is_organization?: boolean;
+                is_organization?: boolean | undefined;
             }
 
             interface Type extends Resource {
@@ -2435,8 +2435,8 @@ declare namespace asana {
 
             interface TypeaheadParams {
                 type: string;
-                query?: string;
-                count?: number;
+                query?: string | undefined;
+                count?: number | undefined;
             }
         }
 
@@ -2504,7 +2504,7 @@ declare namespace asana {
              */
             update(
                 workspace: string | number,
-                data: { name?: string },
+                data: { name?: string | undefined },
                 dispatchOptions?: any
             ): Promise<Workspaces.Type>;
 
@@ -2786,7 +2786,7 @@ declare namespace asana {
             data: T[];
             _response: {
                 data: T[];
-                next_page?: NextPage;
+                next_page?: NextPage | undefined;
             };
             _dispatcher: {
                 authenticator: {
@@ -2822,13 +2822,13 @@ declare namespace asana {
         }
 
         interface PaginationParams extends Params {
-            limit?: number;
-            offset?: string;
+            limit?: number | undefined;
+            offset?: string | undefined;
         }
 
         interface Params {
-            opt_fields?: string;
-            opt_expand?: string;
+            opt_fields?: string | undefined;
+            opt_expand?: string | undefined;
         }
 
         interface UserParams {
@@ -2841,9 +2841,9 @@ declare namespace asana {
         }
 
         interface Assignee extends Resource {
-            email?: string;
-            workspaces?: Resource[];
-            photo?: { [key: string]: string };
+            email?: string | undefined;
+            workspaces?: Resource[] | undefined;
+            photo?: { [key: string]: string } | undefined;
         }
 
         interface EnumValue extends Resource {

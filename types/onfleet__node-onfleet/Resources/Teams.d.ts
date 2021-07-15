@@ -28,14 +28,14 @@ declare namespace Team {
     managers: string[];
     name: string;
     workers: string[];
-    hub?: string;
+    hub?: string | undefined;
   }
 
   interface UpdateTeamProps {
-    managers?: string[];
-    name?: string;
-    workers?: string[];
-    hub?: string;
+    managers?: string[] | undefined;
+    name?: string | undefined;
+    workers?: string[] | undefined;
+    hub?: string | undefined;
   }
 }
 

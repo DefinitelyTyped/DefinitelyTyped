@@ -11,16 +11,16 @@ declare module 'assert' {
 
             constructor(options?: {
                 /** If provided, the error message is set to this value. */
-                message?: string;
+                message?: string | undefined;
                 /** The `actual` property on the error instance. */
                 actual?: any;
                 /** The `expected` property on the error instance. */
                 expected?: any;
                 /** The `operator` property on the error instance. */
-                operator?: string;
+                operator?: string | undefined;
                 /** If provided, the generated stack trace omits frames before this function. */
                 // tslint:disable-next-line:ban-types
-                stackStartFn?: Function;
+                stackStartFn?: Function | undefined;
             });
         }
 

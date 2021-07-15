@@ -31,7 +31,7 @@ declare namespace mockjs {
     }
 
     interface MockjsSetupSettings {
-        timeout?: number | S;
+        timeout?: number | S | undefined;
     }
 
     // Mockjs.setup()
@@ -291,8 +291,8 @@ declare namespace mockjs {
         type: S;
         rule: object;
         path: S[];
-        properties?: MockjsToJSONSchemaRs[];
-        items?: MockjsToJSONSchemaRs[];
+        properties?: MockjsToJSONSchemaRs[] | undefined;
+        items?: MockjsToJSONSchemaRs[] | undefined;
     }
 
     // Mockjs.toJSONSchema()
