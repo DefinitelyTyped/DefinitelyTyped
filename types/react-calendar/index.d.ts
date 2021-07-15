@@ -66,7 +66,7 @@ export interface CalendarProps {
     prevLabel?: string | JSX.Element | null;
     prev2AriaLabel?: string;
     prev2Label?: string | JSX.Element | null;
-    returnValue?: 'start' | 'end' | 'range';
+    returnValue?: "start" | "end" | "range";
     showDoubleView?: boolean;
     showFixedNumberOfWeeks?: boolean;
     showNavigation?: boolean;
