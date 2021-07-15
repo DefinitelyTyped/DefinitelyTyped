@@ -3,6 +3,7 @@ declare module 'child_process' {
     import { EventEmitter, Abortable } from 'node:events';
     import * as net from 'node:net';
     import { Writable, Readable, Stream, Pipe } from 'node:stream';
+    import { URL } from 'node:url';
 
     type Serializable = string | object | number | boolean | bigint;
     type SendHandle = net.Socket | net.Server;
@@ -157,7 +158,7 @@ declare module 'child_process' {
     interface ProcessEnvOptions {
         uid?: number | undefined;
         gid?: number | undefined;
-        cwd?: string | undefined;
+        cwd?: string | URL | undefined;
         env?: NodeJS.ProcessEnv | undefined;
     }
 
