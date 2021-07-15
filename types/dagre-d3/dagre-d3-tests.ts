@@ -94,7 +94,7 @@ util.applyClass(
   'other-class-1 other-class-2'
 );
 
-// $ExpectType Selection<BaseType, string, HTMLElement, any> | Transition<BaseType, string, HTMLElement, any>
+// $ExpectType SelectionOrTransition<BaseType, string, HTMLElement, any>
 util.applyTransition(
   d3.select<d3.BaseType, string>("svg"),
   graph,
