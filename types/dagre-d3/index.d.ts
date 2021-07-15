@@ -5,7 +5,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import * as d3 from "d3";
+import {
+  BaseType,
+  Selection,
+  SelectionOrTransition,
+  ValueFn,
+} from "d3";
 import * as dagre from "dagre";
 import * as graphlib from "graphlib";
 
@@ -56,47 +61,47 @@ export const util: {
 
   edgeToId: (e: {v: string, w: string, name: string}) => string,
 
-  applyStyle: <GElement extends d3.BaseType, Datum>(
-    dom: d3.Selection<GElement, Datum, any, any>,
-    styleFn: d3.ValueFn<GElement, Datum, string | number | boolean | null>,
+  applyStyle: <GElement extends BaseType, Datum>(
+    dom: Selection<GElement, Datum, any, any>,
+    styleFn: ValueFn<GElement, Datum, string | number | boolean | null>,
   ) => void,
 
-  applyClass: <GElement extends d3.BaseType, Datum>(
-    dom: d3.Selection<GElement, Datum, any, any>,
-    classFn: d3.ValueFn<GElement, Datum, string | number | boolean | null>,
+  applyClass: <GElement extends BaseType, Datum>(
+    dom: Selection<GElement, Datum, any, any>,
+    classFn: ValueFn<GElement, Datum, string | number | boolean | null>,
     otherClasses: string,
   ) => void,
 
-  applyTransition: <GElement extends d3.BaseType, Datum, PElement extends d3.BaseType, PDatum>(
-    selection: d3.Selection<GElement, Datum, PElement, PDatum>,
+  applyTransition: <GElement extends BaseType, Datum, PElement extends BaseType, PDatum>(
+    selection: Selection<GElement, Datum, PElement, PDatum>,
     g: dagre.graphlib.Graph<any>,
-  ) => d3.Transition<GElement, Datum, PElement, PDatum> | d3.Selection<GElement, Datum, PElement, PDatum>,
+  ) => SelectionOrTransition<GElement, Datum, PElement, PDatum>,
 };
 
 export type CreateNodes = (
-  selection: d3.Selection<SVGGElement, string, any, any>,
+  selection: Selection<SVGGElement, string, any, any>,
   g: dagre.graphlib.Graph<any>,
   shapes: Shapes,
-) => d3.Selection<d3.BaseType, any, any, any>;
+) => SelectionOrTransition<BaseType, any, any, any>;
 
 export type CreateClusters = (
-  selection: d3.Selection<SVGGElement, string, any, any>,
+  selection: Selection<SVGGElement, string, any, any>,
   g: dagre.graphlib.Graph<any>,
-) => d3.Selection<d3.BaseType, any, any, any>;
+) => SelectionOrTransition<BaseType, any, any, any>;
 
 export type CreateEdgeLabels = (
-  selection: d3.Selection<SVGGElement, string, any, any>,
+  selection: Selection<SVGGElement, string, any, any>,
   g: dagre.graphlib.Graph<any>,
-) => d3.Selection<d3.BaseType , any, any, any>;
+) => SelectionOrTransition<BaseType, any, any, any>;
 
 export type CreateEdgePaths = (
-  selection: d3.Selection<SVGGElement, string, any, any>,
+  selection: Selection<SVGGElement, string, any, any>,
   g: dagre.graphlib.Graph<any>,
   arrows: Arrows,
-) => d3.Selection<d3.BaseType, any, any, any>;
+) => SelectionOrTransition<BaseType, any, any, any>;
 
 export type Arrow = (
-  parent: d3.Selection<any, any, any, any>,
+  parent: Selection<any, any, any, any>,
   id: string,
   edge: dagre.Edge,
   type: string,
@@ -106,20 +111,20 @@ export interface Arrows {
   [arrowStyleName: string]: Arrow;
 }
 
-export type Shape = <Datum, PElement extends d3.BaseType, PDatum>(
-  parent: d3.Selection<any, Datum, PElement, PDatum>,
+export type Shape = (
+  parent: Selection<any, string, any, any>,
   bbox: any,
   node: dagre.Node,
-) => d3.Selection<any, Datum, PElement, PDatum>;
+) => Selection<any, string, any, any>;
 
 export interface Shapes {
- [shapeStyleName: string]: Shape;
+  [shapeStyleName: string]: Shape;
 }
 
 export interface Render {
   // see https://dagrejs.github.io/project/dagre-d3/latest/demo/user-defined.html for example usage
 
-  (selection: d3.Selection<any, any, any, any>, g: dagre.graphlib.Graph<any>): void;
+  (selection: Selection<any, any, any, any>, g: dagre.graphlib.Graph<any>): void;
 
   createNodes(): CreateNodes;
   createNodes(value: CreateNodes): Render;
