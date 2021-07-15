@@ -89,3 +89,10 @@ const root: Mdast.Root = {
     type: 'root',
     children: [header, table, code, image, toml],
 };
+
+const link: Mdast.Link = {
+    type: 'link',
+    children: [text],
+    url: 'https://example.com',
+    title: null
+};
