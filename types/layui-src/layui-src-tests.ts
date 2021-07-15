@@ -290,6 +290,7 @@ function carousel() {
         carousel.set({ autoplay: true });
     });
 }
+
 function code() {
     layui.use('code', () => {
         // 加载code模块
@@ -300,6 +301,7 @@ function code() {
         });
     });
 }
+
 function colorpicker() {
     layui.use('colorpicker', () => {
         const colorpicker = layui.colorpicker;
@@ -336,6 +338,7 @@ function colorpicker() {
         layui.event('colorpicker', 'confirm', [1, 2]);
     });
 }
+
 function dropdown() {
     layui.use('dropdown', () => {
         const dropdown = layui.dropdown;
@@ -465,6 +468,7 @@ function dropdown() {
         layui.dropdown.on('click(id)', cb);
     });
 }
+
 function elementTest() {
     layui.use('element', () => {
         const element = layui.element;
@@ -515,6 +519,7 @@ function elementTest() {
         });
     });
 }
+
 function flowTest() {
     layui.use('flow', () => {
         const flow = layui.flow;
@@ -772,6 +777,7 @@ function layeditTest() {
         layedit.build('demo'); // 建立编辑器
     });
 }
+
 function layerTest() {
     layui.use('layer', layer => {
         /*
@@ -920,12 +926,39 @@ function layerTest() {
             layer.close(index);
         });
         // eg2
-        layer.confirm('is not?', index => {
+        layer.confirm('is not?', (index, layero) => {
             // do something
 
             layer.close(index);
         });
+        layer.confirm(
+            'is not?',
+            {
+                icon: 3,
+                title: '提示',
+                cancel: (index, layero) => {
+                    console.log('点击了右上角关闭');
+                    // return false  // 点击右上角叉号不能关闭
+                },
+            },
+            (index, layero) => {
+                console.log("点击了下边的第一个按钮'确定'");
+                layer.close(index); // 需要手动关闭
+            },
+            (index, layero) => {
+                console.log("点击了下边的第二个按钮'取消'");
+                // return false // 点击取消不能关闭
+            },
+        );
+        layer.confirm(
+            'is not?',
+            (index, layero) => {
+                // do something
 
+                layer.close(index);
+            },
+            (index, layero) => {},
+        );
         // eg1
         layer.msg('只想弱弱提示');
         // eg2
@@ -1634,6 +1667,7 @@ function tableTest() {
         'csv',
     );
 }
+
 function transferTest() {
     layui.use('transfer', () => {
         const transfer = layui.transfer;
@@ -1899,6 +1933,7 @@ function utilTest() {
             // mymod.hello('World!'); // 弹出 Hello World!
         });
     }
+
     // 多个模块导入测试
     function useTest2() {
         // 导出的模块
