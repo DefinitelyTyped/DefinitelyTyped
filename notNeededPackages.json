@@ -3950,6 +3950,10 @@
             "libraryName": "react-native-google-analytics-bridge",
             "asOfVersion": "5.3.3"
         },
+        "react-native-input-spinner": {
+            "libraryName": "react-native-input-spinner",
+            "asOfVersion": "1.4.1"
+        },
         "react-native-keychain": {
             "libraryName": "react-native-keychain",
             "asOfVersion": "3.1.0"
