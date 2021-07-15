@@ -5,6 +5,7 @@
 // TypeScript Version: 2.5
 
 import { Filter } from "ldapjs";
+import { type } from "os";
 interface LDAPjsReqProps {
     url: string;
     tlsOptions?: {
@@ -105,39 +106,34 @@ interface ADProperties extends LDAPjsReqProps {
     } | undefined;
 }
 
-declare class ActiveDirectory {
+export class ActiveDirectory {
     constructor(props: ADProperties);
     authenticate(
         username: string,
         password: string,
         callback?: (err: string, authenticated: boolean) => void
     ): void;
-    authenticate(username: string, password: string): Promise<boolean>;
     isUserMemberOf(
         username: string,
         groupName: string,
         callback?: (err: object, res: boolean) => void
     ): void;
-    isUserMemberOf(username: string, groupName: string): Promise<boolean>;
     isUserMemberOf(
         opts: ReqProps,
         username: string,
         groupName: string,
         callback?: (err: object, res: boolean) => void
     ): void;
-    isUserMemberOf(opts: ReqProps, username: string, groupName: string): Promise<boolean>;
     find(callback?: (err: object, results: FindResult) => void): void;
     find(
         opts: string | ReqProps,
         callback?: (err: object, results: FindResult) => void
     ): void;
-    find(opts?: string | ReqProps): Promise<FindResult>;
     findDeletedObjects(callback?: (err: object, results: object[]) => void): void;
     findDeletedObjects(
         opts: string | ReqProps,
         callback?: (err: object, results: object[]) => void
     ): void;
-    findDeletedObjects(opts?: string | ReqProps): Promise<Array<object>>;
     findUser(
         username: string,
         callback?: (err: object, user: object) => void
@@ -148,35 +144,29 @@ declare class ActiveDirectory {
         username: string,
         callback?: (err: object, user: object) => void
     ): void;
-    findUser(opts: string | ReqProps, username: string): Promise<object>;
     findUsers(callback?: (err: object, users: object[]) => void): void;
     findUsers(
         opts: string | ReqProps,
         callback?: (err: object, users: object[]) => void
     ): void;
-    findUsers(opts?: string | ReqProps): Promise<Array<object>>;
     findGroup(
         groupName: string,
         callback?: (err: object, group: object) => void
     ): void;
-    findGroup(groupName: string): Promise<object>;
     findGroup(
         opts: string | ReqProps,
         groupName: string,
         callback?: (err: object, group: object) => void
     ): void;
-    findGroup(opts: string | ReqProps, groupName: string): Promise<object>;
     findGroups(
         groupName: string,
         callback?: (err: object, groups: object[]) => void
     ): void;
-    findGroups(groupName: string): Promise<Array<object>>;
     findGroups(
         opts: string | ReqProps,
         groupName: string,
         callback?: (err: object, groups: object[]) => void
     ): void;
-    findGroups(opts: string | ReqProps, groupName: string): Promise<Array<object>>;
     groupExists(
         groupName: string,
         callback?: (err: object, res: boolean) => void
@@ -203,41 +193,63 @@ declare class ActiveDirectory {
         groupName: string,
         callback?: (err: object, groups: object[]) => void
     ): void;
-    getGroupMembershipForGroup(groupName: string): Promise<Array<object>>;
     getGroupMembershipForGroup(
         opts: string | ReqProps,
         groupName: string,
         callback?: (err: object, groups: object[]) => void
     ): void;
-    getGroupMembershipForGroup(opts: string | ReqProps, groupName: string): Promise<Array<object>>;
     getGroupMembershipForUser(
         username: string,
         callback?: (err: object, groups: object[]) => void
     ): void;
-    getGroupMembershipForUser(username: string): Promise<Array<object>>;
     getGroupMembershipForUser(
         opts: string | ReqProps,
         username: string,
         callback?: (err: object, groups: object[]) => void
     ): void;
-    getGroupMembershipForUser( opts: string | ReqProps, username: string): Promise<Array<object>>;
     getUsersForGroup(
         groupName: string,
         callback?: (err: object, users: object[]) => void
     ): void;
-    getUsersForGroup(groupName: string): Promise<Array<object>>;
     getUsersForGroup(
         opts: string | ReqProps,
         groupName: string,
         callback?: (err: object, users: object[]) => void
     ): void;
-    getUsersForGroup(opts: string | ReqProps, groupName: string): Promise<Array<object>>;
     getRootDSE(
         url?: string,
         attributes?: string[],
         callback?: (err: object, result: object) => void
     ): void;
-    getRootDSE(url?: string, attributes?: Array<string>): Promise<object>;
 }
 
-export = ActiveDirectory;
+declare class PromiseWrapper {
+    constructor(props: ADProperties);
+    authenticate(username: string, password: string): Promise<boolean>;
+    isUserMemberOf(username: string, groupName: string): Promise<boolean>;
+    isUserMemberOf(opts: ReqProps, username: string, groupName: string): Promise<boolean>;
+    find(opts?: string | ReqProps): Promise<FindResult>;
+    findDeletedObjects(opts?: string | ReqProps): Promise<object[]>;
+    findUser(opts: string | ReqProps, username: string): Promise<object>;
+    findUsers(opts?: string | ReqProps): Promise<object[]>;
+    findGroup(groupName: string): Promise<object>;
+    findGroup(opts: string | ReqProps, groupName: string): Promise<object>;
+    findGroups(groupName: string): Promise<object[]>;
+    findGroups(opts: string | ReqProps, groupName: string): Promise<object[]>;
+    getGroupMembershipForGroup(groupName: string): Promise<object[]>;
+    getGroupMembershipForGroup(opts: string | ReqProps, groupName: string): Promise<object[]>;
+    getGroupMembershipForUser(username: string): Promise<object[]>;
+    getGroupMembershipForUser( opts: string | ReqProps, username: string): Promise<object[]>;
+    getUsersForGroup(groupName: string): Promise<object[]>;
+    getUsersForGroup(opts: string | ReqProps, groupName: string): Promise<object[]>;
+    getRootDSE(url?: string, attributes?: string[]): Promise<object>;
+}
+
+export { PromiseWrapper as promiseWrapper };
+
+export function getRootDSE(url: string, attributes?: string[], callback?:(err: object, res: string) => void): void;
+
+export type defaultAttributes = {
+    user: string[],
+    group: string[]
+}
