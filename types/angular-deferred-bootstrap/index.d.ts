@@ -14,8 +14,8 @@ declare module angular {
     }
 
     interface IConfigParam {
-        element?: Node,
-        module?: string,
+        element?: Node | undefined,
+        module?: string | undefined,
         resolve: any
     }
 }

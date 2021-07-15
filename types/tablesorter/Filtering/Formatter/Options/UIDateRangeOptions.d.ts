@@ -10,20 +10,20 @@ export interface UIDateRangeOptions extends
     /**
      * The label of the "from"-input.
      */
-    textFrom?: string;
+    textFrom?: string | undefined;
 
     /**
      * The label of the "to"-input.
      */
-    textTo?: string;
+    textTo?: string | undefined;
 
     /**
      * The default `from`-value.
      */
-    from?: Date;
+    from?: Date | undefined;
 
     /**
      * The default `to`-value.
      */
-    to?: Date;
+    to?: Date | undefined;
 }

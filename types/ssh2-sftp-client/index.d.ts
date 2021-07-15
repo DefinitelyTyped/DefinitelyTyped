@@ -74,29 +74,29 @@ declare class sftp {
 
 declare namespace sftp {
     interface ConnectOptions extends ssh2.ConnectConfig {
-        retries?: number;
-        retry_factor?: number;
-        retry_minTimeout?: number;
+        retries?: number | undefined;
+        retry_factor?: number | undefined;
+        retry_minTimeout?: number | undefined;
     }
 
     interface ModeOption {
-        mode?: number;
+        mode?: number | undefined;
     }
 
     interface TransferOptions extends ModeOption {
-        flags?: 'w' | 'a';
-        encoding?: null | string;
-        autoClose?: true | boolean;
+        flags?: 'w' | 'a' | undefined;
+        encoding?: null | string | undefined;
+        autoClose?: true | boolean | undefined;
     }
 
     interface GetTransferOptions extends TransferOptions {
-        handle?: null | string;
+        handle?: null | string | undefined;
     }
 
     interface FastGetTransferOptions {
-        concurrency?: number;
-        chunkSize?: number;
-        step?: (totalTransferred: number, chunk: number, total: number) => void;
+        concurrency?: number | undefined;
+        chunkSize?: number | undefined;
+        step?: ((totalTransferred: number, chunk: number, total: number) => void) | undefined;
     }
 
     interface FastPutTransferOptions extends FastGetTransferOptions, ModeOption {}

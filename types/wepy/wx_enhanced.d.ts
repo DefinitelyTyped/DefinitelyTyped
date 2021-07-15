@@ -1,25 +1,25 @@
 export interface WechatProfileDetails {
-    photoFilePath?: string;
-    nickName?: string;
-    lastName?: string;
-    middleName?: string;
-    firstName?: string;
-    remark?: string;
-    mobilePhoneNumber?: string;
-    email?: string;
-    url?: string;
-    workAddressCountry?: string;
-    workAddressState?: string;
-    workAddressCity?: string;
-    workAddressStreet?: string;
-    workAddressPostalCode?: string;
-    homeFaxNumber?: string;
-    homePhoneNumber?: string;
-    homeAddressCountry?: string;
-    homeAddressState?: string;
-    homeAddressCity?: string;
-    homeAddressStreet?: string;
-    homeAddressPostalCode?: string;
+    photoFilePath?: string | undefined;
+    nickName?: string | undefined;
+    lastName?: string | undefined;
+    middleName?: string | undefined;
+    firstName?: string | undefined;
+    remark?: string | undefined;
+    mobilePhoneNumber?: string | undefined;
+    email?: string | undefined;
+    url?: string | undefined;
+    workAddressCountry?: string | undefined;
+    workAddressState?: string | undefined;
+    workAddressCity?: string | undefined;
+    workAddressStreet?: string | undefined;
+    workAddressPostalCode?: string | undefined;
+    homeFaxNumber?: string | undefined;
+    homePhoneNumber?: string | undefined;
+    homeAddressCountry?: string | undefined;
+    homeAddressState?: string | undefined;
+    homeAddressCity?: string | undefined;
+    homeAddressStreet?: string | undefined;
+    homeAddressPostalCode?: string | undefined;
 }
 
 export interface RotateAnimation {
@@ -115,8 +115,8 @@ export interface UrlParam {
 }
 
 export interface RequestParam extends UrlParam {
-    data?: object | string | ArrayBuffer;
-    header?: object;
+    data?: object | string | ArrayBuffer | undefined;
+    header?: object | undefined;
     method?:
         | "GET"
         | "OPTIONS"
@@ -125,9 +125,9 @@ export interface RequestParam extends UrlParam {
         | "PUT"
         | "DELETE"
         | "TRACE"
-        | "CONNECT";
-    dataType?: "json" | "text";
-    responseType?: "text" | "arraybuffer";
+        | "CONNECT" | undefined;
+    dataType?: "json" | "text" | undefined;
+    responseType?: "text" | "arraybuffer" | undefined;
 }
 
 export interface FilePathParam {
@@ -163,7 +163,7 @@ export interface WxEnhances {
             data: Uint8ClampedArray;
             x: number;
             y: number;
-            height?: number;
+            height?: number | undefined;
             wdith: number;
         },
         context: any
@@ -332,9 +332,9 @@ export interface WxEnhances {
     openLocation(params: {
         latitude: number;
         longitude: number;
-        scale?: number;
-        name?: string;
-        address?: string;
+        scale?: number | undefined;
+        name?: string | undefined;
+        address?: string | undefined;
     }): Promise<void>;
 
     pageScrollTo(params: {
@@ -359,8 +359,8 @@ export interface WxEnhances {
     }): Promise<void>;
 
     scanCode(params: {
-        onlyFromCamera?: boolean;
-        scanType?: string[];
+        onlyFromCamera?: boolean | undefined;
+        scanType?: string[] | undefined;
     }): Promise<{
         result: string;
         scanType: string;
@@ -386,21 +386,21 @@ export interface WxEnhances {
     showModal(params: {
         title: string;
         content: string;
-        showCancel?: boolean;
-        cancelText?: string;
-        cancelColor?: string;
-        confirmText?: string;
-        confirmColor?: string;
+        showCancel?: boolean | undefined;
+        cancelText?: string | undefined;
+        cancelColor?: string | undefined;
+        confirmText?: string | undefined;
+        confirmColor?: string | undefined;
     }): Promise<{ confirm: boolean; cancel: boolean }>;
 
     showNavigationBarLoading(): Promise<void>;
 
     showToast(params: {
         title: string;
-        icon?: "success" | "loading" | "none";
-        image?: string;
-        duration?: number;
-        mask?: boolean;
+        icon?: "success" | "loading" | "none" | undefined;
+        image?: string | undefined;
+        duration?: number | undefined;
+        mask?: boolean | undefined;
     }): Promise<void>;
 
     switchTab(params: UrlParam): Promise<void>;

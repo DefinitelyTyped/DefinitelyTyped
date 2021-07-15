@@ -11,27 +11,27 @@ declare namespace MarkdownPDF {
     /** Configuration options */
     interface Options {
         /** Current working directory. */
-        cwd?: string;
+        cwd?: string | undefined;
         /** Path to the phantomjs library. */
-        phantomPath?: string;
+        phantomPath?: string | undefined;
         /** Path to custom CSS file, relative to current directory. */
-        cssPath?: string;
+        cssPath?: string | undefined;
         /** Path to custorm highlight CSS file (for code highlighting with highlight.js), relative to the current directory. */
-        highlightCssPath?: string;
+        highlightCssPath?: string | undefined;
         /** Path to CommonJS module which sets the page header and footer (see runnings.js). */
-        runningsPath?: string;
+        runningsPath?: string | undefined;
         /** Delay (in ms) before the PDF is rendered. */
-        renderDelay?: number;
+        renderDelay?: number | undefined;
         /** If renderDelay option isn't set, this is the timeout (in ms) before the page is rendered in case the page.onLoadFinished event doesn't fire. */
-        loadTimeout?: number;
+        loadTimeout?: number | undefined;
         /** Supported dimension units are: 'mm', 'cm', 'in', 'px' */
-        paperBorder?: string;
-        paperFormat?: PaperFormat;
-        paperOrientation?: PaperOrientation;
+        paperBorder?: string | undefined;
+        paperFormat?: PaperFormat | undefined;
+        paperOrientation?: PaperOrientation | undefined;
         /** A function that returns a through2 stream that transforms the markdown before it is converted to HTML. */
-        preProcessMd?: () => any;
+        preProcessMd?: (() => any) | undefined;
         /** A function that returns a through2 stream that transforms the HTML before it is converted to PDF. */
-        preProcessHtml?: () => any;
+        preProcessHtml?: (() => any) | undefined;
         /** A config object that is passed to remarkable, the underlying markdown parser */
         remarkable?: any; // FIXME: remarkable config types
     }

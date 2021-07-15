@@ -4,7 +4,7 @@ const myCodeMirror: CodeMirror.Editor = CodeMirror(document.body);
 
 const myCodeMirror2: CodeMirror.Editor = CodeMirror(document.body, {
     value: 'function myScript(){return 100;}\n',
-    mode: 'javascript',
+    mode: {name: 'javascript', json: true},
     extraKeys: {
         Enter: cm => {
             console.log('save');

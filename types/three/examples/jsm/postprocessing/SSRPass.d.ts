@@ -11,20 +11,20 @@ import {
     Mesh,
     Material,
 } from '../../../src/Three';
-import { Pass } from '../postprocessing/Pass';
+import { Pass, FullScreenQuad } from '../postprocessing/Pass';
 import { Reflector } from '../objects/ReflectorForSSRPass';
 
 export interface SSRPassParams {
     renderer: WebGLRenderer;
     scene: Scene;
     camera: Camera;
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
     selects: Mesh[] | null;
     encoding: TextureEncoding;
-    isPerspectiveCamera?: boolean;
-    isBouncing?: boolean;
-    morphTargets?: boolean;
+    isPerspectiveCamera?: boolean | undefined;
+    isBouncing?: boolean | undefined;
+    morphTargets?: boolean | undefined;
     groundReflector: Reflector | null;
 }
 
@@ -84,7 +84,7 @@ export class SSRPass extends Pass {
 
     copyMaterial: ShaderMaterial;
 
-    fsQuad: Pass.FullScreenQuad;
+    fsQuad: FullScreenQuad;
 
     originalClearColor: Color;
 

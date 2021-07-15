@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface NewLevel {
-    afterLog?: () => void;
+    afterLog?: (() => void) | undefined;
 }
 export interface NewLevelBefore extends NewLevel {
     before: string;

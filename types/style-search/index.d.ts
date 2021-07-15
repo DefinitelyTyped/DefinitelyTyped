@@ -53,31 +53,31 @@ declare namespace styleSearch {
          * If true, the search will stop after one match is found.
          * @default false
          */
-        once?: boolean;
+        once?: boolean | undefined;
         /**
          * This includes both standard `/* CSS comments *\/`
          * and non-standard but widely used `// single line comments`.
          * @default 'skip'
          */
-        comments?: SyntaxFeatureOption;
+        comments?: SyntaxFeatureOption | undefined;
         /**
          * @default 'skip'
          */
-        strings?: SyntaxFeatureOption;
+        strings?: SyntaxFeatureOption | undefined;
         /**
          * @default 'skip'
          */
-        functionNames?: SyntaxFeatureOption;
+        functionNames?: SyntaxFeatureOption | undefined;
         /**
          * @default 'check'
          */
-        functionArguments?: SyntaxFeatureOption;
+        functionArguments?: SyntaxFeatureOption | undefined;
         /**
          * This designates anything inside parentheses, which includes standard functions,but also Sass maps and other non-standard constructs.
          * `parentheticals` is a broader category than `functionArguments`
          * @default 'check'
          */
-        parentheticals?: SyntaxFeatureOption;
+        parentheticals?: SyntaxFeatureOption | undefined;
     }
 }
 

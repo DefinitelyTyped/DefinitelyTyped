@@ -32,26 +32,26 @@ export interface TFontDictionary {
 }
 
 export interface TFontFamilyTypes {
-    normal?: PDFKit.Mixins.PDFFontSource;
-    bold?: PDFKit.Mixins.PDFFontSource;
-    italics?: PDFKit.Mixins.PDFFontSource;
-    bolditalics?: PDFKit.Mixins.PDFFontSource;
+    normal?: PDFKit.Mixins.PDFFontSource | undefined;
+    bold?: PDFKit.Mixins.PDFFontSource | undefined;
+    italics?: PDFKit.Mixins.PDFFontSource | undefined;
+    bolditalics?: PDFKit.Mixins.PDFFontSource | undefined;
 }
 
 export interface TDocumentInformation {
     /** the title of the document */
-    title?: string;
+    title?: string | undefined;
     /** the name of the author */
-    author?: string;
+    author?: string | undefined;
     /** the subject of the document */
-    subject?: string;
+    subject?: string | undefined;
     /** keywords associated with the document */
-    keywords?: string;
-    creator?: string;
-    producer?: string;
-    creationDate?: Date;
-    modDate?: Date;
-    trapped?: string;
+    keywords?: string | undefined;
+    creator?: string | undefined;
+    producer?: string | undefined;
+    creationDate?: Date | undefined;
+    modDate?: Date | undefined;
+    trapped?: string | undefined;
 }
 
 export type DynamicContent = (
@@ -72,19 +72,19 @@ export type Alignment = 'left' | 'right' | 'justify' | 'center';
 export type DynamicRowSize = (row: number) => number | 'auto';
 
 export interface CustomTableLayout {
-    hLineWidth?: DynamicLayout<number>;
-    vLineWidth?: DynamicLayout<number>;
-    hLineColor?: string | DynamicLayout<string>;
-    vLineColor?: string | DynamicLayout<string>;
-    hLineStyle?: DynamicLayout<LineStyle>;
-    vLineStyle?: DynamicLayout<LineStyle>;
-    fillColor?: string | DynamicLayout<string>;
-    paddingLeft?: DynamicLayout<number>;
-    paddingRight?: DynamicLayout<number>;
-    paddingTop?: DynamicLayout<number>;
-    paddingBottom?: DynamicLayout<number>;
-    fillOpacity?: number | DynamicLayout<number>;
-    defaultBorder?: boolean;
+    hLineWidth?: DynamicLayout<number> | undefined;
+    vLineWidth?: DynamicLayout<number> | undefined;
+    hLineColor?: string | DynamicLayout<string> | undefined;
+    vLineColor?: string | DynamicLayout<string> | undefined;
+    hLineStyle?: DynamicLayout<LineStyle> | undefined;
+    vLineStyle?: DynamicLayout<LineStyle> | undefined;
+    fillColor?: string | DynamicLayout<string> | undefined;
+    paddingLeft?: DynamicLayout<number> | undefined;
+    paddingRight?: DynamicLayout<number> | undefined;
+    paddingTop?: DynamicLayout<number> | undefined;
+    paddingBottom?: DynamicLayout<number> | undefined;
+    fillOpacity?: number | DynamicLayout<number> | undefined;
+    defaultBorder?: boolean | undefined;
 }
 
 export type DynamicLayout<T> = (rowIndex: number, node: ContentTable, columnIndex: number) => T | null | undefined;
@@ -92,28 +92,28 @@ export type DynamicLayout<T> = (rowIndex: number, node: ContentTable, columnInde
 export interface LineStyle {
     dash?: {
         length: number;
-        space?: number;
-    };
+        space?: number | undefined;
+    } | undefined;
 }
 
 export type TableCell =
     | {} // Used when another cell spans over this cell
     | (Content & {
-          rowSpan?: number;
-          colSpan?: number;
-          border?: [boolean, boolean, boolean, boolean];
-          borderColor?: [string, string, string, string];
-          fillOpacity?: number;
+          rowSpan?: number | undefined;
+          colSpan?: number | undefined;
+          border?: [boolean, boolean, boolean, boolean] | undefined;
+          borderColor?: [string, string, string, string] | undefined;
+          fillOpacity?: number | undefined;
       });
 
 export interface Table {
     body: TableCell[][];
-    widths?: '*' | 'auto' | Size[];
-    heights?: number | number[] | DynamicRowSize;
-    headerRows?: number;
-    dontBreakRows?: boolean;
-    keepWithHeaderRows?: number;
-    layout?: TableLayout;
+    widths?: '*' | 'auto' | Size[] | undefined;
+    heights?: number | number[] | DynamicRowSize | undefined;
+    headerRows?: number | undefined;
+    dontBreakRows?: boolean | undefined;
+    keepWithHeaderRows?: number | undefined;
+    layout?: TableLayout | undefined;
 }
 
 export type PredefinedTableLayout = 'noBorders' | 'headerLineOnly' | 'lightHorizontalLines';
@@ -121,45 +121,45 @@ export type TableLayout = string | PredefinedTableLayout | CustomTableLayout;
 
 export interface Style {
     /** name of the font */
-    font?: string;
+    font?: string | undefined;
     /** size of the font in pt */
-    fontSize?: number;
-    fontFeatures?: PDFKit.Mixins.OpenTypeFeatures[];
+    fontSize?: number | undefined;
+    fontFeatures?: PDFKit.Mixins.OpenTypeFeatures[] | undefined;
     /** the line height (default: 1) */
-    lineHeight?: number;
+    lineHeight?: number | undefined;
     /** whether to use bold text (default: false) */
-    bold?: boolean;
+    bold?: boolean | undefined;
     /** whether to use italic text (default: false) */
-    italics?: boolean;
+    italics?: boolean | undefined;
     /** the alignment of the text */
-    alignment?: Alignment;
+    alignment?: Alignment | undefined;
     /** the color of the text (color name e.g., ‘blue’ or hexadecimal color e.g., ‘#ff5500’) */
-    color?: string;
+    color?: string | undefined;
     /** the background color of the text */
-    background?: string;
+    background?: string | undefined;
     /** the color of the bullets in a buletted list */
-    markerColor?: string;
+    markerColor?: string | undefined;
     /** the text decoration to applu (‘underline’ or ‘lineThrough’ or ‘overline’) */
-    decoration?: Decoration;
+    decoration?: Decoration | undefined;
     /** (‘dashed’ or ‘dotted’ or ‘double’ or ‘wavy’) */
-    decorationStyle?: DecorationStyle;
+    decorationStyle?: DecorationStyle | undefined;
     /** the color of the text decoration, see color */
-    decorationColor?: string;
-    margin?: Margins;
-    preserveLeadingSpaces?: boolean;
-    opacity?: number;
-    characterSpacing?: number;
-    leadingIndent?: number;
+    decorationColor?: string | undefined;
+    margin?: Margins | undefined;
+    preserveLeadingSpaces?: boolean | undefined;
+    opacity?: number | undefined;
+    characterSpacing?: number | undefined;
+    leadingIndent?: number | undefined;
     // Table-cell properties:
-    noWrap?: boolean;
+    noWrap?: boolean | undefined;
     /** the background color of a table cell */
-    fillColor?: string;
+    fillColor?: string | undefined;
     /** the background opacity of a table cell */
-    fillOpacity?: number;
+    fillOpacity?: number | undefined;
     /** optional space between columns */
-    columnGap?: Size;
-    sup?: boolean;
-    sub?: boolean;
+    columnGap?: Size | undefined;
+    sup?: boolean | undefined;
+    sub?: boolean | undefined;
     // These properties appear in the documentation but don't do anything:
     // tableCellPadding?: unknown;
     // cellBorder?: unknown;
@@ -201,25 +201,25 @@ export interface ContentColumns extends ContentBase {
 
 export interface ContentStack extends ContentBase {
     /** if true, ensures that the contents of the stack are always on the same page */
-    unbreakable?: boolean;
+    unbreakable?: boolean | undefined;
     stack: Content[];
 }
 
 /** for numbered lists set the ol key */
 export interface ContentOrderedList extends ContentBase {
     ol: OrderedListElement[];
-    type?: OrderedListType;
-    markerColor?: string;
-    separator?: string | [string, string];
-    reversed?: boolean;
-    start?: number;
+    type?: OrderedListType | undefined;
+    markerColor?: string | undefined;
+    separator?: string | [string, string] | undefined;
+    reversed?: boolean | undefined;
+    start?: number | undefined;
 }
 
 /** to treat a paragraph as a bulleted list, set an array of items under the ul key */
 export interface ContentUnorderedList extends ContentBase {
     ul: UnorderedListElement[];
-    type?: UnorderedListType;
-    markerColor?: string;
+    type?: UnorderedListType | undefined;
+    markerColor?: string | undefined;
 }
 
 export interface ContentCanvas extends ContentBase {
@@ -228,22 +228,22 @@ export interface ContentCanvas extends ContentBase {
 
 export interface ContentSvg extends ContentBase {
     svg: string;
-    width?: number;
-    height?: number;
-    fit?: [number, number];
+    width?: number | undefined;
+    height?: number | undefined;
+    fit?: [number, number] | undefined;
 }
 
 export interface ContentImage extends ContentLink, ContentBase {
     image: string;
-    width?: number;
-    height?: number;
-    fit?: [number, number];
-    cover?: ImageCover;
+    width?: number | undefined;
+    height?: number | undefined;
+    fit?: [number, number] | undefined;
+    cover?: ImageCover | undefined;
 }
 
 export interface ContentTable extends ContentBase {
     table: Table;
-    layout?: TableLayout;
+    layout?: TableLayout | undefined;
 }
 
 export interface ContentAnchor extends ContentBase {
@@ -254,9 +254,9 @@ export interface ContentAnchor extends ContentBase {
 export interface ContentTocItem extends ContentBase {
     text: string | ContentTocItem;
     tocItem: boolean | string | string[];
-    tocStyle?: string | string[] | Style;
-    tocNumberStyle?: string | string[] | Style;
-    tocMargin?: Margins;
+    tocStyle?: string | string[] | Style | undefined;
+    tocNumberStyle?: string | string[] | Style | undefined;
+    tocMargin?: Margins | undefined;
 }
 
 export interface ContentPageReference extends ContentBase {
@@ -273,50 +273,50 @@ export interface ContentToc extends ContentBase {
 
 export interface ContentQr extends ContentBase {
     qr: string;
-    foreground?: string;
-    fit?: number;
-    version?: number;
-    eccLevel?: 'L' | 'M' | 'Q' | 'H';
-    mode?: 'numeric' | 'alphanumeric' | 'octet';
-    mask?: number;
+    foreground?: string | undefined;
+    fit?: number | undefined;
+    version?: number | undefined;
+    eccLevel?: 'L' | 'M' | 'Q' | 'H' | undefined;
+    mode?: 'numeric' | 'alphanumeric' | 'octet' | undefined;
+    mask?: number | undefined;
 }
 
 export interface ContentBase extends Style {
-    style?: string | string[] | Style;
-    absolutePosition?: { x: number; y: number };
-    relativePosition?: { x: number; y: number };
-    pageBreak?: PageBreak;
-    pageOrientation?: PageOrientation;
-    headlineLevel?: number;
+    style?: string | string[] | Style | undefined;
+    absolutePosition?: { x: number; y: number } | undefined;
+    relativePosition?: { x: number; y: number } | undefined;
+    pageBreak?: PageBreak | undefined;
+    pageOrientation?: PageOrientation | undefined;
+    headlineLevel?: number | undefined;
 }
 
 export interface ContentLink {
-    link?: string;
-    linkToPage?: number;
-    linkToDestination?: string;
+    link?: string | undefined;
+    linkToPage?: number | undefined;
+    linkToDestination?: string | undefined;
 }
 
 export interface TableOfContent {
-    title?: Content;
-    textMargin?: Margins;
-    textStyle?: string | string[] | Style;
-    numberStyle?: string | string[] | Style;
-    id?: string;
+    title?: Content | undefined;
+    textMargin?: Margins | undefined;
+    textStyle?: string | string[] | Style | undefined;
+    numberStyle?: string | string[] | Style | undefined;
+    id?: string | undefined;
 }
 
 export type Column = Content & {
-    width?: Size;
+    width?: Size | undefined;
 };
 
 export type OrderedListType = 'lower-alpha' | 'upper-alpha' | 'lower-roman' | 'upper-roman' | 'none';
 export type OrderedListElement = Content & {
-    counter?: number;
-    listType?: OrderedListType;
+    counter?: number | undefined;
+    listType?: OrderedListType | undefined;
 };
 
 export type UnorderedListType = 'square' | 'circle' | 'none';
 export type UnorderedListElement = Content & {
-    listType?: UnorderedListType;
+    listType?: UnorderedListType | undefined;
 };
 
 export type CanvasElement = CanvasRect | CanvasPolyline | CanvasLine | CanvasEllipse;
@@ -327,14 +327,14 @@ export interface CanvasRect extends CanvasLineElement, CanvasFilledElement {
     y: number;
     w: number;
     h: number;
-    r?: number;
+    r?: number | undefined;
 }
 
 export interface CanvasPolyline extends CanvasLineElement, CanvasFilledElement {
     type: 'polyline';
     points: Array<{ x: number; y: number }>;
-    closePath?: boolean;
-    lineCap?: 'round' | 'square';
+    closePath?: boolean | undefined;
+    lineCap?: 'round' | 'square' | undefined;
 }
 
 export interface CanvasLine extends CanvasLineElement {
@@ -343,7 +343,7 @@ export interface CanvasLine extends CanvasLineElement {
     y1: number;
     x2: number;
     y2: number;
-    lineCap?: 'round' | 'square';
+    lineCap?: 'round' | 'square' | undefined;
 }
 
 export interface CanvasEllipse extends CanvasLineElement, CanvasFilledElement {
@@ -351,32 +351,32 @@ export interface CanvasEllipse extends CanvasLineElement, CanvasFilledElement {
     x: number;
     y: number;
     r1: number;
-    r2?: number;
+    r2?: number | undefined;
 }
 
 export interface CanvasFilledElement {
-    color?: string;
-    fillOpacity?: number;
-    linearGradient?: string[];
+    color?: string | undefined;
+    fillOpacity?: number | undefined;
+    linearGradient?: string[] | undefined;
 }
 
 export interface CanvasLineElement {
-    lineWidth?: number;
-    lineColor?: string;
+    lineWidth?: number | undefined;
+    lineColor?: string | undefined;
     dash?: {
         length: number;
-        space?: number;
-    };
+        space?: number | undefined;
+    } | undefined;
 }
 
 export type ImageAlignment = 'left' | 'right' | 'center';
 export type ImageVerticalAlignment = 'top' | 'bottom' | 'center';
 
 export interface ImageCover {
-    width?: number;
-    height?: number;
-    align?: ImageAlignment;
-    valign?: ImageVerticalAlignment;
+    width?: number | undefined;
+    height?: number | undefined;
+    align?: ImageAlignment | undefined;
+    valign?: ImageVerticalAlignment | undefined;
 }
 
 export interface StyleDictionary {
@@ -389,61 +389,61 @@ export interface Watermark {
     /** watermark text */
     text: string;
     /** opacity of text */
-    opacity?: number;
+    opacity?: number | undefined;
     /** angle of text rotation (minimal version: 0.1.60) */
-    angle?: number;
-    font?: string;
+    angle?: number | undefined;
+    font?: string | undefined;
     /** own font size of text (ideal size is calculated automatically) (minimal version: 0.1.60) */
-    fontSize?: number;
+    fontSize?: number | undefined;
     /** color of text */
-    color?: string;
+    color?: string | undefined;
     /** bold style of text */
-    bold?: boolean;
+    bold?: boolean | undefined;
     /** italics style of text */
-    italics?: boolean;
+    italics?: boolean | undefined;
 }
 
 export interface TDocumentDefinitions {
     content: Content;
-    background?: DynamicBackground | Content;
-    compress?: boolean;
-    defaultStyle?: Style;
-    footer?: DynamicContent | Content;
-    header?: DynamicContent | Content;
-    images?: { [key: string]: string };
-    info?: TDocumentInformation;
-    pageBreakBefore?: (
+    background?: DynamicBackground | Content | undefined;
+    compress?: boolean | undefined;
+    defaultStyle?: Style | undefined;
+    footer?: DynamicContent | Content | undefined;
+    header?: DynamicContent | Content | undefined;
+    images?: { [key: string]: string } | undefined;
+    info?: TDocumentInformation | undefined;
+    pageBreakBefore?: ((
         currentNode: Node,
         followingNodesOnPage: Node[],
         nodesOnNextPage: Node[],
         previousNodesOnPage: Node[],
-    ) => boolean;
-    pageMargins?: Margins;
-    pageOrientation?: PageOrientation;
-    pageSize?: PageSize;
-    styles?: StyleDictionary;
-    userPassword?: string;
-    ownerPassword?: string;
-    permissions?: PDFKit.DocumentPermissions;
-    version?: PDFVersion;
-    watermark?: string | Watermark;
+    ) => boolean) | undefined;
+    pageMargins?: Margins | undefined;
+    pageOrientation?: PageOrientation | undefined;
+    pageSize?: PageSize | undefined;
+    styles?: StyleDictionary | undefined;
+    userPassword?: string | undefined;
+    ownerPassword?: string | undefined;
+    permissions?: PDFKit.DocumentPermissions | undefined;
+    version?: PDFVersion | undefined;
+    watermark?: string | Watermark | undefined;
 }
 
 export interface Node {
-    text?: Content;
-    ul?: UnorderedListElement[];
-    ol?: OrderedListElement[];
-    table?: Table;
-    image?: string;
-    qr?: string;
-    canvas?: CanvasElement;
-    svg?: string;
-    columns?: Column[];
-    id?: string;
-    headlineLevel?: number;
-    style?: string | string[] | Style;
-    pageBreak?: PageBreak;
-    pageOrientation?: PageOrientation;
+    text?: Content | undefined;
+    ul?: UnorderedListElement[] | undefined;
+    ol?: OrderedListElement[] | undefined;
+    table?: Table | undefined;
+    image?: string | undefined;
+    qr?: string | undefined;
+    canvas?: CanvasElement | undefined;
+    svg?: string | undefined;
+    columns?: Column[] | undefined;
+    id?: string | undefined;
+    headlineLevel?: number | undefined;
+    style?: string | string[] | Style | undefined;
+    pageBreak?: PageBreak | undefined;
+    pageOrientation?: PageOrientation | undefined;
     pageNumbers: number[];
     pages: number;
     stack: boolean;
@@ -466,11 +466,11 @@ export interface ContextPageSize {
 }
 
 export interface BufferOptions {
-    fontLayoutCache?: boolean;
-    bufferPages?: boolean;
-    tableLayouts?: { [key: string]: CustomTableLayout };
-    autoPrint?: boolean;
-    progressCallback?: (progress: number) => void;
+    fontLayoutCache?: boolean | undefined;
+    bufferPages?: boolean | undefined;
+    tableLayouts?: { [key: string]: CustomTableLayout } | undefined;
+    autoPrint?: boolean | undefined;
+    progressCallback?: ((progress: number) => void) | undefined;
 }
 
 // disable automatic exporting

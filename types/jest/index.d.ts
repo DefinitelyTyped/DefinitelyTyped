@@ -319,7 +319,7 @@ declare namespace jest {
     function useRealTimers(): typeof jest;
 
     interface MockOptions {
-        virtual?: boolean;
+        virtual?: boolean | undefined;
     }
 
     type EmptyFunction = () => void;
@@ -452,14 +452,14 @@ declare namespace jest {
     type MatcherHintColor = (arg: string) => string;
 
     interface MatcherHintOptions {
-        comment?: string;
-        expectedColor?: MatcherHintColor;
-        isDirectExpectCall?: boolean;
-        isNot?: boolean;
-        promise?: string;
-        receivedColor?: MatcherHintColor;
-        secondArgument?: string;
-        secondArgumentColor?: MatcherHintColor;
+        comment?: string | undefined;
+        expectedColor?: MatcherHintColor | undefined;
+        isDirectExpectCall?: boolean | undefined;
+        isNot?: boolean | undefined;
+        promise?: string | undefined;
+        receivedColor?: MatcherHintColor | undefined;
+        secondArgument?: string | undefined;
+        secondArgumentColor?: MatcherHintColor | undefined;
     }
 
     interface ChalkFunction {
@@ -593,7 +593,7 @@ declare namespace jest {
         currentTestName: string;
         expand: boolean;
         expectedAssertionsNumber: number;
-        isExpectingAssertions?: boolean;
+        isExpectingAssertions?: boolean | undefined;
         suppressedErrors: Error[];
         testPath: string;
     }

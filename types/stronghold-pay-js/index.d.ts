@@ -76,7 +76,7 @@ declare global {
         interface ClientOptions {
             environment: ENVIRONMENT;
             publishableKey: string;
-            host?: string;
+            host?: string | undefined;
         }
         type AddPaymentSourceOnSuccess = (paymentSource: PaymentSource) => void;
         type UpdatePaymentSourceOnSuccess = (paymentSource: PaymentSource) => void;
@@ -87,27 +87,27 @@ declare global {
         type OnError = (error: StrongholdPayError) => void;
         type OnEvent = (event: StrongholdMessageEvent) => void;
         interface Options {
-            onExit?: OnExit;
-            onError?: OnError;
-            onEvent?: OnEvent;
-            onReady?: OnReady;
+            onExit?: OnExit | undefined;
+            onError?: OnError | undefined;
+            onEvent?: OnEvent | undefined;
+            onReady?: OnReady | undefined;
         }
         interface AddPaymentSourceOptions extends Options {
             onSuccess: AddPaymentSourceOnSuccess;
         }
         interface UpdatePaymentSourceOptions extends Options {
-            onSuccess?: UpdatePaymentSourceOnSuccess;
+            onSuccess?: UpdatePaymentSourceOnSuccess | undefined;
             paymentSourceId: string;
         }
         interface ChargeOptions extends Options {
             charge: ChargeDropin;
-            tip?: TipDataDropin;
-            authorizeOnly?: boolean;
+            tip?: TipDataDropin | undefined;
+            authorizeOnly?: boolean | undefined;
             onSuccess: ChargeOnSuccess;
         }
         interface TipOptions extends Options {
             tip: TipDropin;
-            authorizeOnly?: boolean;
+            authorizeOnly?: boolean | undefined;
             onSuccess: TipOnSuccess;
         }
         interface StrongholdMessageEvent extends MessageEvent {
@@ -125,7 +125,7 @@ declare global {
              */
             amount: number;
             paymentSourceId: string;
-            externalId?: string;
+            externalId?: string | undefined;
         }
         interface TipDataDropin {
             /**
@@ -134,10 +134,10 @@ declare global {
             amount: number;
             beneficiaryName: string;
             details?: {
-                displayMessage?: string;
-                terminalId?: string;
-                drawerId?: string;
-            };
+                displayMessage?: string | undefined;
+                terminalId?: string | undefined;
+                drawerId?: string | undefined;
+            } | undefined;
         }
         interface TipDropin extends TipDataDropin {
             chargeId: string;
@@ -176,10 +176,10 @@ declare global {
             amount: number;
             beneficiary_name: string;
             details?: {
-                display_message?: string;
-                terminal_id?: string;
-                drawer_id?: string;
-            };
+                display_message?: string | undefined;
+                terminal_id?: string | undefined;
+                drawer_id?: string | undefined;
+            } | undefined;
             charge_id: string;
             payment_source_id: string;
         }

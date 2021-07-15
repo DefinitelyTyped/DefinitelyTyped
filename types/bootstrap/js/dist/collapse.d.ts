@@ -30,7 +30,7 @@ declare class Collapse extends BaseComponent {
      * Static method which allows you to get the collapse instance associated
      * with a DOM element.
      */
-    static getInstance(element: Element, options?: Partial<Collapse.Options>): Collapse;
+    static getInstance(element: Element, options?: Partial<Collapse.Options>): Collapse | null;
 
     static jQueryInterface: Collapse.jQueryInterface;
 

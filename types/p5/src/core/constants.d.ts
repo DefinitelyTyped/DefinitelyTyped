@@ -178,5 +178,12 @@ declare module '../../index' {
         readonly PORTRAIT: PORTRAIT;
         readonly GRID: GRID;
         readonly AXES: AXES;
+
+        /**
+         *   Constants to be used with describe() function, to
+         *   set the display parameter.
+         */
+        readonly LABEL: LABEL;
+        readonly FALLBACK: LABEL;
     }
 }

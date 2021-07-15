@@ -17,7 +17,7 @@ export interface Config {
 }
 
 export interface ServerConfig extends Config {
-    corsOptions?: cors.CorsOptions;
+    corsOptions?: cors.CorsOptions | undefined;
 }
 
 export const Defaults: Config;
@@ -39,7 +39,7 @@ export class API {
 export class Server {
     config: ServerConfig;
     app: express.Express;
-    server?: http.Server;
+    server?: http.Server | undefined;
 
     constructor(options?: Partial<ServerConfig>);
     listen(port?: number, host?: string): http.Server;

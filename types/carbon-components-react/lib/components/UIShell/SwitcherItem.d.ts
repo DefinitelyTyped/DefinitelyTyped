@@ -2,8 +2,8 @@ import { ReactAnchorAttr, RequiresChildrenProps, FCReturn, ForwardRefProps, } fr
 import { LinkProps } from "./Link";
 
 export interface SwitcherItemPropsBase extends RequiresChildrenProps {
-    className?: string,
-    isSelected?: boolean,
+    className?: string | undefined,
+    isSelected?: boolean | undefined,
 }
 
 export type SwitcherItemProps<E extends object = ReactAnchorAttr> = Omit<LinkProps<E>, "tabIndex"> & SwitcherItemPropsBase;

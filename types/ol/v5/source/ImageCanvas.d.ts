@@ -12,12 +12,12 @@ import State from './State';
 
 export type FunctionType = (this: ImageCanvas, p0: Extent, p1: number, p2: number, p3: Size, p4: Projection) => HTMLCanvasElement;
 export interface Options {
-    attributions?: AttributionLike;
-    canvasFunction?: FunctionType;
-    projection?: ProjectionLike;
-    ratio?: number;
-    resolutions?: number[];
-    state?: State;
+    attributions?: AttributionLike | undefined;
+    canvasFunction?: FunctionType | undefined;
+    projection?: ProjectionLike | undefined;
+    ratio?: number | undefined;
+    resolutions?: number[] | undefined;
+    state?: State | undefined;
 }
 export default class ImageCanvasSource extends ImageSource {
     constructor(opt_options?: Options);

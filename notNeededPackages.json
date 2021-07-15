@@ -500,6 +500,10 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "classify-poetry": {
+            "libraryName": "classify-poetry",
+            "asOfVersion": "1.0.1"
+        },
         "classnames": {
             "libraryName": "classnames",
             "asOfVersion": "2.3.0"
@@ -784,6 +788,10 @@
         "cuid": {
             "libraryName": "cuid",
             "asOfVersion": "2.0.1"
+        },
+        "cuss": {
+            "libraryName": "cuss",
+            "asOfVersion": "2.0.0"
         },
         "cycled": {
             "libraryName": "cycled",
@@ -1561,6 +1569,10 @@
             "libraryName": "graphql-query-complexity",
             "asOfVersion": "0.2.0"
         },
+        "graphql-relay": {
+            "libraryName": "graphql-relay",
+            "asOfVersion": "0.7.0"
+        },
         "gravatar-url": {
             "libraryName": "gravatar-url",
             "asOfVersion": "3.0.0"
@@ -1736,6 +1748,10 @@
         "html-webpack-tags-plugin": {
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
+        },
+        "html2canvas": {
+            "libraryName": "html2canvas",
+            "asOfVersion": "1.0.0"
         },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
@@ -2548,6 +2564,10 @@
         "map-obj": {
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
+        },
+        "maplibre-gl": {
+            "libraryName": "maplibre-gl",
+            "asOfVersion": "1.14.0"
         },
         "maquette": {
             "libraryName": "maquette",
@@ -3638,6 +3658,10 @@
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
         },
+        "rdf-js": {
+            "libraryName": "rdf-js",
+            "asOfVersion": "4.0.2"
+        },
         "rdflib": {
             "libraryName": "rdflib",
             "asOfVersion": "1.2.0"
@@ -4281,10 +4305,6 @@
         "rgb2hex": {
             "libraryName": "rgb2hex",
             "asOfVersion": "0.2.1"
-        },
-        "riderize__passport-strava-oauth2": {
-            "libraryName": "@riderize/passport-strava-oauth2",
-            "asOfVersion": "1.1.1"
         },
         "riot": {
             "libraryName": "riot",
@@ -5298,6 +5318,10 @@
             "libraryName": "@wordpress/a11y",
             "asOfVersion": "2.9.0"
         },
+        "wordpress__api-fetch": {
+            "libraryName": "@wordpress/api-fetch",
+            "asOfVersion": "3.23.1"
+        },
         "wordpress__autop": {
             "libraryName": "@wordpress/autop",
             "asOfVersion": "2.7.0"
@@ -5413,6 +5437,10 @@
         "xumm-api": {
             "libraryName": "xumm-sdk",
             "asOfVersion": "0.1.4"
+        },
+        "y18n": {
+            "libraryName": "y18n",
+            "asOfVersion": "5.0.0"
         },
         "yaml": {
             "libraryName": "yaml",

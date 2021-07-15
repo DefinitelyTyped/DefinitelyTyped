@@ -17,28 +17,28 @@ declare class File {
         /**
         * Default: process.cwd()
         */
-        cwd?: string;
+        cwd?: string | undefined;
         /**
          * Used for relative pathing. Typically where a glob starts.
          */
-        base?: string;
+        base?: string | undefined;
         /**
          * Full path to the file.
          */
-        path?: string;
+        path?: string | undefined;
         /**
          * Path history. Has no effect if options.path is passed.
          */
-        history?: string[];
+        history?: string[] | undefined;
         /**
          * The result of an fs.stat call. See fs.Stats for more information.
          */
-        stat?: fs.Stats;
+        stat?: fs.Stats | undefined;
         /**
          * File contents.
          * Type: Buffer, Stream, or null
          */
-        contents?: Buffer | NodeJS.ReadWriteStream;
+        contents?: Buffer | NodeJS.ReadWriteStream | undefined;
     });
 
     /**
@@ -81,7 +81,7 @@ declare class File {
     /**
      * Returns a new File object with all attributes cloned. Custom attributes are deep-cloned.
      */
-    public clone(opts?: { contents?: boolean }): File;
+    public clone(opts?: { contents?: boolean | undefined }): File;
 
     /**
      * If file.contents is a Buffer, it will write it to the stream.
@@ -94,7 +94,7 @@ declare class File {
             /**
              * If false, the destination stream will not be ended (same as node core).
              */
-            end?: boolean;
+            end?: boolean | undefined;
         }): T;
 
     /**

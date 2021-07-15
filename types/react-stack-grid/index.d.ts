@@ -9,31 +9,34 @@ interface Units {
     length: string;
     angle: string;
 }
+export interface Grid {
+    updateLayout: () => void;
+}
 export interface StackGridProps {
     columnWidth: number | string;
-    className?: string;
-    style?: React.CSSProperties;
-    gridRef?: () => void;
-    component?: string;
-    itemComponent?: string;
-    gutterWidth?: number;
-    gutterHeight?: number;
-    duration?: number;
-    easing?: string;
-    appearDelay?: number;
-    appear?: () => void;
-    appeared?: () => void;
-    enter?: () => void;
-    entered?: () => void;
-    leaved?: () => void;
-    units?: Units;
-    monitorImagesLoaded?: boolean;
-    vendorPrefix?: boolean;
-    userAgent?: string;
-    enableSSR?: boolean;
-    onLayout?: () => void;
-    horizontal?: boolean;
-    rtl?: boolean;
+    className?: string | undefined;
+    style?: React.CSSProperties | undefined;
+    gridRef?: ((grid: Grid) => void) | undefined;
+    component?: string | undefined;
+    itemComponent?: string | undefined;
+    gutterWidth?: number | undefined;
+    gutterHeight?: number | undefined;
+    duration?: number | undefined;
+    easing?: string | undefined;
+    appearDelay?: number | undefined;
+    appear?: (() => void) | undefined;
+    appeared?: (() => void) | undefined;
+    enter?: (() => void) | undefined;
+    entered?: (() => void) | undefined;
+    leaved?: (() => void) | undefined;
+    units?: Units | undefined;
+    monitorImagesLoaded?: boolean | undefined;
+    vendorPrefix?: boolean | undefined;
+    userAgent?: string | undefined;
+    enableSSR?: boolean | undefined;
+    onLayout?: (() => void) | undefined;
+    horizontal?: boolean | undefined;
+    rtl?: boolean | undefined;
 }
 
 declare class StackGrid extends React.Component<StackGridProps, any> {}

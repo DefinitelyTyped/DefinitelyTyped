@@ -12,7 +12,7 @@ declare const objectPath: objectPath.ObjectPathStatic & {
 
 declare namespace objectPath {
     interface Options {
-        includeInheritedProps?: boolean;
+        includeInheritedProps?: boolean | undefined;
     }
 
     type Path = Array<number | string> | number | string;

@@ -36,7 +36,7 @@ export function create(
             | { readonly [name: string]: string }
             | string,
     ],
-    privateData?: { doNotStripQMark?: boolean },
+    privateData?: { doNotStripQMark?: boolean | undefined },
 ): URLSearchParams;
 
 /**
@@ -54,7 +54,7 @@ export function createImpl(
             | { readonly [name: string]: string }
             | string,
     ],
-    privateData?: { doNotStripQMark?: boolean },
+    privateData?: { doNotStripQMark?: boolean | undefined },
 ): URLSearchParamsImpl;
 
 /**
@@ -71,7 +71,7 @@ export function setup<T extends URLSearchParams>(
             | { readonly [name: string]: string }
             | string,
     ],
-    privateData?: { doNotStripQMark?: boolean },
+    privateData?: { doNotStripQMark?: boolean | undefined },
 ): T;
 
 /**

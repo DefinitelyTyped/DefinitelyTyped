@@ -9,8 +9,8 @@ import * as OAuth2Server from 'oauth2-server';
 
 declare namespace ExpressOAuthServer {
     interface Options extends OAuth2Server.ServerOptions {
-        useErrorHandler?: boolean;
-        continueMiddleware?: boolean;
+        useErrorHandler?: boolean | undefined;
+        continueMiddleware?: boolean | undefined;
     }
 }
 

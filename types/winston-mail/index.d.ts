@@ -23,27 +23,27 @@ export class Mail extends winston.Transport
 }
 
 export interface MailTransportOptions {
-    name?: string;
+    name?: string | undefined;
     to: string;
-    from?: string;
-    level?: string;
-    silent?: boolean;
-    handleExceptions?: boolean;
-    host?: string;
-    port?: number;
-    username?: string;
-    password?: string;
-    subject?: string;
-    ssl?: boolean | { key: string; ca: string; cert: string };
-    tls?: boolean | { ciphers: string };
-    unique?: boolean;
-    filter?: ((obj: { level: string; message: string; meta: any }) => boolean);
-    html?: boolean;
-    timeout?: number;
-    authentication?: string[];
+    from?: string | undefined;
+    level?: string | undefined;
+    silent?: boolean | undefined;
+    handleExceptions?: boolean | undefined;
+    host?: string | undefined;
+    port?: number | undefined;
+    username?: string | undefined;
+    password?: string | undefined;
+    subject?: string | undefined;
+    ssl?: boolean | { key: string; ca: string; cert: string } | undefined;
+    tls?: boolean | { ciphers: string } | undefined;
+    unique?: boolean | undefined;
+    filter?: ((obj: { level: string; message: string; meta: any }) => boolean) | undefined;
+    html?: boolean | undefined;
+    timeout?: number | undefined;
+    authentication?: string[] | undefined;
     formatter?: ((
         obj: { level: string; message: string; meta: any }
-    ) => string);
+    ) => string) | undefined;
 }
 
 declare module "winston" {

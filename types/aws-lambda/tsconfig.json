@@ -38,6 +38,7 @@
         "test/ses-tests.ts",
         "test/sns-tests.ts",
         "test/sqs-tests.ts",
-        "test/msk-tests.ts"
+        "test/msk-tests.ts",
+        "test/secretsmanager-tests.ts"
     ]
 }

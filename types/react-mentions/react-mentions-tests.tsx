@@ -26,9 +26,9 @@ import {
 
 interface TestProps {
     data: SuggestionDataItem[];
-    value?: string;
-    onChange?: () => void;
-    onAdd?: () => void;
+    value?: string | undefined;
+    onChange?: (() => void) | undefined;
+    onAdd?: (() => void) | undefined;
     regex: RegExp;
 }
 

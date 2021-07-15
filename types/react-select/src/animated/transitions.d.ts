@@ -4,9 +4,9 @@ import { Transition } from 'react-transition-group';
 export type fn = () => void;
 export interface BaseTransition {
     /** Whether we are in a transition. */
-    in?: boolean;
+    in?: boolean | undefined;
     /** Function to be called once transition finishes. */
-    onExited?: fn;
+    onExited?: fn | undefined;
 }
 
 // ==============================

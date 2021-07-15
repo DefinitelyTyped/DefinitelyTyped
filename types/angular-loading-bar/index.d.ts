@@ -19,41 +19,41 @@ declare module 'angular' {
             /**
              * Turn the spinner on or off
              */
-            includeSpinner?: boolean;
+            includeSpinner?: boolean | undefined;
 
             /**
              * Turn the loading bar on or off
              */
-            includeBar?: boolean;
+            includeBar?: boolean | undefined;
 
             /**
              * HTML template
              */
-            spinnerTemplate?: string;
+            spinnerTemplate?: string | undefined;
 
             /**
              * Loading bar template
              */
-            loadingBarTemplate?: string;
+            loadingBarTemplate?: string | undefined;
 
             /**
              * Latency Threshold
              */
-            latencyThreshold?: number;
+            latencyThreshold?: number | undefined;
             /**
              * HTML element selector of parent
              */
-            parentSelector?: string;
+            parentSelector?: string | undefined;
 
             /**
              * Starting size
              */
-            startSize?: number;
+            startSize?: number | undefined;
 
             /**
              * Give illusion that there's always progress
              */
-            autoIncrement?: boolean;
+            autoIncrement?: boolean | undefined;
 
             /**
              * Broadcast the start event
@@ -88,7 +88,7 @@ declare module 'angular' {
         /**
          * Indicates that the loading bar should be hidden.
          */
-        ignoreLoadingBar?: boolean;
+        ignoreLoadingBar?: boolean | undefined;
     }
 
 }
