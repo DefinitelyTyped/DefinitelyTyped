@@ -1,5 +1,1 @@
-declare module "local-ipv4-address" {
-    function main(): Promise<string>;
-    export default main;
-  }
-  
+export default function main(): Promise<string>;
