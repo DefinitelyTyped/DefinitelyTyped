@@ -34,11 +34,13 @@ declare namespace MergeIntoFile {
     interface Options {
         /**
          * array of entry points (strings) for which this plugin should run only
-         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#hash}
+         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#chunks}
+         * @default undefined
          */
         chunks?: string[];
         /**
          * encoding of node.js reading
+         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#encoding}
          * @default 'utf-8'
          */
         encoding?: string;
@@ -56,6 +58,12 @@ declare namespace MergeIntoFile {
         transform?: {
             [key: string]: (code: string) => string;
         };
+        /**
+         * string used between files when joining them together
+         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#separator}
+         * @default '\n'
+         */
+        separator?: string;
     }
 }
 
