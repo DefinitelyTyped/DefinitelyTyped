@@ -2,6 +2,7 @@
 // Project: https://github.com/prettier/prettier-eslint
 // Definitions by: Munin M. <https://github.com/4086606>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.3
 
 /// <reference types="node" />
 
