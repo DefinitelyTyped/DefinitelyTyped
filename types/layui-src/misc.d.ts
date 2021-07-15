@@ -741,7 +741,7 @@ declare namespace Layui {
          * @param eventName 事件名 比如click，自定事件会绑定失败
          * @param fn 回调    (tip:this:any)
          */
-        on<K extends keyof HTMLElementEventMap>(eventName: K, fn: (...args: any) => any): HTMLElement[];
+        on(eventName: keyof HTMLElementEventMap, fn: (...args: any) => any): HTMLElement[];
 
         /**
          * 移除元素
@@ -1403,7 +1403,6 @@ declare namespace Layui {
         /**
          * 普通信息框
          * @param content 内容
-         * @param options 基础参数
          * @param yes  点击确定后的回调
          */
         alert(content: any, yes: LayerCallbackYes): number;
@@ -2049,10 +2048,10 @@ declare namespace Layui {
      * 响应
      */
     interface TableResponse {
-        code: number;
-        msg: string;
-        count: number;
-        data: any;
+        code?: number;
+        msg?: string;
+        count?: number;
+        data?: any;
 
         [propName: string]: any;
     }
@@ -2220,16 +2219,18 @@ declare namespace Layui {
 
         /**
          * 数据格式解析的回调函数，用于将返回的任意数据格式解析成 table 组件规定的数据格式。
-         * @param res
+         * @param res 服务端返回的数据
          */
         parseData?(res: any): TableResponse;
 
         /**
-         * 用于对分页请求的参数：page、limit重新设定名称
+         * 用于对分页请求的参数：page、limit重新设定名称，如果无需自定义请求参数，可不加该参数 <br/>&nbsp;
+         *  通过parseData也可映射不同名称
          */
         request?: TableRequestRename;
         /**
-         * 可以借助 response 参数来重新设定返回的数据格式
+         * 可以借助 response 重新设定本地识别响应字段名，如果无需自定义数据响应名称，可不加该参数  <br/>&nbsp;
+         *   当默认支持的名称和服务端不一致可以通过本方式或者parseData来对应
          */
         response?: TableResponseRename;
     }

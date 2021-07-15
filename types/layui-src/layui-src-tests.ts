@@ -1310,7 +1310,7 @@ function tableTest() {
                 return {
                     code: 200, // 解析接口状态
                     msg: 'res', // 解析提示文本
-                    count: 123, // 解析数据长度
+                    // count: 123, // 解析数据长度
                     data: res, // 解析数据列表
                 };
             },
