@@ -49,6 +49,6 @@ export declare const DrawerActions: {
     // tslint:disable-next-line no-redundant-undefined
     toggleDrawer(): DrawerActionType;
     // tslint:disable-next-line no-redundant-undefined
-    jumpTo(name: string, params?: object | undefined): TabActionType;
+    jumpTo(name: string, params?: object): TabActionType;
 };
 export default function DrawerRouter({ openByDefault, ...rest }: DrawerRouterOptions): Router<DrawerNavigationState<ParamListBase>, DrawerActionType | CommonNavigationAction>;
