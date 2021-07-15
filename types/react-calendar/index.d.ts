@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { MouseEvent, ChangeEvent, MutableRefObject, RefObject } from "react";
+import { MouseEvent, ChangeEvent, MutableRefObject, RefObject } from 'react';
 
-export type CalendarType = "ISO 8601" | "US" | "Arabic" | "Hebrew";
-export type Detail = "month" | "year" | "decade" | "century";
+export type CalendarType = "ISO 8601" | 'US' | 'Arabic' | 'Hebrew';
+export type Detail = 'month' | 'year' | 'decade' | 'century';
 export type DateCallback = (value: Date, event: MouseEvent<HTMLButtonElement>) => void;
 export type ClickWeekNumberCallback = (weekNumber: number, date: Date, event: MouseEvent<HTMLButtonElement>) => void;
 export type OnChangeDateCallback = (value: Date, event: ChangeEvent<HTMLInputElement>) => void;
