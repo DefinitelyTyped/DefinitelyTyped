@@ -289,7 +289,7 @@ const test = () => {
         label: item.label.toUpperCase(),
       }))
     }
-  />
+  />;
 };
 
 () => {
@@ -309,7 +309,7 @@ const test = () => {
         label: item.label.toUpperCase(),
       }))
     }
-   />
+  />;
 };
 
 () => {
@@ -330,5 +330,5 @@ const test = () => {
     translations={{
       seeAllOption: 'See all',
     }}
-  />
+  />;
 };
