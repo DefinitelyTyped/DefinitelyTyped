@@ -12,6 +12,7 @@ const options: jsan.Options = {
     set: true,
     nan: true,
     infinity: true,
+    circular: '[CIRCULAR]',
 };
 
 declare const data: unknown;

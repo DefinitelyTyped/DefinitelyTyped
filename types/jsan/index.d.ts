@@ -15,6 +15,7 @@ export interface Options {
     nan?: boolean;
     infinity?: boolean;
     refs?: boolean;
+    circular?: unknown;
 }
 
 export function stringify(
