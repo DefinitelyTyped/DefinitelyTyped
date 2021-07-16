@@ -960,11 +960,11 @@ export namespace Strophe {
          */
         addHandler(
             handler: (stanza: Element) => any,
-            ns: string,
-            name: string,
-            type: string,
-            id: string,
-            from: string,
+            ns?: string,
+            name?: string,
+            type?: string,
+            id?: string,
+            from?: string,
             options?: { matchBare: boolean }
         ): any;
 
