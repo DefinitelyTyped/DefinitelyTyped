@@ -1,6 +1,7 @@
 {
   "extends": "dtslint/dt.json",
   "rules": {
+    "ban-ts-ignore": false,
     "ban-types": false,
     "no-empty-interface": false,
     "no-outside-dependencies": false,

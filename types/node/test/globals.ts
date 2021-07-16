@@ -5,9 +5,11 @@
 {
     const isGlobalThis: typeof globalThis = global;
 
+    type accessibleToGlobalThisMembers = global.RANDOM_GLOBAL_TYPE;
     const accessibleToGlobalThisMembers: true = global.RANDOM_GLOBAL_VARIABLE;
 }
 
+declare type RANDOM_GLOBAL_TYPE = true;
 declare var RANDOM_GLOBAL_VARIABLE: true;
 
 // global aliases for compatibility
