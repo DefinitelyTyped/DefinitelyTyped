@@ -959,13 +959,14 @@ export namespace Strophe {
          *    A reference to the handler that can be used to remove it.
          */
         addHandler(
-           handler: (stanza: Element) => any,
-           ns: string, name: string,
-                   type: string,
-                   id: string,
-                   from: string,
-                   options?: { matchBare: boolean }
-                  ): any;
+            handler: (stanza: Element) => any,
+            ns: string,
+            name: string,
+            type: string,
+            id: string,
+            from: string,
+            options?: { matchBare: boolean }
+        ): any;
 
         /** Function: deleteHandler
          *  Delete a stanza handler for a connection.
