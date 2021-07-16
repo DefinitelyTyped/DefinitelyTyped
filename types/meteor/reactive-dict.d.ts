@@ -1,28 +1,25 @@
-import { EJSONable, EJSONableProperty } from 'meteor/ejson';
+import { EJSONable } from 'meteor/ejson';
 
 declare module 'meteor/reactive-dict' {
-    var ReactiveDict: ReactiveDictStatic;
-    interface ReactiveDictStatic {
+    class ReactiveDict<O = EJSONable> {
         /**
          * Constructor for a ReactiveDict, which represents a reactive dictionary of key/value pairs.
          * @param name When a name is passed, preserves contents across Hot Code Pushes
          * @param initialValue The default values for the dictionary
          */
-        new (name?: string, initialValue?: EJSONable): ReactiveDict;
-    }
-    interface ReactiveDict {
+        constructor(name?: string, initialValue?: Partial<O>);
         /**
          * Set a value for a key if it hasn't been set before.
          * Otherwise works exactly the same as `ReactiveDict.set`.
          * @param key The key to set, eg, `selectedItem`
          * @param value The new value for `key`
          */
-        setDefault(key: string, value?: EJSONableProperty): void;
+        setDefault<P extends keyof O>(key: P, value?: O[P]): void;
         /**
          * Set a value for a key if it hasn't been set before.
          * Otherwise works exactly the same as `ReactiveDict.set`.
          */
-        setDefault(object: EJSONable): void;
+        setDefault(object: Partial<O>): void;
         /**
          * Set a value for a key in the ReactiveDict. Notify any listeners
          * that the value has changed (eg: redraw templates, and rerun any
@@ -31,14 +28,14 @@ declare module 'meteor/reactive-dict' {
          * @param key The key to set, eg, `selectedItem`
          * @param value The new value for `key`
          */
-        set(key: string, value?: EJSONableProperty): void;
+        set<P extends keyof O>(key: P, value?: O[P]): void;
         /**
          * Set a value for a key in the ReactiveDict. Notify any listeners
          * that the value has changed (eg: redraw templates, and rerun any
          * `Tracker.autorun` computations, that called
          * `ReactiveDict.get` on this `key`.)
          */
-        set(object: EJSONable): void;
+        set(object: O): void;
         /**
          * Get the value assiciated with a key. If inside a reactive
          * computation, invalidate the computation the next time the
@@ -48,7 +45,7 @@ declare module 'meteor/reactive-dict' {
          * ReactiveDict.
          * @param key The key of the element to return
          */
-        get(key: string): EJSONableProperty;
+        get<P extends keyof O>(key: P): O[P] | undefined;
         /**
          * Test if the stored entry for a key is equal to a value. If inside a
          * reactive computation, invalidate the computation the next
@@ -57,7 +54,7 @@ declare module 'meteor/reactive-dict' {
          * @param value The value to
          * test against
          */
-        equals(key: string, value: string | number | boolean | undefined | null): boolean;
+        equals<P extends keyof O>(key: P, value: string | number | boolean | undefined | null): boolean;
         /**
          * Get all key-value pairs as a plain object. If inside a reactive
          * computation, invalidate the computation the next time the
@@ -66,7 +63,7 @@ declare module 'meteor/reactive-dict' {
          * mutating the returned value has no effect on the value stored in the
          * ReactiveDict.
          */
-        all(): EJSONable;
+        all(): Partial<O>;
         /**
          * remove all key-value pairs from the ReactiveDict. Notify any
          * listeners that the value has changed (eg: redraw templates, and rerun any
@@ -83,7 +80,7 @@ declare module 'meteor/reactive-dict' {
          * @param key The key to delete, eg, `selectedItem`
          * @return did remove
          */
-        delete(key: string): boolean;
+        delete<P extends keyof O>(key: P): boolean;
         /**
          * Clear all values from the reactiveDict and prevent it from being
          * migrated on a Hot Code Pushes. Notify any listeners
