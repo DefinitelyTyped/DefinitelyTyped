@@ -7,14 +7,14 @@
 
 // tslint:disable-next-line:no-single-declare-module
 declare module '@hapi/catbox-redis' {
-    import { Redis } from 'ioredis';
+    import { Redis, Cluster } from 'ioredis';
     import { EnginePrototype, ClientOptions, Client } from '@hapi/catbox';
     namespace CatboxRedis {
       interface CatboxRedisOptions extends ClientOptions {
         /**
          * Raw client.
          */
-        client?: Redis | undefined;
+        client?: Redis | Cluster | undefined;
         /**
          * the Redis server URL (if url is provided, host, port, and socket are ignored)
          */
