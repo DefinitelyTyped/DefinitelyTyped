@@ -212,11 +212,19 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 () => {
   function onSearchBoxChange(event: React.SyntheticEvent<HTMLInputElement>) {}
 
+  function onSearchBoxKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {}
+
   function onSearchBoxReset(event: React.SyntheticEvent<HTMLFormElement>) {}
 
   function onSearchBoxSubmit(event: React.SyntheticEvent<HTMLFormElement>) {}
 
-  <SearchBox onChange={onSearchBoxChange} onReset={onSearchBoxReset} onSubmit={onSearchBoxSubmit} submit={<></>} />;
+  <SearchBox
+    onChange={onSearchBoxChange}
+    onKeyDown={onSearchBoxKeyDown}
+    onReset={onSearchBoxReset}
+    onSubmit={onSearchBoxSubmit}
+    submit={<></>}
+  />;
 };
 
 import { findResultsState } from 'react-instantsearch-dom/server';
