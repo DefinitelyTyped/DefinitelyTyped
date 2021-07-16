@@ -1,7 +1,7 @@
 declare module 'dgram' {
-    import { AddressInfo } from 'net';
-    import * as dns from 'dns';
-    import { EventEmitter, Abortable } from 'events';
+    import { AddressInfo } from 'node:net';
+    import * as dns from 'node:dns';
+    import { EventEmitter, Abortable } from 'node:events';
 
     interface RemoteInfo {
         address: string;

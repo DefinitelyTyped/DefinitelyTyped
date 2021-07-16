@@ -1,4 +1,4 @@
-import { Channel, channel, hasSubscribers } from 'diagnostic_channel';
+import { Channel, channel, hasSubscribers } from 'node:diagnostics_channel';
 
 const ch1: Channel = channel('test');
 function listener(name: string, data: unknown) {

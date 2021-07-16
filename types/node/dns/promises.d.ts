@@ -14,7 +14,7 @@ declare module "dns/promises" {
         RecordWithTtl,
         ResolveOptions,
         ResolverOptions,
-    } from "dns";
+    } from "node:dns";
 
     function getServers(): string[];
 

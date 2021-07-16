@@ -1,6 +1,6 @@
-import * as net from 'net';
-import { LookupOneOptions } from 'dns';
-import { Socket } from 'dgram';
+import * as net from 'node:net';
+import { LookupOneOptions } from 'node:dns';
+import { Socket } from 'node:dgram';
 
 {
     const connectOpts: net.NetConnectOpts = {
