@@ -69,6 +69,8 @@ export declare var Geography: ISqlTypeFactoryWithNoParams;
 export declare var Geometry: ISqlTypeFactoryWithNoParams;
 export declare var Variant: ISqlTypeFactoryWithNoParams;
 
+export type Connection = tds.Connection;
+
 export declare var TYPES: {
     VarChar: ISqlTypeFactoryWithLength;
     NVarChar: ISqlTypeFactoryWithLength;
@@ -191,13 +193,13 @@ export interface config {
     stream?: boolean | undefined;
     parseJSON?: boolean | undefined;
     options?: IOptions | undefined;
-    pool?: PoolOpts<tds.Connection> | undefined;
+    pool?: PoolOpts<Connection> | undefined;
     arrayRowMode?: boolean | undefined;
     /**
      * Invoked before opening the connection. The parameter conn is the configured
      * tedious Connection. It can be used for attaching event handlers.
      */
-    beforeConnect?: ((conn: tds.Connection) => void) | undefined
+    beforeConnect?: ((conn: Connection) => void) | undefined
 }
 
 export declare class MSSQLError extends Error {
@@ -216,7 +218,7 @@ export declare class ConnectionPool extends events.EventEmitter {
     public readonly available: number;
     public readonly pending: number;
     public readonly borrowed: number;
-    public readonly pool: Pool<tds.Connection>;
+    public readonly pool: Pool<Connection>;
     public constructor(config: config, callback?: (err?: any) => void);
     public constructor(connectionString: string, callback?: (err?: any) => void);
     public query(command: string): Promise<IResult<any>>;
