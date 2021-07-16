@@ -153,7 +153,7 @@ export interface styleFn {
 }
 
 export interface ConfigFunction {
-    (value: any, scale: Scale | undefined, props: any): any
+    (value: any, scale: Scale | undefined, props: any): any;
     /** A string referencing a key in the `theme` object. */
     scale?: string;
     /** A fallback scale object for when there isn't one defined in the `theme` object. */
