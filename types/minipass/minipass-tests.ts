@@ -42,12 +42,12 @@ mp.pipe(process.stdout); // $ExpectType WriteStream & { fd: 1; }
 
 mp.promise().then(() => {
     // stream is finished
-  }, er => {
+}, er => {
     // stream emitted an error
-  });
+});
 
-  mp.collect().then(all => {
-      all;  // $ExpectType any[]
+mp.collect().then(all => {
+    all;  // $ExpectType any[]
     // all is an array of all the data emitted
     // encoding is supported in this case, so
     // so the result will be a collection of strings if
@@ -55,13 +55,13 @@ mp.promise().then(() => {
     //
     // In an async function, you may do
     // const data = await stream.collect()
-  });
+});
 
-  mp.concat().then(onebigchunk => {
-      onebigchunk;  // $ExpectType string | Buffer
+mp.concat().then(onebigchunk => {
+    onebigchunk;  // $ExpectType string | Buffer
     // onebigchunk is a string if the stream
     // had an encoding set, or a buffer otherwise.
-  });
+});
 
 mp.on('data', chunk => {
     chunk; // $ExpectType any
