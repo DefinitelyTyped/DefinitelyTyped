@@ -18,6 +18,6 @@ declare module '../../' {
         callback:
             | HTMLElement
             | ((text: string, style?: string | null, row?: number, column?: number, state?: any) => void),
-        options?: { tabSize?: number; state?: any },
+        options?: { tabSize?: number | undefined; state?: any },
     ): void;
 }

@@ -1,4 +1,4 @@
-// Type definitions for mjml-react 1.0
+// Type definitions for mjml-react 2.0
 // Project: https://github.com/wix-incubator/mjml-react
 // Definitions by: Henri Normak <https://github.com/henrinormak>
 //                 Ian Edington <https://github.com/IanEdington>
@@ -10,12 +10,12 @@ import * as React from 'react';
 export function renderToMjml(email: React.ReactElement): string;
 
 export interface Mjml2HtmlOptions {
-    fonts?: { [key: string]: string };
-    keepComments?: boolean;
-    beautify?: boolean;
-    minify?: boolean;
-    validationLevel?: 'strict' | 'soft' | 'skip';
-    filePath?: string;
+    fonts?: { [key: string]: string } | undefined;
+    keepComments?: boolean | undefined;
+    beautify?: boolean | undefined;
+    minify?: boolean | undefined;
+    validationLevel?: 'strict' | 'soft' | 'skip' | undefined;
+    filePath?: string | undefined;
 }
 
 export interface MjmlError {
@@ -37,46 +37,46 @@ export interface RequiredChildrenProps {
 }
 
 export interface PaddingProps {
-    padding?: string | number;
-    paddingTop?: string | number;
-    paddingRight?: string | number;
-    paddingBottom?: string | number;
-    paddingLeft?: string | number;
+    padding?: string | number | undefined;
+    paddingTop?: string | number | undefined;
+    paddingRight?: string | number | undefined;
+    paddingBottom?: string | number | undefined;
+    paddingLeft?: string | number | undefined;
 }
 
 export interface BorderProps {
-    border?: string;
-    borderBottom?: string;
-    borderLeft?: string;
-    borderTop?: string;
-    borderRight?: string;
-    borderRadius?: string | number;
+    border?: string | undefined;
+    borderBottom?: string | undefined;
+    borderLeft?: string | undefined;
+    borderTop?: string | undefined;
+    borderRight?: string | undefined;
+    borderRadius?: string | number | undefined;
 }
 
 export interface InnerBorderProps {
-    innerBorder?: string;
-    innerBorderBottom?: string;
-    innerBorderLeft?: string;
-    innerBorderTop?: string;
-    innerBorderRight?: string;
-    innerBorderRadius?: string | number;
+    innerBorder?: string | undefined;
+    innerBorderBottom?: string | undefined;
+    innerBorderLeft?: string | undefined;
+    innerBorderTop?: string | undefined;
+    innerBorderRight?: string | undefined;
+    innerBorderRadius?: string | number | undefined;
 }
 
 export interface ClassNameProps {
-    cssClass?: string;
-    mjClass?: string;
+    cssClass?: string | undefined;
+    mjClass?: string | undefined;
 }
 
 export interface HrefProps {
-    href?: string;
-    target?: string;
-    rel?: string;
+    href?: string | undefined;
+    target?: string | undefined;
+    rel?: string | undefined;
 }
 
 // mjml
 export interface MjmlProps {
-    lang?: string;
-    owa?: string;
+    lang?: string | undefined;
+    owa?: string | undefined;
 }
 
 export class Mjml extends React.Component<MjmlProps> { }
@@ -86,28 +86,28 @@ export class MjmlHead extends React.Component { }
 
 // mj-attributes
 export class MjmlAttributes extends React.Component { }
-export class MjmlAll extends React.Component<{ [key: string]: any; children?: React.ReactNode }> { }
-export class MjmlClass extends React.Component<{ [key: string]: any; children?: React.ReactNode; name: string }> { }
+export class MjmlAll extends React.Component<{ [key: string]: any; children?: React.ReactNode | undefined }> { }
+export class MjmlClass extends React.Component<{ [key: string]: any; children?: React.ReactNode | undefined; name: string }> { }
 
 // mj-breakpoint
 export interface MjmlBreakpointProps {
-    width?: string | number;
+    width?: string | number | undefined;
 }
 
 export class MjmlBreakpoint extends React.Component<MjmlBreakpointProps> { }
 
 // mj-body
 export interface MjmlBodyProps {
-    width ?: number;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    width ?: number | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
 
 export class MjmlBody extends React.Component<MjmlBodyProps & ClassNameProps> { }
 
 // mj-font
 export interface MjmlFontProps {
-    href?: string;
-    name?: string;
+    href?: string | undefined;
+    name?: string | undefined;
 }
 
 export class MjmlFont extends React.Component<MjmlFontProps> { }
@@ -116,7 +116,7 @@ export class MjmlFont extends React.Component<MjmlFontProps> { }
 export class MjmlPreview extends React.Component<{ children: string }> { }
 
 // mj-style
-export class MjmlStyle extends React.Component<{ children: string, inline?: boolean }> { }
+export class MjmlStyle extends React.Component<{ children: string, inline?: boolean | undefined }> { }
 
 // mj-title
 export class MjmlTitle extends React.Component<{ children: string }> { }
@@ -125,179 +125,179 @@ export class MjmlTitle extends React.Component<{ children: string }> { }
 export class MjmlAccordion extends React.Component<MjmlAccordionElementProps> { }
 
 export interface MjmlAccordionElementProps {
-    fontFamily?: string;
-    iconAlign?: string;
-    iconWrappedUrl?: string;
-    iconWrappedAlt?: string;
-    iconUnwrappedAlt?: string;
-    iconUnwrappedUrl?: string;
-    iconPosition?: 'left' | 'right';
-    iconHeight?: string;
-    iconWidth?: string;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    fontFamily?: string | undefined;
+    iconAlign?: string | undefined;
+    iconWrappedUrl?: string | undefined;
+    iconWrappedAlt?: string | undefined;
+    iconUnwrappedAlt?: string | undefined;
+    iconUnwrappedUrl?: string | undefined;
+    iconPosition?: 'left' | 'right' | undefined;
+    iconHeight?: string | undefined;
+    iconWidth?: string | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
 
 export class MjmlAccordionElement extends React.Component<MjmlAccordionElementProps & ClassNameProps> { }
 
 export interface MjmlAccordionTextProps {
-    color?: React.CSSProperties['color'];
-    fontFamily?: string;
-    fontSize?: string | number;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    color?: React.CSSProperties['color'] | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: string | number | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
 
 export class MjmlAccordionText extends React.Component<MjmlAccordionTextProps & PaddingProps & ClassNameProps> { }
 
 export interface MjmlAccordionTitleProps {
-    color?: React.CSSProperties['color'];
-    backgroundColor?: React.CSSProperties['backgroundColor'];
-    fontFamily?: string;
-    fontSize?: string | number;
+    color?: React.CSSProperties['color'] | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: string | number | undefined;
 }
 
 export class MjmlAccordionTitle extends React.Component<MjmlAccordionTitleProps & PaddingProps & ClassNameProps> { }
 
 // mj-button
 export interface MjmlButtonProps {
-    backgroundColor?: React.CSSProperties['backgroundColor'];
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
-    fontStyle?: string;
-    fontSize?: string | number;
-    fontWeight?: number;
-    fontFamily?: string;
-    color?: React.CSSProperties['color'];
-    textAlign?: React.CSSProperties['textAlign'];
-    textDecoration?: string;
-    textTransform?: string;
-    align?: string;
-    verticalAlign?: React.CSSProperties['verticalAlign'];
-    lineHeight?: string | number;
-    innerPadding?: string;
-    width?: string | number;
-    height?: string | number;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    fontStyle?: string | undefined;
+    fontSize?: string | number | undefined;
+    fontWeight?: number | undefined;
+    fontFamily?: string | undefined;
+    color?: React.CSSProperties['color'] | undefined;
+    textAlign?: React.CSSProperties['textAlign'] | undefined;
+    textDecoration?: string | undefined;
+    textTransform?: string | undefined;
+    align?: string | undefined;
+    verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
+    lineHeight?: string | number | undefined;
+    innerPadding?: string | undefined;
+    width?: string | number | undefined;
+    height?: string | number | undefined;
 }
 
 export class MjmlButton extends React.Component<MjmlButtonProps & PaddingProps & ClassNameProps & HrefProps & BorderProps> { }
 
 // mj-carousel
 export interface MjmlCarouselProps {
-    backgroundColor?: React.CSSProperties['backgroundColor'];
-    align?: string;
-    borderRadius?: string | number;
-    thumbnails?: 'hidden' | 'visible';
-    tbBorder?: React.CSSProperties['border'];
-    tbBorderRadius?: React.CSSProperties['borderRadius'];
-    tbHoverBorderColor?: string;
-    tbSelectedBorderColor?: string;
-    tbWidth?: string;
-    leftIcon?: string;
-    rightIcon?: string;
-    iconWidth?: string;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    align?: string | undefined;
+    borderRadius?: string | number | undefined;
+    thumbnails?: 'hidden' | 'visible' | undefined;
+    tbBorder?: React.CSSProperties['border'] | undefined;
+    tbBorderRadius?: React.CSSProperties['borderRadius'] | undefined;
+    tbHoverBorderColor?: string | undefined;
+    tbSelectedBorderColor?: string | undefined;
+    tbWidth?: string | undefined;
+    leftIcon?: string | undefined;
+    rightIcon?: string | undefined;
+    iconWidth?: string | undefined;
 }
 
 export class MjmlCarousel extends React.Component<MjmlCarouselProps & ClassNameProps> {}
 
 export interface MjmlCarouselImageProps {
-    src?: string;
-    thumbnailsSrc?: string;
-    alt?: string;
-    title?: string;
+    src?: string | undefined;
+    thumbnailsSrc?: string | undefined;
+    alt?: string | undefined;
+    title?: string | undefined;
 }
 
 export class MjmlCarouselImage extends React.Component<MjmlCarouselImageProps & ClassNameProps & HrefProps> { }
 
 export interface MjmlColumnProps {
-    width?: string | number;
-    verticalAlign?: React.CSSProperties['verticalAlign'];
-    backgroundColor?: React.CSSProperties['backgroundColor'];
-    innerBackgroundColor?: React.CSSProperties['backgroundColor'];
+    width?: string | number | undefined;
+    verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    innerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
 
 export class MjmlColumn extends React.Component<MjmlColumnProps & PaddingProps & ClassNameProps & BorderProps & InnerBorderProps> { }
 
 // mj-divider
 export interface MjmlDividerProps {
-    borderColor?: React.CSSProperties['borderColor'];
-    borderStyle?: React.CSSProperties['borderStyle'];
-    borderWidth?: string | number;
-    width?: string | number;
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
+    borderColor?: React.CSSProperties['borderColor'] | undefined;
+    borderStyle?: React.CSSProperties['borderStyle'] | undefined;
+    borderWidth?: string | number | undefined;
+    width?: string | number | undefined;
+    containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
 
 export class MjmlDivider extends React.Component<MjmlDividerProps & ClassNameProps & PaddingProps> { }
 
 // mj-group
 export interface MjmlGroupProps {
-    width?: string | number;
-    verticalAlign?: React.CSSProperties['verticalAlign'];
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    width?: string | number | undefined;
+    verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
 
 export class MjmlGroup extends React.Component<MjmlGroupProps & ClassNameProps> { }
 
 // mj-hero
 export interface MjmlHeroProps {
-    width?: string | number;
-    height?: string | number;
-    mode?: 'fluid-height' | 'fixed-height';
-    backgroundWidth?: string;
-    backgroundHeight?: string;
-    backgroundUrl?: string;
-    backgroundPosition?: React.CSSProperties['backgroundPosition'];
-    verticalAlign?: React.CSSProperties['verticalAlign'];
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    width?: string | number | undefined;
+    height?: string | number | undefined;
+    mode?: 'fluid-height' | 'fixed-height' | undefined;
+    backgroundWidth?: string | undefined;
+    backgroundHeight?: string | undefined;
+    backgroundUrl?: string | undefined;
+    backgroundPosition?: React.CSSProperties['backgroundPosition'] | undefined;
+    verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
 
 export class MjmlHero extends React.Component<MjmlHeroProps & ClassNameProps & PaddingProps> { }
 
 // mj-image
 export interface MjmlImageProps {
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
-    border?: React.CSSProperties['border'];
-    borderRadius?: string | number;
-    width?: string | number;
-    height?: string | number;
-    src?: string;
-    srcset?: string;
-    alt?: string;
-    align?: string;
-    title?: string;
-    fluidOnMobile?: string;
+    containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    border?: React.CSSProperties['border'] | undefined;
+    borderRadius?: string | number | undefined;
+    width?: string | number | undefined;
+    height?: string | number | undefined;
+    src?: string | undefined;
+    srcset?: string | undefined;
+    alt?: string | undefined;
+    align?: string | undefined;
+    title?: string | undefined;
+    fluidOnMobile?: string | undefined;
 }
 
 export class MjmlImage extends React.Component<MjmlImageProps & PaddingProps & ClassNameProps & HrefProps> { }
 
 // mj-navbar
 export interface MjmlNavbarProps {
-    baseUrl?: string;
-    hamburger?: 'hamburger';
-    align?: string;
-    icoOpen?: string;
-    icoClose?: string;
-    icoPadding?: string;
-    icoPaddingTop?: string;
-    icoPaddingRight?: string;
-    icoPaddingBottom?: string;
-    icoPaddingLeft?: string;
-    icoAlign?: string;
-    icoColor?: React.CSSProperties['color'];
-    icoFontSize?: string;
-    icoTextTransform?: string;
-    icoTextDecoration?: string;
-    icoLineHeight?: string;
+    baseUrl?: string | undefined;
+    hamburger?: 'hamburger' | undefined;
+    align?: string | undefined;
+    icoOpen?: string | undefined;
+    icoClose?: string | undefined;
+    icoPadding?: string | undefined;
+    icoPaddingTop?: string | undefined;
+    icoPaddingRight?: string | undefined;
+    icoPaddingBottom?: string | undefined;
+    icoPaddingLeft?: string | undefined;
+    icoAlign?: string | undefined;
+    icoColor?: React.CSSProperties['color'] | undefined;
+    icoFontSize?: string | undefined;
+    icoTextTransform?: string | undefined;
+    icoTextDecoration?: string | undefined;
+    icoLineHeight?: string | undefined;
 }
 
 export class MjmlNavbar extends React.Component<MjmlNavbarProps> { }
 
 export interface MjmlNavbarLinkProps {
-    color?: React.CSSProperties['color'];
-    fontFamily?: string;
-    fontSize?: string | number;
-    fontStyle?: string;
-    fontWeight?: number;
-    lineHeight?: string | number;
-    textDecoration?: string;
-    textTransform?: string;
+    color?: React.CSSProperties['color'] | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: string | number | undefined;
+    fontStyle?: string | undefined;
+    fontWeight?: number | undefined;
+    lineHeight?: string | number | undefined;
+    textDecoration?: string | undefined;
+    textTransform?: string | undefined;
 }
 
 export class MjmlNavbarLink extends React.Component<MjmlNavbarLinkProps & HrefProps & PaddingProps> { }
@@ -307,112 +307,114 @@ export class MjmlRaw extends React.Component { }
 
 // mj-section
 export interface MjmlSectionProps {
-    fullWidth?: boolean;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
-    backgroundUrl?: string;
-    backgroundRepeat?: React.CSSProperties['backgroundRepeat'];
-    backgroundSize?: React.CSSProperties['backgroundSize'];
-    verticalAlign?: React.CSSProperties['verticalAlign'];
-    textAlign?: React.CSSProperties['textAlign'];
-    direction?: 'ltr' | 'rtl';
+    fullWidth?: boolean | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    backgroundUrl?: string | undefined;
+    backgroundRepeat?: React.CSSProperties['backgroundRepeat'] | undefined;
+    backgroundSize?: React.CSSProperties['backgroundSize'] | undefined;
+    verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
+    textAlign?: React.CSSProperties['textAlign'] | undefined;
+    direction?: 'ltr' | 'rtl' | undefined;
 }
 
 export class MjmlSection extends React.Component<MjmlSectionProps & BorderProps & PaddingProps & ClassNameProps> { }
 
 // mj-social
 export interface MjmlSocialProps {
-    borderRadius?: string | number;
-    fontFamily?: string;
-    fontSize?: string | number;
-    iconSize?: string;
-    iconHeight?: string;
-    lineHeight?: string | number;
-    mode?: 'vertical' | 'horizontal';
-    textDecoration?: string;
-    align?: string;
-    color?: React.CSSProperties['color'];
-    innerPadding?: string;
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
+    borderRadius?: string | number | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: string | number | undefined;
+    iconSize?: string | undefined;
+    iconHeight?: string | undefined;
+    lineHeight?: string | number | undefined;
+    mode?: 'vertical' | 'horizontal' | undefined;
+    textDecoration?: string | undefined;
+    align?: string | undefined;
+    color?: React.CSSProperties['color'] | undefined;
+    innerPadding?: string | undefined;
+    containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
 
 export class MjmlSocial extends React.Component<MjmlSocialProps & PaddingProps & ClassNameProps> { }
 
 export interface MjmlSocialElementProps {
-    borderRadius?: string | number;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
-    fontFamily?: string;
-    fontSize?: string | number;
-    iconSize?: string;
-    iconHeight?: string;
-    lineHeight?: string | number;
-    mode?: 'vertical' | 'horizontal';
-    textDecoration?: string;
-    align?: string;
-    color?: React.CSSProperties['color'];
+    borderRadius?: string | number | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: string | number | undefined;
+    iconSize?: string | undefined;
+    iconHeight?: string | undefined;
+    lineHeight?: string | number | undefined;
+    mode?: 'vertical' | 'horizontal' | undefined;
+    textDecoration?: string | undefined;
+    align?: string | undefined;
+    color?: React.CSSProperties['color'] | undefined;
     name?: 'facebook' | 'facebook-noshare' | 'twitter' | 'twitter-noshare' | 'google' | 'google-noshare' | 'pinterest' | 'pinterest-noshare' |
         'linkedin' | 'linkedin-noshare' | 'tumblr' | 'tumblr-noshare' | 'xing' | 'xing-noshare' |
-        'github' | 'instagram' | 'web' | 'snapchat' | 'youtube' | 'vimeo' | 'medium' | 'soundcloud' | 'dribbble';
-    src?: string;
-    alt?: string;
-    iconPadding?: string;
+        'github' | 'instagram' | 'web' | 'snapchat' | 'youtube' | 'vimeo' | 'medium' | 'soundcloud' | 'dribbble' | undefined;
+    src?: string | undefined;
+    alt?: string | undefined;
+    iconPadding?: string | undefined;
 }
 
 export class MjmlSocialElement extends React.Component<MjmlSocialElementProps & HrefProps & PaddingProps> { }
 
 // mj-spacer
 export interface MjmlSpacerProps {
-    height?: string | number;
-    width?: string | number;
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
-    verticalAlign?: React.CSSProperties['verticalAlign'];
+    height?: string | number | undefined;
+    width?: string | number | undefined;
+    containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
 }
 
 export class MjmlSpacer extends React.Component<MjmlSpacerProps & BorderProps & PaddingProps & ClassNameProps> { }
 
 // mj-table
 export interface MjmlTableProps {
-    color?: React.CSSProperties['color'];
-    cellpadding?: string;
-    cellspacing?: string;
-    fontFamily?: string;
-    fontSize?: string | number;
-    fontStyle?: string;
-    lineHeight?: string | number;
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
-    width?: string | number;
-    tableLayout?: 'auto' | 'fixed' | 'initial' | 'inherit';
-    align?: 'left' | 'right' | 'center';
+    color?: React.CSSProperties['color'] | undefined;
+    cellpadding?: string | undefined;
+    cellspacing?: string | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: string | number | undefined;
+    fontStyle?: string | undefined;
+    lineHeight?: string | number | undefined;
+    containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    width?: string | number | undefined;
+    tableLayout?: 'auto' | 'fixed' | 'initial' | 'inherit' | undefined;
+    align?: 'left' | 'right' | 'center' | undefined;
+    role?: 'presentation' | 'none';
+    border?: React.CSSProperties['border'] | undefined;
 }
 
-export class MjmlTable extends React.Component<MjmlTableProps & PaddingProps> { }
+export class MjmlTable extends React.Component<MjmlTableProps & PaddingProps & ClassNameProps> { }
 
 // mj-text
 export interface MjmlTextProps {
-    color?: React.CSSProperties['color'];
-    fontFamily?: string;
-    fontSize?: string | number;
-    fontStyle?: string;
-    fontWeight?: number;
-    lineHeight?: string;
-    letterSpacing?: string;
-    height?: string | number;
-    textDecoration?: string;
-    textTransform?: string;
-    align?: string;
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
+    color?: React.CSSProperties['color'] | undefined;
+    fontFamily?: string | undefined;
+    fontSize?: string | number | undefined;
+    fontStyle?: string | undefined;
+    fontWeight?: number | undefined;
+    lineHeight?: string | undefined;
+    letterSpacing?: string | undefined;
+    height?: string | number | undefined;
+    textDecoration?: string | undefined;
+    textTransform?: string | undefined;
+    align?: string | undefined;
+    containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
 }
 
 export class MjmlText extends React.Component<MjmlTextProps & PaddingProps & ClassNameProps> { }
 
 // mj-wrapper
 export interface MjmlWrapperProps {
-    fullWidth?: boolean;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
-    backgroundUrl?: string;
-    backgroundRepeat?: React.CSSProperties['backgroundRepeat'];
-    backgroundSize?: React.CSSProperties['backgroundSize'];
-    verticalAlign?: React.CSSProperties['verticalAlign'];
-    textAlign?: React.CSSProperties['textAlign'];
+    fullWidth?: boolean | undefined;
+    backgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
+    backgroundUrl?: string | undefined;
+    backgroundRepeat?: React.CSSProperties['backgroundRepeat'] | undefined;
+    backgroundSize?: React.CSSProperties['backgroundSize'] | undefined;
+    verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
+    textAlign?: React.CSSProperties['textAlign'] | undefined;
 }
 
 export class MjmlWrapper extends React.Component<MjmlWrapperProps & BorderProps & PaddingProps & ClassNameProps> { }

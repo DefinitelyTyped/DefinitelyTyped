@@ -25,41 +25,41 @@ export interface DatetimepickerEventObject extends JQueryEventObject {
 }
 
 export interface DatetimepickerIcons {
-    time?: string;
-    date?: string;
-    up?: string;
-    down?: string;
+    time?: string | undefined;
+    date?: string | undefined;
+    up?: string | undefined;
+    down?: string | undefined;
 }
 
 export interface DatetimepickerOptions {
-    pickDate?: boolean;
-    pickTime?: boolean;
-    useMinutes?: boolean;
-    useSeconds?: boolean;
-    useCurrent?: boolean;
-    minuteStepping?: number;
-    minDate?: moment.Moment | Date | string;
-    maxDate?: moment.Moment | Date | string;
-    showToday?: boolean;
-    collapse?: boolean;
-    language?: string;
-    defaultDate?: moment.Moment | Date | string;
-    disabledDates?: Array<moment.Moment | Date | string>;
-    enabledDates?: Array<moment.Moment | Date | string>;
-    icons?: DatetimepickerIcons;
-    useStrict?: boolean;
-    direction?: string;
-    sideBySide?: boolean;
-    daysOfWeekDisabled?: Array<number>;
-    calendarWeeks?: boolean;
-    format?: string | boolean;
-    locale?: string;
-    showTodayButton?: boolean;
-    viewMode?: string;
-    inline?: boolean;
-    toolbarPlacement?: string;
-    showClear?: boolean;
-    ignoreReadonly?: boolean;
+    pickDate?: boolean | undefined;
+    pickTime?: boolean | undefined;
+    useMinutes?: boolean | undefined;
+    useSeconds?: boolean | undefined;
+    useCurrent?: boolean | undefined;
+    minuteStepping?: number | undefined;
+    minDate?: moment.Moment | Date | string | undefined;
+    maxDate?: moment.Moment | Date | string | undefined;
+    showToday?: boolean | undefined;
+    collapse?: boolean | undefined;
+    language?: string | undefined;
+    defaultDate?: moment.Moment | Date | string | undefined;
+    disabledDates?: Array<moment.Moment | Date | string> | undefined;
+    enabledDates?: Array<moment.Moment | Date | string> | undefined;
+    icons?: DatetimepickerIcons | undefined;
+    useStrict?: boolean | undefined;
+    direction?: string | undefined;
+    sideBySide?: boolean | undefined;
+    daysOfWeekDisabled?: Array<number> | undefined;
+    calendarWeeks?: boolean | undefined;
+    format?: string | boolean | undefined;
+    locale?: string | undefined;
+    showTodayButton?: boolean | undefined;
+    viewMode?: string | undefined;
+    inline?: boolean | undefined;
+    toolbarPlacement?: string | undefined;
+    showClear?: boolean | undefined;
+    ignoreReadonly?: boolean | undefined;
 }
 
 export interface Datetimepicker {

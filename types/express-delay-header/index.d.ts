@@ -14,19 +14,19 @@ declare namespace delay {
         /**
          * @default 'delay'
          */
-        headerName?: string;
+        headerName?: string | undefined;
         /**
          * @default 'development'
          */
-        nodeEnv?: string | string[];
+        nodeEnv?: string | string[] | undefined;
         /**
          * @default setTimeout
          */
-        timeoutFunction?: (next: () => void, ms: number) => void;
+        timeoutFunction?: ((next: () => void, ms: number) => void) | undefined;
         /**
          * @default process.env.NODE_ENV
          */
-        currentEnv?: string;
+        currentEnv?: string | undefined;
     }
 }
 

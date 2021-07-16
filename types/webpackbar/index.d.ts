@@ -55,29 +55,29 @@ declare namespace WebpackBar {
         /**
          * Called when (re)compile is started
          */
-        start?: ReporterContextFunc;
+        start?: ReporterContextFunc | undefined;
         /**
          * Called when a file changed on watch mode
          */
-        change?: ReporterContextFunc;
+        change?: ReporterContextFunc | undefined;
         /**
          * Called after each progress update
          */
-        update?: ReporterContextFunc;
+        update?: ReporterContextFunc | undefined;
         /**
          * Called when compile finished
          */
-        done?: ReporterContextFunc;
+        done?: ReporterContextFunc | undefined;
         /**
          * Called when build progress updated
          */
-        progress?: ReporterContextFunc;
+        progress?: ReporterContextFunc | undefined;
         /**
          * Called when _all_ compiles finished
          */
-        allDone?: ReporterContextFunc;
-        beforeAllDone?: ReporterContextFunc;
-        afterAllDone?: ReporterContextFunc;
+        allDone?: ReporterContextFunc | undefined;
+        beforeAllDone?: ReporterContextFunc | undefined;
+        afterAllDone?: ReporterContextFunc | undefined;
     }
 
     interface Options {
@@ -85,39 +85,39 @@ declare namespace WebpackBar {
          * Display name
          * @default 'webpack'
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * Color output of the progress bar
          * @default 'green'
          */
-        color?: string;
+        color?: string | undefined;
 
         /**
          * Enable profiler
          * @default false
          */
-        profile?: boolean;
+        profile?: boolean | undefined;
         /**
          * Enable bars reporter
          * Defaults to 'true' when not in CI or testing mod
          * @default true
          */
-        fancy?: boolean;
+        fancy?: boolean | undefined;
         /**
          * Enable a simple log reporter (only start and end)
          * Defaults to 'true' when running in minimal environments
          * @default true
          */
-        basic?: boolean;
+        basic?: boolean | undefined;
         /**
          * Register a custom reporter
          * @default null
          */
-        reporter?: Reporter | null;
+        reporter?: Reporter | null | undefined;
         /**
          * Register an Array of your custom reporters.
          * @default ['basic'] | ['fancy']
          */
-        reporters?: string[];
+        reporters?: string[] | undefined;
     }
 }

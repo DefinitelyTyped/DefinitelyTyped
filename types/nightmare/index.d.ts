@@ -133,39 +133,39 @@ declare class Nightmare {
 declare namespace Nightmare {
     export interface IConstructorOptions {
         timeout?: any;  // number | string;
-        waitTimeout?:number //in ms
-        gotoTimeout?:number
-        pollInterval?:number
-        executionTimeout?:number
+        waitTimeout?:number | undefined //in ms
+        gotoTimeout?:number | undefined
+        pollInterval?:number | undefined
+        executionTimeout?:number | undefined
         interval?: any; // number | string;
-        port?: number;
-        weak?: boolean;
-        loadImages?: boolean;
-        ignoreSslErrors?: boolean;
-        sslProtocol?: string;
-        webSecurity?: boolean;
-        proxy?: string;
-        proxyType?: string;
-        proxyAuth?: string;
-        cookiesFile?: string;
-        phantomPath?: string;
-        show?: boolean;
+        port?: number | undefined;
+        weak?: boolean | undefined;
+        loadImages?: boolean | undefined;
+        ignoreSslErrors?: boolean | undefined;
+        sslProtocol?: string | undefined;
+        webSecurity?: boolean | undefined;
+        proxy?: string | undefined;
+        proxyType?: string | undefined;
+        proxyAuth?: string | undefined;
+        cookiesFile?: string | undefined;
+        phantomPath?: string | undefined;
+        show?: boolean | undefined;
         paths?: {
-            downloads?:string;
-        };
-        maxDownloadRequestWait?:number;
-        ignoreDownloads?:boolean;
-        typeInterval?: number;
-        x?: number;
-        y?: number;
-        electronPath?: string;
+            downloads?:string | undefined;
+        } | undefined;
+        maxDownloadRequestWait?:number | undefined;
+        ignoreDownloads?:boolean | undefined;
+        typeInterval?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
+        electronPath?: string | undefined;
         openDevTools?: {
             /**
              * Opens the devtools with specified dock state, can be right, bottom, undocked, detach.
              * https://github.com/electron/electron/blob/master/docs/api/web-contents.md#contentsopendevtoolsoptions
              */
-            mode?: string;
-        };
+            mode?: string | undefined;
+        } | undefined;
     }
 
     export interface IRequest {
@@ -201,7 +201,7 @@ declare namespace Nightmare {
     export interface IStackTrace {
         file: string;
         line: number;
-        function?: string;
+        function?: string | undefined;
     }
     export class Cookies {
         get(): [Nightmare.ICookie];
@@ -215,25 +215,25 @@ declare namespace Nightmare {
         clearAll(): Nightmare;
     }
     export interface ICookieQuery {
-        url?: string;
-        name?: string;
-        domain?: string;
-        path?: string;
-        secure?: boolean;
-        session?: boolean;
+        url?: string | undefined;
+        name?: string | undefined;
+        domain?: string | undefined;
+        path?: string | undefined;
+        secure?: boolean | undefined;
+        session?: boolean | undefined;
 
     }
     export interface ICookie {
         name: string;
         value: string;
-        url?: string
-        domain?: string;
-        hostOnly?: boolean;
-        path?: string;
-        secure?: boolean;
-        httpOnly?: boolean;
-        session?: boolean;
-        expirationDate?: number;
+        url?: string | undefined
+        domain?: string | undefined;
+        hostOnly?: boolean | undefined;
+        path?: string | undefined;
+        secure?: boolean | undefined;
+        httpOnly?: boolean | undefined;
+        session?: boolean | undefined;
+        expirationDate?: number | undefined;
     }
 }
 

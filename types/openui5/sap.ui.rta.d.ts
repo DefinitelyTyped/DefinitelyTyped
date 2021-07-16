@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
   import UI5Element from "sap/ui/core/Element";

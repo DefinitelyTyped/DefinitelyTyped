@@ -82,55 +82,55 @@ declare namespace naver.maps {
     scaleUp(operand: number | Point | Size, zoom: number): number | Point | Size;
   }
   interface MapOptions {
-    background?: string;
-    baseTileOpacity?: number;
+    background?: string | undefined;
+    baseTileOpacity?: number | undefined;
     bounds?: any;
     center?: any;
-    disableDoubleClickZoom?: boolean;
-    disableDoubleTapZoom?: boolean;
-    disableKineticPan?: boolean;
-    disableTwoFingerTapZoom?: boolean;
-    draggable?: boolean;
-    keyboardShortcuts?: boolean;
-    logoControl?: boolean;
+    disableDoubleClickZoom?: boolean | undefined;
+    disableDoubleTapZoom?: boolean | undefined;
+    disableKineticPan?: boolean | undefined;
+    disableTwoFingerTapZoom?: boolean | undefined;
+    draggable?: boolean | undefined;
+    keyboardShortcuts?: boolean | undefined;
+    logoControl?: boolean | undefined;
     logoControlOptions?: any;
-    mapDataControl?: boolean;
+    mapDataControl?: boolean | undefined;
     mapDataControlOptions?: any;
-    mapTypeControl?: boolean;
+    mapTypeControl?: boolean | undefined;
     mapTypeControlOptions?: any;
-    mapTypeId?: string;
+    mapTypeId?: string | undefined;
     mapTypes?: any;
     maxBounds?: any;
-    maxZoom?: number;
-    minZoom?: number;
+    maxZoom?: number | undefined;
+    minZoom?: number | undefined;
     padding?: any;
-    pinchZoom?: boolean;
+    pinchZoom?: boolean | undefined;
     resizeOrigin?: any;
-    scaleControl?: boolean;
+    scaleControl?: boolean | undefined;
     scaleControlOptions?: any;
-    scrollWheel?: boolean;
+    scrollWheel?: boolean | undefined;
     size?: any;
-    overlayZoomEffect?: null | string;
-    tileSpare?: number;
-    tileTransition?: boolean;
-    useStyleMap?: boolean;
-    zoom?: number;
-    zoomControl?: boolean;
+    overlayZoomEffect?: null | string | undefined;
+    tileSpare?: number | undefined;
+    tileTransition?: boolean | undefined;
+    useStyleMap?: boolean | undefined;
+    zoom?: number | undefined;
+    zoomControl?: boolean | undefined;
     zoomControlOptions?: any;
     zoomOrigin?: any;
   }
   interface MarkerOptions {
     animation?: any;
-    map?: Map;
+    map?: Map | undefined;
     position?: any;
     icon?: any;
     shape?: any;
-    title?: string;
-    cursor?: string;
-    clickable?: boolean;
-    draggable?: boolean;
-    visible?: boolean;
-    zIndex?: number;
+    title?: string | undefined;
+    cursor?: string | undefined;
+    clickable?: boolean | undefined;
+    draggable?: boolean | undefined;
+    visible?: boolean | undefined;
+    zIndex?: number | undefined;
   }
   interface MapPanes {
     overlayLayer: HTMLElement;
@@ -138,64 +138,64 @@ declare namespace naver.maps {
     floatPane: HTMLElement;
   }
   interface InfoWindowOptions {
-    position?: Coord | CoordLiteral;
+    position?: Coord | CoordLiteral | undefined;
     content: string | HTMLElement;
-    zIndex?: number;
-    maxWidth?: number;
-    pixelOffset?: Point | PointLiteral;
-    backgroundColor?: string;
-    borderColor?: string;
-    borderWidth?: number;
-    disableAutoPan?: boolean;
-    disableAnchor?: boolean;
-    anchorSkew?: boolean;
-    anchorSize?: Size | SizeLiteral;
-    anchorColor?: string;
+    zIndex?: number | undefined;
+    maxWidth?: number | undefined;
+    pixelOffset?: Point | PointLiteral | undefined;
+    backgroundColor?: string | undefined;
+    borderColor?: string | undefined;
+    borderWidth?: number | undefined;
+    disableAutoPan?: boolean | undefined;
+    disableAnchor?: boolean | undefined;
+    anchorSkew?: boolean | undefined;
+    anchorSize?: Size | SizeLiteral | undefined;
+    anchorColor?: string | undefined;
   }
   interface ImageTileOptions {
     urls: string[];
-    imgonload?: () => any;
-    imgonerror?: () => any;
-    opacity?: number;
-    transition?: boolean;
-    offset?: Point;
-    zIndex?: number;
-    size?: Size;
-    pane?: HTMLElement;
+    imgonload?: (() => any) | undefined;
+    imgonerror?: (() => any) | undefined;
+    opacity?: number | undefined;
+    transition?: boolean | undefined;
+    offset?: Point | undefined;
+    zIndex?: number | undefined;
+    size?: Size | undefined;
+    pane?: HTMLElement | undefined;
   }
   interface ImageMapTypeOptions {
     name: string;
     maxZoom: number;
     minZoom: number;
     projection: Projection;
-    tileSize?: Size | SizeLiteral;
-    repeatX?: boolean;
-    vendor?: string;
-    provider?: MapDataProvider[];
-    uid?: string;
-    darktheme?: boolean;
-    getTileUrl?: () => any;
-    tileSet?: string | string[];
+    tileSize?: Size | SizeLiteral | undefined;
+    repeatX?: boolean | undefined;
+    vendor?: string | undefined;
+    provider?: MapDataProvider[] | undefined;
+    uid?: string | undefined;
+    darktheme?: boolean | undefined;
+    getTileUrl?: (() => any) | undefined;
+    tileSet?: string | string[] | undefined;
   }
   interface GroundOverlayOptions {
-    clickable?: boolean;
-    map?: Map | null;
-    opacity?: number;
+    clickable?: boolean | undefined;
+    map?: Map | null | undefined;
+    opacity?: number | undefined;
   }
   interface EllipseOptions {
-    map?: Map;
+    map?: Map | undefined;
     bounds: Bounds | BoundsLiteral;
-    strokeWeight?: number;
-    strokeOpacity?: number;
-    strokeColor?: string;
-    strokeStyle?: strokeStyleType;
-    strokeLineCap?: strokeLineCapType;
-    strokeLineJoin?: strokeLineJoinType;
-    fillColor?: string;
-    fillOpacity?: number;
-    clickable?: boolean;
-    visible?: boolean;
-    zIndex?: number;
+    strokeWeight?: number | undefined;
+    strokeOpacity?: number | undefined;
+    strokeColor?: string | undefined;
+    strokeStyle?: strokeStyleType | undefined;
+    strokeLineCap?: strokeLineCapType | undefined;
+    strokeLineJoin?: strokeLineJoinType | undefined;
+    fillColor?: string | undefined;
+    fillOpacity?: number | undefined;
+    clickable?: boolean | undefined;
+    visible?: boolean | undefined;
+    zIndex?: number | undefined;
   }
   interface FeatureEvent {
     feature: Feature;
@@ -214,75 +214,75 @@ declare namespace naver.maps {
     newValue: any;
   }
   interface StyleOptions {
-    strokeColor?: string;
-    strokeOpacity?: number;
-    strokeWeight?: number;
-    fillColor?: string;
-    fillOpacity?: number;
-    clickable?: boolean;
-    icon?: string | ImageIcon | SymbolIcon | HtmlIcon;
-    shape?: MarkerShape;
-    title?: string;
-    visible?: boolean;
-    zIndex?: number;
+    strokeColor?: string | undefined;
+    strokeOpacity?: number | undefined;
+    strokeWeight?: number | undefined;
+    fillColor?: string | undefined;
+    fillOpacity?: number | undefined;
+    clickable?: boolean | undefined;
+    icon?: string | ImageIcon | SymbolIcon | HtmlIcon | undefined;
+    shape?: MarkerShape | undefined;
+    title?: string | undefined;
+    visible?: boolean | undefined;
+    zIndex?: number | undefined;
   }
   interface ControlOptions {
     position: Position;
   }
   interface CircleOptions {
-    map?: Map;
+    map?: Map | undefined;
     center: Coord | CoordLiteral;
-    radius?: number;
-    strokeWeight?: number;
-    strokeOpacity?: number;
-    strokeColor?: string;
-    strokeStyle?: strokeStyleType;
-    strokeLineCap?: strokeLineCapType;
-    strokeLineJoin?: strokeLineJoinType;
-    fillColor?: string;
-    fillOpacity?: number;
-    clickable?: boolean;
-    visible?: boolean;
-    zIndex?: number;
+    radius?: number | undefined;
+    strokeWeight?: number | undefined;
+    strokeOpacity?: number | undefined;
+    strokeColor?: string | undefined;
+    strokeStyle?: strokeStyleType | undefined;
+    strokeLineCap?: strokeLineCapType | undefined;
+    strokeLineJoin?: strokeLineJoinType | undefined;
+    fillColor?: string | undefined;
+    fillOpacity?: number | undefined;
+    clickable?: boolean | undefined;
+    visible?: boolean | undefined;
+    zIndex?: number | undefined;
   }
   interface TileOptions {
-    opacity?: number;
-    transition?: boolean;
-    offset?: Point;
-    zIndex?: number;
-    size?: Size;
-    pane?: HTMLElement;
+    opacity?: number | undefined;
+    transition?: boolean | undefined;
+    offset?: Point | undefined;
+    zIndex?: number | undefined;
+    size?: Size | undefined;
+    pane?: HTMLElement | undefined;
   }
   interface TileIndex {
     xIndex: number;
     yIndex: number;
   }
   interface CanvasTileOptions {
-    imageData?: ImageData;
-    opacity?: number;
-    transition?: boolean;
-    offset?: Point;
-    zIndex?: number;
-    size?: Size;
-    pane?: HTMLElement;
+    imageData?: ImageData | undefined;
+    opacity?: number | undefined;
+    transition?: boolean | undefined;
+    offset?: Point | undefined;
+    zIndex?: number | undefined;
+    size?: Size | undefined;
+    pane?: HTMLElement | undefined;
   }
   interface CanvasMapTypeOptions {
     name: string;
     maxZoom: number;
     minZoom: number;
     projection: Projection;
-    tileSize?: Size | SizeLiteral;
-    repeatX?: boolean;
-    vendor?: string;
-    provider?: MapDataProvider[];
-    uid?: string;
-    darktheme?: boolean;
-    getTileData?: () => any;
+    tileSize?: Size | SizeLiteral | undefined;
+    repeatX?: boolean | undefined;
+    vendor?: string | undefined;
+    provider?: MapDataProvider[] | undefined;
+    uid?: string | undefined;
+    darktheme?: boolean | undefined;
+    getTileData?: (() => any) | undefined;
   }
   interface MapDataProvider {
     title: string;
-    link?: string;
-    bounds?: Bounds | BoundsLiteral | ArrayOfBounds | ArrayOfBoundsLiteral;
+    link?: string | undefined;
+    bounds?: Bounds | BoundsLiteral | ArrayOfBounds | ArrayOfBoundsLiteral | undefined;
   }
   interface MapType {
     maxZoom: number;
@@ -304,11 +304,11 @@ declare namespace naver.maps {
     position: Position;
   }
   interface NaverImageMapTypeOptions {
-    maxZoom?: number;
-    minZoom?: number;
-    projection?: Projection;
-    tileSize?: Size;
-    hd?: string;
+    maxZoom?: number | undefined;
+    minZoom?: number | undefined;
+    projection?: Projection | undefined;
+    tileSize?: Size | undefined;
+    hd?: string | undefined;
   }
   interface LogoControlOptions {
     position: Position;
@@ -349,15 +349,15 @@ declare namespace naver.maps {
   }
   interface HtmlIcon {
     content: string | HTMLElement;
-    size?: Size | SizeLiteral;
-    anchor?: Point | PointLiteral | Position;
+    size?: Size | SizeLiteral | undefined;
+    anchor?: Point | PointLiteral | Position | undefined;
   }
   interface ImageIcon {
     url: string;
-    size?: Size | SizeLiteral;
-    scaledSize?: Size | SizeLiteral;
-    origin?: Point | PointLiteral;
-    anchor?: Point | PointLiteral | Position;
+    size?: Size | SizeLiteral | undefined;
+    scaledSize?: Size | SizeLiteral | undefined;
+    origin?: Point | PointLiteral | undefined;
+    anchor?: Point | PointLiteral | Position | undefined;
   }
   interface MarkerShape {
     coords: any[];
@@ -365,61 +365,61 @@ declare namespace naver.maps {
   }
   interface SymbolIcon {
     path: SymbolPath | Point[] | PointLiteral[];
-    style?: SymbolStyle;
-    radius?: number;
-    fillColor?: string;
-    fillOpacity?: number;
-    strokeColor?: string;
-    strokeWeight?: number;
-    strokeOpacity?: number;
-    anchor?: Point | PointLiteral | Position;
+    style?: SymbolStyle | undefined;
+    radius?: number | undefined;
+    fillColor?: string | undefined;
+    fillOpacity?: number | undefined;
+    strokeColor?: string | undefined;
+    strokeWeight?: number | undefined;
+    strokeOpacity?: number | undefined;
+    anchor?: Point | PointLiteral | Position | undefined;
   }
   interface PolygonOptions {
-    map?: Map;
+    map?: Map | undefined;
     paths: ArrayOfCoords[] | KVOArrayOfCoords[] | ArrayOfCoordsLiteral[];
-    strokeWeight?: number;
-    strokeOpacity?: number;
-    strokeColor?: string;
-    strokeStyle?: strokeStyleType;
-    strokeLineCap?: strokeLineCapType;
-    strokeLineJoin?: strokeLineJoinType;
-    fillColor?: string;
-    fillOpacity?: number;
-    clickable?: boolean;
-    visible?: boolean;
-    zIndex?: number;
+    strokeWeight?: number | undefined;
+    strokeOpacity?: number | undefined;
+    strokeColor?: string | undefined;
+    strokeStyle?: strokeStyleType | undefined;
+    strokeLineCap?: strokeLineCapType | undefined;
+    strokeLineJoin?: strokeLineJoinType | undefined;
+    fillColor?: string | undefined;
+    fillOpacity?: number | undefined;
+    clickable?: boolean | undefined;
+    visible?: boolean | undefined;
+    zIndex?: number | undefined;
   }
   interface PolylineOptions {
-    map?: Map;
+    map?: Map | undefined;
     path: ArrayOfCoords | KVOArrayOfCoords | ArrayOfCoordsLiteral;
-    strokeWeight?: number;
-    strokeOpacity?: number;
-    strokeColor?: string;
-    strokeStyle?: strokeStyleType;
-    strokeLineCap?: strokeLineCapType;
-    strokeLineJoin?: strokeLineJoinType;
-    clickable?: boolean;
-    visible?: boolean;
-    zIndex?: number;
-    startIcon?: PointingIcon;
-    startIconSize?: number;
-    endIcon?: PointingIcon;
-    endIconSize?: number;
+    strokeWeight?: number | undefined;
+    strokeOpacity?: number | undefined;
+    strokeColor?: string | undefined;
+    strokeStyle?: strokeStyleType | undefined;
+    strokeLineCap?: strokeLineCapType | undefined;
+    strokeLineJoin?: strokeLineJoinType | undefined;
+    clickable?: boolean | undefined;
+    visible?: boolean | undefined;
+    zIndex?: number | undefined;
+    startIcon?: PointingIcon | undefined;
+    startIconSize?: number | undefined;
+    endIcon?: PointingIcon | undefined;
+    endIconSize?: number | undefined;
   }
   interface RectangleOptions {
-    map?: Map;
+    map?: Map | undefined;
     bounds: Bounds | BoundsLiteral;
-    strokeWeight?: number;
-    strokeOpacity?: number;
-    strokeColor?: string;
-    strokeStyle?: strokeStyleType;
-    strokeLineCap?: strokeLineCapType;
-    strokeLineJoin?: strokeLineJoinType;
-    fillColor?: string;
-    fillOpacity?: number;
-    clickable?: boolean;
-    visible?: boolean;
-    zIndex?: number;
+    strokeWeight?: number | undefined;
+    strokeOpacity?: number | undefined;
+    strokeColor?: string | undefined;
+    strokeStyle?: strokeStyleType | undefined;
+    strokeLineCap?: strokeLineCapType | undefined;
+    strokeLineJoin?: strokeLineJoinType | undefined;
+    fillColor?: string | undefined;
+    fillOpacity?: number | undefined;
+    clickable?: boolean | undefined;
+    visible?: boolean | undefined;
+    zIndex?: number | undefined;
   }
   interface PanoramaOptions {
     size: Size | SizeLiteral;
@@ -456,15 +456,15 @@ declare namespace naver.maps {
     target: HTMLElement;
   }
   interface Margin {
-    top?: number;
-    right?: number;
-    bottom?: number;
-    left?: number;
+    top?: number | undefined;
+    right?: number | undefined;
+    bottom?: number | undefined;
+    left?: number | undefined;
   }
 
   interface TransitionOptions {
-    duration?: number;
-    easing?: string;
+    duration?: number | undefined;
+    easing?: string | undefined;
   }
 
   /**
@@ -1086,22 +1086,22 @@ declare namespace naver.maps {
   function drawing(): void;
   namespace drawing {
     interface DrawingOptions {
-      map?: Map;
-      drawingControl?: DrawingMode[];
-      drawingControlOptions?: drawingControlOptions;
-      drawingMode?: DrawingMode;
-      controlPointOptions?: controlPointOptions;
-      rectangleOptions?: RectangleOptions;
-      ellipseOptions?: EllipseOptions;
-      polylineOptions?: PolylineOptions;
-      arrowlineOptions?: PolylineOptions;
-      polygonOptions?: PolygonOptions;
-      markerOptions?: MarkerOptions;
+      map?: Map | undefined;
+      drawingControl?: DrawingMode[] | undefined;
+      drawingControlOptions?: drawingControlOptions | undefined;
+      drawingMode?: DrawingMode | undefined;
+      controlPointOptions?: controlPointOptions | undefined;
+      rectangleOptions?: RectangleOptions | undefined;
+      ellipseOptions?: EllipseOptions | undefined;
+      polylineOptions?: PolylineOptions | undefined;
+      arrowlineOptions?: PolylineOptions | undefined;
+      polygonOptions?: PolygonOptions | undefined;
+      markerOptions?: MarkerOptions | undefined;
     }
     type drawingControlOptions = DrawingControlOptions;
     interface DrawingControlOptions {
-      position?: Position;
-      style?: DrawingStyle;
+      position?: Position | undefined;
+      style?: DrawingStyle | undefined;
     }
     type controlPointOptions = ControlPointOptions;
     interface ControlPointOptions {
@@ -1156,20 +1156,20 @@ declare namespace naver.maps {
     interface DotMapOptions {
       map: Map;
       data: LatLng[] | PointArrayLiteral[] | WeightedLocation[];
-      opacity?: number;
-      radius?: number;
-      strokeWeight?: number;
-      strokeColor?: string;
-      strokeLineCap?: strokeLineCapType;
-      strokeLineJoin?: strokeLineJoinType;
-      fillColor?: string;
+      opacity?: number | undefined;
+      radius?: number | undefined;
+      strokeWeight?: number | undefined;
+      strokeColor?: string | undefined;
+      strokeLineCap?: strokeLineCapType | undefined;
+      strokeLineJoin?: strokeLineJoinType | undefined;
+      fillColor?: string | undefined;
     }
     interface HeatMapOptions {
       map: Map;
       data: LatLng[] | PointArrayLiteral[] | WeightedLocation[];
-      opacity?: number;
-      radius?: number;
-      colorMap?: SpectrumStyle;
+      opacity?: number | undefined;
+      radius?: number | undefined;
+      colorMap?: SpectrumStyle | undefined;
     }
     enum SpectrumStyle {
       JET,
@@ -1228,10 +1228,10 @@ declare namespace naver.maps {
       coordType?: any;
     }
     interface GeocodeServiceOptions extends ServiceOptions {
-      address?: string;
+      address?: string | undefined;
     }
     interface ReverseServiceOptions extends ServiceOptions {
-      location?: Coord | CoordLiteral;
+      location?: Coord | CoordLiteral | undefined;
     }
     interface AddressItem {
       address: string;

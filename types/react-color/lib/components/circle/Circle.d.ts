@@ -7,11 +7,11 @@ export interface CirclePickerStylesProps {
 }
 
 export interface CirclePickerProps extends ColorPickerProps<CirclePicker> {
-    colors?: string[];
-    width?: string;
-    circleSize?: number;
-    circleSpacing?: number;
-    styles?: Partial<Classes<CirclePickerStylesProps>>;
+    colors?: string[] | undefined;
+    width?: string | undefined;
+    circleSize?: number | undefined;
+    circleSpacing?: number | undefined;
+    styles?: Partial<Classes<CirclePickerStylesProps>> | undefined;
     onSwatchHover?(color: ColorResult, event: MouseEvent): void;
 }
 

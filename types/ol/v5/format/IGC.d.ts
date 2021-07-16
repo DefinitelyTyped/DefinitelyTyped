@@ -1,7 +1,7 @@
 import TextFeature from './TextFeature';
 
 export interface Options {
-    altitudeMode?: IGCZ | string;
+    altitudeMode?: IGCZ | string | undefined;
 }
 export enum IGCZ {
     BAROMETRIC = 'barometric',

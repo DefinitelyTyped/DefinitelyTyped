@@ -13,40 +13,40 @@ export type ButtonKind = "danger" | "danger--ghost" | "danger--primary" | "dange
 export type ButtonSize = "default" | "field" | "lg" | "md" | "sm" | "small" | "xl" | "2xl";
 
 export interface ButtonRenderIconRenderProps {
-    "aria-hidden"?: boolean;
-    "aria-label"?: string;
-    className?: string;
+    "aria-hidden"?: boolean | undefined;
+    "aria-label"?: string | undefined;
+    className?: string | undefined;
 }
 
 // this is split due to a typing issue with the specialized buttons (SecondaryButton, etc)
 export interface ButtonKindProps {
-    kind?: ButtonKind;  // required by has default value
+    kind?: ButtonKind | undefined;  // required by has default value
 }
 
 // these props are not passed to the general createElement call
 interface ButtonBaseIsolatedProps {
-    dangerDescription?: string;
-    hasIconOnly?: boolean;
-    iconDescription?: string;
-    isExpressive?: boolean;
-    isSelected?: boolean;
+    dangerDescription?: string | undefined;
+    hasIconOnly?: boolean | undefined;
+    iconDescription?: string | undefined;
+    isExpressive?: boolean | undefined;
+    isSelected?: boolean | undefined;
     // trying to type this just causes problems around inference, overload selection, and anon fn vs typed component references.
     // if anon render props type is desired, import ButtonRenderIconRenderProps.
     renderIcon?: any;
-    size?: ButtonSize;
+    size?: ButtonSize | undefined;
     /**
      * @deprecated
      */
-    small?: boolean;
-    tooltipAlignment?: TooltipAlignment;
-    tooltipPosition?: TooltipPosition;
+    small?: boolean | undefined;
+    tooltipAlignment?: TooltipAlignment | undefined;
+    tooltipPosition?: TooltipPosition | undefined;
 }
 type SafeProps<P> = Omit<P, 'as' | keyof ButtonBaseIsolatedProps>;
 
 interface ButtonBaseProps extends ButtonBaseIsolatedProps {
-    children?: React.ReactNode;
-    className?: string;
-    disabled?: boolean;
+    children?: React.ReactNode | undefined;
+    className?: string | undefined;
+    disabled?: boolean | undefined;
 }
 
 export interface ButtonDefaultProps extends ButtonBaseProps, ReactButtonAttr {

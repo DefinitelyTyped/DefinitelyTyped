@@ -15,13 +15,13 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
     export default class MapiClient {
         constructor(config: SdkConfig);
         accessToken: string;
-        origin?: string;
+        origin?: string | undefined;
         createRequest(requestOptions: MapiRequestOptions): MapiRequest;
     }
 
     interface SdkConfig {
         accessToken: string;
-        origin?: string;
+        origin?: string | undefined;
     }
 }
 
@@ -92,11 +92,11 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         /**
          * If this request has been sent and received a response, the response is available on this property.
          */
-        response?: MapiResponse;
+        response?: MapiResponse | undefined;
         /**
          * If this request has been sent and received an error in response, the error is available on this property.
          */
-        error?: MapiError | Error;
+        error?: MapiError | Error | undefined;
         /**
          * If the request has been aborted (via abort), this property will be true.
          */
@@ -176,7 +176,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
         /**
          * The numeric status code of the HTTP response
          */
-        statusCode?: number;
+        statusCode?: number | undefined;
         /**
          * If the server sent a response body, this property exposes that response, parsed as JSON if possible.
          */
@@ -184,7 +184,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
         /**
          * Whatever message could be derived from the call site and HTTP response.
          */
-        message?: string;
+        message?: string | undefined;
     }
 }
 
@@ -201,12 +201,12 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
         /**
          * List datasets in your account.
          */
-        listDatasets(config?: { sortby?: 'created' | 'modified' }): MapiRequest;
+        listDatasets(config?: { sortby?: 'created' | 'modified' | undefined }): MapiRequest;
         /**
          *  Create a new, empty dataset.
          * @param config Object
          */
-        createDataset(config: { name?: string; description?: string }): MapiRequest;
+        createDataset(config: { name?: string | undefined; description?: string | undefined }): MapiRequest;
         /**
          * Get metadata about a dataset.
          * @param config
@@ -216,7 +216,7 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
          * Update user-defined properties of a dataset's metadata.
          * @param config
          */
-        updateMetadata(config: { datasetId?: string; name?: string; description?: string }): MapiRequest;
+        updateMetadata(config: { datasetId?: string | undefined; name?: string | undefined; description?: string | undefined }): MapiRequest;
         /**
          * Delete a dataset, including all features it contains.
          * @param config
@@ -227,7 +227,7 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
          * This endpoint supports pagination. Use MapiRequest#eachPage or manually specify the limit and start options.
          * @param config
          */
-        listFeatures(config: { datasetId: string; limit?: number; start?: string }): MapiRequest;
+        listFeatures(config: { datasetId: string; limit?: number | undefined; start?: string | undefined }): MapiRequest;
         /**
          * Add a feature to a dataset or update an existing one.
          * @param config
@@ -358,72 +358,72 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * different than the fastest route, but also still reasonably fast. Such a route does not exist in all circumstances.
          * Currently up to two alternatives can be returned. Can be  true or  false (default).
          */
-        alternatives?: boolean;
+        alternatives?: boolean | undefined;
         /**
          * Whether or not to return additional metadata along the route. Possible values are:  duration ,  distance ,  speed , and congestion .
          * Several annotations can be used by including them as a comma-separated list. See the RouteLeg object for more details on
          * what is included with annotations.
          */
-        annotations?: DirectionsAnnotation[];
+        annotations?: DirectionsAnnotation[] | undefined;
 
         /**
          * Whether or not to return banner objects associated with the  routeSteps .
          * Should be used in conjunction with  steps . Can be  true or  false . The default is  false .
          */
-        bannerInstructions?: boolean;
+        bannerInstructions?: boolean | undefined;
 
         /**
          * Sets the allowed direction of travel when departing intermediate waypoints. If  true , the route will continue in the same
          * direction of travel. If  false , the route may continue in the opposite direction of travel. Defaults to  true for mapbox/driving and
          * false for  mapbox/walking and  mapbox/cycling .
          */
-        continueStraight?: boolean;
+        continueStraight?: boolean | undefined;
         /**
          * Format of the returned geometry. Allowed values are:  geojson (as LineString ),
          * polyline with precision 5,  polyline6 (a polyline with precision 6). The default value is  polyline .
          */
-        geometries?: DirectionsGeometry;
+        geometries?: DirectionsGeometry | undefined;
         /**
          * Language of returned turn-by-turn text instructions. See supported languages . The default is  en for English.
          */
-        language?: string;
+        language?: string | undefined;
         /**
          * Type of returned overview geometry. Can be  full (the most detailed geometry available),
          * simplified (a simplified version of the full geometry), or  false (no overview geometry). The default is  simplified .
          */
-        overview?: DirectionsOverview;
+        overview?: DirectionsOverview | undefined;
 
         /**
          * Emit instructions at roundabout exits. Can be  true or  false . The default is  false .
          */
-        roundaboutExits?: boolean;
+        roundaboutExits?: boolean | undefined;
         /**
          * Whether to return steps and turn-by-turn instructions. Can be  true or  false . The default is  false .
          */
-        steps?: boolean;
+        steps?: boolean | undefined;
         /**
          * Whether or not to return SSML marked-up text for voice guidance along the route. Should be used in conjunction with steps .
          * Can be  true or  false . The default is  false .
          */
-        voiceInstructions?: boolean;
+        voiceInstructions?: boolean | undefined;
         /**
          * Which type of units to return in the text for voice instructions. Can be  imperial or  metric . Default is  imperial .
          */
-        voiceUnits?: DirectionsUnits;
+        voiceUnits?: DirectionsUnits | undefined;
     }
 
     type DirectionsProfileExclusion =
         | {
               profile: 'walking';
-              exclude?: [];
+              exclude?: [] | undefined;
           }
         | {
               profile: 'cycling';
-              exclude?: Array<'ferry'>;
+              exclude?: Array<'ferry'> | undefined;
           }
         | {
               profile: 'driving' | 'driving-traffic';
-              exclude?: Array<'ferry' | 'toll' | 'motorway'>;
+              exclude?: Array<'ferry' | 'toll' | 'motorway'> | undefined;
           };
 
     type DirectionsRequest = CommonDirectionsRequest & DirectionsProfileExclusion;
@@ -438,7 +438,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * This option should always be used in conjunction with a `radius`. The first values is angle clockwise from true
          * north between 0 and 360, and the second is the range of degrees the angle can deviate by.
          */
-        bearing?: Coordinates;
+        bearing?: Coordinates | undefined;
         /**
          * Used to indicate how requested routes consider from which side of the road to approach a waypoint.
          * Accepts unrestricted (default) or  curb . If set to  unrestricted , the routes can approach waypoints from either side of the road.
@@ -447,21 +447,21 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * while  bearings influences how you start from a waypoint. If provided, the list of approaches must be the same length as the list of waypoints.
          * However, you can skip a coordinate and show its position in the list with the  ; separator.
          */
-        approach?: DirectionsApproach;
+        approach?: DirectionsApproach | undefined;
         /**
          * Maximum distance in meters that each coordinate is allowed to move when snapped to a nearby road segment.
          * There must be as many radiuses as there are coordinates in the request, each separated by ';'.
          * Values can be any number greater than 0 or the string 'unlimited'.
          * A  NoSegment error is returned if no routable road is found within the radius.
          */
-        radius?: number | 'unlimited';
+        radius?: number | 'unlimited' | undefined;
     }
 
     type DirectionsWaypoint = Waypoint & {
         /**
          * Custom name for the waypoint used for the arrival instruction in banners and voice instructions.
          */
-        waypointName?: string;
+        waypointName?: string | undefined;
     };
 
     interface DirectionsResponse {
@@ -513,7 +513,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         /**
          * String of the locale used for voice instructions. Defaults to en, and can be any accepted instruction language.
          */
-        voiceLocale?: string;
+        voiceLocale?: string | undefined;
     }
 
     interface Leg {
@@ -570,7 +570,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * and a route number. You should not assume that the network code is globally unique: for example, a network code of “NH” may appear on a
          * “National Highway” or “New Hampshire”. Moreover, a route number may not even uniquely identify a road within a given network.
          */
-        ref?: string;
+        ref?: string | undefined;
         weight: number;
         /**
          * Number indicating the estimated time traveled time in seconds from the maneuver to the next RouteStep.
@@ -589,16 +589,16 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         /**
          * String with the destinations of the way along which the travel proceeds. Optionally included, if data is available.
          */
-        destinations?: string;
+        destinations?: string | undefined;
         /**
          * String with the exit numbers or names of the way. Optionally included, if data is available.
          */
-        exits?: string;
+        exits?: string | undefined;
         /**
          * A string containing an IPA phonetic transcription indicating how to pronounce the name in the name property.
          * This property is omitted if pronunciation data is unavailable for the step.
          */
-        pronunciation?: string;
+        pronunciation?: string | undefined;
     }
 
     interface Instruction {
@@ -615,16 +615,16 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * The type of maneuver. May be used in combination with the modifier (and, if it is a roundabout, the degrees) to for an icon to
          * display. Possible values: 'turn', 'merge', 'depart', 'arrive', 'fork', 'off ramp', 'roundabout'
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * The modifier for the maneuver. Can be used in combination with the type (and, if it is a roundabout, the degrees)
          * to for an icon to display. Possible values: 'left', 'right', 'slight left', 'slight right', 'sharp left', 'sharp right', 'straight', 'uturn'
          */
-        modifier?: ManeuverModifier;
+        modifier?: ManeuverModifier | undefined;
         /**
          * The degrees at which you will be exiting a roundabout, assuming 180 indicates going straight through the roundabout.
          */
-        degrees?: number;
+        degrees?: number | undefined;
         /**
          * A string representing which side the of the street people drive on in that location. Can be 'left' or 'right'.
          */
@@ -644,14 +644,14 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         /**
          * Additional content useful for visual guidance. Our SDK displays this text slightly smaller and below the primary. Can be null.
          */
-        secondary?: Instruction[];
+        secondary?: Instruction[] | undefined;
         then?: any;
         /**
          * Additional information that is included if we feel the driver needs a heads up about something.
          * Can include information about the next maneuver (the one after the upcoming one) if the step is short -
          * can be null, or can be lane information. If we have lane information, that trumps information about the next maneuver.
          */
-        sub?: Sub;
+        sub?: Sub | undefined;
     }
 
     interface Sub {
@@ -681,7 +681,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * The abbreviated form of text. If this is present, there will also be an abbr_priority value.
          * See the Examples of Abbreviations table below for an example of using abbr and abbr_priority.
          */
-        abbr?: string;
+        abbr?: string | undefined;
         /**
          * An integer indicating the order in which the abbreviation abbr should be used in place of text.
          * The highest priority is 0 and a higher integer value means it should have a lower priority. There are no gaps in
@@ -689,16 +689,16 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * same abbr_priority should be abbreviated at the same time. Finding no larger values of abbr_priority means that the
          * string is fully abbreviated.
          */
-        abbr_priority?: number;
+        abbr_priority?: number | undefined;
         /**
          * String pointing to a shield image to use instead of the text.
          */
-        imageBaseURL?: string;
+        imageBaseURL?: string | undefined;
         /**
          * (present if component is lane): An array indicating which directions you can go from a lane (left, right, or straight).
          * If the value is ['left', 'straight'], the driver can go straight or left from that lane
          */
-        directions?: string[];
+        directions?: string[] | undefined;
         /**
          * (present if component is lane): A boolean telling you if that lane can be used to complete the upcoming maneuver.
          * If multiple lanes are active, then they can all be used to complete the upcoming maneuver.
@@ -738,7 +738,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         /**
          * Optional String indicating the direction change of the maneuver
          */
-        modifier?: ManeuverModifier;
+        modifier?: ManeuverModifier | undefined;
         /**
          * String indicating the type of maneuver
          */
@@ -755,7 +755,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * the direction of travel after the maneuver/passing the intersection.
          * The value is not supplied for arrive maneuvers.
          */
-        out?: number;
+        out?: number | undefined;
         /**
          * A list of entry flags, corresponding in a 1:1 relationship to the bearings.
          * A value of true indicates that the respective road could be entered on a valid route.
@@ -776,11 +776,11 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * north to the direction of travel before the maneuver/passing the intersection. To get the bearing in the direction of driving,
          * the bearing has to be rotated by a value of 180. The value is not supplied for departure maneuvers.
          */
-        in?: number;
+        in?: number | undefined;
         /**
          * An array of strings signifying the classes of the road exiting the intersection.
          */
-        classes?: DirectionsClass[];
+        classes?: DirectionsClass[] | undefined;
         /**
          * Array of Lane objects that represent the available turn lanes at the intersection.
          * If no lane information is available for an intersection, the lanes property will not be present.
@@ -842,41 +842,41 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * Either  mapbox.places for ephemeral geocoding, or  mapbox.places-permanent for storing results and batch geocoding.
          */
-        mode: GeocodeMode;
+        mode?: GeocodeMode;
         /**
          * Limit results to one or more countries. Options are ISO 3166 alpha 2 country codes
          */
-        countries?: string[];
+        countries?: string[] | undefined;
         /**
          * Bias local results based on a provided location. Options are  longitude,latitude coordinates.
          */
-        proximity?: Coordinates;
+        proximity?: Coordinates | undefined;
         /**
          * Filter results by one or more feature types
          */
-        types?: GeocodeQueryType[];
+        types?: GeocodeQueryType[] | undefined;
         /**
          * Forward geocoding only. Return autocomplete results or not. Options are  true or  false and the default is  true .
          */
-        autocomplete?: boolean;
+        autocomplete?: boolean | undefined;
         /**
          * Forward geocoding only. Limit results to a bounding box. Options are in the format  minLongitude,minLatitude,maxLongitude,maxLatitude.
          */
-        bbox?: BoundingBox;
+        bbox?: BoundingBox | undefined;
         /**
          * Limit the number of results returned. The default is  5 for forward geocoding and  1 for reverse geocoding.
          */
-        limit?: number;
+        limit?: number | undefined;
         /**
          * Specify the language to use for response text and, for forward geocoding, query result weighting.
          * Options are IETF language tags comprised of a mandatory ISO 639-1 language code and optionally one or more
          * IETF subtags for country or script.
          */
-        language?: string[];
+        language?: string[] | undefined;
         /**
          * Specify whether to request additional etadat about the recommended navigation destination. Only applicable for address features.
          */
-        routing?: boolean;
+        routing?: boolean | undefined;
     }
 
     interface GeocodeResponse {
@@ -923,7 +923,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
          * A string of the house number for the returned  address feature. Note that unlike the
          * address property for  poi features, this property is outside the  properties object.
          */
-        address?: string;
+        address?: string | undefined;
         /**
          * An object describing the feature. The property object is unstable and only Carmen GeoJSON properties are guaranteed.
          * Your implementation should check for the presence of these values in a response before it attempts to use them.
@@ -958,7 +958,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * An array bounding box in the form [ minX,minY,maxX,maxY ] .
          */
-        bbox?: number[];
+        bbox?: number[] | undefined;
         /**
          * An array in the form [ longitude,latitude ] at the center of the specified  bbox .
          */
@@ -992,24 +992,24 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * The Wikidata identifier for the returned feature.
          */
-        wikidata?: string;
+        wikidata?: string | undefined;
         /**
          * A string of comma-separated categories for the returned  poi feature.
          */
-        category?: string;
+        category?: string | undefined;
         /**
          * A formatted string of the telephone number for the returned  poi feature.
          */
-        tel?: string;
+        tel?: string | undefined;
         /**
          * The name of a suggested Maki icon to visualize a  poi feature based on its  category .
          */
-        maki?: string;
+        maki?: string | undefined;
         /**
          * A boolean value indicating whether a  poi feature is a landmark. Landmarks are
          * particularly notable or long-lived features like schools, parks, museums and places of worship.
          */
-        landmark?: boolean;
+        landmark?: boolean | undefined;
         /**
          * The ISO 3166-1 country and ISO 3166-2 region code for the returned feature.
          */
@@ -1050,31 +1050,31 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
         /**
          * A directions profile ID. (optional, default driving)
          */
-        profile?: MapboxProfile;
+        profile?: MapboxProfile | undefined;
         /**
          * Specify additional metadata that should be returned.
          */
-        annotations?: DirectionsAnnotation;
+        annotations?: DirectionsAnnotation | undefined;
         /**
          * Format of the returned geometry. (optional, default "polyline")
          */
-        geometries?: DirectionsGeometry;
+        geometries?: DirectionsGeometry | undefined;
         /**
          * Language of returned turn-by-turn text instructions. See supported languages. (optional, default "en")
          */
-        language?: string;
+        language?: string | undefined;
         /**
          * Type of returned overview geometry. (optional, default "simplified"
          */
-        overview?: DirectionsOverview;
+        overview?: DirectionsOverview | undefined;
         /**
          * Whether to return steps and turn-by-turn instructions. (optional, default false)
          */
-        steps?: boolean;
+        steps?: boolean | undefined;
         /**
          * Whether or not to transparently remove clusters and re-sample traces for improved map matching results. (optional, default false)
          */
-        tidy?: boolean;
+        tidy?: boolean | undefined;
     }
 
     interface Point {
@@ -1082,27 +1082,27 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
         /**
          * Used to indicate how requested routes consider from which side of the road to approach a waypoint.
          */
-        approach?: DirectionsApproach;
+        approach?: DirectionsApproach | undefined;
     }
 
     interface MapMatchingPoint extends Point {
         /**
          * A number in meters indicating the assumed precision of the used tracking device.
          */
-        radius?: number;
+        radius?: number | undefined;
         /**
          * Whether this coordinate is waypoint or not. The first and last coordinates will always be waypoints.
          */
-        isWaypoint?: boolean;
+        isWaypoint?: boolean | undefined;
         /**
          * Custom name for the waypoint used for the arrival instruction in banners and voice instructions.
          * Will be ignored unless isWaypoint is true.
          */
-        waypointName?: boolean;
+        waypointName?: boolean | undefined;
         /**
          * Datetime corresponding to the coordinate.
          */
-        timestamp?: string | number | Date;
+        timestamp?: string | number | Date | undefined;
     }
 
     interface MapMatchingResponse {
@@ -1175,16 +1175,16 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
 
     interface MatrixRequest {
         points: Point[];
-        profile?: MapboxProfile;
-        sources?: number[] | 'all';
-        destinations?: number[] | 'all';
-        annotations?: DirectionsAnnotation[];
+        profile?: MapboxProfile | undefined;
+        sources?: number[] | 'all' | undefined;
+        destinations?: number[] | 'all' | undefined;
+        annotations?: DirectionsAnnotation[] | undefined;
     }
 
     interface MatrixResponse {
         code: string;
-        durations?: number[][];
-        distances?: number[][];
+        durations?: number[][] | undefined;
+        distances?: number[][] | undefined;
         destinations: Destination[];
         sources: Destination[];
     }
@@ -1222,11 +1222,11 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
         /**
          * Return additional metadata along the route. You can include several annotations as a comma-separated list. Possible values are:
          */
-        annotations?: OptimizationAnnotation[];
+        annotations?: OptimizationAnnotation[] | undefined;
         /**
          * Specify the destination coordinate of the returned route. Accepts  any (default) or  last .
          */
-        destination?: 'any' | 'last';
+        destination?: 'any' | 'last' | undefined;
         /**
          * Specify pick-up and drop-off locations for a trip by providing a ; delimited list of number pairs that correspond with the coordinates list.
          * The first number of a pair indicates the index to the coordinate of the pick-up location in the coordinates list,
@@ -1234,34 +1234,34 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
          * Each pair must contain exactly 2 numbers, which cannot be the same.
          * The returned solution will visit pick-up locations before visiting drop-off locations. The first location can only be a pick-up location, not a drop-off location.
          */
-        distributions?: Distribution[];
+        distributions?: Distribution[] | undefined;
         /**
          * The format of the returned geometry. Allowed values are:  geojson (as LineString ),  polyline (default, a polyline with precision 5),  polyline6 (a polyline with precision 6).
          */
-        geometries?: 'geojson' | 'polyline' | 'polyline6';
+        geometries?: 'geojson' | 'polyline' | 'polyline6' | undefined;
         /**
          * The language of returned turn-by-turn text instructions. See supported languages . The default is  en (English).
          */
-        language?: string;
+        language?: string | undefined;
         /**
          * The type of the returned overview geometry.
          * Can be 'full' (the most detailed geometry available), 'simplified' (default, a simplified version of the full geometry), or 'false' (no overview geometry).
          */
-        overview?: 'full' | 'simplified' | 'false';
+        overview?: 'full' | 'simplified' | 'false' | undefined;
         /**
          * The coordinate at which to start the returned route. Accepts  any (default) or  first .
          */
-        source?: 'any' | 'first';
+        source?: 'any' | 'first' | undefined;
         /**
          * Whether to return steps and turn-by-turn instructions ( true ) or not ( false , default).
          */
-        steps?: boolean;
+        steps?: boolean | undefined;
         /**
          * Indicates whether the returned route is roundtrip, meaning the route returns to the first location ( true , default) or not ( false ).
          * If roundtrip=false , the  source and  destination parameters are required but not all combinations will be possible.
          * See the Fixing Start and End Points section below for additional notes.
          */
-        roundtrip?: boolean;
+        roundtrip?: boolean | undefined;
     }
 
     interface Distribution {
@@ -1305,16 +1305,16 @@ declare module '@mapbox/mapbox-sdk/services/static' {
             | {
                   coordinates: LngLatLike | 'auto';
                   zoom: number;
-                  bearing?: number;
-                  pitch?: number;
+                  bearing?: number | undefined;
+                  pitch?: number | undefined;
               }
             | 'auto';
-        padding?: string;
-        overlays?: Array<CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay>;
-        highRes?: boolean;
-        insertOverlayBeforeLayer?: string;
-        attribution?: boolean;
-        logo?: boolean;
+        padding?: string | undefined;
+        overlays?: Array<CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay> | undefined;
+        highRes?: boolean | undefined;
+        insertOverlayBeforeLayer?: string | undefined;
+        attribution?: boolean | undefined;
+        logo?: boolean | undefined;
     }
 
     interface CustomMarkerOverlay {
@@ -1332,9 +1332,9 @@ declare module '@mapbox/mapbox-sdk/services/static' {
 
     interface SimpleMarker {
         coordinates: LngLatLike;
-        label?: string;
-        color?: string;
-        size?: 'large' | 'small';
+        label?: string | undefined;
+        color?: string | undefined;
+        size?: 'large' | 'small' | undefined;
     }
 
     interface PathOverlay {
@@ -1346,20 +1346,20 @@ declare module '@mapbox/mapbox-sdk/services/static' {
          * An array of coordinates describing the path.
          */
         coordinates: LngLatBoundsLike[];
-        strokeWidth?: number;
-        strokeColor?: string;
+        strokeWidth?: number | undefined;
+        strokeColor?: string | undefined;
         /**
          * Must be paired with strokeColor.
          */
-        strokeOpacity?: number;
+        strokeOpacity?: number | undefined;
         /**
          * Must be paired with strokeColor.
          */
-        fillColor?: string;
+        fillColor?: string | undefined;
         /**
          * Must be paired with strokeColor.
          */
-        fillOpacity?: number;
+        fillOpacity?: number | undefined;
     }
 
     interface GeoJsonOverlay {
@@ -1384,17 +1384,17 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          */
         getStyle(config: {
             styleId: string;
-            ownerId?: string;
-            metadata?: boolean;
-            draft?: boolean;
-            fresh?: boolean;
+            ownerId?: string | undefined;
+            metadata?: boolean | undefined;
+            draft?: boolean | undefined;
+            fresh?: boolean | undefined;
         }): MapiRequest;
         /**
          * Create a style.
          * @param style
          * @param ownerId
          */
-        createStyle(config: { style: Style; ownerId?: string }): MapiRequest;
+        createStyle(config: { style: Style; ownerId?: string | undefined }): MapiRequest;
         /**
          * Update a style.
          * @param styleId
@@ -1406,21 +1406,21 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
         updateStyle(config: {
             styleId: string;
             style: Style;
-            lastKnownModification?: string | number | Date;
-            ownerId?: string;
+            lastKnownModification?: string | number | Date | undefined;
+            ownerId?: string | undefined;
         }): void;
         /**
          * Delete a style.
          * @param style
          * @param ownerId
          */
-        deleteStyle(config: { style: Style; ownerId?: string }): MapiRequest;
+        deleteStyle(config: { style: Style; ownerId?: string | undefined }): MapiRequest;
         /**
          * List styles in your account.
          * @param start
          * @param ownerId
          */
-        listStyles(config: { start?: string; ownerId?: string; fresh?: boolean }): MapiRequest;
+        listStyles(config: { start?: string | undefined; ownerId?: string | undefined; fresh?: boolean | undefined }): MapiRequest;
         /**
          * Add an icon to a style, or update an existing one.
          * @param styleId
@@ -1432,7 +1432,7 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
             styleId: string;
             iconId: string;
             file: Blob | ArrayBuffer | string;
-            ownerId?: string;
+            ownerId?: string | undefined;
         }): MapiRequest;
         /**
          * Remove an icon from a style.
@@ -1441,7 +1441,7 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param ownerId
          */
         // implicit any
-        deleteStyleIcon(config: { styleId: string; iconId: string; ownerId?: string; draft?: boolean }): void;
+        deleteStyleIcon(config: { styleId: string; iconId: string; ownerId?: string | undefined; draft?: boolean | undefined }): void;
         /**
          * Get a style sprite's image or JSON document.
          * @param styleId
@@ -1451,11 +1451,11 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          */
         getStyleSprite(config: {
             styleId: string;
-            format?: 'json' | 'png';
-            highRes?: boolean;
-            ownerId?: string;
-            draft?: boolean;
-            fresh?: boolean;
+            format?: 'json' | 'png' | undefined;
+            highRes?: boolean | undefined;
+            ownerId?: string | undefined;
+            draft?: boolean | undefined;
+            fresh?: boolean | undefined;
         }): MapiRequest;
         /**
          * Get a font glyph range.
@@ -1464,7 +1464,7 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param end
          * @param ownerId
          */
-        getFontGlyphRange(config: { fonts: string[]; start: number; end: number; ownerId?: string }): MapiRequest;
+        getFontGlyphRange(config: { fonts: string[]; start: number; end: number; ownerId?: string | undefined }): MapiRequest;
         /**
          * Get embeddable HTML displaying a map.
          * @param config
@@ -1476,13 +1476,13 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
         getEmbeddableHtml(config: {
             config: any;
             styleId: string;
-            scrollZoom?: boolean;
-            title?: boolean;
-            fallback?: boolean;
-            mapboxGLVersion?: string;
-            mapboxGLGeocoderVersion?: string;
-            ownerId?: string;
-            draft?: string;
+            scrollZoom?: boolean | undefined;
+            title?: boolean | undefined;
+            fallback?: boolean | undefined;
+            mapboxGLVersion?: string | undefined;
+            mapboxGLGeocoderVersion?: string | undefined;
+            ownerId?: string | undefined;
+            draft?: string | undefined;
         }): MapiRequest;
     }
 
@@ -1555,20 +1555,20 @@ declare module '@mapbox/mapbox-sdk/services/tilequery' {
         /**
          * The approximate distance in meters to query for features. (optional, default 0)
          */
-        radius?: number;
+        radius?: number | undefined;
         /**
          * The number of features to return, between 1 and 50. (optional, default 5)
          */
-        limit?: number;
+        limit?: number | undefined;
         /**
          * Whether or not to deduplicate results. (optional, default true)
          */
-        dedupe?: boolean;
+        dedupe?: boolean | undefined;
         /**
          * Queries for a specific geometry type.
          */
-        geometry?: GeometryType;
-        layers?: string[];
+        geometry?: GeometryType | undefined;
+        layers?: string[] | undefined;
     }
 
     type GeometryType = 'polygon' | 'linestring' | 'point';
@@ -1586,44 +1586,44 @@ declare module '@mapbox/mapbox-sdk/services/tilesets' {
     interface TilesetsService {
         listTilesets(config: {
             ownerId: string;
-            type?: 'raster' | 'vector';
-            limit?: number;
-            sortBy?: 'created' | 'modified';
-            start?: string;
-            visibility?: 'public' | 'private';
+            type?: 'raster' | 'vector' | undefined;
+            limit?: number | undefined;
+            sortBy?: 'created' | 'modified' | undefined;
+            start?: string | undefined;
+            visibility?: 'public' | 'private' | undefined;
         }): MapiRequest;
         deleteTileset(config: { tilesetId: string }): MapiRequest;
         tileJSONMetadata(config: { tilesetId: string }): MapiRequest;
         createTilesetSource(config: {
             id: string;
             file: Blob | ArrayBuffer | string | NodeJS.ReadStream;
-            ownerId?: string;
+            ownerId?: string | undefined;
         }): MapiRequest;
-        getTilesetSource(config: { id: string; ownerId?: string }): MapiRequest;
-        listTilesetSources(config: { ownerId?: string; limit?: number; start?: string }): MapiRequest;
-        deleteTilesetSource(config: { id: string; ownerId?: string }): MapiRequest;
+        getTilesetSource(config: { id: string; ownerId?: string | undefined }): MapiRequest;
+        listTilesetSources(config: { ownerId?: string | undefined; limit?: number | undefined; start?: string | undefined }): MapiRequest;
+        deleteTilesetSource(config: { id: string; ownerId?: string | undefined }): MapiRequest;
         createTileset(config: {
             tilesetId: string;
             recipe: any;
             name: string;
-            private?: boolean;
-            description?: string;
+            private?: boolean | undefined;
+            description?: string | undefined;
         }): MapiRequest;
         publishTileset(config: { tilesetId: string }): MapiRequest;
         updateTileset(config: {
             tilesetId: string;
-            name?: string;
-            description?: string;
-            private?: boolean;
-            attribution?: Array<{ text?: string; link?: string }>;
+            name?: string | undefined;
+            description?: string | undefined;
+            private?: boolean | undefined;
+            attribution?: Array<{ text?: string | undefined; link?: string | undefined }> | undefined;
         }): MapiRequest;
         tilesetStatus(config: { tilesetId: string }): MapiRequest;
         tilesetJob(config: { tilesetId: string; jobId: string }): MapiRequest;
         listTilesetJobs(config: {
             tilesetId: string;
-            stage?: 'processing' | 'queued' | 'success' | 'failed';
-            limit?: number;
-            start?: string;
+            stage?: 'processing' | 'queued' | 'success' | 'failed' | undefined;
+            limit?: number | undefined;
+            start?: string | undefined;
         }): MapiRequest;
         getTilesetsQueue(): MapiRequest;
         validateRecipe(config: { recipe: any }): MapiRequest;
@@ -1730,10 +1730,10 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
     }
 
     interface CreateTokenRequest {
-        note?: string;
-        scopes?: string[];
-        resources?: string[];
-        allowedUrls?: string[];
+        note?: string | undefined;
+        scopes?: string[] | undefined;
+        resources?: string[] | undefined;
+        allowedUrls?: string[] | undefined;
     }
 
     interface TemporaryTokenRequest {
@@ -1771,7 +1771,7 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
          * List the statuses of all recent uploads.
          * @param config
          */
-        listUploads(config?: { reverse?: boolean }): MapiRequest;
+        listUploads(config?: { reverse?: boolean | undefined }): MapiRequest;
         /**
          * Create S3 credentials.
          */
@@ -1780,7 +1780,7 @@ declare module '@mapbox/mapbox-sdk/services/uploads' {
          * Create an upload.
          * @param config
          */
-        createUpload(config: { tileset: string; url: string; name?: string }): MapiRequest;
+        createUpload(config: { tileset: string; url: string; name?: string | undefined }): MapiRequest;
         /**
          * Get an upload's status.
          * @param config

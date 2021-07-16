@@ -103,49 +103,49 @@ declare global {
         let encryptedUser: boolean;
 
         interface BatchSizeOption {
-            batchSize?: number;
+            batchSize?: number | undefined;
         }
 
         interface CascadeSaveOption {
             /** If `false`, nested objects will not be saved (default is `true`). */
-            cascadeSave?: boolean;
+            cascadeSave?: boolean | undefined;
         }
 
         interface SuccessOption {
-            success?: Function;
+            success?: Function | undefined;
         }
 
         interface ErrorOption {
-            error?: Function;
+            error?: Function | undefined;
         }
 
         interface FullOptions {
-            success?: Function;
-            error?: Function;
-            useMasterKey?: boolean;
-            sessionToken?: string;
-            installationId?: string;
-            progress?: Function;
+            success?: Function | undefined;
+            error?: Function | undefined;
+            useMasterKey?: boolean | undefined;
+            sessionToken?: string | undefined;
+            installationId?: string | undefined;
+            progress?: Function | undefined;
         }
 
         interface RequestOptions {
-            useMasterKey?: boolean;
-            sessionToken?: string;
-            installationId?: string;
-            batchSize?: number;
-            include?: string | string[];
-            progress?: Function;
+            useMasterKey?: boolean | undefined;
+            sessionToken?: string | undefined;
+            installationId?: string | undefined;
+            batchSize?: number | undefined;
+            include?: string | string[] | undefined;
+            progress?: Function | undefined;
         }
 
         interface SuccessFailureOptions extends SuccessOption, ErrorOption {}
 
         interface SignUpOptions {
-            useMasterKey?: boolean;
-            installationId?: string;
+            useMasterKey?: boolean | undefined;
+            installationId?: string | undefined;
         }
 
         interface SessionTokenOption {
-            sessionToken?: string;
+            sessionToken?: string | undefined;
         }
 
         interface WaitOption {
@@ -153,14 +153,14 @@ declare global {
              * Set to true to wait for the server to confirm success
              * before triggering an event.
              */
-            wait?: boolean;
+            wait?: boolean | undefined;
         }
 
         interface UseMasterKeyOption {
             /**
              * In Cloud Code and Node only, causes the Master Key to be used for this request.
              */
-            useMasterKey?: boolean;
+            useMasterKey?: boolean | undefined;
         }
 
         interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {}
@@ -169,7 +169,7 @@ declare global {
             /**
              * Set to true to avoid firing the event.
              */
-            silent?: boolean;
+            silent?: boolean | undefined;
         }
 
         interface Pointer {
@@ -194,7 +194,7 @@ declare global {
             /**
              * (Optional) Called when service is unlinked. Handle any cleanup here.
              */
-            deauthenticate?: () => void;
+            deauthenticate?: (() => void) | undefined;
             /**
              * Unique identifier for this Auth Provider.
              */
@@ -302,7 +302,7 @@ declare global {
              * @returns Promise that is resolved with base64 data
              */
             getData(): Promise<string>;
-            url(options?: { forceSecure?: boolean }): string;
+            url(options?: { forceSecure?: boolean | undefined }): string;
             metadata(): Record<string, any>;
             tags(): Record<string, any>;
             name(): string;
@@ -818,26 +818,26 @@ declare global {
 
             // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
             interface AggregationOptions {
-                group?: { objectId?: string; [key: string]: any };
-                match?: { [key: string]: any };
-                project?: { [key: string]: any };
-                limit?: number;
-                skip?: number;
+                group?: { objectId?: string | undefined; [key: string]: any } | undefined;
+                match?: { [key: string]: any } | undefined;
+                project?: { [key: string]: any } | undefined;
+                limit?: number | undefined;
+                skip?: number | undefined;
                 // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
-                sort?: { [key: string]: 1 | -1 };
+                sort?: { [key: string]: 1 | -1 } | undefined;
                 // Sample documentation: https://docs.mongodb.com/v3.2/reference/operator/aggregation/sample/
-                sample?: { size: number };
+                sample?: { size: number } | undefined;
             }
 
             // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
             interface FullTextOptions {
-                language?: string;
-                caseSensitive?: boolean;
-                diacriticSensitive?: boolean;
+                language?: string | undefined;
+                caseSensitive?: boolean | undefined;
+                diacriticSensitive?: boolean | undefined;
             }
 
             interface BatchOptions extends FullOptions {
-                batchSize?: number;
+                batchSize?: number | undefined;
             }
         }
 
@@ -998,7 +998,7 @@ declare global {
 
             linkWith: (
                 provider: string | AuthProvider,
-                options: { authData?: AuthData },
+                options: { authData?: AuthData | undefined },
                 saveOpts?: FullOptions,
             ) => Promise<this>;
             _isLinked: (provider: string | AuthProvider) => boolean;
@@ -1016,12 +1016,13 @@ declare global {
             logIn<T extends User>(username: string, password: string, options?: FullOptions): Promise<T>;
             logOut<T extends User>(): Promise<T>;
             requestPasswordReset<T extends User>(email: string, options?: SuccessFailureOptions): Promise<T>;
+            requestEmailVerification<T extends User>(email: string, options?: UseMasterKeyOption): Promise<T>;
             extend(protoProps?: any, classProps?: any): any;
             hydrate<T extends User>(userJSON: any): Promise<T>;
             enableUnsafeCurrentUser(): void;
             logInWith<T extends User>(
                 provider: string | AuthProvider,
-                options: { authData?: AuthData },
+                options: { authData?: AuthData | undefined },
                 saveOpts?: FullOptions,
             ): Promise<T>;
             _registerAuthenticationProvider: (provider: AuthProvider) => void;
@@ -1198,8 +1199,8 @@ declare global {
                     | Pointer
                     | Relation = any
             > {
-                required?: boolean;
-                defaultValue?: T;
+                required?: boolean | undefined;
+                defaultValue?: T | undefined;
             }
 
             interface Index {
@@ -1215,24 +1216,24 @@ declare global {
              *  'idOfASpecificUser': true
              */
             interface CLPField {
-                "*"?: boolean;
-                requiresAuthentication?: boolean;
+                "*"?: boolean | undefined;
+                requiresAuthentication?: boolean | undefined;
                 /** `role:Admin` */
                 [userIdOrRoleName: string]: boolean | undefined;
             }
 
             interface CLP {
-                find?: CLPField;
-                get?: CLPField;
-                count?: CLPField;
-                create?: CLPField;
-                update?: CLPField;
-                delete?: CLPField;
-                addField?: CLPField;
+                find?: CLPField | undefined;
+                get?: CLPField | undefined;
+                count?: CLPField | undefined;
+                create?: CLPField | undefined;
+                update?: CLPField | undefined;
+                delete?: CLPField | undefined;
+                addField?: CLPField | undefined;
                 /** Array of fields that point to a `_User` object's ID or a `Role` object's name */
-                readUserFields?: string[];
+                readUserFields?: string[] | undefined;
                 /** Array of fields that point to a `_User` object's ID or a `Role` object's name */
-                writeUserFields?: string[];
+                writeUserFields?: string[] | undefined;
             }
         }
 
@@ -1270,21 +1271,21 @@ declare global {
          */
         namespace Cloud {
             interface CookieOptions {
-                domain?: string;
-                expires?: Date;
-                httpOnly?: boolean;
-                maxAge?: number;
-                path?: string;
-                secure?: boolean;
+                domain?: string | undefined;
+                expires?: Date | undefined;
+                httpOnly?: boolean | undefined;
+                maxAge?: number | undefined;
+                path?: string | undefined;
+                secure?: boolean | undefined;
             }
 
             interface HttpResponse {
-                buffer?: Buffer;
+                buffer?: Buffer | undefined;
                 cookies?: any;
                 data?: any;
                 headers?: any;
-                status?: number;
-                text?: string;
+                status?: number | undefined;
+                text?: string | undefined;
             }
 
             interface JobRequest<T extends Params = Params> {
@@ -1297,49 +1298,49 @@ declare global {
             }
 
             interface FunctionRequest<T extends Params = Params> {
-                installationId?: string;
-                master?: boolean;
+                installationId?: string | undefined;
+                master?: boolean | undefined;
                 params: T;
-                user?: User;
+                user?: User | undefined;
             }
 
             interface ValidatorField {
                 type?: any;
-                constant?: boolean;
+                constant?: boolean | undefined;
                 default?: any;
-                options?: any[] | Function;
-                error?: String;
+                options?: any[] | Function | undefined;
+                error?: String | undefined;
             }
             interface ValidatorFields {
                 [field: string]: ValidatorField;
             }
             interface Validator {
-                requireUser?: boolean;
-                requireMaster?: boolean;
-                validateMasterKey?: boolean;
-                skipWithMasterKey?: boolean;
-                requireAnyUserRoles?: String[] | Function;
-                requireAllUserRoles?: String[] | Function;
-                fields?: ValidatorFields | String[];
-                requireUserKeys?: ValidatorFields | String[];
+                requireUser?: boolean | undefined;
+                requireMaster?: boolean | undefined;
+                validateMasterKey?: boolean | undefined;
+                skipWithMasterKey?: boolean | undefined;
+                requireAnyUserRoles?: String[] | Function | undefined;
+                requireAllUserRoles?: String[] | Function | undefined;
+                fields?: ValidatorFields | String[] | undefined;
+                requireUserKeys?: ValidatorFields | String[] | undefined;
             }
 
             interface Cookie {
-                name?: string;
-                options?: CookieOptions;
-                value?: string;
+                name?: string | undefined;
+                options?: CookieOptions | undefined;
+                value?: string | undefined;
             }
 
             interface TriggerRequest<T = Object> {
-                installationId?: string;
-                master?: boolean;
-                user?: User;
+                installationId?: string | undefined;
+                master?: boolean | undefined;
+                user?: User | undefined;
                 ip: string;
                 headers: any;
                 triggerName: string;
                 log: any;
                 object: T;
-                original?: T;
+                original?: T | undefined;
             }
 
             interface AfterSaveRequest<T = Object> extends TriggerRequest<T> {
@@ -1370,7 +1371,7 @@ declare global {
                 query: Query<T>;
                 count: boolean;
                 isGet: boolean;
-                readPreference?: ReadPreferenceOption;
+                readPreference?: ReadPreferenceOption | undefined;
             }
 
             interface AfterFindRequest<T = Object> extends TriggerRequest<T> {
@@ -1494,21 +1495,21 @@ declare global {
                  * You can also set this to a Buffer object to send raw bytes.
                  * If you use a Buffer, you should also set the Content-Type header explicitly to describe what these bytes represent.
                  */
-                body?: string | Buffer | object;
+                body?: string | Buffer | object | undefined;
                 /**
                  * Defaults to 'false'.
                  */
-                followRedirects?: boolean;
+                followRedirects?: boolean | undefined;
                 /**
                  * The headers for the request.
                  */
                 headers?: {
                     [headerName: string]: string | number | boolean;
-                };
+                } | undefined;
                 /**
                  * The method of the request (i.e GET, POST, etc).
                  */
-                method?: string;
+                method?: string | undefined;
                 /**
                  * The query portion of the url.
                  */
@@ -1518,8 +1519,8 @@ declare global {
                  */
                 url: string;
 
-                success?: (response: any) => void;
-                error?: (response: any) => void;
+                success?: ((response: any) => void) | undefined;
+                error?: ((response: any) => void) | undefined;
             }
         }
 
@@ -1638,23 +1639,23 @@ declare global {
             function send<T>(data: PushData, options?: SendOptions): Promise<T>;
 
             interface PushData {
-                channels?: string[];
-                push_time?: Date;
-                expiration_time?: Date;
-                expiration_interval?: number;
-                where?: Query<Installation>;
+                channels?: string[] | undefined;
+                push_time?: Date | undefined;
+                expiration_time?: Date | undefined;
+                expiration_interval?: number | undefined;
+                where?: Query<Installation> | undefined;
                 data?: any;
-                alert?: string;
-                badge?: string;
-                sound?: string;
-                title?: string;
+                alert?: string | undefined;
+                badge?: string | undefined;
+                sound?: string | undefined;
+                title?: string | undefined;
                 notification?: any;
                 content_available?: any;
             }
 
             interface SendOptions extends UseMasterKeyOption {
-                success?: () => void;
-                error?: (error: Error) => void;
+                success?: (() => void) | undefined;
+                error?: ((error: Error) => void) | undefined;
             }
         }
 

@@ -135,13 +135,13 @@ completeRequiredValueDescriptor['[[Enumerable]]']; // $ExpectType boolean
 completeRequiredValueDescriptor['[[Writable]]']; // $ExpectType boolean
 completeRequiredValueDescriptor['[[Value]]']; // $ExpectType string
 
-const completeDataDescriptor = ES2015.CompletePropertyDescriptor(newType<{ '[[Value]]'?: number }>());
+const completeDataDescriptor = ES2015.CompletePropertyDescriptor(newType<{ '[[Value]]'?: number | undefined }>());
 completeDataDescriptor['[[Configurable]]']; // $ExpectType boolean
 completeDataDescriptor['[[Enumerable]]']; // $ExpectType boolean
 completeDataDescriptor['[[Writable]]']; // $ExpectType boolean
 completeDataDescriptor['[[Value]]']; // $ExpectType number | undefined
 
-const completeAccessorDescriptor = ES2015.CompletePropertyDescriptor(newType<{ '[[Get]]'?: () => symbol }>());
+const completeAccessorDescriptor = ES2015.CompletePropertyDescriptor(newType<{ '[[Get]]'?: (() => symbol) | undefined }>());
 completeAccessorDescriptor['[[Configurable]]']; // $ExpectType boolean
 completeAccessorDescriptor['[[Enumerable]]']; // $ExpectType boolean
 completeAccessorDescriptor['[[Get]]']; // $ExpectType (() => symbol) | undefined
@@ -175,11 +175,11 @@ declare const Bar: {
 declare const Baz: {
     (foo: number): any;
     new (bar: string): object;
-    readonly prototype?: unknown;
+    readonly prototype?: unknown | undefined;
 };
 
 // tslint:disable-next-line: ban-types
-declare const Biz: { readonly prototype?: null } & Omit<Function, 'prototype'>;
+declare const Biz: { readonly prototype?: null | undefined } & Omit<Function, 'prototype'>;
 
 ES2015.GetPrototypeFromConstructor(Foo, '%Object.prototype%'); // $ExpectType Foo
 ES2015.GetPrototypeFromConstructor(Bar, '%Object.prototype%'); // $ExpectType Object

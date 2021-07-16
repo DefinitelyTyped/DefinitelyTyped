@@ -526,6 +526,8 @@ export class NodePath<T = Node> {
     getCompletionRecords(): NodePath[];
 
     getSibling(key: string | number): NodePath;
+    getPrevSibling(): NodePath;
+    getNextSibling(): NodePath;
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 

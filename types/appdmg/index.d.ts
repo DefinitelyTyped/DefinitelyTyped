@@ -29,8 +29,8 @@ declare namespace appdmg {
   }
 
   interface SpecificationWindow {
-    position?: { x: number; y: number };
-    size?: { width: number; height: number };
+    position?: { x: number; y: number } | undefined;
+    size?: { width: number; height: number } | undefined;
   }
 
   interface SpecificationContents {
@@ -38,24 +38,24 @@ declare namespace appdmg {
     y: number;
     type: "link" | "file" | "position";
     path: string;
-    name?: string;
+    name?: string | undefined;
   }
 
   interface SpecificationCodeSign {
     "signing-identity": string;
-    identifier?: string;
+    identifier?: string | undefined;
   }
 
   interface Specification {
     title: string;
-    icon?: string;
-    background?: string;
-    "background-color"?: string;
-    "icon-size"?: number;
-    window?: SpecificationWindow;
+    icon?: string | undefined;
+    background?: string | undefined;
+    "background-color"?: string | undefined;
+    "icon-size"?: number | undefined;
+    window?: SpecificationWindow | undefined;
     format: "UDRW" | "UDRO" | "UDCO" | "UDZO" | "UDBZ" | "ULFO";
     contents: SpecificationContents[];
-    "code-sign"?: SpecificationCodeSign;
+    "code-sign"?: SpecificationCodeSign | undefined;
   }
 
   interface Options {

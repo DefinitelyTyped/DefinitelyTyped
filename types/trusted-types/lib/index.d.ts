@@ -43,9 +43,9 @@ export abstract class TrustedTypePolicy<Options extends TrustedTypePolicyOptions
 }
 
 export interface TrustedTypePolicyOptions {
-    createHTML?: (input: string, ...arguments: any[]) => string;
-    createScript?: (input: string, ...arguments: any[]) => string;
-    createScriptURL?: (input: string, ...arguments: any[]) => string;
+    createHTML?: ((input: string, ...arguments: any[]) => string) | undefined;
+    createScript?: ((input: string, ...arguments: any[]) => string) | undefined;
+    createScriptURL?: ((input: string, ...arguments: any[]) => string) | undefined;
 }
 
 // The Window object is augmented with the following properties in browsers that
@@ -55,7 +55,7 @@ export interface TrustedTypesWindow {
     // `trustedTypes` is left intentionally optional to make sure that
     // people handle the case when their code is running in a browser not
     // supporting trustedTypes.
-    trustedTypes?: TrustedTypePolicyFactory;
+    trustedTypes?: TrustedTypePolicyFactory | undefined;
     TrustedHTML: typeof TrustedHTML;
     TrustedScript: typeof TrustedScript;
     TrustedScriptURL: typeof TrustedScriptURL;

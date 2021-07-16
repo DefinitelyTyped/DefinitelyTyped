@@ -81,5 +81,6 @@ export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
 export * from './trigger/msk';
+export * from "./trigger/secretsmanager";
 
 export as namespace AWSLambda;

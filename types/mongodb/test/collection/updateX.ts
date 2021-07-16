@@ -9,7 +9,7 @@ async function run() {
     interface SubTestModel {
         _id: ObjectId;
         field1: string;
-        field2?: string;
+        field2?: string | undefined;
     }
 
     type FruitTypes = 'apple' | 'pear';
@@ -22,13 +22,13 @@ async function run() {
         doubleField: Double;
         int32Field: Int32;
         longField: Long;
-        optionalNumberField?: number;
+        optionalNumberField?: number | undefined;
         dateField: Date;
         otherDateField: Date;
         oneMoreDateField: Date;
         fruitTags: string[];
         readonlyFruitTags: ReadonlyArray<string>;
-        maybeFruitTags?: FruitTypes[];
+        maybeFruitTags?: FruitTypes[] | undefined;
         subInterfaceField: SubTestModel;
         subInterfaceArray: SubTestModel[];
         timestampField: Timestamp;
@@ -259,7 +259,7 @@ async function run() {
 async function testPushWithId () {
     interface Model {
         _id: ObjectId;
-        foo: Array<{ _id?: string, name: string }>;
+        foo: Array<{ _id?: string | undefined, name: string }>;
     }
 
     const client = await connect(connectionString);

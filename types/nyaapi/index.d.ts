@@ -39,13 +39,13 @@ export namespace si {
     }
 
     interface SearchOptions {
-        term?: string;
-        n?: number;
-        category?: Category;
-        p?: number;
-        sort?: string;
-        filter?: Filter;
-        direction?: 'asc' | 'desc';
+        term?: string | undefined;
+        n?: number | undefined;
+        category?: Category | undefined;
+        p?: number | undefined;
+        sort?: string | undefined;
+        filter?: Filter | undefined;
+        direction?: 'asc' | 'desc' | undefined;
     }
 
     interface SearchOptionsTerm extends SearchOptions {
@@ -173,23 +173,23 @@ export namespace pantsu {
     }
 
     interface SearchOptions {
-        term?: string;
-        n?: number;
-        c?: Category;
-        page?: number;
-        userID?: string;
-        fromID?: string;
-        s?: string;
-        maxage?: string;
-        toDate?: string;
-        fromDate?: string;
-        dateType?: string;
-        minSize?: string;
-        maxSize?: string;
-        sizeType?: 'b' | 'k' | 'm' | 'g';
-        sort?: SortType;
-        order?: boolean;
-        lang?: string[];
+        term?: string | undefined;
+        n?: number | undefined;
+        c?: Category | undefined;
+        page?: number | undefined;
+        userID?: string | undefined;
+        fromID?: string | undefined;
+        s?: string | undefined;
+        maxage?: string | undefined;
+        toDate?: string | undefined;
+        fromDate?: string | undefined;
+        dateType?: string | undefined;
+        minSize?: string | undefined;
+        maxSize?: string | undefined;
+        sizeType?: 'b' | 'k' | 'm' | 'g' | undefined;
+        sort?: SortType | undefined;
+        order?: boolean | undefined;
+        lang?: string[] | undefined;
     }
 
     interface SearchOptionsTerm extends SearchOptions {

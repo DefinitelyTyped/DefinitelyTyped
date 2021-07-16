@@ -10,33 +10,33 @@ declare class SAlert extends React.Component<SAlert.SAlertProps> {}
 
 declare namespace SAlert {
   interface SAlertConfigProps {
-    position?: string;
-    offset?: number;
-    stack?: boolean | SAlertStackProps;
-    effect?: string;
-    beep?: string | boolean | SAlertBeepProps;
-    timeout?: string | number;
-    html?: boolean;
-    onClose?: () => void;
-    onShow?: () => void;
-    customFields?: object;
-    contentTemplate?: (...args: any[]) => any;
+    position?: string | undefined;
+    offset?: number | undefined;
+    stack?: boolean | SAlertStackProps | undefined;
+    effect?: string | undefined;
+    beep?: string | boolean | SAlertBeepProps | undefined;
+    timeout?: string | number | undefined;
+    html?: boolean | undefined;
+    onClose?: (() => void) | undefined;
+    onShow?: (() => void) | undefined;
+    customFields?: object | undefined;
+    contentTemplate?: ((...args: any[]) => any) | undefined;
   }
 
   interface SAlertProps extends SAlertConfigProps {
-    message?: string;
+    message?: string | undefined;
   }
 
   interface SAlertStackProps {
-    limit?: number;
-    spacing?: number;
+    limit?: number | undefined;
+    spacing?: number | undefined;
   }
 
   interface SAlertBeepProps {
-    info?: string;
-    error?: string;
-    warning?: string;
-    success?: string;
+    info?: string | undefined;
+    error?: string | undefined;
+    warning?: string | undefined;
+    success?: string | undefined;
   }
 
   function info(msg?: string, data?: SAlertConfigProps): number;

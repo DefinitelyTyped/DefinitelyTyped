@@ -31,8 +31,8 @@ export interface ojMenuSelectManySettablePropertiesLenient extends Partial<ojMen
 export namespace ojMenuSelectMany {
     // tslint:disable-next-line interface-over-type-literal
     type Option = {
-        id?: string;
-        disabled?: boolean;
+        id?: string | undefined;
+        disabled?: boolean | undefined;
         label: string;
         value: any;
     };

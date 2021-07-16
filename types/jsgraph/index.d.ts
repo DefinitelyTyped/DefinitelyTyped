@@ -141,12 +141,12 @@ declare namespace jsgraph {
     export interface TraversalParams {
         digraph: DirectedGraph,
         visitor: Visitor,
-        options?: TraversalOptions
+        options?: TraversalOptions | undefined
     }
 
     export interface TraversalResult {
         error?: any;
-        result?: TraversalContext
+        result?: TraversalContext | undefined
     }
 
     export type colors = { white: 0, gray: 1, black: 2 };
@@ -162,7 +162,7 @@ declare namespace jsgraph {
 
         depthFirstTraverse(params: TraversalParams): TraversalResult;
 
-        transpose(graph: DirectedGraph): { error?: any, result?: DirectedGraph };
+        transpose(graph: DirectedGraph): { error?: any, result?: DirectedGraph | undefined };
 
         directedGraph: DirectedGraph;
 

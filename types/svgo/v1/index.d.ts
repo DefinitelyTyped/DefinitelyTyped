@@ -209,7 +209,7 @@ interface PluginReusePaths {
 }
 
 interface SvgInfo {
-    path?: string;
+    path?: string | undefined;
 }
 
 interface OptimizedSvg {
@@ -218,7 +218,7 @@ interface OptimizedSvg {
         width: string;
         height: string;
     };
-    path?: string;
+    path?: string | undefined;
 }
 
 declare class SVGO {
@@ -281,94 +281,94 @@ declare namespace SVGO {
 
     interface Js2SvgOptions {
         /** @default '<!DOCTYPE' */
-        doctypeStart?: string;
+        doctypeStart?: string | undefined;
         /** @default '>' */
-        doctypeEnd?: string;
+        doctypeEnd?: string | undefined;
         /** @default '<?' */
-        procInstStart?: string;
+        procInstStart?: string | undefined;
         /** @default '?>' */
-        procInstEnd?: string;
+        procInstEnd?: string | undefined;
         /** @default '<' */
-        tagOpenStart?: string;
+        tagOpenStart?: string | undefined;
         /** @default '>' */
-        tagOpenEnd?: string;
+        tagOpenEnd?: string | undefined;
         /** @default '</' */
-        tagCloseStart?: string;
+        tagCloseStart?: string | undefined;
         /** @default '>' */
-        tagCloseEnd?: string;
+        tagCloseEnd?: string | undefined;
         /** @default '<' */
-        tagShortStart?: string;
+        tagShortStart?: string | undefined;
         /** @default '/>' */
-        tagShortEnd?: string;
+        tagShortEnd?: string | undefined;
         /** @default '="' */
-        attrStart?: string;
+        attrStart?: string | undefined;
         /** @default '"' */
-        attrEnd?: string;
+        attrEnd?: string | undefined;
         /** @default '<!--' */
-        commentStart?: string;
+        commentStart?: string | undefined;
         /** @default '-->' */
-        commentEnd?: string;
+        commentEnd?: string | undefined;
         /** @default '<![CDATA[' */
-        cdataStart?: string;
+        cdataStart?: string | undefined;
         /** @default ']]>' */
-        cdataEnd?: string;
+        cdataEnd?: string | undefined;
         /** @default '' */
-        textStart?: string;
+        textStart?: string | undefined;
         /** @default '' */
-        textEnd?: string;
+        textEnd?: string | undefined;
         /** @default 4 */
-        indent?: number;
+        indent?: number | undefined;
         /** @default /[&'"<>]/g */
-        regEntities?: RegExp;
+        regEntities?: RegExp | undefined;
         /** @default /[&"<>]/g */
-        regValEntities?: RegExp;
+        regValEntities?: RegExp | undefined;
         /** @default encodeEntity */
-        encodeEntity?: (char?: string) => string;
+        encodeEntity?: ((char?: string) => string) | undefined;
         /** @default false */
-        pretty?: boolean;
+        pretty?: boolean | undefined;
         /** @default true */
-        useShortTags?: boolean;
+        useShortTags?: boolean | undefined;
     }
 
     interface Svg2JsOptions {
         /** @default true */
-        strict?: boolean;
+        strict?: boolean | undefined;
         /** @default false */
-        trim?: boolean;
+        trim?: boolean | undefined;
         /** @default true */
-        normalize?: boolean;
+        normalize?: boolean | undefined;
         /** @default true */
-        lowercase?: boolean;
+        lowercase?: boolean | undefined;
         /** @default true */
-        xmlns?: boolean;
+        xmlns?: boolean | undefined;
         /** @default true */
-        position?: boolean;
+        position?: boolean | undefined;
     }
 
     interface Options {
         /** Output as Data URI string. */
-        datauri?: 'base64' | 'enc' | 'unenc';
+        datauri?: 'base64' | 'enc' | 'unenc' | undefined;
 
         /** Precision of floating point numbers. Will be passed to each plugin that suppors this param. */
-        floatPrecision?: number;
+        floatPrecision?: number | undefined;
 
         /** Use full set of plugins. */
-        full?: boolean;
+        full?: boolean | undefined;
 
         /** Pass over SVGs multiple times to ensure all optimizations are applied */
-        multipass?: boolean;
+        multipass?: boolean | undefined;
 
         /** Options for rendering optimized SVG from AST. */
-        js2svg?: Js2SvgOptions;
+        js2svg?: Js2SvgOptions | undefined;
 
         /**
          * Individual plugin configurations.
          * For specific options, see plugin source in https://github.com/svg/svgo/tree/master/plugins.
          */
-        plugins?: PluginConfig[];
+        plugins?: PluginConfig[] | undefined;
 
         /** Options for parsing original SVG into AST. */
-        svg2js?: Svg2JsOptions;
+        svg2js?: Svg2JsOptions | undefined;
     }
 }
 

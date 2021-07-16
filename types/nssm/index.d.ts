@@ -54,6 +54,6 @@ declare namespace nssm {
     };
 
     interface NssmOptions {
-        nssmExe?: string;
+        nssmExe?: string | undefined;
     }
 }

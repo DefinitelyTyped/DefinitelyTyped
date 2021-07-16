@@ -63,11 +63,11 @@ export interface ResponsiveNavigationState {
     isTopBarVisible: boolean;
 }
 export interface ResponsiveNavigationProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    breakpoint?: number;
-    titleBar?: TitleBarProps;
-    menuIcon?: MenuIconProps;
-    titleBarTitle?: TitleBarTitleProps;
-    topBar?: TopBarProps;
+    breakpoint?: number | undefined;
+    titleBar?: TitleBarProps | undefined;
+    menuIcon?: MenuIconProps | undefined;
+    titleBarTitle?: TitleBarTitleProps | undefined;
+    topBar?: TopBarProps | undefined;
 }
 /**
  * Title bar sub-component.

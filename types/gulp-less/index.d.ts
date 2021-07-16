@@ -8,10 +8,10 @@
 
 
 interface IOptions {
-    modifyVars?: {};
-    paths?: string[];
-    plugins?: any[];
-    relativeUrls?: boolean;
+    modifyVars?: {} | undefined;
+    paths?: string[] | undefined;
+    plugins?: any[] | undefined;
+    relativeUrls?: boolean | undefined;
 }
 
 declare function less(options?: IOptions): NodeJS.ReadWriteStream;

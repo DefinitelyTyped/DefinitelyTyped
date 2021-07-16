@@ -10,11 +10,11 @@ export interface Program {
 }
 
 export interface Query {
-    pid?: string | string[] | number;
-    ppid?: number;
-    command?: string | RegExp;
-    arguments?: string | RegExp;
-    psargs?: string | string[];
+    pid?: string | string[] | number | undefined;
+    ppid?: number | undefined;
+    command?: string | RegExp | undefined;
+    arguments?: string | RegExp | undefined;
+    psargs?: string | string[] | undefined;
 }
 
 export interface Signal {

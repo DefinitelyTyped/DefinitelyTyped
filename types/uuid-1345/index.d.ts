@@ -32,19 +32,19 @@ export declare var namespace: {
     x500: UUID
 };
 
-export declare function check(uuid: string | Buffer): { version?: number, variant: string, format: string };
+export declare function check(uuid: string | Buffer): { version?: number | undefined, variant: string, format: string };
 export declare function parse(uuid: string): Buffer;
 export declare function stringify(uuid: Buffer): string;
 
 export declare function v1(): string;
-export declare function v1(options: { mac?: boolean }): string;
-export declare function v1(options: { encoding: 'ascii', mac?: boolean }): string;
-export declare function v1(options: { encoding: 'binary', mac?: boolean }): Buffer;
-export declare function v1(options: { encoding: 'object', mac?: boolean }): UUID;
-export declare function v1(options: { mac?: boolean }, callback: ASCIICallback): void;
-export declare function v1(options: { encoding: 'ascii', mac?: boolean }, callback: ASCIICallback): void;
-export declare function v1(options: { encoding: 'binary', mac?: boolean }, callback: BinaryCallback): void;
-export declare function v1(options: { encoding: 'object', mac?: boolean }, callback: ObjectCallback): void;
+export declare function v1(options: { mac?: boolean | undefined }): string;
+export declare function v1(options: { encoding: 'ascii', mac?: boolean | undefined }): string;
+export declare function v1(options: { encoding: 'binary', mac?: boolean | undefined }): Buffer;
+export declare function v1(options: { encoding: 'object', mac?: boolean | undefined }): UUID;
+export declare function v1(options: { mac?: boolean | undefined }, callback: ASCIICallback): void;
+export declare function v1(options: { encoding: 'ascii', mac?: boolean | undefined }, callback: ASCIICallback): void;
+export declare function v1(options: { encoding: 'binary', mac?: boolean | undefined }, callback: BinaryCallback): void;
+export declare function v1(options: { encoding: 'object', mac?: boolean | undefined }, callback: ObjectCallback): void;
 export declare function v1(callback: ASCIICallback): void;
 
 export declare function v3(options: { namespace: UuidTypes, name: string }): string;

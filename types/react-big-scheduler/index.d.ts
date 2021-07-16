@@ -62,7 +62,7 @@ export enum ViewTypes {
 }
 
 export interface View {
-    viewName?: string;
+    viewName?: string | undefined;
     viewType: ViewTypes;
     showAgenda: boolean;
     isEventPerspective: boolean;
@@ -74,8 +74,8 @@ export interface Event {
     end: string;
     resourceId: string;
     title: string;
-    bgColor?: string;
-    rrule?: string;
+    bgColor?: string | undefined;
+    rrule?: string | undefined;
 }
 
 export interface Resource {
@@ -84,54 +84,54 @@ export interface Resource {
 }
 
 export interface SchedulerDataConfig {
-    schedulerWidth?: number | string;
-    schedulerMaxHeight?: number;
-    tableHeaderHeight?: number;
-    agendaResourceTableWidth?: number;
-    agendaMaxEventWidth?: number;
-    dayResourceTableWidth?: number;
-    weekResourceTableWidth?: number;
-    monthResourceTableWidth?: number;
-    yearResourceTableWidth?: number;
-    quarterResourceTableWidth?: number;
-    dayCellWidth?: number;
-    weekCellWidth?: number;
-    monthCellWidth?: number;
-    yearCellWidth?: number;
-    quarterCellWidth?: number;
-    dayMaxEvents?: number;
-    weekMaxEvents?: number;
-    monthMaxEvents?: number;
-    yearMaxEvents?: number;
-    quarterMaxEvents?: number;
-    eventItemHeight?: number;
-    eventItemLineHeight?: number;
-    nonAgendaSlotMinHeight?: number;
-    dayStartFrom?: number;
-    dayStopTo?: number;
-    defaultEventBgColor?: string;
-    selectedAreaColor?: string;
-    nonWorkingTimeHeadColor?: string;
-    nonWorkingTimeHeadBgColor?: string;
-    nonWorkingTimeBodyBgColor?: string;
-    summaryColor?: string;
-    summaryPos?: SummaryPos;
-    startResizable?: boolean;
-    endResizable?: boolean;
-    movable?: boolean;
-    creatable?: boolean;
-    crossResourceMove?: boolean;
-    checkConflict?: boolean;
-    scrollToSpecialMomentEnabled?: boolean;
-    eventItemPopoverEnabled?: boolean;
-    calendarPopoverEnabled?: boolean;
-    recurringEventsEnabled?: boolean;
-    headerEnabled?: boolean;
-    displayWeekend?: boolean;
-    relativeMove?: boolean;
-    minuteStep?: number;
-    views?: View[];
-    resourceName?: string;
+    schedulerWidth?: number | string | undefined;
+    schedulerMaxHeight?: number | undefined;
+    tableHeaderHeight?: number | undefined;
+    agendaResourceTableWidth?: number | undefined;
+    agendaMaxEventWidth?: number | undefined;
+    dayResourceTableWidth?: number | undefined;
+    weekResourceTableWidth?: number | undefined;
+    monthResourceTableWidth?: number | undefined;
+    yearResourceTableWidth?: number | undefined;
+    quarterResourceTableWidth?: number | undefined;
+    dayCellWidth?: number | undefined;
+    weekCellWidth?: number | undefined;
+    monthCellWidth?: number | undefined;
+    yearCellWidth?: number | undefined;
+    quarterCellWidth?: number | undefined;
+    dayMaxEvents?: number | undefined;
+    weekMaxEvents?: number | undefined;
+    monthMaxEvents?: number | undefined;
+    yearMaxEvents?: number | undefined;
+    quarterMaxEvents?: number | undefined;
+    eventItemHeight?: number | undefined;
+    eventItemLineHeight?: number | undefined;
+    nonAgendaSlotMinHeight?: number | undefined;
+    dayStartFrom?: number | undefined;
+    dayStopTo?: number | undefined;
+    defaultEventBgColor?: string | undefined;
+    selectedAreaColor?: string | undefined;
+    nonWorkingTimeHeadColor?: string | undefined;
+    nonWorkingTimeHeadBgColor?: string | undefined;
+    nonWorkingTimeBodyBgColor?: string | undefined;
+    summaryColor?: string | undefined;
+    summaryPos?: SummaryPos | undefined;
+    startResizable?: boolean | undefined;
+    endResizable?: boolean | undefined;
+    movable?: boolean | undefined;
+    creatable?: boolean | undefined;
+    crossResourceMove?: boolean | undefined;
+    checkConflict?: boolean | undefined;
+    scrollToSpecialMomentEnabled?: boolean | undefined;
+    eventItemPopoverEnabled?: boolean | undefined;
+    calendarPopoverEnabled?: boolean | undefined;
+    recurringEventsEnabled?: boolean | undefined;
+    headerEnabled?: boolean | undefined;
+    displayWeekend?: boolean | undefined;
+    relativeMove?: boolean | undefined;
+    minuteStep?: number | undefined;
+    views?: View[] | undefined;
+    resourceName?: string | undefined;
 }
 
 export enum SummaryPos {

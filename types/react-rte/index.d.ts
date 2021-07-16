@@ -18,8 +18,8 @@ type CustomInlineFn = (
 ) => undefined | null | Style | draftjs.EntityInstance;
 
 interface CustomBlockObject {
-    type?: string;
-    data?: object;
+    type?: string | undefined;
+    data?: object | undefined;
 }
 
 interface InlineCreators {
@@ -33,10 +33,10 @@ interface Style {
 }
 
 interface ImportOptions {
-    parser?: (html: string) => HTMLBodyElement;
-    elementStyles?: { [styleName: string]: string };
-    customBlockFn?: CustomBlockFn;
-    customInlineFn?: CustomInlineFn;
+    parser?: ((html: string) => HTMLBodyElement) | undefined;
+    elementStyles?: { [styleName: string]: string } | undefined;
+    customBlockFn?: CustomBlockFn | undefined;
+    customInlineFn?: CustomInlineFn | undefined;
 }
 
 declare function stateFromHTML(
@@ -48,16 +48,16 @@ type BlockStyleFn = (block: draftjs.ContentBlock) => RenderConfig;
 type EntityStyleFn = (entity: draftjs.EntityInstance) => RenderConfig;
 type BlockRenderer = (block: draftjs.ContentBlock) => string;
 interface RenderConfig {
-    element?: string;
+    element?: string | undefined;
     attributes?: any;
     style?: any;
 }
 
 interface ExportOptions {
-    inlineStyles?: { [styleName: string]: RenderConfig };
-    blockRenderers?: { [blockType: string]: BlockRenderer };
-    blockStyleFn?: BlockStyleFn;
-    entityStyleFn?: EntityStyleFn;
+    inlineStyles?: { [styleName: string]: RenderConfig } | undefined;
+    blockRenderers?: { [blockType: string]: BlockRenderer } | undefined;
+    blockStyleFn?: BlockStyleFn | undefined;
+    entityStyleFn?: EntityStyleFn | undefined;
 }
 
 declare function stateToHTML(
@@ -92,7 +92,7 @@ export class EditorValue {
 interface StyleConfig {
     label: string;
     style: string;
-    className?: string;
+    className?: string | undefined;
 }
 
 type StyleConfigList = StyleConfig[];
@@ -121,31 +121,31 @@ type GroupName =
 
 interface ToolbarConfig {
     display: GroupName[];
-    extraProps?: object;
+    extraProps?: object | undefined;
     INLINE_STYLE_BUTTONS: StyleConfigList;
     BLOCK_TYPE_DROPDOWN: StyleConfigList;
     BLOCK_TYPE_BUTTONS: StyleConfigList;
 }
 
 interface Props {
-    className?: string;
-    toolbarClassName?: string;
-    editorClassName?: string;
+    className?: string | undefined;
+    toolbarClassName?: string | undefined;
+    editorClassName?: string | undefined;
     value: EditorValue;
-    onChange?: ChangeHandler;
-    placeholder?: string;
-    customStyleMap?: { [style: string]: { [key: string]: any } };
-    handleReturn?: (event: object) => boolean;
-    customControls?: CustomControl[];
-    readOnly?: boolean;
-    disabled?: boolean; // Alias of readOnly
-    toolbarConfig?: ToolbarConfig;
-    blockStyleFn?: (block: ContentBlock) => string | undefined;
-    autoFocus?: boolean;
-    keyBindingFn?: (event: object) => string | undefined;
-    rootStyle?: object;
-    editorStyle?: object;
-    toolbarStyle?: object;
+    onChange?: ChangeHandler | undefined;
+    placeholder?: string | undefined;
+    customStyleMap?: { [style: string]: { [key: string]: any } } | undefined;
+    handleReturn?: ((event: object) => boolean) | undefined;
+    customControls?: CustomControl[] | undefined;
+    readOnly?: boolean | undefined;
+    disabled?: boolean | undefined; // Alias of readOnly
+    toolbarConfig?: ToolbarConfig | undefined;
+    blockStyleFn?: ((block: ContentBlock) => string | undefined) | undefined;
+    autoFocus?: boolean | undefined;
+    keyBindingFn?: ((event: object) => string | undefined) | undefined;
+    rootStyle?: object | undefined;
+    editorStyle?: object | undefined;
+    toolbarStyle?: object | undefined;
 }
 
 declare class RichTextEditor extends Component<Props, any> {

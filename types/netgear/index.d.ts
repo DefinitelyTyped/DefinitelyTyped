@@ -11,18 +11,18 @@ declare namespace NetgearRouter {
 
     interface Options {
         /** If not supplied, defaults to `admin` */
-        username?: string;
+        username?: string | undefined;
         /** If not supplied, defaults to `password` */
-        password?: string;
+        password?: string | undefined;
         /** Autodiscovery will be performed when left out */
-        host?: string;
+        host?: string | undefined;
         /** SOAP port. Autodiscovery will be performed when left out */
-        port?: number;
+        port?: number | undefined;
         /** TLS/SSL (HTTPS) is only supported on certain router types */
-        tls?: boolean;
+        tls?: boolean | undefined;
 
         /** @deprecated */
-        method?: LoginMethod;
+        method?: LoginMethod | undefined;
     }
 
     type Band = '2.4G' | '5G' | '5G1';
