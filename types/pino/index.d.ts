@@ -12,7 +12,6 @@
 //                 Adam Vigneaux <https://github.com/AdamVig>
 //                 Austin Beer <https://github.com/austin-beer>
 //                 Michel Nemnom <https://github.com/Pegase745>
-//                 Krystian Jarmicki <https://github.com/kjarmicki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
