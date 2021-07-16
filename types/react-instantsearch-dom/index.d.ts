@@ -116,6 +116,7 @@ export class RefinementList extends React.Component<any> {}
 export class ScrollTo extends React.Component<any> {}
 
 export interface SearchBoxProps extends CommonWidgetProps {
+  inputId?: string;
   inputRef?: React.Ref<HTMLInputElement> | undefined;
   focusShortcuts?: string[] | undefined;
   autoFocus?: boolean | undefined;

@@ -63,7 +63,7 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 
     return (
       <div className="container">
-        <SearchBox inputRef={inputRef} />
+        <SearchBox inputId="search-box" inputRef={inputRef} />
         <RefinementList attribute="category" />
         <Hits hitComponent={Product} />
       </div>
