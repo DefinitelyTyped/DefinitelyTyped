@@ -276,6 +276,7 @@ const test = () => {
 () => {
   // https://www.algolia.com/doc/api-reference/widgets/sort-by/react/
   <SortBy
+    className="sort-by"
     id="sort-by"
     defaultRefinement={'dev_index'}
     items={[
@@ -294,6 +295,7 @@ const test = () => {
 () => {
   // https://www.algolia.com/doc/api-reference/widgets/hits-per-page/react/
   <HitsPerPage
+    className="hits-per-page"
     id="hits-per-page"
     items={[
       { value: 5, label: 'Show 5 hits' },
@@ -313,6 +315,7 @@ const test = () => {
 () => {
   // https://www.algolia.com/doc/api-reference/widgets/menu-select/react/
   <MenuSelect
+    className="menu-select"
     id="menu-select"
     attribute="brand"
     // Optional parameters

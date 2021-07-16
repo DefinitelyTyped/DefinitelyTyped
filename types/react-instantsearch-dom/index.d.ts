@@ -90,6 +90,7 @@ export interface HitsPerPageProps {
   items: RefinementItem<number>[];
   defaultRefinement: number;
   id?: string;
+  className?: string;
   transformItems?(items: RefinementItem<number>[]): RefinementItem<number>[];
 }
 export class HitsPerPage extends React.Component<HitsPerPageProps> {}
@@ -99,6 +100,7 @@ export interface MenuSelectProps {
   attribute: string;
   // Optional parameters
   id?: string;
+  className?: string;
   defaultRefinement?: string;
   limit?: number;
   transformItems?(items: RefinementItem<string>[]): RefinementItem<string>[];
@@ -117,6 +119,7 @@ export class ScrollTo extends React.Component<any> {}
 
 export interface SearchBoxProps extends CommonWidgetProps {
   inputId?: string;
+  className?: string;
   inputRef?: React.Ref<HTMLInputElement> | undefined;
   focusShortcuts?: string[] | undefined;
   autoFocus?: boolean | undefined;
@@ -155,6 +158,7 @@ export interface SortByProps {
   items: RefinementItem<string>[];
   defaultRefinement: string;
   id?: string;
+  className?: string;
   transformItems?(items: RefinementItem<string>[]): RefinementItem<string>[];
 }
 export class SortBy extends React.Component<SortByProps> {}
