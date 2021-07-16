@@ -13,52 +13,162 @@ export type AlignType = 'left' | 'right' | 'center' | null;
 
 export type ReferenceType = 'shortcut' | 'collapsed' | 'full';
 
-export type Content =
-    | TopLevelContent
-    | ListContent
-    | TableContent
-    | RowContent
-    | PhrasingContent;
+/**
+ * This map registers all node types that may be used where markdown block content is accepted.
+ *
+ * These types are accepted inside block quotes, list items, footnotes, and roots.
+ *
+ * This interface can be augmented to register custom node types.
+ *
+ * @example
+ * declare module 'mdast' {
+ *   interface BlockContentMap {
+ *     // Allow using toml nodes defined by remark-frontmatter.
+ *     toml: TOML;
+ *   }
+ * }
+ */
+export interface BlockContentMap {
+    paragraph: Paragraph;
+    heading: Heading;
+    thematicbreak: ThematicBreak;
+    blockquote: Blockquote;
+    list: List;
+    table: Table;
+    html: HTML;
+    code: Code;
+}
 
-export type TopLevelContent =
-    | BlockContent
-    | FrontmatterContent
-    | DefinitionContent;
+/**
+ * This map registers all node definition types.
+ *
+ * This interface can be augmented to register custom node types.
+ *
+ * @example
+ * declare module 'mdast' {
+ *   interface DefinitionContentMap {
+ *     // Allow using toml nodes defined by remark-frontmatter.
+ *     toml: TOML;
+ *   }
+ * }
+ */
+export interface DefinitionContentMap {
+    definition: Definition;
+    footnoteDefinition: FootnoteDefinition;
+}
 
-export type BlockContent =
-    | Paragraph
-    | Heading
-    | ThematicBreak
-    | Blockquote
-    | List
-    | Table
-    | HTML
-    | Code;
+/**
+ * This map registers all node types that are acceptable in a static phrasing context.
+ *
+ * This interface can be augmented to register custom node types in a phrasing context, including links and link
+ * references.
+ *
+ * @example
+ * declare module 'mdast' {
+ *   interface StaticPhrasingContentMap {
+ *     mdxJsxTextElement: MDXJSXTextElement;
+ *   }
+ * }
+ */
+export interface StaticPhrasingContentMap {
+    text: Text;
+    emphasis: Emphasis;
+    strong: Strong;
+    delete: Delete;
+    html: HTML;
+    inlinecode: InlineCode;
+    break: Break;
+    image: Image;
+    imagereference: ImageReference;
+    footnote: Footnote;
+    footnotereference: FootnoteReference;
+}
+
+/**
+ * This map registers all node types that are acceptable in a static phrasing context, except links.
+ *
+ * This interface can be augmented to register custom node types in a phrasing context, excluding links and link
+ * references.
+ *
+ * @example
+ * declare module 'mdast' {
+ *   interface PhrasingContentMap {
+ *     mdxJsxTextElement: MDXJSXTextElement;
+ *   }
+ * }
+ */
+export interface PhrasingContentMap extends StaticPhrasingContentMap {
+    link: Link;
+    linkReference: LinkReference;
+}
+
+/**
+ * This map registers all node types that are acceptable inside lists.
+ *
+ * This interface can be augmented to register custom node types that are acceptable inside lists.
+ *
+ * @example
+ * declare module 'mdast' {
+ *   interface ListContentMap {
+ *     custom: Custom;
+ *   }
+ * }
+ */
+export interface ListContentMap {
+    listItem: ListItem;
+}
+
+/**
+ * This map registers all node types that are acceptable inside tables (not table cells).
+ *
+ * This interface can be augmented to register custom node types that are acceptable inside tables.
+ *
+ * @example
+ * declare module 'mdast' {
+ *   interface TableContentMap {
+ *     custom: Custom;
+ *   }
+ * }
+ */
+export interface TableContentMap {
+    tableRow: TableRow;
+}
+
+/**
+ * This map registers all node types that are acceptable inside tables rows (not table cells).
+ *
+ * This interface can be augmented to register custom node types that are acceptable inside table rows.
+ *
+ * @example
+ * declare module 'mdast' {
+ *   interface RowContentMap {
+ *     custom: Custom;
+ *   }
+ * }
+ */
+export interface RowContentMap {
+    tableCell: TableCell;
+}
+
+export type Content = TopLevelContent | ListContent | TableContent | RowContent | PhrasingContent;
+
+export type TopLevelContent = BlockContent | FrontmatterContent | DefinitionContent;
+
+export type BlockContent = BlockContentMap[keyof BlockContentMap];
 
 export type FrontmatterContent = YAML;
 
-export type DefinitionContent = Definition | FootnoteDefinition;
+export type DefinitionContent = DefinitionContentMap[keyof DefinitionContentMap];
 
-export type ListContent = ListItem;
+export type ListContent = ListContentMap[keyof ListContentMap];
 
-export type TableContent = TableRow;
+export type TableContent = TableContentMap[keyof TableContentMap];
 
-export type RowContent = TableCell;
+export type RowContent = RowContentMap[keyof RowContentMap];
 
-export type PhrasingContent = StaticPhrasingContent | Link | LinkReference;
+export type PhrasingContent = PhrasingContentMap[keyof PhrasingContentMap];
 
-export type StaticPhrasingContent =
-    | Text
-    | Emphasis
-    | Strong
-    | Delete
-    | HTML
-    | InlineCode
-    | Break
-    | Image
-    | ImageReference
-    | Footnote
-    | FootnoteReference;
+export type StaticPhrasingContent = StaticPhrasingContentMap[keyof StaticPhrasingContentMap];
 
 export interface Parent extends UnistParent {
     children: Content[];
