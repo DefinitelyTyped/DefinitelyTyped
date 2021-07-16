@@ -313,7 +313,7 @@ export interface FootnoteReference extends Node, Association {
 // Mixin
 export interface Resource {
     url: string;
-    title?: string | undefined;
+    title?: string | null | undefined;
 }
 
 export interface Association {
