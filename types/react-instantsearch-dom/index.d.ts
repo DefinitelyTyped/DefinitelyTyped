@@ -87,11 +87,11 @@ export interface HitsProps<T> {
  */
 export class Hits<T = BasicDoc> extends React.Component<HitsProps<T>> {}
 export interface HitsPerPageProps {
-  items: RefinementItem<number>[];
+  items: Array<RefinementItem<number>>;
   defaultRefinement: number;
   id?: string;
   className?: string;
-  transformItems?(items: RefinementItem<number>[]): RefinementItem<number>[];
+  transformItems?(items: Array<RefinementItem<number>>): Array<RefinementItem<number>>;
 }
 export class HitsPerPage extends React.Component<HitsPerPageProps> {}
 export class InfiniteHits extends React.Component<any> {}
@@ -103,7 +103,7 @@ export interface MenuSelectProps {
   className?: string;
   defaultRefinement?: string;
   limit?: number;
-  transformItems?(items: RefinementItem<string>[]): RefinementItem<string>[];
+  transformItems?(items: Array<RefinementItem<string>>): Array<RefinementItem<string>>;
   translations?: { seeAllOption?: string };
 }
 export class MenuSelect extends React.Component<MenuSelectProps> {}
@@ -155,11 +155,11 @@ export class RelevantSort extends React.Component<{
 }> {}
 
 export interface SortByProps {
-  items: RefinementItem<string>[];
+  items: Array<RefinementItem<string>>;
   defaultRefinement: string;
   id?: string;
   className?: string;
-  transformItems?(items: RefinementItem<string>[]): RefinementItem<string>[];
+  transformItems?(items: Array<RefinementItem<string>>): Array<RefinementItem<string>>;
 }
 export class SortBy extends React.Component<SortByProps> {}
 /**
