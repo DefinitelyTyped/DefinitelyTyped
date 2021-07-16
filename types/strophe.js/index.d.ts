@@ -849,6 +849,24 @@ export namespace Strophe {
          */
         flush(): void;
 
+        /** Function: sendPresence
+         *  Helper function to send presence stanzas.  The main benefit is for
+         *  sending presence stanzas for which you expect a responding presence
+         *  stanza with the same id (for example when leaving a chat room).
+         *
+         *  Parameters:
+         *    (XMLElement) elem - The stanza to send.
+         *    (Function) callback - The callback function for a successful request.
+         *    (Function) errback - The callback function for a failed or timed
+         *      out request.  On timeout, the stanza will be null.
+         *    (Integer) timeout - The time specified in milliseconds for a
+         *      timeout to occur.
+         *
+         *  Returns:
+         *    The id used to send the presence.
+        */
+        sendPresence(elem: Element | Builder, callback?: (stanza: Element) => any, errback?: (stanza: Element) => any, timeout?: number): string;
+
         /** Function: sendIQ
          *  Helper function to send IQ stanzas.
          *
