@@ -119,7 +119,7 @@ declare namespace Browser {
     const windows: Windows.Static;
     const scripting: Scripting.Static;
 
-    export interface Browser {
+    interface Browser {
         activityLog: ActivityLog.Static;
         alarms: Alarms.Static;
         bookmarks: Bookmarks.Static;
@@ -177,6 +177,7 @@ declare namespace Browser {
         scripting: Scripting.Static;
     }
 
+    /* tslint:disable:strict-export-declare-modifiers */
     export import ActivityLog = ImportedActivityLog;
     export import Alarms = ImportedAlarms;
     export import Bookmarks = ImportedBookmarks;
@@ -232,7 +233,9 @@ declare namespace Browser {
     export import WebRequest = ImportedWebRequest;
     export import Windows = ImportedWindows;
     export import Scripting = ImportedScripting;
+    /* tslint:enable:strict-export-declare-modifiers */
 }
 
+// tslint:disable-next-line:export-just-namespace
 export = Browser;
 export as namespace browser;
