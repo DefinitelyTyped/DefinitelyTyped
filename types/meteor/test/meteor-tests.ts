@@ -854,28 +854,36 @@ namespace MeteorTests {
     Blaze.toHTMLWithData(testView, function () {});
 
     var reactiveDict1 = new ReactiveDict();
-    var reactiveDict2 = new ReactiveDict();
+    reactiveDict1.set('foo', 'bar');
+
+    var reactiveDict2 = new ReactiveDict<{ foo: string }>();
+    reactiveDict2.set({ foo: 'bar' });
+    reactiveDict2.set('foo2', 'bar'); // $ExpectError
+
     var reactiveDict3 = new ReactiveDict('reactive-dict-3');
     var reactiveDict4 = new ReactiveDict('reactive-dict-4', { foo: 'bar' });
     var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar' });
 
-    reactiveDict1.setDefault('foo', 'bar');
-    reactiveDict1.setDefault({ foo: 'bar' });
+    reactiveDict5.setDefault('foo', 'bar');
+    reactiveDict5.setDefault({ foo: 'bar' });
 
-    reactiveDict1.set('foo', 'bar');
-    reactiveDict2.set({ foo: 'bar' });
+    reactiveDict5.set('foo', 'bar');
+    reactiveDict5.set({ foo: 'bar' });
 
-    reactiveDict1.get('foo') === 'bar';
+    reactiveDict5.set('foo2', 'bar'); // $ExpectError
+    reactiveDict5.set('foo', 2); // $ExpectError
 
-    reactiveDict1.equals('foo', 'bar');
+    reactiveDict5.get('foo') === 'bar';
 
-    reactiveDict1.all();
+    reactiveDict5.equals('foo', 'bar');
 
-    reactiveDict1.clear();
+    reactiveDict5.all();
 
-    reactiveDict1.destroy();
+    reactiveDict5.clear();
 
-    var reactiveVar1 = new ReactiveVar<string>('test value');
+    reactiveDict5.destroy();
+
+    var reactiveVar1 = new ReactiveVar('test value');
     var reactiveVar2 = new ReactiveVar<string>('test value', (oldVal, newVal) => oldVal.length === newVal.length);
 
     var varValue: string = reactiveVar1.get();
