@@ -1,6 +1,6 @@
 import jsan = require('jsan');
 
-const options = {
+const options: jsan.Options = {
     refs: false,
     date: true,
     function: true,
