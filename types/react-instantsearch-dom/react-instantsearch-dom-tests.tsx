@@ -12,7 +12,8 @@ import {
   Configure,
   Index,
   SortBy,
-  HitsPerPage
+  HitsPerPage,
+  MenuSelect
 } from 'react-instantsearch/dom';
 import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-core';
 
@@ -299,4 +300,24 @@ const test = () => {
       }))
     }
    />
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/menu-select/react/
+  <MenuSelect
+    id="menu-select"
+    attribute="brand"
+    // Optional parameters
+    defaultRefinement="Apple"
+    limit={20}
+    transformItems={items =>
+      items.map(item => ({
+        ...item,
+        label: item.label.toUpperCase(),
+      }))
+    }
+    translations={{
+      seeAllOption: 'See all',
+    }}
+  />
 };

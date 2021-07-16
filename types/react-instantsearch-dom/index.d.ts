@@ -95,7 +95,16 @@ export interface HitsPerPageProps {
 export class HitsPerPage extends React.Component<HitsPerPageProps> {}
 export class InfiniteHits extends React.Component<any> {}
 export class Menu extends React.Component<any> {}
-export class MenuSelect extends React.Component<any> {}
+export interface MenuSelectProps {
+  attribute: string;
+  // Optional parameters
+  id?: string;
+  defaultRefinement?: string;
+  limit?: number;
+  transformItems?(items: RefinementItem<string>[]): RefinementItem<string>[];
+  translations?: { seeAllOption?: string };
+}
+export class MenuSelect extends React.Component<MenuSelectProps> {}
 export class NumericMenu extends React.Component<any> {}
 export class Pagination extends React.Component<any> {}
 export class Panel extends React.Component<any> {}
