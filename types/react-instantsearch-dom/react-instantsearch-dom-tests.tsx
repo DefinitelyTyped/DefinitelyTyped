@@ -12,6 +12,7 @@ import {
   Configure,
   Index,
   SortBy,
+  HitsPerPage
 } from 'react-instantsearch/dom';
 import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-core';
 
@@ -263,7 +264,6 @@ const test = () => {
   });
 };
 
-
 () => {
   // https://www.algolia.com/doc/api-reference/widgets/sort-by/react/
   <SortBy
@@ -280,4 +280,23 @@ const test = () => {
       }))
     }
   />
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/hits-per-page/react/
+  <HitsPerPage
+    id="hits-per-page"
+    items={[
+      { value: 5, label: 'Show 5 hits' },
+      { value: 10, label: 'Show 10 hits' },
+    ]}
+    defaultRefinement={5}
+    // Optional parameters
+    transformItems={items =>
+      items.map(item => ({
+        ...item,
+        label: item.label.toUpperCase(),
+      }))
+    }
+   />
 };

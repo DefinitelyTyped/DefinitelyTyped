@@ -71,6 +71,11 @@ export class CurrentRefinements extends React.Component<any> {}
 export class HierarchicalMenu extends React.Component<any> {}
 export class Highlight extends React.Component<any> {}
 
+export interface RefinementItem<T> {
+  value: T;
+  label: string;
+}
+
 export interface HitsProps<T> {
   hitComponent?: React.ComponentType<{ hit: Hit<T> }> | undefined;
 }
@@ -81,7 +86,13 @@ export interface HitsProps<T> {
  * https://community.algolia.com/react-instantsearch/widgets/Hits.html
  */
 export class Hits<T = BasicDoc> extends React.Component<HitsProps<T>> {}
-export class HitsPerPage extends React.Component<any> {}
+export interface HitsPerPageProps {
+  items: RefinementItem<number>[];
+  defaultRefinement: number;
+  id?: string;
+  transformItems?(items: RefinementItem<number>[]): RefinementItem<number>[];
+}
+export class HitsPerPage extends React.Component<HitsPerPageProps> {}
 export class InfiniteHits extends React.Component<any> {}
 export class Menu extends React.Component<any> {}
 export class MenuSelect extends React.Component<any> {}
@@ -129,15 +140,11 @@ export class RelevantSort extends React.Component<{
   textComponent?: React.FunctionComponent<RelevantSortComponentProps> | undefined;
 }> {}
 
-export interface IndexItem {
-  value: string;
-  label: string;
-}
 export interface SortByProps {
-  items: IndexItem[];
+  items: RefinementItem<string>[];
   defaultRefinement: string;
   id?: string;
-  transformItems?(items: IndexItem[]): IndexItem[];
+  transformItems?(items: RefinementItem<string>[]): RefinementItem<string>[];
 }
 export class SortBy extends React.Component<SortByProps> {}
 /**
