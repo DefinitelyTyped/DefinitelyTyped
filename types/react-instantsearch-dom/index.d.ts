@@ -128,7 +128,18 @@ export class RelevantSort extends React.Component<{
   buttonTextComponent?: React.FunctionComponent<RelevantSortComponentProps> | undefined;
   textComponent?: React.FunctionComponent<RelevantSortComponentProps> | undefined;
 }> {}
-export class SortBy extends React.Component<any> {}
+
+export interface IndexItem {
+  value: string;
+  label: string;
+}
+export interface SortByProps {
+  items: IndexItem[];
+  defaultRefinement: string;
+  id?: string;
+  transformItems?(items: IndexItem[]): IndexItem[];
+}
+export class SortBy extends React.Component<SortByProps> {}
 /**
  * The Stats component displays the total number of matching hits and the time it took to get them (time spent in the Algolia server).
  */

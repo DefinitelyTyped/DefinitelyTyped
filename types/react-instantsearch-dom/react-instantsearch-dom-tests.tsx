@@ -11,6 +11,7 @@ import {
   Menu,
   Configure,
   Index,
+  SortBy,
 } from 'react-instantsearch/dom';
 import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-core';
 
@@ -260,4 +261,23 @@ const test = () => {
   </html>`
     );
   });
+};
+
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/sort-by/react/
+  <SortBy
+    id="sort-by"
+    defaultRefinement={'dev_index'}
+    items={[
+      { value: 'dev_index', label: 'Relevance' },
+      { value: 'dev_index_name_asc', label: 'Alphabetical' },
+    ]}
+    transformItems={items =>
+      items.map(item => ({
+        ...item,
+        label: item.label.toUpperCase(),
+      }))
+    }
+  />
 };
