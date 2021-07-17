@@ -10,6 +10,7 @@
 //                 Mei Qingguang <https://github.com/meikidd>
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -4704,21 +4705,6 @@ declare namespace videojs {
         bufferedPercent(): number;
 
         /**
-         * Check if the tech can support the given mime-type.
-         *
-         * The base tech does not support any type, but source handlers might
-         * overwrite this.
-         *
-         * @param type
-         *         The mimetype to check for support
-         *
-         * @return 'probably', 'maybe', or empty string
-         *
-         * @see [Spec]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canPlayType}
-         */
-        canPlayType(type: string): string;
-
-        /**
          * Remove any TextTracks added via addRemoteTextTrack that are
          * flagged for automatic garbage collection
          */
@@ -4992,19 +4978,22 @@ declare namespace videojs {
          *        The options passed to the tech
          * @return 'probably', 'maybe', or '' (empty string)
          */
-        canPlaySource(srcObj: any, options: any): 'problably' | 'maybe' | '';
+        canPlaySource(srcObj: any, options: any): CanPlayTypeResult;
 
         /**
-         * Check if the type is supported by this tech.
+         * Check if the tech can support the given mime-type.
          *
          * The base tech does not support any type, but source handlers might
          * overwrite this.
          *
          * @param type
-         *        The media type to check
-         * @return Returns the native video element's response
+         *         The mimetype to check for support
+         *
+         * @return 'probably', 'maybe', or '' (empty string)
+         *
+         * @see [Spec]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canPlayType}
          */
-        canPlayType(type: string): string;
+        canPlayType(type: string): CanPlayTypeResult;
 
         /**
          * Get a `Tech` from the shared list by name.
@@ -6169,7 +6158,7 @@ export interface VideoJsPlayer extends videojs.Component {
      *
      * @return 'probably', 'maybe', or '' (empty string)
      */
-    canPlayType(type: string): 'probably' | 'maybe' | '';
+    canPlayType(type: string): CanPlayTypeResult;
 
     cancelFullScreen(): videojs.Player;
 
