@@ -159,7 +159,7 @@ auth0.auth.passwordlessWithEmail({
 auth0.auth.passwordlessWithSMS({
     phoneNumber: '+5491159991000',
     send: 'code',
-    authParams: {scope: 'openid offline_access'},
+    authParams: { scope: 'openid offline_access' },
 });
 
 auth0.auth.loginWithEmail({
