@@ -110,8 +110,8 @@ export interface PasswordlessWithEmailParams {
 
 export interface PasswordlessWithSMSParams {
     phoneNumber: string;
-    send?: 'link' | 'code' | undefined;
-    authParams?: AuthParams | undefined;
+    send?: 'link' | 'code';
+    authParams?: AuthParams;
 }
 
 export interface LoginWithEmailParams {
