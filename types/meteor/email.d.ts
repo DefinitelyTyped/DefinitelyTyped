@@ -1,4 +1,4 @@
-declare module "meteor/email" {
+declare module 'meteor/email' {
     module Email {
         function send(options: {
             from?: string | undefined;

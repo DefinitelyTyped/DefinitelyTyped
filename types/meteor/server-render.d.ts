@@ -1,5 +1,5 @@
-import * as http from "http";
-declare module "meteor/server-render" {
+import * as http from 'http';
+declare module 'meteor/server-render' {
     interface Sink {
         request?: http.IncomingMessage | undefined;
         arch?: string | undefined;
@@ -19,6 +19,6 @@ declare module "meteor/server-render" {
         getCookies?(): { [key: string]: string };
     }
 
-    type Callback = (sink: Sink) => Promise <any> | any;
+    type Callback = (sink: Sink) => Promise<any> | any;
     export function onPageLoad<T extends Callback>(callback: T): T;
 }

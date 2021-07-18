@@ -7,6 +7,7 @@ const myInit: RequestInit = {
     method: 'GET',
     headers: myHeaders,
     mode: 'cors',
+    signal: new AbortSignal(),
 };
 
 const myRequest = new Request('flowers.jpg');

@@ -1,11 +1,11 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex, addAbortSignal } from 'stream';
-import { promisify } from 'util';
-import { createReadStream, createWriteStream } from 'fs';
-import { createGzip, constants } from 'zlib';
-import assert = require('assert');
-import { Http2ServerResponse } from 'http2';
-import { pipeline as pipelinePromise } from 'stream/promises';
-import { stdout } from 'process';
+import { Readable, Writable, Transform, finished, pipeline, Duplex, addAbortSignal } from 'node:stream';
+import { promisify } from 'node:util';
+import { createReadStream, createWriteStream } from 'node:fs';
+import { createGzip, constants } from 'node:zlib';
+import assert = require('node:assert');
+import { Http2ServerResponse } from 'node:http2';
+import { pipeline as pipelinePromise } from 'node:stream/promises';
+import { stdout } from 'node:process';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {

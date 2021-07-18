@@ -1,4 +1,4 @@
-import cluster, { ClusterSettings, Worker } from 'cluster'; // requires synthetic default imports, is this worth it?
+import cluster, { ClusterSettings, Worker } from 'node:cluster'; // requires synthetic default imports, is this worth it?
 cluster.fork();
 Object.keys(cluster.workers!).forEach(key => {
     const worker = cluster.workers![key];

@@ -1,9 +1,9 @@
-import { Editor } from '@ckeditor/ckeditor5-core';
 import Clipboard from '@ckeditor/ckeditor5-clipboard';
-import plainTextToHTML from '@ckeditor/ckeditor5-clipboard/src/utils/plaintexttohtml';
 import normalizeClipboardData from '@ckeditor/ckeditor5-clipboard/src/utils/normalizeclipboarddata';
+import plainTextToHTML from '@ckeditor/ckeditor5-clipboard/src/utils/plaintexttohtml';
 import viewToPlainText from '@ckeditor/ckeditor5-clipboard/src/utils/viewtoplaintext';
-import EmptyElement from '@ckeditor/ckeditor5-engine/src/view/emptyelement';
+import { Editor } from '@ckeditor/ckeditor5-core';
+import { DowncastWriter, StylesProcessor, ViewDocument } from '@ckeditor/ckeditor5-engine';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -25,4 +25,4 @@ plainTextToHTML(plainTextToHTML(''));
 
 normalizeClipboardData(plainTextToHTML(''));
 
-plainTextToHTML(viewToPlainText(new EmptyElement()));
+plainTextToHTML(viewToPlainText(new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement('div')));

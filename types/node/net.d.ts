@@ -1,7 +1,7 @@
 declare module 'net' {
-    import * as stream from 'stream';
-    import { Abortable, EventEmitter } from 'events';
-    import * as dns from 'dns';
+    import * as stream from 'node:stream';
+    import { Abortable, EventEmitter } from 'node:events';
+    import * as dns from 'node:dns';
 
     type LookupFunction = (
         hostname: string,
