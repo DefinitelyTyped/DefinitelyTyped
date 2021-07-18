@@ -12,7 +12,6 @@
 //                 Carson Full <https://github.com/carsonf>
 //                 Hugo Silva <https://github.com/hugofpsilva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
 
 export * from './src/luxon';
 

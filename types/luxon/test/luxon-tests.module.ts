@@ -248,6 +248,8 @@ Settings.now = () => 0;
 Settings.now = 0; // $ExpectError
 Settings.resetCaches();
 
+Settings.defaultZone = ianaZone;
+Settings.defaultZone = 'America/Los_Angeles';
 Settings.defaultZone = Settings.defaultZone;
 
 // The following tests were coped from the docs
