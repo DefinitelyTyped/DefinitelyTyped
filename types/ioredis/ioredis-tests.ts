@@ -783,6 +783,7 @@ redis.pipeline()
 
 redis.options.host;
 redis.status;
+cluster.isCluster;
 cluster.options.maxRedirections;
 cluster.status;
 

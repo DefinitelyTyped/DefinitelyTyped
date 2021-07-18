@@ -6,13 +6,16 @@
 //                 Titus Wormer <https://github.com/wooorm>
 //                 Junyoung Choi <https://github.com/rokt33r>
 //                 Ben Moon <https://github.com/GuiltyDolphin>
+//                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
 /**
  * Syntactic units in unist syntax trees are called nodes.
+ *
+ * @typeParam TData Information from the ecosystem. Useful for more specific {@link Node.data}.
  */
-export interface Node {
+export interface Node<TData extends object = Data> {
     /**
      * The variant of a node.
      */
@@ -21,7 +24,7 @@ export interface Node {
     /**
      * Information from the ecosystem.
      */
-    data?: Data | undefined;
+    data?: TData | undefined;
 
     /**
      * Location of a node in a source document.
@@ -80,18 +83,32 @@ export interface Point {
 }
 
 /**
- * Nodes containing other nodes.
+ * Util for extracting type of {@link Node.data}
+ *
+ * @typeParam TNode Specific node type such as {@link Node} with {@link Data}, {@link Literal}, etc.
+ *
+ * @example `NodeData<Node<{ key: string }>>` -> `{ key: string }`
  */
-export interface Parent extends Node {
+export type NodeData<TNode extends Node<object>> = TNode extends Node<infer TData> ? TData : never;
+
+/**
+ * Nodes containing other nodes.
+ *
+ * @typeParam ChildNode Node item of {@link Parent.children}
+ */
+export interface Parent<ChildNode extends Node<object> = Node, TData extends object = NodeData<ChildNode>>
+    extends Node<TData> {
     /**
      * List representing the children of a node.
      */
-    children: Node[];
+    children: ChildNode[];
 }
 
 /**
  * Nodes containing a value.
+ *
+ * @typeParam Value Specific value type of {@link Literal.value} such as `string` for `Text` node
  */
-export interface Literal extends Node {
-    value: unknown;
+export interface Literal<Value = unknown, TData extends object = Data> extends Node<TData> {
+    value: Value;
 }

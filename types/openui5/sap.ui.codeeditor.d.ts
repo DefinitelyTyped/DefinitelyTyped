@@ -1,9 +1,11 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/codeeditor/library" {}
 
 declare module "sap/ui/codeeditor/CodeEditor" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -82,7 +84,25 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.codeeditor.CodeEditor`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
+     *
+     * Fired when the value has changed and the focus leaves the code editor.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -105,7 +125,25 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.codeeditor.CodeEditor`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
+     *
+     * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -120,7 +158,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -135,7 +173,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -173,11 +211,11 @@ declare module "sap/ui/codeeditor/CodeEditor" {
         /**
          * The current value of the code editor.
          */
-        value?: string | undefined;
+        value?: string;
         /**
          * The old value of the code editor.
          */
-        oldValue?: string | undefined;
+        oldValue?: string;
       }
     ): this;
     /**
@@ -191,11 +229,11 @@ declare module "sap/ui/codeeditor/CodeEditor" {
         /**
          * The current value of the code editor.
          */
-        value?: string | undefined;
+        value?: string;
         /**
          * The underlying change event of the third-party code editor.
          */
-        editorEvent?: object | undefined;
+        editorEvent?: object;
       }
     ): this;
     /**
@@ -482,49 +520,13 @@ declare module "sap/ui/codeeditor/CodeEditor" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.codeeditor.CodeEditor`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
-     *
-     * Fired when the value has changed and the focus leaves the code editor.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.codeeditor.CodeEditor`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
-     *
-     * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CodeEditorSettings extends $ControlSettings {
     /**
      * The value displayed in the code editor
      */
-    value?: string | PropertyBindingInfo | undefined;
+    value?: string | PropertyBindingInfo;
 
     /**
      * The type of the code in the editor used for syntax highlighting Possible types are: abap, abc, actionscript,
@@ -541,33 +543,33 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * velocity, verilog, vhdl, wollok, xml, xquery, yaml, terraform, slim, redshift, red, puppet, php_laravel_blade,
      * mixal, jssm, fsharp, edifact, csp, cssound_score, cssound_orchestra, cssound_document,
      */
-    type?: string | PropertyBindingInfo | undefined;
+    type?: string | PropertyBindingInfo;
 
     /**
      * The width of the code editor
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * The height of the code editor. A minimal height of 3rem will be applied in case the height is less than
      * 20px.
      */
-    height?: CSSSize | PropertyBindingInfo | undefined;
+    height?: CSSSize | PropertyBindingInfo;
 
     /**
      * Sets whether the code in the editor can be changed by the user
      */
-    editable?: boolean | PropertyBindingInfo | undefined;
+    editable?: boolean | PropertyBindingInfo;
 
     /**
      * Sets whether line numbers should be shown
      */
-    lineNumbers?: boolean | PropertyBindingInfo | undefined;
+    lineNumbers?: boolean | PropertyBindingInfo;
 
     /**
      * Sets whether the code is automatically selected if a value is set
      */
-    valueSelection?: boolean | PropertyBindingInfo | undefined;
+    valueSelection?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.48.1
@@ -578,7 +580,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * **Note:** Keep in mind that the auto expand `CodeEditor` behavior requires the `height` property to be
      * set to `auto`.
      */
-    maxLines?: int | PropertyBindingInfo | undefined;
+    maxLines?: int | PropertyBindingInfo;
 
     /**
      * Sets the editors color theme Possible values are: default, hcb, hcb_bright, hcb_blue, theme-ambiance,
@@ -587,22 +589,22 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * monokai, pastel_on_dark, solarized_dark, solarized_light, sqlserver, terminal, textmate, tomorrow, tomorrow_night,
      * tomorrow_night_blue, tomorrow_night_bright, tomorrow_night_eighties, twilight, dracula vibrant_ink, xcode
      */
-    colorTheme?: string | PropertyBindingInfo | undefined;
+    colorTheme?: string | PropertyBindingInfo;
 
     /**
      * Sets whether to show syntax hints the editor. This flag is only available if line numbers are shown.
      */
-    syntaxHints?: boolean | PropertyBindingInfo | undefined;
+    syntaxHints?: boolean | PropertyBindingInfo;
 
     /**
      * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
      */
-    liveChange?: Function | undefined;
+    liveChange?: Function;
 
     /**
      * Fired when the value has changed and the focus leaves the code editor.
      */
-    change?: Function | undefined;
+    change?: Function;
   }
 }
 

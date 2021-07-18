@@ -23,7 +23,7 @@ declare type float = number;
 declare type global_Element = Element;
 
 declare namespace sap {
-  export type ClassInfo<T, C> = T & ThisType<T & C>;
+  export type ClassInfo<T, C> = T & Partial<C> & ThisType<T & C>;
 }
 
 declare type jQuery<T = HTMLElement> = JQuery<T>;
@@ -37,7 +37,238 @@ declare namespace QUnit {
   export type Assert = typeof QUnit.assert;
 }
 
-// For Library Version: 1.91.0
+interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
+  /**
+   * Adds the given ID reference to the aria-describedby attribute.
+   */
+  addAriaDescribedBy(
+    /**
+     * The ID reference of an element
+     */
+    sId: string,
+    /**
+     * whether prepend or not
+     */
+    bPrepend?: boolean
+  ): jQuery;
+
+  /**
+   * Adds the given ID reference to the aria-labelledby attribute.
+   */
+  addAriaLabelledBy(
+    /**
+     * The ID reference of an element
+     */
+    sId: string,
+    /**
+     * Whether prepend or not
+     */
+    bPrepend?: boolean
+  ): jQuery;
+
+  /**
+   * Extension function to the jQuery.fn which identifies SAPUI5 controls in the given jQuery context.
+   */
+  control(
+    /**
+     * Whether or not to respect the associated DOM elements to a control via <code>data-sap-ui-related</code> attribute.
+     */
+    includeRelated?: boolean
+  ): Array<import("sap/ui/core/Control").default>;
+
+  /**
+   * Extension function to the jQuery.fn which identifies SAPUI5 controls in the given jQuery context.
+   */
+  control(
+    /**
+     * Parameter to return the control instance at the given index in the array.
+     */
+    index: int,
+    /**
+     * Whether or not to respect the associated DOM elements to a control via <code>data-sap-ui-related</code> attribute.
+     */
+    includeRelated?: boolean
+  ): import("sap/ui/core/Control").default | null;
+
+  /**
+   * Gets the position of the cursor in an element that supports cursor positioning.
+   */
+  cursorPos(): int;
+
+  /**
+   * Sets the position of the cursor in an element that supports cursor positioning.
+   */
+  cursorPos(
+    /**
+     * The cursor position to set
+     */
+    iPos: int
+  ): jQuery;
+
+  /**
+   * Disable HTML elements selection.
+   */
+  disableSelection(): jQuery;
+
+  /**
+   * Enable HTML elements to get selected.
+   */
+  enableSelection(): jQuery;
+
+  /**
+   * Returns the first focusable domRef in a given container (the first element of the collection)
+   */
+  firstFocusableDomRef(): Element;
+
+  /**
+   * Retrieve the selected text in the first element of the collection.
+   *
+   * <b>Note</b>: This feature is only supported for input element’s type of text, search, url, tel and password.
+   */
+  getSelectedText(): string;
+
+  /**
+   * Returns <code>true</code> if the first element has a set tabindex.
+   */
+  hasTabIndex(): boolean;
+
+  /**
+   * Returns the last focusable domRef in a given container
+   */
+  lastFocusableDomRef(): Element;
+
+  /**
+   * Gets the next parent DOM element with a given attribute and attribute value starting above the first given element
+   */
+  parentByAttribute(
+    /**
+     * Name of the attribute
+     */
+    sAttribute: string,
+    /**
+     * Value of the attribute (optional)
+     */
+    sValue: string
+  ): Element;
+
+  /**
+   * Returns a rectangle describing the current visual positioning of the first DOM object in the collection
+   * (or <code>null</code> if no element was given).
+   */
+  rect(): object;
+
+  /**
+   * Returns whether a point described by X and Y is inside this Rectangle's boundaries.
+   */
+  rectContains(
+    /**
+     * The X coordinate
+     */
+    posX: int,
+    /**
+     * The Y coordinate
+     */
+    posY: int
+  ): boolean;
+
+  /**
+   * Removes the given ID reference from the aria-describedby attribute.
+   */
+  removeAriaDescribedBy(
+    /**
+     * The ID reference of an element
+     */
+    sId: string
+  ): jQuery;
+
+  /**
+   * Removes the given ID reference from the aria-labelledby attribute.
+   */
+  removeAriaLabelledBy(
+    /**
+     * The ID reference of an element
+     */
+    sId: string
+  ): jQuery;
+
+  /**
+   * Returns the scrollLeft value of the first element in the given jQuery collection in right-to-left mode.
+   *
+   * Precondition: The element is rendered in RTL mode.
+   *
+   * Reason for this method is that the major browsers use three different values for the same scroll position
+   * when in RTL mode. This method hides those differences and returns/applies the same value that would be
+   * returned in LTR mode: The distance in px how far the given container is scrolled away from the leftmost
+   * scroll position.
+   *
+   * Returns "undefined" if no element is given.
+   */
+  scrollLeftRTL(): int | undefined;
+
+  /**
+   * Sets the scrollLeft value of the first element in the given jQuery collection in right-to-left mode.
+   *
+   * Precondition: The element is rendered in RTL mode.
+   *
+   * Reason for this method is that the major browsers use three different values for the same scroll position
+   * when in RTL mode. This method hides those differences and returns/applies the same value that would be
+   * returned in LTR mode: The distance in px how far the given container is scrolled away from the leftmost
+   * scroll position.
+   */
+  scrollLeftRTL(
+    /**
+     * The desired scroll position
+     */
+    iPos: int
+  ): jQuery;
+
+  /**
+   * Returns the MIRRORED scrollLeft value of the first element in the given jQuery collection in right-to-left mode.
+   *
+   * Precondition: The element is rendered in RTL mode.
+   *
+   * Reason for this method is that the major browsers return three different values for the same scroll position
+   * when in RTL mode. This method hides those differences and returns the value that would be returned in LTR mode
+   * if the UI would be mirrored horizontally: The distance in px how far the given container is scrolled away
+   * from the rightmost scroll position.
+   *
+   * Returns "undefined" if no element is in the given jQuery collection.
+   */
+  scrollRightRTL(): int | undefined;
+
+  /**
+   * Sets the text selection in the first element of the collection.
+   *
+   * <b>Note</b>: This feature is only supported for input element’s type of text, search, url, tel and password.
+   */
+  selectText(
+    /**
+     * Start position of the selection (inclusive)
+     */
+    iStart: int,
+    /**
+     * End position of the selection (exclusive)
+     */
+    iEnd: int
+  ): jQuery;
+
+  /**
+   * Get the z-index for an element.
+   */
+  zIndex(): number;
+
+  /**
+   * Set the z-index for an element.
+   */
+  zIndex(
+    /**
+     * The z-index to set
+     */
+    zIndex: int
+  ): jQuery;
+}
+
+// For Library Version: 1.92.0
 
 declare module "sap/base/assert" {
   /**
@@ -93,7 +324,9 @@ declare module "sap/base/i18n/ResourceBundle" {
    * Exception: Fallback for "zh_HK" is "zh_TW" before "zh".
    */
   export default class ResourceBundle {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -118,27 +351,27 @@ declare module "sap/base/i18n/ResourceBundle" {
          * e.g. "mybundle.properties") if not provided, `bundleUrl` or `bundleName` can be used; if both are set,
          * `bundleName` wins
          */
-        url?: string | undefined;
+        url?: string;
         /**
          * URL pointing to the base .properties file of a bundle (.properties file without any locale information,
          * e.g. "i18n/mybundle.properties")
          */
-        bundleUrl?: string | undefined;
+        bundleUrl?: string;
         /**
          * UI5 module name in dot notation pointing to the base .properties file of a bundle (.properties file without
          * any locale information, e.g. "i18n.mybundle")
          */
-        bundleName?: string | undefined;
+        bundleName?: string;
         /**
          * Optional locale (aka 'language tag') to load the texts for. Can either be a BCP47 language tag or a JDK
          * compatible locale string (e.g. "en-GB", "en_GB" or "en"). Defaults to the current session locale if `sap.ui.getCore`
          * is available, otherwise to the provided `fallbackLocale`
          */
-        locale?: string | undefined;
+        locale?: string;
         /**
          * Whether to include origin information into the returned property values
          */
-        includeInfo?: boolean | undefined;
+        includeInfo?: boolean;
         /**
          * List of supported locales (aka 'language tags') to restrict the fallback chain. Each entry in the array
          * can either be a BCP47 language tag or a JDK compatible locale string (e.g. "en-GB", "en_GB" or "en").
@@ -148,37 +381,37 @@ declare module "sap/base/i18n/ResourceBundle" {
          * like "sh" and the `supportedLocales` contains [...,"sr",...], "sr" will be used in the URL. This mapping
          * works in both directions.
          */
-        supportedLocales?: string[] | undefined;
+        supportedLocales?: string[];
         /**
          * A fallback locale to be used after all locales derived from `locale` have been tried, but before the
          * 'raw' bundle is used. Can either be a BCP47 language tag or a JDK compatible locale string (e.g. "en-GB",
          * "en_GB" or "en"). To prevent a generic fallback, use the empty string (`""`). E.g. by providing `fallbackLocale:
          * ""` and `supportedLocales: ["en"]`, only the bundle "en" is requested without any fallback.
          */
-        fallbackLocale?: string | undefined;
+        fallbackLocale?: string;
         /**
          * map of terminologies. The key is the terminology identifier and the value is a ResourceBundle terminology
          * configuration. A terminology is a resource bundle configuration for a specific use case (e.g. "oil").
          * It does neither have a `fallbackLocale` nor can it be enhanced with `enhanceWith`.
          */
-        terminologies?: Record<string, TerminologyConfiguration> | undefined;
+        terminologies?: Record<string, TerminologyConfiguration>;
         /**
          * The list of active terminologies, e.g. `["oil", "retail"]`. The order in this array represents the lookup
          * order.
          */
-        activeTerminologies?: string[] | undefined;
+        activeTerminologies?: string[];
         /**
          * List of ResourceBundle configurations which enhance the current one. The order of the enhancements is
          * significant, because the lookup checks the last enhancement first. Each enhancement represents a ResourceBundle
          * with limited options ('bundleUrl', 'bundleName', 'terminologies', 'fallbackLocale', 'supportedLocales').
          * Note: supportedLocales and fallbackLocale are inherited from the parent ResourceBundle if not present.
          */
-        enhanceWith?: Configuration[] | undefined;
+        enhanceWith?: Configuration[];
         /**
          * Whether the first bundle should be loaded asynchronously Note: Fallback bundles loaded by {@link #getText}
          * are always loaded synchronously.
          */
-        async?: boolean | undefined;
+        async?: boolean;
       }
     ): ResourceBundle | Promise<ResourceBundle>;
     /**
@@ -243,12 +476,12 @@ declare module "sap/base/i18n/ResourceBundle" {
      * URL pointing to the base .properties file of a bundle (.properties file without any locale information,
      * e.g. "i18n/mybundle.properties")
      */
-    bundleUrl?: string | undefined;
+    bundleUrl?: string;
     /**
      * UI5 module name in dot notation pointing to the base .properties file of a bundle (.properties file without
      * any locale information, e.g. "i18n.mybundle")
      */
-    bundleName?: string | undefined;
+    bundleName?: string;
     /**
      * List of supported locales (aka 'language tags') to restrict the fallback chain. Each entry in the array
      * can either be a BCP47 language tag or a JDK compatible locale string (e.g. "en-GB", "en_GB" or "en").
@@ -258,7 +491,7 @@ declare module "sap/base/i18n/ResourceBundle" {
      * like "sh" and the `supportedLocales` contains [...,"sr",...], "sr" will be used in the URL. This mapping
      * works in both directions.
      */
-    supportedLocales?: string[] | undefined;
+    supportedLocales?: string[];
     /**
      * A fallback locale to be used after all locales derived from `locale` have been tried, but before the
      * 'raw' bundle is used. Can either be a BCP47 language tag or a JDK compatible locale string (e.g. "en-GB",
@@ -266,13 +499,13 @@ declare module "sap/base/i18n/ResourceBundle" {
      * E.g. by providing `fallbackLocale: ""` and `supportedLocales: ["en"]`, only the bundle "en" is requested
      * without any fallback.
      */
-    fallbackLocale?: string | undefined;
+    fallbackLocale?: string;
     /**
      * An object, mapping a terminology identifier (e.g. "oil") to a `ResourceBundle.TerminologyConfiguration`.
      * A terminology is a resource bundle configuration for a specific use case (e.g. "oil"). It does neither
      * have a `fallbackLocale` nor can it be enhanced with `enhanceWith`.
      */
-    terminologies?: Record<string, TerminologyConfiguration> | undefined;
+    terminologies?: Record<string, TerminologyConfiguration>;
   };
 
   /**
@@ -290,12 +523,12 @@ declare module "sap/base/i18n/ResourceBundle" {
      * URL pointing to the base .properties file of a bundle (.properties file without any locale information,
      * e.g. "i18n/mybundle.properties")
      */
-    bundleUrl?: string | undefined;
+    bundleUrl?: string;
     /**
      * UI5 module name in dot notation pointing to the base .properties file of a bundle (.properties file without
      * any locale information, e.g. "i18n.mybundle")
      */
-    bundleName?: string | undefined;
+    bundleName?: string;
     /**
      * List of supported locales (aka 'language tags') to restrict the fallback chain. Each entry in the array
      * can either be a BCP47 language tag or a JDK compatible locale string (e.g. "en-GB", "en_GB" or "en").
@@ -305,7 +538,7 @@ declare module "sap/base/i18n/ResourceBundle" {
      * like "sh" and the `supportedLocales` contains [...,"sr",...], "sr" will be used in the URL. This mapping
      * works in both directions.
      */
-    supportedLocales?: string[] | undefined;
+    supportedLocales?: string[];
   };
 }
 
@@ -877,21 +1110,21 @@ declare module "sap/base/security/URLListValidator" {
     /**
      * The protocol of the URL, can be falsy to allow all protocols for an entry e.g. "", "http", "mailto"
      */
-    protocol?: string | undefined;
+    protocol?: string;
     /**
      * The host of the URL, can be falsy to allow all hosts. A wildcard asterisk can be set at the beginning,
      * e.g. "examples.com", "*.example.com"
      */
-    host?: string | undefined;
+    host?: string;
     /**
      * The port of the URL, can be falsy to allow all ports, e.g. "", "8080"
      */
-    port?: string | undefined;
+    port?: string;
     /**
      * the path of the URL, path of the url, can be falsy to allow all paths. A wildcard asterisk can be set
      * at the end, e.g. "/my-example*", "/my-news"
      */
-    path?: string | undefined;
+    path?: string;
   };
 }
 
@@ -1062,11 +1295,11 @@ declare module "sap/base/util/array/diff" {
     /**
      * Old Array
      */
-    aOld: Array<any>,
+    aOld: any[],
     /**
      * New Array
      */
-    aNew: Array<any>,
+    aNew: any[],
     /**
      * Configuration object or a function to calculate substitute symbols for array items
      */
@@ -1075,11 +1308,11 @@ declare module "sap/base/util/array/diff" {
           /**
            * Function to calculate substitute symbols for array items
            */
-          symbol?: Function | undefined;
+          symbol?: Function;
           /**
            * Switch for the `replace` type which specifies that an item within the array has been changed
            */
-          replace?: boolean | undefined;
+          replace?: boolean;
         }
       | Function
   ): Array<{
@@ -1209,7 +1442,9 @@ declare module "sap/base/util/Deferred" {
    * object can be accessed via the `promise` property of the `Deferred` object.
    */
   export default class Deferred {
-    /**/
+    /**
+     *
+     */
     constructor();
     /**
      * Promise instance of the Deferred
@@ -1298,7 +1533,7 @@ declare module "sap/base/util/includes" {
     /**
      * Collection to be checked
      */
-    vCollection: Array<any> | object | string,
+    vCollection: any[] | object | string,
     /**
      * The value to be checked
      */
@@ -1462,7 +1697,9 @@ declare module "sap/base/util/Properties" {
    * that are currently stored in the collection.
    */
   export default class Properties {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -1484,19 +1721,19 @@ declare module "sap/base/util/Properties" {
         /**
          * The URL to the .properties file which should be loaded
          */
-        url?: string | undefined;
+        url?: string;
         /**
          * Whether the .properties file should be loaded asynchronously or not
          */
-        async?: boolean | undefined;
+        async?: boolean;
         /**
          * A map of additional header key/value pairs to send along with the request (see `headers` option of `jQuery.ajax`)
          */
-        headers?: object | undefined;
+        headers?: object;
         /**
          * Whether `null` should be returned for a missing properties file; by default an empty collection is returned
          */
-        returnNullIfMissing?: object | undefined;
+        returnNullIfMissing?: object;
       }
     ): Properties | null | Promise<any>;
     /**
@@ -2084,11 +2321,11 @@ declare module "sap/ui/dom/includeScript" {
           /**
            * id that should be used for the script tag
            */
-          id?: string | undefined;
+          id?: string;
           /**
            * map of attributes that should be used for the script tag
            */
-          attributes?: object | undefined;
+          attributes?: object;
         },
     /**
      * id that should be used for the script tag or map of attributes
@@ -2127,11 +2364,11 @@ declare module "sap/ui/dom/includeStylesheet" {
           /**
            * id that should be used for the link tag
            */
-          id?: string | undefined;
+          id?: string;
           /**
            * map of attributes that should be used for the script tag
            */
-          attributes?: object | undefined;
+          attributes?: object;
         },
     /**
      * id that should be used for the link tag or map of attributes
@@ -3106,7 +3343,7 @@ declare module "sap/ui/performance/Measurement" {
     /**
      * An optional list of categories for the measure
      */
-    aCategories?: string | string[] | undefined;
+    aCategories?: string | string[];
   };
 }
 
@@ -3287,48 +3524,48 @@ declare module "sap/ui/util/Mobile" {
         /**
          * whether to set the viewport in a way that disables zooming
          */
-        viewport?: boolean | undefined;
+        viewport?: boolean;
         /**
          * the iOS status bar color, "default", "black" or "black-translucent"
          */
-        statusBar?: string | undefined;
+        statusBar?: string;
         /**
          * whether the browser UI should be hidden as far as possible to make the app feel more native
          */
-        hideBrowser?: boolean | undefined;
+        hideBrowser?: boolean;
         /**
          * whether native scrolling should be disabled in order to prevent the "rubber-band" effect where the whole
          * window is moved
          */
-        preventScroll?: boolean | undefined;
+        preventScroll?: boolean;
         /**
          * whether Safari mobile should be prevented from transforming any numbers that look like phone numbers
          * into clickable links
          */
-        preventPhoneNumberDetection?: boolean | undefined;
+        preventPhoneNumberDetection?: boolean;
         /**
          * the ID of the root element that should be made fullscreen; only used when hideBrowser is set. If not
          * set, the body is used
          */
-        rootId?: string | undefined;
+        rootId?: string;
         /**
          * whether the height of the html root element should be set to 100%, which is required for other elements
          * to cover the full height
          */
-        useFullScreenHeight?: boolean | undefined;
+        useFullScreenHeight?: boolean;
         /**
          * deprecated since 1.12, use sap/ui/util/Mobile.setIcons instead.
          */
-        homeIcon?: string | undefined;
+        homeIcon?: string;
         /**
          * deprecated since 1.12, use sap/ui/util/Mobile.setIcons instead.
          */
-        homeIconPrecomposed?: boolean | undefined;
+        homeIconPrecomposed?: boolean;
         /**
          * whether the Application will be loaded in full screen mode after added to home screen on mobile devices.
          * The default value for this property only enables the full screen mode when runs on iOS device.
          */
-        mobileWebAppCapable?: boolean | undefined;
+        mobileWebAppCapable?: boolean;
       }
     ): void;
     /**
@@ -3423,7 +3660,9 @@ declare module "sap/ui/util/Storage" {
    * should be deleted, the method {@link #removeAll} should be used.
    */
   export default class Storage {
-    /**/
+    /**
+     *
+     */
     constructor(
       /**
        * The type this storage should be of or an Object implementing the typical Storage API for direct usage.
@@ -3760,11 +3999,11 @@ declare module "sap/ui/app/Application" {
   }
 
   export interface $ApplicationSettings extends $ComponentSettings {
-    root?: string | PropertyBindingInfo | undefined;
+    root?: string | PropertyBindingInfo;
 
-    config?: any | PropertyBindingInfo | undefined;
+    config?: any | PropertyBindingInfo;
 
-    rootComponent?: UIComponent | undefined;
+    rootComponent?: UIComponent;
   }
 }
 
@@ -3837,7 +4076,9 @@ declare module "sap/ui/base/DataType" {
    * will throw an error.
    */
   export default class DataType {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -3891,11 +4132,11 @@ declare module "sap/ui/base/DataType" {
         /**
          * Additional validity check function for values of the type (inherited if not given)
          */
-        isValid?: Function | undefined;
+        isValid?: Function;
         /**
          * Parse function that converts a locale independent string into a value of the type (inherited if not given)
          */
-        parseValue?: Function | undefined;
+        parseValue?: Function;
       },
       /**
        * Base type for the new type
@@ -4200,6 +4441,27 @@ declare module "sap/ui/base/EventProvider" {
       oListener?: object
     ): this;
     /**
+     * Attaches an event handler to the event with the given identifier.
+     */
+    attachEvent(
+      /**
+       * The identifier of the event to listen for
+       */
+      sEventId: string,
+      /**
+       * The handler function to call when the event occurs. This function will be called in the context of the
+       * `oListener` instance (if present) or on the event provider instance. The event object ({@link sap.ui.base.Event})
+       * is provided as first argument of the handler. Handlers must not change the content of the event. The
+       * second argument is the specified `oData` instance (if present).
+       */
+      fnFunction: Function,
+      /**
+       * The object that wants to be notified when the event occurs (`this` context within the handler function).
+       * If it is not specified, the handler function is called in the context of the event provider.
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches an event handler, called one time only, to the event with the given identifier.
      *
      * When the event occurs, the handler function is called and the handler registration is automatically removed
@@ -4214,6 +4476,30 @@ declare module "sap/ui/base/EventProvider" {
        * An object that will be passed to the handler along with the event object when the event is fired
        */
       oData: object,
+      /**
+       * The handler function to call when the event occurs. This function will be called in the context of the
+       * `oListener` instance (if present) or on the event provider instance. The event object ({@link sap.ui.base.Event})
+       * is provided as first argument of the handler. Handlers must not change the content of the event. The
+       * second argument is the specified `oData` instance (if present).
+       */
+      fnFunction: Function,
+      /**
+       * The object that wants to be notified when the event occurs (`this` context within the handler function).
+       * If it is not specified, the handler function is called in the context of the event provider.
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches an event handler, called one time only, to the event with the given identifier.
+     *
+     * When the event occurs, the handler function is called and the handler registration is automatically removed
+     * afterwards.
+     */
+    attachEventOnce(
+      /**
+       * The identifier of the event to listen for
+       */
+      sEventId: string,
       /**
        * The handler function to call when the event occurs. This function will be called in the context of the
        * `oListener` instance (if present) or on the event provider instance. The event object ({@link sap.ui.base.Event})
@@ -4326,51 +4612,6 @@ declare module "sap/ui/base/EventProvider" {
      * this method.
      */
     toString(): string;
-    /**
-     * Attaches an event handler to the event with the given identifier.
-     */
-    attachEvent(
-      /**
-       * The identifier of the event to listen for
-       */
-      sEventId: string,
-      /**
-       * The handler function to call when the event occurs. This function will be called in the context of the
-       * `oListener` instance (if present) or on the event provider instance. The event object ({@link sap.ui.base.Event})
-       * is provided as first argument of the handler. Handlers must not change the content of the event. The
-       * second argument is the specified `oData` instance (if present).
-       */
-      fnFunction: Function,
-      /**
-       * The object that wants to be notified when the event occurs (`this` context within the handler function).
-       * If it is not specified, the handler function is called in the context of the event provider.
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches an event handler, called one time only, to the event with the given identifier.
-     *
-     * When the event occurs, the handler function is called and the handler registration is automatically removed
-     * afterwards.
-     */
-    attachEventOnce(
-      /**
-       * The identifier of the event to listen for
-       */
-      sEventId: string,
-      /**
-       * The handler function to call when the event occurs. This function will be called in the context of the
-       * `oListener` instance (if present) or on the event provider instance. The event object ({@link sap.ui.base.Event})
-       * is provided as first argument of the handler. Handlers must not change the content of the event. The
-       * second argument is the specified `oData` instance (if present).
-       */
-      fnFunction: Function,
-      /**
-       * The object that wants to be notified when the event occurs (`this` context within the handler function).
-       * If it is not specified, the handler function is called in the context of the event provider.
-       */
-      oListener?: object
-    ): this;
   }
 }
 
@@ -4412,6 +4653,8 @@ declare module "sap/ui/base/Interface" {
 
 declare module "sap/ui/base/ManagedObject" {
   import EventProvider from "sap/ui/base/EventProvider";
+
+  import Event from "sap/ui/base/Event";
 
   import Type from "sap/ui/model/Type";
 
@@ -4864,7 +5107,26 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:formatError formatError} event of this `sap.ui.base.ManagedObject`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.base.ManagedObject` itself.
+     *
+     * Fired when a new value for a bound property should have been propagated from the model, but formatting
+     * the value failed with an exception.
+     */
+    attachFormatError(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -4889,7 +5151,27 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:modelContextChange modelContextChange} event
+     * of this `sap.ui.base.ManagedObject`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.base.ManagedObject` itself.
+     *
+     * Fired when models or contexts are changed on this object (either by calling setModel/setBindingContext
+     * or due to propagation)
+     */
+    attachModelContextChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -4913,7 +5195,26 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:parseError parseError} event of this `sap.ui.base.ManagedObject`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.base.ManagedObject` itself.
+     *
+     * Fired when a new value for a bound property should have been propagated to the model, but parsing the
+     * value failed with an exception.
+     */
+    attachParseError(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -4938,7 +5239,27 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:validationError validationError} event of this
+     * `sap.ui.base.ManagedObject`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.base.ManagedObject` itself.
+     *
+     * Fired when a new value for a bound property should have been propagated to the model, but validating
+     * the value failed with an exception.
+     */
+    attachValidationError(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -4963,7 +5284,27 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:validationSuccess validationSuccess} event of
+     * this `sap.ui.base.ManagedObject`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.base.ManagedObject` itself.
+     *
+     * Fired after a new value for a bound property has been propagated to the model. Only fired, when the binding
+     * uses a data type.
+     */
+    attachValidationSuccess(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
        */
@@ -5045,21 +5386,21 @@ declare module "sap/ui/base/ManagedObject" {
         /**
          * Name of the model to bind against; when `undefined` or omitted, the default model is used
          */
-        model?: string | undefined;
+        model?: string;
         /**
          * Map of additional parameters for this binding; the names and value ranges of the supported parameters
          * depend on the model implementation, they should be documented with the `bindContext` method of the corresponding
          * model class or with the model specific subclass of `sap.ui.model.ContextBinding`
          */
-        parameters?: object | undefined;
+        parameters?: object;
         /**
          * Whether the binding should be suspended initially
          */
-        suspended?: boolean | undefined;
+        suspended?: boolean;
         /**
          * Map of event handler functions keyed by the name of the binding events that they should be attached to
          */
-        events?: object | undefined;
+        events?: object;
       }
     ): this;
     /**
@@ -5194,11 +5535,11 @@ declare module "sap/ui/base/ManagedObject" {
         /**
          * Whether associations and aggregations will be cloned
          */
-        cloneChildren?: boolean | undefined;
+        cloneChildren?: boolean;
         /**
          * Whether bindings will be cloned
          */
-        cloneBindings?: boolean | undefined;
+        cloneBindings?: boolean;
       }
     ): this;
     /**
@@ -5243,7 +5584,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5259,7 +5600,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5274,7 +5615,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5290,7 +5631,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5306,7 +5647,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5691,7 +6032,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * Objects for which this function returns a falsy value will not be added to the result array
        */
-      fnCondition?: Function,
+      fnCondition?: (p1: ManagedObject) => boolean,
       /**
        * Whether binding templates should be included
        */
@@ -5708,15 +6049,15 @@ declare module "sap/ui/base/ManagedObject" {
         /**
          * ManagedObject instance whose property should have received the model update.
          */
-        element?: ManagedObject | undefined;
+        element?: ManagedObject;
         /**
          * Name of the property for which the binding should have been updated.
          */
-        property?: string | undefined;
+        property?: string;
         /**
          * Data type used in the binding (if any).
          */
-        type?: Type | undefined;
+        type?: Type;
         /**
          * New value (model representation) as propagated from the model.
          */
@@ -5747,15 +6088,15 @@ declare module "sap/ui/base/ManagedObject" {
         /**
          * ManagedObject instance whose property initiated the model update.
          */
-        element?: ManagedObject | undefined;
+        element?: ManagedObject;
         /**
          * Name of the property for which the bound model property should have been been updated.
          */
-        property?: string | undefined;
+        property?: string;
         /**
          * Data type used in the binding.
          */
-        type?: Type | undefined;
+        type?: Type;
         /**
          * New value (external representation) as parsed by the binding.
          */
@@ -5767,7 +6108,7 @@ declare module "sap/ui/base/ManagedObject" {
         /**
          * Localized message describing the parse error
          */
-        message?: string | undefined;
+        message?: string;
       }
     ): this;
     /**
@@ -5781,15 +6122,15 @@ declare module "sap/ui/base/ManagedObject" {
         /**
          * ManagedObject instance whose property initiated the model update.
          */
-        element?: ManagedObject | undefined;
+        element?: ManagedObject;
         /**
          * Name of the property for which the bound model property should have been been updated.
          */
-        property?: string | undefined;
+        property?: string;
         /**
          * Data type used in the binding.
          */
-        type?: Type | undefined;
+        type?: Type;
         /**
          * New value (external representation) as parsed and validated by the binding.
          */
@@ -5801,7 +6142,7 @@ declare module "sap/ui/base/ManagedObject" {
         /**
          * Localized message describing the validation issues
          */
-        message?: string | undefined;
+        message?: string;
       }
     ): this;
     /**
@@ -5815,15 +6156,15 @@ declare module "sap/ui/base/ManagedObject" {
         /**
          * ManagedObject instance whose property initiated the model update.
          */
-        element?: ManagedObject | undefined;
+        element?: ManagedObject;
         /**
          * Name of the property for which the bound model property has been updated.
          */
-        property?: string | undefined;
+        property?: string;
         /**
          * Data type used in the binding.
          */
-        type?: Type | undefined;
+        type?: Type;
         /**
          * New value (external representation) as propagated to the model.
          *
@@ -5864,7 +6205,7 @@ declare module "sap/ui/base/ManagedObject" {
        * array will be used for the aggregation from thereon. Sharing the same empty array between different calls
        * to this method therefore is not possible and will result in inconsistencies.
        */
-      oDefaultForCreation?: ManagedObject | Array<any>
+      oDefaultForCreation?: ManagedObject | any[]
     ): ManagedObject | ManagedObject[] | null;
     /**
      * Returns the content of the association with the given name.
@@ -6216,7 +6557,7 @@ declare module "sap/ui/base/ManagedObject" {
       /**
        * The messages
        */
-      aMessages: Array<any>
+      aMessages: any[]
     ): void;
     /**
      * Generic method which can be called, when an aggregation needs to be refreshed. This method does not make
@@ -6311,7 +6652,7 @@ declare module "sap/ui/base/ManagedObject" {
        * if true, this ManagedObject is not marked as changed
        */
       bSuppressInvalidate?: boolean
-    ): Array<any>;
+    ): any[];
     /**
      * Removes a `ManagedObject` from the association named `sAssociationName`.
      *
@@ -6612,7 +6953,7 @@ declare module "sap/ui/base/ManagedObject" {
          * any value that they might provide as detailed reason, and describe under what circumstances each value
          * will be used.
          */
-        detailedReason?: string | undefined;
+        detailedReason?: string;
       }
     ): void;
     /**
@@ -6658,104 +6999,6 @@ declare module "sap/ui/base/ManagedObject" {
        */
       oValue: any
     ): any;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:formatError formatError} event of this `sap.ui.base.ManagedObject`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.base.ManagedObject` itself.
-     *
-     * Fired when a new value for a bound property should have been propagated from the model, but formatting
-     * the value failed with an exception.
-     */
-    attachFormatError(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:modelContextChange modelContextChange} event
-     * of this `sap.ui.base.ManagedObject`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.base.ManagedObject` itself.
-     *
-     * Fired when models or contexts are changed on this object (either by calling setModel/setBindingContext
-     * or due to propagation)
-     */
-    attachModelContextChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:parseError parseError} event of this `sap.ui.base.ManagedObject`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.base.ManagedObject` itself.
-     *
-     * Fired when a new value for a bound property should have been propagated to the model, but parsing the
-     * value failed with an exception.
-     */
-    attachParseError(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:validationError validationError} event of this
-     * `sap.ui.base.ManagedObject`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.base.ManagedObject` itself.
-     *
-     * Fired when a new value for a bound property should have been propagated to the model, but validating
-     * the value failed with an exception.
-     */
-    attachValidationError(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:validationSuccess validationSuccess} event of
-     * this `sap.ui.base.ManagedObject`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.base.ManagedObject` itself.
-     *
-     * Fired after a new value for a bound property has been propagated to the model. Only fired, when the binding
-     * uses a data type.
-     */
-    attachValidationSuccess(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.base.ManagedObject` itself
-       */
-      oListener?: object
-    ): this;
   }
   /**
    * Configuration for the binding of a managed aggregation of cardinality 0..n.
@@ -6772,11 +7015,11 @@ declare module "sap/ui/base/ManagedObject" {
     /**
      * Name of the model to bind against; when `undefined` or omitted, the default model is used
      */
-    model?: string | undefined;
+    model?: string;
     /**
      * The template to clone for each item in the aggregation; either a template or a factory must be given
      */
-    template?: ManagedObject | undefined;
+    template?: ManagedObject;
     /**
      * Whether the framework should assume that the application takes care of the lifecycle of the given template;
      * when set to `true`, the template can be used in multiple bindings, either in parallel or over time, and
@@ -6794,47 +7037,47 @@ declare module "sap/ui/base/ManagedObject" {
      * used for the created object and the binding context for which the object has to be created; the function
      * must return an object appropriate for the bound aggregation
      */
-    factory?: Function | undefined;
+    factory?: Function;
     /**
      * Whether the binding should be suspended initially
      */
-    suspended?: boolean | undefined;
+    suspended?: boolean;
     /**
      * the first entry of the list to be created
      */
-    startIndex?: int | undefined;
+    startIndex?: int;
     /**
      * The amount of entries to be created (may exceed the size limit of the model)
      */
-    length?: int | undefined;
+    length?: int;
     /**
      * The initial sort order (optional)
      */
-    sorter?: Sorter | Sorter[] | undefined;
+    sorter?: Sorter | Sorter[];
     /**
      * The predefined filters for this aggregation (optional)
      */
-    filters?: Filter | Filter[] | undefined;
+    filters?: Filter | Filter[];
     /**
      * Name of the key property or a function getting the context as only parameter to calculate a key for entries.
      * This can be used to improve update behaviour in models, where a key is not already available.
      */
-    key?: string | Function | undefined;
+    key?: string | Function;
     /**
      * Map of additional parameters for this binding; the names and value ranges of the supported parameters
      * depend on the model implementation, they should be documented with the `bindList` method of the corresponding
      * model class or with the model specific subclass of `sap.ui.model.ListBinding`
      */
-    parameters?: object | undefined;
+    parameters?: object;
     /**
      * A factory function to generate custom group visualization (optional). It should return a control suitable
      * to visualize a group header (e.g. a `sap.m.GroupHeaderListItem` for a `sap.m.List`).
      */
-    groupHeaderFactory?: Function | undefined;
+    groupHeaderFactory?: Function;
     /**
      * Map of event handler functions keyed by the name of the binding events that they should be attached to
      */
-    events?: Record<string, () => void> | undefined;
+    events?: Record<string, Function>;
   };
 
   /**
@@ -6852,23 +7095,23 @@ declare module "sap/ui/base/ManagedObject" {
      * model; when the path contains a '>' sign, the string preceding it will override the `model` property
      * and the remainder after the '>' will be used as binding path
      */
-    path?: string | undefined;
+    path?: string;
     /**
      * Since 1.61, defines a static binding with the given value.
      */
-    value?: string | undefined;
+    value?: string;
     /**
      * Name of the model to bind against; when `undefined` or omitted, the default model is used
      */
-    model?: string | undefined;
+    model?: string;
     /**
      * Whether the binding should be suspended initially
      */
-    suspended?: boolean | undefined;
+    suspended?: boolean;
     /**
      * Function to convert model data into a property value
      */
-    formatter?: Function | undefined;
+    formatter?: Function;
     /**
      * Whether the parameters to the formatter function should be passed as raw values. In this case the specified
      * types for the binding parts are not used and the values are not formatted.
@@ -6876,7 +7119,7 @@ declare module "sap/ui/base/ManagedObject" {
      * **Note**: use this flag only when using multiple bindings. If you use only one binding and want raw values
      * then simply don't specify a type for that binding.
      */
-    useRawValues?: boolean | undefined;
+    useRawValues?: boolean;
     /**
      * Whether the parameters to the formatter function should be passed as the related JavaScript primitive
      * values. In this case the values of the model are parsed by the {@link sap.ui.model.SimpleType#getModelFormat
@@ -6884,48 +7127,48 @@ declare module "sap/ui/base/ManagedObject" {
      *
      * **Note**: use this flag only when using multiple bindings.
      */
-    useInternalValues?: boolean | undefined;
+    useInternalValues?: boolean;
     /**
      * A type object or the name of a type class to create such a type object; the type will be used for converting
      * model data to a property value (aka "formatting") and vice versa (in binding mode `TwoWay`, aka "parsing")
      */
-    type?: Type | string | undefined;
+    type?: Type | string;
     /**
      * Target type to be used by the type when formatting model data, for example "boolean" or "string" or "any";
      * defaults to the property's type
      */
-    targetType?: string | undefined;
+    targetType?: string;
     /**
      * Format options to be used for the type; only taken into account when the type is specified by its name
      * - a given type object won't be modified
      */
-    formatOptions?: object | undefined;
+    formatOptions?: object;
     /**
      * Additional constraints to be used when constructing a type object from a type name, ignored when a type
      * object is given
      */
-    constraints?: object | undefined;
+    constraints?: object;
     /**
      * Binding mode to be used for this property binding (e.g. one way)
      */
-    mode?: BindingMode | keyof typeof BindingMode | undefined;
+    mode?: BindingMode | keyof typeof BindingMode;
     /**
      * Map of additional parameters for this binding; the names and value ranges of the supported parameters
      * depend on the model implementation, they should be documented with the `bindProperty` method of the corresponding
      * model class or with the model specific subclass of `sap.ui.model.PropertyBinding`
      */
-    parameters?: object | undefined;
+    parameters?: object;
     /**
      * Map of event handler functions keyed by the name of the binding events that they should be attached to
      */
-    events?: object | undefined;
+    events?: object;
     /**
      * Array of binding info objects for the parts of a composite binding; the structure of each binding info
      * is the same as described for the `oBindingInfo` as a whole.
      *
      * **Note**: recursive composite bindings are currently not supported
      */
-    parts?: PropertyBindingInfo[] | undefined;
+    parts?: PropertyBindingInfo[];
   };
 
   export interface $ManagedObjectSettings {
@@ -6933,31 +7176,31 @@ declare module "sap/ui/base/ManagedObject" {
      * Fired after a new value for a bound property has been propagated to the model. Only fired, when the binding
      * uses a data type.
      */
-    validationSuccess?: Function | undefined;
+    validationSuccess?: Function;
 
     /**
      * Fired when a new value for a bound property should have been propagated to the model, but validating
      * the value failed with an exception.
      */
-    validationError?: Function | undefined;
+    validationError?: Function;
 
     /**
      * Fired when a new value for a bound property should have been propagated to the model, but parsing the
      * value failed with an exception.
      */
-    parseError?: Function | undefined;
+    parseError?: Function;
 
     /**
      * Fired when a new value for a bound property should have been propagated from the model, but formatting
      * the value failed with an exception.
      */
-    formatError?: Function | undefined;
+    formatError?: Function;
 
     /**
      * Fired when models or contexts are changed on this object (either by calling setModel/setBindingContext
      * or due to propagation)
      */
-    modelContextChange?: Function | undefined;
+    modelContextChange?: Function;
   }
 }
 
@@ -7912,7 +8155,6 @@ declare module "sap/ui/core/library" {
    * style class support on existing elements by calling this function.
    */
   export function CustomStyleClassSupport(): void;
-
   /**
    * A string type that represents non-relative CSS size values.
    *
@@ -8631,14 +8873,20 @@ declare module "sap/ui/core/library" {
      */
     Indication05 = "Indication05",
     /**
+     * @SINCE 1.75
+     *
      * Indication Color 6
      */
     Indication06 = "Indication06",
     /**
+     * @SINCE 1.75
+     *
      * Indication Color 7
      */
     Indication07 = "Indication07",
     /**
+     * @SINCE 1.75
+     *
      * Indication Color 8
      */
     Indication08 = "Indication08",
@@ -8660,6 +8908,22 @@ declare module "sap/ui/core/library" {
      */
     Polite = "Polite",
   }
+  /**
+   * @SINCE 1.92.0
+   *
+   * Marker interface for container controls.
+   *
+   * Implementing this interface allows a container control to display a {@link sap.ui.core.Placeholder}.
+   * This requires the container control to implement the `showPlaceholder` and `hidePlaceholder` methods.
+   *
+   * Optionally, the `needPlaceholder` method can be implemented to defined, whether a placeholder is needed
+   * or not. If implemented, this method must return a `boolean`. Depending on the return value, `showPlaceholder`
+   * will be called or not.
+   */
+  export interface IPlaceholderSupport {
+    __implements__sap_ui_core_IPlaceholderSupport: boolean;
+  }
+
   /**
    * @SINCE 1.86.0
    * @EXPERIMENTAL (since 1.86)
@@ -9401,6 +9665,8 @@ declare module "sap/ui/core/CalendarType" {
 declare module "sap/ui/core/CommandExecution" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -9479,7 +9745,25 @@ declare module "sap/ui/core/CommandExecution" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.CommandExecution` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:execute execute} event of this `sap.ui.core.CommandExecution`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.CommandExecution` itself.
+     *
+     * Execute will be fired when the CommandExecution will be triggered.
+     */
+    attachExecute(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.CommandExecution` itself
        */
@@ -9494,7 +9778,7 @@ declare module "sap/ui/core/CommandExecution" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9588,38 +9872,20 @@ declare module "sap/ui/core/CommandExecution" {
      * will not be triggered.
      */
     trigger(): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:execute execute} event of this `sap.ui.core.CommandExecution`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.CommandExecution` itself.
-     *
-     * Execute will be fired when the CommandExecution will be triggered.
-     */
-    attachExecute(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.CommandExecution` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CommandExecutionSettings extends $ElementSettings {
     /**
      * The command's name, that has to be defined in the manifest. This property can only be applied initially.
      */
-    command?: string | PropertyBindingInfo | undefined;
+    command?: string | PropertyBindingInfo;
 
     /**
      * Whether the CommandExecution is enabled or not. By default, it is enabled. If the CommandExecution is
      * disabled, the CommandExecution processes the event, but the event handler for it will not be called.
      * Therefore, also no event handler configured on CommandExecutions on ancestors is called.
      */
-    enabled?: boolean | PropertyBindingInfo | undefined;
+    enabled?: boolean | PropertyBindingInfo;
 
     /**
      * Whether the CommandExecution is visible, or not. By default, it is visible. If not visible, the CommandExecution
@@ -9628,12 +9894,12 @@ declare module "sap/ui/core/CommandExecution" {
      * ancestor in the ancestor chain has any CommandExecutions configured for this shortcut, the event handler
      * of the browser is called.
      */
-    visible?: boolean | PropertyBindingInfo | undefined;
+    visible?: boolean | PropertyBindingInfo;
 
     /**
      * Execute will be fired when the CommandExecution will be triggered.
      */
-    execute?: Function | undefined;
+    execute?: Function;
   }
 }
 
@@ -9739,26 +10005,26 @@ declare module "sap/ui/core/Component" {
          * this URL specifies the location of the final component defined via that manifest, otherwise it specifies
          * the location of the component defined via its name `mOptions.name`.
          */
-        url?: string | undefined;
+        url?: string;
         /**
          * Initial data of the Component, see {@link sap.ui.core.Component#getComponentData}.
          */
-        componentData?: object | undefined;
+        componentData?: object;
         /**
          * ID of the new Component
          */
-        id?: ID | undefined;
+        id?: ID;
         /**
          * List of active terminologies. The order of the given active terminologies is significant. The {@link
          * module:sap/base/i18n/ResourceBundle ResourceBundle} API documentation describes the processing behavior
          * in more detail. Please have a look at this dev-guide chapter for general usage instructions: {@link topic:eba8d25a31ef416ead876e091e67824e
          * Text Verticalization}.
          */
-        activeTerminologies?: string[] | undefined;
+        activeTerminologies?: string[];
         /**
          * Settings of the new Component
          */
-        settings?: object | undefined;
+        settings?: object;
         /**
          * Whether and from where to load the manifest.json for the Component. When set to any truthy value, the
          * manifest will be loaded and evaluated before the Component controller. If it is set to a falsy value,
@@ -9766,16 +10032,16 @@ declare module "sap/ui/core/Component" {
          * in the Component metadata. A non-empty string value will be interpreted as the URL to load the manifest
          * from. A non-null object value will be interpreted as manifest content.
          */
-        manifest?: boolean | string | object | undefined;
+        manifest?: boolean | string | object;
         /**
          * @since 1.61.0 Alternative URL for the manifest.json. If `mOptions.manifest` is set to an object value,
          * this URL specifies the location to which the manifest object should resolve the relative URLs to.
          */
-        altManifestUrl?: string | undefined;
+        altManifestUrl?: string;
         /**
          * If set to `true` validation of the component is handled by the `MessageManager`
          */
-        handleValidation?: string | undefined;
+        handleValidation?: string;
         /**
          * Hints for asynchronous loading. **Beware:** This parameter is only used internally by the UI5 framework
          * and compatibility cannot be guaranteed. The parameter must not be used in productive code, except in
@@ -9792,7 +10058,7 @@ declare module "sap/ui/core/Component" {
            * property. When `lazy` is set to a truthy value, only a necessary `registerModulePath` will be executed,
            * but the corresponding component won't be preloaded.
            */
-          components?: string[] | object[] | undefined;
+          components?: string[] | object[];
           /**
            * libraries needed by the Component and its subcomponents These libraries should be (pre-)loaded before
            * the Component. The framework will asynchronously load those libraries, if they're not loaded yet. Instead
@@ -9801,7 +10067,7 @@ declare module "sap/ui/core/Component" {
            * When `lazy` is set to a truthy value, only a necessary `registerModulePath` will be executed, but the
            * corresponding library won't be preloaded.
            */
-          libs?: string[] | object[] | undefined;
+          libs?: string[] | object[];
           /**
            * a list of additional preload bundles The framework will try to load these bundles asynchronously before
            * requiring the Component, errors will be ignored. The named modules must only represent preload bundles.
@@ -9809,12 +10075,12 @@ declare module "sap/ui/core/Component" {
            * and performance might degrade. Instead of specifying just the names of preload bundles, an object might
            * be given that contains a mandatory `name` property and optionally, an `url` that will be used for a `registerModulePath`.
            */
-          preloadBundles?: string[] | object[] | undefined;
+          preloadBundles?: string[] | object[];
           /**
            * `Promise` or array of `Promise`s for which the Component instantiation should wait
            */
-          waitFor?: Promise<any> | Promise<any>[] | undefined;
-        } | undefined;
+          waitFor?: Promise<any> | Array<Promise<any>>;
+        };
       }
     ): Promise<Component>;
     /**
@@ -9880,20 +10146,20 @@ declare module "sap/ui/core/Component" {
             /**
              * ID of the nested component that is prefixed with `autoPrefixId`
              */
-            id?: string | undefined;
+            id?: string;
             /**
              * Indicates whether the component creation is done asynchronously (You should use synchronous creation
              * only if really necessary, because this has a negative impact on performance.)
              */
-            async?: boolean | undefined;
+            async?: boolean;
             /**
              * Settings for the nested component like for {#link sap.ui.component} or the component constructor
              */
-            settings?: object | undefined;
+            settings?: object;
             /**
              * Initial data of the component (@see sap.ui.core.Component#getComponentData)
              */
-            componentData?: object | undefined;
+            componentData?: object;
           }
     ): Component | Promise<any>;
     /**
@@ -10161,7 +10427,7 @@ declare module "sap/ui/core/Component" {
          * this URL specifies the location of the final component defined via that manifest, otherwise it specifies
          * the location of the component defined via its name `mOptions.name`.
          */
-        url?: string | undefined;
+        url?: string;
         /**
          * Whether and from where to load the manifest.json for the Component. When set to any truthy value, the
          * manifest will be loaded and evaluated before the Component controller. If it is set to a falsy value,
@@ -10169,12 +10435,12 @@ declare module "sap/ui/core/Component" {
          * in the Component metadata. A non-empty string value will be interpreted as the URL to load the manifest
          * from. A non-null object value will be interpreted as manifest content.
          */
-        manifest?: boolean | string | object | undefined;
+        manifest?: boolean | string | object;
         /**
          * @since 1.61.0 Alternative URL for the manifest.json. If `mOptions.manifest` is set to an object value,
          * this URL specifies the location to which the manifest object should resolve the relative URLs to.
          */
-        altManifestUrl?: string | undefined;
+        altManifestUrl?: string;
         /**
          * Hints for asynchronous loading. **Beware:** This parameter is only used internally by the UI5 framework
          * and compatibility cannot be guaranteed. The parameter must not be used in productive code, except in
@@ -10191,7 +10457,7 @@ declare module "sap/ui/core/Component" {
            * property. When `lazy` is set to a truthy value, only a necessary `registerModulePath` will be executed,
            * but the corresponding component won't be preloaded.
            */
-          components?: string[] | object[] | undefined;
+          components?: string[] | object[];
           /**
            * libraries needed by the Component and its subcomponents These libraries should be (pre-)loaded before
            * the Component. The framework will asynchronously load those libraries, if they're not loaded yet. Instead
@@ -10200,7 +10466,7 @@ declare module "sap/ui/core/Component" {
            * When `lazy` is set to a truthy value, only a necessary `registerModulePath` will be executed, but the
            * corresponding library won't be preloaded.
            */
-          libs?: string[] | object[] | undefined;
+          libs?: string[] | object[];
           /**
            * a list of additional preload bundles The framework will try to load these bundles asynchronously before
            * requiring the component, errors will be ignored. The named modules must only represent preload bundles.
@@ -10208,14 +10474,14 @@ declare module "sap/ui/core/Component" {
            * and performance might degrade. Instead of specifying just the names of preload bundles, an object might
            * be given that contains a mandatory `name` property and, optionally, a `url` that will be used for a `registerModulePath`.
            */
-          preloadBundles?: string[] | object[] | undefined;
+          preloadBundles?: string[] | object[];
           /**
            * Whether only the preloads should be done, but not the loading of the Component controller class itself.
            */
-          preloadOnly?: boolean | undefined;
-        } | undefined;
+          preloadOnly?: boolean;
+        };
       }
-    ): Promise<() => void>;
+    ): Promise<Function>;
     /**
      * @SINCE 1.88
      *
@@ -10337,7 +10603,7 @@ declare module "sap/ui/core/Component" {
       /**
        * predicate against which each Component is tested
        */
-      callback: Function,
+      callback: (p1: Component, p2: ID) => boolean,
       /**
        * context object to provide as `this` in each call of `callback`
        */
@@ -10369,7 +10635,7 @@ declare module "sap/ui/core/Component" {
       /**
        * Function to call for each Component
        */
-      callback: Function,
+      callback: (p1: Component, p2: ID) => void,
       /**
        * Context object to provide as `this` in each call of `callback`
        */
@@ -10396,9 +10662,17 @@ declare module "sap/ui/core/Component" {
 declare module "sap/ui/core/ComponentContainer" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import UIComponent from "sap/ui/core/UIComponent";
+  import {
+    IPlaceholderSupport,
+    ID,
+    CSSSize,
+    ComponentLifecycle,
+    URI,
+  } from "sap/ui/core/library";
 
-  import { ID, CSSSize, ComponentLifecycle, URI } from "sap/ui/core/library";
+  import Event from "sap/ui/base/Event";
+
+  import UIComponent from "sap/ui/core/UIComponent";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -10433,7 +10707,10 @@ declare module "sap/ui/core/ComponentContainer" {
    *
    * See also {@link module:sap/ui/core/ComponentSupport}.
    */
-  export default class ComponentContainer extends Control {
+  export default class ComponentContainer
+    extends Control
+    implements IPlaceholderSupport {
+    __implements__sap_ui_core_IPlaceholderSupport: boolean;
     /**
      * Constructor for a new ComponentContainer.
      *
@@ -10485,7 +10762,28 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.50
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:componentCreated componentCreated} event of
+     * this `sap.ui.core.ComponentContainer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.ComponentContainer` itself.
+     *
+     * Fired when the component instance has been created by the ComponentContainer.
+     */
+    attachComponentCreated(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
        */
@@ -10514,7 +10812,31 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.60
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:componentFailed componentFailed} event of this
+     * `sap.ui.core.ComponentContainer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.ComponentContainer` itself.
+     *
+     * Fired when the creation of the component instance has failed.
+     *
+     * By default, the `ComponentContainer` also logs the error that occurred. Since 1.83, this default behavior
+     * can be prevented by calling `preventDefault()` on the event object.
+     */
+    attachComponentFailed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
        */
@@ -10532,7 +10854,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10550,7 +10872,7 @@ declare module "sap/ui/core/ComponentContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10590,7 +10912,7 @@ declare module "sap/ui/core/ComponentContainer" {
         /**
          * Reference to the created component instance
          */
-        component?: UIComponent | undefined;
+        component?: UIComponent;
       }
     ): this;
     /**
@@ -10609,7 +10931,7 @@ declare module "sap/ui/core/ComponentContainer" {
         /**
          * The reason object as returned by the component promise
          */
-        reason?: object | undefined;
+        reason?: object;
       }
     ): boolean;
     /**
@@ -10726,6 +11048,12 @@ declare module "sap/ui/core/ComponentContainer" {
      * Container width in CSS size
      */
     getWidth(): CSSSize;
+    /**
+     * @SINCE 1.91
+     *
+     * Hides the placeholder that is shown on the component container.
+     */
+    hidePlaceholder(): void;
     /**
      * Sets a new value for property {@link #getAsync async}.
      *
@@ -10931,95 +11259,66 @@ declare module "sap/ui/core/ComponentContainer" {
       sWidth?: CSSSize
     ): this;
     /**
-     * @SINCE 1.50
+     * @SINCE 1.91
      *
-     * Attaches event handler `fnFunction` to the {@link #event:componentCreated componentCreated} event of
-     * this `sap.ui.core.ComponentContainer`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.ComponentContainer` itself.
-     *
-     * Fired when the component instance has been created by the ComponentContainer.
+     * Shows the provided placeholder on the component container.
      */
-    attachComponentCreated(
+    showPlaceholder(
       /**
-       * The function to be called when the event occurs
+       * Object containing the placeholder object
        */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.60
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:componentFailed componentFailed} event of this
-     * `sap.ui.core.ComponentContainer`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.ComponentContainer` itself.
-     *
-     * Fired when the creation of the component instance has failed.
-     *
-     * By default, the `ComponentContainer` also logs the error that occurred. Since 1.83, this default behavior
-     * can be prevented by calling `preventDefault()` on the event object.
-     */
-    attachComponentFailed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.ComponentContainer` itself
-       */
-      oListener?: object
-    ): this;
+      mSettings: {
+        /**
+         * The placeholder instance
+         */
+        placeholder: /* was: sap.ui.core.Placeholder */ any;
+      }
+    ): void;
   }
 
   export interface $ComponentContainerSettings extends $ControlSettings {
     /**
      * Component name, the package where the component is contained. This property can only be applied initially.
      */
-    name?: string | PropertyBindingInfo | undefined;
+    name?: string | PropertyBindingInfo;
 
     /**
      * The URL of the component. This property can only be applied initially.
      */
-    url?: URI | PropertyBindingInfo | undefined;
+    url?: URI | PropertyBindingInfo;
 
     /**
      * Flag whether the component should be created sync (default) or async. The default will be async when
      * initially the property `manifest` is set to a truthy value and for the property `async` no value has
      * been specified. This property can only be applied initially.
      */
-    async?: boolean | PropertyBindingInfo | undefined;
+    async?: boolean | PropertyBindingInfo;
 
     /**
      * Enable/disable validation handling by MessageManager for this component. The resulting Messages will
      * be propagated to the controls. This property can only be applied initially.
      */
-    handleValidation?: boolean | PropertyBindingInfo | undefined;
+    handleValidation?: boolean | PropertyBindingInfo;
 
     /**
      * The settings object passed to the component when created. This property can only be applied initially.
      */
-    settings?: object | PropertyBindingInfo | undefined;
+    settings?: object | PropertyBindingInfo;
 
     /**
      * Defines whether binding information is propagated to the component.
      */
-    propagateModel?: boolean | PropertyBindingInfo | undefined;
+    propagateModel?: boolean | PropertyBindingInfo;
 
     /**
      * Container width in CSS size
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * Container height in CSS size
      */
-    height?: CSSSize | PropertyBindingInfo | undefined;
+    height?: CSSSize | PropertyBindingInfo;
 
     /**
      * Lifecycle behavior for the Component associated by the `ComponentContainer`. The default behavior is
@@ -11031,14 +11330,14 @@ declare module "sap/ui/core/ComponentContainer" {
      */
     lifecycle?:
       | (ComponentLifecycle | keyof typeof ComponentLifecycle)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * Flag, whether to auto-prefix the ID of the nested Component or not. If this property is set to true the
      * ID of the Component will be prefixed with the ID of the ComponentContainer followed by a single dash.
      * This property can only be applied initially.
      */
-    autoPrefixId?: boolean | PropertyBindingInfo | undefined;
+    autoPrefixId?: boolean | PropertyBindingInfo;
 
     /**
      * The name of a component usage as configured in the app descriptor of the component owning this `ComponentContainer`.
@@ -11052,7 +11351,7 @@ declare module "sap/ui/core/ComponentContainer" {
      *
      * This property can only be applied initially.
      */
-    usage?: string | PropertyBindingInfo | undefined;
+    usage?: string | PropertyBindingInfo;
 
     /**
      * Controls when and from where to load the manifest for the Component. When set to any truthy value, the
@@ -11061,19 +11360,19 @@ declare module "sap/ui/core/ComponentContainer" {
      * string value will be interpreted as the URL location from where to load the manifest. A non-null object
      * value will be interpreted as manifest content. This property can only be applied initially.
      */
-    manifest?: any | PropertyBindingInfo | undefined;
+    manifest?: any | PropertyBindingInfo;
 
     /**
      * The component displayed in this ComponentContainer.
      */
-    component?: UIComponent | string | undefined;
+    component?: UIComponent | string;
 
     /**
      * @SINCE 1.50
      *
      * Fired when the component instance has been created by the ComponentContainer.
      */
-    componentCreated?: Function | undefined;
+    componentCreated?: Function;
 
     /**
      * @SINCE 1.60
@@ -11083,7 +11382,7 @@ declare module "sap/ui/core/ComponentContainer" {
      * By default, the `ComponentContainer` also logs the error that occurred. Since 1.83, this default behavior
      * can be prevented by calling `preventDefault()` on the event object.
      */
-    componentFailed?: Function | undefined;
+    componentFailed?: Function;
   }
 }
 
@@ -11717,7 +12016,9 @@ declare module "sap/ui/core/Configuration" {
    * should do any modifications early in their lifecycle or recreate any model/UI that is locale dependent.
    */
   export class FormatSettings extends BaseObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -12007,6 +12308,8 @@ declare module "sap/ui/core/Configuration" {
 declare module "sap/ui/core/Control" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
+  import Event from "sap/ui/base/Event";
+
   import { BusyIndicatorSize } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -12188,7 +12491,32 @@ declare module "sap/ui/core/Control" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.Control` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:validateFieldGroup validateFieldGroup} event
+     * of this `sap.ui.core.Control`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.Control` itself.
+     *
+     * Event is fired if a logical field group defined by `fieldGroupIds` of a control was left or when the
+     * user explicitly pressed the key combination that triggers validation.
+     *
+     * By default, the `RETURN` key without any modifier keys triggers validation, see {@link #triggerValidateFieldGroup}.
+     *
+     * Listen to this event to validate data of the controls belonging to a field group. See {@link #setFieldGroupIds},
+     * or consult the {@link topic:5b0775397e394b1fb973fa207554003e Field Group} documentation.
+     */
+    attachValidateFieldGroup(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.Control` itself
        */
@@ -12264,7 +12592,7 @@ declare module "sap/ui/core/Control" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12356,7 +12684,7 @@ declare module "sap/ui/core/Control" {
         /**
          * field group IDs of the logical field groups to validate
          */
-        fieldGroupIds?: string[] | undefined;
+        fieldGroupIds?: string[];
       }
     ): this;
     /**
@@ -12722,31 +13050,6 @@ declare module "sap/ui/core/Control" {
        */
       aFieldGroupIds: string[]
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:validateFieldGroup validateFieldGroup} event
-     * of this `sap.ui.core.Control`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.Control` itself.
-     *
-     * Event is fired if a logical field group defined by `fieldGroupIds` of a control was left or when the
-     * user explicitly pressed the key combination that triggers validation.
-     *
-     * By default, the `RETURN` key without any modifier keys triggers validation, see {@link #triggerValidateFieldGroup}.
-     *
-     * Listen to this event to validate data of the controls belonging to a field group. See {@link #setFieldGroupIds},
-     * or consult the {@link topic:5b0775397e394b1fb973fa207554003e Field Group} documentation.
-     */
-    attachValidateFieldGroup(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.Control` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ControlSettings extends $ElementSettings {
@@ -12757,17 +13060,17 @@ declare module "sap/ui/core/Control" {
      *
      * Whether the control is currently in blocked state.
      */
-    blocked?: boolean | PropertyBindingInfo | undefined;
+    blocked?: boolean | PropertyBindingInfo;
 
     /**
      * Whether the control is currently in busy state.
      */
-    busy?: boolean | PropertyBindingInfo | undefined;
+    busy?: boolean | PropertyBindingInfo;
 
     /**
      * The delay in milliseconds, after which the busy indicator will show up for this control.
      */
-    busyIndicatorDelay?: int | PropertyBindingInfo | undefined;
+    busyIndicatorDelay?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.54
@@ -12779,7 +13082,7 @@ declare module "sap/ui/core/Control" {
      */
     busyIndicatorSize?:
       | (BusyIndicatorSize | keyof typeof BusyIndicatorSize)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * Whether the control should be visible on the screen.
@@ -12789,7 +13092,7 @@ declare module "sap/ui/core/Control" {
      *
      * Also see {@link module:sap/ui/core/InvisibleRenderer InvisibleRenderer}.
      */
-    visible?: boolean | PropertyBindingInfo | undefined;
+    visible?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.31
@@ -12805,7 +13108,7 @@ declare module "sap/ui/core/Control" {
      * See {@link #attachValidateFieldGroup} or consult the {@link topic:5b0775397e394b1fb973fa207554003e Field
      * Group} documentation.
      */
-    fieldGroupIds?: string[] | PropertyBindingInfo | undefined;
+    fieldGroupIds?: string[] | PropertyBindingInfo;
 
     /**
      * Event is fired if a logical field group defined by `fieldGroupIds` of a control was left or when the
@@ -12816,7 +13119,7 @@ declare module "sap/ui/core/Control" {
      * Listen to this event to validate data of the controls belonging to a field group. See {@link #setFieldGroupIds},
      * or consult the {@link topic:5b0775397e394b1fb973fa207554003e Field Group} documentation.
      */
-    validateFieldGroup?: Function | undefined;
+    validateFieldGroup?: Function;
   }
 }
 
@@ -13049,6 +13352,24 @@ declare module "sap/ui/core/Core" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:parseError parseError} event of `sap.ui.core.Core`.
+     *
+     * When called, the context of the listener (its `this`) will be bound to `oListener` if specified, otherwise
+     * it will be bound to a dummy event provider object.
+     *
+     * Please note that this event is a bubbling event and may already be canceled before reaching the core.
+     */
+    attachParseError(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to a dummy event provider object
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:ThemeChanged ThemeChanged} event of this `sap.ui.core.Core`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -13088,6 +13409,24 @@ declare module "sap/ui/core/Core" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:validationError validationError} event of `sap.ui.core.Core`.
+     *
+     * When called, the context of the listener (its `this`) will be bound to `oListener` if specified, otherwise
+     * it will be bound to a dummy event provider object.
+     *
+     * Please note that this event is a bubbling event and may already be canceled before reaching the core.
+     */
+    attachValidationError(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to a dummy event provider object
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:validationSuccess validationSuccess} event of
      * `sap.ui.core.Core`.
      *
@@ -13101,6 +13440,25 @@ declare module "sap/ui/core/Core" {
        * The object, that should be passed along with the event-object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to a dummy event provider object
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:validationSuccess validationSuccess} event of
+     * `sap.ui.core.Core`.
+     *
+     * When called, the context of the listener (its `this`) will be bound to `oListener` if specified, otherwise
+     * it will be bound to a dummy event provider object.
+     *
+     * Please note that this event is a bubbling event and may already be canceled before reaching the core.
+     */
+    attachValidationSuccess(
       /**
        * The function to be called, when the event occurs
        */
@@ -13160,19 +13518,19 @@ declare module "sap/ui/core/Core" {
             /**
              * name of the component to import
              */
-            name?: string | undefined;
+            name?: string;
             /**
              * URL to load the component from
              */
-            url?: string | undefined;
+            url?: string;
             /**
              * ID for the component instance
              */
-            id?: string | undefined;
+            id?: string;
             /**
              * settings object for the component
              */
-            settings?: object | undefined;
+            settings?: object;
             /**
              * user specific data which is available during the whole lifecycle of the component
              */
@@ -13727,7 +14085,7 @@ declare module "sap/ui/core/Core" {
         /**
          * Name of the library; when given it must match the name by which the library has been loaded
          */
-        name?: string | undefined;
+        name?: string;
         /**
          * Version of the library
          */
@@ -13735,33 +14093,33 @@ declare module "sap/ui/core/Core" {
         /**
          * List of libraries that this library depends on; names are in dot notation (e.g. "sap.ui.core")
          */
-        dependencies?: string[] | undefined;
+        dependencies?: string[];
         /**
          * List of names of types that this library provides; names are in dot notation (e.g. "sap.ui.core.CSSSize")
          */
-        types?: string[] | undefined;
+        types?: string[];
         /**
          * List of names of interface types that this library provides; names are in dot notation (e.g. "sap.ui.core.PopupInterface")
          */
-        interfaces?: string[] | undefined;
+        interfaces?: string[];
         /**
          * Names of control types that this library provides; names are in dot notation (e.g. "sap.ui.core.ComponentContainer")
          */
-        controls?: string[] | undefined;
+        controls?: string[];
         /**
          * Names of element types that this library provides (excluding controls); names are in dot notation (e.g.
          * "sap.ui.core.Item")
          */
-        elements?: string[] | undefined;
+        elements?: string[];
         /**
          * Indicates whether the library doesn't provide / use theming. When set to true, no library.css will be
          * loaded for this library
          */
-        noLibraryCSS?: boolean | undefined;
+        noLibraryCSS?: boolean;
         /**
          * Potential extensions of the library metadata; structure not defined by the UI5 core framework.
          */
-        extensions?: object | undefined;
+        extensions?: object;
       }
     ): void;
     /**
@@ -13869,11 +14227,11 @@ declare module "sap/ui/core/Core" {
             /**
              * URL to load the library from
              */
-            url?: string | undefined;
+            url?: string;
             /**
              * Whether to load the library asynchronously
              */
-            async?: boolean | undefined;
+            async?: boolean;
           }
     ): Object | Promise<any>;
     /**
@@ -14023,83 +14381,6 @@ declare module "sap/ui/core/Core" {
       bForceUpdate?: boolean
     ): this;
     /**
-     * Unlocks the Core.
-     *
-     * Browser events are dispatched to the controls again after this method is called.
-     */
-    unlock(): void;
-    /**
-     * @deprecated (since 1.73) - Plugins never have been meant as a public offering, but were intended for
-     * internal usage only. They unfortunately allow access to all internals of the Core and therefore break
-     * encapsulation and hinder evolution of the Core. The most common use case of accessing the set of all
-     * controls/elements or all components can now be addressed by using the APIs {@link sap.ui.core.Element.registry}
-     * or {@link sap.ui.core.Component.registry}, respectively. Future refactorings of the Core will only take
-     * existing plugins in the OpenUI5 repository into account.
-     *
-     * Unregisters a Plugin out of the `sap.ui.core.Core`
-     */
-    unregisterPlugin(
-      /**
-       * reference to a Plugin object
-       */
-      oPlugin: object
-    ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:parseError parseError} event of `sap.ui.core.Core`.
-     *
-     * When called, the context of the listener (its `this`) will be bound to `oListener` if specified, otherwise
-     * it will be bound to a dummy event provider object.
-     *
-     * Please note that this event is a bubbling event and may already be canceled before reaching the core.
-     */
-    attachParseError(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to a dummy event provider object
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:validationError validationError} event of `sap.ui.core.Core`.
-     *
-     * When called, the context of the listener (its `this`) will be bound to `oListener` if specified, otherwise
-     * it will be bound to a dummy event provider object.
-     *
-     * Please note that this event is a bubbling event and may already be canceled before reaching the core.
-     */
-    attachValidationError(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to a dummy event provider object
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:validationSuccess validationSuccess} event of
-     * `sap.ui.core.Core`.
-     *
-     * When called, the context of the listener (its `this`) will be bound to `oListener` if specified, otherwise
-     * it will be bound to a dummy event provider object.
-     *
-     * Please note that this event is a bubbling event and may already be canceled before reaching the core.
-     */
-    attachValidationSuccess(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to a dummy event provider object
-       */
-      oListener?: object
-    ): this;
-    /**
      * @SINCE 1.10
      *
      * Defines the root directory from below which UI5 should load the theme with the given name. Optionally
@@ -14162,6 +14443,28 @@ declare module "sap/ui/core/Core" {
        */
       bForceUpdate?: boolean
     ): this;
+    /**
+     * Unlocks the Core.
+     *
+     * Browser events are dispatched to the controls again after this method is called.
+     */
+    unlock(): void;
+    /**
+     * @deprecated (since 1.73) - Plugins never have been meant as a public offering, but were intended for
+     * internal usage only. They unfortunately allow access to all internals of the Core and therefore break
+     * encapsulation and hinder evolution of the Core. The most common use case of accessing the set of all
+     * controls/elements or all components can now be addressed by using the APIs {@link sap.ui.core.Element.registry}
+     * or {@link sap.ui.core.Component.registry}, respectively. Future refactorings of the Core will only take
+     * existing plugins in the OpenUI5 repository into account.
+     *
+     * Unregisters a Plugin out of the `sap.ui.core.Core`
+     */
+    unregisterPlugin(
+      /**
+       * reference to a Plugin object
+       */
+      oPlugin: object
+    ): void;
   }
   const Core: Core;
   export default Core;
@@ -14344,14 +14647,14 @@ declare module "sap/ui/core/CustomData" {
      * also may not start with "sap-ui". When written to HTML, the key is prefixed with "data-". If any restriction
      * is violated, a warning will be logged and nothing will be written to the DOM.
      */
-    key?: string | PropertyBindingInfo | undefined;
+    key?: string | PropertyBindingInfo;
 
     /**
      * The data stored in this CustomData object. When the data is just stored, it can be any JS type, but when
      * it is to be written to HTML (`writeToDom == true`) then it must be a string. If this restriction is violated,
      * a warning will be logged and nothing will be written to the DOM.
      */
-    value?: any | PropertyBindingInfo | undefined;
+    value?: any | PropertyBindingInfo;
 
     /**
      * @SINCE 1.9.0
@@ -14372,7 +14675,7 @@ declare module "sap/ui/core/CustomData" {
      *
      * **ATTENTION:** use carefully to not create huge attributes or a large number of them.
      */
-    writeToDom?: boolean | PropertyBindingInfo | undefined;
+    writeToDom?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -14385,7 +14688,9 @@ declare module "sap/ui/core/DeclarativeSupport" {
    * Static class for enabling declarative UI support.
    */
   export default class DeclarativeSupport {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -14685,31 +14990,31 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
         /**
          * Whether the element should be scrollable horizontally
          */
-        horizontal?: boolean | undefined;
+        horizontal?: boolean;
         /**
          * Whether the element should be scrollable vertically
          */
-        vertical?: boolean | undefined;
+        vertical?: boolean;
         /**
          * @deprecated since 1.42, the parameter has no effect
          */
-        zynga?: boolean | undefined;
+        zynga?: boolean;
         /**
          * @deprecated since 1.42, the parameter has no effect
          */
-        iscroll?: boolean | undefined;
+        iscroll?: boolean;
         /**
          * @deprecated since 1.42, the parameter has no effect
          */
-        preventDefault?: boolean | undefined;
+        preventDefault?: boolean;
         /**
          * If true, the delegate will also be active to allow touch like scrolling with the mouse on non-touch platforms.
          */
-        nonTouchScrolling?: boolean | undefined;
+        nonTouchScrolling?: boolean;
         /**
          * Native scrolling does not need content wrapper. In this case, ID of the container element should be provided.
          */
-        scrollContainerId?: string | undefined;
+        scrollContainerId?: string;
       }
     );
 
@@ -14790,6 +15095,21 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       fnCallback: Function
     ): this;
     /**
+     * Scrolls to a specific position in scroll container.
+     */
+    scrollTo(
+      /**
+       * Horizontal position of the scrollbar
+       */
+      iHorizontalPosition: int,
+      /**
+       * Vertical position of the scrollbar
+       */
+      iVerticalPosition: int,
+
+      fnCallback: Function
+    ): this;
+    /**
      * Scrolls to an element within a container.
      */
     scrollToElement(
@@ -14833,7 +15153,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       /**
        * Scrolling direction
        */
-      sScrollLoadDirection: any,
+      sScrollLoadDirection: /* was: sap.m.ListGrowingDirection */ any,
       /**
        * listener for the `overflowChange` event
        */
@@ -14857,7 +15177,7 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
       /**
        * instance
        */
-      oIconTabBar: any,
+      oIconTabBar: /* was: sap.m.IconTabBar */ any,
       /**
        * callback function for the scroll end event
        */
@@ -14887,21 +15207,6 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
        */
       bVertical: boolean
     ): void;
-    /**
-     * Scrolls to a specific position in scroll container.
-     */
-    scrollTo(
-      /**
-       * Horizontal position of the scrollbar
-       */
-      iHorizontalPosition: int,
-      /**
-       * Vertical position of the scrollbar
-       */
-      iVerticalPosition: int,
-
-      fnCallback: Function
-    ): this;
   }
 }
 
@@ -15044,14 +15349,14 @@ declare module "sap/ui/core/dnd/DragDropBase" {
      * Defines the name of the group to which this object belongs. If `groupName` is specified, then this object
      * will only interacts with other drag-and-drop objects within the same group.
      */
-    groupName?: string | PropertyBindingInfo | undefined;
+    groupName?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.56
      *
      * Indicates whether this configuration is active or not.
      */
-    enabled?: boolean | PropertyBindingInfo | undefined;
+    enabled?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -15062,6 +15367,8 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
   } from "sap/ui/core/dnd/DropInfo";
 
   import { dnd, ID } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -15132,7 +15439,27 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragDropInfo` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.56
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:dragEnd dragEnd} event of this `sap.ui.core.dnd.DragDropInfo`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.dnd.DragDropInfo` itself.
+     *
+     * This event is fired when a drag operation is being ended.
+     */
+    attachDragEnd(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragDropInfo` itself
        */
@@ -15155,7 +15482,25 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragDropInfo` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragStart dragStart} event of this `sap.ui.core.dnd.DragDropInfo`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.dnd.DragDropInfo` itself.
+     *
+     * This event is fired when the user starts dragging an element.
+     */
+    attachDragStart(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragDropInfo` itself
        */
@@ -15172,7 +15517,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15187,7 +15532,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15277,44 +15622,6 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
        */
       oTargetElement: ID | UI5Element
     ): this;
-    /**
-     * @SINCE 1.56
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:dragEnd dragEnd} event of this `sap.ui.core.dnd.DragDropInfo`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.dnd.DragDropInfo` itself.
-     *
-     * This event is fired when a drag operation is being ended.
-     */
-    attachDragEnd(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragDropInfo` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:dragStart dragStart} event of this `sap.ui.core.dnd.DragDropInfo`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.dnd.DragDropInfo` itself.
-     *
-     * This event is fired when the user starts dragging an element.
-     */
-    attachDragStart(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragDropInfo` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $DragDropInfoSettings extends $DropInfoSettings {
@@ -15322,26 +15629,26 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
      * The name of the aggregation from which all children can be dragged. If undefined, the control itself
      * can be dragged.
      */
-    sourceAggregation?: string | PropertyBindingInfo | undefined;
+    sourceAggregation?: string | PropertyBindingInfo;
 
     /**
      * The target element for this drag and drop action. If undefined, the control with this drag and drop configuration
      * itself is the target. Leaving this empty, but defining source and target aggregation, allows you to reorder
      * the children within a control, for example.
      */
-    targetElement?: UI5Element | string | undefined;
+    targetElement?: UI5Element | string;
 
     /**
      * This event is fired when the user starts dragging an element.
      */
-    dragStart?: Function | undefined;
+    dragStart?: Function;
 
     /**
      * @SINCE 1.56
      *
      * This event is fired when a drag operation is being ended.
      */
-    dragEnd?: Function | undefined;
+    dragEnd?: Function;
   }
 }
 
@@ -15352,6 +15659,8 @@ declare module "sap/ui/core/dnd/DragInfo" {
   } from "sap/ui/core/dnd/DragDropBase";
 
   import { dnd } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -15417,7 +15726,27 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.56
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:dragEnd dragEnd} event of this `sap.ui.core.dnd.DragInfo`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.dnd.DragInfo` itself.
+     *
+     * This event is fired when a drag operation is being ended.
+     */
+    attachDragEnd(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
        */
@@ -15440,7 +15769,25 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragStart dragStart} event of this `sap.ui.core.dnd.DragInfo`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.dnd.DragInfo` itself.
+     *
+     * This event is fired when the user starts dragging an element.
+     */
+    attachDragStart(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
        */
@@ -15457,7 +15804,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15472,7 +15819,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15547,44 +15894,6 @@ declare module "sap/ui/core/dnd/DragInfo" {
        */
       sSourceAggregation?: string
     ): this;
-    /**
-     * @SINCE 1.56
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:dragEnd dragEnd} event of this `sap.ui.core.dnd.DragInfo`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.dnd.DragInfo` itself.
-     *
-     * This event is fired when a drag operation is being ended.
-     */
-    attachDragEnd(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:dragStart dragStart} event of this `sap.ui.core.dnd.DragInfo`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.dnd.DragInfo` itself.
-     *
-     * This event is fired when the user starts dragging an element.
-     */
-    attachDragStart(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DragInfo` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $DragInfoSettings extends $DragDropBaseSettings {
@@ -15592,19 +15901,19 @@ declare module "sap/ui/core/dnd/DragInfo" {
      * The name of the aggregation from which all children can be dragged. If undefined, the control itself
      * can be dragged.
      */
-    sourceAggregation?: string | PropertyBindingInfo | undefined;
+    sourceAggregation?: string | PropertyBindingInfo;
 
     /**
      * This event is fired when the user starts dragging an element.
      */
-    dragStart?: Function | undefined;
+    dragStart?: Function;
 
     /**
      * @SINCE 1.56
      *
      * This event is fired when a drag operation is being ended.
      */
-    dragEnd?: Function | undefined;
+    dragEnd?: Function;
   }
 }
 
@@ -15660,7 +15969,7 @@ declare module "sap/ui/core/dnd/DragAndDrop" {
     /**
      * Returns the calculated position of the drop action relative to the valid dropped control.
      */
-    getDropPosition(): String;
+    getDropPosition(): string;
     /**
      * Returns the drop indicator.
      */
@@ -15733,6 +16042,8 @@ declare module "sap/ui/core/dnd/DropInfo" {
 
   import { dnd } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -15793,7 +16104,25 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragEnter dragEnter} event of this `sap.ui.core.dnd.DropInfo`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.dnd.DropInfo` itself.
+     *
+     * This event is fired when a dragged element enters a drop target.
+     */
+    attachDragEnter(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -15818,7 +16147,27 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.56
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:dragOver dragOver} event of this `sap.ui.core.dnd.DropInfo`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.dnd.DropInfo` itself.
+     *
+     * This event is fired when an element is being dragged over a valid drop target.
+     */
+    attachDragOver(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -15842,7 +16191,26 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:drop drop} event of this `sap.ui.core.dnd.DropInfo`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.dnd.DropInfo` itself.
+     *
+     * This event is fired when an element is dropped on a valid drop target, as specified by the drag-and-drop
+     * info.
+     */
+    attachDrop(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
        */
@@ -15857,7 +16225,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15874,7 +16242,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15889,7 +16257,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -16044,63 +16412,6 @@ declare module "sap/ui/core/dnd/DropInfo" {
        */
       sTargetAggregation?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:dragEnter dragEnter} event of this `sap.ui.core.dnd.DropInfo`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.dnd.DropInfo` itself.
-     *
-     * This event is fired when a dragged element enters a drop target.
-     */
-    attachDragEnter(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.56
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:dragOver dragOver} event of this `sap.ui.core.dnd.DropInfo`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.dnd.DropInfo` itself.
-     *
-     * This event is fired when an element is being dragged over a valid drop target.
-     */
-    attachDragOver(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:drop drop} event of this `sap.ui.core.dnd.DropInfo`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.dnd.DropInfo` itself.
-     *
-     * This event is fired when an element is dropped on a valid drop target, as specified by the drag-and-drop
-     * info.
-     */
-    attachDrop(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.dnd.DropInfo` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $DropInfoSettings extends $DragDropBaseSettings {
@@ -16109,46 +16420,46 @@ declare module "sap/ui/core/dnd/DropInfo" {
      * undefined, the entire control is the target. This can be handy if the target control does not have any
      * aggregations or if the drop position within the target does not matter.
      */
-    targetAggregation?: string | PropertyBindingInfo | undefined;
+    targetAggregation?: string | PropertyBindingInfo;
 
     /**
      * Defines the visual drop effect.
      */
     dropEffect?:
       | (dnd.DropEffect | keyof typeof dnd.DropEffect)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * Defines the position for the drop action, visualized by a rectangle.
      */
     dropPosition?:
       | (dnd.DropPosition | keyof typeof dnd.DropPosition)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * Defines the layout of the droppable controls if `dropPosition` is set to `Between` or `OnOrBetween`.
      */
     dropLayout?:
       | (dnd.DropLayout | keyof typeof dnd.DropLayout)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * This event is fired when a dragged element enters a drop target.
      */
-    dragEnter?: Function | undefined;
+    dragEnter?: Function;
 
     /**
      * @SINCE 1.56
      *
      * This event is fired when an element is being dragged over a valid drop target.
      */
-    dragOver?: Function | undefined;
+    dragOver?: Function;
 
     /**
      * This event is fired when an element is dropped on a valid drop target, as specified by the drag-and-drop
      * info.
      */
-    drop?: Function | undefined;
+    drop?: Function;
   }
 }
 
@@ -16425,7 +16736,7 @@ declare module "sap/ui/core/Element" {
          * @since 1.60 if it's set to true, the focused element won't be shifted into the viewport if it's not completely
          * visible before the focus is set
          */
-        preventScroll?: boolean | undefined;
+        preventScroll?: boolean;
       }
     ): this;
     /**
@@ -16453,15 +16764,15 @@ declare module "sap/ui/core/Element" {
             /**
              * map of additional parameters for this binding
              */
-            parameters?: object | undefined;
+            parameters?: object;
             /**
              * name of the model
              */
-            model?: string | undefined;
+            model?: string;
             /**
              * map of event listeners for the binding events
              */
-            events?: object | undefined;
+            events?: object;
           },
       /**
        * map of additional parameters for this binding (only taken into account when vPath is a string in that
@@ -16727,7 +17038,8 @@ declare module "sap/ui/core/Element" {
      * Searches and returns an array of child elements and controls which are referenced within an aggregation
      * or aggregations of child elements/controls. This can be either done recursive or not.
      *
-     * **Take care: this operation might be expensive.**/
+     * **Take care: this operation might be expensive.**
+     */
     findElements(
       /**
        * true, if all nested children should be returned.
@@ -16746,7 +17058,7 @@ declare module "sap/ui/core/Element" {
          * @since 1.60 if it's set to true, the focused element won't be shifted into the viewport if it's not completely
          * visible before the focus is set
          */
-        preventScroll?: boolean | undefined;
+        preventScroll?: boolean;
       }
     ): void;
     /**
@@ -17131,7 +17443,7 @@ declare module "sap/ui/core/Element" {
       /**
        * predicate against which each element is tested
        */
-      callback: Function,
+      callback: (p1: UI5Element, p2: ID) => boolean,
       /**
        * context object to provide as `this` in each call of `callback`
        */
@@ -17163,7 +17475,7 @@ declare module "sap/ui/core/Element" {
       /**
        * Function to call for each element
        */
-      callback: Function,
+      callback: (p1: UI5Element, p2: ID) => void,
       /**
        * Context object to provide as `this` in each call of `callback`
        */
@@ -17209,19 +17521,19 @@ declare module "sap/ui/core/Element" {
      * See the section {@link https://experience.sap.com/fiori-design-web/using-tooltips/ Using Tooltips} in
      * the Fiori Design Guideline.
      */
-    tooltip?: string | TooltipBase | PropertyBindingInfo | undefined;
+    tooltip?: string | TooltipBase | PropertyBindingInfo;
 
     /**
      * Custom Data, a data structure like a map containing arbitrary key value pairs.
      */
-    customData?: CustomData[] | CustomData | AggregationBindingInfo | undefined;
+    customData?: CustomData[] | CustomData | AggregationBindingInfo;
 
     /**
      * Defines the layout constraints for this control when it is used inside a Layout. LayoutData classes are
      * typed classes and must match the embedding Layout. See VariantLayoutData for aggregating multiple alternative
      * LayoutData instances to a single Element.
      */
-    layoutData?: LayoutData | undefined;
+    layoutData?: LayoutData;
 
     /**
      * @SINCE 1.19
@@ -17229,7 +17541,7 @@ declare module "sap/ui/core/Element" {
      * Dependents are not rendered, but their databinding context and lifecycle are bound to the aggregating
      * Element.
      */
-    dependents?: UI5Element[] | UI5Element | AggregationBindingInfo | undefined;
+    dependents?: UI5Element[] | UI5Element | AggregationBindingInfo;
 
     /**
      * @SINCE 1.56
@@ -17237,7 +17549,7 @@ declare module "sap/ui/core/Element" {
      * Defines the drag-and-drop configuration. **Note:** This configuration might be ignored due to control
      * {@link sap.ui.core.Element.extend metadata} restrictions.
      */
-    dragDropConfig?: DragDropBase[] | DragDropBase | AggregationBindingInfo | undefined;
+    dragDropConfig?: DragDropBase[] | DragDropBase | AggregationBindingInfo;
   }
 }
 
@@ -17386,6 +17698,19 @@ declare module "sap/ui/core/EventBus" {
       oData?: object
     ): void;
     /**
+     * Fires an event using the specified settings and notifies all attached event handlers.
+     */
+    publish(
+      /**
+       * The identifier of the event to fire
+       */
+      sEventId: string,
+      /**
+       * The parameters which should be carried by the event
+       */
+      oData?: object
+    ): void;
+    /**
      * Attaches an event handler to the event with the given identifier on the given event channel.
      */
     subscribe(
@@ -17395,6 +17720,28 @@ declare module "sap/ui/core/EventBus" {
        * to publish its own events there.
        */
       sChannelId: string,
+      /**
+       * The identifier of the event to listen for
+       */
+      sEventId: string,
+      /**
+       * The handler function to call when the event occurs. This function will be called in the context of the
+       * `oListener` instance (if present) or on the event bus instance. The channel is provided as first argument
+       * of the handler, and the event identifier is provided as the second argument. The parameter map carried
+       * by the event is provided as the third argument (if present). Handlers must not change the content of
+       * this map.
+       */
+      fnFunction: Function,
+      /**
+       * The object that wants to be notified when the event occurs (`this` context within the handler function).
+       * If it is not specified, the handler function is called in the context of the event bus.
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches an event handler to the event with the given identifier on the given event channel.
+     */
+    subscribe(
       /**
        * The identifier of the event to listen for
        */
@@ -17429,6 +17776,34 @@ declare module "sap/ui/core/EventBus" {
        * to publish its own events there.
        */
       sChannelId: string,
+      /**
+       * The identifier of the event to listen for
+       */
+      sEventId: string,
+      /**
+       * The handler function to call when the event occurs. This function will be called in the context of the
+       * `oListener` instance (if present) or on the event bus instance. The channel is provided as first argument
+       * of the handler, and the event identifier is provided as the second argument. The parameter map carried
+       * by the event is provided as the third argument (if present). Handlers must not change the content of
+       * this map.
+       */
+      fnFunction: Function,
+      /**
+       * The object that wants to be notified when the event occurs (`this` context within the handler function).
+       * If it is not specified, the handler function is called in the context of the event bus.
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.32.0
+     *
+     * Attaches an event handler, called one time only, to the event with the given identifier on the given
+     * event channel.
+     *
+     * When the event occurs, the handler function is called and the handler registration is automatically removed
+     * afterwards.
+     */
+    subscribeOnce(
       /**
        * The identifier of the event to listen for
        */
@@ -17468,69 +17843,6 @@ declare module "sap/ui/core/EventBus" {
       fnFunction: Function,
       /**
        * The object that wanted to be notified when the event occurred
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Fires an event using the specified settings and notifies all attached event handlers.
-     */
-    publish(
-      /**
-       * The identifier of the event to fire
-       */
-      sEventId: string,
-      /**
-       * The parameters which should be carried by the event
-       */
-      oData?: object
-    ): void;
-    /**
-     * Attaches an event handler to the event with the given identifier on the given event channel.
-     */
-    subscribe(
-      /**
-       * The identifier of the event to listen for
-       */
-      sEventId: string,
-      /**
-       * The handler function to call when the event occurs. This function will be called in the context of the
-       * `oListener` instance (if present) or on the event bus instance. The channel is provided as first argument
-       * of the handler, and the event identifier is provided as the second argument. The parameter map carried
-       * by the event is provided as the third argument (if present). Handlers must not change the content of
-       * this map.
-       */
-      fnFunction: Function,
-      /**
-       * The object that wants to be notified when the event occurs (`this` context within the handler function).
-       * If it is not specified, the handler function is called in the context of the event bus.
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.32.0
-     *
-     * Attaches an event handler, called one time only, to the event with the given identifier on the given
-     * event channel.
-     *
-     * When the event occurs, the handler function is called and the handler registration is automatically removed
-     * afterwards.
-     */
-    subscribeOnce(
-      /**
-       * The identifier of the event to listen for
-       */
-      sEventId: string,
-      /**
-       * The handler function to call when the event occurs. This function will be called in the context of the
-       * `oListener` instance (if present) or on the event bus instance. The channel is provided as first argument
-       * of the handler, and the event identifier is provided as the second argument. The parameter map carried
-       * by the event is provided as the third argument (if present). Handlers must not change the content of
-       * this map.
-       */
-      fnFunction: Function,
-      /**
-       * The object that wants to be notified when the event occurs (`this` context within the handler function).
-       * If it is not specified, the handler function is called in the context of the event bus.
        */
       oListener?: object
     ): this;
@@ -17591,7 +17903,11 @@ declare module "sap/ui/core/ExtensionPoint" {
          * there's no customizing, if not provided, no default content will be rendered. `mOptions.createDefaultContent`
          * might also return a Promise, which resolves with an array of controls.
          */
-        createDefaultContent?: Function | undefined;
+        createDefaultContent?: Function;
+        /**
+         * Whether the ExtensionPoint content should be loaded asynchronously
+         */
+        async?: boolean;
       }
     ): Promise<Control[]>;
   }
@@ -17613,7 +17929,9 @@ declare module "sap/ui/core/format/DateFormat" {
    * to the locale settings is used.
    */
   export default class DateFormat {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -17643,62 +17961,62 @@ declare module "sap/ui/core/format/DateFormat" {
          * is: Era (G), Year (y/Y), Quarter (q/Q), Month (M/L), Week (w), Day-Of-Week (E/e/c), Day (d), Hour (h/H/k/K/j/J),
          * Minute (m), Second (s), Timezone (z/Z/v/V/O/X/x) See {@link http://unicode.org/reports/tr35/tr35-dates.html#availableFormats_appendItems}
          */
-        format?: string | undefined;
+        format?: string;
         /**
          * a data pattern in LDML format. It is not verified whether the pattern represents only a date.
          */
-        pattern?: string | undefined;
+        pattern?: string;
         /**
          * can be either 'short, 'medium', 'long' or 'full'. If no pattern is given, a locale dependent default
          * date pattern of that style is used from the LocaleData class.
          */
-        style?: string | undefined;
+        style?: string;
         /**
          * if true, by parsing it is checked if the value is a valid date
          */
-        strictParsing?: boolean | undefined;
+        strictParsing?: boolean;
         /**
          * if true, the date is formatted relatively to todays date if it is within the given day range, e.g. "today",
          * "yesterday", "in 5 days"
          */
-        relative?: boolean | undefined;
+        relative?: boolean;
         /**
          * the day range used for relative formatting. If `oFormatOptions.relativeScale` is set to default value
          * 'day', the relativeRange is by default [-6, 6], which means only the last 6 days, today and the next
          * 6 days are formatted relatively. Otherwise when `oFormatOptions.relativeScale` is set to 'auto', all
          * dates are formatted relatively.
          */
-        relativeRange?: int[] | undefined;
+        relativeRange?: int[];
         /**
          * if 'auto' is set, new relative time format is switched on for all Date/Time Instances. The relative scale
          * is chosen depending on the difference between the given date and now.
          */
-        relativeScale?: string | undefined;
+        relativeScale?: string;
         /**
          * @since 1.32.10, 1.34.4 the style of the relative format. The valid values are "wide", "short", "narrow"
          */
-        relativeStyle?: string | undefined;
+        relativeStyle?: string;
         /**
          * @since 1.48.0 if true, the {@link sap.ui.core.format.DateFormat#format format} method expects an array
          * with two dates as the first argument and formats them as interval. Further interval "Jan 10, 2008 - Jan
          * 12, 2008" will be formatted as "Jan 10-12, 2008" if the 'format' option is set with necessary symbols.
          * Otherwise the two given dates are formatted separately and concatenated with local dependent pattern.
          */
-        interval?: boolean | undefined;
+        interval?: boolean;
         /**
          * Only relevant if oFormatOptions.interval is set to 'true'. This allows to pass an array with only one
          * date object to the {@link sap.ui.core.format.DateFormat#format format} method.
          */
-        singleIntervalValue?: boolean | undefined;
+        singleIntervalValue?: boolean;
         /**
          * if true, the date is formatted and parsed as UTC instead of the local timezone
          */
-        UTC?: boolean | undefined;
+        UTC?: boolean;
         /**
          * The calender type which is used to format and parse the date. This value is by default either set in
          * configuration or calculated based on current locale.
          */
-        calendarType?: CalendarType | keyof typeof CalendarType | undefined;
+        calendarType?: CalendarType | keyof typeof CalendarType;
       },
       /**
        * Locale to ask for locale specific texts/settings
@@ -17719,65 +18037,65 @@ declare module "sap/ui/core/format/DateFormat" {
          * is: Era (G), Year (y/Y), Quarter (q/Q), Month (M/L), Week (w), Day-Of-Week (E/e/c), Day (d), Hour (h/H/k/K/j/J),
          * Minute (m), Second (s), Timezone (z/Z/v/V/O/X/x) See http://unicode.org/reports/tr35/tr35-dates.html#availableFormats_appendItems
          */
-        format?: string | undefined;
+        format?: string;
         /**
          * a datetime pattern in LDML format. It is not verified whether the pattern represents a full datetime.
          */
-        pattern?: string | undefined;
+        pattern?: string;
         /**
          * can be either 'short, 'medium', 'long' or 'full'. For datetime you can also define mixed styles, separated
          * with a slash, where the first part is the date style and the second part is the time style (e.g. "medium/short").
          * If no pattern is given, a locale dependent default datetime pattern of that style is used from the LocaleData
          * class.
          */
-        style?: string | undefined;
+        style?: string;
         /**
          * if true, by parsing it is checked if the value is a valid datetime
          */
-        strictParsing?: boolean | undefined;
+        strictParsing?: boolean;
         /**
          * if true, the date is formatted relatively to todays date if it is within the given day range, e.g. "today",
          * "yesterday", "in 5 days"@param {boolean} [oFormatOptions.UTC] if true, the date is formatted and parsed
          * as UTC instead of the local timezone
          */
-        relative?: boolean | undefined;
+        relative?: boolean;
         /**
          * the day range used for relative formatting. If `oFormatOptions.relativeScale` is set to default value
          * 'day', the relativeRange is by default [-6, 6], which means only the last 6 days, today and the next
          * 6 days are formatted relatively. Otherwise when `oFormatOptions.relativeScale` is set to 'auto', all
          * dates are formatted relatively.
          */
-        relativeRange?: int[] | undefined;
+        relativeRange?: int[];
         /**
          * if 'auto' is set, new relative time format is switched on for all Date/Time Instances. The relative scale
          * is chosen depending on the difference between the given date and now.
          */
-        relativeScale?: string | undefined;
+        relativeScale?: string;
         /**
          * @since 1.32.10, 1.34.4 the style of the relative format. The valid values are "wide", "short", "narrow"
          */
-        relativeStyle?: string | undefined;
+        relativeStyle?: string;
         /**
          * @since 1.48.0 if true, the {@link sap.ui.core.format.DateFormat#format format} method expects an array
          * with two dates as the first argument and formats them as interval. Further interval "Jan 10, 2008 - Jan
          * 12, 2008" will be formatted as "Jan 10-12, 2008" if the 'format' option is set with necessary symbols.
          * Otherwise the two given dates are formatted separately and concatenated with local dependent pattern.
          */
-        interval?: boolean | undefined;
+        interval?: boolean;
         /**
          * Only relevant if oFormatOptions.interval is set to 'true'. This allows to pass an array with only one
          * date object to the {@link sap.ui.core.format.DateFormat#format format} method.
          */
-        singleIntervalValue?: boolean | undefined;
+        singleIntervalValue?: boolean;
         /**
          * if true, the date is formatted and parsed as UTC instead of the local timezone
          */
-        UTC?: boolean | undefined;
+        UTC?: boolean;
         /**
          * The calender type which is used to format and parse the date. This value is by default either set in
          * configuration or calculated based on current locale.
          */
-        calendarType?: CalendarType | keyof typeof CalendarType | undefined;
+        calendarType?: CalendarType | keyof typeof CalendarType;
       },
       /**
        * Locale to ask for locale specific texts/settings
@@ -17798,62 +18116,62 @@ declare module "sap/ui/core/format/DateFormat" {
          * is: Era (G), Year (y/Y), Quarter (q/Q), Month (M/L), Week (w), Day-Of-Week (E/e/c), Day (d), Hour (h/H/k/K/j/J),
          * Minute (m), Second (s), Timezone (z/Z/v/V/O/X/x) See http://unicode.org/reports/tr35/tr35-dates.html#availableFormats_appendItems
          */
-        format?: string | undefined;
+        format?: string;
         /**
          * a time pattern in LDML format. It is not verified whether the pattern only represents a time.
          */
-        pattern?: string | undefined;
+        pattern?: string;
         /**
          * can be either 'short, 'medium', 'long' or 'full'. If no pattern is given, a locale dependent default
          * time pattern of that style is used from the LocaleData class.
          */
-        style?: string | undefined;
+        style?: string;
         /**
          * if true, by parsing it is checked if the value is a valid time
          */
-        strictParsing?: boolean | undefined;
+        strictParsing?: boolean;
         /**
          * if true, the date is formatted relatively to todays date if it is within the given day range, e.g. "today",
          * "yesterday", "in 5 days"
          */
-        relative?: boolean | undefined;
+        relative?: boolean;
         /**
          * the day range used for relative formatting. If `oFormatOptions.relativeScale` is set to default value
          * 'day', the relativeRange is by default [-6, 6], which means only the last 6 days, today and the next
          * 6 days are formatted relatively. Otherwise when `oFormatOptions.relativeScale` is set to 'auto', all
          * dates are formatted relatively.
          */
-        relativeRange?: int[] | undefined;
+        relativeRange?: int[];
         /**
          * if 'auto' is set, new relative time format is switched on for all Date/Time Instances. The relative scale
          * is chosen depending on the difference between the given date and now.
          */
-        relativeScale?: string | undefined;
+        relativeScale?: string;
         /**
          * @since 1.32.10, 1.34.4 the style of the relative format. The valid values are "wide", "short", "narrow"
          */
-        relativeStyle?: string | undefined;
+        relativeStyle?: string;
         /**
          * @since 1.48.0 if true, the {@link sap.ui.core.format.DateFormat#format format} method expects an array
          * with two dates as the first argument and formats them as interval. Further interval "Jan 10, 2008 - Jan
          * 12, 2008" will be formatted as "Jan 10-12, 2008" if the 'format' option is set with necessary symbols.
          * Otherwise the two given dates are formatted separately and concatenated with local dependent pattern.
          */
-        interval?: boolean | undefined;
+        interval?: boolean;
         /**
          * Only relevant if oFormatOptions.interval is set to 'true'. This allows to pass an array with only one
          * date object to the {@link sap.ui.core.format.DateFormat#format format} method.
          */
-        singleIntervalValue?: boolean | undefined;
+        singleIntervalValue?: boolean;
         /**
          * if true, the time is formatted and parsed as UTC instead of the local timezone
          */
-        UTC?: boolean | undefined;
+        UTC?: boolean;
         /**
          * The calender type which is used to format and parse the date. This value is by default either set in
          * configuration or calculated based on current locale.
          */
-        calendarType?: CalendarType | keyof typeof CalendarType | undefined;
+        calendarType?: CalendarType | keyof typeof CalendarType;
       },
       /**
        * Locale to ask for locale specific texts/settings
@@ -17900,7 +18218,9 @@ declare module "sap/ui/core/format/FileSizeFormat" {
    * 			1 Kilobyte = 1000 Byte (Default is false)
    */
   export default class FileSizeFormat extends BaseObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -17973,7 +18293,9 @@ declare module "sap/ui/core/format/ListFormat" {
    * manner according to a set of format options.
    */
   export default class ListFormat {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -17983,7 +18305,7 @@ declare module "sap/ui/core/format/ListFormat" {
       /**
        * The value to format
        */
-      aList: Array<any>
+      aList: any[]
     ): string;
     /**
      * Get an instance of the ListFormat which can be used for formatting.
@@ -18006,7 +18328,7 @@ declare module "sap/ui/core/format/ListFormat" {
        * String value to be parsed
        */
       sValue: string
-    ): Array<any>;
+    ): any[];
   }
 }
 
@@ -18022,7 +18344,9 @@ declare module "sap/ui/core/format/NumberFormat" {
    * options.
    */
   export default class NumberFormat extends BaseObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -18053,7 +18377,7 @@ declare module "sap/ui/core/format/NumberFormat" {
       /**
        * the number to format or an array which contains the number to format and the sMeasure parameter
        */
-      vValue: number | Array<any>,
+      vValue: number | any[],
       /**
        * an optional unit which has an impact on formatting currencies and units
        */
@@ -18125,99 +18449,99 @@ declare module "sap/ui/core/format/NumberFormat" {
         /**
          * defines minimal number of non-decimal digits
          */
-        minIntegerDigits?: int | undefined;
+        minIntegerDigits?: int;
         /**
          * defines maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?" characters
          * are shown instead of digits.
          */
-        maxIntegerDigits?: int | undefined;
+        maxIntegerDigits?: int;
         /**
          * defines minimal number of decimal digits
          */
-        minFractionDigits?: int | undefined;
+        minFractionDigits?: int;
         /**
          * defines maximum number of decimal digits
          */
-        maxFractionDigits?: int | undefined;
+        maxFractionDigits?: int;
         /**
          * defines the number of decimal digits
          */
-        decimals?: int | undefined;
+        decimals?: int;
         /**
          * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
          * options is used
          */
-        shortDecimals?: int | undefined;
+        shortDecimals?: int;
         /**
          * only use short number formatting for values above this limit
          */
-        shortLimit?: int | undefined;
+        shortLimit?: int;
         /**
          * @since 1.40 specifies a number from which the scale factor for 'short' or 'long' style format is generated.
          * The generated scale factor is used for all numbers which are formatted with this format instance. This
          * option has effect only when the option 'style' is set to 'short' or 'long'. This option is by default
          * set with `undefined` which means the scale factor is selected automatically for each number being formatted.
          */
-        shortRefNumber?: int | undefined;
+        shortRefNumber?: int;
         /**
          * @since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
          * only when the 'style' options is set to either 'short' or 'long'.
          */
-        showScale?: boolean | undefined;
+        showScale?: boolean;
         /**
          * CLDR number pattern which is used to format the number
          */
-        pattern?: string | undefined;
+        pattern?: string;
         /**
          * defines whether grouping is enabled (show the grouping separators)
          */
-        groupingEnabled?: boolean | undefined;
+        groupingEnabled?: boolean;
         /**
          * defines the used grouping separator, note that the groupingSeparator must always be different than the
          * used decimalSeparator.
          */
-        groupingSeparator?: string | undefined;
+        groupingSeparator?: string;
         /**
          * defines the grouping size in digits, the default is three
          */
-        groupingSize?: int | undefined;
+        groupingSize?: int;
         /**
          * defines the grouping base size in digits, in case it is different from the grouping size (e.g. indian
          * grouping)
          */
-        groupingBaseSize?: int | undefined;
+        groupingBaseSize?: int;
         /**
          * defines the used decimal separator, note that the decimalSeparator must always be different than the
          * used groupingSeparator.
          */
-        decimalSeparator?: string | undefined;
+        decimalSeparator?: string;
         /**
          * defines the used plus symbol
          */
-        plusSign?: string | undefined;
+        plusSign?: string;
         /**
          * defines the used minus symbol
          */
-        minusSign?: string | undefined;
+        minusSign?: string;
         /**
          * @since 1.28.2 defines whether to output string from parse function in order to keep the precision for
          * big numbers. Numbers in scientific notation are parsed back to the standard notation. For example "5e-3"
          * is parsed to "0.005".
          */
-        parseAsString?: boolean | undefined;
+        parseAsString?: boolean;
         /**
          * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
          * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
          * is rounded to `maxFractionDigits`.
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
         /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
          * Numbers are formatted into compact forms when it's set to 'short' or 'long'. When this option is set,
          * the default value of option 'precision' is set to 2. This can be changed by setting either min/maxFractionDigits,
          * decimals, shortDecimals or precision option.
          */
-        style?: string | undefined;
+        style?: string;
         /**
          * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
          * maxFractionDigits. Rounding will only be applied, if the passed value if of type number. This can be
@@ -18225,48 +18549,48 @@ declare module "sap/ui/core/format/NumberFormat" {
          * which will be used for rounding the number. The function is called with two parameters: the number and
          * how many decimal digits should be reserved.
          */
-        roundingMode?: RoundingMode | keyof typeof RoundingMode | undefined;
+        roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
          * Overrides the global configuration value {@link sap.ui.core.Configuration.FormatSettings#getTrailingCurrencyCode}
          * whose default value is `true</>. This is ignored if oFormatOptions.currencyCode` is set to `false`
          * or if `oFormatOptions.pattern` is supplied
          */
-        trailingCurrencyCode?: boolean | undefined;
+        trailingCurrencyCode?: boolean;
         /**
          * defines whether the currency code/symbol is shown in the formatted string, e.g. true: "1.00 EUR", false:
          * "1.00" for locale "en" If both `showMeasure` and `showNumber` are false, an empty string is returned
          */
-        showMeasure?: boolean | undefined;
+        showMeasure?: boolean;
         /**
          * defines whether the number is shown as part of the result string, e.g. 1 EUR for locale "en" `NumberFormat.getCurrencyInstance({showNumber:true}).format(1,
          * "EUR"); // "1.00 EUR"` `NumberFormat.getCurrencyInstance({showNumber:false}).format(1, "EUR"); // "EUR"`
          * If both `showMeasure` and `showNumber` are false, an empty string is returned
          */
-        showNumber?: boolean | undefined;
+        showNumber?: boolean;
         /**
          * defines whether the currency is shown as code in currency format. The currency symbol is displayed when
          * this is set to false and there is a symbol defined for the given currency code.
          */
-        currencyCode?: boolean | undefined;
+        currencyCode?: boolean;
         /**
          * It can be set either with 'standard' (the default value) or with 'accounting' for an accounting specific
          * currency display
          */
-        currencyContext?: string | undefined;
+        currencyContext?: string;
         /**
          * @since 1.30.0 defines what empty string is parsed as and what is formatted as empty string. The allowed
          * values are "" (empty string), NaN, null or 0. The 'format' and 'parse' are done in a symmetric way. For
          * example when this parameter is set to NaN, empty string is parsed as [NaN, undefined] and NaN is formatted
          * as empty string.
          */
-        emptyString?: number | undefined;
+        emptyString?: number;
         /**
          * defines a set of custom currencies exclusive to this NumberFormat instance. If custom currencies are
          * defined on the instance, no other currencies can be formatted and parsed by this instance. Globally available
          * custom currencies can be added via the global configuration. See the above examples. See also {@link
          * sap.ui.core.Configuration.FormatSettings#setCustomCurrencies} and {@link sap.ui.core.Configuration.FormatSettings#addCustomCurrencies}.
          */
-        customCurrencies?: Record<string, object> | undefined;
+        customCurrencies?: Record<string, object>;
       },
       /**
        * Locale to get the formatter for
@@ -18291,103 +18615,103 @@ declare module "sap/ui/core/format/NumberFormat" {
         /**
          * defines minimal number of non-decimal digits
          */
-        minIntegerDigits?: int | undefined;
+        minIntegerDigits?: int;
         /**
          * defines maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?" characters
          * are shown instead of digits.
          */
-        maxIntegerDigits?: int | undefined;
+        maxIntegerDigits?: int;
         /**
          * defines minimal number of decimal digits
          */
-        minFractionDigits?: int | undefined;
+        minFractionDigits?: int;
         /**
          * defines maximum number of decimal digits
          */
-        maxFractionDigits?: int | undefined;
+        maxFractionDigits?: int;
         /**
          * defines the number of decimal digits
          */
-        decimals?: int | undefined;
+        decimals?: int;
         /**
          * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
          * options is used
          */
-        shortDecimals?: int | undefined;
+        shortDecimals?: int;
         /**
          * only use short number formatting for values above this limit
          */
-        shortLimit?: int | undefined;
+        shortLimit?: int;
         /**
          * @since 1.40 specifies a number from which the scale factor for 'short' or 'long' style format is generated.
          * The generated scale factor is used for all numbers which are formatted with this format instance. This
          * option has effect only when the option 'style' is set to 'short' or 'long'. This option is by default
          * set with `undefined` which means the scale factor is selected automatically for each number being formatted.
          */
-        shortRefNumber?: int | undefined;
+        shortRefNumber?: int;
         /**
          * @since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
          * only when the 'style' options is set to either 'short' or 'long'.
          */
-        showScale?: boolean | undefined;
+        showScale?: boolean;
         /**
          * defines the number precision, number of decimals is calculated dependent on the integer digits
          */
-        precision?: int | undefined;
+        precision?: int;
         /**
          * CLDR number pattern which is used to format the number
          */
-        pattern?: string | undefined;
+        pattern?: string;
         /**
          * defines whether grouping is enabled (show the grouping separators)
          */
-        groupingEnabled?: boolean | undefined;
+        groupingEnabled?: boolean;
         /**
          * defines the used grouping separator, note that the groupingSeparator must always be different than the
          * used decimalSeparator.
          */
-        groupingSeparator?: string | undefined;
+        groupingSeparator?: string;
         /**
          * defines the grouping size in digits, the default is three
          */
-        groupingSize?: int | undefined;
+        groupingSize?: int;
         /**
          * defines the grouping base size in digits, in case it is different from the grouping size (e.g. indian
          * grouping)
          */
-        groupingBaseSize?: int | undefined;
+        groupingBaseSize?: int;
         /**
          * defines the used decimal separator, note that the decimalSeparator must always be different than the
          * used groupingSeparator.
          */
-        decimalSeparator?: string | undefined;
+        decimalSeparator?: string;
         /**
          * defines the used plus symbol
          */
-        plusSign?: string | undefined;
+        plusSign?: string;
         /**
          * defines the used minus symbol
          */
-        minusSign?: string | undefined;
+        minusSign?: string;
         /**
          * @since 1.28.2 defines whether to output string from parse function in order to keep the precision for
          * big numbers. Numbers in scientific notation are parsed back to the standard notation. For example "5e-3"
          * is parsed to "0.005".
          */
-        parseAsString?: boolean | undefined;
+        parseAsString?: boolean;
         /**
          * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
          * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
          * is rounded to `maxFractionDigits`.
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
         /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
          * Numbers are formatted into compact forms when it's set to 'short' or 'long'. When this option is set,
          * the default value of option 'precision' is set to 2. This can be changed by setting either min/maxFractionDigits,
          * decimals, shortDecimals or precision option.
          */
-        style?: string | undefined;
+        style?: string;
         /**
          * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
          * maxFractionDigits. Rounding will only be applied, if the passed value if of type number. This can be
@@ -18395,14 +18719,14 @@ declare module "sap/ui/core/format/NumberFormat" {
          * which will be used for rounding the number. The function is called with two parameters: the number and
          * how many decimal digits should be reserved.
          */
-        roundingMode?: RoundingMode | keyof typeof RoundingMode | undefined;
+        roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
          * @since 1.30.0 defines what empty string is parsed as and what is formatted as empty string. The allowed
          * values are "" (empty string), NaN, null or 0. The 'format' and 'parse' are done in a symmetric way. For
          * example when this parameter is set to NaN, empty string is parsed as NaN and NaN is formatted as empty
          * string.
          */
-        emptyString?: number | undefined;
+        emptyString?: number;
       },
       /**
        * Locale to get the formatter for
@@ -18427,103 +18751,103 @@ declare module "sap/ui/core/format/NumberFormat" {
         /**
          * defines minimal number of non-decimal digits
          */
-        minIntegerDigits?: int | undefined;
+        minIntegerDigits?: int;
         /**
          * defines maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?" characters
          * are shown instead of digits.
          */
-        maxIntegerDigits?: int | undefined;
+        maxIntegerDigits?: int;
         /**
          * defines minimal number of decimal digits
          */
-        minFractionDigits?: int | undefined;
+        minFractionDigits?: int;
         /**
          * defines maximum number of decimal digits
          */
-        maxFractionDigits?: int | undefined;
+        maxFractionDigits?: int;
         /**
          * defines the number of decimal digits
          */
-        decimals?: int | undefined;
+        decimals?: int;
         /**
          * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
          * options is used
          */
-        shortDecimals?: int | undefined;
+        shortDecimals?: int;
         /**
          * only use short number formatting for values above this limit
          */
-        shortLimit?: int | undefined;
+        shortLimit?: int;
         /**
          * @since 1.40 specifies a number from which the scale factor for 'short' or 'long' style format is generated.
          * The generated scale factor is used for all numbers which are formatted with this format instance. This
          * option has effect only when the option 'style' is set to 'short' or 'long'. This option is by default
          * set with `undefined` which means the scale factor is selected automatically for each number being formatted.
          */
-        shortRefNumber?: int | undefined;
+        shortRefNumber?: int;
         /**
          * @since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
          * only when the 'style' options is set to either 'short' or 'long'.
          */
-        showScale?: boolean | undefined;
+        showScale?: boolean;
         /**
          * defines the number precision, number of decimals is calculated dependent on the integer digits
          */
-        precision?: int | undefined;
+        precision?: int;
         /**
          * CLDR number pattern which is used to format the number
          */
-        pattern?: string | undefined;
+        pattern?: string;
         /**
          * defines whether grouping is enabled (show the grouping separators)
          */
-        groupingEnabled?: boolean | undefined;
+        groupingEnabled?: boolean;
         /**
          * defines the used grouping separator, note that the groupingSeparator must always be different than the
          * used decimalSeparator.
          */
-        groupingSeparator?: string | undefined;
+        groupingSeparator?: string;
         /**
          * defines the grouping size in digits, the default is three
          */
-        groupingSize?: int | undefined;
+        groupingSize?: int;
         /**
          * defines the grouping base size in digits, in case it is different from the grouping size (e.g. indian
          * grouping)
          */
-        groupingBaseSize?: int | undefined;
+        groupingBaseSize?: int;
         /**
          * defines the used decimal separator, note that the decimalSeparator must always be different than the
          * used groupingSeparator.
          */
-        decimalSeparator?: string | undefined;
+        decimalSeparator?: string;
         /**
          * defines the used plus symbol
          */
-        plusSign?: string | undefined;
+        plusSign?: string;
         /**
          * defines the used minus symbol
          */
-        minusSign?: string | undefined;
+        minusSign?: string;
         /**
          * @since 1.28.2 defines whether to output string from parse function in order to keep the precision for
          * big numbers. Numbers in scientific notation are parsed back to the standard notation. For example "5e+3"
          * is parsed to "5000".
          */
-        parseAsString?: boolean | undefined;
+        parseAsString?: boolean;
         /**
          * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
          * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
          * is rounded to `maxFractionDigits`.
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
         /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
          * Numbers are formatted into compact forms when it's set to 'short' or 'long'. When this option is set,
          * the default value of option 'precision' is set to 2. This can be changed by setting either min/maxFractionDigits,
          * decimals, shortDecimals or precision option.
          */
-        style?: string | undefined;
+        style?: string;
         /**
          * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
          * maxFractionDigits. Rounding will only be applied, if the passed value if of type number. This can be
@@ -18531,13 +18855,13 @@ declare module "sap/ui/core/format/NumberFormat" {
          * which will be used for rounding the number. The function is called with two parameters: the number and
          * how many decimal digits should be reserved.
          */
-        roundingMode?: RoundingMode | keyof typeof RoundingMode | undefined;
+        roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
          * @since 1.30.0 defines what empty string is parsed as and what is formatted as empty string. The allowed
          * values are only NaN, null or 0. The 'format' and 'parse' are done in a symmetric way. For example when
          * this parameter is set to NaN, empty string is parsed as NaN and NaN is formatted as empty string.
          */
-        emptyString?: number | undefined;
+        emptyString?: number;
       },
       /**
        * Locale to get the formatter for
@@ -18566,107 +18890,107 @@ declare module "sap/ui/core/format/NumberFormat" {
         /**
          * defines minimal number of non-decimal digits
          */
-        minIntegerDigits?: int | undefined;
+        minIntegerDigits?: int;
         /**
          * defines maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?" characters
          * are shown instead of digits.
          */
-        maxIntegerDigits?: int | undefined;
+        maxIntegerDigits?: int;
         /**
          * defines minimal number of decimal digits
          */
-        minFractionDigits?: int | undefined;
+        minFractionDigits?: int;
         /**
          * defines maximum number of decimal digits
          */
-        maxFractionDigits?: int | undefined;
+        maxFractionDigits?: int;
         /**
          * defines the number of decimal digits
          */
-        decimals?: int | undefined;
+        decimals?: int;
         /**
          * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
          * options is used
          */
-        shortDecimals?: int | undefined;
+        shortDecimals?: int;
         /**
          * only use short number formatting for values above this limit
          */
-        shortLimit?: int | undefined;
+        shortLimit?: int;
         /**
          * @since 1.40 specifies a number from which the scale factor for 'short' or 'long' style format is generated.
          * The generated scale factor is used for all numbers which are formatted with this format instance. This
          * option has effect only when the option 'style' is set to 'short' or 'long'. This option is by default
          * set with `undefined` which means the scale factor is selected automatically for each number being formatted.
          */
-        shortRefNumber?: int | undefined;
+        shortRefNumber?: int;
         /**
          * @since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
          * only when the 'style' options is set to either 'short' or 'long'.
          */
-        showScale?: boolean | undefined;
+        showScale?: boolean;
         /**
          * defines the number precision, number of decimals is calculated dependent on the integer digits
          */
-        precision?: int | undefined;
+        precision?: int;
         /**
          * CLDR number pattern which is used to format the number
          */
-        pattern?: string | undefined;
+        pattern?: string;
         /**
          * defines whether grouping is enabled (show the grouping separators)
          */
-        groupingEnabled?: boolean | undefined;
+        groupingEnabled?: boolean;
         /**
          * defines the used grouping separator, note that the groupingSeparator must always be different than the
          * used decimalSeparator.
          */
-        groupingSeparator?: string | undefined;
+        groupingSeparator?: string;
         /**
          * defines the grouping size in digits, the default is three
          */
-        groupingSize?: int | undefined;
+        groupingSize?: int;
         /**
          * defines the grouping base size in digits, in case it is different from the grouping size (e.g. indian
          * grouping)
          */
-        groupingBaseSize?: int | undefined;
+        groupingBaseSize?: int;
         /**
          * defines the used decimal separator, note that the decimalSeparator must always be different than the
          * used groupingSeparator.
          */
-        decimalSeparator?: string | undefined;
+        decimalSeparator?: string;
         /**
          * defines the used plus symbol
          */
-        plusSign?: string | undefined;
+        plusSign?: string;
         /**
          * defines the used minus symbol
          */
-        minusSign?: string | undefined;
+        minusSign?: string;
         /**
          * defines the used percent symbol
          */
-        percentSign?: string | undefined;
+        percentSign?: string;
         /**
          * @since 1.28.2 defines whether to output string from parse function in order to keep the precision for
          * big numbers. Numbers in scientific notation are parsed back to the standard notation. For example "5e-3"
          * is parsed to "0.005".
          */
-        parseAsString?: boolean | undefined;
+        parseAsString?: boolean;
         /**
          * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
          * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
          * is rounded to `maxFractionDigits`.
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
         /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
          * Numbers are formatted into compact forms when it's set to 'short' or 'long'. When this option is set,
          * the default value of option 'precision' is set to 2. This can be changed by setting either min/maxFractionDigits,
          * decimals, shortDecimals or precision option.
          */
-        style?: string | undefined;
+        style?: string;
         /**
          * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
          * maxFractionDigits. Rounding will only be applied, if the passed value if of type number. This can be
@@ -18674,14 +18998,14 @@ declare module "sap/ui/core/format/NumberFormat" {
          * which will be used for rounding the number. The function is called with two parameters: the number and
          * how many decimal digits should be reserved.
          */
-        roundingMode?: RoundingMode | keyof typeof RoundingMode | undefined;
+        roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
          * @since 1.30.0 defines what empty string is parsed as and what is formatted as empty string. The allowed
          * values are "" (empty string), NaN, null or 0. The 'format' and 'parse' are done in a symmetric way. For
          * example when this parameter is set to NaN, empty string is parsed as NaN and NaN is formatted as empty
          * string.
          */
-        emptyString?: number | undefined;
+        emptyString?: number;
       },
       /**
        * Locale to get the formatter for
@@ -18706,113 +19030,113 @@ declare module "sap/ui/core/format/NumberFormat" {
         /**
          * defines minimal number of non-decimal digits
          */
-        minIntegerDigits?: int | undefined;
+        minIntegerDigits?: int;
         /**
          * defines maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?" characters
          * are shown instead of digits.
          */
-        maxIntegerDigits?: int | undefined;
+        maxIntegerDigits?: int;
         /**
          * defines minimal number of decimal digits
          */
-        minFractionDigits?: int | undefined;
+        minFractionDigits?: int;
         /**
          * defines maximum number of decimal digits
          */
-        maxFractionDigits?: int | undefined;
+        maxFractionDigits?: int;
         /**
          * defines the number of decimal digits
          */
-        decimals?: int | undefined;
+        decimals?: int;
         /**
          * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
          * options is used
          */
-        shortDecimals?: int | undefined;
+        shortDecimals?: int;
         /**
          * only use short number formatting for values above this limit
          */
-        shortLimit?: int | undefined;
+        shortLimit?: int;
         /**
          * @since 1.40 specifies a number from which the scale factor for 'short' or 'long' style format is generated.
          * The generated scale factor is used for all numbers which are formatted with this format instance. This
          * option has effect only when the option 'style' is set to 'short' or 'long'. This option is by default
          * set with `undefined` which means the scale factor is selected automatically for each number being formatted.
          */
-        shortRefNumber?: int | undefined;
+        shortRefNumber?: int;
         /**
          * @since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
          * only when the 'style' options is set to either 'short' or 'long'.
          */
-        showScale?: boolean | undefined;
+        showScale?: boolean;
         /**
          * defines the number precision, number of decimals is calculated dependent on the integer digits
          */
-        precision?: int | undefined;
+        precision?: int;
         /**
          * CLDR number pattern which is used to format the number
          */
-        pattern?: string | undefined;
+        pattern?: string;
         /**
          * defines whether grouping is enabled (show the grouping separators)
          */
-        groupingEnabled?: boolean | undefined;
+        groupingEnabled?: boolean;
         /**
          * defines the used grouping separator, note that the groupingSeparator must always be different than the
          * used decimalSeparator.
          */
-        groupingSeparator?: string | undefined;
+        groupingSeparator?: string;
         /**
          * defines the grouping size in digits, the default is three
          */
-        groupingSize?: int | undefined;
+        groupingSize?: int;
         /**
          * defines the grouping base size in digits, in case it is different from the grouping size (e.g. indian
          * grouping)
          */
-        groupingBaseSize?: int | undefined;
+        groupingBaseSize?: int;
         /**
          * defines the used decimal separator, note that the decimalSeparator must always be different than the
          * used groupingSeparator.
          */
-        decimalSeparator?: string | undefined;
+        decimalSeparator?: string;
         /**
          * defines a set of custom units, e.g. {"electric-inductance": { "displayName": "henry", "unitPattern-count-one":
          * "{0} H", "unitPattern-count-other": "{0} H", "perUnitPattern": "{0}/H", "decimals": 2, "precision": 4
          * }}
          */
-        customUnits?: Record<string, object> | undefined;
+        customUnits?: Record<string, object>;
         /**
          * defines the allowed units for formatting and parsing, e.g. ["size-meter", "volume-liter", ...]
          */
-        allowedUnits?: Array<any> | undefined;
+        allowedUnits?: any[];
         /**
          * defines the used plus symbol
          */
-        plusSign?: string | undefined;
+        plusSign?: string;
         /**
          * defines the used minus symbol
          */
-        minusSign?: string | undefined;
+        minusSign?: string;
         /**
          * @since 1.28.2 defines whether to output string from parse function in order to keep the precision for
          * big numbers. Numbers in scientific notation are parsed back to the standard notation. For example "5e-3"
          * is parsed to "0.005".
          */
-        parseAsString?: boolean | undefined;
+        parseAsString?: boolean;
         /**
          * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
          * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
          * is rounded to `maxFractionDigits`.
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
         /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on CLDR decimalFormat).
          * Numbers are formatted into compact forms when it's set to 'short' or 'long'. When this option is set,
          * the default value of option 'precision' is set to 2. This can be changed by setting either min/maxFractionDigits,
          * decimals, shortDecimals or precision option.
          */
-        style?: string | undefined;
+        style?: string;
         /**
          * specifies a rounding behavior for discarding the digits after the maximum fraction digits defined by
          * maxFractionDigits. Rounding will only be applied, if the passed value if of type number. This can be
@@ -18820,12 +19144,12 @@ declare module "sap/ui/core/format/NumberFormat" {
          * which will be used for rounding the number. The function is called with two parameters: the number and
          * how many decimal digits should be reserved.
          */
-        roundingMode?: RoundingMode | keyof typeof RoundingMode | undefined;
+        roundingMode?: RoundingMode | keyof typeof RoundingMode;
         /**
          * defines whether the unit of measure is shown in the formatted string, e.g. for input 1 and "duration-day"
          * true: "1 day", false: "1". If both `showMeasure` and `showNumber` are false, an empty string is returned
          */
-        showMeasure?: boolean | undefined;
+        showMeasure?: boolean;
         /**
          * defines whether the number is shown as part of the result string, e.g. 1 day for locale "en" `NumberFormat.getUnitInstance({showNumber:true}).format(1,
          * "duration-day"); // "1 day"` `NumberFormat.getUnitInstance({showNumber:false}).format(1, "duration-day");
@@ -18833,14 +19157,14 @@ declare module "sap/ui/core/format/NumberFormat" {
          * // "2 days"` `NumberFormat.getUnitInstance({showNumber:false}).format(2, "duration-day"); // "days"`
          * If both `showMeasure` and `showNumber` are false, an empty string is returned
          */
-        showNumber?: boolean | undefined;
+        showNumber?: boolean;
         /**
          * @since 1.30.0 defines what empty string is parsed as and what is formatted as empty string. The allowed
          * values are "" (empty string), NaN, null or 0. The 'format' and 'parse' are done in a symmetric way. For
          * example when this parameter is set to NaN, empty string is parsed as [NaN, undefined] and NaN is formatted
          * as empty string.
          */
-        emptyString?: number | undefined;
+        emptyString?: number;
       },
       /**
        * Locale to get the formatter for
@@ -18855,7 +19179,7 @@ declare module "sap/ui/core/format/NumberFormat" {
        * the string containing a formatted numeric value
        */
       sValue: string
-    ): number | Array<any> | string;
+    ): number | any[] | string;
   }
   /**
    * Specifies a rounding behavior for numerical operations capable of discarding precision. Each rounding
@@ -19029,31 +19353,31 @@ declare module "sap/ui/core/Fragment" {
          * referenced in the Fragment will be called on this Controller. Note that Fragments may require a Controller
          * to be given and certain methods to be implemented by it.
          */
-        name?: string | undefined;
+        name?: string;
         /**
          * the Fragment type, e.g. "XML", "JS", or "HTML" (see above). Default is "XML"
          */
-        type?: string | undefined;
+        type?: string;
         /**
          * definition of the Fragment content. When this property is supplied, the "name" parameter must not be
          * used. If both are supplied, the definition has priority. Please see the above example on how to use the
          * 'definition' parameter.
          */
-        definition?: string | undefined;
+        definition?: string;
         /**
          * the ID of the Fragment
          */
-        id?: string | undefined;
+        id?: string;
         /**
          * the Controller or Object which should be used by the controls in the Fragment. Note that some Fragments
          * may not need a Controller while others may need one and certain methods to be implemented by it.
          */
-        controller?: Controller | Object | undefined;
+        controller?: Controller | Object;
         /**
          * The view containing the Fragment content. If the Fragment content contains ExtensionPoints this parameter
          * must be given.
          */
-        containingView?: View | undefined;
+        containingView?: View;
       }
     ): Promise<any>;
     /**
@@ -19094,7 +19418,7 @@ declare module "sap/ui/core/Fragment" {
   }
 
   export interface $FragmentSettings extends $ManagedObjectSettings {
-    type?: string | PropertyBindingInfo | undefined;
+    type?: string | PropertyBindingInfo;
   }
 }
 
@@ -19154,6 +19478,8 @@ declare module "sap/ui/core/History" {
 
 declare module "sap/ui/core/HTML" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -19227,7 +19553,29 @@ declare module "sap/ui/core/HTML" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.HTML` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:afterRendering afterRendering} event of this
+     * `sap.ui.core.HTML`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.HTML` itself.
+     *
+     * Fired after the HTML control has been rendered. Allows to manipulate the resulting DOM.
+     *
+     * When the control doesn't have string content and no preserved DOM existed for this control, then this
+     * event will fire, but there won't be a DOM node for this control.
+     */
+    attachAfterRendering(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.HTML` itself
        */
@@ -19243,7 +19591,7 @@ declare module "sap/ui/core/HTML" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19282,7 +19630,7 @@ declare module "sap/ui/core/HTML" {
          * Whether the current DOM of the control has been preserved (true) or not (e.g. rendered from content property
          * or it is an empty HTML control).
          */
-        isPreservedDOM?: boolean | undefined;
+        isPreservedDOM?: boolean;
       }
     ): this;
     /**
@@ -19309,7 +19657,9 @@ declare module "sap/ui/core/HTML" {
      * control's ID. Otherwise it cannot be guaranteed that certain lifecycle events take place.
      */
     getContent(): string;
-    /**/
+    /**
+     *
+     */
     getDomRef(
       /**
        * Suffix of the Element to be retrieved or empty
@@ -19458,28 +19808,6 @@ declare module "sap/ui/core/HTML" {
        */
       bVisible?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:afterRendering afterRendering} event of this
-     * `sap.ui.core.HTML`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.HTML` itself.
-     *
-     * Fired after the HTML control has been rendered. Allows to manipulate the resulting DOM.
-     *
-     * When the control doesn't have string content and no preserved DOM existed for this control, then this
-     * event will fire, but there won't be a DOM node for this control.
-     */
-    attachAfterRendering(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.HTML` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $HTMLSettings extends $ControlSettings {
@@ -19504,7 +19832,7 @@ declare module "sap/ui/core/HTML" {
      * When changing the content dynamically, ensure that the ID of the root node remains the same as the HTML
      * control's ID. Otherwise it cannot be guaranteed that certain lifecycle events take place.
      */
-    content?: string | PropertyBindingInfo | undefined;
+    content?: string | PropertyBindingInfo;
 
     /**
      * Whether existing DOM content is preferred over the given content string.
@@ -19520,7 +19848,7 @@ declare module "sap/ui/core/HTML" {
      * As preserving the existing DOM is the most common use case of the HTML control, the default value is
      * true.
      */
-    preferDOM?: boolean | PropertyBindingInfo | undefined;
+    preferDOM?: boolean | PropertyBindingInfo;
 
     /**
      * Whether to run the HTML sanitizer once the content (HTML markup) is applied or not.
@@ -19528,12 +19856,12 @@ declare module "sap/ui/core/HTML" {
      * To configure the set of allowed URLs, you can use the {@link module:sap/base/security/URLListValidator.add
      * URLListValidator API}.
      */
-    sanitizeContent?: boolean | PropertyBindingInfo | undefined;
+    sanitizeContent?: boolean | PropertyBindingInfo;
 
     /**
      * Specifies whether the control is visible. Invisible controls are not rendered.
      */
-    visible?: boolean | PropertyBindingInfo | undefined;
+    visible?: boolean | PropertyBindingInfo;
 
     /**
      * Fired after the HTML control has been rendered. Allows to manipulate the resulting DOM.
@@ -19541,7 +19869,7 @@ declare module "sap/ui/core/HTML" {
      * When the control doesn't have string content and no preserved DOM existed for this control, then this
      * event will fire, but there won't be a DOM node for this control.
      */
-    afterRendering?: Function | undefined;
+    afterRendering?: Function;
   }
 }
 
@@ -19550,6 +19878,8 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
     default as ManagedObject,
     $ManagedObjectSettings,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
@@ -19597,7 +19927,9 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
    * of supported languages is outside the scope of our control and may be subject to future changes.
    */
   export default class Hyphenation extends ManagedObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -19617,7 +19949,26 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.hyphenation.Hyphenation`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:error error} event of this `sap.ui.core.hyphenation.Hyphenation`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.hyphenation.Hyphenation` itself.
+     *
+     * Fired if an error with initialization or hyphenation occurs.
+     */
+    attachError(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.hyphenation.Hyphenation`
        * itself
@@ -19652,7 +20003,7 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19690,13 +20041,13 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
         /**
          * The message of the error.
          */
-        sErrorMessage?: string | undefined;
+        sErrorMessage?: string;
       }
     ): this;
     /**
      * What languages were initialized with {@link sap.ui.core.hyphenation.Hyphenation#initialize Hyphenation#initialize}
      */
-    getInitializedLanguages(): Array<any>;
+    getInitializedLanguages(): any[];
     /**
      * Returns the singleton instance of the Hyphenation API.
      * See:
@@ -19755,32 +20106,13 @@ declare module "sap/ui/core/hyphenation/Hyphenation" {
        */
       sLang?: string
     ): boolean;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:error error} event of this `sap.ui.core.hyphenation.Hyphenation`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.hyphenation.Hyphenation` itself.
-     *
-     * Fired if an error with initialization or hyphenation occurs.
-     */
-    attachError(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.hyphenation.Hyphenation`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $HyphenationSettings extends $ManagedObjectSettings {
     /**
      * Fired if an error with initialization or hyphenation occurs.
      */
-    error?: Function | undefined;
+    error?: Function;
   }
 }
 
@@ -19788,6 +20120,8 @@ declare module "sap/ui/core/Icon" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import { IFormContent, ID, CSSSize, URI } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -19862,7 +20196,26 @@ declare module "sap/ui/core/Icon" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.Icon` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.core.Icon`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.Icon` itself.
+     *
+     * This event is fired when icon is pressed/activated by the user. When a handler is attached to this event,
+     * the Icon gets tab stop. If you want to disable this behavior, set the noTabStop property to true.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.Icon` itself
        */
@@ -19877,7 +20230,7 @@ declare module "sap/ui/core/Icon" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -20288,25 +20641,6 @@ declare module "sap/ui/core/Icon" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.core.Icon`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.Icon` itself.
-     *
-     * This event is fired when icon is pressed/activated by the user. When a handler is attached to this event,
-     * the Icon gets tab stop. If you want to disable this behavior, set the noTabStop property to true.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.Icon` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $IconSettings extends $ControlSettings {
@@ -20315,13 +20649,13 @@ declare module "sap/ui/core/Icon" {
      * name parameter and an optional collection parameter which is required when using application extended
      * Icons. A list of standard FontIcon is available here.
      */
-    src?: URI | PropertyBindingInfo | undefined;
+    src?: URI | PropertyBindingInfo;
 
     /**
      * Since Icon uses font, this property will be applied to the css font-size property on the rendered DOM
      * element.
      */
-    size?: CSSSize | PropertyBindingInfo | undefined;
+    size?: CSSSize | PropertyBindingInfo;
 
     /**
      * The color of the Icon. If color is not defined here, the Icon inherits the color from its DOM parent.
@@ -20329,7 +20663,7 @@ declare module "sap/ui/core/Icon" {
      * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
      * Icon Color}.
      */
-    color?: string | PropertyBindingInfo | undefined;
+    color?: string | PropertyBindingInfo;
 
     /**
      * This color is shown when icon is hovered. This property has no visual effect when run on mobile device.
@@ -20337,7 +20671,7 @@ declare module "sap/ui/core/Icon" {
      * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
      * Icon Color}.
      */
-    hoverColor?: string | PropertyBindingInfo | undefined;
+    hoverColor?: string | PropertyBindingInfo;
 
     /**
      * This color is shown when icon is pressed/activated by the user.
@@ -20345,19 +20679,19 @@ declare module "sap/ui/core/Icon" {
      * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
      * Icon Color}.
      */
-    activeColor?: string | PropertyBindingInfo | undefined;
+    activeColor?: string | PropertyBindingInfo;
 
     /**
      * This is the width of the DOM element which contains the Icon. Setting this property doesn't affect the
      * size of the font. If you want to make the font bigger, increase the size property.
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * This is the height of the DOM element which contains the Icon. Setting this property doesn't affect the
      * size of the font. If you want to make the font bigger, increase the size property.
      */
-    height?: CSSSize | PropertyBindingInfo | undefined;
+    height?: CSSSize | PropertyBindingInfo;
 
     /**
      * Background color of the Icon in normal state.
@@ -20365,7 +20699,7 @@ declare module "sap/ui/core/Icon" {
      * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
      * Icon Color}.
      */
-    backgroundColor?: string | PropertyBindingInfo | undefined;
+    backgroundColor?: string | PropertyBindingInfo;
 
     /**
      * Background color for Icon in hover state. This property has no visual effect when run on mobile device.
@@ -20373,7 +20707,7 @@ declare module "sap/ui/core/Icon" {
      * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
      * Icon Color}.
      */
-    hoverBackgroundColor?: string | PropertyBindingInfo | undefined;
+    hoverBackgroundColor?: string | PropertyBindingInfo;
 
     /**
      * Background color for Icon in active state.
@@ -20381,7 +20715,7 @@ declare module "sap/ui/core/Icon" {
      * The property can be set with {@link sap.ui.core.CSSColor CSS Color} or {@link sap.ui.core.IconColor Semantic
      * Icon Color}.
      */
-    activeBackgroundColor?: string | PropertyBindingInfo | undefined;
+    activeBackgroundColor?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.16.4
@@ -20390,21 +20724,21 @@ declare module "sap/ui/core/Icon" {
      * stop isn't affected by this property anymore and it's now controlled by the existence of press event
      * handler and the noTabStop property.
      */
-    decorative?: boolean | PropertyBindingInfo | undefined;
+    decorative?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.30.0
      *
      * Decides whether a default Icon tooltip should be used if no tooltip is set.
      */
-    useIconTooltip?: boolean | PropertyBindingInfo | undefined;
+    useIconTooltip?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.30.0
      *
      * This defines the alternative text which is used for outputting the aria-label attribute on the DOM.
      */
-    alt?: string | PropertyBindingInfo | undefined;
+    alt?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.30.1
@@ -20413,18 +20747,18 @@ declare module "sap/ui/core/Icon" {
      * set to false, Icon control has tab stop when press event handler is attached. If it's set to true, Icon
      * control never has tab stop no matter whether press event handler exists or not.
      */
-    noTabStop?: boolean | PropertyBindingInfo | undefined;
+    noTabStop?: boolean | PropertyBindingInfo;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * This event is fired when icon is pressed/activated by the user. When a handler is attached to this event,
      * the Icon gets tab stop. If you want to disable this behavior, set the noTabStop property to true.
      */
-    press?: Function | undefined;
+    press?: Function;
   }
 }
 
@@ -20476,15 +20810,15 @@ declare module "sap/ui/core/IconPool" {
          * indicates if already registered icons should be overwritten when the same name and collection are given.
          * The built in icons can never be overwritten.
          */
-        overWrite?: boolean | undefined;
+        overWrite?: boolean;
         /**
          * indicates whether this icon should NOT be mirrored in RTL (right to left) mode.
          */
-        suppressMirroring?: boolean | undefined;
+        suppressMirroring?: boolean;
         /**
          * ResourceBundle to be used for translation. Key format: "Icon.".
          */
-        resourceBundle?: ResourceBundle | undefined;
+        resourceBundle?: ResourceBundle;
       }
     ): object;
     /**
@@ -20517,7 +20851,7 @@ declare module "sap/ui/core/IconPool" {
     /**
      * Returns all names of registered collections in IconPool
      */
-    getIconCollectionNames(): Array<any>;
+    getIconCollectionNames(): any[];
     /**
      * @SINCE 1.25.0
      *
@@ -20570,7 +20904,7 @@ declare module "sap/ui/core/IconPool" {
        * the name of collection where icon names are retrieved.
        */
       collectionName: string
-    ): Array<any>;
+    ): any[];
     /**
      * Returns the URI of the icon in the pool which has the given `iconName` and `collectionName`.
      */
@@ -20614,7 +20948,7 @@ declare module "sap/ui/core/IconPool" {
         /**
          * a collection name for the font, if not specified the font face will be used
          */
-        collectionName?: string | undefined;
+        collectionName?: string;
         /**
          * the location where the font files are physically located
          */
@@ -20622,16 +20956,16 @@ declare module "sap/ui/core/IconPool" {
         /**
          * a configuration object mapping the icon name to the hexadecimal icon address in the font
          */
-        metadata?: object | undefined;
+        metadata?: object;
         /**
          * an URI to a file containing the configuration object specified with oConfig.metadata
          */
-        metadataURI?: object | undefined;
+        metadataURI?: object;
         /**
          * load the icon font metadata only when an icon is requested with {@link #.getIconInfo} if not specified
          * a JSON file with the name oConfig.fontFamily will be loaded from the location specified in oConfig.fontURI
          */
-        lazy?: boolean | undefined;
+        lazy?: boolean;
       }
     ): void;
   }
@@ -20812,7 +21146,9 @@ declare module "sap/ui/core/InvisibleMessage" {
    * to be announced by the screen reader and the live region’s mode using the `announce` method.
    */
   export default class InvisibleMessage extends ManagedObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -21012,7 +21348,7 @@ declare module "sap/ui/core/InvisibleText" {
     /**
      * The text of the InvisibleText.
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
   }
 }
 
@@ -21179,24 +21515,24 @@ declare module "sap/ui/core/Item" {
     /**
      * The text to be displayed for the item.
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * Enabled items can be selected.
      */
-    enabled?: boolean | PropertyBindingInfo | undefined;
+    enabled?: boolean | PropertyBindingInfo;
 
     /**
      * Options are RTL and LTR. Alternatively, an item can inherit its text direction from its parent control.
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * Can be used as input for subsequent actions.
      */
-    key?: string | PropertyBindingInfo | undefined;
+    key?: string | PropertyBindingInfo;
   }
 }
 
@@ -21482,12 +21818,12 @@ declare module "sap/ui/core/ListItem" {
     /**
      * The icon belonging to this list item instance. This can be a URI to an image or an icon font URI.
      */
-    icon?: string | PropertyBindingInfo | undefined;
+    icon?: string | PropertyBindingInfo;
 
     /**
      * Some additional text of type string, optionally to be displayed along with this item.
      */
-    additionalText?: string | PropertyBindingInfo | undefined;
+    additionalText?: string | PropertyBindingInfo;
   }
 }
 
@@ -21624,13 +21960,13 @@ declare module "sap/ui/core/LocalBusyIndicator" {
      * This property is the width of the control that has to be covered. With this width the position of the
      * animation can be properly set.
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * This property is the height of the control that has to be covered. With this height the position of the
      * animation can be properly set.
      */
-    height?: CSSSize | PropertyBindingInfo | undefined;
+    height?: CSSSize | PropertyBindingInfo;
   }
 }
 
@@ -21807,6 +22143,13 @@ declare module "sap/ui/core/LocaleData" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * @SINCE 1.92.0
+     *
+     * Whether 1 January is the first day of the first calendar week. This is the definition of the calendar
+     * week in the US.
+     */
+    firstDayStartsFirstWeek(): boolean;
     /**
      * @SINCE 1.32.0
      *
@@ -22026,7 +22369,7 @@ declare module "sap/ui/core/LocaleData" {
        * or calculated from locale.
        */
       sCalendarType?: CalendarType | keyof typeof CalendarType
-    ): Array<any>;
+    ): any[];
     /**
      * Get standalone day periods in width "narrow", "abbreviated" or "wide".
      */
@@ -22040,7 +22383,7 @@ declare module "sap/ui/core/LocaleData" {
        * or calculated from locale.
        */
       sCalendarType?: CalendarType | keyof typeof CalendarType
-    ): Array<any>;
+    ): any[];
     /**
      * Get day names in width "narrow", "abbreviated" or "wide".
      */
@@ -22054,7 +22397,7 @@ declare module "sap/ui/core/LocaleData" {
        * or calculated from locale.
        */
       sCalendarType?: CalendarType | keyof typeof CalendarType
-    ): Array<any>;
+    ): any[];
     /**
      * Get stand alone day names in width "narrow", "abbreviated" or "wide".
      */
@@ -22068,7 +22411,7 @@ declare module "sap/ui/core/LocaleData" {
        * or calculated from locale.
        */
       sCalendarType?: CalendarType | keyof typeof CalendarType
-    ): Array<any>;
+    ): any[];
     /**
      * @SINCE 1.25.0
      *
@@ -22118,7 +22461,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar
        */
       sCalendarType?: CalendarType | keyof typeof CalendarType
-    ): Array<any>;
+    ): any[];
     /**
      * @SINCE 1.32.0
      *
@@ -22133,7 +22476,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar
        */
       sCalendarType?: CalendarType | keyof typeof CalendarType
-    ): Array<any>;
+    ): any[];
     /**
      * Returns the day that usually is regarded as the first day of a week in the current locale.
      *
@@ -22214,7 +22557,7 @@ declare module "sap/ui/core/LocaleData" {
        * or calculated from locale.
        */
       sCalendarType?: CalendarType | keyof typeof CalendarType
-    ): Array<any>;
+    ): any[];
     /**
      * Get stand alone month names in width "narrow", "abbreviated" or "wide".
      */
@@ -22228,7 +22571,7 @@ declare module "sap/ui/core/LocaleData" {
        * or calculated from locale.
        */
       sCalendarType?: CalendarType | keyof typeof CalendarType
-    ): Array<any>;
+    ): any[];
     /**
      * Get number symbol "decimal", "group", "plusSign", "minusSign", "percentSign".
      */
@@ -22251,7 +22594,7 @@ declare module "sap/ui/core/LocaleData" {
      *
      * Returns an array of all plural categories available in this language.
      */
-    getPluralCategories(): Array<any>;
+    getPluralCategories(): any[];
     /**
      * @SINCE 1.50
      *
@@ -22291,7 +22634,7 @@ declare module "sap/ui/core/LocaleData" {
        * or calculated from locale.
        */
       sCalendarType?: CalendarType | keyof typeof CalendarType
-    ): Array<any>;
+    ): any[];
     /**
      * Get stand alone quarter names in width "narrow", "abbreviated" or "wide".
      */
@@ -22305,7 +22648,7 @@ declare module "sap/ui/core/LocaleData" {
        * or calculated from locale.
        */
       sCalendarType?: CalendarType | keyof typeof CalendarType
-    ): Array<any>;
+    ): any[];
     /**
      * @SINCE 1.25.0
      *
@@ -22605,16 +22948,16 @@ declare module "sap/ui/core/Manifest" {
         /**
          * (optional) the name of the component
          */
-        componentName?: string | undefined;
+        componentName?: string;
         /**
          * (optional) the base URL which is used to resolve relative URLs against
          */
-        baseUrl?: string | undefined;
+        baseUrl?: string;
         /**
          * (optional) Flag whether the manifest object should be processed or not which means that the placeholders
          * will be replaced with resource bundle values
          */
-        process?: boolean | undefined;
+        process?: boolean;
         /**
          * (optional) A list of active terminologies. If the `mOptions.process` flag is set to `true`, the given
          * terminologies will be respected when replacing placeholders with resource bundle values. To use active
@@ -22623,7 +22966,7 @@ declare module "sap/ui/core/Manifest" {
          * terminologies is significant. The {@link module:sap/base/i18n/ResourceBundle ResourceBundle} API documentation
          * describes the processing behavior in more detail.
          */
-        activeTerminologies?: string[] | undefined;
+        activeTerminologies?: string[];
       }
     );
 
@@ -22702,30 +23045,30 @@ declare module "sap/ui/core/Manifest" {
         /**
          * name of the component
          */
-        componentName?: string | undefined;
+        componentName?: string;
         /**
          * Flag whether to load the manifest async or not
          */
-        async?: boolean | undefined;
+        async?: boolean;
         /**
          * Flag whether to fail if an error occurs or not If set to `false`, errors during the loading of the manifest.json
          * file (e.g. 404) will be ignored and the resulting manifest object will be `null`. For asynchronous calls
          * the returned Promise will not reject but resolve with `null`.
          */
-        failOnError?: boolean | undefined;
+        failOnError?: boolean;
         /**
          * Callback for asynchronous processing of the loaded manifest. The callback receives the parsed manifest
          * object and must return a Promise which resolves with an object. It allows to early access and modify
          * the manifest object.
          */
-        processJson?: Function | undefined;
+        processJson?: Function;
         /**
          * A list of active terminologies. The order of the given active terminologies is significant. The {@link
          * module:sap/base/i18n/ResourceBundle ResourceBundle} API documentation describes the processing behavior
          * in more detail. Please have a look at this dev-guide chapter for general usage instructions: {@link topic:eba8d25a31ef416ead876e091e67824e
          * Text Verticalization}.
          */
-        activeTerminologies?: string[] | undefined;
+        activeTerminologies?: string[];
       }
     ): Manifest | Promise<any>;
     /**
@@ -22972,23 +23315,23 @@ declare module "sap/ui/core/Message" {
     /**
      * Message text
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * Message's timestamp. It is just a simple String that will be used without any transformation. So the
      * application that uses messages needs to format the timestamp to its own needs.
      */
-    timestamp?: string | PropertyBindingInfo | undefined;
+    timestamp?: string | PropertyBindingInfo;
 
     /**
      * A possible icon URI of the message
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
 
     /**
      * Setting the message's level.
      */
-    level?: (MessageType | keyof typeof MessageType) | PropertyBindingInfo | undefined;
+    level?: (MessageType | keyof typeof MessageType) | PropertyBindingInfo;
 
     /**
      * @SINCE 1.19.0
@@ -22996,7 +23339,7 @@ declare module "sap/ui/core/Message" {
      * Determines whether the message should be read only. This helps the application to handle a message a
      * different way if the application differentiates between read-only and common messages.
      */
-    readOnly?: boolean | PropertyBindingInfo | undefined;
+    readOnly?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -23052,7 +23395,7 @@ declare module "sap/ui/core/message/ControlMessageProcessor" {
       /**
        * map of messages: {'target': [array of messages],...}
        */
-      vMessages: Record<string, Array<any>>
+      vMessages: Record<string, any[]>
     ): void;
   }
 }
@@ -23078,60 +23421,60 @@ declare module "sap/ui/core/message/Message" {
         /**
          * The message id: will be generated if no id is set
          */
-        id?: string | undefined;
+        id?: string;
         /**
          * The message text
          */
-        message?: string | undefined;
+        message?: string;
         /**
          * The message description
          */
-        description?: string | undefined;
+        description?: string;
         /**
          * The message description url to get a more detailed message
          */
-        descriptionUrl?: string | undefined;
+        descriptionUrl?: string;
         /**
          * The message additionalText
          */
-        additionalText?: string | undefined;
+        additionalText?: string;
         /**
          * The message type
          */
-        type?: MessageType | keyof typeof MessageType | undefined;
+        type?: MessageType | keyof typeof MessageType;
         /**
          * The message code
          */
-        code?: string | undefined;
+        code?: string;
         /**
          * If the message is set as technical message
          */
-        technical?: boolean | undefined;
+        technical?: boolean;
         /**
          * An object containing technical details for a message
          */
-        technicalDetails?: object | undefined;
+        technicalDetails?: object;
 
-        processor?: MessageProcessor | undefined;
+        processor?: MessageProcessor;
         /**
          * The single message target or (since 1.79) an array of message targets in case the message has multiple
          * targets. The syntax is MessageProcessor dependent. Read the documentation of the respective MessageProcessor.
          */
-        target?: string | string[] | undefined;
+        target?: string | string[];
         /**
          * Sets message persistent: If persistent is set `true` the message lifecycle is controlled by the application
          */
-        persistent?: boolean | undefined;
+        persistent?: boolean;
         /**
          * Sets message date which can be used to remove old messages. Number of milliseconds elapsed since 1 January
          * 1970 00:00:00 UTC
          */
-        date?: int | undefined;
+        date?: int;
         /**
          * Defines more detailed information about the message target or (since 1.79) the message targets in case
          * the message has multiple targets. This property is currently only used by the ODataMessageParser.
          */
-        fullTarget?: string | string[] | undefined;
+        fullTarget?: string | string[];
       }
     );
 
@@ -23182,7 +23525,7 @@ declare module "sap/ui/core/message/Message" {
      * a Model so the Message could be propagated to this Control. The propagation happens only if the Control
      * is created and visible on the screen. The ID is not set in all other cases and cannot be set manually.
      */
-    getControlIds(): Array<any>;
+    getControlIds(): any[];
     /**
      * Set the date of the message
      */
@@ -23594,6 +23937,22 @@ declare module "sap/ui/core/message/MessageProcessor" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:messageChange messageChange} event of this `sap.ui.core.message.MessageProcessor`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.message.MessageProcessor` itself.
+     */
+    attachMessageChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `MessageProcessor` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Implement in inheriting classes
      */
     checkMessages(): void;
@@ -23662,24 +24021,8 @@ declare module "sap/ui/core/message/MessageProcessor" {
       /**
        * map of messages: {'target': [array of messages],...}
        */
-      vMessages: Record<string, Array<any>>
+      vMessages: Record<string, any[]>
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:messageChange messageChange} event of this `sap.ui.core.message.MessageProcessor`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.message.MessageProcessor` itself.
-     */
-    attachMessageChange(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `MessageProcessor` itself
-       */
-      oListener?: object
-    ): this;
   }
 }
 
@@ -23940,7 +24283,9 @@ declare module "sap/ui/core/mvc/ControllerExtension" {
    * Using Controller Extension} in the documentation.
    */
   export default class ControllerExtension extends BaseObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -24098,20 +24443,20 @@ declare module "sap/ui/core/mvc/HTMLView" {
         /**
          * Specifies an ID for the view instance. If no ID is given, an ID will be generated.
          */
-        id?: string | undefined;
+        id?: string;
         /**
          * Name of the view resource in module name notation (without suffix)
          */
-        viewName?: string | undefined;
+        viewName?: string;
         /**
          * The view definition.
          */
-        definition?: string | undefined;
+        definition?: string;
         /**
          * Controller instance to be used for this view. The given controller instance overrides the controller
          * defined in the view definition. Sharing a controller instance between multiple views is not supported.
          */
-        controller?: Controller | undefined;
+        controller?: Controller;
       }
     ): Promise<HTMLView>;
     /**
@@ -24219,21 +24564,21 @@ declare module "sap/ui/core/mvc/JSONView" {
         /**
          * Specifies an ID for the view instance. If no ID is given, an ID will be generated.
          */
-        id?: string | undefined;
+        id?: string;
         /**
          * The view name (in dot-notation) that corresponds to a JSON resource that can be loaded via the module
          * system (viewName + suffix ".view.json").
          */
-        viewName?: string | undefined;
+        viewName?: string;
         /**
          * view definition as a JSON string or an object literal
          */
-        definition?: string | object | undefined;
+        definition?: string | object;
         /**
          * Controller instance to be used for this view. The given controller instance overrides the controller
          * defined in the view definition. Sharing a controller instance between multiple views is not supported.
          */
-        controller?: Controller | undefined;
+        controller?: Controller;
       }
     ): Promise<JSONView>;
     /**
@@ -24340,16 +24685,16 @@ declare module "sap/ui/core/mvc/JSView" {
         /**
          * Specifies an ID for the view instance. If no ID is given, an ID will be generated.
          */
-        id?: string | undefined;
+        id?: string;
         /**
          * Name of the view definition. The view must still be defined using {@link sap.ui.jsview}.
          */
-        viewName?: string | undefined;
+        viewName?: string;
         /**
          * Controller instance to be used for this view. The given controller instance overrides the controller
          * defined in the view definition. Sharing a controller instance between multiple views is not supported.
          */
-        controller?: Controller | undefined;
+        controller?: Controller;
       }
     ): Promise<JSView>;
     /**
@@ -24505,6 +24850,8 @@ declare module "sap/ui/core/mvc/TemplateView" {
 
 declare module "sap/ui/core/mvc/View" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import UI5Element from "sap/ui/core/Element";
 
@@ -24676,7 +25023,25 @@ declare module "sap/ui/core/mvc/View" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:afterInit afterInit} event of this `sap.ui.core.mvc.View`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.mvc.View` itself.
+     *
+     * Fired when the View has parsed the UI description and instantiated the contained controls (/control tree).
+     */
+    attachAfterInit(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
        */
@@ -24700,7 +25065,26 @@ declare module "sap/ui/core/mvc/View" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:afterRendering afterRendering} event of this
+     * `sap.ui.core.mvc.View`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.mvc.View` itself.
+     *
+     * Fired when the View has been (re-)rendered and its HTML is present in the DOM.
+     */
+    attachAfterRendering(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
        */
@@ -24723,7 +25107,25 @@ declare module "sap/ui/core/mvc/View" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:beforeExit beforeExit} event of this `sap.ui.core.mvc.View`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.mvc.View` itself.
+     *
+     * Fired when the view has received the request to destroy itself, but before it has destroyed anything.
+     */
+    attachBeforeExit(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
        */
@@ -24747,7 +25149,26 @@ declare module "sap/ui/core/mvc/View" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:beforeRendering beforeRendering} event of this
+     * `sap.ui.core.mvc.View`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.mvc.View` itself.
+     *
+     * Fired before this View is re-rendered. Use to unbind event handlers from HTML elements etc.
+     */
+    attachBeforeRendering(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
        */
@@ -24804,13 +25225,13 @@ declare module "sap/ui/core/mvc/View" {
         /**
          * Specifies an ID for the View instance. If no ID is given, one will be generated
          */
-        id?: string | undefined;
+        id?: string;
         /**
          * Name of the view resource in module name notation (dot-separated, without suffix); either `viewName`
          * or `definition` must be given. A `viewName` can be given in the form `module:my/views/Main` to load a
          * typed view.
          */
-        viewName?: string | undefined;
+        viewName?: string;
         /**
          * The view definition. Only supported for XML and HTML views. See also {@link sap.ui.core.mvc.XMLView.create}
          * and {@link sap.ui.core.mvc.HTMLView.create} for more information
@@ -24820,7 +25241,7 @@ declare module "sap/ui/core/mvc/View" {
          * Specifies what kind of view will be instantiated. All valid view types are listed in the enumeration
          * {@link sap.ui.core.mvc.ViewType}.
          */
-        type?: ViewType | keyof typeof ViewType | undefined;
+        type?: ViewType | keyof typeof ViewType;
         /**
          * A general purpose data bag, which is under full control of the caller. It can be retrieved with the {@link
          * sap.ui.core.mvc.View#getViewData} method during the whole lifecycle of the view and controller. In contrast
@@ -24842,12 +25263,12 @@ declare module "sap/ui/core/mvc/View" {
          * use {@link sap.ui.core.mvc.XMLView.registerPreprocessor}. **Note**: Please note that preprocessors in
          * general are currently only available to XMLViews
          */
-        preprocessors?: object | undefined;
+        preprocessors?: object;
         /**
          * Controller instance to be used for this view. The given controller instance overrides the controller
          * defined in the view definition. Sharing a controller instance between multiple views is not supported.
          */
-        controller?: Controller | undefined;
+        controller?: Controller;
       }
     ): Promise<View>;
     /**
@@ -24881,7 +25302,7 @@ declare module "sap/ui/core/mvc/View" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -24897,7 +25318,7 @@ declare module "sap/ui/core/mvc/View" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -24912,7 +25333,7 @@ declare module "sap/ui/core/mvc/View" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -24928,7 +25349,7 @@ declare module "sap/ui/core/mvc/View" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25262,80 +25683,6 @@ declare module "sap/ui/core/mvc/View" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:afterInit afterInit} event of this `sap.ui.core.mvc.View`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.mvc.View` itself.
-     *
-     * Fired when the View has parsed the UI description and instantiated the contained controls (/control tree).
-     */
-    attachAfterInit(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:afterRendering afterRendering} event of this
-     * `sap.ui.core.mvc.View`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.mvc.View` itself.
-     *
-     * Fired when the View has been (re-)rendered and its HTML is present in the DOM.
-     */
-    attachAfterRendering(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:beforeExit beforeExit} event of this `sap.ui.core.mvc.View`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.mvc.View` itself.
-     *
-     * Fired when the view has received the request to destroy itself, but before it has destroyed anything.
-     */
-    attachBeforeExit(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:beforeRendering beforeRendering} event of this
-     * `sap.ui.core.mvc.View`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.mvc.View` itself.
-     *
-     * Fired before this View is re-rendered. Use to unbind event handlers from HTML elements etc.
-     */
-    attachBeforeRendering(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.mvc.View` itself
-       */
-      oListener?: object
-    ): this;
   }
   /**
    * @SINCE 1.30
@@ -25424,17 +25771,17 @@ declare module "sap/ui/core/mvc/View" {
     /**
      * The width
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * The height
      */
-    height?: CSSSize | PropertyBindingInfo | undefined;
+    height?: CSSSize | PropertyBindingInfo;
 
     /**
      * Name of the View
      */
-    viewName?: string | PropertyBindingInfo | undefined;
+    viewName?: string | PropertyBindingInfo;
 
     /**
      * Whether the CSS display should be set to "block". Set this to "true" if the default display "inline-block"
@@ -25442,32 +25789,32 @@ declare module "sap/ui/core/mvc/View" {
      * want to display other content in the same HTML parent on either side of the View (setting to "true" may
      * push that other content to the next/previous line).
      */
-    displayBlock?: boolean | PropertyBindingInfo | undefined;
+    displayBlock?: boolean | PropertyBindingInfo;
 
     /**
      * Child Controls of the view
      */
-    content?: Control[] | Control | AggregationBindingInfo | undefined;
+    content?: Control[] | Control | AggregationBindingInfo;
 
     /**
      * Fired when the View has parsed the UI description and instantiated the contained controls (/control tree).
      */
-    afterInit?: Function | undefined;
+    afterInit?: Function;
 
     /**
      * Fired when the view has received the request to destroy itself, but before it has destroyed anything.
      */
-    beforeExit?: Function | undefined;
+    beforeExit?: Function;
 
     /**
      * Fired when the View has been (re-)rendered and its HTML is present in the DOM.
      */
-    afterRendering?: Function | undefined;
+    afterRendering?: Function;
 
     /**
      * Fired before this View is re-rendered. Use to unbind event handlers from HTML elements etc.
      */
-    beforeRendering?: Function | undefined;
+    beforeRendering?: Function;
   }
 }
 
@@ -25611,20 +25958,20 @@ declare module "sap/ui/core/mvc/XMLView" {
         /**
          * Specifies an ID for the View instance. If no ID is given, an ID will be generated.
          */
-        id?: string | undefined;
+        id?: string;
         /**
          * Corresponds to an XML module that can be loaded via the module system (oOptions.viewName + suffix ".view.xml")
          */
-        viewName?: string | undefined;
+        viewName?: string;
         /**
          * XML string or XML document that defines the view. Exactly one of `viewName` or `definition` must be given.
          */
-        definition?: string | Document | undefined;
+        definition?: string | Document;
         /**
          * Controller instance to be used for this view. The given controller instance overrides the controller
          * defined in the view definition. Sharing one controller instance between multiple views is not possible.
          */
-        controller?: Controller | undefined;
+        controller?: Controller;
         /**
          * Cache configuration; caching gets active when this object is provided with vView.cache.keys array; keys
          * are used to store data in the cache and for invalidation of the cache.
@@ -25633,13 +25980,13 @@ declare module "sap/ui/core/mvc/XMLView" {
           /**
            * Array with strings or Promises resolving with strings
            */
-          keys?: Array<string | Promise<string>> | undefined;
-        } | undefined;
+          keys?: Array<string | Promise<string>>;
+        };
         /**
          * Preprocessors configuration, see {@link sap.ui.core.mvc.View} **Note**: These preprocessors are only
          * available to this instance. For global or on-demand availability use {@link sap.ui.core.mvc.XMLView.registerPreprocessor}.
          */
-        preprocessors?: object | undefined;
+        preprocessors?: object;
       }
     ): Promise<XMLView>;
     /**
@@ -25791,6 +26138,8 @@ declare module "sap/ui/core/Popup" {
 
   import UI5Element from "sap/ui/core/Element";
 
+  import Event from "sap/ui/base/Event";
+
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
   import { OpenState } from "sap/ui/core/library";
@@ -25921,6 +26270,25 @@ declare module "sap/ui/core/Popup" {
       oListener?: object
     ): void;
     /**
+     * Attaches event handler `fnFunction` to the static {@link #.blockLayerStateChange blockLayerStateChange}
+     * event.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to a dummy event provider object.
+     *
+     * The event gets triggered in case of modal popups when the first of multiple popups opens and closes.
+     */
+    static attachBlockLayerStateChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to a dummy event provider object
+       */
+      oListener?: object
+    ): void;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.core.Popup`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -25935,7 +26303,23 @@ declare module "sap/ui/core/Popup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.Popup` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.core.Popup`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.Popup` itself.
+     */
+    attachClosed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.Popup` itself
        */
@@ -25956,7 +26340,23 @@ declare module "sap/ui/core/Popup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.Popup` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.core.Popup`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.Popup` itself.
+     */
+    attachOpened(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.Popup` itself
        */
@@ -26006,7 +26406,7 @@ declare module "sap/ui/core/Popup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -26021,7 +26421,7 @@ declare module "sap/ui/core/Popup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -26403,57 +26803,6 @@ declare module "sap/ui/core/Popup" {
        */
       vValue: string | Element | UI5Element | Window
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the static {@link #.blockLayerStateChange blockLayerStateChange}
-     * event.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to a dummy event provider object.
-     *
-     * The event gets triggered in case of modal popups when the first of multiple popups opens and closes.
-     */
-    static attachBlockLayerStateChange(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to a dummy event provider object
-       */
-      oListener?: object
-    ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.core.Popup`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.Popup` itself.
-     */
-    attachClosed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.Popup` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.core.Popup`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.Popup` itself.
-     */
-    attachOpened(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.Popup` itself
-       */
-      oListener?: object
-    ): this;
   }
   /**
    * Enumeration providing options for docking of some element to another.
@@ -26494,9 +26843,9 @@ declare module "sap/ui/core/Popup" {
   }
 
   export interface $PopupSettings extends $ManagedObjectSettings {
-    opened?: Function | undefined;
+    opened?: Function;
 
-    closed?: Function | undefined;
+    closed?: Function;
   }
 }
 
@@ -26663,13 +27012,13 @@ declare module "sap/ui/core/Renderer" {
 }
 
 declare module "sap/ui/core/RenderManager" {
-  import UI5Element from "sap/ui/core/Element";
-
   import Control from "sap/ui/core/Control";
+
+  import UI5Element from "sap/ui/core/Element";
 
   import Configuration from "sap/ui/core/Configuration";
 
-  import { URI, ID } from "sap/ui/core/library";
+  import { ID, URI } from "sap/ui/core/library";
 
   /**
    * A class that handles the rendering of controls.
@@ -26690,7 +27039,7 @@ declare module "sap/ui/core/RenderManager" {
    * (static class) which matches the name of the control's class with the additional suffix 'Renderer'. So
    * for a control `sap.m.Input` the default renderer will be searched for under the global name `sap.m.InputRenderer`.
    *
-   * In-place DOM patching: As of 1.67, `RenderManager` provides a set of new APIs to describe the structure
+   * Semantic Rendering: As of 1.67, `RenderManager` provides a set of new APIs to describe the structure
    * of the DOM that can be used by the control renderers.
    *
    *
@@ -26734,7 +27083,7 @@ declare module "sap/ui/core/RenderManager" {
    *
    *
    *   var myButtonRenderer = {
-   *       apiVersion: 2    // enable in-place DOM patching
+   *       apiVersion: 2    // enable semantic rendering
    *   };
    *
    *   myButtonRenderer.render = function(rm, oButton) {
@@ -26792,7 +27141,6 @@ declare module "sap/ui/core/RenderManager" {
      * 	sap.ui.getCore
      */
     constructor();
-
     /**
      * Collects accessibility related attributes for an `Element` and renders them as part of the currently
      * rendered DOM element.
@@ -26821,13 +27169,13 @@ declare module "sap/ui/core/RenderManager" {
      * relation are additionally taken into account when determining the value for the `aria-required` attribute.
      *
      * Additionally, the associations `ariaDescribedBy` and `ariaLabelledBy` are used to determine the lists
-     * of IDS for the ARIA attributes `aria-describedby` and `aria-labelledby`.
+     * of IDs for the ARIA attributes `aria-describedby` and `aria-labelledby`.
      *
      * Label controls that reference the given element in their `labelFor` relation are automatically added
-     * to the `aria-labelledby` attributes.
+     * to the `aria-labelledby` attribute.
      *
      * Note: This function is only a heuristic of a control property to ARIA attribute mapping. Control developers
-     * have to check whether it fulfills their requirements. In case of problems (for example the RadioButton
+     * have to check whether it fulfills their requirements. In case of problems (for example the `RadioButton`
      * has a `selected` property but must provide an `aria-checked` attribute) the auto-generated result of
      * this function can be influenced via the parameter `mProps` as described below.
      *
@@ -26851,17 +27199,25 @@ declare module "sap/ui/core/RenderManager" {
      * ```
      *  (assuming that "ida idb" is the auto-generated part based on the association `ariaDescribedBy`).
      */
-    accessibilityState(
-      /**
-       * The `Element` whose accessibility state should be rendered
-       */
-      oElement?: UI5Element,
-      /**
-       * A map of additional properties that should be added or changed.
-       */
-      mProps?: object
-    ): this;
+    accessibilityState: undefined;
+
     /**
+     * Writes either an <img> tag for normal URI or a <span> tag with needed properties for an icon
+     * URI.
+     *
+     * Additional classes and attributes can be added to the tag with the second and third parameter. All of
+     * the given attributes are escaped when necessary for security consideration.
+     *
+     * When an <img> tag is rendered, the following two attributes are added by default and can be overwritten
+     * with corresponding values in the `mAttributes` parameter:
+     * 	 - `role: "presentation"` `alt: ""`
+     */
+    icon: undefined;
+
+    /**
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#class} of the {@link sap.ui.core.RenderManager
+     * Semantic Rendering API}.
+     *
      * Adds a class to the class collection if the name is not empty or null. The class collection is flushed
      * if it is written to the buffer using {@link #writeClasses}
      */
@@ -26872,6 +27228,9 @@ declare module "sap/ui/core/RenderManager" {
       sName: string
     ): this;
     /**
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#style} of the {@link sap.ui.core.RenderManager
+     * Semantic Rendering API}.
+     *
      * Adds a style property to the style collection if the value is not empty or null The style collection
      * is flushed if it is written to the buffer using {@link #writeStyle}
      */
@@ -26896,6 +27255,9 @@ declare module "sap/ui/core/RenderManager" {
      * HTML elements, {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes attribute names} must
      * all be set in lowercase. For foreign elements, such as SVG, {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute
      * attribute names} can be set in upper camel case (e.g. viewBox).
+     *
+     * HTML entities are not supported by this method, use unicode escaping or the unicode character to implement
+     * HTML entities. For further information see {@link https://html.spec.whatwg.org/multipage/named-characters.html#named-character-references}.
      */
     attr(
       /**
@@ -27063,6 +27425,8 @@ declare module "sap/ui/core/RenderManager" {
       vInsert: boolean | int
     ): void;
     /**
+     * @deprecated (since 1.92) - Instead, use the {@link sap.ui.core.Core#getConfiguration} API.
+     *
      * Returns the configuration object Shortcut for `sap.ui.getCore().getConfiguration()`
      */
     getConfiguration(): Configuration;
@@ -27100,31 +27464,6 @@ declare module "sap/ui/core/RenderManager" {
        */
       oControl: Control
     ): object;
-    /**
-     * Writes either an <img> tag for normal URI or a <span> tag with needed properties for an icon
-     * URI.
-     *
-     * Additional classes and attributes can be added to the tag with the second and third parameter. All of
-     * the given attributes are escaped for security consideration.
-     *
-     * When an <img> tag is rendered, the following two attributes are added by default and can be overwritten
-     * with corresponding values in the `mAttributes` parameter:
-     * 	 - `role: "presentation"` `alt: ""`
-     */
-    icon(
-      /**
-       * URI of an image or of an icon registered in {@link sap.ui.core.IconPool}
-       */
-      sURI: URI,
-      /**
-       * Additional classes that are added to the rendered tag
-       */
-      aClasses?: Array<any> | string,
-      /**
-       * Additional attributes that will be added to the rendered tag
-       */
-      mAttributes?: object
-    ): this;
     /**
      * @SINCE 1.67
      *
@@ -27214,7 +27553,10 @@ declare module "sap/ui/core/RenderManager" {
      *
      * Adds a style name-value pair to the style collection of the last open HTML element.
      *
-     * This is only valid when called between `openStart/voidStart` and `openEnd/voidEnd`.
+     * This is only valid when called between `openStart/voidStart` and `openEnd/voidEnd`. To allow a more efficient
+     * DOM update, the CSS property names and values have to be used in their canonical form. In general, CSS
+     * properties are lower-cased in their canonical form, except for parts that are not under the control of
+     * CSS. For more information, see {@link https://www.w3.org/TR/CSS/#indices}.
      */
     style(
       /**
@@ -27230,6 +27572,12 @@ declare module "sap/ui/core/RenderManager" {
      * @SINCE 1.67
      *
      * Sets the text content with the given text.
+     *
+     * Line breaks are not supported by this method, use CSS {@link https://www.w3.org/TR/CSS2/text.html#white-space-prop
+     * white-space: pre-line} option to implement line breaks.
+     *
+     * HTML entities are not supported by this method, use unicode escaping or the unicode character to implement
+     * HTML entities. For further information see {@link https://html.spec.whatwg.org/multipage/named-characters.html#named-character-references}.
      */
     text(
       /**
@@ -27288,7 +27636,26 @@ declare module "sap/ui/core/RenderManager" {
       vControlOrId?: UI5Element | ID
     ): this;
     /**
-     * Write the given texts to the buffer
+     * @deprecated (since 1.92) - Instead, use the {@link sap.ui.core.RenderManager Semantic Rendering API}.
+     * There is no 1:1 replacement for `write`. Typically, `write` is used to create a longer sequence of HTML
+     * markup (e.g. an element with attributes and children) in a single call. Such a markup sequence has to
+     * be split into the individual calls of the Semantic Rendering API.
+     *
+     *
+     *
+     * Example:
+     *  oRm.write("<span id=\"" + oCtrl.getId() + "-outer\" class=\"myCtrlOuter\">" + "&nbsp;" + oResourceBundle.getText("TEXT_KEY")
+     * + "&nbsp;</span>");
+     *
+     *  has to be transformed to
+     *
+     *  oRm.openStart("span", oCtrl.getId() + "-outer").class("myCtrlOuter").openEnd().text("\u00a0" + oResourceBundle.getText("TEXT_KEY")
+     * + "\u00a0").close("span");
+     *
+     *  Note that "&nbsp;" was replaced with "\u00a0" (no-break-space). In general, HTML entities have to
+     * be replaced by the corresponding Unicode character escapes. A mapping table can be found at {@link https://html.spec.whatwg.org/multipage/named-characters.html#named-character-references}.
+     *
+     * Write the given texts to the buffer.
      */
     write(
       /**
@@ -27301,6 +27668,9 @@ declare module "sap/ui/core/RenderManager" {
      */
     writeAcceleratorKey(): this;
     /**
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#accessibilityState} of the {@link
+     * sap.ui.core.RenderManager Semantic Rendering API}.
+     *
      * Collects accessibility related attributes for an `Element` and renders them as part of the currently
      * rendered DOM element.
      *
@@ -27328,13 +27698,13 @@ declare module "sap/ui/core/RenderManager" {
      * relation are additionally taken into account when determining the value for the `aria-required` attribute.
      *
      * Additionally, the associations `ariaDescribedBy` and `ariaLabelledBy` are used to determine the lists
-     * of IDS for the ARIA attributes `aria-describedby` and `aria-labelledby`.
+     * of IDs for the ARIA attributes `aria-describedby` and `aria-labelledby`.
      *
      * Label controls that reference the given element in their `labelFor` relation are automatically added
      * to the `aria-labelledby` attributes.
      *
      * Note: This function is only a heuristic of a control property to ARIA attribute mapping. Control developers
-     * have to check whether it fulfills their requirements. In case of problems (for example the RadioButton
+     * have to check whether it fulfills their requirements. In case of problems (for example the `RadioButton`
      * has a `selected` property but must provide an `aria-checked` attribute) the auto-generated result of
      * this function can be influenced via the parameter `mProps` as described below.
      *
@@ -27369,6 +27739,9 @@ declare module "sap/ui/core/RenderManager" {
       mProps?: object
     ): this;
     /**
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#attr} of the {@link sap.ui.core.RenderManager
+     * Semantic Rendering API}.
+     *
      * Writes the attribute and its value into the HTML.
      *
      * For details about the escaping refer to {@link jQuery.sap.encodeHTML}
@@ -27384,6 +27757,9 @@ declare module "sap/ui/core/RenderManager" {
       vValue: string | number | boolean
     ): this;
     /**
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#attr} of the {@link sap.ui.core.RenderManager
+     * Semantic Rendering API}.
+     *
      * Writes the attribute and a value into the HTML, the value will be encoded.
      *
      * The value is properly encoded to avoid XSS attacks.
@@ -27399,6 +27775,10 @@ declare module "sap/ui/core/RenderManager" {
       vValue: any
     ): this;
     /**
+     * @deprecated (since 1.92) - Not longer needed, when using the {@link sap.ui.core.RenderManager Semantic
+     * Rendering API} the actual writing of classes happens when {@link sap.ui.core.RenderManager#openEnd} or
+     * {@link sap.ui.core.RenderManager#voidEnd} are used.
+     *
      * Writes and flushes the class collection (all CSS classes added by "addClass()" since the last flush).
      * Also writes the custom style classes added by the application with "addStyleClass(...)". Custom classes
      * are added by default from the currently rendered control. If an oElement is given, this Element's custom
@@ -27411,6 +27791,10 @@ declare module "sap/ui/core/RenderManager" {
       oElement?: UI5Element | boolean
     ): this;
     /**
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#openStart} or {@link sap.ui.core.RenderManager#voidStart}
+     * of the {@link sap.ui.core.RenderManager Semantic Rendering API} and pass the desired control data as
+     * the second parameter to the new API.
+     *
      * Writes the controls data into the HTML. Control Data consists at least of the id of a control
      */
     writeControlData(
@@ -27420,6 +27804,10 @@ declare module "sap/ui/core/RenderManager" {
       oControl: Control
     ): this;
     /**
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#openStart} or {@link sap.ui.core.RenderManager#voidStart}
+     * of the {@link sap.ui.core.RenderManager Semantic Rendering API} and pass the desired element data as
+     * the second parameter to the new API.
+     *
      * Writes the elements data into the HTML. Element Data consists at least of the id of an element
      */
     writeElementData(
@@ -27429,6 +27817,9 @@ declare module "sap/ui/core/RenderManager" {
       oElement: UI5Element
     ): this;
     /**
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#text} of the {@link sap.ui.core.RenderManager
+     * Semantic Rendering API}.
+     *
      * Escape text for HTML and write it to the buffer.
      *
      * For details about the escaping refer to {@link jQuery.sap.encodeHTML}
@@ -27445,6 +27836,9 @@ declare module "sap/ui/core/RenderManager" {
       bLineBreaks?: boolean
     ): this;
     /**
+     * @deprecated (since 1.92) - Instead use {@link sap.ui.core.RenderManager#icon} of the {@link sap.ui.core.RenderManager
+     * Semantic Rendering API}.
+     *
      * Writes either an <img> tag for normal URI or a <span> tag with needed properties for an icon
      * URI.
      *
@@ -27463,13 +27857,17 @@ declare module "sap/ui/core/RenderManager" {
       /**
        * Additional classes that are added to the rendered tag
        */
-      aClasses?: Array<any> | string,
+      aClasses?: any[] | string,
       /**
        * Additional attributes that will be added to the rendered tag
        */
       mAttributes?: object
     ): this;
     /**
+     * @deprecated (since 1.92) - Not longer needed, when using the {@link sap.ui.core.RenderManager Semantic
+     * Rendering API} the actual writing of styles happens when {@link sap.ui.core.RenderManager#openEnd} or
+     * {@link sap.ui.core.RenderManager#voidEnd} are used.
+     *
      * Writes and flushes the style collection
      */
     writeStyles(): this;
@@ -27567,7 +27965,9 @@ declare module "sap/ui/core/routing/HashChanger" {
    * Fires a `hashChanged` event if the browser hash changes.
    */
   export default class HashChanger extends HashChangerBase {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -27676,7 +28076,7 @@ declare module "sap/ui/core/routing/HashChanger" {
     /**
      * The optional defined parameter name mapping that is used for forwarding the event to the {@link sap.ui.core.routing.RouterHashChanger}.
      */
-    paramMapping?: HashChangerEventParameterMapping | undefined;
+    paramMapping?: HashChangerEventParameterMapping;
     /**
      * Indicates whether the event is ignored by every RouterHashChanger instance and is only relevant for the
      * other routing classes, for example {@link sap.ui.core.routing.History}.
@@ -27695,19 +28095,19 @@ declare module "sap/ui/core/routing/HashChanger" {
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
      * property `newHash`.
      */
-    newHash?: string | undefined;
+    newHash?: string;
     /**
      * The name of the parameter whose value is used as the `oldHash` parameter in the event that is forwarded
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
      * property `oldHash`.
      */
-    oldHash?: string | undefined;
+    oldHash?: string;
     /**
      * The name of the parameter whose value is used as the `fullHash` parameter in the event that is forwarded
      * to the {@link sap.ui.core.routing.RouterHashChanger}. If this isn't set, the value is taken from the
      * property `fullHash`.
      */
-    fullHash?: string | undefined;
+    fullHash?: string;
   };
 }
 
@@ -27716,13 +28116,17 @@ declare module "sap/ui/core/routing/HashChangerBase" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import { routing } from "sap/ui/core/library";
+
   /**
    * Base Class for manipulating and receiving changes of hash segment.
    *
    * Fires a `hashChanged` event if the relevant hash changes.
    */
   export default class HashChangerBase extends EventProvider {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -27753,12 +28157,23 @@ declare module "sap/ui/core/routing/HashChangerBase" {
     /**
      * Replaces the hash with a certain value. When using the replace function, no browser history entry is
      * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
+     *
+     * The `sDirection` parameter can be used to provide direction information on the navigation which leads
+     * to this hash replacement. This is typically used when synchronizing the hashes between multiple frames
+     * to provide information to the frame where the hash is replaced with the navigation direction in the other
+     * frame where the navigation occurs.
      */
     replaceHash(
       /**
        * New hash
        */
-      sHash: string
+      sHash: string,
+      /**
+       * The direction information for this hash replacement
+       */
+      sDirection:
+        | routing.HistoryDirection
+        | keyof typeof routing.HistoryDirection
     ): void;
     /**
      * Sets the hash to a certain value. When using this function, a browser history entry is written. If you
@@ -27822,7 +28237,9 @@ declare module "sap/ui/core/routing/History" {
      * one within the history state.
      */
     getHistoryStateOffset(): int | undefined;
-    /**/
+    /**
+     *
+     */
     static getInstance(): History;
     /**
      * gets the previous hash in the history - if the last direction was Unknown or there was no navigation
@@ -27876,40 +28293,40 @@ declare module "sap/ui/core/routing/Route" {
          * e. g. the following hashes would match: foo, product/5/3, product/5/detail/3/foo. You can also combine
          * it with the other variables but make sure a variable with a * is the last one.
          */
-        pattern?: string | undefined;
+        pattern?: string;
         /**
          * Since 1.27. By default only the first route matching the hash, will fire events. If greedy is turned
          * on for a route, its events will be fired even if another route has already matched.
          */
-        greedy?: boolean | undefined;
+        greedy?: boolean;
         /**
          * Since 1.32. This property contains the information about the route which nests this route in the form:
          * "[componentName:]routeName". The nesting routes pattern will be prefixed to this routes pattern and hence
          * the nesting route also matches if this one matches.
          */
-        parent?: string | undefined;
+        parent?: string;
         /**
          * One or multiple name of targets {@link sap.ui.core.routing.Targets}. As soon as the route matches, the
          * target(s) will be displayed. All the deprecated parameters are ignored, if a target is used.
          */
-        target?: string | string[] | undefined;
+        target?: string | string[];
         /**
          * **Deprecated since 1.28, use `target.viewName` instead.**
          *  The name of a view that will be created, the first time this route will be matched. To place the view
          * into a Control use the targetAggregation and targetControl. Views will only be created once per Router
          */
-        view?: string | undefined;
+        view?: string;
         /**
          * **Deprecated since 1.28, use `target.viewType` instead.**
          *  The type of the view that is going to be created. eg: "XML", "JS"
          */
-        viewType?: string | undefined;
+        viewType?: string;
         /**
          * **Deprecated since 1.28, use `target.viewPath` instead.**
          *  A prefix that will be prepended in front of the view eg: view is set to "myView" and viewPath is set
          * to "myApp" - the created view will be "myApp.myView"
          */
-        viewPath?: string | undefined;
+        viewPath?: string;
         /**
          * **Deprecated since 1.28, use `config.rootView` (only available in the router config) instead.**
          *  The id of the parent of the targetControl - This should be the id view your targetControl is located
@@ -27917,34 +28334,34 @@ declare module "sap/ui/core/routing/Route" {
          * of the parent route is taken. You only need to specify this, if you are not using a router created by
          * a component on your top level routes
          */
-        targetParent?: string | undefined;
+        targetParent?: string;
         /**
          * **Deprecated since 1.28, use `target.controlId` instead.**
          *  Views will be put into a container Control, this might be a {@link sap.ui.ux3.Shell} control or a {@link
          * sap.m.NavContainer} if working with mobile, or any other container. The id of this control has to be
          * put in here
          */
-        targetControl?: string | undefined;
+        targetControl?: string;
         /**
          * **Deprecated since 1.28, use `target.controlAggregation` instead.**
          *  The name of an aggregation of the targetControl, that contains views. Eg: a {@link sap.m.NavContainer}
          * has an aggregation "pages", another Example is the {@link sap.ui.ux3.Shell} it has "content".
          */
-        targetAggregation?: string | undefined;
+        targetAggregation?: string;
         /**
          * **Deprecated since 1.28, use `target.clearControlAggregation` instead.**
          *  Defines a boolean that can be passed to specify if the aggregation should be cleared before adding the
          * View to it. When using a {@link sap.ui.ux3.Shell} this should be true. For a {@link sap.m.NavContainer}
          * it should be false
          */
-        clearTarget?: boolean | undefined;
+        clearTarget?: boolean;
         /**
          * **Deprecated since 1.28, use `targets.parent` instead.** one or multiple route configs taking all of
          * these parameters again. If a subroute is hit, it will fire the routeMatched event for all its parents.
          * The routePatternMatched event will only be fired for the subroute not the parents. The routing will also
          * display all the targets of the subroutes and its parents.
          */
-        subroutes?: object | undefined;
+        subroutes?: object;
       },
       /**
        * The parent route - if a parent route is given, the routeMatched event of this route will also trigger
@@ -27967,6 +28384,24 @@ declare module "sap/ui/core/routing/Route" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `Route` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.46.1
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:beforeMatched beforeMatched} event of this `sap.ui.core.routing.Route`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Route` itself.
+     */
+    attachBeforeMatched(
       /**
        * The function to be called, when the event occurs
        */
@@ -28002,6 +28437,24 @@ declare module "sap/ui/core/routing/Route" {
     /**
      * @SINCE 1.25.1
      *
+     * Attaches event handler `fnFunction` to the {@link #event:matched matched} event of this `sap.ui.core.routing.Route`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Route` itself.
+     */
+    attachMatched(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Route` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.25.1
+     *
      * Attaches event handler `fnFunction` to the {@link #event:patternMatched patternMatched} event of this
      * `sap.ui.core.routing.Route`.
      *
@@ -28014,6 +28467,25 @@ declare module "sap/ui/core/routing/Route" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `Route` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.25.1
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:patternMatched patternMatched} event of this
+     * `sap.ui.core.routing.Route`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Route` itself.
+     */
+    attachPatternMatched(
       /**
        * The function to be called, when the event occurs
        */
@@ -28140,61 +28612,6 @@ declare module "sap/ui/core/routing/Route" {
        */
       sHash: string
     ): boolean;
-    /**
-     * @SINCE 1.46.1
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:beforeMatched beforeMatched} event of this `sap.ui.core.routing.Route`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Route` itself.
-     */
-    attachBeforeMatched(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `Route` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.25.1
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:matched matched} event of this `sap.ui.core.routing.Route`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Route` itself.
-     */
-    attachMatched(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Route` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.25.1
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:patternMatched patternMatched} event of this
-     * `sap.ui.core.routing.Route`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Route` itself.
-     */
-    attachPatternMatched(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `Route` itself
-       */
-      oListener?: object
-    ): this;
   }
 }
 
@@ -28364,13 +28781,13 @@ declare module "sap/ui/core/routing/Router" {
            *     });
            * ```
            */
-          target?: string | string[] | undefined;
-        } | undefined;
+          target?: string | string[];
+        };
         /**
          * Since 1.34. Whether views are loaded asynchronously within this router instance. As of 1.90 synchronous
          * routing is deprecated. Therefore, you should explicitly set `oConfig.async` to `true`.
          */
-        async?: boolean | undefined;
+        async?: boolean;
       },
       /**
        * the Component of all the views that will be created by this Router,
@@ -28460,6 +28877,23 @@ declare module "sap/ui/core/routing/Router" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:beforeRouteMatched beforeRouteMatched} event
+     * of this `sap.ui.core.routing.Router`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
+     */
+    attachBeforeRouteMatched(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:bypassed bypassed} event of this `sap.ui.core.routing.Router`.
      *
      * The event will get fired, if none of the routes of the router is matching.
@@ -28483,6 +28917,24 @@ declare module "sap/ui/core/routing/Router" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:bypassed bypassed} event of this `sap.ui.core.routing.Router`.
+     *
+     * The event will get fired, if none of the routes of the router is matching.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
+     */
+    attachBypassed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:routeMatched routeMatched} event of this `sap.ui.core.routing.Router`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -28494,6 +28946,22 @@ declare module "sap/ui/core/routing/Router" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:routeMatched routeMatched} event of this `sap.ui.core.routing.Router`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
+     */
+    attachRouteMatched(
       /**
        * The function to be called when the event occurs
        */
@@ -28529,6 +28997,26 @@ declare module "sap/ui/core/routing/Router" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:routePatternMatched routePatternMatched} event
+     * of this `sap.ui.core.routing.Router`.
+     *
+     * This event is similar to `routeMatched`. But it will only fire for the route that has a matching pattern,
+     * not for its parent routes.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
+     */
+    attachRoutePatternMatched(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:titleChanged titleChanged} event of this `sap.ui.core.routing.Router`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -28540,6 +29028,22 @@ declare module "sap/ui/core/routing/Router" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:titleChanged titleChanged} event of this `sap.ui.core.routing.Router`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
+     */
+    attachTitleChanged(
       /**
        * The function to be called when the event occurs
        */
@@ -28563,6 +29067,24 @@ declare module "sap/ui/core/routing/Router" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @deprecated (since 1.28) - use {@link #getViews} instead.
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:viewCreated viewCreated} event of this `sap.ui.core.routing.Router`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
+     */
+    attachViewCreated(
       /**
        * The function to be called when the event occurs
        */
@@ -28826,7 +29348,7 @@ declare module "sap/ui/core/routing/Router" {
      * 	}
      * ```
      */
-    getTitleHistory(): Array<any>;
+    getTitleHistory(): any[];
     /**
      * Returns the URL for the route and replaces the placeholders with the values in `oParameters`.
      */
@@ -28958,17 +29480,17 @@ declare module "sap/ui/core/routing/Router" {
           /**
            * The name of the route which should be matched after this navTo call.
            */
-          route?: string | undefined;
+          route?: string;
           /**
            * The parameters for the route. See the documentation of the `oParameters`.
            */
-          parameters?: object | undefined;
+          parameters?: object;
           /**
            * The information for the targets within a nested component. This shares the same structure with the `oComponentTargetInfo`
            * parameter.
            */
-          componentTargetInfo?: object | undefined;
-        } | undefined;
+          componentTargetInfo?: object;
+        };
       },
       /**
        * If set to `true`, the hash is replaced, and there will be no entry in the browser history. If set to
@@ -29020,111 +29542,6 @@ declare module "sap/ui/core/routing/Router" {
      * If you want the router to start again, call {@link #initialize} again.
      */
     stop(): Router;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:beforeRouteMatched beforeRouteMatched} event
-     * of this `sap.ui.core.routing.Router`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
-     */
-    attachBeforeRouteMatched(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:bypassed bypassed} event of this `sap.ui.core.routing.Router`.
-     *
-     * The event will get fired, if none of the routes of the router is matching.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
-     */
-    attachBypassed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:routeMatched routeMatched} event of this `sap.ui.core.routing.Router`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
-     */
-    attachRouteMatched(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:routePatternMatched routePatternMatched} event
-     * of this `sap.ui.core.routing.Router`.
-     *
-     * This event is similar to `routeMatched`. But it will only fire for the route that has a matching pattern,
-     * not for its parent routes.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
-     */
-    attachRoutePatternMatched(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:titleChanged titleChanged} event of this `sap.ui.core.routing.Router`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
-     */
-    attachTitleChanged(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @deprecated (since 1.28) - use {@link #getViews} instead.
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:viewCreated viewCreated} event of this `sap.ui.core.routing.Router`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Router` itself.
-     */
-    attachViewCreated(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `sap.ui.core.routing.Router` itself
-       */
-      oListener?: object
-    ): this;
   }
 }
 
@@ -29132,6 +29549,8 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
   import HashChangerBase from "sap/ui/core/routing/HashChangerBase";
 
   import Metadata from "sap/ui/base/Metadata";
+
+  import { routing } from "sap/ui/core/library";
 
   import Router from "sap/ui/core/routing/Router";
 
@@ -29141,7 +29560,9 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
    * changes the browser hash through the {@link sap.ui.core.routing.HashChanger}
    */
   export default class RouterHashChanger extends HashChangerBase {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -29201,6 +29622,12 @@ declare module "sap/ui/core/routing/RouterHashChanger" {
        * New hash
        */
       sHash: string,
+      /**
+       * The direction information for the hash replacement
+       */
+      sDirection:
+        | routing.HistoryDirection
+        | keyof typeof routing.HistoryDirection,
       /**
        * When this parameter is given, this RouterHashChanger switchs to collect mode and all hash changes from
        * its children will be collected. When this promise resolves, this RouterHashChanger fires a "hashReplaced"
@@ -29280,7 +29707,7 @@ declare module "sap/ui/core/routing/Target" {
       /**
        * All views required by this target will get created by the views instance using {@link sap.ui.core.routing.Views#getView}
        */
-      oCache: any,
+      oCache: /* was: sap.ui.core.routing.TargetCache */ any,
       /**
        * the parent of this target. Will also get displayed, if you display this target. In the config you have
        * the fill the children property {@link sap.m.routing.Targets#constructor}
@@ -29312,7 +29739,7 @@ declare module "sap/ui/core/routing/Target" {
         /**
          * the data passed from {@link sap.ui.core.routing.Target#display} method
          */
-        data?: object | undefined;
+        data?: object;
       }
     ): void;
     /**
@@ -29327,6 +29754,22 @@ declare module "sap/ui/core/routing/Target" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Target` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:display display} event of this `sap.ui.core.routing.Target`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Target` itself.
+     */
+    attachDisplay(
       /**
        * The function to be called, when the event occurs
        */
@@ -29399,22 +29842,6 @@ declare module "sap/ui/core/routing/Target" {
      * Returns a metadata object for class sap.ui.core.routing.Target.
      */
     static getMetadata(): Metadata;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:display display} event of this `sap.ui.core.routing.Target`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Target` itself.
-     */
-    attachDisplay(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Target` itself
-       */
-      oListener?: object
-    ): this;
   }
 }
 
@@ -29441,24 +29868,24 @@ declare module "sap/ui/core/routing/Targets" {
      * A prefix that is used for reserving a dedicated section in the browser hash for the router of this target.
      * This needs to be set only for target that has type "Component"
      */
-    prefix?: string | undefined;
+    prefix?: string;
     /**
      * Whether the titleChanged event from this target should be propagated to the parent or not
      */
-    propagateTitle?: boolean | undefined;
+    propagateTitle?: boolean;
     /**
      * Whether the target is relevant to the current matched route or not. If 'true', then the dynamic target
      * is linked to the route's life cycle. When switching to a different route, then the dynamic target will
      * be suspended.
      */
-    routeRelevant?: boolean | undefined;
+    routeRelevant?: boolean;
     /**
      * Since 1.90. Whether the router of the "Component" target ignores the browser hash when it's re-initialized.
      * This parameter only has effect when the target is of type "Component" and its router is currently stopped.
      * It has no effect on the first call of {link sap.ui.core.routing.Router#initialize}, because this is done
      * by the application and not by the UI5 routing.
      */
-    ignoreInitialHash?: boolean | undefined;
+    ignoreInitialHash?: boolean;
   };
 
   /**
@@ -29534,14 +29961,14 @@ declare module "sap/ui/core/routing/Targets" {
          * function. If you specify the "parent" property of a target, the control will not be searched in the root
          * view but in the view Created by the parent (see parent documentation).
          */
-        rootView?: string | undefined;
+        rootView?: string;
         /**
          * @since 1.34 Whether the views which are created through this Targets are loaded asyncly. This option
          * can be set only when the Targets is used standalone without the involvement of a Router. Otherwise the
          * async option is inherited from the Router.
          */
-        async?: boolean | undefined;
-      } | undefined;
+        async?: boolean;
+      };
       /**
        * One or multiple targets in a map.
        */
@@ -29671,28 +30098,28 @@ declare module "sap/ui/core/routing/Targets" {
            *
            * ```
            */
-          name?: string | undefined;
+          name?: string;
           /**
            * Defines the 'usage' name for 'Component' target which refers to the '/sap.ui5/componentUsages' entry
            * in the owner component's manifest.
            */
-          usage?: string | undefined;
+          usage?: string;
           /**
            * The type of the view that is going to be created. These are the supported types: {@link sap.ui.core.mvc.ViewType}.
            * You always have to provide a viewType except if `oOptions.config.viewType` is set or when using {@link
            * sap.ui.core.routing.Views#setView}.
            */
-          viewType?: string | undefined;
+          viewType?: string;
           /**
            * A prefix that will be prepended in front of the name.
            *  **Example:** name is set to "myView" and path is set to "myApp" - the created view name will be "myApp.myView".
            */
-          path?: string | undefined;
+          path?: string;
           /**
            * The ID of the created instance. This is will be prefixed with the id of the component set to the views
            * instance provided in oOptions.views. For details see {@link sap.ui.core.routing.Views#getView}.
            */
-          id?: string | undefined;
+          id?: string;
           /**
            * The id of the parent of the controlId - This should be the id of the view that contains your controlId,
            * since the target control will be retrieved by calling the {@link sap.ui.core.mvc.View#byId} function
@@ -29701,27 +30128,27 @@ declare module "sap/ui/core/routing/Targets" {
            * You only need to specify this, if you are not using a Targets instance created by a component and you
            * should give the id of root view of your application to this property.
            */
-          targetParent?: string | undefined;
+          targetParent?: string;
           /**
            * The ID of the control where you want to place the instance created by this target. You also need to set
            * "controlAggregation" property to specify to which aggregation of the control should the created instance
            * be added. An example for containers are {@link sap.ui.ux3.Shell} with the aggregation 'content' or a
            * {@link sap.m.NavContainer} with the aggregation 'pages'.
            */
-          controlId?: string | undefined;
+          controlId?: string;
           /**
            * The name of an aggregation of the controlId, where the created instance from the target will be added.
            * Eg: a {@link sap.m.NavContainer} has an aggregation 'pages', another Example is the {@link sap.ui.ux3.Shell}
            * it has 'content'.
            */
-          controlAggregation?: string | undefined;
+          controlAggregation?: string;
           /**
            * Defines a boolean that can be passed to specify if the aggregation should be cleared - all items will
            * be removed - before adding the View to it. When using a {@link sap.ui.ux3.Shell} this should be true.
            * For a {@link sap.m.NavContainer} it should be false. When you use the {@link sap.m.routing.Router} the
            * default will be false.
            */
-          clearControlAggregation?: boolean | undefined;
+          clearControlAggregation?: boolean;
           /**
            * A reference to another target, using the name of the target. If you display a target that has a parent,
            * the parent will also be displayed. Also the control you specify with the controlId parameter, will be
@@ -29806,7 +30233,7 @@ declare module "sap/ui/core/routing/Targets" {
            * view will be put into the content Aggregation of the second IconTabFilter. So a parent will always be
            * created before the target referencing it.
            */
-          parent?: string | undefined;
+          parent?: string;
         };
       };
     });
@@ -29850,6 +30277,22 @@ declare module "sap/ui/core/routing/Targets" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:display display} event of this `sap.ui.core.routing.Targets`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Targets` itself.
+     */
+    attachDisplay(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:titleChanged titleChanged} event of this `sap.ui.core.routing.Targets`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -29861,6 +30304,22 @@ declare module "sap/ui/core/routing/Targets" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:titleChanged titleChanged} event of this `sap.ui.core.routing.Targets`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.routing.Targets` itself.
+     */
+    attachTitleChanged(
       /**
        * The function to be called, when the event occurs
        */
@@ -29978,38 +30437,6 @@ declare module "sap/ui/core/routing/Targets" {
      * Returns the views instance passed to the constructor
      */
     getViews(): Views;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:display display} event of this `sap.ui.core.routing.Targets`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Targets` itself.
-     */
-    attachDisplay(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:titleChanged titleChanged} event of this `sap.ui.core.routing.Targets`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.routing.Targets` itself.
-     */
-    attachTitleChanged(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.routing.Targets` itself
-       */
-      oListener?: object
-    ): this;
   }
 }
 
@@ -30037,13 +30464,13 @@ declare module "sap/ui/core/routing/Views" {
       /**
        * the owner of all the views that will be created by this Instance.
        */
-      component?: UIComponent | undefined;
+      component?: UIComponent;
       /**
        * @since 1.34 Whether the views which are created through this Views are loaded asyncly. This option can
        * be set only when the Views is used standalone without the involvement of a Router. Otherwise the async
        * option is inherited from the Router.
        */
-      async?: boolean | undefined;
+      async?: boolean;
     });
 
     /**
@@ -30123,6 +30550,8 @@ declare module "sap/ui/core/routing/Views" {
 declare module "sap/ui/core/ScrollBar" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import { ScrollBarAction, CSSSize } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -30186,7 +30615,25 @@ declare module "sap/ui/core/ScrollBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.ScrollBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:scroll scroll} event of this `sap.ui.core.ScrollBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.ScrollBar` itself.
+     *
+     * Scroll event.
+     */
+    attachScroll(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.ScrollBar` itself
        */
@@ -30210,7 +30657,7 @@ declare module "sap/ui/core/ScrollBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -30248,19 +30695,19 @@ declare module "sap/ui/core/ScrollBar" {
         /**
          * Actions are: Click on track, button, drag of thumb, or mouse wheel click.
          */
-        action?: ScrollBarAction | keyof typeof ScrollBarAction | undefined;
+        action?: ScrollBarAction | keyof typeof ScrollBarAction;
         /**
          * Direction of scrolling: back (up) or forward (down).
          */
-        forward?: boolean | undefined;
+        forward?: boolean;
         /**
          * Current Scroll position either in pixels or in steps.
          */
-        newScrollPos?: int | undefined;
+        newScrollPos?: int;
         /**
          * Old Scroll position - can be in pixels or in steps.
          */
-        oldScrollPos?: int | undefined;
+        oldScrollPos?: int;
       }
     ): this;
     /**
@@ -30383,56 +30830,38 @@ declare module "sap/ui/core/ScrollBar" {
        */
       oOwnerDomRef: string
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:scroll scroll} event of this `sap.ui.core.ScrollBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.ScrollBar` itself.
-     *
-     * Scroll event.
-     */
-    attachScroll(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.ScrollBar` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ScrollBarSettings extends $ControlSettings {
     /**
      * Orientation. Defines if the Scrollbar is vertical or horizontal.
      */
-    vertical?: boolean | PropertyBindingInfo | undefined;
+    vertical?: boolean | PropertyBindingInfo;
 
     /**
      * Scroll position in steps or pixels.
      */
-    scrollPosition?: int | PropertyBindingInfo | undefined;
+    scrollPosition?: int | PropertyBindingInfo;
 
     /**
      * Size of the Scrollbar (in pixels).
      */
-    size?: CSSSize | PropertyBindingInfo | undefined;
+    size?: CSSSize | PropertyBindingInfo;
 
     /**
      * Size of the scrollable content (in pixels).
      */
-    contentSize?: CSSSize | PropertyBindingInfo | undefined;
+    contentSize?: CSSSize | PropertyBindingInfo;
 
     /**
      * Number of steps to scroll. Used if the size of the content is not known as the data is loaded dynamically.
      */
-    steps?: int | PropertyBindingInfo | undefined;
+    steps?: int | PropertyBindingInfo;
 
     /**
      * Scroll event.
      */
-    scroll?: Function | undefined;
+    scroll?: Function;
   }
 }
 
@@ -30574,12 +31003,12 @@ declare module "sap/ui/core/search/OpenSearchProvider" {
      * The URL for suggestions of the search provider. As placeholder for the concrete search queries '{searchTerms}'
      * must be used. For cross domain requests maybe a proxy must be used.
      */
-    suggestUrl?: URI | PropertyBindingInfo | undefined;
+    suggestUrl?: URI | PropertyBindingInfo;
 
     /**
      * The type of data which is provided by the given suggestUrl: either 'json' or 'xml'.
      */
-    suggestType?: string | PropertyBindingInfo | undefined;
+    suggestType?: string | PropertyBindingInfo;
   }
 }
 
@@ -30692,7 +31121,7 @@ declare module "sap/ui/core/search/SearchProvider" {
     /**
      * Icon of the Search Provider
      */
-    icon?: string | PropertyBindingInfo | undefined;
+    icon?: string | PropertyBindingInfo;
   }
 }
 
@@ -30806,13 +31235,13 @@ declare module "sap/ui/core/support/RuleEngineOpaExtension" {
         /**
          * The format into which the history object will be converted.
          */
-        historyFormat?: any;
+        historyFormat?: /* was: sap.ui.support.HistoryFormats */ any;
         /**
          * The name of the file. It should have extension .support-assistant.json". Example: myfile.support-assistant.json
          * **Note:** Extension ".support-assistant.json" will be appended automatically, if it is not already given.
          * If only ".json" extension is given, it will be turned to ".support-assistant.json"
          */
-        fileName?: string | undefined;
+        fileName?: string;
       }
     ): Promise<any>;
     /**
@@ -30829,12 +31258,12 @@ declare module "sap/ui/core/support/RuleEngineOpaExtension" {
         /**
          * Should the test fail or not if there are issues of any severity.
          */
-        failOnAnyIssues?: boolean | undefined;
+        failOnAnyIssues?: boolean;
         /**
          * Should the test fail or not if there are issues of high severity. This parameter will override failOnAnyIssues
          * if set.
          */
-        failOnHighIssues?: boolean | undefined;
+        failOnHighIssues?: boolean;
         /**
          * The rules to check.
          */
@@ -30842,7 +31271,7 @@ declare module "sap/ui/core/support/RuleEngineOpaExtension" {
           libName: string;
 
           ruleId: string;
-        }> | undefined;
+        }>;
         /**
          * The execution scope of the analysis.
          */
@@ -30850,16 +31279,16 @@ declare module "sap/ui/core/support/RuleEngineOpaExtension" {
           /**
            * The type of the execution scope, one of 'global', 'subtree' or 'components'.
            */
-          type?: string | undefined;
+          type?: string;
           /**
            * The IDs of the components or the subtree.
            */
-          selectors?: string | string[] | undefined;
-        } | undefined;
+          selectors?: string | string[];
+        };
         /**
          * The metadata that will be passed to the analyse method.
          */
-        metadata?: Object | undefined;
+        metadata?: Object;
       }
     ): Promise<any>;
   }
@@ -30875,7 +31304,9 @@ declare module "sap/ui/core/support/RuleEngineOpaExtension" {
    * in OPA Tests}.
    */
   export default class RuleEngineOpaExtension extends BaseObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -30899,7 +31330,9 @@ declare module "sap/ui/core/support/RuleEngineOpaExtension" {
        */
       FNMetaImpl?: Function
     ): Function;
-    /**/
+    /**
+     *
+     */
     getAssertions(): RuleEngineOpaAssertions;
     /**
      * Returns a metadata object for class sap.ui.core.support.RuleEngineOpaExtension.
@@ -30949,12 +31382,12 @@ declare module "sap/ui/core/theming/Parameters" {
              * Element / control instance to take into account when looking for a parameter value. This can make a difference
              * when a parameter value is overridden in a theme scope set via a CSS class.
              */
-            scopeElement?: UI5Element | undefined;
+            scopeElement?: UI5Element;
             /**
              * If given, the callback is only executed in case there are still parameters pending and one or more of
              * the requested parameters is missing.
              */
-            callback?: Function | undefined;
+            callback?: Function;
           },
       /**
        * Element / control instance to take into account when looking for a parameter value. This can make a difference
@@ -31139,12 +31572,12 @@ declare module "sap/ui/core/Title" {
     /**
      * Defines the title text
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * Defines the URL for icon display
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
 
     /**
      * Defines the level of the title. If set to auto the level of the title is chosen by the control rendering
@@ -31152,12 +31585,12 @@ declare module "sap/ui/core/Title" {
      *
      * Currently not all controls using the Title.control supporting this property.
      */
-    level?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo | undefined;
+    level?: (TitleLevel | keyof typeof TitleLevel) | PropertyBindingInfo;
 
     /**
      * If set the title is displayed emphasized. This feature is nor supported by all controls using the Title.control.
      */
-    emphasized?: boolean | PropertyBindingInfo | undefined;
+    emphasized?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -31275,12 +31708,12 @@ declare module "sap/ui/core/tmpl/DOMAttribute" {
     /**
      * Name of the DOM attribute
      */
-    name?: string | PropertyBindingInfo | undefined;
+    name?: string | PropertyBindingInfo;
 
     /**
      * Value of the DOM attribute
      */
-    value?: string | PropertyBindingInfo | undefined;
+    value?: string | PropertyBindingInfo;
   }
 }
 
@@ -31552,22 +31985,22 @@ declare module "sap/ui/core/tmpl/DOMElement" {
     /**
      * The text content of the DOM element
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * The HTML-tag of the DOM element which contains the text
      */
-    tag?: string | PropertyBindingInfo | undefined;
+    tag?: string | PropertyBindingInfo;
 
     /**
      * DOM attributes which are rendered as part of the DOM element and bindable
      */
-    attributes?: DOMAttribute[] | DOMAttribute | AggregationBindingInfo | undefined;
+    attributes?: DOMAttribute[] | DOMAttribute | AggregationBindingInfo;
 
     /**
      * Nested DOM elements to support nested bindable structures
      */
-    elements?: DOMElement[] | DOMElement | AggregationBindingInfo | undefined;
+    elements?: DOMElement[] | DOMElement | AggregationBindingInfo;
   }
 }
 
@@ -31741,6 +32174,17 @@ declare module "sap/ui/core/tmpl/Template" {
       oView: View
     ): TemplateControl;
     /**
+     * Creates an anonymous TemplateControl for the Template.
+     */
+    createControl(
+      /**
+       * the control ID
+       */
+      sId: string,
+
+      oView: View
+    ): TemplateControl;
+    /**
      * Declares a new control based on this template and returns the created class / constructor function. The
      * class is based on the information coming from the abstract functions `createMetadata` and `createRenderer`.
      */
@@ -31817,30 +32261,6 @@ declare module "sap/ui/core/tmpl/Template" {
       bInline: boolean
     ): TemplateControl;
     /**
-     * Sets a new value for property {@link #getContent content}.
-     *
-     * The Template definition as a String.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     */
-    setContent(
-      /**
-       * New value for property `content`
-       */
-      sContent?: string
-    ): this;
-    /**
-     * Creates an anonymous TemplateControl for the Template.
-     */
-    createControl(
-      /**
-       * the control ID
-       */
-      sId: string,
-
-      oView: View
-    ): TemplateControl;
-    /**
      * Creates an anonymous TemplateControl for the Template and places the control into the specified DOM element.
      */
     placeAt(
@@ -31882,18 +32302,33 @@ declare module "sap/ui/core/tmpl/Template" {
 
       bInline: boolean
     ): TemplateControl;
+    /**
+     * Sets a new value for property {@link #getContent content}.
+     *
+     * The Template definition as a String.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setContent(
+      /**
+       * New value for property `content`
+       */
+      sContent?: string
+    ): this;
   }
 
   export interface $TemplateSettings extends $ManagedObjectSettings {
     /**
      * The Template definition as a String.
      */
-    content?: string | PropertyBindingInfo | undefined;
+    content?: string | PropertyBindingInfo;
   }
 }
 
 declare module "sap/ui/core/tmpl/TemplateControl" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import View from "sap/ui/core/mvc/View";
 
@@ -31961,7 +32396,26 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.tmpl.TemplateControl` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:afterRendering afterRendering} event of this
+     * `sap.ui.core.tmpl.TemplateControl`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.tmpl.TemplateControl` itself.
+     *
+     * Fired when the Template Control has been (re-)rendered and its HTML is present in the DOM.
+     */
+    attachAfterRendering(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.tmpl.TemplateControl` itself
        */
@@ -31985,7 +32439,26 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.tmpl.TemplateControl` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:beforeRendering beforeRendering} event of this
+     * `sap.ui.core.tmpl.TemplateControl`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.tmpl.TemplateControl` itself.
+     *
+     * Fired before this Template Control is re-rendered. Use to unbind event handlers from HTML elements etc.
+     */
+    attachBeforeRendering(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.tmpl.TemplateControl` itself
        */
@@ -32031,6 +32504,47 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       oView: View
     ): Control;
     /**
+     * compiles (creates and registers) a new control
+     */
+    createControl(
+      /**
+       * the settings for the new control
+       */
+      mSettings: object,
+      /**
+       * the parent path for the control
+       */
+      sParentPath: string,
+
+      oView: View
+    ): Control;
+    /**
+     * compiles (creates and registers) a new control
+     */
+    createControl(
+      /**
+       * the settings for the new control
+       */
+      mSettings: object,
+      /**
+       * if true, then the control will not be added to the _controls aggregation
+       */
+      bDoNotAdd: boolean,
+
+      oView: View
+    ): Control;
+    /**
+     * compiles (creates and registers) a new control
+     */
+    createControl(
+      /**
+       * the settings for the new control
+       */
+      mSettings: object,
+
+      oView: View
+    ): Control;
+    /**
      * compiles (creates and registers) a new DOM element
      */
     createDOMElement(
@@ -32057,7 +32571,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -32073,7 +32587,7 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -32176,85 +32690,6 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
        */
       fnRenderer: Function
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:afterRendering afterRendering} event of this
-     * `sap.ui.core.tmpl.TemplateControl`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.tmpl.TemplateControl` itself.
-     *
-     * Fired when the Template Control has been (re-)rendered and its HTML is present in the DOM.
-     */
-    attachAfterRendering(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.tmpl.TemplateControl` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:beforeRendering beforeRendering} event of this
-     * `sap.ui.core.tmpl.TemplateControl`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.tmpl.TemplateControl` itself.
-     *
-     * Fired before this Template Control is re-rendered. Use to unbind event handlers from HTML elements etc.
-     */
-    attachBeforeRendering(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.tmpl.TemplateControl` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * compiles (creates and registers) a new control
-     */
-    createControl(
-      /**
-       * the settings for the new control
-       */
-      mSettings: object,
-      /**
-       * the parent path for the control
-       */
-      sParentPath: string,
-
-      oView: View
-    ): Control;
-    /**
-     * compiles (creates and registers) a new control
-     */
-    createControl(
-      /**
-       * the settings for the new control
-       */
-      mSettings: object,
-      /**
-       * if true, then the control will not be added to the _controls aggregation
-       */
-      bDoNotAdd: boolean,
-
-      oView: View
-    ): Control;
-    /**
-     * compiles (creates and registers) a new control
-     */
-    createControl(
-      /**
-       * the settings for the new control
-       */
-      mSettings: object,
-
-      oView: View
-    ): Control;
   }
 
   export interface $TemplateControlSettings extends $ControlSettings {
@@ -32263,27 +32698,29 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
      * object leads to a re-rendering whereas a change of a nested property of the context object doesn't. By
      * default the context is an empty object.
      */
-    context?: object | PropertyBindingInfo | undefined;
+    context?: object | PropertyBindingInfo;
 
     /**
      * The template on which the template control is based on.
      */
-    template?: Template | string | undefined;
+    template?: Template | string;
 
     /**
      * Fired when the Template Control has been (re-)rendered and its HTML is present in the DOM.
      */
-    afterRendering?: Function | undefined;
+    afterRendering?: Function;
 
     /**
      * Fired before this Template Control is re-rendered. Use to unbind event handlers from HTML elements etc.
      */
-    beforeRendering?: Function | undefined;
+    beforeRendering?: Function;
   }
 }
 
 declare module "sap/ui/core/TooltipBase" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { Dock, Collision } from "sap/ui/core/library";
 
@@ -32346,7 +32783,27 @@ declare module "sap/ui/core/TooltipBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.core.TooltipBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.11.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.core.TooltipBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.TooltipBase` itself.
+     *
+     * This event is fired when the Tooltip has been closed
+     */
+    attachClosed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.core.TooltipBase` itself
        */
@@ -32363,7 +32820,7 @@ declare module "sap/ui/core/TooltipBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -32616,82 +33073,62 @@ declare module "sap/ui/core/TooltipBase" {
        */
       sText?: string
     ): this;
-    /**
-     * @SINCE 1.11.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.core.TooltipBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.TooltipBase` itself.
-     *
-     * This event is fired when the Tooltip has been closed
-     */
-    attachClosed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.core.TooltipBase` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TooltipBaseSettings extends $ControlSettings {
     /**
      * The text that is shown in the tooltip that extends the TooltipBase class, for example in RichTooltip.
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * Optional. Open Duration in milliseconds.
      */
-    openDuration?: int | PropertyBindingInfo | undefined;
+    openDuration?: int | PropertyBindingInfo;
 
     /**
      * Optional. Close Duration in milliseconds.
      */
-    closeDuration?: int | PropertyBindingInfo | undefined;
+    closeDuration?: int | PropertyBindingInfo;
 
     /**
      * Optional. My position defines which position on the extended tooltip being positioned to align with the
      * target control.
      */
-    myPosition?: Dock | PropertyBindingInfo | undefined;
+    myPosition?: Dock | PropertyBindingInfo;
 
     /**
      * Optional. At position defines which position on the target control to align the positioned tooltip.
      */
-    atPosition?: Dock | PropertyBindingInfo | undefined;
+    atPosition?: Dock | PropertyBindingInfo;
 
     /**
      * Optional. Offset adds these left-top values to the calculated position. Example: "10 3".
      */
-    offset?: string | PropertyBindingInfo | undefined;
+    offset?: string | PropertyBindingInfo;
 
     /**
      * Optional. Collision - when the positioned element overflows the window in some direction, move it to
      * an alternative position.
      */
-    collision?: Collision | PropertyBindingInfo | undefined;
+    collision?: Collision | PropertyBindingInfo;
 
     /**
      * Opening delay of the tooltip in milliseconds
      */
-    openDelay?: int | PropertyBindingInfo | undefined;
+    openDelay?: int | PropertyBindingInfo;
 
     /**
      * Closing delay of the tooltip in milliseconds
      */
-    closeDelay?: int | PropertyBindingInfo | undefined;
+    closeDelay?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.11.0
      *
      * This event is fired when the Tooltip has been closed
      */
-    closed?: Function | undefined;
+    closed?: Function;
   }
 }
 
@@ -32737,7 +33174,9 @@ declare module "sap/ui/core/UIArea" {
    * normal control tree, but nevertheless should receive model or binding context updates.
    */
   export default class UIArea extends ManagedObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -33002,13 +33441,13 @@ declare module "sap/ui/core/UIArea" {
     /**
      * Content that is displayed in the UIArea.
      */
-    content?: Control[] | Control | AggregationBindingInfo | undefined;
+    content?: Control[] | Control | AggregationBindingInfo;
 
     /**
      * Dependent objects whose lifecycle is bound to the UIArea but which are not automatically rendered by
      * the UIArea.
      */
-    dependents?: Control[] | Control | AggregationBindingInfo | undefined;
+    dependents?: Control[] | Control | AggregationBindingInfo;
   }
 }
 
@@ -33259,7 +33698,8 @@ declare module "sap/ui/core/UIComponent" {
      * of a Component is executed.
      *
      * Subclasses of `UIComponent` should override this hook to implement any necessary initialization. **When
-     * overriding this function make sure to invoke the `init` function of the `UIComponent` as well!**/
+     * overriding this function make sure to invoke the `init` function of the `UIComponent` as well!**
+     */
     init(): void;
     /**
      * Function is called when the rendering of the ComponentContainer is completed.
@@ -33376,12 +33816,12 @@ declare module "sap/ui/core/UIComponent" {
      * An object containing the routes that should be added to the router. See {@link sap.ui.core.routing.Route}
      * for the allowed properties.
      */
-    routes?: object | undefined;
+    routes?: object;
     /**
      * Since 1.28.1. An object containing the targets that will be available for the router and the `Targets`
      * instance. See {@link sap.ui.core.routing.Targets} for the allowed values.
      */
-    targets?: object | undefined;
+    targets?: object;
     /**
      * Since 1.16. An object containing default values used for routes and targets. See {@link sap.ui.core.routing.Router#constructor}
      * and {@link sap.ui.core.routing.Targets} for more documentation.
@@ -33394,20 +33834,20 @@ declare module "sap/ui/core/UIComponent" {
        * create an {@link sap.m.routing.Targets} instance. If you pass a function, it has to be the constructor
        * of a class that extends a router.
        */
-      routerClass?: string | Function | undefined;
+      routerClass?: string | Function;
       /**
        * Since 1.28.1. The qualified name (in dot notation) or the constructor of the `Targets` class that should
        * be used by the component's router. If you are using an own `Targets` extension, it has to be required
        * before the constructor of the component is invoked. If you define routes in your routing section, this
        * parameter will be ignored and the `Targets` instance of the router will be taken, see {@link sap.ui.core.routing.Router#getTargets}.
        */
-      targetsClass?: string | Function | undefined;
+      targetsClass?: string | Function;
       /**
        * By default, the root view will be set to the ID of the view returned by the {@link sap.ui.core.UIComponent#getRootView}
        * function. You should not set this parameter if you create a view with the UIComponent.
        */
-      rootView?: string | undefined;
-    } | undefined;
+      rootView?: string;
+    };
   };
 
   export interface $UIComponentSettings extends $ComponentSettings {}
@@ -33546,7 +33986,8 @@ declare module "sap/ui/core/util/Export" {
      *
      * **Please note: The return value was changed from jQuery Promises to standard ES6 Promises. jQuery
      * specific Promise methods ('done', 'fail', 'always', 'pipe' and 'state') are still available but should
-     * not be used. Please use only the standard methods 'then' and 'catch'!**/
+     * not be used. Please use only the standard methods 'then' and 'catch'!**
+     */
     generate(): Promise<any>;
     /**
      * Gets content of aggregation {@link #getColumns columns}.
@@ -33658,7 +34099,8 @@ declare module "sap/ui/core/util/Export" {
      *
      * **Please note: The return value was changed from jQuery Promises to standard ES6 Promises. jQuery
      * specific Promise methods ('done', 'fail', 'always', 'pipe' and 'state') are still available but should
-     * not be used. Please use only the standard methods 'then' and 'catch'!**/
+     * not be used. Please use only the standard methods 'then' and 'catch'!**
+     */
     saveFile(
       /**
        * The file name
@@ -33688,17 +34130,17 @@ declare module "sap/ui/core/util/Export" {
     /**
      * Type that generates the content.
      */
-    exportType?: ExportType | undefined;
+    exportType?: ExportType;
 
     /**
      * Columns for the Export.
      */
-    columns?: ExportColumn[] | ExportColumn | AggregationBindingInfo | undefined;
+    columns?: ExportColumn[] | ExportColumn | AggregationBindingInfo;
 
     /**
      * Rows of the Export.
      */
-    rows?: ExportRow[] | ExportRow | AggregationBindingInfo | undefined;
+    rows?: ExportRow[] | ExportRow | AggregationBindingInfo;
   }
 }
 
@@ -33798,7 +34240,7 @@ declare module "sap/ui/core/util/ExportCell" {
     /**
      * Cell content.
      */
-    content?: string | PropertyBindingInfo | undefined;
+    content?: string | PropertyBindingInfo;
   }
 }
 
@@ -33920,12 +34362,12 @@ declare module "sap/ui/core/util/ExportColumn" {
     /**
      * Column name.
      */
-    name?: string | PropertyBindingInfo | undefined;
+    name?: string | PropertyBindingInfo;
 
     /**
      * Cell template for column.
      */
-    template?: ExportCell | undefined;
+    template?: ExportCell;
   }
 }
 
@@ -34068,7 +34510,7 @@ declare module "sap/ui/core/util/ExportRow" {
     /**
      * Cells for the Export.
      */
-    cells?: ExportCell[] | ExportCell | AggregationBindingInfo | undefined;
+    cells?: ExportCell[] | ExportCell | AggregationBindingInfo;
   }
 }
 
@@ -34266,22 +34708,22 @@ declare module "sap/ui/core/util/ExportType" {
     /**
      * File extension.
      */
-    fileExtension?: string | PropertyBindingInfo | undefined;
+    fileExtension?: string | PropertyBindingInfo;
 
     /**
      * MIME type.
      */
-    mimeType?: string | PropertyBindingInfo | undefined;
+    mimeType?: string | PropertyBindingInfo;
 
     /**
      * Charset.
      */
-    charset?: string | PropertyBindingInfo | undefined;
+    charset?: string | PropertyBindingInfo;
 
     /**
      * Whether to prepend an unicode byte order mark when saving as a file (only applies for utf-8 charset).
      */
-    byteOrderMark?: boolean | PropertyBindingInfo | undefined;
+    byteOrderMark?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -34403,7 +34845,7 @@ declare module "sap/ui/core/util/ExportTypeCSV" {
      *
      * Value needs to be exactly one character or empty for default.
      */
-    separatorChar?: string | PropertyBindingInfo | undefined;
+    separatorChar?: string | PropertyBindingInfo;
   }
 }
 
@@ -34561,16 +35003,16 @@ declare module "sap/ui/core/util/MockServer" {
          * If set true, all mock servers will respond automatically. If set false you have to call {@link sap.ui.core.util.MockServer.respond}
          * method for response.
          */
-        autoRespond?: boolean | undefined;
+        autoRespond?: boolean;
         /**
          * the time in ms after all mock servers should send their response.
          */
-        autoRespondAfter?: int | undefined;
+        autoRespondAfter?: int;
         /**
          * If set to true, all mock server will find `_method` parameter in the POST body and use this to override
          * the actual method.
          */
-        fakeHTTPMethods?: boolean | undefined;
+        fakeHTTPMethods?: boolean;
       }
     ): void;
     /**
@@ -34655,7 +35097,7 @@ declare module "sap/ui/core/util/MockServer" {
        * EntitySet name
        */
       sEntitySetName: string
-    ): Array<any>;
+    ): any[];
     /**
      * Returns a metadata object for class sap.ui.core.util.MockServer.
      */
@@ -34697,7 +35139,7 @@ declare module "sap/ui/core/util/MockServer" {
        */
       sEntitySetName: string,
 
-      aData: Array<any>
+      aData: any[]
     ): void;
     /**
      * Setter for property `recordRequests`. Defines whether or not the requests performed should be recorded
@@ -34780,17 +35222,17 @@ declare module "sap/ui/core/util/MockServer" {
              * base url which contains the mockdata as single .json files or the .json file containing the complete
              * mock data
              */
-            sMockdataBaseUrl?: string | undefined;
+            sMockdataBaseUrl?: string;
             /**
              * if the MockServer should generate mock data for missing .json files that are not found in sMockdataBaseUrl
              */
-            bGenerateMissingMockData?: boolean | undefined;
+            bGenerateMissingMockData?: boolean;
             /**
              * list of entity set names to fetch. If the list is empty or `undefined`, all entity sets will be retrieved.
              * This parameter should be used to improve performance in case there are a lot of entity sets but only
              * a few are needed to be fetched.
              */
-            aEntitySetsNames?: Array<any> | undefined;
+            aEntitySetsNames?: any[];
           }
     ): void;
     /**
@@ -34818,21 +35260,21 @@ declare module "sap/ui/core/util/MockServer" {
      *
      * Default value is empty/`undefined`. Must end with a a trailing slash ("/").
      */
-    rootUri?: string | PropertyBindingInfo | undefined;
+    rootUri?: string | PropertyBindingInfo;
 
     /**
      * Whether or not the requests performed should be recorded (stored). This could be memory intense if each
      * request is recorded. For unit testing purposes it should be set to `true` to compare requests performed
      * otherwise this flag should be set to `false` e.g. for demonstration/app purposes.
      */
-    recordRequests?: boolean | PropertyBindingInfo | undefined;
+    recordRequests?: boolean | PropertyBindingInfo;
 
     /**
      * Getter for property `requests`.
      *
      * Default value is `[]`
      */
-    requests?: object[] | PropertyBindingInfo | undefined;
+    requests?: object[] | PropertyBindingInfo;
   }
 }
 
@@ -35159,7 +35601,7 @@ declare module "sap/ui/core/VariantLayoutData" {
     /**
      * Allows multiple LayoutData.
      */
-    multipleLayoutData?: LayoutData[] | LayoutData | AggregationBindingInfo | undefined;
+    multipleLayoutData?: LayoutData[] | LayoutData | AggregationBindingInfo;
   }
 }
 
@@ -35209,7 +35651,7 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
        * array of protocols as strings, a single protocol as a string. Protocol(s) should be selected from {@link
        * sap.ui.core.ws.SapPcpWebSocket.SUPPORTED_PROTOCOLS}.
        */
-      aProtocols?: Array<any>
+      aProtocols?: any[]
     );
 
     /**
@@ -35244,11 +35686,11 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
         /**
          * Received data from the server.
          */
-        data?: string | undefined;
+        data?: string;
         /**
          * Received pcpFields as a key-value map.
          */
-        pcpFields?: string | undefined;
+        pcpFields?: string;
       }
     ): this;
     /**
@@ -35306,7 +35748,7 @@ declare module "sap/ui/core/ws/WebSocket" {
       /**
        * array of protocols as strings, a single protocol as a string
        */
-      aProtocols?: Array<any>
+      aProtocols?: any[]
     );
 
     /**
@@ -35321,6 +35763,22 @@ declare module "sap/ui/core/ws/WebSocket" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `WebSocket` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.core.ws.WebSocket`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.ws.WebSocket` itself.
+     */
+    attachClose(
       /**
        * The function to be called, when the event occurs
        */
@@ -35352,6 +35810,22 @@ declare module "sap/ui/core/ws/WebSocket" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:error error} event of this `sap.ui.core.ws.WebSocket`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.ws.WebSocket` itself.
+     */
+    attachError(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `WebSocket` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.core.ws.WebSocket`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -35373,6 +35847,22 @@ declare module "sap/ui/core/ws/WebSocket" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.core.ws.WebSocket`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.ws.WebSocket` itself.
+     */
+    attachMessage(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `WebSocket` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.core.ws.WebSocket`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -35384,6 +35874,22 @@ declare module "sap/ui/core/ws/WebSocket" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `WebSocket` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.core.ws.WebSocket`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.core.ws.WebSocket` itself.
+     */
+    attachOpen(
       /**
        * The function to be called, when the event occurs
        */
@@ -35498,15 +36004,15 @@ declare module "sap/ui/core/ws/WebSocket" {
         /**
          * Close code provided by the server
          */
-        code?: string | undefined;
+        code?: string;
         /**
          * Reason from server for closing the connection
          */
-        reason?: string | undefined;
+        reason?: string;
         /**
          * Indicates whether the connection was cleanly closed or not
          */
-        wasClean?: string | undefined;
+        wasClean?: string;
       }
     ): this;
     /**
@@ -35529,7 +36035,7 @@ declare module "sap/ui/core/ws/WebSocket" {
         /**
          * Received data from the server
          */
-        data?: string | undefined;
+        data?: string;
       }
     ): this;
     /**
@@ -35569,70 +36075,6 @@ declare module "sap/ui/core/ws/WebSocket" {
        * Message to send
        */
       sMessage: string
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.core.ws.WebSocket`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.ws.WebSocket` itself.
-     */
-    attachClose(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `WebSocket` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:error error} event of this `sap.ui.core.ws.WebSocket`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.ws.WebSocket` itself.
-     */
-    attachError(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `WebSocket` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.core.ws.WebSocket`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.ws.WebSocket` itself.
-     */
-    attachMessage(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `WebSocket` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.core.ws.WebSocket`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.core.ws.WebSocket` itself.
-     */
-    attachOpen(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `WebSocket` itself
-       */
-      oListener?: object
     ): this;
   }
 }
@@ -35801,7 +36243,7 @@ declare module "sap/ui/core/XMLComposite" {
       /**
        * The mapping of "aria-" prefixed attributes
        */
-      mAriaProps: Object
+      mAriaProps: object
     ): void;
     /**
      * Creates a new subclass of class sap.ui.core.XMLComposite with name `sClassName` and enriches it with
@@ -35905,17 +36347,17 @@ declare module "sap/ui/core/XMLComposite" {
     /**
      * The width
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * The height
      */
-    height?: CSSSize | PropertyBindingInfo | undefined;
+    height?: CSSSize | PropertyBindingInfo;
 
     /**
      * Whether the CSS display should be set to "block".
      */
-    displayBlock?: boolean | PropertyBindingInfo | undefined;
+    displayBlock?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -35982,7 +36424,7 @@ declare module "sap/ui/Device" {
      * See:
      * 	sap.ui.Device.browser.BROWSER
      */
-    export const name: String;
+    export const name: string;
 
     /**
      * If this flag is set to `true`, the Apple Safari browser is used.
@@ -36004,7 +36446,7 @@ declare module "sap/ui/Device" {
      *
      * Might be empty if no version can be determined.
      */
-    export const versionStr: String;
+    export const versionStr: string;
 
     /**
      * @SINCE 1.20.0
@@ -36386,7 +36828,7 @@ declare module "sap/ui/Device" {
      * See:
      * 	sap.ui.Device.os.OS
      */
-    export const name: String;
+    export const name: string;
 
     /**
      * The version of the operating system as `float`.
@@ -36400,7 +36842,7 @@ declare module "sap/ui/Device" {
      *
      * Might be empty if no version can be determined.
      */
-    export const versionStr: String;
+    export const versionStr: string;
 
     /**
      * If this flag is set to `true`, a Windows operating system is used.
@@ -36645,7 +37087,9 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
    * the application that the OData requests generated by the AnalyticalBinding include a $inlinecount.
    */
   export default class AnalyticalBinding extends TreeBinding {
-    /**/
+    /**
+     *
+     */
     constructor(
       /**
        * The OData model
@@ -36662,11 +37106,11 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
       /**
        * An array of predefined sorters
        */
-      aSorter?: Array<any>,
+      aSorter?: any[],
       /**
        * An array of predefined filters
        */
-      aFilters?: Array<any>,
+      aFilters?: any[],
       /**
        * A map containing additional binding parameters
        */
@@ -36674,7 +37118,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
         /**
          * The auto expand mode; applying sorters to groups is only possible in auto expand mode {@link sap.ui.model.TreeAutoExpandMode.Sequential}
          */
-        autoExpandMode?: TreeAutoExpandMode | keyof typeof TreeAutoExpandMode | undefined;
+        autoExpandMode?: TreeAutoExpandMode | keyof typeof TreeAutoExpandMode;
         /**
          * The entity set addressed by the last segment of the given binding path
          */
@@ -36708,7 +37152,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
          *  If the `select` parameter does not fit to the analytical information or if the `select` parameter contains
          * duplicates, a warning is logged and the `select` parameter is ignored.
          */
-        select?: string | undefined;
+        select?: string;
       }
     );
 
@@ -36763,6 +37207,14 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
      */
     getAnalyticalQueryResult(): QueryResult;
     /**
+     * @SINCE 1.92.0
+     *
+     * Gets the total number of leaves or `undefined` if this is unknown.
+     * See:
+     * 	sap.ui.model.odata.v4.ODataListBinding#getCount
+     */
+    getCount(): number | undefined;
+    /**
      * Gets details about the dimension properties included in the bound OData entity set.
      */
     getDimensionDetails(): object;
@@ -36784,7 +37236,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
     /**
      * Gets the names of the filterable properties in the bound OData entity set.
      */
-    getFilterablePropertyNames(): Array<any>;
+    getFilterablePropertyNames(): any[];
     /**
      * Gets a printable name for a group.
      *
@@ -36860,7 +37312,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
        * 			accesses to child entries of the given parent context.
        */
       mParameters: object
-    ): Array<any>;
+    ): any[];
     /**
      * Gets the metadata of a property with a given name.
      */
@@ -36952,13 +37404,11 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
     /**
      * Gets the names of the sortable properties in the bound OData entity set.
      */
-    getSortablePropertyNames(): Array<any>;
+    getSortablePropertyNames(): any[];
     /**
-     * Gets the total number of entities in the bound OData entity set.
+     * @deprecated (since 1.92) - use {@link #getCount} instead
      *
-     * Counting takes place at the lowest aggregation level defined by the possible value combinations for the
-     * complete set of dimension properties included in the bound entity set. This means that intermediate aggregate
-     * entities with sub-totals at higher aggregation levels are not counted.
+     * Gets the total number of leaves or `-1` if this is unknown.
      */
     getTotalSize(): number;
     /**
@@ -36993,7 +37443,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
         /**
          * The aggregation level number
          */
-        level?: int | undefined;
+        level?: int;
       }
     ): boolean;
     /**
@@ -37018,7 +37468,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
        * index range is given by an object consisting of startIndex, length, threshold. For every group ID, the
        * map holds an array of such range objects.
        */
-      mGroupIdRanges: Record<string, Array<any>>
+      mGroupIdRanges: Record<string, any[]>
     ): void;
     /**
      * Determines if the binding has been configured to provide a grand total for the selected measure properties.
@@ -37046,7 +37496,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
       /**
        * a sorter object or an array of sorter objects which define the sort order.
        */
-      aSorter: Sorter | Array<any>
+      aSorter: Sorter | any[]
     ): this;
     /**
      * Updates the binding's structure with new analytical information.
@@ -37079,7 +37529,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
       /**
        * an array with objects holding the analytical information for every column, from left to right.
        */
-      aColumns: Array<any>
+      aColumns: any[]
     ): void;
   }
 }
@@ -37172,7 +37622,7 @@ declare module "sap/ui/model/analytics/BatchResponseCollector" {
         /**
          * an Array with detail information for all executed batch sub-requests
          */
-        executedRequests: Array<any>;
+        executedRequests: any[];
         /**
          * a reference to the AnalyticalBinding which started the batch request
          */
@@ -37399,8 +37849,8 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * Identifies the query option: $select, $filter,... or any custom query option
        */
-      sQueryOptionName: String
-    ): String;
+      sQueryOptionName: string
+    ): string;
     /**
      * Get the URI to locate the entity set for the dimension memebers.
      */
@@ -37408,8 +37858,8 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * (optional) Identifies the root of the OData service
        */
-      sServiceRootURI: String
-    ): String;
+      sServiceRootURI: string
+    ): string;
     /**
      * Get the unescaped URI to fetch the dimension members, optionally augmented by text and attributes.
      */
@@ -37417,8 +37867,8 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * (optional) Identifies the root of the OData service
        */
-      sServiceRootURI: String
-    ): String;
+      sServiceRootURI: string
+    ): string;
     /**
      * Set the filter expression for this request.
      *
@@ -37449,7 +37899,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
        * Indicates whether or not the result shall include a count for the returned entities. Default is not to
        * include it. Pass null to keep current setting.
        */
-      bIncludeCount: Boolean
+      bIncludeCount: boolean
     ): void;
     /**
      * Specify that only a page of the query result shall be returned. A page is described by its boundaries,
@@ -37460,12 +37910,12 @@ declare module "sap/ui/model/analytics/odata4analytics" {
        * The first row of the query result to be returned. Numbering starts at 1. Passing null is equivalent to
        * start with the first row.
        */
-      start: Number,
+      start: int,
       /**
        * The last row of the query result to be returned. Passing null is equivalent to get all rows up to the
        * end of the query result.
        */
-      end: Number
+      end: int
     ): void;
     /**
      * Set the sort expression for this request.
@@ -37715,7 +38165,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * values defining the set
        */
-      aValues: Array<any>
+      aValues: any[]
     ): FilterExpression;
     /**
      * Add an array of UI5 filter conditions to the filter expression.
@@ -37902,7 +38352,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * (optional) Identifies the root of the OData service
        */
-      sServiceRootURI: String
+      sServiceRootURI: string
     ): undefined;
     /**
      * Get indicator if the parameter represents an interval boundary
@@ -38000,7 +38450,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * (optional) Identifies the root of the OData service
        */
-      sServiceRootURI: String
+      sServiceRootURI: string
     ): undefined;
     /**
      * Get the URI to locate the parameterization entity for the values assigned to all parameters beforehand.
@@ -38012,7 +38462,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * (optional) Identifies the root of the OData service
        */
-      sServiceRootURI: String
+      sServiceRootURI: string
     ): undefined;
     /**
      * Assign a value to a parameter
@@ -38021,15 +38471,15 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * Name of the parameter. In case of a range value, provide the name of the lower boundary parameter.
        */
-      sParameterName: String,
+      sParameterName: string,
       /**
        * Assigned value. Pass null to remove a value assignment.
        */
-      sValue: String,
+      sValue: string,
       /**
        * Omit it or set it to null for single values. If set, it will be assigned to the upper boundary parameter
        */
-      sToValue: String
+      sToValue: string
     ): void;
   }
   /**
@@ -38067,8 +38517,8 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * Identifies the query option: $select, $filter,... or any custom query option
        */
-      sQueryOptionName: String
-    ): String;
+      sQueryOptionName: string
+    ): string;
     /**
      * Get the unescaped URI to fetch the parameter value set.
      */
@@ -38076,8 +38526,8 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * (optional) Identifies the root of the OData service
        */
-      sServiceRootURI: String
-    ): String;
+      sServiceRootURI: string
+    ): string;
     /**
      * Specify which components of the parameter shall be included in the value set.
      */
@@ -38264,7 +38714,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
     /**
      * Get the names of the dimensions included in the aggregation level
      */
-    getAggregationLevel(): Array<any>;
+    getAggregationLevel(): any[];
     /**
      * Get details about a dimensions included in the aggregation level
      */
@@ -38284,7 +38734,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
     /**
      * Get the names of the measures included in the query result request
      */
-    getMeasureNames(): Array<any>;
+    getMeasureNames(): any[];
     /**
      * Retrieves the current parametrization request
      */
@@ -38312,8 +38762,8 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * Identifies the query option: $select, $filter,$orderby ... or any custom query option
        */
-      sQueryOptionName: String
-    ): String;
+      sQueryOptionName: string
+    ): string;
     /**
      * Get the URI to locate the entity set for the query result.
      */
@@ -38321,8 +38771,8 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * (optional) Identifies the root of the OData service
        */
-      sServiceRootURI: String
-    ): String;
+      sServiceRootURI: string
+    ): string;
     /**
      * Get the unescaped URI to fetch the query result.
      */
@@ -38330,13 +38780,13 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       /**
        * (optional) Identifies the root of the OData service
        */
-      sServiceRootURI: String,
+      sServiceRootURI: string,
       /**
        * (optional) OData resource path to be considered. If provided, it overwrites any parameterization object
        * that might have been specified separately.
        */
-      sResourcePath: String
-    ): String;
+      sResourcePath: string
+    ): string;
     /**
      * Specify which dimension components shall be included in the query result. The settings get applied to
      * the currently defined aggregation level.
@@ -38450,19 +38900,19 @@ declare module "sap/ui/model/analytics/odata4analytics" {
        * Indicates whether or not the entity key should be returned for every entry in the query result. Default
        * is not to include it. Pass null to keep current setting.
        */
-      bIncludeEntityKey: Boolean,
+      bIncludeEntityKey: boolean,
       /**
        * Indicates whether or not the result shall include a count for the returned entities. Default is not to
        * include it. Pass null to keep current setting.
        */
-      bIncludeCount: Boolean,
+      bIncludeCount: boolean,
       /**
        * Indicates whether or not the result shall be empty. This will translate to $top=0 in the OData request
        * and override any setting done with setResultPageBoundaries. The default is not to suppress entities in
        * the result. Pass null to keep current setting. The main use case for this option is to create a request
        * with $inlinecount returning an entity count.
        */
-      bReturnNoEntities: Boolean
+      bReturnNoEntities: boolean
     ): void;
     /**
      * Set the resource path to be considered for the OData request URI of this query request object. This method
@@ -38485,12 +38935,12 @@ declare module "sap/ui/model/analytics/odata4analytics" {
        * The first row of the query result to be returned. Numbering starts at 1. Passing null is equivalent to
        * start with the first row.
        */
-      start: Number,
+      start: int,
       /**
        * The last row of the query result to be returned. Passing null is equivalent to get all rows up to the
        * end of the query result.
        */
-      end: Number
+      end: int
     ): void;
     /**
      * Set the sort expression for this request.
@@ -38929,7 +39379,7 @@ declare module "sap/ui/model/Binding" {
     /**
      * Attach multiple events.
      */
-    attachEvents(oEvents: Record<string, () => void>): void;
+    attachEvents(oEvents: Record<string, Function>): void;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:refresh refresh} event of this `sap.ui.model.Binding`.
      *
@@ -39024,7 +39474,7 @@ declare module "sap/ui/model/Binding" {
     /**
      * Detach multiple events.
      */
-    detachEvents(oEvents: Record<string, () => void>): void;
+    detachEvents(oEvents: Record<string, Function>): void;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:refresh refresh} event of this `sap.ui.model.Binding`.
      */
@@ -39072,7 +39522,7 @@ declare module "sap/ui/model/Binding" {
         /**
          * Data received. In error cases it will be undefined.
          */
-        data?: object | undefined;
+        data?: object;
       }
     ): void;
     /**
@@ -39922,7 +40372,7 @@ declare module "sap/ui/model/CompositeBinding" {
     /**
      * Returns the property bindings contained in this composite binding.
      */
-    getBindings(): Array<any>;
+    getBindings(): any[];
     /**
      * Returns the current external value of the bound target which is formatted via a type or formatter function.
      */
@@ -39931,7 +40381,7 @@ declare module "sap/ui/model/CompositeBinding" {
      * Returns the current internal value of the bound target which is an array of the internal (JS native)
      * values of nested bindings
      */
-    getInternalValue(): Array<any>;
+    getInternalValue(): any[];
     /**
      * Returns a metadata object for class sap.ui.model.CompositeBinding.
      */
@@ -39940,7 +40390,7 @@ declare module "sap/ui/model/CompositeBinding" {
      * Returns the current raw value of the bound target which is an array of the raw (model) values of nested
      * bindings
      */
-    getRawValue(): Array<any>;
+    getRawValue(): any[];
     /**
      * Returns the raw values of the property bindings in an array.
      */
@@ -39978,7 +40428,7 @@ declare module "sap/ui/model/CompositeBinding" {
       /**
        * the new values of the nested bindings
        */
-      aValues: Array<any>
+      aValues: any[]
     ): void;
     /**
      * Sets the raw value of the bound target. Parameter must be an array of values matching the raw (model)
@@ -39988,7 +40438,7 @@ declare module "sap/ui/model/CompositeBinding" {
       /**
        * the new values of the nested bindings
        */
-      aValues: Array<any>
+      aValues: any[]
     ): void;
     /**
      * Sets the optional type and internal type for the binding. The type and internal type are used to do the
@@ -40013,7 +40463,7 @@ declare module "sap/ui/model/CompositeBinding" {
       /**
        * the values to set for this binding
        */
-      aValues: Array<any>
+      aValues: any[]
     ): void;
     /**
      * Suspends the binding update. No change events will be fired.
@@ -40047,7 +40497,9 @@ declare module "sap/ui/model/CompositeDataState" {
    * Holds the status data of a composite binding.
    */
   export default class CompositeDataState extends DataState {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -40269,7 +40721,7 @@ declare module "sap/ui/model/CompositeType" {
       /**
        * The current values of all binding parts; required if {@link #getParseWithValues} returns `true`
        */
-      aCurrentValues?: Array<any>
+      aCurrentValues?: any[]
     ): any[] | any;
     /**
      * Validates whether the given raw values meet the defined constraints. This method does nothing if no constraints
@@ -40504,7 +40956,9 @@ declare module "sap/ui/model/DataState" {
    * external representation}
    */
   export default class DataState extends BaseObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -40688,21 +41142,21 @@ declare module "sap/ui/model/Filter" {
             /**
              * Binding path for this filter
              */
-            path?: string | undefined;
+            path?: string;
             /**
              * Function which is used to filter the items and which should return a Boolean value to indicate whether
              * the current item passes the filter
              */
-            test?: Function | undefined;
+            test?: Function;
             /**
              * Function which is used to compare two values, this is used for processing of equal, less than and greater
              * than operators
              */
-            comparator?: Function | undefined;
+            comparator?: Function;
             /**
              * Operator used for the filter
              */
-            operator?: FilterOperator | keyof typeof FilterOperator | undefined;
+            operator?: FilterOperator | keyof typeof FilterOperator;
             /**
              * First value to use with the given filter operator
              */
@@ -40714,24 +41168,24 @@ declare module "sap/ui/model/Filter" {
             /**
              * The variable used in lambda operators (`Any` and `All`)
              */
-            variable?: string | undefined;
+            variable?: string;
             /**
              * A `Filter` instance which will be used as the condition for the lambda operator
              */
-            condition?: Filter | undefined;
+            condition?: Filter;
             /**
              * Array of filters on which logical conjunction is applied
              */
-            filters?: Filter[] | undefined;
+            filters?: Filter[];
             /**
              * Indicates whether an "AND" logical conjunction is applied on the filters. If it's not set or set to `false`,
              * an "OR" conjunction is applied
              */
-            and?: boolean | undefined;
+            and?: boolean;
             /**
              * Indicates whether a string value should be compared case sensitive or not.
              */
-            caseSensitive?: boolean | undefined;
+            caseSensitive?: boolean;
           }
         | string
         | Filter[],
@@ -41026,7 +41480,7 @@ declare module "sap/ui/model/json/JSONListBinding" {
        * determines how many contexts to retrieve beginning from the start index. Default is the whole list length.
        */
       iLength?: int
-    ): Array<any>;
+    ): any[];
   }
 }
 
@@ -41288,7 +41742,7 @@ declare module "sap/ui/model/json/JSONTreeBinding" {
          * add both to `arrayNames`. You always have to add the complete parent chain. If any array is ignored,
          * its child arrays will be ignored as well even if they have been added to `arrayNames`.
          */
-        arrayNames?: string[] | undefined;
+        arrayNames?: string[];
       }
     );
   }
@@ -41308,6 +41762,8 @@ declare module "sap/ui/model/ListBinding" {
   import FilterType from "sap/ui/model/FilterType";
 
   import Metadata from "sap/ui/base/Metadata";
+
+  import Message from "sap/ui/core/message/Message";
 
   /**
    * ListBinding is a specific binding for lists in the model, which can be used to populate Tables or ItemLists.
@@ -41422,11 +41878,11 @@ declare module "sap/ui/model/ListBinding" {
       /**
        * Old data array
        */
-      aOld: Array<any>,
+      aOld: any[],
       /**
        * New data array
        */
-      aNew: Array<any>
+      aNew: any[]
     ): Array<{
       type: string;
 
@@ -41557,7 +42013,7 @@ declare module "sap/ui/model/ListBinding" {
        * Relative binding path
        */
       sPath: string
-    ): Array<any>;
+    ): any[];
     /**
      * Gets the group for the given context. Must only be called if `isGrouped()` returns that grouping is enabled
      * for this binding. The grouping will be performed using the first sorter (in case multiple sorters are
@@ -41615,7 +42071,7 @@ declare module "sap/ui/model/ListBinding" {
        * A callback function to filter only relevant messages. The callback returns whether the given {@link sap.ui.core.message.Message}
        * is considered. If no callback function is given, all messages are considered.
        */
-      fnFilter?: Function
+      fnFilter?: (p1: Message) => boolean
     ): Promise<Filter>;
     /**
      * Sorts the list according to the sorter object.
@@ -41633,7 +42089,7 @@ declare module "sap/ui/model/ListBinding" {
       /**
        * the Sorter object or an array of sorters which defines the sort order
        */
-      aSorters: Sorter | Array<any>
+      aSorters: Sorter | any[]
     ): this;
   }
 }
@@ -41819,6 +42275,22 @@ declare module "sap/ui/model/Model" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:parseError parseError} event of this `sap.ui.model.Model`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.Model` itself.
+     */
+    attachParseError(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself.
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:propertyChange propertyChange} event of this
      * `sap.ui.model.Model`.
      *
@@ -41831,6 +42303,23 @@ declare module "sap/ui/model/Model" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:propertyChange propertyChange} event of this
+     * `sap.ui.model.Model`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.Model` itself.
+     */
+    attachPropertyChange(
       /**
        * The function to be called, when the event occurs
        */
@@ -41863,6 +42352,23 @@ declare module "sap/ui/model/Model" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:requestCompleted requestCompleted} event of
+     * this `sap.ui.model.Model`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.Model` itself.
+     */
+    attachRequestCompleted(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:requestFailed requestFailed} event of this `sap.ui.model.Model`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -41884,6 +42390,22 @@ declare module "sap/ui/model/Model" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:requestFailed requestFailed} event of this `sap.ui.model.Model`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.Model` itself.
+     */
+    attachRequestFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:requestSent requestSent} event of this `sap.ui.model.Model`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -41895,6 +42417,22 @@ declare module "sap/ui/model/Model" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:requestSent requestSent} event of this `sap.ui.model.Model`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.Model` itself.
+     */
+    attachRequestSent(
       /**
        * The function to be called, when the event occurs
        */
@@ -42143,19 +42681,19 @@ declare module "sap/ui/model/Model" {
        * Parameters to pass along with the event
        */
       oParameters?: {
-        errorCode?: int | undefined;
+        errorCode?: int;
 
-        url?: string | undefined;
+        url?: string;
 
-        reason?: string | undefined;
+        reason?: string;
 
-        srcText?: string | undefined;
+        srcText?: string;
 
-        line?: int | undefined;
+        line?: int;
 
-        linepos?: int | undefined;
+        linepos?: int;
 
-        filepos?: int | undefined;
+        filepos?: int;
       }
     ): this;
     /**
@@ -42169,19 +42707,19 @@ declare module "sap/ui/model/Model" {
         /**
          * The reason of the property change
          */
-        reason?: ChangeReason | undefined;
+        reason?: ChangeReason;
         /**
          * The path of the property
          */
-        path?: string | undefined;
+        path?: string;
         /**
          * the context of the property
          */
-        context?: object | undefined;
+        context?: object;
         /**
          * the value of the property
          */
-        value?: object | undefined;
+        value?: object;
       }
     ): this;
     /**
@@ -42195,22 +42733,23 @@ declare module "sap/ui/model/Model" {
         /**
          * The url which was sent to the backend.
          */
-        url?: string | undefined;
+        url?: string;
         /**
          * The type of the request (if available)
          */
-        type?: string | undefined;
+        type?: string;
         /**
          * If the request was synchronous or asynchronous (if available)
          */
-        async?: boolean | undefined;
+        async?: boolean;
         /**
-         * additional information for the request (if available) **deprecated**/
-        info?: string | undefined;
+         * additional information for the request (if available) **deprecated**
+         */
+        info?: string;
         /**
          * Additional information for the request (if available)
          */
-        infoObject?: object | undefined;
+        infoObject?: object;
       }
     ): this;
     /**
@@ -42224,19 +42763,19 @@ declare module "sap/ui/model/Model" {
         /**
          * A text that describes the failure.
          */
-        message?: string | undefined;
+        message?: string;
         /**
          * HTTP status code returned by the request (if available)
          */
-        statusCode?: string | undefined;
+        statusCode?: string;
         /**
          * The status as a text, details not specified, intended only for diagnosis output
          */
-        statusText?: string | undefined;
+        statusText?: string;
         /**
          * Response that has been received for the request ,as a text string
          */
-        responseText?: string | undefined;
+        responseText?: string;
       }
     ): this;
     /**
@@ -42250,22 +42789,23 @@ declare module "sap/ui/model/Model" {
         /**
          * The url which is sent to the backend.
          */
-        url?: string | undefined;
+        url?: string;
         /**
          * The type of the request (if available)
          */
-        type?: string | undefined;
+        type?: string;
         /**
          * If the request is synchronous or asynchronous (if available)
          */
-        async?: boolean | undefined;
+        async?: boolean;
         /**
-         * additional information for the request (if available) **deprecated**/
-        info?: string | undefined;
+         * additional information for the request (if available) **deprecated**
+         */
+        info?: string;
         /**
          * Additional information for the request (if available)
          */
-        infoObject?: object | undefined;
+        infoObject?: object;
       }
     ): this;
     /**
@@ -42429,88 +42969,6 @@ declare module "sap/ui/model/Model" {
        */
       iSizeLimit: int
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:parseError parseError} event of this `sap.ui.model.Model`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.Model` itself.
-     */
-    attachParseError(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself.
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:propertyChange propertyChange} event of this
-     * `sap.ui.model.Model`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.Model` itself.
-     */
-    attachPropertyChange(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:requestCompleted requestCompleted} event of
-     * this `sap.ui.model.Model`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.Model` itself.
-     */
-    attachRequestCompleted(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:requestFailed requestFailed} event of this `sap.ui.model.Model`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.Model` itself.
-     */
-    attachRequestFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:requestSent requestSent} event of this `sap.ui.model.Model`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.Model` itself.
-     */
-    attachRequestSent(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.Model` itself
-       */
-      oListener?: object
-    ): this;
   }
 }
 
@@ -42978,7 +43436,9 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
    * Implementation to access OData Annotations
    */
   export default class ODataAnnotations extends EventProvider {
-    /**/
+    /**
+     *
+     */
     constructor(
       /**
        * The annotation-URL or an array of URLs that should be parsed and merged
@@ -43020,6 +43480,20 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:failed failed} event of this `sap.ui.model.odata.ODataAnnotations`.
+     */
+    attachFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataAnnotations`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:loaded loaded} event of this `sap.ui.model.odata.ODataAnnotations`.
      */
     attachLoaded(
@@ -43028,6 +43502,20 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataAnnotations`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:loaded loaded} event of this `sap.ui.model.odata.ODataAnnotations`.
+     */
+    attachLoaded(
       /**
        * The function to be called, when the event occurs
        */
@@ -43100,19 +43588,19 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
         /**
          * A text that describes the failure.
          */
-        message?: string | undefined;
+        message?: string;
         /**
          * HTTP status code returned by the request (if available)
          */
-        statusCode?: string | undefined;
+        statusCode?: string;
         /**
          * The status as a text, details not specified, intended only for diagnosis output
          */
-        statusText?: string | undefined;
+        statusText?: string;
         /**
          * Response that has been received for the request ,as a text string
          */
-        responseText?: string | undefined;
+        responseText?: string;
       }
     ): this;
     /**
@@ -43175,46 +43663,18 @@ declare module "sap/ui/model/odata/ODataAnnotations" {
          * Success callback gets an objec as argument with the properties "annotations" containing the parsed annotations
          * and "xmlDoc" containing the XML-Document that was returned by the request.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * Error callback gets an objec as argument with the property "xmlDoc" containing the XML-Document that
          * was returned by the request and could not be correctly parsed.
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * If this option is set to true, events are fired as if the annotations were loaded from a URL
          */
-        fireEvents?: boolean | undefined;
+        fireEvents?: boolean;
       }
     ): boolean;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:failed failed} event of this `sap.ui.model.odata.ODataAnnotations`.
-     */
-    attachFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataAnnotations`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:loaded loaded} event of this `sap.ui.model.odata.ODataAnnotations`.
-     */
-    attachLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataAnnotations`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 }
 
@@ -43297,7 +43757,9 @@ declare module "sap/ui/model/odata/ODataListBinding" {
    * List binding implementation for OData format.
    */
   export default class ODataListBinding extends ListBinding {
-    /**/
+    /**
+     *
+     */
     constructor(
       /**
        * Model that this list binding belongs to
@@ -43314,11 +43776,11 @@ declare module "sap/ui/model/odata/ODataListBinding" {
       /**
        * Initial sort order (can be either a sorter or an array of sorters)
        */
-      aSorters?: Array<any>,
+      aSorters?: any[],
       /**
        * Predefined filter/s (can be either a filter or an array of filters)
        */
-      aFilters?: Array<any>,
+      aFilters?: any[],
       /**
        * A map which contains additional parameters for the binding
        */
@@ -43326,19 +43788,19 @@ declare module "sap/ui/model/odata/ODataListBinding" {
         /**
          * Value for the OData `$expand` query parameter which should be included in the request
          */
-        expand?: string | undefined;
+        expand?: string;
         /**
          * Value for the OData `$select` query parameter which should be included in the request
          */
-        select?: string | undefined;
+        select?: string;
         /**
          * An optional map of custom query parameters. Custom parameters must not start with `$`
          */
-        custom?: Record<string, string> | undefined;
+        custom?: Record<string, string>;
         /**
          * Defines the count mode of this binding; if not specified, the default count mode of the `oModel` is applied
          */
-        countMode?: CountMode | keyof typeof CountMode | undefined;
+        countMode?: CountMode | keyof typeof CountMode;
       }
     );
 
@@ -43435,7 +43897,7 @@ declare module "sap/ui/model/odata/ODataListBinding" {
       /**
        * the Sorter or an array of sorter objects object which define the sort order
        */
-      aSorters: Sorter | Array<any>
+      aSorters: Sorter | any[]
     ): this;
   }
 }
@@ -43563,24 +44025,24 @@ declare module "sap/ui/model/odata/ODataMetadata" {
         /**
          * request is per default async
          */
-        async?: boolean | undefined;
+        async?: boolean;
         /**
          * **Deprecated** for security reasons. Use strong server side authentication instead. UserID for the service.
          */
-        user?: string | undefined;
+        user?: string;
         /**
          * **Deprecated** for security reasons. Use strong server side authentication instead. Password for the
          * service.
          */
-        password?: string | undefined;
+        password?: string;
         /**
          * (optional) map of custom headers which should be set with the request.
          */
-        headers?: object | undefined;
+        headers?: object;
         /**
          * (optional) A valid cache key
          */
-        cacheKey?: string | undefined;
+        cacheKey?: string;
       }
     );
 
@@ -43606,6 +44068,22 @@ declare module "sap/ui/model/odata/ODataMetadata" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:failed failed} event of this `sap.ui.model.odata.ODataMetadata`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.odata.ODataMetadata` itself.
+     */
+    attachFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataMetadata` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:loaded loaded} event of this `sap.ui.model.odata.ODataMetadata`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -43617,6 +44095,22 @@ declare module "sap/ui/model/odata/ODataMetadata" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataMetadata` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:loaded loaded} event of this `sap.ui.model.odata.ODataMetadata`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.odata.ODataMetadata` itself.
+     */
+    attachLoaded(
       /**
        * The function to be called, when the event occurs
        */
@@ -43688,19 +44182,19 @@ declare module "sap/ui/model/odata/ODataMetadata" {
         /**
          * A text that describes the failure.
          */
-        message?: string | undefined;
+        message?: string;
         /**
          * HTTP status code returned by the request (if available)
          */
-        statusCode?: string | undefined;
+        statusCode?: string;
         /**
          * The status as a text, details not specified, intended only for diagnosis output
          */
-        statusText?: string | undefined;
+        statusText?: string;
         /**
          * Response that has been received for the request, as a text string
          */
-        responseText?: string | undefined;
+        responseText?: string;
       }
     ): this;
     /**
@@ -43749,38 +44243,6 @@ declare module "sap/ui/model/odata/ODataMetadata" {
      * Returns a new promise which can be resolved or rejected depending on the metadata loading state.
      */
     refresh(): Promise<any>;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:failed failed} event of this `sap.ui.model.odata.ODataMetadata`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.odata.ODataMetadata` itself.
-     */
-    attachFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataMetadata` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:loaded loaded} event of this `sap.ui.model.odata.ODataMetadata`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.odata.ODataMetadata` itself.
-     */
-    attachLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataMetadata` itself
-       */
-      oListener?: object
-    ): this;
   }
 }
 
@@ -44204,34 +44666,34 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * if set true request payloads will be JSON, XML for false (default = false),
          */
-        json?: boolean | undefined;
+        json?: boolean;
         /**
          * **Deprecated** for security reasons. Use strong server side authentication instead. UserID for the service.
          */
-        user?: string | undefined;
+        user?: string;
         /**
          * **Deprecated** for security reasons. Use strong server side authentication instead. Password for the
          * service.
          */
-        password?: string | undefined;
+        password?: string;
         /**
          * a map of custom headers like {"myHeader":"myHeaderValue",...},
          */
-        headers?: Record<string, string> | undefined;
+        headers?: Record<string, string>;
         /**
          * enable/disable XCSRF-Token handling (default = true),
          */
-        tokenHandling?: boolean | undefined;
+        tokenHandling?: boolean;
         /**
          * experimental - true when user credentials are to be included in a cross-origin request. Please note that
          * this works only if all requests are asynchronous.
          */
-        withCredentials?: boolean | undefined;
+        withCredentials?: boolean;
         /**
          * (optional) determined if the service metadata request is sent synchronous or asynchronous. Default is
          * false.
          */
-        loadMetadataAsync?: object | undefined;
+        loadMetadataAsync?: object;
         /**
          * (default = '2.0') please use the following string format e.g. '2.0' or '3.0'. OData version supported
          * by the ODataModel: '2.0',
@@ -44240,41 +44702,41 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * when true all requests will be sent in batch requests (default = false),
          */
-        useBatch?: boolean | undefined;
+        useBatch?: boolean;
         /**
          * enable/disable automatic refresh after change operations: default = true,
          */
-        refreshAfterChange?: boolean | undefined;
+        refreshAfterChange?: boolean;
         /**
          * The URL (or an array of URLs) from which the annotation metadata should be loaded,
          */
-        annotationURI?: string | string[] | undefined;
+        annotationURI?: string | string[];
         /**
          * Whether or not to fire the metadataLoaded-event only after annotations have been loaded as well,
          */
-        loadAnnotationsJoined?: boolean | undefined;
+        loadAnnotationsJoined?: boolean;
         /**
          * map of URL parameters - these parameters will be attached to all requests,
          */
-        serviceUrlParams?: Record<string, string> | undefined;
+        serviceUrlParams?: Record<string, string>;
         /**
          * map of URL parameters for metadata requests - only attached to $metadata request.
          */
-        metadataUrlParams?: Record<string, string> | undefined;
+        metadataUrlParams?: Record<string, string>;
         /**
          * sets the default count mode for the model. If not set, sap.ui.model.odata.CountMode.Both is used.
          */
-        defaultCountMode?: string | undefined;
+        defaultCountMode?: string;
         /**
          * a map of namespaces (name => URI) used for parsing the service metadata.
          */
-        metadataNamespaces?: Record<string, string> | undefined;
+        metadataNamespaces?: Record<string, string>;
         /**
          * Whether to skip the automated loading of annotations from the metadata document. Loading annotations
          * from metadata does not have any effects (except the lost performance by invoking the parser) if there
          * are not annotations inside the metadata document
          */
-        skipMetadataAnnotationParsing?: boolean | undefined;
+        skipMetadataAnnotationParsing?: boolean;
       }
     );
 
@@ -44349,6 +44811,20 @@ declare module "sap/ui/model/odata/ODataModel" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:annotationsFailed annotationsFailed} event of
+     * this `sap.ui.model.odata.ODataModel`.
+     */
+    attachAnnotationsFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:annotationsLoaded annotationsLoaded} event of
      * this `sap.ui.model.odata.ODataModel`.
      */
@@ -44358,6 +44834,20 @@ declare module "sap/ui/model/odata/ODataModel" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:annotationsLoaded annotationsLoaded} event of
+     * this `sap.ui.model.odata.ODataModel`.
+     */
+    attachAnnotationsLoaded(
       /**
        * The function to be called, when the event occurs
        */
@@ -44387,6 +44877,20 @@ declare module "sap/ui/model/odata/ODataModel" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:metadataFailed metadataFailed} event of this
+     * `sap.ui.model.odata.ODataModel`.
+     */
+    attachMetadataFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:metadataLoaded metadataLoaded} event of this
      * `sap.ui.model.odata.ODataModel`.
      */
@@ -44396,6 +44900,20 @@ declare module "sap/ui/model/odata/ODataModel" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:metadataLoaded metadataLoaded} event of this
+     * `sap.ui.model.odata.ODataModel`.
+     */
+    attachMetadataLoaded(
       /**
        * The function to be called, when the event occurs
        */
@@ -44434,21 +44952,21 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * Value for the OData `$expand` query parameter which should be included in the request
          */
-        expand?: string | undefined;
+        expand?: string;
         /**
          * Value for the OData `$select` query parameter which should be included in the request
          */
-        select?: string | undefined;
+        select?: string;
         /**
          * Optional map of custom query parameters (name/value pairs); names of custom parameters must not start
          * with `$`
          */
-        custom?: Record<string, string> | undefined;
+        custom?: Record<string, string>;
         /**
          * Defines the count mode of the new binding; if not specified, the default count mode of this model will
          * be applied
          */
-        countMode?: CountMode | keyof typeof CountMode | undefined;
+        countMode?: CountMode | keyof typeof CountMode;
       }
     ): ListBinding;
     /**
@@ -44467,32 +44985,32 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * A string containing the type of method to call this function with
          */
-        method?: string | undefined;
+        method?: string;
         /**
          * A map containing the parameters that will be passed as query strings
          */
-        urlParameters?: Record<string, string> | undefined;
+        urlParameters?: Record<string, string>;
         /**
          * If specified the sPath has to be relative to the path given with the context.
          */
-        context?: object | undefined;
+        context?: object;
         /**
          * a callback function which is called when the data has been successfully retrieved. The handler can have
          * the following parameters: `oData` and `response`.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * a callback function which is called when the request failed. The handler can have the parameter: `oError`
          * which contains additional error information.
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * Whether or not to send the request asynchronously. Default: false In case sMethod is "GET", the request
          * is always asynchronous. Please be advised that this feature is officially unsupported as using asynchronous
          * requests can lead to data inconsistencies if the application does not make sure that the request was
          * completed before continuing to work with the data.
          */
-        async?: boolean | undefined;
+        async?: boolean;
       }
     ): object;
     /**
@@ -44520,27 +45038,27 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * If specified the sPath has to be relative to the path given with the context.
          */
-        context?: object | undefined;
+        context?: object;
         /**
          * a callback function which is called when the data has been successfully retrieved. The handler can have
          * the following parameters: oData and response.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * a callback function which is called when the request failed. The handler can have the parameter `oError`
          * which contains additional error information.
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * Whether the request should be done asynchronously. Default: false Please be advised that this feature
          * is officially unsupported as using asynchronous requests can lead to data inconsistencies if the application
          * does not make sure that the request was completed before continuing to work with the data.
          */
-        async?: boolean | undefined;
+        async?: boolean;
         /**
          * A map containing the parameters that will be passed as query strings
          */
-        urlParameters?: Record<string, string> | undefined;
+        urlParameters?: Record<string, string>;
       }
     ): object;
     /**
@@ -44568,7 +45086,7 @@ declare module "sap/ui/model/odata/ODataModel" {
          * an ETag which can be used for concurrency control. If it is specified, it will be used in an If-Match-Header
          * in the request to the server for this entry.
          */
-        sETag?: string | undefined;
+        sETag?: string;
       }
     ): void;
     /**
@@ -44598,7 +45116,7 @@ declare module "sap/ui/model/odata/ODataModel" {
       /**
        * An array that specifies a set of properties or the entry
        */
-      vProperties: Array<any> | object
+      vProperties: any[] | object
     ): Context;
     /**
      * Creates the key from the given collection name and property map
@@ -44725,19 +45243,19 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * A text that describes the failure.
          */
-        message?: string | undefined;
+        message?: string;
         /**
          * HTTP status code returned by the request (if available)
          */
-        statusCode?: string | undefined;
+        statusCode?: string;
         /**
          * The status as a text, details not specified, intended only for diagnosis output
          */
-        statusText?: string | undefined;
+        statusText?: string;
         /**
          * Response that has been received for the request ,as a text string
          */
-        responseText?: string | undefined;
+        responseText?: string;
       }
     ): this;
     /**
@@ -44751,7 +45269,7 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * the annotations object.
          */
-        annotations?: ODataAnnotations | undefined;
+        annotations?: ODataAnnotations;
       }
     ): this;
     /**
@@ -44765,19 +45283,19 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * A text that describes the failure.
          */
-        message?: string | undefined;
+        message?: string;
         /**
          * HTTP status code returned by the request (if available)
          */
-        statusCode?: string | undefined;
+        statusCode?: string;
         /**
          * The status as a text, details not specified, intended only for diagnosis output
          */
-        statusText?: string | undefined;
+        statusText?: string;
         /**
          * Response that has been received for the request ,as a text string
          */
-        responseText?: string | undefined;
+        responseText?: string;
       }
     ): this;
     /**
@@ -44791,7 +45309,7 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * The metadata object.
          */
-        metadata?: ODataMetadata | undefined;
+        metadata?: ODataMetadata;
       }
     ): this;
     /**
@@ -44937,33 +45455,33 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * If specified the sPath has to be is relative to the path given with the context.
          */
-        context?: object | undefined;
+        context?: object;
         /**
          * A map containing the parameters that will be passed as query strings
          */
-        urlParameters?: Record<string, string> | undefined;
+        urlParameters?: Record<string, string>;
         /**
          * true for asynchronous requests.
          */
-        async?: boolean | undefined;
+        async?: boolean;
         /**
          * an array of sap.ui.model.Filter to be included in the request URL
          */
-        filters?: Array<any> | undefined;
+        filters?: any[];
         /**
          * an array of sap.ui.model.Sorter to be included in the request URL
          */
-        sorters?: Array<any> | undefined;
+        sorters?: any[];
         /**
          * a callback function which is called when the data has been successfully retrieved. The handler can have
          * the following parameters: oData and response.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * a callback function which is called when the request failed. The handler can have the parameter: oError
          * which contains additional error information.
          */
-        error?: Function | undefined;
+        error?: Function;
       }
     ): object;
     /**
@@ -45020,37 +45538,37 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * If specified the sPath has to be relative to the path given with the context.
          */
-        context?: object | undefined;
+        context?: object;
         /**
          * a callback function which is called when the data has been successfully retrieved. The handler can have
          * the following parameters: `oData` and `response`.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * a callback function which is called when the request failed. The handler can have the parameter: `oError`
          * which contains additional error information.
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * If specified, the If-Match-Header will be set to this Etag.
          */
-        eTag?: string | undefined;
+        eTag?: string;
         /**
          * if specified, this optional variable can be used to pass a payload into the delete function, e.g. if
          * the entry which should be deleted has not been bound to any control, but has been retrieved via read,
          * only.
          */
-        payload?: object | undefined;
+        payload?: object;
         /**
          * Whether the request should be done asynchronously. Please be advised that this feature is officially
          * unsupported as using asynchronous requests can lead to data inconsistencies if the application does not
          * make sure that the request was completed before continuing to work with the data.
          */
-        async?: boolean | undefined;
+        async?: boolean;
         /**
          * A map containing the parameters that will be passed as query strings
          */
-        urlParameters?: Record<string, string> | undefined;
+        urlParameters?: Record<string, string>;
       }
     ): object;
     /**
@@ -45221,7 +45739,7 @@ declare module "sap/ui/model/odata/ODataModel" {
          * an ETag which can be used for concurrency control. If it is specified, it will be used in an If-Match-Header
          * in the request to the server for this entry.
          */
-        sETag?: string | undefined;
+        sETag?: string;
       }
     ): object;
     /**
@@ -45246,34 +45764,34 @@ declare module "sap/ui/model/odata/ODataModel" {
         /**
          * If specified the sPath has to be is relative to the path given with the context.
          */
-        context?: object | undefined;
+        context?: object;
         /**
          * a callback function which is called when the data has been successfully updated.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * a callback function which is called when the request failed. The handler can have the parameter `oError`
          * which contains additional error information.
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * trigger a MERGE request instead of a PUT request to perform a differential update
          */
-        merge?: boolean | undefined;
+        merge?: boolean;
         /**
          * If specified, the If-Match-Header will be set to this Etag.
          */
-        eTag?: string | undefined;
+        eTag?: string;
         /**
          * Whether the request should be done asynchronously. Please be advised that this feature is officially
          * unsupported as using asynchronous requests can lead to data inconsistencies if the application does not
          * make sure that the request was completed before continuing to work with the data.
          */
-        async?: boolean | undefined;
+        async?: boolean;
         /**
          * A map containing the parameters that will be passed as query strings
          */
-        urlParameters?: Record<string, string> | undefined;
+        urlParameters?: Record<string, string>;
       }
     ): object;
     /**
@@ -45285,62 +45803,6 @@ declare module "sap/ui/model/odata/ODataModel" {
        */
       bForceUpdate?: boolean
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:annotationsFailed annotationsFailed} event of
-     * this `sap.ui.model.odata.ODataModel`.
-     */
-    attachAnnotationsFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:annotationsLoaded annotationsLoaded} event of
-     * this `sap.ui.model.odata.ODataModel`.
-     */
-    attachAnnotationsLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:metadataFailed metadataFailed} event of this
-     * `sap.ui.model.odata.ODataModel`.
-     */
-    attachMetadataFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:metadataLoaded metadataLoaded} event of this
-     * `sap.ui.model.odata.ODataModel`.
-     */
-    attachMetadataLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
   }
 }
 
@@ -45614,7 +46076,7 @@ declare module "sap/ui/model/odata/type/Boolean" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -45721,7 +46183,7 @@ declare module "sap/ui/model/odata/type/Byte" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -45799,17 +46261,17 @@ declare module "sap/ui/model/odata/type/Currency" {
         /**
          * Not supported; the type derives this from its currency customizing part.
          */
-        customCurrencies?: object | undefined;
+        customCurrencies?: object;
         /**
          * Whether the amount is parsed to a string; set to `false` if the amount's underlying type is represented
          * as a `number`, for example {@link sap.ui.model.odata.type.Int32}
          */
-        parseAsString?: boolean | undefined;
+        parseAsString?: boolean;
         /**
          * Whether the amount is parsed if no currency is entered; defaults to `true` if neither `showMeasure` nor
          * `showNumber` is set to a falsy value, otherwise defaults to `false`
          */
-        unitOptional?: boolean | undefined;
+        unitOptional?: boolean;
         /**
          * Defines how an empty string is parsed into the amount. With the default value `0` the amount becomes
          * `0` when an empty string is parsed.
@@ -45819,7 +46281,7 @@ declare module "sap/ui/model/odata/type/Currency" {
          * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
       },
       /**
        * Not supported
@@ -45934,7 +46396,8 @@ declare module "sap/ui/model/odata/type/Date" {
    * In {@link sap.ui.model.odata.v4.ODataModel} this type is represented as a `string` in the format "yyyy-MM-dd".
    *
    * **Note: For an OData V2 service use {@link sap.ui.model.odata.type.DateTime} with the constraint `displayFormat:
-   * "Date"` to display only a date.**/
+   * "Date"` to display only a date.**
+   */
   export default class Date1 extends ODataType {
     /**
      * Constructor for an OData primitive type `Edm.Date`.
@@ -45953,7 +46416,7 @@ declare module "sap/ui/model/odata/type/Date" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -46068,12 +46531,12 @@ declare module "sap/ui/model/odata/type/DateTime" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
         /**
          * may be "Date", in this case only the date part is used, the time part is always 00:00:00 and the time
          * zone is UTC to avoid time-zone-related problems
          */
-        displayFormat?: string | undefined;
+        displayFormat?: string;
       }
     );
 
@@ -46142,16 +46605,16 @@ declare module "sap/ui/model/odata/type/DateTimeBase" {
          * If `true`, only the date part is used, the time part is always 00:00:00 and the time zone is UTC to avoid
          * time-zone-related problems
          */
-        isDateOnly?: boolean | undefined;
+        isDateOnly?: boolean;
         /**
          * If `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
         /**
          * The number of decimal places allowed in the seconds portion of a valid string value (OData V4 only);
          * only integer values between 0 and 12 are valid (since 1.37.0)
          */
-        precision?: boolean | undefined;
+        precision?: boolean;
       }
     );
 
@@ -46266,18 +46729,18 @@ declare module "sap/ui/model/odata/type/DateTimeOffset" {
         /**
          * If `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
         /**
          * The number of decimal places allowed in the seconds portion of a valid string value (OData V4 only);
          * only integer values between 0 and 12 are valid (since 1.37.0)
          */
-        precision?: boolean | undefined;
+        precision?: boolean;
         /**
          * Whether OData V4 semantics apply and the model representation is expected to be a `string` like "1970-12-31T23:59:58Z"
          * (see {@link #parseValue} and {@link #validateValue}); this type automatically adapts itself whenever
          * it is used within an OData V4 model via {@link sap.ui.model.odata.v4.ODataPropertyBinding#setType}.
          */
-        V4?: boolean | undefined;
+        V4?: boolean;
       }
     );
 
@@ -46314,6 +46777,19 @@ declare module "sap/ui/model/odata/type/DateTimeOffset" {
        * OData version
        */
       vValue: Date | string,
+      /**
+       * The target type, may be "any", "object" (since 1.69.0), "string", or a type with one of these types as
+       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
+       * for more information.
+       */
+      sTargetType: string
+    ): Date | string;
+    /**
+     * @SINCE 1.27.0
+     *
+     * Formats the given value to the given target type.
+     */
+    formatValue(
       /**
        * The target type, may be "any", "object" (since 1.69.0), "string", or a type with one of these types as
        * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
@@ -46360,19 +46836,6 @@ declare module "sap/ui/model/odata/type/DateTimeOffset" {
        */
       vValue: any
     ): void;
-    /**
-     * @SINCE 1.27.0
-     *
-     * Formats the given value to the given target type.
-     */
-    formatValue(
-      /**
-       * The target type, may be "any", "object" (since 1.69.0), "string", or a type with one of these types as
-       * its {@link sap.ui.base.DataType#getPrimitiveType primitive type}. See {@link sap.ui.model.odata.type}
-       * for more information.
-       */
-      sTargetType: string
-    ): Date | string;
   }
 }
 
@@ -46411,7 +46874,7 @@ declare module "sap/ui/model/odata/type/Decimal" {
          * by default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
       },
       /**
        * constraints; {@link #validateValue validateValue} throws an error if any constraint is violated
@@ -46420,27 +46883,27 @@ declare module "sap/ui/model/odata/type/Decimal" {
         /**
          * the maximum value allowed
          */
-        maximum?: string | undefined;
+        maximum?: string;
         /**
          * if `true`, the maximum value itself is not allowed
          */
-        maximumExclusive?: boolean | undefined;
+        maximumExclusive?: boolean;
         /**
          * the minimum value allowed
          */
-        minimum?: string | undefined;
+        minimum?: string;
         /**
          * if `true`, the minimum value itself is not allowed
          */
-        minimumExclusive?: boolean | undefined;
+        minimumExclusive?: boolean;
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
         /**
          * the maximum number of digits allowed
          */
-        precision?: int | string | undefined;
+        precision?: int | string;
         /**
          * the maximum number of digits allowed to the right of the decimal point; the number must be less than
          * or equal to `precision` (if given). As a special case, "variable" is supported.
@@ -46452,7 +46915,7 @@ declare module "sap/ui/model/odata/type/Decimal" {
          * The number is always displayed with exactly `scale` digits to the right of the decimal point (unless
          * `scale` is "variable").
          */
-        scale?: int | string | undefined;
+        scale?: int | string;
       }
     );
 
@@ -46561,7 +47024,7 @@ declare module "sap/ui/model/odata/type/Double" {
          * by default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
       },
       /**
        * constraints; {@link #validateValue validateValue} throws an error if any constraint is violated
@@ -46570,7 +47033,7 @@ declare module "sap/ui/model/odata/type/Double" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -46687,7 +47150,7 @@ declare module "sap/ui/model/odata/type/Guid" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -46793,7 +47256,7 @@ declare module "sap/ui/model/odata/type/Int" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -46896,7 +47359,7 @@ declare module "sap/ui/model/odata/type/Int16" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -46968,7 +47431,7 @@ declare module "sap/ui/model/odata/type/Int32" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -47045,7 +47508,7 @@ declare module "sap/ui/model/odata/type/Int64" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
     /**
@@ -47059,7 +47522,7 @@ declare module "sap/ui/model/odata/type/Int64" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -47334,7 +47797,7 @@ declare module "sap/ui/model/odata/type/SByte" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -47408,7 +47871,7 @@ declare module "sap/ui/model/odata/type/Single" {
          * by default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
       },
       /**
        * constraints; {@link #validateValue validateValue} throws an error if any constraint is violated
@@ -47417,7 +47880,7 @@ declare module "sap/ui/model/odata/type/Single" {
         /**
          * if `true`, the value `null` is accepted
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -47533,7 +47996,7 @@ declare module "sap/ui/model/odata/type/Stream" {
         /**
          * if `true`, the server accepts the value `null`
          */
-        nullable?: boolean | undefined;
+        nullable?: boolean;
       }
     );
 
@@ -47639,7 +48102,7 @@ declare module "sap/ui/model/odata/type/String" {
          * if `true`, the empty string `""` is parsed to `""` and `nullable=false` does not mean "input is mandatory".
          * Otherwise the empty string `""` is parsed to `null` which might be rejected.
          */
-        parseKeepsEmptyString?: boolean | undefined;
+        parseKeepsEmptyString?: boolean;
       },
       /**
        * constraints; {@link #validateValue validateValue} throws an error if any constraint is violated
@@ -47657,17 +48120,17 @@ declare module "sap/ui/model/odata/type/String" {
          * "", but to "0" instead. This overrides `parseKeepsEmptyString` and means that "input is mandatory" does
          * not hold here.
          */
-        isDigitSequence?: boolean | string | undefined;
+        isDigitSequence?: boolean | string;
         /**
          * the maximal allowed length of the string; unlimited if not defined
          */
-        maxLength?: int | string | undefined;
+        maxLength?: int | string;
         /**
          * if `true`, the value `null` is accepted. The constraint `nullable=false` is interpreted as "input is
          * mandatory"; empty user input is rejected then (see `parseKeepsEmptyString` and `isDigitSequence` for
          * exceptions).
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -47787,7 +48250,7 @@ declare module "sap/ui/model/odata/type/Time" {
         /**
          * if `true`, the value `null` is accepted; note that {@link #parseValue} maps `""` to `null`
          */
-        nullable?: boolean | string | undefined;
+        nullable?: boolean | string;
       }
     );
 
@@ -47902,12 +48365,12 @@ declare module "sap/ui/model/odata/type/TimeOfDay" {
         /**
          * If `true`, the value `null` is accepted
          */
-        nullable?: boolean | undefined;
+        nullable?: boolean;
         /**
          * The number of decimal places allowed in the seconds portion of a valid value; must be an integer between
          * 0 and 12, otherwise the default value 0 is used.
          */
-        precision?: number | undefined;
+        precision?: number;
       }
     );
 
@@ -48030,22 +48493,22 @@ declare module "sap/ui/model/odata/type/Unit" {
         /**
          * Not supported; the type derives this from its unit customizing part.
          */
-        customUnits?: object | undefined;
+        customUnits?: object;
         /**
          * Whether the measure is parsed to a string; set to `false` if the measure's underlying type is represented
          * as a `number`, for example {@link sap.ui.model.odata.type.Int32}
          */
-        parseAsString?: boolean | undefined;
+        parseAsString?: boolean;
         /**
          * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
         /**
          * Whether the measure is parsed if no unit is entered; defaults to `true` if neither `showMeasure` nor
          * `showNumber` is set to a falsy value, otherwise defaults to `false`
          */
-        unitOptional?: boolean | undefined;
+        unitOptional?: boolean;
         /**
          * Defines how an empty string is parsed into the measure. With the default value `0` the measure becomes
          * `0` when an empty string is parsed.
@@ -48216,7 +48679,11 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
         /**
          * One or several annotation sources; see {@link #addSource} for more details
          */
-        source: string | Record<string, any> | string[] | Record<string, any>[];
+        source:
+          | string
+          | Record<string, any>
+          | string[]
+          | Array<Record<string, any>>;
         /**
          * A map of headers to be sent with every request; see {@link #setHeaders} for more details
          */
@@ -48228,7 +48695,7 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
         /**
          * A valid cache key
          */
-        cacheKey?: string | undefined;
+        cacheKey?: string;
       }
     );
 
@@ -48269,6 +48736,26 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
       oListener?: object
     ): this;
     /**
+     * Attaches the given callback to the `allFailed` event.
+     *
+     * This event exists for compatibility with the old Annotation loader. It is fired when no annotation from
+     * a group of sources was successfully (loaded,) parsed and merged. The parameter `result` will be set on
+     * the event argument and contains an array of Errors in the order in which the sources had been added.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
+     */
+    attachAllFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches the given callback to the {@link #event:error error} event, which is fired whenever a source
      * cannot be loaded, parsed or merged into the annotation data.
      *
@@ -48286,6 +48773,28 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches the given callback to the {@link #event:error error} event, which is fired whenever a source
+     * cannot be loaded, parsed or merged into the annotation data.
+     *
+     * The following parameters will be set on the event object that is given to the callback function: `source`
+     * - A map containing the properties `type` - containing either "url" or "xml" - and `data` containing the
+     * data given as source, either a URL or an XML string depending on how the source was added. `error` -
+     * An Error object describing the problem that occurred
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
+     */
+    attachError(
       /**
        * The function to be called, when the event occurs
        */
@@ -48321,6 +48830,26 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
       oListener?: object
     ): this;
     /**
+     * Attaches the given callback to the {@link #event:failed failed} event.
+     *
+     * This event is fired when at least one annotation from a group of sources was not successfully (loaded,)
+     * parsed or merged. The parameter `result` will be set on the event argument and contains an array of Errors
+     * in the order in which the sources had been added.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
+     */
+    attachFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches the given callback to the {@link #event:loaded loaded} event.
      *
      * This event is fired when all annotations from a group of sources was successfully (loaded,) parsed and
@@ -48336,6 +48865,26 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches the given callback to the {@link #event:loaded loaded} event.
+     *
+     * This event is fired when all annotations from a group of sources was successfully (loaded,) parsed and
+     * merged. The parameter `result` will be set on the event argument and contains an array of all loaded
+     * sources as well as Errors in the order in which they had been added.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
+     */
+    attachLoaded(
       /**
        * The function to be called, when the event occurs
        */
@@ -48372,6 +48921,27 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
       oListener?: object
     ): this;
     /**
+     * Attaches the given callback to the `someLoaded` event.
+     *
+     * This event exists for compatibility with the old annotation loader. It is fired when at least one annotation
+     * from a group of sources was successfully (loaded,) parsed and merged. The parameter `result` will be
+     * set on the event argument and contains an array of all loaded sources as well as Errors in the order
+     * in which they had been added.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
+     */
+    attachSomeLoaded(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches the given callback to the {@link #event:success success} event, which is fired whenever a source
      * has been successfully (loaded,) parsed and merged into the annotation data.
      *
@@ -48388,6 +48958,27 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches the given callback to the {@link #event:success success} event, which is fired whenever a source
+     * has been successfully (loaded,) parsed and merged into the annotation data.
+     *
+     * The following parameters are set on the event object that is given to the callback function: `source`
+     * - A map containing the properties `type` - containing either "url" or "xml" - and `data` containing the
+     * data given as source, either a URL or an XML string depending on how the source was added.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
+     */
+    attachSuccess(
       /**
        * The function to be called, when the event occurs
        */
@@ -48544,130 +49135,6 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
        */
       mHeaders: Record<string, string>
     ): void;
-    /**
-     * Attaches the given callback to the `allFailed` event.
-     *
-     * This event exists for compatibility with the old Annotation loader. It is fired when no annotation from
-     * a group of sources was successfully (loaded,) parsed and merged. The parameter `result` will be set on
-     * the event argument and contains an array of Errors in the order in which the sources had been added.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
-     */
-    attachAllFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches the given callback to the {@link #event:error error} event, which is fired whenever a source
-     * cannot be loaded, parsed or merged into the annotation data.
-     *
-     * The following parameters will be set on the event object that is given to the callback function: `source`
-     * - A map containing the properties `type` - containing either "url" or "xml" - and `data` containing the
-     * data given as source, either a URL or an XML string depending on how the source was added. `error` -
-     * An Error object describing the problem that occurred
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
-     */
-    attachError(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches the given callback to the {@link #event:failed failed} event.
-     *
-     * This event is fired when at least one annotation from a group of sources was not successfully (loaded,)
-     * parsed or merged. The parameter `result` will be set on the event argument and contains an array of Errors
-     * in the order in which the sources had been added.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
-     */
-    attachFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches the given callback to the {@link #event:loaded loaded} event.
-     *
-     * This event is fired when all annotations from a group of sources was successfully (loaded,) parsed and
-     * merged. The parameter `result` will be set on the event argument and contains an array of all loaded
-     * sources as well as Errors in the order in which they had been added.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
-     */
-    attachLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches the given callback to the `someLoaded` event.
-     *
-     * This event exists for compatibility with the old annotation loader. It is fired when at least one annotation
-     * from a group of sources was successfully (loaded,) parsed and merged. The parameter `result` will be
-     * set on the event argument and contains an array of all loaded sources as well as Errors in the order
-     * in which they had been added.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
-     */
-    attachSomeLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches the given callback to the {@link #event:success success} event, which is fired whenever a source
-     * has been successfully (loaded,) parsed and merged into the annotation data.
-     *
-     * The following parameters are set on the event object that is given to the callback function: `source`
-     * - A map containing the properties `type` - containing either "url" or "xml" - and `data` containing the
-     * data given as source, either a URL or an XML string depending on how the source was added.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.odata.v2.ODataAnnotations` itself.
-     */
-    attachSuccess(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with, defaults to this `ODataAnnotations` itself
-       */
-      oListener?: object
-    ): this;
   }
   /**
    * Parameters of the `error` event.
@@ -48718,15 +49185,15 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
     /**
      * (Set internally, available in event-callback) The XML string of the annotation source
      */
-    xml?: string | undefined;
+    xml?: string;
     /**
      * (Set internally, available in event-callback) The parsed XML document of the annotation source
      */
-    document?: Document | undefined;
+    document?: Document;
     /**
      * (Set internally, available in event-callback) The parsed Annotations object of the annotation source
      */
-    annotations?: Object | undefined;
+    annotations?: Object;
   };
 
   /**
@@ -48769,25 +49236,25 @@ declare module "sap/ui/model/odata/v2/ODataContextBinding" {
         /**
          * For the OData `$expand` query option parameter which should be included in the request
          */
-        expand?: string | undefined;
+        expand?: string;
         /**
          * For the OData `$select` query option parameter which should be included in the request
          */
-        select?: string | undefined;
+        select?: string;
         /**
          * An optional map of custom query parameters. Custom parameters must not start with `$`.
          */
-        custom?: Record<string, string> | undefined;
+        custom?: Record<string, string>;
         /**
          * Whether a preliminary context will be created
          */
-        createPreliminaryContext?: boolean | undefined;
+        createPreliminaryContext?: boolean;
         /**
          * Whether a preliminary context will be used. When set to `true`, the model can bundle the OData calls
          * for dependent bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
          * Optimizing Dependent Bindings}
          */
-        usePreliminaryContext?: boolean | undefined;
+        usePreliminaryContext?: boolean;
       }
     );
 
@@ -48852,11 +49319,15 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import Message from "sap/ui/core/message/Message";
+
   /**
    * List binding implementation for OData format.
    */
   export default class ODataListBinding extends ListBinding {
-    /**/
+    /**
+     *
+     */
     constructor(
       /**
        * Model that this list binding belongs to
@@ -48885,49 +49356,49 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
         /**
          * Sets the batch group ID to be used for requests originating from this binding
          */
-        batchGroupId?: string | undefined;
+        batchGroupId?: string;
         /**
          * Defines the count mode of this binding; if not specified, the default count mode of the `oModel` is applied
          */
-        countMode?: CountMode | keyof typeof CountMode | undefined;
+        countMode?: CountMode | keyof typeof CountMode;
         /**
          * An optional map of custom query parameters. Custom parameters must not start with `$`
          */
-        custom?: Record<string, string> | undefined;
+        custom?: Record<string, string>;
         /**
          * Value for the OData `$expand` query parameter which is included in the request
          */
-        expand?: string | undefined;
+        expand?: string;
         /**
          * Turns on the fault tolerance mode, data is not reset if a back-end request returns an error
          */
-        faultTolerant?: boolean | undefined;
+        faultTolerant?: boolean;
         /**
          * Defines the operation mode of this binding
          */
-        operationMode?: OperationMode | keyof typeof OperationMode | undefined;
+        operationMode?: OperationMode | keyof typeof OperationMode;
         /**
          * Value for the OData `$select` query parameter which is included in the request
          */
-        select?: string | undefined;
+        select?: string;
         /**
          * Threshold that defines how many entries should be fetched at least by the binding if `operationMode`
          * is set to `Auto` (See documentation for {@link sap.ui.model.odata.OperationMode.Auto})
          */
-        threshold?: int | undefined;
+        threshold?: int;
         /**
          * Whether this list binding only requests transition messages from the back end. If messages for entities
          * of this collection need to be updated, use {@link sap.ui.model.odata.v2.ODataModel#read} on the parent
          * entity corresponding to this list binding's context with the parameter `updateAggregatedMessages` set
          * to `true`.
          */
-        transitionMessagesOnly?: boolean | undefined;
+        transitionMessagesOnly?: boolean;
         /**
          * Whether a preliminary context will be used. When set to `true`, the model can bundle the OData calls
          * for dependent bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
          * Optimizing Dependent Bindings}
          */
-        usePreliminaryContext?: boolean | undefined;
+        usePreliminaryContext?: boolean;
       }
     );
 
@@ -49052,7 +49523,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
        * A callback function to filter only relevant messages. The callback returns whether the given {@link sap.ui.core.message.Message}
        * is considered. If no callback function is given, all messages are considered.
        */
-      fnFilter?: Function
+      fnFilter?: (p1: Message) => boolean
     ): Promise<Filter>;
     /**
      * Sorts the list.
@@ -49130,11 +49601,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * The URL (or an array of URLs) from which the annotation metadata should be loaded
          */
-        annotationURI?: string | string[] | undefined;
+        annotationURI?: string | string[];
         /**
          * Set this array to make custom response headers bindable via the entity's "__metadata/headers" property
          */
-        bindableResponseHeaders?: string[] | undefined;
+        bindableResponseHeaders?: string[];
         /**
          * Whether the model tries to calculate canonical URLs to request the data.
          *
@@ -49161,55 +49632,55 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          *   GET /<serviceUrl>/SalesOrderLineItemsSet(SalesOrderID="1",ItemPosition="10")
          *   GET /<serviceUrl>/SalesOrderLineItemsSet(SalesOrderID="1",ItemPosition="10")/ToSchedules```
          */
-        canonicalRequests?: boolean | undefined;
+        canonicalRequests?: boolean;
         /**
          * Sets the default binding mode for the model
          */
-        defaultBindingMode?: BindingMode | keyof typeof BindingMode | undefined;
+        defaultBindingMode?: BindingMode | keyof typeof BindingMode;
         /**
          * Sets the default count mode for the model
          */
-        defaultCountMode?: CountMode | keyof typeof CountMode | undefined;
+        defaultCountMode?: CountMode | keyof typeof CountMode;
         /**
          * Sets the default operation mode for the model
          */
-        defaultOperationMode?: OperationMode | keyof typeof OperationMode | undefined;
+        defaultOperationMode?: OperationMode | keyof typeof OperationMode;
         /**
          * Default update method which is used for all update requests
          */
-        defaultUpdateMethod?: UpdateMethod | undefined;
+        defaultUpdateMethod?: UpdateMethod;
         /**
          * Set this flag to `true` if your service does not support `HEAD` requests for fetching the service document
          * (and thus the security token) to avoid sending a `HEAD`-request before falling back to `GET`
          */
-        disableHeadRequestForToken?: boolean | undefined;
+        disableHeadRequestForToken?: boolean;
         /**
          * Set this flag to `true` if you don´t want to start a new soft state session with context ID (`SID`) through
          * header mechanism. This is useful if you want to share a `SID` between different browser windows
          */
-        disableSoftStateHeader?: boolean | undefined;
+        disableSoftStateHeader?: boolean;
         /**
          * Whether the security token is requested at the earliest convenience, if parameter `tokenHandling` is
          * `true`; supported since 1.79.0.
          */
-        earlyTokenRequest?: boolean | undefined;
+        earlyTokenRequest?: boolean;
         /**
          * Map of custom headers (name/value pairs) like {"myHeader":"myHeaderValue",...}
          */
-        headers?: Record<string, string> | undefined;
+        headers?: Record<string, string>;
         /**
          * If set to `true`, request payloads will be JSON, XML for `false`
          */
-        json?: boolean | undefined;
+        json?: boolean;
         /**
          * Whether the `metadataLoaded` event will be fired only after all annotations have been loaded as well
          */
-        loadAnnotationsJoined?: boolean | undefined;
+        loadAnnotationsJoined?: boolean;
         /**
          * Please use the following string format e.g. '2.0' or '3.0'. OData version supported by the ODataModel:
          * '2.0'
          */
-        maxDataServiceVersion?: string | undefined;
+        maxDataServiceVersion?: string;
         /**
          * Map of namespace aliases (alias => URI) that can be used in metadata binding paths; each alias is mapped
          * to a corresponding namespace URI; when an alias is used in a metadata binding path, it addresses a metadata
@@ -49219,72 +49690,72 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * 	 - `"m": "http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"`
          * 	 - `"": "http://schemas.microsoft.com/ado/2007/06/edmx`
          */
-        metadataNamespaces?: Record<string, string> | undefined;
+        metadataNamespaces?: Record<string, string>;
         /**
          * Map of URL parameters for metadata requests - only attached to a `$metadata` request
          */
-        metadataUrlParams?: Record<string, string> | undefined;
+        metadataUrlParams?: Record<string, string>;
         /**
          * Whether technical messages should always be treated as persistent, since 1.83.0
          */
-        persistTechnicalMessages?: boolean | undefined;
+        persistTechnicalMessages?: boolean;
         /**
          * Whether a preliminary context will be created/used by a binding. When set to `true`, the model can bundle
          * the OData calls for dependent bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
          * Optimizing Dependent Bindings}
          */
-        preliminaryContext?: boolean | undefined;
+        preliminaryContext?: boolean;
         /**
          * Enable/disable automatic refresh after change operations
          */
-        refreshAfterChange?: boolean | undefined;
+        refreshAfterChange?: boolean;
         /**
          * Whether to sequentialize all requests, needed in case the service cannot handle parallel requests
          */
-        sequentializeRequests?: boolean | undefined;
+        sequentializeRequests?: boolean;
         /**
          * Base URI of the service to request data from; this property is mandatory when the first method parameter
          * `serviceUrl` is omitted, but ignored otherwise
          */
-        serviceUrl?: string | undefined;
+        serviceUrl?: string;
         /**
          * Map of URL parameters (name/value pairs) - these parameters will be attached to all requests, except
          * for the `$metadata` request
          */
-        serviceUrlParams?: Record<string, string> | undefined;
+        serviceUrlParams?: Record<string, string>;
         /**
          * Whether to skip the automated loading of annotations from the metadata document. Loading annotations
          * from metadata does not have any effects (except the lost performance by invoking the parser) if there
          * are not annotations inside the metadata document
          */
-        skipMetadataAnnotationParsing?: boolean | undefined;
+        skipMetadataAnnotationParsing?: boolean;
         /**
          * Enable/disable security token handling
          */
-        tokenHandling?: boolean | undefined;
+        tokenHandling?: boolean;
         /**
          * Send security token for GET requests in case read access logging is activated for the OData Service in
          * the backend.
          */
-        tokenHandlingForGet?: boolean | undefined;
+        tokenHandlingForGet?: boolean;
         /**
          * Whether all requests should be sent in batch requests
          */
-        useBatch?: boolean | undefined;
+        useBatch?: boolean;
         /**
          * Experimental - `true` when user credentials are to be included in a cross-origin request; please note
          * that this only works if all requests are asynchronous
          */
-        withCredentials?: boolean | undefined;
+        withCredentials?: boolean;
         /**
          * **Deprecated** for security reasons. Use strong server side authentication instead. Password for the
          * service.
          */
-        password?: string | undefined;
+        password?: string;
         /**
          * **Deprecated** for security reasons. Use strong server side authentication instead. UserID for the service.
          */
-        user?: string | undefined;
+        user?: string;
       }
     );
 
@@ -49343,6 +49814,19 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the `annotationsFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
+     */
+    attachAnnotationsFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the `annotationsLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
      */
     attachAnnotationsLoaded(
@@ -49351,6 +49835,19 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the `annotationsLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
+     */
+    attachAnnotationsLoaded(
       /**
        * The function to be called, when the event occurs
        */
@@ -49380,6 +49877,20 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:batchRequestCompleted batchRequestCompleted}
+     * event of this `sap.ui.model.odata.v2.ODataModel`.
+     */
+    attachBatchRequestCompleted(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:batchRequestFailed batchRequestFailed} event
      * of this `sap.ui.model.odata.v2.ODataModel`.
      */
@@ -49389,6 +49900,20 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:batchRequestFailed batchRequestFailed} event
+     * of this `sap.ui.model.odata.v2.ODataModel`.
+     */
+    attachBatchRequestFailed(
       /**
        * The function to be called, when the event occurs
        */
@@ -49418,6 +49943,20 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:batchRequestSent batchRequestSent} event of
+     * this `sap.ui.model.odata.v2.ODataModel`.
+     */
+    attachBatchRequestSent(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the `metadataFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
      */
     attachMetadataFailed(
@@ -49436,6 +49975,19 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the `metadataFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
+     */
+    attachMetadataFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the `metadataLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
      */
     attachMetadataLoaded(
@@ -49444,6 +49996,19 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        * object when firing the event
        */
       oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the `metadataLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
+     */
+    attachMetadataLoaded(
       /**
        * The function to be called, when the event occurs
        */
@@ -49501,37 +50066,37 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * Value for the OData `$expand` query parameter which should be included in the request
          */
-        expand?: string | undefined;
+        expand?: string;
         /**
          * Value for the OData `$select` query parameter which should be included in the request
          */
-        select?: string | undefined;
+        select?: string;
         /**
          * Optional map of custom query parameters (name/value pairs); names of custom parameters must not start
          * with `$`
          */
-        custom?: Record<string, string> | undefined;
+        custom?: Record<string, string>;
         /**
          * Count mode for this binding; if not specified, the default count mode for this model is used
          */
-        countMode?: CountMode | keyof typeof CountMode | undefined;
+        countMode?: CountMode | keyof typeof CountMode;
         /**
          * Operation mode for this binding; if not specified, the default operation mode of this model is used
          */
-        operationMode?: OperationMode | keyof typeof OperationMode | undefined;
+        operationMode?: OperationMode | keyof typeof OperationMode;
         /**
          * Turns on the fault tolerance mode, data is not reset if a backend request returns an error
          */
-        faultTolerant?: boolean | undefined;
+        faultTolerant?: boolean;
         /**
          * Sets the batch group ID to be used for requests originating from this binding
          */
-        batchGroupId?: string | undefined;
+        batchGroupId?: string;
         /**
          * Threshold that defines how many entries should be fetched at least by the binding if `operationMode`
          * is set to `Auto` (See documentation for {@link sap.ui.model.odata.OperationMode.Auto})
          */
-        threshold?: int | undefined;
+        threshold?: int;
       }
     ): ListBinding;
     /**
@@ -49563,7 +50128,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * of decimals, but the currency code is not displayed in the attached control. In that case, messages for
          * the currency code shall not be displayed at that control, only messages for the amount.
          */
-        ignoreMessages?: boolean | undefined;
+        ignoreMessages?: boolean;
       }
     ): PropertyBinding;
     /**
@@ -49632,50 +50197,51 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
            * The property name in the same type holding the hierarchy level information; the type of the referenced
            * property has to be an integer type
            */
-          hierarchyLevelFor?: string | undefined;
+          hierarchyLevelFor?: string;
           /**
            * The property name in the same type holding the hierarchy node id
            */
-          hierarchyNodeFor?: string | undefined;
+          hierarchyNodeFor?: string;
           /**
            * The property name in the same type holding the parent node id
            */
-          hierarchyParentNodeFor?: string | undefined;
+          hierarchyParentNodeFor?: string;
           /**
            * The property name in the same type holding the drill state for the node; the referenced property may
            * have the values "collapsed", "expanded" or "leaf"
            */
-          hierarchyDrillStateFor?: string | undefined;
+          hierarchyDrillStateFor?: string;
           /**
            * The property name in the same type holding the descendant count for the node; the type of the referenced
            * property has to be an integer type
            */
-          hierarchyNodeDescendantCountFor?: string | undefined;
-        } | undefined;
+          hierarchyNodeDescendantCountFor?: string;
+        };
         /**
          * The number of levels that are auto-expanded initially. Setting this property might lead to multiple back-end
          * requests. The auto-expand feature is **deprecated for services without the `hierarchy-node-descendant-count-for`
-         * annotation**/
-        numberOfExpandedLevels?: number | undefined;
+         * annotation**
+         */
+        numberOfExpandedLevels?: number;
         /**
          * The level of the topmost tree nodes
          */
-        rootLevel?: number | undefined;
+        rootLevel?: number;
         /**
          * The group id to be used for requests originating from this binding
          */
-        groupId?: string | undefined;
+        groupId?: string;
         /**
          * The operation mode for this binding; defaults to the model's default operation mode if not specified.
          * {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto} is only supported for services which
          * expose the hierarchy annotations, yet do **NOT** expose the `hierarchy-node-descendant-count-for` annotation.
          */
-        operationMode?: OperationMode | keyof typeof OperationMode | undefined;
+        operationMode?: OperationMode | keyof typeof OperationMode;
         /**
          * The threshold used if the operation mode is set to {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto}.
          * The binding tries to fetch (at least) as many entries as specified by the threshold value.
          */
-        threshold?: number | undefined;
+        threshold?: number;
         /**
          * Whether `$filter` statements should be used for the `$count` / `$inlinecount` requests and for the data
          * request if the operation mode is {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto}. Use
@@ -49685,7 +50251,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * sap.ui.model.odata.OperationMode.Client OperationMode.Client} is used, the complete collection without
          * filters is requested; filters are applied on the client side.
          */
-        useServersideApplicationFilters?: boolean | undefined;
+        useServersideApplicationFilters?: boolean;
         /**
          * A tree state handle can be given to the `ODataTreeBinding` when two conditions are met:
          * 	 - The binding is running in {@link sap.ui.model.odata.OperationMode.Client OperationMode.Client}, and
@@ -49702,17 +50268,17 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * Defines the count mode of this binding; if not specified, the default count mode of the binding's model
          * is applied. The resulting count mode must not be {@link sap.ui.model.odata.CountMode.None}.
          */
-        countMode?: CountMode | keyof typeof CountMode | undefined;
+        countMode?: CountMode | keyof typeof CountMode;
         /**
          * Whether a preliminary context is used; defaults to the value of the parameter `preliminaryContext` given
          * on construction of the binding's model, see {@link sap.ui.model.odata.v2.ODataModel}
          */
-        usePreliminaryContext?: boolean | undefined;
+        usePreliminaryContext?: boolean;
         /**
          * **Deprecated**, use `groupId` instead. Sets the batch group id to be used for requests originating from
          * this binding
          */
-        batchGroupId?: string | undefined;
+        batchGroupId?: string;
         /**
          * A map describing the navigation properties between entity sets, which is used for constructing and paging
          * the tree. Keys in this object are entity names, whereas the values name the navigation properties.
@@ -49720,7 +50286,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * **Deprecated: since 1.44** The use of navigation properties to build up the hierarchy structure is deprecated.
          * It is recommended to use the hierarchy annotations mentioned above instead.
          */
-        navigation?: object | undefined;
+        navigation?: object;
       },
       /**
        * The dynamic sorters to be used initially
@@ -49756,20 +50322,20 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * 			able to determine from the metadata and the OData response
          * 	 - `{object} mParameters.response`: A copy of the OData response object
          */
-        adjustDeepPath?: Function | undefined;
+        adjustDeepPath?: Function;
         /**
          * ID of the `ChangeSet` that this request belongs to
          */
-        changeSetId?: string | undefined;
+        changeSetId?: string;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
          * which contains additional error information.
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * If the function import changes an entity, the ETag for this entity can be passed with this parameter
          */
-        eTag?: string | undefined;
+        eTag?: string;
         /**
          * A comma-separated list of navigation properties to be expanded for the entity returned by the function
          * import; since 1.83.0. The navigation properties are requested with an additional GET request in
@@ -49792,39 +50358,40 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * 			callback call and the response parameter of the corresponding `requestFailed` and `requestCompleted`
          * 			events have an additional property `expandAfterFunctionCallFailed` set to `true`.
          */
-        expand?: string | undefined;
+        expand?: string;
         /**
          * ID of a request group; requests belonging to the same group are bundled in one batch request
          */
-        groupId?: string | undefined;
+        groupId?: string;
         /**
          * A map of headers for this request
          */
-        headers?: Record<string, string> | undefined;
+        headers?: Record<string, string>;
         /**
          * The HTTP method used for the function import call as specified in the metadata definition of the function
          * import
          */
-        method?: string | undefined;
+        method?: string;
         /**
          * Defines whether to update all bindings after submitting this change operation; since 1.46. See {@link
          * #setRefreshAfterChange}. If given, this overrules the model-wide `refreshAfterChange` flag for this operation
          * only.
          */
-        refreshAfterChange?: boolean | undefined;
+        refreshAfterChange?: boolean;
         /**
          * A callback function which is called when the data has been successfully retrieved; the handler can have
          * the following parameters: `oData` and `response`.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * Maps the function import parameter name as specified in the function import's metadata to its value;
          * the value is formatted based on the paramter's type as specified in the metadata
          */
-        urlParameters?: Record<string, string> | undefined;
+        urlParameters?: Record<string, string>;
         /**
-         * **Deprecated - use `groupId` instead**/
-        batchGroupId?: string | undefined;
+         * **Deprecated - use `groupId` instead**
+         */
+        batchGroupId?: string;
       }
     ): object;
     /**
@@ -49854,45 +50421,45 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * If specified , `sPath` has to be relative to the path given with the context.
          */
-        context?: object | undefined;
+        context?: object;
         /**
          * A callback function which is called when the data has been successfully retrieved. The handler can have
          * the following parameters: `oData` and `response`. The `oData` parameter contains the data of the newly
          * created entry if it is provided by the backend. The `response` parameter contains information about the
          * response of the request.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter `oError`
          * which contains additional error information.
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * A map containing the parameters that will be passed as query strings
          */
-        urlParameters?: Record<string, string> | undefined;
+        urlParameters?: Record<string, string>;
         /**
          * A map of headers for this request
          */
-        headers?: Record<string, string> | undefined;
+        headers?: Record<string, string>;
         /**
          * Deprecated - use `groupId` instead
          */
-        batchGroupId?: string | undefined;
+        batchGroupId?: string;
         /**
          * ID of a request group; requests belonging to the same group will be bundled in one batch request
          */
-        groupId?: string | undefined;
+        groupId?: string;
         /**
          * ID of the `ChangeSet` that this request should belong to
          */
-        changeSetId?: string | undefined;
+        changeSetId?: string;
         /**
          * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link
          * #setRefreshAfterChange} If given, this overrules the model-wide `refreshAfterChange` flag for this operation
          * only.
          */
-        refreshAfterChange?: boolean | undefined;
+        refreshAfterChange?: boolean;
       }
     ): object;
     /**
@@ -49923,21 +50490,21 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * Value for the OData `$expand` query parameter which should be included in the request
          */
-        expand?: string | undefined;
+        expand?: string;
         /**
          * Value for the OData `$select` query parameter which should be included in the request
          */
-        select?: string | undefined;
+        select?: string;
         /**
          * Whether a preliminary context will be created. When set to `true`, the model can bundle the OData calls
          * for dependent bindings into fewer $batch requests. For more information, see {@link topic:6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db
          * Optimizing Dependent Bindings}
          */
-        preliminaryContext?: boolean | undefined;
+        preliminaryContext?: boolean;
         /**
          * Optional map of custom query parameters, names of custom parameters must not start with `$`.
          */
-        custom?: Record<string, string> | undefined;
+        custom?: Record<string, string>;
       },
       /**
        * Function to be called when context has been created. The parameter of the callback function is the newly
@@ -49997,19 +50564,19 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * Deprecated - use `groupId` instead
          */
-        batchGroupId?: string | undefined;
+        batchGroupId?: string;
         /**
          * The ID of the `ChangeSet` that this request should belong to
          */
-        changeSetId?: string | undefined;
+        changeSetId?: string;
         /**
          * The binding context
          */
-        context?: Context | undefined;
+        context?: Context;
         /**
          * The error callback function
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * A comma-separated list of navigation properties to be expanded for the newly created entity; since 1.78.0. The navigation properties are requested with an additional GET request in the same `$batch` request
          * as the POST request for the entity creation; the given `mParameters.headers` are not considered in the
@@ -50019,32 +50586,32 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * 	 - the back end must allow GET requests relative to this content ID outside the changeset within the
          * 			`$batch` request.
          */
-        expand?: string | undefined;
+        expand?: string;
         /**
          * The ID of a request group; requests belonging to the same group will be bundled in one batch request
          */
-        groupId?: string | undefined;
+        groupId?: string;
         /**
          * A map of headers
          */
-        headers?: Record<string, string> | undefined;
+        headers?: Record<string, string>;
         /**
          * An array that specifies a set of properties or the entry
          */
-        properties?: Array<any> | object | undefined;
+        properties?: any[] | object;
         /**
          * Whether to update all bindings after submitting this change operation, see {@link #setRefreshAfterChange};
          * if given, this overrules the model-wide `refreshAfterChange` flag for this operation only; since 1.46
          */
-        refreshAfterChange?: boolean | undefined;
+        refreshAfterChange?: boolean;
         /**
          * The success callback function
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * A map of URL parameters
          */
-        urlParameters?: Record<string, string> | undefined;
+        urlParameters?: Record<string, string>;
       }
     ): Context;
     /**
@@ -50216,19 +50783,19 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * A text that describes the failure
          */
-        message?: string | undefined;
+        message?: string;
         /**
          * HTTP status code returned by the request (if available)
          */
-        statusCode?: string | undefined;
+        statusCode?: string;
         /**
          * The status as a text, details not specified, intended only for diagnosis output
          */
-        statusText?: string | undefined;
+        statusText?: string;
         /**
          * Response that has been received for the request, as a text string
          */
-        responseText?: string | undefined;
+        responseText?: string;
       }
     ): this;
     /**
@@ -50242,7 +50809,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * The annotations object
          */
-        annotations?: ODataAnnotations | undefined;
+        annotations?: ODataAnnotations;
       }
     ): this;
     /**
@@ -50281,7 +50848,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * Array of embedded requests ($batch) - empty array for non batch requests. Each request object within
          * the array contains the following properties: url, method, headers, response object
          */
-        requests: Array<any>;
+        requests: any[];
         /**
          * The response object - empty object if no response: The response object contains the following properties:
          * message, success, headers, statusCode, statusText, responseText
@@ -50330,7 +50897,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * Array of embedded requests ($batch) Each request object within the array contains the following properties:
          * URL, method, headers, response object
          */
-        requests: Array<any>;
+        requests: any[];
       }
     ): this;
     /**
@@ -50344,20 +50911,20 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * The URL which is sent to the backend.
          */
-        url?: string | undefined;
+        url?: string;
         /**
          * The type of the request (if available)
          */
-        type?: string | undefined;
+        type?: string;
         /**
          * If the request is synchronous or asynchronous (if available)
          */
-        async?: boolean | undefined;
+        async?: boolean;
         /**
          * Array of embedded requests ($batch) Each request object within the array contains the following properties:
          * url, method, headers
          */
-        requests: Array<any>;
+        requests: any[];
       }
     ): this;
     /**
@@ -50371,19 +50938,19 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * A text that describes the failure.
          */
-        message?: string | undefined;
+        message?: string;
         /**
          * HTTP status code returned by the request (if available)
          */
-        statusCode?: string | undefined;
+        statusCode?: string;
         /**
          * The status as a text, details not specified, intended only for diagnosis output
          */
-        statusText?: string | undefined;
+        statusText?: string;
         /**
          * Response that has been received for the request ,as a text string
          */
-        responseText?: string | undefined;
+        responseText?: string;
       }
     ): this;
     /**
@@ -50397,7 +50964,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * the metadata object.
          */
-        metadata?: ODataMetadata | undefined;
+        metadata?: ODataMetadata;
       }
     ): this;
     /**
@@ -50456,11 +51023,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      *
      * Returns the array of batch group IDs that are set as deferred
      */
-    getDeferredBatchGroups(): Array<any>;
+    getDeferredBatchGroups(): any[];
     /**
      * Returns the array of group IDs that are set as deferred.
      */
-    getDeferredGroups(): Array<any>;
+    getDeferredGroups(): any[];
     /**
      * Returns the ETag for a given binding path/context or data object.
      */
@@ -50559,11 +51126,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * Comma-separated list of properties or paths to properties to select
          */
-        select?: string | undefined;
+        select?: string;
         /**
          * Comma-separated list of navigation properties or paths to navigation properties to expand
          */
-        expand?: string | undefined;
+        expand?: string;
       }
     ): any;
     /**
@@ -50775,44 +51342,44 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * If specified, `sPath` has to be relative to the path given with the context.
          */
-        context?: object | undefined;
+        context?: object;
         /**
          * A map containing the parameters that will be passed as query strings
          */
-        urlParameters?: Record<string, string> | undefined;
+        urlParameters?: Record<string, string>;
         /**
          * An array of filters to be included in the request URL
          */
-        filters?: Filter[] | undefined;
+        filters?: Filter[];
         /**
          * An array of sorters to be included in the request URL
          */
-        sorters?: Sorter[] | undefined;
+        sorters?: Sorter[];
         /**
          * A callback function which is called when the data has been successfully retrieved. The handler can have
          * the following parameters: `oData` and `response`. The `oData` parameter contains the data of the retrieved
          * data. The `response` parameter contains further information about the response of the request.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
          * which contains additional error information.
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * Deprecated - use `groupId` instead
          */
-        batchGroupId?: string | undefined;
+        batchGroupId?: string;
         /**
          * ID of a request group; requests belonging to the same group will be bundled in one batch request
          */
-        groupId?: string | undefined;
+        groupId?: string;
         /**
          * Whether messages for child entities belonging to the same business object as the requested or changed
          * resources are updated. It is considered only if {@link sap.ui.model.odata.MessageScope.BusinessObject}
          * is set using {@link #setMessageScope} and if the OData service supports message scope.
          */
-        updateAggregatedMessages?: boolean | undefined;
+        updateAggregatedMessages?: boolean;
       }
     ): object;
     /**
@@ -50883,47 +51450,47 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * If specified, `sPath` has to be relative to the path given with the context.
          */
-        context?: object | undefined;
+        context?: object;
         /**
          * A callback function which is called when the data has been successfully retrieved. The handler can have
          * the following parameters: `oData` and `response`.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
          * which contains additional error information.
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * If specified, the `If-Match` header will be set to this ETag.
          */
-        eTag?: string | undefined;
+        eTag?: string;
         /**
          * A map containing the parameters that will be passed as query strings
          */
-        urlParameters?: Record<string, string> | undefined;
+        urlParameters?: Record<string, string>;
         /**
          * A map of headers for this request
          */
-        headers?: Record<string, string> | undefined;
+        headers?: Record<string, string>;
         /**
          * Deprecated - use `groupId` instead
          */
-        batchGroupId?: string | undefined;
+        batchGroupId?: string;
         /**
          * ID of a request group; requests belonging to the same group will be bundled in one batch request
          */
-        groupId?: string | undefined;
+        groupId?: string;
         /**
          * ID of the `ChangeSet` that this request should belong to
          */
-        changeSetId?: string | undefined;
+        changeSetId?: string;
         /**
          * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link
          * #setRefreshAfterChange} If given, this overrules the model-wide `refreshAfterChange` flag for this operation
          * only.
          */
-        refreshAfterChange?: boolean | undefined;
+        refreshAfterChange?: boolean;
       }
     ): object;
     /**
@@ -50939,7 +51506,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Array of paths that should be reset. If no array is passed, all changes will be reset.
        */
-      aPath?: Array<any>,
+      aPath?: any[],
       /**
        * If set to true, also deferred requests are taken into account.
        */
@@ -51033,7 +51600,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Array of batch group IDs that should be set as deferred
        */
-      aGroupIds: Array<any>
+      aGroupIds: any[]
     ): void;
     /**
      * Setting request groups as deferred.
@@ -51044,7 +51611,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Array of group IDs that should be set as deferred
        */
-      aGroupIds: Array<any>
+      aGroupIds: any[]
     ): void;
     /**
      * Set custom headers which are provided in a key/value map.
@@ -51156,12 +51723,12 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * Deprecated - use `groupId` instead
          */
-        batchGroupId?: string | undefined;
+        batchGroupId?: string;
         /**
          * Defines the group that should be submitted. If not specified, all deferred groups will be submitted.
          * Requests belonging to the same group will be bundled in one batch request.
          */
-        groupId?: string | undefined;
+        groupId?: string;
         /**
          * A callback function which is called when the data has been successfully updated. The handler can have
          * the following parameters: `oData`. `oData` contains the parsed response data as a Javascript object.
@@ -51170,12 +51737,12 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * sent to the backend. The changeResponses contain the actual response of that change set in the `response`
          * property. For each change set there is also a `__changeResponse` property.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter: `oError`
          * which contains additional error information
          */
-        error?: Function | undefined;
+        error?: Function;
       }
     ): object;
     /**
@@ -51202,49 +51769,49 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         /**
          * If specified the sPath has to be is relative to the path given with the context.
          */
-        context?: object | undefined;
+        context?: object;
         /**
          * A callback function which is called when the data has been successfully updated.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * A callback function which is called when the request failed. The handler can have the parameter `oError`
          * which contains additional error information.
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * If specified, the `If-Match` header will be set to this ETag. Caution: This feature in not officially
          * supported as using asynchronous requests can lead to data inconsistencies. If you decide to use this
          * feature nevertheless, you have to make sure that the request is completed before the data is processed
          * any further.
          */
-        eTag?: string | undefined;
+        eTag?: string;
         /**
          * A map containing the parameters that will be passed as query strings
          */
-        urlParameters?: Record<string, string> | undefined;
+        urlParameters?: Record<string, string>;
         /**
          * A map of headers for this request
          */
-        headers?: Record<string, string> | undefined;
+        headers?: Record<string, string>;
         /**
          * Deprecated - use `groupId` instead
          */
-        batchGroupId?: string | undefined;
+        batchGroupId?: string;
         /**
          * ID of a request group; requests belonging to the same group will be bundled in one batch request
          */
-        groupId?: string | undefined;
+        groupId?: string;
         /**
          * ID of the `ChangeSet` that this request should belong to
          */
-        changeSetId?: string | undefined;
+        changeSetId?: string;
         /**
          * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link
          * #setRefreshAfterChange} If given, this overrules the model-wide `refreshAfterChange` flag for this operation
          * only.
          */
-        refreshAfterChange?: boolean | undefined;
+        refreshAfterChange?: boolean;
       }
     ): object;
     /**
@@ -51256,100 +51823,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        */
       bForceUpdate?: boolean
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the `annotationsFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
-     */
-    attachAnnotationsFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the `annotationsLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
-     */
-    attachAnnotationsLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:batchRequestCompleted batchRequestCompleted}
-     * event of this `sap.ui.model.odata.v2.ODataModel`.
-     */
-    attachBatchRequestCompleted(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:batchRequestFailed batchRequestFailed} event
-     * of this `sap.ui.model.odata.v2.ODataModel`.
-     */
-    attachBatchRequestFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:batchRequestSent batchRequestSent} event of
-     * this `sap.ui.model.odata.v2.ODataModel`.
-     */
-    attachBatchRequestSent(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the `metadataFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
-     */
-    attachMetadataFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the `metadataLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
-     */
-    attachMetadataLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
   }
   /**
    * Definition of a change group.
@@ -51362,11 +51835,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     /**
      * ID of a `ChangeSet` which bundles the changes for the entity type.
      */
-    changeSetId?: string | undefined;
+    changeSetId?: string;
     /**
      * Defines if every change will get an own change set
      */
-    single?: boolean | undefined;
+    single?: boolean;
   };
 }
 
@@ -51388,7 +51861,9 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
    * for creating an instance.
    */
   export default class ODataTreeBinding extends TreeBinding {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -51808,7 +52283,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
          * Optional arguments: first an optional map of binding parameters, then an optional map of format options;
          * both will be added to each resulting data binding
          */
-        arguments?: any[] | undefined;
+        arguments?: any[];
         /**
          * Points to the given raw value, that is `oDetails.context.getProperty("") === vRawValue`
          */
@@ -51819,7 +52294,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
          * Expression edm:PropertyPath" where it might be used as a first segment (since 1.71.0). This does not
          * apply to annotations on a parameter (since 1.76.0).
          */
-        overload?: object | undefined;
+        overload?: object;
       }
     ): string | Promise<any>;
     /**
@@ -51869,7 +52344,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
         /**
          * Whether a `Promise` may be returned if the needed metadata is not yet loaded (since 1.57.0)
          */
-        $$valueAsPromise?: boolean | undefined;
+        $$valueAsPromise?: boolean;
         /**
          * Points to the given path, that is `oDetails.context.getProperty("") === vRawValue`
          */
@@ -51909,7 +52384,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
         /**
          * Whether a `Promise` may be returned if the needed metadata is not yet loaded (since 1.57.0)
          */
-        $$valueAsPromise?: boolean | undefined;
+        $$valueAsPromise?: boolean;
         /**
          * Points to the given path, that is `oDetails.context.getProperty("") === sPath`
          */
@@ -51946,7 +52421,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
         /**
          * Whether a `Promise` may be returned if the needed metadata is not yet loaded (since 1.57.0)
          */
-        $$valueAsPromise?: boolean | undefined;
+        $$valueAsPromise?: boolean;
         /**
          * Points to the given raw value, that is `oDetails.context.getProperty("") === vRawValue`
          */
@@ -52104,7 +52579,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
          * Optional arguments: an optional map of binding parameters; this will be added to each resulting data
          * binding
          */
-        arguments?: any[] | undefined;
+        arguments?: any[];
         /**
          * Points to the given raw value, that is `oDetails.context.getProperty("") === vRawValue`
          */
@@ -52115,7 +52590,7 @@ declare module "sap/ui/model/odata/v4/AnnotationHelper" {
          * Expression edm:PropertyPath" where it might be used as a first segment (since 1.72.0). This does not
          * apply to annotations on a parameter (since 1.76.0).
          */
-        overload?: object | undefined;
+        overload?: object;
       }
     ): string;
   }
@@ -52150,7 +52625,9 @@ declare module "sap/ui/model/odata/v4/Context" {
    * Context instances are immutable except for their indexes.
    */
   export default class Context extends Context1 {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -52524,7 +53001,12 @@ declare module "sap/ui/model/odata/v4/Context" {
        * Callback function that is executed once for a kept-alive context just before it is destroyed, see {@link
        * #destroy}. Supported since 1.84.0
        */
-      fnOnBeforeDestroy?: Function
+      fnOnBeforeDestroy?: Function,
+      /**
+       * Whether to request messages for this entity. Only used if `bKeepAlive` is `true`. The binding keeps requesting
+       * messages until it is destroyed. Supported since 1.92.0
+       */
+      bRequestMessages?: boolean
     ): void;
     /**
      * @SINCE 1.67.0
@@ -52622,7 +53104,9 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
    * A deferred operation binding is not allowed to have another deferred operation binding as parent.
    */
   export default class ODataContextBinding extends ContextBinding {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -52754,7 +53238,16 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
        * Whether the entity's ETag should be actively ignored (If-Match:*); supported for bound actions only,
        * since 1.90.0
        */
-      bIgnoreETag?: boolean
+      bIgnoreETag?: boolean,
+      /**
+       * If this callback is given for an action, the preference "handling=strict" is applied. If the service
+       * responds with the HTTP status code 412 and a "Preference-applied: handling=strict" header, the details
+       * from the OData error response are extracted and passed to the callback as an array of {@link sap.ui.core.message.Message}
+       * items. The callback has to return a `Promise` resolving with a `boolean` value in order to indicate whether
+       * the bound action should either be repeated **without** applying the preference or rejected with an `Error`
+       * instance `oError` where `oError.canceled === true`. Since 1.92.0.
+       */
+      fnOnStrictHandlingFailed?: Function
     ): Promise<any>;
     /**
      * Creates a new subclass of class sap.ui.model.odata.v4.ODataContextBinding with name `sClassName` and
@@ -52970,6 +53463,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
 
   import ODataPropertyBinding from "sap/ui/model/odata/v4/ODataPropertyBinding";
 
+  import Message from "sap/ui/core/message/Message";
+
   import Sorter from "sap/ui/model/Sorter";
 
   /**
@@ -52980,7 +53475,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
    * 'refresh'. For other events, an error is thrown.
    */
   export default class ODataListBinding extends ListBinding {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -53332,7 +53829,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * See:
      * 	sap.ui.model.ListBinding#getDistinctValues
      */
-    getDistinctValues(_sPath?: string): Array<any>;
+    getDistinctValues(_sPath?: string): any[];
     /**
      * @SINCE 1.74.0
      *
@@ -53542,7 +54039,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        * A callback function to filter only relevant messages. The callback returns whether the given {@link sap.ui.core.message.Message}
        * is considered. If no callback function is given, all messages are considered.
        */
-      fnFilter?: Function
+      fnFilter?: (p1: Message) => boolean
     ): Promise<Filter>;
     /**
      * @SINCE 1.40.1
@@ -53592,12 +54089,12 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * value of that unit in case there is only one, or `null` otherwise ("multi-unit situation"). (SQL suggestion:
          * `CASE WHEN MIN(Unit) = MAX(Unit) THEN MIN(Unit) END`)
          */
-        aggregate?: object | undefined;
+        aggregate?: object;
         /**
          * Tells whether the grand totals for aggregatable properties are displayed at the bottom only (since 1.86.0);
          * `true` for bottom only, `false` for top and bottom, the default is top only
          */
-        grandTotalAtBottomOnly?: boolean | undefined;
+        grandTotalAtBottomOnly?: boolean;
         /**
          * A map from groupable property names to objects containing the following details:
          * 	 `additionally`: An optional list of strings that provides the paths to properties (like texts or attributes)
@@ -53605,18 +54102,18 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * via `groupby and must not change the actual grouping; a unit` for an aggregatable property
          * must not be repeated here.
          */
-        group?: object | undefined;
+        group?: object;
         /**
          * A list of groupable property names used to determine group levels. They may, but don't need to, be repeated
          * in `oAggregation.group`. Group levels cannot be combined with filtering for aggregated properties.
          */
-        groupLevels?: string[] | undefined;
+        groupLevels?: string[];
         /**
          * Tells whether subtotals for aggregatable properties are displayed at the bottom only, as a separate row
          * after all children, when a group level node is expanded (since 1.86.0); `true` for bottom only, `false`
          * for top and bottom, the default is top only (that is, as part of the group level node)
          */
-        subtotalsAtBottomOnly?: boolean | undefined;
+        subtotalsAtBottomOnly?: boolean;
       }
     ): void;
     /**
@@ -53681,39 +54178,39 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * Its presence is used to detect a dimension; the dimension is ignored unless at least one of `inResult`
          * and `visible` is `true`
          */
-        grouped?: boolean | undefined;
+        grouped?: boolean;
         /**
          * Dimensions only: see above
          */
-        inResult?: boolean | undefined;
+        inResult?: boolean;
         /**
          * Dimensions only: see above
          */
-        visible?: boolean | undefined;
+        visible?: boolean;
         /**
          * Its presence is used to detect a measure
          */
-        total?: boolean | undefined;
+        total?: boolean;
         /**
          * Measures only: Whether the maximum value (ignoring currencies or units of measure) for this measure is
          * needed (since 1.55.0); filtering and sorting is supported in this case (since 1.58.0)
          */
-        max?: boolean | undefined;
+        max?: boolean;
         /**
          * Measures only: Whether the minimum value (ignoring currencies or units of measure) for this measure is
          * needed (since 1.55.0); filtering and sorting is supported in this case (since 1.58.0)
          */
-        min?: boolean | undefined;
+        min?: boolean;
         /**
          * Measures only: The name of the method (for example "sum") used for aggregation of this measure; see "3.1.2
          * Keyword with" (since 1.55.0)
          */
-        with?: string | undefined;
+        with?: string;
         /**
          * Measures only: The alias, that is the name of the dynamic property used for aggregation of this measure;
          * see "3.1.1 Keyword as" (since 1.55.0)
          */
-        as?: string | undefined;
+        as?: string;
       }>
     ): object;
   }
@@ -53753,7 +54250,9 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
    * This model is read-only.
    */
   export default class ODataMetaModel extends MetaModel {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -53848,11 +54347,11 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
          * Whether {@link sap.ui.model.PropertyBinding#getValue} may return a `Promise` resolving with the value
          * (since 1.57.0)
          */
-        $$valueAsPromise?: boolean | undefined;
+        $$valueAsPromise?: boolean;
         /**
          * Optional scope for lookup of aliases for computed annotations (since 1.43.0)
          */
-        scope?: object | undefined;
+        scope?: object;
       }
     ): PropertyBinding;
     /**
@@ -53968,7 +54467,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
         /**
          * Optional scope for lookup of aliases for computed annotations (since 1.43.0)
          */
-        scope?: object | undefined;
+        scope?: object;
       }
     ): any;
     /**
@@ -54049,7 +54548,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
          * If present, it must point to this meta model's root entity container, that is, `oDetails.context.getModel()
          * === this` and `oDetails.context.getPath() === "/"`
          */
-        context?: Context | undefined;
+        context?: Context;
       }
     ): Promise<any>;
     /**
@@ -54264,7 +54763,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
         /**
          * Optional scope for lookup of aliases for computed annotations (since 1.43.0)
          */
-        scope?: object | undefined;
+        scope?: object;
       }
     ): Promise<any>;
     /**
@@ -54310,7 +54809,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
          * If present, it must point to this meta model's root entity container, that is, `oDetails.context.getModel()
          * === this` and `oDetails.context.getPath() === "/"`
          */
-        context?: Context | undefined;
+        context?: Context;
       }
     ): Promise<any>;
     /**
@@ -54435,14 +54934,14 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * if an annotation file contains other elements (like a type definition) that are already merged, an error
          * is thrown. Supported since 1.41.0
          */
-        annotationURI?: string | string[] | undefined;
+        annotationURI?: string | string[];
         /**
          * Whether the OData model's bindings automatically generate $select and $expand system query options from
          * the binding hierarchy. Note: Dynamic changes to the binding hierarchy are not supported. This parameter
          * is supported since 1.47.0, and since 1.75.0 it also enables property paths containing navigation properties
          * in `$select`.
          */
-        autoExpandSelect?: boolean | undefined;
+        autoExpandSelect?: boolean;
         /**
          * Whether the following is requested at the earliest convenience:
          * 	 root $metadata document and annotation files;  the security token.  Note: The root $metadata
@@ -54451,40 +54950,40 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * You may also set {@link topic:26ba6a5c1e5c417f8b21cce1411dba2c Manifest Model Preload} in order to further
          * speed up the start of a UI5 component.
          */
-        earlyRequests?: boolean | undefined;
+        earlyRequests?: boolean;
         /**
          * Controls the model's use of batch requests: '$auto' bundles requests from the model in a batch request
          * which is sent automatically before rendering; '$direct' sends requests directly without batch; other
          * values result in an error
          */
-        groupId?: string | undefined;
+        groupId?: string;
         /**
          * Controls the use of batch requests for application groups. A map of application group IDs having an object
          * with exactly one property `submit`. Valid values are 'API', 'Auto', 'Direct' see {@link sap.ui.model.odata.v4.SubmitMode}.
          * Supported since 1.51.0
          */
-        groupProperties?: object | undefined;
+        groupProperties?: object;
         /**
          * Map of HTTP header names to their values, see {@link #changeHttpHeaders}
          */
-        httpHeaders?: object | undefined;
+        httpHeaders?: object;
         /**
          * Additional map of URL parameters used specifically for $metadata requests. Note that "sap-context-token"
          * applies only to the service's root $metadata, but not to "cross-service references". Supported since
          * 1.81.0
          */
-        metadataUrlParams?: object | undefined;
+        metadataUrlParams?: object;
         /**
          * The version of the OData service. Supported values are "2.0" and "4.0".
          */
-        odataVersion?: string | undefined;
+        odataVersion?: string;
         /**
          * The operation mode for filtering and sorting. Since 1.39.0, the operation mode {@link sap.ui.model.odata.OperationMode.Server}
          * is supported. All other operation modes including `undefined` lead to an error if 'vFilters' or 'vSorters'
          * are given or if {@link sap.ui.model.odata.v4.ODataListBinding#filter} or {@link sap.ui.model.odata.v4.ODataListBinding#sort}
          * is called.
          */
-        operationMode?: OperationMode | keyof typeof OperationMode | undefined;
+        operationMode?: OperationMode | keyof typeof OperationMode;
         /**
          * Root URL of the service to request data from. The path part of the URL must end with a forward slash
          * according to OData V4 specification ABNF, rule "serviceRoot". You may append OData custom query options
@@ -54500,12 +54999,12 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * is forbidden. Note: This makes all bindings read-only, so it may be especially useful for value list
          * models. Supported since 1.80.0
          */
-        sharedRequests?: boolean | undefined;
+        sharedRequests?: boolean;
         /**
          * Whether `<edmx:Reference>` and `<edmx:Include>` directives are supported in order to load schemas
          * on demand from other $metadata documents and include them into the current service ("cross-service references").
          */
-        supportReferences?: boolean | undefined;
+        supportReferences?: boolean;
         /**
          * Controls synchronization between different bindings which refer to the same data for the case data changes
          * in one binding. Must be set to 'None' which means bindings are not synchronized at all; all other values
@@ -54516,7 +55015,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * The group ID that is used for update requests. If no update group ID is specified, ` mParameters.groupId`
          * is used. Valid update group IDs are `undefined`, '$auto', '$direct' or an application group ID.
          */
-        updateGroupId?: string | undefined;
+        updateGroupId?: string;
       }
     );
 
@@ -54586,37 +55085,37 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * Whether a binding relative to a {@link sap.ui.model.odata.v4.Context} uses the canonical path computed
          * from its context's path for data service requests; only the value `true` is allowed.
          */
-        $$canonicalPath?: boolean | undefined;
+        $$canonicalPath?: boolean;
         /**
          * The group ID to be used for **read** requests triggered by this binding; if not specified, either the
          * parent binding's group ID (if the binding is relative) or the model's group ID is used, see {@link sap.ui.model.odata.v4.ODataModel#constructor}.
          * Valid values are `undefined`, '$auto', '$auto.*', '$direct' or application group IDs as specified in
          * {@link sap.ui.model.odata.v4.ODataModel}.
          */
-        $$groupId?: string | undefined;
+        $$groupId?: string;
         /**
          * For operation bindings only: Whether $expand and $select from the parent binding are used in the request
          * sent on {@link #execute}. If set to `true`, the binding must not set the $expand or $select parameter
          * itself, the operation must be bound, and the return value and the binding parameter must belong to the
          * same entity set.
          */
-        $$inheritExpandSelect?: boolean | undefined;
+        $$inheritExpandSelect?: boolean;
         /**
          * Whether the binding always uses an own service request to read its data; only the value `true` is allowed.
          */
-        $$ownRequest?: boolean | undefined;
+        $$ownRequest?: boolean;
         /**
          * Whether implicit loading of side effects via PATCH requests is switched off; only the value `true` is
          * allowed. This sets the preference "return=minimal" and requires the service to return an ETag header
          * for "204 No Content" responses. If not specified, the value of the parent binding is used.
          */
-        $$patchWithoutSideEffects?: boolean | undefined;
+        $$patchWithoutSideEffects?: boolean;
         /**
          * The group ID to be used for **update** requests triggered by this binding; if not specified, either the
          * parent binding's update group ID (if the binding is relative) or the model's update group ID is used,
          * see {@link sap.ui.model.odata.v4.ODataModel#constructor}. For valid values, see parameter "$$groupId".
          */
-        $$updateGroupId?: string | undefined;
+        $$updateGroupId?: string;
       }
     ): ODataContextBinding;
     /**
@@ -54664,36 +55163,36 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * An object holding the information needed for data aggregation, see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}
          * for details.
          */
-        $$aggregation?: object | undefined;
+        $$aggregation?: object;
         /**
          * Whether a binding relative to a {@link sap.ui.model.odata.v4.Context} uses the canonical path computed
          * from its context's path for data service requests; only the value `true` is allowed.
          */
-        $$canonicalPath?: boolean | undefined;
+        $$canonicalPath?: boolean;
         /**
          * The group ID to be used for **read** requests triggered by this binding; if not specified, either the
          * parent binding's group ID (if the binding is relative) or the model's group ID is used, see {@link sap.ui.model.odata.v4.ODataModel#constructor}.
          * Valid values are `undefined`, '$auto', '$auto.*', '$direct' or application group IDs as specified in
          * {@link sap.ui.model.odata.v4.ODataModel}.
          */
-        $$groupId?: string | undefined;
+        $$groupId?: string;
         /**
          * The operation mode for filtering and sorting with the model's operation mode as default. Since 1.39.0,
          * the operation mode {@link sap.ui.model.odata.OperationMode.Server} is supported. All other operation
          * modes including `undefined` lead to an error if 'vFilters' or 'vSorters' are given or if {@link sap.ui.model.odata.v4.ODataListBinding#filter}
          * or {@link sap.ui.model.odata.v4.ODataListBinding#sort} is called.
          */
-        $$operationMode?: OperationMode | keyof typeof OperationMode | undefined;
+        $$operationMode?: OperationMode | keyof typeof OperationMode;
         /**
          * Whether implicit loading of side effects via PATCH requests is switched off; only the value `true` is
          * allowed. This sets the preference "return=minimal" and requires the service to return an ETag header
          * for "204 No Content" responses. If not specified, the value of the parent binding is used.
          */
-        $$patchWithoutSideEffects?: boolean | undefined;
+        $$patchWithoutSideEffects?: boolean;
         /**
          * Whether the binding always uses an own service request to read its data; only the value `true` is allowed.
          */
-        $$ownRequest?: boolean | undefined;
+        $$ownRequest?: boolean;
         /**
          * Whether multiple bindings for the same resource path share the data, so that it is requested only once;
          * only the value `true` is allowed. This parameter can be inherited from the model's parameter "sharedRequests",
@@ -54710,13 +55209,13 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          *   for a dependent property binding of the list binding:
          * 	 {@link sap.ui.model.odata.v4.ODataPropertyBinding#setValue}
          */
-        $$sharedRequest?: boolean | undefined;
+        $$sharedRequest?: boolean;
         /**
          * The group ID to be used for **update** requests triggered by this binding; if not specified, either the
          * parent binding's update group ID (if the binding is relative) or the model's update group ID is used,
          * see {@link sap.ui.model.odata.v4.ODataModel#constructor}. For valid values, see parameter "$$groupId".
          */
-        $$updateGroupId?: string | undefined;
+        $$updateGroupId?: string;
       }
     ): ODataListBinding;
     /**
@@ -54767,7 +55266,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * Valid values are `undefined`, '$auto', '$auto.*', '$direct' or application group IDs as specified in
          * {@link sap.ui.model.odata.v4.ODataModel}.
          */
-        $$groupId?: string | undefined;
+        $$groupId?: string;
         /**
          * Whether this binding does not propagate model messages to the control; supported since 1.82.0. Some composite
          * types like {@link sap.ui.model.odata.type.Currency} or {@link sap.ui.model.odata.type.Unit} automatically
@@ -54778,12 +55277,12 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * of decimals, but the currency code is not displayed in the attached control. In that case, messages for
          * the currency code shall not be displayed at that control, only messages for the amount.
          */
-        $$ignoreMessages?: boolean | undefined;
+        $$ignoreMessages?: boolean;
         /**
          * Whether changing the value of this property binding is not causing a PATCH request; only the value `true`
          * is allowed.
          */
-        $$noPatch?: boolean | undefined;
+        $$noPatch?: boolean;
       }
     ): ODataPropertyBinding;
     /**
@@ -55132,7 +55631,9 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
    * For unsupported events, an error is thrown.
    */
   export default class ODataPropertyBinding extends PropertyBinding {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -55777,11 +56278,11 @@ declare module "sap/ui/model/resource/ResourceModel" {
          * `bundle` is set. Will cause an error if `enhanceWith` contains instances of `ResourceBundle`. Supported
          * since 1.77.0.
          */
-        activeTerminologies?: string[] | undefined;
+        activeTerminologies?: string[];
         /**
          * Whether the language bundle should be loaded asynchronously
          */
-        async?: boolean | undefined;
+        async?: boolean;
         /**
          * A resource bundle instance; when given, this bundle is used instead of creating a bundle from the provided
          * `bundleUrl`, `bundleName` and `bundleLocale` properties. However, to support reloading the bundle when
@@ -55791,35 +56292,35 @@ declare module "sap/ui/model/resource/ResourceModel" {
          * in combination with `enhanceWith` which contains a list of `ResourceBundle.Configurations`. Terminologies
          * must be defined in a declarative way, with configurations and not with instances of `ResourceBundle`.
          */
-        bundle?: ResourceBundle | undefined;
+        bundle?: ResourceBundle;
         /**
          * A locale in "BCP-47 language tag" notation specifying the locale in which to load the bundle; when not
          * given, the current session locale of UI5 is used (recommended)
          */
-        bundleLocale?: string | undefined;
+        bundleLocale?: string;
         /**
          * UI5 module name in dot notation referring to the base ".properties" file; this name is resolved to a
          * path just as for normal UI5 modules, to which ".properties" is then appended (e.g. a name like "myapp.i18n.myBundle"
          * can be given); relative module names are not supported
          */
-        bundleName?: string | undefined;
+        bundleName?: string;
         /**
          * URL pointing to the base ".properties" file of a bundle (".properties" file without any locale information,
          * e.g. "../../i18n/mybundle.properties"); relative URLs are evaluated relative to the document.baseURI
          */
-        bundleUrl?: string | undefined;
+        bundleUrl?: string;
         /**
          * The default binding mode to use; it can be `OneWay` or `OneTime` (only when synchronous loading is used);
          * the `TwoWay` mode is not supported
          */
-        defaultBindingMode?: BindingMode | keyof typeof BindingMode | undefined;
+        defaultBindingMode?: BindingMode | keyof typeof BindingMode;
         /**
          * A list of resource bundles or resource bundle configurations that enhance the texts from the main bundle;
          * intended for extensibility scenarios; see also the class documentation. ResourceBundles use the ResourceModel's
          * enhance mechanism and `ResourceBundle.Configurations` get passed to the underlying ResourceBundle (see
          * {@link module:sap/base/i18n/ResourceBundle.create}). Supported since 1.77.0.
          */
-        enhanceWith?: ResourceBundle[] | Configuration[] | undefined;
+        enhanceWith?: ResourceBundle[] | Configuration[];
         /**
          * A fallback locale to be used after all locales derived from `bundleLocale` have been tried, but before
          * the 'raw' bundle is used. Can either be a BCP47 language tag or a JDK compatible locale string (e.g.
@@ -55830,7 +56331,7 @@ declare module "sap/ui/model/resource/ResourceModel" {
          * passed to the underlying ResourceBundle (see {@link module:sap/base/i18n/ResourceBundle.create}). Supported
          * since 1.77.0.
          */
-        fallbackLocale?: string | undefined;
+        fallbackLocale?: string;
         /**
          * List of supported locales (aka 'language tags') to restrict the fallback chain. Each entry in the array
          * can either be a BCP47 language tag or a JDK compatible locale string (e.g. "en-GB", "en_GB" or "en").
@@ -55842,7 +56343,7 @@ declare module "sap/ui/model/resource/ResourceModel" {
          * "sr" will be used in the URL. This mapping works in both directions. This parameter is passed to the
          * underlying ResourceBundle (see {@link module:sap/base/i18n/ResourceBundle.create}). Supported since 1.77.0.
          */
-        supportedLocales?: string[] | undefined;
+        supportedLocales?: string[];
         /**
          * An object, mapping a terminology identifier (e.g. "oil") to a `ResourceBundle.TerminologyConfiguration`.
          * A terminology is a resource bundle configuration for a specific use case (e.g. "oil"). It does neither
@@ -55851,7 +56352,7 @@ declare module "sap/ui/model/resource/ResourceModel" {
          * `bundle` is set. Will cause an error if `enhanceWith` contains instances of `ResourceBundle`. Supported
          * since 1.77.0.
          */
-        terminologies?: Record<string, TerminologyConfiguration> | undefined;
+        terminologies?: Record<string, TerminologyConfiguration>;
       }
     );
 
@@ -55892,18 +56393,18 @@ declare module "sap/ui/model/resource/ResourceModel" {
              * A locale in "BCP-47 language tag" notation specifying the locale in which to load the bundle; when not
              * given, the current session locale of UI5 is used (recommended)
              */
-            bundleLocale?: string | undefined;
+            bundleLocale?: string;
             /**
              * UI5 module name in dot notation, referring to the base ".properties" file; this name is resolved to a
              * path like the paths of normal UI5 modules, and ".properties" is then appended (e.g. a name like "myapp.i18n.myBundle"
              * can be given); relative module names are not supported
              */
-            bundleName?: string | undefined;
+            bundleName?: string;
             /**
              * URL pointing to the base ".properties" file of a bundle (".properties" file without any locale information,
              * e.g. "../../i18n/mybundle.properties"); relative URLs are evaluated relative to the document.baseURI
              */
-            bundleUrl?: string | undefined;
+            bundleUrl?: string;
           }
     ): Promise<any> | null;
     /**
@@ -56019,6 +56520,23 @@ declare module "sap/ui/model/SelectionModel" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
+     * this `sap.ui.model.SelectionModel`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.SelectionModel` itself.
+     */
+    attachSelectionChanged(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `SelectionModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Change the selection to the empty set and clears the lead selection.
      *
      * If this call results in a change to the current selection or lead selection, then a `SelectionChanged`
@@ -56081,7 +56599,7 @@ declare module "sap/ui/model/SelectionModel" {
         /**
          * Other selected indices (if available)
          */
-        rowIndices?: int[] | undefined;
+        rowIndices?: int[];
       }
     ): this;
     /**
@@ -56203,23 +56721,6 @@ declare module "sap/ui/model/SelectionModel" {
        * other end of the interval
        */
       iToIndex: int
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
-     * this `sap.ui.model.SelectionModel`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.SelectionModel` itself.
-     */
-    attachSelectionChanged(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `SelectionModel` itself
-       */
-      oListener?: object
     ): this;
   }
 }
@@ -56685,7 +57186,7 @@ declare module "sap/ui/model/TreeBinding" {
        * determines how many contexts to retrieve beginning from the start index.
        */
       iLength: int
-    ): Array<any>;
+    ): any[];
     /**
      * Returns if the node has child nodes
      */
@@ -56758,6 +57259,25 @@ declare module "sap/ui/model/TreeBindingAdapter" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
+     * this `sap.ui.model.TreeBindingAdapter`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.model.TreeBindingAdapter` itself.
+     *
+     * Event is fired if the selection of tree nodes is changed in any way.
+     */
+    attachSelectionChanged(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Context object to call the event handler with. Defaults to this `TreeBindingAdapter` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:selectionChanged selectionChanged} event of
      * this `sap.ui.model.TreeBindingAdapter`.
      *
@@ -56792,7 +57312,7 @@ declare module "sap/ui/model/TreeBindingAdapter" {
         /**
          * Other selected indices (if available)
          */
-        rowIndices?: int[] | undefined;
+        rowIndices?: int[];
       }
     ): this;
     /**
@@ -56829,25 +57349,6 @@ declare module "sap/ui/model/TreeBindingAdapter" {
        */
       iThreshold?: number
     ): object[];
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
-     * this `sap.ui.model.TreeBindingAdapter`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.TreeBindingAdapter` itself.
-     *
-     * Event is fired if the selection of tree nodes is changed in any way.
-     */
-    attachSelectionChanged(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `TreeBindingAdapter` itself
-       */
-      oListener?: object
-    ): this;
   }
 }
 
@@ -57023,14 +57524,14 @@ declare module "sap/ui/model/type/Currency" {
          * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
         /**
          * A set of format options as defined for {@link sap.ui.core.format.NumberFormat.getCurrencyInstance} which
          * describes the format of amount and currency in the model in case the model holds this in one property
          * of type `string`, e.g. as "EUR 22". If an empty object is given, grouping is disabled, the
          * decimal separator is a dot and the grouping separator is a comma.
          */
-        source?: object | undefined;
+        source?: object;
       },
       /**
        * Constraints for the value part
@@ -57039,11 +57540,11 @@ declare module "sap/ui/model/type/Currency" {
         /**
          * Smallest amount allowed excluding the minimum value itself
          */
-        minimum?: number | undefined;
+        minimum?: number;
         /**
          * Largest amount allowed excluding the maximum value itself
          */
-        maximum?: number | undefined;
+        maximum?: number;
       }
     );
 
@@ -57117,7 +57618,7 @@ declare module "sap/ui/model/type/Currency" {
       /**
        * Not used
        */
-      aCurrentValues?: Array<any>
+      aCurrentValues?: any[]
     ): any[] | string;
   }
 }
@@ -57149,7 +57650,7 @@ declare module "sap/ui/model/type/Date" {
          * {@link sap.ui.core.format.DateFormat.getDateInstance DateFormat}. In case an empty object is given, the
          * default is the ISO date notation (yyyy-MM-dd).
          */
-        source?: object | undefined;
+        source?: object;
       },
       /**
        * Value constraints
@@ -57159,12 +57660,12 @@ declare module "sap/ui/model/type/Date" {
          * Smallest value allowed for this type. Values for constraints must use the same type as configured via
          * `oFormatOptions.source`.
          */
-        minimum?: Date | string | undefined;
+        minimum?: Date | string;
         /**
          * Largest value allowed for this type. Values for constraints must use the same type as configured via
          * `oFormatOptions.source`.
          */
-        maximum?: Date | string | undefined;
+        maximum?: Date | string;
       }
     );
 
@@ -57193,7 +57694,9 @@ declare module "sap/ui/model/type/Date" {
      * Returns a metadata object for class sap.ui.model.type.Date.
      */
     static getMetadata(): Metadata;
-    /**/
+    /**
+     *
+     */
     getOutputPattern(): void;
   }
 }
@@ -57225,7 +57728,7 @@ declare module "sap/ui/model/type/DateInterval" {
          * of all available options, see {@link sap.ui.core.format.DateFormat.getDateInstance DateFormat}. In case
          * an empty object is given, the default is the ISO date notation (yyyy-MM-dd).
          */
-        source?: object | undefined;
+        source?: object;
       },
       /**
        * Value constraints
@@ -57235,12 +57738,12 @@ declare module "sap/ui/model/type/DateInterval" {
          * Smallest value allowed for this type. Values for constraints must use the same type as configured via
          * `oFormatOptions.source`.
          */
-        minimum?: Date | String | undefined;
+        minimum?: Date | string;
         /**
          * Largest value allowed for this type. Values for constraints must use the same type as configured via
          * `oFormatOptions.source`.
          */
-        maximum?: Date | String | undefined;
+        maximum?: Date | string;
       }
     );
 
@@ -57278,7 +57781,7 @@ declare module "sap/ui/model/type/DateInterval" {
       /**
        * The array of values
        */
-      aValues: Array<any>,
+      aValues: any[],
       /**
        * The target type
        */
@@ -57306,8 +57809,8 @@ declare module "sap/ui/model/type/DateInterval" {
       /**
        * The current values of all binding parts
        */
-      aCurrentValues: Array<any>
-    ): Array<any>;
+      aCurrentValues: any[]
+    ): any[];
   }
 }
 
@@ -57337,7 +57840,7 @@ declare module "sap/ui/model/type/DateTime" {
          * into the string format that is expected by the data source. For a list of all available options, see
          * {@link sap.ui.core.format.DateFormat.getDateTimeInstance DateFormat}.
          */
-        source?: object | undefined;
+        source?: object;
       },
       /**
        * Value constraints. Supports the same kind of constraints as its base type Date, but note the different
@@ -57400,7 +57903,7 @@ declare module "sap/ui/model/type/DateTimeInterval" {
          * external value (e.g. user input) into the string format that is expected by the data source. For a list
          * of all available options, see {@link sap.ui.core.format.DateFormat.getDateTimeInstance DateFormat}.
          */
-        source?: object | undefined;
+        source?: object;
       },
       /**
        * Value constraints
@@ -57410,12 +57913,12 @@ declare module "sap/ui/model/type/DateTimeInterval" {
          * Smallest value allowed for this type. Values for constraints must use the same type as configured via
          * `oFormatOptions.source`.
          */
-        minimum?: Date | String | undefined;
+        minimum?: Date | string;
         /**
          * Largest value allowed for this type. Values for constraints must use the same type as configured via
          * `oFormatOptions.source`.
          */
-        maximum?: Date | String | undefined;
+        maximum?: Date | string;
       }
     );
 
@@ -57473,7 +57976,7 @@ declare module "sap/ui/model/type/FileSize" {
          * user input) into the string format expected by the data source. Supports the same set of options as {@link
          * sap.ui.core.format.FileSizeFormat.getInstance FileSizeFormat.getInstance}.
          */
-        source?: object | undefined;
+        source?: object;
       },
       /**
        * value constraints.
@@ -57482,11 +57985,11 @@ declare module "sap/ui/model/type/FileSize" {
         /**
          * smallest value allowed for this type
          */
-        minimum?: float | undefined;
+        minimum?: float;
         /**
          * largest value allowed for this type
          */
-        maximum?: float | undefined;
+        maximum?: float;
       }
     );
 
@@ -57539,13 +58042,13 @@ declare module "sap/ui/model/type/Float" {
          * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
         /**
          * Additional set of format options to be used if the property in the model is not of type string and needs
          * formatting as well. If an empty object is given, the grouping is disabled and a dot is used as decimal
          * separator.
          */
-        source?: object | undefined;
+        source?: object;
       },
       /**
        * Value constraints
@@ -57554,11 +58057,11 @@ declare module "sap/ui/model/type/Float" {
         /**
          * Smallest value allowed for this type
          */
-        minimum?: float | undefined;
+        minimum?: float;
         /**
          * Largest value allowed for this type
          */
-        maximum?: float | undefined;
+        maximum?: float;
       }
     );
 
@@ -57612,7 +58115,7 @@ declare module "sap/ui/model/type/Integer" {
          * formatting as well. If an empty object is given, the grouping is disabled and a dot is used as decimal
          * separator.
          */
-        source?: object | undefined;
+        source?: object;
       },
       /**
        * Value constraints
@@ -57621,11 +58124,11 @@ declare module "sap/ui/model/type/Integer" {
         /**
          * Smallest value allowed for this type
          */
-        minimum?: int | undefined;
+        minimum?: int;
         /**
          * Largest value allowed for this type
          */
-        maximum?: int | undefined;
+        maximum?: int;
       }
     );
 
@@ -57687,39 +58190,39 @@ declare module "sap/ui/model/type/String" {
         /**
          * The maximal allowed length of the string; unlimited if not defined
          */
-        maxLength?: int | undefined;
+        maxLength?: int;
         /**
          * The minimal allowed length of the string
          */
-        minLength?: int | undefined;
+        minLength?: int;
         /**
          * A prefix that any valid value must start with
          */
-        startsWith?: string | undefined;
+        startsWith?: string;
         /**
          * A prefix that any valid value must start with, ignoring case
          */
-        startsWithIgnoreCase?: string | undefined;
+        startsWithIgnoreCase?: string;
         /**
          * A suffix that any valid value must end with
          */
-        endsWith?: string | undefined;
+        endsWith?: string;
         /**
          * A suffix that any valid value must end with, ignoring case
          */
-        endsWithIgnoreCase?: string | undefined;
+        endsWithIgnoreCase?: string;
         /**
          * An infix that must be contained in any valid value
          */
-        contains?: string | undefined;
+        contains?: string;
         /**
          * The only value that is allowed
          */
-        equals?: string | undefined;
+        equals?: string;
         /**
          * A regular expression, or a string defining a regular expression, that the value must match
          */
-        search?: RegExp | string | undefined;
+        search?: RegExp | string;
       }
     );
 
@@ -57817,7 +58320,7 @@ declare module "sap/ui/model/type/Time" {
          * {@link sap.ui.core.format.DateFormat.getTimeInstance DateFormat}. In case an empty object is given, the
          * default is the ISO date notation (yyyy-MM-dd).
          */
-        source?: object | undefined;
+        source?: object;
       },
       /**
        * Value constraints. Supports the same kind of constraints as its base type Date, but note the different
@@ -57880,7 +58383,7 @@ declare module "sap/ui/model/type/TimeInterval" {
          * external value (e.g. user input) into the string format that is expected by the data source. For a list
          * of all available options, see {@link sap.ui.core.format.DateFormat.getTimeInstance DateFormat}.
          */
-        source?: object | undefined;
+        source?: object;
       },
       /**
        * Value constraints
@@ -57890,12 +58393,12 @@ declare module "sap/ui/model/type/TimeInterval" {
          * Smallest value allowed for this type. Values for constraints must use the same type as configured via
          * `oFormatOptions.source`.
          */
-        minimum?: Date | String | undefined;
+        minimum?: Date | string;
         /**
          * Largest value allowed for this type. Values for constraints must use the same type as configured via
          * `oFormatOptions.source`.
          */
-        maximum?: Date | String | undefined;
+        maximum?: Date | string;
       }
     );
 
@@ -57954,13 +58457,13 @@ declare module "sap/ui/model/type/Unit" {
          * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
          */
-        preserveDecimals?: boolean | undefined;
+        preserveDecimals?: boolean;
         /**
          * Additional set of format options to be used if the property in the model is not of type `string` and
          * needs formatting as well. If an empty object is given, the grouping is disabled and a dot is used as
          * decimal separator.
          */
-        source?: object | undefined;
+        source?: object;
       },
       /**
        * Value constraints
@@ -57969,20 +58472,20 @@ declare module "sap/ui/model/type/Unit" {
         /**
          * Smallest value allowed for this type
          */
-        minimum?: float | undefined;
+        minimum?: float;
         /**
          * Largest value allowed for this type
          */
-        maximum?: float | undefined;
+        maximum?: float;
         /**
          * Largest number of decimals allowed for this type
          */
-        decimals?: float | undefined;
+        decimals?: float;
       },
       /**
        * keys for dynamic format options which are used to map additional binding values, e.g. `["decimals"]`
        */
-      aDynamicFormatOptionNames?: Array<any>
+      aDynamicFormatOptionNames?: any[]
     );
 
     /**
@@ -58018,7 +58521,7 @@ declare module "sap/ui/model/type/Unit" {
        * and index 1 is the Unit code (CLDR or custom). Indices 2+ are the bound values for the dynamic format
        * options.
        */
-      vValue: Array<any> | string,
+      vValue: any[] | string,
       /**
        * the target type
        */
@@ -58058,7 +58561,7 @@ declare module "sap/ui/model/type/Unit" {
       /**
        * Not used
        */
-      aCurrentValues?: Array<any>
+      aCurrentValues?: any[]
     ): any[] | string;
   }
 }
@@ -58262,7 +58765,9 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
    * Tree binding implementation for XML format
    */
   export default class XMLTreeBinding extends ClientTreeBinding {
-    /**/
+    /**
+     *
+     */
     constructor(
       oModel: XMLModel,
       /**
@@ -58276,13 +58781,15 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
       /**
        * Predefined filters contained in an array
        */
-      aFilters?: Array<any>,
+      aFilters?: any[],
       /**
        * Additional model-specific parameters
        */
       mParameters?: object
     );
-    /**/
+    /**
+     *
+     */
     constructor(
       /**
        * pointing to the tree or array that should be bound
@@ -58295,7 +58802,7 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
       /**
        * Predefined filters contained in an array
        */
-      aFilters?: Array<any>,
+      aFilters?: any[],
       /**
        * Additional model-specific parameters
        */
@@ -58425,7 +58932,7 @@ declare module "sap/ui/test/actions/Action" {
      * have multiple DOM elements that could be target of your Action. Then you should set this property. For
      * a detailed documentation of the suffix see {@link sap.ui.core.Element#$}
      */
-    idSuffix?: string | PropertyBindingInfo | undefined;
+    idSuffix?: string | PropertyBindingInfo;
   }
 }
 
@@ -58449,7 +58956,9 @@ declare module "sap/ui/test/actions/Drag" {
    * The `Drag` action is not supported in IE11!
    */
   export default class Drag extends Action {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -58615,7 +59124,7 @@ declare module "sap/ui/test/actions/Drop" {
      * name of the droppable aggregation, whose root to use as drop target. This makes sense only for some controls,
      * where this root DOM element is droppable.
      */
-    aggregationName?: string | PropertyBindingInfo | undefined;
+    aggregationName?: string | PropertyBindingInfo;
 
     /**
      * specify a position for the drop event, relative to the position of the control's representative DOM element.
@@ -58624,12 +59133,12 @@ declare module "sap/ui/test/actions/Drop" {
      * is "center", meaning the drop will be directly on the element. Set `before` to true, to drop the source
      * immediately before the target element.
      */
-    before?: boolean | PropertyBindingInfo | undefined;
+    before?: boolean | PropertyBindingInfo;
 
     /**
      * Set `after` to true, to drop the source immediately before the target element.
      */
-    after?: boolean | PropertyBindingInfo | undefined;
+    after?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -58797,7 +59306,7 @@ declare module "sap/ui/test/actions/EnterText" {
      * The Text that is going to be typed to the control. If you are entering an empty string, the value will
      * be cleared.
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.0
@@ -58807,11 +59316,11 @@ declare module "sap/ui/test/actions/EnterText" {
      * fired and then the value of the input is emptied. This will trigger a `liveChange` event on the input
      * with an empty value.
      */
-    clearTextFirst?: boolean | PropertyBindingInfo | undefined;
+    clearTextFirst?: boolean | PropertyBindingInfo;
 
-    keepFocus?: boolean | PropertyBindingInfo | undefined;
+    keepFocus?: boolean | PropertyBindingInfo;
 
-    pressEnterKey?: boolean | PropertyBindingInfo | undefined;
+    pressEnterKey?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -58841,7 +59350,9 @@ declare module "sap/ui/test/actions/Press" {
    * see {@link sap.ui.test.actions.Press.controlAdapters}.
    */
   export default class Press extends Action {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -58975,9 +59486,9 @@ declare module "sap/ui/test/actions/Scroll" {
   }
 
   export interface $ScrollSettings extends $ActionSettings {
-    x?: int | PropertyBindingInfo | undefined;
+    x?: int | PropertyBindingInfo;
 
-    y?: int | PropertyBindingInfo | undefined;
+    y?: int | PropertyBindingInfo;
   }
 }
 
@@ -59165,12 +59676,12 @@ declare module "sap/ui/test/gherkin/opa5TestHarness" {
          * the constructor function of type {@link sap.ui.test.gherkin.StepDefinitions}. If this parameter is ommitted
          * then args.generateMissingSteps must be explicitly set to true.
          */
-        steps?: Function | undefined;
+        steps?: Function;
         /**
          * When true: if a Gherkin step cannot be matched to a step definition then it will be assumed that the
          * user wants to convert the step into an Opa Page Object call.
          */
-        generateMissingSteps?: boolean | undefined;
+        generateMissingSteps?: boolean;
       }
     ): void;
   }
@@ -59430,17 +59941,17 @@ declare module "sap/ui/test/matchers/AggregationContainsPropertyEqual" {
     /**
      * The Name of the aggregation that is used for matching.
      */
-    aggregationName?: string | PropertyBindingInfo | undefined;
+    aggregationName?: string | PropertyBindingInfo;
 
     /**
      * The Name of the property that is used for matching.
      */
-    propertyName?: string | PropertyBindingInfo | undefined;
+    propertyName?: string | PropertyBindingInfo;
 
     /**
      * The value of the Property that is used for matching.
      */
-    propertyValue?: any | PropertyBindingInfo | undefined;
+    propertyValue?: any | PropertyBindingInfo;
   }
 }
 
@@ -59537,7 +60048,7 @@ declare module "sap/ui/test/matchers/AggregationEmpty" {
     /**
      * The name of the aggregation that is used for matching.
      */
-    name?: string | PropertyBindingInfo | undefined;
+    name?: string | PropertyBindingInfo;
   }
 }
 
@@ -59639,7 +60150,7 @@ declare module "sap/ui/test/matchers/AggregationFilled" {
     /**
      * The name of the aggregation that is used for matching.
      */
-    name?: string | PropertyBindingInfo | undefined;
+    name?: string | PropertyBindingInfo;
   }
 }
 
@@ -59761,12 +60272,12 @@ declare module "sap/ui/test/matchers/AggregationLengthEquals" {
     /**
      * The name of the aggregation that is used for matching.
      */
-    name?: string | PropertyBindingInfo | undefined;
+    name?: string | PropertyBindingInfo;
 
     /**
      * The length that aggregation `name` should have.
      */
-    length?: int | PropertyBindingInfo | undefined;
+    length?: int | PropertyBindingInfo;
   }
 }
 
@@ -59784,7 +60295,9 @@ declare module "sap/ui/test/matchers/Ancestor" {
    * ```
    */
   export default class Ancestor {
-    /**/
+    /**
+     *
+     */
     constructor(
       /**
        * the ancestor control to check, if undefined, validates every control to true. Can be a control or a control
@@ -59995,12 +60508,12 @@ declare module "sap/ui/test/matchers/BindingPath" {
      * The value of the binding context path that is used for matching. As of version 1.81, it can also be a
      * regular expression.
      */
-    path?: any | PropertyBindingInfo | undefined;
+    path?: any | PropertyBindingInfo;
 
     /**
      * The name of the binding model that is used for matching.
      */
-    modelName?: string | PropertyBindingInfo | undefined;
+    modelName?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.60
@@ -60009,14 +60522,14 @@ declare module "sap/ui/test/matchers/BindingPath" {
      * will be assumed to be relative to the binding context path As of version 1.81, it can also be a regular
      * expression.
      */
-    propertyPath?: any | PropertyBindingInfo | undefined;
+    propertyPath?: any | PropertyBindingInfo;
 
     /**
      * @SINCE 1.86
      *
      * value of a static binding property. Use this only for {@link sap.ui.model.StaticBinding}
      */
-    value?: any | PropertyBindingInfo | undefined;
+    value?: any | PropertyBindingInfo;
   }
 }
 
@@ -60034,7 +60547,9 @@ declare module "sap/ui/test/matchers/Descendant" {
    * ```
    */
   export default class Descendant {
-    /**/
+    /**
+     *
+     */
     constructor(
       /**
        * The descendant control to check. If undefined, it validates every control to true. Can be a control or
@@ -60216,22 +60731,22 @@ declare module "sap/ui/test/matchers/I18NText" {
     /**
      * The name of the control property to match the I18N text with.
      */
-    propertyName?: string | PropertyBindingInfo | undefined;
+    propertyName?: string | PropertyBindingInfo;
 
     /**
      * The key of the I18N text in the containing {@link module:sap/base/i18n/ResourceBundle}.
      */
-    key?: string | PropertyBindingInfo | undefined;
+    key?: string | PropertyBindingInfo;
 
     /**
      * The parameters for replacing the placeholders of the I18N text. See {@link module:sap/base/i18n/ResourceBundle#getText}.
      */
-    parameters?: any | PropertyBindingInfo | undefined;
+    parameters?: any | PropertyBindingInfo;
 
     /**
      * The name of the {@link sap.ui.model.resource.ResourceModel} assigned to the control.
      */
-    modelName?: string | PropertyBindingInfo | undefined;
+    modelName?: string | PropertyBindingInfo;
   }
 }
 
@@ -60264,7 +60779,9 @@ declare module "sap/ui/test/matchers/Interactable" {
    * 			is available as of version 1.80.
    */
   export default class Interactable extends Matcher {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -60494,27 +61011,27 @@ declare module "sap/ui/test/matchers/LabelFor" {
     /**
      * The text of the {@link sap.m.Label} which have the labelFor property.
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * The name of the {@link sap.ui.model.resource.ResourceModel} assigned to the control.
      */
-    modelName?: string | PropertyBindingInfo | undefined;
+    modelName?: string | PropertyBindingInfo;
 
     /**
      * The key of the I18N text in the containing {@link module:sap/base/i18n/ResourceBundle}.
      */
-    key?: string | PropertyBindingInfo | undefined;
+    key?: string | PropertyBindingInfo;
 
     /**
      * The parameters for replacing the placeholders of the I18N text. See {@link module:sap/base/i18n/ResourceBundle#getText}.
      */
-    parameters?: any | PropertyBindingInfo | undefined;
+    parameters?: any | PropertyBindingInfo;
 
     /**
      * The name of the control property to match the I18N text with.
      */
-    propertyName?: string | PropertyBindingInfo | undefined;
+    propertyName?: string | PropertyBindingInfo;
   }
 }
 
@@ -60615,7 +61132,9 @@ declare module "sap/ui/test/matchers/Properties" {
    * ```
    */
   export default class Properties {
-    /**/
+    /**
+     *
+     */
     constructor(
       /**
        * the object with the properties to be checked. Example:
@@ -60754,12 +61273,12 @@ declare module "sap/ui/test/matchers/PropertyStrictEquals" {
     /**
      * The Name of the property that is used for matching.
      */
-    name?: string | PropertyBindingInfo | undefined;
+    name?: string | PropertyBindingInfo;
 
     /**
      * The value of the property that is used for matching.
      */
-    value?: any | PropertyBindingInfo | undefined;
+    value?: any | PropertyBindingInfo;
   }
 }
 
@@ -60776,7 +61295,9 @@ declare module "sap/ui/test/matchers/Sibling" {
    * ```
    */
   export default class Sibling {
-    /**/
+    /**
+     *
+     */
     constructor(
       /**
        * the sibling control to check. Can be a control or a control ID. If undefined, the result will always
@@ -60971,41 +61492,41 @@ declare module "sap/ui/test/Opa" {
          * default: 15 - (seconds) Specifies how long the waitFor function polls before it fails.O means it will
          * wait forever.
          */
-        timeout?: int | undefined;
+        timeout?: int;
         /**
          * @since 1.47 default: 0 - (seconds) Specifies how long the waitFor function polls before it fails in debug
          * mode.O means it will wait forever.
          */
-        debugTimeout?: int | undefined;
+        debugTimeout?: int;
         /**
          * default: 400 - (milliseconds) Specifies how often the waitFor function polls.
          */
-        pollingInterval?: int | undefined;
+        pollingInterval?: int;
         /**
          * @since 1.55 default: false Enable asynchronous polling after success() call. This allows more stable
          * autoWaiter synchronization with event flows originating from within success(). Especially usefull to
          * stabilize synchronization with overflow toolbars.
          */
-        asyncPolling?: boolean | undefined;
+        asyncPolling?: boolean;
         /**
          * Will get invoked in every polling interval. If it returns true, the check is successful and the polling
          * will stop. The first parameter passed into the function is the same value that gets passed to the success
          * function. Returning something other than boolean in the check will not change the first parameter of
          * success.
          */
-        check?: Function | undefined;
+        check?: Function;
         /**
          * Will get invoked after the check function returns true. If there is no check function defined, it will
          * be directly invoked. waitFor statements added in the success handler will be executed before previously
          * added waitFor statements.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * Will be displayed as an errorMessage depending on your unit test framework. Currently the only adapter
          * for Opa is QUnit. This message is displayed there if Opa has reached its timeout but QUnit has not yet
          * reached it.
          */
-        errorMessage?: string | undefined;
+        errorMessage?: string;
       }
     ): object;
   }
@@ -61178,7 +61699,7 @@ declare module "sap/ui/test/Opa5" {
      * Returns the QUnit utils object in the current context. If an iframe is launched, it will return the iframe's
      * QUnit utils.
      */
-    static getUtils(): any;
+    static getUtils(): /* was: sap.ui.test.qunit */ any;
     /**
      * Returns the window object in the current context. If an iframe is launched, it will return the iframe's
      * window.
@@ -61217,23 +61738,23 @@ declare module "sap/ui/test/Opa5" {
             /**
              * The timeout for loading the iframe in seconds - default is 80
              */
-            timeout?: number | undefined;
+            timeout?: number;
             /**
              * Since 1.53, activates autoWait while the application is starting up. This allows more time for application
              * startup and stabilizes tests for slow-loading applications. This parameter is false by default, regardless
              * of the global autoWait value, to prevent issues in existing tests.
              */
-            autoWait?: boolean | undefined;
+            autoWait?: boolean;
             /**
              * Since 1.57, sets a fixed width for the iframe.
              */
-            width?: string | number | undefined;
+            width?: string | number;
             /**
              * Since 1.57, sets a fixed height for the iframe. Setting width and/or height is useful when testing responsive
              * applications on screens of varying sizes. By default, the iframe dimensions are 60% of the outer window
              * dimensions.
              */
-            height?: string | number | undefined;
+            height?: string | number;
           },
       /**
        * The timeout for loading the iframe in seconds - default is 80
@@ -61276,23 +61797,23 @@ declare module "sap/ui/test/Opa5" {
             /**
              * The timeout for loading the iframe in seconds - default is 80
              */
-            timeout?: number | undefined;
+            timeout?: number;
             /**
              * Since 1.53, activates autoWait while the application is starting up. This allows more time for application
              * startup and stabilizes tests for slow-loading applications. This parameter is false by default, regardless
              * of the global autoWait value, to prevent issues in existing tests.
              */
-            autoWait?: boolean | undefined;
+            autoWait?: boolean;
             /**
              * Since 1.57, sets a fixed width for the iframe.
              */
-            width?: string | number | undefined;
+            width?: string | number;
             /**
              * Since 1.57, sets a fixed height for the iframe. Setting width and/or height is useful when testing responsive
              * applications on screens of varying sizes. Since 1.65, by default, the iframe dimensions are 60% of the
              * default screen size, considered to be 1280x1024.
              */
-            height?: string | number | undefined;
+            height?: string | number;
           },
       /**
        * The timeout for loading the iframe in seconds - default is 80.
@@ -61333,17 +61854,17 @@ declare module "sap/ui/test/Opa5" {
          * Sets the hash {@link sap.ui.core.routing.HashChanger#setHash} to the given value. If this parameter is
          * omitted, the hash will always be reset to the empty hash - "".
          */
-        hash?: string | undefined;
+        hash?: string;
         /**
          * The timeout for loading the UIComponent in seconds - {@link sap.ui.test.Opa5#waitFor}.
          */
-        timeout?: number | undefined;
+        timeout?: number;
         /**
          * Since 1.53, activates autoWait while the application is starting up. This allows more time for application
          * startup and stabilizes tests for slow-loading applications. This parameter is false by default, regardless
          * of the global autoWait value, to prevent issues in existing tests.
          */
-        autoWait?: boolean | undefined;
+        autoWait?: boolean;
       }
     ): jQuery.Promise;
     /**
@@ -61462,26 +61983,26 @@ declare module "sap/ui/test/Opa5" {
          * myView--myButton. Although the IDs of the controls myView--bar and myView--baz contain a my, they will
          * not be matched since only the part you really write in your views will be matched.
          */
-        id?: string | RegExp | undefined;
+        id?: string | RegExp;
         /**
          * The name of a view. If viewName is set, controls will be searched only inside this view. If control ID
          * is given, it will be considered to be relative to the view.
          */
-        viewName?: string | undefined;
+        viewName?: string;
         /**
          * viewName prefix. Recommended to be set in {@link sap.ui.test.Opa5.extendConfig} instead.
          */
-        viewNamespace?: string | undefined;
+        viewNamespace?: string;
         /**
          * @since 1.62 The ID of a view. Can be used alone or in combination with viewName and viewNamespace. *
          * Always set view ID if there are multiple views with the same name.
          */
-        viewId?: string | undefined;
+        viewId?: string;
         /**
          * @since 1.63 The ID of a fragment. If set, controls will match only if their IDs contain the fragment
          * ID prefix.
          */
-        fragmentId?: string | undefined;
+        fragmentId?: string;
         /**
          * Matchers used to filter controls. Could be a function, a single matcher instance, an array of matcher
          * instances, or, since version 1.72, a plain object to specify matchers declaratively. For a full list
@@ -61532,7 +62053,7 @@ declare module "sap/ui/test/Opa5" {
          *             ]}
          * ```
          */
-        matchers?: Function | Array<any> | object | Matcher | undefined;
+        matchers?: Function | any[] | object | Matcher;
         /**
          * Selects all control by their type. It is usually combined with a viewName or searchOpenDialogs. If no
          * control is matching the type, an empty array will be returned. Here are some samples:
@@ -61565,16 +62086,16 @@ declare module "sap/ui/test/Opa5" {
          *         });
          *     ```
          */
-        controlType?: string | undefined;
+        controlType?: string;
         /**
          * If set to true, Opa5 will only look in open dialogs. All the other values except control type will be
          * ignored
          */
-        searchOpenDialogs?: boolean | undefined;
+        searchOpenDialogs?: boolean;
         /**
          * If set to false, Opa5 will also look for unrendered and invisible controls.
          */
-        visible?: boolean | undefined;
+        visible?: boolean;
         /**
          * @since 1.66 If set to false, Opa5 will look for both enabled and disabled controls. Note that this option's
          * default value is related to the autoWait mechanism:
@@ -61584,38 +62105,38 @@ declare module "sap/ui/test/Opa5" {
          * 			if you use autoWait and you want to find a disabled control, you need to explicitly set options.enabled
          * 			to false.
          */
-        enabled?: boolean | undefined;
+        enabled?: boolean;
         /**
          * @since 1.80 If set to true, the {@link sap.ui.test.matchers.Interactable} matcher will be applied. If
          * autoWait is true, this option has no effect and interactable will always be true. If autoWait is false,
          * which is the default state, the value of the interactable property will have an effect. When interactable
          * is true, enabled will also be set to true, unless declared otherwise.
          */
-        interactable?: boolean | undefined;
+        interactable?: boolean;
         /**
          * @since 1.80 If set to true, Opa5 will match only editable controls. If set to false, Opa5 will match
          * both editable and non-editable controls.
          */
-        editable?: boolean | undefined;
+        editable?: boolean;
         /**
          * (seconds) Specifies how long the waitFor function polls before it fails.O means it will wait forever.
          */
-        timeout?: int | undefined;
+        timeout?: int;
         /**
          * @since 1.47 (seconds) Specifies how long the waitFor function polls before it fails in debug mode.O means
          * it will wait forever.
          */
-        debugTimeout?: int | undefined;
+        debugTimeout?: int;
         /**
          * (milliseconds) Specifies how often the waitFor function polls.
          */
-        pollingInterval?: int | undefined;
+        pollingInterval?: int;
         /**
          * Will get invoked in every polling interval. If it returns true, the check is successful and the polling
          * will stop. The first parameter passed into the function is the same value that gets passed to the success
          * function. Returning something other than boolean in check will not change the first parameter of success.
          */
-        check?: Function | undefined;
+        check?: Function;
         /**
          * Will get invoked after the following conditions are met:
          * 	 -  One or multiple controls were found using controlType, Id, viewName. If visible is true (it is by
@@ -61626,17 +62147,17 @@ declare module "sap/ui/test/Opa5" {
          * 			(viewName, controlType, multiple ID's, regex ID's) that matched all matchers. Matchers can alter the
          * 			array or single control to something different. Please read the documentation of waitFor's matcher parameter.
          */
-        success?: Function | undefined;
+        success?: Function;
         /**
          * Invoked when the timeout is reached and the check never returned true.
          */
-        error?: Function | undefined;
+        error?: Function;
         /**
          * Will be displayed as an errorMessage depending on your unit test framework. Currently the only adapter
          * for Opa5 is QUnit. This message is displayed if Opa5 has reached its timeout before QUnit has reached
          * it.
          */
-        errorMessage?: string | undefined;
+        errorMessage?: string;
         /**
          * Available since 1.34.0. An array of functions or Actions or a mixture of both. An action has an 'executeOn'
          * function that will receive a single control as a parameter. If there are multiple actions defined all
@@ -61714,7 +62235,7 @@ declare module "sap/ui/test/Opa5" {
          *  This is also the easiest way of migrating existing tests. First extend the config, then see which waitFors
          * will time out and finally disable autoWait in these Tests.
          */
-        autoWait?: boolean | undefined;
+        autoWait?: boolean;
       }
     ): object;
   }
@@ -61764,31 +62285,31 @@ declare module "sap/ui/test/Opa5" {
      *     });
      *   ```
      */
-    viewName?: string | undefined;
+    viewName?: string;
     /**
      * When a `viewId` is given, all `waitFor` calls inside of the page object will get a `viewId` parameter.
      * Use when there are multiple views with the same viewName.
      */
-    viewId?: string | undefined;
+    viewId?: string;
     /**
      * Base class for the page object's actions and assertions
      */
-    baseClass?: Function | undefined;
+    baseClass?: Function;
     /**
      * Namespace prefix for the page object's actions and assertions. Use it if you use page objects from multiple
      * projects in the same test build.
      */
-    namespace?: string | undefined;
+    namespace?: string;
     /**
      * A map of functions that can be used as arrangement or action in Opa tests. Only the test decides whether
      * a function is used as arrangement or action. Each function typically contains one or multiple `waitFor`
      * statements.
      */
-    actions?: Record<string, () => void> | undefined;
+    actions?: Record<string, Function>;
     /**
      * A map of functions that can be used as assertions in Opa tests.
      */
-    assertions?: Record<string, () => void> | undefined;
+    assertions?: Record<string, Function>;
   };
 }
 
@@ -61909,11 +62430,11 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * additional matchers to filter target control(s)
        */
-      vMatchers?: Matcher | Function | Array<any> | Object,
+      vMatchers?: Matcher | Function | any[] | Object,
       /**
        * the actions to be performed on target control(s)
        */
-      vActions?: Action | Function | Array<any>,
+      vActions?: Action | Function | any[],
       /**
        * oOptions the {@link sap.ui.test.Opa5#waitFor} options to apply
        */
@@ -61954,7 +62475,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the action(s) to be performed on matched controls
        */
-      vActions: Action | Function | Array<any>,
+      vActions: Action | Function | any[],
       /**
        * true to replace all previous defined actions, false to add it (default)
        */
@@ -61968,15 +62489,15 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * target control is checked against these given conditions
        */
-      vConditions: Matcher | Function | Array<any> | Object | boolean,
+      vConditions: Matcher | Function | any[] | Object | boolean,
       /**
        * the actions to be performed when conditions are fulfilled
        */
-      vSuccessActions: Action | Function | Array<any>,
+      vSuccessActions: Action | Function | any[],
       /**
        * the action(s) to be performed when conditions are not fulfilled
        */
-      vElseActions?: Action | Function | Array<any>
+      vElseActions?: Action | Function | any[]
     ): this;
     /**
      * Performs a {@link sap.ui.test.actions.EnterText} on target control(s).
@@ -62014,11 +62535,24 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the matchers to filter aggregation items
        */
-      vMatchers: Matcher | Function | Array<any> | Object,
+      vMatchers: Matcher | Function | any[] | Object,
       /**
        * the actions to be performed on matching aggregation items
        */
-      vActions: Action | Function | Array<any>
+      vActions: Action | Function | any[]
+    ): this;
+    /**
+     * Performs given actions on all items of an aggregation fulfilling the matchers.
+     */
+    doOnAggregation(
+      /**
+       * the aggregation name
+       */
+      sAggregationName: string,
+      /**
+       * the actions to be performed on matching aggregation items
+       */
+      vActions: Action | Function | any[]
     ): this;
     /**
      * Executes a builder with matching controls being descendants of matching target control(s). Children are
@@ -62028,16 +62562,11 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the child builder or child matcher
        */
-      vChildBuilderOrMatcher?:
-        | Matcher
-        | Function
-        | Array<any>
-        | Object
-        | OpaBuilder,
+      vChildBuilderOrMatcher?: Matcher | Function | any[] | Object | OpaBuilder,
       /**
        * the actions to be performed on matching child items
        */
-      vActions?: Action | Function | Array<any>,
+      vActions?: Action | Function | any[],
       /**
        * specifies if the ancestor should be a direct ancestor (parent)
        */
@@ -62095,7 +62624,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * additional matchers to filter target control(s)
        */
-      vMatchers: Matcher | Function | Array<any> | Object,
+      vMatchers: Matcher | Function | any[] | Object,
       /**
        * true to replace all previous defined matchers, false to add it (default)
        */
@@ -62112,7 +62641,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * matchers to filter aggregation items
        */
-      vMatchers?: Matcher | Function | Array<any> | Object
+      vMatchers?: Matcher | Function | any[] | Object
     ): this;
     /**
      * Adds a matcher that checks for a certain number of aggregation items.
@@ -62148,7 +62677,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the matchers to filter child items
        */
-      vBuilderOrMatcher?: Matcher | Function | Array<any> | Object | OpaBuilder,
+      vBuilderOrMatcher?: Matcher | Function | any[] | Object | OpaBuilder,
       /**
        * specifies if the ancestor should be a direct ancestor (parent)
        */
@@ -62161,15 +62690,15 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * conditions to pre-check
        */
-      vConditions: Matcher | Function | Array<any> | Object | boolean,
+      vConditions: Matcher | Function | any[] | Object | boolean,
       /**
        * actual matcher that is executed if conditions are met
        */
-      vSuccessMatcher: Matcher | Function | Array<any> | Object,
+      vSuccessMatcher: Matcher | Function | any[] | Object,
       /**
        * actual matcher that is executed if conditions are not met
        */
-      vElseMatcher?: Matcher | Function | Array<any> | Object
+      vElseMatcher?: Matcher | Function | any[] | Object
     ): this;
     /**
      * Adds a matcher for given properties.
@@ -62214,7 +62743,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * aMatchers list of matchers were one must be met
        */
-      aMatchers?: Matcher | Function | Array<any> | Object
+      aMatchers?: Matcher | Function | any[] | Object
     ): this;
     /**
      * Defines the control type of the target control(s).
@@ -62340,19 +62869,6 @@ declare module "sap/ui/test/OpaBuilder" {
        */
       sViewNamespace: string
     ): this;
-    /**
-     * Performs given actions on all items of an aggregation fulfilling the matchers.
-     */
-    doOnAggregation(
-      /**
-       * the aggregation name
-       */
-      sAggregationName: string,
-      /**
-       * the actions to be performed on matching aggregation items
-       */
-      vActions: Action | Function | Array<any>
-    ): this;
   }
   /**
    * A collection of predefined actions. See also {@link sap.ui.test.actions}.
@@ -62365,15 +62881,15 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * target control is checked against these given conditions
        */
-      vConditions: Matcher | Function | Array<any> | Object | boolean,
+      vConditions: Matcher | Function | any[] | Object | boolean,
       /**
        * the actions to be performed when conditions are fulfilled
        */
-      vSuccessBuilderOrOptions: Action | Function | Array<any> | OpaBuilder,
+      vSuccessBuilderOrOptions: Action | Function | any[] | OpaBuilder,
       /**
        * the action(s) to be performed when conditions are not fulfilled
        */
-      vElseBuilderOptions?: Action | Function | Array<any> | OpaBuilder
+      vElseBuilderOptions?: Action | Function | any[] | OpaBuilder
     ): Function;
     /**
      * Creates a {@link sap.ui.test.actions.EnterText} action.
@@ -62408,7 +62924,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the actions to be executed
        */
-      vActions: Action | Function | Array<any>
+      vActions: Action | Function | any[]
     ): Function;
     /**
      * Creates a {@link sap.ui.test.actions.Press} action.
@@ -62434,7 +62950,7 @@ declare module "sap/ui/test/OpaBuilder" {
      * var fnFalsyMatcher = OpaBuilder.Matchers.FALSE;```
      *  `
      */
-    FALSE: Function;
+    FALSE: () => boolean;
 
     /**
      * A matcher function that always returns `true`.
@@ -62444,7 +62960,7 @@ declare module "sap/ui/test/OpaBuilder" {
      * var fnTruthyMatcher = OpaBuilder.Matchers.TRUE;```
      *  `
      */
-    TRUE: Function;
+    TRUE: () => boolean;
 
     /**
      * Creates a matcher function that returns all aggregation items fulfilling given matcher(s). The result
@@ -62458,7 +62974,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the matchers to filter aggregation items
        */
-      vMatchers?: Matcher | Function | Array<any> | Object
+      vMatchers?: Matcher | Function | any[] | Object
     ): Function;
     /**
      * Creates a matcher function that returns an aggregation element of a control at a given index.
@@ -62497,7 +63013,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the matchers to filter aggregation items
        */
-      vMatchers?: Matcher | Function | Array<any> | Object
+      vMatchers?: Matcher | Function | any[] | Object
     ): Function;
     /**
      * Creates a declarative matcher definition for {@link sap.ui.test.matchers.Ancestor}.
@@ -62541,6 +63057,15 @@ declare module "sap/ui/test/OpaBuilder" {
       oProperties: object
     ): Function;
     /**
+     * Creates a matcher that checks whether the bound context or model has the given properties.
+     */
+    bindingProperties(
+      /**
+       * the property-path map with expected values
+       */
+      oProperties: object
+    ): Function;
+    /**
      * Creates a matcher function that returns all children fulfilling given matcher(s). The result will always
      * be an array, even if only one child was found.
      */
@@ -62548,7 +63073,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the matchers to filter child items
        */
-      vBuilderOrMatcher?: Matcher | Function | Array<any> | Object | OpaBuilder,
+      vBuilderOrMatcher?: Matcher | Function | any[] | Object | OpaBuilder,
       /**
        * specifies if the ancestor should be a direct ancestor (parent)
        */
@@ -62561,7 +63086,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the matchers to filter child items
        */
-      vBuilderOrMatcher?: Matcher | Function | Array<any> | Object | OpaBuilder,
+      vBuilderOrMatcher?: Matcher | Function | any[] | Object | OpaBuilder,
       /**
        * specifies if the ancestor should be a direct ancestor (parent)
        */
@@ -62574,15 +63099,15 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * conditions to pre-check
        */
-      vConditions: Matcher | Function | Array<any> | Object | boolean,
+      vConditions: Matcher | Function | any[] | Object | boolean,
       /**
        * actual matcher that is executed if conditions are met
        */
-      vSuccessMatcher: Matcher | Function | Array<any> | Object,
+      vSuccessMatcher: Matcher | Function | any[] | Object,
       /**
        * actual matcher that is executed if conditions are not met
        */
-      vElseMatcher?: Matcher | Function | Array<any> | Object
+      vElseMatcher?: Matcher | Function | any[] | Object
     ): Function;
     /**
      * Creates a matcher that checks whether a control has all given custom data.
@@ -62616,7 +63141,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the matchers to check all items against
        */
-      vMatchers?: Matcher | Function | Array<any> | Object
+      vMatchers?: Matcher | Function | any[] | Object
     ): Function;
     /**
      * Creates a matcher that checks whether a control has the focus.
@@ -62667,13 +63192,31 @@ declare module "sap/ui/test/OpaBuilder" {
       aParameters?: any[]
     ): object;
     /**
+     * Creates a {@link sap.ui.test.matchers.LabelFor} matcher.
+     */
+    labelFor(
+      /**
+       * the name of the control property to match the I18N text with
+       */
+      sPropertyName: string,
+      /**
+       * the path to the I18N text containing the model name. If `bText` set true, contains the plain text to
+       * check against
+       */
+      sModelTokenPathOrText: string,
+      /**
+       * the values to be used instead of the placeholders in case of I18N texts
+       */
+      aParameters?: any[]
+    ): object;
+    /**
      * Creates a matcher that checks a single input against all defined matchers.
      */
     match(
       /**
        * the matchers to check all items against
        */
-      vMatchers?: Matcher | Function | Array<any> | Object
+      vMatchers?: Matcher | Function | any[] | Object
     ): Function;
     /**
      * Creates a matcher function which is negating the result of provided matchers. The matcher function returns
@@ -62692,7 +63235,7 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * the matchers that will actually be executed
        */
-      vMatchers?: Matcher | Function | Array<any> | Object
+      vMatchers?: Matcher | Function | any[] | Object
     ): Function;
     /**
      * Creates a {@link sap.ui.test.matchers.Properties} matcher.
@@ -62731,35 +63274,8 @@ declare module "sap/ui/test/OpaBuilder" {
       /**
        * aMatchers list of matchers were one must be met
        */
-      aMatchers?: Matcher | Function | Array<any> | Object
+      aMatchers?: Matcher | Function | any[] | Object
     ): Function;
-    /**
-     * Creates a matcher that checks whether the bound context or model has the given properties.
-     */
-    bindingProperties(
-      /**
-       * the property-path map with expected values
-       */
-      oProperties: object
-    ): Function;
-    /**
-     * Creates a {@link sap.ui.test.matchers.LabelFor} matcher.
-     */
-    labelFor(
-      /**
-       * the name of the control property to match the I18N text with
-       */
-      sPropertyName: string,
-      /**
-       * the path to the I18N text containing the model name. If `bText` set true, contains the plain text to
-       * check against
-       */
-      sModelTokenPathOrText: string,
-      /**
-       * the values to be used instead of the placeholders in case of I18N texts
-       */
-      aParameters?: any[]
-    ): object;
   }
   export const Matchers: Matchers;
 }
@@ -62823,7 +63339,9 @@ declare module "sap/ui/test/OpaPlugin" {
    * A Plugin to search UI5 controls.
    */
   export default class OpaPlugin extends BaseObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -62860,7 +63378,7 @@ declare module "sap/ui/test/OpaPlugin" {
        * optional control type name, e.g: "sap.m.CheckBox"
        */
       sControlType?: string
-    ): Array<any>;
+    ): any[];
     /**
      * Find a control by its global ID.
      */
@@ -62872,11 +63390,11 @@ declare module "sap/ui/test/OpaPlugin" {
         /**
          * required - ID to match. Can be string, regex or array
          */
-        id?: string | string[] | undefined;
+        id?: string | string[];
         /**
          * optional - control type to match
          */
-        controlType?: string | Function | undefined;
+        controlType?: string | Function;
       }
     ): UI5Element | UI5Element[];
     /**
@@ -62921,40 +63439,40 @@ declare module "sap/ui/test/OpaPlugin" {
          * Controls will only be searched inside this view (ie: the view (as a control) has to be an ancestor of
          * the control) If a control ID is given, the control will be found using the byId function of the view.
          */
-        viewName?: string | undefined;
+        viewName?: string;
         /**
          * @since 1.62 Controls will only be searched inside this view (ie: the view (as a control) has to be an
          * ancestor of the control) If a control ID is given, the control will be found using the byId function
          * of the view.
          */
-        viewId?: string | undefined;
+        viewId?: string;
         /**
          * The ID of one or multiple controls. This can be a global ID or an ID used together with viewName. See
          * the documentation of this parameter.
          */
-        id?: string | string[] | undefined;
+        id?: string | string[];
         /**
          * should the control have a visible DOM reference
          */
-        visible?: boolean | undefined;
+        visible?: boolean;
         /**
          * @since 1.34 should the control be interactable and enabled. When true, only interactable and enabled
          * controls will be matched. For details, see the {@link sap.ui.test.matchers.Interactable} matcher.
          */
-        interactable?: boolean | undefined;
+        interactable?: boolean;
         /**
          * @since 1.66 should the control be enabled. If interactable is true, enabled will also be true, unless
          * declared otherwise.
          */
-        enabled?: boolean | undefined;
+        enabled?: boolean;
         /**
          * @since 1.80 should the control be editable.
          */
-        editable?: boolean | undefined;
+        editable?: boolean;
         /**
          * Only controls in the static UI area of UI5 are searched.
          */
-        searchOpenDialogs?: boolean | undefined;
+        searchOpenDialogs?: boolean;
         /**
          * @since 1.40 match all controls of a certain type It is usually combined with viewName or searchOpenDialogs.
          * If no control matches the type, an empty array will be returned. Examples:
@@ -62980,7 +63498,7 @@ declare module "sap/ui/test/OpaPlugin" {
          *         });
          * ```
          */
-        controlType?: string | Function | undefined;
+        controlType?: string | Function;
       }
     ): UI5Element | UI5Element[] | null;
     /**
@@ -63011,7 +63529,9 @@ declare module "sap/ui/test/PageObjectFactory" {
    * Page Object Factory.
    */
   export default class PageObjectFactory extends BaseObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -63046,7 +63566,9 @@ declare module "sap/ui/test/RecordReplay" {
    * Record-and-replay implementation for OPA5.
    */
   export default class RecordReplay extends BaseObject {
-    /**/
+    /**
+     *
+     */
     constructor();
 
     /**
@@ -63089,7 +63611,7 @@ declare module "sap/ui/test/RecordReplay" {
          */
         selector: ControlSelector;
       }
-    ): Promise<Array<any> | Error>;
+    ): Promise<any[] | Error>;
     /**
      * Find the best control selector for a DOM element. A selector uniquely represents a single element. The
      * 'best' selector is the one with which it is most likely to uniquely identify a control with the least
@@ -63163,7 +63685,7 @@ declare module "sap/ui/test/RecordReplay" {
         /**
          * Clear existing text before interaction
          */
-        clearTextFirst?: string | undefined;
+        clearTextFirst?: string;
       }
     ): Promise<undefined | Error>;
     /**
@@ -63177,11 +63699,11 @@ declare module "sap/ui/test/RecordReplay" {
         /**
          * Time in milliseconds to wait until processing is complete
          */
-        timeout?: int | undefined;
+        timeout?: int;
         /**
          * Time in milliseconds to wait between checks
          */
-        interval?: int | undefined;
+        interval?: int;
       }
     ): Promise<undefined | Error>;
   }
@@ -63289,31 +63811,31 @@ declare namespace sap {
              * the location of the final component defined via that manifest, otherwise it specifies the location of
              * the component defined via its name `vConfig.name`.
              */
-            url?: string | undefined;
+            url?: string;
             /**
              * Initial data of the Component (@see sap.ui.core.Component#getComponentData)
              */
-            componentData?: object | undefined;
+            componentData?: object;
             /**
              * sId of the new Component
              */
-            id?: string | undefined;
+            id?: string;
             /**
              * Settings of the new Component
              */
-            settings?: object | undefined;
+            settings?: object;
             /**
              * List of active terminologies. The order of the given active terminologies is significant. The {@link
              * module:sap/base/i18n/ResourceBundle ResourceBundle} API documentation describes the processing behavior
              * in more detail. Please also have a look at this dev-guide chapter for general usage instructions: {@link
              * topic:eba8d25a31ef416ead876e091e67824e Text Verticalization}.
              */
-            activeTerminologies?: string[] | undefined;
+            activeTerminologies?: string[];
             /**
              * Indicates whether the Component creation should be done asynchronously; defaults to true when using the
              * manifest property with a truthy value otherwise the default is false (experimental setting)
              */
-            async?: boolean | undefined;
+            async?: boolean;
             /**
              * @since 1.27.0 Hints for the asynchronous loading. **Beware:** This parameter is only used internally
              * by the UI5 framework and compatibility cannot be guaranteed. The parameter must not be used in productive
@@ -63323,17 +63845,17 @@ declare namespace sap {
               /**
                * Libraries that should be (pre-)loaded before the Component (experimental setting)
                */
-              libs?: string[] | undefined;
+              libs?: string[];
               /**
                * Components that should be (pre-)loaded before the Component (experimental setting)
                */
-              components?: string[] | undefined;
+              components?: string[];
               /**
                * @since 1.37.0 a `Promise` or and array of `Promise`s for which the Component instantiation should wait
                * (experimental setting)
                */
-              waitFor?: Promise<any> | Promise<any>[] | undefined;
-            } | undefined;
+              waitFor?: Promise<any> | Array<Promise<any>>;
+            };
             /**
              * @since 1.49.0 Controls when and from where to load the manifest for the Component. When set to any truthy
              * value, the manifest will be loaded asynchronously by default and evaluated before the Component controller,
@@ -63343,25 +63865,25 @@ declare namespace sap {
              * completely deactivates the properties `manifestUrl` and `manifestFirst`, no matter what their values
              * are.
              */
-            manifest?: boolean | string | object | undefined;
+            manifest?: boolean | string | object;
             /**
              * @since 1.33.0 Specifies the URL from where the manifest should be loaded from Using this property implies
              * `vConfig.manifestFirst=true`.
              * **DEPRECATED since 1.49.0, use `vConfig.manifest=url` instead!**. Note that this property is ignored
              * when `vConfig.manifest` has a value other than `undefined`.
              */
-            manifestUrl?: string | undefined;
+            manifestUrl?: string;
             /**
              * @since 1.33.0 defines whether the manifest is loaded before or after the Component controller. Defaults
              * to `sap.ui.getCore().getConfiguration().getManifestFirst()`
              * **DEPRECATED since 1.49.0, use `vConfig.manifest=true|false` instead!** Note that this property is ignored
              * when `vConfig.manifest` has a value other than `undefined`.
              */
-            manifestFirst?: boolean | undefined;
+            manifestFirst?: boolean;
             /**
              * If set to `true` validation of the component is handled by the `MessageManager`
              */
-            handleValidation?: string | undefined;
+            handleValidation?: string;
           }
     ): import("sap/ui/core/Component").default | Promise<any>;
     /**
@@ -63629,10 +64151,734 @@ declare namespace sap {
       /**
        * List of dependencies of the module
        */
-      aDependencies: (
-        | keyof sap.IUI5DefineDependencyNames
-        | (string & { IGNORE_ME?: never | undefined })
-      )[],
+      aDependencies: Array<
+        keyof sap.IUI5DefineDependencyNames | (string & { IGNORE_ME?: never })
+      >,
+      /**
+       * The module export value or a function that calculates that value
+       */
+      vFactory: Function | any,
+      /**
+       * Whether an export to global names is required - should be used by SAP-owned code only
+       */
+      bExport?: boolean
+    ): void;
+    /**
+     * @SINCE 1.27.0
+     *
+     * Defines a JavaScript module with its ID, its dependencies and a module export value or factory.
+     *
+     * The typical and only suggested usage of this method is to have one single, top level call to `sap.ui.define`
+     * in one JavaScript resource (file). When a module is requested by its module ID for the first time, the
+     * corresponding resource is determined from the ID and the current {@link sap.ui.loader.config configuration}.
+     * The resource will be loaded and executed which in turn will execute the top level `sap.ui.define` call.
+     *
+     * If the module ID was omitted from that call, it will be substituted by the ID that was used to request
+     * the module. As a preparation step, the dependencies as well as their transitive dependencies, will be
+     * loaded. Then, the module value (its export) will be determined: if a static value (object, literal) was
+     * given as `vFactory`, that value will be the module value. If a function was given, that function will
+     * be called (providing the module exports of the declared dependencies as parameters to the function) and
+     * its return value will be used as module export value. The framework internally associates the resulting
+     * value with the module ID and provides it to the original requester of the module. Whenever the module
+     * is requested again, the same export value will be returned (modules are executed only once).
+     *
+     * Example:
+     *  The following example defines a module, but doesn't hard code the module ID. If stored in a file 'sap/mylib/SomeClass.js',
+     * it can be requested with the ID 'sap/mylib/SomeClass'.
+     * ```javascript
+     *
+     *   sap.ui.define(['./Helper', 'sap/m/Bar'], function(Helper,Bar) {
+     *
+     *     // create a new class
+     *     var SomeClass = function() {};
+     *
+     *     // add methods to its prototype
+     *     SomeClass.prototype.foo = function() {
+     *
+     *         // use a function from the dependency 'Helper' in the same package (e.g. 'sap/mylib/Helper' )
+     *         var mSettings = Helper.foo();
+     *
+     *         // create and return an sap.m.Bar (using its local name 'Bar')
+     *         return new Bar(mSettings);
+     *
+     *     }
+     *
+     *     // return the class as module value
+     *     return SomeClass;
+     *
+     *   });
+     * ```
+     *
+     *
+     * In another module or in an application HTML page, the {@link sap.ui.require} API can be used to load
+     * the sap/mylib/Something module and to work with it:
+     *
+     *
+     * ```javascript
+     *
+     * sap.ui.require(['sap/mylib/Something'], function(Something) {
+     *
+     *   // instantiate a Something and call foo() on it
+     *   new Something().foo();
+     *
+     * });
+     * ```
+     *
+     *
+     * Module Name Syntax:
+     *
+     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name}
+     * syntax for the module's own name as well as for its dependencies. The only difference to that syntax
+     * is, that for `sap.ui.define` and `sap.ui.require`, the extension (which always would be '.js') has to
+     * be omitted. Both methods always add this extension internally.
+     *
+     * As a convenience, the name of a dependency can start with the segment './' which will be replaced by
+     * the name of the package that contains the currently defined module (relative name).
+     *
+     * It is best practice to omit the name of the defined module (first parameter) and to use relative names
+     * for the dependencies whenever possible. This reduces the necessary configuration, simplifies renaming
+     * of packages and allows to map them to a different namespace.
+     *
+     * Dependency to Modules:
+     *
+     * If a dependencies array is given, each entry represents the name of another module that the currently
+     * defined module depends on. All dependency modules are loaded before the export of the currently defined
+     * module is determined. The module export of each dependency module will be provided as a parameter to
+     * a factory function, the order of the parameters will match the order of the modules in the dependencies
+     * array.
+     *
+     * **Note:** The order in which the dependency modules are executed is **not** defined by the order
+     * in the dependencies array! The execution order is affected by dependencies between the dependency
+     * modules as well as by their current state (whether a module already has been loaded or not). Neither
+     * module implementations nor dependents that require a module set must make any assumption about the execution
+     * order (other than expressed by their dependencies).
+     *
+     * **Note:** A static module export (a literal provided to `sap.ui.define`) cannot depend on the module
+     * exports of the dependency modules as it has to be calculated before the dependencies are resolved. As
+     * an alternative, modules can define a factory function, calculate a static export value in that function,
+     * potentially based on the dependencies, and return the result as module export value. The same approach
+     * must be taken when the module export is supposed to be a function.
+     *
+     * Asynchronous Contract:
+     *
+     * `sap.ui.define` is designed to support real Asynchronous Module Definitions (AMD) in future, although
+     * it internally still might use synchronous module loading, depending on configuration and context. However,
+     * callers of `sap.ui.define` must never rely on any synchronous behavior that they might observe in a specific
+     * test scenario.
+     *
+     * For example, callers of `sap.ui.define` must not use the module export value immediately after invoking
+     * `sap.ui.define`:
+     *
+     *
+     * ```javascript
+     *
+     *   // COUNTER EXAMPLE HOW __NOT__ TO DO IT
+     *
+     *   // define a class Something as AMD module
+     *   sap.ui.define('Something', [], function() {
+     *     var Something = function() {};
+     *     return Something;
+     *   });
+     *
+     *   // DON'T DO THAT!
+     *   // accessing the class _synchronously_ after sap.ui.define was called
+     *   new Something();
+     *
+     * ```
+     *
+     *
+     * Applications that need to ensure synchronous module definition or synchronous loading of dependencies
+     * **MUST** use the deprecated legacy APIs {@link jQuery.sap.declare} and {@link jQuery.sap.require}.
+     *
+     * (No) Global References:
+     *
+     * To be in line with AMD best practices, modules defined with `sap.ui.define` should not make any use of
+     * global variables if those variables are also available as module exports. Instead, they should add dependencies
+     * to those modules and use the corresponding parameter of the factory function to access the module exports.
+     *
+     * As the current programming model and the documentation of UI5 heavily rely on global names, there will
+     * be a transition phase where UI5 enables AMD modules and local references to module exports in parallel
+     * to the old global names. The fourth parameter of `sap.ui.define` has been added to support that transition
+     * phase. When this parameter is set to true, the framework provides two additional features
+     *
+     *
+     * 	 - Before the factory function is called, the existence of the global parent namespace for the current
+     * 			module is ensured
+     * 	 - The module export returned by the module's factory function will be automatically exported under
+     * 			the global name which is derived from the ID of the module
+     *
+     * The parameter lets the framework know whether any of those two operations is needed or not. In future
+     * versions of UI5, a central configuration option is planned to suppress those 'exports'.
+     *
+     * Third Party Modules: Although third party modules don't use UI5 APIs, they still can be listed as dependencies
+     * in a `sap.ui.define` call. They will be requested and executed like UI5 modules, but to make their exports
+     * available, so called ***shims*** have to be defined.
+     *
+     * Note that UI5 temporarily deactivates an existing AMD loader while it executes third party modules known
+     * to support AMD. This sounds contradictorily at a first glance as UI5 wants to support AMD, but for now
+     * it is necessary to fully support UI5 applications that rely on global names for such modules.
+     *
+     * For third-party modules that UI5 delivers (e.g. those in namespace `sap/ui/thirdparty/`), the necessary
+     * shims are defined by UI5 itself by executing the private module `ui5loader-autoconfig.js` during bootstrap.
+     *
+     * Example:
+     * ```javascript
+     *
+     *   // module 'Something' wants to use third party library 'URI.js'
+     *   // It is packaged by UI5 as non-UI5-module 'sap/ui/thirdparty/URI'
+     *   // the following shim helps UI5 to correctly load URI.js and to retrieve the module's export value
+     *   // Apps don't have to define that shim, it is already applied by ui5loader-autconfig.js
+     *   sap.ui.loader.config({
+     *     shim: {
+     *       'sap/ui/thirdparty/URI': {
+     *          amd: true, // URI.js reacts on an AMD loader, this flag lets UI5 temp. disable such loaders
+     *          exports: 'URI' // name of the global variable under which URI.js exports its module value
+     *       }
+     *     }
+     *   });
+     *
+     *   // now the module can be retrieved like other modules
+     *   sap.ui.define('Something', ['sap/ui/thirdparty/URI'], function(URIModuleValue) {
+     *
+     *     new URIModuleValue(...); // same as the global 'URI' name: new URI(...)
+     *
+     *     ...
+     *   });
+     * ```
+     *
+     *
+     * Differences to Standard AMD:
+     *
+     * The current implementation of `sap.ui.define` differs from the AMD specification (https://github.com/amdjs/amdjs-api)
+     * or from concrete AMD loaders like `requireJS` in several aspects:
+     * 	 - The name `sap.ui.define` is different from the plain `define`. This has two reasons: first, it avoids
+     * 			the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
+     * 			the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
+     * 			or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
+     * 			of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
+     * 			methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
+     * 			can be loaded, but only when no AMD loader is present or when they expose their export also to the global
+     * 			namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
+     * 			using the `amd:true` flag (see example above)
+     * 	 - Depending on configuration and the current context, `sap.ui.define` loads the dependencies of a module
+     * 			either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
+     * 			is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
+     * 			synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
+     * 			that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
+     * 			{@link jQuery.sap.require}.
+     * 	 - `sap.ui.define` does not support plugins to use other file types, formats or protocols. It is not
+     * 			planned to support this in future
+     * 	 - `sap.ui.define` does not support absolute URLs as module names (dependencies) nor does it allow module
+     * 			names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
+     * 			that points to that URL (or to a prefix of it).
+     * 	 - `sap.ui.define` does **not** support the 'sugar' of requireJS where CommonJS style dependency declarations
+     * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
+     * 			executing the factory function.
+     *
+     * Limitations, Design Considerations:
+     * 	 - **Limitation**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
+     * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
+     * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
+     * 			loading is implemented.
+     * 	 - It was discussed to enforce asynchronous execution of the module factory function (e.g. with a timeout
+     * 			of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
+     * 			call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
+     * 			the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
+     *
+     * 	 - A single file must not contain multiple calls to `sap.ui.define`. Multiple calls currently are only
+     * 			supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
+     * 			how this works might be changed in future implementations and are not part of the API contract
+     * See:
+     * 	https://github.com/amdjs/amdjs-api
+     */
+    function define(
+      /**
+       * ID of the module in simplified resource name syntax. When omitted, the loader determines the ID from
+       * the request.
+       */
+      sModuleName: string,
+      /**
+       * The module export value or a function that calculates that value
+       */
+      vFactory: Function | any,
+      /**
+       * Whether an export to global names is required - should be used by SAP-owned code only
+       */
+      bExport?: boolean
+    ): void;
+    /**
+     * @SINCE 1.27.0
+     *
+     * Defines a JavaScript module with its ID, its dependencies and a module export value or factory.
+     *
+     * The typical and only suggested usage of this method is to have one single, top level call to `sap.ui.define`
+     * in one JavaScript resource (file). When a module is requested by its module ID for the first time, the
+     * corresponding resource is determined from the ID and the current {@link sap.ui.loader.config configuration}.
+     * The resource will be loaded and executed which in turn will execute the top level `sap.ui.define` call.
+     *
+     * If the module ID was omitted from that call, it will be substituted by the ID that was used to request
+     * the module. As a preparation step, the dependencies as well as their transitive dependencies, will be
+     * loaded. Then, the module value (its export) will be determined: if a static value (object, literal) was
+     * given as `vFactory`, that value will be the module value. If a function was given, that function will
+     * be called (providing the module exports of the declared dependencies as parameters to the function) and
+     * its return value will be used as module export value. The framework internally associates the resulting
+     * value with the module ID and provides it to the original requester of the module. Whenever the module
+     * is requested again, the same export value will be returned (modules are executed only once).
+     *
+     * Example:
+     *  The following example defines a module, but doesn't hard code the module ID. If stored in a file 'sap/mylib/SomeClass.js',
+     * it can be requested with the ID 'sap/mylib/SomeClass'.
+     * ```javascript
+     *
+     *   sap.ui.define(['./Helper', 'sap/m/Bar'], function(Helper,Bar) {
+     *
+     *     // create a new class
+     *     var SomeClass = function() {};
+     *
+     *     // add methods to its prototype
+     *     SomeClass.prototype.foo = function() {
+     *
+     *         // use a function from the dependency 'Helper' in the same package (e.g. 'sap/mylib/Helper' )
+     *         var mSettings = Helper.foo();
+     *
+     *         // create and return an sap.m.Bar (using its local name 'Bar')
+     *         return new Bar(mSettings);
+     *
+     *     }
+     *
+     *     // return the class as module value
+     *     return SomeClass;
+     *
+     *   });
+     * ```
+     *
+     *
+     * In another module or in an application HTML page, the {@link sap.ui.require} API can be used to load
+     * the sap/mylib/Something module and to work with it:
+     *
+     *
+     * ```javascript
+     *
+     * sap.ui.require(['sap/mylib/Something'], function(Something) {
+     *
+     *   // instantiate a Something and call foo() on it
+     *   new Something().foo();
+     *
+     * });
+     * ```
+     *
+     *
+     * Module Name Syntax:
+     *
+     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name}
+     * syntax for the module's own name as well as for its dependencies. The only difference to that syntax
+     * is, that for `sap.ui.define` and `sap.ui.require`, the extension (which always would be '.js') has to
+     * be omitted. Both methods always add this extension internally.
+     *
+     * As a convenience, the name of a dependency can start with the segment './' which will be replaced by
+     * the name of the package that contains the currently defined module (relative name).
+     *
+     * It is best practice to omit the name of the defined module (first parameter) and to use relative names
+     * for the dependencies whenever possible. This reduces the necessary configuration, simplifies renaming
+     * of packages and allows to map them to a different namespace.
+     *
+     * Dependency to Modules:
+     *
+     * If a dependencies array is given, each entry represents the name of another module that the currently
+     * defined module depends on. All dependency modules are loaded before the export of the currently defined
+     * module is determined. The module export of each dependency module will be provided as a parameter to
+     * a factory function, the order of the parameters will match the order of the modules in the dependencies
+     * array.
+     *
+     * **Note:** The order in which the dependency modules are executed is **not** defined by the order
+     * in the dependencies array! The execution order is affected by dependencies between the dependency
+     * modules as well as by their current state (whether a module already has been loaded or not). Neither
+     * module implementations nor dependents that require a module set must make any assumption about the execution
+     * order (other than expressed by their dependencies).
+     *
+     * **Note:** A static module export (a literal provided to `sap.ui.define`) cannot depend on the module
+     * exports of the dependency modules as it has to be calculated before the dependencies are resolved. As
+     * an alternative, modules can define a factory function, calculate a static export value in that function,
+     * potentially based on the dependencies, and return the result as module export value. The same approach
+     * must be taken when the module export is supposed to be a function.
+     *
+     * Asynchronous Contract:
+     *
+     * `sap.ui.define` is designed to support real Asynchronous Module Definitions (AMD) in future, although
+     * it internally still might use synchronous module loading, depending on configuration and context. However,
+     * callers of `sap.ui.define` must never rely on any synchronous behavior that they might observe in a specific
+     * test scenario.
+     *
+     * For example, callers of `sap.ui.define` must not use the module export value immediately after invoking
+     * `sap.ui.define`:
+     *
+     *
+     * ```javascript
+     *
+     *   // COUNTER EXAMPLE HOW __NOT__ TO DO IT
+     *
+     *   // define a class Something as AMD module
+     *   sap.ui.define('Something', [], function() {
+     *     var Something = function() {};
+     *     return Something;
+     *   });
+     *
+     *   // DON'T DO THAT!
+     *   // accessing the class _synchronously_ after sap.ui.define was called
+     *   new Something();
+     *
+     * ```
+     *
+     *
+     * Applications that need to ensure synchronous module definition or synchronous loading of dependencies
+     * **MUST** use the deprecated legacy APIs {@link jQuery.sap.declare} and {@link jQuery.sap.require}.
+     *
+     * (No) Global References:
+     *
+     * To be in line with AMD best practices, modules defined with `sap.ui.define` should not make any use of
+     * global variables if those variables are also available as module exports. Instead, they should add dependencies
+     * to those modules and use the corresponding parameter of the factory function to access the module exports.
+     *
+     * As the current programming model and the documentation of UI5 heavily rely on global names, there will
+     * be a transition phase where UI5 enables AMD modules and local references to module exports in parallel
+     * to the old global names. The fourth parameter of `sap.ui.define` has been added to support that transition
+     * phase. When this parameter is set to true, the framework provides two additional features
+     *
+     *
+     * 	 - Before the factory function is called, the existence of the global parent namespace for the current
+     * 			module is ensured
+     * 	 - The module export returned by the module's factory function will be automatically exported under
+     * 			the global name which is derived from the ID of the module
+     *
+     * The parameter lets the framework know whether any of those two operations is needed or not. In future
+     * versions of UI5, a central configuration option is planned to suppress those 'exports'.
+     *
+     * Third Party Modules: Although third party modules don't use UI5 APIs, they still can be listed as dependencies
+     * in a `sap.ui.define` call. They will be requested and executed like UI5 modules, but to make their exports
+     * available, so called ***shims*** have to be defined.
+     *
+     * Note that UI5 temporarily deactivates an existing AMD loader while it executes third party modules known
+     * to support AMD. This sounds contradictorily at a first glance as UI5 wants to support AMD, but for now
+     * it is necessary to fully support UI5 applications that rely on global names for such modules.
+     *
+     * For third-party modules that UI5 delivers (e.g. those in namespace `sap/ui/thirdparty/`), the necessary
+     * shims are defined by UI5 itself by executing the private module `ui5loader-autoconfig.js` during bootstrap.
+     *
+     * Example:
+     * ```javascript
+     *
+     *   // module 'Something' wants to use third party library 'URI.js'
+     *   // It is packaged by UI5 as non-UI5-module 'sap/ui/thirdparty/URI'
+     *   // the following shim helps UI5 to correctly load URI.js and to retrieve the module's export value
+     *   // Apps don't have to define that shim, it is already applied by ui5loader-autconfig.js
+     *   sap.ui.loader.config({
+     *     shim: {
+     *       'sap/ui/thirdparty/URI': {
+     *          amd: true, // URI.js reacts on an AMD loader, this flag lets UI5 temp. disable such loaders
+     *          exports: 'URI' // name of the global variable under which URI.js exports its module value
+     *       }
+     *     }
+     *   });
+     *
+     *   // now the module can be retrieved like other modules
+     *   sap.ui.define('Something', ['sap/ui/thirdparty/URI'], function(URIModuleValue) {
+     *
+     *     new URIModuleValue(...); // same as the global 'URI' name: new URI(...)
+     *
+     *     ...
+     *   });
+     * ```
+     *
+     *
+     * Differences to Standard AMD:
+     *
+     * The current implementation of `sap.ui.define` differs from the AMD specification (https://github.com/amdjs/amdjs-api)
+     * or from concrete AMD loaders like `requireJS` in several aspects:
+     * 	 - The name `sap.ui.define` is different from the plain `define`. This has two reasons: first, it avoids
+     * 			the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
+     * 			the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
+     * 			or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
+     * 			of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
+     * 			methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
+     * 			can be loaded, but only when no AMD loader is present or when they expose their export also to the global
+     * 			namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
+     * 			using the `amd:true` flag (see example above)
+     * 	 - Depending on configuration and the current context, `sap.ui.define` loads the dependencies of a module
+     * 			either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
+     * 			is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
+     * 			synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
+     * 			that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
+     * 			{@link jQuery.sap.require}.
+     * 	 - `sap.ui.define` does not support plugins to use other file types, formats or protocols. It is not
+     * 			planned to support this in future
+     * 	 - `sap.ui.define` does not support absolute URLs as module names (dependencies) nor does it allow module
+     * 			names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
+     * 			that points to that URL (or to a prefix of it).
+     * 	 - `sap.ui.define` does **not** support the 'sugar' of requireJS where CommonJS style dependency declarations
+     * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
+     * 			executing the factory function.
+     *
+     * Limitations, Design Considerations:
+     * 	 - **Limitation**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
+     * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
+     * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
+     * 			loading is implemented.
+     * 	 - It was discussed to enforce asynchronous execution of the module factory function (e.g. with a timeout
+     * 			of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
+     * 			call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
+     * 			the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
+     *
+     * 	 - A single file must not contain multiple calls to `sap.ui.define`. Multiple calls currently are only
+     * 			supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
+     * 			how this works might be changed in future implementations and are not part of the API contract
+     * See:
+     * 	https://github.com/amdjs/amdjs-api
+     */
+    function define(
+      /**
+       * List of dependencies of the module
+       */
+      aDependencies: Array<
+        keyof sap.IUI5DefineDependencyNames | (string & { IGNORE_ME?: never })
+      >,
+      /**
+       * The module export value or a function that calculates that value
+       */
+      vFactory: Function | any,
+      /**
+       * Whether an export to global names is required - should be used by SAP-owned code only
+       */
+      bExport?: boolean
+    ): void;
+    /**
+     * @SINCE 1.27.0
+     *
+     * Defines a JavaScript module with its ID, its dependencies and a module export value or factory.
+     *
+     * The typical and only suggested usage of this method is to have one single, top level call to `sap.ui.define`
+     * in one JavaScript resource (file). When a module is requested by its module ID for the first time, the
+     * corresponding resource is determined from the ID and the current {@link sap.ui.loader.config configuration}.
+     * The resource will be loaded and executed which in turn will execute the top level `sap.ui.define` call.
+     *
+     * If the module ID was omitted from that call, it will be substituted by the ID that was used to request
+     * the module. As a preparation step, the dependencies as well as their transitive dependencies, will be
+     * loaded. Then, the module value (its export) will be determined: if a static value (object, literal) was
+     * given as `vFactory`, that value will be the module value. If a function was given, that function will
+     * be called (providing the module exports of the declared dependencies as parameters to the function) and
+     * its return value will be used as module export value. The framework internally associates the resulting
+     * value with the module ID and provides it to the original requester of the module. Whenever the module
+     * is requested again, the same export value will be returned (modules are executed only once).
+     *
+     * Example:
+     *  The following example defines a module, but doesn't hard code the module ID. If stored in a file 'sap/mylib/SomeClass.js',
+     * it can be requested with the ID 'sap/mylib/SomeClass'.
+     * ```javascript
+     *
+     *   sap.ui.define(['./Helper', 'sap/m/Bar'], function(Helper,Bar) {
+     *
+     *     // create a new class
+     *     var SomeClass = function() {};
+     *
+     *     // add methods to its prototype
+     *     SomeClass.prototype.foo = function() {
+     *
+     *         // use a function from the dependency 'Helper' in the same package (e.g. 'sap/mylib/Helper' )
+     *         var mSettings = Helper.foo();
+     *
+     *         // create and return an sap.m.Bar (using its local name 'Bar')
+     *         return new Bar(mSettings);
+     *
+     *     }
+     *
+     *     // return the class as module value
+     *     return SomeClass;
+     *
+     *   });
+     * ```
+     *
+     *
+     * In another module or in an application HTML page, the {@link sap.ui.require} API can be used to load
+     * the sap/mylib/Something module and to work with it:
+     *
+     *
+     * ```javascript
+     *
+     * sap.ui.require(['sap/mylib/Something'], function(Something) {
+     *
+     *   // instantiate a Something and call foo() on it
+     *   new Something().foo();
+     *
+     * });
+     * ```
+     *
+     *
+     * Module Name Syntax:
+     *
+     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name}
+     * syntax for the module's own name as well as for its dependencies. The only difference to that syntax
+     * is, that for `sap.ui.define` and `sap.ui.require`, the extension (which always would be '.js') has to
+     * be omitted. Both methods always add this extension internally.
+     *
+     * As a convenience, the name of a dependency can start with the segment './' which will be replaced by
+     * the name of the package that contains the currently defined module (relative name).
+     *
+     * It is best practice to omit the name of the defined module (first parameter) and to use relative names
+     * for the dependencies whenever possible. This reduces the necessary configuration, simplifies renaming
+     * of packages and allows to map them to a different namespace.
+     *
+     * Dependency to Modules:
+     *
+     * If a dependencies array is given, each entry represents the name of another module that the currently
+     * defined module depends on. All dependency modules are loaded before the export of the currently defined
+     * module is determined. The module export of each dependency module will be provided as a parameter to
+     * a factory function, the order of the parameters will match the order of the modules in the dependencies
+     * array.
+     *
+     * **Note:** The order in which the dependency modules are executed is **not** defined by the order
+     * in the dependencies array! The execution order is affected by dependencies between the dependency
+     * modules as well as by their current state (whether a module already has been loaded or not). Neither
+     * module implementations nor dependents that require a module set must make any assumption about the execution
+     * order (other than expressed by their dependencies).
+     *
+     * **Note:** A static module export (a literal provided to `sap.ui.define`) cannot depend on the module
+     * exports of the dependency modules as it has to be calculated before the dependencies are resolved. As
+     * an alternative, modules can define a factory function, calculate a static export value in that function,
+     * potentially based on the dependencies, and return the result as module export value. The same approach
+     * must be taken when the module export is supposed to be a function.
+     *
+     * Asynchronous Contract:
+     *
+     * `sap.ui.define` is designed to support real Asynchronous Module Definitions (AMD) in future, although
+     * it internally still might use synchronous module loading, depending on configuration and context. However,
+     * callers of `sap.ui.define` must never rely on any synchronous behavior that they might observe in a specific
+     * test scenario.
+     *
+     * For example, callers of `sap.ui.define` must not use the module export value immediately after invoking
+     * `sap.ui.define`:
+     *
+     *
+     * ```javascript
+     *
+     *   // COUNTER EXAMPLE HOW __NOT__ TO DO IT
+     *
+     *   // define a class Something as AMD module
+     *   sap.ui.define('Something', [], function() {
+     *     var Something = function() {};
+     *     return Something;
+     *   });
+     *
+     *   // DON'T DO THAT!
+     *   // accessing the class _synchronously_ after sap.ui.define was called
+     *   new Something();
+     *
+     * ```
+     *
+     *
+     * Applications that need to ensure synchronous module definition or synchronous loading of dependencies
+     * **MUST** use the deprecated legacy APIs {@link jQuery.sap.declare} and {@link jQuery.sap.require}.
+     *
+     * (No) Global References:
+     *
+     * To be in line with AMD best practices, modules defined with `sap.ui.define` should not make any use of
+     * global variables if those variables are also available as module exports. Instead, they should add dependencies
+     * to those modules and use the corresponding parameter of the factory function to access the module exports.
+     *
+     * As the current programming model and the documentation of UI5 heavily rely on global names, there will
+     * be a transition phase where UI5 enables AMD modules and local references to module exports in parallel
+     * to the old global names. The fourth parameter of `sap.ui.define` has been added to support that transition
+     * phase. When this parameter is set to true, the framework provides two additional features
+     *
+     *
+     * 	 - Before the factory function is called, the existence of the global parent namespace for the current
+     * 			module is ensured
+     * 	 - The module export returned by the module's factory function will be automatically exported under
+     * 			the global name which is derived from the ID of the module
+     *
+     * The parameter lets the framework know whether any of those two operations is needed or not. In future
+     * versions of UI5, a central configuration option is planned to suppress those 'exports'.
+     *
+     * Third Party Modules: Although third party modules don't use UI5 APIs, they still can be listed as dependencies
+     * in a `sap.ui.define` call. They will be requested and executed like UI5 modules, but to make their exports
+     * available, so called ***shims*** have to be defined.
+     *
+     * Note that UI5 temporarily deactivates an existing AMD loader while it executes third party modules known
+     * to support AMD. This sounds contradictorily at a first glance as UI5 wants to support AMD, but for now
+     * it is necessary to fully support UI5 applications that rely on global names for such modules.
+     *
+     * For third-party modules that UI5 delivers (e.g. those in namespace `sap/ui/thirdparty/`), the necessary
+     * shims are defined by UI5 itself by executing the private module `ui5loader-autoconfig.js` during bootstrap.
+     *
+     * Example:
+     * ```javascript
+     *
+     *   // module 'Something' wants to use third party library 'URI.js'
+     *   // It is packaged by UI5 as non-UI5-module 'sap/ui/thirdparty/URI'
+     *   // the following shim helps UI5 to correctly load URI.js and to retrieve the module's export value
+     *   // Apps don't have to define that shim, it is already applied by ui5loader-autconfig.js
+     *   sap.ui.loader.config({
+     *     shim: {
+     *       'sap/ui/thirdparty/URI': {
+     *          amd: true, // URI.js reacts on an AMD loader, this flag lets UI5 temp. disable such loaders
+     *          exports: 'URI' // name of the global variable under which URI.js exports its module value
+     *       }
+     *     }
+     *   });
+     *
+     *   // now the module can be retrieved like other modules
+     *   sap.ui.define('Something', ['sap/ui/thirdparty/URI'], function(URIModuleValue) {
+     *
+     *     new URIModuleValue(...); // same as the global 'URI' name: new URI(...)
+     *
+     *     ...
+     *   });
+     * ```
+     *
+     *
+     * Differences to Standard AMD:
+     *
+     * The current implementation of `sap.ui.define` differs from the AMD specification (https://github.com/amdjs/amdjs-api)
+     * or from concrete AMD loaders like `requireJS` in several aspects:
+     * 	 - The name `sap.ui.define` is different from the plain `define`. This has two reasons: first, it avoids
+     * 			the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
+     * 			the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
+     * 			or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
+     * 			of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
+     * 			methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
+     * 			can be loaded, but only when no AMD loader is present or when they expose their export also to the global
+     * 			namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
+     * 			using the `amd:true` flag (see example above)
+     * 	 - Depending on configuration and the current context, `sap.ui.define` loads the dependencies of a module
+     * 			either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
+     * 			is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
+     * 			synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
+     * 			that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
+     * 			{@link jQuery.sap.require}.
+     * 	 - `sap.ui.define` does not support plugins to use other file types, formats or protocols. It is not
+     * 			planned to support this in future
+     * 	 - `sap.ui.define` does not support absolute URLs as module names (dependencies) nor does it allow module
+     * 			names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
+     * 			that points to that URL (or to a prefix of it).
+     * 	 - `sap.ui.define` does **not** support the 'sugar' of requireJS where CommonJS style dependency declarations
+     * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
+     * 			executing the factory function.
+     *
+     * Limitations, Design Considerations:
+     * 	 - **Limitation**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
+     * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
+     * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
+     * 			loading is implemented.
+     * 	 - It was discussed to enforce asynchronous execution of the module factory function (e.g. with a timeout
+     * 			of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
+     * 			call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
+     * 			the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
+     *
+     * 	 - A single file must not contain multiple calls to `sap.ui.define`. Multiple calls currently are only
+     * 			supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
+     * 			how this works might be changed in future implementations and are not part of the API contract
+     * See:
+     * 	https://github.com/amdjs/amdjs-api
+     */
+    function define(
       /**
        * The module export value or a function that calculates that value
        */
@@ -63683,8 +64929,8 @@ declare namespace sap {
        */
       sAggregationName?: string
     ):
-      | import("sap/ui/core/Control").default[]
-      | Promise<import("sap/ui/core/Control").default[]>;
+      | Array<import("sap/ui/core/Control").default>
+      | Promise<Array<import("sap/ui/core/Control").default>>;
     /**
      * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
      *
@@ -63730,7 +64976,7 @@ declare namespace sap {
       oController?: import("sap/ui/core/mvc/Controller").default | Object
     ):
       | import("sap/ui/core/Control").default
-      | import("sap/ui/core/Control").default[];
+      | Array<import("sap/ui/core/Control").default>;
     /**
      * Retrieve the {@link sap.ui.core.Core SAPUI5 Core} instance for the current window.
      */
@@ -63753,15 +64999,15 @@ declare namespace sap {
             /**
              * name of the library (e.g. "sap.ui.core")
              */
-            library?: boolean | undefined;
+            library?: boolean;
             /**
              * whether "sap-ui-version.json" should be loaded asynchronously
              */
-            async?: boolean | undefined;
+            async?: boolean;
             /**
              * whether to propagate load errors or not (not relevant for async loading)
              */
-            failOnError?: boolean | undefined;
+            failOnError?: boolean;
           }
     ): object | undefined | Promise<any>;
     /**
@@ -63807,15 +65053,15 @@ declare namespace sap {
             /**
              * ID of the newly created fragment; will be used as a prefix to all contained control IDs
              */
-            id?: string | undefined;
+            id?: string;
             /**
              * Resource name of the Fragment; a module name in dot notation without the '.fragment.html' suffix
              */
-            fragmentName?: string | undefined;
+            fragmentName?: string;
             /**
              * Definition of the fragment as an HTML string
              */
-            fragmentContent?: string | undefined;
+            fragmentContent?: string;
           },
       /**
        * A controller to be used for event handlers in the fragment; can either be the controller of an enclosing
@@ -63826,7 +65072,66 @@ declare namespace sap {
       oController?: import("sap/ui/core/mvc/Controller").default | object
     ):
       | import("sap/ui/core/Control").default
-      | import("sap/ui/core/Control").default[];
+      | Array<import("sap/ui/core/Control").default>;
+    /**
+     * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
+     *
+     * Instantiates an HTML-based Fragment.
+     *
+     * To instantiate a fragment, call:
+     * ```javascript
+     *
+     *    sap.ui.htmlfragment([sId], sFragmentName, [oController]);
+     * ```
+     *  The fragment instance ID is optional and will be used as prefix for the ID of all contained controls.
+     * If no ID is passed, controls will not be prefixed. The `sFragmentName` must correspond to an HTML fragment
+     * which can be loaded via the module system (fragmentName + ".fragment.html") and which defines the fragment.
+     * If `oController` is given, the methods referenced in the fragment will be called on this controller.
+     * Note that fragments may require a controller to be given and certain methods to be available.
+     *
+     * Advanced usage:: To instantiate a fragment and optionally directly give the HTML definition instead of
+     * loading it from a file, call:
+     * ```javascript
+     *
+     *     sap.ui.htmlfragment(oFragmentConfig, [oController]);
+     * ```
+     *  The `oFragmentConfig` object can either have a `fragmentName` or a `fragmentContent` property, but not
+     * both of them. `fragmentContent` can hold the fragment definition as XML string; if not given, `fragmentName`
+     * must be given and the fragment content definition is loaded by the module system. Again, if `oController`
+     * is given, any methods referenced in the fragment will be called on this controller.
+     */
+    function htmlfragment(
+      /**
+       * Resource name of the fragment, a module name in dot notation without the '.fragment.html' suffix. Alternatively,
+       * a configuration object can be given with the properties described below. In this case, no `sId` may be
+       * given as first parameter, but as property `id` in the configuration object.
+       */
+      vFragment:
+        | string
+        | {
+            /**
+             * ID of the newly created fragment; will be used as a prefix to all contained control IDs
+             */
+            id?: string;
+            /**
+             * Resource name of the Fragment; a module name in dot notation without the '.fragment.html' suffix
+             */
+            fragmentName?: string;
+            /**
+             * Definition of the fragment as an HTML string
+             */
+            fragmentContent?: string;
+          },
+      /**
+       * A controller to be used for event handlers in the fragment; can either be the controller of an enclosing
+       * view, a new controller instance, or a simple object with the necessary methods attached. Note that a
+       * fragment has no runtime representation besides its contained controls. There's therefore no API to retrieve
+       * the controller after creating a fragment
+       */
+      oController?: import("sap/ui/core/mvc/Controller").default | object
+    ):
+      | import("sap/ui/core/Control").default
+      | Array<import("sap/ui/core/Control").default>;
     /**
      * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.HTMLView.create HTMLView.create} to create view
      * instances
@@ -63859,7 +65164,38 @@ declare namespace sap {
             /**
              * whether the view source is loaded asynchronously
              */
-            async?: boolean | undefined;
+            async?: boolean;
+          }
+    ): import("sap/ui/core/mvc/HTMLView").default | undefined;
+    /**
+     * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.HTMLView.create HTMLView.create} to create view
+     * instances
+     *
+     * Defines or creates an instance of a declarative HTML view.
+     *
+     * The behavior of this method depends on the signature of the call and on the current context.
+     *
+     *
+     * 	 - View Definition `sap.ui.htmlview(sId, vView)`: Defines a view of the given name with the given implementation.
+     * 			sId must be the views name, vView must be an object and can contain implementations for any of the hooks
+     * 			provided by HTMLView
+     * 	 - View Instantiation `sap.ui.htmlview(sId?, vView)`: Creates an instance of the view with the given
+     * 			name (and id).
+     *
+     * Any other call signature will lead to a runtime error. If the id is omitted in the second variant, an
+     * id will be created automatically.
+     */
+    function htmlview(
+      /**
+       * name or implementation of the view.
+       */
+      vView:
+        | string
+        | {
+            /**
+             * whether the view source is loaded asynchronously
+             */
+            async?: boolean;
           }
     ): import("sap/ui/core/mvc/HTMLView").default | undefined;
     /**
@@ -63906,13 +65242,13 @@ declare namespace sap {
             /**
              * ID of the newly created fragment; will be used as a prefix to all contained control IDs
              */
-            id?: string | undefined;
+            id?: string;
             /**
              * Name of the fragment. When no fragment has been defined with that name, the name will be converted to
              * a path by replacing dots with slashes and appending '.fragment.js'. The corresponding resource will be
              * loaded and is expected to define a fragment with the `fragmentName`
              */
-            fragmentName?: string | undefined;
+            fragmentName?: string;
           },
       /**
        * When defining a fragment, this parameter must be a factory object that will be used to create new instances
@@ -63930,7 +65266,7 @@ declare namespace sap {
       oController?: import("sap/ui/core/mvc/Controller").default | object
     ):
       | import("sap/ui/core/Control").default
-      | import("sap/ui/core/Control").default[];
+      | Array<import("sap/ui/core/Control").default>;
     /**
      * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.JSONView.create JSONView.create} to create view
      * instances
@@ -63969,19 +65305,68 @@ declare namespace sap {
             /**
              * name of a view resource in module name notation (without suffix)
              */
-            viewName?: string | undefined;
+            viewName?: string;
             /**
              * view definition as a JSON string or an object literal
              */
-            viewContent?: string | object | undefined;
+            viewContent?: string | object;
             /**
              * defines how the view source is loaded and rendered later on
              */
-            async?: boolean | undefined;
+            async?: boolean;
             /**
              * controller to be used for this view instance
              */
-            controller?: import("sap/ui/core/mvc/Controller").default | undefined;
+            controller?: import("sap/ui/core/mvc/Controller").default;
+          }
+    ): import("sap/ui/core/mvc/JSONView").default;
+    /**
+     * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.JSONView.create JSONView.create} to create view
+     * instances
+     *
+     * Creates a JSON view of the given name and id.
+     *
+     * The `viewName` must either correspond to a JSON module that can be loaded via the module system (viewName
+     * + suffix ".view.json") and which defines the view or it must be a configuration object for a view. The
+     * configuration object can have a viewName, viewContent and a controller property. The viewName behaves
+     * as described above, viewContent can hold the view description as JSON string or as object literal.
+     *
+     * **Note**: when an object literal is given, it might be modified during view construction.
+     *
+     * The controller property can hold a controller instance. If a controller instance is given, it overrides
+     * the controller defined in the view.
+     *
+     * When property `async` is set to true, the view definition and the controller class (and its dependencies)
+     * will be loaded asynchronously. Any controls used in the view might be loaded sync or async, depending
+     * on the view configuration. Even when the view definition is provided as string or object tree, controller
+     * or controls might be loaded asynchronously. In any case, a view instance will be returned synchronously
+     * by this factory API, but its content (control tree) might appear only later. Also see {@link sap.ui.core.mvc.View#loaded}.
+     *
+     * Like with any other control, an id is optional and will be created when missing.
+     */
+    function jsonview(
+      /**
+       * name of a view resource or view configuration as described above.
+       */
+      vView:
+        | string
+        | {
+            /**
+             * name of a view resource in module name notation (without suffix)
+             */
+            viewName?: string;
+            /**
+             * view definition as a JSON string or an object literal
+             */
+            viewContent?: string | object;
+            /**
+             * defines how the view source is loaded and rendered later on
+             */
+            async?: boolean;
+            /**
+             * controller to be used for this view instance
+             */
+            controller?: import("sap/ui/core/mvc/Controller").default;
           }
     ): import("sap/ui/core/mvc/JSONView").default;
     /**
@@ -64025,6 +65410,52 @@ declare namespace sap {
        * ID of the newly created view, only allowed for instance creation
        */
       sId: string,
+      /**
+       * name or implementation of the view.
+       */
+      vView: string | object,
+      /**
+       * whether the view source is loaded asynchronously
+       */
+      bAsync?: boolean
+    ): import("sap/ui/core/mvc/JSView").default | undefined;
+    /**
+     * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.View.extend View.extend} to define the view class
+     * and {@link sap.ui.core.mvc.View.create View.create} to create view instances
+     *
+     * Defines or creates an instance of a JavaScript view.
+     *
+     * The behavior of this method depends on the signature of the call and on the current context.
+     *
+     * View Definition:
+     * ```javascript
+     *
+     *   sap.ui.jsview(sId, vView);
+     * ```
+     *  Defines a view of the given name with the given implementation. `sId` must be the view's name, `vView`
+     * must be an object and can contain implementations for any of the hooks provided by JSView.
+     *
+     * View Instantiation (deprecated):
+     * ```javascript
+     *
+     *   var oView = sap.ui.jsview(vView);
+     *   var oView = sap.ui.jsview(vView, bASync);
+     *   var oView = sap.ui.jsview(sId, vView);
+     *   var oView = sap.ui.jsview(sId, vView, bAsync);
+     * ```
+     *  Creates an instance of the view with the given name (and id). If no view implementation has been defined
+     * for that view name, a JavaScript module with the same qualified name and with suffix `.view.js` will
+     * be loaded (required) and executed. The module should register a view definition on execution (1st. variant
+     * above).
+     *
+     * If `sId` is omitted, an ID will be created automatically.
+     *
+     * When `bAsync` has a truthy value, the view definition will be read asynchronously, if needed, but the
+     * (incomplete) view instance will be returned immediately.
+     *
+     * **Note:** Any other call signature will lead to a runtime error.
+     */
+    function jsview(
       /**
        * name or implementation of the view.
        */
@@ -64324,15 +65755,15 @@ declare namespace sap {
             /**
              * the type of the Template
              */
-            type?: string | undefined;
+            type?: string;
             /**
              * the context for the renderer/templating
              */
-            context?: object | undefined;
+            context?: object;
             /**
              * the URL to lookup the template (experimental!)
              */
-            src?: string | undefined;
+            src?: string;
             /**
              * the fully qualified name of the control to declare (experimental!)
              */
@@ -64340,7 +65771,7 @@ declare namespace sap {
           }
     ):
       | import("sap/ui/core/tmpl/Template").default
-      | import("sap/ui/core/tmpl/Template").default[];
+      | Array<import("sap/ui/core/tmpl/Template").default>;
     /**
      * @deprecated (since 1.56) - use {@link sap.ui.core.mvc.XMLView} in combination with {@link topic:5ee619fc1370463ea674ee04b65ed83b
      * XML Templating} instead
@@ -64370,63 +65801,83 @@ declare namespace sap {
       vView: string | object
     ): import("sap/ui/core/mvc/TemplateView").default | undefined;
     /**
+     * @deprecated (since 1.56) - use {@link sap.ui.core.mvc.XMLView} in combination with {@link topic:5ee619fc1370463ea674ee04b65ed83b
+     * XML Templating} instead
+     *
+     * Defines or creates an instance of a template view.
+     *
+     * The behavior of this method depends on the signature of the call and on the current context.
+     *
+     *
+     * 	 - View Definition `sap.ui.templateview(sId, vView)`: Defines a view of the given name with the given
+     * 			implementation. sId must be the views name, vView must be an object and can contain implementations for
+     * 			any of the hooks provided by templateview
+     * 	 - View Instantiation `sap.ui.templateview(sId?, vView)`: Creates an instance of the view with the given
+     * 			name (and id).
+     *
+     * Any other call signature will lead to a runtime error. If the id is omitted in the second variant, an
+     * id will be created automatically.
+     */
+    function templateview(
+      /**
+       * name or implementation of the view.
+       */
+      vView: string | object
+    ): import("sap/ui/core/mvc/TemplateView").default | undefined;
+    /**
      * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.View.extend View.extend} to define the view class
      * and {@link sap.ui.core.mvc.View.create View.create} to create view instances
      *
      * Creates a view of the given type, name and with the given ID.
-     *
-     * The `vView` configuration object can have the following properties for the view instantiation:
-     * 	 - The ID `vView.id` specifies an ID for the View instance. If no ID is given, an ID will be generated.
-     *
-     * 	 - The view name `vView.viewName` corresponds to an XML module that can be loaded via the module system
-     * 			(vView.viewName + suffix ".view.xml")
-     * 	 - The controller instance `vView.controller` must be a valid controller implementation. The given controller
-     * 			instance overrides the controller defined in the view definition
-     * 	 - The view type `vView.type` specifies what kind of view will be instantiated. All valid view types
-     * 			are listed in the enumeration sap.ui.core.mvc.ViewType.
-     * 	 - The view data `vView.viewData` can hold user specific data. This data is available during the whole
-     * 			lifecycle of the view and the controller
-     * 	 - The view loading mode `vView.async` must be a boolean and defines if the view source is loaded synchronously
-     * 			or asynchronously. In async mode, the view is rendered empty initially, and re-rendered with the loaded
-     * 			view content.
-     * 	 - `vView.preprocessors` can hold a map from the specified preprocessor type (e.g. "xml") to an array
-     * 			of preprocessor configurations; each configuration consists of a `preprocessor` property (optional when
-     * 			registered as on-demand preprocessor) and may contain further preprocessor-specific settings. The preprocessor
-     * 			can be either a module name as string implementation of {@link sap.ui.core.mvc.View.Preprocessor} or
-     * 			a function according to {@link sap.ui.core.mvc.View.Preprocessor.process}. Do not set properties starting
-     * 			with underscore like `_sProperty` property, these are reserved for internal purposes. When several preprocessors
-     * 			are provided for one hook, it has to be made sure that they do not conflict when being processed serially.
-     *
-     * **Note**: These preprocessors are only available to this instance. For global or on-demand availability
-     * use {@link sap.ui.core.mvc.XMLView.registerPreprocessor}.
-     *
-     * **Note**: Please note that preprocessors in general are currently only available to XMLViews.
-     *
-     * **Note**: Preprocessors only work in async views and will be ignored when the view is instantiated in
-     * sync mode by default, as this could have unexpected side effects. You may override this behaviour by
-     * setting the bSyncSupport flag of the preprocessor to true.
      */
     function view(
       /**
-       * id of the newly created view, only allowed for instance creation
+       * The ID of the newly created view, only allowed for instance creation. If no ID is given, an ID will be
+       * generated. For view definition, skip this parameter and use `vView` as the first parameter.
        */
-      sId: string,
+      sId?: string,
       /**
-       * the view name or view configuration object
+       * The view name or view configuration object.
        */
-      vView:
+      vView?:
         | string
         | {
             /**
-             * whether the view source is loaded asynchronously
+             * Specifies an ID for the view instance. If no ID is given, an ID will be generated.
              */
-            async?: boolean | undefined;
-          },
-      /**
-       * Specifies what kind of view will be instantiated. All valid view types are listed in the enumeration
-       * {@link sap.ui.core.mvc.ViewType}.
-       */
-      sType: import("sap/ui/core/mvc/ViewType").default
+            id?: object;
+            /**
+             * Corresponds to an XML module that can be loaded via the module system (vView.viewName + suffix ".view.xml").
+             */
+            viewName?: object;
+            /**
+             * The controller instance must be a valid controller implementation. The given controller instance overrides
+             * the controller defined in the view definition.
+             */
+            controller?: import("sap/ui/core/mvc/Controller").default;
+            /**
+             * Whether the view source is loaded asynchronously. In asynchronous mode, the view is returned empty, and
+             * the view content is loaded asynchronously.
+             */
+            async?: boolean;
+            /**
+             * Specifies what kind of view will be instantiated. All valid view types are listed in the enumeration
+             * {@link sap.ui.core.mvc.ViewType}.
+             */
+            type?: import("sap/ui/core/mvc/ViewType").default;
+            /**
+             * Holds application specific data. This data is available during the whole lifecycle of the view and the
+             * controller, for example in the constructor and in the {@link sap.ui.core.mvc.Controller.onInit onInit}
+             * hook.
+             */
+            viewData?: object;
+            /**
+             * Holds a map from the specified preprocessor type (e.g. "xml") to an array of preprocessor configurations.
+             * Each configuration consists of a `preprocessor` property (optional when registered as on-demand preprocessor)
+             * and may contain further preprocessor-specific settings.
+             */
+            preprocessors?: Map<string, object[]>;
+          }
     ): import("sap/ui/core/mvc/View").default;
     /**
      * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
@@ -64472,15 +65923,15 @@ declare namespace sap {
             /**
              * ID of the newly created fragment; will be used as a prefix to all contained control IDs
              */
-            id?: string | undefined;
+            id?: string;
             /**
              * Resource name of the fragment; a module name in dot notation without the '.fragment.html' suffix
              */
-            fragmentName?: string | undefined;
+            fragmentName?: string;
             /**
              * Definition of the fragment as an XML string
              */
-            fragmentContent?: string | undefined;
+            fragmentContent?: string;
           },
       /**
        * A controller to be used for event handlers in the fragment; can either be the controller of an enclosing
@@ -64491,7 +65942,67 @@ declare namespace sap {
       oController?: import("sap/ui/core/mvc/Controller").default | object
     ):
       | import("sap/ui/core/Control").default
-      | import("sap/ui/core/Control").default[];
+      | Array<import("sap/ui/core/Control").default>;
+    /**
+     * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
+     *
+     * Instantiates an XML-based Fragment.
+     *
+     * To instantiate a fragment, call:
+     * ```javascript
+     *
+     *    sap.ui.xmlfragment([sId], sFragmentName, [oController]);
+     * ```
+     *  The fragment instance ID is optional and will be used as prefix for the ID of all contained controls.
+     * If no ID is passed, controls will not be prefixed. The `sFragmentName` must correspond to an XML fragment
+     * which can be loaded via the module system (fragmentName + ".fragment.xml") and which defines the fragment.
+     * If `oController` is given, the methods referenced in the fragment will be called on this controller.
+     *
+     * Note that fragments may require a controller to be given and certain methods to be available.
+     *
+     * Advanced usage:: To instantiate a fragment and optionally directly give the XML definition instead of
+     * loading it from a file, call:
+     * ```javascript
+     *
+     *     sap.ui.xmlfragment(oFragmentConfig, [oController]);
+     * ```
+     *  The `oFragmentConfig` object can either have a `fragmentName` or a `fragmentContent` property, but not
+     * both. `fragmentContent` can hold the fragment definition as XML string; if not given, `fragmentName`
+     * must be given and the fragment content definition is loaded via the module system. Again, if `oController`
+     * is given, the methods referenced in the fragment will be called on this controller.
+     */
+    function xmlfragment(
+      /**
+       * Resource name of the fragment; a module name in dot notation without the '.fragment.xml' suffix. Alternatively,
+       * a configuration object can be given with the properties described below. In this case, no `sId` may be
+       * given as first parameter, but as property `id` in the configuration object.
+       */
+      vFragment:
+        | string
+        | {
+            /**
+             * ID of the newly created fragment; will be used as a prefix to all contained control IDs
+             */
+            id?: string;
+            /**
+             * Resource name of the fragment; a module name in dot notation without the '.fragment.html' suffix
+             */
+            fragmentName?: string;
+            /**
+             * Definition of the fragment as an XML string
+             */
+            fragmentContent?: string;
+          },
+      /**
+       * A controller to be used for event handlers in the fragment; can either be the controller of an enclosing
+       * view, a new controller instance, or a simple object with the necessary methods attached. Note that a
+       * fragment has no runtime representation besides its contained controls. There's therefore no API to retrieve
+       * the controller after creating a fragment
+       */
+      oController?: import("sap/ui/core/mvc/Controller").default | object
+    ):
+      | import("sap/ui/core/Control").default
+      | Array<import("sap/ui/core/Control").default>;
     /**
      * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.XMLView.create XMLView.create} to create view instances
      *
@@ -64541,15 +66052,15 @@ declare namespace sap {
             /**
              * Name of the view resource in module name notation (without suffix)
              */
-            viewName?: string | undefined;
+            viewName?: string;
             /**
              * XML string or XML document that defines the view
              */
-            viewContent?: string | Document | undefined;
+            viewContent?: string | Document;
             /**
              * whether the view source is loaded asynchronously
              */
-            async?: boolean | undefined;
+            async?: boolean;
             /**
              * Cache configuration, only for `async` views; caching gets active when this object is provided with vView.cache.keys
              * array; keys are used to store data in the cache and for invalidation of the cache
@@ -64558,1061 +66069,18 @@ declare namespace sap {
               /**
                * Array with strings or Promises resolving with strings
                */
-              keys?: Array<string | Promise<string>> | undefined;
-            } | undefined;
+              keys?: Array<string | Promise<string>>;
+            };
             /**
              * Preprocessors configuration, see {@link sap.ui.core.mvc.View}
              */
-            preprocessors?: object | undefined;
+            preprocessors?: object;
             /**
              * Controller instance to be used for this view
              */
-            controller?: import("sap/ui/core/mvc/Controller").default | undefined;
+            controller?: import("sap/ui/core/mvc/Controller").default;
           }
     ): import("sap/ui/core/mvc/XMLView").default;
-    /**
-     * @SINCE 1.27.0
-     *
-     * Defines a JavaScript module with its ID, its dependencies and a module export value or factory.
-     *
-     * The typical and only suggested usage of this method is to have one single, top level call to `sap.ui.define`
-     * in one JavaScript resource (file). When a module is requested by its module ID for the first time, the
-     * corresponding resource is determined from the ID and the current {@link sap.ui.loader.config configuration}.
-     * The resource will be loaded and executed which in turn will execute the top level `sap.ui.define` call.
-     *
-     * If the module ID was omitted from that call, it will be substituted by the ID that was used to request
-     * the module. As a preparation step, the dependencies as well as their transitive dependencies, will be
-     * loaded. Then, the module value (its export) will be determined: if a static value (object, literal) was
-     * given as `vFactory`, that value will be the module value. If a function was given, that function will
-     * be called (providing the module exports of the declared dependencies as parameters to the function) and
-     * its return value will be used as module export value. The framework internally associates the resulting
-     * value with the module ID and provides it to the original requester of the module. Whenever the module
-     * is requested again, the same export value will be returned (modules are executed only once).
-     *
-     * Example:
-     *  The following example defines a module, but doesn't hard code the module ID. If stored in a file 'sap/mylib/SomeClass.js',
-     * it can be requested with the ID 'sap/mylib/SomeClass'.
-     * ```javascript
-     *
-     *   sap.ui.define(['./Helper', 'sap/m/Bar'], function(Helper,Bar) {
-     *
-     *     // create a new class
-     *     var SomeClass = function() {};
-     *
-     *     // add methods to its prototype
-     *     SomeClass.prototype.foo = function() {
-     *
-     *         // use a function from the dependency 'Helper' in the same package (e.g. 'sap/mylib/Helper' )
-     *         var mSettings = Helper.foo();
-     *
-     *         // create and return an sap.m.Bar (using its local name 'Bar')
-     *         return new Bar(mSettings);
-     *
-     *     }
-     *
-     *     // return the class as module value
-     *     return SomeClass;
-     *
-     *   });
-     * ```
-     *
-     *
-     * In another module or in an application HTML page, the {@link sap.ui.require} API can be used to load
-     * the sap/mylib/Something module and to work with it:
-     *
-     *
-     * ```javascript
-     *
-     * sap.ui.require(['sap/mylib/Something'], function(Something) {
-     *
-     *   // instantiate a Something and call foo() on it
-     *   new Something().foo();
-     *
-     * });
-     * ```
-     *
-     *
-     * Module Name Syntax:
-     *
-     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name}
-     * syntax for the module's own name as well as for its dependencies. The only difference to that syntax
-     * is, that for `sap.ui.define` and `sap.ui.require`, the extension (which always would be '.js') has to
-     * be omitted. Both methods always add this extension internally.
-     *
-     * As a convenience, the name of a dependency can start with the segment './' which will be replaced by
-     * the name of the package that contains the currently defined module (relative name).
-     *
-     * It is best practice to omit the name of the defined module (first parameter) and to use relative names
-     * for the dependencies whenever possible. This reduces the necessary configuration, simplifies renaming
-     * of packages and allows to map them to a different namespace.
-     *
-     * Dependency to Modules:
-     *
-     * If a dependencies array is given, each entry represents the name of another module that the currently
-     * defined module depends on. All dependency modules are loaded before the export of the currently defined
-     * module is determined. The module export of each dependency module will be provided as a parameter to
-     * a factory function, the order of the parameters will match the order of the modules in the dependencies
-     * array.
-     *
-     * **Note:** The order in which the dependency modules are executed is **not** defined by the order
-     * in the dependencies array! The execution order is affected by dependencies between the dependency
-     * modules as well as by their current state (whether a module already has been loaded or not). Neither
-     * module implementations nor dependents that require a module set must make any assumption about the execution
-     * order (other than expressed by their dependencies).
-     *
-     * **Note:** A static module export (a literal provided to `sap.ui.define`) cannot depend on the module
-     * exports of the dependency modules as it has to be calculated before the dependencies are resolved. As
-     * an alternative, modules can define a factory function, calculate a static export value in that function,
-     * potentially based on the dependencies, and return the result as module export value. The same approach
-     * must be taken when the module export is supposed to be a function.
-     *
-     * Asynchronous Contract:
-     *
-     * `sap.ui.define` is designed to support real Asynchronous Module Definitions (AMD) in future, although
-     * it internally still might use synchronous module loading, depending on configuration and context. However,
-     * callers of `sap.ui.define` must never rely on any synchronous behavior that they might observe in a specific
-     * test scenario.
-     *
-     * For example, callers of `sap.ui.define` must not use the module export value immediately after invoking
-     * `sap.ui.define`:
-     *
-     *
-     * ```javascript
-     *
-     *   // COUNTER EXAMPLE HOW __NOT__ TO DO IT
-     *
-     *   // define a class Something as AMD module
-     *   sap.ui.define('Something', [], function() {
-     *     var Something = function() {};
-     *     return Something;
-     *   });
-     *
-     *   // DON'T DO THAT!
-     *   // accessing the class _synchronously_ after sap.ui.define was called
-     *   new Something();
-     *
-     * ```
-     *
-     *
-     * Applications that need to ensure synchronous module definition or synchronous loading of dependencies
-     * **MUST** use the deprecated legacy APIs {@link jQuery.sap.declare} and {@link jQuery.sap.require}.
-     *
-     * (No) Global References:
-     *
-     * To be in line with AMD best practices, modules defined with `sap.ui.define` should not make any use of
-     * global variables if those variables are also available as module exports. Instead, they should add dependencies
-     * to those modules and use the corresponding parameter of the factory function to access the module exports.
-     *
-     * As the current programming model and the documentation of UI5 heavily rely on global names, there will
-     * be a transition phase where UI5 enables AMD modules and local references to module exports in parallel
-     * to the old global names. The fourth parameter of `sap.ui.define` has been added to support that transition
-     * phase. When this parameter is set to true, the framework provides two additional features
-     *
-     *
-     * 	 - Before the factory function is called, the existence of the global parent namespace for the current
-     * 			module is ensured
-     * 	 - The module export returned by the module's factory function will be automatically exported under
-     * 			the global name which is derived from the ID of the module
-     *
-     * The parameter lets the framework know whether any of those two operations is needed or not. In future
-     * versions of UI5, a central configuration option is planned to suppress those 'exports'.
-     *
-     * Third Party Modules: Although third party modules don't use UI5 APIs, they still can be listed as dependencies
-     * in a `sap.ui.define` call. They will be requested and executed like UI5 modules, but to make their exports
-     * available, so called ***shims*** have to be defined.
-     *
-     * Note that UI5 temporarily deactivates an existing AMD loader while it executes third party modules known
-     * to support AMD. This sounds contradictorily at a first glance as UI5 wants to support AMD, but for now
-     * it is necessary to fully support UI5 applications that rely on global names for such modules.
-     *
-     * For third-party modules that UI5 delivers (e.g. those in namespace `sap/ui/thirdparty/`), the necessary
-     * shims are defined by UI5 itself by executing the private module `ui5loader-autoconfig.js` during bootstrap.
-     *
-     * Example:
-     * ```javascript
-     *
-     *   // module 'Something' wants to use third party library 'URI.js'
-     *   // It is packaged by UI5 as non-UI5-module 'sap/ui/thirdparty/URI'
-     *   // the following shim helps UI5 to correctly load URI.js and to retrieve the module's export value
-     *   // Apps don't have to define that shim, it is already applied by ui5loader-autconfig.js
-     *   sap.ui.loader.config({
-     *     shim: {
-     *       'sap/ui/thirdparty/URI': {
-     *          amd: true, // URI.js reacts on an AMD loader, this flag lets UI5 temp. disable such loaders
-     *          exports: 'URI' // name of the global variable under which URI.js exports its module value
-     *       }
-     *     }
-     *   });
-     *
-     *   // now the module can be retrieved like other modules
-     *   sap.ui.define('Something', ['sap/ui/thirdparty/URI'], function(URIModuleValue) {
-     *
-     *     new URIModuleValue(...); // same as the global 'URI' name: new URI(...)
-     *
-     *     ...
-     *   });
-     * ```
-     *
-     *
-     * Differences to Standard AMD:
-     *
-     * The current implementation of `sap.ui.define` differs from the AMD specification (https://github.com/amdjs/amdjs-api)
-     * or from concrete AMD loaders like `requireJS` in several aspects:
-     * 	 - The name `sap.ui.define` is different from the plain `define`. This has two reasons: first, it avoids
-     * 			the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
-     * 			the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
-     * 			or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
-     * 			of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
-     * 			methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
-     * 			can be loaded, but only when no AMD loader is present or when they expose their export also to the global
-     * 			namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
-     * 			using the `amd:true` flag (see example above)
-     * 	 - Depending on configuration and the current context, `sap.ui.define` loads the dependencies of a module
-     * 			either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
-     * 			is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
-     * 			synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
-     * 			that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
-     * 			{@link jQuery.sap.require}.
-     * 	 - `sap.ui.define` does not support plugins to use other file types, formats or protocols. It is not
-     * 			planned to support this in future
-     * 	 - `sap.ui.define` does not support absolute URLs as module names (dependencies) nor does it allow module
-     * 			names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
-     * 			that points to that URL (or to a prefix of it).
-     * 	 - `sap.ui.define` does **not** support the 'sugar' of requireJS where CommonJS style dependency declarations
-     * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
-     * 			executing the factory function.
-     *
-     * Limitations, Design Considerations:
-     * 	 - **Limitation**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
-     * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
-     * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
-     * 			loading is implemented.
-     * 	 - It was discussed to enforce asynchronous execution of the module factory function (e.g. with a timeout
-     * 			of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
-     * 			call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
-     * 			the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
-     *
-     * 	 - A single file must not contain multiple calls to `sap.ui.define`. Multiple calls currently are only
-     * 			supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
-     * 			how this works might be changed in future implementations and are not part of the API contract
-     * See:
-     * 	https://github.com/amdjs/amdjs-api
-     */
-    function define(
-      /**
-       * ID of the module in simplified resource name syntax. When omitted, the loader determines the ID from
-       * the request.
-       */
-      sModuleName: string,
-      /**
-       * The module export value or a function that calculates that value
-       */
-      vFactory: Function | any,
-      /**
-       * Whether an export to global names is required - should be used by SAP-owned code only
-       */
-      bExport?: boolean
-    ): void;
-    /**
-     * @SINCE 1.27.0
-     *
-     * Defines a JavaScript module with its ID, its dependencies and a module export value or factory.
-     *
-     * The typical and only suggested usage of this method is to have one single, top level call to `sap.ui.define`
-     * in one JavaScript resource (file). When a module is requested by its module ID for the first time, the
-     * corresponding resource is determined from the ID and the current {@link sap.ui.loader.config configuration}.
-     * The resource will be loaded and executed which in turn will execute the top level `sap.ui.define` call.
-     *
-     * If the module ID was omitted from that call, it will be substituted by the ID that was used to request
-     * the module. As a preparation step, the dependencies as well as their transitive dependencies, will be
-     * loaded. Then, the module value (its export) will be determined: if a static value (object, literal) was
-     * given as `vFactory`, that value will be the module value. If a function was given, that function will
-     * be called (providing the module exports of the declared dependencies as parameters to the function) and
-     * its return value will be used as module export value. The framework internally associates the resulting
-     * value with the module ID and provides it to the original requester of the module. Whenever the module
-     * is requested again, the same export value will be returned (modules are executed only once).
-     *
-     * Example:
-     *  The following example defines a module, but doesn't hard code the module ID. If stored in a file 'sap/mylib/SomeClass.js',
-     * it can be requested with the ID 'sap/mylib/SomeClass'.
-     * ```javascript
-     *
-     *   sap.ui.define(['./Helper', 'sap/m/Bar'], function(Helper,Bar) {
-     *
-     *     // create a new class
-     *     var SomeClass = function() {};
-     *
-     *     // add methods to its prototype
-     *     SomeClass.prototype.foo = function() {
-     *
-     *         // use a function from the dependency 'Helper' in the same package (e.g. 'sap/mylib/Helper' )
-     *         var mSettings = Helper.foo();
-     *
-     *         // create and return an sap.m.Bar (using its local name 'Bar')
-     *         return new Bar(mSettings);
-     *
-     *     }
-     *
-     *     // return the class as module value
-     *     return SomeClass;
-     *
-     *   });
-     * ```
-     *
-     *
-     * In another module or in an application HTML page, the {@link sap.ui.require} API can be used to load
-     * the sap/mylib/Something module and to work with it:
-     *
-     *
-     * ```javascript
-     *
-     * sap.ui.require(['sap/mylib/Something'], function(Something) {
-     *
-     *   // instantiate a Something and call foo() on it
-     *   new Something().foo();
-     *
-     * });
-     * ```
-     *
-     *
-     * Module Name Syntax:
-     *
-     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name}
-     * syntax for the module's own name as well as for its dependencies. The only difference to that syntax
-     * is, that for `sap.ui.define` and `sap.ui.require`, the extension (which always would be '.js') has to
-     * be omitted. Both methods always add this extension internally.
-     *
-     * As a convenience, the name of a dependency can start with the segment './' which will be replaced by
-     * the name of the package that contains the currently defined module (relative name).
-     *
-     * It is best practice to omit the name of the defined module (first parameter) and to use relative names
-     * for the dependencies whenever possible. This reduces the necessary configuration, simplifies renaming
-     * of packages and allows to map them to a different namespace.
-     *
-     * Dependency to Modules:
-     *
-     * If a dependencies array is given, each entry represents the name of another module that the currently
-     * defined module depends on. All dependency modules are loaded before the export of the currently defined
-     * module is determined. The module export of each dependency module will be provided as a parameter to
-     * a factory function, the order of the parameters will match the order of the modules in the dependencies
-     * array.
-     *
-     * **Note:** The order in which the dependency modules are executed is **not** defined by the order
-     * in the dependencies array! The execution order is affected by dependencies between the dependency
-     * modules as well as by their current state (whether a module already has been loaded or not). Neither
-     * module implementations nor dependents that require a module set must make any assumption about the execution
-     * order (other than expressed by their dependencies).
-     *
-     * **Note:** A static module export (a literal provided to `sap.ui.define`) cannot depend on the module
-     * exports of the dependency modules as it has to be calculated before the dependencies are resolved. As
-     * an alternative, modules can define a factory function, calculate a static export value in that function,
-     * potentially based on the dependencies, and return the result as module export value. The same approach
-     * must be taken when the module export is supposed to be a function.
-     *
-     * Asynchronous Contract:
-     *
-     * `sap.ui.define` is designed to support real Asynchronous Module Definitions (AMD) in future, although
-     * it internally still might use synchronous module loading, depending on configuration and context. However,
-     * callers of `sap.ui.define` must never rely on any synchronous behavior that they might observe in a specific
-     * test scenario.
-     *
-     * For example, callers of `sap.ui.define` must not use the module export value immediately after invoking
-     * `sap.ui.define`:
-     *
-     *
-     * ```javascript
-     *
-     *   // COUNTER EXAMPLE HOW __NOT__ TO DO IT
-     *
-     *   // define a class Something as AMD module
-     *   sap.ui.define('Something', [], function() {
-     *     var Something = function() {};
-     *     return Something;
-     *   });
-     *
-     *   // DON'T DO THAT!
-     *   // accessing the class _synchronously_ after sap.ui.define was called
-     *   new Something();
-     *
-     * ```
-     *
-     *
-     * Applications that need to ensure synchronous module definition or synchronous loading of dependencies
-     * **MUST** use the deprecated legacy APIs {@link jQuery.sap.declare} and {@link jQuery.sap.require}.
-     *
-     * (No) Global References:
-     *
-     * To be in line with AMD best practices, modules defined with `sap.ui.define` should not make any use of
-     * global variables if those variables are also available as module exports. Instead, they should add dependencies
-     * to those modules and use the corresponding parameter of the factory function to access the module exports.
-     *
-     * As the current programming model and the documentation of UI5 heavily rely on global names, there will
-     * be a transition phase where UI5 enables AMD modules and local references to module exports in parallel
-     * to the old global names. The fourth parameter of `sap.ui.define` has been added to support that transition
-     * phase. When this parameter is set to true, the framework provides two additional features
-     *
-     *
-     * 	 - Before the factory function is called, the existence of the global parent namespace for the current
-     * 			module is ensured
-     * 	 - The module export returned by the module's factory function will be automatically exported under
-     * 			the global name which is derived from the ID of the module
-     *
-     * The parameter lets the framework know whether any of those two operations is needed or not. In future
-     * versions of UI5, a central configuration option is planned to suppress those 'exports'.
-     *
-     * Third Party Modules: Although third party modules don't use UI5 APIs, they still can be listed as dependencies
-     * in a `sap.ui.define` call. They will be requested and executed like UI5 modules, but to make their exports
-     * available, so called ***shims*** have to be defined.
-     *
-     * Note that UI5 temporarily deactivates an existing AMD loader while it executes third party modules known
-     * to support AMD. This sounds contradictorily at a first glance as UI5 wants to support AMD, but for now
-     * it is necessary to fully support UI5 applications that rely on global names for such modules.
-     *
-     * For third-party modules that UI5 delivers (e.g. those in namespace `sap/ui/thirdparty/`), the necessary
-     * shims are defined by UI5 itself by executing the private module `ui5loader-autoconfig.js` during bootstrap.
-     *
-     * Example:
-     * ```javascript
-     *
-     *   // module 'Something' wants to use third party library 'URI.js'
-     *   // It is packaged by UI5 as non-UI5-module 'sap/ui/thirdparty/URI'
-     *   // the following shim helps UI5 to correctly load URI.js and to retrieve the module's export value
-     *   // Apps don't have to define that shim, it is already applied by ui5loader-autconfig.js
-     *   sap.ui.loader.config({
-     *     shim: {
-     *       'sap/ui/thirdparty/URI': {
-     *          amd: true, // URI.js reacts on an AMD loader, this flag lets UI5 temp. disable such loaders
-     *          exports: 'URI' // name of the global variable under which URI.js exports its module value
-     *       }
-     *     }
-     *   });
-     *
-     *   // now the module can be retrieved like other modules
-     *   sap.ui.define('Something', ['sap/ui/thirdparty/URI'], function(URIModuleValue) {
-     *
-     *     new URIModuleValue(...); // same as the global 'URI' name: new URI(...)
-     *
-     *     ...
-     *   });
-     * ```
-     *
-     *
-     * Differences to Standard AMD:
-     *
-     * The current implementation of `sap.ui.define` differs from the AMD specification (https://github.com/amdjs/amdjs-api)
-     * or from concrete AMD loaders like `requireJS` in several aspects:
-     * 	 - The name `sap.ui.define` is different from the plain `define`. This has two reasons: first, it avoids
-     * 			the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
-     * 			the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
-     * 			or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
-     * 			of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
-     * 			methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
-     * 			can be loaded, but only when no AMD loader is present or when they expose their export also to the global
-     * 			namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
-     * 			using the `amd:true` flag (see example above)
-     * 	 - Depending on configuration and the current context, `sap.ui.define` loads the dependencies of a module
-     * 			either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
-     * 			is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
-     * 			synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
-     * 			that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
-     * 			{@link jQuery.sap.require}.
-     * 	 - `sap.ui.define` does not support plugins to use other file types, formats or protocols. It is not
-     * 			planned to support this in future
-     * 	 - `sap.ui.define` does not support absolute URLs as module names (dependencies) nor does it allow module
-     * 			names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
-     * 			that points to that URL (or to a prefix of it).
-     * 	 - `sap.ui.define` does **not** support the 'sugar' of requireJS where CommonJS style dependency declarations
-     * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
-     * 			executing the factory function.
-     *
-     * Limitations, Design Considerations:
-     * 	 - **Limitation**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
-     * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
-     * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
-     * 			loading is implemented.
-     * 	 - It was discussed to enforce asynchronous execution of the module factory function (e.g. with a timeout
-     * 			of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
-     * 			call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
-     * 			the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
-     *
-     * 	 - A single file must not contain multiple calls to `sap.ui.define`. Multiple calls currently are only
-     * 			supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
-     * 			how this works might be changed in future implementations and are not part of the API contract
-     * See:
-     * 	https://github.com/amdjs/amdjs-api
-     */
-    function define(
-      /**
-       * List of dependencies of the module
-       */
-      aDependencies: (
-        | keyof sap.IUI5DefineDependencyNames
-        | (string & { IGNORE_ME?: never | undefined })
-      )[],
-      /**
-       * The module export value or a function that calculates that value
-       */
-      vFactory: Function | any,
-      /**
-       * Whether an export to global names is required - should be used by SAP-owned code only
-       */
-      bExport?: boolean
-    ): void;
-    /**
-     * @SINCE 1.27.0
-     *
-     * Defines a JavaScript module with its ID, its dependencies and a module export value or factory.
-     *
-     * The typical and only suggested usage of this method is to have one single, top level call to `sap.ui.define`
-     * in one JavaScript resource (file). When a module is requested by its module ID for the first time, the
-     * corresponding resource is determined from the ID and the current {@link sap.ui.loader.config configuration}.
-     * The resource will be loaded and executed which in turn will execute the top level `sap.ui.define` call.
-     *
-     * If the module ID was omitted from that call, it will be substituted by the ID that was used to request
-     * the module. As a preparation step, the dependencies as well as their transitive dependencies, will be
-     * loaded. Then, the module value (its export) will be determined: if a static value (object, literal) was
-     * given as `vFactory`, that value will be the module value. If a function was given, that function will
-     * be called (providing the module exports of the declared dependencies as parameters to the function) and
-     * its return value will be used as module export value. The framework internally associates the resulting
-     * value with the module ID and provides it to the original requester of the module. Whenever the module
-     * is requested again, the same export value will be returned (modules are executed only once).
-     *
-     * Example:
-     *  The following example defines a module, but doesn't hard code the module ID. If stored in a file 'sap/mylib/SomeClass.js',
-     * it can be requested with the ID 'sap/mylib/SomeClass'.
-     * ```javascript
-     *
-     *   sap.ui.define(['./Helper', 'sap/m/Bar'], function(Helper,Bar) {
-     *
-     *     // create a new class
-     *     var SomeClass = function() {};
-     *
-     *     // add methods to its prototype
-     *     SomeClass.prototype.foo = function() {
-     *
-     *         // use a function from the dependency 'Helper' in the same package (e.g. 'sap/mylib/Helper' )
-     *         var mSettings = Helper.foo();
-     *
-     *         // create and return an sap.m.Bar (using its local name 'Bar')
-     *         return new Bar(mSettings);
-     *
-     *     }
-     *
-     *     // return the class as module value
-     *     return SomeClass;
-     *
-     *   });
-     * ```
-     *
-     *
-     * In another module or in an application HTML page, the {@link sap.ui.require} API can be used to load
-     * the sap/mylib/Something module and to work with it:
-     *
-     *
-     * ```javascript
-     *
-     * sap.ui.require(['sap/mylib/Something'], function(Something) {
-     *
-     *   // instantiate a Something and call foo() on it
-     *   new Something().foo();
-     *
-     * });
-     * ```
-     *
-     *
-     * Module Name Syntax:
-     *
-     * `sap.ui.define` uses a simplified variant of the {@link jQuery.sap.getResourcePath unified resource name}
-     * syntax for the module's own name as well as for its dependencies. The only difference to that syntax
-     * is, that for `sap.ui.define` and `sap.ui.require`, the extension (which always would be '.js') has to
-     * be omitted. Both methods always add this extension internally.
-     *
-     * As a convenience, the name of a dependency can start with the segment './' which will be replaced by
-     * the name of the package that contains the currently defined module (relative name).
-     *
-     * It is best practice to omit the name of the defined module (first parameter) and to use relative names
-     * for the dependencies whenever possible. This reduces the necessary configuration, simplifies renaming
-     * of packages and allows to map them to a different namespace.
-     *
-     * Dependency to Modules:
-     *
-     * If a dependencies array is given, each entry represents the name of another module that the currently
-     * defined module depends on. All dependency modules are loaded before the export of the currently defined
-     * module is determined. The module export of each dependency module will be provided as a parameter to
-     * a factory function, the order of the parameters will match the order of the modules in the dependencies
-     * array.
-     *
-     * **Note:** The order in which the dependency modules are executed is **not** defined by the order
-     * in the dependencies array! The execution order is affected by dependencies between the dependency
-     * modules as well as by their current state (whether a module already has been loaded or not). Neither
-     * module implementations nor dependents that require a module set must make any assumption about the execution
-     * order (other than expressed by their dependencies).
-     *
-     * **Note:** A static module export (a literal provided to `sap.ui.define`) cannot depend on the module
-     * exports of the dependency modules as it has to be calculated before the dependencies are resolved. As
-     * an alternative, modules can define a factory function, calculate a static export value in that function,
-     * potentially based on the dependencies, and return the result as module export value. The same approach
-     * must be taken when the module export is supposed to be a function.
-     *
-     * Asynchronous Contract:
-     *
-     * `sap.ui.define` is designed to support real Asynchronous Module Definitions (AMD) in future, although
-     * it internally still might use synchronous module loading, depending on configuration and context. However,
-     * callers of `sap.ui.define` must never rely on any synchronous behavior that they might observe in a specific
-     * test scenario.
-     *
-     * For example, callers of `sap.ui.define` must not use the module export value immediately after invoking
-     * `sap.ui.define`:
-     *
-     *
-     * ```javascript
-     *
-     *   // COUNTER EXAMPLE HOW __NOT__ TO DO IT
-     *
-     *   // define a class Something as AMD module
-     *   sap.ui.define('Something', [], function() {
-     *     var Something = function() {};
-     *     return Something;
-     *   });
-     *
-     *   // DON'T DO THAT!
-     *   // accessing the class _synchronously_ after sap.ui.define was called
-     *   new Something();
-     *
-     * ```
-     *
-     *
-     * Applications that need to ensure synchronous module definition or synchronous loading of dependencies
-     * **MUST** use the deprecated legacy APIs {@link jQuery.sap.declare} and {@link jQuery.sap.require}.
-     *
-     * (No) Global References:
-     *
-     * To be in line with AMD best practices, modules defined with `sap.ui.define` should not make any use of
-     * global variables if those variables are also available as module exports. Instead, they should add dependencies
-     * to those modules and use the corresponding parameter of the factory function to access the module exports.
-     *
-     * As the current programming model and the documentation of UI5 heavily rely on global names, there will
-     * be a transition phase where UI5 enables AMD modules and local references to module exports in parallel
-     * to the old global names. The fourth parameter of `sap.ui.define` has been added to support that transition
-     * phase. When this parameter is set to true, the framework provides two additional features
-     *
-     *
-     * 	 - Before the factory function is called, the existence of the global parent namespace for the current
-     * 			module is ensured
-     * 	 - The module export returned by the module's factory function will be automatically exported under
-     * 			the global name which is derived from the ID of the module
-     *
-     * The parameter lets the framework know whether any of those two operations is needed or not. In future
-     * versions of UI5, a central configuration option is planned to suppress those 'exports'.
-     *
-     * Third Party Modules: Although third party modules don't use UI5 APIs, they still can be listed as dependencies
-     * in a `sap.ui.define` call. They will be requested and executed like UI5 modules, but to make their exports
-     * available, so called ***shims*** have to be defined.
-     *
-     * Note that UI5 temporarily deactivates an existing AMD loader while it executes third party modules known
-     * to support AMD. This sounds contradictorily at a first glance as UI5 wants to support AMD, but for now
-     * it is necessary to fully support UI5 applications that rely on global names for such modules.
-     *
-     * For third-party modules that UI5 delivers (e.g. those in namespace `sap/ui/thirdparty/`), the necessary
-     * shims are defined by UI5 itself by executing the private module `ui5loader-autoconfig.js` during bootstrap.
-     *
-     * Example:
-     * ```javascript
-     *
-     *   // module 'Something' wants to use third party library 'URI.js'
-     *   // It is packaged by UI5 as non-UI5-module 'sap/ui/thirdparty/URI'
-     *   // the following shim helps UI5 to correctly load URI.js and to retrieve the module's export value
-     *   // Apps don't have to define that shim, it is already applied by ui5loader-autconfig.js
-     *   sap.ui.loader.config({
-     *     shim: {
-     *       'sap/ui/thirdparty/URI': {
-     *          amd: true, // URI.js reacts on an AMD loader, this flag lets UI5 temp. disable such loaders
-     *          exports: 'URI' // name of the global variable under which URI.js exports its module value
-     *       }
-     *     }
-     *   });
-     *
-     *   // now the module can be retrieved like other modules
-     *   sap.ui.define('Something', ['sap/ui/thirdparty/URI'], function(URIModuleValue) {
-     *
-     *     new URIModuleValue(...); // same as the global 'URI' name: new URI(...)
-     *
-     *     ...
-     *   });
-     * ```
-     *
-     *
-     * Differences to Standard AMD:
-     *
-     * The current implementation of `sap.ui.define` differs from the AMD specification (https://github.com/amdjs/amdjs-api)
-     * or from concrete AMD loaders like `requireJS` in several aspects:
-     * 	 - The name `sap.ui.define` is different from the plain `define`. This has two reasons: first, it avoids
-     * 			the impression that `sap.ui.define` is an exact implementation of an AMD loader. And second, it allows
-     * 			the coexistence of an AMD loader (e.g. requireJS) and `sap.ui.define` in one application as long as UI5
-     * 			or applications using UI5 are not fully prepared to run with an AMD loader. Note that the difference
-     * 			of the API names also implies that the UI5 loader can't be used to load 'real' AMD modules as they expect
-     * 			methods `define` and `require` to be available. Modules that use Unified Module Definition (UMD) syntax,
-     * 			can be loaded, but only when no AMD loader is present or when they expose their export also to the global
-     * 			namespace, even when an AMD loader is present (as e.g. jQuery does) or when a shim is defined for them
-     * 			using the `amd:true` flag (see example above)
-     * 	 - Depending on configuration and the current context, `sap.ui.define` loads the dependencies of a module
-     * 			either synchronously using a sync XHR call + eval or asynchronously via script tags. The sync loading
-     * 			is basically a tribute to the synchronous history of UI5. There's no way for a module developer to enforce
-     * 			synchronous loading of the dependencies and on the long run, sync loading will be faded out. Applications
-     * 			that need to ensure synchronous loading of dependencies **MUST** use the deprecated legacy APIs like
-     * 			{@link jQuery.sap.require}.
-     * 	 - `sap.ui.define` does not support plugins to use other file types, formats or protocols. It is not
-     * 			planned to support this in future
-     * 	 - `sap.ui.define` does not support absolute URLs as module names (dependencies) nor does it allow module
-     * 			names that start with a slash. To refer to a module at an absolute URL, a resource root can be registered
-     * 			that points to that URL (or to a prefix of it).
-     * 	 - `sap.ui.define` does **not** support the 'sugar' of requireJS where CommonJS style dependency declarations
-     * 			using `sap.ui.require("something")` are automagically converted into `sap.ui.define` dependencies before
-     * 			executing the factory function.
-     *
-     * Limitations, Design Considerations:
-     * 	 - **Limitation**: as dependency management is not supported for Non-UI5 modules, the only way to ensure
-     * 			proper execution order for such modules currently is to rely on the order in the dependency array. Obviously,
-     * 			this only works as long as `sap.ui.define` uses synchronous loading. It will be enhanced when asynchronous
-     * 			loading is implemented.
-     * 	 - It was discussed to enforce asynchronous execution of the module factory function (e.g. with a timeout
-     * 			of 0). But this would have invalidated the current migration scenario where a sync `jQuery.sap.require`
-     * 			call can load a `sap.ui.define`'ed module. If the module definition would not execute synchronously,
-     * 			the synchronous contract of the require call would be broken (default behavior in existing UI5 applications)
-     *
-     * 	 - A single file must not contain multiple calls to `sap.ui.define`. Multiple calls currently are only
-     * 			supported in the so called 'preload' files that the UI5 merge tooling produces. The exact details of
-     * 			how this works might be changed in future implementations and are not part of the API contract
-     * See:
-     * 	https://github.com/amdjs/amdjs-api
-     */
-    function define(
-      /**
-       * The module export value or a function that calculates that value
-       */
-      vFactory: Function | any,
-      /**
-       * Whether an export to global names is required - should be used by SAP-owned code only
-       */
-      bExport?: boolean
-    ): void;
-    /**
-     * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
-     *
-     * Instantiates an HTML-based Fragment.
-     *
-     * To instantiate a fragment, call:
-     * ```javascript
-     *
-     *    sap.ui.htmlfragment([sId], sFragmentName, [oController]);
-     * ```
-     *  The fragment instance ID is optional and will be used as prefix for the ID of all contained controls.
-     * If no ID is passed, controls will not be prefixed. The `sFragmentName` must correspond to an HTML fragment
-     * which can be loaded via the module system (fragmentName + ".fragment.html") and which defines the fragment.
-     * If `oController` is given, the methods referenced in the fragment will be called on this controller.
-     * Note that fragments may require a controller to be given and certain methods to be available.
-     *
-     * Advanced usage:: To instantiate a fragment and optionally directly give the HTML definition instead of
-     * loading it from a file, call:
-     * ```javascript
-     *
-     *     sap.ui.htmlfragment(oFragmentConfig, [oController]);
-     * ```
-     *  The `oFragmentConfig` object can either have a `fragmentName` or a `fragmentContent` property, but not
-     * both of them. `fragmentContent` can hold the fragment definition as XML string; if not given, `fragmentName`
-     * must be given and the fragment content definition is loaded by the module system. Again, if `oController`
-     * is given, any methods referenced in the fragment will be called on this controller.
-     */
-    function htmlfragment(
-      /**
-       * Resource name of the fragment, a module name in dot notation without the '.fragment.html' suffix. Alternatively,
-       * a configuration object can be given with the properties described below. In this case, no `sId` may be
-       * given as first parameter, but as property `id` in the configuration object.
-       */
-      vFragment:
-        | string
-        | {
-            /**
-             * ID of the newly created fragment; will be used as a prefix to all contained control IDs
-             */
-            id?: string | undefined;
-            /**
-             * Resource name of the Fragment; a module name in dot notation without the '.fragment.html' suffix
-             */
-            fragmentName?: string | undefined;
-            /**
-             * Definition of the fragment as an HTML string
-             */
-            fragmentContent?: string | undefined;
-          },
-      /**
-       * A controller to be used for event handlers in the fragment; can either be the controller of an enclosing
-       * view, a new controller instance, or a simple object with the necessary methods attached. Note that a
-       * fragment has no runtime representation besides its contained controls. There's therefore no API to retrieve
-       * the controller after creating a fragment
-       */
-      oController?: import("sap/ui/core/mvc/Controller").default | object
-    ):
-      | import("sap/ui/core/Control").default
-      | import("sap/ui/core/Control").default[];
-    /**
-     * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.HTMLView.create HTMLView.create} to create view
-     * instances
-     *
-     * Defines or creates an instance of a declarative HTML view.
-     *
-     * The behavior of this method depends on the signature of the call and on the current context.
-     *
-     *
-     * 	 - View Definition `sap.ui.htmlview(sId, vView)`: Defines a view of the given name with the given implementation.
-     * 			sId must be the views name, vView must be an object and can contain implementations for any of the hooks
-     * 			provided by HTMLView
-     * 	 - View Instantiation `sap.ui.htmlview(sId?, vView)`: Creates an instance of the view with the given
-     * 			name (and id).
-     *
-     * Any other call signature will lead to a runtime error. If the id is omitted in the second variant, an
-     * id will be created automatically.
-     */
-    function htmlview(
-      /**
-       * name or implementation of the view.
-       */
-      vView:
-        | string
-        | {
-            /**
-             * whether the view source is loaded asynchronously
-             */
-            async?: boolean | undefined;
-          }
-    ): import("sap/ui/core/mvc/HTMLView").default | undefined;
-    /**
-     * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.JSONView.create JSONView.create} to create view
-     * instances
-     *
-     * Creates a JSON view of the given name and id.
-     *
-     * The `viewName` must either correspond to a JSON module that can be loaded via the module system (viewName
-     * + suffix ".view.json") and which defines the view or it must be a configuration object for a view. The
-     * configuration object can have a viewName, viewContent and a controller property. The viewName behaves
-     * as described above, viewContent can hold the view description as JSON string or as object literal.
-     *
-     * **Note**: when an object literal is given, it might be modified during view construction.
-     *
-     * The controller property can hold a controller instance. If a controller instance is given, it overrides
-     * the controller defined in the view.
-     *
-     * When property `async` is set to true, the view definition and the controller class (and its dependencies)
-     * will be loaded asynchronously. Any controls used in the view might be loaded sync or async, depending
-     * on the view configuration. Even when the view definition is provided as string or object tree, controller
-     * or controls might be loaded asynchronously. In any case, a view instance will be returned synchronously
-     * by this factory API, but its content (control tree) might appear only later. Also see {@link sap.ui.core.mvc.View#loaded}.
-     *
-     * Like with any other control, an id is optional and will be created when missing.
-     */
-    function jsonview(
-      /**
-       * name of a view resource or view configuration as described above.
-       */
-      vView:
-        | string
-        | {
-            /**
-             * name of a view resource in module name notation (without suffix)
-             */
-            viewName?: string | undefined;
-            /**
-             * view definition as a JSON string or an object literal
-             */
-            viewContent?: string | object | undefined;
-            /**
-             * defines how the view source is loaded and rendered later on
-             */
-            async?: boolean | undefined;
-            /**
-             * controller to be used for this view instance
-             */
-            controller?: import("sap/ui/core/mvc/Controller").default | undefined;
-          }
-    ): import("sap/ui/core/mvc/JSONView").default;
-    /**
-     * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.View.extend View.extend} to define the view class
-     * and {@link sap.ui.core.mvc.View.create View.create} to create view instances
-     *
-     * Defines or creates an instance of a JavaScript view.
-     *
-     * The behavior of this method depends on the signature of the call and on the current context.
-     *
-     * View Definition:
-     * ```javascript
-     *
-     *   sap.ui.jsview(sId, vView);
-     * ```
-     *  Defines a view of the given name with the given implementation. `sId` must be the view's name, `vView`
-     * must be an object and can contain implementations for any of the hooks provided by JSView.
-     *
-     * View Instantiation (deprecated):
-     * ```javascript
-     *
-     *   var oView = sap.ui.jsview(vView);
-     *   var oView = sap.ui.jsview(vView, bASync);
-     *   var oView = sap.ui.jsview(sId, vView);
-     *   var oView = sap.ui.jsview(sId, vView, bAsync);
-     * ```
-     *  Creates an instance of the view with the given name (and id). If no view implementation has been defined
-     * for that view name, a JavaScript module with the same qualified name and with suffix `.view.js` will
-     * be loaded (required) and executed. The module should register a view definition on execution (1st. variant
-     * above).
-     *
-     * If `sId` is omitted, an ID will be created automatically.
-     *
-     * When `bAsync` has a truthy value, the view definition will be read asynchronously, if needed, but the
-     * (incomplete) view instance will be returned immediately.
-     *
-     * **Note:** Any other call signature will lead to a runtime error.
-     */
-    function jsview(
-      /**
-       * name or implementation of the view.
-       */
-      vView: string | object,
-      /**
-       * whether the view source is loaded asynchronously
-       */
-      bAsync?: boolean
-    ): import("sap/ui/core/mvc/JSView").default | undefined;
-    /**
-     * @deprecated (since 1.56) - use {@link sap.ui.core.mvc.XMLView} in combination with {@link topic:5ee619fc1370463ea674ee04b65ed83b
-     * XML Templating} instead
-     *
-     * Defines or creates an instance of a template view.
-     *
-     * The behavior of this method depends on the signature of the call and on the current context.
-     *
-     *
-     * 	 - View Definition `sap.ui.templateview(sId, vView)`: Defines a view of the given name with the given
-     * 			implementation. sId must be the views name, vView must be an object and can contain implementations for
-     * 			any of the hooks provided by templateview
-     * 	 - View Instantiation `sap.ui.templateview(sId?, vView)`: Creates an instance of the view with the given
-     * 			name (and id).
-     *
-     * Any other call signature will lead to a runtime error. If the id is omitted in the second variant, an
-     * id will be created automatically.
-     */
-    function templateview(
-      /**
-       * name or implementation of the view.
-       */
-      vView: string | object
-    ): import("sap/ui/core/mvc/TemplateView").default | undefined;
-    /**
-     * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.View.extend View.extend} to define the view class
-     * and {@link sap.ui.core.mvc.View.create View.create} to create view instances
-     *
-     * Creates a view of the given type, name and with the given ID.
-     *
-     * The `vView` configuration object can have the following properties for the view instantiation:
-     * 	 - The ID `vView.id` specifies an ID for the View instance. If no ID is given, an ID will be generated.
-     *
-     * 	 - The view name `vView.viewName` corresponds to an XML module that can be loaded via the module system
-     * 			(vView.viewName + suffix ".view.xml")
-     * 	 - The controller instance `vView.controller` must be a valid controller implementation. The given controller
-     * 			instance overrides the controller defined in the view definition
-     * 	 - The view type `vView.type` specifies what kind of view will be instantiated. All valid view types
-     * 			are listed in the enumeration sap.ui.core.mvc.ViewType.
-     * 	 - The view data `vView.viewData` can hold user specific data. This data is available during the whole
-     * 			lifecycle of the view and the controller
-     * 	 - The view loading mode `vView.async` must be a boolean and defines if the view source is loaded synchronously
-     * 			or asynchronously. In async mode, the view is rendered empty initially, and re-rendered with the loaded
-     * 			view content.
-     * 	 - `vView.preprocessors` can hold a map from the specified preprocessor type (e.g. "xml") to an array
-     * 			of preprocessor configurations; each configuration consists of a `preprocessor` property (optional when
-     * 			registered as on-demand preprocessor) and may contain further preprocessor-specific settings. The preprocessor
-     * 			can be either a module name as string implementation of {@link sap.ui.core.mvc.View.Preprocessor} or
-     * 			a function according to {@link sap.ui.core.mvc.View.Preprocessor.process}. Do not set properties starting
-     * 			with underscore like `_sProperty` property, these are reserved for internal purposes. When several preprocessors
-     * 			are provided for one hook, it has to be made sure that they do not conflict when being processed serially.
-     *
-     * **Note**: These preprocessors are only available to this instance. For global or on-demand availability
-     * use {@link sap.ui.core.mvc.XMLView.registerPreprocessor}.
-     *
-     * **Note**: Please note that preprocessors in general are currently only available to XMLViews.
-     *
-     * **Note**: Preprocessors only work in async views and will be ignored when the view is instantiated in
-     * sync mode by default, as this could have unexpected side effects. You may override this behaviour by
-     * setting the bSyncSupport flag of the preprocessor to true.
-     */
-    function view(
-      /**
-       * id of the newly created view, only allowed for instance creation
-       */
-      sId: string,
-      /**
-       * Specifies what kind of view will be instantiated. All valid view types are listed in the enumeration
-       * {@link sap.ui.core.mvc.ViewType}.
-       */
-      sType: import("sap/ui/core/mvc/ViewType").default
-    ): import("sap/ui/core/mvc/View").default;
-    /**
-     * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
-     *
-     * Instantiates an XML-based Fragment.
-     *
-     * To instantiate a fragment, call:
-     * ```javascript
-     *
-     *    sap.ui.xmlfragment([sId], sFragmentName, [oController]);
-     * ```
-     *  The fragment instance ID is optional and will be used as prefix for the ID of all contained controls.
-     * If no ID is passed, controls will not be prefixed. The `sFragmentName` must correspond to an XML fragment
-     * which can be loaded via the module system (fragmentName + ".fragment.xml") and which defines the fragment.
-     * If `oController` is given, the methods referenced in the fragment will be called on this controller.
-     *
-     * Note that fragments may require a controller to be given and certain methods to be available.
-     *
-     * Advanced usage:: To instantiate a fragment and optionally directly give the XML definition instead of
-     * loading it from a file, call:
-     * ```javascript
-     *
-     *     sap.ui.xmlfragment(oFragmentConfig, [oController]);
-     * ```
-     *  The `oFragmentConfig` object can either have a `fragmentName` or a `fragmentContent` property, but not
-     * both. `fragmentContent` can hold the fragment definition as XML string; if not given, `fragmentName`
-     * must be given and the fragment content definition is loaded via the module system. Again, if `oController`
-     * is given, the methods referenced in the fragment will be called on this controller.
-     */
-    function xmlfragment(
-      /**
-       * Resource name of the fragment; a module name in dot notation without the '.fragment.xml' suffix. Alternatively,
-       * a configuration object can be given with the properties described below. In this case, no `sId` may be
-       * given as first parameter, but as property `id` in the configuration object.
-       */
-      vFragment:
-        | string
-        | {
-            /**
-             * ID of the newly created fragment; will be used as a prefix to all contained control IDs
-             */
-            id?: string | undefined;
-            /**
-             * Resource name of the fragment; a module name in dot notation without the '.fragment.html' suffix
-             */
-            fragmentName?: string | undefined;
-            /**
-             * Definition of the fragment as an XML string
-             */
-            fragmentContent?: string | undefined;
-          },
-      /**
-       * A controller to be used for event handlers in the fragment; can either be the controller of an enclosing
-       * view, a new controller instance, or a simple object with the necessary methods attached. Note that a
-       * fragment has no runtime representation besides its contained controls. There's therefore no API to retrieve
-       * the controller after creating a fragment
-       */
-      oController?: import("sap/ui/core/mvc/Controller").default | object
-    ):
-      | import("sap/ui/core/Control").default
-      | import("sap/ui/core/Control").default[];
     /**
      * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.XMLView.create XMLView.create} to create view instances
      *
@@ -65658,15 +66126,15 @@ declare namespace sap {
             /**
              * Name of the view resource in module name notation (without suffix)
              */
-            viewName?: string | undefined;
+            viewName?: string;
             /**
              * XML string or XML document that defines the view
              */
-            viewContent?: string | Document | undefined;
+            viewContent?: string | Document;
             /**
              * whether the view source is loaded asynchronously
              */
-            async?: boolean | undefined;
+            async?: boolean;
             /**
              * Cache configuration, only for `async` views; caching gets active when this object is provided with vView.cache.keys
              * array; keys are used to store data in the cache and for invalidation of the cache
@@ -65675,19 +66143,21 @@ declare namespace sap {
               /**
                * Array with strings or Promises resolving with strings
                */
-              keys?: Array<string | Promise<string>> | undefined;
-            } | undefined;
+              keys?: Array<string | Promise<string>>;
+            };
             /**
              * Preprocessors configuration, see {@link sap.ui.core.mvc.View}
              */
-            preprocessors?: object | undefined;
+            preprocessors?: object;
             /**
              * Controller instance to be used for this view
              */
-            controller?: import("sap/ui/core/mvc/Controller").default | undefined;
+            controller?: import("sap/ui/core/mvc/Controller").default;
           }
     ): import("sap/ui/core/mvc/XMLView").default;
     /**
+     * @SINCE 0.8
+     *
      * The SAPUI5 Core Runtime.
      *
      * Contains the UI5 jQuery plugins (jQuery.sap.*), the Core and all its components, base classes for Controls,
@@ -65824,7 +66294,7 @@ declare namespace sap {
                *
                * If the `baseUrl` itself is a relative URL, it is evaluated relative to `document.baseURI`.
                */
-              baseUrl?: string | undefined;
+              baseUrl?: string;
               /**
                * A map of resource locations keyed by a corresponding module ID prefix. When a module is to be loaded,
                * the longest key in `paths` is searched that is a prefix of the module ID. The module will be loaded from
@@ -65838,7 +66308,7 @@ declare namespace sap {
                * **Note**: In contrast to the "Common Config" of the AMD spec, the paths (values in the map) are interpreted
                * relative to `document.baseURI`, not relative to `cfg.baseUrl`.
                */
-              paths?: Record<string, string> | undefined;
+              paths?: Record<string, string>;
               /**
                * A map of maps that defines how to map module IDs to other module IDs (inner maps) in the context of a
                * specific set of modules (keys of outer map).
@@ -65853,7 +66323,7 @@ declare namespace sap {
                *
                * Matches are always complete matches, a prefix 'a/b/c' does not match the module ID 'a/b/com'.
                */
-              map?: Record<string, Record<string, string>> | undefined;
+              map?: Record<string, Record<string, string>>;
               /**
                * Defines additional metadata for modules for which the normal behavior of the AMD APIs is not sufficient.
                *
@@ -65880,7 +66350,7 @@ declare namespace sap {
 
                   exports: string | string[];
                 }
-              > | undefined;
+              >;
               /**
                * A map of arrays that each define the modules contained in a bundle.
                *
@@ -65900,7 +66370,7 @@ declare namespace sap {
                *
                * This configuration option is basically provided to be compatible with requireJS or SystemJS configuration.
                */
-              bundles?: Record<string, string[]> | undefined;
+              bundles?: Record<string, string[]>;
               /**
                * A map of arrays that each define the resources contained in a bundle.
                *
@@ -65926,7 +66396,7 @@ declare namespace sap {
                * **Note:** Although non-JS resources can be declared to be part of a bundle, only requests for JavaScript
                * modules will currently trigger the loading of a bundle.
                */
-              bundlesUI5?: Record<string, string[]> | undefined;
+              bundlesUI5?: Record<string, string[]>;
               /**
                * When set to true, `sap.ui.require` loads modules asynchronously via script tags and `sap.ui.define` executes
                * asynchronously. To enable this feature, it is recommended to set the attribute `data-sap-ui-async="true"`
@@ -65934,7 +66404,7 @@ declare namespace sap {
                *
                * **Note:** Switching back from async to sync is not supported and trying to do so will throw an `Error`
                */
-              async?: boolean | undefined;
+              async?: boolean;
               /**
                * When set to true, the ui5loader will overwrite the global properties `define` and `require` with its
                * own implementations. Any previously active AMD loader will be remembered internally and can be restored
@@ -65944,7 +66414,7 @@ declare namespace sap {
                * asynchronous loading. Once the loading behaviour has been defined to be asynchronous, it can not be changed
                * to synchronous behaviour again, also not via setting `amd` to false.
                */
-              amd?: boolean | undefined;
+              amd?: boolean;
             }
           | undefined
       ): object | undefined;
@@ -66126,7 +66596,7 @@ declare namespace sap {
          * See:
          * 	sap.ui.Device.browser.BROWSER
          */
-        export const name: String;
+        export const name: string;
 
         /**
          * If this flag is set to `true`, the Apple Safari browser is used.
@@ -66148,7 +66618,7 @@ declare namespace sap {
          *
          * Might be empty if no version can be determined.
          */
-        export const versionStr: String;
+        export const versionStr: string;
 
         /**
          * @SINCE 1.20.0
@@ -66576,7 +67046,7 @@ declare namespace sap {
          * See:
          * 	sap.ui.Device.os.OS
          */
-        export const name: String;
+        export const name: string;
 
         /**
          * The version of the operating system as `float`.
@@ -66590,7 +67060,7 @@ declare namespace sap {
          *
          * Might be empty if no version can be determined.
          */
-        export const versionStr: String;
+        export const versionStr: string;
 
         /**
          * If this flag is set to `true`, a Windows operating system is used.

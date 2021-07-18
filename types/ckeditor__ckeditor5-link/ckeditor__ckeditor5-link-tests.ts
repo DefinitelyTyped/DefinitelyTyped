@@ -1,13 +1,14 @@
-import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
-import { Element } from '@ckeditor/ckeditor5-engine';
 import { Editor } from '@ckeditor/ckeditor5-core';
+import { DowncastWriter, StylesProcessor } from '@ckeditor/ckeditor5-engine';
+import { DowncastConversionApi } from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
+import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
+import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
+import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 import { AutoLink, Link, LinkEditing, LinkImage, LinkImageUI, LinkUI } from '@ckeditor/ckeditor5-link';
-import { View } from '@ckeditor/ckeditor5-ui';
 import LinkCommand from '@ckeditor/ckeditor5-link/src/linkcommand';
 import UnlinkCommand from '@ckeditor/ckeditor5-link/src/unlinkcommand';
 import * as utils from '@ckeditor/ckeditor5-link/src/utils';
-import EmptyElement from '@ckeditor/ckeditor5-engine/src/view/emptyelement';
-import { DowncastConversionApi } from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
+import { View } from '@ckeditor/ckeditor5-ui';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -45,7 +46,8 @@ new UnlinkCommand(editor).execute();
 // $ExpectError
 new UnlinkCommand(editor).execute('');
 
-utils.isLinkElement(new EmptyElement());
+const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('div');
+utils.isLinkElement(emptyElement);
 // $ExpectError
 utils.isLinkElement('');
 
@@ -57,7 +59,7 @@ utils
 
 utils.ensureSafeUrl('').startsWith('');
 
-utils.isImageAllowed(new Element(''), new Schema());
+utils.isImageAllowed(new Writer().createElement('div'), new Schema());
 
 utils.isEmail('') === ''.startsWith('');
 

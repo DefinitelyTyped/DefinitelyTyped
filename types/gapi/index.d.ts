@@ -273,8 +273,8 @@ declare namespace gapi.client {
      class HttpRequestPromise<T> {
         // Taken and adapted from https://github.com/Microsoft/TypeScript/blob/v2.3.1/lib/lib.es5.d.ts#L1343
         then<TResult1 = T, TResult2 = never>(
-            onfulfilled?: ((response: HttpRequestFulfilled<T>) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-            onrejected?: ((reason: HttpRequestRejected) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+            onfulfilled?: ((response: HttpRequestFulfilled<T>) => TResult1 | PromiseLike<TResult1>) | null,
+            onrejected?: ((reason: HttpRequestRejected) => TResult2 | PromiseLike<TResult2>) | null,
             opt_context?: any
         ): Promise<TResult1 | TResult2>;
     }

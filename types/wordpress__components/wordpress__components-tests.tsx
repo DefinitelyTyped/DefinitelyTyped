@@ -176,8 +176,8 @@ const buttonGroupRef = createRef<HTMLDivElement>();
         { name: 'green', color: '#00ff00' },
         { name: 'blue', color: '#0000ff' },
     ]}
-    value={{ name: 'red', color: '#ff0000' }}
-    onChange={color => color && console.log(color.name)}
+    value={'#ff0000'}
+    onChange={color => color && console.log(color)}
 />;
 
 <C.ColorPalette
@@ -188,8 +188,8 @@ const buttonGroupRef = createRef<HTMLDivElement>();
         { name: 'green', color: '#00ff00' },
         { name: 'blue', color: '#0000ff' },
     ]}
-    value={{ name: 'red', color: '#ff0000' }}
-    onChange={color => color && console.log(color.name)}
+    value={'#ff0000'}
+    onChange={color => color && console.log(color)}
 />;
 
 //

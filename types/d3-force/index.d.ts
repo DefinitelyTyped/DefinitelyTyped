@@ -121,7 +121,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      * creation or by calling simulation.restart. The natural number of ticks when the simulation is started is
      * ⌈log(alphaMin) / log(1 - alphaDecay)⌉; by default, this is 300.
      */
-    tick(iterations?: number): void;
+    tick(iterations?: number): this;
 
     /**
      * Returns the simulation’s array of nodes as specified to the constructor.

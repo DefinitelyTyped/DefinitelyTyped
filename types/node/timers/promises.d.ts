@@ -1,5 +1,5 @@
 declare module 'timers/promises' {
-    import { TimerOptions } from 'timers';
+    import { TimerOptions } from 'node:timers';
 
     /**
      * Returns a promise that resolves after the specified delay in milliseconds.

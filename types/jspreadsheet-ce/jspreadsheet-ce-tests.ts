@@ -13,14 +13,17 @@ const data = [
     ['Honda CRV', 2010, 6000],
 ];
 
-let instance: jspreadsheet.JSpreadsheetElement = jspreadsheet(document.getElementById('my-spreadsheet') as HTMLDivElement, {
-    data,
-    columns: [
-        { title: 'Model', width: 300 },
-        { title: 'Price', width: 80 },
-        { title: 'Model', width: 100 },
-    ],
-});
+let instance: jspreadsheet.JSpreadsheetElement = jspreadsheet(
+    document.getElementById('my-spreadsheet') as HTMLDivElement,
+    {
+        data,
+        columns: [
+            { title: 'Model', width: 300 },
+            { title: 'Price', width: 80 },
+            { title: 'Model', width: 100 },
+        ],
+    },
+);
 
 instance = jspreadsheet(document.getElementById('my-spreadsheet') as HTMLDivElement, {
     url: 'data.json',
@@ -205,3 +208,11 @@ instance = jspreadsheet(document.getElementById('minExample') as HTMLDivElement,
     data: data3,
     minDimensions: [10, 5],
 });
+
+jspreadsheet.tabs(document.getElementById('minExample') as HTMLDivElement, [
+    {
+        sheetName: 'test',
+        data: data3,
+        minDimensions: [10, 5],
+    },
+]);

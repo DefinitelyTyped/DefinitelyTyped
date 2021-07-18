@@ -1,6 +1,6 @@
 declare module 'fs/promises' {
-    import { Abortable } from 'events';
-    import { Stream } from 'stream';
+    import { Abortable } from 'node:events';
+    import { Stream } from 'node:stream';
     import {
         Stats,
         BigIntStats,
@@ -19,7 +19,7 @@ declare module 'fs/promises' {
         OpenMode,
         Mode,
         WatchOptions,
-    } from 'fs';
+    } from 'node:fs';
 
     interface FlagAndOpenMode {
         mode?: Mode | undefined;
