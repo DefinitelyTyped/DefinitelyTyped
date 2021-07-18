@@ -12,7 +12,13 @@ sdc.close(); // Optional - stop NOW
 // Initialization
 const tags: SDC.Tags = { foo: 'bar' };
 const udpOptions: SDC.UdpOptions = { host: 'statsd.example.com', port: 8124, debug: true, tags };
-const tcpOptions: SDC.TcpOptions = { host: 'statsd.example.com', port: 8124, debug: true, tags, socketTimeoutsToClose: 1 };
+const tcpOptions: SDC.TcpOptions = {
+    host: 'statsd.example.com',
+    port: 8124,
+    debug: true,
+    tags,
+    socketTimeoutsToClose: 1,
+};
 const httpOptions: SDC.HttpOptions = {
     host: 'statsd.example.com',
     headers: { 'x-foo': 'bar' },

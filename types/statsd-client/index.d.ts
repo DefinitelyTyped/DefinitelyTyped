@@ -104,7 +104,9 @@ declare namespace StatsdClient {
          * Optional callback called after reporting metrics for an
          * express route.
          */
-        onResponseEnd?: ((client: StatsdClient, startTime: Date, req: express.Request, res: express.Response) => void) | undefined;
+        onResponseEnd?:
+            | ((client: StatsdClient, startTime: Date, req: express.Request, res: express.Response) => void)
+            | undefined;
 
         /**
          * Enables inclusion of per-URL response code and timing
