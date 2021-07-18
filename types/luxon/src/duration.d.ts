@@ -2,21 +2,21 @@ import { NumberingSystem } from './misc';
 import { ConversionAccuracy } from './datetime';
 
 export interface DurationOptions {
-    locale?: string;
-    numberingSystem?: NumberingSystem;
-    conversionAccuracy?: ConversionAccuracy;
+    locale?: string | undefined;
+    numberingSystem?: NumberingSystem | undefined;
+    conversionAccuracy?: ConversionAccuracy | undefined;
 }
 
 export interface DurationObjectUnits {
-    years?: number;
-    quarters?: number;
-    months?: number;
-    weeks?: number;
-    days?: number;
-    hours?: number;
-    minutes?: number;
-    seconds?: number;
-    milliseconds?: number;
+    years?: number | undefined;
+    quarters?: number | undefined;
+    months?: number | undefined;
+    weeks?: number | undefined;
+    days?: number | undefined;
+    hours?: number | undefined;
+    minutes?: number | undefined;
+    seconds?: number | undefined;
+    milliseconds?: number | undefined;
 }
 
 export type DurationUnit = keyof DurationObjectUnits;
@@ -29,22 +29,22 @@ export interface ToISOTimeDurationOptions {
      * Include the `T` prefix
      * @default false
      */
-    includePrefix?: boolean;
+    includePrefix?: boolean | undefined;
     /**
      * Exclude milliseconds from the format if they're 0
      * @default false
      */
-    suppressMilliseconds?: boolean;
+    suppressMilliseconds?: boolean | undefined;
     /**
      * Exclude seconds from the format if they're 0
      * @default false
      */
-    suppressSeconds?: boolean;
+    suppressSeconds?: boolean | undefined;
     /**
      * Choose between the basic and extended format
      * @default 'extended'
      */
-    format?: ToISOFormat;
+    format?: ToISOFormat | undefined;
 }
 
 /**
@@ -112,9 +112,12 @@ export class Duration {
      * @param opts.numberingSystem - the numbering system to use
      * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
      *
-     * @example Duration.fromISO('P3Y6M1W4DT12H30M5S').toObject() //=> { years: 3, months: 6, weeks: 1, days: 4, hours: 12, minutes: 30, seconds: 5 }
-     * @example Duration.fromISO('PT23H').toObject() //=> { hours: 23 }
-     * @example Duration.fromISO('P5Y3M').toObject() //=> { years: 5, months: 3 }
+     * @example
+     * Duration.fromISO('P3Y6M1W4DT12H30M5S').toObject() //=> { years: 3, months: 6, weeks: 1, days: 4, hours: 12, minutes: 30, seconds: 5 }
+     * @example
+     * Duration.fromISO('PT23H').toObject() //=> { hours: 23 }
+     * @example
+     * Duration.fromISO('P5Y3M').toObject() //=> { years: 5, months: 3 }
      */
     static fromISO(text: string, opts?: DurationOptions): Duration;
 
@@ -128,11 +131,16 @@ export class Duration {
      * @param opts.numberingSystem - the numbering system to use
      * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
      *
-     * @example Duration.fromISOTime('11:22:33.444').toObject() //=> { hours: 11, minutes: 22, seconds: 33, milliseconds: 444 }
-     * @example Duration.fromISOTime('11:00').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
-     * @example Duration.fromISOTime('T11:00').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
-     * @example Duration.fromISOTime('1100').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
-     * @example Duration.fromISOTime('T1100').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
+     * @example
+     * Duration.fromISOTime('11:22:33.444').toObject() //=> { hours: 11, minutes: 22, seconds: 33, milliseconds: 444 }
+     * @example
+     * Duration.fromISOTime('11:00').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
+     * @example
+     * Duration.fromISOTime('T11:00').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
+     * @example
+     * Duration.fromISOTime('1100').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
+     * @example
+     * Duration.fromISOTime('T1100').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
      */
     static fromISOTime(text: string, opts: DurationOptions): Duration;
 
@@ -178,16 +186,20 @@ export class Duration {
      * @param opts - options
      * @param opts.floor - floor numerical values. Defaults to true.
      *
-     * @example Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("y d s") //=> "1 6 2"
-     * @example Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("yy dd sss") //=> "01 06 002"
-     * @example Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("M S") //=> "12 518402000"
+     * @example
+     * Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("y d s") //=> "1 6 2"
+     * @example
+     * Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("yy dd sss") //=> "01 06 002"
+     * @example
+     * Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("M S") //=> "12 518402000"
      */
-    toFormat(fmt: string, opts?: { floor?: boolean }): string;
+    toFormat(fmt: string, opts?: { floor?: boolean | undefined }): string;
 
     /**
      * Returns a JavaScript object with this Duration's values.
      *
-     * @example Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toObject() //=> { years: 1, days: 6, seconds: 2 }
+     * @example
+     * Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toObject() //=> { years: 1, days: 6, seconds: 2 }
      */
     toObject(): DurationObjectUnits;
 
@@ -195,11 +207,16 @@ export class Duration {
      * Returns an ISO 8601-compliant string representation of this Duration.
      * @see https://en.wikipedia.org/wiki/ISO_8601#Durations
      *
-     * @example Duration.fromObject({ years: 3, seconds: 45 }).toISO() //=> 'P3YT45S'
-     * @example Duration.fromObject({ months: 4, seconds: 45 }).toISO() //=> 'P4MT45S'
-     * @example Duration.fromObject({ months: 5 }).toISO() //=> 'P5M'
-     * @example Duration.fromObject({ minutes: 5 }).toISO() //=> 'PT5M'
-     * @example Duration.fromObject({ milliseconds: 6 }).toISO() //=> 'PT0.006S'
+     * @example
+     * Duration.fromObject({ years: 3, seconds: 45 }).toISO() //=> 'P3YT45S'
+     * @example
+     * Duration.fromObject({ months: 4, seconds: 45 }).toISO() //=> 'P4MT45S'
+     * @example
+     * Duration.fromObject({ months: 5 }).toISO() //=> 'P5M'
+     * @example
+     * Duration.fromObject({ minutes: 5 }).toISO() //=> 'PT5M'
+     * @example
+     * Duration.fromObject({ milliseconds: 6 }).toISO() //=> 'PT0.006S'
      */
     toISO(): string;
 
@@ -213,11 +230,16 @@ export class Duration {
      * @param opts.includePrefix - include the `T` prefix. Defaults to false.
      * @param opts.format - choose between the basic and extended format. Defaults to 'extended'.
      *
-     * @example Duration.fromObject({ hours: 11 }).toISOTime() //=> '11:00:00.000'
-     * @example Duration.fromObject({ hours: 11 }).toISOTime({ suppressMilliseconds: true }) //=> '11:00:00'
-     * @example Duration.fromObject({ hours: 11 }).toISOTime({ suppressSeconds: true }) //=> '11:00'
-     * @example Duration.fromObject({ hours: 11 }).toISOTime({ includePrefix: true }) //=> 'T11:00:00.000'
-     * @example Duration.fromObject({ hours: 11 }).toISOTime({ format: 'basic' }) //=> '110000.000'
+     * @example
+     * Duration.fromObject({ hours: 11 }).toISOTime() //=> '11:00:00.000'
+     * @example
+     * Duration.fromObject({ hours: 11 }).toISOTime({ suppressMilliseconds: true }) //=> '11:00:00'
+     * @example
+     * Duration.fromObject({ hours: 11 }).toISOTime({ suppressSeconds: true }) //=> '11:00'
+     * @example
+     * Duration.fromObject({ hours: 11 }).toISOTime({ includePrefix: true }) //=> 'T11:00:00.000'
+     * @example
+     * Duration.fromObject({ hours: 11 }).toISOTime({ format: 'basic' }) //=> '110000.000'
      */
     toISOTime(opts?: ToISOTimeDurationOptions): string;
 
@@ -258,8 +280,10 @@ export class Duration {
     /**
      * Scale this Duration by the specified amount. Return a newly-constructed Duration.
      *
-     * @example Duration.fromObject({ hours: 1, minutes: 30 }).mapUnit(x => x * 2) //=> { hours: 2, minutes: 60 }
-     * @example Duration.fromObject({ hours: 1, minutes: 30 }).mapUnit((x, u) => u === "hour" ? x * 2 : x) //=> { hours: 2, minutes: 30 }
+     * @example
+     * Duration.fromObject({ hours: 1, minutes: 30 }).mapUnit(x => x * 2) //=> { hours: 2, minutes: 60 }
+     * @example
+     * Duration.fromObject({ hours: 1, minutes: 30 }).mapUnit((x, u) => u === "hour" ? x * 2 : x) //=> { hours: 2, minutes: 30 }
      */
     mapUnits(fn: (x: number, u?: DurationUnit) => number): Duration;
 
@@ -268,9 +292,12 @@ export class Duration {
      *
      * @param unit - a unit such as 'minute' or 'day'
      *
-     * @example Duration.fromObject({years: 2, days: 3}).get('years') //=> 2
-     * @example Duration.fromObject({years: 2, days: 3}).get('months') //=> 0
-     * @example Duration.fromObject({years: 2, days: 3}).get('days') //=> 3
+     * @example
+     * Duration.fromObject({years: 2, days: 3}).get('years') //=> 2
+     * @example
+     * Duration.fromObject({years: 2, days: 3}).get('months') //=> 0
+     * @example
+     * Duration.fromObject({years: 2, days: 3}).get('days') //=> 3
      */
     get(unit: DurationUnit): number;
 
@@ -279,15 +306,18 @@ export class Duration {
      *
      * @param values - a mapping of units to numbers
      *
-     * @example dur.set({ years: 2017 })
-     * @example dur.set({ hours: 8, minutes: 30 })
+     * @example
+     * dur.set({ years: 2017 })
+     * @example
+     * dur.set({ hours: 8, minutes: 30 })
      */
     set(values: DurationObjectUnits): Duration;
 
     /**
      * "Set" the locale and/or numberingSystem.  Returns a newly-constructed Duration.
      *
-     * @example dur.reconfigure({ locale: 'en-GB' })
+     * @example
+     * dur.reconfigure({ locale: 'en-GB' })
      */
     reconfigure(opts?: DurationOptions): Duration;
 
@@ -296,31 +326,38 @@ export class Duration {
      *
      * @param unit - a unit such as 'minutes' or 'days'
      *
-     * @example Duration.fromObject({years: 1}).as('days') //=> 365
-     * @example Duration.fromObject({years: 1}).as('months') //=> 12
-     * @example Duration.fromObject({hours: 60}).as('days') //=> 2.5
+     * @example
+     * Duration.fromObject({years: 1}).as('days') //=> 365
+     * @example
+     * Duration.fromObject({years: 1}).as('months') //=> 12
+     * @example
+     * Duration.fromObject({hours: 60}).as('days') //=> 2.5
      */
     as(unit: DurationUnit): number;
 
     /**
      * Reduce this Duration to its canonical representation in its current units.
      *
-     * @example Duration.fromObject({ years: 2, days: 5000 }).normalize().toObject() //=> { years: 15, days: 255 }
-     * @example Duration.fromObject({ hours: 12, minutes: -45 }).normalize().toObject() //=> { hours: 11, minutes: 15 }
+     * @example
+     * Duration.fromObject({ years: 2, days: 5000 }).normalize().toObject() //=> { years: 15, days: 255 }
+     * @example
+     * Duration.fromObject({ hours: 12, minutes: -45 }).normalize().toObject() //=> { hours: 11, minutes: 15 }
      */
     normalize(): Duration;
 
     /**
      * Convert this Duration into its representation in a different set of units.
      *
-     * @example Duration.fromObject({ hours: 1, seconds: 30 }).shiftTo('minutes', 'milliseconds').toObject() //=> { minutes: 60, milliseconds: 30000 }
+     * @example
+     * Duration.fromObject({ hours: 1, seconds: 30 }).shiftTo('minutes', 'milliseconds').toObject() //=> { minutes: 60, milliseconds: 30000 }
      */
     shiftTo(...units: DurationUnit[]): Duration;
 
     /**
      * Return the negative of this Duration.
      *
-     * @example Duration.fromObject({ hours: 1, seconds: 30 }).negate().toObject() //=> { hours: -1, seconds: -30 }
+     * @example
+     * Duration.fromObject({ hours: 1, seconds: 30 }).negate().toObject() //=> { hours: -1, seconds: -30 }
      */
     negate(): Duration;
 
@@ -388,6 +425,7 @@ export class Duration {
     /**
      * Equality check
      * Two Durations are equal iff they have the same units and the same values for each unit.
+     *
      * @param other
      */
     equals(other: Duration): boolean;

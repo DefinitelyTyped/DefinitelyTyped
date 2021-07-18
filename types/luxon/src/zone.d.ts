@@ -2,11 +2,11 @@ export interface ZoneOffsetOptions {
     /**
      * What style of offset to return.
      */
-    format?: 'short' | 'long';
+    format?: 'short' | 'long' | undefined;
     /**
      * What locale to return the offset name in.
      */
-    locale?: string;
+    locale?: string | undefined;
 }
 
 /**
@@ -33,6 +33,7 @@ export class Zone {
 
     /**
      * Returns the offset's common name (such as EST) at the specified timestamp
+     *
      * @param ts - Epoch milliseconds for which to get the name
      * @param options - Options to affect the format
      * @param options.format - What style of offset to return.
@@ -42,6 +43,7 @@ export class Zone {
 
     /**
      * Returns the offset's value as a string
+     *
      * @param ts - Epoch milliseconds for which to get the offset
      * @param format - What style of offset to return.
      *                 Accepts 'narrow', 'short', or 'techie'. Returning '+6', '+06:00', or '+0600' respectively
@@ -50,12 +52,14 @@ export class Zone {
 
     /**
      * Return the offset in minutes for this zone at the specified timestamp.
+     *
      * @param ts - Epoch milliseconds for which to compute the offset
      */
     offset(ts: number): number;
 
     /**
      * Return whether this Zone is equal to another zone
+     *
      * @param other - the zone to compare
      */
     equals(other: Zone): boolean;
@@ -86,6 +90,7 @@ export class IANAZone extends Zone {
      * identifies a known zone; see {@link isValidZone} for that.
      *
      * @param s - The string to check validity on
+     *
      * @example
      * IANAZone.isValidSpecifier("America/New_York") //=> true
      * @example
@@ -97,7 +102,9 @@ export class IANAZone extends Zone {
 
     /**
      * Returns whether the provided string identifies a real zone
+     *
      * @param zone - The string to check
+     *
      * @example
      * IANAZone.isValidZone("America/New_York") //=> true
      * @example
@@ -121,13 +128,16 @@ export class FixedOffsetZone extends Zone {
 
     /**
      * Get an instance with a specified offset
+     *
      * @param offset - The offset in minutes
      */
     static instance(offset: number): FixedOffsetZone;
 
     /**
      * Get an instance of FixedOffsetZone from a UTC offset string, like "UTC+6"
+     *
      * @param s - The offset string to parse
+     *
      * @example
      * FixedOffsetZone.parseSpecifier("UTC+6")
      * @example
