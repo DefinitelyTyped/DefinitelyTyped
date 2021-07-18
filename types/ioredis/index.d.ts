@@ -1674,6 +1674,7 @@ declare namespace IORedis {
     type Ok = 'OK';
 
     interface Cluster extends EventEmitter, Commander, Commands {
+        readonly isCluster: true;
         readonly options: ClusterOptions;
         readonly status: string;
         connect(): Promise<void>;

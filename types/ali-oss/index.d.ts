@@ -29,6 +29,10 @@ declare namespace OSS {
         timeout?: string | number | undefined;
         /** use custom domain name */
         cname?: boolean | undefined;
+        /** use time (ms) of refresh STSToken interval it should be less than sts info expire interval, default is 300000ms(5min) when sts info expires. */
+        refreshSTSTokenInterval?: number;
+        /** used by auto set stsToken、accessKeyId、accessKeySecret when sts info expires. return value must be object contains stsToken、accessKeyId、accessKeySecret */
+        refreshSTSToken?: () => Promise<{accessKeyId: string, accessKeySecret: string, stsToken: string}>;
     }
 
     /**

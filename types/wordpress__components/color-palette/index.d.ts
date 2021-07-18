@@ -25,12 +25,12 @@ declare namespace ColorPalette {
         /**
          * Current active color value.
          */
-        value: Color;
+        value: string;
         /**
          * Function to be called when color is changed. `color` may be
          * `undefined` if the color selection is the same as the current `value`.
          */
-        onChange(color?: Color): void;
+        onChange(color?: string): void;
         /**
          * Whether the palette should have a clearing button or not.
          * @defaultValue `true`

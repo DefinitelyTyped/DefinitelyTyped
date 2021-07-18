@@ -1,5 +1,5 @@
 declare module 'perf_hooks' {
-    import { AsyncResource } from 'async_hooks';
+    import { AsyncResource } from 'node:async_hooks';
 
     type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
 

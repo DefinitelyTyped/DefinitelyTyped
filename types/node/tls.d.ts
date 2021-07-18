@@ -1,6 +1,6 @@
 declare module 'tls' {
-    import { X509Certificate } from 'crypto';
-    import * as net from 'net';
+    import { X509Certificate } from 'node:crypto';
+    import * as net from 'node:net';
 
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;

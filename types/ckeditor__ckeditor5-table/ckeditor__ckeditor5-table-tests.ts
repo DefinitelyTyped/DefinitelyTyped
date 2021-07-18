@@ -15,8 +15,8 @@ new CKTable.TableMouse(editor).init();
 CKTable.TableMouse.requires.map(Plugin => new Plugin(editor).init());
 
 new CKTable.TableUtils(editor).init();
-new CKTable.TableUtils(editor).getCellLocation(new Element('div')).row > 0;
-new CKTable.TableUtils(editor).getCellLocation(new Element('div')).column > 0;
+new CKTable.TableUtils(editor).getCellLocation(Element.fromJSON({ name: 'div' })).row > 0;
+new CKTable.TableUtils(editor).getCellLocation(Element.fromJSON({ name: 'div' })).column > 0;
 new CKTable.TableUtils(editor)
     .createTable(new Writer(), { rows: 4, columns: 0, headingRows: 4, headingColumns: 4 })
     .getChildren();

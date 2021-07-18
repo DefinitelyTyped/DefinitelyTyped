@@ -164,8 +164,8 @@ export class AsyncResultLocator<T> extends EventEmitter implements PromiseLike<T
 
     poll(interval: number, timeout: number): void;
 
-    then<TResult1, TResult2>(onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)) | null | undefined,
-                             onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2)) | null | undefined): Promise<TResult1 | TResult2>;
+    then<TResult1, TResult2>(onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)) | null,
+                             onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2)) | null): Promise<TResult1 | TResult2>;
 
     finally(onfinally?: () => void): Promise<T>;
 }

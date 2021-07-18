@@ -1,5 +1,5 @@
-import Module = require('module');
-import { URL } from 'url';
+import Module = require('node:module');
+import { URL } from 'node:url';
 require.extensions[".ts"] = () => "";
 
 Module.runMain();
@@ -22,7 +22,7 @@ const bModule: NodeModule = new Module("b", aModule);
 
 const builtIn: string[] = Module.builtinModules;
 
-const customRequire2 = Module.createRequire('./test');
+const customRequire2 = Module.createRequire('node:./test');
 
 customRequire2('test');
 

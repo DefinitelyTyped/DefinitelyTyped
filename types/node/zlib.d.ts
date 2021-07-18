@@ -1,5 +1,5 @@
 declare module 'zlib' {
-    import * as stream from 'stream';
+    import * as stream from 'node:stream';
 
     interface ZlibOptions {
         /**
