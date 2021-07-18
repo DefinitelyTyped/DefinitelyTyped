@@ -151,6 +151,12 @@ docker.createContainer({ Tty: true }, (err, container) => {
     });
 });
 
+docker.createContainer({ HostConfig: { Init: true } }, (err, container) => {
+    container.start((err, data) => {
+        // NOOP
+    });
+});
+
 docker.createNetwork({Name: 'networkName'},  (err, network) => {
     network.remove((err, data) => {
         // NOOP
