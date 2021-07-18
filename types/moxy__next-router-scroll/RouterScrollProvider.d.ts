@@ -1,4 +1,4 @@
-import { NextScrollBehaviorContext } from './scroll-behavior/NextScrollBehavior.browser';
+import { NextScrollBehaviorContext } from './scroll-behavior';
 import { ShouldUpdateScroll } from 'scroll-behavior';
 import { Provider, ReactChildren } from 'react';
 export default ScrollBehaviorProvider;

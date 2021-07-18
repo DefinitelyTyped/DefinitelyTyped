@@ -1,6 +1,6 @@
 import { Context } from 'react';
 import { ShouldUpdateScroll } from 'scroll-behavior';
-import { NextScrollBehaviorContext } from './scroll-behavior/NextScrollBehavior.browser';
+import { NextScrollBehaviorContext } from './scroll-behavior';
 
 export default RouterScrollProvider;
 
