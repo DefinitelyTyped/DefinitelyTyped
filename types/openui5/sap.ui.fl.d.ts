@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -45,7 +45,7 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
         /**
          * Selector of the control
          */
-        selector: any;
+        selector: /* was: sap.ui.fl.Selector */ any;
         /**
          * ID of the variant management control
          */
@@ -57,7 +57,7 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
         /**
          * The callback will also be called after the initial variant is applied
          */
-        callAfterInitialVariant?: boolean | undefined;
+        callAfterInitialVariant?: boolean;
       }
     ): void;
     /**
@@ -89,7 +89,7 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
         /**
          * Selector of the control
          */
-        selector: any;
+        selector: /* was: sap.ui.fl.Selector */ any;
         /**
          * ID of the variant management control
          */
@@ -123,7 +123,7 @@ declare module "sap/ui/fl/changeHandler/BaseAddViaDelegate" {
         /**
          * Hook revert controls that will not automatically be removed by removing the new property
          */
-        revertAdditionalControls?: Function | undefined;
+        revertAdditionalControls?: Function;
         /**
          * Aggregation name to be passed to the delegate
          */
@@ -135,7 +135,7 @@ declare module "sap/ui/fl/changeHandler/BaseAddViaDelegate" {
         /**
          * Option to store a different control as parent in the change
          */
-        mapParentIdIntoChange?: Function | undefined;
+        mapParentIdIntoChange?: Function;
         /**
          * Aggregation name to be passed to the delegate
          */
@@ -143,15 +143,15 @@ declare module "sap/ui/fl/changeHandler/BaseAddViaDelegate" {
         /**
          * Skip delegate method, is a function is passed it has to return a boolean
          */
-        skipCreateLabel?: boolean | Function | undefined;
+        skipCreateLabel?: boolean | Function;
         /**
          * Skip delegate method, is a function is passed it has to return a boolean
          */
-        skipCreateLayout?: boolean | Function | undefined;
+        skipCreateLayout?: boolean | Function;
         /**
          * Are default delegates supported?
          */
-        supportsDefault?: boolean | undefined;
+        supportsDefault?: boolean;
       }
     ): any;
   }
@@ -212,15 +212,15 @@ declare module "sap/ui/fl/interfaces/Delegate" {
         /**
          * Modifier to harmonize access, creation and manipulation to controls in XML views and JS controls
          */
-        modifier: any;
+        modifier: /* was: sap.ui.core.util.reflection.BaseTreeModifier */ any;
         /**
          * Needed to calculate the correct ID in case you provide a selector
          */
-        appComponent?: UIComponent | undefined;
+        appComponent?: UIComponent;
         /**
          * XML node of the view, required for the XML case to create nodes and to find elements
          */
-        view?: Element | undefined;
+        view?: Element;
         /**
          * Selector to calculate the ID for the control that is created
          */
@@ -228,12 +228,12 @@ declare module "sap/ui/fl/interfaces/Delegate" {
           /**
            * Control ID targeted by the change
            */
-          id?: string | undefined;
+          id?: string;
           /**
            * `true` if the ID within the selector is a local ID or a global ID
            */
-          isLocalId?: boolean | undefined;
-        } | undefined;
+          isLocalId?: boolean;
+        };
         /**
          * Selector of the parent
          */
@@ -269,19 +269,19 @@ declare module "sap/ui/fl/interfaces/Delegate" {
         /**
          * Modifier to harmonize access, creation and manipulation to controls in XML views and JS controls
          */
-        modifier: any;
+        modifier: /* was: sap.ui.core.util.reflection.BaseTreeModifier */ any;
         /**
          * Needed to calculate the correct ID in case you provide a selector
          */
-        appComponent?: UIComponent | undefined;
+        appComponent?: UIComponent;
         /**
          * XML node of the view, required for the XML case to create nodes and to find elements
          */
-        view?: Element | undefined;
+        view?: Element;
         /**
          * ID of the control the label is used for, this can serve as prefix for the label's ID
          */
-        labelFor?: string | undefined;
+        labelFor?: string;
         /**
          * Selector of the parent
          */
@@ -318,15 +318,15 @@ declare module "sap/ui/fl/interfaces/Delegate" {
         /**
          * Modifier to harmonize access, creation and manipulation to controls in XML views and JS controls
          */
-        modifier: any;
+        modifier: /* was: sap.ui.core.util.reflection.BaseTreeModifier */ any;
         /**
          * Needed to calculate the correct ID in case you provide a selector
          */
-        appComponent?: UIComponent | undefined;
+        appComponent?: UIComponent;
         /**
          * XML node of the view, required for the XML case to create nodes and to find elements
          */
-        view?: Element | undefined;
+        view?: Element;
         /**
          * Selector to calculate the ID for the control that is created
          */
@@ -334,12 +334,12 @@ declare module "sap/ui/fl/interfaces/Delegate" {
           /**
            * Control ID targeted by the change
            */
-          id?: string | undefined;
+          id?: string;
           /**
            * `true` if the ID within the selector is a local ID or a global ID
            */
-          isLocalId?: boolean | undefined;
-        } | undefined;
+          isLocalId?: boolean;
+        };
         /**
          * Runtime binding path the control should be bound to
          */
@@ -444,13 +444,13 @@ declare module "sap/ui/fl/interfaces/Delegate" {
      * If metadata has label information, it should be provided. A fallback to the technical name is implemented
      * in the tooling and doesn't need to be provided by delegates
      */
-    label?: string | undefined;
+    label?: string;
     /**
      * If metadata has tooltip information (e.g. `quickinfo` annotation in OData), it should be provided. A
      * fallback to the label or technical name is implemented in the tooling and doesn't need to be provided
      * by delegates
      */
-    tooltip?: string | undefined;
+    tooltip?: string;
     /**
      * Relative binding path, starting from the current binding context. Usually the same as the name, but for
      * nested properties (e.g. complex properties or navigation properties) it has segments
@@ -462,23 +462,23 @@ declare module "sap/ui/fl/interfaces/Delegate" {
      * or properties that are unsupported by the delegate's create methods). These properties should be marked
      * as `unsupported`.
      */
-    unsupported?: boolean | undefined;
+    unsupported?: boolean;
     /**
      * The delegate has to return all properties that could be bound somewhere. However some properties maybe
      * shouldn't appear in the dialog (e.g. based on `UI.Hidden` annotation or Field Control). These properties
      * should be marked as `hiddenByAnnotation`.
      */
-    hideFromReveal?: boolean | undefined;
+    hideFromReveal?: boolean;
     /**
      * Only needed for OData-based delegates to help custom field support tooling
      */
-    entityType?: string | undefined;
+    entityType?: string;
     /**
      * Some properties can be nested (e.g. based on complex types and navigation properties in OData). In this
      * case the delegate can provide these nested properties. However currently only nesting of one level is
      * supported by adaptation dialogs.
      */
-    properties?: PropertyInfo[] | undefined;
+    properties?: PropertyInfo[];
   };
 
   /**
@@ -606,6 +606,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
 
   import { ID } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import Title from "sap/m/Title";
@@ -684,7 +686,26 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.fl.variants.VariantManagement`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
+     *
+     * This event is fired when users presses the cancel button inside Save As dialog.
+     */
+    attachCancel(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
        * itself
@@ -708,7 +729,26 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:initialized initialized} event of this `sap.ui.fl.variants.VariantManagement`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
+     *
+     * This event is fired when the model and context are set.
+     */
+    attachInitialized(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
        * itself
@@ -732,7 +772,26 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:manage manage} event of this `sap.ui.fl.variants.VariantManagement`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
+     *
+     * This event is fired when users apply changes to variants in the Manage Views dialog.
+     */
+    attachManage(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
        * itself
@@ -757,7 +816,27 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:save save} event of this `sap.ui.fl.variants.VariantManagement`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
+     *
+     * This event is fired when the Save View dialog or the Save As dialog is closed with the
+     * save button.
+     */
+    attachSave(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
        * itself
@@ -781,7 +860,26 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.fl.variants.VariantManagement`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
+     *
+     * This event is fired when a new variant is selected.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
        * itself
@@ -797,7 +895,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -812,7 +910,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -827,7 +925,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -842,7 +940,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -857,7 +955,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -922,23 +1020,23 @@ declare module "sap/ui/fl/variants/VariantManagement" {
         /**
          * Variant title
          */
-        name?: string | undefined;
+        name?: string;
         /**
          * Indicates if an existing variant is overwritten or if a new variant is created.
          */
-        overwrite?: boolean | undefined;
+        overwrite?: boolean;
         /**
          * Variant key
          */
-        key?: string | undefined;
+        key?: string;
         /**
          * Apply Automatically indicator
          */
-        execute?: boolean | undefined;
+        execute?: boolean;
         /**
          * The default variant indicator
          */
-        def?: boolean | undefined;
+        def?: boolean;
       }
     ): this;
     /**
@@ -952,13 +1050,13 @@ declare module "sap/ui/fl/variants/VariantManagement" {
         /**
          * Variant key
          */
-        key?: string | undefined;
+        key?: string;
       }
     ): this;
     /**
      * Gets the currently selected variant key.
      */
-    getCurrentVariantKey(): String;
+    getCurrentVariantKey(): string;
     /**
      * @SINCE 1.85
      *
@@ -1068,7 +1166,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     /**
      * Retrieves all variants.
      */
-    getVariants(): Array<any>;
+    getVariants(): any[];
     /**
      * Opens the Manage Views dialog.
      */
@@ -1111,7 +1209,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       /**
        * Key of the variant that should be selected.
        */
-      sKey: String
+      sKey: string
     ): this;
     /**
      * @SINCE 1.85
@@ -1260,152 +1358,56 @@ declare module "sap/ui/fl/variants/VariantManagement" {
        */
       bUpdateVariantInURL?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.fl.variants.VariantManagement`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
-     *
-     * This event is fired when users presses the cancel button inside Save As dialog.
-     */
-    attachCancel(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:initialized initialized} event of this `sap.ui.fl.variants.VariantManagement`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
-     *
-     * This event is fired when the model and context are set.
-     */
-    attachInitialized(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:manage manage} event of this `sap.ui.fl.variants.VariantManagement`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
-     *
-     * This event is fired when users apply changes to variants in the Manage Views dialog.
-     */
-    attachManage(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:save save} event of this `sap.ui.fl.variants.VariantManagement`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
-     *
-     * This event is fired when the Save View dialog or the Save As dialog is closed with the
-     * save button.
-     */
-    attachSave(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.fl.variants.VariantManagement`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.fl.variants.VariantManagement` itself.
-     *
-     * This event is fired when a new variant is selected.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.fl.variants.VariantManagement`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $VariantManagementSettings extends $ControlSettings {
     /**
      * Indicates that Set as Default is visible in the Save View and the Manage Views dialogs.
      */
-    showSetAsDefault?: boolean | PropertyBindingInfo | undefined;
+    showSetAsDefault?: boolean | PropertyBindingInfo;
 
     /**
      * If set to `true`, the key for a vendor variant will be added manually.
      *  **Note:**This flag is only used internally in the app variant scenarios.
      */
-    manualVariantKey?: boolean | PropertyBindingInfo | undefined;
+    manualVariantKey?: boolean | PropertyBindingInfo;
 
     /**
      * Indicates that the control is in error state. If set to `true`, an error message will be displayed whenever
      * the variant is opened.
      */
-    inErrorState?: boolean | PropertyBindingInfo | undefined;
+    inErrorState?: boolean | PropertyBindingInfo;
 
     /**
      * Indicates that the control is in edit state. If set to `false`, the footer of the Views list will
      * be hidden.
      */
-    editable?: boolean | PropertyBindingInfo | undefined;
+    editable?: boolean | PropertyBindingInfo;
 
     /**
      * Determines the name of the model. The binding context will be defined by the current ID.  **Note:**
      * In a UI adaptation scenario, this property is not used at all, because the model name is `$FlexVariants`.
      */
-    modelName?: string | PropertyBindingInfo | undefined;
+    modelName?: string | PropertyBindingInfo;
 
     /**
      * Determines the intention of setting the current variant based on passed information.  **Note:** The
      * `VariantManagement` control does not react in any way to this property.
      */
-    updateVariantInURL?: boolean | PropertyBindingInfo | undefined;
+    updateVariantInURL?: boolean | PropertyBindingInfo;
 
     /**
      * When set to false, doesn't reset the `VariantManagement` control to the default variant, when its binding
      * context is changed.
      */
-    resetOnContextChange?: boolean | PropertyBindingInfo | undefined;
+    resetOnContextChange?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.80
      *
      * Determines the behavior for Apply Automatically if the standard variant is marked as the default variant.
      */
-    executeOnSelectionForStandardDefault?: boolean | PropertyBindingInfo | undefined;
+    executeOnSelectionForStandardDefault?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.85
@@ -1418,38 +1420,38 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     displayTextForExecuteOnSelectionForStandardVariant?:
       | string
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * Contains the controls for which the variant management is responsible.
      */
-    for?: Array<Control | string> | undefined;
+    for?: Array<Control | string>;
 
     /**
      * This event is fired when the Save View dialog or the Save As dialog is closed with the
      * save button.
      */
-    save?: Function | undefined;
+    save?: Function;
 
     /**
      * This event is fired when users presses the cancel button inside Save As dialog.
      */
-    cancel?: Function | undefined;
+    cancel?: Function;
 
     /**
      * This event is fired when users apply changes to variants in the Manage Views dialog.
      */
-    manage?: Function | undefined;
+    manage?: Function;
 
     /**
      * This event is fired when the model and context are set.
      */
-    initialized?: Function | undefined;
+    initialized?: Function;
 
     /**
      * This event is fired when a new variant is selected.
      */
-    select?: Function | undefined;
+    select?: Function;
   }
 }
 
@@ -1606,6 +1608,10 @@ declare module "sap/ui/fl/write/api/FeaturesAPI" {
      * if key user adaptation should be handled standalone without an SAP Fiori launchpad.
      */
     isKeyUser(): Promise<boolean>;
+    /**
+     * Checks if key user has also the admin role to enable the translation button
+     */
+    isKeyUserTranslationEnabled(): Promise<boolean>;
     /**
      * Checks if the data storing implementation for a given layer is capable of handling versioning.
      */

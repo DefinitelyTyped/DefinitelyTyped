@@ -40,7 +40,6 @@ import Text from "@ckeditor/ckeditor5-engine/src/model/text";
 import Writer from "@ckeditor/ckeditor5-engine/src/model/writer";
 import { getFillerOffset } from "@ckeditor/ckeditor5-engine/src/view/containerelement";
 import ViewDocumentFragment from "@ckeditor/ckeditor5-engine/src/view/documentfragment";
-import EditableElement from "@ckeditor/ckeditor5-engine/src/view/editableelement";
 import ViewElement from "@ckeditor/ckeditor5-engine/src/view/element";
 import { ElementDefinition } from "@ckeditor/ckeditor5-engine/src/view/elementdefinition";
 import { BlockFillerMode } from "@ckeditor/ckeditor5-engine/src/view/filler";
@@ -150,7 +149,7 @@ class MyElement extends ViewElement {
     }
 }
 
-const viewElement = new MyElement();
+const viewElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement("div");
 
 let stylesProcessor = new StylesProcessor();
 let viewDocument = new ViewDocument(stylesProcessor);
@@ -161,7 +160,7 @@ rootEditableElement = viewDocument.getRoot()!;
 
 enablePlaceholder({
     view,
-    element: new MyElement(),
+    element: new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement("div"),
     text: "foo",
 });
 enablePlaceholder({
@@ -207,7 +206,7 @@ dataProcessor.registerRawContentMatcher({ name: "div", classes: "raw" });
 
 let insertOperation = new InsertOperation(
     new ModelPosition(model.document.createRoot(), [0]),
-    new Text("x"),
+    new Writer().createText("foo"),
     model.document.version,
 );
 if (insertOperation.type === "insert") {
@@ -310,7 +309,7 @@ model.enqueueChange("transparent", writer => {
     const myWriter: Writer = writer;
 });
 model.insertContent(new DocumentFragment());
-model.insertContent(new Text(""));
+model.insertContent(new Writer().createText(""));
 model.deleteContent(model.document.selection);
 model.modifySelection(model.document.selection);
 model.modifySelection(model.document.selection, { direction: "backward" });
@@ -345,9 +344,8 @@ treeWalker = new TreeWalker({
     singleCharacters: false,
 });
 
-element = new Element("foo");
-element = new Element("foo", nullvalue);
-element = new Element("two", nullvalue, [new Text("ba"), new Element("img"), new Text("r")]);
+element = new Writer().createElement("div");
+element = new Writer().createElement("div", { foo: "bar" });
 num = element.maxOffset;
 num = element.childCount;
 let node: Text | Element = element.getChild(num);
@@ -365,7 +363,7 @@ num = element.offsetToIndex(num);
 
 let domConverter = new DomConverter(viewDocument);
 let blockFillerMode: BlockFillerMode = "nbsp";
-const viewEditableElement = new EditableElement();
+const viewEditableElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEditableElement("div");
 domConverter = new DomConverter(viewDocument, { blockFillerMode });
 blockFillerMode = domConverter.blockFillerMode;
 domConverter.bindElements(document.createElement("div"), viewEditableElement);

@@ -7,7 +7,7 @@
         "eofline": false,
         "no-any-union": false,
         "no-empty-interface": false,
-        "no-redundant-undefined": false,
+        "redundant-undefined": false,
         "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
         "semicolon": false,

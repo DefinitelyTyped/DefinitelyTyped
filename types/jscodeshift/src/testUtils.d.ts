@@ -19,3 +19,14 @@ export function defineInlineTest(
   expectedOutputSource: string,
   testName?: string
 ): () => any;
+
+export function runInlineTest(
+  module: Transform,
+  options: Options,
+  input: {
+    path?: string,
+    source: string,
+  },
+  expectedOutput: string,
+  testOptions?: TestOptions
+): string;

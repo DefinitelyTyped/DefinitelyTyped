@@ -5,7 +5,7 @@
 //                 Karim Stekelenburg <https://github.com/karimStekelenburg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Buffer } from 'buffer';
+import { Buffer } from 'buffer/';
 
 export function createWallet(config: WalletConfig, credentials: WalletCredentials): Promise<void>;
 export function openWallet(config: WalletConfig, credentials: OpenWalletCredentials): Promise<WalletHandle>;
