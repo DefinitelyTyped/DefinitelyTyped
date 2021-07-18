@@ -112,6 +112,8 @@ dt.toSQLDate(); // $ExpectType string
 dt.toSQLTime(); // $ExpectType string
 dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string
 dt.valueOf(); // $ExpectType number
+dt.toObject(); // $ExpectType ToObjectOutput
+dt.toObject({ includeConfig: true }); // $ExpectType ToObjectOutput
 
 // $ExpectType string | null
 dt.toRelative({

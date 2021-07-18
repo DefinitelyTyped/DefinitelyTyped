@@ -2,18 +2,18 @@ import { CalendarSystem, NumberingSystem, StringUnitLength, UnitLength } from '.
 import { Zone } from './zone';
 
 export interface InfoOptions {
-    locale?: string;
+    locale?: string | undefined;
 }
 
 export interface InfoUnitOptions extends InfoOptions {
-    numberingSystem?: NumberingSystem;
+    numberingSystem?: NumberingSystem | undefined;
 }
 
 /** @deprecated */
 export type UnitOptions = InfoUnitOptions;
 
 export interface InfoCalendarOptions extends InfoUnitOptions {
-    outputCalendar?: CalendarSystem;
+    outputCalendar?: CalendarSystem | undefined;
 }
 
 /**
@@ -72,12 +72,18 @@ export namespace Info {
      * @param opts.locObj - an existing locale object to use. Defaults to null.
      * @param opts.outputCalendar - the calendar. Defaults to 'gregory'.
      *
-     * @example Info.months()[0] //=> 'January'
-     * @example Info.months('short')[0] //=> 'Jan'
-     * @example Info.months('numeric')[0] //=> '1'
-     * @example Info.months('short', { locale: 'fr-CA' } )[0] //=> 'janv.'
-     * @example Info.months('numeric', { locale: 'ar' })[0] //=> '١'
-     * @example Info.months('long', { outputCalendar: 'islamic' })[0] //=> 'Rabiʻ I'
+     * @example
+     * Info.months()[0] //=> 'January'
+     * @example
+     * Info.months('short')[0] //=> 'Jan'
+     * @example
+     * Info.months('numeric')[0] //=> '1'
+     * @example
+     * Info.months('short', { locale: 'fr-CA' } )[0] //=> 'janv.'
+     * @example
+     * Info.months('numeric', { locale: 'ar' })[0] //=> '١'
+     * @example
+     * Info.months('long', { outputCalendar: 'islamic' })[0] //=> 'Rabiʻ I'
      */
     function months(length?: UnitLength, opts?: InfoCalendarOptions): string[];
 
@@ -106,10 +112,14 @@ export namespace Info {
      * @param opts.numberingSystem - the numbering system. Defaults to null.
      * @param opts.locObj - an existing locale object to use. Defaults to null.
      *
-     * @example Info.weekdays()[0] //=> 'Monday'
-     * @example Info.weekdays('short')[0] //=> 'Mon'
-     * @example Info.weekdays('short', { locale: 'fr-CA' })[0] //=> 'lun.'
-     * @example Info.weekdays('short', { locale: 'ar' })[0] //=> 'الاثنين'
+     * @example
+     * Info.weekdays()[0] //=> 'Monday'
+     * @example
+     * Info.weekdays('short')[0] //=> 'Mon'
+     * @example
+     * Info.weekdays('short', { locale: 'fr-CA' })[0] //=> 'lun.'
+     * @example
+     * Info.weekdays('short', { locale: 'ar' })[0] //=> 'الاثنين'
      */
     function weekdays(length?: StringUnitLength, options?: InfoUnitOptions): string[];
 
@@ -133,8 +143,10 @@ export namespace Info {
      * @param opts - options
      * @param opts.locale - the locale code
      *
-     * @example Info.meridiems() //=> [ 'AM', 'PM' ]
-     * @example Info.meridiems({ locale: 'my' }) //=> [ 'နံနက်', 'ညနေ' ]
+     * @example
+     * Info.meridiems() //=> [ 'AM', 'PM' ]
+     * @example
+     * Info.meridiems({ locale: 'my' }) //=> [ 'နံနက်', 'ညနေ' ]
      */
     function meridiems(options?: InfoOptions): string[];
 
@@ -145,9 +157,12 @@ export namespace Info {
      * @param opts - options
      * @param opts.locale - the locale code
      *
-     * @example Info.eras() //=> [ 'BC', 'AD' ]
-     * @example Info.eras('long') //=> [ 'Before Christ', 'Anno Domini' ]
-     * @example Info.eras('long', { locale: 'fr' }) //=> [ 'avant Jésus-Christ', 'après Jésus-Christ' ]
+     * @example
+     * Info.eras() //=> [ 'BC', 'AD' ]
+     * @example
+     * Info.eras('long') //=> [ 'Before Christ', 'Anno Domini' ]
+     * @example
+     * Info.eras('long', { locale: 'fr' }) //=> [ 'avant Jésus-Christ', 'après Jésus-Christ' ]
      */
     function eras(length?: StringUnitLength, options?: InfoOptions): string[];
 
@@ -157,7 +172,8 @@ export namespace Info {
      * Keys:
      * * `relative`: whether this environment supports relative time formatting
      *
-     * @example Info.features() //=> { intl: true, intlTokens: false, zones: true, relative: false }
+     * @example
+     * Info.features() //=> { intl: true, intlTokens: false, zones: true, relative: false }
      */
     function features(): Features;
 }
