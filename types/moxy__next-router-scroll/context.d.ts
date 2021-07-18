@@ -7,7 +7,7 @@ export default RouterScrollProvider;
 declare const RouterScrollProvider: Context<RouterScrollContext>;
 
 export interface RouterScrollContext {
-    updateScroll: (prevContext?: any, context?: any) => void;
+    updateScroll: (prevContext?: NextScrollBehaviorContext | null, context?: NextScrollBehaviorContext | null) => void;
     registerElement: (
         key: string,
         element: HTMLElement,
