@@ -48,9 +48,11 @@ interface BluetoothLEScan extends BluetoothLEScanOptions {
 type RequestDeviceOptions = {
     filters: BluetoothLEScanFilter[];
     optionalServices?: BluetoothServiceUUID[] | undefined;
+    optionalManufacturerData?: number[] | undefined;
 } | {
     acceptAllDevices: boolean;
     optionalServices?: BluetoothServiceUUID[] | undefined;
+    optionalManufacturerData?: number[] | undefined;
 };
 
 interface BluetoothAdvertisingEvent extends Event {
