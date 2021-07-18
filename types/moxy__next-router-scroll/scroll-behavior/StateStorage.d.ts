@@ -1,4 +1,4 @@
-import { ScrollPosition } from "scroll-behavior";
+import { ScrollPosition } from 'scroll-behavior';
 
 export default class StateStorage {
     read(location: Location, key: string | null): ScrollPosition | null | undefined;
