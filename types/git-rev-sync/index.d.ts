@@ -1,4 +1,4 @@
-// Type definitions for git-rev-sync 2.0
+// Type definitions for git-rev-sync 3.0
 // Project: https://github.com/kurttheviking/git-rev-sync-js
 // Definitions by: khoi-fish <https://github.com/khoi-fish>
 //                 pkuczynski <https://github.com/pkuczynski>
@@ -13,6 +13,6 @@ export function isTagDirty(): boolean;
 export function long(filePath?: string): string;
 export function message(): string;
 export function remoteUrl(): string;
-export function short(filePath?: string, length?: number): string;
+export function short(filePath?: string | null, length?: number): string;
 export function tag(makeDirty?: boolean): string;
 export function tagFirstParent(makeDirty?: boolean): string;
