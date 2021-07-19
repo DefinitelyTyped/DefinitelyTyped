@@ -1,9 +1,9 @@
-import { Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline } from '@ckeditor/ckeditor5-basic-styles';
-import { Editor } from '@ckeditor/ckeditor5-core';
+import Styles from "@ckeditor/ckeditor5-basic-styles";
+import { Editor } from "@ckeditor/ckeditor5-core";
 
 class MyEditor extends Editor {}
 
-const plugins = [Bold, Italic, Underline, Strikethrough, Code, Subscript, Superscript] as const;
+const plugins = [Styles.Bold, Styles.Italic, Styles.Underline, Styles.Strikethrough, Styles.Code, Styles.Subscript, Styles.Superscript] as const;
 plugins.map(Plugin => {
     new Plugin(new MyEditor());
     const Required = Plugin.requires[0];
