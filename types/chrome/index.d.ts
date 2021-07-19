@@ -7181,7 +7181,7 @@ declare namespace chrome.storage {
          * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
          * Parameter bytesInUse: Amount of space being used in storage, in bytes.
          */
-        // getBytesInUse(callback: (bytesInUse: number) => void): void;
+        getBytesInUse(callback: (bytesInUse: number) => void): void;
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
          * @param keys Optional. A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
