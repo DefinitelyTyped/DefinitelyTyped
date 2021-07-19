@@ -3,6 +3,9 @@ import Cldr, { load } from 'cldr';
 // $ExpectType Cldr
 load('/path/to/cldr');
 
+// $ExpectType void
+Cldr.checkValidLocaleId('localeId');
+
 // $ExpectType Partial<Record<string, string>>
 Cldr.extractTextToSpeechCharacterLabels('localeId');
 

@@ -6,6 +6,8 @@
 declare class Cldr {
     // TODO add remaining properties and methods
 
+    checkValidLocaleId(localeId: string): void;
+
     extractTextToSpeechCharacterLabels(localeId?: string): Partial<Record<string, string>>;
 
     extractDerivedTextToSpeechCharacterLabels(localeId?: string): Partial<Record<string, string>>;
