@@ -6,7 +6,7 @@
 
 import { MouseEvent, ChangeEvent, MutableRefObject, RefObject } from 'react';
 
-export type CalendarType = "ISO 8601" | 'US' | 'Arabic' | 'Hebrew';
+export type CalendarType = 'ISO 8601' | 'US' | 'Arabic' | 'Hebrew';
 export type Detail = 'month' | 'year' | 'decade' | 'century';
 export type DateCallback = (value: Date, event: MouseEvent<HTMLButtonElement>) => void;
 export type ClickWeekNumberCallback = (weekNumber: number, date: Date, event: MouseEvent<HTMLButtonElement>) => void;
@@ -33,21 +33,20 @@ export interface CalendarProps {
     formatMonthYear?: FormatterCallback | undefined;
     formatShortWeekday?: FormatterCallback | undefined;
     formatYear?: FormatterCallback | undefined;
-    inputRef?: ((
-        ref: HTMLInputElement | null,
-    ) => void) | RefObject<HTMLInputElement> | MutableRefObject<HTMLInputElement | null> | undefined;
+    inputRef?:
+        | ((ref: HTMLInputElement | null) => void)
+        | RefObject<HTMLInputElement>
+        | MutableRefObject<HTMLInputElement | null>
+        | undefined;
     locale?: string | undefined;
     maxDate?: Date | undefined;
     maxDetail?: Detail | undefined;
     minDate?: Date | undefined;
     minDetail?: Detail | undefined;
     navigationAriaLabel?: string | undefined;
-    navigationLabel?: ((props: {
-        date: Date;
-        label: string;
-        locale: string;
-        view: Detail;
-    }) => string | JSX.Element | null) | undefined;
+    navigationLabel?:
+        | ((props: { date: Date; label: string; locale: string; view: Detail }) => string | JSX.Element | null)
+        | undefined;
     nextAriaLabel?: string | undefined;
     nextLabel?: string | JSX.Element | null | undefined;
     next2AriaLabel?: string | undefined;
@@ -66,7 +65,7 @@ export interface CalendarProps {
     prevLabel?: string | JSX.Element | null | undefined;
     prev2AriaLabel?: string | undefined;
     prev2Label?: string | JSX.Element | null | undefined;
-    returnValue?: "start" | "end" | "range" | undefined;
+    returnValue?: 'start' | 'end' | 'range' | undefined;
     showDoubleView?: boolean | undefined;
     showFixedNumberOfWeeks?: boolean | undefined;
     showNavigation?: boolean | undefined;
