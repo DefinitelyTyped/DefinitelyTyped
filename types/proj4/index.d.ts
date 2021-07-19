@@ -90,7 +90,7 @@ declare namespace proj4 {
     function defs(name: string[][]): undefined[];
     function defs(name: string): ProjectionDefinition;
     
-    function nadgrid(key: string, grid: ArrayBuffer);
+    function nadgrid(key: string, grid: ArrayBuffer): void;
     
     function transform(
         source: InterfaceProjection,
