@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Wechat Mini Program - xmly-plugin 3.1
+// Type definitions for non-npm package Wechat Mini Program - xmly-plugin 3.2
 // Project: https://mp.weixin.qq.com/wxopen/pluginbasicprofile?action=intro&appid=wxc6a13dda5815c529
 // Definitions by:  TB <https://github.com/Durianicecream>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
