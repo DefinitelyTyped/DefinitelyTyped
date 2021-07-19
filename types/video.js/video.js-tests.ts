@@ -218,6 +218,8 @@ function testComponents(player: videojs.Player) {
     myWindow.open();
     myWindow.close();
     myWindow.myFunction();
+    myWindow.isDisposed(); // $ExpectType boolean
+    myWindow.dispose(); // $ExpectType void
 }
 
 function testPlugin(player: videojs.Player, options: {}) {
@@ -273,12 +275,12 @@ function testPlugin(player: videojs.Player, options: {}) {
 }
 
 function testLogger() {
-    const mylogger = videojs.log.createLogger('mylogger');
-    const anotherlogger = mylogger.createLogger('anotherlogger');
+    const myLogger = videojs.log.createLogger('mylogger');
+    const anotherLogger = myLogger.createLogger('anotherlogger');
 
     videojs.log('hello');
-    mylogger('how are you');
-    anotherlogger('today');
+    myLogger('how are you');
+    anotherLogger('today');
 
     const currentLevel = videojs.log.level();
     videojs.log.level(videojs.log.levels.DEFAULT);
