@@ -7181,11 +7181,12 @@ declare namespace chrome.storage {
          * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
          * Parameter bytesInUse: Amount of space being used in storage, in bytes.
          */
-        getBytesInUse(callback: (bytesInUse: number) => void): void;
+        // getBytesInUse(callback: (bytesInUse: number) => void): void;
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
          * @param keys Optional. A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
-         * @return The `getBytesInUse` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * @return A Promise that resolves with a number
+         * @since MV3
          */
         getBytesInUse(keys?: string | string[] | null): Promise<number>;
         /**
@@ -7197,7 +7198,8 @@ declare namespace chrome.storage {
         getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: number) => void): void;
         /**
          * Removes all items from storage.
-         * @return The `clear` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * @return A void Promise
+         * @since MV3
          */
         clear(): Promise<void>;
         /**
@@ -7210,7 +7212,8 @@ declare namespace chrome.storage {
          * Sets multiple items.
          * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
          * Primitive values such as numbers will serialize as expected. Values with a typeof "object" and "function" will typically serialize to {}, with the exception of Array (serializes as expected), Date, and Regex (serialize using their String representation).
-         * @return The `set` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * @return A void Promise
+         * @since MV3
          */
         set(items: { [key: string]: any }): Promise<void>;
         /**
@@ -7225,7 +7228,8 @@ declare namespace chrome.storage {
          * Removes one or more items from storage.
          * @param keys A single key or a list of keys for items to remove.
          * @param callback Optional.
-         * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * @return A void Promise
+         * @since MV3
          */
         remove(keys: string | string[]): Promise<void>;
         /**
@@ -7245,7 +7249,8 @@ declare namespace chrome.storage {
          * Gets one or more items from storage.
          * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
          * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
-         * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * @return A Promise that resolves with an object containing items
+         * @since MV3
          */
         get(keys?: string | string[] | { [key: string]: any } | null): Promise<{ [key: string]: any }>;
         /**
