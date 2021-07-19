@@ -5,119 +5,121 @@
 
 import * as pacote from 'pacote';
 
-/**
- * `npm` spec types are usually described in `<pkg-name>@<version>` form
- * but multiple other types are alsos supported, for more info on valid specs
- * take a look at [`npm-package-arg`](https://github.com/npm/npm-package-arg)
- */
-export type Specs = [string, string];
-
-export interface DiffOptions {
+declare namespace libnpmdiff {
     /**
-     * Should add ANSI colors to string ouput?
-     *
-     * Default: `false`
-     *
-     * ## Read more
-     * * https://github.com/npm/libnpmdiff#api
-     * *  [ANSI colors](https://en.wikipedia.org/wiki/ANSI_escape_code#Colors)
+     * `npm` spec types are usually described in `<pkg-name>@<version>` form
+     * but multiple other types are alsos supported, for more info on valid specs
+     * take a look at [`npm-package-arg`](https://github.com/npm/npm-package-arg)
      */
-    color?: boolean;
+    type Specs = [string, string];
+
+    interface DiffOptions {
+        /**
+         * Should add ANSI colors to string ouput?
+         *
+         * Default: `false`
+         *
+         * ## Read more
+         * * https://github.com/npm/libnpmdiff#api
+         * *  [ANSI colors](https://en.wikipedia.org/wiki/ANSI_escape_code#Colors)
+         */
+        color?: boolean;
+
+        /**
+         * What prefix should be used to define version numbers.
+         *
+         * Default: `'v'`
+         *
+         * ## Read more
+         * * https://github.com/npm/libnpmdiff#api
+         */
+        tagVersionPrefix?: string;
+
+        /**
+         *  If set only prints patches for the files listed in this array
+         * (also accepts globs).
+         *
+         * Defaults: `undefined`
+         *
+         * ### Read more
+         * * https://github.com/npm/libnpmdiff#api
+         */
+        diffFiles?: string[];
+
+        /**
+         * Prints only filenames
+         *
+         * Default: `false`
+         *
+         * ### Read more
+         * * https://github.com/npm/libnpmdiff#api
+         * * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-name-only
+         */
+        diffNameOnly?: boolean;
+
+        /**
+         * The number of lines of context to return.
+         *
+         * Default: `3`
+         *
+         * ### Read more
+         *  * https://github.com/npm/libnpmdiff#api
+         *  * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-unified
+         */
+        diffUnified?: number;
+
+        /**
+         * Ignore whitespace when comparing lines
+         *
+         * Default: `false`
+         *
+         * ### Read more
+         * * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-ignore-all-space
+         */
+        diffIgnoreAllSpace?: boolean;
+
+        /**
+         * Do not show any source or destination prefix in output.
+         *
+         * > Note: This causes `libnpmdiff` to ignore `diffSrcPrefix` and `diffDstPrefix` options.
+         *
+         * ### Read more
+         * * https://github.com/npm/libnpmdiff#api
+         * * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-no-prefix
+         */
+        diffNoPrefix?: boolean;
+
+        /**
+         * Source prefix to be used in output.
+         *
+         * Default: `"a/"`
+         *
+         * ### Read more
+         * * https://github.com/npm/libnpmdiff#api
+         * * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-src-prefix
+         */
+        diffSrcPrefix?: string;
+
+        /**
+         * Destination prefix to be used in output.
+         *
+         * Default: `"b/"`
+         *
+         * ### Read more
+         * * https://github.com/npm/libnpmdiff#api
+         * * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-dst-prefix
+         */
+        diffDstPrefix?: string;
+    }
 
     /**
-     * What prefix should be used to define version numbers.
-     *
-     * Default: `'v'`
-     *
-     * ## Read more
-     * * https://github.com/npm/libnpmdiff#api
-     */
-    tagVersionPrefix?: string;
-
-    /**
-     *  If set only prints patches for the files listed in this array
-     * (also accepts globs).
-     *
-     * Defaults: `undefined`
+     * Options for `libnpmdiff`.
      *
      * ### Read more
      * * https://github.com/npm/libnpmdiff#api
      */
-    diffFiles?: string[];
-
-    /**
-     * Prints only filenames
-     *
-     * Default: `false`
-     *
-     * ### Read more
-     * * https://github.com/npm/libnpmdiff#api
-     * * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-name-only
-     */
-    diffNameOnly?: boolean;
-
-    /**
-     * The number of lines of context to return.
-     *
-     * Default: `3`
-     *
-     * ### Read more
-     *  * https://github.com/npm/libnpmdiff#api
-     *  * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-unified
-     */
-    diffUnified?: number;
-
-    /**
-     * Ignore whitespace when comparing lines
-     *
-     * Default: `false`
-     *
-     * ### Read more
-     * * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-ignore-all-space
-     */
-    diffIgnoreAllSpace?: boolean;
-
-    /**
-     * Do not show any source or destination prefix in output.
-     *
-     * > Note: This causes `libnpmdiff` to ignore `diffSrcPrefix` and `diffDstPrefix` options.
-     *
-     * ### Read more
-     * * https://github.com/npm/libnpmdiff#api
-     * * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-no-prefix
-     */
-    diffNoPrefix?: boolean;
-
-    /**
-     * Source prefix to be used in output.
-     *
-     * Default: `"a/"`
-     *
-     * ### Read more
-     * * https://github.com/npm/libnpmdiff#api
-     * * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-src-prefix
-     */
-    diffSrcPrefix?: string;
-
-    /**
-     * Destination prefix to be used in output.
-     *
-     * Default: `"b/"`
-     *
-     * ### Read more
-     * * https://github.com/npm/libnpmdiff#api
-     * * https://docs.npmjs.com/cli/v7/commands/npm-diff#diff-dst-prefix
-     */
-    diffDstPrefix?: string;
+    interface Options extends pacote.Options, DiffOptions {}
 }
-
-/**
- * Options for `libnpmdiff`.
- *
- * ### Read more
- * * https://github.com/npm/libnpmdiff#api
- */
-export interface Options extends pacote.Options, DiffOptions {}
 
 /**
  * Fetches the registry tarballs and compare files between a spec a and spec b.
@@ -129,20 +131,21 @@ export interface Options extends pacote.Options, DiffOptions {}
  * ### Read more
  * * https://github.com/npm/libnpmdiff#api
  */
-declare function Diff(
+declare function libnpmdiff(
     /**
      * `npm` spec types are usually described in `<pkg-name>@<version>` form
      * but multiple other types are alsos supported, for more info on valid specs
      * take a look at [`npm-package-arg`](https://github.com/npm/npm-package-arg)
      */
-    specs: Specs,
+    specs: libnpmdiff.Specs,
+
     /**
      * Options for `libnpmdiff`.
      *
      * ### Read more
      * * https://github.com/npm/libnpmdiff#api
      */
-    options?: Options,
+    options?: libnpmdiff.Options,
 ): Promise<string>;
 
-export = Diff;
+export = libnpmdiff;
