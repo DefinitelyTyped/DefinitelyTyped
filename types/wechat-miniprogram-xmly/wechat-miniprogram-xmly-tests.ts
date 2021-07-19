@@ -14,7 +14,7 @@ XMPlugin.init({
     getAccessToken: () => 'your appSecret',
 });
 XMPlugin.getInstance();
-XMPlugin.destory();
+XMPlugin.destroy();
 // $ExpectType string
 XMPlugin.getDeviceId();
 // $ExpectType string
@@ -67,7 +67,7 @@ async () => {
     //  $ExpectType string
     player.getPlayState();
     player.setAutoskip(true);
-    player.destory();
+    player.destroy();
     player.on('play', () => {});
     player.once('play', () => {});
     player.emit('play', {});
