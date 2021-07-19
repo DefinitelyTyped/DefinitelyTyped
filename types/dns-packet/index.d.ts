@@ -97,11 +97,15 @@ export interface MxData {
     exchange: string;
 }
 
-export interface BaseAnswer<T, D> {
+export interface GenericAnswer<T> {
     type: T;
     name: string;
-    ttl?: number | undefined;
-    class?: RecordClass | undefined;
+}
+
+export interface BaseAnswer<T, D> extends GenericAnswer<T> {
+    ttl: number;
+    class: RecordClass;
+    flush: boolean;
     data: D;
 }
 
@@ -136,7 +140,6 @@ export type OtherRecordType =
     | "NSEC3"
     | "NSEC3PARAM"
     | "NULL"
-    | "OPT"
     | "RRSIG"
     | "RP"
     | "SIG"
@@ -156,6 +159,77 @@ export type CaaAnswer = BaseAnswer<"CAA", CaaData>;
 export type MxAnswer = BaseAnswer<"MX", MxData>;
 export type BufferAnswer = BaseAnswer<OtherRecordType, Buffer>;
 
+export interface OptAnswer extends GenericAnswer<"OPT"> {
+    /**
+     * UInt16BE
+     */
+    udpPayloadSize: number;
+
+    /**
+     * UInt8
+     */
+    extendedRcode: number;
+
+    /**
+     * UInt8
+     */
+    ednsVersion: number;
+
+    /**
+     * UInt16BE
+     */
+    flags: number;
+
+    /**
+     * Whether or not the DNS DO bit is set
+     */
+    flag_do: boolean;
+
+    options: Array<{
+        /**
+         * UInt16BE
+         */
+        code: number;
+
+        /**
+         * UInt16BE
+         */
+        type: string;
+
+        data: Buffer;
+
+        /**
+         * UInt16BE
+         */
+        family: number;
+
+        /**
+         * UInt8
+         */
+        sourcePrefixLength: number;
+
+        /**
+         * UInt8
+         */
+        scopePrefixLength: number;
+
+        /**
+         * UInt16BE
+         */
+        ip: string;
+
+        /**
+         * UInt16BE
+         */
+        timeout: number;
+
+        /**
+         * UInt16BE[]
+         */
+        tags: number[];
+    }>;
+}
+
 export type Answer =
     | StringAnswer
     | SrvAnswer
@@ -164,7 +238,8 @@ export type Answer =
     | TxtAnswer
     | CaaAnswer
     | MxAnswer
-    | BufferAnswer;
+    | BufferAnswer
+    | OptAnswer;
 
 export interface Packet {
     /**
