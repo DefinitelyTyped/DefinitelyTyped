@@ -239,9 +239,6 @@ set([{}]);
 (async () => {
     // $ExpectType void
     await destroy({ table, key });
-    // Error: Destroy does not return old objects.
-    // $ExpectError
-    res as TestData;
 })();
 
 // Destroy with callback.
@@ -257,11 +254,6 @@ destroy({ table, key }, err => {
         { table, key },
         { table, key },
     ]);
-    // Error: Destroy does not return old objects.
-    // $ExpectError
-    res.length;
-    // $ExpectError
-    res[0] as TestData;
 })();
 
 // Destroy with list and callback.
