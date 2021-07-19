@@ -1,4 +1,4 @@
-import data, { BeginDataType, ReadonlyBeginDataType } from '@begin/data';
+import { BeginDataType, ReadonlyBeginDataType, get, set, destroy, count, incr, decr, page } from '@begin/data';
 
 interface TestData {
     key: string;
@@ -28,7 +28,7 @@ obj as ReadonlyBeginDataType;
 
 // Get without key.
 (async () => {
-    const res = await data.get({ table });
+    const res = await get({ table });
     // $ExpectType DataGetEntireTableResult
     res;
     // $ExpectType string
@@ -38,18 +38,12 @@ obj as ReadonlyBeginDataType;
     res[0].key;
     // $ExpectType TestData
     res[0] as TestData;
-    const cursor = res.cursor;
-    if (typeof cursor === 'string') {
-        // $ExpectType string
-        cursor;
-    } else {
-        // $ExpectType undefined
-        cursor;
-    }
+    // $ExpectType string | undefined
+    res.cursor;
 })();
 
 // Get without key with callback.
-data.get({ table }, (err, res) => {
+get({ table }, (err, res) => {
     // $ExpectType Error | null | undefined
     err;
     // $ExpectType DataGetEntireTableResult
@@ -60,14 +54,14 @@ data.get({ table }, (err, res) => {
 
 // Get with limit.
 (async () => {
-    const res = await data.get({ table, limit: 10 });
+    const res = await get({ table, limit: 10 });
     // $ExpectType DataGetEntireTableResult
     res;
 })();
 
 // Get with key.
 (async () => {
-    const res = await data.get({ table, key });
+    const res = await get({ table, key });
     // $ExpectType DataGetSingleResult
     res;
     if (res) {
@@ -85,7 +79,7 @@ data.get({ table }, (err, res) => {
 })();
 
 // Get with key with callback.
-data.get({ table, key }, (err, res) => {
+get({ table, key }, (err, res) => {
     // $ExpectType Error | null | undefined
     err;
     // $ExpectType DataGetSingleResult
@@ -96,7 +90,7 @@ data.get({ table, key }, (err, res) => {
 
 // Get with list.
 (async () => {
-    const res = await data.get([
+    const res = await get([
         { table, key },
         { table, key },
     ]);
@@ -110,12 +104,12 @@ data.get({ table, key }, (err, res) => {
     // $ExpectType TestData
     res[0] as TestData;
     // Error: There is no cursor.
-    // @ts-expect-error
+    // $ExpectError
     res.cursor;
 })();
 
 // Get with key with callback.
-data.get(
+get(
     [
         { table, key },
         { table, key },
@@ -126,18 +120,18 @@ data.get(
         // $ExpectType DataGetMultipleResult
         res;
         // Error: There is no cursor.
-        // @ts-expect-error
+        // $ExpectError
         res.cursor;
     },
 );
 
 // Error: Get with unnecessary property.
-// @ts-expect-error
-data.get({ table, key, propUnknown: 'value' });
+// $ExpectError
+get({ table, key, propUnknown: 'value' });
 
 // Set without key.
 (async () => {
-    const res = await data.set({
+    const res = await set({
         table,
         ...obj,
     });
@@ -153,7 +147,7 @@ data.get({ table, key, propUnknown: 'value' });
 })();
 
 // Set with callback.
-data.set(
+set(
     {
         table,
         ...obj,
@@ -169,14 +163,14 @@ data.set(
 );
 
 // Set with key.
-data.set({
+set({
     table,
     key,
     ...obj,
 });
 
 // Set with TTL.
-data.set({
+set({
     table,
     key,
     // 1 week TTL
@@ -186,14 +180,14 @@ data.set({
 });
 
 // Set with ttl prop with invalid TTL value.
-data.set({
+set({
     table,
     ttl: 'invalid',
     ...obj,
 });
 
 // Set with omitting some props.
-data.set({
+set({
     table,
     ...obj,
     ...{
@@ -204,7 +198,7 @@ data.set({
 
 // Set with list.
 (async () => {
-    const res = await data.set([
+    const res = await set([
         { table, ...obj },
         { table, ...obj },
     ]);
@@ -220,7 +214,7 @@ data.set({
 })();
 
 // Set with list and callback.
-data.set(
+set(
     [
         { table, ...obj },
         { table, ...obj },
@@ -236,22 +230,22 @@ data.set(
 );
 
 // Error: Set without table.
-// @ts-expect-error
-data.set({});
-// @ts-expect-error
-data.set([{}]);
+// $ExpectError
+set({});
+// $ExpectError
+set([{}]);
 
 // Destroy.
 (async () => {
     // $ExpectType void
-    await data.destroy({ table, key });
+    await destroy({ table, key });
     // Error: Destroy does not return old objects.
-    // @ts-expect-error
+    // $ExpectError
     res as TestData;
 })();
 
 // Destroy with callback.
-data.destroy({ table, key }, err => {
+destroy({ table, key }, err => {
     // $ExpectType Error | null | undefined
     err;
 });
@@ -259,19 +253,19 @@ data.destroy({ table, key }, err => {
 // Destroy with list.
 (async () => {
     // $ExpectType void
-    await data.destroy([
+    await destroy([
         { table, key },
         { table, key },
     ]);
     // Error: Destroy does not return old objects.
-    // @ts-expect-error
+    // $ExpectError
     res.length;
-    // @ts-expect-error
+    // $ExpectError
     res[0] as TestData;
 })();
 
 // Destroy with list and callback.
-data.destroy(
+destroy(
     [
         { table, key },
         { table, key },
@@ -283,22 +277,22 @@ data.destroy(
 );
 
 // Error: Destroy with unnecessary props.
-// @ts-expect-error
-data.destroy({ table, key, propsUnknown: 'value' });
+// $ExpectError
+destroy({ table, key, propsUnknown: 'value' });
 
 // Error: Destroy without key.
-// @ts-expect-error
-data.destroy({ table });
+// $ExpectError
+destroy({ table });
 
 // Count.
 (async () => {
-    const res = await data.count({ table });
+    const res = await count({ table });
     // $ExpectType number
     res;
 })();
 
 // Count with callback.
-data.count({ table }, (err, res) => {
+count({ table }, (err, res) => {
     // $ExpectType Error | null | undefined
     err;
     // $ExpectType number
@@ -306,14 +300,14 @@ data.count({ table }, (err, res) => {
 });
 
 // Error: Count with unnecessary props.
-// @ts-expect-error
-data.count({ table, propsUnknown: 'value' });
-// @ts-expect-error
-data.count({ table, key });
+// $ExpectError
+count({ table, propsUnknown: 'value' });
+// $ExpectError
+count({ table, key });
 
 // Increment.
 (async () => {
-    const res = await data.incr({ table, key, prop: 'propNumber' });
+    const res = await incr({ table, key, prop: 'propNumber' });
     // $ExpectType DataIncrementResult
     res;
     // $ExpectType string
@@ -325,7 +319,7 @@ data.count({ table, key });
     res as TestData;
 })();
 
-data.incr({ table, key, prop: 'propNumber' }, (err, res) => {
+incr({ table, key, prop: 'propNumber' }, (err, res) => {
     // $ExpectType Error | null | undefined
     err;
     // $ExpectType DataIncrementResult
@@ -333,16 +327,16 @@ data.incr({ table, key, prop: 'propNumber' }, (err, res) => {
 });
 
 // Error: Increment with list.
-// @ts-expect-error
-data.incr([{ table, key, prop: 'propNumber' }]);
+// $ExpectError
+incr([{ table, key, prop: 'propNumber' }]);
 
 // Error: Increment without prop.
-// @ts-expect-error
-data.incr({ table, key });
+// $ExpectError
+incr({ table, key });
 
 // Decrement.
 (async () => {
-    const res = await data.decr({ table, key, prop: 'propNumber' });
+    const res = await decr({ table, key, prop: 'propNumber' });
     // $ExpectType DataDecrementResult
     res;
     // $ExpectType string
@@ -354,7 +348,7 @@ data.incr({ table, key });
     res as TestData;
 })();
 
-data.decr({ table, key, prop: 'propNumber' }, (err, res) => {
+decr({ table, key, prop: 'propNumber' }, (err, res) => {
     // $ExpectType Error | null | undefined
     err;
     // $ExpectType DataDecrementResult
@@ -364,34 +358,34 @@ data.decr({ table, key, prop: 'propNumber' }, (err, res) => {
 });
 
 // Error: Decrement with list.
-// @ts-expect-error
-data.decr([{ table, key, prop: 'propNumber' }]);
+// $ExpectError
+decr([{ table, key, prop: 'propNumber' }]);
 
 // Error: Decrement without prop.
-// @ts-expect-error
-data.decr({ table, key });
+// $ExpectError
+decr({ table, key });
 
 // Page.
 (async () => {
     const list: TestData[] = [];
-    for await (const buf of data.page({ table })) {
+    for await (const buf of page({ table })) {
         // $ExpectType DataPageResult
         buf;
         list.concat(buf);
         // Error: There is no cursor.
-        // @ts-expect-error
+        // $ExpectError
         buf.cursor;
     }
 })();
 
 // Error: Page with callback.
-// @ts-expect-error
-data.page({ table }, () => 0 as any);
+// $ExpectError
+page({ table }, () => 0 as any);
 
 // Error: Page with unnecessary props.
-// @ts-expect-error
-data.page({ table, key });
+// $ExpectError
+page({ table, key });
 
 // Error: Page with list.
-// @ts-expect-error
-data.page([{ table, key }]);
+// $ExpectError
+page([{ table, key }]);
