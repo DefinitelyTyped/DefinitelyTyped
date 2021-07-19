@@ -142,13 +142,13 @@ import * as url from "url";
 {
     const ws = new WebSocket("ws://www.host.com/path");
     ws.onopen = (event: WebSocket.OpenEvent) => {
-        console.log(event.target);
+        console.log(event.target, event.type);
     };
     ws.onerror = (event: WebSocket.ErrorEvent) => {
         console.log(event.error, event.message, event.target, event.type);
     };
     ws.onclose = (event: WebSocket.CloseEvent) => {
-        console.log(event.code, event.reason, event.target, event.wasClean);
+        console.log(event.code, event.reason, event.target, event.wasClean, event.type);
     };
     ws.onmessage = (event: WebSocket.MessageEvent) => {
         console.log(event.data, event.target, event.type);
