@@ -1,4 +1,5 @@
-// Definitions by: Barkin Aygun <https://github.com/baaygun>
+// Definitions by:  Barkin Aygun <https://github.com/baaygun>
+//                  Heewoo Ahn <https://github.com/heewooa>
 
 import { photoshopAction, photoshopCore } from "./dom/CoreModules";
 import * as photoshopConstants from "./dom/Constants";
