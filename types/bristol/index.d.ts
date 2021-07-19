@@ -8,16 +8,16 @@
 //         as it requires both class and namespace be exported.
 
 interface LogError {
-    message?: string;
+    message?: string | undefined;
     reason?: any;
     stack?: any;
 }
 
 interface LogData {
-    code?: number;
-    id?: string;
-    path?: string;
-    error?: LogError;
+    code?: number | undefined;
+    id?: string | undefined;
+    path?: string | undefined;
+    error?: LogError | undefined;
     data?: any;
 }
 

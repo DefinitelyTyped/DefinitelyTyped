@@ -6,7 +6,7 @@ import { Disposable, HandleableErrorEvent } from '../index';
  *  Node's ChildProcess.
  */
 export class BufferedProcess {
-    readonly process?: ChildProcess;
+    readonly process?: ChildProcess | undefined;
 
     constructor(options: ProcessOptions);
 
@@ -32,10 +32,10 @@ export interface NodeProcessOptions {
     command: string;
 
     /** The array of arguments to pass to the command. */
-    args?: ReadonlyArray<string>;
+    args?: ReadonlyArray<string> | undefined;
 
     /** The options object to pass to Node's ChildProcess.spawn method. */
-    options?: SpawnProcessOptions;
+    options?: SpawnProcessOptions | undefined;
 
     /**
      *  The callback that receives a single argument which contains the standard
@@ -58,31 +58,31 @@ export interface ProcessOptions extends NodeProcessOptions {
      *  Whether the command will automatically start when this BufferedProcess is
      *  created.
      */
-    autoStart?: boolean;
+    autoStart?: boolean | undefined;
 }
 
 export interface SpawnProcessOptions {
     /** Current working directory of the child process. */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /** Environment key-value pairs. */
-    env?: { [key: string]: string };
+    env?: { [key: string]: string } | undefined;
 
     /** The child's stdio configuration. */
-    stdio?: string | Array<string | number>;
+    stdio?: string | Array<string | number> | undefined;
 
     /** Prepare child to run independently of its parent process. */
-    detached?: boolean;
+    detached?: boolean | undefined;
 
     /** Sets the user identity of the process. */
-    uid?: number;
+    uid?: number | undefined;
 
     /** Sets the group identity of the process. */
-    gid?: number;
+    gid?: number | undefined;
 
     /**
      *  If true, runs command inside of a shell. Uses "/bin/sh" on UNIX, and process.env.ComSpec
      *  on Windows. A different shell can be specified as a string.
      */
-    shell?: boolean | string;
+    shell?: boolean | string | undefined;
 }

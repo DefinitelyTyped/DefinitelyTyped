@@ -1,12 +1,12 @@
 declare module 'readline' {
-    import EventEmitter = require('events');
+    import { Abortable, EventEmitter } from 'node:events';
 
     interface Key {
-        sequence?: string;
-        name?: string;
-        ctrl?: boolean;
-        meta?: boolean;
-        shift?: boolean;
+        sequence?: string | undefined;
+        name?: string | undefined;
+        ctrl?: boolean | undefined;
+        meta?: boolean | undefined;
+        shift?: boolean | undefined;
     }
 
     class Interface extends EventEmitter {
@@ -42,6 +42,7 @@ declare module 'readline' {
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: (answer: string) => void): void;
+        question(query: string, options: Abortable, callback: (answer: string) => void): void;
         pause(): this;
         resume(): this;
         close(): void;
@@ -63,8 +64,8 @@ declare module 'readline' {
          * 5. SIGCONT
          * 6. SIGINT
          * 7. SIGTSTP
+         * 8. history
          */
-
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: () => void): this;
         addListener(event: "line", listener: (input: string) => void): this;
@@ -73,6 +74,7 @@ declare module 'readline' {
         addListener(event: "SIGCONT", listener: () => void): this;
         addListener(event: "SIGINT", listener: () => void): this;
         addListener(event: "SIGTSTP", listener: () => void): this;
+        addListener(event: "history", listener: (history: string[]) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
@@ -82,6 +84,7 @@ declare module 'readline' {
         emit(event: "SIGCONT"): boolean;
         emit(event: "SIGINT"): boolean;
         emit(event: "SIGTSTP"): boolean;
+        emit(event: "history", history: string[]): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: () => void): this;
@@ -91,6 +94,7 @@ declare module 'readline' {
         on(event: "SIGCONT", listener: () => void): this;
         on(event: "SIGINT", listener: () => void): this;
         on(event: "SIGTSTP", listener: () => void): this;
+        on(event: "history", listener: (history: string[]) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: () => void): this;
@@ -100,6 +104,7 @@ declare module 'readline' {
         once(event: "SIGCONT", listener: () => void): this;
         once(event: "SIGINT", listener: () => void): this;
         once(event: "SIGTSTP", listener: () => void): this;
+        once(event: "history", listener: (history: string[]) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: () => void): this;
@@ -109,6 +114,7 @@ declare module 'readline' {
         prependListener(event: "SIGCONT", listener: () => void): this;
         prependListener(event: "SIGINT", listener: () => void): this;
         prependListener(event: "SIGTSTP", listener: () => void): this;
+        prependListener(event: "history", listener: (history: string[]) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
@@ -118,27 +124,42 @@ declare module 'readline' {
         prependOnceListener(event: "SIGCONT", listener: () => void): this;
         prependOnceListener(event: "SIGINT", listener: () => void): this;
         prependOnceListener(event: "SIGTSTP", listener: () => void): this;
+        prependOnceListener(event: "history", listener: (history: string[]) => void): this;
+
         [Symbol.asyncIterator](): AsyncIterableIterator<string>;
     }
 
     type ReadLine = Interface; // type forwarded for backwards compatibility
 
     type Completer = (line: string) => CompleterResult;
-    type AsyncCompleter = (line: string, callback: (err?: null | Error, result?: CompleterResult) => void) => any;
+    type AsyncCompleter = (line: string, callback: (err?: null | Error, result?: CompleterResult) => void) => void;
 
     type CompleterResult = [string[], string];
 
     interface ReadLineOptions {
         input: NodeJS.ReadableStream;
-        output?: NodeJS.WritableStream;
-        completer?: Completer | AsyncCompleter;
-        terminal?: boolean;
-        historySize?: number;
-        prompt?: string;
-        crlfDelay?: number;
-        removeHistoryDuplicates?: boolean;
-        escapeCodeTimeout?: number;
-        tabSize?: number;
+        output?: NodeJS.WritableStream | undefined;
+        completer?: Completer | AsyncCompleter | undefined;
+        terminal?: boolean | undefined;
+        /**
+         *  Initial list of history lines. This option makes sense
+         * only if `terminal` is set to `true` by the user or by an internal `output`
+         * check, otherwise the history caching mechanism is not initialized at all.
+         * @default []
+         */
+        history?: string[] | undefined;
+        historySize?: number | undefined;
+        prompt?: string | undefined;
+        crlfDelay?: number | undefined;
+        /**
+         * If `true`, when a new input line added
+         * to the history list duplicates an older one, this removes the older line
+         * from the list.
+         * @default false
+         */
+        removeHistoryDuplicates?: boolean | undefined;
+        escapeCodeTimeout?: number | undefined;
+        tabSize?: number | undefined;
     }
 
     function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
@@ -168,4 +189,8 @@ declare module 'readline' {
      * Moves this WriteStream's cursor relative to its current position.
      */
     function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
+}
+
+declare module 'node:readline' {
+    export * from 'readline';
 }

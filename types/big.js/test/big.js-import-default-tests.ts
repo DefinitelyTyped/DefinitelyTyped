@@ -162,6 +162,36 @@ function toExponentialTests() {
     y.toExponential(3); // '4.560e+1'
 }
 
+function toExponentialWithRoundingModeTests() {
+    const x = 45.2285;
+    const y = new Big(x);
+    x.toExponential(); // '4.52285e+1'
+    y.toExponential(); // '4.52285e+1'
+    y.toExponential(0); // '5e+1'
+    y.toExponential(0, Big.roundDown); // '4e+1'
+    y.toExponential(0, Big.roundHalfUp); // '5e+1'
+    y.toExponential(0, Big.roundHalfEven); // '5e+1'
+    y.toExponential(0, Big.roundUp); // '5e+1'
+    x.toExponential(1); // '4.5e+1'
+    y.toExponential(1); // '4.5e+1'
+    y.toExponential(1, Big.roundDown); // '4.5e+1'
+    y.toExponential(1, Big.roundHalfUp); // '4.5e+1'
+    y.toExponential(1, Big.roundHalfEven); // '4.5e+1'
+    y.toExponential(1, Big.roundUp); // '4.6e+1'
+    x.toExponential(2); // '4.52e+1'
+    y.toExponential(2); // '4.52e+1'
+    y.toExponential(2, Big.roundDown); // '4.52e+1'
+    y.toExponential(2, Big.roundHalfUp); // '4.52e+1'
+    y.toExponential(2, Big.roundHalfEven); // '4.52e+1'
+    y.toExponential(2, Big.roundUp); // '4.53e+1'
+    x.toExponential(3); // '4.523e+1'
+    y.toExponential(3); // '4.523e+1'
+    y.toExponential(3, Big.roundDown); // '4.522e+1'
+    y.toExponential(3, Big.roundHalfUp); // '4.523e+1'
+    y.toExponential(3, Big.roundHalfEven); // '4.523e+1'
+    y.toExponential(3, Big.roundUp); // '4.523e+1'
+}
+
 function toFixedTests() {
     const x = 45.6;
     const y = new Big(x);
@@ -170,6 +200,36 @@ function toFixedTests() {
     y.toFixed(0); // '46'
     x.toFixed(3); // '45.600'
     y.toFixed(3); // '45.600'
+}
+
+function toFixedWithRoundingModeTests() {
+    const x = 45.2285;
+    const y = new Big(x);
+    x.toFixed(); // '45'
+    y.toFixed(); // '45.2285'
+    y.toFixed(0); // '45'
+    y.toFixed(0, Big.roundDown); // '45'
+    y.toFixed(0, Big.roundHalfUp); // '45'
+    y.toFixed(0, Big.roundHalfEven); // '45'
+    y.toFixed(0, Big.roundUp); // '46'
+    x.toFixed(1); // '45.2'
+    y.toFixed(1); // '45.2'
+    y.toFixed(1, Big.roundDown); // '45.2'
+    y.toFixed(1, Big.roundHalfUp); // '45.2'
+    y.toFixed(1, Big.roundHalfEven); // '45.2'
+    y.toFixed(1, Big.roundUp); // '45.3'
+    x.toFixed(2); // '45.23'
+    y.toFixed(2); // '45.23'
+    y.toFixed(2, Big.roundDown); // '45.22'
+    y.toFixed(2, Big.roundHalfUp); // '45.23'
+    y.toFixed(2, Big.roundHalfEven); // '45.23'
+    y.toFixed(2, Big.roundUp); // '45.23'
+    x.toFixed(3); // '45.228'
+    y.toFixed(3); // '45.229'
+    y.toFixed(3, Big.roundDown); // '45.228'
+    y.toFixed(3, Big.roundHalfUp); // '45.229'
+    y.toFixed(3, Big.roundHalfEven); // '45.228'
+    y.toFixed(3, Big.roundUp); // '45.229'
 }
 
 function toPrecisionTests() {
@@ -181,6 +241,43 @@ function toPrecisionTests() {
     y.toPrecision(1); // '5e+1'
     x.toPrecision(5); // '45.600'
     y.toPrecision(5); // '45.600'
+}
+
+function toPrecisionWithRoundingModeTests() {
+    const x = 45.2285;
+    const y = new Big(x);
+    x.toPrecision(); // '45.2285'
+    y.toPrecision(); // '45.2285'
+    x.toPrecision(1); // '5e+1'
+    y.toPrecision(1); // '5e+1'
+    y.toPrecision(1, Big.roundDown); // '4e+1'
+    y.toPrecision(1, Big.roundHalfUp); // '5e+1'
+    y.toPrecision(1, Big.roundHalfEven); // '5e+1'
+    y.toPrecision(1, Big.roundUp); // '5e+1'
+    x.toPrecision(2); // '45'
+    y.toPrecision(2); // '45'
+    y.toPrecision(2, Big.roundDown); // '45'
+    y.toPrecision(2, Big.roundHalfUp); // '45'
+    y.toPrecision(2, Big.roundHalfEven); // '45'
+    y.toPrecision(2, Big.roundUp); // '46'
+    x.toPrecision(3); // '45.2'
+    y.toPrecision(3); // '45.2'
+    y.toPrecision(3, Big.roundDown); // '45.2'
+    y.toPrecision(3, Big.roundHalfUp); // '45.2'
+    y.toPrecision(3, Big.roundHalfEven); // '45.2'
+    y.toPrecision(3, Big.roundUp); // '45.3'
+    x.toPrecision(5); // '45.228'
+    y.toPrecision(5); // '45.229'
+    y.toPrecision(5, Big.roundDown); // '45.228'
+    y.toPrecision(5, Big.roundHalfUp); // '45.229'
+    y.toPrecision(5, Big.roundHalfEven); // '45.228'
+    y.toPrecision(5, Big.roundUp); // '45.229'
+    x.toPrecision(7); // '45.22850'
+    y.toPrecision(7); // '45.22850'
+    y.toPrecision(7, Big.roundDown); // '45.22850'
+    y.toPrecision(7, Big.roundHalfUp); // '45.22850'
+    y.toPrecision(7, Big.roundHalfEven); // '45.22850'
+    y.toPrecision(7, Big.roundUp); // '45.22850'
 }
 
 function toStringTests() {

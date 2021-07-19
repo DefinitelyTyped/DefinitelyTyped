@@ -1,4 +1,4 @@
-// Type definitions for ldapjs 1.0
+// Type definitions for ldapjs 2.2
 // Project: http://ldapjs.org
 // Definitions by: Charles Villemure <https://github.com/cvillemure>, Peter Kooijmans <https://github.com/peterkooijmans>, Pablo Moleri <https://github.com/pmoleri>, Michael Scott-Nelson <https://github.com/mscottnelson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,43 +30,43 @@ export interface CallBack {
 }
 
 export interface ClientOptions {
-    url: string;
-    tlsOptions?: Object;
-    socketPath?: string;
+    url: string | string[];
+    tlsOptions?: Object | undefined;
+    socketPath?: string | undefined;
     log?: any;
-    timeout?: number;
-    connectTimeout?: number;
-    idleTimeout?: number;
+    timeout?: number | undefined;
+    connectTimeout?: number | undefined;
+    idleTimeout?: number | undefined;
     reconnect?: boolean | {
-        initialDelay?: number,
-        maxDelay?: number,
-        failAfter?: number
-    };
-    strictDN?: boolean;
-    queueSize?: number;
-    queueTimeout?: number;
-    queueDisable?: boolean;
-    bindDN?: string;
-    bindCredentials?: string;
+        initialDelay?: number | undefined,
+        maxDelay?: number | undefined,
+        failAfter?: number | undefined
+    } | undefined;
+    strictDN?: boolean | undefined;
+    queueSize?: number | undefined;
+    queueTimeout?: number | undefined;
+    queueDisable?: boolean | undefined;
+    bindDN?: string | undefined;
+    bindCredentials?: string | undefined;
 }
 
 export interface SearchOptions {
     /** Defaults to base */
-    scope?: "base" | "one" | "sub";
+    scope?: "base" | "one" | "sub" | undefined;
     /**  Defaults to (objectclass=*) */
-    filter?: string | Filter;
+    filter?: string | Filter | undefined;
     /** Defaults to the empty set, which means all attributes */
-    attributes?: string | string[];
+    attributes?: string | string[] | undefined;
     /** Defaults to 0 (unlimited) */
-    sizeLimit?: number;
+    sizeLimit?: number | undefined;
     /** Timeout in seconds. Defaults to 10. Lots of servers will ignore this! */
-    timeLimit?: number;
-    derefAliases?: number;
-    typesOnly?: boolean;
+    timeLimit?: number | undefined;
+    derefAliases?: number | undefined;
+    typesOnly?: boolean | undefined;
     paged?: boolean | {
-        pageSize?: number;
-        pagePause?: boolean;
-    }
+        pageSize?: number | undefined;
+        pagePause?: boolean | undefined;
+    } | undefined
 }
 
 export interface Change {
@@ -469,7 +469,7 @@ export class PresenceFilter extends Filter {
 }
 
 export class SubstringFilter extends Filter {
-    constructor(options: { attribute: string, initial: string, any?: string[], final?: string })
+    constructor(options: { attribute: string, initial: string, any?: string[] | undefined, final?: string | undefined })
 }
 
 export class GreaterThanEqualsFilter extends Filter {
@@ -498,10 +498,10 @@ export class ApproximateFilter extends Filter {
 
 export class ExtensibleFilter extends Filter {
     constructor(options: {
-        rule?: string;
-        matchType?: string;
+        rule?: string | undefined;
+        matchType?: string | undefined;
         value: string;
-        dnAttributes?: boolean;
+        dnAttributes?: boolean | undefined;
     })
 }
 

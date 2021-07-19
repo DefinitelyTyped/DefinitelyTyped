@@ -12,7 +12,7 @@ declare module 'leaflet' {
     namespace Utm {
         interface ToStringOptions {
             /** Number of decimals for x and y. Default 1. */
-            decimals?: number;
+            decimals?: number | undefined;
             /**
              * String defining the format to use.
              * Default `{x}{sep} {y}{sep} {zone}{band}{sep} {datum}`, where:
@@ -24,13 +24,13 @@ declare module 'leaflet' {
              * `{hemi}: Hemisphere, north or south`
              * `{sep}: separator`
              */
-            format?: string;
+            format?: string | undefined;
             /** Separator used in the format. Default ','. */
-            sep?: string;
+            sep?: string | undefined;
             /** String used in the format for field {hemi} in the north hemisphere. Default 'North'. */
-            north?: string;
+            north?: string | undefined;
             /** String used in the format for field {hemi} in the south hemisphere. Default 'South'. */
-            south?: string;
+            south?: string | undefined;
         }
 
         function setDefaultOptions(

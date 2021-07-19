@@ -81,6 +81,10 @@ describe('Test', () => {
         await waitFor(element(by.id('UniqueId204')))
             .toBeVisible()
             .withTimeout(2000);
+        await waitFor(element(by.id('element')))
+            .not
+            .toBeVisible()
+            .withTimeout(2000);
         await expect(element(by.id('element'))).not.toBeVisible();
         await expect(element(by.id('element'))).not.toExist();
     });

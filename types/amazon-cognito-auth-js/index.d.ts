@@ -28,27 +28,27 @@ export interface CognitoSessionData {
     /**
      * The session's Id token.
      */
-    IdToken?: CognitoIdToken;
+    IdToken?: CognitoIdToken | undefined;
 
     /**
      * The session's refresh token.
      */
-    RefreshToken?: CognitoRefreshToken;
+    RefreshToken?: CognitoRefreshToken | undefined;
 
     /**
      * The session's access token.
      */
-    AccessToken?: CognitoAccessToken;
+    AccessToken?: CognitoAccessToken | undefined;
 
     /**
      * The session's token scopes.
      */
-    TokenScopes?: CognitoTokenScopes;
+    TokenScopes?: CognitoTokenScopes | undefined;
 
     /**
      * The session's state.
      */
-    State?: string;
+    State?: string | undefined;
 }
 
 export interface CognitoAuthOptions {
@@ -65,7 +65,7 @@ export interface CognitoAuthOptions {
     /**
      * Optional: The token scopes
      */
-    TokenScopesArray?: ReadonlyArray<string>;
+    TokenScopesArray?: ReadonlyArray<string> | undefined;
 
     /**
      * Required: Required: The redirect Uri, which will be launched after authentication as signed in.
@@ -80,17 +80,17 @@ export interface CognitoAuthOptions {
     /**
      * Optional: Pre-selected identity provider (this allows to automatically trigger social provider authentication flow).
      */
-    IdentityProvider?: string;
+    IdentityProvider?: string | undefined;
 
     /**
      * Optional: UserPoolId for the configured cognito userPool.
      */
-    UserPoolId?: string;
+    UserPoolId?: string | undefined;
 
     /**
      * Optional: boolean flag indicating if the data collection is enabled to support cognito advanced security features. By default, this flag is set to true.
      */
-    AdvancedSecurityDataCollectionFlag?: boolean;
+    AdvancedSecurityDataCollectionFlag?: boolean | undefined;
 }
 
 export interface CognitoAuthUserHandler {

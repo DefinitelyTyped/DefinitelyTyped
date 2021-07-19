@@ -42,11 +42,11 @@ export interface ConstraintOptions {
  * @interface
  */
 export interface CypherOptions {
-    commit?: {};
-    headers?: {};
-    lean?: {};
-    params?: {};
-    query?: {};
+    commit?: {} | undefined;
+    headers?: {} | undefined;
+    lean?: {} | undefined;
+    params?: {} | undefined;
+    query?: {} | undefined;
 }
 
 /**
@@ -70,13 +70,13 @@ export interface GraphDatabaseOptions {
      * HTTP headers.
      * @type {Object}
      */
-    headers?: {};
+    headers?: {} | undefined;
 
     /**
      * Proxy address.
      * @type {string}
      */
-    proxy?: string;
+    proxy?: string | undefined;
 
     /**
      * URL connection.

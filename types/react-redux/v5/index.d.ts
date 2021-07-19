@@ -33,7 +33,7 @@ type ActionCreator<A> = Redux.ActionCreator<A>;
 type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 export interface DispatchProp<S> {
-  dispatch?: Dispatch<S>;
+  dispatch?: Dispatch<S> | undefined;
 }
 
 interface AdvancedComponentDecorator<TProps, TOwnProps> {
@@ -184,31 +184,31 @@ interface Options<State = {}, TStateProps = {}, TOwnProps = {}, TMergedProps = {
      * Defaults to true.
      * @default true
      */
-    pure?: boolean;
+    pure?: boolean | undefined;
 
     /**
      * When pure, compares incoming store state to its previous value.
      * @default strictEqual
      */
-    areStatesEqual?: (nextState: State, prevState: State) => boolean;
+    areStatesEqual?: ((nextState: State, prevState: State) => boolean) | undefined;
 
     /**
      * When pure, compares incoming props to its previous value.
      * @default shallowEqual
      */
-    areOwnPropsEqual?: (nextOwnProps: TOwnProps, prevOwnProps: TOwnProps) => boolean;
+    areOwnPropsEqual?: ((nextOwnProps: TOwnProps, prevOwnProps: TOwnProps) => boolean) | undefined;
 
     /**
      * When pure, compares the result of mapStateToProps to its previous value.
      * @default shallowEqual
      */
-    areStatePropsEqual?: (nextStateProps: TStateProps, prevStateProps: TStateProps) => boolean;
+    areStatePropsEqual?: ((nextStateProps: TStateProps, prevStateProps: TStateProps) => boolean) | undefined;
 
     /**
      * When pure, compares the result of mergeProps to its previous value.
      * @default shallowEqual
      */
-    areMergedPropsEqual?: (nextMergedProps: TMergedProps, prevMergedProps: TMergedProps) => boolean;
+    areMergedPropsEqual?: ((nextMergedProps: TMergedProps, prevMergedProps: TMergedProps) => boolean) | undefined;
 }
 
 /**
@@ -250,13 +250,13 @@ export interface ConnectOptions {
      * @default name => 'ConnectAdvanced('+name+')'
      * @param componentName
      */
-    getDisplayName?: (componentName: string) => string
+    getDisplayName?: ((componentName: string) => string) | undefined
     /**
      * Shown in error messages. Usually overridden by wrapper functions.
      *
      * @default 'connectAdvanced'
      */
-    methodName?: string
+    methodName?: string | undefined
     /**
      * If defined, a property named this value will be added to the props passed to the wrapped component. Its value
      * will be the number of times the component has been rendered, which can be useful for tracking down unnecessary
@@ -264,35 +264,35 @@ export interface ConnectOptions {
      *
      * @default undefined
      */
-    renderCountProp?: string
+    renderCountProp?: string | undefined
     /**
      * Controls whether the connector component subscribes to redux store state changes. If set to false, it will only
      * re-render on <code>componentWillReceiveProps</code>.
      *
      * @default true
      */
-    shouldHandleStateChanges?: boolean
+    shouldHandleStateChanges?: boolean | undefined
     /**
      * The key of props/context to get the store. You probably only need this if you are in the inadvisable position of
      * having multiple stores.
      *
      * @default 'store'
      */
-    storeKey?: string
+    storeKey?: string | undefined
     /**
      * If true, stores a ref to the wrapped component instance and makes it available via getWrappedInstance() method.
      *
      * @default false
      */
-    withRef?: boolean
+    withRef?: boolean | undefined
 }
 
 export interface ProviderProps {
     /**
      * The single Redux store in your application.
      */
-    store?: Store<any>;
-    children?: ReactNode;
+    store?: Store<any> | undefined;
+    children?: ReactNode | undefined;
 }
 
 /**

@@ -4,14 +4,14 @@ import { ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from '../../../typin
 export type AspectRatioValue = '16x9' | '9x16' | '2x1' | '1x2' | '4x3' | '3x4' | '1x1';
 
 interface AspectRatioBaseIsolatedProps {
-    ratio?: AspectRatioValue;
+    ratio?: AspectRatioValue | undefined;
 }
 
 type SafeProps<P> = Omit<P, 'as' | keyof AspectRatioBaseIsolatedProps>;
 
 interface AspectRatioBaseProps extends AspectRatioBaseIsolatedProps {
-    children?: React.ReactNode;
-    className?: string;
+    children?: React.ReactNode | undefined;
+    className?: string | undefined;
 }
 
 export type AspectRatioDefaultProps = AspectRatioBaseProps &

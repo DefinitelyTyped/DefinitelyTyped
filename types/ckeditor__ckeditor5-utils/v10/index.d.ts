@@ -58,8 +58,8 @@ export function isWindow(obj: any): obj is Window;
 
 export interface Options {
     element: HTMLElement;
-    fitInViewport?: boolean;
-    limiter?: HTMLElement | Range | ClientRect | Rect | (() => HTMLElement | Range | ClientRect | Rect);
+    fitInViewport?: boolean | undefined;
+    limiter?: HTMLElement | Range | ClientRect | Rect | (() => HTMLElement | Range | ClientRect | Rect) | undefined;
     positions: Array<(targetRect: Rect, elementRect: Rect) => Position>;
     target: HTMLElement | Range | ClientRect | Rect | (() => HTMLElement | Range | ClientRect | Rect);
 }
@@ -99,7 +99,7 @@ export function remove(node: Node): void;
 
 export function scrollAncestorsToShowTarget(target: HTMLElement | Range): void;
 
-export function scrollViewportToShowTarget(options: {target: HTMLElement | Range, viewportOffset?: number}): void;
+export function scrollViewportToShowTarget(options: {target: HTMLElement | Range, viewportOffset?: number | undefined}): void;
 
 export function setDataInElement(el: HTMLElement, data: string): void;
 
@@ -130,7 +130,7 @@ export class Collection<T> implements Iterable<T>, Emitter {
     last: T | null;
     length: number;
 
-    constructor(options?: {idProperty?: keyof T});
+    constructor(options?: {idProperty?: keyof T | undefined});
     add(item: T, index?: number): this;
     bindTo<S>(externalCollection: Collection<S>): CollectionBindTo<S, T>;
     clear(): void;
@@ -147,7 +147,7 @@ export class Collection<T> implements Iterable<T>, Emitter {
     // Emitter
     delegate(...events: string[]): EmitterMixinDelegateChain;
     fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
-    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number }): void;
+    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number | undefined }): void;
     off(event: string, callback?: Function): void;
     on(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
     once(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
@@ -200,7 +200,7 @@ export const EmitterMixin: Emitter;
 export interface Emitter {
     delegate(...events: string[]): EmitterMixinDelegateChain;
     fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
-    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number }): void;
+    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number | undefined }): void;
     off(event: string, callback?: Function): void;
     on(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
     once(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
@@ -265,7 +265,7 @@ export class FocusTracker implements Observable {
     // Observable (Emitter)
     delegate(...events: string[]): EmitterMixinDelegateChain;
     fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
-    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number }): void;
+    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number | undefined }): void;
     off(event: string, callback?: Function): void;
     on(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
     once(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
@@ -348,10 +348,10 @@ export const keyCodes: {
 };
 
 export interface KeystrokeInfo {
-    altKey?: boolean;
-    ctrlKey?: boolean;
+    altKey?: boolean | undefined;
+    ctrlKey?: boolean | undefined;
     keyCode: number;
-    shiftKey?: boolean;
+    shiftKey?: boolean | undefined;
 }
 
 export function getCode(key: string | KeystrokeInfo): number;
@@ -370,7 +370,7 @@ export class KeystrokeHandler {
     set(
         keystroke: string | Array<string | number>,
         callback: (keyEvtData: KeystrokeInfo, cancel: () => void) => void,
-        options?: {priority?: PriorityString | number}
+        options?: {priority?: PriorityString | number | undefined}
     ): void;
 }
 
@@ -420,7 +420,7 @@ export interface Observable extends Emitter {
     // Emitter
     delegate(...events: string[]): EmitterMixinDelegateChain;
     fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
-    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number }): void;
+    listenTo(emitter: Emitter, event: string, callback: Function, options?: {priority?: PriorityString | number | undefined }): void;
     off(event: string, callback?: Function): void;
     on(event: string, callback: Function, options?: {priority: PriorityString | number}): void;
     once(event: string, callback: Function, options?: {priority: PriorityString | number}): void;

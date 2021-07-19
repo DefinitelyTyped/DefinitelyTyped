@@ -21,6 +21,6 @@ export interface RecordAttributes {
 }
 
 export type Record<T = any> = {
-    Id?: SalesforceId;
-    attributes?: RecordAttributes
+    Id?: SalesforceId | undefined;
+    attributes?: RecordAttributes | undefined
 } & T;

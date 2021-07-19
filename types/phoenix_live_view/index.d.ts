@@ -9,34 +9,34 @@
 import { Socket, SocketConnectOption } from 'phoenix';
 
 export interface Defaults {
-  debounce?: number;
-  throttle?: number;
+  debounce?: number | undefined;
+  throttle?: number | undefined;
 }
 
 // From morphdom
 export interface DomOptions {
-  getNodeKey?: (node: Node) => any;
-  onBeforeNodeAdded?: (node: Node) => Node;
-  onNodeAdded?: (node: Node) => Node;
-  onBeforeElUpdated?: (fromEl: HTMLElement, toEl: HTMLElement) => boolean;
-  onElUpdated?: (el: HTMLElement) => void;
-  onBeforeNodeDiscarded?: (node: Node) => boolean;
-  onNodeDiscarded?: (node: Node) => void;
-  onBeforeElChildrenUpdated?: (fromEl: HTMLElement, toEl: HTMLElement) => boolean;
-  childrenOnly?: boolean;
+  getNodeKey?: ((node: Node) => any) | undefined;
+  onBeforeNodeAdded?: ((node: Node) => Node) | undefined;
+  onNodeAdded?: ((node: Node) => Node) | undefined;
+  onBeforeElUpdated?: ((fromEl: HTMLElement, toEl: HTMLElement) => boolean) | undefined;
+  onElUpdated?: ((el: HTMLElement) => void) | undefined;
+  onBeforeNodeDiscarded?: ((node: Node) => boolean) | undefined;
+  onNodeDiscarded?: ((node: Node) => void) | undefined;
+  onBeforeElChildrenUpdated?: ((fromEl: HTMLElement, toEl: HTMLElement) => boolean) | undefined;
+  childrenOnly?: boolean | undefined;
 }
 
 export type ViewLogger = (view: View, kind: string, msg: any, obj: any) => void;
 
 export interface SocketOptions {
-  bindingPrefix?: string;
-  defaults?: Defaults;
-  dom?: DomOptions;
-  hooks?: object;
-  loaderTimeout?: number;
-  params?: object;
-  uploaders?: object;
-  viewLogger?: ViewLogger;
+  bindingPrefix?: string | undefined;
+  defaults?: Defaults | undefined;
+  dom?: DomOptions | undefined;
+  hooks?: object | undefined;
+  loaderTimeout?: number | undefined;
+  params?: object | undefined;
+  uploaders?: object | undefined;
+  viewLogger?: ViewLogger | undefined;
 }
 
 export type BindCallback = (e: Event, event: string, view: View, el: HTMLElement, targetCtx: object, phxEvent: string, windowOwner?: string) => void;
@@ -144,13 +144,13 @@ export interface ViewHook {
   handleEvent(event: string, callback: (payload: object) => void): void;
 
   // callbacks
-  mounted?: () => void;
-  beforeUpdate?: () => void;
-  updated?: () => void;
-  beforeDestroy?: () => void;
-  destroyed?: () => void;
-  disconnected?: () => void;
-  reconnected?: () => void;
+  mounted?: (() => void) | undefined;
+  beforeUpdate?: (() => void) | undefined;
+  updated?: (() => void) | undefined;
+  beforeDestroy?: (() => void) | undefined;
+  destroyed?: (() => void) | undefined;
+  disconnected?: (() => void) | undefined;
+  reconnected?: (() => void) | undefined;
 }
 
 export class View {
@@ -236,7 +236,7 @@ export class View {
 }
 
 export interface LiveViewFile extends File {
-  _phxRef?: string;
+  _phxRef?: string | undefined;
 }
 
 export class UploadEntry {
@@ -259,7 +259,7 @@ export interface LiveViewUploaderMeta {
   name: string;
   type: string;
   size: number;
-  last_modified?: number;
+  last_modified?: number | undefined;
 }
 
 export function debug(view: View, kind: string, msg: object, obj: object): void;

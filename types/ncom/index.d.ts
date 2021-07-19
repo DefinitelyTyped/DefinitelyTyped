@@ -116,8 +116,8 @@ export function createServer(options: SecureComServerOptions, listener?: Connect
 export function createServer(listener?: ConnectionListener): ComServer;
 
 export interface WriteOptions {
-    filters?: FilterFunction[];
-    batch?: boolean;
+    filters?: FilterFunction[] | undefined;
+    batch?: boolean | undefined;
 }
 
 export type FilterFunction = (data: any) => string;
@@ -127,8 +127,8 @@ export interface SecureComServerOptions extends TlsOptions {
 }
 
 export interface ComServerOptions {
-    allowHalfOpen?: boolean;
-    pauseOnConnect?: boolean;
+    allowHalfOpen?: boolean | undefined;
+    pauseOnConnect?: boolean | undefined;
 }
 
 export type ConnectionListener = (socket: ComSocket) => void;

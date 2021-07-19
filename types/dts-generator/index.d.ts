@@ -34,32 +34,32 @@ declare namespace dtsGenerator {
          * from the bundle.
          * Note this is no longer the preferred way to configure dts-generator, please see project.
          */
-        baseDir?: string;
+        baseDir?: string | undefined;
         /**
          * A list of glob patterns, relative to baseDir, that should be excluded from the bundle.
          * Use the --exclude flag one or more times on the command-line. Defaults to [ "node_modules\/**\/*.d.ts" ].
          */
-        exclude?: string[];
+        exclude?: string[] | undefined;
         /**
          * A list of external module reference paths that should be inserted as reference comments.
          * Use the --extern flag one or more times on the command-line.
          */
-        externs?: string[];
+        externs?: string[] | undefined;
         /**
          * A list of external @types package dependencies that should be inserted as reference comments.
          * Use the --types flag one or more times on the command-line.
          */
-        types?: string[];
+        types?: string[] | undefined;
         /** A list of files from the baseDir to bundle. */
-        files?: string[];
+        files?: string[] | undefined;
         /** The end-of-line character that should be used when outputting code. Defaults to os.EOL. */
-        eol?: string;
+        eol?: string | undefined;
         /** The character(s) that should be used to indent the declarations in the output. Defaults to \t. */
-        indent?: string;
+        indent?: string | undefined;
         /** The module ID that should be used as the exported value of the package’s “main” module. */
-        main?: string;
+        main?: string | undefined;
         /** The type of module resolution to use when generating the bundle. */
-        moduleResolution?: ts.ModuleResolutionKind;
+        moduleResolution?: ts.ModuleResolutionKind | undefined;
         /** The name of the package. Used to determine the correct exported package name for modules. */
         name: string;
         /** The filename where the generated bundle will be created. */
@@ -69,9 +69,9 @@ declare namespace dtsGenerator {
          * tsconfig.json which will be parsed to determine the files that should be bundled as well as
          * other configuration information like target
          */
-        project?: string;
+        project?: string | undefined;
         /** The target environment for generated code. Defaults to ts.ScriptTarget.Latest. */
-        target?: ts.ScriptTarget;
+        target?: ts.ScriptTarget | undefined;
         /**
          * An optional callback provided by the invoker to customize the declared module ids the output d.ts files.
          * @see {@link https://github.com/SitePen/dts-generator/blob/master/docs/resolving-module-ids.md Resolving Module Ids}

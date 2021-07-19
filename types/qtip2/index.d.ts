@@ -22,10 +22,10 @@ declare namespace QTip2 {
     type Text = string | JQuery | EventApiFunc | boolean | JQueryGenericPromise<any>;
 
     interface Content {
-        title?: Title | { text: Title };
-        text?: Text;
-        attr?: string;
-        button?: string | JQuery | boolean;
+        title?: Title | { text: Title } | undefined;
+        text?: Text | undefined;
+        attr?: string | undefined;
+        button?: string | JQuery | boolean | undefined;
     }
 
 
@@ -33,24 +33,24 @@ declare namespace QTip2 {
      * Position property
      */
     interface PositionAdjust {
-        x?: number;
-        y?: number;
-        mouse?: boolean;
-        resize?: boolean;
-        scroll?: boolean;
-        method?: string;
+        x?: number | undefined;
+        y?: number | undefined;
+        mouse?: boolean | undefined;
+        resize?: boolean | undefined;
+        scroll?: boolean | undefined;
+        method?: string | undefined;
     }
 
     type Target = JQuery | number[] | string;
 
     interface Position {
-        my?: string | boolean;
-        at?: string | boolean;
-        target?: Target | boolean;
-        container?: JQuery | boolean;
-        viewport?: JQuery | boolean;
-        effect?: boolean | ((api: Api, pos: any, viewport: any) => void);
-        adjust?: PositionAdjust;
+        my?: string | boolean | undefined;
+        at?: string | boolean | undefined;
+        target?: Target | boolean | undefined;
+        container?: JQuery | boolean | undefined;
+        viewport?: JQuery | boolean | undefined;
+        effect?: boolean | ((api: Api, pos: any, viewport: any) => void) | undefined;
+        adjust?: PositionAdjust | undefined;
     }
 
 
@@ -58,22 +58,22 @@ declare namespace QTip2 {
      * Show property
      */
     interface Show {
-        target?: JQuery | boolean;
-        event?: string | boolean;
-        delay?: number;
-        solo?: JQuery | string | boolean;
-        ready?: boolean;
-        effect?: boolean | ((offset: any) => void);
-        modal?: boolean | Modal;
+        target?: JQuery | boolean | undefined;
+        event?: string | boolean | undefined;
+        delay?: number | undefined;
+        solo?: JQuery | string | boolean | undefined;
+        ready?: boolean | undefined;
+        effect?: boolean | ((offset: any) => void) | undefined;
+        modal?: boolean | Modal | undefined;
     }
 
     interface Modal
     {
-        on?: boolean;
-        blur?: boolean;
-        escape?: boolean;
-        stealfocus?: boolean;
-        effect?: boolean | ((state: any) => void);
+        on?: boolean | undefined;
+        blur?: boolean | undefined;
+        escape?: boolean | undefined;
+        stealfocus?: boolean | undefined;
+        effect?: boolean | ((state: any) => void) | undefined;
     }
 
 
@@ -81,14 +81,14 @@ declare namespace QTip2 {
      * Hide property
      */
     interface Hide {
-        target?: JQuery | boolean;
-        event?: string | boolean;
-        delay?: number;
-        inactive?: number | boolean;
-        fixed?: boolean;
-        leave?: string | boolean;
-        distance?: number | boolean;
-        effect?: boolean | ((offset: any) => void);
+        target?: JQuery | boolean | undefined;
+        event?: string | boolean | undefined;
+        delay?: number | undefined;
+        inactive?: number | boolean | undefined;
+        fixed?: boolean | undefined;
+        leave?: string | boolean | undefined;
+        distance?: number | boolean | undefined;
+        effect?: boolean | ((offset: any) => void) | undefined;
     }
 
 
@@ -96,21 +96,21 @@ declare namespace QTip2 {
      * Style property
      */
     interface Style {
-        classes?: string | boolean;
-        def?: boolean;
-        widget?: boolean;
-        width?: string | number | boolean;
-        height?: string | number | boolean;
-        tip?: string | boolean | Tip;
+        classes?: string | boolean | undefined;
+        def?: boolean | undefined;
+        widget?: boolean | undefined;
+        width?: string | number | boolean | undefined;
+        height?: string | number | boolean | undefined;
+        tip?: string | boolean | Tip | undefined;
     }
 
     interface Tip {
-        corner?: string | boolean;
-        mimic?: string | boolean;
-        border?: number | boolean;
-        width?: number;
-        height?: number;
-        offset?: number;
+        corner?: string | boolean | undefined;
+        mimic?: string | boolean | undefined;
+        border?: number | boolean | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        offset?: number | undefined;
     }
 
 
@@ -118,15 +118,15 @@ declare namespace QTip2 {
      * Events property
      */
     interface Events {
-        render?: EventApiFunc;
-        show?: EventApiFunc;
-        hide?: EventApiFunc;
-        toggle?: EventApiFunc;
-        visible?: EventApiFunc;
-        hidden?: EventApiFunc;
-        move?: EventApiFunc;
-        focus?: EventApiFunc;
-        blur?: EventApiFunc;
+        render?: EventApiFunc | undefined;
+        show?: EventApiFunc | undefined;
+        hide?: EventApiFunc | undefined;
+        toggle?: EventApiFunc | undefined;
+        visible?: EventApiFunc | undefined;
+        hidden?: EventApiFunc | undefined;
+        move?: EventApiFunc | undefined;
+        focus?: EventApiFunc | undefined;
+        blur?: EventApiFunc | undefined;
     }
 
 
@@ -134,17 +134,17 @@ declare namespace QTip2 {
      * Options
      */
     interface QTipOptions {
-        id?: string | boolean;
-        prerender?: boolean;
-        overwrite?: boolean;
-        suppress?: boolean;
+        id?: string | boolean | undefined;
+        prerender?: boolean | undefined;
+        overwrite?: boolean | undefined;
+        suppress?: boolean | undefined;
         metadata?: any;
-        content?: Text | Content;
-        position?: string | Position;
-        style?: string | Style;
-        show?: string | boolean | JQuery | Show;
-        hide?: string | JQuery | Hide;
-        events?: Events;
+        content?: Text | Content | undefined;
+        position?: string | Position | undefined;
+        style?: string | Style | undefined;
+        show?: string | boolean | JQuery | Show | undefined;
+        hide?: string | JQuery | Hide | undefined;
+        events?: Events | undefined;
     }
 
 

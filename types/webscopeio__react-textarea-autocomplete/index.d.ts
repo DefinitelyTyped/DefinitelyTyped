@@ -16,7 +16,7 @@ export type CaretPositionType = "start" | "end" | "next" | number;
 export interface TextToReplaceType {
     text: string;
     caretPosition: CaretPositionType;
-    key?: string;
+    key?: string | undefined;
 }
 
 export type DataProviderType<TItem> = (token: string) => Promise<TItem[]> | TItem[];
@@ -44,13 +44,13 @@ export interface SettingType<TItem> {
      * Set this to true if you want to provide autocomplete for words (tokens) containing whitespace.
      * @default false
      */
-    allowWhitespace?: boolean;
+    allowWhitespace?: boolean | undefined;
 
     /**
      * Show autocomplete only if it's preceded by whitespace. Cannot be combined with allowWhitespace.
      * @default false
      */
-    afterWhitespace?: boolean;
+    afterWhitespace?: boolean | undefined;
 
     /**
      * (Optional for string based item. If the item is an object this method is required) This function defines text
@@ -65,7 +65,7 @@ export interface SettingType<TItem> {
      * return a unique string, otherwise, you have to use object notation and specify your own key or return object
      * from dataProvider with key property.
      */
-    output?: (item: TItem, trigger?: string) => TextToReplaceType | string;
+    output?: ((item: TItem, trigger?: string) => TextToReplaceType | string) | undefined;
 }
 
 export interface TriggerType<TItem> {
@@ -89,130 +89,130 @@ export type TextareaProps<
     /**
      * Allows you to get React ref of the underlying textarea.
      */
-    innerRef?: (ref: HTMLTextAreaElement) => void;
+    innerRef?: ((ref: HTMLTextAreaElement) => void) | undefined;
 
     /**
      * With default implementation it will scroll the dropdown every time when the item gets out of the view.
      * @default true
      */
-    scrollToItem?: boolean | ((container: HTMLDivElement, item: HTMLDivElement) => void);
+    scrollToItem?: boolean | ((container: HTMLDivElement, item: HTMLDivElement) => void) | undefined;
 
     /**
      * Number of characters that user should type for trigger a suggestion.
      * @default 1
      */
-    minChar?: number;
+    minChar?: number | undefined;
 
     /**
      * Listener called every time the textarea's caret position is changed.
      * The listener is called with one attribute - caret position denoted by an integer number.
      */
-    onCaretPositionChange?: (pos: number) => void;
+    onCaretPositionChange?: ((pos: number) => void) | undefined;
 
     /**
      * When it's true the textarea will move along with a caret as a user continues to type.
      * @default false
      */
-    movePopupAsYouType?: boolean;
+    movePopupAsYouType?: boolean | undefined;
 
     /**
      * Element which should prevent autocomplete to overflow. Defaults to body.
      */
-    boundariesElement?: string | HTMLElement;
+    boundariesElement?: string | HTMLElement | undefined;
 
     /**
      * What component use for as textarea. Default is textarea. (You can combine this with react-autosize-textarea for instance)
      */
-    textAreaComponent?: Component<CustomTextAreaProps> | { component: Component<CustomTextAreaProps>; ref: string };
+    textAreaComponent?: Component<CustomTextAreaProps> | { component: Component<CustomTextAreaProps>; ref: string } | undefined;
 
     /**
      * When set to true the autocomplete will be rendered at the end of the <body>
      * @default false
      */
-    renderToBody?: boolean;
+    renderToBody?: boolean | undefined;
 
     /**
      * Callback get called everytime item is highlighted in the list
      */
-    onItemHighlighted?: (event: { currentTrigger: string; item: TItem | null }) => void;
+    onItemHighlighted?: ((event: { currentTrigger: string; item: TItem | null }) => void) | undefined;
 
     /**
      * Callback get called everytime item is selected
      */
-    onItemSelected?: (event: { currentTrigger: string; item: TItem }) => void;
+    onItemSelected?: ((event: { currentTrigger: string; item: TItem }) => void) | undefined;
 
     /**
      * Styles of textarea
      */
-    style?: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
 
     /**
      * Styles of list's wrapper.
      */
-    listStyle?: React.CSSProperties;
+    listStyle?: React.CSSProperties | undefined;
 
     /**
      * Styles of item's wrapper.
      */
-    itemStyle?: React.CSSProperties;
+    itemStyle?: React.CSSProperties | undefined;
 
     /**
      * Styles of loader's wrapper.
      */
-    loaderStyle?: React.CSSProperties;
+    loaderStyle?: React.CSSProperties | undefined;
 
     /**
      * Styles of textarea's container.
      */
-    containerStyle?: React.CSSProperties;
+    containerStyle?: React.CSSProperties | undefined;
 
     /**
      * Styles of dropdown's wrapper.
      */
-    dropdownStyle?: React.CSSProperties;
+    dropdownStyle?: React.CSSProperties | undefined;
 
     /**
      * ClassNames of the textarea.
      */
-    className?: string;
+    className?: string | undefined;
 
     /**
      * ClassNames of the textarea's container.
      */
-    containerClassName?: string;
+    containerClassName?: string | undefined;
 
     /**
      *     ClassNames of list's wrapper.
      */
-    listClassName?: string;
+    listClassName?: string | undefined;
 
     /**
      * ClassNames of item's wrapper.
      */
-    itemClassName?: string;
+    itemClassName?: string | undefined;
 
     /**
      * ClassNames of loader's wrapper.
      */
-    loaderClassName?: string;
+    loaderClassName?: string | undefined;
 
     /**
      *     ClassNames of dropdown's wrapper.
      */
-    dropdownClassName?: string;
+    dropdownClassName?: string | undefined;
 };
 
 export interface TextareaState<TItem> {
-    currentTrigger?: string;
-    top?: number;
-    left?: number;
+    currentTrigger?: string | undefined;
+    top?: number | undefined;
+    left?: number | undefined;
     actualToken: string;
-    data?: TItem[];
+    data?: TItem[] | undefined;
     value: string;
     dataLoading: boolean;
     selectionEnd: number;
     selectionStart: number;
-    component?: React.SFC<ItemComponentProps<TItem>>;
+    component?: React.SFC<ItemComponentProps<TItem>> | undefined;
 }
 
 declare class ReactTextareaAutocomplete<

@@ -14,10 +14,8 @@ var config: sql.config = {
     options: {
         encrypt: true
     },
-    pool: {
-        autostart: true
-    },
-    beforeConnect: conn => {
+    pool: {},
+    beforeConnect: (conn) => {
         conn.on('debug', message => console.info(message));
         conn.on('error', err => console.error(err));
         conn.removeAllListeners();

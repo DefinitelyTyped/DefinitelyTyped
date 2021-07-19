@@ -39,9 +39,9 @@ declare namespace MapVGL {
         getAllThreeLayers(x: Layer): Layer[];
     }
     interface ViewOptions {
-        map?: object;
-        mapType?: 'bmap' | 'blank' | 'cesium';
-        effects?: Effects[];
+        map?: object | undefined;
+        mapType?: 'bmap' | 'blank' | 'cesium' | undefined;
+        effects?: Effects[] | undefined;
     }
 
     class Layer {
@@ -54,8 +54,8 @@ declare namespace MapVGL {
         destroy(): void;
     }
     interface LayerOptions {
-        repeat?: boolean;
-        data?: GeoJSON[];
+        repeat?: boolean | undefined;
+        data?: GeoJSON[] | undefined;
         [x: string]: any;
     }
     interface GeoJSON {
@@ -65,7 +65,7 @@ declare namespace MapVGL {
         };
         properties?: {
             [x: string]: any
-        };
+        } | undefined;
         [x: string]: any;
     }
 

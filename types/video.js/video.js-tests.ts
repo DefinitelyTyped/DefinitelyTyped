@@ -2,6 +2,8 @@ import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js';
 
 // $ExpectType boolean
 window.HELP_IMPROVE_VIDEOJS;
+// $ExpectType boolean | undefined
+window.VIDEOJS_NO_DYNAMIC_STYLE;
 
 const videoElement = document.createElement('video');
 // $ExpectType VideoJsPlayer
@@ -17,7 +19,7 @@ const playerOptions: VideoJsPlayerOptions = {
         playToggle: false,
         captionsButton: false,
         chaptersButton: false,
-        pictureInPictureToggle: audioElement.tagName !== "AUDIO"
+        pictureInPictureToggle: audioElement.tagName !== 'AUDIO',
     },
     height: 10,
     loop: true,
@@ -45,6 +47,7 @@ const playerOptions: VideoJsPlayerOptions = {
             myOption: true,
         },
     },
+    fill: false,
     responsive: false,
     sources: [
         {
@@ -81,7 +84,7 @@ playerOptions.controlBar! = {
     timeDivider: false,
 };
 
-videojs('example_video_1', playerOptions).ready(function() {
+videojs('example_video_1', playerOptions).ready(function playerReady() {
     // EXAMPLE: Start playing the video.
     const playPromise = this.play();
 
@@ -163,6 +166,10 @@ videojs('example_video_1', playerOptions).ready(function() {
 
     this.responsive(false);
 
+    const fill: boolean = this.fill();
+
+    this.fill(false);
+
     testEvents(this);
 
     testComponents(this);
@@ -172,6 +179,9 @@ videojs('example_video_1', playerOptions).ready(function() {
     testLogger();
 
     testMiddleware();
+
+    // $ExpectType CanPlayTypeResult
+    this.canPlayType('video/mp4');
 });
 
 function testEvents(player: videojs.Player) {
@@ -278,4 +288,17 @@ function testMiddleware() {
     videojs.use('*', () => ({
         setSource: (srcObj, next) => next(null, srcObj),
     }));
+}
+
+function testTech() {
+    // $ExpectType CanPlayTypeResult
+    videojs.Tech.canPlaySource(
+        {
+            src: 'http://www.example.com/path/to/video.mp4',
+            type: 'video/mp4',
+        },
+        {},
+    );
+    // $ExpectType CanPlayTypeResult
+    videojs.Tech.canPlayType('video/mp4');
 }

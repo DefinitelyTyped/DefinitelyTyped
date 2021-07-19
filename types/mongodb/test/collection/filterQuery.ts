@@ -19,16 +19,16 @@ async function run() {
     // a collection model for all possible MongoDB BSON types and TypeScript types
     interface UserModel {
         _id: ObjectId; // ObjectId field
-        name?: string; // optional field
+        name?: string | undefined; // optional field
         family: string; // string field
         age: number; // number field
         gender: 'male' | 'female' | 'other'; // union field
         isBanned: boolean; // boolean field
-        addedBy?: UserModel; // object field (Embedded/Nested Documents)
+        addedBy?: UserModel | undefined; // object field (Embedded/Nested Documents)
         createdAt: Date; // date field
         schools: string[]; // array of string
         scores: number[]; // array of number
-        friends?: ReadonlyArray<UserModel>; // readonly array of objects
+        friends?: ReadonlyArray<UserModel> | undefined; // readonly array of objects
     }
 
     const sampleUser: UserModel = {

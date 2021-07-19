@@ -6,7 +6,7 @@ const element = new Element();
 // $ExpectType Popover
 new Popover(element, { delay: 0.5, animation: true });
 
-// $ExpectType Popover
+// $ExpectType Popover | null
 Popover.getInstance(element);
 
 // $ExpectType string

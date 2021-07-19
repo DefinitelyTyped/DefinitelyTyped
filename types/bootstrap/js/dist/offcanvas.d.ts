@@ -11,7 +11,7 @@ declare class Offcanvas extends BaseComponent {
      * Static method which allows you to get the offcanvas instance associated to a
      * DOM element, you can use it like this: getInstance(offcanvas)
      */
-    static getInstance(element: Element): Offcanvas;
+    static getInstance(element: Element): Offcanvas | null;
 
     static jQueryInterface: Offcanvas.jQueryInterface;
 

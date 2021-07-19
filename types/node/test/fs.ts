@@ -1,7 +1,7 @@
-import { FileHandle, open as openAsync } from 'fs/promises';
-import * as fs from 'fs';
-import * as util from 'util';
-import assert = require('assert');
+import { FileHandle, open as openAsync, writeFile as writeFileAsync, watch as watchAsync  } from 'node:fs/promises';
+import * as fs from 'node:fs';
+import * as util from 'node:util';
+import assert = require('node:assert');
 
 {
     fs.writeFile("thebible.txt",
@@ -67,15 +67,20 @@ import assert = require('assert');
 }
 
 {
-    fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => {});
+    fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => { });
+    fs.read(1, Buffer.from('test'), 1, 2, 123n, () => { });
 }
 
 {
     fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 0);
+    fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 123n);
     fs.readSync(1, Buffer.from(''), {
         length: 123,
         offset: 456,
         position: null,
+    });
+    fs.readSync(1, Buffer.from(''), {
+        position: 123n,
     });
 }
 
@@ -107,9 +112,9 @@ import assert = require('assert');
 
     const enc = 'buffer';
     fs.readdirSync('path', { encoding: enc });
-    fs.readdirSync('path', { });
+    fs.readdirSync('path', {});
 
-    fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => {});
+    fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => { });
 }
 
 async function testPromisify() {
@@ -156,7 +161,8 @@ async function testPromisify() {
     fs.watch('/tmp/foo-', {
         recursive: true,
         persistent: true,
-        encoding: 'utf8'
+        encoding: 'utf8',
+        signal: new AbortSignal(),
     }, (event, filename) => {
         console.log(event, filename);
     });
@@ -181,13 +187,17 @@ async function testPromisify() {
 }
 
 {
+    fs.close(123);
+    fs.close(123, (error?: Error | null) => { });
+}
+
+{
     let s = '123';
     let b: Buffer;
     fs.readlink('/path/to/folder', (err, linkString) => s = linkString);
     fs.readlink('/path/to/folder', undefined, (err, linkString) => s = linkString);
     fs.readlink('/path/to/folder', 'utf8', (err, linkString) => s = linkString);
     fs.readlink('/path/to/folder', 'buffer', (err, linkString) => b = linkString);
-    fs.readlink('/path/to/folder', s, (err, linkString) => typeof linkString === 'string' ? s = linkString : b = linkString);
     fs.readlink('/path/to/folder', {}, (err, linkString) => s = linkString);
     fs.readlink('/path/to/folder', { encoding: undefined }, (err, linkString) => s = linkString);
     fs.readlink('/path/to/folder', { encoding: 'utf8' }, (err, linkString) => s = linkString);
@@ -197,8 +207,6 @@ async function testPromisify() {
     s = fs.readlinkSync('/path/to/folder', undefined);
     s = fs.readlinkSync('/path/to/folder', 'utf8');
     b = fs.readlinkSync('/path/to/folder', 'buffer');
-    const v1 = fs.readlinkSync('/path/to/folder', s);
-    typeof v1 === "string" ? s = v1 : b = v1;
 
     s = fs.readlinkSync('/path/to/folder', {});
     s = fs.readlinkSync('/path/to/folder', { encoding: undefined });
@@ -213,7 +221,6 @@ async function testPromisify() {
     fs.realpath('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
     fs.realpath('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
     fs.realpath('/path/to/folder', 'buffer', (err, resolvedPath) => b = resolvedPath);
-    fs.realpath('/path/to/folder', s, (err, resolvedPath) => typeof resolvedPath === 'string' ? s = resolvedPath : b = resolvedPath);
     fs.realpath('/path/to/folder', {}, (err, resolvedPath) => s = resolvedPath);
     fs.realpath('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
     fs.realpath('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
@@ -223,8 +230,6 @@ async function testPromisify() {
     s = fs.realpathSync('/path/to/folder', undefined);
     s = fs.realpathSync('/path/to/folder', 'utf8');
     b = fs.realpathSync('/path/to/folder', 'buffer');
-    const v1 = fs.realpathSync('/path/to/folder', s);
-    typeof v1 === "string" ? s = v1 : b = v1;
 
     s = fs.realpathSync('/path/to/folder', {});
     s = fs.realpathSync('/path/to/folder', { encoding: undefined });
@@ -236,7 +241,6 @@ async function testPromisify() {
     fs.realpath.native('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
     fs.realpath.native('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
     fs.realpath.native('/path/to/folder', 'buffer', (err, resolvedPath) => b = resolvedPath);
-    fs.realpath.native('/path/to/folder', s, (err, resolvedPath) => typeof resolvedPath === 'string' ? s = resolvedPath : b = resolvedPath);
     fs.realpath.native('/path/to/folder', {}, (err, resolvedPath) => s = resolvedPath);
     fs.realpath.native('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
     fs.realpath.native('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
@@ -246,8 +250,6 @@ async function testPromisify() {
     s = fs.realpathSync.native('/path/to/folder', undefined);
     s = fs.realpathSync.native('/path/to/folder', 'utf8');
     b = fs.realpathSync.native('/path/to/folder', 'buffer');
-    const v3 = fs.realpathSync.native('/path/to/folder', s);
-    typeof v3 === "string" ? s = v3 : b = v3;
 
     s = fs.realpathSync.native('/path/to/folder', {});
     s = fs.realpathSync.native('/path/to/folder', { encoding: undefined });
@@ -316,13 +318,13 @@ async function testPromisify() {
 (async () => {
     try {
         await fs.promises.rmdir('some/test/path');
-        await fs.promises.rmdir('some/test/path', { recursive: true, maxRetries: 123, retryDelay: 123 });
-    } catch (e) {}
+        await fs.promises.rmdir('some/test/path', { maxRetries: 123, retryDelay: 123, recursive: true });
+    } catch (e) { }
 
     try {
         await fs.promises.rmdir('some/test/file');
-        await fs.promises.rmdir('some/test/file', { recursive: true, maxRetries: 123, retryDelay: 123 });
-    } catch (e) {}
+        await fs.promises.rmdir('some/test/file', { maxRetries: 123, retryDelay: 123 });
+    } catch (e) { }
 })();
 
 {
@@ -334,11 +336,11 @@ async function testPromisify() {
         encoding: 'utf8',
     });
 
-    // Pending lib upgrade
-    // (async () => {
-    //     for await (const thing of dir) {
-    //     }
-    // });
+    (async () => {
+        // tslint:disable-next-line: await-promise
+        for await (const thing of dir) {
+        }
+    });
 
     const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
         encoding: 'utf8',
@@ -357,6 +359,22 @@ async () => {
         fd: handle,
     });
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
+
+    (await handle.read()).buffer; // $ExpectType Buffer
+    (await handle.read({
+        buffer: new Uint32Array(),
+        offset: 1,
+        position: 2,
+        length: 3,
+    })).buffer; // $ExpectType Uint32Array
+};
+
+async () => {
+    await writeFileAsync('test', 'test');
+    await writeFileAsync('test',  Buffer.from('test'));
+    await writeFileAsync('test',  ['test', 'test2']);
+    await writeFileAsync('test',  async function *() { yield 'yeet'; }());
+    await writeFileAsync('test', process.stdin);
 };
 
 {
@@ -366,12 +384,12 @@ async () => {
 }
 
 async function testStat(
-  path: string,
-  fd: number,
-  opts: fs.StatOptions,
-  bigintMaybeFalse: fs.StatOptions & { bigint: false } | undefined,
-  bigIntMaybeTrue: fs.StatOptions & { bigint: true } | undefined,
-  maybe?: fs.StatOptions,
+    path: string,
+    fd: number,
+    opts: fs.StatOptions,
+    bigintMaybeFalse: fs.StatOptions & { bigint: false } | undefined,
+    bigIntMaybeTrue: fs.StatOptions & { bigint: true } | undefined,
+    maybe?: fs.StatOptions,
 ) {
     /* Need to test these variants:
      * - stat
@@ -399,25 +417,25 @@ async function testStat(
      */
 
     // Callback mode
-    fs.stat(path, (err, st: fs.Stats) => {});
-    fs.lstat(path, (err, st: fs.Stats) => {});
-    fs.fstat(fd, (err, st: fs.Stats) => {});
+    fs.stat(path, (err, st: fs.Stats) => { });
+    fs.lstat(path, (err, st: fs.Stats) => { });
+    fs.fstat(fd, (err, st: fs.Stats) => { });
 
-    fs.stat(path, undefined, (err, st: fs.Stats) => {});
-    fs.lstat(path, undefined, (err, st: fs.Stats) => {});
-    fs.fstat(fd, undefined, (err, st: fs.Stats) => {});
+    fs.stat(path, undefined, (err, st: fs.Stats) => { });
+    fs.lstat(path, undefined, (err, st: fs.Stats) => { });
+    fs.fstat(fd, undefined, (err, st: fs.Stats) => { });
 
-    fs.stat(path, {}, (err, st: fs.Stats) => {});
-    fs.lstat(path, {}, (err, st: fs.Stats) => {});
-    fs.fstat(fd, {}, (err, st: fs.Stats) => {});
+    fs.stat(path, {}, (err, st: fs.Stats) => { });
+    fs.lstat(path, {}, (err, st: fs.Stats) => { });
+    fs.fstat(fd, {}, (err, st: fs.Stats) => { });
 
-    fs.stat(path, bigintMaybeFalse, (err, st: fs.Stats) => {});
-    fs.lstat(path, bigintMaybeFalse, (err, st: fs.Stats) => {});
-    fs.fstat(fd, bigintMaybeFalse, (err, st: fs.Stats) => {});
+    fs.stat(path, bigintMaybeFalse, (err, st: fs.Stats) => { });
+    fs.lstat(path, bigintMaybeFalse, (err, st: fs.Stats) => { });
+    fs.fstat(fd, bigintMaybeFalse, (err, st: fs.Stats) => { });
 
-    fs.stat(path, { bigint: true }, (err, st: fs.BigIntStats) => {});
-    fs.lstat(path, { bigint: true }, (err, st: fs.BigIntStats) => {});
-    fs.fstat(fd, { bigint: true }, (err, st: fs.BigIntStats) => {});
+    fs.stat(path, { bigint: true }, (err, st: fs.BigIntStats) => { });
+    fs.lstat(path, { bigint: true }, (err, st: fs.BigIntStats) => { });
+    fs.fstat(fd, { bigint: true }, (err, st: fs.BigIntStats) => { });
 
     fs.stat(path, bigIntMaybeTrue, (err, st) => {
         st; // $ExpectType Stats | BigIntStats
@@ -541,3 +559,11 @@ async function testStat(
 const bigStats: fs.BigIntStats = fs.statSync('.', { bigint: true });
 const bigIntStat: bigint = bigStats.atimeNs;
 const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.random() > 0.5 });
+
+{
+    watchAsync('y33t'); // $ExpectType AsyncIterable<string>
+    watchAsync('y33t', 'buffer'); // $ExpectType AsyncIterable<Buffer>
+    watchAsync('y33t', { encoding: 'buffer', signal: new AbortSignal() }); // $ExpectType AsyncIterable<Buffer>
+
+    watchAsync('test', { persistent: true, recursive: true, encoding: 'utf-8' }); // $ExpectType AsyncIterable<string>
+}

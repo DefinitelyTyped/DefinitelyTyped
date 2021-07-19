@@ -17,43 +17,43 @@ export interface IdyllDocumentProps {
      * If provided, this will be used insteaed of
      * the markup
      */
-    ast?: AST;
+    ast?: AST | undefined;
     /**
      * The Idyll markup to be compiled into AST
      */
-    markup?: string;
+    markup?: string | undefined;
     /**
      * Initial data set
      */
-    datasets?: object;
+    datasets?: object | undefined;
 
     /**
      * The theme for idyll document
      * Will correspond to one theme in idyll-theme package
      */
-    theme?: string;
+    theme?: string | undefined;
     /**
      * The layout for idyll document
      * Will correspond to one one layout in idyll-layouts package
      */
-    layout?: string;
+    layout?: string | undefined;
     /**
      * Callback function if error happens during compilation
      */
-    onError?: (err: Error) => void;
+    onError?: ((err: Error) => void) | undefined;
     /**
      * The React component rendered when an error occurs
      */
     errorComponent?: ReactType<{
-        className?: string;
+        className?: string | undefined;
         children: Error["message"] | null;
-    }>;
+    }> | undefined;
     /**
      * Compiler option for Idyll compiler when compiling markup
      */
-    compilerOptions?: CompilerOptions;
+    compilerOptions?: CompilerOptions | undefined;
 
-    context?: (context: any) => void;
+    context?: ((context: any) => void) | undefined;
     initialState?: any;
 }
 

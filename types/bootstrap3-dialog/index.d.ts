@@ -36,13 +36,13 @@ declare namespace BootstrapDialog {
 
     interface DialogOptions {
         /** Dialog header type. See BootstrapDialog.TYPE_xxx constants. */
-        type?: string;
+        type?: string | undefined;
         /** Text size. See BootstrapDialog.SIZE_xxx constants. By default - SIZE_NORMAL */
-        size?: string;
+        size?: string | undefined;
         /** Dialog title. Either string or JQuery element. */
-        title?: string | JQuery;
+        title?: string | JQuery | undefined;
         /** Dialog message. Either string, JQuery element, or function that returns either string or JQuery element. */
-        message?: string | JQuery | ((dialog?: DialogContext) => string | JQuery);
+        message?: string | JQuery | ((dialog?: DialogContext) => string | JQuery) | undefined;
         /**
          * When set to true, you can close the dialog by:
          *  - Clicking the close icon in dialog header.
@@ -51,27 +51,27 @@ declare namespace BootstrapDialog {
          *
          * FALSE by default.
          */
-        closable?: boolean;
+        closable?: boolean | undefined;
         /** Whether dialog will close by clicking outside of it. */
-        closeByBackdrop?: boolean;
+        closeByBackdrop?: boolean | undefined;
         /** Whether dialog will close by ESC. */
-        closeByKeyboard?: boolean;
+        closeByKeyboard?: boolean | undefined;
         /** Whether fade-out background while showing the dialog. TRUE by default. */
-        animate?: boolean;
+        animate?: boolean | undefined;
         /** Data to be bound to the dialog. */
         data?: any;
         /** Whether dialog could be dragged by its header. Cursor could be changed (see doc)! FALSE by default. */
-        draggable?: boolean;
+        draggable?: boolean | undefined;
         /**
          * If provided, 'aria-describedby' attribute will be added to the dialog with the description string as its value. This can improve accessibility, as the description can be read by screen
          * readers.
          */
-        description?: string;
+        description?: string | undefined;
         /** Default button title. OK by default. */
-        buttonLabel?: string;
-        buttons?: DialogButton[];
+        buttonLabel?: string | undefined;
+        buttons?: DialogButton[] | undefined;
         /** Result will be true if button was click, while it will be false if users close the dialog directly. */
-        callback?: (result: boolean) => void;
+        callback?: ((result: boolean) => void) | undefined;
         /** If provided, it will be invoked when the dialog is popping up. */
         onshow?(dialog?: DialogContext): void;
         /** If provided, it will be invoked when the dialog is popped up. */
@@ -85,26 +85,26 @@ declare namespace BootstrapDialog {
         onhidden?(dialog?: DialogContext): void;
 
         /** 'Cancel' by default. */
-        btnCancelLabel?: string;
+        btnCancelLabel?: string | undefined;
         /** 'OK' by default. */
-        btnOKLabel?: string;
+        btnOKLabel?: string | undefined;
         /** If you didn't specify it, dialog type will be used. */
-        btnOKClass?: string;
+        btnOKClass?: string | undefined;
         /** Additional css classes that will be added to your dialog. */
-        cssClass?: string;
+        cssClass?: string | undefined;
         /** Icon class name, for example 'glyphicon glyphicon-check'. */
-        spinicon?: string;
+        spinicon?: string | undefined;
         /**
          * When it's true, all modal stuff will be removed from the DOM tree after the dialog is popped down,
          * set it to false if you need your dialog (same instance) pups up and down again and again.
          * Default is true.
          */
-        autodestroy?: boolean;
+        autodestroy?: boolean | undefined;
         /**
          * Automatically convert line breaking character to <br /> if it's set to true,
          * everything keeps original if it's false.
          */
-        nl2br?: boolean;
+        nl2br?: boolean | undefined;
     }
 
     interface DialogInstance {
@@ -120,23 +120,23 @@ declare namespace BootstrapDialog {
 
     interface DialogButton {
         /** If id is set, you can use dialogInstance.getButton(id) to get the button later. */
-        id?: string;
-        label?: string;
+        id?: string | undefined;
+        label?: string | undefined;
         /** Hotkey char code */
-        hotkey?: number;
+        hotkey?: number | undefined;
         /** If set, the specified icon will be added to the button. */
-        icon?: string;
+        icon?: string | undefined;
         /** Additional css class to be added to the button. */
-        cssClass?: string;
+        cssClass?: string | undefined;
         /** Object containing data attributes to be added to the button. */
         data?: any;
         /**  If it's true, after clicked the button a spinning icon appears. */
-        autospin?: boolean;
+        autospin?: boolean | undefined;
         /**
          * If provided, the callback will be invoked after the button is clicked, and the dialog instance
          * will be passed to the callback function.
          */
-        action?: (dialog: DialogContext) => void;
+        action?: ((dialog: DialogContext) => void) | undefined;
     }
 
     interface DialogButtonInstance {

@@ -78,8 +78,8 @@ export interface APIGatewayRequestAuthorizerEvent {
 export interface APIGatewayAuthorizerResult {
     principalId: string;
     policyDocument: PolicyDocument;
-    context?: APIGatewayAuthorizerResultContext | null;
-    usageIdentifierKey?: string | null;
+    context?: APIGatewayAuthorizerResultContext | null | undefined;
+    usageIdentifierKey?: string | null | undefined;
 }
 
 // Separate type so the context property is required, without pulling complex type magic.
@@ -87,7 +87,7 @@ export interface APIGatewayAuthorizerWithContextResult<TAuthorizerContext extend
     principalId: string;
     policyDocument: PolicyDocument;
     context: TAuthorizerContext;
-    usageIdentifierKey?: string | null;
+    usageIdentifierKey?: string | null | undefined;
 }
 
 // Legacy event / names
@@ -102,19 +102,19 @@ export type CustomAuthorizerCallback = APIGatewayAuthorizerCallback;
 export interface CustomAuthorizerEvent {
     type: string;
     methodArn: string;
-    authorizationToken?: string;
-    resource?: string;
-    path?: string;
-    httpMethod?: string;
-    headers?: { [name: string]: string };
-    multiValueHeaders?: { [name: string]: string[] };
-    pathParameters?: { [name: string]: string } | null;
-    queryStringParameters?: { [name: string]: string } | null;
-    multiValueQueryStringParameters?: { [name: string]: string[] } | null;
-    stageVariables?: { [name: string]: string };
-    requestContext?: APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventDefaultAuthorizerContext>;
-    domainName?: string;
-    apiId?: string;
+    authorizationToken?: string | undefined;
+    resource?: string | undefined;
+    path?: string | undefined;
+    httpMethod?: string | undefined;
+    headers?: { [name: string]: string } | undefined;
+    multiValueHeaders?: { [name: string]: string[] } | undefined;
+    pathParameters?: { [name: string]: string } | null | undefined;
+    queryStringParameters?: { [name: string]: string } | null | undefined;
+    multiValueQueryStringParameters?: { [name: string]: string[] } | null | undefined;
+    stageVariables?: { [name: string]: string } | undefined;
+    requestContext?: APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventDefaultAuthorizerContext> | undefined;
+    domainName?: string | undefined;
+    apiId?: string | undefined;
 }
 
 export type CustomAuthorizerResult = APIGatewayAuthorizerResult;
@@ -128,7 +128,7 @@ export type AuthResponseContext = APIGatewayAuthorizerResultContext;
  */
 export interface PolicyDocument {
     Version: string;
-    Id?: string;
+    Id?: string | undefined;
     Statement: Statement[];
 }
 
@@ -154,18 +154,18 @@ export type Statement = BaseStatement & StatementAction & (StatementResource | S
 
 export interface BaseStatement {
     Effect: string;
-    Sid?: string;
-    Condition?: ConditionBlock;
+    Sid?: string | undefined;
+    Condition?: ConditionBlock | undefined;
 }
 
 export type PrincipalValue = { [key: string]: string | string[] } | string | string[];
 export interface MaybeStatementPrincipal {
-    Principal?: PrincipalValue;
-    NotPrincipal?: PrincipalValue;
+    Principal?: PrincipalValue | undefined;
+    NotPrincipal?: PrincipalValue | undefined;
 }
 export interface MaybeStatementResource {
-    Resource?: string | string[];
-    NotResource?: string | string[];
+    Resource?: string | string[] | undefined;
+    NotResource?: string | string[] | undefined;
 }
 export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
 export type StatementResource = MaybeStatementPrincipal &

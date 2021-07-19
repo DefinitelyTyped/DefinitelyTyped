@@ -18,7 +18,7 @@ declare namespace ReactGoogleMapsLoader {
 
     interface Params {
         key: string;
-        libraries?: string;
+        libraries?: string | undefined;
     }
 
     interface Props {

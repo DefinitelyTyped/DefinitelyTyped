@@ -9,15 +9,15 @@ export interface ResolvedUserAgent {
 }
 
 export interface BrowserslistUseragentOptions {
-    browsers?: string[];
-    env?: string;
-    ignorePatch?: boolean;
-    ignoreMinor?: boolean;
-    allowHigherVersions?: boolean;
+    browsers?: string[] | undefined;
+    env?: string | undefined;
+    ignorePatch?: boolean | undefined;
+    ignoreMinor?: boolean | undefined;
+    allowHigherVersions?: boolean | undefined;
     /**
      * @default process.cwd()
      */
-    path?: string;
+    path?: string | undefined;
 }
 
 export function matchesUA(

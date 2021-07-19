@@ -1,33 +1,26 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "adjacent-overload-signatures": false,
-        "ban-types": false,
-        "comment-format": false,
-        "dt-header": false,
-        "interface-name": false,
-        "jsdoc-format": false,
-        "max-line-length": false,
-        "member-access": false,
-        "no-any-union": false,
-        "no-consecutive-blank-lines": false,
-        "no-empty-interface": false,
-        "no-namespace": false,
-        "no-padding": false,
-        "no-redundant-jsdoc-2": false,
-        "no-trailing-whitespace": false,
-        "no-unnecessary-class": false,
-        "no-unnecessary-qualifier": false,
-        "no-var-keyword": false,
-        "npm-naming": false,
-        "object-literal-shorthand": false,
-        "only-arrow-functions": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "whitespace": false
-    }
+	"extends": "dtslint/dt.json",
+	"rules": {
+		"npm-naming": false,
+
+		"strict-export-declare-modifiers": false,
+		"no-unnecessary-generics": false,
+		"no-unnecessary-class": false,
+		"ban-types": false,
+		"no-empty-interface": false,
+		"unified-signatures": false,
+
+		// the following rules are intentionally disabled and will remain so, for the described reasons
+		"interface-name": false,              // for compatibility reasons, interface names with "I" prefix cannot be changed
+		"max-line-length": false,             // we do not want to enforce a specific max line length - it also breaks e.g. long links
+		"no-any-union": false,                // for documentation purposes, it is useful to also see the alternatives which are more specific than "any"
+		"no-single-declare-module": false,    // these modules do exist and we want TypeScript to know about them
+		"interface-over-type-literal": false, // this rule is considered debatable (see https://github.com/palantir/tslint/issues/3248)
+
+		// the following rules have already been fixed in the "main" branch of OpenUI5, but the fixes did not make the 1.92 release
+		"redundant-undefined": false,
+		"no-mergeable-namespace": false,
+		"no-unnecessary-qualifier": false,
+		"no-redundant-jsdoc-2": false
+	}
 }

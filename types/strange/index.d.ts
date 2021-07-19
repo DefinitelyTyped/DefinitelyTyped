@@ -130,12 +130,12 @@ interface Range<T extends Range.Endpoint> {
     /**
      * Range's beginning, or left endpoint.
      */
-    begin?: T | null;
+    begin?: T | null | undefined;
 
     /**
      * Range's end, or right endpoint.
      */
-    end?: T | null;
+    end?: T | null | undefined;
 
     /**
      * Range's bounds.

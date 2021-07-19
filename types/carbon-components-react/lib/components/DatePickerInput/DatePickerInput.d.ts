@@ -6,18 +6,18 @@ import {
 
 type ExcludedAttributes = "className" | "id" | "size";
 export interface DatePickerInputProps extends Omit<ReactInputAttr, ExcludedAttributes> {
-    datePickerType?: "range" | "simple" | "single";
-    hideLabel?: boolean,
+    datePickerType?: "range" | "simple" | "single" | undefined;
+    hideLabel?: boolean | undefined,
     id: string,
-    iconDescription?: string,
-    invalid?: boolean,
-    invalidText?: React.ReactNode,
+    iconDescription?: string | undefined,
+    invalid?: boolean | undefined,
+    invalidText?: React.ReactNode | undefined,
     labelText: NonNullable<React.ReactNode>,
-    openCalendar?: React.MouseEventHandler,
-    pattern?: string,
-    size?: "sm" | "md" | "lg" | "xl",
-    warn?: boolean;
-    warnText?: React.ReactNode,
+    openCalendar?: React.MouseEventHandler | undefined,
+    pattern?: string | undefined,
+    size?: "sm" | "md" | "lg" | "xl" | undefined,
+    warn?: boolean | undefined;
+    warnText?: React.ReactNode | undefined,
 }
 
 declare class DatePickerInput extends React.Component<DatePickerInputProps> { }

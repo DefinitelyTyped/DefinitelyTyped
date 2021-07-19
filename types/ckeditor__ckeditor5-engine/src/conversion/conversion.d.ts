@@ -20,11 +20,13 @@ export default class Conversion {
     );
     addAlias(alias: string, dispatcher: DowncastDispatcher | UpcastDispatcher): void;
     attributeToAttribute(definition?: {
-        model: string | { name?: string; key: string; values: string[] };
-        view: string | Record<string, { name?: string; key: string; value: string[] | Record<string, string> }>;
-        upcastAlso?: MatcherPattern | MatcherPattern[];
+        model: string | { name?: string | undefined; key: string; values: string[] };
+        view: string | Record<string, { name?: string | undefined; key: string; value: string[] | Record<string, string> }>;
+        upcastAlso?: MatcherPattern | MatcherPattern[] | undefined;
     }): void;
     attributeToElement(definition: ConverterDefinition): void;
     elementToElement(definition: ConverterDefinition): void;
+    for(groupName: 'dataDowncast' | 'editingDowncast'): DowncastHelpers;
+    for(groupName: 'upcast'): UpcastHelpers;
     for(groupName: string): DowncastHelpers | UpcastHelpers;
 }

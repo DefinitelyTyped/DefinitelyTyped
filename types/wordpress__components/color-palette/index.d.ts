@@ -12,7 +12,7 @@ declare namespace ColorPalette {
         color: string;
     }
     interface Props {
-        className?: string;
+        className?: string | undefined;
         /**
          * Array of `ColorPalette.Color` to use.
          */
@@ -21,21 +21,21 @@ declare namespace ColorPalette {
          * Should custom color selection be disabled?
          * @defaultValue false
          */
-        disableCustomColors?: boolean;
+        disableCustomColors?: boolean | undefined;
         /**
          * Current active color value.
          */
-        value: Color;
+        value: string;
         /**
          * Function to be called when color is changed. `color` may be
          * `undefined` if the color selection is the same as the current `value`.
          */
-        onChange(color?: Color): void;
+        onChange(color?: string): void;
         /**
          * Whether the palette should have a clearing button or not.
          * @defaultValue `true`
          */
-        clearable?: boolean;
+        clearable?: boolean | undefined;
     }
 }
 declare const ColorPalette: ComponentType<ColorPalette.Props>;

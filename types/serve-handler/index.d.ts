@@ -51,7 +51,7 @@ interface Config {
      *
      * **NOTE:** The path cannot contain globs or regular expressions.
      */
-    public?: string;
+    public?: string | undefined;
 
     /**
      * #### Have the `.html` extension stripped from paths.
@@ -66,7 +66,7 @@ interface Config {
      * strings (**NOTE:** the paths can only contain globs that are matched
      * using `minimatch`).
      */
-    cleanUrls?: boolean | string[];
+    cleanUrls?: boolean | string[] | undefined;
 
     /**
      * #### Rewrite paths to different paths.
@@ -78,7 +78,7 @@ interface Config {
      * **NOTE:** The paths can contain globs (matched using `minimatch`) or
      * regular expressions (match using `path-to-regexp`).
      */
-    rewrites?: Rewrite[];
+    rewrites?: Rewrite[] | undefined;
 
     /**
      * #### Forward paths to different paths or external URLs.
@@ -91,7 +91,7 @@ interface Config {
      * **NOTE:** The paths can contain globs (matched using `minimatch`) or
      * regular expressions (match using `path-to-regexp`).
      */
-    redirects?: Redirect[];
+    redirects?: Redirect[] | undefined;
 
     /**
      * #### Set custom headers for specific paths.
@@ -105,7 +105,7 @@ interface Config {
      *
      * **NOTE:** The paths can only contain globs that are matched using `minimatch`.
      */
-    headers?: Header[];
+    headers?: Header[] | undefined;
 
     /**
      * ### Disable directory listing or restrict it to certain paths.
@@ -118,7 +118,7 @@ interface Config {
      *
      * **NOTE:** The paths can only contain globs that are matched using `minimatch`.
      */
-    directoryListing?: boolean | string[];
+    directoryListing?: boolean | string[] | undefined;
 
     /**
      * #### Exclude paths from the directory listing.
@@ -131,7 +131,7 @@ interface Config {
      *
      * **NOTE:** The paths can only contain globs that are matched using `minimatch`.
      */
-    unlisted?: string[];
+    unlisted?: string[] | undefined;
 
     /**
      * #### Remove or add trailing slashes to all paths.
@@ -141,7 +141,7 @@ interface Config {
      * this property to `false` and `true` if you want to force them on all
      * URLs.
      */
-    trailingSlash?: boolean;
+    trailingSlash?: boolean | undefined;
 
     /**
      * #### If a directory only contains one file, render it.
@@ -154,7 +154,7 @@ interface Config {
      * see an image being rendered if the directory contains a single image
      * file.
      */
-    renderSingle?: boolean;
+    renderSingle?: boolean | undefined;
 
     /**
      * #### Resolve symlinks instead of rendering a 404 error.
@@ -166,7 +166,7 @@ interface Config {
      * Once this property is set, all symlinks will automatically be resolved to
      * their targets.
      */
-    symlinks?: boolean;
+    symlinks?: boolean | undefined;
 
     /**
      * #### Calculate a strong `ETag` response header, instead of `Last-Modified`.
@@ -178,7 +178,7 @@ interface Config {
      * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
      * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified
      */
-    etag?: boolean;
+    etag?: boolean | undefined;
 }
 
 interface Rewrite {
@@ -199,11 +199,11 @@ interface Header {
 }
 
 interface Methods {
-    lstat?: typeof lstat;
-    realpath?: typeof realpath;
-    createReadStream?: typeof createReadStream;
-    readdir?: typeof readdir;
-    sendError?: SendErrorHandler;
+    lstat?: typeof lstat | undefined;
+    realpath?: typeof realpath | undefined;
+    createReadStream?: typeof createReadStream | undefined;
+    readdir?: typeof readdir | undefined;
+    sendError?: SendErrorHandler | undefined;
 }
 
 type SendErrorHandler = (

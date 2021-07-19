@@ -14,7 +14,7 @@ declare module "dns/promises" {
         RecordWithTtl,
         ResolveOptions,
         ResolverOptions,
-    } from "dns";
+    } from "node:dns";
 
     function getServers(): string[];
 
@@ -94,4 +94,8 @@ declare module "dns/promises" {
         setLocalAddress(ipv4?: string, ipv6?: string): void;
         setServers: typeof setServers;
     }
+}
+
+declare module 'node:dns/promises' {
+    export * from 'dns/promises';
 }

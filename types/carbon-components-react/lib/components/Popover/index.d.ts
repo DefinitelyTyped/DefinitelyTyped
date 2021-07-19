@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../../../typings/shared";
+import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn, ForwardRefProps } from "../../../typings/shared";
 
 /*
  * Popover
@@ -7,7 +7,7 @@ import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../
 
 interface PopoverBaseIsolatedProps {
     // props not given to the component specified by "as"
-    caret?: boolean;
+    caret?: boolean | undefined;
     align?:
         | "top"
         | "top-left"
@@ -20,17 +20,17 @@ interface PopoverBaseIsolatedProps {
         | "left-top"
         | "right"
         | "right-bottom"
-        | "right-top";
-    highConstrast?: boolean;
-    light?: boolean;
+        | "right-top" | undefined;
+    highConstrast?: boolean | undefined;
+    light?: boolean | undefined;
     open: boolean;
-    relative?: boolean;
+    relative?: boolean | undefined;
 }
 type SafePopoverProps<P> = Omit<P, "as" | keyof PopoverBaseIsolatedProps>;
 
 interface PopoverBaseProps extends PopoverBaseIsolatedProps {
-    children?: React.ReactNode;
-    className?: string;
+    children?: React.ReactNode | undefined;
+    className?: string | undefined;
 }
 
 export type PopoverDefaultProps = PopoverBaseProps &
@@ -79,12 +79,12 @@ export type PopoverContentCustomComponentProps<
       }
     : never;
 
-declare function PopoverContent(props: PopoverContentDefaultProps): FCReturn;
-declare function PopoverContent<T extends keyof JSX.IntrinsicElements>(
-    props: PopoverContentIntrinsicProps<T>,
+declare function PopoverContent(props: ForwardRefProps<HTMLDivElement, PopoverContentDefaultProps>): FCReturn;
+declare function PopoverContent<T extends keyof JSX.IntrinsicElements, R extends HTMLElement = HTMLDivElement>(
+    props: ForwardRefProps<R, PopoverContentIntrinsicProps<T>>
 ): FCReturn;
-declare function PopoverContent<T extends React.JSXElementConstructor<any>>(
-    props: PopoverContentCustomComponentProps<T>,
+declare function PopoverContent<T extends React.JSXElementConstructor<any>, R extends object = HTMLDivElement>(
+    props: ForwardRefProps<R, PopoverContentCustomComponentProps<T>>,
 ): FCReturn;
 
 export { Popover, PopoverContent };

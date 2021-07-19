@@ -18,16 +18,16 @@ interface SassResults {
 }
 
 interface SassOptions extends Options {
-    success?: (results: SassResults) => any;
-    error?: (err: Error) => any;
-    imagePaths?: string[];
+    success?: ((results: SassResults) => any) | undefined;
+    error?: ((err: Error) => any) | undefined;
+    imagePaths?: string[] | undefined;
 }
 
 interface GulpSassOptions extends SassOptions {
-    errLogToConsole?: boolean;
-    onSuccess?: (css: string) => any;
-    onError?: (err: Error) => any;
-    sync?: boolean;
+    errLogToConsole?: boolean | undefined;
+    onSuccess?: ((css: string) => any) | undefined;
+    onError?: ((err: Error) => any) | undefined;
+    sync?: boolean | undefined;
 }
 
 interface Sass {

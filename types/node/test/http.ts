@@ -1,6 +1,6 @@
-import * as http from 'http';
-import * as url from 'url';
-import * as net from 'net';
+import * as http from 'node:http';
+import * as url from 'node:url';
+import * as net from 'node:net';
 
 // http Server
 {
@@ -92,6 +92,8 @@ import * as net from 'net';
 
     // flush
     res.flushHeaders();
+
+    res.req; // $ExpectType IncomingMessage
 }
 
 // http ClientRequest
@@ -134,6 +136,8 @@ import * as net from 'net';
 
     // method
     const method: string = req.method;
+
+    const rawHeaderNames: string[] = req.getRawHeaderNames();
 }
 
 {

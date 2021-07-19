@@ -1,6 +1,6 @@
-import * as readline from 'readline';
-import * as stream from 'stream';
-import * as fs from 'fs';
+import * as readline from 'node:readline';
+import * as stream from 'node:stream';
+import * as fs from 'node:fs';
 
 const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
@@ -53,6 +53,7 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
 {
     rl.question("query", (answer: string) => {});
+    rl.question("query", { signal: new AbortSignal() }, (answer: string) => {});
 }
 
 {
@@ -145,54 +146,70 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
     _rl = _rl.addListener("SIGCONT", () => { });
     _rl = _rl.addListener("SIGINT", () => { });
     _rl = _rl.addListener("SIGTSTP", () => { });
+    _rl = _rl.addListener("history", (history) => {
+        const _input: string[] = history;
+    });
 
-    _boolean = _rl.emit("close", () => { });
-    _boolean = _rl.emit("line", () => { });
-    _boolean = _rl.emit("pause", () => { });
-    _boolean = _rl.emit("resume", () => { });
-    _boolean = _rl.emit("SIGCONT", () => { });
-    _boolean = _rl.emit("SIGINT", () => { });
-    _boolean = _rl.emit("SIGTSTP", () => { });
+    _boolean = _rl.emit("close");
+    _boolean = _rl.emit("line");
+    _boolean = _rl.emit("pause");
+    _boolean = _rl.emit("resume");
+    _boolean = _rl.emit("SIGCONT");
+    _boolean = _rl.emit("SIGINT");
+    _boolean = _rl.emit("SIGTSTP");
+    _boolean = _rl.emit("history");
 
     _rl = _rl.on("close", () => { });
     _rl = _rl.on("line", (input) => {
-        const _input: any = input;
+        const _input: string = input;
     });
     _rl = _rl.on("pause", () => { });
     _rl = _rl.on("resume", () => { });
     _rl = _rl.on("SIGCONT", () => { });
     _rl = _rl.on("SIGINT", () => { });
     _rl = _rl.on("SIGTSTP", () => { });
+    _rl = _rl.on("history", (history) => {
+        const _input: string[] = history;
+    });
 
     _rl = _rl.once("close", () => { });
     _rl = _rl.once("line", (input) => {
-        const _input: any = input;
+        const _input: string = input;
     });
     _rl = _rl.once("pause", () => { });
     _rl = _rl.once("resume", () => { });
     _rl = _rl.once("SIGCONT", () => { });
     _rl = _rl.once("SIGINT", () => { });
     _rl = _rl.once("SIGTSTP", () => { });
+    _rl = _rl.once("history", (history) => {
+        const _input: string[] = history;
+    });
 
     _rl = _rl.prependListener("close", () => { });
     _rl = _rl.prependListener("line", (input) => {
-        const _input: any = input;
+        const _input: string = input;
     });
     _rl = _rl.prependListener("pause", () => { });
     _rl = _rl.prependListener("resume", () => { });
     _rl = _rl.prependListener("SIGCONT", () => { });
     _rl = _rl.prependListener("SIGINT", () => { });
     _rl = _rl.prependListener("SIGTSTP", () => { });
+    _rl = _rl.prependListener("history", (history) => {
+        const _input: string[] = history;
+    });
 
     _rl = _rl.prependOnceListener("close", () => { });
     _rl = _rl.prependOnceListener("line", (input) => {
-        const _input: any = input;
+        const _input: string = input;
     });
     _rl = _rl.prependOnceListener("pause", () => { });
     _rl = _rl.prependOnceListener("resume", () => { });
     _rl = _rl.prependOnceListener("SIGCONT", () => { });
     _rl = _rl.prependOnceListener("SIGINT", () => { });
     _rl = _rl.prependOnceListener("SIGTSTP", () => { });
+    _rl = _rl.prependOnceListener("history", (history) => {
+        const _input: string[] = history;
+    });
 }
 
 {
@@ -200,10 +217,11 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
         const result = readline.createInterface({
             input: process.stdin,
         });
-        // Pending lib upgrade
-        // for await (const line of result) {
-        //
-        // }
+
+        // tslint:disable-next-line: await-promise
+        for await (const line of result) {
+            line; // $ExpectType string
+        }
     });
 }
 

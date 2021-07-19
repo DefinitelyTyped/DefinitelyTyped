@@ -3,8 +3,7 @@
 //
 import { Component } from 'angular-es';
 @Component({
-    selector: '',
-    template: ''
+    selector: ''
 })
 class MyComponentController {
 

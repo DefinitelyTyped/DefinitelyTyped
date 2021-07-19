@@ -7,9 +7,9 @@
 import * as React from 'react';
 
 export interface TruncateProps extends React.HTMLProps<Truncate> {
-    lines?: number | false;
-    ellipsis?: React.ReactNode;
-    trimWhitespace?: boolean;
+    lines?: number | false | undefined;
+    ellipsis?: React.ReactNode | undefined;
+    trimWhitespace?: boolean | undefined;
     onTruncate?(isTruncated: boolean): void;
 }
 

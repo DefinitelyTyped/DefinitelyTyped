@@ -7,18 +7,18 @@ declare function powerAssertFormatter(options?:powerAssertFormatter.Options):pow
 
 declare namespace powerAssertFormatter {
     export interface Options {
-        lineDiffThreshold?: number;
-        maxDepth?: number;
-        outputOffset?: number;
-        anonymous?: string;
-        circular?: string;
-        lineSeparator?: string;
-        ambiguousEastAsianCharWidth?: number;
-        widthOf?: Function;
-        stringify?: Function;
-        diff?: Function;
-        writerClass?: {new (): any;};
-        renderers?: any[]; // { string | Function }[]
+        lineDiffThreshold?: number | undefined;
+        maxDepth?: number | undefined;
+        outputOffset?: number | undefined;
+        anonymous?: string | undefined;
+        circular?: string | undefined;
+        lineSeparator?: string | undefined;
+        ambiguousEastAsianCharWidth?: number | undefined;
+        widthOf?: Function | undefined;
+        stringify?: Function | undefined;
+        diff?: Function | undefined;
+        writerClass?: {new (): any;} | undefined;
+        renderers?: any[] | undefined; // { string | Function }[]
     }
 
     export interface Formatter {

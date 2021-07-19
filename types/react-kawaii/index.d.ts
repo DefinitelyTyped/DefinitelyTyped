@@ -16,9 +16,9 @@ export type KawaiiMood =
   | 'ko';
 
 export interface KawaiiProps {
-  size?: number;
-  color?: string;
-  mood?: KawaiiMood;
+  size?: number | undefined;
+  color?: string | undefined;
+  mood?: KawaiiMood | undefined;
 }
 
 export const SpeechBubble: React.ComponentType<KawaiiProps>;

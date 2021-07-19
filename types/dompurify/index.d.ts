@@ -22,7 +22,7 @@ declare namespace DOMPurify {
     interface DOMPurifyI {
         sanitize(source: string | Node): string;
         sanitize(source: string | Node, config: Config & { RETURN_TRUSTED_TYPE: true }): TrustedHTML;
-        sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT?: false; RETURN_DOM?: false }): string;
+        sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT?: false | undefined; RETURN_DOM?: false | undefined }): string;
         sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT: true }): DocumentFragment;
         sanitize(source: string | Node, config: Config & { RETURN_DOM: true }): HTMLElement;
         sanitize(source: string | Node, config: Config): string | HTMLElement | DocumentFragment;
@@ -45,36 +45,36 @@ declare namespace DOMPurify {
     }
 
     interface Config {
-        ADD_ATTR?: string[];
-        ADD_DATA_URI_TAGS?: string[];
-        ADD_TAGS?: string[];
-        ALLOW_DATA_ATTR?: boolean;
-        ALLOWED_ATTR?: string[];
-        ALLOWED_TAGS?: string[];
-        FORBID_ATTR?: string[];
-        FORBID_TAGS?: string[];
-        FORCE_BODY?: boolean;
-        KEEP_CONTENT?: boolean;
+        ADD_ATTR?: string[] | undefined;
+        ADD_DATA_URI_TAGS?: string[] | undefined;
+        ADD_TAGS?: string[] | undefined;
+        ALLOW_DATA_ATTR?: boolean | undefined;
+        ALLOWED_ATTR?: string[] | undefined;
+        ALLOWED_TAGS?: string[] | undefined;
+        FORBID_ATTR?: string[] | undefined;
+        FORBID_TAGS?: string[] | undefined;
+        FORCE_BODY?: boolean | undefined;
+        KEEP_CONTENT?: boolean | undefined;
         /**
          * change the default namespace from HTML to something different
          */
-        NAMESPACE?: string;
-        RETURN_DOM?: boolean;
-        RETURN_DOM_FRAGMENT?: boolean;
+        NAMESPACE?: string | undefined;
+        RETURN_DOM?: boolean | undefined;
+        RETURN_DOM_FRAGMENT?: boolean | undefined;
         /**
          * This defaults to `true` starting DOMPurify 2.2.0. Note that setting it to `false`
          * might cause XSS from attacks hidden in closed shadowroots in case the browser
          * supports Declarative Shadow: DOM https://web.dev/declarative-shadow-dom/
          */
-        RETURN_DOM_IMPORT?: boolean;
-        RETURN_TRUSTED_TYPE?: boolean;
-        SANITIZE_DOM?: boolean;
-        WHOLE_DOCUMENT?: boolean;
-        ALLOWED_URI_REGEXP?: RegExp;
-        SAFE_FOR_TEMPLATES?: boolean;
-        ALLOW_UNKNOWN_PROTOCOLS?: boolean;
-        USE_PROFILES?: false | { mathMl?: boolean; svg?: boolean; svgFilters?: boolean; html?: boolean };
-        IN_PLACE?: boolean;
+        RETURN_DOM_IMPORT?: boolean | undefined;
+        RETURN_TRUSTED_TYPE?: boolean | undefined;
+        SANITIZE_DOM?: boolean | undefined;
+        WHOLE_DOCUMENT?: boolean | undefined;
+        ALLOWED_URI_REGEXP?: RegExp | undefined;
+        SAFE_FOR_TEMPLATES?: boolean | undefined;
+        ALLOW_UNKNOWN_PROTOCOLS?: boolean | undefined;
+        USE_PROFILES?: false | { mathMl?: boolean | undefined; svg?: boolean | undefined; svgFilters?: boolean | undefined; html?: boolean | undefined } | undefined;
+        IN_PLACE?: boolean | undefined;
     }
 
     type HookName =
@@ -100,6 +100,6 @@ declare namespace DOMPurify {
         attrValue: string;
         keepAttr: boolean;
         allowedAttributes: { [key: string]: boolean };
-        forceKeepAttr?: boolean;
+        forceKeepAttr?: boolean | undefined;
     }
 }
