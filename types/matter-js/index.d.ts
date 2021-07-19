@@ -1935,6 +1935,13 @@ declare namespace Matter {
         */
         enableSleeping?: boolean | undefined;
         /**
+         * The gravity to apply on all bodies in `engine.world`.
+         *
+         * @property gravity
+         * @type object
+         */
+        gravity: Partial<Gravity>;
+        /**
          * An `Object` containing properties regarding the timing systems of the engine.
         *
         * @property timing
