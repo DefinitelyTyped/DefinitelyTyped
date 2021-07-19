@@ -1,7 +1,7 @@
 // Type definitions for ActiveStorage 5.2
 // Project: https://github.com/rails/rails/tree/master/activestorage/app/javascript, http://rubyonrails.org
 // Definitions by: Cameron Bothner <https://github.com/cbothner>
-// Definitions: https://github.com/cbothner/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 export as namespace ActiveStorage
@@ -19,9 +19,9 @@ export class DirectUpload {
 }
 
 export interface DirectUploadDelegate {
-    directUploadWillCreateBlobWithXHR?: (xhr: XMLHttpRequest) => void;
+    directUploadWillCreateBlobWithXHR?: ((xhr: XMLHttpRequest) => void) | undefined;
 
-    directUploadWillStoreFileWithXHR?: (xhr: XMLHttpRequest) => void;
+    directUploadWillStoreFileWithXHR?: ((xhr: XMLHttpRequest) => void) | undefined;
 }
 
 export interface Blob {

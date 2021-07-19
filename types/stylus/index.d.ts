@@ -15,12 +15,12 @@ export = stylus;
 
 declare namespace stylus  {
     interface RenderOptions {
-        globals?: Stylus.Dictionary<any>;
-        functions?: Stylus.Dictionary<any>;
-        imports?: string[];
-        paths?: string[];
-        filename?: string;
-        Evaluator?: typeof Stylus.Evaluator;
+        globals?: Stylus.Dictionary<any> | undefined;
+        functions?: Stylus.Dictionary<any> | undefined;
+        imports?: string[] | undefined;
+        paths?: string[] | undefined;
+        filename?: string | undefined;
+        Evaluator?: typeof Stylus.Evaluator | undefined;
     }
     type RenderCallback = (err: Error, css: string, js: string) => void;
 }
@@ -1014,7 +1014,7 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; segments: Node[]; name: string; expr?: Expression; literal?: Literal; lineno: number; column: number; filename: string };
+            toJSON(): { __type: string; segments: Node[]; name: string; expr?: Expression | undefined; literal?: Literal | undefined; lineno: number; column: number; filename: string };
         }
 
         export class Each extends Node {
@@ -1226,7 +1226,7 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; left: Node; right: Node; val?: string; lineno: number; column: number; filename: string };
+            toJSON(): { __type: string; left: Node; right: Node; val?: string | undefined; lineno: number; column: number; filename: string };
         }
 
         export class Charset extends Node {
@@ -1334,7 +1334,7 @@ declare namespace Stylus {
             /**
              * Return a JSON representation of this node.
              */
-            toJSON(): { __type: string; type: string; segments: Node[]; block?: Block; lineno: number; column: number; filename: string };
+            toJSON(): { __type: string; type: string; segments: Node[]; block?: Block | undefined; lineno: number; column: number; filename: string };
         }
     }
 
@@ -1347,8 +1347,8 @@ declare namespace Stylus {
     }
 
     export interface UrlOptions {
-        limit?: number | false | null;
-        paths?: string[];
+        limit?: number | false | null | undefined;
+        paths?: string[] | undefined;
     }
 
     export interface LiteralFunction {

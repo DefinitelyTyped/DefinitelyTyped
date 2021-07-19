@@ -1,7 +1,7 @@
 declare module 'dgram' {
-    import { AddressInfo } from 'net';
-    import * as dns from 'dns';
-    import { EventEmitter, Abortable } from 'events';
+    import { AddressInfo } from 'node:net';
+    import * as dns from 'node:dns';
+    import { EventEmitter, Abortable } from 'node:events';
 
     interface RemoteInfo {
         address: string;
@@ -11,24 +11,24 @@ declare module 'dgram' {
     }
 
     interface BindOptions {
-        port?: number;
-        address?: string;
-        exclusive?: boolean;
-        fd?: number;
+        port?: number | undefined;
+        address?: string | undefined;
+        exclusive?: boolean | undefined;
+        fd?: number | undefined;
     }
 
     type SocketType = "udp4" | "udp6";
 
     interface SocketOptions extends Abortable {
         type: SocketType;
-        reuseAddr?: boolean;
+        reuseAddr?: boolean | undefined;
         /**
          * @default false
          */
-        ipv6Only?: boolean;
-        recvBufferSize?: number;
-        sendBufferSize?: number;
-        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+        ipv6Only?: boolean | undefined;
+        recvBufferSize?: number | undefined;
+        sendBufferSize?: number | undefined;
+        lookup?: ((hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void) | undefined;
     }
 
     function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
@@ -138,4 +138,8 @@ declare module 'dgram' {
         prependOnceListener(event: "listening", listener: () => void): this;
         prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
     }
+}
+
+declare module 'node:dgram' {
+    export * from 'dgram';
 }

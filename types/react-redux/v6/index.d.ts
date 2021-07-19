@@ -93,8 +93,11 @@ export type Shared<
 export type GetProps<C> = C extends ComponentType<infer P> ? P : never;
 
 // Applies LibraryManagedAttributes (proper handling of defaultProps
-// and propTypes), as well as defines WrappedComponent.
-export type ConnectedComponentClass<C, P> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & {
+// and propTypes).
+export type GetLibraryManagedProps<C> = JSX.LibraryManagedAttributes<C, GetProps<C>>;
+
+// Defines WrappedComponent.
+export type ConnectedComponentClass<C, P> = ComponentClass<P> & {
     WrappedComponent: C;
 };
 
@@ -104,7 +107,7 @@ export type ConnectedComponentClass<C, P> = ComponentClass<JSX.LibraryManagedAtt
 export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
     <C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
         component: C
-    ) => ConnectedComponentClass<C, Omit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
+    ) => ConnectedComponentClass<C, Omit<GetLibraryManagedProps<C>, keyof Shared<TInjectedProps, GetLibraryManagedProps<C>>> & TNeedsProps>;
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
@@ -289,31 +292,31 @@ export interface Options<State = {}, TStateProps = {}, TOwnProps = {}, TMergedPr
      * Defaults to true.
      * @default true
      */
-    pure?: boolean;
+    pure?: boolean | undefined;
 
     /**
      * When pure, compares incoming store state to its previous value.
      * @default strictEqual
      */
-    areStatesEqual?: (nextState: State, prevState: State) => boolean;
+    areStatesEqual?: ((nextState: State, prevState: State) => boolean) | undefined;
 
     /**
      * When pure, compares incoming props to its previous value.
      * @default shallowEqual
      */
-    areOwnPropsEqual?: (nextOwnProps: TOwnProps, prevOwnProps: TOwnProps) => boolean;
+    areOwnPropsEqual?: ((nextOwnProps: TOwnProps, prevOwnProps: TOwnProps) => boolean) | undefined;
 
     /**
      * When pure, compares the result of mapStateToProps to its previous value.
      * @default shallowEqual
      */
-    areStatePropsEqual?: (nextStateProps: TStateProps, prevStateProps: TStateProps) => boolean;
+    areStatePropsEqual?: ((nextStateProps: TStateProps, prevStateProps: TStateProps) => boolean) | undefined;
 
     /**
      * When pure, compares the result of mergeProps to its previous value.
      * @default shallowEqual
      */
-    areMergedPropsEqual?: (nextMergedProps: TMergedProps, prevMergedProps: TMergedProps) => boolean;
+    areMergedPropsEqual?: ((nextMergedProps: TMergedProps, prevMergedProps: TMergedProps) => boolean) | undefined;
 }
 
 /**
@@ -353,13 +356,13 @@ export interface ConnectOptions {
      * @default name => 'ConnectAdvanced('+name+')'
      * @param componentName
      */
-    getDisplayName?: (componentName: string) => string;
+    getDisplayName?: ((componentName: string) => string) | undefined;
     /**
      * Shown in error messages. Usually overridden by wrapper functions.
      *
      * @default 'connectAdvanced'
      */
-    methodName?: string;
+    methodName?: string | undefined;
     /**
      * If defined, a property named this value will be added to the props passed to the wrapped component. Its value
      * will be the number of times the component has been rendered, which can be useful for tracking down unnecessary
@@ -367,27 +370,27 @@ export interface ConnectOptions {
      *
      * @default undefined
      */
-    renderCountProp?: string;
+    renderCountProp?: string | undefined;
     /**
      * Controls whether the connector component subscribes to redux store state changes. If set to false, it will only
      * re-render on <code>componentWillReceiveProps</code>.
      *
      * @default true
      */
-    shouldHandleStateChanges?: boolean;
+    shouldHandleStateChanges?: boolean | undefined;
     /**
      * The key of props/context to get the store. You probably only need this if you are in the inadvisable position of
      * having multiple stores.
      *
      * @default 'store'
      */
-    storeKey?: string;
+    storeKey?: string | undefined;
     /**
      * If true, stores a ref to the wrapped component instance and makes it available via getWrappedInstance() method.
      *
      * @default false
      */
-    withRef?: boolean;
+    withRef?: boolean | undefined;
 }
 
 export interface ProviderProps<A extends Action = AnyAction> {

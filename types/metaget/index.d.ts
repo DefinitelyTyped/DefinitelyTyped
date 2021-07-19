@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
-    headers?: Record<string, any>;
-    timeout?: number;
+    headers?: Record<string, any> | undefined;
+    timeout?: number | undefined;
 }
 
 export type Result = Record<string, string>;

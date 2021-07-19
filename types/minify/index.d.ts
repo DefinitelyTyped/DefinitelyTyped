@@ -21,15 +21,15 @@ declare namespace minify {
         /**
          * see {@link https://github.com/kangax/html-minifier}
          */
-        html?: htmlMinifier.Options;
+        html?: htmlMinifier.Options | undefined;
         /**
          * see {@link https://github.com/jakubpawlowicz/clean-css}
          */
-        css?: cleanCSS.Options;
+        css?: cleanCSS.Options | undefined;
         /**
          * see {@link https://github.com/terser/terser}
          */
-        js?: terser.MinifyOptions;
+        js?: terser.MinifyOptions | undefined;
         /**
          * see {@link https://github.com/Filirom1/css-base64-images}
          */
@@ -38,8 +38,8 @@ declare namespace minify {
              * bigger images are not base64 in the CSS
              * @default 4096
              */
-            maxSize?: number;
-        };
+            maxSize?: number | undefined;
+        } | undefined;
     }
 }
 

@@ -2,12 +2,12 @@ import { Class } from './Class';
 
 export interface Notification_Params {
     message: string;
-    type?: string;
-    setting?: string;
-    template?: (data: Notification) => void;
-    templateId?: string;
-    containerClasses?: string;
-    dismissible?: boolean;
+    type?: string | undefined;
+    setting?: string | undefined;
+    template?: ((data: Notification) => void) | undefined;
+    templateId?: string | undefined;
+    containerClasses?: string | undefined;
+    dismissible?: boolean | undefined;
 }
 
 export class Notification extends Class {

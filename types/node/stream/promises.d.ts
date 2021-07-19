@@ -1,6 +1,6 @@
 declare module "stream/promises" {
     import { FinishedOptions, PipelineSource, PipelineTransform,
-        PipelineDestination, PipelinePromise, PipelineOptions } from "stream";
+        PipelineDestination, PipelinePromise, PipelineOptions } from "node:stream";
 
     function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options?: FinishedOptions): Promise<void>;
 
@@ -64,4 +64,8 @@ declare module "stream/promises" {
         stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
         ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | PipelineOptions>,
     ): Promise<void>;
+}
+
+declare module 'node:stream/promises' {
+    export * from 'stream/promises';
 }

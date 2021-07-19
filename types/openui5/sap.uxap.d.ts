@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.92.0
 
 declare module "sap/uxap/library" {
   /**
@@ -233,7 +233,7 @@ declare module "sap/uxap/AnchorBar" {
       /**
        * The mapping of "aria-" prefixed attributes
        */
-      mAriaProps: Object
+      mAriaProps: object
     ): void;
     /**
      * Creates a new subclass of class sap.uxap.AnchorBar with name `sClassName` and enriches it with the information
@@ -407,6 +407,8 @@ declare module "sap/uxap/BlockBase" {
 
   import ModelMapping from "sap/uxap/ModelMapping";
 
+  import Event from "sap/ui/base/Event";
+
   import View from "sap/ui/core/mvc/View";
 
   import {
@@ -509,7 +511,27 @@ declare module "sap/uxap/BlockBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.uxap.BlockBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.72
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:viewInit viewInit} event of this `sap.uxap.BlockBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.uxap.BlockBase` itself.
+     *
+     * Fired when an aggregated view is instantiated.
+     */
+    attachViewInit(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.uxap.BlockBase` itself
        */
@@ -543,7 +565,7 @@ declare module "sap/uxap/BlockBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -773,26 +795,6 @@ declare module "sap/uxap/BlockBase" {
        * New value for property `visible`
        */
       bVisible?: boolean
-    ): this;
-    /**
-     * @SINCE 1.72
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:viewInit viewInit} event of this `sap.uxap.BlockBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.uxap.BlockBase` itself.
-     *
-     * Fired when an aggregated view is instantiated.
-     */
-    attachViewInit(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.uxap.BlockBase` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -1804,6 +1806,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderContent" {
     __implements__sap_uxap_IHeaderContent: boolean;
     /**
      * Constructor for a new `ObjectPageDynamicHeaderContent`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageHeader#constructor
+     * sap.f.DynamicPageHeader} can be used.
      */
     constructor(
       /**
@@ -1813,6 +1822,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderContent" {
     );
     /**
      * Constructor for a new `ObjectPageDynamicHeaderContent`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageHeader#constructor
+     * sap.f.DynamicPageHeader} can be used.
      */
     constructor(
       /**
@@ -1885,6 +1901,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderTitle" {
     __implements__sap_uxap_IHeaderTitle: boolean;
     /**
      * Constructor for a new `ObjectPageDynamicHeaderTitle`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageTitle#constructor
+     * sap.f.DynamicPageTitle} can be used.
      * See:
      * 	{@link topic:6e340c119ddd4c778b315f65a0432420 Object Page Dynamic Header}
      * 	{@link topic:d2ef0099542d44dc868719d908e576d0 Object Page Headers}
@@ -1898,6 +1921,13 @@ declare module "sap/uxap/ObjectPageDynamicHeaderTitle" {
     );
     /**
      * Constructor for a new `ObjectPageDynamicHeaderTitle`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.DynamicPageTitle#constructor
+     * sap.f.DynamicPageTitle} can be used.
      * See:
      * 	{@link topic:6e340c119ddd4c778b315f65a0432420 Object Page Dynamic Header}
      * 	{@link topic:d2ef0099542d44dc868719d908e576d0 Object Page Headers}
@@ -1951,6 +1981,8 @@ declare module "sap/uxap/ObjectPageHeader" {
   import { IHeaderTitle, ObjectPageHeaderDesign } from "sap/uxap/library";
 
   import Link from "sap/m/Link";
+
+  import Event from "sap/ui/base/Event";
 
   import Breadcrumbs from "sap/m/Breadcrumbs";
 
@@ -2069,7 +2101,26 @@ declare module "sap/uxap/ObjectPageHeader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:markChangesPress markChangesPress} event of
+     * this `sap.uxap.ObjectPageHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.uxap.ObjectPageHeader` itself.
+     *
+     * The event is fired when the unsaved changes button is pressed
+     */
+    attachMarkChangesPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageHeader` itself
        */
@@ -2093,7 +2144,26 @@ declare module "sap/uxap/ObjectPageHeader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:markLockedPress markLockedPress} event of this
+     * `sap.uxap.ObjectPageHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.uxap.ObjectPageHeader` itself.
+     *
+     * The event is fired when the Locked button is pressed
+     */
+    attachMarkLockedPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageHeader` itself
        */
@@ -2117,7 +2187,26 @@ declare module "sap/uxap/ObjectPageHeader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:titleSelectorPress titleSelectorPress} event
+     * of this `sap.uxap.ObjectPageHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.uxap.ObjectPageHeader` itself.
+     *
+     * The event is fired when the objectPage header title selector (down-arrow) is pressed
+     */
+    attachTitleSelectorPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageHeader` itself
        */
@@ -2165,7 +2254,7 @@ declare module "sap/uxap/ObjectPageHeader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2181,7 +2270,7 @@ declare module "sap/uxap/ObjectPageHeader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2197,7 +2286,7 @@ declare module "sap/uxap/ObjectPageHeader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2909,63 +2998,6 @@ declare module "sap/uxap/ObjectPageHeader" {
        */
       vTitleSelectorTooltip: TooltipBase | string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:markChangesPress markChangesPress} event of
-     * this `sap.uxap.ObjectPageHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.uxap.ObjectPageHeader` itself.
-     *
-     * The event is fired when the unsaved changes button is pressed
-     */
-    attachMarkChangesPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageHeader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:markLockedPress markLockedPress} event of this
-     * `sap.uxap.ObjectPageHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.uxap.ObjectPageHeader` itself.
-     *
-     * The event is fired when the Locked button is pressed
-     */
-    attachMarkLockedPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageHeader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:titleSelectorPress titleSelectorPress} event
-     * of this `sap.uxap.ObjectPageHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.uxap.ObjectPageHeader` itself.
-     *
-     * The event is fired when the objectPage header title selector (down-arrow) is pressed
-     */
-    attachTitleSelectorPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageHeader` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ObjectPageHeaderSettings extends $ControlSettings {
@@ -3164,6 +3196,9 @@ declare module "sap/uxap/ObjectPageHeaderActionButton" {
    * @SINCE 1.26
    *
    * A Button that is used in the `actions` aggregation of the {@link sap.uxap.ObjectPageHeader}.
+   *
+   * The button is designed to be used with {@link sap.uxap.ObjectPageHeader} and any usage outside the intended
+   * context is not recommended.
    */
   export default class ObjectPageHeaderActionButton
     extends Button
@@ -3797,6 +3832,8 @@ declare module "sap/uxap/ObjectPageLayout" {
 
   import ObjectPageSection from "sap/uxap/ObjectPageSection";
 
+  import Event from "sap/ui/base/Event";
+
   import ObjectPageSubSection from "sap/uxap/ObjectPageSubSection";
 
   import { BackgroundDesign, IBar } from "sap/m/library";
@@ -3945,7 +3982,26 @@ declare module "sap/uxap/ObjectPageLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:editHeaderButtonPress editHeaderButtonPress}
+     * event of this `sap.uxap.ObjectPageLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
+     *
+     * The event is fired when the Edit Header button is pressed
+     */
+    attachEditHeaderButtonPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
        */
@@ -3970,7 +4026,27 @@ declare module "sap/uxap/ObjectPageLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.40
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:navigate navigate} event of this `sap.uxap.ObjectPageLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
+     *
+     * The event is fired when the selected section is changed using the navigation.
+     */
+    attachNavigate(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
        */
@@ -3995,7 +4071,27 @@ declare module "sap/uxap/ObjectPageLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.73
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:sectionChange sectionChange} event of this `sap.uxap.ObjectPageLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
+     *
+     * Fired when the current section is changed by scrolling.
+     */
+    attachSectionChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
        */
@@ -4021,7 +4117,28 @@ declare module "sap/uxap/ObjectPageLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.77
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:subSectionVisibilityChange subSectionVisibilityChange}
+     * event of this `sap.uxap.ObjectPageLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
+     *
+     * Fired when the visibility of subsections is changed.
+     */
+    attachSubSectionVisibilityChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
        */
@@ -4045,7 +4162,26 @@ declare module "sap/uxap/ObjectPageLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:toggleAnchorBar toggleAnchorBar} event of this
+     * `sap.uxap.ObjectPageLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
+     *
+     * The event is fired when the Anchor bar is switched from moving to fixed or the other way round.
+     */
+    attachToggleAnchorBar(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
        */
@@ -4085,7 +4221,7 @@ declare module "sap/uxap/ObjectPageLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4102,7 +4238,7 @@ declare module "sap/uxap/ObjectPageLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4120,7 +4256,7 @@ declare module "sap/uxap/ObjectPageLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4138,7 +4274,7 @@ declare module "sap/uxap/ObjectPageLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4154,7 +4290,7 @@ declare module "sap/uxap/ObjectPageLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5112,105 +5248,6 @@ declare module "sap/uxap/ObjectPageLayout" {
        * New value for property `useTwoColumnsForLargeScreen`
        */
       bUseTwoColumnsForLargeScreen?: boolean
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:editHeaderButtonPress editHeaderButtonPress}
-     * event of this `sap.uxap.ObjectPageLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
-     *
-     * The event is fired when the Edit Header button is pressed
-     */
-    attachEditHeaderButtonPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.40
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:navigate navigate} event of this `sap.uxap.ObjectPageLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
-     *
-     * The event is fired when the selected section is changed using the navigation.
-     */
-    attachNavigate(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.73
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:sectionChange sectionChange} event of this `sap.uxap.ObjectPageLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
-     *
-     * Fired when the current section is changed by scrolling.
-     */
-    attachSectionChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.77
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:subSectionVisibilityChange subSectionVisibilityChange}
-     * event of this `sap.uxap.ObjectPageLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
-     *
-     * Fired when the visibility of subsections is changed.
-     */
-    attachSubSectionVisibilityChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:toggleAnchorBar toggleAnchorBar} event of this
-     * `sap.uxap.ObjectPageLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
-     *
-     * The event is fired when the Anchor bar is switched from moving to fixed or the other way round.
-     */
-    attachToggleAnchorBar(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
-       */
-      oListener?: object
     ): this;
   }
 

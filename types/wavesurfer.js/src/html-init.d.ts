@@ -18,11 +18,11 @@ export default class Init {
 
 export interface InitParams {
     /** The default wavesurfer initialisation parameters (default: { backend: 'MediaElement', mediaControls: true }). */
-    defaults?: WaveSurferParams;
+    defaults?: WaveSurferParams | undefined;
     /** Selector or NodeList of elements to attach instances to. */
-    containers?: string | NodeList;
+    containers?: string | NodeList | undefined;
     /** URL template for the dynamic loading of plugins (default: '//localhost:8080/dist/plugin/wavesurfer.[name].js'). */
-    pluginCdnTemplate?: string;
+    pluginCdnTemplate?: string | undefined;
     /** If set overwrites the default request function, can be used to inject plugins differently. */
-    loadPlugin?: (pluginName: string, callback: (plugin: WaveSurferPlugin) => void) => void;
+    loadPlugin?: ((pluginName: string, callback: (plugin: WaveSurferPlugin) => void) => void) | undefined;
 }

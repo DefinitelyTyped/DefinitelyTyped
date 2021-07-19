@@ -7,11 +7,11 @@ import * as React from 'react';
 import hoistNonReactStatics = require('hoist-non-react-statics');
 
 interface Options {
-    attributes?: { [key: string]: string };
-    callbackName?: string;
-    globalName?: string;
-    removeOnUnmount?: boolean;
-    scriptId?: string;
+    attributes?: { [key: string]: string } | undefined;
+    callbackName?: string | undefined;
+    globalName?: string | undefined;
+    removeOnUnmount?: boolean | undefined;
+    scriptId?: string | undefined;
 }
 
 /**
@@ -28,7 +28,7 @@ declare function makeAsyncScript(
 ) => React.ComponentType<
     P &
         hoistNonReactStatics.NonReactStatics<React.ComponentType<any>> & {
-            asyncScriptOnLoad?: () => void;
+            asyncScriptOnLoad?: (() => void) | undefined;
         }
 >;
 

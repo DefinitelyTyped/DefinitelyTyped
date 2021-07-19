@@ -28,7 +28,7 @@ export interface Log {
     /** Name and version info of the log creator application. */
     creator: Creator;
     /** Name and version info of used browser. */
-    browser?: Browser;
+    browser?: Browser | undefined;
     /**
      * List of all exported (tracked) pages.
      *
@@ -41,11 +41,11 @@ export interface Log {
      * the `<pages>` object is empty and individual requests doesn't have a
      * parent page.
      */
-    pages?: Page[];
+    pages?: Page[] | undefined;
     /** List of all exported (tracked) requests. */
     entries: Entry[];
     /** A comment provided by the user or the application. */
-    comment?: string;
+    comment?: string | undefined;
 }
 /**
  * Infos about application/browser used to export the log.
@@ -60,7 +60,7 @@ export interface Creator {
     /** Version of the application/browser used to export the log. */
     version: string;
     /** A comment provided by the user or the application. */
-    comment?: string;
+    comment?: string | undefined;
 }
 /**
  * Infos about application/browser used to export the log.
@@ -75,7 +75,7 @@ export interface Browser {
     /** Version of the application/browser used to export the log. */
     version: string;
     /** A comment provided by the user or the application. */
-    comment?: string;
+    comment?: string | undefined;
 }
 /**
  * This object represents list of exported pages.
@@ -100,162 +100,162 @@ export interface Page {
     /** Detailed timing info about page load */
     pageTimings: PageTiming;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
     /** _non-standard_  */
     /** _non-standard_  */
-    _adult_site?: number | null;
+    _adult_site?: number | null | undefined;
     /** _non-standard_  */
-    _aft?: number | null;
+    _aft?: number | null | undefined;
     /** _non-standard_  */
-    _base_page_cdn?: string | null;
+    _base_page_cdn?: string | null | undefined;
     /** _non-standard_  */
-    _base_page_redirects?: number | null;
+    _base_page_redirects?: number | null | undefined;
     /** _non-standard_  */
-    _base_page_ttfb?: number | null;
+    _base_page_ttfb?: number | null | undefined;
     /** _non-standard_  */
-    _browser_main_memory_kb?: number | null;
+    _browser_main_memory_kb?: number | null | undefined;
     /** _non-standard_  */
-    _browser_name?: string | null;
+    _browser_name?: string | null | undefined;
     /** _non-standard_  */
-    _browser_other_private_memory_kb?: number | null;
+    _browser_other_private_memory_kb?: number | null | undefined;
     /** _non-standard_  */
-    _browser_process_count?: number | null;
+    _browser_process_count?: number | null | undefined;
     /** _non-standard_  */
-    _browser_version?: string | null;
+    _browser_version?: string | null | undefined;
     /** _non-standard_  */
-    _browser_working_set_kb?: number | null;
+    _browser_working_set_kb?: number | null | undefined;
     /** _non-standard_  */
-    _bytesIn?: number | null;
+    _bytesIn?: number | null | undefined;
     /** _non-standard_  */
-    _bytesInDoc?: number | null;
+    _bytesInDoc?: number | null | undefined;
     /** _non-standard_  */
-    _bytesOut?: number | null;
+    _bytesOut?: number | null | undefined;
     /** _non-standard_  */
-    _bytesOutDoc?: number | null;
+    _bytesOutDoc?: number | null | undefined;
     /** _non-standard_  */
-    _cached?: number | null;
+    _cached?: number | null | undefined;
     /** _non-standard_  */
-    _certificate_bytes?: number | null;
+    _certificate_bytes?: number | null | undefined;
     /** _non-standard_  */
-    _connections?: number | null;
+    _connections?: number | null | undefined;
     /** _non-standard_  */
-    _date?: number | null;
+    _date?: number | null | undefined;
     /** _non-standard_  */
-    _docCPUms?: number | null;
+    _docCPUms?: number | null | undefined;
     /** _non-standard_  */
-    _docCPUpct?: number | null;
+    _docCPUpct?: number | null | undefined;
     /** _non-standard_  */
-    _docTime?: number | null;
+    _docTime?: number | null | undefined;
     /** _non-standard_  */
-    _domContentLoadedEventEnd?: number | null;
+    _domContentLoadedEventEnd?: number | null | undefined;
     /** _non-standard_  */
-    _domContentLoadedEventStart?: number | null;
+    _domContentLoadedEventStart?: number | null | undefined;
     /** _non-standard_  */
-    _domElements?: number | null;
+    _domElements?: number | null | undefined;
     /** _non-standard_  */
-    _domInteractive?: number | null;
+    _domInteractive?: number | null | undefined;
     /** _non-standard_  */
-    _domLoading?: number | null;
+    _domLoading?: number | null | undefined;
     /** _non-standard_  */
-    _domTime?: number | null;
+    _domTime?: number | null | undefined;
     /** _non-standard_  */
-    _effectiveBps?: number | null;
+    _effectiveBps?: number | null | undefined;
     /** _non-standard_  */
-    _effectiveBpsDoc?: number | null;
+    _effectiveBpsDoc?: number | null | undefined;
     /** _non-standard_  */
-    _eventName?: string | null;
+    _eventName?: string | null | undefined;
     /** _non-standard_  */
-    _firstPaint?: number | null;
+    _firstPaint?: number | null | undefined;
     /** _non-standard_  */
-    _fixed_viewport?: number | null;
+    _fixed_viewport?: number | null | undefined;
     /** _non-standard_  */
-    _fullyLoaded?: number | null;
+    _fullyLoaded?: number | null | undefined;
     /** _non-standard_  */
-    _fullyLoadedCPUms?: number | null;
+    _fullyLoadedCPUms?: number | null | undefined;
     /** _non-standard_  */
-    _fullyLoadedCPUpct?: number | null;
+    _fullyLoadedCPUpct?: number | null | undefined;
     /** _non-standard_  */
-    _gzip_savings?: number | null;
+    _gzip_savings?: number | null | undefined;
     /** _non-standard_  */
-    _gzip_total?: number | null;
+    _gzip_total?: number | null | undefined;
     /** _non-standard_  */
-    _image_savings?: number | null;
+    _image_savings?: number | null | undefined;
     /** _non-standard_  */
-    _image_total?: number | null;
+    _image_total?: number | null | undefined;
     /** _non-standard_  */
-    _isResponsive?: number | null;
+    _isResponsive?: number | null | undefined;
     /** _non-standard_  */
-    _lastVisualChange?: number | null;
+    _lastVisualChange?: number | null | undefined;
     /** _non-standard_  */
-    _loadEventEnd?: number | null;
+    _loadEventEnd?: number | null | undefined;
     /** _non-standard_  */
-    _loadEventStart?: number | null;
+    _loadEventStart?: number | null | undefined;
     /** _non-standard_  */
-    _loadTime?: number | null;
+    _loadTime?: number | null | undefined;
     /** _non-standard_  */
-    _minify_savings?: number | null;
+    _minify_savings?: number | null | undefined;
     /** _non-standard_  */
-    _minify_total?: number | null;
+    _minify_total?: number | null | undefined;
     /** _non-standard_  */
-    _optimization_checked?: number | null;
+    _optimization_checked?: number | null | undefined;
     /** _non-standard_  */
-    _pageSpeedVersion?: string | null;
+    _pageSpeedVersion?: string | null | undefined;
     /** _non-standard_  */
-    _render?: number | null;
+    _render?: number | null | undefined;
     /** _non-standard_  */
-    _requests?: number | null;
+    _requests?: number | null | undefined;
     /** _non-standard_  */
-    _requestsDoc?: number | null;
+    _requestsDoc?: number | null | undefined;
     /** _non-standard_  */
-    _requestsFull?: number | null;
+    _requestsFull?: number | null | undefined;
     /** _non-standard_  */
-    _responses_200?: number | null;
+    _responses_200?: number | null | undefined;
     /** _non-standard_  */
-    _responses_404?: number | null;
+    _responses_404?: number | null | undefined;
     /** _non-standard_  */
-    _responses_other?: number | null;
+    _responses_other?: number | null | undefined;
     /** _non-standard_  */
-    _result?: number | null;
+    _result?: number | null | undefined;
     /** _non-standard_  */
-    _run?: number | null;
+    _run?: number | null | undefined;
     /** _non-standard_  */
-    _score_cache?: number | null;
+    _score_cache?: number | null | undefined;
     /** _non-standard_  */
-    _score_cdn?: number | null;
+    _score_cdn?: number | null | undefined;
     /** _non-standard_  */
-    _score_combine?: number | null;
+    _score_combine?: number | null | undefined;
     /** _non-standard_  */
-    _score_compress?: number | null;
+    _score_compress?: number | null | undefined;
     /** _non-standard_  */
-    _score_cookies?: number | null;
+    _score_cookies?: number | null | undefined;
     /** _non-standard_  */
-    _score_etags?: number | null;
+    _score_etags?: number | null | undefined;
     /** _non-standard_  */
-    _score_gzip?: number | null;
+    _score_gzip?: number | null | undefined;
     /** _non-standard_  */
-    '_score_keep-alive'?: number | null;
+    '_score_keep-alive'?: number | null | undefined;
     /** _non-standard_  */
-    _score_minify?: number | null;
+    _score_minify?: number | null | undefined;
     /** _non-standard_  */
-    _score_progressive_jpeg?: number | null;
+    _score_progressive_jpeg?: number | null | undefined;
     /** _non-standard_  */
-    _server_count?: number | null;
+    _server_count?: number | null | undefined;
     /** _non-standard_  */
-    _server_rtt?: number | null;
+    _server_rtt?: number | null | undefined;
     /** _non-standard_  */
-    _SpeedIndex?: number | null;
+    _SpeedIndex?: number | null | undefined;
     /** _non-standard_  */
-    _step?: number | null;
+    _step?: number | null | undefined;
     /** _non-standard_  */
-    _title?: string | null;
+    _title?: string | null | undefined;
     /** _non-standard_  */
-    _titleTime?: number | null;
+    _titleTime?: number | null | undefined;
     /** _non-standard_  */
-    _TTFB?: number | null;
+    _TTFB?: number | null | undefined;
     /** _non-standard_  */
-    _URL?: string | null;
+    _URL?: string | null | undefined;
     /** _non-standard_  */
-    _visualComplete?: number | null;
+    _visualComplete?: number | null | undefined;
 }
 /**
  * This object describes timings for various events (states) fired during the
@@ -274,17 +274,17 @@ export interface PageTiming {
      *
      * Use `-1` if the timing does not apply to the current request.
      */
-    onContentLoad?: number;
+    onContentLoad?: number | undefined;
     /**
      * Page is loaded (`onLoad` event fired). Number of milliseconds since
      * page load started (`page.startedDateTime`).
      *
      * Use `-1` if the timing does not apply to the current request.
      */
-    onLoad?: number;
+    onLoad?: number | undefined;
     /** A comment provided by the user or the application */
-    comment?: string;
-    _startRender?: number | null;
+    comment?: string | undefined;
+    _startRender?: number | null | undefined;
 }
 /**
  * This object represents an array with all exported HTTP requests. Sorting
@@ -300,7 +300,7 @@ export interface Entry {
      * Reference to the parent page. Leave out this field if the application
      * does not support grouping by pages.
      */
-    pageref?: string;
+    pageref?: string | undefined;
     /**
      * Date and time stamp of the request start
      *
@@ -326,7 +326,7 @@ export interface Entry {
      * IP address of the server that was connected
      * (result of DNS resolution).
      */
-    serverIPAddress?: string;
+    serverIPAddress?: string | undefined;
     /**
      * Unique ID of the parent TCP/IP connection, can be the client or server
      * port number.
@@ -338,169 +338,169 @@ export interface Entry {
      * connection ID can be used instead (e.g. connection index). Leave out
      * this field if the application doesn't support this info.
      */
-    connection?: string;
+    connection?: string | undefined;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
     /** _non-standard_  */
-    _all_end?: number | string | null;
+    _all_end?: number | string | null | undefined;
     /** _non-standard_  */
-    _all_ms?: number | string | null;
+    _all_ms?: number | string | null | undefined;
     /** _non-standard_  */
-    _all_start?: number | string | null;
+    _all_start?: number | string | null | undefined;
     /** _non-standard_  */
-    _bytesIn?: number | string | null;
+    _bytesIn?: number | string | null | undefined;
     /** _non-standard_  */
-    _bytesOut?: number | string | null;
+    _bytesOut?: number | string | null | undefined;
     /** _non-standard_  */
-    _cacheControl?: string | null;
+    _cacheControl?: string | null | undefined;
     /** _non-standard_  */
-    _cache_time?: number | string | null;
+    _cache_time?: number | string | null | undefined;
     /** _non-standard_  */
-    _cdn_provider?: string | null;
+    _cdn_provider?: string | null | undefined;
     /** _non-standard_  */
-    _certificate_bytes?: number | string | null;
+    _certificate_bytes?: number | string | null | undefined;
     /** _non-standard_  */
-    _client_port?: number | string | null;
+    _client_port?: number | string | null | undefined;
     /** _non-standard_  */
-    _connect_end?: number | string | null;
+    _connect_end?: number | string | null | undefined;
     /** _non-standard_  */
-    _connect_ms?: number | string | null;
+    _connect_ms?: number | string | null | undefined;
     /** _non-standard_  */
-    _connect_start?: number | string | null;
+    _connect_start?: number | string | null | undefined;
     /** _non-standard_  */
-    _contentEncoding?: string | null;
+    _contentEncoding?: string | null | undefined;
     /** _non-standard_  */
-    _contentType?: string | null;
+    _contentType?: string | null | undefined;
     /** _non-standard_  */
-    _dns_end?: number | string | null;
+    _dns_end?: number | string | null | undefined;
     /** _non-standard_  */
-    _dns_ms?: number | string | null;
+    _dns_ms?: number | string | null | undefined;
     /** _non-standard_  */
-    _dns_start?: number | string | null;
+    _dns_start?: number | string | null | undefined;
     /** _non-standard_  */
-    _download_end?: number | string | null;
+    _download_end?: number | string | null | undefined;
     /** _non-standard_  */
-    _download_ms?: number | string | null;
+    _download_ms?: number | string | null | undefined;
     /** _non-standard_  */
-    _download_start?: number | string | null;
+    _download_start?: number | string | null | undefined;
     /** _non-standard_  */
-    _expires?: string | null;
+    _expires?: string | null | undefined;
     /** _non-standard_  */
-    _full_url?: string | null;
+    _full_url?: string | null | undefined;
     /** _non-standard_  */
-    _gzip_save?: number | string | null;
+    _gzip_save?: number | string | null | undefined;
     /** _non-standard_  */
-    _gzip_total?: number | string | null;
+    _gzip_total?: number | string | null | undefined;
     /** _non-standard_  */
-    _host?: string | null;
+    _host?: string | null | undefined;
     /** _non-standard_  */
-    _http2_stream_dependency?: number | string | null;
+    _http2_stream_dependency?: number | string | null | undefined;
     /** _non-standard_  */
-    _http2_stream_exclusive?: number | string | null;
+    _http2_stream_exclusive?: number | string | null | undefined;
     /** _non-standard_  */
-    _http2_stream_id?: number | string | null;
+    _http2_stream_id?: number | string | null | undefined;
     /** _non-standard_  */
-    _http2_stream_weight?: number | string | null;
+    _http2_stream_weight?: number | string | null | undefined;
     /** _non-standard_  */
-    _image_save?: number | string | null;
+    _image_save?: number | string | null | undefined;
     /** _non-standard_  */
-    _image_total?: number | string | null;
+    _image_total?: number | string | null | undefined;
     /** _non-standard_  */
-    _index?: number | null;
+    _index?: number | null | undefined;
     /** _non-standard_  */
-    _initiator?: string | null;
+    _initiator?: string | null | undefined;
     /** _non-standard_  */
-    _initiator_column?: string | null;
+    _initiator_column?: string | null | undefined;
     /** _non-standard_  */
-    _initiator_detail?: string | null;
+    _initiator_detail?: string | null | undefined;
     /** _non-standard_  */
-    _initiator_function?: string | null;
+    _initiator_function?: string | null | undefined;
     /** _non-standard_  */
-    _initiator_line?: string | null;
+    _initiator_line?: string | null | undefined;
     /** _non-standard_  */
-    _initiator_type?: string | null;
+    _initiator_type?: string | null | undefined;
     /** _non-standard_  */
-    _ip_addr?: string | null;
+    _ip_addr?: string | null | undefined;
     /** _non-standard_  */
-    _is_secure?: number | string | null;
+    _is_secure?: number | string | null | undefined;
     /** _non-standard_  */
-    _jpeg_scan_count?: number | string | null;
+    _jpeg_scan_count?: number | string | null | undefined;
     /** _non-standard_  */
-    _load_end?: number | string | null;
+    _load_end?: number | string | null | undefined;
     /** _non-standard_  */
-    _load_ms?: number | string | null;
+    _load_ms?: number | string | null | undefined;
     /** _non-standard_  */
-    _load_start?: number | string | null;
+    _load_start?: number | string | null | undefined;
     /** _non-standard_  */
-    _method?: string | null;
+    _method?: string | null | undefined;
     /** _non-standard_  */
-    _minify_save?: number | string | null;
+    _minify_save?: number | string | null | undefined;
     /** _non-standard_  */
-    _minify_total?: number | string | null;
+    _minify_total?: number | string | null | undefined;
     /** _non-standard_  */
-    _number?: number | null;
+    _number?: number | null | undefined;
     /** _non-standard_  */
-    _objectSize?: number | string | null;
+    _objectSize?: number | string | null | undefined;
     /** _non-standard_  */
-    _objectSizeUncompressed?: number | string | null;
+    _objectSizeUncompressed?: number | string | null | undefined;
     /** _non-standard_  */
-    _priority?: string | null;
+    _priority?: string | null | undefined;
     /** _non-standard_  */
-    _protocol?: number | string | null;
+    _protocol?: number | string | null | undefined;
     /** _non-standard_  */
-    _request_id?: number | string | null;
+    _request_id?: number | string | null | undefined;
     /** _non-standard_  */
-    _responseCode?: number | string | null;
+    _responseCode?: number | string | null | undefined;
     /** _non-standard_  */
-    _score_cache?: number | string | null;
+    _score_cache?: number | string | null | undefined;
     /** _non-standard_  */
-    _score_cdn?: number | string | null;
+    _score_cdn?: number | string | null | undefined;
     /** _non-standard_  */
-    _score_combine?: number | string | null;
+    _score_combine?: number | string | null | undefined;
     /** _non-standard_  */
-    _score_compress?: number | string | null;
+    _score_compress?: number | string | null | undefined;
     /** _non-standard_  */
-    _score_cookies?: number | string | null;
+    _score_cookies?: number | string | null | undefined;
     /** _non-standard_  */
-    _score_etags?: number | string | null;
+    _score_etags?: number | string | null | undefined;
     /** _non-standard_  */
-    _score_gzip?: number | string | null;
+    _score_gzip?: number | string | null | undefined;
     /** _non-standard_  */
-    '_score_keep-alive'?: number | string | null;
+    '_score_keep-alive'?: number | string | null | undefined;
     /** _non-standard_  */
-    _score_minify?: number | string | null;
+    _score_minify?: number | string | null | undefined;
     /** _non-standard_  */
-    _score_progressive_jpeg?: number | null;
+    _score_progressive_jpeg?: number | null | undefined;
     /** _non-standard_  */
-    _server_count?: number | string | null;
+    _server_count?: number | string | null | undefined;
     /** _non-standard_  */
-    _server_rtt?: number | string | null;
+    _server_rtt?: number | string | null | undefined;
     /** _non-standard_  */
-    _socket?: number | string | null;
+    _socket?: number | string | null | undefined;
     /** _non-standard_  */
-    _ssl_end?: number | string | null;
+    _ssl_end?: number | string | null | undefined;
     /** _non-standard_  */
-    _ssl_ms?: number | string | null;
+    _ssl_ms?: number | string | null | undefined;
     /** _non-standard_  */
-    _ssl_start?: number | string | null;
+    _ssl_start?: number | string | null | undefined;
     /** _non-standard_  */
-    _ttfb_end?: number | string | null;
+    _ttfb_end?: number | string | null | undefined;
     /** _non-standard_  */
-    _ttfb_ms?: number | string | null;
+    _ttfb_ms?: number | string | null | undefined;
     /** _non-standard_  */
-    _ttfb_start?: number | string | null;
+    _ttfb_start?: number | string | null | undefined;
     /** _non-standard_  */
-    _type?: number | string | null;
+    _type?: number | string | null | undefined;
     /** _non-standard_  */
-    _url?: string | null;
+    _url?: string | null | undefined;
     /** _non-standard_  */
-    _was_pushed?: number | string | null;
+    _was_pushed?: number | string | null | undefined;
     /** _non-standard_  */
-    _initialPriority?: string | null;
+    _initialPriority?: string | null | undefined;
     /** _non-standard_  */
-    _renderBlocking?: string | null;
+    _renderBlocking?: string | null | undefined;
     /** _non-standard_  */
-    _isLCP?: boolean | null;
+    _isLCP?: boolean | null | undefined;
 }
 /**
  * This object contains detailed info about performed request.
@@ -521,7 +521,7 @@ export interface Request {
     /** List of query parameter objects. */
     queryString: QueryString[];
     /** Posted data info. */
-    postData?: PostData;
+    postData?: PostData | undefined;
     /**
      * Total number of bytes from the start of the HTTP request message until
      * (and including) the double CRLF before the body.
@@ -536,7 +536,7 @@ export interface Request {
      */
     bodySize: number;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
 }
 /**
  * This object contains detailed info about the response.
@@ -578,9 +578,9 @@ export interface Response {
      */
     bodySize: number;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
     /** _non-standard_  */
-    _transferSize?: number | null;
+    _transferSize?: number | null | undefined;
 }
 /**
  * This object contains list of all cookies (used in `request` and `response`
@@ -594,21 +594,21 @@ export interface Cookie {
     /** The cookie value. */
     value: string;
     /** The path pertaining to the cookie. */
-    path?: string;
+    path?: string | undefined;
     /** The host of the cookie. */
-    domain?: string;
+    domain?: string | undefined;
     /**
      * Cookie expiration time.
      * (ISO 8601 - `YYYY-MM-DDThh:mm:ss.sTZD`,
      * e.g. `2009-07-24T19:20:30.123+02:00`).
      */
-    expires?: string;
+    expires?: string | undefined;
     /** Set to true if the cookie is HTTP only, false otherwise. */
-    httpOnly?: boolean;
+    httpOnly?: boolean | undefined;
     /** True if the cookie was transmitted over ssl, false otherwise. */
-    secure?: boolean;
+    secure?: boolean | undefined;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
 }
 
 /**
@@ -620,7 +620,7 @@ export interface Header {
     name: string;
     value: string;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
 }
 /**
  * This object represents a parameter & value parsed from a query string,
@@ -632,7 +632,7 @@ export interface QueryString {
     name: string;
     value: string;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
 }
 /**
  * This object describes posted data, if any (embedded in `request` object).
@@ -648,7 +648,7 @@ export interface PostDataCommon {
     /** Mime type of posted data. */
     mimeType: string;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
 }
 
 /**
@@ -663,7 +663,7 @@ export interface PostDataParams {
     /**
      * _`params` and `text` fields are mutually exclusive._
      */
-    text?: never;
+    text?: never | undefined;
 }
 
 /**
@@ -678,7 +678,7 @@ export interface PostDataText {
     /**
      * _`params` and `text` fields are mutually exclusive._
      */
-    params?: never;
+    params?: never | undefined;
 }
 
 /**
@@ -690,13 +690,13 @@ export interface Param {
     /** name of a posted parameter. */
     name: string;
     /** value of a posted parameter or content of a posted file */
-    value?: string;
+    value?: string | undefined;
     /** name of a posted file. */
-    fileName?: string;
+    fileName?: string | undefined;
     /** content type of a posted file. */
-    contentType?: string;
+    contentType?: string | undefined;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
 }
 
 /**
@@ -717,7 +717,7 @@ export interface Content {
      * Number of bytes saved. Leave out this field if the information is not
      * available.
      */
-    compression?: number;
+    compression?: number | undefined;
     /**
      * MIME type of the response text (value of the Content-Type response
      * header).
@@ -735,7 +735,7 @@ export interface Content {
      *
      * Leave out this field if the information is not available.
      */
-    text?: string;
+    text?: string | undefined;
     /**
      * Encoding used for response text field e.g `base64`.
      *
@@ -743,9 +743,9 @@ export interface Content {
      * (decompressed & unchunked), than trans-coded from its original character
      * set into UTF-8.
      */
-    encoding?: string;
+    encoding?: string | undefined;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
 }
 /**
  * This objects contains info about a request coming from browser cache.
@@ -758,15 +758,15 @@ export interface Cache {
      *
      * Leave out this field if the information is not available.
      */
-    beforeRequest?: CacheDetails | null;
+    beforeRequest?: CacheDetails | null | undefined;
     /**
      * State of a cache entry after the request.
      *
      * Leave out this field if the information is not available.
      */
-    afterRequest?: CacheDetails | null;
+    afterRequest?: CacheDetails | null | undefined;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
 }
 export interface CacheDetails {
     /**
@@ -775,7 +775,7 @@ export interface CacheDetails {
      * _(Format not documente but assumingly ISO 8601 -
      * `YYYY-MM-DDThh:mm:ss.sTZD`)_
      */
-    expires?: string;
+    expires?: string | undefined;
     /**
      * The last time the cache entry was opened.
      *
@@ -788,7 +788,7 @@ export interface CacheDetails {
     /** The number of times the cache entry has been opened. */
     hitCount: number;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
 }
 /**
  * This object describes various phases within request-response round trip.
@@ -803,25 +803,25 @@ export interface Timings {
      *
      * Use `-1` if the timing does not apply to the current request.
      */
-    blocked?: number;
+    blocked?: number | undefined;
     /**
      * DNS resolution time. The time required to resolve a host name.
      *
      * Use `-1` if the timing does not apply to the current request.
      */
-    dns?: number;
+    dns?: number | undefined;
     /**
      * Time required to create TCP connection.
      *
      * Use `-1` if the timing does not apply to the current request.
      */
-    connect?: number;
+    connect?: number | undefined;
     /**
      * Time required to send HTTP request to the server.
      *
      * _Not optional and must have non-negative values._
      */
-    send?: number;
+    send?: number | undefined;
     /**
      * Waiting for a response from the server.
      *
@@ -842,7 +842,7 @@ export interface Timings {
      *
      * Use `-1` if the timing does not apply to the current request.
      */
-    ssl?: number;
+    ssl?: number | undefined;
     /**  A comment provided by the user or the application */
-    comment?: string;
+    comment?: string | undefined;
 }

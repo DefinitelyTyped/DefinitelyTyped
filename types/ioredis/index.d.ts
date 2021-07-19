@@ -50,17 +50,17 @@ declare class Commander {
     defineCommand(
         name: string,
         definition: {
-            numberOfKeys?: number;
-            lua?: string;
+            numberOfKeys?: number | undefined;
+            lua?: string | undefined;
         },
     ): void;
     sendCommand(): void;
 }
 
 interface CommandOptions {
-    replyEncoding?: string | null;
-    errorStack?: string;
-    keyPrefix?: string;
+    replyEncoding?: string | null | undefined;
+    errorStack?: string | undefined;
+    keyPrefix?: string | undefined;
 }
 declare class Command {
     isCustomCommand: boolean;
@@ -1661,8 +1661,8 @@ declare namespace IORedis {
     }
 
     interface NodeConfiguration {
-        host?: string;
-        port?: number;
+        host?: string | undefined;
+        port?: number | undefined;
     }
 
     type ClusterNode = string | number | NodeConfiguration;
@@ -1674,6 +1674,7 @@ declare namespace IORedis {
     type Ok = 'OK';
 
     interface Cluster extends EventEmitter, Commander, Commands {
+        readonly isCluster: true;
         readonly options: ClusterOptions;
         readonly status: string;
         connect(): Promise<void>;
@@ -1687,53 +1688,53 @@ declare namespace IORedis {
     }
 
     interface RedisOptions {
-        port?: number;
-        host?: string;
+        port?: number | undefined;
+        host?: string | undefined;
         /**
          * 4 (IPv4) or 6 (IPv6), Defaults to 4.
          */
-        family?: number;
+        family?: number | undefined;
         /**
          * Local domain socket path. If set the port, host and family will be ignored.
          */
-        path?: string;
+        path?: string | undefined;
         /**
          * TCP KeepAlive on the socket with a X ms delay before start. Set to a non-number value to disable keepAlive.
          */
-        keepAlive?: number;
+        keepAlive?: number | undefined;
         /**
          * Whether to disable the Nagle's Algorithm.
          */
-        noDelay?: boolean;
+        noDelay?: boolean | undefined;
         /**
          * Force numbers to be always returned as JavaScript strings. This option is necessary when dealing with big numbers (exceed the [-2^53, +2^53] range).
          */
-        stringNumbers?: boolean;
+        stringNumbers?: boolean | undefined;
         /**
          * Default script definition caching time.
          */
-        maxScriptsCachingTime?: number;
-        connectionName?: string;
+        maxScriptsCachingTime?: number | undefined;
+        connectionName?: string | undefined;
         /**
          * If set, client will send AUTH command with the value of this option as the first argument when connected. The `password` option must be set too. Username should only be set for Redis >=6.
          */
-        username?: string;
+        username?: string | undefined;
         /**
          * If set, client will send AUTH command with the value of this option when connected.
          */
-        password?: string;
+        password?: string | undefined;
         /**
          * Database index to use.
          */
-        db?: number;
+        db?: number | undefined;
         /**
          * When a connection is established to the Redis server, the server might still be loading
          * the database from disk. While loading, the server not respond to any commands.
          * To work around this, when this option is true, ioredis will check the status of the Redis server,
          * and when the Redis server is able to process commands, a ready event will be emitted.
          */
-        enableReadyCheck?: boolean;
-        keyPrefix?: string;
+        enableReadyCheck?: boolean | undefined;
+        keyPrefix?: string | undefined;
         /**
          * When the return value isn't a number, ioredis will stop trying to reconnect.
          * Fixed in: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/15858
@@ -1749,7 +1750,7 @@ declare namespace IORedis {
          * every command will wait forever until the connection is alive again
          * (which is the default behavior before ioredis v4).
          */
-        maxRetriesPerRequest?: number | null;
+        maxRetriesPerRequest?: number | null | undefined;
         /**
          * The milliseconds before a timeout occurs when executing a single
          * command. By default, there is no timeout and the client will wait
@@ -1757,7 +1758,7 @@ declare namespace IORedis {
          * server side. The server may still complete the operation after a
          * timeout error occurs on the client side.
          */
-        commandTimeout?: number;
+        commandTimeout?: number | undefined;
         /**
          * 1/true means reconnect, 2 means reconnect and resend failed command. Returning false will ignore
          * the error and do nothing.
@@ -1770,35 +1771,35 @@ declare namespace IORedis {
          * server has been established). If this option is false, when execute the command when the connection
          * isn't ready, an error will be returned.
          */
-        enableOfflineQueue?: boolean;
+        enableOfflineQueue?: boolean | undefined;
         /**
          * The milliseconds before a timeout occurs during the initial connection to the Redis server.
          * default: 10000.
          */
-        connectTimeout?: number;
+        connectTimeout?: number | undefined;
         /**
          * After reconnected, if the previous connection was in the subscriber mode, client will auto re-subscribe these channels.
          * default: true.
          */
-        autoResubscribe?: boolean;
+        autoResubscribe?: boolean | undefined;
         /**
          * If true, client will resend unfulfilled commands(e.g. block commands) in the previous connection when reconnected.
          * default: true.
          */
-        autoResendUnfulfilledCommands?: boolean;
-        lazyConnect?: boolean;
-        tls?: ConnectionOptions;
+        autoResendUnfulfilledCommands?: boolean | undefined;
+        lazyConnect?: boolean | undefined;
+        tls?: ConnectionOptions | undefined;
         /**
          * default: "master".
          */
-        role?: 'master' | 'slave';
+        role?: 'master' | 'slave' | undefined;
         /**
          * default: null.
          */
-        name?: string;
-        sentinelUsername?: string;
-        sentinelPassword?: string;
-        sentinels?: Array<{ host: string; port: number }>;
+        name?: string | undefined;
+        sentinelUsername?: string | undefined;
+        sentinelPassword?: string | undefined;
+        sentinels?: Array<{ host: string; port: number }> | undefined;
         /**
          * If `sentinelRetryStrategy` returns a valid delay time, ioredis will try to reconnect from scratch.
          * default: function(times) { return Math.min(times * 10, 1000); }
@@ -1807,73 +1808,73 @@ declare namespace IORedis {
         /**
          * Can be used to prefer a particular slave or set of slaves based on priority.
          */
-        preferredSlaves?: PreferredSlaves;
+        preferredSlaves?: PreferredSlaves | undefined;
         /**
          * Whether to support the `tls` option when connecting to Redis via sentinel mode.
          * default: false.
          */
-        enableTLSForSentinelMode?: boolean;
-        sentinelTLS?: SecureContextOptions;
+        enableTLSForSentinelMode?: boolean | undefined;
+        sentinelTLS?: SecureContextOptions | undefined;
         /**
          * NAT map for sentinel connector.
          * default: null.
          */
-        natMap?: NatMap;
+        natMap?: NatMap | undefined;
         /**
          * Update the given `sentinels` list with new IP addresses when communicating with existing sentinels.
          * default: true.
          */
-        updateSentinels?: boolean;
+        updateSentinels?: boolean | undefined;
         /**
          * Enable READONLY mode for the connection. Only available for cluster mode.
          * default: false.
          */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
         /**
          * If you are using the hiredis parser, it's highly recommended to enable this option.
          * Create another instance with dropBufferSupport disabled for other commands that you want to return binary instead of string
          */
-        dropBufferSupport?: boolean;
+        dropBufferSupport?: boolean | undefined;
         /**
          * Whether to show a friendly error stack. Will decrease the performance significantly.
          */
-        showFriendlyErrorStack?: boolean;
+        showFriendlyErrorStack?: boolean | undefined;
         /**
          * When enabled, all commands issued during an event loop iteration are automatically wrapped in a
          * pipeline and sent to the server at the same time. This can improve performance by 30-50%.
          * default: false.
          */
-        enableAutoPipelining?: boolean;
+        enableAutoPipelining?: boolean | undefined;
     }
 
     interface AddressFromResponse {
         port: string;
         ip: string;
-        flags?: string;
+        flags?: string | undefined;
     }
 
     type PreferredSlaves =
         | ((slaves: AddressFromResponse[]) => AddressFromResponse | null)
-        | Array<{ port: string; ip: string; prio?: number }>
-        | { port: string; ip: string; prio?: number };
+        | Array<{ port: string; ip: string; prio?: number | undefined }>
+        | { port: string; ip: string; prio?: number | undefined };
 
     type SecureVersion = 'TLSv1.3' | 'TLSv1.2' | 'TLSv1.1' | 'TLSv1';
 
     interface SecureContextOptions {
-        pfx?: string | Buffer | Array<string | Buffer | object>;
-        key?: string | Buffer | Array<Buffer | object>;
-        passphrase?: string;
-        cert?: string | Buffer | Array<string | Buffer>;
-        ca?: string | Buffer | Array<string | Buffer>;
-        ciphers?: string;
-        honorCipherOrder?: boolean;
-        ecdhCurve?: string;
-        clientCertEngine?: string;
-        crl?: string | Buffer | Array<string | Buffer>;
-        dhparam?: string | Buffer;
-        secureOptions?: number; // Value is a numeric bitmask of the `SSL_OP_*` options
-        secureProtocol?: string; // SSL Method, e.g. SSLv23_method
-        sessionIdContext?: string;
+        pfx?: string | Buffer | Array<string | Buffer | object> | undefined;
+        key?: string | Buffer | Array<Buffer | object> | undefined;
+        passphrase?: string | undefined;
+        cert?: string | Buffer | Array<string | Buffer> | undefined;
+        ca?: string | Buffer | Array<string | Buffer> | undefined;
+        ciphers?: string | undefined;
+        honorCipherOrder?: boolean | undefined;
+        ecdhCurve?: string | undefined;
+        clientCertEngine?: string | undefined;
+        crl?: string | Buffer | Array<string | Buffer> | undefined;
+        dhparam?: string | Buffer | undefined;
+        secureOptions?: number | undefined; // Value is a numeric bitmask of the `SSL_OP_*` options
+        secureProtocol?: string | undefined; // SSL Method, e.g. SSLv23_method
+        sessionIdContext?: string | undefined;
         /**
          * Optionally set the maximum TLS version to allow. One
          * of `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
@@ -1882,7 +1883,7 @@ declare namespace IORedis {
          * `--tls-max-v1.2` sets the default to `'TLSv1.2'`. Using `--tls-max-v1.3` sets the default to
          * `'TLSv1.3'`. If multiple of the options are provided, the highest maximum is used.
          */
-        maxVersion?: SecureVersion;
+        maxVersion?: SecureVersion | undefined;
         /**
          * Optionally set the minimum TLS version to allow. One
          * of `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. Cannot be specified along with the
@@ -1893,14 +1894,14 @@ declare namespace IORedis {
          * `'TLSv1.1'`. Using `--tls-min-v1.3` sets the default to
          * 'TLSv1.3'. If multiple of the options are provided, the lowest minimum is used.
          */
-        minVersion?: SecureVersion;
+        minVersion?: SecureVersion | undefined;
     }
 
     interface ScanStreamOption {
-        match?: string;
-        count?: number;
-        type?: string;
-        key?: string;
+        match?: string | undefined;
+        count?: number | undefined;
+        type?: string | undefined;
+        key?: string | undefined;
     }
 
     type DNSLookupFunction = (
@@ -1913,19 +1914,19 @@ declare namespace IORedis {
 
     interface ClusterOptions {
         clusterRetryStrategy?(times: number, reason?: Error): number | null;
-        enableOfflineQueue?: boolean;
-        enableReadyCheck?: boolean;
-        scaleReads?: string;
-        maxRedirections?: number;
-        retryDelayOnFailover?: number;
-        retryDelayOnClusterDown?: number;
-        retryDelayOnTryAgain?: number;
-        slotsRefreshTimeout?: number;
-        slotsRefreshInterval?: number;
-        redisOptions?: RedisOptions;
-        lazyConnect?: boolean;
-        dnsLookup?: DNSLookupFunction;
-        natMap?: NatMap;
+        enableOfflineQueue?: boolean | undefined;
+        enableReadyCheck?: boolean | undefined;
+        scaleReads?: string | undefined;
+        maxRedirections?: number | undefined;
+        retryDelayOnFailover?: number | undefined;
+        retryDelayOnClusterDown?: number | undefined;
+        retryDelayOnTryAgain?: number | undefined;
+        slotsRefreshTimeout?: number | undefined;
+        slotsRefreshInterval?: number | undefined;
+        redisOptions?: RedisOptions | undefined;
+        lazyConnect?: boolean | undefined;
+        dnsLookup?: DNSLookupFunction | undefined;
+        natMap?: NatMap | undefined;
     }
 
     interface MultiOptions {

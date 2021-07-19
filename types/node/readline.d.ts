@@ -1,12 +1,12 @@
 declare module 'readline' {
-    import { Abortable, EventEmitter } from 'events';
+    import { Abortable, EventEmitter } from 'node:events';
 
     interface Key {
-        sequence?: string;
-        name?: string;
-        ctrl?: boolean;
-        meta?: boolean;
-        shift?: boolean;
+        sequence?: string | undefined;
+        name?: string | undefined;
+        ctrl?: boolean | undefined;
+        meta?: boolean | undefined;
+        shift?: boolean | undefined;
     }
 
     class Interface extends EventEmitter {
@@ -132,34 +132,34 @@ declare module 'readline' {
     type ReadLine = Interface; // type forwarded for backwards compatibility
 
     type Completer = (line: string) => CompleterResult;
-    type AsyncCompleter = (line: string, callback: (err?: null | Error, result?: CompleterResult) => void) => any;
+    type AsyncCompleter = (line: string, callback: (err?: null | Error, result?: CompleterResult) => void) => void;
 
     type CompleterResult = [string[], string];
 
     interface ReadLineOptions {
         input: NodeJS.ReadableStream;
-        output?: NodeJS.WritableStream;
-        completer?: Completer | AsyncCompleter;
-        terminal?: boolean;
+        output?: NodeJS.WritableStream | undefined;
+        completer?: Completer | AsyncCompleter | undefined;
+        terminal?: boolean | undefined;
         /**
          *  Initial list of history lines. This option makes sense
          * only if `terminal` is set to `true` by the user or by an internal `output`
          * check, otherwise the history caching mechanism is not initialized at all.
          * @default []
          */
-        history?: string[];
-        historySize?: number;
-        prompt?: string;
-        crlfDelay?: number;
+        history?: string[] | undefined;
+        historySize?: number | undefined;
+        prompt?: string | undefined;
+        crlfDelay?: number | undefined;
         /**
          * If `true`, when a new input line added
          * to the history list duplicates an older one, this removes the older line
          * from the list.
          * @default false
          */
-        removeHistoryDuplicates?: boolean;
-        escapeCodeTimeout?: number;
-        tabSize?: number;
+        removeHistoryDuplicates?: boolean | undefined;
+        escapeCodeTimeout?: number | undefined;
+        tabSize?: number | undefined;
     }
 
     function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
@@ -189,4 +189,8 @@ declare module 'readline' {
      * Moves this WriteStream's cursor relative to its current position.
      */
     function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
+}
+
+declare module 'node:readline' {
+    export * from 'readline';
 }

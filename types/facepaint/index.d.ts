@@ -23,8 +23,8 @@ declare namespace facepaint {
     }
 
     interface Options {
-        literal?: boolean;
-        overlap?: boolean;
+        literal?: boolean | undefined;
+        overlap?: boolean | undefined;
     }
 }
 

@@ -121,7 +121,7 @@ export interface Agent {
     /**
      * Exceptions to vendor prefix use.
      */
-    prefix_exceptions?: { [version: string]: string | undefined };
+    prefix_exceptions?: { [version: string]: string | undefined } | undefined;
 }
 
 /**

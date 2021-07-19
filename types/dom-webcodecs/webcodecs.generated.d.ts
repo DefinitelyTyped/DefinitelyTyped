@@ -4,7 +4,7 @@
 
 interface AudioDecoderConfig {
     codec: string;
-    description?: BufferSource;
+    description?: BufferSource | undefined;
     numberOfChannels: number;
     sampleRate: number;
 }
@@ -20,7 +20,7 @@ interface AudioDecoderSupport {
 }
 
 interface AudioEncoderConfig {
-    bitrate?: number;
+    bitrate?: number | undefined;
     codec: string;
     numberOfChannels: number;
     sampleRate: number;
@@ -42,7 +42,7 @@ interface AudioFrameInit {
 }
 
 interface AvcEncoderConfig {
-    format?: AvcBitstreamFormat;
+    format?: AvcBitstreamFormat | undefined;
 }
 
 interface EncodedAudioChunkInit {
@@ -52,24 +52,24 @@ interface EncodedAudioChunkInit {
 }
 
 interface EncodedAudioChunkMetadata {
-    decoderConfig?: AudioDecoderConfig;
+    decoderConfig?: AudioDecoderConfig | undefined;
 }
 
 interface EncodedVideoChunkInit {
     data: BufferSource;
-    duration?: number;
+    duration?: number | undefined;
     timestamp: number;
     type: EncodedVideoChunkType;
 }
 
 interface EncodedVideoChunkMetadata {
-    decoderConfig?: VideoDecoderConfig;
-    temporalLayerId?: number;
+    decoderConfig?: VideoDecoderConfig | undefined;
+    temporalLayerId?: number | undefined;
 }
 
 interface ImageDecodeOptions {
-    completeFramesOnly?: boolean;
-    frameIndex?: number;
+    completeFramesOnly?: boolean | undefined;
+    frameIndex?: number | undefined;
 }
 
 interface ImageDecodeResult {
@@ -78,40 +78,40 @@ interface ImageDecodeResult {
 }
 
 interface ImageDecoderInit {
-    colorSpaceConversion?: ColorSpaceConversion;
+    colorSpaceConversion?: ColorSpaceConversion | undefined;
     data: ImageBufferSource;
-    desiredHeight?: number;
-    desiredWidth?: number;
-    preferAnimation?: boolean;
-    premultiplyAlpha?: PremultiplyAlpha;
+    desiredHeight?: number | undefined;
+    desiredWidth?: number | undefined;
+    preferAnimation?: boolean | undefined;
+    premultiplyAlpha?: PremultiplyAlpha | undefined;
     type: string;
 }
 
 interface PlaneInit {
-    data?: BufferSource;
-    offset?: number;
-    src?: BufferSource;
+    data?: BufferSource | undefined;
+    offset?: number | undefined;
+    src?: BufferSource | undefined;
     stride: number;
 }
 
 interface PlaneLayout {
-    offset?: number;
-    stride?: number;
+    offset?: number | undefined;
+    stride?: number | undefined;
 }
 
 interface VideoDecoderConfig {
     codec: string;
-    codedHeight?: number;
-    codedWidth?: number;
-    cropHeight?: number;
-    cropLeft?: number;
-    cropTop?: number;
-    cropWidth?: number;
-    description?: BufferSource;
-    displayHeight?: number;
-    displayWidth?: number;
-    hardwareAcceleration?: HardwarePreference;
-    visibleRegion?: VideoFrameRegion;
+    codedHeight?: number | undefined;
+    codedWidth?: number | undefined;
+    cropHeight?: number | undefined;
+    cropLeft?: number | undefined;
+    cropTop?: number | undefined;
+    cropWidth?: number | undefined;
+    description?: BufferSource | undefined;
+    displayHeight?: number | undefined;
+    displayWidth?: number | undefined;
+    hardwareAcceleration?: HardwarePreference | undefined;
+    visibleRegion?: VideoFrameRegion | undefined;
 }
 
 interface VideoDecoderInit {
@@ -125,21 +125,21 @@ interface VideoDecoderSupport {
 }
 
 interface VideoEncoderConfig {
-    alpha?: AlphaOption;
-    avc?: AvcEncoderConfig;
-    bitrate?: number;
+    alpha?: AlphaOption | undefined;
+    avc?: AvcEncoderConfig | undefined;
+    bitrate?: number | undefined;
     codec: string;
-    displayHeight?: number;
-    displayWidth?: number;
-    framerate?: number;
-    hardwareAcceleration?: HardwarePreference;
+    displayHeight?: number | undefined;
+    displayWidth?: number | undefined;
+    framerate?: number | undefined;
+    hardwareAcceleration?: HardwarePreference | undefined;
     height: number;
-    scalabilityMode?: string;
+    scalabilityMode?: string | undefined;
     width: number;
 }
 
 interface VideoEncoderEncodeOptions {
-    keyFrame?: boolean | null;
+    keyFrame?: boolean | null | undefined;
 }
 
 interface VideoEncoderInit {
@@ -153,28 +153,28 @@ interface VideoEncoderSupport {
 }
 
 interface VideoFrameInit {
-    alpha?: AlphaOption;
-    duration?: number;
-    timestamp?: number;
+    alpha?: AlphaOption | undefined;
+    duration?: number | undefined;
+    timestamp?: number | undefined;
 }
 
 interface VideoFramePlaneInit {
     codedHeight: number;
     codedWidth: number;
-    cropHeight?: number;
-    cropLeft?: number;
-    cropTop?: number;
-    cropWidth?: number;
-    displayHeight?: number;
-    displayWidth?: number;
-    duration?: number;
+    cropHeight?: number | undefined;
+    cropLeft?: number | undefined;
+    cropTop?: number | undefined;
+    cropWidth?: number | undefined;
+    displayHeight?: number | undefined;
+    displayWidth?: number | undefined;
+    duration?: number | undefined;
     timestamp: number;
-    visibleRegion?: VideoFrameRegion;
+    visibleRegion?: VideoFrameRegion | undefined;
 }
 
 interface VideoFrameReadIntoOptions {
-    layout?: PlaneLayout[];
-    region?: VideoFrameRegion;
+    layout?: PlaneLayout[] | undefined;
+    region?: VideoFrameRegion | undefined;
 }
 
 interface VideoFrameRegion {

@@ -1,12 +1,12 @@
 declare module 'worker_threads' {
     import { Blob } from 'node:buffer';
-    import { Context } from 'vm';
-    import { EventEmitter } from 'events';
-    import { EventLoopUtilityFunction } from 'perf_hooks';
-    import { FileHandle } from 'fs/promises';
-    import { Readable, Writable } from 'stream';
-    import { URL } from 'url';
-    import { X509Certificate } from 'crypto';
+    import { Context } from 'node:vm';
+    import { EventEmitter } from 'node:events';
+    import { EventLoopUtilityFunction } from 'node:perf_hooks';
+    import { FileHandle } from 'node:fs/promises';
+    import { Readable, Writable } from 'node:stream';
+    import { URL } from 'node:url';
+    import { X509Certificate } from 'node:crypto';
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -81,43 +81,43 @@ declare module 'worker_threads' {
          * but the values will be available on the global `process.argv` as if they
          * were passed as CLI options to the script.
          */
-        argv?: any[];
-        env?: NodeJS.Dict<string> | typeof SHARE_ENV;
-        eval?: boolean;
+        argv?: any[] | undefined;
+        env?: NodeJS.Dict<string> | typeof SHARE_ENV | undefined;
+        eval?: boolean | undefined;
         workerData?: any;
-        stdin?: boolean;
-        stdout?: boolean;
-        stderr?: boolean;
-        execArgv?: string[];
-        resourceLimits?: ResourceLimits;
+        stdin?: boolean | undefined;
+        stdout?: boolean | undefined;
+        stderr?: boolean | undefined;
+        execArgv?: string[] | undefined;
+        resourceLimits?: ResourceLimits | undefined;
         /**
          * Additional data to send in the first worker message.
          */
-        transferList?: TransferListItem[];
+        transferList?: TransferListItem[] | undefined;
         /**
          * @default true
          */
-        trackUnmanagedFds?: boolean;
+        trackUnmanagedFds?: boolean | undefined;
     }
 
     interface ResourceLimits {
         /**
          * The maximum size of a heap space for recently created objects.
          */
-        maxYoungGenerationSizeMb?: number;
+        maxYoungGenerationSizeMb?: number | undefined;
         /**
          * The maximum size of the main heap in MB.
          */
-        maxOldGenerationSizeMb?: number;
+        maxOldGenerationSizeMb?: number | undefined;
         /**
          * The size of a pre-allocated memory range used for generated code.
          */
-        codeRangeSizeMb?: number;
+        codeRangeSizeMb?: number | undefined;
         /**
          * The default maximum stack size for the thread. Small values may lead to unusable Worker instances.
          * @default 4
          */
-        stackSizeMb?: number;
+        stackSizeMb?: number | undefined;
     }
 
     class Worker extends EventEmitter {
@@ -125,7 +125,7 @@ declare module 'worker_threads' {
         readonly stdout: Readable;
         readonly stderr: Readable;
         readonly threadId: number;
-        readonly resourceLimits?: ResourceLimits;
+        readonly resourceLimits?: ResourceLimits | undefined;
         readonly performance: WorkerPerformance;
 
         /**
@@ -279,4 +279,8 @@ declare module 'worker_threads' {
      * @experimental
      */
     function setEnvironmentData(key: Serializable, value: Serializable): void;
+}
+
+declare module 'node:worker_threads' {
+    export * from 'worker_threads';
 }

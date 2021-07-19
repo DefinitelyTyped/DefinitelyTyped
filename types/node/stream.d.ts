@@ -1,9 +1,9 @@
 declare module 'stream' {
-    import { EventEmitter, Abortable } from 'events';
-    import * as streamPromises from "stream/promises";
+    import { EventEmitter, Abortable } from 'node:events';
+    import * as streamPromises from "node:stream/promises";
 
     class internal extends EventEmitter {
-        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
     }
 
     namespace internal {
@@ -12,16 +12,16 @@ declare module 'stream' {
         }
 
         interface StreamOptions<T extends Stream> extends Abortable {
-            emitClose?: boolean;
-            highWaterMark?: number;
-            objectMode?: boolean;
+            emitClose?: boolean | undefined;
+            highWaterMark?: number | undefined;
+            objectMode?: boolean | undefined;
             construct?(this: T, callback: (error?: Error | null) => void): void;
             destroy?(this: T, error: Error | null, callback: (error: Error | null) => void): void;
-            autoDestroy?: boolean;
+            autoDestroy?: boolean | undefined;
         }
 
         interface ReadableOptions extends StreamOptions<Readable> {
-            encoding?: BufferEncoding;
+            encoding?: BufferEncoding | undefined;
             read?(this: Readable, size: number): void;
         }
 
@@ -132,8 +132,8 @@ declare module 'stream' {
         }
 
         interface WritableOptions extends StreamOptions<Writable> {
-            decodeStrings?: boolean;
-            defaultEncoding?: BufferEncoding;
+            decodeStrings?: boolean | undefined;
+            defaultEncoding?: BufferEncoding | undefined;
             write?(this: Writable, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             writev?(this: Writable, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
             final?(this: Writable, callback: (error?: Error | null) => void): void;
@@ -232,12 +232,12 @@ declare module 'stream' {
         }
 
         interface DuplexOptions extends ReadableOptions, WritableOptions {
-            allowHalfOpen?: boolean;
-            readableObjectMode?: boolean;
-            writableObjectMode?: boolean;
-            readableHighWaterMark?: number;
-            writableHighWaterMark?: number;
-            writableCorked?: number;
+            allowHalfOpen?: boolean | undefined;
+            readableObjectMode?: boolean | undefined;
+            writableObjectMode?: boolean | undefined;
+            readableHighWaterMark?: number | undefined;
+            writableHighWaterMark?: number | undefined;
+            writableCorked?: number | undefined;
             construct?(this: Duplex, callback: (error?: Error | null) => void): void;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
@@ -302,9 +302,9 @@ declare module 'stream' {
         function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
 
         interface FinishedOptions extends Abortable {
-            error?: boolean;
-            readable?: boolean;
-            writable?: boolean;
+            error?: boolean | undefined;
+            readable?: boolean | undefined;
+            writable?: boolean | undefined;
         }
         function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options: FinishedOptions, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;
         function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;
@@ -468,4 +468,9 @@ declare module 'stream' {
     }
 
     export = internal;
+}
+
+declare module 'node:stream' {
+    import stream = require('stream');
+    export = stream;
 }

@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.92.0
 
 declare module "sap/tnt/library" {
   /**
@@ -376,6 +376,8 @@ declare module "sap/tnt/NavigationList" {
 
   import NavigationListItem from "sap/tnt/NavigationListItem";
 
+  import Event from "sap/ui/base/Event";
+
   import Item from "sap/ui/core/Item";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -467,7 +469,25 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.NavigationList`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.NavigationList` itself.
+     *
+     * Fired when an item is selected.
+     */
+    attachItemSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
        */
@@ -486,7 +506,7 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -685,24 +705,6 @@ declare module "sap/tnt/NavigationList" {
        */
       sWidth: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.NavigationList`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.tnt.NavigationList` itself.
-     *
-     * Fired when an item is selected.
-     */
-    attachItemSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $NavigationListSettings extends $ControlSettings {
@@ -754,6 +756,8 @@ declare module "sap/tnt/NavigationList" {
 
 declare module "sap/tnt/NavigationListItem" {
   import { default as Item, $ItemSettings } from "sap/ui/core/Item";
+
+  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -828,7 +832,25 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.tnt.NavigationListItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.NavigationListItem` itself.
+     *
+     * Fired when this item is selected.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItem` itself
        */
@@ -847,7 +869,7 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1082,24 +1104,6 @@ declare module "sap/tnt/NavigationListItem" {
        */
       bVisible?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.tnt.NavigationListItem`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.tnt.NavigationListItem` itself.
-     *
-     * Fired when this item is selected.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItem` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $NavigationListItemSettings extends $ItemSettings {
@@ -1154,6 +1158,8 @@ declare module "sap/tnt/NavigationListItem" {
 
 declare module "sap/tnt/SideNavigation" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -1232,7 +1238,25 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.SideNavigation`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.SideNavigation` itself.
+     *
+     * Fired when an item is selected.
+     */
+    attachItemSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
        */
@@ -1271,7 +1295,7 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1415,24 +1439,6 @@ declare module "sap/tnt/SideNavigation" {
      * Unbinds aggregation {@link #getItem item} from model data.
      */
     unbindItem(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.SideNavigation`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.tnt.SideNavigation` itself.
-     *
-     * Fired when an item is selected.
-     */
-    attachItemSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $SideNavigationSettings extends $ControlSettings {
@@ -1529,6 +1535,13 @@ declare module "sap/tnt/ToolHeader" {
     __implements__sap_tnt_IToolHeader: boolean;
     /**
      * Constructor for a new ToolHeader.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor
+     * sap.m.OverflowToolbar} can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */
@@ -1540,6 +1553,13 @@ declare module "sap/tnt/ToolHeader" {
     );
     /**
      * Constructor for a new ToolHeader.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor
+     * sap.m.OverflowToolbar} can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */

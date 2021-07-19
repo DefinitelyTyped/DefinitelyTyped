@@ -48,7 +48,7 @@ export namespace error {
    */
   class WebDriverError extends IError {
     constructor(message?: string);
-    remoteStacktrace?: string;
+    remoteStacktrace?: string | undefined;
   }
 
   /**
@@ -273,9 +273,9 @@ export namespace error {
   function checkResponse(data: Response): Response;
 
   interface MaybeLegacyResponse {
-    status?: number;
-    value?: {message: string};
-    message?: string;
+    status?: number | undefined;
+    value?: {message: string} | undefined;
+    message?: string | undefined;
     getAlertText?(): string;
   }
 
@@ -592,14 +592,14 @@ export class AlertPromise extends Alert {
  */
 export interface ProxyConfig {
   proxyType: string;
-  proxyAutoconfigUrl?: string;
-  ftpProxy?: string;
-  httpProxy?: string;
-  sslProxy?: string;
-  noProxy?: string;
-  socksProxy?: string;
-  socksUsername?: string;
-  socksPassword?: string;
+  proxyAutoconfigUrl?: string | undefined;
+  ftpProxy?: string | undefined;
+  httpProxy?: string | undefined;
+  sslProxy?: string | undefined;
+  noProxy?: string | undefined;
+  socksProxy?: string | undefined;
+  socksUsername?: string | undefined;
+  socksPassword?: string | undefined;
 }
 
 /**
@@ -1067,25 +1067,25 @@ export interface IWebDriverOptionsCookie {
   /**
    * The cookie path. Defaults to "/" when adding a cookie.
    */
-  path?: string;
+  path?: string | undefined;
 
   /**
    * The domain the cookie is visible to. Defaults to the current browsing
    * context's document's URL when adding a cookie.
    */
-  domain?: string;
+  domain?: string | undefined;
 
   /**
    * Whether the cookie is a secure cookie. Defaults to false when adding a new
    * cookie.
    */
-  secure?: boolean;
+  secure?: boolean | undefined;
 
   /**
    * Whether the cookie is an HTTP only cookie. Defaults to false when adding a
    * new cookie.
    */
-  httpOnly?: boolean;
+  httpOnly?: boolean | undefined;
 
   /**
    * When the cookie expires.
@@ -1099,7 +1099,7 @@ export interface IWebDriverOptionsCookie {
    *
    * @type {(!Date|number|undefined)}
    */
-  expiry?: number|Date;
+  expiry?: number|Date | undefined;
 }
 
 export interface IWebDriverCookie extends IWebDriverOptionsCookie {
@@ -1111,7 +1111,7 @@ export interface IWebDriverCookie extends IWebDriverOptionsCookie {
    *
    * @type {(!number|undefined)}
    */
-  expiry?: number;
+  expiry?: number | undefined;
 }
 
 /**
@@ -1269,11 +1269,34 @@ export class Window {
   setRect({x, y, width, height}: Partial<IRectangle>): Promise<IRectangle>;
 
   /**
-   * Maximizes the current window.
+   * Maximizes the current window. The exact behavior of this command is
+   * specific to individual window managers, but typically involves increasing
+   * the window to the maximum available size without going full-screen.
    * @return {!Promise} A promise that will be resolved when the
    *     command has completed.
    */
   maximize(): Promise<void>;
+
+  /**
+   * Minimizes the current window. The exact behavior of this command is
+   * specific to individual window managers, but typically involves hiding
+   * the window in the system tray.
+   * @return {!Promise} A promise that will be resolved when the
+   *     command has completed.
+   */
+  minimize(): Promise<void>;
+
+  /**
+   * Invokes the "full screen" operation on the current window. The exact
+   * behavior of this command is specific to individual window managers, but
+   * this will typically increase the window size to the size of the physical
+   * display and hide the browser chrome.
+   *
+   * @return {!Promise<void>} A promise that will be resolved when the command
+   *     has completed.
+   * @see <https://fullscreen.spec.whatwg.org/#fullscreen-an-element>
+   */
+  fullsceen(): Promise<void>;
 
   // endregion
 }
@@ -1459,7 +1482,7 @@ export class FileDetector {
 }
 
 export type CreateSessionCapabilities =
-    Capabilities | {desired?: Capabilities, required?: Capabilities};
+    Capabilities | {desired?: Capabilities | undefined, required?: Capabilities | undefined};
 
 /**
  * Creates a new WebDriver client, which provides control over a browser.

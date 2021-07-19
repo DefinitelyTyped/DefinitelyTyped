@@ -1,5 +1,6 @@
 declare module 'fs/promises' {
-    import { Abortable } from 'events';
+    import { Abortable } from 'node:events';
+    import { Stream } from 'node:stream';
     import {
         Stats,
         BigIntStats,
@@ -13,13 +14,40 @@ declare module 'fs/promises' {
         Dirent,
         OpenDirOptions,
         Dir,
-        BaseEncodingOptions,
+        ObjectEncodingOptions,
         BufferEncodingOption,
         OpenMode,
         Mode,
         WatchOptions,
-    } from 'fs';
+    } from 'node:fs';
 
+    interface FlagAndOpenMode {
+        mode?: Mode | undefined;
+        flag?: OpenMode | undefined;
+    }
+
+    interface FileReadResult<T extends ArrayBufferView> {
+        bytesRead: number;
+        buffer: T;
+    }
+
+    interface FileReadOptions<T extends ArrayBufferView = Buffer> {
+        /**
+         * @default `Buffer.alloc(0xffff)`
+         */
+        buffer?: T;
+        /**
+         * @default 0
+         */
+        offset?: number | null;
+        /**
+         * @default `buffer.byteLength`
+         */
+        length?: number | null;
+        position?: number | null;
+    }
+
+    // TODO: Add `EventEmitter` close
     interface FileHandle {
         /**
          * Gets the file descriptor for this file handle.
@@ -36,7 +64,7 @@ declare module 'fs/promises' {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'a'` is used.
          */
-        appendFile(data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } | BufferEncoding | null): Promise<void>;
+        appendFile(data: string | Uint8Array, options?: ObjectEncodingOptions & FlagAndOpenMode | BufferEncoding | null): Promise<void>;
 
         /**
          * Asynchronous fchown(2) - Change ownership of a file.
@@ -67,7 +95,15 @@ declare module 'fs/promises' {
          * @param length The number of bytes to read.
          * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
          */
-        read<TBuffer extends Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+        read<T extends ArrayBufferView>(buffer: T, offset?: number | null, length?: number | null, position?: number | null): Promise<FileReadResult<T>>;
+        read<T extends ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
+        /**
+         * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
+         * The `FileHandle` must have been opened for reading.
+         * @param options An object that may contain an optional flag.
+         * If a flag is not provided, it defaults to `'r'`.
+         */
+        readFile(options?: { encoding?: null | undefined, flag?: OpenMode | undefined } | null): Promise<Buffer>;
 
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
@@ -75,7 +111,7 @@ declare module 'fs/promises' {
          * @param options An object that may contain an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        readFile(options?: { encoding?: null, flag?: OpenMode } | null): Promise<Buffer>;
+        readFile(options: { encoding: BufferEncoding, flag?: OpenMode | undefined } | BufferEncoding): Promise<string>;
 
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
@@ -83,20 +119,12 @@ declare module 'fs/promises' {
          * @param options An object that may contain an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        readFile(options: { encoding: BufferEncoding, flag?: OpenMode } | BufferEncoding): Promise<string>;
-
-        /**
-         * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
-         * The `FileHandle` must have been opened for reading.
-         * @param options An object that may contain an optional flag.
-         * If a flag is not provided, it defaults to `'r'`.
-         */
-        readFile(options?: BaseEncodingOptions & { flag?: OpenMode } | BufferEncoding | null): Promise<string | Buffer>;
+        readFile(options?: ObjectEncodingOptions & { flag?: OpenMode | undefined } | BufferEncoding | null): Promise<string | Buffer>;
 
         /**
          * Asynchronous fstat(2) - Get file status.
          */
-        stat(opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+        stat(opts?: StatOptions & { bigint?: false | undefined }): Promise<Stats>;
         stat(opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
         stat(opts?: StatOptions): Promise<Stats | BigIntStats>;
 
@@ -145,7 +173,7 @@ declare module 'fs/promises' {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'w'` is used.
          */
-        writeFile(data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } & Abortable | BufferEncoding | null): Promise<void>;
+        writeFile(data: string | Uint8Array, options?: ObjectEncodingOptions & FlagAndOpenMode & Abortable | BufferEncoding | null): Promise<void>;
 
         /**
          * See `fs.writev` promisified version.
@@ -192,50 +220,6 @@ declare module 'fs/promises' {
     function open(path: PathLike, flags: string | number, mode?: Mode): Promise<FileHandle>;
 
     /**
-     * Asynchronously reads data from the file referenced by the supplied `FileHandle`.
-     * @param handle A `FileHandle`.
-     * @param buffer The buffer that the data will be written to.
-     * @param offset The offset in the buffer at which to start writing.
-     * @param length The number of bytes to read.
-     * @param position The offset from the beginning of the file from which data should be read. If
-     * `null`, data will be read from the current position.
-     */
-    function read<TBuffer extends Uint8Array>(
-        handle: FileHandle,
-        buffer: TBuffer,
-        offset?: number | null,
-        length?: number | null,
-        position?: number | null,
-    ): Promise<{ bytesRead: number, buffer: TBuffer }>;
-
-    /**
-     * Asynchronously writes `buffer` to the file referenced by the supplied `FileHandle`.
-     * It is unsafe to call `fsPromises.write()` multiple times on the same file without waiting for the `Promise`
-     * to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
-     * @param handle A `FileHandle`.
-     * @param buffer The buffer that the data will be written to.
-     * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
-     * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
-     * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
-     */
-    function write<TBuffer extends Uint8Array>(
-        handle: FileHandle,
-        buffer: TBuffer,
-        offset?: number | null,
-        length?: number | null, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
-
-    /**
-     * Asynchronously writes `string` to the file referenced by the supplied `FileHandle`.
-     * It is unsafe to call `fsPromises.write()` multiple times on the same file without waiting for the `Promise`
-     * to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
-     * @param handle A `FileHandle`.
-     * @param string A string to write.
-     * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
-     * @param encoding The expected string encoding.
-     */
-    function write(handle: FileHandle, string: string, position?: number | null, encoding?: BufferEncoding | null): Promise<{ bytesWritten: number, buffer: string }>;
-
-    /**
      * Asynchronous rename(2) - Change the name or location of a file or directory.
      * @param oldPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
@@ -252,13 +236,6 @@ declare module 'fs/promises' {
     function truncate(path: PathLike, len?: number): Promise<void>;
 
     /**
-     * Asynchronous ftruncate(2) - Truncate a file to a specified length.
-     * @param handle A `FileHandle`.
-     * @param len If not specified, defaults to `0`.
-     */
-    function ftruncate(handle: FileHandle, len?: number): Promise<void>;
-
-    /**
      * Asynchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
@@ -268,18 +245,6 @@ declare module 'fs/promises' {
      * Asynchronously removes files and directories (modeled on the standard POSIX `rm` utility).
      */
     function rm(path: PathLike, options?: RmOptions): Promise<void>;
-
-    /**
-     * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
-     * @param handle A `FileHandle`.
-     */
-    function fdatasync(handle: FileHandle): Promise<void>;
-
-    /**
-     * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
-     * @param handle A `FileHandle`.
-     */
-    function fsync(handle: FileHandle): Promise<void>;
 
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -295,7 +260,7 @@ declare module 'fs/promises' {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdir(path: PathLike, options?: Mode | (MakeDirectoryOptions & { recursive?: false; }) | null): Promise<void>;
+    function mkdir(path: PathLike, options?: Mode | (MakeDirectoryOptions & { recursive?: false | undefined; }) | null): Promise<void>;
 
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -310,35 +275,35 @@ declare module 'fs/promises' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readdir(path: PathLike, options?: BaseEncodingOptions & { withFileTypes?: false } | BufferEncoding | null): Promise<string[]>;
+    function readdir(path: PathLike, options?: ObjectEncodingOptions & { withFileTypes?: false | undefined } | BufferEncoding | null): Promise<string[]>;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readdir(path: PathLike, options: { encoding: "buffer"; withFileTypes?: false } | "buffer"): Promise<Buffer[]>;
+    function readdir(path: PathLike, options: { encoding: "buffer"; withFileTypes?: false | undefined } | "buffer"): Promise<Buffer[]>;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readdir(path: PathLike, options?: BaseEncodingOptions & { withFileTypes?: false } | BufferEncoding | null): Promise<string[] | Buffer[]>;
+    function readdir(path: PathLike, options?: ObjectEncodingOptions & { withFileTypes?: false | undefined } | BufferEncoding | null): Promise<string[] | Buffer[]>;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
      */
-    function readdir(path: PathLike, options: BaseEncodingOptions & { withFileTypes: true }): Promise<Dirent[]>;
+    function readdir(path: PathLike, options: ObjectEncodingOptions & { withFileTypes: true }): Promise<Dirent[]>;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readlink(path: PathLike, options?: BaseEncodingOptions | BufferEncoding | null): Promise<string>;
+    function readlink(path: PathLike, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string>;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
@@ -352,7 +317,7 @@ declare module 'fs/promises' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readlink(path: PathLike, options?: BaseEncodingOptions | string | null): Promise<string | Buffer>;
+    function readlink(path: PathLike, options?: ObjectEncodingOptions | string | null): Promise<string | Buffer>;
 
     /**
      * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
@@ -367,7 +332,7 @@ declare module 'fs/promises' {
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lstat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+    function lstat(path: PathLike, opts?: StatOptions & { bigint?: false | undefined }): Promise<Stats>;
     function lstat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
     function lstat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
@@ -375,7 +340,7 @@ declare module 'fs/promises' {
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function stat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+    function stat(path: PathLike, opts?: StatOptions & { bigint?: false | undefined }): Promise<Stats>;
     function stat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
     function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
@@ -391,13 +356,6 @@ declare module 'fs/promises' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     function unlink(path: PathLike): Promise<void>;
-
-    /**
-     * Asynchronous fchmod(2) - Change permissions of a file.
-     * @param handle A `FileHandle`.
-     * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
-     */
-    function fchmod(handle: FileHandle, mode: Mode): Promise<void>;
 
     /**
      * Asynchronous chmod(2) - Change permissions of a file.
@@ -430,12 +388,6 @@ declare module 'fs/promises' {
     function lutimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
 
     /**
-     * Asynchronous fchown(2) - Change ownership of a file.
-     * @param handle A `FileHandle`.
-     */
-    function fchown(handle: FileHandle, uid: number, gid: number): Promise<void>;
-
-    /**
      * Asynchronous chown(2) - Change ownership of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
@@ -450,19 +402,11 @@ declare module 'fs/promises' {
     function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
 
     /**
-     * Asynchronously change file timestamps of the file referenced by the supplied `FileHandle`.
-     * @param handle A `FileHandle`.
-     * @param atime The last access time. If a string is provided, it will be coerced to number.
-     * @param mtime The last modified time. If a string is provided, it will be coerced to number.
-     */
-    function futimes(handle: FileHandle, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
-
-    /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function realpath(path: PathLike, options?: BaseEncodingOptions | BufferEncoding | null): Promise<string>;
+    function realpath(path: PathLike, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string>;
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -476,14 +420,14 @@ declare module 'fs/promises' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function realpath(path: PathLike, options?: BaseEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
+    function realpath(path: PathLike, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
 
     /**
      * Asynchronously creates a unique temporary directory.
      * Generates six random characters to be appended behind a required `prefix` to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function mkdtemp(prefix: string, options?: BaseEncodingOptions | BufferEncoding | null): Promise<string>;
+    function mkdtemp(prefix: string, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string>;
 
     /**
      * Asynchronously creates a unique temporary directory.
@@ -497,7 +441,7 @@ declare module 'fs/promises' {
      * Generates six random characters to be appended behind a required `prefix` to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function mkdtemp(prefix: string, options?: BaseEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
+    function mkdtemp(prefix: string, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -512,7 +456,11 @@ declare module 'fs/promises' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    function writeFile(path: PathLike | FileHandle, data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } & Abortable | BufferEncoding | null): Promise<void>;
+    function writeFile(
+        path: PathLike | FileHandle,
+        data: string | NodeJS.ArrayBufferView | Iterable<string | NodeJS.ArrayBufferView> | AsyncIterable<string | NodeJS.ArrayBufferView> | Stream,
+        options?: ObjectEncodingOptions & { mode?: Mode | undefined, flag?: OpenMode | undefined } & Abortable | BufferEncoding | null
+    ): Promise<void>;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -526,7 +474,11 @@ declare module 'fs/promises' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    function appendFile(path: PathLike | FileHandle, data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } | BufferEncoding | null): Promise<void>;
+    function appendFile(
+        path: PathLike | FileHandle,
+        data: string | Uint8Array,
+        options?: ObjectEncodingOptions & FlagAndOpenMode | BufferEncoding | null,
+    ): Promise<void>;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -535,7 +487,7 @@ declare module 'fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options?: { encoding?: null, flag?: OpenMode } & Abortable | null): Promise<Buffer>;
+    function readFile(path: PathLike | FileHandle, options?: { encoding?: null | undefined, flag?: OpenMode | undefined } & Abortable | null): Promise<Buffer>;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -544,7 +496,7 @@ declare module 'fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options: { encoding: BufferEncoding, flag?: OpenMode } & Abortable | BufferEncoding): Promise<string>;
+    function readFile(path: PathLike | FileHandle, options: { encoding: BufferEncoding, flag?: OpenMode | undefined } & Abortable | BufferEncoding): Promise<string>;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -553,7 +505,7 @@ declare module 'fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options?: BaseEncodingOptions & Abortable & { flag?: OpenMode } | BufferEncoding | null): Promise<string | Buffer>;
+    function readFile(path: PathLike | FileHandle, options?: ObjectEncodingOptions & Abortable & { flag?: OpenMode | undefined } | BufferEncoding | null): Promise<string | Buffer>;
 
     function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
 
@@ -589,4 +541,8 @@ declare module 'fs/promises' {
      * If `recursive` is not supplied, the default of `false` is used.
      */
     function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<string> | AsyncIterable<Buffer>;
+}
+
+declare module 'node:fs/promises' {
+    export * from 'fs/promises';
 }

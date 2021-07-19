@@ -1,5 +1,5 @@
 declare module 'timers/promises' {
-    import { TimerOptions } from 'timers';
+    import { TimerOptions } from 'node:timers';
 
     /**
      * Returns a promise that resolves after the specified delay in milliseconds.
@@ -18,4 +18,8 @@ declare module 'timers/promises' {
      * @param delay defaults to 1
      */
     function setInterval<T = void>(delay?: number, value?: T, options?: TimerOptions): AsyncIterable<T>;
+}
+
+declare module 'node:timers/promises' {
+    export * from 'timers/promises';
 }

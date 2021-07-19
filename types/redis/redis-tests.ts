@@ -19,6 +19,10 @@ const messageHandler: (channel: string, message: any) => void = () => {};
 const debug_mode: boolean = redis.debug_mode;
 redis.print(err, value);
 
+// Add command
+redis.add_command('my command');
+redis.addCommand('my other command');
+
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 const options: redis.ClientOpts = {
@@ -158,10 +162,6 @@ client.cork();
 client.set('abc', 'fff', strCallback);
 client.get('abc', resCallback);
 client.uncork();
-
-// Add command
-client.add_command('my command');
-client.addCommand('my other command');
 
 // redis.print as callback
 client.set(str, str, redis.print);

@@ -13,11 +13,11 @@ declare namespace findProjectRoot {
         /**
          * total number of levels the algorithm can traverse
          */
-        maxDepth?: number;
+        maxDepth?: number | undefined;
         /**
          * markers that it will search for
          */
-        markers?: string[];
+        markers?: string[] | undefined;
     }
 
     const MAX_DEPTH: 9;

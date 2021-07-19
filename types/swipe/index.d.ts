@@ -5,14 +5,14 @@
 
 
 interface SwipeOptions {
-    startSlide?: number;
-    speed?: number;
-    auto?: number;
-    continuous?: boolean;
-    disableScroll?: boolean;
-    stopPropagation?: boolean;
-    callback?: (index: number, elem: HTMLElement) => void;
-    transitionEnd?: (index: number, elem: HTMLElement) => void;
+    startSlide?: number | undefined;
+    speed?: number | undefined;
+    auto?: number | undefined;
+    continuous?: boolean | undefined;
+    disableScroll?: boolean | undefined;
+    stopPropagation?: boolean | undefined;
+    callback?: ((index: number, elem: HTMLElement) => void) | undefined;
+    transitionEnd?: ((index: number, elem: HTMLElement) => void) | undefined;
 }
 
 declare class Swipe {

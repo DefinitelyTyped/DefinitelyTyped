@@ -19,9 +19,9 @@ export interface ContainsKeysResults<K> {
 }
 export interface DataMapping<K, D, Kin, Din> {
     mapFields: (item: Item<Kin, Din>) => Item<K, D>;
-    mapFilterCriterion?: (filterCriterion: Array<FilterOperator<D>>) => Array<FilterOperator<Din>>;
-    mapSortCriteria?: (sortCriteria: Array<SortCriterion<D>>) => Array<SortCriterion<Din>>;
-    unmapSortCriteria?: (sortCriteria: Array<SortCriterion<Din>>) => Array<SortCriterion<D>>;
+    mapFilterCriterion?: ((filterCriterion: Array<FilterOperator<D>>) => Array<FilterOperator<Din>>) | undefined;
+    mapSortCriteria?: ((sortCriteria: Array<SortCriterion<D>>) => Array<SortCriterion<Din>>) | undefined;
+    unmapSortCriteria?: ((sortCriteria: Array<SortCriterion<Din>>) => Array<SortCriterion<D>>) | undefined;
 }
 export interface DataProvider<K, D> extends EventTarget {
     containsKeys(parameters: FetchByKeysParameters<K>): Promise<ContainsKeysResults<K>>;
@@ -33,22 +33,22 @@ export interface DataProvider<K, D> extends EventTarget {
     isEmpty(): 'yes' | 'no' | 'unknown';
 }
 export interface DataProviderAddOperationEventDetail<K, D> extends DataProviderOperationEventDetail<K, D> {
-    addBeforeKeys?: K[];
-    parentKeys?: K[];
+    addBeforeKeys?: K[] | undefined;
+    parentKeys?: K[] | undefined;
 }
 export interface DataProviderMutationEventDetail<K, D> {
-    add?: DataProviderAddOperationEventDetail<K, D>;
-    remove?: DataProviderOperationEventDetail<K, D>;
-    update?: DataProviderOperationEventDetail<K, D>;
+    add?: DataProviderAddOperationEventDetail<K, D> | undefined;
+    remove?: DataProviderOperationEventDetail<K, D> | undefined;
+    update?: DataProviderOperationEventDetail<K, D> | undefined;
 }
 export interface DataProviderOperationEventDetail<K, D> {
-    data?: D[];
-    indexes?: number[];
+    data?: D[] | undefined;
+    indexes?: number[] | undefined;
     keys: Set<K>;
-    metadata?: Array<ItemMetadata<K>>;
+    metadata?: Array<ItemMetadata<K>> | undefined;
 }
 export interface FetchAttribute {
-    attributes?: Array<string | FetchAttribute>;
+    attributes?: Array<string | FetchAttribute> | undefined;
     name: string;
 }
 export interface FetchByKeysCapability<D> {
@@ -60,7 +60,7 @@ export namespace FetchByKeysMixin {
     }): any;
 }
 export interface FetchByKeysParameters<K> {
-    attributes?: Array<string | FetchAttribute>;
+    attributes?: Array<string | FetchAttribute> | undefined;
     keys: Set<K>;
 }
 export interface FetchByKeysResults<K, D> {
@@ -76,7 +76,7 @@ export namespace FetchByOffsetMixin {
     }): any;
 }
 export interface FetchByOffsetParameters<D> extends FetchListParameters<D> {
-    attributes?: Array<string | FetchAttribute>;
+    attributes?: Array<string | FetchAttribute> | undefined;
     offset: number;
 }
 export interface FetchByOffsetResults<K, D> {
@@ -85,10 +85,10 @@ export interface FetchByOffsetResults<K, D> {
     results: Array<Item<K, D>>;
 }
 export interface FetchListParameters<D> {
-    attributes?: Array<string | FetchAttribute>;
-    filterCriterion?: FilterOperator<D>;
+    attributes?: Array<string | FetchAttribute> | undefined;
+    filterCriterion?: FilterOperator<D> | undefined;
     size: number;
-    sortCriteria?: Array<SortCriterion<D>>;
+    sortCriteria?: Array<SortCriterion<D>> | undefined;
 }
 export interface FetchListResult<K, D> {
     data: D[];

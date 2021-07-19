@@ -12,28 +12,28 @@ import { TlsOptions } from 'tls';
 declare namespace windowsauth {
     interface Options {
         ldap?: {
-            url?: string
-            maxConnections?: number
-            base?: string
-            bindDN?: string
-            bindCredentials?: string
-            tlsOptions?: TlsOptions;
+            url?: string | undefined
+            maxConnections?: number | undefined
+            base?: string | undefined
+            bindDN?: string | undefined
+            bindCredentials?: string | undefined
+            tlsOptions?: TlsOptions | undefined;
             reconnect?: boolean | {
-                initialDelay?: number,
-                maxDelay?: number,
-                failAfter?: number
-            };
-            timeout?: number;
-            connectTimeout?: number;
-            idleTimeout?: number;
-            binder?: ldapjs.Client
-            client?: ldapjs.Client
-        };
-        integrated?: boolean;
+                initialDelay?: number | undefined,
+                maxDelay?: number | undefined,
+                failAfter?: number | undefined
+            } | undefined;
+            timeout?: number | undefined;
+            connectTimeout?: number | undefined;
+            idleTimeout?: number | undefined;
+            binder?: ldapjs.Client | undefined
+            client?: ldapjs.Client | undefined
+        } | undefined;
+        integrated?: boolean | undefined;
         getUserNameFromHeader?(req: express.Request): string;
-        passReqToCallback?: boolean;
-        usernameField?: string;
-        passwordField?: string;
+        passReqToCallback?: boolean | undefined;
+        usernameField?: string | undefined;
+        passwordField?: string | undefined;
     }
     type Verified = (err: Error | undefined | null, user?: object, info?: object) => void;
     type Verify = (profile: passport.Profile, done: Verified) => void;

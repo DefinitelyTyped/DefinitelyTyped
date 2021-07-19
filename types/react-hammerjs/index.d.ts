@@ -11,7 +11,7 @@ import * as React from "react";
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 type HammerOptionsWithRecognizers = Omit<HammerOptions, "recognizers"> & {
-    recognizers?: { [gesture: string]: RecognizerOptions };
+    recognizers?: { [gesture: string]: RecognizerOptions } | undefined;
 };
 
 declare namespace ReactHammer {
@@ -24,31 +24,31 @@ declare namespace ReactHammer {
             | "DIRECTION_DOWN"
             | "DIRECTION_HORIZONTAL"
             | "DIRECTION_VERTICAL"
-            | "DIRECTION_ALL";
-        options?: HammerOptionsWithRecognizers;
-        recognizeWith?: { [gesture: string]: Recognizer | string };
-        vertical?: boolean;
-        action?: HammerListener;
-        onDoubleTap?: HammerListener;
-        onPan?: HammerListener;
-        onPanCancel?: HammerListener;
-        onPanEnd?: HammerListener;
-        onPanStart?: HammerListener;
-        onPinch?: HammerListener;
-        onPinchCancel?: HammerListener;
-        onPinchEnd?: HammerListener;
-        onPinchIn?: HammerListener;
-        onPinchOut?: HammerListener;
-        onPinchStart?: HammerListener;
-        onPress?: HammerListener;
-        onPressUp?: HammerListener;
-        onRotate?: HammerListener;
-        onRotateCancel?: HammerListener;
-        onRotateEnd?: HammerListener;
-        onRotateMove?: HammerListener;
-        onRotateStart?: HammerListener;
-        onSwipe?: HammerListener;
-        onTap?: HammerListener;
+            | "DIRECTION_ALL" | undefined;
+        options?: HammerOptionsWithRecognizers | undefined;
+        recognizeWith?: { [gesture: string]: Recognizer | string } | undefined;
+        vertical?: boolean | undefined;
+        action?: HammerListener | undefined;
+        onDoubleTap?: HammerListener | undefined;
+        onPan?: HammerListener | undefined;
+        onPanCancel?: HammerListener | undefined;
+        onPanEnd?: HammerListener | undefined;
+        onPanStart?: HammerListener | undefined;
+        onPinch?: HammerListener | undefined;
+        onPinchCancel?: HammerListener | undefined;
+        onPinchEnd?: HammerListener | undefined;
+        onPinchIn?: HammerListener | undefined;
+        onPinchOut?: HammerListener | undefined;
+        onPinchStart?: HammerListener | undefined;
+        onPress?: HammerListener | undefined;
+        onPressUp?: HammerListener | undefined;
+        onRotate?: HammerListener | undefined;
+        onRotateCancel?: HammerListener | undefined;
+        onRotateEnd?: HammerListener | undefined;
+        onRotateMove?: HammerListener | undefined;
+        onRotateStart?: HammerListener | undefined;
+        onSwipe?: HammerListener | undefined;
+        onTap?: HammerListener | undefined;
     }
 }
 declare const ReactHammer: React.ComponentClass<ReactHammer.ReactHammerProps>;

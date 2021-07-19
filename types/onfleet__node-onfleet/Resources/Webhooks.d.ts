@@ -8,7 +8,7 @@ declare namespace Webhook {
   interface OnfleetWebhook {
     trigger: WebhookTriggerType['triggerId'];
     url: string;
-    threshold?: number;
+    threshold?: number | undefined;
   }
 
   interface WebhookResult {

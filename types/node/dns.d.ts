@@ -1,5 +1,5 @@
 declare module 'dns' {
-    import * as dnsPromises from "dns/promises";
+    import * as dnsPromises from "node:dns/promises";
 
     // Supported getaddrinfo flags.
     export const ADDRCONFIG: number;
@@ -11,14 +11,14 @@ declare module 'dns' {
     export const ALL: number;
 
     export interface LookupOptions {
-        family?: number;
-        hints?: number;
-        all?: boolean;
-        verbatim?: boolean;
+        family?: number | undefined;
+        hints?: number | undefined;
+        all?: boolean | undefined;
+        verbatim?: boolean | undefined;
     }
 
     export interface LookupOneOptions extends LookupOptions {
-        all?: false;
+        all?: false | undefined;
     }
 
     export interface LookupAllOptions extends LookupOptions {
@@ -75,11 +75,11 @@ declare module 'dns' {
 
     export interface CaaRecord {
         critial: number;
-        issue?: string;
-        issuewild?: string;
-        iodef?: string;
-        contactemail?: string;
-        contactphone?: string;
+        issue?: string | undefined;
+        issuewild?: string | undefined;
+        iodef?: string | undefined;
+        contactemail?: string | undefined;
+        contactphone?: string | undefined;
     }
 
     export interface MxRecord {
@@ -293,7 +293,7 @@ declare module 'dns' {
     export const CANCELLED: string;
 
     export interface ResolverOptions {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     export class Resolver {
@@ -319,4 +319,8 @@ declare module 'dns' {
     }
 
     export { dnsPromises as promises };
+}
+
+declare module 'node:dns' {
+    export * from 'dns';
 }

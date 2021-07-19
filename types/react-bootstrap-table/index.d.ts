@@ -124,42 +124,42 @@ export interface RemoteObjSpec {
     /**
      * If set, cell edits will be handled remotely
      */
-    cellEdit?: boolean;
+    cellEdit?: boolean | undefined;
     /**
      * If set insertions will be handled remotely
      */
-    insertRow?: boolean;
+    insertRow?: boolean | undefined;
     /**
      * If set deletion will be handled remotely
      */
-    dropRow?: boolean;
+    dropRow?: boolean | undefined;
     /**
      * If set filters will be handled remotely
      */
-    filter?: boolean;
+    filter?: boolean | undefined;
     /**
      * If set search will be handled remotely
      */
-    search?: boolean;
+    search?: boolean | undefined;
     /**
      * If set, exporting CSV will be handled remotely
      */
-    exportCSV?: boolean;
+    exportCSV?: boolean | undefined;
     /**
      * If set sorting will be handled remotely
      */
-    sort?: boolean;
+    sort?: boolean | undefined;
     /**
      * If set pagination will be handled remotely
      */
-    pagination?: boolean;
+    pagination?: boolean | undefined;
 }
 
 export interface BootstrapTableProps extends Props<BootstrapTable> {
     /**
      * Bootstrap version to use, values include '3' or '4'. Defaults to '3'.
      */
-    version?: BootstrapVersion;
+    version?: BootstrapVersion | undefined;
     /**
      * Use data to specify the data that you want to display on table.
      */
@@ -174,41 +174,41 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
      * we have following functionality you can control: sort, pagination, cellEdit, insertRow, dropRow, filter, search,
      * exportCSV.
      */
-    remote?: boolean | ((remobeObj: RemoteObjSpec) => RemoteObjSpec);
+    remote?: boolean | ((remobeObj: RemoteObjSpec) => RemoteObjSpec) | undefined;
     /**
      * Use keyField to tell table which column is unique. This is same as isKey in <TableHeaderColumn>
      * Tips: react-bootstrap-table support data manipulation(CRUD) so that we need to fetch correct row by a unique column.
      *       You need choose one of configuration to set the key field: isKey or keyField in <BootstrapTable>.
      */
-    keyField?: string;
+    keyField?: string | undefined;
     /**
      * Use height to set the height of table, default is 100%. The string needs to have a unit, e.g. 'px', '%'.
      */
-    height?: string;
+    height?: string | undefined;
     /**
      * Set the maximum height of table. You need give a string with an unit(px) value like height.
      */
-    maxHeight?: string;
+    maxHeight?: string | undefined;
     /**
      * Enable striped by setting striped to true. Same as Bootstrap table class .table-striped, default is false.
      */
-    striped?: boolean;
+    striped?: boolean | undefined;
     /**
      * Enable hover by setting hover to true. Same as Bootstrap table class .table-hover, default is false.
      */
-    hover?: boolean;
+    hover?: boolean | undefined;
     /**
      * Enable condensed by setting condensed to true. Same as Bootstrap table class .table-condensed, default is false.
      */
-    condensed?: boolean;
+    condensed?: boolean | undefined;
     /**
      * Become a borderless table by setting bordered to false, default is true.
      */
-    bordered?: boolean;
+    bordered?: boolean | undefined;
     /**
      * Enable pagination by setting pagination to true, default is false.
      */
-    pagination?: boolean;
+    pagination?: boolean | undefined;
     /**
      * Assign the class name of row(tr). This attribute accept a string or function and function is a better way to do more customization.
      * If a string given, means the value will be presented as the row class.
@@ -218,102 +218,102 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
      *      return rowIndex % 2 == 0 ? "tr-odd" : "tr-even"; // return a class name.
      *    }
      */
-    trClassName?: string | ((rowData: any, rowIndex: number) => string);
+    trClassName?: string | ((rowData: any, rowIndex: number) => string) | undefined;
     /**
      * Enable row insertion by setting insertRow to true, default is false.
      * If you enable row insertion, there's a button on the upper left side of table.
      */
-    insertRow?: boolean;
+    insertRow?: boolean | undefined;
     /**
      * Enable row deletion by setting deleteRow to true, default is false.
      * If you enable row deletion, there's a button on the upper left side of table.
      */
-    deleteRow?: boolean;
+    deleteRow?: boolean | undefined;
     /**
      * Enable column filter by setting columnFilter to true, default is false.
      * If enabled, there're input text field per column under the table, user can input your filter condition by each column.
      */
-    columnFilter?: boolean;
+    columnFilter?: boolean | undefined;
     /**
      * Enable search by setting search to true, default is false.
      * If enabled, there is a on the upper left side of the table. The default place holder is Search
      */
-    search?: boolean;
+    search?: boolean | undefined;
     /**
      * Set searchPlaceholder to change the placeholder in search field, default is Search.
      */
-    searchPlaceholder?: string;
+    searchPlaceholder?: string | undefined;
     /**
      * Strict search. Set this flag to apply search terms so that only rows that contain ALL terms are included in the
      * search results.
      */
-    strictSearch?: boolean;
+    strictSearch?: boolean | undefined;
     /**
      * Enable multi search by multiColumnSearch, default is false.
      * If you want to use multi search, you must enable search at first.
      * Tips: Use space to delimited search text. EX: 3 4, which means match all 3 or 4 datas in table.
      */
-    multiColumnSearch?: boolean;
+    multiColumnSearch?: boolean | undefined;
     /**
      * Enable export csv function, default is false.
      * If you enable, there's a button on the upper left side of table.
      */
-    exportCSV?: boolean;
+    exportCSV?: boolean | undefined;
     /**
      * Set CSV filename (e.g. items.csv). Default is spreadsheet.csv
      */
-    csvFileName?: string | (() => string);
+    csvFileName?: string | (() => string) | undefined;
     /**
      * If true, it will hide the pagination if there is only one page, default is false.
      */
-    ignoreSinglePage?: boolean;
+    ignoreSinglePage?: boolean | undefined;
     /**
      * Specify a fix position for the vertical bar if it exist. Available is a number or Top and Bottom
      */
-    scrollTop?: number | ScrollPosition;
+    scrollTop?: number | ScrollPosition | undefined;
     /**
      * Add css styles to the react-bs-table-container class.
      * For example: containerStyle={ { background: '#00ff00' } }
      */
-    containerStyle?: CSSProperties;
+    containerStyle?: CSSProperties | undefined;
     /**
      * Add css styles to the react-bs-table class.
      */
-    tableStyle?: CSSProperties;
+    tableStyle?: CSSProperties | undefined;
     /**
      * Add css styles to the react-bs-container-header class.
      */
-    headerStyle?: CSSProperties;
+    headerStyle?: CSSProperties | undefined;
     /**
      * Add css styles to the react-bs-container-body class.
      */
-    bodyStyle?: CSSProperties;
+    bodyStyle?: CSSProperties | undefined;
     /**
      * Add your own class names on the react-bs-table-container class
      */
-    containerClass?: string;
+    containerClass?: string | undefined;
     /**
      * Add your own class names on the react-bs-table class
      */
-    tableContainerClass?: string;
+    tableContainerClass?: string | undefined;
     /**
      * Add your own class names on the react-bs-container-header class
      */
-    headerContainerClass?: string;
+    headerContainerClass?: string | undefined;
     /**
      * Add your own class names on the react-bs-container-body class
      */
-    bodyContainerClass?: string;
+    bodyContainerClass?: string | undefined;
     /**
      * react-bootstrap-table separate two table element as header and body.
      * The tableHeaderClass is for the table element in the header
      */
-    tableHeaderClass?: string;
+    tableHeaderClass?: string | undefined;
     /**
      * react-bootstrap-table separate two table element as header and body.
      * The tableBodyClass is for the table element in the body
      */
-    tableBodyClass?: string;
+    tableBodyClass?: string | undefined;
     /**
      * Tell react-bootstrap-table which rows are able to expand. This prop accepts
      * a callback function and is suppose to be return an Array of row keys.
@@ -333,11 +333,11 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
      * Assign some alternative options for expand row feature, expandColumnOptions
      * only have four available property currently.
      */
-    expandColumnOptions?: ExpandColumnOptions;
+    expandColumnOptions?: ExpandColumnOptions | undefined;
     /**
      * Enable the multi sort on table and the number value is means max number of sorting column.
      */
-    multiColumnSort?: number;
+    multiColumnSort?: number | undefined;
     /**
      * This prop will enable/disable the keyboard navigation cell by cell on table. This is new
      * feature from 3.0.0. Default is false. You can have a basic and simple keyboard navigation
@@ -348,63 +348,63 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
      * editing, expand row or selection row, you may get interested to see how they work well
      * together: In the advance cases, you need to configure keyBoardNav as an object.
      */
-    keyBoardNav?: boolean | KeyboardNavigation;
+    keyBoardNav?: boolean | KeyboardNavigation | undefined;
     /**
      * Enable row selection on table. SelectRow accept an object.
      */
-    selectRow?: SelectRow;
+    selectRow?: SelectRow | undefined;
     /**
      * Enable cell editing on table. cellEdit accept an object which have the following properties
      */
-    cellEdit?: CellEdit;
+    cellEdit?: CellEdit | undefined;
     /**
      * For some options setting on this component, you can set the options attribute and give an object which contain following properties
      */
-    options?: Options;
+    options?: Options | undefined;
     /**
      * Used to specify the total number of rows (matching current filter/sort/size per page) in a remote data source.
      * Documented in examples, but missing from the main docs. Essential for remote data pagination calculations.
      */
-    fetchInfo?: FetchInfo;
+    fetchInfo?: FetchInfo | undefined;
     /**
      * Automatically collapses open rows when doing a sort/filter/search action if those options have been specified.
      * Is an object with three possible fields: sort, filter, search. Each field is a flag to specify whether that
      * action type should cause expanded rows to close. All three fields default to false.
      */
     autoCollapse?: {
-        sort?: boolean;
-        filter?: boolean;
-        search?: boolean;
-    };
+        sort?: boolean | undefined;
+        filter?: boolean | undefined;
+        search?: boolean | undefined;
+    } | undefined;
     /**
      * Set a style to be used for the table rows. Example: https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/style/tr-style-table.js
      */
-    trStyle?: CSSProperties | ((rowData: any, rowIndex: number) => CSSProperties);
+    trStyle?: CSSProperties | ((rowData: any, rowIndex: number) => CSSProperties) | undefined;
     /**
      * Disable the automatic tabIndex for navigating between cells. This can be useful if you have a page with multiple
      * tables on the page, to stop the tab moving to another table. Default is false.
      */
-    withoutTabIndex?: boolean;
+    withoutTabIndex?: boolean | undefined;
     /**
      * Disable writing the header row when exporting to a CSV file.
      */
-    excludeCSVHeader?: boolean;
+    excludeCSVHeader?: boolean | undefined;
     /**
      * Add a footer to the table.
      */
-    footer?: boolean;
+    footer?: boolean | undefined;
     /**
      * Data for the table footer. Format is an array of footer rows, each containing an array of column footer data.
      */
-    footerData?: FooterData[][];
+    footerData?: FooterData[][] | undefined;
     /**
      * Table footer custom class
      */
-    tableFooterClass?: string;
+    tableFooterClass?: string | undefined;
     /**
      * Render react-s-alert notifications
      */
-    renderAlert?: boolean;
+    renderAlert?: boolean | undefined;
 }
 
 /**
@@ -422,7 +422,7 @@ export interface FooterData {
     /**
      * Text alignment for the data in this footer.
      */
-    align?: DataAlignType;
+    align?: DataAlignType | undefined;
     /**
      * Formatting function for the data in this footer. Used to be able to do things like sum the contents of this
      * column in the table so that the footer can be used for totals, etc.
@@ -441,50 +441,50 @@ export interface SelectRow<TRow extends object = any> {
     /**
      * If true, clicking the row will trigger selection on that row, default is false.
      */
-    clickToSelect?: boolean;
+    clickToSelect?: boolean | undefined;
     /**
      * If true, clicking the row will trigger selection on that row and also trigger cell editing if you enabled cell edit. Default is false.
      */
-    clickToSelectAndEditCell?: boolean;
+    clickToSelectAndEditCell?: boolean | undefined;
     /**
      * If true, clicking the row will trigger expanding the row. Default is false.
      */
-    clickToExpand?: boolean;
+    clickToExpand?: boolean | undefined;
     /**
      * You can assign the background color of row which be selected.
      * If your requirement is much complex, you can assign a function to bgColor that
      * returns a css color string.
      */
-    bgColor?: string | ((row: TRow, isSelect: boolean) => string);
+    bgColor?: string | ((row: TRow, isSelect: boolean) => string) | undefined;
     /**
      * You can change the width of the selection column by columnWidth (include units).
      */
-    columnWidth?: string;
+    columnWidth?: string | undefined;
     /**
      * You can assign the class name of selected rows. This can either be a string, or a function that takes two
      * arguments: row and isSelect.
      *   `row`: The current row data.
      *   `isSelect`: Flag indicating whether this particular row is selected.
      */
-    className?: string | ((row: TRow, isSelect: boolean) => string);
+    className?: string | ((row: TRow, isSelect: boolean) => string) | undefined;
     /**
      * Give an array data to perform which rows you want to be selected when table loading.
      * The content of array should be the rowkeys for the rows that you want to be selected.
      */
-    selected?: Array<number | string>;
+    selected?: Array<number | string> | undefined;
     /**
      * Provide a list of unselectable row keys.
      */
-    unselectable?: Array<number | string>;
+    unselectable?: Array<number | string> | undefined;
     /**
      * If true, the radio/checkbox column will be hidden.
      * You can enable this attribute if you enable clickToSelect and you don't want to show the selection column.
      */
-    hideSelectColumn?: boolean;
+    hideSelectColumn?: boolean | undefined;
     /**
      * Default is false, if enabled, there will be a button on top of table for toggling selected rows only.
      */
-    showOnlySelected?: boolean;
+    showOnlySelected?: boolean | undefined;
     /**
      * Accept a custom callback function, if a row be selected or unselected, this function will be called.
      * This callback function takes four arguments: row, isSelected, event, and rowIndex:
@@ -514,7 +514,7 @@ export interface SelectRow<TRow extends object = any> {
     /**
      * Only unselect visible rows.
      */
-    onlyUnselectVisible?: boolean;
+    onlyUnselectVisible?: boolean | undefined;
 }
 
 /**
@@ -530,13 +530,13 @@ export interface CellEdit<TRow extends object = any> {
      * Enabling blurToSave will trigger a saving event on the cell when the input field becomes deselected. Default is false.
      * In the default condition, you need to press ENTER to save the cell.
      */
-    blurToSave?: boolean;
+    blurToSave?: boolean | undefined;
     /**
      * Enabling blurToEscape will result in a cell edit being cancelled when the user clicks outside the table during
      * editing.
      * Default is false.
      */
-    blurToEscape?: boolean;
+    blurToEscape?: boolean | undefined;
     /**
      * nonEditableRows tell react-bootstrap-table which rows should not be edited on all of the columns. Briefly, its a row level limitation
      * Please assign a callback function, and this function is supposed to be return an array of row keys.
@@ -587,27 +587,27 @@ export interface Options<TRow extends object = any> {
      * If multi-column sort is active, this is an array of columns.
      * If there should be no active sort, both sortName and sortOrder should be undefined.
      */
-    sortName?: keyof TRow | Array<keyof TRow>;
+    sortName?: keyof TRow | Array<keyof TRow> | undefined;
     /**
      * Specify whether the sort should be ascending or descending.
      * If multi-column sort is active, this is an array of sortOrder items.
      * If there should be no active sort, both sortName and sortOrder should be undefined.
      */
-    sortOrder?: SortOrder | SortOrder[];
+    sortOrder?: SortOrder | SortOrder[] | undefined;
     /**
      * Specify the default sort column.
      * Note: when using cleanSort(), this default sort column will be restored.
      */
-    defaultSortName?: keyof TRow;
+    defaultSortName?: keyof TRow | undefined;
     /**
      * Assign a default sort order.
      * Note: when using cleanSort(), this default sort order will be restored.
      */
-    defaultSortOrder?: SortOrder;
+    defaultSortOrder?: SortOrder | undefined;
     /**
      * Set to false to disable sort indicators on header columns, default is true.
      */
-    sortIndicator?: boolean;
+    sortIndicator?: boolean | undefined;
     /**
      * Assign a callback function which will be called after triggering sorting.
      * This function takes two argument: `sortName` and `sortOrder`.
@@ -616,28 +616,28 @@ export interface Options<TRow extends object = any> {
      */
     onSortChange?:
         | ((sortName: keyof TRow, sortOrder: SortOrder) => void)
-        | ((sortName: ReadonlyArray<keyof TRow>, sortOrder: ReadonlyArray<SortOrder>) => void);
+        | ((sortName: ReadonlyArray<keyof TRow>, sortOrder: ReadonlyArray<SortOrder>) => void) | undefined;
     /**
      * Change the text displayed on the table if data is empty.
      */
-    noDataText?: string | ReactElement;
+    noDataText?: string | ReactElement | undefined;
     /**
      * If true, this hides the noDataText on the table when the tableis empty. Default is false.
      */
-    withoutNoDataText?: boolean;
+    withoutNoDataText?: boolean | undefined;
     /**
      * A delay for trigger search after a keyup (millisecond)
      */
-    searchDelayTime?: number;
+    searchDelayTime?: number | undefined;
     /**
      * Only work on enable search. If true, there will be a button beside the search input field
      * that will empty the field when clicked.
      */
-    clearSearch?: boolean;
+    clearSearch?: boolean | undefined;
     /**
      * Set the default search condition.
      */
-    defaultSearch?: string;
+    defaultSearch?: string | undefined;
     /**
      * Assign a callback function which will be called when search text changes. This function takes
      * three argument:
@@ -657,7 +657,7 @@ export interface Options<TRow extends object = any> {
     /**
      * Default is false, if true means you want to ignore any editable columns when creating the insert form.
      */
-    ignoreEditable?: boolean;
+    ignoreEditable?: boolean | undefined;
     /**
      * Assign a callback function that will be called after table updates.
      */
@@ -785,25 +785,25 @@ export interface Options<TRow extends object = any> {
     /**
      * Accept a number, which means the page you want to show as default.
      */
-    page?: number;
+    page?: number | undefined;
     /**
      * You can change the dropdown list for size per page if you enable pagination.
      * Default is [10, 25, 30, 50].
      */
-    sizePerPageList?: SizePerPageList;
+    sizePerPageList?: SizePerPageList | undefined;
     /**
      * Current chosen size per page.
      */
-    sizePerPage?: number;
+    sizePerPage?: number | undefined;
     /**
      * Number of page buttons to show on the pagination bar, default is 5.
      * i.e. previous 2 pages + current page + next two pages = 5.
      */
-    paginationSize?: number;
+    paginationSize?: number | undefined;
     /**
      * Hide the dropdown list for size per page, default is false.
      */
-    hideSizePerPage?: boolean;
+    hideSizePerPage?: boolean | undefined;
     /**
      * Display a short text showing the total number of rows and current lines displayed,
      * default is false. If you want to customize this short text, you can give a function
@@ -812,12 +812,12 @@ export interface Options<TRow extends object = any> {
      *  `to`: Current end index
      *  `total`: The total data volume.
      */
-    paginationShowsTotal?: boolean | ((start: number, to: number, total: number) => string | ReactElement);
+    paginationShowsTotal?: boolean | ((start: number, to: number, total: number) => string | ReactElement) | undefined;
     /**
      * Allows you to modify where to start counting the pages, e.g. to set the first page number to 0.
      * Default is 1.
      */
-    pageStartIndex?: number;
+    pageStartIndex?: number | undefined;
     /**
      * Assign a callback function which will be called after page changed.
      * This function takes two argument: page and sizePerPage.
@@ -835,42 +835,42 @@ export interface Options<TRow extends object = any> {
     /**
      * Default is false. If true, the pagination list will be hidden when there is only one page.
      */
-    hidePageListOnlyOnePage?: boolean;
+    hidePageListOnlyOnePage?: boolean | undefined;
     /**
      * Background color on expanded rows (css color value).
      */
-    expandRowBgColor?: string;
+    expandRowBgColor?: string | undefined;
     /**
      * Expand all rows
      */
-    expandAll?: boolean;
+    expandAll?: boolean | undefined;
     /**
      * Tell react-bootstrap-table how to trigger expanding by clicking on 'row' or 'column' level.
      * If the value is 'column', by default all the columns are expandable. If you want to specify some columns as
      * unexpandable, check expandable.
      * Default is 'row'.
      */
-    expandBy?: ExpandBy;
+    expandBy?: ExpandBy | undefined;
     /**
      * Customize the text on the insert button.
      */
-    insertText?: string;
+    insertText?: string | undefined;
     /**
      * Customize the text on the delete button.
      */
-    deleteText?: string;
+    deleteText?: string | undefined;
     /**
      * Customize the text on the save button in the insert modal.
      */
-    saveText?: string;
+    saveText?: string | undefined;
     /**
      * Customize the text on the close button in the insert modal.
      */
-    closeText?: string;
+    closeText?: string | undefined;
     /**
      * Customize the text on the export csv button
      */
-    exportCSVText?: string;
+    exportCSVText?: string | undefined;
     /**
      * You can do something before the toastr pop or even disable the toastr!!
      * Returning false or void will not trigger the toastr.
@@ -881,7 +881,7 @@ export interface Options<TRow extends object = any> {
     /**
      * Default is true. If false, during printing the toolbar is hidden.
      */
-    printToolBar?: boolean;
+    printToolBar?: boolean | undefined;
     /**
      * ToolBar is the area on the top of table, it contain the search panel, buttons for data manipulation.
      * After v3.0.0, you can custom all the components in the ToolBar also itself too.
@@ -1013,7 +1013,7 @@ export interface Options<TRow extends object = any> {
      * Location for the pagination panel to be displayed. Options are 'top' (above the table), 'bottom'
      * (below the table) and 'both' (above and below the table).
      */
-    paginationPosition?: PaginationPostion;
+    paginationPosition?: PaginationPostion | undefined;
     /**
      * Callback when the value in a cell has been modified. It accepts a function that takes three arguments:
      *   `row`: row that is being edited.
@@ -1027,7 +1027,7 @@ export interface Options<TRow extends object = any> {
      * Custom message to show when the InsertModal save fails validation.
      * Default message is 'Form validate errors, please checking!'
      */
-    insertFailIndicator?: string;
+    insertFailIndicator?: string | undefined;
     /**
      * Function to verify that a key being generated in the Insert Modal is a valid key.
      * If the key fails validation, return a string error message.
@@ -1038,7 +1038,7 @@ export interface Options<TRow extends object = any> {
      * Ability to disable the BOM in the exported CSV file.
      * BOM = prepend BOM for UTF-8 XML and text/* types(including HTML) when saving the file.
      */
-    noAutoBOM?: boolean;
+    noAutoBOM?: boolean | undefined;
     /**
      * Custom class to use for the expanded content section of an expanded row. This can either be a string, or a
      * function that returns a string and takes three arguments: row, rowIndex, isExpanding.
@@ -1046,18 +1046,18 @@ export interface Options<TRow extends object = any> {
      *   `rowIndex`: index number of the row.
      *   `isExpanding`: boolean flag specifying whether the field is expanding or collapsing.
      */
-    expandBodyClass?: string | ((row: TRow, rowIndex: number, isExpanding: boolean) => string);
+    expandBodyClass?: string | ((row: TRow, rowIndex: number, isExpanding: boolean) => string) | undefined;
     /**
      * Custom class to use for the row itself for an expanded row when it has been expanded. This can either be a
      * string, or a function that returns a string and takes two arguments: row and rowIndex.
      *   `row`: the expanded row.
      *   `rowIndex`: index number of the row.
      */
-    expandParentClass?: string | ((row: TRow, rowIndex: number) => string);
+    expandParentClass?: string | ((row: TRow, rowIndex: number) => string) | undefined;
     /**
      * Customize the field separator in a CSV export file. Default is ','.
      */
-    exportCSVSeparator?: string;
+    exportCSVSeparator?: string | undefined;
     /**
      * Set a function to be called when expanding or collapsing a row. This function takes three arguments:
      *   `rowKey`: dataField key for the row that is expanding or collapsing.
@@ -1068,41 +1068,41 @@ export interface Options<TRow extends object = any> {
     /**
      * Specify that only one row should be able to be expanded at the same time.
      */
-    onlyOneExpanding?: boolean;
+    onlyOneExpanding?: boolean | undefined;
     /**
      * Customize the tooltip text shown when hovering over the prePage button.
      */
-    prePageTitle?: string;
+    prePageTitle?: string | undefined;
     /**
      * Customize the tooltip text shown when hovering over the nextPage button.
      */
-    nextPageTitle?: string;
+    nextPageTitle?: string | undefined;
     /**
      * Customize the tooltip text shown when hovering over the firstPage button.
      */
-    firstPageTitle?: string;
+    firstPageTitle?: string | undefined;
     /**
      * Customize the tooltip text shown when hovering over the lastPage button.
      */
-    lastPageTitle?: string;
+    lastPageTitle?: string | undefined;
     /**
      * Provide an array of expanded rows for the table.
      */
-    expanding?: Array<number | string>;
+    expanding?: Array<number | string> | undefined;
     /**
      * Flag to indicate that the table should keep the SizePerPage dropdown open if the table rerenders without any
      * user interaction.
      */
-    keepSizePerPageState?: boolean;
+    keepSizePerPageState?: boolean | undefined;
     /**
      * Flag to indicate that the table should always show next/previous buttons even when there is not next/previous
      * page.
      */
-    alwaysShowAllBtns?: boolean;
+    alwaysShowAllBtns?: boolean | undefined;
     /**
      * Flag to indicate whether there should be buttons for First and Last page.
      */
-    withFirstAndLast?: boolean;
+    withFirstAndLast?: boolean | undefined;
 }
 
 /**
@@ -1177,29 +1177,29 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
      * The field of data you want to show on column. This is used throughout react-bootstrap-table as the column field
      * name.
      */
-    dataField?: string;
+    dataField?: string | undefined;
     /**
      * Use isKey to tell table which column is unique. This is same as the keyField in <BootstrapTable>
      * Tips: You need choose one configuration to set key field: isKey or the keyField in <BootstrapTable>
      */
-    isKey?: boolean;
+    isKey?: boolean | undefined;
     /**
      * Set the column width, including the units. e.g. '10%' or '150px'
      */
-    width?: string;
+    width?: string | undefined;
     /**
      * Set the text alignment in the column, possible values are 'left', 'center', 'right', 'start' and 'end'.
      */
-    dataAlign?: DataAlignType;
+    dataAlign?: DataAlignType | undefined;
     /**
      * Alignment of text in the column header.
      * Tip: If you don't set the headerAlign, it will default to the setting for dataAlign.
      */
-    headerAlign?: DataAlignType;
+    headerAlign?: DataAlignType | undefined;
     /**
      * True to enable table sorting on this column. Default is disabled.
      */
-    dataSort?: boolean;
+    dataSort?: boolean | undefined;
     /**
      * Allow user to render a custom sort caret. You should give a function and should return a JSX.
      * This function takes two arguments: order and fieldName.
@@ -1221,7 +1221,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
      * Allow you to add your custom attributes on TD element.
      * Example: tdAttr={ { 'data-attr': 'test' } }
      */
-    tdAttr?: CustomAttrs;
+    tdAttr?: CustomAttrs | undefined;
     /**
      * Allow you to add your custom style object on TD element. Accepts either a CSS Properties object, or
      * a function that takes 4 arguments and returns a CSS Properties object. These arguments are:
@@ -1230,16 +1230,16 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
      *   `rowIndex`: Index number for the current row data in the input data array.
      *   `columnIndex`: Index number for the current column that the cell is in.
      */
-    tdStyle?: CSSProperties | ((cell: any, row: any, rowIndex: number, columnIndex: number) => CSSProperties);
+    tdStyle?: CSSProperties | ((cell: any, row: any, rowIndex: number, columnIndex: number) => CSSProperties) | undefined;
     /**
      * Allow you to add your custom style object on TH element.
      */
-    thStyle?: CSSProperties;
+    thStyle?: CSSProperties | undefined;
     /**
      * When true, the column will filter using the value returned by the column's formatter.
      * When false (default), the column will filter using the pre-formatted value.
      */
-    filterFormatted?: boolean;
+    filterFormatted?: boolean | undefined;
     /**
      * Return the value you want to be filtered on that column.
      * It's useful if your column data is an object.
@@ -1254,7 +1254,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
     /**
      * Customize the column header text for the column when exporting to a CSV file.
      */
-    csvHeader?: string;
+    csvHeader?: string | undefined;
     /**
      * It's usually used with csvFormat, and it's same as formatExtraData.
      * You can give any additional data you want to be passed to the csvFormat function.
@@ -1264,7 +1264,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
      * Set to true to hide the column. Default is false. Often used to hide rowKey columns that are required to
      * identify a row but that do not need to be visible.
      */
-    hidden?: boolean;
+    hidden?: boolean | undefined;
     /**
      * Used to specify whether a column will be exported to csv.
      *
@@ -1273,43 +1273,43 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
      *
      * If false, the column will be excluded from the csv export.
      */
-    export?: boolean;
+    export?: boolean | undefined;
     /**
      * Usually used with Options.expandBy.
      * You can assign which columns will trigger a row expansion or not.
      * If false, clicking on a row inside this column will not cause the row to expand.
      */
-    expandable?: boolean;
+    expandable?: boolean | undefined;
     /**
      * Set this to true to hide this column on insert modal. Default is false.
      *
      * This is often used together with autoValue for auto-generated columns like row keys.
      */
-    hiddenOnInsert?: boolean;
+    hiddenOnInsert?: boolean | undefined;
     /**
      * It only work for enabling insertRow and be assign on rowKey column. If true, the value of rowkey will be
      * generated automatically after a row insertion. If a function given, you can customize the value by yourself and
      * remember to return the value for the cell from the function.
      */
-    autoValue?: boolean | (() => any);
+    autoValue?: boolean | (() => any) | undefined;
     /**
      * False to disable search functionality on column, default is true.
      */
-    searchable?: boolean;
+    searchable?: boolean | undefined;
     /**
      * Show the title on each column in the data section of the table.
      * @see https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/column/column-title-table.js
      */
-    columnTitle?: boolean | string | ((cell: any, row: any, rowIndex: number, colIndex: number) => string);
+    columnTitle?: boolean | string | ((cell: any, row: any, rowIndex: number, colIndex: number) => string) | undefined;
     /**
      * Show the title on each column in the header section of the table, default is true.
      */
-    headerTitle?: boolean;
+    headerTitle?: boolean | undefined;
     /**
      * If the children of TableHeaderColumn is a JSX or Object, we prefer to add this prop to describe this column with
      * a pure text(String). It will be used on the placeholder or tips in the filter, search field or insert field etc.
      */
-    headerText?: string;
+    headerText?: string | undefined;
     /**
      * Give a custom callback function for data sorting.
      * This function takes five arguments: a, b, order, sortField, extraData
@@ -1325,21 +1325,21 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
      * If Function, it takes four arguments: cell, row, rowIndex, columnIndex.
      * In addition, this function should return a String which is the class name you want to add on.
      */
-    className?: string | ((cell: any, row: any, rowIndex: number, columnIndex: number) => string);
+    className?: string | ((cell: any, row: any, rowIndex: number, columnIndex: number) => string) | undefined;
     /**
      * Add custom css class on table body column, this attribute only accept String or Function.
      * If Function, it taking four arguments: cell, row, rowIndex, columnIndex.
      * In addition, this function should return a String which is the class name you want to add on.
      */
-    columnClassName?: string | ((cell: any, row: any, rowIndex: number, columnIndex: number) => string);
+    columnClassName?: string | ((cell: any, row: any, rowIndex: number, columnIndex: number) => string) | undefined;
     /**
      * Add custom css class on editing cell, if assign a callback function, you are supposed to return a String for class name
      */
-    editColumnClassName?: string | ((cell: any, row: any) => string);
+    editColumnClassName?: string | ((cell: any, row: any) => string) | undefined;
     /**
      * Add custom css class for invalid editing cell, if assign a callback function, you are supposed to return a String for class name
      */
-    invalidEditColumnClassName?: string | ((cell: any, row: any) => string);
+    invalidEditColumnClassName?: string | ((cell: any, row: any) => string) | undefined;
     /**
      * boolean: Add True to set column editable, false is non-editable.
      * function: You have ability to control the editable level on cell instead of column level. For this
@@ -1347,39 +1347,39 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
      * This callback accepts four arguments: cell, row, rowIndex, columnIndex.
      * object: @see Editable interface.
      */
-    editable?: boolean | Editable<any, any> | ((cell: any, row: any, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject);
+    editable?: boolean | Editable<any, any> | ((cell: any, row: any, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject) | undefined;
     /**
      * Give an Object like following to able to customize your own editing component.
      * This Object should contain these two property:
      *   getElement(REQUIRED): Accept a callback function and take two arguments: onUpdate and props.
      *   customEditorParameters: Additional data for custom cell edit component.
      */
-    customEditor?: CustomEditor<any, any>;
+    customEditor?: CustomEditor<any, any> | undefined;
     /**
      * To Enable a column filter within header column.
      * This feature support a lots of filter types and conditions.
      */
-    filter?: Filter;
+    filter?: Filter | undefined;
     /**
      * This is always used together with rowSpan and colSpan, to create multi-row/multi-column headers.
      * Row is the header row on which this header column present.
      */
-    row?: number;
+    row?: number | undefined;
     /**
      * Indicates how many rows this column takes.
      * Default: 1
      */
-    rowSpan?: number;
+    rowSpan?: number | undefined;
     /**
      * Indicates how many columns this column takes.
      * Default: 1
      */
-    colSpan?: number;
+    colSpan?: number | undefined;
     /**
      * Specify the field type to use when exporting this column to CSV. Available types are 'number' and 'string'.
      * Defaults to 'string'.
      */
-    csvFieldType?: CSVFieldType;
+    csvFieldType?: CSVFieldType | undefined;
     /**
      * Set the column class name for the actively filtered column. Can be either a string, or a function that takes two
      * parameters: order and dataField.
@@ -1389,11 +1389,11 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
      * or 'desc'.
      * @see https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/sort/sort-style-table.js#L36-L37
      */
-    sortHeaderColumnClassName?: string | ((order: SortOrder, dataField: string) => string);
+    sortHeaderColumnClassName?: string | ((order: SortOrder, dataField: string) => string) | undefined;
     /**
      * Specify custom tdAttrs to use for a cell that is being edited within this column.
      */
-    editTdAttr?: CustomAttrs;
+    editTdAttr?: CustomAttrs | undefined;
     /**
      * Custom insert editor element. This is a function to generate a custom edit element to display in the InsertModal
      * form. The function takes five arguments: column, attr, editorClass, ignoreEditable, defaultValue.
@@ -1413,11 +1413,11 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
             ignoreEditable: boolean,
             defaultValue: any
         ): ReactElement | boolean;
-    };
+    } | undefined;
     /**
      * Support specifying that the column should start sorting with the 'asc' option.
      */
-    defaultASC?: boolean;
+    defaultASC?: boolean | undefined;
 }
 
 /**
@@ -1427,7 +1427,7 @@ export interface EditableAttrs {
     /**
      * Placeholder text to use for the cell editor field.
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
     /**
      * Function to pass a reference to the input editor field.
      */
@@ -1463,28 +1463,28 @@ export interface Editable<TRow extends object, K extends keyof TRow> {
     /**
      * Edit field type, avaiable value is 'textarea', 'select', 'checkbox' and 'datetime'
      */
-    type?: EditCellType;
+    type?: EditCellType | undefined;
     /**
      * Class name to use for the editor component.
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Number of columns to display for a text area component.
      */
-    cols?: number;
+    cols?: number | undefined;
     /**
      * Number of rows to display for a text area component.
      */
-    rows?: number;
+    rows?: number | undefined;
     /**
      * Used to specify a field that can be modified in the insert modal when adding a new row, but cannot be edited
      * inside the table after the row has been inserted.
      */
-    readOnly?: boolean;
+    readOnly?: boolean | undefined;
     /**
      * CSS Style to use for the editor component.
      */
-    style?: CSSProperties;
+    style?: CSSProperties | undefined;
     /**
      * Validation function for the column. It takes the new "cell value" as argument. This function should return
      * a boolean true/false for isValid, or an EditValidatorObject (so that an error message can be provided).
@@ -1501,20 +1501,20 @@ export interface Editable<TRow extends object, K extends keyof TRow> {
         | EditSelectOptionValue
         | EditCheckboxOptionValue
         | ((row: TRow) => EditCheckboxOptionValue | EditSelectOptionValue);
-    };
+    } | undefined;
     /**
      * Default value to show in the edit field in the Insert Modal for this column.
      */
-    defaultValue?: TRow[K];
+    defaultValue?: TRow[K] | undefined;
     /**
      * @deprecated Use placeholder inside the attrs field instead.
      * Text to display as placeholder text in the editor component.
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
     /**
      * Additional attributes for the editor component.
      */
-    attrs?: EditableAttrs;
+    attrs?: EditableAttrs | undefined;
 }
 
 /**
@@ -1528,23 +1528,23 @@ export interface TextFilter {
     /**
      * Delay time in milliseconds after the last key press prior to applying the filter. Defaults to 500ms.
      */
-    delay?: number;
+    delay?: number | undefined;
     /**
      * Placeholder text to show in the filter.
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
     /**
      * Condition. Can be 'eq' (exactly equal) or 'like' (contains the given string). Defaults to 'like'.
      */
-    condition?: FilterCondition;
+    condition?: FilterCondition | undefined;
     /**
      * Default value for the text filter. Defaults to ''
      */
-    defaultValue?: string;
+    defaultValue?: string | undefined;
     /**
      * CSS Style to use for the select filter.
      */
-    style?: CSSProperties;
+    style?: CSSProperties | undefined;
 }
 
 export interface SelectFilterOptionsType {
@@ -1563,7 +1563,7 @@ export interface SelectFilter {
     /**
      * Placeholder text to show in the filter.
      */
-    selectText?: string;
+    selectText?: string | undefined;
     /**
      * Options for the filter select.
      */
@@ -1571,19 +1571,19 @@ export interface SelectFilter {
     /**
      * Condition. Can be 'eq' (exactly equal) or 'like' (contains the given string). Defaults to 'like'.
      */
-    condition?: FilterCondition;
+    condition?: FilterCondition | undefined;
     /**
      * Default value for the select filter.
      */
-    defaultValue?: string | number | boolean;
+    defaultValue?: string | number | boolean | undefined;
     /**
      * CSS Style to use for the select filter.
      */
-    style?: CSSProperties;
+    style?: CSSProperties | undefined;
     /**
      * Disable the empty option in the dropdown filter.
      */
-    withoutEmptyOption?: boolean;
+    withoutEmptyOption?: boolean | undefined;
 }
 
 /**
@@ -1597,19 +1597,19 @@ export interface RegexFilter {
     /**
      * Delay time in milliseconds after the last key press prior to applying the filter. Defaults to 500ms.
      */
-    delay?: number;
+    delay?: number | undefined;
     /**
      * Placeholder text to show in the filter.
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
     /**
      * Default value
      */
-    defaultValue?: string;
+    defaultValue?: string | undefined;
     /**
      * CSS Style to use for the select filter.
      */
-    style?: CSSProperties;
+    style?: CSSProperties | undefined;
 }
 
 /**
@@ -1623,15 +1623,15 @@ export interface NumberFilter {
     /**
      * Delay time in milliseconds after the last key press prior to applying the filter. Defaults to 500ms.
      */
-    delay?: number;
+    delay?: number | undefined;
     /**
      * Placeholder text to show in the filter.
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
     /**
      * Number filter comparators
      */
-    numberComparators?: FilterComparator[];
+    numberComparators?: FilterComparator[] | undefined;
     /**
      * Default value for the filter.
      */
@@ -1644,30 +1644,30 @@ export interface NumberFilter {
          * Comparator value.
          */
         comparator: FilterComparator;
-    };
+    } | undefined;
     /**
      * If this is a select number field, disable the empty option in the dropdown.
      */
-    withoutEmptyOption?: boolean;
+    withoutEmptyOption?: boolean | undefined;
     /**
      * Specify that the comparator field MUST have a comparator selected.
      */
-    withoutEmptyComparatorOption?: boolean;
+    withoutEmptyComparatorOption?: boolean | undefined;
     /**
      * Specify that the value field MUST have a number value specified.
      */
-    withoutEmptyNumberOption?: boolean;
+    withoutEmptyNumberOption?: boolean | undefined;
     /**
      * List of number options that can be selected, if the number field is a select dropdown instead of a text edit.
      */
-    options?: number[];
+    options?: number[] | undefined;
     /**
      * CSS Style to use for the select filter.
      */
     style?: {
         number: CSSProperties;
         comparator: CSSProperties;
-    };
+    } | undefined;
 }
 
 /**
@@ -1681,11 +1681,11 @@ export interface DateFilter {
     /**
      * Delay time in milliseconds after the last key press prior to applying the filter. Defaults to 500ms.
      */
-    delay?: number;
+    delay?: number | undefined;
     /**
      * Date filter comparators
      */
-    dateComparators?: FilterComparator[];
+    dateComparators?: FilterComparator[] | undefined;
     /**
      * Default value for the filter.
      */
@@ -1698,14 +1698,14 @@ export interface DateFilter {
          * Comparator value.
          */
         comparator: FilterComparator;
-    };
+    } | undefined;
     /**
      * CSS Style to use for the select filter.
      */
     style?: {
         date: CSSProperties;
         comparator: CSSProperties;
-    };
+    } | undefined;
 }
 
 /**
@@ -1861,7 +1861,7 @@ export interface KeyboardNavigation {
     /**
      * Set to false to disable click to navigate, usually user wants to click to select row instead of navigation.
      */
-    clickToNav?: boolean;
+    clickToNav?: boolean | undefined;
     /**
      * Return a style object which will be applied on the both of navigating and editing cell.
      */
@@ -1869,15 +1869,15 @@ export interface KeyboardNavigation {
     /**
      * When set to true, pressing ENTER will begin to edit the cell if cellEdit is also enabled.
      */
-    enterToEdit?: boolean;
+    enterToEdit?: boolean | undefined;
     /**
      * When set to true, pressing ENTER will expand or collapse the current row.
      */
-    enterToExpand?: boolean;
+    enterToExpand?: boolean | undefined;
     /**
      * When set to true, pressing ENTER will select or unselect the current row.
      */
-    enterToSelect?: boolean;
+    enterToSelect?: boolean | undefined;
 }
 
 /**
@@ -1908,7 +1908,7 @@ export interface ExpandColumnOptions {
     /**
      * Will enable an indicator column at first column if true. Default is false.
      */
-    expandColumnVisible?: boolean;
+    expandColumnVisible?: boolean | undefined;
     /**
      * a callback function to customize the appearance of the indicator column.
      */
@@ -1916,12 +1916,12 @@ export interface ExpandColumnOptions {
     /**
      * set the width of indicator column.
      */
-    columnWidth?: number | string;
+    columnWidth?: number | string | undefined;
     /**
      * If both an indicator column and a selection column are displaying, this specifies whether the indicator column
      * should be shown first. Default is true, false will move the expand indicator column after selection column.
      */
-    expandColumnBeforeSelectColumn?: boolean;
+    expandColumnBeforeSelectColumn?: boolean | undefined;
     /**
      * a callback function to customise the header column
      */
@@ -2322,7 +2322,7 @@ export interface CustomEditor<TRow extends object, K extends keyof TRow> {
     /**
      * Additional parameters to pass to the getElement function inside the props argument.
      */
-    customEditorParameters?: object;
+    customEditorParameters?: object | undefined;
 }
 
 /**
@@ -2360,19 +2360,19 @@ export interface ButtonProps {
     /**
      * Label for the button
      */
-    btnText?: string;
+    btnText?: string | undefined;
     /**
      * Bootstrap css style class for the button, e.g. 'btn-warning'
      */
-    btnContextual?: string;
+    btnContextual?: string | undefined;
     /**
      * Custom class for the button
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Glyphicon glyph string for the button, e.g. 'glyphicon-edit'
      */
-    btnGlyphicon?: string;
+    btnGlyphicon?: string | undefined;
     /**
      * Function to be called to activate the normal onClick functionality for this button.
      */
@@ -2386,23 +2386,23 @@ export interface ShowSelectedButtonProps {
     /**
      * Label for when clicking the button will toggle the table back into "show all rows" mode.
      */
-    showAllText?: string;
+    showAllText?: string | undefined;
     /**
      * Label for when clicking the button will toggle the table into "show only selected rows" mode.
      */
-    showOnlySelectText?: string;
+    showOnlySelectText?: string | undefined;
     /**
      * Bootstrap css style class for the button, e.g. 'btn-warning'
      */
-    btnContextual?: string;
+    btnContextual?: string | undefined;
     /**
      * Custom class for the button
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Glyphicon glyph string for the button, e.g. 'glyphicon-edit'
      */
-    btnGlyphicon?: string;
+    btnGlyphicon?: string | undefined;
     /**
      * Function to be called to activate the normal onClick functionality for this button.
      */
@@ -2416,15 +2416,15 @@ export interface SearchFieldProps {
     /**
      * Custom css class name
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Default value for the search field
      */
-    defaultValue?: string;
+    defaultValue?: string | undefined;
     /**
      * Placeholder text for the search field
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
     /**
      * callback funciton to call when a key is released
      */
@@ -2454,7 +2454,7 @@ export interface InsertModalColumnDescription<TRow extends object = any> {
      * one column in the table.
      * Comes from TableHeader.isKey field.
      */
-    isKey?: boolean;
+    isKey?: boolean | undefined;
     /**
      * Header text/element for the column.
      * Comes from TableHeader.headerText or TableHeader.children.
@@ -2496,7 +2496,7 @@ export interface InsertModalColumnDescription<TRow extends object = any> {
      * than one column in the table.
      * Comes from TableHeader.autoValue.
      */
-    autoValue?: boolean;
+    autoValue?: boolean | undefined;
     /**
      * Format function for the field. It is only present if there is more than one column in the table. Value is either
      * 'false', meaning that there is no format function present, or a wrapper function that returns the formatted string
@@ -2504,7 +2504,7 @@ export interface InsertModalColumnDescription<TRow extends object = any> {
      *
      * Based on from TableHeader.dataFormat, but is applied as a wrapper function around that function.
      */
-    format?: boolean | ((cell: TRow[keyof TRow]) => string);
+    format?: boolean | ((cell: TRow[keyof TRow]) => string) | undefined;
 }
 
 /**
@@ -2514,11 +2514,11 @@ export interface InsertModalHeaderProps {
     /**
      * Header class name.
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Title to display in the header.
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * Callback function to call prior to closing the Insert Modal window.
      */
@@ -2530,11 +2530,11 @@ export interface InsertModalHeaderProps {
     /**
      * Set to true to hide the close button. Default is false.
      */
-    hideClose?: boolean;
+    hideClose?: boolean | undefined;
     /**
      * Bootstrap version.
      */
-    version?: BootstrapVersion;
+    version?: BootstrapVersion | undefined;
 }
 
 /**
@@ -2544,31 +2544,31 @@ export interface InsertModalFooterProps {
     /**
      * Header class name.
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Text to display on the Save button
      */
-    saveBtnText?: string;
+    saveBtnText?: string | undefined;
     /**
      * Text to display on the Close button
      */
-    closeBtnText?: string;
+    closeBtnText?: string | undefined;
     /**
      * Bootstrap css class name for the close button, example: 'btn-warning'
      */
-    closeBtnContextual?: string;
+    closeBtnContextual?: string | undefined;
     /**
      * Bootstrap css class name for the save button, example: 'btn-success'
      */
-    saveBtnContextual?: string;
+    saveBtnContextual?: string | undefined;
     /**
      * Custom class name for the close button.
      */
-    closeBtnClass?: string;
+    closeBtnClass?: string | undefined;
     /**
      * Custom class name for the save button.
      */
-    saveBtnClass?: string;
+    saveBtnClass?: string | undefined;
     /**
      * Callback function to call prior to closing the Insert Modal window.
      */
@@ -2605,15 +2605,15 @@ export interface SizePerPageDropDownProps {
     /**
      * Custom class name to use for the component.
      */
-    className?: string;
+    className?: string | undefined;
     /**
      * Bootstrap css style class for the button, e.g. 'btn-warning'
      */
-    btnContextual?: string;
+    btnContextual?: string | undefined;
     /**
      * Whether the button menu should 'dropup' or 'dropdown'.
      */
-    variation?: DropDirection;
+    variation?: DropDirection | undefined;
     /**
      * Callback function that should be triggered when the user clicks on the dropdown button.
      */
@@ -2621,19 +2621,19 @@ export interface SizePerPageDropDownProps {
     /**
      * Current size per page
      */
-    currSizePerPage?: string;
+    currSizePerPage?: string | undefined;
     /**
      * Size Per Page options list
      */
-    options?: number[] | Array<{ text: string, value: number }>;
+    options?: number[] | Array<{ text: string, value: number }> | undefined;
     /**
      * Flag to indicate that the dropdown is open
      */
-    open?: boolean;
+    open?: boolean | undefined;
     /**
      * Flag to indicate that the dropdown is currently hidden
      */
-    hidden?: boolean;
+    hidden?: boolean | undefined;
 }
 
 /**

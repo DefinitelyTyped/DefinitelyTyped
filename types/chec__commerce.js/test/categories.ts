@@ -22,16 +22,16 @@ commerce.categories.retrieve(categorySlug, { type: 'slug' });
 const categories: Category.CategoryCollection = {
     data: [
         {
-            id: "cat_xA12JwrK8oPjnk",
-            slug: "facial-products",
-            name: "Facial Products",
-            description: "",
+            id: 'cat_xA12JwrK8oPjnk',
+            slug: 'facial-products',
+            name: 'Facial Products',
+            description: '',
             products: 15,
             created: 1583103163,
             meta: {
-                image: "/images/collection/1.png"
-            }
-        }
+                image: '/images/collection/1.png',
+            },
+        },
     ],
     meta: {
         pagination: {
@@ -40,7 +40,7 @@ const categories: Category.CategoryCollection = {
             per_page: 20,
             current_page: 1,
             total_pages: 1,
-            links: {}
-        }
-    }
+            links: {},
+        },
+    },
 };

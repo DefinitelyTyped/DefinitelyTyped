@@ -16,7 +16,7 @@ interface SuperMethods {
 interface GetCacheOptions {
 
     data?: any;
-    url?:  string;
+    url?:  string | undefined;
 }
 
 interface SetCacheOptions extends GetCacheOptions {
@@ -37,8 +37,8 @@ interface Cache {
 
 interface GetCacheKeyObject {
 
-    getCacheKey?: (opts?: GetCacheOptions) => string;
-    url?:         () => string;
+    getCacheKey?: ((opts?: GetCacheOptions) => string) | undefined;
+    url?:         (() => string) | undefined;
 }
 
 type GetCacheKeyOptions = string | {url: string} | GetCacheKeyObject;
@@ -122,7 +122,7 @@ declare module "backbone" {
          * fulfilled from the cache (if possible) when cache: true is set in
          * the options hash.
          */
-        cache?:          boolean;
+        cache?:          boolean | undefined;
 
         context?:        any;
 
@@ -131,7 +131,7 @@ declare module "backbone" {
          * by passing expires: <seconds> to the fetch call. Set to false to
          * never expire.
          */
-        expires?:        number;
+        expires?:        number | undefined;
 
         /**
          * This option allows the model/collection to be populated from the
@@ -160,14 +160,14 @@ declare module "backbone" {
          *  prefill expired, use the prefill callback and do a fetch (usual
          *  prefill behaviour)
          */
-        prefill?:        boolean;
-        prefillExpires?: number;
-        prefillSuccess?: (self: any, attributes: any, opts: ModelFetchWithCacheOptions) => void;
+        prefill?:        boolean | undefined;
+        prefillExpires?: number | undefined;
+        prefillSuccess?: ((self: any, attributes: any, opts: ModelFetchWithCacheOptions) => void) | undefined;
     }
 
     interface CollectionFetchWithCacheOptions extends ModelFetchWithCacheOptions {
 
-        prefillSuccess?: (self: any) => void;
+        prefillSuccess?: ((self: any) => void) | undefined;
     }
 
     interface ModelWithCache extends Model {

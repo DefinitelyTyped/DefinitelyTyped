@@ -33,21 +33,21 @@ export interface BasicLightBox {
     /*
      * Prevents the lightbox from closing when clicking its background.
      */
-    closable?: boolean;
+    closable?: boolean | undefined;
     /*
      * One or more space separated classes to be added to the basicLightbox element.
      */
-    className?: string;
+    className?: string | undefined;
     /*
      * Function that gets executed before the lightbox will be shown.
      * Returning false will prevent the lightbox from showing.
      */
-    onShow?: (instance: BasicLightBox) => boolean;
+    onShow?: ((instance: BasicLightBox) => boolean) | undefined;
     /*
      * Function that gets executed before the lightbox closes.
      * Returning false will prevent the lightbox from closing.
      */
-    onClose?: (instance: BasicLightBox) => boolean;
+    onClose?: ((instance: BasicLightBox) => boolean) | undefined;
   }
 
   /**

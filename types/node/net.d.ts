@@ -1,7 +1,7 @@
 declare module 'net' {
-    import * as stream from 'stream';
-    import { Abortable, EventEmitter } from 'events';
-    import * as dns from 'dns';
+    import * as stream from 'node:stream';
+    import { Abortable, EventEmitter } from 'node:events';
+    import * as dns from 'node:dns';
 
     type LookupFunction = (
         hostname: string,
@@ -16,10 +16,10 @@ declare module 'net' {
     }
 
     interface SocketConstructorOpts {
-        fd?: number;
-        allowHalfOpen?: boolean;
-        readable?: boolean;
-        writable?: boolean;
+        fd?: number | undefined;
+        allowHalfOpen?: boolean | undefined;
+        readable?: boolean | undefined;
+        writable?: boolean | undefined;
     }
 
     interface OnReadOpts {
@@ -38,17 +38,17 @@ declare module 'net' {
          * Note: this will cause the streaming functionality to not provide any data, however events like 'error', 'end', and 'close' will
          * still be emitted as normal and methods like pause() and resume() will also behave as expected.
          */
-        onread?: OnReadOpts;
+        onread?: OnReadOpts | undefined;
     }
 
     interface TcpSocketConnectOpts extends ConnectOpts {
         port: number;
-        host?: string;
-        localAddress?: string;
-        localPort?: number;
-        hints?: number;
-        family?: number;
-        lookup?: LookupFunction;
+        host?: string | undefined;
+        localAddress?: string | undefined;
+        localPort?: number | undefined;
+        hints?: number | undefined;
+        family?: number | undefined;
+        lookup?: LookupFunction | undefined;
     }
 
     interface IpcSocketConnectOpts extends ConnectOpts {
@@ -87,9 +87,9 @@ declare module 'net' {
         readonly destroyed: boolean;
         readonly localAddress: string;
         readonly localPort: number;
-        readonly remoteAddress?: string;
-        readonly remoteFamily?: string;
-        readonly remotePort?: number;
+        readonly remoteAddress?: string | undefined;
+        readonly remoteFamily?: string | undefined;
+        readonly remotePort?: number | undefined;
 
         // Extended base methods
         end(cb?: () => void): void;
@@ -169,17 +169,17 @@ declare module 'net' {
     }
 
     interface ListenOptions extends Abortable {
-        port?: number;
-        host?: string;
-        backlog?: number;
-        path?: string;
-        exclusive?: boolean;
-        readableAll?: boolean;
-        writableAll?: boolean;
+        port?: number | undefined;
+        host?: string | undefined;
+        backlog?: number | undefined;
+        path?: string | undefined;
+        exclusive?: boolean | undefined;
+        readableAll?: boolean | undefined;
+        writableAll?: boolean | undefined;
         /**
          * @default false
          */
-        ipv6Only?: boolean;
+        ipv6Only?: boolean | undefined;
     }
 
     interface ServerOpts {
@@ -187,13 +187,13 @@ declare module 'net' {
          * Indicates whether half-opened TCP connections are allowed.
          * @default false
          */
-        allowHalfOpen?: boolean;
+        allowHalfOpen?: boolean | undefined;
 
         /**
          * Indicates whether the socket should be paused on incoming connections.
          * @default false
          */
-        pauseOnConnect?: boolean;
+        pauseOnConnect?: boolean | undefined;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js
@@ -273,6 +273,7 @@ declare module 'net' {
          * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
          */
         addAddress(address: string, type?: IPVersion): void;
+        addAddress(address: SocketAddress): void;
 
         /**
          * Adds a rule to block a range of IP addresses from start (inclusive) to end (inclusive).
@@ -282,6 +283,7 @@ declare module 'net' {
          * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
          */
         addRange(start: string, end: string, type?: IPVersion): void;
+        addRange(start: SocketAddress, end: SocketAddress): void;
 
         /**
          * Adds a rule to block a range of IP addresses specified as a subnet mask.
@@ -291,6 +293,7 @@ declare module 'net' {
          * For IPv4, this must be a value between 0 and 32. For IPv6, this must be between 0 and 128.
          * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
          */
+        addSubnet(net: SocketAddress, prefix: number): void;
         addSubnet(net: string, prefix: number, type?: IPVersion): void;
 
         /**
@@ -299,15 +302,16 @@ declare module 'net' {
          * @param address The IP address to check
          * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
          */
+        check(address: SocketAddress): boolean;
         check(address: string, type?: IPVersion): boolean;
     }
 
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
@@ -323,4 +327,42 @@ declare module 'net' {
     function isIP(input: string): number;
     function isIPv4(input: string): boolean;
     function isIPv6(input: string): boolean;
+
+    interface SocketAddressInitOptions {
+        /**
+         * The network address as either an IPv4 or IPv6 string.
+         * @default 127.0.0.1
+         */
+        address?: string | undefined;
+        /**
+         * @default `'ipv4'`
+         */
+        family?: IPVersion | undefined;
+        /**
+         * An IPv6 flow-label used only if `family` is `'ipv6'`.
+         * @default 0
+         */
+        flowlabel?: number | undefined;
+        /**
+         * An IP port.
+         * @default 0
+         */
+        port?: number | undefined;
+    }
+
+    // TODO: Mark as clonable if `kClone` symbol is set in node.
+    /**
+     * Immutable socket address.
+     */
+    class SocketAddress {
+        constructor(options: SocketAddressInitOptions);
+        readonly address: string;
+        readonly family: IPVersion;
+        readonly port: number;
+        readonly flowlabel: number;
+    }
+}
+
+declare module 'node:net' {
+    export * from 'net';
 }

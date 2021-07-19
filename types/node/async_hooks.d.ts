@@ -87,7 +87,7 @@ declare module 'async_hooks' {
        * The ID of the execution context that created this async event.
        * @default executionAsyncId()
        */
-      triggerAsyncId?: number;
+      triggerAsyncId?: number | undefined;
 
       /**
        * Disables automatic `emitDestroy` when the object is garbage collected.
@@ -96,7 +96,7 @@ declare module 'async_hooks' {
        * sensitive API's `emitDestroy` is called with it.
        * @default false
        */
-      requireManualDestroy?: boolean;
+      requireManualDestroy?: boolean | undefined;
     }
 
     /**
@@ -120,7 +120,7 @@ declare module 'async_hooks' {
          * @param fn The function to bind to the current execution context.
          * @param type An optional name to associate with the underlying `AsyncResource`.
          */
-        static bind<Func extends (...args: any[]) => any>(fn: Func, type?: string): Func & { asyncResource: AsyncResource };
+        static bind<Func extends (this: ThisArg, ...args: any[]) => any, ThisArg>(fn: Func, type?: string, thisArg?: ThisArg): Func & { asyncResource: AsyncResource };
 
         /**
          * Binds the given function to execute to this `AsyncResource`'s scope.
@@ -198,8 +198,7 @@ declare module 'async_hooks' {
          * I the callback function throws an error, it will be thrown by `run` too. The
          * stacktrace will not be impacted by this call and the context will be exited.
          */
-        // TODO: Apply generic vararg once available
-        run<R>(store: T, callback: (...args: any[]) => R, ...args: any[]): R;
+        run<R, TArgs extends any[]>(store: T, callback: (...args: TArgs) => R, ...args: TArgs): R;
 
         /**
          * This methods runs a function synchronously outside of a context and return its
@@ -213,8 +212,7 @@ declare module 'async_hooks' {
          * stacktrace will not be impacted by this call and the context will be
          * re-entered.
          */
-        // TODO: Apply generic vararg once available
-        exit<R>(callback: (...args: any[]) => R, ...args: any[]): R;
+        exit<R, TArgs extends any[]>(callback: (...args: TArgs) => R, ...args: TArgs): R;
 
         /**
          * Calling `asyncLocalStorage.enterWith(store)` will transition into the context
@@ -223,4 +221,8 @@ declare module 'async_hooks' {
          */
         enterWith(store: T): void;
     }
+}
+
+declare module 'node:async_hooks' {
+    export * from 'async_hooks';
 }

@@ -44,28 +44,28 @@ export interface RenderOptions {
      * Graphviz command to use
      * @default dot
      */
-    use?: RenderEngine;
+    use?: RenderEngine | undefined;
 
     /**
      * Graphviz path
      * @default $PATH
      */
-    path?: string;
+    path?: string | undefined;
 
     /**
      * graph options
      */
-    G?: Options;
+    G?: Options | undefined;
 
     /**
      * node options
      */
-    N?: Options;
+    N?: Options | undefined;
 
     /**
      * edge options
      */
-    E?: Options;
+    E?: Options | undefined;
 }
 
 export interface Graph extends HasAttributes {

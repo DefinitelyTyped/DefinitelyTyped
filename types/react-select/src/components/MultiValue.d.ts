@@ -29,7 +29,7 @@ export function multiValueRemoveCSS(props: MultiValueProps<any>): CSSObject;
 export interface MultiValueGenericProps<OptionType extends OptionTypeBase> {
     children: ReactNode;
     data: OptionType;
-    innerProps: { className?: string };
+    innerProps: { className?: string | undefined };
     selectProps: any;
 }
 export function MultiValueGeneric<OptionType extends OptionTypeBase>(
