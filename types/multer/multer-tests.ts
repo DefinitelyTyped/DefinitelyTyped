@@ -18,7 +18,7 @@ assert.strictEqual(upload.constructor.name, 'Multer');
 const app = express();
 
 app.post('/profile', upload.single('avatar'), (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    req.file; // $ExpectTYpe File | undefined
+    req.file; // $ExpectType File | undefined
 });
 
 app.post('/photos/upload', upload.array('photos', 12), (req: express.Request, res: express.Response, next: express.NextFunction) => {

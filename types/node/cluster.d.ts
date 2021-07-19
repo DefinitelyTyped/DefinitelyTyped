@@ -1,8 +1,8 @@
 // Requires `esModuleInterop: true`
 declare module 'cluster' {
-    import * as child from 'child_process';
-    import EventEmitter = require('events');
-    import * as net from 'net';
+    import * as child from 'node:child_process';
+    import EventEmitter = require('node:events');
+    import * as net from 'node:net';
 
     export interface ClusterSettings {
         execArgv?: string[] | undefined; // default: process.execArgv
@@ -184,4 +184,5 @@ declare module 'cluster' {
 
 declare module 'node:cluster' {
     export * from 'cluster';
+    export { default as default } from 'cluster';
 }
