@@ -1,7 +1,7 @@
-import { core, payouts } from '@paypal/payouts-sdk';
-
-// type imports are successful
-import type {
+import {
+    core,
+    payouts,
+    // type imports are successful
     RecipientType,
     RecipientWallet,
     Currency,
