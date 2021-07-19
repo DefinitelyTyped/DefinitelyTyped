@@ -96,3 +96,8 @@ declare module 'assert' {
 
     export = assert;
 }
+
+declare module 'node:assert' {
+    import assert = require('assert');
+    export = assert;
+}

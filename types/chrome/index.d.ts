@@ -2173,6 +2173,11 @@ declare namespace chrome.declarativeWebRequest {
  * Permissions:  "desktopCapture"
  */
 declare namespace chrome.desktopCapture {
+    /** Contains properties that describe the stream. */
+    export interface StreamOptions {
+        /** True if "audio" is included in parameter sources, and the end user does not uncheck the "Share audio" checkbox. Otherwise false, and in this case, one should not ask for audio stream through getUserMedia call. */
+        canRequestAudioTrack: boolean;
+    }
     /**
      * Shows desktop media picker UI with the specified set of sources.
      * @param sources Set of sources that should be shown to the user.
@@ -2180,7 +2185,7 @@ declare namespace chrome.desktopCapture {
      * function(string streamId) {...};
      * Parameter streamId: An opaque string that can be passed to getUserMedia() API to generate media stream that corresponds to the source selected by the user. If user didn't select any source (i.e. canceled the prompt) then the callback is called with an empty streamId. The created streamId can be used only once and expires after a few seconds when it is not used.
      */
-    export function chooseDesktopMedia(sources: string[], callback: (streamId: string) => void): number;
+    export function chooseDesktopMedia(sources: string[], callback: (streamId: string, options: StreamOptions) => void): number;
     /**
      * Shows desktop media picker UI with the specified set of sources.
      * @param sources Set of sources that should be shown to the user.
@@ -2192,7 +2197,7 @@ declare namespace chrome.desktopCapture {
     export function chooseDesktopMedia(
         sources: string[],
         targetTab: chrome.tabs.Tab,
-        callback: (streamId: string) => void,
+        callback: (streamId: string, options: StreamOptions) => void,
     ): number;
     /**
      * Hides desktop media picker dialog shown by chooseDesktopMedia().

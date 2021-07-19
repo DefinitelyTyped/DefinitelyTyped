@@ -179,6 +179,9 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     testLogger();
 
     testMiddleware();
+
+    // $ExpectType CanPlayTypeResult
+    this.canPlayType('video/mp4');
 });
 
 function testEvents(player: videojs.Player) {
@@ -285,4 +288,17 @@ function testMiddleware() {
     videojs.use('*', () => ({
         setSource: (srcObj, next) => next(null, srcObj),
     }));
+}
+
+function testTech() {
+    // $ExpectType CanPlayTypeResult
+    videojs.Tech.canPlaySource(
+        {
+            src: 'http://www.example.com/path/to/video.mp4',
+            type: 'video/mp4',
+        },
+        {},
+    );
+    // $ExpectType CanPlayTypeResult
+    videojs.Tech.canPlayType('video/mp4');
 }

@@ -1,5 +1,5 @@
-import { createWriteStream } from 'fs';
-import * as console2 from 'console';
+import { createWriteStream } from 'node:fs';
+import * as console2 from 'node:console';
 
 {
     {

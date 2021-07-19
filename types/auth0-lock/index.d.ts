@@ -170,7 +170,7 @@ interface Auth0LockConstructorOptions {
 }
 
 interface Auth0LockFlashMessageOptions {
-    type: "success" | "error";
+    type: "success" | "error" | "info";
     text: string;
 }
 

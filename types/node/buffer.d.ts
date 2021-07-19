@@ -1,5 +1,5 @@
 declare module 'buffer' {
-    import { BinaryLike } from 'crypto';
+    import { BinaryLike } from 'node:crypto';
 
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;

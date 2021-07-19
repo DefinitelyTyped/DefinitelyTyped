@@ -5,6 +5,7 @@
 //                 Leo Farias <https://github.com/leoafarias>
 //                 Will Dady <https://github.com/willdady>
 //                 Bogdan Vitoc <https://github.com/bogidon>
+//                 Yam Mesicka <https://github.com/yammesicka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -109,6 +110,8 @@ export interface PasswordlessWithEmailParams {
 
 export interface PasswordlessWithSMSParams {
     phoneNumber: string;
+    send?: 'link' | 'code';
+    authParams?: AuthParams;
 }
 
 export interface LoginWithEmailParams {

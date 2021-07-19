@@ -15,7 +15,6 @@
 
 import events = require('events');
 import tds = require('tedious');
-import msnodesql = require('msnodesqlv8');
 import { Pool } from 'tarn';
 import { CallbackOrPromise, PoolOptions } from 'tarn/dist/Pool';
 export interface ISqlType {
@@ -70,7 +69,7 @@ export declare var Geography: ISqlTypeFactoryWithNoParams;
 export declare var Geometry: ISqlTypeFactoryWithNoParams;
 export declare var Variant: ISqlTypeFactoryWithNoParams;
 
-export type Connection = tds.Connection | msnodesql.Connection;
+export type Connection = tds.Connection;
 
 export declare var TYPES: {
     VarChar: ISqlTypeFactoryWithLength;

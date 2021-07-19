@@ -53,7 +53,7 @@ declare module 'events' {
         static defaultMaxListeners: number;
     }
 
-    import internal = require('events');
+    import internal = require('node:events');
     namespace EventEmitter {
         // Should just be `export { EventEmitter }`, but that doesn't work in TypeScript 3.4
         export { internal as EventEmitter };
