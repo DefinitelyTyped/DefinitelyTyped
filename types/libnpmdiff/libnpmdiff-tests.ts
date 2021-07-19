@@ -25,3 +25,37 @@ const result3 = libnpmdiff(['a@1', '2'], {
     registry: 'example',
     where: 'example',
 });
+
+// Test incorrect type of specs
+
+// $ExpectError
+const result4 = libnpmdiff('a@1...b@2');
+
+// Test incorrect type of Options
+
+// $ExpectError
+libnpmdiff(['a@1', 'b@2'], 'string');
+// $ExpectError
+libnpmdiff(['a@1', 'b@2'], 12345567);
+
+// Testing that unknown properties fails will unfortunately not be possible
+// since the npm-registry-fetch options includes `[key: string]: any`.
+//
+// libnpmdiff(
+//     ['a@1', 'b@2'],
+//     // $ExpectError
+//     { unknownproperty: 'hello' },
+// );
+
+// Test incorrect types of properties of the options Object.
+
+libnpmdiff(
+    ['a@1', 'b@2'],
+    // $ExpectError
+    { diffUnified: 'string' },
+);
+libnpmdiff(
+    ['a@1', 'b@2'],
+    // $ExpectError
+    { tagVersionPrefix: true },
+);
