@@ -92,7 +92,7 @@ auth0.webAuth.authorize(
     },
     {
         ephemeralSession: true,
-        customScheme: 'customeUrlScheme',
+        customScheme: 'customUrlScheme',
     },
 );
 
