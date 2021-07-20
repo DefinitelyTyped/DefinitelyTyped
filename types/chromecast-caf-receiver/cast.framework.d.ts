@@ -37,7 +37,7 @@ export const VERSION: string;
 /**
  * Manages text tracks.
  * @throws Error If constructor is used directly. The TextTracksManager should
- *               only be accessed by calling {@link framework.PlayerManager#getTextTracksManager}.
+ *     only be accessed by calling {@link framework.PlayerManager#getTextTracksManager}.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.TextTracksManager
  */
 export class TextTracksManager {
@@ -101,15 +101,10 @@ export class TextTracksManager {
 /**
  * QueueManager exposes several queue manipulation APIs to developers.
  * @throws Error If constructor is used directly. The QueueManager should only
- *         be accessed by calling cast.framework.PlayerManager#getQueueManager.
+ *     be accessed by calling cast.framework.PlayerManager#getQueueManager.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.QueueManager
  */
 export class QueueManager {
-    /**
-     * Get Container Metadata.
-     */
-    getContainerMetadata(): messages.ContainerMetadata | null;
-
     /**
      * Returns the current queue item.
      */
@@ -537,14 +532,14 @@ export class PlayerManager {
     getAudioTracksManager(): AudioTracksManager;
 
     /**
-     * Returns current time in sec in currently-playing break clip.
-     * Null, if player is not playing break clip.
+     * @returns current time in sec in currently-playing break clip.
+     *    Null, if player is not playing break clip.
      */
     getBreakClipCurrentTimeSec(): number | null;
 
     /**
-     * Returns duration in sec of currently-playing break clip.
-     * Null, if player is not playing break clip.
+     * @returns duration in sec of currently-playing break clip.
+     *    Null, if player is not playing break clip.
      */
     getBreakClipDurationSec(): number | null;
 
@@ -569,7 +564,7 @@ export class PlayerManager {
     getDurationSec(): number;
 
     /**
-     * Returns live seekable range with start and end time in seconds. The values
+     * @returns live seekable range with start and end time in seconds. The values
      * are media time based.
      */
     getLiveSeekableRange(): messages.LiveSeekableRange | null;
@@ -580,7 +575,7 @@ export class PlayerManager {
     getMediaInformation(): messages.MediaInformation | null;
 
     /**
-     * Returns playback configuration.
+     * @returns playback configuration.
      */
     getPlaybackConfig(): PlaybackConfig | null;
 
@@ -956,11 +951,6 @@ export class CastReceiverOptions {
     supportedCommands?: number | undefined;
 
     /**
-     * UI Configuration.
-     */
-    uiConfig?: ui.UiConfig | undefined;
-
-    /**
      * Indicate that MPL should be used for DASH content.
      */
     useLegacyDashSupport?: boolean | undefined;
@@ -1031,8 +1021,8 @@ export class CastReceiverContext {
     /**
      * Reports if the cast application is the HDMI active input.
      * @returns Whether the application is the HDMI active input. If it can not
-     *          be determined, because the TV does not support CEC commands, for
-     *          example, the value returned is UNKNOWN.
+     *     be determined, because the TV does not support CEC commands, for
+     *     example, the value returned is UNKNOWN.
      */
     getVisibilityState(): system.VisibilityState;
 
@@ -1103,7 +1093,7 @@ export class CastReceiverContext {
 /**
  * Manages audio tracks.
  * @throws Error If constructor is used directly. The AudioTracksManager should
- *         only be accessed by calling {@link framework.PlayerManager#getAudioTracksManager}
+ *     only be accessed by calling {@link framework.PlayerManager#getAudioTracksManager}
  *
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.AudioTracksManager
  */

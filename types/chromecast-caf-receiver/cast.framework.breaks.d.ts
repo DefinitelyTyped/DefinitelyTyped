@@ -67,8 +67,8 @@ export interface BreakManager {
     /**
      * Provide an interceptor for developer to specify what breaks they want to play after seek.
      * @param seekInterceptor Interceptor or null if developer wants to reset it
-     *                        to default one. The default break seek interceptor will
-     *                        return the closest break from the seekTo value.
+     *     to default one. The default break seek interceptor will
+     *     return the closest break from the seekTo value.
      */
     setBreakSeekInterceptor(seekInterceptor: ((breakSeekData: BreakSeekData) => void) | null): void;
 

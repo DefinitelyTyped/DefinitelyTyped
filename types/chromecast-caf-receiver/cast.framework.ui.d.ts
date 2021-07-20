@@ -459,20 +459,6 @@ export class BrowseItem {
 }
 
 /**
- * UI Configuration.
- * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui.UiConfig
- */
-export class UiConfig {
-    constructor();
-
-    /**
-     * If this is true, SDK will be notified that Application has touch-optimized
-     * layout, so that SDK will not render opaque full-screen blocking overlay.
-     */
-    touchScreenOptimizedApp?: boolean | undefined;
-}
-
-/**
  * Aspect ratio of all images in the media browse carousel.
  */
 export enum BrowseImageAspectRatio {
