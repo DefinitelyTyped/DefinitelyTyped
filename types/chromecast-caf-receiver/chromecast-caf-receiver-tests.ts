@@ -142,7 +142,7 @@ const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
 
 cast.framework.CastReceiverContext.getInstance().addEventListener(
-    cast.framework.system.EventType.SENDER_CONNECTED,
+    [cast.framework.system.EventType.SENDER_CONNECTED, cast.framework.system.EventType.SENDER_DISCONNECTED],
     () => '¡hola!',
 );
 

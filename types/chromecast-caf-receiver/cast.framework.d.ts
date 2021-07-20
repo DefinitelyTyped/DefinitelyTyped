@@ -975,7 +975,7 @@ export class CastReceiverContext {
     /**
      * Add listener to cast system events.
      */
-    addEventListener(type: system.EventType, handler: SystemEventHandler): void;
+    addEventListener(type: system.EventType | system.EventType[], handler: SystemEventHandler): void;
 
     /**
      * Checks if the given media params of video or audio streams are supported by the platform.
