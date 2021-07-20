@@ -5,6 +5,7 @@
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Tiger Oakes <https://github.com/NotWoods>
 //                 Jeremy Hull <https://github.com/sourrust>
+//                 Piotr Kuczynski <https://github.com/pkuczynski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -15,7 +16,7 @@ import * as CoBody from 'co-body';
 
 declare module "koa" {
     interface Request {
-        body?: any;
+        body?: unknown;
         params: {[key: string]: string};
     }
 }
