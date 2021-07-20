@@ -1,5 +1,4 @@
-import { Component, ExoticComponent, ForwardRefExoticComponent, ReactNode } from 'react';
-import { RouterScrollContext } from './context';
+import { ForwardRefExoticComponent, ReactNode } from 'react';
 
 export default withRouterScroll;
 declare function withRouterScroll(WrappedComponent: ReactNode): ForwardRefExoticComponent<any>;
