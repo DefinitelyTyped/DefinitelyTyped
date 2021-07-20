@@ -1,4 +1,4 @@
-import indy from "indy-sdk";
+import indy from 'indy-sdk';
 import { Buffer } from 'buffer/';
 
 indy.openBlobStorageWriter('default', {
