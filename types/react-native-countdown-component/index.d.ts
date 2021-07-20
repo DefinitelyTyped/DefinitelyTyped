@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Component } from 'react';
-import { TextStyle, ViewStyle } from 'react-native';
+import { TextStyle, ViewStyle, StyleProp } from 'react-native';
 
 export type DigitType = 'D' | 'H' | 'M' | 'S';
 
@@ -19,31 +19,31 @@ export interface CountDownProps {
      * Override the component style
      * @default {}
      */
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
 
     /**
      *  Digit style
      * @default {backgroundColor: '#FAB913'}
      */
-    digitStyle?: ViewStyle;
+    digitStyle?: StyleProp<ViewStyle>;
 
     /**
      * Digit Text style
      * @default {color: #FAB913 '#000'}
      */
-    digitTxtStyle?: TextStyle;
+    digitTxtStyle?: StyleProp<TextStyle>;
 
     /**
      * Time Label style
      * @default {color: #FAB913 '#000'}
      */
-    timeLabelStyle?: TextStyle;
+    timeLabelStyle?: StyleProp<TextStyle>;
 
     /**
      * Separator style
      * @default {color: #FAB913 '#000'}
      */
-    separatorStyle?: TextStyle;
+    separatorStyle?: StyleProp<TextStyle>;
 
     /**
      * Size of the countdown component
