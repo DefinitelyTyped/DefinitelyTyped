@@ -49,6 +49,7 @@ export interface ReactDatePickerProps {
     children?: React.ReactNode | undefined;
     chooseDayAriaLabelPrefix?: string | undefined;
     className?: string | undefined;
+    clearButtonClassName?: string | undefined;
     clearButtonTitle?: string | undefined;
     closeOnScroll?: boolean | ((e: Event) => boolean) | undefined;
     customInput?: React.ReactNode | undefined;
