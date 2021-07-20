@@ -79,7 +79,7 @@ export interface CountDownProps {
      * What Digits to show
      * @default ['D', 'H', 'M', 'S']
      */
-    timeToShow?: Array<DigitType>;
+    timeToShow?: DigitType[];
 
     /**
      * Text to show in time label
