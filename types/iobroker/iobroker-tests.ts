@@ -826,3 +826,10 @@ const userObject: ioBroker.UserObject = {
         native: {},
     };
 }
+
+// Repro for https://github.com/ioBroker/adapter-core/issues/334
+(async () => {
+    const states = await adapter.getStatesAsync("foo");
+    // This should not error
+    states["foo"];
+});

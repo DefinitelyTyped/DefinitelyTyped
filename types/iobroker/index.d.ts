@@ -1675,7 +1675,7 @@ declare global {
         type GetStatePromise = Promise<CallbackReturnTypeOf<GetStateCallback>>;
 
         type GetStatesCallback = (err: Error | null, states?: Record<string, State>) => void;
-        type GetStatesPromise = Promise<CallbackReturnTypeOf<GetStatesCallback>>;
+        type GetStatesPromise = Promise<NonNullCallbackReturnTypeOf<GetStatesCallback>>;
 
         type GetBinaryStateCallback = (err?: Error | null, state?: Buffer) => void;
         type GetBinaryStatePromise = Promise<CallbackReturnTypeOf<GetBinaryStateCallback>>;
