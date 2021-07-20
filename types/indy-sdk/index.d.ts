@@ -72,6 +72,13 @@ export function closeWalletSearch(sh: SearchHandle): Promise<void>;
 export function createPoolLedgerConfig(configName: string, config?: PoolConfig): Promise<void>;
 export function openPoolLedger(configName: string, config?: RuntimePoolConfig): Promise<PoolHandle>;
 export function setProtocolVersion(version: number): Promise<void>;
+export function buildNymRequest(
+    submitterDid: Did,
+    targetDid: Did,
+    verkey: string,
+    alias: string,
+    role: NymRole | null
+  ): Promise<LedgerRequest>;
 export function buildGetNymRequest(submitterDid: Did | null, targetDid: Did): Promise<LedgerRequest>;
 export function parseGetNymResponse(response: LedgerResponse): Promise<GetNymResponse>;
 export function buildSchemaRequest(submitterDid: Did, schema: Schema): Promise<LedgerRequest>;
@@ -633,10 +640,4 @@ export interface GetNymResponse {
     role: NymRole;
 }
 
-export enum NymRole {
-    TRUSTEE = 0,
-    STEWARD = 2,
-    TRUST_ANCHOR = 101,
-    ENDORSER = 101,
-    NETWORK_MONITOR = 201,
-}
+export type NymRole = 'TRUSTEE' | 'STEWARD' | 'TRUST_ANCHOR' | 'ENDORSER' | 'NETWORK_MONITOR';
