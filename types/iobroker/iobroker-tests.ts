@@ -629,13 +629,13 @@ adapter.FORBIDDEN_CHARS = /_/;
 {
     interface PCF8574Config {
         pollingInterval: number;
-        interrupt?: string | undefined;
+        interrupt?: string;
         pins: PinConfig[];
     }
 
     interface PinConfig {
         dir: 'in' | 'out';
-        inv?: boolean | undefined;
+        inv?: boolean;
     }
 
     const config: PCF8574Config = undefined as any;
@@ -795,3 +795,29 @@ const userObject: ioBroker.UserObject = {
 
     adapter.setForeignObject(null! as string, null! as ioBroker.Object);
 });
+
+// Test convenience types for subsets of SettableObject
+{
+    // Should be OK
+    const stateObj: ioBroker.SettableStateObject = {
+        type: 'state',
+        common: {
+            name: "Dummy name",
+            role: "value",
+            read: true,
+            write: false,
+            unit: "%"
+        },
+        native: {},
+    };
+}
+{
+    const stateObj: ioBroker.SettableDeviceObject = {
+        // $ExpectError
+        type: 'state',
+        common: {
+            name: "Dummy name",
+        },
+        native: {},
+    };
+}

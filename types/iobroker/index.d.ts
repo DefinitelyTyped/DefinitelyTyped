@@ -48,16 +48,16 @@ declare global {
             from: string;
 
             /** The user who set this value */
-            user?: string | undefined;
+            user?: string;
 
             /** Optional time in seconds after which the state is reset to null */
-            expire?: number | undefined;
+            expire?: number;
 
             /** Optional quality of the state value */
-            q?: StateQuality | undefined;
+            q?: StateQuality;
 
             /** Optional comment */
-            c?: string | undefined;
+            c?: string;
         }
 
         type SettableState = AtLeastOne<State>;
@@ -87,7 +87,7 @@ declare global {
             /** The access rights for users/groups */
             users: ObjectOperationPermissions;
             /** The access rights for states */
-            state?: ObjectOperationPermissions | undefined;
+            state?: ObjectOperationPermissions;
         }
         /** Defined the complete set of access rights a user has */
         interface PermissionSet extends ObjectPermissions {
@@ -164,11 +164,11 @@ declare global {
         /** Parameters for adapter.getObjectView */
         interface GetObjectViewParams {
             /** First id to include in the return list */
-            startkey?: string | undefined;
+            startkey?: string;
             /** Last id to include in the return list */
-            endkey?: string | undefined;
+            endkey?: string;
             /** Whether docs should be included in the return list */ // TODO: What are docs?
-            include_docs?: boolean | undefined;
+            include_docs?: boolean;
         }
 
         /** Parameters for adapter.getObjectList */
@@ -246,19 +246,19 @@ declare global {
         }
 
         interface GetHistoryOptions {
-            instance?: string | undefined;
-            start?: number | undefined;
-            end?: number | undefined;
-            step?: number | undefined;
-            count?: number | undefined;
-            from?: boolean | undefined;
-            ack?: boolean | undefined;
-            q?: boolean | undefined;
-            addID?: boolean | undefined;
-            limit?: number | undefined;
-            ignoreNull?: boolean | undefined;
+            instance?: string;
+            start?: number;
+            end?: number;
+            step?: number;
+            count?: number;
+            from?: boolean;
+            ack?: boolean;
+            q?: boolean;
+            addID?: boolean;
+            limit?: number;
+            ignoreNull?: boolean;
             sessionId?: any;
-            aggregate?: 'minmax' | 'min' | 'max' | 'average' | 'total' | 'count' | 'none' | undefined;
+            aggregate?: 'minmax' | 'min' | 'max' | 'average' | 'total' | 'count' | 'none';
         }
 
         interface AdapterOptions {
@@ -266,47 +266,47 @@ declare global {
             name: string;
 
             /** path to adapter */
-            dirname?: string | undefined;
+            dirname?: string;
 
             /** if the global system config should be included in the created object. Default: false */
-            systemConfig?: boolean | undefined;
+            systemConfig?: boolean;
 
             /** provide alternative global configuration for the adapter. Default: null */
             config?: any;
 
             /** instance of the created adapter. Default: null */
-            instance?: number | undefined;
+            instance?: number;
 
             /** If the adapter needs access to the formatDate function to format dates according to the global settings. Default: false */
-            useFormatDate?: boolean | undefined;
+            useFormatDate?: boolean;
 
             /** If the adapter collects logs from all adapters (experts only). Default: false */
-            logTransporter?: boolean | undefined;
+            logTransporter?: boolean;
 
             /** Handler for changes of subscribed objects */
-            objectChange?: ObjectChangeHandler | undefined;
+            objectChange?: ObjectChangeHandler;
             /** Handler for received adapter messages. Can only be used if messagebox in io-package.json is set to true. */
-            message?: MessageHandler | undefined;
+            message?: MessageHandler;
             /** Handler for changes of subscribed states */
-            stateChange?: StateChangeHandler | undefined;
+            stateChange?: StateChangeHandler;
             /** Will be called when the adapter is intialized */
-            ready?: ReadyHandler | undefined;
+            ready?: ReadyHandler;
             /** Will be called on adapter termination */
-            unload?: UnloadHandler | undefined;
+            unload?: UnloadHandler;
             /** Will be called when ioBroker detects an unhandled error in the adapter. Return `true` to signal that the error was handled and the adapter does not need to be restarted. */
-            error?: ErrorHandler | undefined;
+            error?: ErrorHandler;
 
             /** if true, stateChange will be called with an id that has no namespace, e.g. "state" instead of "adapter.0.state". Default: false */
-            noNamespace?: boolean | undefined;
+            noNamespace?: boolean;
 
             /** If true, the adapter will have a property `oObjects` that contains a live cache of the adapter's objects */
-            objects?: boolean | undefined;
+            objects?: boolean;
 
             /** If true, the adapter will have a property `oStates` that contains a live cache of the adapter's states */
-            states?: boolean | undefined;
+            states?: boolean;
 
             /** Whether the adapter should warn if states are set without an corresponding existing object. Default: `true` */
-            strictObjectChecks?: boolean | undefined;
+            strictObjectChecks?: boolean;
         } // end interface AdapterOptions
 
         // tslint:disable-next-line:no-empty-interface
@@ -347,13 +347,13 @@ declare global {
              *
              * NOTE: This is only defined if the adapter was initialized with the option `objects: true`.
              */
-            oObjects?: Record<string, ioBroker.Object | undefined> | undefined;
+            oObjects?: Record<string, ioBroker.Object | undefined>;
             /**
              * Contains a live cache of the adapter's states.
              *
              * NOTE: This is only defined if the adapter was initialized with the option `states: true`.
              */
-            oStates?: Record<string, ioBroker.State | undefined> | undefined;
+            oStates?: Record<string, ioBroker.State | undefined>;
 
             /** Can be used to test for forbidden chars in object IDs */
             readonly FORBIDDEN_CHARS: RegExp;
@@ -375,7 +375,7 @@ declare global {
             getPortAsync(port: number): Promise<number>;
 
             /** Stops the adapter. Note: Is not always defined. */
-            stop?: (() => void) | undefined;
+            stop?: (() => void);
 
             // ==============================
             // GENERAL
@@ -733,7 +733,7 @@ declare global {
             getObjectList(params: GetObjectListParams | null, callback: GetObjectListCallback): void;
             getObjectList(
                 params: GetObjectListParams | null,
-                options: { sorted?: boolean | undefined } | Record<string, any>,
+                options: { sorted?: boolean } | Record<string, any>,
                 callback: GetObjectListCallback,
             ): void;
             /**
@@ -743,7 +743,7 @@ declare global {
              */
             getObjectListAsync(
                 params: GetObjectListParams | null,
-                options?: { sorted?: boolean | undefined } | Record<string, any>,
+                options?: { sorted?: boolean } | Record<string, any>,
             ): GetObjectListPromise;
 
             // ==============================
@@ -1547,7 +1547,7 @@ declare global {
              * Checks if a given feature is supported by the current installation
              * @param featureName The name of the feature to test for
              */
-            supportsFeature?: ((featureName: string) => boolean) | undefined;
+            supportsFeature?: ((featureName: string) => boolean);
 
             /**
              * Returns an instance of a loaded plugin
@@ -1683,7 +1683,7 @@ declare global {
 
         type DeleteStateCallback = (err?: Error | null, id?: string) => void;
 
-        type GetHistoryResult = Array<State & { id?: string | undefined }>;
+        type GetHistoryResult = Array<State & { id?: string }>;
         type GetHistoryCallback = (
             err: Error | null,
             result?: GetHistoryResult,
@@ -1700,11 +1700,11 @@ declare global {
             /** Whether this is a directory or a file */
             isDir: boolean;
             /** Access rights */
-            acl?: EvaluatedFileACL | undefined;
+            acl?: EvaluatedFileACL;
             /** Date of last modification */
-            modifiedAt?: number | undefined;
+            modifiedAt?: number;
             /** Date of creation */
-            createdAt?: number | undefined;
+            createdAt?: number;
         }
         type ReadDirCallback = (err?: NodeJS.ErrnoException | null, entries?: ReadDirResult[]) => void;
         type ReadDirPromise = Promise<NonNullCallbackReturnTypeOf<ReadDirCallback>>;
