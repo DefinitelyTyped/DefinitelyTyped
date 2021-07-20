@@ -319,6 +319,11 @@ adapter.getObjectListAsync({ startkey: 'foo', endkey: 'bar' }).then(result => {
     result && result.rows[0] && result.rows[0].id.toLowerCase();
 });
 
+adapter.delObject('foo');
+adapter.delObject('foo', {recursive: true});
+// $ExpectError
+adapter.delObject('foo', {someWeirdOption: 1});
+
 adapter.subscribeObjects('*');
 adapter.subscribeStates('*');
 adapter.subscribeForeignObjects('*');
