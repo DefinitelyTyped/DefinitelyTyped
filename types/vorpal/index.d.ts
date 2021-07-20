@@ -6,7 +6,7 @@
 // TypeScript Version: 3.5
 
 declare class Vorpal {
-    parse(argv: ReadonlyArray<string>): this;
+    parse(argv: ReadonlyArray<string>, opts?: Vorpal.ParseOpts): this;
     delimiter(value: string): this;
     show(): this;
     hide(): this;
@@ -35,6 +35,10 @@ declare namespace Vorpal {
         };
     }
 
+    interface ParseOpts {
+        use?: 'minimist';
+    }
+
     interface PromptObject {
         [key: string]: any;
     }
@@ -60,9 +64,9 @@ declare namespace Vorpal {
         allowUnknownOptions(): this;
     }
 
-    class Catch extends Command { }
+    class Catch extends Command {}
 
-    class Extension { }
+    class Extension {}
 
     class UI {
         delimiter(text?: string): string;
