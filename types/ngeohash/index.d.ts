@@ -10,7 +10,7 @@ declare namespace ngeohash {
     error: {
       latitude: number;
       longitude: number;
-    }
+    };
   }
 
   type GeographicBoundingBox = [number, number, number, number];
