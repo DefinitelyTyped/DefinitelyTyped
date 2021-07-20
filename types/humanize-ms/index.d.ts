@@ -3,6 +3,6 @@
 // Definitions by:  Adam Zerella <https://github.com/adamzerella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function HumanizeMS(input: string|number): number;
+declare function HumanizeMS(input: string|number): number | undefined;
 
 export = HumanizeMS;
