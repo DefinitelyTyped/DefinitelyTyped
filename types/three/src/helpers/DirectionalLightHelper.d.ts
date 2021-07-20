@@ -1,8 +1,8 @@
 import { DirectionalLight } from './../lights/DirectionalLight';
-import { Color } from './../math/Color';
 import { Line } from './../objects/Line';
 import { Matrix4 } from './../math/Matrix4';
 import { Object3D } from './../core/Object3D';
+import { ColorRepresentation } from '../utils';
 
 export class DirectionalLightHelper extends Object3D {
     /**
@@ -10,7 +10,7 @@ export class DirectionalLightHelper extends Object3D {
      * @param [size=1]
      * @param color
      */
-    constructor(light: DirectionalLight, size?: number, color?: Color | string | number);
+    constructor(light: DirectionalLight, size?: number, color?: ColorRepresentation);
 
     light: DirectionalLight;
     lightPlane: Line;
@@ -19,7 +19,7 @@ export class DirectionalLightHelper extends Object3D {
     /**
      * @default undefined
      */
-    color: Color | string | number | undefined;
+    color: ColorRepresentation | undefined;
     matrix: Matrix4;
 
     /**

@@ -1,9 +1,10 @@
+import { ColorRepresentation } from '../utils';
 import { Color } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { MaterialParameters, Material } from './Material';
 
 export interface SpriteMaterialParameters extends MaterialParameters {
-    color?: Color | string | number | undefined;
+    color?: ColorRepresentation | undefined;
     map?: Texture | null | undefined;
     alphaMap?: Texture | null | undefined;
     rotation?: number | undefined;

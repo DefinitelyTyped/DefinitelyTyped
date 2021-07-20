@@ -9,6 +9,7 @@ export interface LineMaterialParameters extends MaterialParameters {
     gapSize?: number | undefined;
     linewidth?: number | undefined;
     resolution?: Vector2 | undefined;
+    wireframe?: boolean | undefined;
 }
 
 export class LineMaterial extends ShaderMaterial {

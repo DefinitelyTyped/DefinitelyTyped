@@ -21,7 +21,7 @@ export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialPara
 }
 
 export class MeshPhysicalMaterial extends MeshStandardMaterial {
-    constructor(parameters: MeshPhysicalMaterialParameters);
+    constructor(parameters?: MeshPhysicalMaterialParameters);
 
     /**
      * @default 'MeshPhysicalMaterial'

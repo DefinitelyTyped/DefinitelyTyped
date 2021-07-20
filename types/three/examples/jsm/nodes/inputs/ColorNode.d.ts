@@ -4,7 +4,7 @@ import { InputNode } from '../core/InputNode';
 import { NodeBuilder } from '../core/NodeBuilder';
 
 export class ColorNode extends InputNode {
-    constructor(color: Color | number | string, g?: number, b?: number);
+    constructor(color: ColorRepresentation, g?: number, b?: number);
 
     value: Color;
     nodeType: string;

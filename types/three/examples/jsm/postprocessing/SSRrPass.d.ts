@@ -22,6 +22,7 @@ import {
     Mesh,
     TextureEncoding,
     Material,
+    ColorRepresentation,
 } from '../../../src/Three';
 import { Pass, FullScreenQuad } from './Pass';
 import { SSRrShader, SSRrDepthShader } from '../shaders/SSRrShader';
@@ -101,24 +102,24 @@ export class SSRrPass extends Pass {
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 
     renderOverride: (
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 
     renderRefractive: (
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 
     setSize: (width: number, height: number) => void;
