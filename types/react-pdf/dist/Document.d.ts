@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { PDFDocumentProxy } from 'pdfjs-dist';
+import type {
+  PDFDocumentProxy
+} from 'pdfjs-dist/types/display/api'
 
 export type RenderFunction = () => JSX.Element;
 
