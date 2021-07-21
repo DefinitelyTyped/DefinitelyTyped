@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
-import SignaturePad = require('signature_pad');
+import SignaturePad from'signature_pad';
 
 export interface ReactSignatureCanvasProps extends SignaturePad.SignaturePadOptions {
     canvasProps?: React.CanvasHTMLAttributes<HTMLCanvasElement> | undefined;
