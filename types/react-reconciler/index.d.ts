@@ -275,11 +275,6 @@ declare namespace ReactReconciler {
          */
         noTimeout: NoTimeout;
 
-        /**
-         * You can proxy this to `queueMicrotask` or its equivalent in your environment.
-         */
-        queueMicrotask(fn: () => void): void;
-
         // tslint:disable:max-line-length
         /**
          * This is a property (not a function) that should be set to `true` if your renderer is the main one on the page. For example, if you're writing a renderer for the Terminal, it makes sense to set it to `true`, but if your renderer is used *on top of* React DOM or some other existing renderer, set it to `false`.
@@ -674,7 +669,7 @@ declare namespace ReactReconciler {
         ref: null;
         props: {
             value: T;
-            children?: ReactNode | undefined;
+            children?: ReactNode;
         };
     }
 
@@ -690,7 +685,7 @@ declare namespace ReactReconciler {
         ref: null;
         props: {
             children: (value: T) => ReactNode;
-            unstable_observedBits?: number | undefined;
+            unstable_observedBits?: number;
         };
     }
 
@@ -705,13 +700,13 @@ declare namespace ReactReconciler {
         // DEV only
         _currentRenderer?: {
             [key: string]: any;
-        } | null | undefined;
+        } | null;
         _currentRenderer2?: {
             [key: string]: any;
-        } | null | undefined;
+        } | null;
         // This value may be added by application code
         // to improve DEV tooling display names
-        displayName?: string | undefined;
+        displayName?: string;
     }
 
     interface ReactPortal {
@@ -787,7 +782,7 @@ declare namespace ReactReconciler {
         ref:
             | null
             | (((handle: unknown) => void) & {
-                  _stringRef: string | null | undefined;
+                  _stringRef?: string | null;
               })
             | RefObject;
 
@@ -838,35 +833,35 @@ declare namespace ReactReconciler {
         // This tells us how well the tree makes use of sCU for memoization.
         // It is reset to 0 each time we render and only updated when we don't bailout.
         // This field is only set when the enableProfilerTimer flag is enabled.
-        actualDuration?: number | undefined;
+        actualDuration?: number;
 
         // If the Fiber is currently active in the "render" phase,
         // This marks the time at which the work began.
         // This field is only set when the enableProfilerTimer flag is enabled.
-        actualStartTime?: number | undefined;
+        actualStartTime?: number;
 
         // Duration of the most recent render time for this Fiber.
         // This value is not updated when we bailout for memoization purposes.
         // This field is only set when the enableProfilerTimer flag is enabled.
-        selfBaseDuration?: number | undefined;
+        selfBaseDuration?: number;
 
         // Sum of base times for all descendants of this Fiber.
         // This value bubbles up during the "complete" phase.
         // This field is only set when the enableProfilerTimer flag is enabled.
-        treeBaseDuration?: number | undefined;
+        treeBaseDuration?: number;
 
         // Conceptual aliases
         // workInProgress : Fiber ->  alternate The alternate used for reuse happens
         // to be the same as work in progress.
         // __DEV__ only
-        _debugID?: number | undefined;
-        _debugSource?: Source | null | undefined;
-        _debugOwner?: Fiber | null | undefined;
-        _debugIsCurrentlyTiming?: boolean | undefined;
-        _debugNeedsRemount?: boolean | undefined;
+        _debugID?: number;
+        _debugSource?: Source | null;
+        _debugOwner?: Fiber | null;
+        _debugIsCurrentlyTiming?: boolean;
+        _debugNeedsRemount?: boolean;
 
         // Used to verify that the order of hooks does not change between renders.
-        _debugHookTypes?: HookType[] | null | undefined;
+        _debugHookTypes?: HookType[] | null;
     }
 
     type FiberRoot = any;
@@ -889,13 +884,13 @@ declare namespace ReactReconciler {
         // Used by "inspect clicked DOM element" in React DevTools.
         findFiberByHostInstance?: ((
             instance: Instance | TextInstance,
-        ) => Fiber | null) | undefined;
-        rendererConfig?: RendererInspectionConfig | undefined;
+        ) => Fiber | null);
+        rendererConfig?: RendererInspectionConfig;
     }
 
     interface SuspenseHydrationCallbacks<SuspenseInstance> {
-        onHydrated?: ((suspenseInstance: SuspenseInstance) => void) | undefined;
-        onDeleted?: ((suspenseInstance: SuspenseInstance) => void) | undefined;
+        onHydrated?: ((suspenseInstance: SuspenseInstance) => void);
+        onDeleted?: ((suspenseInstance: SuspenseInstance) => void);
     }
 
     interface ComponentSelector {
@@ -959,8 +954,8 @@ declare namespace ReactReconciler {
         updateContainer(
             element: ReactNode,
             container: OpaqueRoot,
-            parentComponent: Component<any, any> | null | undefined,
-            callback: () => void | null | undefined,
+            parentComponent?: Component<any, any> | null,
+            callback?: () => void | null,
         ): Lane;
 
         batchedEventUpdates<A, R>(fn: (a: A) => R, a: A): R;
@@ -1028,7 +1023,7 @@ declare namespace ReactReconciler {
             children: ReactNode,
             containerInfo: any, // TODO: figure out the API for cross-renderer implementation.
             implementation: any,
-            key: string | null | undefined,
+            key?: string | null,
         ): ReactPortal;
 
         createComponentSelector(

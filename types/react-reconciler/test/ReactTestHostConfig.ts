@@ -187,11 +187,7 @@ export const warnsIfNotActing = true;
 
 export const scheduleTimeout = (_fn: () => void, _timeout: number): TimeoutID => noTimeout;
 export const cancelTimeout = (_id: TimeoutID) => { };
-export const queueMicrotask = (callback: (...args: any[]) => any) => Promise.resolve(null).then(callback).catch(handleErrorInNextTick);
 
-function handleErrorInNextTick(error: unknown) {
-  throw error;
-}
 export const noTimeout = -1;
 
 // -------------------
