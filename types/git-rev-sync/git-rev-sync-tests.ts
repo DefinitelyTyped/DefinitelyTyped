@@ -10,6 +10,7 @@ gitRevSync.long();
 gitRevSync.message();
 gitRevSync.remoteUrl();
 gitRevSync.short();
+gitRevSync.short(null); // $ExpectType string
 gitRevSync.short();
 gitRevSync.tag();
 gitRevSync.tagFirstParent();
