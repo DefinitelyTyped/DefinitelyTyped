@@ -1,7 +1,8 @@
 {
   "private": true,
   "dependencies": {
-    "@types/express-serve-static-core": "^4.17.18"
+    "@types/express-serve-static-core": "^4.17.18",
+    "@types/serve-static": "^1.13.9"
   },
   "types": "index",
   "typesVersions": {
