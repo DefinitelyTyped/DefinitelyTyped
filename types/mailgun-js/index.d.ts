@@ -7,8 +7,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="node" />
-
 import * as FormData from 'form-data';
 
 declare const Mailgun: Mailgun.MailgunExport;
