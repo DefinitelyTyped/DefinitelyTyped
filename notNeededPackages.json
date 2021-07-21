@@ -3470,6 +3470,10 @@
             "libraryName": "preferred-pm",
             "asOfVersion": "3.0.0"
         },
+        "prettier-package-json": {
+            "libraryName": "prettier-package-json",
+            "asOfVersion": "2.3.0"
+        },
         "pretty-bytes": {
             "libraryName": "pretty-bytes",
             "asOfVersion": "5.2.0"

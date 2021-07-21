@@ -79,15 +79,8 @@ export interface CommonCalendarProps {
     minDate?: DateInputType | undefined;
     /** default: none */
     maxDate?: DateInputType | undefined;
-    /**
-     * Calendar languages.
-     * ('cn' - Chinese, 'jp' - Japanese,
-     * 'fr' - French, 'it' - Italian,
-     * 'de' - German, 'ko' - Korean,
-     * 'es' - Spanish, 'ru' - Russian,
-     * 'tr' - Turkish) default: none
-     */
-    lang?: LanguageType | undefined;
+    /** default: enUs from locale. Complete list here https://github.com/Adphorus/react-date-range/blob/next/src/locale/index.js */
+    locale?: Locale | undefined;
     /** Custom class names for elements */
     classNames?: Partial<ClassNames> | undefined;
     /** default: none */

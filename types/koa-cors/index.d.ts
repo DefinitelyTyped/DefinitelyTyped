@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Middleware, Request } from 'koa';
+import { Context, Middleware, Request } from 'koa';
 
 declare function koaCors(options?: koaCors.Options): Middleware;
 
 declare namespace koaCors {
     interface Options {
-        credentials?: true | undefined;
+        credentials?: true | ((ctx: Context) => boolean) | undefined;
         expose?: string | ReadonlyArray<string> | undefined;
         headers?: string | ReadonlyArray<string> | undefined;
         maxAge?: number | undefined;

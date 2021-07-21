@@ -1480,6 +1480,14 @@ declare namespace videojs {
         dispose(): void;
 
         /**
+         * Determine whether or not this component has been disposed.
+         *
+         * @return
+         *         If the component has been disposed, will be `true`. Otherwise, `false`.
+         */
+        isDisposed(): boolean;
+
+        /**
          * Get the `Component`s DOM element
          *
          * @return The DOM element for this `Component`.
