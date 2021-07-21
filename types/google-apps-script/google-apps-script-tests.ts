@@ -91,7 +91,7 @@ const listAllUsers = () => {
 };
 
 // doPost function
-function doPost(e: GoogleAppsScript.Events.DoPost<{ param: string }>) {
+function doPost(e: GoogleAppsScript.Events.DoPost) {
     const data: string = e.postData.contents;
     const param: string = e.parameter.param;
     const paramArray: string[] = e.parameters.param;
@@ -101,7 +101,7 @@ function doPost(e: GoogleAppsScript.Events.DoPost<{ param: string }>) {
 }
 
 // doGet function
-function doGet(e: GoogleAppsScript.Events.DoGet<{ param: string }>) {
+function doGet(e: GoogleAppsScript.Events.DoGet) {
     const param: string = e.parameter.param;
     const paramArray: string[] = e.parameters.param;
     Logger.log(param);
