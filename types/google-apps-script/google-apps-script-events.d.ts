@@ -22,12 +22,12 @@ declare namespace GoogleAppsScript {
       user: Base.User;
     }
 
-    interface AppsScriptHttpRequestEvent {
-      parameter: object;
+    interface AppsScriptHttpRequestEvent<T> {
+      parameter: { [key in keyof T]: string };
       contextPath: string;
       contentLength: number;
       queryString: string;
-      parameters: object;
+      parameters: { [key in keyof T]: string[] };
     }
 
     interface AppsScriptHttpRequestEventPostData {
@@ -96,10 +96,10 @@ declare namespace GoogleAppsScript {
     }
 
     // tslint:disable-next-line: no-empty-interface
-    interface DoGet extends AppsScriptHttpRequestEvent {
+    interface DoGet<T = any> extends AppsScriptHttpRequestEvent<T> {
     }
 
-    interface DoPost extends AppsScriptHttpRequestEvent {
+    interface DoPost<T = any> extends AppsScriptHttpRequestEvent<T> {
       postData: AppsScriptHttpRequestEventPostData;
     }
 
