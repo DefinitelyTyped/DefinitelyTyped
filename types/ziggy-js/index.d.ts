@@ -1,4 +1,4 @@
-// Type definitions for ziggy-js 1.0
+// Type definitions for ziggy-js 1.3
 // Project: https://github.com/tightenco/ziggy#readme
 // Definitions by: Ben Allfree <https://github.com/benallfree>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,15 +27,18 @@ export interface Route {
 }
 
 export interface Config {
-    namedRoutes: {
+    routes: {
         [key: string]: Route;
     };
-    baseUrl: string;
-    baseProtocol: 'http' | 'https';
-    baseDomain: string;
-    basePort?: number | null | undefined;
-    defaultParameters: {
+    url: string;
+    port?: number | null | undefined;
+    defaults: {
         [_: string]: string | number;
+    };
+    location?: {
+        host?: string;
+        pathname?: string
+        search?: string
     };
 }
 
@@ -57,6 +60,6 @@ export class Router extends String {
     trimParam(param: string): string;
     valueOf(): string;
 }
-declare function route(): Router;
+declare function route(name?: undefined, params?: undefined, absolute?: boolean, customZiggy?: Partial<Config>): Router;
 declare function route(name: string, params?: InputParams, absolute?: boolean, customZiggy?: Config): string;
 export default route;
