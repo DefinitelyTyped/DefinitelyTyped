@@ -1,6 +1,7 @@
 import { MarkdownParser, MarkdownSerializer } from 'prosemirror-markdown';
 import { Schema, Node as ProsemirrorNode, Mark, Fragment } from 'prosemirror-model';
 import md = require('markdown-it');
+import Token = require('markdown-it/lib/token');
 
 /**
  * Parses markdown content into a ProsemirrorNode compatible with the provided schema.
@@ -12,8 +13,11 @@ export const fromMarkdown = (markdown: string, schema: Schema) =>
         list_item: { block: 'listItem' },
         bullet_list: { block: 'bulletList' },
         ordered_list: {
-            block: 'orderedList',
-            getAttrs: tok => ({ order: parseInt(tok.attrGet('order') || '1', 10) }),
+            block: "orderedList",
+            getAttrs: (tok, tokens, i) => ({
+                order: +(tok.attrGet("start") || 1),
+                tight: listIsTight(tokens, i)
+            })
         },
         heading: { block: 'heading', getAttrs: tok => ({ level: +tok.tag.slice(1) }) },
         code_block: { block: 'codeBlock' },
@@ -175,4 +179,13 @@ function backticksFor(node: ProsemirrorNode, side: Side) {
         result += ' ';
     }
     return result;
+}
+
+function listIsTight(tokens: Token[], i: number) {
+    while (++i < tokens.length) {
+        if (tokens[i].type !== "list_item_open") {
+            return tokens[i].hidden;
+        }
+    }
+    return false;
 }
