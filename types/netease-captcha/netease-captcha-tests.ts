@@ -21,3 +21,24 @@ const onLoad: NeteaseCaptcha.onLoad = (instance: NeteaseCaptcha.Instance) => {
 if (window.initNECaptcha) {
     window.initNECaptcha(config, onLoad);
 }
+
+const invisibleConfig: NeteaseCaptcha.Config = {
+    captchaId: 'FAKE ID',
+    element: '#captcha',
+    mode: 'bind',
+    protocol: 'https',
+    width: '200px',
+    lang: 'en',
+    onVerify: (error: any, data?: NeteaseCaptcha.Data) => {
+        console.log(error, data);
+    },
+    onReady: (instance: NeteaseCaptcha.Instance) => {
+        if (instance.verify) {
+            instance.verify();
+        }
+    }
+};
+
+if (window.initNECaptcha) {
+    window.initNECaptcha(invisibleConfig, () => {});
+}
