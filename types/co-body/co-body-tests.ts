@@ -1,41 +1,39 @@
-import koa = require('koa');
+import Koa = require('koa');
 import parse = require('co-body');
 
-var app = new koa();
+const app = new Koa();
 
-app.use(async function (ctx: koa.Context, next: Function): Promise<void> {
-  var body: any;
+app.use(async (ctx: Koa.Context, next: Koa.Next): Promise<void> => {
+    let body: any;
 
-  // application/json
-  body = await parse.json(ctx.req);
+    // application/json
+    body = await parse.json(ctx.req);
 
-  // explicit limit
-  body = await parse.json(ctx.req, { limit: '10kb' });
+    // explicit limit
+    body = await parse.json(ctx.req, { limit: '10kb' });
 
-  // application/x-www-form-urlencoded
-  body = await parse.form(ctx.req);
+    // application/x-www-form-urlencoded
+    body = await parse.form(ctx.req);
 
-  // text/plain
-  body = await parse.text(ctx.req);
+    // text/plain
+    body = await parse.text(ctx.req);
 
-  // either
-  body = await parse(ctx.req);
+    // either
+    body = await parse(ctx.req);
 
-  // custom type
-  body = await parse(ctx.req, { textTypes: ['text', 'html'] });
+    // custom type
+    body = await parse(ctx.req, { textTypes: ['text', 'html'] });
 
-  // This lib also supports ctx.req in Koa (or other libraries), so that you may simply use this instead of this.req.
+    // This lib also supports ctx.req in Koa (or other libraries), so that you may simply use this instead of this.req.
+    // application/json
+    body = await parse.json(ctx);
 
-  // application/json
-  body = await parse.json(ctx);
+    // application/x-www-form-urlencoded
+    body = await parse.form(ctx);
 
-  // application/x-www-form-urlencoded
-  body = await parse.form(ctx);
+    // text/plain
+    body = await parse.text(ctx);
 
-  // text/plain
-  body = await parse.text(ctx);
-
-  // either
-  body = await parse(ctx);
+    // either
+    body = await parse(ctx);
 });
-
