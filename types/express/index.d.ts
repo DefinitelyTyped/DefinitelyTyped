@@ -96,10 +96,10 @@ declare namespace e {
     interface Errback extends core.Errback {}
     interface ErrorRequestHandler<
         P = core.ParamsDictionary,
-        ResBody = any,
-        ReqBody = any,
+        ResBody = unknown,
+        ReqBody = unknown,
         ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
+        Locals extends Record<string, unknown> = Record<string, unknown>
     > extends core.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface Express extends core.Express {}
     interface Handler extends core.Handler {}
@@ -111,20 +111,20 @@ declare namespace e {
     interface NextFunction extends core.NextFunction {}
     interface Request<
         P = core.ParamsDictionary,
-        ResBody = any,
-        ReqBody = any,
+        ResBody = unknown,
+        ReqBody = unknown,
         ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
+        Locals extends Record<string, unknown> = Record<string, unknown>
     > extends core.Request<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface RequestHandler<
         P = core.ParamsDictionary,
-        ResBody = any,
-        ReqBody = any,
+        ResBody = unknown,
+        ReqBody = unknown,
         ReqQuery = core.Query,
-        Locals extends Record<string, any> = Record<string, any>
+        Locals extends Record<string, unknown> = Record<string, unknown>
     > extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface RequestParamHandler extends core.RequestParamHandler {}
-    export interface Response<ResBody = any, Locals extends Record<string, any> = Record<string, any>>
+    export interface Response<ResBody = unknown, Locals extends Record<string, unknown> = Record<string, unknown>>
         extends core.Response<ResBody, Locals> {}
     interface Router extends core.Router {}
     interface Send extends core.Send {}
