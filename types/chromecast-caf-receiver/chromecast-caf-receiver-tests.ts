@@ -185,6 +185,10 @@ cast.framework.CastReceiverContext.getInstance()
         const bitrate = bitrateChangedEvent.totalBitrate;
     });
 
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .addEventListener(cast.framework.events.EventType.TRACKS_CHANGED, () => {});
+
 // CastDebugLogger
 const debugLogger = cast.debug.CastDebugLogger.getInstance();
 
