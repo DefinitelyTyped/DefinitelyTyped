@@ -26,6 +26,14 @@ declare function libnpmexec(opts: {
     readonly scriptShell?: string;
     readonly yes?: boolean;
     readonly registry?: string;
-}): Promise<void>;
+}): Promise<{
+    readonly code: number
+    readonly signal: string
+    readonly stdout: Buffer | string
+    readonly stderr: Buffer | string
+    readonly path: string
+    readonly event: string
+    readonly script: string
+}>;
 
 export = libnpmexec;
