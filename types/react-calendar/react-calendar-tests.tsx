@@ -6,6 +6,8 @@ interface State {
 }
 
 export default class Sample extends React.Component<{}, State> {
+    ref = React.createRef<HTMLInputElement>();
+
     state = {
         value: null,
     };
@@ -37,6 +39,7 @@ export default class Sample extends React.Component<{}, State> {
                             value={value}
                             locale="ko-KR"
                             formatDay={(locale, date) => date.getDate().toString()}
+                            inputRef={this.ref}
                         />
                         <Calendar
                             onChange={this.onRangeChange}
@@ -45,6 +48,7 @@ export default class Sample extends React.Component<{}, State> {
                             value={value}
                             locale="ko-KR"
                             formatDay={(locale, date) => date.getDate().toString()}
+                            inputRef={this.ref}
                             selectRange
                         />
                     </main>

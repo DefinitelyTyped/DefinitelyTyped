@@ -35,7 +35,7 @@ export interface CalendarProps {
     formatYear?: FormatterCallback | undefined;
     inputRef?: ((
         ref: HTMLInputElement | null,
-    ) => void | RefObject<HTMLInputElement> | MutableRefObject<HTMLInputElement | null>) | undefined;
+    ) => void) | RefObject<HTMLInputElement> | MutableRefObject<HTMLInputElement | null> | undefined;
     locale?: string | undefined;
     maxDate?: Date | undefined;
     maxDetail?: Detail | undefined;
