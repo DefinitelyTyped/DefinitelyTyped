@@ -310,9 +310,9 @@ type WithOptionalTheme<P extends { theme?: T | undefined }, T> = Omit<P, 'theme'
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
 
 export interface ThemedStyledComponentsModule<T extends object, U extends object = T> {
-    default: ThemedStyledInterface<T>;
+    default: ThemedBaseStyledInterface<T>;
 
-    css: ThemedCssFunction<T>;
+    css: BaseThemedCssFunction<T>;
 
     // unfortunately keyframes can't interpolate props from the theme
     keyframes(strings: TemplateStringsArray | CSSKeyframes, ...interpolations: SimpleInterpolation[]): Keyframes;
@@ -322,7 +322,7 @@ export interface ThemedStyledComponentsModule<T extends object, U extends object
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): GlobalStyleComponent<P, T>;
 
-    withTheme: WithThemeFnInterface<T>;
+    withTheme: BaseWithThemeFnInterface<T>;
     ThemeProvider: ThemeProviderComponent<T, U>;
     ThemeConsumer: React.Consumer<T>;
     ThemeContext: React.Context<T>;
