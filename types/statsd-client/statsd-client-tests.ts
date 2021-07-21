@@ -12,7 +12,13 @@ sdc.close(); // Optional - stop NOW
 // Initialization
 const tags: SDC.Tags = { foo: 'bar' };
 const udpOptions: SDC.UdpOptions = { host: 'statsd.example.com', port: 8124, debug: true, tags };
-const tcpOptions: SDC.TcpOptions = { host: 'statsd.example.com', port: 8124, debug: true, tags, socketTimeoutsToClose: 1 };
+const tcpOptions: SDC.TcpOptions = {
+    host: 'statsd.example.com',
+    port: 8124,
+    debug: true,
+    tags,
+    socketTimeoutsToClose: 1,
+};
 const httpOptions: SDC.HttpOptions = {
     host: 'statsd.example.com',
     headers: { 'x-foo': 'bar' },
@@ -61,6 +67,10 @@ setTimeout(function () {
 sdc.histogram('histogram.stuff', 40);
 sdc.histogram('histogram.stuff', 44, { biz: 'baz' });
 
+// Distribution
+sdc.distribution('distribution.stuff', 60);
+sdc.distribution('distribution.stuff', 66, { foo: 'bar' });
+
 // Raw string output
 sdc.raw('my.metric:123|g');
 
@@ -91,3 +101,7 @@ sdcB.increment('foo'); // Increments 'systemname.b.foo'
 
 // Express middleware helper
 sdc.helpers.getExpressMiddleware('express.metrics', { timeByUrl: true }); // Returns an express handler
+
+// Wrapped callback helper
+const callback = () => undefined;
+sdc.helpers.wrapCallback('callback.prefix', callback, { tags }); // Returns the callback function with added metrics
