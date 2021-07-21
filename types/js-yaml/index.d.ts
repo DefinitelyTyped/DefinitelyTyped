@@ -9,7 +9,12 @@
 
 export as namespace jsyaml;
 
-export function load(str: string, opts?: LoadOptions): object | string | number | null | undefined;
+// tslint:disable-next-line:no-unnecessary-generics
+export function load<T = unknown[] | Record<string, unknown> | string | number>(
+    str: string,
+    opts?: LoadOptions,
+// tslint:disable-next-line:no-unnecessary-generics
+): T | null | undefined;
 
 export class Type {
     constructor(tag: string, opts?: TypeConstructorOptions);
