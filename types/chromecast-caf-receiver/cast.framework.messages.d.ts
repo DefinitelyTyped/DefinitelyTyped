@@ -2180,7 +2180,7 @@ export class CloudMediaStatus extends MediaStatus {}
  * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.BreakStatus
  */
 export class BreakStatus {
-    constructor(currentBreakTime?: number | undefined, currentBreakClipTime?: number | undefined);
+    constructor(currentBreakTime?: number, currentBreakClipTime?: number);
 
     /**
      * Id of current break clip.
