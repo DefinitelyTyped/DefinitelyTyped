@@ -19,6 +19,9 @@ declare namespace RecordRTC {
     class MediaStreamRecorder {
         constructor(mediaStream: any, config: any);
     }
+    class RecordRTCPromisesHandler {
+        constructor(mediaStream: any, config: any);
+    }
     class StereoAudioRecorder {
         constructor(mediaStream: any, config: any);
     }
