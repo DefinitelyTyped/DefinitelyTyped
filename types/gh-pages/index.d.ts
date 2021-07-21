@@ -1,4 +1,4 @@
-// Type definitions for gh-pages 3.0
+// Type definitions for gh-pages 3.2
 // Project: https://github.com/tschaub/gh-pages
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -35,6 +35,10 @@ export interface PublishOptions {
     } | undefined;
 }
 
+/**
+ *  Get the cache directory.
+ */
+export function getCacheDir(optPath?: string): string;
 export function publish(basePath: string, callback: (err: any) => void): void;
 export function publish(basePath: string, config: PublishOptions, callback?: (err: any) => void): void;
 
