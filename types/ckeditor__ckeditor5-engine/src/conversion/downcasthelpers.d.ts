@@ -25,7 +25,7 @@ export function createViewElementFromHighlightDescriptor(
 export function insertText(): (...arg: any[]) => any;
 export function remove(): (...arg: any[]) => any;
 
-export default class DowncastHelpers extends ConversionHelpers {
+export default class DowncastHelpers extends ConversionHelpers<DowncastHelpers> {
     attributeToAttribute(config?: {
         model: string | { key: string; values: string[]; name?: string | undefined };
         view:

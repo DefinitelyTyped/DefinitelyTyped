@@ -5,7 +5,7 @@ import ConversionHelpers from "./conversionhelpers";
 import { UpcastConversionApi } from "./upcastdispatcher";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 
-export default class UpcastHelpers extends ConversionHelpers {
+export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
     attributeToAttribute(config?: {
         view:
             | string

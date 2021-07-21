@@ -25,9 +25,10 @@ import {
     TreeWalker,
     ViewDocument,
 } from "@ckeditor/ckeditor5-engine";
-import ConversionHelpers from "@ckeditor/ckeditor5-engine/src/conversion/conversionhelpers";
 import DowncastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher";
+import DowncastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers";
 import UpcastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher";
+import UpcastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers";
 import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
 import DocumentFragment from "@ckeditor/ckeditor5-engine/src/model/documentfragment";
 import { Item } from "@ckeditor/ckeditor5-engine/src/model/item";
@@ -196,8 +197,15 @@ const downcastDispB = new DowncastDispatcher({});
 const upcastDispaA = new UpcastDispatcher({});
 const conversion = new Conversion([downcastDispA, downcastDispB], [upcastDispaA]);
 conversion.addAlias("upcast", upcastDispaA);
-let helper: ConversionHelpers = conversion.for("upcast");
-helper = helper.add(() => {});
+let upcastHelper: UpcastHelpers = conversion.for("upcast");
+upcastHelper = new UpcastHelpers([new UpcastDispatcher()]).add(() => {});
+// $ExpectError
+upcastHelper = new UpcastHelpers([new DowncastDispatcher()]);
+upcastHelper = upcastHelper.add(() => {});
+let downcastHelper: DowncastHelpers = conversion.for("downcast");
+downcastHelper = conversion.for("dataDowncast");
+downcastHelper = conversion.for("editingDowncast");
+downcastHelper = downcastHelper.add(() => {});
 
 const dataProcessor = new HtmlDataProcessor(viewDocument);
 viewDocumentFragment = dataProcessor.toView("") as ViewDocumentFragment;
