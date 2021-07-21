@@ -1,4 +1,4 @@
-// Type definitions for react-native-calendars 1.505
+// Type definitions for react-native-calendars 1.1264
 // Project: https://github.com/wix/react-native-calendars#readme
 // Definitions by: Tyler Zhang <https://github.com/Tyler-Zhang>
 //                 David Noreña <https://github.com/DavidNorena>
@@ -516,6 +516,11 @@ export interface AgendaProps<TItem> {
      *  Initially visible month. Default = Date()
      */
     selected?: TCalendarDate | undefined;
+
+    /**
+     *  When `true` and `hideKnob` prop is `false`, the knob will always be visible and the user will be able to drag the knob up and close the calendar. Default = false
+     */
+    showClosingKnob?: boolean;
 
     /**
      *  Agenda container style.
