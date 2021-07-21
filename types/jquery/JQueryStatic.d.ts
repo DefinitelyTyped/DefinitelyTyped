@@ -70,74 +70,31 @@ $.when(
     (window: Window, discriminator: boolean): JQueryStatic;
     /**
      * Creates DOM elements on the fly from the provided string of raw HTML.
-     * @param html _&#x40;param_ `html`
+     * @param html_selector _&#x40;param_ `html_selector`
      * <br>
      * * `html (ownerDocument)` — A string of HTML to create on the fly. Note that this parses HTML, not XML. <br>
-     * * `html (attributes)` — A string defining a single, standalone, HTML element (e.g. &lt;div/&gt; or &lt;div&gt;&lt;/div&gt;).
-     * @param ownerDocument_attributes _&#x40;param_ `ownerDocument_attributes`
+     * * `selector (context)` — A string containing a selector expression.
+     * @param ownerDocument_context _&#x40;param_ `ownerDocument_context`
      * <br>
      * * `ownerDocument` — A document in which the new elements will be created. <br>
-     * * `attributes` — An object of attributes, events, and methods to call on the newly-created element.
-     * @see \`{@link https://api.jquery.com/jQuery/ }\`
+     * * `context` - A DOM Element, jQuery to use as context.
+     * @see \`{@link https://api.jquery.com/jQuery/#jQuery-selector-context }\`
+     * @see \`{@link https://api.jquery.com/jQuery/#jQuery-html-ownerDocument }\`
      * @since 1.0
-     * @since 1.4
-     * @example ​ ````Create a div element (and all of its contents) dynamically and append it to the body element. Internally, an element is created and its innerHTML property set to the given markup.
-```javascript
-$( "<div><p>Hello</p></div>" ).appendTo( "body" )
-```
-     * @example ​ ````Create some DOM elements.
-```javascript
-$( "<div/>", {
-  "class": "test",
-  text: "Click me!",
-  click: function() {
-    $( this ).toggleClass( "test" );
-  }
-})
-  .appendTo( "body" );
-```
      */
+    // <K extends keyof HTMLElementTagNameMap>(selector: K, ownerDocument_context?: Element | Document | JQuery | JQuery.Selector): JQuery<HTMLElementTagNameMap[K]>;
+    // <K extends keyof SVGElementTagNameMap>(selector: K, ownerDocument_context?: Element | Document | JQuery | JQuery.Selector): JQuery<SVGElementTagNameMap[K]>;
     // tslint:disable-next-line:no-unnecessary-generics
-    <TElement extends HTMLElement = HTMLElement>(html: JQuery.htmlString, ownerDocument_attributes?: Document | JQuery.PlainObject): JQuery<TElement>;
+    <T extends Element = HTMLElement>(html_selector: JQuery.Selector, ownerDocument_context?: Element | Document | JQuery | JQuery.Selector): JQuery<T>;
     /**
-     * Accepts a string containing a CSS selector which is then used to match a set of elements.
-     * @param selector A string containing a selector expression
-     * @param context A DOM Element, Document, Selector or jQuery to use as context
-     * @see \`{@link https://api.jquery.com/jQuery/ }\`
-     * @since 1.0
-     * @example ​ ````Find all p elements that are children of a div element and apply a border to them.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>one</p>
-<div><p>two</p></div>
-<p>three</p>
-​
-<script>
-$( "div > p" ).css( "border", "1px solid gray" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all inputs of type radio within the first form in the document.
-```javascript
-$( "input:radio", document.forms[ 0 ] );
-```
-     * @example ​ ````Find all div elements within an XML document from an Ajax response.
-```javascript
-$( "div", xml.responseXML );
-```
-​
+     * Creates DOM elements on the fly from the provided string of raw HTML.
+     * @param html A string of HTML to create on the fly. Note that this parses HTML, not XML.
+     * @param attributes An object of attributes, events, and methods to call on the newly-created element.
+     * @see \`{@link https://api.jquery.com/jQuery/#jQuery-html-attributes }\`
+     * @since 1.4
      */
     // tslint:disable-next-line:no-unnecessary-generics
-    <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery | JQuery.Selector): JQuery<TElement>;
+    <T extends Element = HTMLElement>(html: JQuery.htmlString, attributes: JQuery.PlainObject): JQuery<T>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      * @param element A DOM element to wrap in a jQuery object.

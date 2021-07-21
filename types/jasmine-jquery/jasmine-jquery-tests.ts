@@ -1,7 +1,7 @@
 describe("Jasmine jQuery extension", () => {
     it("Adds jQuery matchers", () => {
-        expect($('<div id="some-id"></div>')).toBe($('div'));
-        expect($('<div id="some-id"></div>')).toBe($('div#some-id'));
+        expect($<Element>('<div id="some-id"></div>')).toBe($('div'));
+        expect($<Element>('<div id="some-id"></div>')).toBe($('div#some-id'));
         expect($('<input type="checkbox" checked="checked"/>')).toBeChecked();
         expect($('<div id="some-id"></div>')).toBeHidden();
         expect($('<div style="display: none; margin: 10px;"></div>')).toHaveCss({ display: "none", margin: "10px" });
@@ -9,7 +9,7 @@ describe("Jasmine jQuery extension", () => {
         expect($('<option selected="selected"></option>')).toBeSelected();
         expect($('<div id="some-id"></div>')).toBeVisible();
         // NOTE: It is now necessary to explicitly add the generic parameter when using `toContain`
-        expect<JQuery>($('<div><span class="some-class"></span></div>')).toContain('span.some-class');
+        expect<JQuery<Element>>($('<div><span class="some-class"></span></div>')).toContain('span.some-class');
         expect($('<span></span>').addClass('js-something')).toBeMatchedBy('.js-something');
         expect($('<span></span>')).toExist();
         expect($('<div id="some-id"></div>')).toHaveAttr('id', 'some-id');
