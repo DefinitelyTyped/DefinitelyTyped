@@ -1,15 +1,15 @@
 import { clean } from 'knex-cleaner';
-import * as Knex from 'knex';
+import { knex, Knex } from 'knex';
 
-const knex: Knex = Knex({ dialect: 'pg' });
+const knexInstance: Knex = knex({ dialect: 'pg' });
 
-clean(knex); // $ExpectType Promise<void>
-clean(knex, {}); // $ExpectType Promise<void>
-clean(knex, { mode: 'delete', restartIdentity: false, ignoreTables: ['table1', 'table2'] }); // $ExpectType Promise<void>
-clean(knex, { mode: 'delete' }); // $ExpectType Promise<void>
-clean(knex, { restartIdentity: false }); // $ExpectType Promise<void>
-clean(knex, { ignoreTables: ['table1', 'table2'] }); // $ExpectType Promise<void>
-clean(knex, { restartIdentity: false, ignoreTables: ['table1', 'table2'] }); // $ExpectType Promise<void>
-clean(knex, { mode: 'delete', ignoreTables: ['table1', 'table2'] }); // $ExpectType Promise<void>
-clean(knex, { mode: 'delete', restartIdentity: false }); // $ExpectType Promise<void>
-clean(knex, { unknown: 1 }); // $ExpectError
+clean(knexInstance); // $ExpectType Promise<void>
+clean(knexInstance, {}); // $ExpectType Promise<void>
+clean(knexInstance, { mode: 'delete', restartIdentity: false, ignoreTables: ['table1', 'table2'] }); // $ExpectType Promise<void>
+clean(knexInstance, { mode: 'delete' }); // $ExpectType Promise<void>
+clean(knexInstance, { restartIdentity: false }); // $ExpectType Promise<void>
+clean(knexInstance, { ignoreTables: ['table1', 'table2'] }); // $ExpectType Promise<void>
+clean(knexInstance, { restartIdentity: false, ignoreTables: ['table1', 'table2'] }); // $ExpectType Promise<void>
+clean(knexInstance, { mode: 'delete', ignoreTables: ['table1', 'table2'] }); // $ExpectType Promise<void>
+clean(knexInstance, { mode: 'delete', restartIdentity: false }); // $ExpectType Promise<void>
+clean(knexInstance, { unknown: 1 }); // $ExpectError
