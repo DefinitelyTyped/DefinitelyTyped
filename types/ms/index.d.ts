@@ -20,6 +20,6 @@ declare function ms(value: number, options?: { long: boolean }): string;
 * @param {String} value
 * @return {Number}
 */
-declare function ms(value: string): number;
+declare function ms(value: string): number | undefined;
 
 export = ms;
