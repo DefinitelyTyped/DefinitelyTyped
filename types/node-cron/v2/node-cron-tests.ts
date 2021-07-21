@@ -31,6 +31,12 @@ const task2 = cron.schedule('* * * * *', () => {
 
 task2.stop();
 
+const task3 = cron.schedule('* * * * *', () => {
+    log('will execute every minute until stopped');
+});
+
+task3.destroy();
+
 const valid = cron.validate('59 * * * *');
 const invalid = cron.validate('60 * * * *');
 
@@ -43,14 +49,14 @@ const task4 = cron.schedule('* * * * *', () => {
     log('will execute every minute until stopped');
 }, { timezone: 'Europe/London' });
 
-task4.stop();
+task4.destroy();
 
 const task5 = cron.schedule('* * * * *', () => {
     log('will execute every minute until stopped');
 });
 
 if (task5.getStatus() === 'scheduled') {
-    task5.stop();
+    task5.destroy();
 }
 
 if (task5.getStatus() === 'destroyed') {
