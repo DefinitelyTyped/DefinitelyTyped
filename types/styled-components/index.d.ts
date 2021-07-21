@@ -78,15 +78,13 @@ export type StyledComponentProps<
     O extends object,
     // The props that are made optional by .attrs
     A extends keyof any,
-    // The Component passed with "as" prop
-    AsC extends string | React.ComponentType<any> = C,
     // The Component passed with "forwardedAs" prop
     FAsC extends string | React.ComponentType<any> = C
 > =
     // Distribute O if O is a union type
     O extends object
         ? WithOptionalTheme<
-              MakeAttrsOptional<C, O, A> & MakeAttrsOptional<AsC, O, A> & MakeAttrsOptional<FAsC, O, A>,
+              MakeAttrsOptional<C, O, A> & MakeAttrsOptional<FAsC, O, A>,
               T
           > &
               WithChildrenIfReactComponentClass<C>
@@ -109,7 +107,7 @@ type StyledComponentPropsWithAs<
     A extends keyof any,
     AsC extends string | React.ComponentType<any> = C,
     FAsC extends string | React.ComponentType<any> = C
-> = StyledComponentProps<C, T, O, A, AsC, FAsC> & { as?: AsC | undefined; forwardedAs?: FAsC | undefined };
+> = StyledComponentProps<C, T, O, A, FAsC> & { as?: AsC | undefined; forwardedAs?: FAsC | undefined };
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> = InterpolationValue | InterpolationFunction<P> | FlattenInterpolation<P>;
@@ -171,9 +169,9 @@ export interface StyledComponentBase<
     (props: StyledComponentProps<C, T, O, A> & { as?: never | undefined; forwardedAs?: never | undefined }): React.ReactElement<
         StyledComponentProps<C, T, O, A>
     >;
-    <AsC extends string | React.ComponentType<any> = C, FAsC extends string | React.ComponentType<any> = C>(
-        props: StyledComponentPropsWithAs<C, T, O, A, AsC, FAsC>,
-    ): React.ReactElement<StyledComponentPropsWithAs<C, T, O, A, AsC, FAsC>>;
+    <AsC extends string | React.ComponentType<any> = C, FAsC extends string | React.ComponentType<any> = AsC>(
+        props: StyledComponentPropsWithAs<AsC, T, O, A, AsC, FAsC>,
+    ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A, AsC, FAsC>>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC,

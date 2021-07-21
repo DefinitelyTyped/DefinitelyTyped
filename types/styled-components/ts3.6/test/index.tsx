@@ -625,6 +625,9 @@ const asTest = (
     <>
         <WithComponentH1 as="h2" />
         <WithComponentH1 as={WithComponentH2} />
+        <WithComponentH1 as="a" href="" />
+        <WithComponentH1 as="div" href="" /> { // $ExpectError
+        }
     </>
 );
 
@@ -634,6 +637,9 @@ const forwardedAsTest = (
     <>
         <ForwardedAsComponent forwardedAs="h2" />
         <ForwardedAsComponent forwardedAs={WithComponentH2} />
+        <ForwardedAsComponent forwardedAs="a" href="" />
+        <ForwardedAsComponent forwardedAs="div" href="" /> { // $ExpectError
+        }
     </>
 );
 
@@ -641,9 +647,10 @@ interface ExternalAsComponentProps {
     as?: string | React.ComponentType<any>;
     type: 'primitive' | 'complex';
 }
-
 const ExternalAsComponent: React.FC<ExternalAsComponentProps> = () => null;
 const WrappedExternalAsComponent = styled(ExternalAsComponent)``;
+const testRequiredProp = <WrappedExternalAsComponent />; // $ExpectError
+const testRequiredPropWhenForwardedAs = <WrappedExternalAsComponent forwardedAs="h2" />; // $ExpectError
 const ForwardedAsWithWrappedExternalTest = (
     <>
         <WrappedExternalAsComponent forwardedAs="h2" type="primitive" />
@@ -654,6 +661,22 @@ const ForwardedAsWithNestedAsExternalTest = (
     <>
         <ForwardedAsNestedComponent as={ExternalAsComponent} forwardedAs="h2" type="primitive" />
         <ForwardedAsNestedComponent as={ExternalAsComponent} forwardedAs={WithComponentH2} type="complex" />
+    </>
+);
+
+interface OtherExternalComponentProps {
+    requiredProp: 'test';
+}
+
+const OtherExternalComponent: React.FC<OtherExternalComponentProps> = () => null;
+const HasAttributesOfAsOrForwardedAsComponent = (
+    <>
+        <WrappedExternalAsComponent as="a" type="primitive" href="/" />
+        <WrappedExternalAsComponent forwardedAs="a" type="complex" href="/" />
+        <WrappedExternalAsComponent as={OtherExternalComponent} requiredProp="test" />
+        <WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" /> { // $ExpectError
+        }
+        <WrappedExternalAsComponent forwardedAs={OtherExternalComponent} type="complex" requiredProp="test" />
     </>
 );
 
@@ -679,6 +702,39 @@ class Test2Container extends React.Component<Test2ContainerProps> {
 }
 
 const containerTest = <StyledTestContainer as={Test2Container} type="foo" />;
+const containerTestFailed = <StyledTestContainer as={Test2Container} type="foo" size="big" />; // $ExpectError
+const containerTestTwo = <StyledTestContainer forwardedAs={Test2Container} type="foo" size="big" />;
+
+interface GenericComponentProps<T> {
+    someProp: T;
+}
+const GenericComponent = <T, >(props: GenericComponentProps<T>): React.ReactElement<GenericComponentProps<T>> | null => null;
+const StyledGenericComponent = styled(GenericComponent)``;
+const TestStyledGenericComponent = (
+    <>
+        <StyledGenericComponent /> { // $ExpectError
+        }
+        <StyledGenericComponent someProp="someString" />
+        <StyledGenericComponent someProp={42} />
+        <StyledGenericComponent<React.FC<GenericComponentProps<string>>> someProp="someString" />
+        <StyledGenericComponent<React.FC<GenericComponentProps<string>>> someProp={42} /> { // $ExpectError
+        }
+        <StyledGenericComponent as="h1" />
+        <StyledGenericComponent as="h1" someProp="someString" /> { // $ExpectError
+        }
+
+        <WithComponentH1 as={GenericComponent} /> { // $ExpectError
+        }
+        <WithComponentH1 as={GenericComponent} someProp="someString" />
+        <WithComponentH1 as={GenericComponent} someProp={42} />
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} /> { // $ExpectError
+        }
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} someProp="someString" />
+        <WithComponentH1<React.FC<GenericComponentProps<number>>> as={GenericComponent} someProp={42} />
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} someProp={42} /> { // $ExpectError
+        }
+    </>
+);
 
 // 4.0 refs
 
