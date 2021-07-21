@@ -21,8 +21,10 @@ declare namespace debug {
         disable: () => string;
         enable: (namespaces: string) => void;
         enabled: (namespaces: string) => boolean;
+        formatArgs: (this: Debugger, args: any[]) => void;
         log: (...args: any[]) => any;
         selectColor: (namespace: string) => string | number;
+        humanize: typeof import('ms');
 
         names: RegExp[];
         skips: RegExp[];
@@ -42,6 +44,7 @@ declare namespace debug {
         (formatter: any, ...args: any[]): void;
 
         color: string;
+        diff: number;
         enabled: boolean;
         log: (...args: any[]) => any;
         namespace: string;
