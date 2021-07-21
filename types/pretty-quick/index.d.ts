@@ -2,7 +2,7 @@
 // Project: https://github.com/azz/pretty-quick#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.3
 
 import { ResolveConfigOptions } from 'prettier';
 
