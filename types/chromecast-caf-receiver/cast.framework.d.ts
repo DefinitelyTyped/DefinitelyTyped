@@ -565,7 +565,7 @@ export class PlayerManager {
 
     /**
      * @returns live seekable range with start and end time in seconds. The values
-     * are media time based.
+     *     are media time based.
      */
     getLiveSeekableRange(): messages.LiveSeekableRange | null;
 

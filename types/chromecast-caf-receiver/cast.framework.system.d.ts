@@ -86,14 +86,6 @@ export enum DisconnectReason {
  */
 export enum LaunchedFrom {
     /**
-     * The launch owner could not be determined.
-     */
-    UNKNOWN = 'UNKNOWN',
-    /**
-     * App was launched by DIAL request.
-     */
-    DIAL = 'DIAL',
-    /**
      * App was launched by Cast V2 request.
      */
     CAST = 'CAST',
@@ -101,6 +93,14 @@ export enum LaunchedFrom {
      * App was launched by assistant request (e.g. voice command).
      */
     CLOUD = 'CLOUD',
+    /**
+     * App was launched by DIAL request.
+     */
+    DIAL = 'DIAL',
+    /**
+     * The launch owner could not be determined.
+     */
+    UNKNOWN = 'UNKNOWN',
 }
 
 /**
@@ -109,9 +109,9 @@ export enum LaunchedFrom {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.VisibilityState
  */
 export enum VisibilityState {
-    VISIBLE = 'visible',
     NOT_VISIBLE = 'notvisible',
     UNKNOWN = 'unknown',
+    VISIBLE = 'visible',
 }
 
 /**
