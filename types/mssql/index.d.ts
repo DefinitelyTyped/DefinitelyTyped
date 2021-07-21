@@ -393,3 +393,5 @@ export declare class PreparedStatement extends events.EventEmitter {
 }
 
 export declare class PreparedStatementError extends MSSQLError {}
+
+export declare function connect(): Promise<ConnectionPool>;
