@@ -1,4 +1,4 @@
-// Type definitions for minipass 2.2
+// Type definitions for minipass 3.1
 // Project: https://github.com/isaacs/minipass#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,9 +12,12 @@ declare class MiniPass extends EventEmitter implements NodeJS.WritableStream {
     readonly bufferLength: number;
     readonly flowing: boolean;
     readonly emittedEnd: boolean;
+    readonly destroyed: boolean;
     encoding: string | null;
     readable: boolean;
     writable: boolean;
+    paused: boolean;
+    objectMode: boolean;
     pipes: any;
     buffer: any;
 
@@ -29,6 +32,10 @@ declare class MiniPass extends EventEmitter implements NodeJS.WritableStream {
     end(chunk: any, encoding?: string | null, cb?: () => void): void;
     resume(): void;
     pause(): void;
+    promise(): Promise<void>;
+    collect(): Promise<any[]>;
+    concat(): Promise<Buffer | string>;
+    destroy(err?: any): void;
     pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
 
     addEventHandler(event: string, listener: (...args: any[]) => void): this;
