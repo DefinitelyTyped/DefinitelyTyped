@@ -11,4 +11,4 @@ console.log(latlon.error.latitude);
 console.log(latlon.error.longitude);
 
 console.log(geohash.encode_int(37.8324, 112.5584));
-//console.log(geohash.neighbors_int());
+// console.log(geohash.neighbors_int());
