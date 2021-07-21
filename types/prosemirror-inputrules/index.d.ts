@@ -38,7 +38,7 @@ export class InputRule<S extends Schema = any> {
         public handler:
             | string
             | ((state: EditorState<S>, match: string[], start: number, end: number) => Transaction<S> | null),
-    );
+    ) {}
     
 }
 /**
