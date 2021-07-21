@@ -35,6 +35,7 @@ pool.exec('foo', null)
     .then(() => pool.exec(() => {}, null));
 
 function add(a: number, b: number): number {
+    wp.workerEmit({status: 'in_progress'});
     return a + b;
 }
 
@@ -44,7 +45,7 @@ function hello(): string {
 
 pool.exec(add, [1, 2])
     .then((c: number) => c);
-pool.exec<typeof add>('add', [1, 2])
+pool.exec<typeof add>('add', [1, 2], { on: (payload) => console.log(payload) })
     .then((c: number) => c);
 pool.exec(hello, [])
     .then((s: string) => s);
