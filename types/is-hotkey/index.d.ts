@@ -4,6 +4,10 @@
 //                 Kalley Powell <https://github.com/kalley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as React from 'react';
+
+type Event = KeyboardEvent | React.KeyboardEvent;
+
 export interface HotKeyOptions {
     byKey: boolean;
 }
@@ -20,37 +24,17 @@ export interface HotKey {
 /**
  * Is hotkey?
  */
-export function isHotkey(
-    hotkey: string | ReadonlyArray<string>,
-    options?: HotKeyOptions
-): (event: KeyboardEvent) => boolean;
+export function isHotkey(hotkey: string | ReadonlyArray<string>, options?: HotKeyOptions): (event: Event) => boolean;
 
-export function isHotkey(
-    hotkey: string | ReadonlyArray<string>,
-    event: KeyboardEvent
-): boolean;
+export function isHotkey(hotkey: string | ReadonlyArray<string>, event: Event): boolean;
 
-export function isHotkey(
-    hotkey: string | ReadonlyArray<string>,
-    options: HotKeyOptions,
-    event: KeyboardEvent
-): boolean;
+export function isHotkey(hotkey: string | ReadonlyArray<string>, options: HotKeyOptions, event: Event): boolean;
 
-export function isCodeHotkey(
-    hotkey: string | ReadonlyArray<string>
-): (event: KeyboardEvent) => boolean;
-export function isCodeHotkey(
-    hotkey: string | ReadonlyArray<string>,
-    event: KeyboardEvent
-): boolean;
+export function isCodeHotkey(hotkey: string | ReadonlyArray<string>): (event: Event) => boolean;
+export function isCodeHotkey(hotkey: string | ReadonlyArray<string>, event: Event): boolean;
 
-export function isKeyHotkey(
-    hotkey: string | ReadonlyArray<string>
-): (event: KeyboardEvent) => boolean;
-export function isKeyHotkey(
-    hotkey: string | ReadonlyArray<string>,
-    event: KeyboardEvent
-): boolean;
+export function isKeyHotkey(hotkey: string | ReadonlyArray<string>): (event: Event) => boolean;
+export function isKeyHotkey(hotkey: string | ReadonlyArray<string>, event: Event): boolean;
 
 /**
  * Parse.
@@ -60,7 +44,7 @@ export function parseHotkey(hotkey: string, options?: HotKeyOptions): HotKey;
 /**
  * Compare.
  */
-export function compareHotkey(object: HotKey, event: KeyboardEvent): boolean;
+export function compareHotkey(object: HotKey, event: Event): boolean;
 
 /**
  * Utils.
