@@ -157,6 +157,7 @@ const awsServerless: Aws.Serverless = {
             maxPreviousDeploymentArtifacts: 1,
             blockPublicAccess: true,
             serverSideEncryption: 'testserverSideEncryption',
+            skipPolicySetup: true,
             sseKMSKeyId: 'testsseKMSKeyId',
             sseCustomerAlgorithim: 'testsseCustomerAlgorithim',
             sseCustomerKey: 'testsseCustomerKey',
