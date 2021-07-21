@@ -81,6 +81,10 @@ import {
         bar: 4,
         format: 'date-time',
     };
+    const c: JSONSchema4 = {
+        id: 'foo',
+        required: true,
+    };
 };
 
 // Class
