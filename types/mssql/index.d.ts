@@ -1,4 +1,4 @@
-// Type definitions for mssql 7.1.0
+// Type definitions for mssql 7.1.3
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
