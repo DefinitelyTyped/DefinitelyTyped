@@ -5,7 +5,7 @@
 
 export = json2mq;
 
-declare function json2mq(query: json2mq.QueryObject | json2mq.QueryObject[]): string;
+declare function json2mq(query: string | json2mq.QueryObject | json2mq.QueryObject[]): string;
 
 declare namespace json2mq {
     interface QueryObject {
