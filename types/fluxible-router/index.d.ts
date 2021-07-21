@@ -3,7 +3,6 @@
 // Definitions by: xbim <https://github.com/xbim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-/// <reference types="node" />
 import * as React from 'react';
 import { FluxibleContext } from 'fluxible';
 import BaseStore = require('fluxible/addons/BaseStore');
