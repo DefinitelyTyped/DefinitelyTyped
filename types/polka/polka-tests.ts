@@ -1,15 +1,8 @@
-import * as compression from 'compression';
 import * as Polka from 'polka';
 
-interface MyResponse {
-    foo: string;
-}
-
-const middleware: Polka.Middleware<any, MyResponse, any, any> = async (req, res, next) => {
+const middleware: Polka.Middleware = async (req, res, next) => {
     const originalUrl = req.originalUrl;
     const path = req.path;
-
-    res.send({ foo: 'bar' });
 
     await new Promise<void>((resolve, reject) => resolve());
     next();
@@ -27,7 +20,7 @@ const routesB = Polka()
     .delete('/2', (req, res) => {});
 
 const app = Polka()
-    .use(compression({ threshold: 0 }))
+    .use(middleware, middleware)
     .use('/path-a', routesA)
     .use('/path-b', routesB);
 
