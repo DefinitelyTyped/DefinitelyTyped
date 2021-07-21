@@ -8,7 +8,7 @@ const list: string[] = npm.fullList;
 npm.globalDir;
 npm.globalBin;
 
-npm.load({ loglevel: 'silent' }, () => {
+npm.load(() => {
     npm.commands.install(['typescript'], () => {});
 
     npm.commands.view(['typescript'], true, () => {});
