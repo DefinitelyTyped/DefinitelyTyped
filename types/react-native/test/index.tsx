@@ -853,6 +853,54 @@ class AlertTest extends React.Component {
     }
 }
 
+// No type means 'plain-text' and the value is string
+Alert.prompt('Enter Name', 'Enter yuur name to continue', text => {
+    console.log(text);
+});
+
+// No type means 'plain-text' and the value is string,
+// array of buttons instead of callback
+Alert.prompt('Enter Name', 'Enter yuur name to continue', [
+    {
+        text: 'Enter Game',
+        onPress: text => console.log(text),
+    },
+    {
+        text: 'Cancel',
+        style: 'cancel',
+    },
+]);
+
+// Explicit type 'plain-text' and the value is string
+Alert.prompt(
+    'Enter Name',
+    'Enter yuur name to continue',
+    text => {
+        console.log(text);
+    },
+    'plain-text',
+);
+
+// Explicit type 'plain-text' and the value is string
+// array of buttons instead of callback
+Alert.prompt(
+    'Enter Name',
+    'Enter yuur name to continue',
+    [
+        {
+            text: 'Enter Game',
+            onPress: text => console.log(text),
+        },
+        {
+            text: 'Cancel',
+            style: 'cancel',
+            onPress: () => console.log('Cancel Pressed'),
+        },
+    ],
+    'plain-text',
+);
+
+// Explicit type 'secure-text' and the value is string
 Alert.prompt(
     'Enter password',
     'Enter your password to claim your $1.5B in lottery winnings',
@@ -862,6 +910,8 @@ Alert.prompt(
     'secure-text',
 );
 
+// Explicit type 'secure-text' and the value is string
+// array of buttons instead of callback
 Alert.prompt(
     'Enter password',
     'Enter your password to claim your $1.5B in lottery winnings',
@@ -877,6 +927,64 @@ Alert.prompt(
         },
     ],
     'secure-text',
+);
+
+// Explicit type 'login-password' and the value is object
+Alert.prompt(
+    'Please Login',
+    'Enter your name & password to claim your $1.5B in lottery winnings',
+    text => {
+        console.log(`Username ${text.login} and password is ${text.password}`);
+    },
+    'login-password',
+);
+
+// Explicit type 'login-password' and the value is object
+// array of buttons instead of callback
+Alert.prompt(
+    'Please Login',
+    'Enter your name & password to claim your $1.5B in lottery winnings',
+    [
+        {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+        },
+        {
+            text: 'OK',
+            onPress: value => console.log(`Username ${value.login} and password is ${value.password}`),
+        },
+    ],
+    'login-password',
+);
+
+// Explicit type 'default'. No value is available as it works like an alert
+Alert.prompt(
+    'Hi there',
+    'Welcome to the game',
+    () => {
+        console.log('Okay Pressed');
+    },
+    'default',
+);
+
+// Explicit type 'default'. No value is available as it works like an alert
+// array of buttons instead of callback
+Alert.prompt(
+    'Hi there',
+    'Enter yuur name to continue',
+    [
+        {
+            text: 'Okay',
+            onPress: () => console.log('Okay Presed'),
+        },
+        {
+            text: 'Cancel',
+            style: 'cancel',
+            onPress: () => console.log('Cancel Pressed'),
+        },
+    ],
+    'default',
 );
 
 class MaskedViewTest extends React.Component {
@@ -1317,18 +1425,26 @@ const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
 const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log('test')} />;
 const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
-const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
-  const e: SwitchChangeEvent = event;
-  return new Promise(() => e.value);
-}} />;
+const SwitchOnChangePromiseTest = () => (
+    <Switch
+        onChange={event => {
+            const e: SwitchChangeEvent = event;
+            return new Promise(() => e.value);
+        }}
+    />
+);
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
 const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
 const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
-const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
-  const v: boolean = value;
-  return new Promise(() => v)
-}} />;
+const SwitchOnValueChangePromiseTest = () => (
+    <Switch
+        onValueChange={value => {
+            const v: boolean = value;
+            return new Promise(() => v);
+        }}
+    />
+);
 
 const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
