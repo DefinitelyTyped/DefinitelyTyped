@@ -6,7 +6,6 @@
 //                 Will Dady <https://github.com/willdady>
 //                 Bogdan Vitoc <https://github.com/bogidon>
 //                 Yam Mesicka <https://github.com/yammesicka>
-//                 Julien HAM  <https://github.com/julien-HAM>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
