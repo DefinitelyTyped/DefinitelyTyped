@@ -8,7 +8,8 @@ Ari.connect('http://ari.js:8088', 'user', 'secret', (err, client) => {
     // Use once to start the application
     client.once('StasisStart', (event, incoming) => {
         incoming.answer(err => {
-            const playback = client.Playback();
+            // Referencing client instance of incoming channel.
+            const playback = incoming._client.Playback();
 
             // Play demo greeting and register dtmf event listeners
             incoming.play({ media: 'sound:demo-congrats' }, playback, (err, playback) => {
