@@ -133,10 +133,23 @@ export interface APIGatewayProxyEventV2 {
         accountId: string;
         apiId: string;
         authorizer?: {
-            jwt: {
+            jwt?: {
                 claims: { [name: string]: string | number | boolean | string[] };
                 scopes: string[];
-            };
+            } | undefined;
+            iam?: {
+                accessKey: string;
+                accountId: string;
+                callerId: string;
+                cognitoIdentity: {
+                    amr: string[];
+                    identityId: string;
+                    identityPoolId: string;
+                },
+                principalOrgId: string;
+                userArn: string;
+                userId: string;
+            } | undefined;
         } | undefined;
         domainName: string;
         domainPrefix: string;
