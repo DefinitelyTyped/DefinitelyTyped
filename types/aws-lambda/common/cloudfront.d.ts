@@ -123,7 +123,7 @@ interface CloudFrontFunctionsEvent {
      * ## Context object
      * The `context` object contains contextual information about the event. It includes the following fields:
      * - `distributionDomainName`
-     * - `distributionID`
+     * - `distributionId`
      * - `eventType`
      * - `requestId`
      */
@@ -131,7 +131,7 @@ interface CloudFrontFunctionsEvent {
         /** The CloudFront domain name (for example, d111111abcdef8.cloudfront.net) of the distribution that’s associated with the event. */
         distributionDomainName: string;
         /** The ID of the distribution (for example, EDFDVBD6EXAMPLE) that’s associated with the event. */
-        distributionID: string;
+        distributionId: string;
         /** The event type, either `viewer-request` or `viewer-response`. */
         eventType: "viewer-request" | "viewer-response";
         /** A string that uniquely identifies a CloudFront request (and its associated response). */
