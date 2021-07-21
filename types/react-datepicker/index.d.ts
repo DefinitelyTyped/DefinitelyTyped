@@ -41,6 +41,7 @@ export interface ReactDatePickerProps {
     ariaLabelClose?: string | undefined;
     ariaLabelledBy?: string | undefined;
     ariaRequired?: string | undefined;
+    ariaInvalid?: string | undefined;
     autoComplete?: string | undefined;
     autoFocus?: boolean | undefined;
     calendarClassName?: string | undefined;
