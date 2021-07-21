@@ -5,6 +5,12 @@ import {
     MediaCategory,
     QueueData,
     Image,
+    GenericMediaMetadata,
+    MovieMediaMetadata,
+    MusicTrackMediaMetadata,
+    PhotoMediaMetadata,
+    TvShowMediaMetadata,
+    AudiobookChapterMediaMetadata,
 } from './cast.framework.messages';
 import { CastReceiverContext } from './cast.framework';
 
@@ -168,7 +174,7 @@ export class PlayerData {
      * same UI code to run in a remote control. The state can be set by calling
      * cast.framework.PlayerManager#sendCustomState
      */
-    customState?: object | undefined;
+    customState?: any;
 
     /**
      * Whether the player metadata (ie: title; currentTime) should be displayed.
@@ -250,7 +256,16 @@ export class PlayerData {
     /**
      * Media metadata.
      */
-    metadata?: MediaMetadata | object | undefined;
+    metadata?:
+        | MediaMetadata
+        | GenericMediaMetadata
+        | MovieMediaMetadata
+        | MusicTrackMediaMetadata
+        | PhotoMediaMetadata
+        | TvShowMediaMetadata
+        | AudiobookChapterMediaMetadata
+        | object
+        | undefined;
 
     /**
      * Next Item subtitle.
@@ -357,7 +372,7 @@ export class Controls {
      *
      * @param browseContent
      */
-    setBrowseContent(browseContent?: BrowseContent): void;
+    setBrowseContent(browseContent: BrowseContent | null): void;
 }
 
 export class BrowseContent {
@@ -382,7 +397,7 @@ export class BrowseContent {
      * is too narrow/tall, it will be pillarboxed. If image is too wide/short,
      * it will be letterboxed.
      */
-    targetAspectRation?: BrowseImageAspectRatio | undefined;
+    targetAspectRatio?: BrowseImageAspectRatio | undefined;
 
     /**
      * Title of the list.

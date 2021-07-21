@@ -1,6 +1,6 @@
-import { Break, BreakClip } from "./cast.framework.messages";
+import { Break, BreakClip } from './cast.framework.messages';
 
-export as namespace breaks
+export as namespace breaks;
 export class BreakSeekData {
     constructor(seekFrom: number, seekTo: number, breaks: Break[]);
 
@@ -52,25 +52,25 @@ export interface BreakManager {
     getPlayWatchedBreak(): boolean;
 
     /**
-     * Provide an interceptor to allow developer to insert more break clips or modify current break clip before a break is started.
+     * Provide an interceptor to allow developer to insert more break clips or
+     * modify current break clip before a break is started.
      * If interceptor is null it will reset the interceptor to default one.
      * By default VAST fetching and parsing logic in default interceptor.
-     * So if customized interceptor is set by developer;
-     * the VAST logic will be overridden and developers should implement their own VAST fetching and parsing logic in the provided interceptor.
+     * So if customized interceptor is set by developer, the VAST logic will be
+     * overridden and developers should implement their own VAST fetching and
+     * parsing logic in the provided interceptor.
      */
     setBreakClipLoadInterceptor(
-        interceptor: (
-            breakClip: BreakClip,
-            breakClipLoaderContext?: BreakClipLoadInterceptorContext
-        ) => void
+        interceptor: ((breakClip: BreakClip, breakClipLoaderContext?: BreakClipLoadInterceptorContext) => void) | null,
     ): void;
 
     /**
      * Provide an interceptor for developer to specify what breaks they want to play after seek.
+     * @param seekInterceptor Interceptor or null if developer wants to reset it
+     *     to default one. The default break seek interceptor will
+     *     return the closest break from the seekTo value.
      */
-    setBreakSeekInterceptor(
-        seekInterceptor: (breakSeekData: BreakSeekData) => void
-    ): void;
+    setBreakSeekInterceptor(seekInterceptor: ((breakSeekData: BreakSeekData) => void) | null): void;
 
     /**
      * Set a flag to control if the watched client stitching break should be played.
@@ -78,12 +78,15 @@ export interface BreakManager {
     setPlayWatchedBreak(playWatchedBreak: boolean): void;
 
     /**
-     * Provide an interceptor to modify VAST tracking URL before it is being sent to server.
+     * Provide an interceptor to modify VAST tracking URL before it is being sent
+     * to server.
      * The input of the interceptor is a string of the tracking URL.
-     * The interceptor can either return a modified string of URL or a Promise of modified string of URL.
-     * The interceptor can also return null if you want to send the tracking URL by your own code instead of by CAF.
+     * The interceptor can either return a modified string of URL or a Promise
+     * of modified string of URL.
+     * The interceptor can also return null if you want to send the tracking URL
+     * by your own code instead of by CAF.
      */
     setVastTrackingInterceptor(
-        interceptor?: (trackingUrl: string) => void
+        interceptor?: (trackingUrl: string) => string | URL | Promise<string | URL> | null,
     ): void;
 }
