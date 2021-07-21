@@ -2,17 +2,19 @@
 
 import isValid = require('is-valid-path');
 
-isValid('abc.js');
-isValid('abc/def/ghi.js');
-isValid('foo.js');
+isValid('abc.js'); // $ExpectType boolean
+isValid('abc/def/ghi.js'); // $ExpectType boolean
+isValid('foo.js'); // $ExpectType boolean
 
-isValid();
-isValid(null);
-isValid('!foo.js');
-isValid('*.js');
-isValid('**/abc.js');
-isValid('abc/*.js');
-isValid('abc/(aaa|bbb).js');
-isValid('abc/[a-z].js');
-isValid('abc/{a,b}.js');
-isValid('abc/?.js');
+isValid(); // $ExpectType false
+isValid(null); // $ExpectType false
+isValid({}); // $ExpectType false
+isValid(['hello']); // $ExpectType false
+isValid('!foo.js'); // $ExpectType boolean
+isValid('*.js'); // $ExpectType boolean
+isValid('**/abc.js'); // $ExpectType boolean
+isValid('abc/*.js'); // $ExpectType boolean
+isValid('abc/(aaa|bbb).js'); // $ExpectType boolean
+isValid('abc/[a-z].js'); // $ExpectType boolean
+isValid('abc/{a,b}.js'); // $ExpectType boolean
+isValid('abc/?.js'); // $ExpectType boolean

@@ -3,6 +3,7 @@
 // Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function isValidPath(path?: string | null): boolean;
+declare function isValidPath(path: string): boolean;
+declare function isValidPath(path?: any): false;
 
 export = isValidPath;
