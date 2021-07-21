@@ -87,7 +87,24 @@ SimpleSchema.validate(testData, StringSchema, testOptions);
 StringSchema.validator();
 
 StringSchema.validator({
-    clean: true
+    modifier: true,
+    upsert: true,
+    extendedCustomContext: {},
+    ignore: ['Error'],
+    keys: ['key']
+});
+
+// If clean: true, clean options can be provided
+StringSchema.validator({
+    clean: true,
+    trimStrings: true,
+    removeNullsFromArrays: true
+});
+
+StringSchema.clean({title: ''}, {
+    removeEmptyStrings: true,
+    removeNullsFromArrays: true,
+    isUpsert: false
 });
 
 const StringSchemaWithOptions = new SimpleSchema({
