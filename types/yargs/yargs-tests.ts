@@ -593,6 +593,9 @@ function Argv$middleware() {
             if (process.env.HOME) argv.home = process.env.HOME;
         }, true)
         .argv;
+    const argv2 = yargs.middleware((argv): Promise<void> => Promise.resolve()).argv;
+    // $ExpectError
+    const argv3 = yargs.middleware((argv): Promise<void> => Promise.resolve(), true).argv;
 }
 
 function Argv$epilogue() {
