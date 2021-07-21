@@ -394,4 +394,11 @@ export declare class PreparedStatement extends events.EventEmitter {
 
 export declare class PreparedStatementError extends MSSQLError {}
 
-export declare function connect(): Promise<ConnectionPool>;
+export declare function connect(config: config): Promise<ConnectionPool>;
+export declare function connect(config: config, callback?: (err?: Error) => void): void;
+
+export declare function query(command: string): Promise<IResult<any>>;
+export declare function query(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+export declare function query<Entity>(command: string): Promise<IResult<Entity>>;
+export declare function query<Entity>(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
+export declare function query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
