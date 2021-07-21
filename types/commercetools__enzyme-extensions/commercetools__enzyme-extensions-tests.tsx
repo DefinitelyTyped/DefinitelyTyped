@@ -17,13 +17,6 @@ function Child(props: ChildProps) {
 }
 
 enzyme.shallow(<App />)
-    .find(App)
-    .renderProp('render');
-enzyme.shallow(<App />)
-    .find(Child)
-    .renderProp('render', 1, 2);
-
-enzyme.shallow(<App />)
     .find(Child)
     .drill(props => props.cb());
 

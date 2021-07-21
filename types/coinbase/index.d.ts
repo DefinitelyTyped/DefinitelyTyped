@@ -24,6 +24,10 @@ export interface ClientConstructOpts {
      * Override security certificates
      */
     caFile?: string[] | undefined;
+    /**
+     * Allows disabling strict SSL
+     */
+    strictSSL?: boolean | undefined;
 }
 
 export interface CreateAccountOpts {
