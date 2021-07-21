@@ -9407,6 +9407,19 @@ export interface KeyboardStatic extends NativeEventEmitter {
      * position changes with keyboard movements.
      */
     scheduleLayoutAnimation: (event: KeyboardEvent) => void;
+    /**
+     * Removes a specific listener.
+     *
+     * @param {string} eventName The `nativeEvent` is the string that identifies the event you're listening for.
+     * @param {function} callback function to be called when the event fires.
+     */
+    removeListener: (eventName: KeyboardEventName, callback: KeyboardEventListener) => void;
+    /**
+     * Removes all listeners for a specific event type.
+     *
+     * @param {string} eventType The native event string listeners are watching which will be removed.
+     */
+    removeAllListeners: (eventName: KeyboardEventName) => void;
 }
 
 /**
