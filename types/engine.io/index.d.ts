@@ -87,6 +87,11 @@ declare namespace engine {
          * an optional packet which will be concatenated to the handshake packet emitted by Engine.IO.
          */
         initialPacket?: Message | undefined;
+        
+        /**
+         * an optional boolean determining support for older Engine.IO client
+         */
+        allowEIO3?: boolean | undefined;
     }
     interface AttachOptions {
         /**
