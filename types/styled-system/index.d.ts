@@ -152,6 +152,14 @@ export interface styleFn {
     cache?: object | undefined;
 }
 
+export interface ConfigFunction {
+    (value: any, scale: Scale | undefined, props: any): any;
+    /** A string referencing a key in the `theme` object. */
+    scale?: string;
+    /** A fallback scale object for when there isn't one defined in the `theme` object. */
+    defaults?: Scale;
+}
+
 export interface ConfigStyle {
     /** The CSS property to use in the returned style object (overridden by `properties` if present). */
     property?: keyof CSS.Properties | undefined;
@@ -170,7 +178,7 @@ export interface ConfigStyle {
 
 export interface Config {
     /** Property name exposed for use in components */
-    [customStyleName: string]: ConfigStyle | boolean;
+    [customStyleName: string]: ConfigStyle | ConfigFunction | boolean;
 }
 
 export function compose(...parsers: styleFn[]): styleFn;
