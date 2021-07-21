@@ -293,14 +293,15 @@ function test_pieChart() {
         ['Sleep',    7]
     ]);
 
-    var options = {
-        title: 'My Daily Activities'
-    };
-
     var container = document.getElementById('chart_div');
     if (container) {
         var chart = new google.visualization.PieChart(container);
-        chart.draw(data, options);
+        chart.draw(data, {
+            title: 'My Daily Activities',
+            legend: {
+                position: 'labeled',
+            }
+        });
     }
 }
 
