@@ -8,10 +8,10 @@ export = jsonp;
 declare function jsonp(url: string, options?: Options, cb?: RequestCallback): CancelFn;
 declare function jsonp(url: string, callback?: RequestCallback): CancelFn;
 
-type CancelFn = () => void;
-type RequestCallback = (error: Error | null, data: any) => void;
+export type CancelFn = () => void;
+export type RequestCallback = (error: Error | null, data: any) => void;
 
-interface Options {
+export interface Options {
     param?: string;
     prefix?: string;
     name?: string;
