@@ -68,7 +68,7 @@ declare namespace proj4 {
         units?: string | undefined;
         from_greenwich?: number | undefined;
         datumCode?: string | undefined;
-        natGrids?: string | undefined;
+        nadgrids?: string | undefined;
         axis?: string | undefined;
     }
 
@@ -89,6 +89,7 @@ declare namespace proj4 {
     function defs(name: string, projection: string | ProjectionDefinition): void;
     function defs(name: string[][]): undefined[];
     function defs(name: string): ProjectionDefinition;
+    function nadgrid(key: string, grid: ArrayBuffer): void;
 
     function transform(
         source: InterfaceProjection,
