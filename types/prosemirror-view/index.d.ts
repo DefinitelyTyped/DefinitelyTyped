@@ -59,6 +59,12 @@ export interface WidgetDecorationSpec {
      */
     stopEvent?: ((event: Event) => boolean) | null;
     /**
+     * When set (defaults to false), selection changes inside the
+     * widget are ignored, and don't cause ProseMirror to try and
+     * re-sync the selection with its selection state.
+     */
+    ignoreSelection?: boolean;
+    /**
      * When comparing decorations of this type (in order to decide
      * whether it needs to be redrawn), ProseMirror will by default
      * compare the widget DOM node by identity. If you pass a key,
