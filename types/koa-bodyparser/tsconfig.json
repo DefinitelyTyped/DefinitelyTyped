@@ -18,9 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/body-typed-on-use-tests.ts",
-        "test/body-typed-with-koa-tests.ts",
-        "test/body-untyped-tests.ts",
-        "test/raw-body-tests.ts"
+        "koa-bodyparser-tests.ts"
     ]
 }
