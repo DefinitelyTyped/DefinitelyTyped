@@ -187,7 +187,7 @@ declare namespace createjs {
         static hasActiveTweens(target:any):boolean;
 
         wait(duration:number, passive?:boolean):Tween;
-        to(props:any, duration?:number, ease?:Function):Tween;
+        to(props:Partial<DisplayObject>, duration?:number, ease?:Function):Tween;
         label(name:string):Tween;
         call(callback:(...params:any[]) => void, params?:any[], scope?:any):Tween;
         set(props:any, target?:any):Tween;
