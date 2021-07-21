@@ -53,6 +53,7 @@ declare namespace MediumEditor {
         getEditorFromElement(element: HTMLElement): MediumEditor;
 
         // Properties
+        elements: elementType[];
         version: {
             major: number;
             minor: number;
