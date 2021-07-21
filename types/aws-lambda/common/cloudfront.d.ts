@@ -42,12 +42,14 @@ export interface CloudFrontResponse {
 }
 
 export interface CloudFrontRequest {
-    body?: {
-        action: 'read-only' | 'replace';
-        data: string;
-        encoding: 'base64' | 'text';
-        readonly inputTruncated: boolean;
-    } | undefined;
+    body?:
+        | {
+              action: 'read-only' | 'replace';
+              data: string;
+              encoding: 'base64' | 'text';
+              readonly inputTruncated: boolean;
+          }
+        | undefined;
     readonly clientIp: string;
     readonly method: string;
     uri: string;
@@ -79,28 +81,28 @@ export interface CloudFrontResultResponse {
 }
 
 /** @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-query-header-cookie */
-interface CloudFrontFunctionsCookies {
+export interface CloudFrontFunctionsCookies {
     [key: string]: {
         value: string;
         attributes?: string;
-        multiValue?: { value: string; attributes?: string }[];
+        multiValue?: Array<{ value: string; attributes?: string }>;
     };
 }
 
 /** @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-query-header-cookie */
-interface CloudFrontFunctionsQuerystring {
-    [key: string]: { value: string; multiValue?: { value: string }[] };
+export interface CloudFrontFunctionsQuerystring {
+    [key: string]: { value: string; multiValue?: Array<{ value: string }> };
 }
 
 /** @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-query-header-cookie */
-interface CloudFrontFunctionsHeaders {
-    [key: string]: { value: string; multiValue?: { value: string }[] };
+export interface CloudFrontFunctionsHeaders {
+    [key: string]: { value: string; multiValue?: Array<{ value: string }> };
 }
 
 /**
  * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html
- * 
- * @usage 
+ *
+ * @usage
  * ```ts
  * export const handler = async (event: CloudFrontFunctionsEvent) => {
  *   var response = event.response;
@@ -112,7 +114,7 @@ interface CloudFrontFunctionsHeaders {
  * };
  * ```
  */
-interface CloudFrontFunctionsEvent {
+export interface CloudFrontFunctionsEvent {
     /**
      * ## Version field
      * The version field contains a string that specifies the version of the
@@ -133,7 +135,7 @@ interface CloudFrontFunctionsEvent {
         /** The ID of the distribution (for example, EDFDVBD6EXAMPLE) that’s associated with the event. */
         distributionId: string;
         /** The event type, either `viewer-request` or `viewer-response`. */
-        eventType: "viewer-request" | "viewer-response";
+        eventType: 'viewer-request' | 'viewer-response';
         /** A string that uniquely identifies a CloudFront request (and its associated response). */
         requestId: string;
     };
@@ -150,9 +152,9 @@ interface CloudFrontFunctionsEvent {
      * The `request` object contains a representation of a viewer-to-CloudFront HTTP request.
      * In the `event` object that’s passed to your function, the `request` object represents the
      * actual request that CloudFront received from the viewer.
-     * 
+     *
      * If your function code returns a `request` object to CloudFront, it must use this same structure.
-     * 
+     *
      * The `request` object contains the following fields:
      * - `method`
      * - `uri`
@@ -171,9 +173,9 @@ interface CloudFrontFunctionsEvent {
          */
         uri: string;
         /**
-         * An object that represents the query string in the request. If the request doesn’t include a query string, 
+         * An object that represents the query string in the request. If the request doesn’t include a query string,
          * the `request` object still includes an empty `querystring` object.
-         * 
+         *
          * The `querystring` object contains one field for each query string parameter in the request.
          * Query string parameter names are converted to lowercase.
          */
@@ -181,31 +183,31 @@ interface CloudFrontFunctionsEvent {
         /**
          * An object that represents the HTTP headers in the request. If the request contains any `Cookie` headers,
          * those headers are not part of the `headers` object. Cookies are represented separately in the `cookies` object.
-         * 
+         *
          * The `headers` object contains one field for each header in the request. Header names are converted to lowercase.
          */
         headers: CloudFrontFunctionsHeaders;
         /**
          * An object that represents the cookies in the request (`Cookie` headers).
-         * 
+         *
          * The `cookies` object contains one field for each cookie in the request. Cookie names are converted to lowercase.
          */
         cookies: CloudFrontFunctionsCookies;
     };
     /**
      * ## Response object
-     * 
+     *
      * The `response` object contains a representation of a CloudFront-to-viewer HTTP response.
      * In the `event` object that’s passed to your function, the `response` object represents CloudFront’s actual response to a viewer request.
-     * 
+     *
      * If your function code returns a `response` object, it must use this same structure.
-     * 
+     *
      * The `response` object contains the following fields:
      */
     response: {
         /**
          * The HTTP status code of the response. This value is an integer, not a string.
-         * 
+         *
          * If the function is associated with a _viewer response_ event type, your function code cannot change
          * the `statusCode` that it received. If the function is associated with a _viewer request_ event type
          * and [generates an HTTP response](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/writing-function-code.html#function-code-generate-response),
@@ -217,7 +219,7 @@ interface CloudFrontFunctionsEvent {
         /**
          * An object that represents the HTTP headers in the response. If the response contains any `Set-Cookie` headers,
          * those `headers` are not part of the headers object. Cookies are represented separately in the `cookies` object.
-         * 
+         *
          * The `headers` object contains one field for each header in the response. Header names are converted to lowercase.
          */
         headers: CloudFrontFunctionsHeaders;
