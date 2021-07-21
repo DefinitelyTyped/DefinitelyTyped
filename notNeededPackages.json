@@ -2813,6 +2813,10 @@
             "libraryName": "moment-timezone",
             "asOfVersion": "0.5.30"
         },
+        "mongodb": {
+            "libraryName": "mongodb",
+            "asOfVersion": "4.0.0"
+        },
         "mongodb-memory-server": {
             "libraryName": "mongodb-memory-server",
             "asOfVersion": "2.3.0"
