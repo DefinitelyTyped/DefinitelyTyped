@@ -509,6 +509,15 @@ declare namespace sharp {
         webp(options?: WebpOptions): Sharp;
 
         /**
+         * Use these GIF options for output image.
+         * Requires libvips compiled with support for ImageMagick or GraphicsMagick. The prebuilt binaries do not include this - see installing a custom libvips.
+         * @param options Output options.
+         * @throws {Error} Invalid options
+         * @returns A sharp instance that can be used to chain operations
+         */
+        gif(options?: GifOptions): Sharp;
+
+        /**
          * Use these AVIF options for output image.
          * Whilst it is possible to create AVIF images smaller than 16x16 pixels, most web browsers do not display these properly.
          * @param options Output options.
@@ -868,6 +877,8 @@ declare namespace sharp {
         lossless?: boolean | undefined;
         /** CPU effort vs file size, 0 (slowest/smallest) to 8 (fastest/largest) (optional, default 5) */
         speed?: number | undefined;
+        /** set to '4:4:4' to prevent chroma subsampling otherwise defaults to '4:2:0' chroma subsampling, requires libvips v8.11.0 (optional, default '4:2:0') */
+        chromaSubsampling?: string;
     }
 
     interface HeifOptions extends OutputOptions {
@@ -886,7 +897,16 @@ declare namespace sharp {
      * The prebuilt binaries do not include this - see
      * {@link https://sharp.pixelplumbing.com/install#custom-libvips installing a custom libvips}.
      */
-    interface GifOptions extends OutputOptions, AnimationOptions {}
+    interface GifOptions extends OutputOptions, AnimationOptions {
+      /** Page height for animated output */
+      pageHeight?: number;
+      /** Number of animation iterations, use 0 for infinite animation (optional, default 0) */
+      loop?: number;
+      /** List of delays between animation frames (in milliseconds) */
+      delay?: number[];
+      /** Force GIF output, otherwise attempt to use input format (optional, default true) */
+      force?: boolean;
+    }
 
     interface TiffOptions extends OutputOptions {
         /** Quality, integer 1-100 (optional, default 80) */
