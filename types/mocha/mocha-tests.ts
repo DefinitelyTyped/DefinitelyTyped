@@ -910,15 +910,40 @@ function test_constructor_root_hooks() {
 
 function test_constructor_all_options() {
     const m: Mocha = new LocalMocha({
-        slow: 25,
-        timeout: 25,
-        ui: 'bdd',
-        globals: ['mocha'],
-        reporter: 'html',
+        allowUncaught: true,
+        asyncOnly: true,
         bail: true,
-        grep: 'test',
+        checkLeaks: true,
+        color: true,
+        delay: true,
+        diff: true,
+        dryRun: true,
+        fgrep: 'test',
+        forbidOnly: true,
+        forbidPending: true,
+        fullTrace: true,
+        globals: [ 'window' ],
+        grep: /.*/u,
+        growl: true,
+        inlineDiffs: true,
+        invert: false,
+        noHighlighting: false,
+        reporter: 'Reporter',
+        reporterOptions: {},
+        retries: 3,
+        slow: 2000,
+        timeout: 10000,
+        ui: 'tdd',
         parallel: true,
-        jobs: 4
+        jobs: 4,
+        rootHooks: {
+            afterAll: () => {},
+            beforeAll: async () => {},
+            afterEach: [() => {}],
+            beforeEach: [async () => {}]
+        },
+        require: [ './rootHooks.js' ],
+        isWorker: true
     });
 }
 
@@ -944,6 +969,10 @@ function test_run(localMocha: LocalMocha) {
 
 function test_growl() {
     mocha.growl();
+}
+
+function test_dryRun() {
+    mocha.dryRun();
 }
 
 function test_dispose(localMocha: LocalMocha) {
@@ -1002,11 +1031,29 @@ function test_require_fluentParams() {
         .slow(100)
         .asyncOnly()
         .noHighlighting()
+        .dryRun()
         .run();
 }
 
 function test_throwError() {
     mocha.throwError(new Error("I'm an error!"));
+}
+
+function test_runner_constructor(suite: LocalMocha.Suite) {
+    let runner: LocalMocha.Runner;
+
+    // With just a Suite.
+    runner = new LocalMocha.Runner(suite);
+
+    // With a Suite and deprecated delay option.
+    runner = new LocalMocha.Runner(suite, true);
+
+    // With a Suite and options object.
+    runner = new LocalMocha.Runner(suite, {
+        delay: true,
+        dryRun: true,
+        cleanReferencesAfterRun: true
+    });
 }
 
 function test_mochaRunner_properties(runner: LocalMocha.Runner, suite: LocalMocha.Suite) {
