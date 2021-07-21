@@ -37,12 +37,12 @@ declare namespace naver.maps {
   /**
    * Interfaces
    */
-   interface MapEventListener {
-     eventName: string;
-     listener: (event: any) => any;
-     listenerId: string;
-     target: any;
-   }
+  interface MapEventListener {
+    eventName: string;
+    listener: (event: any) => any;
+    listenerId: string;
+    target: any;
+  }
   interface PointObjectLiteral {
     x: number;
     y: number;
@@ -762,6 +762,23 @@ declare namespace naver.maps {
     getTypeIds(): string[];
     set(mapTypeId: string, mapType: MapType): void;
     setSelectedTypeId(mapTypeId: string): void;
+  }
+  // update NaverMapTypeOption -> NaverStyleMapTypeOptions
+  namespace NaverStyleMapTypeOptions {
+    function getBicycleLayer(opts?: any): ImageMapType;
+    function getBlankMap(opts?: any): ImageMapType;
+    function getCadastralLayer(opts?: any): ImageMapType;
+    function getHybridMap(opts?: any): ImageMapType;
+    function getMapTypes(opts?: any): MapTypeRegistry;
+    function getNormalLabelLayer(opts?: any): ImageMapType;
+    function getNormalMap(opts?: any): ImageMapType;
+    function getSatelliteLabelLayer(opts?: any): ImageMapType;
+    function getSatelliteMap(opts?: any): ImageMapType;
+    function getStreetLayer(opts?: any): ImageMapType;
+    function getTerrainMap(opts?: any): ImageMapType;
+    function getTrafficLayer(opts?: any): ImageMapType;
+    function getVectorMap(opts?: any): ImageMapType;
+    function getWorldMap(opts?: any): ImageMapType;
   }
 
   // Map.MapType.Preset
