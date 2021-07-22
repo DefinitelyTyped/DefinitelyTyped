@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.29
+// Type definitions for Azure Data Studio 1.31
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -9,11 +9,11 @@
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License.
- *  See https://github.com/microsoft/azuredatastudio/blob/master/LICENSE.txt for license information.
+ *  See https://github.com/Microsoft/azuredatastudio/blob/main/LICENSE.txt for license information.
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.29 Extension API
+ * Type Definition for Azure Data Studio 1.31 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -962,7 +962,7 @@ declare module 'azdata' {
         hasError: boolean;
         id: number;
         selection: ISelectionData;
-        resultSetSummaries: ResultSetSummary[];
+        resultSetSummaries: ResultSetSummary[] | null;
         executionElapsed: string;
         executionEnd: string;
         executionStart: string;
@@ -3889,6 +3889,14 @@ declare module 'azdata' {
         export function createModelViewDialog(title: string, dialogName?: string, isWide?: boolean): Dialog;
 
         /**
+         * Create a dialog with the given title
+         * @param title Title of the dialog, displayed at the top.
+         * @param dialogName Name of the dialog.
+         * @param width Width of the dialog, default is 'narrow'.
+         */
+        export function createModelViewDialog(title: string, dialogName?: string | undefined, width?: DialogWidth | undefined): Dialog;
+
+        /**
          * Create a dialog tab which can be included as part of the content of a dialog
          * @param title The title of the page, displayed on the tab to select the page
          */
@@ -3898,7 +3906,7 @@ declare module 'azdata' {
          * Create a button which can be included in a dialog
          * @param label The label of the button
          */
-        export function createButton(label: string, position?: DialogButtonPosition): Button;
+        export function createButton(label: string, position?: DialogButtonPosition | undefined): Button;
 
         /**
          * Opens the given dialog if it is not already open
@@ -3915,7 +3923,7 @@ declare module 'azdata' {
          * @param title The title of the page
          * @param pageName The optional page name parameter will be used for telemetry
          */
-        export function createWizardPage(title: string, pageName?: string): WizardPage;
+        export function createWizardPage(title: string, pageName?: string | undefined): WizardPage;
 
         /**
          * Create a wizard with the given title and width
@@ -3923,7 +3931,7 @@ declare module 'azdata' {
          * @param name The name used to identify the wizard in telemetry
          * @param width The width of the wizard, default value is 'narrow'
          */
-        export function createWizard(title: string, name?: string, width?: DialogWidth): Wizard;
+        export function createWizard(title: string, name?: string | undefined, width?: DialogWidth | undefined): Wizard;
 
         /**
          * Used to control whether a message in a dialog/wizard is displayed as an error,
