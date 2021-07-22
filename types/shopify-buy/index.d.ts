@@ -91,7 +91,7 @@ declare namespace ShopifyBuy {
          * Add discount to cart
          */
         addDiscount(checkoutId: string | number, discountCode: string): Promise<Cart>;
-        
+
         /**
          * Remove discounts from cart
          */
