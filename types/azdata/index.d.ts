@@ -3894,7 +3894,7 @@ declare module 'azdata' {
          * @param dialogName Name of the dialog.
          * @param width Width of the dialog, default is 'narrow'.
          */
-        export function createModelViewDialog(title: string, dialogName?: string | undefined, width?: DialogWidth | undefined): Dialog;
+        export function createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth): Dialog;
 
         /**
          * Create a dialog tab which can be included as part of the content of a dialog
@@ -3906,7 +3906,7 @@ declare module 'azdata' {
          * Create a button which can be included in a dialog
          * @param label The label of the button
          */
-        export function createButton(label: string, position?: DialogButtonPosition | undefined): Button;
+        export function createButton(label: string, position?: DialogButtonPosition): Button;
 
         /**
          * Opens the given dialog if it is not already open
@@ -3923,7 +3923,7 @@ declare module 'azdata' {
          * @param title The title of the page
          * @param pageName The optional page name parameter will be used for telemetry
          */
-        export function createWizardPage(title: string, pageName?: string | undefined): WizardPage;
+        export function createWizardPage(title: string, pageName?: string): WizardPage;
 
         /**
          * Create a wizard with the given title and width
@@ -3931,7 +3931,7 @@ declare module 'azdata' {
          * @param name The name used to identify the wizard in telemetry
          * @param width The width of the wizard, default value is 'narrow'
          */
-        export function createWizard(title: string, name?: string | undefined, width?: DialogWidth | undefined): Wizard;
+        export function createWizard(title: string, name?: string, width?: DialogWidth): Wizard;
 
         /**
          * Used to control whether a message in a dialog/wizard is displayed as an error,
