@@ -2,7 +2,6 @@
 // Project: https://github.com/tclindner/npm-package-json-lint
 // Definitions by: Hannes Leutloff <https://github.com/yeldiRium>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
 
 interface LintIssue {
     lintId: string;
