@@ -15,7 +15,7 @@ export default class PluginCollection implements Emitter, Iterable<[typeof Plugi
 
     [Symbol.iterator](): Iterator<[typeof Plugin, Plugin]>;
     destroy(): Promise<void>;
-    get(key: (() => Plugin) | string): Plugin;
+    get(key: (() => Plugin) | string): new () => Plugin;
     has(key: (() => Plugin) | string): boolean;
     init(
         plugins: Array<(() => Plugin) | string>,
