@@ -18,7 +18,7 @@
 //                 Remko Klein <https://github.com/remko79>
 //                 Levi Bostian <https://github.com/levibostian>
 //                 Todd Dukart <https://github.com/tdukart>
-//                 Mix <httos://github.com/mnixry>
+//                 Mix <https://github.com/mnixry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -714,7 +714,7 @@ declare namespace Bull {
     /**
       * Returns a promise that resolves to the next job in queue.
       */
-    getNextJob(): Promise<Job<T> | void>;
+    getNextJob(): Promise<Job<T> | null>;
 
     /**
      * Returns a object with the logs according to the start and end arguments. The returned count
