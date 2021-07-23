@@ -357,14 +357,14 @@ declare namespace SshPK {
     function createSelfSignedCertificate(
         subjectOrSubjects: Identity | Identity[],
         key: Key,
-        options?: any,
+        options?: { validFrom?: Date; validUntil?: Date; lifetime?: number; serial?: Buffer; purposes?: string[] },
     ): Certificate;
     function createCertificate(
         subjectOrSubjects: Identity | Identity[],
         key: Key,
         issuer: Identity,
         issuerKey: PrivateKey,
-        options?: any,
+        options?: { validFrom?: Date; validUntil?: Date; lifetime?: number; serial?: Buffer; purposes?: string[] },
     ): Certificate;
 
     function identityFromDN(dn: string): Identity;
