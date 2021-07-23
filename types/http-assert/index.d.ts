@@ -4,7 +4,7 @@
 //                 Peter Squicciarini <https://github.com/stripedpajamas>
 //                 Alex Bulanov <https://github.com/sapfear>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 3.7
 
 /**
  * @param status the status code
