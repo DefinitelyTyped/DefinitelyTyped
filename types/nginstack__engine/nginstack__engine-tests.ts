@@ -1,7 +1,5 @@
-// tslint:disable-next-line:no-relative-import-in-test
-import * as DataSet from './lib/dataset/DataSet';
-// tslint:disable-next-line:no-relative-import-in-test
-import * as Database from './lib/database/Database';
+import * as DataSet from '@nginstack/engine/lib/dataset/DataSet';
+import * as Database from '@nginstack/engine/lib/database/Database';
 
 const values = ['test1', 'test_memo1', 1, true, new Date()];
 
