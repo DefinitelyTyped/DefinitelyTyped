@@ -348,9 +348,9 @@ declare namespace SshPK {
   function parsePrivateKey(data: string|Buffer, format: string, options?: any): PrivateKey;
 
   function parseCertificate(data: string|Buffer, format: string, options?: any): Certificate;
-  function createSelfSignedCertificate(subjectOrSubjects: string, key: Key, options?: any): Certificate;
+  function createSelfSignedCertificate(subjectOrSubjects: Identity|Identity[], key: Key, options?: any): Certificate;
   function createCertificate(
-    subjectOrSubjects: string, key: Key, issuer: string,
+    subjectOrSubjects: Identity|Identity[], key: Key, issuer: Identity|Identity[],
     issuerKey: PrivateKey, options?: any): Certificate;
 
   function identityFromDN(dn: string): Identity;
