@@ -173,3 +173,5 @@ const bodyType: MicrosoftGraph.BodyType = "text";
 const channel: MicrosoftGraph.Channel = {
     description: "Test",
 };
+
+const countryLookupMethodType: MicrosoftGraph.CountryLookupMethodType = "clientIpAddress";
