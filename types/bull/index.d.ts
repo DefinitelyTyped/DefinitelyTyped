@@ -710,11 +710,11 @@ declare namespace Bull {
      * Optional parameters for range and ordering are provided.
      */
     getJobs(types: JobStatus[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
-    
+
     /**
-      * Returns a promise that resolves to the next job in queue.
-      */
-    getNextJob(): Promise<Job<T> | null>;
+     * Returns a promise that resolves to the next job in queue.
+     */
+    getNextJob(): Promise<Job<T> | undefined>;
 
     /**
      * Returns a object with the logs according to the start and end arguments. The returned count
