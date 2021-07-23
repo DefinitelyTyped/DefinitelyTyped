@@ -21,6 +21,8 @@ import {
     graphql,
     getRequest,
     createOperationDescriptor,
+    FragmentRefs,
+    readInlineData,
 } from 'relay-runtime';
 
 const source = new RecordSource();
