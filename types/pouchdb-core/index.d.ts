@@ -9,7 +9,6 @@
 
 /// <reference types="debug" />
 /// <reference types="pouchdb-find" />
-/// <reference types="node-fetch" />
 
 interface Blob {
     readonly size: number;

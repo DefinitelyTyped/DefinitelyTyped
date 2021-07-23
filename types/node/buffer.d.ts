@@ -1,5 +1,5 @@
 declare module 'buffer' {
-    import { BinaryLike } from 'crypto';
+    import { BinaryLike } from 'node:crypto';
 
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
@@ -91,7 +91,7 @@ declare module 'buffer' {
          * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
          * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
          */
-        class Buffer extends Uint8Array {
+        interface BufferConstructor {
             /**
              * Allocates a new buffer containing the given {str}.
              *
@@ -99,21 +99,21 @@ declare module 'buffer' {
              * @param encoding encoding to use, optional.  Default is 'utf8'
              * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
              */
-            constructor(str: string, encoding?: BufferEncoding);
+            new(str: string, encoding?: BufferEncoding): Buffer;
             /**
              * Allocates a new buffer of {size} octets.
              *
              * @param size count of octets to allocate.
              * @deprecated since v10.0.0 - Use `Buffer.alloc()` instead (also see `Buffer.allocUnsafe()`).
              */
-            constructor(size: number);
+            new(size: number): Buffer;
             /**
              * Allocates a new buffer containing the given {array} of octets.
              *
              * @param array The octets to store.
              * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
              */
-            constructor(array: Uint8Array);
+            new(array: Uint8Array): Buffer;
             /**
              * Produces a Buffer backed by the same allocated memory as
              * the given {ArrayBuffer}/{SharedArrayBuffer}.
@@ -122,21 +122,21 @@ declare module 'buffer' {
              * @param arrayBuffer The ArrayBuffer with which to share memory.
              * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
              */
-            constructor(arrayBuffer: ArrayBuffer | SharedArrayBuffer);
+            new(arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
             /**
              * Allocates a new buffer containing the given {array} of octets.
              *
              * @param array The octets to store.
              * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
              */
-            constructor(array: ReadonlyArray<any>);
+            new(array: ReadonlyArray<any>): Buffer;
             /**
              * Copies the passed {buffer} data onto a new {Buffer} instance.
              *
              * @param buffer The buffer to copy.
              * @deprecated since v10.0.0 - Use `Buffer.from(buffer)` instead.
              */
-            constructor(buffer: Buffer);
+            new(buffer: Buffer): Buffer;
             /**
              * When passed a reference to the .buffer property of a TypedArray instance,
              * the newly created Buffer will share the same allocated memory as the TypedArray.
@@ -145,37 +145,37 @@ declare module 'buffer' {
              *
              * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
              */
-            static from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): Buffer;
+            from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): Buffer;
             /**
              * Creates a new Buffer using the passed {data}
              * @param data data to create a new Buffer
              */
-            static from(data: Uint8Array | ReadonlyArray<number>): Buffer;
-            static from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): Buffer;
+            from(data: Uint8Array | ReadonlyArray<number>): Buffer;
+            from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): Buffer;
             /**
              * Creates a new Buffer containing the given JavaScript string {str}.
              * If provided, the {encoding} parameter identifies the character encoding.
              * If not provided, {encoding} defaults to 'utf8'.
              */
-            static from(str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: 'string'): string }, encoding?: BufferEncoding): Buffer;
+            from(str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: 'string'): string }, encoding?: BufferEncoding): Buffer;
             /**
              * Creates a new Buffer using the passed {data}
              * @param values to create a new Buffer
              */
-            static of(...items: number[]): Buffer;
+            of(...items: number[]): Buffer;
             /**
              * Returns true if {obj} is a Buffer
              *
              * @param obj object to test.
              */
-            static isBuffer(obj: any): obj is Buffer;
+            isBuffer(obj: any): obj is Buffer;
             /**
              * Returns true if {encoding} is a valid encoding argument.
              * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
              *
              * @param encoding string to test.
              */
-            static isEncoding(encoding: string): encoding is BufferEncoding;
+            isEncoding(encoding: string): encoding is BufferEncoding;
             /**
              * Gives the actual byte length of a string. encoding defaults to 'utf8'.
              * This is not the same as String.prototype.length since that returns the number of characters in a string.
@@ -183,7 +183,7 @@ declare module 'buffer' {
              * @param string string to test.
              * @param encoding encoding used to evaluate (defaults to 'utf8')
              */
-            static byteLength(
+            byteLength(
                 string: string | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
                 encoding?: BufferEncoding
             ): number;
@@ -198,11 +198,11 @@ declare module 'buffer' {
              * @param totalLength Total length of the buffers when concatenated.
              *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
              */
-            static concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
+            concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
             /**
              * The same as buf1.compare(buf2).
              */
-            static compare(buf1: Uint8Array, buf2: Uint8Array): number;
+            compare(buf1: Uint8Array, buf2: Uint8Array): number;
             /**
              * Allocates a new buffer of {size} octets.
              *
@@ -211,26 +211,28 @@ declare module 'buffer' {
              *    If parameter is omitted, buffer will be filled with zeros.
              * @param encoding encoding used for call to buf.fill while initalizing
              */
-            static alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
+            alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
             /**
              * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
              * of the newly created Buffer are unknown and may contain sensitive data.
              *
              * @param size count of octets to allocate
              */
-            static allocUnsafe(size: number): Buffer;
+            allocUnsafe(size: number): Buffer;
             /**
              * Allocates a new non-pooled buffer of {size} octets, leaving memory not initialized, so the contents
              * of the newly created Buffer are unknown and may contain sensitive data.
              *
              * @param size count of octets to allocate
              */
-            static allocUnsafeSlow(size: number): Buffer;
+            allocUnsafeSlow(size: number): Buffer;
             /**
              * This is the number of bytes used to determine the size of pre-allocated, internal Buffer instances used for pooling. This value may be modified.
              */
-            static poolSize: number;
+            poolSize: number;
+        }
 
+        interface Buffer extends Uint8Array {
             write(string: string, encoding?: BufferEncoding): number;
             write(string: string, offset: number, encoding?: BufferEncoding): number;
             write(string: string, offset: number, length: number, encoding?: BufferEncoding): number;
@@ -321,6 +323,7 @@ declare module 'buffer' {
             keys(): IterableIterator<number>;
             values(): IterableIterator<number>;
         }
+        var Buffer: BufferConstructor;
 
         /**
          * Decodes a string of Base64-encoded data into bytes, and encodes those bytes into a string using Latin-1 (ISO-8859-1).

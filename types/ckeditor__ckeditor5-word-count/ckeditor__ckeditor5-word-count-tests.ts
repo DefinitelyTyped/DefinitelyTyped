@@ -26,4 +26,4 @@ const config: WordCountConfig = {
     },
 };
 
-const foo: string = utils.modelElementToPlainText(new Element("div"));
+const foo: string = utils.modelElementToPlainText(Element.fromJSON({ name: "foo" }));

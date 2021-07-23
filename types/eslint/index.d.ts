@@ -1,4 +1,4 @@
-// Type definitions for eslint 7.2
+// Type definitions for eslint 7.28
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -583,6 +583,8 @@ export namespace Rule {
         getDeclaredVariables(node: ESTree.Node): Scope.Variable[];
 
         getFilename(): string;
+
+        getPhysicalFilename(): string;
 
         getCwd(): string;
 

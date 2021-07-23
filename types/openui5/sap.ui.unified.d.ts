@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -56,7 +56,7 @@ declare module "sap/ui/unified/library" {
     Standard = "Standard",
   }
   /**
-   * @SINCE 1.24.0
+   * @SINCE 1.13
    *
    * Types of a calendar day used for visualization.
    */
@@ -327,6 +327,8 @@ declare module "sap/ui/unified/Calendar" {
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import CalendarType from "sap/ui/core/CalendarType";
@@ -434,7 +436,25 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.Calendar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
+     *
+     * Date selection was cancelled
+     */
+    attachCancel(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
        */
@@ -457,7 +477,25 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.Calendar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
+     *
+     * Date selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
        */
@@ -485,7 +523,30 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.34.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
+     * `sap.ui.unified.Calendar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
+     *
+     * `startDate` was changed while navigation in `Calendar`
+     *
+     * Use `getStartDate` function to determine the current start date
+     */
+    attachStartDateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
        */
@@ -516,7 +577,33 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.56
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:weekNumberSelect weekNumberSelect} event of
+     * this `sap.ui.unified.Calendar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
+     *
+     * Week number selection changed. By default, clicking on the week number will select the corresponding
+     * week. If the week has already been selected, clicking the week number will deselect it.
+     *
+     * The default behavior can be prevented using the `preventDefault` method.
+     *
+     * **Note** Works for Gregorian calendars only and when `intervalSelection` is set to 'true'.
+     */
+    attachWeekNumberSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
        */
@@ -547,7 +634,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -562,7 +649,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -580,7 +667,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -598,7 +685,7 @@ declare module "sap/ui/unified/Calendar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -681,11 +768,11 @@ declare module "sap/ui/unified/Calendar" {
         /**
          * The selected week number.
          */
-        weekNumber?: int | undefined;
+        weekNumber?: int;
         /**
          * The days of the corresponding week that are selected or deselected.
          */
-        weekDays?: DateRange | undefined;
+        weekDays?: DateRange;
       }
     ): boolean;
     /**
@@ -1222,103 +1309,18 @@ declare module "sap/ui/unified/Calendar" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.Calendar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
-     *
-     * Date selection was cancelled
-     */
-    attachCancel(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.Calendar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
-     *
-     * Date selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.34.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
-     * `sap.ui.unified.Calendar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
-     *
-     * `startDate` was changed while navigation in `Calendar`
-     *
-     * Use `getStartDate` function to determine the current start date
-     */
-    attachStartDateChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.56
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:weekNumberSelect weekNumberSelect} event of
-     * this `sap.ui.unified.Calendar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.Calendar` itself.
-     *
-     * Week number selection changed. By default, clicking on the week number will select the corresponding
-     * week. If the week has already been selected, clicking the week number will deselect it.
-     *
-     * The default behavior can be prevented using the `preventDefault` method.
-     *
-     * **Note** Works for Gregorian calendars only and when `intervalSelection` is set to 'true'.
-     */
-    attachWeekNumberSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Calendar` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CalendarSettings extends $ControlSettings {
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo | undefined;
+    intervalSelection?: boolean | PropertyBindingInfo;
 
     /**
      * If set, only a single date or interval, if intervalSelection is enabled, can be selected
      */
-    singleSelection?: boolean | PropertyBindingInfo | undefined;
+    singleSelection?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.28.0
@@ -1329,7 +1331,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * **Note:** On phones, only one month is displayed.
      */
-    months?: int | PropertyBindingInfo | undefined;
+    months?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.28.9
@@ -1337,7 +1339,7 @@ declare module "sap/ui/unified/Calendar" {
      * If set, the first day of the displayed week is this day. Valid values are 0 to 6. If not a valid value
      * is set, the default of the used locale is used.
      */
-    firstDayOfWeek?: int | PropertyBindingInfo | undefined;
+    firstDayOfWeek?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.28.9
@@ -1349,7 +1351,7 @@ declare module "sap/ui/unified/Calendar" {
      * specific dates or dates ranges, such as national holidays, use the `specialDates` aggregation to set
      * them. Both the non-working days (from property) and dates (from aggregation) are visualized the same.
      */
-    nonWorkingDays?: int[] | PropertyBindingInfo | undefined;
+    nonWorkingDays?: int[] | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
@@ -1359,7 +1361,7 @@ declare module "sap/ui/unified/Calendar" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
@@ -1369,7 +1371,7 @@ declare module "sap/ui/unified/Calendar" {
      */
     secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.0
@@ -1378,7 +1380,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * **Note:** There is a theme depending minimum width, so the calendar can not be set smaller.
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.0
@@ -1391,7 +1393,7 @@ declare module "sap/ui/unified/Calendar" {
      * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
      * of the `minDate`.
      */
-    minDate?: object | PropertyBindingInfo | undefined;
+    minDate?: object | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.0
@@ -1404,7 +1406,7 @@ declare module "sap/ui/unified/Calendar" {
      * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
      * month of the `maxDate`.
      */
-    maxDate?: object | PropertyBindingInfo | undefined;
+    maxDate?: object | PropertyBindingInfo;
 
     /**
      * @SINCE 1.48
@@ -1414,7 +1416,7 @@ declare module "sap/ui/unified/Calendar" {
      * **Note:** For Islamic calendars, the week numbers are not displayed regardless of what is set to this
      * property.
      */
-    showWeekNumbers?: boolean | PropertyBindingInfo | undefined;
+    showWeekNumbers?: boolean | PropertyBindingInfo;
 
     /**
      * Dates or date ranges for selected dates.
@@ -1422,7 +1424,7 @@ declare module "sap/ui/unified/Calendar" {
      * To set a single date (instead of a range), set only the `startDate` property of the {@link sap.ui.unified.DateRange}
      * class.
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
 
     /**
      * @SINCE 1.24.0
@@ -1437,7 +1439,7 @@ declare module "sap/ui/unified/Calendar" {
      * where if you need a weekly-reccuring non-working days (weekend), you should use the `nonWorkingDays`
      * property. Both the non-working days (from property) and dates (from aggregation) are visualized the same.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
 
     /**
      * @SINCE 1.38.0
@@ -1447,14 +1449,14 @@ declare module "sap/ui/unified/Calendar" {
      * To set a single date (instead of a range), set only the `startDate` property of the {@link sap.ui.unified.DateRange}
      * class.
      */
-    disabledDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
+    disabledDates?: DateRange[] | DateRange | AggregationBindingInfo;
 
     /**
      * @SINCE 1.28.0
      *
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * @SINCE 1.38.5
@@ -1463,17 +1465,17 @@ declare module "sap/ui/unified/Calendar" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string | undefined;
+    legend?: CalendarLegend | string;
 
     /**
      * Date selection changed
      */
-    select?: Function | undefined;
+    select?: Function;
 
     /**
      * Date selection was cancelled
      */
-    cancel?: Function | undefined;
+    cancel?: Function;
 
     /**
      * @SINCE 1.34.0
@@ -1482,7 +1484,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * Use `getStartDate` function to determine the current start date
      */
-    startDateChange?: Function | undefined;
+    startDateChange?: Function;
 
     /**
      * @SINCE 1.56
@@ -1494,7 +1496,7 @@ declare module "sap/ui/unified/Calendar" {
      *
      * **Note** Works for Gregorian calendars only and when `intervalSelection` is set to 'true'.
      */
-    weekNumberSelect?: Function | undefined;
+    weekNumberSelect?: Function;
   }
 }
 
@@ -1690,12 +1692,12 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      * is set to the start date So after setting the start date the date should be set to be in the range of
      * the start date
      */
-    startDate?: object | PropertyBindingInfo | undefined;
+    startDate?: object | PropertyBindingInfo;
 
     /**
      * number of days displayed
      */
-    days?: int | PropertyBindingInfo | undefined;
+    days?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
@@ -1703,12 +1705,14 @@ declare module "sap/ui/unified/calendar/DatesRow" {
      * If set the day names are shown in a separate line. If not set the day names are shown inside the single
      * days.
      */
-    showDayNamesLine?: boolean | PropertyBindingInfo | undefined;
+    showDayNamesLine?: boolean | PropertyBindingInfo;
   }
 }
 
 declare module "sap/ui/unified/calendar/Header" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -1776,7 +1780,27 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.32.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:pressButton0 pressButton0} event of this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * First button pressed (normally day)
+     */
+    attachPressButton0(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
        */
@@ -1799,7 +1823,25 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressButton1 pressButton1} event of this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Second button pressed (normally month)
+     */
+    attachPressButton1(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
        */
@@ -1822,7 +1864,25 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressButton2 pressButton2} event of this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Third button pressed (normally year)
+     */
+    attachPressButton2(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
        */
@@ -1845,7 +1905,25 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressNext pressNext} event of this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Next button pressed
+     */
+    attachPressNext(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
        */
@@ -1868,7 +1946,25 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:pressPrevious pressPrevious} event of this `sap.ui.unified.calendar.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
+     *
+     * Previous button pressed
+     */
+    attachPressPrevious(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
        */
@@ -1885,7 +1981,7 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1900,7 +1996,7 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1915,7 +2011,7 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1930,7 +2026,7 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1946,7 +2042,7 @@ declare module "sap/ui/unified/calendar/Header" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2346,98 +2442,6 @@ declare module "sap/ui/unified/calendar/Header" {
        */
       bVisibleButton2?: boolean
     ): this;
-    /**
-     * @SINCE 1.32.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:pressButton0 pressButton0} event of this `sap.ui.unified.calendar.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
-     *
-     * First button pressed (normally day)
-     */
-    attachPressButton0(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:pressButton1 pressButton1} event of this `sap.ui.unified.calendar.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
-     *
-     * Second button pressed (normally month)
-     */
-    attachPressButton1(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:pressButton2 pressButton2} event of this `sap.ui.unified.calendar.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
-     *
-     * Third button pressed (normally year)
-     */
-    attachPressButton2(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:pressNext pressNext} event of this `sap.ui.unified.calendar.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
-     *
-     * Next button pressed
-     */
-    attachPressNext(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:pressPrevious pressPrevious} event of this `sap.ui.unified.calendar.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Header` itself.
-     *
-     * Previous button pressed
-     */
-    attachPressPrevious(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Header` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $HeaderSettings extends $ControlSettings {
@@ -2446,21 +2450,21 @@ declare module "sap/ui/unified/calendar/Header" {
      *
      * Text of the first button (normally day)
      */
-    textButton0?: string | PropertyBindingInfo | undefined;
+    textButton0?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
      *
      * Additional text of the first button (normally day)
      */
-    additionalTextButton0?: string | PropertyBindingInfo | undefined;
+    additionalTextButton0?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.32.0
      *
      * aria-label of the first button (normally day)
      */
-    ariaLabelButton0?: string | PropertyBindingInfo | undefined;
+    ariaLabelButton0?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.32.0
@@ -2469,92 +2473,92 @@ declare module "sap/ui/unified/calendar/Header" {
      *
      * **Note:** The default is set to false to be compatible to older versions
      */
-    visibleButton0?: boolean | PropertyBindingInfo | undefined;
+    visibleButton0?: boolean | PropertyBindingInfo;
 
     /**
      * Text of the second button (normally month)
      */
-    textButton1?: string | PropertyBindingInfo | undefined;
+    textButton1?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
      *
      * Additional text of the second button (normally month)
      */
-    additionalTextButton1?: string | PropertyBindingInfo | undefined;
+    additionalTextButton1?: string | PropertyBindingInfo;
 
     /**
      * aria-label of the second button (normally month)
      */
-    ariaLabelButton1?: string | PropertyBindingInfo | undefined;
+    ariaLabelButton1?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.32.0
      *
      * If set, the second button will be displayed
      */
-    visibleButton1?: boolean | PropertyBindingInfo | undefined;
+    visibleButton1?: boolean | PropertyBindingInfo;
 
     /**
      * Text of the third button (normally year)
      */
-    textButton2?: string | PropertyBindingInfo | undefined;
+    textButton2?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
      *
      * Additional text of the third button (normally year)
      */
-    additionalTextButton2?: string | PropertyBindingInfo | undefined;
+    additionalTextButton2?: string | PropertyBindingInfo;
 
     /**
      * aria-label of the third button (normally year)
      */
-    ariaLabelButton2?: string | PropertyBindingInfo | undefined;
+    ariaLabelButton2?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.32.0
      *
      * If set, the third button will be displayed
      */
-    visibleButton2?: boolean | PropertyBindingInfo | undefined;
+    visibleButton2?: boolean | PropertyBindingInfo;
 
     /**
      * Enables the previous button
      */
-    enabledPrevious?: boolean | PropertyBindingInfo | undefined;
+    enabledPrevious?: boolean | PropertyBindingInfo;
 
     /**
      * Enables the Next button
      */
-    enabledNext?: boolean | PropertyBindingInfo | undefined;
+    enabledNext?: boolean | PropertyBindingInfo;
 
     /**
      * Previous button pressed
      */
-    pressPrevious?: Function | undefined;
+    pressPrevious?: Function;
 
     /**
      * Next button pressed
      */
-    pressNext?: Function | undefined;
+    pressNext?: Function;
 
     /**
      * @SINCE 1.32.0
      *
      * First button pressed (normally day)
      */
-    pressButton0?: Function | undefined;
+    pressButton0?: Function;
 
     /**
      * Second button pressed (normally month)
      */
-    pressButton1?: Function | undefined;
+    pressButton1?: Function;
 
     /**
      * Third button pressed (normally year)
      */
-    pressButton2?: Function | undefined;
+    pressButton2?: Function;
   }
 }
 
@@ -2566,6 +2570,8 @@ declare module "sap/ui/unified/calendar/Month" {
   import DateRange from "sap/ui/unified/DateRange";
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -2672,7 +2678,25 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.Month`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
+     *
+     * Date focus changed
+     */
+    attachFocus(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
        */
@@ -2695,7 +2719,25 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.Month`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
+     *
+     * Date selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
        */
@@ -2726,7 +2768,33 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.60
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:weekNumberSelect weekNumberSelect} event of
+     * this `sap.ui.unified.calendar.Month`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
+     *
+     * Fired when a week number selection is changed. By default, choosing the week number will select the corresponding
+     * week. If the week has already been selected, choosing the week number will deselect it.
+     *
+     * The default behavior can be prevented using the `preventDefault` method.
+     *
+     * **Note:** Works for Gregorian calendars only and when `intervalSelection` is set to `true`.
+     */
+    attachWeekNumberSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
        */
@@ -2765,7 +2833,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2780,7 +2848,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2798,7 +2866,7 @@ declare module "sap/ui/unified/calendar/Month" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2845,15 +2913,15 @@ declare module "sap/ui/unified/calendar/Month" {
         /**
          * focused date
          */
-        date?: object | undefined;
+        date?: object;
         /**
          * focused date is in an other month than the displayed one
          */
-        otherMonth?: boolean | undefined;
+        otherMonth?: boolean;
         /**
          * focused date is set to the same as before (date in other month clicked)
          */
-        restoreOldDate?: boolean | undefined;
+        restoreOldDate?: boolean;
       }
     ): this;
     /**
@@ -2881,13 +2949,13 @@ declare module "sap/ui/unified/calendar/Month" {
         /**
          * The selected week number.
          */
-        weekNumber?: int | undefined;
+        weekNumber?: int;
         /**
          * The days of the corresponding week that are selected or deselected.
          *
          * **Note:** Will be set to `null` if that week is being deselected.
          */
-        weekDays?: DateRange | undefined;
+        weekDays?: DateRange;
       }
     ): boolean;
     /**
@@ -3332,68 +3400,6 @@ declare module "sap/ui/unified/calendar/Month" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.Month`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
-     *
-     * Date focus changed
-     */
-    attachFocus(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.Month`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
-     *
-     * Date selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.60
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:weekNumberSelect weekNumberSelect} event of
-     * this `sap.ui.unified.calendar.Month`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.Month` itself.
-     *
-     * Fired when a week number selection is changed. By default, choosing the week number will select the corresponding
-     * week. If the week has already been selected, choosing the week number will deselect it.
-     *
-     * The default behavior can be prevented using the `preventDefault` method.
-     *
-     * **Note:** Works for Gregorian calendars only and when `intervalSelection` is set to `true`.
-     */
-    attachWeekNumberSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.Month` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MonthSettings extends $ControlSettings {
@@ -3401,22 +3407,22 @@ declare module "sap/ui/unified/calendar/Month" {
      * A date as JavaScript Date object. The month including this date is rendered and this date is focused
      * initially (if no other focus is set).
      */
-    date?: object | PropertyBindingInfo | undefined;
+    date?: object | PropertyBindingInfo;
 
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo | undefined;
+    intervalSelection?: boolean | PropertyBindingInfo;
 
     /**
      * If set, only a single date or interval, if intervalSelection is enabled, can be selected
      */
-    singleSelection?: boolean | PropertyBindingInfo | undefined;
+    singleSelection?: boolean | PropertyBindingInfo;
 
     /**
      * If set, a header with the month name is shown
      */
-    showHeader?: boolean | PropertyBindingInfo | undefined;
+    showHeader?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.28.9
@@ -3424,7 +3430,7 @@ declare module "sap/ui/unified/calendar/Month" {
      * If set, the first day of the displayed week is this day. Valid values are 0 to 6. If not a valid value
      * is set, the default of the used locale is used.
      */
-    firstDayOfWeek?: int | PropertyBindingInfo | undefined;
+    firstDayOfWeek?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.28.9
@@ -3432,7 +3438,7 @@ declare module "sap/ui/unified/calendar/Month" {
      * If set, the provided weekdays are displayed as non-working days. Valid values inside the array are 0
      * to 6. If not set, the weekend defined in the locale settings is displayed as non-working days.
      */
-    nonWorkingDays?: int[] | PropertyBindingInfo | undefined;
+    nonWorkingDays?: int[] | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
@@ -3442,7 +3448,7 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
@@ -3452,14 +3458,14 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.0
      *
      * Width of Month
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * @SINCE 1.48
@@ -3469,12 +3475,12 @@ declare module "sap/ui/unified/calendar/Month" {
      * **Note:** For Islamic calendars, the week numbers are not displayed regardless of what is set to this
      * property.
      */
-    showWeekNumbers?: boolean | PropertyBindingInfo | undefined;
+    showWeekNumbers?: boolean | PropertyBindingInfo;
 
     /**
      * Date Ranges for selected dates of the DatePicker
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
 
     /**
      * `DateRange` with type to visualize special days in the Calendar.
@@ -3483,19 +3489,19 @@ declare module "sap/ui/unified/calendar/Month" {
      * only exception is when one of the types is `NonWorking`, then you can have both `NonWorking` and the
      * other type. For example, you can have `NonWorking` + `Type01` but you can't have `Type01` + `Type02`.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
 
     /**
      * @SINCE 1.38.0
      *
      * Date Ranges for disabled dates
      */
-    disabledDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
+    disabledDates?: DateRange[] | DateRange | AggregationBindingInfo;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * @SINCE 1.38.5
@@ -3504,17 +3510,17 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string | undefined;
+    legend?: CalendarLegend | string;
 
     /**
      * Date selection changed
      */
-    select?: Function | undefined;
+    select?: Function;
 
     /**
      * Date focus changed
      */
-    focus?: Function | undefined;
+    focus?: Function;
 
     /**
      * @SINCE 1.60
@@ -3526,14 +3532,18 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * **Note:** Works for Gregorian calendars only and when `intervalSelection` is set to `true`.
      */
-    weekNumberSelect?: Function | undefined;
+    weekNumberSelect?: Function;
   }
 }
 
 declare module "sap/ui/unified/calendar/MonthPicker" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import { ID } from "sap/ui/core/library";
+
   import DateRange from "sap/ui/unified/DateRange";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -3582,6 +3592,17 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     );
 
     /**
+     * @SINCE 1.92
+     *
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
      * @SINCE 1.74
      *
      * Adds some selectedDate to the aggregation {@link #getSelectedDates selectedDates}.
@@ -3612,7 +3633,29 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.38.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:pageChange pageChange} event of this `sap.ui.unified.calendar.MonthPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthPicker` itself.
+     *
+     * If less than 12 months are displayed the `pageChange` event is fired if the displayed months are changed
+     * by user navigation.
+     */
+    attachPageChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
        * itself
@@ -3636,7 +3679,26 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.MonthPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthPicker` itself.
+     *
+     * Month selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
        * itself
@@ -3660,7 +3722,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3675,7 +3737,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3722,6 +3784,13 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
        */
       mParameters?: object
     ): this;
+    /**
+     * @SINCE 1.92
+     *
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
+     * ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
     /**
      * @SINCE 1.30.0
      *
@@ -3820,6 +3889,12 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      */
     previousPage(): this;
     /**
+     * @SINCE 1.92
+     *
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
      * @SINCE 1.74
      *
      * Removes all the controls from the aggregation {@link #getSelectedDates selectedDates}.
@@ -3827,6 +3902,17 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * Additionally, it unregisters them from the hosting UIArea.
      */
     removeAllSelectedDates(): DateRange[];
+    /**
+     * @SINCE 1.92
+     *
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID;
     /**
      * @SINCE 1.74
      *
@@ -3934,68 +4020,27 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
        */
       sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
-    /**
-     * @SINCE 1.38.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:pageChange pageChange} event of this `sap.ui.unified.calendar.MonthPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthPicker` itself.
-     *
-     * If less than 12 months are displayed the `pageChange` event is fired if the displayed months are changed
-     * by user navigation.
-     */
-    attachPageChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.MonthPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthPicker` itself.
-     *
-     * Month selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthPicker`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MonthPickerSettings extends $ControlSettings {
     /**
      * The month is initial focused and selected The value must be between 0 and 11
      */
-    month?: int | PropertyBindingInfo | undefined;
+    month?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.30.0
      *
      * number of displayed months The value must be between 1 and 12
      */
-    months?: int | PropertyBindingInfo | undefined;
+    months?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.74
      *
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo | undefined;
+    intervalSelection?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.30.0
@@ -4003,7 +4048,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * number of months in each row The value must be between 0 and 12 (0 means just to have all months in one
      * row, independent of the number)
      */
-    columns?: int | PropertyBindingInfo | undefined;
+    columns?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
@@ -4013,19 +4058,26 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.74
      *
      * Date Ranges for selected dates of the MonthPicker
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
+
+    /**
+     * @SINCE 1.92
+     *
+     * Association to controls / IDs that label this control (see WAI-ARIA attribute aria-labelledby).
+     */
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * Month selection changed
      */
-    select?: Function | undefined;
+    select?: Function;
 
     /**
      * @SINCE 1.38.0
@@ -4033,7 +4085,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * If less than 12 months are displayed the `pageChange` event is fired if the displayed months are changed
      * by user navigation.
      */
-    pageChange?: Function | undefined;
+    pageChange?: Function;
   }
 }
 
@@ -4045,6 +4097,8 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
   import DateRange from "sap/ui/unified/DateRange";
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -4146,7 +4200,25 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.MonthsRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthsRow` itself.
+     *
+     * Month focus changed
+     */
+    attachFocus(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
        */
@@ -4169,7 +4241,25 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.MonthsRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthsRow` itself.
+     *
+     * Month selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
        */
@@ -4202,7 +4292,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4217,7 +4307,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4264,11 +4354,11 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
         /**
          * First date, as JavaScript Date object, of the month that is focused.
          */
-        date?: object | undefined;
+        date?: object;
         /**
          * If set, the focused date is not rendered yet. (This happens by navigating out of the visible area.)
          */
-        notVisible?: boolean | undefined;
+        notVisible?: boolean;
       }
     ): this;
     /**
@@ -4544,42 +4634,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
        */
       oStartDate: object
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.MonthsRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthsRow` itself.
-     *
-     * Month focus changed
-     */
-    attachFocus(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.MonthsRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.MonthsRow` itself.
-     *
-     * Month selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.MonthsRow` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MonthsRowSettings extends $ControlSettings {
@@ -4589,42 +4643,42 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the date should
      * be set to be in the visible range.
      */
-    date?: object | PropertyBindingInfo | undefined;
+    date?: object | PropertyBindingInfo;
 
     /**
      * Start date, as JavaScript Date object, of the row. The month of this date is the first month of the displayed
      * row.
      */
-    startDate?: object | PropertyBindingInfo | undefined;
+    startDate?: object | PropertyBindingInfo;
 
     /**
      * Number of months displayed
      */
-    months?: int | PropertyBindingInfo | undefined;
+    months?: int | PropertyBindingInfo;
 
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo | undefined;
+    intervalSelection?: boolean | PropertyBindingInfo;
 
     /**
      * If set, only a single month or interval, if intervalSelection is enabled, can be selected
      *
      * **Note:** Selection of multiple intervals is not supported in the current version.
      */
-    singleSelection?: boolean | PropertyBindingInfo | undefined;
+    singleSelection?: boolean | PropertyBindingInfo;
 
     /**
      * If set, a header with the years is shown to visualize what month belongs to what year.
      */
-    showHeader?: boolean | PropertyBindingInfo | undefined;
+    showHeader?: boolean | PropertyBindingInfo;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
      *
      * **Note:** Even if only one day is selected, the whole corresponding month is selected.
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
 
     /**
      * Date ranges with type to visualize special months in the row. If one day is assigned to more than one
@@ -4633,12 +4687,12 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * **Note:** Even if only one day is set as a special day, the whole corresponding month is displayed in
      * this way.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * @SINCE 1.38.5
@@ -4647,17 +4701,17 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string | undefined;
+    legend?: CalendarLegend | string;
 
     /**
      * Month selection changed
      */
-    select?: Function | undefined;
+    select?: Function;
 
     /**
      * Month focus changed
      */
-    focus?: Function | undefined;
+    focus?: Function;
   }
 }
 
@@ -4669,6 +4723,8 @@ declare module "sap/ui/unified/calendar/TimesRow" {
   import DateRange from "sap/ui/unified/DateRange";
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -4769,7 +4825,25 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.TimesRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.TimesRow` itself.
+     *
+     * Time focus changed
+     */
+    attachFocus(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
        */
@@ -4792,7 +4866,25 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.TimesRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.TimesRow` itself.
+     *
+     * Time selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
        */
@@ -4825,7 +4917,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4840,7 +4932,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4887,11 +4979,11 @@ declare module "sap/ui/unified/calendar/TimesRow" {
         /**
          * date, as JavaScript Date object, of the focused time.
          */
-        date?: object | undefined;
+        date?: object;
         /**
          * If set, the focused date is not rendered yet. (This happens by navigating out of the visible area.)
          */
-        notVisible?: boolean | undefined;
+        notVisible?: boolean;
       }
     ): this;
     /**
@@ -5211,42 +5303,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
        */
       oStartDate: object
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:focus focus} event of this `sap.ui.unified.calendar.TimesRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.TimesRow` itself.
-     *
-     * Time focus changed
-     */
-    attachFocus(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.TimesRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.TimesRow` itself.
-     *
-     * Time selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.TimesRow` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TimesRowSettings extends $ControlSettings {
@@ -5256,17 +5312,17 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      * in the rendering phase, it is set to the `startDate`. So after setting the `startDate` the date should
      * be set to be in the visible range.
      */
-    date?: object | PropertyBindingInfo | undefined;
+    date?: object | PropertyBindingInfo;
 
     /**
      * Start date, as JavaScript Date object, of the row.
      */
-    startDate?: object | PropertyBindingInfo | undefined;
+    startDate?: object | PropertyBindingInfo;
 
     /**
      * Number of time items displayed
      */
-    items?: int | PropertyBindingInfo | undefined;
+    items?: int | PropertyBindingInfo;
 
     /**
      * Size of on time interval in minutes, default is 60 minutes.
@@ -5277,40 +5333,40 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      *
      * A day must be divisible by this interval size. One interval must not include more than one day.
      */
-    intervalMinutes?: int | PropertyBindingInfo | undefined;
+    intervalMinutes?: int | PropertyBindingInfo;
 
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo | undefined;
+    intervalSelection?: boolean | PropertyBindingInfo;
 
     /**
      * If set, only a single month or interval, if intervalSelection is enabled, can be selected
      *
      * **Note:** Selection of multiple intervals is not supported in the current version.
      */
-    singleSelection?: boolean | PropertyBindingInfo | undefined;
+    singleSelection?: boolean | PropertyBindingInfo;
 
     /**
      * If set, a header with the years is shown to visualize what month belongs to what year.
      */
-    showHeader?: boolean | PropertyBindingInfo | undefined;
+    showHeader?: boolean | PropertyBindingInfo;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
 
     /**
      * Date ranges with type to visualize special item in the row. If one day is assigned to more than one type,
      * only the first one will be used.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * @SINCE 1.38.5
@@ -5319,17 +5375,17 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string | undefined;
+    legend?: CalendarLegend | string;
 
     /**
      * Time selection changed
      */
-    select?: Function | undefined;
+    select?: Function;
 
     /**
      * Time focus changed
      */
-    focus?: Function | undefined;
+    focus?: Function;
   }
 }
 
@@ -5337,6 +5393,8 @@ declare module "sap/ui/unified/calendar/YearPicker" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import DateRange from "sap/ui/unified/DateRange";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -5416,7 +5474,28 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.38.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:pageChange pageChange} event of this `sap.ui.unified.calendar.YearPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.YearPicker` itself.
+     *
+     * The `pageChange` event is fired if the displayed years are changed by user navigation.
+     */
+    attachPageChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
        * itself
@@ -5440,7 +5519,26 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.YearPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.calendar.YearPicker` itself.
+     *
+     * Year selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
        * itself
@@ -5464,7 +5562,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5479,7 +5577,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5743,46 +5841,6 @@ declare module "sap/ui/unified/calendar/YearPicker" {
        */
       iYears?: int
     ): this;
-    /**
-     * @SINCE 1.38.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:pageChange pageChange} event of this `sap.ui.unified.calendar.YearPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.YearPicker` itself.
-     *
-     * The `pageChange` event is fired if the displayed years are changed by user navigation.
-     */
-    attachPageChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.calendar.YearPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.calendar.YearPicker` itself.
-     *
-     * Year selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.calendar.YearPicker`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $YearPickerSettings extends $ControlSettings {
@@ -5791,28 +5849,28 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      *
      * The year is initial focused and selected The value must be between 0 and 9999
      */
-    year?: int | PropertyBindingInfo | undefined;
+    year?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.30.0
      *
      * number of displayed years
      */
-    years?: int | PropertyBindingInfo | undefined;
+    years?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.74
      *
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo | undefined;
+    intervalSelection?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.30.0
      *
      * number of years in each row 0 means just to have all years in one row, independent of the number
      */
-    columns?: int | PropertyBindingInfo | undefined;
+    columns?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
@@ -5820,7 +5878,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      * Date as JavaScript Date object. For this date a `YearPicker` is rendered. If a Year is selected the date
      * is updated with the start date of the selected year (depending on the calendar type).
      */
-    date?: object | PropertyBindingInfo | undefined;
+    date?: object | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
@@ -5830,26 +5888,26 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      */
     primaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.74
      *
      * Date Ranges for selected dates of the YearPicker
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
 
     /**
      * Year selection changed
      */
-    select?: Function | undefined;
+    select?: Function;
 
     /**
      * @SINCE 1.38.0
      *
      * The `pageChange` event is fired if the displayed years are changed by user navigation.
      */
-    pageChange?: Function | undefined;
+    pageChange?: Function;
   }
 }
 
@@ -6110,41 +6168,41 @@ declare module "sap/ui/unified/CalendarAppointment" {
     /**
      * Title of the appointment.
      */
-    title?: string | PropertyBindingInfo | undefined;
+    title?: string | PropertyBindingInfo;
 
     /**
      * Text of the appointment.
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.81.0
      *
      * Description of the appointment.
      */
-    description?: string | PropertyBindingInfo | undefined;
+    description?: string | PropertyBindingInfo;
 
     /**
      * Icon of the Appointment. (e.g. picture of the person)
      *
      * URI of an image or an icon registered in sap.ui.core.IconPool.
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
 
     /**
      * Indicates if the icon is tentative.
      */
-    tentative?: boolean | PropertyBindingInfo | undefined;
+    tentative?: boolean | PropertyBindingInfo;
 
     /**
      * Indicates if the icon is selected.
      */
-    selected?: boolean | PropertyBindingInfo | undefined;
+    selected?: boolean | PropertyBindingInfo;
 
     /**
      * Can be used as identifier of the appointment
      */
-    key?: string | PropertyBindingInfo | undefined;
+    key?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.46.0
@@ -6152,7 +6210,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * Overrides the color derived from the `type` property. This property will work only with full hex color
      * with pound symbol, e.g.: #FF0000.
      */
-    color?: CSSColor | PropertyBindingInfo | undefined;
+    color?: CSSColor | PropertyBindingInfo;
   }
 }
 
@@ -6359,12 +6417,12 @@ declare module "sap/ui/unified/CalendarDateInterval" {
     /**
      * Start date of the Interval
      */
-    startDate?: object | PropertyBindingInfo | undefined;
+    startDate?: object | PropertyBindingInfo;
 
     /**
      * number of days displayed on phones the maximum rendered number of days is 8.
      */
-    days?: int | PropertyBindingInfo | undefined;
+    days?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
@@ -6372,14 +6430,14 @@ declare module "sap/ui/unified/CalendarDateInterval" {
      * If set the day names are shown in a separate line. If not set the day names are shown inside the single
      * days.
      */
-    showDayNamesLine?: boolean | PropertyBindingInfo | undefined;
+    showDayNamesLine?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
      *
      * If set, the month- and yearPicker opens on a popup
      */
-    pickerPopup?: boolean | PropertyBindingInfo | undefined;
+    pickerPopup?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -6583,17 +6641,17 @@ declare module "sap/ui/unified/CalendarLegend" {
      * Values must be one of `sap.ui.unified.StandardCalendarLegendItem`. Note: for versions 1.50 and 1.52,
      * this property was defined in the subclass `sap.m.PlanningCalendarLegend`
      */
-    standardItems?: string[] | PropertyBindingInfo | undefined;
+    standardItems?: string[] | PropertyBindingInfo;
 
     /**
      * Defines the width of the created columns in which the items are arranged.
      */
-    columnWidth?: CSSSize | PropertyBindingInfo | undefined;
+    columnWidth?: CSSSize | PropertyBindingInfo;
 
     /**
      * Items to be displayed.
      */
-    items?: CalendarLegendItem[] | CalendarLegendItem | AggregationBindingInfo | undefined;
+    items?: CalendarLegendItem[] | CalendarLegendItem | AggregationBindingInfo;
   }
 }
 
@@ -6747,7 +6805,7 @@ declare module "sap/ui/unified/CalendarLegendItem" {
     /**
      * Text to be displayed for the item.
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.28.9
@@ -6757,14 +6815,14 @@ declare module "sap/ui/unified/CalendarLegendItem" {
      */
     type?:
       | (CalendarDayType | keyof typeof CalendarDayType)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.46.0
      *
      * Overrides the color derived from the `type` property.
      */
-    color?: CSSColor | PropertyBindingInfo | undefined;
+    color?: CSSColor | PropertyBindingInfo;
   }
 }
 
@@ -6776,6 +6834,8 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
   import DateRange from "sap/ui/unified/DateRange";
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
+
+  import Event from "sap/ui/base/Event";
 
   import Calendar from "sap/ui/unified/Calendar";
 
@@ -6873,7 +6933,26 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.CalendarMonthInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
+     *
+     * Month selection was cancelled
+     */
+    attachCancel(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
        * itself
@@ -6897,7 +6976,26 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarMonthInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
+     *
+     * Month selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
        * itself
@@ -6924,7 +7022,29 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.34.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
+     * `sap.ui.unified.CalendarMonthInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
+     *
+     * `startDate` was changed while navigation in `CalendarMonthInterval`
+     */
+    attachStartDateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
        * itself
@@ -6948,7 +7068,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6963,7 +7083,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6981,7 +7101,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7383,105 +7503,45 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.CalendarMonthInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
-     *
-     * Month selection was cancelled
-     */
-    attachCancel(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarMonthInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
-     *
-     * Month selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.34.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
-     * `sap.ui.unified.CalendarMonthInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarMonthInterval` itself.
-     *
-     * `startDate` was changed while navigation in `CalendarMonthInterval`
-     */
-    attachStartDateChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarMonthInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CalendarMonthIntervalSettings extends $ControlSettings {
     /**
      * Width of the `CalendarMonthInterval`. The width of the single months depends on this width.
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * Start date of the Interval as JavaScript Date object. The month of this Date will be the first month
      * in the displayed row.
      */
-    startDate?: object | PropertyBindingInfo | undefined;
+    startDate?: object | PropertyBindingInfo;
 
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo | undefined;
+    intervalSelection?: boolean | PropertyBindingInfo;
 
     /**
      * If set, only a single date or interval, if `intervalSelection` is enabled, can be selected
      *
      * **Note:** Selection of multiple intervals is not supported in the current version.
      */
-    singleSelection?: boolean | PropertyBindingInfo | undefined;
+    singleSelection?: boolean | PropertyBindingInfo;
 
     /**
      * Number of months displayed
      *
      * **Note:** On phones, the maximum number of months displayed in the row is always 6.
      */
-    months?: int | PropertyBindingInfo | undefined;
+    months?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
      *
      * If set, the yearPicker opens on a popup
      */
-    pickerPopup?: boolean | PropertyBindingInfo | undefined;
+    pickerPopup?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.0
@@ -7491,7 +7551,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
      * of the `minDate`.
      */
-    minDate?: object | PropertyBindingInfo | undefined;
+    minDate?: object | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.0
@@ -7501,7 +7561,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
      * month of the `maxDate`.
      */
-    maxDate?: object | PropertyBindingInfo | undefined;
+    maxDate?: object | PropertyBindingInfo;
 
     /**
      * Date ranges for selected dates of the `CalendarMonthInterval`.
@@ -7510,7 +7570,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      *
      * **Note:** Even if only one day is selected, the whole corresponding month is selected.
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
 
     /**
      * Date ranges with type to visualize special months in the `CalendarMonthInterval`. If one day is assigned
@@ -7519,12 +7579,12 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      * **Note:** Even if only one day is set as a special day, the whole corresponding month is displayed in
      * this way.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * @SINCE 1.38.5
@@ -7533,24 +7593,24 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string | undefined;
+    legend?: CalendarLegend | string;
 
     /**
      * Month selection changed
      */
-    select?: Function | undefined;
+    select?: Function;
 
     /**
      * Month selection was cancelled
      */
-    cancel?: Function | undefined;
+    cancel?: Function;
 
     /**
      * @SINCE 1.34.0
      *
      * `startDate` was changed while navigation in `CalendarMonthInterval`
      */
-    startDateChange?: Function | undefined;
+    startDateChange?: Function;
   }
 }
 
@@ -7560,6 +7620,8 @@ declare module "sap/ui/unified/CalendarRow" {
   import CalendarAppointment from "sap/ui/unified/CalendarAppointment";
 
   import { ID, CSSSize } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import {
     CalendarAppointmentHeight,
@@ -7662,7 +7724,28 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.38.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:intervalSelect intervalSelect} event of this
+     * `sap.ui.unified.CalendarRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
+     *
+     * Fired if an interval was selected
+     */
+    attachIntervalSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -7686,7 +7769,26 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:leaveRow leaveRow} event of this `sap.ui.unified.CalendarRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
+     *
+     * The `CalendarRow` should be left while navigating. (Arrow up or arrow down.) The caller should determine
+     * the next control to be focused
+     */
+    attachLeaveRow(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -7709,7 +7811,25 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
+     *
+     * Fired if an appointment was selected
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -7733,7 +7853,26 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
+     * `sap.ui.unified.CalendarRow`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
+     *
+     * `startDate` was changed while navigating in `CalendarRow`
+     */
+    attachStartDateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
        */
@@ -7759,7 +7898,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7774,7 +7913,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7789,7 +7928,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7805,7 +7944,7 @@ declare module "sap/ui/unified/CalendarRow" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7845,15 +7984,15 @@ declare module "sap/ui/unified/CalendarRow" {
         /**
          * Interval start date as JavaScript date object
          */
-        startDate?: object | undefined;
+        startDate?: object;
         /**
          * Interval end date as JavaScript date object
          */
-        endDate?: object | undefined;
+        endDate?: object;
         /**
          * If set, the selected interval is a subinterval
          */
-        subInterval?: boolean | undefined;
+        subInterval?: boolean;
       }
     ): this;
     /**
@@ -7867,7 +8006,7 @@ declare module "sap/ui/unified/CalendarRow" {
         /**
          * The type of the event that triggers this `leaveRow`
          */
-        type?: string | undefined;
+        type?: string;
       }
     ): this;
     /**
@@ -7881,20 +8020,20 @@ declare module "sap/ui/unified/CalendarRow" {
         /**
          * selected appointment
          */
-        appointment?: CalendarAppointment | undefined;
+        appointment?: CalendarAppointment;
         /**
          * selected appointments in case a group appointment is selected
          */
-        appointments?: CalendarAppointment[] | undefined;
+        appointments?: CalendarAppointment[];
         /**
          * If set, the appointment was selected by multiple selection (e.g. shift + mouse click). So more than the
          * current appointment could be selected.
          */
-        multiSelect?: boolean | undefined;
+        multiSelect?: boolean;
         /**
          * Gives the ID of the DOM element of the clicked appointment
          */
-        domRefId?: string | undefined;
+        domRefId?: string;
       }
     ): this;
     /**
@@ -8582,100 +8721,23 @@ declare module "sap/ui/unified/CalendarRow" {
      * function of each `CalendarRow`.
      */
     updateCurrentTimeVisualization(): this;
-    /**
-     * @SINCE 1.38.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:intervalSelect intervalSelect} event of this
-     * `sap.ui.unified.CalendarRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
-     *
-     * Fired if an interval was selected
-     */
-    attachIntervalSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:leaveRow leaveRow} event of this `sap.ui.unified.CalendarRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
-     *
-     * The `CalendarRow` should be left while navigating. (Arrow up or arrow down.) The caller should determine
-     * the next control to be focused
-     */
-    attachLeaveRow(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
-     *
-     * Fired if an appointment was selected
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
-     * `sap.ui.unified.CalendarRow`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarRow` itself.
-     *
-     * `startDate` was changed while navigating in `CalendarRow`
-     */
-    attachStartDateChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarRow` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CalendarRowSettings extends $ControlSettings {
     /**
      * Start date, as JavaScript Date object, of the row. As default, the current date is used.
      */
-    startDate?: object | PropertyBindingInfo | undefined;
+    startDate?: object | PropertyBindingInfo;
 
     /**
      * Number of displayed intervals. The size of the intervals is defined with `intervalType`
      */
-    intervals?: int | PropertyBindingInfo | undefined;
+    intervals?: int | PropertyBindingInfo;
 
     /**
      * Type of the intervals of the row. The default is one hour.
      */
-    intervalType?: CalendarIntervalType | PropertyBindingInfo | undefined;
+    intervalType?: CalendarIntervalType | PropertyBindingInfo;
 
     /**
      * If set, subintervals are shown.
@@ -8686,14 +8748,14 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * If the interval type is `Month`, days are shown.
      */
-    showSubIntervals?: boolean | PropertyBindingInfo | undefined;
+    showSubIntervals?: boolean | PropertyBindingInfo;
 
     /**
      * If set, interval headers are shown like specified in `showEmptyIntervalHeaders`.
      *
      * If not set, no interval headers are shown even if `intervalHeaders` are assigned.
      */
-    showIntervalHeaders?: boolean | PropertyBindingInfo | undefined;
+    showIntervalHeaders?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.0
@@ -8704,7 +8766,7 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * **Note:** This property is only used if `showIntervalHeaders` is set to true.
      */
-    showEmptyIntervalHeaders?: boolean | PropertyBindingInfo | undefined;
+    showEmptyIntervalHeaders?: boolean | PropertyBindingInfo;
 
     /**
      * If set, the provided weekdays are displayed as non-working days. Valid values inside the array are 0
@@ -8714,7 +8776,7 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * **Note:** The non working days are only visualized if `intervalType` is set to day.
      */
-    nonWorkingDays?: int[] | PropertyBindingInfo | undefined;
+    nonWorkingDays?: int[] | PropertyBindingInfo;
 
     /**
      * If set, the provided hours are displayed as non-working hours. Valid values inside the array are 0 to
@@ -8722,17 +8784,17 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * **Note:** The non working hours are only visualized if `intervalType` is set to hour.
      */
-    nonWorkingHours?: int[] | PropertyBindingInfo | undefined;
+    nonWorkingHours?: int[] | PropertyBindingInfo;
 
     /**
      * Width of the row
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * Height of the row
      */
-    height?: CSSSize | PropertyBindingInfo | undefined;
+    height?: CSSSize | PropertyBindingInfo;
 
     /**
      * If set, the `CalendarRow` checks for resize by itself.
@@ -8741,7 +8803,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * checks should be done only by this container control. Then the container control should call `handleResize`
      * of the `CalendarRow` if a resize happens.
      */
-    checkResize?: boolean | PropertyBindingInfo | undefined;
+    checkResize?: boolean | PropertyBindingInfo;
 
     /**
      * If set the `CalendarRow` triggers a periodic update to visualize the current time.
@@ -8750,7 +8812,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * update should be triggered only by this container control. Then the container control should call `updateCurrentTimeVisualization`
      * of the `CalendarRow` to update the visualization.
      */
-    updateCurrentTime?: boolean | PropertyBindingInfo | undefined;
+    updateCurrentTime?: boolean | PropertyBindingInfo;
 
     /**
      * Defines the mode in which the overlapping appointments are displayed.
@@ -8761,7 +8823,7 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     groupAppointmentsMode?:
       | (GroupAppointmentsMode | keyof typeof GroupAppointmentsMode)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.0
@@ -8772,7 +8834,7 @@ declare module "sap/ui/unified/CalendarRow" {
      * **Note:** On phone devices this property is ignored, appointments are always rendered in full height
      * to allow touching.
      */
-    appointmentsReducedHeight?: boolean | PropertyBindingInfo | undefined;
+    appointmentsReducedHeight?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.40.0
@@ -8786,7 +8848,7 @@ declare module "sap/ui/unified/CalendarRow" {
           | CalendarAppointmentVisualization
           | keyof typeof CalendarAppointmentVisualization
         )
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.81.0
@@ -8795,7 +8857,7 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     appointmentHeight?:
       | (CalendarAppointmentHeight | keyof typeof CalendarAppointmentHeight)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.81.0
@@ -8809,7 +8871,7 @@ declare module "sap/ui/unified/CalendarRow" {
           | CalendarAppointmentRoundWidth
           | keyof typeof CalendarAppointmentRoundWidth
         )
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * Appointments to be displayed in the row. Appointments outside the visible time frame are not rendered.
@@ -8819,7 +8881,7 @@ declare module "sap/ui/unified/CalendarRow" {
     appointments?:
       | CalendarAppointment[]
       | CalendarAppointment
-      | AggregationBindingInfo | undefined;
+      | AggregationBindingInfo;
 
     /**
      * Appointments to be displayed in the top of the intervals. The `intervalHeaders` are used to visualize
@@ -8835,14 +8897,14 @@ declare module "sap/ui/unified/CalendarRow" {
     intervalHeaders?:
       | CalendarAppointment[]
       | CalendarAppointment
-      | AggregationBindingInfo | undefined;
+      | AggregationBindingInfo;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      *
      * **Note** These labels are also assigned to the appointments.
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * @SINCE 1.40.0
@@ -8851,30 +8913,30 @@ declare module "sap/ui/unified/CalendarRow" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string | undefined;
+    legend?: CalendarLegend | string;
 
     /**
      * Fired if an appointment was selected
      */
-    select?: Function | undefined;
+    select?: Function;
 
     /**
      * `startDate` was changed while navigating in `CalendarRow`
      */
-    startDateChange?: Function | undefined;
+    startDateChange?: Function;
 
     /**
      * The `CalendarRow` should be left while navigating. (Arrow up or arrow down.) The caller should determine
      * the next control to be focused
      */
-    leaveRow?: Function | undefined;
+    leaveRow?: Function;
 
     /**
      * @SINCE 1.38.0
      *
      * Fired if an interval was selected
      */
-    intervalSelect?: Function | undefined;
+    intervalSelect?: Function;
   }
 }
 
@@ -8886,6 +8948,8 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
   import DateRange from "sap/ui/unified/DateRange";
 
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
+
+  import Event from "sap/ui/base/Event";
 
   import Calendar from "sap/ui/unified/Calendar";
 
@@ -8979,7 +9043,26 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.CalendarTimeInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
+     *
+     * Time selection was cancelled
+     */
+    attachCancel(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
        * itself
@@ -9003,7 +9086,26 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarTimeInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
+     *
+     * Time selection changed
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
        * itself
@@ -9030,7 +9132,29 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.34.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
+     * `sap.ui.unified.CalendarTimeInterval`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
+     *
+     * `startDate` was changed while navigation in `CalendarTimeInterval`
+     */
+    attachStartDateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
        * itself
@@ -9054,7 +9178,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9069,7 +9193,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9087,7 +9211,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9533,98 +9657,38 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.unified.CalendarTimeInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
-     *
-     * Time selection was cancelled
-     */
-    attachCancel(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.CalendarTimeInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
-     *
-     * Time selection changed
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.34.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:startDateChange startDateChange} event of this
-     * `sap.ui.unified.CalendarTimeInterval`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.CalendarTimeInterval` itself.
-     *
-     * `startDate` was changed while navigation in `CalendarTimeInterval`
-     */
-    attachStartDateChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.CalendarTimeInterval`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CalendarTimeIntervalSettings extends $ControlSettings {
     /**
      * Width of the `CalendarTimeInterval`. The width of the single months depends on this width.
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * Start date of the Interval as JavaScript Date object. The time interval corresponding to this Date and
      * `items` and `intervalMinutes` will be the first time in the displayed row.
      */
-    startDate?: object | PropertyBindingInfo | undefined;
+    startDate?: object | PropertyBindingInfo;
 
     /**
      * If set, interval selection is allowed
      */
-    intervalSelection?: boolean | PropertyBindingInfo | undefined;
+    intervalSelection?: boolean | PropertyBindingInfo;
 
     /**
      * If set, only a single date or interval, if `intervalSelection` is enabled, can be selected
      *
      * **Note:** Selection of multiple intervals is not supported in the current version.
      */
-    singleSelection?: boolean | PropertyBindingInfo | undefined;
+    singleSelection?: boolean | PropertyBindingInfo;
 
     /**
      * Number of time items displayed. Default is 12.
      *
      * **Note:** On phones, the maximum number of items displayed in the row is always 6.
      */
-    items?: int | PropertyBindingInfo | undefined;
+    items?: int | PropertyBindingInfo;
 
     /**
      * Size of on time interval in minutes, default is 60 minutes.
@@ -9635,14 +9699,14 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      *
      * A day must be divisible by this interval size. One interval must not include more than one day.
      */
-    intervalMinutes?: int | PropertyBindingInfo | undefined;
+    intervalMinutes?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.0
      *
      * If set, the day-, month- and yearPicker opens on a popup
      */
-    pickerPopup?: boolean | PropertyBindingInfo | undefined;
+    pickerPopup?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.0
@@ -9652,7 +9716,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      * **Note:** If the `minDate` is set to be after the `maxDate`, the `maxDate` is set to the end of the month
      * of the `minDate`.
      */
-    minDate?: object | PropertyBindingInfo | undefined;
+    minDate?: object | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.0
@@ -9662,25 +9726,25 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      * **Note:** If the `maxDate` is set to be before the `minDate`, the `minDate` is set to the begin of the
      * month of the `maxDate`.
      */
-    maxDate?: object | PropertyBindingInfo | undefined;
+    maxDate?: object | PropertyBindingInfo;
 
     /**
      * Date ranges for selected items of the `CalendarTimeInterval`.
      *
      * If `singleSelection` is set, only the first entry is used.
      */
-    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo | undefined;
+    selectedDates?: DateRange[] | DateRange | AggregationBindingInfo;
 
     /**
      * Date ranges with type to visualize special items in the `CalendarTimeInterval`. If one interval is assigned
      * to more than one type, only the first one will be used.
      */
-    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo | undefined;
+    specialDates?: DateTypeRange[] | DateTypeRange | AggregationBindingInfo;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * @SINCE 1.38.5
@@ -9689,29 +9753,31 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
      *
      * **Note** The legend does not have to be rendered but must exist, and all required types must be assigned.
      */
-    legend?: CalendarLegend | string | undefined;
+    legend?: CalendarLegend | string;
 
     /**
      * Time selection changed
      */
-    select?: Function | undefined;
+    select?: Function;
 
     /**
      * Time selection was cancelled
      */
-    cancel?: Function | undefined;
+    cancel?: Function;
 
     /**
      * @SINCE 1.34.0
      *
      * `startDate` was changed while navigation in `CalendarTimeInterval`
      */
-    startDateChange?: Function | undefined;
+    startDateChange?: Function;
   }
 }
 
 declare module "sap/ui/unified/ColorPicker" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ColorPickerDisplayMode from "sap/ui/unified/ColorPickerDisplayMode";
 
@@ -9783,7 +9849,29 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.48.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.ColorPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ColorPicker` itself.
+     *
+     * Fired when the value is changed by user action.
+     *
+     * **Note:** When the user action is mouse dragging, the `change` event fires on the mouseup event.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
        */
@@ -9810,7 +9898,29 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.48.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.unified.ColorPicker`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ColorPicker` itself.
+     *
+     * Fired when the value is changed during the mouse move.
+     *
+     * **Note:** When the user action is mouse move, the `liveChange` event is fired during the mousedown event.
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
        */
@@ -9827,7 +9937,7 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9844,7 +9954,7 @@ declare module "sap/ui/unified/ColorPicker" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9884,39 +9994,39 @@ declare module "sap/ui/unified/ColorPicker" {
         /**
          * Parameter containing the RED value (0-255).
          */
-        r?: int | undefined;
+        r?: int;
         /**
          * Parameter containing the GREEN value (0-255).
          */
-        g?: int | undefined;
+        g?: int;
         /**
          * Parameter containing the BLUE value (0-255).
          */
-        b?: int | undefined;
+        b?: int;
         /**
          * Parameter containing the HUE value (0-360).
          */
-        h?: int | undefined;
+        h?: int;
         /**
          * Parameter containing the SATURATION value (0-100).
          */
-        s?: int | undefined;
+        s?: int;
         /**
          * Parameter containing the VALUE value (0-100).
          */
-        v?: int | undefined;
+        v?: int;
         /**
          * Parameter containing the LIGHTNESS value (0-100).
          */
-        l?: int | undefined;
+        l?: int;
         /**
          * Parameter containing the Hexadecimal string (#FFFFFF).
          */
-        hex?: string | undefined;
+        hex?: string;
         /**
          * Parameter containing the alpha value (transparency).
          */
-        alpha?: string | undefined;
+        alpha?: string;
       }
     ): this;
     /**
@@ -9932,39 +10042,39 @@ declare module "sap/ui/unified/ColorPicker" {
         /**
          * Parameter containing the RED value (0-255).
          */
-        r?: int | undefined;
+        r?: int;
         /**
          * Parameter containing the GREEN value (0-255).
          */
-        g?: int | undefined;
+        g?: int;
         /**
          * Parameter containing the BLUE value (0-255).
          */
-        b?: int | undefined;
+        b?: int;
         /**
          * Parameter containing the HUE value (0-360).
          */
-        h?: int | undefined;
+        h?: int;
         /**
          * Parameter containing the SATURATION value (0-100).
          */
-        s?: int | undefined;
+        s?: int;
         /**
          * Parameter containing the VALUE value (0-100).
          */
-        v?: int | undefined;
+        v?: int;
         /**
          * Parameter containing the LIGHTNESS value (0-100).
          */
-        l?: int | undefined;
+        l?: int;
         /**
          * Parameter containing the Hexadecimal string (#FFFFFF).
          */
-        hex?: string | undefined;
+        hex?: string;
         /**
          * Parameter containing the alpha value (transparency).
          */
-        alpha?: string | undefined;
+        alpha?: string;
       }
     ): this;
     /**
@@ -10069,50 +10179,6 @@ declare module "sap/ui/unified/ColorPicker" {
        */
       bSuppressInvalidate: boolean
     ): void;
-    /**
-     * @SINCE 1.48.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.ColorPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ColorPicker` itself.
-     *
-     * Fired when the value is changed by user action.
-     *
-     * **Note:** When the user action is mouse dragging, the `change` event fires on the mouseup event.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.48.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.unified.ColorPicker`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ColorPicker` itself.
-     *
-     * Fired when the value is changed during the mouse move.
-     *
-     * **Note:** When the user action is mouse move, the `liveChange` event is fired during the mousedown event.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPicker` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ColorPickerSettings extends $ControlSettings {
@@ -10126,7 +10192,7 @@ declare module "sap/ui/unified/ColorPicker" {
      * 	 - HSV - hsv(360,100,100)
      * 	 - CSS - red  **Note:** The output parameter is an RGB string of the current color.
      */
-    colorString?: string | PropertyBindingInfo | undefined;
+    colorString?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.48.0
@@ -10139,7 +10205,7 @@ declare module "sap/ui/unified/ColorPicker" {
      */
     mode?:
       | (ColorPickerMode | keyof typeof ColorPickerMode)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.58
@@ -10148,7 +10214,7 @@ declare module "sap/ui/unified/ColorPicker" {
      */
     displayMode?:
       | (ColorPickerDisplayMode | keyof typeof ColorPickerDisplayMode)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.48.0
@@ -10157,7 +10223,7 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * **Note:** When the user action is mouse dragging, the `change` event fires on the mouseup event.
      */
-    change?: Function | undefined;
+    change?: Function;
 
     /**
      * @SINCE 1.48.0
@@ -10166,7 +10232,7 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * **Note:** When the user action is mouse move, the `liveChange` event is fired during the mousedown event.
      */
-    liveChange?: Function | undefined;
+    liveChange?: Function;
   }
 }
 
@@ -10195,6 +10261,8 @@ declare module "sap/ui/unified/ColorPickerDisplayMode" {
 
 declare module "sap/ui/unified/ColorPickerPopover" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ColorPickerDisplayMode from "sap/ui/unified/ColorPickerDisplayMode";
 
@@ -10260,7 +10328,27 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.60.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.ColorPickerPopover`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ColorPickerPopover` itself.
+     *
+     * Fired when the submit button of the popover is clicked.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
        */
@@ -10285,7 +10373,27 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.85
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.unified.ColorPickerPopover`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ColorPickerPopover` itself.
+     *
+     * Fired when the value is changed by user interaction in the internal ColorPicker
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
        */
@@ -10306,7 +10414,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10323,7 +10431,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10363,39 +10471,39 @@ declare module "sap/ui/unified/ColorPickerPopover" {
         /**
          * Parameter containing the RED value (0-255).
          */
-        r?: int | undefined;
+        r?: int;
         /**
          * Parameter containing the GREEN value (0-255).
          */
-        g?: int | undefined;
+        g?: int;
         /**
          * Parameter containing the BLUE value (0-255).
          */
-        b?: int | undefined;
+        b?: int;
         /**
          * Parameter containing the HUE value (0-360).
          */
-        h?: int | undefined;
+        h?: int;
         /**
          * Parameter containing the SATURATION value (0-100).
          */
-        s?: int | undefined;
+        s?: int;
         /**
          * Parameter containing the VALUE value (0-100).
          */
-        v?: int | undefined;
+        v?: int;
         /**
          * Parameter containing the LIGHTNESS value (0-100).
          */
-        l?: int | undefined;
+        l?: int;
         /**
          * Parameter containing the Hexadecimal string (#FFFFFF).
          */
-        hex?: string | undefined;
+        hex?: string;
         /**
          * Parameter containing the alpha value (transparency).
          */
-        alpha?: string | undefined;
+        alpha?: string;
       }
     ): this;
     /**
@@ -10411,39 +10519,39 @@ declare module "sap/ui/unified/ColorPickerPopover" {
         /**
          * Parameter containing the RED value (0-255).
          */
-        r?: int | undefined;
+        r?: int;
         /**
          * Parameter containing the GREEN value (0-255).
          */
-        g?: int | undefined;
+        g?: int;
         /**
          * Parameter containing the BLUE value (0-255).
          */
-        b?: int | undefined;
+        b?: int;
         /**
          * Parameter containing the HUE value (0-360).
          */
-        h?: int | undefined;
+        h?: int;
         /**
          * Parameter containing the SATURATION value (0-100).
          */
-        s?: int | undefined;
+        s?: int;
         /**
          * Parameter containing the VALUE value (0-100).
          */
-        v?: int | undefined;
+        v?: int;
         /**
          * Parameter containing the LIGHTNESS value (0-100).
          */
-        l?: int | undefined;
+        l?: int;
         /**
          * Parameter containing the Hexadecimal string (#FFFFFF).
          */
-        hex?: string | undefined;
+        hex?: string;
         /**
          * Parameter containing the alpha value (transparency).
          */
-        alpha?: string | undefined;
+        alpha?: string;
       }
     ): this;
     /**
@@ -10553,46 +10661,6 @@ declare module "sap/ui/unified/ColorPickerPopover" {
        */
       sMode?: ColorPickerMode | keyof typeof ColorPickerMode
     ): this;
-    /**
-     * @SINCE 1.60.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.ColorPickerPopover`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ColorPickerPopover` itself.
-     *
-     * Fired when the submit button of the popover is clicked.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.85
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.unified.ColorPickerPopover`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ColorPickerPopover` itself.
-     *
-     * Fired when the value is changed by user interaction in the internal ColorPicker
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ColorPickerPopover` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ColorPickerPopoverSettings extends $ControlSettings {
@@ -10606,7 +10674,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      * 	 - HSV - hsv(360,100,100)
      * 	 - CSS - red  **Note:** The output parameter is an RGB string of the current color.
      */
-    colorString?: string | PropertyBindingInfo | undefined;
+    colorString?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.60.0
@@ -10615,7 +10683,7 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      */
     mode?:
       | (ColorPickerMode | keyof typeof ColorPickerMode)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.60.0
@@ -10624,21 +10692,21 @@ declare module "sap/ui/unified/ColorPickerPopover" {
      */
     displayMode?:
       | (ColorPickerDisplayMode | keyof typeof ColorPickerDisplayMode)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.60.0
      *
      * Fired when the submit button of the popover is clicked.
      */
-    change?: Function | undefined;
+    change?: Function;
 
     /**
      * @SINCE 1.85
      *
      * Fired when the value is changed by user interaction in the internal ColorPicker
      */
-    liveChange?: Function | undefined;
+    liveChange?: Function;
   }
 }
 
@@ -10900,22 +10968,22 @@ declare module "sap/ui/unified/ContentSwitcher" {
      * enables applications to implement their own animations via CSS by reacting to the parent class. See the
      * types sap.ui.unified.ContentSwitcherAnimation for default implementations.
      */
-    animation?: string | PropertyBindingInfo | undefined;
+    animation?: string | PropertyBindingInfo;
 
     /**
      * The number of the currently active content (1 or 2).
      */
-    activeContent?: int | PropertyBindingInfo | undefined;
+    activeContent?: int | PropertyBindingInfo;
 
     /**
      * The controls that should be shown in the first content
      */
-    content1?: Control[] | Control | AggregationBindingInfo | undefined;
+    content1?: Control[] | Control | AggregationBindingInfo;
 
     /**
      * The controls that should be shown in the second content
      */
-    content2?: Control[] | Control | AggregationBindingInfo | undefined;
+    content2?: Control[] | Control | AggregationBindingInfo;
   }
 }
 
@@ -11015,7 +11083,7 @@ declare module "sap/ui/unified/Currency" {
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
-    getAccessibilityInfo(): Object;
+    getAccessibilityInfo(): object;
     /**
      * Gets current value of property {@link #getCurrency currency}.
      *
@@ -11038,7 +11106,7 @@ declare module "sap/ui/unified/Currency" {
      *
      * Default value is `Off`.
      */
-    getEmptyIndicatorMode(): any;
+    getEmptyIndicatorMode(): /* was: sap.m.EmptyIndicatorMode */ any;
     /**
      * The formatted value.
      */
@@ -11102,7 +11170,7 @@ declare module "sap/ui/unified/Currency" {
       /**
        * New value for property `emptyIndicatorMode`
        */
-      sEmptyIndicatorMode?: any
+      sEmptyIndicatorMode?: /* was: sap.m.EmptyIndicatorMode */ any
     ): this;
     /**
      * @SINCE 1.54
@@ -11131,7 +11199,7 @@ declare module "sap/ui/unified/Currency" {
     /**
      * Determines the currency value.
      */
-    value?: float | PropertyBindingInfo | undefined;
+    value?: float | PropertyBindingInfo;
 
     /**
      * @SINCE 1.54
@@ -11144,7 +11212,7 @@ declare module "sap/ui/unified/Currency" {
      *
      * **Note:** If set, it will take precedence over the `value` property.
      */
-    stringValue?: string | PropertyBindingInfo | undefined;
+    stringValue?: string | PropertyBindingInfo;
 
     /**
      * Determines the displayed currency code (ISO 4217).
@@ -11152,24 +11220,26 @@ declare module "sap/ui/unified/Currency" {
      * **Note:** If a * character is set instead of currency code, only the character itself will be rendered,
      * ignoring the `value` property.
      */
-    currency?: string | PropertyBindingInfo | undefined;
+    currency?: string | PropertyBindingInfo;
 
     /**
      * Defines the space that is available for the precision of the various currencies.
      */
-    maxPrecision?: int | PropertyBindingInfo | undefined;
+    maxPrecision?: int | PropertyBindingInfo;
 
     /**
      * Displays the currency symbol instead of the ISO currency code.
      */
-    useSymbol?: boolean | PropertyBindingInfo | undefined;
+    useSymbol?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.89
      *
      * Specifies if an empty indicator should be displayed when there is no text.
      */
-    emptyIndicatorMode?: any | PropertyBindingInfo | undefined;
+    emptyIndicatorMode?: /* was: sap.m.EmptyIndicatorMode */
+      | any
+      | PropertyBindingInfo;
   }
 }
 
@@ -11288,13 +11358,13 @@ declare module "sap/ui/unified/DateRange" {
     /**
      * Start date for a date range. This must be a JavaScript date object.
      */
-    startDate?: object | PropertyBindingInfo | undefined;
+    startDate?: object | PropertyBindingInfo;
 
     /**
      * End date for a date range. If empty only a single date is presented by this DateRange element. This must
      * be a JavaScript date object.
      */
-    endDate?: object | PropertyBindingInfo | undefined;
+    endDate?: object | PropertyBindingInfo;
   }
 }
 
@@ -11461,7 +11531,7 @@ declare module "sap/ui/unified/DateTypeRange" {
      */
     type?:
       | (CalendarDayType | keyof typeof CalendarDayType)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.81.0
@@ -11472,7 +11542,7 @@ declare module "sap/ui/unified/DateTypeRange" {
      */
     secondaryType?:
       | (CalendarDayType | keyof typeof CalendarDayType)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.76.0
@@ -11480,7 +11550,7 @@ declare module "sap/ui/unified/DateTypeRange" {
      * Background color of the `Calendar` `specialDates` aggregation. If set, this color will override the default
      * background color defined in `Calendar` `specialDates` aggregation
      */
-    color?: CSSColor | PropertyBindingInfo | undefined;
+    color?: CSSColor | PropertyBindingInfo;
   }
 }
 
@@ -11501,6 +11571,8 @@ declare module "sap/ui/unified/FileUploader" {
   } from "sap/ui/unified/library";
 
   import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -11636,7 +11708,28 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired when the value of the file path has been changed.
+     *
+     * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
+     * Chrome browser when the Cancel button of the uploads window is pressed.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11659,7 +11752,25 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileAllowed fileAllowed} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired when the file is allowed for upload on client side.
+     */
+    attachFileAllowed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11682,7 +11793,25 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileEmpty fileEmpty} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired when the size of the file is 0
+     */
+    attachFileEmpty(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11709,7 +11838,29 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.24.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:filenameLengthExceed filenameLengthExceed} event
+     * of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired, if the filename of a chosen file is longer than the value specified with the `maximumFilenameLength`
+     * property.
+     */
+    attachFilenameLengthExceed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11734,7 +11885,27 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:fileSizeExceed fileSizeExceed} event of this
+     * `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
+     * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
+     */
+    attachFileSizeExceed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11757,7 +11928,25 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:typeMissmatch typeMissmatch} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
+     */
+    attachTypeMissmatch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11785,7 +11974,30 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.24.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:uploadAborted uploadAborted} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired after the current upload has been aborted.
+     *
+     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
+     * Internet Explorer 9.
+     */
+    attachUploadAborted(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11813,7 +12025,30 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:uploadComplete uploadComplete} event of this
+     * `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
+     *
+     * To see if the upload request was successful, check the `status` parameter for a value 2xx. The actual
+     * progress of the upload can be monitored by listening to the `uploadProgress` event. However, this covers
+     * only the client side of the upload process and does not give any success status from the server.
+     */
+    attachUploadComplete(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11845,7 +12080,34 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.24.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:uploadProgress uploadProgress} event of this
+     * `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired after the upload has started and before the upload is completed.
+     *
+     * It contains progress information related to the running upload. Depending on file size, band width and
+     * used browser the event is fired once or multiple times.
+     *
+     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
+     * Internet Explorer 9.
+     */
+    attachUploadProgress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11870,7 +12132,27 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.30.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:uploadStart uploadStart} event of this `sap.ui.unified.FileUploader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
+     *
+     * Event is fired before an upload is started.
+     */
+    attachUploadStart(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
        */
@@ -11913,7 +12195,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11928,7 +12210,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11943,7 +12225,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11961,7 +12243,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11977,7 +12259,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11993,7 +12275,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12011,7 +12293,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12027,7 +12309,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12045,7 +12327,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12062,7 +12344,7 @@ declare module "sap/ui/unified/FileUploader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12100,11 +12382,11 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * New file path value.
          */
-        newValue?: string | undefined;
+        newValue?: string;
         /**
          * Files.
          */
-        files?: object[] | undefined;
+        files?: object[];
       }
     ): this;
     /**
@@ -12127,7 +12409,7 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of the file to be uploaded.
          */
-        fileName?: string | undefined;
+        fileName?: string;
       }
     ): this;
     /**
@@ -12143,7 +12425,7 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The filename, which is longer than specified by the value of the property `maximumFilenameLength`.
          */
-        fileName?: string | undefined;
+        fileName?: string;
       }
     ): this;
     /**
@@ -12157,11 +12439,11 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string | undefined;
+        fileName?: string;
         /**
          * The size in MB of a file to be uploaded.
          */
-        fileSize?: string | undefined;
+        fileSize?: string;
       }
     ): this;
     /**
@@ -12175,15 +12457,15 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string | undefined;
+        fileName?: string;
         /**
          * The file ending of a file to be uploaded.
          */
-        fileType?: string | undefined;
+        fileType?: string;
         /**
          * The MIME type of a file to be uploaded.
          */
-        mimeType?: string | undefined;
+        mimeType?: string;
       }
     ): this;
     /**
@@ -12199,14 +12481,14 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string | undefined;
+        fileName?: string;
         /**
          * Http-Request-Headers.
          *
          * Required for receiving `requestHeader` is to set the property `sendXHR` to true. This property is not
          * supported by Internet Explorer 9.
          */
-        requestHeaders?: object[] | undefined;
+        requestHeaders?: object[];
       }
     ): this;
     /**
@@ -12220,7 +12502,7 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string | undefined;
+        fileName?: string;
         /**
          * Response message which comes from the server.
          *
@@ -12228,21 +12510,21 @@ declare module "sap/ui/unified/FileUploader" {
          * of the iFrame. It can consist of a return code and an optional message. This does not work in cross-domain
          * scenarios.
          */
-        response?: string | undefined;
+        response?: string;
         /**
          * ReadyState of the XHR request.
          *
          * Required for receiving a `readyStateXHR` is to set the property `sendXHR` to true. This property is not
          * supported by Internet Explorer 9.
          */
-        readyStateXHR?: string | undefined;
+        readyStateXHR?: string;
         /**
          * Status of the XHR request.
          *
          * Required for receiving a `status` is to set the property `sendXHR` to true. This property is not supported
          * by Internet Explorer 9.
          */
-        status?: string | undefined;
+        status?: string;
         /**
          * Http-Response which comes from the server.
          *
@@ -12250,7 +12532,7 @@ declare module "sap/ui/unified/FileUploader" {
          *
          * This property is not supported by Internet Explorer 9.
          */
-        responseRaw?: string | undefined;
+        responseRaw?: string;
         /**
          * Http-Response-Headers which come from the server.
          *
@@ -12260,14 +12542,14 @@ declare module "sap/ui/unified/FileUploader" {
          * Required for receiving `headers` is to set the property `sendXHR` to true. This property is not supported
          * by Internet Explorer 9.
          */
-        headers?: object | undefined;
+        headers?: object;
         /**
          * Http-Request-Headers.
          *
          * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
          * supported by Internet Explorer 9.
          */
-        requestHeaders?: object[] | undefined;
+        requestHeaders?: object[];
       }
     ): this;
     /**
@@ -12283,26 +12565,26 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * Indicates whether or not the relative upload progress can be calculated out of loaded and total.
          */
-        lengthComputable?: boolean | undefined;
+        lengthComputable?: boolean;
         /**
          * The number of bytes of the file which have been uploaded by the time the event was fired.
          */
-        loaded?: float | undefined;
+        loaded?: float;
         /**
          * The total size of the file to be uploaded in bytes.
          */
-        total?: float | undefined;
+        total?: float;
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string | undefined;
+        fileName?: string;
         /**
          * Http-Request-Headers.
          *
          * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
          * supported by Internet Explorer 9.
          */
-        requestHeaders?: object[] | undefined;
+        requestHeaders?: object[];
       }
     ): this;
     /**
@@ -12318,14 +12600,14 @@ declare module "sap/ui/unified/FileUploader" {
         /**
          * The name of a file to be uploaded.
          */
-        fileName?: string | undefined;
+        fileName?: string;
         /**
          * Http-Request-Headers.
          *
          * Required for receiving `requestHeaders` is to set the property `sendXHR` to true. This property is not
          * supported by Internet Explorer 9.
          */
-        requestHeaders?: object[] | undefined;
+        requestHeaders?: object[];
       }
     ): this;
     /**
@@ -13240,249 +13522,39 @@ declare module "sap/ui/unified/FileUploader" {
        */
       bPreProcessFiles?: boolean
     ): void;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired when the value of the file path has been changed.
-     *
-     * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
-     * Chrome browser when the Cancel button of the uploads window is pressed.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:fileAllowed fileAllowed} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired when the file is allowed for upload on client side.
-     */
-    attachFileAllowed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:fileEmpty fileEmpty} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired when the size of the file is 0
-     */
-    attachFileEmpty(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.24.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:filenameLengthExceed filenameLengthExceed} event
-     * of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired, if the filename of a chosen file is longer than the value specified with the `maximumFilenameLength`
-     * property.
-     */
-    attachFilenameLengthExceed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:fileSizeExceed fileSizeExceed} event of this
-     * `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
-     * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
-     */
-    attachFileSizeExceed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:typeMissmatch typeMissmatch} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
-     */
-    attachTypeMissmatch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.24.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:uploadAborted uploadAborted} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired after the current upload has been aborted.
-     *
-     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
-     * Internet Explorer 9.
-     */
-    attachUploadAborted(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:uploadComplete uploadComplete} event of this
-     * `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
-     *
-     * To see if the upload request was successful, check the `status` parameter for a value 2xx. The actual
-     * progress of the upload can be monitored by listening to the `uploadProgress` event. However, this covers
-     * only the client side of the upload process and does not give any success status from the server.
-     */
-    attachUploadComplete(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.24.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:uploadProgress uploadProgress} event of this
-     * `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired after the upload has started and before the upload is completed.
-     *
-     * It contains progress information related to the running upload. Depending on file size, band width and
-     * used browser the event is fired once or multiple times.
-     *
-     * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
-     * Internet Explorer 9.
-     */
-    attachUploadProgress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.30.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:uploadStart uploadStart} event of this `sap.ui.unified.FileUploader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.FileUploader` itself.
-     *
-     * Event is fired before an upload is started.
-     */
-    attachUploadStart(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.FileUploader` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $FileUploaderSettings extends $ControlSettings {
     /**
      * Value of the path for file upload.
      */
-    value?: string | PropertyBindingInfo | undefined;
+    value?: string | PropertyBindingInfo;
 
     /**
      * Disabled controls have different colors, depending on customer settings.
      */
-    enabled?: boolean | PropertyBindingInfo | undefined;
+    enabled?: boolean | PropertyBindingInfo;
 
     /**
      * Used when URL address is on a remote server.
      */
-    uploadUrl?: URI | PropertyBindingInfo | undefined;
+    uploadUrl?: URI | PropertyBindingInfo;
 
     /**
      * Unique control name for identification on the server side after sending data to the server.
      */
-    name?: string | PropertyBindingInfo | undefined;
+    name?: string | PropertyBindingInfo;
 
     /**
      * Specifies the displayed control width.
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * If set to "true", the upload immediately starts after file selection. With the default setting, the upload
      * needs to be explicitly triggered.
      */
-    uploadOnChange?: boolean | PropertyBindingInfo | undefined;
+    uploadOnChange?: boolean | PropertyBindingInfo;
 
     /**
      * Additional data that is sent to the back end service.
@@ -13490,7 +13562,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Data will be transmitted as value of a hidden input where the name is derived from the `name` property
      * with suffix "-data".
      */
-    additionalData?: string | PropertyBindingInfo | undefined;
+    additionalData?: string | PropertyBindingInfo;
 
     /**
      * If the FileUploader is configured to upload the file directly after the file is selected, it is not allowed
@@ -13499,12 +13571,12 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * A typical use case would be if the files have different paths.
      */
-    sameFilenameAllowed?: boolean | PropertyBindingInfo | undefined;
+    sameFilenameAllowed?: boolean | PropertyBindingInfo;
 
     /**
      * The button's text can be overwritten using this property.
      */
-    buttonText?: string | PropertyBindingInfo | undefined;
+    buttonText?: string | PropertyBindingInfo;
 
     /**
      * The chosen files will be checked against an array of file types.
@@ -13514,7 +13586,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Example: `["jpg", "png", "bmp"]`.
      */
-    fileType?: string[] | PropertyBindingInfo | undefined;
+    fileType?: string[] | PropertyBindingInfo;
 
     /**
      * Allows multiple files to be chosen and uploaded from the same folder.
@@ -13524,14 +13596,14 @@ declare module "sap/ui/unified/FileUploader" {
      * **Note:** Keep in mind that the various operating systems for mobile devices can react differently to
      * the property so that fewer upload functions may be available in some cases.
      */
-    multiple?: boolean | PropertyBindingInfo | undefined;
+    multiple?: boolean | PropertyBindingInfo;
 
     /**
      * A file size limit in megabytes which prevents the upload if at least one file exceeds it.
      *
      * This property is not supported by Internet Explorer 9.
      */
-    maximumFileSize?: float | PropertyBindingInfo | undefined;
+    maximumFileSize?: float | PropertyBindingInfo;
 
     /**
      * The chosen files will be checked against an array of MIME types defined in this property.
@@ -13546,38 +13618,38 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Example: `["image/png", "image/jpeg"]`.
      */
-    mimeType?: string[] | PropertyBindingInfo | undefined;
+    mimeType?: string[] | PropertyBindingInfo;
 
     /**
      * If set to "true", the request will be sent as XHR request instead of a form submit.
      *
      * This property is not supported by Internet Explorer 9.
      */
-    sendXHR?: boolean | PropertyBindingInfo | undefined;
+    sendXHR?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.81.0
      *
      * Chosen HTTP request method for file upload.
      */
-    httpRequestMethod?: FileUploaderHttpRequestMethod | PropertyBindingInfo | undefined;
+    httpRequestMethod?: FileUploaderHttpRequestMethod | PropertyBindingInfo;
 
     /**
      * Placeholder for the text field.
      */
-    placeholder?: string | PropertyBindingInfo | undefined;
+    placeholder?: string | PropertyBindingInfo;
 
     /**
      * Style of the button.
      *
      * Values "Transparent, "Accept", "Reject", or "Emphasized" are allowed.
      */
-    style?: string | PropertyBindingInfo | undefined;
+    style?: string | PropertyBindingInfo;
 
     /**
      * If set to "true", the `FileUploader` will be rendered as Button only, without showing the input field.
      */
-    buttonOnly?: boolean | PropertyBindingInfo | undefined;
+    buttonOnly?: boolean | PropertyBindingInfo;
 
     /**
      * If set to "false", the request will be sent as file only request instead of a multipart/form-data request.
@@ -13585,7 +13657,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Only one file could be uploaded using this type of request. Required for sending such a request is to
      * set the property `sendXHR` to "true". This property is not supported by Internet Explorer 9.
      */
-    useMultipart?: boolean | PropertyBindingInfo | undefined;
+    useMultipart?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.24.0
@@ -13594,7 +13666,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * If the maximum filename length is exceeded, the corresponding event `filenameLengthExceed` is fired.
      */
-    maximumFilenameLength?: int | PropertyBindingInfo | undefined;
+    maximumFilenameLength?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.24.0
@@ -13603,7 +13675,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * Possible values: Warning, Error, Success, None.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
 
     /**
      * @SINCE 1.52
@@ -13612,7 +13684,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * **Note:** If not specified, a default text, based on the value state type, will be used instead.
      */
-    valueStateText?: string | PropertyBindingInfo | undefined;
+    valueStateText?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.26.0
@@ -13621,7 +13693,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * This can be a URI to an image or an icon font URI.
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
 
     /**
      * @SINCE 1.26.0
@@ -13631,7 +13703,7 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * If not specified, the base icon is used. If an icon font icon is used, this property is ignored.
      */
-    iconHovered?: URI | PropertyBindingInfo | undefined;
+    iconHovered?: URI | PropertyBindingInfo;
 
     /**
      * @SINCE 1.26.0
@@ -13641,21 +13713,21 @@ declare module "sap/ui/unified/FileUploader" {
      *
      * If not specified, the base or hovered icon is used. If an icon font icon is used, this property is ignored.
      */
-    iconSelected?: URI | PropertyBindingInfo | undefined;
+    iconSelected?: URI | PropertyBindingInfo;
 
     /**
      * @SINCE 1.26.0
      *
      * If set to true (default), the display sequence is 1. icon 2. control text.
      */
-    iconFirst?: boolean | PropertyBindingInfo | undefined;
+    iconFirst?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.26.0
      *
      * If set to true, the button is displayed without any text.
      */
-    iconOnly?: boolean | PropertyBindingInfo | undefined;
+    iconOnly?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.12.2
@@ -13665,7 +13737,7 @@ declare module "sap/ui/unified/FileUploader" {
     parameters?:
       | FileUploaderParameter[]
       | FileUploaderParameter
-      | AggregationBindingInfo | undefined;
+      | AggregationBindingInfo;
 
     /**
      * The header parameters for the `FileUploader` which are only submitted with XHR requests. Header parameters
@@ -13674,7 +13746,7 @@ declare module "sap/ui/unified/FileUploader" {
     headerParameters?:
       | FileUploaderParameter[]
       | FileUploaderParameter
-      | AggregationBindingInfo | undefined;
+      | AggregationBindingInfo;
 
     /**
      * @SINCE 1.52
@@ -13682,17 +13754,17 @@ declare module "sap/ui/unified/FileUploader" {
      * Settings for the `XMLHttpRequest` object. **Note:** This aggregation is only used when the `sendXHR`
      * property is set to `true`.
      */
-    xhrSettings?: FileUploaderXHRSettings | undefined;
+    xhrSettings?: FileUploaderXHRSettings;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute `aria-describedby`).
      */
-    ariaDescribedBy?: Array<Control | string> | undefined;
+    ariaDescribedBy?: Array<Control | string>;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute `aria-labelledby`).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * Event is fired when the value of the file path has been changed.
@@ -13700,7 +13772,7 @@ declare module "sap/ui/unified/FileUploader" {
      * **Note:** Keep in mind that because of the HTML input element of type file, the event is also fired in
      * Chrome browser when the Cancel button of the uploads window is pressed.
      */
-    change?: Function | undefined;
+    change?: Function;
 
     /**
      * Event is fired as soon as the upload request is completed (either successful or unsuccessful).
@@ -13709,28 +13781,28 @@ declare module "sap/ui/unified/FileUploader" {
      * progress of the upload can be monitored by listening to the `uploadProgress` event. However, this covers
      * only the client side of the upload process and does not give any success status from the server.
      */
-    uploadComplete?: Function | undefined;
+    uploadComplete?: Function;
 
     /**
      * Event is fired when the type of a file does not match the `mimeType` or `fileType` property.
      */
-    typeMissmatch?: Function | undefined;
+    typeMissmatch?: Function;
 
     /**
      * Event is fired when the size of a file is above the `maximumFileSize` property. This event is not supported
      * by Internet Explorer 9 (same restriction as for the property `maximumFileSize`).
      */
-    fileSizeExceed?: Function | undefined;
+    fileSizeExceed?: Function;
 
     /**
      * Event is fired when the size of the file is 0
      */
-    fileEmpty?: Function | undefined;
+    fileEmpty?: Function;
 
     /**
      * Event is fired when the file is allowed for upload on client side.
      */
-    fileAllowed?: Function | undefined;
+    fileAllowed?: Function;
 
     /**
      * @SINCE 1.24.0
@@ -13743,7 +13815,7 @@ declare module "sap/ui/unified/FileUploader" {
      * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
      * Internet Explorer 9.
      */
-    uploadProgress?: Function | undefined;
+    uploadProgress?: Function;
 
     /**
      * @SINCE 1.24.0
@@ -13753,7 +13825,7 @@ declare module "sap/ui/unified/FileUploader" {
      * This event is only supported with property `sendXHR` set to true, i.e. the event is not supported in
      * Internet Explorer 9.
      */
-    uploadAborted?: Function | undefined;
+    uploadAborted?: Function;
 
     /**
      * @SINCE 1.24.0
@@ -13761,14 +13833,14 @@ declare module "sap/ui/unified/FileUploader" {
      * Event is fired, if the filename of a chosen file is longer than the value specified with the `maximumFilenameLength`
      * property.
      */
-    filenameLengthExceed?: Function | undefined;
+    filenameLengthExceed?: Function;
 
     /**
      * @SINCE 1.30.0
      *
      * Event is fired before an upload is started.
      */
-    uploadStart?: Function | undefined;
+    uploadStart?: Function;
   }
 }
 
@@ -13893,14 +13965,14 @@ declare module "sap/ui/unified/FileUploaderParameter" {
      *
      * The name of the hidden inputfield.
      */
-    name?: string | PropertyBindingInfo | undefined;
+    name?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.12.2
      *
      * The value of the hidden inputfield.
      */
-    value?: string | PropertyBindingInfo | undefined;
+    value?: string | PropertyBindingInfo;
   }
 }
 
@@ -14008,7 +14080,7 @@ declare module "sap/ui/unified/FileUploaderXHRSettings" {
      *
      * Determines the value of the `XMLHttpRequest.withCredentials` property
      */
-    withCredentials?: boolean | PropertyBindingInfo | undefined;
+    withCredentials?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -14018,6 +14090,8 @@ declare module "sap/ui/unified/Menu" {
   import { IContextMenu, ID, Dock, Collision } from "sap/ui/core/library";
 
   import MenuItemBase from "sap/ui/unified/MenuItemBase";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -14107,7 +14181,27 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.ui.unified.Menu`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Menu` itself.
+     *
+     * Fired on the root menu of a menu hierarchy whenever a user selects an item within the menu or within
+     * one of its direct or indirect submenus. **Note:** There is also a select event available for each single
+     * menu item. This event and the event of the menu items are redundant.
+     */
+    attachItemSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
        */
@@ -14130,7 +14224,7 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14168,7 +14262,7 @@ declare module "sap/ui/unified/Menu" {
         /**
          * The action (item) which was selected by the user.
          */
-        item?: MenuItemBase | undefined;
+        item?: MenuItemBase;
       }
     ): this;
     /**
@@ -14413,26 +14507,6 @@ declare module "sap/ui/unified/Menu" {
        */
       iPageSize?: int
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.ui.unified.Menu`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.Menu` itself.
-     *
-     * Fired on the root menu of a menu hierarchy whenever a user selects an item within the menu or within
-     * one of its direct or indirect submenus. **Note:** There is also a select event available for each single
-     * menu item. This event and the event of the menu items are redundant.
-     */
-    attachItemSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MenuSettings extends $ControlSettings {
@@ -14440,14 +14514,14 @@ declare module "sap/ui/unified/Menu" {
      * When a menu is disabled none of its items can be selected by the user. The enabled property of an item
      * (@link sap.ui.unified.MenuItemBase#getEnabled) has no effect when the menu of the item is disabled.
      */
-    enabled?: boolean | PropertyBindingInfo | undefined;
+    enabled?: boolean | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.27.0) - replaced by `ariaLabelledBy` association
      *
      * Accessible label / description of the menu for assistive technologies like screenreaders.
      */
-    ariaDescription?: string | PropertyBindingInfo | undefined;
+    ariaDescription?: string | PropertyBindingInfo;
 
     /**
      * The maximum number of items which are displayed before an overflow mechanism takes effect. A value smaller
@@ -14455,7 +14529,7 @@ declare module "sap/ui/unified/Menu" {
      * of the screen. If the maximum possible height is reached, an overflow takes effect, even if the maximum
      * number of visible items is not yet reached.
      */
-    maxVisibleItems?: int | PropertyBindingInfo | undefined;
+    maxVisibleItems?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.25.0
@@ -14467,12 +14541,12 @@ declare module "sap/ui/unified/Menu" {
      * the Home / End keys. If the value equals 1, the paging behavior is similar to that of the
      * arrow keys.
      */
-    pageSize?: int | PropertyBindingInfo | undefined;
+    pageSize?: int | PropertyBindingInfo;
 
     /**
      * The available actions to be displayed as items of the menu.
      */
-    items?: MenuItemBase[] | MenuItemBase | AggregationBindingInfo | undefined;
+    items?: MenuItemBase[] | MenuItemBase | AggregationBindingInfo;
 
     /**
      * @SINCE 1.26.3
@@ -14480,14 +14554,14 @@ declare module "sap/ui/unified/Menu" {
      * Reference to accessible labels (ids of existing DOM elements or controls) for assistive technologies
      * like screenreaders.
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * Fired on the root menu of a menu hierarchy whenever a user selects an item within the menu or within
      * one of its direct or indirect submenus. **Note:** There is also a select event available for each single
      * menu item. This event and the event of the menu items are redundant.
      */
-    itemSelect?: Function | undefined;
+    itemSelect?: Function;
   }
 }
 
@@ -14649,23 +14723,25 @@ declare module "sap/ui/unified/MenuItem" {
     /**
      * Defines the text which should be displayed on the item.
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * Defines the icon of the {@link sap.ui.core.IconPool sap.ui.core.IconPool} or an image which should be
      * displayed on the item.
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
   }
 }
 
 declare module "sap/ui/unified/MenuItemBase" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -14731,7 +14807,27 @@ declare module "sap/ui/unified/MenuItemBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.MenuItemBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.MenuItemBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.MenuItemBase` itself.
+     *
+     * Fired when the item is selected by the user. **Note:** The event is also available for items which have
+     * a submenu. In general, applications must not handle event in this case because the user selection opens
+     * the sub menu.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.MenuItemBase` itself
        */
@@ -14750,7 +14846,7 @@ declare module "sap/ui/unified/MenuItemBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14788,7 +14884,7 @@ declare module "sap/ui/unified/MenuItemBase" {
         /**
          * The current item
          */
-        item?: MenuItemBase | undefined;
+        item?: MenuItemBase;
       }
     ): this;
     /**
@@ -14935,26 +15031,6 @@ declare module "sap/ui/unified/MenuItemBase" {
        */
       bVisible?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.unified.MenuItemBase`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.MenuItemBase` itself.
-     *
-     * Fired when the item is selected by the user. **Note:** The event is also available for items which have
-     * a submenu. In general, applications must not handle event in this case because the user selection opens
-     * the sub menu.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.MenuItemBase` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MenuItemBaseSettings extends $ElementSettings {
@@ -14962,30 +15038,30 @@ declare module "sap/ui/unified/MenuItemBase" {
      * When an item is disabled the item can not be selected by the user. The enabled property of the item has
      * no effect when the menu of the item is disabled ({@link sap.ui.unified.Menu#getEnabled Menu#getEnabled}).
      */
-    enabled?: boolean | PropertyBindingInfo | undefined;
+    enabled?: boolean | PropertyBindingInfo;
 
     /**
      * Invisible items do not appear in the menu.
      */
-    visible?: boolean | PropertyBindingInfo | undefined;
+    visible?: boolean | PropertyBindingInfo;
 
     /**
      * Defines whether a visual separator should be rendered before the item. **Note:** If an item is invisible
      * also the separator of this item is not shown.
      */
-    startsSection?: boolean | PropertyBindingInfo | undefined;
+    startsSection?: boolean | PropertyBindingInfo;
 
     /**
      * An optional submenu of the item which is opened when the item is selected by the user.
      */
-    submenu?: Menu | undefined;
+    submenu?: Menu;
 
     /**
      * Fired when the item is selected by the user. **Note:** The event is also available for items which have
      * a submenu. In general, applications must not handle event in this case because the user selection opens
      * the sub menu.
      */
-    select?: Function | undefined;
+    select?: Function;
   }
 }
 
@@ -15183,24 +15259,24 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
     /**
      * Defines the label of the text field of the item.
      */
-    label?: string | PropertyBindingInfo | undefined;
+    label?: string | PropertyBindingInfo;
 
     /**
      * Defines the icon of the {@link sap.ui.core.IconPool sap.ui.core.IconPool} or an image which should be
      * displayed on the item.
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
 
     /**
      * Defines the value of the text field of the item.
      */
-    value?: string | PropertyBindingInfo | undefined;
+    value?: string | PropertyBindingInfo;
 
     /**
      * Defines the value state of the text field of the item. This allows you to visualize e.g. warnings or
      * errors.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo | undefined;
+    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
   }
 }
 
@@ -15689,21 +15765,21 @@ declare module "sap/ui/unified/Shell" {
     /**
      * The application icon. If a custom header is set this property has no effect.
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.16.3) - Curtain is deprecated and replaced by ShellOverlay mechanism.
      *
      * Shows / Hides the curtain.
      */
-    showCurtain?: boolean | PropertyBindingInfo | undefined;
+    showCurtain?: boolean | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.16.3) - Curtain is deprecated and replaced by ShellOverlay mechanism.
      *
      * Shows / Hides the side pane on the curtain.
      */
-    showCurtainPane?: boolean | PropertyBindingInfo | undefined;
+    showCurtainPane?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.18
@@ -15711,35 +15787,35 @@ declare module "sap/ui/unified/Shell" {
      * If set to false, the search area (aggregation 'search') is hidden. If a custom header is set this property
      * has no effect.
      */
-    searchVisible?: boolean | PropertyBindingInfo | undefined;
+    searchVisible?: boolean | PropertyBindingInfo;
 
     /**
      * The content to appear in the curtain area.
      */
-    curtainContent?: Control[] | Control | AggregationBindingInfo | undefined;
+    curtainContent?: Control[] | Control | AggregationBindingInfo;
 
     /**
      * The content to appear in the pane area of the curtain.
      */
-    curtainPaneContent?: Control[] | Control | AggregationBindingInfo | undefined;
+    curtainPaneContent?: Control[] | Control | AggregationBindingInfo;
 
     /**
      * The buttons shown in the begin (left in left-to-right case) of the Shell header. Currently max. 3 visible
      * buttons are supported. If a custom header is set this aggregation has no effect.
      */
-    headItems?: ShellHeadItem[] | ShellHeadItem | AggregationBindingInfo | undefined;
+    headItems?: ShellHeadItem[] | ShellHeadItem | AggregationBindingInfo;
 
     /**
      * The buttons shown in the end (right in left-to-right case) of the Shell header. Currently max. 3 visible
      * buttons are supported (when user is set only 1). If a custom header is set this aggregation has no effect.
      */
-    headEndItems?: ShellHeadItem[] | ShellHeadItem | AggregationBindingInfo | undefined;
+    headEndItems?: ShellHeadItem[] | ShellHeadItem | AggregationBindingInfo;
 
     /**
      * Experimental (This aggregation might change in future!): The search control which should be displayed
      * in the shell header. If a custom header is set this aggregation has no effect.
      */
-    search?: Control | undefined;
+    search?: Control;
 
     /**
      * @SINCE 1.22.0
@@ -15747,7 +15823,7 @@ declare module "sap/ui/unified/Shell" {
      * The user item which is rendered in the shell header beside the items. If a custom header is set this
      * aggregation has no effect.
      */
-    user?: ShellHeadUserItem | undefined;
+    user?: ShellHeadUserItem;
   }
 }
 
@@ -15757,6 +15833,8 @@ declare module "sap/ui/unified/ShellHeadItem" {
   import { ID, URI } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -15826,7 +15904,25 @@ declare module "sap/ui/unified/ShellHeadItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.unified.ShellHeadItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ShellHeadItem` itself.
+     *
+     * Event is fired when the user presses the item.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadItem` itself
        */
@@ -15841,7 +15937,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -16082,24 +16178,6 @@ declare module "sap/ui/unified/ShellHeadItem" {
        */
       bVisible?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.unified.ShellHeadItem`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ShellHeadItem` itself.
-     *
-     * Event is fired when the user presses the item.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadItem` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ShellHeadItemSettings extends $ElementSettings {
@@ -16108,19 +16186,19 @@ declare module "sap/ui/unified/ShellHeadItem" {
      *
      * If set to true, a divider is displayed before the item.
      */
-    startsSection?: boolean | PropertyBindingInfo | undefined;
+    startsSection?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.22.5
      *
      * If set to true, a separator is displayed after the item.
      */
-    showSeparator?: boolean | PropertyBindingInfo | undefined;
+    showSeparator?: boolean | PropertyBindingInfo;
 
     /**
      * Defines the toggle state in case the item represents a toggle button (see also property `toggleEnabled`).
      */
-    selected?: boolean | PropertyBindingInfo | undefined;
+    selected?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.34.3
@@ -16129,37 +16207,37 @@ declare module "sap/ui/unified/ShellHeadItem" {
      * the toggle state. Otherwise the item is displayed as action button. In this case the `selected` property
      * is ignored.
      */
-    toggleEnabled?: boolean | PropertyBindingInfo | undefined;
+    toggleEnabled?: boolean | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.18) - Markers should not be used anymore.
      *
      * If set to true, a theme dependent marker is shown on the item.
      */
-    showMarker?: boolean | PropertyBindingInfo | undefined;
+    showMarker?: boolean | PropertyBindingInfo;
 
     /**
      * The icon of the item, either defined in the sap.ui.core.IconPool or a URI to a custom image. An icon
      * must be set.
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
 
     /**
      * @SINCE 1.18
      *
      * Invisible items are not shown on the UI.
      */
-    visible?: boolean | PropertyBindingInfo | undefined;
+    visible?: boolean | PropertyBindingInfo;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * Event is fired when the user presses the item.
      */
-    press?: Function | undefined;
+    press?: Function;
   }
 }
 
@@ -16169,6 +16247,8 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
   import { ID, URI } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -16238,7 +16318,25 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadUserItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.unified.ShellHeadUserItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ShellHeadUserItem` itself.
+     *
+     * Event is fired when the user presses the button.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadUserItem` itself
        */
@@ -16253,7 +16351,7 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -16382,31 +16480,13 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
        */
       sUsername?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.unified.ShellHeadUserItem`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ShellHeadUserItem` itself.
-     *
-     * Event is fired when the user presses the button.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellHeadUserItem` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ShellHeadUserItemSettings extends $ElementSettings {
     /**
      * The name of the user.
      */
-    username?: string | PropertyBindingInfo | undefined;
+    username?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.27.0
@@ -16414,22 +16494,22 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
      * The user item is intended to be used for user settings. Normally these settings are done via a Menu or
      * Dialog. If this property is set to true an indicator for such a popup mechanismn is shown in the item.
      */
-    showPopupIndicator?: boolean | PropertyBindingInfo | undefined;
+    showPopupIndicator?: boolean | PropertyBindingInfo;
 
     /**
      * An image of the user, normally a URI to an image but also an icon from the sap.ui.core.IconPool is possible.
      */
-    image?: URI | PropertyBindingInfo | undefined;
+    image?: URI | PropertyBindingInfo;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * Event is fired when the user presses the button.
      */
-    press?: Function | undefined;
+    press?: Function;
   }
 }
 
@@ -16723,33 +16803,33 @@ declare module "sap/ui/unified/ShellLayout" {
     /**
      * Shows / Hides the side pane.
      */
-    showPane?: boolean | PropertyBindingInfo | undefined;
+    showPane?: boolean | PropertyBindingInfo;
 
     /**
      * Whether the header can be hidden (manually or automatically). This feature is only available when touch
      * events are supported.
      */
-    headerHiding?: boolean | PropertyBindingInfo | undefined;
+    headerHiding?: boolean | PropertyBindingInfo;
 
     /**
      * If set to false, no header (and no items, search, ...) is shown.
      */
-    headerVisible?: boolean | PropertyBindingInfo | undefined;
+    headerVisible?: boolean | PropertyBindingInfo;
 
     /**
      * The content to appear in the main canvas.
      */
-    content?: Control[] | Control | AggregationBindingInfo | undefined;
+    content?: Control[] | Control | AggregationBindingInfo;
 
     /**
      * The content to appear in the pane area.
      */
-    paneContent?: Control[] | Control | AggregationBindingInfo | undefined;
+    paneContent?: Control[] | Control | AggregationBindingInfo;
 
     /**
      * The control to appear in the header area.
      */
-    header?: Control | undefined;
+    header?: Control;
   }
 }
 
@@ -16757,6 +16837,8 @@ declare module "sap/ui/unified/ShellOverlay" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import { ID } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -16837,7 +16919,25 @@ declare module "sap/ui/unified/ShellOverlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellOverlay` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.unified.ShellOverlay`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.ShellOverlay` itself.
+     *
+     * Fired when the overlay was closed.
+     */
+    attachClosed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellOverlay` itself
        */
@@ -16864,7 +16964,7 @@ declare module "sap/ui/unified/ShellOverlay" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -17002,52 +17102,34 @@ declare module "sap/ui/unified/ShellOverlay" {
        */
       oShell: ID | ShellLayout
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.unified.ShellOverlay`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.unified.ShellOverlay` itself.
-     *
-     * Fired when the overlay was closed.
-     */
-    attachClosed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.unified.ShellOverlay` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ShellOverlaySettings extends $ControlSettings {
     /**
      * The content to appear in the overlay.
      */
-    content?: Control[] | Control | AggregationBindingInfo | undefined;
+    content?: Control[] | Control | AggregationBindingInfo;
 
     /**
      * Experimental (This aggregation might change in future!): The search control which should be displayed
      * in the overlay header.
      */
-    search?: Control | undefined;
+    search?: Control;
 
     /**
      * Reference to the sap.ui.unified.Shell or sap.ui.unified.ShellLayout control.
      */
-    shell?: ShellLayout | string | undefined;
+    shell?: ShellLayout | string;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * Fired when the overlay was closed.
      */
-    closed?: Function | undefined;
+    closed?: Function;
   }
 }
 
@@ -17347,19 +17429,19 @@ declare module "sap/ui/unified/SplitContainer" {
     /**
      * Shows / Hides the secondary area.
      */
-    showSecondaryContent?: boolean | PropertyBindingInfo | undefined;
+    showSecondaryContent?: boolean | PropertyBindingInfo;
 
     /**
      * The width if the secondary content. The height is always 100%.
      */
-    secondaryContentSize?: CSSSize | PropertyBindingInfo | undefined;
+    secondaryContentSize?: CSSSize | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.22) - Only available for backwards compatibility.
      *
      * Do not use. Use secondaryContentSize instead.
      */
-    secondaryContentWidth?: CSSSize | PropertyBindingInfo | undefined;
+    secondaryContentWidth?: CSSSize | PropertyBindingInfo;
 
     /**
      * @SINCE 1.22.0
@@ -17368,17 +17450,17 @@ declare module "sap/ui/unified/SplitContainer" {
      */
     orientation?:
       | (Orientation | keyof typeof Orientation)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * The content to appear in the main area.
      */
-    content?: Control[] | Control | AggregationBindingInfo | undefined;
+    content?: Control[] | Control | AggregationBindingInfo;
 
     /**
      * The content to appear in the secondary area.
      */
-    secondaryContent?: Control[] | Control | AggregationBindingInfo | undefined;
+    secondaryContent?: Control[] | Control | AggregationBindingInfo;
   }
 }
 

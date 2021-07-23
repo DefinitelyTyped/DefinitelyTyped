@@ -1,6 +1,6 @@
 declare module 'timers' {
-    import { Abortable } from 'events';
-    import { setTimeout as setTimeoutPromise, setImmediate as setImmediatePromise, setInterval as setIntervalPromise } from 'timers/promises';
+    import { Abortable } from 'node:events';
+    import { setTimeout as setTimeoutPromise, setImmediate as setImmediatePromise, setInterval as setIntervalPromise } from 'node:timers/promises';
 
     interface TimerOptions extends Abortable {
         /**
@@ -42,7 +42,7 @@ declare module 'timers' {
         function setTimeout<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timeout;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
-        function setTimeout(callback: (args: void) => void): NodeJS.Timeout;
+        function setTimeout(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
         namespace setTimeout {
             const __promisify__: typeof setTimeoutPromise;
         }
@@ -72,30 +72,4 @@ declare module 'timers' {
 
 declare module 'node:timers' {
     export * from 'timers';
-}
-
-declare module 'timers/promises' {
-    import { TimerOptions } from 'timers';
-
-    /**
-     * Returns a promise that resolves after the specified delay in milliseconds.
-     * @param delay defaults to 1
-     */
-    function setTimeout<T = void>(delay?: number, value?: T, options?: TimerOptions): Promise<T>;
-
-    /**
-     * Returns a promise that resolves in the next tick.
-     */
-    function setImmediate<T = void>(value?: T, options?: TimerOptions): Promise<T>;
-
-    /**
-     *
-     * Returns an async iterator that generates values in an interval of delay ms.
-     * @param delay defaults to 1
-     */
-    function setInterval<T = void>(delay?: number, value?: T, options?: TimerOptions): AsyncIterable<T>;
-}
-
-declare module 'node:timers/promises' {
-    export * from 'timers/promises';
 }

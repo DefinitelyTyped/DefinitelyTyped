@@ -1,5 +1,5 @@
 declare module 'readline' {
-    import { Abortable, EventEmitter } from 'events';
+    import { Abortable, EventEmitter } from 'node:events';
 
     interface Key {
         sequence?: string | undefined;

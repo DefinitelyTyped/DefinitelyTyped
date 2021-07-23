@@ -1,4 +1,4 @@
-declare module "meteor/ddp-rate-limiter" {
+declare module 'meteor/ddp-rate-limiter' {
     module DDPRateLimiter {
         interface Matcher {
             type?: string | ((type: string) => boolean) | undefined;

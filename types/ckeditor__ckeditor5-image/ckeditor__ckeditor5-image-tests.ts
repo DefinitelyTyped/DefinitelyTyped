@@ -1,9 +1,9 @@
 import CKDataTransfer from '@ckeditor/ckeditor5-clipboard/src/datatransfer';
 import { Editor } from '@ckeditor/ckeditor5-core';
-import { Element, Model, StylesProcessor } from '@ckeditor/ckeditor5-engine';
-import ViewElement from '@ckeditor/ckeditor5-engine/src/view/element';
+import { DowncastWriter, Model, StylesProcessor, ViewDocument } from '@ckeditor/ckeditor5-engine';
 import DowncastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
-import EmptyElement from '@ckeditor/ckeditor5-engine/src/view/emptyelement';
+import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
+import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import Image from '@ckeditor/ckeditor5-image';
 import * as ImageConverters from '@ckeditor/ckeditor5-image/src/image/converters';
@@ -18,13 +18,13 @@ import * as ImageInsertUtils from '@ckeditor/ckeditor5-image/src/imageinsert/uti
 import ImageResizeCommand from '@ckeditor/ckeditor5-image/src/imageresize/resizeimagecommand';
 import * as ImageStyleConverters from '@ckeditor/ckeditor5-image/src/imagestyle/converters';
 import ImageStyleCommand from '@ckeditor/ckeditor5-image/src/imagestyle/imagestylecommand';
-import { isHtmlIncluded } from '@ckeditor/ckeditor5-image/src/imageupload/imageuploadediting';
-import { Locale } from '@ckeditor/ckeditor5-utils';
 import * as ImageStyleUtils from '@ckeditor/ckeditor5-image/src/imagestyle/utils';
 import ImageAlternateCommand from '@ckeditor/ckeditor5-image/src/imagetextalternative/imagetextalternativecommand';
 import TextAlternativeFormView from '@ckeditor/ckeditor5-image/src/imagetextalternative/ui/textalternativeformview';
+import { isHtmlIncluded } from '@ckeditor/ckeditor5-image/src/imageupload/imageuploadediting';
 import ImageUploadCommand from '@ckeditor/ckeditor5-image/src/imageupload/uploadimagecommand';
 import * as ImageUploadUtils from '@ckeditor/ckeditor5-image/src/imageupload/utils';
+import { Locale } from '@ckeditor/ckeditor5-utils';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -83,11 +83,11 @@ ImageUIUtils.getBalloonPositionData(editor).positions;
 ImageUIUtils.repositionContextualBalloon(editor);
 
 ImageUtils.insertImage(new Model());
-ImageUtils.isImage(new Element('')) === ImageUtils.isImageWidget(new EmptyElement());
-ImageUtils.getViewImgFromWidget(new EmptyElement());
-
-ImageCaptionUtils.isCaption(new EmptyElement());
-ImageCaptionUtils.getCaptionFromImage(new Element(''));
+ImageUtils.isImage(new Writer().createElement('div')) ===
+    ImageUtils.isImageWidget(new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement('div'));
+ImageUtils.getViewImgFromWidget(new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement('div'));
+ImageCaptionUtils.isCaption(new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement('div'));
+ImageCaptionUtils.getCaptionFromImage(new Writer().createElement('div'));
 
 new ImageInsertFormRowView(new Locale());
 
@@ -114,5 +114,6 @@ new TextAlternativeFormView().setTemplate;
 
 new ImageUploadCommand(editor);
 
-ImageUploadUtils.isLocalImage(new EmptyElement());
-ImageUploadUtils.fetchLocalImage(new EmptyElement());
+const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('div');
+ImageUploadUtils.isLocalImage(emptyElement);
+ImageUploadUtils.fetchLocalImage(emptyElement);

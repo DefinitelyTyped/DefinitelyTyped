@@ -2,13 +2,16 @@ import { Color } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { MaterialParameters, Material } from './Material';
 import { Combine } from '../constants';
+import { ColorRepresentation } from '../utils';
 /**
  * parameters is an object with one or more properties defining the material's appearance.
  */
 export interface MeshBasicMaterialParameters extends MaterialParameters {
-    color?: Color | string | number | undefined;
+    color?: ColorRepresentation | undefined;
     opacity?: number | undefined;
     map?: Texture | null | undefined;
+    lightMap?: Texture | null;
+    lightMapIntensity?: number | undefined;
     aoMap?: Texture | null | undefined;
     aoMapIntensity?: number | undefined;
     specularMap?: Texture | null | undefined;
@@ -41,6 +44,16 @@ export class MeshBasicMaterial extends Material {
      * @default null
      */
     map: Texture | null;
+
+    /**
+     * @default null
+     */
+    lightMap: Texture | null;
+
+    /**
+     * @default 1
+     */
+    lightMapIntensity: number;
 
     /**
      * @default null

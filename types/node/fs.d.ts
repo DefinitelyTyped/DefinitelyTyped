@@ -1,8 +1,8 @@
 declare module 'fs' {
-    import * as stream from 'stream';
-    import { Abortable, EventEmitter } from 'events';
-    import { URL } from 'url';
-    import * as promises from 'fs/promises';
+    import * as stream from 'node:stream';
+    import { Abortable, EventEmitter } from 'node:events';
+    import { URL } from 'node:url';
+    import * as promises from 'node:fs/promises';
 
     export { promises };
     /**

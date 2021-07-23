@@ -1,4 +1,4 @@
-import indy from "indy-sdk";
+import indy from 'indy-sdk';
 import { Buffer } from 'buffer/';
 
 indy.openBlobStorageWriter('default', {
@@ -170,6 +170,7 @@ indy.signRequest(10, 'myDid', ledgerRequest);
 indy.signAndSubmitRequest(10, 10, 'myDid', ledgerRequest);
 indy.submitRequest(10, ledgerRequest);
 indy.parseGetNymResponse(ledgerRejectResponse);
+indy.buildNymRequest('myDid', 'targetDid', 'verKey', 'alias', 'TRUSTEE');
 indy.buildGetSchemaRequest('myDid', 'a');
 indy.parseGetSchemaResponse(ledgerWriteReply);
 indy.buildGetAcceptanceMechanismsRequest(null);

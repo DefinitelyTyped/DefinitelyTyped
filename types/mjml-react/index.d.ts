@@ -1,4 +1,4 @@
-// Type definitions for mjml-react 1.0
+// Type definitions for mjml-react 2.0
 // Project: https://github.com/wix-incubator/mjml-react
 // Definitions by: Henri Normak <https://github.com/henrinormak>
 //                 Ian Edington <https://github.com/IanEdington>
@@ -382,9 +382,11 @@ export interface MjmlTableProps {
     width?: string | number | undefined;
     tableLayout?: 'auto' | 'fixed' | 'initial' | 'inherit' | undefined;
     align?: 'left' | 'right' | 'center' | undefined;
+    role?: 'presentation' | 'none';
+    border?: React.CSSProperties['border'] | undefined;
 }
 
-export class MjmlTable extends React.Component<MjmlTableProps & PaddingProps> { }
+export class MjmlTable extends React.Component<MjmlTableProps & PaddingProps & ClassNameProps> { }
 
 // mj-text
 export interface MjmlTextProps {

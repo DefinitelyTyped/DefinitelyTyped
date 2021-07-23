@@ -1,6 +1,6 @@
 declare module 'url' {
-    import { ClientRequestArgs } from 'http';
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
+    import { ClientRequestArgs } from 'node:http';
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
 
     // Input to `url.format`
     interface UrlObject {

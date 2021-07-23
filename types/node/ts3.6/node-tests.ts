@@ -6,7 +6,7 @@ import '../test/constants';
 import '../test/console';
 import '../test/crypto';
 import '../test/dgram';
-import '../test/diagnostic_channel';
+import '../test/diagnostics_channel';
 import '../test/dns';
 import '../test/events';
 import '../test/fs';
@@ -35,18 +35,18 @@ import '../test/wasi';
 import '../test/worker_threads';
 import '../test/zlib';
 
-import * as url from 'url';
-import * as http from 'http';
-import * as https from 'https';
-import * as net from 'net';
-import * as inspector from 'inspector';
-import * as trace_events from 'trace_events';
+import * as url from 'node:url';
+import * as http from 'node:http';
+import * as https from 'node:https';
+import * as net from 'node:net';
+import * as inspector from 'node:inspector';
+import * as trace_events from 'node:trace_events';
 
 /////////////////////////////////////////////////////
 /// WASI tests : https://nodejs.org/api/wasi.html ///
 /////////////////////////////////////////////////////
 
-import { WASI } from 'wasi';
+import { WASI } from 'node:wasi';
 
 const wasi = new WASI({
   args: process.argv,

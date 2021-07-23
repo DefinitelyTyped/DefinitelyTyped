@@ -8,14 +8,6 @@ type PLAY_MODE =
     | 'single'; // 单个播放（播完即止）
 
 /**
- * 播放倍率
- */
-type PLAY_BACK_RATE =
-    | 0.5 // 半速
-    | 1
-    | 2; // 2倍速
-
-/**
  * 播放器状态
  */
 type PLAY_STATE =
@@ -56,10 +48,10 @@ interface Sound {
     id: number; // 音频 id
     src: string; // 播放地址（目前支持 m4a, aac, mp3, wav 格式）
     title: string; // 音频标题, 原生音频播放器中的分享功能，分享出去的卡片简介，也将使用该值。
-    coverImgUrl?: string | undefined; // 音频背景图
-    epname?: string | undefined; // 专辑名称
-    singer?: string | undefined; // 歌手名
-    duration?: number | undefined; // 音频时长(单位: 秒)
+    coverImgUrl?: string; // 音频背景图
+    epname?: string; // 专辑名称
+    singer?: string; // 歌手名
+    duration?: number; // 音频时长(单位: 秒)
 }
 
 /**
@@ -237,11 +229,11 @@ export default class XMplayer extends Event {
      *
      * @param playbackRate 播放速度（0.5、1、2）
      */
-    setPlaybackRate(playbackRate: PLAY_BACK_RATE): void;
+    setPlaybackRate(playbackRate: number): void;
     /**
      * 获取当前播放速度
      */
-    getPlaybackRate(): PLAY_BACK_RATE;
+    getPlaybackRate(): number;
     /**
      * 获取当前播放器状态
      */
@@ -255,5 +247,5 @@ export default class XMplayer extends Event {
     /**
      * 销毁播放器
      */
-    destory(): void;
+    destroy(): void;
 }

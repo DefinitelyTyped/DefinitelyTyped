@@ -108,7 +108,7 @@ export interface MentionItem {
  */
 export interface SuggestionDataItem {
     id: string | number;
-    display: string;
+    display?: string;
 }
 
 /**

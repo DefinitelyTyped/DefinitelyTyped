@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
   import UI5Element from "sap/ui/core/Element";
@@ -29,12 +29,12 @@ declare module "sap/ui/rta/api/startAdaptation" {
         /**
          * The Layer in which RTA should be started. Default: "CUSTOMER"
          */
-        layer?: string | undefined;
+        layer?: string;
         /**
          * Whether RTA is started in developerMode mode. Default: `false`
          */
-        developerMode?: boolean | undefined;
-      } | undefined;
+        developerMode?: boolean;
+      };
     },
     /**
      * Callback function that enables the modification of the default plugin list of UI adaptation. UI adaptation

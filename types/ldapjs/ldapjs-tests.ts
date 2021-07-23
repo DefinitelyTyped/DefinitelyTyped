@@ -5,6 +5,13 @@ let client = ldap.createClient({
     url: 'ldap://127.0.0.1:1389'
 });
 
+let clientWithMultipleURLs = ldap.createClient({
+    url: [
+        'ldap://127.0.0.1:1389',
+        'ldap://127.0.0.2:1389'
+    ]
+});
+
 client.bind('cn=root', 'secret', (err: Error): void => {
     // nothing
 });

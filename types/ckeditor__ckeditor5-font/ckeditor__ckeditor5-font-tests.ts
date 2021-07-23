@@ -1,5 +1,19 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
-import F from '@ckeditor/ckeditor5-font';
+import {
+    Font,
+    FontBackgroundColor,
+    FontBackgroundColorEditing,
+    FontBackgroundColorUI,
+    FontColor,
+    FontColorEditing,
+    FontColorUI,
+    FontFamily,
+    FontFamilyEditing,
+    FontFamilyUI,
+    FontSize,
+    FontSizeEditing,
+    FontSizeUI,
+} from '@ckeditor/ckeditor5-font';
 import DocumentColorCollection from '@ckeditor/ckeditor5-font/src/documentcolorcollection';
 import ColorTableView from '@ckeditor/ckeditor5-font/src/ui/colortableview';
 import ColorUI from '@ckeditor/ckeditor5-font/src/ui/colorui';
@@ -8,43 +22,43 @@ import { Locale } from '@ckeditor/ckeditor5-utils';
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
-F.Font.requires.map(Plugin => new Plugin(editor));
-new F.Font(editor);
+Font.requires.map(Plugin => new Plugin(editor));
+new Font(editor);
 
-F.FontSize.requires.map(Plugin => new Plugin(editor).init());
-new F.FontSize(editor);
+FontSize.requires.map(Plugin => new Plugin(editor).init());
+new FontSize(editor);
 
-F.FontColor.requires.map(Plugin => new Plugin(editor));
-new F.FontColor(editor);
+FontColor.requires.map(Plugin => new Plugin(editor));
+new FontColor(editor);
 
-F.FontFamily.requires.map(Plugin => new Plugin(editor).init());
-new F.FontFamily(editor);
+FontFamily.requires.map(Plugin => new Plugin(editor).init());
+new FontFamily(editor);
 
-new F.FontSizeUI(editor).init();
+new FontSizeUI(editor).init();
 
-F.FontBackgroundColor.requires.map(Plugin => new Plugin(editor));
-new F.FontBackgroundColor(editor);
+FontBackgroundColor.requires.map(Plugin => new Plugin(editor));
+new FontBackgroundColor(editor);
 
-new F.FontBackgroundColorEditing(editor);
+new FontBackgroundColorEditing(editor);
 
-new F.FontBackgroundColorUI(editor);
+new FontBackgroundColorUI(editor);
 
-new F.FontColorEditing(editor);
+new FontColorEditing(editor);
 
-new F.FontColorUI(editor).init();
+new FontColorUI(editor).init();
 
-new F.FontFamilyEditing(editor).init();
+new FontFamilyEditing(editor).init();
 
-new F.FontFamilyUI(editor).init();
+new FontFamilyUI(editor).init();
 
-new F.FontSizeEditing(editor).init();
+new FontSizeEditing(editor).init();
 
-new F.FontSizeUI(editor).init();
+new FontSizeUI(editor).init();
 
-new DocumentColorCollection().add({ color: '', label: '' , options: {hasBorder: true}});
+new DocumentColorCollection().add({ color: '', label: '', options: { hasBorder: true } });
 
 new ColorTableView(new Locale(), {
-    colors: [{ color: '', label: '' , options: {hasBorder: true}}],
+    colors: [{ color: '', label: '', options: { hasBorder: true } }],
     columns: 1,
     removeButtonLabel: '',
     documentColorsLabel: '',
