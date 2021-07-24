@@ -96,15 +96,15 @@ function test_doc_rdf_to_triples_2() {
 // Consider breaking this test when incrementing major version
 function test_format_as_string_type() {
     function customParser(format: string) {
-        return new N3.Parser({ format })
+        return new N3.Parser({ format });
     }
 
     function customWriter(format: string) {
-        return new N3.Writer({ format })
+        return new N3.Writer({ format });
     }
 
-    const parser = customParser('N3')
-    const writer = customWriter('N3')
+    const parser = customParser('N3');
+    const writer = customWriter('N3');
 }
 
 function test_doc_rdf_sync_to_triples_1() {
