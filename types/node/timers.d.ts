@@ -42,7 +42,7 @@ declare module 'timers' {
         function setTimeout<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timeout;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
-        function setTimeout(callback: (args: void) => void): NodeJS.Timeout;
+        function setTimeout(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
         namespace setTimeout {
             const __promisify__: typeof setTimeoutPromise;
         }
