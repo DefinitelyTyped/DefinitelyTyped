@@ -353,6 +353,16 @@ async function testPromisify() {
 }
 
 {
+    fs.createWriteStream('./index.d.ts');
+    fs.createWriteStream('./index.d.ts', 'utf8');
+    fs.createWriteStream('./index.d.ts', { encoding: 'utf8' });
+
+    fs.createReadStream('./index.d.ts');
+    fs.createReadStream('./index.d.ts', 'utf8');
+    fs.createReadStream('./index.d.ts', { encoding: 'utf8' });
+}
+
+{
     fs.readvSync(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>);
     fs.readv(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>, 123, (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
     });

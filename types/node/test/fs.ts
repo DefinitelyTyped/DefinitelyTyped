@@ -372,6 +372,16 @@ async () => {
     await handle.write(Buffer.from('hurr'), 0, 42, 10);
 };
 
+{
+    fs.createWriteStream('./index.d.ts');
+    fs.createWriteStream('./index.d.ts', 'utf8');
+    fs.createWriteStream('./index.d.ts', { encoding: 'utf8' });
+
+    fs.createReadStream('./index.d.ts');
+    fs.createReadStream('./index.d.ts', 'utf8');
+    fs.createReadStream('./index.d.ts', { encoding: 'utf8' });
+}
+
 async () => {
     await writeFileAsync('test', 'test');
     await writeFileAsync('test',  Buffer.from('test'));
