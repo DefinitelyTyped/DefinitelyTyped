@@ -42,6 +42,11 @@ markdownToDraft('# Test', {
     preserveNewlines: true
 });
 
+// Handle escapeMarkdownCharacters
+draftToMarkdown(rawContent, {
+    escapeMarkdownCharacters: true
+});
+
 // Handle markdown param
 const rawDraft = markdownToDraft('# Test');
 convertFromRaw(rawDraft);

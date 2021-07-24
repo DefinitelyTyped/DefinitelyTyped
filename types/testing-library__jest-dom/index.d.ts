@@ -20,7 +20,7 @@ declare namespace jest {
          * It does not have a clear definition of what "the DOM" is. Therefore, it does not check whether that element
          * is contained anywhere.
          * @see
-         * [testing-library/jest-dom#toBeInTheDom](https:github.com/testing-library/jest-dom#toBeInTheDom)
+         * [testing-library/jest-dom#toBeInTheDom](https://github.com/testing-library/jest-dom#toBeInTheDom)
          */
         toBeInTheDOM(container?: HTMLElement | SVGElement): R;
         /**
@@ -32,7 +32,7 @@ declare namespace jest {
          * expect(queryByTestId('svg-element')).toBeInTheDocument()
          * expect(queryByTestId('does-not-exist')).not.toBeInTheDocument()
          * @see
-         * [testing-library/jest-dom#tobeinthedocument](https:github.com/testing-library/jest-dom#tobeinthedocument)
+         * [testing-library/jest-dom#tobeinthedocument](https://github.com/testing-library/jest-dom#tobeinthedocument)
          */
         toBeInTheDocument(): R;
         /**
@@ -59,7 +59,7 @@ declare namespace jest {
          * expect(getByTestId('zero-opacity')).not.toBeVisible()
          * expect(getByTestId('visible')).toBeVisible()
          * @see
-         * [testing-library/jest-dom#tobevisible](https:github.com/testing-library/jest-dom#tobevisible)
+         * [testing-library/jest-dom#tobevisible](https://github.com/testing-library/jest-dom#tobevisible)
          */
         toBeVisible(): R;
         /**
@@ -75,7 +75,7 @@ declare namespace jest {
          * expect(getByTestId('empty')).toBeEmpty()
          * expect(getByTestId('not-empty')).not.toBeEmpty()
          * @see
-         * [testing-library/jest-dom#tobeempty](https:github.com/testing-library/jest-dom#tobeempty)
+         * [testing-library/jest-dom#tobeempty](https://github.com/testing-library/jest-dom#tobeempty)
          */
         toBeEmpty(): R;
         /**
@@ -89,7 +89,7 @@ declare namespace jest {
          * expect(getByTestId('empty')).toBeEmptyDOMElement()
          * expect(getByTestId('not-empty')).not.toBeEmptyDOMElement()
          * @see
-         * [testing-library/jest-dom#tobeemptydomelement](https:github.com/testing-library/jest-dom#tobeemptydomelement)
+         * [testing-library/jest-dom#tobeemptydomelement](https://github.com/testing-library/jest-dom#tobeemptydomelement)
          */
         toBeEmptyDOMElement(): R;
         /**
@@ -109,7 +109,7 @@ declare namespace jest {
          *
          * expect(getByTestId('button')).toBeDisabled()
          * @see
-         * [testing-library/jest-dom#tobedisabled](https:github.com/testing-library/jest-dom#tobedisabled)
+         * [testing-library/jest-dom#tobedisabled](https://github.com/testing-library/jest-dom#tobedisabled)
          */
         toBeDisabled(): R;
         /**
@@ -129,7 +129,7 @@ declare namespace jest {
          *
          * expect(getByTestId('button')).toBeEnabled()
          * @see
-         * [testing-library/jest-dom#tobeenabled](https:github.com/testing-library/jest-dom#tobeenabled)
+         * [testing-library/jest-dom#tobeenabled](https://github.com/testing-library/jest-dom#tobeenabled)
          */
         toBeEnabled(): R;
         /**
@@ -148,7 +148,7 @@ declare namespace jest {
          * expect(getByTestId('no-aria-invalid')).not.toBeInvalid()
          * expect(getByTestId('invalid-form')).toBeInvalid()
          * @see
-         * [testing-library/jest-dom#tobeinvalid](https:github.com/testing-library/jest-dom#tobeinvalid)
+         * [testing-library/jest-dom#tobeinvalid](https://github.com/testing-library/jest-dom#tobeinvalid)
          */
         toBeInvalid(): R;
         /**
@@ -166,7 +166,7 @@ declare namespace jest {
          * expect(getByTestId('required-input')).toBeRequired()
          * expect(getByTestId('supported-role')).not.toBeRequired()
          * @see
-         * [testing-library/jest-dom#toberequired](https:github.com/testing-library/jest-dom#toberequired)
+         * [testing-library/jest-dom#toberequired](https://github.com/testing-library/jest-dom#toberequired)
          */
         toBeRequired(): R;
         /**
@@ -185,7 +185,7 @@ declare namespace jest {
          * expect(getByTestId('no-aria-invalid')).not.toBeValid()
          * expect(getByTestId('invalid-form')).toBeInvalid()
          * @see
-         * [testing-library/jest-dom#tobevalid](https:github.com/testing-library/jest-dom#tobevalid)
+         * [testing-library/jest-dom#tobevalid](https://github.com/testing-library/jest-dom#tobevalid)
          */
         toBeValid(): R;
         /**
@@ -203,7 +203,7 @@ declare namespace jest {
          * expect(descendant).not.toContainElement(ancestor)
          * expect(ancestor).not.toContainElement(nonExistantElement)
          * @see
-         * [testing-library/jest-dom#tocontainelement](https:github.com/testing-library/jest-dom#tocontainelement)
+         * [testing-library/jest-dom#tocontainelement](https://github.com/testing-library/jest-dom#tocontainelement)
          */
         toContainElement(element: HTMLElement | SVGElement | null): R;
         /**
@@ -214,7 +214,7 @@ declare namespace jest {
          *
          * expect(getByTestId('parent')).toContainHTML('<span data-testid="child"></span>')
          * @see
-         * [testing-library/jest-dom#tocontainhtml](https:github.com/testing-library/jest-dom#tocontainhtml)
+         * [testing-library/jest-dom#tocontainhtml](https://github.com/testing-library/jest-dom#tocontainhtml)
          */
         toContainHTML(htmlText: string): R;
         /**
@@ -237,7 +237,7 @@ declare namespace jest {
          * expect(button).toHaveAttribute('type', 'submit')
          * expect(button).not.toHaveAttribute('type', 'button')
          * @see
-         * [testing-library/jest-dom#tohaveattribute](https:github.com/testing-library/jest-dom#tohaveattribute)
+         * [testing-library/jest-dom#tohaveattribute](https://github.com/testing-library/jest-dom#tohaveattribute)
          */
         toHaveAttribute(attr: string, value?: unknown): R;
         /**
@@ -263,7 +263,7 @@ declare namespace jest {
          * expect(deleteButton).not.toHaveClass('btn xs btn-danger', {exact: true})
          * expect(noClasses).not.toHaveClass()
          * @see
-         * [testing-library/jest-dom#tohaveclass](https:github.com/testing-library/jest-dom#tohaveclass)
+         * [testing-library/jest-dom#tohaveclass](https://github.com/testing-library/jest-dom#tohaveclass)
          */
         toHaveClass(...classNames: string[]): R;
         toHaveClass(classNames: string, options?: { exact: boolean }): R;
@@ -306,7 +306,7 @@ declare namespace jest {
          * expect(selectMultiple).toHaveDisplayValue(['Banana', 'Avocado'])
          *
          * @see
-         * [testing-library/jest-dom#tohavedisplayvalue](https:github.com/testing-library/jest-dom#tohavedisplayvalue)
+         * [testing-library/jest-dom#tohavedisplayvalue](https://github.com/testing-library/jest-dom#tohavedisplayvalue)
          */
         toHaveDisplayValue(value: string | RegExp | Array<string | RegExp>): R;
         /**
@@ -323,7 +323,7 @@ declare namespace jest {
          * input.blur()
          * expect(input).not.toHaveFocus()
          * @see
-         * [testing-library/jest-dom#tohavefocus](https:github.com/testing-library/jest-dom#tohavefocus)
+         * [testing-library/jest-dom#tohavefocus](https://github.com/testing-library/jest-dom#tohavefocus)
          */
         toHaveFocus(): R;
         /**
@@ -344,7 +344,7 @@ declare namespace jest {
          *   rememberMe: true,
          * })
          * @see
-         * [testing-library/jest-dom#tohaveformvalues](https:github.com/testing-library/jest-dom#tohaveformvalues)
+         * [testing-library/jest-dom#tohaveformvalues](https://github.com/testing-library/jest-dom#tohaveformvalues)
          */
         toHaveFormValues(expectedValues: Record<string, unknown>): R;
         /**
@@ -367,7 +367,7 @@ declare namespace jest {
          *   display: none
          * })
          * @see
-         * [testing-library/jest-dom#tohavestyle](https:github.com/testing-library/jest-dom#tohavestyle)
+         * [testing-library/jest-dom#tohavestyle](https://github.com/testing-library/jest-dom#tohavestyle)
          */
         toHaveStyle(css: string | Record<string, unknown>): R;
         /**
@@ -391,7 +391,7 @@ declare namespace jest {
          * expect(element).toHaveTextContent(/content$/i)
          * expect(element).not.toHaveTextContent('content')
          * @see
-         * [testing-library/jest-dom#tohavetextcontent](https:github.com/testing-library/jest-dom#tohavetextcontent)
+         * [testing-library/jest-dom#tohavetextcontent](https://github.com/testing-library/jest-dom#tohavetextcontent)
          */
         toHaveTextContent(text: string | RegExp, options?: { normalizeWhitespace: boolean }): R;
         /**
@@ -400,8 +400,8 @@ declare namespace jest {
          *
          * Accepts `<input>`, `<select>`, and `<textarea>` elements with the exception of `<input type="checkbox">` and
          * `<input type="radiobox">`, which can be matched only using
-         * [toBeChecked](https:github.com/testing-library/jest-dom#tobechecked) or
-         * [toHaveFormValues](https:github.com/testing-library/jest-dom#tohaveformvalues).
+         * [toBeChecked](https://github.com/testing-library/jest-dom#tobechecked) or
+         * [toHaveFormValues](https://github.com/testing-library/jest-dom#tohaveformvalues).
          * @example
          * <input
          *   type="number"
@@ -411,7 +411,7 @@ declare namespace jest {
          * const numberInput = getByTestId('input-number')
          * expect(numberInput).toHaveValue(5)
          * @see
-         * [testing-library/jest-dom#tohavevalue](https:github.com/testing-library/jest-dom#tohavevalue)
+         * [testing-library/jest-dom#tohavevalue](https://github.com/testing-library/jest-dom#tohavevalue)
          */
         toHaveValue(value?: string | string[] | number | null): R;
         /**
@@ -435,7 +435,7 @@ declare namespace jest {
          * expect(inputCheckbox).toBeChecked()
          * expect(inputRadio).not.toBeChecked()
          * @see
-         * [testing-library/jest-dom#tobechecked](https:github.com/testing-library/jest-dom#tobechecked)
+         * [testing-library/jest-dom#tobechecked](https://github.com/testing-library/jest-dom#tobechecked)
          */
         toBeChecked(): R;
         /**
@@ -484,7 +484,7 @@ declare namespace jest {
          * expect(deleteButton).not.toHaveDescription()
          * expect(deleteButton).toHaveDescription('') // Missing or empty description always becomes a blank string
          * @see
-         * [testing-library/jest-dom#tohavedescription](https:github.com/testing-library/jest-dom#tohavedescription)
+         * [testing-library/jest-dom#tohavedescription](https://github.com/testing-library/jest-dom#tohavedescription)
          */
         toHaveDescription(text?: string | RegExp | ReturnType<typeof expect.stringContaining>): R;
         /**
@@ -510,7 +510,7 @@ declare namespace jest {
          * expect(getByTestId('logo')).not.toHaveAccessibleDescription('Company logo')
          * expect(getByTestId('logo')).toHaveAccessibleDescription('The logo of Our Company')
          * @see
-         * [testing-library/jest-dom#tohaveaccessibledescription](https:github.com/testing-library/jest-dom#tohaveaccessibledescription)
+         * [testing-library/jest-dom#tohaveaccessibledescription](https://github.com/testing-library/jest-dom#tohaveaccessibledescription)
          */
         toHaveAccessibleDescription(text?: string | RegExp | ReturnType<typeof expect.stringContaining>): R;
         /**
@@ -541,7 +541,7 @@ declare namespace jest {
          * expect(getByTestId('svg-without-title')).not.toHaveAccessibleName()
          * expect(getByTestId('input-title')).toHaveAccessibleName()
          * @see
-         * [testing-library/jest-dom#tohaveaccessiblename](https:github.com/testing-library/jest-dom#tohaveaccessiblename)
+         * [testing-library/jest-dom#tohaveaccessiblename](https://github.com/testing-library/jest-dom#tohaveaccessiblename)
          */
         toHaveAccessibleName(text?: string | RegExp | ReturnType<typeof expect.stringContaining>): R;
         /**
@@ -579,7 +579,7 @@ declare namespace jest {
          * inputCheckboxIndeterminate.indeterminate = true
          * expect(inputCheckboxIndeterminate).toBePartiallyChecked()
          * @see
-         * [testing-library/jest-dom#tobepartiallychecked](https:github.com/testing-library/jest-dom#tobepartiallychecked)
+         * [testing-library/jest-dom#tobepartiallychecked](https://github.com/testing-library/jest-dom#tobepartiallychecked)
          */
         toBePartiallyChecked(): R;
         /**
@@ -620,7 +620,7 @@ declare namespace jest {
          * expect(timeInput).toHaveErrorMessage(expect.stringContaining('Invalid time')) // to partially match
          * expect(timeInput).not.toHaveErrorMessage('Pikachu!')
          * @see
-         * [testing-library/jest-dom#tohaveerrormessage](https:github.com/testing-library/jest-dom#tohaveerrormessage)
+         * [testing-library/jest-dom#tohaveerrormessage](https://github.com/testing-library/jest-dom#tohaveerrormessage)
          */
         toHaveErrorMessage(text?: string | RegExp | ReturnType<typeof expect.stringContaining>): R;
     }

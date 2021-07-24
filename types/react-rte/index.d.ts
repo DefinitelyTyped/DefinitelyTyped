@@ -89,13 +89,13 @@ export class EditorValue {
     ): EditorValue;
 }
 
-interface StyleConfig {
+export interface StyleConfig {
     label: string;
     style: string;
     className?: string | undefined;
 }
 
-type StyleConfigList = StyleConfig[];
+export type StyleConfigList = StyleConfig[];
 
 type ChangeHandler = (value: EditorValue) => any;
 
@@ -119,7 +119,7 @@ type GroupName =
     | "HISTORY_BUTTONS"
     | "IMAGE_BUTTON";
 
-interface ToolbarConfig {
+export interface ToolbarConfig {
     display: GroupName[];
     extraProps?: object | undefined;
     INLINE_STYLE_BUTTONS: StyleConfigList;

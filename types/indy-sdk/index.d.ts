@@ -72,6 +72,13 @@ export function closeWalletSearch(sh: SearchHandle): Promise<void>;
 export function createPoolLedgerConfig(configName: string, config?: PoolConfig): Promise<void>;
 export function openPoolLedger(configName: string, config?: RuntimePoolConfig): Promise<PoolHandle>;
 export function setProtocolVersion(version: number): Promise<void>;
+export function buildNymRequest(
+    submitterDid: Did,
+    targetDid: Did,
+    verkey: string,
+    alias: string,
+    role: NymRole | null,
+): Promise<LedgerRequest>;
 export function buildGetNymRequest(submitterDid: Did | null, targetDid: Did): Promise<LedgerRequest>;
 export function parseGetNymResponse(response: LedgerResponse): Promise<GetNymResponse>;
 export function buildSchemaRequest(submitterDid: Did, schema: Schema): Promise<LedgerRequest>;
@@ -294,9 +301,11 @@ export interface WalletStorageConfig {
 
 export interface WalletCredentials {
     key: string;
-    storage_credentials?: {
-        [key: string]: unknown;
-    } | undefined;
+    storage_credentials?:
+        | {
+              [key: string]: unknown;
+          }
+        | undefined;
     key_derivation_method?: KeyDerivationMethod | undefined;
 }
 
@@ -485,7 +494,12 @@ export interface IndyProof {
         };
     };
     proof: any;
-    identifiers: Array<{ schema_id: string; cred_def_id: string; rev_reg_id?: string | undefined; timestamp?: number | undefined }>;
+    identifiers: Array<{
+        schema_id: string;
+        cred_def_id: string;
+        rev_reg_id?: string | undefined;
+        timestamp?: number | undefined;
+    }>;
 }
 
 export interface Schemas {
@@ -617,9 +631,11 @@ export interface WalletRecord {
     id: string;
     type?: string | undefined;
     value?: string | undefined;
-    tags?: {
-        [key: string]: string | undefined;
-    } | undefined;
+    tags?:
+        | {
+              [key: string]: string | undefined;
+          }
+        | undefined;
 }
 
 export interface WalletRecordSearch {
@@ -633,10 +649,4 @@ export interface GetNymResponse {
     role: NymRole;
 }
 
-export enum NymRole {
-    TRUSTEE = 0,
-    STEWARD = 2,
-    TRUST_ANCHOR = 101,
-    ENDORSER = 101,
-    NETWORK_MONITOR = 201,
-}
+export type NymRole = 'TRUSTEE' | 'STEWARD' | 'TRUST_ANCHOR' | 'ENDORSER' | 'NETWORK_MONITOR';

@@ -3,9 +3,10 @@ import { Texture } from './../textures/Texture';
 import { Vector2 } from './../math/Vector2';
 import { MaterialParameters, Material } from './Material';
 import { NormalMapTypes } from '../constants';
+import { ColorRepresentation } from '../utils';
 
 export interface MeshMatcapMaterialParameters extends MaterialParameters {
-    color?: Color | string | number | undefined;
+    color?: ColorRepresentation | undefined;
     matcap?: Texture | null | undefined;
     map?: Texture | null | undefined;
     bumpMap?: Texture | null | undefined;
