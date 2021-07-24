@@ -98,7 +98,13 @@ function test_format_as_string_type() {
     function customParser(format: string) {
         return new N3.Parser({ format })
     }
+
+    function customWriter(format: string) {
+        return new N3.Writer({ format })
+    }
+
     const parser = customParser('N3')
+    const writer = customWriter('N3')
 }
 
 function test_doc_rdf_sync_to_triples_1() {
