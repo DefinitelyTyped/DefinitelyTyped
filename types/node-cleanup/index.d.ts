@@ -9,14 +9,14 @@
 
 export = install;
 
-interface Messages {
+interface StderrMessages {
     ctrl_C?: string;
     uncaughtException?: string;
 }
 
 type Handler = (exitCode: number | null, signal: string | null) => boolean | undefined | void;
 
-declare function install(cleanupHandler?: Handler, stderrMessages?: Messages): void;
+declare function install(cleanupHandler?: Handler, stderrMessages?: StderrMessages): void;
 
 declare namespace install {
     function uninstall(): void;
