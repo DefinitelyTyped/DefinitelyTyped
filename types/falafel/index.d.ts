@@ -4,6 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-declare function falafel(src: string, opts: ((...args: any[]) => void) | object, fn?: (...args: any[]) => void): string;
+interface Falafel {
+    result: string[];
+    toString: () => string;
+    inspect: () => string;
+}
+
+declare function falafel(
+    src: string,
+    opts: ((...args: any[]) => void) | object,
+    fn?: (...args: any[]) => void,
+): Falafel;
 
 export = falafel;
