@@ -91,10 +91,9 @@ declare namespace SshPK {
 
         signWith(key: PrivateKey): void;
 
-        getExtensions(): (
-            | { format: 'x509'; oid: string; critical: boolean; pathLen: number }
-            | { format: 'openssh'; name: string; critical: boolean; data: Buffer }
-        )[];
+        getExtensions():
+            | Array<{ format: 'x509'; oid: string; critical: boolean; pathLen: number }>
+            | Array<{ format: 'openssh'; name: string; critical: boolean; data: Buffer }>;
         getExtension(
             keyOrOid: string,
         ):
