@@ -14,7 +14,14 @@ interface TestEntity {
     check: boolean;
 }
 
-const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event, context) => {
+interface TestSource {
+    id: string;
+    firstName: string;
+    lastName: string;
+    age: number;
+}
+
+const handler: AppSyncResolverHandler<TestArguments, TestEntity, TestSource> = async (event, context) => {
     str = event.arguments.id;
     str = event.arguments.query;
 
@@ -42,6 +49,10 @@ const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event,
     anyObj = event.info.variables;
     str = event.info.selectionSetList[0];
 
+    strOrUndefined = event.source?.id;
+    strOrUndefined = event.source?.firstName;
+    strOrUndefined = event.source?.lastName;
+    numOrUndefined = event.source?.age;
     objectOrNull = event.source;
     prevResultOrNull = event.prev;
     anyObj = (event.prev as { result: { [key: string]: any } }).result;

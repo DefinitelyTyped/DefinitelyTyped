@@ -1,6 +1,6 @@
 import { Handler } from '../handler';
 
-export type AppSyncResolverHandler<T, V> = Handler<AppSyncResolverEvent<T>, V | V[]>;
+export type AppSyncResolverHandler<TArguments, TResults, TSource = Record<string, unknown>> = Handler<AppSyncResolverEvent<TArguments, TSource>, TResults | TResults[]>;
 
 export interface AppSyncResolverEventHeaders {
     [name: string]: string | undefined;
@@ -11,10 +11,10 @@ export interface AppSyncResolverEventHeaders {
  *
  * @param T type of the arguments
  */
-export interface AppSyncResolverEvent<T> {
-    arguments: T;
+export interface AppSyncResolverEvent<TArguments, TSource = Record<string, unknown>> {
+    arguments: TArguments;
     identity?: AppSyncIdentityIAM | AppSyncIdentityCognito | undefined;
-    source: { [key: string]: any } | null;
+    source: TSource | null;
     request: {
         headers: AppSyncResolverEventHeaders;
     };
