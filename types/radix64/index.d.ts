@@ -17,6 +17,10 @@ interface Radix {
     radix64: (number: number, method?: MethodsString) => string;
     ascii64: (number: number, pad?: number) => string;
     methods: MethodsEnum;
+    base64: (number: number) => string;
+    base64URL: (number: number) => string;
+    base64Natural: (number: number) => string;
+    base64ASCII: (number: number) => string;
 }
 
 declare const radix: Radix;
