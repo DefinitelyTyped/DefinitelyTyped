@@ -14,4 +14,6 @@ nodeCleanup(cleanupHandler, undefined);
 nodeCleanup(cleanupHandler, stderrMessages);
 nodeCleanup(voidHandler);
 nodeCleanup(undefined, stderrMessages);
+nodeCleanup(undefined, { ctrl_C: 'ctrl_c' });
+nodeCleanup(undefined, { uncaughtException: 'UncaughtException' });
 nodeCleanup.uninstall();
