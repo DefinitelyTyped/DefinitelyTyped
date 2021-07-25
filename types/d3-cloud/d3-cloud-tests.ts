@@ -28,18 +28,21 @@ d3.layout
     .cloud()
     .size([300, 300])
     .words(
-        ['Hello', 'world', 'normally', 'you', 'want', 'more', 'words', 'than', 'this'].map(function(d: string) {
+        ['Hello', 'world', 'normally', 'you', 'want', 'more', 'words', 'than', 'this'].map(function (d: string) {
             return { text: d, size: 10 + Math.random() * 90 };
         }),
     )
     .padding(5)
-    .rotate(function() {
+    .rotate(10)
+    .rotate(function () {
         return ~~(Math.random() * 2) * 90;
     })
     .font('Impact')
-    .fontSize(function(d: ICompTextSize) {
+    .fontSize(10)
+    .fontSize(function (d: ICompTextSize) {
         return d.size;
     })
+    .spiral('archimedean')
     .spiral(archimedeanSpiral)
     .on('end', draw)
     .random()
@@ -57,18 +60,18 @@ function draw(words: ICompTextSize[]) {
         .data(words)
         .enter()
         .append('text')
-        .style('font-size', function(d: ICompTextSize) {
+        .style('font-size', function (d: ICompTextSize) {
             return d.size + 'px';
         })
         .style('font-family', 'Impact')
-        .style('fill', function(_d: ICompTextSize, i: number) {
+        .style('fill', function (_d: ICompTextSize, i: number) {
             return fill(i);
         })
         .attr('text-anchor', 'middle')
-        .attr('transform', function(d: ICompTextSize) {
+        .attr('transform', function (d: ICompTextSize) {
             return 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')';
         })
-        .text(function(d: ICompTextSize) {
+        .text(function (d: ICompTextSize) {
             return d.text;
         });
 }

@@ -44,10 +44,10 @@ declare module 'd3' {
 
             fontStyle(): (datum: T, index: number) => string;
             fontStyle(style: string | ((datum: T, index: number) => string)): Cloud<T>;
-            
+
             fontWeight(): (datum: T, index: number) => string | number;
             fontWeight(weight: string | number | ((datum: T, index: number) => string | number)): Cloud<T>;
-            
+
             rotate(): (datum: T, index: number) => number;
             rotate(rotate: number | ((datum: T, index: number) => number)): Cloud<T>;
 
@@ -59,7 +59,7 @@ declare module 'd3' {
 
             fontSize(): (datum: T, index: number) => number;
             fontSize(size: number | ((datum: T, index: number) => number)): Cloud<T>;
-            
+
             padding(): (datum: T, index: number) => number;
             padding(padding: number | ((datum: T, index: number) => number)): Cloud<T>;
 
