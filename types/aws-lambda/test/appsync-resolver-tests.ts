@@ -49,10 +49,10 @@ const handler: AppSyncResolverHandler<TestArguments, TestEntity, TestSource> = a
     anyObj = event.info.variables;
     str = event.info.selectionSetList[0];
 
-    strOrUndefined = event.source?.id;
-    strOrUndefined = event.source?.firstName;
-    strOrUndefined = event.source?.lastName;
-    numOrUndefined = event.source?.age;
+    strOrUndefined = event.source ? event.source.id : undefined;
+    strOrUndefined = event.source ? event.source.firstName : undefined;
+    strOrUndefined = event.source ? event.source.lastName : undefined;
+    numOrUndefined = event.source ? event.source.age : undefined;
     objectOrNull = event.source;
     prevResultOrNull = event.prev;
     anyObj = (event.prev as { result: { [key: string]: any } }).result;
