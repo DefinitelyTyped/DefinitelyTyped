@@ -50,7 +50,7 @@ declare class ProgressBar {
      * Method to render the progress bar with optional `tokens` to place in the
      * progress bar's `fmt` field.
      */
-    render(tokens?: any): void;
+    render(tokens?: any, force?: boolean): void;
 
 
     /**

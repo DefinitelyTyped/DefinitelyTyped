@@ -46,3 +46,14 @@ const interruptTimer = setInterval(function () {
     interruptBar.interrupt('interrupt: current progress is ' + interruptBar.curr + '/' + interruptBar.total);
   }
 }, 1000);
+
+/** Test render overloads. */
+const renderBar = new ProgressBar(':bar :current/:total', { total: 10 });
+renderBar.render();
+renderBar.render({ someToken: 'Some Value' });
+renderBar.render({ someToken: 'Some Value' }, undefined);
+renderBar.render({ someToken: 'Some Value' }, false);
+renderBar.render({ someToken: 'Some Value' }, true);
+renderBar.render(undefined);
+renderBar.render(undefined, false);
+renderBar.render(undefined, true);
