@@ -65,13 +65,13 @@ declare namespace SshPK {
 
     class Certificate {
         subjects: Identity[];
-        issuer: string;
-        subjectKey: string;
-        issuerKey: string;
-        signatures: string;
-        serial: string;
-        validFrom: string;
-        validUntil: string;
+        issuer: Identity;
+        subjectKey: Key;
+        issuerKey: Key;
+        signatures: { x509: Signature; openssh: Signature };
+        serial: Buffer;
+        validFrom: Date;
+        validUntil: Date;
         static formats: Formats;
         constructor(opts: any);
 
@@ -89,9 +89,23 @@ declare namespace SshPK {
 
         isSignedByKey(issuerKey: Key): boolean;
 
-        signWith(key: Key): void;
+        signWith(key: PrivateKey): void;
 
-        static createSelfSigned(subjectOrSubjects: string, key: Key, options: any): Certificate;
+        getExtensions(): (
+            | { format: 'x509'; oid: string; critical: boolean; pathLen: number }
+            | { format: 'openssh'; name: string; critical: boolean; data: Buffer }
+        )[];
+        getExtension(
+            keyOrOid: string,
+        ):
+            | { format: 'x509'; oid: string; critical: boolean; pathLen: number }
+            | { format: 'openssh'; name: string; critical: boolean; data: Buffer }
+            | undefined;
+        static createSelfSigned(
+            subjectOrSubjects: Identity[],
+            key: Key,
+            options: { validFrom?: Date; validUntil?: Date; lifetime?: number; serial?: Buffer; purposes?: string[] },
+        ): Certificate;
 
         static create(
             subjectOrSubjects: string,
@@ -101,7 +115,11 @@ declare namespace SshPK {
             options: any,
         ): Certificate;
 
-        static parse(data: string | Buffer, format: string, options: any): Certificate;
+        static parse(
+            data: string | Buffer,
+            format: string,
+            options: { validFrom?: Date; validUntil?: Date; lifetime?: number; serial?: Buffer; purposes?: string[] },
+        ): Certificate;
 
         static isCertificate(data: string | Buffer, ver: string): boolean;
     }
@@ -292,6 +310,8 @@ declare namespace SshPK {
     }
 
     class Signature {
+        extras?: { exts?: { oid: string; critical: boolean; pathLen: number } };
+        exts?: { name: string; critical: boolean; data: Buffer };
         constructor(opts: any);
         toBuffer(format: string): Buffer;
         toString(format: string): string;
