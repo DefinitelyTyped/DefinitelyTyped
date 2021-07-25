@@ -1,4 +1,5 @@
 import simpleIcons = require('simple-icons');
+import { SimpleIcon } from 'simple-icons';
 import simpleicons = require('simple-icons/icons/simpleicons');
 
 // fetch by slug
@@ -30,3 +31,12 @@ for (const slug in simpleIcons) {
 
 // direct import
 simpleicons; // $ExpectType SimpleIcon
+
+const simpleIcon: SimpleIcon = {
+    title: 'Simple Icon',
+    slug: 'simpleicons',
+    svg: '<svg></svg>',
+    path: 'path/to/icon.svg',
+    source: 'https://simpleicons.org/',
+    hex: '#000000',
+};
