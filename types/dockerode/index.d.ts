@@ -16,7 +16,7 @@
 
 import * as stream from 'stream';
 import * as events from 'events';
-import * as DockerModem from "docker-modem";
+import * as DockerModem from 'docker-modem';
 
 declare namespace Dockerode {
     class Container {
