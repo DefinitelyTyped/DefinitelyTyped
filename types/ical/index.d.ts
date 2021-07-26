@@ -4,8 +4,6 @@
 //                 Matej Vilk <https://github.com/iammatis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.9
-
-import request = require('request');
 import { RRule } from 'rrule';
 
 export type CalendarComponentType = 'VEVENT' | 'VTODO' | 'VJOURNAL' | 'VFREEBUSY' | 'VTIMEZONE' | 'VALARM';
