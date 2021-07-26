@@ -1,6 +1,6 @@
-import assert = require('assert');
-import { RequestOptions } from 'http';
-import * as url from 'url';
+import assert = require('node:assert');
+import { RequestOptions } from 'node:http';
+import * as url from 'node:url';
 
 {
     url.format(url.parse('http://www.example.com/xyz'));

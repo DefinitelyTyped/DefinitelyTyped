@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "msnodesqlv8": "^2.2.0",
         "tarn": "^3.0.1"
     }
 }

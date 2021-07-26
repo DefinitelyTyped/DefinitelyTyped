@@ -1,18 +1,17 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
+import { DowncastWriter, Model, StylesProcessor } from '@ckeditor/ckeditor5-engine';
+import Document from '@ckeditor/ckeditor5-engine/src/view/document';
+import DocumentFragment from '@ckeditor/ckeditor5-engine/src/view/documentfragment';
+import Position from '@ckeditor/ckeditor5-engine/src/view/position';
+import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import L from '@ckeditor/ckeditor5-list';
 import CheckTodoListCommand from '@ckeditor/ckeditor5-list/src/checktodolistcommand';
+import * as converters from '@ckeditor/ckeditor5-list/src/converters';
 import IndentCommand from '@ckeditor/ckeditor5-list/src/indentcommand';
 import ListCommand from '@ckeditor/ckeditor5-list/src/listcommand';
 import ListStyleCommand from '@ckeditor/ckeditor5-list/src/liststylecommand';
 import * as todoConverters from '@ckeditor/ckeditor5-list/src/todolistconverters';
-import * as converters from '@ckeditor/ckeditor5-list/src/converters';
 import * as utils from '@ckeditor/ckeditor5-list/src/utils';
-import { DowncastWriter, Model, StylesProcessor } from '@ckeditor/ckeditor5-engine';
-import View from '@ckeditor/ckeditor5-engine/src/view/view';
-import EmptyElement from '@ckeditor/ckeditor5-engine/src/view/emptyelement';
-import Document from '@ckeditor/ckeditor5-engine/src/view/document';
-import Position from '@ckeditor/ckeditor5-engine/src/view/position';
-import DocumentFragment from '@ckeditor/ckeditor5-engine/src/view/documentfragment';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -58,6 +57,7 @@ converters.modelViewInsertion(new Model());
 converters.modelViewRemove(new Model());
 converters.modelToViewPosition(new View(new StylesProcessor()));
 
-utils.findNestedList(new EmptyElement());
-utils.mergeViewLists(new DowncastWriter(new Document(new StylesProcessor())), new EmptyElement(), new EmptyElement());
+const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('div');
+utils.findNestedList(emptyElement);
+utils.mergeViewLists(new DowncastWriter(new Document(new StylesProcessor())), emptyElement, emptyElement);
 utils.positionAfterUiElements(new Position(new DocumentFragment(), 1));

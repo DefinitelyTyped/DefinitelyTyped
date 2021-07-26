@@ -23,11 +23,11 @@ declare namespace GoogleAppsScript {
     }
 
     interface AppsScriptHttpRequestEvent {
-      parameter: object;
+      parameter: { [key: string]: string };
       contextPath: string;
       contentLength: number;
       queryString: string;
-      parameters: object;
+      parameters: { [key: string]: string[] };
     }
 
     interface AppsScriptHttpRequestEventPostData {

@@ -1,4 +1,4 @@
-declare module "meteor/random" {
+declare module 'meteor/random' {
     module Random {
         function id(numberOfChars?: number): string;
 

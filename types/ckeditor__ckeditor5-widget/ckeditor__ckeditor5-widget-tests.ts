@@ -2,7 +2,6 @@ import { Editor } from '@ckeditor/ckeditor5-core';
 import { DowncastWriter, Element, Model, StylesProcessor } from '@ckeditor/ckeditor5-engine';
 import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
-import ContainerElement from '@ckeditor/ckeditor5-engine/src/view/containerelement';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 import ViewElement from '@ckeditor/ckeditor5-engine/src/view/element';
 import Position from '@ckeditor/ckeditor5-engine/src/view/position';
@@ -14,8 +13,11 @@ import Resizer from '@ckeditor/ckeditor5-widget/src/widgetresize/resizer';
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
-class MyView extends ViewElement {}
-const view = new MyView();
+const bool: boolean = CKWidget.checkSelectionOnObject(new Selection(null), new Schema());
+
+const containerElement: ViewElement = new DowncastWriter(new Document(new StylesProcessor())).createContainerElement(
+    'foo',
+);
 
 const widget = new CKWidget.Widget(editor);
 widget.init();
@@ -43,14 +45,15 @@ resizer = widgetResize.attachTo({
     editor,
     getResizeHost: el => el,
     getHandleHost: el => el,
-    isCentered: () => true,
-    modelElement: new Element('div'),
+    isCentered: () => bool,
+    modelElement: Element.fromJSON({ name: 'div' }),
     onCommit: newValue => {
         newValue.startsWith('foo');
     },
-    viewElement: new ContainerElement(),
+    viewElement: containerElement,
 });
-resizer = widgetResize.getResizerByViewElement(new ContainerElement())!;
+resizer = widgetResize.getResizerByViewElement(containerElement)!;
+resizer.destroy();
 
 const widgetTypeAround = new CKWidget.WidgetTypeAround(editor);
 widgetTypeAround.init();
@@ -58,19 +61,19 @@ widgetTypeAround.destroy();
 CKWidget.WidgetTypeAround.requires.length === 2;
 CKWidget.WidgetTypeAround.requires.map(Plugin => new Plugin(editor).init());
 
-CKWidget.isWidget(new ContainerElement());
+CKWidget.isWidget(containerElement);
 const position: Position = CKWidget.centeredBalloonPositionForLongWidgets(
     new Rect(document.createElement('div')),
     new Rect(document.createElement('div')),
 )!;
-const bool: boolean = CKWidget.checkSelectionOnObject(new Selection(null), new Schema());
+position.is('foo');
 CKWidget.findOptimalInsertionPosition(new Selection(null), new Model());
-const str: string = CKWidget.getLabel(view);
+CKWidget.getLabel(containerElement).startsWith('foo');
 CKWidget.setHighlightHandling(
-    view,
+    containerElement,
     new DowncastWriter(new Document(new StylesProcessor())),
     () => {},
     () => {},
 );
-CKWidget.setLabel(view, () => 'foo', new DowncastWriter(new Document(new StylesProcessor())));
-CKWidget.toWidget(view, new DowncastWriter(new Document(new StylesProcessor())));
+CKWidget.setLabel(containerElement, () => 'foo', new DowncastWriter(new Document(new StylesProcessor())));
+CKWidget.toWidget(containerElement, new DowncastWriter(new Document(new StylesProcessor())));

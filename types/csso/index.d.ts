@@ -1,10 +1,9 @@
-// Type definitions for csso 3.5
+// Type definitions for csso 4.2
 // Project: https://github.com/css/csso
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 //                 Erik Källén <https://github.com/erik-kallen>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 import * as csstree from 'css-tree';
 
 declare namespace csso {
@@ -98,6 +97,7 @@ declare namespace csso {
 }
 
 interface Csso {
+    readonly version: string;
     /**
      * Minify source CSS passed as String
      * @param source
@@ -112,12 +112,12 @@ interface Csso {
      */
     minifyBlock(source: string, options?: csso.MinifyOptions & csso.CompressOptions): csso.Result;
 
-    /**
-     * Does the main task – compress an AST.
-     */
-    compress(ast: csstree.CssNode, options?: csso.CompressOptions): { ast: csstree.CssNode };
-
-    syntax: typeof csstree;
+    syntax: typeof csstree & {
+        /**
+         * Does the main task – compress an AST.
+         */
+        compress(ast: csstree.CssNode, options?: csso.CompressOptions): { ast: csstree.CssNode };
+    };
 }
 
 declare const csso: Csso;

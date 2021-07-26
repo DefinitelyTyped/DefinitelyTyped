@@ -728,6 +728,7 @@ declare namespace Dockerode {
         MemorySwap?: number | undefined;
         MemorySwappiness?: number | undefined;
         OomKillDisable?: boolean | undefined;
+        Init?: boolean | undefined;
         PidsLimit?: number | undefined;
         Ulimits?: any;
     }
@@ -805,6 +806,7 @@ declare namespace Dockerode {
 
     interface ImageBuildOptions {
         authconfig?: AuthConfig | undefined;
+        registryconfig?: RegistryConfig | undefined;
         dockerfile?: string | undefined;
         t?: string | undefined;
         extrahosts?: string | undefined;
@@ -840,6 +842,13 @@ declare namespace Dockerode {
         password: string;
         serveraddress: string;
         email?: string | undefined;
+    }
+
+    interface RegistryConfig {
+        [registryAddress: string]: {
+            username: string;
+            password: string;
+        };
     }
 
     interface PortBinding {

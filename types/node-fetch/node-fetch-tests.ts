@@ -169,7 +169,7 @@ function test_headers() {
     [...headers]; // $ExpectType [string, string][]
     [...headers.entries()]; // $ExpectType [string, string][]
     [...headers.keys()]; // $ExpectType string[]
-    [...headers.values()]; // $ExpectType [string][]
+    [...headers.values()]; // $ExpectType string[]
 }
 
 function test_isRedirect() {

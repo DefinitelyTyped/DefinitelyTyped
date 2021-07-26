@@ -1,10 +1,9 @@
 import Node from "./node";
-import { toMap } from "@ckeditor/ckeditor5-utils";
 
 export default class Text extends Node {
     readonly data: string;
 
-    constructor(data: string, attrs?: Parameters<typeof toMap>[0]);
+    protected constructor(data: string, attrs?: Record<string, string> | [string, string]);
     is(type: string): boolean;
     toJSON(): ReturnType<Node["toJSON"]> & {
         data: string;
