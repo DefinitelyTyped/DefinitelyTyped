@@ -1,11 +1,9 @@
-// Type definitions for ical 0.6
+// Type definitions for ical 0.8
 // Project: https://github.com/peterbraden/ical.js
 // Definitions by: Nick Clifford <https://github.com/nickbclifford>
 //                 Matej Vilk <https://github.com/iammatis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import request = require('request');
+// Minimum TypeScript Version: 3.9
 import { RRule } from 'rrule';
 
 export type CalendarComponentType = 'VEVENT' | 'VTODO' | 'VJOURNAL' | 'VFREEBUSY' | 'VTIMEZONE' | 'VALARM';
@@ -27,27 +25,27 @@ export interface FreeBusy {
 // Typed as string | ParamList by default, exceptions listed below
 export type CalendarComponent = {
     type: CalendarComponentType;
-    summary?: string | undefined;
-    description?: string | undefined;
-    url?: string | undefined;
-    uid?: string | undefined;
-    location?: string | undefined;
-    start?: Date | undefined;
-    end?: Date | undefined;
-    rrule?: RRule | undefined;
-    exdate?: { [datestr: string]: Date } | undefined;
-    recurrences?: CalendarComponent[] | undefined;
-    class?: string | undefined;
-    transparency?: string | undefined;
-    geo?: Geo | undefined;
-    completion?: string | undefined;
-    completed?: Date | undefined;
-    categories?: string[] | undefined;
-    freebusy?: FreeBusy | undefined;
-    dtstamp?: Date | undefined;
-    created?: Date | undefined;
-    lastmodified?: Date | undefined;
-    recurrenceid?: Date | undefined;
+    summary?: string
+    description?: string
+    url?: string
+    uid?: string
+    location?: string
+    start?: Date
+    end?: Date
+    rrule?: RRule
+    exdate?: { [datestr: string]: Date }
+    recurrences?: CalendarComponent[]
+    class?: string
+    transparency?: string
+    geo?: Geo
+    completion?: string
+    completed?: Date
+    categories?: string[]
+    freebusy?: FreeBusy
+    dtstamp?: Date
+    created?: Date
+    lastmodified?: Date
+    recurrenceid?: Date
 } & { [prop: string]: string | ParamList | undefined };
 
 export interface Geo {
@@ -61,4 +59,3 @@ export interface FullCalendar {
 
 export function parseICS(icsData: string): FullCalendar;
 export function parseFile(filename: string): FullCalendar;
-export function fromURL(url: string, options: request.CoreOptions, callback: (error: any, data: FullCalendar) => void): void;
