@@ -5256,7 +5256,7 @@ declare namespace Office {
      */
     interface DialogMessageOptions {
         /**
-         * Specifies the intended recipient domain for a message sent, in either direction, between a dialog and its parent. For example, https://target.domain.com.
+         * Specifies the intended recipient domain for a message sent, in either direction, between a dialog and its parent. For example, `https://resources.contoso.com`.
          */
         targetOrigin: string;
     }
