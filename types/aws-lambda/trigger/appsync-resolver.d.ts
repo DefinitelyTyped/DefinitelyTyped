@@ -9,7 +9,8 @@ export interface AppSyncResolverEventHeaders {
 /**
  * See https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html
  *
- * @param T type of the arguments
+ * @param TArguments type of the arguments
+ * @param TSource type of the source
  */
 export interface AppSyncResolverEvent<TArguments, TSource = Record<string, any> | null> {
     arguments: TArguments;
