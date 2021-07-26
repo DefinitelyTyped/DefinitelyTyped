@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function localIpV4Address(): Promise<string>;
-export = main;
+export = localIpV4Address;
