@@ -298,12 +298,12 @@ export class request extends events.EventEmitter {
     _verifyResolution(): void;
 }
 
-interface IUtf8Message {
+export interface IUtf8Message {
     type: 'utf8';
     utf8Data: string;
 }
 
-interface IBinaryMessage {
+export interface IBinaryMessage {
     type: 'binary';
     binaryData: Buffer;
 }
