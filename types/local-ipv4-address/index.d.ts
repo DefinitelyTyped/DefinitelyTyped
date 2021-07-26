@@ -3,5 +3,5 @@
 // Definitions by: Josh Bacon <https://github.com/CrispyBacon1999>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function main(): Promise<string>;
+declare function localIpV4Address(): Promise<string>;
 export = main;
