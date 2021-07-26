@@ -1002,7 +1002,7 @@ declare module 'http2' {
          * @param origins One or more URL Strings passed as separate arguments.
          */
         origin(
-            ...args: Array<
+            ...origins: Array<
                 | string
                 | url.URL
                 | {

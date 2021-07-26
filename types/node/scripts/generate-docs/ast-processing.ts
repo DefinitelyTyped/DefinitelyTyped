@@ -173,7 +173,7 @@ class TagHelper {
             if (!param.desc) {
                 continue;
             }
-            tags.push(this.createParamTag(param.name, param.desc));
+            tags.push(this.createParamTag(param.name.replaceAll('.', ''), param.desc));
         }
         if (sigDoc.return?.desc) {
             tags.push(this.createReturnTag(fixupLocalLinks(sigDoc.return.desc, moduleName)));
@@ -425,13 +425,14 @@ export class NodeProcessingContext {
                 status: JSDocMatchResult.Ignore,
             };
         }
-        const classDoc = matchClassOrInterfaceDoc(this.context.moduleDocs, parent as (InterfaceDeclaration | ClassDeclaration));
+        const classDoc = matchClassOrInterfaceDoc(this.context.moduleDocs, parent);
         // We already warn about missing class docs, let's not be obnoxious
         if (!classDoc) {
             return {
                 status: JSDocMatchResult.Ignore,
             };
         }
+
         const methodDocList = isStatic ? classDoc.classMethods : classDoc.methods;
         const methodDoc = methodDocList?.find(({ name }) => name === methodName);
         if (!methodDoc) {
@@ -491,7 +492,7 @@ export class NodeProcessingContext {
             const newNode = removeCommentsRecursive(node, transformationContext, typeChecker);
             addSyntheticLeadingComment(newNode, SyntaxKind.MultiLineCommentTrivia, jsdoc, true);
         } else {
-            nodeWarning(node, `Could not match doc for symbol`)
+            nodeWarning(node, `Could not match doc for symbol`);
         }
     }
 }

@@ -155,7 +155,7 @@ declare module 'tty' {
          * @since v9.9.0
          * @param env An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
          */
-        getColorDepth(env?: {}): number;
+        getColorDepth(env?: object): number;
         /**
          * Returns `true` if the `writeStream` supports at least as many colors as provided
          * in `count`. Minimum support is 2 (black and white).
@@ -176,9 +176,9 @@ declare module 'tty' {
          * @param count The number of colors that are requested (minimum 2).
          * @param env An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
          */
-        hasColors(depth?: number): boolean;
-        hasColors(env?: {}): boolean;
-        hasColors(depth: number, env?: {}): boolean;
+        hasColors(count?: number): boolean;
+        hasColors(env?: object): boolean;
+        hasColors(count: number, env?: object): boolean;
         /**
          * `writeStream.getWindowSize()` returns the size of the `TTY` corresponding to this `WriteStream`. The array is of the type`[numColumns, numRows]` where `numColumns` and `numRows` represent
          * the number

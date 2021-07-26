@@ -2555,7 +2555,7 @@ declare module 'fs' {
      * @since v0.1.29
      * @param file filename or file descriptor
      */
-    export function writeFile(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options: WriteFileOptions, callback: NoParamCallback): void;
+    export function writeFile(file: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options: WriteFileOptions, callback: NoParamCallback): void;
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2586,7 +2586,7 @@ declare module 'fs' {
      * @since v0.1.29
      * @param file filename or file descriptor
      */
-    export function writeFileSync(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): void;
+    export function writeFileSync(file: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): void;
     /**
      * Asynchronously append data to a file, creating the file if it does not yet
      * exist. `data` can be a string or a `<Buffer>`.
@@ -2638,7 +2638,7 @@ declare module 'fs' {
      * @since v0.6.7
      * @param path filename or file descriptor
      */
-    export function appendFile(file: PathOrFileDescriptor, data: string | Uint8Array, options: WriteFileOptions, callback: NoParamCallback): void;
+    export function appendFile(path: PathOrFileDescriptor, data: string | Uint8Array, options: WriteFileOptions, callback: NoParamCallback): void;
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
      * @param file A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2706,7 +2706,7 @@ declare module 'fs' {
      * @since v0.6.7
      * @param path filename or file descriptor
      */
-    export function appendFileSync(file: PathOrFileDescriptor, data: string | Uint8Array, options?: WriteFileOptions): void;
+    export function appendFileSync(path: PathOrFileDescriptor, data: string | Uint8Array, options?: WriteFileOptions): void;
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each
      * time the file is accessed.
@@ -3479,31 +3479,9 @@ declare module 'fs' {
      * @param mode modifiers for copy operation.
      */
     export function copyFile(src: PathLike, dest: PathLike, callback: NoParamCallback): void;
-    /**
-     * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
-     * No arguments other than a possible exception are given to the callback function.
-     * Node.js makes no guarantees about the atomicity of the copy operation.
-     * If an error occurs after the destination file has been opened for writing, Node.js will attempt
-     * to remove the destination.
-     * @param src A path to the source file.
-     * @param dest A path to the destination file.
-     * @param flags An integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
-     */
-    export function copyFile(src: PathLike, dest: PathLike, flags: number, callback: NoParamCallback): void;
+    export function copyFile(src: PathLike, dest: PathLike, mode: number, callback: NoParamCallback): void;
     export namespace copyFile {
-        /**
-         * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
-         * No arguments other than a possible exception are given to the callback function.
-         * Node.js makes no guarantees about the atomicity of the copy operation.
-         * If an error occurs after the destination file has been opened for writing, Node.js will attempt
-         * to remove the destination.
-         * @param src A path to the source file.
-         * @param dest A path to the destination file.
-         * @param flags An optional integer that specifies the behavior of the copy operation.
-         * The only supported flag is fs.constants.COPYFILE_EXCL,
-         * which causes the copy operation to fail if dest already exists.
-         */
-        function __promisify__(src: PathLike, dst: PathLike, flags?: number): Promise<void>;
+        function __promisify__(src: PathLike, dst: PathLike, mode?: number): Promise<void>;
     }
     /**
      * Synchronously copies `src` to `dest`. By default, `dest` is overwritten if it
@@ -3539,7 +3517,7 @@ declare module 'fs' {
      * @param dest destination filename of the copy operation
      * @param mode modifiers for copy operation.
      */
-    export function copyFileSync(src: PathLike, dest: PathLike, flags?: number): void;
+    export function copyFileSync(src: PathLike, dest: PathLike, mode?: number): void;
     /**
      * Write an array of `ArrayBufferView`s to the file specified by `fd` using`writev()`.
      *

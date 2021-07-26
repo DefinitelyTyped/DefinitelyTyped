@@ -197,7 +197,7 @@ declare module 'async_hooks' {
      * @param callbacks The `Hook Callbacks` to register
      * @return Instance used for disabling and enabling hooks
      */
-    function createHook(options: HookCallbacks): AsyncHook;
+    function createHook(callbacks: HookCallbacks): AsyncHook;
     interface AsyncResourceOptions {
         /**
          * The ID of the execution context that created this async event.
@@ -298,7 +298,7 @@ declare module 'async_hooks' {
          * @since v9.6.0
          * @param fn The function to call in the execution context of this async resource.
          * @param thisArg The receiver to be used for the function call.
-         * @param ...args Optional arguments to pass to the function.
+         * @param args Optional arguments to pass to the function.
          */
         runInAsyncScope<This, Result>(fn: (this: This, ...args: any[]) => Result, thisArg?: This, ...args: any[]): Result;
         /**

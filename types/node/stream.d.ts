@@ -376,7 +376,7 @@ declare module 'stream' {
              * @since v0.9.4
              * @param stream An "old style" readable stream
              */
-            wrap(oldStream: NodeJS.ReadableStream): this;
+            wrap(stream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: BufferEncoding): boolean;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             /**
@@ -591,8 +591,8 @@ declare module 'stream' {
              * @param callback Callback for when this chunk of data is flushed.
              * @return `false` if the stream wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
              */
-            write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
-            write(chunk: any, encoding: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, callback?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, encoding: BufferEncoding, callback?: (error: Error | null | undefined) => void): boolean;
             /**
              * The `writable.setDefaultEncoding()` method sets the default `encoding` for a `Writable` stream.
              * @since v0.11.15
