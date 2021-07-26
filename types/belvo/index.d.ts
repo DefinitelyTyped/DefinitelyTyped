@@ -3,7 +3,6 @@
 // Definitions by: Renan Araújo <https://github.com/renan-at-belvo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export default class Client {
     constructor(secretId: string, secretPassword: string, baseURL: string);
 
