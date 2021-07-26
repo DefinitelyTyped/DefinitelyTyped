@@ -21,7 +21,7 @@ interface TestSource {
     age: number;
 }
 
-const handler: AppSyncResolverHandler<TestArguments, TestEntity, TestSource> = async (event, context) => {
+const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event, context) => {
     str = event.arguments.id;
     str = event.arguments.query;
 
