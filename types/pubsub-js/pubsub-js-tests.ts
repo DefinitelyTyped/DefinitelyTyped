@@ -91,3 +91,21 @@ function ClearAllSubscriptions() {
     // unsubscribe from all subscrpitions
     PubSub.clearAllSubscriptions();
 }
+
+function test_generics_1() {
+    const login = Symbol('LOGIN');
+
+    const pubsub: PubSubJS.Base<number> = PubSub;
+
+    pubsub.subscribe(login, (msg, data) => {});
+
+    pubsub.publish(login, 123);
+}
+
+function test_generics_2() {
+    const login: PubSubJS.Base<number, 'login'> = PubSub;
+
+    login.subscribe('login', (msg, data) => {});
+
+    login.publish('login', 123);
+}

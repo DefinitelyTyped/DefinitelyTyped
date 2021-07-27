@@ -5,13 +5,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PubSubJS {
-    interface Base
+    interface Base<T = any, M = Message>
         extends CountSubscriptions,
             ClearAllSubscriptions,
             GetSubscriptions,
-            Publish,
-            Subscribe,
-            Unsubscribe {
+            Publish<T, M>,
+            Subscribe<T, M>,
+            Unsubscribe<T> {
         name: string;
         version: string;
     }
@@ -34,20 +34,20 @@ declare namespace PubSubJS {
         getSubscriptions(token: Token): Message[];
     }
 
-    interface Publish {
-        publish(message: Message, data?: any): boolean;
+    interface Publish<T, M> {
+        publish(message: M, data?: T): boolean;
 
-        publishSync(message: Message, data?: any): boolean;
+        publishSync(message: M, data?: T): boolean;
     }
 
-    interface Subscribe {
-        subscribe(message: Message, func: SubscriptionListener<any>): string;
+    interface Subscribe<T, M> {
+        subscribe(message: M, func: SubscriptionListener<T>): Token;
 
-        subscribeOnce(message: Message, func: SubscriptionListener<any>): any;
+        subscribeOnce(message: M, func: SubscriptionListener<T>): Base<T, M>;
     }
 
-    interface Unsubscribe {
-        unsubscribe(tokenOrFunction: Token | SubscriptionListener<any>): any;
+    interface Unsubscribe<T> {
+        unsubscribe(tokenOrFunction: Token | SubscriptionListener<T>): Token | boolean;
     }
 }
 
