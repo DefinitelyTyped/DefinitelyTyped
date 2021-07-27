@@ -1,4 +1,4 @@
-// Type definitions for cli-welcome 2.2.2
+// Type definitions for cli-welcome 2.2
 // Project: https://github.com/ahmadawais/cli-welcome
 // Definitions by: Max Programming <https://github.com/max-programming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
