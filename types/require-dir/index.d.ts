@@ -14,4 +14,4 @@ interface options {
 
 declare function requireDir(directory: string, options?: options): { [path: string]: any };
 
-export = requireDir;
+export default requireDir;
