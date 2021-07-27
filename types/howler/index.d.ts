@@ -210,7 +210,7 @@ export class Howl {
 
     seek(): number;
     seek(idOrSetSeek: number): this | number;
-    seek(seek?: number, id?: number): this | number;
+    seek(seek: number, id: number): this;
 
     loop(id?: number): boolean;
     loop(loop: boolean, id?: number): this;
