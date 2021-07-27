@@ -18,7 +18,7 @@ export interface HighlightProps {
     /**
      * Content that will be highlighted
      */
-    children?: ReactNode;
+    children?: ReactNode | undefined;
 }
 
 /**

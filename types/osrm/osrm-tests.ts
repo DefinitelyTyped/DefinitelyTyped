@@ -42,6 +42,13 @@ osrm.table({coordinates, annotations: ['distance']}, (err, response) => {
   console.log(response.destinations); // array of Waypoint objects
 });
 
+// Table Durations
+osrm.table({coordinates, annotations: ['duration'], scale_factor: 1 / 60}, (err, response) => {
+  console.log(response.durations); // array of arrays, matrix in row-major order (in minutes)
+  console.log(response.sources); // array of Waypoint objects
+  console.log(response.destinations); // array of Waypoint objects
+});
+
 // Table Durations and Distances
 osrm.table({coordinates, annotations: ['distance', 'duration']}, (err, response) => {
   console.log(response.durations); // array of arrays, matrix in row-major order

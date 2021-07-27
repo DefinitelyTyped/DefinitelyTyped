@@ -57,6 +57,7 @@ function contentSecurityPolicyTest() {
     app.use(helmet.contentSecurityPolicy(config));
     app.use(
         helmet.contentSecurityPolicy({
+            useDefaults: true,
             directives: {
                 defaultSrc: ["'self'"],
             },

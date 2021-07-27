@@ -2,7 +2,7 @@ import Koa = require('koa');
 
 declare module 'koa' {
     interface ExtendableContext {
-        errors?: Error[];
+        errors?: Error[] | undefined;
     }
 }
 

@@ -5,9 +5,9 @@ export type imageType = "circle";
 export type ImageProps = {
     photo: string;
     size: imageSize;
-    className?: string;
-    disableStyles?: boolean;
-    type?: imageType;
+    className?: string | undefined;
+    disableStyles?: boolean | undefined;
+    type?: imageType | undefined;
 } & { [x: string]: any };
 
 declare const Image: React.FunctionComponent<ImageProps>;

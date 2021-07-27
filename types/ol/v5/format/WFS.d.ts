@@ -20,10 +20,10 @@ export interface FeatureCollectionMetadata {
     bounds: Extent;
 }
 export interface Options {
-    featureNS?: { [key: string]: string } | string;
-    featureType?: string[] | string;
-    gmlFormat?: GMLBase;
-    schemaLocation?: string;
+    featureNS?: { [key: string]: string } | string | undefined;
+    featureType?: string[] | string | undefined;
+    gmlFormat?: GMLBase | undefined;
+    schemaLocation?: string | undefined;
 }
 export interface TransactionResponse {
     totalDeleted: number;
@@ -35,29 +35,29 @@ export interface WriteGetFeatureOptions {
     featureNS: string;
     featurePrefix: string;
     featureTypes: string[];
-    srsName?: string;
-    handle?: string;
-    outputFormat?: string;
-    maxFeatures?: number;
-    geometryName?: string;
-    propertyNames?: string[];
-    viewParams?: string;
-    startIndex?: number;
-    count?: number;
-    bbox?: Extent;
-    filter?: Filter;
-    resultType?: string;
+    srsName?: string | undefined;
+    handle?: string | undefined;
+    outputFormat?: string | undefined;
+    maxFeatures?: number | undefined;
+    geometryName?: string | undefined;
+    propertyNames?: string[] | undefined;
+    viewParams?: string | undefined;
+    startIndex?: number | undefined;
+    count?: number | undefined;
+    bbox?: Extent | undefined;
+    filter?: Filter | undefined;
+    resultType?: string | undefined;
 }
 export interface WriteTransactionOptions {
     featureNS: string;
     featurePrefix: string;
     featureType: string;
-    srsName?: string;
-    handle?: string;
-    hasZ?: boolean;
+    srsName?: string | undefined;
+    handle?: string | undefined;
+    hasZ?: boolean | undefined;
     nativeElements: object[];
-    gmlOptions?: Options_1;
-    version?: string;
+    gmlOptions?: Options_1 | undefined;
+    version?: string | undefined;
 }
 export default class WFS extends XMLFeature {
     constructor(opt_options?: Options);

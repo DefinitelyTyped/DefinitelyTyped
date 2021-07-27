@@ -396,6 +396,72 @@ import { promisify } from 'node:util';
 }
 
 {
+    crypto.generateKey(
+        'hmac',
+        {
+            length: 123,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 128,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 192,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 256,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+}
+
+{
+    const generateKeyPromisified = promisify(crypto.generateKey);
+
+    const resHmac: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'hmac',
+        {
+            length: 123,
+        },
+    );
+
+    const resAes128: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 128,
+        },
+    );
+
+    const resAes192: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 192,
+        },
+    );
+
+    const resAes256: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 256,
+        },
+    );
+}
+
+{
     const rsaRes: {
         publicKey: Buffer;
         privateKey: string;
@@ -690,7 +756,7 @@ import { promisify } from 'node:util';
         namedCurve: 'sect239k1',
     });
 
-    const sign: crypto.Signer = crypto.createSign('SHA256');
+    const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.write('some data to sign');
     sign.end();
     const signature: string = sign.sign(privateKey, 'hex');
@@ -702,7 +768,7 @@ import { promisify } from 'node:util';
 
     // ensure that instanceof works
     verify instanceof crypto.Verify;
-    sign instanceof crypto.Signer;
+    sign instanceof crypto.Sign;
 }
 
 {
@@ -710,7 +776,7 @@ import { promisify } from 'node:util';
         modulusLength: 2048,
     });
 
-    const sign: crypto.Signer = crypto.createSign('SHA256');
+    const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.update('some data to sign');
     sign.end();
     const signature: Buffer = sign.sign(privateKey);
@@ -829,7 +895,11 @@ import { promisify } from 'node:util';
 
 {
     const sig: Buffer = crypto.sign('md5', Buffer.from(''), 'mykey');
+
+    crypto.sign('md5', Buffer.from(''), 'mykey', (error: Error | null, data: Buffer) => { });
+
     const correct: boolean = crypto.verify('md5', sig, 'mykey', sig);
+    crypto.verify('md5', sig, 'mykey', sig, (error: Error | null, result: boolean) => { });
 }
 
 {
@@ -856,6 +926,7 @@ import { promisify } from 'node:util';
 }
 
 {
+    const callback = (error: Error | null, signature: Buffer): void => {};
     const key = crypto.createPrivateKey('pkey');
     crypto.sign('sha256', Buffer.from('asd'), {
         key: Buffer.from('keylike'),
@@ -872,6 +943,14 @@ import { promisify } from 'node:util';
         key,
         dsaEncoding: 'der',
     });
+    crypto.sign('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der',
+    }, callback);
+    promisify(crypto.sign)('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der',
+    }).then((signature: Buffer) => {});
     crypto.createSign('sha256').update(Buffer.from('asd')).sign({
         key,
         dsaEncoding: 'der',
@@ -879,6 +958,7 @@ import { promisify } from 'node:util';
 }
 
 {
+    const callback = (error: Error | null, result: boolean): void => {};
     const key = crypto.createPublicKey('pkey');
     crypto.verify(
         'sha256',
@@ -908,6 +988,25 @@ import { promisify } from 'node:util';
         },
         Buffer.from('sig'),
     );
+    crypto.verify(
+        'sha256',
+        Buffer.from('asd'),
+        {
+            key,
+            dsaEncoding: 'der',
+        },
+        Buffer.from('sig'),
+        callback
+    );
+    promisify(crypto.verify)(
+        'sha256',
+        Buffer.from('asd'),
+        {
+            key,
+            dsaEncoding: 'der',
+        },
+        Buffer.from('sig'),
+    ).then((result: boolean) => {});
     crypto.createVerify('sha256').update(Buffer.from('asd')).verify(
         {
             key,
@@ -959,4 +1058,155 @@ import { promisify } from 'node:util';
 
 {
     crypto.createSecretKey(new Uint8Array([0])); // $ExpectType KeyObject
+}
+
+{
+    crypto.hkdf("sha256", Buffer.alloc(32, 0xFF), Buffer.alloc(16, 0x00), "SomeInfo", 42, (err, derivedKey) => {});
+}
+
+{
+    const derivedKey = crypto.hkdfSync("sha256", Buffer.alloc(32, 0xFF), Buffer.alloc(16, 0x00), "SomeInfo", 42);
+}
+
+{
+    const usage: crypto.SecureHeapUsage = crypto.secureHeapUsed();
+}
+
+{
+    crypto.randomUUID({});
+    crypto.randomUUID({ disableEntropyCache: true });
+    crypto.randomUUID({ disableEntropyCache: false });
+    crypto.randomUUID();
+}
+
+{
+    const cert = new crypto.X509Certificate('dummy');
+    cert.ca; // $ExpectType boolean
+    cert.fingerprint; // $ExpectType string
+    cert.fingerprint256; // $ExpectType string
+    cert.infoAccess; // $ExpectType string
+    cert.issuer; // $ExpectType string
+    cert.issuerCertificate; // $ExpectType X509Certificate | undefined
+    cert.keyUsage; // $ExpectType string[]
+    cert.publicKey; // $ExpectType KeyObject
+    cert.raw; // $ExpectType Buffer
+    cert.serialNumber; // $ExpectType string
+    cert.subject; // $ExpectType string
+    cert.subjectAltName; // $ExpectType string
+    cert.validFrom; // $ExpectType string
+    cert.validTo; // $ExpectType string
+
+    const checkOpts: crypto.X509CheckOptions = {
+        multiLabelWildcards: true,
+        partialWildcards: true,
+        singleLabelSubdomains: true,
+        subject: 'always',
+        wildcards: true,
+    };
+
+    cert.checkEmail('test@test.com'); // $ExpectType string | undefined
+    cert.checkEmail('test@test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkHost('test.com'); // $ExpectType string | undefined
+    cert.checkHost('test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkIP('1.1.1.1'); // $ExpectType string | undefined
+    cert.checkIP('1.1.1.1', checkOpts); // $ExpectType string | undefined
+    cert.checkIssued(new crypto.X509Certificate('dummycert')); // $ExpectType boolean
+    cert.checkPrivateKey(crypto.createPrivateKey('dummy')); // $ExpectType boolean
+    cert.toLegacyObject(); // $ExpectType PeerCertificate
+    cert.toJSON(); // $ExpectType string
+    cert.toString(); // $ExpectType string
+}
+
+{
+    crypto.generatePrime(123, (err: Error | null, prime: ArrayBuffer) => {});
+    crypto.generatePrime(123, { rem: 123n, add: 123n }, (err: Error | null, prime: ArrayBuffer) => {});
+    crypto.generatePrime(123, { bigint: true }, (err: Error | null, prime: bigint) => {});
+    crypto.generatePrime(123, { bigint: Math.random() > 0 }, (err: Error | null, prime: ArrayBuffer | bigint) => {});
+
+    crypto.generatePrimeSync(123); // $ExpectType ArrayBuffer
+    crypto.generatePrimeSync(123, { rem: 123n, add: 123n }); // $ExpectType ArrayBuffer
+    crypto.generatePrimeSync(123, { bigint: true }); // $ExpectType bigint
+    crypto.generatePrimeSync(123, { bigint: Math.random() > 0 }); // $ExpectType bigint | ArrayBuffer
+
+    crypto.checkPrime(123n, (err: Error | null, result: boolean) => {});
+    crypto.checkPrime(123n, { checks: 123 }, (err: Error | null, result: boolean) => {});
+
+    crypto.checkPrimeSync(123n); // $ExpectType boolean
+    crypto.checkPrimeSync(123n, { checks: 123 }); // $ExpectType boolean
+}
+
+{
+    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
+        for (const keyObject of [publicKey, privateKey]) {
+            if (keyObject.asymmetricKeyDetails) {
+                if (keyObject.asymmetricKeyDetails.modulusLength) {
+                    const modulusLength: number = keyObject.asymmetricKeyDetails.modulusLength;
+                }
+                if (keyObject.asymmetricKeyDetails.publicExponent) {
+                    const publicExponent: bigint = keyObject.asymmetricKeyDetails.publicExponent;
+                }
+                if (keyObject.asymmetricKeyDetails.divisorLength) {
+                    const divisorLength: number = keyObject.asymmetricKeyDetails.divisorLength;
+                }
+                if (keyObject.asymmetricKeyDetails.namedCurve) {
+                    const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
+                }
+            }
+        }
+    });
+    const secretKeyObject = crypto.createSecretKey(Buffer.from('secret'));
+    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
+        for (const keyObject of [publicKey, privateKey, secretKeyObject]) {
+            const jwk = keyObject.export({ format: 'jwk' });
+            jwk.crv;
+            jwk.d;
+            jwk.dp;
+            jwk.dq;
+            jwk.e;
+            jwk.k;
+            jwk.kty;
+            jwk.n;
+            jwk.p;
+            jwk.q;
+            jwk.qi;
+            jwk.x;
+            jwk.y;
+            crypto.createPublicKey({ key: jwk, format: 'jwk' });
+            crypto.createPrivateKey({ key: jwk, format: 'jwk' });
+        }
+    });
+}
+
+{
+    const jwk = {
+        alg: 'ES256',
+        crv: 'P-256',
+        kty: 'EC',
+        x: 'ySK38C1jBdLwDsNWKzzBHqKYEE5Cgv-qjWvorUXk9fw',
+        y: '_LeQBw07cf5t57Iavn4j-BqJsAD1dpoz8gokd3sBsOo',
+        key_ops: ['sign'],
+    };
+    crypto.createPublicKey({ key: jwk, format: 'jwk' });
+    crypto.createPrivateKey({ key: jwk, format: 'jwk' });
+}
+
+{
+    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
+        for (const keyObject of [publicKey, privateKey]) {
+            if (keyObject.asymmetricKeyDetails) {
+                if (keyObject.asymmetricKeyDetails.modulusLength) {
+                    const modulusLength: number = keyObject.asymmetricKeyDetails.modulusLength;
+                }
+                if (keyObject.asymmetricKeyDetails.publicExponent) {
+                    const publicExponent: bigint = keyObject.asymmetricKeyDetails.publicExponent;
+                }
+                if (keyObject.asymmetricKeyDetails.divisorLength) {
+                    const divisorLength: number = keyObject.asymmetricKeyDetails.divisorLength;
+                }
+                if (keyObject.asymmetricKeyDetails.namedCurve) {
+                    const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
+                }
+            }
+        }
+    });
 }

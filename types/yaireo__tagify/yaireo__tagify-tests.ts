@@ -26,6 +26,7 @@ const settings: TagifyConstructorSettings = {
     whitelist: ['good-word'],
     blacklist: ['bad-word'],
     addTagOnBlur: false,
+    pasteAsTags: false,
     callbacks: {
         add: (event) => {
             // $ExpectType TagData | undefined
@@ -94,7 +95,7 @@ const settings: TagifyConstructorSettings = {
             event.detail.tag;
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
-            // $ExpectType boolean
+            // $ExpectType string | boolean
             event.detail.message;
         },
         keydown: event => {
@@ -252,6 +253,9 @@ const settings: TagifyConstructorSettings = {
     mixMode: {
         insertAfterTag: '\u00A0'
     },
+    a11y: {
+        focusableTags: true
+    },
     classNames: {
         namespace: 'tagify',
         mixMode: 'tagify--mix',
@@ -324,6 +328,9 @@ const settings: TagifyConstructorSettings = {
                 return Promise.resolve();
             }
         },
+        beforePaste: (e, data) => {
+            return Promise.resolve(data.pastedText.replace('foo', 'bar'));
+        }
     },
 };
 
@@ -393,11 +400,25 @@ new Tagify(inputElement, { mixTagsInterpolator: ["", "", ""] });
 // $ExpectError
 new Tagify(inputElement, { mixTagsInterpolator: [""] });
 
+new Tagify<TagData>(inputElement, { tagTextProp: "foobar" });
+new Tagify<MyTagData>(inputElement, { tagTextProp: "active" });
+// $ExpectError
+new Tagify<MyTagData>(inputElement, { tagTextProp: "foobar" });
+
 const tagArray: TagData[] = tagify.value;
 const scopeEl: HTMLElement = tagify.DOM.scope;
 const spanEl: HTMLSpanElement = tagify.DOM.input;
 const dropdownEl: HTMLDivElement = tagify.DOM.dropdown;
 const inputEl: HTMLInputElement | HTMLTextAreaElement = tagify.DOM.originalInput;
+
+if (tagify.suggestedListItems !== undefined) {
+    const item: TagData = tagify.suggestedListItems[0];
+}
+if (typedTagify.suggestedListItems !== undefined) {
+    const item: MyTagData = typedTagify.suggestedListItems[0];
+}
+
+tagify.whitelist = ['another', 'good', 'word'];
 
 // $ExpectType Tagify<TagData>
 tagify.on('add', (event) => { });
@@ -430,7 +451,7 @@ tagify.on('invalid', (event) => {
     event.detail.tag;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType boolean
+    // $ExpectType string | boolean
     event.detail.message;
 });
 tagify.on('add', (event) => {
@@ -603,7 +624,7 @@ tagify.off('invalid', (event) => {
     event.detail.tag;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType boolean
+    // $ExpectType string | boolean
     event.detail.message;
 });
 tagify.off('add', (event) => {
@@ -809,6 +830,8 @@ tagify.getTagElms();
 tagify.getTagElms('blue', 'green');
 
 // $ExpectType string
+tagify.getInputValue();
+// $ExpectType string
 tagify.getMixedTagsAsString();
 
 // $ExpectType HTMLElement | undefined
@@ -872,33 +895,20 @@ tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags[0]]);
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags]);
 tagify.setReadonly(false);
 
-// $ExpectError
 tagify.dropdown.show();
-// $ExpectError
 tagify.dropdown.show('foo');
-// $ExpectError
 tagify.dropdown.selectAll();
-// $ExpectError
 tagify.dropdown.hide();
-// $ExpectError
 tagify.dropdown.hide(true);
-// $ExpectError
 tagify.dropdown.refilter();
-
-tagify.dropdown.show.call(this);
-tagify.dropdown.show.call(this, 'foo');
-tagify.dropdown.selectAll.call(tagify);
-tagify.dropdown.hide.call(this);
-tagify.dropdown.hide.call(this, true);
-tagify.dropdown.refilter.call(this);
-tagify.dropdown.refilter.call(this, "filter value");
+tagify.dropdown.refilter('filter value');
 
 tagify.removeAllTags();
 tagify.removeAllTags({});
-tagify.removeAllTags({withoutChangeEvent: false});
-tagify.removeAllTags({withoutChangeEvent: true});
+tagify.removeAllTags({ withoutChangeEvent: false });
+tagify.removeAllTags({ withoutChangeEvent: true });
 tagify.getCleanValue();
 tagify.update();
 tagify.update({});
-tagify.update({withoutChangeEvent: true});
+tagify.update({ withoutChangeEvent: true });
 tagify.destroy();

@@ -9,43 +9,43 @@ interface plupload_settings {
     url: string,
 
     /** Filters */
-    filters?: plupload_filters,
+    filters?: plupload_filters | undefined,
 
     /** Control the request */
     headers?: any;
-    max_retries?: number;
-    multipart?: boolean;
+    max_retries?: number | undefined;
+    multipart?: boolean | undefined;
     multipart_params?: any;
 
     /** Chunk */
-    chunk_size?: number | string;
+    chunk_size?: number | string | undefined;
 
     /** Client-Side Image Resize */
-    resize?: plupload_resize;
+    resize?: plupload_resize | undefined;
 
     /** Drag&Drop Files from the Desktop */
-    drop_element?: string;
+    drop_element?: string | undefined;
 
     /** Useful Options */
-    multi_selection?: boolean;
-    required_features?: string | any;
-    unique_names?: boolean;
+    multi_selection?: boolean | undefined;
+    required_features?: string | any | undefined;
+    unique_names?: boolean | undefined;
 
     /** Optional */
-    runtimes?: string;
-    file_data_name?: string;
+    runtimes?: string | undefined;
+    file_data_name?: string | undefined;
     container?: any;
-    flash_swf_url?: string;
-    silverlight_xap_url?: string;
+    flash_swf_url?: string | undefined;
+    silverlight_xap_url?: string | undefined;
 
     /** Events */
-    init?: plupload_events;
+    init?: plupload_events | undefined;
 }
 
 interface plupload_filters {
-    mime_types?: plupload_filters_mime_types[];
-    max_file_size?: number | string;
-    prevent_duplicates?: boolean;
+    mime_types?: plupload_filters_mime_types[] | undefined;
+    max_file_size?: number | string | undefined;
+    prevent_duplicates?: boolean | undefined;
 }
 
 interface plupload_filters_mime_types {
@@ -54,11 +54,11 @@ interface plupload_filters_mime_types {
 }
 
 interface plupload_resize {
-    width?: number;
-    height?: number;
-    crop?: boolean;
-    quality?: number;
-    preserve_headers?: boolean;
+    width?: number | undefined;
+    height?: number | undefined;
+    crop?: boolean | undefined;
+    quality?: number | undefined;
+    preserve_headers?: boolean | undefined;
 }
 
 interface plupload_queue_progress {
@@ -101,23 +101,23 @@ interface plupload_event_Error {
 }
 
 interface plupload_events {
-    Init?: plupload_event;
-    PostInit?: plupload_event;
-    OptionChanged?: plupload_event_OptionChanged;
-    Refresh?: plupload_event;
-    StateChanged?: plupload_event;
-    UploadFile?: plupload_event_file;
-    BeforeUpload?: plupload_event_file;
-    QueueChanged?: plupload_event;
-    UploadProgress?: plupload_event_file;
-    FilesRemoved?: plupload_event_files;
-    FileFiltered?: plupload_event_file;
-    FilesAdded?: plupload_event_files;
-    FileUploaded?: plupload_event_FileUploaded;
-    ChunkUploaded?: plupload_event_ChunkUploaded;
-    UploadComplete?: plupload_event_files;
-    Error?: plupload_event_Error;
-    Destroy?: plupload_event;
+    Init?: plupload_event | undefined;
+    PostInit?: plupload_event | undefined;
+    OptionChanged?: plupload_event_OptionChanged | undefined;
+    Refresh?: plupload_event | undefined;
+    StateChanged?: plupload_event | undefined;
+    UploadFile?: plupload_event_file | undefined;
+    BeforeUpload?: plupload_event_file | undefined;
+    QueueChanged?: plupload_event | undefined;
+    UploadProgress?: plupload_event_file | undefined;
+    FilesRemoved?: plupload_event_files | undefined;
+    FileFiltered?: plupload_event_file | undefined;
+    FilesAdded?: plupload_event_files | undefined;
+    FileUploaded?: plupload_event_FileUploaded | undefined;
+    ChunkUploaded?: plupload_event_ChunkUploaded | undefined;
+    UploadComplete?: plupload_event_files | undefined;
+    Error?: plupload_event_Error | undefined;
+    Destroy?: plupload_event | undefined;
 }
 
 interface plupload_response {

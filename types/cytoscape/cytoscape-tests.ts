@@ -31,6 +31,7 @@ const showAllStyle: cytoscape.Stylesheet[] = [
   {
     selector: 'node',
     css: {
+      display: 'element',
       content: 'data(id)',
       'text-valign': 'center',
       'text-halign': 'center',
@@ -50,6 +51,7 @@ const showAllStyle: cytoscape.Stylesheet[] = [
   {
     selector: 'edge',
     css: {
+      'text-rotation': 'autorotate',
       'target-arrow-shape': 'triangle',
       'curve-style': 'taxi',
       'source-endpoint': 'outside-to-node',
@@ -377,6 +379,15 @@ cy.png({
   maxWidth: 100,
   maxHeight: 100
 });
+// $ExpectType Promise<Blob>
+cy.png({
+  output: 'blob-promise',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100
+});
 
 aliases(cy.jpg, cy.jpeg);
 // $ExpectType string
@@ -392,6 +403,16 @@ cy.jpg({
 // $ExpectType Blob
 cy.jpg({
   output: 'blob',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100,
+  quality: 0.5
+});
+// $ExpectType Promise<Blob>
+cy.jpg({
+  output: 'blob-promise',
   bg: oneOf('#ffffff', undefined),
   full: true,
   scale: 2,

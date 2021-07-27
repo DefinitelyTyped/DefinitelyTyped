@@ -9,9 +9,9 @@ import BeanstalkdClient, { BeanstalkdJobState, BeanstalkdJobStats } from "beanst
 export = BeanstalkdWorker;
 
 declare class BeanstalkdWorker {
-    host?: string;
-    port?: number;
-    options?: {};
+    host?: string | undefined;
+    port?: number | undefined;
+    options?: {} | undefined;
     running: boolean;
 
     constructor(host?: string, port?: number, options?: {});
@@ -227,26 +227,26 @@ declare namespace BeanstalkdWorker {
 
     interface BeanstalkdSpawnOptions {
         /** The priority for the new Job. */
-        priority?: number;
+        priority?: number | undefined;
         /** The timeout for the new Job (in milliseconds). */
-        timeout?: number;
+        timeout?: number | undefined;
         /** The delay before making the new Job visible (in milliseconds). */
-        delay?: number;
+        delay?: number | undefined;
     }
 
     interface BeanstalkdHandleOptions {
         /** Total number of watcher handling this Tube simultaneously. */
-        width?: number;
+        width?: number | undefined;
         /** Total amount of tries including the first one. */
-        tries?: number;
+        tries?: number | undefined;
         /** Backoff handling options */
-        backoff?: BeanstalkdHandleBackoff;
+        backoff?: BeanstalkdHandleBackoff | undefined;
     }
 
     interface BeanstalkdHandleBackoff {
         /** Initial time to wait (in milliseconds). */
-        initial?: number;
+        initial?: number | undefined;
         /** Multiple backoff by N each try. */
-        exponential?: number;
+        exponential?: number | undefined;
     }
 }

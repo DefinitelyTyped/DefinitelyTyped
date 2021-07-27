@@ -13,7 +13,13 @@ let publicKeyFromRsaPem = forge.pki.publicKeyFromPem(publicKeyRSAPem);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
 let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
+cert.publicKey = keypair.publicKey;
+cert.sign(keypair.privateKey);
 forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
+let csr = forge.pki.createCertificationRequest();
+csr.publicKey = keypair.publicKey;
+csr.sign(keypair.privateKey);
+forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr));
 
 {
     let subjectPublicKeyInfo = forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
@@ -229,6 +235,13 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         return true;
     });
 
+    forge.pki.verifyCertificateChain(caStore, [certificate], {
+        verify: (verified, depth, chain) => {
+            return true;
+        },
+        validityCheckDate: new Date()
+    });
+
     certificate.issued(certificate);
     certificate.isIssuer(certificate);
 }
@@ -428,4 +441,92 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
 {
     publicKeyRsa.n.bitLength();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('md5', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('sha1', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('sha256', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
+}
+
+{
+  const hmac = forge.hmac.create();
+  hmac.start('sha512', 'Jefe');
+  hmac.update('what do ya want for nothing?');
+  const ret = hmac.digest().toHex();
+}
+
+{
+    // constructor tests
+    const bn = new forge.jsbn.BigInteger("AABB", 16);
+    const bn2 = new forge.jsbn.BigInteger("75643564363473453456342378564387956906736546456235345");
+}
+
+{
+    // method tests
+    let isBigInteger: forge.jsbn.BigInteger;
+    let isNumber: number;
+    let isBoolean: boolean;
+    let isString: string;
+    let isDivmod: forge.jsbn.BigInteger[];
+    let isByteArray: number[];
+
+    const bn = new forge.jsbn.BigInteger("75643564363473453456342378564387956906736546456235345");
+
+    isString = bn.toString();
+    isString = bn.toString(16);
+    isBigInteger = bn.negate();
+    isBigInteger = bn.abs();
+    isNumber = bn.compareTo(bn);
+    isNumber = bn.bitLength();
+    isBigInteger = bn.mod(bn);
+    isBigInteger = bn.modPowInt(0, bn);
+    isBigInteger = bn.clone();
+    isNumber = bn.intValue();
+    isNumber = bn.byteValue();
+    isNumber = bn.shortValue();
+    isNumber = bn.signum();
+    isByteArray = bn.toByteArray();
+    isBoolean = bn.equals(bn);
+    isBigInteger = bn.min(bn);
+    isBigInteger = bn.max(bn);
+    isBigInteger = bn.and(bn);
+    isBigInteger = bn.or(bn);
+    isBigInteger = bn.xor(bn);
+    isBigInteger = bn.andNot(bn);
+    isBigInteger = bn.not();
+    isBigInteger = bn.shiftLeft(0);
+    isBigInteger = bn.shiftRight(0);
+    isNumber = bn.getLowestSetBit();
+    isNumber = bn.bitCount();
+    isBoolean = bn.testBit(0);
+    isBigInteger = bn.clearBit(0);
+    isBigInteger = bn.flipBit(0);
+    isBigInteger = bn.add(bn);
+    isBigInteger = bn.subtract(bn);
+    isBigInteger = bn.multiply(bn);
+    isBigInteger = bn.square();
+    isBigInteger = bn.divide(bn);
+    isBigInteger = bn.remainder(bn);
+    isDivmod = bn.divideAndRemainder(bn);
+    isBigInteger = bn.pow(0);
+    isBigInteger = bn.modPow(bn, bn);
+    isBigInteger = bn.gcd(bn);
+    isBigInteger = bn.modInverse(bn);
+    isBoolean = bn.isProbablePrime(0);
 }

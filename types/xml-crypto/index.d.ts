@@ -15,12 +15,12 @@ export class HashAlgorithm {
 
 export interface Reference {
     xpath: string;
-    transforms?: ReadonlyArray<string>;
-    digestAlgorithm?: string;
-    uri?: string;
-    digestValue?: string;
-    inclusiveNamespacesPrefixList?: string;
-    isEmptyUri?: boolean;
+    transforms?: ReadonlyArray<string> | undefined;
+    digestAlgorithm?: string | undefined;
+    uri?: string | undefined;
+    digestValue?: string | undefined;
+    inclusiveNamespacesPrefixList?: string | undefined;
+    isEmptyUri?: boolean | undefined;
 }
 
 export class SignatureAlgorithm {
@@ -44,10 +44,10 @@ export class SignedXml {
     signingKey: Buffer | string;
     validationErrors: string[];
     constructor(idMode?: string | null, options?: {
-        canonicalizationAlgorithm?: string
-        idAttribute?: string
-        implicitTransforms?: ReadonlyArray<string>
-        signatureAlgorithm?: string
+        canonicalizationAlgorithm?: string | undefined
+        idAttribute?: string | undefined
+        implicitTransforms?: ReadonlyArray<string> | undefined
+        signatureAlgorithm?: string | undefined
     })
     addReference(
         xpath: string,
@@ -62,13 +62,13 @@ export class SignedXml {
     computeSignature(
         xml: string,
         opts?: {
-            prefix?: string,
-            attrs?: {[key: string]: any},
+            prefix?: string | undefined,
+            attrs?: {[key: string]: any} | undefined,
             location?: {
                 reference: string,
                 action: 'append' | 'prepend' | 'before' |  'after'
-            },
-            existingPrefixes?: {[prefix: string]: string}
+            } | undefined,
+            existingPrefixes?: {[prefix: string]: string} | undefined
         }
     ): void;
     getOriginalXmlWithIds(): string;

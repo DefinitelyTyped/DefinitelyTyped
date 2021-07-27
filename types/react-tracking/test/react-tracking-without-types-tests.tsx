@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { Track, track, TrackingProp, useTracking } from 'react-tracking';
+import * as React from "react";
+import { Track, track, TrackingProp, useTracking } from "react-tracking";
 
-function customEventReporter(data: { page?: string }) { }
+function customEventReporter(data: { page?: string | undefined }) {}
 
 @track(
-    { page: 'ClassPage' },
+    { page: "ClassPage" },
     {
         dispatch: customEventReporter,
-        dispatchOnMount: contextData => ({ event: 'pageDataReady' }),
-        process: ownTrackingData => (ownTrackingData.page ? { event: 'pageview' } : null),
-    }
+        dispatchOnMount: contextData => ({ event: "pageDataReady" }),
+        process: ownTrackingData => (ownTrackingData.page ? { event: "pageview" } : null),
+    },
 )
 class ClassPage extends React.Component<any> {
-    @track({ event: 'Clicked' })
+    @track({ event: "Clicked" })
     @track((_props, _state, [e]) => {
         if (e.ctrlKey) {
-            return { event: 'Click + ctrl key' };
+            return { event: "Click + ctrl key" };
         }
     })
     handleClick() {
@@ -33,7 +33,7 @@ class ClassPage extends React.Component<any> {
         return <button onClick={this.handleClick}>Click Me!</button>;
     }
 
-    @track({ event: 'Async' })
+    @track({ event: "Async" })
     @track((_props, _state, _args, [resp, err]) => {
         if (resp) {
             return { result: resp, error: null };
@@ -42,15 +42,15 @@ class ClassPage extends React.Component<any> {
     })
     async handleAsync() {
         // ... other stuff
-        return 'response';
+        return "response";
     }
 }
 
-const FunctionPage: React.SFC<any> = props => {
+const FunctionPage: React.FC<any> = props => {
     return (
         <div
             onClick={() => {
-                props.tracking && props.tracking.trackEvent({ action: 'click' });
+                props.tracking && props.tracking.trackEvent({ action: "click" });
             }}
         />
     );
@@ -58,11 +58,11 @@ const FunctionPage: React.SFC<any> = props => {
 
 const WrappedFunctionPage = track(
     {
-        page: 'FunctionPage',
+        page: "FunctionPage",
     },
     {
         dispatchOnMount: true,
-    }
+    },
 )(FunctionPage);
 
 class Test extends React.Component<any, null> {
@@ -76,22 +76,52 @@ class Test extends React.Component<any, null> {
     }
 }
 
-const App = track()(({ foo }: { foo: string }) => {
-    const tracking = useTracking();
+const TestHook = track()((props: { foo: string }) => {
+    const { Track, trackEvent } = useTracking(
+        {
+            page: "Page",
+            action: "Load",
+        },
+        { dispatchOnMount: true },
+    );
 
     React.useEffect(() =>
-        tracking.trackEvent({
-            page: 'Home - useEffect callback'
-        })
+        trackEvent({
+            action: "useEffect callback",
+        }),
     );
     return (
-        <div
-            onClick={() => {
-                tracking.trackEvent({
-                    page: 'Home',
-                    foo,
-                });
-            }}
-        />
+        <Track>
+            <div
+                onClick={() => {
+                    trackEvent({
+                        action: "Click",
+                    });
+                }}
+            />
+        </Track>
+    );
+});
+
+const TestEmptyHook = track()((props: { foo: string }) => {
+    const { Track, trackEvent } = useTracking();
+
+    React.useEffect(() =>
+        trackEvent({
+            page: "Home",
+            action: "useEffect callback",
+        }),
+    );
+    return (
+        <Track>
+            <div
+                onClick={() => {
+                    trackEvent({
+                        page: "Home",
+                        action: "Click",
+                    });
+                }}
+            />
+        </Track>
     );
 });

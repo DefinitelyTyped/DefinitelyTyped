@@ -1,7 +1,7 @@
 import BaseComponent from "./base-component";
 
 declare class Carousel extends BaseComponent {
-    constructor(element: Element, options?: Partial<Carousel.Options>);
+    constructor(element: string | Element, options?: Partial<Carousel.Options>);
 
     /**
      * Cycles through the carousel items from left to right.
@@ -43,7 +43,7 @@ declare class Carousel extends BaseComponent {
      * Static method which allows you to get the carousel instance associated
      * with a DOM element.
      */
-    static getInstance(element: Element, options?: Partial<Carousel.Options>): Carousel;
+    static getInstance(element: Element, options?: Partial<Carousel.Options>): Carousel | null;
 
     static jQueryInterface: Carousel.jQueryInterface;
 

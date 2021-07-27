@@ -17,7 +17,8 @@ export type MediaValues = Record<
     | 'grid'
     | 'color'
     | 'color-index'
-    | 'monochrome',
+    | 'monochrome'
+    | 'prefers-color-scheme',
     unknown
 >;
 

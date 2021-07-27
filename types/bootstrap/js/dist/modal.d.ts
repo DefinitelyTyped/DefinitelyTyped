@@ -1,7 +1,7 @@
 import BaseComponent from './base-component';
 
 declare class Modal extends BaseComponent {
-    constructor(element: Element, options?: Partial<Modal.Options>);
+    constructor(element: string | Element, options?: Partial<Modal.Options>);
 
     /**
      * Manually toggles a modal. Returns to the caller before the modal has
@@ -32,7 +32,7 @@ declare class Modal extends BaseComponent {
      * Static method which allows you to get the modal instance associated with
      * a DOM element
      */
-    static getInstance(element: Element, options?: Partial<Modal.Options>): Modal;
+    static getInstance(element: Element, options?: Partial<Modal.Options>): Modal | null;
 
     static jQueryInterface: Modal.jQueryInterface;
 

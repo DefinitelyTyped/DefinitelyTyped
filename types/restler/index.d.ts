@@ -123,7 +123,7 @@ declare module "restler" {
          * OAuth Bearer Token.
          * @type {string}
          */
-        accessToken?: string;
+        accessToken?: string | undefined;
 
         /**
          *  HTTP Agent instance to use. If not defined globalAgent will be used. If false opts out of connection pooling with an Agent, defaults request to Connection: close.
@@ -147,37 +147,37 @@ declare module "restler" {
          * Encoding of the response body
          * @type {string}
          */
-        decoding?: string;
+        decoding?: string | undefined;
 
         /**
          * Encoding of the request body.
          * @type {string}
          */
-        encoding?: string;
+        encoding?: string | undefined;
 
         /**
          * If set will recursively follow redirects.
          * @type {boolean}
          */
-        followRedirects?: boolean;
+        followRedirects?: boolean | undefined;
 
         /**
          * A hash of HTTP headers to be sent.
          * @type {RestlerOptionsHeader}
          */
-        headers?: RestlerOptionsHeader;
+        headers?: RestlerOptionsHeader | undefined;
 
         /**
          * Request method
          * @type {string}
          */
-        method?: string;
+        method?: string | undefined;
 
         /**
          * If set the data passed will be formatted as <code>multipart/form-encoded</code>.
          * @type {boolean}
          */
-        multipart?: boolean;
+        multipart?: boolean | undefined;
 
         /**
          * A function that will be called on the returned data. Use any of predefined <code>restler.parsers</code>.
@@ -189,7 +189,7 @@ declare module "restler" {
          * Basic auth password.
          * @type {string}
          */
-        password?: string;
+        password?: string | undefined;
 
         /**
          * Query string variables as a javascript object, will override the querystring in the URL.
@@ -202,19 +202,19 @@ declare module "restler" {
          * An 'error' event is emitted if verification fails. Verification happens at the connection level, before the HTTP request is sent.
          * @type {boolean}
          */
-        rejectUnauthorized?: boolean;
+        rejectUnauthorized?: boolean | undefined;
 
         /**
          * Emit the timeout event when the response does not return within the said value (in ms).
          * @type {number}
          */
-        timeout?: number;
+        timeout?: number | undefined;
 
         /**
          * Basic auth username.
          * @type {string}
          */
-        username?: string;
+        username?: string | undefined;
 
         /**
          * Options for xml2js.

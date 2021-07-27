@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.17
+// Type definitions for prosemirror-view 1.18
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -58,6 +58,12 @@ export interface WidgetDecorationSpec {
      * of this widget, the editor view should ignore.
      */
     stopEvent?: ((event: Event) => boolean) | null;
+    /**
+     * When set (defaults to false), selection changes inside the
+     * widget are ignored, and don't cause ProseMirror to try and
+     * re-sync the selection with its selection state.
+     */
+    ignoreSelection?: boolean;
     /**
      * When comparing decorations of this type (in order to decide
      * whether it needs to be redrawn), ProseMirror will by default

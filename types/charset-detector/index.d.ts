@@ -21,7 +21,7 @@ declare namespace detect {
          * language of charset
          * @example 'zh'
          */
-        lang?: string;
+        lang?: string | undefined;
     }
 
     /**

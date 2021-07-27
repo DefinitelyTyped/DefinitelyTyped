@@ -87,6 +87,7 @@ async function test() {
     for await (const e of events.on(new events.EventEmitter(), 'test')) {
         console.log(e);
     }
+    events.on(new events.EventEmitter(), 'test', { signal: new AbortController().signal });
 }
 
 {

@@ -59,7 +59,7 @@ interface MyTheme {
 
 interface ButtonProps {
     name: string;
-    primary?: boolean;
+    primary?: boolean | undefined;
     theme: MyTheme;
 }
 
@@ -587,10 +587,10 @@ const AnchorContainer = () => (
 
 const WithComponentRandomHeading = WithComponentH1.withComponent(Random);
 
-const WithComponentCompA: React.SFC<{ a: number; className?: string }> = ({ className }) => (
+const WithComponentCompA: React.SFC<{ a: number; className?: string | undefined }> = ({ className }) => (
     <div className={className} />
 );
-const WithComponentCompB: React.SFC<{ b: number; className?: string }> = ({ className }) => (
+const WithComponentCompB: React.SFC<{ b: number; className?: string | undefined }> = ({ className }) => (
     <div className={className} />
 );
 const WithComponentStyledA = styled(WithComponentCompA)`
@@ -640,11 +640,13 @@ const forwardedAsTest = (
 );
 
 interface ExternalAsComponentProps {
-    as?: string | React.ComponentType<any>;
+    as?: string | React.ComponentType<any> | undefined;
     type: 'primitive' | 'complex';
 }
 const ExternalAsComponent: React.FC<ExternalAsComponentProps> = () => null;
 const WrappedExternalAsComponent = styled(ExternalAsComponent)``;
+const testRequiredProp = <WrappedExternalAsComponent />; // $ExpectError
+const testRequiredPropWhenForwardedAs = <WrappedExternalAsComponent forwardedAs="h2" />; // $ExpectError
 const ForwardedAsWithWrappedExternalTest = (
     <>
         <WrappedExternalAsComponent forwardedAs="h2" type="primitive" />
@@ -658,9 +660,23 @@ const ForwardedAsWithNestedAsExternalTest = (
     </>
 );
 
+interface OtherExternalComponentProps {
+    requiredProp: 'test';
+}
+
+const OtherExternalComponent: React.FC<OtherExternalComponentProps> = () => null;
+const HasAttributesOfAsOrForwardedAsComponent = (
+    <>
+        <WrappedExternalAsComponent as="a" type="primitive" href="/" />
+        <WrappedExternalAsComponent forwardedAs="a" type="complex" href="/" />
+        <WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" />
+        <WrappedExternalAsComponent forwardedAs={OtherExternalComponent} type="complex" requiredProp="test" />
+    </>
+);
+
 interface TestContainerProps {
     size: 'big' | 'small';
-    test?: boolean;
+    test?: boolean | undefined;
 }
 const TestContainer = ({ size, test }: TestContainerProps) => {
     return null;
@@ -679,7 +695,8 @@ class Test2Container extends React.Component<Test2ContainerProps> {
     }
 }
 
-const containerTest = <StyledTestContainer as={Test2Container} type="foo" />;
+const containerTest = <StyledTestContainer as={Test2Container} type="foo" size="big"/>;
+const containerTestTwo = <StyledTestContainer forwardedAs={Test2Container} type="foo" size="big" />;
 
 // 4.0 refs
 
@@ -1071,7 +1088,7 @@ function validateDefaultProps() {
 }
 
 interface WrapperProps {
-    className?: string;
+    className?: string | undefined;
 }
 export class WrapperClass extends React.Component<WrapperProps> {
     render() {
@@ -1108,10 +1125,10 @@ function staticPropertyPassthrough() {
         a: number;
     }
     interface BProps {
-        b?: string;
+        b?: string | undefined;
     }
     interface BState {
-        b?: string;
+        b?: string | undefined;
     }
     class A extends React.Component<AProps> {}
     class B extends React.Component {

@@ -3,14 +3,14 @@ import { CustomPickerProps, ColorState } from "../../..";
 import { Classes } from "reactcss";
 
 export interface CompactPickerStylesProps {
-    Compact?: CSSProperties;
-    compact?: CSSProperties;
-    clear?: CSSProperties;
+    Compact?: CSSProperties | undefined;
+    compact?: CSSProperties | undefined;
+    clear?: CSSProperties | undefined;
 }
 
 export interface CompactPickerProps extends CustomPickerProps {
-    colors?: string[];
-    styles?: Partial<Classes<CompactPickerStylesProps>>;
+    colors?: string[] | undefined;
+    styles?: Partial<Classes<CompactPickerStylesProps>> | undefined;
     onSwatchHover?(color: ColorState, event: MouseEvent): void;
 }
 

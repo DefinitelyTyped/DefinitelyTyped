@@ -13,15 +13,15 @@ import { Middleware } from "koa";
 import { ReadStream } from "fs-capacitor";
 
 export interface UploadOptions {
-  maxFieldSize?: number;
-  maxFileSize?: number;
-  maxFiles?: number;
+  maxFieldSize?: number | undefined;
+  maxFileSize?: number | undefined;
+  maxFiles?: number | undefined;
 }
 
 export interface GraphQLOperation {
   query: string;
-  operationName?: null | string;
-  variables?: null | unknown;
+  operationName?: null | string | undefined;
+  variables?: null | unknown | undefined;
 }
 
 export function processRequest(
@@ -45,4 +45,9 @@ export interface FileUpload {
   mimetype: string;
   encoding: string;
   createReadStream(): ReadStream;
+}
+
+export class Upload {
+  resolve(file: FileUpload): void;
+  reject(reason?: any): void;
 }

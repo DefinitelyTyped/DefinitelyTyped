@@ -275,6 +275,13 @@ myQueue.isPaused(true).then(() => {
 myQueue.removeJobs('?oo*').then(() => {
     console.log('done removing jobs');
 });
+// Obliterate queue
+myQueue.obliterate().then(() => {
+    console.log('queue obliterated');
+});
+myQueue.obliterate({force: true}).then(() => {
+    console.log('queue obliterated');
+});
 
 // Close queues
 

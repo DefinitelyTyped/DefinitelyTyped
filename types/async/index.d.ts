@@ -345,9 +345,9 @@ export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks
 export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
 
 export interface RetryOptions<E> {
-    times?: number;
-    interval?: number | ((retryCount: number) => number);
-    errorFilter?: (error: E) => boolean;
+    times?: number | undefined;
+    interval?: number | ((retryCount: number) => number) | undefined;
+    errorFilter?: ((error: E) => boolean) | undefined;
 }
 export function retry<T, E = Error>(
     task: (() => Promise<T>) | ((callback: AsyncResultCallback<T, E>) => void),
@@ -368,15 +368,15 @@ export function retry<T, E = Error>(
 
 export function retryable<T, E = Error>(task: AsyncFunction<T, E>): AsyncFunction<T, E>;
 export function retryable<T, E = Error>(
-    opts: number | (RetryOptions<E> & { arity?: number }),
+    opts: number | (RetryOptions<E> & { arity?: number | undefined }),
     task: AsyncFunction<T, E>,
 ): AsyncFunction<T, E>;
 export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any, E>;
 export function nextTick(callback: Function, ...args: any[]): void;
 export const setImmediate: typeof nextTick;
 
-export function reflect<T, E = Error>(fn: AsyncFunction<T, E>): (callback: (err: null, result: {error?: E, value?: T}) => void) => void;
-export function reflectAll<T, E = Error>(tasks: Array<AsyncFunction<T, E>>): Array<(callback: (err: null, result: {error?: E, value?: T}) => void) => void>;
+export function reflect<T, E = Error>(fn: AsyncFunction<T, E>): (callback: (err: null, result: {error?: E | undefined, value?: T | undefined}) => void) => void;
+export function reflectAll<T, E = Error>(tasks: Array<AsyncFunction<T, E>>): Array<(callback: (err: null, result: {error?: E | undefined, value?: T | undefined}) => void) => void>;
 
 export function timeout<T, E = Error>(fn: AsyncFunction<T, E>, milliseconds: number, info?: any): AsyncFunction<T, E>;
 export function timeout<T, R, E = Error>(fn: AsyncResultIterator<T, R, E>, milliseconds: number, info?: any): AsyncResultIterator<T, R, E>;

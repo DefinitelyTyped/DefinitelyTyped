@@ -10,13 +10,13 @@ declare namespace Card {
     type Align = null | 'center' | 'right' | 'left';
 
     interface CardProps {
-        position?: Position;
-        arrow?: Arrow;
-        align?: Align;
-        useHover?: boolean;
+        position?: Position | undefined;
+        arrow?: Arrow | undefined;
+        align?: Align | undefined;
+        useHover?: boolean | undefined;
         style?: {
-            style?: React.CSSProperties;
-            arrowStyle?: React.CSSProperties;
-        };
+            style?: React.CSSProperties | undefined;
+            arrowStyle?: React.CSSProperties | undefined;
+        } | undefined;
     }
 }

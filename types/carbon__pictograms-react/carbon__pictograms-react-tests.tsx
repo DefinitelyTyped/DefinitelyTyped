@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     AcceleratedComputing,
     AddDocument,
@@ -20,8 +20,9 @@ import {
     Hpi,
     CloudPakForApplications,
     Bluepages,
-    ContentDesign
-} from '@carbon/pictograms-react';
+    ContentDesign,
+    AiExplainability,
+} from "@carbon/pictograms-react";
 
 <Airplane />; // $ExpectType Element
 <Airplane title="airplane" aria-label="label" tabIndex="0" fill="#fff" className="className" />; // $ExpectType Element
@@ -45,3 +46,4 @@ import {
 <Dashboard />; // $ExpectType Element
 <Bluepages />; // $ExpectType Element
 <ContentDesign />; // $ExpectType Element
+<AiExplainability />; // $ExpectType Element

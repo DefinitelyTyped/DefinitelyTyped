@@ -3,7 +3,7 @@ import * as fs from "fs";
 
 interface Context {
     foo: string;
-    yarn?: boolean;
+    yarn?: boolean | undefined;
 }
 
 const tasks = new Listr<Context>([
@@ -203,3 +203,15 @@ const tasks9 = new Listr(
         renderer: 'default',
     }
 );
+
+const tasks10 = new Listr([
+   {
+        title: 'Skipped with Promise that resolves to string',
+        skip: async () => {
+            if (Math.random() > 0.5) {
+                return 'Reason for skipping';
+            }
+        },
+        task: () => 'Foo',
+    }
+]);

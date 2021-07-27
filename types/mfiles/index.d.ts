@@ -910,25 +910,25 @@ interface ILookups {
 }
 
 interface IMessage {
-    button1_enabled?: boolean;
-    button1_title?: string;
-    button2_enabled?: boolean;
-    button2_title?: string;
-    button3_enabled?: boolean;
-    button3_title?: string;
-    button4_enabled?: boolean;
-    button4_title?: string;
-    cancelButton?: (1 | 2 | 3 | 4);
-    caption?: string;
-    checkbox_checked?: boolean;
-    checkbox_enabled?: boolean;
-    checkbox_title?: string;
-    defaultButton?: (1 | 2 | 3 | 4);
-    icon?: string;
-    message?: string;
-    timeOut?: number;
-    timeout_deactivateOnFocusChange?: boolean;
-    timeOutButton?: (1 | 2 | 3 | 4);
+    button1_enabled?: boolean | undefined;
+    button1_title?: string | undefined;
+    button2_enabled?: boolean | undefined;
+    button2_title?: string | undefined;
+    button3_enabled?: boolean | undefined;
+    button3_title?: string | undefined;
+    button4_enabled?: boolean | undefined;
+    button4_title?: string | undefined;
+    cancelButton?: (1 | 2 | 3 | 4) | undefined;
+    caption?: string | undefined;
+    checkbox_checked?: boolean | undefined;
+    checkbox_enabled?: boolean | undefined;
+    checkbox_title?: string | undefined;
+    defaultButton?: (1 | 2 | 3 | 4) | undefined;
+    icon?: string | undefined;
+    message?: string | undefined;
+    timeOut?: number | undefined;
+    timeout_deactivateOnFocusChange?: boolean | undefined;
+    timeOutButton?: (1 | 2 | 3 | 4) | undefined;
 }
 
 interface IMetadataCard {

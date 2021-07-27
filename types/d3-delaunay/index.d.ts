@@ -1,4 +1,4 @@
-// Type definitions for d3-delaunay 5.3
+// Type definitions for d3-delaunay 6.0
 // Project: https://github.com/d3/d3-delaunay
 // Definitions by: Bradley Odell <https://github.com/BTOdell>
 //                 Nathan Bierema <https://github.com/Methuselah96>

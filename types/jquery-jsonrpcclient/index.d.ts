@@ -8,19 +8,19 @@
 
 interface JsonRpcClientOptions extends JQueryAjaxSettings {
     ajaxUrl: string;
-    headers?: {[key:string]: any};
-    socketUrl?: string;
-    onmessage?: (ev: MessageEvent) => void;
-    onopen?: (ev: Event) => void;
-    onclose?: (ev: CloseEvent) => void;
-    onerror?: (ev: Event) => void;
-    getSockect?: (onmessageCb: () => void) => WebSocket;
+    headers?: {[key:string]: any} | undefined;
+    socketUrl?: string | undefined;
+    onmessage?: ((ev: MessageEvent) => void) | undefined;
+    onopen?: ((ev: Event) => void) | undefined;
+    onclose?: ((ev: CloseEvent) => void) | undefined;
+    onerror?: ((ev: Event) => void) | undefined;
+    getSockect?: ((onmessageCb: () => void) => WebSocket) | undefined;
 
     /**
      * Sets timeout for calls in milliseconds.
      * Works with WebSocket as well as AJAX.
      */
-    timeout?: number;
+    timeout?: number | undefined;
 }
 
 interface JsonRpcClient {

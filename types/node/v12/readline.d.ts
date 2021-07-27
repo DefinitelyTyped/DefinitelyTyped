@@ -1,16 +1,12 @@
-declare module 'node:readline' {
-    export * from 'readline';
-}
-
 declare module 'readline' {
-    import EventEmitter = require('node:events');
+    import EventEmitter = require('events');
 
     interface Key {
-        sequence?: string;
-        name?: string;
-        ctrl?: boolean;
-        meta?: boolean;
-        shift?: boolean;
+        sequence?: string | undefined;
+        name?: string | undefined;
+        ctrl?: boolean | undefined;
+        meta?: boolean | undefined;
+        shift?: boolean | undefined;
     }
 
     class Interface extends EventEmitter {
@@ -126,14 +122,14 @@ declare module 'readline' {
 
     interface ReadLineOptions {
         input: NodeJS.ReadableStream;
-        output?: NodeJS.WritableStream;
-        completer?: Completer | AsyncCompleter;
-        terminal?: boolean;
-        historySize?: number;
-        prompt?: string;
-        crlfDelay?: number;
-        removeHistoryDuplicates?: boolean;
-        escapeCodeTimeout?: number;
+        output?: NodeJS.WritableStream | undefined;
+        completer?: Completer | AsyncCompleter | undefined;
+        terminal?: boolean | undefined;
+        historySize?: number | undefined;
+        prompt?: string | undefined;
+        crlfDelay?: number | undefined;
+        removeHistoryDuplicates?: boolean | undefined;
+        escapeCodeTimeout?: number | undefined;
     }
 
     function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;

@@ -314,14 +314,14 @@ declare namespace Xrm {
      * properties of the current business app in Customer Engagement.
      */
     interface AppProperties {
-        appId?: string;
-        displayName?: string;
-        uniqueName?: string;
-        url?: string;
-        webResourceId?: string;
-        webResourceName?: string;
-        welcomePageId?: string;
-        welcomePageName?: string;
+        appId?: string | undefined;
+        displayName?: string | undefined;
+        uniqueName?: string | undefined;
+        url?: string | undefined;
+        webResourceId?: string | undefined;
+        webResourceName?: string | undefined;
+        welcomePageId?: string | undefined;
+        welcomePageName?: string | undefined;
     }
 
     /**
@@ -505,15 +505,15 @@ declare namespace Xrm {
         /**
          * ID of the entity record currently displayed in the form.
          */
-        entityId?: string;
+        entityId?: string | undefined;
         /**
          * The parent record that provides default values based on mapped attribute values.
          **/
-        createFromEntity?: LookupValue;
+        createFromEntity?: LookupValue | undefined;
         /**
          * ID of the currently displayed form.
          */
-        formId?: string;
+        formId?: string | undefined;
     }
 
     /**
@@ -532,11 +532,84 @@ declare namespace Xrm {
         /**
          * ID of the view currently displayed.
          */
-        viewId?: string;
+        viewId?: string | undefined;
         /**
          * Type of the view currently displayed.
          */
-        viewType?: "savedquery" | "userquery";
+        viewType?: "savedquery" | "userquery" | undefined;
+    }
+
+    /**
+     * <CrmParameter> used in RibbonDiffXml actions
+     * @see {@link https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8)}
+     */
+    interface CommandProperties {
+        /**
+         * The Id value of the Ribbon control that initiated the event.
+         */
+        SourceControlId: string;
+
+        /**
+         * A string that is sent with the command event when a button is clicked.
+         */
+        CommandValueId: string;
+
+        /**
+         * A reference from a control to the Id of a menu item.
+         *
+         * Most entities will not return a MenuItemId value. Only the following entities will return this value:
+         * BusinessUnit
+         * Connection
+         * CustomerAddress
+         * Equipment
+         * Goal
+         * InvoiceDetail
+         * Mailbox
+         * MailMergeTemplate
+         * PartnerApplication
+         * QueueItem
+         * QuoteDetail
+         * RoutingRuleItem
+         * SalesOrderDetail
+         * ServiceAppointment
+         * SharePointDocumentLocation
+         * SharePointSite
+         * Territory
+         */
+        MenuItemId: string;
+    }
+
+    /**
+     * Some <CrmParameter> values pass an EntityReference object:
+     * SelectedControlSelectedItemReferences
+     * SelectedControlAllItemReferences
+     * SelectedControlUnselectedItemReferences
+     *
+     * Not to be confused with the more commonly used LookupValue.
+     *
+     * @see LookupValue
+     * @see {@link https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8)#remarks}
+     */
+    interface EntityReference {
+        /**
+         * A string of the GUID Id value for the record.
+         */
+        Id: string;
+
+        /**
+         * A string of the value of the Primary field for the record.
+         */
+        Name: string;
+
+        /**
+         * A string representing the unique name of the entity for the record.
+         */
+        TypeName: string;
+
+        /**
+         * @deprecated Use {@link TypeName} instead. The number value for custom entities will typically be different from organization to organization and the number value cannot be used reliably for custom entities.
+         */
+        TypeCode: number;
     }
 
     namespace Events {
@@ -722,7 +795,7 @@ declare namespace Xrm {
          * Applicable to appointment, recurring appointment, or service activity records.
          * @remarks This property is not supported in Unified Interface.
          */
-        UseSchedulingEngine?: boolean;
+        UseSchedulingEngine?: boolean | undefined;
     }
 
     /**
@@ -1007,20 +1080,20 @@ declare namespace Xrm {
         /**
          * Indicates whether the lookup allows more than one item to be selected.
          */
-        allowMultiSelect?: boolean;
+        allowMultiSelect?: boolean | undefined;
         /**
          * The default entity type to use.
          */
-        defaultEntityType?: string;
+        defaultEntityType?: string | undefined;
         /**
          * The default view to use.
          */
-        defaultViewId?: string;
+        defaultViewId?: string | undefined;
         /**
          * Decides whether to display the most recently used(MRU) item.
          * @remarks Available only for Unified Interface.
          */
-        disableMru?: boolean;
+        disableMru?: boolean | undefined;
         /**
          * The entity types to display.
          */
@@ -1028,20 +1101,20 @@ declare namespace Xrm {
         /**
          * Used to filter the results.
          */
-        filters?: LookupFilterOptions[];
+        filters?: LookupFilterOptions[] | undefined;
         /**
          * Indicates the default search term for the lookup control.
          * This is supported only on Unified Interface.
          */
-        searchText?: string;
+        searchText?: string | undefined;
         /**
          * Indicates whether the lookup control should show the barcode scanner in mobile clients.
          */
-        showBarcodeScanner?: boolean;
+        showBarcodeScanner?: boolean | undefined;
         /**
          * The views to be available in the view picker. Only system views are supported.
          */
-        viewIds?: string[];
+        viewIds?: string[] | undefined;
     }
 
     /**
@@ -1837,7 +1910,7 @@ declare namespace Xrm {
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.EnumAttribute} instead.
          */
-        interface EnumAttribute extends Attributes.EnumAttribute { }
+        interface EnumAttribute extends Attributes.EnumAttribute<number | boolean> { }
 
         /**
          * Interface for a Boolean attribute.
@@ -2156,7 +2229,7 @@ declare namespace Xrm {
         /**
          * The name
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * Type of the entity.
@@ -2235,7 +2308,7 @@ declare namespace Xrm {
         /**
          * Interface for an Entity attribute.
          */
-        interface Attribute {
+        interface Attribute<T = any> {
             /**
              * Adds a handler to be called when the attribute's value is changed.
              * @param handler The function reference.
@@ -2352,20 +2425,21 @@ declare namespace Xrm {
              * Gets the value.
              * @returns The value.
              */
-            getValue(): any;
+            getValue(): T | null;
 
             /**
              * Sets the value.
              * @param value The value.
+             * @remarks Attributes on Quick Create Forms will not save values set with this method.
              */
-            setValue(value: any): void;
+            setValue(value: T | null): void;
         }
 
         /**
          * Interface for a Number attribute.
          * @see {@link Attribute}
          */
-        interface NumberAttribute extends Attribute {
+        interface NumberAttribute extends Attribute<number> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -2392,19 +2466,6 @@ declare namespace Xrm {
             getPrecision(): number;
 
             /**
-             * Gets the value.
-             * @returns The value.
-             */
-            getValue(): number;
-
-            /**
-             * Sets the value.
-             * @param value The value.
-             * @remarks Attributes on Quick Create Forms will not save values set with this method.
-             */
-            setValue(value: number): void;
-
-            /**
              * A collection of all the controls on the form that interface with this attribute.
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
@@ -2415,7 +2476,7 @@ declare namespace Xrm {
          * Interface for a String attribute.
          * @see {@link Attribute}
          */
-        interface StringAttribute extends Attribute {
+        interface StringAttribute extends Attribute<string> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -2431,20 +2492,13 @@ declare namespace Xrm {
             getMaxLength(): number;
 
             /**
-             * Gets the value.
-             *
-             * @returns The value.
-             */
-            getValue(): string;
-
-            /**
              * Sets the value.
              * @param value The value.
              * @remarks A String field with the {@link Attribute.getFormat|email} format enforces email
              *          address formatting. Attributes on Quick Create Forms will not save values set
              *          with this method.
              */
-            setValue(value: string): void;
+            setValue(value: string | null): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2457,39 +2511,20 @@ declare namespace Xrm {
          * Common interface for enumeration attributes (OptionSet and Boolean).
          * @see {@link Attribute}
          */
-        interface EnumAttribute extends Attribute {
+        interface EnumAttribute<T extends number | boolean> extends Attribute<T> {
             /**
              * Gets the initial value of the attribute.
              * @returns The initial value.
              * @remarks Valid for OptionSet and boolean attribute types
              */
-            getInitialValue(): number | boolean;
+            getInitialValue(): T | null;
         }
 
         /**
          * Interface for a Boolean attribute.
          * @see {@link EnumAttribute}
          */
-        interface BooleanAttribute extends EnumAttribute {
-            /**
-             * Gets the initial value of the attribute.
-             * @returns The initial value.
-             * @remarks Valid for OptionSet and boolean attribute types
-             */
-            getInitialValue(): boolean;
-
-            /**
-             * Gets the value.
-             * @returns true if it succeeds, false if it fails.
-             */
-            getValue(): boolean;
-
-            /**
-             * Sets the value.
-             * @param value The value.
-             * @remarks Attributes on Quick Create Forms will not save values set with this method.
-             */
-            setValue(value: boolean): void;
+        interface BooleanAttribute extends EnumAttribute<boolean> {
         }
 
         /**
@@ -2497,7 +2532,7 @@ declare namespace Xrm {
          *
          * @see {@link Attribute}
          */
-        interface DateAttribute extends Attribute {
+        interface DateAttribute extends Attribute<Date> {
             /**
              * Gets the attribute format.
              *
@@ -2505,19 +2540,6 @@ declare namespace Xrm {
              * Values returned are: date, datetime
              */
             getFormat(): DateAttributeFormat;
-
-            /**
-             * Gets the value.
-             * @returns The value.
-             */
-            getValue(): Date;
-
-            /**
-             * Sets the value.
-             * @param value The value.
-             * @remarks Attributes on Quick Create Forms will not save values set with this method.
-             */
-            setValue(value: Date): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2530,20 +2552,13 @@ declare namespace Xrm {
          * Interface an OptionSet attribute.
          * @see {@link EnumAttribute}
          */
-        interface OptionSetAttribute extends EnumAttribute {
+        interface OptionSetAttribute extends EnumAttribute<number> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
              * Values returned are: language, timezone
              */
             getFormat(): OptionSetAttributeFormat;
-
-            /**
-             * Gets the initial value of the attribute.
-             * @returns The initial value.
-             * @remarks Valid for OptionSet and boolean attribute types
-             */
-            getInitialValue(): number;
 
             /**
              * Gets the option matching a value.
@@ -2578,12 +2593,6 @@ declare namespace Xrm {
             getText(): string;
 
             /**
-             * Gets the value.
-             * @returns The value.
-             */
-            getValue(): number;
-
-            /**
              * Sets the value.
              * @param value The value.
              * @remarks     The getOptions() method returns option values as strings. You must use parseInt
@@ -2591,7 +2600,7 @@ declare namespace Xrm {
              *              OptionSet attribute. Attributes on Quick Create Forms will not save values set
              *              with this method.
              */
-            setValue(value: number): void;
+            setValue(value: number | null): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2605,25 +2614,12 @@ declare namespace Xrm {
          *
          * @see {@link Attribute}
          */
-        interface LookupAttribute extends Attribute {
+        interface LookupAttribute extends Attribute<LookupValue[]> {
             /**
              * Gets a boolean value indicating whether the Lookup is a multi-value PartyList.
              * @returns true the attribute is a PartyList, otherwise false.
              */
             getIsPartyList(): boolean;
-
-            /**
-             * Gets the value.
-             * @returns An array of LookupValue.
-             */
-            getValue(): LookupValue[];
-
-            /**
-             * Sets the value.
-             * @param value The value.
-             * @remarks Attributes on Quick Create Forms will not save values set with this method.
-             */
-            setValue(value: LookupValue[]): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2776,7 +2772,7 @@ declare namespace Xrm {
             /**
              * Url of the icon to display
              */
-            icon?: string;
+            icon?: string | undefined;
 
             /**
              * Display value(s) for this auto-complete option
@@ -2796,7 +2792,7 @@ declare namespace Xrm {
             /**
              * Url of the icon to display
              */
-            icon?: string;
+            icon?: string | undefined;
 
             /**
              * Label to display at the bottom of the auto complete view
@@ -2821,7 +2817,7 @@ declare namespace Xrm {
             /**
              * Command to show/execute at the bottom of the results displayed
              */
-            commands?: AutoCompleteCommand;
+            commands?: AutoCompleteCommand | undefined;
         }
 
         /**
@@ -3538,7 +3534,7 @@ declare namespace Xrm {
             /**
              * A collection of actions
              */
-            actions?: ControlNotificationAction[];
+            actions?: ControlNotificationAction[] | undefined;
 
             /**
              * The message to display in the notification.
@@ -3549,7 +3545,7 @@ declare namespace Xrm {
             /**
              * Defines the type of notification.
              */
-            notificationLevel?: NotificationLevel;
+            notificationLevel?: NotificationLevel | undefined;
 
             /**
              * The ID to use to clear this notification when using the clearNotification method.
@@ -3569,7 +3565,7 @@ declare namespace Xrm {
             /**
              * The body message of the notification to be displayed to the user. Limit your message to 100 characters for optimal user experience.
              */
-            message?: string;
+            message?: string | undefined;
 
             /**
              * Array of functions. The corresponding actions for the message.
@@ -4207,7 +4203,7 @@ declare namespace Xrm {
              * customized for the form.  See example below for setting the selected form.
              * @example Example:  encodeURIComponent("formid={8c9f3e6f-7839-e211-831e-00155db7d98f}");
              */
-            extraqs?: string;
+            extraqs?: string | undefined;
 
             /**
              * Controls whether the command bar is displayed.
@@ -4215,7 +4211,7 @@ declare namespace Xrm {
              * * "true"    (The command bar is displayed.)
              * * "false"   (The command bar is not displayed.)
              */
-            cmdbar?: CmdBarDisplay;
+            cmdbar?: CmdBarDisplay | undefined;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -4224,7 +4220,7 @@ declare namespace Xrm {
              * * "off"     (The navigation bar is not displayed.)
              * * "entity"  (On an entity form, only the navigation options for related entities are available.)
              */
-            navbar?: NavBarDisplay;
+            navbar?: NavBarDisplay | undefined;
         }
 
         /**
@@ -4261,7 +4257,7 @@ declare namespace Xrm {
              * * "true"    (The command bar is displayed.)
              * * "false"   (The command bar is not displayed.)
              */
-            cmdbar?: CmdBarDisplay;
+            cmdbar?: CmdBarDisplay | undefined;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -4270,7 +4266,7 @@ declare namespace Xrm {
              * * "off"     (The navigation bar is not displayed.)
              * * "entity"  (On an entity form, only the navigation options for related entities are available.)
              */
-            navbar?: NavBarDisplay;
+            navbar?: NavBarDisplay | undefined;
         }
 
         /**
@@ -4317,7 +4313,7 @@ declare namespace Xrm {
              * The file name of the report.  For out-of-box reports, this parameter enables context-sensitive
              * help.
              */
-            helpID?: string;
+            helpID?: string | undefined;
 
             /**
              * The unique identifier, held in the report's 'reportid' attribute, in Guid format.
@@ -4352,7 +4348,7 @@ declare namespace Xrm {
             /**
              * The identifier of the form to use, when several are available.
              */
-            formid?: string;
+            formid?: string | undefined;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -4361,7 +4357,7 @@ declare namespace Xrm {
              * * "off"     (The navigation bar is not displayed.)
              * * "entity"  (On an entity form, only the navigation options for related entities are available.)
              */
-            navbar?: Url.NavBarDisplay;
+            navbar?: Url.NavBarDisplay | undefined;
 
             /**
              * Controls whether the command bar is displayed.
@@ -4369,7 +4365,7 @@ declare namespace Xrm {
              * * "true"    (The command bar is displayed.)
              * * "false"   (The command bar is not displayed.)
              */
-            cmdbar?: Url.CmdBarDisplay;
+            cmdbar?: Url.CmdBarDisplay | undefined;
         }
 
         /**
@@ -4392,7 +4388,7 @@ declare namespace Xrm {
             /**
              * (Optional) The confirm button label.If you do not specify the button label, OK is used as the button label.
              */
-            confirmButtonLabel?: string;
+            confirmButtonLabel?: string | undefined;
             /**
              *  The message to be displyed in the alert dialog.
              */
@@ -4400,29 +4396,29 @@ declare namespace Xrm {
             /**
              * (Optional) The title of the alert dialog.
              */
-            title?: string;
+            title?: string | undefined;
         }
 
         interface ConfirmStrings {
             /**
              * (Optional) The cancel button label. If you do not specify the cancel button label, Cancel is used as the button label.
              */
-            cancelButtonLabel?: string;
+            cancelButtonLabel?: string | undefined;
 
             /**
              * (Optional) The confirm button label.If you do not specify the button label, OK is used as the button label.
              */
-            confirmButtonLabel?: string;
+            confirmButtonLabel?: string | undefined;
 
             /**
              * (Optional) The subtitle to be displayed in the confirmation dialog.
              */
-            subtitle?: string;
+            subtitle?: string | undefined;
 
             /**
              * (Optional) The title to be displyed in the confirmation dialog.
              */
-            title?: string;
+            title?: string | undefined;
 
             /**
              * The message to be displyed in the alert dialog.
@@ -4473,17 +4469,17 @@ declare namespace Xrm {
              * Details about the error. When you specify this, the Download Log File button is available in the error message,
              * and clicking it will let users download a text file with the content specified in this attribute.
              */
-            details?: string;
+            details?: string | undefined;
             /**
              * The error code. If you just set errorCode, the message for the error code is automatically
              * retrieved from the server and displayed in the error dialog.
              * If you specify an invalid errorCode value, an error dialog with a default error message is displyed.
              */
-            errorCode?: number;
+            errorCode?: number | undefined;
             /**
              *  The message to be displayed in the error dialog.
              */
-            message?: string;
+            message?: string | undefined;
         }
 
         interface FileDetails {
@@ -4512,76 +4508,76 @@ declare namespace Xrm {
             /**
              * Indicates whether to display the command bar.If you do not specify this parameter, the command bar is displayed by default.
              */
-            cmdbar?: boolean;
+            cmdbar?: boolean | undefined;
             /**
              * Designates a record that will provide default values based on mapped attribute values.The lookup object has the following String properties: entityType, id, and name (optional).
              */
-            createFromEntity?: LookupValue;
+            createFromEntity?: LookupValue | undefined;
             /**
              * ID of the entity record to display the form for.
              */
-            entityId?: string;
+            entityId?: string | undefined;
             /**
              * Logical name of the entity to display the form for.
              */
-            entityName?: string;
+            entityName?: string | undefined;
             /**
              * ID of the form instance to be displayed.
              */
-            formId?: string;
+            formId?: string | undefined;
             /**
              * Height of the form window to be displayed in pixels.
              */
-            height?: number;
+            height?: number | undefined;
             /**
              * Undocumented at this time
              */
-            isCrossEntityNavigate?: boolean;
+            isCrossEntityNavigate?: boolean | undefined;
             /**
              * Undocumented at this time
              */
-            isOfflineSyncError?: boolean;
+            isOfflineSyncError?: boolean | undefined;
             /**
              * Controls whether the navigation bar is displayed and whether application navigation is available using the areas and subareas defined in the sitemap.Valid vlaues are: "on", "off", or "entity".
              * * on: The navigation bar is displayed.This is the default behavior if the navBar parameter is not used.
              * * off: The navigation bar is not displayed.People can navigate using other user interface elements or the back and forward buttons.
              * * entity: On an entity form, only the navigation options for related entities are available.After navigating to a related entity, a back button is displayed in the navigation bar to allow returning to the original record.
              */
-            navBar?: Url.NavBarDisplay;
+            navBar?: Url.NavBarDisplay | undefined;
             /**
              * Indicates whether to display form in a new window.
              */
-            openInNewWindow?: boolean;
+            openInNewWindow?: boolean | undefined;
             /**
              * Specify one of the following values for the window position of the form on the screen:
              * * 1:center
              * * 2:side
              */
-            windowPosition?: XrmEnum.WindowPositions;
+            windowPosition?: XrmEnum.WindowPositions | undefined;
             /**
              * ID of the business process to be displayed on the form.
              */
-            processId?: string;
+            processId?: string | undefined;
             /**
              * ID of the business process instance to be displayed on the form.
              */
-            processInstanceId?: string;
+            processInstanceId?: string | undefined;
             /**
              * Define a relationship object to display the related records on the form.
              */
-            relationship?: Relationship;
+            relationship?: Relationship | undefined;
             /**
              * ID of the selected stage in business process instance.
              */
-            selectedStageId?: string;
+            selectedStageId?: string | undefined;
             /**
              * Indicates whether to open a quick create form.
              */
-            useQuickCreateForm?: boolean;
+            useQuickCreateForm?: boolean | undefined;
             /**
              * Width of the form window to be displayed in pixels.
              */
-            width?: number;
+            width?: number | undefined;
         }
 
         interface Relationship {
@@ -4596,19 +4592,19 @@ declare namespace Xrm {
             /**
              * Name of the navigation property for this relationship.
              */
-            navigationPropertyName?: string;
+            navigationPropertyName?: string | undefined;
             /**
              * Relationship type.Specify one of the following values:
              * * 0:OneToMany
              * * 1:ManyToMany
              */
-            relationshipType?: XrmEnum.RelationshipType;    //
+            relationshipType?: XrmEnum.RelationshipType | undefined;    //
             /**
              * Role type in relationship.Specify one of the following values:
              * * 1:Referencing
              * * 2:AssociationEntity
              */
-            roleType?: XrmEnum.RoleType;
+            roleType?: XrmEnum.RoleType | undefined;
         }
 
         interface PageInputEntityRecord {
@@ -4620,43 +4616,43 @@ declare namespace Xrm {
             /**
              * ID of the entity record to display the form for. If you don't specify this value, the form will be opened in create mode.
              * */
-            entityId?: string;
+            entityId?: string | undefined;
             /**
              * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name (optional).
              */
-            createFromEntity?: LookupValue;
+            createFromEntity?: LookupValue | undefined;
             /**
              * A dictionary object that passes extra parameters to the form. Invalid parameters will cause an error.
              */
-            data?: { [attributeName: string]: any };
+            data?: { [attributeName: string]: any } | undefined;
             /**
              * ID of the form instance to be displayed.
              */
-            formId?: string;
+            formId?: string | undefined;
             /**
              * Indicates whether the form is navigated to from a different entity using cross-entity business process flow.
              */
-            isCrossEntityNavigate?: boolean;
+            isCrossEntityNavigate?: boolean | undefined;
             /**
              * Indicates whether there are any offline sync errors.
              */
-            isOfflineSyncError?: boolean;
+            isOfflineSyncError?: boolean | undefined;
             /**
              * ID of the business process to be displayed on the form.
              */
-            processId?: string;
+            processId?: string | undefined;
             /**
              * ID of the business process instance to be displayed on the form.
              */
-            processInstanceId?: string;
+            processInstanceId?: string | undefined;
             /**
              * Define a relationship object to display the related records on the form.
              */
-            relationship?: Relationship;
+            relationship?: Relationship | undefined;
             /**
              * ID of the selected stage in business process instance.
              */
-            selectedStageId?: string;
+            selectedStageId?: string | undefined;
         }
 
         interface PageInputEntityList {
@@ -4668,11 +4664,11 @@ declare namespace Xrm {
             /**
              * The ID of the view to load. If you don't specify it, navigates to the default main view for the entity.
              * */
-            viewId?: string;
+            viewId?: string | undefined;
             /**
              * Type of view to load. Specify "savedquery" or "userquery".
              * */
-            viewType?: "savedquery" |"userquery";
+            viewType?: "savedquery" | "userquery" | undefined;
         }
 
         interface PageInputHtmlWebResource {
@@ -4684,7 +4680,7 @@ declare namespace Xrm {
             /**
              * The data to pass to the web resource.
              * */
-            data?: string;
+            data?: string | undefined;
         }
 
         /**
@@ -4699,19 +4695,19 @@ declare namespace Xrm {
             /**
              * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
              * */
-            width?: number | NavigationOptions.SizeValue;
+            width?: number | NavigationOptions.SizeValue | undefined;
             /**
             * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
             * */
-            height?: number | NavigationOptions.SizeValue;
+            height?: number | NavigationOptions.SizeValue | undefined;
             /**
              * Specify 1 to open the dialog in center; 2 to open the dialog on the side. Default is 1 (center).
              * */
-            position?: 1 | 2;
+            position?: 1 | 2 | undefined;
             /*
              * The dialog title on top of the center or side dialog.
              */
-            title?: string;
+            title?: string | undefined;
         }
 
         namespace NavigationOptions {
@@ -5582,10 +5578,10 @@ declare namespace XrmEnum {
         Finished = "finished"
     }
 
-     /**
-      * Constant Enum: Command Bar Display options for Xrm.Url.FormOpenParameters.cmdbar, Xrm.Url.ViewOpenParameters.cmdbar, and Xrm.Utility.FormOpenParameters.cmdbar.
-      * @see {@link Xrm.Url.CmdBarDisplay}
-      */
+    /**
+     * Constant Enum: Command Bar Display options for Xrm.Url.FormOpenParameters.cmdbar, Xrm.Url.ViewOpenParameters.cmdbar, and Xrm.Utility.FormOpenParameters.cmdbar.
+     * @see {@link Xrm.Url.CmdBarDisplay}
+     */
     const enum CmdBarDisplay {
         True = "true",
         False = "false"

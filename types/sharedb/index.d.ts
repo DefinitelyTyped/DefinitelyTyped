@@ -17,7 +17,7 @@ import { Connection } from './lib/client';
 import * as ShareDB from './lib/sharedb';
 
 interface PubSubOptions {
-    prefix?: string;
+    prefix?: string | undefined;
 }
 interface Stream {
     id: string;
@@ -29,25 +29,25 @@ declare class sharedb extends EventEmitter {
     db: sharedb.DB;
     pubsub: sharedb.PubSub;
     extraDbs: {[extraDbName: string]: sharedb.ExtraDB};
-    milestoneDb?: sharedb.MilestoneDB;
+    milestoneDb?: sharedb.MilestoneDB | undefined;
 
     constructor(options?: {
         db?: any,
-        pubsub?: sharedb.PubSub,
-        extraDbs?: {[extraDbName: string]: sharedb.ExtraDB},
-        milestoneDb?: sharedb.MilestoneDB,
-        suppressPublish?: boolean,
-        maxSubmitRetries?: number,
+        pubsub?: sharedb.PubSub | undefined,
+        extraDbs?: {[extraDbName: string]: sharedb.ExtraDB} | undefined,
+        milestoneDb?: sharedb.MilestoneDB | undefined,
+        suppressPublish?: boolean | undefined,
+        maxSubmitRetries?: number | undefined,
 
-        presence?: boolean,
+        presence?: boolean | undefined,
         /**
          * @deprecated disableDocAction was removed in v1.0
          */
-        disableDocAction?: boolean,
+        disableDocAction?: boolean | undefined,
         /**
          * @deprecated disableSpaceDelimitedActions was removed in v1.0
          */
-        disableSpaceDelimitedActions?: boolean
+        disableSpaceDelimitedActions?: boolean | undefined
     });
     /**
      * Creates a server-side connection to ShareDB.
@@ -93,6 +93,7 @@ declare class sharedb extends EventEmitter {
     on(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
     on(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     on(event: 'error', callback: (err: Error) => void): this;
+    on(event: 'send', callback: (agent: Agent, response: ShareDB.ServerResponseSuccess | ShareDB.ServerResponseError) => void): this;
 
     addListener(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
     addListener(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
@@ -130,11 +131,11 @@ declare namespace sharedb {
     }
 
     type DBQueryMethod = (collection: string, query: any, fields: ProjectionFields | undefined, options: any, callback: DBQueryCallback) => void;
-    type DBQueryCallback = (err: Error | null, snapshots: ShareDB.Snapshot[], extra?: any) => void;
+    type DBQueryCallback = (err: Error | null, snapshots: Snapshot[], extra?: any) => void;
 
     abstract class PubSub {
         private static shallowCopy(obj: any): any;
-        protected prefix?: string;
+        protected prefix?: string | undefined;
         protected nextStreamId: number;
         protected streamsCount: number;
         protected streams: {
@@ -158,7 +159,7 @@ declare namespace sharedb {
     abstract class MilestoneDB {
         close(callback?: BasicCallback): void;
         getMilestoneSnapshot(collection: string, id: string, version: number, callback?: BasicCallback): void;
-        saveMilestoneSnapshot(collection: string, snapshot: ShareDB.Snapshot, callback?: BasicCallback): void;
+        saveMilestoneSnapshot(collection: string, snapshot: Snapshot, callback?: BasicCallback): void;
         getMilestoneSnapshotAtOrBeforeTime(collection: string, id: string, timestamp: number, callback?: BasicCallback): void;
         getMilestoneSnapshotAtOrAfterTime(collection: string, id: string, timestamp: number, callback?: BasicCallback): void;
     }
@@ -170,10 +171,11 @@ declare namespace sharedb {
     class Connection {
         constructor(socket: ShareDB.Socket);
         get(collectionName: string, documentID: string): ShareDB.Doc;
-        createFetchQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
-        createSubscribeQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
+        createFetchQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[] | undefined}, callback: (err: Error, results: any) => any): ShareDB.Query;
+        createSubscribeQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[] | undefined}, callback: (err: Error, results: any) => any): ShareDB.Query;
     }
     type Doc = ShareDB.Doc;
+    type Snapshot = ShareDB.Snapshot;
     type Query = ShareDB.Query;
     type Error = ShareDB.Error;
     type Op = ShareDB.Op;
@@ -237,7 +239,7 @@ declare namespace sharedb {
         interface DocContext extends BaseContext {
             collection: string;
             id: string;
-            snapshot: ShareDB.Snapshot;
+            snapshot: Snapshot;
         }
 
         interface OpContext extends BaseContext {
@@ -253,14 +255,14 @@ declare namespace sharedb {
             fields: ProjectionFields | undefined;
             channel: string;
             query: any;
-            options?: {[key: string]: any};
+            options?: {[key: string]: any} | undefined;
             db: DB | null;
             snapshotProjection: Projection | null;
         }
 
         interface ReadSnapshotsContext extends BaseContext {
             collection: string;
-            snapshots: ShareDB.Snapshot[];
+            snapshots: Snapshot[];
             snapshotType: SnapshotType;
         }
 
@@ -306,7 +308,7 @@ interface SubmitRequest {
     maxRetries: number | null;
     retries: number;
 
-    snapshot: ShareDB.Snapshot | null;
+    snapshot: sharedb.Snapshot | null;
     ops: any[];
     channels: string[] | null;
 }

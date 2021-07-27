@@ -21,8 +21,8 @@ export interface CallbacksOption {
 }
 
 export interface RegExpOptions {
-    name?: RegExp;
-    attribute?: RegExp;
+    name?: RegExp | undefined;
+    attribute?: RegExp | undefined;
 }
 
 export interface RemovalCallback {

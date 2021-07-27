@@ -1,4 +1,4 @@
-import { Data, Point, Position } from 'unist';
+import { Data, Node, Point, Position } from 'unist';
 import { Parent, Attributes, Literal, Root, Element, Doctype, Comment, Text, Instruction, Cdata } from 'xast';
 
 const data: Data = {
@@ -27,28 +27,28 @@ const position: Position = {
 const literal: Literal = {
     type: 'text',
     data,
-    point,
+    position,
     value: 'value',
 };
 
 const comment: Comment = {
     type: 'comment',
     data,
-    point,
+    position,
     value: 'value',
 };
 
 const text: Text = {
     type: 'text',
     data,
-    point,
+    position,
     value: 'value',
 };
 
 const docType: Doctype = {
     type: 'doctype',
     data,
-    point,
+    position,
     name: 'name',
     public: 'public',
     system: 'system',
@@ -57,19 +57,19 @@ const docType: Doctype = {
 const cdata: Cdata = {
     type: 'cdata',
     data,
-    point,
+    position,
     value: 'value',
 };
 
 const instruction: Instruction = {
     type: 'instruction',
     data,
-    point,
+    position,
     name: 'name',
     value: 'value',
 };
 
-const element: Element = getElement();
+let element: Element = getElement();
 
 const parent: Parent = {
     type: 'parent',
@@ -78,7 +78,7 @@ const parent: Parent = {
     children: [getElement(), docType, comment, text, instruction, cdata],
 };
 
-const root: Root = {
+let root: Root = {
     type: 'root',
     data,
     position,
@@ -99,3 +99,50 @@ function getElement(): Element {
         children: [element, comment, text, cdata, instruction],
     };
 }
+
+// Test custom xast node registration
+interface Custom extends Node {
+    type: 'custom';
+}
+
+declare module 'xast' {
+    interface RootChildMap {
+        custom: Custom;
+    }
+
+    interface ElementChildMap {
+        custom: Custom;
+    }
+}
+
+root = {
+    type: 'root',
+    data,
+    position,
+    children: [{ type: 'custom' }],
+};
+
+element = {
+    type: 'element',
+    name: 'foo',
+    data,
+    position,
+    children: [{ type: 'custom' }],
+};
+
+root = {
+    type: 'root',
+    data,
+    position,
+    // $ExpectError
+    children: [{ type: 'invalid' }],
+};
+
+element = {
+    type: 'element',
+    name: 'foo',
+    data,
+    position,
+    // $ExpectError
+    children: [{ type: 'invalid' }],
+};

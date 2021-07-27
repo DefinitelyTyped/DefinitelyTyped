@@ -1,4 +1,4 @@
-import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool } from 'pg';
+import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool, DatabaseError } from 'pg';
 import TypeOverrides = require('pg/lib/type-overrides');
 import { NoticeMessage } from 'pg-protocol/dist/messages';
 
@@ -277,7 +277,16 @@ pool.end().then(() => console.log('pool has ended'));
 
 (async () => {
     const client = await pool.connect();
-    await client.query('SELECT NOW()');
+    try {
+        await client.query('SELECT NOW()');
+    } catch (err) {
+        if (err instanceof DatabaseError) {
+            if (err.position !== undefined) {
+                const position: string = err.position;
+                console.log(position);
+            }
+        }
+    }
     client.release();
 })();
 

@@ -5,12 +5,12 @@
 // TypeScript Version: 2.1
 
 export interface Options {
-    callbackParams?: any[];
-    rootMargin?: string;
-    intersectionPercentage?: number;
-    scrollDimmer?: number;
-    unobserve?: boolean;
-    threshold?: number[];
+    callbackParams?: any[] | undefined;
+    rootMargin?: string | undefined;
+    intersectionPercentage?: number | undefined;
+    scrollDimmer?: number | undefined;
+    unobserve?: boolean | undefined;
+    threshold?: number[] | undefined;
 }
 
 export class ViewabilityHelper {

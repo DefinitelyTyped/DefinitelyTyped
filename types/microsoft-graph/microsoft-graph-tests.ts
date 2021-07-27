@@ -150,3 +150,26 @@ const featureRolloutPolicy: MicrosoftGraph.FeatureRolloutPolicy = {
 };
 
 const consentRequestFilterByCurrentUserOptions: MicrosoftGraph.ConsentRequestFilterByCurrentUserOptions = "reviewer";
+
+const initiatorType: MicrosoftGraph.InitiatorType = "user";
+
+const identityUserFlowAttributeDataType: MicrosoftGraph.IdentityUserFlowAttributeDataType = "string";
+
+const enrollmentState: MicrosoftGraph.EnrollmentState = "enrolled";
+
+const authorizationPolicy: MicrosoftGraph.AuthorizationPolicy = {
+    guestUserRoleId: "TEST_ID",
+    displayName: "TEST_NAME"
+};
+
+const deviceEnrollmentType: MicrosoftGraph.DeviceEnrollmentType = "windowsCoManagement";
+
+const applicationStatus: MicrosoftGraph.Application = {
+    disabledByMicrosoftStatus: "TEST_VAL"
+};
+
+const bodyType: MicrosoftGraph.BodyType = "text";
+
+const channel: MicrosoftGraph.Channel = {
+    description: "Test",
+};

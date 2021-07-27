@@ -1,11 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "dt-header": false,
-        "no-var-keyword": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
-    }
-}
+{ "extends": "dtslint/dt.json" }

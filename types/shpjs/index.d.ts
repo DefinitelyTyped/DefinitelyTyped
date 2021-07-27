@@ -12,7 +12,7 @@ declare namespace shpjs {
     type ShpJSBuffer = Buffer | ArrayBuffer | { buffer: ArrayBuffer };
 
     interface FeatureCollectionWithFilename extends GeoJSON.FeatureCollection {
-        fileName?: string;
+        fileName?: string | undefined;
     }
 
     interface ShpJS {

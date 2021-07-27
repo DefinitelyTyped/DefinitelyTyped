@@ -2,49 +2,49 @@ import { DownloadPreloadOption } from '../system/download-preload';
 import { RGB, ContextMenuSettings } from '../../shapes';
 
 export interface WindowOption {
-    accelerator?: Accelerator;
-    alphaMask?: RGB;
-    alwaysOnTop?: boolean;
-    api?: Api;
-    applicationIcon?: string;
-    aspectRatio?: number;
-    autoShow?: boolean;
-    backgroundColor?: string;
-    contentNavigation?: ContentNavigation;
-    contextMenu?: boolean;
-    contextMenuSettings?: ContextMenuSettings;
-    cornerRounding?: CornerRounding;
+    accelerator?: Accelerator | undefined;
+    alphaMask?: RGB | undefined;
+    alwaysOnTop?: boolean | undefined;
+    api?: Api | undefined;
+    applicationIcon?: string | undefined;
+    aspectRatio?: number | undefined;
+    autoShow?: boolean | undefined;
+    backgroundColor?: string | undefined;
+    contentNavigation?: ContentNavigation | undefined;
+    contextMenu?: boolean | undefined;
+    contextMenuSettings?: ContextMenuSettings | undefined;
+    cornerRounding?: CornerRounding | undefined;
     customContext?: any;
     customData?: any;
-    customRequestHeaders?: Array<CustomRequestHeaders>;
-    defaultCentered?: boolean;
-    defaultHeight?: number;
-    defaultLeft?: number;
-    defaultTop?: number;
-    defaultWidth?: number;
-    frame?: boolean;
-    hideOnClose?: boolean;
-    icon?: string;
-    maxHeight?: number;
-    maximizable?: boolean;
-    maxWidth?: number;
-    minHeight?: number;
-    minimizable?: boolean;
-    minWidth?: number;
-    name?: string;
-    opacity?: number;
-    preloadScripts?: Array<DownloadPreloadOption>;
-    resizable?: boolean;
-    resizeRegion?: ResizeRegion;
-    saveWindowState?: boolean;
-    shadow?: boolean;
-    showTaskbarIcon?: boolean;
-    smallWindow?: boolean;
-    state?: string;
-    taskbarIconGroup?: string;
-    url?: string;
-    uuid?: string;
-    waitForPageLoad?: boolean;
+    customRequestHeaders?: Array<CustomRequestHeaders> | undefined;
+    defaultCentered?: boolean | undefined;
+    defaultHeight?: number | undefined;
+    defaultLeft?: number | undefined;
+    defaultTop?: number | undefined;
+    defaultWidth?: number | undefined;
+    frame?: boolean | undefined;
+    hideOnClose?: boolean | undefined;
+    icon?: string | undefined;
+    maxHeight?: number | undefined;
+    maximizable?: boolean | undefined;
+    maxWidth?: number | undefined;
+    minHeight?: number | undefined;
+    minimizable?: boolean | undefined;
+    minWidth?: number | undefined;
+    name?: string | undefined;
+    opacity?: number | undefined;
+    preloadScripts?: Array<DownloadPreloadOption> | undefined;
+    resizable?: boolean | undefined;
+    resizeRegion?: ResizeRegion | undefined;
+    saveWindowState?: boolean | undefined;
+    shadow?: boolean | undefined;
+    showTaskbarIcon?: boolean | undefined;
+    smallWindow?: boolean | undefined;
+    state?: string | undefined;
+    taskbarIconGroup?: string | undefined;
+    url?: string | undefined;
+    uuid?: string | undefined;
+    waitForPageLoad?: boolean | undefined;
 }
 export interface CustomRequestHeaders {
     urlPatterns: Array<string>;
@@ -57,32 +57,32 @@ export declare type WindowOptionDiff = {
     };
 };
 export interface ResizeRegion {
-    size?: number;
-    bottomRightCorner?: number;
+    size?: number | undefined;
+    bottomRightCorner?: number | undefined;
     sides?: {
-        top?: boolean;
-        bottom?: boolean;
-        left?: boolean;
-        right?: boolean;
-    };
+        top?: boolean | undefined;
+        bottom?: boolean | undefined;
+        left?: boolean | undefined;
+        right?: boolean | undefined;
+    } | undefined;
 }
 export interface Accelerator {
-    devtools?: boolean;
-    reload?: boolean;
-    reloadIgnoringCache?: boolean;
-    zoom?: boolean;
+    devtools?: boolean | undefined;
+    reload?: boolean | undefined;
+    reloadIgnoringCache?: boolean | undefined;
+    zoom?: boolean | undefined;
 }
 export interface Api {
     iframe?: {
-        crossOriginInjection?: boolean;
-        sameOriginInjection?: boolean;
-    };
+        crossOriginInjection?: boolean | undefined;
+        sameOriginInjection?: boolean | undefined;
+    } | undefined;
 }
 export interface ContentNavigation {
-    whitelist?: string[];
-    blacklist?: string[];
+    whitelist?: string[] | undefined;
+    blacklist?: string[] | undefined;
 }
 export interface CornerRounding {
-    height?: number;
-    width?: number;
+    height?: number | undefined;
+    width?: number | undefined;
 }

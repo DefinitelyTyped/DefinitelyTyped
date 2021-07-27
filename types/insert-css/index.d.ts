@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface InsertCssOptions {
-    container?: HTMLElement;
-    prepend?: boolean;
+    container?: HTMLElement | undefined;
+    prepend?: boolean | undefined;
 }
 
 export interface InsertCssStyleElement extends HTMLStyleElement {
-    styleSheet?: CSSStyleSheet;
+    styleSheet?: CSSStyleSheet | undefined;
 }
 
 export function insertCss(

@@ -21,128 +21,128 @@ export const TOUCH_ACTIVATION: {
 
 export interface CommonProps {
     imageSrc: string;
-    cursorStyle?: string;
-    largeImageSrc?: string;
-    imageAlt?: string;
-    style?: React.CSSProperties;
-    className?: string;
-    renderOverlay?: (state: boolean) => React.ReactNode;
-    onImageLoad?: (ev: React.SyntheticEvent) => void;
-    onLargeImageLoad?: (ev: React.SyntheticEvent) => void;
-    onZoomStart?: () => void;
-    onZoomEnd?: () => void;
+    cursorStyle?: string | undefined;
+    largeImageSrc?: string | undefined;
+    imageAlt?: string | undefined;
+    style?: React.CSSProperties | undefined;
+    className?: string | undefined;
+    renderOverlay?: ((state: boolean) => React.ReactNode) | undefined;
+    onImageLoad?: ((ev: React.SyntheticEvent) => void) | undefined;
+    onLargeImageLoad?: ((ev: React.SyntheticEvent) => void) | undefined;
+    onZoomStart?: (() => void) | undefined;
+    onZoomEnd?: (() => void) | undefined;
 }
 
 export interface MagnifierProps extends CommonProps {
-    mouseActivation?: MouseActivation;
-    touchActivation?: TouchActivation;
-    cursorStyleActive?: string;
-    dragToMove?: boolean;
+    mouseActivation?: MouseActivation | undefined;
+    touchActivation?: TouchActivation | undefined;
+    cursorStyleActive?: string | undefined;
+    dragToMove?: boolean | undefined;
     interactionSettings?: {
-        tapDurationInMs?: number;
-        doubleTapDurationInMs?: number;
-        longTouchDurationInMs?: number;
-        longTouchMoveLimit?: number;
-        clickMoveLimit?: number;
-    };
+        tapDurationInMs?: number | undefined;
+        doubleTapDurationInMs?: number | undefined;
+        longTouchDurationInMs?: number | undefined;
+        longTouchMoveLimit?: number | undefined;
+        clickMoveLimit?: number | undefined;
+    } | undefined;
 }
 
 export const Magnifier: React.ComponentType<MagnifierProps>;
 
 export interface GlassMagnifierProps extends CommonProps {
-    allowOverflow?: boolean;
-    magnifierBorderColor?: string;
-    magnifierBorderSize?: number;
-    magnifierBackgroundColor?: string;
-    magnifierOffsetX?: number;
-    magnifierOffsetY?: number;
-    magnifierSize?: string | number;
-    square?: boolean;
+    allowOverflow?: boolean | undefined;
+    magnifierBorderColor?: string | undefined;
+    magnifierBorderSize?: number | undefined;
+    magnifierBackgroundColor?: string | undefined;
+    magnifierOffsetX?: number | undefined;
+    magnifierOffsetY?: number | undefined;
+    magnifierSize?: string | number | undefined;
+    square?: boolean | undefined;
 }
 
 export const GlassMagnifier: React.ComponentType<GlassMagnifierProps>;
 
 export interface PictureInPictureMagnifierProps extends CommonProps {
-    cursorStyleActive?: string;
-    previewHorizontalPos?: 'left' | 'right';
-    previewVerticalPos?: 'top' | 'bottom';
-    previewOpacity?: number;
-    previewOverlayBoxOpacity?: number;
-    previewOverlayBackgroundColor?: string;
-    previewOverlayBoxColor?: string;
-    previewOverlayBoxImage?: string;
-    previewOverlayBoxImageSize?: string;
-    previewOverlayOpacity?: number;
-    previewSizePercentage?: number;
-    shadow?: boolean;
-    shadowColor?: string;
+    cursorStyleActive?: string | undefined;
+    previewHorizontalPos?: 'left' | 'right' | undefined;
+    previewVerticalPos?: 'top' | 'bottom' | undefined;
+    previewOpacity?: number | undefined;
+    previewOverlayBoxOpacity?: number | undefined;
+    previewOverlayBackgroundColor?: string | undefined;
+    previewOverlayBoxColor?: string | undefined;
+    previewOverlayBoxImage?: string | undefined;
+    previewOverlayBoxImageSize?: string | undefined;
+    previewOverlayOpacity?: number | undefined;
+    previewSizePercentage?: number | undefined;
+    shadow?: boolean | undefined;
+    shadowColor?: string | undefined;
 }
 
 export const PictureInPictureMagnifier: React.ComponentType<PictureInPictureMagnifierProps>;
 
 export interface SideBySideMagnifierProps extends CommonProps {
-    alwaysInPlace?: boolean;
-    switchSides?: boolean;
-    fillAvailableSpace?: boolean;
-    fillAlignTop?: boolean;
-    fillGapLeft?: number;
-    fillGapRight?: number;
-    fillGapTop?: number;
-    fillGapBottom?: number;
-    overlayBoxOpacity?: number;
-    overlayOpacity?: number;
-    overlayBackgroundColor?: string;
-    overlayBoxColor?: string;
-    overlayBoxImage?: string;
-    overlayBoxImageSize?: string;
-    zoomContainerBorder?: string;
-    zoomContainerBoxShadow?: string;
-    transitionSpeed?: number;
-    transitionSpeedInPlace?: number;
-    inPlaceMinBreakpoint?: number;
+    alwaysInPlace?: boolean | undefined;
+    switchSides?: boolean | undefined;
+    fillAvailableSpace?: boolean | undefined;
+    fillAlignTop?: boolean | undefined;
+    fillGapLeft?: number | undefined;
+    fillGapRight?: number | undefined;
+    fillGapTop?: number | undefined;
+    fillGapBottom?: number | undefined;
+    overlayBoxOpacity?: number | undefined;
+    overlayOpacity?: number | undefined;
+    overlayBackgroundColor?: string | undefined;
+    overlayBoxColor?: string | undefined;
+    overlayBoxImage?: string | undefined;
+    overlayBoxImageSize?: string | undefined;
+    zoomContainerBorder?: string | undefined;
+    zoomContainerBoxShadow?: string | undefined;
+    transitionSpeed?: number | undefined;
+    transitionSpeedInPlace?: number | undefined;
+    inPlaceMinBreakpoint?: number | undefined;
 }
 
 export const SideBySideMagnifier: React.ComponentType<SideBySideMagnifierProps>;
 
 export interface MagnifierContainerProps {
-    style?: string;
-    className?: string;
-    autoInPlace?: boolean;
-    inPlaceMinBreakpoint?: number;
+    style?: string | undefined;
+    className?: string | undefined;
+    autoInPlace?: boolean | undefined;
+    inPlaceMinBreakpoint?: number | undefined;
 }
 
 export const MagnifierContainer: React.ComponentType<MagnifierContainerProps>;
 
 export interface MagnifierPreviewProps {
     imageSrc: string;
-    largeImageSrc?: string;
-    imageAlt?: string;
-    style?: React.CSSProperties;
-    className?: string;
-    onImageLoad?: (ev: React.SyntheticEvent) => void;
-    onLargeImageLoad?: (ev: React.SyntheticEvent) => void;
-    cursorStyle?: string;
-    transitionSpeed?: number;
-    overlayBoxOpacity?: number;
-    overlayOpacity?: number;
-    overlayBackgroundColor?: number;
-    overlayBoxColor?: number;
-    overlayBoxImage?: number;
-    overlayBoxImageSize?: number;
-    renderOverlay?: (state: boolean) => React.ReactNode;
-    onZoomStart?: () => void;
-    onZoomEnd?: () => void;
+    largeImageSrc?: string | undefined;
+    imageAlt?: string | undefined;
+    style?: React.CSSProperties | undefined;
+    className?: string | undefined;
+    onImageLoad?: ((ev: React.SyntheticEvent) => void) | undefined;
+    onLargeImageLoad?: ((ev: React.SyntheticEvent) => void) | undefined;
+    cursorStyle?: string | undefined;
+    transitionSpeed?: number | undefined;
+    overlayBoxOpacity?: number | undefined;
+    overlayOpacity?: number | undefined;
+    overlayBackgroundColor?: number | undefined;
+    overlayBoxColor?: number | undefined;
+    overlayBoxImage?: number | undefined;
+    overlayBoxImageSize?: number | undefined;
+    renderOverlay?: ((state: boolean) => React.ReactNode) | undefined;
+    onZoomStart?: (() => void) | undefined;
+    onZoomEnd?: (() => void) | undefined;
 }
 
 export const MagnifierPreview: React.ComponentType<MagnifierPreviewProps>;
 
 export interface MagnifierZoomProps {
     imageSrc: string;
-    imageAlt?: string;
-    style?: React.CSSProperties;
-    className?: string;
-    onImageLoad?: (ev: React.SyntheticEvent) => void;
-    transitionSpeed?: number;
+    imageAlt?: string | undefined;
+    style?: React.CSSProperties | undefined;
+    className?: string | undefined;
+    onImageLoad?: ((ev: React.SyntheticEvent) => void) | undefined;
+    transitionSpeed?: number | undefined;
 }
 
 export const MagnifierZoom: React.ComponentType<MagnifierZoomProps>;

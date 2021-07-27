@@ -1,6 +1,6 @@
-import * as http from 'node:http';
-import * as url from 'node:url';
-import * as net from 'node:net';
+import * as http from 'http';
+import * as url from 'url';
+import * as net from 'net';
 
 // http Server
 {
@@ -137,7 +137,8 @@ import * as net from 'node:net';
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
         maxFreeSockets: 256,
-        timeout: 15000
+        scheduling: 'lifo',
+        timeout: 15000,
     });
 
     agent = http.globalAgent;

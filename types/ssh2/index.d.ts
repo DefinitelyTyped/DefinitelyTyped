@@ -415,53 +415,53 @@ export class Client extends events.EventEmitter {
 
 export interface ConnectConfig {
     /** Hostname or IP address of the server. */
-    host?: string;
+    host?: string | undefined;
     /** Port number of the server. */
-    port?: number;
+    port?: number | undefined;
     /** Only connect via resolved IPv4 address for `host`. */
-    forceIPv4?: boolean;
+    forceIPv4?: boolean | undefined;
     /** Only connect via resolved IPv6 address for `host`. */
-    forceIPv6?: boolean;
+    forceIPv6?: boolean | undefined;
     /** The host's key is hashed using this method and passed to `hostVerifier`. */
-    hostHash?: "md5" | "sha1";
+    hostHash?: "md5" | "sha1" | undefined;
     /** Verifies a hexadecimal hash of the host's key. */
-    hostVerifier?: (keyHash: string) => boolean;
+    hostVerifier?: ((keyHash: string) => boolean) | undefined;
     /** Username for authentication. */
-    username?: string;
+    username?: string | undefined;
     /** Password for password-based user authentication. */
-    password?: string;
+    password?: string | undefined;
     /** Path to ssh-agent's UNIX socket for ssh-agent-based user authentication (or 'pageant' when using Pagent on Windows). */
-    agent?: string;
+    agent?: string | undefined;
     /** Buffer or string that contains a private key for either key-based or hostbased user authentication (OpenSSH format). */
-    privateKey?: Buffer | string;
+    privateKey?: Buffer | string | undefined;
     /** For an encrypted private key, this is the passphrase used to decrypt it. */
-    passphrase?: string;
+    passphrase?: string | undefined;
     /** Along with `localUsername` and `privateKey`, set this to a non-empty string for hostbased user authentication. */
-    localHostname?: string;
+    localHostname?: string | undefined;
     /** Along with `localHostname` and `privateKey`, set this to a non-empty string for hostbased user authentication. */
-    localUsername?: string;
+    localUsername?: string | undefined;
     /** Try keyboard-interactive user authentication if primary user authentication method fails. */
-    tryKeyboard?: boolean;
+    tryKeyboard?: boolean | undefined;
     /** How often (in milliseconds) to send SSH-level keepalive packets to the server. Set to 0 to disable. */
-    keepaliveInterval?: number;
+    keepaliveInterval?: number | undefined;
     /** How many consecutive, unanswered SSH-level keepalive packets that can be sent to the server before disconnection. */
-    keepaliveCountMax?: number;
+    keepaliveCountMax?: number | undefined;
     /** * How long (in milliseconds) to wait for the SSH handshake to complete. */
-    readyTimeout?: number;
+    readyTimeout?: number | undefined;
     /** Performs a strict server vendor check before sending vendor-specific requests. */
-    strictVendor?: boolean;
+    strictVendor?: boolean | undefined;
     /** A `ReadableStream` to use for communicating with the server instead of creating and using a new TCP connection (useful for connection hopping). */
-    sock?: NodeJS.ReadableStream;
+    sock?: NodeJS.ReadableStream | undefined;
     /** Set to `true` to use OpenSSH agent forwarding (`auth-agent@openssh.com`) for the life of the connection. */
-    agentForward?: boolean;
+    agentForward?: boolean | undefined;
     /** Explicit overrides for the default transport layer algorithms used for the connection. */
-    algorithms?: Algorithms;
+    algorithms?: Algorithms | undefined;
     /** Compression settings: true (prefer), false (never), 'force' (require) */
-    compress?: boolean | 'force';
+    compress?: boolean | 'force' | undefined;
     /** A function that receives a single string argument to get detailed (local) debug information. */
-    debug?: (information: string) => any;
+    debug?: ((information: string) => any) | undefined;
     /** Function with parameters (methodsLeft, partialSuccess, callback) where methodsLeft and partialSuccess are null on the first authentication attempt, otherwise are an array and boolean respectively. Return or call callback() with the name of the authentication method to try next (pass false to signal no more methods to try). Valid method names are: 'none', 'password', 'publickey', 'agent', 'keyboard-interactive', 'hostbased'. Default: function that follows a set method order: None -> Password -> Private Key -> Agent (-> keyboard-interactive if tryKeyboard is true) -> Hostbased. */
-    authHandler?: (methodsLeft: Array<string> | null, partialSuccess: boolean | null, callback: Function) => any;
+    authHandler?: ((methodsLeft: Array<string> | null, partialSuccess: boolean | null, callback: Function) => any) | undefined;
 }
 
 export interface TcpConnectionDetails {
@@ -484,45 +484,45 @@ export interface X11Details {
 
 export interface ClientErrorExtensions {
     /** Indicates 'client-socket' for socket-level errors and 'client-ssh' for SSH disconnection messages. */
-    level?: string;
+    level?: string | undefined;
     /** Additional detail for 'client-ssh' messages. */
-    description?: string;
+    description?: string | undefined;
 }
 
 export interface ExecOptions {
     /** An environment to use for the execution of the command. */
-    env?: NodeJS.ProcessEnv;
+    env?: NodeJS.ProcessEnv | undefined;
     /** Set to `true` to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. */
-    pty?: true | PseudoTtyOptions;
+    pty?: true | PseudoTtyOptions | undefined;
     /** Set either to `true` to use defaults, a number to specify a specific screen number, or an object containing x11 settings. */
-    x11?: boolean | number | X11Options;
+    x11?: boolean | number | X11Options | undefined;
 }
 
 export interface ShellOptions {
     /** An environment to use for the execution of the shell. */
-    env?: NodeJS.ProcessEnv;
+    env?: NodeJS.ProcessEnv | undefined;
     /** Set either to `true` to use defaults, a number to specify a specific screen number, or an object containing x11 settings. */
-    x11?: boolean | number | X11Options;
+    x11?: boolean | number | X11Options | undefined;
 }
 
 export interface X11Options {
     /** Whether to allow just a single connection (default: `false`).*/
-    single?: boolean;
+    single?: boolean | undefined;
     /** The Screen number to use (default: `0`). */
-    screen?: number;
+    screen?: number | undefined;
 }
 
 export interface PseudoTtyOptions {
     /** The number of rows (default: `24`). */
-    rows?: number;
+    rows?: number | undefined;
     /** The number of columns (default: `80`). */
-    cols?: number;
+    cols?: number | undefined;
     /** The height in pixels (default: `480`). */
-    height?: number;
+    height?: number | undefined;
     /** The width in pixels (default: `640`). */
-    width?: number;
+    width?: number | undefined;
     /** The value to use for $TERM (default: `'vt100'`) */
-    term?: string;
+    term?: string | undefined;
 }
 
 export class Server extends events.EventEmitter {
@@ -734,26 +734,26 @@ export interface ServerConfig {
     /** An array of host private keys. */
     hostKeys: (Buffer | string | EncryptedPrivateKey)[];
     /** Explicit overrides for the default transport layer algorithms used for the connection. */
-    algorithms?: Algorithms;
+    algorithms?: Algorithms | undefined;
     /** A message that is sent to clients immediately upon connection, before handshaking begins. */
-    greeting?: string
+    greeting?: string | undefined
     /** A message that is sent to clients once, right before authentication begins. */
-    banner?: string;
+    banner?: string | undefined;
     /** A custom server software name/version identifier. */
-    ident?: string;
+    ident?: string | undefined;
     /** This is the highWaterMark to use for the parser stream (default: `32 * 1024`). */
-    highWaterMark?: number;
+    highWaterMark?: number | undefined;
     /** This is the maximum packet size that will be accepted. It should be 35000 bytes or larger to be compatible with other SSH2 implementations. */
-    maxPacketSize?: number;
+    maxPacketSize?: number | undefined;
     /** A function that receives a single string argument to get detailed (local) debug information. */
-    debug?: (information: string) => any;
+    debug?: ((information: string) => any) | undefined;
 }
 
 export interface EncryptedPrivateKey {
     /** A Buffer or string that contains a private key. */
     key: Buffer | string;
     /** The passphrase to decrypt a private key. */
-    passphrase?: string;
+    passphrase?: string | undefined;
 }
 
 export interface ClientInfo {
@@ -1106,115 +1106,115 @@ export interface PseudoTtyInfo {
 export interface TerminalModes {
     [mode: string]: number | undefined;
     /** Interrupt character; `255` if none. Not all of these characters are supported on all systems. */
-    VINTR?: number;
+    VINTR?: number | undefined;
     /** The quit character (sends `SIGQUIT` signal on POSIX systems). */
-    VQUIT?: number;
+    VQUIT?: number | undefined;
     /** Erase the character to left of the cursor. */
-    VERASE?: number;
+    VERASE?: number | undefined;
     /** Kill the current input line. */
-    VKILL?: number;
+    VKILL?: number | undefined;
     /** End-of-file character (sends `EOF` from the terminal). */
-    VEOF?: number;
+    VEOF?: number | undefined;
     /** End-of-line character in addition to carriage return and/or linefeed. */
-    VEOL?: number;
+    VEOL?: number | undefined;
     /** Additional end-of-line character. */
-    VEOL2?: number;
+    VEOL2?: number | undefined;
     /** Continues paused output (normally control-Q). */
-    VSTART?: number;
+    VSTART?: number | undefined;
     /** Pauses output (normally control-S). */
-    VSTOP?: number;
+    VSTOP?: number | undefined;
     /** Suspends the current program. */
-    VSUSP?: number;
+    VSUSP?: number | undefined;
     /** Another suspend character. */
-    VDSUSP?: number;
+    VDSUSP?: number | undefined;
     /** Reprints the current input line. */
-    VREPRINT?: number;
+    VREPRINT?: number | undefined;
     /** Erases a word left of cursor. */
-    VWERASE?: number;
+    VWERASE?: number | undefined;
     /** Enter the next character typed literally, even if it is a special character */
-    VLNEXT?: number;
+    VLNEXT?: number | undefined;
     /** Character to flush output. */
-    VFLUSH?: number;
+    VFLUSH?: number | undefined;
     /** Switch to a different shell layer. */
-    VSWTCH?: number;
+    VSWTCH?: number | undefined;
     /** Prints system status line (load, command, pid, etc). */
-    VSTATUS?: number;
+    VSTATUS?: number | undefined;
     /** Toggles the flushing of terminal output. */
-    VDISCARD?: number;
+    VDISCARD?: number | undefined;
     /** The ignore parity flag.  The parameter SHOULD be `0` if this flag is FALSE, and `1` if it is TRUE. */
-    IGNPAR?: 0 | 1;
+    IGNPAR?: 0 | 1 | undefined;
     /** Mark parity and framing errors. */
-    PARMRK?: 0 | 1;
+    PARMRK?: 0 | 1 | undefined;
     /** Enable checking of parity errors. */
-    INPCK?: 0 | 1;
+    INPCK?: 0 | 1 | undefined;
     /** Strip 8th bit off characters. */
-    ISTRIP?: 0 | 1;
+    ISTRIP?: 0 | 1 | undefined;
     /** Map NL into CR on input. */
-    INLCR?: 0 | 1;
+    INLCR?: 0 | 1 | undefined;
     /** Ignore CR on input. */
-    IGNCR?: 0 | 1;
+    IGNCR?: 0 | 1 | undefined;
     /** Map CR to NL on input. */
-    ICRNL?: 0 | 1;
+    ICRNL?: 0 | 1 | undefined;
     /** Translate uppercase characters to lowercase. */
-    IUCLC?: 0 | 1;
+    IUCLC?: 0 | 1 | undefined;
     /** Enable output flow control. */
-    IXON?: 0 | 1;
+    IXON?: 0 | 1 | undefined;
     /** Any char will restart after stop. */
-    IXANY?: 0 | 1;
+    IXANY?: 0 | 1 | undefined;
     /** Enable input flow control. */
-    IXOFF?: 0 | 1;
+    IXOFF?: 0 | 1 | undefined;
     /** Ring bell on input queue full. */
-    IMAXBEL?: 0 | 1;
+    IMAXBEL?: 0 | 1 | undefined;
     /** Enable signals INTR, QUIT, [D]SUSP. */
-    ISIG?: 0 | 1;
+    ISIG?: 0 | 1 | undefined;
     /** Canonicalize input lines. */
-    ICANON?: 0 | 1;
+    ICANON?: 0 | 1 | undefined;
     /** Enable input and output of uppercase characters by preceding their lowercase equivalents with `\`. */
-    XCASE?: 0 | 1;
+    XCASE?: 0 | 1 | undefined;
     /** Enable echoing. */
-    ECHO?: 0 | 1;
+    ECHO?: 0 | 1 | undefined;
     /** Visually erase chars. */
-    ECHOE?: 0 | 1;
+    ECHOE?: 0 | 1 | undefined;
     /** Kill character discards current line. */
-    ECHOK?: 0 | 1;
+    ECHOK?: 0 | 1 | undefined;
     /** Echo NL even if ECHO is off. */
-    ECHONL?: 0 | 1;
+    ECHONL?: 0 | 1 | undefined;
     /** Don't flush after interrupt. */
-    NOFLSH?: 0 | 1;
+    NOFLSH?: 0 | 1 | undefined;
     /** Stop background jobs from output. */
-    TOSTOP?: 0 | 1;
+    TOSTOP?: 0 | 1 | undefined;
     /** Enable extensions. */
-    IEXTEN?: 0 | 1;
+    IEXTEN?: 0 | 1 | undefined;
     /** Echo control characters as ^(Char). */
-    ECHOCTL?: 0 | 1;
+    ECHOCTL?: 0 | 1 | undefined;
     /** Visual erase for line kill. */
-    ECHOKE?: 0 | 1;
+    ECHOKE?: 0 | 1 | undefined;
     /** Retype pending input. */
-    PENDIN?: 0 | 1;
+    PENDIN?: 0 | 1 | undefined;
     /** Enable output processing. */
-    OPOST?: 0 | 1;
+    OPOST?: 0 | 1 | undefined;
     /** Convert lowercase to uppercase. */
-    OLCUC?: 0 | 1;
+    OLCUC?: 0 | 1 | undefined;
     /** Map NL to CR-NL. */
-    ONLCR?: 0 | 1;
+    ONLCR?: 0 | 1 | undefined;
     /** Translate carriage return to newline (output). */
-    OCRNL?: 0 | 1;
+    OCRNL?: 0 | 1 | undefined;
     /** Translate newline to carriage return-newline (output). */
-    ONOCR?: 0 | 1;
+    ONOCR?: 0 | 1 | undefined;
     /** Newline performs a carriage return (output). */
-    ONLRET?: 0 | 1;
+    ONLRET?: 0 | 1 | undefined;
     /** 7 bit mode. */
-    CS7?: 0 | 1;
+    CS7?: 0 | 1 | undefined;
     /** 8 bit mode. */
-    CS8?: 0 | 1;
+    CS8?: 0 | 1 | undefined;
     /** Parity enable. */
-    PARENB?: 0 | 1;
+    PARENB?: 0 | 1 | undefined;
     /** Odd parity, else even. */
-    PARODD?: 0 | 1;
+    PARODD?: 0 | 1 | undefined;
     /** Specifies the input baud rate in bits per second. */
-    TTY_OP_ISPEED?: number;
+    TTY_OP_ISPEED?: number | undefined;
     /** Specifies the output baud rate in bits per second. */
-    TTY_OP_OSPEED?: number;
+    TTY_OP_OSPEED?: number | undefined;
 }
 
 export interface WindowChangeInfo {

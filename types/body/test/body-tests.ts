@@ -1,4 +1,4 @@
-import { createServer } from "node:http";
+import { createServer } from "http";
 import textBody = require("body");
 import formBody = require("body/form");
 import jsonBody = require("body/json");

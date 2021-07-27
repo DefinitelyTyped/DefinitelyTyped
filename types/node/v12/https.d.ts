@@ -1,22 +1,18 @@
-declare module 'node:https' {
-    export * from 'https';
-}
-
 declare module 'https' {
-    import * as tls from 'node:tls';
-    import * as http from 'node:http';
-    import { URL } from 'node:url';
+    import * as tls from 'tls';
+    import * as http from 'http';
+    import { URL } from 'url';
 
     type ServerOptions = tls.SecureContextOptions & tls.TlsOptions & http.ServerOptions;
 
     type RequestOptions = http.RequestOptions & tls.SecureContextOptions & {
-        rejectUnauthorized?: boolean; // Defaults to true
-        servername?: string; // SNI TLS Extension
+        rejectUnauthorized?: boolean | undefined; // Defaults to true
+        servername?: string | undefined; // SNI TLS Extension
     };
 
     interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
-        rejectUnauthorized?: boolean;
-        maxCachedSessions?: number;
+        rejectUnauthorized?: boolean | undefined;
+        maxCachedSessions?: number | undefined;
     }
 
     class Agent extends http.Agent {

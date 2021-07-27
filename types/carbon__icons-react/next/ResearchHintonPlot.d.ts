@@ -1,0 +1,1 @@
+export { ResearchHintonPlot as default } from "./";

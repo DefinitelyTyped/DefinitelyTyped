@@ -24,9 +24,9 @@ declare namespace ParseTorrent {
 
     interface Instance extends MagnetUri.Instance, ParseTorrentFile.Instance {
         infoHash: string;
-        name?: string;
-        announce?: string[];
-        urlList?: string[];
+        name?: string | undefined;
+        announce?: string[] | undefined;
+        urlList?: string[] | undefined;
     }
 }
 

@@ -1,7 +1,3 @@
-declare module 'node:util' {
-    export * from 'util';
-}
-
 declare module 'util' {
     interface InspectOptions extends NodeJS.InspectOptions { }
     function format(format?: any, ...param: any[]): string;
@@ -176,11 +172,11 @@ declare module 'util' {
         readonly ignoreBOM: boolean;
         constructor(
           encoding?: string,
-          options?: { fatal?: boolean; ignoreBOM?: boolean }
+          options?: { fatal?: boolean | undefined; ignoreBOM?: boolean | undefined }
         );
         decode(
           input?: NodeJS.ArrayBufferView | ArrayBuffer | null,
-          options?: { stream?: boolean }
+          options?: { stream?: boolean | undefined }
         ): string;
     }
 

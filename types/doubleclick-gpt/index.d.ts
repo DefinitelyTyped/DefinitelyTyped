@@ -62,24 +62,24 @@ declare namespace googletag {
     }
 
     interface LazyLoadOptionsConfig {
-        fetchMarginPercent?: number;
-        renderMarginPercent?: number;
-        mobileScaling?: number;
+        fetchMarginPercent?: number | undefined;
+        renderMarginPercent?: number | undefined;
+        mobileScaling?: number | undefined;
     }
 
     interface ResponseInformation {
         advertiserId: string;
         campaignId: string;
-        creativeId?: number;
-        creativeTemplateId?: number;
-        lineItemId?: number;
+        creativeId?: number | undefined;
+        creativeTemplateId?: number | undefined;
+        lineItemId?: number | undefined;
     }
 
     interface SafeFrameConfig {
-        allowOverlayExpansion?: boolean;
-        allowPushExpansion?: boolean;
-        sandbox?: boolean;
-        useUniqueDomain?: boolean | null;
+        allowOverlayExpansion?: boolean | undefined;
+        allowPushExpansion?: boolean | undefined;
+        sandbox?: boolean | undefined;
+        useUniqueDomain?: boolean | null | undefined;
     }
 
     interface Googletag {
@@ -174,10 +174,10 @@ declare namespace googletag {
     }
 
     interface PrivacySettingsConfig {
-        childDirectedTreatment?: boolean | null;
-        limitedAds?: boolean | null;
-        restrictDataProcessing?: boolean | null;
-        underAgeOfConsent?: boolean | null;
+        childDirectedTreatment?: boolean | null | undefined;
+        limitedAds?: boolean | null | undefined;
+        restrictDataProcessing?: boolean | null | undefined;
+        underAgeOfConsent?: boolean | null | undefined;
     }
 
     interface SizeMappingBuilder {
@@ -198,14 +198,14 @@ declare namespace googletag {
         interface SlotOnloadEvent extends Event {}
 
         interface SlotRenderEndedEvent extends Event {
-            advertiserId?: number;
-            campaignId?: number;
-            creativeId?: number;
+            advertiserId?: number | undefined;
+            campaignId?: number | undefined;
+            creativeId?: number | undefined;
             isEmpty: boolean;
-            lineItemId?: number;
+            lineItemId?: number | undefined;
             size: number[] | string;
-            sourceAgnosticCreativeId?: number;
-            sourceAgnosticLineItemId?: number;
+            sourceAgnosticCreativeId?: number | undefined;
+            sourceAgnosticLineItemId?: number | undefined;
         }
 
         // tslint:disable-next-line:no-empty-interface
