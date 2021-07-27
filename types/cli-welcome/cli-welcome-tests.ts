@@ -1,3 +1,4 @@
+// Tests
 import welcome = require('cli-welcome');
 
 // Use it.
