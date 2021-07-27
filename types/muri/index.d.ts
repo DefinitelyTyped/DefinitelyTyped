@@ -14,8 +14,8 @@ declare namespace Muri {
         options: any;
         auth?: {
             user: string;
-            pass?: string;
-        };
+            pass?: string | undefined;
+        } | undefined;
     }
 
     interface DefaultHost {

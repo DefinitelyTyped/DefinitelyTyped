@@ -8,7 +8,7 @@ export type FontFaceSetLoadStatus = 'loading' | 'loaded';
 export type BinaryData = ArrayBuffer | ArrayBufferView;
 
 export interface FontFaceSetLoadEventInit extends EventInit {
-    fontfaces?: FontFace[];
+    fontfaces?: FontFace[] | undefined;
 }
 
 export interface FontFaceSetEventMap {
@@ -47,13 +47,13 @@ export interface FontFaceSet extends Set<FontFace>, EventTarget {
 
 declare global {
     interface FontFaceDescriptors {
-        display?: string;
-        featureSettings?: string;
-        stretch?: string;
-        style?: string;
-        unicodeRange?: string;
-        variant?: string;
-        weight?: string;
+        display?: string | undefined;
+        featureSettings?: string | undefined;
+        stretch?: string | undefined;
+        style?: string | undefined;
+        unicodeRange?: string | undefined;
+        variant?: string | undefined;
+        weight?: string | undefined;
     }
 
     interface FontFace {

@@ -9,7 +9,6 @@
 
 /// <reference types="debug" />
 /// <reference types="pouchdb-find" />
-/// <reference types="node-fetch" />
 
 interface Blob {
     readonly size: number;
@@ -100,13 +99,13 @@ declare namespace PouchDB {
             /**
              * HTTP Status Code during HTTP or HTTP-like operations
              */
-            status?: number;
-            name?: string;
-            message?: string;
-            reason?: string;
-            error?: string | boolean;
-            id?: string;
-            rev?: RevisionId;
+            status?: number | undefined;
+            name?: string | undefined;
+            message?: string | undefined;
+            reason?: string | undefined;
+            error?: string | boolean | undefined;
+            id?: string | undefined;
+            rev?: RevisionId | undefined;
         }
         type Callback<R> = (error: Error | null, result: R | null) => void;
         type DocumentId = string;
@@ -117,7 +116,7 @@ declare namespace PouchDB {
         type AttachmentData = string | Blob | Buffer;
 
         interface Options {
-          fetch?: Fetch;
+          fetch?: Fetch | undefined;
         }
 
         interface BasicResponse {
@@ -153,8 +152,8 @@ declare namespace PouchDB {
             [DocumentId: string]: string[];
         }
         interface RevisionDiff {
-            missing?: string[];
-            possible_ancestors?: string[];
+            missing?: string[] | undefined;
+            possible_ancestors?: string[] | undefined;
         }
         interface RevisionDiffResponse {
             [DocumentId: string]: RevisionDiff;
@@ -172,18 +171,18 @@ declare namespace PouchDB {
              *
              * Only present if `GetOptions.conflicts` is `true`
              */
-            _conflicts?: RevisionId[];
+            _conflicts?: RevisionId[] | undefined;
             _rev: RevisionId;
             /** Only present if `GetOptions.revs` is `true` */
-            _revs_info?: RevisionInfo[];
+            _revs_info?: RevisionInfo[] | undefined;
             /** Only present if `GetOptions.revs_info` is `true` */
             _revisions?: {
                 ids: RevisionId[];
                 start: number;
-            };
+            } | undefined;
 
             /** Attachments where index is attachmentId */
-            _attachments?: Attachments;
+            _attachments?: Attachments | undefined;
         }
 
         /**
@@ -222,7 +221,7 @@ declare namespace PouchDB {
             content_type: string;
 
             /** MD5 hash, starts with "md5-" prefix; populated by PouchDB for new attachments */
-            digest?: string;
+            digest?: string | undefined;
 
             /**
              * {string} if `binary` was `false`
@@ -246,20 +245,20 @@ declare namespace PouchDB {
         type RemoveDocument = IdMeta & RevisionIdMeta;
 
         type PostDocument<Content extends {}> = NewDocument<Content> & {
-            filters?: {[filterName: string]: string};
+            filters?: {[filterName: string]: string} | undefined;
             views?: {[viewName: string]: {
                 map: string,
-                reduce?: string
-            }};
+                reduce?: string | undefined
+            }} | undefined;
 
             /** You can update an existing doc using _rev */
-            _rev?: RevisionId;
+            _rev?: RevisionId | undefined;
 
-            _attachments?: Attachments;
+            _attachments?: Attachments | undefined;
         };
 
         type PutDocument<Content extends {}> = PostDocument<Content> & ChangesMeta & {
-            _id?: DocumentId;
+            _id?: DocumentId | undefined;
         };
 
         interface AllDocsOptions extends Options {
@@ -271,37 +270,37 @@ declare namespace PouchDB {
              * By default, attachments are Base64-encoded.
              * @see binary
              */
-            attachments?: boolean;
+            attachments?: boolean | undefined;
             /**
              * Return attachments as Buffers.
              *
              * Requires `include_docs` to be `true`.
              * Requires `attachments` to be `true`.
              */
-            binary?: boolean;
+            binary?: boolean | undefined;
             /**
              * Include conflict information for each document.
              *
              * Requires `include_docs` to be `true`.
              */
-            conflicts?: boolean;
+            conflicts?: boolean | undefined;
             /** Reverse ordering of results. */
-            descending?: boolean;
+            descending?: boolean | undefined;
             /** Include contents for each document. */
-            include_docs?: boolean;
+            include_docs?: boolean | undefined;
             /** Maximum number of documents to return. */
-            limit?: number;
+            limit?: number | undefined;
             /**
              * Number of documents to skip before returning.
              *
              * Causes poor performance on IndexedDB and LevelDB.
              */
-            skip?: number;
+            skip?: number | undefined;
             /**
              * Include an update_seq value indicating which sequence id
              * of the underlying database the view reflects.
              */
-            update_seq?: boolean;
+            update_seq?: boolean | undefined;
         }
         interface AllDocsWithKeyOptions extends AllDocsOptions {
             /** Constrain results to documents matching this key. */
@@ -321,40 +320,40 @@ declare namespace PouchDB {
              *
              * Defaults to `true`.
              */
-            inclusive_end?: boolean;
+            inclusive_end?: boolean | undefined;
         }
         interface AllDocsMeta {
             /** Only present if `conflicts` is `true` */
-            _conflicts?: RevisionId[];
+            _conflicts?: RevisionId[] | undefined;
 
-            _attachments?: Attachments;
+            _attachments?: Attachments | undefined;
         }
         interface AllDocsResponse<Content extends {}> {
             /** The `skip` if provided, or in CouchDB the actual offset */
             offset: number;
             total_rows: number;
-            update_seq?: number | string;
+            update_seq?: number | string | undefined;
             rows: Array<{
                 /** Only present if `include_docs` was `true`. */
-                doc?: ExistingDocument<Content & AllDocsMeta>;
+                doc?: ExistingDocument<Content & AllDocsMeta> | undefined;
                 id: DocumentId;
                 key: DocumentKey;
                 value: {
                     rev: RevisionId;
-                    deleted?: boolean;
+                    deleted?: boolean | undefined;
                 }
             }>;
         }
 
         interface BulkDocsOptions extends Options {
-            new_edits?: boolean;
+            new_edits?: boolean | undefined;
         }
 
         interface BulkGetOptions extends Options {
-            docs: Array<{ id: string; rev?: RevisionId }>;
-            revs?: boolean;
-            attachments?: boolean;
-            binary?: boolean;
+            docs: Array<{ id: string; rev?: RevisionId | undefined }>;
+            revs?: boolean | undefined;
+            attachments?: boolean | undefined;
+            binary?: boolean | undefined;
         }
 
         interface BulkGetResponse<Content extends {}> {
@@ -365,82 +364,82 @@ declare namespace PouchDB {
         }
 
         interface ChangesMeta {
-            _conflicts?: RevisionId[];
-            _deleted?: boolean;
-            _attachments?: Attachments;
+            _conflicts?: RevisionId[] | undefined;
+            _deleted?: boolean | undefined;
+            _attachments?: Attachments | undefined;
         }
 
         interface ChangesOptions {
             /**
              * Does "live" changes.
              */
-            live?: boolean;
+            live?: boolean | undefined;
 
             /**
              * Start the results from the change immediately after the given sequence number.
              * You can also pass `'now'` if you want only new changes (when `live` is `true`).
              *
              */
-            since?: 'now' | number | string;
+            since?: 'now' | number | string | undefined;
 
             /**
              * Request timeout (in milliseconds).
              */
-            timeout?: number | false;
+            timeout?: number | false | undefined;
 
             /** Include contents for each document. */
-            include_docs?: boolean;
+            include_docs?: boolean | undefined;
 
             /** Maximum number of documents to return. */
-            limit?: number | false;
+            limit?: number | false | undefined;
 
             /** Include conflicts. */
-            conflicts?: boolean;
+            conflicts?: boolean | undefined;
 
             /** Include attachments. */
-            attachments?: boolean;
+            attachments?: boolean | undefined;
 
             /** Return attachment data as Blobs/Buffers, instead of as base64-encoded strings. */
-            binary?: boolean;
+            binary?: boolean | undefined;
 
             /** Reverse the order of the output documents. */
-            descending?: boolean;
+            descending?: boolean | undefined;
 
             /**
              * For http adapter only, time in milliseconds for server to give a heartbeat to keep long connections open.
              * Defaults to 10000 (10 seconds), use false to disable the default.
              */
-            heartbeat?: number | false;
+            heartbeat?: number | false | undefined;
 
             /**
              * Reference a filter function from a design document to selectively get updates.
              * To use a view function, pass '_view' here and provide a reference to the view function in options.view.
              * See filtered changes for details.
              */
-            filter?: string | ((doc: any, params: any) => any);
+            filter?: string | ((doc: any, params: any) => any) | undefined;
 
             /** Only show changes for docs with these ids (array of strings). */
-            doc_ids?: string[];
+            doc_ids?: string[] | undefined;
 
             /**
              * Object containing properties that are passed to the filter function, e.g. {"foo:"bar"},
              * where "bar" will be available in the filter function as params.query.foo.
              * To access the params, define your filter function like function (doc, params).
              */
-            query_params?: {[paramName: string]: any};
+            query_params?: {[paramName: string]: any} | undefined;
 
             /**
              * Specify a view function (e.g. 'design_doc_name/view_name' or 'view_name' as shorthand for 'view_name/view_name') to act as a filter.
              * Documents counted as “passed” for a view filter if a map function emits at least one record for them.
              * Note: options.filter must be set to '_view' for this option to work.
              */
-            view?: string;
+            view?: string | undefined;
 
             /**
              * Filter using a query/pouchdb-find selector. Note: Selectors are not supported in CouchDB 1.x.
              * Cannot be used in combination with the filter option.
              */
-            selector?: Find.Selector;
+            selector?: Find.Selector | undefined;
 
             /**
              * (previously options.returnDocs): Is available for non-http databases and defaults to true.
@@ -448,13 +447,13 @@ declare namespace PouchDB {
              * words complete always has an empty results array, and the change event is the only way to get the event.
              * Useful for large change sets where otherwise you would run out of memory.
              */
-            return_docs?: boolean;
+            return_docs?: boolean | undefined;
 
             /**
              * Only available for http databases, this configures how many changes to fetch at a time.
              * Increasing this can reduce the number of requests made. Default is 25.
              */
-            batch_size?: number;
+            batch_size?: number | undefined;
 
             /**
              * Specifies how many revisions are returned in the changes array.
@@ -462,22 +461,22 @@ declare namespace PouchDB {
              * 'all_docs' will return all leaf revisions (including conflicts and deleted former conflicts).
              * Most likely you won’t need this unless you’re writing a replicator.
              */
-            style?: 'main_only' | 'all_docs';
+            style?: 'main_only' | 'all_docs' | undefined;
 
             /**
              * Only available for http databases. Specifies that seq information only be generated every N changes.
              * Larger values can improve changes throughput with CouchDB 2.0 and later.
              * Note that last_seq is always populated regardless.
              */
-            seq_interval?: number;
+            seq_interval?: number | undefined;
         }
 
         interface ChangesResponseChange<Content extends {}> {
             id: string;
             seq: number | string;
             changes: Array<{ rev: string }>;
-            deleted?: boolean;
-            doc?: ExistingDocument<Content & ChangesMeta>;
+            deleted?: boolean | undefined;
+            doc?: ExistingDocument<Content & ChangesMeta> | undefined;
         }
 
         interface ChangesResponse<Content extends {}> {
@@ -496,25 +495,25 @@ declare namespace PouchDB {
 
         interface GetOptions extends Options {
             /** Include list of conflicting leaf revisions. */
-            conflicts?: boolean;
+            conflicts?: boolean | undefined;
             /** Specific revision to fetch */
-            rev?: RevisionId;
+            rev?: RevisionId | undefined;
             /** Include revision history of the document. */
-            revs?: boolean;
+            revs?: boolean | undefined;
             /**
              * Include a list of revisions of the document, and their
              * availability.
              */
-            revs_info?: boolean;
+            revs_info?: boolean | undefined;
 
             /** Include attachment data. */
-            attachments?: boolean;
+            attachments?: boolean | undefined;
 
             /** Return attachment data as Blobs/Buffers, instead of as base64-encoded strings. */
-            binary?: boolean;
+            binary?: boolean | undefined;
 
             /** Forces retrieving latest “leaf” revision, no matter what rev was requested. */
-            latest?: boolean;
+            latest?: boolean | undefined;
         }
 
         interface GetOpenRevisions extends Options {
@@ -526,15 +525,15 @@ declare namespace PouchDB {
             open_revs: 'all' | RevisionId[];
 
             /** Include revision history of the document. */
-            revs?: boolean;
+            revs?: boolean | undefined;
         }
 
         interface CompactOptions extends Options {
-          interval?: number;
+          interval?: number | undefined;
         }
 
         interface PutOptions extends Options {
-          force?: boolean;
+          force?: boolean | undefined;
         }
 
         interface RemoveAttachmentResponse extends BasicResponse {
@@ -553,7 +552,7 @@ declare namespace PouchDB {
             /**
              * Database name.
              */
-            name?: string;
+            name?: string | undefined;
             /**
              * Database adapter to use.
              *
@@ -561,7 +560,7 @@ declare namespace PouchDB {
              * IndexedDB to WebSQL in browsers that support both (i.e. Chrome,
              * Opera and Android 4.4+).
              */
-            adapter?: string;
+            adapter?: string | undefined;
         }
 
         interface LocalDatabaseConfiguration extends CommonDatabaseConfiguration {
@@ -571,41 +570,41 @@ declare namespace PouchDB {
              *
              * Defaults to false.
              */
-            auto_compaction?: boolean;
+            auto_compaction?: boolean | undefined;
             /**
              * How many old revisions we keep track (not a copy) of.
              */
-            revs_limit?: number;
+            revs_limit?: number | undefined;
             /**
              * Size of the database (Most significant for Safari)
              * option to set the max size in MB that Safari will grant to the local database. Valid options are: 10, 50, 100, 500 and 1000
              * ex_ new PouchDB("dbName", {size:100});
              */
-            size?: number;
+            size?: number | undefined;
             /**
              * A special constructor option, which appends a prefix to the database name
              * and can be helpful for URL-based or file-based LevelDOWN path names.
              */
-            prefix?: string;
+            prefix?: string | undefined;
             /**
              * Use a md5 hash to create a deterministic revision number for documents.
              * Setting it to false will mean that the revision number will be a random UUID.
              * Defaults to true.
              */
-            deterministic_revs?: boolean;
+            deterministic_revs?: boolean | undefined;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {
-            fetch?: Fetch;
+            fetch?: Fetch | undefined;
 
             auth?: {
-                username?: string;
-                password?: string;
-            };
+                username?: string | undefined;
+                password?: string | undefined;
+            } | undefined;
             /**
              * Disables automatic creation of databases.
              */
-            skip_setup?: boolean;
+            skip_setup?: boolean | undefined;
         }
 
         type DatabaseConfiguration = LocalDatabaseConfiguration |
@@ -851,13 +850,13 @@ declare namespace PouchDB {
         /** Get attachment data */
         getAttachment(docId: Core.DocumentId,
                       attachmentId: Core.AttachmentId,
-                      options: { rev?: Core.RevisionId},
+                      options: { rev?: Core.RevisionId | undefined},
                       callback: Core.Callback<Blob | Buffer>): void;
 
         /** Get attachment data */
         getAttachment(docId: Core.DocumentId,
                       attachmentId: Core.AttachmentId,
-                      options?: { rev?: Core.RevisionId}): Promise<Blob | Buffer>;
+                      options?: { rev?: Core.RevisionId | undefined}): Promise<Blob | Buffer>;
 
         /** Get attachment data */
         getAttachment(docId: Core.DocumentId,

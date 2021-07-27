@@ -29,9 +29,9 @@ export interface FittingDef {
      * Thus be aware that if you define a fitting with the same name as a
      * system one, your fitting will override it.
      */
-    type?: FittingType;
+    type?: FittingType | undefined;
     /** The name of the fitting of the type specified */
-    name?: string;
+    name?: string | undefined;
     /** Static values passed to the fitting during construction */
     config?: any;
     /** Dynamic values passed to the fitting during execution */
@@ -129,9 +129,9 @@ export class Bagpipes {
 
 /** Configuration object for `Bagpipes` */
 export interface Config {
-    connectMiddlewareDirs?: string[];
-    userFittingsDirs?: string[];
-    userViewsDirs?: string[];
+    connectMiddlewareDirs?: string[] | undefined;
+    userFittingsDirs?: string[] | undefined;
+    userViewsDirs?: string[] | undefined;
     // allow to store custom values e.g. for swagger-node-runner
     // see https://github.com/theganyo/swagger-node-runner/blob/v0.7.1/index.js#L304
     [name: string]: any;

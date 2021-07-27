@@ -16,11 +16,11 @@ import BootstrapTable, {
 interface Product {
     id: number;
     name: string;
-    price?: number;
-    quality?: number;
-    inStockStatus?: number;
-    sales?: number;
-    category?: ProductCategory;
+    price?: number | undefined;
+    quality?: number | undefined;
+    inStockStatus?: number | undefined;
+    sales?: number | undefined;
+    category?: ProductCategory | undefined;
 }
 
 enum ProductCategory {

@@ -7,13 +7,13 @@
 
 
 declare function babel(options?: {
-    filename?: string,
-    filenameRelative?: string,
-    presets?: string[],
-    plugins?: string[],
-    highlightCode?: boolean,
-    only?: string | string[],
-    ignore?: string | string[],
+    filename?: string | undefined,
+    filenameRelative?: string | undefined,
+    presets?: string[] | undefined,
+    plugins?: string[] | undefined,
+    highlightCode?: boolean | undefined,
+    only?: string | string[] | undefined,
+    ignore?: string | string[] | undefined,
     auxiliaryCommentBefore?: any,
     auxiliaryCommentAfter?: any,
     sourceMaps?: any,
@@ -26,14 +26,14 @@ declare function babel(options?: {
     moduleId?: any,
     getModuleId?: any,
     resolveModuleSource?: any,
-    keepModuleIdExtesions?: boolean,
-    code?: boolean,
-    ast?: boolean,
+    keepModuleIdExtesions?: boolean | undefined,
+    code?: boolean | undefined,
+    ast?: boolean | undefined,
     compact?: any,
-    comments?: boolean,
+    comments?: boolean | undefined,
     shouldPrintComment?: any,
     env?: any,
-    retainLines?: boolean
+    retainLines?: boolean | undefined
 }): NodeJS.ReadWriteStream;
 
 declare namespace babel { }

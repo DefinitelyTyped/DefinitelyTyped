@@ -17,19 +17,19 @@ export interface Options {
      * From which directory the lerna monorepo should be searched for
      * @default `process.cwd()`
      */
-    directory?: string;
+    directory?: string | undefined;
     /**
      * Optional array of `mainFields` that should be used to resolve package's entry point,
      * similar to https://webpack.js.org/configuration/resolve/#resolve-mainfields .
      * Using this takes precedence over default `sourceDirectory` option.
      */
-    mainFields?: ReadonlyArray<string>;
+    mainFields?: ReadonlyArray<string> | undefined;
     /**
      * Which directory should be considered as containing source files of a package.
      * If specified as false it will use package's root.
      * @default 'src'
      */
-    sourceDirectory?: string | false;
+    sourceDirectory?: string | false | undefined;
 }
 
 /**

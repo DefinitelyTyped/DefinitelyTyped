@@ -165,6 +165,25 @@ anotherRedacted.info({
     anotherPath: "Not shown",
 });
 
+const withLogFormatter = pino({
+    formatters: {
+        log: (payload) => {
+            if (payload.canAccessAnyKey) {
+                payload.works = true;
+            }
+            return payload;
+        }
+    }
+});
+
+const withLogFormatterBackwardCompatible = pino({
+    formatters: {
+        log: (payload: object) => {
+            return payload;
+        }
+    }
+});
+
 const pretty = pino({
     prettyPrint: {
         colorize: true,
@@ -253,7 +272,7 @@ pino({ name: "my-logger" }, destinationViaOptionsObject);
 
 interface StrictShape {
     activity: string;
-    err?: unknown;
+    err?: unknown | undefined;
 }
 
 info<StrictShape>({

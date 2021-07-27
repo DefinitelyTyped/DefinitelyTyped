@@ -31,8 +31,8 @@ export function gitDiff(pathToRepo: string, commitHash1: string, commitHash2?: s
 
 export interface FileModification {
     path: string;
-    linesAdded?: number;
-    linesDeleted?: number;
+    linesAdded?: number | undefined;
+    linesDeleted?: number | undefined;
 }
 
 export interface FileRename {
@@ -56,9 +56,9 @@ export interface GitCommit {
 }
 
 export interface GitToJsOptions {
-    sinceCommit?: string;
+    sinceCommit?: string | undefined;
 }
 
 export interface CheckoutCommmitOptions {
-    force?: boolean;
+    force?: boolean | undefined;
 }

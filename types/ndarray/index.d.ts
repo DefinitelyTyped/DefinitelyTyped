@@ -6,60 +6,67 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare function ndarray<T = number>(
-    data: ndarray.Data<T>,
+declare function ndarray<D extends ndarray.Data = ndarray.Data<number>>(
+    data: D,
     shape?: number[],
     stride?: number[],
     offset?: number,
-): ndarray.NdArray<T>;
+): ndarray.NdArray<D>;
 
 declare namespace ndarray {
-    interface NdArray<T = number> {
-        data: Data<T>;
+    interface NdArray<D extends Data = Data<number>> {
+        data: D;
         shape: number[];
         stride: number[];
         offset: number;
-        dtype: DataType;
+        dtype: DataType<D>;
         size: number;
         order: number[];
         dimension: number;
-        get(...args: number[]): T;
-        set(...args: number[]): T;
-        index(...args: number[]): T;
-        lo(...args: number[]): NdArray<T>;
-        hi(...args: number[]): NdArray<T>;
-        step(...args: number[]): NdArray<T>;
-        transpose(...args: number[]): NdArray<T>;
-        pick(...args: Array<number | null>): NdArray<T>;
-        reshape(...shapes: number[]): NdArray<T>;
-        T: NdArray<T>;
+        get(...args: number[]): Value<D>;
+        set(...args: number[]): Value<D>;
+        index(...args: number[]): Value<D>;
+        lo(...args: number[]): NdArray<D>;
+        hi(...args: number[]): NdArray<D>;
+        step(...args: number[]): NdArray<D>;
+        transpose(...args: number[]): NdArray<D>;
+        pick(...args: Array<number | null>): NdArray<D>;
+        T: NdArray<D>;
     }
 
-    type Data<T> =
-        | T[]
+    type Data<T = any> = T[] | TypedArray;
+    type TypedArray =
         | Int8Array
         | Int16Array
         | Int32Array
         | Uint8Array
+        | Uint8ClampedArray
         | Uint16Array
         | Uint32Array
         | Float32Array
-        | Float64Array
-        | Uint8ClampedArray;
+        | Float64Array;
 
-    type DataType =
-        | "int8"
-        | "int16"
-        | "int32"
-        | "uint8"
-        | "uint16"
-        | "uint32"
-        | "float32"
-        | "float64"
-        | "array"
-        | "uint8_clamped"
-        | "buffer"
-        | "generic";
+    type Value<D extends Data> = D extends Array<infer T> ? T : number;
+
+    type DataType<D extends Data = Data> = D extends Int8Array
+        ? 'int8'
+        : D extends Int16Array
+        ? 'int16'
+        : D extends Int32Array
+        ? 'int32'
+        : D extends Uint8Array
+        ? 'uint8'
+        : D extends Uint8ClampedArray
+        ? 'uint8_clamped'
+        : D extends Uint16Array
+        ? 'uint16'
+        : D extends Uint32Array
+        ? 'uint32'
+        : D extends Float32Array
+        ? 'float32'
+        : D extends Float64Array
+        ? 'float64'
+        : 'array';
 }
 
 export = ndarray;

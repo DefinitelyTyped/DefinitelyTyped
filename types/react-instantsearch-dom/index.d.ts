@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch 6.10
+// Type definitions for react-instantsearch 6.12
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react, https://community.algolia.com/react-instantsearch/
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
@@ -62,7 +62,7 @@ interface CommonWidgetProps {
    */
   translations?: {
     [key: string]: string | ((...args: any[]) => any);
-  };
+  } | undefined;
 }
 
 export class Breadcrumb extends React.Component<any> {}
@@ -71,8 +71,13 @@ export class CurrentRefinements extends React.Component<any> {}
 export class HierarchicalMenu extends React.Component<any> {}
 export class Highlight extends React.Component<any> {}
 
+export interface RefinementItem<T> {
+  value: T;
+  label: string;
+}
+
 export interface HitsProps<T> {
-  hitComponent?: React.ComponentType<{ hit: Hit<T> }>;
+  hitComponent?: React.ComponentType<{ hit: Hit<T> }> | undefined;
 }
 /**
  * Displays a list of hits.
@@ -81,10 +86,27 @@ export interface HitsProps<T> {
  * https://community.algolia.com/react-instantsearch/widgets/Hits.html
  */
 export class Hits<T = BasicDoc> extends React.Component<HitsProps<T>> {}
-export class HitsPerPage extends React.Component<any> {}
+export interface HitsPerPageProps {
+  items: Array<RefinementItem<number>>;
+  defaultRefinement: number;
+  id?: string;
+  className?: string;
+  transformItems?(items: Array<RefinementItem<number>>): Array<RefinementItem<number>>;
+}
+export class HitsPerPage extends React.Component<HitsPerPageProps> {}
 export class InfiniteHits extends React.Component<any> {}
 export class Menu extends React.Component<any> {}
-export class MenuSelect extends React.Component<any> {}
+export interface MenuSelectProps {
+  attribute: string;
+  // Optional parameters
+  id?: string;
+  className?: string;
+  defaultRefinement?: string;
+  limit?: number;
+  transformItems?(items: Array<RefinementItem<string>>): Array<RefinementItem<string>>;
+  translations?: { seeAllOption?: string };
+}
+export class MenuSelect extends React.Component<MenuSelectProps> {}
 export class NumericMenu extends React.Component<any> {}
 export class Pagination extends React.Component<any> {}
 export class Panel extends React.Component<any> {}
@@ -96,20 +118,23 @@ export class RefinementList extends React.Component<any> {}
 export class ScrollTo extends React.Component<any> {}
 
 export interface SearchBoxProps extends CommonWidgetProps {
-  inputRef?: React.Ref<HTMLInputElement>;
-  focusShortcuts?: string[];
-  autoFocus?: boolean;
-  defaultRefinement?: string;
-  searchAsYouType?: boolean;
-  showLoadingIndicator?: boolean;
+  inputId?: string;
+  className?: string;
+  inputRef?: React.Ref<HTMLInputElement> | undefined;
+  focusShortcuts?: string[] | undefined;
+  autoFocus?: boolean | undefined;
+  defaultRefinement?: string | undefined;
+  searchAsYouType?: boolean | undefined;
+  showLoadingIndicator?: boolean | undefined;
 
-  submit?: JSX.Element;
-  reset?: JSX.Element;
-  loadingIndicator?: JSX.Element;
+  submit?: JSX.Element | undefined;
+  reset?: JSX.Element | undefined;
+  loadingIndicator?: JSX.Element | undefined;
 
-  onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-  onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-  onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
+  onSubmit?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+  onReset?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+  onChange?: ((event: React.SyntheticEvent<HTMLInputElement>) => any) | undefined;
+  onKeyDown?: ((event: React.KeyboardEvent<HTMLInputElement>) => any) | undefined;
 }
 /**
  * The SearchBox component displays a search box that lets the user search for a specific query.
@@ -125,17 +150,25 @@ export interface RelevantSortComponentProps {
  * The RelevantSort component displays an informative banner and a button that toggle the `relevancyStrictness` between 0 and the value setted on the dashboard.
  */
 export class RelevantSort extends React.Component<{
-  buttonTextComponent?: React.FunctionComponent<RelevantSortComponentProps>;
-  textComponent?: React.FunctionComponent<RelevantSortComponentProps>;
+  buttonTextComponent?: React.FunctionComponent<RelevantSortComponentProps> | undefined;
+  textComponent?: React.FunctionComponent<RelevantSortComponentProps> | undefined;
 }> {}
-export class SortBy extends React.Component<any> {}
+
+export interface SortByProps {
+  items: Array<RefinementItem<string>>;
+  defaultRefinement: string;
+  id?: string;
+  className?: string;
+  transformItems?(items: Array<RefinementItem<string>>): Array<RefinementItem<string>>;
+}
+export class SortBy extends React.Component<SortByProps> {}
 /**
  * The Stats component displays the total number of matching hits and the time it took to get them (time spent in the Algolia server).
  */
 export class Stats extends React.Component<{
   translations?: {
     [key: string]: (n: number, ms: number, nSortedHits: number, areHitsSorted: boolean) => string;
-  };
+  } | undefined;
 }> {}
 export class ToggleRefinement extends React.Component<any> {}
 
@@ -149,7 +182,7 @@ export function createClassNames(baseName: string): (...elements: string[]) => s
 
 export interface VoiceSearchHelperParams {
   searchAsYouSpeak: boolean;
-  language?: string;
+  language?: string | undefined;
   onQueryChange: (query: string) => void;
   onStateChange: () => void;
 }
@@ -160,7 +193,7 @@ export interface VoiceListeningState {
   status: Status;
   transcript: string;
   isSpeechFinal: boolean;
-  errorCode?: "no-speech" | "aborted" | "audio-capture" | "network" | "not-allowed" | "service-not-allowed" | "bad-grammar" | "language-not-supported";
+  errorCode?: "no-speech" | "aborted" | "audio-capture" | "network" | "not-allowed" | "service-not-allowed" | "bad-grammar" | "language-not-supported" | undefined;
 }
 
 export interface VoiceSearchHelper {

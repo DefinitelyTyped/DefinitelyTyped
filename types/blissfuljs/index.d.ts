@@ -160,22 +160,22 @@ declare namespace BlissNS {
         all<T>(array: Array<T>, method: string, ...args: Array<any>): Array<T>;
 
         Class<T>(options: {
-            constructor?: Function;
-            extends?: Function;
-            abstract?: boolean;
-            lazy?: Object;
-            live?: Object;
-            static?: Object;
+            constructor?: Function | undefined;
+            extends?: Function | undefined;
+            abstract?: boolean | undefined;
+            lazy?: Object | undefined;
+            live?: Object | undefined;
+            static?: Object | undefined;
             [propertyName: string]:any;
         }): T;
 
         Class(options: {
-            constructor?: Function;
-            extends?: Function;
-            abstract?: boolean;
-            lazy?: Object;
-            live?: Object;
-            static?: Object;
+            constructor?: Function | undefined;
+            extends?: Function | undefined;
+            abstract?: boolean | undefined;
+            lazy?: Object | undefined;
+            live?: Object | undefined;
+            static?: Object | undefined;
             [propertyName: string]:any;
         }): Object;
 
@@ -206,22 +206,22 @@ declare namespace BlissNS {
         value<T>(property: string , ...properties: string[]): T;
 
         fetch(url: string, options?: {
-            method?: string;
-            data?: string;
-            headers?:{[key:string]:string};
+            method?: string | undefined;
+            data?: string | undefined;
+            headers?:{[key:string]:string} | undefined;
 
-            onreadystatechange?: (ev: ProgressEvent) => any;
-            readyState?: number;
+            onreadystatechange?: ((ev: ProgressEvent) => any) | undefined;
+            readyState?: number | undefined;
             response?: any;
             responseBody?: any;
-            responseText?: string;
-            responseType?: string;
+            responseText?: string | undefined;
+            responseType?: string | undefined;
             responseXML?: any;
-            status?: number;
-            statusText?: string;
-            timeout?: number;
-            upload?: XMLHttpRequestUpload;
-            withCredentials?: boolean;
+            status?: number | undefined;
+            statusText?: string | undefined;
+            timeout?: number | undefined;
+            upload?: XMLHttpRequestUpload | undefined;
+            withCredentials?: boolean | undefined;
 
             [propertyName: string]: any;
         }): Promise<XMLHttpRequest>;

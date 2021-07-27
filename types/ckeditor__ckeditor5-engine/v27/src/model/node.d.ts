@@ -17,11 +17,11 @@ export default class Node {
     readonly startOffset: number | null;
 
     constructor(attrs?: Parameters<typeof toMap>[0]);
-    getAncestors(options?: { includeSelf?: boolean; parentFirst?: boolean }): Array<Element | DocumentFragment>;
+    getAncestors(options?: { includeSelf?: boolean | undefined; parentFirst?: boolean | undefined }): Array<Element | DocumentFragment>;
     getAttribute(key: string): string | undefined;
     getAttributeKeys(): IterableIterator<string>;
     getAttributes(): IterableIterator<[string, string | number | boolean]>;
-    getCommonAncestor(node: Node, options?: { includeSelf?: boolean }): Element | DocumentFragment | null;
+    getCommonAncestor(node: Node, options?: { includeSelf?: boolean | undefined }): Element | DocumentFragment | null;
     getPath(): number[];
     hasAttribute(key: string): boolean;
     is(type: string): boolean;

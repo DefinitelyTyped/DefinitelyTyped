@@ -500,6 +500,10 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "classify-poetry": {
+            "libraryName": "classify-poetry",
+            "asOfVersion": "1.0.1"
+        },
         "classnames": {
             "libraryName": "classnames",
             "asOfVersion": "2.3.0"
@@ -1745,6 +1749,10 @@
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
         },
+        "html2canvas": {
+            "libraryName": "html2canvas",
+            "asOfVersion": "1.0.0"
+        },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
             "asOfVersion": "2.3.0"
@@ -2557,6 +2565,10 @@
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
         },
+        "maplibre-gl": {
+            "libraryName": "maplibre-gl",
+            "asOfVersion": "1.14.0"
+        },
         "maquette": {
             "libraryName": "maquette",
             "asOfVersion": "2.1.6"
@@ -2800,6 +2812,10 @@
         "moment-timezone": {
             "libraryName": "moment-timezone",
             "asOfVersion": "0.5.30"
+        },
+        "mongodb": {
+            "libraryName": "mongodb",
+            "asOfVersion": "4.0.0"
         },
         "mongodb-memory-server": {
             "libraryName": "mongodb-memory-server",
@@ -3458,6 +3474,10 @@
             "libraryName": "preferred-pm",
             "asOfVersion": "3.0.0"
         },
+        "prettier-package-json": {
+            "libraryName": "prettier-package-json",
+            "asOfVersion": "2.3.0"
+        },
         "pretty-bytes": {
             "libraryName": "pretty-bytes",
             "asOfVersion": "5.2.0"
@@ -3937,6 +3957,10 @@
         "react-native-google-analytics-bridge": {
             "libraryName": "react-native-google-analytics-bridge",
             "asOfVersion": "5.3.3"
+        },
+        "react-native-input-spinner": {
+            "libraryName": "react-native-input-spinner",
+            "asOfVersion": "1.4.1"
         },
         "react-native-keychain": {
             "libraryName": "react-native-keychain",

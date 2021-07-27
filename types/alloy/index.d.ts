@@ -16,12 +16,12 @@ interface AlloyStyleDict {
   /**
    * Array of TSS classes to apply to the Titanium UI object.
    */
-  classes?: string[] | string;
+  classes?: string[] | string | undefined;
 
   /**
    * TSS ID style to apply to the Titanium UI object.
    */
-  id?: string;
+  id?: string | undefined;
 
   [key: string]: any;
 }

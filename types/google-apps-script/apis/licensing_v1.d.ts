@@ -29,28 +29,28 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface LicenseAssignment {
-        etags?: string;
-        kind?: string;
-        productId?: string;
-        productName?: string;
-        selfLink?: string;
-        skuId?: string;
-        skuName?: string;
-        userId?: string;
+        etags?: string | undefined;
+        kind?: string | undefined;
+        productId?: string | undefined;
+        productName?: string | undefined;
+        selfLink?: string | undefined;
+        skuId?: string | undefined;
+        skuName?: string | undefined;
+        userId?: string | undefined;
       }
       interface LicenseAssignmentInsert {
-        userId?: string;
+        userId?: string | undefined;
       }
       interface LicenseAssignmentList {
-        etag?: string;
-        items?: AdminLicenseManager.Schema.LicenseAssignment[];
-        kind?: string;
-        nextPageToken?: string;
+        etag?: string | undefined;
+        items?: AdminLicenseManager.Schema.LicenseAssignment[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
       }
     }
   }
   interface AdminLicenseManager {
-    LicenseAssignments?: AdminLicenseManager.Collection.LicenseAssignmentsCollection;
+    LicenseAssignments?: AdminLicenseManager.Collection.LicenseAssignmentsCollection | undefined;
     // Create a new instance of LicenseAssignment
     newLicenseAssignment(): AdminLicenseManager.Schema.LicenseAssignment;
     // Create a new instance of LicenseAssignmentInsert

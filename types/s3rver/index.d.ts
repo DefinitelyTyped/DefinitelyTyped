@@ -24,16 +24,16 @@ declare class S3rver {
 }
 
 interface S3rverOptions {
-    port?: number;
-    hostname?: string;
-    address?: string;
-    silent?: boolean;
-    key?: string | Buffer;
-    cert?: string | Buffer;
-    resetOnClose?: boolean;
-    indexDocument?: string;
-    errorDocument?: string;
-    configureBuckets?: S3rverBucketConfig[];
+    port?: number | undefined;
+    hostname?: string | undefined;
+    address?: string | undefined;
+    silent?: boolean | undefined;
+    key?: string | Buffer | undefined;
+    cert?: string | Buffer | undefined;
+    resetOnClose?: boolean | undefined;
+    indexDocument?: string | undefined;
+    errorDocument?: string | undefined;
+    configureBuckets?: S3rverBucketConfig[] | undefined;
     directory: string;
 }
 

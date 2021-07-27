@@ -5,8 +5,9 @@
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
 //                 Joachim Van Herwegen <https://github.com/joachimvh>
 //                 Alexey Morozov <https://github.com/AlexeyMz>
+//                 Jesse Wright <https://github.com/jeswr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// Minimum TypeScript Version: 4.1
 
 /// <reference types="node" />
 
@@ -132,14 +133,14 @@ export interface BlankTriple<Q extends RDF.BaseQuad = RDF.Quad> {
 
 export interface Token {
     type: string;
-    value?: string;
+    value?: string | undefined;
     line: number;
-    prefix?: string;
+    prefix?: string | undefined;
 }
 export interface LexerOptions {
-    lineMode?: boolean;
-    n3?: boolean;
-    comments?: boolean;
+    lineMode?: boolean | undefined;
+    n3?: boolean | undefined;
+    comments?: boolean | undefined;
 }
 
 export type TokenCallback = (error: Error, token: Token) => void;
@@ -149,11 +150,37 @@ export class Lexer {
     tokenize(input: string): Token[];
     tokenize(input: string | EventEmitter, callback: TokenCallback): void;
 }
+
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+export type MimeType =
+  // Discrete types
+  | 'application' | 'example' | 'text'
+  // Multipart types
+  | 'message' | 'multipart';
+
+export type BaseFormat =
+  | 'Turtle'
+  | 'TriG'
+  | 'N-Triples'
+  | 'N-Quads'
+  | 'N3'
+  | 'Notation3';
+
+export type BaseFormatVariant =
+  | BaseFormat
+  | Lowercase<BaseFormat>;
+
+export type Star = '*' | 'star' | '-star';
+
+export type MimeSubtype = BaseFormatVariant | `${BaseFormatVariant}${Star}`;
+
+export type MimeFormat = MimeSubtype | `${MimeType}/${MimeSubtype}`;
+
 export interface ParserOptions {
-    format?: string;
-    factory?: RDF.DataFactory;
-    baseIRI?: string;
-    blankNodePrefix?: string;
+    format?: MimeFormat | undefined;
+    factory?: RDF.DataFactory | undefined;
+    baseIRI?: string | undefined;
+    blankNodePrefix?: string | undefined;
 }
 
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
@@ -173,9 +200,9 @@ export class StreamParser<Q extends BaseQuad = Quad> extends stream.Transform im
 }
 
 export interface WriterOptions {
-    format?: string;
-    prefixes?: Prefixes<RDF.NamedNode | string>;
-    end?: boolean;
+    format?: MimeFormat | undefined;
+    prefixes?: Prefixes<RDF.NamedNode | string> | undefined;
+    end?: boolean | undefined;
 }
 
 export class Writer<Q extends RDF.BaseQuad = RDF.Quad> {
@@ -236,7 +263,7 @@ export class Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad 
 }
 
 export interface StoreOptions {
-    factory?: RDF.DataFactory;
+    factory?: RDF.DataFactory | undefined;
 }
 
 export namespace Util {

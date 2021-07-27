@@ -5,7 +5,7 @@
 
 import * as ESTree from "estree";
 
-type NodeWithParent = ESTree.Node & { parent?: ESTree.Node };
+type NodeWithParent = ESTree.Node & { parent?: ESTree.Node | undefined };
 
 /**
  * Walk the provided AST; fn is called once for each node with a `type`

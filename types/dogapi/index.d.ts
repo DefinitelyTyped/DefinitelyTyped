@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-export function initialize(opts: { api_key: string; app_key: string; api_host?: string }): void;
+export function initialize(opts: { api_key: string; app_key: string; api_host?: string | undefined }): void;
 
 interface event {
     create(title: string, text: string, callback: (err: Error | null, res: EventCreateResponse) => void): void;
@@ -12,12 +12,12 @@ interface event {
         title: string,
         text: string,
         properties: {
-            date_happened?: number;
-            priority?: 'normal' | 'low';
-            host?: string;
-            tags?: ReadonlyArray<string>;
-            alert_type?: 'error' | 'warning' | 'info' | 'success';
-            aggregation_key?: string;
+            date_happened?: number | undefined;
+            priority?: 'normal' | 'low' | undefined;
+            host?: string | undefined;
+            tags?: ReadonlyArray<string> | undefined;
+            alert_type?: 'error' | 'warning' | 'info' | 'success' | undefined;
+            aggregation_key?: string | undefined;
             source_type_name?:
                 | 'nagios'
                 | 'hudson'
@@ -30,7 +30,7 @@ interface event {
                 | 'git'
                 | 'bitbucket'
                 | 'fabric'
-                | 'capistrano';
+                | 'capistrano' | undefined;
         },
         callback: (err: Error | null, res: EventCreateResponse) => void,
     ): void;
@@ -44,10 +44,10 @@ interface metric {
         metric: string,
         points: number | number[],
         extra: {
-            type?: 'gauge' | 'rate' | 'count';
-            metric_type?: 'gauge' | 'count';
-            host?: string;
-            tags?: ReadonlyArray<string>;
+            type?: 'gauge' | 'rate' | 'count' | undefined;
+            metric_type?: 'gauge' | 'count' | undefined;
+            host?: string | undefined;
+            tags?: ReadonlyArray<string> | undefined;
         },
         callback: (err: Error | null, res: 'ok') => void,
     ): void;
@@ -55,9 +55,9 @@ interface metric {
         metrics: Array<{
             metric: string;
             points: number | number[] | Array<[string, number]>;
-            tags?: string[];
-            type?: string;
-            metric_type?: string;
+            tags?: string[] | undefined;
+            type?: string | undefined;
+            metric_type?: string | undefined;
         }>,
         callback: (err: Error | null, res: EventCreateResponse) => void,
     ): void;

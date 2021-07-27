@@ -16,9 +16,9 @@ export interface TableHeaderProps extends
     React.ThHTMLAttributes<HTMLElement>,
     InternationalProps<TableHeaderTranslationKey, TableHeaderTranslationArgs>
 {
-    isSortable?: boolean,
-    isSortHeader?: boolean,
-    sortDirection?: DataTableSortState,
+    isSortable?: boolean | undefined,
+    isSortHeader?: boolean | undefined,
+    sortDirection?: DataTableSortState | undefined,
 }
 
 interface TableHeaderFC extends ForwardRefReturn<HTMLTableHeaderCellElement, TableHeaderProps> {

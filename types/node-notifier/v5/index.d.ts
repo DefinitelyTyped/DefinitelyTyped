@@ -42,20 +42,20 @@ declare module "node-notifier" {
         }
 
         interface Notification {
-            title?: string;
-            message?: string;
+            title?: string | undefined;
+            message?: string | undefined;
             /** Absolute path (not balloons) */
-            icon?: string;
+            icon?: string | undefined;
             /** Wait with callback until user action is taken on notification */
-            wait?: boolean;
+            wait?: boolean | undefined;
         }
 
         interface NotificationMetadata {
-            activationType?: string;
-            activationAt?: string;
-            deliveredAt?: string;
-            activationValue?: string;
-            activationValueIndex?: string;
+            activationType?: string | undefined;
+            activationAt?: string | undefined;
+            deliveredAt?: string | undefined;
+            activationValue?: string | undefined;
+            activationValueIndex?: string | undefined;
           }
 
           interface NotificationCallback {
@@ -67,8 +67,8 @@ declare module "node-notifier" {
           }
 
         interface Option {
-            withFallback?: boolean;
-            customPath?: string;
+            withFallback?: boolean | undefined;
+            customPath?: string | undefined;
         }
     }
 
@@ -90,28 +90,28 @@ declare module "node-notifier/notifiers/notificationcenter" {
             /**
              * Case Sensitive string for location of sound file, or use one of macOS' native sounds.
              */
-            sound?: boolean | string;
-            subtitle?: string;
+            sound?: boolean | string | undefined;
+            subtitle?: string | undefined;
             /** Attach image? (Absolute path) */
-            contentImage?: string;
+            contentImage?: string | undefined;
             /** URL to open on click */
-            open?: string;
+            open?: string | undefined;
             /**
              * The amount of seconds before the notification closes.
              * Takes precedence over wait if both are defined.
              */
-            timeout?: number;
+            timeout?: number | undefined;
             /** Label for cancel button */
-            closeLabel?: string;
+            closeLabel?: string | undefined;
             /** Action label or list of labels in case of dropdown. */
-            actions?: string | string[];
+            actions?: string | string[] | undefined;
             /** Label to be used if there are multiple actions */
-            dropdownLabel?: string;
+            dropdownLabel?: string | undefined;
             /**
              * If notification should take input.
              * Value passed as third argument in callback and event emitter.
              */
-            reply?: boolean;
+            reply?: boolean | undefined;
         }
     }
 
@@ -128,17 +128,17 @@ declare module "node-notifier/notifiers/notifysend" {
 
     namespace NotifySend {
         interface Notification {
-            title?: string;
-            message?: string;
-            icon?: string;
+            title?: string | undefined;
+            message?: string | undefined;
+            icon?: string | undefined;
             /** Specifies the urgency level  (low,  normal,  critical). */
-            urgency?: string;
+            urgency?: string | undefined;
             /** Specifies  the  timeout  in  milliseconds at which to expire the notification */
-            time?: number;
+            time?: number | undefined;
             /** Specifies the notification category */
-            category?: string;
+            category?: string | undefined;
             /** Specifies basic extra data to pass. Valid types are int, double, string and byte. */
-            hint?: string;
+            hint?: string | undefined;
         }
     }
 
@@ -158,18 +158,18 @@ declare module "node-notifier/notifiers/toaster" {
             /**
              * Defined by http://msdn.microsoft.com/en-us/library/windows/apps/hh761492.aspx
              */
-            sound?: boolean | string;
+            sound?: boolean | string | undefined;
             /** ID to use for closing notification. */
-            id?: number;
+            id?: number | undefined;
             /** App.ID and app Name. Defaults to no value, causing SnoreToast text to be visible. */
-            appID?: string;
+            appID?: string | undefined;
             /** Refer to previously created notification to close. */
-            remove?: number;
+            remove?: number | undefined;
             /**
              * Creates a shortcut <path> in the start menu which point to the
              * executable <application>, appID used for the notifications.
             */
-            install?: string;
+            install?: string | undefined;
         }
     }
 
@@ -186,18 +186,18 @@ declare module "node-notifier/notifiers/growl" {
 
     namespace Growl {
         interface Option {
-            name?: string;
-            host?: string;
-            port?: number;
+            name?: string | undefined;
+            host?: string | undefined;
+            port?: number | undefined;
         }
 
         interface Notification extends notifier.Notification {
             /** whether or not to sticky the notification (defaults to false) */
-            sticky?: boolean;
+            sticky?: boolean | undefined;
             /** type of notification to use (defaults to the first registered type) */
-            label?: string;
+            label?: string | undefined;
             /** the priority of the notification from lowest (-2) to highest (2) */
-            priority?: number;
+            priority?: number | undefined;
         }
     }
 
@@ -214,14 +214,14 @@ declare module "node-notifier/notifiers/balloon" {
 
     namespace WindowsBalloon {
         interface Notification {
-            title?: string;
-            message?: string;
+            title?: string | undefined;
+            message?: string | undefined;
             /** How long to show balloons in ms */
-            time?: number;
+            time?: number | undefined;
             /** Wait with callback until user action is taken on notification */
-            wait?: boolean;
+            wait?: boolean | undefined;
             /** The notification type */
-            type?: 'info' | 'warn' | 'error';
+            type?: 'info' | 'warn' | 'error' | undefined;
         }
     }
 

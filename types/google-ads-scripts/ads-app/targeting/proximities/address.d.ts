@@ -32,12 +32,12 @@ declare namespace GoogleAdsScripts {
 
         /** Plain JavaScript objects describing an address. */
         interface AddressObject {
-            streetAddress?: string;
-            cityName?: string;
-            provinceName?: string;
-            provinceCode?: string;
-            postalCode?: string;
-            countryCode?: string;
+            streetAddress?: string | undefined;
+            cityName?: string | undefined;
+            provinceName?: string | undefined;
+            provinceCode?: string | undefined;
+            postalCode?: string | undefined;
+            countryCode?: string | undefined;
         }
     }
 }

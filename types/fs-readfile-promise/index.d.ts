@@ -6,7 +6,7 @@
 /// <reference types="node" />
 import { PathLike } from "fs";
 type PathType = PathLike | number;
-type OptionsType = { encoding: string; flag?: string; } | string;
+type OptionsType = { encoding: string; flag?: string | undefined; } | string;
 
 export = fsReadFilePromise;
 

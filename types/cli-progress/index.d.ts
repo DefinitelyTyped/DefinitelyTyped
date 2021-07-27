@@ -35,86 +35,86 @@ export interface Options {
      *    is rendered as
      *      progress [========================================] 100% | ETA: 0s | 200/200
      */
-    format?: string | GenericFormatter;
+    format?: string | GenericFormatter | undefined;
 
     /** a custom bar formatter function which renders the bar-element (default: format-bar.js) */
-    formatBar?: BarFormatter;
+    formatBar?: BarFormatter | undefined;
 
     /** a custom timer formatter function which renders the formatted time elements like eta_formatted and duration-formatted (default: format-time.js) */
-    formatTime?: TimeFormatter;
+    formatTime?: TimeFormatter | undefined;
 
     /** a custom value formatter function which renders all other values (default: format-value.js) */
-    formatValue?: ValueFormatter;
+    formatValue?: ValueFormatter | undefined;
 
     /** the maximum update rate (default: 10) */
-    fps?: number;
+    fps?: number | undefined;
 
     /** output stream to use (default: process.stderr) */
-    stream?: NodeJS.WritableStream;
+    stream?: NodeJS.WritableStream | undefined;
 
     /**  automatically call stop() when the value reaches the total (default: false) */
-    stopOnComplete?: boolean;
+    stopOnComplete?: boolean | undefined;
 
     /** clear the progress bar on complete / stop() call (default: false) */
-    clearOnComplete?: boolean;
+    clearOnComplete?: boolean | undefined;
 
     /** the length of the progress bar in chars (default: 40) */
-    barsize?: number;
+    barsize?: number | undefined;
 
     /**  position of the progress bar - 'left' (default), 'right' or 'center  */
-    align?: 'left' | 'right' | 'center';
+    align?: 'left' | 'right' | 'center' | undefined;
 
     /** character to use as "complete" indicator in the bar (default: "=") */
-    barCompleteString?: string;
+    barCompleteString?: string | undefined;
 
     /** character to use as "incomplete" indicator in the bar (default: "-") */
-    barIncompleteString?: string;
+    barIncompleteString?: string | undefined;
 
     /** character to use as "complete" indicator in the bar (default: "=") */
-    barCompleteChar?: string;
+    barCompleteChar?: string | undefined;
 
     /** character to use as "incomplete" indicator in the bar (default: "-") */
-    barIncompleteChar?: string;
+    barIncompleteChar?: string | undefined;
 
     /**
      * hide the cursor during progress operation; restored on complete (default: false)
      * - pass `null` to keep terminal settings
      */
-    hideCursor?: boolean | null;
+    hideCursor?: boolean | null | undefined;
 
     /** number of updates with which to calculate the eta; higher numbers give a more stable eta (default: 10) */
-    etaBuffer?: number;
+    etaBuffer?: number | undefined;
 
     /**
      *  trigger an eta calculation update during asynchronous rendering trigger using the current value
      * - should only be used for long running processes in conjunction with lof `fps` values and large `etaBuffer`
      * @default false
      */
-    etaAsynchronousUpdate?: boolean;
+    etaAsynchronousUpdate?: boolean | undefined;
 
     /** disable line wrapping (default: false) - pass null to keep terminal settings; pass true to trim the output to terminal width */
-    linewrap?: boolean | null;
+    linewrap?: boolean | null | undefined;
 
     /** trigger redraw during update() in case threshold time x2 is exceeded (default: true) - limited to single bar usage */
-    synchronousUpdate?: boolean;
+    synchronousUpdate?: boolean | undefined;
 
     /** enable scheduled output to notty streams - e.g. redirect to files (default: false) */
-    noTTYOutput?: boolean;
+    noTTYOutput?: boolean | undefined;
 
     /** set the output schedule/interval for notty output in ms (default: 2000ms) */
-    notTTYSchedule?: number;
+    notTTYSchedule?: number | undefined;
 
     /** display progress bars with 'total' of zero(0) as empty, not full (default: false) */
-    emptyOnZero?: boolean;
+    emptyOnZero?: boolean | undefined;
 
     /** trigger redraw on every frame even if progress remains the same; can be useful if progress bar gets overwritten by other concurrent writes to the terminal (default: false) */
-    forceRedraw?: boolean;
+    forceRedraw?: boolean | undefined;
 
     /** add padding chars to formatted time and percentage to force fixed width (default: false) */
-    autopadding?: boolean;
+    autopadding?: boolean | undefined;
 
     /** the character sequence used for autopadding (default: " ") */
-    autopaddingChar?: string;
+    autopaddingChar?: string | undefined;
 }
 
 export interface Preset {

@@ -12,18 +12,18 @@ declare module "react-breadcrumbs" {
     interface Crumbs {}
 
     interface BreadcrumbsProps {
-        className?: string;
-        hidden?: boolean;
-        separator?: React.ReactNode;
-        setCrumbs?: (crumbs: Crumbs) => React.ReactNode;
-        wrapper?: React.StatelessComponent | React.ComponentClass;
+        className?: string | undefined;
+        hidden?: boolean | undefined;
+        separator?: React.ReactNode | undefined;
+        setCrumbs?: ((crumbs: Crumbs) => React.ReactNode) | undefined;
+        wrapper?: React.StatelessComponent | React.ComponentClass | undefined;
     }
 
     class Breadcrumbs extends React.Component<BreadcrumbsProps> {}
 
     interface BreadcrumbProps {
-        data: LocationDescriptor & { title?: React.ReactNode };
-        hidden?: boolean;
+        data: LocationDescriptor & { title?: React.ReactNode | undefined };
+        hidden?: boolean | undefined;
     }
 
     class Breadcrumb extends React.Component<BreadcrumbProps> {}

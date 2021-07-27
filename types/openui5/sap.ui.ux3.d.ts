@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -199,6 +199,8 @@ declare module "sap/ui/ux3/library" {
 declare module "sap/ui/ux3/ActionBar" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import ThingAction from "sap/ui/ux3/ThingAction";
 
   import { CSSSize, URI } from "sap/ui/core/library";
@@ -280,7 +282,32 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:actionSelected actionSelected} event of this
+     * `sap.ui.ux3.ActionBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ActionBar` itself.
+     *
+     * Fired when any of the social action’s toolbar buttons except ‘Update’ or any of the business action’s
+     * menu items resp. buttons is pressed. The selected action can be identified by its id and newState (the
+     * latter if applicable only) ‘Follow’ button + menu: id: follow, newState: Follow/Hold/Default ‘Mark for
+     * follow up’ button: id: flag, newState: true/false ‘Favorite’ button: id: favorite, newState: true/false
+     * ‘Open Thing Inspector’ button id: open Business Actions: id: the ThingAction id
+     *
+     * For ‘Update’, please refer to event ‘feedSubmit’
+     */
+    attachActionSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
        */
@@ -303,7 +330,25 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:feedSubmit feedSubmit} event of this `sap.ui.ux3.ActionBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ActionBar` itself.
+     *
+     * Fired when a new feed entry is submitted.
+     */
+    attachFeedSubmit(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
        */
@@ -324,7 +369,7 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -339,7 +384,7 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -690,49 +735,6 @@ declare module "sap/ui/ux3/ActionBar" {
        */
       bUpdateState?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:actionSelected actionSelected} event of this
-     * `sap.ui.ux3.ActionBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ActionBar` itself.
-     *
-     * Fired when any of the social action’s toolbar buttons except ‘Update’ or any of the business action’s
-     * menu items resp. buttons is pressed. The selected action can be identified by its id and newState (the
-     * latter if applicable only) ‘Follow’ button + menu: id: follow, newState: Follow/Hold/Default ‘Mark for
-     * follow up’ button: id: flag, newState: true/false ‘Favorite’ button: id: favorite, newState: true/false
-     * ‘Open Thing Inspector’ button id: open Business Actions: id: the ThingAction id
-     *
-     * For ‘Update’, please refer to event ‘feedSubmit’
-     */
-    attachActionSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:feedSubmit feedSubmit} event of this `sap.ui.ux3.ActionBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ActionBar` itself.
-     *
-     * Fired when a new feed entry is submitted.
-     */
-    attachFeedSubmit(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ActionBarSettings extends $ControlSettings {
@@ -829,6 +831,8 @@ declare module "sap/ui/ux3/Collection" {
 
   import Item from "sap/ui/core/Item";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { ID } from "sap/ui/core/library";
@@ -885,7 +889,9 @@ declare module "sap/ui/ux3/Collection" {
        */
       oItem: Item
     ): this;
-    /**/
+    /**
+     *
+     */
     addSelectedItem(
       /**
        * Id of a selectedItem which becomes an additional target of this `selectedItems` association. Alternatively,
@@ -911,7 +917,26 @@ declare module "sap/ui/ux3/Collection" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Collection` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:propertyChanged propertyChanged} event of this
+     * `sap.ui.ux3.Collection`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Collection` itself.
+     *
+     * Fires if a property has changed, and the collection inspector needs to do something after that
+     */
+    attachPropertyChanged(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Collection` itself
        */
@@ -935,7 +960,26 @@ declare module "sap/ui/ux3/Collection" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Collection` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
+     * this `sap.ui.ux3.Collection`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Collection` itself.
+     *
+     * Fired when ever the selected items changer
+     */
+    attachSelectionChanged(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Collection` itself
        */
@@ -955,7 +999,7 @@ declare module "sap/ui/ux3/Collection" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -971,7 +1015,7 @@ declare module "sap/ui/ux3/Collection" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1084,7 +1128,9 @@ declare module "sap/ui/ux3/Collection" {
      * Additionally, it unregisters them from the hosting UIArea.
      */
     removeAllItems(): Item[];
-    /**/
+    /**
+     *
+     */
     removeAllSelectedItems(): string[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
@@ -1095,7 +1141,9 @@ declare module "sap/ui/ux3/Collection" {
        */
       vItem: int | string | Item
     ): Item;
-    /**/
+    /**
+     *
+     */
     removeSelectedItem(
       /**
        * the selectedItem to remove or its index or id
@@ -1145,44 +1193,6 @@ declare module "sap/ui/ux3/Collection" {
        */
       sTitle?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:propertyChanged propertyChanged} event of this
-     * `sap.ui.ux3.Collection`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Collection` itself.
-     *
-     * Fires if a property has changed, and the collection inspector needs to do something after that
-     */
-    attachPropertyChanged(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Collection` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
-     * this `sap.ui.ux3.Collection`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Collection` itself.
-     *
-     * Fired when ever the selected items changer
-     */
-    attachSelectionChanged(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Collection` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CollectionSettings extends $ElementSettings {
@@ -1227,6 +1237,8 @@ declare module "sap/ui/ux3/CollectionInspector" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import Collection from "sap/ui/ux3/Collection";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -1311,7 +1323,26 @@ declare module "sap/ui/ux3/CollectionInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.CollectionInspector` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:collectionSelected collectionSelected} event
+     * of this `sap.ui.ux3.CollectionInspector`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.CollectionInspector` itself.
+     *
+     * Event is fired if user selects a collection
+     */
+    attachCollectionSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.CollectionInspector` itself
        */
@@ -1335,7 +1366,26 @@ declare module "sap/ui/ux3/CollectionInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.CollectionInspector` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:editCollection editCollection} event of this
+     * `sap.ui.ux3.CollectionInspector`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.CollectionInspector` itself.
+     *
+     * Fires when the edit button is clicked
+     */
+    attachEditCollection(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.CollectionInspector` itself
        */
@@ -1359,7 +1409,26 @@ declare module "sap/ui/ux3/CollectionInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.CollectionInspector` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemSelectionChanged itemSelectionChanged} event
+     * of this `sap.ui.ux3.CollectionInspector`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.CollectionInspector` itself.
+     *
+     * Fires when an item in a collection is selected
+     */
+    attachItemSelectionChanged(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.CollectionInspector` itself
        */
@@ -1387,7 +1456,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1403,7 +1472,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1419,7 +1488,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1636,63 +1705,6 @@ declare module "sap/ui/ux3/CollectionInspector" {
        */
       bSidebarVisible?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:collectionSelected collectionSelected} event
-     * of this `sap.ui.ux3.CollectionInspector`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.CollectionInspector` itself.
-     *
-     * Event is fired if user selects a collection
-     */
-    attachCollectionSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.CollectionInspector` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:editCollection editCollection} event of this
-     * `sap.ui.ux3.CollectionInspector`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.CollectionInspector` itself.
-     *
-     * Fires when the edit button is clicked
-     */
-    attachEditCollection(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.CollectionInspector` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:itemSelectionChanged itemSelectionChanged} event
-     * of this `sap.ui.ux3.CollectionInspector`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.CollectionInspector` itself.
-     *
-     * Fires when an item in a collection is selected
-     */
-    attachItemSelectionChanged(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.CollectionInspector` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $CollectionInspectorSettings extends $ControlSettings {
@@ -1746,6 +1758,8 @@ declare module "sap/ui/ux3/DataSet" {
   import { ToolbarItem } from "sap/ui/commons/library";
 
   import { DataSetView } from "sap/ui/ux3/library";
+
+  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -1854,7 +1868,25 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.ux3.DataSet`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.DataSet` itself.
+     *
+     * Event which is fired when the user triggers a search
+     */
+    attachSearch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
        */
@@ -1878,7 +1910,26 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
+     * this `sap.ui.ux3.DataSet`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.DataSet` itself.
+     *
+     * selection Changed
+     */
+    attachSelectionChanged(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
        */
@@ -1934,7 +1985,7 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1950,7 +2001,7 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2299,43 +2350,6 @@ declare module "sap/ui/ux3/DataSet" {
      * Unbinds aggregation {@link #getItems items} from model data.
      */
     unbindItems(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.ux3.DataSet`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.DataSet` itself.
-     *
-     * Event which is fired when the user triggers a search
-     */
-    attachSearch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
-     * this `sap.ui.ux3.DataSet`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.DataSet` itself.
-     *
-     * selection Changed
-     */
-    attachSelectionChanged(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $DataSetSettings extends $ControlSettings {
@@ -2393,6 +2407,8 @@ declare module "sap/ui/ux3/DataSet" {
 
 declare module "sap/ui/ux3/DataSetItem" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -2454,7 +2470,25 @@ declare module "sap/ui/ux3/DataSetItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSetItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:selected selected} event of this `sap.ui.ux3.DataSetItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.DataSetItem` itself.
+     *
+     * Event Fired when Datset item is selected.
+     */
+    attachSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSetItem` itself
        */
@@ -2469,7 +2503,7 @@ declare module "sap/ui/ux3/DataSetItem" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2601,24 +2635,6 @@ declare module "sap/ui/ux3/DataSetItem" {
        * New value for property `title`
        */
       sTitle?: string
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selected selected} event of this `sap.ui.ux3.DataSetItem`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.DataSetItem` itself.
-     *
-     * Event Fired when Datset item is selected.
-     */
-    attachSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSetItem` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -2856,7 +2872,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       /**
        * Array of DataSetItems added to the parent DataSet
        */
-      aItems: Array<any>
+      aItems: any[]
     ): void;
     /**
      * Check if Item `oItem` is selected
@@ -3025,7 +3041,9 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
        */
       bResponsive?: boolean
     ): this;
-    /**/
+    /**
+     *
+     */
     setScrollArea(
       aScrollArea: any[],
 
@@ -3137,6 +3155,8 @@ declare module "sap/ui/ux3/Exact" {
 
   import ExactAttribute from "sap/ui/ux3/ExactAttribute";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ExactArea from "sap/ui/ux3/ExactArea";
@@ -3215,7 +3235,25 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:refineSearch refineSearch} event of this `sap.ui.ux3.Exact`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Exact` itself.
+     *
+     * Event which is fired when an attribute is selected or unselected.
+     */
+    attachRefineSearch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
        */
@@ -3238,7 +3276,25 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.ux3.Exact`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Exact` itself.
+     *
+     * Event is fired when the search button is clicked
+     */
+    attachSearch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
        */
@@ -3261,7 +3317,7 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3276,7 +3332,7 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3430,42 +3486,6 @@ declare module "sap/ui/ux3/Exact" {
        * The settingsMenu to set
        */
       oSettingsMenu: Menu
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:refineSearch refineSearch} event of this `sap.ui.ux3.Exact`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Exact` itself.
-     *
-     * Event which is fired when an attribute is selected or unselected.
-     */
-    attachRefineSearch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.ux3.Exact`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Exact` itself.
-     *
-     * Event is fired when the search button is clicked
-     */
-    attachSearch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -3737,6 +3757,8 @@ declare module "sap/ui/ux3/ExactArea" {
 declare module "sap/ui/ux3/ExactAttribute" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
+  import Event from "sap/ui/base/Event";
+
   import { ExactOrder } from "sap/ui/ux3/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -3814,7 +3836,28 @@ declare module "sap/ui/ux3/ExactAttribute" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactAttribute` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:supplyAttributes supplyAttributes} event of
+     * this `sap.ui.ux3.ExactAttribute`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ExactAttribute` itself.
+     *
+     * A supply function is a handler which is attached to the supplyAttributes event. The event is fired when
+     * the corresponding ExactAttribute is selected, it was already selected when a handler is attached or function
+     * getAttributes() is called.
+     */
+    attachSupplyAttributes(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactAttribute` itself
        */
@@ -3834,7 +3877,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4153,27 +4196,6 @@ declare module "sap/ui/ux3/ExactAttribute" {
        */
       iWidth?: int
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:supplyAttributes supplyAttributes} event of
-     * this `sap.ui.ux3.ExactAttribute`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ExactAttribute` itself.
-     *
-     * A supply function is a handler which is attached to the supplyAttributes event. The event is fired when
-     * the corresponding ExactAttribute is selected, it was already selected when a handler is attached or function
-     * getAttributes() is called.
-     */
-    attachSupplyAttributes(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactAttribute` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ExactAttributeSettings extends $ElementSettings {
@@ -4248,6 +4270,8 @@ declare module "sap/ui/ux3/ExactBrowser" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import ExactAttribute from "sap/ui/ux3/ExactAttribute";
+
+  import Event from "sap/ui/base/Event";
 
   import { ID } from "sap/ui/core/library";
 
@@ -4330,7 +4354,26 @@ declare module "sap/ui/ux3/ExactBrowser" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactBrowser` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:attributeSelected attributeSelected} event of
+     * this `sap.ui.ux3.ExactBrowser`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ExactBrowser` itself.
+     *
+     * Event is fired when an attribute is selected or unselected.
+     */
+    attachAttributeSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactBrowser` itself
        */
@@ -4353,7 +4396,25 @@ declare module "sap/ui/ux3/ExactBrowser" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactBrowser` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:save save} event of this `sap.ui.ux3.ExactBrowser`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ExactBrowser` itself.
+     *
+     * Event is fired when an attribute is selected or unselected.
+     */
+    attachSave(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactBrowser` itself
        */
@@ -4377,7 +4438,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4392,7 +4453,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4772,43 +4833,6 @@ declare module "sap/ui/ux3/ExactBrowser" {
        */
       iTopListWidth?: int
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:attributeSelected attributeSelected} event of
-     * this `sap.ui.ux3.ExactBrowser`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ExactBrowser` itself.
-     *
-     * Event is fired when an attribute is selected or unselected.
-     */
-    attachAttributeSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactBrowser` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:save save} event of this `sap.ui.ux3.ExactBrowser`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ExactBrowser` itself.
-     *
-     * Event is fired when an attribute is selected or unselected.
-     */
-    attachSave(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactBrowser` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ExactBrowserSettings extends $ControlSettings {
@@ -4903,6 +4927,8 @@ declare module "sap/ui/ux3/ExactBrowser" {
 declare module "sap/ui/ux3/ExactList" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import ExactAttribute from "sap/ui/ux3/ExactAttribute";
 
   import { ID } from "sap/ui/core/library";
@@ -4979,7 +5005,26 @@ declare module "sap/ui/ux3/ExactList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactList` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:attributeSelected attributeSelected} event of
+     * this `sap.ui.ux3.ExactList`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ExactList` itself.
+     *
+     * Event which is fired when an attribute is selected/unselected
+     */
+    attachAttributeSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactList` itself
        */
@@ -4999,7 +5044,7 @@ declare module "sap/ui/ux3/ExactList" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5173,25 +5218,6 @@ declare module "sap/ui/ux3/ExactList" {
        * New value for property `topTitle`
        */
       sTopTitle?: string
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:attributeSelected attributeSelected} event of
-     * this `sap.ui.ux3.ExactList`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ExactList` itself.
-     *
-     * Event which is fired when an attribute is selected/unselected
-     */
-    attachAttributeSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactList` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -5416,6 +5442,8 @@ declare module "sap/ui/ux3/FacetFilterList" {
 
   import ListItem from "sap/ui/core/ListItem";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
@@ -5486,7 +5514,25 @@ declare module "sap/ui/ux3/FacetFilterList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FacetFilterList` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.ux3.FacetFilterList`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.FacetFilterList` itself.
+     *
+     * On Select event.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FacetFilterList` itself
        */
@@ -5505,7 +5551,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5722,24 +5768,6 @@ declare module "sap/ui/ux3/FacetFilterList" {
        */
       sTitle?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.ux3.FacetFilterList`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.FacetFilterList` itself.
-     *
-     * On Select event.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FacetFilterList` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $FacetFilterListSettings extends $ControlSettings {
@@ -5791,6 +5819,8 @@ declare module "sap/ui/ux3/Feed" {
   import ListItem from "sap/ui/core/ListItem";
 
   import MenuItem from "sap/ui/commons/MenuItem";
+
+  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -5885,7 +5915,25 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:chunkAdded chunkAdded} event of this `sap.ui.ux3.Feed`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Feed` itself.
+     *
+     * Event is fired when a new chunk is added
+     */
+    attachChunkAdded(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -5908,7 +5956,25 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:filterChange filterChange} event of this `sap.ui.ux3.Feed`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Feed` itself.
+     *
+     * Event is fired when the filter is changed
+     */
+    attachFilterChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -5931,7 +5997,25 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.ux3.Feed`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Feed` itself.
+     *
+     * Event is fired when the search function on SearchField is triggered
+     */
+    attachSearch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -5954,7 +6038,25 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:toggleLive toggleLive} event of this `sap.ui.ux3.Feed`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Feed` itself.
+     *
+     * Event is fired when the live mode has changed
+     */
+    attachToggleLive(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -5978,7 +6080,26 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:toolsItemSelected toolsItemSelected} event of
+     * this `sap.ui.ux3.Feed`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Feed` itself.
+     *
+     * Event is fired when an item from the tools MenuButton was selected
+     */
+    attachToolsItemSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6041,7 +6162,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6056,7 +6177,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6071,7 +6192,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6086,7 +6207,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6102,7 +6223,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6437,97 +6558,6 @@ declare module "sap/ui/ux3/Feed" {
      * Unbinds aggregation {@link #getToolsMenuItems toolsMenuItems} from model data.
      */
     unbindToolsMenuItems(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:chunkAdded chunkAdded} event of this `sap.ui.ux3.Feed`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Feed` itself.
-     *
-     * Event is fired when a new chunk is added
-     */
-    attachChunkAdded(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:filterChange filterChange} event of this `sap.ui.ux3.Feed`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Feed` itself.
-     *
-     * Event is fired when the filter is changed
-     */
-    attachFilterChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.ux3.Feed`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Feed` itself.
-     *
-     * Event is fired when the search function on SearchField is triggered
-     */
-    attachSearch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:toggleLive toggleLive} event of this `sap.ui.ux3.Feed`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Feed` itself.
-     *
-     * Event is fired when the live mode has changed
-     */
-    attachToggleLive(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:toolsItemSelected toolsItemSelected} event of
-     * this `sap.ui.ux3.Feed`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Feed` itself.
-     *
-     * Event is fired when an item from the tools MenuButton was selected
-     */
-    attachToolsItemSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $FeedSettings extends $ControlSettings {
@@ -6597,6 +6627,8 @@ declare module "sap/ui/ux3/FeedChunk" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import MenuItem from "sap/ui/commons/MenuItem";
+
+  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -6685,7 +6717,26 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:actionItemSelected actionItemSelected} event
+     * of this `sap.ui.ux3.FeedChunk`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
+     *
+     * Event is fired when an item from the action menu button was selected.
+     */
+    attachActionItemSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -6708,7 +6759,25 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:commentAdded commentAdded} event of this `sap.ui.ux3.FeedChunk`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
+     *
+     * Event is raised when a comment is added to the entry. This event is not supported for comment chunks.
+     */
+    attachCommentAdded(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -6731,7 +6800,25 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:deleted deleted} event of this `sap.ui.ux3.FeedChunk`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
+     *
+     * Event is fired when the deletion button is pressed.
+     */
+    attachDeleted(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -6754,7 +6841,25 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:inspect inspect} event of this `sap.ui.ux3.FeedChunk`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
+     *
+     * Event is fired when the inspect button was pressed
+     */
+    attachInspect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -6778,7 +6883,26 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:referenceClicked referenceClicked} event of
+     * this `sap.ui.ux3.FeedChunk`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
+     *
+     * Click on a @-reference
+     */
+    attachReferenceClicked(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -6801,7 +6925,25 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:senderClicked senderClicked} event of this `sap.ui.ux3.FeedChunk`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
+     *
+     * Event is fired when the thumbnail or the name of the sender is clicked.
+     */
+    attachSenderClicked(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -6826,7 +6968,27 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:toggleFavorite toggleFavorite} event of this
+     * `sap.ui.ux3.FeedChunk`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
+     *
+     * Event is raised when the user clicks to set the entry as favorite. This event is not supported for comment
+     * chunks.
+     */
+    attachToggleFavorite(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -6849,7 +7011,25 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:toggleFlagged toggleFlagged} event of this `sap.ui.ux3.FeedChunk`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
+     *
+     * Event is raised when the user clicks to flag the entry. This event is not supported for comment chunks.
+     */
+    attachToggleFlagged(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -6872,7 +7052,25 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:toggleShared toggleShared} event of this `sap.ui.ux3.FeedChunk`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
+     *
+     * Event is raised when the user clicks to share the entry. This event is not supported for comment chunks.
+     */
+    attachToggleShared(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -6920,7 +7118,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6935,7 +7133,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6950,7 +7148,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6965,7 +7163,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6981,7 +7179,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6997,7 +7195,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7013,7 +7211,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7029,7 +7227,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7044,7 +7242,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7648,172 +7846,6 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Unbinds aggregation {@link #getComments comments} from model data.
      */
     unbindComments(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:actionItemSelected actionItemSelected} event
-     * of this `sap.ui.ux3.FeedChunk`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
-     *
-     * Event is fired when an item from the action menu button was selected.
-     */
-    attachActionItemSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:commentAdded commentAdded} event of this `sap.ui.ux3.FeedChunk`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
-     *
-     * Event is raised when a comment is added to the entry. This event is not supported for comment chunks.
-     */
-    attachCommentAdded(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:deleted deleted} event of this `sap.ui.ux3.FeedChunk`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
-     *
-     * Event is fired when the deletion button is pressed.
-     */
-    attachDeleted(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:inspect inspect} event of this `sap.ui.ux3.FeedChunk`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
-     *
-     * Event is fired when the inspect button was pressed
-     */
-    attachInspect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:referenceClicked referenceClicked} event of
-     * this `sap.ui.ux3.FeedChunk`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
-     *
-     * Click on a @-reference
-     */
-    attachReferenceClicked(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:senderClicked senderClicked} event of this `sap.ui.ux3.FeedChunk`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
-     *
-     * Event is fired when the thumbnail or the name of the sender is clicked.
-     */
-    attachSenderClicked(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:toggleFavorite toggleFavorite} event of this
-     * `sap.ui.ux3.FeedChunk`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
-     *
-     * Event is raised when the user clicks to set the entry as favorite. This event is not supported for comment
-     * chunks.
-     */
-    attachToggleFavorite(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:toggleFlagged toggleFlagged} event of this `sap.ui.ux3.FeedChunk`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
-     *
-     * Event is raised when the user clicks to flag the entry. This event is not supported for comment chunks.
-     */
-    attachToggleFlagged(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:toggleShared toggleShared} event of this `sap.ui.ux3.FeedChunk`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
-     *
-     * Event is raised when the user clicks to share the entry. This event is not supported for comment chunks.
-     */
-    attachToggleShared(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $FeedChunkSettings extends $ControlSettings {
@@ -7967,6 +7999,8 @@ declare module "sap/ui/ux3/FeedChunk" {
 declare module "sap/ui/ux3/Feeder" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { URI } from "sap/ui/core/library";
@@ -8032,7 +8066,25 @@ declare module "sap/ui/ux3/Feeder" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feeder` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:submit submit} event of this `sap.ui.ux3.Feeder`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Feeder` itself.
+     *
+     * Event is fired when the entered text is submitted
+     */
+    attachSubmit(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feeder` itself
        */
@@ -8047,7 +8099,7 @@ declare module "sap/ui/ux3/Feeder" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8176,24 +8228,6 @@ declare module "sap/ui/ux3/Feeder" {
        */
       sType?: FeederType | keyof typeof FeederType
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:submit submit} event of this `sap.ui.ux3.Feeder`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Feeder` itself.
-     *
-     * Event is fired when the entered text is submitted
-     */
-    attachSubmit(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feeder` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $FeederSettings extends $ControlSettings {
@@ -8232,6 +8266,8 @@ declare module "sap/ui/ux3/NavigationBar" {
   import { ID } from "sap/ui/core/library";
 
   import NavigationItem from "sap/ui/ux3/NavigationItem";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -8317,7 +8353,25 @@ declare module "sap/ui/ux3/NavigationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NavigationBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.ux3.NavigationBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.NavigationBar` itself.
+     *
+     * Event is fired when an item is selected by the user
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NavigationBar` itself
        */
@@ -8336,7 +8390,7 @@ declare module "sap/ui/ux3/NavigationBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8532,24 +8586,6 @@ declare module "sap/ui/ux3/NavigationBar" {
        * New value for property `toplevelVariant`
        */
       bToplevelVariant?: boolean
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.ux3.NavigationBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.NavigationBar` itself.
-     *
-     * Event is fired when an item is selected by the user
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NavigationBar` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -8819,6 +8855,8 @@ declare module "sap/ui/ux3/NotificationBar" {
 
   import UI5Element from "sap/ui/core/Element";
 
+  import Event from "sap/ui/base/Event";
+
   import { NotificationBarStatus } from "sap/ui/ux3/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -8897,7 +8935,26 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:display display} event of this `sap.ui.ux3.NotificationBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.NotificationBar` itself.
+     *
+     * Event is fired when the bar wants to be displayed depending on given flag. This allows the application
+     * to decide what to do.
+     */
+    attachDisplay(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
        */
@@ -8924,7 +8981,29 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.12.2
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.ux3.NotificationBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.NotificationBar` itself.
+     *
+     * This event is thrown when the bar was resized (to the different valid states: Min, Max, Default, None).
+     * The event itself can be used from SAPUI5-version 1.12.2 since there was a bug in the previous versions
+     * firing this event.
+     */
+    attachResize(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
        */
@@ -8947,7 +9026,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8964,7 +9043,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9114,7 +9193,8 @@ declare module "sap/ui/ux3/NotificationBar" {
      */
     setAlwaysShowToggler(
       /**
-       * if the toggler should be visible all the time set this parameter to **true**/
+       * if the toggler should be visible all the time set this parameter to **true**
+       */
       bAlwaysShow: boolean
     ): void;
     /**
@@ -9157,47 +9237,6 @@ declare module "sap/ui/ux3/NotificationBar" {
       sVisibleStatus?:
         | NotificationBarStatus
         | keyof typeof NotificationBarStatus
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:display display} event of this `sap.ui.ux3.NotificationBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.NotificationBar` itself.
-     *
-     * Event is fired when the bar wants to be displayed depending on given flag. This allows the application
-     * to decide what to do.
-     */
-    attachDisplay(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.12.2
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.ux3.NotificationBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.NotificationBar` itself.
-     *
-     * This event is thrown when the bar was resized (to the different valid states: Min, Max, Default, None).
-     * The event itself can be used from SAPUI5-version 1.12.2 since there was a bug in the previous versions
-     * firing this event.
-     */
-    attachResize(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -9250,6 +9289,8 @@ declare module "sap/ui/ux3/Notifier" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
   import Message from "sap/ui/core/Message";
+
+  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -9324,7 +9365,26 @@ declare module "sap/ui/ux3/Notifier" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Notifier` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:messageSelected messageSelected} event of this
+     * `sap.ui.ux3.Notifier`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Notifier` itself.
+     *
+     * Event is fired when a message of the notifiers was selected.
+     */
+    attachMessageSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Notifier` itself
        */
@@ -9344,7 +9404,7 @@ declare module "sap/ui/ux3/Notifier" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9481,25 +9541,6 @@ declare module "sap/ui/ux3/Notifier" {
        */
       sTitle?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:messageSelected messageSelected} event of this
-     * `sap.ui.ux3.Notifier`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Notifier` itself.
-     *
-     * Event is fired when a message of the notifiers was selected.
-     */
-    attachMessageSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Notifier` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $NotifierSettings extends $ElementSettings {
@@ -9529,6 +9570,8 @@ declare module "sap/ui/ux3/Overlay" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import { PopupInterface } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -9589,7 +9632,25 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.ux3.Overlay`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Overlay` itself.
+     *
+     * Event is fired when the Overlay starts closing.
+     */
+    attachClose(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -9612,7 +9673,25 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.ux3.Overlay`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Overlay` itself.
+     *
+     * Event is fired when the Overlay is closed.
+     */
+    attachClosed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -9635,7 +9714,25 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.ux3.Overlay`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Overlay` itself.
+     *
+     * Event is fired when the Overlay is opened.
+     */
+    attachOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -9658,7 +9755,25 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:openNew openNew} event of this `sap.ui.ux3.Overlay`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Overlay` itself.
+     *
+     * Event is fired when the 'Open' button of the Overlay is clicked.
+     */
+    attachOpenNew(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -9677,7 +9792,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9692,7 +9807,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9707,7 +9822,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9722,7 +9837,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9873,78 +9988,6 @@ declare module "sap/ui/ux3/Overlay" {
        * New value for property `openButtonVisible`
        */
       bOpenButtonVisible?: boolean
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.ux3.Overlay`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Overlay` itself.
-     *
-     * Event is fired when the Overlay starts closing.
-     */
-    attachClose(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.ux3.Overlay`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Overlay` itself.
-     *
-     * Event is fired when the Overlay is closed.
-     */
-    attachClosed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.ux3.Overlay`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Overlay` itself.
-     *
-     * Event is fired when the Overlay is opened.
-     */
-    attachOpen(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:openNew openNew} event of this `sap.ui.ux3.Overlay`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Overlay` itself.
-     *
-     * Event is fired when the 'Open' button of the Overlay is clicked.
-     */
-    attachOpenNew(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -10319,6 +10362,8 @@ declare module "sap/ui/ux3/QuickView" {
 
   import UI5Element from "sap/ui/core/Element";
 
+  import Event from "sap/ui/base/Event";
+
   import ActionBar from "sap/ui/ux3/ActionBar";
 
   import { FollowActionState } from "sap/ui/ux3/library";
@@ -10406,7 +10451,26 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:actionSelected actionSelected} event of this
+     * `sap.ui.ux3.QuickView`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.QuickView` itself.
+     *
+     * Action is selected in Action Bar
+     */
+    attachActionSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -10429,7 +10493,25 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:feedSubmit feedSubmit} event of this `sap.ui.ux3.QuickView`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.QuickView` itself.
+     *
+     * Fired when a new feed entry is submitted.
+     */
+    attachFeedSubmit(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -10453,7 +10535,26 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:navigate navigate} event of this `sap.ui.ux3.QuickView`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.QuickView` itself.
+     *
+     * Event is fired when a user clicks on the firstTitle link. Call the preventDefault method of the event
+     * object to cancel browser navigation.
+     */
+    attachNavigate(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -10481,7 +10582,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10496,7 +10597,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10511,7 +10612,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11029,62 +11130,6 @@ declare module "sap/ui/ux3/QuickView" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:actionSelected actionSelected} event of this
-     * `sap.ui.ux3.QuickView`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.QuickView` itself.
-     *
-     * Action is selected in Action Bar
-     */
-    attachActionSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:feedSubmit feedSubmit} event of this `sap.ui.ux3.QuickView`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.QuickView` itself.
-     *
-     * Fired when a new feed entry is submitted.
-     */
-    attachFeedSubmit(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:navigate navigate} event of this `sap.ui.ux3.QuickView`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.QuickView` itself.
-     *
-     * Event is fired when a user clicks on the firstTitle link. Call the preventDefault method of the event
-     * object to cancel browser navigation.
-     */
-    attachNavigate(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $QuickViewSettings extends $CalloutBaseSettings {
@@ -11209,6 +11254,8 @@ declare module "sap/ui/ux3/Shell" {
   import ToolPopup from "sap/ui/ux3/ToolPopup";
 
   import NavigationItem from "sap/ui/ux3/NavigationItem";
+
+  import Event from "sap/ui/base/Event";
 
   import { URI, ID } from "sap/ui/core/library";
 
@@ -11335,7 +11382,25 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:feedSubmit feedSubmit} event of this `sap.ui.ux3.Shell`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
+     *
+     * Fired when a new feed entry is submitted.
+     */
+    attachFeedSubmit(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -11358,7 +11423,25 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:logout logout} event of this `sap.ui.ux3.Shell`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
+     *
+     * Fired when the user clicks the "Log-off" button
+     */
+    attachLogout(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -11383,7 +11466,27 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:paneBarItemSelected paneBarItemSelected} event
+     * of this `sap.ui.ux3.Shell`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
+     *
+     * An item in the right-hand-side pane bar has been selected, the pane is now visible and can be filled
+     * with UI elements.
+     */
+    attachPaneBarItemSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -11409,7 +11512,28 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.12.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:paneClosed paneClosed} event of this `sap.ui.ux3.Shell`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
+     *
+     * Fired after a side pane of the shell is closed. It is also fired, when an open pane is closed by calling
+     * setShowPane(false), if and only if the pane was opened before.
+     */
+    attachPaneClosed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -11432,7 +11556,25 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.ux3.Shell`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
+     *
+     * Fired when search has been triggered.
+     */
+    attachSearch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -11459,7 +11601,29 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:worksetItemSelected worksetItemSelected} event
+     * of this `sap.ui.ux3.Shell`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
+     *
+     * Fired when a workset item was selected by the user. The application may populate the sub-items of the
+     * given workset item in the event handler, but this must happen synchronously. If this is done, the application
+     * is responsible for displaying the correct content for the selected one of the newly created sub-items.
+     * The Shell will currently always mark the first sub-item as selected.
+     */
+    attachWorksetItemSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -11510,7 +11674,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11525,7 +11689,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11541,7 +11705,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11558,7 +11722,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11573,7 +11737,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11589,7 +11753,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -12521,123 +12685,6 @@ declare module "sap/ui/ux3/Shell" {
        */
       bShowTools?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:feedSubmit feedSubmit} event of this `sap.ui.ux3.Shell`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
-     *
-     * Fired when a new feed entry is submitted.
-     */
-    attachFeedSubmit(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:logout logout} event of this `sap.ui.ux3.Shell`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
-     *
-     * Fired when the user clicks the "Log-off" button
-     */
-    attachLogout(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:paneBarItemSelected paneBarItemSelected} event
-     * of this `sap.ui.ux3.Shell`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
-     *
-     * An item in the right-hand-side pane bar has been selected, the pane is now visible and can be filled
-     * with UI elements.
-     */
-    attachPaneBarItemSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.12.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:paneClosed paneClosed} event of this `sap.ui.ux3.Shell`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
-     *
-     * Fired after a side pane of the shell is closed. It is also fired, when an open pane is closed by calling
-     * setShowPane(false), if and only if the pane was opened before.
-     */
-    attachPaneClosed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.ui.ux3.Shell`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
-     *
-     * Fired when search has been triggered.
-     */
-    attachSearch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:worksetItemSelected worksetItemSelected} event
-     * of this `sap.ui.ux3.Shell`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
-     *
-     * Fired when a workset item was selected by the user. The application may populate the sub-items of the
-     * given workset item in the event handler, but this must happen synchronously. If this is done, the application
-     * is responsible for displaying the correct content for the selected one of the newly created sub-items.
-     * The Shell will currently always mark the first sub-item as selected.
-     */
-    attachWorksetItemSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ShellSettings extends $ControlSettings {
@@ -12839,6 +12886,8 @@ declare module "sap/ui/ux3/Shell" {
 declare module "sap/ui/ux3/ThingAction" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -12897,7 +12946,25 @@ declare module "sap/ui/ux3/ThingAction" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingAction` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.ux3.ThingAction`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ThingAction` itself.
+     *
+     * Event will be fired when the action was triggered.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingAction` itself
        */
@@ -12912,7 +12979,7 @@ declare module "sap/ui/ux3/ThingAction" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13002,24 +13069,6 @@ declare module "sap/ui/ux3/ThingAction" {
        * New value for property `text`
        */
       sText?: string
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.ux3.ThingAction`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ThingAction` itself.
-     *
-     * Event will be fired when the action was triggered.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingAction` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -13309,6 +13358,8 @@ declare module "sap/ui/ux3/ThingInspector" {
 
   import ThingGroup from "sap/ui/ux3/ThingGroup";
 
+  import Event from "sap/ui/base/Event";
+
   import ActionBar from "sap/ui/ux3/ActionBar";
 
   import { FollowActionState, ThingViewerHeaderType } from "sap/ui/ux3/library";
@@ -13413,7 +13464,26 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:actionSelected actionSelected} event of this
+     * `sap.ui.ux3.ThingInspector`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ThingInspector` itself.
+     *
+     * Further thing related Action selected
+     */
+    attachActionSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -13437,7 +13507,26 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:facetSelected facetSelected} event of this `sap.ui.ux3.ThingInspector`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ThingInspector` itself.
+     *
+     * Event for facet selection. The application is responsible for displaying the correct content for the
+     * selected one. The ThingInspector will currently always mark the first facet as selected.
+     */
+    attachFacetSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -13460,7 +13549,25 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:feedSubmit feedSubmit} event of this `sap.ui.ux3.ThingInspector`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ThingInspector` itself.
+     *
+     * Fired when a new feed entry is submitted.
+     */
+    attachFeedSubmit(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -13496,7 +13603,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13512,7 +13619,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13527,7 +13634,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14097,62 +14204,6 @@ declare module "sap/ui/ux3/ThingInspector" {
        */
       bUpdateActionEnabled?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:actionSelected actionSelected} event of this
-     * `sap.ui.ux3.ThingInspector`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ThingInspector` itself.
-     *
-     * Further thing related Action selected
-     */
-    attachActionSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:facetSelected facetSelected} event of this `sap.ui.ux3.ThingInspector`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ThingInspector` itself.
-     *
-     * Event for facet selection. The application is responsible for displaying the correct content for the
-     * selected one. The ThingInspector will currently always mark the first facet as selected.
-     */
-    attachFacetSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:feedSubmit feedSubmit} event of this `sap.ui.ux3.ThingInspector`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ThingInspector` itself.
-     *
-     * Fired when a new feed entry is submitted.
-     */
-    attachFeedSubmit(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ThingInspectorSettings extends $OverlaySettings {
@@ -14277,6 +14328,8 @@ declare module "sap/ui/ux3/ThingViewer" {
 
   import ThingGroup from "sap/ui/ux3/ThingGroup";
 
+  import Event from "sap/ui/base/Event";
+
   import ActionBar from "sap/ui/ux3/ActionBar";
 
   import { ThingViewerHeaderType } from "sap/ui/ux3/library";
@@ -14375,7 +14428,26 @@ declare module "sap/ui/ux3/ThingViewer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingViewer` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:facetSelected facetSelected} event of this `sap.ui.ux3.ThingViewer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ThingViewer` itself.
+     *
+     * Event for facet selection. The application is responsible for displaying the correct content for the
+     * selected one. The ThingInspector will currently always mark the first facet as selected.
+     */
+    attachFacetSelected(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingViewer` itself
        */
@@ -14407,7 +14479,7 @@ declare module "sap/ui/ux3/ThingViewer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14780,25 +14852,6 @@ declare module "sap/ui/ux3/ThingViewer" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:facetSelected facetSelected} event of this `sap.ui.ux3.ThingViewer`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ThingViewer` itself.
-     *
-     * Event for facet selection. The application is responsible for displaying the correct content for the
-     * selected one. The ThingInspector will currently always mark the first facet as selected.
-     */
-    attachFacetSelected(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingViewer` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ThingViewerSettings extends $ControlSettings {
@@ -14878,6 +14931,8 @@ declare module "sap/ui/ux3/ToolPopup" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import { PopupInterface, ID, URI, CSSSize } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -14977,7 +15032,26 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.ux3.ToolPopup`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
+     *
+     * Event is fired when the popup closes because the user pressed Escape or the ToolPopup Button in the Shell.
+     * This is called before the closing animation.
+     */
+    attachClose(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
        */
@@ -15001,7 +15075,26 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.ux3.ToolPopup`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
+     *
+     * This event is fired after the ToolPopup has finished its closing animation. It is called for EVERY close,
+     * regardless of whether the user has triggered the close or whether the ToolPopup was closed via API call.
+     */
+    attachClosed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
        */
@@ -15024,7 +15117,25 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:enter enter} event of this `sap.ui.ux3.ToolPopup`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
+     *
+     * Event is fired whenever the user clicks the Enter or the Enter key inside the pop up
+     */
+    attachEnter(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
        */
@@ -15048,7 +15159,26 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:iconChanged iconChanged} event of this `sap.ui.ux3.ToolPopup`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
+     *
+     * Event is fired when one of the icon properties is modified (Note: The icon is not rendered by the ToolPopup).
+     * To be used by other controls which want to update the icon in their UI.
+     */
+    attachIconChanged(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
        */
@@ -15071,7 +15201,25 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.ux3.ToolPopup`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
+     *
+     * Event is fired when the popup opens
+     */
+    attachOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
        */
@@ -15096,7 +15244,27 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.19.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.ux3.ToolPopup`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
+     *
+     * Event is being fired after the ToolPopup has been opened.
+     */
+    attachOpened(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
        */
@@ -15131,7 +15299,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15146,7 +15314,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15161,7 +15329,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15176,7 +15344,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15191,7 +15359,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15208,7 +15376,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15723,119 +15891,6 @@ declare module "sap/ui/ux3/ToolPopup" {
        */
       sTitle?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.ux3.ToolPopup`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
-     *
-     * Event is fired when the popup closes because the user pressed Escape or the ToolPopup Button in the Shell.
-     * This is called before the closing animation.
-     */
-    attachClose(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.ux3.ToolPopup`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
-     *
-     * This event is fired after the ToolPopup has finished its closing animation. It is called for EVERY close,
-     * regardless of whether the user has triggered the close or whether the ToolPopup was closed via API call.
-     */
-    attachClosed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:enter enter} event of this `sap.ui.ux3.ToolPopup`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
-     *
-     * Event is fired whenever the user clicks the Enter or the Enter key inside the pop up
-     */
-    attachEnter(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:iconChanged iconChanged} event of this `sap.ui.ux3.ToolPopup`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
-     *
-     * Event is fired when one of the icon properties is modified (Note: The icon is not rendered by the ToolPopup).
-     * To be used by other controls which want to update the icon in their UI.
-     */
-    attachIconChanged(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.ux3.ToolPopup`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
-     *
-     * Event is fired when the popup opens
-     */
-    attachOpen(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.19.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.ux3.ToolPopup`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
-     *
-     * Event is being fired after the ToolPopup has been opened.
-     */
-    attachOpened(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ToolPopupSettings extends $ControlSettings {
@@ -15989,6 +16044,7 @@ declare module "sap/ui/ux3/ToolPopup" {
 declare namespace sap {
   namespace ui {
     /**
+     * @SINCE 0.13
      * @deprecated (since 1.38)
      *
      * Controls that implement the SAP User Experience (UX) Guidelines 3.0

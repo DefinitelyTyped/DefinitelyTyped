@@ -55,13 +55,7 @@ export interface ReactDatePickerProps<Modifiers> {
     clearButtonTitle?: string | undefined;
     closeOnScroll?: boolean | ((e: Event) => boolean) | undefined;
     customInput?: React.ReactNode | undefined;
-    customInputRef?: string | undefined;
-    customTimeInput?: React.ReactNode | undefined;
-    dateFormat?: string | string[] | undefined;
-    dateFormatCalendar?: string | undefined;
     dayClassName?(date: Date): string | null;
-    weekDayClassName?(date: Date): string | null;
-    monthClassName?(date: Date): string | null;
     timeClassName?(date: Date): string | null;
     disabledDayAriaLabelPrefix?: string | undefined;
     disabled?: boolean | undefined;

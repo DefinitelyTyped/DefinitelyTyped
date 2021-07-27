@@ -35,6 +35,9 @@ const graphDiv = '#test';
             showline: false,
         },
         uirevision: 'true',
+        datarevision: 0,
+        editrevision: 0,
+        selectionrevision: 0
     };
     Plotly.newPlot(graphDiv, data, layout);
 

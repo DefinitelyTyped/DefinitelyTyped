@@ -8,14 +8,6 @@ type PLAY_MODE =
     | 'single'; // 单个播放（播完即止）
 
 /**
- * 播放倍率
- */
-type PLAY_BACK_RATE =
-    | 0.5 // 半速
-    | 1
-    | 2; // 2倍速
-
-/**
  * 播放器状态
  */
 type PLAY_STATE =
@@ -237,11 +229,11 @@ export default class XMplayer extends Event {
      *
      * @param playbackRate 播放速度（0.5、1、2）
      */
-    setPlaybackRate(playbackRate: PLAY_BACK_RATE): void;
+    setPlaybackRate(playbackRate: number): void;
     /**
      * 获取当前播放速度
      */
-    getPlaybackRate(): PLAY_BACK_RATE;
+    getPlaybackRate(): number;
     /**
      * 获取当前播放器状态
      */
@@ -255,5 +247,5 @@ export default class XMplayer extends Event {
     /**
      * 销毁播放器
      */
-    destory(): void;
+    destroy(): void;
 }

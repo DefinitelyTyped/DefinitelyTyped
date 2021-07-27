@@ -33,7 +33,7 @@ export interface Config {
     /** Use navigator.sendBeacon to send events. */
     useBeacon: boolean;
     /** @deprecated same as useBeacon */
-    trackNow?: boolean;
+    trackNow?: boolean | undefined;
 
     /** Call ahoy.start() upon the document's DOMContentLoaded event. */
     startOnReady: boolean;
@@ -45,7 +45,7 @@ export interface Config {
     /** Domain of the generated cookies. */
     cookieDomain: string | null;
     /** @deprecated same as cookieDomain */
-    domain?: string;
+    domain?: string | undefined;
 
     headers: Record<string, string>;
     withCredentials: boolean;

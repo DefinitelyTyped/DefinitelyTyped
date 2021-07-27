@@ -12,7 +12,7 @@ interface OpenloadConfig {
     /* the api_login, a string available from the WebUI, NOT the user's e-mail */
     api_login: string;
     /* the api_version to target, needed for forming the URL, by default 1 */
-    api_version?: number;
+    api_version?: number | undefined;
 }
 
 /**
@@ -74,9 +74,9 @@ interface Upload {
 
 interface UploadParam {
     file: string | ArrayBuffer;
-    folder?: string;
-    filename?: string;
-    contentType?: string;
+    folder?: string | undefined;
+    filename?: string | undefined;
+    contentType?: string | undefined;
 }
 
 interface RemoteUpload {
@@ -86,8 +86,8 @@ interface RemoteUpload {
 
 interface RemoteUploadParam {
     url: string;
-    folder?: string;
-    headers?: string;
+    folder?: string | undefined;
+    headers?: string | undefined;
 }
 
 interface RemoteUploadStatus {
@@ -106,8 +106,8 @@ interface RemoteUploadStatus {
 }
 
 interface RemoteUploadStatusParam {
-    limit?: number;
-    id?: string;
+    limit?: number | undefined;
+    id?: string | undefined;
 }
 
 interface ListFolder {

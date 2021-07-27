@@ -80,6 +80,13 @@ app.get('/:foo/:bar(\\d:+)/:baz', req => {
     req.params.quxx; // $ExpectType string
 });
 
+// long path parameters - https://github.com/DefinitelyTyped/DefinitelyTyped/pull/53513#issuecomment-870550063
+app.get('/website-api/jobalarm/:jobalarmId/:subscriptionId/search', req => {
+    req.params.jobalarmId; // $ExpectType string
+    req.params.subscriptionId; // $ExpectType string
+    req.params.foo; // $ExpectError
+});
+
 // Query can be a custom type
 app.get<{}, any, any, { q: string }>('/:foo', req => {
     req.query.q; // $ExpectType string

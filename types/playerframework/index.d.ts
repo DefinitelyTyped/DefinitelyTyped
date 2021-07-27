@@ -273,7 +273,7 @@ declare namespace PlayerFramework {
 
     interface PlaylistItem {
         src: string;
-        tracks?: Array<any>; //TODO
+        tracks?: Array<any> | undefined; //TODO
     }
 
     class PluginBase {

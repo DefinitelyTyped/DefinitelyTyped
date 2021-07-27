@@ -25,9 +25,9 @@ export interface ScheduleOptions {
      *
      * Defaults to `true`
      */
-    scheduled?: boolean;
+    scheduled?: boolean | undefined;
     /**
      * The timezone that is used for job scheduling
      */
-    timezone?: Timezone;
+    timezone?: Timezone | undefined;
 }

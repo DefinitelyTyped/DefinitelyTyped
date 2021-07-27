@@ -6,20 +6,20 @@ export interface SliderOnChangeArg {
 }
 
 export interface SliderProps extends Omit<ReactDivAttr, "onChange"> {
-    ariaLabelInput?: string,
+    ariaLabelInput?: string | undefined,
     formatLabel?(value: SliderProps["value"], minOrMaxLabel: string): string,
-    hideTextInput?: boolean,
-    inputType?: ReactInputAttr["type"],
-    labelText?: React.ReactNode,
-    light?: boolean,
+    hideTextInput?: boolean | undefined,
+    inputType?: ReactInputAttr["type"] | undefined,
+    labelText?: React.ReactNode | undefined,
+    light?: boolean | undefined,
     max: number,
-    maxLabel?: string,
+    maxLabel?: string | undefined,
     min: number,
-    minLabel?: string,
-    name?: string,
+    minLabel?: string | undefined,
+    name?: string | undefined,
     onRelease?(data: { value: SliderProps["value"] }): void,
-    step?: number,
-    stepMultiplier?: number,
+    step?: number | undefined,
+    stepMultiplier?: number | undefined,
     value: number,
     onChange: (value: SliderOnChangeArg) => void
 }

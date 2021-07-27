@@ -95,7 +95,7 @@ const settings: TagifyConstructorSettings = {
             event.detail.tag;
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
-            // $ExpectType boolean
+            // $ExpectType string | boolean
             event.detail.message;
         },
         keydown: event => {
@@ -451,7 +451,7 @@ tagify.on('invalid', (event) => {
     event.detail.tag;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType boolean
+    // $ExpectType string | boolean
     event.detail.message;
 });
 tagify.on('add', (event) => {
@@ -624,7 +624,7 @@ tagify.off('invalid', (event) => {
     event.detail.tag;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType boolean
+    // $ExpectType string | boolean
     event.detail.message;
 });
 tagify.off('add', (event) => {

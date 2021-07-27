@@ -1,18 +1,18 @@
-import Element from "./element";
-import Position from "./position";
-import Range from "./range";
-import Document from "./document";
 import AttributeElement from "./attributeelement";
 import ContainerElement from "./containerelement";
+import Document from "./document";
+import DocumentFragment from "./documentfragment";
 import EditableElement from "./editableelement";
+import Element from "./element";
 import EmptyElement from "./emptyelement";
 import { Item } from "./item";
-import View from "./view";
+import Position from "./position";
+import Range from "./range";
 import RawElement from "./rawelement";
 import Selection, { Selectable } from "./selection";
 import Text from "./text";
 import UIElement from "./uielement";
-import DocumentFragment from "./documentfragment";
+import View from "./view";
 
 export default class DowncastWriter {
     readonly document: Document;
@@ -31,14 +31,14 @@ export default class DowncastWriter {
     createContainerElement(
         name: string,
         attributes?: Record<string, string>,
-        options?: { isAllowedInsideAttributeElement?: boolean },
+        options?: { isAllowedInsideAttributeElement?: boolean | undefined },
     ): ContainerElement;
     createDocumentFragment(children: Node | Iterable<Node>): DocumentFragment;
     createEditableElement(name: string, attributes?: Record<string, string>): EditableElement;
     createEmptyElement(
         name: string,
         attributes?: Record<string, string>,
-        options?: { isAllowedInsideAttributeElement?: boolean },
+        options?: { isAllowedInsideAttributeElement?: boolean | undefined },
     ): EmptyElement;
     createPositionAfter(item: Item): Position;
     createPositionAt(itemOrPosition: View, offset?: number | "end" | "before" | "after"): Position;
@@ -51,19 +51,19 @@ export default class DowncastWriter {
         name?: string,
         attributes?: Record<string, string>,
         renderFunction?: (domElement: HTMLElement) => void,
-        options?: { isAllowedInsideAttributeElement?: boolean },
+        options?: { isAllowedInsideAttributeElement?: boolean | undefined },
     ): RawElement;
     createSelection(
         selectable?: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean; fake?: boolean; label?: string },
+        options?: { backward?: boolean | undefined; fake?: boolean | undefined; label?: string | undefined },
     ): Selection;
     createText(data: string): Text;
     createUIElement(
         name: string,
         attributes?: Record<string, string>,
         renderFunction?: (domElement: HTMLElement) => void,
-        options?: { isAllowedInsideAttributeElement?: boolean },
+        options?: { isAllowedInsideAttributeElement?: boolean | undefined },
     ): UIElement;
     insert(
         position: Position | null,
@@ -90,7 +90,7 @@ export default class DowncastWriter {
     setSelection(
         selectable: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
-        options?: { backward?: boolean; fake?: boolean; label?: string },
+        options?: { backward?: boolean | undefined; fake?: boolean | undefined; label?: string | undefined },
     ): void;
     setSelectionFocus(itemOrPosition: View, offset?: number | "end" | "before" | "after"): void;
     setSelectionFocus(itemOrPosition: Item | Position): void;

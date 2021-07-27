@@ -989,7 +989,7 @@ export interface SimpleAudioAPI {
          *         }
          * );
          */
-        add(listId: string, ...sources: ReadonlyArray<string | {id?: string, sources?: string[], own?: boolean, volume?: number}>): void;
+        add(listId: string, ...sources: ReadonlyArray<string | {id?: string | undefined, sources?: string[] | undefined, own?: boolean | undefined, volume?: number | undefined}>): void;
 
         /**
          * Deletes all playlists.

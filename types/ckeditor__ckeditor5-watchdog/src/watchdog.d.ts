@@ -7,9 +7,9 @@ export default abstract class Watchdog {
         message: string;
         stack: string;
         date: number;
-        filename?: string;
-        lineno?: number;
-        colno?: number;
+        filename?: string | undefined;
+        lineno?: number | undefined;
+        colno?: number | undefined;
     }>;
     state: "initializing" | "ready" | "crashed" | "crashedPermanently" | "destroyed";
     destroy(): void;
@@ -20,7 +20,7 @@ export default abstract class Watchdog {
 }
 
 export interface WatchdogConfig {
-    crashNumberLimit?: number;
-    minimumNonErrorTimePeriod?: number;
-    saveInterval?: number;
+    crashNumberLimit?: number | undefined;
+    minimumNonErrorTimePeriod?: number | undefined;
+    saveInterval?: number | undefined;
 }

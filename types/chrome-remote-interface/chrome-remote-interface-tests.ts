@@ -21,6 +21,18 @@ import CDP = require('chrome-remote-interface');
         const loadEvent = await client['Page.loadEventFired'](); // instead of: await Page.loadEventFired();
         loadEvent.timestamp;
         await client['Page.interstitialHidden'](); // instead of: await Page.interstitialHidden();
+        // instead of: Network.requestWillBeSent((params, sessionId) => {});
+        const unsubscribe = client['Network.requestWillBeSent']((params, sessionId) => {
+            params.request.url;
+            unsubscribe();
+        });
+        const unsubscribe2 = client['Network.requestWillBeSent']((params) => {
+            params.request.url;
+            unsubscribe2();
+        });
+        const unsubscribe3 = client['Page.frameResized'](() => {
+            unsubscribe3();
+        });
         await Runtime.enable();
         const loc = await Runtime.evaluate({ expression: 'window.location.toString()' });
         const targets = await CDP.List(cdpPort);
