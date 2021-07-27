@@ -39,7 +39,6 @@ export class InputRule<S extends Schema = any> {
             | string
             | ((state: EditorState<S>, match: string[], start: number, end: number) => Transaction<S> | null),
     ) {}
-    
 }
 /**
  * Create an input rules plugin. When enabled, it will cause text
