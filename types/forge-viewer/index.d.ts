@@ -900,6 +900,7 @@ declare namespace Autodesk {
             setRequestTransitionWithUp(state: boolean, pos: THREE.Vector3, coi: THREE.Vector3, fov: number, up: THREE.Vector3, worldUp?: THREE.Vector3): void;
             setRequestHomeView(val?: boolean): void;
             computeOverviewDistance(bound: THREE.Box3): number;
+            orientCameraUp(force: boolean): void;
         }
 
         interface Properties {
