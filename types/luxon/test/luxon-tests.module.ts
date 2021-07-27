@@ -6,7 +6,7 @@ import {
     IANAZone,
     Info,
     Interval,
-    LocalZone,
+    SystemZone,
     Settings,
     Zone,
     ZoneOffsetFormat,
@@ -59,7 +59,7 @@ FixedOffsetZone.utcInstance.equals(FixedOffsetZone.instance(0));
 FixedOffsetZone.instance(60);
 FixedOffsetZone.parseSpecifier("UTC+6");
 
-LocalZone.instance; // $ExpectType LocalZone
+SystemZone.instance; // $ExpectType SystemZone
 
 const fromIso = DateTime.fromISO("2017-05-15"); // => May 15, 2017 at midnight
 const fromIso2 = DateTime.fromISO("2017-05-15T08:30:00"); // => May 15, 2017 at midnight
@@ -91,6 +91,8 @@ dt.toJSDate(); // $ExpectType Date
 dt.toJSON(); // $ExpectType string
 dt.toLocaleString(); // $ExpectType string
 dt.toLocaleString({ month: "long", day: "numeric" }); // $ExpectType string
+dt.toLocaleString({ locale: "en-gb" }); // $ExpectType string
+dt.toLocaleString({ locale: "en-gb" }, { day: '2-digit'}); // $ExpectType string
 dt.toLocaleString(DateTime.DATE_MED); // $ExpectType string
 dt.toMillis(); // $ExpectType number
 dt.toMillis(); // $ExpectType number
@@ -221,8 +223,7 @@ Interval.invalid("code", "because I said so"); // $ExpectType Interval
 /* Info */
 Info.months();
 Info.weekdays("long");
-// $ExpectError
-Info.weekdays("2-digit");
+Info.weekdays("2-digit"); // $ExpectError
 Info.features().intl;
 Info.features().intlTokens;
 Info.features().zones;
@@ -231,14 +232,14 @@ Info.features().relative;
 /* Settings */
 Settings.defaultLocale;
 Settings.defaultLocale = "en";
-Settings.defaultZoneName = "Europe/Paris";
+Settings.defaultZone = "Europe/Paris";
 Settings.throwOnInvalid = true;
 Settings.now();
 Settings.now = () => 0;
+Settings.now = 0; // $ExpectError
 Settings.resetCaches();
 
-// $ExpectError
-Settings.defaultZone = Settings.defaultZone;
+Settings.defaultZone = Settings.defaultZone; // Not actually an error, the property can be set to a zone
 
 // The following tests were coped from the docs
 // http://moment.github.io/luxon/docs/manual/
@@ -253,8 +254,8 @@ DateTime.local().reconfigure({ locale: "fr" }).locale; // $ExpectType string
 Settings.defaultLocale = "fr";
 DateTime.local().locale; // $ExpectType string
 
-Settings.defaultLocale = DateTime.local().resolvedLocaleOpts().locale;
-DateTime.local().resolvedLocaleOpts({ locale: "de" });
+Settings.defaultLocale = DateTime.local().resolvedLocaleOptions().locale;
+DateTime.local().resolvedLocaleOptions({ locale: "de" });
 
 dt.setLocale("fr").toLocaleString(DateTime.DATE_FULL); // $ExpectType string
 dt.toLocaleString({ locale: "es", ...DateTime.DATE_FULL }); // $ExpectType string
@@ -291,7 +292,7 @@ iso.toString(); // $ExpectType string
 DateTime.fromISO("2017-05-15T09:10:23", { zone: "Europe/Paris", setZone: true }); // $ExpectType DateTime
 DateTime.fromFormat("2017-05-15T09:10:23 Europe/Paris", "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime
 
-Settings.defaultZoneName = "Asia/Tokyo";
+Settings.defaultZone = "Asia/Tokyo";
 
 /* Calendars */
 // prettier-ignore
@@ -336,6 +337,7 @@ d1.hasSame(d2, "minute"); // $ExpectType boolean
 d1.hasSame(d2, "year"); // $ExpectType boolean
 
 dur.toObject().days; // $ExpectType number | undefined
+dur.toObject({includeConfig: true}); // Still supported in Luxon 2.0 even though the migration guide contradicts this
 dur.as("minutes"); // $ExpectType number
 dur.shiftTo("minutes").toObject().minutes; // $ExpectType number | undefined
 // prettier-ignore
@@ -372,7 +374,7 @@ class SampleZone extends Zone {
     readonly isValid = false;
     readonly name = "Sample";
     readonly type = "Example";
-    readonly universal = true;
+    readonly isUniversal = true;
 
     offsetName(ts: number, options?: ZoneOffsetOptions) {
         return "SampleZone";

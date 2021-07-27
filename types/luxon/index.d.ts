@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.27
+// Type definitions for luxon 2.0
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -10,6 +10,7 @@
 //                 Aitor Pérez Rodal <https://github.com/Aitor1995>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Carson Full <https://github.com/carsonf>
+//                 Mark Brodziak <https://github.com/brodziakm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export * from "./src/luxon";
