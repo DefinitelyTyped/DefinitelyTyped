@@ -14,4 +14,6 @@ interface WelcomeOptions {
     bold?: boolean;
 }
 
-export default function welcome(options: WelcomeOptions): void;
+declare function welcome(options: WelcomeOptions): void;
+
+export = welcome;
