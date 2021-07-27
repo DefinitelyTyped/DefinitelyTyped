@@ -9,14 +9,20 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
+            "@ckeditor/ckeditor5-cloud-services/*": [
+                "ckeditor__ckeditor5-cloud-services/v27/*"
+            ],
+            "@ckeditor/ckeditor5-cloud-services": [
+                "ckeditor__ckeditor5-cloud-services/v27"
+            ],
             "@ckeditor/*": [
                 "ckeditor__*"
             ]
