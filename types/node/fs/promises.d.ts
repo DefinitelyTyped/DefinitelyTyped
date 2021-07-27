@@ -338,7 +338,7 @@ declare module 'fs/promises' {
      * `fs.constants.COPYFILE_EXCL | fs.constants.COPYFILE_FICLONE`)
      * @return Fulfills with `undefined` upon success.
      */
-    function copyFile(src: PathLike, dest: PathLike, flags?: number): Promise<void>;
+    function copyFile(src: PathLike, dest: PathLike, mode?: number): Promise<void>;
     /**
      * Opens a `<FileHandle>`.
      *
@@ -739,7 +739,7 @@ declare module 'fs/promises' {
      * @return Fulfills with `undefined` upon success.
      */
     function writeFile(
-        path: PathLike | FileHandle,
+        file: PathLike | FileHandle,
         data: string | NodeJS.ArrayBufferView | Iterable<string | NodeJS.ArrayBufferView> | AsyncIterable<string | NodeJS.ArrayBufferView> | Stream,
         options?:
             | (ObjectEncodingOptions & {
