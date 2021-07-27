@@ -241,7 +241,7 @@ declare namespace picomatch {
         options?: PicomatchOptions,
         returnOutput?: boolean,
         returnState?: boolean,
-    ): RegExp;
+    ): ReturnType<typeof compileRe>;
 
     function toRegex(source: string | RegExp, options?: { flags?: string | undefined; nocase?: boolean | undefined; debug?: boolean | undefined }): RegExp;
 
