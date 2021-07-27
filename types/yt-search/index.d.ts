@@ -71,7 +71,9 @@ declare namespace yts {
     }
     interface PlaylistMetadataOptions {
         listId: string;
+        /** @default 'en' */
         hl?: string | undefined;
+        /** @default 'US' */
         gl?: string | undefined;
     }
 
