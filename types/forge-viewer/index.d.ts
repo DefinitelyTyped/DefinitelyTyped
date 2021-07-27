@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.47
+// Type definitions for non-npm package Forge Viewer 7.48
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
