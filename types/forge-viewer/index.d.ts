@@ -513,9 +513,15 @@ declare namespace Autodesk {
         }
 
         interface Endpoint {
-            getApiEndpoint(): string;
-            getEndpointAndApi(): string;
-            setEndpointAndApi(endpoint: string, api: string): void;
+          ENDPOINT_API_D3S: string;
+          ENDPOINT_API_DERIVATIVE_SERVICE_V2: string;
+          ENDPOINT_API_DERIVATIVE_STREAMING: string;
+          ENDPOINT_API_FLUENT: string;
+          ENDPOINT_API_MODEL_DERIVATIVE_V2: string;
+
+          getApiEndpoint(): string;
+          getEndpointAndApi(): string;
+          setEndpointAndApi(endpoint: string, api: string): void;
         }
 
         namespace EventUtils {
