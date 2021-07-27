@@ -139,26 +139,6 @@ yaml.load(str);
 // $ExpectType string | number | unknown[] | Record<string, unknown> | null | undefined
 yaml.load(str, loadOpts);
 
-// $ExpectType string | null | undefined
-yaml.load<string>(str);
-// $ExpectType string | null | undefined
-yaml.load<string>(str, loadOpts);
-
-// $ExpectType number | null | undefined
-yaml.load<number>(str);
-// $ExpectType number | null | undefined
-yaml.load<number>(str, loadOpts);
-
-// $ExpectType { data: "something"; } | null | undefined
-yaml.load<{ data: "something"; }>(str);
-// $ExpectType { data: "something"; } | null | undefined
-yaml.load<{ data: "something"; }>(str, loadOpts);
-
-// $ExpectType Record<string, number> | null | undefined
-yaml.load<Record<string, number>>(str);
-// $ExpectType Record<string, number> | null | undefined
-yaml.load<Record<string, number>>(str, loadOpts);
-
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 // $ExpectType any[]
