@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "ie11-tests.ts"
+        "web-ie11-tests.ts"
     ]
 }

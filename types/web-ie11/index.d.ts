@@ -1,5 +1,5 @@
-// Type definitions for ie11 0.0
-// Project: https://github.com/klarstrup/node-ie11#readme
+// Type definitions for web-ie11 0.0
+// Project: https://docs.microsoft.com/en-us/lifecycle/announcements/internet-explorer-11-end-of-support
 // Definitions by: Kagami Sascha Rosylight <https://github.com/saschanaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
