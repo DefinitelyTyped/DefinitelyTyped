@@ -9,9 +9,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
@@ -19,7 +19,9 @@
         "paths": {
             "@ckeditor/*": [
                 "ckeditor__*"
-            ]
+            ],
+            "@ckeditor/ckeditor5-clipboard/*": ["ckeditor__ckeditor5-clipboard/v27/*"],
+            "@ckeditor/ckeditor5-clipboard": ["ckeditor__ckeditor5-clipboard/v27"]
         }
     },
     "files": [
