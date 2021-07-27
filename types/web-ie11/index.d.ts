@@ -1,4 +1,4 @@
-// Type definitions for web-ie11 0.0
+// Type definitions for non-npm package web-ie11-browser
 // Project: https://docs.microsoft.com/en-us/lifecycle/announcements/internet-explorer-11-end-of-support
 // Definitions by: Kagami Sascha Rosylight <https://github.com/saschanaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
