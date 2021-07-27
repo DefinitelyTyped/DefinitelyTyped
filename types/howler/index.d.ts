@@ -208,6 +208,8 @@ export class Howl {
     rate(idOrSetRate: number): this | number;
     rate(rate: number, id: number): this;
 
+    seek(): number;
+    seek(idOrSetSeek: number): this | number;
     seek(seek?: number, id?: number): this | number;
 
     loop(id?: number): boolean;
