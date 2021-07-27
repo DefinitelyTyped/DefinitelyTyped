@@ -16,32 +16,38 @@ declare namespace PubSubJS {
         version: string;
     }
 
+    type Token = string;
+
+    type Message = string | Symbol;
+
+    type SubscriptionListener<T> = (message: Message, data?: T) => void;
+
     interface CountSubscriptions {
-        countSubscriptions(token: any): number;
+        countSubscriptions(token: Token): number;
     }
 
     interface ClearAllSubscriptions {
-        clearAllSubscriptions(token?: any): void;
+        clearAllSubscriptions(token?: Token): void;
     }
 
     interface GetSubscriptions {
-        getSubscriptions(token: any): any[];
+        getSubscriptions(token: Token): Message[];
     }
 
     interface Publish {
-        publish(message: string | Symbol, data?: any): boolean;
+        publish(message: Message, data?: any): boolean;
 
-        publishSync(message: string | Symbol, data?: any): boolean;
+        publishSync(message: Message, data?: any): boolean;
     }
 
     interface Subscribe {
-        subscribe(message: string | Symbol, func: Function): string;
+        subscribe(message: Message, func: SubscriptionListener<any>): string;
 
-        subscribeOnce(message: string | Symbol, func: Function): any;
+        subscribeOnce(message: Message, func: SubscriptionListener<any>): any;
     }
 
     interface Unsubscribe {
-        unsubscribe(tokenOrFunction: any): any;
+        unsubscribe(tokenOrFunction: Token | SubscriptionListener<any>): any;
     }
 }
 
