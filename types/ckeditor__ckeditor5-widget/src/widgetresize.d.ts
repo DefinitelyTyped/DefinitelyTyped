@@ -4,6 +4,7 @@ import ContainerElement from '@ckeditor/ckeditor5-engine/src/view/containereleme
 import Resizer from './widgetresize/resizer';
 
 export interface ResizerOptions {
+    unit?: string | undefined;
     editor: Editor;
     getResizeHost(el: HTMLElement): HTMLElement;
     getHandleHost(el: HTMLElement): HTMLElement;
