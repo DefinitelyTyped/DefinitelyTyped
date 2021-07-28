@@ -4,7 +4,7 @@ const client = new Client('YOUR-KEY-ID', 'YOUR-SECRET', 'sandbox');
 
 async function testingBankingEndpoints() {
     try {
-        client.connect(); // $ExpectType void
+        client.connect(); // $ExpectType Promise<void>
 
         const link = await client.links.register('erebor_mx_retail', 'bnk1006', 'supersecret'); // $ExpectType LinksReturn
         const accounts = await client.accounts.retrieve(link.id); // $ExpectType AccountsReturn[]
