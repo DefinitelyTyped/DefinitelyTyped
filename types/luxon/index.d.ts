@@ -10,7 +10,6 @@
 //                 Aitor Pérez Rodal <https://github.com/Aitor1995>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Carson Full <https://github.com/carsonf>
-//                 Mark Brodziak <https://github.com/brodziakm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export * from "./src/luxon";
