@@ -560,7 +560,7 @@ declare module 'tls' {
          * @param hostname A SNI host name or wildcard (e.g. `'*'`)
          * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc).
          */
-        addContext(hostName: string, credentials: SecureContextOptions): void;
+        addContext(hostname: string, context: SecureContextOptions): void;
         /**
          * Returns the session ticket keys.
          *
@@ -575,7 +575,7 @@ declare module 'tls' {
          * @since v11.0.0
          * @param options An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc).
          */
-        setSecureContext(details: SecureContextOptions): void;
+        setSecureContext(options: SecureContextOptions): void;
         /**
          * Sets the session ticket keys.
          *
@@ -825,7 +825,7 @@ declare module 'tls' {
      * @param hostname The host name or IP address to verify the certificate against.
      * @param cert A `certificate object` representing the peer's certificate.
      */
-    function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
+    function checkServerIdentity(hostname: string, cert: PeerCertificate): Error | undefined;
     /**
      * Creates a new {@link Server}. The `secureConnectionListener`, if provided, is
      * automatically set as a listener for the `'secureConnection'` event.
@@ -949,7 +949,7 @@ declare module 'tls' {
      * @param requestCert `true` to specify whether a server should request a certificate from a connecting client. Only applies when `isServer` is `true`.
      * @param rejectUnauthorized If not `false` a server automatically reject clients with invalid certificates. Only applies when `isServer` is `true`.
      */
-    function createSecurePair(credentials?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
+    function createSecurePair(context?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
     /**
      * {@link createServer} sets the default value of the `honorCipherOrder` option
      * to `true`, other APIs that create secure contexts leave it unset.

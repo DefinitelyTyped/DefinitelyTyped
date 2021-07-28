@@ -1342,13 +1342,13 @@ declare module 'child_process' {
      * @param args List of string arguments.
      * @return The stdout from the command.
      */
-    function execFileSync(command: string): Buffer;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
+    function execFileSync(file: string): Buffer;
+    function execFileSync(file: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(file: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(file: string, options?: ExecFileSyncOptions): Buffer;
+    function execFileSync(file: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(file: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(file: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
 }
 declare module 'node:child_process' {
     export * from 'child_process';

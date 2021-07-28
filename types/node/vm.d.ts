@@ -191,7 +191,7 @@ declare module 'vm' {
          * @param contextifiedObject A `contextified` object as returned by the `vm.createContext()` method.
          * @return the result of the very last statement executed in the script.
          */
-        runInContext(contextifiedSandbox: Context, options?: RunningScriptOptions): any;
+        runInContext(contextifiedObject: Context, options?: RunningScriptOptions): any;
         /**
          * First contextifies the given `contextObject`, runs the compiled code contained
          * by the `vm.Script` object within the created context, and returns the result.
@@ -218,7 +218,7 @@ declare module 'vm' {
          * @param contextObject An object that will be `contextified`. If `undefined`, a new object will be created.
          * @return the result of the very last statement executed in the script.
          */
-        runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
+        runInNewContext(contextObject?: Context, options?: RunningScriptOptions): any;
         /**
          * Runs the compiled code contained by the `vm.Script` within the context of the
          * current `global` object. Running code does not have access to local scope, but_does_ have access to the current `global` object.
@@ -340,7 +340,7 @@ declare module 'vm' {
      * @param contextifiedObject The `contextified` object that will be used as the `global` when the `code` is compiled and run.
      * @return the result of the very last statement executed in the script.
      */
-    function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions | string): any;
+    function runInContext(code: string, contextifiedObject: Context, options?: RunningScriptOptions | string): any;
     /**
      * The `vm.runInNewContext()` first contextifies the given `contextObject` (or
      * creates a new `contextObject` if passed as `undefined`), compiles the `code`,
@@ -369,7 +369,7 @@ declare module 'vm' {
      * @param contextObject An object that will be `contextified`. If `undefined`, a new object will be created.
      * @return the result of the very last statement executed in the script.
      */
-    function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
+    function runInNewContext(code: string, contextObject?: Context, options?: RunningScriptOptions | string): any;
     /**
      * `vm.runInThisContext()` compiles `code`, runs it within the context of the
      * current `global` and returns the result. Running code does not have access to

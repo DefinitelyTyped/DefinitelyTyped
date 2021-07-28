@@ -83,7 +83,7 @@ declare module 'node:console' {
              * ```
              * @since v0.1.101
              * @param value The value tested for being truthy.
-             * @param ...message All arguments besides `value` are used as error message.
+             * @param message All arguments besides `value` are used as error message.
              */
             assert(value: any, message?: string, ...optionalParams: any[]): void;
             /**

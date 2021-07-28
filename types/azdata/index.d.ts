@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.29
+// Type definitions for Azure Data Studio 1.31
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -9,11 +9,11 @@
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License.
- *  See https://github.com/microsoft/azuredatastudio/blob/master/LICENSE.txt for license information.
+ *  See https://github.com/Microsoft/azuredatastudio/blob/main/LICENSE.txt for license information.
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.29 Extension API
+ * Type Definition for Azure Data Studio 1.31 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -962,7 +962,7 @@ declare module 'azdata' {
         hasError: boolean;
         id: number;
         selection: ISelectionData;
-        resultSetSummaries: ResultSetSummary[];
+        resultSetSummaries: ResultSetSummary[] | null;
         executionElapsed: string;
         executionEnd: string;
         executionStart: string;
@@ -3887,6 +3887,14 @@ declare module 'azdata' {
          * @param isWide Indicates whether the dialog is wide or normal
          */
         export function createModelViewDialog(title: string, dialogName?: string, isWide?: boolean): Dialog;
+
+        /**
+         * Create a dialog with the given title
+         * @param title Title of the dialog, displayed at the top.
+         * @param dialogName Name of the dialog.
+         * @param width Width of the dialog, default is 'narrow'.
+         */
+        export function createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth): Dialog;
 
         /**
          * Create a dialog tab which can be included as part of the content of a dialog

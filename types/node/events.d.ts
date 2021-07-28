@@ -42,11 +42,11 @@ declare module 'events' {
         captureRejections?: boolean | undefined;
     }
     interface NodeEventTarget {
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
+        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
     }
     interface DOMEventTarget {
         addEventListener(
-            event: string,
+            eventName: string,
             listener: (...args: any[]) => void,
             opts?: {
                 once: boolean;
@@ -72,11 +72,11 @@ declare module 'events' {
      */
     class EventEmitter {
         constructor(options?: EventEmitterOptions);
-        static once(emitter: NodeEventTarget, event: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
-        static once(emitter: DOMEventTarget, event: string, options?: StaticEventEmitterOptions): Promise<any[]>;
-        static on(emitter: NodeJS.EventEmitter, event: string, options?: StaticEventEmitterOptions): AsyncIterableIterator<any>;
+        static once(emitter: NodeEventTarget, eventName: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(emitter: DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static on(emitter: NodeJS.EventEmitter, eventName: string, options?: StaticEventEmitterOptions): AsyncIterableIterator<any>;
         /** @deprecated since v4.0.0 */
-        static listenerCount(emitter: NodeJS.EventEmitter, event: string | symbol): number;
+        static listenerCount(emitter: NodeJS.EventEmitter, eventName: string | symbol): number;
         /**
          * Returns a list listener for a specific emitter event name.
          */
@@ -117,7 +117,7 @@ declare module 'events' {
                  * Alias for `emitter.on(eventName, listener)`.
                  * @since v0.1.26
                  */
-                addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+                addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Adds the `listener` function to the end of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has
@@ -148,7 +148,7 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                on(event: string | symbol, listener: (...args: any[]) => void): this;
+                on(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Adds a **one-time**`listener` function for the event named `eventName`. The
                  * next time `eventName` is triggered, this listener is removed and then invoked.
@@ -177,7 +177,7 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                once(event: string | symbol, listener: (...args: any[]) => void): this;
+                once(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Removes the specified `listener` from the listener array for the event named`eventName`.
                  *
@@ -257,12 +257,12 @@ declare module 'events' {
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.1.26
                  */
-                removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+                removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Alias for `emitter.removeListener()`.
                  * @since v10.0.0
                  */
-                off(event: string | symbol, listener: (...args: any[]) => void): this;
+                off(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Removes all listeners, or those of the specified `eventName`.
                  *
@@ -302,7 +302,7 @@ declare module 'events' {
                  * ```
                  * @since v0.1.26
                  */
-                listeners(event: string | symbol): Function[];
+                listeners(eventName: string | symbol): Function[];
                 /**
                  * Returns a copy of the array of listeners for the event named `eventName`,
                  * including any wrappers (such as those created by `.once()`).
@@ -332,7 +332,7 @@ declare module 'events' {
                  * ```
                  * @since v9.4.0
                  */
-                rawListeners(event: string | symbol): Function[];
+                rawListeners(eventName: string | symbol): Function[];
                 /**
                  * Synchronously calls each of the listeners registered for the event named`eventName`, in the order they were registered, passing the supplied arguments
                  * to each.
@@ -373,13 +373,13 @@ declare module 'events' {
                  * ```
                  * @since v0.1.26
                  */
-                emit(event: string | symbol, ...args: any[]): boolean;
+                emit(eventName: string | symbol, ...args: any[]): boolean;
                 /**
                  * Returns the number of listeners listening to the event named `eventName`.
                  * @since v3.2.0
                  * @param eventName The name of the event being listened for
                  */
-                listenerCount(event: string | symbol): number;
+                listenerCount(eventName: string | symbol): number;
                 /**
                  * Adds the `listener` function to the _beginning_ of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has
@@ -397,7 +397,7 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+                prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
                  * listener is removed, and then invoked.
@@ -413,7 +413,7 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+                prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
                  * Returns an array listing the events for which the emitter has registered
                  * listeners. The values in the array are strings or `Symbol`s.

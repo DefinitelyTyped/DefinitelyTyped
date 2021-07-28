@@ -1126,7 +1126,7 @@ declare module 'process' {
                  * }
                  * ```
                  * @since v0.1.26
-                 * @param ...args Additional arguments to pass when invoking the `callback`
+                 * @param args Additional arguments to pass when invoking the `callback`
                  */
                 nextTick(callback: Function, ...args: any[]): void;
                 /**

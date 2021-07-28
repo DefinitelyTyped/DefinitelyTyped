@@ -471,7 +471,7 @@ declare module 'buffer' {
              * @param sourceStart The offset within `buf` at which to begin comparison.
              * @param sourceEnd The offset within `buf` at which to end comparison (not inclusive).
              */
-            compare(otherBuffer: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
+            compare(target: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
             /**
              * Copies data from a region of `buf` to a region in `target`, even if the `target`memory region overlaps with `buf`.
              *
@@ -521,7 +521,7 @@ declare module 'buffer' {
              * @param sourceEnd The offset within `buf` at which to stop copying (not inclusive).
              * @return The number of bytes copied.
              */
-            copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
+            copy(target: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
             /**
              * Returns a new `Buffer` that references the same memory as the original, but
              * offset and cropped by the `start` and `end` indices.
@@ -546,7 +546,7 @@ declare module 'buffer' {
              * @param start Where the new `Buffer` will start.
              * @param end Where the new `Buffer` will end (not inclusive).
              */
-            slice(begin?: number, end?: number): Buffer;
+            slice(start?: number, end?: number): Buffer;
             /**
              * Returns a new `Buffer` that references the same memory as the original, but
              * offset and cropped by the `start` and `end` indices.
@@ -602,7 +602,7 @@ declare module 'buffer' {
              * @param start Where the new `Buffer` will start.
              * @param end Where the new `Buffer` will end (not inclusive).
              */
-            subarray(begin?: number, end?: number): Buffer;
+            subarray(start?: number, end?: number): Buffer;
             /**
              * Writes `value` to `buf` at the specified `offset` as big-endian.
              *
@@ -1761,7 +1761,7 @@ declare module 'buffer' {
          * @deprecated Use `Buffer.from(data, 'base64')` instead.
          * @param data The Base64-encoded input string.
          */
-        function atob(input: string): string;
+        function atob(data: string): string;
         /**
          * Decodes a string into bytes using Latin-1 (ISO-8859), and encodes those bytes
          * into a string using Base64.
@@ -1777,7 +1777,7 @@ declare module 'buffer' {
          * @deprecated Use `buf.toString('base64')` instead.
          * @param data An ASCII (Latin1) string.
          */
-        function btoa(input: string): string;
+        function btoa(data: string): string;
     }
 }
 declare module 'node:buffer' {

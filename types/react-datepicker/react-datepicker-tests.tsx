@@ -1,10 +1,22 @@
 import * as React from 'react';
 import DatePicker, { CalendarContainer, registerLocale, setDefaultLocale, getDefaultLocale } from 'react-datepicker';
 import enUS from 'date-fns/locale/en-US';
+import { Modifier } from 'react-popper';
 
 registerLocale('en-GB', { options: { weekStartsOn: 1 } });
 setDefaultLocale('en-GB');
 const defaultLocale = getDefaultLocale();
+
+const topLogger: Modifier<'topLogger'> = {
+    name: 'topLogger',
+    enabled: true,
+    phase: 'main',
+    fn({ state }) {
+        if (state.placement === 'top') {
+            console.log('Popper is on the top');
+        }
+    },
+};
 
 <DatePicker
     adjustDateOnChange
@@ -12,8 +24,8 @@ const defaultLocale = getDefaultLocale();
     ariaDescribedBy=""
     ariaInvalid=""
     ariaLabelledBy=""
-    ariaLabelClose=""
     ariaRequired=""
+    ariaLabelClose=""
     autoComplete=""
     autoFocus
     calendarClassName=""
@@ -89,22 +101,19 @@ const defaultLocale = getDefaultLocale();
     popperModifiers={[
         {
             name: 'offset',
-            enabled: true,
-            phase: 'main',
-            fn: ({ state }) => state,
             options: {
-                offset: [1, 2],
+                offset: [5, 10],
             },
         },
         {
-            name: 'arrow',
-            enabled: true,
-            phase: 'main',
-            fn: ({ state }) => state,
+            name: 'preventOverflow',
             options: {
-                element: null,
+                rootBoundary: 'viewport',
+                tether: false,
+                altAxis: true,
             },
         },
+        topLogger,
     ]}
     popperPlacement="bottom-start"
     popperProps={{}}
@@ -181,7 +190,7 @@ const defaultLocale = getDefaultLocale();
 
 <DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
 
-function handleRef(ref: DatePicker<'offset' | 'arrow'>) {
+function handleRef(ref: DatePicker<'offset' | 'preventOverflow' | 'topLogger'>) {
     if (ref) {
         ref.setBlur();
         ref.setFocus();
