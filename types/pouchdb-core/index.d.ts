@@ -16,7 +16,7 @@ interface Blob {
     slice(start?: number, end?: number, contentType?: string): Blob;
 }
 
-interface Buffer extends Uint8Array {
+interface Buffer {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer', data: any[] };
