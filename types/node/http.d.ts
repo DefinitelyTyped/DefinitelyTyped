@@ -182,7 +182,6 @@ declare module 'http' {
     }
     interface Server extends HttpBase {}
     /**
-     * * Extends: `<net.Server>`
      * @since v0.1.17
      */
     class Server extends NetServer {
@@ -620,8 +619,6 @@ declare module 'http' {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
     /**
-     * * Extends: `<stream.Readable>`
-     *
      * An `IncomingMessage` object is created by {@link Server} or {@link ClientRequest} and passed as the first argument to the `'request'` and `'response'` event respectively. It may be used to
      * access response
      * status, headers and data.
@@ -677,7 +674,7 @@ declare module 'http' {
         /**
          * Alias for `message.socket`.
          * @since v0.1.90
-         * @deprecated Since v16.0.0 - Deprecated. Use `socket`.
+         * @deprecated Since v16.0.0 - Use `socket`.
          */
         connection: Socket;
         /**

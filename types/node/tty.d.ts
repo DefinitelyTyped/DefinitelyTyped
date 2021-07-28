@@ -35,8 +35,6 @@ declare module 'tty' {
      */
     function isatty(fd: number): boolean;
     /**
-     * * Extends: `<net.Socket>`
-     *
      * Represents the readable side of a TTY. In normal circumstances `process.stdin` will be the only `tty.ReadStream` instance in a Node.js
      * process and there should be no reason to create additional instances.
      * @since v0.5.8
@@ -74,8 +72,6 @@ declare module 'tty' {
      */
     type Direction = -1 | 0 | 1;
     /**
-     * * Extends: `<net.Socket>`
-     *
      * Represents the writable side of a TTY. In normal circumstances,`process.stdout` and `process.stderr` will be the only`tty.WriteStream` instances created for a Node.js process and there
      * should be no reason to create additional instances.
      * @since v0.5.8
