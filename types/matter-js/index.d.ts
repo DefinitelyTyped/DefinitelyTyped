@@ -4013,4 +4013,37 @@ declare namespace Matter {
         static versionSatisfies(version: string, range: string): boolean;
 
     }
+
+    export interface ICollision {
+        collided: boolean;
+        axisNumber: Number;
+        axisBody: Body;
+        bodyA: Body;
+        bodyB: Body;
+        parentA: Body;
+        parentB: Body;
+        depth: Number;
+        normal: Vector;
+        tangent: Vector;
+        penetration: Vector;
+        supports: Array<Vector>;
+        reused?: boolean | undefined;
+    }
+
+    /**
+    * The `Matter.SAT` module contains methods for detecting collisions using the Separating Axis Theorem.
+    *
+    * @class SAT
+    */
+    export class SAT {
+        /**
+         * Detect collision between two bodies using the Separating Axis Theorem.
+         * @method collides
+         * @param {Body} bodyA
+         * @param {Body} bodyB
+         * @param {Collision} previousCollision
+         * @return {Collision} collision
+         */
+        static collides(bodyA: Body, bodyB: Body, previousCollision?: ICollision): ICollision;
+    }
 }
