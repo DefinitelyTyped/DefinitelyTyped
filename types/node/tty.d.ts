@@ -149,7 +149,7 @@ declare module 'tty' {
          *
          * Disabling color support is also possible by using the `NO_COLOR` and`NODE_DISABLE_COLORS` environment variables.
          * @since v9.9.0
-         * @param env An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
+         * @param [env=process.env] An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
          */
         getColorDepth(env?: object): number;
         /**
@@ -169,8 +169,8 @@ declare module 'tty' {
          * // Returns false (the environment setting pretends to support 2 ** 8 colors).
          * ```
          * @since v11.13.0, v10.16.0
-         * @param count The number of colors that are requested (minimum 2).
-         * @param env An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
+         * @param [count=16] The number of colors that are requested (minimum 2).
+         * @param [env=process.env] An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
          */
         hasColors(count?: number): boolean;
         hasColors(env?: object): boolean;

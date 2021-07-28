@@ -579,7 +579,7 @@ declare module 'process' {
                  * In `Worker` threads, this function stops the current thread rather
                  * than the current process.
                  * @since v0.1.13
-                 * @param code The exit code.
+                 * @param [code=0] The exit code.
                  */
                 exit(code?: number): never;
                 /**
@@ -935,7 +935,7 @@ declare module 'process' {
                  * debugger. See `Signal Events`.
                  * @since v0.0.6
                  * @param pid A process ID
-                 * @param signal The signal to send, either as a string or number.
+                 * @param [signal='SIGTERM'] The signal to send, either as a string or number.
                  */
                 kill(pid: number, signal?: string | number): true;
                 /**

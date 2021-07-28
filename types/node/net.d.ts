@@ -87,7 +87,7 @@ declare module 'net' {
          * See `Writable` stream `write()` method for more
          * information.
          * @since v0.1.90
-         * @param encoding Only used when data is `string`.
+         * @param [encoding='utf8'] Only used when data is `string`.
          */
         write(buffer: Uint8Array | string, cb?: (err?: Error) => void): boolean;
         write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error) => void): boolean;
@@ -165,6 +165,7 @@ declare module 'net' {
          * algorithm for the socket. Passing `false` for `noDelay` will enable Nagle's
          * algorithm.
          * @since v0.1.90
+         * @param [noDelay=true]
          * @return The socket itself.
          */
         setNoDelay(noDelay?: boolean): this;
@@ -183,6 +184,8 @@ declare module 'net' {
          * * `TCP_KEEPCNT=10`
          * * `TCP_KEEPINTVL=1`
          * @since v0.1.92
+         * @param [enable=false]
+         * @param [initialDelay=0]
          * @return The socket itself.
          */
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
@@ -280,7 +283,7 @@ declare module 'net' {
          *
          * See `writable.end()` for further details.
          * @since v0.1.90
-         * @param encoding Only used when data is `string`.
+         * @param [encoding='utf8'] Only used when data is `string`.
          * @param callback Optional callback for when the socket is finished.
          * @return The socket itself.
          */
@@ -558,7 +561,7 @@ declare module 'net' {
          * Adds a rule to block the given IP address.
          * @since v15.0.0
          * @param address An IPv4 or IPv6 address.
-         * @param type Either `'ipv4'` or `'ipv6'`.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
         addAddress(address: string, type?: IPVersion): void;
         addAddress(address: SocketAddress): void;
@@ -567,7 +570,7 @@ declare module 'net' {
          * @since v15.0.0
          * @param start The starting IPv4 or IPv6 address in the range.
          * @param end The ending IPv4 or IPv6 address in the range.
-         * @param type Either `'ipv4'` or `'ipv6'`.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
         addRange(start: string, end: string, type?: IPVersion): void;
         addRange(start: SocketAddress, end: SocketAddress): void;
@@ -576,7 +579,7 @@ declare module 'net' {
          * @since v15.0.0
          * @param net The network IPv4 or IPv6 address.
          * @param prefix The number of CIDR prefix bits. For IPv4, this must be a value between `0` and `32`. For IPv6, this must be between `0` and `128`.
-         * @param type Either `'ipv4'` or `'ipv6'`.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
         addSubnet(net: SocketAddress, prefix: number): void;
         addSubnet(net: string, prefix: number, type?: IPVersion): void;
@@ -599,7 +602,7 @@ declare module 'net' {
          * ```
          * @since v15.0.0
          * @param address The IP address to check
-         * @param type Either `'ipv4'` or `'ipv6'`.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
         check(address: SocketAddress): boolean;
         check(address: string, type?: IPVersion): boolean;
