@@ -1,4 +1,4 @@
-// Type definitions for belvo 0.16.1
+// Type definitions for belvo 0.16
 // Project: https://github.com/belvo-finance/belvo-js#readme
 // Definitions by: Renan Araújo <https://github.com/renan-at-belvo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
