@@ -1007,7 +1007,8 @@ export class DateTime {
      * @example
      * DateTime.now().toObject() //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268 }
      * @example
-     * DateTime.now().toObject({ includeConfig: true }) //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268, locale: 'en-US', numberingSystem: null, outputCalendar: null }
+     * DateTime.now().toObject({ includeConfig: true })
+     *   //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268, locale: 'en-US', numberingSystem: null, outputCalendar: null }
      */
     toObject(options?: {
         /**
