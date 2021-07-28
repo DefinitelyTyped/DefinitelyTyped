@@ -54,3 +54,5 @@ const testLoadingComponent: azdata.LoadingComponent = {
     onValidityChanged: (listener: (e: boolean) => any) => new StubDisposable()
 };
 testLoadingComponent.validate();
+
+azdata.window.createModelViewDialog('MyTitle', 'MyDialog', 'narrow');

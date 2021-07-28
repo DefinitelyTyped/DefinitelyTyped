@@ -18,7 +18,7 @@ export interface Snapshot<T = any> {
     id: IDString;
     v: VersionNumber;
     type: string | null;
-    data?: T | undefined;
+    data?: T;
     m: SnapshotMeta | null;
 }
 
@@ -63,8 +63,8 @@ export type EditOp = RawOp & { op: any[]; create: undefined; del: undefined; };
 export type OTType = 'ot-text' | 'ot-json0' | 'ot-json1' | 'ot-text-tp2' | 'rich-text';
 
 export interface Type {
-    name?: string | undefined;
-    uri?: string | undefined;
+    name?: string;
+    uri?: string;
     create(initialData?: any): any;
     apply(snapshot: any, op: any): any;
     transform(op1: any, op2: any, side: 'left' | 'right'): any;
@@ -83,12 +83,15 @@ export interface Types {
 
 export type LoggerFunction = typeof console.log;
 export interface LoggerOverrides {
-    info?: LoggerFunction | undefined;
-    warn?: LoggerFunction | undefined;
-    error?: LoggerFunction | undefined;
+    info?: LoggerFunction;
+    warn?: LoggerFunction;
+    error?: LoggerFunction;
 }
 export class Logger {
     setMethods(overrides: LoggerOverrides): void;
+    info: LoggerFunction;
+    warn: LoggerFunction;
+    error: LoggerFunction;
 }
 
 export interface Error {
@@ -120,7 +123,7 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
     subscribe: (callback?: (err: Error) => void) => void;
     unsubscribe: (callback?: (err: Error) => void) => void;
 
-    ingestSnapshot(snapshot: Snapshot<T>, callback?: Callback): void;
+    ingestSnapshot(snapshot: Pick<Snapshot<T>, 'v' | 'type' | 'data'>, callback?: Callback): void;
     destroy(callback?: Callback): void;
     create(data: any, callback?: Callback): void;
     create(data: any, type?: OTType, callback?: Callback): void;
@@ -221,24 +224,24 @@ export interface AnyDataObject {
 }
 
 export interface ServerResponseSuccess {
-    a?: RequestAction | undefined;
-    c?: CollectionName | undefined;
-    d?: DocumentID | undefined;
+    a?: RequestAction;
+    c?: CollectionName;
+    d?: DocumentID;
     extra?: any;
-    v?: VersionNumber | undefined;
-    id?: number | undefined;
-    protocol?: number | undefined;
-    protocolMinor?: number | undefined;
-    type?: string | undefined;
-    data?: AnyDataObject | AnyDataObject[] | undefined;
+    v?: VersionNumber;
+    id?: number;
+    protocol?: number;
+    protocolMinor?: number;
+    type?: string;
+    data?: AnyDataObject | AnyDataObject[];
 }
 
 export interface ServerResponseError extends ServerResponseSuccess {
     error: Error;
-    b?: BulkRequestData | undefined;
-    o?: AnyDataObject | undefined;
-    q?: RequestQuery | undefined;
-    r?: Array<[IDString, VersionNumber]> | undefined;
+    b?: BulkRequestData;
+    o?: AnyDataObject;
+    q?: RequestQuery;
+    r?: Array<[IDString, VersionNumber]>;
 }
 
 export interface Socket {

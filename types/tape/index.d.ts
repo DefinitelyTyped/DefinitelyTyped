@@ -238,5 +238,10 @@ declare namespace tape {
          * Assert that string does not match the RegExp regexp. Will throw (not just fail) when the first two arguments are the wrong type.
          */
         doesNotMatch(actual: string, expected: RegExp, msg?: string, extra?: AssertOptions): void;
+
+        /**
+         * Register a callback to run after the individual test has completed. Multiple registered teardown callbacks will run in order.
+         */
+        teardown(callback: () => void | Promise<void>): void;
     }
 }
