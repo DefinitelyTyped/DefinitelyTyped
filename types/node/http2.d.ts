@@ -1432,6 +1432,11 @@ declare module 'http2' {
          * @since v8.4.0
          */
         readonly headersSent: boolean;
+        /**
+         * A reference to the original HTTP2 request object.
+         * @since v15.7.0
+         */
+        readonly req: Http2ServerRequest;
         readonly socket: net.Socket | tls.TLSSocket;
         readonly stream: ServerHttp2Stream;
         sendDate: boolean;
