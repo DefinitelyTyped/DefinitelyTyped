@@ -125,7 +125,7 @@ calculator.updateSettings({ xAxisArrowMode: Desmos.AxisArrowModes.BOTH });
 calculator.updateSettings({ xAxisLabel: "Time" });
 
 // Observe the value of `xAxisLabel`, and log a message when it changes.
-calculator.settings.observe("xAxisLabel", function() {
+calculator.settings.observe("xAxisLabel", () => {
     console.log(calculator.settings.xAxisLabel);
 });
 
@@ -139,7 +139,7 @@ calculator.setMathBounds({
     top: 10,
 });
 
-calculator.observe("graphpaperBounds", function() {
+calculator.observe("graphpaperBounds", () => {
     const pixelCoordinates = calculator.graphpaperBounds.pixelCoordinates;
     const mathCoordinates = calculator.graphpaperBounds.mathCoordinates;
 
@@ -154,7 +154,7 @@ calculator.mathToPixels({ x: 0, y: 0 });
 
 // Find the math coordinates of the mouse
 const calculatorRect = elt.getBoundingClientRect();
-document.addEventListener("mousemove", function(evt) {
+document.addEventListener("mousemove", (evt) => {
     console.log(
         calculator.pixelsToMath({
             x: evt.clientX - calculatorRect.left,
