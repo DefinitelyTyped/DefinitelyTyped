@@ -876,7 +876,7 @@ declare class JWTStructured {
 }
 
 declare class PASETOStructured {
-    footer?: UnknownObject | Buffer | string | undefined;
+    footer?: UnknownObject;
     payload: UnknownObject;
 }
 
