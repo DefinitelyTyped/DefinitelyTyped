@@ -1,4 +1,4 @@
-// Type definitions for belvo 0.16
+// Type definitions for belvo 0.16.1
 // Project: https://github.com/belvo-finance/belvo-js#readme
 // Definitions by: Renan Araújo <https://github.com/renan-at-belvo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@ export default class Client {
 
     // WIDGET TOKEN
     widgetToken: WidgetTokenResource;
-    connect: () => void;
+    connect: () => Promise<void>;
 
     // CORE ENDPOINTS
     institutions: InstitutionsResources<InstitutionReturn>;
@@ -78,7 +78,7 @@ export interface TokenReturn {
 }
 
 export interface BaseResources<V> {
-    list: (params?: { filters?: object, limit?: number }) => Promise<ListReturn<V>>;
+    list: (params?: { filters?: object, limit?: number }) => Promise<V[]>;
     detail: (id: string) => Promise<V>;
     delete: (id: string) => Promise<void>;
     resume: (session: string, token: string, link: string) => Promise<V>;
@@ -94,13 +94,6 @@ export interface RegisterResource<K, T> {
 
 export interface UpdateResource<K, T> {
     update: (id: string, options?: K) => Promise<T>;
-}
-
-export interface ListReturn<T> {
-    count: number;
-    next: string | null;
-    previous: string | null;
-    results: T[];
 }
 
 export interface LinksRetrieveBody {
