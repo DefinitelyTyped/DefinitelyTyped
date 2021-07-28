@@ -5,7 +5,7 @@ import View from "../view";
 export default class LabeledFieldView extends View {
     class?: string | undefined;
     errorText: string | null;
-    fieldView: View & {value: string};
+    fieldView: View & { value: string };
     infoText: string | null;
     readonly isEmpty: boolean;
     isEnabled: boolean;
