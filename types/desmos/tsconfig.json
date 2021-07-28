@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "desmos-test.ts"
+        "desmos-tests.ts"
     ]
 }

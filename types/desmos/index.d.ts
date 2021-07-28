@@ -17,6 +17,11 @@ declare var Desmos: {
     };
 
     /**
+     * An array of language codes suitable for passing into Calculator.updateSettings.
+     */
+     supportedLanguages: string[];
+
+    /**
      * The AxisArrowMode specifies whether arrows should be drawn at one or both ends of the x or y axes. It is specified
      * separately for the x and y axes through the xAxisArrowMode and yAxisArrowMode graph settings.
      * The default value for both axes is Desmos.AxisArrowMode.NONE.
@@ -26,6 +31,17 @@ declare var Desmos: {
         POSITIVE: "POSITIVE";
         BOTH: "BOTH";
     };
+    /**
+     * Default list of colors
+     */
+    Colors: {
+        RED: "#c74440";
+        BLUE: "#2d70b3";
+        GREEN: "#388c46";
+        PURPLE: "#6042a6";
+        ORANGE: "#fa7e19";
+        BLACK: "#000000";
+    }
     /**
      * The dragMode of a point determines whether it can be changed by dragging in the x direction, the y direction,
      * both, or neither.
@@ -305,8 +321,9 @@ export interface Calculator {
              */
             showLabels?: boolean;
         },
-        callback: (dataUri: string) => void,
+        callback: (dataUri: string) => void
     ): void;
+    asyncScreenshot(callback: (dataUri: string) => void): void;
 
     /**
      * Clear the undo/redo history. Does not affect the current state.
@@ -435,13 +452,13 @@ export interface Calculator {
      * Updates the math coordinates of the graphpaper bounds.
      * If invalid bounds are provided, the graphpaper bounds will not be changed.
      */
-    setMathBounds(bounds: { left: number; right: number; bottom: number; top: number }): void;
+    setMathBounds(bounds: { left?: number; right?: number; bottom?: number; top?: number }): void;
     /**
      * Reset the calculator to a state previously saved using GraphingCalculator.getState.
      */
     setState(
         obj: GraphState,
-        options: {
+        options?: {
             /**
              * Preserve the undo/redo history.
              * @default false
@@ -472,13 +489,21 @@ export interface Calculator {
      * - graphpaper: false with expressionsCollapsed: true or zoomButtons: true
      * - lockViewport: true with zoomButtons: true
      */
-    updateSettings(settings: GraphSettings): void;
+    updateSettings(settings: GraphConfiguration & GraphSettings): void;
 
-    HelperExpression(): {
+    HelperExpression(expression: ExpressionState): {
+        listValue: number[];
+        numericValue: number;
         observe(eventName: "numericValue" | "listValue" | string, callback: () => void): void;
     };
 
     // properties
+    /**
+     * Calculator instance's current color palette
+     */
+     colors: {
+         [key: string]: string;
+     };
     /**
      * An observable object containing information about the calculator's analysis of each expression.
      */
@@ -510,7 +535,7 @@ export interface Calculator {
     /**
      * The graphpaperBounds observable property gives the bounds of the graphpaper in both math coordinates and pixel coordinates.
      */
-    graphPaperBounds: {
+    graphpaperBounds: {
         mathCoordinates: {
             top: number;
             bottom: number;
@@ -554,7 +579,7 @@ export interface Calculator {
     supportedLanguages: string[];
 }
 
-type ExpressionState =
+export type ExpressionState =
     | {
           type?: "expression";
           /**
@@ -617,23 +642,23 @@ type ExpressionState =
            * Sets bounds of slider expressions. If step is omitted, '', or undefined, the slider will be continuously adjustable. See note below.
            */
           sliderBounds?: {
-              min: string;
-              max: string;
-              step: string;
+              min: number | string;
+              max: number | string;
+              step: number | string;
           };
           /**
            * Sets bounds of parametric curves. See note below.
            */
           parametricDomain?: {
-              min: string;
-              max: string;
+              min: number | string;
+              max: number | string;
           };
           /**
            * Sets bounds of polar curves. See note below.
            */
           polarDomain?: {
-              min: string;
-              max: string;
+              min: number | string;
+              max: number | string;
           };
           /**
            * Should be a valid property name for a javascript object (letters, numbers, and _).
