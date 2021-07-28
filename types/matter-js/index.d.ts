@@ -2410,7 +2410,7 @@ declare namespace Matter {
         * @param {body[]} bodies
         * @return {object[]} Collisions
         */
-        static collides(body: Body, bodies: Array<Body>): Array<any>;
+        static collides(body: Body, bodies: Array<Body>): Array<ICollision>;
 
         /**
          * Casts a ray segment against a set of bodies and returns all collisions, ray width is optional. Intersection points are not provided.
@@ -2421,7 +2421,7 @@ declare namespace Matter {
          * @param {number} [rayWidth]
          * @return {object[]} Collisions
          */
-        static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<any>;
+        static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<ICollision>;
 
         /**
          * Returns all bodies whose bounds are inside (or outside if set) the given set of bounds, from the given set of bodies.
