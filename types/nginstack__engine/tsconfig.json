@@ -14,7 +14,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@nginstack/*": [
+                "nginstack__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

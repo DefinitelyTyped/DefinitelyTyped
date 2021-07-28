@@ -300,10 +300,20 @@ sharp(input).png().png({}).png({
 sharp(input)
     .avif()
     .avif({})
-    .avif({ quality: 50, lossless: false, speed: 5 })
+    .avif({ quality: 50, lossless: false, speed: 5, chromaSubsampling: '4:2:0' })
     .heif()
     .heif({})
     .heif({ quality: 50, compression: "hevc", lossless: false, speed: 5 })
+    .toBuffer({ resolveWithObject: true })
+    .then(({ data, info }) => {
+        console.log(data);
+        console.log(info);
+    });
+
+sharp(input)
+    .gif()
+    .gif({})
+    .gif({pageHeight: 5, loop: 0, delay: [], force: true})
     .toBuffer({ resolveWithObject: true })
     .then(({ data, info }) => {
         console.log(data);

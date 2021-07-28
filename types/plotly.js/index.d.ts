@@ -797,6 +797,8 @@ export interface LayoutAxis extends Axis {
     layer: 'above traces' | 'below traces';
     domain: number[];
     position: number;
+    rotation: number;
+    direction: 'counterclockwise' | 'clockwise';
     rangeslider: Partial<RangeSlider>;
     rangeselector: Partial<RangeSelector>;
     automargin: boolean;
