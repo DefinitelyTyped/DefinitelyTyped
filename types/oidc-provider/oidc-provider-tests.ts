@@ -19,9 +19,6 @@ new Provider('https://op.example.com', {
                 ctx.oidc.issuer.substring(0);
                 token.iat.toFixed();
                 parts.footer = { foo: 'bar' };
-                parts.footer = Buffer.from('foo');
-                parts.footer = undefined;
-                parts.footer = 'foo';
                 parts.payload.foo = 'bar';
                 return parts;
             },
@@ -165,9 +162,6 @@ const provider = new Provider('https://op.example.com', {
                 ctx.oidc.issuer.substring(0);
                 token.iat.toFixed();
                 parts.footer = { foo: 'bar' };
-                parts.footer = Buffer.from('foo');
-                parts.footer = undefined;
-                parts.footer = 'foo';
                 parts.payload.foo = 'bar';
                 return parts;
             },
