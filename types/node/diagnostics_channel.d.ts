@@ -84,7 +84,7 @@ declare module 'diagnostics_channel' {
          * ```
          * @param onMessage The handler to receive channel messages
          */
-        subscribe(listener: ChannelListener): void;
+        subscribe(onMessage: ChannelListener): void;
         /**
          * Remove a message handler previously registered to this channel with `channel.subscribe(onMessage)`.
          *
@@ -103,7 +103,7 @@ declare module 'diagnostics_channel' {
          * ```
          * @param onMessage The previous subscribed handler to remove
          */
-        unsubscribe(listener: ChannelListener): void;
+        unsubscribe(onMessage: ChannelListener): void;
     }
 }
 declare module 'node:diagnostics_channel' {

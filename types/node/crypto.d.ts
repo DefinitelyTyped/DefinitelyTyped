@@ -491,7 +491,7 @@ declare module 'crypto' {
          * @since v13.1.0
          * @param options `stream.transform` options
          */
-        copy(): Hash;
+        copy(options?: stream.TransformOptions): Hash;
         /**
          * Updates the hash content with the given `data`, the encoding of which
          * is given in `inputEncoding`.
@@ -503,7 +503,7 @@ declare module 'crypto' {
          * @param inputEncoding The `encoding` of the `data` string.
          */
         update(data: BinaryLike): Hash;
-        update(data: string, input_encoding: Encoding): Hash;
+        update(data: string, inputEncoding: Encoding): Hash;
         /**
          * Calculates the digest of all of the data passed to be hashed (using the `hash.update()` method).
          * If `encoding` is provided a string will be returned; otherwise
@@ -648,7 +648,7 @@ declare module 'crypto' {
          * @param inputEncoding The `encoding` of the `data` string.
          */
         update(data: BinaryLike): Hmac;
-        update(data: string, input_encoding: Encoding): Hmac;
+        update(data: string, inputEncoding: Encoding): Hmac;
         /**
          * Calculates the HMAC digest of all of the data passed using `hmac.update()`.
          * If `encoding` is
@@ -1114,9 +1114,9 @@ declare module 'crypto' {
          * @param outputEncoding The `encoding` of the return value.
          */
         update(data: BinaryLike): Buffer;
-        update(data: string, input_encoding: Encoding): Buffer;
-        update(data: NodeJS.ArrayBufferView, input_encoding: undefined, output_encoding: Encoding): string;
-        update(data: string, input_encoding: Encoding | undefined, output_encoding: Encoding): string;
+        update(data: string, inputEncoding: Encoding): Buffer;
+        update(data: NodeJS.ArrayBufferView, inputEncoding: undefined, outputEncoding: Encoding): string;
+        update(data: string, inputEncoding: Encoding | undefined, outputEncoding: Encoding): string;
         /**
          * Once the `cipher.final()` method has been called, the `Cipher` object can no
          * longer be used to encrypt data. Attempts to call `cipher.final()` more than
@@ -1126,7 +1126,7 @@ declare module 'crypto' {
          * @return Any remaining enciphered contents. If `outputEncoding` is specified, a string is returned. If an `outputEncoding` is not provided, a {@link Buffer} is returned.
          */
         final(): Buffer;
-        final(output_encoding: BufferEncoding): string;
+        final(outputEncoding: BufferEncoding): string;
         /**
          * When using block encryption algorithms, the `Cipher` class will automatically
          * add padding to the input data to the appropriate block size. To disable the
@@ -1141,7 +1141,7 @@ declare module 'crypto' {
          * @since v0.7.1
          * @return for method chaining.
          */
-        setAutoPadding(auto_padding?: boolean): this;
+        setAutoPadding(autoPadding?: boolean): this;
     }
     interface CipherCCM extends Cipher {
         setAAD(
@@ -1427,9 +1427,9 @@ declare module 'crypto' {
          * @param outputEncoding The `encoding` of the return value.
          */
         update(data: NodeJS.ArrayBufferView): Buffer;
-        update(data: string, input_encoding: Encoding): Buffer;
-        update(data: NodeJS.ArrayBufferView, input_encoding: undefined, output_encoding: Encoding): string;
-        update(data: string, input_encoding: Encoding | undefined, output_encoding: Encoding): string;
+        update(data: string, inputEncoding: Encoding): Buffer;
+        update(data: NodeJS.ArrayBufferView, inputEncoding: undefined, outputEncoding: Encoding): string;
+        update(data: string, inputEncoding: Encoding | undefined, outputEncoding: Encoding): string;
         /**
          * Once the `decipher.final()` method has been called, the `Decipher` object can
          * no longer be used to decrypt data. Attempts to call `decipher.final()` more
@@ -1439,7 +1439,7 @@ declare module 'crypto' {
          * @return Any remaining deciphered contents. If `outputEncoding` is specified, a string is returned. If an `outputEncoding` is not provided, a {@link Buffer} is returned.
          */
         final(): Buffer;
-        final(output_encoding: BufferEncoding): string;
+        final(outputEncoding: BufferEncoding): string;
         /**
          * When data has been encrypted without standard block padding, calling`decipher.setAutoPadding(false)` will disable automatic padding to prevent `decipher.final()` from checking for and
          * removing padding.
@@ -1551,6 +1551,7 @@ declare module 'crypto' {
      * @param encoding The string encoding when `key` is a string.
      */
     function createSecretKey(key: NodeJS.ArrayBufferView): KeyObject;
+    function createSecretKey(key: string, encoding: BufferEncoding): KeyObject;
     /**
      * Creates and returns a `Sign` object that uses the given `algorithm`. Use {@link getHashes} to obtain the names of the available digest algorithms.
      * Optional `options` argument controls the `stream.Writable` behavior.
@@ -1706,7 +1707,7 @@ declare module 'crypto' {
          * @param inputEncoding The `encoding` of the `data` string.
          */
         update(data: BinaryLike): this;
-        update(data: string, input_encoding: Encoding): this;
+        update(data: string, inputEncoding: Encoding): this;
         /**
          * Calculates the signature on all the data passed through using either `sign.update()` or `sign.write()`.
          *
@@ -1719,8 +1720,8 @@ declare module 'crypto' {
          * called. Multiple calls to `sign.sign()` will result in an error being thrown.
          * @since v0.1.92
          */
-        sign(private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput): Buffer;
-        sign(private_key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput, output_format: BinaryToTextEncoding): string;
+        sign(privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput): Buffer;
+        sign(privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput, outputFormat: BinaryToTextEncoding): string;
     }
     /**
      * Creates and returns a `Verify` object that uses the given algorithm.
@@ -1765,7 +1766,7 @@ declare module 'crypto' {
          * @param inputEncoding The `encoding` of the `data` string.
          */
         update(data: BinaryLike): Verify;
-        update(data: string, input_encoding: Encoding): Verify;
+        update(data: string, inputEncoding: Encoding): Verify;
         /**
          * Verifies the provided data using the given `object` and `signature`.
          *
@@ -1803,11 +1804,11 @@ declare module 'crypto' {
      * @param primeEncoding The `encoding` of the `prime` string.
      * @param generatorEncoding The `encoding` of the `generator` string.
      */
-    function createDiffieHellman(prime_length: number, generator?: number | NodeJS.ArrayBufferView): DiffieHellman;
+    function createDiffieHellman(primeLength: number, generator?: number | NodeJS.ArrayBufferView): DiffieHellman;
     function createDiffieHellman(prime: NodeJS.ArrayBufferView): DiffieHellman;
-    function createDiffieHellman(prime: string, prime_encoding: BinaryToTextEncoding): DiffieHellman;
-    function createDiffieHellman(prime: string, prime_encoding: BinaryToTextEncoding, generator: number | NodeJS.ArrayBufferView): DiffieHellman;
-    function createDiffieHellman(prime: string, prime_encoding: BinaryToTextEncoding, generator: string, generator_encoding: BinaryToTextEncoding): DiffieHellman;
+    function createDiffieHellman(prime: string, primeEncoding: BinaryToTextEncoding): DiffieHellman;
+    function createDiffieHellman(prime: string, primeEncoding: BinaryToTextEncoding, generator: number | NodeJS.ArrayBufferView): DiffieHellman;
+    function createDiffieHellman(prime: string, primeEncoding: BinaryToTextEncoding, generator: string, generatorEncoding: BinaryToTextEncoding): DiffieHellman;
     /**
      * The `DiffieHellman` class is a utility for creating Diffie-Hellman key
      * exchanges.
@@ -1886,10 +1887,10 @@ declare module 'crypto' {
          * @param inputEncoding The `encoding` of an `otherPublicKey` string.
          * @param outputEncoding The `encoding` of the return value.
          */
-        computeSecret(other_public_key: NodeJS.ArrayBufferView): Buffer;
-        computeSecret(other_public_key: string, input_encoding: BinaryToTextEncoding): Buffer;
-        computeSecret(other_public_key: NodeJS.ArrayBufferView, output_encoding: BinaryToTextEncoding): string;
-        computeSecret(other_public_key: string, input_encoding: BinaryToTextEncoding, output_encoding: BinaryToTextEncoding): string;
+        computeSecret(otherPublicKey: NodeJS.ArrayBufferView): Buffer;
+        computeSecret(otherPublicKey: string, inputEncoding: BinaryToTextEncoding): Buffer;
+        computeSecret(otherPublicKey: NodeJS.ArrayBufferView, outputEncoding: BinaryToTextEncoding): string;
+        computeSecret(otherPublicKey: string, inputEncoding: BinaryToTextEncoding, outputEncoding: BinaryToTextEncoding): string;
         /**
          * Returns the Diffie-Hellman prime in the specified `encoding`.
          * If `encoding` is provided a string is
@@ -1933,8 +1934,8 @@ declare module 'crypto' {
          * @since v0.5.0
          * @param encoding The `encoding` of the `publicKey` string.
          */
-        setPublicKey(public_key: NodeJS.ArrayBufferView): void;
-        setPublicKey(public_key: string, encoding: BufferEncoding): void;
+        setPublicKey(publicKey: NodeJS.ArrayBufferView): void;
+        setPublicKey(publicKey: string, encoding: BufferEncoding): void;
         /**
          * Sets the Diffie-Hellman private key. If the `encoding` argument is provided,`privateKey` is expected
          * to be a string. If no `encoding` is provided, `privateKey` is expected
@@ -1942,8 +1943,8 @@ declare module 'crypto' {
          * @since v0.5.0
          * @param encoding The `encoding` of the `privateKey` string.
          */
-        setPrivateKey(private_key: NodeJS.ArrayBufferView): void;
-        setPrivateKey(private_key: string, encoding: BufferEncoding): void;
+        setPrivateKey(privateKey: NodeJS.ArrayBufferView): void;
+        setPrivateKey(privateKey: string, encoding: BufferEncoding): void;
         /**
          * A bit field containing any warnings and/or errors resulting from a check
          * performed during initialization of the `DiffieHellman` object.
@@ -2006,7 +2007,7 @@ declare module 'crypto' {
      * ```
      * @since v0.7.5
      */
-    function getDiffieHellman(group_name: string): DiffieHellman;
+    function getDiffieHellman(groupName: string): DiffieHellman;
     /**
      * Provides an asynchronous Password-Based Key Derivation Function 2 (PBKDF2)
      * implementation. A selected HMAC digest algorithm specified by `digest` is
@@ -2652,7 +2653,7 @@ declare module 'crypto' {
      * object, the `padding` property can be passed. Otherwise, this function uses`RSA_PKCS1_OAEP_PADDING`.
      * @since v0.11.14
      */
-    function privateDecrypt(private_key: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateDecrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
     /**
      * Encrypts `buffer` with `privateKey`. The returned data can be decrypted using
      * the corresponding public key, for example using {@link publicDecrypt}.
@@ -2661,7 +2662,7 @@ declare module 'crypto' {
      * object, the `padding` property can be passed. Otherwise, this function uses`RSA_PKCS1_PADDING`.
      * @since v1.1.0
      */
-    function privateEncrypt(private_key: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateEncrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
     /**
      * ```js
      * const {
@@ -2881,10 +2882,10 @@ declare module 'crypto' {
          * @param inputEncoding The `encoding` of the `otherPublicKey` string.
          * @param outputEncoding The `encoding` of the return value.
          */
-        computeSecret(other_public_key: NodeJS.ArrayBufferView): Buffer;
-        computeSecret(other_public_key: string, input_encoding: BinaryToTextEncoding): Buffer;
-        computeSecret(other_public_key: NodeJS.ArrayBufferView, output_encoding: BinaryToTextEncoding): string;
-        computeSecret(other_public_key: string, input_encoding: BinaryToTextEncoding, output_encoding: BinaryToTextEncoding): string;
+        computeSecret(otherPublicKey: NodeJS.ArrayBufferView): Buffer;
+        computeSecret(otherPublicKey: string, inputEncoding: BinaryToTextEncoding): Buffer;
+        computeSecret(otherPublicKey: NodeJS.ArrayBufferView, outputEncoding: BinaryToTextEncoding): string;
+        computeSecret(otherPublicKey: string, inputEncoding: BinaryToTextEncoding, outputEncoding: BinaryToTextEncoding): string;
         /**
          * If `encoding` is specified, a string is returned; otherwise a `Buffer` is
          * returned.
@@ -2916,8 +2917,8 @@ declare module 'crypto' {
          * @since v0.11.14
          * @param encoding The `encoding` of the `privateKey` string.
          */
-        setPrivateKey(private_key: NodeJS.ArrayBufferView): void;
-        setPrivateKey(private_key: string, encoding: BinaryToTextEncoding): void;
+        setPrivateKey(privateKey: NodeJS.ArrayBufferView): void;
+        setPrivateKey(privateKey: string, encoding: BinaryToTextEncoding): void;
     }
     /**
      * Creates an Elliptic Curve Diffie-Hellman (`ECDH`) key exchange object using a
@@ -2926,7 +2927,7 @@ declare module 'crypto' {
      * and description of each available elliptic curve.
      * @since v0.11.14
      */
-    function createECDH(curve_name: string): ECDH;
+    function createECDH(curveName: string): ECDH;
     /**
      * This function is based on a constant-time algorithm.
      * Returns true if `a` is equal to `b`, without leaking timing information that
@@ -3960,7 +3961,7 @@ declare module 'crypto' {
      * @param candidate A possible prime encoded as a sequence of big endian octets of arbitrary length.
      * @return `true` if the candidate is a prime with an error probability less than `0.25 ** options.checks`.
      */
-    function checkPrimeSync(value: LargeNumberLike, options?: CheckPrimeOptions): boolean;
+    function checkPrimeSync(candidate: LargeNumberLike, options?: CheckPrimeOptions): boolean;
     namespace webcrypto {
         class CryptoKey {} // placeholder
     }

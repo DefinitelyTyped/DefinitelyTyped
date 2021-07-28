@@ -230,6 +230,41 @@ declare module 'fs/promises' {
          */
         writeFile(data: string | Uint8Array, options?: (ObjectEncodingOptions & FlagAndOpenMode & Abortable) | BufferEncoding | null): Promise<void>;
         /**
+         * Write `buffer` to the file.
+         *
+         * The promise is resolved with an object containing two properties:
+         *
+         * It is unsafe to use `filehandle.write()` multiple times on the same file
+         * without waiting for the promise to be resolved (or rejected). For this
+         * scenario, use `fs.createWriteStream()`.
+         *
+         * On Linux, positional writes do not work when the file is opened in append mode.
+         * The kernel ignores the position argument and always appends the data to
+         * the end of the file.
+         * @since v10.0.0
+         * @param offset The start position from within `buffer` where the data to write begins.
+         * @param length The number of bytes from `buffer` to write.
+         * @param position The offset from the beginning of the file where the data from `buffer` should be written. If `position` is not a `number`, the data will be written at the current position.
+         * See the POSIX pwrite(2) documentation for more detail.
+         */
+        write<TBuffer extends Uint8Array>(
+            buffer: TBuffer,
+            offset?: number | null,
+            length?: number | null,
+            position?: number | null
+        ): Promise<{
+            bytesWritten: number;
+            buffer: TBuffer;
+        }>;
+        write(
+            data: string,
+            position?: number | null,
+            encoding?: BufferEncoding | null
+        ): Promise<{
+            bytesWritten: number;
+            buffer: string;
+        }>;
+        /**
          * Write an array of [&lt;ArrayBufferView&gt;](https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView)s to the file.
          *
          * The promise is resolved with an object containing a two properties:
@@ -338,7 +373,7 @@ declare module 'fs/promises' {
      * `fs.constants.COPYFILE_EXCL | fs.constants.COPYFILE_FICLONE`)
      * @return Fulfills with `undefined` upon success.
      */
-    function copyFile(src: PathLike, dest: PathLike, flags?: number): Promise<void>;
+    function copyFile(src: PathLike, dest: PathLike, mode?: number): Promise<void>;
     /**
      * Opens a `<FileHandle>`.
      *
@@ -739,7 +774,7 @@ declare module 'fs/promises' {
      * @return Fulfills with `undefined` upon success.
      */
     function writeFile(
-        path: PathLike | FileHandle,
+        file: PathLike | FileHandle,
         data: string | NodeJS.ArrayBufferView | Iterable<string | NodeJS.ArrayBufferView> | AsyncIterable<string | NodeJS.ArrayBufferView> | Stream,
         options?:
             | (ObjectEncodingOptions & {

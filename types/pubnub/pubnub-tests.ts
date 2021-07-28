@@ -11,6 +11,7 @@ const config: Pubnub.PubnubConfig = {
     secretKey: '',
     ssl: true,
     authKey: '',
+    useRandomIVs: false
 };
 
 const pubnub = new Pubnub(config);
@@ -188,6 +189,10 @@ const grantOptions = {
     read: true,
     write: false,
     manage: false,
+    delete: false,
+    update: false,
+    join: true,
+    ttl: 1440
 };
 pubnub.grant(grantOptions).then(status => {
     console.log(status);
@@ -199,6 +204,17 @@ const grantUuidOptions = {
     update: true
 };
 pubnub.grant(grantUuidOptions).then(status => {
+    console.log(status);
+});
+
+const grantchannelGroupsOptions = {
+    channelGroups: ['cg-1'],
+    authKeys: ['auth-key'],
+    read: true,
+    manage: false,
+    ttl: 1440
+};
+pubnub.grant(grantchannelGroupsOptions).then(status => {
     console.log(status);
 });
 

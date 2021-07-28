@@ -91,6 +91,10 @@ import * as url from 'node:url';
         assert.equal(me, searchParams);
     });
 
+    searchParams.forEach(function() {
+        this; // $ExpectType number
+    }, 1);
+
     assert.equal(searchParams.get('abc'), '123');
 
     searchParams.append('abc', 'xyz');

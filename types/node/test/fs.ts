@@ -367,6 +367,9 @@ async () => {
         position: 2,
         length: 3,
     })).buffer; // $ExpectType Uint32Array
+
+    await handle.write('hurr', 0, 'utf-8');
+    await handle.write(Buffer.from('hurr'), 0, 42, 10);
 };
 
 async () => {

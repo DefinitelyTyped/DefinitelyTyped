@@ -1,22 +1,21 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
-import Element from '@ckeditor/ckeditor5-engine/src/view/element';
-import { Widget } from '@ckeditor/ckeditor5-widget';
-import ImageEditing from './image/imageediting';
+import ImageBlock from './imageblock';
+import ImageInline from './imageinline';
+import { ImageInsertConfig } from './imageinsert';
 import { ImageResizeOption } from './imageresize/imageresizebuttons';
-import { ImageStyleFormat } from './imagestyle/imagestyleediting';
-import ImageTextAlternative from './imagetextalternative';
+import { ImageStyleConfig } from './imagestyle';
 import { ImageUploadConfig } from './imageupload';
 
 export default class Image extends Plugin {
-    static readonly requires: [typeof ImageEditing, typeof Widget, typeof ImageTextAlternative];
+    static readonly requires: [typeof ImageBlock, typeof ImageInline];
     static readonly pluginName: 'Image';
-    isImageWidget(viewElement: Element): boolean;
 }
 
 export interface ImageConfig {
+    insert?: ImageInsertConfig | undefined;
     resizeOptions?: ImageResizeOption[] | undefined;
     resizeUnit?: 'px' | '%' | undefined;
-    styles?: ImageStyleFormat[] | undefined;
+    styles?: ImageStyleConfig[] | undefined;
     toolbar?: string[] | undefined;
     upload?: ImageUploadConfig | undefined;
 }

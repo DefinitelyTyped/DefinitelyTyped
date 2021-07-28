@@ -5256,7 +5256,7 @@ declare namespace Office {
      */
     interface DialogMessageOptions {
         /**
-         * Specifies the intended recipient domain for a message sent, in either direction, between a dialog and its parent. For example, https://target.domain.com.
+         * Specifies the intended recipient domain for a message sent, in either direction, between a dialog and its parent. For example, `https://resources.contoso.com`.
          */
         targetOrigin: string;
     }
@@ -23066,10 +23066,6 @@ declare namespace Excel {
         * Whereas the original Excel.Range object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.RangeData`) that contains shallow copies of any loaded child properties from the original object.
         */
         toJSON(): Excel.Interfaces.RangeData;
-    }
-    class RangeCustom {
-    }
-    interface Range extends OfficeExtension.ClientObject, RangeCustom {
     }
     /**
      * Represents a string reference of the form "SheetName!A1:B5", or a global or local named range.

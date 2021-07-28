@@ -583,7 +583,7 @@ declare module 'worker_threads' {
      * @param port The message port to transfer.
      * @param contextifiedSandbox A `contextified` object as returned by the `vm.createContext()` method.
      */
-    function moveMessagePortToContext(port: MessagePort, context: Context): MessagePort;
+    function moveMessagePortToContext(port: MessagePort, contextifiedSandbox: Context): MessagePort;
     /**
      * Receive a single message from a given `MessagePort`. If no message is available,`undefined` is returned, otherwise an object with a single `message` property
      * that contains the message payload, corresponding to the oldest message in the`MessagePort`’s queue.
