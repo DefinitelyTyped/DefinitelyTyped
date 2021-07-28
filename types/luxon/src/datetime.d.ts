@@ -140,7 +140,6 @@ export interface DateObjectUnits {
 }
 
 export interface DateObject extends DateObjectUnits, LocaleOptions {
-    zone?: string | Zone | undefined;
 }
 
 export type ConversionAccuracy = 'casual' | 'longterm';

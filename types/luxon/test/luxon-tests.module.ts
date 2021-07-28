@@ -30,9 +30,8 @@ const fromObject = DateTime.fromObject({
     month: 4,
     day: 22,
     hour: 12,
-    zone: "America/Los_Angeles",
     numberingSystem: "beng",
-});
+}, { zone: "America/Los_Angeles" });
 
 const ianaZone = new IANAZone("America/Los_Angeles");
 const testIanaZone = IANAZone.create("Europe/London");
@@ -50,9 +49,7 @@ testIanaZone.offsetName(dt.toMillis(), { format: "long" }); // $ExpectType strin
 testIanaZone.offsetName(dt.toMillis(), { format: "other_string" }); // $ExpectError
 testIanaZone.offsetName(dt.toMillis(), { format: "short", locale: "en-us" }); // $ExpectType string
 testIanaZone.offsetName(dt.toMillis(), { locale: "en-gb" }); // $ExpectType string
-const ianaZoneTest = DateTime.fromObject({
-    zone: ianaZone,
-});
+const ianaZoneTest = DateTime.fromObject({}, { zone: ianaZone });
 
 FixedOffsetZone.utcInstance.equals(FixedOffsetZone.instance(0));
 
@@ -174,7 +171,10 @@ if (DateTime.isDateTime(anything)) {
 const { input, result, zone } = DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy");
 
 /* Duration */
-const dur = Duration.fromObject({ hours: 2, minutes: 7 });
+const dur = Duration.fromObject({ hours: 2, minutes: 7 }); // $ExpectType Duration
+Duration.fromObject({ locale: 'ru' }); // $ExpectError
+Duration.fromObject({ conversionAccuracy: 'casual' }); // $ExpectError
+Duration.fromObject({}, { conversionAccuracy: 'casual' }); // $ExpectType Duration
 dt.plus(dur); // $ExpectType DateTime
 dt.plus({ quarters: 2, month: 1 }); // $ExpectType DateTime
 dur.hours; // $ExpectType number
@@ -188,6 +188,7 @@ dur.toISOTime(); // $ExpectType string
 dur.normalize(); // $ExpectType Duration
 dur.toMillis(); // $ExpectType number
 dur.mapUnits((x, u) => (u === "hours" ? x * 2 : x)); // $ExpectType Duration
+dur.set( { hours: 3 }); // $ExpectType Duration
 
 if (Duration.isDuration(anything)) {
     anything; // $ExpectType Duration
@@ -279,7 +280,7 @@ bogus.isValid; // $ExpectType boolean
 bogus.invalidReason; // $ExpectType string | null
 bogus.invalidExplanation; // $ExpectType string | null
 
-const local = DateTime.local(2017, 5, 15, 09, 10, 23);
+const local = DateTime.local(2017, 5, 15, 9, 10, 23);
 local.zoneName; // $ExpectType string
 local.toString(); // $ExpectType string
 local.setZone("America/Los_Angeles"); // $ExpectType DateTime
@@ -309,7 +310,9 @@ Settings.defaultOutputCalendar = "persian";
 DateTime.fromISO("2014-08-06T13:07:04.054").toFormat("yyyy LLL dd"); // $ExpectType string
 
 /* Parsing */
-DateTime.fromObject({ zone: "America/Los_Angeles" }); // $ExpectType DateTime
+DateTime.fromObject({ zone: "America/Los_Angeles" }); // $ExpectError
+DateTime.fromObject({ setZone: true }); // $ExpectError
+DateTime.fromObject({}, { zone: 'America/Los_Angeles', setZone: true }); // $ExpectType DateTime
 DateTime.fromISO("2016-05-25"); // $ExpectType DateTime
 DateTime.fromJSDate(new Date()); // $ExpectType DateTime
 DateTime.fromRFC2822("Tue, 01 Nov 2016 13:23:12 +0630"); // $ExpectType DateTime
