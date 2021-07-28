@@ -119,7 +119,6 @@ declare module 'cluster' {
         send(message: child.Serializable, callback?: (error: Error | null) => void): boolean;
         send(message: child.Serializable, sendHandle: child.SendHandle, callback?: (error: Error | null) => void): boolean;
         send(message: child.Serializable, sendHandle: child.SendHandle, options?: child.MessageOptions, callback?: (error: Error | null) => void): boolean;
-
         /**
          * This function will kill the worker. In the primary, it does this
          * by disconnecting the `worker.process`, and once disconnected, killing

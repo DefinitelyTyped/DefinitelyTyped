@@ -29,7 +29,6 @@
  */
 declare module 'crypto' {
     import * as stream from 'node:stream';
-
     import { PeerCertificate } from 'node:tls';
     interface Certificate {
         /**
