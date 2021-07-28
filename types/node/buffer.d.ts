@@ -84,6 +84,72 @@ declare module 'buffer' {
         new (size: number): Buffer;
         prototype: Buffer;
     };
+    export { BufferModuleInternal as Buffer };
+    /**
+     * @experimental
+     */
+    export interface BlobOptions {
+        /**
+         * @default 'utf8'
+         */
+        encoding?: BufferEncoding | undefined;
+        /**
+         * The Blob content-type. The intent is for `type` to convey
+         * the MIME media type of the data, however no validation of the type format
+         * is performed.
+         */
+        type?: string | undefined;
+    }
+    /**
+     * A [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) encapsulates immutable, raw data that can be safely shared across
+     * multiple worker threads.
+     * @since v15.7.0
+     * @experimental
+     */
+    export class Blob {
+        /**
+         * The total size of the `Blob` in bytes.
+         * @since v15.7.0
+         */
+        readonly size: number;
+        /**
+         * The content-type of the `Blob`.
+         * @since v15.7.0
+         */
+        readonly type: string;
+        /**
+         * Creates a new `Blob` object containing a concatenation of the given sources.
+         *
+         * {ArrayBuffer}, {TypedArray}, {DataView}, and {Buffer} sources are copied into
+         * the 'Blob' and can therefore be safely modified after the 'Blob' is created.
+         *
+         * String sources are also copied into the `Blob`.
+         */
+        constructor(sources: Array<BinaryLike | Blob>, options?: BlobOptions);
+        /**
+         * Returns a promise that fulfills with an [&lt;ArrayBuffer&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) containing a copy of
+         * the `Blob` data.
+         * @since v15.7.0
+         */
+        arrayBuffer(): Promise<ArrayBuffer>;
+        /**
+         * Creates and returns a new `Blob` containing a subset of this `Blob` objects
+         * data. The original `Blob` is not altered.
+         * @since v15.7.0
+         * @param start The starting index.
+         * @param end The ending index.
+         * @param type The content-type for the new `Blob`
+         */
+        slice(start?: number, end?: number, type?: string): Blob;
+        /**
+         * Returns a promise that resolves the contents of the `Blob` decoded as a UTF-8
+         * string.
+         * @since v15.7.0
+         */
+        text(): Promise<string>;
+    }
+    export import atob = globalThis.atob;
+    export import btoa = globalThis.btoa;
     /**
      * Raw data is stored in instances of the Buffer class.
      * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
@@ -97,21 +163,21 @@ declare module 'buffer' {
          * @param encoding encoding to use, optional.  Default is 'utf8'
          * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
          */
-        new (str: string, encoding?: BufferEncoding): Buffer;
+        new (str: string, encoding?: BufferEncoding): BufferModuleInternal;
         /**
          * Allocates a new buffer of {size} octets.
          *
          * @param size count of octets to allocate.
          * @deprecated since v10.0.0 - Use `Buffer.alloc()` instead (also see `Buffer.allocUnsafe()`).
          */
-        new (size: number): Buffer;
+        new (size: number): BufferModuleInternal;
         /**
          * Allocates a new buffer containing the given {array} of octets.
          *
          * @param array The octets to store.
          * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
          */
-        new (array: Uint8Array): Buffer;
+        new (array: Uint8Array): BufferModuleInternal;
         /**
          * Produces a Buffer backed by the same allocated memory as
          * the given {ArrayBuffer}/{SharedArrayBuffer}.
@@ -120,21 +186,21 @@ declare module 'buffer' {
          * @param arrayBuffer The ArrayBuffer with which to share memory.
          * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
          */
-        new (arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
+        new (arrayBuffer: ArrayBuffer | SharedArrayBuffer): BufferModuleInternal;
         /**
          * Allocates a new buffer containing the given {array} of octets.
          *
          * @param array The octets to store.
          * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
          */
-        new (array: ReadonlyArray<any>): Buffer;
+        new (array: ReadonlyArray<any>): BufferModuleInternal;
         /**
          * Copies the passed {buffer} data onto a new {Buffer} instance.
          *
          * @param buffer The buffer to copy.
          * @deprecated since v10.0.0 - Use `Buffer.from(buffer)` instead.
          */
-        new (buffer: Buffer): Buffer;
+        new (buffer: BufferModuleInternal): BufferModuleInternal;
         /**
          * When passed a reference to the .buffer property of a TypedArray instance,
          * the newly created Buffer will share the same allocated memory as the TypedArray.
@@ -143,13 +209,13 @@ declare module 'buffer' {
          *
          * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
          */
-        from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): Buffer;
+        from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): BufferModuleInternal;
         /**
          * Creates a new Buffer using the passed {data}
          * @param data data to create a new Buffer
          */
-        from(data: Uint8Array | ReadonlyArray<number>): Buffer;
-        from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): Buffer;
+        from(data: Uint8Array | ReadonlyArray<number>): BufferModuleInternal;
+        from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): BufferModuleInternal;
         /**
          * Creates a new Buffer containing the given JavaScript string {str}.
          * If provided, the {encoding} parameter identifies the character encoding.
@@ -162,12 +228,12 @@ declare module 'buffer' {
                     [Symbol.toPrimitive](hint: 'string'): string;
                 },
             encoding?: BufferEncoding
-        ): Buffer;
+        ): BufferModuleInternal;
         /**
          * Creates a new Buffer using the passed {data}
          * @param values to create a new Buffer
          */
-        of(...items: number[]): Buffer;
+        of(...items: number[]): BufferModuleInternal;
         /**
          * Returns true if {obj} is a Buffer
          *
@@ -200,7 +266,7 @@ declare module 'buffer' {
          * @param totalLength Total length of the buffers when concatenated.
          *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
          */
-        concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
+        concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): BufferModuleInternal;
         /**
          * The same as buf1.compare(buf2).
          */
@@ -213,21 +279,21 @@ declare module 'buffer' {
          *    If parameter is omitted, buffer will be filled with zeros.
          * @param encoding encoding used for call to buf.fill while initalizing
          */
-        alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
+        alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): BufferModuleInternal;
         /**
          * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
          * of the newly created Buffer are unknown and may contain sensitive data.
          *
          * @param size count of octets to allocate
          */
-        allocUnsafe(size: number): Buffer;
+        allocUnsafe(size: number): BufferModuleInternal;
         /**
          * Allocates a new non-pooled buffer of {size} octets, leaving memory not initialized, so the contents
          * of the newly created Buffer are unknown and may contain sensitive data.
          *
          * @param size count of octets to allocate
          */
-        allocUnsafeSlow(size: number): Buffer;
+        allocUnsafeSlow(size: number): BufferModuleInternal;
         /**
          * This is the number of bytes used to determine the size of pre-allocated, internal Buffer instances used for pooling. This value may be modified.
          */
@@ -472,7 +538,7 @@ declare module 'buffer' {
          * @param start Where the new `Buffer` will start.
          * @param end Where the new `Buffer` will end (not inclusive).
          */
-        slice(start?: number, end?: number): Buffer;
+        slice(start?: number, end?: number): BufferModuleInternal;
         /**
          * Returns a new `Buffer` that references the same memory as the original, but
          * offset and cropped by the `start` and `end` indices.
@@ -528,7 +594,7 @@ declare module 'buffer' {
          * @param start Where the new `Buffer` will start.
          * @param end Where the new `Buffer` will end (not inclusive).
          */
-        subarray(start?: number, end?: number): Buffer;
+        subarray(start?: number, end?: number): BufferModuleInternal;
         /**
          * Writes `value` to `buf` at the specified `offset` as big-endian.
          *
@@ -1061,7 +1127,7 @@ declare module 'buffer' {
          * @since v5.10.0
          * @return A reference to `buf`.
          */
-        swap16(): Buffer;
+        swap16(): BufferModuleInternal;
         /**
          * Interprets `buf` as an array of unsigned 32-bit integers and swaps the
          * byte order _in-place_. Throws `ERR_INVALID_BUFFER_SIZE` if `buf.length` is not a multiple of 4.
@@ -1085,7 +1151,7 @@ declare module 'buffer' {
          * @since v5.10.0
          * @return A reference to `buf`.
          */
-        swap32(): Buffer;
+        swap32(): BufferModuleInternal;
         /**
          * Interprets `buf` as an array of 64-bit numbers and swaps byte order _in-place_.
          * Throws `ERR_INVALID_BUFFER_SIZE` if `buf.length` is not a multiple of 8.
@@ -1109,7 +1175,7 @@ declare module 'buffer' {
          * @since v6.3.0
          * @return A reference to `buf`.
          */
-        swap64(): Buffer;
+        swap64(): BufferModuleInternal;
         /**
          * Writes `value` to `buf` at the specified `offset`. `value` must be a
          * valid unsigned 8-bit integer. Behavior is undefined when `value` is anything
@@ -1672,72 +1738,7 @@ declare module 'buffer' {
         values(): IterableIterator<number>;
     }
     const BufferModuleInternal: BufferConstructor;
-    export { BufferModuleInternal as Buffer };
-    /**
-     * @experimental
-     */
-    export interface BlobOptions {
-        /**
-         * @default 'utf8'
-         */
-        encoding?: BufferEncoding | undefined;
-        /**
-         * The Blob content-type. The intent is for `type` to convey
-         * the MIME media type of the data, however no validation of the type format
-         * is performed.
-         */
-        type?: string | undefined;
-    }
-    /**
-     * A [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) encapsulates immutable, raw data that can be safely shared across
-     * multiple worker threads.
-     * @since v15.7.0
-     * @experimental
-     */
-    export class Blob {
-        /**
-         * The total size of the `Blob` in bytes.
-         * @since v15.7.0
-         */
-        readonly size: number;
-        /**
-         * The content-type of the `Blob`.
-         * @since v15.7.0
-         */
-        readonly type: string;
-        /**
-         * Creates a new `Blob` object containing a concatenation of the given sources.
-         *
-         * {ArrayBuffer}, {TypedArray}, {DataView}, and {Buffer} sources are copied into
-         * the 'Blob' and can therefore be safely modified after the 'Blob' is created.
-         *
-         * String sources are also copied into the `Blob`.
-         */
-        constructor(sources: Array<BinaryLike | Blob>, options?: BlobOptions);
-        /**
-         * Returns a promise that fulfills with an [&lt;ArrayBuffer&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) containing a copy of
-         * the `Blob` data.
-         * @since v15.7.0
-         */
-        arrayBuffer(): Promise<ArrayBuffer>;
-        /**
-         * Creates and returns a new `Blob` containing a subset of this `Blob` objects
-         * data. The original `Blob` is not altered.
-         * @since v15.7.0
-         * @param start The starting index.
-         * @param end The ending index.
-         * @param type The content-type for the new `Blob`
-         */
-        slice(start?: number, end?: number, type?: string): Blob;
-        /**
-         * Returns a promise that resolves the contents of the `Blob` decoded as a UTF-8
-         * string.
-         * @since v15.7.0
-         */
-        text(): Promise<string>;
-    }
-    export import atob = globalThis.atob;
-    export import btoa = globalThis.btoa;
+
     global {
         // Buffer class
         type BufferEncoding = 'ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex';
