@@ -1,13 +1,11 @@
-import { DomEventData } from "@ckeditor/ckeditor5-engine";
 import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 
-export default class Model implements Emitter, Observable {
+export default class Model implements Observable {
     constructor(attributes?: Record<string, unknown>, properties?: Record<string, unknown>);
-
-    readonly [x: string]: any;
+    readonly [x: string]: unknown;
 
     set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;
@@ -15,25 +13,29 @@ export default class Model implements Emitter, Observable {
     unbind(...unbindProperties: string[]): void;
     decorate(methodName: string): void;
 
-    on(
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
+    on<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
     ): void;
-    once(
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
+    once<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
+    off<N extends string>(event: N, callback?: (info: EventInfo<N>, ...data: unknown[]) => void): void;
+    listenTo<S extends Emitter, N extends string>(
+        emitter: S,
+        event: N,
+        callback: (info: EventInfo<N, S>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
     ): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
+    stopListening<S extends Emitter, N extends string>(
+        emitter?: S,
+        event?: N,
+        callback?: (info: EventInfo<N, S>, ...data: unknown[]) => void,
+    ): void;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 }

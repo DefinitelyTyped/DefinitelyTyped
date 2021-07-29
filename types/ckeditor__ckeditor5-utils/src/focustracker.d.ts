@@ -1,9 +1,9 @@
-import { Emitter, EmitterMixinDelegateChain } from "./emittermixin";
-import { Emitter as DomEmitter } from "./dom/emittermixin";
-import { BindChain, Observable } from "./observablemixin";
-import { PriorityString } from "./priorities";
-import EventInfo from "./eventinfo";
-import { DomEventData } from "@ckeditor/ckeditor5-engine";
+import DomEventData from '@ckeditor/ckeditor5-engine/src/view/observer/domeventdata';
+import { Emitter as DomEmitter, ProxyEmitter } from './dom/emittermixin';
+import { Emitter, EmitterMixinDelegateChain } from './emittermixin';
+import EventInfo from './eventinfo';
+import { BindChain, Observable } from './observablemixin';
+import { PriorityString } from './priorities';
 
 /**
  * Allows observing a group of `HTMLElement`s whether at least one of them is focused.
@@ -18,7 +18,7 @@ import { DomEventData } from "@ckeditor/ckeditor5-engine";
  * Check out the {@glink framework/guides/deep-dive/ui/focus-tracking "Deep dive into focus tracking" guide} to learn more.
  *
  */
-export default class FocusTracker implements Observable, Emitter, DomEmitter {
+export default class FocusTracker implements Observable, DomEmitter {
     /**
      * Starts tracking the specified element.
      *
@@ -45,26 +45,33 @@ export default class FocusTracker implements Observable, Emitter, DomEmitter {
     set(name: string, value: any): void;
     unbind(...unbindProperties: string[]): void;
 
-    // Observable (Emitter)
+    listenTo<S extends Emitter | ProxyEmitter, N extends string>(
+        emitter: S | Node | Window,
+        event: N,
+        callback: (info: EventInfo<N, S>, ...data: any[]) => void,
+        options?: {
+            useCapture?: boolean | undefined;
+            usePassive?: boolean | undefined;
+            priority?: number | PriorityString | undefined;
+        },
+    ): void;
+    stopListening<S extends Emitter | ProxyEmitter, N extends string>(
+        emitter?: Node | Window | S,
+        event?: N,
+        callback?: (info: EventInfo<N, S>, data: DomEventData) => void,
+    ): void;
+    on<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off<N extends string>(event: N, callback?: (info: EventInfo<N>, ...data: unknown[]) => void): void;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
     delegate(...events: string[]): EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
-    ): void;
-    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    on: (
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ) => void;
-    once(
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
 }

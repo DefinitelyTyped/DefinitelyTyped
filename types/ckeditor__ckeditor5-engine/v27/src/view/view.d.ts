@@ -7,19 +7,18 @@ import DomConverter from "./domconverter";
 import DowncastWriter from "./downcastwriter";
 import Element from "./element";
 import { Item } from "./item";
-import DomEventData from "./observer/domeventdata";
 import Observer from "./observer/observer";
 import Position from "./position";
 import Range from "./range";
 import Selection, { Selectable } from "./selection";
 import { StylesProcessor } from "./stylesmap";
 
-export default class View implements Emitter, Observable {
+export default class View implements Observable {
     readonly document: Document;
     readonly domConverter: DomConverter;
     readonly domRoots: Map<string, HTMLElement>;
-    readonly hasDomSelection: boolean;
-    readonly isRenderingInProgress: boolean;
+    hasDomSelection: boolean;
+    isRenderingInProgress: boolean;
 
     constructor(stylesProcessor: StylesProcessor);
     addObserver(ObserverClass: typeof Observer): Observer;
@@ -53,25 +52,29 @@ export default class View implements Emitter, Observable {
     unbind(...unbindProperties: string[]): void;
     decorate(methodName: string): void;
 
-    on: (
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ) => void;
-    once(
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
+    stopListening<S extends Emitter, N extends string>(
+        emitter?: S,
+        event?: N,
+        callback?: (info: EventInfo<N, S>, ...data: unknown[]) => void,
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
+    on<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
     ): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
+    once<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off<N extends string>(event: N, callback?: (info: EventInfo<N>, ...data: unknown[]) => void): void;
+    listenTo<S extends Emitter, N extends string>(
+        emitter: S,
+        event: N,
+        callback: (info: EventInfo<N, S>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 }

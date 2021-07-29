@@ -25,35 +25,35 @@ export default class View implements DomEmitter, Observable {
     render(): void;
     destroy(): void;
 
-    delegate(...events: string[]): EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: number | PriorityString },
-    ): void;
-    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    on: (
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ) => void;
-    once(
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: number | PriorityString },
-    ): void;
-    stopDelegating(event?: string, emitter?: Emitter): void;
-    stopListening(
-        emitter?: Emitter,
-        event?: string,
-        callback?: (info: EventInfo, data: DomEventData) => void,
-    ): void;
-
     set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;
     bind(...bindProperties: string[]): BindChain;
     unbind(...unbindProperties: string[]): void;
     decorate(methodName: string): void;
+
+    on<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off<N extends string>(event: N, callback?: (info: EventInfo<N>, ...data: unknown[]) => void): void;
+    listenTo<S extends Emitter, N extends string>(
+        emitter: S,
+        event: N,
+        callback: (info: EventInfo<N, S>, data: DomEventData) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    stopListening<S extends Emitter, N extends string>(
+        emitter?: S,
+        event?: N,
+        callback?: (info: EventInfo<N, S>, data: DomEventData) => void,
+    ): void;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
+    delegate(...events: string[]): EmitterMixinDelegateChain;
+    stopDelegating(event?: string, emitter?: Emitter): void;
 }

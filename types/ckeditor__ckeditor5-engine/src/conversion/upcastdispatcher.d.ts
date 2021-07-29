@@ -8,7 +8,6 @@ import Range from "../model/range";
 import Schema, { SchemaContextDefinition } from "../model/schema";
 import Writer from "../model/writer";
 import { Item } from "../view/item";
-import DomEventData from "../view/observer/domeventdata";
 import ViewConsumable from "./viewconsumable";
 
 export interface UpcastConversionData {
@@ -51,28 +50,32 @@ export interface UpcastConversionApi {
 
 export default class UpcastDispatcher implements Emitter {
     conversionApi: UpcastConversionApi;
-    constructor(conversionApi?: Partial<UpcastConversionApi>);
     convert(viewItem: Item, writer: Writer, context?: SchemaContextDefinition): DocumentFragment;
+    constructor(conversionApi?: Partial<UpcastConversionApi>);
 
-    on: (
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ) => void;
-    once(
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
+    on<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
+    once<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
     ): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
+    off<N extends string>(event: N, callback?: (info: EventInfo<N>, ...data: unknown[]) => void): void;
+    listenTo<S extends Emitter, N extends string>(
+        emitter: S,
+        event: N,
+        callback: (info: EventInfo<N, S>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    stopListening<S extends Emitter, N extends string>(
+        emitter?: S,
+        event?: N,
+        callback?: (info: EventInfo<N, S>, ...data: unknown[]) => void,
+    ): void;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 }

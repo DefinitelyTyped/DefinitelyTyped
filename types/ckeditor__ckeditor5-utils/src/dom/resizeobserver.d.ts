@@ -1,8 +1,6 @@
-import { DomEventData } from "@ckeditor/ckeditor5-engine";
-import { EmitterMixinDelegateChain } from "../emittermixin";
+import { Emitter, EmitterMixinDelegateChain } from "../emittermixin";
 import EventInfo from "../eventinfo";
 import { PriorityString } from "../priorities";
-import { Emitter } from "./emittermixin";
 
 /**
  * A helper class which instances allow performing custom actions when native DOM elements are resized.
@@ -10,9 +8,9 @@ import { Emitter } from "./emittermixin";
  *  const editableElement = editor.editing.view.getDomRoot();
  *
  *  const observer = new ResizeObserver( editableElement, entry => {
- *   console.log( 'The editable element has been resized in DOM.' );
+ *   console.log( "The editable element has been resized in DOM." );
  *   console.log( entry.target ); // -> editableElement
- *   console.log( entry.contentRect.width ); // -> e.g. '423px'
+ *   console.log( entry.contentRect.width ); // -> e.g. "423px"
  *  } );
  *
  * By default, it uses the [native DOM resize observer](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
@@ -33,26 +31,29 @@ export default class ResizeObserver implements Emitter {
      */
     destroy(): void;
 
-    // Implements
+    on<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off<N extends string>(event: N, callback?: (info: EventInfo<N>, ...data: unknown[]) => void): void;
+    listenTo<S extends Emitter, N extends string>(
+        emitter: S,
+        event: N,
+        callback: (info: EventInfo<N, S>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    stopListening<S extends Emitter, N extends string>(
+        emitter?: S,
+        event?: N,
+        callback?: (info: EventInfo<N, S>, ...data: unknown[]) => void,
+    ): void;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
     delegate(...events: string[]): EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
-    ): void;
-    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    on: (
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ) => void;
-    once(
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
 }

@@ -1,6 +1,7 @@
 import { Editor } from "@ckeditor/ckeditor5-core";
 import { ExportPdf } from "@ckeditor/ckeditor5-export-pdf";
 import { ExportPdfConfig } from "@ckeditor/ckeditor5-export-pdf/src/exportpdf";
+import ExportPDFCommand from "@ckeditor/ckeditor5-export-pdf/src/exportpdfcommand";
 
 class MyEditor extends Editor {}
 
@@ -36,11 +37,12 @@ config = {
 config = {
     converterUrl: "",
     dataCallback(editor) {
+        !!editor.isReadOnly;
         return "";
     },
     fileName: "",
     stylesheets: [""],
-    tokenUrl: false,
+    tokenUrl: bool,
 };
 
 config = {
@@ -51,3 +53,5 @@ config = {
 config = {
     tokenUrl: "",
 };
+
+new ExportPDFCommand(new MyEditor({ exportPdf: config })).execute("");

@@ -1,8 +1,7 @@
 import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
+import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
-import DomEventData from "../view/observer/domeventdata";
 import DocumentSelection from "./documentselection";
 import Element from "./element";
 import { Item } from "./item";
@@ -12,7 +11,7 @@ import Range from "./range";
 import Selection from "./selection";
 import Writer from "./writer";
 
-export default class Schema implements Emitter, Observable {
+export default class Schema implements Observable {
     addAttributeCheck(callback: (context: SchemaContext, name: string) => boolean): void;
     addChildCheck(callback: (context: SchemaContext, item: SchemaCompiledItemDefinition) => boolean): void;
     checkAttribute(context: SchemaContextDefinition, attributeName: string): boolean;
@@ -45,25 +44,29 @@ export default class Schema implements Emitter, Observable {
     unbind(...unbindProperties: string[]): void;
     decorate(methodName: string): void;
 
-    on: (
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
-    ) => void;
-    once(
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
+    on<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
+    once<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
     ): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
+    off<N extends string>(event: N, callback?: (info: EventInfo<N>, ...data: unknown[]) => void): void;
+    listenTo<S extends Emitter, N extends string>(
+        emitter: S,
+        event: N,
+        callback: (info: EventInfo<N, S>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    stopListening<S extends Emitter, N extends string>(
+        emitter?: S,
+        event?: N,
+        callback?: (info: EventInfo<N, S>, ...data: unknown[]) => void,
+    ): void;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 }
@@ -71,7 +74,7 @@ export default class Schema implements Emitter, Observable {
 export interface SchemaItemDefinition {
     allowAttributes?: string | string[] | undefined;
     allowAttributesOf?: string | string[] | undefined;
-    allowChildren?: string|string[] | undefined;
+    allowChildren?: string | string[] | undefined;
     allowContentOf?: string | string[] | undefined;
     allowIn?: string | string[] | undefined;
     allowWhere?: string | string[] | undefined;

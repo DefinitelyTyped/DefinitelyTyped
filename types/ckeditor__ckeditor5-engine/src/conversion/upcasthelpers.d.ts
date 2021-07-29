@@ -1,9 +1,10 @@
-import Element from "../view/element";
+import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
+import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import ModelElement from "../model/element";
+import Element from "../view/element";
 import { MatcherPattern } from "../view/matcher";
 import ConversionHelpers from "./conversionhelpers";
-import { UpcastConversionApi } from "./upcastdispatcher";
-import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
+import UpcastDispatcher, { UpcastConversionApi, UpcastConversionData } from "./upcastdispatcher";
 
 export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
     attributeToAttribute(config?: {
@@ -12,7 +13,12 @@ export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
             | {
                   key: string;
                   name?: string | undefined;
-                  value?: RegExp | string | ((value: any) => boolean) | { styles: Record<string, string | RegExp> } | undefined;
+                  value?:
+                      | RegExp
+                      | string
+                      | ((value: unknown) => boolean)
+                      | { styles: Record<string, string | RegExp> }
+                      | undefined;
               };
 
         model: string | { key: string; value: string | ((el: Element, api: UpcastConversionApi) => string) };
@@ -37,3 +43,9 @@ export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
         converterPriority?: PriorityString | number | undefined;
     }): UpcastHelpers;
 }
+
+export function convertToModelFragment(): (
+    evt: EventInfo<string, UpcastDispatcher>,
+    data: UpcastConversionData,
+    conversionApi: UpcastConversionApi,
+) => void;

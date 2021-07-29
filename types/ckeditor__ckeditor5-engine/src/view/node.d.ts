@@ -1,3 +1,6 @@
+import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
+import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
+import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import AttributeElement from "./attributeelement";
 import ContainerElement from "./containerelement";
 import Document from "./document";
@@ -15,15 +18,19 @@ import Text from "./text";
 import TextProxy from "./textproxy";
 import UIElement from "./uielement";
 
-export default abstract class Node {
+export default class Node implements Emitter {
+    constructor(doc: Document);
     readonly document: Document;
     readonly index: number | null;
     readonly nextSibling: Node | null;
-    readonly parent: Element | DocumentFragment | null;
+    parent: Element | DocumentFragment | null;
     readonly previousSibling: Node | null;
     readonly root: Node | DocumentFragment;
 
-    getAncestors(options?: { includeSelf?: boolean | undefined; parentFirst?: boolean | undefined }): Array<Element | DocumentFragment>;
+    getAncestors(options?: {
+        includeSelf?: boolean | undefined;
+        parentFirst?: boolean | undefined;
+    }): Array<Element | DocumentFragment>;
     getCommonAncestor(node: Node, options?: { includeSelf?: boolean | undefined }): Element | DocumentFragment | null;
     getPath(): number[];
     is(
@@ -61,14 +68,8 @@ export default abstract class Node {
         type: "containerElement" | "view:containerElement",
         name?: string,
     ): this is ContainerElement | EditableElement | RootEditableElement;
-    is(
-        type: "editableElement" | "view:editableElement",
-        name?: string,
-    ): this is EditableElement | RootEditableElement;
-    is(
-        type: "rootEditableElement" | "view:rootEditableElement",
-        name?: string,
-    ): this is RootEditableElement;
+    is(type: "editableElement" | "view:editableElement", name?: string): this is EditableElement | RootEditableElement;
+    is(type: "rootEditableElement" | "view:rootEditableElement", name?: string): this is RootEditableElement;
     is(type: "uiElement" | "view:uiElement", name?: string): this is UIElement;
     is(type: "rawElement" | "view:rawElement", name?: string): this is RawElement;
     is(type: "emptyElement" | "view:emptyElement", name?: string): this is EmptyElement;
@@ -83,4 +84,30 @@ export default abstract class Node {
         _textData?: string | undefined;
         document: string;
     };
+
+    on<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    once<N extends string>(
+        event: N,
+        callback: (info: EventInfo<N>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    off<N extends string>(event: N, callback?: (info: EventInfo<N>, ...data: unknown[]) => void): void;
+    listenTo<S extends Emitter, N extends string>(
+        emitter: S,
+        event: N,
+        callback: (info: EventInfo<N, S>, ...data: any[]) => void,
+        options?: { priority?: number | PriorityString | undefined },
+    ): void;
+    stopListening<S extends Emitter, N extends string>(
+        emitter?: S,
+        event?: N,
+        callback?: (info: EventInfo<N, S>, ...data: unknown[]) => void,
+    ): void;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
+    delegate(...events: string[]): EmitterMixinDelegateChain;
+    stopDelegating(event?: string, emitter?: Emitter): void;
 }

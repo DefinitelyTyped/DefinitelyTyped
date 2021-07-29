@@ -46,7 +46,7 @@ export function viewToModelPositionOutsideModelElement(
     model: Model,
     viewElementMatcher: (viewElement: Element) => boolean,
 ): (
-    evt: EventInfo,
+    evt: EventInfo<'viewToModelPositionOutsideModelElement', Mapper>,
     data: {
         mapper: Mapper;
         viewPosition: Position;
