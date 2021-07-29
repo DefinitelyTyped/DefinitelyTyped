@@ -270,7 +270,7 @@ googletag.pubads().updateCorrelator();
 
 // DEMO 34
 // 1. Adding an event listener for the PubAdsService.
-googletag.pubads().addEventListener('slotOnload', (event: googletag.events.SlotOnloadEvent) => {
+googletag.pubads().addEventListener('slotOnload', event => {
     console.log('Slot has been loaded:');
     console.log(event);
 });
@@ -281,7 +281,7 @@ googletag.pubads().addEventListener('slotOnload', (event: googletag.events.SlotO
 // programmatically filter a listener to respond only to a certain ad slot,
 // using this pattern:
 let targetSlot = {};
-googletag.pubads().addEventListener('slotOnload', (event: googletag.events.SlotOnloadEvent) => {
+googletag.pubads().addEventListener('slotOnload', event => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
@@ -485,7 +485,7 @@ slot.updateTargetingFromMap({
 // DEMO 55
 // This listener will be called when an impression becomes viewable.
 targetSlot = {};
-googletag.pubads().addEventListener('impressionViewable', (event: googletag.events.ImpressionViewableEvent) => {
+googletag.pubads().addEventListener('impressionViewable', event => {
     slot = event.slot;
     console.log('Impression for slot', slot.getSlotElementId(), 'became viewable.');
 
@@ -497,7 +497,7 @@ googletag.pubads().addEventListener('impressionViewable', (event: googletag.even
 // DEMO 56
 // This listener will be called when a creative iframe load event fires.
 targetSlot = {};
-googletag.pubads().addEventListener('slotOnload', (event: googletag.events.SlotOnloadEvent) => {
+googletag.pubads().addEventListener('slotOnload', event => {
     slot = event.slot;
     console.log('Creative iframe for slot', slot.getSlotElementId(), 'has loaded.');
 
@@ -509,7 +509,7 @@ googletag.pubads().addEventListener('slotOnload', (event: googletag.events.SlotO
 // DEMO 57
 // This listener will be called when a slot has finished rendering.
 targetSlot = {};
-googletag.pubads().addEventListener('slotRenderEnded', (event: googletag.events.SlotRenderEndedEvent) => {
+googletag.pubads().addEventListener('slotRenderEnded', event => {
     slot = event.slot;
     console.group('Slot', slot.getSlotElementId(), 'finished rendering.');
 
@@ -535,7 +535,7 @@ googletag.pubads().addEventListener('slotRenderEnded', (event: googletag.events.
 // be batched together in a single request if single request architecture
 // (SRA) is enabled.
 targetSlot = {};
-googletag.pubads().addEventListener('slotRequested', (event: googletag.events.SlotRequestedEvent) => {
+googletag.pubads().addEventListener('slotRequested', event => {
     slot = event.slot;
     console.log('Slot', slot.getSlotElementId(), 'has been requested.');
 
@@ -548,7 +548,7 @@ googletag.pubads().addEventListener('slotRequested', (event: googletag.events.Sl
 // This listener will be called when an ad response has been received for
 // a slot.
 targetSlot = {};
-googletag.pubads().addEventListener('slotResponseReceived', (event: googletag.events.SlotResponseReceived) => {
+googletag.pubads().addEventListener('slotResponseReceived', event => {
     slot = event.slot;
     console.log('Ad response for slot', slot.getSlotElementId(), 'received.');
 
@@ -561,7 +561,7 @@ googletag.pubads().addEventListener('slotResponseReceived', (event: googletag.ev
 // This listener will be called whenever the on-screen percentage of an ad
 // slot's area changes.
 targetSlot = {};
-googletag.pubads().addEventListener('slotVisibilityChanged', (event: googletag.events.SlotVisibilityChangedEvent) => {
+googletag.pubads().addEventListener('slotVisibilityChanged', event => {
     slot = event.slot;
     console.group('Visibility of slot', slot.getSlotElementId(), 'changed.');
 

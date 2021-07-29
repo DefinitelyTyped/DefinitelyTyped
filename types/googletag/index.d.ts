@@ -601,8 +601,21 @@ declare namespace googletag {
          * @param listener Function that takes a single event object argument.
          * @returns The service object on which the method was called.
          */
-        // tslint:disable-next-line:no-unnecessary-generics
-        addEventListener<T extends events.Event>(eventType: string, listener: (event: T) => void): Service;
+        addEventListener(
+            eventType: 'impressionViewable',
+            listener: (event: events.ImpressionViewableEvent) => void,
+        ): Service;
+        addEventListener(eventType: 'slotOnload', listener: (event: events.SlotOnloadEvent) => void): Service;
+        addEventListener(eventType: 'slotRenderEnded', listener: (event: events.SlotRenderEndedEvent) => void): Service;
+        addEventListener(eventType: 'slotRequested', listener: (event: events.SlotRequestedEvent) => void): Service;
+        addEventListener(
+            eventType: 'slotResponseReceived',
+            listener: (event: events.SlotResponseReceived) => void,
+        ): Service;
+        addEventListener(
+            eventType: 'slotVisibilityChanged',
+            listener: (event: events.SlotVisibilityChangedEvent) => void,
+        ): Service;
         /**
          * Get the list of slots associated with this service.
          * @returns Slots in the order in which they were added to the service.
