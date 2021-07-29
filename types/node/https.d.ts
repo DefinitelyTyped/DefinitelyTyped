@@ -27,8 +27,6 @@ declare module 'https' {
     }
     interface Server extends http.HttpBase {}
     /**
-     * * Extends: `<tls.Server>`
-     *
      * See `http.Server` for more information.
      * @since v0.3.4
      */

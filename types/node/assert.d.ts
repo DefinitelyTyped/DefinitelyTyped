@@ -12,8 +12,6 @@ declare module 'assert' {
     function assert(value: unknown, message?: string | Error): asserts value;
     namespace assert {
         /**
-         * * Extends: `<errors.Error>`
-         *
          * Indicates the failure of an assertion. All errors thrown by the `assert` module
          * will be instances of the `AssertionError` class.
          */

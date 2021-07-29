@@ -52,6 +52,7 @@ interface BadProcessResult {
 interface GoodProcessResult {
     status: JSDocMatchResult.Ok;
     data: ProcessData;
+    postprocess?(res: string): string;
 }
 
 export interface DocAugmentationContext {
@@ -91,8 +92,12 @@ class TagHelper {
         );
     }
 
-    private createParamTag(name: string, description: string): JSDocParameterTag {
+    private createParamTag(name: string, description: string, defaultValue?: string): JSDocParameterTag {
         const { factory } = this.docContext.transformationContext;
+        if (defaultValue && defaultValue.length < 15) {
+            defaultValue = defaultValue.replaceAll('`', '');
+            name = `[${name}=${defaultValue}]`;
+        }
         return factory.createJSDocParameterTag(undefined,
             factory.createIdentifier(name),
             false,
@@ -144,14 +149,14 @@ class TagHelper {
         if (meta?.deprecated) {
             let str = `Since ${meta.deprecated.join()}`;
             if (stabilityText) {
-                str += ` - ${stabilityText.replace('Deprecated: ', '')}`;
+                str += ` - ${stabilityText.replace('Deprecated: ', '').replace('Deprecated. ', '')}`;
             }
             tags.push(this.createDeprecatedTag(str));
             return tags;
         }
         switch (stability) {
             case Stability.Deprecated:
-                tags.push(this.createDeprecatedTag((stabilityText ?? '').replace('Deprecated: ', '')));
+                tags.push(this.createDeprecatedTag((stabilityText ?? '').replace('Deprecated: ', '').replace('Deprecated. ', '')));
                 break;
             case Stability.Experimental:
                 tags.push(this.createExperimentalTag());
@@ -173,7 +178,7 @@ class TagHelper {
             if (!param.desc) {
                 continue;
             }
-            tags.push(this.createParamTag(param.name.replaceAll('.', ''), param.desc));
+            tags.push(this.createParamTag(param.name.replaceAll('.', ''), param.desc, param.default));
         }
         if (sigDoc.return?.desc) {
             tags.push(this.createReturnTag(fixupLocalLinks(sigDoc.return.desc, moduleName)));
@@ -282,7 +287,7 @@ export class NodeProcessingContext {
         const propertyDoc = properties?.find(m => {
             // Sometimes property names are just `Type` which is really damn helpful, we can extract an alternative
             // from `textRaw` instead
-            if (m.name === 'Type' && m.textRaw) {
+            if ((m.name === 'Type' || m.name === 'return') && m.textRaw) {
                 const altMatch = m.textRaw.match(/^`(.*?)`/);
                 if (altMatch) {
                     return name === altMatch[1];
@@ -385,9 +390,9 @@ export class NodeProcessingContext {
         return {
             status: JSDocMatchResult.Ok,
             data: {
-                text: this.fixupDescriptionFormatting(classDoc.desc, moduleDocs.name),
+                text: this.fixupDescriptionFormatting(classDoc.desc, moduleDocs.name).replace(/\* Extends: `.*?`/, '').trim(),
                 tags,
-            }
+            },
         };
     }
 

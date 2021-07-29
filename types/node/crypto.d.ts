@@ -320,8 +320,6 @@ declare module 'crypto' {
     type Encoding = BinaryToTextEncoding | CharacterEncoding | LegacyCharacterEncoding;
     type ECDHKeyFormat = 'compressed' | 'uncompressed' | 'hybrid';
     /**
-     * * Extends: `<stream.Transform>`
-     *
      * The `Hash` class is a utility for creating hash digests of data. It can be
      * used in one of two ways:
      *
@@ -518,8 +516,6 @@ declare module 'crypto' {
         digest(encoding: BinaryToTextEncoding): string;
     }
     /**
-     * * Extends: `<stream.Transform>`
-     *
      * The `Hmac` class is a utility for creating cryptographic HMAC digests. It can
      * be used in one of two ways:
      *
@@ -878,8 +874,6 @@ declare module 'crypto' {
     function createCipheriv(algorithm: CipherGCMTypes, key: CipherKey, iv: BinaryLike | null, options?: CipherGCMOptions): CipherGCM;
     function createCipheriv(algorithm: string, key: CipherKey, iv: BinaryLike | null, options?: stream.TransformOptions): Cipher;
     /**
-     * * Extends: `<stream.Transform>`
-     *
      * Instances of the `Cipher` class are used to encrypt data. The class can be
      * used in one of two ways:
      *
@@ -1219,8 +1213,6 @@ declare module 'crypto' {
     function createDecipheriv(algorithm: CipherGCMTypes, key: CipherKey, iv: BinaryLike | null, options?: CipherGCMOptions): DecipherGCM;
     function createDecipheriv(algorithm: string, key: CipherKey, iv: BinaryLike | null, options?: stream.TransformOptions): Decipher;
     /**
-     * * Extends: `<stream.Transform>`
-     *
      * Instances of the `Decipher` class are used to decrypt data. The class can be
      * used in one of two ways:
      *
@@ -1584,8 +1576,6 @@ declare module 'crypto' {
     }
     type KeyLike = string | Buffer | KeyObject;
     /**
-     * * Extends: `<stream.Writable>`
-     *
      * The `Sign` class is a utility for generating signatures. It can be used in one
      * of two ways:
      *
@@ -1738,8 +1728,6 @@ declare module 'crypto' {
      */
     function createVerify(algorithm: string, options?: stream.WritableOptions): Verify;
     /**
-     * * Extends: `<stream.Writable>`
-     *
      * The `Verify` class is a utility for verifying signatures. It can be used in one
      * of two ways:
      *

@@ -782,6 +782,8 @@ async function testManagementForPromise() {
 // https://developer.chrome.com/docs/extensions/reference/scripting
 async function testScriptingForPromise() {
     await chrome.scripting.executeScript({target: {tabId: 0}});
+    await chrome.scripting.executeScript({target: {tabId: 0}, func: () => {}, args: []})
+    await chrome.scripting.executeScript({target: {tabId: 0}, func: () => {}, args: {}}) // $ExpectError
     await chrome.scripting.insertCSS({target: {tabId: 0}});
 }
 

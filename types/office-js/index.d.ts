@@ -10368,72 +10368,6 @@ declare namespace Office {
          *                 type `Office.AsyncResult`.
          */
         setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds or replaces the signature of the item body.
-         *
-         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
-         *
-         * **Important**: If your add-in implements the 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
-         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
-         *
-         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
-         * if the user closes the form without making other edits, they won't be prompted to save changes.
-         *
-         * [Api set: Mailbox 1.10]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
-         *
-         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
-         *
-         * **Errors**:
-         *
-         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 30,000 characters.
-         *
-         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
-         *
-         * @param data - The string that represents the signature to be set in the body of the mail. This string is limited to 30,000 characters.
-         * @param options - An object literal that contains one or more of the following properties.
-         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
-         *        `coercionType`: The format the signature should be set to. If Text, the method sets the signature to plain text,
-         *                        removing any HTML tags present. If Html, the method sets the signature to HTML.
-         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
-         *                             of type `Office.AsyncResult`.
-         */
-        setSignatureAsync(data: string, options: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds or replaces the signature of the item body.
-         *
-         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
-         *
-         * **Important**: If your add-in implements the 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
-         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
-         *
-         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
-         * if the user closes the form without making other edits, they won't be prompted to save changes.
-         *
-         * [Api set: Mailbox 1.10]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
-         *
-         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
-         *
-         * **Errors**:
-         *
-         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 30,000 characters.
-         *
-         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
-         *
-         * @param data - The string that represents the signature to be set in the body of the mail. This string is limited to 30,000 characters.
-         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
-         *                             of type `Office.AsyncResult`.
-         */
-        setSignatureAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * The `AppointmentForm` object is used to access the currently selected appointment.
@@ -12024,7 +11958,73 @@ declare namespace Office {
          *                             of type `Office.AsyncResult`. Any errors encountered will be provided in the `asyncResult.error` property.
          */
         setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-    }
+        /**
+         * Adds or replaces the signature of the item body.
+         *
+         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
+         *
+         * **Important**: If your add-in implements the 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
+         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
+         *
+         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
+         * if the user closes the form without making other edits, they won't be prompted to save changes.
+         *
+         * [Api set: Mailbox 1.10]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * **Errors**:
+         *
+         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 30,000 characters.
+         *
+         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
+         *
+         * @param data - The string that represents the signature to be set in the body of the mail. This string is limited to 30,000 characters.
+         * @param options - An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         *        `coercionType`: The format the signature should be set to. If Text, the method sets the signature to plain text,
+         *                        removing any HTML tags present. If Html, the method sets the signature to HTML.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
+         *                             of type `Office.AsyncResult`.
+         */
+        setSignatureAsync(data: string, options: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Adds or replaces the signature of the item body.
+         *
+         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
+         *
+         * **Important**: If your add-in implements the 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
+         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
+         *
+         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
+         * if the user closes the form without making other edits, they won't be prompted to save changes.
+         *
+         * [Api set: Mailbox 1.10]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * **Errors**:
+         *
+         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 30,000 characters.
+         *
+         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
+         *
+         * @param data - The string that represents the signature to be set in the body of the mail. This string is limited to 30,000 characters.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
+         *                             of type `Office.AsyncResult`.
+         */
+        setSignatureAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+     }
     /**
      * Represents the categories on an item.
      * 
