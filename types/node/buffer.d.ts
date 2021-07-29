@@ -538,7 +538,7 @@ declare module 'buffer' {
          * @param start Where the new `Buffer` will start.
          * @param end Where the new `Buffer` will end (not inclusive).
          */
-        slice(start?: number, end?: number): BufferModuleInternal;
+        slice(start?: number, end?: number): Buffer;
         /**
          * Returns a new `Buffer` that references the same memory as the original, but
          * offset and cropped by the `start` and `end` indices.
@@ -594,7 +594,7 @@ declare module 'buffer' {
          * @param start Where the new `Buffer` will start.
          * @param end Where the new `Buffer` will end (not inclusive).
          */
-        subarray(start?: number, end?: number): BufferModuleInternal;
+        subarray(start?: number, end?: number): Buffer;
         /**
          * Writes `value` to `buf` at the specified `offset` as big-endian.
          *
@@ -1127,7 +1127,7 @@ declare module 'buffer' {
          * @since v5.10.0
          * @return A reference to `buf`.
          */
-        swap16(): BufferModuleInternal;
+        swap16(): Buffer;
         /**
          * Interprets `buf` as an array of unsigned 32-bit integers and swaps the
          * byte order _in-place_. Throws `ERR_INVALID_BUFFER_SIZE` if `buf.length` is not a multiple of 4.
@@ -1151,7 +1151,7 @@ declare module 'buffer' {
          * @since v5.10.0
          * @return A reference to `buf`.
          */
-        swap32(): BufferModuleInternal;
+        swap32(): Buffer;
         /**
          * Interprets `buf` as an array of 64-bit numbers and swaps byte order _in-place_.
          * Throws `ERR_INVALID_BUFFER_SIZE` if `buf.length` is not a multiple of 8.
@@ -1175,7 +1175,7 @@ declare module 'buffer' {
          * @since v6.3.0
          * @return A reference to `buf`.
          */
-        swap64(): BufferModuleInternal;
+        swap64(): Buffer;
         /**
          * Writes `value` to `buf` at the specified `offset`. `value` must be a
          * valid unsigned 8-bit integer. Behavior is undefined when `value` is anything
