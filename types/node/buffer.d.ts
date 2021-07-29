@@ -163,21 +163,21 @@ declare module 'buffer' {
          * @param encoding encoding to use, optional.  Default is 'utf8'
          * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
          */
-        new (str: string, encoding?: BufferEncoding): BufferModuleInternal;
+        new (str: string, encoding?: BufferEncoding): Buffer;
         /**
          * Allocates a new buffer of {size} octets.
          *
          * @param size count of octets to allocate.
          * @deprecated since v10.0.0 - Use `Buffer.alloc()` instead (also see `Buffer.allocUnsafe()`).
          */
-        new (size: number): BufferModuleInternal;
+        new (size: number): Buffer;
         /**
          * Allocates a new buffer containing the given {array} of octets.
          *
          * @param array The octets to store.
          * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
          */
-        new (array: Uint8Array): BufferModuleInternal;
+        new (array: Uint8Array): Buffer;
         /**
          * Produces a Buffer backed by the same allocated memory as
          * the given {ArrayBuffer}/{SharedArrayBuffer}.
@@ -186,21 +186,21 @@ declare module 'buffer' {
          * @param arrayBuffer The ArrayBuffer with which to share memory.
          * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
          */
-        new (arrayBuffer: ArrayBuffer | SharedArrayBuffer): BufferModuleInternal;
+        new (arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
         /**
          * Allocates a new buffer containing the given {array} of octets.
          *
          * @param array The octets to store.
          * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
          */
-        new (array: ReadonlyArray<any>): BufferModuleInternal;
+        new (array: ReadonlyArray<any>): Buffer;
         /**
          * Copies the passed {buffer} data onto a new {Buffer} instance.
          *
          * @param buffer The buffer to copy.
          * @deprecated since v10.0.0 - Use `Buffer.from(buffer)` instead.
          */
-        new (buffer: BufferModuleInternal): BufferModuleInternal;
+        new (buffer: Buffer): Buffer;
         /**
          * When passed a reference to the .buffer property of a TypedArray instance,
          * the newly created Buffer will share the same allocated memory as the TypedArray.
@@ -209,13 +209,13 @@ declare module 'buffer' {
          *
          * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
          */
-        from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): BufferModuleInternal;
+        from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): Buffer;
         /**
          * Creates a new Buffer using the passed {data}
          * @param data data to create a new Buffer
          */
-        from(data: Uint8Array | ReadonlyArray<number>): BufferModuleInternal;
-        from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): BufferModuleInternal;
+        from(data: Uint8Array | ReadonlyArray<number>): Buffer;
+        from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): Buffer;
         /**
          * Creates a new Buffer containing the given JavaScript string {str}.
          * If provided, the {encoding} parameter identifies the character encoding.
@@ -228,12 +228,12 @@ declare module 'buffer' {
                     [Symbol.toPrimitive](hint: 'string'): string;
                 },
             encoding?: BufferEncoding
-        ): BufferModuleInternal;
+        ): Buffer;
         /**
          * Creates a new Buffer using the passed {data}
          * @param values to create a new Buffer
          */
-        of(...items: number[]): BufferModuleInternal;
+        of(...items: number[]): Buffer;
         /**
          * Returns true if {obj} is a Buffer
          *
@@ -266,7 +266,7 @@ declare module 'buffer' {
          * @param totalLength Total length of the buffers when concatenated.
          *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
          */
-        concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): BufferModuleInternal;
+        concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
         /**
          * The same as buf1.compare(buf2).
          */
@@ -279,21 +279,21 @@ declare module 'buffer' {
          *    If parameter is omitted, buffer will be filled with zeros.
          * @param encoding encoding used for call to buf.fill while initalizing
          */
-        alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): BufferModuleInternal;
+        alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
         /**
          * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
          * of the newly created Buffer are unknown and may contain sensitive data.
          *
          * @param size count of octets to allocate
          */
-        allocUnsafe(size: number): BufferModuleInternal;
+        allocUnsafe(size: number): Buffer;
         /**
          * Allocates a new non-pooled buffer of {size} octets, leaving memory not initialized, so the contents
          * of the newly created Buffer are unknown and may contain sensitive data.
          *
          * @param size count of octets to allocate
          */
-        allocUnsafeSlow(size: number): BufferModuleInternal;
+        allocUnsafeSlow(size: number): Buffer;
         /**
          * This is the number of bytes used to determine the size of pre-allocated, internal Buffer instances used for pooling. This value may be modified.
          */
