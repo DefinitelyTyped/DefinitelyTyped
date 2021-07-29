@@ -49,13 +49,15 @@ table
         table; // $ExpectType VoilabPdfTable<SampleDataType>
         data; // $ExpectType SampleDataType[]
     })
-    .onRowAdd((table, row) => {
+    .onRowAdd((table, row, rowIdx) => {
         table; // $ExpectType VoilabPdfTable<SampleDataType>
         row; // $ExpectType SampleDataType
+        rowIdx; // $ExpectType number
     })
-    .onRowAdded((table, row) => {
+    .onRowAdded((table, row, rowIdx) => {
         table; // $ExpectType VoilabPdfTable<SampleDataType>
         row; // $ExpectType SampleDataType
+        rowIdx; // $ExpectType number
     })
     .onHeaderAdd((table, header) => {
         table; // $ExpectType VoilabPdfTable<SampleDataType>
@@ -114,6 +116,8 @@ table
         column; // $ExpectType VoilabPdfTableColumn<SampleDataType>
     });
 
+table.pdf; // $ExpectType PDFDocument
+
 const fitColumnCfg: PluginFitColumn.VoilabPdfTablePluginFitColumnConf<SampleDataType> = {
     column: 'price',
 };
@@ -144,9 +148,11 @@ table.addColumn({
 
 table.setColumnsDefaults({
     align: 'left',
+    valign: 'center',
     border: 'T',
     header: 'something',
     headerBorder: 'T',
+    headerPadding: [1],
 });
 
 // Make sure we can send headerX
@@ -155,6 +161,14 @@ table.setColumnsDefaults({
     align: 'left',
     border: 'T',
     headerBorder: 'B',
+    headerPadding: [1, 2],
+});
+
+table.setColumnsDefaults({
+    align: 'left',
+    border: 'T',
+    headerBorder: 'B',
+    headerPadding: [1, 2, 3, 4],
 });
 
 table.addColumns([
