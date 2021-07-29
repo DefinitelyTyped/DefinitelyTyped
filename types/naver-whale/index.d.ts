@@ -2,7 +2,7 @@
 // Project: https://developers.whale.naver.com/getting_started/
 // Definitions by: tbvjaos510 <https://github.com/tbvjaos510>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
+// TypeScript Version: 2.7
 
 /// <reference types="chrome" />
 
