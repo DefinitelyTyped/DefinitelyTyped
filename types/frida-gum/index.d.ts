@@ -1695,6 +1695,7 @@ interface CallbackContext {
 }
 
 type Variadic = "...";
+
 type ResolveVariadic<List extends any[]> = List extends [Variadic, ...infer Tail]
     ? [...Array<Tail[0]>]
     : List extends [infer Head, ...infer Tail]
@@ -1702,7 +1703,9 @@ type ResolveVariadic<List extends any[]> = List extends [Variadic, ...infer Tail
     : [];
 
 type RecursiveValuesOf<T> = T[keyof T] | Array<RecursiveValuesOf<T>>;
+
 type RecursiveKeysOf<T> = keyof T | Array<RecursiveKeysOf<T>> | [];
+
 type GetValue<Map, Value, Type, T extends Type> = Type[] extends T
     ? Value
     : T extends keyof Map
@@ -1737,8 +1740,11 @@ type NativeFunctionArgumentTypeMap = BaseNativeTypeMap & {
     uint64: number | UInt64;
     "...": Variadic;
 };
+
 type NativeFunctionArgumentValue = RecursiveValuesOf<NativeFunctionArgumentTypeMap>;
+
 type NativeFunctionArgumentType = RecursiveKeysOf<NativeFunctionArgumentTypeMap>;
+
 type GetNativeFunctionArgumentValue<T extends NativeFunctionArgumentType> = GetValue<
     NativeFunctionArgumentTypeMap,
     NativeFunctionArgumentValue,
@@ -1755,8 +1761,11 @@ type NativeFunctionReturnTypeMap = BaseNativeTypeMap & {
     int64: Int64;
     uint64: UInt64;
 };
+
 type NativeFunctionReturnValue = RecursiveValuesOf<NativeFunctionReturnTypeMap>;
+
 type NativeFunctionReturnType = RecursiveKeysOf<NativeFunctionReturnTypeMap>;
+
 type GetNativeFunctionReturnValue<T extends NativeFunctionReturnType> = GetValue<
     NativeFunctionReturnTypeMap,
     NativeFunctionReturnValue,
@@ -1772,8 +1781,11 @@ type NativeCallbackArgumentTypeMap = BaseNativeTypeMap & {
     int64: Int64;
     uint64: UInt64;
 };
+
 type NativeCallbackArgumentValue = RecursiveValuesOf<NativeCallbackArgumentTypeMap>;
+
 type NativeCallbackArgumentType = RecursiveKeysOf<NativeCallbackArgumentTypeMap>;
+
 type GetNativeCallbackArgumentValue<T extends NativeCallbackArgumentType> = GetValue<
     NativeCallbackArgumentTypeMap,
     NativeCallbackArgumentValue,
@@ -1790,8 +1802,11 @@ type NativeCallbackReturnTypeMap = BaseNativeTypeMap & {
     int64: number | Int64;
     uint64: number | UInt64;
 };
+
 type NativeCallbackReturnValue = RecursiveValuesOf<NativeCallbackReturnTypeMap>;
+
 type NativeCallbackReturnType = RecursiveKeysOf<NativeCallbackReturnTypeMap>;
+
 type GetNativeCallbackReturnValue<T extends NativeCallbackReturnType> = GetValue<
     NativeCallbackReturnTypeMap,
     NativeCallbackReturnValue,
