@@ -661,6 +661,7 @@ export interface UserAliasRequest {
     sourceMpid: string;
     startTime: number;
     endTime: number;
+    scope?: string;
 }
 
 export interface AliasUsersCallback {
