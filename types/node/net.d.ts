@@ -59,8 +59,6 @@ declare module 'net' {
     }
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
     /**
-     * * Extends: `<stream.Duplex>`
-     *
      * This class is an abstraction of a TCP socket or a streaming `IPC` endpoint
      * (uses named pipes on Windows, and Unix domain sockets otherwise). It is also
      * an `EventEmitter`.

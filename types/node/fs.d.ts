@@ -305,8 +305,6 @@ declare module 'fs' {
         prependOnceListener(event: 'close', listener: () => void): this;
     }
     /**
-     * * Extends: `<stream.Readable>`
-     *
      * Instances of `<fs.ReadStream>` are created and returned using the {@link createReadStream} function.
      * @since v0.1.93
      */

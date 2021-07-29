@@ -1170,8 +1170,6 @@ declare module 'http2' {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
     /**
-     * * Extends: `<stream.Readable>`
-     *
      * A `Http2ServerRequest` object is created by {@link Server} or {@link SecureServer} and passed as the first argument to the `'request'` event. It may be used to access a request status,
      * headers, and
      * data.
@@ -1194,7 +1192,7 @@ declare module 'http2' {
         /**
          * See `request.socket`.
          * @since v8.4.0
-         * @deprecated Since v13.0.0 - Deprecated. Use `socket`.
+         * @deprecated Since v13.0.0 - Use `socket`.
          */
         readonly connection: net.Socket | tls.TLSSocket;
         /**
@@ -1417,14 +1415,14 @@ declare module 'http2' {
         /**
          * See `response.socket`.
          * @since v8.4.0
-         * @deprecated Since v13.0.0 - Deprecated. Use `socket`.
+         * @deprecated Since v13.0.0 - Use `socket`.
          */
         readonly connection: net.Socket | tls.TLSSocket;
         /**
          * Boolean value that indicates whether the response has completed. Starts
          * as `false`. After `response.end()` executes, the value will be `true`.
          * @since v8.4.0
-         * @deprecated Since v13.4.0,v12.16.0 - Deprecated. Use `writableEnded`.
+         * @deprecated Since v13.4.0,v12.16.0 - Use `writableEnded`.
          */
         readonly finished: boolean;
         /**
@@ -1437,10 +1435,66 @@ declare module 'http2' {
          * @since v15.7.0
          */
         readonly req: Http2ServerRequest;
+        /**
+         * Returns a `Proxy` object that acts as a `net.Socket` (or `tls.TLSSocket`) but
+         * applies getters, setters, and methods based on HTTP/2 logic.
+         *
+         * `destroyed`, `readable`, and `writable` properties will be retrieved from and
+         * set on `response.stream`.
+         *
+         * `destroy`, `emit`, `end`, `on` and `once` methods will be called on`response.stream`.
+         *
+         * `setTimeout` method will be called on `response.stream.session`.
+         *
+         * `pause`, `read`, `resume`, and `write` will throw an error with code`ERR_HTTP2_NO_SOCKET_MANIPULATION`. See `Http2Session and Sockets` for
+         * more information.
+         *
+         * All other interactions will be routed directly to the socket.
+         *
+         * ```js
+         * const http2 = require('http2');
+         * const server = http2.createServer((req, res) => {
+         *   const ip = req.socket.remoteAddress;
+         *   const port = req.socket.remotePort;
+         *   res.end(`Your IP address is ${ip} and your source port is ${port}.`);
+         * }).listen(3000);
+         * ```
+         * @since v8.4.0
+         */
         readonly socket: net.Socket | tls.TLSSocket;
+        /**
+         * The `Http2Stream` object backing the response.
+         * @since v8.4.0
+         */
         readonly stream: ServerHttp2Stream;
+        /**
+         * When true, the Date header will be automatically generated and sent in
+         * the response if it is not already present in the headers. Defaults to true.
+         *
+         * This should only be disabled for testing; HTTP requires the Date header
+         * in responses.
+         * @since v8.4.0
+         */
         sendDate: boolean;
+        /**
+         * When using implicit headers (not calling `response.writeHead()` explicitly),
+         * this property controls the status code that will be sent to the client when
+         * the headers get flushed.
+         *
+         * ```js
+         * response.statusCode = 404;
+         * ```
+         *
+         * After response header was sent to the client, this property indicates the
+         * status code which was sent out.
+         * @since v8.4.0
+         */
         statusCode: number;
+        /**
+         * Status message is not supported by HTTP/2 (RFC 7540 8.1.2.4). It returns
+         * an empty string.
+         * @since v8.4.0
+         */
         statusMessage: '';
         /**
          * This method adds HTTP trailing headers (a header but at the end of the
