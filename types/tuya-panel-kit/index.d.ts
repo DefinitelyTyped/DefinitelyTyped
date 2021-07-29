@@ -2325,7 +2325,7 @@ export const GlobalToast: {
 };
 
 // IconFont
-type IconFontName =
+export type IconFontName =
     | 0
     | 1
     | 2
@@ -3583,12 +3583,12 @@ export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 
     dividerColor?: string | undefined;
     /**
      * @language zh-CN
-     * @description 可视区域项目个数
+     * @description 可视区域项目个数（仅安卓）
      * @defaultValue 8
      */
     /**
      * @language en-US
-     * @description The number of items in the visible area
+     * @description The number of items in the visible area(Android only)
      * @defaultValue 8
      */
     visibleItemCount?: number | undefined;
@@ -3648,6 +3648,58 @@ export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 
      * @description Theme configuration
      * @defaultValue {}
      */
+    /**
+     * @language zh-CN
+     * @description 是否使用 App 3.28.0 支持的插件 Picker
+     * @defaultValue false
+     * @platform IOS only
+     */
+    /**
+     * @language en-US
+     * @description Whether to use the plugin Picker supported by App 3.28.0
+     * @defaultValue false
+     * @platform IOS only
+     */
+    useTYRCTPicker?: boolean;
+    /**
+      * @language zh-CN
+      * @description 字体粗细
+      * @defaultValue 'normal'
+      * @platform IOS only
+      */
+    /**
+      * @language en-US
+      * @description font weight
+      * @defaultValue 'normal'
+      * @platform IOS only
+      */
+    fontWeight?: string;
+    /**
+      * @language zh-CN
+      * @description 文本上下边界大小
+      * @defaultValue 14
+      * @platform IOS only
+      */
+    /**
+      * @language en-US
+      * @description 文本上下边界大小
+      * @defaultValue 14
+      * @platform IOS only
+      */
+    itemPadding?: number;
+    /**
+      * @language zh-CN
+      * @description 字体
+      * @defaultValue 'DIN Alternate'
+      * @platform IOS only
+      */
+    /**
+      * @language en-US
+      * @description fontFamily
+      * @defaultValue 'DIN Alternate'
+      * @platform IOS only
+      */
+    fontFamily?: 'DIN Alternate' | 'Times New Roman' | 'PingFangHK-Regular' | 'PingFangHK-Medium' | string;
     theme?: {
         fontSize?: number | undefined;
         fontColor?: string | undefined;
@@ -3931,6 +3983,17 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
     showBack?: boolean | undefined;
     /**
      * @language zh-CN
+     * @description 是否显示头部栏与内容框的分割线
+     * @defaultValue true
+     */
+    /**
+     * @language en-US
+     * @description Whether to show the split line between the header bar and the content box
+     * @defaultValue true
+     */
+    showTitleDivider?: boolean | undefined;
+    /**
+     * @language zh-CN
      * @description 遮罩层点击
      * @defaultValue () => {}
      */
@@ -4177,13 +4240,13 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
     /**
      * @language zh-CN
      * @description 各部分的样式
-     * @types <a href="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2969">styles</a>
+     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2969">styles</a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Style of each part
-     * @types <a href="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2969">styles</a>
+     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2969">styles</a>
      * @defaultValue {}
      */
     styles?: {
@@ -6282,6 +6345,43 @@ export interface SliderProps {
      * @defaultValue normal
      */
     type?: 'normal' | 'parcel' | undefined;
+        /**
+     * @language zh-CN
+     * @description 是否使用刻度
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description Whether to use the scale
+     * @defaultValue false
+     */
+    useNoun?: boolean | undefined;
+    /**
+      * @language zh-CN
+      * @description 大于当前值的刻度样式
+      * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+      * @defaultValue null
+      */
+    /**
+      * @language en-US
+      * @description Scale style greater than the current value
+      * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+      * @defaultValue null
+      */
+    maxNounStyle?: StyleProp<ViewStyle> | undefined;
+    /**
+      * @language zh-CN
+      * @description 小于当前值的刻度样式
+      * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+      * @defaultValue null
+      */
+    /**
+      * @language en-US
+      * @description Scale style less than current value
+      * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+      * @defaultValue null
+      */
+    minNounStyle?: StyleProp<ViewStyle> | undefined;
 }
 export class Slider extends React.Component<SliderProps> {
     static Horizontal: React.ElementType<SliderProps>;
@@ -6442,108 +6542,306 @@ export class SliderProgress extends React.Component<SliderProgressProps> {}
 export interface SliderWithLineProps {
     /**
      * @language zh-CN
-     * @description 内容样式
+     * @description 刻度滑动条样式
      * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
-     * @defaultValue {}
+     * @defaultValue null
      */
     /**
      * @language en-US
-     * @description Container Style
+     * @description Scale slider style
      * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
-     * @defaultValue {}
+     * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
-     * @description 左边和右边的值
-     * @defaultValue [0, 50]
+     * @description 最大具体值
+     * @defaultValue 50
      */
     /**
      * @language en-US
-     * @description Container Style
-     * @defaultValue [0, 50]
+     * @description Maximum specific value
+     * @defaultValue 50
      */
-    values?: number[] | undefined;
+    maxValue?: number | undefined;
     /**
      * @language zh-CN
-     * @description 激活状态的颜色
-     * @defaultValue 'blue'
+     * @description 最小具体值
+     * @defaultValue 0
      */
     /**
      * @language en-US
-     * @description color of active state
-     * @defaultValue 'blue'
+     * @description Minimum specific value
+     * @defaultValue 0
      */
-    activeColor?: string | undefined;
+    minValue?: number | undefined;
     /**
      * @language zh-CN
-     * @description 激活状态的颜色
+     * @description 是否为水平方向
+     * @defaultValue true
+     */
+    /**
+     * @language en-US
+     * @description Whether it is horizontal direction
+     * @defaultValue true
+     */
+    horizontal?: boolean | undefined;
+    /**
+     * @language zh-CN
+     * @description 步长
+     * @defaultValue 0
+     */
+    /**
+     * @language en-US
+     * @description step value
+     * @defaultValue 0
+     */
+    stepValue?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 触摸轨道是否可以更改值
+     * @defaultValue true
+     */
+    /**
+     * @language en-US
+     * @description Whether the value can be changed by touching the track
+     * @defaultValue true
+     */
+    canTouchTrack?: boolean | undefined;
+    /**
+     * @language zh-CN
+     * @description 刻度宽度
+     * @defaultValue cx(1)
+     */
+    /**
+     * @language en-US
+     * @description Scale width
+     * @defaultValue cx(1)
+     */
+    nounWidth?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 刻度高度
+     * @defaultValue cx(14)
+     */
+    /**
+     * @language en-US
+     * @description Scale height
+     * @defaultValue cx(14)
+     */
+    nounHeight?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 刻度圆角
+     * @defaultValue cx(0.5)
+     */
+    /**
+     * @language en-US
+     * @description Graduated rounded corners
+     * @defaultValue cx(0.5)
+     */
+    nounRadius?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 刻度 && 文字颜色
+     * @defaultValue '#000'
+     */
+    /**
+     * @language en-US
+     * @description Scale && Text color
+     * @defaultValue '#000'
+     */
+    nounColor?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 文字大小
+     * @defaultValue cx(12)
+     */
+    /**
+     * @language en-US
+     * @description fontSize
+     * @defaultValue cx(12)
+     */
+    fontSize?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动条宽度
+     * @defaultValue cx(327)
+     */
+    /**
+     * @language en-US
+     * @description Slider width
+     * @defaultValue cx(327)
+     */
+    width?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动条高度
+     * @defaultValue cx(60)
+     */
+    /**
+     * @language en-US
+     * @description Slider height
+     * @defaultValue cx(60)
+     */
+    height?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动条圆角
+     * @defaultValue cx(16)
+     */
+    /**
+     * @language en-US
+     * @description Slider rounded corners
+     * @defaultValue cx(16)
+     */
+    borderRadius?: number | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动条背景色
+     * @defaultValue '#FFF'
+     */
+    /**
+     * @language en-US
+     * @description Slider background color
+     * @defaultValue '#FFF'
+     */
+    backgroundColor?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动条激活背景色
+     * @defaultValue '#57BCFB'
+     */
+    /**
+     * @language en-US
+     * @description Slider to activate background color
+     * @defaultValue '#57BCFB'
+     */
+    activeBackgroundColor?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 刻度数量
+     * @defaultValue 9
+     */
+    /**
+     * @language en-US
+     * @description Number of scales
+     * @defaultValue 9
+     */
+    nounNumber?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动开始文案
+     * @defaultValue '0%'
+     */
+    /**
+     * @language en-US
+     * @description Slide to start copywriting
+     * @defaultValue '0%'
+     */
+    startText?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 滑动结束文案
+     * @defaultValue '100%'
+     */
+    /**
+     * @language en-US
+     * @description Sliding End Copy
+     * @defaultValue '100%'
+     */
+    endText?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 激活刻度 && 文字颜色
+     * @defaultValue '#FFF'
+     */
+    /**
+     * @language en-US
+     * @description Activate scale && text color
+     * @defaultValue '#FFF'
+     */
+    activeNounColor?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 禁用滑动条滑动
      * @defaultValue false
      */
     /**
      * @language en-US
-     * @description color of active state
+     * @description Disable slider sliding
      * @defaultValue false
      */
     disabled?: boolean | undefined;
     /**
-     * @language zh-CN
+     * @language zh-CN
      * @description 最小值
-     * @defaultValue 10
+     * @defaultValue 0
      */
     /**
      * @language en-US
      * @description min value
-     * @defaultValue 10
+     * @defaultValue 0
      */
     min?: number | undefined;
     /**
      * @language zh-CN
      * @description 最大值
-     * @defaultValue 1000
+     * @defaultValue 100
      */
     /**
      * @language en-US
      * @description max value
-     * @defaultValue 1000
+     * @defaultValue 100
      */
     max?: number | undefined;
     /**
      * @language zh-CN
-     * @description minValue 的百分比范围
+     * @description 开始滑动回调
      * @defaultValue null
      */
     /**
      * @language en-US
-     * @description percent range of minValue
+     * @description Start sliding callback
      * @defaultValue null
      */
-    minValuePercentRange?: any;
+    onSlidingStart?: ((result?: { minValue?: number; maxValue?: number }) => void) | undefined;
     /**
      * @language zh-CN
-     * @description maxValue 的百分比范围
+     * @description 滑动过程中回调
      * @defaultValue null
      */
     /**
      * @language en-US
-     * @description percent range of maxValue
+     * @description Callback during sliding
      * @defaultValue null
      */
-    maxValuePercentRange?: any;
+    onValueChange?: ((result?: { minValue?: number; maxValue?: number }) => void) | undefined;
+    /**
+     * @language zh-CN
+     * @description 结束滑动回调
+     * @defaultValue null
+     */
+    /**
+     * @language en-US
+     * @description End slide callback
+     * @defaultValue null
+     */
+    onSlidingComplete?: ((result?: { minValue?: number; maxValue?: number }) => void) | undefined;
     /**
      * @language zh-CN
      * @description 禁用 minValue 调节
-     * @defaultValue false
+     * @defaultValue true
      */
     /**
      * @language en-US
      * @description Disable minValue adjustment
-     * @defaultValue false
+     * @defaultValue true
      */
     minDisabled?: boolean | undefined;
     /**
      * @language zh-CN
-     * @description 禁用 minValue 调节
+     * @description 禁用 maxValue 调节
      * @defaultValue false
      */
     /**
@@ -6918,26 +7216,26 @@ export interface SwipeoutProps {
     /**
      * @language zh-CN
      * @description 往左滑出现的按钮
-     * @types <a href='_target' href='https://github.com/tuya/DefinitelyTyped/blob/master/types/tuya-panel-kit/index.d.ts#L2536'>SwipeoutAction[]</a>
+     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/master/types/tuya-panel-kit/index.d.ts#L2536'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Swipeout buttons on the left.
-     * @types <a href='_target' href='https://github.com/tuya/DefinitelyTyped/blob/master/types/tuya-panel-kit/index.d.ts#L2536'>SwipeoutAction[]</a>
+     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/master/types/tuya-panel-kit/index.d.ts#L2536'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     left?: SwipeoutAction[] | undefined;
     /**
      * @language zh-CN
      * @description 往右滑出现的按钮
-     * @types <a href='_target' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L6245'>SwipeoutAction[]</a>
+     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L6245'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Swipeout buttons on the right.
-     * @types <a href='_target' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L6245'>SwipeoutAction[]</a>
+     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L6245'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     right?: SwipeoutAction[] | undefined;
@@ -10450,14 +10748,49 @@ export interface UnitTextProps {
 }
 export class UnitText extends React.Component<UnitTextProps, ViewProps> {}
 
-// i18n
-export class I18N {
-    constructor(...args: any[]);
-    language: string;
-    getDpLang: (code: string, value?: string | boolean) => string;
-    getLang: (key: string, defaultString?: string) => string;
+export interface StringType {
+    [key: string]: string;
+}
+// i18n core
+declare class I18NCore<LanMap extends I18NLanMap, Lan extends LanMap[keyof LanMap] = LanMap[keyof LanMap]> {
+    constructor(config: LanMap);
+    strings: LanMap;
+    getLang: (key: keyof Lan, defaultString?: string) => string;
+    getDpLang: (code: string, value?: DpValue) => string;
+    /**
+     * @param strings
+     * @param force false
+     */
+    applyStrings(strings: Lan, force?: boolean): void;
+    forceUpdateNetworkLang(productId: string): void;
+    mergeLanguage(L1: LanMap, L2: LanMap): LanMap;
+    setLanguage(language: string): void;
+    buildLanguage(language: string): void;
+    formatString(str: string, ...values: string[]): string;
+    formatValue(key: keyof Lan, ...values: string[]): string;
+    getDpName(code: string, defaultName?: string): string;
+    getDpsLang(key: keyof Lan): {};
+    /**
+     *  开关倒计时转换为文案 time => 设备将在xxx后 关闭／开启
+     *  精确到分钟
+     * @param t 倒计时剩余(秒)
+     * @param power 设备当前的开关状态 (如果当前设备为开启状态， 则倒计时显示为关闭)
+     */
+    parseCountdown(t: number, power: boolean): string;
+    /**
+     * 获取 picker 标题
+     * @param dpCode
+     */
     getRangeStrings: (dpCode: string) => Record<string, string>;
-    getFaultStrings: (faultCode: string, faultValue: string, onlyPrior: boolean) => string;
+}
+
+// i18n wrapper
+export class I18N<LanMap extends I18NLanMap, Lan extends LanMap[keyof LanMap] = LanMap[keyof LanMap]> extends I18NCore<
+    LanMap,
+    Lan
+> {
+    getRangeStrings: (dpCode: string) => Record<string, string>;
+    getFaultStrings: (faultCode: string, faultValue: string, onlyPrior?: boolean | undefined) => string;
 }
 
 export interface ThemeProps {
@@ -10929,6 +11262,7 @@ export type GotoDpAlarmData = Array<{
 
 export const TransitionPresets: {
     SlideFromRightIOS: TransitionPreset;
+    ModalPresentationDarkThemeIOS: TransitionPreset;
     ModalSlideFromBottomIOS: TransitionPreset;
     ModalPresentationIOS: TransitionPreset;
     FadeFromBottomAndroid: TransitionPreset;
@@ -10939,41 +11273,7 @@ export const TransitionPresets: {
     SlideFromRightWithMargin: TransitionPreset;
 };
 
-export interface StringType {
-    [key: string]: string;
-}
-export let Strings: {
-    /**
-     * @param strings
-     * @param force false
-     */
-    applyStrings: (
-        strings: {
-            [key: string]: StringType;
-        },
-        force?: boolean,
-    ) => void;
-    setLanguage: (language: string) => void;
-    buildLanguage: (language: string) => void;
-    formatString: (str: string, ...args: string[]) => string;
-    formatValue: (key: string, value: string | number) => string;
-    getDpLang: (code: string, value?: boolean | string) => string;
-    getDpName: (code: string, defaultName?: string) => string;
-    getDpsLang: (key: string) => { [key: string]: string };
-    getLang: (key: string, defaultString?: string) => string;
-    /**
-     * 获取 picker 标题
-     * @param dpCode
-     */
-    getRangeStrings: (dpCode: string | number) => string;
-    /**
-     *  开关倒计时转换为文案 time => 设备将在xxx后 关闭／开启
-     *  精确到分钟
-     * @param t 倒计时剩余(秒)
-     * @param power 设备当前的开关状态 (如果当前设备为开启状态， 则倒计时显示为关闭)
-     */
-    parseCountdown: (t: number, power: 'on' | 'off') => string;
-};
+export let Strings: InstanceType<typeof I18NCore>;
 
 export let TYSdk: {
     DeviceEventEmitter: {
