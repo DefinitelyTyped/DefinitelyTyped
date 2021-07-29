@@ -4671,7 +4671,6 @@ declare namespace Xrm {
             viewType?: "savedquery" | "userquery" | undefined;
         }
 
-
         interface CustomPage {
             pageType: "custom";
             /**
