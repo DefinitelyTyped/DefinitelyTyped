@@ -3387,7 +3387,7 @@ declare module 'fs' {
      * @since v0.1.31
      * @return See `Readable Stream`.
      */
-    export function createReadStream(path: PathLike, options?: string | ReadStreamOptions): ReadStream;
+    export function createReadStream(path: PathLike, options?: BufferEncoding | ReadStreamOptions): ReadStream;
     /**
      * `options` may also include a `start` option to allow writing data at some
      * position past the beginning of the file, allowed values are in the
@@ -3415,7 +3415,7 @@ declare module 'fs' {
      * @since v0.1.31
      * @return See `Writable Stream`.
      */
-    export function createWriteStream(path: PathLike, options?: string | StreamOptions): WriteStream;
+    export function createWriteStream(path: PathLike, options?: BufferEncoding | StreamOptions): WriteStream;
     /**
      * Forces all currently queued I/O operations associated with the file to the
      * operating system's synchronized I/O completion state. Refer to the POSIX[`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. No arguments other
