@@ -26,6 +26,8 @@ interface Buffer {
     compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
+    subarray(start?: number, end?: number): Buffer;
+    reverse(): this;
     writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
     writeUIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
     writeIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
@@ -48,6 +50,10 @@ interface Buffer {
     readFloatBE(offset: number, noAssert?: boolean): number;
     readDoubleLE(offset: number, noAssert?: boolean): number;
     readDoubleBE(offset: number, noAssert?: boolean): number;
+    readBigUInt64BE(offset?: number): bigint;
+    readBigUInt64LE(offset?: number): bigint;
+    readBigInt64BE(offset?: number): bigint;
+    readBigInt64LE(offset?: number): bigint;
     swap16(): Buffer;
     swap32(): Buffer;
     swap64(): Buffer;
@@ -65,6 +71,10 @@ interface Buffer {
     writeFloatBE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
+    writeBigInt64BE(value: bigint, offset?: number): number;
+    writeBigInt64LE(value: bigint, offset?: number): number;
+    writeBigUInt64BE(value: bigint, offset?: number): number;
+    writeBigUInt64LE(value: bigint, offset?: number): number;
     fill(value: any, offset?: number, end?: number): this;
     indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
     lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
