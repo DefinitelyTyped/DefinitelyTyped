@@ -3,7 +3,7 @@
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
+// Minimum TypeScript Version: 3.7
 /// <reference path="lib/IClauseFrom.d.ts" />
 /// <reference path="lib/IClauseJoin.d.ts" />
 /// <reference path="lib/IClauseSelect.d.ts" />

@@ -3,7 +3,7 @@
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
+// Minimum TypeScript Version: 3.7
 /// <reference path="lib/Entity.d.ts" />
 /// <reference path="lib/EntityError.d.ts" />
 /// <reference path="lib/EntityKey.d.ts" />
