@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ReactCreateElementParam, FCReturn, FCProps } from "../../../typings/shared";
+import { ReactCreateElementParam, FCReturn, FCProps, ReactAttr } from "../../../typings/shared";
 
-export interface ContentPropsBase {
+export interface ContentPropsBase extends ReactAttr {
     className?: string | undefined,
     children?: React.ReactNode | undefined,
     tagName?: ReactCreateElementParam | undefined,
