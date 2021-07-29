@@ -17,7 +17,7 @@
 //                 Idan Zeierman <https://github.com/idan315>
 //                 Nicolas Rodriguez <https://github.com/nicolas377>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 4.3.5
 
 /// <reference types="filesystem" />
 /// <reference path="./har-format/index.d.ts" />
