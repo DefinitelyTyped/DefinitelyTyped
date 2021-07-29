@@ -395,6 +395,15 @@ export class ObjectId {
      * @return {string} return the 12 byte id binary string.
      */
     static generate(time?: number): Buffer;
+
+    /**
+     * Converts the id into a 24 character hex string for printing
+     *
+     * @param format - The Buffer toString format parameter.
+     * @internal
+     */
+    toString(format?: string): string;
+
     /**
      * Returns the generation date (accurate up to the second) that this ID was generated.
      * @return {Date} the generation date
