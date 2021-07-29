@@ -3,7 +3,7 @@
 // Definitions by: Thomas Stig Jacobsen <https://github.com/eXeDK>
 //                 Stefan Ullinger <https://github.com/stefanullinger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3.5
+// TypeScript Version: 4.3
 
 ////////////////////
 // Cast

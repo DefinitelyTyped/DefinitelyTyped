@@ -2,7 +2,7 @@
 // Project: https://developers.google.com/cast/docs/caf_receiver_overview
 // Definitions by: Samuel Maddock <https://github.com/samuelmaddock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3.5
+// TypeScript Version: 4.3
 
 /// <reference types="chrome/chrome-cast" />
 

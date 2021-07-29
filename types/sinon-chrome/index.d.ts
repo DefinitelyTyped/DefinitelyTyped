@@ -4,7 +4,7 @@
 //                 CRIMX <https://github.com/crimx>
 //                 kobanyan <https://github.com/kobanyan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3.5
+// TypeScript Version: 4.3
 
 /// <reference types="chrome"/>
 /// <reference types="sinon"/>
