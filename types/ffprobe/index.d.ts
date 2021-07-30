@@ -101,7 +101,7 @@ declare namespace getInfo {
 declare function getInfo(
     filePath: string,
     options: getInfo.Options,
-    cb: (err: Error, info: getInfo.FFProbeResult) => void,
+    cb: (err: Error | null, info?: getInfo.FFProbeResult) => void,
 ): void;
 
 declare function getInfo(filePath: string, options: getInfo.Options): Promise<getInfo.FFProbeResult>;

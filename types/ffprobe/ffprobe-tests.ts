@@ -12,7 +12,7 @@ ffprobe('./file.mp4', { path: ffprobeStatic.path }, (err, info) => {
     if (err) {
         err; // $ExpectType Error
     } else {
-        info; // $ExpectType FFProbeResult
+        info; // $ExpectType FFProbeResult | undefined
     }
 });
 (async () => {
