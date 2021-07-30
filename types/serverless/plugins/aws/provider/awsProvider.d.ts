@@ -102,6 +102,7 @@ declare namespace Aws {
         maxPreviousDeploymentArtifacts?: number | string | undefined;
         blockPublicAccess?: boolean | undefined;
         serverSideEncryption?: string | undefined;
+        skipPolicySetup?: boolean | undefined;
         sseKMSKeyId?: string | undefined;
         sseCustomerAlgorithim?: string | undefined;
         sseCustomerKey?: string | undefined;
