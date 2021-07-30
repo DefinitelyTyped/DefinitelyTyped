@@ -29,10 +29,21 @@ declare class Modal extends BaseComponent {
     handleUpdate(): void;
 
     /**
+     * Destroys an element's modal. (Removes stored data on the DOM element)
+     */
+    dispose(): void;
+
+     /**
      * Static method which allows you to get the modal instance associated with
      * a DOM element
      */
     static getInstance(element: Element, options?: Partial<Modal.Options>): Modal | null;
+
+     /**
+      * Static method which allows you to get the modal instance associated with
+      * a DOM element, or create a new one in case it wasn’t initialised
+     */
+    static getOrCreateInstance(element: Element, options?: Partial<Modal.Options>): Modal | null;
 
     static jQueryInterface: Modal.jQueryInterface;
 

@@ -24,13 +24,26 @@ declare class Dropdown extends BaseComponent {
      */
     update(): void;
 
+
     /**
+     * Destroys an element's dropdown. (Removes stored data on the DOM element)
+     */
+     dispose(): void;
+
+     /**
      * Static method which allows you to get the dropdown instance associated
      * with a DOM element.
      */
     static getInstance(element: Element, options?: Partial<Dropdown.Options>): Dropdown | null;
 
-    static jQueryInterface: Dropdown.jQueryInterface;
+     /**
+      * Static method which returns a dropdown instance associated to a DOM element or
+      *  create a new one in case it wasn't initialised. 
+      * You can use it like this: bootstrap.Dropdown.getOrCreateInstance(element)
+     */
+    static getOrCreateInstance(element: Element, options?: Partial<Dropdown.Options>): Dropdown | null;
+
+      static jQueryInterface: Dropdown.jQueryInterface;
 
     // static NAME: 'dropdown';
 

@@ -28,6 +28,14 @@ declare class Tooltip extends BaseComponent {
     toggle(event?: any): void;
 
     /**
+     * Hides and destroys an element’s tooltip (Removes stored data on 
+     * the DOM element). Tooltips that use delegation (which are created 
+     * using the selector option) cannot be individually destroyed on 
+     * descendant trigger elements.
+     */
+    dispose(): void;
+
+    /**
      * Gives an element’s tooltip the ability to be shown. Tooltips are
      * enabled by default.
      */
@@ -54,6 +62,12 @@ declare class Tooltip extends BaseComponent {
      * with a DOM element
      */
     static getInstance(element: Element): Tooltip | null;
+
+    /**
+     * Static method which allows you to get the tooltip instance associated with 
+     * a DOM element, or create a new one in case it wasn’t initialised
+     */
+    static getOrCreateInstance(element: Element): Tooltip | null;
 
     static jQueryInterface: Tooltip.jQueryInterface;
 

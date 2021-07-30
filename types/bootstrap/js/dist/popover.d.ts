@@ -30,6 +30,13 @@ declare class Popover extends BaseComponent {
     toggle(): void;
 
     /**
+     * Hides and destroys an element’s popover (Removes stored data on the DOM element). 
+     * Popovers that use delegation (which are created using the selector option) cannot 
+     * be individually destroyed on descendant trigger elements.
+     */
+    dispose(): void;
+
+    /**
      * Gives an element’s popover the ability to be shown. Popovers are
      * enabled by default.
      */
@@ -57,7 +64,13 @@ declare class Popover extends BaseComponent {
      */
     static getInstance(element: Element, options?: Partial<Popover.Options>): Popover | null;
 
-    static jQueryInterface: Popover.jQueryInterface;
+    /**
+     * Static method which allows you to get the popover instance associated with
+     *  a DOM element, or create a new one in case it wasn’t initialised
+     */
+     static getOrCreateInstance(element: Element, options?: Partial<Popover.Options>): Popover | null;
+
+     static jQueryInterface: Popover.jQueryInterface;
 
     static NAME: "popover";
 

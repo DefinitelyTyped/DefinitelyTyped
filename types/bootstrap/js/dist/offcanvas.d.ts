@@ -13,13 +13,19 @@ declare class Offcanvas extends BaseComponent {
      */
     static getInstance(element: Element): Offcanvas | null;
 
-    static jQueryInterface: Offcanvas.jQueryInterface;
+    /**
+     * Static method which allows you to get the offcanvas instance associated with
+     *  a DOM element, or create a new one in case it wasn’t initialised
+     */
+    static getOrCreateInstance(element: Element): Offcanvas | null;
+
+     static jQueryInterface: Offcanvas.jQueryInterface;
 
     // static NAME: 'offcanvas';
 }
 
 declare namespace Offcanvas {
-    type jQueryInterface = (config?: "toggle" | "show" | "hide" | "dispose") => void;
+    type jQueryInterface = (config?: "toggle" | "show" | "hide") => void;
 
     enum Events {
         show = "show.bs.offcanvas",

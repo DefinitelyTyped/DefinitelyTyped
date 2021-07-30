@@ -40,10 +40,22 @@ declare class Carousel extends BaseComponent {
     to(index: number): void;
 
     /**
+     * Destroys an element's carousel. (Removes stored data on the DOM element)
+     */
+     dispose(): void;
+
+     /**
      * Static method which allows you to get the carousel instance associated
      * with a DOM element.
      */
     static getInstance(element: Element, options?: Partial<Carousel.Options>): Carousel | null;
+
+    /**
+     * Static method which returns a carousel instance associated to a DOM element
+     *  or create a new one in case it wasn't initialised.
+     * You can use it like this: bootstrap.Carousel.getOrCreateInstance(element)
+     */
+     static getOrCreateInstance(element: Element, options?: Partial<Carousel.Options>): Carousel | null;
 
     static jQueryInterface: Carousel.jQueryInterface;
 
