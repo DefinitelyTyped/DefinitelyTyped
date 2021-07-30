@@ -266,12 +266,12 @@ export interface RawSourceMap {
  * Used to implement the `SourceMap` class.
  */
 export interface LineMap {
-  columns: {
+  columns: Array<{
     column: number;
     line: number;
     sourceColumn: number;
     sourceLine: number;
-  };
+  }>;
   line: number;
   /**
    * Add source location data to line map.
