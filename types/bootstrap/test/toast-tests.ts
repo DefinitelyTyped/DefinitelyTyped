@@ -8,7 +8,7 @@ new Toast(element, { animation: false });
 
 // $ExpectType Toast | null
 Toast.getInstance(element);
-// $ExpectType Toast
+// $ExpectType Toast | null
 Toast.getOrCreateInstance(element);
 
 // $ExpectType string
