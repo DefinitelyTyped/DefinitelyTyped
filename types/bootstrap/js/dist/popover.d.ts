@@ -1,6 +1,6 @@
-import * as Popper from "@popperjs/core";
-import BaseComponent from "./base-component";
-import Tooltip from "./tooltip";
+import * as Popper from '@popperjs/core';
+import BaseComponent from './base-component';
+import Tooltip from './tooltip';
 
 declare class Popover extends BaseComponent {
     constructor(element: string | Element, options?: Partial<Popover.Options>);
@@ -61,11 +61,11 @@ declare class Popover extends BaseComponent {
      * Static method which allows you to get the popover instance associated with
      *  a DOM element, or create a new one in case it wasn’t initialised
      */
-     static getOrCreateInstance(element: Element, options?: Partial<Popover.Options>): Popover | null;
+    static getOrCreateInstance(element: Element, options?: Partial<Popover.Options>): Popover | null;
 
-     static jQueryInterface: Popover.jQueryInterface;
+    static jQueryInterface: Popover.jQueryInterface;
 
-    static NAME: "popover";
+    static NAME: 'popover';
 
     /**
      * Default settings of this plugin
@@ -81,16 +81,16 @@ declare class Popover extends BaseComponent {
     static DefaultType: Record<keyof Popover.Options, string>;
 
     static Event: Record<
-        | "CLICK"
-        | "FOCUSIN"
-        | "FOCUSOUT"
-        | "HIDDEN"
-        | "HIDE"
-        | "INSERTED"
-        | "MOUSEENTER"
-        | "MOUSELEAVE"
-        | "SHOW"
-        | "SHOWN",
+        | 'CLICK'
+        | 'FOCUSIN'
+        | 'FOCUSOUT'
+        | 'HIDDEN'
+        | 'HIDE'
+        | 'INSERTED'
+        | 'MOUSEENTER'
+        | 'MOUSELEAVE'
+        | 'SHOW'
+        | 'SHOWN',
         string
     >;
 }
@@ -100,36 +100,36 @@ declare namespace Popover {
         /**
          * This event fires immediately when the show instance method is called.
          */
-        show = "show.bs.popover",
+        show = 'show.bs.popover',
 
         /**
          * This event is fired when the popover has been made visible to the
          * user (will wait for CSS transitions to complete).
          */
-        shown = "shown.bs.popover",
+        shown = 'shown.bs.popover',
 
         /**
          * This event is fired immediately when the hide instance method has
          * been called.
          */
-        hide = "hide.bs.popover",
+        hide = 'hide.bs.popover',
 
         /**
          * This event is fired when the popover has finished being hidden from
          * the user (will wait for CSS transitions to complete).
          */
-        hidden = "hidden.bs.popover",
+        hidden = 'hidden.bs.popover',
 
         /**
          * This event is fired after the show.bs.popover event when the popover
          * template has been added to the DOM.
          */
-        inserted = "inserted.bs.popover",
+        inserted = 'inserted.bs.popover',
     }
 
     type PopperConfigFunction = (defaultBsPopperConfig: Options) => Partial<Options>;
 
-    interface Options extends Omit<Tooltip.Options, "popperConfig"> {
+    interface Options extends Omit<Tooltip.Options, 'popperConfig'> {
         /**
          * Default content value if data-content attribute isn't present.
          *
@@ -158,14 +158,14 @@ declare namespace Popover {
     type jQueryInterface = (
         config?:
             | Partial<Options>
-            | "show"
-            | "hide"
-            | "toggle"
-            | "enable"
-            | "disable"
-            | "toggleEnable"
-            | "update"
-            | "dispose",
+            | 'show'
+            | 'hide'
+            | 'toggle'
+            | 'enable'
+            | 'disable'
+            | 'toggleEnable'
+            | 'update'
+            | 'dispose',
     ) => void;
 }
 

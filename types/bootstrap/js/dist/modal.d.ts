@@ -28,15 +28,15 @@ declare class Modal extends BaseComponent {
      */
     handleUpdate(): void;
 
-     /**
+    /**
      * Static method which allows you to get the modal instance associated with
      * a DOM element
      */
     static getInstance(element: Element, options?: Partial<Modal.Options>): Modal | null;
 
-     /**
-      * Static method which allows you to get the modal instance associated with
-      * a DOM element, or create a new one in case it wasn’t initialised
+    /**
+     * Static method which allows you to get the modal instance associated with
+     * a DOM element, or create a new one in case it wasn’t initialised
      */
     static getOrCreateInstance(element: Element, options?: Partial<Modal.Options>): Modal | null;
 

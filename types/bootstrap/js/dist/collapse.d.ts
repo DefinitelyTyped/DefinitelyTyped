@@ -34,12 +34,12 @@ declare class Collapse extends BaseComponent {
 
     /**
      * Static method which returns a collapse instance associated to a DOM element
-     *  or create a new one in case it wasn't initialised. 
+     *  or create a new one in case it wasn't initialised.
      * You can use it like this: bootstrap.Collapse.getOrCreateInstance(element)
      */
-     static getOrCreateInstance(element: Element, options?: Partial<Collapse.Options>): Collapse | null;
+    static getOrCreateInstance(element: Element, options?: Partial<Collapse.Options>): Collapse | null;
 
-     static jQueryInterface: Collapse.jQueryInterface;
+    static jQueryInterface: Collapse.jQueryInterface;
 
     // static NAME: 'collapse';
 

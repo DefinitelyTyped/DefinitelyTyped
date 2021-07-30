@@ -17,12 +17,12 @@ declare class ScrollSpy extends BaseComponent {
     static getInstance(element: Element, options?: Partial<ScrollSpy.Options>): ScrollSpy | null;
 
     /**
-     * Static method which allows you to get the scrollspy instance associated with 
+     * Static method which allows you to get the scrollspy instance associated with
      * a DOM element, or create a new one in case it wasn’t initialised
      */
-     static getOrCreateInstance(element: Element, options?: Partial<ScrollSpy.Options>): ScrollSpy | null;
+    static getOrCreateInstance(element: Element, options?: Partial<ScrollSpy.Options>): ScrollSpy | null;
 
-     static jQueryInterface: ScrollSpy.jQueryInterface;
+    static jQueryInterface: ScrollSpy.jQueryInterface;
 
     // static NAME: 'scrollspy';
 

@@ -1,7 +1,7 @@
-import BaseComponent from "./base-component";
+import BaseComponent from './base-component';
 
 declare class Alert extends BaseComponent {
-    static NAME: "alert";
+    static NAME: 'alert';
     static jQueryInterface: Alert.jQueryInterface;
 
     /**
@@ -9,17 +9,17 @@ declare class Alert extends BaseComponent {
      * classes are present on the element, the alert will fade out before it
      * is removed.
      */
-     close(): void;
+    close(): void;
 
-     /**
+    /**
      * Static method which allows you to get the alert instance associated to a
      * DOM element, you can use it like this: getInstance(alert)
      */
     static getInstance(element: Element): Alert | null;
 
     /**
-     * Static method which returns an alert instance associated to a DOM element 
-     *  or create a new one in case it wasn't initialised. 
+     * Static method which returns an alert instance associated to a DOM element
+     *  or create a new one in case it wasn't initialised.
      * You can use it like this: bootstrap.Alert.getOrCreateInstance(element)
      */
     static getOrCreateInstance(element: Element): Alert | null;
@@ -30,16 +30,16 @@ declare namespace Alert {
         /**
          * Fires immediately when the close instance method is called.
          */
-        close = "close.bs.alert",
+        close = 'close.bs.alert',
 
         /**
          * Fired when the alert has been closed and CSS transitions have
          * completed.
          */
-        closed = "closed.bs.alert",
+        closed = 'closed.bs.alert',
     }
 
-    type jQueryInterface = (config?: "close" | "dispose") => void;
+    type jQueryInterface = (config?: 'close' | 'dispose') => void;
 }
 
 export default Alert;

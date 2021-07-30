@@ -29,7 +29,7 @@ declare class Toast extends BaseComponent {
      */
     static getOrCreateInstance(element: Element, options?: Partial<Toast.Options>): Toast | null;
 
-     static jQueryInterface: Toast.jQueryInterface;
+    static jQueryInterface: Toast.jQueryInterface;
 
     // static NAME: 'toast';
 

@@ -1,4 +1,4 @@
-import BaseComponent from "./base-component";
+import BaseComponent from './base-component';
 
 declare class Offcanvas extends BaseComponent {
     toggle(relatedTarget: HTMLElement): void;
@@ -19,28 +19,28 @@ declare class Offcanvas extends BaseComponent {
      */
     static getOrCreateInstance(element: Element): Offcanvas | null;
 
-     static jQueryInterface: Offcanvas.jQueryInterface;
+    static jQueryInterface: Offcanvas.jQueryInterface;
 
     // static NAME: 'offcanvas';
 }
 
 declare namespace Offcanvas {
-    type jQueryInterface = (config?: "toggle" | "show" | "hide" | "dispose") => void;
+    type jQueryInterface = (config?: 'toggle' | 'show' | 'hide' | 'dispose') => void;
 
     enum Events {
-        show = "show.bs.offcanvas",
+        show = 'show.bs.offcanvas',
 
-        shown = "shown.bs.offcanvas",
+        shown = 'shown.bs.offcanvas',
 
-        hide = "hide.bs.offcanvas",
+        hide = 'hide.bs.offcanvas',
 
-        hidden = "hidden.bs.offcanvas",
+        hidden = 'hidden.bs.offcanvas',
 
-        focusin = "focusin.bs.offcanvas",
+        focusin = 'focusin.bs.offcanvas',
 
-        click = "click.bs.offcanvas",
+        click = 'click.bs.offcanvas',
 
-        clickDismiss = "click.dismiss.bs.offcanvas",
+        clickDismiss = 'click.dismiss.bs.offcanvas',
     }
 }
 

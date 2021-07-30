@@ -1,4 +1,4 @@
-import BaseComponent from "./base-component";
+import BaseComponent from './base-component';
 
 declare class Carousel extends BaseComponent {
     constructor(element: string | Element, options?: Partial<Carousel.Options>);
@@ -39,7 +39,7 @@ declare class Carousel extends BaseComponent {
      */
     to(index: number): void;
 
-     /**
+    /**
      * Static method which allows you to get the carousel instance associated
      * with a DOM element.
      */
@@ -50,7 +50,7 @@ declare class Carousel extends BaseComponent {
      *  or create a new one in case it wasn't initialised.
      * You can use it like this: bootstrap.Carousel.getOrCreateInstance(element)
      */
-     static getOrCreateInstance(element: Element, options?: Partial<Carousel.Options>): Carousel | null;
+    static getOrCreateInstance(element: Element, options?: Partial<Carousel.Options>): Carousel | null;
 
     static jQueryInterface: Carousel.jQueryInterface;
 
@@ -121,15 +121,15 @@ declare namespace Carousel {
         /**
          * Fires immediately when the slide instance method is invoked.
          */
-        slide = "slide.bs.carousel",
+        slide = 'slide.bs.carousel',
 
         /**
          * Fired when the carousel has completed its slide transition.
          */
-        slid = "slid.bs.carousel",
+        slid = 'slid.bs.carousel',
     }
 
-    type Direction = "left" | "right";
+    type Direction = 'left' | 'right';
 
     interface Event {
         /**
@@ -155,7 +155,7 @@ declare namespace Carousel {
     }
 
     type jQueryInterface = (
-        config?: Partial<Options> | number | "cycle" | "pause" | "prev" | "next" | "nextWhenVisible" | "dispose",
+        config?: Partial<Options> | number | 'cycle' | 'pause' | 'prev' | 'next' | 'nextWhenVisible' | 'dispose',
     ) => void;
 }
 
