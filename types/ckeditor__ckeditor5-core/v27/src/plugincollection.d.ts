@@ -3,24 +3,26 @@ import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/sr
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import Context from "./context";
+import ContextPlugin from "./contextplugin";
 import Editor from "./editor/editor";
 import Plugin, { LoadedPlugins } from "./plugin";
 
-export default class PluginCollection implements Emitter, Iterable<[typeof Plugin, Plugin]> {
+export default class PluginCollection
+    implements Emitter, Iterable<[typeof Plugin, Plugin] | [typeof ContextPlugin, ContextPlugin]> {
     constructor(
         context: Editor | Context,
-        availablePlugins?: Array<typeof Plugin>,
-        contextPlugins?: Iterable<[typeof Plugin, Plugin]>,
+        availablePlugins?: Array<typeof Plugin | typeof ContextPlugin>,
+        contextPlugins?: Array<[typeof Plugin, Plugin] | [typeof ContextPlugin, ContextPlugin]>,
     );
 
-    [Symbol.iterator](): Iterator<[typeof Plugin, Plugin]>;
+    [Symbol.iterator](): Iterator<[typeof Plugin, Plugin] | [typeof ContextPlugin, ContextPlugin]>;
     destroy(): Promise<void>;
-    get(key: (() => Plugin) | string): Plugin;
-    has(key: (() => Plugin) | string): boolean;
+    get(key: typeof Plugin | typeof ContextPlugin | string): Plugin;
+    has(key: typeof Plugin | typeof ContextPlugin | string): boolean;
     init(
-        plugins: Array<(() => Plugin) | string>,
-        pluginsToRemove: Array<(() => Plugin) | string>,
-        pluginsSubstitutions: Array<() => Plugin>,
+        plugins?: Array<typeof Plugin | typeof ContextPlugin | string>,
+        pluginsToRemove?: Array<typeof Plugin | typeof ContextPlugin | string>,
+        pluginsSubstitutions?: Array<Plugin | ContextPlugin | string>,
     ): Promise<LoadedPlugins>;
 
     on: (

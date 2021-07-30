@@ -5,7 +5,7 @@ import Editor from "./editor/editor";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import { DomEventData } from "@ckeditor/ckeditor5-engine";
 
-export default class Command implements Emitter, Observable {
+export default abstract class Command implements Emitter, Observable {
     value?: unknown | undefined;
     readonly editor: Editor;
     isEnabled: boolean;
@@ -13,7 +13,7 @@ export default class Command implements Emitter, Observable {
     constructor(editor: Editor);
     clearForceDisabled(id: string): void;
     destroy(): void;
-    execute(...options: any[]): void;
+    execute(...options: any[]): unknown;
     forceDisabled(id: string): void;
     refresh(): void;
 

@@ -66,4 +66,4 @@ export interface PluginInterface {
     readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string> | undefined;
 }
 
-export type LoadedPlugins = Array<typeof Plugin|typeof ContextPlugin>;
+export type LoadedPlugins = Array<typeof Plugin | typeof ContextPlugin>;

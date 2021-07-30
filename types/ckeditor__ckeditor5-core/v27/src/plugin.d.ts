@@ -21,7 +21,7 @@ export default abstract class Plugin implements Emitter, Observable {
     clearForceDisabled(id: string): void;
     decorate(methodName: string): void;
     delegate(...events: string[]): EmitterMixinDelegateChain;
-    destroy?(): void | Promise<any>;
+    destroy?(): void | Promise<void>;
     fire<T>(eventOrInfo: string | EventInfo, ...args: T[]): T;
     forceDisabled(id: string): void;
     init?(): Promise<void> | void;

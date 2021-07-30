@@ -10,7 +10,7 @@ export default class PendingActions
     extends ContextPlugin
     implements Emitter, Observable, Iterable<Observable & { message: string }> {
     readonly first: null | (Observable & { message: string });
-    readonly hasAny: boolean;
+    hasAny: boolean;
 
     static pluginName: "PendingActions";
 
