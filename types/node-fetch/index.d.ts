@@ -15,7 +15,7 @@
 
 /// <reference types="node" />
 
-import FormData = require('form-data');
+import FormData = require('formdata');
 import { Agent } from "http";
 import { URLSearchParams, URL } from "url";
 import { AbortSignal } from "./externals";
