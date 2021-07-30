@@ -53,63 +53,39 @@ export interface BabelFileResult {
 
 export interface BabelTransformOptions {
   [k: string]: unknown;
-  /**
-   * Include the AST in the returned object.
-   */
+  /** Include the AST in the returned object. */
   ast?: boolean;
-  /**
-   * Attach a comment after all non-user injected code.
-   */
+  /** Attach a comment after all non-user injected code. */
   auxiliaryCommentAfter?: string;
-  /**
-   * Attach a comment before all non-user injected code.
-   */
+  /** Attach a comment before all non-user injected code. */
   auxiliaryCommentBefore?: string;
-  /**
-   * Enable code generation
-   */
+  /** Enable code generation */
   code?: boolean;
-  /**
-   * Output comments in generated output.
-   */
+  /** Output comments in generated output. */
   comments?: boolean;
   /**
    * Do not include superfluous whitespace characters and line terminators.
    * When set to "auto" compact is set to true on input sizes of >500KB.
    */
   compact?: "auto" | true | false;
-  /**
-   * A path to a .babelrc file to extend.
-   */
+  /** A path to a .babelrc file to extend. */
   extends?: string;
-  /**
-   * Filename for use in errors etc.
-   */
+  /** Filename for use in errors etc. */
   filename?: string;
-  /**
-   * Filename relative to sourceRoot Defaults to "filename".
-   */
+  /** Filename relative to sourceRoot Defaults to "filename". */
   filenameRelative?: string;
-  /**
-   * ANSI highlight syntax error code frames.
-   */
+  /** ANSI highlight syntax error code frames. */
   highlightCode?: boolean;
-  /**
-   * Opposite of the "only" option.
-   */
+  /** Opposite of the "only" option. */
   ignore?: string | string[];
   /**
    * If true, attempt to load an input sourcemap from the file itself.
    * If an object is provided, it will be treated as the source map object itself.
    */
   inputSourceMap?: boolean | { [k: string]: unknown };
-  /**
-   * Keep extensions in module ids
-   */
+  /** Keep extensions in module ids */
   keepModuleIdExtensions?: boolean;
-  /**
-   * Specify a custom name for module ids.
-   */
+  /** Specify a custom name for module ids. */
   moduleId?: string;
   /**
    * If truthy, insert an explicit id for modules. By default, all modules are
@@ -127,13 +103,9 @@ export interface BabelTransformOptions {
    * attempting to compile a non-matching file it's returned verbatim.
    */
   only?: string | string[];
-  /**
-   * List of plugins to load and use
-   */
+  /** List of plugins to load and use */
   plugins?: Array<string | string[] | [string, { [k: string]: unknown }]>;
-  /**
-   * List of presets (a set of plugins) to load and use
-   */
+  /** List of presets (a set of plugins) to load and use */
   presets?: Array<string | string[] | [string, { [k: string]: unknown }]>;
   /**
    * Retain line numbers. This will lead to wacky code but is handy for
@@ -141,9 +113,7 @@ export interface BabelTransformOptions {
    * retain the columns.
    */
   retainLines?: boolean;
-  /**
-   * Set sources[0] on returned source map. Defaults to "filenameRelative".
-   */
+  /** Set sources[0] on returned source map. Defaults to "filenameRelative". */
   sourceFileName?: string;
   /**
    * If truthy, adds a map property to returned output. If set to "inline", a
@@ -152,13 +122,9 @@ export interface BabelTransformOptions {
    * as a source map comment appended.
    */
   sourceMaps?: "both" | "inline" | true | false;
-  /**
-   * Set file on returned source map. Defaults to "filenameRelative".
-   */
+  /** Set file on returned source map. Defaults to "filenameRelative". */
   sourceMapTarget?: string;
-  /**
-   * The root from which all sources are relative. Defaults to "moduleRoot".
-   */
+  /** The root from which all sources are relative. Defaults to "moduleRoot". */
   sourceRoot?: string;
 }
 
