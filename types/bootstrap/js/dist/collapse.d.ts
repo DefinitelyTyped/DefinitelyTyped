@@ -27,11 +27,6 @@ declare class Collapse extends BaseComponent {
     hide(): void;
 
     /**
-     * Destroys an element's collapse. (Removes stored data on the DOM element)
-     */
-     dispose(): void;
-
-    /**
      * Static method which allows you to get the collapse instance associated
      * with a DOM element.
      */

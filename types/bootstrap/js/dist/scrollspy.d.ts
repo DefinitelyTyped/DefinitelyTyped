@@ -11,11 +11,6 @@ declare class ScrollSpy extends BaseComponent {
     refresh(): void;
 
     /**
-     * Destroys an element’s scrollspy. (Removes stored data on the DOM element)
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the scrollspy instance associated
      * with a DOM element
      */

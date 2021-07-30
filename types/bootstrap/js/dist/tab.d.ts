@@ -11,11 +11,6 @@ declare class Tab extends BaseComponent {
     show(): void;
 
     /**
-     * Destroys an element’s tab.
-    */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the tab instance associated with a
      * DOM element
      */

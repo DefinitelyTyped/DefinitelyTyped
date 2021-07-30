@@ -18,11 +18,6 @@ declare class Toast extends BaseComponent {
     hide(): void;
 
     /**
-     * Hides an element’s toast. Your toast will remain on the DOM but won’t show anymore.
-    */
-     dispose(): void;
-
-    /**
      * Static method which allows you to get the toast instance associated
      * with a DOM element
      */

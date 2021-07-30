@@ -12,11 +12,6 @@ declare class Alert extends BaseComponent {
      close(): void;
 
      /**
-      * Destroys an element's alert. (Removes stored data on the DOM element)
-      */
-     dispose(): void;
-
-     /**
      * Static method which allows you to get the alert instance associated to a
      * DOM element, you can use it like this: getInstance(alert)
      */

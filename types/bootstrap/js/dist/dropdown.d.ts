@@ -24,12 +24,6 @@ declare class Dropdown extends BaseComponent {
      */
     update(): void;
 
-
-    /**
-     * Destroys an element's dropdown. (Removes stored data on the DOM element)
-     */
-     dispose(): void;
-
      /**
      * Static method which allows you to get the dropdown instance associated
      * with a DOM element.

@@ -28,11 +28,6 @@ declare class Modal extends BaseComponent {
      */
     handleUpdate(): void;
 
-    /**
-     * Destroys an element's modal. (Removes stored data on the DOM element)
-     */
-    dispose(): void;
-
      /**
      * Static method which allows you to get the modal instance associated with
      * a DOM element

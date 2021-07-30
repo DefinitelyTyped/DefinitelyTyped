@@ -6,11 +6,6 @@ declare class Button extends BaseComponent {
      */
     toggle(): void;
 
-    /**
-     * Destroys an element's button.
-     */
-    dispose(): void;
-
     static jQueryInterface: Button.jQueryInterface;
 
     // static NAME: 'button';

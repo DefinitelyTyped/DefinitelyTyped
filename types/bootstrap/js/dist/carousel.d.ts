@@ -39,11 +39,6 @@ declare class Carousel extends BaseComponent {
      */
     to(index: number): void;
 
-    /**
-     * Destroys an element's carousel. (Removes stored data on the DOM element)
-     */
-     dispose(): void;
-
      /**
      * Static method which allows you to get the carousel instance associated
      * with a DOM element.

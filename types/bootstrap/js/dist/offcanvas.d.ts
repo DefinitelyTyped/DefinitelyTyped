@@ -25,7 +25,7 @@ declare class Offcanvas extends BaseComponent {
 }
 
 declare namespace Offcanvas {
-    type jQueryInterface = (config?: "toggle" | "show" | "hide") => void;
+    type jQueryInterface = (config?: "toggle" | "show" | "hide" | "dispose") => void;
 
     enum Events {
         show = "show.bs.offcanvas",

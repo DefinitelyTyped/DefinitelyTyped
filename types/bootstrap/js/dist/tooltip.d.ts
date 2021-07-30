@@ -28,14 +28,6 @@ declare class Tooltip extends BaseComponent {
     toggle(event?: any): void;
 
     /**
-     * Hides and destroys an element’s tooltip (Removes stored data on 
-     * the DOM element). Tooltips that use delegation (which are created 
-     * using the selector option) cannot be individually destroyed on 
-     * descendant trigger elements.
-     */
-    dispose(): void;
-
-    /**
      * Gives an element’s tooltip the ability to be shown. Tooltips are
      * enabled by default.
      */
