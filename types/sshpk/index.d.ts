@@ -309,8 +309,8 @@ declare namespace SshPK {
     }
 
     class Signature {
-        extras?: { exts?: { oid: string; critical: boolean; pathLen: number } };
-        exts?: { name: string; critical: boolean; data: Buffer };
+        extras?: Array<{ exts?: { oid: string; critical: boolean; pathLen: number } }>;
+        exts?: Array<{ name: string; critical: boolean; data: Buffer }>;
         constructor(opts: any);
         toBuffer(format: string): Buffer;
         toString(format: string): string;
