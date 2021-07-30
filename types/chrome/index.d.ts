@@ -7016,10 +7016,12 @@ declare namespace chrome.scripting {
     }
 
     export interface ScriptInjection {
+        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
+        args?: any[] | undefined;
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files?: string[] | undefined;
         /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
-        function?: (() => void) | undefined;
+        func?: (() => void) | undefined;
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
     }

@@ -451,6 +451,10 @@ declare module 'util' {
      * @deprecated Legacy: Use ES2015 class syntax and `extends` keyword instead.
      */
     export function inherits(constructor: unknown, superConstructor: unknown): void;
+    export type DebugLoggerFunction = (msg: string, ...param: unknown[]) => void;
+    export interface DebugLogger extends DebugLoggerFunction {
+        enabled: boolean;
+    }
     /**
      * The `util.debuglog()` method is used to create a function that conditionally
      * writes debug messages to `stderr` based on the existence of the `NODE_DEBUG`environment variable. If the `section` name appears within the value of that
@@ -508,7 +512,7 @@ declare module 'util' {
      * @param callback A callback invoked the first time the logging function is called with a function argument that is a more optimized logging function.
      * @return The logging function
      */
-    export function debuglog(key: string): (msg: string, ...param: unknown[]) => void;
+    export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     /**
      * Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.
      *
@@ -768,7 +772,7 @@ declare module 'util' {
      * @param code A deprecation code. See the `list of deprecated APIs` for a list of codes.
      * @return The deprecated function wrapped to emit a warning.
      */
-    export function deprecate<T extends Function>(fn: T, message: string, code?: string): T;
+    export function deprecate<T extends Function>(fn: T, msg: string, code?: string): T;
     /**
      * Returns `true` if there is deep strict equality between `val1` and `val2`.
      * Otherwise, returns `false`.
@@ -1050,7 +1054,7 @@ declare module 'util' {
          * @param src The text to encode.
          * @param dest The array to hold the encode result.
          */
-        encodeInto(input: string, output: Uint8Array): EncodeIntoResult;
+        encodeInto(src: string, dest: Uint8Array): EncodeIntoResult;
     }
 }
 declare module 'util/types' {

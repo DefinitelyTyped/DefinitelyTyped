@@ -70,13 +70,10 @@ declare module 'url' {
      * @param slashesDenoteHost If `true`, the first token after the literal string `//` and preceding the next `/` will be interpreted as the `host`. For instance, given `//foo/bar`, the result
      * would be `{host: 'foo', pathname: '/bar'}` rather than `{pathname: '//foo/bar'}`.
      */
-    function parse(urlStr: string): UrlWithStringQuery;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
-    function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
-    function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
-    function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
+    function parse(urlString: string): UrlWithStringQuery;
+    function parse(urlString: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    function parse(urlString: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
+    function parse(urlString: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
     /**
      * The `url.format()` method returns a formatted URL string derived from`urlObject`.
      *
@@ -140,8 +137,7 @@ declare module 'url' {
      * @deprecated Legacy: Use the WHATWG URL API instead.
      * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
      */
-    function format(URL: URL, options?: URLFormatOptions): string;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
+    function format(urlObject: URL, options?: URLFormatOptions): string;
     function format(urlObject: UrlObject | string): string;
     /**
      * The `url.resolve()` method resolves a target URL relative to a base URL in a
@@ -313,7 +309,7 @@ declare module 'url' {
      * @param path The path to convert to a File URL.
      * @return The file URL object.
      */
-    function pathToFileURL(url: string): URL;
+    function pathToFileURL(path: string): URL;
     /**
      * This utility function converts a URL object into an ordinary options object as
      * expected by the `http.request()` and `https.request()` APIs.
@@ -758,7 +754,7 @@ declare module 'url' {
          * @param fn Invoked for each name-value pair in the query
          * @param thisArg To be used as `this` value for when `fn` is called
          */
-        forEach(callback: (value: string, name: string, searchParams: this) => void): void;
+        forEach<TThis = this>(callback: (this: TThis, value: string, name: string, searchParams: this) => void, thisArg?: TThis): void;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.

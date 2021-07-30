@@ -137,9 +137,9 @@ assert(typeof util.promisify.custom === 'symbol');
 const foo = () => {};
 // $ExpectType () => void
 util.deprecate(foo, 'foo() is deprecated, use bar() instead');
-// $ExpectType <T extends Function>(fn: T, message: string, code?: string | undefined) => T
+// $ExpectType <T extends Function>(fn: T, msg: string, code?: string | undefined) => T
 util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
-// $ExpectType <T extends Function>(fn: T, message: string, code?: string | undefined) => T
+// $ExpectType <T extends Function>(fn: T, msg: string, code?: string | undefined) => T
 util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
 // util.isDeepStrictEqual
@@ -177,3 +177,9 @@ const teEncodeRes: Uint8Array = te.encode("TextEncoder");
 const encIntoRes: util.EncodeIntoResult = te.encodeInto('asdf', new Uint8Array(16));
 
 const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
+
+{
+    const logger: util.DebugLogger = util.debuglog('section');
+    logger.enabled; // $ExpectType boolean
+    util.debuglog('section', (fn: util.DebugLoggerFunction) => { });
+}

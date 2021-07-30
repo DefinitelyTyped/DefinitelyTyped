@@ -1126,7 +1126,7 @@ declare module 'process' {
                  * }
                  * ```
                  * @since v0.1.26
-                 * @param ...args Additional arguments to pass when invoking the `callback`
+                 * @param args Additional arguments to pass when invoking the `callback`
                  */
                 nextTick(callback: Function, ...args: any[]): void;
                 /**
@@ -1165,8 +1165,8 @@ declare module 'process' {
                  * `process.umask()` returns the Node.js process's file mode creation mask. Child
                  * processes inherit the mask from the parent process.
                  * @since v0.1.19
-                 * @deprecated Deprecated. Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a   *
-                 * potential security vulnerability. There is no safe, cross-platform alternative API.
+                 * @deprecated Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a potential   *
+                 * security vulnerability. There is no safe, cross-platform alternative API.
                  */
                 umask(): number;
                 /**

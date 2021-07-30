@@ -4606,6 +4606,10 @@
             "libraryName": "sololearn",
             "asOfVersion": "2.5.0"
         },
+        "sonic-boom": {
+            "libraryName": "sonic-boom",
+            "asOfVersion": "2.1.0"
+        },
         "soundex-code": {
             "libraryName": "soundex-code",
             "asOfVersion": "2.0.0"

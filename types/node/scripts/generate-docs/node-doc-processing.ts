@@ -33,6 +33,7 @@ export interface ParamDocNode {
     type: string;
     name: string;
     desc?: string;
+    default?: string;
 }
 
 export interface SignatureDocNode extends Stability {
@@ -56,6 +57,8 @@ export interface PropertyDocNode extends Stability {
     desc?: string;
     methods?: MethodDocNode[];
     meta?: MetaDocNode;
+    // This should not exists but node doc is weird
+    properties?: PropertyDocNode[]
 }
 
 export interface ModuleDocNode extends Stability {
@@ -191,6 +194,7 @@ function fixupModuleStructure(node: DocRoot): void {
     const http2Module = getModule(node, 'http2');
     const httpResponseClass = getClass(http2Module, 'http2.Http2ServerResponse');
     httpResponseClass.methods = httpResponseClass.methods!.concat(http2Module.properties!.find(({ name }) => name === 'req')?.methods!);
+    httpResponseClass.properties = httpResponseClass.properties!.concat(http2Module.properties!.find(({ name }) => name === 'req')?.properties!);
 
     // un-nest deprecated APIs
     const util = unnestSubmodule('util', [['deprecated_apis']]);

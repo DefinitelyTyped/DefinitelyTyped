@@ -448,10 +448,6 @@ declare module 'os' {
      * @param priority The scheduling priority to assign to the process.
      */
     function setPriority(priority: number): void;
-    /**
-     * Sets the priority of the process specified process.
-     * @param priority Must be in range of -20 to 19
-     */
     function setPriority(pid: number, priority: number): void;
 }
 declare module 'node:os' {

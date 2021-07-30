@@ -40,7 +40,7 @@ function transformer(printer: Printer, typeChecker: TypeChecker, rootDocs: DocRo
             if (!isNamedModuleDeclaration(node)) {
                 return node;
             }
-            let moduleName = node.name.text;
+            const moduleName = node.name.text;
 
             // skip non prefixed modules
             if (moduleName.startsWith('node:')) {

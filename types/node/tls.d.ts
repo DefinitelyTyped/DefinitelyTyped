@@ -127,8 +127,6 @@ declare module 'tls' {
         requestOCSP?: boolean | undefined;
     }
     /**
-     * * Extends: `<net.Socket>`
-     *
      * Performs transparent encryption of written data and all required TLS
      * negotiation.
      *
@@ -144,7 +142,9 @@ declare module 'tls' {
          */
         constructor(socket: net.Socket, options?: TLSSocketOptions);
         /**
-         * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
+         * Returns `true` if the peer certificate was signed by one of the CAs specified
+         * when creating the `tls.TLSSocket` instance, otherwise `false`.
+         * @since v0.11.4
          */
         authorized: boolean;
         /**
@@ -542,8 +542,6 @@ declare module 'tls' {
         pskCallback?(hint: string | null): PSKCallbackNegotation | null;
     }
     /**
-     * * Extends: `<net.Server>`
-     *
      * Accepts encrypted connections using TLS or SSL.
      * @since v0.3.2
      */
@@ -560,7 +558,7 @@ declare module 'tls' {
          * @param hostname A SNI host name or wildcard (e.g. `'*'`)
          * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc).
          */
-        addContext(hostName: string, credentials: SecureContextOptions): void;
+        addContext(hostname: string, context: SecureContextOptions): void;
         /**
          * Returns the session ticket keys.
          *
@@ -575,7 +573,7 @@ declare module 'tls' {
          * @since v11.0.0
          * @param options An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc).
          */
-        setSecureContext(details: SecureContextOptions): void;
+        setSecureContext(options: SecureContextOptions): void;
         /**
          * Sets the session ticket keys.
          *
@@ -825,7 +823,7 @@ declare module 'tls' {
      * @param hostname The host name or IP address to verify the certificate against.
      * @param cert A `certificate object` representing the peer's certificate.
      */
-    function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
+    function checkServerIdentity(hostname: string, cert: PeerCertificate): Error | undefined;
     /**
      * Creates a new {@link Server}. The `secureConnectionListener`, if provided, is
      * automatically set as a listener for the `'secureConnection'` event.
@@ -949,7 +947,7 @@ declare module 'tls' {
      * @param requestCert `true` to specify whether a server should request a certificate from a connecting client. Only applies when `isServer` is `true`.
      * @param rejectUnauthorized If not `false` a server automatically reject clients with invalid certificates. Only applies when `isServer` is `true`.
      */
-    function createSecurePair(credentials?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
+    function createSecurePair(context?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
     /**
      * {@link createServer} sets the default value of the `honorCipherOrder` option
      * to `true`, other APIs that create secure contexts leave it unset.
