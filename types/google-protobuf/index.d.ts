@@ -199,7 +199,7 @@ export class Map<K, V> {
     valueWriterFn: ((writer: BinaryWriter, field: number, value: V) => void)
                    | ((writer: BinaryWriter, field: number, value: V, opt_valueWriterCallback: (value: V, writer: BinaryWriter) => void) => void),
     opt_valueWriterCallback?: (value: V, writer: BinaryWriter) => void
-  );
+  ): void;
   static deserializeBinary<K, V>(
     map: Map,
     reader: BinaryReader,
@@ -208,7 +208,7 @@ export class Map<K, V> {
     opt_valueReaderCallback?: (value: V, reader: BinaryReader) => any,
     opt_defaultKey?: K,
     opt_defaultValue?: V
-  );
+  ): void;
 }
 
 export namespace Map {
