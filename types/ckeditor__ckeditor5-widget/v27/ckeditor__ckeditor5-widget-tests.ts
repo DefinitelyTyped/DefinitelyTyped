@@ -7,39 +7,25 @@ import ViewElement from '@ckeditor/ckeditor5-engine/src/view/element';
 import Position from '@ckeditor/ckeditor5-engine/src/view/position';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import { Rect } from '@ckeditor/ckeditor5-utils';
+import * as CKWidget from '@ckeditor/ckeditor5-widget';
 import Resizer from '@ckeditor/ckeditor5-widget/src/widgetresize/resizer';
-import SizeView from '@ckeditor/ckeditor5-widget/src/widgetresize/sizeview';
-import {
-    findOptimalInsertionRange,
-    centeredBalloonPositionForLongWidgets,
-    checkSelectionOnObject,
-    getLabel,
-    isWidget,
-    setHighlightHandling,
-    setLabel,
-    toWidget,
-    Widget,
-    WidgetResize,
-    WidgetToolbarRepository,
-    WidgetTypeAround,
-} from '@ckeditor/ckeditor5-widget/';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
-const bool: boolean = checkSelectionOnObject(new Selection(null), new Schema());
+const bool: boolean = CKWidget.checkSelectionOnObject(new Selection(null), new Schema());
 
 const containerElement: ViewElement = new DowncastWriter(new Document(new StylesProcessor())).createContainerElement(
     'foo',
 );
 
-const widget = new Widget(editor);
+const widget = new CKWidget.Widget(editor);
 widget.init();
-Widget.requires.length === 2;
-Widget.requires.map(Plugin => new Plugin(editor).init());
+CKWidget.Widget.requires.length === 2;
+CKWidget.Widget.requires.map(Plugin => new Plugin(editor).init());
 
-const widgetToolbarRepository = new WidgetToolbarRepository(editor);
-WidgetToolbarRepository.requires.length === 1;
+const widgetToolbarRepository = new CKWidget.WidgetToolbarRepository(editor);
+CKWidget.WidgetToolbarRepository.requires.length === 1;
 widgetToolbarRepository.init();
 widgetToolbarRepository.destroy();
 widgetToolbarRepository.register('foo');
@@ -50,7 +36,7 @@ widgetToolbarRepository.register('foo', {
     getRelatedElement: () => new View(new StylesProcessor()),
 });
 
-const widgetResize = new WidgetResize(editor);
+const widgetResize = new CKWidget.WidgetResize(editor);
 widgetResize.init();
 widgetResize.destroy();
 let resizer: Resizer = widgetResize.visibleResizer!;
@@ -69,30 +55,25 @@ resizer = widgetResize.attachTo({
 resizer = widgetResize.getResizerByViewElement(containerElement)!;
 resizer.destroy();
 
-const widgetTypeAround = new WidgetTypeAround(editor);
+const widgetTypeAround = new CKWidget.WidgetTypeAround(editor);
 widgetTypeAround.init();
 widgetTypeAround.destroy();
-WidgetTypeAround.requires.length === 2;
-WidgetTypeAround.requires.map(Plugin => new Plugin(editor).init());
+CKWidget.WidgetTypeAround.requires.length === 2;
+CKWidget.WidgetTypeAround.requires.map(Plugin => new Plugin(editor).init());
 
-isWidget(containerElement) === bool;
-const position: Position = centeredBalloonPositionForLongWidgets(
+CKWidget.isWidget(containerElement);
+const position: Position = CKWidget.centeredBalloonPositionForLongWidgets(
     new Rect(document.createElement('div')),
     new Rect(document.createElement('div')),
 )!;
 position.is('foo');
-findOptimalInsertionRange(new Selection(null), new Model()).containsRange(
-    findOptimalInsertionRange(new Selection(null), new Model()),
-);
-getLabel(containerElement).startsWith('foo');
-setHighlightHandling(
+CKWidget.findOptimalInsertionPosition(new Selection(null), new Model());
+CKWidget.getLabel(containerElement).startsWith('foo');
+CKWidget.setHighlightHandling(
     containerElement,
     new DowncastWriter(new Document(new StylesProcessor())),
     () => {},
     () => {},
 );
-setLabel(containerElement, () => 'foo', new DowncastWriter(new Document(new StylesProcessor())));
-toWidget(containerElement, new DowncastWriter(new Document(new StylesProcessor())));
-
-new SizeView().render();
-new SizeView().isRendered === bool;
+CKWidget.setLabel(containerElement, () => 'foo', new DowncastWriter(new Document(new StylesProcessor())));
+CKWidget.toWidget(containerElement, new DowncastWriter(new Document(new StylesProcessor())));
