@@ -667,7 +667,12 @@ declare namespace Hexo {
         }
 
         interface Generator {
-            register(name: string, fn: (locals: Site) => Generator.Return | Generator.Return[]): void;
+            register(
+                name: string,
+                fn: (
+                    locals: Site,
+                ) => Generator.Return | Generator.Return[] | Promise<Generator.Return> | Promise<Generator.Return[]>,
+            ): void;
         }
         namespace Generator {
             interface Return {

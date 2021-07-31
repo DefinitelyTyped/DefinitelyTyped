@@ -402,6 +402,8 @@ h.on('ready', () => {
         };
         h.extend.generator.register('name', local => ret);
         h.extend.generator.register('name', local => [ret]);
+        h.extend.generator.register('name', local => Promise.resolve(ret));
+        h.extend.generator.register('name', local => Promise.resolve([ret]));
         h.extend.generator.register('name', local => {
             console.log(local.data);
             const categories: Hexo.Locals.Category[] = local.categories.toArray();
