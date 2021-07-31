@@ -1133,6 +1133,7 @@ declare module 'crypto' {
          *
          * The `cipher.setAutoPadding()` method must be called before `cipher.final()`.
          * @since v0.7.1
+         * @param [autoPadding=true]
          * @return for method chaining.
          */
         setAutoPadding(autoPadding?: boolean): this;
@@ -1441,6 +1442,7 @@ declare module 'crypto' {
          *
          * The `decipher.setAutoPadding()` method must be called before `decipher.final()`.
          * @since v0.7.1
+         * @param [autoPadding=true]
          * @return for method chaining.
          */
         setAutoPadding(auto_padding?: boolean): this;
@@ -1790,6 +1792,7 @@ declare module 'crypto' {
      * otherwise a number, `Buffer`, `TypedArray`, or `DataView` is expected.
      * @since v0.11.12
      * @param primeEncoding The `encoding` of the `prime` string.
+     * @param [generator=2]
      * @param generatorEncoding The `encoding` of the `generator` string.
      */
     function createDiffieHellman(primeLength: number, generator?: number | NodeJS.ArrayBufferView): DiffieHellman;
@@ -2279,7 +2282,7 @@ declare module 'crypto' {
      * console.log(`The dice rolled: ${n}`);
      * ```
      * @since v14.10.0, v12.19.0
-     * @param min Start of random range (inclusive).
+     * @param [min=0] Start of random range (inclusive).
      * @param max End of random range (exclusive).
      * @param callback `function(err, n) {}`.
      */
@@ -2359,6 +2362,8 @@ declare module 'crypto' {
      * ```
      * @since v7.10.0, v6.13.0
      * @param buffer Must be supplied. The size of the provided `buffer` must not be larger than `2**31 - 1`.
+     * @param [offset=0]
+     * @param [size=buffer.length - offset]
      * @return The object passed as `buffer` argument.
      */
     function randomFillSync<T extends NodeJS.ArrayBufferView>(buffer: T, offset?: number, size?: number): T;
@@ -2484,6 +2489,8 @@ declare module 'crypto' {
      * request.
      * @since v7.10.0, v6.13.0
      * @param buffer Must be supplied. The size of the provided `buffer` must not be larger than `2**31 - 1`.
+     * @param [offset=0]
+     * @param [size=buffer.length - offset]
      * @param callback `function(err, buf) {}`.
      */
     function randomFill<T extends NodeJS.ArrayBufferView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
@@ -2832,6 +2839,7 @@ declare module 'crypto' {
          * @since v10.0.0
          * @param inputEncoding The `encoding` of the `key` string.
          * @param outputEncoding The `encoding` of the return value.
+         * @param [format='uncompressed']
          */
         static convertKey(
             key: BinaryLike,
@@ -2850,6 +2858,7 @@ declare module 'crypto' {
          * If `encoding` is provided a string is returned; otherwise a `Buffer` is returned.
          * @since v0.11.14
          * @param encoding The `encoding` of the return value.
+         * @param [format='uncompressed']
          */
         generateKeys(): Buffer;
         generateKeys(encoding: BinaryToTextEncoding, format?: ECDHKeyFormat): string;
@@ -2890,6 +2899,7 @@ declare module 'crypto' {
          * returned.
          * @since v0.11.14
          * @param encoding The `encoding` of the return value.
+         * @param [format='uncompressed']
          * @return The EC Diffie-Hellman public key in the specified `encoding` and `format`.
          */
         getPublicKey(): Buffer;
