@@ -3,7 +3,7 @@
 // Definitions by: Steve Hankin <https://github.com/stevenhankin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Core, CytoscapeOptions } from "cytoscape";
+import { Core, CytoscapeOptions } from 'cytoscape';
 
 export = Layout;
 
