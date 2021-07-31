@@ -684,7 +684,7 @@ declare namespace Hexo {
                 /**
                  * Layout. Specify the layouts for rendering. The value can be a string or an array. If it’s ignored then the route will return data directly.
                  */
-                layout: string | string[];
+                layout?: string | string[];
 
                 data: any;
             }

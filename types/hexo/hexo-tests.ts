@@ -413,6 +413,9 @@ h.on('ready', () => {
 
             return ret;
         });
+        h.extend.generator.register('name', local => {
+            return { path: '/', data: '' };
+        });
     }
 
     {
