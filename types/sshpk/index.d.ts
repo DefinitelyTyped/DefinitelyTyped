@@ -163,6 +163,18 @@ declare namespace SshPK {
         verify(signature: string): boolean;
     }
 
+    class Signer {
+        private constructor();
+
+        update(data: crypto.BinaryLike): this;
+        update(data: string, input_encoding: crypto.Encoding): this;
+        sign(private_key: crypto.KeyLike | crypto.SignKeyObjectInput | crypto.SignPrivateKeyInput): Buffer;
+        sign(
+            private_key: crypto.KeyLike | crypto.SignKeyObjectInput | crypto.SignPrivateKeyInput,
+            output_format: crypto.BinaryToTextEncoding,
+        ): string;
+        sign(): Signature;
+    }
     class FingerprintFormatError implements Error {
         name: string;
         message: string;
@@ -296,7 +308,7 @@ declare namespace SshPK {
         toPublic(): Key;
         derive(newType: string, newSize: number): PrivateKey;
         createVerify(hashAlgo: string): Key;
-        createSign(hashAlgo: string): crypto.Sign;
+        createSign(hashAlgo: string): Signer;
 
         static parse(data: string | Buffer, format: string, options: any): PrivateKey;
         static isPrivateKey(data: string | Buffer, ver: string): boolean;
