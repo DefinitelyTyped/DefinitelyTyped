@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+import crypto = require('crypto');
 
 declare class SshPK {}
 
@@ -162,13 +163,6 @@ declare namespace SshPK {
         verify(signature: string): boolean;
     }
 
-    class Signer {
-        constructor(key: Key, hashAlgo: string);
-
-        update(chunk: string | Buffer): void;
-        sign(): Signature;
-    }
-
     class FingerprintFormatError implements Error {
         name: string;
         message: string;
@@ -302,7 +296,7 @@ declare namespace SshPK {
         toPublic(): Key;
         derive(newType: string, newSize: number): PrivateKey;
         createVerify(hashAlgo: string): Key;
-        createSign(hashAlgo: string): Signer;
+        createSign(hashAlgo: string): crypto.Sign;
 
         static parse(data: string | Buffer, format: string, options: any): PrivateKey;
         static isPrivateKey(data: string | Buffer, ver: string): boolean;
