@@ -6,6 +6,7 @@
 
 /// <reference types="node" />
 import crypto = require('crypto');
+import { Stream } from 'stream';
 
 declare class SshPK {}
 
@@ -163,7 +164,7 @@ declare namespace SshPK {
         verify(signature: string): boolean;
     }
 
-    class Signer {
+    class Signer extends Stream.Writable {
         private constructor();
 
         update(data: crypto.BinaryLike): this;
