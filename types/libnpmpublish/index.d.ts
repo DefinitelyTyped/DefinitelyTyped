@@ -1,6 +1,7 @@
 // Type definitions for libnpmpublish 4.0
 // Project: https://npmjs.com/package/libnpmpublish
-// Definitions by: nicolas377 <https://github.com/nicolas377>
+// Definitions by: Nicolas Rodriguez <https://github.com/nicolas377>
+//                 Guy Adler <https://github.com/Guy-Adler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
