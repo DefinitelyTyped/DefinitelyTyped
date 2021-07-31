@@ -13,7 +13,16 @@ throng({
     signals: ["EXAMPLE"],
     master: masterFunction,
     start: startFunction
-});
+}); // $ExpectType Proimse<void>
+
+(async () => {
+    await throng({
+        workers: 4,
+        signals: ['EXAMPLE'],
+        master: masterFunction,
+        start: startFunction,
+    }); // $ExpectType Proimse<void>
+})();
 
 throng({
     workers: 16,
