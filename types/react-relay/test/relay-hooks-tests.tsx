@@ -666,6 +666,11 @@ function Mutation() {
                             console.log(data.feedback_like.feedback.like_count);
                             console.log(data.feedback_like.feedback.viewer_does_like);
                         },
+                        onError(error) {
+                            console.log(error);
+
+                            console.log(error.source.errors?.[0].message);
+                        },
                         optimisticResponse: {
                             feedback_like: {
                                 feedback: {
