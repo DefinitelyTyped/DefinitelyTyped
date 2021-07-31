@@ -7,8 +7,8 @@
 /// <reference types="node" />
 
 import fetch = require("npm-registry-fetch");
-import nodefetch = require("node-fetch");
-import Response = nodefetch.Response;
+import { Response } from "node-fetch";
+import { Manifest } from "pacote";
 
 /**
  * Sends the package represented by the manifest and tarData to the configured registry.
@@ -26,7 +26,7 @@ import Response = nodefetch.Response;
  * await libpub.publish(manifest, tarData, { npmVersion: 'my-pub-script@1.0.2', token: 'my-auth-token-here' }, opts)
  * // Package has been published to the npm registry.
  */
-export function publish(manifest: object, tarballData: Buffer, options?: fetch.Options): Promise<Response>;
+export function publish(manifest: Manifest, tarballData: Buffer, options?: fetch.Options): Promise<Response>;
 
 /**
  * Unpublishes spec from the appropriate registry. The registry in question may have its own limitations on unpublishing.
