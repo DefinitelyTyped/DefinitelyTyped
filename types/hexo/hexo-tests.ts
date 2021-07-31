@@ -452,7 +452,7 @@ h.on('ready', () => {
         h.extend.renderer.register(
             'ts',
             'js',
-            function (data: Hexo.extend.RendererData, options) {
+            function(data: Hexo.extend.RendererData, options) {
                 console.log(this);
                 console.log(data.path);
                 console.log(data.text);
@@ -464,13 +464,13 @@ h.on('ready', () => {
         h.extend.renderer.register(
             'ts',
             'js',
-            function (data, options) {
+            function(data, options) {
                 console.log(this);
                 return Promise.resolve('result');
             },
             false,
         );
-        h.extend.renderer.register('ts', 'js', function (data, options) {
+        h.extend.renderer.register('ts', 'js', function(data, options) {
             console.log(this);
             return Promise.resolve('result');
         });
