@@ -31,8 +31,8 @@ export interface MutationErrorSource<TMutation extends MutationParameters> {
 export interface MutationError<TMutation extends MutationParameters> {
     name: string;
     messageFormat: string;
-    messageParams: (string | number | boolean)[];
-    type: "fatal" | "error" | "warn" | "info";
+    messageParams: Array<string | number | boolean>;
+    type: 'fatal' | 'error' | 'warn' | 'info';
     source: MutationErrorSource<TMutation>; // TODO
 }
 
