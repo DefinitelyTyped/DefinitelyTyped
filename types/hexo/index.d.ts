@@ -704,16 +704,20 @@ declare namespace Hexo {
             register(
                 srcExt: string,
                 outExt: string,
-                fn: (data: RendererData, options: any) => string,
+                fn: (this: Hexo, data: RendererData, options: any) => string,
                 sync: true,
             ): void;
             register(
                 srcExt: string,
                 outExt: string,
-                fn: (data: RendererData, options: any) => Promise<string>,
+                fn: (this: Hexo, data: RendererData, options: any) => Promise<string>,
                 sync: false,
             ): void;
-            register(srcExt: string, outExt: string, fn: (data: RendererData, options: any) => Promise<string>): void;
+            register(
+                srcExt: string,
+                outExt: string,
+                fn: (this: Hexo, data: RendererData, options: any) => Promise<string>,
+            ): void;
         }
 
         interface RendererData {
