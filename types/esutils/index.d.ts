@@ -31,8 +31,8 @@ declare const esutils: {
         isIdentifierES6: (id: any, strict: any) => boolean;
         isIdentifierNameES5: (id: any) => boolean;
         isIdentifierNameES6: (id: any) => boolean;
-        isKeywordES5: (id: any, strict: any ) => boolean;
-        isKeywordES6: (id: any, strict: any ) => boolean;
+        isKeywordES5: (id: any, strict: any) => boolean;
+        isKeywordES6: (id: any, strict: any) => boolean;
         decodeUtf16: (lead: any, trail: any) => any;
         isReservedWordES5: (id: any, strict: any) => boolean;
         isReservedWordES6: (id: any, strict: any) => boolean;
