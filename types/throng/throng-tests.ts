@@ -8,12 +8,12 @@ throng((id: number) => {});
 throng(startFunction);
 throng(3, startFunction);
 
-throng({
+const result: Promise<void> = throng({
     workers: 4,
     signals: ["EXAMPLE"],
     master: masterFunction,
     start: startFunction
-}); // $ExpectType Proimse<void>
+});
 
 (async () => {
     await throng({
@@ -21,7 +21,7 @@ throng({
         signals: ['EXAMPLE'],
         master: masterFunction,
         start: startFunction,
-    }); // $ExpectType Proimse<void>
+    });
 })();
 
 throng({
