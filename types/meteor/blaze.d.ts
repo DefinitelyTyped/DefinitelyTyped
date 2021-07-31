@@ -46,7 +46,7 @@ declare module 'meteor/blaze' {
             registerHelper(name: string, func: Function): void;
             instance(): T;
             currentData(): D;
-            parentData(numLevels: number): Record<string, any>;
+            parentData(numLevels?: number): Record<string, any>;
         }
 
         interface Template<D = Record<string, any>, T = TemplateInstance<D>> {

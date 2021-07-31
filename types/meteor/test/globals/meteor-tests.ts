@@ -653,7 +653,8 @@ namespace MeteorTests {
     var userId = instance.data.userId;
 
     var data = Template.currentData();
-    var data2 = Template.parentData(1);
+    var data2 = Template.parentData();
+    var data3 = Template.parentData(2);
     var body = Template.body;
 
     const Template2 = Template as TemplateStaticTyped<
