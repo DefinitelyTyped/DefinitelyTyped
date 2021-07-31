@@ -3,9 +3,9 @@
 // Definitions by: Ken Takahashi <https://github.com/redimpulz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const ZenginCode: ZenginCode.ZenginCode;
+declare const zenginCode: zenginCode.ZenginCode;
 
-declare namespace ZenginCode {
+declare namespace zenginCode {
     interface ZenginCode {
         [key: string]: Bank;
     }
@@ -30,4 +30,4 @@ declare namespace ZenginCode {
     }
 }
 
-export = ZenginCode;
+export = zenginCode;
