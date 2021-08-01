@@ -182,11 +182,14 @@ declare module CANNON {
         motorMinForce: number;
         motorMaxForce: number;
         motorEquation: RotationalMotorEquation;
+        axisA: Vec3;
+        axisB: Vec3;
 
         constructor(bodyA: Body, bodyB: Body, options?: IHingeConstraintOptions);
 
         enableMotor(): void;
         disableMotor(): void;
+        setMotorSpeed(speed: number): void;
 
     }
 
@@ -772,7 +775,7 @@ declare module CANNON {
         faceNormals: Vec3[];
         uniqueEdges: Vec3[];
 
-        constructor(points?: Vec3[], faces?: number[]);
+        constructor(points?: Vec3[], faces?: number[][]);
 
         computeEdges(): void;
         computeNormals(): void;
@@ -845,6 +848,35 @@ declare module CANNON {
 
     }
 
+    export class Trimesh extends Shape {
+
+        vertices: number[]
+        indices: number[]
+        scale: Vec3
+
+        constructor(vertices: number[], indices: number[]);
+
+        updateTree(): void;
+        getTrianglesInAABB(aabb: AABB, result: []): [];
+        setScale(scale: Vec3): void
+        updateNormals(): void;
+        updateEdges(): void;
+        getEdgeVertex(edgeIndex: number, firstOrSecond: number, vertexStore: Vec3): void;
+        getEdgeVector(edgeIndex: number, vectorStore: Vec3): void;
+        static computeNormal(va: Vec3, vb: Vec3, vc: Vec3, target: Vec3): void;
+        getVertex(i: number, out: Vec3): Vec3;
+        getWorldVertex(i: number, pos: Vec3, quat: Quaternion, out: Vec3): Vec3;
+        getTriangleVertices(i: number, a: Vec3, b: Vec3, c: Vec3): void;
+        getNormal(i: number, target: Vec3): Vec3;
+        calculateLocalInertia(mass: number, target: Vec3): Vec3;
+        computeLocalAABB(aabb: Vec3): void;
+        updateAABB(): void;
+        updateBoundingSphereRadius(): number;
+        calculateWorldAABB(pos: Vec3, quat: Quaternion, min: number, max: number): void;
+        volume(): number;
+        createTorus(radius: number, tube: number, radialSegments: number, tubularSegments: number, arc: number): Trimesh;
+    }
+
     export class Shape {
 
         static types: {
@@ -857,12 +889,14 @@ declare module CANNON {
             HEIGHTFIELD: number;
             PARTICLE: number;
             CYLINDER: number;
+            TRIMESH: number;
 
         }
 
         type: number;
         boundingSphereRadius: number;
         collisionResponse: boolean;
+        geometryId: number;
 
         updateBoundingSphereRadius(): number;
         volume(): number;
@@ -1027,6 +1061,7 @@ declare module CANNON {
 
     export interface ICollisionEvent extends IBodyEvent {
         contact: any;
+        target: any;
     }
 
 }
