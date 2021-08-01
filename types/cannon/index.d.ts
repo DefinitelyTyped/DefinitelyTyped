@@ -3,6 +3,7 @@
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
 //                 Grzegorz Rozdzialik <https://github.com/Gelio>
 //                 Vitor Macedo <https://github.com/VitorMac10>
+//                 Sean Bradley <https://github.com/Sean-Bradley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
