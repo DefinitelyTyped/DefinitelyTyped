@@ -1056,7 +1056,7 @@ declare module CANNON {
 
     export interface IBodyEvent extends IEvent {
 
-        body: Body;        
+        body: Body;
         target: Body;
 
     }
