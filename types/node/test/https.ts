@@ -1,3 +1,4 @@
+import * as http from 'node:http';
 import * as https from 'node:https';
 import * as net from 'node:net';
 import * as stream from 'node:stream';
@@ -6,8 +7,8 @@ import * as stream from 'node:stream';
 {
     let server = new https.Server();
     let _socket = new stream.Duplex();
-    let _req =  new https.IncomingMessage(new net.Socket());
-    let _res = new https.ServerResponse(_req);
+    let _req =  new http.IncomingMessage(new net.Socket());
+    let _res = new http.ServerResponse(_req);
     let _err = new Error();
     let _head = Buffer.from("");
     let _bool = true;
