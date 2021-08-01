@@ -13,6 +13,7 @@ import '../test/fs';
 import '../test/global';
 import '../test/http';
 import '../test/http2';
+import '../test/https';
 import '../test/net';
 import '../test/os';
 import '../test/path';

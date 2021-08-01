@@ -13,6 +13,7 @@ import '../test/global';
 import '../test/globals';
 import '../test/http';
 import '../test/http2';
+import '../test/https';
 import '../test/module';
 import '../test/net';
 import '../test/os';
