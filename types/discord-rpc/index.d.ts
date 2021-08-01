@@ -1,4 +1,4 @@
-// Type definitions for discord-rpc 3.0
+// Type definitions for discord-rpc 4.0.1
 // Project: https://github.com/discordjs/RPC#readme
 // Definitions by: Jason Bothell <https://github.com/jasonhaxstuff>
 //                 Jack Baron <https://github.com/lolPants>
