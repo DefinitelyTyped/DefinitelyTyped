@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.3
+// Type definitions for @yaireo/tagify 4.6
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -1546,6 +1546,11 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     setReadonly(readonly: boolean): void;
 
     /**
+     * Toggles "disabled" mode on/off
+     */
+    setDisabled(disabled: boolean): void;
+
+    /**
      * Removes a listener previously added via `on`.
      * @template K Name of the event.
      * @param event Name of the event.
@@ -1571,3 +1576,5 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
 }
 
 export = Tagify;
+
+export as namespace Tagify;
