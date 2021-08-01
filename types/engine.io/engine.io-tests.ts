@@ -1,5 +1,6 @@
 import engine = require('engine.io');
 import http = require('http');
+import net = require('net');
 
 let serverOptions: engine.ServerOptions;
 let server: engine.Server;
@@ -107,10 +108,10 @@ server.generateId = (req)  =>  Math.floor(Math.random() * 100000).toString();
 httpServer = http.createServer();
 httpServer.listen(8000);
 server = new engine.Server(serverOptions);
-httpServer.on('upgrade', (req, socket, head) => {
+httpServer.on('upgrade', (req: http.IncomingMessage, socket: net.Socket, head: Buffer) => {
     server.handleUpgrade(req, socket, head);
 });
-httpServer.on('request', (req, res) => {
+httpServer.on('request', (req: http.IncomingMessage, res: http.ServerResponse) => {
     server.handleRequest(req, res);
 });
 
