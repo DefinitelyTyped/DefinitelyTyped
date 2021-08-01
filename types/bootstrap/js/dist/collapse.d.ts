@@ -1,4 +1,4 @@
-<reference types="jquery"/>
+/// <reference types="jquery"/>
 
 import BaseComponent from './base-component';
 
