@@ -10,6 +10,7 @@ import JSONEditor, { JSONEditorOptions } from 'jsoneditor';
 
 export interface ReactJsonEditorProps {
     values: {};
+    onChange: (newValues: {}) => void;
 }
 
 export default class ReactJsoneditor extends React.Component<ReactJsonEditorProps> {
