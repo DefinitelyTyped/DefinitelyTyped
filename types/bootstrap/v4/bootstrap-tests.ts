@@ -34,7 +34,7 @@ $('#carousel').carousel('pause');
 
 $('#carousel').carousel(100);
 
-$('#carousel').on('slide.bs.carousel', function (e) {
+$('#carousel').on('slide.bs.carousel', function slideHandler(e) {
     const that: HTMLElement = this;
 
     const data: undefined = e.data;
