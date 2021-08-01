@@ -85,8 +85,9 @@ export interface RPCLoginOptions {
     clientSecret?: string | undefined;
     accessToken?: string | undefined;
     rpcToken?: string | undefined;
-    tokenEndpoint?: string | undefined;
+    redirectUri?: string | undefined;
     scopes?: string[] | undefined;
+    prompt?: 'none' | 'consent' | undefined;
 }
 
 export interface Guild {
