@@ -8,6 +8,7 @@ new Offcanvas(element);
 
 // $ExpectType Offcanvas | null
 Offcanvas.getInstance(element);
+Offcanvas.getOrCreateInstance(element);
 
 // $ExpectType string
 Offcanvas.VERSION;

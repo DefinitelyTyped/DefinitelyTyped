@@ -8,6 +8,7 @@ new Tab(element);
 
 // $ExpectType Tab | null
 Tab.getInstance(element);
+Tab.getOrCreateInstance(element);
 
 element.addEventListener(Tab.Events.hidden, event => {
     // do something…

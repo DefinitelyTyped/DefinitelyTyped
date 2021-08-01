@@ -10,6 +10,7 @@ alert.dispose();
 
 // $ExpectType void | undefined
 Alert.getInstance(element)?.close();
+Alert.getOrCreateInstance(element)?.close();
 
 Alert.VERSION; // $ExpectType string
 Alert.NAME; // $ExpectType "alert"

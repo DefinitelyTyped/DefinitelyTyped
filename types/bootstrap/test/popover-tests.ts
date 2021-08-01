@@ -8,6 +8,7 @@ new Popover(element, { delay: 0.5, animation: true });
 
 // $ExpectType Popover | null
 Popover.getInstance(element);
+Popover.getOrCreateInstance(element);
 
 // $ExpectType string
 Popover.VERSION;

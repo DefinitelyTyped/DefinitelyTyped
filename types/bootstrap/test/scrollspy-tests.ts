@@ -8,6 +8,7 @@ new ScrollSpy(element, { offset: 10 });
 
 // $ExpectType ScrollSpy | null
 ScrollSpy.getInstance(element);
+ScrollSpy.getOrCreateInstance(element);
 
 // $ExpectType string
 ScrollSpy.VERSION;

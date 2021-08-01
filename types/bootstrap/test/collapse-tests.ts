@@ -8,6 +8,7 @@ new Collapse(element, { parent: '.parent' });
 
 // $ExpectType Collapse | null
 Collapse.getInstance(element);
+Collapse.getOrCreateInstance(element);
 
 // $ExpectType string
 Collapse.VERSION;

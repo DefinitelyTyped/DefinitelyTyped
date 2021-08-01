@@ -8,6 +8,7 @@ new Dropdown(element, { offset: [0, 2] }); // $ExpectType Dropdown
 
 // $ExpectType Dropdown | null
 Dropdown.getInstance(element);
+Dropdown.getOrCreateInstance(element);
 
 // $ExpectType string
 Dropdown.VERSION;
