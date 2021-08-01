@@ -1,4 +1,4 @@
-// Type definitions for bootstrap 5.0.2
+// Type definitions for bootstrap 5.0
 // Project: https://getbootstrap.com/
 // Definitions by: denisname <https://github.com/denisname>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
