@@ -11,7 +11,7 @@ declare class SteamAPI {
         getFeaturedCategories(): Promise<object[]>;
         getFeaturedGames(): Promise<object>;
         getGameAchievements(app: string): Promise<object>;
-        getGameDetails(app: string, force?: boolean): Promise<object>;
+        getGameDetails(app: string, force?: boolean, region?: string): Promise<object>;
         getGameNews(app: string): Promise<object[]>;
         getGamePlayers(app: string): Promise<number>;
         getGameSchema(app: string): Promise<object>;
