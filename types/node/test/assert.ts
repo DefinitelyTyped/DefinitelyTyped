@@ -106,11 +106,17 @@ assert(1);
 assert.match('test', /test/, new Error('yeet'));
 assert.match('test', /test/, 'yeet');
 
-assert.fail('stuff broke');
+() => {
+    assert.fail('stuff broke'); // $ExpectType never
+};
 
-assert.fail('actual', 'expected', 'message');
+() => {
+    assert.fail('actual', 'expected', 'message'); // $ExpectType never
+};
 
-assert.fail(1, 2, undefined, '>');
+() => {
+    assert.fail(1, 2, undefined, '>'); // $ExpectType never
+};
 
 assert(true, "it's working");
 

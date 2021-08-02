@@ -19,12 +19,15 @@ assert.doesNotThrow(
 
 assert.equal(3, '3', 'uses == comparator');
 
-assert.fail('stuff broke');
-
-assert.fail('actual', 'expected', 'message');
-
-assert.fail(1, 2, undefined, '>');
-
+() => {
+    assert.fail('stuff broke');
+};
+() => {
+    assert.fail('actual', 'expected', 'message');
+};
+() => {
+    assert.fail(1, 2, undefined, '>');
+};
 assert.ifError(0);
 
 assert.notDeepStrictEqual({ x: { y: '3' } }, { x: { y: 3 } }, 'uses !== comparator');
@@ -68,11 +71,11 @@ assert(true, "it's working");
 
 assert.ok(true, 'inner functions work as well');
 
-assert.throws(() => {});
-assert.throws(() => {}, /Regex test/);
+assert.throws(() => { });
+assert.throws(() => { }, /Regex test/);
 assert.throws(
-    () => {},
-    () => {},
+    () => { },
+    () => { },
     'works wonderfully',
 );
 

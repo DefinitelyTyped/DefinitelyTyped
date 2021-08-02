@@ -113,6 +113,7 @@
 /// <reference path="repl.d.ts" />
 /// <reference path="stream.d.ts" />
 /// <reference path="stream/promises.d.ts" />
+/// <reference path="stream/web.d.ts" />
 /// <reference path="string_decoder.d.ts" />
 /// <reference path="timers.d.ts" />
 /// <reference path="timers/promises.d.ts" />
@@ -128,4 +129,3 @@
 /// <reference path="zlib.d.ts" />
 
 /// <reference path="globals.global.d.ts" />
-

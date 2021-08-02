@@ -106,11 +106,15 @@ assert(1);
 assert.match('test', /test/, new Error('yeet'));
 assert.match('test', /test/, 'yeet');
 
-assert.fail('stuff broke');
-
-assert.fail('actual', 'expected', 'message');
-
-assert.fail(1, 2, undefined, '>');
+() => {
+    assert.fail('stuff broke');
+};
+() => {
+    assert.fail('actual', 'expected', 'message');
+};
+() => {
+    assert.fail(1, 2, undefined, '>');
+};
 
 assert(true, "it's working");
 
