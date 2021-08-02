@@ -4,7 +4,6 @@
  * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/https.js)
  */
 declare module 'https' {
-    import { Socket } from 'node:net';
     import { Duplex } from 'node:stream';
     import * as tls from 'node:tls';
     import * as http from 'node:http';
@@ -36,8 +35,14 @@ declare module 'https' {
         constructor(requestListener?: http.RequestListener);
         constructor(options: ServerOptions, requestListener?: http.RequestListener);
         addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: 'keylog', listener: (line: Buffer, tlsSocket: tls.TLSSocket) => void): this;
+        addListener(event: 'newSession', listener: (sessionId: Buffer, sessionData: Buffer, callback: (err: Error, resp: Buffer) => void) => void): this;
+        addListener(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
+        addListener(event: 'resumeSession', listener: (sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void) => void): this;
+        addListener(event: 'secureConnection', listener: (tlsSocket: tls.TLSSocket) => void): this;
+        addListener(event: 'tlsClientError', listener: (err: Error, tlsSocket: tls.TLSSocket) => void): this;
         addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'connection', listener: (socket: Socket) => void): this;
+        addListener(event: 'connection', listener: (socket: Duplex) => void): this;
         addListener(event: 'error', listener: (err: Error) => void): this;
         addListener(event: 'listening', listener: () => void): this;
         addListener(event: 'checkContinue', listener: http.RequestListener): this;
@@ -47,8 +52,14 @@ declare module 'https' {
         addListener(event: 'request', listener: http.RequestListener): this;
         addListener(event: 'upgrade', listener: (req: http.IncomingMessage, socket: Duplex, head: Buffer) => void): this;
         emit(event: string, ...args: any[]): boolean;
+        emit(event: 'keylog', line: Buffer, tlsSocket: tls.TLSSocket): boolean;
+        emit(event: 'newSession', sessionId: Buffer, sessionData: Buffer, callback: (err: Error, resp: Buffer) => void): boolean;
+        emit(event: 'OCSPRequest', certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void): boolean;
+        emit(event: 'resumeSession', sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void): boolean;
+        emit(event: 'secureConnection', tlsSocket: tls.TLSSocket): boolean;
+        emit(event: 'tlsClientError', err: Error, tlsSocket: tls.TLSSocket): boolean;
         emit(event: 'close'): boolean;
-        emit(event: 'connection', socket: Socket): boolean;
+        emit(event: 'connection', socket: Duplex): boolean;
         emit(event: 'error', err: Error): boolean;
         emit(event: 'listening'): boolean;
         emit(event: 'checkContinue', req: http.IncomingMessage, res: http.ServerResponse): boolean;
@@ -58,8 +69,14 @@ declare module 'https' {
         emit(event: 'request', req: http.IncomingMessage, res: http.ServerResponse): boolean;
         emit(event: 'upgrade', req: http.IncomingMessage, socket: Duplex, head: Buffer): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
+        on(event: 'keylog', listener: (line: Buffer, tlsSocket: tls.TLSSocket) => void): this;
+        on(event: 'newSession', listener: (sessionId: Buffer, sessionData: Buffer, callback: (err: Error, resp: Buffer) => void) => void): this;
+        on(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
+        on(event: 'resumeSession', listener: (sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void) => void): this;
+        on(event: 'secureConnection', listener: (tlsSocket: tls.TLSSocket) => void): this;
+        on(event: 'tlsClientError', listener: (err: Error, tlsSocket: tls.TLSSocket) => void): this;
         on(event: 'close', listener: () => void): this;
-        on(event: 'connection', listener: (socket: Socket) => void): this;
+        on(event: 'connection', listener: (socket: Duplex) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'listening', listener: () => void): this;
         on(event: 'checkContinue', listener: http.RequestListener): this;
@@ -69,8 +86,14 @@ declare module 'https' {
         on(event: 'request', listener: http.RequestListener): this;
         on(event: 'upgrade', listener: (req: http.IncomingMessage, socket: Duplex, head: Buffer) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
+        once(event: 'keylog', listener: (line: Buffer, tlsSocket: tls.TLSSocket) => void): this;
+        once(event: 'newSession', listener: (sessionId: Buffer, sessionData: Buffer, callback: (err: Error, resp: Buffer) => void) => void): this;
+        once(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
+        once(event: 'resumeSession', listener: (sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void) => void): this;
+        once(event: 'secureConnection', listener: (tlsSocket: tls.TLSSocket) => void): this;
+        once(event: 'tlsClientError', listener: (err: Error, tlsSocket: tls.TLSSocket) => void): this;
         once(event: 'close', listener: () => void): this;
-        once(event: 'connection', listener: (socket: Socket) => void): this;
+        once(event: 'connection', listener: (socket: Duplex) => void): this;
         once(event: 'error', listener: (err: Error) => void): this;
         once(event: 'listening', listener: () => void): this;
         once(event: 'checkContinue', listener: http.RequestListener): this;
@@ -80,8 +103,14 @@ declare module 'https' {
         once(event: 'request', listener: http.RequestListener): this;
         once(event: 'upgrade', listener: (req: http.IncomingMessage, socket: Duplex, head: Buffer) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: 'keylog', listener: (line: Buffer, tlsSocket: tls.TLSSocket) => void): this;
+        prependListener(event: 'newSession', listener: (sessionId: Buffer, sessionData: Buffer, callback: (err: Error, resp: Buffer) => void) => void): this;
+        prependListener(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
+        prependListener(event: 'resumeSession', listener: (sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void) => void): this;
+        prependListener(event: 'secureConnection', listener: (tlsSocket: tls.TLSSocket) => void): this;
+        prependListener(event: 'tlsClientError', listener: (err: Error, tlsSocket: tls.TLSSocket) => void): this;
         prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'connection', listener: (socket: Socket) => void): this;
+        prependListener(event: 'connection', listener: (socket: Duplex) => void): this;
         prependListener(event: 'error', listener: (err: Error) => void): this;
         prependListener(event: 'listening', listener: () => void): this;
         prependListener(event: 'checkContinue', listener: http.RequestListener): this;
@@ -91,8 +120,14 @@ declare module 'https' {
         prependListener(event: 'request', listener: http.RequestListener): this;
         prependListener(event: 'upgrade', listener: (req: http.IncomingMessage, socket: Duplex, head: Buffer) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: 'keylog', listener: (line: Buffer, tlsSocket: tls.TLSSocket) => void): this;
+        prependOnceListener(event: 'newSession', listener: (sessionId: Buffer, sessionData: Buffer, callback: (err: Error, resp: Buffer) => void) => void): this;
+        prependOnceListener(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
+        prependOnceListener(event: 'resumeSession', listener: (sessionId: Buffer, callback: (err: Error, sessionData: Buffer) => void) => void): this;
+        prependOnceListener(event: 'secureConnection', listener: (tlsSocket: tls.TLSSocket) => void): this;
+        prependOnceListener(event: 'tlsClientError', listener: (err: Error, tlsSocket: tls.TLSSocket) => void): this;
         prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
+        prependOnceListener(event: 'connection', listener: (socket: Duplex) => void): this;
         prependOnceListener(event: 'error', listener: (err: Error) => void): this;
         prependOnceListener(event: 'listening', listener: () => void): this;
         prependOnceListener(event: 'checkContinue', listener: http.RequestListener): this;
