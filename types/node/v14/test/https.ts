@@ -2,6 +2,7 @@ import * as http from "http";
 import * as https from 'https';
 import * as net from 'net';
 import * as stream from 'stream';
+import * as tls from 'tls';
 import * as url from 'url';
 
 // https tests
@@ -145,6 +146,172 @@ import * as url from 'url';
       _err = err;
     });
     server = server.prependOnceListener("listening", () => {});
+}
+
+// tls server events
+
+{
+    let server = new https.Server();
+    let _socket = new tls.TLSSocket(new net.Socket());
+    let _stream = new stream.Duplex();
+    let _buffer = Buffer.from("");
+    let _err = new Error();
+    let _boolean = true;
+    let sessionCallback = (err: Error, resp: Buffer) => {};
+    let ocspRequestCallback = (err: Error | null, resp: Buffer) => {};
+
+    server = server.addListener("connection", (socket) => {
+        _stream = socket;
+    });
+    server = server.addListener("keylog", (ln, tlsSocket) => {
+        _buffer = ln;
+        _socket = tlsSocket;
+    });
+    server = server.addListener("newSession", (sessionId, sessionData, callback) => {
+        _buffer = sessionId;
+        _buffer = sessionData;
+        sessionCallback = callback;
+    });
+    server = server.addListener("OCSPRequest", (certificate, issuer, callback) => {
+        _buffer = certificate;
+        _buffer = issuer;
+        ocspRequestCallback = callback;
+    });
+    server = server.addListener("resumeSession", (sessionId, callback) => {
+        _buffer = sessionId;
+        sessionCallback = callback;
+    });
+    server = server.addListener("secureConnection", (tlsSocket) => {
+        _socket = tlsSocket;
+    });
+    server = server.addListener("tlsClientError", (err, tlsSocket) => {
+        _err = err;
+        _socket = tlsSocket;
+    });
+
+    _boolean = server.emit("connection", _stream);
+    _boolean = server.emit("keylog", _buffer, _socket);
+    _boolean = server.emit("newSession", _buffer, _buffer, sessionCallback);
+    _boolean = server.emit("OCSPRequest", _buffer, _buffer, ocspRequestCallback);
+    _boolean = server.emit("resumeSession", _buffer, sessionCallback);
+    _boolean = server.emit("secureConnection", _socket);
+    _boolean = server.emit("tlsClientError", _err, _socket);
+
+    server = server.on("connection", (socket) => {
+        _stream = socket;
+    });
+    server = server.on("keylog", (ln, tlsSocket) => {
+        _buffer = ln;
+        _socket = tlsSocket;
+    });
+    server = server.on("newSession", (sessionId, sessionData, callback) => {
+        _buffer = sessionId;
+        _buffer = sessionData;
+        sessionCallback = callback;
+    });
+    server = server.on("OCSPRequest", (certificate, issuer, callback) => {
+        _buffer = certificate;
+        _buffer = issuer;
+        ocspRequestCallback = callback;
+    });
+    server = server.on("resumeSession", (sessionId, callback) => {
+        _buffer = sessionId;
+        sessionCallback = callback;
+    });
+    server = server.on("secureConnection", (tlsSocket) => {
+        _socket = tlsSocket;
+    });
+    server = server.on("tlsClientError", (err, tlsSocket) => {
+        _err = err;
+        _socket = tlsSocket;
+    });
+
+    server = server.once("connection", (socket) => {
+        _stream = socket;
+    });
+    server = server.once("keylog", (ln, tlsSocket) => {
+        _buffer = ln;
+        _socket = tlsSocket;
+    });
+    server = server.once("newSession", (sessionId, sessionData, callback) => {
+        _buffer = sessionId;
+        _buffer = sessionData;
+        sessionCallback = callback;
+    });
+    server = server.once("OCSPRequest", (certificate, issuer, callback) => {
+        _buffer = certificate;
+        _buffer = issuer;
+        ocspRequestCallback = callback;
+    });
+    server = server.once("resumeSession", (sessionId, callback) => {
+        _buffer = sessionId;
+        sessionCallback = callback;
+    });
+    server = server.once("secureConnection", (tlsSocket) => {
+        _socket = tlsSocket;
+    });
+    server = server.once("tlsClientError", (err, tlsSocket) => {
+        _err = err;
+        _socket = tlsSocket;
+    });
+
+    server = server.prependListener("connection", (socket) => {
+        _stream = socket;
+    });
+    server = server.prependListener("keylog", (ln, tlsSocket) => {
+        _buffer = ln;
+        _socket = tlsSocket;
+    });
+    server = server.prependListener("newSession", (sessionId, sessionData, callback) => {
+        _buffer = sessionId;
+        _buffer = sessionData;
+        sessionCallback = callback;
+    });
+    server = server.prependListener("OCSPRequest", (certificate, issuer, callback) => {
+        _buffer = certificate;
+        _buffer = issuer;
+        ocspRequestCallback = callback;
+    });
+    server = server.prependListener("resumeSession", (sessionId, callback) => {
+        _buffer = sessionId;
+        sessionCallback = callback;
+    });
+    server = server.prependListener("secureConnection", (tlsSocket) => {
+        _socket = tlsSocket;
+    });
+    server = server.prependListener("tlsClientError", (err, tlsSocket) => {
+        _err = err;
+        _socket = tlsSocket;
+    });
+
+    server = server.prependOnceListener("connection", (socket) => {
+        _stream = socket;
+    });
+    server = server.prependOnceListener("keylog", (ln, tlsSocket) => {
+        _buffer = ln;
+        _socket = tlsSocket;
+    });
+    server = server.prependOnceListener("newSession", (sessionId, sessionData, callback) => {
+        _buffer = sessionId;
+        _buffer = sessionData;
+        sessionCallback = callback;
+    });
+    server = server.prependOnceListener("OCSPRequest", (certificate, issuer, callback) => {
+        _buffer = certificate;
+        _buffer = issuer;
+        ocspRequestCallback = callback;
+    });
+    server = server.prependOnceListener("resumeSession", (sessionId, callback) => {
+        _buffer = sessionId;
+        sessionCallback = callback;
+    });
+    server = server.prependOnceListener("secureConnection", (tlsSocket) => {
+        _socket = tlsSocket;
+    });
+    server = server.prependOnceListener("tlsClientError", (err, tlsSocket) => {
+        _err = err;
+        _socket = tlsSocket;
+    });
 }
 
 // https server events
