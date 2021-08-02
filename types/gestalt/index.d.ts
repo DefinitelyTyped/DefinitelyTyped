@@ -1,4 +1,4 @@
-// Type definitions for gestalt 29.1
+// Type definitions for gestalt 29.6
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -284,7 +284,7 @@ export interface ButtonProps {
     disabled?: boolean | undefined;
     href?: string | undefined;
     iconEnd?: Icons | undefined;
-    inline?: boolean | undefined;
+    fullWidth?: boolean | undefined;
     name?: string | undefined;
     onClick?:
         | AbstractEventHandler<
@@ -314,6 +314,7 @@ export interface ButtonGroupProps {
 
 export interface ActionData {
     accessibilityLabel: string;
+    disabled?: boolean;
     href?: string | undefined;
     label: string;
     onClick?:
@@ -1357,6 +1358,7 @@ export interface TabsProps {
     }>;
     size?: 'md' | 'lg';
     wrap?: boolean;
+    bgColor?: 'default' | 'transparent';
 }
 
 /**
