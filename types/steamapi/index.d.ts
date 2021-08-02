@@ -1,17 +1,17 @@
-// Type definitions for steamapi 2.1.3
+// Type definitions for steamapi 2.1
 // Project: https://github.com/xDimGG/node-steamapi
 // Definitions by: vanitasboi <https://github.com/vanitasboi>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'steamapi' {
-    export default class SteamAPI {
+export default class SteamAPI {
         constructor(key: string, options?: ConstructorOptions);
-        get(path: string, base?: string, key?:string): object;
+        get(path: string, base?: string, key?: string): object;
         resolve(info: string): Promise<string>;
         getAppList(): Promise<App[]>;
         getFeaturedCategories(): Promise<object[]>;
         getFeaturedGames(): Promise<object>;
         getGameAchievements(app: string): Promise<object>;
-        getGameDetails(app: string, force?:boolean): Promise<object>;
+        getGameDetails(app: string, force?: boolean): Promise<object>;
         getGameNews(app: string): Promise<object[]>;
         getGamePlayers(app: string): Promise<number>;
         getGameSchema(app: string): Promise<object>;
@@ -24,32 +24,30 @@ declare module 'steamapi' {
         getUserLevel(id: string): Promise<number>;
         getUserOwnedGames(id: string): Promise<Game[]>;
         getUserRecentGames(id: string): Promise<RecentGame[]>;
-        getUserServers(hide?: boolean, key?: string): Promise<PlayerServers>
-        getUserStats(id: string, app:string): Promise<PlayerStats>;
+        getUserServers(hide?: boolean, key?: string): Promise<PlayerServers>;
+        getUserStats(id: string, app: string): Promise<PlayerStats>;
         getUserSummary(id: string): Promise<PlayerSummary>;
-    }
-    
 }
 
-interface ConstructorOptions {
-    enabled: boolean,
-    expires: number,
-    disableWarnings: boolean,
+export interface ConstructorOptions {
+    enabled: boolean;
+    expires: number;
+    disableWarnings: boolean;
 }
 
-interface App {
-    appid: number,
-    name: string,
+export interface App {
+    appid: number;
+    name: string;
 }
 
-interface Avatar {
-    small: string,
-    medium: string,
-    large: string,
+export interface Avatar {
+    small: string;
+    medium: string;
+    large: string;
 }
 
-declare class PlayerSummary extends Player {
-    constructor(player:object);
+export class PlayerSummary extends Player {
+    constructor(player: object);
     avatar: Avatar;
     steamID: string;
     url: string;
@@ -71,7 +69,7 @@ declare class PlayerSummary extends Player {
     gameID: any;
 }
 
-declare class PlayerStats {
+export class PlayerStats {
     constructor(player: object);
     steamID: string;
     game: string;
@@ -79,7 +77,7 @@ declare class PlayerStats {
     achievements: object;
 }
 
-declare class GameServer {
+export class GameServer {
     constructor(server: object);
     appID: number;
     actor: string;
@@ -93,7 +91,7 @@ declare class GameServer {
     get lastLoginAt(): Date;
 }
 
-declare class PlayerServers extends Player {
+export class PlayerServers extends Player {
     constructor(player: object, hide: boolean);
     steamID: string;
     banned: false;
@@ -102,11 +100,11 @@ declare class PlayerServers extends Player {
     servers: GameServer[];
 }
 
-declare class RecentGame extends Game {
+export class RecentGame extends Game {
     constructor(game: object);
 }
 
-declare class Game {
+export class Game {
     constructor(game: object);
     name: string;
     appID: number;
@@ -116,7 +114,7 @@ declare class Game {
     iconURL: string;
 }
 
-declare class Friend extends Player {
+export class Friend extends Player {
     constructor(friend: object);
     steamID: string;
     relationship: number;
@@ -125,7 +123,7 @@ declare class Friend extends Player {
     get friendedAt(): Date;
 }
 
-declare class PlayerBans {
+export class PlayerBans {
     constructor(player: object);
     steamID: string;
     communityBanned: boolean;
@@ -138,7 +136,7 @@ declare class PlayerBans {
     get lastBan(): Date;
 }
 
-declare class PlayerBadges {
+export class PlayerBadges {
     constructor(player: object);
     badges: Badge[];
     playerXP: number;
@@ -147,7 +145,7 @@ declare class PlayerBadges {
     playerCurrentLevelXP: number;
 }
 
-declare class Badge {
+export class Badge {
     constructor(badge: object);
     appID: number;
     badgeID: number;
@@ -159,7 +157,7 @@ declare class Badge {
     xp: number;
 }
 
-declare class Server {
+export class Server {
 	constructor(server: object);
     address: string;
     appID: number;
@@ -172,11 +170,11 @@ declare class Server {
     specPort: number;
 }
 
-declare class Player {
+export class Player {
     get profileUrl(): string;
 }
 
-declare class Achievement {
+export class Achievement {
     constructor(achievement: object);
     api: string;
     name: string;
@@ -187,7 +185,7 @@ declare class Achievement {
     get unlockedAt(): Date;
 }
 
-declare class PlayerAchievements extends Player {
+export class PlayerAchievements extends Player {
     constructor(player: object);
     steamID: string;
     gameName: string;
