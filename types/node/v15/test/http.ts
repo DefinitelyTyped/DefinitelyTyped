@@ -239,6 +239,65 @@ import * as net from 'net';
     const opts: http.RequestOptions = http.urlToHttpOptions(new url.URL('test.com'));
 }
 
+// net server events
+
+{
+    let server = new http.Server();
+    let _socket = new net.Socket();
+    let _err = new Error();
+    let _bool = true;
+
+    server = server.addListener("close", () => {});
+    server = server.addListener("connection", (socket) => {
+      _socket = socket;
+    });
+    server = server.addListener("error", (err) => {
+      _err = err;
+    });
+    server = server.addListener("listening", () => {});
+
+    _bool = server.emit("close");
+    _bool = server.emit("connection", _socket);
+    _bool = server.emit("error", _err);
+    _bool = server.emit("listening");
+
+    server = server.on("close", () => {});
+    server = server.on("connection", (socket) => {
+      _socket = socket;
+    });
+    server = server.on("error", (err) => {
+      _err = err;
+    });
+    server = server.on("listening", () => {});
+
+    server = server.once("close", () => {});
+    server = server.once("connection", (socket) => {
+      _socket = socket;
+    });
+    server = server.once("error", (err) => {
+      _err = err;
+    });
+    server = server.once("listening", () => {});
+
+    server = server.prependListener("close", () => {});
+    server = server.prependListener("connection", (socket) => {
+      _socket = socket;
+    });
+    server = server.prependListener("error", (err) => {
+      _err = err;
+    });
+    server = server.prependListener("listening", () => {});
+
+    server = server.prependOnceListener("close", () => {});
+    server = server.prependOnceListener("connection", (socket) => {
+      _socket = socket;
+    });
+    server = server.prependOnceListener("error", (err) => {
+      _err = err;
+    });
+    server = server.prependOnceListener("listening", () => {});
+}
+
 // http server events
 {
     let server = new http.Server();
