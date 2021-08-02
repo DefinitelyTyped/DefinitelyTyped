@@ -6866,17 +6866,17 @@ declare namespace chrome.runtime {
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage<M = any, R = any>(message: M, responseCallback?: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(
-        message: any,
+    export function sendMessage<M = any, R = any>(
+        message: M,
         options: MessageOptions,
-        responseCallback?: (response: any) => void,
+        responseCallback?: (response: R) => void,
     ): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
@@ -6885,7 +6885,7 @@ declare namespace chrome.runtime {
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage<M = any, R = any>(extensionId: string, message: M, responseCallback?: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
@@ -6893,11 +6893,11 @@ declare namespace chrome.runtime {
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(
+    export function sendMessage<M = any, R = any>(
         extensionId: string,
-        message: any,
+        message: M,
         options: MessageOptions,
-        responseCallback?: (response: any) => void,
+        responseCallback?: (response: any) => R,
     ): void;
     /**
      * Send a single message to a native application.
@@ -8964,18 +8964,18 @@ declare namespace chrome.tabs {
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
      * @since Chrome 20.
      */
-    export function sendMessage(tabId: number, message: any, responseCallback?: (response: any) => void): void;
+    export function sendMessage<M = any, R = any>(tabId: number, message: M, responseCallback?: (response: R) => void): void;
     /**
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
      * @since Chrome 41.
      * @param responseCallback Optional.
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the specified tab, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage(
+    export function sendMessage<M = any, R = any>(
         tabId: number,
-        message: any,
+        message: M,
         options: MessageSendOptions,
-        responseCallback?: (response: any) => void,
+        responseCallback?: (response: R) => void,
     ): void;
     /**
      * Sends a single request to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The extension.onRequest event is fired in each content script running in the specified tab for the current extension.

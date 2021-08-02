@@ -917,3 +917,22 @@ function testStorageForPromise() {
     chrome.storage.sync.get(['testKey']).then(() => {});
     chrome.storage.sync.get({ testKey: 'testDefaultValue' }).then(() => {});
 }
+
+function testRuntimeSendMessage() {
+    chrome.runtime.sendMessage("Hello World!");
+    chrome.runtime.sendMessage("Hello World!", console.log);
+    chrome.runtime.sendMessage<string>("Hello World!", console.log);
+    chrome.runtime.sendMessage<string, number>("Hello World!", console.log);
+    chrome.runtime.sendMessage<number>("Hello World!", console.log); // $ExpectError
+    chrome.runtime.sendMessage<string, boolean>("Hello World!", (num: number) => alert(num+1)); // $ExpectError
+}
+
+function testTabsSendMessage() {
+    chrome.tabs.sendMessage(1, "Hello World!");
+    chrome.tabs.sendMessage(2, "Hello World!", console.log);
+    chrome.tabs.sendMessage(3, "Hello World!", { }, console.log);
+    chrome.tabs.sendMessage<string>(4, "Hello World!", console.log);
+    chrome.tabs.sendMessage<string, number>(5, "Hello World!", console.log);
+    chrome.tabs.sendMessage<number>(6, "Hello World!", console.log); // $ExpectError
+    chrome.tabs.sendMessage<string, string>(7, "Hello World!", (num: number) => alert(num+1)); // $ExpectError
+}
