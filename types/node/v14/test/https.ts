@@ -153,7 +153,6 @@ import * as url from 'url';
 {
     let server = new https.Server();
     let _socket = new tls.TLSSocket(new net.Socket());
-    let _stream = new stream.Duplex();
     let _buffer = Buffer.from("");
     let _err = new Error();
     let _boolean = true;
