@@ -936,3 +936,23 @@ function testTabsSendMessage() {
     chrome.tabs.sendMessage<number>(6, "Hello World!", console.log); // $ExpectError
     chrome.tabs.sendMessage<string, string>(7, "Hello World!", (num: number) => alert(num+1)); // $ExpectError
 }
+
+function testTabsSendRequest() {
+    chrome.tabs.sendRequest(1, "Hello World!");
+    chrome.tabs.sendRequest(2, "Hello World!", console.log);
+    chrome.tabs.sendRequest(3, "Hello World!", console.log);
+    chrome.tabs.sendRequest<string>(4, "Hello World!", console.log);
+    chrome.tabs.sendRequest<string, number>(5, "Hello World!", console.log);
+    chrome.tabs.sendRequest<number>(6, "Hello World!", console.log); // $ExpectError
+    chrome.tabs.sendRequest<string, string>(7, "Hello World!", (num: number) => alert(num+1)); // $ExpectError
+}
+
+function testExtensionSendRequest() {
+    chrome.extension.sendRequest("dummy-id", "Hello World!");
+    chrome.extension.sendRequest("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest<string>("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest<string, number>("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest<number>("dummy-id", "Hello World!", console.log); // $ExpectError
+    chrome.extension.sendRequest<string, string>("dummy-id", "Hello World!", (num: number) => alert(num+1)); // $ExpectError
+}

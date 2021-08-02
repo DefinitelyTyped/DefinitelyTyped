@@ -3316,7 +3316,7 @@ declare namespace chrome.extension {
      * function(any response) {...};
      * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendRequest(extensionId: string, request: any, responseCallback?: (response: any) => void): void;
+    export function sendRequest<Request = any, Response = any>(extensionId: string, request: Request, responseCallback?: (response: Response) => void): void;
     /**
      * Sends a single request to other listeners within the extension. Similar to runtime.connect, but only sends a single request with an optional response. The extension.onRequest event is fired in each page of the extension.
      * @deprecated Deprecated since Chrome 33. Please use runtime.sendMessage.
@@ -3324,7 +3324,7 @@ declare namespace chrome.extension {
      * function(any response) {...};
      * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendRequest(request: any, responseCallback?: (response: any) => void): void;
+    export function sendRequest<Request = any, Response = any>(request: Request, responseCallback?: (response: Response) => void): void;
     /**
      * Returns an array of the JavaScript 'window' objects for each of the tabs running inside the current extension. If windowId is specified, returns only the 'window' objects of tabs attached to the specified window.
      * @deprecated Deprecated since Chrome 33. Please use extension.getViews {type: "tab"}.
@@ -8983,7 +8983,7 @@ declare namespace chrome.tabs {
      * @param responseCallback Optional.
      * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the specified tab, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendRequest(tabId: number, request: any, responseCallback?: (response: any) => void): void;
+    export function sendRequest<Request = any, Response = any>(tabId: number, request: Request, responseCallback?: (response: Response) => void): void;
     /** Connects to the content script(s) in the specified tab. The runtime.onConnect event is fired in each content script running in the specified tab for the current extension. */
     export function connect(tabId: number, connectInfo?: ConnectInfo): runtime.Port;
     /**
