@@ -5,16 +5,16 @@
 
 declare class SteamAPI {
         constructor(key: string, options?: Options);
-        get(path: string, base?: string, key?: string): object;
+        get(path: string, base?: string, key?: string): Record<string, unknown>;
         resolve(info: string): Promise<string>;
         getAppList(): Promise<App[]>;
-        getFeaturedCategories(): Promise<object[]>;
-        getFeaturedGames(): Promise<object>;
-        getGameAchievements(app: string): Promise<object>;
-        getGameDetails(app: string, force?: boolean, region?: string): Promise<object>;
-        getGameNews(app: string): Promise<object[]>;
+        getFeaturedCategories(): Promise<Array<Record<string, unknown>>>;
+        getFeaturedGames(): Promise<Record<string, unknown>>;
+        getGameAchievements(app: string): Promise<Record<string, unknown>>;
+        getGameDetails(app: string, force?: boolean, region?: string): Promise<Record<string, unknown>>;
+        getGameNews(app: string): Promise<Array<Record<string, unknown>>>;
         getGamePlayers(app: string): Promise<number>;
-        getGameSchema(app: string): Promise<object>;
+        getGameSchema(app: string): Promise<Record<string, unknown>>;
         getServers(host: string): Promise<Server[]>;
         getUserAchievements(id: string, app: string): Promise<PlayerAchievements>;
         getUserBadges(id: string): Promise<PlayerBadges>;
@@ -47,7 +47,7 @@ interface Avatar {
 }
 
 declare class PlayerSummary extends Player {
-    constructor(player: object);
+    constructor(player: Record<string, unknown>);
     avatar: Avatar;
     steamID: string;
     url: string;
@@ -70,15 +70,15 @@ declare class PlayerSummary extends Player {
 }
 
 declare class PlayerStats {
-    constructor(player: object);
+    constructor(player: Record<string, unknown>);
     steamID: string;
     game: string;
-    stats: object;
-    achievements: object;
+    stats: Record<string, unknown>;
+    achievements: Record<string, unknown>;
 }
 
 declare class GameServer {
-    constructor(server: object);
+    constructor(server: Record<string, unknown>);
     appID: number;
     actor: string;
     memo: any;
@@ -92,7 +92,7 @@ declare class GameServer {
 }
 
 declare class PlayerServers extends Player {
-    constructor(player: object, hide: boolean);
+    constructor(player: Record<string, unknown>, hide: boolean);
     steamID: string;
     banned: false;
     expires: number;
@@ -101,11 +101,11 @@ declare class PlayerServers extends Player {
 }
 
 declare class RecentGame extends Game {
-    constructor(game: object);
+    constructor(game: Record<string, unknown>);
 }
 
 declare class Game {
-    constructor(game: object);
+    constructor(game: Record<string, unknown>);
     name: string;
     appID: number;
     playTime: number;
@@ -115,7 +115,7 @@ declare class Game {
 }
 
 declare class Friend extends Player {
-    constructor(friend: object);
+    constructor(friend: Record<string, unknown>);
     steamID: string;
     relationship: number;
     friendSince: number;
@@ -124,7 +124,7 @@ declare class Friend extends Player {
 }
 
 declare class PlayerBans {
-    constructor(player: object);
+    constructor(player: Record<string, unknown>);
     steamID: string;
     communityBanned: boolean;
     vacBanned: boolean;
@@ -137,7 +137,7 @@ declare class PlayerBans {
 }
 
 declare class PlayerBadges {
-    constructor(player: object);
+    constructor(player: Record<string, unknown>);
     badges: Badge[];
     playerXP: number;
     playerLevel: number;
@@ -146,7 +146,7 @@ declare class PlayerBadges {
 }
 
 declare class Badge {
-    constructor(badge: object);
+    constructor(badge: Record<string, unknown>);
     appID: number;
     badgeID: number;
     borderColor: number;
@@ -158,7 +158,7 @@ declare class Badge {
 }
 
 declare class Server {
-	constructor(server: object);
+	constructor(server: Record<string, unknown>);
     address: string;
     appID: number;
     game: string;
@@ -175,7 +175,7 @@ declare class Player {
 }
 
 declare class Achievement {
-    constructor(achievement: object);
+    constructor(achievement: Record<string, unknown>);
     api: string;
     name: string;
     description: string;
@@ -186,7 +186,7 @@ declare class Achievement {
 }
 
 declare class PlayerAchievements extends Player {
-    constructor(player: object);
+    constructor(player: Record<string, unknown>);
     steamID: string;
     gameName: string;
     achievements: Achievement[];
