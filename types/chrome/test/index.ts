@@ -416,6 +416,77 @@ function testOptionsPage() {
     });
 }
 
+function testGetManifest() {
+    const manifest = chrome.runtime.getManifest();
+
+    manifest.name; // $ExpectType string
+    manifest.version; // $ExpectType string
+
+    if (manifest.manifest_version === 2) {
+        manifest.browser_action; // $ExpectType ManifestAction | undefined
+        manifest.page_action; // $ExpectType ManifestAction | undefined
+
+        manifest.content_security_policy; // $ExpectType string | undefined
+
+        manifest.host_permissions; // $ExpectType any
+        manifest.optional_permissions; // $ExpectType string[] | undefined
+        manifest.permissions; // $ExpectType string[] | undefined
+
+        manifest.web_accessible_resources; // $ExpectType string[] | undefined
+    } else if (manifest.manifest_version === 3) {
+        manifest.action; // $ExpectType ManifestAction | undefined
+
+        manifest.content_security_policy = "default-src 'self'"; // $ExpectError
+        manifest.content_security_policy = {
+            extension_pages: "default-src 'self'",
+            sandbox: "default-src 'self'",
+        };
+
+        manifest.host_permissions; // $ExpectType string[] | undefined
+        manifest.optional_permissions; // $ExpectType ManifestPermissions[] | undefined
+        manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
+
+        manifest.web_accessible_resources = [{ matches: ['https://*/*'], resources: ['resource.js'] }];
+        manifest.web_accessible_resources = ['script.js']; // $ExpectError
+    }
+
+    const mv2: chrome.runtime.Manifest = {
+        manifest_version: 2,
+        name: 'manifest version 2',
+        version: '2.0.0',
+        background: { persistent: true, scripts: ['background.js'] },
+        browser_action: {
+            default_icon: {
+                16: 'icon-16.png',
+            },
+        },
+        content_security_policy: "default-src 'self'",
+        optional_permissions: ['https://*/*'],
+        permissions: ['https://*/*'],
+        web_accessible_resources: ['some-page.html'],
+    };
+
+    const mv3: chrome.runtime.Manifest = {
+        manifest_version: 3,
+        name: 'manifest version 3',
+        version: '3.0.0',
+        background: { service_worker: 'bg-sw.js', type: 'module' },
+        content_security_policy: {
+            extension_pages: "default-src 'self'",
+            sandbox: "default-src 'self'",
+        },
+        host_permissions: ['http://*/*'],
+        optional_permissions: ['cookies'],
+        permissions: ['activeTab'],
+        web_accessible_resources: [
+            {
+                matches: ['https://*/*'],
+                resources: ['some-script.js'],
+            },
+        ],
+    };
+}
+
 // https://developer.chrome.com/extensions/tabCapture#type-CaptureOptions
 function testTabCaptureOptions() {
     // Constraints based on:
