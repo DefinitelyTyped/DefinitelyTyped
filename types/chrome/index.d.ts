@@ -6855,6 +6855,50 @@ declare namespace chrome.runtime {
         [key: string]: any;
     }
 
+    export interface ManifestV2 extends Manifest {
+        // Required
+        manifest_version: 2;
+
+        // Pick one (or none)
+        browser_action?: ManifestAction | undefined;
+        page_action?: ManifestAction | undefined;
+
+        // Optional
+        background?:
+            | {
+                  scripts?: string[] | undefined;
+                  page?: string | undefined;
+                  persistent?: boolean | undefined;
+              }
+            | undefined;
+        content_security_policy?: string | undefined;
+        optional_permissions?: string[] | undefined;
+        permissions?: string[] | undefined;
+        web_accessible_resources?: string[] | undefined;
+    }
+
+    export interface ManifestV3 extends Manifest {
+        // Required
+        manifest_version: 3;
+
+        // Optional
+        action?: ManifestAction | undefined;
+        background?:
+            | {
+                  service_worker: string;
+                  type: 'module'; // If the service worker uses ES modules
+              }
+            | undefined;
+        content_security_policy?: {
+            extension_pages?: string;
+            sandbox?: string;
+        };
+        host_permissions?: string[] | undefined;
+        optional_permissions?: ManifestPermissions[] | undefined;
+        permissions?: ManifestPermissions[] | undefined;
+        web_accessible_resources?: { resources: string[]; matches: string[] }[] | undefined;
+    }
+
     /**
      * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect.
      * @since Chrome 26.
