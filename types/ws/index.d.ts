@@ -1,4 +1,4 @@
-// Type definitions for ws 7.4
+// Type definitions for ws 8.0
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Margus Lamp <https://github.com/mlamp>
@@ -26,6 +26,9 @@ import { Duplex, DuplexOptions } from "stream";
 import { SecureContextOptions } from "tls";
 import { URL } from "url";
 import { ZlibOptions } from "zlib";
+
+export const createWebSocketStream = WebSocket.createWebSocketStream;
+export const WebSocketServer = WebSocket.Server;
 
 // WebSocket socket.
 declare class WebSocket extends EventEmitter {
