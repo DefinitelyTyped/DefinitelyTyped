@@ -858,7 +858,7 @@ declare module CANNON {
         constructor(vertices: number[], indices: number[]);
 
         updateTree(): void;
-        getTrianglesInAABB(aabb: AABB, result: number[]): [];
+        getTrianglesInAABB(aabb: AABB, result: number[]): number[];
         setScale(scale: Vec3): void
         updateNormals(): void;
         updateEdges(): void;
