@@ -92,8 +92,8 @@ import * as url from 'node:url';
 // net server events
 
 {
-    let server = new http.Server();
-    let _socket = new net.Socket();
+    let server = new https.Server();
+    let _socket = new stream.Duplex();
     let _err = new Error();
     let _bool = true;
 
@@ -160,9 +160,6 @@ import * as url from 'node:url';
     let sessionCallback = (err: Error, resp: Buffer) => {};
     let ocspRequestCallback = (err: Error | null, resp: Buffer) => {};
 
-    server = server.addListener("connection", (socket) => {
-        _stream = socket;
-    });
     server = server.addListener("keylog", (ln, tlsSocket) => {
         _buffer = ln;
         _socket = tlsSocket;
@@ -189,7 +186,6 @@ import * as url from 'node:url';
         _socket = tlsSocket;
     });
 
-    _boolean = server.emit("connection", _stream);
     _boolean = server.emit("keylog", _buffer, _socket);
     _boolean = server.emit("newSession", _buffer, _buffer, sessionCallback);
     _boolean = server.emit("OCSPRequest", _buffer, _buffer, ocspRequestCallback);
@@ -197,9 +193,6 @@ import * as url from 'node:url';
     _boolean = server.emit("secureConnection", _socket);
     _boolean = server.emit("tlsClientError", _err, _socket);
 
-    server = server.on("connection", (socket) => {
-        _stream = socket;
-    });
     server = server.on("keylog", (ln, tlsSocket) => {
         _buffer = ln;
         _socket = tlsSocket;
@@ -226,9 +219,6 @@ import * as url from 'node:url';
         _socket = tlsSocket;
     });
 
-    server = server.once("connection", (socket) => {
-        _stream = socket;
-    });
     server = server.once("keylog", (ln, tlsSocket) => {
         _buffer = ln;
         _socket = tlsSocket;
@@ -255,9 +245,6 @@ import * as url from 'node:url';
         _socket = tlsSocket;
     });
 
-    server = server.prependListener("connection", (socket) => {
-        _stream = socket;
-    });
     server = server.prependListener("keylog", (ln, tlsSocket) => {
         _buffer = ln;
         _socket = tlsSocket;
@@ -284,9 +271,6 @@ import * as url from 'node:url';
         _socket = tlsSocket;
     });
 
-    server = server.prependOnceListener("connection", (socket) => {
-        _stream = socket;
-    });
     server = server.prependOnceListener("keylog", (ln, tlsSocket) => {
         _buffer = ln;
         _socket = tlsSocket;
