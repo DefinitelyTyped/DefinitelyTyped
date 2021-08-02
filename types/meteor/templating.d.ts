@@ -26,7 +26,7 @@ declare module 'meteor/templating' {
      * @template N Template name
      * @template T Template interface with custom properties and methods that extends the template instance
      */
-    type TemplateStaticTyped<D extends Record<string, any>, N extends string, T extends object> = TemplateStatic<
+    type TemplateStaticTyped<D extends Record<string, any>, N extends string, T extends Record<string, unknown>> = TemplateStatic<
         D,
         T & Blaze.TemplateInstance<D>
     > &
