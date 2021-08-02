@@ -29,7 +29,7 @@ declare class SteamAPI {
         getUserSummary(id: string): Promise<PlayerSummary>;
 }
 
-interface ConstructorOptions {
+interface Options {
     enabled: boolean;
     expires: number;
     disableWarnings: boolean;
