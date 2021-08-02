@@ -538,6 +538,7 @@ declare class AccessToken extends BaseToken {
     });
     readonly kind: 'AccessToken';
     accountId: string;
+    resourceServer?: ResourceServer | undefined;
     aud: string | string[];
     claims?: ClaimsParameter | undefined;
     extra?: UnknownObject | undefined;

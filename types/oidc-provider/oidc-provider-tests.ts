@@ -227,6 +227,9 @@ const provider = new Provider('https://op.example.com', {
     ttl: {
         CustomToken: 23,
         AccessToken(ctx, accessToken) {
+            if (accessToken.resourceServer) {
+                return accessToken.resourceServer.accessTokenTTL || 60 * 60;
+            }
             ctx.oidc.issuer.substring(0);
             accessToken.iat.toFixed();
             return 2;

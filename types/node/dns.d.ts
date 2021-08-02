@@ -244,7 +244,7 @@ declare module 'dns' {
      * On error, `err` is an `Error` object, where `err.code` is one of the `DNS error codes`.
      * @since v0.1.27
      * @param hostname Host name to resolve.
-     * @param rrtype Resource record type.
+     * @param [rrtype='A'] Resource record type.
      */
     export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: 'A', callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void): void;
@@ -626,8 +626,8 @@ declare module 'dns' {
          * servers, and the v6 local address when making requests to IPv6 DNS servers.
          * The `rrtype` of resolution requests has no impact on the local address used.
          * @since v15.1.0
-         * @param ipv4 A string representation of an IPv4 address.
-         * @param ipv6 A string representation of an IPv6 address.
+         * @param [ipv4='0.0.0.0'] A string representation of an IPv4 address.
+         * @param [ipv6='::0'] A string representation of an IPv6 address.
          */
         setLocalAddress(ipv4?: string, ipv6?: string): void;
         setServers: typeof setServers;

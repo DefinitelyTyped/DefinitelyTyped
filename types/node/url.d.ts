@@ -65,10 +65,10 @@ declare module 'url' {
      * @since v0.1.25
      * @deprecated Legacy: Use the WHATWG URL API instead.
      * @param urlString The URL string to parse.
-     * @param parseQueryString If `true`, the `query` property will always be set to an object returned by the {@link querystring} module's `parse()` method. If `false`, the `query` property on the
-     * returned URL object will be an unparsed, undecoded string.
-     * @param slashesDenoteHost If `true`, the first token after the literal string `//` and preceding the next `/` will be interpreted as the `host`. For instance, given `//foo/bar`, the result
-     * would be `{host: 'foo', pathname: '/bar'}` rather than `{pathname: '//foo/bar'}`.
+     * @param [parseQueryString=false] If `true`, the `query` property will always be set to an object returned by the {@link querystring} module's `parse()` method. If `false`, the `query` property
+     * on the returned URL object will be an unparsed, undecoded string.
+     * @param [slashesDenoteHost=false] If `true`, the first token after the literal string `//` and preceding the next `/` will be interpreted as the `host`. For instance, given `//foo/bar`, the
+     * result would be `{host: 'foo', pathname: '/bar'}` rather than `{pathname: '//foo/bar'}`.
      */
     function parse(urlString: string): UrlWithStringQuery;
     function parse(urlString: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;

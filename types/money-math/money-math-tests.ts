@@ -20,3 +20,4 @@ money.roundTo5Cents("442.26"); // $ExpectType string
 money.integralPart("-55.10"); // $ExpectType string
 money.amountToCents("126.99"); // $ExpectType string
 money.centsToAmount("10"); // $ExpectType string
+money.centsToAmount(); // $ExpectType undefined

@@ -516,6 +516,7 @@ declare module 'fs' {
      *
      * See the POSIX [`truncate(2)`](http://man7.org/linux/man-pages/man2/truncate.2.html) documentation for more details.
      * @since v0.8.6
+     * @param [len=0]
      */
     export function truncate(path: PathLike, len: number | undefined | null, callback: NoParamCallback): void;
     /**
@@ -538,6 +539,7 @@ declare module 'fs' {
      * Passing a file descriptor is deprecated and may result in an error being thrown
      * in the future.
      * @since v0.8.6
+     * @param [len=0]
      */
     export function truncateSync(path: PathLike, len?: number | null): void;
     /**
@@ -581,6 +583,7 @@ declare module 'fs' {
      *
      * If `len` is negative then `0` will be used.
      * @since v0.8.6
+     * @param [len=0]
      */
     export function ftruncate(fd: number, len: number | undefined | null, callback: NoParamCallback): void;
     /**
@@ -602,6 +605,7 @@ declare module 'fs' {
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link ftruncate}.
      * @since v0.8.6
+     * @param [len=0]
      */
     export function ftruncateSync(fd: number, len?: number | null): void;
     /**
@@ -1952,7 +1956,8 @@ declare module 'fs' {
      *
      * Functions based on `fs.open()` exhibit this behavior as well:`fs.writeFile()`, `fs.readFile()`, etc.
      * @since v0.0.2
-     * @param flags See `support of file system `flags``.
+     * @param [flags='r'] See `support of file system `flags``.
+     * @param [mode=0o666]
      */
     export function open(path: PathLike, flags: OpenMode, mode: Mode | undefined | null, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
     /**
@@ -1974,6 +1979,8 @@ declare module 'fs' {
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link open}.
      * @since v0.1.21
+     * @param [flags='r']
+     * @param [mode=0o666]
      */
     export function openSync(path: PathLike, flags: OpenMode, mode?: Mode | null): number;
     /**
@@ -2196,9 +2203,9 @@ declare module 'fs' {
      * If this method is invoked as its `util.promisify()` ed version, it returns
      * a promise for an `Object` with `bytesRead` and `buffer` properties.
      * @since v0.0.2
-     * @param buffer The buffer that the data will be written to.
-     * @param offset The position in `buffer` to write the data to.
-     * @param length The number of bytes to read.
+     * @param [buffer=Buffer.alloc(16384)] The buffer that the data will be written to.
+     * @param [offset=0] The position in `buffer` to write the data to.
+     * @param [length=buffer.byteLength] The number of bytes to read.
      * @param position Specifies where to begin reading from in the file. If `position` is `null` or `-1 `, data will be read from the current file position, and the file position will be updated. If
      * `position` is an integer, the file position will be unchanged.
      */
@@ -2803,6 +2810,7 @@ declare module 'fs' {
      * If a `signal` is passed, aborting the corresponding AbortController will close
      * the returned `<fs.FSWatcher>`.
      * @since v0.5.10
+     * @param listener
      */
     export function watch(
         filename: PathLike,
@@ -3268,6 +3276,7 @@ declare module 'fs' {
      * ACL and therefore may report that a path is accessible even if the ACL restricts
      * the user from reading or writing to it.
      * @since v0.11.15
+     * @param [mode=fs.constants.F_OK]
      */
     export function access(path: PathLike, mode: number | undefined, callback: NoParamCallback): void;
     /**
@@ -3305,6 +3314,7 @@ declare module 'fs' {
      * }
      * ```
      * @since v0.11.15
+     * @param [mode=fs.constants.F_OK]
      */
     export function accessSync(path: PathLike, mode?: number): void;
     interface StreamOptions {
@@ -3387,7 +3397,7 @@ declare module 'fs' {
      * @since v0.1.31
      * @return See `Readable Stream`.
      */
-    export function createReadStream(path: PathLike, options?: string | ReadStreamOptions): ReadStream;
+    export function createReadStream(path: PathLike, options?: BufferEncoding | ReadStreamOptions): ReadStream;
     /**
      * `options` may also include a `start` option to allow writing data at some
      * position past the beginning of the file, allowed values are in the
@@ -3415,7 +3425,7 @@ declare module 'fs' {
      * @since v0.1.31
      * @return See `Writable Stream`.
      */
-    export function createWriteStream(path: PathLike, options?: string | StreamOptions): WriteStream;
+    export function createWriteStream(path: PathLike, options?: BufferEncoding | StreamOptions): WriteStream;
     /**
      * Forces all currently queued I/O operations associated with the file to the
      * operating system's synchronized I/O completion state. Refer to the POSIX[`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. No arguments other
@@ -3474,7 +3484,7 @@ declare module 'fs' {
      * @since v8.5.0
      * @param src source filename to copy
      * @param dest destination filename of the copy operation
-     * @param mode modifiers for copy operation.
+     * @param [mode=0] modifiers for copy operation.
      */
     export function copyFile(src: PathLike, dest: PathLike, callback: NoParamCallback): void;
     export function copyFile(src: PathLike, dest: PathLike, mode: number, callback: NoParamCallback): void;
@@ -3513,7 +3523,7 @@ declare module 'fs' {
      * @since v8.5.0
      * @param src source filename to copy
      * @param dest destination filename of the copy operation
-     * @param mode modifiers for copy operation.
+     * @param [mode=0] modifiers for copy operation.
      */
     export function copyFileSync(src: PathLike, dest: PathLike, mode?: number): void;
     /**

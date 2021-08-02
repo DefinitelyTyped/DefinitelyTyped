@@ -137,7 +137,7 @@ declare module 'cluster' {
          * In a worker, `process.kill()` exists, but it is not this function;
          * it is `kill()`.
          * @since v0.9.12
-         * @param signal Name of the kill signal to send to the worker process.
+         * @param [signal='SIGTERM'] Name of the kill signal to send to the worker process.
          */
         kill(signal?: string): void;
         destroy(signal?: string): void;

@@ -323,6 +323,18 @@ function startClient(callback) {
 
     doc.submitOp([{insert: 'foo', attributes: {bold: true}}], {source: {deep: true}});
 
+    doc.on('load', () => {});
+    doc.on('no write pending', () => {});
+    doc.on('nothing pending', () => {});
+    doc.on('create', (source: any) => {});
+    doc.on('op', (ops: [any], source: any, clientId: string) => {});
+    doc.on('op batch', (ops: any[], source: any) => {});
+    doc.on('before op', (ops: [any], source: any, clientId: string) => {});
+    doc.on('before op batch', (ops: any[], source: any) => {});
+    doc.on('del', (data: MyDoc, source: any) => {});
+    doc.on('error', (error: ShareDB.Error) => {});
+    doc.on('destroy', () => {});
+
     connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot: ShareDBClient.Snapshot) => {
         if (error) throw error;
         console.log(snapshot.data);
@@ -332,6 +344,8 @@ function startClient(callback) {
         if (error) throw error;
         console.log(snapshot.data);
     });
+
+    console.log(connection.id + connection.seq);
 
     interface PresenceValue {
         foo: number;
