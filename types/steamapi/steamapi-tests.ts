@@ -1,4 +1,4 @@
-import SteamAPI from 'steamapi';
+import SteamAPI = require('steamapi');
 
 const api = new SteamAPI('XXXXXXXXX');
 

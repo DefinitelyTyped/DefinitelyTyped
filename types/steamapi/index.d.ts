@@ -3,7 +3,7 @@
 // Definitions by: vanitasboi <https://github.com/vanitasboi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class SteamAPI {
+declare class SteamAPI {
         constructor(key: string, options?: ConstructorOptions);
         get(path: string, base?: string, key?: string): object;
         resolve(info: string): Promise<string>;
@@ -29,24 +29,24 @@ export default class SteamAPI {
         getUserSummary(id: string): Promise<PlayerSummary>;
 }
 
-export interface ConstructorOptions {
+interface ConstructorOptions {
     enabled: boolean;
     expires: number;
     disableWarnings: boolean;
 }
 
-export interface App {
+interface App {
     appid: number;
     name: string;
 }
 
-export interface Avatar {
+interface Avatar {
     small: string;
     medium: string;
     large: string;
 }
 
-export class PlayerSummary extends Player {
+declare class PlayerSummary extends Player {
     constructor(player: object);
     avatar: Avatar;
     steamID: string;
@@ -69,7 +69,7 @@ export class PlayerSummary extends Player {
     gameID: any;
 }
 
-export class PlayerStats {
+declare class PlayerStats {
     constructor(player: object);
     steamID: string;
     game: string;
@@ -77,7 +77,7 @@ export class PlayerStats {
     achievements: object;
 }
 
-export class GameServer {
+declare class GameServer {
     constructor(server: object);
     appID: number;
     actor: string;
@@ -91,7 +91,7 @@ export class GameServer {
     get lastLoginAt(): Date;
 }
 
-export class PlayerServers extends Player {
+declare class PlayerServers extends Player {
     constructor(player: object, hide: boolean);
     steamID: string;
     banned: false;
@@ -100,11 +100,11 @@ export class PlayerServers extends Player {
     servers: GameServer[];
 }
 
-export class RecentGame extends Game {
+declare class RecentGame extends Game {
     constructor(game: object);
 }
 
-export class Game {
+declare class Game {
     constructor(game: object);
     name: string;
     appID: number;
@@ -114,7 +114,7 @@ export class Game {
     iconURL: string;
 }
 
-export class Friend extends Player {
+declare class Friend extends Player {
     constructor(friend: object);
     steamID: string;
     relationship: number;
@@ -123,7 +123,7 @@ export class Friend extends Player {
     get friendedAt(): Date;
 }
 
-export class PlayerBans {
+declare class PlayerBans {
     constructor(player: object);
     steamID: string;
     communityBanned: boolean;
@@ -136,7 +136,7 @@ export class PlayerBans {
     get lastBan(): Date;
 }
 
-export class PlayerBadges {
+declare class PlayerBadges {
     constructor(player: object);
     badges: Badge[];
     playerXP: number;
@@ -145,7 +145,7 @@ export class PlayerBadges {
     playerCurrentLevelXP: number;
 }
 
-export class Badge {
+declare class Badge {
     constructor(badge: object);
     appID: number;
     badgeID: number;
@@ -157,7 +157,7 @@ export class Badge {
     xp: number;
 }
 
-export class Server {
+declare class Server {
 	constructor(server: object);
     address: string;
     appID: number;
@@ -170,11 +170,11 @@ export class Server {
     specPort: number;
 }
 
-export class Player {
+declare class Player {
     get profileUrl(): string;
 }
 
-export class Achievement {
+declare class Achievement {
     constructor(achievement: object);
     api: string;
     name: string;
@@ -185,9 +185,11 @@ export class Achievement {
     get unlockedAt(): Date;
 }
 
-export class PlayerAchievements extends Player {
+declare class PlayerAchievements extends Player {
     constructor(player: object);
     steamID: string;
     gameName: string;
     achievements: Achievement[];
 }
+
+export = SteamAPI;
