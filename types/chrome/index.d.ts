@@ -6886,7 +6886,7 @@ declare namespace chrome.runtime {
         background?:
             | {
                   service_worker: string;
-                  type: 'module'; // If the service worker uses ES modules
+                  type?: 'module'; // If the service worker uses ES modules
               }
             | undefined;
         content_security_policy?: {
