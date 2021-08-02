@@ -24,10 +24,11 @@ declare interface TemplateStatic<D = Record<string, any>, T = Blaze.TemplateInst
  * @template N Template name
  * @template T Template interface with custom properties and methods that extends the template instance
  */
-declare type TemplateStaticTyped<D extends Record<string, any>, N extends string, T extends object> = TemplateStatic<
-    D,
-    T & Blaze.TemplateInstance<D>
-> &
+declare type TemplateStaticTyped<
+    D extends Record<string, any>,
+    N extends string,
+    T extends Record<string, unknown>,
+> = TemplateStatic<D, T & Blaze.TemplateInstance<D>> &
     {
         [key in N]: Blaze.Template<D, T & Blaze.TemplateInstance<D>>;
     };
