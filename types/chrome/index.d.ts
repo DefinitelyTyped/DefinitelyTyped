@@ -6630,18 +6630,9 @@ declare namespace chrome.runtime {
         description?: string | undefined;
         icons?: ManifestIcons | undefined;
 
-        // Pick one (or none)
-        browser_action?: ManifestAction | undefined;
-        page_action?: ManifestAction | undefined;
-
         // Optional
         author?: any;
         automation?: any;
-        background?: {
-            scripts?: string[] | undefined;
-            page?: string | undefined;
-            persistent?: boolean | undefined;
-        } | undefined;
         background_page?: string | undefined;
         chrome_settings_overrides?: {
             homepage?: string | undefined;
@@ -6687,7 +6678,6 @@ declare namespace chrome.runtime {
             include_globs?: string[] | undefined;
             exclude_globs?: string[] | undefined;
         }[] | undefined;
-        content_security_policy?: string | undefined;
         converted_from_user_script?: boolean | undefined;
         copresence?: any;
         current_locale?: string | undefined;
@@ -6746,14 +6736,12 @@ declare namespace chrome.runtime {
         omnibox?: {
             keyword: string;
         } | undefined;
-        optional_permissions?: string[] | undefined;
         options_page?: string | undefined;
         options_ui?: {
             page?: string | undefined;
             chrome_style?: boolean | undefined;
             open_in_tab?: boolean | undefined;
         } | undefined;
-        permissions?: string[] | undefined;
         platforms?: {
             nacl_arch?: string | undefined;
             sub_package_path: string;
@@ -6795,7 +6783,6 @@ declare namespace chrome.runtime {
         } | undefined;
         update_url?: string | undefined;
         version_name?: string | undefined;
-        web_accessible_resources?: string[] | undefined;
         [key: string]: any;
     }
 
