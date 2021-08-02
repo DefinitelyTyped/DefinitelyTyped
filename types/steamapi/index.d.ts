@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class SteamAPI {
-        constructor(key: string, options?: ConstructorOptions);
+        constructor(key: string, options?: Options);
         get(path: string, base?: string, key?: string): object;
         resolve(info: string): Promise<string>;
         getAppList(): Promise<App[]>;
