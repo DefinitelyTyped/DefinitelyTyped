@@ -15,6 +15,7 @@
 //                 Jason Xian <https://github.com/JasonXian>
 //                 userTim <https://github.com/usertim>
 //                 Idan Zeierman <https://github.com/idan315>
+//                 Nicolas Rodriguez <https://github.com/nicolas377>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -7021,7 +7022,7 @@ declare namespace chrome.scripting {
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files?: string[] | undefined;
         /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
-        func?: (() => void) | undefined;
+        func?: ((...args: any[]) => void) | undefined;
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
     }

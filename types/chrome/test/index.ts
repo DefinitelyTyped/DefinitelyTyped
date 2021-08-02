@@ -783,6 +783,7 @@ async function testManagementForPromise() {
 async function testScriptingForPromise() {
     await chrome.scripting.executeScript({target: {tabId: 0}});
     await chrome.scripting.executeScript({target: {tabId: 0}, func: () => {}, args: []})
+    await chrome.scripting.executeScript({target: {tabId: 0}, func: (name: string) => {}, args: []})
     await chrome.scripting.executeScript({target: {tabId: 0}, func: () => {}, args: {}}) // $ExpectError
     await chrome.scripting.insertCSS({target: {tabId: 0}});
 }
