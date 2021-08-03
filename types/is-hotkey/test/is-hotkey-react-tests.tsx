@@ -1,4 +1,5 @@
 import { isHotkey, isCodeHotkey, isKeyHotkey, parseHotkey, compareHotkey } from 'is-hotkey';
+import * as React from 'react';
 
 const component = (
     <button
