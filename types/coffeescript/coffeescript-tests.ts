@@ -1,4 +1,4 @@
-import * as CoffeeScript from "coffeescript";
+import { CoffeeScript } from "coffeescript";
 
 const coffeeScriptFn = "isUnique = (v, i, a) ->\n  a.indexOf(v) == i";
 
