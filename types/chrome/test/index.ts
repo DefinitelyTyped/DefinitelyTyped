@@ -1027,3 +1027,81 @@ function testExtensionSendRequest() {
     chrome.extension.sendRequest<number>("dummy-id", "Hello World!", console.log); // $ExpectError
     chrome.extension.sendRequest<string, string>("dummy-id", "Hello World!", (num: number) => alert(num+1)); // $ExpectError
 }
+
+function testContextMenusCreate() {
+    chrome.contextMenus.create({
+        id: 'dummy-id',
+        documentUrlPatterns: ['https://*/*'],
+        checked: false,
+        title: 'Hello World!',
+        contexts: ['all'],
+        enabled: true,
+        targetUrlPatterns: ['https://example.com/*'],
+        onclick: (info, tab: chrome.tabs.Tab) => console.log(tab),
+        parentId: 1,
+        type: 'normal',
+        visible: true
+    }, () => console.log('created'));
+}
+
+function testContextMenusRemove() {
+    chrome.contextMenus.remove(1);
+    chrome.contextMenus.remove(1, () => console.log('removed'));
+    chrome.contextMenus.remove(1, (invalid: any) => console.log('removed')); // $ExpectError
+    chrome.contextMenus.remove('dummy-id');
+    chrome.contextMenus.remove('dummy-id', () => console.log('removed'));
+    chrome.contextMenus.remove('dummy-id', (invalid: any) => console.log('removed')); // $ExpectError
+}
+
+function testContextMenusRemoveAll() {
+    chrome.contextMenus.removeAll();
+    chrome.contextMenus.removeAll(() => console.log('removed all'));
+    chrome.contextMenus.removeAll((invalid: any) => console.log('removed')); // $ExpectError
+}
+
+function testContextMenusUpdate() {
+    chrome.contextMenus.update(1, {title: 'Hello World!'});
+    chrome.contextMenus.update(1, {title: 'Hello World!'}, () => console.log('updated'));
+    chrome.contextMenus.update(1, {title: 'Hello World!'}, (invalid: any) => console.log('updated')); // $ExpectError
+    chrome.contextMenus.update('dummy-id', {title: 'Hello World!'});
+    chrome.contextMenus.update('dummy-id', {title: 'Hello World!'}, () => console.log('updated'));
+    chrome.contextMenus.update('dummy-id', {title: 'Hello World!'}, (invalid: any) => console.log('updated')); // $ExpectError
+
+    chrome.contextMenus.update(2, {
+        documentUrlPatterns: ['https://*/*'],
+        checked: false,
+        title: 'Hello World!',
+        contexts: ['all'],
+        enabled: true,
+        targetUrlPatterns: ['https://example.com/*'],
+        onclick: ({
+            checked,
+            editable,
+            frameId,
+            frameUrl,
+            linkUrl,
+            mediaType,
+            menuItemId,
+            pageUrl,
+            parentMenuItemId,
+            selectionText,
+            srcUrl,
+            wasChecked,
+        }, tab: chrome.tabs.Tab) =>
+            console.log(tab, checked, editable, frameId, frameUrl, linkUrl, mediaType, menuItemId, pageUrl, parentMenuItemId, selectionText, srcUrl, wasChecked),
+        parentId: 1,
+        type: 'normal',
+        visible: true
+    });
+
+    chrome.contextMenus.update(1, {documentUrlPatterns: false}); // $ExpectError
+    chrome.contextMenus.update(1, {checked: 'invalid'}); // $ExpectError
+    chrome.contextMenus.update(1, {title: 1}); // $ExpectError
+    chrome.contextMenus.update(1, {contexts: true}); // $ExpectError
+    chrome.contextMenus.update(1, {enabled: 'invalid'}); // $ExpectError
+    chrome.contextMenus.update(1, {targetUrlPatterns: false}); // $ExpectError
+    chrome.contextMenus.update(1, {onclick: false}); // $ExpectError
+    chrome.contextMenus.update(1, {parentId: false}); // $ExpectError
+    chrome.contextMenus.update(1, {type: false}); // $ExpectError
+    chrome.contextMenus.update(1, {visible: 1}); // $ExpectError
+}
