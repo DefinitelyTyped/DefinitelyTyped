@@ -6601,6 +6601,75 @@ declare namespace chrome.runtime {
         default_popup?: string | undefined;
     }
 
+    // Source: https://developer.chrome.com/docs/extensions/mv3/declare_permissions/
+    export type ManifestPermissions =
+        | 'activeTab'
+        | 'alarms'
+        | 'background'
+        | 'bookmarks'
+        | 'browsingData'
+        | 'certificateProvider'
+        | 'clipboardRead'
+        | 'clipboardWrite'
+        | 'contentSettings'
+        | 'contextMenus'
+        | 'cookies'
+        | 'debugger'
+        | 'declarativeContent'
+        | 'declarativeNetRequest'
+        | 'declarativeNetRequestFeedback'
+        | 'declarativeWebRequest'
+        | 'desktopCapture'
+        | 'documentScan'
+        | 'downloads'
+        | 'enterprise.deviceAttributes'
+        | 'enterprise.hardwarePlatform'
+        | 'enterprise.networkingAttributes'
+        | 'enterprise.platformKeys'
+        | 'experimental'
+        | 'fileBrowserHandler'
+        | 'fileSystemProvider'
+        | 'fontSettings'
+        | 'gcm'
+        | 'geolocation'
+        | 'history'
+        | 'identity'
+        | 'idle'
+        | 'loginState'
+        | 'management'
+        | 'nativeMessaging'
+        | 'notifications'
+        | 'pageCapture'
+        | 'platformKeys'
+        | 'power'
+        | 'printerProvider'
+        | 'printing'
+        | 'printingMetrics'
+        | 'privacy'
+        | 'processes'
+        | 'proxy'
+        | 'scripting'
+        | 'search'
+        | 'sessions'
+        | 'signedInDevices'
+        | 'storage'
+        | 'system.cpu'
+        | 'system.display'
+        | 'system.memory'
+        | 'system.storage'
+        | 'tabCapture'
+        | 'tabGroups'
+        | 'tabs'
+        | 'topSites'
+        | 'tts'
+        | 'ttsEngine'
+        | 'unlimitedStorage'
+        | 'vpnProvider'
+        | 'wallpaper'
+        | 'webNavigation'
+        | 'webRequest'
+        | 'webRequestBlocking';
+
     export interface SearchProvider {
         name?: string | undefined;
         keyword?: string | undefined;
@@ -6619,7 +6688,7 @@ declare namespace chrome.runtime {
         is_default?: boolean | undefined;
     }
 
-    export interface Manifest {
+    export interface ManifestBase {
         // Required
         manifest_version: number;
         name: string;
@@ -6630,18 +6699,9 @@ declare namespace chrome.runtime {
         description?: string | undefined;
         icons?: ManifestIcons | undefined;
 
-        // Pick one (or none)
-        browser_action?: ManifestAction | undefined;
-        page_action?: ManifestAction | undefined;
-
         // Optional
         author?: any;
         automation?: any;
-        background?: {
-            scripts?: string[] | undefined;
-            page?: string | undefined;
-            persistent?: boolean | undefined;
-        } | undefined;
         background_page?: string | undefined;
         chrome_settings_overrides?: {
             homepage?: string | undefined;
@@ -6687,7 +6747,6 @@ declare namespace chrome.runtime {
             include_globs?: string[] | undefined;
             exclude_globs?: string[] | undefined;
         }[] | undefined;
-        content_security_policy?: string | undefined;
         converted_from_user_script?: boolean | undefined;
         copresence?: any;
         current_locale?: string | undefined;
@@ -6746,14 +6805,12 @@ declare namespace chrome.runtime {
         omnibox?: {
             keyword: string;
         } | undefined;
-        optional_permissions?: string[] | undefined;
         options_page?: string | undefined;
         options_ui?: {
             page?: string | undefined;
             chrome_style?: boolean | undefined;
             open_in_tab?: boolean | undefined;
         } | undefined;
-        permissions?: string[] | undefined;
         platforms?: {
             nacl_arch?: string | undefined;
             sub_package_path: string;
@@ -6795,9 +6852,54 @@ declare namespace chrome.runtime {
         } | undefined;
         update_url?: string | undefined;
         version_name?: string | undefined;
-        web_accessible_resources?: string[] | undefined;
         [key: string]: any;
     }
+
+    export interface ManifestV2 extends ManifestBase {
+        // Required
+        manifest_version: 2;
+
+        // Pick one (or none)
+        browser_action?: ManifestAction | undefined;
+        page_action?: ManifestAction | undefined;
+
+        // Optional
+        background?:
+            | {
+                  scripts?: string[] | undefined;
+                  page?: string | undefined;
+                  persistent?: boolean | undefined;
+              }
+            | undefined;
+        content_security_policy?: string | undefined;
+        optional_permissions?: string[] | undefined;
+        permissions?: string[] | undefined;
+        web_accessible_resources?: string[] | undefined;
+    }
+
+    export interface ManifestV3 extends ManifestBase {
+        // Required
+        manifest_version: 3;
+
+        // Optional
+        action?: ManifestAction | undefined;
+        background?:
+            | {
+                  service_worker: string;
+                  type?: 'module'; // If the service worker uses ES modules
+              }
+            | undefined;
+        content_security_policy?: {
+            extension_pages?: string;
+            sandbox?: string;
+        };
+        host_permissions?: string[] | undefined;
+        optional_permissions?: ManifestPermissions[] | undefined;
+        permissions?: ManifestPermissions[] | undefined;
+        web_accessible_resources?: { resources: string[]; matches: string[] }[] | undefined;
+    }
+
+    export type Manifest = ManifestV2 | ManifestV3
 
     /**
      * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect.
