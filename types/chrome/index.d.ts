@@ -1538,7 +1538,7 @@ declare namespace chrome.contextMenus {
          * Since Chrome 35.
          * The parent ID, if any, for the item clicked.
          */
-        parentMenuItemId?: number | string | undefined;
+        parentMenuItemId?: number | string;
         /**
          * Optional.
          * Since Chrome 35.
@@ -1599,7 +1599,7 @@ declare namespace chrome.contextMenus {
         targetUrlPatterns?: string[] | undefined;
         onclick?: Function | undefined;
         /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
-        parentId?: number | string | undefined;
+        parentId?: number | string;
         type?: string | undefined;
         /**
          * Optional.
