@@ -4,6 +4,8 @@ typescript for layui 2.6.8
 
 github:https://github.com/javabitar
 
+origin project:https://github.com/sentsin/layui/releases/tag/v2.6.8
+
 # 2、版本差异
 
 2.6.8 较之前的 2.5.5 版本用法区别：

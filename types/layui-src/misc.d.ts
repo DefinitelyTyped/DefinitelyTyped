@@ -4,14 +4,14 @@
 declare namespace Layui {
     /**
      * 第一个按钮回调即yes回调
-     * @param index 当前层索引参数
-     * @param layero 当前层的jqDOM
+     * @param [index] 当前层索引参数
+     * @param [layero] 当前层的jqDOM
      */
     type LayerCallbackYes = (index: number, layero: JQuery) => boolean | void;
     /**
      * 层关闭的回调,如果不想关闭，return false即可
-     * @param index 当前层索引参数
-     * @param layero 当前层的DOM对象
+     * @param [index] 当前层索引参数
+     * @param [layero] 当前层的DOM对象
      */
     type LayerCallbackCancel = (index: number, layero: JQuery) => boolean | void;
     type LayerCallbackEnd = () => void;
@@ -19,10 +19,10 @@ declare namespace Layui {
     type LayerCallbackMin = (layero: JQuery, index: number) => void;
     type LayerCallbackRestore = (layero: JQuery) => void;
     /**
-     * 输入
-     * @param value 输入的值
-     * @param index 当前层实例的索引
-     * @param layero 当前层的jqDOM
+     * 输入层
+     * @param [value] 输入的值
+     * @param [index] 当前层实例的索引
+     * @param [layero] 当前层的jqDOM
      */
     type LayerCallbackPrompt = (value: string, index: number, layero: JQuery) => void;
 
@@ -227,20 +227,20 @@ declare namespace Layui {
 
         /**
          * 绑定切换事件
-         * @param event  事件
-         * @param callback  回调
+         * @param [event]  事件
+         * @param [callback]  回调
          */
         on(event: string, callback: (this: CarouselClass, obj: CarouselItem) => any): any;
 
         /**
          * 重置轮播
-         * @param options 基础参数
+         * @param [options] 基础参数
          */
         reload(options?: CarouselOption): void;
 
         /**
          * 设置轮播组件的全局参数
-         * @param options 基础参数
+         * @param [options] 基础参数
          */
         set(options?: CarouselOption): Carousel;
     }
@@ -334,6 +334,8 @@ declare namespace Layui {
 
         /**
          * 绑定切换事件
+         * @param [event] 事件名
+         * @param [callback] 回调函数
          */
         on(event: string, callback: (this: Layui, params: any) => any): any;
     }
@@ -431,8 +433,8 @@ declare namespace Layui {
 
         /**
          * 组件成功弹出后的回调，并返回两个参数
-         * @param elemPanel  弹出的面板
-         * @param elem  点击的面板
+         * @param [elemPanel]  弹出的面板
+         * @param [elem]  点击的面板
          */
         ready?(elemPanel: JQuery, elem: JQuery): void;
 
@@ -465,15 +467,15 @@ declare namespace Layui {
 
         /**
          * 给dropdown绑定事件，当前只有click  即event类似:click(id|filter)
-         * @param event  事件名 如： click(id|filter)  括号内是.layui-menu的id=""或者lay-filter=""
-         * @param callback  回调中的参数是  <li lay-options="{id: 101}">中lay-options的值 字符串用''
+         * @param [event]  事件名 如： click(id|filter)  括号内是.layui-menu的id=""或者lay-filter=""
+         * @param [callback]  回调中的参数是  <li lay-options="{id: 101}">中lay-options的值 字符串用''
          */
         on(event: string, callback: (this: HTMLElement, obj: any) => any): any;
 
         /**
          *  重载实例
-         * @param id  id参数为render>options中的id，如果render时未指定id则从1开始。
-         * @param options  全部基础参数
+         * @param [id]  id参数为render>options中的id，如果render时未指定id则从1开始。
+         * @param [options]  全部基础参数
          */
         reload(id: string, options: DropDownOptionForReload): DropDownModule;
 
@@ -520,61 +522,61 @@ declare namespace Layui {
 
         /**
          * 用于元素的一些事件触发
-         * @param filter 比如：tab(filter)，tabDelete(filter)，nav(filter)，collapse(filter)
-         * @param callback  不同filter对应的data类型不同
+         * @param [filter] 比如：tab(filter)，tabDelete(filter)，nav(filter)，collapse(filter)
+         * @param [callback]  不同filter对应的data类型不同
          */
         on(filter: string, callback: (this: any, data: any) => any): any;
 
         /**
          * 用于新增一个Tab选项
-         * @param filter tab元素的 lay-filter="value" 过滤器的值（value）
-         * @param options 设定可选值的对象，
+         * @param [filter] tab元素的 lay-filter="value" 过滤器的值（value）
+         * @param [options] 设定可选值的对象，
          */
         tabAdd(filter: string, options: TabOption): void;
 
         /**
          * 用于删除指定的Tab选项
-         * @param filter tab元素的 lay-filter="value" 过滤器的值（value）
-         * @param layid 选项卡标题列表的 属性 lay-id 的值
+         * @param [filter] tab元素的 lay-filter="value" 过滤器的值（value）
+         * @param [layid] 选项卡标题列表的 属性 lay-id 的值
          */
         tabDelete(filter: string, layid: string): void;
 
         /**
          * 用于外部切换到指定的Tab项上
-         * @param filter 比如：element.tabChange('demo', 'layid');中的'demo'
-         * @param layid 比如：lay-id="yyy"中的'yyy'
+         * @param [filter] 比如：element.tabChange('demo', 'layid');中的'demo'
+         * @param [layid] 比如：lay-id="yyy"中的'yyy'
          */
         tabChange(filter: string, layid: string): void;
 
         /**
          * 用于绑定自定义 Tab 元素（即非 layui 自带的 tab 结构）
-         * @param option
+         * @param [option] 参数
          */
         tab(option: TabElement): void;
 
         /**
          * 用于动态改变进度条百分比： 例如：element.progress('demo', '30%');
-         * @param filter
-         * @param percent
+         * @param [filter]  lay-filter
+         * @param [percent] 比例
          */
         progress(filter: string, percent: string): void;
 
         /**
          *  更新渲染同render， 2.1.6 开始，可以用 element.render(type, filter); 方法替代
-         * @param type
-         * @param filter
+         * @param [type]  可选有：'tab' | 'nav' | 'breadcrumb' | 'progress' | 'collapse'
+         * @param [filter] lay-filter
          */
         init(type?: 'tab' | 'nav' | 'breadcrumb' | 'progress' | 'collapse', filter?: string): void;
 
         /**
          * 更新渲染 ，当type不能识别时，layui会遍历渲染"tab""nav"|"breadcrumb"|"progress"|"collapse" 全部；<br/>&nbsp;
-         * @param type 表单的type类型，如下：    <br/>&nbsp;
+         * @param [type] 表单的type类型，如下：    <br/>&nbsp;
          *  1、tab 重新对tab选项卡进行初始化渲染, <br/>&nbsp;
          *  2、nav    重新对导航进行渲染   <br/>&nbsp;
          *  3、breadcrumb    重新对面包屑进行渲染  <br/>&nbsp;
          *  4、progress    重新对进度条进行渲染  <br/>&nbsp;
          *  5、collapse    重新对折叠面板进行渲染 <br/>&nbsp;
-         * @param filter 为元素的 lay-filter="" 的值，用于局部更新
+         * @param [filter] 为元素的 lay-filter="" 的值，用于局部更新
          */
         render(type?: 'tab' | 'nav' | 'breadcrumb' | 'progress' | 'collapse', filter?: string): void;
     }
@@ -626,7 +628,7 @@ declare namespace Layui {
 
         /**
          * 图片懒加载
-         * @param option
+         * @param [option] 参数
          */
         lazyimg(option?: {
             /**
@@ -694,7 +696,7 @@ declare namespace Layui {
                 /**
                  * 验证数字，如果参数不是数字则返回"只能填写数字"，是数字则无返回值  <br/>&nbsp;
                  *   bug：当0,"0"会提示不是数字
-                 * @param arg 参数 比如 1,"1",-1
+                 * @param [arg] 参数 比如 1,"1",-1
                  */
                 number: (arg: any) => string | null;
                 /**
@@ -715,35 +717,35 @@ declare namespace Layui {
 
         /**
          * 取值，取出所有子元素是input,select,textarea且有name的表单值
-         * @param filter  class=""lay-filter=""中的值
-         * @param itemForm  表单field子元素的父容器，没有则是第一个.layui-form作为父元素。实例：$(".layui-form")，
+         * @param [filter]  class=""lay-filter=""中的值
+         * @param [itemForm]  表单field子元素的父容器，没有则是第一个.layui-form作为父元素。实例：$(".layui-form")，
          */
         getValue(filter: string, itemForm?: JQuery): { [index: string]: string };
 
         /**
          * 表单field元素回调事件 （每个表单都有一个默认事件）
-         * @param event   类似： select(x)|checkbox(x)|switch(x)|radio(x)|submit(x) x为field上的lay-filter="x"
-         * @param callback
+         * @param [event]   类似： select(x)|checkbox(x)|switch(x)|radio(x)|submit(x) x为field上的lay-filter="x"
+         * @param [callback] 回调函数
          */
         on(event: string, callback: (data: LayFormData) => any): any;
 
         /**
          * 更新渲染,对动态插入的元素渲染
-         * @param type
-         * @param filter
+         * @param [type] 可选：'select' | 'checkbox' | 'radio' | null
+         * @param [filter] lay-filter
          */
         render(type?: 'select' | 'checkbox' | 'radio' | null, filter?: string): Form;
 
         /**
          * 表单赋值 / 取值
-         * @param filter  .layui-form 上的lay-filter=""值
-         * @param obj
+         * @param [filter]  .layui-form 上的lay-filter=""值
+         * @param [obj] 要设置的值
          */
         val(filter: string, obj?: object): any;
 
         /**
          * 维护表单验证
-         * @param config
+         * @param [config] 验证参数
          */
         verify(config: LayFormVerifyConfig): Form;
     }
@@ -756,21 +758,21 @@ declare namespace Layui {
 
         /**
          *  添加css类
-         * @param className  类名,必须项  比如 a 或 a b
-         * @param remove  是否是移除className  默认false即添加
+         * @param [className]  类名,必须项  比如 a 或 a b
+         * @param [remove]  是否是移除className  默认false即添加
          */
         addClass(className: string, remove?: boolean): HTMLElement[];
 
         /**
          * 追加内容
-         * @param elem  html或者元素对象
+         * @param [elem]  html或者元素对象
          */
         append(elem?: string | HTMLElement): HTMLElement[];
 
         /**
          * 设置元素属性
-         * @param key  是attribute的key
-         * @param value 是attribute的value
+         * @param [key]  是attribute的key
+         * @param [value] 是attribute的value
          */
         attr(key: string, value: any): HTMLElement[];
 
@@ -781,38 +783,38 @@ declare namespace Layui {
 
         /**
          * 添加 css style
-         * @param key  属性css
-         * @param value  值
+         * @param [key]  属性css
+         * @param [value]  值
          */
         css(key: string, value: any): HTMLElement[];
 
         /**
          * 获取 css style
-         * @param key 属性css
+         * @param [key] 属性css
          */
         css(key: string): string;
 
         /**
          * 对元素遍历
-         * @param fn  (index,elem)
+         * @param [fn]  (index,elem)
          */
         each(fn?: (this: HTMLElement, index: number, elem: HTMLElement) => any): HTMLElement[];
 
         /**
          * 查找子元素
-         * @param selector  选择器
+         * @param [selector]  选择器
          */
         find(selector: string | HTMLElement): LAY;
 
         /**
          * 是否包含 css 类
-         * @param className 类名
+         * @param [className] 类名
          */
         hasClass(className: string): boolean;
 
         /**
          * 设置高度
-         * @param value 元素宽度
+         * @param [value] 元素宽度
          */
         height(value: number | string): HTMLElement[];
 
@@ -823,7 +825,7 @@ declare namespace Layui {
 
         /**
          * 设置元素的innerHTML
-         * @param html  html
+         * @param [html]  html
          */
         html(html: string): HTMLElement[];
 
@@ -834,39 +836,39 @@ declare namespace Layui {
 
         /**
          * 解除事件
-         * @param eventName 事件名 比如click
-         * @param fn 回调
+         * @param [eventName] 事件名 比如click
+         * @param [fn] 回调
          */
         off(eventName: string, fn: (...args: any) => any): HTMLElement[];
 
         /**
          * 事件绑定，注意：只支持内置事件，不支持自定义事件
-         * @param eventName 事件名 比如click，自定事件会绑定失败
-         * @param fn 回调    (tip:this:any)
+         * @param [eventName] 事件名 比如click，自定事件会绑定失败
+         * @param [fn] 回调    (tip:this:any)
          */
         on(eventName: keyof HTMLElementEventMap, fn: (...args: any) => any): HTMLElement[];
 
         /**
          * 移除元素
-         * @param elem   实际是removeChild(elem)
+         * @param [elem]   实际是removeChild(elem)
          */
         remove(elem: HTMLElement): HTMLElement[];
 
         /**
          * 移除 指定的attribute
-         * @param key  是attribute的key
+         * @param [key]  是attribute的key
          */
         removeAttr(key: string): HTMLElement[];
 
         /**
          *  移除 className
-         * @param className
+         * @param [className]
          */
         removeClass(className: string): HTMLElement[];
 
         /**
          * 设置元素的value
-         * @param value 值
+         * @param [value] 值
          */
         val(value: any): HTMLElement[];
 
@@ -877,7 +879,7 @@ declare namespace Layui {
 
         /**
          * 设置宽度
-         * @param value 元素宽度
+         * @param [value] 元素宽度
          */
         width(value: number | string): HTMLElement[];
 
@@ -890,7 +892,7 @@ declare namespace Layui {
     interface Lay {
         /**
          * 查找 DOM 作为返回实例的操作对象
-         * @param selector 选择器 原始dom或者选择器串
+         * @param [selector] 选择器 原始dom或者选择器串
          */
         (selector?: string | HTMLElement): LAY;
 
@@ -898,8 +900,8 @@ declare namespace Layui {
 
         /**
          * 把多个对象深层复制到dest,返回也为dest
-         * @param dest
-         * @param src
+         * @param [dest]
+         * @param [src]
          */
         extend(dest: any, ...src: any): any;
 
@@ -920,29 +922,29 @@ declare namespace Layui {
 
         /**
          * 对象（Array、Object、DOM 对象等）遍历，可用于取代 for 语句 同layui.each
-         * @param obj
-         * @param fn
+         * @param [obj]
+         * @param [fn]
          */
         each(obj: object, fn?: (k: string, v: any) => void): Lay;
 
         /**
          * 数字前置补零
-         * @param num  数字
-         * @param length  补0后的长度
+         * @param [num]  数字
+         * @param [length]  补0后的长度
          */
         digit(num?: any, length?: number): string;
 
         /**
          * 根据tagName生成HTMLElement子元素
-         * @param elemName  ts中小写可智能提示
-         * @param attr
+         * @param [elemName]  ts中小写可智能提示
+         * @param [attr] 属性名
          */
         elem<K extends keyof HTMLElementTagNameMap>(elemName: K, attr?: object): HTMLElementTagNameMap[K];
 
         /**
          *  根据tagName生成HTMLElement子元素
          * @param elemName  非小写内置tagName
-         * @param attr
+         * @param [attr] 属性名
          */
         elem(elemName: string, attr?: object): HTMLElement;
 
@@ -953,22 +955,22 @@ declare namespace Layui {
 
         /**
          * unknown
-         * @param elem
-         * @param elemView
-         * @param obj
+         * @param [elem] HTMLElement
+         * @param [elemView]
+         * @param [obj]
          */
         position(elem: HTMLElement, elemView: any, obj?: any): any;
 
         /**
          * 获取元素上的参数，同jquery.attr()
-         * @param elem html元素
-         * @param attr 若空则为lay-options
+         * @param [elem] html元素
+         * @param [attr] 若空则为lay-options
          */
         options(elem: string | HTMLElement | JQuery, attr?: string): any;
 
         /**
          * 元素是否属于顶级元素（顶级：document 或 body）
-         * @param elem  只有document或body才返回true
+         * @param [elem]  只有document或body才返回true
          */
         isTopElem(elem: any): boolean;
     }
@@ -1093,23 +1095,23 @@ declare namespace Layui {
 
         /**
          * 控件初始打开的回调
-         * @param date
+         * @param [date] 基础参数
          */
-        ready?(date: DateParam): void;
+        ready?(dateParam: DateParam): void;
 
         /**
          * 日期时间被切换后的回调   this to test and elem
-         * @param value 得到日期生成的值，如：2017-08-18 范围："2021-07-06 - 2021-08-09"
-         * @param date 得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-         * @param endDate 开启范围选择（range: true）才会返回。对象成员同上date
+         * @param [value] 得到日期生成的值，如：2017-08-18 范围："2021-07-06 - 2021-08-09"
+         * @param [date] 得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+         * @param [endDate] 开启范围选择（range: true）才会返回。对象成员同上date
          */
         change?(this: Required<DateOption>, value: string, date: DateParam, endDate: DateParam): void;
 
         /**
          * 控件选择完毕后的回调
-         * @param value 得到日期生成的值，如：2017-08-18 范围："2021-07-06 - 2021-08-09"
-         * @param date 得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-         * @param endDate 开启范围选择（range: true）才会返回。对象成员同上date
+         * @param [value] 得到日期生成的值，如：2017-08-18 范围："2021-07-06 - 2021-08-09"
+         * @param [date] 得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+         * @param [endDate] 开启范围选择（range: true）才会返回。对象成员同上date
          */
         done?(value: string, date: DateParam, endDate: DateParam): void;
     }
@@ -1120,13 +1122,13 @@ declare namespace Layui {
     interface Laydate {
         /**
          * 核心方法
-         * @param options  基础参数
+         * @param [options]  基础参数
          */
         render(options: DateOption): { config: DateOption; hint: (content: string) => void };
 
         /**
          * 设置全局参数
-         * @param options
+         * @param [options]
          */
         set(options?: DateOption): Laydate;
 
@@ -1141,8 +1143,8 @@ declare namespace Layui {
 
         /**
          * 获取指定年月的最后一天
-         * @param month  month默认为当前月
-         * @param year  year默认为当前年
+         * @param [month]  month默认为当前月
+         * @param [year]  year默认为当前年
          */
         getEndDate(month?: number, year?: number): number;
     }
@@ -1201,38 +1203,38 @@ declare namespace Layui {
     interface Layedit {
         /**
          * 用于建立编辑器的核心方法
-         * @param id 实例元素（一般为textarea）的id值
-         * @param options 编辑器的可配置项
+         * @param [id] 实例元素（一般为textarea）的id值
+         * @param [options] 编辑器的可配置项
          */
         build(id: string, options?: EditOption): any;
 
         /**
          * 设置编辑器的全局属性
-         * @param options
+         * @param [options]
          */
         set(options: EditOption): Layedit;
 
         /**
          * 获得编辑器的内容
-         * @param index 即执行layedit.build返回的值
+         * @param [index] 即执行layedit.build返回的值
          */
         getContent(index: number): string;
 
         /**
          *  获得编辑器的纯文本内容
-         * @param index 即执行layedit.build返回的值
+         * @param [index] 即执行layedit.build返回的值
          */
         getText(index: number): string;
 
         /**
          *  用于同步编辑器内容到textarea（一般用于异步提交）
-         * @param index 即执行layedit.build返回的值
+         * @param [index] 即执行layedit.build返回的值
          */
         sync(index: number): void;
 
         /**
          * 获取编辑器选中的文本
-         * @param index 即执行layedit.build返回的值
+         * @param [index] 即执行layedit.build返回的值
          */
         getSelection(index: number): string;
     }
@@ -1597,8 +1599,8 @@ declare namespace Layui {
 
         /**
          * 切换图片时触发
-         * @param pic 当前图片的一些信息
-         * @param layero 当前元素
+         * @param [pic] 当前图片的一些信息
+         * @param [layero] 当前元素
          */
         tab?(pic: LayerPhotosDataItem, layero: JQuery): void;
     }
@@ -1665,8 +1667,8 @@ declare namespace Layui {
         // https://www.layui.com/doc/modules/layer.html#layer.config
         /**
          * 初始化全局配置
-         * @param options  基础参数
-         * @param fn  无用
+         * @param [options]  基础参数
+         * @param [fn]  无用
          */
         config(options: LayerConfigOptions, fn?: any): void;
 
@@ -1674,38 +1676,38 @@ declare namespace Layui {
          * 执行初始化，就绪后执行回调参数    <br/>&nbsp;
          * ready(path: string, callback: () => void): void; //兼容旧版？    <br/>&nbsp;
          * 初始化就绪 (CSS完成的回调),当你在页面一打开就要执行弹层时可放入回调中
-         * @param callback 就绪后回调
+         * @param [callback] 就绪后回调
          */
         ready(callback: () => void): void;
 
         /**
          * 原始核心方法
-         * @param options  基础参数
+         * @param [options]  基础参数
          */
         open(options?: LayerOptions): number;
 
         /**
          * 普通信息框
-         * @param content 内容
-         * @param options 基础参数
-         * @param yes  点击确定后的回调
+         * @param [content] 内容
+         * @param [options] 基础参数
+         * @param [yes]  点击确定后的回调
          */
         alert(content?: any, options?: LayerOptions, yes?: LayerCallbackYes): number;
 
         // 源码中会第三个参数代替第二个。单独定义一个方法。
         /**
          * 普通信息框
-         * @param content 内容
-         * @param yes  点击确定后的回调
+         * @param [content] 内容
+         * @param [yes]  点击确定后的回调
          */
         alert(content: any, yes: LayerCallbackYes): number;
 
         /**
          * 询问框
-         * @param content  提示内容
-         * @param options  参数
-         * @param yes  确认回调
-         * @param cancel  右上角关闭按钮触发的回调
+         * @param [content]  提示内容
+         * @param [options]  参数
+         * @param [yes]  确认回调
+         * @param [cancel]  右上角关闭按钮触发的回调
          * @example ```javascript
          * layer.confirm('is not?', {
          *    icon: 3,
@@ -1727,9 +1729,9 @@ declare namespace Layui {
 
         /**
          * 询问框
-         * @param content   提示内容
-         * @param yes   确认回调
-         * @param cancel    右上角关闭按钮触发的回调
+         * @param [content]   提示内容
+         * @param [yes]   确认回调
+         * @param [cancel]    右上角关闭按钮触发的回调
          * @example ```javascript
          * layer.confirm('is not?', (index,layero) => {
          *   // do something
@@ -1744,154 +1746,154 @@ declare namespace Layui {
         // https://www.layui.com/doc/modules/layer.html#layer.msg
         /**
          * 提示框
-         * @param content 提示内容
-         * @param options 参数
-         * @param end 自动关闭后的回调
+         * @param [content] 提示内容
+         * @param [options] 参数
+         * @param [end] 自动关闭后的回调
          */
         msg(content?: string, options?: LayerOptions, end?: LayerCallbackEnd): number;
 
         // https://www.layui.com/doc/modules/layer.html#layer.load
         /**
          *  提示框
-         * @param content 提示内容
-         * @param end 自动关闭后的回调
+         * @param [content] 提示内容
+         * @param [end] 自动关闭后的回调
          */
         msg(content: string, end?: LayerCallbackEnd): number;
 
         /**
          * 加载层
-         * @param icon  可用：0,1,2
-         * @param options 参数
+         * @param [icon]  可用：0,1,2
+         * @param [options] 参数
          */
         load(icon?: number, options?: LayerOptions): number;
 
         /**
          * 加载层
-         * @param options 参数
+         * @param [options] 参数
          */
         load(options: LayerOptions): number;
 
         // https://www.layui.com/doc/modules/layer.html#layer.tips
         /**
          *  tips层
-         * @param content 显示的内容
-         * @param follow  在那里显示
-         * @param options 参数
+         * @param [content] 显示的内容
+         * @param [follow]  在那里显示
+         * @param [options] 参数
          */
         tips(content?: string, follow?: string | HTMLElement | JQuery, options?: LayerOptions): number;
 
         /**
          * 关闭指定层
-         * @param index 层索引
-         * @param callback 关闭后的回调
+         * @param [index] 层索引
+         * @param [callback] 关闭后的回调
          */
         close(index: number, callback?: () => any): void;
 
         /**
          * 关闭所有层
-         * @param type 只想关闭某个类型的层,不传则关闭全部
+         * @param [type] 只想关闭某个类型的层,不传则关闭全部
          */
         /**
          * 闭所有层
-         * @param type 只想关闭某个类型(dialog,page,iframe,loading,tips)的层,不传则关闭全部
-         * @param callback  关闭所有层后执行回调
+         * @param [type] 只想关闭某个类型(dialog,page,iframe,loading,tips)的层,不传则关闭全部
+         * @param [callback]  关闭所有层后执行回调
          */
         closeAll(type?: 'dialog' | 'page' | 'iframe' | 'loading' | 'tips', callback?: () => any): void;
 
         /**
          *
-         * @param callback  关闭所有层后执行回调
+         * @param [callback]  关闭所有层后执行回调
          */
         closeAll(callback: () => any): void;
 
         /**
          * 重新定义层的样式
-         * @param index  层索引
-         * @param options 参数
-         * @param limit  影响宽度和高度
+         * @param [index]  层索引
+         * @param [options] 参数
+         * @param [limit]  影响宽度和高度
          */
         style(index: number, options: { [key: string]: string | number }, limit?: boolean): void;
 
         /**
          * 改变层的标题
-         * @param title 新标题
-         * @param index  层索引
+         * @param [title] 新标题
+         * @param [index]  层索引
          */
         title(title: string, index: number): void;
 
         /**
          * 获取iframe页的DOM
-         * @param selector
-         * @param index
+         * @param [selector]
+         * @param [index]
          */
         getChildFrame(selector: string | HTMLElement | JQuery, index: number): JQuery;
 
         /**
          * 获取特定iframe层的索引
-         * @param windowName  即window.name
+         * @param [windowName]  即window.name
          */
         getFrameIndex(windowName: string): number;
 
         /**
          * 指定iframe层自适应
-         * @param index  层索引
+         * @param [index]  层索引
          */
         iframeAuto(index: number): void;
 
         /**
          * 重置特定iframe url <br/>&nbsp;
          *   如：layer.iframeSrc(index, 'http://sentsin.com')
-         * @param index 层索引
-         * @param url
+         * @param [index] 层索引
+         * @param [url]
          */
         iframeSrc(index: number, url: string): void;
 
         /**
          * 置顶当前窗口
-         * @param layero
+         * @param [layero]
          */
         setTop(layero: JQuery): void;
 
         /**
          * 手工执行最大化
-         * @param index 层索引
+         * @param [index] 层索引
          */
         full(index: number): void;
 
         /**
          * 手工执行最小化
-         * @param index 层索引
+         * @param [index] 层索引
          */
         min(index: number): void;
 
         /**
          * 手工执行还原
-         * @param index 层索引
+         * @param [index] 层索引
          */
         restore(index: number): void;
 
         /**
          * 输入层
-         * @param options 参数
-         * @param yes 点击确定的回调，用该参数而不是用options的yes
+         * @param [options] 参数
+         * @param [yes] 点击确定的回调，用该参数而不是用options的yes
          */
         prompt(options?: LayerPromptOptions, yes?: LayerCallbackPrompt): number;
 
         /**
          * 输入层
-         * @param yes 点击确定的回调
+         * @param [yes] 点击确定的回调
          */
         prompt(yes: LayerCallbackPrompt): number;
 
         /**
          * tab层
-         * @param options  参数，一般配置area和tab
+         * @param [options]  参数，一般配置area和tab
          */
         tab(options?: LayerTabOptions): number;
 
         /**
          * 相册层
-         * @param options 参数
+         * @param [options] 参数
          */
         photos(options?: LayerPhotosOptions): number;
     }
@@ -1967,8 +1969,8 @@ declare namespace Layui {
 
         /**
          * 切换分页的回调
-         * @param obj 当前分页的所有选项值
-         * @param first 是否首次，一般用于初始加载的条件,true则会调用渲染
+         * @param [obj] 当前分页的所有选项值
+         * @param [first] 是否首次，一般用于初始加载的条件,true则会调用渲染
          */
         jump?(obj: PageOptionsForCallback, first: boolean): void;
     }
@@ -2028,7 +2030,7 @@ declare namespace Layui {
         /**
          * 重新定义分隔符 <br/>&nbsp;
          * 如果模版默认的 {{ }} 分隔符与你的其它模板（一般是服务端模板）存在冲突，你也可以重新定义分隔符：
-         * @param option  例如：{open: '<%',close: '%>'}
+         * @param [option]  例如：{open: '<%',close: '%>'}
          */
         config(option?: { open?: string; close?: string }): void;
     }
@@ -2038,15 +2040,15 @@ declare namespace Layui {
 
         /**
          * 执行解析,不常用，推荐render
-         * @param tpl  模板串
-         * @param data  数据
+         * @param [tpl]  模板串
+         * @param [data]  数据
          */
         parse(tpl: string, data: object): string;
 
         /**
          * 执行解析
-         * @param data  数据
-         * @param callback  解析后的回调，即可通过回调中参数也可通过render返回值获取解析后结果串
+         * @param [data]  数据
+         * @param [callback]  解析后的回调，即可通过回调中参数也可通过render返回值获取解析后结果串
          */
         render(data: object, callback?: (str: string) => any): string;
     }
@@ -2087,7 +2089,7 @@ declare namespace Layui {
 
         /**
          * 自定义文本的回调
-         * @param value
+         * @param [value]
          */
         setText?(value: number): void;
 
@@ -2104,20 +2106,20 @@ declare namespace Layui {
 
         /**
          *
-         * @param event
-         * @param callback
+         * @param [event]
+         * @param [callback]
          */
         on(event: string, callback: (obj: any) => any): any;
 
         /**
          * 核心方法
-         * @param option 基础参数
+         * @param [option] 基础参数
          */
         render(option: RateOption): Rate;
 
         /**
          * 设置全局参数
-         * @param options 基础参数
+         * @param [options] 基础参数
          */
         set(options?: RateOption): Rate;
     }
@@ -2182,13 +2184,13 @@ declare namespace Layui {
 
         /**
          * 自定义提示文本
-         * @param value 滑块为范围模式是数组，否则是数字
+         * @param [value] 滑块为范围模式是数组，否则是数字
          */
         setTips?(value: number | number[]): string;
 
         /**
          * 数值改变的回调    <br/>&nbsp;
-         * @param value 滑块为范围模式是数组，否则是数字
+         * @param [value] 滑块为范围模式是数组，否则是数字
          */
         change?(value: number | number[]): void;
     }
@@ -2203,7 +2205,7 @@ declare namespace Layui {
 
         /**
          * 设置滑块的全局参数
-         * @param options 基础参数
+         * @param [options] 基础参数
          */
         set(options?: SliderOption): Slider;
 
@@ -2212,14 +2214,14 @@ declare namespace Layui {
 
         /**
          * 核心方法
-         * @param option 参数
+         * @param [option] 参数
          */
         render(option: SliderOption): {
             config: SliderOption;
             /**
              * 改变指定滑块实例的数值
-             * @param value
-             * @param index 若滑块开启了范围（range: true） 则index需要0和1
+             * @param [value]
+             * @param [index] 若滑块开启了范围（range: true） 则index需要0和1
              */
             setValue(value: any, index?: number): void;
         };
@@ -2474,17 +2476,17 @@ declare namespace Layui {
 
         /**
          * 数据渲染完的回调。你可以借此做一些其它的操作
-         * @param res 1、如果是异步请求数据方式，res即为你接口返回的信息。<br/>&nbsp;
+         * @param [res] 1、如果是异步请求数据方式，res即为你接口返回的信息。<br/>&nbsp;
          *             2、如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-         * @param curr 得到当前页码
-         * @param count 得到数据总量
+         * @param [curr] 得到当前页码
+         * @param [count] 得到数据总量
          */
         done?(res: any, curr: number, count: number): void;
 
         /**
          *  数据请求失败的回调，返回两个参数：错误对象、内容
-         * @param e  错误对象 ,是jqXHR对象（对XHR扩展），不同jquery版本其格式不同
-         * @param msg  内容  比如 "error"
+         * @param [e]  错误对象 ,是jqXHR对象（对XHR扩展），不同jquery版本其格式不同
+         * @param [msg]  内容  比如 "error"
          */
         error?(e: any, msg: any): void;
 
@@ -2573,7 +2575,7 @@ declare namespace Layui {
 
         /**
          * 数据格式解析的回调函数，用于将返回的任意数据格式解析成 table 组件规定的数据格式。
-         * @param res 服务端返回的数据
+         * @param [res] 服务端返回的数据
          */
         parseData?(res: any): TableResponse;
 
@@ -2674,13 +2676,13 @@ declare namespace Layui {
 
         /**
          * 获取表格选中行（。id 即为 id 参数对应的值
-         * @param id
+         * @param [id]
          */
         checkStatus(id: string): { data: []; isAll: boolean };
 
         /**
          * 清除临时Key (即：LAY_CHECKED和LAY_TABLE_INDEX)
-         * @param data
+         * @param [data]
          */
         clearCacheKey(data: object): object;
 
@@ -2691,32 +2693,32 @@ declare namespace Layui {
 
         /**
          * 遍历表头
-         * @param id  table参数中的id，无id则数字
-         * @param callback  回调
-         * @param cols
+         * @param [id]  table参数中的id，无id则数字
+         * @param [callback]  回调
+         * @param [cols]
          */
         eachCols(id: string, callback?: (...arg: any) => any, cols?: TableColumnOption[][]): void;
 
         /**
          * 导出自定数据到文件
-         * @param id  table的id用于找到title当做下载文件名
-         * @param data  手动指定数据
-         * @param type 默认csv
+         * @param [id]  table的id用于找到title当做下载文件名
+         * @param [data]  手动指定数据
+         * @param [type] 默认csv
          */
         // exportFile(id: string, data: any[], type?: string): void;
         // exportFile(colName: any[], data: any[], type?: string): void;
         /**
          *  导出table中数据到文件
-         * @param id  table选项中的id，指定id后则下载的文件名为table中title <br/>&nbsp;
+         * @param [id]  table选项中的id，指定id后则下载的文件名为table中title <br/>&nbsp;
          *              若传入数组则是导出的文件的列标题colName
-         * @param data  传入数据则导出的是该数据，不传则用id从table找数据
-         * @param type   默认csv
+         * @param [data]  传入数据则导出的是该数据，不传则用id从table找数据
+         * @param [type]   默认csv
          */
         exportFile(id: string | any[], data?: any[] | null, type?: string): void;
 
         /**
          * 获取表格当前页的所有行数据
-         * @param id  table参数中的id，无id则数字
+         * @param [id]  table参数中的id，无id则数字
          */
         getData(id: string): any[];
 
@@ -2724,8 +2726,8 @@ declare namespace Layui {
 
         /**
          * 初始化
-         * @param filter  lay-filter设定的值
-         * @param option 各项基础参数
+         * @param [filter]  lay-filter设定的值
+         * @param [option] 各项基础参数
          */
         init(filter: string, option?: TableOption): object;
 
@@ -2744,34 +2746,34 @@ declare namespace Layui {
          * <br/>&nbsp;  row      -> TableOnRow
          * <br/>&nbsp;  edit-    -> TableOnEdit
          * <br/>&nbsp;  sort     ->  TableOnSort
-         * @param event  mod(filter)
-         * @param callback obj参考上边注释
+         * @param [event]  mod(filter)
+         * @param [callback] obj参考上边注释
          */
         on(event: string, callback: (this: any, obj: any) => any): void;
 
         /**
          * 表格重载
-         * @param id table的id，唯一实例标识
-         * @param option 基础参数
-         * @param deep  true则深度复制
+         * @param [id] table的id，唯一实例标识
+         * @param [option] 基础参数
+         * @param [deep]  true则深度复制
          */
         reload(id: string, option?: TableOption, deep?: boolean): void;
 
         /**
          * 核心入口
-         * @param option 基础参数
+         * @param [option] 基础参数
          */
         render(option: TableOption): TableRendered;
 
         /**
          * 重置表格尺寸结构
-         * @param id  如果指定表格唯一 id，则只执行该 id 对应的表格实例
+         * @param [id]  如果指定表格唯一 id，则只执行该 id 对应的表格实例
          */
         resize(id: string): void;
 
         /**
          * 设置table全局项
-         * @param option 基础参数
+         * @param [option] 基础参数
          */
         set(option?: TableOption): Table;
     }
@@ -2792,7 +2794,7 @@ declare namespace Layui {
 
         /**
          * 用于对数据源进行格式解析
-         * @param data
+         * @param [data]
          */
         parseData?(data: any): any;
 
@@ -2832,8 +2834,8 @@ declare namespace Layui {
 
         /**
          * 左右数据穿梭时的回调
-         * @param data 数据
-         * @param index 索引
+         * @param [data] 数据
+         * @param [index] 索引
          */
         onchange?(data: any, index: number): void;
     }
@@ -2848,15 +2850,15 @@ declare namespace Layui {
 
         /**
          * 重载实例  bug to fix
-         * @param id  实例唯一索引
-         * @param options 各项基础参数
+         * @param [id]  实例唯一索引
+         * @param [options] 各项基础参数
          */
         reload(id: string, options: TransferOption): void;
 
         /**
          * 设定全局默认参数  bug to fix
          *
-         * @param options 各项基础参数
+         * @param [options] 各项基础参数
          */
     }
 
@@ -2870,35 +2872,35 @@ declare namespace Layui {
 
         /**
          * 获得右侧数据
-         * @param id 实例唯一索引
+         * @param [id] 实例唯一索引
          */
         getData(id: string): any[];
 
         /**
          * 核心方法
          * bug to fix
-         * @param option 各项基础参数
+         * @param [option] 各项基础参数
          */
         render(option: TransferOption): TransferRendered;
 
         /**
          * 绑定事件，内部modName默认为transfer，绑定参考layui.onevent,触发参考layui.event
-         * @param events
-         * @param callback
+         * @param [events]
+         * @param [callback]
          */
         on(events: string, callback: (this: Layui, obj: any) => any): any;
 
         /**
          * 重载实例  bug to fix
-         * @param id  实例唯一索引
-         * @param options 各项基础参数
+         * @param [id]  实例唯一索引
+         * @param [options] 各项基础参数
          */
         reload(id: string, options: TransferOption): void;
 
         /**
          * 设定全局默认参数  bug to fix
          *
-         * @param options 各项基础参数
+         * @param [options] 各项基础参数
          */
         set(options: TransferOption): void;
     }
@@ -3025,37 +3027,37 @@ declare namespace Layui {
 
         /**
          * 复选框被点击的回调
-         * @param obj
+         * @param [obj]
          */
         oncheck?(obj: TreeCheckData): void;
 
         /**
          * 节点被点击的回调
-         * @param obj
+         * @param [obj]
          */
         click?(obj: TreeClickData): void;
 
         /**
          * 操作节点的回调
-         * @param obj
+         * @param [obj]
          */
         operate?(obj: TreeOperateData): void;
 
         /**
          * 节点过滤的回调
-         * @param obj
+         * @param [obj]
          */
         onsearch?(obj: { elem: any[] }): void;
 
         /**
          * 未知
-         * @param args
+         * @param [args]
          */
         dragstart?(...args: any): any;
 
         /**
          * 未知
-         * @param args
+         * @param [args]
          */
         dragend?(...args: any): any;
     }
@@ -3072,7 +3074,7 @@ declare namespace Layui {
 
         /**
          * 返回选中的节点数据数组
-         * @param id  render参数中的id ,注意data中需要有id属性才返回
+         * @param [id]  render参数中的id ,注意data中需要有id属性才返回
          */
         getChecked(id: string): TreeData[];
 
@@ -3083,38 +3085,38 @@ declare namespace Layui {
 
         /**
          * 绑定事件，内部modName默认为tree，绑定参考layui.onevent,触发参考layui.event
-         * @param events
-         * @param callback
+         * @param [events]
+         * @param [callback]
          */
         on(events: string, callback: (this: Layui, obj: any) => any): any;
 
         /**
          * 实例重载,重载一个已经创建的组件实例，覆盖基础属性
-         * @param id render参数中的id，保证id存在否则出js错误
-         * @param options 基础参数
+         * @param [id] render参数中的id，保证id存在否则出js错误
+         * @param [options] 基础参数
          */
         reload(id: string, options: TreeOption): TreeReloaded;
 
         /**
          * 核心方法
-         * @param option 基础参数
+         * @param [option] 基础参数
          */
         render(option: TreeOption): any;
 
         /**
          * 设置tree全局参数(预设基础参数值)
-         * @param option
+         * @param [option]
          */
         set(option?: TreeOption): Tree;
 
         /**
          * 设置节点勾选
-         * @param id
+         * @param [id]
          */
         /**
          * 设置节点勾选
-         * @param id render参数中的id，指明是哪个tree实例
-         * @param nodeId  树节点数据中的id 参考render->data->id
+         * @param [id] render参数中的id，指明是哪个tree实例
+         * @param [nodeId]  树节点数据中的id 参考render->data->id
          */
         setChecked(id: string, nodeId: any): void;
     }
@@ -3197,44 +3199,44 @@ declare namespace Layui {
 
         /**
          * 选择文件后的回调函数
-         * @param obj 回调参数(工具对象)
+         * @param [obj] 回调参数(工具对象)
          */
         choose?(this: UploadOptionThis, obj: UploadCallbackArg): void;
 
         /**
          * 文件提交上传前的回调，返回false则停止上传  实例:before:function(this,obj){}
-         * @param obj  回调参数(工具对象)
+         * @param [obj]  回调参数(工具对象)
          */
         before?(this: UploadOptionThis, obj: UploadCallbackArg): any;
 
         /**
          * 上传后的回调
-         * @param res  服务端response json
-         * @param index  当前文件索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
-         * @param upload  上传函数
+         * @param [res]  服务端response json
+         * @param [index]  当前文件索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
+         * @param [upload]  上传函数
          */
         done?(this: UploadOptionThis, res: any, index: string, upload: (files?: Blob[]) => void): void;
 
         /**
          * 执行上传请求出现异常的回调（一般为网络异常、URL 404等）。    <br/>&nbsp;
          * 返回两个参数，分别为：index（当前文件的索引）、upload（重新上传的方法
-         * @param index 当前文件索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
-         * @param upload 上传函数
+         * @param [index] 当前文件索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
+         * @param [upload] 上传函数
          */
         error?(this: UploadOptionThis, index: string, upload: (files?: Blob[]) => void): void;
 
         /**
          *  当文件全部被提交后，才触发
-         * @param obj 回调参数
+         * @param [obj] 回调参数
          */
         allDone?(this: UploadOptionThis, obj: UploadAllDoneArg): void;
 
         /**
          * 进度回调
-         * @param percent  数字进度
-         * @param elem  render参数中的elem（即点击元素dom）
-         * @param event 事件
-         * @param index 当前文件索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
+         * @param [percent]  数字进度
+         * @param [elem]  render参数中的elem（即点击元素dom）
+         * @param [event] 事件
+         * @param [index] 当前文件索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
          */
         progress?(
             this: UploadOptionThis,
@@ -3265,15 +3267,15 @@ declare namespace Layui {
     interface UploadCallbackArg {
         /**
          *  预览
-         * @param callback index索引,file文件,result比如图片base64编码
+         * @param [callback] index索引,file文件,result比如图片base64编码
          */
         preview(callback: (index: string, file: File, result: any) => void): void;
 
         /**
          * 上传单个文件    <br/>&nbsp;
          * 对上传失败的单个文件重新上传，一般在某个事件中使用
-         * @param index 索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
-         * @param file 文件
+         * @param [index] 索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
+         * @param [file] 文件
          */
         upload(index: string, file: Blob): void;
 
@@ -3284,9 +3286,9 @@ declare namespace Layui {
 
         /**
          * 重置文件和文件名
-         * @param index 被重置的文件索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
-         * @param file  新的文件
-         * @param filename 新的名字
+         * @param [index] 被重置的文件索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
+         * @param [file]  新的文件
+         * @param [filename] 新的名字
          */
         resetFile(index: string, file: Blob, filename: any): void;
     }
@@ -3299,13 +3301,13 @@ declare namespace Layui {
 
         /**
          * 重载该实例，支持重载全部基础参数
-         * @param options 基础参数
+         * @param [options] 基础参数
          */
         reload(options?: UploadOption): void;
 
         /**
          * 重新上传的方法，一般在某个事件中使用
-         * @param files 需要上传的文件数组
+         * @param [files] 需要上传的文件数组
          */
         upload(files?: Blob[]): void;
     }
@@ -3329,13 +3331,13 @@ declare namespace Layui {
 
         /**
          * 核心方法
-         * @param option 基础参数
+         * @param [option] 基础参数
          */
         render(option: UploadOption): UploadRendered;
 
         /**
          * 设置upload全局参数(预设基础参数值)
-         * @param option 参数
+         * @param [option] 参数
          */
         set(option?: UploadOption): Upload;
     }
@@ -3367,7 +3369,7 @@ declare namespace Layui {
         /**
          * 点击bar的回调，函数返回一个type参数，用于区分bar类型。    <br/>&nbsp;
          *  支持的类型有：bar1、bar2、top
-         * @param type  bar1、bar2、top
+         * @param [type]  bar1、bar2、top
          */
         click?(type: string | 'bar1' | 'bar2' | 'top'): void;
     }
@@ -3379,15 +3381,15 @@ declare namespace Layui {
     interface Util {
         /**
          * 固定块
-         * @param option 参数
+         * @param [option] 参数
          */
         fixbar(option?: UtilBarOption): void;
 
         /**
          * 倒计时
-         * @param endTime  结束时间戳或Date对象，如：4073558400000，或：new Date(2099,1,1).
-         * @param serverTime  当前服务器时间戳或Date对象
-         * @param callback 回调函数。如果倒计时尚在运行，则每一秒都会执行一次。并且返回三个参数：    <br/>&nbsp;
+         * @param [endTime]  结束时间戳或Date对象，如：4073558400000，或：new Date(2099,1,1).
+         * @param [serverTime]  当前服务器时间戳或Date对象
+         * @param [callback] 回调函数。如果倒计时尚在运行，则每一秒都会执行一次。并且返回三个参数：    <br/>&nbsp;
          *      date（包含天/时/分/秒的对象）、    <br/>&nbsp;
          *      serverTime（当前服务器时间戳或Date对象）,    <br/>&nbsp;
          *      timer（计时器返回的ID值，用于clearTimeout）
@@ -3400,22 +3402,22 @@ declare namespace Layui {
 
         /**
          * 某个时间在当前时间的多久前
-         * @param time   当前时间之前的时间戳或日期对象
-         * @param onlyDate  在超过30天后,true只返回日期字符，false不返回时分秒
+         * @param [time]   当前时间之前的时间戳或日期对象
+         * @param [onlyDate]  在超过30天后,true只返回日期字符，false不返回时分秒
          */
         timeAgo(time?: number | Date, onlyDate?: boolean): string;
 
         /**
          * 转化时间戳或日期对象为日期格式字符
-         * @param time  日期对象，也可以是毫秒数 ,默认:当前
-         * @param format 默认：yyyy-MM-dd HH:mm:ss
+         * @param [time]  日期对象，也可以是毫秒数 ,默认:当前
+         * @param [format] 默认：yyyy-MM-dd HH:mm:ss
          */
         toDateString(time?: number | Date, format?: string): any;
 
         /**
          * 数字前置补零
-         * @param num  数字
-         * @param length  补0后的长度
+         * @param [num]  数字
+         * @param [length]  补0后的长度
          */
         digit(num?: any, length?: number): string;
 
@@ -3427,8 +3429,8 @@ declare namespace Layui {
 
         /**
          *  批量处理事件
-         * @param attr  绑定需要监听事件的元素属性
-         * @param obj  事件回调链
+         * @param [attr]  绑定需要监听事件的元素属性
+         * @param [obj]  事件回调链
          */
         event(attr: string, obj: { [index: string]: (othis: JQuery) => any }): any;
     }
