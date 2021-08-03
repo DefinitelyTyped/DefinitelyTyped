@@ -135,13 +135,12 @@ interface TouchableProps {
     onTouchDown?(evt: TouchEvent): void;
 
     /**
-   * The touchmove event occurs when the user moves the finger across the screen.
-
-   *
-   * @param {Object} evt - Touch event data
-   * @param {number} evt.page_x - Touch coordinate X
-   * @param {number} evt.page_y = Touch coordinate Y
-   */
+     * The touchmove event occurs when the user moves the finger across the screen.
+     *
+     * @param {Object} evt - Touch event data
+     * @param {number} evt.page_x - Touch coordinate X
+     * @param {number} evt.page_y = Touch coordinate Y
+     */
     onTouchMove?(evt: TouchEvent): void;
 
     /**
@@ -1198,7 +1197,7 @@ declare class HippyEventListener {
 
     listenerIds: number[];
 
-    addCallback(handleFunc: Function, callContext?: any): number;
+    addCallback(handleFunc: () => void, callContext?: any): number;
 
     removeCallback(callbackId: number): void;
 
@@ -1361,9 +1360,9 @@ declare class HippyEventEmitter {
 
     constructor(sharedListeners?: EventListeners);
 
-    public sharedListeners(): EventListeners;
+    sharedListeners(): EventListeners;
 
-    public addListener(event: string, callback: (data?: any) => void, context?: any): void;
+    addListener(event: string, callback: (data?: any) => void, context?: any): void;
 
     removeAllListeners(event: string): void;
 
@@ -1379,9 +1378,9 @@ interface NetInfoRevoker {
     listener: NetworkInfoCallback | undefined;
 }
 interface NetInfo {
-    addEventListener(eventName: string, handler: Function): NetInfoRevoker;
+    addEventListener(eventName: string, handler: () => void): NetInfoRevoker;
     fetch(): Promise<NetInfo>;
-    removeEventListener(eventName: string, handler: NetInfoRevoker | Function): void;
+    removeEventListener(eventName: string, handler: NetInfoRevoker | (() => void)): void;
 }
 
 interface Route {
