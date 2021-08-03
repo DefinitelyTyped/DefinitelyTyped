@@ -1,7 +1,7 @@
 // Type definitions for kdbush 3.0
 // Project: https://github.com/mourner/kdbush
 // Definitions by: DenisCarriere <https://github.com/DenisCarriere>
-//                 Christian Scott <https://github.com/chrfrasco>
+//                 Christian Scott <https://github.com/christianscott>
 //                 SangYeob Bono Yu <https://github.com/deminoth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

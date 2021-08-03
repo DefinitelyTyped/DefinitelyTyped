@@ -1,6 +1,6 @@
 // Type definitions for libnpmsearch 2.0
 // Project: https://npmjs.com/package/libnpmsearch
-// Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
+// Definitions by: Joel Spadin <https://github.com/joelspadin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

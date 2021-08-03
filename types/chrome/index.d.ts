@@ -2,7 +2,7 @@
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>
 //                 otiai10 <https://github.com/otiai10>
-//                 couven92 <https://github.com/couven92>
+//                 Fredrik Høisæther Rasch <https://github.com/fredrikhr>
 //                 RReverser <https://github.com/rreverser>
 //                 sreimer15 <https://github.com/sreimer15>
 //                 MatCarlson <https://github.com/MatCarlson>

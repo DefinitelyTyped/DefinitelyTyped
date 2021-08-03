@@ -1,6 +1,6 @@
 // Type definitions for romaji-name 0.1
 // Project: https://github.com/jeresig/node-romaji-name#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterbjazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

@@ -1,6 +1,6 @@
 // Type definitions for pacote 9.5
 // Project: https://github.com/npm/pacote#readme
-// Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
+// Definitions by: Joel Spadin <https://github.com/joelspadin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

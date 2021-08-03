@@ -1,6 +1,6 @@
 // Type definitions for detect-port 1.3
 // Project: https://github.com/node-modules/detect-port
-// Definitions by: François Nguyen <https://github.com/lith-light-g>
+// Definitions by: François Nguyen <https://github.com/phurytw>
 //                 Ivan Medina <https://github.com/ivandevp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

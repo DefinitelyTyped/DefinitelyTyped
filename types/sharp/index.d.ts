@@ -1,6 +1,6 @@
 // Type definitions for sharp 0.28
 // Project: https://github.com/lovell/sharp
-// Definitions by: François Nguyen <https://github.com/lith-light-g>
+// Definitions by: François Nguyen <https://github.com/phurytw>
 //                 Wooseop Kim <https://github.com/wooseopkim>
 //                 Bradley Odell <https://github.com/BTOdell>
 //                 Jamie Woodbury <https://github.com/JamieWoodbury>

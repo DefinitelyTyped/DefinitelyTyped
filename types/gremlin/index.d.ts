@@ -1,6 +1,6 @@
 // Type definitions for gremlin 3.4
 // Project: https://tinkerpop.apache.org/
-// Definitions by: matt-sungwook <https://github.com/matt-sungwook>
+// Definitions by: matt-huh <https://github.com/matt-huh>
 //                 keith1024 <https://github.com/keith1024>
 //                 Paulo Soares <https://github.com/7jpsan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

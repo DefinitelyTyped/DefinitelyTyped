@@ -1,7 +1,6 @@
 // Type definitions for heroku-logger 1.0
 // Project: https://github.com/ianstormtaylor/heroku-logger
 // Definitions by: Kyle Vogt <https://github.com/kylevogt>
-//                 Alejandro Moran <https://github.com/AlejandroMoran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 /* =================== USAGE ===================

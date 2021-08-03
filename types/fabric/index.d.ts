@@ -9,7 +9,7 @@
 //                 Bradley Hill <https://github.com/BradleyHill>
 //                 Bryan Krol <https://github.com/bmkrol823>
 //                 Glenn Gartner <https://github.com/glenngartner>
-//                 Codertx <https://github.com/codertx>
+//                 小新 <https://github.com/doouding>
 //                 Mike Moore <https://github.com/mike667>
 //                 Natalie Marleny <https://github.com/nataliemarleny>
 //                 Cody Brooks <https://github.com/buzzyboy>

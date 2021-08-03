@@ -1,6 +1,6 @@
 // Type definitions for uuencode 0.0
 // Project: https://github.com/zacbarton/node-uuencode#readme
-// Definitions by: synaestheory <https://github.com/synaesthoery>
+// Definitions by: synaestheory <https://github.com/synaestheory>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>

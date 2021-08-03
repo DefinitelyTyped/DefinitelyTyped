@@ -8,7 +8,7 @@
 //                 Matthieu Maitre <https://github.com/mmaitre314>
 //                 Adam Lewis <https://github.com/supercargo>
 //                 Alex Soh <https://github.com/takato1314>
-//                 Oleksii Kachura <https://github.com/alex-kachura>
+//                 Oleksii Kachura <https://github.com/oleksii-kachura>
 //                 dcop <https://github.com/dcop>
 //                 Avraham Essoudry <https://github.com/avrahamcool>
 //                 Dmitriy Trifonov <https://github.com/divideby>

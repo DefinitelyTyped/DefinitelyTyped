@@ -1,6 +1,6 @@
 // Type definitions for app-root-dir 0.1
 // Project: https://github.com/philidem/node-app-root-dir
-// Definitions by: shaochenyang <https://github.com/chenyang-biu>
+// Definitions by: Shao Chenyang <https://github.com/G11Max>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AppRootDir {

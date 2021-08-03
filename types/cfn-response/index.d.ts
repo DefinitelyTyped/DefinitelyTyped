@@ -1,6 +1,6 @@
 // Type definitions for cfn-response 1.0
 // Project: https://github.com/LukeMizuhashi/cfn-response
-// Definitions by: Ivo Murrell <https://github.com/ivoisbelongtous>
+// Definitions by: Ivo Murrell <https://github.com/ivomurrell>
 //                 Artur Androsovych <https://github.com/arturovt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0

@@ -1,6 +1,6 @@
 // Type definitions for Braintree-web 3.75
 // Project: https://github.com/braintree/braintree-web
-// Definitions by: Guy Shahine <https://github.com/chlela>
+// Definitions by: Guy Shahine <https://github.com/guy-shahine>
 //                 Jason Buckner <https://github.com/jbuckner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1

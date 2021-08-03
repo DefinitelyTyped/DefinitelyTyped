@@ -1,6 +1,6 @@
 // Type definitions for correlation-id 2.1
 // Project: https://github.com/toboid/correlation-id#readme
-// Definitions by: Nate <https://github.com/natemara>
+// Definitions by: Lily Mara <https://github.com/lily-mara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function withId(id: string, work: () => void): void;

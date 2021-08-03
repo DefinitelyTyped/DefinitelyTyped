@@ -1,6 +1,6 @@
 // Type definitions for halfmoon 1.0
 // Project: https://github.com/halfmoonui/halfmoon#readme
-// Definitions by: Jadie Wadie <https://github.com/Jadie-Wadie>
+// Definitions by: Jaiden Douglas <https://github.com/ja1den>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export const pageWrapper: Element;

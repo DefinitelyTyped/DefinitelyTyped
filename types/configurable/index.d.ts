@@ -1,6 +1,6 @@
 // Type definitions for configurable 0.0
 // Project: https://www.npmjs.com/package/configurable
-// Definitions by: Vilim Stubičan <https://github.com/jewbre>
+// Definitions by: Vilim Stubičan <https://github.com/vilimco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 

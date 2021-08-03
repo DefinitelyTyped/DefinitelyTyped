@@ -1,6 +1,6 @@
 // Type definitions for better-bem 1.1
 // Project: https://github.com/LuudJacobs/better-bem#readme
-// Definitions by: Fernando Mendes <https://github.com/fernando-msj>
+// Definitions by: Fernando Mendes <https://github.com/mendes5>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.9
 

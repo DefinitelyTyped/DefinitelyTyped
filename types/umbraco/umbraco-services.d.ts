@@ -1,6 +1,6 @@
 // Type definitions for Umbraco v7.2.8
 // Project: https://github.com/umbraco
-// Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
+// Definitions by:
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -494,7 +494,7 @@ declare namespace umbraco.services {
         width?: number | undefined;
         /*strips the modal from any animation and wrappers, used when you want to inject a dialog into an existing container*/
         inline?: boolean | undefined;
-        /** 
+        /**
          * It will set this value as a property on the dialog controller's scope as $scope.dialogData
          */
     dialogData?: any;
@@ -1120,7 +1120,7 @@ declare namespace umbraco.services {
     * @description A helper object used for dealing with media items
     */
     interface IMediaHelper {
-        
+
     /**
         * @ngdoc function
         * @name umbraco.services.mediaHelper#formatFileTypes
@@ -2404,8 +2404,3 @@ declare namespace umbraco.services {
             { success: ng.IHttpPromiseCallback<T>; error: ng.IHttpPromiseCallback<umb.resources.IResourcePromise> }): umb.resources.IResourcePromise| Object;
     }
 }
-
-
-
-
-

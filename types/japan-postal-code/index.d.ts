@@ -1,6 +1,6 @@
 // Type definitions for japan-postal-code 0.2
 // Project: https://github.com/mzp/japan-postal-code
-// Definitions by: Takesi Tokugawa <https://github.com/TokugawaTakesi>
+// Definitions by: Takesi Tokugawa <https://github.com/TokugawaTakeshi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace JapanPostalCode {

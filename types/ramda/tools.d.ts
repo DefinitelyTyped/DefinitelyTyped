@@ -278,7 +278,7 @@ export type Lens<S, A> = (
  *
  * => ramda's `merge` functions are 100% properly typed.
  *
- * <created by @pirix-gh>
+ * <created by @millsp>
  */
 export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
     O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth, 1>;
@@ -290,7 +290,7 @@ export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | '
  * It essentially works like [[Merge]], since the utility
  * `MergeUp` is used by `AssignUp` internally.
  *
- * <created by @pirix-gh>
+ * <created by @millsp>
  */
 export type MergeAll<Os extends readonly object[]> =
     O.AssignUp<{}, Os, 'flat', 1> extends infer M

@@ -1,7 +1,7 @@
 // Type definitions for koa-bodyparser 4.3
 // Project: https://github.com/koajs/body-parser
 // Definitions by: Jerry Chin <https://github.com/hellopao>
-//                 Anup Kishore <https://github.com/anup-2s>
+//                 Anup Kishore <https://github.com/anup-the-magic>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Alexi Maschas <https://github.com/amaschas>
 //                 Piotr Kuczynski <https://github.com/pkuczynski>

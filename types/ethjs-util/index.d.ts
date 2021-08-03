@@ -1,6 +1,6 @@
 // Type definitions for ethjs-util 0.1
 // Project: https://github.com/ethjs/ethjs-util#readme
-// Definitions by: tomonari-t <https://github.com/tomoari-t>
+// Definitions by: tomonari_takahashi <https://github.com/tomonari-t>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

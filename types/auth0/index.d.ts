@@ -2,7 +2,7 @@
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
-//                 Alex Bjørlig <https://github.com/dauledk>
+//                 Alex Bjørlig <https://github.com/alexbjorlig>
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>

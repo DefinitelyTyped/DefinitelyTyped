@@ -1,7 +1,7 @@
 // Type definitions for node-notifier 5.4.0
 // Project: https://github.com/mikaelbr/node-notifier
 // Definitions by: Qubo <https://github.com/tkQubo>
-//                 Lorenzo Rapetti <https://github.com/loryman>
+//                 Lorenzo Rapetti <https://github.com/lorenzorapetti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

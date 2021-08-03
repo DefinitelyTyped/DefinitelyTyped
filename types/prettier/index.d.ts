@@ -5,7 +5,7 @@
 //                 Florian Imdahl <https://github.com/ffflorian>,
 //                 Sosuke Suzuki <https://github.com/sosukesuzuki>,
 //                 Christopher Quadflieg <https://github.com/Shinigami92>
-//                 Kevin Deisz <https://github.com/kddeisz>
+//                 Kevin Newton <https://github.com/kddnewton>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
 //                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

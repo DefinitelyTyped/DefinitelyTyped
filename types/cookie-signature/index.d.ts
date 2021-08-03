@@ -1,6 +1,6 @@
 // Type definitions for cookie-signature 1.0
 // Project: https://github.com/tj/node-cookie-signature, https://github.com/visionmedia/node-cookie-signature
-// Definitions by: François Nguyen <https://github.com/lith-light-g>
+// Definitions by: François Nguyen <https://github.com/phurytw>
 //                 Junyoung Choi <https://github.com/Rokt33r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

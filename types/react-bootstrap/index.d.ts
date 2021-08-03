@@ -2,7 +2,7 @@
 // Project: https://github.com/react-bootstrap/react-bootstrap, https://react-bootstrap.github.io
 // Definitions by: Walker Burgin <https://github.com/walkerburgin>,
 //                 Vincent Siao <https://github.com/vsiao>,
-//                 Danilo Barros <https://github.com/danilojrr>,
+//                 Danilo Barros <https://github.com/danilobjr>,
 //                 Batbold Gansukh <https://github.com/Batbold-Gansukh>,
 //                 Raymond May Jr. <https://github.com/octatone>,
 //                 Cheng Sieu Ly <https://github.com/chengsieuly>,

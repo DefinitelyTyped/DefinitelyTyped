@@ -1,7 +1,6 @@
 // Type definitions for non-npm package microsoftteams 1.9
 // Project: https://github.com/OfficeDev/microsoft-teams-library-js
 // Definitions by: Bhargav Krishna <https://github.com/WrathOfZombies>
-//                 Jay Ongg <https://github.com/jayongg>
 //                 Yuri Dogandjiev <https://github.com/ydogandjiev>
 //                 Serge Aradj <https://github.com/orty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

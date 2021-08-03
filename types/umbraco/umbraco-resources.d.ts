@@ -1,6 +1,6 @@
 // Type definitions for Umbraco v7.2.8
 // Project: https://github.com/umbraco
-// Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
+// Definitions by:
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
@@ -1732,8 +1732,3 @@ interface IUserResource{
      disableUser(userId: number): void;
 }
     }
-
-
-
-
-

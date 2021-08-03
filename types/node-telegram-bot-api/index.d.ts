@@ -3,7 +3,7 @@
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
 //                 Giorgio Garasto <https://github.com/Dabolus>
-//                 Kallu609 <https://github.com/Kallu609>
+//                 Kalle <https://github.com/eioo>
 //                 XC-Zhang <https://github.com/XC-Zhang>
 //                 AdityaThebe <https://github.com/adityathebe>
 //                 Michael Orlov <https://github.com/MiklerGM>

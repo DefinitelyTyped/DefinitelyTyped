@@ -3,7 +3,7 @@
 // Definitions by: Alden Taylor <https://github.com/aldentaylor>,
 //                 Trung Dang <https://github.com/immanuel192>,
 //                 Gregor Stamać <https://github.com/gstamac>,
-//                 Valentin Stern <https://github.com/sehsyha>,
+//                 Valentin Stern <https://github.com/Kroustille>,
 //                 Nicholas Hehr <https://github.com/hipsterbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8

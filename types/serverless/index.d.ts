@@ -2,7 +2,7 @@
 // Project: https://github.com/serverless/serverless#readme
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
-//                 Alex Pavlenko <https://github.com/a-pavlenko>
+//                 Alex Pavlenko <https://github.com/sashkopavlenko>
 //                 Frédéric Barthelet <https://github.com/fredericbarthelet>
 //                 Bryan Hunter <https://github.com/bryan-hunter>
 //                 Thomas Aribart <https://github.com/thomasaribart>

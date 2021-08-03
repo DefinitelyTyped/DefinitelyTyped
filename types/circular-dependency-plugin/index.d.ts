@@ -1,6 +1,6 @@
 // Type definitions for circular-dependency-plugin 5.0
 // Project: https://github.com/aackerman/circular-dependency-plugin
-// Definitions by: Olegs Jeremejevs <https://github.com/jeremejevs>
+// Definitions by: Alec Mev <https://github.com/alecmev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 

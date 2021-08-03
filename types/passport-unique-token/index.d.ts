@@ -1,6 +1,6 @@
 // Type definitions for passport-unique-token 1.0
 // Project: https://github.com/Lughino/passport-unique-token
-// Definitions by: briman0094 <https://github.com/briman0094>
+// Definitions by: Arcanox <https://github.com/ArcanoxDragon>
 //                 Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3

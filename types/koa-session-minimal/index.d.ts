@@ -1,6 +1,6 @@
 // Type definitions for koa-session-minimal v3.x
-// Project: https://github.com/longztian/koa-session-minimal
-// Definitions by: Longzhang Tian <https://github.com/longztian>
+// Project: https://github.com/lzztt/koa-session-minimal
+// Definitions by: Longzhang Tian <https://github.com/lzztt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

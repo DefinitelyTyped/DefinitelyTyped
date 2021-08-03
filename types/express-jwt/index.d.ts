@@ -1,7 +1,7 @@
 // Type definitions for express-jwt 6.0
 // Project: https://www.npmjs.org/package/express-jwt
 // Definitions by:  Wonshik Kim <https://github.com/wokim>
-//                  Kacper Polak <https://github.com/kacepe>
+//                  Kacper Polak <https://github.com/kvcpr>
 //                  Sl1MBoy <https://github.com/Sl1MBoy>
 //                  Milan Mimra <https://github.com/milan-mimra>
 //                  Piotr Błażejewicz <https://github.com/peterblazejewicz>

@@ -1,6 +1,6 @@
 // Type definitions for provinces 1.11
 // Project: https://github.com/substack/provinces
-// Definitions by: William Lohan <https://github.com/gatimus>
+// Definitions by: William Lohan <https://github.com/william-lohan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare global {

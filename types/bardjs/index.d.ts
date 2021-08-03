@@ -1,6 +1,6 @@
 // Type definitions for bardjs 0.1.4
 // Project: https://github.com/wardbell/bardjs
-// Definitions by: Andrew Archibald <https://github.com/TepigMC>
+// Definitions by: Andrew Archibald <https://github.com/andrewarchi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

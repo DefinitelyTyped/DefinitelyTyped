@@ -1,6 +1,6 @@
 // Type definitions for dush 3.0
 // Project: https://github.com/tunnckocore/dush#readme
-// Definitions by: andrycodestuffs <https://github.com/andrycodestuffs>
+// Definitions by: Andrea Busà <https://github.com/andycodesstuff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare var dush: dush.DushStatic;
 

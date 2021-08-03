@@ -1,6 +1,6 @@
 // Type definitions for OpenLayers.js 2.10
 // Project: https://github.com/openlayers/openlayers
-// Definitions by: Ilya Bolkhovsky <https://github.com/bolhovsky>
+// Definitions by:
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace OpenLayers {
@@ -5162,4 +5162,3 @@ declare namespace OpenLayers {
         }
     }
 }
-

@@ -2,7 +2,7 @@
 // Project: https://github.com/Shopify/js-buy-sdk#readme
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
-//                 Rosana Ruiz <https://github.com/totemika>
+//                 Rosana Rufer <https://github.com/RosanaRufer>
 //                 Juan Manuel Incaurgarat <https://github.com/kilinkis>
 //                 Chris Worman <https://github.com/chrisworman-pela>
 //                 Maciej Baron <https://github.com/MaciekBaron>

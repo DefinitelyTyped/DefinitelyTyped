@@ -4,7 +4,7 @@
 //                 Curtis Layne <https://github.com/clayne11>
 //                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
-//                 Brian Adams <https://github.com/brian-lives-outdoors>
+//                 Brian Adams <https://github.com/adams-brian>
 //                 Mathieu Masy <https://github.com/TiuSh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8

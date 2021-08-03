@@ -2,11 +2,11 @@
 // Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
-//                 Adam Lavin <https://github.com/lavoaster>
+//                 Adam Lavin <https://github.com/LavaToaster>
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Jason Killian <https://github.com/jkillian>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 David Ruisinger <https://github.com/flavordaaave>
+//                 David Ruisinger <https://github.com/davidruisinger>
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>

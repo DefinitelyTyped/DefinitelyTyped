@@ -1,6 +1,6 @@
 // Type definitions for SIPml5
 // Project: http://sipml5.org/
-// Definitions by: A. Groenenboom <https://github.com/chookies>
+// Definitions by: Adriaan Groenenboom <https://github.com/agboom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace SIPml {
@@ -83,10 +83,10 @@ declare namespace SIPml {
       public resume(): number;
       public transfer(): number;
     }
-    
+
     namespace Call {
         /**
-         * Should be 
+         * Should be
          *
          * Session.EventSubscriptionType |
          * "m_early_media" |
@@ -145,7 +145,7 @@ declare namespace SIPml {
       public subscribe(to: string, configuration?: Session.Configuration): number;
       public unsubscribe(configuration?: Session.Configuration): number;
     }
-    
+
     namespace Subscribe {
         /**
          * Should be
@@ -249,4 +249,3 @@ declare namespace SIPml {
 
   function setWebRtcType(type: string): boolean;
 }
-

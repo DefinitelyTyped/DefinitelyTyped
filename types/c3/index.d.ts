@@ -5,7 +5,7 @@
 //                 Bernd Hacker <https://github.com/denyo>
 //                 Dzmitry Shyndzin <https://github.com/dmitryshindin>
 //                 Tim Niemueller <https://github.com/timn>
-//                 Nate Mara <https://github.com/natemara>
+//                 Lily Mara <https://github.com/lily-mara>
 //                 Ian Sanders <https://github.com/iansan5653>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7

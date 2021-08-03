@@ -1,7 +1,7 @@
 // Type definitions for lory 2.5.3
 // Project: https://github.com/meandmax/lory/
 // Definitions by: kubosho <https://github.com/kubosho>
-//                 philip bulley <https://github.com/milkisevil>
+//                 Philip Bulley <https://github.com/philipbulley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export declare var lory: LoryStatic;
@@ -80,7 +80,7 @@ interface LoryOptions {
      * cubic bezier easing functions: http://easings.net/de (default: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)').
      */
     ease?: string | undefined;
-    
+
     /**
      * the slide index to show when the slider is initialized (    default: 0 )
      */

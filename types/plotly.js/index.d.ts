@@ -6,13 +6,13 @@
 //                 taoqf <https://github.com/taoqf>
 //                 Dadstart <https://github.com/Dadstart>
 //                 Jared Szechy <https://github.com/szechyjs>
-//                 Drew Diamantoukos <https://github.com/MercifulCode>
+//                 Drew Diamantoukos <https://github.com/drew-diamantoukos>
 //                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Megan Riel-Mehan <https://github.com/meganrm>
 //                 Josh Miles <https://github.com/milesjos>
 //                 Pramod Mathai  <https://github.com/skippercool>
-//                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
+//                 Takafumi Yamaguchi <https://github.com/tkfm-yamaguchi>
 //                 Michael Adams <https://github.com/mtadams007>
 //                 Michael Arnett <https://github.com/marnett-git>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>

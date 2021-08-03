@@ -1,6 +1,6 @@
 // Type definitions for polymer v1.2.6
 // Project: https://github.com/Polymer/polymer
-// Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
+// Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/lacolaco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.4
 
@@ -217,7 +217,7 @@ declare global {
       detached?(): void;
 
       attributeChanged?(name: string, oldValue: any, newValue: any): void;
-        
+
       getEffectiveChildren?(): Node[];
 
       getEffectiveChildNodes?(): Node[];

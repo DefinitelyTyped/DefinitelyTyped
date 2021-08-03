@@ -1,7 +1,7 @@
 // Type definitions for SAML2-js 2.0.6
 // Project: https://github.com/Clever/saml2
 // Definitions by: horiuchi <https://github.com/horiuchi>
-//                mathieudutour <https://github.com/mathiedutour>
+//                 Mathieu Dutour <https://github.com/mathieudutour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

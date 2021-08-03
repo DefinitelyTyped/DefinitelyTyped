@@ -2,7 +2,7 @@
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Brandon Shelton <https://github.com/YangusKhan>
 //                 Martin Kiefel <https://github.com/mkiefel>
-//                 Alex Nault <https://github.com/anault>
+//                 Alex Nault <https://github.com/alexnault>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { BlockProperties, MarkProperties, Value } from 'slate';

@@ -1,6 +1,6 @@
 // Type definitions for jsrp 0.2
 // Project: https://github.com/alax/jsrp
-// Definitions by: Harry Shipton <https://github.com/harryshipton>
+// Definitions by: Matt Shipton <https://github.com/mattshipton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace jsrp;

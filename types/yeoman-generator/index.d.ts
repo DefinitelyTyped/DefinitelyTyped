@@ -1,6 +1,6 @@
 // Type definitions for yeoman-generator 5.2
 // Project: https://github.com/yeoman/generator, http://yeoman.io
-// Definitions by: Kentaro Okuno <https://github.com/armorik83>
+// Definitions by: Kentaro Okuno <https://github.com/okunokentaro>
 //                 Jay Anslow <https://github.com/janslow>
 //                 Ika <https://github.com/ikatyang>
 //                 Joshua Cherry <https://github.com/tasadar2>

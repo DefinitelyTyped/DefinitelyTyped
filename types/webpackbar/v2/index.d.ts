@@ -1,6 +1,6 @@
 // Type definitions for webpackbar 2.6
 // Project: https://github.com/nuxt/webpackbar
-// Definitions by: Ryan Clark <https://github.com/rynclark>
+// Definitions by: Ryan Clark <https://github.com/ryanclark>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 

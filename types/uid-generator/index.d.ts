@@ -1,6 +1,6 @@
 // Type definitions for uid-generator 2.0
 // Project: https://github.com/nwoltman/node-uid-generator
-// Definitions by: TheEmrio <https://github.com/TheEmrio>
+// Definitions by: Emrio <https://github.com/Emrio>
 //                 KyleChine <https://github.com/kylechine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

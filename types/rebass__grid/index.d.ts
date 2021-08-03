@@ -3,7 +3,7 @@
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 //                 Victor Orlov <https://github.com/vittorio>
 //                 Louis Hache <https://github.com/lhache>
-//                 Adam Lavin <https://github.com/lavoaster>
+//                 Adam Lavin <https://github.com/LavaToaster>
 //                 Erin Noe-Payne <https://github.com/autoric>
 //                 akameco <https://github.com/akameco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

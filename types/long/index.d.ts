@@ -1,8 +1,8 @@
 // Type definitions for long.js 4.0.0
 // Project: https://github.com/dcodeIO/long.js
 // Definitions by: Peter Kooijmans <https://github.com/peterkooijmans>
+//                 Denis Cappellin <https://github.com/dcappellin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions by: Denis Cappellin <https://github.com/cappellin>
 
 export = Long;
 export as namespace Long;

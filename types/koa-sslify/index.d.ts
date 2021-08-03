@@ -2,7 +2,7 @@
 // Project: https://github.com/turboMaCk/koa-sslify#readme
 // Definitions by: Matthew Bull <https://github.com/wingsbob>
 //                 Mihkel Sokk <https://github.com/msokk>
-//                 wujingtao <https://github.com/mx601595686>
+//                 WuJingTao <https://github.com/wu-jingtao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

@@ -1,7 +1,7 @@
 // Type definitions for mark.js 8.11
 // Project: https://markjs.io/
 // Definitions by: Soner Köksal <https://github.com/renjfk>
-//                 Roman Hotsiy <https://github.com/RomanGotsiy>
+//                 Roman Hotsiy <https://github.com/RomanHotsiy>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
 //                 Joao Lourenco <https://github.com/blackstarzes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

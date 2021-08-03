@@ -1,7 +1,7 @@
 // Type definitions for mysql 2.15
 // Project: https://github.com/mysqljs/mysql
 // Definitions by:  William Johnston <https://github.com/wjohnsto>
-//                     Kacper Polak <https://github.com/kacepe>
+//                     Kacper Polak <https://github.com/kvcpr>
 //                     Krittanan Pingclasai <https://github.com/kpping>
 //                     James Munro <https://github.com/jdmunro>
 //                     Sanders DeNardi <https://github.com/sedenardi>
