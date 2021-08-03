@@ -1,4 +1,4 @@
-import { DocumentSelection, DowncastWriter, Model } from '@ckeditor/ckeditor5-engine';
+import { DocumentSelection, DowncastWriter, Model, Range } from '@ckeditor/ckeditor5-engine';
 import { HighlightDescriptor } from '@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers';
 import Mapper from '@ckeditor/ckeditor5-engine/src/conversion/mapper';
 import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
@@ -15,7 +15,18 @@ export const WIDGET_SELECTED_CLASS_NAME: 'ck-widget_selected';
 
 export function centeredBalloonPositionForLongWidgets(widgetRect: Rect, balloonRect: Rect): Position | null;
 export function checkSelectionOnObject(selection: Selection | DocumentSelection, schema: Schema): boolean;
-export function findOptimalInsertionPosition(selection: Selection | DocumentSelection, model: Model): Position;
+/**
+ * Returns a model range which is optimal (in terms of UX) for inserting a widget block.
+ *
+ * For instance, if a selection is in the middle of a paragraph, the collapsed range before this paragraph
+ * will be returned so that it is not split. If the selection is at the end of a paragraph,
+ * the collapsed range after this paragraph will be returned.
+ *
+ * Note: If the selection is placed in an empty block, the range in that block will be returned. If that range
+ * is then passed to {@link module:engine/model/model~Model#insertContent}, the block will be fully replaced
+ * by the inserted widget block.
+ */
+export function findOptimalInsertionRange(selection: Selection | DocumentSelection, model: Model): Range;
 export function getLabel(element: Element): string;
 export function isWidget(node: Node): boolean;
 export function setHighlightHandling(

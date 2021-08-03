@@ -538,6 +538,7 @@ declare class AccessToken extends BaseToken {
     });
     readonly kind: 'AccessToken';
     accountId: string;
+    resourceServer?: ResourceServer | undefined;
     aud: string | string[];
     claims?: ClaimsParameter | undefined;
     extra?: UnknownObject | undefined;
@@ -876,7 +877,7 @@ declare class JWTStructured {
 }
 
 declare class PASETOStructured {
-    footer?: UnknownObject | Buffer | string | undefined;
+    footer?: UnknownObject;
     payload: UnknownObject;
 }
 

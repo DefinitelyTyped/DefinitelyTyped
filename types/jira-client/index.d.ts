@@ -621,7 +621,7 @@ declare class JiraApi {
      * @param [fields] - [optional] The list of fields to return for each issue.
      * @param [expand] - [optional] A comma-separated list of the parameters to expand.
      */
-    getIssue(issueIdOrKey: string, fields?: string, expand?: string): Promise<JiraApi.JsonResponse>;
+    getIssue(issueIdOrKey: string, fields?: string | string[], expand?: string): Promise<JiraApi.JsonResponse>;
 
     /**
      * Move issues to backlog

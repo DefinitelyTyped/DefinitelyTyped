@@ -1,6 +1,6 @@
-import assert = require('assert');
-import { RequestOptions } from 'http';
-import * as url from 'url';
+import assert = require('node:assert');
+import { RequestOptions } from 'node:http';
+import * as url from 'node:url';
 
 {
     url.format(url.parse('http://www.example.com/xyz'));
@@ -90,6 +90,10 @@ import * as url from 'url';
         assert.equal(value, '123');
         assert.equal(me, searchParams);
     });
+
+    searchParams.forEach(function() {
+        this; // $ExpectType number
+    }, 1);
 
     assert.equal(searchParams.get('abc'), '123');
 

@@ -8,8 +8,8 @@ import {
     kMaxLength,
     kStringMaxLength,
     Blob,
-} from 'buffer';
-import { Readable, Writable } from 'stream';
+} from 'node:buffer';
+import { Readable, Writable } from 'node:stream';
 
 const utf8Buffer = new Buffer('test');
 const base64Buffer = new Buffer('', 'base64');

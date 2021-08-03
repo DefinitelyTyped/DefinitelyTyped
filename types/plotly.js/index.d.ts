@@ -471,7 +471,10 @@ export interface Layout {
     transition: Transition;
     template: Template;
     clickmode: 'event' | 'select' | 'event+select' | 'none';
-    uirevision: any;
+    uirevision: number | string;
+    datarevision: number | string;
+    editrevision: number | string;
+    selectionrevision: number | string;
 }
 
 export interface Legend extends Label {
@@ -794,6 +797,8 @@ export interface LayoutAxis extends Axis {
     layer: 'above traces' | 'below traces';
     domain: number[];
     position: number;
+    rotation: number;
+    direction: 'counterclockwise' | 'clockwise';
     rangeslider: Partial<RangeSlider>;
     rangeselector: Partial<RangeSelector>;
     automargin: boolean;

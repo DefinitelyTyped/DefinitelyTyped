@@ -1,7 +1,7 @@
-import { FileHandle, open as openAsync, writeFile as writeFileAsync, watch as watchAsync } from 'fs/promises';
-import * as fs from 'fs';
-import * as util from 'util';
-import assert = require('assert');
+import { FileHandle, open as openAsync, writeFile as writeFileAsync, watch as watchAsync  } from 'node:fs/promises';
+import * as fs from 'node:fs';
+import * as util from 'node:util';
+import assert = require('node:assert');
 
 {
     fs.writeFile("thebible.txt",
@@ -367,6 +367,9 @@ async () => {
         position: 2,
         length: 3,
     })).buffer; // $ExpectType Uint32Array
+
+    await handle.write('hurr', 0, 'utf-8');
+    await handle.write(Buffer.from('hurr'), 0, 42, 10);
 };
 
 async () => {
