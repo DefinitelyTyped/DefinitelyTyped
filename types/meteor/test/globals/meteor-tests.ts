@@ -670,7 +670,11 @@ namespace MeteorTests {
 
     newTemplate2.helpers({
         helperName: function () {
+            // $ExpectType string
             Template2.currentData().foo;
+
+            // $ExpectType string
+            Template2.instance().getFooBar();
         },
     });
 
@@ -678,11 +682,21 @@ namespace MeteorTests {
         this.state.clear();
         this.state = new ReactiveDict();
         this.getFooBar = () => {
+            // $ExpectType string
+            this.data.foo;
+
+            // $ExpectType number | undefined
+            this.state.get('bar');
+
             return this.data.foo + this.state.get('bar');
         };
 
         this.autorun(() => {
             var dataContext = Template2.currentData();
+
+            // $ExpectType string
+            dataContext.foo;
+
             this.subscribe('comments', dataContext.foo);
         });
     });
@@ -692,6 +706,11 @@ namespace MeteorTests {
     newTemplate2.events({
         'click .something'(_event, template) {
             const a = template.state.get('bar');
+            // $ExpectType number | undefined
+            a;
+
+            // $ExpectType string
+            template.getFooBar();
         },
     });
 
