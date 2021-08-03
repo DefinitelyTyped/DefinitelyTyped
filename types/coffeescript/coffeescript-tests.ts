@@ -13,7 +13,7 @@ const outputWithOptions = CoffeeScript.compile(coffeeScriptFn, {
     header: true,
     inlineMap: true,
     sourceMap: false,
-    transpile: { "presets": ["@babel/env"] }
+    transpile: { presets: ["@babel/env"] }
 });
 
 // $ExpectType CodeWithSourceMap
