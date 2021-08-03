@@ -6,7 +6,7 @@
 /**
  * Babel AST source location.
  */
-    interface BabelSourceLocation {
+interface BabelSourceLocation {
     start: {
         line: number;
         column: number;
