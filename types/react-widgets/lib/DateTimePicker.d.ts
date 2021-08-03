@@ -1,4 +1,4 @@
-import { ComponentClass, KeyboardEvent, ReactElement, ReactType } from "react";
+import { ComponentClass, FocusEvent, KeyboardEvent, ReactElement, ReactType } from "react";
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from "./CommonProps";
 
 declare namespace DateTimePicker {
@@ -115,11 +115,11 @@ declare namespace DateTimePicker {
         /**
          * The native onBlur event, called when focus leaves the DateTimePicker entirely.
          */
-        onBlur?: (() => void) | undefined;
+        onBlur?: ((e: FocusEvent) => void) | undefined;
         /**
          * The native onFocus event, called when focus enters the DateTimePicker.
          */
-        onFocus?: (() => void) | undefined;
+        onFocus?: ((e: FocusEvent) => void) | undefined;
         /**
          * The native onKeyDown event, called preventDefault will prevent any custom behavior, included keyboard shortcuts.
          */
