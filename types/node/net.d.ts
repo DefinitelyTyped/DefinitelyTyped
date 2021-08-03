@@ -87,7 +87,7 @@ declare module 'net' {
          * See `Writable` stream `write()` method for more
          * information.
          * @since v0.1.90
-         * @param encoding Only used when data is `string`.
+         * @param [encoding='utf8'] Only used when data is `string`.
          */
         write(buffer: Uint8Array | string, cb?: (err?: Error) => void): boolean;
         write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error) => void): boolean;
@@ -165,6 +165,7 @@ declare module 'net' {
          * algorithm for the socket. Passing `false` for `noDelay` will enable Nagle's
          * algorithm.
          * @since v0.1.90
+         * @param [noDelay=true]
          * @return The socket itself.
          */
         setNoDelay(noDelay?: boolean): this;
@@ -183,6 +184,8 @@ declare module 'net' {
          * * `TCP_KEEPCNT=10`
          * * `TCP_KEEPINTVL=1`
          * @since v0.1.92
+         * @param [enable=false]
+         * @param [initialDelay=0]
          * @return The socket itself.
          */
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
@@ -280,7 +283,7 @@ declare module 'net' {
          *
          * See `writable.end()` for further details.
          * @since v0.1.90
-         * @param encoding Only used when data is `string`.
+         * @param [encoding='utf8'] Only used when data is `string`.
          * @param callback Optional callback for when the socket is finished.
          * @return The socket itself.
          */
@@ -306,6 +309,7 @@ declare module 'net' {
         addListener(event: 'end', listener: () => void): this;
         addListener(event: 'error', listener: (err: Error) => void): this;
         addListener(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        addListener(event: 'ready', listener: () => void): this;
         addListener(event: 'timeout', listener: () => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: 'close', hadError: boolean): boolean;
@@ -315,6 +319,7 @@ declare module 'net' {
         emit(event: 'end'): boolean;
         emit(event: 'error', err: Error): boolean;
         emit(event: 'lookup', err: Error, address: string, family: string | number, host: string): boolean;
+        emit(event: 'ready'): boolean;
         emit(event: 'timeout'): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: 'close', listener: (hadError: boolean) => void): this;
@@ -324,6 +329,7 @@ declare module 'net' {
         on(event: 'end', listener: () => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        on(event: 'ready', listener: () => void): this;
         on(event: 'timeout', listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: 'close', listener: (hadError: boolean) => void): this;
@@ -333,6 +339,7 @@ declare module 'net' {
         once(event: 'end', listener: () => void): this;
         once(event: 'error', listener: (err: Error) => void): this;
         once(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        once(event: 'ready', listener: () => void): this;
         once(event: 'timeout', listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: 'close', listener: (hadError: boolean) => void): this;
@@ -342,6 +349,7 @@ declare module 'net' {
         prependListener(event: 'end', listener: () => void): this;
         prependListener(event: 'error', listener: (err: Error) => void): this;
         prependListener(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        prependListener(event: 'ready', listener: () => void): this;
         prependListener(event: 'timeout', listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: 'close', listener: (hadError: boolean) => void): this;
@@ -351,6 +359,7 @@ declare module 'net' {
         prependOnceListener(event: 'end', listener: () => void): this;
         prependOnceListener(event: 'error', listener: (err: Error) => void): this;
         prependOnceListener(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        prependOnceListener(event: 'ready', listener: () => void): this;
         prependOnceListener(event: 'timeout', listener: () => void): this;
     }
     interface ListenOptions extends Abortable {
@@ -558,7 +567,7 @@ declare module 'net' {
          * Adds a rule to block the given IP address.
          * @since v15.0.0
          * @param address An IPv4 or IPv6 address.
-         * @param type Either `'ipv4'` or `'ipv6'`.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
         addAddress(address: string, type?: IPVersion): void;
         addAddress(address: SocketAddress): void;
@@ -567,7 +576,7 @@ declare module 'net' {
          * @since v15.0.0
          * @param start The starting IPv4 or IPv6 address in the range.
          * @param end The ending IPv4 or IPv6 address in the range.
-         * @param type Either `'ipv4'` or `'ipv6'`.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
         addRange(start: string, end: string, type?: IPVersion): void;
         addRange(start: SocketAddress, end: SocketAddress): void;
@@ -576,7 +585,7 @@ declare module 'net' {
          * @since v15.0.0
          * @param net The network IPv4 or IPv6 address.
          * @param prefix The number of CIDR prefix bits. For IPv4, this must be a value between `0` and `32`. For IPv6, this must be between `0` and `128`.
-         * @param type Either `'ipv4'` or `'ipv6'`.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
         addSubnet(net: SocketAddress, prefix: number): void;
         addSubnet(net: string, prefix: number, type?: IPVersion): void;
@@ -599,7 +608,7 @@ declare module 'net' {
          * ```
          * @since v15.0.0
          * @param address The IP address to check
-         * @param type Either `'ipv4'` or `'ipv6'`.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
         check(address: SocketAddress): boolean;
         check(address: string, type?: IPVersion): boolean;

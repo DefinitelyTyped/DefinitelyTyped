@@ -140,7 +140,7 @@ declare module 'http2' {
          * Closes the `Http2Stream` instance by sending an `RST_STREAM` frame to the
          * connected HTTP/2 peer.
          * @since v8.4.0
-         * @param code Unsigned 32-bit integer identifying the error code.
+         * @param [code=http2.constants.NGHTTP2_NO_ERROR] Unsigned 32-bit integer identifying the error code.
          * @param callback An optional function registered to listen for the `'close'` event.
          */
         close(code?: number, callback?: () => void): void;

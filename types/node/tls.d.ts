@@ -328,7 +328,7 @@ declare module 'tls' {
          * smaller fragments add extra TLS framing bytes and CPU overhead, which may
          * decrease overall server throughput.
          * @since v0.11.11
-         * @param size The maximum TLS fragment size. The maximum value is `16384`.
+         * @param [size=16384] The maximum TLS fragment size. The maximum value is `16384`.
          */
         setMaxSendFragment(size: number): boolean;
         /**

@@ -330,9 +330,9 @@ declare module 'buffer' {
              * ```
              * @since v0.1.90
              * @param string String to write to `buf`.
-             * @param offset Number of bytes to skip before starting to write `string`.
-             * @param length Maximum number of bytes to write (written bytes will not exceed `buf.length - offset`).
-             * @param encoding The character encoding of `string`.
+             * @param [offset=0] Number of bytes to skip before starting to write `string`.
+             * @param [length=buf.length - offset] Maximum number of bytes to write (written bytes will not exceed `buf.length - offset`).
+             * @param [encoding='utf8'] The character encoding of `string`.
              * @return Number of bytes written.
              */
             write(string: string, encoding?: BufferEncoding): number;
@@ -370,9 +370,9 @@ declare module 'buffer' {
              * // Prints: té
              * ```
              * @since v0.1.90
-             * @param encoding The character encoding to use.
-             * @param start The byte offset to start decoding at.
-             * @param end The byte offset to stop decoding at (not inclusive).
+             * @param [encoding='utf8'] The character encoding to use.
+             * @param [start=0] The byte offset to start decoding at.
+             * @param [end=buf.length] The byte offset to stop decoding at (not inclusive).
              */
             toString(encoding?: BufferEncoding, start?: number, end?: number): string;
             /**
@@ -466,10 +466,10 @@ declare module 'buffer' {
              * `ERR_OUT_OF_RANGE` is thrown if `targetStart < 0`, `sourceStart < 0`,`targetEnd > target.byteLength`, or `sourceEnd > source.byteLength`.
              * @since v0.11.13
              * @param target A `Buffer` or {@link Uint8Array} with which to compare `buf`.
-             * @param targetStart The offset within `target` at which to begin comparison.
-             * @param targetEnd The offset within `target` at which to end comparison (not inclusive).
-             * @param sourceStart The offset within `buf` at which to begin comparison.
-             * @param sourceEnd The offset within `buf` at which to end comparison (not inclusive).
+             * @param [targetStart=0] The offset within `target` at which to begin comparison.
+             * @param [targetEnd=target.length] The offset within `target` at which to end comparison (not inclusive).
+             * @param [sourceStart=0] The offset within `buf` at which to begin comparison.
+             * @param [sourceEnd=buf.length] The offset within `buf` at which to end comparison (not inclusive).
              */
             compare(target: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
             /**
@@ -516,9 +516,9 @@ declare module 'buffer' {
              * ```
              * @since v0.1.90
              * @param target A `Buffer` or {@link Uint8Array} to copy into.
-             * @param targetStart The offset within `target` at which to begin writing.
-             * @param sourceStart The offset within `buf` from which to begin copying.
-             * @param sourceEnd The offset within `buf` at which to stop copying (not inclusive).
+             * @param [targetStart=0] The offset within `target` at which to begin writing.
+             * @param [sourceStart=0] The offset within `buf` from which to begin copying.
+             * @param [sourceEnd=buf.length] The offset within `buf` at which to stop copying (not inclusive).
              * @return The number of bytes copied.
              */
             copy(target: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
@@ -543,8 +543,8 @@ declare module 'buffer' {
              * // Prints: buffer
              * ```
              * @since v0.3.0
-             * @param start Where the new `Buffer` will start.
-             * @param end Where the new `Buffer` will end (not inclusive).
+             * @param [start=0] Where the new `Buffer` will start.
+             * @param [end=buf.length] Where the new `Buffer` will end (not inclusive).
              */
             slice(start?: number, end?: number): Buffer;
             /**
@@ -599,8 +599,8 @@ declare module 'buffer' {
              * // (Equivalent to buf.subarray(1, 4).)
              * ```
              * @since v3.0.0
-             * @param start Where the new `Buffer` will start.
-             * @param end Where the new `Buffer` will end (not inclusive).
+             * @param [start=0] Where the new `Buffer` will start.
+             * @param [end=buf.length] Where the new `Buffer` will end (not inclusive).
              */
             subarray(start?: number, end?: number): Buffer;
             /**
@@ -618,7 +618,7 @@ declare module 'buffer' {
              * ```
              * @since v12.0.0, v10.20.0
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy: `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy: `0 <= offset <= buf.length - 8`.
              * @return `offset` plus the number of bytes written.
              */
             writeBigInt64BE(value: bigint, offset?: number): number;
@@ -637,7 +637,7 @@ declare module 'buffer' {
              * ```
              * @since v12.0.0, v10.20.0
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy: `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy: `0 <= offset <= buf.length - 8`.
              * @return `offset` plus the number of bytes written.
              */
             writeBigInt64LE(value: bigint, offset?: number): number;
@@ -656,7 +656,7 @@ declare module 'buffer' {
              * ```
              * @since v12.0.0, v10.20.0
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy: `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy: `0 <= offset <= buf.length - 8`.
              * @return `offset` plus the number of bytes written.
              */
             writeBigUInt64BE(value: bigint, offset?: number): number;
@@ -675,7 +675,7 @@ declare module 'buffer' {
              * This function is also available under the `writeBigUint64LE` alias.
              * @since v12.0.0, v10.20.0
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy: `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy: `0 <= offset <= buf.length - 8`.
              * @return `offset` plus the number of bytes written.
              */
             writeBigUInt64LE(value: bigint, offset?: number): number;
@@ -771,7 +771,7 @@ declare module 'buffer' {
              * // Prints: 4294967295n
              * ```
              * @since v12.0.0, v10.20.0
-             * @param offset Number of bytes to skip before starting to read. Must satisfy: `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy: `0 <= offset <= buf.length - 8`.
              */
             readBigUInt64BE(offset?: number): bigint;
             /**
@@ -786,7 +786,7 @@ declare module 'buffer' {
              * // Prints: 18446744069414584320n
              * ```
              * @since v12.0.0, v10.20.0
-             * @param offset Number of bytes to skip before starting to read. Must satisfy: `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy: `0 <= offset <= buf.length - 8`.
              */
             readBigUInt64LE(offset?: number): bigint;
             /**
@@ -795,7 +795,7 @@ declare module 'buffer' {
              * Integers read from a `Buffer` are interpreted as two's complement signed
              * values.
              * @since v12.0.0, v10.20.0
-             * @param offset Number of bytes to skip before starting to read. Must satisfy: `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy: `0 <= offset <= buf.length - 8`.
              */
             readBigInt64BE(offset?: number): bigint;
             /**
@@ -804,7 +804,7 @@ declare module 'buffer' {
              * Integers read from a `Buffer` are interpreted as two's complement signed
              * values.
              * @since v12.0.0, v10.20.0
-             * @param offset Number of bytes to skip before starting to read. Must satisfy: `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy: `0 <= offset <= buf.length - 8`.
              */
             readBigInt64LE(offset?: number): bigint;
             /**
@@ -893,7 +893,7 @@ declare module 'buffer' {
              * // Throws ERR_OUT_OF_RANGE.
              * ```
              * @since v0.5.0
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 1`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 1`.
              */
             readUInt8(offset?: number): number;
             /**
@@ -912,7 +912,7 @@ declare module 'buffer' {
              * // Throws ERR_OUT_OF_RANGE.
              * ```
              * @since v0.5.5
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.
              */
             readUInt16LE(offset?: number): number;
             /**
@@ -929,7 +929,7 @@ declare module 'buffer' {
              * // Prints: 3456
              * ```
              * @since v0.5.5
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.
              */
             readUInt16BE(offset?: number): number;
             /**
@@ -946,7 +946,7 @@ declare module 'buffer' {
              * // Throws ERR_OUT_OF_RANGE.
              * ```
              * @since v0.5.5
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
              */
             readUInt32LE(offset?: number): number;
             /**
@@ -961,7 +961,7 @@ declare module 'buffer' {
              * // Prints: 12345678
              * ```
              * @since v0.5.5
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
              */
             readUInt32BE(offset?: number): number;
             /**
@@ -980,7 +980,7 @@ declare module 'buffer' {
              * // Throws ERR_OUT_OF_RANGE.
              * ```
              * @since v0.5.0
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 1`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 1`.
              */
             readInt8(offset?: number): number;
             /**
@@ -997,7 +997,7 @@ declare module 'buffer' {
              * // Throws ERR_OUT_OF_RANGE.
              * ```
              * @since v0.5.5
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.
              */
             readInt16LE(offset?: number): number;
             /**
@@ -1012,7 +1012,7 @@ declare module 'buffer' {
              * // Prints: 5
              * ```
              * @since v0.5.5
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.
              */
             readInt16BE(offset?: number): number;
             /**
@@ -1029,7 +1029,7 @@ declare module 'buffer' {
              * // Throws ERR_OUT_OF_RANGE.
              * ```
              * @since v0.5.5
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
              */
             readInt32LE(offset?: number): number;
             /**
@@ -1044,7 +1044,7 @@ declare module 'buffer' {
              * // Prints: 5
              * ```
              * @since v0.5.5
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
              */
             readInt32BE(offset?: number): number;
             /**
@@ -1059,7 +1059,7 @@ declare module 'buffer' {
              * // Throws ERR_OUT_OF_RANGE.
              * ```
              * @since v0.11.15
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
              */
             readFloatLE(offset?: number): number;
             /**
@@ -1072,7 +1072,7 @@ declare module 'buffer' {
              * // Prints: 2.387939260590663e-38
              * ```
              * @since v0.11.15
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.
              */
             readFloatBE(offset?: number): number;
             /**
@@ -1087,7 +1087,7 @@ declare module 'buffer' {
              * // Throws ERR_OUT_OF_RANGE.
              * ```
              * @since v0.11.15
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 8`.
              */
             readDoubleLE(offset?: number): number;
             /**
@@ -1100,7 +1100,7 @@ declare module 'buffer' {
              * // Prints: 8.20788039913184e-304
              * ```
              * @since v0.11.15
-             * @param offset Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 8`.
              */
             readDoubleBE(offset?: number): number;
             reverse(): this;
@@ -1204,7 +1204,7 @@ declare module 'buffer' {
              * ```
              * @since v0.5.0
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 1`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 1`.
              * @return `offset` plus the number of bytes written.
              */
             writeUInt8(value: number, offset?: number): number;
@@ -1225,7 +1225,7 @@ declare module 'buffer' {
              * ```
              * @since v0.5.5
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.
              * @return `offset` plus the number of bytes written.
              */
             writeUInt16LE(value: number, offset?: number): number;
@@ -1246,7 +1246,7 @@ declare module 'buffer' {
              * ```
              * @since v0.5.5
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.
              * @return `offset` plus the number of bytes written.
              */
             writeUInt16BE(value: number, offset?: number): number;
@@ -1266,7 +1266,7 @@ declare module 'buffer' {
              * ```
              * @since v0.5.5
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
              * @return `offset` plus the number of bytes written.
              */
             writeUInt32LE(value: number, offset?: number): number;
@@ -1286,7 +1286,7 @@ declare module 'buffer' {
              * ```
              * @since v0.5.5
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
              * @return `offset` plus the number of bytes written.
              */
             writeUInt32BE(value: number, offset?: number): number;
@@ -1308,7 +1308,7 @@ declare module 'buffer' {
              * ```
              * @since v0.5.0
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 1`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 1`.
              * @return `offset` plus the number of bytes written.
              */
             writeInt8(value: number, offset?: number): number;
@@ -1328,7 +1328,7 @@ declare module 'buffer' {
              * ```
              * @since v0.5.5
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.
              * @return `offset` plus the number of bytes written.
              */
             writeInt16LE(value: number, offset?: number): number;
@@ -1348,7 +1348,7 @@ declare module 'buffer' {
              * ```
              * @since v0.5.5
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.
              * @return `offset` plus the number of bytes written.
              */
             writeInt16BE(value: number, offset?: number): number;
@@ -1368,7 +1368,7 @@ declare module 'buffer' {
              * ```
              * @since v0.5.5
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
              * @return `offset` plus the number of bytes written.
              */
             writeInt32LE(value: number, offset?: number): number;
@@ -1388,7 +1388,7 @@ declare module 'buffer' {
              * ```
              * @since v0.5.5
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
              * @return `offset` plus the number of bytes written.
              */
             writeInt32BE(value: number, offset?: number): number;
@@ -1406,7 +1406,7 @@ declare module 'buffer' {
              * ```
              * @since v0.11.15
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
              * @return `offset` plus the number of bytes written.
              */
             writeFloatLE(value: number, offset?: number): number;
@@ -1424,7 +1424,7 @@ declare module 'buffer' {
              * ```
              * @since v0.11.15
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.
              * @return `offset` plus the number of bytes written.
              */
             writeFloatBE(value: number, offset?: number): number;
@@ -1442,7 +1442,7 @@ declare module 'buffer' {
              * ```
              * @since v0.11.15
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 8`.
              * @return `offset` plus the number of bytes written.
              */
             writeDoubleLE(value: number, offset?: number): number;
@@ -1460,7 +1460,7 @@ declare module 'buffer' {
              * ```
              * @since v0.11.15
              * @param value Number to be written to `buf`.
-             * @param offset Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 8`.
+             * @param [offset=0] Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 8`.
              * @return `offset` plus the number of bytes written.
              */
             writeDoubleBE(value: number, offset?: number): number;
@@ -1506,9 +1506,9 @@ declare module 'buffer' {
              * ```
              * @since v0.5.0
              * @param value The value with which to fill `buf`.
-             * @param offset Number of bytes to skip before starting to fill `buf`.
-             * @param end Where to stop filling `buf` (not inclusive).
-             * @param encoding The encoding for `value` if `value` is a string.
+             * @param [offset=0] Number of bytes to skip before starting to fill `buf`.
+             * @param [end=buf.length] Where to stop filling `buf` (not inclusive).
+             * @param [encoding='utf8'] The encoding for `value` if `value` is a string.
              * @return A reference to `buf`.
              */
             fill(value: string | Uint8Array | number, offset?: number, end?: number, encoding?: BufferEncoding): this;
@@ -1572,8 +1572,8 @@ declare module 'buffer' {
              * than `buf.length`, `byteOffset` will be returned. If `value` is empty and`byteOffset` is at least `buf.length`, `buf.length` will be returned.
              * @since v1.5.0
              * @param value What to search for.
-             * @param byteOffset Where to begin searching in `buf`. If negative, then offset is calculated from the end of `buf`.
-             * @param encoding If `value` is a string, this is the encoding used to determine the binary representation of the string that will be searched for in `buf`.
+             * @param [byteOffset=0] Where to begin searching in `buf`. If negative, then offset is calculated from the end of `buf`.
+             * @param [encoding='utf8'] If `value` is a string, this is the encoding used to determine the binary representation of the string that will be searched for in `buf`.
              * @return The index of the first occurrence of `value` in `buf`, or `-1` if `buf` does not contain `value`.
              */
             indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
@@ -1636,8 +1636,8 @@ declare module 'buffer' {
              * If `value` is an empty string or empty `Buffer`, `byteOffset` will be returned.
              * @since v6.0.0
              * @param value What to search for.
-             * @param byteOffset Where to begin searching in `buf`. If negative, then offset is calculated from the end of `buf`.
-             * @param encoding If `value` is a string, this is the encoding used to determine the binary representation of the string that will be searched for in `buf`.
+             * @param [byteOffset=buf.length - 1] Where to begin searching in `buf`. If negative, then offset is calculated from the end of `buf`.
+             * @param [encoding='utf8'] If `value` is a string, this is the encoding used to determine the binary representation of the string that will be searched for in `buf`.
              * @return The index of the last occurrence of `value` in `buf`, or `-1` if `buf` does not contain `value`.
              */
             lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
@@ -1687,8 +1687,8 @@ declare module 'buffer' {
              * ```
              * @since v5.3.0
              * @param value What to search for.
-             * @param byteOffset Where to begin searching in `buf`. If negative, then offset is calculated from the end of `buf`.
-             * @param encoding If `value` is a string, this is its encoding.
+             * @param [byteOffset=0] Where to begin searching in `buf`. If negative, then offset is calculated from the end of `buf`.
+             * @param [encoding='utf8'] If `value` is a string, this is its encoding.
              * @return `true` if `value` was found in `buf`, `false` otherwise.
              */
             includes(value: string | number | Buffer, byteOffset?: number, encoding?: BufferEncoding): boolean;

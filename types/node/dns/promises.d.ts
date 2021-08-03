@@ -122,7 +122,7 @@ declare module 'dns/promises' {
      * On error, the `Promise` is rejected with an `Error` object, where `err.code`is one of the `DNS error codes`.
      * @since v10.6.0
      * @param hostname Host name to resolve.
-     * @param rrtype Resource record type.
+     * @param [rrtype='A'] Resource record type.
      */
     function resolve(hostname: string): Promise<string[]>;
     function resolve(hostname: string, rrtype: 'A'): Promise<string[]>;

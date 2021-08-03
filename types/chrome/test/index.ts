@@ -783,6 +783,7 @@ async function testManagementForPromise() {
 async function testScriptingForPromise() {
     await chrome.scripting.executeScript({target: {tabId: 0}});
     await chrome.scripting.executeScript({target: {tabId: 0}, func: () => {}, args: []})
+    await chrome.scripting.executeScript({target: {tabId: 0}, func: (name: string) => {}, args: []})
     await chrome.scripting.executeScript({target: {tabId: 0}, func: () => {}, args: {}}) // $ExpectError
     await chrome.scripting.insertCSS({target: {tabId: 0}});
 }
@@ -915,4 +916,43 @@ function testStorageForPromise() {
     chrome.storage.sync.get('testKey').then(() => {});
     chrome.storage.sync.get(['testKey']).then(() => {});
     chrome.storage.sync.get({ testKey: 'testDefaultValue' }).then(() => {});
+}
+
+function testRuntimeSendMessage() {
+    chrome.runtime.sendMessage("Hello World!");
+    chrome.runtime.sendMessage("Hello World!", console.log);
+    chrome.runtime.sendMessage<string>("Hello World!", console.log);
+    chrome.runtime.sendMessage<string, number>("Hello World!", console.log);
+    chrome.runtime.sendMessage<number>("Hello World!", console.log); // $ExpectError
+    chrome.runtime.sendMessage<string, boolean>("Hello World!", (num: number) => alert(num+1)); // $ExpectError
+}
+
+function testTabsSendMessage() {
+    chrome.tabs.sendMessage(1, "Hello World!");
+    chrome.tabs.sendMessage(2, "Hello World!", console.log);
+    chrome.tabs.sendMessage(3, "Hello World!", { }, console.log);
+    chrome.tabs.sendMessage<string>(4, "Hello World!", console.log);
+    chrome.tabs.sendMessage<string, number>(5, "Hello World!", console.log);
+    chrome.tabs.sendMessage<number>(6, "Hello World!", console.log); // $ExpectError
+    chrome.tabs.sendMessage<string, string>(7, "Hello World!", (num: number) => alert(num+1)); // $ExpectError
+}
+
+function testTabsSendRequest() {
+    chrome.tabs.sendRequest(1, "Hello World!");
+    chrome.tabs.sendRequest(2, "Hello World!", console.log);
+    chrome.tabs.sendRequest(3, "Hello World!", console.log);
+    chrome.tabs.sendRequest<string>(4, "Hello World!", console.log);
+    chrome.tabs.sendRequest<string, number>(5, "Hello World!", console.log);
+    chrome.tabs.sendRequest<number>(6, "Hello World!", console.log); // $ExpectError
+    chrome.tabs.sendRequest<string, string>(7, "Hello World!", (num: number) => alert(num+1)); // $ExpectError
+}
+
+function testExtensionSendRequest() {
+    chrome.extension.sendRequest("dummy-id", "Hello World!");
+    chrome.extension.sendRequest("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest<string>("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest<string, number>("dummy-id", "Hello World!", console.log);
+    chrome.extension.sendRequest<number>("dummy-id", "Hello World!", console.log); // $ExpectError
+    chrome.extension.sendRequest<string, string>("dummy-id", "Hello World!", (num: number) => alert(num+1)); // $ExpectError
 }
