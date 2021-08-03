@@ -1,4 +1,4 @@
-import zenginCode from 'zengin-code';
+import zenginCode = require('zengin-code');
 
 // $ExpectType string
 zenginCode['1000'].code;
