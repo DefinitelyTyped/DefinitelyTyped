@@ -1,3 +1,8 @@
+// Type definitions for CoffeeScript 2.5.1
+// Project: https://github.com/jashkenas/coffeescript
+// Definitions by: Munin M. <https://github.com/rogierschouten>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /**
  * Babel AST source location.
  */
