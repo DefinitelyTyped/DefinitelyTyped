@@ -20,6 +20,7 @@ new Provider('https://op.example.com', {
                 token.iat.toFixed();
                 parts.footer = { foo: 'bar' };
                 parts.payload.foo = 'bar';
+                parts.assertion = 'bar';
                 return parts;
             },
         },
@@ -234,8 +235,15 @@ const provider = new Provider('https://op.example.com', {
             accessToken.iat.toFixed();
             return 2;
         },
+        ClientCredentials(ctx, cc) {
+            if (cc.resourceServer) {
+                return cc.resourceServer.accessTokenTTL || 60 * 60;
+            }
+            ctx.oidc.issuer.substring(0);
+            cc.iat.toFixed();
+            return 2;
+        },
         AuthorizationCode: 3,
-        ClientCredentials: 3,
         DeviceCode: 3,
         IdToken: 3,
         RefreshToken: 3,
