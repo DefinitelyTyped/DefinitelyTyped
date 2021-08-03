@@ -1,6 +1,6 @@
 // Type definitions for egm96-universal 1.0
 // Project: https://github.com/nicolas-van/egm96-universal
-// Definitions by: Muxable <https://github.com/muxfd>
+// Definitions by: Kevin Wang <https://github.com/kevmo314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
