@@ -72,7 +72,7 @@ declare class FeedParser extends stream.Duplex {
 
     push(chunk: any, encoding: any): any;
 
-    read(n?: number): FeedParser.Item;
+    read(n?: number): FeedParser.Item | null;
 
     removeAllListeners(type: FeedParser.Type, ...args: any[]): any;
 
