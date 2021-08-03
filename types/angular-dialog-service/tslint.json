@@ -7,7 +7,6 @@
         "no-padding": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "semicolon": false,
         "trim-file": false,
         "typedef-whitespace": false,
