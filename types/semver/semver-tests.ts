@@ -154,7 +154,7 @@ versionsArr = semver.rsort(['', new semver.SemVer('')]);
 diff = semver.diff(v1, v2, loose);
 
 // Ranges
-str = semver.validRange(str, loose);
+strn = semver.validRange(str, loose);
 bool = semver.satisfies(version, str, loose);
 strn = semver.maxSatisfying(versions, str, loose);
 strn = semver.minSatisfying(versions, str, loose);

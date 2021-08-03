@@ -1,4 +1,4 @@
-// Type definitions for mssql 7.1.0
+// Type definitions for mssql 7.1.3
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>
 //                 Jørgen Elgaard Larsen <https://github.com/elhaard>
@@ -15,7 +15,6 @@
 
 import events = require('events');
 import tds = require('tedious');
-import msnodesql = require('msnodesqlv8');
 import { Pool } from 'tarn';
 import { CallbackOrPromise, PoolOptions } from 'tarn/dist/Pool';
 export interface ISqlType {
@@ -70,7 +69,7 @@ export declare var Geography: ISqlTypeFactoryWithNoParams;
 export declare var Geometry: ISqlTypeFactoryWithNoParams;
 export declare var Variant: ISqlTypeFactoryWithNoParams;
 
-export type Connection = tds.Connection | msnodesql.Connection;
+export type Connection = tds.Connection;
 
 export declare var TYPES: {
     VarChar: ISqlTypeFactoryWithLength;
@@ -394,3 +393,12 @@ export declare class PreparedStatement extends events.EventEmitter {
 }
 
 export declare class PreparedStatementError extends MSSQLError {}
+
+export declare function connect(config: config): Promise<ConnectionPool>;
+export declare function connect(config: config, callback?: (err?: Error) => void): void;
+
+export declare function query(command: string): Promise<IResult<any>>;
+export declare function query(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+export declare function query<Entity>(command: string): Promise<IResult<Entity>>;
+export declare function query<Entity>(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
+export declare function query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;

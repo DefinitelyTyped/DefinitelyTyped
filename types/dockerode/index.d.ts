@@ -16,9 +16,7 @@
 
 import * as stream from 'stream';
 import * as events from 'events';
-
-// The modem parameter is an instance of docker-modem, which is missing type declarations.
-// https://github.com/apocas/docker-modem
+import * as DockerModem from 'docker-modem';
 
 declare namespace Dockerode {
     class Container {
@@ -728,6 +726,7 @@ declare namespace Dockerode {
         MemorySwap?: number | undefined;
         MemorySwappiness?: number | undefined;
         OomKillDisable?: boolean | undefined;
+        Init?: boolean | undefined;
         PidsLimit?: number | undefined;
         Ulimits?: any;
     }
@@ -805,6 +804,7 @@ declare namespace Dockerode {
 
     interface ImageBuildOptions {
         authconfig?: AuthConfig | undefined;
+        registryconfig?: RegistryConfig | undefined;
         dockerfile?: string | undefined;
         t?: string | undefined;
         extrahosts?: string | undefined;
@@ -840,6 +840,13 @@ declare namespace Dockerode {
         password: string;
         serveraddress: string;
         email?: string | undefined;
+    }
+
+    interface RegistryConfig {
+        [registryAddress: string]: {
+            username: string;
+            password: string;
+        };
     }
 
     interface PortBinding {
@@ -1855,7 +1862,7 @@ declare class Dockerode {
     swarmInspect(callback: Callback<any>): void;
     swarmInspect(): Promise<any>;
 
-    modem: any;
+    modem: DockerModem;
 }
 
 export = Dockerode;

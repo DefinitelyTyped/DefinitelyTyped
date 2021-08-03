@@ -1,4 +1,27 @@
-import { core, payouts } from '@paypal/payouts-sdk';
+import {
+    core,
+    payouts,
+    // type imports are successful
+    RecipientType,
+    RecipientWallet,
+    Currency,
+    LinkDescription,
+    PayoutBatchHeader,
+    PayoutBatchItems,
+    PayoutCurrencyConversion,
+    PayoutHeader,
+    PayoutItem,
+    PayoutItemDetail,
+    PayoutSenderBatchHeader,
+    SenderBatchHeader,
+    PaypalHeader,
+    CreatePayoutRequestBody,
+    CreateBatchPayoutResponse,
+    GetBatchPayoutResponse,
+    GetPayoutsItemResponse,
+    HttpRequest,
+    HttpResponse,
+} from '@paypal/payouts-sdk';
 
 declare const id: string;
 declare const secret: string;

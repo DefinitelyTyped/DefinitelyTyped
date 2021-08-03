@@ -17,8 +17,15 @@ declare namespace Sfdc {
         }
 
         interface Response<T> {
+            readonly seq: number;
+            readonly parentVersion: string;
+            readonly clientVersion: string;
+            readonly payload: T;
             readonly status: number;
-            readonly payload?: T | undefined;
+            readonly statusText: string;
+            readonly responseHeaders: string;
+            readonly type: string;
+            readonly targetModule: string;
         }
 
         enum ApplicationOptions {
@@ -355,7 +362,7 @@ declare namespace Sfdc {
                 readonly payload: unknown;
             }
 
-            function ctx(callback: (msg: Response<Context>) => void, client: Client): void;
+            function ctx(callback: (msg: Response<Context | string>) => void, client: Client): void;
 
             function ajax(url: string, settings: AjaxSettings): void;
 
@@ -377,7 +384,7 @@ declare namespace Sfdc {
 
             function signedrequest(req?: SignedRequest): SignedRequest;
 
-            function refreshSignedRequest(cb: (data: Response<string>) => void): void;
+            function refreshSignedRequest(cb: (data: Response<{ response: string }>) => void): void;
 
             function repost(refresh?: boolean): void;
         }
@@ -407,6 +414,7 @@ declare namespace Sfdc {
                 readonly redirect_uri: string;
                 readonly state?: string | undefined;
                 readonly display?: string | undefined;
+                readonly scope?: string | undefined;
             }
 
             interface LoginContext {

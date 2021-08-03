@@ -1,39 +1,39 @@
-import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
-import { Observable as ObservableBase } from "@ckeditor/ckeditor5-utils/src/observablemixin";
-import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
-import { Locale } from "@ckeditor/ckeditor5-utils";
-import Template, { BindChain, TemplateDefinition } from "./template";
-import ViewCollection from "./viewcollection";
-import { DomEventData } from "@ckeditor/ckeditor5-engine";
+import { DomEventData } from '@ckeditor/ckeditor5-engine';
+import { Locale } from '@ckeditor/ckeditor5-utils';
+import { Emitter as DomEmitter } from '@ckeditor/ckeditor5-utils/src/dom/emittermixin';
+import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
+import Template, { BindChain as TemplateBindChain, TemplateDefinition } from './template';
+import ViewCollection from './viewcollection';
 
-interface Observable extends Omit<ObservableBase, "bind"> {
-    bind(...bindProperties: string[]): BindChain;
-}
-
-export default class View implements Emitter, Observable {
+export default class View implements DomEmitter, Observable {
+    constructor(locale?: Locale);
     element: HTMLElement | null;
     readonly isRendered: boolean;
-    readonly locale?: Locale | undefined;
+    readonly locale?: Locale;
     template: Template;
-
-    constructor(locale?: Locale);
-    bindTemplate: BindChain;
+    t: Locale['t'] | undefined;
+    readonly bindTemplate: TemplateBindChain;
     createCollection(views?: Iterable<View>): ViewCollection;
-    deregisterChild(children: View | Iterable<View>): void;
-    destroy(): void;
-    extendTemplate(definition: TemplateDefinition): void;
     registerChild(children: View | Iterable<View>): void;
+
+    deregisterChild(children: View | Iterable<View>): void;
+    setTemplate(definition: TemplateDefinition): void;
+    extendTemplate(definition: Partial<TemplateDefinition>): void;
     render(): void;
-    setTemplate(definition: TemplateDefinition | View | Node): void;
-    t: Locale["t"];
+    destroy(): void;
 
-    set(option: Record<string, unknown>): void;
-    set(name: string, value: unknown): void;
-    bind(...bindProperties: string[]): BindChain;
-    unbind(...unbindProperties: string[]): void;
-    decorate(methodName: string): void;
-
+    delegate(...events: string[]): EmitterMixinDelegateChain;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
+    listenTo(
+        emitter: Emitter,
+        event: string,
+        callback: (info: EventInfo, data: DomEventData) => void,
+        options?: { priority?: number | PriorityString },
+    ): void;
+    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     on: (
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
@@ -42,19 +42,18 @@ export default class View implements Emitter, Observable {
     once(
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority: PriorityString | number },
+        options?: { priority: number | PriorityString },
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    listenTo(
-        emitter: Emitter,
-        event: string,
-        callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number | undefined },
-    ): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
-    delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
-}
+    stopListening(
+        emitter?: Emitter,
+        event?: string,
+        callback?: (info: EventInfo, data: DomEventData) => void,
+    ): void;
 
-export {};
+    set(option: Record<string, unknown>): void;
+    set(name: string, value: unknown): void;
+    bind(...bindProperties: string[]): BindChain;
+    unbind(...unbindProperties: string[]): void;
+    decorate(methodName: string): void;
+}

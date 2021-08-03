@@ -5,9 +5,11 @@
 
 /// <reference types="node" />
 
-type Readable = import('stream').Readable;
+import { EventEmitter } from 'stream';
 
-declare class ImapFlow {
+export type Readable = import('stream').Readable;
+
+export class ImapFlow extends EventEmitter {
     constructor(options: ImapFlowOptions);
     authenticated: string | boolean;
     capabilities: string | boolean;
@@ -122,7 +124,7 @@ declare class ImapFlow {
     ): AsyncGenerator<FetchMessageObject, never, void>;
 }
 
-interface ImapFlowOptions {
+export interface ImapFlowOptions {
     host: string;
     port: number;
     auth: {
@@ -140,21 +142,21 @@ interface ImapFlowOptions {
     verifyOnly?: boolean;
 }
 
-interface AppendResonseObject {
+export interface AppendResonseObject {
     path: string;
     uidValidity?: bigint;
     uid?: number;
     seq?: number;
 }
 
-interface CopyResponseObject {
+export interface CopyResponseObject {
     path: string;
     destination: string;
     uidValidity?: bigint;
     uidMap?: Map<number, number>;
 }
 
-interface DownloadObject {
+export interface DownloadObject {
     content: Readable;
     meta: {
         contentType: string;
@@ -164,7 +166,7 @@ interface DownloadObject {
     };
 }
 
-interface MailboxObject {
+export interface MailboxObject {
     path: string;
     delimeter: string;
     flags: Set<string>;
@@ -179,12 +181,12 @@ interface MailboxObject {
     exists: number;
 }
 
-interface MailboxLockObject {
+export interface MailboxLockObject {
     path: string;
     release: () => void;
 }
 
-interface FetchMessageObject {
+export interface FetchMessageObject {
     seq: number;
     uid: number;
     source: Buffer;
@@ -201,7 +203,7 @@ interface FetchMessageObject {
     headers: Buffer;
 }
 
-interface FetchQueryObject {
+export interface FetchQueryObject {
     uid?: boolean;
     flags?: boolean;
     bodyStructure?: boolean;
@@ -215,17 +217,17 @@ interface FetchQueryObject {
     bodyParts?: string[];
 }
 
-interface MailboxRenameResponse {
+export interface MailboxRenameResponse {
     path: string;
     newPath: string;
 }
 
-interface MessageAddressObject {
+export interface MessageAddressObject {
     name?: string;
     address?: string;
 }
 
-interface MessageEnvelopeObject {
+export interface MessageEnvelopeObject {
     date: Date;
     subject: string;
     messageId: string;
@@ -238,16 +240,16 @@ interface MessageEnvelopeObject {
     bcc: MessageAddressObject[];
 }
 
-interface QuotaResponse {
+export interface QuotaResponse {
     path: string;
     storage?: object;
     messages?: object;
 }
 
-type SequenceString = string;
+export type SequenceString = string;
 
-interface SearchObject {
-    Seq?: SequenceString;
+export interface SearchObject {
+    seq?: SequenceString;
     answered?: boolean;
     deleted?: boolean;
     draft?: boolean;
@@ -281,7 +283,7 @@ interface SearchObject {
     or?: SearchObject[];
 }
 
-interface StatusObject {
+export interface StatusObject {
     path: string;
     message?: number;
     recent?: number;
@@ -291,7 +293,7 @@ interface StatusObject {
     highestModSeq?: bigint;
 }
 
-interface IdInfoObject {
+export interface IdInfoObject {
     name?: string;
     version?: string;
     os?: string;
@@ -300,7 +302,7 @@ interface IdInfoObject {
     date?: Date;
 }
 
-interface ListResponse {
+export interface ListResponse {
     path: string;
     name: string;
     delimter: string;
@@ -310,7 +312,7 @@ interface ListResponse {
     subscribed: boolean;
 }
 
-interface ListTreeResponse {
+export interface ListTreeResponse {
     root: boolean;
     path: string;
     name: string;
@@ -323,17 +325,17 @@ interface ListTreeResponse {
     folders: ListTreeResponse[];
 }
 
-interface MailboxCreateResponse {
+export interface MailboxCreateResponse {
     path: string;
     mailboxId?: string;
     created: boolean;
 }
 
-interface MailboxDeleteResponse {
+export interface MailboxDeleteResponse {
     path: string;
 }
 
-interface MessageStructureObject {
+export interface MessageStructureObject {
     part: string;
     type: string;
     parameters: string;
@@ -345,5 +347,3 @@ interface MessageStructureObject {
     dispositionParameters: string;
     childNodes: MessageStructureObject[];
 }
-
-export = ImapFlow;

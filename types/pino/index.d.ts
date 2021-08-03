@@ -13,14 +13,14 @@
 //                 Austin Beer <https://github.com/austin-beer>
 //                 Michel Nemnom <https://github.com/Pegase745>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 3.0
 
 /// <reference types="node"/>
 
 import stream = require("stream");
 import http = require("http");
 import { EventEmitter } from "events";
-import SonicBoom = require("sonic-boom");
+import SonicBoom from "sonic-boom";
 import * as pinoStdSerializers from "pino-std-serializers";
 import * as PinoPretty from "pino-pretty";
 
@@ -524,7 +524,7 @@ declare namespace P {
              * All arguments passed to the log method, except the message, will be pass to this function.
              * By default it does not change the shape of the log object.
              */
-            log?: ((object: object) => object) | undefined;
+            log?: ((object: Record<string, unknown>) => object) | undefined;
         } | undefined;
 
         /**

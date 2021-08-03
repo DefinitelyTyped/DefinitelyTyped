@@ -2,10 +2,11 @@ import { Color } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { MaterialParameters, Material } from './Material';
 import { Combine } from '../constants';
+import { ColorRepresentation } from '../utils';
 
 export interface MeshLambertMaterialParameters extends MaterialParameters {
-    color?: Color | string | number | undefined;
-    emissive?: Color | string | number | undefined;
+    color?: ColorRepresentation | undefined;
+    emissive?: ColorRepresentation | undefined;
     emissiveIntensity?: number | undefined;
     emissiveMap?: Texture | null | undefined;
     map?: Texture | null | undefined;
