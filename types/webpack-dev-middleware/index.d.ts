@@ -64,6 +64,7 @@ declare namespace WebpackDevMiddleware {
         state: boolean;
         stats: webpack.Stats | null;
         callbacks: Callback[];
+        outputFileSystem: webpack.Compiler['outputFileSystem']
         options: Options;
         compiler: webpack.Compiler;
         watching: webpack.Watching | null;
