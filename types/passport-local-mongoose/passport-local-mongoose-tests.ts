@@ -54,7 +54,7 @@ options.populateFields = 'undefined';
 options.encoding = 'hex';
 options.limitAttempts = false;
 options.maxAttempts = Infinity;
-options.passwordValidator = function (password: string, cb: (err: any) => void): void {};
+options.passwordValidator = function(password: string, cb: (err: any) => void): void {};
 options.usernameQueryFields = [];
 
 let errorMessages: PassportLocalErrorMessages = {};
@@ -88,7 +88,7 @@ passport.use(
         },
         (req: any, username: string, password: string, done: (err: any, res: any, msg?: any) => void) => {
             process.nextTick(() => {
-                UserModel.findOne({ username: username }).exec((err: any, user: User | null) => {
+                UserModel.findOne({ username }).exec((err: any, user: User | null) => {
                     if (err) {
                         console.log(err);
                         return done(err, null);
@@ -99,7 +99,7 @@ passport.use(
                         return done(null, false, errorMessages.IncorrectUsernameError);
                     }
 
-                    user.authenticate(password, function (autherr: any, authuser: User, autherrmsg: any) {
+                    user.authenticate(password, function(autherr: any, authuser: User, autherrmsg: any) {
                         if (autherr) {
                             console.log(autherr);
                             return done(autherr, null);
@@ -122,6 +122,7 @@ type _User = User;
 
 declare global {
     namespace Express {
+        // tslint:disable-next-line
         interface User extends _User {}
     }
 }
@@ -131,7 +132,7 @@ passport.deserializeUser(UserModel.deserializeUser());
 
 let router: Router = Router();
 
-router.post('/login', passport.authenticate('local'), function (req: Request, res: Response) {
+router.post('/login', passport.authenticate('local'), function(req: Request, res: Response) {
     console.log(req.user?.username);
     res.redirect('/');
 });
