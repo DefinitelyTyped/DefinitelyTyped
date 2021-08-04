@@ -996,6 +996,13 @@ function testRuntimeSendMessage() {
     chrome.runtime.sendMessage<string, number>("Hello World!", console.log);
     chrome.runtime.sendMessage<number>("Hello World!", console.log); // $ExpectError
     chrome.runtime.sendMessage<string, boolean>("Hello World!", (num: number) => alert(num+1)); // $ExpectError
+
+    chrome.runtime.sendMessage('extension-id', 'Hello World!');
+    chrome.runtime.sendMessage('extension-id', 'Hello World!', console.log);
+    chrome.runtime.sendMessage<string>('extension-id', 'Hello World!', console.log);
+    chrome.runtime.sendMessage<string, number>('extension-id', 'Hello World!', console.log);
+    chrome.runtime.sendMessage<number>('extension-id', 'Hello World!', console.log); // $ExpectError
+    chrome.runtime.sendMessage<string, boolean>('extension-id', 'Hello World!', (num: number) => alert(num+1)); // $ExpectError
 }
 
 function testTabsSendMessage() {

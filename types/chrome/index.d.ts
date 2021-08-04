@@ -6995,11 +6995,11 @@ declare namespace chrome.runtime {
      * @param responseCallback Optional
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage<M = any, R = any>(
+    export function sendMessage<Message = any, Response = any>(
         extensionId: string,
-        message: M,
+        message: Message,
         options: MessageOptions,
-        responseCallback?: (response: any) => R,
+        responseCallback?: (response: Response) => void,
     ): void;
     /**
      * Send a single message to a native application.
