@@ -7,12 +7,8 @@
 /// <reference path="misc.d.ts" />
 /// <reference path="Layui.d.ts" />
 
-declare global {
-    interface Window {
-        layui: Layui;
-        lay: Layui.Lay;
-        layer: Layui.Layer;
-    }
+interface Window {
+    layui: Layui;
+    lay: Layui.Lay;
+    layer: Layui.Layer;
 }
-
-export = layui;
