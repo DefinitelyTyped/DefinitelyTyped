@@ -1,6 +1,7 @@
 // Type definitions for non-npm package w3c-web-hid 1.0
 // Project: https://wicg.github.io/webhid
 // Definitions by: Kouhei Kiyama <https://github.com/kkiyama117>
+//                 Matt Reynolds <https://github.com/nondebug>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
