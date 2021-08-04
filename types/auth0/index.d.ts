@@ -635,6 +635,7 @@ export interface RequestSMSOptions {
 export interface VerifyOptions {
     username: string;
     password: string;
+    otp: string;
 }
 
 export interface DelegationTokenOptions {
