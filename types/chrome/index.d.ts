@@ -6999,7 +6999,7 @@ declare namespace chrome.runtime {
         extensionId: string,
         message: M,
         options: MessageOptions,
-        responseCallback?: (response: any) => R,
+        responseCallback?: (response: R) => void,
     ): void;
     /**
      * Send a single message to a native application.
