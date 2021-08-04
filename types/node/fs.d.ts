@@ -2354,7 +2354,7 @@ declare module 'fs' {
                   encoding: BufferEncoding;
                   flag?: string | undefined;
               } & Abortable)
-            | string,
+            | BufferEncoding,
         callback: (err: NodeJS.ErrnoException | null, data: string) => void
     ): void;
     /**
@@ -2370,7 +2370,7 @@ declare module 'fs' {
             | (ObjectEncodingOptions & {
                   flag?: string | undefined;
               } & Abortable)
-            | string
+            | BufferEncoding
             | undefined
             | null,
         callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void
@@ -2411,7 +2411,7 @@ declare module 'fs' {
                       encoding: BufferEncoding;
                       flag?: string | undefined;
                   }
-                | string
+                | BufferEncoding
         ): Promise<string>;
         /**
          * Asynchronously reads the entire contents of a file.
@@ -2427,7 +2427,7 @@ declare module 'fs' {
                 | (ObjectEncodingOptions & {
                       flag?: string | undefined;
                   })
-                | string
+                | BufferEncoding
                 | null
         ): Promise<string | Buffer>;
     }
@@ -2500,7 +2500,7 @@ declare module 'fs' {
                   mode?: Mode | undefined;
                   flag?: string | undefined;
               })
-        | string
+        | BufferEncoding
         | null;
     /**
      * When `file` is a filename, asynchronously writes data to the file, replacing the
