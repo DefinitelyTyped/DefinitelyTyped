@@ -1,11 +1,8 @@
-// Type definitions for passport-local-mongoose 4.0.0
+// Type definitions for passport-local-mongoose 6.1.0
 // Project: https://github.com/saintedlama/passport-local-mongoose
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-/// <reference types="mongoose" />
-/// <reference types="passport-local" />
+// TypeScript Version: 3.7
 
 declare module 'mongoose' {
   import passportLocal = require('passport-local');
@@ -34,13 +31,13 @@ declare module 'mongoose' {
 
   // statics
   interface PassportLocalModel<T extends Document> extends Model<T> {
-    authenticate(): AuthenticateMethod<T> 
-    serializeUser(): (user: PassportLocalModel<T>, cb: (err: any, id?: any) => void) => void;
+    authenticate(): AuthenticateMethod<T>
+    serializeUser(): (user: T, cb: (err: any, id?: any) => void) => void;
     deserializeUser(): (username: string, cb: (err: any, user?: any) => void) => void;
 
     register(user: T, password: string): Promise<T>;
     register(user: T, password: string, cb: (err: any, account: any) => void): void;
-    findByUsername(username: string, selectHashSaltFields: boolean): Query<T>;
+    findByUsername(username: string, selectHashSaltFields: boolean): Query<T, T>;
     findByUsername(username: string, selectHashSaltFields: boolean, cb: (err: any, account: any) => void): any;
     createStrategy(): passportLocal.Strategy;
   }

@@ -69,7 +69,6 @@ errorMessages.MissingUsernameError = 'No username was given';
 errorMessages.UserExistsError = 'A user with the given username is already registered';
 
 options.errorMessages = errorMessages;
-
 UserSchema.plugin(passportLocalMongoose, options);
 
 interface UserModel<T extends Document> extends PassportLocalModel<T> {}
@@ -90,7 +89,7 @@ passport.use('login', new LocalStrategy({
         process.nextTick(() => {
             UserModel
             .findOne({ 'username': username })
-            .exec((err: any, user: User) => {
+            .exec((err: any, user: User|null) => {
                 if (err) {
                     console.log(err);
                     return done(err, null);
@@ -123,7 +122,7 @@ type _User = User;
 
 declare global {
     namespace Express {
-        interface User extends PassportLocalModel<_User> {
+        interface User extends _User {
         }
     }
 }
@@ -134,6 +133,7 @@ passport.deserializeUser(UserModel.deserializeUser());
 let router: Router = Router();
 
 router.post('/login', passport.authenticate('local'), function(req: Request, res: Response) {
-  res.redirect('/');
+    console.log(req.user?.username)
+    res.redirect('/');
 });
 //#endregion
