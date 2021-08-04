@@ -649,27 +649,66 @@ declare class SteamUser extends EventEmitter {
      */
     on(event: 'receivedFromGC', callback: (appid: number, msgType: number, payload: Buffer) => void): this;
 
-    // FAMILY SHARING https://github.com/DoctorMcKay/node-steam-user/wiki/Family-Sharing
-
-    addAuthorizedBorrowers(borrowersSteamID: Array<SteamID | string>, callback?: (err: Error | null) => void): Promise<void>;
+    //#region "FAMILY SHARING"
+    // https://github.com/DoctorMcKay/node-steam-user/wiki/Family-Sharing
+    /**
+     * Add new borrowers.
+     * @param borrowersSteamID
+     * @param  [callback]
+     */
+    addAuthorizedBorrowers(borrowersSteamID: Array<SteamID | string> | SteamID | string, callback?: (err: Error | null) => void): Promise<void>;
+    /**
+     * Remove borrowers.
+     * @param borrowersSteamID
+     * @param [callback]
+     */
     removeAuthorizedBorrowers(borrowerssteamID: Array<SteamID | string>, callback?: (err: Error | null) => void): Promise<void>;
-
+    /**
+     * Retrieve a list of Steam accounts authorized to borrow your library.
+     * @param [options]
+     * @param [callback]
+     */
     getAuthorizedBorrowers(options?: { includeCanceled?: boolean, includePending ?: boolean }, callback?: (
         err: Error | null,
         response: { borrowers: Borrowers[] },
         ) => void
     ): Promise< { borrowers: Borrowers[] } >;
+    /**
+     * Get a list of devices we have authorized.
+     * @param [options]
+     * @param [callback]
+     */
     getAuthorizedSharingDevices(options?: { includeCancelled?: boolean }, callback?: (
         err: Error | null,
         response: { devices: Device[] }
         ) => void
     ): Promise< { devices: Device[] } >;
+    /**
+     * Authorize local device for library sharing.
+     * @param deviceName
+     * @param [callback]
+     */
     authorizeLocalSharingDevice(deviceName: string, callback?: (
         err: Error | null, response: { deviceToken: string }) => void
     ): Promise< { deviceToken: string } >;
-    deauthorizeSharingDevice(deviceToken: string, callback?: (err: Error | null) => void): Promise<void>;
+    /**
+     * Deauthorize a device from family sharing.
+     * @param deviceToken
+     * @param [callback]
+     */
+    deauthorizeSharingDevice(deviceToken: string | { deviceToken: string }, callback?: (err: Error | null) => void): Promise<void>;
+    /**
+     * Use local device authorizations to allow usage of shared licenses.
+     * If successful, `licenses` will be emitted with the newly-acquired licenses.
+     * @param ownerSteamID
+     * @param deviceToken
+     */
     activateSharingAuthorization(ownerSteamID: SteamID | string, deviceToken: string | { deviceToken: string }): void;
+    /**
+     * Deactivate family sharing authorizations. Removes shared licenses.
+     */
     deactivateSharingAuthorization(): void;
+    //#endregion "FAMILY SHARING"
 
     //#region "Enums"
     static EAccountFlags: EAccountFlags;
