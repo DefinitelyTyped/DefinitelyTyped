@@ -607,6 +607,7 @@ instance.Identity.identify(identifyIdentities, (result) => {
         sourceMpid: result.getUser().getMPID(),
         startTime: new Date().getTime(),
         endTime: new Date().getTime(),
+        scope: 'mpid',
     };
 
     instance.Identity.aliasUsers(userAliasObject, (result) => {
