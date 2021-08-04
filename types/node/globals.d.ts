@@ -342,7 +342,7 @@ declare var AbortController: {
 declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
-    // TODO: Add abort() static
+    abort(): AbortSignal;
 };
 //#endregion borrowed
 
