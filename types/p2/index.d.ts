@@ -951,10 +951,11 @@ declare namespace p2 {
         raycast(result?: RaycastResult, ray?: Ray, position?: [number, number], angle?: number): void;
     }
 
-    export interface GSSolverOptions {
+    export interface GSSolverOptions extends SolverOptions {
 
         iterations?: number | undefined;
         tolerance?: number | undefined;
+        frictionIterations?: number | undefined;
 
     }
 
@@ -971,12 +972,16 @@ declare namespace p2 {
 
     }
 
+    export interface SolverOptions {
+        equationSortFunction?: Equation | undefined
+    }
+
     export class Solver extends EventEmitter {
 
         static GS: number;
         static ISLAND: number;
 
-        constructor(options?: {}, type?: number);
+        constructor(options: SolverOptions | undefined, type: number);
 
         type: number;
         equations: Equation[];
