@@ -8,14 +8,11 @@ export as namespace p2;
 
 declare namespace p2 {
     export interface AABBOptions {
-
         upperBound?: [number, number] | undefined;
         lowerBound?: [number, number] | undefined;
-
     }
 
     export class AABB {
-
         constructor(options?: AABBOptions);
 
         lowerBound: [number, number];
@@ -27,11 +24,9 @@ declare namespace p2 {
         overlaps(aabb: AABB): boolean;
         containsPoint(point: [number, number]): boolean;
         overlapsRay(ray: Ray): number;
-
     }
 
     export class Broadphase {
-
         static AABB: 1;
         static BOUNDING_CIRCLE: 2;
 
@@ -56,15 +51,13 @@ declare namespace p2 {
         aabbCheck(bodyA: Body, bodyB: Body): boolean;
         canCollide(bodyA: Body, bodyB: Body): boolean;
         aabbQuery(world?: World, aabb?: AABB, result?: Body[]): Body[];
-
     }
 
     export class NaiveBroadphase extends Broadphase {
-        type: typeof Broadphase.NAIVE
+        type: typeof Broadphase.NAIVE;
     }
 
     export class Narrowphase {
-
         contactEquations: ContactEquation[];
         frictionEquations: FrictionEquation[];
         enableFriction: boolean;
@@ -82,24 +75,20 @@ declare namespace p2 {
         createContactEquation(bodyA: Body, bodyB: Body, shapeA: Shape, shapeB: Shape): ContactEquation;
         createFrictionEquation(bodyA: Body, bodyB: Body, shapeA: Shape, shapeB: Shape): FrictionEquation;
         createFrictionFromContact(c: ContactEquation): FrictionEquation;
-
     }
 
     export interface RayOptions {
-
-        from: [number, number],
-        to: [number, number],
+        from: [number, number];
+        to: [number, number];
         checkCollisionResponse?: boolean | undefined;
         skipBackfaces?: boolean | undefined;
         collisionMask?: number | undefined;
         collisionGroup?: number | undefined;
         mode?: typeof Ray.CLOSEST | typeof Ray.ANY | typeof Ray.ALL | undefined;
         callback?: ((result: RaycastResult) => void) | undefined;
-
     }
 
     export class Ray {
-
         static CLOSEST: 1;
         static ANY: 2;
         static ALL: 4;
@@ -120,11 +109,9 @@ declare namespace p2 {
         update(): void;
         intersectBodies(result: RaycastResult, bodies: Body[]): void;
         getAABB(): AABB;
-
     }
 
     export class RaycastResult {
-
         normal: [number, number];
         shape: Shape;
         body: Body;
@@ -139,29 +126,23 @@ declare namespace p2 {
         stop(): void;
         shouldStop(ray: Ray): boolean;
         set(normal: [number, number], shape: Shape, body: Body, friction: number, faceIndex: number): void;
-
     }
 
     export class SAPBroadphase extends Broadphase {
-
         axisList: Body[];
         axisIndex: number;
 
         setWorld(world: World): void;
-
     }
 
     export interface DistanceConstraintOptions extends ConstraintOptions {
-
         distance?: number | undefined;
         localAnchorA?: [number, number] | undefined;
         localAnchorB?: [number, number] | undefined;
         maxForce?: number | undefined;
-
     }
 
     export class DistanceConstraint extends Constraint {
-
         constructor(bodyA: Body, bodyB: Body, options?: DistanceConstraintOptions);
 
         localAnchorA: [number, number];
@@ -177,19 +158,15 @@ declare namespace p2 {
         setMaxForce(maxForce: number): void;
         getMaxForce(): number;
         update(): void;
-
     }
 
     export interface GearConstraintOptions extends ConstraintOptions {
-
         angle?: number | undefined;
         ratio?: number | undefined;
         maxTorque?: number | undefined;
-
     }
 
     export class GearConstraint extends Constraint {
-
         constructor(bodyA: Body, bodyB: Body, options?: GearConstraintOptions);
 
         ratio: number;
@@ -198,29 +175,23 @@ declare namespace p2 {
         setMaxTorque(torque: number): void;
         getMaxTorque(): number;
         update(): void;
-
     }
 
     export interface LockConstraintOptions extends ConstraintOptions {
-
         localOffsetB?: [number, number] | undefined;
         localAngleB?: number | undefined;
         maxForce?: number | undefined;
-
     }
 
     export class LockConstraint extends Constraint {
-
         constructor(bodyA: Body, bodyB: Body, options?: LockConstraintOptions);
 
         setMaxForce(force: number): void;
         getMaxForce(): number;
         update(): void;
-
     }
 
     export interface PrismaticConstraintOptions extends ConstraintOptions {
-
         maxForce?: number | undefined;
         localAnchorA?: [number, number] | undefined;
         localAnchorB?: [number, number] | undefined;
@@ -228,11 +199,9 @@ declare namespace p2 {
         disableRotationalLock?: boolean | undefined;
         upperLimit?: number | undefined;
         lowerLimit?: number | undefined;
-
     }
 
     export class PrismaticConstraint extends Constraint {
-
         constructor(bodyA: Body, bodyB: Body, options?: PrismaticConstraintOptions);
 
         localAnchorA: [number, number];
@@ -254,20 +223,16 @@ declare namespace p2 {
         disableMotor(): void;
         setLimits(lower: number, upper: number): void;
         update(): void;
-
     }
 
     export interface RevoluteConstraintOptions extends ConstraintOptions {
-
         worldPivot?: [number, number] | undefined;
         localPivotA?: [number, number] | undefined;
         localPivotB?: [number, number] | undefined;
         maxForce?: number | undefined;
-
     }
 
     export class RevoluteConstraint extends Constraint {
-
         constructor(bodyA: Body, bodyB: Body, options?: RevoluteConstraintOptions);
 
         angle: number;
@@ -288,27 +253,38 @@ declare namespace p2 {
         motorIsEnabled(): boolean;
         setMotorSpeed(speed: number): void;
         getMotorSpeed(): number;
-
     }
 
     export interface ConstraintOptions {
-
         collideConnected?: boolean | undefined;
         wakeUpBodies?: boolean | undefined;
-
     }
 
     export class Constraint {
-
         static DISTANCE: 1;
         static GEAR: 2;
         static LOCK: 3;
         static PRISMATIC: 4;
         static REVOLUTE: 5;
 
-        constructor(bodyA: Body, bodyB: Body, type: typeof Constraint.DISTANCE | typeof Constraint.GEAR | typeof Constraint.LOCK | typeof Constraint.PRISMATIC | typeof Constraint.REVOLUTE, options?: ConstraintOptions);
+        constructor(
+            bodyA: Body,
+            bodyB: Body,
+            type:
+                | typeof Constraint.DISTANCE
+                | typeof Constraint.GEAR
+                | typeof Constraint.LOCK
+                | typeof Constraint.PRISMATIC
+                | typeof Constraint.REVOLUTE,
+            options?: ConstraintOptions,
+        );
 
-        type: typeof Constraint.DISTANCE | typeof Constraint.GEAR | typeof Constraint.LOCK | typeof Constraint.PRISMATIC | typeof Constraint.REVOLUTE;
+        type:
+            | typeof Constraint.DISTANCE
+            | typeof Constraint.GEAR
+            | typeof Constraint.LOCK
+            | typeof Constraint.PRISMATIC
+            | typeof Constraint.REVOLUTE;
         equations: Equation[];
         bodyA: Body;
         bodyB: Body;
@@ -317,18 +293,14 @@ declare namespace p2 {
         update(): void;
         setStiffness(stiffness: number): void;
         setRelaxation(relaxation: number): void;
-
     }
 
     export interface AngleLockEquationOptions {
-
         angle?: number | undefined;
         ratio?: number | undefined;
-
     }
 
     export class AngleLockEquation extends Equation {
-
         constructor(bodyA: Body, bodyB: Body, options?: AngleLockEquationOptions);
 
         angle: number;
@@ -336,11 +308,9 @@ declare namespace p2 {
 
         setRatio(ratio: number): number;
         setMaxTorque(torque: number): void;
-
     }
 
     export class ContactEquation extends Equation {
-
         constructor(bodyA: Body, bodyB: Body);
 
         contactPointA: [number, number];
@@ -354,11 +324,9 @@ declare namespace p2 {
 
         computeB(a: number, b: number, h: number): number;
         getVelocityAlongNormal(): number;
-
     }
 
     export class Equation {
-
         static DEFAULT_STIFFNESS: number;
         static DEFAULT_RELAXATION: number;
 
@@ -378,7 +346,13 @@ declare namespace p2 {
         relativeVelocity: number;
         enabled: boolean;
 
-        gmult(G: [number, number], vi: [number, number], wi: [number, number], vj: [number, number], wj: [number, number]): number;
+        gmult(
+            G: [number, number],
+            vi: [number, number],
+            wi: [number, number],
+            vj: [number, number],
+            wj: [number, number],
+        ): number;
         computeB(a: number, b: number, h: number): number;
         computeGq(): number;
         computeGW(): number;
@@ -388,11 +362,9 @@ declare namespace p2 {
         addToWlambda(deltalambda: number): number;
         computeInvC(eps: number): number;
         update(): void;
-
     }
 
     export class FrictionEquation extends Equation {
-
         constructor(bodyA: Body, bodyB: Body, slipForce: number);
 
         contactPointA: [number, number];
@@ -405,42 +377,32 @@ declare namespace p2 {
 
         setSlipForce(slipForce: number): void;
         getSlipForce(): number;
-
     }
 
     export interface RotationalLockEquationOptions {
-
         angle?: number | undefined;
-
     }
 
     export class RotationalLockEquation extends Equation {
-
         constructor(bodyA: Body, bodyB: Body, options?: RotationalLockEquationOptions);
 
         angle: number;
-
     }
 
     export class RotationalVelocityEquation extends Equation {
-
         constructor(bodyA: Body, bodyB: Body);
 
         computeB(a: number, b: number, h: number): number;
-
     }
 
     export class EventEmitter {
-
         on(type: string, listener: Function, context?: any): EventEmitter;
         has(type: string, listener: Function): boolean;
         off(type: string, listener: Function): EventEmitter;
         emit(event: any): EventEmitter;
-
     }
 
     export interface ContactMaterialOptions {
-
         friction?: number | undefined;
         restitution?: number | undefined;
         stiffness?: number | undefined;
@@ -448,11 +410,9 @@ declare namespace p2 {
         frictionStiffness?: number | undefined;
         frictionRelaxation?: number | undefined;
         surfaceVelocity?: number | undefined;
-
     }
 
     export class ContactMaterial {
-
         static idCounter: number;
 
         constructor(materialA: Material, materialB: Material, options?: ContactMaterialOptions);
@@ -468,30 +428,41 @@ declare namespace p2 {
         frictionRelaxation: number;
         surfaceVelocity: number;
         contactSkinSize: number;
-
     }
 
     export class Material {
-
         static idCounter: number;
 
         constructor(id?: number);
 
         id: number;
-
     }
 
     export class vec2 {
-
         static crossLength(a: [number, number], b: [number, number]): number;
         static crossVZ(out: [number, number], vec: [number, number], zcomp: number): [number, number];
         static crossZV(out: [number, number], zcomp: number, vec: [number, number]): [number, number];
         static rotate(out: [number, number], a: [number, number], angle: number): void;
         static rotate90cw(out: [number, number], a: [number, number]): void;
-        static toLocalFrame(out: [number, number], worldPoint: [number, number], framePosition: [number, number], frameAngle: number): void;
-        static toGlobalFrame(out: [number, number], localPoint: [number, number], framePosition: [number, number], frameAngle: number): void;
+        static toLocalFrame(
+            out: [number, number],
+            worldPoint: [number, number],
+            framePosition: [number, number],
+            frameAngle: number,
+        ): void;
+        static toGlobalFrame(
+            out: [number, number],
+            localPoint: [number, number],
+            framePosition: [number, number],
+            frameAngle: number,
+        ): void;
         static vectorToLocalFrame(out: [number, number], worldVector: [number, number], frameAngle: number): void;
-        static centroid(out: [number, number], a: [number, number], b: [number, number], c: [number, number]): [number, number];
+        static centroid(
+            out: [number, number],
+            a: [number, number],
+            b: [number, number],
+            c: [number, number],
+        ): [number, number];
         static create(): [number, number];
         static clone(a: [number, number]): [number, number];
         static fromValues(x: number, y: number): [number, number];
@@ -519,13 +490,22 @@ declare namespace p2 {
         static str(a: [number, number]): string;
         static lerp(out: [number, number], a: [number, number], b: [number, number], t: number): [number, number];
         static reflect(out: [number, number], vector: [number, number], normal: [number, number]): void;
-        static getLineSegmentsIntersection(out: [number, number], p1: [number, number], p2: [number, number], p3: [number, number], p4: [number, number]): boolean;
-        static getLineSegmentsIntersectionFraction(p1: [number, number], p2: [number, number], p3: [number, number], p4: [number, number]): number;
-
+        static getLineSegmentsIntersection(
+            out: [number, number],
+            p1: [number, number],
+            p2: [number, number],
+            p3: [number, number],
+            p4: [number, number],
+        ): boolean;
+        static getLineSegmentsIntersectionFraction(
+            p1: [number, number],
+            p2: [number, number],
+            p3: [number, number],
+            p4: [number, number],
+        ): number;
     }
 
     export interface BodyOptions {
-
         type?: typeof Body.DYNAMIC | typeof Body.STATIC | typeof Body.KINEMATIC | undefined;
         force?: [number, number] | undefined;
         position?: [number, number] | undefined;
@@ -546,15 +526,13 @@ declare namespace p2 {
         sleepTimeLimit?: number | undefined;
         fixedX?: boolean | undefined;
         fixedY?: boolean | undefined;
-
     }
 
-    export type SleepyEvent = Body['sleepyEvent']
-    export type SleepEvent = Body['sleepEvent']
-    export type WakeUpEvent = Body['wakeUpEvent']
+    export type SleepyEvent = Body['sleepyEvent'];
+    export type SleepEvent = Body['sleepEvent'];
+    export type WakeUpEvent = Body['wakeUpEvent'];
 
     export class Body extends EventEmitter {
-
         sleepyEvent: {
             type: 'sleepy';
         };
@@ -634,11 +612,14 @@ declare namespace p2 {
         toWorldFrame(out: [number, number], localPoint: [number, number]): void;
         vectorToLocalFrame(out: [number, number], worldVector: [number, number]): void;
         vectorToWorldFrame(out: [number, number], localVector: [number, number]): void;
-        fromPolygon(path: [number, number][], options?: {
-            optimalDecomp?: boolean | undefined;
-            skipSimpleCheck?: boolean | undefined;
-            removeCollinearPoints?: boolean | number | undefined;
-        }): boolean;
+        fromPolygon(
+            path: [number, number][],
+            options?: {
+                optimalDecomp?: boolean | undefined;
+                skipSimpleCheck?: boolean | undefined;
+                removeCollinearPoints?: boolean | number | undefined;
+            },
+        ): boolean;
         adjustCenterOfMass(): void;
         setZeroForce(): void;
         applyDamping(dt: number): void;
@@ -648,17 +629,13 @@ declare namespace p2 {
         overlaps(body: Body): boolean;
         integrate(dy: number): void;
         getVelocityAtPoint(result: [number, number], relativePoint: [number, number]): [number, number];
-
     }
 
     export interface LinearSpringOptions extends SpringOptions {
-
         restLength?: number | undefined;
-
     }
 
     export class LinearSpring extends Spring {
-
         constructor(bodyA: Body, bodyB: Body, options?: LinearSpringOptions);
 
         localAnchorA: [number, number];
@@ -670,36 +647,28 @@ declare namespace p2 {
         getWorldAnchorA(result: [number, number]): [number, number];
         getWorldAnchorB(result: [number, number]): [number, number];
         applyForce(): void;
-
     }
 
     export interface RotationalSpringOptions extends SpringOptions {
-
-        restAngle?: number | undefined
-
+        restAngle?: number | undefined;
     }
 
     export class RotationalSpring extends Spring {
-
         constructor(bodyA: Body, bodyB: Body, options?: RotationalSpringOptions);
 
         restAngle: number;
-
     }
 
     export interface SpringOptions {
-
         stiffness?: number | undefined;
         damping?: number | undefined;
         localAnchorA?: [number, number] | undefined;
         localAnchorB?: [number, number] | undefined;
         worldAnchorA?: [number, number] | undefined;
         worldAnchorB?: [number, number] | undefined;
-
     }
 
     export class Spring {
-
         constructor(bodyA: Body, bodyB: Body, options?: SpringOptions);
 
         stiffness: number;
@@ -708,19 +677,15 @@ declare namespace p2 {
         bodyB: Body;
 
         applyForce(): void;
-
     }
 
     export interface WheelConstraintOptions {
-
         localForwardVector?: [number, number] | undefined;
         localPosition?: [number, number] | undefined;
         sideFriction?: number | undefined;
-
     }
 
     export class WheelConstraint extends Constraint {
-
         constructor(vehicle: TopDownVehicle, options?: WheelConstraintOptions);
 
         protected vehicle: TopDownVehicle;
@@ -738,14 +703,11 @@ declare namespace p2 {
         getSpeed(): number;
 
         update(): void;
-
     }
 
-    export interface TopDownVehicleOptions {
-    }
+    export interface TopDownVehicleOptions {}
 
     export class TopDownVehicle {
-
         constructor(chasisBody: Body, options?: TopDownVehicleOptions);
 
         chasisBody: Body;
@@ -757,34 +719,26 @@ declare namespace p2 {
         addWheel(wheelOptions?: WheelConstraintOptions): WheelConstraint;
 
         update(): void;
-
     }
 
     export interface BoxOptions extends SharedShapeOptions {
-
         width?: number | undefined;
         height?: number | undefined;
-
     }
 
     export class Box extends Convex {
-
         constructor(options?: BoxOptions);
 
         width: number;
         height: number;
-
     }
 
     export interface CapsuleOptions extends SharedShapeOptions {
-
         length?: number | undefined;
         radius?: number | undefined;
-
     }
 
     export class Capsule extends Shape {
-
         constructor(options?: CapsuleOptions);
 
         length: number;
@@ -792,17 +746,13 @@ declare namespace p2 {
 
         computeMomentOfInertia(mass: number): number;
         updateArea(): void;
-
     }
 
     export interface CircleOptions extends SharedShapeOptions {
-
         radius?: number | undefined;
-
     }
 
     export class Circle extends Shape {
-
         constructor(options?: CircleOptions);
 
         radius: number;
@@ -810,18 +760,14 @@ declare namespace p2 {
         updateArea(): void;
         computeAABB(out: AABB, position: [number, number]): void;
         raycast(result: RaycastResult, ray: Ray, position: [number, number]): void;
-
     }
 
     export interface ConvexOptions extends SharedShapeOptions {
-
         vertices?: ([number, number] | ArrayLike<number>)[] | undefined;
         axes?: ([number, number] | ArrayLike<number>)[] | undefined;
-
     }
 
     export class Convex extends Shape {
-
         static triangleArea(a: number[], b: number[], c: number[]): number;
 
         constructor(options?: ConvexOptions);
@@ -841,20 +787,16 @@ declare namespace p2 {
         computeMomentOfInertia(mass: number): number;
         updateArea(): void;
         computeAABB(out: AABB, position: [number, number], angle: number): void;
-
     }
 
     export interface HeightfieldOptions extends SharedShapeOptions {
-
         heights?: number[] | undefined;
         minValue?: number | undefined;
         maxValue?: number | undefined;
         elementWidth?: number | undefined;
-
     }
 
     export class Heightfield extends Shape {
-
         constructor(options?: HeightfieldOptions);
 
         heights: number[];
@@ -866,62 +808,57 @@ declare namespace p2 {
         computeMomentOfInertia(): number;
         updateArea(): void;
         computeAABB(out: AABB, position: [number, number], angle: number): void;
-
     }
 
     export interface LineOptions extends SharedShapeOptions {
-
         length?: number | undefined;
-
     }
 
     export class Line extends Shape {
-
         constructor(options?: LineOptions);
 
         length: number;
 
         computeMomentOfInertia(mass: number): number;
         computeAABB(out: AABB, position: [number, number], angle: number): void;
-
     }
 
     export class Particle extends Shape {
-
         constructor(options?: SharedShapeOptions);
 
         computeMomentOfInertia(): number;
         computeAABB(out: AABB, position: [number, number]): void;
-
     }
 
     export class Plane extends Shape {
-
         constructor(options?: SharedShapeOptions);
 
         updateArea(): void;
-
     }
 
     export interface SharedShapeOptions {
-
         position?: [number, number] | undefined;
         angle?: number | undefined;
         collisionGroup?: number | undefined;
         collisionMask?: number | undefined;
         sensor?: boolean | undefined;
         collisionResponse?: boolean | undefined;
-
     }
 
     export interface ShapeOptions extends SharedShapeOptions {
-
-        type?: typeof Shape.CIRCLE | typeof Shape.PARTICLE | typeof Shape.PLANE | typeof Shape.CONVEX | typeof Shape.LINE | typeof Shape.BOX | typeof Shape.CAPSULE | typeof Shape.HEIGHTFIELD | undefined;
-
+        type?:
+            | typeof Shape.CIRCLE
+            | typeof Shape.PARTICLE
+            | typeof Shape.PLANE
+            | typeof Shape.CONVEX
+            | typeof Shape.LINE
+            | typeof Shape.BOX
+            | typeof Shape.CAPSULE
+            | typeof Shape.HEIGHTFIELD
+            | undefined;
     }
 
     export class Shape {
-
         static idCounter: number;
 
         static CIRCLE: 1;
@@ -938,7 +875,15 @@ declare namespace p2 {
         body: Body;
         position: [number, number];
         angle: number;
-        type: typeof Shape.CIRCLE | typeof Shape.PARTICLE | typeof Shape.PLANE | typeof Shape.CONVEX | typeof Shape.LINE | typeof Shape.BOX | typeof Shape.CAPSULE | typeof Shape.HEIGHTFIELD;
+        type:
+            | typeof Shape.CIRCLE
+            | typeof Shape.PARTICLE
+            | typeof Shape.PLANE
+            | typeof Shape.CONVEX
+            | typeof Shape.LINE
+            | typeof Shape.BOX
+            | typeof Shape.CAPSULE
+            | typeof Shape.HEIGHTFIELD;
         id: number;
         boundingRadius: number;
         collisionGroup: number;
@@ -956,15 +901,12 @@ declare namespace p2 {
     }
 
     export interface GSSolverOptions extends SolverOptions {
-
         iterations?: number | undefined;
         tolerance?: number | undefined;
         frictionIterations?: number | undefined;
-
     }
 
     export class GSSolver extends Solver {
-
         constructor(options?: GSSolverOptions);
 
         type: typeof Solver.GS;
@@ -975,22 +917,20 @@ declare namespace p2 {
         usedIterations: number;
 
         solve(h: number, world: World): void;
-
     }
 
     export interface SolverOptions {
-        equationSortFunction?: Equation | undefined
+        equationSortFunction?: Equation | undefined;
     }
 
     export class Solver extends EventEmitter {
-
         static GS: 1;
 
         constructor(options: SolverOptions | undefined, type: typeof Solver.GS);
 
         type: number;
         equations: Equation[];
-        equationSortFunction: Equation | boolean
+        equationSortFunction: Equation | boolean;
 
         solve(dt: number, world: World): void;
         solveIsland(dt: number, island: Island): void;
@@ -999,39 +939,29 @@ declare namespace p2 {
         addEquations(eqs: Equation[]): void;
         removeEquation(eq: Equation): void;
         removeAllEquations(): void;
-
     }
 
     export class ContactEquationPool extends Pool {
-
         create(): ContactEquation;
         destroy(equation: ContactEquation): ContactEquationPool;
-
     }
 
     export class FrictionEquationPool extends Pool {
-
         create(): FrictionEquation;
         destroy(equation: FrictionEquation): FrictionEquationPool;
-
     }
 
     export class IslandNodePool extends Pool {
-
         create(): IslandNode;
         destroy(node: IslandNode): IslandNodePool;
-
     }
 
     export class IslandPool extends Pool {
-
         create(): Island;
         destroy(island: Island): IslandPool;
-
     }
 
     export class OverlapKeeper {
-
         constructor();
 
         overlappingShapesLastState: TupleDictionary;
@@ -1051,7 +981,6 @@ declare namespace p2 {
     }
 
     export class OverlapKeeperRecord {
-
         shapeA: Shape;
         shapeB: Shape;
         bodyA: Body;
@@ -1060,14 +989,11 @@ declare namespace p2 {
         constructor(bodyA: Body, shapeA: Shape, bodyB: Body, shapeB: Shape);
 
         set(bodyA: Body, shapeA: Shape, bodyB: Body, shapeB: Shape): void;
-
     }
 
     export class OverlapKeeperRecordPool extends Pool {
-
         create(): OverlapKeeperRecord;
         destroy(record: OverlapKeeperRecord): OverlapKeeperRecordPool;
-
     }
 
     export interface PoolOptions {
@@ -1075,7 +1001,6 @@ declare namespace p2 {
     }
 
     export class Pool {
-
         objects: any[];
 
         constructor(options?: PoolOptions);
@@ -1083,11 +1008,9 @@ declare namespace p2 {
         resize(size: number): Pool;
         get(): any;
         release(object: any): Pool;
-
     }
 
     export class TupleDictionary {
-
         data: any;
         keys: number[];
 
@@ -1097,22 +1020,18 @@ declare namespace p2 {
         set(i: number, j: number, value: number): number;
         reset(): void;
         copy(dict: TupleDictionary): void;
-
     }
 
     export class Utils {
-
         static appendArray<T>(a: Array<T>, b: Array<T>): Array<T>;
         static splice<T>(array: Array<T>, index: number, howMany: number): void;
         static arrayRemove<T>(array: Array<T>, element: number): void;
         static extend(a: any, b: any): void;
         static defaults(options: any, defaults: any): any;
         static shallowClone<T>(obj: T): T;
-
     }
 
     export class Island {
-
         equations: Equation[];
         bodies: Body[];
 
@@ -1120,14 +1039,11 @@ declare namespace p2 {
         getBodies(result: any[]): Body[];
         wantsToSleep(): boolean;
         sleep(): boolean;
-
     }
 
-    export interface IslandManagerOptions {
-    }
+    export interface IslandManagerOptions {}
 
     export class IslandManager extends Solver {
-
         static getUnvisitedNode(nodes: IslandNode[]): IslandNode | Boolean;
 
         constructor(options?: IslandManagerOptions);
@@ -1139,11 +1055,9 @@ declare namespace p2 {
         visit(node: IslandNode, bds: Body[], eqs: Equation[]): void;
         bfs(root: IslandNode, bds: Body[], eqs: Equation[]): void;
         split(world: World): Island[];
-
     }
 
     export class IslandNode {
-
         constructor(body: Body);
 
         body: Body;
@@ -1152,7 +1066,6 @@ declare namespace p2 {
         visited: boolean;
 
         reset(): void;
-
     }
 
     export interface WorldOptions {
@@ -1162,18 +1075,17 @@ declare namespace p2 {
         islandSplit?: boolean | undefined;
     }
 
-    export type PostStepEvent = World['postStepEvent']
-    export type AddBodyEvent = World['addBodyEvent']
-    export type RemoveBodyEvent = World['removeBodyEvent']
-    export type AddSpringEvent = World['addSpringEvent']
-    export type ImpactEvent = World['impactEvent']
-    export type PostBroadphaseEvent = World['postBroadphaseEvent']
-    export type BeginContactEvent = World['beginContactEvent']
-    export type EndContactEvent = World['endContactEvent']
-    export type PreSolveEvent = World['preSolveEvent']
+    export type PostStepEvent = World['postStepEvent'];
+    export type AddBodyEvent = World['addBodyEvent'];
+    export type RemoveBodyEvent = World['removeBodyEvent'];
+    export type AddSpringEvent = World['addSpringEvent'];
+    export type ImpactEvent = World['impactEvent'];
+    export type PostBroadphaseEvent = World['postBroadphaseEvent'];
+    export type BeginContactEvent = World['beginContactEvent'];
+    export type EndContactEvent = World['endContactEvent'];
+    export type PreSolveEvent = World['preSolveEvent'];
 
     export class World extends EventEmitter {
-
         postStepEvent: {
             type: 'postStep';
         };
@@ -1290,7 +1202,5 @@ declare namespace p2 {
         setGlobalStiffness(stiffness: number): void;
         setGlobalRelaxation(relaxation: number): void;
         raycast(result: RaycastResult, ray: Ray): boolean;
-
     }
-
 }
