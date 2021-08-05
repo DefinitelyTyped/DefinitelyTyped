@@ -1890,46 +1890,60 @@ declare namespace ComponentFramework {
              */
             interface Paging {
                 /**
-                 * Total number of results on the server for the current query.
+                 * Total number of results on the server for the currently applied query.
                  */
-                totalResultCount: number;
+                 totalResultCount: number;
 
-                /**
-                 * Whether the result set can be paged forwards.
-                 */
-                hasNextPage: boolean;
+                 /**
+                  * The number of the first page to retrieve
+                  */
+                 firstPageNumber: number;
 
-                /**
-                 * Whether the result set can be paged backwards.
-                 */
-                hasPreviousPage: boolean;
+                 /**
+                  * The number of the last page to retrieve
+                  */
+                 lastPageNumber: number;
 
-                /**
-                 * Request the next page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
-                 */
-                loadNextPage(): void;
+                 /**
+                  * The pagesize for each page retrieved
+                  */
+                 pageSize: number;
 
-                /**
-                 * Request the previous page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
-                 */
-                loadPreviousPage(): void;
+                 /**
+                  * Whether the result set can be paged forwards.
+                  */
+                 hasNextPage: boolean;
 
-                /**
-                 * Request the exact page
-                 * @param pageNumber The page number to go to in the dat.
-                 */
-                loadExactPage(pageNumber?: number): void;
+                 /**
+                  * Whether the result set can be paged backwards.
+                  */
+                 hasPreviousPage: boolean;
 
-                /**
-                 * Reload the results from the server, and reset to page 1.
-                 */
-                reset(): void;
+                 /**
+                  * Request the next page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
+                  */
+                 loadNextPage(): void;
 
-                /**
-                 * Sets the number of results to return per page on the next data refresh.
-                 * @param pageSize pageSize to be set
-                 */
-                setPageSize(pageSize: number): void;
+                 /**
+                  * Request the previous page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
+                  */
+                 loadPreviousPage(): void;
+
+                 /**
+                  * Reload the results from the server, and reset to page 1.
+                  */
+                 reset(): void;
+
+                 /**
+                  * Sets the number of results to return per page on the next data refresh.
+                  * @param pageSize pageSize to be set.
+                  */
+                 setPageSize(pageSize: number): void;
+
+                 /**
+                  * Request the exact page of results to be loaded.
+                  */
+                 loadExactPage(pageNumber: number): void;
             }
 
             /**
