@@ -32,22 +32,22 @@ declare namespace p2 {
 
     export class Broadphase {
 
-        static AABB: number;
-        static BOUNDING_CIRCLE: number;
+        static AABB: 1;
+        static BOUNDING_CIRCLE: 2;
 
-        static NAIVE: number;
-        static SAP: number;
+        static NAIVE: 1;
+        static SAP: 2;
 
         static boundingRadiusCheck(bodyA: Body, bodyB: Body): boolean;
         static aabbCheck(bodyA: Body, bodyB: Body): boolean;
         static canCollide(bodyA: Body, bodyB: Body): boolean;
 
-        constructor(type: number);
+        constructor(type: typeof Broadphase.NAIVE | typeof Broadphase.SAP);
 
-        type: number;
+        type: typeof Broadphase.NAIVE | typeof Broadphase.SAP;
         result: Body[];
         world: World;
-        boundingVolumeType: number;
+        boundingVolumeType: typeof Broadphase.AABB | typeof Broadphase.BOUNDING_CIRCLE;
 
         setWorld(world: World): void;
         getCollisionPairs(world: World): Body[];
@@ -60,6 +60,7 @@ declare namespace p2 {
     }
 
     export class NaiveBroadphase extends Broadphase {
+        type: typeof Broadphase.NAIVE
     }
 
     export class Narrowphase {
@@ -92,16 +93,16 @@ declare namespace p2 {
         skipBackfaces?: boolean | undefined;
         collisionMask?: number | undefined;
         collisionGroup?: number | undefined;
-        mode?: number | undefined;
+        mode?: typeof Ray.CLOSEST | typeof Ray.ANY | typeof Ray.ALL | undefined;
         callback?: ((result: RaycastResult) => void) | undefined;
 
     }
 
     export class Ray {
 
-        static CLOSEST: number;
-        static ANY: number;
-        static ALL: number;
+        static CLOSEST: 1;
+        static ANY: 2;
+        static ALL: 4;
 
         constructor(options?: RayOptions);
 
@@ -111,7 +112,7 @@ declare namespace p2 {
         skipBackfaces: boolean;
         collisionMask: number;
         collisionGroup: number;
-        mode: number;
+        mode: typeof Ray.CLOSEST | typeof Ray.ANY | typeof Ray.ALL;
         callback: (result: RaycastResult) => void;
         direction: [number, number];
         length: number;
@@ -299,15 +300,15 @@ declare namespace p2 {
 
     export class Constraint {
 
-        static DISTANCE: number;
-        static GEAR: number;
-        static LOCK: number;
-        static PRISMATIC: number;
-        static REVOLUTE: number;
+        static DISTANCE: 1;
+        static GEAR: 2;
+        static LOCK: 3;
+        static PRISMATIC: 4;
+        static REVOLUTE: 5;
 
         constructor(bodyA: Body, bodyB: Body, type: number, options?: ConstraintOptions);
 
-        type: number;
+        type: typeof Constraint.DISTANCE | typeof Constraint.GEAR | typeof Constraint.LOCK | typeof Constraint.PRISMATIC | typeof Constraint.REVOLUTE;
         equations: Equation[];
         bodyA: Body;
         bodyB: Body;
@@ -525,6 +526,7 @@ declare namespace p2 {
 
     export interface BodyOptions {
 
+        type?: typeof Body.DYNAMIC | typeof Body.STATIC | typeof Body.KINEMATIC | undefined;
         force?: [number, number] | undefined;
         position?: [number, number] | undefined;
         velocity?: [number, number] | undefined;
@@ -565,12 +567,13 @@ declare namespace p2 {
             type: 'wakeup';
         };
 
-        static DYNAMIC: number;
-        static STATIC: number;
-        static KINEMATIC: number;
-        static AWAKE: number;
-        static SLEEPY: number;
-        static SLEEPING: number;
+        static DYNAMIC: 1;
+        static STATIC: 2;
+        static KINEMATIC: 4;
+
+        static AWAKE: 0;
+        static SLEEPY: 1;
+        static SLEEPING: 2;
 
         constructor(options?: BodyOptions);
 
@@ -600,12 +603,12 @@ declare namespace p2 {
         angularForce: number;
         damping: number;
         angularDamping: number;
-        type: number;
+        type: typeof Body.DYNAMIC | typeof Body.STATIC | typeof Body.KINEMATIC;
         boundingRadius: number;
         aabb: AABB;
         aabbNeedsUpdate: boolean;
         allowSleep: boolean;
-        sleepState: number;
+        sleepState: typeof Body.AWAKE | typeof Body.SLEEPY | typeof Body.SLEEPING;
         sleepSpeedLimit: number;
         sleepTimeLimit: number;
         gravityScale: number;
@@ -913,28 +916,29 @@ declare namespace p2 {
 
     export interface ShapeOptions extends SharedShapeOptions {
 
-        type?: number | undefined;
+        type?: typeof Shape.CIRCLE | typeof Shape.PARTICLE | typeof Shape.PLANE | typeof Shape.CONVEX | typeof Shape.LINE | typeof Shape.BOX | typeof Shape.CAPSULE | typeof Shape.HEIGHTFIELD | undefined;
 
     }
 
     export class Shape {
 
         static idCounter: number;
-        static CIRCLE: number;
-        static PARTICLE: number;
-        static PLANE: number;
-        static CONVEX: number;
-        static LINE: number;
-        static BOX: number;
-        static CAPSULE: number;
-        static HEIGHTFIELD: number;
+
+        static CIRCLE: 1;
+        static PARTICLE: 2;
+        static PLANE: 4;
+        static CONVEX: 8;
+        static LINE: 16;
+        static BOX: 32;
+        static CAPSULE: 64;
+        static HEIGHTFIELD: 128;
 
         constructor(options?: ShapeOptions);
 
         body: Body;
         position: [number, number];
         angle: number;
-        type: number;
+        type: typeof Shape.CIRCLE | typeof Shape.PARTICLE | typeof Shape.PLANE | typeof Shape.CONVEX | typeof Shape.LINE | typeof Shape.BOX | typeof Shape.CAPSULE | typeof Shape.HEIGHTFIELD;
         id: number;
         boundingRadius: number;
         collisionGroup: number;
@@ -963,6 +967,8 @@ declare namespace p2 {
 
         constructor(options?: GSSolverOptions);
 
+        type: typeof Solver.GS;
+
         iterations: number;
         tolerance: number;
         frictionIterations: number;
@@ -978,10 +984,9 @@ declare namespace p2 {
 
     export class Solver extends EventEmitter {
 
-        static GS: number;
-        static ISLAND: number;
+        static GS: 1;
 
-        constructor(options: SolverOptions | undefined, type: number);
+        constructor(options: SolverOptions | undefined, type: typeof Solver.GS);
 
         type: number;
         equations: Equation[];
@@ -1225,9 +1230,9 @@ declare namespace p2 {
             frictionEquations: FrictionEquation[];
         };
 
-        static NO_SLEEPING: number;
-        static BODY_SLEEPING: number;
-        static ISLAND_SLEEPING: number;
+        static NO_SLEEPING: 1;
+        static BODY_SLEEPING: 2;
+        static ISLAND_SLEEPING: 4;
 
         //static integrateBody(body: Body, dy: number): void;
 
@@ -1259,7 +1264,7 @@ declare namespace p2 {
         stepping: boolean;
         islandSplit: boolean;
         emitImpactEvent: boolean;
-        sleepMode: number;
+        sleepMode: typeof World.NO_SLEEPING | typeof World.BODY_SLEEPING | typeof World.ISLAND_SLEEPING;
 
         addConstraint(c: Constraint): void;
         addContactMaterial(contactMaterial: ContactMaterial): void;
