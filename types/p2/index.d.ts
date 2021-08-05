@@ -550,15 +550,15 @@ declare namespace p2 {
     export class Body extends EventEmitter {
 
         sleepyEvent: {
-            type: string;
+            type: 'sleepy';
         };
 
         sleepEvent: {
-            type: string;
+            type: 'sleep';
         };
 
         wakeUpEvent: {
-            type: string;
+            type: 'wakeup';
         };
 
         static DYNAMIC: number;
@@ -1151,26 +1151,26 @@ declare namespace p2 {
     export class World extends EventEmitter {
 
         postStepEvent: {
-            type: string;
+            type: 'postStep';
         };
 
         addBodyEvent: {
-            type: string;
+            type: 'addBody';
             body: Body;
         };
 
         removeBodyEvent: {
-            type: string;
+            type: 'removeBody';
             body: Body;
         };
 
         addSpringEvent: {
-            type: string;
+            type: 'addSpring';
             spring: Spring;
         };
 
         impactEvent: {
-            type: string;
+            type: 'impact';
             bodyA: Body;
             bodyB: Body;
             shapeA: Shape;
@@ -1179,12 +1179,12 @@ declare namespace p2 {
         };
 
         postBroadphaseEvent: {
-            type: string;
+            type: 'postBroadphase';
             pairs: Body[];
         };
 
         beginContactEvent: {
-            type: string;
+            type: 'beginContact';
             shapeA: Shape;
             shapeB: Shape;
             bodyA: Body;
@@ -1193,7 +1193,7 @@ declare namespace p2 {
         };
 
         endContactEvent: {
-            type: string;
+            type: 'endContact';
             shapeA: Shape;
             shapeB: Shape;
             bodyA: Body;
@@ -1201,7 +1201,7 @@ declare namespace p2 {
         };
 
         preSolveEvent: {
-            type: string;
+            type: 'preSolve';
             contactEquations: ContactEquation[];
             frictionEquations: FrictionEquation[];
         };
