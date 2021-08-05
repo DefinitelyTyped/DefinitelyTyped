@@ -306,7 +306,7 @@ declare namespace p2 {
         static PRISMATIC: 4;
         static REVOLUTE: 5;
 
-        constructor(bodyA: Body, bodyB: Body, type: number, options?: ConstraintOptions);
+        constructor(bodyA: Body, bodyB: Body, type: typeof Constraint.DISTANCE | typeof Constraint.GEAR | typeof Constraint.LOCK | typeof Constraint.PRISMATIC | typeof Constraint.REVOLUTE, options?: ConstraintOptions);
 
         type: typeof Constraint.DISTANCE | typeof Constraint.GEAR | typeof Constraint.LOCK | typeof Constraint.PRISMATIC | typeof Constraint.REVOLUTE;
         equations: Equation[];
