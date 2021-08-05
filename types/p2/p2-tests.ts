@@ -56,6 +56,9 @@ const eventType: p2.ImpactEvent = {
     contactEquation: new p2.ContactEquation(circleBody, groundBody)
 }
 
+// Test Constraint
+const contraint = new p2.Constraint(circleBody, groundBody, p2.Constraint.DISTANCE, { wakeUpBodies: true })
+
 // To get the trajectories of the bodies,
 // we must step the world forward in time.
 // This is done using a fixed time step size.
