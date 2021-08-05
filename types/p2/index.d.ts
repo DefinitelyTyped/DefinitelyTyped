@@ -547,6 +547,10 @@ declare namespace p2 {
 
     }
 
+    export type SleepyEvent = Body['sleepyEvent']
+    export type SleepEvent = Body['sleepEvent']
+    export type WakeUpEvent = Body['wakeUpEvent']
+
     export class Body extends EventEmitter {
 
         sleepyEvent: {
@@ -1147,6 +1151,16 @@ declare namespace p2 {
         broadphase?: Broadphase | undefined;
         islandSplit?: boolean | undefined;
     }
+
+    export type PostStepEvent = World['postStepEvent']
+    export type AddBodyEvent = World['addBodyEvent']
+    export type RemoveBodyEvent = World['removeBodyEvent']
+    export type AddSpringEvent = World['addSpringEvent']
+    export type ImpactEvent = World['impactEvent']
+    export type PostBroadphaseEvent = World['postBroadphaseEvent']
+    export type BeginContactEvent = World['beginContactEvent']
+    export type EndContactEvent = World['endContactEvent']
+    export type PreSolveEvent = World['preSolveEvent']
 
     export class World extends EventEmitter {
 
