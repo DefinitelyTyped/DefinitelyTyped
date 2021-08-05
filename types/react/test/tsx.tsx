@@ -445,18 +445,32 @@ interface TestPropTypesProps2 {
 interface TestPropTypesProps3 {
     foo?: string | null | undefined;
 }
-const testPropTypes = {
-    foo: PropTypes.string
+const functionTestPropTypes = {
+    foo: PropTypes.string,
+    children: PropTypes.node
 };
-type DeclaredPropTypes<P> = Required<Exclude<React.FunctionComponent<P>['propTypes'], undefined>>;
+const voidFunctionTestPropTypes = {
+    foo: PropTypes.string,
+};
+type FunctionDeclaredPropTypes<P> = Required<Exclude<React.FunctionComponent<P>['propTypes'], undefined>>;
+type VoidFunctionDeclaredPropTypes<P> = Required<Exclude<React.VoidFunctionComponent<P>['propTypes'], undefined>>;
 // $ExpectType false
-type propTypesTest = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps> ? true : false;
+type propTypesTest = typeof functionTestPropTypes extends FunctionDeclaredPropTypes<TestPropTypesProps> ? true : false;
 // $ExpectType true
-type propTypesTest1 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps1> ? true : false;
+type propTypesTest1 = typeof functionTestPropTypes extends FunctionDeclaredPropTypes<TestPropTypesProps1> ? true : false;
 // $ExpectType true
-type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps2> ? true : false;
+type propTypesTest2 = typeof functionTestPropTypes extends FunctionDeclaredPropTypes<TestPropTypesProps2> ? true : false;
 // $ExpectType true
-type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
+type propTypesTest3 = typeof functionTestPropTypes extends FunctionDeclaredPropTypes<TestPropTypesProps3> ? true : false;
+// $ExpectType false
+type propTypesTest4 = typeof voidFunctionTestPropTypes extends VoidFunctionDeclaredPropTypes<TestPropTypesProps> ? true : false;
+// $ExpectType true
+type propTypesTest5 = typeof voidFunctionTestPropTypes extends VoidFunctionDeclaredPropTypes<TestPropTypesProps1> ? true : false;
+// $ExpectType true
+type propTypesTest6 = typeof voidFunctionTestPropTypes extends VoidFunctionDeclaredPropTypes<TestPropTypesProps2> ? true : false;
+// $ExpectType true
+type propTypesTest7 = typeof voidFunctionTestPropTypes extends VoidFunctionDeclaredPropTypes<TestPropTypesProps3> ? true : false;
+
 function CustomSelect(props: {
     children: ReadonlyArray<
       React.ReactElement<
