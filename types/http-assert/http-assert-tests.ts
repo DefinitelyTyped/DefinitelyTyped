@@ -52,8 +52,6 @@ declare function unknown(): unknown;
     value;
 })();
 
-// assert.ok()
-
 (() => {
     const value = unknown();
     httpAssert.ok(typeof value === "string");
