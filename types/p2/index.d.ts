@@ -812,8 +812,8 @@ declare namespace p2 {
 
     export interface ConvexOptions extends SharedShapeOptions {
 
-        vertices?: [number, number]|ArrayLike<number>[] | undefined;
-        axes?: [number, number]|ArrayLike<number>[] | undefined;
+        vertices?: ([number, number] | ArrayLike<number>)[] | undefined;
+        axes?: ([number, number] | ArrayLike<number>)[] | undefined;
 
     }
 
