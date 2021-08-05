@@ -1,6 +1,6 @@
 // Type definitions for @hippy/react 2.7
 // Project: http://hippyjs.org
-// Definitions by: zeroyu <https://github.com/DefinitelyTyped>
+// Definitions by: zeroyu <https://github.com/zerosrat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
