@@ -1,6 +1,6 @@
 // Type definitions for react-coinhive 1.0
 // Project: https://github.com/dragma/react-coinhive
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

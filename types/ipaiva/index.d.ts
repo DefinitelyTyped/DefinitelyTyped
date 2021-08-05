@@ -1,6 +1,6 @@
 // Type definitions for ipaiva 0.2
 // Project: https://github.com/ipaiva-studio
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'ipaiva' {

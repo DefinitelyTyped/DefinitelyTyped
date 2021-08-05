@@ -1,6 +1,6 @@
 // Type definitions for node-xmpp-core 5.0
 // Project: http://github.com/node-xmpp/node-xmpp
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 /// <reference types="node" />

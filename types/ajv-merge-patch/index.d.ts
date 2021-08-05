@@ -1,6 +1,6 @@
 // Type definitions for ajv-merge-patch 4.1
 // Project: https://github.com/epoberezkin/ajv-merge-patch#readme
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 

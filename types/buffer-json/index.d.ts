@@ -1,6 +1,6 @@
 // Type definitions for buffer-json 2.0
 // Project: https://github.com/jprichardson/buffer-json
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

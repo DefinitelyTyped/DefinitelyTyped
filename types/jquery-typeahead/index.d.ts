@@ -1,6 +1,6 @@
 // Type definitions for jquery-typeahead 2.10
 // Project: http://www.runningcoder.org/jquerytypeahead
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

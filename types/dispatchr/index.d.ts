@@ -1,6 +1,6 @@
 // Type definitions for dispatchr 1.2
 // Project: https://github.com/yahoo/fluxible#readme
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 /// <reference types="node" />

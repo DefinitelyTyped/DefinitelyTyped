@@ -1,6 +1,6 @@
 // Type definitions for jsonquery 0.1
 // Project: https://github.com/eugeneware/jsonquery
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 

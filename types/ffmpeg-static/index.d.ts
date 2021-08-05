@@ -1,6 +1,6 @@
 // Type definitions for ffmpeg-static 3.0
 // Project: https://github.com/eugeneware/ffmpeg-static#readme
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*~ You can declare properties of the module using const, let, or var */

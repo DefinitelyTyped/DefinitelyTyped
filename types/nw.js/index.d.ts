@@ -1,6 +1,6 @@
 // Type definitions for nw.js 0.13
 // Project: http://nwjs.io
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

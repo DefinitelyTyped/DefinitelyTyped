@@ -1,6 +1,6 @@
 // Type definitions for styled-jsx 2.2
 // Project: https://github.com/zeit/styled-jsx
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

@@ -1,6 +1,6 @@
 // Type definitions for glue 5.0
 // Project: https://github.com/hapijs/glue
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

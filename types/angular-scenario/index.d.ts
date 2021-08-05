@@ -1,6 +1,6 @@
 // Type definitions for Angular Scenario Testing (ngScenario module) 1.3
 // Project: http://angularjs.org
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

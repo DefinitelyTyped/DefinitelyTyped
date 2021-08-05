@@ -1,6 +1,6 @@
 // Type definitions for react-native-sensor-manager 0.1
 // Project: https://github.com/kprimice/react-native-sensor-manager
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

@@ -1,6 +1,6 @@
 // Type definitions for react-hyperscript 3.0
 // Project: https://github.com/mlmorg/react-hyperscript
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

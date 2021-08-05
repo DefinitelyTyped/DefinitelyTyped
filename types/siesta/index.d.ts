@@ -1,6 +1,6 @@
 // Type definitions for Siesta
 // Project: http://www.bryntum.com/products/siesta/
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Siesta {

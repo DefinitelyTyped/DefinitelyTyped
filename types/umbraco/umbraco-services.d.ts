@@ -1,6 +1,6 @@
 // Type definitions for Umbraco v7.2.8
 // Project: https://github.com/umbraco
-// Definitions by:
+// Definitions by: nobody <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
