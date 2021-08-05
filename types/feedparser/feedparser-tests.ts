@@ -24,9 +24,8 @@ feedparser.on('readable', () => {
   // This is where the action is!
   const stream = feedparser;
   const meta = feedparser.meta; // **NOTE** the "meta" is always available in the context of the feedparser instance
-  let item: FeedParser.Item;
 
-  while (item = stream.read()) {
+  while (let item = stream.read()) {
     console.log(item);
   }
 });
