@@ -55,9 +55,11 @@ export interface ConnectionAttributes {
     } | undefined;
     socketOptions?: {
         timeout?: number | undefined;
-        service_name: string;
-        connection_name: string;
-        service_description: string;
+        service_name: string | undefined;
+        service_description: string | undefined;
+        clientProperties: {
+            connection_name: string | undefined;
+        } | undefined;
     } | undefined;
 }
 
@@ -261,6 +263,11 @@ declare const defaultConfig: {
                 slashes: boolean;
                 socketOptions: {
                     timeout: number;
+                    service_name: string;
+                    service_description: string;
+                    clientProperties: {
+                        connection_name: string;
+                    };
                 };
                 user: string;
             };
