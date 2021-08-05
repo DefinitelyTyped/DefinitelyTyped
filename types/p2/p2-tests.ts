@@ -46,6 +46,16 @@ const convex = new p2.Convex({
     ]
 });
 
+// Test ImpactEvent type
+const eventType: p2.ImpactEvent = {
+    type: 'impact',
+    bodyA: circleBody,
+    bodyB: groundBody,
+    shapeA: circleShape,
+    shapeB: groundShape,
+    contactEquation: new p2.ContactEquation(circleBody, groundBody)
+}
+
 // To get the trajectories of the bodies,
 // we must step the world forward in time.
 // This is done using a fixed time step size.
