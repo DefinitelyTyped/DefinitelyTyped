@@ -22,8 +22,8 @@
     },
     "files": [
         "index.d.ts",
-        "tests/main-tests.tsx",
-        "tests/localnotification-tests.tsx",
-        "tests/backgroundHandler-tests.tsx"
+        "test/main-test.tsx",
+        "test/localnotification-test.tsx",
+        "test/backgroundHandler-test.tsx"
     ]
 }

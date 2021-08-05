@@ -17,9 +17,9 @@ export interface HmsPushEvents {
 
 export interface HmsPushEventListeners {
     onRemoteMessageReceived: (result: (result: RemoteDataMessageObject) => void) => NativeEventSubscription;
-    onTokenReceived: (result: (result: Promise<{ token: string }>) => void) => NativeEventSubscription;
+    onTokenReceived: (result: (result: { token: string }) => void) => NativeEventSubscription;
     onMultiSenderTokenReceived: (
-        result: (result: Promise<{ dataJSON: string; token: string }>) => void,
+        result: (result: { dataJSON: string; token: string }) => void,
     ) => NativeEventSubscription;
     onTokenError: (result: (result: ResultResponse<string>) => void) => NativeEventSubscription;
     onMultiSenderTokenError: (result: (result: ResultResponse<string>) => void) => NativeEventSubscription;

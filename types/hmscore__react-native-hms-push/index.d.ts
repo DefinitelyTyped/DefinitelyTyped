@@ -10,6 +10,7 @@ import { LocalNotificationAttributes, Importance, RepeatType, Visibility, Priori
 import RNRemoteMessage from './src/RNRemoteMessage';
 import { ProfileType, ProfileTypeEnum } from './src/HmsPushProfileTypes';
 import { BackgroundRemoteMessage, RemoteDataMessageObject, RemoteDataMessageWithExtras } from './src/RemoteDataMessage';
+import { HmsPushResultCodeInterface } from './src/HmsPushResultCode';
 
 export type LocalNotificationOptions =
     | {
@@ -42,8 +43,6 @@ declare namespace HmsLocalNotification {
     function channelBlocked(channelId: string): Promise<ResultResponse<boolean>>;
     function channelExists(channelId: string): Promise<ResultResponse<boolean>>;
 }
-
-declare const HmsPushEvent: HmsPushEventType;
 
 declare namespace HmsPushMessaging {
     function setBackgroundMessageHandler(handler: (dataMessage: BackgroundRemoteMessage) => void): void;
@@ -89,6 +88,8 @@ declare namespace HmsPushOpenDevice {
 }
 
 declare const RemoteMessageBuilder: RemoteMessageBuilderInterface;
+declare const HmsPushEvent: HmsPushEventType;
+declare const HmsPushResultCode: HmsPushResultCodeInterface;
 
 export {
     RNRemoteMessage,
@@ -99,8 +100,15 @@ export {
     HmsPushOpenDevice,
     HmsPushProfile,
     HmsPushMessaging,
+    HmsPushResultCode,
 };
 
-export { RemoteDataMessageObject, RemoteDataMessageWithExtras };
+export {
+    RemoteDataMessageObject,
+    RemoteDataMessageWithExtras,
+    HmsPushEventType,
+    HmsPushResultCodeInterface,
+    RemoteMessageBuilderInterface,
+};
 
 export default HmsPushInstanceId;

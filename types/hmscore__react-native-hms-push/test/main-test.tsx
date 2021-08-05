@@ -26,6 +26,7 @@ import {
     HmsPushOpenDevice,
     RemoteMessageBuilder,
     HmsPushProfile,
+    HmsPushResultCode,
 } from '@hmscore/react-native-hms-push';
 
 interface State {
@@ -74,6 +75,9 @@ export default class App extends Component<{}, State> {
 
         this.onTokenErrorListener = HmsPushEvent.onTokenError(result => {
             console.log('onTokenError', result);
+            if (result.result_code === HmsPushResultCode.ERROR_CLIENT_API_INVALID) {
+                console.log('Invalid Client');
+            }
         });
 
         this.onMultiSenderTokenReceivedListener = HmsPushEvent.onMultiSenderTokenReceived(result => {
