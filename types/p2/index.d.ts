@@ -1271,7 +1271,8 @@ declare namespace p2 {
         removeSpring(spring: Spring): void;
         addBody(body: Body): void;
         removeBody(body: Body): void;
-        getBodyByID(id: number): Body; //Body | boolean
+        /** @returns The body, or false if it was not found. */
+        getBodyByID(id: number): Body | false;
         disableBodyCollision(bodyA: Body, bodyB: Body): void;
         enableBodyCollision(bodyA: Body, bodyB: Body): void;
         clear(): void;
