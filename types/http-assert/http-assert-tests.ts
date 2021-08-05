@@ -2,8 +2,6 @@ import httpAssert = require('http-assert');
 
 declare function unknown(): unknown;
 
-// assert()
-
 (() => {
     const value = unknown();
     httpAssert(typeof value === 'string');
@@ -91,8 +89,6 @@ declare function unknown(): unknown;
     // $ExpectType null
     value;
 })();
-
-// Other assertions
 
 const status = 401;
 const message = 'some error message';
