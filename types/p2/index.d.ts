@@ -518,6 +518,7 @@ declare namespace p2 {
         angularVelocity?: number | undefined;
         ccdIterations?: number | undefined;
         ccdSpeedThreshold?: number | undefined;
+        damping?: number | undefined;
         fixedRotation?: boolean | undefined;
         gravityScale?: number | undefined;
         id?: number | undefined;
