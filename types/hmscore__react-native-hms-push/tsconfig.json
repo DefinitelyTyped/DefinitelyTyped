@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@hmscore/*": ["hmscore__*"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "tests/main-tests.tsx",
+        "tests/localnotification-tests.tsx",
+        "tests/backgroundHandler-tests.tsx"
+    ]
+}
