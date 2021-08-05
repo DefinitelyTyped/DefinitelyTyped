@@ -41,9 +41,11 @@ import Selection from "@ckeditor/ckeditor5-engine/src/model/selection";
 import Text from "@ckeditor/ckeditor5-engine/src/model/text";
 import Writer from "@ckeditor/ckeditor5-engine/src/model/writer";
 import { getFillerOffset } from "@ckeditor/ckeditor5-engine/src/view/containerelement";
+import Document from "@ckeditor/ckeditor5-engine/src/view/document";
 import ViewDocumentFragment from "@ckeditor/ckeditor5-engine/src/view/documentfragment";
 import ViewElement from "@ckeditor/ckeditor5-engine/src/view/element";
 import { ElementDefinition } from "@ckeditor/ckeditor5-engine/src/view/elementdefinition";
+import EmptyElement from "@ckeditor/ckeditor5-engine/src/view/emptyelement";
 import { BlockFillerMode } from "@ckeditor/ckeditor5-engine/src/view/filler";
 import { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
 import Position from "@ckeditor/ckeditor5-engine/src/view/position";
@@ -252,8 +254,8 @@ const result = documentSelection.getRanges().next();
 if (!result.done) {
     range = result.value;
 }
-let modelPosition: ModelPosition = documentSelection.anchor as ModelPosition;
-modelPosition = documentSelection.focus as ModelPosition;
+let modelPosition: ModelPosition = documentSelection.anchor!;
+modelPosition = documentSelection.focus!;
 bool = documentSelection.isBackward;
 bool = documentSelection.hasOwnRange;
 bool = documentSelection.isCollapsed;
@@ -394,3 +396,7 @@ clickObserver.domEventType === "click";
 clickObserver.onDomEvent(new MouseEvent("foo"));
 
 new Mapper().on("foo", () => {});
+
+const downcastWriter = new DowncastWriter(new Document(new StylesProcessor()));
+downcastWriter.createPositionAt(downcastWriter.createEmptyElement("div"), "after");
+downcastWriter.createPositionAt(new Position(downcastWriter.createEmptyElement("div"), 5));
