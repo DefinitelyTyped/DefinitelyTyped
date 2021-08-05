@@ -2,12 +2,13 @@
 // Project: https://github.com/DoctorMcKay/node-steam-user
 // Definitions by: vanitasboi <https://github.com/vanitasboi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.0
 
 /// <reference types="node" />
 
 type SteamID = import('steamid');
 type ByteBuffer = import('bytebuffer');
-import { EventEmitter } from 'events';
+import EventEmitter = require('events');
 
 export = SteamUser;
 
@@ -448,6 +449,13 @@ declare class SteamUser extends EventEmitter {
 
     static formatCurrency(amount: number, currency: ECurrencyCode): string;
 
+    // EVENTS
+    on<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
+    once<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
+    off<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
+    removeListener<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
+    removeAllListeners(event?: keyof Events): this;
+
     setOption(option: string, value: any): void;
     setOptions(options: Options): void;
     setSentry(sentry: Buffer | null): void;
@@ -630,24 +638,23 @@ declare class SteamUser extends EventEmitter {
 
     getEncryptedAppTicket(appid: number, userData?: Buffer, callback?: (err: Error | null, encryptedAppTicket: Buffer) => void): Promise<{ encryptedAppTicket: Buffer }>;
 
-    // GC INTERACTION https://github.com/DoctorMcKay/node-steam-user/wiki/Game-Coordinator
+    //#region "GC INTERACTION"
+    // https://github.com/DoctorMcKay/node-steam-user/wiki/Game-Coordinator
 
+    /**
+     * Send a message to a GC. You should be currently "in-game" for the specified app for the message to make it.
+     * @param appid - The ID of the app you want to send a GC message to
+     * @param msgType - The GC-specific msg ID for this message
+     * @param protoBufHeader - An object (can be empty) containing the protobuf header for this message, or null if this is not a protobuf message.
+     * @param payload
+     * @param [callback] - If this is a job-based message, pass a function here to get the response
+     */
     sendToGC(appid: number, msgType: number, protoBufHeader: Record<string, any> | null, payload: Buffer | ByteBuffer, callback?: (
         appid: number,
         msgType: number,
         payload: Buffer,
     ) => void): void;
-
-    /**
-     * Emitted when gamesPlayed is called with(out) a Steam AppID, indicating that you are now (not) "playing" this game.
-     * @since v4.1.0
-     */
-    on(event: 'appLaunched' | 'appQuit', callback: (appid: number) => void): this;
-    /**
-     * Emitted when a message is received from a GC but not as a job response (i.e. a callback to sendToGC).
-     * @since v4.1.0
-     */
-    on(event: 'receivedFromGC', callback: (appid: number, msgType: number, payload: Buffer) => void): this;
+    //#endregion "GC INTERACTION"
 
     //#region "FAMILY SHARING"
     // https://github.com/DoctorMcKay/node-steam-user/wiki/Family-Sharing
@@ -866,3 +873,11 @@ declare class SteamUser extends EventEmitter {
     static E_STAR_GlyphWriteResult: E_STAR_GlyphWriteResult;
     //#endregion "Enums"
 }
+
+//#region "Events"
+interface Events {
+    appLaunched: [appid: number];
+    appQuit: [appid: number];
+    receivedFromGC: [appid: number, msgType: number, payload: Buffer];
+}
+//#endregion "Events"
