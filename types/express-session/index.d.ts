@@ -211,6 +211,7 @@ declare namespace session {
      *
      */
     interface SessionData {
+        [key: string]: any;
         cookie: Cookie;
     }
 
