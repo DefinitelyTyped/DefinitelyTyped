@@ -220,6 +220,10 @@ declare namespace engine {
          * packetCreate: Called before a socket sends a packet (message, pong)
          */
         on(ev: "packet" | "packetCreate", fn: (packet: Packet) => void): this;
+        /**
+         * Called when ping or pong packed is received (depends of client version)
+         */
+        on(ev: "heartbeat", fn: () => void): this;
     }
     function attach(http: net.Server, opts?: ServerAttachOptions): Server;
     function listen(port: number, opts?: ServerOptions, fn?: () => void): Server;
