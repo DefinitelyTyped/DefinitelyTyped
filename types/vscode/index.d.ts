@@ -9261,7 +9261,7 @@ declare module 'vscode' {
          * Get {@link TreeItem} representation of the `element`
          *
          * @param element The element for which {@link TreeItem} representation is asked for.
-         * @return {@link TreeItem} representation of the element
+         * @return representation of the element
          */
         getTreeItem(element: T): TreeItem | Thenable<TreeItem>;
 
@@ -10929,7 +10929,7 @@ declare module 'vscode' {
          * @param scope A scope for which the configuration is asked for.
          * @return The full configuration or a subset.
          */
-        export function getConfiguration(section?: string | undefined, scope?: ConfigurationScope | null): WorkspaceConfiguration;
+        export function getConfiguration(section?: string, scope?: ConfigurationScope | null): WorkspaceConfiguration;
 
         /**
          * An event that is emitted when the {@link WorkspaceConfiguration configuration} changed.
@@ -11549,7 +11549,7 @@ declare module 'vscode' {
         /**
          * The metadata of this cell. Can be anything but must be JSON-stringifyable.
          */
-        readonly metadata: { [key: string]: any }
+        readonly metadata: { [key: string]: any };
 
         /**
          * The outputs of this cell.
