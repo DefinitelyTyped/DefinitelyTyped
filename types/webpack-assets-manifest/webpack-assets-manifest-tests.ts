@@ -96,10 +96,20 @@ new WebpackAssetsManifest({
             version,
         };
 
-        const { key, value } = manifest.hooks.customize.call({
+        const entry = {
             key: 'YourKey',
             value: 'YourValue',
-        });
+        };
+
+        const { key, value } = manifest.hooks.customize.call(
+            {
+                key: manifest.fixKey(entry.key),
+                value: manifest.getPublicPath(entry.value),
+            },
+            entry,
+            manifest,
+            null,
+        );
 
         assets[key] = value;
     },
