@@ -1,4 +1,4 @@
-import BaseComponent from './base-component';
+import BaseComponent, { GetInstanceFactory } from './base-component';
 
 declare class Modal extends BaseComponent {
     constructor(element: string | Element, options?: Partial<Modal.Options>);
@@ -28,15 +28,9 @@ declare class Modal extends BaseComponent {
      */
     handleUpdate(): void;
 
-    /**
-     * Static method which allows you to get the modal instance associated with
-     * a DOM element
-     */
-    static getInstance(element: Element, options?: Partial<Modal.Options>): Modal | null;
+    static getInstance: GetInstanceFactory<Modal>;
 
     static jQueryInterface: Modal.jQueryInterface;
-
-    // static NAME: 'modal';
 
     /**
      * Default settings of this plugin

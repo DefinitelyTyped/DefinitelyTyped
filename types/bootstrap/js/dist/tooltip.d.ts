@@ -1,5 +1,5 @@
 import * as Popper from "@popperjs/core";
-import BaseComponent from "./base-component";
+import BaseComponent, { GetInstanceFactory } from './base-component';
 
 declare class Tooltip extends BaseComponent {
     constructor(element: string | Element, options?: Partial<Tooltip.Options>);
@@ -49,11 +49,7 @@ declare class Tooltip extends BaseComponent {
      */
     update(): void;
 
-    /**
-     * Static method which allows you to get the tooltip instance associated
-     * with a DOM element
-     */
-    static getInstance(element: Element): Tooltip | null;
+    static getInstance: GetInstanceFactory<Tooltip>;
 
     static jQueryInterface: Tooltip.jQueryInterface;
 
