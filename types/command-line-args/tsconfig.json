@@ -16,6 +16,10 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
+    "baseUrl": "types",
+    "typeRoots": [
+        "types"
+    ],
     "files": [
         "index.d.ts",
         "command-line-args-tests.ts"
