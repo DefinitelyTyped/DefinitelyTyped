@@ -825,7 +825,6 @@ declare namespace IORedis {
         hgetBuffer(key: KeyType, field: string): Promise<Buffer>;
 
         hmset: OverloadedKeyedHashCommand<ValueType, Ok>;
-        hmsetBuffer: OverloadedKeyedHashCommand<Buffer, Ok>;
 
         hmget: OverloadedKeyCommand<KeyType, Array<string | null>>;
         hmgetBuffer: OverloadedKeyCommand<KeyType, Array<Buffer | null>>;
