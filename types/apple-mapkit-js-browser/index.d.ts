@@ -4,6 +4,7 @@
 //                 Waseem Dahman <https://github.com/wsmd>
 //                 Chris Drackett <https://github.com/chrisdrackett>
 //                 Moritz Sternemann <https://github.com/moritzsternemann>
+//                 Vinayak Kulkarni <https://github.com/vinayakkulkarni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -616,6 +617,8 @@ declare namespace mapkit {
     interface MapEvents<T> {
   'region-change-start': EventBase<T>;
   'region-change-end': EventBase<T>;
+  'rotation-start': EventBase<T>;
+  'rotation-end': EventBase<T>;
   'scroll-start': EventBase<T>;
   'scroll-end': EventBase<T>;
   'zoom-start': EventBase<T>;
