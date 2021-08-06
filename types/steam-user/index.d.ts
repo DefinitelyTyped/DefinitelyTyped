@@ -9,7 +9,7 @@
 type SteamID = import('steamid');
 type ByteBuffer = import('bytebuffer');
 import EventEmitter = require('events');
-import SteamChatRoomClient = require('./SteamChatRoomClient')
+import SteamChatRoomClient = require('./SteamChatRoomClient');
 
 export = SteamUser;
 
@@ -47,11 +47,11 @@ interface PlayedGame {
 }
 
 interface ServerQueryConditions {
-    app_id: number;
-    geo_location_ip: string;
-    region_code: RegionCode;
-    filter_text: string; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Filter
-    max_servers: number;
+    app_id?: number;
+    geo_location_ip?: string;
+    region_code?: RegionCode;
+    filter_text?: string; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Filter
+    max_servers?: number;
 }
 
 interface AppChanges {
@@ -292,6 +292,7 @@ interface ProfileItemsResponse {
 declare class SteamUser extends EventEmitter {
     constructor(options?: Options);
 
+    // formatCurrency
     static formatCurrency(amount: number, currency: SteamUser.ECurrencyCode): string;
 
     // EVENTS
@@ -306,20 +307,57 @@ declare class SteamUser extends EventEmitter {
      */
     chat: SteamChatRoomClient;
 
+    /**
+     * Set a configuration option.
+     * @param option
+     * @param value
+     */
     setOption(option: string, value: any): void;
+
+    /**
+     * Set one or more configuration options
+     * @param options
+     */
     setOptions(options: Options): void;
+
+    /**
+     * Set a sentry file
+     * @param sentry Binary Sentry File
+     */
     setSentry(sentry: Buffer | null): void;
 
+    // logOn
     logOn(details: LogOnDetails): void;
+
+    /**
+     * Log off of Steam gracefully.
+     */
     logOff(): void;
+
+    // relog
     relog(): void;
+
+    // webLogOn
     webLogOn(): void;
 
+    // requestValidationEmail
     requestValidationEmail(callback?: (err: Error | null) => void): Promise<void>;
 
+    /**
+     * Start the process to enable TOTP two-factor authentication for your account
+     * @param [callback] - Called when an activation SMS has been sent.
+     */
     enableTwoFactor(callback?: (err: Error | null, response: Record<string, any>) => void): Promise<Record<string, any>>;
+
+    /**
+     * Finalize the process of enabling TOTP two-factor authentication
+     * @param secret - Your shared secret
+     * @param activationCode - The activation code you got in your email
+     * @param [callback] - Called with a single Error argument, or null on success
+     */
     finalizeTwoFactor(secret: Buffer, activationCode: string, callback?: (err: Error | null) => void): Promise<void>;
 
+    // getSteamGuardDetails
     getSteamGuardDetails(callback?: (
         err: Error | null,
         canTrade: boolean,
@@ -332,6 +370,7 @@ declare class SteamUser extends EventEmitter {
         ) => void,
     ): Promise<GetSteamGuardDetailsResponse>;
 
+    // getCredentialChangeTimes
     getCredentialChangeTimes(callback?: (
         err: Error | null,
         timestampLastPasswordChange: Date | null,
@@ -340,18 +379,68 @@ declare class SteamUser extends EventEmitter {
         ) => void,
     ): Promise<GetCredentialChangeTimesResponse>;
 
+    // getAuthSecret
     getAuthSecret(callback?: (err: Error | null, secretID: number, key: Buffer) => void): Promise<GetAuthSecretResponse>;
+
+    /**
+     * Get your account's profile privacy settings.
+     * @param [callback]
+     */
     getPrivacySettings(callback?: (err: Error | null, response: GetPrivacySettingsResponse) => void): Promise<GetPrivacySettingsResponse>;
 
+    /**
+     * Kick any other session logged into your account which is playing a game from Steam.
+     * @param [callback] - Single err parameter
+     */
     kickPlayingSession(callback?: (err: Error | null) => void): Promise<void>;
+
+    /**
+     * Tell Steam that you're "playing" zero or more games.
+     * @param apps - Array of integers (AppIDs) or strings (non-Steam game names) for the games you're playing. Empty to play nothing.
+     * @param [force=false] If true, kick any other sessions logged into this account and playing games from Steam
+     */
     gamesPlayed(apps: number | string | PlayedGame | Array<number | string | PlayedGame>, force?: boolean): void;
 
+    /**
+     * Get count of people playing a Steam app. Use appid 0 to get number of people connected to Steam.
+     * @param appid
+     * @param [callback] - Args (eresult, player count)
+     */
     getPlayerCount(appid: number, callback?: (err: Error | null, playerCount: number) => void): Promise<number>;
+
+    /**
+     * Query the GMS for a list of game server IPs, and their current player counts.
+     * @param conditions - A filter string (https://mckay.media/hEW8A) or object
+     * @param [callback]
+     */
     serverQuery(conditions: ServerQueryConditions | string, callback?: (err: Error | null, servers: ServerQueryResponse) => void): Promise<ServerQueryResponse>;
+
+    /**
+     * Get a list of servers including game data.
+     * @param filter - A filter string (https://mckay.media/hEW8A)
+     * @param [callback]
+     */
     getServerList(filter: string, limit?: number, callback?: (err: Error | null, servers: GetServerListResponse) => void): Promise<GetServerListResponse>;
+
+    /**
+     * Get the associated SteamIDs for given server IPs.
+     * @param ips
+     * @param [callback]
+     */
     getServerSteamIDsByIP(ips: string[], callback?: (err: Error | null, servers: Record<string, SteamID>) => void): Promise<Record<string, SteamID>>;
+
+    /**
+     * Get the associated IPs for given server SteamIDs.
+     * @param steamids
+     * @param [callback]
+     */
     getServerIPsBySteamID(steamids: Array<SteamID | string>, callback?: (err: Error | null, servers: Record<string, string>) => void): Promise<Record<string, string>>;
 
+    /**
+     * Get a list of apps or packages which have changed since a particular changenumber.
+     * @param sinceChangenumber - Changenumber to get changes since. Use 0 to get the latest changenumber, but nothing else
+     * @param [callback] - Args (current changenumber, array of appids that changed, array of packageids that changed)
+     */
     getProductChanges(sinceChangenumber: number, callback?: (
         err: Error | null,
         currentChangenumber: number,
@@ -359,6 +448,15 @@ declare class SteamUser extends EventEmitter {
         packageChanges: PackageChanges,
         ) => void,
     ): Promise<GetProductChangesResponse>;
+
+    /**
+     * Get info about some apps and/or packages from Steam.
+     * @param apps - Array of AppIDs. May be empty. May also contain objects with keys {appid, access_token}
+     * @param packages - Array of package IDs. May be empty. May also contain objects with keys {packageid, access_token}
+     * @param [inclTokens=false] - If true, automatically retrieve access tokens if needed
+     * @param [callback] - Args (array of app data, array of package data, array of appids that don't exist, array of packageids that don't exist)
+     * @param [requestType] - Don't touch
+     */
     getProductInfo(apps: Array<number | App>, packages: Array<number | Package>, inclTokens?: boolean, callback?: (
         err: Error | null,
         apps: AppInfo,
@@ -367,6 +465,13 @@ declare class SteamUser extends EventEmitter {
         unknownPackages: number[],
         ) => void,
     ): Promise<GetProductInfoResponse>;
+
+    /**
+     * Get access tokens for some apps and/or packages
+     * @param apps - Array of appids
+     * @param packages - Array of packageids
+     * @param [callback] - First arg is an object of (appid => access token), second is the same for packages, third is array of appids for which tokens are denied, fourth is the same for packages
+     */
     getProductAccessToken(apps: number[], packages: number[], callback?: (
         err: Error | null,
         appTokens: Record<string, string>,
@@ -376,53 +481,220 @@ declare class SteamUser extends EventEmitter {
         ) => void,
     ): Promise<GetProductAccessTokenResponse>;
 
+    /**
+     * Get list of appids this account owns. Only works if enablePicsCache option is enabled and appOwnershipCached event
+     * has been emitted.
+     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     */
     getOwnedApps(excludeSharedLicenses?: boolean): number[];
+
+    /**
+     * Check if this account owns an app. Only works if enablePicsCache option is enabled and appOwnershipCached event
+     * has been emitted.
+     * @param appid
+     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     */
     ownsApp(appid: number, excludeSharedLicenses?: boolean): boolean;
+
+    /**
+     * has been emitted.
+     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     */
     getOwnedDepots(excludeSharedLicenses?: boolean): number[];
+
+    /**
+     * Check if this account owns a depot. Only works if enablePicsCache option is enabled and appOwnershipCached event
+     * has been emitted.
+     * @param depotid
+     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     */
     ownsDepot(depotid: number, excludeSharedLicenses?: boolean): boolean;
+
+    /**
+     * has been emitted.
+     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     */
     getOwnedPackages(excludeSharedLicenses?: boolean): number[];
+
+    /**
+     * Check if this account owns a package. Only works if enablePicsCache option is enabled and appOwnershipCached event
+     * has been emitted.
+     * @param packageid
+     * @param [excludeSharedLicenses=false] - Pass true to exclude licenses that we have through family sharing
+     */
     ownsPackage(packageid: number, excludeSharedLicenses?: boolean): boolean;
 
+    /**
+     * Get the localized names for given store tags.
+     * @param language - The full name of the language you're interested in, e.g. "english" or "spanish"
+     * @param tagIDs - The IDs of the tags you're interested in
+     * @param [callback]
+     */
     getStoreTagNames(language: string, tagIDs: number[], callback?: (err: Error | null, tags: GetStoreTagNamesResponse) => void): Promise<GetStoreTagNamesResponse>;
+
+    /**
+     * Get details for some UGC files.
+     * @param ids
+     * @param [callback]
+     */
     getPublishedFileDetails(ids: number | number[], callback?: (err: Error | null, files: GetPublishedFileDetailsResponse) => void): Promise<GetPublishedFileDetailsResponse>;
 
+    /**
+     * Remove a friend from your friends list (or decline an invitiation)
+     * @param steamID - Either a SteamID object of the user to remove, or a string which can parse into one.
+     */
     removeFriend(steamID: SteamID | string): void;
+
+    /**
+     * Set your persona online state and optionally name.
+     * @param state - Your new online state
+     * @param [name] - Optional. Set a new profile name.
+     */
     setPersona(state: SteamUser.EPersonaState, name?: string): void;
+
+    /**
+     * Set your current UI mode (displays next to your Steam online status in friends)
+     * @param mode - Your new UI mode
+     */
     setUIMode(mode: SteamUser.EClientUIMode): void;
 
+    /**
+     * Send (or accept) a friend invitiation.
+     * @param steamID - Either a SteamID object of the user to add, or a string which can parse into one.
+     * @param [callback] - Optional. Called with `err` and `name` parameters on completion.
+     */
     addFriend(steamID: SteamID | string, callback?: (err: Error | null, personaName: string) => void): Promise<string>;
+
+    /**
+     * Block all communication with a user.
+     * @param steamID - Either a SteamID object of the user to block, or a string which can parse into one.
+     * @param [callback] - Optional. Called with an `err` parameter on completion.
+     */
     blockUser(steamID: SteamID | string, callback?: (err: Error | null) => void): Promise<void>;
+
+    /**
+     * Unblock all communication with a user.
+     * @param steamID - Either a SteamID object of the user to unblock, or a string which can parse into one.
+     * @param [callback] - Optional. Called with an `err` parameter on completion.
+     */
     unblockUser(steamID: SteamID | string, callback?: (err: Error | null) => void): Promise<any>;
 
+    /**
+     * Create a new quick-invite link that can be used by any Steam user to directly add you as a friend.
+     * @param [options]
+     * @param [callback]
+     */
     createQuickInviteLink(options?: CreateQuickInviteLinkOptions, callback?: (err: Error | null, response: QuickInviteLinkResponse) => void): Promise<QuickInviteLinkResponse>;
+
+    /**
+     * Get a list of friend quick-invite links for your account.
+     * @param [callback]
+     */
     listQuickInviteLinks(callback?: (err: Error | null, response: QuickInviteLinkResponse[]) => void): Promise<QuickInviteLinkResponse[]>;
+
+    /**
+     * Revoke an active quick-invite link.
+     * @param linkOrToken - Either the full link, or just the token from the link
+     * @param [callback]
+     */
     revokeQuickInviteLink(linkOrToken: string, callback?: (err: Error | null) => void): Promise<void>;
+
+    /**
+     * Get the SteamID to whom a quick-invite link belongs.
+     * @param link
+     */
     getQuickInviteLinkSteamID(link: string): SteamID | null;
+
+    /**
+     * Check whether a given quick-invite link is valid.
+     * @param link
+     * @param [callback]
+     */
     checkQuickInviteLinkValidity(link: string, callback?: (err: Error | null, response: CheckQuickInviteLinkValidityResponse) => void): Promise<CheckQuickInviteLinkValidityResponse>;
+
+    /**
+     * Redeem a quick-invite link and add the sender to your friends list.
+     * @param link
+     * @param [callback]
+     */
     redeemQuickInviteLink(link: string, callback?: (err: Error | null) => void): Promise<any>;
 
+    /**
+     * Requests information about one or more user profiles.
+     * @param steamids - An array of SteamID objects or strings which can parse into them.
+     * @param [callback] - Optional. Called with `err`, and an object whose keys are 64-bit SteamIDs as strings, and whose values are persona objects.
+     */
     getPersonas(steamids: Array<SteamID | string>, callback?: (err: Error | null, personas: Record<string, any>) => void): Promise<Record<string, any>>; // maybe specify the response further?
+
+    /**
+     * Upload some rich presence data to Steam.
+     * @param appid
+     * @param richPresence
+     */
     uploadRichPresence(appid: number, richPresence: Record<string, string>): void;
+
+    /**
+     * Get the localization keys for rich presence for an app on Steam.
+     * @param appID - The app you want rich presence localizations for
+     * @param [language] - The full name of the language you want localizations for (e.g. "english" or "spanish"); defaults to language passed to constructor
+     * @param [callback]
+     */
     getAppRichPresenceLocalization(appID: number, language: string, callback?: (
         err: Error | null,
         response: { tokens: Record<string, string> },
         ) => void
     ): Promise<{ tokens: Record<string, string> }>;
+
+    /**
+     * Request rich presence data of one or more users for an appid.
+     * @param appid - The appid to get rich presence data for
+     * @param steamIDs - SteamIDs of users to request rich presence data for
+     * @param [language] - Language to get localized strings in. Defaults to language passed to constructor.
+     * @param [callback] - Called or resolved with 'users' property with each key being a SteamID and value being the rich presence response if received
+     */
     requestRichPresence(appid: number, steamIDs: Array<SteamID | string>, language: string, callback?: (
         err: Error | null,
         response: { users: Record<string, { richPresence: RichPresence; localizedString: string | null }> },
         ) => void
     ): Promise<{ users: Record<string, { richPresence: RichPresence; localizedString: string | null }> }>;
 
+    /**
+     * Gets the Steam Level of one or more Steam users.
+     * @param steamids - An array of SteamID objects, or strings which can parse into one.
+     * @param [callback] - Called on completion with `err`, and an object whose keys are 64-bit SteamIDs as strings, and whose values are Steam Level numbers.
+     */
     getSteamLevels(steamids: Array<SteamID | string>, callback?: (err: Error | null, users: Record<string, number>) => void): Promise<Record<string, number>>;
+
+    /**
+     * Get persona name history for one or more users.
+     * @param userSteamIDs - SteamIDs of users to request aliases for
+     * @param [callback]
+     */
     getAliases(userSteamIDs: Array<SteamID | string>, callback?: (
         err: Error | null,
         users: Record<string, { name: string; name_since: Date }>,
         ) => void
     ): Promise<Record<string, { name: string; name_since: Date }>>;
+
+    /**
+     * Get the list of nicknames you've given to other users.
+     * @param [callback]
+     */
     getNicknames(callback?: (err: Error | null, nicknames: Record<string, string>) => void): Promise<Record<string, string>>;
+
+    /**
+     * Set a friend's private nickname.
+     * @param steamID
+     * @param nickname
+     * @param [callback]
+     */
     setNickname(steamID: SteamID | string, nickname: string, callback?: (err: Error | null) => void): Promise<void>;
 
+    /**
+     * Get the level of your game badge (and also your Steam level).
+     * @param appid - AppID of game in question
+     * @param [callback]
+     */
     getGameBadgeLevel(appid: number, callback?: (
         err: Error | null,
         steamLevel?: number,
@@ -431,47 +703,143 @@ declare class SteamUser extends EventEmitter {
         ) => void
     ): Promise<{ steamLevel: number; regularBadgeLevel: number; foilBadgeLavel: number }>;
 
+    /**
+     * Get the list of a user's owned apps.
+     * @param steamID - Either a SteamID object or a string that can parse into one
+     * @param [options]
+     * @param [callback]
+     */
     getUserOwnedApps(steamID: SteamID | string, options?: GetUserOwnedAppsOptions, callback?: (
         err: Error | null,
         response: GetUserOwnedAppsResponse,
         ) => void
     ): Promise<GetUserOwnedAppsResponse>;
 
+    /**
+     * Get a listing of profile items you own.
+     * @param [options]
+     * @param [callback]
+     */
     getOwnedProfileItems(options?: { language: string }, callback?: (
         err: Error | null,
         response: ProfileItemsResponse,
         ) => void
     ): Promise<ProfileItemsResponse>;
+
+    /**
+     * Get a user's equipped profile items.
+     * @param steamID - Either a SteamID object or a string that can parse into one
+     * @param [options]
+     * @param [callback]
+     */
     getEquippedProfileItems(steamID: SteamID | string, options?: { language: string }, callback?: (
         err: Error | null,
         response: ProfileItemsResponse,
         ) => void
     ): Promise<ProfileItemsResponse>;
 
+    /**
+     * Change your current profile background.
+     * @param backgroundAssetID
+     * @param [callback]
+     */
     setProfileBackground(backgroundAssetID: number, callback?: (err: Error | null) => void): Promise<void>;
 
+    /**
+     * Invites a user to a Steam group. Only send group invites in response to a user's request; sending automated group
+     * invites is a violation of the Steam Subscriber Agreement and can get you banned.
+     * @param userSteamID - The SteamID of the user you're inviting as a SteamID object, or a string that can parse into one
+     * @param groupSteamID - The SteamID of the group you're inviting the user to as a SteamID object, or a string that can parse into one
+     */
     inviteToGroup(usersteamID: SteamID | string, groupsteamID: SteamID | string): void;
+
+    /**
+     * Respond to an incoming group invite.
+     * @param groupSteamID - The group you were invited to, as a SteamID object or a string which can parse into one
+     * @param accept - true to join the group, false to ignore invitation
+     */
     respondToGroupInvite(groupsteamID: SteamID | string, accept: boolean): void;
+
+    /**
+     * Creates a friends group (or tag)
+     * @param groupName - The name to create the friends group with
+     * @param [callback]
+     */
     createFriendsGroup(groupName: string, callback?: (err: Error | null, groupID: number) => void): Promise<{ groupID: number }>;
+
+    /**
+     * Deletes a friends group (or tag)
+     * @param groupID - The friends group id
+     * @param [callback]
+     */
     deleteFriendsGroup(groupID: number, callback?: (err: Error | null) => void): Promise<void>;
+
+    /**
+     * Rename a friends group (tag)
+     * @param groupID - The friends group id
+     * @param newName - The new name to update the friends group with
+     * @param [callback]
+     */
     renameFriendsGroup(groupID: number, newName: string, callback?: (err: Error | null) => void): Promise<void>;
+
+    /**
+     * Add an user to friends group (tag)
+     * @param groupID - The friends group
+     * @param userSteamID - The user to invite to the friends group with, as a SteamID object or a string which can parse into one
+     * @param [callback]
+     */
     addFriendToGroup(groupID: number, userSteamID: SteamID | string, callback?: (err: Error | null) => void): Promise<void>;
+
+    /**
+     * Remove an user to friends group (tag)
+     * @param groupID - The friends group
+     * @param userSteamID - The user to remove from the friends group with, as a SteamID object or a string which can parse into one
+     * @param [callback]
+     */
     removeFriendFromGroup(groupID: any, usersteamID: SteamID | string, callback?: (err: Error | null) => void): Promise<void>;
 
+    // trade
     trade(steamID: SteamID | string): void;
+
+    // cancelTradeRequest
     cancelTradeRequest(steamID: SteamID | string): void;
 
+    /**
+     * Get the list of currently-available content servers.
+     * @param language
+     * @param appid
+     * @param classes
+     * @param [callback]
+     */
     getAssetClassInfo(language: string, appid: number, classes: Array<{ classid: number, instanceid?: number }>, callback?: (
         err: Error | null,
         descriptions: Array<Record<string, any>>,
         ) => void
     ): Promise<{ descriptions: Array<Record<string, any>> }>;
 
+    /**
+     * Gets your account's trade URL.
+     * @param [callback]
+     */
     getTradeURL(callback?: (err: Error | null, response: TradeURLResponse) => void): Promise<TradeURLResponse>;
+
+    /**
+     * Makes a new trade URL for your account.
+     * @param [callback]
+     */
     changeTradeURL(callback?: (err: Error | null, response: TradeURLResponse) => void): Promise<TradeURLResponse>;
 
+    /**
+     * Gets the list of emoticons your account can use.
+     * @param [callback]
+     */
     getEmoticonList(callback?: (err: Error | null, response: { emoticons: Record<string, Emoticon> }) => void): Promise<{ emoticons: Record<string, Emoticon> }>;
 
+    /**
+     * Redeem a product code on this account.
+     * @param key
+     * @param [callback] - Args (eresult value, SteamUser.EPurchaseResult value, object of (packageid => package names)
+     */
     redeemKey(key: string, callback?: (
         err: Error | null,
         purchaseResultDetails: SteamUser.EPurchaseResult,
@@ -479,6 +847,11 @@ declare class SteamUser extends EventEmitter {
         ) => void
     ): Promise<{ purchaseResultDetails: SteamUser.EPurchaseResult; packageList: Record<string, string> }>;
 
+    /**
+     * Request licenses for one or more free-on-demand apps.
+     * @param appIDs
+     * @param [callback] - Args (err, array of granted packageids, array of granted appids)
+     */
     requestFreeLicense(appIDs: number[], callback?: (
         err: Error | null,
         grantedPackageIds: number[],
@@ -486,6 +859,12 @@ declare class SteamUser extends EventEmitter {
         ) => void
     ): Promise< { grantedPackageIds: number[]; grantedAppIds: number[] }>;
 
+    /**
+     * Request an encrypted appticket for a particular app. The app must be set up on the Steam backend for encrypted apptickets.
+     * @param appid - The Steam AppID of the app you want a ticket for
+     * @param [userData] - If the app expects some "user data", provide it here
+     * @param [callback] - First argument is "err", second is the ticket as a Buffer (on success)
+     */
     getEncryptedAppTicket(appid: number, userData?: Buffer, callback?: (err: Error | null, encryptedAppTicket: Buffer) => void): Promise<{ encryptedAppTicket: Buffer }>;
 
     //#region "GC INTERACTION"

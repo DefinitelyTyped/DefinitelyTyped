@@ -2,8 +2,7 @@ type SteamID = import('steamid');
 import SteamUser = require('./');
 import EventEmitter = require('events');
 
-export = SteamChatRoomClient
-
+export = SteamChatRoomClient;
 
 declare class SteamChatRoomClient extends EventEmitter {
     constructor(user: SteamUser);
@@ -105,10 +104,10 @@ declare class SteamChatRoomClient extends EventEmitter {
      * Send a direct chat message to a friend.
      * @param steamId
      * @param message
-     * @param {{[chatEntryType], [containsBbCode]}} [options]
+     * @param [options]
      * @param [callback]
      */
-    sendFriendMessage(steamId: SteamID | string, message: string, options?: { chatEntryType?: SteamUser.EChatEntryType; containsBbCode?: boolean }, callback?:(
+    sendFriendMessage(steamId: SteamID | string, message: string, options?: { chatEntryType?: SteamUser.EChatEntryType; containsBbCode?: boolean }, callback?: (
         err: Error | null,
         response: SentMessage,
     ) => void
@@ -119,7 +118,7 @@ declare class SteamChatRoomClient extends EventEmitter {
      * @param steamId
      * @param [callback]
      */
-    sendFriendTyping(steamId: SteamID | string, callback?:(err: Error | null) => void): Promise<void>;
+    sendFriendTyping(steamId: SteamID | string, callback?: (err: Error | null) => void): Promise<void>;
 
     /**
      * Send a message to a chat room.
@@ -141,7 +140,7 @@ declare class SteamChatRoomClient extends EventEmitter {
      * @param messages
      * @param [callback]
      */
-    deleteChatMessages(groupId: number | string, chatId: number | string, messages: Array<MessageToDelete1 | MessageToDelete2>, callback?:(err: Error | null) => void): Promise<void>;
+    deleteChatMessages(groupId: number | string, chatId: number | string, messages: Array<MessageToDelete1 | MessageToDelete2>, callback?: (err: Error | null) => void): Promise<void>;
 
     /**
      * Create a text/voice chat room in a group, provided you have permissions to do so.
@@ -150,7 +149,7 @@ declare class SteamChatRoomClient extends EventEmitter {
      * @param [options] - Options for your new room
      * @param [callback]
      */
-    createChatRoom(groupId: number | string, name: string, options?: { isVoiceRoom: boolean }, callback?:(
+    createChatRoom(groupId: number | string, name: string, options?: { isVoiceRoom: boolean }, callback?: (
         err: Error | null,
         response: { chat_room: ChatRoomState },
         ) => void
@@ -163,7 +162,7 @@ declare class SteamChatRoomClient extends EventEmitter {
      * @param newChatRoomName - The new name for the room
      * @param [callback]
      */
-    renameChatRoom(groupId: number | string, chatId: number | string, newChatRoomName: string, callback?:(err: Error | null) => void): Promise<void>;
+    renameChatRoom(groupId: number | string, chatId: number | string, newChatRoomName: string, callback?: (err: Error | null) => void): Promise<void>;
 
     /**
      * Delete a text/voice chat room in a group (and all the messages it contains), provided you have permissions to do so.
@@ -180,7 +179,7 @@ declare class SteamChatRoomClient extends EventEmitter {
      * @param [expireTime] - Time when they should be allowed to join again. Omit for immediate.
      * @param [callback]
      */
-    kickUserFromGroup(groupId: number | string, steamId: SteamID | string, expireTime?: Date | number, callback?: (err:Error | null) => void): Promise<void>;
+    kickUserFromGroup(groupId: number | string, steamId: SteamID | string, expireTime?: Date | number, callback?: (err: Error | null) => void): Promise<void>;
 
     /**
      * Get the ban list for a chat room group, provided you have the appropriate permissions.
@@ -215,11 +214,11 @@ declare class SteamChatRoomClient extends EventEmitter {
      * @param [options]
      * @param [callback]
      */
-    getFriendMessageHistory(friendSteamId: SteamID | string, options?: GetMessageHistoryOptions, callback?:(
+    getFriendMessageHistory(friendSteamId: SteamID | string, options?: GetMessageHistoryOptions, callback?: (
         err: Error | null,
         response: { messages: FriendMessage[], more_available: boolean },
         ) => void
-    ):Promise<{ messages: FriendMessage[], more_available: boolean }>;
+    ): Promise<{ messages: FriendMessage[], more_available: boolean }>;
 
     /**
      * Get message history for a chat (channel).
@@ -319,17 +318,17 @@ interface ModifiedMessage {
         server_timestamp: Date;
         ordinal: number;
         deleted: boolean;
-    }
+    };
 }
 
 interface MessageToDelete1 {
     server_timestamp: Date;
-    ordinal?: number
+    ordinal?: number;
 }
 
 interface MessageToDelete2 {
     timestamp: Date;
-    ordinal?: number
+    ordinal?: number;
 }
 
 interface GetMessageHistoryOptions {
@@ -445,11 +444,11 @@ interface ChatRoomMember {
 }
 
 interface ChatRoomGroupState {
-    members : ChatRoomMember[];
-    chat_rooms : ChatRoomState[];
-    kicked : ChatRoomMember[];
-    default_chat_id : string;
-    header_state : ChatRoomGroupHeaderState;
+    members: ChatRoomMember[];
+    chat_rooms: ChatRoomState[];
+    kicked: ChatRoomMember[];
+    default_chat_id: string;
+    header_state: ChatRoomGroupHeaderState;
 }
 
 interface ChatRoomState {
@@ -481,6 +480,5 @@ interface ChatRoomGroupSummary {
 
 interface ChatRoomGroup {
     group_summary: ChatRoomGroupSummary;
-
 }
 //#endregion "Interfaces"
