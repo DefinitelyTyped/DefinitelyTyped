@@ -31,6 +31,7 @@ import Mapper from "@ckeditor/ckeditor5-engine/src/conversion/mapper";
 import UpcastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher";
 import UpcastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers";
 import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
+import Document from "@ckeditor/ckeditor5-engine/src/model/document";
 import DocumentFragment from "@ckeditor/ckeditor5-engine/src/model/documentfragment";
 import { Item } from "@ckeditor/ckeditor5-engine/src/model/item";
 import { Marker } from "@ckeditor/ckeditor5-engine/src/model/markercollection";
@@ -44,12 +45,11 @@ import TextProxy from "@ckeditor/ckeditor5-engine/src/model/textproxy";
 import Writer from "@ckeditor/ckeditor5-engine/src/model/writer";
 import AttributeElement from "@ckeditor/ckeditor5-engine/src/view/attributeelement";
 import ContainerElement, { getFillerOffset } from "@ckeditor/ckeditor5-engine/src/view/containerelement";
-import Document from "@ckeditor/ckeditor5-engine/src/view/document";
 import ViewDocumentFragment from "@ckeditor/ckeditor5-engine/src/view/documentfragment";
 import ViewDocumentSelection from "@ckeditor/ckeditor5-engine/src/view/documentselection";
+import EditableElement from "@ckeditor/ckeditor5-engine/src/view/editableelement";
 import ViewElement from "@ckeditor/ckeditor5-engine/src/view/element";
 import { ElementDefinition } from "@ckeditor/ckeditor5-engine/src/view/elementdefinition";
-import EditableElement from "@ckeditor/ckeditor5-engine/src/view/editableelement";
 import EmptyElement from "@ckeditor/ckeditor5-engine/src/view/emptyelement";
 import { BlockFillerMode } from "@ckeditor/ckeditor5-engine/src/view/filler";
 import { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
@@ -409,7 +409,7 @@ clickObserver.onDomEvent(new MouseEvent("foo"));
 
 new Mapper().on("foo", () => {});
 
-const downcastWriter = new DowncastWriter(new Document(new StylesProcessor()));
+const downcastWriter = new DowncastWriter(new ViewDocument(new StylesProcessor()));
 downcastWriter.createPositionAt(downcastWriter.createEmptyElement("div"), "after");
 downcastWriter.createPositionAt(new Position(downcastWriter.createEmptyElement("div"), 5));
 
@@ -614,3 +614,8 @@ if (
 ) {
     const obj: EmptyElement = viewObj;
 }
+
+new Selection();
+new Selection(new Selection());
+new Selection(null);
+new Selection(new DocumentSelection(new Document()));
