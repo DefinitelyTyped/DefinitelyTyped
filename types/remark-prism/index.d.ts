@@ -10,6 +10,17 @@ declare namespace remarkPrism {
 
     interface Options {
         transformInlineCode?: boolean | undefined;
+        plugins?: [
+            'autolinker'?,
+            'command-line'?,
+            'data-uri-highlight'?,
+            'diff-highlight'?,
+            'inline-color'?,
+            'keep-markup'?,
+            'line-numbers'?,
+            'show-invisibles'?,
+            'treeview'?,
+        ];
     }
 }
 
