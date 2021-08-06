@@ -3,6 +3,7 @@
 // Definitions by: vanitasboi <https://github.com/vanitasboi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
+// Enums generated from JS by: https://github.com/vanitasboi/JStoTSenum
 
 /// <reference types="node" />
 
@@ -13,287 +14,137 @@ import SteamChatRoomClient = require('./SteamChatRoomClient');
 
 export = SteamUser;
 
-//#region "Helper Types"
-type RegionCode = 0x00 | 0x01| 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 | 0xFF; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Region_codes
-//#endregion "Helper Types"
-
-//#region "Response Types"
-type GetStoreTagNamesResponse = Record<string, {name: string, englishName: string}>;
-type GetPublishedFileDetailsResponse = Record<string, Record<string, any>>;
-//#endregion "Response Types"
-
-//#region "General Interfaces"
-interface Options {
-    localPort?: number | null;
-    protocol?: SteamUser.EConnectionProtocol;
-	httpProxy?: string | null;
-	localAddress?: string | null;
-	autoRelogin?: boolean;
-	singleSentryfile?: boolean;
-	machineIdType?: SteamUser.EMachineIDType;
-	machineIdFormat?: [string, string, string];
-	enablePicsCache?: boolean;
-	language?: string;
-	picsCacheAll?: boolean;
-	changelistUpdateInterval?: number;
-	saveAppTickets?: boolean;
-	additionalHeaders?: Record<string, string>;
-	webCompatibilityMode?: boolean;
-}
-
-interface PlayedGame {
-    game_id: number;
-    game_extra_info: string;
-}
-
-interface ServerQueryConditions {
-    app_id?: number;
-    geo_location_ip?: string;
-    region_code?: RegionCode;
-    filter_text?: string; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Filter
-    max_servers?: number;
-}
-
-interface AppChanges {
-    appid: number;
-    change_number: number;
-    needs_token: boolean;
-}
-
-interface PackageChanges {
-    packageid: number;
-    change_number: number;
-    needs_token: boolean;
-}
-
-interface App {
-    appid: number;
-    access_token: string;
-}
-
-interface Package {
-    packageid: number;
-    access_token: string;
-}
-
-interface AppInfo {
-    changenumber: number;
-    missingToken: boolean;
-    appinfo: Record<string, any>; // too complex to describe
-}
-
-interface PackageInfo {
-    changenumber: number;
-    missingToken: boolean;
-    packageinfo: Record<string, any>; // too complex to describe
-}
-
-interface RichPresence {
-    status: string;
-    version: string;
-    time?: string;
-    'game:state': string;
-    steam_display: string;
-    connect: string;
-}
-
-interface OwnedApp {
-    appid: number;
-    name: string;
-    playtime_2weeks: number | null;
-    playtime_forever: number;
-    img_icon_url: string;
-    img_logo_url: string;
-    has_community_visible_stats: boolean;
-    playtime_windows_forever: number;
-    playtime_mac_forever: number;
-    playtime_linux_forever: number;
-}
-
-interface GetUserOwnedAppsOptions {
-    includePlayedFreeGames?: boolean;
-    filterAppids?: number[];
-    includeFreeSub?: boolean;
-}
-
-interface ProfileItem {
-    communityitemid: number;
-    image_small: string | null;
-    image_large: string | null;
-    name: string;
-    item_title: string;
-    item_description: string;
-    appid: number;
-    item_type: unknown; // could be improved
-    item_class: unknown; // could be improved
-    movie_webm: string;
-    movie_mp4: string;
-    equipped_flags: unknown; // could be improved
-}
-
-interface Emoticon {
-    name: string;
-    count: number;
-    time_last_used: Date | null;
-    use_count: number;
-    time_received: Date | null;
-}
-
-interface Borrowers {
-    steamid: SteamID;
-    isPending: boolean;
-    isCanceled: boolean;
-    timeCreated: Date;
-}
-
-interface Device {
-    deviceToken: string;
-    deviceName: string;
-    isPending: boolean;
-    isCanceled: boolean;
-    isLimited: boolean;
-    lastTimeUsed: Date | null;
-    lastBorrower: SteamID | null;
-    lastAppPlayed: Date | null;
-}
-//#endregion "General Interfaces"
-
-//#region "Response Interfaces"
-interface CheckQuickInviteLinkValidityResponse {
-    valid: boolean;
-    steamid: SteamID;
-    invite_duration: number | null;
-}
-
-interface TradeURLResponse {
-    token: string;
-     url: string;
-}
-
-interface CreateQuickInviteLinkOptions {
-    inviteLimit?: number;
-    inviteDuration?: number | null;
-}
-interface QuickInviteLinkResponse {
-    invite_link: string;
-    invite_token: string;
-    invite_limit: number;
-    invite_duration: number | null;
-    time_created: Date;
-    valid: boolean;
-}
-
-interface LogOnDetails {
-    accountName: string;
-    password: string;
-    loginKey: string;
-    webLogonToken: string;
-    steamID: SteamID | string;
-    authCode: string;
-    twoFactorCode: string;
-    rememberPassword: boolean;
-    logonID: number | string;
-    machineName: string;
-    clientOS: SteamUser.EOSType;
-    dontRememberMachine: boolean;
-}
-
-interface GetSteamGuardDetailsResponse {
-    canTrade: boolean;
-    isSteamGuardEnabled: boolean;
-    timestampSteamGuardEnabled: Date | null;
-    timestampMachineSteamGuardEnabled: Date | null;
-    isTwoFactorEnabled: boolean;
-    timestampTwoFactorEnabled: Date | null;
-    isPhoneVerified: boolean;
-}
-
-interface GetCredentialChangeTimesResponse {
-    timestampLastPasswordChange: Date | null;
-    timestampLastPasswordReset: Date | null;
-    timestampLastEmailChange: Date | null;
-}
-
-interface GetAuthSecretResponse {
-    secretID: number;
-    key: Buffer;
-}
-
-interface GetPrivacySettingsResponse {
-    privacy_state: SteamUser.EPrivacyState;
-    privacy_state_inventory: SteamUser.EPrivacyState;
-    privacy_state_gifts: SteamUser.EPrivacyState;
-    privacy_state_ownedgames: SteamUser.EPrivacyState;
-    privacy_state_playtime: SteamUser.EPrivacyState;
-    privacy_state_friendslist: SteamUser.EPrivacyState;
-}
-
-interface ServerQueryResponse {
-    ip: string;
-    port: number;
-    players: number;
-    gameport: number;
-}
-
-interface GetServerListResponse {
-    addr: string;
-    specport: number | null;
-    steamid: SteamID;
-    name: string;
-    appid: number;
-    gamedir: string;
-    version: string;
-    product: string;
-    region: RegionCode;
-    players: number;
-    max_players: number;
-    bots: number;
-    map: string;
-    secure: boolean;
-    dedicated: boolean;
-    os: 'w' | 'l';
-    gametype: string;
-}
-
-interface GetProductChangesResponse {
-    currentChangenumber: number;
-    appChanges: AppChanges;
-    packageChanges: PackageChanges;
-}
-
-interface GetProductInfoResponse {
-    apps: AppInfo;
-    packages: PackageInfo;
-    unknownApps: number[];
-    unknownPackages: number[];
-}
-
-interface GetProductAccessTokenResponse {
-    appTokens: Record<string, string>;
-    packageTokens: Record<string, string>;
-    appDeniedTokens: number[];
-    packageDeniedTokens: number[];
-}
-
-interface GetUserOwnedAppsResponse {
-    game_count: number;
-    games: OwnedApp[];
-}
-
-interface ProfileItemsResponse {
-    profile_backgrounds: ProfileItem[];
-    mini_profile_backgrounds: ProfileItem[];
-    avatar_frames: ProfileItem[];
-    animated_avatars: ProfileItem[];
-    profile_modifiers: ProfileItem[];
-}
-//#endregion "Response Interfaces"
-
 declare class SteamUser extends EventEmitter {
     constructor(options?: Options);
 
     // formatCurrency
     static formatCurrency(amount: number, currency: SteamUser.ECurrencyCode): string;
+
+    // PROPERTIES
+    /**
+     * Use this object to chat with friends and chat rooms.
+     */
+    chat: SteamChatRoomClient;
+
+    /**
+     * `null` if not connected, a `SteamID` containing your SteamID otherwise.
+     */
+    steamID: SteamID | null;
+
+    /**
+     * An object containing options for this `SteamUser`. Read-only; use `setOption` or `setOptions` to change an option.
+     */
+    readonly options: Options;
+
+    /**
+     * Only defined if you're currently logged on. This is your public IP as reported by Steam, in "x.x.x.x" format.
+     */
+    publicIP: string;
+
+    /**
+     * Only defined if you're currently logged on. This is your cell (region ID) on the Steam network.
+     */
+    cellID: number;
+
+    /**
+     * Only defined if you're currently logged on. This is your vanity URL (the part that goes after `/id/` in your profile URL). Falsy if you don't have one.
+     */
+    vanityURL: string | null;
+
+    /**
+     * An object containing information about your account. `null` until `accountInfo` is emitted.
+     */
+    accountInfo: AccountInfo | null;
+
+    /**
+     * An object containing information about your account's email address. `null` until `emailInfo` is emitted.
+     */
+    emailInfo: { adress: string; validated: boolean } | null;
+
+    /**
+     * An object containing information about your account's limitations. `null` until `accountLimitations` is emitted.
+     */
+    limitations: AccountLimitations | null;
+
+    /**
+     * An object containing information about your account's VAC bans. null until vacBans is emitted.
+     */
+    vac: { numBans: number; appids: number[] } | null;
+
+    /**
+     * An object containing information about your Steam Wallet. null until wallet is emitted.
+     */
+    wallet: { hasWallet: boolean; currency: SteamUser.ECurrencyCode; balance: number } | null;
+
+    /**
+     * An array containing license data for the packages which your Steam account owns. null until licenses is emitted.
+     */
+    licenses: Array<Record<string, any>>;
+
+    /**
+     * An array containing gifts and guest passes you've received but haven't accepted (to your library or to your inventory) or declined. null until gifts is emitted.
+     */
+    gifts: Gift[];
+
+    /**
+     * An object containing persona data about all Steam users we've encountered or requested data for.
+     * Key are 64-bit SteamIDs, and values are identical to the objects received in the user event.
+     * This property may not be updated unless you set your instance to online.
+     */
+    users: Record<string, any>;
+
+    /**
+     * An object containing information about all Steam groups we've encountered.
+     * Keys are 64-bit SteamIDs, and values are identical to those received in the group event.
+     * This property may not be updated unless you set your instance to online.
+     */
+    groups: Record<string, any>;
+
+    /**
+     * An object containing information about all legacy chat rooms we're in. Keys are 64-bit SteamIDs.
+     */
+    chats: Record<string, Chat>;
+
+    /**
+     * An object whose keys are 64-bit SteamIDs, and whose values are values from the `EFriendRelationship` enum.
+     * When we get unfriended, instead of setting the value to `EFriendRelationship.None`, the key is deleted from the object entirely.
+     * This isn't populated after logon until `friendsList` is emitted.
+     */
+    myFriends: Record<string, SteamUser.EFriendRelationship>;
+
+    /**
+     * An object whose keys are 64-bit SteamIDs, and whose values are from the `EClanRelationship` enum.
+     * When we leave a group, instead of setting the value to `EClanRelationship.None`, the key is deleted from the object entirely.
+     * This isn't populated after logon until `groupList` is emitted.
+     */
+    myGroups: Record<string, SteamUser.EClanRelationship>;
+
+    /**
+     * An object containing your friend groups (in the official client, these are called tags). Keys are numeric group IDs.
+     */
+    myFriendGroups: Record<string, { name: string; members: SteamID[] }>;
+
+    /**
+     * An object containing the nicknames you have assigned to other users.
+     * Keys are numeric 64-bit SteamIDs, properties are strings containing that user's nickname.
+     * This is empty until `nicknameList` is emitted.
+     */
+    myNicknames: Record<string, string>;
+
+    /**
+     * An object containing cached data about known apps and packages. Only useful if the `enablePicsCache` option is `true`.
+     */
+    picsCache: { changenumber: number; apps: Record<string, any>; packages: Record<string, any> };
+
+    /**
+     * Contains the name of this package. This allows other modules to verify interoperability.
+     */
+    packageName: 'steam-user';
+
+    /**
+     * Contains the version of this package. For example, "4.2.0". This allows other modules to verify interoperability.
+     */
+    packageVersion: string;
 
     // EVENTS
     on<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
@@ -301,11 +152,6 @@ declare class SteamUser extends EventEmitter {
     off<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
     removeListener<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
     removeAllListeners(event?: keyof Events): this;
-
-    /**
-     * Use this object to chat with friends and chat rooms.
-     */
-    chat: SteamChatRoomClient;
 
     /**
      * Set a configuration option.
@@ -368,7 +214,7 @@ declare class SteamUser extends EventEmitter {
         timestampTwoFactorEnabled: Date | null,
         isPhoneVerified: boolean,
         ) => void,
-    ): Promise<GetSteamGuardDetailsResponse>;
+    ): Promise<SteamGuardDetails>;
 
     // getCredentialChangeTimes
     getCredentialChangeTimes(callback?: (
@@ -377,16 +223,16 @@ declare class SteamUser extends EventEmitter {
         timestampLastPasswordReset: Date | null,
         timestampLastEmailChange: Date | null,
         ) => void,
-    ): Promise<GetCredentialChangeTimesResponse>;
+    ): Promise<CredentialChangeTimes>;
 
     // getAuthSecret
-    getAuthSecret(callback?: (err: Error | null, secretID: number, key: Buffer) => void): Promise<GetAuthSecretResponse>;
+    getAuthSecret(callback?: (err: Error | null, secretID: number, key: Buffer) => void): Promise<AuthSecret>;
 
     /**
      * Get your account's profile privacy settings.
      * @param [callback]
      */
-    getPrivacySettings(callback?: (err: Error | null, response: GetPrivacySettingsResponse) => void): Promise<GetPrivacySettingsResponse>;
+    getPrivacySettings(callback?: (err: Error | null, response: PrivacySettings) => void): Promise<PrivacySettings>;
 
     /**
      * Kick any other session logged into your account which is playing a game from Steam.
@@ -420,7 +266,7 @@ declare class SteamUser extends EventEmitter {
      * @param filter - A filter string (https://mckay.media/hEW8A)
      * @param [callback]
      */
-    getServerList(filter: string, limit?: number, callback?: (err: Error | null, servers: GetServerListResponse) => void): Promise<GetServerListResponse>;
+    getServerList(filter: string, limit?: number, callback?: (err: Error | null, servers: Server) => void): Promise<Server>;
 
     /**
      * Get the associated SteamIDs for given server IPs.
@@ -447,7 +293,7 @@ declare class SteamUser extends EventEmitter {
         appChanges: AppChanges,
         packageChanges: PackageChanges,
         ) => void,
-    ): Promise<GetProductChangesResponse>;
+    ): Promise<ProductChanges>;
 
     /**
      * Get info about some apps and/or packages from Steam.
@@ -464,7 +310,7 @@ declare class SteamUser extends EventEmitter {
         unknownApps: number[],
         unknownPackages: number[],
         ) => void,
-    ): Promise<GetProductInfoResponse>;
+    ): Promise<ProductInfo>;
 
     /**
      * Get access tokens for some apps and/or packages
@@ -479,7 +325,7 @@ declare class SteamUser extends EventEmitter {
         appDeniedTokens: number[],
         packageDeniedTokens: number[],
         ) => void,
-    ): Promise<GetProductAccessTokenResponse>;
+    ): Promise<ProductAccessTokens>;
 
     /**
      * Get list of appids this account owns. Only works if enablePicsCache option is enabled and appOwnershipCached event
@@ -530,14 +376,14 @@ declare class SteamUser extends EventEmitter {
      * @param tagIDs - The IDs of the tags you're interested in
      * @param [callback]
      */
-    getStoreTagNames(language: string, tagIDs: number[], callback?: (err: Error | null, tags: GetStoreTagNamesResponse) => void): Promise<GetStoreTagNamesResponse>;
+    getStoreTagNames(language: string, tagIDs: number[], callback?: (err: Error | null, tags: StoreTagNames) => void): Promise<StoreTagNames>;
 
     /**
      * Get details for some UGC files.
      * @param ids
      * @param [callback]
      */
-    getPublishedFileDetails(ids: number | number[], callback?: (err: Error | null, files: GetPublishedFileDetailsResponse) => void): Promise<GetPublishedFileDetailsResponse>;
+    getPublishedFileDetails(ids: number | number[], callback?: (err: Error | null, files: PublishedFileDetails) => void): Promise<PublishedFileDetails>;
 
     /**
      * Remove a friend from your friends list (or decline an invitiation)
@@ -584,13 +430,13 @@ declare class SteamUser extends EventEmitter {
      * @param [options]
      * @param [callback]
      */
-    createQuickInviteLink(options?: CreateQuickInviteLinkOptions, callback?: (err: Error | null, response: QuickInviteLinkResponse) => void): Promise<QuickInviteLinkResponse>;
+    createQuickInviteLink(options?: CreateQuickInviteLinkOptions, callback?: (err: Error | null, response: QuickInviteLink) => void): Promise<QuickInviteLink>;
 
     /**
      * Get a list of friend quick-invite links for your account.
      * @param [callback]
      */
-    listQuickInviteLinks(callback?: (err: Error | null, response: QuickInviteLinkResponse[]) => void): Promise<QuickInviteLinkResponse[]>;
+    listQuickInviteLinks(callback?: (err: Error | null, response: QuickInviteLink[]) => void): Promise<QuickInviteLink[]>;
 
     /**
      * Revoke an active quick-invite link.
@@ -610,7 +456,7 @@ declare class SteamUser extends EventEmitter {
      * @param link
      * @param [callback]
      */
-    checkQuickInviteLinkValidity(link: string, callback?: (err: Error | null, response: CheckQuickInviteLinkValidityResponse) => void): Promise<CheckQuickInviteLinkValidityResponse>;
+    checkQuickInviteLinkValidity(link: string, callback?: (err: Error | null, response: QuickInviteLinkValidity) => void): Promise<QuickInviteLinkValidity>;
 
     /**
      * Redeem a quick-invite link and add the sender to your friends list.
@@ -711,9 +557,9 @@ declare class SteamUser extends EventEmitter {
      */
     getUserOwnedApps(steamID: SteamID | string, options?: GetUserOwnedAppsOptions, callback?: (
         err: Error | null,
-        response: GetUserOwnedAppsResponse,
+        response: UserOwnedApps,
         ) => void
-    ): Promise<GetUserOwnedAppsResponse>;
+    ): Promise<UserOwnedApps>;
 
     /**
      * Get a listing of profile items you own.
@@ -722,9 +568,9 @@ declare class SteamUser extends EventEmitter {
      */
     getOwnedProfileItems(options?: { language: string }, callback?: (
         err: Error | null,
-        response: ProfileItemsResponse,
+        response: ProfileItems,
         ) => void
-    ): Promise<ProfileItemsResponse>;
+    ): Promise<ProfileItems>;
 
     /**
      * Get a user's equipped profile items.
@@ -734,9 +580,9 @@ declare class SteamUser extends EventEmitter {
      */
     getEquippedProfileItems(steamID: SteamID | string, options?: { language: string }, callback?: (
         err: Error | null,
-        response: ProfileItemsResponse,
+        response: ProfileItems,
         ) => void
-    ): Promise<ProfileItemsResponse>;
+    ): Promise<ProfileItems>;
 
     /**
      * Change your current profile background.
@@ -821,13 +667,13 @@ declare class SteamUser extends EventEmitter {
      * Gets your account's trade URL.
      * @param [callback]
      */
-    getTradeURL(callback?: (err: Error | null, response: TradeURLResponse) => void): Promise<TradeURLResponse>;
+    getTradeURL(callback?: (err: Error | null, response: TradeURL) => void): Promise<TradeURL>;
 
     /**
      * Makes a new trade URL for your account.
      * @param [callback]
      */
-    changeTradeURL(callback?: (err: Error | null, response: TradeURLResponse) => void): Promise<TradeURLResponse>;
+    changeTradeURL(callback?: (err: Error | null, response: TradeURL) => void): Promise<TradeURL>;
 
     /**
      * Gets the list of emoticons your account can use.
@@ -952,8 +798,377 @@ interface Events {
     appLaunched: [appid: number];
     appQuit: [appid: number];
     receivedFromGC: [appid: number, msgType: number, payload: Buffer];
+    loggedOn: [details: Record<string, any>, parental: Record<string, any>];
+    steamGuard: [domain: string | null, callback: (code: string) => void, lastCodeWrong: boolean];
+    error: [err: Error];
+    disconnected: [eresult: SteamUser.EResult, msg?: string];
+    sentry: [sentry: Buffer];
+    webSession: [sessionID: string, cookies: string[]];
+    loginKey: [key: string];
+    newItems: [count: number];
+    newComments: [count: number, myItems: number, discussions: number];
+    tradeOffers: [count: number];
+    communityMessages: [count: number];
+    offlineMessages: [count: number, friends: SteamID[]];
+    vanityURL: [url: string];
+    accountInfo: [name: string, country: string, authedMachines: number, flags: SteamUser.EAccountFlags, facebookID: string, facebookName: string];
+    emailInfo: [adress: string, validated: boolean];
+    accountLimitations: [limited: boolean, communityBanned: boolean, locked: boolean, canInviteFriends: boolean];
+    vacBans: [numBans: number, appids: number[]];
+    wallet: [hasWallet: boolean, currency: SteamUser.ECurrencyCode, balance: number];
+    licenses: [licenses: Array<Record<string, any>>];
+    gifts: [gifts: Gift[]];
+    appOwnershipCached: [];
+    changelist: [changenumber: number, apps: number[], packages: number[]];
+    appUpdate: [appid: number, data: ProductInfo];
+    packageUpdate: [appid: number, data: ProductInfo];
+    marketingMessages: [timestamp: Date, messages: Array<{ id: string; url: string; flags: number }>];
+    tradeRequest: [steamID: SteamID, respond: (accept: boolean) => void];
+    tradeResponse: [steamID: SteamID, response: SteamUser.EEconTradeResponse, restrictions: TradeRestrictions];
+    tradeStarted: [steamID: SteamID];
+    playingState: [blocked: boolean, playingApp: number];
+    user: [sid: SteamID, user: Record<string, any>];
+    group: [sid: SteamID, group: Record<string, any>];
+    groupEvent: [sid: SteamID, headline: string, date: Date, gid: number | string, gameID: number]; // not sure
+    groupAnnouncement: [sid: SteamID, headline: string, gid: number | string]; // not sure
+    friendRelationShip: [sid: SteamID, relationship: SteamUser.EFriendRelationship];
+    groupRelationShip: [sid: SteamID, relationship: SteamUser.EClanRelationship];
+    friendsList: [];
+    friendPersonasLoad: [];
+    groupList: [];
+    friendsGroupList: [groups: Record<string, { name: string; members: SteamID[] }>];
+    nicknameList: [];
+    nickname: [steamID: SteamID, newNickname: string | null];
+    lobbyInvite: [inviterID: SteamID, lobbyID: SteamID];
 }
 //#endregion "Events"
+
+//#region "Helper Types"
+type RegionCode = 0x00 | 0x01| 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 | 0xFF; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Region_codes
+//#endregion "Helper Types"
+
+//#region "Response Types"
+type StoreTagNames = Record<string, {name: string, englishName: string}>;
+type PublishedFileDetails = Record<string, Record<string, any>>;
+//#endregion "Response Types"
+
+//#region "General Interfaces"
+interface Options {
+    localPort?: number | null;
+    protocol?: SteamUser.EConnectionProtocol;
+	httpProxy?: string | null;
+	localAddress?: string | null;
+	autoRelogin?: boolean;
+	singleSentryfile?: boolean;
+	machineIdType?: SteamUser.EMachineIDType;
+	machineIdFormat?: [string, string, string];
+	enablePicsCache?: boolean;
+	language?: string;
+	picsCacheAll?: boolean;
+	changelistUpdateInterval?: number;
+	saveAppTickets?: boolean;
+	additionalHeaders?: Record<string, string>;
+	webCompatibilityMode?: boolean;
+}
+
+interface CreateQuickInviteLinkOptions {
+    inviteLimit?: number;
+    inviteDuration?: number | null;
+}
+
+interface PlayedGame {
+    game_id: number;
+    game_extra_info: string;
+}
+
+interface ServerQueryConditions {
+    app_id?: number;
+    geo_location_ip?: string;
+    region_code?: RegionCode;
+    filter_text?: string; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Filter
+    max_servers?: number;
+}
+
+interface AppChanges {
+    appid: number;
+    change_number: number;
+    needs_token: boolean;
+}
+
+interface PackageChanges {
+    packageid: number;
+    change_number: number;
+    needs_token: boolean;
+}
+
+interface App {
+    appid: number;
+    access_token: string;
+}
+
+interface Package {
+    packageid: number;
+    access_token: string;
+}
+
+interface AppInfo {
+    changenumber: number;
+    missingToken: boolean;
+    appinfo: Record<string, any>; // too complex to describe
+}
+
+interface PackageInfo {
+    changenumber: number;
+    missingToken: boolean;
+    packageinfo: Record<string, any>; // too complex to describe
+}
+
+interface RichPresence {
+    status: string;
+    version: string;
+    time?: string;
+    'game:state': string;
+    steam_display: string;
+    connect: string;
+}
+
+interface OwnedApp {
+    appid: number;
+    name: string;
+    playtime_2weeks: number | null;
+    playtime_forever: number;
+    img_icon_url: string;
+    img_logo_url: string;
+    has_community_visible_stats: boolean;
+    playtime_windows_forever: number;
+    playtime_mac_forever: number;
+    playtime_linux_forever: number;
+}
+
+interface GetUserOwnedAppsOptions {
+    includePlayedFreeGames?: boolean;
+    filterAppids?: number[];
+    includeFreeSub?: boolean;
+}
+
+interface ProfileItem {
+    communityitemid: number;
+    image_small: string | null;
+    image_large: string | null;
+    name: string;
+    item_title: string;
+    item_description: string;
+    appid: number;
+    item_type: unknown; // could be improved
+    item_class: unknown; // could be improved
+    movie_webm: string;
+    movie_mp4: string;
+    equipped_flags: unknown; // could be improved
+}
+
+interface Emoticon {
+    name: string;
+    count: number;
+    time_last_used: Date | null;
+    use_count: number;
+    time_received: Date | null;
+}
+
+interface Borrowers {
+    steamid: SteamID;
+    isPending: boolean;
+    isCanceled: boolean;
+    timeCreated: Date;
+}
+
+interface Device {
+    deviceToken: string;
+    deviceName: string;
+    isPending: boolean;
+    isCanceled: boolean;
+    isLimited: boolean;
+    lastTimeUsed: Date | null;
+    lastBorrower: SteamID | null;
+    lastAppPlayed: Date | null;
+}
+
+interface AccountInfo {
+    name: string;
+    country: string;
+    authedMachines: number;
+    flags: SteamUser.EAccountFlags;
+    facebookID: string;
+    facebookName: string;
+}
+
+interface AccountLimitations {
+    limited: boolean;
+    communityBanned: boolean;
+    locked: boolean;
+    canInviteFriends: boolean;
+}
+
+interface Gift {
+    gid: string;
+    packageid: number;
+    TimeCreated: Date;
+    TimeExpiration: Date;
+    TimeSent: Date;
+    TimeAcked: Date;
+    TimeRedeemed: null; // appears to always be null
+    RecipientAddress: ''; // appears to alway be ''
+    SenderAddress: ''; // appears to alway be ''
+    SenderName: string;
+}
+
+interface Chat {
+    name: string | null;
+    private: boolean;
+    invisibleToFriends: boolean;
+    officersOnlyChat: boolean;
+    unjoinable: boolean;
+    members: {
+        rank: SteamUser.EClanRank;
+        permissions: SteamUser.EChatPermission;
+    };
+}
+
+interface TradeRestrictions {
+    steamguardRequiredDays?: number;
+    newDeviceCooldownDays?: number;
+    defaultPasswordResetProbationDays?: number;
+    passwordResetProbationDays?: number;
+    defaultEmailChangeProbationDays?: number;
+    emailChangeProbationDays?: number;
+}
+//#endregion "General Interfaces"
+
+//#region "Response Interfaces"
+interface QuickInviteLinkValidity {
+    valid: boolean;
+    steamid: SteamID;
+    invite_duration: number | null;
+}
+
+interface TradeURL {
+    token: string;
+    url: string;
+}
+
+interface QuickInviteLink {
+    invite_link: string;
+    invite_token: string;
+    invite_limit: number;
+    invite_duration: number | null;
+    time_created: Date;
+    valid: boolean;
+}
+
+interface LogOnDetails {
+    accountName: string;
+    password: string;
+    loginKey: string;
+    webLogonToken: string;
+    steamID: SteamID | string;
+    authCode: string;
+    twoFactorCode: string;
+    rememberPassword: boolean;
+    logonID: number | string;
+    machineName: string;
+    clientOS: SteamUser.EOSType;
+    dontRememberMachine: boolean;
+}
+
+interface SteamGuardDetails {
+    canTrade: boolean;
+    isSteamGuardEnabled: boolean;
+    timestampSteamGuardEnabled: Date | null;
+    timestampMachineSteamGuardEnabled: Date | null;
+    isTwoFactorEnabled: boolean;
+    timestampTwoFactorEnabled: Date | null;
+    isPhoneVerified: boolean;
+}
+
+interface CredentialChangeTimes {
+    timestampLastPasswordChange: Date | null;
+    timestampLastPasswordReset: Date | null;
+    timestampLastEmailChange: Date | null;
+}
+
+interface AuthSecret {
+    secretID: number;
+    key: Buffer;
+}
+
+interface PrivacySettings {
+    privacy_state: SteamUser.EPrivacyState;
+    privacy_state_inventory: SteamUser.EPrivacyState;
+    privacy_state_gifts: SteamUser.EPrivacyState;
+    privacy_state_ownedgames: SteamUser.EPrivacyState;
+    privacy_state_playtime: SteamUser.EPrivacyState;
+    privacy_state_friendslist: SteamUser.EPrivacyState;
+}
+
+interface ServerQueryResponse {
+    ip: string;
+    port: number;
+    players: number;
+    gameport: number;
+}
+
+interface Server {
+    addr: string;
+    specport: number | null;
+    steamid: SteamID;
+    name: string;
+    appid: number;
+    gamedir: string;
+    version: string;
+    product: string;
+    region: RegionCode;
+    players: number;
+    max_players: number;
+    bots: number;
+    map: string;
+    secure: boolean;
+    dedicated: boolean;
+    os: 'w' | 'l';
+    gametype: string;
+}
+
+interface ProductChanges {
+    currentChangenumber: number;
+    appChanges: AppChanges;
+    packageChanges: PackageChanges;
+}
+
+interface ProductInfo {
+    apps: AppInfo;
+    packages: PackageInfo;
+    unknownApps: number[];
+    unknownPackages: number[];
+}
+
+interface ProductAccessTokens {
+    appTokens: Record<string, string>;
+    packageTokens: Record<string, string>;
+    appDeniedTokens: number[];
+    packageDeniedTokens: number[];
+}
+
+interface UserOwnedApps {
+    game_count: number;
+    games: OwnedApp[];
+}
+
+interface ProfileItems {
+    profile_backgrounds: ProfileItem[];
+    mini_profile_backgrounds: ProfileItem[];
+    avatar_frames: ProfileItem[];
+    animated_avatars: ProfileItem[];
+    profile_modifiers: ProfileItem[];
+}
+//#endregion "Response Interfaces"
 
 declare namespace SteamUser {
     //#region "ENUMS"
