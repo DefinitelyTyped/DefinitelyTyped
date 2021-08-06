@@ -9,6 +9,7 @@
 type SteamID = import('steamid');
 type ByteBuffer = import('bytebuffer');
 import EventEmitter = require('events');
+import SteamChatRoomClient = require('./SteamChatRoomClient')
 
 export = SteamUser;
 
@@ -299,6 +300,11 @@ declare class SteamUser extends EventEmitter {
     off<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
     removeListener<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
     removeAllListeners(event?: keyof Events): this;
+
+    /**
+     * Use this object to chat with friends and chat rooms.
+     */
+    chat: SteamChatRoomClient;
 
     setOption(option: string, value: any): void;
     setOptions(options: Options): void;
