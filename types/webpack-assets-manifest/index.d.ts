@@ -5,43 +5,53 @@
 // TypeScript Version: 3.7
 
 /// <reference types="node" />
-import { Compiler } from "webpack";
-import { SyncHook, SyncWaterfallHook } from "tapable";
+import { Asset, Compilation, Compiler, LoaderContext, Module, Stats, WebpackPluginInstance } from "webpack";
+import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from "tapable";
 
-declare class WebpackAssetsManifest {
+declare class WebpackAssetsManifest implements WebpackPluginInstance {
     constructor(options?: WebpackAssetsManifest.Options);
-    apply(compiler: Compiler): void;
 
     /** https://github.com/webdeveric/webpack-assets-manifest#hooks */
     hooks: {
-        apply: SyncHook<WebpackAssetsManifest>;
+        apply: SyncHook<[WebpackAssetsManifest]>;
 
-        /**
-         * The `SyncWaterfallHook` class supports 2 type parameters only but this hook actually has 4 parameters.
-         * The type of 3rd parameter is `WebpackAssetsManifest`.
-         * The type of 4th parameter is `AnyObject`.
-         *
-         * Refer to https://github.com/webdeveric/webpack-assets-manifest#hooks for details
-         */
-        customize: SyncWaterfallHook<WebpackAssetsManifest.Entry, WebpackAssetsManifest.AnyObject>;
+        customize: SyncWaterfallHook<[WebpackAssetsManifest.Entry, WebpackAssetsManifest.Entry, WebpackAssetsManifest, Asset | null]>;
 
-        transform: SyncWaterfallHook<WebpackAssetsManifest.AnyObject, WebpackAssetsManifest>;
+        transform: SyncWaterfallHook<[WebpackAssetsManifest.Assets, WebpackAssetsManifest]>;
 
-        done: SyncHook<WebpackAssetsManifest, WebpackAssetsManifest.AnyObject>;
+        done: AsyncSeriesHook<[WebpackAssetsManifest, Stats]>;
 
-        options: SyncWaterfallHook<WebpackAssetsManifest.Options>;
+        options: SyncWaterfallHook<[WebpackAssetsManifest.Options]>;
 
-        afterOptions: SyncHook<WebpackAssetsManifest.Options>;
+        afterOptions: SyncHook<[WebpackAssetsManifest.Options]>;
     };
 
     /** https://github.com/webdeveric/webpack-assets-manifest#options-read-the-schema */
     options: WebpackAssetsManifest.Options;
 
+    /** This is what gets JSON stringified */
+    assets: WebpackAssetsManifest.Assets;
+
+    /** original filename : hashed filename */
+    assetNames: Map<string, string>;
+
+    /** This is passed to the customize() hook */
+    currentAsset: Asset | null;
+
+    /** The Webpack compiler instance */
+    compiler: Compiler | null;
+
+    /** This is used to identify hot module replacement files */
+    hmrRegex: RegExp | null;
+
+    /** Hook into the Webpack compiler */
+    apply(compiler: Compiler): void;
+
     /** https://github.com/webdeveric/webpack-assets-manifest#options-read-the-schema */
-    defaultOptions: WebpackAssetsManifest.Options;
+    get defaultOptions(): WebpackAssetsManifest.Options;
 
     /** Determine if the manifest data is currently being merged */
-    isMerging: boolean;
+    get isMerging(): boolean;
 
     /** Get the file extension */
     getExtension(filename: string): string;
@@ -53,19 +63,76 @@ declare class WebpackAssetsManifest {
     isHMR(filename: string): boolean;
 
     /** Add item to assets without modifying the key or value */
-    setRaw(key: string, value: string): this;
+    setRaw(key: string, value: unknown): this;
 
     /** Add an item to the manifest */
-    set(key: string, value: string): this;
+    set(key: string, value: unknown): this;
 
     /** Determine if an item exist in the manifest */
     has(key: string): boolean;
 
     /** Get an item from the manifest */
-    get(key: string, defaultValue?: string): any;
+    get(key: string, defaultValue?: unknown): unknown;
 
     /** Delete an item from the manifest */
     delete(key: string): boolean;
+
+    /** Process compilation assets */
+    processAssetsByChunkName(assets: Record<string, string | ReadonlyArray<string>>): this['assetNames'];
+
+    /** Get the data for `JSON.stringify()` */
+    toJSON(): unknown;
+
+    /** `JSON.stringify()` the manifest */
+    toString(): string;
+
+    /** Merge data if the output file already exists */
+    maybeMerge(): void;
+
+    /** Emit the assets manifest */
+    emitAssetsManifest(compilation: Compilation): void;
+
+    /** Record details of Asset Modules */
+    handleProcessAssetsAnalyse(compilation: Compilation): void;
+
+    /** Gather asset details */
+    handleAfterProcessAssets(compilation: Compilation): void;
+
+    /** Get the parsed output path. [hash] is supported. */
+    getManifestPath(compilation: Compilation, filename: string): string;
+
+    /** Write the asset manifest to the file system */
+    writeTo(destination: string): Promise<void>;
+
+    clear(): void;
+
+    /** Cleanup before running Webpack */
+    handleBeforeRun(): void;
+
+    /** Determine if the manifest should be written to disk with fs */
+    shouldWriteToDisk(compilation: Compilation): boolean;
+
+    /** Last chance to write the manifest to disk */
+    handleAfterEmit(compilation: Compilation): Promise<void>;
+
+    /** Record asset names */
+    handleNormalModuleLoader(compilation: Compilation, loaderContext: LoaderContext<unknown>, module: Module): void;
+
+    /** Add the SRI hash to the assetsInfo map */
+    recordSubresourceIntegrity(compilation: Compilation): void;
+
+    /** Hook into compilation objects */
+    handleCompilation(compilation: Compilation): void;
+
+    /** Hook into the compilation object */
+    handleThisCompilation(compilation: Compilation): void;
+
+    /**
+     * Determine if webpack-dev-server is being used
+     *
+     * The WEBPACK_DEV_SERVER env var was added in webpack-dev-server 3.4.1
+     */
+    inDevServer(): boolean;
 
     /** Get the file system path to the manifest */
     getOutputPath(): string;
@@ -74,29 +141,33 @@ declare class WebpackAssetsManifest {
     getPublicPath(filename: string): string;
 
     /**
-     * Get a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler) for the manifest
+     * Get a {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler|Proxy} for the manifest.
+     * This allows you to use `[]` to manage entries.
      *
-     * @param raw - Use `setRaw` instead of `set`
+     * @param raw - Should the proxy use `setRaw` instead of `set`?
      */
-    getProxy(raw?: boolean): ProxyHandler<WebpackAssetsManifest>;
+    getProxy(raw?: boolean): WebpackAssetsManifest.Assets;
 }
 
 declare namespace WebpackAssetsManifest {
     interface Options {
+        /** https://github.com/webdeveric/webpack-assets-manifest#enabled */
+        enabled?: boolean | undefined;
+
         /** https://github.com/webdeveric/webpack-assets-manifest#assets */
-        assets?: object | undefined;
+        assets?: Assets | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#output */
         output?: string | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#replacer */
-        replacer?: null | ReadonlyArray<string> | ((key: string, value: string) => number | string | boolean | null | object | undefined) | undefined;
+        replacer?: ((this: unknown, key: string, value: unknown) => unknown) | ReadonlyArray<string | number> | null | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#space */
         space?: number | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#writetodisk */
-        writeToDisk?: boolean | undefined;
+        writeToDisk?: boolean | "auto" | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#fileextregex */
         fileExtRegex?: RegExp | null | false | undefined;
@@ -110,23 +181,32 @@ declare namespace WebpackAssetsManifest {
         /** https://github.com/webdeveric/webpack-assets-manifest#publicpath */
         publicPath?: string | boolean | null | (((filename: string, manifest: WebpackAssetsManifest) => string)) | undefined;
 
+        /** https://github.com/webdeveric/webpack-assets-manifest#contextrelativekeys */
+        contextRelativeKeys?: boolean | undefined;
+
         /** https://github.com/webdeveric/webpack-assets-manifest#apply */
         apply?: ((manifest: WebpackAssetsManifest) => void) | null | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#customize */
-        customize?: ((entry: Entry, original: AnyObject, manifest: WebpackAssetsManifest, asset: AnyObject) => Entry | false) | null | undefined;
+        customize?:
+            | ((entry: Entry, original: Entry, manifest: WebpackAssetsManifest, asset: Asset | null) => Entry | false)
+            | null
+            | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#transform */
-        transform?: ((assets: AnyObject, manifest: WebpackAssetsManifest) => any) | null | undefined;
+        transform?: ((assets: Assets, manifest: WebpackAssetsManifest) => unknown) | null | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#done */
-        done?: ((manifest: WebpackAssetsManifest, stats: AnyObject) => void) | null | undefined;
+        done?: ((manifest: WebpackAssetsManifest, stats: Stats) => void) | null | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#entrypoints */
         entrypoints?: boolean | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#entrypointskey */
         entrypointsKey?: string | false | undefined;
+
+        /** https://github.com/webdeveric/webpack-assets-manifest#entrypointsuseassets */
+        entrypointsUseAssets?: boolean | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integrity */
         integrity?: boolean | undefined;
@@ -143,8 +223,8 @@ declare namespace WebpackAssetsManifest {
         value: string;
     }
 
-    interface AnyObject extends Object {
-        [index: string]: any;
+    interface Assets {
+        [key: string]: unknown;
     }
 }
 
