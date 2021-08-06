@@ -32,6 +32,9 @@ export interface Renderer {
     setSize(width: number, height: number, updateStyle?: boolean): void;
 }
 
+/** This is only available in worker JS contexts, not the DOM. */
+interface OffscreenCanvas extends EventTarget {}
+
 export interface WebGLRendererParameters {
     /**
      * A Canvas where the renderer draws its output.
