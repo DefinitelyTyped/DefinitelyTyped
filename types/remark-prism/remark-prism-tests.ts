@@ -15,6 +15,6 @@ const options: remarkPrism.Options = {
         'line-numbers',
         'show-invisibles',
         'treeview',
-    ]
+    ],
 };
 remark().use(remarkPrism, options);
