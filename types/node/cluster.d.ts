@@ -322,7 +322,7 @@ declare module 'cluster' {
     export interface Cluster extends EventEmitter {
         disconnect(callback?: () => void): void;
         fork(env?: any): Worker;
-        /** @deprecated since v16.0.0 - use setupPrimary. */
+        /** @deprecated since v16.0.0 - use isPrimary. */
         readonly isMaster: boolean;
         readonly isPrimary: boolean;
         readonly isWorker: boolean;
