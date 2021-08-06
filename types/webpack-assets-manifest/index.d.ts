@@ -41,9 +41,6 @@ declare class WebpackAssetsManifest implements WebpackPluginInstance {
     /** The Webpack compiler instance */
     compiler: Compiler | null;
 
-    /** This is used to identify hot module replacement files */
-    hmrRegex: RegExp | null;
-
     /** Hook into the Webpack compiler */
     apply(compiler: Compiler): void;
 
@@ -58,9 +55,6 @@ declare class WebpackAssetsManifest implements WebpackPluginInstance {
 
     /** Replace backslash with forward slash */
     fixKey(key: string): string;
-
-    /** Determine if the filename matches the HMR filename pattern */
-    isHMR(filename: string): boolean;
 
     /** Add item to assets without modifying the key or value */
     setRaw(key: string, value: unknown): this;
@@ -78,7 +72,7 @@ declare class WebpackAssetsManifest implements WebpackPluginInstance {
     delete(key: string): boolean;
 
     /** Process compilation assets */
-    processAssetsByChunkName(assets: Record<string, string | ReadonlyArray<string>>): this['assetNames'];
+    processAssetsByChunkName(assets: Record<string, string | ReadonlyArray<string>>, hmrFiles?: Set<string>): this['assetNames'];
 
     /** Get the data for `JSON.stringify()` */
     toJSON(): unknown;
@@ -90,13 +84,23 @@ declare class WebpackAssetsManifest implements WebpackPluginInstance {
     maybeMerge(): void;
 
     /** Emit the assets manifest */
-    emitAssetsManifest(compilation: Compilation): void;
+    emitAssetsManifest(compilation: Compilation): Promise<void>;
 
     /** Record details of Asset Modules */
     handleProcessAssetsAnalyse(compilation: Compilation): void;
 
+    /**
+     * When using webpack 5 persistent cache, loaderContext.emitFile sometimes doesn't
+     * get called and so the asset names are not recorded. To work around this, lets
+     * loops over the stats.assets and record the asset names.
+     */
+    processStatsAssets(assets: ReadonlyArray<Asset>): void;
+
+    /** Get assets and hot module replacement files from a compilation object */
+    getCompilationAssets(compilation: Compilation): { assets: Asset[]; hmrFiles: Set<string> };
+
     /** Gather asset details */
-    handleAfterProcessAssets(compilation: Compilation): void;
+    handleProcessAssetsReport(compilation: Compilation): Promise<void>;
 
     /** Get the parsed output path. [hash] is supported. */
     getManifestPath(compilation: Compilation, filename: string): string;
@@ -107,7 +111,7 @@ declare class WebpackAssetsManifest implements WebpackPluginInstance {
     clear(): void;
 
     /** Cleanup before running Webpack */
-    handleBeforeRun(): void;
+    handleWatchRun(): void;
 
     /** Determine if the manifest should be written to disk with fs */
     shouldWriteToDisk(compilation: Compilation): boolean;
@@ -130,7 +134,8 @@ declare class WebpackAssetsManifest implements WebpackPluginInstance {
     /**
      * Determine if webpack-dev-server is being used
      *
-     * The WEBPACK_DEV_SERVER env var was added in webpack-dev-server 3.4.1
+     * The WEBPACK_DEV_SERVER / WEBPACK_SERVE env vars cannot be relied upon.
+     * See issue {@link https://github.com/webdeveric/webpack-assets-manifest/issues/125|#125}
      */
     inDevServer(): boolean;
 
@@ -164,7 +169,7 @@ declare namespace WebpackAssetsManifest {
         replacer?: ((this: unknown, key: string, value: unknown) => unknown) | ReadonlyArray<string | number> | null | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#space */
-        space?: number | undefined;
+        space?: number | string | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#writetodisk */
         writeToDisk?: boolean | "auto" | undefined;
