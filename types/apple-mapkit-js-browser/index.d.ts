@@ -1233,11 +1233,13 @@ declare namespace mapkit {
         /**
          * The image to display in the marker balloon.
          */
-        glyphImage?: {
-            1: string;
-            2?: string | undefined;
-            3?: string | undefined;
-        } | undefined;
+        glyphImage?:
+            | {
+                  1: string;
+                  2?: string | undefined;
+                  3?: string | undefined;
+              }
+            | undefined;
         /**
          * The image to display in the balloon when the marker is selected.
          */
