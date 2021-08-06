@@ -33,7 +33,8 @@ export interface Renderer {
 }
 
 /** This is only available in worker JS contexts, not the DOM. */
-interface OffscreenCanvas extends EventTarget {}
+// tslint:disable-next-line:no-empty-interface
+export interface OffscreenCanvas extends EventTarget {}
 
 export interface WebGLRendererParameters {
     /**
