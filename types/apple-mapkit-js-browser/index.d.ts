@@ -615,32 +615,33 @@ declare namespace mapkit {
 
     // prettier-ignore
     interface MapEvents<T> {
-  'region-change-start': EventBase<T>;
-  'region-change-end': EventBase<T>;
-  'rotation-start': EventBase<T>;
-  'rotation-end': EventBase<T>;
-  'scroll-start': EventBase<T>;
-  'scroll-end': EventBase<T>;
-  'zoom-start': EventBase<T>;
-  'zoom-end': EventBase<T>;
-  'map-type-change': EventBase<T>;
-  'single-tap': EventBase<T>;
-  'double-tap': EventBase<T>;
-  'long-press': EventBase<T>;
+        // Map Display Events
+        'region-change-start': EventBase<T>;
+        'region-change-end': EventBase<T>;
+        'rotation-start': EventBase<T>;
+        'rotation-end': EventBase<T>;
+        'scroll-start': EventBase<T>;
+        'scroll-end': EventBase<T>;
+        'zoom-start': EventBase<T>;
+        'zoom-end': EventBase<T>;
+        'map-type-change': EventBase<T>;
 
-  // Annotation Events
+        // Map Interaction Events
+        'single-tap': EventBase<T>;
+        'double-tap': EventBase<T>;
+        'long-press': EventBase<T>;
 
-  'select': EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
-  'deselect': EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
-  'drag-start': EventBase<T> & { annotation: Annotation };
-  'dragging': EventBase<T> & { annotation: Annotation; coordinate: Coordinate };
-  'drag-end': EventBase<T> & { annotation: Annotation };
+        // Annotation Events
+        'select': EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
+        'deselect': EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
+        'drag-start': EventBase<T> & { annotation: Annotation };
+        'dragging': EventBase<T> & { annotation: Annotation; coordinate: Coordinate };
+        'drag-end': EventBase<T> & { annotation: Annotation };
 
-  // User Location Events
-
-  'user-location-change': EventBase<T> & { coordinate: Coordinate; timestamp: Date };
-  'user-location-error': EventBase<T> & { code: number; message: string };
-}
+        // User Location Events
+        'user-location-change': EventBase<T> & { coordinate: Coordinate; timestamp: Date };
+        'user-location-error': EventBase<T> & { code: number; message: string };
+    }
 
     /**
      * Options that determine map parameters used when showing items.
