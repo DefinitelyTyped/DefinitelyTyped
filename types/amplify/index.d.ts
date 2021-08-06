@@ -30,7 +30,7 @@ declare namespace amplify {
 
     interface AjaxSettings extends JQueryAjaxSettings  {
         cache?: any;
-        dataMap?: {} | ((data: any) => {});
+        dataMap?: {} | ((data: any) => {}) | undefined;
         decoder?: any /* string or amplifyDecoder */;
     }
 

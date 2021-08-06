@@ -43,25 +43,25 @@ declare namespace CopyPlugin {
               }: {
                   context: Exclude<ObjectPattern["context"], undefined>;
                   absoluteFilename: string;
-              }) => string);
+              }) => string) | undefined;
 
         /**
          * A path that determines how to interpret the `from` path.
          * {@link https://webpack.js.org/plugins/copy-webpack-plugin/#context}
          * @default options.context | compiler.options.context
          */
-        context?: string;
+        context?: string | undefined;
 
         /**
          * Allows to configure the glob pattern matching library used by the plugin.
          * {@link https://webpack.js.org/plugins/copy-webpack-plugin/#globoptions}
          */
-        globOptions?: object;
+        globOptions?: object | undefined;
 
         /**
          * Allows to filter copied assets.
          */
-        filter?: (resourcePath: string) => boolean;
+        filter?: ((resourcePath: string) => boolean) | undefined;
 
         /**
          * How to interpret `to`. default: undefined
@@ -70,38 +70,38 @@ declare namespace CopyPlugin {
          * `template` - if 'to' contains a template pattern.
          * @default undefined
          */
-        toType?: "file" | "dir" | "template";
+        toType?: "file" | "dir" | "template" | undefined;
 
         /**
          * Overwrites files already in `compilation.assets` (usually added by other plugins.
          * {@link https://webpack.js.org/plugins/copy-webpack-plugin/#force}
          * @default false
          */
-        force?: boolean;
+        force?: boolean | undefined;
 
         /**
          * Allows you to specify the copy priority.
          * @default 0
          */
-        priority?: number;
+        priority?: number | undefined;
 
         /**
          * Function that modifies file contents before writing to webpack. (default: `(content, path) => content`)
          * {@link https://webpack.js.org/plugins/copy-webpack-plugin/#transform}
          * @default undefined
          */
-        transform?: (content: Buffer, absoluteFrom: string) => string | Buffer | Promise<string | Buffer>;
+        transform?: ((content: Buffer, absoluteFrom: string) => string | Buffer | Promise<string | Buffer>) | undefined;
 
         /**
          * Doesn't generate an error on missing file(s);
          * @default false
          */
-        noErrorOnMissing?: boolean;
+        noErrorOnMissing?: boolean | undefined;
 
         /**
          * Allows to add assets info
          */
-        info?: Record<string, unknown> | ((file: string) => Record<string, unknown>);
+        info?: Record<string, unknown> | ((file: string) => Record<string, unknown>) | undefined;
     }
 
     type StringPattern = string;
@@ -111,12 +111,12 @@ declare namespace CopyPlugin {
          * Limits the number of simultaneous requests to fs
          * @default 100
          */
-        concurrency?: number;
+        concurrency?: number | undefined;
     }
 
     interface CopyPluginOptions {
         patterns: ReadonlyArray<StringPattern | ObjectPattern>;
-        options?: Options;
+        options?: Options | undefined;
     }
 }
 

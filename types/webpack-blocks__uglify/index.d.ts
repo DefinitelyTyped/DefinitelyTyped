@@ -13,24 +13,24 @@ declare namespace uglify {
     type FileNameFunction = (file: string) => string;
 
     interface ExtractCommentsObject {
-        condition?: boolean | string | RegExp | ExtractCommentsFunction;
-        filename?: RegExp | FileNameFunction;
-        banner?: boolean | string | FileNameFunction;
+        condition?: boolean | string | RegExp | ExtractCommentsFunction | undefined;
+        filename?: RegExp | FileNameFunction | undefined;
+        banner?: boolean | string | FileNameFunction | undefined;
     }
 
     interface Options {
-        test?: TestType | TestType[];
-        include?: TestType | TestType[];
-        exclude?: TestType | TestType[];
-        chunkFilter?: (chunk: any) => boolean;
-        cache?: string | boolean;
-        cacheKeys?: (defaultCacheKeys: any, file: any) => object;
-        parallel?: boolean | number;
-        sourceMap?: boolean;
-        minify?: (file: any, sourceMap: any) => {error: any, map: any, code: any, warnings: any, extractedComments: any};
-        uglifyOptions?: MinifyOptions;
-        extractComments?: boolean | string | RegExp | ExtractCommentsFunction;
-        warningsFilter?: (warning: any, source: any) => boolean;
+        test?: TestType | TestType[] | undefined;
+        include?: TestType | TestType[] | undefined;
+        exclude?: TestType | TestType[] | undefined;
+        chunkFilter?: ((chunk: any) => boolean) | undefined;
+        cache?: string | boolean | undefined;
+        cacheKeys?: ((defaultCacheKeys: any, file: any) => object) | undefined;
+        parallel?: boolean | number | undefined;
+        sourceMap?: boolean | undefined;
+        minify?: ((file: any, sourceMap: any) => {error: any, map: any, code: any, warnings: any, extractedComments: any}) | undefined;
+        uglifyOptions?: MinifyOptions | undefined;
+        extractComments?: boolean | string | RegExp | ExtractCommentsFunction | undefined;
+        warningsFilter?: ((warning: any, source: any) => boolean) | undefined;
     }
 }
 

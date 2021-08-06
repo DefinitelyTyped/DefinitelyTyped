@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "react-text-mask-tests.ts"
+        "react-text-mask-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -13,6 +13,7 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
+        "jsx": "preserve",
         "typeRoots": [
             "../"
         ],

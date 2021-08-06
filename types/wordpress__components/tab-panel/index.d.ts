@@ -13,7 +13,7 @@ declare namespace TabPanel {
         /**
          * Defines the class to put on the tab.
          */
-        className?: string;
+        className?: string | undefined;
         /**
          * Other fields may be added to the object and accessed from the child
          * function if desired.
@@ -25,7 +25,7 @@ declare namespace TabPanel {
          * The class to add to the active tab.
          * @defaultValue "is-active"
          */
-        activeClass?: string;
+        activeClass?: string | undefined;
         /**
          * A function which renders the tabviews given the selected tab. The
          * function is passed the active tab object as an argument as defined
@@ -35,18 +35,18 @@ declare namespace TabPanel {
         /**
          * The class to give to the outer container for the `TabPanel`.
          */
-        className?: string;
+        className?: string | undefined;
         /**
          * Optionally provide a tab name for a tab to be selected upon mounting
          * of component. If this prop is not set, the first tab will be
          * selected by default.
          */
-        initialTabName?: string;
+        initialTabName?: string | undefined;
         /**
          * The orientation of the tablist.
          * @defaultValue "horizontal"
          */
-        orientation?: 'horizontal' | 'vertical';
+        orientation?: 'horizontal' | 'vertical' | undefined;
         tabs: readonly Tab[];
         /**
          * The function called when a tab has been selected. It is passed the

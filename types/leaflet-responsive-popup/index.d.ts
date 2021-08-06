@@ -8,7 +8,7 @@ import * as L from 'leaflet';
 
 declare module 'leaflet' {
     interface ResponsivePopupOptions extends PopupOptions {
-        hasTip?: boolean;
+        hasTip?: boolean | undefined;
     }
 
     class ResponsivePopup extends Popup {

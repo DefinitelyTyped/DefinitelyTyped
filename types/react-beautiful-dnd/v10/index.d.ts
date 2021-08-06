@@ -53,9 +53,9 @@ export type OnDragEndResponder = (
 ) => void;
 
 export interface Responders {
-    onBeforeDragStart?: OnBeforeDragStartResponder;
-    onDragStart?: OnDragStartResponder;
-    onDragUpdate?: OnDragUpdateResponder;
+    onBeforeDragStart?: OnBeforeDragStartResponder | undefined;
+    onDragStart?: OnDragStartResponder | undefined;
+    onDragUpdate?: OnDragUpdateResponder | undefined;
     onDragEnd: OnDragEndResponder;
 }
 
@@ -71,9 +71,9 @@ export interface DragStart {
 }
 
 export interface DragUpdate extends DragStart {
-    destination?: DraggableLocation | null;
+    destination?: DraggableLocation | null | undefined;
     // populated when a draggable is dragging over another in combine mode
-    combine?: Combine | null;
+    combine?: Combine | null | undefined;
 }
 
 // details of the item that is being combined with
@@ -105,23 +105,23 @@ export interface DroppableProvidedProps {
 }
 export interface DroppableProvided {
     innerRef(element: HTMLElement | null): any;
-    placeholder?: React.ReactElement<HTMLElement> | null;
+    placeholder?: React.ReactElement<HTMLElement> | null | undefined;
     droppableProps: DroppableProvidedProps;
 }
 
 export interface DroppableStateSnapshot {
     isDraggingOver: boolean;
-    draggingOverWith?: DraggableId;
-    draggingFromThisWith?: DraggableId;
+    draggingOverWith?: DraggableId | undefined;
+    draggingFromThisWith?: DraggableId | undefined;
 }
 
 export interface DroppableProps {
     droppableId: DroppableId;
-    type?: TypeId;
-    ignoreContainerClipping?: boolean;
-    isDropDisabled?: boolean;
-    isCombineEnabled?: boolean;
-    direction?: 'vertical' | 'horizontal';
+    type?: TypeId | undefined;
+    ignoreContainerClipping?: boolean | undefined;
+    isDropDisabled?: boolean | undefined;
+    isCombineEnabled?: boolean | undefined;
+    direction?: 'vertical' | 'horizontal' | undefined;
     children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<HTMLElement>;
 }
 
@@ -132,8 +132,8 @@ export class Droppable extends React.Component<DroppableProps> { }
  */
 
 export interface NotDraggingStyle {
-    transform?: string;
-    transition?: 'none';
+    transform?: string | undefined;
+    transition?: 'none' | undefined;
 }
 
 export interface DraggingStyle {
@@ -145,14 +145,14 @@ export interface DraggingStyle {
     top: number;
     left: number;
     margin: 0;
-    transform?: string;
+    transform?: string | undefined;
     transition: 'none';
     zIndex: ZIndex;
 }
 
 export interface DraggableProvidedDraggableProps {
     // inline style
-    style?: DraggingStyle | NotDraggingStyle;
+    style?: DraggingStyle | NotDraggingStyle | undefined;
     // used for shared global styles
     'data-react-beautiful-dnd-draggable': string;
 }
@@ -176,20 +176,20 @@ export interface DraggableProvided {
 
     // will be removed after move to react 16
     innerRef(element?: HTMLElement | null): any;
-    placeholder?: React.ReactElement<HTMLElement> | null;
+    placeholder?: React.ReactElement<HTMLElement> | null | undefined;
 }
 
 export interface DraggableStateSnapshot {
     isDragging: boolean;
     isDropAnimating: boolean;
-    draggingOver?: DroppableId;
-    dropAnimation?: DropAnimation;
+    draggingOver?: DroppableId | undefined;
+    dropAnimation?: DropAnimation | undefined;
     // the id of a draggable that you are combining with
-    combineWith?: DraggableId;
+    combineWith?: DraggableId | undefined;
     // a combine target is being dragged over by
-    combineTargetFor?: DraggableId;
+    combineTargetFor?: DraggableId | undefined;
     // What type of movement is being done: 'FLUID' or 'SNAP'
-    mode?: MovementMode;
+    mode?: MovementMode | undefined;
 }
 
 export interface Position {
@@ -201,18 +201,18 @@ export interface DropAnimation {
     duration: number;
     curve: string;
     moveTo: Position;
-    opacity?: number;
-    scale?: number;
+    opacity?: number | undefined;
+    scale?: number | undefined;
 }
 
 export interface DraggableProps {
     draggableId: DroppableId;
     index: number;
-    isDragDisabled?: boolean;
-    disableInteractiveElementBlocking?: boolean;
+    isDragDisabled?: boolean | undefined;
+    disableInteractiveElementBlocking?: boolean | undefined;
     children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<HTMLElement>;
-    type?: TypeId;
-    shouldRespectForceTouch?: boolean;
+    type?: TypeId | undefined;
+    shouldRespectForceTouch?: boolean | undefined;
 }
 
 export class Draggable extends React.Component<DraggableProps> { }

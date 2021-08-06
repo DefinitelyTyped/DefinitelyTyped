@@ -24,11 +24,11 @@ export type Context = ContextDefinition;
 export type Frame = JsonLdObj|Url;
 
 export interface Options {
-    base?: DOMString|null;
-    compactArrays?: boolean;
-    documentLoader?: LoadDocumentCallback|null;
-    expandContext?: ContextDefinition|null;
-    processingMode?: DOMString;
+    base?: DOMString|null | undefined;
+    compactArrays?: boolean | undefined;
+    documentLoader?: LoadDocumentCallback|null | undefined;
+    expandContext?: ContextDefinition|null | undefined;
+    processingMode?: DOMString | undefined;
 }
 
 export interface JsonLdProcessor {
@@ -38,7 +38,7 @@ export interface JsonLdProcessor {
 }
 
 export interface RemoteDocument {
-    contextUrl?: Url;
+    contextUrl?: Url | undefined;
     documentUrl: Url;
     document: JsonLd;
 }

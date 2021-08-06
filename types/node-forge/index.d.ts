@@ -96,7 +96,7 @@ declare module "node-forge" {
     namespace pem {
 
         interface EncodeOptions {
-            maxline?: number;
+            maxline?: number | undefined;
         }
 
         interface ObjectPEM {
@@ -105,7 +105,7 @@ declare module "node-forge" {
             procType?: any;
             contentDomain?: any;
             dekInfo?: any;
-            headers?: any[];
+            headers?: any[] | undefined;
         }
 
         function encode(msg: ObjectPEM, options?: EncodeOptions): string;
@@ -117,26 +117,26 @@ declare module "node-forge" {
         type PublicKey = rsa.PublicKey | ed25519.Key;
         type PrivateKey = rsa.PrivateKey | ed25519.Key;
         type EncryptionOptions = {
-            algorithm?: 'aes128' | 'aes192' | 'aes256' | '3des';
-            count?: number;
-            saltSize?: number;
-            prfAlgorithm?: 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
-            legacy?: boolean;
+            algorithm?: 'aes128' | 'aes192' | 'aes256' | '3des' | undefined;
+            count?: number | undefined;
+            saltSize?: number | undefined;
+            prfAlgorithm?: 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512' | undefined;
+            legacy?: boolean | undefined;
         };
 
         interface ByteBufferFingerprintOptions {
             /**
              * @description The type of fingerprint. If not specified, defaults to 'RSAPublicKey'
              */
-            type?: 'SubjectPublicKeyInfo' | 'RSAPublicKey';
+            type?: 'SubjectPublicKeyInfo' | 'RSAPublicKey' | undefined;
             /**
              * @description the delimiter to use between bytes for `hex` encoded output
              */
-            delimiter?: string;
+            delimiter?: string | undefined;
             /**
              * @description if not specified defaults to `md.md5`
              */
-            md?: md.MessageDigest;
+            md?: md.MessageDigest | undefined;
         }
 
         interface HexFingerprintOptions extends ByteBufferFingerprintOptions {
@@ -193,13 +193,13 @@ declare module "node-forge" {
             }
 
             interface GenerateKeyPairOptions {
-                bits?: number;
-                e?: number;
-                workerScript?: string;
-                workers?: number;
-                workLoad?: number;
+                bits?: number | undefined;
+                e?: number | undefined;
+                workerScript?: string | undefined;
+                workers?: number | undefined;
+                workLoad?: number | undefined;
                 prng?: any;
-                algorithm?: string;
+                algorithm?: string | undefined;
             }
 
             function setPublicKey(n: jsbn.BigInteger, e: jsbn.BigInteger): PublicKey;
@@ -231,7 +231,7 @@ declare module "node-forge" {
             }
 
             // generateKeyPair does not currently accept `util.ByteBuffer` as the seed.
-            function generateKeyPair(options?: { seed?: NativeBuffer | string }): {
+            function generateKeyPair(options?: { seed?: NativeBuffer | string | undefined }): {
                 publicKey: NativeBuffer;
                 privateKey: NativeBuffer;
             };
@@ -249,16 +249,16 @@ declare module "node-forge" {
         }
 
         interface CertificateFieldOptions {
-            name?: string;
-            type?: string;
-            shortName?: string;
+            name?: string | undefined;
+            type?: string | undefined;
+            shortName?: string | undefined;
         }
 
         interface CertificateField extends CertificateFieldOptions {
-            valueConstructed?: boolean;
-            valueTagClass?: asn1.Class;
-            value?: any[] | string;
-            extensions?: any[];
+            valueConstructed?: boolean | undefined;
+            valueTagClass?: asn1.Class | undefined;
+            value?: any[] | string | undefined;
+            extensions?: any[] | undefined;
         }
 
 
@@ -377,15 +377,15 @@ declare module "node-forge" {
             /**
              * OID
              */
-            type?: string;
+            type?: string | undefined;
             /**
              * Long name
              */
-            name?: string;
+            name?: string | undefined;
             /**
              * Short name
              */
-            shortName?: string;
+            shortName?: string | undefined;
         }
 
         interface Attribute {
@@ -396,7 +396,7 @@ declare module "node-forge" {
             /**
              * Short name, if available (e.g. 'CN' for 'commonName')
              */
-            shortName?: string;
+            shortName?: string | undefined;
             /**
              * OID, e.g. '1.2.840.113549.1.9.7'
              */
@@ -412,7 +412,7 @@ declare module "node-forge" {
             /**
              * Extensions
              */
-            extensions?: any[]
+            extensions?: any[] | undefined
         }
 
         interface CAStore {
@@ -426,7 +426,11 @@ declare module "node-forge" {
 
         function certificateFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
 
+        function certificationRequestFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
+
         function certificateToAsn1(cert: Certificate): asn1.Asn1;
+
+        function certificationRequestToAsn1(cert: Certificate): asn1.Asn1;
 
         function decryptRsaPrivateKey(pem: PEM, passphrase?: string): rsa.PrivateKey;
 
@@ -448,8 +452,8 @@ declare module "node-forge" {
             caStore: CAStore,
             chain: Certificate[],
             options?: ((verified: boolean | string, depth: number, certs: Certificate[]) => boolean) | {
-                verify?: (verified: boolean | string, depth: number, certs: Certificate[]) => boolean,
-                validityCheckDate?: Date | null
+                verify?: ((verified: boolean | string, depth: number, certs: Certificate[]) => boolean) | undefined,
+                validityCheckDate?: Date | null | undefined
             }): boolean;
 
         function pemToDer(pem: PEM): util.ByteStringBuffer;
@@ -513,15 +517,15 @@ declare module "node-forge" {
             /**
              * @description the delimiter to use between bytes for `hex` encoded output
              */
-            delimiter?: string;
+            delimiter?: string | undefined;
             /**
              * @description if not specified, the function will return `ByteStringBuffer`
              */
-            encoding?: 'hex' | 'binary';
+            encoding?: 'hex' | 'binary' | undefined;
             /**
              * @description if not specified defaults to `md.md5`
              */
-            md?: md.MessageDigest;
+            md?: md.MessageDigest | undefined;
         }
 
         /**
@@ -687,17 +691,17 @@ declare module "node-forge" {
     namespace pkcs12 {
 
         interface BagsFilter {
-            localKeyId?: string;
-            localKeyIdHex?: string;
-            friendlyName?: string;
-            bagType?: string;
+            localKeyId?: string | undefined;
+            localKeyIdHex?: string | undefined;
+            friendlyName?: string | undefined;
+            bagType?: string | undefined;
         }
 
         interface Bag {
             type: string;
             attributes: any;
-            key?: pki.PrivateKey;
-            cert?: pki.Certificate;
+            key?: pki.PrivateKey | undefined;
+            cert?: pki.Certificate | undefined;
             asn1: asn1.Asn1
         }
 
@@ -709,8 +713,8 @@ declare module "node-forge" {
             }[];
             getBags: (filter: BagsFilter) => {
                 [key: string]: Bag[] | undefined;
-                localKeyId?: Bag[];
-                friendlyName?: Bag[];
+                localKeyId?: Bag[] | undefined;
+                friendlyName?: Bag[] | undefined;
             };
             getBagsByFriendlyName: (fiendlyName: string, bagType: string) => Bag[]
             getBagsByLocalKeyId: (localKeyId: string, bagType: string) => Bag[]
@@ -724,13 +728,13 @@ declare module "node-forge" {
             cert: pki.Certificate | pki.Certificate[],
             password: string | null,
             options?: {
-                algorithm?: 'aes128' | 'aes192' | 'aes256' | '3des',
-                count?: number,
-                saltSize?: number,
-                useMac?: boolean,
-                localKeyId?: Hex,
-                friendlyName?: string,
-                generateLocalKeyId?: boolean,
+                algorithm?: 'aes128' | 'aes192' | 'aes256' | '3des' | undefined,
+                count?: number | undefined,
+                saltSize?: number | undefined,
+                useMac?: boolean | undefined,
+                localKeyId?: Hex | undefined,
+                friendlyName?: string | undefined,
+                generateLocalKeyId?: boolean | undefined,
             },
         ): asn1.Asn1;
 
@@ -746,8 +750,8 @@ declare module "node-forge" {
 
     namespace pkcs7 {
         interface PkcsSignedData {
-            content?: string | util.ByteBuffer;
-            contentInfo?: { value: any[] };
+            content?: string | util.ByteBuffer | undefined;
+            contentInfo?: { value: any[] } | undefined;
 
             certificates: pki.Certificate[];
 
@@ -756,10 +760,10 @@ declare module "node-forge" {
                 key: pki.rsa.PrivateKey | string;
                 certificate: pki.Certificate | string;
                 digestAlgorithm: string;
-                authenticatedAttributes?: { type: string; value?: string }[];
+                authenticatedAttributes?: { type: string; value?: string | undefined }[] | undefined;
             }): void;
             sign(options?:{
-                detached?: boolean
+                detached?: boolean | undefined
             }): void;
             toAsn1(): asn1.Asn1;
         }
@@ -767,7 +771,7 @@ declare module "node-forge" {
         function createSignedData(): PkcsSignedData;
 
         interface PkcsEnvelopedData {
-            content?: string | util.ByteBuffer;
+            content?: string | util.ByteBuffer | undefined;
             addRecipient(certificate: pki.Certificate): void;
             encrypt(): void;
             toAsn1(): asn1.Asn1;
@@ -840,10 +844,10 @@ declare module "node-forge" {
         function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer | Bytes): BlockCipher;
 
         interface StartOptions {
-            iv?: util.ByteBuffer | Byte[] | Bytes;
-            tag?: util.ByteStringBuffer;
-            tagLength?: number;
-            additionalData?: string;
+            iv?: util.ByteBuffer | Byte[] | Bytes | undefined;
+            tag?: util.ByteStringBuffer | undefined;
+            tagLength?: number | undefined;
+            additionalData?: string | undefined;
         }
 
         interface BlockCipher {
@@ -1062,7 +1066,7 @@ declare module "node-forge" {
             version: ProtocolVersion;
             length: number;
             fragment: util.ByteBuffer;
-            ready?: boolean;
+            ready?: boolean | undefined;
         }
 
         interface Session {
@@ -1101,17 +1105,17 @@ declare module "node-forge" {
             alert: Alert;
         }
 
-        type Verified = true | { message?: string; alert?: Alert.Description };
+        type Verified = true | { message?: string | undefined; alert?: Alert.Description | undefined };
 
         function createConnection(options: {
-            server?: boolean;
-            sessionId?: Bytes | null;
-            caStore?: pki.CAStore | ReadonlyArray<pki.Certificate>;
-            sessionCache?: SessionCache | { [key: string]: Session };
-            cipherSuites?: CipherSuite[];
+            server?: boolean | undefined;
+            sessionId?: Bytes | null | undefined;
+            caStore?: pki.CAStore | ReadonlyArray<pki.Certificate> | undefined;
+            sessionCache?: SessionCache | { [key: string]: Session } | undefined;
+            cipherSuites?: CipherSuite[] | undefined;
             connected(conn: Connection): void;
-            virtualHost?: string;
-            verifyClient?: boolean;
+            virtualHost?: string | undefined;
+            verifyClient?: boolean | undefined;
             verify?(
                 conn: Connection,
                 verified: Verified,

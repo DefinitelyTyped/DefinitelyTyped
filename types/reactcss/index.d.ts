@@ -8,14 +8,14 @@ import * as React from "react"
 
 interface LoopableProps extends React.Props<any> {
     "nth-child": number
-    "first-child"?: boolean
-    "last-child"?: boolean
-    even?: boolean
-    odd?: boolean
+    "first-child"?: boolean | undefined
+    "last-child"?: boolean | undefined
+    even?: boolean | undefined
+    odd?: boolean | undefined
 }
 
 interface HoverProps<T> extends React.Props<T> {
-    hover?: boolean
+    hover?: boolean | undefined
 }
 
 interface Classes<T> {

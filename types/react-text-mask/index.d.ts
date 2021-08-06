@@ -4,30 +4,30 @@
 //                 Deividi Cavarzan <https://github.com/cavarzan>
 //                 Artem Lyubchuk <https://github.com/needpower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.9
 
 import * as React from "react";
 
-export type maskArray = Array<string | RegExp> | boolean;
+export type maskArray = Array<string | RegExp> | false;
 
 export interface MaskedInputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
-    mask?: maskArray | ((value: string) => maskArray);
+    mask: maskArray | ((value: string) => maskArray);
 
-    guide?: boolean;
+    guide?: boolean | undefined;
 
-    placeholderChar?: string;
+    placeholderChar?: string | undefined;
 
-    keepCharPositions?: boolean;
+    keepCharPositions?: boolean | undefined;
 
-    pipe?: (
+    pipe?: ((
         conformedValue: string,
         config: any
-    ) => false | string | { value: string; indexesOfPipedChars: number[] };
+    ) => false | string | { value: string; indexesOfPipedChars: number[] }) | undefined;
 
-    showMask?: boolean;
+    showMask?: boolean | undefined;
 
-    render?: (ref: (inputElement: HTMLElement) => void, props: any) => any;
+    render?: ((ref: (inputElement: HTMLElement) => void, props: any) => any) | undefined;
 }
 
 export interface conformToMaskResult {

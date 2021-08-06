@@ -7,7 +7,7 @@ interface PostInterface {
     name: string;
     userId: string;
     publishedAt: Date;
-    tags?: string[];
+    tags?: string[] | undefined;
 }
 
 const Posts = new Mongo.Collection<PostInterface>('posts');

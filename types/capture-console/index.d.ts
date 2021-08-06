@@ -12,7 +12,7 @@ export interface CaptureOptions {
     /**
      * Option to silence the output going to the console
      */
-    quiet?: boolean;
+    quiet?: boolean | undefined;
 }
 
 /**

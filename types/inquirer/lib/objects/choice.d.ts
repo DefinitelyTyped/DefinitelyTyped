@@ -13,7 +13,7 @@ declare class Choice<T extends Answers = Answers> implements
     /**
      * @inheritdoc
      */
-    type?: "choice";
+    type?: "choice" | undefined;
 
     /**
      * @inheritdoc
@@ -33,7 +33,7 @@ declare class Choice<T extends Answers = Answers> implements
     /**
      * @inheritdoc
      */
-    checked?: boolean;
+    checked?: boolean | undefined;
 
     /**
      * @inheritdoc
@@ -45,7 +45,7 @@ declare class Choice<T extends Answers = Answers> implements
      *
      * @inheritdoc
      */
-    key?: string;
+    key?: string | undefined;
 
     /**
      * @inheritdoc

@@ -16,44 +16,44 @@ export type transitionInType = 'bounceIn' | 'bounceInDown' | 'fadeIn';
 export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
 
 interface BasicToastrOptions {
-    attention?: boolean;
-    className?: string;
-    component?: Component | JSX.Element;
-    icon?: JSX.Element;
-    onCloseButtonClick?: () => void;
-    onHideComplete?: () => void;
-    onShowComplete?: () => void;
-    onToastrClick?: () => void;
-    progressBar?: boolean;
-    removeOnHover?: boolean;
-    showCloseButton?: boolean;
-    timeOut?: number;
-    transitionIn?: transitionInType;
-    transitionOut?: transitionOutType;
-    getState?: (state: ToastrState) => ToastrState;
+    attention?: boolean | undefined;
+    className?: string | undefined;
+    component?: Component | JSX.Element | undefined;
+    icon?: JSX.Element | undefined;
+    onCloseButtonClick?: (() => void) | undefined;
+    onHideComplete?: (() => void) | undefined;
+    onShowComplete?: (() => void) | undefined;
+    onToastrClick?: (() => void) | undefined;
+    progressBar?: boolean | undefined;
+    removeOnHover?: boolean | undefined;
+    showCloseButton?: boolean | undefined;
+    timeOut?: number | undefined;
+    transitionIn?: transitionInType | undefined;
+    transitionOut?: transitionOutType | undefined;
+    getState?: ((state: ToastrState) => ToastrState) | undefined;
 }
 
 interface LightToastrOptions {
-    attention?: boolean;
-    className?: string;
-    component?: JSX.Element;
-    icon?: iconType | JSX.Element;
-    onCloseButtonClick?: () => void;
-    onHideComplete?: () => void;
-    onShowComplete?: () => void;
-    progressBar?: boolean;
-    removeOnHover?: boolean;
-    showCloseButton?: boolean;
-    status?: iconType;
-    timeOut?: number;
-    transitionIn?: transitionInType;
-    transitionOut?: transitionOutType;
+    attention?: boolean | undefined;
+    className?: string | undefined;
+    component?: JSX.Element | undefined;
+    icon?: iconType | JSX.Element | undefined;
+    onCloseButtonClick?: (() => void) | undefined;
+    onHideComplete?: (() => void) | undefined;
+    onShowComplete?: (() => void) | undefined;
+    progressBar?: boolean | undefined;
+    removeOnHover?: boolean | undefined;
+    showCloseButton?: boolean | undefined;
+    status?: iconType | undefined;
+    timeOut?: number | undefined;
+    transitionIn?: transitionInType | undefined;
+    transitionOut?: transitionOutType | undefined;
 }
 
 interface ConfirmToastrOptions {
-    disableCancel?: boolean;
-    onCancel?: () => void;
-    onOk?: () => void;
+    disableCancel?: boolean | undefined;
+    onCancel?: (() => void) | undefined;
+    onOk?: (() => void) | undefined;
 }
 
 interface ConfirmToastrCustomOptions {
@@ -62,19 +62,19 @@ interface ConfirmToastrCustomOptions {
 
 export interface Toastr {
     id: string;
-    message?: string;
+    message?: string | undefined;
     options: BasicToastrOptions | LightToastrOptions;
     position: positionType;
-    title?: string;
+    title?: string | undefined;
     type: toastType;
 }
 
 export interface AddToastPayload {
-    id?: string;
-    message?: string;
-    options?: BasicToastrOptions | LightToastrOptions;
-    position?: positionType;
-    title?: string;
+    id?: string | undefined;
+    message?: string | undefined;
+    options?: BasicToastrOptions | LightToastrOptions | undefined;
+    position?: positionType | undefined;
+    title?: string | undefined;
     type: toastType;
 }
 
@@ -84,7 +84,7 @@ export interface ToastrState {
         message: string;
         options: ConfirmToastrOptions | ConfirmToastrCustomOptions;
         show: boolean;
-    };
+    } | undefined;
     toastrs: Toastr[];
 }
 
@@ -92,18 +92,18 @@ interface ReduxToastrProps {
     confirmOptions?: {
         cancelText: string;
         okText: string;
-    };
-    newestOnTop?: boolean;
+    } | undefined;
+    newestOnTop?: boolean | undefined;
     options?: any; // This is currently not used, waiting for response from the package author to remove
-    position?: positionType;
-    preventDuplicates?: boolean;
-    progressBar?: boolean;
-    timeOut?: number;
-    toastr?: ToastrState;
-    transitionIn?: transitionInType;
-    transitionOut?: transitionOutType;
-    className?: string;
-    closeOnToastrClick?: boolean;
+    position?: positionType | undefined;
+    preventDuplicates?: boolean | undefined;
+    progressBar?: boolean | undefined;
+    timeOut?: number | undefined;
+    toastr?: ToastrState | undefined;
+    transitionIn?: transitionInType | undefined;
+    transitionOut?: transitionOutType | undefined;
+    className?: string | undefined;
+    closeOnToastrClick?: boolean | undefined;
 }
 
 interface ToastrEmitter {

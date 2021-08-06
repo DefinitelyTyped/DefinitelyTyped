@@ -9,10 +9,10 @@ export type PaginationNavTranslationKey =
 
 export interface PaginationNavProps extends Omit<ReactAttr, "onChange">, InternationalProps<PaginationNavTranslationKey> {
     onChange?(page: number): void;
-    itemsShown?: number,
-    loop?: boolean,
-    page?: number,
-    totalItems?: number,
+    itemsShown?: number | undefined,
+    loop?: boolean | undefined,
+    page?: number | undefined,
+    totalItems?: number | undefined,
 }
 
 declare const PaginationNav: ForwardRefReturn<HTMLElement, PaginationNavProps>;

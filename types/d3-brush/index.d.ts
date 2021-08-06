@@ -36,71 +36,16 @@ export interface BrushBehavior<Datum> {
     /**
      * Clear the active selection of the brush on the specified SVG G element(s) selection.
      *
-     * @param group A D3 selection of SVG G elements.
-     * @param selection Use null to clear the active brush selection.
+     * @param group A selection or a transition of SVG G elements
+     * @param selection The selection must be defined as an array of numbers, or null to clear the brush selection.
+     * For a two-dimensional brush, it must be defined as [[x0, y0], [x1, y1]], where x0 is the minimum x-value, y0 is the minimum y-value, x1 is the maximum x-value, and y1 is the maximum y-value.
+     * For an x-brush, it must be defined as [x0, x1]; for a y-brush, it must be defined as [y0, y1].
+     * The selection may also be specified as a function which returns such an array;
+     * if a function, it is invoked for each selected element, being passed the current datum d and index i, with the this context as the current DOM element.
+     * The returned array defines the brush selection for that element.
      * @param event
      */
-    move(group: Selection<SVGGElement, Datum, any, any>, selection: null, event?: Event): void;
-    /**
-     * Sets the active selection of the brush on the specified SVG G element(s) selection
-     * to the provided array.
-     *
-     * @param group A D3 selection of SVG G elements.
-     * @param selection An array specifying the new active brush selection. For a two-dimensional brush,
-     * it must be defined as [[x0, y0], [x1, y1]], where x0 is the minimum x-value, y0 is the minimum y-value,
-     * x1 is the maximum x-value, and y1 is the maximum y-value. For an x-brush, it must be defined as [x0, x1];
-     * for a y-brush, it must be defined as [y0, y1].
-     * @param event
-     */
-    move(group: Selection<SVGGElement, Datum, any, any>, selection: BrushSelection, event?: Event): void;
-    /**
-     * Sets the active selection of the brush on the specified SVG G element(s) selection
-     * based on the array returned by a value function invoked for each selection element.
-     *
-     * @param group A D3 selection of SVG G elements.
-     * @param selection A selection value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element. The function returns an array specifying the new active brush selection.
-     * For a two-dimensional brush, it must be defined as [[x0, y0], [x1, y1]], where x0 is the minimum x-value, y0 is the minimum y-value,
-     * x1 is the maximum x-value, and y1 is the maximum y-value. For an x-brush, it must be defined as [x0, x1];
-     * for a y-brush, it must be defined as [y0, y1].
-     * @param event
-     */
-    move(group: Selection<SVGGElement, Datum, any, any>, selection: ValueFn<SVGGElement, Datum, BrushSelection>, event?: Event): void;
-    /**
-     * Clear the active selection of the brush on the specified SVG G element(s) transition.
-     *
-     * @param group A D3 transition on SVG G elements.
-     * @param selection Use null to clear the active brush selection.
-     * @param event
-     */
-    move(group: Selection<SVGGElement, Datum, any, any>, selection: null, event?: Event): void;
-    /**
-     * Sets the active selection of the brush on the specified SVG G element(s) transition
-     * to the provided array.
-     *
-     * @param group A D3 transition on SVG G elements.
-     * @param selection An array specifying the new active brush selection. For a two-dimensional brush,
-     * it must be defined as [[x0, y0], [x1, y1]], where x0 is the minimum x-value, y0 is the minimum y-value,
-     * x1 is the maximum x-value, and y1 is the maximum y-value. For an x-brush, it must be defined as [x0, x1];
-     * for a y-brush, it must be defined as [y0, y1].
-     * @param event
-     */
-    move(group: TransitionLike<SVGGElement, Datum>, selection: BrushSelection, event?: Event): void;
-    /**
-     * Sets the active selection of the brush on the specified SVG G element(s) transition
-     * based on the array returned by a value function invoked for each transitioning element.
-     *
-     * @param group A D3 transition on SVG G elements.
-     * @param selection A selection value function which is evaluated for each selected element,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
-     * with this as the current DOM element. The function returns an array specifying the new active brush selection.
-     * For a two-dimensional brush, it must be defined as [[x0, y0], [x1, y1]], where x0 is the minimum x-value, y0 is the minimum y-value,
-     * x1 is the maximum x-value, and y1 is the maximum y-value. For an x-brush, it must be defined as [x0, x1];
-     * for a y-brush, it must be defined as [y0, y1].
-     * @param event
-     */
-    move(group: TransitionLike<SVGGElement, Datum>, selection: ValueFn<SVGGElement, Datum, BrushSelection>, event?: Event): void;
+    move(group: Selection<SVGGElement, Datum, any, any> | TransitionLike<SVGGElement, Datum>, selection: null | BrushSelection | ValueFn<SVGGElement, Datum, BrushSelection>, event?: Event): void;
 
     /**
      * Clear the active selection of the brush on the specified SVG G element(s) selection.
@@ -256,6 +201,7 @@ export interface BrushBehavior<Datum> {
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
  * which the returned BrushBehavior will be applied.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function brush<Datum>(): BrushBehavior<Datum>;
 /**
  * Creates a new one-dimensional brush along the x-dimension.
@@ -263,6 +209,7 @@ export function brush<Datum>(): BrushBehavior<Datum>;
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
  * which the returned BrushBehavior will be applied.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function brushX<Datum>(): BrushBehavior<Datum>;
 /**
  * Creates a new one-dimensional brush along the y-dimension.
@@ -270,6 +217,7 @@ export function brushX<Datum>(): BrushBehavior<Datum>;
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
  * which the returned BrushBehavior will be applied.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function brushY<Datum>(): BrushBehavior<Datum>;
 
 /**

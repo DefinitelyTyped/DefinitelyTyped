@@ -40,7 +40,16 @@ export default class Rect {
      * to get the inner part of the rect.
      *
      */
-    constructor(source: HTMLElement | Range | Window | ClientRect | Rect | object);
+    constructor(
+        source:
+            | HTMLElement
+            | Range
+            | Window
+            | ClientRect
+            | DOMRect
+            | Rect
+            | { top: number; right: number; bottom: number; left: number; width: number; height: number },
+    );
     /**
      * Returns a clone of the rect.
      *

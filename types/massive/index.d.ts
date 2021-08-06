@@ -25,72 +25,72 @@ declare namespace massive {
     }
 
     interface Loader {
-        blacklist?: string | string[];
-        whitelist?: string | string[];
-        functionBlacklist?: string | string[];
-        functionWhitelist?: string | string[];
-        allowedSchemas?: string | string[];
-        exceptions?: string | string[];
-        scripts?: string;
+        blacklist?: string | string[] | undefined;
+        whitelist?: string | string[] | undefined;
+        functionBlacklist?: string | string[] | undefined;
+        functionWhitelist?: string | string[] | undefined;
+        allowedSchemas?: string | string[] | undefined;
+        exceptions?: string | string[] | undefined;
+        scripts?: string | undefined;
     }
 
     interface DropOptions {
-        cascade?: boolean;
+        cascade?: boolean | undefined;
     }
 
     interface ConnectionInfo {
-        user?: string;
-        database?: string;
-        password?: string | null;
-        port?: number;
-        host?: string;
-        ssl?: boolean;
-        application_name?: string;
-        fallback_application_name?: boolean;
+        user?: string | undefined;
+        database?: string | undefined;
+        password?: string | null | undefined;
+        port?: number | undefined;
+        host?: string | undefined;
+        ssl?: boolean | undefined;
+        application_name?: string | undefined;
+        fallback_application_name?: boolean | undefined;
     }
 
     interface RetrievalOptions {
-        fields?: string[];
-        exprs?: AnyObject<string>;
-        limit?: number;
-        offset?: number;
-        order?: OrderingOptions[];
-        pageLength?: number;
+        fields?: string[] | undefined;
+        exprs?: AnyObject<string> | undefined;
+        limit?: number | undefined;
+        offset?: number | undefined;
+        order?: OrderingOptions[] | undefined;
+        pageLength?: number | undefined;
     }
 
     interface OrderingOptions {
-        field?: string;
-        expr?: string;
-        direction?: "ASC" | "asc" | "DESC" | "desc";
-        nulls?: "FIRST" | "first" | "LAST" | "last";
-        type?: string;
-        last?: string;
+        field?: string | undefined;
+        expr?: string | undefined;
+        direction?: "ASC" | "asc" | "DESC" | "desc" | undefined;
+        nulls?: "FIRST" | "first" | "LAST" | "last" | undefined;
+        type?: string | undefined;
+        last?: string | undefined;
     }
 
     interface PersistenceInsertOptions {
-        onConflictIgnore?: boolean;
-        deepInsert?: boolean;
+        onConflictIgnore?: boolean | undefined;
+        deepInsert?: boolean | undefined;
     }
 
     interface PersistenceUpdateDocOptions {
-        body?: string;
+        body?: string | undefined;
     }
 
     interface InheritanceOptions {
-        only?: boolean;
+        only?: boolean | undefined;
     }
 
     interface ResultProcessingOptions {
-        build?: boolean;
-        document?: boolean;
-        single?: boolean;
-        stream?: boolean;
-        decompose?: DecomposeOptions;
+        build?: boolean | undefined;
+        document?: boolean | undefined;
+        single?: boolean | undefined;
+        stream?: boolean | undefined;
+        decompose?: DecomposeOptions | undefined;
     }
 
     interface DecomposeOptions {
         pk: string;
-        columns?: string[] | AnyObject<string>;
+        columns?: string[] | AnyObject<string> | undefined;
         [foreignTable: string]: DecomposeOptions | any;
     }
 
@@ -161,7 +161,7 @@ declare namespace massive {
         /** The name of the schema owning the table or view. */
         schema: string;
         /** Whether the object is a materialized view (default false). */
-        is_matview?: boolean;
+        is_matview?: boolean | undefined;
     }
 
     class Readable extends Entity {

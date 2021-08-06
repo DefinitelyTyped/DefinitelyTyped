@@ -30,7 +30,7 @@ import {
 
 <FormError field="" />;
 
-const CustomInput: React.SFC<React.HTMLAttributes<HTMLInputElement> & {field?: string}> =
+const CustomInput: React.SFC<React.HTMLAttributes<HTMLInputElement> & {field?: string | undefined}> =
         ({field, ...rest}) => {
                 return (
                         <FormInput field={field}>

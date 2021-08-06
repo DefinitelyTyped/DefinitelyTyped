@@ -1,7 +1,8 @@
-// Type definitions for @wordpress/blocks 6.4
+// Type definitions for @wordpress/blocks 9.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
+//                 Dennis Snell <https://github.com/dmsnell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -27,9 +28,9 @@ export interface BlockEditProps<T extends Record<string, any>> extends BlockSave
 }
 
 export interface BlockIconNormalized {
-    background?: string;
-    foreground?: string;
-    shadowColor?: string;
+    background?: string | undefined;
+    foreground?: string | undefined;
+    shadowColor?: string | undefined;
     src: Dashicon.Icon | ReactElement | ComponentType;
 }
 
@@ -42,7 +43,7 @@ export interface BlockSaveProps<T extends Record<string, any>> {
 export interface BlockStyle {
     readonly name: string;
     readonly label: string;
-    readonly isDefault?: boolean;
+    readonly isDefault?: boolean | undefined;
 }
 
 export interface Block<T extends Record<string, any> = {}> {
@@ -59,16 +60,16 @@ export interface Block<T extends Record<string, any> = {}> {
     /**
      * Array of deprecation handlers for the block.
      */
-    readonly deprecated?: ReadonlyArray<BlockDeprecation<T>>;
+    readonly deprecated?: ReadonlyArray<BlockDeprecation<T>> | undefined;
     /**
      * This is a short description for your block, which can be translated
      * with our translation functions.
      */
-    readonly description?: string;
+    readonly description?: string | undefined;
     /**
      * Component to render in the editor.
      */
-    readonly edit?: ComponentType<BlockEditProps<T>>;
+    readonly edit?: ComponentType<BlockEditProps<T>> | undefined;
     /**
      * Icon for the block.
      */
@@ -76,12 +77,12 @@ export interface Block<T extends Record<string, any> = {}> {
     /**
      * Searchable keywords for discovery.
      */
-    readonly keywords?: readonly string[];
+    readonly keywords?: readonly string[] | undefined;
     /**
      * Setting `parent` lets a block require that it is only available when
      * nested within the specified blocks.
      */
-    readonly parent?: readonly string[];
+    readonly parent?: readonly string[] | undefined;
     /**
      * This is set internally when registering the type.
      */
@@ -95,11 +96,11 @@ export interface Block<T extends Record<string, any> = {}> {
      *
      * @see `https://wordpress.org/gutenberg/handbook/extensibility/extending-blocks/#block-style-variations`
      */
-    readonly styles?: readonly BlockStyle[];
+    readonly styles?: readonly BlockStyle[] | undefined;
     /**
      * Optional block extended support features.
      */
-    readonly supports?: BlockSupports;
+    readonly supports?: BlockSupports | undefined;
     /**
      * This is the display title for your block, which can be translated
      * with our translation functions.
@@ -112,12 +113,12 @@ export interface Block<T extends Record<string, any> = {}> {
         /**
          * Transforms from another block type to this block type.
          */
-        readonly from?: ReadonlyArray<Transform<T>>;
+        readonly from?: ReadonlyArray<Transform<T>> | undefined;
         /**
          * Transforms from this block type to another block type.
          */
-        readonly to?: readonly Transform[];
-    };
+        readonly to?: readonly Transform[] | undefined;
+    } | undefined;
     /**
      * Sets attributes on the topmost parent element of the current block.
      */
@@ -132,7 +133,7 @@ export interface Block<T extends Record<string, any> = {}> {
 
 export type BlockConfiguration<T extends Record<string, any> = {}> = Partial<Omit<Block<T>, 'icon'>> &
     Pick<Block<T>, 'attributes' | 'category' | 'title'> & {
-        icon?: BlockIcon;
+        icon?: BlockIcon | undefined;
     };
 
 export interface BlockInstance<T extends Record<string, any> = { [k: string]: any }> {
@@ -159,7 +160,7 @@ export interface BlockInstance<T extends Record<string, any> = { [k: string]: an
     /**
      * The parsed HTML content of the block.
      */
-    readonly originalContent?: string;
+    readonly originalContent?: string | undefined;
 }
 
 export interface BlockDeprecation<T extends Record<string, any>>
@@ -192,13 +193,13 @@ export interface BlockSupports {
      *
      * @defaultValue false
      */
-    readonly align?: boolean | readonly BlockAlignment[];
+    readonly align?: boolean | readonly BlockAlignment[] | undefined;
     /**
      * Enable wide alignment (depends on `align`).
      *
      * @defaultValue true
      */
-    readonly alignWide?: boolean;
+    readonly alignWide?: boolean | undefined;
     /**
      * Anchors let you link directly to a specific block on a page. This
      * property adds a field to define an id for the block and a button to
@@ -206,14 +207,14 @@ export interface BlockSupports {
      *
      * @defaultValue false
      */
-    readonly anchor?: boolean;
+    readonly anchor?: boolean | undefined;
     /**
      * This property adds a field to define a custom className for the
      * block's wrapper.
      *
      * @defaultValue true
      */
-    readonly customClassName?: boolean;
+    readonly customClassName?: boolean | undefined;
     /**
      * By default, Gutenberg adds a class with the form
      * `.wp-block-your-block-name` to the root element of your saved
@@ -221,14 +222,14 @@ export interface BlockSupports {
      *
      * @defaultValue true
      */
-    readonly className?: boolean;
+    readonly className?: boolean | undefined;
     /**
      * By default, Gutenberg will allow a block's markup to be edited
      * individually. To disable this behavior, set `html` to `false`
      *
      * @defaultValue true
      */
-    readonly html?: boolean;
+    readonly html?: boolean | undefined;
     /**
      * By default, all blocks will appear in the Gutenberg inserter. To
      * hide a block so that it can only be inserted programmatically, set
@@ -236,19 +237,19 @@ export interface BlockSupports {
      *
      * @defaultValue true
      */
-    readonly inserter?: boolean;
+    readonly inserter?: boolean | undefined;
     /**
      * A non-multiple block can be inserted into each post, one time only.
      *
      * @defaultValue true
      */
-    readonly multiple?: boolean;
+    readonly multiple?: boolean | undefined;
     /**
      * By default all blocks can be converted to a reusable block.
      *
      * @defaultValue true
      */
-    readonly reusable?: boolean;
+    readonly reusable?: boolean | undefined;
 }
 
 //
@@ -259,40 +260,40 @@ export namespace AttributeSource {
     type Attribute = {
         source: 'attribute';
         attribute: string;
-        selector?: string;
+        selector?: string | undefined;
     } & (
         | {
               type: 'boolean';
-              default?: boolean;
+              default?: boolean | undefined;
           }
         | {
               type: 'number';
-              default?: number;
+              default?: number | undefined;
           }
         | {
               type: 'string';
-              default?: string;
+              default?: string | undefined;
           });
 
     interface Children {
         source: 'children';
         type: 'array';
-        selector?: string;
+        selector?: string | undefined;
     }
 
     interface HTML {
         source: 'html';
         type: 'string';
-        multiline?: 'li' | 'p';
-        selector?: string;
-        default?: string;
+        multiline?: 'li' | 'p' | undefined;
+        selector?: string | undefined;
+        default?: string | undefined;
     }
 
     interface Meta {
         source: 'meta';
         type: 'string';
         meta: string;
-        default?: string;
+        default?: string | undefined;
     }
 
     interface Query<T> {
@@ -302,35 +303,44 @@ export namespace AttributeSource {
         query: {
             [k in keyof T]: BlockAttribute<T[k] extends Array<infer U> ? U : T[k]>;
         };
-        default?: any[];
+        default?: any[] | undefined;
     }
 
     interface Text {
         source: 'text';
         type: 'string';
-        selector?: string;
-        default?: string;
+        selector?: string | undefined;
+        default?: string | undefined;
     }
 
     type None = {
-        source?: never;
+        source?: never | undefined;
     } & (
         | {
               type: 'array';
-              default?: any[];
+              default?: any[] | undefined;
+          }
+        | {
+              type: 'object';
+              default?: object | undefined;
           }
         | {
               type: 'boolean';
-              default?: boolean;
+              default?: boolean | undefined;
           }
         | {
               type: 'number';
-              default?: number;
+              default?: number | undefined;
           }
         | {
               type: 'string';
-              default?: string;
-          });
+              default?: string | undefined;
+          })
+        | 'array'
+        | 'object'
+        | 'boolean'
+        | 'number'
+        | 'string';
 }
 
 export type BlockAttribute<T> =
@@ -348,60 +358,60 @@ export type BlockAttribute<T> =
 
 export type TransformRawSchema = {
     [k in keyof HTMLElementTagNameMap | '#text']?: {
-        attributes?: string[];
-        require?: Array<keyof HTMLElementTagNameMap>;
-        classes?: Array<string | RegExp>;
-        children?: TransformRawSchema;
+        attributes?: string[] | undefined;
+        require?: Array<keyof HTMLElementTagNameMap> | undefined;
+        classes?: Array<string | RegExp> | undefined;
+        children?: TransformRawSchema | undefined;
     };
 };
 
 export interface TransformBlock<T extends Record<string, any>> {
     type: 'block';
-    priority?: number;
+    priority?: number | undefined;
     blocks: string[];
     isMatch?(attributes: T): boolean;
-    isMultiBlock?: boolean;
+    isMultiBlock?: boolean | undefined;
     transform(attributes: T): BlockInstance<Partial<T>>;
 }
 
 export interface TransformEnter<T extends Record<string, any>> {
     type: 'enter';
-    priority?: number;
+    priority?: number | undefined;
     regExp: RegExp;
     transform(): BlockInstance<Partial<T>>;
 }
 
 export interface TransformFiles<T extends Record<string, any>> {
     type: 'files';
-    priority?: number;
+    priority?: number | undefined;
     isMatch?(files: FileList): boolean;
     transform(files: FileList, onChange?: (id: string, attrs: T) => void): BlockInstance<Partial<T>>;
 }
 
 export interface TransformPrefix<T extends Record<string, any>> {
     type: 'prefix';
-    priority?: number;
+    priority?: number | undefined;
     prefix: string;
     transform(content: string): BlockInstance<Partial<T>>;
 }
 
 export interface TransformRaw<T extends Record<string, any>> {
     type: 'raw';
-    priority?: number;
+    priority?: number | undefined;
     /**
      * Comma-separated list of selectors, no spaces.
      *
      * @example 'p,div,h1,.css-class,#id'
      */
-    selector?: string;
-    schema?: TransformRawSchema;
+    selector?: string | undefined;
+    schema?: TransformRawSchema | undefined;
     isMatch?(node: Node): boolean;
     transform?(node: Node): BlockInstance<Partial<T>> | void;
 }
 
 export interface TransformShortcode<T extends Record<string, any>> {
     type: 'shortcode';
-    priority?: number;
+    priority?: number | undefined;
     tag: string;
     attributes?: any; // TODO: add stronger types here.
 }

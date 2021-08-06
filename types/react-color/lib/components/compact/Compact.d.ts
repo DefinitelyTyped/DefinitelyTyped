@@ -9,8 +9,8 @@ export interface CompactPickerStylesProps {
 }
 
 export interface CompactPickerProps extends ColorPickerProps<CompactPicker> {
-    colors?: string[];
-    styles?: Partial<Classes<CompactPickerStylesProps>>;
+    colors?: string[] | undefined;
+    styles?: Partial<Classes<CompactPickerStylesProps>> | undefined;
     onSwatchHover?(color: ColorResult, event: MouseEvent): void;
 }
 

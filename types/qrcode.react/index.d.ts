@@ -11,25 +11,25 @@
 declare namespace qrcode {
     interface ImageSettings {
         src: string;
-        x?: number;
-        y?: number;
-        height?: number;
-        width?: number;
-        excavate?: boolean;
+        x?: number | undefined;
+        y?: number | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
+        excavate?: boolean | undefined;
     }
 
     interface BaseQRCodeProps {
         value: string;
-        size?: number;
-        includeMargin?: boolean;
-        bgColor?: string;
-        fgColor?: string;
-        level?: "L"|"M"|"Q"|"H";
-        imageSettings?: ImageSettings;
+        size?: number | undefined;
+        includeMargin?: boolean | undefined;
+        bgColor?: string | undefined;
+        fgColor?: string | undefined;
+        level?: "L"|"M"|"Q"|"H" | undefined;
+        imageSettings?: ImageSettings | undefined;
     }
 
     type CanvasQRCodeProps = BaseQRCodeProps & {
-        renderAs?: "canvas"
+        renderAs?: "canvas" | undefined
     } & React.CanvasHTMLAttributes<HTMLCanvasElement>;
 
     type SvgQRCodeProps = BaseQRCodeProps & {

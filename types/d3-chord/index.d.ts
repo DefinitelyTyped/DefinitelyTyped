@@ -129,59 +129,33 @@ export interface ChordLayout {
      */
     sortGroups(): ((a: number, b: number) => number) | null;
     /**
-     * Removes the current group comparator and returns this chord layout.
-     *
-     * @param compare Use null to remove the current comparator function, if any.
+     * Sets the group comparator to the specified function or null and returns this chord layout.
+     * If the group comparator is non-null, it is used to sort the groups by their total outflow.
+     * See also d3.ascending and d3.descending.
      */
-    sortGroups(compare: null): this;
-    /**
-     * Sets the group comparator to the specified function and returns this chord layout.
-     *
-     * If the group comparator is non-null, it is used to sort the groups by their total outflow. See also d3.ascending and d3.descending.
-     *
-     * @param compare A comparator function, e.g. d3.ascending or d3.descending.
-     */
-    sortGroups(compare: (a: number, b: number) => number): this;
+    sortGroups(compare: null | ((a: number, b: number) => number)): this;
 
     /**
      * Returns the current subgroup comparator, which defaults to null.
      */
     sortSubgroups(): ((a: number, b: number) => number) | null;
     /**
-     * Removes the current subgroup comparator and returns this chord layout.
-     *
-     * @param compare Use null to remove the current comparator function, if any.
+     * Sets the subgroup comparator to the specified function or null and returns this chord layout.
+     * If the subgroup comparator is non-null, it is used to sort the subgroups corresponding to matrix[i][0 … n - 1] for a given group i by their total outflow.
+     * See also d3.ascending and d3.descending.
      */
-    sortSubgroups(compare: null): this;
-    /**
-     * Sets the subgroup comparator to the specified function and returns this chord layout.
-     *
-     * If the subgroup comparator is non-null, it is used to sort the subgroups corresponding to matrix[i][0 … n - 1]
-     * for a given group i by their total outflow. See also d3.ascending and d3.descending.
-     *
-     * @param compare A comparator function, e.g. d3.ascending or d3.descending.
-     */
-    sortSubgroups(compare: (a: number, b: number) => number): this;
+    sortSubgroups(compare: null | ((a: number, b: number) => number)): this;
 
     /**
      * Returns the current chord comparator, which defaults to null.
      */
     sortChords(): ((a: number, b: number) => number) | null;
     /**
-     * Removes the current chord comparator and returns this chord layout.
-     *
-     * @param compare Use null to remove the current comparator function, if any.
-     */
-    sortChords(compare: null): this;
-    /**
-     * Sets the chord comparator to the specified function and returns this chord layout.
-     *
+     * Sets the chord comparator to the specified function or null and returns this chord layout.
      * If the chord comparator is non-null, it is used to sort the chords by their combined flow; this only affects the z-order of the chords.
      * See also d3.ascending and d3.descending.
-     *
-     * @param compare A comparator function, e.g. d3.ascending or d3.descending.
      */
-    sortChords(compare: (a: number, b: number) => number): this;
+    sortChords(compare: null | ((a: number, b: number) => number)): this;
 }
 
 /**
@@ -429,21 +403,12 @@ export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
      */
     context(): CanvasRenderingContext2D | null;
     /**
-     * Sets the rendering context and returns this ribbon generator.
-     *
+     * Sets the context and returns this ribbon generator.
      * If the context is not null, then the generated ribbon is rendered to this context as a sequence of path method calls.
-     *
-     * @param context The rendering context.
+     * Otherwise, a path data string representing the generated ribbon is returned.
+     * See also d3-path.
      */
-    context(context: CanvasRenderingContext2D): this;
-    /**
-     * Sets the rendering context to null and returns this ribbon generator.
-     *
-     * A path data string representing the generated ribbon will be returned when the generator is invoked with data. See also d3-path.
-     *
-     * @param context null, to remove rendering context.
-     */
-    context(context: null): this;
+    context(context: CanvasRenderingContext2D | null): this;
 }
 
 export interface RibbonArrowGenerator<This, RibbonDatum, RibbonSubgroupDatum> extends RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
@@ -467,6 +432,7 @@ export function ribbon(): RibbonGenerator<any, Ribbon, RibbonSubgroup>;
  *
  * The second generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function ribbon<Datum, SubgroupDatum>(): RibbonGenerator<any, Datum, SubgroupDatum>;
 /**
  * Creates a new ribbon generator with the default settings.
@@ -479,6 +445,7 @@ export function ribbon<Datum, SubgroupDatum>(): RibbonGenerator<any, Datum, Subg
  *
  * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function ribbon<This, Datum, SubgroupDatum>(): RibbonGenerator<This, Datum, SubgroupDatum>;
 
 /**
@@ -494,6 +461,7 @@ export function ribbonArrow(): RibbonArrowGenerator<any, Ribbon, RibbonSubgroup>
  *
  * The second generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function ribbonArrow<Datum, SubgroupDatum>(): RibbonArrowGenerator<any, Datum, SubgroupDatum>;
 /**
  * Creates a new arrow ribbon generator with the default settings.
@@ -506,4 +474,5 @@ export function ribbonArrow<Datum, SubgroupDatum>(): RibbonArrowGenerator<any, D
  *
  * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function ribbonArrow<This, Datum, SubgroupDatum>(): RibbonArrowGenerator<This, Datum, SubgroupDatum>;

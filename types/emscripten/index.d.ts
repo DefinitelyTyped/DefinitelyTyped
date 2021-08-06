@@ -36,7 +36,7 @@ declare namespace Emscripten {
     }>;
 
     interface CCallOpts {
-        async?: boolean;
+        async?: boolean | undefined;
     }
 }
 
@@ -205,10 +205,10 @@ declare namespace FS {
         flags: number,
     ): any;
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
-    function readFile(path: string, opts: { encoding: 'binary'; flags?: string }): Uint8Array;
-    function readFile(path: string, opts: { encoding: 'utf8'; flags?: string }): string;
-    function readFile(path: string, opts?: { flags?: string }): Uint8Array;
-    function writeFile(path: string, data: string | ArrayBufferView, opts?: { flags?: string }): void;
+    function readFile(path: string, opts: { encoding: 'binary'; flags?: string | undefined }): Uint8Array;
+    function readFile(path: string, opts: { encoding: 'utf8'; flags?: string | undefined }): string;
+    function readFile(path: string, opts?: { flags?: string | undefined }): Uint8Array;
+    function writeFile(path: string, data: string | ArrayBufferView, opts?: { flags?: string | undefined }): void;
 
     //
     // module-level FS code

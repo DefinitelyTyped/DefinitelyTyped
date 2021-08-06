@@ -16,10 +16,10 @@ declare module 'net' {
     }
 
     interface SocketConstructorOpts {
-        fd?: number;
-        allowHalfOpen?: boolean;
-        readable?: boolean;
-        writable?: boolean;
+        fd?: number | undefined;
+        allowHalfOpen?: boolean | undefined;
+        readable?: boolean | undefined;
+        writable?: boolean | undefined;
     }
 
     interface OnReadOpts {
@@ -38,17 +38,17 @@ declare module 'net' {
          * Note: this will cause the streaming functionality to not provide any data, however events like 'error', 'end', and 'close' will
          * still be emitted as normal and methods like pause() and resume() will also behave as expected.
          */
-        onread?: OnReadOpts;
+        onread?: OnReadOpts | undefined;
     }
 
     interface TcpSocketConnectOpts extends ConnectOpts {
         port: number;
-        host?: string;
-        localAddress?: string;
-        localPort?: number;
-        hints?: number;
-        family?: number;
-        lookup?: LookupFunction;
+        host?: string | undefined;
+        localAddress?: string | undefined;
+        localPort?: number | undefined;
+        hints?: number | undefined;
+        family?: number | undefined;
+        lookup?: LookupFunction | undefined;
     }
 
     interface IpcSocketConnectOpts extends ConnectOpts {
@@ -87,9 +87,9 @@ declare module 'net' {
         readonly destroyed: boolean;
         readonly localAddress: string;
         readonly localPort: number;
-        readonly remoteAddress?: string;
-        readonly remoteFamily?: string;
-        readonly remotePort?: number;
+        readonly remoteAddress?: string | undefined;
+        readonly remoteFamily?: string | undefined;
+        readonly remotePort?: number | undefined;
 
         // Extended base methods
         end(cb?: () => void): void;
@@ -115,6 +115,7 @@ declare module 'net' {
         addListener(event: "end", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        addListener(event: "ready", listener: () => void): this;
         addListener(event: "timeout", listener: () => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
@@ -125,6 +126,7 @@ declare module 'net' {
         emit(event: "end"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "lookup", err: Error, address: string, family: string | number, host: string): boolean;
+        emit(event: "ready"): boolean;
         emit(event: "timeout"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
@@ -135,6 +137,7 @@ declare module 'net' {
         on(event: "end", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        on(event: "ready", listener: () => void): this;
         on(event: "timeout", listener: () => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
@@ -145,6 +148,7 @@ declare module 'net' {
         once(event: "end", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        once(event: "ready", listener: () => void): this;
         once(event: "timeout", listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
@@ -155,6 +159,7 @@ declare module 'net' {
         prependListener(event: "end", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        prependListener(event: "ready", listener: () => void): this;
         prependListener(event: "timeout", listener: () => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
@@ -165,21 +170,22 @@ declare module 'net' {
         prependOnceListener(event: "end", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        prependOnceListener(event: "ready", listener: () => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
 
     interface ListenOptions {
-        port?: number;
-        host?: string;
-        backlog?: number;
-        path?: string;
-        exclusive?: boolean;
-        readableAll?: boolean;
-        writableAll?: boolean;
+        port?: number | undefined;
+        host?: string | undefined;
+        backlog?: number | undefined;
+        path?: string | undefined;
+        exclusive?: boolean | undefined;
+        readableAll?: boolean | undefined;
+        writableAll?: boolean | undefined;
         /**
          * @default false
          */
-        ipv6Only?: boolean;
+        ipv6Only?: boolean | undefined;
     }
 
     interface ServerOpts {
@@ -187,13 +193,13 @@ declare module 'net' {
          * Indicates whether half-opened TCP connections are allowed.
          * @default false
          */
-        allowHalfOpen?: boolean;
+        allowHalfOpen?: boolean | undefined;
 
         /**
          * Indicates whether the socket should be paused on incoming connections.
          * @default false
          */
-        pauseOnConnect?: boolean;
+        pauseOnConnect?: boolean | undefined;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js
@@ -264,11 +270,11 @@ declare module 'net' {
     }
 
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;

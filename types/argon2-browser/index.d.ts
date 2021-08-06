@@ -18,14 +18,14 @@ export function unloadRuntime(): void;
 export interface Argon2BrowserHashOptions {
   pass: string | Uint8Array;
   salt: string | Uint8Array;
-  time?: number;
-  mem?: number;
-  hashLen?: number;
-  parallelism?: number;
-  type?: ArgonType;
-  distPath?: string;
-  secret?: Uint8Array;
-  ad?: Uint8Array;
+  time?: number | undefined;
+  mem?: number | undefined;
+  hashLen?: number | undefined;
+  parallelism?: number | undefined;
+  type?: ArgonType | undefined;
+  distPath?: string | undefined;
+  secret?: Uint8Array | undefined;
+  ad?: Uint8Array | undefined;
 }
 
 export interface Argon2BrowserHashResult {
@@ -40,9 +40,9 @@ export function verify(options: Argon2VerifyOptions): Promise<undefined>;
 export interface Argon2VerifyOptions {
   pass: string;
   encoded: string | Uint8Array;
-  type?: ArgonType;
-  secret?: Uint8Array;
-  ad?: Uint8Array;
+  type?: ArgonType | undefined;
+  secret?: Uint8Array | undefined;
+  ad?: Uint8Array | undefined;
 }
 
 export interface Argon2Error {

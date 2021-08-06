@@ -61,12 +61,12 @@ export interface PatchData {
  * You can get access to original method using `originalMethod` parameter if you want to call it, but you do not have to. Can't be combined with `before` and `after`.
  */
 export interface MonkeyPatchOptions {
-    once?: boolean;
-    silent?: boolean;
-    displayName?: string;
-    before?: PatchFunction;
-    after?: PatchFunction;
-    instead?: PatchFunction;
+    once?: boolean | undefined;
+    silent?: boolean | undefined;
+    displayName?: string | undefined;
+    before?: PatchFunction | undefined;
+    after?: PatchFunction | undefined;
+    instead?: PatchFunction | undefined;
 }
 
 /**
@@ -76,9 +76,9 @@ export interface MonkeyPatchOptions {
  * @param timeout Adjusts the time (in ms) the toast should be shown for before disappearing automatically. Default: 3000
  */
 export interface ToastOptions {
-    type?: string;
-    icon?: boolean;
-    timeout?: number;
+    type?: string | undefined;
+    icon?: boolean | undefined;
+    timeout?: number | undefined;
 }
 
 /**
@@ -90,11 +90,11 @@ export interface ToastOptions {
  * @param options.onCancel Callback to occur when clicking the cancel button.
  */
 export interface ConfirmationModalOptions {
-    danger?: boolean;
-    confirmText?: string;
-    cancelText?: string;
-    onConfirm?: () => any;
-    onCancel?: () => any;
+    danger?: boolean | undefined;
+    confirmText?: string | undefined;
+    cancelText?: string | undefined;
+    onConfirm?: (() => any) | undefined;
+    onCancel?: (() => any) | undefined;
 }
 
 /**
