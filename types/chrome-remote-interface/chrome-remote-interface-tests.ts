@@ -1,4 +1,9 @@
 import CDP = require('chrome-remote-interface');
+import Protocol from 'devtools-protocol';
+
+function assertType<T>(value: T): T {
+    return value;
+}
 
 (async () => {
     let client: CDP.Client | undefined;
@@ -41,6 +46,13 @@ import CDP = require('chrome-remote-interface');
                 await CDP.Close({ ...cdpPort, id: target.id });
             }
         }
+
+        assertType<Promise<void>>(client.send('Network.enable'));
+        assertType<Promise<Protocol.Page.NavigateResponse>>(client.send('Page.navigate', {url: 'https://github.com'}));
+        assertType<Promise<Protocol.Page.NavigateResponse>>(client.send('Page.navigate', {url: 'https://github.com'}, 'sessionId'));
+        client.send('Page.navigate', (msg) => {});
+        client.send('Page.navigate', {url: 'https://github.com'}, (msg) => {});
+        client.send('Page.navigate', {url: 'https://github.com'}, 'sessionId', (msg) => {});
     } finally {
         if (client) {
             await client.close();

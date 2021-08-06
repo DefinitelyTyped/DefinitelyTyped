@@ -149,6 +149,14 @@ declare namespace CDP {
         on<T extends keyof ProtocolMappingApi.Events>(event: T, callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void): void;
         // '<domain>.<method>.<sessionId>' i.e. Network.requestWillBeSent.abc123
         on(event: string, callback: (params: object, sessionId?: string) => void): void;
+        // client.send(method, [params], [sessionId], [callback])
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, callback: (returnMessage: ProtocolMappingApi.Commands[T]['returnType']) => void): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0],
+            callback: (returnMessage: ProtocolMappingApi.Commands[T]['returnType']) => void): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId: string,
+            callback: (returnMessage: ProtocolMappingApi.Commands[T]['returnType']) => void): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params?: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId?: string):
+            Promise<ProtocolMappingApi.Commands[T]['returnType']>;
 
         // stable domains
         Browser: ProtocolProxyApi.BrowserApi;
