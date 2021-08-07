@@ -9,6 +9,17 @@ import Teams = require('./Resources/Teams');
 import Webhooks = require('./Resources/Webhooks');
 import Workers = require('./Resources/Workers');
 
+interface BottleneckOptions {
+  /** default 20 */
+  LIMITER_RESERVOIR?: number,
+  /** default 10000 */
+  LIMITER_WAIT_UPON_DEPLETION?: number,
+  /** default 1 */
+  LIMITER_MAX_CONCURRENT?: number,
+  /** default 50 */
+  LIMITER_MIN_TIME?: number,
+}
+
 declare class Onfleet {
   apiKey: string;
   api: {
@@ -21,9 +32,10 @@ declare class Onfleet {
     }
   };
 
-  constructor(api_key: string);
+  constructor(api_key: string, timeout?: number, bottleneckOptions?: BottleneckOptions);
   verifyKey(): Promise<boolean>;
 
+  administrators: Administrators;
   admins: Administrators;
   containers: Containers;
   destinations: Destinations;
