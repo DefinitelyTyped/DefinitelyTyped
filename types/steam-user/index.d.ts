@@ -7,17 +7,19 @@
 
 /// <reference types="node" />
 
-type SteamID = import('steamid');
-type ByteBuffer = import('bytebuffer');
+import type SteamID = require('steamid');
+import type ByteBuffer = require('bytebuffer');
 import EventEmitter = require('events');
-import SteamChatRoomClient = require('./SteamChatRoomClient');
+import SteamChatRoomClient = require('./components/chatroom');
 
 export = SteamUser;
 
 declare class SteamUser extends EventEmitter {
     constructor(options?: Options);
 
-    // formatCurrency
+    /**
+     * Formats a currency value and returns a string
+     */
     static formatCurrency(amount: number, currency: SteamUser.ECurrencyCode): string;
 
     // PROPERTIES
@@ -172,7 +174,6 @@ declare class SteamUser extends EventEmitter {
      */
     setSentry(sentry: Buffer | null): void;
 
-    // logOn
     logOn(details?: LogOnDetailsAnon | LogOnDetailsNamePass | LogOnDetailsNameKey | LogOnDetailsNameToken): void;
 
     /**
@@ -180,13 +181,10 @@ declare class SteamUser extends EventEmitter {
      */
     logOff(): void;
 
-    // relog
     relog(): void;
 
-    // webLogOn
     webLogOn(): void;
 
-    // requestValidationEmail
     requestValidationEmail(callback?: (err: Error | null) => void): Promise<void>;
 
     /**
@@ -203,7 +201,6 @@ declare class SteamUser extends EventEmitter {
      */
     finalizeTwoFactor(secret: Buffer, activationCode: string, callback?: (err: Error | null) => void): Promise<void>;
 
-    // getSteamGuardDetails
     getSteamGuardDetails(callback?: (
         err: Error | null,
         canTrade: boolean,
@@ -216,7 +213,6 @@ declare class SteamUser extends EventEmitter {
         ) => void,
     ): Promise<SteamGuardDetails>;
 
-    // getCredentialChangeTimes
     getCredentialChangeTimes(callback?: (
         err: Error | null,
         timestampLastPasswordChange: Date | null,
@@ -225,7 +221,6 @@ declare class SteamUser extends EventEmitter {
         ) => void,
     ): Promise<CredentialChangeTimes>;
 
-    // getAuthSecret
     getAuthSecret(callback?: (err: Error | null, secretID: number, key: Buffer) => void): Promise<AuthSecret>;
 
     /**
@@ -648,10 +643,8 @@ declare class SteamUser extends EventEmitter {
      */
     removeFriendFromGroup(groupID: any, usersteamID: SteamID | string, callback?: (err: Error | null) => void): Promise<void>;
 
-    // trade
     trade(steamID: SteamID | string): void;
 
-    // cancelTradeRequest
     cancelTradeRequest(steamID: SteamID | string): void;
 
     /**
@@ -743,12 +736,14 @@ declare class SteamUser extends EventEmitter {
      * @param  [callback]
      */
     addAuthorizedBorrowers(borrowersSteamID: Array<SteamID | string> | SteamID | string, callback?: (err: Error | null) => void): Promise<void>;
+
     /**
      * Remove borrowers.
      * @param borrowersSteamID
      * @param [callback]
      */
     removeAuthorizedBorrowers(borrowerssteamID: Array<SteamID | string>, callback?: (err: Error | null) => void): Promise<void>;
+
     /**
      * Retrieve a list of Steam accounts authorized to borrow your library.
      * @param [options]
@@ -759,6 +754,7 @@ declare class SteamUser extends EventEmitter {
         response: { borrowers: Borrowers[] },
         ) => void
     ): Promise< { borrowers: Borrowers[] } >;
+
     /**
      * Get a list of devices we have authorized.
      * @param [options]
@@ -769,6 +765,7 @@ declare class SteamUser extends EventEmitter {
         response: { devices: Device[] }
         ) => void
     ): Promise< { devices: Device[] } >;
+
     /**
      * Authorize local device for library sharing.
      * @param deviceName
@@ -777,12 +774,14 @@ declare class SteamUser extends EventEmitter {
     authorizeLocalSharingDevice(deviceName: string, callback?: (
         err: Error | null, response: { deviceToken: string }) => void
     ): Promise< { deviceToken: string } >;
+
     /**
      * Deauthorize a device from family sharing.
      * @param deviceToken
      * @param [callback]
      */
     deauthorizeSharingDevice(deviceToken: string | { deviceToken: string }, callback?: (err: Error | null) => void): Promise<void>;
+
     /**
      * Use local device authorizations to allow usage of shared licenses.
      * If successful, `licenses` will be emitted with the newly-acquired licenses.
@@ -790,6 +789,7 @@ declare class SteamUser extends EventEmitter {
      * @param deviceToken
      */
     activateSharingAuthorization(ownerSteamID: SteamID | string, deviceToken: string | { deviceToken: string }): void;
+
     /**
      * Deactivate family sharing authorizations. Removes shared licenses.
      */

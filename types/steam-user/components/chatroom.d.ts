@@ -1,5 +1,5 @@
 type SteamID = import('steamid');
-import SteamUser = require('./');
+import SteamUser = require('..');
 import EventEmitter = require('events');
 
 export = SteamChatRoomClient;
