@@ -1,7 +1,16 @@
 import Onfleet = require('@onfleet/node-onfleet');
 
 const onfleet = new Onfleet('test-api-key');
-const isValid = onfleet.verifyKey().then().catch();
+
+onfleet.verifyKey().then().catch();
+
+const testAddress = {
+  city: 'Toronto',
+  country: 'Canada',
+  name: 'Test Destination',
+  number: '100',
+  street: 'Test Street Blvd.',
+};
 
 async function testTasks(onfleet: Onfleet) {
   // test tasks.get
@@ -22,13 +31,7 @@ async function testTasks(onfleet: Onfleet) {
       '<recipient-id-2>',
     ],
     destination: {
-      address: {
-        city: 'Toronto',
-        country: 'Canada',
-        name: 'Test Destination',
-        number: '100',
-        street: 'Test Street Blvd.',
-      },
+      address: testAddress,
     },
     container: {
       type: 'TEAM',
@@ -84,22 +87,30 @@ async function testTasks(onfleet: Onfleet) {
 
   // test tasks.forceComplete
   await onfleet.tasks.forceComplete(dummyTask.id);
+
+  // test tasks.matchMetadata
+  await onfleet.tasks.matchMetadata([{
+    name: 'test',
+    type: 'boolean',
+    value: 'test',
+  }]);
 }
 
 async function testDestination() {
   // test destination.create
   const testDestination = await onfleet.destinations.create({
-    address: {
-      city: 'Toronto',
-      country: 'Canada',
-      name: 'Test Destination',
-      number: '100',
-      street: 'Test Street Blvd.',
-    },
+    address: testAddress,
   });
 
   // test destination.get
   await onfleet.destinations.get(testDestination.id);
+
+  // test destination.matchMetadata
+  await onfleet.destinations.matchMetadata([{
+    name: 'test',
+    type: 'boolean',
+    value: 'test',
+  }]);
 }
 
 async function testRecipient() {
@@ -118,4 +129,50 @@ async function testRecipient() {
 
   // test recipient.update
   await onfleet.recipients.update(testRecipient.id, { notes: 'Updated notes' });
+
+  // test recipient.matchMetadata
+  await onfleet.recipients.matchMetadata([{
+    name: 'test',
+    type: 'boolean',
+    value: 'test',
+  }]);
+}
+
+async function testHubs() {
+  // test hubs.create
+  await onfleet.hubs.create({
+    address: testAddress,
+    name: 'test-hub',
+    team: [],
+  });
+}
+
+async function testTeams() {
+  // test teams.autoDispatch
+  await onfleet.teams.autoDispatch('team-id', {
+    maxAllowedDelay: 10,
+    maxTasksPerRoute: 5,
+    routeEnd: 'teams://DEFAULT',
+    scheduleTimeWindow: [0, 6],
+    serviceTime: 2,
+    taskTimeWindow: [0, 4],
+  })
+
+  // test teams.getWorkerEta
+  await onfleet.teams.getWorkerEta('worked-id', {
+    dropoffLocation: '-122.2442512,37.8097414',
+    pickupLocation: '-122.2514556,37.7577242',
+    pickupTime: 1614895847,
+    restrictedVehicleTypes: 'CAR',
+    serviceTime: 300,
+  });
+}
+
+async function testWorkers() {
+  // test workers.matchMetadata
+  await onfleet.workers.matchMetadata([{
+    name: 'test',
+    type: 'boolean',
+    value: 'test',
+  }]);
 }
