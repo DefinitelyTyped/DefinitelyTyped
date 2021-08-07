@@ -67,22 +67,22 @@ declare class SteamUser extends EventEmitter {
     limitations: AccountLimitations | null;
 
     /**
-     * An object containing information about your account's VAC bans. null until vacBans is emitted.
+     * An object containing information about your account's VAC bans. `null` until `vacBans` is emitted.
      */
     vac: { numBans: number; appids: number[] } | null;
 
     /**
-     * An object containing information about your Steam Wallet. null until wallet is emitted.
+     * An object containing information about your Steam Wallet. `null` until `wallet` is emitted.
      */
     wallet: { hasWallet: boolean; currency: SteamUser.ECurrencyCode; balance: number } | null;
 
     /**
-     * An array containing license data for the packages which your Steam account owns. null until licenses is emitted.
+     * An array containing license data for the packages which your Steam account owns. `null` until `licenses` is emitted.
      */
     licenses: Array<Record<string, any>>;
 
     /**
-     * An array containing gifts and guest passes you've received but haven't accepted (to your library or to your inventory) or declined. null until gifts is emitted.
+     * An array containing gifts and guest passes you've received but haven't accepted (to your library or to your inventory) or declined. `null` until `gifts` is emitted.
      */
     gifts: Gift[];
 
