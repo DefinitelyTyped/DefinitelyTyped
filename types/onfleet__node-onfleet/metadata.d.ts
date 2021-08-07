@@ -9,3 +9,10 @@ export interface OnfleetMetadata {
   visibility?: MetadataVisibility[] | undefined;
   value: any;
 }
+
+export interface MatchMetadataResult {
+  id: string;
+  metadata: OnfleetMetadata[],
+}
+
+export type MatchMetadata<T> = (obj: T) => Promise<MatchMetadataResult[]>;
