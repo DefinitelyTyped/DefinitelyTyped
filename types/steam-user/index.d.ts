@@ -158,7 +158,7 @@ declare class SteamUser extends EventEmitter {
      * @param option
      * @param value
      */
-    setOption(option: string, value: any): void;
+    setOption(option: keyof Options, value: any): void;
 
     /**
      * Set one or more configuration options
@@ -173,7 +173,7 @@ declare class SteamUser extends EventEmitter {
     setSentry(sentry: Buffer | null): void;
 
     // logOn
-    logOn(details: LogOnDetails): void;
+    logOn(details?: LogOnDetailsAnon | LogOnDetailsNamePass | LogOnDetailsNameKey | LogOnDetailsNameToken): void;
 
     /**
      * Log off of Steam gracefully.
@@ -252,7 +252,7 @@ declare class SteamUser extends EventEmitter {
      * @param appid
      * @param [callback] - Args (eresult, player count)
      */
-    getPlayerCount(appid: number, callback?: (err: Error | null, playerCount: number) => void): Promise<number>;
+    getPlayerCount(appid: number, callback?: (err: Error | null, playerCount: number) => void): Promise<{ playerCount: number }>;
 
     /**
      * Query the GMS for a list of game server IPs, and their current player counts.
@@ -273,14 +273,14 @@ declare class SteamUser extends EventEmitter {
      * @param ips
      * @param [callback]
      */
-    getServerSteamIDsByIP(ips: string[], callback?: (err: Error | null, servers: Record<string, SteamID>) => void): Promise<Record<string, SteamID>>;
+    getServerSteamIDsByIP(ips: string[], callback?: (err: Error | null, servers: Record<string, SteamID>) => void): Promise<{ servers: Record<string, SteamID> }>;
 
     /**
      * Get the associated IPs for given server SteamIDs.
      * @param steamids
      * @param [callback]
      */
-    getServerIPsBySteamID(steamids: Array<SteamID | string>, callback?: (err: Error | null, servers: Record<string, string>) => void): Promise<Record<string, string>>;
+    getServerIPsBySteamID(steamids: Array<SteamID | string>, callback?: (err: Error | null, servers: Record<string, string>) => void): Promise<{ servers: Record<string, string> }>;
 
     /**
      * Get a list of apps or packages which have changed since a particular changenumber.
@@ -376,7 +376,7 @@ declare class SteamUser extends EventEmitter {
      * @param tagIDs - The IDs of the tags you're interested in
      * @param [callback]
      */
-    getStoreTagNames(language: string, tagIDs: number[], callback?: (err: Error | null, tags: StoreTagNames) => void): Promise<StoreTagNames>;
+    getStoreTagNames(language: string, tagIDs: number[], callback?: (err: Error | null, tags: StoreTagNames) => void): Promise<{ tags: StoreTagNames }>;
 
     /**
      * Get details for some UGC files.
@@ -409,7 +409,7 @@ declare class SteamUser extends EventEmitter {
      * @param steamID - Either a SteamID object of the user to add, or a string which can parse into one.
      * @param [callback] - Optional. Called with `err` and `name` parameters on completion.
      */
-    addFriend(steamID: SteamID | string, callback?: (err: Error | null, personaName: string) => void): Promise<string>;
+    addFriend(steamID: SteamID | string, callback?: (err: Error | null, personaName: string) => void): Promise<{ personaName: string }>;
 
     /**
      * Block all communication with a user.
@@ -423,7 +423,7 @@ declare class SteamUser extends EventEmitter {
      * @param steamID - Either a SteamID object of the user to unblock, or a string which can parse into one.
      * @param [callback] - Optional. Called with an `err` parameter on completion.
      */
-    unblockUser(steamID: SteamID | string, callback?: (err: Error | null) => void): Promise<any>;
+    unblockUser(steamID: SteamID | string, callback?: (err: Error | null) => void): Promise<void>;
 
     /**
      * Create a new quick-invite link that can be used by any Steam user to directly add you as a friend.
@@ -470,7 +470,7 @@ declare class SteamUser extends EventEmitter {
      * @param steamids - An array of SteamID objects or strings which can parse into them.
      * @param [callback] - Optional. Called with `err`, and an object whose keys are 64-bit SteamIDs as strings, and whose values are persona objects.
      */
-    getPersonas(steamids: Array<SteamID | string>, callback?: (err: Error | null, personas: Record<string, any>) => void): Promise<Record<string, any>>; // maybe specify the response further?
+    getPersonas(steamids: Array<SteamID | string>, callback?: (err: Error | null, personas: Record<string, any>) => void): Promise<{ personas: Record<string, any> }>; // maybe specify the response further?
 
     /**
      * Upload some rich presence data to Steam.
@@ -526,7 +526,7 @@ declare class SteamUser extends EventEmitter {
      * Get the list of nicknames you've given to other users.
      * @param [callback]
      */
-    getNicknames(callback?: (err: Error | null, nicknames: Record<string, string>) => void): Promise<Record<string, string>>;
+    getNicknames(callback?: (err: Error | null, nicknames: Record<string, string>) => void): Promise<{ nicknames: Record<string, string> }>;
 
     /**
      * Set a friend's private nickname.
@@ -1064,19 +1064,44 @@ interface QuickInviteLink {
     valid: boolean;
 }
 
-interface LogOnDetails {
+interface LogOnDetailsAnon {
+    password?: string;
+    loginKey?: string;
+    webLogonToken?: string;
+    steamID?: SteamID | string;
+    authCode?: string;
+    twoFactorCode?: string;
+    rememberPassword?: boolean;
+    logonID?: number | string;
+    machineName?: string;
+    clientOS?: SteamUser.EOSType;
+    dontRememberMachine?: boolean;
+}
+
+interface LogOnDetailsNamePass {
     accountName: string;
     password: string;
+    authCode?: string;
+    twoFactorCode?: string;
+    rememberPassword?: boolean;
+    logonID?: number | string;
+    machineName?: string;
+    clientOS?: SteamUser.EOSType;
+    dontRememberMachine?: boolean;
+}
+interface LogOnDetailsNameKey {
+    accountName: string;
     loginKey: string;
+    rememberPassword?: boolean;
+    logonID?: number | string;
+    machineName?: string;
+    clientOS?: SteamUser.EOSType;
+}
+
+interface LogOnDetailsNameToken {
+    accountName: string;
     webLogonToken: string;
     steamID: SteamID | string;
-    authCode: string;
-    twoFactorCode: string;
-    rememberPassword: boolean;
-    logonID: number | string;
-    machineName: string;
-    clientOS: SteamUser.EOSType;
-    dontRememberMachine: boolean;
 }
 
 interface SteamGuardDetails {
