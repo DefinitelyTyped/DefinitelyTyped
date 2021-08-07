@@ -54,6 +54,11 @@ declare namespace Generator {
         [name: string]: any;
 
         /**
+         * The path to the generator.
+         */
+        resolved?: string;
+
+        /**
          * Gets or sets a collection of custom priorities.
          */
         customPriorities?: Priority[] | undefined;
