@@ -2,7 +2,7 @@
 // Project: https://github.com/DoctorMcKay/node-steam-user
 // Definitions by: vanitasboi <https://github.com/vanitasboi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
+// Minimum TypeScript Version: 4.2
 // Enums generated from JS by: https://github.com/vanitasboi/JStoTSenum
 
 /// <reference types="node" />
