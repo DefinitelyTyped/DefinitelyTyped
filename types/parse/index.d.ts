@@ -120,7 +120,7 @@ declare global {
         }
 
         interface ContextOption {
-            context: {[key: string]: any};
+            context?: {[key: string]: any};
         }
 
         interface FullOptions {
