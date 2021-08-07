@@ -263,3 +263,6 @@ generator.renderTemplates(
 generator.addDependencies("yeoman-generator@^5.0.0");
 generator.addDevDependencies("yo@^4.0.0");
 generator.packageJson.merge({ scripts: { test: "mocha" } });
+
+// $ExpectType string | undefined
+generator.options.resolved;
