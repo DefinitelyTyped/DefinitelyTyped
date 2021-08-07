@@ -2,6 +2,7 @@
 // Project: https://github.com/sergioramos/remark-prism#readme
 // Definitions by: Hojun Bun <https://github.com/bunhojun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.0
 
 import { Plugin } from 'unified';
 
