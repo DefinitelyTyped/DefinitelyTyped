@@ -23,11 +23,11 @@ declare namespace Hub {
     /**
      *  A name to identify the Hub.
      */
-    name: string,
+    name: string;
     /**
      * This is the team ID(s) that this Hub will be assigned to.
      */
-    team?: string[],
+    team?: string[];
   }
 }
 
