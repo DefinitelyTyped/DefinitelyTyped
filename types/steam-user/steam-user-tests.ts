@@ -10,12 +10,12 @@ user.on('loggedOn', () => {
     console.log('logged on');
     user.setPersona(SteamUser.EPersonaState.Snooze);
     user.setUIMode(SteamUser.EClientUIMode.Mobile);
-})
+});
 
 user.chat.on('chatMessage', (message) => {
     console.log('Got new message!');
     console.log(message.message_no_bbcode);
-})
+});
 
 user.setOption('autoRelogin', true);
 

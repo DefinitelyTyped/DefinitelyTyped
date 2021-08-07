@@ -470,7 +470,11 @@ declare class SteamUser extends EventEmitter {
      * @param steamids - An array of SteamID objects or strings which can parse into them.
      * @param [callback] - Optional. Called with `err`, and an object whose keys are 64-bit SteamIDs as strings, and whose values are persona objects.
      */
-    getPersonas(steamids: Array<SteamID | string>, callback?: (err: Error | null, personas: Record<string, any>) => void): Promise<{ personas: Record<string, any> }>; // maybe specify the response further?
+    getPersonas(steamids: Array<SteamID | string>, callback?: (
+        err: Error | null,
+        personas: Record<string, any>,
+        ) => void
+    ): Promise<{ personas: Record<string, any> }>; // maybe specify the response further?
 
     /**
      * Upload some rich presence data to Steam.
