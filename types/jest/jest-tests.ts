@@ -246,10 +246,7 @@ describe('', () => {
 
 const customMatcherFactories: jasmine.CustomMatcherFactories = {};
 
-jest.addMatchers(customMatcherFactories)
-    .addMatchers({})
-    .addMatchers(customMatcherFactories)
-    .autoMockOff()
+jest.autoMockOff()
     .autoMockOn()
     .clearAllMocks()
     .clearAllTimers()
@@ -268,7 +265,6 @@ jest.addMatchers(customMatcherFactories)
     .mock('moduleName', jest.fn())
     .mock('moduleName', jest.fn(), {})
     .mock('moduleName', jest.fn(), { virtual: true })
-    .resetModuleRegistry()
     .resetModules()
     .isolateModules(() => {})
     .retryTimes(3)
@@ -276,7 +272,6 @@ jest.addMatchers(customMatcherFactories)
     .runAllTicks()
     .runAllTimers()
     .runOnlyPendingTimers()
-    .runTimersToTime(9001)
     .advanceTimersByTime(9001)
     .setMock('moduleName', {})
     .setMock<{}>('moduleName', {})
@@ -1494,3 +1489,59 @@ test.only.each`
 
 expect('').toHaveProperty('path.to.thing');
 expect('').toHaveProperty('path.to.thing', {});
+
+/* Test function can return a promise */
+
+test(`returns a Promise<boolean>`, () => {
+    return Promise.resolve(true);
+});
+
+test(`returns a Promise<{ isAnObject: boolean }>`, () => {
+    return Promise.resolve({ isAnObject: true });
+});
+
+test(`returns a Promise<any>`, () => {
+    return Promise.resolve('any' as any);
+});
+
+/* Test function can take and call the done callback function */
+
+test(`returns a Promise<boolean>`, (done) => {
+    done();
+});
+
+/* Test function should not return non-promise */
+
+// $ExpectError
+test(`returns a boolean`, () => {
+    return true;
+});
+
+// $ExpectError
+test(`returns a number`, () => {
+    return 3;
+});
+
+// $ExpectError
+test(`returns an object`, () => {
+    return {
+        isAnObject: true
+    };
+});
+
+/* Test function should not return promise and takes done callback function */
+
+// $ExpectError
+test(`returns a Promise<boolean> and takes done`, (done) => {
+    return Promise.resolve(true);
+});
+
+// $ExpectError
+test(`returns a Promise<{ isAnObject: boolean }> and takes done`, (done) => {
+    return Promise.resolve({ isAnObject: true });
+});
+
+// $ExpectError
+test(`returns a Promise<any> and takes done`, (done) => {
+    return Promise.resolve('any' as any);
+});
