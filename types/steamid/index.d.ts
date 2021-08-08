@@ -3,7 +3,7 @@
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
 //                 vanitasboi <https://github.com/vanitasboi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// Minimum TypeScript Version: 3.8
 
 /**
  * Renders the ID in Steam2 format (e.g. "STEAM_0:0:23071901")
