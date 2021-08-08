@@ -11,27 +11,27 @@ import { Fields, Files, EventNames } from "formidable";
 declare global {
   namespace Express {
     interface Request {
-      fields?: Fields | undefined;
-      files?: Files | undefined;
+      fields?: Fields ;
+      files?: Files ;
     }
   }
 }
 
 interface ExpressFormidableOptions {
-    encoding?: string | undefined;
-    uploadDir?: string | undefined;
-    keepExtensions?: boolean | undefined;
-    type?: "multipart" | "urlencoded" | undefined;
-    maxFileSize?: number | undefined;
-    maxFieldsSize?: number | undefined;
-    maxFields?: number | undefined;
-    hash?: boolean | "sha1" | "md5" | undefined;
-    multiples?: boolean | undefined;
+    encoding?: string ;
+    uploadDir?: string ;
+    keepExtensions?: boolean ;
+    type?: "multipart" | "urlencoded" ;
+    maxFileSize?: number ;
+    maxFieldsSize?: number ;
+    maxFields?: number ;
+    hash?: boolean | "sha1" | "md5" ;
+    multiples?: boolean ;
 }
 
 interface ExpressFormidableEvents {
   event: EventNames;
-  action: (req: express.Request, res: express.Response, next: express.NextFunction, ...formidableParameters: any[]) => void
+  action: (req: express.Request, res: express.Response, next: express.NextFunction, ...formidableParameters: any[]) => void;
 }
 
 declare function ExpressFormidable(options?: ExpressFormidableOptions, events?: ExpressFormidableEvents[]): express.RequestHandler;
