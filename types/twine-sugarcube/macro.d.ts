@@ -119,7 +119,7 @@ export interface MacroContext {
 
 export interface MacroDefinition {
     handler: (this: MacroContext) => void;
-    tags?: string[] | undefined;
+    tags?: string[] | null | undefined;
     skipArgs?: boolean | undefined;
 }
 
