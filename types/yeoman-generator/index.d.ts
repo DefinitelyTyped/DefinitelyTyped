@@ -363,7 +363,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     /**
      * Provides arguments at initialization.
      */
-    args: {};
+    args: string[];
 
     /**
      * The path to the current generator.
