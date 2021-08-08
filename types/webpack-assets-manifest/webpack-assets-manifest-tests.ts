@@ -1,4 +1,4 @@
-import WebpackAssetsManifest from "webpack-assets-manifest";
+import WebpackAssetsManifest from 'webpack-assets-manifest';
 
 /** https://github.com/webdeveric/webpack-assets-manifest/blob/master/examples/asset-integrity.js */
 new WebpackAssetsManifest({
@@ -33,7 +33,11 @@ new WebpackAssetsManifest({
     output: 'custom-cdn-manifest.json',
     publicPath(filename, manifest) {
         switch (manifest.getExtension(filename).substr(1).toLowerCase()) {
-            case 'jpg': case 'jpeg': case 'gif': case 'png': case 'svg':
+            case 'jpg':
+            case 'jpeg':
+            case 'gif':
+            case 'png':
+            case 'svg':
                 return `https://img.cdn.example.com/${filename}`;
             case 'css':
                 return `https://css.cdn.example.com/${filename}`;
@@ -53,7 +57,8 @@ new WebpackAssetsManifest({
     output: 'customized-manifest.json',
     merge: true,
     customize(entry, original, manifest, asset) {
-        if (manifest.isMerging) {}
+        if (manifest.isMerging) {
+        }
 
         if (entry.key.toLowerCase().endsWith('.map')) {
             return false;

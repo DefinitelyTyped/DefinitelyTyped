@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { compilation, Compiler, loader, Plugin, Stats } from "webpack";
-import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from "tapable";
+import { compilation, Compiler, loader, Plugin, Stats } from 'webpack';
+import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from 'tapable';
 
 declare class WebpackAssetsManifest extends Plugin {
     constructor(options?: WebpackAssetsManifest.Options);
@@ -74,7 +74,10 @@ declare class WebpackAssetsManifest extends Plugin {
     delete(key: string): boolean;
 
     /** Process compilation assets */
-    processAssetsByChunkName(assets: Record<string, string | ReadonlyArray<string>>, hmrFiles?: Set<string>): this['assetNames'];
+    processAssetsByChunkName(
+        assets: Record<string, string | ReadonlyArray<string>>,
+        hmrFiles?: Set<string>,
+    ): this['assetNames'];
 
     /** Get the data for `JSON.stringify()` */
     toJSON(): unknown;
@@ -159,13 +162,17 @@ declare namespace WebpackAssetsManifest {
         output?: string | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#replacer */
-        replacer?: ((this: unknown, key: string, value: unknown) => unknown) | ReadonlyArray<string | number> | null | undefined;
+        replacer?:
+            | ((this: unknown, key: string, value: unknown) => unknown)
+            | ReadonlyArray<string | number>
+            | null
+            | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#space */
         space?: number | string | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#writetodisk */
-        writeToDisk?: boolean | "auto" | undefined;
+        writeToDisk?: boolean | 'auto' | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#fileextregex */
         fileExtRegex?: RegExp | null | false | undefined;
@@ -174,10 +181,15 @@ declare namespace WebpackAssetsManifest {
         sortManifest?: boolean | ((this: WebpackAssetsManifest, a: string, b: string) => number) | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#merge */
-        merge?: boolean | "customize" | undefined;
+        merge?: boolean | 'customize' | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#publicpath */
-        publicPath?: string | boolean | null | (((filename: string, manifest: WebpackAssetsManifest) => string)) | undefined;
+        publicPath?:
+            | string
+            | boolean
+            | null
+            | ((filename: string, manifest: WebpackAssetsManifest) => string)
+            | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#contextrelativekeys */
         contextRelativeKeys?: boolean | undefined;
