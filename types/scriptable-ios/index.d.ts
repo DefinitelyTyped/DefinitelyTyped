@@ -51,6 +51,8 @@ declare class Alert {
      *
      * Adds a cancel action to the alert. When a cancel action is selected, the index provided by presentAlert() or presentSheet() will always be -1. Please note that when running on the
      * iPad and presenting using presentSheet(), the action will not be shown in the list of actions. The operation is cancelled by tapping outside the sheet.
+	 * 
+	 * An alert can only contain a single cancel action. Attempting to add more cancel actions will remove any previously added cancel actions.
      * @param title - Title of the action.
      * @see https://docs.scriptable.app/alert/#-addcancelaction
      */
@@ -1582,7 +1584,7 @@ declare class DateFormatter {
      * @param str - The string to parse into a date.
      * @see https://docs.scriptable.app/dateformatter/#-date
      */
-    date(str: string): string;
+    date(str: string): Date;
 
     /**
      * _Use no style for the date._
@@ -2095,7 +2097,7 @@ declare class DrawContext {
     /**
      * _Retrieves the image._
      *
-     * Call this to retrieve the image you have drawn to the context. Note that this should be called before calling endDrawing().
+     * Call this to retrieve the image you have drawn to the context.
      * @see https://docs.scriptable.app/drawcontext/#-getimage
      */
     getImage(): Image;
@@ -4662,7 +4664,7 @@ declare class Reminder {
     notes: string;
 
     /**
-     * _Whether the reminder is completed_
+     * _Whether the reminder is completed._
      * @see https://docs.scriptable.app/reminder/#iscompleted
      */
     isCompleted: boolean;
@@ -5194,7 +5196,7 @@ declare class SFSymbol {
      *
      * SF symbols are Apple's configurable icons that are designed to look great with the San Francisco font.
      *
-     * Symbols are referenced by their name. You can find the symbol names in [Apples SF Symbols app for macOS](https://developer.apple.com/sf-symbols/). You can also browse symbol names
+     * Symbols are referenced by their name. You can find the symbol names in [Apple's SF Symbols app for macOS](https://developer.apple.com/sf-symbols/). You can also browse symbol names
      * in the [SF Symbols Browser](https://apps.apple.com/us/app/sf-symbols-browser/id1491161336) and [San Fransymbols](https://apps.apple.com/us/app/san-fransymbols/id1504761986) apps
      * for iOS.
      * @param symbolName - Name of the symbol.
@@ -5318,7 +5320,7 @@ declare var Script: {
      * Use this function to pass values to other actions in the Shortcuts app. The output can be a text, a number, a boolean, a dictionary or a file path pointing to a file stored in
      * iCloud.
      *
-     * You can also use JavaScripts `return` keyword to output a value to a shortcut.
+     * You can also use JavaScript's `return` keyword to output a value to a shortcut.
      * @param value - Value to provide as output.
      * @see https://docs.scriptable.app/script/#setshortcutoutput
      */
@@ -5746,7 +5748,7 @@ declare class UITableRow {
      * Rows cannot be tapped when the tables is presented in Siri.
      * @see https://docs.scriptable.app/uitablerow/#onselect
      */
-    onSelect: (arg0: number) => void;
+    onSelect: (row: number) => void;
 }
 
 /**
